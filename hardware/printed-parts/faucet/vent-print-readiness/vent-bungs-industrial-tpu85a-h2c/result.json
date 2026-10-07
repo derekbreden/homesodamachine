@@ -1,0 +1,94 @@
+{
+    "error_string": "Success.",
+    "export_time": 2588,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 221,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 198.24722290039063,
+                "Custom": 345.8214416503906,
+                "Flush": 15.0,
+                "Inner wall": 552.8782348632813,
+                "Internal solid infill": 1201.579833984375,
+                "Outer wall": 643.4781494140625,
+                "Sparse infill": 481.0416564941406,
+                "Top surface": 283.6153564453125,
+                "Travel": 121.6629638671875,
+                "Undefined": 111.93499755859375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFU04",
+                    "id": 1,
+                    "main_used_g": 8.472350120544434,
+                    "total_used_g": 8.472350120544434
+                }
+            ],
+            "generate_support_material_time": 151,
+            "id": 1,
+            "infill_time": 272,
+            "layer_filament_change": 0,
+            "main_predication": 3467.59033203125,
+            "make_perimeters_time": 740,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 22.999711990356445,
+                        "height": 4.800000190734863,
+                        "width": 22.99942398071289,
+                        "x": 141.0002899169922,
+                        "y": 118.5001449584961,
+                        "z": -3.674314186241645e-10
+                    },
+                    "id": 5,
+                    "name": "asse-vent-upstream-bung",
+                    "triangle_count": 38500
+                },
+                {
+                    "bbox": {
+                        "depth": 22.999711990356445,
+                        "height": 4.800000190734863,
+                        "width": 22.99942398071289,
+                        "x": 191.0002899169922,
+                        "y": 118.5001449584961,
+                        "z": -3.674314186241645e-10
+                    },
+                    "id": 9,
+                    "name": "asse-vent-downstream-bung",
+                    "triangle_count": 34712
+                },
+                {
+                    "bbox": {
+                        "depth": 59.0,
+                        "height": 2.0,
+                        "width": 59.0,
+                        "x": 148.0,
+                        "y": 175.5,
+                        "z": 0.0
+                    },
+                    "id": 13,
+                    "name": "industrial-above-counter-gasket",
+                    "triangle_count": 3280
+                }
+            ],
+            "sliced_time": 2193,
+            "sliced_time_with_cache": 950,
+            "total_predication": 3833.683837890625,
+            "triangle_count": 76492,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 100.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.6 nozzle",
+        "Bambu Lab H2D 0.6 nozzle",
+        "Bambu Lab H2D Pro 0.6 nozzle",
+        "Bambu Lab A2L 0.6 nozzle"
+    ],
+    "wall_loops": 2
+}

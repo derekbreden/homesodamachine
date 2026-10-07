@@ -26,7 +26,11 @@ wall = shell.wall_thickness_min
 foot_radius = max(shell.foot_width, shell.foot_depth) / 2.0
 foot_top = 14.0
 body_center_y = 5.4
-body_radius = shell.westbrass_bore_diameter / 2.0 + body_center_y + wall
+# The lower signal turn requires 1.0 mm beyond the donor-based radius.
+# The native cylindrical-face reading checks its complete two-millimetre wall.
+signal_turn_stock_allowance = 1.0
+body_radius = (shell.westbrass_bore_diameter / 2.0 + body_center_y
+               + wall + signal_turn_stock_allowance)
 body_top = shell.zone4_z_top
 neck_center_y = shell.soda_faucet_tube_y + shell.tube_shell_center_y
 neck_radius = shell.tube_shell_outer_r

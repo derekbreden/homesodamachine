@@ -1,0 +1,424 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-10-07T11:02:27.463233+00:00",
+  "scope": "Named roof geometry and retained native extrusion presence. The samples are not complete coverage or interface-contact proofs, and they do not establish physical support release, contact finish or part strength.",
+  "method": "Read every actual Support feature extrusion for the base object from the hash-bound native archive. Invert its retained print transform. Select three centerline midpoint witnesses whose vertical projections lie on each exact native roof face. Audit interface IDs describe the roof region and supporting tree; the sampled paths are not asserted to carry those interface labels.",
+  "source_and_artifact_sha256": {
+    "hardware/printed-parts/faucet/vent-qualification/check_lint_supports.py": "2ae22c029445e45f9c1c5a46f4b9244670e37a77d3e66fee799866461bb1b055",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "514af22595b39a3c731ce753edbe31508ce2c24a1c7385baaa9fd7a685449f81",
+    "hardware/printed-parts/faucet/vent-qualification/base-native-lint-witnesses.json": "35f37481f9cba08fab1f6ef748baa376ee5dde869fa4d800fda713a7a96fd69e",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "814438bf5d718d4fdc29712431086a9a2a654c79afb5921a1e61e7d86992348f",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "ac14875adf2c90c83b3e1ff98c6b28ac93ce387393a44ef6b57bd34b759b3a50",
+    "hardware/printed-parts/faucet/faucet-petgf.native-validation.json": "f153657f13825709c5f2e3f1f3ca129ff8f2f621a732da9e861ce2a10011a38c",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf": "fb28aee615a4d6622891dc50f99b109ad758ed34e4b85c2b5be5def84938797a",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "56470b7467b167fb24b3829854a41bd50585c5d12cf4543bbeec59d341717403",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "b02efa45e36c0753a58c572449921db75527e664d8690cfe2f748e887090b27f",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.native-validation.json": "767c0a3e15c9689d7fa0e910e047297004263f16cf1eb42e84464208ce900d06",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "4a2d50bc61f922693273b97b33426e6f0c33e9dcd44108bb51826bcb9ef09eb7",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b"
+  },
+  "all_named_roofs_have_native_support_witnesses": true,
+  "parts": [
+    {
+      "part": "sculpted",
+      "saved_base": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "rotation_x_degrees": -14.999999999999998,
+      "object_label": 1901,
+      "support_segment_midpoints_read": 153974,
+      "native_support_summary": {
+        "support_bodies": 1,
+        "interface_islands": 23,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 0.0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 23,
+        "shortest_labelled_build_up_mm": 0.0
+      },
+      "roofs": [
+        {
+          "feature": "donor shoulder Z39",
+          "native_roof_face_index": 69,
+          "roof_region_interface_from_audit": {
+            "id": "interface-19",
+            "first_z_mm": 40.04,
+            "last_z_mm": 40.76,
+            "bbox_xy_mm": [
+              76.8,
+              164.0,
+              87.2,
+              168.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 39.84,
+            "bbox_cad_xyz_mm": [
+              -5.699,
+              14.286,
+              37.426,
+              4.701,
+              18.336,
+              39.157
+            ]
+          },
+          "interface_tree_from_audit": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 0.2,
+            "shortest_build_up_mm": 0.0,
+            "top_z_mm": 61.16,
+            "bbox_xy_mm": [
+              49.6,
+              108.8,
+              115.6,
+              168.0
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-2",
+              "interface-3",
+              "interface-4",
+              "interface-5",
+              "interface-6",
+              "interface-7",
+              "interface-8",
+              "interface-9",
+              "interface-10",
+              "interface-11",
+              "interface-12",
+              "interface-13",
+              "interface-14",
+              "interface-15",
+              "interface-16",
+              "interface-17",
+              "interface-18",
+              "interface-19",
+              "interface-20",
+              "interface-21",
+              "interface-22",
+              "interface-23"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -32.899,
+              -44.313,
+              -15.343,
+              33.101,
+              28.647,
+              58.861
+            ]
+          },
+          "actual_native_support_samples": [
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -4.158023437499992,
+                14.903876059140934,
+                38.53530377423564
+              ],
+              "projected_roof_point_cad_mm": [
+                -4.158023437499992,
+                14.903876059140934,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.46469622576435654,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.0
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -0.08702343749999386,
+                14.113451415294357,
+                38.57197641253772
+              ],
+              "projected_roof_point_cad_mm": [
+                -0.08702343749999386,
+                14.113451415294357,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.42802358746227753,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.24
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                4.05547656249999,
+                14.960865682891988,
+                38.5505740978967
+              ],
+              "projected_roof_point_cad_mm": [
+                4.05547656249999,
+                14.960865682891988,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.44942590210330025,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "industrial",
+      "saved_base": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "rotation_x_degrees": -14.999999999999998,
+      "object_label": 1901,
+      "support_segment_midpoints_read": 158852,
+      "native_support_summary": {
+        "support_bodies": 1,
+        "interface_islands": 14,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 8.16,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 14,
+        "shortest_labelled_build_up_mm": 8.16
+      },
+      "roofs": [
+        {
+          "feature": "donor shoulder Z39",
+          "native_roof_face_index": 75,
+          "roof_region_interface_from_audit": {
+            "id": "interface-10",
+            "first_z_mm": 40.04,
+            "last_z_mm": 40.76,
+            "bbox_xy_mm": [
+              76.8,
+              163.6,
+              87.6,
+              167.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 39.84,
+            "bbox_cad_xyz_mm": [
+              -5.7,
+              14.102,
+              37.377,
+              5.1,
+              18.152,
+              39.107
+            ]
+          },
+          "interface_tree_from_audit": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 8.36,
+            "shortest_build_up_mm": 8.16,
+            "top_z_mm": 62.84,
+            "bbox_xy_mm": [
+              48.8,
+              108.8,
+              116.8,
+              168.0
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-2",
+              "interface-3",
+              "interface-4",
+              "interface-5",
+              "interface-6",
+              "interface-7",
+              "interface-8",
+              "interface-9",
+              "interface-10",
+              "interface-11",
+              "interface-12",
+              "interface-13",
+              "interface-14"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -33.7,
+              -44.545,
+              -15.289,
+              34.3,
+              28.85,
+              60.538
+            ]
+          },
+          "actual_native_support_samples": [
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -4.400499999999994,
+                14.074810359989034,
+                38.56162257297396
+              ],
+              "projected_roof_point_cad_mm": [
+                -4.400499999999994,
+                14.074810359989034,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.4383774270260403,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.24
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -0.05449999999999022,
+                14.11393035595375,
+                38.5721047443006
+              ],
+              "projected_roof_point_cad_mm": [
+                -0.05449999999999022,
+                14.11393035595375,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.4278952556993971,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.24
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                4.283999999999992,
+                14.013957032932808,
+                38.545316973132486
+              ],
+              "projected_roof_point_cad_mm": [
+                4.283999999999992,
+                14.013957032932808,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.4546830268675137,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.24
+            }
+          ]
+        },
+        {
+          "feature": "rear lever roof Z57.5",
+          "native_roof_face_index": 88,
+          "roof_region_interface_from_audit": {
+            "id": "interface-14",
+            "first_z_mm": 61.16,
+            "last_z_mm": 61.64,
+            "bbox_xy_mm": [
+              76.4,
+              157.6,
+              82.0,
+              160.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 60.96,
+            "bbox_cad_xyz_mm": [
+              -6.1,
+              2.902,
+              56.224,
+              -0.5,
+              5.345,
+              57.309
+            ]
+          },
+          "interface_tree_from_audit": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 8.36,
+            "shortest_build_up_mm": 8.16,
+            "top_z_mm": 62.84,
+            "bbox_xy_mm": [
+              48.8,
+              108.8,
+              116.8,
+              168.0
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-2",
+              "interface-3",
+              "interface-4",
+              "interface-5",
+              "interface-6",
+              "interface-7",
+              "interface-8",
+              "interface-9",
+              "interface-10",
+              "interface-11",
+              "interface-12",
+              "interface-13",
+              "interface-14"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -33.7,
+              -44.545,
+              -15.289,
+              34.3,
+              28.85,
+              60.538
+            ]
+          },
+          "actual_native_support_samples": [
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -4.956000000000003,
+                1.52348619159347,
+                57.06353832837208
+              ],
+              "projected_roof_point_cad_mm": [
+                -4.956000000000003,
+                1.52348619159347,
+                57.5
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.43646167162791727,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 62.36
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -2.844999999999999,
+                2.4274071200290237,
+                57.057276927869566
+              ],
+              "projected_roof_point_cad_mm": [
+                -2.844999999999999,
+                2.4274071200290237,
+                57.5
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.44272307213043405,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 62.12
+            },
+            {
+              "support_centerline_midpoint_cad_mm": [
+                -0.9344999999999999,
+                -0.33748158572348785,
+                57.06182608189651
+              ],
+              "projected_roof_point_cad_mm": [
+                -0.9344999999999999,
+                -0.33748158572348785,
+                57.5
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.4381739181034874,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 62.84
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

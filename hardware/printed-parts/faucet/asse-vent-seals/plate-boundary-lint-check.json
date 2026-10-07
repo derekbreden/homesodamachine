@@ -1,0 +1,344 @@
+{
+  "check": "Saved mounting-plate STEP stock at the four published mesh-lint faces",
+  "nominal_geometry_only": true,
+  "source_sha256": {
+    "hardware/scripts/geometry_lint.py": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/scripts/check_faucet_geometry.py": "5aedafa93009c3860e9fc6d7bef6450a9cb85466e69129f095d83f0299aab17b"
+  },
+  "method": "Intersect native saved solids with exact line segments from each mesh-lint point, moved 0.001 mm toward material in +Y. Read nearest native face area/normal and the complete material intervals in X, +Y and Z.",
+  "records": [
+    {
+      "step": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "step_sha256": "3b9896ee721c6e190e66326d4a76ef341102a6673955eae25af3ee7a76edeb55",
+      "stl_sha256": "7004c418a63cf861b86886421d18249c5af84757016224c36aa89f0be75bd052",
+      "cad_valid": true,
+      "cad_solid_count": 1,
+      "witnesses": [
+        {
+          "lint_click_mm": [
+            -9.085,
+            18.945,
+            -2.0
+          ],
+          "native_face_center_mm": [
+            -9.084972413583001,
+            18.945,
+            -2.0
+          ],
+          "native_face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "native_face_area_mm2": 0.08022069133600239,
+          "native_face_strip_width_mm": 0.020055172834000597,
+          "probe_inset_mm": 0.001,
+          "inward_positive_y_material_chords": [
+            {
+              "length_mm": 9.069033970203648,
+              "start_mm": [
+                -9.085,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.085,
+                28.01503397020365,
+                -2.0
+              ]
+            }
+          ],
+          "cross_x_material_chords": [
+            {
+              "length_mm": 13.153731379378943,
+              "start_mm": [
+                -22.228670551282388,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.074939171903445,
+                18.946,
+                -2.0
+              ]
+            },
+            {
+              "length_mm": 13.153731379378911,
+              "start_mm": [
+                9.07493917190348,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                22.22867055128239,
+                18.946,
+                -2.0
+              ]
+            }
+          ],
+          "through_z_material_chords": [
+            {
+              "length_mm": 4.0,
+              "start_mm": [
+                -9.085,
+                18.946,
+                -4.0
+              ],
+              "end_mm": [
+                -9.085,
+                18.946,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "lint_click_mm": [
+            9.085,
+            18.945,
+            -2.0
+          ],
+          "native_face_center_mm": [
+            9.084972413583001,
+            18.945,
+            -2.0
+          ],
+          "native_face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "native_face_area_mm2": 0.0802206913360095,
+          "native_face_strip_width_mm": 0.020055172834002374,
+          "probe_inset_mm": 0.001,
+          "inward_positive_y_material_chords": [
+            {
+              "length_mm": 9.069033970203648,
+              "start_mm": [
+                9.085,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                9.085,
+                28.01503397020365,
+                -2.0
+              ]
+            }
+          ],
+          "cross_x_material_chords": [
+            {
+              "length_mm": 13.153731379378943,
+              "start_mm": [
+                -22.228670551282388,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.074939171903445,
+                18.946,
+                -2.0
+              ]
+            },
+            {
+              "length_mm": 13.153731379378911,
+              "start_mm": [
+                9.07493917190348,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                22.22867055128239,
+                18.946,
+                -2.0
+              ]
+            }
+          ],
+          "through_z_material_chords": [
+            {
+              "length_mm": 4.0,
+              "start_mm": [
+                9.085,
+                18.946,
+                -4.0
+              ],
+              "end_mm": [
+                9.085,
+                18.946,
+                0.0
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "step_sha256": "9b7f2b9436f52f3e7676981b83830e5ca406ad8c2a4f4736b44e35ae5359ff52",
+      "stl_sha256": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865",
+      "cad_valid": true,
+      "cad_solid_count": 1,
+      "witnesses": [
+        {
+          "lint_click_mm": [
+            -9.085,
+            18.945,
+            -2.0
+          ],
+          "native_face_center_mm": [
+            -9.084972413583001,
+            18.945,
+            -2.0
+          ],
+          "native_face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "native_face_area_mm2": 0.08022069133600239,
+          "native_face_strip_width_mm": 0.020055172834000597,
+          "probe_inset_mm": 0.001,
+          "inward_positive_y_material_chords": [
+            {
+              "length_mm": 9.12022124547585,
+              "start_mm": [
+                -9.085,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.085,
+                28.06622124547585,
+                -2.0
+              ]
+            }
+          ],
+          "cross_x_material_chords": [
+            {
+              "length_mm": 13.536984319918297,
+              "start_mm": [
+                -22.61192349182174,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.074939171903445,
+                18.946,
+                -2.0
+              ]
+            },
+            {
+              "length_mm": 13.536984319918261,
+              "start_mm": [
+                9.07493917190348,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                22.61192349182174,
+                18.946,
+                -2.0
+              ]
+            }
+          ],
+          "through_z_material_chords": [
+            {
+              "length_mm": 4.0,
+              "start_mm": [
+                -9.085,
+                18.946,
+                -4.0
+              ],
+              "end_mm": [
+                -9.085,
+                18.946,
+                0.0
+              ]
+            }
+          ]
+        },
+        {
+          "lint_click_mm": [
+            9.085,
+            18.945,
+            -2.0
+          ],
+          "native_face_center_mm": [
+            9.084972413583001,
+            18.945,
+            -2.0
+          ],
+          "native_face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "native_face_area_mm2": 0.0802206913360095,
+          "native_face_strip_width_mm": 0.020055172834002374,
+          "probe_inset_mm": 0.001,
+          "inward_positive_y_material_chords": [
+            {
+              "length_mm": 9.12022124547585,
+              "start_mm": [
+                9.085,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                9.085,
+                28.06622124547585,
+                -2.0
+              ]
+            }
+          ],
+          "cross_x_material_chords": [
+            {
+              "length_mm": 13.536984319918297,
+              "start_mm": [
+                -22.61192349182174,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                -9.074939171903445,
+                18.946,
+                -2.0
+              ]
+            },
+            {
+              "length_mm": 13.536984319918261,
+              "start_mm": [
+                9.07493917190348,
+                18.946,
+                -2.0
+              ],
+              "end_mm": [
+                22.61192349182174,
+                18.946,
+                -2.0
+              ]
+            }
+          ],
+          "through_z_material_chords": [
+            {
+              "length_mm": 4.0,
+              "start_mm": [
+                9.085,
+                18.946,
+                -4.0
+              ],
+              "end_mm": [
+                9.085,
+                18.946,
+                0.0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Four named nominal boundary faces on the current saved mounting plates only; no global minimum-wall, printed strength or lifetime inference.",
+  "passed": true
+}

@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf",
+  "native_archive_sha256": "b0d6f4c9903c9af5809fc51b81e159a4daf9408389014a8d712381c126e17001",
+  "gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+  "source_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3"
+  },
+  "analysis_script_sha256": "c87d9cf4952e0774e3b358d3c6169aead66238848052b332b7251fcbf04269ab",
+  "highest_native_model_layer_mm": 80.84,
+  "source_stl_maximum_z_mm": 81.65780639648438,
+  "high_tip_readings": [
+    {
+      "layer_top_z_mm": 80.36,
+      "source_section_z_mm": 80.24,
+      "source_section_area_mm2": 3.3386383416885006,
+      "commanded_beads_present": true,
+      "commanded_missing_inset_core_area_mm2": 0.28713920988302344
+    },
+    {
+      "layer_top_z_mm": 80.84,
+      "source_section_z_mm": 80.72,
+      "source_section_area_mm2": 1.5566116563760013,
+      "commanded_beads_present": true,
+      "commanded_missing_inset_core_area_mm2": 0.3027336086669611
+    },
+    {
+      "layer_top_z_mm": 81.08,
+      "source_section_z_mm": 80.96,
+      "source_section_area_mm2": 0.8893670516045002,
+      "commanded_beads_present": false,
+      "commanded_missing_inset_core_area_mm2": 0.23925259312570468
+    }
+  ],
+  "support_centerline_endpoints": 67086,
+  "cleanup_route": "Release the tree through the 19 mm open side slot. Cut sacrificial stock into small fragments; remove through the slot and both ends. Retain the main flat annular flange-bearing face and curved outside envelope.",
+  "scope": "Native support locations and small upper slot-tip omission. The exact retained bearing area is measured separately from the CAD face; physical release, finish and insertion force remain unmeasured.",
+  "image": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/tool-native-supports-and-tip.png"
+}

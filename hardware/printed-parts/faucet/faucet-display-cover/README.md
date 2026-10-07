@@ -6,13 +6,12 @@ rigid round neck, then its two broad lips seat against the roots of side grooves
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-The cover is **physically accepted in PET-GF**: Derek confirms it is solid and successful,
-with the broad, long, thin walls supplying the necessary give and spring. Both complete
-covers in the [physical trial](../../fixtures/faucet-display-snap/print-log.md) snapped onto
-the tip and retained firmly. The [acceptance record](physical-acceptance.json) identifies
-the successful STL, which matches the current model. The broad walls and retaining lips
-are a proven example for other PET-GF retention features. Numerical force and cycle life
-have not been measured.
+The [physical trial](../../fixtures/faucet-display-snap/print-log.md) establishes
+solid construction, useful give and spring, firm snap seating and retention
+for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
+preserves the successful STL and reported results. The current cover matches the
+27 mm vent-bearing neck and has a different STL; its complete printed fit
+requires its own assembly reading. Numerical force and cycle life have not been measured.
 
 ## Geometry
 
@@ -25,7 +24,11 @@ continue inward from the side walls. The four metal-foot bearing pads are
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
-across the curved neck opening. The underside remains open.
+across the curved neck opening. The lower rear skirt extends
+[1.2 mm](REAR_SKIRT_EXT) aft along s, with its front edge and planar bezel
+at their shared display datums. Its rear opening follows
+s = [42.1 mm](REAR_TRIM_S0) + [0.6](REAR_TRIM_DS_DN) × n.
+The underside remains open.
 
 The lips follow the neck profile with [1.2 mm](SNAP_ENGAGEMENT) nominal radial
 engagement in [1.2 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
@@ -66,7 +69,7 @@ neck, so the parting line stays below the display face.
    corner as viewed from the glass, clear of the USB socket and underside
    components, with slack for the assembly motion.
 3. Approach from the tube-outlet end with the display and cover held together
-   [8.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
+   [9.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
    gooseneck to align the module with its four metal-foot pads, then lower the
    pair squarely toward the neck. Both lips enter their grooves below the
    retaining shoulders. The wings remain spread from their relaxed positions.
@@ -85,11 +88,19 @@ The white PET-GF cover prints bezel up at −50° about the CAD X axis, using
 upper retaining lands face up. The inner bezel receives support accessible
 through the open underside before the display is installed. The visible front
 wall and outer bezel remain clear of the bed.
+The [saved STEP land witness](lower-land-lint-check.json) measures 160.56 mm²
+across the two flat lower lands and confirms their bed-facing normals and
+height in that print pose. The named cosmetic and lower-land slope findings
+are answered beside the published mesh.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
-the cosmetic minimum and the lip thickness. The faucet geometry audit checks
+the cosmetic minimum and the lip thickness. The
+[faucet geometry audit](../faucet-shell/centered-vent-check.json) checks
 actual hardware and tube clearance, display loading, lifted axial assembly
-motion, the final seating stroke and snap geometry.
+motion, the final seating stroke and snap geometry. Its rear-opening readings
+measure the complete rim boundaries and material sections in both the nominal
+seated and relaxed printable shapes; its electronics reading checks for an
+actual printed barrier behind occupied hardware.
 Those geometric readings do not measure the printed snap's force or durability.
 The [physical trial log](../../fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.

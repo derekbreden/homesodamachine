@@ -54,14 +54,18 @@ heads on the completed faucet.
    Pre-thread the upstream bung, then the distal bung, onto the free ends of
    S, F1, F2 and the four unterminated display wires. Keep D out of the tip
    while seating the distal bung with the curved perimeter pusher. Feed D
-   through the preloaded upstream bung, then seat that bung. The drain ends square inside
-   the round chamber. Set its cut 8.0 mm beyond the bung's flange front before
-   insertion; keep that position marked while seating. The drink tubes continue
+   through the preloaded upstream bung. Before seating, set its square cut a
+   nominal 8.0 ± 0.2 mm beyond the bung's flange front and mark the position.
+   Refit the perimeter pusher and advance D and the bung together. D ends square
+   inside the round chamber. The drink tubes continue
    through both bungs and the three final face passages. Confirm the soda tube
    remains seated in its donor port, then close the curved lap.
 7. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
-   sockets; the donor and shell foot seat on the plate.
+   sockets; the donor and shell foot seat on the plate. The lower ribbon passes
+   edge-on beside the donor foot, turns inside the base, and lies flat behind
+   the flavor tubes before entering the neck. Keep this orientation through
+   the counter gasket and the metal plate's open ribbon relief.
 8. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
    progressively so the plate closes evenly. Verify the lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
@@ -83,7 +87,7 @@ of the neck cap. The arched clearance farther aft leaves room for the rear
 arm to rise when the front is pressed. Confirm this motion with the printed lever before
 closing the faucet base.
 
-The screw stations are (X,Y)=(±[20](BASE_X),[10](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
+The screw stations are (X,Y)=(±[22.5](BASE_X),[-2](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
 are Ø[6.15 mm](BASE_CBORE_D) × [3.2 mm](BASE_CBORE_DEPTH) deep. Each [4 mm](BASE_INSERT_L) insert receives the screw's full thread
 engagement; the blind pilot provides tip relief.
 
@@ -125,7 +129,7 @@ dimensioned clearance stand-in.
 2. Spread the cover's plastic wings and place the display inside it from
    the open underside. Keep the PCB clear of the retaining lips; spread the
    plastic by hand rather than using the board as a wedge.
-3. Hold the display and cover together [8.5 mm](DISPLAY_INSTALL_LIFT) above
+3. Hold the display and cover together [9.5 mm](DISPLAY_INSTALL_LIFT) above
    their final seat, measured normal to the glass. Slide the pair along the
    tip from the outlet end until the four metal feet align with their
    printed supports. Feed the ribbon through the neck as the pair moves.
@@ -143,9 +147,9 @@ dimensioned clearance stand-in.
 
 The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
 some tube movement, so the seated real bundle is part of the complete faucet's
-fit reading. The [display print project](../faucet-display-petgf.3mf) contains
-the complete tip and two complete covers in their stated print orientations.
-Its [print record](../faucet-display-petgf.md) identifies the geometry and settings.
+fit reading. The [production print projects](../vent-print-readiness/README.md)
+contain the matching complete tip and cover in their reviewed orientations.
+Their native records identify the geometry, settings and support contacts.
 
 The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
 share one flat plane behind it.

@@ -1,0 +1,160 @@
+{
+  "check": "Native consumer-faucet cable and clearance lane",
+  "source_sha256": {
+    "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "shell": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "assembly": "5c78bec5462d340a39b5f95bc8e12c65775a8f371d6c93da1fac41d1537a631c"
+  },
+  "geometry_function_ast_sha256": {
+    "shell": "35a0de82b7f8a77c1802eec2a375b2825462b23de1dfe62a83ced10b24b2b71c",
+    "assembly": "9a5f508fc0a4052d909f78781cc9487d2d6177b60c4fb8802c009e4f961e86bc"
+  },
+  "geometry_functions_unchanged_during_check": true,
+  "paths_unchanged_during_check": true,
+  "component_records": [
+    {
+      "clearance_lane": false,
+      "spans": [
+        {
+          "index": 0,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 17.055999999999987
+        },
+        {
+          "index": 1,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 138.25476304277225
+        },
+        {
+          "index": 2,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 457.7813837746204
+        },
+        {
+          "index": 3,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 379.3138226489925
+        },
+        {
+          "index": 4,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 125.71106751832284
+        },
+        {
+          "index": 5,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 80.5255617109402
+        },
+        {
+          "index": 6,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 80.52556171094015
+        },
+        {
+          "index": 7,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 80.52556171094015
+        },
+        {
+          "index": 8,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 80.5255617109402
+        },
+        {
+          "index": 9,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 72.33505278030611
+        },
+        {
+          "index": 10,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 123.10553855768086
+        }
+      ],
+      "fused_valid": true,
+      "fused_solid_count": 1,
+      "fused_volume_mm3": 1635.6598750776016
+    },
+    {
+      "clearance_lane": true,
+      "spans": [
+        {
+          "index": 0,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 26.575008158104737
+        },
+        {
+          "index": 1,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 215.41518859686119
+        },
+        {
+          "index": 2,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 713.2706383934698
+        },
+        {
+          "index": 3,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 591.0100804044808
+        },
+        {
+          "index": 4,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 188.9441713295821
+        },
+        {
+          "index": 5,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 918.7927645274924
+        },
+        {
+          "index": 6,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 108.73648107232084
+        },
+        {
+          "index": 7,
+          "cad_valid": true,
+          "solid_count": 1,
+          "volume_mm3": 191.81113341218764
+        }
+      ],
+      "fused_valid": true,
+      "fused_solid_count": 1,
+      "fused_volume_mm3": 2954.5554666250155
+    }
+  ],
+  "complete_cable_valid": true,
+  "complete_cable_solid_count": 1,
+  "complete_cable_volume_mm3": 2306.2569144272,
+  "actual_neck_cable_outside_clearance_lane_mm3": 0,
+  "minimum_trimmed_cable_to_lane_boundary_gap_mm": 0.10681535641125633,
+  "lane_boundary_probe": "Native boundary faces versus actual cable; cable trimmed 0.5 mm from each axial end to exclude shared entrance/exit planes",
+  "peeled_wire_nominal_maximum_jacket_diameter_mm": 1.3,
+  "peeled_wire_station_interval_mm": [
+    14.0,
+    66.6
+  ],
+  "scope": "Nominal cable geometry, component continuity and printed-lane clearance. The \u00d81.3 peeled conductors are maximum-jacket clearance envelopes. Straight seal-bore seating, minimum-jacket contact, printed size, handling damage and containment are physical acceptance properties.",
+  "passed": true,
+  "elapsed_seconds": 19.714662075042725
+}

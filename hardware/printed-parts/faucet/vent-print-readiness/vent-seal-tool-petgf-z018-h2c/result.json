@@ -1,0 +1,72 @@
+{
+    "error_string": "Success.",
+    "export_time": 5064,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 867,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 18.383644104003906,
+                "Bridge": 23.924043655395508,
+                "Custom": 301.68389892578125,
+                "Flush": 15.0,
+                "Gap infill": 111.43605041503906,
+                "Inner wall": 34.1696891784668,
+                "Internal solid infill": 30.53949546813965,
+                "Outer wall": 337.19708251953125,
+                "Overhang wall": 18.117748260498047,
+                "Sparse infill": 14.381424903869629,
+                "Support": 300.1816101074219,
+                "Top surface": 9.049612998962402,
+                "Travel": 260.9925537109375,
+                "Undefined": 255.06857299804688
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 7.845939636230469,
+                    "total_used_g": 7.845939636230469
+                }
+            ],
+            "generate_support_material_time": 3662,
+            "id": 1,
+            "infill_time": 312,
+            "layer_filament_change": 0,
+            "main_predication": 1143.345947265625,
+            "make_perimeters_time": 1111,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 70.0482177734375,
+                        "height": 81.65780639648438,
+                        "width": 31.99981689453125,
+                        "x": 146.50009155273438,
+                        "y": 124.97589111328125,
+                        "z": -2.4218849148383015e-10
+                    },
+                    "id": 5,
+                    "name": "asse-vent-perimeter-tool",
+                    "triangle_count": 71220
+                }
+            ],
+            "sliced_time": 7567,
+            "sliced_time_with_cache": 2366,
+            "total_predication": 1469.1058349609375,
+            "triangle_count": 71220,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

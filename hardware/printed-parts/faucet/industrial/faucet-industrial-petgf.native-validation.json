@@ -1,17 +1,14 @@
 {
-  "archive": ".cache/prints/2026-09-18-industrial-black-z018-mark2/ready/industrial-black-z018-mark2.gcode.3mf",
-  "archive_sha256": "e3abe2fe5eaf94d0c40a0c1fea98f7bac52f1fe052eb0a28154087b11ab5a3c3",
-  "gcode_sha256": "1dee2cbc820662ac84b7f9d6a6b30448cbff8f35b7c635b5002f74a217871d83",
-  "layers": 1019,
-  "staged_input": ".cache/prints/2026-09-18-industrial-black-z018-mark2/industrial-black-z018-mark2-input.3mf",
-  "staged_input_sha256": "53f87a4d95bc32ff6b85419682b51e91d639e2b863040b5b55d3526bde9aceb8",
-  "staged_settings_override": {
-    "extruder_ams_count": [
-      "1#0|4#0",
-      "1#0|4#0"
-    ]
-  },
-  "native_export_settings_normalizations": {
+  "archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
+  "archive_sha256": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
+  "gcode_sha256": "d9d681582040a6e7345db2f8142c7a247661dcee235e9711d9b4b01d88a3cbc1",
+  "native_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
     "filament_prime_volume": [
       [
         "30"
@@ -19,28 +16,25 @@
       [
         "45"
       ]
-    ],
-    "filament_map_2": [
-      null,
-      [
-        "1"
-      ]
     ]
   },
-  "emitted_settings_match_successful_job": true,
-  "emitted_settings_match_requested_changes": true,
-  "intentional_emitted_config_changes": {},
+  "emitted_process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "enable_support": "1"
+  },
   "actual_z_trim_commands_mm": [
     0.0,
     0.16
   ],
+  "active_nozzle": 0,
+  "nozzle_diameter_mm": 0.4,
+  "layers": 916,
+  "estimated_seconds": 17777.685546875,
+  "estimated_grams_saved_profile_density": 132.6654052734375,
   "slicer_return_code": 0,
-  "warning": "",
-  "objects": 4,
-  "triangles": 564158,
-  "estimated_seconds": 17112.271484375,
-  "estimated_grams_saved_profile_density": 131.234375,
-  "layer_height_mm": 0.24,
-  "initial_layer_height_mm": 0.2,
-  "preparation_script_sha256": "c7a3c010205f27219e2b2e7bf5d2ec6db96ee19a28153bae02b768f5c00740c0"
+  "slicer_warning": "",
+  "objects": 4
 }

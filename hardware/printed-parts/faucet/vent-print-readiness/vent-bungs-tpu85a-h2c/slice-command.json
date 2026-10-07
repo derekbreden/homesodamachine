@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-tpu85a-h2c",
+    "--export-3mf",
+    "vent-bungs-tpu85a-h2c.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf"
+  ],
+  "printer_connection": false
+}

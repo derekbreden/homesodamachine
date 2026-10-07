@@ -14,7 +14,7 @@
   "proven_geometry": {
     "stl": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
     "stl_sha256": "d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f",
-    "current_stl_matches_successful_trial": true,
+    "current_stl_matches_successful_trial": false,
     "trial_record": "hardware/printed-parts/faucet/faucet-display-petgf.readiness.json",
     "trial_job": "faucet-display-mark2.gcode.3mf",
     "trial_archive_sha256": "defdde770a54b0f22db742c291448d5238ae0a6fe6165c4670103c0786b3034e",

@@ -1,0 +1,554 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-10-07T10:59:06.264558+00:00",
+  "scope": "Local native geometric witnesses for final saved base files; no geometry mutation, global wall guarantee, physical print, strength or lifetime result.",
+  "method": "Select the named saved-STEP planar face. Extrude its complete outer and inner wires 2 mm inward, subtract the saved solid, and sum missing solid volumes. Intersect a separate 25 mm inward line from the pick with the saved solid. Require valid native operations and no missing witness volume within 1e-7 mm3.",
+  "source_and_artifact_sha256": {
+    "hardware/printed-parts/faucet/vent-qualification/check_base_witnesses.py": "c5fe3993117da8edc419add0568887d8a42c30e1060c3058585f1347a1a18b24",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "4a2d50bc61f922693273b97b33426e6f0c33e9dcd44108bb51826bcb9ef09eb7",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d"
+  },
+  "all_named_backing_witnesses_pass": true,
+  "all_named_ceiling_stock_witnesses_pass": true,
+  "parts": [
+    {
+      "part": "sculpted",
+      "saved_step": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "saved_stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "native_shape_valid_one_positive_solid": true,
+      "native_volume_mm3": 125722.61786535635,
+      "material_witnesses": [
+        {
+          "class": "sliver",
+          "pick_mm": [
+            9.085,
+            18.945,
+            7.0
+          ],
+          "saved_step_face_index": 13,
+          "face_area_mm2": 0.2807724196760332,
+          "face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "face_bbox_mm": [
+            9.074944727165999,
+            18.9449999,
+            -1e-07,
+            9.095000100000016,
+            18.9450001,
+            14.0000001
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 0.5615448393520411,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "centre_normal_line_limit_mm": 25.0,
+          "centre_normal_material_segments": [
+            {
+              "length_mm": 9.032545416679454,
+              "start_mm": [
+                9.085,
+                18.945,
+                7.0
+              ],
+              "end_mm": [
+                9.085,
+                27.977545416679455,
+                7.0
+              ]
+            }
+          ],
+          "centre_normal_material_chord_mm": 9.032545416679454,
+          "pass": true
+        },
+        {
+          "class": "step",
+          "pick_mm": [
+            9.075,
+            13.286,
+            24.424
+          ],
+          "saved_step_face_index": 222,
+          "face_area_mm2": 0.9417313151607448,
+          "face_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "face_bbox_mm": [
+            9.0749999,
+            13.177419032744,
+            22.086122474215,
+            9.075000099999999,
+            13.48185182763326,
+            26.761338639724002
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 1.8834631592567983,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "centre_normal_line_limit_mm": 25.0,
+          "centre_normal_material_segments": [
+            {
+              "length_mm": 13.07149578274771,
+              "start_mm": [
+                9.075,
+                13.286,
+                24.424
+              ],
+              "end_mm": [
+                22.14649578274771,
+                13.286,
+                24.424
+              ]
+            }
+          ],
+          "centre_normal_material_chord_mm": 13.07149578274771,
+          "pass": true
+        }
+      ],
+      "ceiling_faces": [
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39",
+          "actual_face_point_mm": [
+            0.0,
+            14.156,
+            39.0
+          ],
+          "lint_plane_pick_mm": [
+            0.0,
+            14.156,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "saved_step_face_index": 69,
+          "face_area_mm2": 48.619624715906795,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -9.075000099999999,
+            13.157419032743734,
+            38.9999999,
+            9.075000099999999,
+            18.925000100000002,
+            39.0000001
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 97.2392494318402,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            3.0,
+            -22.3,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            0.0,
+            -22.3,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 54,
+          "face_area_mm2": 40.24380189248524,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -4.1,
+            -26.4,
+            3.2,
+            4.1,
+            -18.200000000000003,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497049,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            -19.5,
+            -2.0,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            -22.5,
+            -2.0,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 53,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -26.6,
+            -6.1,
+            3.2,
+            -18.4,
+            2.0999999999999996,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            25.5,
+            -2.0,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            22.5,
+            -2.0,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 52,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            18.4,
+            -6.1,
+            3.2,
+            26.6,
+            2.0999999999999996,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        }
+      ]
+    },
+    {
+      "part": "industrial",
+      "saved_step": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "saved_stl": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "native_shape_valid_one_positive_solid": true,
+      "native_volume_mm3": 136660.4886501012,
+      "material_witnesses": [
+        {
+          "class": "sliver",
+          "pick_mm": [
+            9.085,
+            18.945,
+            7.0
+          ],
+          "saved_step_face_index": 12,
+          "face_area_mm2": 0.2807724196760332,
+          "face_normal": [
+            0.0,
+            -1.0,
+            -0.0
+          ],
+          "face_bbox_mm": [
+            9.074944727165999,
+            18.9449999,
+            -1e-07,
+            9.095000100000016,
+            18.9450001,
+            14.0000001
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 0.5615448393520427,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "centre_normal_line_limit_mm": 25.0,
+          "centre_normal_material_segments": [
+            {
+              "length_mm": 9.121221245475851,
+              "start_mm": [
+                9.085,
+                18.945,
+                7.0
+              ],
+              "end_mm": [
+                9.085,
+                28.06622124547585,
+                7.0
+              ]
+            }
+          ],
+          "centre_normal_material_chord_mm": 9.121221245475851,
+          "pass": true
+        },
+        {
+          "class": "step",
+          "pick_mm": [
+            9.075,
+            13.286,
+            24.424
+          ],
+          "saved_step_face_index": 210,
+          "face_area_mm2": 0.9417313151607448,
+          "face_normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "face_bbox_mm": [
+            9.0749999,
+            13.177419032744,
+            22.086122474215,
+            9.075000099999999,
+            13.48185182763326,
+            26.761338639724002
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 1.8834631592567983,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "centre_normal_line_limit_mm": 25.0,
+          "centre_normal_material_segments": [
+            {
+              "length_mm": 14.015495966955754,
+              "start_mm": [
+                9.075,
+                13.286,
+                24.424
+              ],
+              "end_mm": [
+                23.090495966955753,
+                13.286,
+                24.424
+              ]
+            }
+          ],
+          "centre_normal_material_chord_mm": 14.015495966955754,
+          "pass": true
+        }
+      ],
+      "ceiling_faces": [
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39",
+          "actual_face_point_mm": [
+            0.0,
+            14.156,
+            39.0
+          ],
+          "lint_plane_pick_mm": [
+            0.0,
+            14.156,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "saved_step_face_index": 75,
+          "face_area_mm2": 48.619624715906795,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -9.075000099999999,
+            13.157419032743734,
+            38.9999999,
+            9.075000099999999,
+            18.925000100000002,
+            39.0000001
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 97.2392494318402,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "rear lever roof Z57.5",
+          "actual_face_point_mm": [
+            -4.0,
+            4.932,
+            57.5
+          ],
+          "lint_plane_pick_mm": [
+            0.0,
+            4.932,
+            57.5
+          ],
+          "lint_pick_distance_to_actual_face_mm": 1.1695000000000002,
+          "saved_step_face_index": 88,
+          "face_area_mm2": 86.21240711111267,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -6.850000000000044,
+            -0.5974870780000003,
+            57.5,
+            6.850000000000039,
+            10.460000000000008,
+            57.5
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 172.42481422222383,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            3.0,
+            -22.3,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            0.0,
+            -22.3,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 20,
+          "face_area_mm2": 40.24380189248524,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -4.1,
+            -26.4,
+            3.2,
+            4.1,
+            -18.200000000000003,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497049,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            -19.5,
+            -2.0,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            -22.5,
+            -2.0,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 19,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -26.6,
+            -6.1,
+            3.2,
+            -18.4,
+            2.0999999999999996,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "actual_face_point_mm": [
+            25.5,
+            -2.0,
+            3.2
+          ],
+          "lint_plane_pick_mm": [
+            22.5,
+            -2.0,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "saved_step_face_index": 21,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            18.4,
+            -6.1,
+            3.2,
+            26.6,
+            2.0999999999999996,
+            3.2
+          ],
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+        }
+      ]
+    }
+  ]
+}

@@ -25,7 +25,16 @@ def run(out):
     before = check.hashes(source_paths)
     read = check.Reading()
     seated = industrial.build_seated_display_cover().val()
-    free = industrial.build_display_cover().val()
+    built_free = industrial.build_display_cover().val()
+    saved_step = Path(industrial.__file__).parent / 'industrial-display-cover.step'
+    saved_stl = saved_step.with_suffix('.stl')
+    artifact_paths = (saved_step, saved_stl, *(check.SHELL / f'faucet-shell-{key}.step' for key in ('base', 'tip')))
+    artifact_before = check.hashes(artifact_paths)
+    free = cq.importers.importStep(str(saved_step)).val()
+    delta = check.outside_material_volume(built_free, free) + check.outside_material_volume(free, built_free)
+    read.add('provenance:saved-cover-current-builder', delta <= check.VOLUME_TOLERANCE,
+             exact_symmetric_difference_mm3=check.clean_number(delta),
+             method='both complete material differences between the saved production STEP and current relaxed-cover builder')
     origin, along, normal = f._tip_frame()
     frame = cq.Location(cq.Plane(origin=origin, xDir=(1, 0, 0), normal=normal))
     parts = {name: cq.importers.importStep(str(check.SHELL / f'faucet-shell-{key}.step')).val() for name, key in [('shell_base', 'base'), ('shell_tip', 'tip')]}
@@ -79,7 +88,7 @@ def run(out):
                     thickness = spans[0][1] + check.DISTANCE_TOLERANCE if spans and spans[0][0] < 0.001 else 0.0
                     stock.append({'shape': name, 'side': side, 's_mm': s, 'n_mm': n, 'normal_stock_mm': check.clean_number(thickness)})
     minimum = min((x['normal_stock_mm'] for x in stock))
-    read.add('wall:industrial-flanks', minimum >= 1.0 - check.DISTANCE_TOLERANCE, minimum_sampled_normal_stock_mm=minimum, required_mm=1.0, samples=stock, method='exact B-rep chords normal to the complete rectangular flank faces and their affine relaxed images', scope='480 named flank sections; the bezel and end walls have separate complete witnesses')
+    read.add('wall:industrial-flanks', minimum >= 1.2 - check.DISTANCE_TOLERANCE, minimum_sampled_normal_stock_mm=minimum, required_mm=1.2, samples=stock, method='exact B-rep chords normal to the complete rectangular flank faces and their affine relaxed images', scope='480 named flank sections; the bezel and end walls have separate complete witnesses')
     local_seated = seated.moved(frame.inverse)
     local_free = free.moved(frame.inverse)
     upper = cq.Solid.makeBox(100.0, 150.0, 50.0, cq.Vector(-50.0, -50.0, industrial.bezel_n_bottom))
@@ -97,13 +106,11 @@ def run(out):
             ends.append({'shape': name, 'end': end, 'surface_gap_mm': check.clean_number(gap), 'required_mm': abs(outer_s - inner_s)})
     read.add('wall:industrial-end-walls', all((row['surface_gap_mm'] >= row['required_mm'] - check.DISTANCE_TOLERANCE for row in ends)), samples=ends, method='complete parallel outer/inner end-face distances on both actual solids; X preforming preserves every S coordinate', scope='the remaining front and rear slabs and their neck-opening rims; no cuff')
     import trimesh
-    stl = OUT / 'industrial-display-cover.stl'
-    mesh = f.piece_mesh(cq.Workplane(obj=free))
-    mesh.export(stl)
-    loaded = trimesh.load_mesh(stl, process=True)
-    read.add('mesh:industrial-cover', loaded.is_watertight and loaded.is_winding_consistent and (len(loaded.split()) == 1), triangles=len(loaded.faces), watertight=loaded.is_watertight, consistent_winding=loaded.is_winding_consistent, bodies=len(loaded.split()), sha256=check.digest(stl), tolerance_mm=0.005, tolerance_is_relative=False, angular_tolerance_rad=0.05)
+    loaded = trimesh.load_mesh(saved_stl, process=True)
+    read.add('mesh:industrial-cover', loaded.is_watertight and loaded.is_winding_consistent and (len(loaded.split()) == 1), triangles=len(loaded.faces), watertight=loaded.is_watertight, consistent_winding=loaded.is_winding_consistent, bodies=len(loaded.split()), sha256=check.digest(saved_stl), tolerance_mm=0.005, tolerance_is_relative=False, angular_tolerance_rad=0.05, scope='actual saved production STL bytes')
     assert before == check.hashes(source_paths), 'Source changed during readings'
-    report = {'passed': all((row['passed'] for row in read.rows.values())), 'geometry_source_sha256': before, 'checks': read.rows, 'dimensions': vars(industrial.DIMENSIONS), 'reference_artifact_sha256': {str(check.SHELL / f'faucet-shell-{name}.step'): check.digest(check.SHELL / f'faucet-shell-{name}.step') for name in ('base', 'tip')}, 'validation_script_sha256': check.digest(Path(__file__)), 'scope': 'Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.'}
+    assert artifact_before == check.hashes(artifact_paths), 'Production artifacts changed during readings'
+    report = {'passed': all((row['passed'] for row in read.rows.values())), 'geometry_source_sha256': before, 'saved_geometry_sha256': artifact_before, 'checks': read.rows, 'dimensions': vars(industrial.DIMENSIONS), 'reference_artifact_sha256': {str(check.SHELL / f'faucet-shell-{name}.step'): check.digest(check.SHELL / f'faucet-shell-{name}.step') for name in ('base', 'tip')}, 'validation_script_sha256': check.digest(Path(__file__)), 'scope': 'Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.'}
     (OUT / 'display-cover-check.json').write_text(json.dumps(report, indent=2) + '\n')
     if report['passed']:
         target = ROOT / 'hardware/printed-parts/faucet/industrial/display-cover-check.json'

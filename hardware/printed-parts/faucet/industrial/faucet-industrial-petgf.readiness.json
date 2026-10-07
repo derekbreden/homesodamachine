@@ -1,96 +1,37 @@
 {
-  "status": "submitted to Mark2; startup confirmed",
-  "submitted": true,
-  "printer": "Mark2",
-  "printer_state_checked": true,
+  "status": "ready to print; native geometry and support access reviewed",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "7f5bb67798a9920dd2f5843121b664a827efcb749bbfeb4e0b7b38e7d05d3a5a",
+  "project_sha256": "e775fded619a6ab2ee7da594abaa8f7da2efbdd70c2cec022dcb22de57ae37f5",
   "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "print_report_sha256": "925f96dada8f175f3b24aa4004c105fd45cae340522cec6cc808d01c0a86b539",
-  "all_profile_members_preserved_byte_for_byte": true,
-  "successful_profile": {
-    "record": "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
-    "record_sha256": "74a76a1eabf39e103a8ebed81aa92275ac4a559df0722fc40ab2f3905e515995",
-    "native_archive": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/ready/sculpted-white-z018-mark2.gcode.3mf",
-    "native_archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
-    "actual_trim_commands_mm": [
-      0.0,
-      0.16
-    ],
-    "physical_result": "User reported the full white Sculpted print came out great."
-  },
-  "source_stls": {
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "5d58d45db8438ec8b9b4dffe27f24984e89a7c03b17db88c29b52a96ca4827ad",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "470a496f5d53b09cd4e2e83f050f8e01e7bf18e882760956de5f3eddf5c76afd",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4e214bdab1847b67fb6156c4c2d66346b6046001856e884e31b297dcb69c6781",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c"
-  },
-  "parts": [
-    {
-      "name": "industrial-shell-base",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "5d58d45db8438ec8b9b4dffe27f24984e89a7c03b17db88c29b52a96ca4827ad",
-      "rotation_x_degrees": -14.999999999999998
-    },
-    {
-      "name": "faucet-shell-tip",
-      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "470a496f5d53b09cd4e2e83f050f8e01e7bf18e882760956de5f3eddf5c76afd",
-      "rotation_x_degrees": -105.0
-    },
-    {
-      "name": "industrial-display-cover",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
-      "stl_sha256": "4e214bdab1847b67fb6156c4c2d66346b6046001856e884e31b297dcb69c6781",
-      "rotation_x_degrees": -50.0
-    },
-    {
-      "name": "industrial-above-counter-plate",
-      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
-      "stl_sha256": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c",
-      "rotation_x_degrees": 0.0
-    }
-  ],
-  "snap_geometry": {
-    "inward_preload_per_wing_mm": 1.25,
-    "engagement_mm": 1.2,
-    "lip_height_mm": 3.0,
-    "groove_height_mm": 3.48,
-    "roof_clearance_mm": 0.48,
-    "end_clearance_mm": 0.3,
-    "inner_edge_relief_mm": 0.25,
-    "industrial_cover_fit": {
-      "file": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
-      "sha256": "8d47237d2d274e8b9fa376035386022c4ec813a2a4b8072abfd20e7e32f8fd3e",
-      "passed_checks": 36,
-      "geometry_source_review": "Printed tip and cover hashes match the passing report. Its faucet_shell.py source hash differs only in three print-pose assignments; geometry AST is unchanged."
-    }
-  },
-  "profile": {
-    "layer_height_mm": 0.24,
-    "initial_layer_height_mm": 0.2,
-    "requested_z_trim_mm": 0.18,
-    "actual_z_trim_commands_mm": [
-      0.0,
-      0.16
-    ],
-    "physical_filament": "black Polymaker PET-GF; loaded by user",
-    "printer_filament_label": "PET-CF"
+  "print_report_sha256": "56470b7467b167fb24b3829854a41bd50585c5d12cf4543bbeec59d341717403",
+  "source_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
+    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865"
   },
   "native": {
-    "archive": ".cache/prints/2026-09-18-industrial-black-z018-mark2/ready/industrial-black-z018-mark2.gcode.3mf",
-    "archive_sha256": "e3abe2fe5eaf94d0c40a0c1fea98f7bac52f1fe052eb0a28154087b11ab5a3c3",
-    "gcode_sha256": "1dee2cbc820662ac84b7f9d6a6b30448cbff8f35b7c635b5002f74a217871d83",
-    "layers": 1019,
-    "staged_input": ".cache/prints/2026-09-18-industrial-black-z018-mark2/industrial-black-z018-mark2-input.3mf",
-    "staged_input_sha256": "53f87a4d95bc32ff6b85419682b51e91d639e2b863040b5b55d3526bde9aceb8",
-    "staged_settings_override": {
-      "extruder_ams_count": [
-        "1#0|4#0",
-        "1#0|4#0"
-      ]
-    },
-    "native_export_settings_normalizations": {
+    "archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
+    "archive_sha256": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
+    "gcode_sha256": "d9d681582040a6e7345db2f8142c7a247661dcee235e9711d9b4b01d88a3cbc1",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
       "filament_prime_volume": [
         [
           "30"
@@ -98,64 +39,122 @@
         [
           "45"
         ]
-      ],
-      "filament_map_2": [
-        null,
-        [
-          "1"
-        ]
       ]
     },
-    "emitted_settings_match_successful_job": true,
-    "emitted_settings_match_requested_changes": true,
-    "intentional_emitted_config_changes": {},
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
     "actual_z_trim_commands_mm": [
       0.0,
       0.16
     ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 916,
+    "estimated_seconds": 17777.685546875,
+    "estimated_grams_saved_profile_density": 132.6654052734375,
     "slicer_return_code": 0,
-    "warning": "",
-    "objects": 4,
-    "triangles": 564158,
-    "estimated_seconds": 17112.271484375,
-    "estimated_grams_saved_profile_density": 131.234375,
-    "layer_height_mm": 0.24,
-    "initial_layer_height_mm": 0.2,
-    "preparation_script_sha256": "c7a3c010205f27219e2b2e7bf5d2ec6db96ee19a28153bae02b768f5c00740c0"
+    "slicer_warning": "",
+    "objects": 4
   },
-  "native_validation_sha256": "61c719e5c6d5cb8459e73d6627a8b6312bbfcbd12d2678229a878426eb815ce3",
-  "support_audit_sha256": "018639ac4ae32c61109ef678af0f3041c55fb5b603390fe290e51a8c673c00bc",
-  "support_face_review_sha256": "998da71f5f54fcd1e27404c203e244d01f82a45803ed70efa0848e2ca8575c44",
+  "support_audit_sha256": "b02efa45e36c0753a58c572449921db75527e664d8690cfe2f748e887090b27f",
+  "fit": {
+    "minimum_shared_bed_margin_mm": 25.20486299999999,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          48.391077,
+          78.244077
+        ],
+        [
+          266.657923,
+          294.827923
+        ]
+      ],
+      "maximum_line_width_mm": 0.735846,
+      "bounds_padding_mm": 0.467923
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 25.172077,
+    "minimum_toolpath_separation_mm": 37.66907699999999,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "industrial-shell-base",
+          "faucet-shell-tip"
+        ],
+        "separation_mm": 51.51592249999999
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 122.88817853132963
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 40.11694
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 58.573845500000004
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 37.66907699999999
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 101.0106956910581
+      }
+    ]
+  },
   "support_summary": {
     "industrial-shell-base": {
       "support_bodies": 1,
-      "interface_islands": 9,
+      "interface_islands": 14,
       "bed_rooted_bodies": 1,
       "model_rooted_bodies": 0,
-      "shortest_build_up_mm": 2.4,
+      "shortest_build_up_mm": 8.16,
       "bodies_without_interface_labels": 0,
-      "explicit_interface_islands": 9,
-      "shortest_labelled_build_up_mm": 2.4
+      "explicit_interface_islands": 14,
+      "shortest_labelled_build_up_mm": 8.16
     },
     "faucet-shell-tip": {
       "support_bodies": 1,
-      "interface_islands": null,
+      "interface_islands": 1,
       "bed_rooted_bodies": 1,
       "model_rooted_bodies": 0,
-      "shortest_build_up_mm": null,
-      "bodies_without_interface_labels": 1,
-      "explicit_interface_islands": 0,
-      "shortest_labelled_build_up_mm": null
+      "shortest_build_up_mm": 79.68,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "shortest_labelled_build_up_mm": 79.68
     },
     "industrial-display-cover": {
       "support_bodies": 1,
       "interface_islands": 2,
       "bed_rooted_bodies": 1,
       "model_rooted_bodies": 0,
-      "shortest_build_up_mm": 12.24,
+      "shortest_build_up_mm": 12.96,
       "bodies_without_interface_labels": 0,
       "explicit_interface_islands": 2,
-      "shortest_labelled_build_up_mm": 12.24
+      "shortest_labelled_build_up_mm": 12.96
     },
     "industrial-above-counter-plate": {
       "support_bodies": 3,
@@ -168,132 +167,29 @@
       "shortest_labelled_build_up_mm": null
     }
   },
-  "plates": [
-    {
-      "plate": 1,
-      "estimated_total_seconds": 17112.271484375,
-      "saved_profile_filament_estimate_g": 131.234375,
-      "slicer_warning": ""
-    }
+  "submitted": false,
+  "physical_print_evaluated": false,
+  "geometry_review_pending": false,
+  "review_sha256": {
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.insert-beads.json": "3d1c596a0e0329104eb783ba22a1641085d3a8c1b5d20ce346cbedb10da3ac11",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-faces.json": "a9ad5eb19040372e6d4a8da0cce074080c7d96a876b273af6fc0f5ce2ddc82b9",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.lower-supports.json": "91396862fb084548d084ed9667a96cf77b834179373e6f4cce350626d1441f23"
+  },
+  "cleanup_route": [
+    "Base: cut sacrificial trees into short pieces and withdraw through the counter-end, donor bay and lever opening. Clear all three insert pilots and pedestal sockets before installing brass.",
+    "Lower cable route: remove turn-roof fragments through the shared donor/flavor opening. The actual ribbon must pass freely before the mounting stack closes.",
+    "Tip: release the connected tree through the open neck joint, the 12 by 22 mm bottom discharge port and the open display pocket. Remove cavity fragments before either bung is installed. Clear both gland lips, body seats and flange grooves; preserve their modeled edge and radius.",
+    "Continue through the dry S/F/ribbon guides from the joint and beverage/display ends. The source removes inaccessible interstice needles. Pass each actual tube freely before installing the bungs.",
+    "Cover: remove supports through the open underside before the display is fitted; retain the bezel, broad snap wings and their lip-bearing faces.",
+    "Counter plate: remove the three counterbore support bodies through their respective screw-head openings; retain every screw seat and locating pedestal.",
+    "Brush and rinse away loose fragments. Visually inspect gland seats through the open joint and bottom port; no support stock may remain in a tube guide, seal groove or drain opening."
   ],
-  "fit": {
-    "minimum_shared_bed_margin_mm": 22.383902999999975,
-    "minimum_toolpath_separation_mm": 26.238015500000017,
-    "pairwise_toolpath_separations": [
-      {
-        "parts": [
-          "industrial-shell-base",
-          "faucet-shell-tip"
-        ],
-        "separation_mm": 26.238015500000017
-      },
-      {
-        "parts": [
-          "industrial-shell-base",
-          "industrial-display-cover"
-        ],
-        "separation_mm": 123.79387984638666
-      },
-      {
-        "parts": [
-          "faucet-shell-tip",
-          "industrial-display-cover"
-        ],
-        "separation_mm": 34.63355306965343
-      },
-      {
-        "parts": [
-          "industrial-shell-base",
-          "industrial-above-counter-plate"
-        ],
-        "separation_mm": 58.60054400000001
-      },
-      {
-        "parts": [
-          "faucet-shell-tip",
-          "industrial-above-counter-plate"
-        ],
-        "separation_mm": 41.71847150000002
-      },
-      {
-        "parts": [
-          "industrial-display-cover",
-          "industrial-above-counter-plate"
-        ],
-        "separation_mm": 102.5920073385584
-      }
-    ]
-  },
-  "scope": "Four Industrial PET-GF parts: shell base, shared shell tip, display cover and above-counter plate.",
-  "gasket": {
-    "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
-    "material": "TPU",
-    "included_in_petgf_project": false
-  },
-  "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "44c86d7b257885456979eb20cc3822d42673d4cdb821194270eaa2d6fa214600",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "d7493c39ea92813cae211077efd7ad038e09df513676c07e7eba6b9c77a749bc",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "74a76a1eabf39e103a8ebed81aa92275ac4a559df0722fc40ab2f3905e515995"
-  },
-  "submission": {
-    "method": "Bambu Connect signed-in desktop UI",
-    "user_authorization": "User reports white Sculpted came out great, loaded black filament, and requests Industrial on Mark2.",
-    "archive": ".cache/prints/2026-09-18-industrial-black-z018-mark2/ready/industrial-black-z018-mark2.gcode.3mf",
-    "archive_sha256": "e3abe2fe5eaf94d0c40a0c1fea98f7bac52f1fe052eb0a28154087b11ab5a3c3",
-    "send_clicks": 1,
-    "send_observed_between_utc": [
-      "2026-09-19T02:18:35Z",
-      "2026-09-19T02:18:40Z"
-    ],
-    "options": {
-      "printer": "Mark2",
-      "plate": "Textured PEI",
-      "nozzle_diameter_mm": 0.4,
-      "nozzle": "left",
-      "filament_source": "external",
-      "material": "Polymaker PET-GF",
-      "physical_color": "black",
-      "printer_filament_label": "PET-CF",
-      "right_nozzle": "unused",
-      "timelapse": "off",
-      "auto_bed_leveling": "on",
-      "flow_dynamic_calibration": "auto",
-      "nozzle_offset_calibration": "auto"
-    },
-    "preflight": {
-      "printer": "Mark2",
-      "observed_at": "2026-09-19T02:17:08.793803+00:00",
-      "gcode_state": "FINISH",
-      "subtask_name": "sculpted-white-z018-mark2.gcode.3mf",
-      "mc_percent": 100,
-      "layer_num": 1019,
-      "total_layer_num": 1019,
-      "mc_remaining_time": 0,
-      "print_error": 0,
-      "hms": [],
-      "nozzle_temper": 38.0,
-      "nozzle_target_temper": 0.0,
-      "bed_temper": 36.0,
-      "bed_target_temper": 0.0
-    },
-    "startup": {
-      "printer": "Mark2",
-      "observed_at": "2026-09-19T02:20:53.476353+00:00",
-      "gcode_state": "RUNNING",
-      "subtask_name": "industrial-black-z018-mark2.gcode.3mf",
-      "mc_percent": 0,
-      "layer_num": 0,
-      "total_layer_num": 1019,
-      "mc_remaining_time": 285,
-      "print_error": 0,
-      "hms": [],
-      "nozzle_temper": 200.0,
-      "nozzle_target_temper": 200.0,
-      "bed_temper": 36.0,
-      "bed_target_temper": 36.0
-    },
-    "startup_confirmed": true,
-    "observation_scope": "Exact job accepted and startup observed. Completion, support removal and Industrial assembly fit are not yet observed."
+  "review_scope": "Native meshes, process, placement, nominal insert-host deposition and geometrically accessible support cleanup. Actual support release, surface finish, insert retention and assembled lifetime remain physical acceptance items.",
+  "finalization_script_sha256": "e251969abd044e449e960a3b280d9c69fbaaa7653cfb0a1c0199f7b439e3ef64",
+  "consumer_assembly_qualified": false,
+  "geometry_approval_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7",
+    "hardware/printed-parts/faucet/industrial/geometry-check.json": "5ca104614d2bffedc85f4494a5ed3976a04f6421671833649042df1254bf0314",
+    "hardware/printed-parts/faucet/industrial/display-cover-check.json": "a3c0f15b5586dda2b0d7fc24e13772db74bdf296921cedc17d5592cd693dae8d"
   }
 }

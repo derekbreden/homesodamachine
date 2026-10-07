@@ -1,0 +1,20 @@
+{
+  "check": "Upper slot-tip omission in native handle-flat print",
+  "checker_sha256": "ad5e7ce9b6c3aeb15ff9134ea2e8de6ce85cb59746776df151bccdbe41ff133f",
+  "generator_sha256": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+  "tool_stl_sha256": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
+  "tool_step_sha256": "069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66",
+  "native_tool_review": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.tool-review.json",
+  "native_tool_review_sha256": "0cf2959d62f66f8c751202be80a63dcdd01c373370ee6496c1b5d991cc0a5362",
+  "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf",
+  "native_archive_sha256": "b0d6f4c9903c9af5809fc51b81e159a4daf9408389014a8d712381c126e17001",
+  "gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+  "native_last_model_layer_z_mm": 80.84,
+  "cad_maximum_z_mm": 81.65780702983353,
+  "bearing_area_original_mm2": 36.420232332202396,
+  "bearing_area_retained_mm2": 36.0697487882729,
+  "bearing_area_retained_fraction": 0.9903766801723668,
+  "omitted_tool_volume_mm3": 0.337104190071841,
+  "engineering_assessment": "The two small open-slot endpoints supply excess bearing area. The continuous lower annular bearing retains 99.04% of its modeled area; those endpoints are not required for flange loading. Keep the main bearing flat and remove support residue before use.",
+  "scope": "Exact native geometric area clipped at the saved slice's last model layer. The every-layer bead review owns actual printed-road coverage; no insertion force or printed strength is inferred from CAD area."
+}

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c",
+    "--export-3mf",
+    "faucet-industrial-black-z018-h2c.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf"
+  ],
+  "printer_connection": false
+}

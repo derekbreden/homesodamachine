@@ -1,0 +1,193 @@
+{
+  "water_radius_mm": 71.80002307227377,
+  "station_radius_mm": 71.80002307227377,
+  "split_angle_deg": 50.0,
+  "shell_center_n_mm": 4.027512922,
+  "cavity_inner_radius_mm": 11.5,
+  "cavity_start_s_mm": 37.4554288215055,
+  "cavity_end_s_mm": 58.60285927102022,
+  "upstream_gland_s_mm": 30.0,
+  "downstream_gland_s_mm": 59.3,
+  "gland_mid_shift_s_mm": 3.8822321038963077,
+  "gland_body_mid_z_mm": 4.1,
+  "gland_length_mm": 7.3,
+  "drain_cut_s_mm": 38.4554288215055,
+  "drain_center_n_mm": 7.5625,
+  "drain_od_mm": 4.0,
+  "drain_id_mm": 2.5,
+  "flavor_od_mm": 6.35,
+  "soda_od_mm": 9.525,
+  "flavor_center_x_mm": 5.873975662415075,
+  "flavor_center_n_mm": 6.468409090909093,
+  "ribbon_center_n_mm": 11.0125,
+  "ribbon_width_mm": 7.9,
+  "ribbon_depth_mm": 1.3,
+  "wet_bundle_positions_constant": true,
+  "port_start_s_mm": 37.4554288215055,
+  "port_width_mm": 12.0,
+  "port_length_s_mm": 22.0,
+  "port_corner_radius_mm": 2.0,
+  "outlet_coordinate_model": "radial_chord",
+  "line_length_m": 2.1064194142990575,
+  "rise_m": 0.7081935760833573,
+  "pvc_length_m": 0.01821058083755683,
+  "pvc_id_mm": 6.35,
+  "native_dimension_source": "hardware/printed-parts/faucet/faucet_paths.py",
+  "native_dimension_source_sha256": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+  "measurement_evidence": {
+    "scope": "Nominal native CAD centerlines and stated reference-cabinet elevation. No physical tube-length, tube-bore, device-pressure or installed-head measurement.",
+    "source_sha256": {
+      "hardware/printed-parts/faucet/vent-qualification/measure_route.py": "affdf52cd84445099b28f8f4b343b39a53e05bc0b6108240f7e54b4f01c7eb1c",
+      "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+      "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+      "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+      "hardware/faucet-layout/faucet_assembly.py": "5c78bec5462d340a39b5f95bc8e12c65775a8f371d6c93da1fac41d1537a631c",
+      "hardware/manifold-layout/_drain.py": "a73e4192fc58763556b7be22745623ad7f89ef72c8509bea7d42ce3232da5fbd",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "0492dff317f4792258a488cfc78ea98e7a0c2bb5d6c35379af7440c63f117e01",
+      "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
+      "marketing/install-envelope.md": "2c1e2f42aa93a32784ea3f4e911018cb0db68b23260d6727787840571c1c1d20"
+    },
+    "external_drawn_centerline_mm": 561.5170184104975,
+    "external_upper_centerline_mm": 302.2274552013826,
+    "external_lower_drawn_centerline_mm": 259.2895632091149,
+    "external_added_to_full_factory_run_mm": 1310.0,
+    "external_full_factory_centerline_mm": 1871.5170184104975,
+    "internal_small_tube_centerline_mm": 234.90239588856016,
+    "total_small_tube_centerline_mm": 2106.4194142990577,
+    "PVC_centerline_mm": 18.21058083755683,
+    "native_internal_tube_solids_valid": true,
+    "native_internal_PVC_white_return_clearance": {
+      "gap_mm": 2.0448330664946432,
+      "overlap_mm3": 0,
+      "boolean_valid": true,
+      "passed": true,
+      "scope": "These two unconnected native members only; the complete appliance audit supplies all installed neighbors."
+    },
+    "internal_length_method": "Annular swept-solid volume divided by the nominal annular section area; native routing at saved enclosure device/socket coordinates.",
+    "ASSE_vent_tip_enclosure_world_mm": [
+      -78.07,
+      378.51,
+      309.2105808375568
+    ],
+    "bulkhead_inboard_mouth_enclosure_world_mm": [
+      -78.07,
+      453.6,
+      302.6172904687784
+    ],
+    "bulkhead_mouth_derivation": "Coaxial Y reference; min-Y end of placed bulkhead bbox, at its X/Z center. The 32.4 mm reference overall length and 22 mm flange envelope define this body.",
+    "D_cut_faucet_world_mm": [
+      0.0,
+      -50.08208935742565,
+      231.70415702091412
+    ],
+    "reference_installation": {
+      "cabinet_clear_height_mm": 755.7,
+      "cabinet_basis": "marketing/install-envelope.md; nominal product reference envelope, not a claim about every consumer cabinet",
+      "slab_thickness_mm": 30.0,
+      "faucet_plate_datum_above_slab_mm": 6.0,
+      "enclosure_local_floor_z_mm": -6.0000001,
+      "device_vent_above_cabinet_floor_mm": 315.2105809375568,
+      "D_cut_above_cabinet_floor_mm": 1023.4041570209142,
+      "vent_to_D_cut_rise_mm": 708.1935760833574
+    },
+    "flow_model_scope": "Small-bore length excludes adapter/bulkhead internal bores and their minor losses. K=5 is an unmeasured fitting/bend sensitivity. PVC friction is uncredited in the K=0 higher-flow sizing envelope; its water volume is reported.",
+    "fluid_volume_scope": "Nominal unobstructed bore applied to modeled endpoint lengths. Socket/barb insertion interiors and overlaps are not modeled. These volumes are not measured installed hold-up or tube cut lengths.",
+    "completed_appliance_geometry": {
+      "scope": "Producer handoff of the complete installed-body native clearance audit and its paired saved appliance STEP. This reader hashes the saved STEP; it does not independently rebuild or import the whole appliance. No hydraulic, physical fit or tolerance qualification.",
+      "saved_appliance_step": "hardware/manifold-layout/enclosure-assembly.step",
+      "saved_appliance_step_sha256": "aa3b4669ab9cae8dd0884cd298019c1850dc9c493e58e55f65ed55a6f745065b",
+      "clearance_report": "hardware/manifold-layout/drain-clearance-check.json",
+      "clearance_report_sha256": "787730b1fcc6d2c65b81b85fa54ebc498c1fbea254a292ee89cb8d4e5a6061de",
+      "clearance_source_sha256": {
+        "hardware/scripts/check_asse_drain.py": "42cc46ccba0cce79fc23b4898cc2153475fe62c2aab56b0f69a93a6db9073db9",
+        "hardware/manifold-layout/_drain.py": "a73e4192fc58763556b7be22745623ad7f89ef72c8509bea7d42ce3232da5fbd",
+        "hardware/manifold-layout/enclosure_assembly.py": "e8279a2a32f63b1fbcdc7d11aa6d0fb6f4f3b876690b78731894b181b5c38a8b",
+        "hardware/manifold-layout/_lines.py": "22d032ffdd36b53d387335752af33ac24f23c8e92a45d24fbf5afb60c017b458",
+        "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
+        "hardware/reference/asse1022-assembly/asse1022_assembly.py": "883031e94d29d4e53c34013e0d398303097093bcdc4b37efaaf818bb8a8038a3"
+      },
+      "installed_body_count": 165,
+      "drain_body_checks": {
+        "drain-barb-adapter": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 7,
+          "passed": true
+        },
+        "drain-elbow": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 6,
+          "passed": true
+        },
+        "drain-stem-reducer": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 6,
+          "passed": true
+        },
+        "hose-drain-vent": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 2,
+          "passed": true
+        },
+        "tube-drain-vent": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 17,
+          "passed": true
+        },
+        "tube-fluid-18": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 38,
+          "passed": true
+        },
+        "tube-fluid-28": {
+          "valid": true,
+          "solids": 1,
+          "neighbors_checked": 15,
+          "passed": true
+        }
+      },
+      "bend_radii": {
+        "hose-drain-vent": {
+          "centerline_radii_mm": [],
+          "passed": true
+        },
+        "tube-drain-vent": {
+          "centerline_radii_mm": [
+            25.0
+          ],
+          "passed": true
+        },
+        "tube-fluid-18": {
+          "new_return_centerline_radii_mm": [
+            25.4
+          ],
+          "existing_front_route_scope": "Front supports and their existing bends retained.",
+          "passed": true
+        },
+        "tube-fluid-28": {
+          "new_return_centerline_radii_mm": [
+            25.4
+          ],
+          "existing_front_route_scope": "Front supports and their existing bends retained.",
+          "passed": true
+        }
+      },
+      "passed_nominal_installed_clearance": true
+    }
+  },
+  "gland_dimensions": {
+    "keeper_length_mm": 1.2,
+    "flange_groove_length_mm": 0.9,
+    "body_length_mm": 4.0,
+    "body_mid_z_mm": 4.1,
+    "flange_front_z_mm": 1.3,
+    "protected_flange_groove_front_z_mm": 1.2,
+    "native_seal_source_sha256": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+  }
+}

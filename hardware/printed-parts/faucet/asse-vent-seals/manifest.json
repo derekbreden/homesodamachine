@@ -1,0 +1,229 @@
+{
+  "generator": "hardware/printed-parts/faucet/vent_seals.py",
+  "generator_sha256": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+  "path_source_sha256": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+  "stl_absolute_tolerance_mm": 0.005,
+  "stl_angular_tolerance_radians": 0.04,
+  "frame": "CAD local X is lateral, Y is outward relative to shell centre, Z is downstream tangent. Tube tables use N from soda centre. Bungs print flange-down; tool is rotated handle-flat onto Z=0.",
+  "parts": [
+    {
+      "name": "asse-vent-upstream-bung",
+      "material": "Bambu TPU 85A",
+      "quantity": 1,
+      "step": "asse-vent-upstream-bung.step",
+      "step_sha256": "a1c0dd81a71b4092706b331bc1ae55f0d45a89bc5b8f0a1e89ddad1b929c576c",
+      "stl": "asse-vent-upstream-bung.stl",
+      "stl_sha256": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+      "bounds_mm": {
+        "min": [
+          -11.5,
+          -11.5,
+          0.0
+        ],
+        "max": [
+          11.5,
+          11.5,
+          4.8
+        ]
+      },
+      "cad_volume_mm3": 1241.8027227250532,
+      "solid_count": 1,
+      "cad_valid": true,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "mesh_faces": 38500,
+      "mesh_relative_volume_error": 6.272957781198737e-05,
+      "bed_pose": "flange-down"
+    },
+    {
+      "name": "asse-vent-downstream-bung",
+      "material": "Bambu TPU 85A",
+      "quantity": 1,
+      "step": "asse-vent-downstream-bung.step",
+      "step_sha256": "68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c",
+      "stl": "asse-vent-downstream-bung.stl",
+      "stl_sha256": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+      "bounds_mm": {
+        "min": [
+          -11.5,
+          -11.5,
+          0.0
+        ],
+        "max": [
+          11.5,
+          11.5,
+          4.8
+        ]
+      },
+      "cad_volume_mm3": 1293.6494734847968,
+      "solid_count": 1,
+      "cad_valid": true,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "mesh_faces": 34712,
+      "mesh_relative_volume_error": 6.326808490722324e-05,
+      "bed_pose": "flange-down"
+    },
+    {
+      "name": "asse-vent-perimeter-tool",
+      "material": "Fiberon PET-GF15",
+      "quantity": 1,
+      "step": "asse-vent-perimeter-tool.step",
+      "step_sha256": "069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66",
+      "stl": "asse-vent-perimeter-tool.stl",
+      "stl_sha256": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
+      "bounds_mm": {
+        "min": [
+          -16.0,
+          -3.9104930204206556,
+          0.0
+        ],
+        "max": [
+          16.0,
+          66.13773366231413,
+          81.65780702983353
+        ]
+      },
+      "cad_volume_mm3": 4778.475594947136,
+      "solid_count": 1,
+      "cad_valid": true,
+      "mesh_watertight": true,
+      "mesh_winding_consistent": true,
+      "mesh_components": 1,
+      "mesh_faces": 71220,
+      "mesh_relative_volume_error": 0.00016055513557196131,
+      "bed_pose": "handle-flat"
+    }
+  ],
+  "geometry_checks": {
+    "minimum_uninstalled_web_mm": 1.0999999999999996,
+    "minimum_web_at_bore_leads_mm": 0.8999999999999997,
+    "minimum_nominal_installed_tube_web_mm": 0.8,
+    "nominal_tube_web_compression_fraction": 0.2727272727272727,
+    "tube_reach_from_shell_center_mm": 9.535940511436944,
+    "wire_reach_at_maximum_stated_envelope_mm": 8.375286045178328,
+    "stop_to_nominal_tube_clearance_mm": 0.46405948856305557,
+    "body_radial_interference_mm": 0.1999999999999993,
+    "flange_radial_interference_mm": 0.09999999999999964,
+    "rigid_pusher_to_keeper_radial_clearance_mm": 0.25,
+    "minimum_pusher_keeper_edge_clearance_over_rotation_mm": 0.1387230771218242,
+    "pusher_inner_to_nominal_tube_clearance_mm": 0.3140594885630552,
+    "pusher_slot_to_nominal_bundle_width_clearance_mm": 0.9020486751698513,
+    "planar_groove_wall_mm": 2.0999999999999996,
+    "free_bung_gland_body_axial_fit_mm": 4.0,
+    "flange_groove_axial_float_mm": 0.09999999999999998,
+    "upstream_flange_capture_radial_overlap_mm": 0.40000000000000036,
+    "planar_gland_alignment": {
+      "local_z_at_body_midpoint_mm": 4.1,
+      "body_midpoint_arc_station_offset_mm": 3.8822321038963077,
+      "rule": "Align local Z=4.1 to the station at nominal_gland_s+offset; set local origin4.1 mm backward along its tangent. Clip the round cavity with actual planar mouth/stop faces.",
+      "maximum_tube_centre_deviation_in_body_mm": {
+        "S": 0.027860549614288743,
+        "F": 0.02555725892875671,
+        "D": 0.025204814109869744,
+        "wire": 0.02415445931053739
+      },
+      "minimum_nominal_tube_radial_interference_after_curvature_mm": 0.12213945038571125,
+      "analytical_minimum_groove_crown_wall_mm": 2.0518060595873067,
+      "upstream_backstop_plane_floor_station_mm": 37.4554288215055,
+      "downstream_keeper_plane_floor_station_mm": 58.60285927102022
+    },
+    "elastomer_displacement_budget": {
+      "method": "Straight maximum-wire-envelope volume budget; conservative because it excludes the extra keeper lead-in volume. Actual curved tubes and deformation are separate checks.",
+      "free_upstream_bung_volume_mm3": 1241.8027227250534,
+      "body_and_groove_available_after_tubes_mm3": 1140.8818894343626,
+      "minimum_axial_bulge_volume_mm3": 100.92083329069078,
+      "keeper_and_backstop_opening_displacement_space_mm3": 546.3908994003989,
+      "complete_gland_available_after_tubes_mm3": 1687.2727888347615,
+      "complete_gland_nominal_fill_fraction": 0.7359821902791712,
+      "rule": "Leave keeper/backstop openings clear for axial rubber bulging. No solid clamp plate across the bung faces."
+    },
+    "scope": "Nominal free CAD dimensions. Elastomer deformation, as-printed bore size, cable jackets, tube extrusion variation, shell curved-wall reserve, assembly load, water containment and aging need separate readings.",
+    "passed": true
+  },
+  "gland_mm": {
+    "keeper_id": 22.0,
+    "keeper_length": 1.2,
+    "groove_id": 22.8,
+    "groove_length": 0.9,
+    "seat_id": 22.0,
+    "body_length": 4.0,
+    "upstream_stop_id": 22.0,
+    "downstream_stop_id": 20.0,
+    "stop_length": 1.2,
+    "overall_length": 7.3,
+    "seated_bung_offset": 1.3
+  },
+  "tool_mm": {
+    "outside_diameter": 21.5,
+    "inside_diameter": 19.7,
+    "side_slot_width": 19.0,
+    "arc_length_on_soda_path": 95.0,
+    "handle_diameter": 32.0,
+    "handle_length": 4.0,
+    "bearing_face_local_z": 1.3,
+    "arc_center_local": [
+      0,
+      -75.82753599427377,
+      4.1
+    ]
+  },
+  "tube_and_wire_bores_mm": [
+    {
+      "name": "S",
+      "x": 0.0,
+      "normal": 0.0,
+      "diameter": 9.225
+    },
+    {
+      "name": "F1",
+      "x": -5.873975662415075,
+      "normal": 6.468409090909093,
+      "diameter": 6.05
+    },
+    {
+      "name": "F2",
+      "x": 5.873975662415075,
+      "normal": 6.468409090909093,
+      "diameter": 6.05
+    },
+    {
+      "name": "D",
+      "x": 0.0,
+      "normal": 7.5625,
+      "diameter": 3.7
+    },
+    {
+      "name": "wire-1",
+      "x": -3.3,
+      "normal": 11.012500000000001,
+      "diameter": 1.05
+    },
+    {
+      "name": "wire-2",
+      "x": -1.1,
+      "normal": 11.012500000000001,
+      "diameter": 1.05
+    },
+    {
+      "name": "wire-3",
+      "x": 1.1,
+      "normal": 11.012500000000001,
+      "diameter": 1.05
+    },
+    {
+      "name": "wire-4",
+      "x": 3.3,
+      "normal": 11.012500000000001,
+      "diameter": 1.05
+    }
+  ],
+  "physical_qualification": "No vent-cavity bung has been printed, fitted, tested for leakage or aged. Existing 85A thimble fit is evidence for that article only.",
+  "sources": [
+    "https://www.parker.com/content/dam/Parker-com/Literature/O-Ring-Division-Literature/ORD-5700.pdf",
+    "https://us.store.bambulab.com/products/tpu-85a-tpu-90a/",
+    "https://bntechgo.com/bntechgo-28-gauge-silicone-ribbon-cable-copper-wire-4p-flat-cable-28-awg-flexible-soft-silicone-rubber-parallel-wire-stranded-tinned-copper-wire-4-pin-black-50-ft//"
+  ]
+}

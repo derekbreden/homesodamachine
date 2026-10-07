@@ -9,7 +9,8 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 | | |
 |---|---|
 | tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, TAP, SODA, CO2 and both FLAVOR lines |
-| bore | Ø[6.68](COLLAR_BORE) mm modelled, Ø[6.58](COLLAR_BORE_PRINTED) mm printed |
+| bore, 1/4-inch stations | Ø[6.68](COLLAR_BORE) mm modelled; Ø[6.58](COLLAR_BORE_PRINTED) mm PETG calibration estimate |
+| bore, DRAIN station | Ø4.25 mm modelled for white 4 mm OD tubing |
 | width | Ø[12](COLLAR_OD) mm |
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
@@ -27,7 +28,7 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 | `flavor-a` | FLAVOR | black | the umbilical's first black flavour tail |
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
-One collar per chip, on the same six stations, off the same station words and four spools —
+One collar per chip, on the same six stations, with the same station words and fluid colours —
 `bulkhead_ring.STATIONS` and `_y_wall_dimensions.chip_filaments` are what both read.
 
 The four on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
@@ -43,10 +44,12 @@ Sized off the biggest tube a spool runs and not off the nominal. The extrusion i
 mallet or not at all. It threads on end-first over a tail that is still bare, by hand.
 
 The collar prints flat face down with the bore's axis along the bed, so the hole's crown is
-unsupported and sags into it: the printer takes [0.1](COLLAR_SHRINK) mm off the diameter, and the
-model carries that. Ø[6.68](COLLAR_BORE) goes to the slicer and Ø[6.58](COLLAR_BORE_PRINTED) comes
-off the plate — [0.1](COLLAR_SLIP) mm of slip on the biggest tube, which is the tightest a collar
-comes out, and [0.36](COLLAR_CLEARANCE) mm of diametral play on the smallest.
+unsupported. The [0.1](COLLAR_SHRINK) mm diameter allowance comes from a PETG collar printed
+with a 0.2 mm nozzle. For the 1/4-inch stations, Ø[6.68](COLLAR_BORE) goes to the slicer;
+the calibrated Ø[6.58](COLLAR_BORE_PRINTED) estimate gives [0.1](COLLAR_SLIP) mm of slip on the
+specified high tube diameter and [0.36](COLLAR_CLEARANCE) mm on the low diameter. The production
+PET-GF collar bore has no corresponding caliper record. Confirm that every finished collar
+threads by hand onto its actual tube before assembling the tail.
 
 WHAT HOLDS A COLLAR IS THE BEND THE TUBE CAME OFF THE SPOOL WITH, and not the bore. 1/4" LLDPE is
 never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends
@@ -86,4 +89,4 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`
 
-The white DRAIN collar uses a Ø4.25 mm modelled bore for 4 mm OD tubing. Its black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails.
+The white DRAIN collar uses a Ø4.25 mm modelled bore for 4 mm OD tubing. Its black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. Its 0.25 mm nominal diametral allowance is a CAD value; the finished part's fit is checked on the actual drain tube.

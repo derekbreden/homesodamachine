@@ -41,8 +41,8 @@ Each of the four wall-meets-rim corners is rounded with a tangent
 arc of the fillet radius.
 
 STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
-- Above-counter plate (PETG-CF),   Z = [-4, 0]
-- Above-counter gasket (90A black), Z = [-6, -4]
+- Above-counter plate (PET-GF),   Z = [-4, 0]
+- Above-counter gasket (85A black), Z = [-6, -4]
 - Countertop                  (varies — laminate ~32 mm, granite ~38 mm)
 - Under-counter plate (this part)
 - Washer + factory shank nut on the threaded shank
@@ -147,6 +147,11 @@ disc_diameter = 2.0 * disc_radius
 # where a vertical channel wall meets the disc rim.
 fillet_radius = 1.5
 
+# Outside the donor washer, the shank channel also admits the edge-on ribbon.
+# DXF X is world +Y; DXF -Y is the slide-on side of the finished plate.
+signal_relief_right_x = 8.4
+signal_relief_start_y = -14.6
+
 
 def rim_y_lower(x):
     """Lower Y on the disc rim at the given X (the bottom of the disc)."""
@@ -211,7 +216,7 @@ def make_dxf():
 
     # Fillets at the four channel-mouth corners.
     sl_c, sl_wt, sl_rt = channel_corner_fillet(shank_left_wall_x, -1)
-    sr_c, sr_wt, sr_rt = channel_corner_fillet(shank_right_wall_x, +1)
+    sr_c, sr_wt, sr_rt = channel_corner_fillet(signal_relief_right_x, +1)
     pl_c, pl_wt, pl_rt = channel_corner_fillet(pill_left_x, -1)
     pr_c, pr_wt, pr_rt = channel_corner_fillet(pill_right_x, +1)
 
@@ -225,7 +230,11 @@ def make_dxf():
     msp.add_arc((shank_cx, shank_cy), shank_radius,
                 start_angle=0.0, end_angle=180.0)
 
-    msp.add_line(shank_right_wall_top, sr_wt)
+    relief_inner = (shank_right_wall_x, signal_relief_start_y)
+    relief_outer = (signal_relief_right_x, signal_relief_start_y)
+    msp.add_line(shank_right_wall_top, relief_inner)
+    msp.add_line(relief_inner, relief_outer)
+    msp.add_line(relief_outer, sr_wt)
 
     ccw_arc(msp, sr_c, fillet_radius, sr_wt, sr_rt)
 

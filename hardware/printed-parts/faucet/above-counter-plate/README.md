@@ -32,15 +32,17 @@ face; each pedestal has clearance above its tip.
 
 ## Tube openings
 
-The flavor pair passes through a [18.15 mm](PLATE_PILL_L) ×
+The flavor pair and centered 4 mm drain pass through a [18.15 mm](PLATE_PILL_L) ×
 [7.25 mm](PLATE_PILL_W) pill slot centered at
 (0,+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
 The connected signal-cable branch is a 5.0 × 1.8 mm capsule centered at
-(9.3,17.0). This places the ribbon inside the existing stainless plate's
-open flavor channel and the drilled countertop hole. The passage has a
-broad connection to the flavor opening so no thin printed fin separates them.
+(16.35,5.7), with its long axis along Y. The ribbon passes the donor body
+edge-on inside the drilled countertop hole. The stainless plate has a
+matching open relief outside the donor washer. The passage has a broad
+connection to the flavor opening so no thin printed fin separates them.
 
-Route both flavor tubes and the signal ribbon before closing this factory joint.
+Route both flavor tubes, the drain and the signal ribbon before closing this
+factory joint.
 
 ## Regenerate
 

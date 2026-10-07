@@ -1,0 +1,148 @@
+{
+  "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
+  "project_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "slicer": "BambuStudio 02.08.02.61",
+  "layer_height_mm": 0.23999999463558197,
+  "wall_loops": 2,
+  "sparse_infill_density_percent": 15.0,
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 1469.1058349609375,
+      "saved_profile_filament_estimate_g": 7.845939636230469,
+      "slicer_warning": ""
+    }
+  ],
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "asse-vent-perimeter-tool",
+      "inputs": {
+        "gcode": "support-labels-asse-vent-perimeter-tool.gcode",
+        "gcode_sha256": "ef0b142e3e5757ca5cfc2a077aee1b2a8770b8bcb108a067f693deeccd791755",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
+        "model_sha256": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
+        "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
+        "profile_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
+        "plate_gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+        "object_label": 1901,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -128.8863796,
+          0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -162.5,
+          -128.88638,
+          0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": null,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 67.4,
+          "bbox_xy_mm": [
+            154.8,
+            124.8,
+            172.0,
+            144.4
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -7.7,
+            -4.086,
+            0.2,
+            9.5,
+            15.514,
+            67.4
+          ]
+        }
+      ],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            146.280254,
+            124.402254
+          ],
+          [
+            178.719746,
+            195.027746
+          ]
+        ],
+        "maximum_line_width_mm": 0.659492,
+        "bounds_padding_mm": 0.42974599999999996
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 124.402254,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          146.280254,
+          124.402254
+        ],
+        [
+          178.719746,
+          195.027746
+        ]
+      ],
+      "maximum_line_width_mm": 0.659492,
+      "bounds_padding_mm": 0.42974599999999996
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 124.402254,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  }
+}

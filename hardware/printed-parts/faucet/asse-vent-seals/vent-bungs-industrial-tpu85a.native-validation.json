@@ -1,0 +1,99 @@
+{
+  "archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-industrial-tpu85a-h2c/vent-bungs-industrial-tpu85a-h2c.gcode.3mf",
+  "archive_sha256": "b838284bb691defa27e722a0b4aa01dd0da6c3a2cd675984171f9d0f102bb2f5",
+  "gcode_sha256": "72ec6ba47ef812235b7a7718bd97befc483b54930b2e3eb08f7ee450c7a0fd70",
+  "native_settings_normalizations": {
+    "extruder_nozzle_stats_new": [
+      null,
+      [
+        "Standard#1",
+        "Standard#1"
+      ]
+    ],
+    "ams_filament_load_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "farthest_point_timelapse": [
+      null,
+      "0"
+    ],
+    "bed_heat_soak_area": [
+      null,
+      []
+    ],
+    "counterbore_hole_bridging": [
+      null,
+      "none"
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "default_ams_type": [
+      null,
+      "-1"
+    ],
+    "ams_filament_unload_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "ams_filament_load_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "ams_filament_unload_time_ams": [
+      null,
+      "0"
+    ],
+    "inherits_group": [
+      null,
+      [
+        "",
+        "",
+        ""
+      ]
+    ],
+    "ams_filament_load_time_ams": [
+      null,
+      "0"
+    ],
+    "version": [
+      "02.07.01.57",
+      "02.08.02.61"
+    ],
+    "ams_filament_unload_time_n3f_s": [
+      null,
+      "0"
+    ]
+  },
+  "emitted_process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "enable_support": "0"
+  },
+  "actual_z_trim_commands_mm": [
+    0.0,
+    -0.02
+  ],
+  "active_nozzle": 1,
+  "nozzle_diameter_mm": 0.6,
+  "layers": 20,
+  "estimated_seconds": 3833.683837890625,
+  "estimated_grams_saved_profile_density": 8.472350120544434,
+  "slicer_return_code": 0,
+  "slicer_warning": "",
+  "objects": 3
+}

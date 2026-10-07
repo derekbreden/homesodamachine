@@ -24,7 +24,7 @@ PROJECT = HERE / "faucet-industrial-petgf.3mf"
 PROFILE = FAUCET / "faucet-petgf.3mf"
 GASKET = HERE / "industrial-above-counter-gasket.stl"
 # Separate spaces for each part's brim and automatically generated supports.
-PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 110.0), (43.0, -52.0))
+PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 106.0), (43.0, -52.0))
 PROTECTED_SCULPTED = tuple(PROFILE.with_suffix(suffix) for suffix in (
     ".3mf", ".print.json", ".support-audit.json", ".readiness.json"))
 
@@ -87,7 +87,7 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
             "embedded_meshes_match_source_stls": True,
             "parts": len(report["parts"]),
             "plates": report["plate_count"],
-            "minimum_required_model_bed_margin_mm": 15.0,
+            "minimum_required_model_bed_margin_mm": 20.0,
         },
         "offline_slice": {"completed": reading is not None},
         "printer_submission": {"performed_by_this_tool": False},
@@ -123,6 +123,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
     parts = industrial_parts()
     report = writer.refresh(settings_from, output, parts=parts,
                             offsets=PART_OFFSETS, title=TITLE)
+    from prepare_vent_prints import insert_regions
+    writer.add_local_solid_regions(output, report, insert_regions("industrial-shell-base"))
     if report["plate_count"] != 1 or len(report["parts"]) != 4:
         raise ValueError("The Industrial project needs four parts on one plate")
     if profile_members(output) != preserved:

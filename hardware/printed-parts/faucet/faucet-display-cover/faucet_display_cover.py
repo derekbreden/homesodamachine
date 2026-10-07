@@ -26,6 +26,7 @@ from _faucet_interface import (
     display_housing_length, display_housing_width,
 )
 from docgen import substitute_md
+import flute_payload
 import _display_snap
 import faucet_shell as shell
 
@@ -40,10 +41,31 @@ window_x = 2.0 * window_half_x
 window_s = window_s_north - window_s_south
 front_rim_n = 14.0
 front_rim_slope = 1.8
+rear_skirt_extension = 1.2
+rear_trim_s0 = 42.1
+rear_trim_ds_dn = 0.6
 
 
 def build_plate_outer() -> cq.Workplane:
-    return shell.build_display_outer_envelope()
+    """Rounded skin with its lower rear skirt enclosing the display feet."""
+    rows = (
+        (shell.display_cover_skirt_width,
+         shell.display_cover_skirt_length + rear_skirt_extension,
+         shell.display_cover_skirt_r, shell.display_cover_bottom_n),
+        (shell.display_cover_skirt_width,
+         shell.display_cover_skirt_length + rear_skirt_extension,
+         shell.display_cover_skirt_r, shell.display_cover_shoulder_n),
+        (shell.display_cover_face_width, shell.display_cover_face_length,
+         shell.display_cover_face_r, shell.display_cover_top_n),
+    )
+    wires = [shell._display_outline_wire(
+        *row, center_s=shell._display_cover_center_s
+        + (rear_skirt_extension / 2.0 if index < 2 else 0.0))
+        for index, row in enumerate(rows)]
+    loft = shell._display_world(cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=False)))
+    return loft.intersect(shell._cradle_prism(
+        30.0, shell.display_head_s_min,
+        shell.display_head_s_max + rear_skirt_extension + 1.0, -30.0, 40.0))
 
 
 def build_plate_inner_cut() -> cq.Workplane:
@@ -65,8 +87,8 @@ def build_corner_rim_relief() -> cq.Workplane:
              .polyline([(-10.0, -30.0), (front_s, -30.0), (front_s, bottom),
                         (-10.0, front_rim_n + 10.0 * front_rim_slope)])
              .close().extrude(30.0, both=True))
-    rear_s = shell.display_cover_rear_rim_s0 + shell.display_cover_rear_rim_ds_dn * bottom
-    rear_n = (70.0 - shell.display_cover_rear_rim_s0) / shell.display_cover_rear_rim_ds_dn
+    rear_s = rear_trim_s0 + rear_trim_ds_dn * bottom
+    rear_n = (70.0 - rear_trim_s0) / rear_trim_ds_dn
     rear = (cq.Workplane("YZ")
             .polyline([(rear_s, -30.0), (70.0, -30.0),
                        (70.0, rear_n), (rear_s, bottom)])
@@ -74,12 +96,25 @@ def build_corner_rim_relief() -> cq.Workplane:
     return shell._display_world(front).union(shell._display_world(rear))
 
 
+def build_display_cover_lips(outer: cq.Workplane | None = None) -> cq.Workplane:
+    """Broad retaining lips backed by the cover's complete outer skin."""
+    outer = build_plate_outer() if outer is None else outer
+    band = shell._cradle_prism(
+        shell.display_cover_skirt_width / 2.0 + 1.0,
+        shell.display_clip_s_bottom, shell.display_clip_s_top,
+        shell.display_clip_bottom_n, shell.display_clip_top_n)
+    inner = shell.build_display_neck_reference(
+        shell.display_neck_outer_r - shell.display_clip_lip_radius)
+    return shell.relieve_display_lip_inner_edges(outer.intersect(band).cut(inner))
+
+
 def build_seated_display_cover() -> cq.Workplane:
     """Nominal seated fit surface; not a predicted elastic deformation."""
-    skin = (build_plate_outer().cut(build_plate_inner_cut())
+    outer = build_plate_outer()
+    skin = (outer.cut(build_plate_inner_cut())
             .cut(shell.build_display_neck_clearance())
             .cut(build_corner_rim_relief()))
-    return skin.union(shell.build_display_cover_lips())
+    return skin.union(build_display_cover_lips(outer))
 
 
 def preload_inward_at(n: float) -> float:
@@ -165,6 +200,7 @@ def main():
     out = _here.parent / "faucet-display-cover.step"
     export_assembly(one_body(cover, out.stem, C_FAUCET_BLACK), str(out))
     shell.write_bed_file(cover, out.with_suffix(".stl"))
+    flute_payload.cut(out, out.with_suffix(".stl"), preserve_print_triangles=True)
     substitute_md(_here.parent / "README.md", variables={
         "PLATE_X": f"{shell.display_cover_face_width:g} mm",
         "PLATE_S": f"{shell.display_cover_face_length:g} mm",
@@ -185,6 +221,9 @@ def main():
         "DISPLAY_INSTALL_LIFT": f"{shell.display_cartridge_lift_n:g} mm",
         "FOOT_PAD_WIDTH": f"{shell.display_foot_pad_width:g} mm",
         "FOOT_PAD_DEPTH": f"{shell.display_foot_pad_depth:g} mm",
+        "REAR_SKIRT_EXT": f"{rear_skirt_extension:g} mm",
+        "REAR_TRIM_S0": f"{rear_trim_s0:g} mm",
+        "REAR_TRIM_DS_DN": f"{rear_trim_ds_dn:g}",
     })
     print(f"-> {out.name}; {cover.val().Volume():.0f} mm³")
 

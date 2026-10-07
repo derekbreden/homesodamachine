@@ -1,3 +1,7 @@
-[slope] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's -105 degree print pose, the joint end faces the bed, the crown is raised and this channel-end face points upward. Preserve the opening and remove any adjacent support through the display opening or neck joint before loading hardware; physical removal and contact finish remain print observations.
+[slope] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's -95 degree print pose, the joint end faces the bed, the crown is raised and this channel-end face points upward. Preserve the opening and remove any adjacent support through the display opening or neck joint before loading hardware; physical removal and contact finish remain print observations.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-108.966 z=221.050
+click: x=0.000 y=-109.269 z=221.303
+
+[sliver] This pick identifies one zero-area STL triangle on the flavor-guide seam at the dispense transition. Its three vertices are collinear at Y=-139.569565 mm and Z=185.064926 mm, spanning X=-3.174998..3.175000 mm. Its normal is zero, so the lint's strip dimensions are NaN. No finite-area strip is represented by this primitive. The corresponding saved STEP remains one valid solid; this answer covers only the collapsed tessellation triangle at this pick.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-139.570 z=185.065

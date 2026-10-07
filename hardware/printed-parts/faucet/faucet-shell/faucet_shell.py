@@ -176,8 +176,10 @@ foot_center_y = 0.0
 base_pod_counterbore_dia = 6.15
 base_pod_shank_dia = 3.9
 base_pod_wall = wall_thickness_min
-base_pod_center_x = 20.0
-base_pod_center_y = 10.0
+# The lateral sockets clear the edge-on cable lane and keep two millimetres
+# of continuous stock around both their socket and installed brass envelopes.
+base_pod_center_x = 22.5
+base_pod_center_y = -2.0
 base_pod_front_center_x = 0.0
 base_pod_front_center_y = -22.3
 base_pod_centers = [
@@ -626,39 +628,50 @@ def build_lower_outer() -> cq.Workplane:
     return cq.Workplane(obj=loft.fuse(neck_land)).clean()
 
 
-# The ribbon leaves the counter beside the flavor pair, inside the metal
-# mounting plate's existing open channel.
-signal_lower_exit_x = 13.5
-signal_lower_exit_y = 5.0
+# The ribbon passes the donor's round foot edge-on, inside the 1-3/8-inch
+# counter hole. The metal plate's outer shank-channel relief admits it.
+signal_lower_exit_x = 16.35
+signal_lower_exit_y = 5.7
+signal_lower_exit_angle = 90.0
 
 
 def _lower_signal_stations():
     top_y = flavor_tube_depth + _paths.TIGHT_RIBBON_N - _paths.TIGHT_FLAVOR_N
-    return ((14.0, signal_lower_exit_x, signal_lower_exit_y),
-            (18.0, 14.0, 10.0),
-            (22.0, 14.0, 18.0),
-            (27.0, 12.9, 21.0),
-            (31.0, 9.0, top_y),
-            (36.0, 1.0, top_y),
-            (39.0, 0.0, top_y))
+    return ((14.0, signal_lower_exit_x, signal_lower_exit_y, signal_lower_exit_angle),
+            (18.0, 16.35, 10.0, 45.0),
+            (22.0, 14.0, 18.0, 0.0),
+            (27.0, 12.9, 21.0, 0.0),
+            (31.0, 9.0, 23.6, 0.0),
+            (36.0, 1.0, top_y, 0.0),
+            (39.0, 0.0, top_y, 0.0))
 
 
-def _lower_signal_profile(z, x, y, width, depth, rounded):
+def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
     wp = cq.Workplane("XY").workplane(offset=z).center(x, y)
-    return (wp.slot2D(width, depth) if rounded else wp.rect(width, depth)).val()
+    wire = (wp.slot2D(width, depth) if rounded else wp.rect(width, depth)).val()
+    return wire.rotate((x, y, z), (x, y, z + 1.0), angle)
 
 
-def _lower_signal_solid(width, depth, rounded, bottom_z, straight_overlap=0.2,
-                        turn_clearance=0.0):
+def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
     stations = _lower_signal_stations()
-    wires = [_lower_signal_profile(z, x, y, width + 2.0 * turn_clearance,
-                                   depth + 2.0 * turn_clearance, rounded)
-             for z, x, y in stations]
-    turn = cq.Solid.makeLoft(wires, ruled=True)
-    vertical = (_lower_signal_profile(bottom_z, signal_lower_exit_x,
-                                     signal_lower_exit_y, width, depth, rounded))
-    straight = cq.Solid.extrudeLinear(vertical, [], cq.Vector(0.0, 0.0, stations[0][0] + straight_overlap - bottom_z))
-    return cq.Workplane(obj=straight.fuse(turn))
+    wires = [_lower_signal_profile(z, signal_lower_exit_x, signal_lower_exit_y,
+                                   width, depth, rounded, signal_lower_exit_angle)
+             for z in (bottom_z, stations[0][0] - 1.0)]
+    # Closely spaced angular sections preserve the complete ribbon envelope
+    # through its edge-on turn. Constant-angle spans remain exact ruled lofts.
+    turn_stations = [stations[0]]
+    for first, last in zip(stations, stations[1:]):
+        count = max(1, math.ceil((last[0] - first[0]) / 0.25)) if first[3] != last[3] else 1
+        turn_stations.extend(tuple(a + (b - a) * index / count
+                                   for a, b in zip(first, last))
+                             for index in range(1, count + 1))
+    wires.extend(_lower_signal_profile(z, x, y, width + 2.0 * turn_clearance,
+                                       depth + 2.0 * turn_clearance, rounded, angle)
+                 for z, x, y, angle in turn_stations)
+    solid = cq.Solid.makeLoft(wires, ruled=True)
+    if not solid.isValid() or len(solid.Solids()) != 1:
+        raise ValueError("the complete lower ribbon or clearance lane must be one valid solid")
+    return cq.Workplane(obj=solid)
 
 
 def build_lower_signal_ribbon() -> cq.Workplane:
@@ -670,14 +683,13 @@ def build_lower_signal_lane() -> cq.Workplane:
     """Cable lane with a broad opening to the flavor passage, leaving no thin fin."""
     from shapely.geometry import MultiPoint
 
-    # Carry the vertical relief beyond the ribbon's straight-to-turn join so
-    # its square corner has clearance from the passage's transition ledge.
-    # The curved run needs additional normal clearance at its oblique sections.
+    # The edge-on vertical relief expands before the first cable turn.
+    # Oblique sections retain additional clearance around the complete ribbon.
     lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, -6.2,
-                               straight_overlap=1.2, turn_clearance=0.05)
+                               turn_clearance=0.15)
     stations = _lower_signal_stations()
     wires = []
-    for z, x, y in stations:
+    for z, x, y, angle in stations:
         # Join the existing flat-sided flavor opening to the capsule's
         # interior. A convex bridge removes the material wedge between the
         # pill side and the capsule end throughout the straight/turn handoff.
@@ -693,9 +705,11 @@ def build_lower_signal_lane() -> cq.Workplane:
                   for px in (-pill_half_x, pill_half_x)
                   for py in (flavor_pill_y_minus_edge - overlap,
                              flavor_tube_depth + overlap)]
-        points.extend((px, py)
-                      for px in (x - lane_half_x, x + lane_half_x)
-                      for py in (y - lane_half_y, y + lane_half_y))
+        theta = math.radians(angle)
+        points.extend((x + px * math.cos(theta) - py * math.sin(theta),
+                       y + px * math.sin(theta) + py * math.cos(theta))
+                      for px in (-lane_half_x, lane_half_x)
+                      for py in (-lane_half_y, lane_half_y))
         outline = list(MultiPoint(points).convex_hull.exterior.coords)[:-1]
         wires.append(cq.Workplane("XY").workplane(offset=z)
                      .polyline(outline).close().val())
@@ -1279,7 +1293,9 @@ display_foot_pad_width = 3.0
 display_foot_pad_depth = wall_thickness_min
 # Factory assembly: place the display in the open cover, approach from the
 # outlet at S=-slide, translate along S while lifted, then seat along -N.
-display_cartridge_lift_n = 8.5
+# A 9.5 mm factory lift clears the complete relaxed cover from the round neck
+# by 0.566 mm throughout the axial approach, before normal seating.
+display_cartridge_lift_n = 9.5
 display_cartridge_slide_s = 60.0
 display_loading_travel_n = 25.0
 display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
