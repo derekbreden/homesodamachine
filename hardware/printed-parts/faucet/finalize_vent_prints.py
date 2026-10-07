@@ -74,6 +74,40 @@ def finalize(project: Path, kind: str) -> dict:
     assert ready["native"]["gcode_sha256"] == preparation.sha(native.parent / "plate_1.gcode")
     reviews = {}
 
+    binding = report.get("source_binding_evidence")
+    if binding:
+        evidence_path = preparation.ROOT / binding["path"]
+        assert preparation.sha(evidence_path) == binding["sha256"]
+        evidence = read(evidence_path)
+        assert evidence["passed"] is True
+        assert evidence["sources_unchanged_during_check"] is True
+        assert ready["source_binding_evidence"] == binding
+        for key in ("current_source_sha256", "exact_retained_step_stl_sha256"):
+            for name, expected in evidence[key].items():
+                assert preparation.sha(preparation.ROOT / name) == expected, name
+        checker = preparation.ROOT / evidence["checker"]
+        assert preparation.sha(checker) == evidence["checker_sha256"]
+        free_binding = evidence["free_seal_geometry_proof"]
+        free_path = preparation.ROOT / free_binding["path"]
+        assert preparation.sha(free_path) == free_binding["sha256"]
+        assert read(free_path)["passed"] is True
+        project_name = preparation.relative(project)
+        provenance = evidence["native_execution_provenance"][project_name]
+        original_sources = provenance["original_native_execution_source_sha256"]
+        assert report["native_execution_source_sha256"] == original_sources
+        assert ready["native_execution_source_sha256"] == original_sources
+        retained = next(row for row in evidence["retained_native_plates"]
+                        if row["project"] == project_name)
+        assert retained["exact_native_tuple_and_pose_unchanged"] is True
+        assert retained["project_sha256"] == ready["project_sha256"]
+        assert retained["settings_sha256"] == ready["settings_sha256"]
+        assert retained["native_archive"] == ready["native"]["archive"]
+        assert retained["native_archive_sha256"] == ready["native"]["archive_sha256"]
+        assert retained["gcode_sha256"] == ready["native"]["gcode_sha256"]
+        assert provenance["parts_and_print_pose"] == report["parts"]
+        for path in (evidence_path, checker, free_path):
+            reviews[preparation.relative(path)] = preparation.sha(path)
+
     def review(suffix, check_pass=False):
         path = project.with_suffix(suffix)
         evidence = read(path)
