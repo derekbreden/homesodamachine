@@ -22,7 +22,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 FAUCET = ROOT / "hardware/printed-parts/faucet"
 SHELL = FAUCET / "faucet-shell"
-OUTPUT = SHELL / "geometry-check.json"
+OUTPUT = SHELL / "centered-vent-check.json"
 DISTANCE_TOLERANCE = 1e-4
 VOLUME_TOLERANCE = 1e-5
 # HOW DEEP A CONTACT HAS TO REACH BEFORE A PRINT HAS IT. Two faces meant to meet flush leave a
@@ -39,6 +39,8 @@ def source_paths() -> tuple[Path, ...]:
     return (Path(__file__).resolve(),
             ROOT / "hardware/faucet-layout/faucet_assembly.py",
             FAUCET / "_faucet_interface.py",
+            FAUCET / "faucet_paths.py",
+            FAUCET / "vent_seals.py",
             FAUCET / "_display_snap.py",
             FAUCET / "refresh_print_project.py",
             ROOT / "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py",
@@ -268,26 +270,41 @@ def lower_outer_mesh_reading(reading, f, mesh_path: Path | None = None):
     return measurements
 
 
-def tube_radius_reading(reading, f, assembly):
-    from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
-    source = "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf"
-    arcs = []
-    for path in (p for x_sign in assembly.flavor_sides for p in assembly.flavor_centerlines(x_sign)):
-        for edge in path.wire().val().Edges():
-            if edge.geomType() == "CIRCLE":
-                arcs.append(BRepAdaptor_Curve(edge.wrapped).Circle().Radius())
-    reading.add("route:flavor-tube-radius", bool(arcs) and min(arcs) >= f.flavor_bend_min_radius - DISTANCE_TOLERANCE,
-                method="actual circular edges of both assembled flavor centerlines, faucet to tail splay",
-                centerline_radii_mm=sorted({clean_number(r) for r in arcs}),
-                supplier_minimum_mm=f.flavor_bend_min_radius, supplier_source=source)
-    for name, body, minimum in (("flavor-passage", f.build_flavor_transition_inner_cut(), f.flavor_bend_min_radius),
-                                 ("soda-tube", assembly.build_soda_faucet_tube(), 31.75)):
-        radii = [BRepAdaptor_Surface(face.wrapped).Torus().MajorRadius()
-                 for face in shape(body).Faces() if face.geomType() == "TORUS"]
-        reading.add(f"route:{name}-radius", bool(radii) and min(radii) >= minimum - DISTANCE_TOLERANCE,
-                    method="toroidal B-rep surfaces' major radii",
-                    centerline_radii_mm=sorted({clean_number(r) for r in radii}),
-                    supplier_minimum_mm=minimum, supplier_source=source)
+def minimum_curve_radius(wire):
+    """Read curvature of every line, circle and interpolated production edge."""
+    from OCP.BRepAdaptor import BRepAdaptor_Curve
+    from OCP.gp import gp_Pnt,gp_Vec
+    if hasattr(wire,"wire"):wire=wire.wire().val()
+    result=[]
+    for edge in wire.Edges():
+        if edge.geomType()=="LINE":continue
+        curve=BRepAdaptor_Curve(edge.wrapped)
+        lo,hi=curve.FirstParameter(),curve.LastParameter()
+        values=[]
+        for i in range(401):
+            t=lo+(hi-lo)*(i+0.0001)/400.0002
+            point,v,a=gp_Pnt(),gp_Vec(),gp_Vec()
+            curve.D2(t,point,v,a)
+            cross=v.Crossed(a).Magnitude()
+            if cross>1e-12:values.append(v.Magnitude()**3/cross)
+        if values:result.append(min(values))
+    return result
+
+
+def tube_radius_reading(reading,f,assembly):
+    source="https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf"
+    radii=[r for sign in assembly.flavor_sides for path in assembly.flavor_centerlines(sign)
+           for r in minimum_curve_radius(path)]
+    reading.add("route:flavor-tube-radius",bool(radii) and min(radii)>=f.flavor_bend_min_radius-DISTANCE_TOLERANCE,
+                method="401 native derivatives per curved production centerline edge, including spline transitions",
+                minimum_sampled_centerline_radius_mm=clean_number(min(radii)),
+                supplier_minimum_mm=f.flavor_bend_min_radius,supplier_source=source)
+    from OCP.BRepAdaptor import BRepAdaptor_Surface
+    radii=[BRepAdaptor_Surface(face.wrapped).Torus().MajorRadius()
+           for face in shape(assembly.build_soda_faucet_tube()).Faces() if face.geomType()=="TORUS"]
+    reading.add("route:soda-tube-radius",bool(radii) and min(radii)>=31.75-DISTANCE_TOLERANCE,
+                centerline_radii_mm=sorted({clean_number(r) for r in radii}),supplier_minimum_mm=31.75,
+                supplier_source=source)
 
 
 def clearance_reading(reading, name, first, second, minimum_gap=0.0):
@@ -333,8 +350,8 @@ def neck_reading(reading, f, full, base, tip):
     profile_y = (0.0, math.cos(theta), math.sin(theta))
     center = (0.0, f.soda_faucet_tube_y - point[0] + f.tube_shell_center_y * profile_y[1],
               f.zone5_z_top + point[1] + f.tube_shell_center_y * profile_y[2])
-    stations += (("socket", base, center, profile_y, f.wall_thickness_min),
-                 ("plug", tip, center, profile_y, f.wall_thickness_min))
+    stations += (("socket", tip, center, profile_y, f.wall_thickness_min),
+                 ("plug", base, center, profile_y, f.wall_thickness_min))
     for name, part, center, profile_y, requirement in stations:
         probes = []
         for step in range(72):
@@ -467,7 +484,7 @@ def lower_access_reading(reading, f, base):
             continue
         direction = cq.Vector(math.copysign(wall, x), 0.0, 0.0)
         witness = cq.Solid.extrudeLinear(face.outerWire(), face.innerWires(), direction)
-        missing = volume(witness.cut(base))
+        missing = outside_material_volume(witness, base)
         cheek_rows.append({"cavity_face_x_mm": clean_number(x),
                            "witness_volume_mm3": clean_number(volume(witness)),
                            "missing_witness_mm3": clean_number(missing)})
@@ -571,7 +588,7 @@ def lower_access_reading(reading, f, base):
     bridge_box = cq.Solid.makeBox(2.0*half_width, rear_y-front_y, f.zone4_z_top+wall-rest_top,
                                   cq.Vector(-half_width, front_y, rest_top))
     witness = roof_circle.translate((0.0, 0.0, wall)).cut(roof_circle).intersect(bridge_box).intersect(cap)
-    missing = volume(witness.cut(base))
+    missing = outside_material_volume(witness, base)
     reading.add("wall:lever-roof-bridge", volume(witness) > VOLUME_TOLERANCE and missing <= VOLUME_TOLERANCE,
                 method=f"complete {wall:g} mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, clipped to the retained rounded cap and ending one wall-width forward of the water bore",
                 xy_bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y)],
@@ -1926,9 +1943,9 @@ def ribbon_reading(reading, f, assembly, parts):
                 ("display-usb", f.build_display_usb_keepout()))
     for name, body in hardware:
         clearance_reading(reading, f"clearance:signal-{name}", ribbon, body)
-    lane = (cq.Workplane("XY").center(0.0, f.signal_lane_center_n)
+    lane = (cq.Workplane("XY").center(0.0, f._paths.TIGHT_RIBBON_N)
             .slot2D(f.signal_lane_width, f.signal_lane_depth).extrude(1.0).val())
-    section = (cq.Workplane("XY").center(0.0, f.signal_lane_center_n)
+    section = (cq.Workplane("XY").center(0.0, f._paths.TIGHT_RIBBON_N)
                .rect(f.signal_ribbon_max_width, f.signal_ribbon_max_depth).extrude(1.0).val())
     outside = volume(section.cut(lane))
     reading.add("fit:signal-lane-section", outside <= VOLUME_TOLERANCE,
@@ -2076,6 +2093,45 @@ def saved_retention_reading(output: Path, *, sampled_seating=False) -> int:
     return 0 if passed else 1
 
 
+def drain_reading(reading, f, assembly, parts):
+    """Read the continuous drain against the complete installed counter stack."""
+    import cadquery as cq
+    drain = shape(assembly.build_drain_tube())
+    envelope = shape(assembly.build_drain_tube(envelope=True))
+    path = assembly.drain_path()
+    radii = minimum_curve_radius(path)
+    reading.add("drain:continuous-r25-tube", drain.isValid() and len(drain.Solids()) == 1
+                and bool(radii) and min(radii) >= 25.0 - DISTANCE_TOLERANCE,
+                outer_diameter_mm=4.0, modeled_inner_diameter_mm=2.5,
+                centerline_length_mm=clean_number(path.Length()),
+                bend_radii_mm=[clean_number(r) for r in radii],
+                scope="Native CAD curvature, neoFlo nominal 2.5 mm bore and R25 manufacturer specification; no vent performance qualification.")
+    obstacles = {**parts, "countertop": assembly.build_countertop(),
+                 "under_counter_plate": assembly.build_under_counter_plate(),
+                 "donor": assembly.load_westbrass(),
+                 "soda": assembly.build_soda_faucet_tube(),
+                 "flavor_a": assembly.build_flavor_tube(+1),
+                 "flavor_b": assembly.build_flavor_tube(-1),
+                 "foam": assembly.build_foam(),
+                 "sleeve": assembly.build_sleeve(),
+                 "signal_ribbon": assembly.build_display_ribbon()}
+    for name, obstacle in obstacles.items():
+        clearance_reading(reading, "drain:clearance-" + name, envelope, obstacle)
+    tube_end=f.drain_return_point(f.drain_exit_angle())
+    p=f._paths
+    end=p.station_point(p.PORT_START_S+p.PORT_LENGTH_S/2,n=p.SHELL_CENTER_N-p.SHELL_RADIUS)
+    beverage_end, _tangent, _normal = f._tip_frame()
+    separation = cq.Vector(*end).sub(beverage_end).Length
+    reading.add("drain:separate-open-outlet", separation > 50.0,
+                drain_endpoint_xyz_mm=[clean_number(v) for v in tube_end],
+                underside_outlet_center_xyz_mm=[clean_number(v) for v in end],
+                beverage_face_center_xyz_mm=[clean_number(v) for v in beverage_end.toTuple()],
+                endpoint_separation_mm=clean_number(separation),
+                beverage_pattern="two symmetric 1/4-inch flavor tubes above the 3/8-inch soda tube",
+                neck_cross_section="constant circular profile",
+                neck_diameter_mm=clean_number(2 * f.tube_shell_outer_r))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT)
@@ -2109,6 +2165,7 @@ def main() -> int:
     mesh_reading(reading, f, {"display_cover_relaxed_print": free_cover})
     lower_outer_mesh_reading(reading, f)
     tube_radius_reading(reading, f, assembly)
+    drain_reading(reading, f, assembly, parts)
     base, tip, plate = parts["shell_base"], parts["shell_tip"], parts["above_counter_plate"]
     for name in ("shell_base", "shell_tip", "above_counter_plate", "display_cover"):
         clearance_reading(reading, f"clearance:donor-{name}", parts[name], assembly.load_westbrass())

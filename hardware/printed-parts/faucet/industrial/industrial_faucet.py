@@ -68,6 +68,7 @@ def lower_cavities():
         "water": shell.build_lower_soda_inner_cut(),
         "flavor": shell.build_flavor_transition_inner_cut(),
         "signal": shell.build_signal_transition_inner_cut(),
+        "drain": shell.build_drain_neck(cutter=True),
         "neck": shell._tube_shell_inner_section(
             neck_join_z, neck_join_overlap + 0.1),
     }

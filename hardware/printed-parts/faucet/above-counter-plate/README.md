@@ -32,7 +32,7 @@ face; each pedestal has clearance above its tip.
 
 ## Tube openings
 
-The flavor pair passes through a [13.6 mm](PLATE_PILL_L) ×
+The flavor pair passes through a [18.15 mm](PLATE_PILL_L) ×
 [7.25 mm](PLATE_PILL_W) pill slot centered at
 (0,+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
 The connected signal-cable branch is a 5.0 × 1.8 mm capsule centered at
