@@ -2,11 +2,11 @@
   "passed": true,
   "geometry_source_sha256": {
     "hardware/printed-parts/faucet/industrial/check_display_cover.py": "53a2c703699b0ff325f2d41e28fd71a0218056727a223aa15728c8e26541d97d",
-    "hardware/scripts/check_faucet_geometry.py": "5aedafa93009c3860e9fc6d7bef6450a9cb85466e69129f095d83f0299aab17b",
-    "hardware/faucet-layout/faucet_assembly.py": "5c78bec5462d340a39b5f95bc8e12c65775a8f371d6c93da1fac41d1537a631c",
+    "hardware/scripts/check_faucet_geometry.py": "676023b54a0517e54ed11ef4f059ce8a0cf8c1bc002e3b92f3d1fe6234789bfb",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "838fab0004d4b78e14259939b820f290a9ff337fad348995b40b9098940ca836",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
@@ -15,8 +15,8 @@
   "saved_geometry_sha256": {
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "96d0c010f1df4819a3a0a307cdb324ca8822c1670af4dcdf48f26e1575c20322"
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "36244b63769035d4af61b642e588321e880fc483b9cf9b02050960286dba2cdf",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3"
   },
   "checks": {
     "provenance:saved-cover-current-builder": {
@@ -823,14 +823,14 @@
           "n_mm": 9.1,
           "side": -1,
           "outer_endpoint_error_mm": 0.0,
-          "continuous_stock_mm": 6.2037923
+          "continuous_stock_mm": 6.2037922
         },
         {
           "s_mm": 2.0,
           "n_mm": 9.1,
           "side": 1,
           "outer_endpoint_error_mm": 0.0,
-          "continuous_stock_mm": 6.2037923
+          "continuous_stock_mm": 6.2037922
         },
         {
           "s_mm": 6.0,
@@ -7398,8 +7398,8 @@
     "bezel_n_bottom": 20.55
   },
   "reference_artifact_sha256": {
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "96d0c010f1df4819a3a0a307cdb324ca8822c1670af4dcdf48f26e1575c20322"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "36244b63769035d4af61b642e588321e880fc483b9cf9b02050960286dba2cdf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3"
   },
   "validation_script_sha256": "53a2c703699b0ff325f2d41e28fd71a0218056727a223aa15728c8e26541d97d",
   "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial."

@@ -65,6 +65,8 @@ def build_lever_opening():
 
 def lower_cavities():
     return {
+        # Cut the cable corridor through simple stock before adjoining bore faces.
+        "signal": shell.build_signal_transition_inner_cut(),
         "donor-cylinder": shell.build_zone1_inner_cut(),
         "mount-sockets": shell.build_base_pod_holes(),
         "donor-body": shell.build_zone2_inner_cut(),
@@ -73,7 +75,6 @@ def lower_cavities():
         "lower-signal": shell.build_lower_signal_lane(),
         "water": shell.build_lower_soda_inner_cut(),
         "flavor": shell.build_flavor_transition_inner_cut(),
-        "signal": shell.build_signal_transition_inner_cut(),
         "drain": shell.build_drain_neck(cutter=True),
         "neck": shell._tube_shell_inner_section(
             neck_join_z, neck_join_overlap + 0.1),
@@ -83,7 +84,9 @@ def lower_cavities():
 def build_shell_base():
     lower = build_lower_outer().val()
     for cavity in lower_cavities().values():
-        lower = lower.cut(cavity.val())
+        lower = lower.cut(cavity.val(), tol=neck_join_boolean_tolerance)
+    if not lower.isValid() or len(lower.Solids()) != 1:
+        raise ValueError("Industrial lower stock must be one valid printable solid")
     # Keep native boundary parameters through the shared curved neck.
     shared = shell.build_shell_base().val()
     upper = shared.intersect(cq.Solid.makeBox(
