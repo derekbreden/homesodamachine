@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "identifier": "lillium-prototype-2026-10-07",
+  "source_revision": "b20e7d2081e986f988967edb47e966634a29d6c3",
+  "source_revision_scope": "Enclosure generator. Each archived dependency is bound separately to the exact hash in the generation record.",
+  "scope": "Frozen back-top and fit fixtures for the Lillium-fed under-sink flavor prototype. CAD fit evidence; no back-top physical print or wet commissioning result.",
+  "frame_to_machine_translation_mm": [
+    0.0,
+    164.55,
+    299.9
+  ],
+  "artifacts": {
+    "cold-core--foam-shell.brep": {
+      "snapshot": "inputs/cold-core--foam-shell.brep.gz",
+      "sha256": "d21bd0b0eaea5abf60c69b5fc374b196ccb9947874c46842a4c41be8b775a622",
+      "compressed_sha256": "cb69c6cf6a248462034e1cd5ac4f99897b403276332ab224a28af24778fe35d8",
+      "bytes": 710764,
+      "compressed_bytes": 191477,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "cold-core--reservoir-a-cap.brep": {
+      "snapshot": "inputs/cold-core--reservoir-a-cap.brep.gz",
+      "sha256": "918953a43f83628eb4226a7f5d28296b5a2c1acc3277de664ee9f2b642fffdf5",
+      "compressed_sha256": "2f10f2f44992e52c15412cc360b32a9badb7240a0fc5379456f58000a76847c5",
+      "bytes": 63231,
+      "compressed_bytes": 8418,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "cold-core--reservoir-a.brep": {
+      "snapshot": "inputs/cold-core--reservoir-a.brep.gz",
+      "sha256": "e7fe22bb111fdbfbd3aa3ae32d099b4e9e99559c1bcf0eaf3057a09c1502ce6c",
+      "compressed_sha256": "be428d94ba511282af05b7e6c84e77993ebc283fa9998ac28f94b4dea9938ed0",
+      "bytes": 66465,
+      "compressed_bytes": 13116,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "cold-core--reservoir-b-cap.brep": {
+      "snapshot": "inputs/cold-core--reservoir-b-cap.brep.gz",
+      "sha256": "0480a99c7fa2e22719b8a369ee37d8923f25da2df9686722a044869d6aeebe92",
+      "compressed_sha256": "2a7ea5cae28e9748afa7c55adccd67856fe586c1dd177361e463d26dde996dac",
+      "bytes": 62952,
+      "compressed_bytes": 8275,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "cold-core--reservoir-b.brep": {
+      "snapshot": "inputs/cold-core--reservoir-b.brep.gz",
+      "sha256": "15a439f67615309c6f31c04c280a2d0ee31e6af23a104f771e4722244a845f86",
+      "compressed_sha256": "6823ce296d820d37d344e433f1d5351a401cfb55ef23ac2635d6d01f6fe5235f",
+      "bytes": 65713,
+      "compressed_bytes": 12725,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "digiten-flow.brep": {
+      "snapshot": "inputs/digiten-flow.brep.gz",
+      "sha256": "63330697b59dab92957460dcdbd5a278a8fdbf6757e2da2927659c25519d1e0d",
+      "compressed_sha256": "ec5dbaa74b6149cbf6b0afb5a76ccbfdb4984f90bd87f5e9a7535414d4fc6ec4",
+      "bytes": 202114,
+      "compressed_bytes": 42654,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "enclosure-back-bottom.stl": {
+      "snapshot": "inputs/enclosure-back-bottom.stl.gz",
+      "sha256": "812a9da867eae77ffbe2c64b82a6f4d6fecd406a190b726444f5514695569c2c",
+      "compressed_sha256": "9abab2fcfd19512ceb7bdfd6db0acd2ccaccd7bf1842b6df35546c21effdf88a",
+      "bytes": 70263284,
+      "compressed_bytes": 20498686,
+      "role": "printed bottom fit fixture recovered from the source-bound native project",
+      "extraction": {
+        "project": ".cache/prints/enclosure-back-bottom-grip-bridges-mark2-v3/enclosure-back-bottom-grip-bridges-mark2-v3-input.3mf",
+        "project_sha256": "f38cfc37c4429f364f8939e70edcde478db6f87632ebd2d86a506629935a0972",
+        "member": "3D/Objects/object_1.model",
+        "source_center_mm": [
+          0.0,
+          335.9499969482422,
+          84.4000015258789
+        ],
+        "original_stl_sha256": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
+        "original_step_sha256": "4bf0c6161ef5750b844105a2530154f2a685a79d337703bb447e2a678db950fa",
+        "recovered_stl_sha256": "812a9da867eae77ffbe2c64b82a6f4d6fecd406a190b726444f5514695569c2c",
+        "original_embedded_vertex_error_mm": 5.000018177270249e-10,
+        "bounds_mm": [
+          [
+            -107.5,
+            200.00000000024218,
+            -6.000000000121091
+          ],
+          [
+            107.5,
+            471.8999938962422,
+            174.8000030518789
+          ]
+        ],
+        "method": "Saved native input vertices plus recorded original CAD center; triangle indices retained."
+      }
+    },
+    "enclosure-back-top.step": {
+      "snapshot": "inputs/enclosure-back-top.step.gz",
+      "sha256": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+      "compressed_sha256": "be45844c2f8f2c51ec0ba09060beac0332c86b58c30613021e3da706f9a79fa8",
+      "bytes": 2832334,
+      "compressed_bytes": 462108,
+      "role": "prototype back-top deliverable",
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step"
+    },
+    "enclosure-back-top.step.mesh": {
+      "snapshot": "inputs/enclosure-back-top.step.mesh.gz",
+      "sha256": "0e2e43d328eeb34023a82d2c98ca3f36a2d071cdef04ee9f811484bdff80b5ca",
+      "compressed_sha256": "d777e6f7be55579eaa249e6cfe698406525e51da06f1d5d4677b4126268bf1d0",
+      "bytes": 5201556,
+      "compressed_bytes": 1754124,
+      "role": "prototype back-top deliverable",
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh"
+    },
+    "enclosure-back-top.stl": {
+      "snapshot": "inputs/enclosure-back-top.stl.gz",
+      "sha256": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7",
+      "compressed_sha256": "d1df24571a82df91cf04e95ee52cd16a20f43e572d6479b76a8ba1197e234d89",
+      "bytes": 52845284,
+      "compressed_bytes": 9750002,
+      "role": "prototype back-top deliverable",
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
+    },
+    "enclosure-front-bottom.stl": {
+      "snapshot": "inputs/enclosure-front-bottom.stl.gz",
+      "sha256": "6cf6cd0964a6809e96ac204d5a1833a4c44563e6603832e74b0a02ccec383f98",
+      "compressed_sha256": "20105032a13b70ffaa8f9b93d58c3c1151e4659b8202dcce963a7f92dad8848d",
+      "bytes": 16559084,
+      "compressed_bytes": 4529663,
+      "role": "printed bottom fit fixture recovered from the source-bound native project",
+      "extraction": {
+        "project": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/enclosure-front-bottom-grip-bridges-h2c-v3-input.3mf",
+        "project_sha256": "772b3c16f2320cc02133281b04de81315c21c2652a042b6bc4949502921a95b6",
+        "member": "3D/Objects/object_1.model",
+        "source_center_mm": [
+          0.0,
+          108.7750015258789,
+          84.4000015258789
+        ],
+        "original_stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+        "original_step_sha256": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247",
+        "recovered_stl_sha256": "6cf6cd0964a6809e96ac204d5a1833a4c44563e6603832e74b0a02ccec383f98",
+        "original_embedded_vertex_error_mm": 5.000018177270249e-10,
+        "bounds_mm": [
+          [
+            -107.5,
+            4.999999999878909,
+            -6.000000000121091
+          ],
+          [
+            107.5,
+            212.5500030518789,
+            174.8000030518789
+          ]
+        ],
+        "method": "Saved native input vertices plus recorded original CAD center; triangle indices retained."
+      }
+    },
+    "enclosure-front-top.step": {
+      "snapshot": "inputs/enclosure-front-top.step.gz",
+      "sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+      "compressed_sha256": "25d468488646c89f3c0aca956052be307193f921fab319b1521d34db244ccb77",
+      "bytes": 2720558,
+      "compressed_bytes": 485489,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": ".cache/prints/2026-10-05-enclosure-front-top-c3-v69-h2c-v20/inputs/01-enclosure-front-top.step"
+    },
+    "enclosure-front-top.stl": {
+      "snapshot": "inputs/enclosure-front-top.stl.gz",
+      "sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+      "compressed_sha256": "54acbc18e81ca22391290a6676f4db77d4e8e27eb6a8f7142bd223fd47abad37",
+      "bytes": 26408184,
+      "compressed_bytes": 6008219,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": ".cache/prints/2026-10-05-enclosure-front-top-c3-v69-h2c-v20/inputs/00-enclosure-front-top.stl"
+    },
+    "enclosure-pump-cap.brep": {
+      "snapshot": "inputs/enclosure-pump-cap.brep.gz",
+      "sha256": "1e6512ee38314b4727140518156edfdca09354e777c0ce0b7c427c075d08b308",
+      "compressed_sha256": "2f6c3ab9d48d5d3eeeff7dd41dc4d7a6c5757c2e7b7f64fcd6fd419ce03a3e1f",
+      "bytes": 93865,
+      "compressed_bytes": 14152,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "enclosure-pump-cartridge.brep": {
+      "snapshot": "inputs/enclosure-pump-cartridge.brep.gz",
+      "sha256": "dc6cc532e87c41a86b217c4fbbf2d700c9f79a6db8dfd321c4a277d4f90c2624",
+      "compressed_sha256": "567236bb69bb209b6e7b93b45cf1e42c0c3e86a517cdef79e82ad8265d6b9bb6",
+      "bytes": 516834,
+      "compressed_bytes": 77182,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "enclosure-tee-carrier-plate.brep": {
+      "snapshot": "inputs/enclosure-tee-carrier-plate.brep.gz",
+      "sha256": "a1867713788179a3805a4878f75b5275e7851c78a7d6a389dde5551a1af8acc0",
+      "compressed_sha256": "fc4af25fa0e5d68a0a5f05112be2b770afdd876bc36f2b351ebc98c0040f5da4",
+      "bytes": 103145,
+      "compressed_bytes": 14144,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "funnel-frame.brep": {
+      "snapshot": "inputs/funnel-frame.brep.gz",
+      "sha256": "195756e6e96beb785211571c9bac2a1bf06a4290b116eae212d0ef48ec61a57d",
+      "compressed_sha256": "8d3af6f970117edc47de0a573002fa6a61d047777b040a4198c0e4a7a1a72a48",
+      "bytes": 279114,
+      "compressed_bytes": 79784,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": "hardware/printed-parts/zone-c/funnel/funnel-frame.brep"
+    },
+    "funnel-frame.step": {
+      "snapshot": "inputs/funnel-frame.step.gz",
+      "sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+      "compressed_sha256": "fbaa22953ce5b187e9f6e57493a32d6d7c702c25661f7e8cfb2a0558a1735cf6",
+      "bytes": 680880,
+      "compressed_bytes": 140071,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": "hardware/printed-parts/zone-c/funnel/funnel-frame.step"
+    },
+    "funnel-frame.stl": {
+      "snapshot": "inputs/funnel-frame.stl.gz",
+      "sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+      "compressed_sha256": "6e7d371f310cd44081d7734dfda9efe8f47cc70862c0ab8d6d40eb1eeab9ca75",
+      "bytes": 2020084,
+      "compressed_bytes": 882168,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"
+    },
+    "pcba.brep": {
+      "snapshot": "inputs/pcba.brep.gz",
+      "sha256": "456133a9ba2af377d0231e2c76c6c0b242fe7de3075a19af54c653fb6c32cfd6",
+      "compressed_sha256": "77db2d8269c8a0a769b23ab98a5b5d08bd3f0fa56280a9247a430d111bfc72b8",
+      "bytes": 438141,
+      "compressed_bytes": 48608,
+      "role": "fixed fit or print preparation fixture"
+    },
+    "petgf.3mf": {
+      "snapshot": "inputs/petgf.3mf.gz",
+      "sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "compressed_sha256": "432ed53e347c4d9c983efd793d32f37d3e16d48d3cc357fefcdb26ab73ad5756",
+      "bytes": 1212607,
+      "compressed_bytes": 1197189,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": "hardware/printed-parts/petgf.3mf"
+    },
+    "print-regions.json": {
+      "snapshot": "inputs/print-regions.json.gz",
+      "sha256": "fff9fe2f5da3a7dd818017fedbc6771a3b259674bb6584fa32a8d43306b19e56",
+      "compressed_sha256": "c864daa0f7dba0b7823c6ca83af0cb734f64a54f1ce5245666f103c713ef8c43",
+      "bytes": 17527,
+      "compressed_bytes": 2138,
+      "role": "fixed fit or print preparation fixture",
+      "original_source": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json"
+    },
+    "source.tar": {
+      "snapshot": "inputs/source.tar.gz",
+      "sha256": "719ca91dbfbbcc0e1c0103ccee86610e23b786f9d6c4667ef97bd6a3d1c04d2a",
+      "compressed_sha256": "545e083577c3654139d19705d78135086510ef3fe5eb025ef24a86390e2f12d9",
+      "bytes": 1443840,
+      "compressed_bytes": 440982,
+      "original_source": "Exact source files and declared box from the bound generation record",
+      "role": "frozen source inspection archive; restore uses the preserved STEP/STL"
+    },
+    "print-receipt-front-bottom.json": {
+      "snapshot": "inputs/print-receipt-front-bottom.json.gz",
+      "sha256": "15fd6d9cbb6a60fd80acae8468e804aa53362b4062fedfb53a25b8885cfcb304",
+      "compressed_sha256": "fb61fb5b3c9c289fc648336aa102a7202b801194b45653eb2e51782c186598be",
+      "bytes": 1311,
+      "compressed_bytes": 723,
+      "original_source": "hardware/printed-parts/enclosure/bottom-grip-print/h2c/launch.json",
+      "role": "original printer launch receipt"
+    },
+    "print-receipt-back-bottom.json": {
+      "snapshot": "inputs/print-receipt-back-bottom.json.gz",
+      "sha256": "1499481e45efca8f23323d25f9e7b677b5958c792d3a3095a24ead4f346de839",
+      "compressed_sha256": "7fc9f0d889f46fa1b50759b7097c488afc2284b3d8405982d8d7fbfa563941bb",
+      "bytes": 1985,
+      "compressed_bytes": 1009,
+      "original_source": "hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json",
+      "role": "original printer launch receipt"
+    },
+    "print-receipt-front-top.json": {
+      "snapshot": "inputs/print-receipt-front-top.json.gz",
+      "sha256": "0f7f7c15ede79243a4d9bd70bc77ab9d8bc65ae02e396e87b5431aa1c0ccafb2",
+      "compressed_sha256": "2bf3a69a3e95e48511280e3b1e9d423d0e7c9673331275f2bbae96885a0facc1",
+      "bytes": 4978,
+      "compressed_bytes": 1732,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/launch.json",
+      "role": "original printer launch receipt"
+    },
+    "print-receipt-funnel-frame.json": {
+      "snapshot": "inputs/print-receipt-funnel-frame.json.gz",
+      "sha256": "762aee905beae65c4da6d0ab7b48d84beb3aab45778d31e16491ec07d438945b",
+      "compressed_sha256": "ddb096970a958f43e398d1fec217e1a95e4326f213b7c7f29c20a66f4e4db41c",
+      "bytes": 3515,
+      "compressed_bytes": 1355,
+      "original_source": "hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/launch.json",
+      "role": "original printer launch receipt"
+    },
+    "front-top-preparation.json": {
+      "snapshot": "inputs/front-top-preparation.json.gz",
+      "sha256": "dc27cb1eec945a3406ac1972e5be207ddb76c2432c34f24f818d8c2f7b81a22c",
+      "compressed_sha256": "a4eeb7f7770fcdfcc9086fd07a087253607c15cef29304af2e688d1460be52d3",
+      "bytes": 12204,
+      "compressed_bytes": 3783,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/preparation.json",
+      "role": "Printed front-top source hashes and input-project binding"
+    }
+  },
+  "installed_parts": {
+    "cold-core/foam-shell": {
+      "artifact": "cold-core--foam-shell.brep",
+      "bounds_mm": [
+        -90.50000010696962,
+        182.29999990000002,
+        20.0,
+        90.500000106975,
+        465.3,
+        233.4000002
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "cold-core/reservoir-a": {
+      "artifact": "cold-core--reservoir-a.brep",
+      "bounds_mm": [
+        -70.24999999302001,
+        376.08807768317,
+        44.60000009999999,
+        70.25000000697501,
+        453.05,
+        222.1500001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "cold-core/reservoir-a-cap": {
+      "artifact": "cold-core--reservoir-a-cap.brep",
+      "bounds_mm": [
+        -70.24999999302001,
+        376.08807768317,
+        222.1500001,
+        70.25000000697501,
+        453.05,
+        233.1500001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "cold-core/reservoir-b": {
+      "artifact": "cold-core--reservoir-b.brep",
+      "bounds_mm": [
+        -70.24999999302001,
+        194.54999999999998,
+        44.60000009999999,
+        70.25000000697501,
+        271.51192231683,
+        222.1500001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "cold-core/reservoir-b-cap": {
+      "artifact": "cold-core--reservoir-b-cap.brep",
+      "bounds_mm": [
+        -70.24999999302001,
+        194.54999999999998,
+        222.1500001,
+        70.25000000697501,
+        271.51192231683,
+        233.1500001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "pcba": {
+      "artifact": "pcba.brep",
+      "bounds_mm": [
+        77.1499928,
+        235.98393625,
+        253.4,
+        98.25,
+        326.8,
+        326.2
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "digiten-flow": {
+      "artifact": "digiten-flow.brep",
+      "bounds_mm": [
+        -49.96,
+        363.51,
+        322.7,
+        -14.31,
+        424.51,
+        351.0
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "enclosure-pump-cartridge": {
+      "artifact": "enclosure-pump-cartridge.brep",
+      "bounds_mm": [
+        -107.50000009999998,
+        5.0,
+        165.1949999,
+        107.5000001,
+        79.269,
+        284.1740001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "enclosure-pump-cap": {
+      "artifact": "enclosure-pump-cap.brep",
+      "bounds_mm": [
+        -87.225,
+        10.859,
+        216.925,
+        87.225,
+        79.269,
+        284.1740001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "enclosure-tee-carrier-plate": {
+      "artifact": "enclosure-tee-carrier-plate.brep",
+      "bounds_mm": [
+        -107.5,
+        95.98599990000001,
+        164.9239999,
+        107.5,
+        117.0400001,
+        224.2960001
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    },
+    "funnel-frame": {
+      "artifact": "funnel-frame.brep",
+      "bounds_mm": [
+        -103.5,
+        95.45849207672,
+        299.9,
+        103.50000000000026,
+        235.69150792328227,
+        355.0
+      ],
+      "source_assembly_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+    }
+  },
+  "print_bindings": {
+    "front-bottom": {
+      "receipt_artifact": "print-receipt-front-bottom.json",
+      "identity_basis": "Most recent recorded launched production print for this part. Founder does not identify archive names in the October 7 report."
+    },
+    "back-bottom": {
+      "receipt_artifact": "print-receipt-back-bottom.json",
+      "identity_basis": "Most recent recorded launched production print for this part. Founder does not identify archive names in the October 7 report."
+    },
+    "front-top": {
+      "receipt_artifact": "print-receipt-front-top.json",
+      "identity_basis": "Most recent recorded launched production print for this part. Founder does not identify archive names in the October 7 report.",
+      "preparation_artifact": "front-top-preparation.json"
+    },
+    "funnel-frame": {
+      "receipt_artifact": "print-receipt-funnel-frame.json",
+      "identity_basis": "Most recent recorded launched production print for this part. Founder does not identify archive names in the October 7 report."
+    }
+  },
+  "sources": {
+    "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/cadlib/print_mesh.py": "aeebebd41360dd1fa605d7908e944ce3800d0b7be1fcc45cc05d5604fafebcfa",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9f8c15c30d29f0740afd506fde805c703bec6d4bb4b01feb2ce4a8bec42c87ed",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "f95e15933f29da47f44f2fdaee765954d29c184cad90945c3cb6ee2b87c8fcfc",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e749a254cf0dcdb8b2751003ed9f3af51cb0dbb6ed498c2957557c0a1a7eb3b8",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "47720a332721b2676643e38d94fa9326f07609f420bb9ac59bce304d1ac1e31d",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py": "0b3dee336ea83b3156369531b7960f0b14a021e785d07132140c80c4878b6985",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "abfe54e5b914140ed7883465a8af99d77b40881756b0d25817ae3cdd324c2e13",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
+    "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
+    "hardware/scripts/_box_spec.py": "6d3fb6a178e443956d87c18a77e143181776b8b79d0f480ed8727b96ea35e1fe",
+    "hardware/scripts/_boxes.py": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+    "hardware/scripts/_cadq_export.py": "ea4d494df422de3c17baac56b3e8d5f510635985fd72ee327ccaaffc2e1e611e",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "007c7b18f00990edbf8d8034fcfa39d12d8b93d97a7d39c66e3311dd1e4e2cb7",
+    "hardware/scripts/_measuring.py": "3978b06f38f46681c022f0e7ec2ca862f5750bd6f544c25dfb8e7d8ac7eebcb5",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_meshes.py": "9959f2378b89a28631b1c2895cf04d922dfbc142fdedaf11dceff397416e70db",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/materialize_pump_cartridge.py": "825423739d133a66f1eb4a0351a4e71f149c792d5f5c45b2ccf86b96563f14fa",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819"
+  },
+  "source_origins": {
+    "hardware/printed-parts/cadlib/cable_clip.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/fits.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/flute_skin.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/overhang_round.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/print_mesh.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/reeding.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/snap.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cadlib/world_workplane.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "content matching the exact generation-record SHA256",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "content matching the exact generation-record SHA256",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "content matching the exact generation-record SHA256",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "content matching the exact generation-record SHA256",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/riteav-keystone/riteav_keystone.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/tee-connector/tee_connector.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/wago-221/wago_221.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_box_spec.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_boxes.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_cadq_export.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_material_base.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_materials.py": "cc293330cad5376a676fba01ed57b2d6ff9ef9da",
+    "hardware/scripts/_measuring.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_mesh_payload.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_meshes.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_realized.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_run_lock.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/_stated_bounds.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/flute_payload.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/scripts/materialize_pump_cartridge.py": "b20e7d2081e986f988967edb47e966634a29d6c3",
+    "hardware/manifold-layout/enclosure-box.json": "exact generation-record SHA256"
+  },
+  "print_preparation": {
+    "native_slice_for_frozen_back_top": "required before printer submission",
+    "orientation": "180 degrees about machine X; exterior ceiling on bed",
+    "machine_roof_z_mm": 355.0,
+    "first_layer_height_mm": 0.2,
+    "normal_layer_height_mm": 0.24,
+    "normal_wall_loops": 2,
+    "roof_side_transition_band_print_z_mm": [
+      0.0,
+      9.4
+    ],
+    "roof_side_transition_wall_loops": 6,
+    "support_policy": "Saved PET-GF tree supports, face-specific exclusion from exterior roof-side transitions, supports retained for functional seats with removal before hardware installation. Verify emitted deposition in frozen solid-host regions.",
+    "source_profile_artifact": "petgf.3mf",
+    "solid_host_regions_artifact": "print-regions.json",
+    "physical_material": "black PET-GF",
+    "nozzle": "fixed left hardened 0.4 mm standard-flow",
+    "printer_job_submitted_by_this_package": false
+  }
+}
