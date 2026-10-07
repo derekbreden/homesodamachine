@@ -311,9 +311,26 @@ def tube_radius_reading(reading,f,assembly):
                 supplier_source=source)
 
 
-def clearance_reading(reading, name, first, second, minimum_gap=0.0):
+def clearance_reading(reading, name, first, second, minimum_gap=0.0, *, measure_gap=True):
     from OCP.BRepExtrema import BRepExtrema_DistShapeShape
     first, second = shape(first), shape(second)
+
+    if not measure_gap:
+        # Native distance is nonnegative, so the zero-gap pass criterion is
+        # exactly the common-volume criterion. Avoid global spline extrema
+        # for the complete display compound when no positive gap is required.
+        if minimum_gap != 0.0:
+            raise ValueError("A positive clearance requires its native distance measurement")
+        common = first.intersect(second)
+        if not common.isValid():
+            raise RuntimeError(f"{name}: exact common-volume calculation returned invalid geometry")
+        overlap = volume(common)
+        reading.add(name, overlap <= VOLUME_TOLERANCE,
+                    overlap_mm3=clean_number(overlap), gap_mm=None,
+                    required_gap_mm=minimum_gap, gap_measured=False,
+                    overlap_method="valid B-rep common volume",
+                    scope="Exact interference only; no minimum-distance measurement or positive clearance claim")
+        return
 
     def single_solid(part):
         solids = part.Solids()
@@ -1762,6 +1779,64 @@ def display_rear_closure_reading(reading, f, tip, cover, body):
                 scope="sampled rear line-of-sight closure around the actual hardware; stock and rim thickness have separate readings. This is not a water-seal or all-angle visibility certificate")
 
 
+def dispense_face_reading(reading, f, tip):
+    """Complete analytic outlet stock and actual axial rear-face stations."""
+    import cadquery as cq
+    tip = shape(tip)
+    origin, tangent, normal = f._tip_frame()
+    front_stock = cq.Solid.makeCylinder(
+        f.tube_shell_outer_r, f.dispense_face_thickness,
+        origin + normal.multiply(f.tube_shell_center_y), tangent)
+    void_length = f.dispense_face_thickness + 2.0
+    face_voids = [cq.Solid.makeCylinder(
+        f.soda_faucet_hole_diameter / 2.0, void_length, origin - tangent, tangent)]
+    flavor_centers = [(sign * f._paths.FACE_FLAVOR_X, f._paths.FACE_FLAVOR_N)
+                      for sign in (-1, 1)]
+    for x, n in flavor_centers:
+        center = origin + cq.Vector(x, 0.0, 0.0) + normal.multiply(n)
+        face_voids.append(cq.Solid.makeCylinder(
+            f.flavor_tube_hole_dia / 2.0, void_length, center - tangent, tangent))
+    center_triangle = [(0.0, 0.0), *reversed(flavor_centers)]
+    void_plane = cq.Plane(origin=origin - tangent, xDir=(1.0, 0.0, 0.0), normal=-tangent)
+    face_voids.append(cq.Workplane(void_plane).polyline(center_triangle).close()
+                      .extrude(-void_length).val())
+    if not front_stock.isValid() or not tip.isValid():
+        raise RuntimeError("Dispense-face stock or tip has invalid native geometry")
+    for face_void in face_voids:
+        if not face_void.isValid():
+            raise RuntimeError("Dispense-face analytic opening has invalid native geometry")
+        front_stock = front_stock.cut(face_void)
+        if not front_stock.isValid():
+            raise RuntimeError("Dispense-face analytic stock subtraction has invalid native geometry")
+    if len(front_stock.Solids()) != 1 or volume(front_stock) <= VOLUME_TOLERANCE:
+        raise RuntimeError("Dispense-face analytic witness lacks complete single-solid stock")
+    front_missing = front_stock.cut(tip)
+    if not front_missing.isValid():
+        raise RuntimeError("Dispense-face stock-minus-tip subtraction has invalid native geometry")
+    missing_front = volume(front_missing)
+    back_faces = [face for face in tip.Faces() if face.geomType() == "PLANE"
+                  and face.normalAt().dot(tangent) > 0.999999
+                  and DISTANCE_TOLERANCE < (face.Center()-origin).dot(tangent) < f.dispense_face_thickness+0.5]
+    back_stations = [(face.Center()-origin).dot(tangent) for face in back_faces]
+    reading.add("wall:dispense-face", missing_front <= VOLUME_TOLERANCE and bool(back_faces)
+                and all(abs(station-f.dispense_face_thickness) < DISTANCE_TOLERANCE for station in back_stations),
+                required_axial_thickness_mm=f.dispense_face_thickness,
+                witness_axial_interval_mm=[0.0, f.dispense_face_thickness],
+                section_outer_diameter_mm=2.0*f.tube_shell_outer_r,
+                section_circle_center_x_n_mm=[0.0, f.tube_shell_center_y],
+                section_water_center_x_n_mm=[0.0, 0.0],
+                section_water_bore_diameter_mm=f.soda_faucet_hole_diameter,
+                section_flavor_centers_x_n_mm=flavor_centers,
+                section_flavor_bore_diameter_mm=f.flavor_tube_hole_dia,
+                section_center_triangle_x_n_mm=center_triangle,
+                complete_front_stock_mm3=clean_number(volume(front_stock)),
+                witness_valid=front_stock.isValid(),
+                stock_minus_tip_valid=front_missing.isValid(),
+                missing_complete_front_stock_mm3=clean_number(missing_front),
+                cavity_rear_face_stations_mm=[clean_number(v) for v in back_stations],
+                method="independent analytic full-thickness cylinder at the final circular section, minus the actual final water/flavor bores and their center triangle; voids extend 1 mm beyond both witness ends; valid stock-minus-tip subtraction and actual cavity rear-plane stations, excluding outlet-plane Boolean residues within the recorded distance tolerance")
+
+
 def display_reading(reading, f, assembly, parts, body, free_cover):
     import cadquery as cq
     full = cq.Compound.makeCompound([shape(parts["shell_base"]), shape(parts["shell_tip"])])
@@ -1870,21 +1945,7 @@ def display_reading(reading, f, assembly, parts, body, free_cover):
                 required_axial_thickness_mm=f.dispense_face_thickness,
                 signal_void_at_outlet_mm3=clean_number(signal_at_face),
                 method="full-thickness closure witness above the flavor passage and the neck signal cutter at the outlet plane")
-    front_slab = shape(f._cradle_prism(30.0, 0.0, f.dispense_face_thickness, -30.0, 40.0))
-    front_stock = (shape(f.build_zone6_outer()).intersect(front_slab)
-                   .cut(shape(f.build_zone6_inner_cut()))
-                   .cut(shape(f.build_beverage_interstice_cut())))
-    missing_front = volume(front_stock.cut(tip))
-    back_faces = [face for face in tip.Faces() if face.geomType() == "PLANE"
-                  and face.normalAt().dot(tangent) > 0.999999
-                  and DISTANCE_TOLERANCE < (face.Center()-origin).dot(tangent) < f.dispense_face_thickness+0.5]
-    back_stations = [(face.Center()-origin).dot(tangent) for face in back_faces]
-    reading.add("wall:dispense-face", missing_front <= VOLUME_TOLERANCE and bool(back_faces)
-                and all(abs(station-f.dispense_face_thickness) < DISTANCE_TOLERANCE for station in back_stations),
-                required_axial_thickness_mm=f.dispense_face_thickness,
-                missing_complete_front_stock_mm3=clean_number(missing_front),
-                cavity_rear_face_stations_mm=[clean_number(v) for v in back_stations],
-                method="complete 2 mm cylinder-minus-beverage-passages witness, including the intentional central interstice clearance; common cavity faces behind it, excluding outlet-plane Boolean residues within the recorded distance tolerance")
+    dispense_face_reading(reading, f, tip)
 
 
 def display_trial_reading(reading, f, parts, free_cover):
@@ -2294,7 +2355,8 @@ def main() -> int:
                        ("display-body", assembly.build_display_body()),
                        ("display-screen", assembly.build_display_screen())):
         for piece in ("shell_base", "shell_tip", "display_cover"):
-            clearance_reading(reading, f"clearance:{name}-{piece}", body, parts[piece])
+            clearance_reading(reading, f"clearance:{name}-{piece}", body, parts[piece],
+                              measure_gap=not name.startswith("display-"))
     neck_reading(reading, f, full, base, tip)
     base_fastener_reading(reading, f, base, plate)
     lower_section_reading(reading, f, base)
