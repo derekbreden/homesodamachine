@@ -1,6 +1,6 @@
 # Remaining purchases for the first 5, 10 and 20 machines
 
-[`batch-forecast.json`](batch-forecast.json) supplies the inventory-based forecast on [the cost page](https://homesodamachine.com/cost#batch-forecast). Prices, availability and parts inventory are dated October 4, 2026; filament balances run through the prints logged October 6, and quantities follow the October 6 BOM. The columns are alternatives for five, ten or twenty total integrated machines, including unit 1 under development. Each starts with the same stock; the columns are not cumulative.
+[`batch-forecast.json`](batch-forecast.json) supplies the inventory-based forecast on [the cost page](https://homesodamachine.com/cost#batch-forecast). Prices, availability and parts inventory are dated October 4, 2026; filament balances run through the prints logged October 6, and quantities follow the October 7 BOM. The columns are alternatives for five, ten or twenty total integrated machines, including unit 1 under development. Each starts with the same stock; the columns are not cumulative.
 
 The forecast subtracts usable on-hand stock and quantities already ordered before calculating new purchases. Existing paid parts, printers, tools, fixtures and reusable filament spools have no new acquisition expense. Each tagged BOM row has a purchase allocation or an explicit exclusion; shared SKUs are combined before supplier lots are rounded. Reed columns use the separately purchased reeds and wires. PCB assembly includes on-board components. The build uses a White faucet and both install-kit tees.
 
@@ -71,7 +71,7 @@ Exact Prime replenishment sources remain unconfirmed for several plumbing/refrig
 
 The exact PP1208E bulkhead union is sourced from Fresh Water Systems, and the exact 1.47-inch display from Waveshare. These are same-part supplier substitutions. Mouser pricing and batch stock remain estimates. Additional JLCPCB assembly, OnlineMetals cuts and SendCutSend parts require current quantity-specific quotes; historical delivered lots supply the allowances. No unquoted volume saving is assumed.
 
-Filter-drier selection, permanent refrigerant-circuit closure/access and some electrical terminations remain open. Positive allowances cover them without asserting a selected production procedure or physical acceptance.
+Some electrical terminations remain open. Positive allowances cover them without asserting a selected production procedure or physical acceptance.
 
 ## Expense basis
 

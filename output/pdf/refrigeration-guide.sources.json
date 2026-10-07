@@ -1,6 +1,6 @@
 {
   "pdf": "refrigeration-guide.pdf",
-  "pages": 28,
+  "pages": 27,
   "page_inches": [
     8.5,
     11
@@ -18,34 +18,29 @@
     "hardware/assembly/cold-core.md": "2ee8fe235e23cc40cfabbae5197dcddcddd64c31b1a3896df46780c9efa4d174",
     "hardware/assembly/cold-core.figures.json": "f3368634365b8d9ea46fb04f13bff9f2195178def1ebaf93b278f79024edb85a",
     "hardware/assembly/handwork.md": "8752a60dd63ccd4ce4eaf9abf6e14280db43367adb444af9c0afe71db70cbbe8",
-    "hardware/refrigeration-guide/README.md": "ff420d029cdf1d8cf3e082b86467360a537cc69a2e8cc478617e05997e6871c2",
-    "hardware/assembly/refrigerant-loop.md": "9c650d3b235b662601d0c529e683c177cd25a74226e9b1dd066e8d951ef93c06",
-    "hardware/assembly/refrigerant-loop.figures.json": "963cf11c8301e6a479adfce3e9abc622f10ccffced8590c4f5988c3b996bfffa",
-    "hardware/reference/ice-maker/README.md": "bce92f4fddc947ee824b191f8aa8b08942f96d0f34875c415d6bb950c3849878",
-    "hardware/reference/compressor/README.md": "688ce16e65bce51521dd7dc863d249d31014857348c960aaa5b765a13661d9af",
+    "hardware/refrigeration-guide/README.md": "e913357668cbdcb6c1ad847e3e9dc89cc27d1a1db7d409f4b1bf149aca515c5d",
+    "hardware/assembly/refrigerant-loop.md": "a6ff2ad6a71b4d8ca3dcea18452ab2f166ad01bb4572f9c98b8323ee75477db9",
+    "hardware/assembly/refrigerant-loop.figures.json": "2f88d0d2af5d06b2c8d7fd8869de3ba79a23e20770e987edfd616ab89e5de936",
+    "hardware/reference/ice-maker/README.md": "9ab9554b8652d1edf64d31f99a1a85f70e7f1c3adada7b57e6c24574f0974a63",
+    "hardware/reference/compressor/README.md": "eec6b2c8650f5a6a2181b2b1e3c151c0ef1843eb4af5f57d0a4b0e477a3976f6",
     "hardware/reference/condenser-block/README.md": "192dc05ffddf2910b327289e170cce69481574b1099e5aa7f4bb98a051e584dc",
-    "hardware/assembly/enclosure-mechanical.md": "50c441444710666859cb2140bbf2c02d6f42c857a82ec3d351592d531e31c2bc",
-    "hardware/ledger/bom.md": "057d3ad67446f881210f5da0ed0c29b04f6e791236a3533a76358d3fc8b0764e",
+    "hardware/assembly/enclosure-mechanical.md": "ceb240d5dd0eacb44ac6618861fb1908c5430c7f0ed429b7200c8e02d9570992",
+    "hardware/ledger/bom.md": "658c985f57cb584fdb755515c9425f4f5d8f85969ab678335e2977f10baa4205",
     "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py": "ad63830ad6b80fc2fc8761cc3c90ce3fe4d6ea3d09c052c8f22da9c6576186e6",
     "hardware/printed-parts/cold-core/copper-plugs/README.md": "f87987ee5ec4284f92f725d4cb87e7449a87acc637d9c24f15d3124fb8a97ecb",
     "hardware/printed-parts/refrigeration/fuse-clamp/README.md": "aa00eb268b36e7d47645cdaa2b0bab8e7e76a5e081d6be87ecc5864b07d26aaa",
-    "hardware/assembly/firmware-and-commissioning.md": "eadc0d5ceaeb1e9428e6fc48e2b4b487d01383e057858829ce4b213b0fafee99",
+    "hardware/assembly/firmware-and-commissioning.md": "4c84aae981fc9eab3d0b80806e00721353686d3a8af7888fc204b917c5934902",
     "firmware/src_appliance/README.md": "1994e72032bb988f2f879684888691453be07f6adc771850ba525f79af127a33",
     "firmware/lib/machine_policy/cold_policy.h": "ef86c64742b9d5d2cb340bfcf718f155b0077fe07a797ba38fb448c86625cdc4",
-    "hardware/assembly/acceptance-and-burn-in.md": "7bbc283087e0deee30611ebe43c06d01330b8cf437b0d5727faaad9ce1b0b523",
-    "hardware/mechanical-qualification/README.md": "72ce5aa451d3195425ce6998231019d5e90ae86417a73c31ddd48df318a1b89f",
-    "hardware/concerns.md": "d1a0396ebe95ca0b26c84128266625b510eddabf0e2c89926bc666cd95c300f1",
-    "business/regulatory.md": "77402a3de5710900d1bb5194a07408a98ee9682510c6b0f0787941ae0f0701e1",
-    "tools/refrigeration-guide/build.py": "590aa72158b586e588b91eb6d53e993d4d19b93cb3b787eea4dc7370f0679383",
-    "tools/assembly-guides/common.py": "953a51939eb91f1d959b0aff769f0e9bf1cfd5442398666d29acad47f10a8b9c"
+    "hardware/assembly/acceptance-and-burn-in.md": "7c9ee9a95a1deddb49a7b5396c6dd662cc74a111ed9ccdf959d0c547bd770f7e",
+    "hardware/mechanical-qualification/README.md": "62329c16b7b7ca799751d917e03049c3720b491815dbdae9ee7bb36a0574e4c6",
+    "hardware/concerns.md": "6473f6a8b8730ff4d287dae0d3ba11f0a6e5e75cd237387fef5b733a0e1e6f4b",
+    "business/regulatory.md": "1a227978fa97dd9a0af9d1174c1c16ba4329e3313d199e22a8d7c9de453196c1",
+    "tools/refrigeration-guide/build.py": "11c40d63b851e68b6942efce6f9c83fabd51be696b83b80d1ae31c0ab7f0d85f",
+    "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885"
   },
-  "pdf_sha256": "33bf1580aafe79201768413a4af6561121422e5d3bb4ed8b4a29266d199affde",
+  "pdf_sha256": "6a8b8214beb195ed5d7a9ade3dccd472bb50ad8db6c05e5bf2a186b0e190f3ec",
   "manufacturer_sources": {
-    "secop_service": "https://www.secop.com/sustainability/natural-refrigerants/compressor-service",
-    "secop_repair": "https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf",
-    "supco_access": "https://supco.com/web/supco_live/products/BPV31.html",
-    "uniweld_purge": "https://www.uniweld.com/product/rhp-special-purpose-series/",
-    "orion_pump": "https://orionmotortech.com/cdn/shop/files/new_VPH-BN0A-O1_VPH-BN0A-O2.pdf?v=10939169087783086859",
     "epa_handling": "https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants",
     "harris_filler": "https://ch-delivery.lincolnelectric.com/api/public/content/7cdc09a3e3364eca8d9ecb0145977257?v=7aae3e72"
   },
@@ -71,7 +66,12 @@
         "VACUUM_TARGET": "500 microns",
         "VACUUM_HOLD": "15 min",
         "RECHARGE_TOL": "\u00b11 g",
-        "PETG_TG": "~80 \u00b0C"
+        "PETG_TG": "~80 \u00b0C",
+        "VOL_CORRECTION": "+5-15 g",
+        "VENT_CLEARANCE": "3 m",
+        "RUN_CURRENT": "~1 A",
+        "OFF_TIME": "3-minute",
+        "JOINT_STANDOFF": "~92 mm"
       }
     },
     "firmware_literals": {
@@ -84,7 +84,7 @@
       "kReadingStaleMs": 30000
     }
   },
-  "qualification_scope": "Manual sequence and source review; no installed HC service, charge, joint, thermal or load qualification claimed",
+  "qualification_scope": "Manual sequence and source review; records no completed circuit build, charge or load test",
   "page_inventory": [
     {
       "page": 1,
@@ -124,11 +124,11 @@
     },
     {
       "page": 10,
-      "operation": "Make the HC bench ready"
+      "operation": "Vent the factory charge"
     },
     {
       "page": 11,
-      "operation": "Remove the donor charge"
+      "operation": "Start the argon purge"
     },
     {
       "page": 12,
@@ -136,68 +136,63 @@
     },
     {
       "page": 13,
-      "operation": "Clear, then replace the drier"
+      "operation": "Wet rag on each stub"
     },
     {
       "page": 14,
-      "operation": "Fit the suction coupling"
+      "operation": "Braze the suction coupling"
     },
     {
       "page": 15,
-      "operation": "Prove the capillary joint"
+      "operation": "Pinch-swage the capillary"
     },
     {
       "page": 16,
-      "operation": "Protect the plug, then braze"
+      "operation": "Pull vacuum"
     },
     {
       "page": 17,
-      "operation": "Test the closed circuit"
+      "operation": "Meter the recharge"
     },
     {
       "page": 18,
-      "operation": "Measure the vacuum"
+      "operation": "Cap the BPV31 for life"
     },
     {
       "page": 19,
-      "operation": "Meter the qualified charge"
+      "operation": "Run up and sweep for leaks"
     },
     {
       "page": 20,
-      "operation": "Finish the process access"
-    },
-    {
-      "page": 21,
       "operation": "Place the gas sensor first"
     },
     {
-      "page": 22,
+      "page": 21,
       "operation": "Lower the compressor"
     },
     {
-      "page": 23,
+      "page": 22,
       "operation": "Seat the condenser and fan"
     },
     {
-      "page": 24,
+      "page": 23,
       "operation": "Seat the thermal cutoff"
     },
     {
-      "page": 25,
+      "page": 24,
       "operation": "Prove the first start"
     },
     {
-      "page": 26,
+      "page": 25,
       "operation": "Prove the loaded cold loop"
     },
     {
-      "page": 27,
+      "page": 26,
       "operation": "Repair through the full sequence"
     },
     {
-      "page": 28,
+      "page": 27,
       "operation": "Keep the unit's evidence"
     }
-  ],
-  "source_commit": "c19a1792d59828eb84b5f6065248c0bf09865035"
+  ]
 }

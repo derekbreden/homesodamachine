@@ -1,14 +1,14 @@
 {
   "schemaVersion": 2,
   "checkedAt": "2026-10-04",
-  "bomSha256": "56964029198c4374ebb374027f1b77ea2f22fad0acd616009c13a97c8cdf7491",
-  "bomRowCount": 168,
+  "bomSha256": "658c985f57cb584fdb755515c9425f4f5d8f85969ab678335e2977f10baa4205",
+  "bomRowCount": 167,
   "scope": "Additional spending from current inventory (filament through October 6, other stock as of October 4) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
   "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
   "excludedBomLines": [
     {
-      "line": 259,
+      "line": 258,
       "reason": "Reed columns are assembled from the separately purchased reeds and wires; no second purchase."
     }
   ],
@@ -1103,7 +1103,7 @@
       "bomLines": [
         53,
         70,
-        181
+        180
       ],
       "perUnit": 8.0,
       "unit": "pieces",
@@ -1483,7 +1483,7 @@
       "name": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
       "bomLines": [
         62,
-        193
+        192
       ],
       "perUnit": 3.0,
       "unit": "pieces",
@@ -1673,7 +1673,7 @@
       "name": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)",
       "bomLines": [
         66,
-        196
+        195
       ],
       "perUnit": 10.11,
       "unit": "ft",
@@ -1738,7 +1738,7 @@
       "name": "John Guest PP1208E 1/4\" OD black polypropylene push-to-connect bulkhead union (10-pk)",
       "bomLines": [
         68,
-        178
+        177
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -2255,7 +2255,7 @@
       "id": "B0DKSW5VL9",
       "name": "GOORY 1/4\" OD \u00d7 50 ft ACR copper coil (evaporator)",
       "bomLines": [
-        91
+        90
       ],
       "perUnit": 1,
       "unit": "coil cuts",
@@ -2290,7 +2290,7 @@
       "id": "B07XGZSYJV",
       "name": "Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)",
       "bomLines": [
-        92
+        91
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -2325,7 +2325,7 @@
       "id": "B0FKG3HT9Q",
       "name": "TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)",
       "bomLines": [
-        93
+        92
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2360,7 +2360,7 @@
       "id": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)",
       "name": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)",
       "bomLines": [
-        94
+        93
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2409,7 +2409,7 @@
       "id": "B07DCXKNXQ",
       "name": "MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)",
       "bomLines": [
-        95
+        94
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2444,7 +2444,7 @@
       "id": "B08VS8D4WC",
       "name": "Monoprice NEMA 5-15P \u2192 IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)",
       "bomLines": [
-        96
+        95
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2479,7 +2479,7 @@
       "id": "B0CGG1WH1N",
       "name": "Enviro-Safe R-600a 3-pack + brass charging gauge",
       "bomLines": [
-        97
+        96
       ],
       "perUnit": 1,
       "unit": "charges",
@@ -2514,7 +2514,7 @@
       "id": "B00DM8J3MI",
       "name": "Supco BPV31 bullet-piercing valve",
       "bomLines": [
-        98
+        97
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2549,7 +2549,7 @@
       "id": "B0FH549N6D",
       "name": "HVAC 1/4\" OD copper slip coupling, ACR-grade, sweat \u00d7 sweat (10-pack)",
       "bomLines": [
-        99
+        98
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2584,7 +2584,7 @@
       "id": "B0DQ3ZMHK7",
       "name": "BCuP-5 15% Ag silver brazing alloy, 1/16\" \u00d7 1 troy oz rod",
       "bomLines": [
-        100
+        99
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2619,7 +2619,7 @@
       "id": "B07CGPCTHT",
       "name": "3M Scotch-Brite Maroon General Purpose Hand Pads, 6\" \u00d7 9\" (1-pack of 20)",
       "bomLines": [
-        101
+        100
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -2654,7 +2654,7 @@
       "id": "B0BKQ2H9BZ",
       "name": "GEARit 25 ft 18/3 SJOOW portable cord, 18 AWG 300 V",
       "bomLines": [
-        102
+        101
       ],
       "perUnit": 1.3,
       "unit": "ft",
@@ -2690,7 +2690,7 @@
       "id": "B07Y61YTTK",
       "name": "BOJACK SF76E SEFUSE thermal fuse, 77 \u00b0C, 10 A / 250 V (10-pack)",
       "bomLines": [
-        103
+        102
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2725,7 +2725,7 @@
       "id": "B0978JSCZ8",
       "name": "ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack)",
       "bomLines": [
-        104
+        103
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -2761,7 +2761,7 @@
       "id": "B08R7TX8QJ",
       "name": "Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit",
       "bomLines": [
-        111
+        110
       ],
       "perUnit": 1,
       "unit": "builds",
@@ -2796,7 +2796,7 @@
       "id": "B07BTW7C2N",
       "name": "3M 425 aluminum foil tape, 2\" \u00d7 180 ft",
       "bomLines": [
-        112
+        111
       ],
       "perUnit": 15,
       "unit": "ft",
@@ -2831,7 +2831,7 @@
       "id": "B08JHH1DBF",
       "name": "Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)",
       "bomLines": [
-        113
+        112
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -2866,7 +2866,7 @@
       "id": "B09H6ZP447",
       "name": "JMU 6\" tongue depressors, individually wrapped (100-pk)",
       "bomLines": [
-        114
+        113
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -2901,7 +2901,7 @@
       "id": "B0G8SSMVKW",
       "name": "SUP powder-free 4 mil nitrile exam gloves, XL, 100-pk = 50 pairs",
       "bomLines": [
-        115
+        114
       ],
       "perUnit": 1,
       "unit": "pairs",
@@ -2936,7 +2936,7 @@
       "id": "B09MVPJXFJ",
       "name": "Kamoer KPHM600-SW3B17 12V peristaltic pump",
       "bomLines": [
-        175
+        174
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -2971,8 +2971,8 @@
       "id": "B07NWCQJK9",
       "name": "Beduan 12V 1/4\" solenoid valve (NC)",
       "bomLines": [
-        176,
-        177
+        175,
+        176
       ],
       "perUnit": 11.0,
       "unit": "pieces",
@@ -3023,7 +3023,7 @@
       "id": "B0968K4JRN",
       "name": "PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead, white polypropylene (5-pk)",
       "bomLines": [
-        179
+        178
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -3058,7 +3058,7 @@
       "id": "B07D23JJMR",
       "name": "uxcell silicone flat washer, \u230016 ID \u00d7 \u230024 OD \u00d7 3 mm, clear (10-pk)",
       "bomLines": [
-        180
+        179
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -3094,7 +3094,7 @@
       "id": "B0FM77LLM1",
       "name": "Siptenk 1/4\" OD brass tube stiffener insert (100-pk)",
       "bomLines": [
-        182
+        181
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3129,7 +3129,7 @@
       "id": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)",
       "name": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)",
       "bomLines": [
-        183
+        182
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3174,7 +3174,7 @@
       "id": "B0FHHBGSQK",
       "name": "BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1",
       "bomLines": [
-        184
+        183
       ],
       "perUnit": 273,
       "unit": "g",
@@ -3209,7 +3209,7 @@
       "id": "B0BVR3R58V",
       "name": "BBDINO black silicone pigment, 150 g",
       "bomLines": [
-        185
+        184
       ],
       "perUnit": 1.5,
       "unit": "g",
@@ -3244,7 +3244,7 @@
       "id": "B002YEBO1O",
       "name": "Mann Ease Release 200, 14 oz aerosol",
       "bomLines": [
-        186
+        185
       ],
       "perUnit": 1,
       "unit": "builds",
@@ -3279,7 +3279,7 @@
       "id": "B08HNCGY4N",
       "name": "TCP Global 32 oz graduated mixing cups (25-pk)",
       "bomLines": [
-        187
+        186
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3314,7 +3314,7 @@
       "id": "B0BXFW1J38",
       "name": "Westbrass A2031-NL-62 8\" Touch-Flo dispenser faucet, matte black",
       "bomLines": [
-        194
+        193
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3350,7 +3350,7 @@
       "id": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)",
       "name": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)",
       "bomLines": [
-        195
+        194
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3385,7 +3385,7 @@
       "id": "John Guest PP0408W 1/4\" union connector, white polypropylene (bag of 10)",
       "name": "John Guest PP0408W 1/4\" union connector, white polypropylene (bag of 10)",
       "bomLines": [
-        197
+        196
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -3437,7 +3437,7 @@
       "id": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)",
       "name": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)",
       "bomLines": [
-        198
+        197
       ],
       "perUnit": 1.08,
       "unit": "ft",
@@ -3501,7 +3501,7 @@
       "id": "B07QRXLRTH",
       "name": "DIGITEN G1/4\" Hall-effect flow sensor, 0.3\u201310 L/min",
       "bomLines": [
-        199
+        198
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3540,7 +3540,7 @@
       "id": "B0D2XFK337",
       "name": "CARGEN Pipe Insulation Foam Tube, 1/4\" ID \u00d7 3/8\" wall \u00d7 6 ft, nitrile rubber closed-cell",
       "bomLines": [
-        200
+        199
       ],
       "perUnit": 7,
       "unit": "ft",
@@ -3575,7 +3575,7 @@
       "id": "B07PNPHWMG",
       "name": "BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, 50 ft",
       "bomLines": [
-        201
+        200
       ],
       "perUnit": 2,
       "unit": "m",
@@ -3611,7 +3611,7 @@
       "id": "B09X48444N",
       "name": "BNTECHGO 22 AWG silicone ribbon cable, 4-conductor flat (4P), black, 50 ft",
       "bomLines": [
-        202
+        201
       ],
       "perUnit": 2.2,
       "unit": "m",
@@ -3646,7 +3646,7 @@
       "id": "B087RCBF53",
       "name": "BNTECHGO 22 AWG silicone ribbon cable, 3-conductor flat (3P), black, 50 ft",
       "bomLines": [
-        203
+        202
       ],
       "perUnit": 1.55,
       "unit": "m",
@@ -3682,7 +3682,7 @@
       "id": "B09X46Y36M",
       "name": "BNTECHGO 22 AWG silicone ribbon cable, 5-conductor flat (5P), black, 50 ft",
       "bomLines": [
-        204
+        203
       ],
       "perUnit": 1.2,
       "unit": "m",
@@ -3718,7 +3718,7 @@
       "id": "B08B5VS8ZR",
       "name": "smseace #4 (M3) insulated ring terminals, 22\u201316 AWG (150 pc)",
       "bomLines": [
-        217
+        216
       ],
       "perUnit": 10.0,
       "unit": "pieces",
@@ -3753,7 +3753,7 @@
       "id": "B0BC1VH4XB",
       "name": "Zip Ties 4\", 18 lb (200-pack)",
       "bomLines": [
-        220
+        219
       ],
       "perUnit": 22.0,
       "unit": "pieces",
@@ -3788,7 +3788,7 @@
       "id": "B0DR8KSVQD",
       "name": "Zip Ties 6\", 18 lb (100-pack)",
       "bomLines": [
-        221
+        220
       ],
       "perUnit": 7.0,
       "unit": "pieces",
@@ -3823,7 +3823,7 @@
       "id": "B08BKSHJ93",
       "name": "Zip Ties 8\", 50 lb (100-pack)",
       "bomLines": [
-        222
+        221
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -3858,7 +3858,7 @@
       "id": "B0B2RB524Y",
       "name": "CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)",
       "bomLines": [
-        223
+        222
       ],
       "perUnit": 5.0,
       "unit": "pieces",
@@ -3893,7 +3893,7 @@
       "id": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)",
       "name": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)",
       "bomLines": [
-        224
+        223
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3929,7 +3929,7 @@
       "id": "B0DK4V733Q",
       "name": "EZYUMM RJ11 6P4C modular plug, 3-prong contacts, solid or stranded (20 pk)",
       "bomLines": [
-        225
+        224
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -3964,7 +3964,7 @@
       "id": "B0GCBNTBT8",
       "name": "YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair",
       "bomLines": [
-        226
+        225
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -4007,7 +4007,7 @@
       "id": "B0B2R8Q1JL",
       "name": "CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)",
       "bomLines": [
-        227
+        226
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -4042,7 +4042,7 @@
       "id": "B0B2R73RQB",
       "name": "CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)",
       "bomLines": [
-        228
+        227
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -4078,7 +4078,7 @@
       "id": "B0H1MW1LCX",
       "name": "WAGO 221-420 lever-nut, 10-conductor (box of 15)",
       "bomLines": [
-        231
+        230
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -4113,7 +4113,7 @@
       "id": "B0107SYYGU",
       "name": "WAGO 221-415 lever-nut, 5-conductor (25 pk)",
       "bomLines": [
-        232
+        231
       ],
       "perUnit": 3.0,
       "unit": "pieces",
@@ -4149,7 +4149,7 @@
       "id": "B07W7W91FX",
       "name": "WAGO 221-413 lever-nut, 3-conductor (box of 50)",
       "bomLines": [
-        233
+        232
       ],
       "perUnit": 5.0,
       "unit": "pieces",
@@ -4184,7 +4184,7 @@
       "id": "B06Y2PNW41",
       "name": "BNTECHGO 22 AWG silicone, 250 ft black spool",
       "bomLines": [
-        234
+        233
       ],
       "perUnit": 30,
       "unit": "ft",
@@ -4219,7 +4219,7 @@
       "id": "B075VRDS53",
       "name": "Umbilical sleeve \u2014 Alex Tech 1\" PET expandable braided sleeve, black/blue, 100 ft",
       "bomLines": [
-        237
+        236
       ],
       "perUnit": 5,
       "unit": "ft",
@@ -4254,7 +4254,7 @@
       "id": "K&J Magnetics RC62 N42 ring magnet",
       "name": "K&J Magnetics RC62 N42 ring magnet",
       "bomLines": [
-        253
+        252
       ],
       "perUnit": 5.0,
       "unit": "pieces",
@@ -4308,7 +4308,7 @@
       "id": "B0CY4DWJFQ",
       "name": "Tandefio 1/8\" \u00d7 12\" 316 SS round rod (5-pk)",
       "bomLines": [
-        265
+        264
       ],
       "perUnit": 2.5,
       "unit": "rods",
@@ -4343,7 +4343,7 @@
       "id": "Littelfuse MDSR-7-10-15 reed switches",
       "name": "Littelfuse MDSR-7-10-15 reed switches",
       "bomLines": [
-        271
+        270
       ],
       "perUnit": 10.0,
       "unit": "pieces",
@@ -4378,7 +4378,7 @@
       "id": "B08BCRZZS3",
       "name": "ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set",
       "bomLines": [
-        298
+        297
       ],
       "perUnit": 40.0,
       "unit": "pieces",
@@ -4413,7 +4413,7 @@
       "id": "B09ZHSGHXD",
       "name": "ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set",
       "bomLines": [
-        299
+        298
       ],
       "perUnit": 28.0,
       "unit": "pieces",
@@ -4452,7 +4452,7 @@
       "id": "B07YSVXWS8",
       "name": "ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set",
       "bomLines": [
-        300
+        299
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4487,7 +4487,7 @@
       "id": "B0DFWTJSYD",
       "name": "ZWMSSLL M1.4 heat-set threaded inserts, M1.4 \u00d7 4 mm \u00d7 \u00d82.3 mm brass, 200 pc",
       "bomLines": [
-        301
+        300
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4522,7 +4522,7 @@
       "id": "B0DJQGMQZM",
       "name": "BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc",
       "bomLines": [
-        302
+        301
       ],
       "perUnit": 12.0,
       "unit": "pieces",
@@ -4557,7 +4557,7 @@
       "id": "B0DJQGF665",
       "name": "BNUOK M3 \u00d7 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc",
       "bomLines": [
-        303
+        302
       ],
       "perUnit": 20.0,
       "unit": "pieces",
@@ -4592,7 +4592,7 @@
       "id": "B0DJQGPRPV",
       "name": "BNUOK M3 \u00d7 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
       "bomLines": [
-        304
+        303
       ],
       "perUnit": 23.0,
       "unit": "pieces",
@@ -4627,7 +4627,7 @@
       "id": "B0DJQGGDP2",
       "name": "BNUOK M3 \u00d7 10 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
       "bomLines": [
-        305
+        304
       ],
       "perUnit": 7.0,
       "unit": "pieces",
@@ -4662,7 +4662,7 @@
       "id": "B0DJQHNL3H",
       "name": "BNUOK M3 \u00d7 60 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
       "bomLines": [
-        306
+        305
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -4698,7 +4698,7 @@
       "id": "B0DJR2Q5LP",
       "name": "BNUOK M3 \u00d7 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
       "bomLines": [
-        307
+        306
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4733,7 +4733,7 @@
       "id": "B0DFYKBQ2S",
       "name": "Kozelo M1.4 \u00d7 8 mm socket head cap screws, M1.4-0.3, alloy steel, black oxide, 50 pc",
       "bomLines": [
-        308
+        307
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4769,7 +4769,7 @@
       "id": "B0FB45MN93",
       "name": "uxcell M3 flat washer, \u00d89 mm OD \u00d7 0.8 mm, 304 stainless steel, 200 pc",
       "bomLines": [
-        309
+        308
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4805,7 +4805,7 @@
       "id": "B0BHZVXNJX",
       "name": "MewuDecor M5 \u00d7 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc",
       "bomLines": [
-        310
+        309
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4840,7 +4840,7 @@
       "id": "B0GSMDY5GL",
       "name": "M5 \u00d7 25 mm OD fender washers, 304 stainless steel, 60 pc",
       "bomLines": [
-        311
+        310
       ],
       "perUnit": 4.0,
       "unit": "pieces",
@@ -4875,7 +4875,7 @@
       "id": "B0D41KT345",
       "name": "LVDALAB PTFE Membrane Filter, \u00f813 mm \u00d7 0.45 \u00b5m, 100 pc, non-sterile",
       "bomLines": [
-        312
+        311
       ],
       "perUnit": 2.0,
       "unit": "pieces",
@@ -4911,7 +4911,7 @@
       "id": "B08VW15TK8",
       "name": "Mudder 3 Pieces PTFE Plastic Tubing Cutter, OD up to 3/4\", polyacetal body + 304 SS replaceable blade",
       "bomLines": [
-        320
+        319
       ],
       "perUnit": 1.0,
       "unit": "pieces",
@@ -4946,7 +4946,7 @@
       "id": "disconnect-6.3 mm",
       "name": "Female spade disconnects, 6.3 mm \u2014 provisional size-specific refill",
       "bomLines": [
-        216
+        215
       ],
       "perUnit": 32,
       "unit": "pieces",
@@ -4980,7 +4980,7 @@
       "id": "disconnect-4.8 mm",
       "name": "Female spade disconnects, 4.8 mm \u2014 provisional size-specific refill",
       "bomLines": [
-        216
+        215
       ],
       "perUnit": 32,
       "unit": "pieces",
@@ -5014,7 +5014,7 @@
       "id": "forks",
       "name": "Insulated #6 fork terminals, 22\u201316 AWG",
       "bomLines": [
-        218
+        217
       ],
       "perUnit": 7,
       "unit": "pieces",
@@ -5043,7 +5043,7 @@
       "id": "ferrules-16",
       "name": "Insulated bootlace ferrules, 16 AWG \u2014 refill allowance",
       "bomLines": [
-        236
+        235
       ],
       "perUnit": 35,
       "unit": "pieces",
@@ -5077,7 +5077,7 @@
       "id": "ferrules-22",
       "name": "Insulated bootlace ferrules, 22 AWG \u2014 refill allowance",
       "bomLines": [
-        236
+        235
       ],
       "perUnit": 35,
       "unit": "pieces",
@@ -5111,7 +5111,7 @@
       "id": "16awg-kit",
       "name": "BNTECHGO 16 AWG, five colours \u00d7 25 ft \u2014 colour allocation pending",
       "bomLines": [
-        230
+        229
       ],
       "perUnit": 14,
       "unit": "ft",
@@ -5151,7 +5151,7 @@
       "id": "sleeve-1/4 inch",
       "name": "Alex Tech PET braided sleeve, 1/4 inch",
       "bomLines": [
-        235
+        234
       ],
       "perUnit": 2,
       "unit": "ft",
@@ -5186,7 +5186,7 @@
       "id": "sleeve-1/2 inch",
       "name": "Alex Tech PET braided sleeve, 1/2 inch",
       "bomLines": [
-        235
+        234
       ],
       "perUnit": 4,
       "unit": "ft",
@@ -5221,7 +5221,7 @@
       "id": "sleeve-3/4 inch",
       "name": "Alex Tech PET braided sleeve, 3/4 inch",
       "bomLines": [
-        235
+        234
       ],
       "perUnit": 2,
       "unit": "ft",
@@ -5256,7 +5256,7 @@
       "id": "heatshrink",
       "name": "Ginsco 580-piece heat-shrink kit \u2014 size mix pending",
       "bomLines": [
-        219
+        218
       ],
       "perUnit": 45,
       "unit": "collars",
@@ -5318,7 +5318,7 @@
       "id": "xh5",
       "name": "CQRobot JST XH 5-pin housing/terminal kit",
       "bomLines": [
-        229
+        228
       ],
       "perUnit": 1,
       "unit": "sets",
@@ -5353,7 +5353,7 @@
       "id": "xh7",
       "name": "CQRobot JST XH 7-pin housing/terminal kit",
       "bomLines": [
-        229
+        228
       ],
       "perUnit": 2,
       "unit": "sets",
@@ -5388,6 +5388,7 @@
       "id": "petgf-black",
       "name": "Fiberon PET-GF15 Black",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5415,8 +5416,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 6.01,
       "unit": "kg",
@@ -5453,6 +5453,7 @@
       "id": "petgf-white",
       "name": "Fiberon PET-GF15 White",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5480,8 +5481,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 0.1363,
       "unit": "kg",
@@ -5517,6 +5517,7 @@
       "id": "petgf-blue",
       "name": "Fiberon PET-GF15 Blue",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5544,8 +5545,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 0.0068,
       "unit": "kg",
@@ -5581,6 +5581,7 @@
       "id": "petgf-red",
       "name": "Fiberon PET-GF15 Red",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5608,8 +5609,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 0.0068,
       "unit": "kg",
@@ -5645,6 +5645,7 @@
       "id": "petg-clear",
       "name": "Bambu PETG Translucent Clear 32101 refill",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5672,8 +5673,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 0.89,
       "unit": "kg",
@@ -5727,6 +5727,7 @@
       "id": "petg-black",
       "name": "Bambu PETG Basic Black 30105 refill",
       "bomLines": [
+        124,
         125,
         126,
         127,
@@ -5754,8 +5755,7 @@
         149,
         150,
         151,
-        152,
-        153
+        152
       ],
       "perUnit": 0.155,
       "unit": "kg",
@@ -5804,7 +5804,7 @@
       "id": "asa-aero",
       "name": "Bambu ASA Aero White 46100",
       "bomLines": [
-        252
+        251
       ],
       "perUnit": 0.042201,
       "unit": "kg",
@@ -5867,62 +5867,6 @@
         ],
         "note": "Remaining quantity is provisional: 0.5 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
       }
-    },
-    {
-      "id": "drier",
-      "name": "R-600a/oil-compatible sealed replacement filter-drier",
-      "bomLines": [
-        90
-      ],
-      "perUnit": 1,
-      "unit": "pieces",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
-      "status": "estimate",
-      "note": "Required for each opened circuit. $13.40 delivered allowance from purchased Supco candidates; technician selection and capillary interface remain open.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 1340,
-          "label": "one compatible drier allowance",
-          "available": true
-        }
-      ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
-      }
-    },
-    {
-      "id": "closure",
-      "name": "Permanent refrigerant circuit closure/access supplies",
-      "bomLines": [],
-      "perUnit": 1,
-      "unit": "sets",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
-      "status": "estimate",
-      "note": "Positive $15/machine delivered allowance. Technician-selected permanent closure/access parts and procedure are unquoted; retained temporary access-valve stock is budgeted separately.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 1500,
-          "label": "one closure/access allowance",
-          "available": true
-        }
-      ],
-      "inventory": {
-        "onHand": 0,
-        "incoming": 0,
-        "basis": "unknown",
-        "estimated": true,
-        "sources": [],
-        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
-      }
     }
   ],
   "allowances": [
@@ -5946,7 +5890,7 @@
         "10": 20000,
         "20": 35000
       },
-      "note": "Provisional delivered allowance of $50 per batch plus $15 per machine for argon/nitrogen, brazing fuel, solder/IPA and printer/cure/burn-in electricity; measured production usage is not recorded."
+      "note": "Provisional delivered allowance of $50 per batch plus $15 per machine for argon, brazing fuel, solder/IPA and printer/cure/burn-in electricity; measured production usage is not recorded."
     }
   ],
   "notes": [
@@ -5957,7 +5901,7 @@
     "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 1 kg from 2 kg acquired; a lower actual balance could require unavailable replacement filament.",
     "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
-    "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Refrigeration selections and donor interfaces remain qualification items with positive purchase allowances."
+    "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Donor interfaces remain qualification items with positive purchase allowances."
   ],
   "inventoryAsOf": "2026-10-06",
   "inventoryNote": "Black PET-GF15 about 10.4 kg, Clear PETG about 3 kg and Black PETG about 10 kg are the approximate balances reported October 4 less the prints logged through October 6, counting jobs still printing in full. Other credits reconcile acquired packs, same-part supplier swaps and recorded in-transit orders as of October 4. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
