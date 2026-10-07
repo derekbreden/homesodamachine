@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "checkedAt": "2026-10-04",
-  "bomSha256": "a4531ff77d258f58758b1eadf821f6e4500da6dcf6a986bf61a2035e27e13b31",
+  "bomSha256": "56964029198c4374ebb374027f1b77ea2f22fad0acd616009c13a97c8cdf7491",
   "bomRowCount": 168,
   "scope": "Additional spending from October 4 inventory for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
@@ -5418,12 +5418,12 @@
         152,
         153
       ],
-      "perUnit": 6.0,
+      "perUnit": 6.01,
       "unit": "kg",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.00 kg/machine, rounded from the 6.0001 kg BOM split; the 15% process reserve is applied to that planning mass.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.01 kg/machine, rounded from the 6.0091 kg BOM split; the 15% process reserve is applied to that planning mass.",
       "options": [
         {
           "quantity": 3,
@@ -5488,7 +5488,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5552,7 +5552,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,
@@ -5616,7 +5616,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.159 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
       "options": [
         {
           "quantity": 1,

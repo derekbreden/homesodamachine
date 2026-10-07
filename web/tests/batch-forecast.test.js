@@ -126,8 +126,9 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(boards.onHand, 10);
   assert.equal(boards.quantity, 0);
   assert.equal(twenty.rows.find(row => row.id === boards.id).quantity, 10);
-  assert.equal(row(ten, "petgf-black").quantity, 57);
-  assert.equal(row(twenty, "petgf-black").quantity, 126);
+  assert.equal(row(ten, "petgf-black").quantity, 58);
+  assert.deepEqual(row(ten, "petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[19, 3], [1, 1]]);
+  assert.equal(row(twenty, "petgf-black").quantity, 127);
   assert.equal(row(ten, "petg-clear").incoming, 10);
   assert.equal(row(ten, "petg-clear").quantity, 0, "ten ordered refills and the 4 kg balance cover ten machines");
   assert.equal(row(twenty, "petg-clear").quantity, 7);
@@ -152,7 +153,7 @@ test("five machines use opening stock and whole packs, with small-order reserves
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
   const [five, ten, twenty] = forecast.batches;
   const row = id => five.rows.find(row => row.id === id);
-  assert.equal(row("petgf-black").shortfall, 22.5);
+  assert.equal(Math.round(row("petgf-black").shortfall * 1e4) / 1e4, 22.5575);
   assert.equal(row("petgf-black").quantity, 23);
   assert.deepEqual(row("petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[7, 3], [2, 1]]);
   assert.equal(row("petgf-black").costCents, 58491);
@@ -176,8 +177,8 @@ test("five machines use opening stock and whole packs, with small-order reserves
   assert.equal(five.laborCents, 512500);
   assert.equal(five.totalCents, 1011530);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1185946);
-  assert.equal(twenty.cashCents, 2837764);
+  assert.equal(ten.cashCents, 1189162);
+  assert.equal(twenty.cashCents, 2840981);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
