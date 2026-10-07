@@ -260,7 +260,7 @@ def labels():
                         "[Content_Types].xml": b'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/><Default Extension="config" ContentType="application/octet-stream"/></Types>'})
         writer.archive_write(p, members)
         save(directory / "preparation.json", {"project_sha256": sha(p), "parts": details,
-             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(collar.__file__))},
+             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__))},
              "extruder_offset": settings["extruder_offset"], "z_trim_mm": .04,
              "first_layer_mm": .20, "normal_layer_mm": .24})
         slice_project(p)
