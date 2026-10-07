@@ -1,4 +1,0 @@
-[sliver] The 0.020055 mm plane is a junction in the bulk wall of the combined flavor/cable opening. The cable-clearance connector overlaps the adjoining pill by 0.020 mm to make a continuous opening. At either named face, exact saved STEP chords at a 0.001 mm inward inset give 9.069034 mm of material in +Y, a 13.153731 mm connected X chord and the full 4.00 mm plate thickness in Z. The strip width is a boundary-patch dimension. This face is vertical in the plate's flat print pose.
-file: hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step
-click: x=-9.085 y=18.945 z=-2.000
-click: x=9.085 y=18.945 z=-2.000
