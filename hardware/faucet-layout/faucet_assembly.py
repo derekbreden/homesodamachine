@@ -1,13 +1,13 @@
 """The faucet, whole — every body above the counter, the countertop it clamps
-through, and the three tubes running down past it into the umbilical.
+through, and the four tubes running down past it into the umbilical.
 
 `printed-parts/faucet/` holds the printed pieces individually and
 `cut-parts/faucet/` the plate under the slab; this is the column they stack into,
 with the harvested Westbrass they are built around
 (`reference/touch-flo-faucet/westbrass-reference/`) and the display on the tip.
 
-FRAME: the repo's +Z-up. +Z is height and the Westbrass's axis, +X is lateral (the
-two flavor tubes mirror across X = 0), -Y is the front — the gooseneck dispenses
+FRAME: the repo's +Z-up. +Z is height and the Westbrass's axis, +X is lateral,
+-Y is the front — the gooseneck dispenses
 toward -Y and the lever points toward -Y, so the water port and the flavor-tube
 pill sit BEHIND the Westbrass's axis at +Y. Z = 0 is the above-counter plate's
 top face; the countertop stands below the plate and above-counter gasket.
@@ -24,6 +24,7 @@ The column, top to bottom:
     display               Waveshare ESP32-S3-Touch-LCD-1.47, on the dispense tip
     shell                 three printed pieces, as printed — joint voids and all
     tubes                 3/8" soda faucet tube up the middle, two 1/4" flavor behind it
+    vent                  4 mm drain tube to the separate fault outlet
     lever                 retained donor lever in its rest position
     Westbrass             the harvested R2031-NL
     o-ring                printed TPU thimble in the Westbrass's top water port
@@ -33,7 +34,7 @@ The column, top to bottom:
     under-counter plate   existing cut 316 SS plate
     soda umbilical tube   1/4" blue, on the shank's own compression port
 
-AND BELOW THE PLATE, THE UMBILICAL — the same three tubes gathered into the pack a sleeve makes of
+AND BELOW THE PLATE, THE UMBILICAL — four tubes gathered into the pack a sleeve makes of
 them, down to the end the installer pushes into the +Y wall of back-top:
 
     unions           a White faucet's two John Guest PP0408W, end to end at the top of the
@@ -150,8 +151,8 @@ soda_faucet_tube_z_top = plateau_z + soda_faucet_tube_above_plateau  # [79 mm](S
 
 
 # Flavor tubes — Ø 1/4" — pass behind the Westbrass, on either side of D.
-# The lower row is symmetric about X=0; the shared faucet paths spread it
-# at the vent seals and return it to the symmetric three-tube drink face.
+# The lower row shares the purchased plate's rear channel with D and ribbon;
+# the shared paths return it to the centered neck and symmetric drink face.
 # Below the mounting plate, flavor-b steps out past the unions.
 # [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
 flavor_tube_od = 1.0 / 4.0 * 25.4
@@ -188,7 +189,8 @@ pack_flavor_depth = math.sqrt((foam_r + flavor_tube_r) ** 2 - flavor_tube_x_offs
 # The dedicated white vent line passes between the flavor pair. Below the counter it
 # steps forward past the color-change unions, then gathers against the cold-line foam.
 drain_tube_r = _fi.drain_tube_od / 2.0
-drain_pack_y = -math.sqrt((foam_r + drain_tube_r) ** 2 - _fi.drain_tube_x ** 2)
+drain_tail_x = 0.0
+drain_pack_y = -math.sqrt((foam_r + drain_tube_r) ** 2 - drain_tail_x ** 2)
 drain_bypass_y = 8.9
 drain_tail_y = drain_pack_y - 20.0
 drain_bend_radius = _fi.drain_bend_min_radius
@@ -213,14 +215,11 @@ union_gap = union_length - 2.0 * union.INSERTION
 union_air = 2.0
 union_pass = union_ring_r + flavor_tube_r + union_air
 
-# FLAVOR-B STEPS OUT AND FLAVOR-A HOLDS ITS LINE. The SIG-6 ribbon comes down the +X side of the pair
-# (`faucet_shell.signal_lower_exit_x`) and nothing stands on flavor-b's, so flavor-b is the one that
-# moves: out along −X by what the pass is short of, off the plate's underside, as the S-bend is — two
-# arcs of one radius sharing an angle. [1.825 mm](STEP_X)
+# Both flavors return from the mounting row to their union axes in two
+# tangent R30 arcs below the plate. The staggered unions clear each other
+# and the neighboring flavor tube.
 step_bend_radius = 30.0
 step_x = union_pass - 2.0 * flavor_tube_x_offset
-step_theta_rad = math.acos(1.0 - step_x / (2.0 * step_bend_radius))
-step_rise = 2.0 * step_bend_radius * math.sin(step_theta_rad)
 
 
 # The flavour pair by side: flavor-a at +X, flavor-b at −X — and so a White faucet's two unions.
@@ -233,12 +232,25 @@ def union_x(x_sign):
     return x_sign * flavor_tube_x_offset - (step_x if x_sign < 0 else 0.0)
 
 
+def flavor_mount_x(x_sign):
+    """One flavor's actual mounting-channel center, in world X."""
+    return _fi.bundle_mount_x+x_sign*flavor_tube_x_offset
+
+
+def step_theta(x_sign):
+    return math.acos(1.0-abs(union_x(x_sign)-flavor_mount_x(x_sign))/(2.0*step_bend_radius))
+
+
+step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
+step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
+
+
 # WHERE THE UNIONS STAND. Flavor-b's on the plane its step lands on, which is where the wrapped
 # umbilical starts, and flavor-a's end to end below it: the stagger is one union's length.
-union_b_top_z = under_counter_plate_bottom_z - step_rise    # [-52.21 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-94.01 mm](UNION_A_TOP_Z)
+union_b_top_z = under_counter_plate_bottom_z - step_rise    # [-59.32 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-101.1 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-135.8 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-142.9 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -274,7 +286,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-178.3 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-185.4 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -309,7 +321,7 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [128.3 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [135.4 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
@@ -330,7 +342,7 @@ _flavor_depth_offset = flavor_tube_depth_lower - flavor_tube_depth_upper
 flavor_bend_theta_rad = faucet_shell.flavor_bend_angle_rad
 
 pre_bend_rise = 3.0
-# [42 mm](PRE_BEND_Z) — S-bend starts here.
+# [40 mm](PRE_BEND_Z) — S-bend starts here.
 pre_bend_z = faucet_shell.flavor_bend_start_z
 
 
@@ -491,16 +503,16 @@ def _faucet_flavor_path(x_sign=1):
 
 def _step_path(x_sign, bottom_z):
     """A flavor tube's centreline below the plate, down to `bottom_z` on its line at the unions: in
-    `splay_path_plane`, relative to the tube's own X and the plate's underside. Flavor-b steps out
-    along −X first; flavor-a, which holds its line, runs straight the whole way."""
+    `splay_path_plane`, relative to its mounting X and the plate's underside."""
     path = cq.Workplane(splay_path_plane).moveTo(0.0, 0.0)
-    out = union_x(x_sign) - x_sign * flavor_tube_x_offset
+    out = union_x(x_sign)-flavor_mount_x(x_sign)
+    theta = step_theta(x_sign)
     foot_x = 0.0
     if out:
         a1_mid, a1_end, a1_tan = _arc_from_tangent(
-            (0.0, 0.0), (0.0, -1.0), step_bend_radius, step_theta_rad, ccw=(out > 0))
+            (0.0, 0.0), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
         a2_mid, a2_end, _a2_tan = _arc_from_tangent(
-            a1_end, a1_tan, step_bend_radius, step_theta_rad, ccw=(out < 0))
+            a1_end, a1_tan, step_bend_radius, theta, ccw=(out < 0))
         path = path.threePointArc(a1_mid, a1_end).threePointArc(a2_mid, a2_end)
         foot_x = a2_end[0]
     return path.lineTo(foot_x, bottom_z - under_counter_plate_bottom_z)
@@ -582,13 +594,50 @@ def build_display_ribbon():
     factory fan-out beside the PCB, 0.30 mm below its measured underside.
     """
     parts = [
-        faucet_shell.build_lower_signal_ribbon().val(),
+        build_lower_display_ribbon().val(),
         faucet_shell.build_signal_transition_ribbon().val(),
         faucet_shell.build_display_ribbon_transition().val(),
     ]
     joined=parts[0].fuse(*parts[1:],tol=1e-5)
     if not joined.isValid() or len(joined.Solids())!=1:
         raise ValueError("the joined ribbon and four peeled conductors must form one continuous envelope")
+    return cq.Workplane(obj=joined)
+
+
+def build_lower_display_ribbon():
+    """Flat mounted ribbon and its drawn continuation beside F+'s return.
+
+    Below the actual steel underside it shares F+'s R30 lateral return.
+    The drawing stops at Z−50; the factory harness continues under the braid.
+    """
+    from OCP.BRepAdaptor import BRepAdaptor_Curve
+    end_z = -50.0
+    plate_z = under_counter_plate_bottom_z
+    mounted = faucet_shell.build_lower_signal_ribbon().val().intersect(
+        cq.Solid.makeBox(200.0,200.0,400.0,cq.Vector(-100.0,-100.0,plate_z)))
+    local_end_z = end_z-plate_z
+    edges = []
+    for edge in _step_path(+1,union_foot_z).wire().val().Edges():
+        curve = BRepAdaptor_Curve(edge.wrapped)
+        lo, hi = curve.FirstParameter(),curve.LastParameter()
+        if curve.Value(hi).Z() >= local_end_z:
+            edges.append(edge)
+            continue
+        for _ in range(60):
+            mid = (lo+hi)/2.0
+            if curve.Value(mid).Z() > local_end_z:
+                lo = mid
+            else:
+                hi = mid
+        edges.append(edge.trim(curve.FirstParameter(),(lo+hi)/2.0))
+        break
+    path = cq.Workplane(obj=cq.Wire.assembleEdges(edges))
+    stub = cq.Workplane("XY").rect(cable_width,cable_lane).sweep(path,transition="round").val()
+    stub = stub.translate((faucet_shell.signal_lower_exit_x,
+                           faucet_shell.signal_lower_exit_y,plate_z))
+    joined = mounted.fuse(stub,tol=1e-5).clean()
+    if not joined.isValid() or len(joined.Solids()) != 1:
+        raise ValueError("the mounted ribbon and external return must form one valid solid")
     return cq.Workplane(obj=joined)
 
 
@@ -612,7 +661,7 @@ def bundle_hull(grow: float = 0.0) -> cq.Sketch:
         .arc((0.0, 0.0), foam_r + grow, 0.0, 360.0)
         .arc((+flavor_tube_x_offset, pack_flavor_depth), flavor_tube_r + grow, 0.0, 360.0)
         .arc((-flavor_tube_x_offset, pack_flavor_depth), flavor_tube_r + grow, 0.0, 360.0)
-        .arc((_fi.drain_tube_x, drain_pack_y), drain_tube_r + grow, 0.0, 360.0)
+        .arc((drain_tail_x, drain_pack_y), drain_tube_r + grow, 0.0, 360.0)
         .hull()
     )
 
@@ -625,7 +674,7 @@ def gather_hull(grow: float = 0.0) -> cq.Sketch:
                  (union_x(-1), flavor_tube_depth_lower),
                  (+flavor_tube_x_offset, pack_flavor_depth),
                  (-flavor_tube_x_offset, pack_flavor_depth))]
-    circles += [(_fi.drain_tube_x, y, drain_tube_r + grow)
+    circles += [(drain_tail_x, y, drain_tube_r + grow)
                 for y in (drain_pack_y, drain_bypass_y)]
     # A circle wholly inside another cannot contribute to the convex boundary.
     # Remove it before CadQuery's arc-tangent hull calculation.
@@ -665,7 +714,7 @@ def union_hull(grow: float = 0.0) -> cq.Sketch:
         .arc((0.0, 0.0), soda_umbilical_tube_r + grow, 0.0, 360.0)
         .arc((union_x(+1), flavor_tube_depth_lower), union_ring_r + grow, 0.0, 360.0)
         .arc((union_x(-1), flavor_tube_depth_lower), union_ring_r + grow, 0.0, 360.0)
-        .arc((_fi.drain_tube_x, drain_bypass_y), drain_tube_r + grow, 0.0, 360.0)
+        .arc((drain_tail_x, drain_bypass_y), drain_tube_r + grow, 0.0, 360.0)
         .hull()
     )
 
@@ -761,7 +810,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [0.5931 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [1.247 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)
@@ -792,11 +841,9 @@ def build_flavor_faucet_run(x_sign):
     tube bottoms in its union — white on a White faucet, black on a Black one. x_sign ∈ {±1} selects
     flavor-a (+X) or flavor-b (−X).
 
-    TWO SWEEPS, FUSED ON ONE TANGENT at the plate's underside. The faucet's run works in depth and
-    nothing else, which is the plane `_faucet_flavor_path` is drawn on; the step below it works across
-    the bundle, which is another. Both leave the joining plane running straight, so the two meet on
-    one tangent and the fuse leaves no corner."""
-    at_plate = (x_sign*flavor_tube_x_offset,flavor_tube_depth_lower,under_counter_plate_bottom_z)
+    The two sweeps meet on their common vertical tangent at the mounting
+    plate's underside; the upper transition includes the lateral return."""
+    at_plate = (flavor_mount_x(x_sign),flavor_tube_depth_lower,under_counter_plate_bottom_z)
     path=_faucet_flavor_path(x_sign)
     plane=cq.Plane(origin=at_plate,xDir=(1,0,0),normal=(0,0,1))
     faucet=cq.Workplane(plane).circle(flavor_tube_r).sweep(path,transition="round")
@@ -835,34 +882,40 @@ def build_flavor_umbilical_run(x_sign):
 
 def build_flavor_tube(x_sign):
     """One Ø 1/4" flavor tube tip to tail as a Black faucet runs it, black end to end: the faucet's
-    run, the bridge and the umbilical's run, fused. The two tubes mirror across X = 0 through the
-    faucet and the pack; below the plate flavor-b steps out and back."""
+    run, the bridge and the umbilical's run, fused. The mounting row
+    returns to the centered faucet neck and the unchanged cabinet pack."""
     return (build_flavor_faucet_run(x_sign)
             .union(build_flavor_bridge(x_sign))
             .union(build_flavor_umbilical_run(x_sign)))
 
 
 def _drain_lower_path():
-    """Continuous R25 route around the two flavor unions and into the sleeve."""
-    plane = cq.Plane(origin=(_fi.drain_tube_x, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
-    path = cq.Workplane(plane).moveTo(drain_tail_y, umbilical_tail_z)
-    def rise(dy):
-        theta = math.acos(1 - abs(dy) / (2 * drain_bend_radius))
-        return 2 * drain_bend_radius * math.sin(theta)
-    current_y = drain_tail_y
-    for target_y, top_z in ((drain_pack_y, drain_splay_top_z),
-                           (drain_bypass_y, union_foot_z),
-                           (flavor_tube_depth_lower, under_counter_plate_bottom_z)):
-        start = (current_y, top_z - rise(target_y - current_y))
-        path = path.lineTo(*start)
-        theta = math.acos(1 - abs(target_y - current_y) / (2 * drain_bend_radius))
-        turn = target_y < current_y
-        mid, end, tangent = _arc_from_tangent(start, (0, 1), drain_bend_radius, theta, turn)
-        path = path.threePointArc(mid, end)
-        mid, end, _tangent = _arc_from_tangent(end, tangent, drain_bend_radius, theta, not turn)
-        path = path.threePointArc(mid, end)
-        current_y = target_y
-    return path.wire().val()
+    """Continuous R25 route from the fixed cabinet tail to the rear row."""
+    edges = []
+    current = (drain_tail_x,drain_tail_y,umbilical_tail_z)
+    for x, y, top_z in ((drain_tail_x,drain_pack_y,drain_splay_top_z),
+                        (drain_tail_x,drain_bypass_y,union_foot_z),
+                        (_fi.drain_tube_x,_fi.drain_tube_y,under_counter_plate_bottom_z)):
+        dx, dy = x-current[0], y-current[1]
+        offset = math.hypot(dx,dy)
+        theta = math.acos(1-offset/(2*drain_bend_radius))
+        rise = 2*drain_bend_radius*math.sin(theta)
+        start = (current[0],current[1],top_z-rise)
+        if start[2] < current[2]-1e-7:
+            raise ValueError("drain return arcs exceed the available vertical run")
+        if math.dist(current,start) > 1e-7:
+            edges.append(cq.Edge.makeLine(cq.Vector(*current),cq.Vector(*start)))
+        ux, uy = dx/offset, dy/offset
+        def world(point):
+            return cq.Vector(start[0]+ux*point[0],start[1]+uy*point[0],point[1])
+        local = (0.0,start[2])
+        for turn in (False,True):
+            mid, end, tangent = _arc_from_tangent(
+                local,(0.0,1.0) if not turn else tangent,drain_bend_radius,theta,turn)
+            edges.append(cq.Edge.makeThreePointArc(world(local),world(mid),world(end)))
+            local = end
+        current = (x,y,top_z)
+    return cq.Wire.assembleEdges(edges)
 
 
 def drain_path():
@@ -880,7 +933,7 @@ def drain_factory_cut_length():
 def build_drain_tube(envelope=False):
     """4 mm OD / 2.5 mm ID white LLDPE, tail to the separate underside outlet."""
     profile = (cq.Workplane("XY").workplane(offset=umbilical_tail_z)
-               .center(_fi.drain_tube_x, drain_tail_y).circle(drain_tube_r))
+               .center(drain_tail_x, drain_tail_y).circle(drain_tube_r))
     if not envelope:
         profile = profile.circle(_fi.drain_tube_id / 2)
     return profile.sweep(cq.Workplane(obj=drain_path()), transition="round")
@@ -1139,22 +1192,27 @@ def shank_hole_margin(center_y):
 
 
 def flavor_hole_margin(center_y):
-    """The same for the flavor pair — measured to the far tube's far wall."""
-    reach = math.hypot(flavor_tube_x_offset, flavor_tube_depth_lower - center_y)
-    return hole_radius - (reach + flavor_tube_r)
+    """Counter-hole clearance to the farthest actual mounting flavor."""
+    return min(hole_radius-math.hypot(flavor_mount_x(sign),
+                                    flavor_tube_depth_lower-center_y)-flavor_tube_r
+               for sign in flavor_sides)
 
 
 def seated_hole_center_y():
-    """Seat the four tube bundle in the existing 1-3/8-inch accessory hole."""
-    return max(
-        flavor_tube_depth_lower - math.sqrt((hole_radius - radius) ** 2 - x ** 2)
-        for x, radius in ((flavor_tube_x_offset, flavor_tube_r),
-                          (_fi.drain_tube_x, drain_tube_r)))
+    """Seat the shank and rear F/D/ribbon bundle in a 1-3/8-inch hole."""
+    circles = [(flavor_mount_x(sign),flavor_tube_depth_lower,flavor_tube_r)
+               for sign in flavor_sides]
+    circles.append((_fi.drain_tube_x,_fi.drain_tube_y,drain_tube_r))
+    limits = [y-math.sqrt((hole_radius-radius)**2-x*x) for x,y,radius in circles]
+    limits.extend(faucet_shell.signal_lower_exit_y+dy-math.sqrt(
+        hole_radius**2-(faucet_shell.signal_lower_exit_x+dx)**2)
+        for dx in (-cable_width/2,cable_width/2) for dy in (-cable_lane/2,cable_lane/2))
+    return max(limits)
 
 
-# [5.715 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
+# [6.903 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
 countertop_hole_center_y = seated_hole_center_y()
-# [6.25 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
+# [5.062 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
 # left to give, which is what lets the gasket cover the hole behind it.
 countertop_hole_margin = shank_hole_margin(countertop_hole_center_y)
 
@@ -1279,7 +1337,7 @@ def umbilical_collars():
     for which, x, y in (("carb", 0.0, 0.0),
                         ("flavor-a", +tail_half_x, pack_flavor_depth),
                         ("flavor-b", -tail_half_x, pack_flavor_depth),
-                        ("drain", _fi.drain_tube_x, drain_tail_y)):
+                        ("drain", drain_tail_x, drain_tail_y)):
         fluid = tube_collar.STATIONS[which].fluid
         collar, word = build_collar(which, x, y)
         out.append((f"collar_{which.replace('-', '_')}", collar,
@@ -1291,7 +1349,7 @@ def umbilical_collars():
 
 def build_assembly():
     """The faucet and its umbilical in the repo's +Z-up frame — the sub-assembly the bench bags,
-    from the display on the tip down to the three square-cut tails and the collar on each."""
+    from the display on the tip down to the four square-cut tails and their collars."""
     westbrass = load_westbrass()
     soda_faucet_tube = build_soda_faucet_tube()
     lever = build_lever()
@@ -1398,8 +1456,8 @@ def main():
     print(f"                         lower depth = {flavor_tube_depth_lower:.4f} mm "
           f"(tangent to the Westbrass's back face)")
     print(f"                         tight pack depth = {flavor_tube_depth_upper:.4f} mm")
-    print(f"                         lower/umbilical X = ±{flavor_tube_x_offset:.4f} mm; "
-          f"seal and face positions follow faucet_paths.py")
+    print(f"                         mounting X = {flavor_mount_x(-1):.4f}, {flavor_mount_x(+1):.4f} mm; "
+          f"pack X = ±{flavor_tube_x_offset:.4f} mm")
     print(f"                         smooth lower transition starts at Z = {pre_bend_z:.1f}")
     print(f"  Gooseneck:             bend 1 {bend1_deg:.0f}°, bend 2 {bend2_deg:.0f}°, "
           f"midpoint Z={gn_bend1_mid_z:.1f}, start Z={gn_bend1_start_z:.2f}")
@@ -1416,8 +1474,8 @@ def main():
           f"(on the shank's bottom face)")
     print(f"  Unions (White faucet): PP0408W Ø{union.RING_D:g} × {union_length:g}, flavor-b's "
           f"Z = {union_b_top_z:.2f} → {union_a_top_z:.2f}, flavor-a's → {union_foot_z:.2f}")
-    print(f"                         the pair {union_pass:.3f} apart there: flavor-b stepped "
-          f"{step_x:.3f} along −X over {step_rise:.2f} mm, flavor-a on its own line")
+    print(f"                         the pair {union_pass:.3f} apart at the unions; "
+          f"mounting returns use at most {step_rise:.2f} mm at R{step_bend_radius:g}")
     print(f"                         tube stops {union_gap:g} mm apart in each — a Black "
           f"faucet's bridge")
     print(f"  Umbilical:             gathers of {gather_rise(+1):.2f} (flavor-a) and "

@@ -37,6 +37,8 @@ from faucet_shell import (
     base_pedestal_height,
     base_pedestal_chamfer,
     build_lower_signal_lane,
+    signal_lower_exit_x,
+    signal_lower_exit_y,
     write_bed_file,
 )
 from docgen import substitute_md
@@ -105,6 +107,9 @@ def main():
         "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
         "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
         "PLATE_FLAVOR_Y": f"{flavor_tube_depth:.4g} mm",
+        "PLATE_FLAVOR_X": f"{bundle_slot_center_x:.4g} mm",
+        "PLATE_RIBBON_X": f"{signal_lower_exit_x:.4g} mm",
+        "PLATE_RIBBON_Y": f"{signal_lower_exit_y:.6g} mm",
         "PLATE_PILL_L": f"{bundle_slot_length_x:.4g} mm",
         "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
     }

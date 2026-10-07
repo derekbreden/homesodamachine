@@ -14,8 +14,11 @@ FLAVOR_OD = 6.35
 DRAIN_OD = 4.0
 DRAIN_ID = 2.5
 LOWER_FLAVOR_X = 5.45
+LOWER_BUNDLE_X = 2.275
 LOWER_Y = 18.925
-LOWER_START_Z = 42.0
+LOWER_DRAIN_Y = 18.525
+LOWER_RIBBON_Y = 21.4875
+LOWER_START_Z = 40.0
 LOWER_END_Z = 67.5
 OUTLET_Y = -133.99672200476698
 OUTLET_Z = 180.38874339162197
@@ -71,7 +74,23 @@ def lower_positions(z):
     u = ease((z - LOWER_START_Z)/(LOWER_END_Z-LOWER_START_Z))
     return (LOWER_FLAVOR_X + (TIGHT_FLAVOR_X-LOWER_FLAVOR_X)*u,
             LOWER_Y-WATER_Y + (TIGHT_FLAVOR_N-(LOWER_Y-WATER_Y))*u,
-            LOWER_Y-WATER_Y + (TIGHT_DRAIN_N-(LOWER_Y-WATER_Y))*u)
+            LOWER_DRAIN_Y-WATER_Y + (TIGHT_DRAIN_N-(LOWER_DRAIN_Y-WATER_Y))*u)
+
+
+def lower_bundle_x(z):
+    """Shared lateral return from the purchased mounting channel to the neck."""
+    return LOWER_BUNDLE_X*(1-ease((z-LOWER_START_Z)/(LOWER_END_Z-LOWER_START_Z)))
+
+
+def lower_ribbon_y(z):
+    u = ease((z-LOWER_START_Z)/(LOWER_END_Z-LOWER_START_Z))
+    return LOWER_RIBBON_Y+(WATER_Y+TIGHT_RIBBON_N-LOWER_RIBBON_Y)*u
+
+
+def lower_point(z, kind, sign=1):
+    x, f, d = lower_positions(z)
+    y = WATER_Y+(f if kind == "flavor" else d) if kind != "ribbon" else lower_ribbon_y(z)
+    return (lower_bundle_x(z)+(sign*x if kind == "flavor" else 0.0), y, z)
 
 
 def positions(s):
@@ -138,9 +157,7 @@ def path_wire(kind, bottom_z=-6.2, sign=1, *, end_s=None):
         edges.append(cq.Edge.makeSpline([cq.Vector(*fn(a+(b-a)*i/count)) for i in range(count+1)], tol=1e-7))
 
     def lower(z):
-        x, f, d = lower_positions(z)
-        n = f if kind == "flavor" else d if kind == "drain" else f+TIGHT_RIBBON_N-TIGHT_FLAVOR_N
-        return (sign*x if kind == "flavor" else 0.0, WATER_Y+n, z)
+        return lower_point(z, kind, sign)
 
     def constant_arc(a, b, x, n):
         if b-a > 1e-9:
