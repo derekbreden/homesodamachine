@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "piece": "funnel-frame",
+  "inputs": {
+    "gcode": "funnel-frame.gcode",
+    "gcode_sha256": "8acf9219f4cbcdca98d47cce3906301a8ac32e10e3071fe01ffd1dd1ab85c221",
+    "model": ".cache/pump-first-layout/slices/funnel-frame-f7c45f79b368-661ef477/funnel-frame.stl",
+    "model_sha256": "d361174b6ce406b5a05f93b48ae98634f2ddac6d190e1ee637415cca11b53c93",
+    "profile": ".cache/pump-first-layout/slices/funnel-frame-f7c45f79b368-661ef477/funnel-frame-input.3mf",
+    "profile_sha256": "8e901e367a73d05e9bb8df39ec41cb94f9075534c022e57f9d2cb20cbefcd2d2",
+    "brep_sha256": "f7c45f79b36810c087a193e9b038a8d623a3bcaa56793028712a2efaf2ba621b",
+    "archive_sha256": "a393939dbb763f680584128ce651a169cf0851a8630c11d31aa1261594845b7c",
+    "reviewer_sha256": "9ac1cdbed1dadf2906b16fdb723ebfc1146b7260de79909789c40dd82e6a256d",
+    "topology_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      35.574993134,
+      295.399993896
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      35.574993,
+      295.399994
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 7,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 3.36,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 7,
+    "shortest_labelled_build_up_mm": 3.36
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 3.56,
+      "shortest_build_up_mm": 3.36,
+      "top_z_mm": 20.36,
+      "bbox_xy_mm": [
+        51.2,
+        76.0,
+        274.0,
+        244.0
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4",
+        "interface-5",
+        "interface-6",
+        "interface-7"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -111.3,
+        111.575,
+        295.6,
+        111.5,
+        279.575,
+        315.76
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 3.56,
+      "last_z_mm": 4.76,
+      "bbox_xy_mm": [
+        58.0,
+        82.4,
+        267.2,
+        235.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 3.36,
+      "bbox_cad_xyz_mm": [
+        -104.5,
+        117.975,
+        298.96,
+        104.7,
+        271.175,
+        300.16
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 9.8,
+      "last_z_mm": 10.28,
+      "bbox_xy_mm": [
+        75.6,
+        171.2,
+        133.6,
+        238.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 9.6,
+      "bbox_cad_xyz_mm": [
+        -86.9,
+        206.775,
+        305.2,
+        -28.9,
+        273.975,
+        305.68
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 11.96,
+      "last_z_mm": 12.44,
+      "bbox_xy_mm": [
+        71.6,
+        182.0,
+        81.6,
+        239.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 11.76,
+      "bbox_cad_xyz_mm": [
+        -90.9,
+        217.575,
+        307.36,
+        -80.9,
+        275.175,
+        307.84
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 19.64,
+      "last_z_mm": 20.12,
+      "bbox_xy_mm": [
+        58.8,
+        76.8,
+        63.6,
+        160.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 19.44,
+      "bbox_cad_xyz_mm": [
+        -103.7,
+        112.375,
+        315.04,
+        -98.9,
+        195.575,
+        315.52
+      ]
+    },
+    {
+      "id": "interface-5",
+      "first_z_mm": 19.64,
+      "last_z_mm": 20.12,
+      "bbox_xy_mm": [
+        261.2,
+        76.8,
+        266.0,
+        160.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 19.44,
+      "bbox_cad_xyz_mm": [
+        98.7,
+        112.375,
+        315.04,
+        103.5,
+        195.575,
+        315.52
+      ]
+    },
+    {
+      "id": "interface-6",
+      "first_z_mm": 20.12,
+      "last_z_mm": 20.36,
+      "bbox_xy_mm": [
+        59.2,
+        169.2,
+        63.6,
+        244.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 19.92,
+      "bbox_cad_xyz_mm": [
+        -103.3,
+        204.775,
+        315.52,
+        -98.9,
+        279.575,
+        315.76
+      ]
+    },
+    {
+      "id": "interface-7",
+      "first_z_mm": 20.12,
+      "last_z_mm": 20.36,
+      "bbox_xy_mm": [
+        261.2,
+        169.2,
+        266.0,
+        244.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 19.92,
+      "bbox_cad_xyz_mm": [
+        98.7,
+        204.775,
+        315.52,
+        103.5,
+        279.575,
+        315.76
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "scope": "Complete emitted support topology including unlabelled short bodies. Physical removal effort, trapped branches, contact finish and mechanical qualification remain unverified."
+}

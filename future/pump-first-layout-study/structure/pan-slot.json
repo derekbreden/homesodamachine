@@ -1,0 +1,797 @@
+{
+  "pass": true,
+  "pan_bounds_mm": [
+    -107.5,
+    279.5999999,
+    254.3999999,
+    -1.0,
+    338.60000010000005,
+    266.40000010000006
+  ],
+  "cutter_bounds_mm": [
+    -107.50000009999997,
+    279.3499999,
+    253.8999999,
+    -98.49999989999998,
+    338.85000010000005,
+    266.65
+  ],
+  "pull_face_projection": {
+    "native_cap_face_indices": [
+      15,
+      17
+    ],
+    "native_cap_plane_x_mm": -101.55,
+    "native_cap_wire_edge_types": [
+      [
+        "LINE",
+        "BEZIER",
+        "CIRCLE",
+        "LINE",
+        "CIRCLE",
+        "LINE"
+      ],
+      [
+        "LINE",
+        "LINE",
+        "CIRCLE",
+        "LINE",
+        "CIRCLE",
+        "BEZIER"
+      ]
+    ],
+    "basin_end_plane_x_mm": -1.0,
+    "profile_union_material_witnesses": [
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 5507.999999999987,
+                "independent_common_volume_mm3": 5507.999999999987,
+                "material_error_mm3": 0.0,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 5507.999999999987
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      },
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 379.47685775727996,
+                "independent_common_volume_mm3": 379.47685775727996,
+                "material_error_mm3": 0.0,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 379.47685775727996
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      },
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 379.47685775727984,
+                "independent_common_volume_mm3": 379.47685775727984,
+                "material_error_mm3": 0.0,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 379.47685775727984
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      }
+    ],
+    "profile_refinement_material_witnesses": [
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 6266.953715514519,
+                "independent_common_volume_mm3": 6266.953715514519,
+                "material_error_mm3": 0.0,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 6266.953715514519
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      },
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 6266.953715514521,
+                "independent_common_volume_mm3": 6266.953715514519,
+                "material_error_mm3": 1.8189894035458565e-12,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 6266.953715514519
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      }
+    ],
+    "opening_union_material_witnesses": [
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 6575.090075821468,
+                "independent_common_volume_mm3": 6575.090075821472,
+                "material_error_mm3": 3.637978807091713e-12,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 6575.090075821472
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      },
+      {
+        "pass": true,
+        "attempts": [
+          {
+            "tolerance_mm": 0.0,
+            "target_solid_pairs": [],
+            "source_solids": [
+              {
+                "source_solid": 0,
+                "source_volume_mm3": 6575.090075821529,
+                "independent_common_volume_mm3": 6575.090075821528,
+                "material_error_mm3": 9.094947017729282e-13,
+                "commons": [
+                  {
+                    "target_solid": 0,
+                    "completed": true,
+                    "empty": false,
+                    "solid_count": 1,
+                    "volume_mm3": 6575.090075821528
+                  }
+                ],
+                "pass": true
+              }
+            ],
+            "pass": true
+          }
+        ]
+      }
+    ]
+  },
+  "flank_x_mm": [
+    -107.5,
+    -98.5
+  ],
+  "flank_span_mm": 9.0,
+  "directional_allowances_mm": {
+    "fore": 0.25,
+    "aft": 0.25,
+    "above": 0.25,
+    "below": 0.5
+  },
+  "checks": [
+    {
+      "check": "complete held pan fits its projected rounded silhouette",
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 25164.751699467168,
+              "independent_common_volume_mm3": 25164.751699467168,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 25164.751699467168
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "fore side full-profile native gap",
+      "translation_mm": [
+        0,
+        -0.25,
+        0
+      ],
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 6266.953715514521,
+              "independent_common_volume_mm3": 6266.953715514524,
+              "material_error_mm3": 3.637978807091713e-12,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 6266.953715514524
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "aft side full-profile native gap",
+      "translation_mm": [
+        0,
+        0.25,
+        0
+      ],
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 6266.953715514521,
+              "independent_common_volume_mm3": 6266.953715514524,
+              "material_error_mm3": 3.637978807091713e-12,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 6266.953715514524
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "top full-profile native gap",
+      "translation_mm": [
+        0,
+        0,
+        0.25
+      ],
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 6266.953715514521,
+              "independent_common_volume_mm3": 6266.953715514526,
+              "material_error_mm3": 5.4569682106375694e-12,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 6266.953715514526
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "bottom full-profile native gap",
+      "translation_mm": [
+        0,
+        0,
+        -0.5
+      ],
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 6266.953715514521,
+              "independent_common_volume_mm3": 6266.953715514517,
+              "material_error_mm3": 3.637978807091713e-12,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 6266.953715514517
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "nominal full-profile native gap",
+      "translation_mm": [
+        0,
+        0,
+        0
+      ],
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 6266.953715514521,
+              "independent_common_volume_mm3": 6266.953715514521,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 6266.953715514521
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 0",
+      "native_edge_type": "BEZIER",
+      "swept_area_mm2": 0.5527864045000399,
+      "swept_volume_mm3": 4.975077640500189,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 4.975077640500189,
+              "independent_common_volume_mm3": 4.975077640500165,
+              "material_error_mm3": 2.398081733190338e-14,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 4.975077640500165
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 1",
+      "native_edge_type": "CIRCLE",
+      "swept_area_mm2": 0.21114561800016696,
+      "swept_volume_mm3": 1.9003105620010456,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 1.9003105620010456,
+              "independent_common_volume_mm3": 1.9003105620010456,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 1.9003105620010456
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 2",
+      "native_edge_type": "LINE",
+      "swept_area_mm2": 0.0,
+      "zero_area_parallel_edge": true,
+      "pass": true
+    },
+    {
+      "check": "continuous settlement boundary patch 3",
+      "native_edge_type": "CIRCLE",
+      "swept_area_mm2": 2.0000000000000107,
+      "swept_volume_mm3": 17.999999999999716,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 17.999999999999716,
+              "independent_common_volume_mm3": 17.999999999999712,
+              "material_error_mm3": 3.552713678800501e-15,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 17.999999999999712
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 4",
+      "native_edge_type": "LINE",
+      "swept_area_mm2": 25.5,
+      "swept_volume_mm3": 229.5,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 229.5,
+              "independent_common_volume_mm3": 229.5,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 229.5
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 5",
+      "native_edge_type": "CIRCLE",
+      "swept_area_mm2": 2.0000000000000107,
+      "swept_volume_mm3": 17.999999999999744,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 17.999999999999744,
+              "independent_common_volume_mm3": 17.99999999999974,
+              "material_error_mm3": 3.552713678800501e-15,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 17.99999999999974
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 6",
+      "native_edge_type": "LINE",
+      "swept_area_mm2": 0.0,
+      "zero_area_parallel_edge": true,
+      "pass": true
+    },
+    {
+      "check": "continuous settlement boundary patch 7",
+      "native_edge_type": "CIRCLE",
+      "swept_area_mm2": 0.21114561800016696,
+      "swept_volume_mm3": 1.9003105620009635,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 1.9003105620009635,
+              "independent_common_volume_mm3": 1.9003105620009635,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 1.9003105620009635
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 8",
+      "native_edge_type": "BEZIER",
+      "swept_area_mm2": 0.5527864045000399,
+      "swept_volume_mm3": 4.975077640500274,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 4.975077640500274,
+              "independent_common_volume_mm3": 4.975077640497731,
+              "material_error_mm3": 2.5428548156014585e-12,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 4.975077640497731
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "continuous settlement boundary patch 9",
+      "native_edge_type": "LINE",
+      "swept_area_mm2": 27.972135955,
+      "swept_volume_mm3": 251.74922359499996,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 251.74922359499996,
+              "independent_common_volume_mm3": 251.74922359499968,
+              "material_error_mm3": 2.8421709430404007e-13,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 251.74922359499968
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "exact directional opening bounds",
+      "expected_yz_mm": [
+        279.3499999,
+        253.8999999,
+        338.85000010000005,
+        266.65000010000006
+      ],
+      "actual_yz_mm": [
+        279.3499999,
+        253.8999999,
+        338.85000010000005,
+        266.65
+      ],
+      "maximum_error_mm": 1.0000007932831068e-07,
+      "pass": true
+    },
+    {
+      "check": "fixed lid and every below-cap plane remain outside the aperture",
+      "fixed_lid_top_mm": 253.4000102,
+      "aperture_bottom_mm": 253.8999999,
+      "vertical_separation_mm": 0.49998970000001464,
+      "common_mm3": 0,
+      "native_witness": {
+        "completed": true,
+        "empty": true,
+        "solid_count": 0,
+        "volume_mm3": 0
+      },
+      "pass": true
+    }
+  ],
+  "continuous_motion_scope": "The complete pan is contained in the X-extruded silhouette. Pure X extraction and uniform downward settlement from0 to0.5mm use that same open silhouette; the profile-offset union contains the swept settlement interval. Other bay neighbors, cable handling, wall bearing, printed fit and liquid sealing require their separate complete-scene and physical qualifications.",
+  "clearance_cutter": {
+    "brep": ".cache/pump-first-layout/structure/pan-slot/pan-slot.brep",
+    "sha256": "7ba51c9319eb012d0967c6d389c836d79219e770719dcdb3b2780cfe0a4bd1bc",
+    "print_owner": "enclosure-back-top",
+    "bounds_mm": [
+      -107.50000009999997,
+      279.3499999,
+      253.8999999,
+      -98.49999989999998,
+      338.85000010000005,
+      266.65
+    ],
+    "full_west_flank_aperture": true,
+    "fixed_lid_and_lower_interfaces_unchanged": true,
+    "scope": "Full held rounded pull-face silhouette with0.25mm sides/top and0.5mm below allowance; exact west9mm flank only. Apply uncropped by the ordinary aft-funnel clearance scope."
+  },
+  "native_inputs": {
+    "asse-drip-pan": {
+      "brep": ".cache/pump-first-layout/routing/asse-drip-pan.brep",
+      "sha256": "27eb0b1f49483bbd5ff5acd152afcf9fc3bebee52e6175362a59c966cea8ffda"
+    }
+  },
+  "manifest_sha256": {
+    "future/pump-first-layout-study/routing/candidate.json": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/structure/pan_slot.py": "ae695083e243febebbdfbf0633028ef7a7d9b51189a0357e8e9ac45278cb95ef",
+    "future/pump-first-layout-study/structure/received_native.py": "e82ef3cf608abd0982435b51f7b7ce065c1b99a696503fa22ac80a4b5d52db98",
+    "future/pump-first-layout-study/structure/assemble_prints.py": "f95e5bbb43b43b5ca5212897d0ce93c7ae01b038d3cf5b0257952e8c09887a3f",
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
+  },
+  "source_drift": []
+}

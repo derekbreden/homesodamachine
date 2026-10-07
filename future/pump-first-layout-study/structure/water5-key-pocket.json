@@ -1,0 +1,425 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "check": "complete envelope operand: shifted rounded cap",
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 550.67382927035,
+              "independent_common_volume_mm3": 550.67382927035,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 550.67382927035
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete envelope operand: straight chord sweep",
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 1560.3733399414377,
+              "independent_common_volume_mm3": 1560.3733399414377,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 1560.3733399414377
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "native split half-space preserves full seat material",
+      "split_local_mm": -0.98,
+      "seat_min_normal_mm": -0.980000000000049,
+      "key_max_normal_mm": -0.9799999999999254,
+      "cutter_max_normal_mm": -0.9800000000000004,
+      "pass": true
+    },
+    {
+      "check": "complete fixed seat bearing and fastener stock unchanged",
+      "removed_material_mm3": 0,
+      "independent_common": {
+        "completed": true,
+        "empty": true,
+        "solid_count": 0,
+        "volume_mm3": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "independent complete held-seat material retention",
+      "retained_volume_mm3": 1697.0837738411662,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 1697.0837738411662,
+              "independent_common_volume_mm3": 1697.0837738411662,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 1697.0837738411662
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 0.0,
+      "occupied_wall_volume_mm3": 85.36655003497802,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 85.36655003497802,
+              "independent_common_volume_mm3": 85.36655003497802,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 85.36655003497802
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 0.25,
+      "occupied_wall_volume_mm3": 78.39452204140854,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 78.39452204140854,
+              "independent_common_volume_mm3": 78.39452204140854,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 78.39452204140854
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 0.5,
+      "occupied_wall_volume_mm3": 71.56296514134347,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 71.56296514134347,
+              "independent_common_volume_mm3": 71.56296514134347,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 71.56296514134347
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 1.0,
+      "occupied_wall_volume_mm3": 58.214978308013244,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 58.214978308013244,
+              "independent_common_volume_mm3": 58.214978308013244,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 58.214978308013244
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 2.0,
+      "occupied_wall_volume_mm3": 32.20635156046357,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 32.20635156046357,
+              "independent_common_volume_mm3": 32.20635156046357,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 32.20635156046357
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 3.0,
+      "occupied_wall_volume_mm3": 8.346762747670713,
+      "pass": true,
+      "attempts": [
+        {
+          "tolerance_mm": 0.0,
+          "target_solid_pairs": [],
+          "source_solids": [
+            {
+              "source_solid": 0,
+              "source_volume_mm3": 8.346762747670713,
+              "independent_common_volume_mm3": 8.346762747670713,
+              "material_error_mm3": 0.0,
+              "commons": [
+                {
+                  "target_solid": 0,
+                  "completed": true,
+                  "empty": false,
+                  "solid_count": 1,
+                  "volume_mm3": 8.346762747670713
+                }
+              ],
+              "pass": true
+            }
+          ],
+          "pass": true
+        }
+      ]
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 4.0,
+      "occupied_wall_volume_mm3": 0,
+      "pass": true,
+      "empty_owner_crossing": true
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 5.0,
+      "occupied_wall_volume_mm3": 0,
+      "pass": true,
+      "empty_owner_crossing": true
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 8.0,
+      "occupied_wall_volume_mm3": 0,
+      "pass": true,
+      "empty_owner_crossing": true
+    },
+    {
+      "check": "complete held-key east-wall crossing",
+      "outward_travel_mm": 12.0,
+      "occupied_wall_volume_mm3": 0,
+      "pass": true,
+      "empty_owner_crossing": true
+    },
+    {
+      "check": "both complete screw ears have outward-entry wall air",
+      "ear_max_x_mm": 98.03161264841627,
+      "minimum_wall_air_mm": 0.46838735158372913,
+      "required_air_mm": 0.25,
+      "pass": true
+    },
+    {
+      "check": "practical circular and axial running gaps",
+      "received_outer_radius_mm": 6.324999999999998,
+      "pocket_outer_radius_mm": 6.574999999999998,
+      "radial_air_mm": 0.25,
+      "top_air_mm": 0.25,
+      "bottom_air_mm": 0.25,
+      "mating_split_plane_mm": -0.98,
+      "mating_face_removed_mm3": 0,
+      "pass": true
+    },
+    {
+      "check": "fixed-width exterior flank and below-cap preservation",
+      "minimum_exterior_stock_mm": 5.315505512160158,
+      "cutter_min_z_mm": 312.0,
+      "pass": true
+    }
+  ],
+  "cutter_bounds_mm": [
+    98.5,
+    296.575315654579,
+    312.0,
+    102.18449448783984,
+    306.1948475784405,
+    322.0
+  ],
+  "received_outer_bearing_faces": [
+    {
+      "index": 0,
+      "radius_mm": 6.324999999999998,
+      "bounds_mm": [
+        94.0,
+        298.27500000000003,
+        312.25,
+        102.07759838155795,
+        307.074161835974,
+        321.75
+      ],
+      "area_mm2": 135.40512260569753
+    }
+  ],
+  "fixed_seat_volume_mm3": 1697.0837738411662,
+  "split_mating_plane_preserved": true,
+  "radial_and_axial_running_air_mm": 0.25,
+  "outward_entry_mm": 12.0,
+  "outward_axis": [
+    -0.9063077870366499,
+    -0.42261826174069944,
+    0.0
+  ],
+  "minimum_exterior_stock_mm": 5.315505512160158,
+  "scope": "Exact circular bearing swept along its outward normal, with 0.25mm radial/top/bottom clearance. The exact planar split bearing interface is preserved. Both screw ears remain inboard with practical air. Final printed running fit, tool workholding and the complete assembly inventory need separate qualification.",
+  "clearance_cutter": {
+    "brep": ".cache/pump-first-layout/structure/water5-key-pocket/water5-key-pocket.brep",
+    "sha256": "918e2ec0af74c5943597b95475be0ce96de58b8a72496394efbff826bf6f9c82",
+    "print_owner": "enclosure-back-top",
+    "bounds_mm": [
+      98.5,
+      296.575315654579,
+      312.0,
+      102.18449448783984,
+      306.1948475784405,
+      322.0
+    ],
+    "minimum_exterior_stock_mm": 5.315505512160158,
+    "full_interface_preserving_key_entry": true,
+    "factory_upper_bay_channel": true,
+    "scope": "Exact circular bearing swept along its outward normal, with 0.25mm radial/top/bottom clearance. The exact planar split bearing interface is preserved. Both screw ears remain inboard with practical air. Final printed running fit, tool workholding and the complete assembly inventory need separate qualification."
+  },
+  "native_inputs": {
+    "water5-east-drop-key": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-key.brep",
+      "sha256": "54802c8bddcbf483441d05f691a623c506bdf100510ae8c114301a3a5f1663c1"
+    },
+    "water5-east-drop-seat": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-seat.brep",
+      "sha256": "edf9efd9052b7632368308fee7ef8febe3f8da079d85d13c054ca51e24ef3d81"
+    }
+  },
+  "manifest_sha256": {
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "5da716e05eeae80682f50bde7cf6c9d220996b88ee14fea137011dcc8d0f85d9"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/structure/water5_key_pocket.py": "fe901642de57d89fa76cbb70bed8481d9a80ce3e100045327a926aff04801ae0",
+    "future/pump-first-layout-study/structure/received_native.py": "e82ef3cf608abd0982435b51f7b7ce065c1b99a696503fa22ac80a4b5d52db98",
+    "future/pump-first-layout-study/structure/assemble_prints.py": "f95e5bbb43b43b5ca5212897d0ce93c7ae01b038d3cf5b0257952e8c09887a3f",
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
+  },
+  "source_drift": []
+}

@@ -1,0 +1,248 @@
+{
+  "part": "asse-drip-pan",
+  "brep": ".cache/pump-first-layout/structure/print-parts/asse-drip-pan.brep",
+  "brep_sha256": "fbe6e8908f7909d89c2c7d9fdc8ebdddabd0144d1538b2c0a8e50cd61a916579",
+  "stl_sha256": "5c31e1048908bb16e9e8e3c35b251439e2b703a8661fd7d955f9104b2613992f",
+  "project_sha256": "b35c753bf2054726021b69671a3cbc310edde6397bab564d39b66257ae56a976",
+  "archive_sha256": "cd3a5ef9e74c82037255577504bd96138133d0272eb4928d9c5183cb2b4e1b9d",
+  "gcode_sha256": "0f020c69956e2e7680489320a537ee8b1966d420b203e9a2c42f56c9c851ce55",
+  "recipe": "hardware/printed-parts/petgf.3mf",
+  "recipe_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "rotation_x_deg": 0,
+  "slice_return_code": 0,
+  "review_source_sha256": "661ef477b6e7dfc95be35eb2bf945426b2b1fc9eacf6b7fef4af7a1e226d68ae",
+  "layer_ranges_mm": [],
+  "show_transition_blocked_triangles": 0,
+  "mesh_surface_review": {
+    "input_faces": 4102,
+    "output_faces": 4100,
+    "zero_area_facets_removed": 2,
+    "opposing_internal_facets_removed": 0,
+    "vertex_displacement_mm": 0.0,
+    "signed_volume_change_mm3": 7.275957614183426e-12,
+    "closed_oriented_volume": true
+  },
+  "closed_cavity_validation": null,
+  "warnings": [],
+  "embedded_native_mesh": {
+    "name": "asse-drip-pan",
+    "plate": 1,
+    "object_id": "2",
+    "part_id": "1",
+    "member": "3D/Objects/object_1.model",
+    "identify_id": 1901,
+    "source": ".cache/pump-first-layout/slices/asse-drip-pan-fbe6e8908f79-661ef477/asse-drip-pan.stl",
+    "stl_sha256": "5c31e1048908bb16e9e8e3c35b251439e2b703a8661fd7d955f9104b2613992f",
+    "triangles": 4100,
+    "rotation_x_degrees": 0,
+    "source_center_mm": [
+      -54.25,
+      309.1000061035156,
+      260.3999938964844
+    ],
+    "build_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      -0.0,
+      1.0,
+      162.5,
+      160.0,
+      6.0
+    ],
+    "plate_translation_mm": [
+      162.5,
+      160.0,
+      6.0
+    ],
+    "plate_origin_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "plate_bounds_mm": [
+      [
+        109.25,
+        130.5,
+        0.0
+      ],
+      [
+        215.75,
+        189.5,
+        12.0
+      ]
+    ],
+    "watertight": true,
+    "body_count": 1,
+    "embedded_vertex_error_mm": 4.999947122996673e-10
+  },
+  "selected_recipe": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_pattern": "grid",
+    "sparse_infill_density": "15%",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_object_xy_distance": "0.4"
+  },
+  "extrusion_segments_by_feature": {
+    "Custom": 1,
+    "Inner wall": 1767,
+    "Outer wall": 2009,
+    "Bottom surface": 485,
+    "Internal solid infill": 3171,
+    "Sparse infill": 7081,
+    "Floating vertical shell": 549,
+    "Bridge": 499,
+    "Top surface": 781,
+    "Gap infill": 3
+  },
+  "deposited_bead_bounds_mm": {
+    "Custom": [
+      [
+        249.79,
+        -0.71,
+        0.8
+      ],
+      [
+        290.21,
+        -0.29000000000000004,
+        0.8
+      ]
+    ],
+    "Inner wall": [
+      [
+        109.623,
+        130.868,
+        0.2
+      ],
+      [
+        215.382,
+        189.132,
+        11.72
+      ]
+    ],
+    "Outer wall": [
+      [
+        109.25500000000001,
+        130.5,
+        0.2
+      ],
+      [
+        215.75,
+        189.5,
+        11.96
+      ]
+    ],
+    "Bottom surface": [
+      [
+        111.56542,
+        132.98141999999999,
+        0.2
+      ],
+      [
+        214.75458,
+        187.01758,
+        0.2
+      ]
+    ],
+    "Internal solid infill": [
+      [
+        111.206878,
+        132.463878,
+        0.44
+      ],
+      [
+        215.20612200000002,
+        187.581537,
+        11.72
+      ]
+    ],
+    "Sparse infill": [
+      [
+        109.964,
+        131.591,
+        0.92
+      ],
+      [
+        215.041,
+        188.40699999999998,
+        10.76
+      ]
+    ],
+    "Floating vertical shell": [
+      [
+        110.082248,
+        131.325248,
+        1.88
+      ],
+      [
+        215.007752,
+        188.674752,
+        11.0
+      ]
+    ],
+    "Bridge": [
+      [
+        111.302505,
+        133.779505,
+        2.12
+      ],
+      [
+        214.99049499999998,
+        184.74049499999998,
+        2.12
+      ]
+    ],
+    "Top surface": [
+      [
+        112.32100000000001,
+        133.572,
+        3.08
+      ],
+      [
+        215.561,
+        186.427,
+        11.96
+      ]
+    ],
+    "Gap infill": [
+      [
+        112.4370945,
+        133.6870945,
+        11.96
+      ],
+      [
+        113.2389055,
+        134.4889055,
+        11.96
+      ]
+    ]
+  },
+  "model_layer_count": 50,
+  "layer_heights_mm": [
+    0.2,
+    0.24,
+    0.240001,
+    0.4
+  ],
+  "first_second_model_layer_overlap": {
+    "model_z_mm": [
+      0.2,
+      0.44
+    ],
+    "first_deposited_area_mm2": 5323.370670591361,
+    "second_deposited_area_mm2": 5380.2789913287925,
+    "overlapping_deposited_area_mm2": 5321.101980417165,
+    "second_deposited_area_on_first_percent": 98.90011259626125,
+    "scope": "XY bead-width union of actual straight model extrusion paths. Does not qualify adhesion or supported higher layers."
+  },
+  "scope": "Native slice and emitted deposition. No printer submission. Physical fit, support-removal effort, load capacity and life remain unqualified."
+}

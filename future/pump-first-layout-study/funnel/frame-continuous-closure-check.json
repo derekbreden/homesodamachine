@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "part": "vk-solenoid",
+      "continuous_frame_fore_of_home_range_mm": [
+        0,
+        102.2
+      ],
+      "conservative_swept_region": "Complete native bounding box swept continuously aft relative to the seated frame",
+      "common_mm3": 0.0,
+      "gap_mm": 0.9999999999999893,
+      "pass": true
+    },
+    {
+      "part": "vk-cradle",
+      "continuous_frame_fore_of_home_range_mm": [
+        0,
+        102.2
+      ],
+      "conservative_swept_region": "Complete native bounding box swept continuously aft relative to the seated frame",
+      "common_mm3": 0.0,
+      "gap_mm": 0.9999999999999858,
+      "pass": true
+    }
+  ],
+  "inputs_sha256": {
+    ".cache/pump-first-layout/structure/print-parts/funnel-frame.brep": "f7c45f79b36810c087a193e9b038a8d623a3bcaa56793028712a2efaf2ba621b",
+    ".cache/pump-first-layout/pump/vk-solenoid.brep": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07",
+    ".cache/pump-first-layout/pump/vk-cradle.brep": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b"
+  },
+  "pass": true,
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/check_continuous_closure.py": "e553e0b6f12dbe2524ec02a8507d38a1c288a6573bdb4554e50f18b3624be0e2"
+  },
+  "scope": "Each static body remains within its native bounding box. Its complete relative102.2mm translation remains within the tested continuous prism. Thus all intermediate front-top/frame closing poses preserve at least1mm air, without relying on sample spacing. No load or tolerance qualification is inferred."
+}

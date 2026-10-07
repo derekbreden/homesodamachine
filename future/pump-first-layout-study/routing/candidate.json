@@ -1,0 +1,5384 @@
+{
+  "parts": {
+    "asse1022-assembly": {
+      "brep": ".cache/pump-first-layout/routing/asse1022-assembly.brep",
+      "role": "water",
+      "detail": "Transverse ASSE assembly with axis Y310.3/Z308.45, flow +X and downward atmospheric vent (-15.325,310.3,279.45); keyed roof seats and complete tie envelopes are separate native parts.",
+      "bounds": [
+        -83.32499999999999,
+        293.79999999999404,
+        279.45000000000005,
+        56.67500000000001,
+        326.80000000000183,
+        322.73941916245
+      ],
+      "sha256": "542c576961c830948ea295557e3d7a4108d6d3268b33f0f97096437067e44817",
+      "transform": {
+        "rotation_world_z_deg": 90,
+        "translation_after_rotation": [
+          363.185,
+          388.37,
+          -27.76058083755
+        ]
+      }
+    },
+    "asse-drip-pan": {
+      "brep": ".cache/pump-first-layout/routing/asse-drip-pan.brep",
+      "role": "water",
+      "detail": "Flush102.5x51x12 basin;2.5mm walls,3mm floor,R2 coves, full54x40probe+1mm slip;40.122mL exact native rim-fill cavity;13.05mm atmospheric fall.",
+      "bounds": [
+        -107.5,
+        279.5999999,
+        254.3999999,
+        -1.0,
+        338.60000010000005,
+        266.4000001
+      ],
+      "sha256": "27eb0b1f49483bbd5ff5acd152afcf9fc3bebee52e6175362a59c966cea8ffda"
+    },
+    "moisture-plate": {
+      "brep": ".cache/pump-first-layout/routing/moisture-plate.brep",
+      "role": "water",
+      "detail": "Existing54x40probe lies on unchanged3mmfloor;1mm fore/aftslip on42mmflatfloor.",
+      "bounds": [
+        -79.25,
+        289.1,
+        257.4,
+        -25.25,
+        329.1,
+        259.0
+      ],
+      "sha256": "5102f3b4150751093907a5be11024ae861c1c2ef04f928a5f879863fe61fd7b2"
+    },
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/routing/relay-1.brep",
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "bounds": [
+        -24.5,
+        423.5,
+        257.65,
+        45.50000000000001,
+        440.5,
+        276.65
+      ],
+      "sha256": "70f757b26b4431c0bf161fcc9740ab06857793776c1bc7993d999da8dce1f265"
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/routing/relay-2.brep",
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "bounds": [
+        -24.5,
+        443.8,
+        257.65,
+        45.5,
+        460.8,
+        276.65
+      ],
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755"
+    },
+    "wago-h": {
+      "brep": ".cache/pump-first-layout/routing/wago-h.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -96.34999999999998,
+        334.55,
+        335.75,
+        -77.54999999999998,
+        353.15000000000003,
+        344.15
+      ],
+      "sha256": "f12eec39622e9ec722d8ac9ca56e82bdd6a7a170e021328f5123ada689255334"
+    },
+    "wago-n": {
+      "brep": ".cache/pump-first-layout/routing/wago-n.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -74.24999999999999,
+        334.55,
+        335.75,
+        -55.44999999999999,
+        353.15000000000003,
+        344.15
+      ],
+      "sha256": "510d05d7762e5238264ab496f46769d2b1ec0bcc09136fe5b157d7415ac4b26a"
+    },
+    "wago-g": {
+      "brep": ".cache/pump-first-layout/routing/wago-g.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -52.14999999999996,
+        334.55,
+        335.75,
+        -33.349999999999966,
+        353.15000000000003,
+        344.15
+      ],
+      "sha256": "8b3c6aad1862ba8bd0dfa78cc7abecf2898474cd25aab6e74b04454b608f1837"
+    },
+    "wago-v12": {
+      "brep": ".cache/pump-first-layout/routing/wago-v12.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -96.34999999999997,
+        356.44999999999993,
+        335.75,
+        -77.54999999999997,
+        375.04999999999995,
+        344.15
+      ],
+      "sha256": "023ad00e98d407003445f07e63e9c0efd3a3b1b77b51e1197a0ed7d0303b72af"
+    },
+    "wago-gnd": {
+      "brep": ".cache/pump-first-layout/routing/wago-gnd.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -74.24999999999999,
+        364.3,
+        335.75,
+        -55.44999999999999,
+        382.90000000000003,
+        344.15
+      ],
+      "sha256": "100e6d781cd5c6283d93596997638679c0b10f4457e7ea8be77ec64601066c52"
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/routing/wago-reeds-b.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -51.30000000000001,
+        364.15,
+        322.6,
+        -21.50000000000001,
+        379.95,
+        340.90000000000003
+      ],
+      "sha256": "6fb3744b409a26187b782d9423534b802a10de520d10530d4bcc5a3cfeea68a0"
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/routing/wago-reeds-a.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -96.35,
+        394.04999999999995,
+        335.75000000000006,
+        -66.34999999999997,
+        412.65000000000003,
+        344.1500000000001
+      ],
+      "sha256": "29dea4a757abe8261f994bd4c11eed7f0bb13f0478415b0dfe7b92d132e0aa0f"
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/routing/wago-sensors.brep",
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "bounds": [
+        -63.04999999999998,
+        394.05,
+        335.75000000000006,
+        -33.049999999999955,
+        412.65000000000003,
+        344.1500000000001
+      ],
+      "sha256": "d5d06e438e609a0bea7fbd8bf3cf8fdd7011cd1b55f7f214cf424c384992587a"
+    },
+    "wr1110": {
+      "brep": ".cache/pump-first-layout/routing/wr1110.brep",
+      "role": "gas",
+      "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck.",
+      "bounds": [
+        -93.45382844029879,
+        336.44190514328614,
+        311.6832541143992,
+        -59.39544736688041,
+        401.4119647145673,
+        331.116745885601
+      ],
+      "sha256": "6c9d377bdb7f72b89dc9c1a9c12032486b58afb6b04d7158bdaf31bb60f94f72"
+    },
+    "co2-adapter-regulator-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-in.brep",
+      "role": "gas",
+      "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck.",
+      "bounds": [
+        -95.2614807840235,
+        319.1882666842824,
+        314.2552904187781,
+        -75.74295959871691,
+        341.004884908444,
+        328.5447095812221
+      ],
+      "sha256": "358c354a55993b31d5886a68b971d3793e1f808e079b3379d4600963a81094f6"
+    },
+    "co2-adapter-regulator-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-out.brep",
+      "role": "gas",
+      "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck.",
+      "bounds": [
+        -76.85841797603709,
+        389.54246470604437,
+        313.9000000000001,
+        -56.123198322180045,
+        418.4094123435467,
+        328.9000000000001
+      ],
+      "sha256": "27f7353d423d7a05e6b44f92a27a24b9d75ea4bd8d79bb5d4b7c75892762f1ba"
+    },
+    "gasher-co2": {
+      "brep": ".cache/pump-first-layout/routing/gasher-co2.brep",
+      "role": "gas",
+      "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm.",
+      "bounds": [
+        65.49999999999743,
+        372.5,
+        257.75,
+        82.5000000000026,
+        412.5,
+        273.25
+      ],
+      "sha256": "38ac5aaf46d48568a29ecc97d314c96be8830d26a76e54c08180a97760e6d078"
+    },
+    "co2-adapter-check-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-in.brep",
+      "role": "gas",
+      "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm.",
+      "bounds": [
+        66.85529041877805,
+        412.5,
+        257.2499999999983,
+        81.144709581222,
+        431.0,
+        273.7500000000017
+      ],
+      "sha256": "e53cf8b9a62a127fa65870dc9ac0384e8582055b54ae927977bf80ec1c22b706"
+    },
+    "co2-adapter-check-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-out.brep",
+      "role": "gas",
+      "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm.",
+      "bounds": [
+        66.5,
+        357.5,
+        257.2499999999983,
+        81.5,
+        383.5,
+        273.7500000000017
+      ],
+      "sha256": "5deaf45f270d89f200709ab8b504e49cd316751ca52a8c53e3a5682035a1582d"
+    },
+    "digiten-flow": {
+      "brep": ".cache/pump-first-layout/routing/digiten-flow.brep",
+      "role": "water",
+      "detail": "Meter rolled 90 degrees about its flow axis on east side; axisX84.5,inletY372.01; removable side-cover pocket retains3.1mm outer shell stock.",
+      "bounds": [
+        75.09999999999997,
+        372.01,
+        305.6,
+        103.39999999999998,
+        433.01,
+        341.25
+      ],
+      "sha256": "e1684c3c8825d41cf64617b2a954c22ee49c4cd3f0743565d55a63b27384416f",
+      "transform": {
+        "rotation_about_flow_deg": 90,
+        "rotation_origin": [
+          -40.81,
+          394.01,
+          332.1
+        ],
+        "translation": [
+          125.31,
+          8.5,
+          0.0
+        ]
+      }
+    },
+    "water-split": {
+      "brep": ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep",
+      "role": "water",
+      "detail": "John Guest union tee at (95.25,402.75,265): aft incoming water, fore pump-valve output and upper flavor outlet; restrained at the measured aft collar by a complete closed tie and direct lid pad.",
+      "bounds": [
+        87.0,
+        381.5,
+        256.75,
+        103.5,
+        424.0,
+        287.35
+      ],
+      "sha256": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20"
+    },
+    "flow-regulator": {
+      "brep": ".cache/pump-first-layout/routing/flow-regulator.brep",
+      "role": "water",
+      "detail": "Purchased flavor needle on axis (27.5,312.5,275.25), flow +X, adjuster facing fore; restrained by the keyed lid-rooted bearing and full closed tie.",
+      "bounds": [
+        4.5,
+        278.5,
+        267.88878406783226,
+        50.5,
+        319.5,
+        282.61121593216774
+      ],
+      "sha256": "b3fe324ebe4d9dae0d5dd83b463e3ad9d3783c20e52c1f548109c07ea464f15d"
+    },
+    "bulkhead-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-water.brep",
+      "role": "water",
+      "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm.",
+      "bounds": [
+        -101.93,
+        446.51,
+        302.07,
+        -79.07,
+        480.8,
+        324.93
+      ],
+      "sha256": "7bd546ad20be262205f9f829723fdefd76882f13fc9e3d176c6f67712bb7c94f",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      }
+    },
+    "bulkhead-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-carb.brep",
+      "role": "water",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        73.07,
+        446.51,
+        317.57,
+        95.93,
+        480.8,
+        340.43
+      ],
+      "sha256": "981f3ca040e8a2115bfc59a9ae62dd2051319094c378c97623e33cf536732605",
+      "transform": {
+        "translation": [
+          122.31,
+          0.0,
+          -7.21058083755
+        ]
+      }
+    },
+    "co2-inlet": {
+      "brep": ".cache/pump-first-layout/routing/co2-inlet.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        65.372295715457,
+        454.0026,
+        259.87229571545697,
+        89.627704284543,
+        488.19100000000003,
+        284.12770428454303
+      ],
+      "sha256": "c8066d4e047fca654a9b34eba54c7fcc2e32e538215f6edcda95557f1a88bcf5",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "bulkhead-ring-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water.brep",
+      "role": "water",
+      "detail": "WATER identification chip with its west decorative rim flat at X\u2212107.5; native bore, flange bearing and TAP lettering preserved.",
+      "bounds": [
+        -107.5000001,
+        469.3,
+        295.02,
+        -72.01999989999999,
+        471.30000010000003,
+        332.2890001
+      ],
+      "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      },
+      "decorative_finish": {
+        "finish": "Flat west decorative rim at the established exterior face",
+        "west_face_mm": -107.5,
+        "decorative_rim_trim_mm": 1.48,
+        "bore_diameter_mm": 17.44,
+        "west_material_outside_bore_mm": 8.28,
+        "west_visible_color_beyond_union_flange_mm": 5.57,
+        "unchanged": [
+          "union geometry and pose",
+          "17.44 mm chip bore",
+          "complete flange bearing annulus",
+          "lettering and recess",
+          "receiver bore, floor, slip and keying geometry"
+        ],
+        "receiver_scope": "The exact original chip pocket is retained inside the established width; its overhanging decorative outline lies outside the physical wall."
+      }
+    },
+    "bulkhead-ring-water-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water-word.brep",
+      "role": "water",
+      "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm.",
+      "bounds": [
+        -96.82861333124998,
+        470.29999999999995,
+        326.27038857187995,
+        -84.17138666874999,
+        471.7800002,
+        330.94861142813
+      ],
+      "sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      }
+    },
+    "bulkhead-ring-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb.brep",
+      "role": "water",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        66.01999990000002,
+        469.3,
+        310.52,
+        102.98000010000001,
+        471.30000010000003,
+        347.7890001
+      ],
+      "sha256": "6a03fa53e08a0967bf9e5e9a91475e76db441ea5e79777d62ee5dcf655ff81a3",
+      "transform": {
+        "translation": [
+          122.31,
+          0.0,
+          -7.21058083755
+        ]
+      }
+    },
+    "bulkhead-ring-carb-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb-word.brep",
+      "role": "water",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        75.29431147343833,
+        470.29999999999995,
+        341.63391396249995,
+        93.70568852657,
+        471.7800002,
+        346.5850860375
+      ],
+      "sha256": "65f0369c3e0d6351dce5380704aedafcf4c9d8b978210b9baffb1ad7e8bd8444",
+      "transform": {
+        "translation": [
+          122.31,
+          0.0,
+          -7.21058083755
+        ]
+      }
+    },
+    "bulkhead-ring-co2": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        59.480806665619994,
+        469.3,
+        253.980806765612,
+        95.51919333438799,
+        471.30000010000003,
+        291.0390001
+      ],
+      "sha256": "97e6d6c3592bcba17d41e5e7e58e7b2f5b9b314770f3a37f14e00a616e45b284",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "bulkhead-ring-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2-word.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        71.093627829688,
+        470.29999999999995,
+        284.5285105797,
+        83.906372170312,
+        471.7800002,
+        289.47968265470007
+      ],
+      "sha256": "91dc3acbc6b6031d1623db7762a004e870d8bf27900a920fc7eff7fdcf7069dd",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "tube-customer-water": {
+      "brep": ".cache/pump-first-layout/routing/tube-customer-water.brep",
+      "role": "water",
+      "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm.",
+      "bounds": [
+        -93.675,
+        480.8,
+        310.325,
+        -87.325,
+        528.8,
+        316.675
+      ],
+      "sha256": "202ef2d5d30d9f760acf813dd7e3aa2a347e9c2e6dcce7e127006f050e1cd214",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      }
+    },
+    "tube-customer-co2": {
+      "brep": ".cache/pump-first-layout/routing/tube-customer-co2.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        74.325,
+        488.191,
+        268.825,
+        80.675,
+        536.191,
+        275.175
+      ],
+      "sha256": "5327101f9ecc2df518f2585b9fe3c26023086dc799a469cde819448f8606e508",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "tube-collar-water": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water.brep",
+      "role": "water",
+      "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm.",
+      "bounds": [
+        -96.5000001,
+        488.7999999,
+        307.5,
+        -84.4999999,
+        518.8000000999999,
+        320.5500002
+      ],
+      "sha256": "402590ca245d97b876095ce2aea4738e0e0e21223fe8706a249c3e6c205d5206",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      }
+    },
+    "tube-collar-water-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water-word.brep",
+      "role": "water",
+      "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm.",
+      "bounds": [
+        -96.5,
+        497.47138666875,
+        314.68588857187996,
+        -84.5,
+        510.12861333125,
+        320.5500002
+      ],
+      "sha256": "e28aab09bee3a73482f817cd93a294995cc3eff316b4f6d9034059fde7d69eae",
+      "transform": {
+        "translation": [
+          -12.43,
+          0.0,
+          -22.71058083755
+        ]
+      }
+    },
+    "tube-collar-co2": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        71.4999999,
+        496.19099989999995,
+        266.0,
+        83.5000001,
+        526.1910001,
+        279.05000020000006
+      ],
+      "sha256": "ed1543932b7d8dd3403df67b28a10008403021a98158bec986dbbcf7b335ebca",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "tube-collar-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2-word.brep",
+      "role": "gas",
+      "detail": "Rear interface with its fitted native body, colored identification collar and readable port label.",
+      "bounds": [
+        71.5,
+        504.78462782968,
+        273.04941396249995,
+        83.49999999999999,
+        517.59737217031,
+        279.05000020000006
+      ],
+      "sha256": "c662051546f16769ddd76ff2a5f43ab684a1f599e46a91313b7c12c44a2d55c0",
+      "transform": {
+        "translation": [
+          75.05,
+          0.0,
+          -63.96058083755
+        ]
+      }
+    },
+    "tube-fluid-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-1.brep",
+      "role": "water",
+      "detail": "The tee upper flavor outlet turns fore and west below the meter, passes behind ASSE at Z304 beneath its roof seats, then descends into the needle inlet.",
+      "bounds": [
+        -41.6750001,
+        309.32499989999997,
+        272.07499989999997,
+        98.42500009999998,
+        405.92500010000003,
+        332.52500010000006
+      ],
+      "sha256": "c21c1b3dc8ca4a6e3e0406352637e7e77ad7f5da13d3acda2f215defff81bdcd",
+      "route": {
+        "kind": "fluid",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 303.6426922048613,
+        "waypoints": [
+          [
+            95.24999999999999,
+            402.75,
+            287.35
+          ],
+          [
+            81.25,
+            402.75,
+            301.35
+          ],
+          [
+            67.25,
+            402.75,
+            315.35
+          ],
+          [
+            67.25,
+            388.75,
+            329.35
+          ],
+          [
+            67.25,
+            382.8121580675545,
+            329.35
+          ],
+          [
+            67.25,
+            368.875,
+            316.675
+          ],
+          [
+            67.25,
+            354.9378419324455,
+            304.0
+          ],
+          [
+            67.24999999999999,
+            349.0,
+            304.0
+          ],
+          [
+            53.25,
+            335.0,
+            304.0
+          ],
+          [
+            -24.5,
+            335.0,
+            304.0
+          ],
+          [
+            -38.5,
+            335.0,
+            290.0
+          ],
+          [
+            -38.49999999999999,
+            335.0,
+            289.25
+          ],
+          [
+            -24.5,
+            335.0,
+            275.25
+          ],
+          [
+            -23.727253913292344,
+            335.0,
+            275.25
+          ],
+          [
+            -9.999999999999979,
+            323.75,
+            275.25
+          ],
+          [
+            3.727253913292344,
+            312.5,
+            275.25
+          ],
+          [
+            4.5,
+            312.5,
+            275.25
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "water-split.to-flavor",
+        "to": "flow-regulator.inlet",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-fluid-1.brep",
+        "straight_segments": [
+          {
+            "start": [
+              67.25,
+              388.75,
+              329.35
+            ],
+            "end": [
+              67.25,
+              382.8121580675545,
+              329.35
+            ],
+            "length_mm": 5.937841932445508,
+            "start_developed_mm": 65.97344572538572,
+            "end_developed_mm": 71.91128765783122
+          },
+          {
+            "start": [
+              67.25,
+              354.9378419324455,
+              304.0
+            ],
+            "end": [
+              67.25,
+              349.0,
+              304.0
+            ],
+            "length_mm": 5.937841932445508,
+            "start_developed_mm": 113.2396126485345,
+            "end_developed_mm": 119.17745458098001
+          },
+          {
+            "start": [
+              53.25,
+              335.0,
+              304.0
+            ],
+            "end": [
+              -24.5,
+              335.0,
+              304.0
+            ],
+            "length_mm": 77.75,
+            "start_developed_mm": 141.1686031561086,
+            "end_developed_mm": 218.9186031561086
+          },
+          {
+            "start": [
+              -38.5,
+              335.0,
+              290.0
+            ],
+            "end": [
+              -38.5,
+              335.0,
+              289.25
+            ],
+            "length_mm": 0.75,
+            "start_developed_mm": 240.90975173123715,
+            "end_developed_mm": 241.65975173123715
+          },
+          {
+            "start": [
+              -24.5,
+              335.0,
+              275.25
+            ],
+            "end": [
+              -23.727253913292344,
+              335.0,
+              275.25
+            ],
+            "length_mm": 0.7727460867076559,
+            "start_developed_mm": 263.6509003063657,
+            "end_developed_mm": 264.42364639307334
+          },
+          {
+            "start": [
+              3.727253913292344,
+              312.5,
+              275.25
+            ],
+            "end": [
+              4.5,
+              312.5,
+              275.25
+            ],
+            "length_mm": 0.7727460867076559,
+            "start_developed_mm": 302.8699461181536,
+            "end_developed_mm": 303.6426922048613
+          }
+        ],
+        "source_position_error_mm": 1.4210854715202004e-14,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 2.32634856701332e-13,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 9616.126444593945,
+        "sweep_area_length_volume_mm3": 9616.126444593918,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          0.7727460867076559,
+          0.7727460867076559
+        ],
+        "theta_deg": 78.67181114793122,
+        "error": 0.0
+      }
+    },
+    "tube-fluid-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-2.brep",
+      "role": "water",
+      "detail": "The needle east outlet turns fore at R14 and descends into the source-A aft inlet, west of the complete carbonated-water sleeve.",
+      "bounds": [
+        45.874999900000006,
+        270.25,
+        266.9749998999999,
+        68.17500009999998,
+        315.67500010000003,
+        278.4250001000001
+      ],
+      "sha256": "6050b034745675a218c95a365e8aa6dee4b27ab8ecc141aa3aa0aea33d2fd6dc",
+      "route": {
+        "kind": "fluid",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 57.50292708066106,
+        "waypoints": [
+          [
+            50.5,
+            312.5,
+            275.25
+          ],
+          [
+            51.0,
+            312.5,
+            275.25
+          ],
+          [
+            65.0,
+            298.5,
+            275.25
+          ],
+          [
+            64.99999999999999,
+            297.19428937390467,
+            275.25000000000006
+          ],
+          [
+            57.02500000000001,
+            284.375,
+            272.69999999999993
+          ],
+          [
+            49.05,
+            271.55571062609533,
+            270.15
+          ],
+          [
+            49.05,
+            270.25,
+            270.15
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "flow-regulator.outlet",
+        "to": "valve-v-a.inlet",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-fluid-2.brep",
+        "straight_segments": [
+          {
+            "start": [
+              50.5,
+              312.5,
+              275.25
+            ],
+            "end": [
+              51.0,
+              312.5,
+              275.25
+            ],
+            "length_mm": 0.5,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 0.5
+          },
+          {
+            "start": [
+              65.0,
+              298.5,
+              275.25
+            ],
+            "end": [
+              65.0,
+              297.19428937390467,
+              275.25
+            ],
+            "length_mm": 1.3057106260953333,
+            "start_developed_mm": 22.491148575128566,
+            "end_developed_mm": 23.7968592012239
+          },
+          {
+            "start": [
+              49.05,
+              271.55571062609533,
+              270.15
+            ],
+            "end": [
+              49.05,
+              270.25,
+              270.15
+            ],
+            "length_mm": 1.3057106260953333,
+            "start_developed_mm": 56.19721645456573,
+            "end_developed_mm": 57.50292708066106
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 1821.0727013605656,
+        "sweep_area_length_volume_mm3": 1821.0727013605624,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          1.3057106260953315,
+          1.3057106260953315
+        ],
+        "theta_deg": 66.30013304759183,
+        "error": 0.0
+      }
+    },
+    "tube-water-3": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-3.brep",
+      "role": "water",
+      "detail": "The tee fore output rises beside the cold sleeve, steps inside Water5, crosses fore of the controller above the ASSE seats, then descends fore of ASSE into the raised pump inlet valve.",
+      "bounds": [
+        -78.72500009999999,
+        266.5,
+        261.82499989999997,
+        103.5000001,
+        381.5,
+        350.3750001
+      ],
+      "sha256": "f0aebf0f0eb56d350b185b85e3cc319e4c12a8f0bb185895dd92d93b723f5d0e",
+      "route": {
+        "kind": "water",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 389.6553103050572,
+        "waypoints": [
+          [
+            95.25,
+            381.5,
+            265.0
+          ],
+          [
+            95.25000000000001,
+            381.0,
+            265.0
+          ],
+          [
+            97.78749999999998,
+            368.8885213306333,
+            271.5
+          ],
+          [
+            100.32499999999999,
+            356.7770426612666,
+            278.0
+          ],
+          [
+            100.325,
+            334.6,
+            278.0
+          ],
+          [
+            100.32499999999999,
+            320.6,
+            292.0
+          ],
+          [
+            86.325,
+            320.6,
+            306.0
+          ],
+          [
+            72.325,
+            320.6,
+            320.0
+          ],
+          [
+            72.32500000000002,
+            320.6,
+            333.2
+          ],
+          [
+            58.325,
+            320.6,
+            347.2
+          ],
+          [
+            -24.5,
+            320.6,
+            347.2
+          ],
+          [
+            -27.116577019471976,
+            320.6,
+            347.2
+          ],
+          [
+            -36.025000000000006,
+            323.8,
+            347.2
+          ],
+          [
+            -44.93342298052802,
+            327.0,
+            347.2
+          ],
+          [
+            -47.55,
+            327.0,
+            347.2
+          ],
+          [
+            -61.55,
+            327.0,
+            347.2
+          ],
+          [
+            -75.55,
+            313.0,
+            347.19999999999993
+          ],
+          [
+            -75.55,
+            299.0,
+            333.2
+          ],
+          [
+            -75.55,
+            299.0,
+            302.5
+          ],
+          [
+            -75.55,
+            285.0,
+            288.5
+          ],
+          [
+            -75.55,
+            266.5,
+            288.5
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "water-split.to-vk",
+        "to": "vk-solenoid.inlet",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-water-3.brep",
+        "straight_segments": [
+          {
+            "start": [
+              95.25,
+              381.5,
+              265.0
+            ],
+            "end": [
+              95.25,
+              381.0,
+              265.0
+            ],
+            "length_mm": 0.5,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 0.5
+          },
+          {
+            "start": [
+              100.32499999999999,
+              356.7770426612666,
+              278.0
+            ],
+            "end": [
+              100.325,
+              334.6,
+              278.0
+            ],
+            "length_mm": 22.17704266126657,
+            "start_developed_mm": 29.770105267769516,
+            "end_developed_mm": 51.947147929036085
+          },
+          {
+            "start": [
+              72.325,
+              320.6,
+              320.0
+            ],
+            "end": [
+              72.325,
+              320.6,
+              333.2
+            ],
+            "length_mm": 13.199999999999989,
+            "start_developed_mm": 117.9205936544218,
+            "end_developed_mm": 131.12059365442178
+          },
+          {
+            "start": [
+              58.325,
+              320.6,
+              347.2
+            ],
+            "end": [
+              -24.5,
+              320.6,
+              347.2
+            ],
+            "length_mm": 82.825,
+            "start_developed_mm": 153.11174222955034,
+            "end_developed_mm": 235.93674222955036
+          },
+          {
+            "start": [
+              -24.5,
+              320.6,
+              347.2
+            ],
+            "end": [
+              -27.116577019471976,
+              320.6,
+              347.2
+            ],
+            "length_mm": 2.6165770194719755,
+            "start_developed_mm": 235.93674222955036,
+            "end_developed_mm": 238.55331924902234
+          },
+          {
+            "start": [
+              -44.93342298052802,
+              327.0,
+              347.2
+            ],
+            "end": [
+              -47.55,
+              327.0,
+              347.2
+            ],
+            "length_mm": 2.6165770194719755,
+            "start_developed_mm": 257.8652875601994,
+            "end_developed_mm": 260.4818645796714
+          },
+          {
+            "start": [
+              -47.55,
+              327.0,
+              347.2
+            ],
+            "end": [
+              -61.55,
+              327.0,
+              347.2
+            ],
+            "length_mm": 14.0,
+            "start_developed_mm": 260.4818645796714,
+            "end_developed_mm": 274.4818645796714
+          },
+          {
+            "start": [
+              -75.55,
+              299.0,
+              333.2
+            ],
+            "end": [
+              -75.55,
+              299.0,
+              302.5
+            ],
+            "length_mm": 30.69999999999999,
+            "start_developed_mm": 318.4641617299286,
+            "end_developed_mm": 349.1641617299286
+          },
+          {
+            "start": [
+              -75.55,
+              285.0,
+              288.5
+            ],
+            "end": [
+              -75.55,
+              266.5,
+              288.5
+            ],
+            "length_mm": 18.5,
+            "start_developed_mm": 371.1553103050572,
+            "end_developed_mm": 389.6553103050572
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 12340.078750101813,
+        "sweep_area_length_volume_mm3": 12340.078750101797,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          2.6165770194719773,
+          2.6165770194719773
+        ],
+        "theta_deg": 39.517652797172715,
+        "error": 0.0
+      }
+    },
+    "tube-carb-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-1.brep",
+      "role": "water",
+      "detail": "Full \u00d825.4 insulation covers the chilled path from the fixed cap mouth through the east riser behind ASSE into the rolled flow meter.",
+      "bounds": [
+        74.32499990000001,
+        268.4249999,
+        253.4000001,
+        87.67500010000002,
+        372.01,
+        335.27500010000006
+      ],
+      "sha256": "053c0568752880b196175b3f029f60ce0835a9d76e26fed390c98c4bcf55c77d",
+      "route": {
+        "kind": "water",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14.0,
+        "length_mm": 161.38020532494113,
+        "waypoints": [
+          [
+            77.5,
+            271.6,
+            253.4000001
+          ],
+          [
+            77.5,
+            271.6,
+            285.2
+          ],
+          [
+            84.5,
+            354.01,
+            285.2
+          ],
+          [
+            84.5,
+            354.01,
+            332.1
+          ],
+          [
+            84.5,
+            372.01,
+            332.1
+          ]
+        ],
+        "radii": {
+          "1": 14.0,
+          "2": 14.0,
+          "3": 14.0
+        },
+        "from": "core.carb",
+        "to": "digiten-flow.inlet",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-carb-1.brep",
+        "straight_segments": [
+          {
+            "start": [
+              77.5,
+              271.6,
+              253.4000001
+            ],
+            "end": [
+              77.5,
+              271.6,
+              271.2
+            ],
+            "length_mm": 17.79999989999999,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 17.79999989999999
+          },
+          {
+            "start": [
+              78.68490919431494,
+              285.54976667192784,
+              285.2
+            ],
+            "end": [
+              83.31509080568506,
+              340.0602333280722,
+              285.2
+            ],
+            "length_mm": 54.70675969955535,
+            "start_developed_mm": 39.79114847512858,
+            "end_developed_mm": 94.49790817468393
+          },
+          {
+            "start": [
+              84.5,
+              354.01,
+              299.2
+            ],
+            "end": [
+              84.5,
+              354.01,
+              318.1
+            ],
+            "length_mm": 18.900000000000034,
+            "start_developed_mm": 116.48905674981252,
+            "end_developed_mm": 135.38905674981254
+          },
+          {
+            "start": [
+              84.5,
+              368.01,
+              332.1
+            ],
+            "end": [
+              84.5,
+              372.01,
+              332.1
+            ],
+            "length_mm": 4.0,
+            "start_developed_mm": 157.38020532494113,
+            "end_developed_mm": 161.38020532494113
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 5110.784813527347,
+        "sweep_area_length_volume_mm3": 5110.784813527343,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius"
+      }
+    },
+    "carb-foam-carb-1": {
+      "brep": ".cache/pump-first-layout/routing/carb-foam-carb-1.brep",
+      "role": "water",
+      "detail": "Full\u00d825.4mm insulation sleeve along the actual tangent tube, including both elbow envelopes.",
+      "bounds": [
+        64.7999999,
+        258.8999999,
+        253.4000001,
+        97.20000010000003,
+        372.01,
+        344.80000010000003
+      ],
+      "sha256": "ec69e88040dfbb68aec5f4bdd3696562e3ac0df865565572f48c572dbde0b9bb"
+    },
+    "tube-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-2.brep",
+      "role": "water",
+      "detail": "The aligned meter and rear CARB collet connect through an exact R14 S descending 3.1 mm; the complete insulation exterior is included.",
+      "bounds": [
+        81.32499990000001,
+        433.01,
+        325.82499989999997,
+        87.67500009999999,
+        446.51,
+        335.27500010000006
+      ],
+      "sha256": "354a68df30a96f8ab889316ca61ac15886a977b2c3bedc974999125bad665913",
+      "route": {
+        "kind": "water",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 13.994570974963437,
+        "waypoints": [
+          [
+            84.5,
+            433.01,
+            332.1
+          ],
+          [
+            84.5,
+            433.3570709827454,
+            332.1
+          ],
+          [
+            84.5,
+            439.76,
+            330.55
+          ],
+          [
+            84.5,
+            446.16292901725456,
+            329.0
+          ],
+          [
+            84.5,
+            446.51,
+            329.0
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "digiten-flow.outlet",
+        "to": "bulkhead-carb.tube-in",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-carb-2.brep",
+        "straight_segments": [
+          {
+            "start": [
+              84.5,
+              433.01,
+              332.1
+            ],
+            "end": [
+              84.5,
+              433.3570709827454,
+              332.1
+            ],
+            "length_mm": 0.3470709827454357,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 0.3470709827454357
+          },
+          {
+            "start": [
+              84.5,
+              446.16292901725456,
+              329.0
+            ],
+            "end": [
+              84.5,
+              446.51,
+              329.0
+            ],
+            "length_mm": 0.3470709827454357,
+            "start_developed_mm": 13.647499992218,
+            "end_developed_mm": 13.994570974963436
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 443.1971112359216,
+        "sweep_area_length_volume_mm3": 443.1971112359209,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          0.34707098274545256,
+          0.34707098274545256
+        ],
+        "theta_deg": 27.216373141290816,
+        "error": 0.0
+      }
+    },
+    "carb-foam-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/carb-foam-carb-2.brep",
+      "role": "water",
+      "detail": "Full\u00d825.4mm insulation sleeve along the actual tangent tube, including both elbow envelopes.",
+      "bounds": [
+        71.7999999,
+        433.01,
+        316.2999999,
+        97.2000001,
+        446.51,
+        344.80000010000003
+      ],
+      "sha256": "ad0c26b3e1c0e847b80b24e31dede032e88d93b32a3c5ede521170c57aaafeed"
+    },
+    "tube-co2-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-co2-2.brep",
+      "role": "gas",
+      "detail": "The low check-to-core gas return lies below the complete carbonated-water sleeve and uses an R14 normal downward cap elbow.",
+      "bounds": [
+        70.8249999,
+        319.12499990000003,
+        253.39999989999998,
+        80.67500010000012,
+        357.5,
+        270.5750001
+      ],
+      "sha256": "2ae06752639d5f129b3f32c6b14e2648c3995edf44afbfb5fed2ebb478619410",
+      "route": {
+        "kind": "co2",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 43.91487165473666,
+        "waypoints": [
+          [
+            74.0,
+            357.5,
+            265.5
+          ],
+          [
+            73.99999999999999,
+            354.09648954038505,
+            265.50000000000006
+          ],
+          [
+            75.75,
+            346.9,
+            266.45
+          ],
+          [
+            77.5,
+            339.7035104596149,
+            267.4
+          ],
+          [
+            77.5,
+            336.3,
+            267.4
+          ],
+          [
+            77.5,
+            322.30000000000007,
+            253.39999999999998
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "gasher-co2.outlet",
+        "to": "core.co2",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-co2-2.brep",
+        "straight_segments": [
+          {
+            "start": [
+              74.0,
+              357.5,
+              265.5
+            ],
+            "end": [
+              74.0,
+              354.09648954038505,
+              265.5
+            ],
+            "length_mm": 3.4035104596149495,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 3.4035104596149495
+          },
+          {
+            "start": [
+              77.5,
+              339.7035104596149,
+              267.4
+            ],
+            "end": [
+              77.5,
+              336.3,
+              267.4
+            ],
+            "length_mm": 3.4035104596148926,
+            "start_developed_mm": 18.520212619993174,
+            "end_developed_mm": 21.923723079608067
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 1.0000002248490797e-07,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 4.635788185713729e-13,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 1390.7496194413627,
+        "sweep_area_length_volume_mm3": 1390.7496194413607,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          3.403510459614937,
+          3.403510459614937
+        ],
+        "theta_deg": 30.932972640927293,
+        "error": 5.684341886080802e-14
+      }
+    },
+    "tube-water-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-2.brep",
+      "role": "water",
+      "detail": "The ASSE outlet rises ahead of the suction bridge and cold riser, runs outside the controller, descends fore of the gas column and uses a diagonal R14 return above the rear gas intake into the east tee.",
+      "bounds": [
+        56.675,
+        307.1249999,
+        261.8249999000002,
+        98.42500010000018,
+        441.47500010000005,
+        350.17500010000003
+      ],
+      "sha256": "8728748b54b1be2ee1ae2c663b0ed8f7f46bdb7c273d2040e838470d7e0f6709",
+      "route": {
+        "kind": "water",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 262.91669142671554,
+        "waypoints": [
+          [
+            56.675,
+            310.3,
+            308.45
+          ],
+          [
+            62.5,
+            310.3,
+            308.45
+          ],
+          [
+            76.5,
+            310.3,
+            322.45
+          ],
+          [
+            76.5,
+            310.30000000000007,
+            333.0
+          ],
+          [
+            76.5,
+            324.3,
+            347.0
+          ],
+          [
+            76.5,
+            330.02162553585924,
+            347.0
+          ],
+          [
+            71.6125,
+            340.65000000000003,
+            347.0
+          ],
+          [
+            66.725,
+            351.2783744641408,
+            347.0
+          ],
+          [
+            66.725,
+            357.0,
+            347.0
+          ],
+          [
+            66.725,
+            385.0,
+            347.0
+          ],
+          [
+            66.725,
+            385.74466170891344,
+            347.0
+          ],
+          [
+            67.6125,
+            390.65000000000003,
+            347.0
+          ],
+          [
+            68.5,
+            395.5553382910866,
+            347.0
+          ],
+          [
+            68.5,
+            396.3,
+            347.0
+          ],
+          [
+            68.5,
+            410.3,
+            333.0
+          ],
+          [
+            68.5,
+            410.30000000000007,
+            299.5
+          ],
+          [
+            68.49999999999999,
+            424.3,
+            285.5
+          ],
+          [
+            79.61216035936795,
+            438.3,
+            276.9841387900171
+          ],
+          [
+            84.13783964063207,
+            438.3,
+            273.5158612099829
+          ],
+          [
+            95.25,
+            424.3,
+            265.0
+          ],
+          [
+            95.25,
+            424.0,
+            265.0
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "asse1022-assembly.tube-out",
+        "to": "water-split.supply",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-water-2.brep",
+        "straight_segments": [
+          {
+            "start": [
+              56.675,
+              310.3,
+              308.45
+            ],
+            "end": [
+              62.5,
+              310.3,
+              308.45
+            ],
+            "length_mm": 5.825000000000003,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 5.825000000000003
+          },
+          {
+            "start": [
+              76.5,
+              310.3,
+              322.45
+            ],
+            "end": [
+              76.5,
+              310.3,
+              333.0
+            ],
+            "length_mm": 10.550000000000011,
+            "start_developed_mm": 27.81614857512856,
+            "end_developed_mm": 38.36614857512858
+          },
+          {
+            "start": [
+              76.5,
+              324.3,
+              347.0
+            ],
+            "end": [
+              76.5,
+              330.02162553585924,
+              347.0
+            ],
+            "length_mm": 5.721625535859232,
+            "start_developed_mm": 60.35729715025717,
+            "end_developed_mm": 66.0789226861164
+          },
+          {
+            "start": [
+              66.725,
+              351.2783744641408,
+              347.0
+            ],
+            "end": [
+              66.725,
+              357.0,
+              347.0
+            ],
+            "length_mm": 5.721625535859175,
+            "start_developed_mm": 90.21594146892514,
+            "end_developed_mm": 95.93756700478431
+          },
+          {
+            "start": [
+              66.725,
+              357.0,
+              347.0
+            ],
+            "end": [
+              66.725,
+              385.0,
+              347.0
+            ],
+            "length_mm": 28.0,
+            "start_developed_mm": 95.93756700478431,
+            "end_developed_mm": 123.93756700478431
+          },
+          {
+            "start": [
+              66.725,
+              385.0,
+              347.0
+            ],
+            "end": [
+              66.725,
+              385.74466170891344,
+              347.0
+            ],
+            "length_mm": 0.7446617089134406,
+            "start_developed_mm": 123.93756700478431,
+            "end_developed_mm": 124.68222871369775
+          },
+          {
+            "start": [
+              68.5,
+              395.5553382910866,
+              347.0
+            ],
+            "end": [
+              68.5,
+              396.3,
+              347.0
+            ],
+            "length_mm": 0.7446617089133838,
+            "start_developed_mm": 134.7056179588777,
+            "end_developed_mm": 135.45027966779108
+          },
+          {
+            "start": [
+              68.5,
+              410.3,
+              333.0
+            ],
+            "end": [
+              68.5,
+              410.3,
+              299.5
+            ],
+            "length_mm": 33.5,
+            "start_developed_mm": 157.44142824291967,
+            "end_developed_mm": 190.94142824291967
+          },
+          {
+            "start": [
+              79.61216035936795,
+              438.3,
+              276.9841387900171
+            ],
+            "end": [
+              84.13783964063205,
+              438.3,
+              273.5158612099829
+            ],
+            "length_mm": 5.701817458410155,
+            "start_developed_mm": 234.92372539317682,
+            "end_developed_mm": 240.62554285158697
+          },
+          {
+            "start": [
+              95.25,
+              424.3,
+              265.0
+            ],
+            "end": [
+              95.25,
+              424.0,
+              265.0
+            ],
+            "length_mm": 0.30000000000001137,
+            "start_developed_mm": 262.61669142671553,
+            "end_developed_mm": 262.91669142671554
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 8326.365870342888,
+        "sweep_area_length_volume_mm3": 8326.365870342857,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          0.7446617089134389,
+          0.7446617089134389
+        ],
+        "theta_deg": 20.51063929162957,
+        "error": 5.684341886080802e-14
+      }
+    },
+    "tube-water-supply-link": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-supply-link.brep",
+      "role": "water",
+      "detail": "Rear water passes ahead of the jack and braided riser, runs between the regulator and shifted reed-B junction above the pump, then uses a fore return and compound R14 normal approach into ASSE.",
+      "bounds": [
+        -103.50000010000001,
+        277.32499989999997,
+        301.42389146509214,
+        -50.32499989999998,
+        446.51,
+        320.30000010000003
+      ],
+      "sha256": "6f5c44c8583bdba2cf879f231e31a032f9ff42d2b6c1513b8a3ba0e1dd71a958",
+      "route": {
+        "kind": "water",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 271.6387790709064,
+        "waypoints": [
+          [
+            -90.5,
+            446.51,
+            313.5
+          ],
+          [
+            -90.49999999999999,
+            446.01,
+            313.5
+          ],
+          [
+            -72.0,
+            432.7612255916892,
+            314.45
+          ],
+          [
+            -53.5,
+            419.5124511833784,
+            315.4
+          ],
+          [
+            -53.5,
+            418.0,
+            315.4
+          ],
+          [
+            -53.5,
+            404.0,
+            315.4
+          ],
+          [
+            -53.499999999999986,
+            398.71536919466365,
+            315.4
+          ],
+          [
+            -54.362500000000004,
+            393.0,
+            316.2625
+          ],
+          [
+            -55.224999999999994,
+            387.28463080533635,
+            317.125
+          ],
+          [
+            -55.225,
+            382.0,
+            317.125
+          ],
+          [
+            -55.225,
+            345.0,
+            317.125
+          ],
+          [
+            -55.225,
+            344.5678905530495,
+            317.125
+          ],
+          [
+            -55.225,
+            332.9,
+            310.8619457825461
+          ],
+          [
+            -55.225,
+            321.23210944695046,
+            304.59889156509223
+          ],
+          [
+            -55.225,
+            320.8,
+            304.59889156509223
+          ],
+          [
+            -55.225000000000016,
+            294.5,
+            304.59889156509223
+          ],
+          [
+            -69.225,
+            280.5,
+            304.59889156509223
+          ],
+          [
+            -86.325,
+            280.5,
+            304.59889156509223
+          ],
+          [
+            -100.325,
+            294.5,
+            304.59889156509223
+          ],
+          [
+            -100.32500000000002,
+            296.3,
+            304.5988915650922
+          ],
+          [
+            -86.7505542174539,
+            310.3,
+            308.02444578254614
+          ],
+          [
+            -83.325,
+            310.3,
+            308.45
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "bulkhead-water.inboard",
+        "to": "asse1022-assembly.tube-in",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-water-supply-link.brep",
+        "straight_segments": [
+          {
+            "start": [
+              -90.5,
+              446.51,
+              313.5
+            ],
+            "end": [
+              -90.5,
+              446.01,
+              313.5
+            ],
+            "length_mm": 0.5,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 0.5
+          },
+          {
+            "start": [
+              -53.5,
+              419.5124511833784,
+              315.4
+            ],
+            "end": [
+              -53.5,
+              418.0,
+              315.4
+            ],
+            "length_mm": 1.5124511833784027,
+            "start_developed_mm": 53.69645341500372,
+            "end_developed_mm": 55.20890459838212
+          },
+          {
+            "start": [
+              -53.5,
+              418.0,
+              315.4
+            ],
+            "end": [
+              -53.5,
+              404.0,
+              315.4
+            ],
+            "length_mm": 14.0,
+            "start_developed_mm": 55.20890459838212,
+            "end_developed_mm": 69.20890459838212
+          },
+          {
+            "start": [
+              -53.5,
+              404.0,
+              315.4
+            ],
+            "end": [
+              -53.5,
+              398.71536919466365,
+              315.4
+            ],
+            "length_mm": 5.284630805336349,
+            "start_developed_mm": 69.20890459838212,
+            "end_developed_mm": 74.49353540371847
+          },
+          {
+            "start": [
+              -55.224999999999994,
+              387.28463080533635,
+              317.125
+            ],
+            "end": [
+              -55.225,
+              382.0,
+              317.125
+            ],
+            "length_mm": 5.284630805336349,
+            "start_developed_mm": 86.26826264765818,
+            "end_developed_mm": 91.55289345299452
+          },
+          {
+            "start": [
+              -55.225,
+              382.0,
+              317.125
+            ],
+            "end": [
+              -55.225,
+              345.0,
+              317.125
+            ],
+            "length_mm": 37.0,
+            "start_developed_mm": 91.55289345299452,
+            "end_developed_mm": 128.5528934529945
+          },
+          {
+            "start": [
+              -55.225,
+              345.0,
+              317.125
+            ],
+            "end": [
+              -55.225,
+              344.5678905530495,
+              317.125
+            ],
+            "length_mm": 0.43210944695050557,
+            "start_developed_mm": 128.5528934529945,
+            "end_developed_mm": 128.98500289994502
+          },
+          {
+            "start": [
+              -55.225,
+              321.23210944695046,
+              304.59889156509223
+            ],
+            "end": [
+              -55.225,
+              320.8,
+              304.59889156509223
+            ],
+            "length_mm": 0.43210944695044873,
+            "start_developed_mm": 156.57253354897603,
+            "end_developed_mm": 157.00464299592647
+          },
+          {
+            "start": [
+              -55.225,
+              320.8,
+              304.59889156509223
+            ],
+            "end": [
+              -55.225,
+              294.5,
+              304.59889156509223
+            ],
+            "length_mm": 26.30000000000001,
+            "start_developed_mm": 157.00464299592647,
+            "end_developed_mm": 183.30464299592649
+          },
+          {
+            "start": [
+              -69.225,
+              280.5,
+              304.59889156509223
+            ],
+            "end": [
+              -86.325,
+              280.5,
+              304.59889156509223
+            ],
+            "length_mm": 17.10000000000001,
+            "start_developed_mm": 205.29579157105505,
+            "end_developed_mm": 222.39579157105504
+          },
+          {
+            "start": [
+              -100.325,
+              294.5,
+              304.59889156509223
+            ],
+            "end": [
+              -100.325,
+              296.3,
+              304.59889156509223
+            ],
+            "length_mm": 1.8000000000000114,
+            "start_developed_mm": 244.3869401461836,
+            "end_developed_mm": 246.18694014618362
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 4.361248533505587e-12,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 8602.587560508837,
+        "sweep_area_length_volume_mm3": 8602.587560508819,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          0.4321094469504878,
+          0.4321094469504878
+        ],
+        "theta_deg": 56.45175262061719,
+        "error": 5.684341886080802e-14
+      }
+    },
+    "tube-fluid-14": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-14.brep",
+      "role": "water",
+      "detail": "The fixed Gate-F lead follows the protected front corridor, turns below ASSE aft of the needle, runs beneath the complete cold sleeve, crosses above the check tie and descends normally into the fixed A-fill mouth.",
+      "bounds": [
+        41.57499989999997,
+        102.11906599601481,
+        253.4000001,
+        91.6750001,
+        429.47500010000005,
+        299.79500918852676
+      ],
+      "sha256": "a1c1acb4c33eec2d1b85f4c6453785fc56452bdaba0d17580e4dcac9cd1e38b4",
+      "route": {
+        "kind": "fluid",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 428.06382829535266,
+        "waypoints": [
+          [
+            82.1,
+            105.29,
+            282.175
+          ],
+          [
+            82.10000000000001,
+            105.34555962977916,
+            283.2717693277122
+          ],
+          [
+            76.68261421585973,
+            118.41639818950878,
+            296.6190779191981
+          ],
+          [
+            45.93017691525087,
+            188.7315372356045,
+            295.7339676086719
+          ],
+          [
+            44.75,
+            194.37029531650165,
+            295.52583064400994
+          ],
+          [
+            44.74999999999999,
+            207.40135832672198,
+            294.75393138531035
+          ],
+          [
+            45.663821661484334,
+            212.43685776395824,
+            294.6573378297402
+          ],
+          [
+            56.60718409283972,
+            241.6191575809059,
+            295.34398017837424
+          ],
+          [
+            57.5,
+            246.5433578373975,
+            295.4
+          ],
+          [
+            57.5,
+            306.0,
+            295.4
+          ],
+          [
+            58.39628058258379,
+            320.0,
+            281.4287194174162
+          ],
+          [
+            72.36756116516761,
+            320.0,
+            268.325
+          ],
+          [
+            74.0,
+            320.0,
+            268.325
+          ],
+          [
+            88.0,
+            334.0,
+            268.325
+          ],
+          [
+            88.0,
+            354.0,
+            268.325
+          ],
+          [
+            88.0,
+            355.25497319468,
+            268.32499999999993
+          ],
+          [
+            88.25,
+            369.0,
+            279.6625
+          ],
+          [
+            88.5,
+            382.74502680532,
+            291.0
+          ],
+          [
+            88.49999999999999,
+            384.0,
+            291.0
+          ],
+          [
+            74.9255542174539,
+            398.0,
+            287.5744457825461
+          ],
+          [
+            71.5,
+            398.0,
+            287.14889156509224
+          ],
+          [
+            57.5,
+            409.69230516194307,
+            279.44889156509225
+          ],
+          [
+            57.5,
+            420.0,
+            272.66073053493244
+          ],
+          [
+            57.5,
+            426.3,
+            260.96842537298943
+          ],
+          [
+            57.5,
+            426.3,
+            253.4000001
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "valve-v-f.outlet",
+        "to": "core.a-fill",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-fluid-14.brep",
+        "straight_segments": [
+          {
+            "start": [
+              82.1,
+              105.29,
+              282.175
+            ],
+            "end": [
+              82.1,
+              105.34555962977917,
+              283.2717693277122
+            ],
+            "length_mm": 1.0981756829722005,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 1.0981756829722005
+          },
+          {
+            "start": [
+              76.68261421585973,
+              118.41639818950878,
+              296.6190779191981
+            ],
+            "end": [
+              45.930176915250875,
+              188.7315372356045,
+              295.7339676086719
+            ],
+            "length_mm": 76.75099086827122,
+            "start_developed_mm": 22.60156616163941,
+            "end_developed_mm": 99.35255702991063
+          },
+          {
+            "start": [
+              44.75,
+              194.37029531650165,
+              295.52583064400994
+            ],
+            "end": [
+              44.75,
+              207.40135832672198,
+              294.75393138531035
+            ],
+            "length_mm": 13.053904842686471,
+            "start_developed_mm": 105.15877609237009,
+            "end_developed_mm": 118.21268093505657
+          },
+          {
+            "start": [
+              45.663821661484334,
+              212.43685776395824,
+              294.6573378297402
+            ],
+            "end": [
+              56.60718409283971,
+              241.6191575809059,
+              295.34398017837424
+            ],
+            "length_mm": 31.174272752145487,
+            "start_developed_mm": 123.36028619213998,
+            "end_developed_mm": 154.53455894428546
+          },
+          {
+            "start": [
+              57.5,
+              246.5433578373975,
+              295.4
+            ],
+            "end": [
+              57.5,
+              306.0,
+              295.4
+            ],
+            "length_mm": 59.45664216260249,
+            "start_developed_mm": 159.56639760470645,
+            "end_developed_mm": 219.02303976730894
+          },
+          {
+            "start": [
+              72.36756116516761,
+              320.0,
+              268.325
+            ],
+            "end": [
+              74.0,
+              320.0,
+              268.325
+            ],
+            "length_mm": 1.632438834832385,
+            "start_developed_mm": 262.108442958878,
+            "end_developed_mm": 263.7408817937104
+          },
+          {
+            "start": [
+              88.0,
+              334.0,
+              268.325
+            ],
+            "end": [
+              88.0,
+              354.0,
+              268.325
+            ],
+            "length_mm": 20.0,
+            "start_developed_mm": 285.732030368839,
+            "end_developed_mm": 305.732030368839
+          },
+          {
+            "start": [
+              88.0,
+              354.0,
+              268.325
+            ],
+            "end": [
+              88.0,
+              355.25497319468,
+              268.325
+            ],
+            "length_mm": 1.2549731946800193,
+            "start_developed_mm": 305.732030368839,
+            "end_developed_mm": 306.987003563519
+          },
+          {
+            "start": [
+              88.5,
+              382.74502680532,
+              291.0
+            ],
+            "end": [
+              88.5,
+              384.0,
+              291.0
+            ],
+            "length_mm": 1.2549731946800193,
+            "start_developed_mm": 345.61728211893876,
+            "end_developed_mm": 346.8722553136188
+          },
+          {
+            "start": [
+              57.5,
+              409.69230516194307,
+              279.44889156509225
+            ],
+            "end": [
+              57.5,
+              420.0,
+              272.66073053493244
+            ],
+            "length_mm": 12.342110963926952,
+            "start_developed_mm": 394.31524281347015,
+            "end_developed_mm": 406.6573537773971
+          },
+          {
+            "start": [
+              57.5,
+              426.3,
+              260.96842537298943
+            ],
+            "end": [
+              57.5,
+              426.3,
+              253.4000001
+            ],
+            "length_mm": 7.56842527298943,
+            "start_developed_mm": 420.4954030223632,
+            "end_developed_mm": 428.0638282953526
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 2.899983975584048,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 13556.446458022625,
+        "sweep_area_length_volume_mm3": 13556.446458022641,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          1.2549731946800105,
+          1.2549731946800105
+        ],
+        "theta_deg": 79.0482829514386,
+        "error": 0.0,
+        "source_attachment_skew_deg": 3
+      }
+    },
+    "tube-fluid-18": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-18.brep",
+      "role": "water",
+      "detail": "Flavor A leaves fixed Gate-G, bypasses the raised inlet valve and B-fill mouth, rises above the sensed tray in the nominal west channel, then descends outside the scanned head into the rear flavor-A union.",
+      "bounds": [
+        -103.50000010000001,
+        163.06499989999998,
+        229.675,
+        76.99500009999998,
+        446.51,
+        274.17500010000003
+      ],
+      "sha256": "847a88e8530bb925c637dcc70ac4145de28d430e691306753d3e3200e073abdf",
+      "route": {
+        "kind": "fluid",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 518.0634135887635,
+        "waypoints": [
+          [
+            73.82,
+            166.24,
+            229.675
+          ],
+          [
+            73.82,
+            166.23999999999998,
+            245.75
+          ],
+          [
+            66.80386698918994,
+            178.3550269324761,
+            259.75
+          ],
+          [
+            57.44454236866872,
+            194.51613301081005,
+            259.75
+          ],
+          [
+            45.3295154361926,
+            201.5,
+            259.75
+          ],
+          [
+            -29.0,
+            201.5,
+            259.75
+          ],
+          [
+            -48.12638443861968,
+            201.5,
+            259.75
+          ],
+          [
+            -57.66250000000001,
+            197.75,
+            259.75
+          ],
+          [
+            -67.19861556138034,
+            194.0,
+            259.75
+          ],
+          [
+            -86.325,
+            194.0,
+            259.75
+          ],
+          [
+            -100.325,
+            208.0,
+            259.75
+          ],
+          [
+            -100.325,
+            249.0,
+            259.75
+          ],
+          [
+            -100.325,
+            252.2812935237613,
+            259.75
+          ],
+          [
+            -100.325,
+            263.5,
+            265.375
+          ],
+          [
+            -100.325,
+            274.7187064762387,
+            271.0
+          ],
+          [
+            -100.325,
+            278.0,
+            271.0
+          ],
+          [
+            -100.325,
+            344.0,
+            271.0
+          ],
+          [
+            -100.325,
+            346.5538709198335,
+            271.0
+          ],
+          [
+            -100.325,
+            358.5,
+            264.3
+          ],
+          [
+            -100.325,
+            370.4461290801665,
+            257.6
+          ],
+          [
+            -100.32499999999999,
+            373.0,
+            257.6
+          ],
+          [
+            -86.325,
+            387.0,
+            257.6
+          ],
+          [
+            -65.5,
+            387.0,
+            257.6
+          ],
+          [
+            -51.5,
+            401.0,
+            257.6
+          ],
+          [
+            -51.5,
+            410.7110393108672,
+            257.6
+          ],
+          [
+            -44.65499999999999,
+            423.755,
+            263.312
+          ],
+          [
+            -37.81,
+            436.7989606891328,
+            269.024
+          ],
+          [
+            -37.81,
+            446.51,
+            269.024
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "valve-v-g.outlet",
+        "to": "bulkhead-flavor-a.inboard",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-fluid-18.brep",
+        "straight_segments": [
+          {
+            "start": [
+              73.82,
+              166.24,
+              229.675
+            ],
+            "end": [
+              73.82,
+              166.24,
+              245.75
+            ],
+            "length_mm": 16.07499999999999,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 16.07499999999999
+          },
+          {
+            "start": [
+              66.80386698918994,
+              178.3550269324761,
+              259.75
+            ],
+            "end": [
+              57.44454236866871,
+              194.51613301081005,
+              259.75
+            ],
+            "length_mm": 18.675607273324665,
+            "start_developed_mm": 38.06614857512853,
+            "end_developed_mm": 56.741755848453195
+          },
+          {
+            "start": [
+              45.3295154361926,
+              201.5,
+              259.75
+            ],
+            "end": [
+              -28.999999999999993,
+              201.5,
+              259.75
+            ],
+            "length_mm": 74.3295154361926,
+            "start_developed_mm": 71.3838856022479,
+            "end_developed_mm": 145.7134010384405
+          },
+          {
+            "start": [
+              -29.0,
+              201.5,
+              259.75
+            ],
+            "end": [
+              -48.12638443861968,
+              201.5,
+              259.75
+            ],
+            "length_mm": 19.12638443861968,
+            "start_developed_mm": 145.7134010384405,
+            "end_developed_mm": 164.8397854770602
+          },
+          {
+            "start": [
+              -67.19861556138034,
+              194.0,
+              259.75
+            ],
+            "end": [
+              -86.325,
+              194.0,
+              259.75
+            ],
+            "length_mm": 19.126384438619667,
+            "start_developed_mm": 185.82113011231448,
+            "end_developed_mm": 204.94751455093416
+          },
+          {
+            "start": [
+              -100.325,
+              208.0,
+              259.75
+            ],
+            "end": [
+              -100.325,
+              249.0,
+              259.75
+            ],
+            "length_mm": 41.0,
+            "start_developed_mm": 226.9386631260627,
+            "end_developed_mm": 267.9386631260627
+          },
+          {
+            "start": [
+              -100.325,
+              249.0,
+              259.75
+            ],
+            "end": [
+              -100.325,
+              252.2812935237613,
+              259.75
+            ],
+            "length_mm": 3.281293523761292,
+            "start_developed_mm": 267.9386631260627,
+            "end_developed_mm": 271.219956649824
+          },
+          {
+            "start": [
+              -100.325,
+              274.7187064762387,
+              271.0
+            ],
+            "end": [
+              -100.325,
+              278.0,
+              271.0
+            ],
+            "length_mm": 3.281293523761292,
+            "start_developed_mm": 297.24667057712634,
+            "end_developed_mm": 300.52796410088763
+          },
+          {
+            "start": [
+              -100.325,
+              278.0,
+              271.0
+            ],
+            "end": [
+              -100.325,
+              344.0,
+              271.0
+            ],
+            "length_mm": 66.0,
+            "start_developed_mm": 300.52796410088763,
+            "end_developed_mm": 366.52796410088763
+          },
+          {
+            "start": [
+              -100.325,
+              344.0,
+              271.0
+            ],
+            "end": [
+              -100.325,
+              346.5538709198335,
+              271.0
+            ],
+            "length_mm": 2.553870919833514,
+            "start_developed_mm": 366.52796410088763,
+            "end_developed_mm": 369.08183502072114
+          },
+          {
+            "start": [
+              -100.325,
+              370.4461290801665,
+              257.6
+            ],
+            "end": [
+              -100.325,
+              373.0,
+              257.6
+            ],
+            "length_mm": 2.553870919833514,
+            "start_developed_mm": 397.7054523746273,
+            "end_developed_mm": 400.25932329446084
+          },
+          {
+            "start": [
+              -86.325,
+              387.0,
+              257.6
+            ],
+            "end": [
+              -65.5,
+              387.0,
+              257.6
+            ],
+            "length_mm": 20.825000000000003,
+            "start_developed_mm": 422.25047186958943,
+            "end_developed_mm": 443.0754718695894
+          },
+          {
+            "start": [
+              -51.5,
+              401.0,
+              257.6
+            ],
+            "end": [
+              -51.5,
+              410.7110393108672,
+              257.6
+            ],
+            "length_mm": 9.711039310867193,
+            "start_developed_mm": 465.066620444718,
+            "end_developed_mm": 474.7776597555852
+          },
+          {
+            "start": [
+              -37.81,
+              436.7989606891328,
+              269.024
+            ],
+            "end": [
+              -37.81,
+              446.51,
+              269.024
+            ],
+            "length_mm": 9.711039310867193,
+            "start_developed_mm": 508.3523742778963,
+            "end_developed_mm": 518.0634135887635
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 16406.662894512887,
+        "sweep_area_length_volume_mm3": 16406.66289451292,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          9.711039310867172,
+          9.711039310867172
+        ],
+        "theta_deg": 68.7031943030365,
+        "error": 0.0
+      }
+    },
+    "tube-fluid-28": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-28.brep",
+      "role": "water",
+      "detail": "Flavor B leaves fixed Gate-J normally, steps outside B-fill below the inlet valve, rises over the tray above Flavor A, then lowers around the pump into the retained rear flavor-B union.",
+      "bounds": [
+        -103.50000010000002,
+        163.0649999,
+        229.675,
+        -70.64499990000002,
+        446.51,
+        284.67500010000003
+      ],
+      "sha256": "4abad5cf8c08d4a8762c970ce5c877da859eb3c3ba4c0e5bd10fd9e9a017ab5e",
+      "route": {
+        "kind": "fluid",
+        "diameter_mm": 6.35,
+        "nominal_bend_mm": 14,
+        "minimum_bend_mm": 14,
+        "length_mm": 352.2548000940246,
+        "waypoints": [
+          [
+            -73.82,
+            166.24,
+            229.675
+          ],
+          [
+            -73.82000000000001,
+            166.24,
+            263.75
+          ],
+          [
+            -73.99071901303792,
+            180.23895906910894,
+            277.75
+          ],
+          [
+            -73.99895906910893,
+            180.91464366693282,
+            277.75
+          ],
+          [
+            -74.0,
+            181.08536267997079,
+            277.75
+          ],
+          [
+            -74.0,
+            196.0,
+            277.75
+          ],
+          [
+            -74.0,
+            196.1,
+            277.75
+          ],
+          [
+            -85.5,
+            209.8749773139559,
+            277.75
+          ],
+          [
+            -97.0,
+            223.6499546279118,
+            277.75
+          ],
+          [
+            -97.0,
+            224.0,
+            277.75
+          ],
+          [
+            -97.0,
+            237.50111616041528,
+            277.75
+          ],
+          [
+            -97.0,
+            244.5,
+            279.625
+          ],
+          [
+            -97.0,
+            251.49888383958472,
+            281.5
+          ],
+          [
+            -97.0,
+            265.0,
+            281.5
+          ],
+          [
+            -97.0,
+            272.38289385380585,
+            281.5
+          ],
+          [
+            -98.66250000000001,
+            279.0,
+            281.5
+          ],
+          [
+            -100.32500000000002,
+            285.61710614619415,
+            281.5
+          ],
+          [
+            -100.325,
+            293.0,
+            281.5
+          ],
+          [
+            -100.325,
+            349.0,
+            281.5
+          ],
+          [
+            -100.325,
+            350.4976002303558,
+            281.5
+          ],
+          [
+            -100.325,
+            363.0,
+            273.8
+          ],
+          [
+            -100.325,
+            375.5023997696442,
+            266.1
+          ],
+          [
+            -100.325,
+            377.0,
+            266.1
+          ],
+          [
+            -100.325,
+            385.0,
+            266.1
+          ],
+          [
+            -100.32499999999999,
+            386.60779754441035,
+            266.1
+          ],
+          [
+            -94.16250000000001,
+            399.0,
+            261.85
+          ],
+          [
+            -87.99999999999999,
+            411.39220245558965,
+            257.6
+          ],
+          [
+            -88.0,
+            413.0,
+            257.6
+          ],
+          [
+            -88.0,
+            417.31987278819423,
+            257.6
+          ],
+          [
+            -83.03500000000001,
+            429.755,
+            263.312
+          ],
+          [
+            -78.07,
+            442.19012721180576,
+            269.024
+          ],
+          [
+            -78.07,
+            446.51,
+            269.024
+          ]
+        ],
+        "radii": [
+          14,
+          14
+        ],
+        "from": "valve-v-j.outlet",
+        "to": "bulkhead-flavor-b.inboard",
+        "centreline_brep": ".cache/pump-first-layout/routing/centreline-fluid-28.brep",
+        "straight_segments": [
+          {
+            "start": [
+              -73.82,
+              166.24,
+              229.675
+            ],
+            "end": [
+              -73.82,
+              166.24,
+              263.75
+            ],
+            "length_mm": 34.07499999999999,
+            "start_developed_mm": 0.0,
+            "end_developed_mm": 34.07499999999999
+          },
+          {
+            "start": [
+              -73.99071901303792,
+              180.23895906910894,
+              277.75
+            ],
+            "end": [
+              -73.99895906910893,
+              180.91464366693282,
+              277.75
+            ],
+            "length_mm": 0.6757348402002551,
+            "start_developed_mm": 56.06614857512855,
+            "end_developed_mm": 56.74188341532881
+          },
+          {
+            "start": [
+              -74.0,
+              181.08536267997079,
+              277.75
+            ],
+            "end": [
+              -74.0,
+              196.0,
+              277.75
+            ],
+            "length_mm": 14.914637320029215,
+            "start_developed_mm": 56.912606659604386,
+            "end_developed_mm": 71.82724397963361
+          },
+          {
+            "start": [
+              -74.0,
+              196.0,
+              277.75
+            ],
+            "end": [
+              -74.0,
+              196.1,
+              277.75
+            ],
+            "length_mm": 0.09999999999999432,
+            "start_developed_mm": 71.82724397963361,
+            "end_developed_mm": 71.9272439796336
+          },
+          {
+            "start": [
+              -97.0,
+              223.6499546279118,
+              277.75
+            ],
+            "end": [
+              -97.0,
+              224.0,
+              277.75
+            ],
+            "length_mm": 0.3500453720882035,
+            "start_developed_mm": 110.88257929135715,
+            "end_developed_mm": 111.23262466344535
+          },
+          {
+            "start": [
+              -97.0,
+              224.0,
+              277.75
+            ],
+            "end": [
+              -97.0,
+              237.50111616041528,
+              277.75
+            ],
+            "length_mm": 13.501116160415279,
+            "start_developed_mm": 111.23262466344535,
+            "end_developed_mm": 124.73374082386063
+          },
+          {
+            "start": [
+              -97.0,
+              251.49888383958472,
+              281.5
+            ],
+            "end": [
+              -97.0,
+              265.0,
+              281.5
+            ],
+            "length_mm": 13.501116160415279,
+            "start_developed_mm": 139.39192894704283,
+            "end_developed_mm": 152.8930451074581
+          },
+          {
+            "start": [
+              -97.0,
+              265.0,
+              281.5
+            ],
+            "end": [
+              -97.0,
+              272.38289385380585,
+              281.5
+            ],
+            "length_mm": 7.382893853805854,
+            "start_developed_mm": 152.8930451074581,
+            "end_developed_mm": 160.27593896126396
+          },
+          {
+            "start": [
+              -100.32500000000002,
+              285.61710614619415,
+              281.5
+            ],
+            "end": [
+              -100.325,
+              293.0,
+              281.5
+            ],
+            "length_mm": 7.382893853805854,
+            "start_developed_mm": 174.0602255905168,
+            "end_developed_mm": 181.44311944432266
+          },
+          {
+            "start": [
+              -100.325,
+              293.0,
+              281.5
+            ],
+            "end": [
+              -100.325,
+              349.0,
+              281.5
+            ],
+            "length_mm": 56.0,
+            "start_developed_mm": 181.44311944432266,
+            "end_developed_mm": 237.44311944432266
+          },
+          {
+            "start": [
+              -100.325,
+              349.0,
+              281.5
+            ],
+            "end": [
+              -100.325,
+              350.4976002303558,
+              281.5
+            ],
+            "length_mm": 1.497600230355772,
+            "start_developed_mm": 237.44311944432266,
+            "end_developed_mm": 238.94071967467843
+          },
+          {
+            "start": [
+              -100.325,
+              375.5023997696442,
+              266.1
+            ],
+            "end": [
+              -100.325,
+              377.0,
+              266.1
+            ],
+            "length_mm": 1.497600230355772,
+            "start_developed_mm": 269.85358733161127,
+            "end_developed_mm": 271.35118756196704
+          },
+          {
+            "start": [
+              -100.325,
+              377.0,
+              266.1
+            ],
+            "end": [
+              -100.325,
+              385.0,
+              266.1
+            ],
+            "length_mm": 8.0,
+            "start_developed_mm": 271.35118756196704,
+            "end_developed_mm": 279.35118756196704
+          },
+          {
+            "start": [
+              -100.325,
+              385.0,
+              266.1
+            ],
+            "end": [
+              -100.325,
+              386.60779754441035,
+              266.1
+            ],
+            "length_mm": 1.6077975444103458,
+            "start_developed_mm": 279.35118756196704,
+            "end_developed_mm": 280.9589851063774
+          },
+          {
+            "start": [
+              -87.99999999999999,
+              411.39220245558965,
+              257.6
+            ],
+            "end": [
+              -88.0,
+              413.0,
+              257.6
+            ],
+            "length_mm": 1.6077975444103458,
+            "start_developed_mm": 311.3902813583906,
+            "end_developed_mm": 312.99807890280096
+          },
+          {
+            "start": [
+              -88.0,
+              413.0,
+              257.6
+            ],
+            "end": [
+              -88.0,
+              417.31987278819423,
+              257.6
+            ],
+            "length_mm": 4.319872788194232,
+            "start_developed_mm": 312.99807890280096,
+            "end_developed_mm": 317.3179516909952
+          },
+          {
+            "start": [
+              -78.07,
+              442.19012721180576,
+              269.024
+            ],
+            "end": [
+              -78.07,
+              446.51,
+              269.024
+            ],
+            "length_mm": 4.319872788194232,
+            "start_developed_mm": 347.93492730583034,
+            "end_developed_mm": 352.2548000940246
+          }
+        ],
+        "source_position_error_mm": 0.0,
+        "destination_position_error_mm": 0.0,
+        "source_normal_error_deg": 0.0,
+        "destination_normal_error_deg": 0.0,
+        "blocked": {},
+        "tangent_continuity_pass": true,
+        "sweep_volume_mm3": 11155.633859727306,
+        "sweep_area_length_volume_mm3": 11155.633859727262,
+        "native_clearance_status": "pass",
+        "curve": "exact tangent circular arcs with fixed stock radius",
+        "leads": [
+          4.319872788194207,
+          4.319872788194207
+        ],
+        "theta_deg": 62.6508387208934,
+        "error": 0.0
+      }
+    },
+    "tube-co2-1": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-1.brep",
+      "sha256": "d6054ee007d3dcb15ff248619c15b44a8fc4c530c3e0db2d293e4c636e8e259c",
+      "role": "gas",
+      "bounds": [
+        -65.94372913346737,
+        415.80490623439795,
+        262.3249999,
+        77.17500010000009,
+        448.17500010000003,
+        333.42246635156266
+      ],
+      "route": {
+        "from": "wr1110.outlet",
+        "to": "gasher-co2.inlet",
+        "kind": "co2",
+        "diameter_mm": 6.35,
+        "minimum_bend_mm": 14,
+        "length_mm": 225.08385552358908,
+        "radii": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "waypoints": [
+          [
+            -62.87691453499999,
+            416.6266568026,
+            321.4
+          ],
+          [
+            -60.82456043566225,
+            424.28614657643607,
+            323.8622333592918
+          ],
+          [
+            -47.1467445676262,
+            433.26014953741384,
+            330.2474662515626
+          ],
+          [
+            -43.2557892634214,
+            433.26014953741384,
+            330.2474662515626
+          ],
+          [
+            -32.14674456762621,
+            427.7800747687069,
+            330.2474662515626
+          ],
+          [
+            -21.037699871831002,
+            422.3,
+            330.2474662515626
+          ],
+          [
+            -17.1467445676262,
+            422.3,
+            330.2474662515626
+          ],
+          [
+            54.2,
+            422.3,
+            330.2474662515626
+          ],
+          [
+            68.2,
+            422.3,
+            316.2474662515626
+          ],
+          [
+            68.2,
+            422.3,
+            313.6472882434471
+          ],
+          [
+            68.2,
+            433.65,
+            299.9003795000241
+          ],
+          [
+            68.2,
+            445.0,
+            286.15347075660105
+          ],
+          [
+            68.2,
+            445.0,
+            283.55329274848555
+          ],
+          [
+            69.08550420336337,
+            445.0,
+            278.65329274848557
+          ],
+          [
+            69.09999999999998,
+            445.0,
+            278.6144957966366
+          ],
+          [
+            73.99999999999999,
+            431.0,
+            265.5
+          ]
+        ],
+        "tangent_continuity_pass": true,
+        "endpoints_exact": true,
+        "endpoint_error_mm": [
+          7.105427357601002e-15,
+          1.4210854715202004e-14
+        ],
+        "endpoint_angle_rad": [
+          6.906085553641124e-15,
+          8.559074567597734e-15
+        ],
+        "centreline_brep": ".cache/pump-first-layout/routing/co2/co2-1-centreline.brep",
+        "straight_segments": [
+          {
+            "start": [
+              -47.1467445676262,
+              433.26014953741384,
+              330.2474662515626
+            ],
+            "end": [
+              -43.2557892634214,
+              433.26014953741384,
+              330.2474662515626
+            ],
+            "length_mm": 3.8909553042048017,
+            "start_developed_mm": 27.411774905506988,
+            "end_developed_mm": 31.30273020971179
+          },
+          {
+            "start": [
+              -21.037699871831002,
+              422.3,
+              330.2474662515626
+            ],
+            "end": [
+              -17.1467445676262,
+              422.3,
+              330.2474662515626
+            ],
+            "length_mm": 3.8909553042048017,
+            "start_developed_mm": 56.96596377941026,
+            "end_developed_mm": 60.85691908361506
+          },
+          {
+            "start": [
+              -17.1467445676262,
+              422.3,
+              330.2474662515626
+            ],
+            "end": [
+              54.2,
+              422.3,
+              330.2474662515626
+            ],
+            "length_mm": 71.3467445676262,
+            "start_developed_mm": 60.85691908361506,
+            "end_developed_mm": 132.20366365124127
+          },
+          {
+            "start": [
+              68.2,
+              422.3,
+              316.2474662515626
+            ],
+            "end": [
+              68.2,
+              422.3,
+              313.6472882434471
+            ],
+            "length_mm": 2.600178008115506,
+            "start_developed_mm": 154.19481222636983,
+            "end_developed_mm": 156.79499023448534
+          },
+          {
+            "start": [
+              68.2,
+              445.0,
+              286.15347075660105
+            ],
+            "end": [
+              68.2,
+              445.0,
+              283.55329274848555
+            ],
+            "length_mm": 2.600178008115506,
+            "start_developed_mm": 195.44511692748898,
+            "end_developed_mm": 198.0452949356045
+          },
+          {
+            "start": [
+              69.08550420336337,
+              445.0,
+              278.65329274848557
+            ],
+            "end": [
+              69.1,
+              445.0,
+              278.6144957966366
+            ],
+            "length_mm": 0.041416561818917175,
+            "start_developed_mm": 203.0512903866416,
+            "end_developed_mm": 203.09270694846052
+          }
+        ],
+        "sweep_volume_mm3": 7128.229563618919,
+        "sweep_area_length_volume_mm3": 7128.22956361895,
+        "native_clearance_status": "pass"
+      },
+      "detail": "Exact R14 gas tube on the frozen fitting normals; complete6.35mm occupied exterior."
+    },
+    "tube-co2-0": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-0.brep",
+      "sha256": "35939fdada6ee8363bfcf005b8c0c25ba3f18aee91b8160f3afd706ce0d1a2d2",
+      "role": "gas",
+      "bounds": [
+        -93.7049528025729,
+        272.14999989999995,
+        254.39999989999998,
+        103.5000001,
+        454.00260010000005,
+        324.5750001
+      ],
+      "route": {
+        "from": "co2-inlet.inboard",
+        "to": "wr1110.inlet",
+        "kind": "co2",
+        "diameter_mm": 6.35,
+        "minimum_bend_mm": 14,
+        "length_mm": 440.9875319353148,
+        "radii": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "waypoints": [
+          [
+            77.49999999999999,
+            454.0026,
+            272.0
+          ],
+          [
+            80.74999999999999,
+            441.39612922003636,
+            264.7875
+          ],
+          [
+            84.0,
+            428.78965844007274,
+            257.57500000000005
+          ],
+          [
+            84.0,
+            428.5,
+            257.575
+          ],
+          [
+            83.64999999999999,
+            425.3891319539395,
+            257.575
+          ],
+          [
+            83.29999999999998,
+            422.278263907879,
+            257.575
+          ],
+          [
+            83.3,
+            420.0,
+            257.575
+          ],
+          [
+            83.3,
+            410.0,
+            257.575
+          ],
+          [
+            83.3,
+            408.6214985988789,
+            257.575
+          ],
+          [
+            84.0,
+            404.25,
+            257.575
+          ],
+          [
+            84.7,
+            399.8785014011211,
+            257.575
+          ],
+          [
+            84.7,
+            398.5,
+            257.575
+          ],
+          [
+            84.7,
+            378.0,
+            257.575
+          ],
+          [
+            84.69999999999999,
+            373.5598802756464,
+            257.575
+          ],
+          [
+            92.5125,
+            361.0,
+            257.7875
+          ],
+          [
+            100.325,
+            348.4401197243536,
+            258.00000000000006
+          ],
+          [
+            100.325,
+            344.0,
+            258.0
+          ],
+          [
+            100.32499999999999,
+            321.0,
+            258.0
+          ],
+          [
+            86.325,
+            307.0,
+            258.0
+          ],
+          [
+            40.0,
+            307.0,
+            258.0
+          ],
+          [
+            36.36578748955275,
+            307.0,
+            258.0
+          ],
+          [
+            22.499999999999993,
+            291.1625,
+            259.75
+          ],
+          [
+            8.63421251044725,
+            275.32500000000005,
+            261.5
+          ],
+          [
+            5.0,
+            275.325,
+            261.5
+          ],
+          [
+            -70.0,
+            275.325,
+            261.5
+          ],
+          [
+            -84.0,
+            275.325,
+            275.5
+          ],
+          [
+            -84.0,
+            275.325,
+            277.65775706881124
+          ],
+          [
+            -87.26497635128639,
+            286.45298920541205,
+            291.45
+          ],
+          [
+            -90.52995270257279,
+            297.5809784108241,
+            305.24224293118874
+          ],
+          [
+            -90.52995270257279,
+            297.5809784108242,
+            307.4
+          ],
+          [
+            -90.52995270257279,
+            311.5809784108241,
+            321.4
+          ],
+          [
+            -90.052914270618,
+            315.204445042266,
+            321.4
+          ],
+          [
+            -88.5,
+            321.0,
+            321.4
+          ]
+        ],
+        "tangent_continuity_pass": true,
+        "endpoints_exact": true,
+        "endpoint_error_mm": [
+          1.4210854715202004e-14,
+          0.0
+        ],
+        "endpoint_angle_rad": [
+          5.399107986438207e-15,
+          6.704207480902688e-16
+        ],
+        "centreline_brep": ".cache/pump-first-layout/routing/co2/co2-0-centreline.brep",
+        "straight_segments": [
+          {
+            "start": [
+              84.0,
+              428.78965844007274,
+              257.57500000000005
+            ],
+            "end": [
+              84.0,
+              428.5,
+              257.575
+            ],
+            "length_mm": 0.289658440072742,
+            "start_developed_mm": 31.383268972632052,
+            "end_developed_mm": 31.672927412704794
+          },
+          {
+            "start": [
+              83.29999999999998,
+              422.278263907879,
+              257.575
+            ],
+            "end": [
+              83.3,
+              420.0,
+              257.575
+            ],
+            "length_mm": 2.2782639078790226,
+            "start_developed_mm": 37.9470354011558,
+            "end_developed_mm": 40.225299309034824
+          },
+          {
+            "start": [
+              83.3,
+              420.0,
+              257.575
+            ],
+            "end": [
+              83.3,
+              410.0,
+              257.575
+            ],
+            "length_mm": 10.0,
+            "start_developed_mm": 40.225299309034824,
+            "end_developed_mm": 50.225299309034824
+          },
+          {
+            "start": [
+              83.3,
+              410.0,
+              257.575
+            ],
+            "end": [
+              83.3,
+              408.6214985988789,
+              257.575
+            ],
+            "length_mm": 1.3785014011211274,
+            "start_developed_mm": 50.225299309034824,
+            "end_developed_mm": 51.60380071015595
+          },
+          {
+            "start": [
+              84.7,
+              399.8785014011211,
+              257.575
+            ],
+            "end": [
+              84.7,
+              398.5,
+              257.575
+            ],
+            "length_mm": 1.3785014011211274,
+            "start_developed_mm": 60.49549273031853,
+            "end_developed_mm": 61.87399413143966
+          },
+          {
+            "start": [
+              84.7,
+              398.5,
+              257.575
+            ],
+            "end": [
+              84.7,
+              378.0,
+              257.575
+            ],
+            "length_mm": 20.5,
+            "start_developed_mm": 61.87399413143966,
+            "end_developed_mm": 82.37399413143966
+          },
+          {
+            "start": [
+              84.7,
+              378.0,
+              257.575
+            ],
+            "end": [
+              84.7,
+              373.5598802756464,
+              257.575
+            ],
+            "length_mm": 4.440119724353622,
+            "start_developed_mm": 82.37399413143966,
+            "end_developed_mm": 86.81411385579328
+          },
+          {
+            "start": [
+              100.325,
+              348.4401197243536,
+              258.00000000000006
+            ],
+            "end": [
+              100.325,
+              344.0,
+              258.0
+            ],
+            "length_mm": 4.440119724353622,
+            "start_developed_mm": 117.98480978722013,
+            "end_developed_mm": 122.42492951157375
+          },
+          {
+            "start": [
+              100.325,
+              344.0,
+              258.0
+            ],
+            "end": [
+              100.325,
+              321.0,
+              258.0
+            ],
+            "length_mm": 23.0,
+            "start_developed_mm": 122.42492951157375,
+            "end_developed_mm": 145.42492951157374
+          },
+          {
+            "start": [
+              86.325,
+              307.0,
+              258.0
+            ],
+            "end": [
+              40.0,
+              307.0,
+              258.0
+            ],
+            "length_mm": 46.325,
+            "start_developed_mm": 167.4160780867023,
+            "end_developed_mm": 213.74107808670232
+          },
+          {
+            "start": [
+              40.0,
+              307.0,
+              258.0
+            ],
+            "end": [
+              36.36578748955275,
+              307.0,
+              258.0
+            ],
+            "length_mm": 3.6342125104472487,
+            "start_developed_mm": 213.74107808670232,
+            "end_developed_mm": 217.37529059714956
+          },
+          {
+            "start": [
+              8.63421251044725,
+              275.32500000000005,
+              261.5
+            ],
+            "end": [
+              5.0,
+              275.325,
+              261.5
+            ],
+            "length_mm": 3.6342125104472505,
+            "start_developed_mm": 265.23777847585575,
+            "end_developed_mm": 268.871990986303
+          },
+          {
+            "start": [
+              5.0,
+              275.325,
+              261.5
+            ],
+            "end": [
+              -70.0,
+              275.325,
+              261.5
+            ],
+            "length_mm": 75.0,
+            "start_developed_mm": 268.871990986303,
+            "end_developed_mm": 343.871990986303
+          },
+          {
+            "start": [
+              -84.0,
+              275.325,
+              275.5
+            ],
+            "end": [
+              -84.0,
+              275.325,
+              277.65775706881124
+            ],
+            "length_mm": 2.157757068811236,
+            "start_developed_mm": 365.8631395614316,
+            "end_developed_mm": 368.0208966302428
+          },
+          {
+            "start": [
+              -90.52995270257279,
+              297.5809784108241,
+              305.24224293118874
+            ],
+            "end": [
+              -90.52995270257279,
+              297.5809784108241,
+              307.4
+            ],
+            "length_mm": 2.157757068811236,
+            "start_developed_mm": 407.1734348621797,
+            "end_developed_mm": 409.33119193099094
+          },
+          {
+            "start": [
+              -90.052914270618,
+              315.204445042266,
+              321.4
+            ],
+            "end": [
+              -88.5,
+              321.0,
+              321.4
+            ],
+            "length_mm": 6.000000000000347,
+            "start_developed_mm": 434.98753193531445,
+            "end_developed_mm": 440.9875319353148
+          }
+        ],
+        "sweep_volume_mm3": 13965.73003877309,
+        "sweep_area_length_volume_mm3": 13965.730038773163,
+        "native_clearance_status": "pass"
+      },
+      "detail": "Exact R14 gas tube on the frozen fitting normals; complete6.35mm occupied exterior."
+    },
+    "nameplate": {
+      "brep": ".cache/pump-first-layout/routing/nameplate.brep",
+      "role": "electronics",
+      "detail": "Exact accepted flat-wing nameplate, installed on west wall; bodyY322.67..432/Z304..342, faceX-107.5; original fit dimensions unchanged.",
+      "bounds": [
+        -107.50000010000001,
+        322.67,
+        304.0,
+        -104.13999999999997,
+        432.0000000000001,
+        342.00000020000004
+      ],
+      "sha256": "65f6a7145edac25d3929e3506ccaffade66fa88e618472f6e8bd07bc056cfc6b"
+    },
+    "nameplate-ink": {
+      "brep": ".cache/pump-first-layout/routing/nameplate-ink.brep",
+      "role": "electronics",
+      "detail": "Exact accepted flat-wing nameplate, installed on west wall; bodyY322.67..432/Z304..342, faceX-107.5; original fit dimensions unchanged.",
+      "bounds": [
+        -107.50000009999995,
+        330.10418831759006,
+        310.5000001,
+        -106.29999989999997,
+        424.5658116824131,
+        335.5000001
+      ],
+      "sha256": "a7d7f65ac69786a44c7eda977676de0d94de7ab1db63ede08d1f78d488f10900"
+    },
+    "keystone-jack": {
+      "brep": ".cache/pump-first-layout/routing/keystone-jack.brep",
+      "role": "electronics",
+      "detail": "Complete accepted keystone at translated compact rear station; receiver geometry and catches move with the scanned body.",
+      "bounds": [
+        -71.0,
+        441.3,
+        291.0949999999916,
+        -56.349999999999994,
+        471.3,
+        315.2449999999916
+      ],
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104"
+    }
+  },
+  "replacement_names": [
+    "asse-drip-pan",
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-carb-word",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-co2-word",
+    "bulkhead-ring-water",
+    "bulkhead-ring-water-word",
+    "bulkhead-water",
+    "carb-foam-1",
+    "carb-foam-2",
+    "carb-foam-carb-1",
+    "carb-foam-carb-2",
+    "co2-adapter-check-in",
+    "co2-adapter-check-out",
+    "co2-adapter-regulator-in",
+    "co2-adapter-regulator-out",
+    "co2-inlet",
+    "digiten-flow",
+    "flow-regulator",
+    "gasher-co2",
+    "keystone-jack",
+    "moisture-plate",
+    "nameplate",
+    "nameplate-ink",
+    "relay-1",
+    "relay-2",
+    "tube-carb-1",
+    "tube-carb-2",
+    "tube-co2-0",
+    "tube-co2-1",
+    "tube-co2-2",
+    "tube-collar-co2",
+    "tube-collar-co2-word",
+    "tube-collar-water",
+    "tube-collar-water-word",
+    "tube-customer-co2",
+    "tube-customer-water",
+    "tube-fluid-1",
+    "tube-fluid-14",
+    "tube-fluid-18",
+    "tube-fluid-2",
+    "tube-fluid-28",
+    "tube-water-2",
+    "tube-water-3",
+    "tube-water-supply-link",
+    "wago-g",
+    "wago-gnd",
+    "wago-h",
+    "wago-n",
+    "wago-reeds-a",
+    "wago-reeds-b",
+    "wago-sensors",
+    "wago-v12",
+    "water-split",
+    "wr1110"
+  ],
+  "ports": {
+    "asse1022-assembly": {
+      "tube-in": {
+        "pos": [
+          -83.325,
+          310.3,
+          308.45
+        ],
+        "axis": [
+          -1,
+          0,
+          0
+        ],
+        "diam": 6.35
+      },
+      "tube-out": {
+        "pos": [
+          56.675,
+          310.3,
+          308.45
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "diam": 6.35
+      },
+      "vent-tip": {
+        "pos": [
+          -15.325,
+          310.3,
+          279.45
+        ],
+        "axis": [
+          0,
+          0,
+          -1
+        ],
+        "diam": 9.53
+      }
+    },
+    "wr1110": {
+      "inlet": {
+        "pos": [
+          -88.5,
+          321,
+          321.4
+        ],
+        "axis": [
+          -0.258819045103,
+          -0.965925826289,
+          0
+        ],
+        "diam": 6.35
+      },
+      "outlet": {
+        "pos": [
+          -62.876914535,
+          416.6266568026,
+          321.4
+        ],
+        "axis": [
+          0.258819045103,
+          0.965925826289,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "gasher-co2": {
+      "inlet": {
+        "pos": [
+          74,
+          431,
+          265.5
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diam": 6.35
+      },
+      "outlet": {
+        "pos": [
+          74,
+          357.5,
+          265.5
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "digiten-flow": {
+      "inlet": {
+        "pos": [
+          84.5,
+          372.01,
+          332.1
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      },
+      "outlet": {
+        "pos": [
+          84.5,
+          433.01,
+          332.1
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "bulkhead-water": {
+      "inboard": {
+        "pos": [
+          -90.5,
+          446.51,
+          313.5
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "co2-inlet": {
+      "inboard": {
+        "pos": [
+          77.5,
+          454.0026,
+          272.0
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "bulkhead-carb": {
+      "tube-in": {
+        "pos": [
+          84.5,
+          446.51,
+          329.0
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      }
+    },
+    "water-split": {
+      "supply": {
+        "pos": [
+          95.25,
+          424,
+          265.0
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diam": 6.35
+      },
+      "to-vk": {
+        "pos": [
+          95.25,
+          381.5,
+          265.0
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 6.35
+      },
+      "to-flavor": {
+        "pos": [
+          95.25,
+          402.75,
+          287.35
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ],
+        "diam": 6.35
+      }
+    },
+    "flow-regulator": {
+      "inlet": {
+        "pos": [
+          4.5,
+          312.5,
+          275.25
+        ],
+        "axis": [
+          -1,
+          0,
+          0
+        ],
+        "diam": 6.35
+      },
+      "outlet": {
+        "pos": [
+          50.5,
+          312.5,
+          275.25
+        ],
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "diam": 6.35
+      },
+      "adjuster": {
+        "pos": [
+          27.5,
+          278.5,
+          275.25
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ],
+        "diam": 10
+      }
+    }
+  },
+  "clearance_cutters": {
+    "meter-wall": {
+      "brep": ".cache/pump-first-layout/routing/meter-wall-clearance.brep",
+      "print_owner": "enclosure-back-top",
+      "radial_air_mm": 1,
+      "minimum_outer_stock_mm": 3.1,
+      "bounds": [
+        98.49,
+        371.01,
+        304.6,
+        104.4,
+        434.01,
+        342.25
+      ],
+      "detail": "Inner-east flank pocket for the complete rolled meter cover; outer face remainsX107.5."
+    },
+    "tube-fluid-14": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-14-clearance.brep",
+      "sha256": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893",
+      "bounds": [
+        40.57499989999997,
+        101.12034662468089,
+        253.4000001,
+        92.6750001,
+        430.47500010000005,
+        300.79500918852676
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-fluid-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-1-clearance.brep",
+      "sha256": "1d8b1ff8551ba91d7face8dd4744f0e99a0b3a319ffa5e0b1a30155f8a3b7636",
+      "bounds": [
+        -42.6750001,
+        308.32499989999997,
+        271.07499989999997,
+        99.42500009999998,
+        406.92500010000003,
+        333.52500010000006
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-fluid-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-2-clearance.brep",
+      "sha256": "c9e66721abf1927a6c1b0a08f1f2edc4fbe0c3c961bb83fb2e2f28153bb3fb0f",
+      "bounds": [
+        44.87499990000001,
+        270.25,
+        265.9749998999999,
+        69.17500009999998,
+        316.67500010000003,
+        279.4250001000001
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-water-3": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-3-clearance.brep",
+      "sha256": "781d212ff6a526935a57668bf0681ee9c789f1d5363fba01c2dfa5572a9bbfea",
+      "bounds": [
+        -79.72500009999999,
+        266.5,
+        260.82499989999997,
+        104.5000001,
+        381.5,
+        351.3750001
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-carb-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-1-clearance.brep",
+      "sha256": "2bcf2ebef65717a69d4815a63ab8f97504da9697b32a4b785407658eecb1d3fa",
+      "bounds": [
+        63.799999899999996,
+        257.8999999,
+        253.4000001,
+        98.20000010000003,
+        372.01,
+        345.80000010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-2-clearance.brep",
+      "sha256": "9fc32b45e56c7f6e6535eff0d1980ff96b0d6bda996e7b8e781259c9107c64c6",
+      "bounds": [
+        70.7999999,
+        433.01,
+        315.2999999,
+        98.2000001,
+        446.51,
+        345.80000010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-co2-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-co2-2-clearance.brep",
+      "sha256": "e0cfd73253844b9147210de23110cab0dc3cb10992d14ad0cefe62922548bed3",
+      "bounds": [
+        69.8249999,
+        318.12499990000003,
+        253.39999989999998,
+        81.67500010000012,
+        357.5,
+        271.5750001
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-water-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-2-clearance.brep",
+      "sha256": "427a504f7527fb241251fa859f97d3100cb8127790c12281359bb049c980664b",
+      "bounds": [
+        56.675,
+        306.1249999,
+        260.8249999000002,
+        99.42500010000018,
+        442.47500010000005,
+        351.17500010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included."
+    },
+    "tube-water-supply-link": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-supply-link-clearance.brep",
+      "sha256": "0a805ee77a88ed636579863f470909702d9b90756dc8898f763d36c54e55ea76",
+      "bounds": [
+        -104.50000010000002,
+        276.32499989999997,
+        300.42389146509214,
+        -49.32499989999998,
+        446.51,
+        321.30000010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included.",
+      "print_owner": "enclosure-back-top",
+      "factory_upper_bay_channel": true
+    },
+    "tube-fluid-18": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-18-clearance.brep",
+      "sha256": "d66510f16af8f43f155046004b9a930364f55f7b1189d99fee76bba5a991950a",
+      "bounds": [
+        -104.50000010000001,
+        162.06499989999998,
+        229.675,
+        77.99500009999998,
+        446.51,
+        275.17500010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included.",
+      "print_owner": "enclosure-back-top",
+      "factory_upper_bay_channel": true
+    },
+    "tube-fluid-28": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-28-clearance.brep",
+      "sha256": "b953f1f60f8cf21423a1b16c372e63c899e53b1577fecb18d8c973da443eeb69",
+      "bounds": [
+        -104.50000010000002,
+        162.0649999,
+        229.675,
+        -69.64499990000002,
+        446.51,
+        285.67500010000003
+      ],
+      "radial_air_mm": 1.0,
+      "scope": "Exact tangent occupied exterior plus1mm radial clearance; full carbonated insulation exterior included.",
+      "print_owner": "enclosure-back-top",
+      "factory_upper_bay_channel": true
+    },
+    "tube-co2-0": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-0-clearance.brep",
+      "sha256": "efa03a820b89388ce1b52e3ad1c45e8916b3bde34b89dd9bba48377360d54876",
+      "radial_air_mm": 1,
+      "print_owner": "enclosure-back-top"
+    },
+    "tube-co2-1": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-1-clearance.brep",
+      "sha256": "e63ad90b38f375df53d2d730067e57aed7ed52f6ac442e13065a369308cf42af",
+      "radial_air_mm": 1,
+      "print_owner": "enclosure-back-top"
+    }
+  },
+  "routing_status": {
+    "constructed": [
+      "fluid-1",
+      "fluid-2",
+      "water-3",
+      "carb-1",
+      "carb-2",
+      "co2-2",
+      "water-2",
+      "water-supply-link",
+      "fluid-14",
+      "fluid-18",
+      "fluid-28",
+      "co2-1",
+      "co2-0"
+    ],
+    "finished": [
+      "fluid-1",
+      "fluid-2",
+      "water-3",
+      "carb-1",
+      "carb-2",
+      "co2-2",
+      "water-2",
+      "water-supply-link",
+      "fluid-14",
+      "fluid-18",
+      "fluid-28",
+      "co2-1",
+      "co2-0"
+    ],
+    "pending": [],
+    "native_clearance_status": "pass",
+    "native_proof": "future/pump-first-layout-study/routing/strict-route-audit.json",
+    "note": "All13 exactR14 paths pass the SHA-bound native exterior/full-insulation package proof; mechanical retention, print stock, whole-shell closure and physical qualification are separately bound."
+  },
+  "scope": "Native geometric study. Physical fit, load capacity, tube relaxation, longevity and factory workholding remain separate qualifications.",
+  "routes": {
+    "fluid-1": {
+      "from": "water-split.to-flavor",
+      "to": "flow-regulator.inlet",
+      "parts": [
+        "tube-fluid-1"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 303.6426922048613,
+      "endpoints_exact": true
+    },
+    "fluid-2": {
+      "from": "flow-regulator.outlet",
+      "to": "valve-v-a.inlet",
+      "parts": [
+        "tube-fluid-2"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 57.50292708066106,
+      "endpoints_exact": true
+    },
+    "water-3": {
+      "from": "water-split.to-vk",
+      "to": "vk-solenoid.inlet",
+      "parts": [
+        "tube-water-3"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 389.6553103050572,
+      "endpoints_exact": true
+    },
+    "carb-1": {
+      "from": "core.carb",
+      "to": "digiten-flow.inlet",
+      "parts": [
+        "tube-carb-1",
+        "carb-foam-carb-1"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 161.38020532494113,
+      "endpoints_exact": true
+    },
+    "carb-2": {
+      "from": "digiten-flow.outlet",
+      "to": "bulkhead-carb.tube-in",
+      "parts": [
+        "tube-carb-2",
+        "carb-foam-carb-2"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 13.994570974963437,
+      "endpoints_exact": true
+    },
+    "co2-2": {
+      "from": "gasher-co2.outlet",
+      "to": "core.co2",
+      "parts": [
+        "tube-co2-2"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 43.91487165473666,
+      "endpoints_exact": true
+    },
+    "water-2": {
+      "from": "asse1022-assembly.tube-out",
+      "to": "water-split.supply",
+      "parts": [
+        "tube-water-2"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 262.91669142671554,
+      "endpoints_exact": true
+    },
+    "water-supply-link": {
+      "from": "bulkhead-water.inboard",
+      "to": "asse1022-assembly.tube-in",
+      "parts": [
+        "tube-water-supply-link"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 271.6387790709064,
+      "endpoints_exact": true
+    },
+    "fluid-14": {
+      "from": "valve-v-f.outlet",
+      "to": "core.a-fill",
+      "parts": [
+        "tube-fluid-14"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 428.06382829535266,
+      "endpoints_exact": true
+    },
+    "fluid-18": {
+      "from": "valve-v-g.outlet",
+      "to": "bulkhead-flavor-a.inboard",
+      "parts": [
+        "tube-fluid-18"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 518.0634135887635,
+      "endpoints_exact": true
+    },
+    "fluid-28": {
+      "from": "valve-v-j.outlet",
+      "to": "bulkhead-flavor-b.inboard",
+      "parts": [
+        "tube-fluid-28"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 352.2548000940246,
+      "endpoints_exact": true
+    },
+    "co2-1": {
+      "from": "wr1110.outlet",
+      "to": "gasher-co2.inlet",
+      "parts": [
+        "tube-co2-1"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 225.08385552358908,
+      "endpoints_exact": true
+    },
+    "co2-0": {
+      "from": "co2-inlet.inboard",
+      "to": "wr1110.inlet",
+      "parts": [
+        "tube-co2-0"
+      ],
+      "stock_bend_pass": true,
+      "native_clearance_status": "pass",
+      "diameter_mm": 6.35,
+      "minimum_bend_mm": 14,
+      "developed_length_mm": 440.9875319353148,
+      "endpoints_exact": true
+    }
+  },
+  "intended_contacts": [
+    [
+      "wr1110",
+      "co2-adapter-regulator-in"
+    ],
+    [
+      "wr1110",
+      "co2-adapter-regulator-out"
+    ],
+    [
+      "gasher-co2",
+      "co2-adapter-check-in"
+    ],
+    [
+      "gasher-co2",
+      "co2-adapter-check-out"
+    ],
+    [
+      "tube-fluid-1",
+      "water-split"
+    ],
+    [
+      "tube-fluid-1",
+      "flow-regulator"
+    ],
+    [
+      "tube-fluid-2",
+      "flow-regulator"
+    ],
+    [
+      "tube-fluid-2",
+      "valve-v-a"
+    ],
+    [
+      "tube-water-3",
+      "water-split"
+    ],
+    [
+      "tube-water-3",
+      "vk-solenoid"
+    ],
+    [
+      "tube-carb-1",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "carb-foam-carb-1",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-carb-1",
+      "digiten-flow"
+    ],
+    [
+      "carb-foam-carb-1",
+      "digiten-flow"
+    ],
+    [
+      "tube-carb-1",
+      "carb-foam-carb-1"
+    ],
+    [
+      "tube-carb-2",
+      "digiten-flow"
+    ],
+    [
+      "carb-foam-carb-2",
+      "digiten-flow"
+    ],
+    [
+      "tube-carb-2",
+      "bulkhead-carb"
+    ],
+    [
+      "carb-foam-carb-2",
+      "bulkhead-carb"
+    ],
+    [
+      "tube-carb-2",
+      "carb-foam-carb-2"
+    ],
+    [
+      "tube-co2-2",
+      "co2-adapter-check-out"
+    ],
+    [
+      "tube-co2-2",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-water-2",
+      "asse1022-assembly"
+    ],
+    [
+      "tube-water-2",
+      "water-split"
+    ],
+    [
+      "tube-water-supply-link",
+      "bulkhead-water"
+    ],
+    [
+      "tube-water-supply-link",
+      "asse1022-assembly"
+    ],
+    [
+      "tube-fluid-14",
+      "valve-v-f"
+    ],
+    [
+      "tube-fluid-14",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-fluid-18",
+      "valve-v-g"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-flavor-a"
+    ],
+    [
+      "tube-fluid-28",
+      "valve-v-j"
+    ],
+    [
+      "tube-fluid-28",
+      "bulkhead-flavor-b"
+    ],
+    [
+      "tube-co2-1",
+      "co2-adapter-regulator-out"
+    ],
+    [
+      "tube-co2-1",
+      "co2-adapter-check-in"
+    ],
+    [
+      "tube-co2-0",
+      "co2-inlet"
+    ],
+    [
+      "tube-co2-0",
+      "co2-adapter-regulator-in"
+    ]
+  ],
+  "interface_moves": {
+    "nameplate": {
+      "rotation_world_z_deg": 90,
+      "translation_after_rotation": [
+        363.8,
+        339.175,
+        47.0715
+      ],
+      "print_owner": "enclosure-back-top",
+      "original_receiver": {
+        "brep": ".cache/pump-first-layout/funnel/aft-60/shells/retained-nameplate-stock.brep",
+        "sha256": "fb1283e64b04a8ddc3be8bd23f88f8d127ddf8272eba3cbd522cf1b2e1ddf312",
+        "bounds_world_mm": [
+          -19.504999999999995,
+          464.34,
+          252.92850009999995,
+          95.825,
+          471.3,
+          298.92850009999995
+        ],
+        "volume_mm3": 19618.2776080316,
+        "valid": true,
+        "solids": 1
+      },
+      "original_receiver_removal": {
+        "brep": ".cache/pump-first-layout/routing/nameplate-original-removal.brep",
+        "role": "context",
+        "detail": "Exact source receiver bounding region, used to restore original rear skin.",
+        "bounds": [
+          -19.504999999999995,
+          464.34,
+          252.92850009999995,
+          95.825,
+          471.3,
+          298.92850009999995
+        ],
+        "sha256": "c61a19c6bf9b0035768d931d0bb0d5119853b863655af082d00d622e2cdbb28f"
+      },
+      "original_voids": {
+        "brep": ".cache/pump-first-layout/routing/nameplate-original-voids.brep",
+        "role": "context",
+        "detail": "Original fitted nameplate openings.",
+        "bounds": [
+          -19.504999999999995,
+          464.34,
+          252.92850009999995,
+          95.825,
+          471.3,
+          298.92850009999995
+        ],
+        "sha256": "c3151343496d9bbaad7f1b915e6bc415a2b6ec09e8d60e26cc1bec00d57f3822"
+      },
+      "new_receiver": {
+        "brep": ".cache/pump-first-layout/routing/nameplate-west-receiver.brep",
+        "role": "structure",
+        "detail": "Complete accepted 6.96 mm deep receiver, including wing slots and release opening.",
+        "bounds": [
+          -107.50000000000001,
+          319.6700000000001,
+          300.00000009999997,
+          -100.53999999999995,
+          435.00000000000006,
+          346.00000009999997
+        ],
+        "sha256": "5e4d0ff913fbb03566a32148978679ff56b51423e5dac0e38a104f9cc0c8fccb"
+      },
+      "new_cutter": {
+        "brep": ".cache/pump-first-layout/routing/nameplate-west-cutter.brep",
+        "role": "context",
+        "detail": "Exact transformed receiver openings; subtract after fusing receiver to west wall.",
+        "bounds": [
+          -107.50000000000001,
+          319.6700000000001,
+          300.00000009999997,
+          -100.53999999999995,
+          435.00000000000006,
+          346.00000009999997
+        ],
+        "sha256": "a71e4635f06cee54bc809ffd6603896a2eddfb5920eb504971d766c309a3bc32"
+      },
+      "minimum_backing_stock_mm": 3.04,
+      "local_outer_x_mm": -107.5,
+      "face_axis": [
+        -1,
+        0,
+        0
+      ],
+      "inner_backing_face_x_mm": -97.49,
+      "raised_ink_beyond_nominal_face_mm": 0,
+      "marking_finish": "Exact glyph engraved into plate with flush paint/fill, preserving full accepted rear mating and wing slots",
+      "engraving_depth_mm": 1.2,
+      "remaining_face_thickness_mm": 2.16,
+      "body_bounds": [
+        -107.50000010000001,
+        322.67,
+        304.0,
+        -104.13999999999997,
+        432.0000000000001,
+        342.00000020000004
+      ],
+      "receiver_bounds": [
+        -107.50000000000001,
+        319.6700000000001,
+        300.00000009999997,
+        -100.53999999999995,
+        435.00000000000006,
+        346.00000009999997
+      ],
+      "scope": "Rigid transformation preserves the accepted mating dimensions; full side-wall printing, insertion and lifetime remain separate qualifications.",
+      "new_backing": {
+        "brep": ".cache/pump-first-layout/routing/nameplate-west-backing.brep",
+        "role": "structure",
+        "detail": "Full3.05mm backing behind the complete6.96mm fitted receiver, rooted into nominal west shell; exact cutter recut after fuse.",
+        "bounds": [
+          -107.5,
+          319.67,
+          300.0,
+          -97.49,
+          435.0,
+          346.0
+        ],
+        "sha256": "d7622df78f9046f930dce1050763e6fded7308c82fb0e1bf4f2b326dce508f04"
+      },
+      "native_backing_status": "The full backing clears the installed scanned pump and joins the west junction platform as common enclosure stock. The exact backing-to-pump native result is recorded separately.",
+      "native_backing_check": {
+        "pump_brep": ".cache/pump-first-layout/pump/g-ganen-pump.brep",
+        "pump_sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9",
+        "air_mm": 1.340016251649999,
+        "common_mm3": 0.0,
+        "scope": "Full backing exterior against the complete installed scanned pump; receiver mating dimensions and physical qualification remain separate."
+      }
+    },
+    "water": {
+      "translation": [
+        -12.43,
+        0,
+        -22.71058083755
+      ],
+      "port_axis": [
+        -90.5,
+        446.51,
+        313.5
+      ],
+      "print_owner": "enclosure-back-top",
+      "native_c14_clearance_mm": 3.5680720977382707,
+      "nameplate_backing_clearance_mm": 1.07
+    },
+    "keystone": {
+      "translation": [
+        -25.865,
+        0,
+        -0.0472904687784
+      ],
+      "print_owner": "enclosure-back-top",
+      "accepted_fit_preserved": true,
+      "new_receiver": {
+        "brep": ".cache/pump-first-layout/routing/keystone-new_receiver.brep",
+        "role": "electronics",
+        "detail": "Exact accepted native mating geometry translated with the jack.",
+        "bounds": [
+          -74.14999999999999,
+          461.6,
+          287.695,
+          -53.19999999999999,
+          465.3,
+          322.095
+        ],
+        "sha256": "1c099aa5deb22e66550d550a4f83a9c78cf4f8ba639b475e8c77454e37ea5f06"
+      },
+      "new_cutter": {
+        "brep": ".cache/pump-first-layout/routing/keystone-new_cutter.brep",
+        "role": "electronics",
+        "detail": "Exact accepted native mating geometry translated with the jack.",
+        "bounds": [
+          -71.14999999999999,
+          461.59000000000003,
+          290.695,
+          -56.19999999999999,
+          471.31,
+          315.39500000000004
+        ],
+        "sha256": "f136fdd7fc7124221c0603dd8587b87b570ac709e834ba883bcea722a9ef6881"
+      },
+      "new_feature": {
+        "brep": ".cache/pump-first-layout/routing/keystone-new_feature.brep",
+        "role": "electronics",
+        "detail": "Exact accepted native mating geometry translated with the jack.",
+        "bounds": [
+          -74.14999999999999,
+          461.6,
+          287.695,
+          -53.19999999999999,
+          465.3,
+          322.095
+        ],
+        "sha256": "0ac3df132a8a222d9fa5a7e9f32a761eedea32aaac60711de1a5682a61248e46"
+      },
+      "new_catches": {
+        "brep": ".cache/pump-first-layout/routing/keystone-new_catches.brep",
+        "role": "electronics",
+        "detail": "Exact accepted native mating geometry translated with the jack.",
+        "bounds": [
+          -71.125,
+          461.6,
+          290.69500000000005,
+          -56.224999999999994,
+          463.0,
+          315.395
+        ],
+        "sha256": "d85cc213c0d6ed3e9c666f11246ae1890f6e3303834dcde5654fafbfa86b0ca2"
+      },
+      "original_receiver": {
+        "brep": ".cache/pump-first-layout/funnel/aft-60/shells/retained-keystone-stock.brep",
+        "sha256": "a2d1531febf5b03738995aaf161e2b007e3008d64af88496f481dba23b4b42bf",
+        "bounds_world_mm": [
+          -48.285,
+          461.6,
+          287.7422904687784,
+          -27.334999999999994,
+          465.3,
+          322.1422904687784
+        ],
+        "volume_mm3": 2523.113249999995,
+        "valid": true,
+        "solids": 1
+      },
+      "original_cutter": {
+        "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-cutter.brep",
+        "sha256": "6384061cff5e57f3d062eedfa09441852b38d4c738d1e740b9bd577417e97c9a",
+        "bounds_world_mm": [
+          -45.285,
+          461.59000000000003,
+          290.7422904687784,
+          -30.334999999999994,
+          471.31,
+          315.4422904687784
+        ],
+        "volume_mm3": 3295.123332569303,
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "water_identification_chip": {
+      "finish": "Flat west decorative rim at the established exterior face",
+      "west_face_mm": -107.5,
+      "decorative_rim_trim_mm": 1.48,
+      "bore_diameter_mm": 17.44,
+      "west_material_outside_bore_mm": 8.28,
+      "west_visible_color_beyond_union_flange_mm": 5.57,
+      "unchanged": [
+        "union geometry and pose",
+        "17.44 mm chip bore",
+        "complete flange bearing annulus",
+        "lettering and recess",
+        "receiver bore, floor, slip and keying geometry"
+      ],
+      "receiver_scope": "The exact original chip pocket is retained inside the established width; its overhanging decorative outline lies outside the physical wall."
+    }
+  },
+  "pan": {
+    "translation": [
+      -107.5,
+      279.6,
+      254.4
+    ],
+    "basin_mm": [
+      102.5,
+      51,
+      12
+    ],
+    "capacity_ml": 40.12170494189072,
+    "capacity_basis": "Exact native rim-fill cavity volume including R2 floor coves; no physical drain-rate or sensing-performance claim.",
+    "rectangular_capacity_ml": 40.365,
+    "original_capacity_ml": 38.994200204787724,
+    "original_rectangular_capacity_ml": 39.192,
+    "flat_floor_mm": [
+      93.5,
+      42
+    ],
+    "atmospheric_fall_mm": 13.05,
+    "native_rigid_status": "Declared in the exact SHA-bound strict native route proof.",
+    "native_proof": "future/pump-first-layout-study/routing/strict-route-audit.json",
+    "slot_owner": "enclosure-back-top"
+  },
+  "poses": {
+    "water-split": {
+      "axis_mm": [
+        95.25,
+        402.75,
+        265.0
+      ],
+      "supply_branch_axis": [
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "standalone_print_parts": {
+    "water-identification-ring": {
+      "source_part": "bulkhead-ring-water",
+      "rotation_x_deg": 90
+    }
+  }
+}

@@ -1,0 +1,1964 @@
+[
+  {
+    "id": "bulkhead-flavor-b",
+    "label": "Rear flavor B outlet",
+    "detail": "X -89.5–-66.6, Y 446.5–480.8, Z 257.7–280.4 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-flavor-a",
+    "label": "Rear flavor A outlet",
+    "detail": "X -49.2–-26.4, Y 446.5–480.8, Z 257.7–280.4 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-flavor-a",
+    "label": "bulkhead ring flavor a",
+    "detail": "X -56.3–-19.3, Y 469.3–471.3, Z 250.5–287.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-flavor-b",
+    "label": "bulkhead ring flavor b",
+    "detail": "X -96.6–-59.6, Y 469.3–471.3, Z 250.5–287.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-fluid-26",
+    "label": "Route · fluid 26",
+    "detail": "X -46.7–-19.2, Y 102.1–192.1, Z 253.4–298.7 mm",
+    "role": "flavor"
+  },
+  {
+    "id": "tube-fluid-16",
+    "label": "Route · fluid 16",
+    "detail": "X 19.2–46.7, Y 102.1–192.1, Z 253.4–298.7 mm",
+    "role": "flavor"
+  },
+  {
+    "id": "elbow-cradle",
+    "label": "Drain-elbow cradle",
+    "detail": "X -16.3–20.0, Y 153.3–185.1, Z 269.1–306.0 mm",
+    "role": "funnel"
+  },
+  {
+    "id": "funnel-drain-union",
+    "label": "Funnel drain elbow",
+    "detail": "X -6.3–10.0, Y 156.5–185.1, Z 272.3–301.0 mm",
+    "role": "funnel"
+  },
+  {
+    "id": "funnel-drain-stub",
+    "label": "Removable funnel drain seal",
+    "detail": "X -1.3–5.0, Y 161.4–167.7, Z 285.3–311.1 mm",
+    "role": "funnel"
+  },
+  {
+    "id": "funnel",
+    "label": "Silicone funnel",
+    "detail": "Aft-only rounded mouth; drain and display edge retained. Native cavity capacity 715.057 mL; floor has measured 6.347 mm minimum stock. · X -89.5–89.5, Y 98.7–290.4, Z 306.1–355.0 mm",
+    "role": "funnel"
+  },
+  {
+    "id": "funnel-frame",
+    "label": "Sliding funnel frame",
+    "detail": "One PET-GF frame solid with full production slide rails and their3mm roots, complete3mm brim bearing and original drain/cradle socket;1mm-air underside corridors admit the raised VK casting and cradle throughout the102.2mm closing slide, the fixed Gate-A R14 elbow and the retained cartridge bore/ridge-clip lead. The lead chase retains the complete5.25mm source floor band. Final tee clears the unmodified underside. · X -103.5–103.5, Y 95.5–295.7, Z 299.9–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "funnel-cover",
+    "label": "Lift-off funnel cover",
+    "detail": "Native lift-off 3 mm plate, locating skirt and four silicone friction pads; front lifting edge retained. · X -91.0–91.0, Y 93.2–291.9, Z 349.0–358.0 mm",
+    "role": "funnel"
+  },
+  {
+    "id": "g-ganen-pump",
+    "label": "G Ganen diaphragm pump",
+    "detail": "Measured native casing, upright rubber feet, motor along +X; suction fore and discharge aft. · X -96.1–64.1, Y 319.9–414.9, Z 253.4–313.9 mm",
+    "role": "pump"
+  },
+  {
+    "id": "pump-washer-1",
+    "label": "pump washer 1",
+    "detail": "Ø9 ×0.8 washer centered 1.5mm outward in the flexible-foot slot. · X 7.2–16.2, Y 322.9–331.9, Z 260.4–261.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-screw-1",
+    "label": "pump screw 1",
+    "detail": "M3 ×20 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth. · X 9.0–14.5, Y 324.7–330.1, Z 241.2–264.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-washer-2",
+    "label": "pump washer 2",
+    "detail": "Ø9 ×0.8 washer centered 1.5mm outward in the flexible-foot slot. · X 7.2–16.2, Y 402.9–411.9, Z 260.4–261.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-screw-2",
+    "label": "pump screw 2",
+    "detail": "M3 ×20 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth. · X 9.0–14.5, Y 404.7–410.1, Z 241.2–264.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-washer-3",
+    "label": "pump washer 3",
+    "detail": "Ø9 ×0.8 washer centered 1.5mm outward in the flexible-foot slot. · X 39.8–48.8, Y 322.9–331.9, Z 260.4–261.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-screw-3",
+    "label": "pump screw 3",
+    "detail": "M3 ×20 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth. · X 41.5–47.0, Y 324.7–330.1, Z 241.2–264.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-washer-4",
+    "label": "pump washer 4",
+    "detail": "Ø9 ×0.8 washer centered 1.5mm outward in the flexible-foot slot. · X 39.8–48.8, Y 402.9–411.9, Z 260.4–261.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "pump-screw-4",
+    "label": "pump screw 4",
+    "detail": "M3 ×20 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth. · X 41.5–47.0, Y 404.7–410.1, Z 241.2–264.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "cold-core/foam-cap-top",
+    "label": "Cold-core cap",
+    "detail": "Native floor rooted Ø8mm pump columns at transformed four-foot stations; original cold-core boundary and conduits retained. · X -90.5–90.5, Y 182.3–465.3, Z 233.4–248.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "cold-core/foam-cap-lid-top",
+    "label": "Cold-core top lid",
+    "detail": "Flat 5.4mm lid with relocated pump clearance holes; valve and chain support hosts are separate displayed structures. · X -90.5–90.5, Y 182.3–465.3, Z 248.0–253.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "vk-solenoid",
+    "label": "V-K supply valve",
+    "detail": "Carb-feed valve on its side, coil east, horizontal −Y flow; inlet aft, outlet fore, clear of western cap mouths. · X -86.6–-29.3, Y 207.0–266.5, Z 271.8–305.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "vk-cradle",
+    "label": "vk cradle",
+    "detail": "V69 Ø6.90mm sockets, four posts, 3mm wall and 1mm blind floor; continuous lid-supported side plinth. · X -90.6–-81.4, Y 217.7–255.8, Z 253.4–307.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "suction-chain",
+    "label": "Pump suction fittings",
+    "detail": "MAACFLOW + PP450822E; fore-facing ¼-inch collet, aft-facing reinforced hose barb. · X -60.0–-43.0, Y 261.7–316.1, Z 273.7–290.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "discharge-chain",
+    "label": "Pump discharge check and fittings",
+    "detail": "MAACFLOW + GASHER check + PP450822E across the bay aft of the pump; check holds carbonator pressure off pump. · X -15.0–68.4, Y 445.0–462.0, Z 333.5–350.5 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-4",
+    "label": "Route · water 4",
+    "detail": "VK fore outlet returns through an exact diagonal R14 U, a corrective R14 S and a descending R14 S to the suction reducer, below the frame underside. · vk-solenoid.outlet → suction-chain.tube-port · X -78.7–-45.0, Y 189.8–261.7, Z 279.0–297.4 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-7",
+    "label": "Route · water 7",
+    "detail": "Measured pump suction to raised reducer: a short exact R15.9 heading correction and two R15.9 opposing arcs preserve both actual terminal axes. · g-ganen-pump.suction → suction-chain.barb-tip · X -59.1–-44.0, Y 316.1–330.2, Z 272.6–289.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-6",
+    "label": "Route · water 6",
+    "detail": "Actual pump discharge axis: exact R15.9 west/down arcs, low span under PSU, west riser with gentle aft shift, then high return fore of C14 to the check-chain barb. · g-ganen-pump.discharge → discharge-chain.barb-tip · X -96.2–-15.0, Y 404.3–461.0, Z 264.5–349.5 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-5",
+    "label": "Route · water 5",
+    "detail": "Discharge check to fixed core mouth: source R14 S raises the east run to Z346, fore drop at X100.325/Y304.6 clears the compact +60 funnel and meter, low span below insulation, east rise/downward S to the Y195.5/Z285.8 fore crossing, diagonal return and cap-normal R14 entry. · discharge-chain.tube-port → foam-assembly.water-in · X -59.2–103.5, Y 157.7–456.7, Z 253.4–349.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "valve-v-a",
+    "label": "valve v a",
+    "detail": "Source valve with east-facing coil, horizontal flow on actual port axes, below enlarged funnel. · X 38.0–95.3, Y 210.8–270.2, Z 253.4–286.9 mm",
+    "role": "water"
+  },
+  {
+    "id": "source-a-cradle",
+    "label": "source a cradle",
+    "detail": "Four V69 sockets, 3mm surrounding wall, 1mm blind floor, lid-rooted vertical plinth. · X 34.0–43.2, Y 221.5–259.5, Z 253.4–288.9 mm",
+    "role": "structure"
+  },
+  {
+    "id": "tube-fluid-3",
+    "label": "Route · fluid 3",
+    "detail": "Source A outlet to retained fore-manifold quarter, R14 formed LLDPE on both terminal axes. · valve-v-a.outlet → source-quarter-a.end · X 19.2–52.2, Y 180.2–210.8, Z 267.0–279.9 mm",
+    "role": "water"
+  },
+  {
+    "id": "valve-v-b",
+    "label": "valve v b",
+    "detail": "Source valve with east-facing coil, horizontal flow on actual port axes, below enlarged funnel. · X -24.3–33.0, Y 211.6–271.1, Z 253.4–286.9 mm",
+    "role": "water"
+  },
+  {
+    "id": "source-b-cradle",
+    "label": "source b cradle",
+    "detail": "Four V69 sockets, 3mm surrounding wall, 1mm blind floor, lid-rooted vertical plinth. · X -28.3–-19.1, Y 222.3–260.3, Z 253.4–288.9 mm",
+    "role": "structure"
+  },
+  {
+    "id": "tube-fluid-5",
+    "label": "Route · fluid 5",
+    "detail": "Source B aft outlet returns through the supported suction-root passage, rises on X27 and runs fore to the retained Y-B quarter; exact R14. · valve-v-b.outlet → source-quarter-b.end · X -25.5–30.2, Y 180.2–288.2, Z 267.0–296.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-4",
+    "label": "Route · fluid 4",
+    "detail": "Gravity drain directly descends through two tangent R14 bends into V-B fore inlet; 10.26mm fall, no rising segment. · funnel-drain-union.outlet → valve-v-b.inlet · X -16.4–5.0, Y 185.1–211.6, Z 267.0–283.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "suction-chain-clip-screw-1",
+    "label": "suction chain clip screw 1",
+    "detail": "M3 ×10: 4mm retainer flange, 6mm insert engagement and 2.5mm blind tip reserve. · X 2.2–7.8, Y 269.2–274.6, Z 276.1–289.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "suction-chain-clip-screw-2",
+    "label": "suction chain clip screw 2",
+    "detail": "M3 ×10: 4mm retainer flange, 6mm insert engagement and 2.5mm blind tip reserve. · X 2.2–7.8, Y 291.8–297.2, Z 276.1–289.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "suction-chain-anchor",
+    "label": "Pump suction seat",
+    "detail": "3mm lower seat stock on a lid-rooted bridge above the pan, with a continuous3mm rear rail around the source-B barrel and jumper clearance; two blind M3 pockets retain the upper key. · X -63.2–9.0, Y 267.9–298.5, Z 253.4–282.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "suction-chain-upper-key",
+    "label": "suction chain upper key",
+    "detail": "Separate3mm crown with4mm bolted flanges closes the Ø17.3 seat; two M3×10 screws on the east lid root. · X -63.2–9.0, Y 267.9–298.5, Z 282.1–293.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "discharge-chain-clip-screw-1",
+    "label": "discharge chain clip screw 1",
+    "detail": "M3×10 lower-key screw: 3mm clip, 7mm penetration, 5.7mm insert engagement and 1.5mm blind reserve. · X 20.6–26.1, Y 435.6–441.1, Z 336.0–349.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "discharge-chain-clip-screw-2",
+    "label": "discharge chain clip screw 2",
+    "detail": "M3×10 lower-key screw: 3mm clip, 7mm penetration, 5.7mm insert engagement and 1.5mm blind reserve. · X 40.6–46.1, Y 435.6–441.1, Z 336.0–349.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "discharge-chain-lower-key",
+    "label": "discharge chain lower key",
+    "detail": "3mm lower half-key on GASHER hex, two fore M3 stations and 0.15mm radial seat air; factory-installed with roof subassembly. · X 19.4–47.4, Y 432.9–465.1, Z 330.4–342.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "discharge-chain-anchor",
+    "label": "discharge chain anchor",
+    "detail": "Roof/rear-rooted 9.5mm hex key with two blind M3 columns and a separate 3mm bolted lower retainer. · X 19.4–47.4, Y 434.4–465.3, Z 330.4–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hose-engagement-pump-suction",
+    "label": "hose engagement pump suction",
+    "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span. · X -59.2–-44.0, Y 330.1–343.6, Z 272.6–287.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-clamp-pump-suction",
+    "label": "hose clamp pump suction",
+    "detail": "LOKMAN 10–16mm reference clamp at Ø15.1mm; housing envelope seeded, not dimensionally ratified. · X -66.8–-43.4, Y 331.8–341.4, Z 272.0–291.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-engagement-pump-discharge",
+    "label": "hose engagement pump discharge",
+    "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span. · X -59.1–-44.0, Y 391.2–404.5, Z 272.5–287.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-clamp-pump-discharge",
+    "label": "hose clamp pump discharge",
+    "detail": "LOKMAN 10–16mm reference clamp at Ø15.1mm; housing envelope seeded, not dimensionally ratified. · X -66.7–-43.4, Y 393.1–402.8, Z 269.1–288.3 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-engagement-chain-suction",
+    "label": "hose engagement chain suction",
+    "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span. · X -59.1–-44.0, Y 294.1–316.1, Z 274.6–289.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-clamp-chain-suction",
+    "label": "hose clamp chain suction",
+    "detail": "LOKMAN 10–16mm reference clamp at Ø15.1mm; housing envelope seeded, not dimensionally ratified. · X -59.7–-36.4, Y 304.9–314.4, Z 274.0–293.1 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-engagement-chain-discharge",
+    "label": "hose engagement chain discharge",
+    "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span. · X -15.0–7.0, Y 446.0–461.0, Z 334.4–349.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "hose-clamp-chain-discharge",
+    "label": "hose clamp chain discharge",
+    "detail": "LOKMAN 10–16mm reference clamp at Ø15.1mm; housing envelope seeded, not dimensionally ratified. · X -13.2–-3.7, Y 438.4–461.6, Z 331.0–350.1 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-24",
+    "label": "Route · fluid 24",
+    "detail": "Reservoir B fill keeps the fixed V-I upward attachment and its R14 crown, takes the west perimeter outside VK, descends before its raised plinth, then returns from the fore at Z267.4 through a true cap-normal R14 quarter into the fixed B-fill mouth. Every rounded corner retains R14. · valve-v-i.outlet → cold-core/foam-cap-lid-top.reservoir-b-fill · X -98.0–-40.3, Y 102.1–236.5, Z 253.4–298.8 mm",
+    "role": "water"
+  },
+  {
+    "id": "asse1022-assembly",
+    "label": "Backflow preventer",
+    "detail": "Transverse ASSE assembly with axis Y310.3/Z308.45, flow +X and downward atmospheric vent (-15.325,310.3,279.45); keyed roof seats and complete tie envelopes are separate native parts. · X -83.3–56.7, Y 293.8–326.8, Z 279.4–322.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "asse-drip-pan",
+    "label": "Sensed drip tray",
+    "detail": "Flush102.5x51x12 basin;2.5mm walls,3mm floor,R2 coves, full54x40probe+1mm slip;40.122mL exact native rim-fill cavity;13.05mm atmospheric fall. · X -107.5–-1.0, Y 279.6–338.6, Z 254.4–266.4 mm",
+    "role": "water"
+  },
+  {
+    "id": "moisture-plate",
+    "label": "Drip sensor",
+    "detail": "Existing54x40probe lies on unchanged3mmfloor;1mm fore/aftslip on42mmflatfloor. · X -79.2–-25.2, Y 289.1–329.1, Z 257.4–259.0 mm",
+    "role": "water"
+  },
+  {
+    "id": "relay-1",
+    "label": "Compressor relay",
+    "detail": "Exact rotated installed reference relay; components and screw hole pattern retained. · X -24.5–45.5, Y 423.5–440.5, Z 257.6–276.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "relay-2",
+    "label": "Diaphragm-pump relay",
+    "detail": "Exact rotated installed reference relay; components and screw hole pattern retained. · X -24.5–45.5, Y 443.8–460.8, Z 257.6–276.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-h",
+    "label": "wago h",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -96.3–-77.5, Y 334.6–353.1, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-n",
+    "label": "wago n",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -74.2–-55.5, Y 334.6–353.1, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-g",
+    "label": "wago g",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -52.1–-33.4, Y 334.6–353.1, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-v12",
+    "label": "wago v12",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -96.3–-77.5, Y 356.4–375.1, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-gnd",
+    "label": "wago gnd",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -74.2–-55.5, Y 364.3–382.9, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-reeds-b",
+    "label": "wago reeds b",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -47.9–-18.1, Y 364.1–379.9, Z 322.6–340.9 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-reeds-a",
+    "label": "wago reeds a",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -96.3–-66.3, Y 394.1–412.6, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wago-sensors",
+    "label": "wago sensors",
+    "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open. · X -63.0–-33.0, Y 394.1–412.6, Z 336.2–344.6 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "wr1110",
+    "label": "CO₂ regulator",
+    "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck. · X -93.4–-59.4, Y 336.4–401.4, Z 311.7–331.1 mm",
+    "role": "gas"
+  },
+  {
+    "id": "co2-adapter-regulator-in",
+    "label": "co2 adapter regulator in",
+    "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck. · X -95.3–-75.7, Y 319.2–341.0, Z 314.3–328.5 mm",
+    "role": "gas"
+  },
+  {
+    "id": "co2-adapter-regulator-out",
+    "label": "co2 adapter regulator out",
+    "detail": "Diagonal yaw75 regulator inlet(-88.5,321,321.4), narrow face horizontal; native rigid body clears compact pump and roof deck. · X -76.9–-56.1, Y 389.5–418.4, Z 313.9–328.9 mm",
+    "role": "gas"
+  },
+  {
+    "id": "gasher-co2",
+    "label": "CO₂ check",
+    "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm. · X 65.5–82.5, Y 372.5–412.5, Z 257.8–273.2 mm",
+    "role": "gas"
+  },
+  {
+    "id": "co2-adapter-check-in",
+    "label": "co2 adapter check in",
+    "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm. · X 66.9–81.1, Y 412.5–431.0, Z 257.2–273.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "co2-adapter-check-out",
+    "label": "co2 adapter check out",
+    "detail": "Downstream check assembly, flow fore alongY atX74/Z265.5; nominal low gas lane clears the complete inlet hex adapter and closed tee tie by at least1mm. · X 66.5–81.5, Y 357.5–383.5, Z 257.2–273.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "digiten-flow",
+    "label": "Carbonated-water flow sensor",
+    "detail": "Meter rolled 90 degrees about its flow axis on east side; axisX84.5,inletY372.01; removable side-cover pocket retains3.1mm outer shell stock. · X 75.1–103.4, Y 372.0–433.0, Z 305.6–341.2 mm",
+    "role": "gas"
+  },
+  {
+    "id": "water-split",
+    "label": "Water branch",
+    "detail": "John Guest union tee at (95.25,402.75,265): aft incoming water, fore pump-valve output and upper flavor outlet; restrained at the measured aft collar by a complete closed tie and direct lid pad. · X 87.0–103.5, Y 381.5–424.0, Z 256.8–287.4 mm",
+    "role": "water"
+  },
+  {
+    "id": "flow-regulator",
+    "label": "Flow regulator",
+    "detail": "Purchased flavor needle on axis (27.5,312.5,275.25), flow +X, adjuster facing fore; restrained by the keyed lid-rooted bearing and full closed tie. · X 4.5–50.5, Y 278.5–319.5, Z 267.9–282.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "bulkhead-water",
+    "label": "Rear water inlet",
+    "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm. · X -101.9–-79.1, Y 446.5–480.8, Z 302.1–324.9 mm",
+    "role": "water"
+  },
+  {
+    "id": "bulkhead-carb",
+    "label": "Rear carbonated-water outlet",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 73.1–95.9, Y 446.5–480.8, Z 317.6–340.4 mm",
+    "role": "gas"
+  },
+  {
+    "id": "co2-inlet",
+    "label": "Rear CO₂ inlet",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 65.4–89.6, Y 454.0–488.2, Z 259.9–284.1 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-water",
+    "label": "bulkhead ring water",
+    "detail": "WATER identification chip with its west decorative rim flat at X−107.5; native bore, flange bearing and TAP lettering preserved. · X -107.5–-72.0, Y 469.3–471.3, Z 295.0–332.3 mm",
+    "role": "water"
+  },
+  {
+    "id": "bulkhead-ring-water-word",
+    "label": "bulkhead ring water word",
+    "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm. · X -96.8–-84.2, Y 470.3–471.8, Z 326.3–330.9 mm",
+    "role": "water"
+  },
+  {
+    "id": "bulkhead-ring-carb",
+    "label": "bulkhead ring carb",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 66.0–103.0, Y 469.3–471.3, Z 310.5–347.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-carb-word",
+    "label": "bulkhead ring carb word",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 75.3–93.7, Y 470.3–471.8, Z 341.6–346.6 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-co2",
+    "label": "bulkhead ring co2",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 59.5–95.5, Y 469.3–471.3, Z 254.0–291.0 mm",
+    "role": "gas"
+  },
+  {
+    "id": "bulkhead-ring-co2-word",
+    "label": "bulkhead ring co2 word",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 71.1–83.9, Y 470.3–471.8, Z 284.5–289.5 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-customer-water",
+    "label": "Route · customer water",
+    "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm. · X -93.7–-87.3, Y 480.8–528.8, Z 310.3–316.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-customer-co2",
+    "label": "Route · customer co2",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 74.3–80.7, Y 488.2–536.2, Z 268.8–275.2 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-collar-water",
+    "label": "Route · collar water",
+    "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm. · X -96.5–-84.5, Y 488.8–518.8, Z 307.5–320.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-collar-water-word",
+    "label": "Route · collar water word",
+    "detail": "Complete native WATERinterface raised3.5mm toaxisZ313.5; exact scanned C14gap3.568mm and west nameplate backingair1.07mm. · X -96.5–-84.5, Y 497.5–510.1, Z 314.7–320.6 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-collar-co2",
+    "label": "Route · collar co2",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 71.5–83.5, Y 496.2–526.2, Z 266.0–279.1 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-collar-co2-word",
+    "label": "Route · collar co2 word",
+    "detail": "Rear interface with its fitted native body, colored identification collar and readable port label. · X 71.5–83.5, Y 504.8–517.6, Z 273.0–279.1 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-fluid-1",
+    "label": "Route · fluid 1",
+    "detail": "The tee upper flavor outlet turns fore and west below the meter, passes behind ASSE at Z304 beneath its roof seats, then descends into the needle inlet. · water-split.to-flavor → flow-regulator.inlet · X -41.7–98.4, Y 309.3–405.9, Z 272.1–332.5 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-2",
+    "label": "Route · fluid 2",
+    "detail": "The needle east outlet turns fore at R14 and descends into the source-A aft inlet, west of the complete carbonated-water sleeve. · flow-regulator.outlet → valve-v-a.inlet · X 45.9–68.2, Y 270.2–315.7, Z 267.0–278.4 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-3",
+    "label": "Route · water 3",
+    "detail": "The tee fore output rises beside the cold sleeve, steps inside Water5, crosses fore of the controller above the ASSE seats, then descends fore of ASSE into the raised pump inlet valve. · water-split.to-vk → vk-solenoid.inlet · X -78.7–103.5, Y 266.5–381.5, Z 261.8–350.4 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-carb-1",
+    "label": "Route · carb 1",
+    "detail": "Full Ø25.4 insulation covers the chilled path from the fixed cap mouth through the east riser behind ASSE into the rolled flow meter. · core.carb → digiten-flow.inlet · X 74.3–87.7, Y 268.4–372.0, Z 253.4–335.3 mm",
+    "role": "gas"
+  },
+  {
+    "id": "carb-foam-carb-1",
+    "label": "carb foam carb 1",
+    "detail": "FullØ25.4mm insulation sleeve along the actual tangent tube, including both elbow envelopes. · X 64.8–97.2, Y 258.9–372.0, Z 253.4–344.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-carb-2",
+    "label": "Route · carb 2",
+    "detail": "The aligned meter and rear CARB collet connect through an exact R14 S descending 3.1 mm; the complete insulation exterior is included. · digiten-flow.outlet → bulkhead-carb.tube-in · X 81.3–87.7, Y 433.0–446.5, Z 325.8–335.3 mm",
+    "role": "gas"
+  },
+  {
+    "id": "carb-foam-carb-2",
+    "label": "carb foam carb 2",
+    "detail": "FullØ25.4mm insulation sleeve along the actual tangent tube, including both elbow envelopes. · X 71.8–97.2, Y 433.0–446.5, Z 316.3–344.8 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-co2-2",
+    "label": "Route · co2 2",
+    "detail": "The low check-to-core gas return lies below the complete carbonated-water sleeve and uses an R14 normal downward cap elbow. · gasher-co2.outlet → core.co2 · X 70.8–80.7, Y 319.1–357.5, Z 253.4–270.6 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-water-2",
+    "label": "Route · water 2",
+    "detail": "The ASSE outlet rises ahead of the suction bridge and cold riser, runs outside the controller, descends fore of the gas column and uses a diagonal R14 return above the rear gas intake into the east tee. · asse1022-assembly.tube-out → water-split.supply · X 56.7–98.4, Y 307.1–441.5, Z 261.8–350.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-water-supply-link",
+    "label": "Route · water supply link",
+    "detail": "Rear water passes ahead of the jack and braided riser, runs between the regulator and shifted reed-B junction above the pump, then uses a fore return and compound R14 normal approach into ASSE. · bulkhead-water.inboard → asse1022-assembly.tube-in · X -103.5–-50.3, Y 277.3–446.5, Z 301.4–320.3 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-14",
+    "label": "Route · fluid 14",
+    "detail": "The fixed Gate-F lead follows the protected front corridor, turns below ASSE aft of the needle, runs beneath the complete cold sleeve, crosses above the check tie and descends normally into the fixed A-fill mouth. · valve-v-f.outlet → core.a-fill · X 41.6–91.7, Y 102.1–429.5, Z 253.4–299.8 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-18",
+    "label": "Route · fluid 18",
+    "detail": "Flavor A leaves fixed Gate-G, bypasses the raised inlet valve and B-fill mouth, rises above the sensed tray in the nominal west channel, then descends outside the scanned head into the rear flavor-A union. · valve-v-g.outlet → bulkhead-flavor-a.inboard · X -103.5–77.0, Y 163.1–446.5, Z 229.7–274.2 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-fluid-28",
+    "label": "Route · fluid 28",
+    "detail": "Flavor B leaves fixed Gate-J normally, steps outside B-fill below the inlet valve, rises over the tray above Flavor A, then lowers around the pump into the retained rear flavor-B union. · valve-v-j.outlet → bulkhead-flavor-b.inboard · X -103.5–-70.6, Y 163.1–446.5, Z 229.7–284.7 mm",
+    "role": "water"
+  },
+  {
+    "id": "tube-co2-1",
+    "label": "Route · co2 1",
+    "detail": "Exact R14 gas tube on the frozen fitting normals; complete6.35mm occupied exterior. · wr1110.outlet → gasher-co2.inlet · X -65.9–77.2, Y 415.8–448.2, Z 262.3–333.4 mm",
+    "role": "gas"
+  },
+  {
+    "id": "tube-co2-0",
+    "label": "Route · co2 0",
+    "detail": "Exact R14 gas tube on the frozen fitting normals; complete6.35mm occupied exterior. · co2-inlet.inboard → wr1110.inlet · X -93.7–103.5, Y 272.2–454.0, Z 254.4–324.6 mm",
+    "role": "gas"
+  },
+  {
+    "id": "nameplate",
+    "label": "nameplate",
+    "detail": "Exact accepted flat-wing nameplate, installed on west wall; bodyY322.67..432/Z304..342, faceX-107.5; original fit dimensions unchanged. · X -107.5–-104.1, Y 322.7–432.0, Z 304.0–342.0 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "nameplate-ink",
+    "label": "nameplate ink",
+    "detail": "Exact accepted flat-wing nameplate, installed on west wall; bodyY322.67..432/Z304..342, faceX-107.5; original fit dimensions unchanged. · X -107.5–-106.3, Y 330.1–424.6, Z 310.5–335.5 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "keystone-jack",
+    "label": "Control cable jack",
+    "detail": "Rear RJ11 keystone with the complete retained snap body; shifted receiver retains both native catches and the full aperture. · X -71.0–-56.4, Y 441.3–471.3, Z 291.1–315.2 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "pcba",
+    "label": "Main board",
+    "detail": "Populated controller, components down; four isolated MH1–MH4 holes on roof bosses. All edge connectors prewired before roof installation. · X -19.0–53.8, Y 326.8–417.6, Z 327.9–349.0 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "controller-roof-boss-1",
+    "label": "controller roof boss 1",
+    "detail": "Ø8 roof-rooted boss, Ø4 ×5 blind pilot for short 4mm insert; 3mm roof end cover, 3.25mm standoff clears 2mm pin tails. · X -20.0–-12.0, Y 332.1–340.1, Z 347.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-screw-1",
+    "label": "controller screw 1",
+    "detail": "M3 × 6 socket screw; real shank/head and socket envelope. · X -18.8–-13.2, Y 333.4–338.9, Z 342.4–351.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-roof-boss-2",
+    "label": "controller roof boss 2",
+    "detail": "Ø8 roof-rooted boss, Ø4 ×5 blind pilot for short 4mm insert; 3mm roof end cover, 3.25mm standoff clears 2mm pin tails. · X -20.0–-12.0, Y 410.1–418.1, Z 347.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-screw-2",
+    "label": "controller screw 2",
+    "detail": "M3 × 6 socket screw; real shank/head and socket envelope. · X -18.8–-13.2, Y 411.4–416.9, Z 342.4–351.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-roof-boss-3",
+    "label": "controller roof boss 3",
+    "detail": "Ø8 roof-rooted boss, Ø4 ×5 blind pilot for short 4mm insert; 3mm roof end cover, 3.25mm standoff clears 2mm pin tails. · X 46.3–54.3, Y 332.1–340.1, Z 347.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-screw-3",
+    "label": "controller screw 3",
+    "detail": "M3 × 6 socket screw; real shank/head and socket envelope. · X 47.5–53.0, Y 333.4–338.9, Z 342.4–351.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-roof-boss-4",
+    "label": "controller roof boss 4",
+    "detail": "Original controller insert boss with the exact finished hatch seam groove; complete1.6mm pilot surround and3mm blind end cover retained. · X 46.3–54.3, Y 410.1–418.1, Z 347.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "controller-screw-4",
+    "label": "controller screw 4",
+    "detail": "M3 × 6 socket screw; real shank/head and socket envelope. · X 47.5–53.0, Y 411.4–416.9, Z 342.4–351.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "psu",
+    "label": "12 V power supply",
+    "detail": "Mean Well IRM-90-12ST horizontal across X, standard base down, terminals up; 36.35mm above the cold-core lid on four exact datasheet mounting stations. Reference terminal ledges are representative. · Installation clearance unresolved: 2.0 mm rear air, 6.96 mm to controller; manufacturer surrounding-distance guidance 10 mm · X -45.0–64.0, Y 411.3–463.3, Z 289.8–323.2 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "supply-lid-boss-1",
+    "label": "supply lid boss 1",
+    "detail": "Ø8 bridge boss above the fixed flavor-A interface; Ø4×5.25 blind pilot, 3mm blind floor, connected 8×3mm rail and floor web. · X -43.5–-35.5, Y 416.8–424.8, Z 281.5–289.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-washer-1",
+    "label": "supply washer 1",
+    "detail": "Ø7 ×0.8 M3 flat washer on the 6.7mm mounting ledge. · X -43.0–-36.0, Y 417.3–424.3, Z 296.4–297.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-screw-1",
+    "label": "supply screw 1",
+    "detail": "M3 × 12 socket screw; real shank/head and socket envelope. · X -42.2–-36.8, Y 418.1–423.5, Z 285.2–300.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-lid-boss-2",
+    "label": "supply lid boss 2",
+    "detail": "Ø8 bridge boss above the fixed flavor-A interface; Ø4×5.25 blind pilot, 3mm blind floor, connected 8×3mm rail and floor web. · X -43.5–-35.5, Y 449.8–457.8, Z 281.5–289.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-washer-2",
+    "label": "supply washer 2",
+    "detail": "Ø7 ×0.8 M3 flat washer on the 6.7mm mounting ledge. · X -43.0–-36.0, Y 450.3–457.3, Z 296.4–297.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-screw-2",
+    "label": "supply screw 2",
+    "detail": "M3 × 12 socket screw; real shank/head and socket envelope. · X -42.2–-36.8, Y 451.1–456.5, Z 285.2–300.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-lid-boss-3",
+    "label": "supply lid boss 3",
+    "detail": "Ø8 bridge boss above the fixed flavor-A interface; Ø4×5.25 blind pilot, 3mm blind floor, connected 8×3mm rail and floor web. · X 54.5–62.5, Y 416.8–424.8, Z 281.5–289.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-washer-3",
+    "label": "supply washer 3",
+    "detail": "Ø7 ×0.8 M3 flat washer on the 6.7mm mounting ledge. · X 55.0–62.0, Y 417.3–424.3, Z 296.4–297.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-screw-3",
+    "label": "supply screw 3",
+    "detail": "M3 × 12 socket screw; real shank/head and socket envelope. · X 55.8–61.2, Y 418.1–423.5, Z 285.2–300.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-lid-boss-4",
+    "label": "supply lid boss 4",
+    "detail": "Ø8 lid-rooted boss; Ø4 ×5.25 blind pilot for short4mm insert; 36.35mm standoff, paired stations connected by a full3mm load web. · X 54.5–62.5, Y 449.8–457.8, Z 253.4–289.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-washer-4",
+    "label": "supply washer 4",
+    "detail": "Ø7 ×0.8 M3 flat washer on the 6.7mm mounting ledge. · X 55.0–62.0, Y 450.3–457.3, Z 296.4–297.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-screw-4",
+    "label": "supply screw 4",
+    "detail": "M3 × 12 socket screw; real shank/head and socket envelope. · X 55.8–61.2, Y 451.1–456.5, Z 285.2–300.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-lid-web-1",
+    "label": "supply lid web 1",
+    "detail": "Three-millimetre lid-rooted central web fromY410 to445.5, with an 8×3mm high rail supporting both left blind stations above the flavor return. The complete10.8mm fore stock precedes the flavor portal; each pilot retains3mm blind root stock. The portal is recut after fusion. · X -43.5–-35.5, Y 410.0–453.8, Z 253.4–284.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-lid-web-2",
+    "label": "supply lid web 2",
+    "detail": "Full3mm lid-rooted load web with an 8×3mm fore bridge above the fixed flavor-A riser; fore station overhang9.7mm. · X 54.5–62.5, Y 420.8–453.8, Z 253.4–284.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "c14-inlet",
+    "label": "AC inlet",
+    "detail": "Received IEC C14 inlet and accepted plug approach, translated to X−71.1 on rear wall; terminal face remains fore. · X -96.0–-46.2, Y 436.2–463.1, Z 325.1–347.3 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "ground-stack",
+    "label": "ground stack",
+    "detail": "Five ring-terminal fan, tooth washer and M3×12 clamping screw; 7.2mm screw engagement into a long5.7mm heat-set insert on a roof-rooted boss. · X 42.0–60.4, Y 421.3–438.7, Z 333.4–348.4 mm",
+    "role": "electronics"
+  },
+  {
+    "id": "ground-roof-boss",
+    "label": "ground roof boss",
+    "detail": "Ø8 roof-rooted ground-reaction post; Ø4×8.5 blind pocket for5.7mm insert,5.3mm roof end cover and1.3mm screw-tip reserve. · X 47.2–55.2, Y 426.5–434.5, Z 341.2–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "enclosure-back-top",
+    "label": "Upper rear shell",
+    "detail": "Retained back-top with a vertical hatch aperture and fixed controller, WAGO and C14 stock. · X -107.5–107.5, Y 200.0–471.3, Z 160.0–355.0 mm",
+    "role": "walls"
+  },
+  {
+    "id": "enclosure-front-top",
+    "label": "Upper front shell",
+    "detail": "Full native shell: 9mm flanks, 6mm rear wall, 12mm ceiling outside local hardware pockets; matching enlarged sliding funnel frame, local service-channel stock and exact relocated fitting/nameplate receivers. · X -107.5–107.5, Y 5.0–217.8, Z 160.0–355.0 mm",
+    "role": "walls"
+  },
+  {
+    "id": "relay-1-mount-screw-1",
+    "label": "relay 1 mount screw 1",
+    "detail": "Standard M3×6, full 4 mm short-insert engagement with 0.75 mm blind tip reserve. · X -25.2–-19.8, Y 422.8–428.2, Z 255.1–264.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-1-mount-screw-2",
+    "label": "relay 1 mount screw 2",
+    "detail": "Standard M3×6, full 4 mm short-insert engagement with 0.75 mm blind tip reserve. · X -25.2–-19.8, Y 435.8–441.2, Z 255.1–264.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-1-mount-screw-3",
+    "label": "relay 1 mount screw 3",
+    "detail": "Standard M3×20 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve. · X 40.8–46.2, Y 422.8–428.2, Z 253.1–276.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-1-head-spacer-3",
+    "label": "relay 1 head spacer 3",
+    "detail": "Actual Ø4.5/ID3.2×12 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air. · X 41.2–45.8, Y 423.3–427.7, Z 261.1–273.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-1-mount-screw-4",
+    "label": "relay 1 mount screw 4",
+    "detail": "Standard M3×20 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve. · X 40.8–46.2, Y 435.8–441.2, Z 253.1–276.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-1-head-spacer-4",
+    "label": "relay 1 head spacer 4",
+    "detail": "Actual Ø4.5/ID3.2×12 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air. · X 41.2–45.8, Y 436.3–440.7, Z 261.1–273.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-mount-screw-1",
+    "label": "relay 2 mount screw 1",
+    "detail": "Standard M3×20 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve. · X -25.2–-19.8, Y 443.1–448.5, Z 253.1–276.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-head-spacer-1",
+    "label": "relay 2 head spacer 1",
+    "detail": "Actual Ø4.5/ID3.2×12 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air. · X -24.8–-20.2, Y 443.6–448.0, Z 261.1–273.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-mount-screw-2",
+    "label": "relay 2 mount screw 2",
+    "detail": "Standard M3×20 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve. · X -25.2–-19.8, Y 456.1–461.5, Z 253.1–276.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-head-spacer-2",
+    "label": "relay 2 head spacer 2",
+    "detail": "Actual Ø4.5/ID3.2×12 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air. · X -24.8–-20.2, Y 456.6–461.0, Z 261.1–273.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-mount-screw-3",
+    "label": "relay 2 mount screw 3",
+    "detail": "Standard M3×6, full 4 mm short-insert engagement with 0.75 mm blind tip reserve. · X 40.8–46.2, Y 443.1–448.5, Z 255.1–264.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-2-mount-screw-4",
+    "label": "relay 2 mount screw 4",
+    "detail": "Standard M3×6, full 4 mm short-insert engagement with 0.75 mm blind tip reserve. · X 40.8–46.2, Y 456.1–461.5, Z 255.1–264.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "relay-lid-platform",
+    "label": "Relay lid platform",
+    "detail": "One 3 mm lid-rooted platform, two horizontal relay seats and a 3 mm AC/DC divider; eight native PCB mounting holes with four long blind pilots rooted in the existing 5.4 mm lid. · X -26.5–49.5, Y 420.5–463.8, Z 248.0–278.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "west-junction-platform",
+    "label": "West junction platform",
+    "detail": "One rooted3mm carrier with the WR tie-band passage open; two full3mm bearing end webs remain beside the3.5mm channel. · X -99.5–-14.9, Y 343.7–415.8, Z 319.6–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "control-service-reeds-A",
+    "label": "control service reeds A",
+    "detail": "Counted eight-wire R6 service trunk between the accepted bare exit and a named aft-entry dressing fork; actual constituent turns remain unlocated. · X -80.6–-27.8, Y 407.5–465.1, Z 253.4–329.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-service-fork-A",
+    "label": "control service fork A",
+    "detail": "Counted reed-A service trunk enters the aft face of its8→4+4 dressing fork; input and both output working faces are explicit, with individual branch dressing unlocated. · X -60.0–-45.6, Y 401.1–407.5, Z 323.2–329.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-service-reeds-B",
+    "label": "control service reeds B",
+    "detail": "Hardware-only native reservation: the accepted eight-wire bore and35mm normal exit feed a bare one-layer counted ribbon. The1.7mm section traverses the real controller/supply band with exactR12 bends; purchased service lead length and individual bare fork dressing remain unqualified. Current power intersections are explicit and require its reroute before complete wiring qualification. · X -34.2–37.7, Y 186.1–436.8, Z 248.0–326.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-service-fork-B",
+    "label": "control service fork B",
+    "detail": "The counted bare8-wire reed-B service ribbon feeds distinct4-wire ground and signal exits in an explicit aft dressing fork; individual branch dressing remains unlocated. · X -31.1–-16.9, Y 399.7–404.0, Z 324.2–328.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-ground-descent",
+    "label": "control ground descent",
+    "detail": "Eight retained reservoir ground conductors; centreX−25.5,Y394.05,Z326.4..347.8. · X -28.7–-22.3, Y 390.9–397.2, Z 326.4–347.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-ground-lower-fanout",
+    "label": "control ground lower fanout",
+    "detail": "Two distinct4-wire branches continue normally from the service forks and meet the counted8-wire descent in a local unsleeved dressing region. BranchA has exactR4.7 turns; individual turns in the local merge remain unlocated. · X -59.9–-22.3, Y 390.9–403.2, Z 324.2–328.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-ground-upper-A",
+    "label": "control ground upper A",
+    "detail": "Counted outer route and nominal clamp fanout; individual formed wires are unlocated. · X -88.2–-38.0, Y 387.9–394.1, Z 338.3–349.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-ground-upper-B",
+    "label": "control ground upper B",
+    "detail": "Counted outer route and nominal clamp fanout; individual formed wires are unlocated. · X -39.8–-20.2, Y 365.9–387.1, Z 340.9–350.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-ground-upper-merger",
+    "label": "control ground upper merger",
+    "detail": "Two physically distinct4-wire approaches merge into the counted8-wire descent; named unsleeved dressing region, with individual constituent turns unlocated. · X -38.0–-22.3, Y 382.8–397.2, Z 345.6–350.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-fixed-manifold-ribbon",
+    "label": "control fixed manifold ribbon",
+    "detail": "Three1.7mm bare ribbon layers, retained accepted straight corridor. · X 92.1–97.2, Y 178.0–330.0, Z 242.8–251.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-manifold-aft-fanout",
+    "label": "control manifold aft fanout",
+    "detail": "Three retained bare ribbon layers keep their complete5.1x8.5mm section through anR8 inward S fromY326 and turn upward atY456.5. The first4mm overlaps the unchanged forward corridor as a named continuous dressing joint. Both counted7+4 fore-facing mouths retain their actual locations. Lower-stock clearance and individual wire dressing remain nominal and require printed-fit qualification. · X 90.7–103.0, Y 326.0–460.8, Z 242.8–286.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-meter-pigtail",
+    "label": "control meter pigtail",
+    "detail": "Measured DIGITEN pigtail root/outward axis, three1.7mm bare wire approaches and counted2+1 dressing fork. Flexible lead order, length, insulation and formed bends remain unqualified. · X 96.5–102.2, Y 391.1–403.4, Z 299.4–305.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-relay-logic-fork",
+    "label": "control relay logic fork",
+    "detail": "One four-conductor J5 trunk (GND,V5,IO2,IO19); GND/V5 tee at the relay cluster into six terminal branches, as cable-assemblies.md specifies. Exact native representative working faces; clamp pitch, plugs and splice dressing remain nominal. · X 34.5–38.5, Y 426.1–458.1, Z 271.1–285.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J1-coil-v-a-target",
+    "label": "control loom J1 coil v a target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 89.3–91.0, Y 205.0–213.4, Z 276.8–278.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J1-coil-v-b-target",
+    "label": "control loom J1 coil v b target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 27.1–28.8, Y 268.4–276.8, Z 261.9–263.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J2-vk-solenoid-target",
+    "label": "control loom J2 vk solenoid target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -35.2–-33.5, Y 201.2–209.7, Z 295.1–296.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J3-keystone-jack-target",
+    "label": "control loom J3 keystone jack target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -69.0–-58.3, Y 431.8–441.3, Z 282.0–297.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-a-source",
+    "label": "control loom wago mana coil v a source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 80.0–86.2, Y 164.2–165.9, Z 269.8–274.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-a-target",
+    "label": "control loom wago mana coil v a target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 89.3–91.0, Y 205.0–213.4, Z 261.9–263.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-b-source",
+    "label": "control loom wago mana coil v b source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 80.0–86.2, Y 164.2–165.9, Z 279.1–284.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-b-target",
+    "label": "control loom wago mana coil v b target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 27.1–35.3, Y 268.4–274.6, Z 276.7–278.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-manb-vk-solenoid-source",
+    "label": "control loom wago manb vk solenoid source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 79.7–85.9, Y 168.2–169.8, Z 253.8–258.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-manb-vk-solenoid-target",
+    "label": "control loom wago manb vk solenoid target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -35.2–-33.5, Y 201.2–209.7, Z 280.2–281.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J6-wago-reeds-a-target",
+    "label": "control loom J6 wago reeds a target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -94.2–-92.5, Y 387.8–394.1, Z 336.2–341.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J7-wago-reeds-b-target",
+    "label": "control loom J7 wago reeds b target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -45.8–-44.1, Y 360.7–368.9, Z 340.9–349.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-wago-sensors-target",
+    "label": "control loom J4 wago sensors target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -60.9–-59.2, Y 387.8–394.1, Z 336.2–341.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J7-retained-cold-core-service-leads-target",
+    "label": "control loom J7 retained cold core service leads target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -96.5–-93.0, Y 406.8–410.3, Z 253.4–261.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-retained-cold-core-service-leads-target",
+    "label": "control loom J4 retained cold core service leads target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -89.8–-86.2, Y 394.2–397.8, Z 253.4–261.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
+    "label": "control loom wago reeds b retained cold core service leads source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -45.8–-38.1, Y 375.1–376.9, Z 340.9–349.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
+    "label": "control loom wago reeds b retained cold core service leads target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -82.5–-79.0, Y 406.8–410.3, Z 253.4–261.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-retained-cold-core-service-leads-source",
+    "label": "control loom wago sensors retained cold core service leads source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -54.9–-53.2, Y 387.8–394.1, Z 336.2–341.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-retained-cold-core-service-leads-target",
+    "label": "control loom wago sensors retained cold core service leads target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -0.8–0.8, Y 394.1–395.9, Z 253.4–261.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-moisture-comparator-reserve-target",
+    "label": "control loom J4 moisture comparator reserve target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -69.8–-65.7, Y 303.0–311.4, Z 273.2–276.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-digiten-flow-source",
+    "label": "control loom wago sensors digiten flow source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -48.9–-47.2, Y 387.8–394.1, Z 336.2–341.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-moisture-comparator-reserve-source",
+    "label": "control loom wago sensors moisture comparator reserve source",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -42.9–-41.2, Y 387.8–394.1, Z 336.2–341.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-moisture-comparator-reserve-target",
+    "label": "control loom wago sensors moisture comparator reserve target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -64.8–-63.1, Y 303.0–311.4, Z 274.1–275.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J9-retained-display-loom-target",
+    "label": "control loom J9 retained display loom target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 28.6–35.4, Y 95.2–103.6, Z 303.4–307.7 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J13-retained-cartridge-loom-target",
+    "label": "control loom J13 retained cartridge loom target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -3.4–3.4, Y 93.8–102.2, Z 274.3–278.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J11-retained-mq6-loom-target",
+    "label": "control loom J11 retained mq6 loom target",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -94.7–-90.3, Y 371.9–376.1, Z 253.4–261.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J1-fanout",
+    "label": "control header J1 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 19.1–44.6, Y 410.8–424.6, Z 328.9–343.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J11-fanout",
+    "label": "control header J11 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -11.2–8.7, Y 336.5–340.8, Z 333.2–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J13-fanout",
+    "label": "control header J13 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 47.5–49.1, Y 383.8–393.0, Z 317.9–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J2-fanout",
+    "label": "control header J2 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 4.4–18.6, Y 410.8–412.5, Z 327.6–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J3-fanout",
+    "label": "control header J3 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -13.8–-12.2, Y 343.8–353.0, Z 315.0–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J4-fanout",
+    "label": "control header J4 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -13.8–1.4, Y 357.3–374.0, Z 323.4–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J5-fanout",
+    "label": "control header J5 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 47.5–56.7, Y 354.1–363.3, Z 328.4–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J6-fanout",
+    "label": "control header J6 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X 47.5–56.7, Y 367.7–379.4, Z 328.4–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J7-fanout",
+    "label": "control header J7 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -13.8–-12.2, Y 391.8–408.5, Z 315.0–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-header-J9-fanout",
+    "label": "control header J9 fanout",
+    "detail": "Explicit nominal connector-to-bundle fanout working volume. Individual constituent wire dressing remains unlocated. · X -13.8–-12.2, Y 378.3–387.5, Z 315.0–333.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J1-coil-v-a",
+    "label": "control loom J1 coil v a",
+    "detail": "Counted1-conductor control loom exterior. · X 37.5–91.0, Y 187.3–417.9, Z 276.8–338.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J1-coil-v-b",
+    "label": "control loom J1 coil v b",
+    "detail": "Counted1-conductor control loom exterior. · X 27.1–45.2, Y 276.8–429.3, Z 261.9–341.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J2-vk-solenoid",
+    "label": "control loom J2 vk solenoid",
+    "detail": "Counted1-conductor control loom exterior. · X -35.3–15.3, Y 192.0–417.9, Z 295.1–343.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J1-retained-manifold-loom",
+    "label": "control loom J1 retained manifold loom",
+    "detail": "Counted7-conductor control loom exterior. · X 22.6–103.0, Y 424.6–464.8, Z 281.2–343.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J2-retained-manifold-loom",
+    "label": "control loom J2 retained manifold loom",
+    "detail": "Counted4-conductor control loom exterior. · X -2.1–96.9, Y 411.6–460.2, Z 274.4–346.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J3-keystone-jack",
+    "label": "control loom J3 keystone jack",
+    "detail": "Counted4-conductor control loom exterior. · X -65.8–-13.0, Y 346.2–436.1, Z 274.4–319.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J5-relay-logic-cluster",
+    "label": "control loom J5 relay logic cluster",
+    "detail": "Counted4-conductor control loom exterior. · X 28.9–64.2, Y 356.5–444.3, Z 281.5–332.7 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-a",
+    "label": "control loom wago mana coil v a",
+    "detail": "Counted1-conductor control loom exterior. · X 80.0–91.0, Y 164.2–205.0, Z 261.8–269.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-mana-coil-v-b",
+    "label": "control loom wago mana coil v b",
+    "detail": "Counted1-conductor control loom exterior. · X 35.3–81.7, Y 164.2–274.6, Z 276.8–291.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-manb-vk-solenoid",
+    "label": "control loom wago manb vk solenoid",
+    "detail": "Counted1-conductor control loom exterior. · X -35.3–81.3, Y 168.2–201.2, Z 247.6–281.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J6-reed-A",
+    "label": "control loom J6 reed A",
+    "detail": "Counted4-conductor control loom exterior. · X -49.9–74.2, Y 372.7–419.0, Z 303.4–342.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J7-reed-B",
+    "label": "control loom J7 reed B",
+    "detail": "Counted4-conductor control loom exterior. · X -36.6–-13.0, Y 392.2–409.6, Z 315.0–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J6-wago-reeds-a",
+    "label": "control loom J6 wago reeds a",
+    "detail": "Counted1-conductor control loom exterior. · X -94.2–61.5, Y 370.0–396.9, Z 300.2–336.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J7-wago-reeds-b",
+    "label": "control loom J7 wago reeds b",
+    "detail": "Counted1-conductor control loom exterior. · X -45.8–-13.0, Y 354.4–405.9, Z 309.8–349.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-wago-sensors",
+    "label": "control loom J4 wago sensors",
+    "detail": "Counted1-conductor control loom exterior. · X -60.9–-12.2, Y 354.4–389.5, Z 317.1–336.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J7-retained-cold-core-service-leads",
+    "label": "control loom J7 retained cold core service leads",
+    "detail": "Counted2-conductor control loom exterior. · X -96.5–-7.7, Y 389.6–410.3, Z 261.8–319.2 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-retained-cold-core-service-leads",
+    "label": "control loom J4 retained cold core service leads",
+    "detail": "Counted2-conductor control loom exterior. · X -89.8–-7.7, Y 338.5–397.8, Z 261.8–330.8 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+    "label": "control loom wago reeds b retained cold core service leads",
+    "detail": "Counted2-conductor control loom exterior. · X -91.8–-21.1, Y 350.6–410.3, Z 261.8–349.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-retained-cold-core-service-leads",
+    "label": "control loom wago sensors retained cold core service leads",
+    "detail": "Counted1-conductor control loom exterior. · X -54.9–0.8, Y 387.8–406.9, Z 261.8–336.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-digiten-flow",
+    "label": "control loom J4 digiten flow",
+    "detail": "Counted2-conductor control loom exterior. · X -6.7–100.0, Y 357.2–391.1, Z 299.4–326.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J4-moisture-comparator-reserve",
+    "label": "control loom J4 moisture comparator reserve",
+    "detail": "Counted2-conductor control loom exterior. · X -69.5–1.4, Y 311.4–371.9, Z 273.2–326.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-digiten-flow",
+    "label": "control loom wago sensors digiten flow",
+    "detail": "Counted1-conductor control loom exterior. · X -48.9–102.2, Y 384.9–402.3, Z 293.0–336.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-wago-sensors-moisture-comparator-reserve",
+    "label": "control loom wago sensors moisture comparator reserve",
+    "detail": "Counted1-conductor control loom exterior. · X -64.8–-41.2, Y 311.4–400.6, Z 274.1–336.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J9-retained-display-loom",
+    "label": "control loom J9 retained display loom",
+    "detail": "Counted4-conductor control loom exterior. · X -19.9–63.6, Y 98.7–385.0, Z 291.8–330.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J13-retained-cartridge-loom",
+    "label": "control loom J13 retained cartridge loom",
+    "detail": "Counted4-conductor control loom exterior. · X -2.2–92.2, Y 96.4–390.5, Z 274.3–331.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "control-loom-J11-retained-mq6-loom",
+    "label": "control loom J11 retained mq6 loom",
+    "detail": "Counted4-conductor control loom exterior. · X -94.7–8.7, Y 326.0–386.5, Z 261.8–333.3 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "compressor-jacket-reserve",
+    "label": "compressor jacket reserve",
+    "detail": "Conservative Ø9 SJOOW jacket exterior; factory compressor termination remains unlocated. · X 92.0–101.0, Y 442.5–451.5, Z 253.4–293.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "lower-carbonator-earth-reserve",
+    "label": "lower carbonator earth reserve",
+    "detail": "carbonator protective-earth bay exit; lower metalwork termination remains unlocated. · X 93.4–96.6, Y 438.4–441.6, Z 253.4–293.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "lower-under-counter-earth-reserve",
+    "label": "lower under counter earth reserve",
+    "detail": "under-counter protective-earth bay exit; lower metalwork termination remains unlocated. · X 97.4–100.6, Y 434.4–437.6, Z 253.4–293.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC4-H",
+    "label": "wire AC4 H",
+    "detail": "Relay1 NO to compressor SJOOW hot; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · R1-NO → COMP-H · 146.1mm route · X -16.1–96.2, Y 435.4–447.5, Z 271.1–301.4 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC1-V12",
+    "label": "wire DC1 V12",
+    "detail": "PSU DC output to distribution; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · PSU-V12 → wago-v12:1 · 183.9mm route · X -103.2–-37.4, Y 375.0–446.4, Z 303.4–349.5 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC3-V12",
+    "label": "wire DC3 V12",
+    "detail": "Relay2 NO to motor pigtail reserve; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · R2-NO → MOTOR-+ · 206.8mm route · X -16.1–68.3, Y 361.8–458.9, Z 271.1–294.6 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC2-V12",
+    "label": "wire DC2 V12",
+    "detail": "12V distribution to relay2 COM; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-v12:2 → R2-COM · 202.9mm route · X -88.5–-12.9, Y 375.0–453.9, Z 271.1–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC3-GND",
+    "label": "wire DC3 GND",
+    "detail": "DC return to motor pigtail reserve; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-gnd:2 → MOTOR-− · 364.7mm route · X -103.5–77.1, Y 324.5–375.0, Z 274.4–349.5 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC6-G",
+    "label": "wire AC6 G",
+    "detail": "Ring fan to compressor SJOOW earth; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · PE-compressor → COMP-G · 101.4mm route · X 55.8–98.1, Y 436.4–458.9, Z 293.0–340.7 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-PE-carbonator",
+    "label": "wire PE carbonator",
+    "detail": "Ring fan to lower metalwork boundary reserve; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · PE-carbonator → LOWER-carbonator · 86.3mm route · X 59.8–96.6, Y 426.5–441.6, Z 293.0–339.9 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-PE-under-counter",
+    "label": "wire PE under counter",
+    "detail": "Ring fan to lower metalwork boundary reserve; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · PE-under-counter → LOWER-under-counter · 99.4mm route · X 52.8–100.6, Y 414.5–437.6, Z 293.0–339.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC1-H",
+    "label": "wire AC1 H",
+    "detail": "C14 to AC distribution; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · C14-H → wago-h:1 · 254.5mm route · X -103.5–-62.4, Y 316.1–437.8, Z 295.9–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC1-N",
+    "label": "wire AC1 N",
+    "detail": "C14 to AC distribution; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · C14-N → wago-n:1 · 190.8mm route · X -86.7–-69.5, Y 327.6–437.8, Z 304.3–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC1-G",
+    "label": "wire AC1 G",
+    "detail": "C14 to AC distribution; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · C14-PE → wago-g:1 · 192.6mm route · X -72.3–-37.4, Y 327.5–437.8, Z 308.2–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC2-H",
+    "label": "wire AC2 H",
+    "detail": "AC distribution to ClassII PSU; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-h:2 → PSU-L · 277.2mm route · X -88.5–59.6, Y 327.6–435.1, Z 303.4–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC2-N",
+    "label": "wire AC2 N",
+    "detail": "AC distribution to ClassII PSU; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-n:2 → PSU-N · 270.9mm route · X -66.5–66.7, Y 327.6–442.7, Z 303.4–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC5-N",
+    "label": "wire AC5 N",
+    "detail": "AC neutral to compressor SJOOW; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-n:3 → COMP-N · 309.1mm route · X -60.2–100.0, Y 327.5–447.5, Z 293.0–342.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-PE-feed",
+    "label": "wire PE feed",
+    "detail": "AC earth distribution to bonded ring fan; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-g:2 → PE-feed · 256.7mm route · X -44.4–55.1, Y 327.5–438.6, Z 317.1–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC4-GND",
+    "label": "wire DC4 GND",
+    "detail": "12V distribution to J10; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-gnd:3 → J10-GND · 207.3mm route · X -60.2–4.7, Y 331.9–414.4, Z 321.3–349.5 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-AC3-H",
+    "label": "wire AC3 H",
+    "detail": "Unswitched line to relay1 COM; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-h:3 → R1-COM · 227.8mm route · X -82.3–-12.9, Y 324.6–433.6, Z 271.1–342.0 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC1-GND",
+    "label": "wire DC1 GND",
+    "detail": "PSU DC output to distribution; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · PSU-GND → wago-gnd:1 · 160.8mm route · X -72.7–-37.4, Y 357.3–436.4, Z 303.4–342.1 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "wire-DC4-V12",
+    "label": "wire DC4 V12",
+    "detail": "12V distribution to J10; nominal Ø3.2 conductor exterior, exact R3.4 arcs. · wago-v12:3 → J10-V12 · 186.1mm route · X -82.3–0.2, Y 375.0–418.0, Z 319.4–349.5 mm",
+    "role": "wiring"
+  },
+  {
+    "id": "asse-removable-carrier",
+    "label": "Backflow carrier",
+    "detail": "Separate keyed upper brass carrier with two11.826mm-wide seats and a3mm transverse beam. Enter fore at15.289419mm lift, lower over the separately held valve, then support its beam on two bolted3mm shelves. Wide ties retain the barrel. · X -52.0–22.0, Y 290.5–330.1, Z 308.4–328.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-roof-seat-1",
+    "label": "asse roof seat 1",
+    "detail": "High roof block with8mm transverse section, short4mm insert,5.7mm pilot and3mm blind end. Retains the removable carrier clamp; the ASSE and carrier are absent during main enclosure sliding. · X -52.0–-44.0, Y 313.6–322.4, Z 333.0–343.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-roof-seat-2",
+    "label": "asse roof seat 2",
+    "detail": "High roof block with8mm transverse section, short4mm insert,5.7mm pilot and3mm blind end. Retains the removable carrier clamp; the ASSE and carrier are absent during main enclosure sliding. · X 14.0–22.0, Y 313.6–322.4, Z 333.0–343.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-carrier-clamp-1",
+    "label": "asse carrier clamp 1",
+    "detail": "Separate3mm bearing shelf and fore plate; upper arm lands on the high roof block. M3×12 screw clamps a7.3mm stack with4.7mm short-insert engagement and1mm blind tip reserve. · X -52.0–-44.0, Y 306.4–313.7, Z 322.1–341.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-carrier-clamp-2",
+    "label": "asse carrier clamp 2",
+    "detail": "Separate3mm bearing shelf and fore plate; upper arm lands on the high roof block. M3×12 screw clamps a7.3mm stack with4.7mm short-insert engagement and1mm blind tip reserve. · X 14.0–22.0, Y 306.4–313.7, Z 322.1–341.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-carrier-screw-1",
+    "label": "asse carrier screw 1",
+    "detail": "M3×12 socket screw with2.5AF socket,7.3mm stack and4.7mm actual insert engagement. · X -50.7–-45.3, Y 303.4–318.4, Z 334.2–339.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-carrier-screw-2",
+    "label": "asse carrier screw 2",
+    "detail": "M3×12 socket screw with2.5AF socket,7.3mm stack and4.7mm actual insert engagement. · X 15.3–20.7, Y 303.4–318.4, Z 334.2–339.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-retention-tie-1",
+    "label": "asse retention tie 1",
+    "detail": "Nominal closed nylon tie band:4.826×1mm ASSE or2.5×1mm meter section; conservative12×10×6mm ASSE-rear or8×8×5mm meter-side locking-head/tail working volume. Purchased head shape is unmeasured. ASSE ties close after carrier fastening; meter ties close before roof sliding. · X -34.0–-22.0, Y 289.4–340.8, Z 292.9–330.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "asse-retention-tie-2",
+    "label": "asse retention tie 2",
+    "detail": "Nominal closed nylon tie band:4.826×1mm ASSE or2.5×1mm meter section; conservative12×10×6mm ASSE-rear or8×8×5mm meter-side locking-head/tail working volume. Purchased head shape is unmeasured. ASSE ties close after carrier fastening; meter ties close before roof sliding. · X -8.7–3.3, Y 289.4–340.8, Z 292.9–330.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "meter-roof-seat-1",
+    "label": "Meter roof seat",
+    "detail": "Roof-rooted measured fixed-collar half-round seat;3mm radial walls,1.7mm axial webs,3.5mm tie passage,0.15mm axial ends;6in narrow tie retains the meter. · X 72.1–96.9, Y 375.9–382.8, Z 332.1–351.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "meter-retention-tie-1",
+    "label": "meter retention tie 1",
+    "detail": "Nominal closed nylon tie band:4.826×1mm ASSE or2.5×1mm meter section; conservative12×10×6mm ASSE-rear or8×8×5mm meter-side locking-head/tail working volume. Purchased head shape is unmeasured. ASSE ties close after carrier fastening; meter ties close before roof sliding. · X 70.9–103.5, Y 375.3–383.3, Z 321.2–345.7 mm",
+    "role": "structure"
+  },
+  {
+    "id": "meter-roof-seat-2",
+    "label": "meter roof seat 2",
+    "detail": "Roof-rooted measured fixed-collar half-round seat;3mm radial walls,1.7mm axial webs,3.5mm tie passage,0.15mm axial ends;6in narrow tie retains the meter. · X 72.1–96.9, Y 422.3–429.2, Z 332.1–351.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "meter-retention-tie-2",
+    "label": "meter retention tie 2",
+    "detail": "Nominal closed nylon tie band:4.826×1mm ASSE or2.5×1mm meter section; conservative12×10×6mm ASSE-rear or8×8×5mm meter-side locking-head/tail working volume. Purchased head shape is unmeasured. ASSE ties close after carrier fastening; meter ties close before roof sliding. · X 70.9–103.5, Y 421.7–429.7, Z 321.2–345.7 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-front-seat",
+    "label": "water5 front seat",
+    "detail": "Front-shell-carried9.5mm discharge cross-tube saddle: R3.425 slip,3mm end webs and tie-channel cover,3mm below-tube wall bridge; aft-open0.15mm slip chase throughout102.2mm closing travel. · X 77.2–104.5, Y 188.0–204.0, Z 278.3–285.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-front-retention-tie",
+    "label": "water5 front retention tie",
+    "detail": "Complete2.5×1mm tie with conservative8×8×5mm locking head, threaded after the front shell is seated. · X 78.0–86.0, Y 191.3–206.6, Z 281.6–291.6 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-east-drop-seat",
+    "label": "water5 east drop seat",
+    "detail": "9.5mm discharge-drop split bearing/key: R3.325 slip and3mm radial stock,25degree aft mounting clock,5.25mm blind insert pilot and3mm closed cover. · X 94.0–106.6, Y 298.5–319.3, Z 304.5–329.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-east-drop-key",
+    "label": "water5 east drop key",
+    "detail": "9.5mm discharge-drop split bearing/key: R3.325 slip and3mm radial stock,25degree aft mounting clock,5.25mm blind insert pilot and3mm closed cover. · X 91.1–102.1, Y 298.3–315.8, Z 304.5–329.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-east-drop-screw-1",
+    "label": "water5 east drop screw 1",
+    "detail": "Exact M3×8 key fastener with4.75mm engagement and0.5mm pilot tip reserve. · X 88.9–100.6, Y 307.1–315.6, Z 305.8–311.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water5-east-drop-screw-2",
+    "label": "water5 east drop screw 2",
+    "detail": "Exact M3×8 key fastener with4.75mm engagement and0.5mm pilot tip reserve. · X 88.9–100.6, Y 307.1–315.6, Z 322.8–328.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-pair-wall-seat",
+    "label": "flavor pair wall seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -107.5–-99.2, Y 305.2–333.5, Z 268.5–294.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-pair-wall-key",
+    "label": "flavor pair wall key",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -100.3–-94.0, Y 305.2–333.5, Z 268.5–294.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-pair-wall-screw-1",
+    "label": "flavor pair wall screw 1",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -104.0–-93.0, Y 315.8–321.2, Z 287.6–293.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-pair-wall-screw-2",
+    "label": "flavor pair wall screw 2",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -104.0–-93.0, Y 326.8–332.2, Z 287.6–293.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-a-fore-seat",
+    "label": "flavor a fore seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -41.4–-26.4, Y 195.2–214.3, Z 252.6–260.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-a-fore-key",
+    "label": "flavor a fore key",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -41.4–-26.4, Y 195.3–214.3, Z 260.8–266.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-a-fore-screw-1",
+    "label": "flavor a fore screw 1",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -40.1–-34.7, Y 207.6–213.1, Z 256.1–267.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "flavor-a-fore-screw-2",
+    "label": "flavor a fore screw 2",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -33.1–-27.7, Y 207.6–213.1, Z 256.1–267.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water2-tube-seat",
+    "label": "water2 Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 54.4–73.0, Y 358.5–373.5, Z 345.9–354.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water2-tube-key",
+    "label": "water2 Route · key",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 54.4–73.0, Y 358.5–373.5, Z 340.7–345.9 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water2-tube-screw-1",
+    "label": "water2 Route · screw 1",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 55.6–61.1, Y 359.8–365.2, Z 339.7–350.7 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water2-tube-screw-2",
+    "label": "water2 Route · screw 2",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 55.6–61.1, Y 366.8–372.2, Z 339.7–350.7 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-tube-seat",
+    "label": "supply Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -61.6–-48.9, Y 344.4–353.9, Z 317.1–333.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "supply-tube-tie",
+    "label": "supply Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -59.4–-40.5, Y 345.1–353.1, Z 313.0–322.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water3-east-tube-seat",
+    "label": "water3 east Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 60.0–78.7, Y 320.6–333.0, Z 323.4–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water3-east-tube-tie",
+    "label": "water3 east Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 57.7–76.5, Y 316.4–325.6, Z 324.1–332.1 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water3-west-tube-seat",
+    "label": "water3 west Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -99.5–-69.2, Y 299.0–315.0, Z 321.2–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "water3-west-tube-tie",
+    "label": "water3 west Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -79.7–-71.4, Y 290.6–303.2, Z 322.0–330.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "needle-feed-tube-seat",
+    "label": "needle feed Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 24.0–49.8, Y 322.0–335.0, Z 253.4–310.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "needle-feed-tube-tie",
+    "label": "needle feed Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 41.0–49.0, Y 330.8–343.4, Z 299.8–308.2 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gate-a-upper-tube-seat",
+    "label": "gate a upper Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 51.2–63.8, Y 277.2–286.8, Z 295.4–321.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gate-a-upper-tube-tie",
+    "label": "gate a upper Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 53.3–61.7, Y 278.0–286.0, Z 287.0–299.6 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gate-a-east-tube-seat",
+    "label": "gate a east Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 81.7–94.3, Y 343.2–352.8, Z 253.4–268.3 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gate-a-east-tube-tie",
+    "label": "gate a east Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 83.8–102.7, Y 344.0–352.0, Z 263.3–272.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-inlet-east-tube-seat",
+    "label": "gas inlet east Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 65.2–74.8, Y 300.7–313.3, Z 253.4–258.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-inlet-east-tube-tie",
+    "label": "gas inlet east Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 66.0–74.0, Y 302.8–311.2, Z 253.8–266.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-inlet-west-tube-seat",
+    "label": "gas inlet west Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -39.8–-30.2, Y 269.0–281.6, Z 253.4–261.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-inlet-west-tube-tie",
+    "label": "gas inlet west Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X -39.0–-31.0, Y 271.2–279.5, Z 257.3–269.9 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-outlet-tube-seat",
+    "label": "gas outlet Route · seat",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 60.9–75.5, Y 445.0–452.5, Z 253.4–288.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "gas-outlet-tube-tie",
+    "label": "gas outlet Route · tie",
+    "detail": "Complete nominal tube bearing/retainer; named print root and9.5mm section, ordinary3mm stock and exact occupied fastener/tie envelope. · X 63.9–83.9, Y 440.7–450.0, Z 280.0–288.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "needle-lid-seat",
+    "label": "needle lid seat",
+    "detail": "Lid-rooted needle barrel saddle: measuredR6.85 body/R7.1 slip,3mm radial bearing,3mm axial end webs,3.5mm dressed tie tunnel. · X 6.8–16.2, Y 302.4–312.5, Z 253.4–285.4 mm",
+    "role": "structure"
+  },
+  {
+    "id": "needle-retention-tie",
+    "label": "needle retention tie",
+    "detail": "Complete nominal2.5×1mm nylon tie with conservative8×8×5mm locking head; barrel contact and measured round seat are explicit. Purchased head/dressing remain unqualified. · X 10.0–18.0, Y 296.2–320.4, Z 264.1–293.9 mm",
+    "role": "structure"
+  },
+  {
+    "id": "wr-regulator-seat",
+    "label": "wr regulator seat",
+    "detail": "West-wall/roof-carrier rooted9.5mm seat on the actual scanned18.87mm barrel;0.15 radial slip,3mm radial/end webs,3.5mm central tie passage. · X -99.5–-74.1, Y 365.5–381.5, Z 308.8–334.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "wr-regulator-retention-tie",
+    "label": "wr regulator retention tie",
+    "detail": "Complete nominal6in narrow tie2.5×1mm,0.15mm stock air, full tangent loop around the barrel and bearing rib; conservative8×8×5mm locking-head reserve below the west flank. Purchased head shape remains unmeasured. · X -96.1–-64.6, Y 366.1–379.3, Z 303.3–335.1 mm",
+    "role": "hardware"
+  },
+  {
+    "id": "check-lid-seat",
+    "label": "check lid seat",
+    "detail": "Lid-rooted lower keyed/fixed-collar seat with3mm fore/aft tunnel webs and bottom stock. · X 66.6–80.3, Y 386.6–398.4, Z 250.8–262.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "check-retention-tie",
+    "label": "check retention tie",
+    "detail": "Closed nominal nylon tie and conservative locking head:4.826×1mm wide check band or2.5×1mm tee band; dressed before roof closure. · X 64.5–83.5, Y 387.5–397.5, Z 257.1–279.6 mm",
+    "role": "structure"
+  },
+  {
+    "id": "tee-lid-seat",
+    "label": "tee lid seat",
+    "detail": "Lid-rooted lower keyed/fixed-collar seat with3mm fore/aft tunnel webs and bottom stock. · X 87.5–102.7, Y 406.4–421.1, Z 252.5–261.8 mm",
+    "role": "structure"
+  },
+  {
+    "id": "tee-retention-tie",
+    "label": "tee retention tie",
+    "detail": "Closed nominal nylon tie and conservative locking head:4.826×1mm wide check band or2.5×1mm tee band; dressed before roof closure. · X 84.6–103.2, Y 409.9–419.5, Z 257.0–279.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "rear-roof-hatch",
+    "label": "Roof hatch",
+    "detail": "Exact native roof article carrying the ground boss and discharge anchor; controller and C14 roof islands retained. · X -52.9–82.8, Y 389.1–470.7, Z 330.4–355.0 mm",
+    "role": "walls"
+  },
+  {
+    "id": "hatch-lap-ledge",
+    "label": "hatch lap ledge",
+    "detail": "4mm lap and parent-stock roots, clear of controller and all supply tool approaches. · X -56.0–86.0, Y 386.0–469.3, Z 347.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-seam-silicone",
+    "label": "hatch seam silicone",
+    "detail": "Factory-cast bonded silicone in1.2mm×0.8mm top seam groove; minimum underlying hatch rim3.2mm. · X -53.5–83.5, Y 388.5–471.2, Z 354.2–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-controller-rear-bridge",
+    "label": "hatch controller rear bridge",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X 47.8–52.8, Y 386.0–414.1, Z 351.0–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-boss-1",
+    "label": "hatch roof boss 1",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X -29.0–-21.0, Y 409.5–417.5, Z 339.0–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-beam-1",
+    "label": "hatch roof beam 1",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X -29.0–-21.0, Y 413.5–420.6, Z 345.5–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-web-1",
+    "label": "hatch roof web 1",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X -29.0–-20.0, Y 417.6–420.6, Z 345.5–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-boss-2",
+    "label": "hatch roof boss 2",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X -42.5–-34.5, Y 462.7–470.7, Z 339.0–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-boss-3",
+    "label": "hatch roof boss 3",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X 54.8–62.8, Y 408.5–416.5, Z 339.0–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-beam-3",
+    "label": "hatch roof beam 3",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X 54.8–62.8, Y 378.2–412.5, Z 345.5–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-web-3",
+    "label": "hatch roof web 3",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X 54.8–62.8, Y 378.2–381.2, Z 345.5–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-roof-boss-4",
+    "label": "hatch roof boss 4",
+    "detail": "Ø8 insert station or3mm support web rooted in the fixed roof. · X 57.0–65.0, Y 462.7–470.7, Z 339.0–348.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-1",
+    "label": "hatch screw 1",
+    "detail": "Recessed M3×8 cap screw with nominal2.5AF socket; maximum appliance height355. · X -27.8–-22.2, Y 410.8–416.2, Z 343.5–354.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-2",
+    "label": "hatch screw 2",
+    "detail": "Recessed M3×8 cap screw with nominal2.5AF socket; maximum appliance height355. · X -41.2–-35.8, Y 464.0–469.4, Z 343.5–354.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-3",
+    "label": "hatch screw 3",
+    "detail": "Recessed M3×8 cap screw with nominal2.5AF socket; maximum appliance height355. · X 56.0–61.5, Y 409.8–415.2, Z 343.5–354.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-4",
+    "label": "hatch screw 4",
+    "detail": "Recessed M3×8 cap screw with nominal2.5AF socket; maximum appliance height355. · X 58.2–63.8, Y 464.0–469.4, Z 343.5–354.5 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-silicone-cap-1",
+    "label": "hatch screw silicone cap 1",
+    "detail": "Flush factory cast cap and socket fill after screw torque, using the funnel casting silicone. · X -27.9–-22.1, Y 410.6–416.4, Z 352.7–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-silicone-cap-2",
+    "label": "hatch screw silicone cap 2",
+    "detail": "Flush factory cast cap and socket fill after screw torque, using the funnel casting silicone. · X -41.4–-35.6, Y 463.8–469.6, Z 352.7–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-silicone-cap-3",
+    "label": "hatch screw silicone cap 3",
+    "detail": "Flush factory cast cap and socket fill after screw torque, using the funnel casting silicone. · X 55.9–61.7, Y 409.6–415.4, Z 352.7–355.0 mm",
+    "role": "structure"
+  },
+  {
+    "id": "hatch-screw-silicone-cap-4",
+    "label": "hatch screw silicone cap 4",
+    "detail": "Flush factory cast cap and socket fill after screw torque, using the funnel casting silicone. · X 58.1–63.9, Y 463.8–469.6, Z 352.7–355.0 mm",
+    "role": "structure"
+  }
+]

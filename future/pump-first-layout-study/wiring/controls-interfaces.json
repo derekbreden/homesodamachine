@@ -1,0 +1,3308 @@
+{
+  "ports": {
+    "J1:COM": {
+      "owner": "pcba",
+      "point": [
+        43.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 COM",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT1": {
+      "owner": "pcba",
+      "point": [
+        41.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT2": {
+      "owner": "pcba",
+      "point": [
+        38.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT3": {
+      "owner": "pcba",
+      "point": [
+        36.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT4": {
+      "owner": "pcba",
+      "point": [
+        33.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT4",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT5": {
+      "owner": "pcba",
+      "point": [
+        31.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT5",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT6": {
+      "owner": "pcba",
+      "point": [
+        28.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT6",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT7": {
+      "owner": "pcba",
+      "point": [
+        26.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT7",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J1:OUT8": {
+      "owner": "pcba",
+      "point": [
+        23.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J1 OUT8",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:COM": {
+      "owner": "pcba",
+      "point": [
+        5.2799999999999905,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 COM",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:FAN": {
+      "owner": "pcba",
+      "point": [
+        7.7799999999999905,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 FAN",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:OUT4": {
+      "owner": "pcba",
+      "point": [
+        10.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 OUT4",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:OUT3": {
+      "owner": "pcba",
+      "point": [
+        12.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 OUT3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:OUT2": {
+      "owner": "pcba",
+      "point": [
+        15.27999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 OUT2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J2:OUT1": {
+      "owner": "pcba",
+      "point": [
+        17.77999999999999,
+        411.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J2 OUT1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J3:IO33": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        352.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J3 IO33",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J3:IO35": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        349.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J3 IO35",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J3:V5": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        347.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J3 V5",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J3:GND": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        344.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J3 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:IO23": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        373.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 IO23",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:IO27": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        370.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 IO27",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:IO26": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        368.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 IO26",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:IO25": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        365.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 IO25",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:V5": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        363.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 V5",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:GND": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        360.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J4:3V3": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        358.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J4 3V3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J5:GND": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        354.91606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J5 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J5:V5": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        357.41606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J5 V5",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J5:IO2": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        359.91606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J5 IO2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J5:IO19": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        362.41606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J5 IO19",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J6:RA1": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        378.51606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J6 RA1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J6:RA2": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        376.01606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J6 RA2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J6:RA3": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        373.51606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J6 RA3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J6:RA4": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        371.01606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J6 RA4",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J6:GND": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        368.51606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J6 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:GND": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        407.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:CHI": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        405.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 CHI",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:CLO": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        402.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 CLO",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:RB4": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        400.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 RB4",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:RB3": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        397.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 RB3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:RB2": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        395.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 RB2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J7:RB1": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        392.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J7 RB1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J8:GND": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        398.16606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J8 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J8:3V3": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        400.66606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J8 3V3",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J8:SDA": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        403.16606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J8 SDA",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J8:SCL": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        405.66606375000003,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J8 SCL",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J9:V12": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        386.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J9 V12",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J9:GND": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        384.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J9 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J9:A": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        381.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J9 A",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J9:B": {
+      "owner": "pcba",
+      "point": [
+        -13.00000000000001,
+        379.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J9 B",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J11:GND": {
+      "owner": "pcba",
+      "point": [
+        -10.300000000000011,
+        338.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J11 GND",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J11:V5": {
+      "owner": "pcba",
+      "point": [
+        -7.800000000000011,
+        338.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J11 V5",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J11:DOUT": {
+      "owner": "pcba",
+      "point": [
+        -5.300000000000011,
+        338.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J11 DOUT",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J11:AOUT": {
+      "owner": "pcba",
+      "point": [
+        -2.8000000000000114,
+        338.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J11 AOUT",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J13:AM2": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        384.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J13 AM2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J13:AM1": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        387.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J13 AM1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J13:BM2": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        389.61606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J13 BM2",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J13:BM1": {
+      "owner": "pcba",
+      "point": [
+        48.29999999999998,
+        392.11606375,
+        333.75000719999997
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J13 BM1",
+      "basis": "Canonical physical PCB pinXY; nominal free wire plane11.65mm below the current native PCBtop"
+    },
+    "J10:GND": {
+      "owner": "pcba",
+      "point": [
+        -6.400000000000011,
+        412.76606415,
+        335.50000739999996
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J10 GND",
+      "basis": "Nominal reference clamp mouth; power module owns the two16AWG conductors"
+    },
+    "J10:V12": {
+      "owner": "pcba",
+      "point": [
+        -1.4000000000000106,
+        412.76606415,
+        335.50000739999996
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "J10 V12",
+      "basis": "Nominal reference clamp mouth; power module owns the two16AWG conductors"
+    },
+    "VA:+candidate": {
+      "owner": "coil-v-a",
+      "point": [
+        90.2,
+        213.4,
+        262.7
+      ],
+      "axis": [
+        0,
+        -1.0,
+        0
+      ],
+      "label": "VA blade localX\u2212",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "VA:return-candidate": {
+      "owner": "coil-v-a",
+      "point": [
+        90.2,
+        213.4,
+        277.59999999999997
+      ],
+      "axis": [
+        0,
+        -1.0,
+        0
+      ],
+      "label": "VA blade localX+",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "VB:+candidate": {
+      "owner": "coil-v-b",
+      "point": [
+        27.900000000000002,
+        268.40000000000003,
+        277.59999999999997
+      ],
+      "axis": [
+        0,
+        1.0,
+        0
+      ],
+      "label": "VB blade localX\u2212",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "VB:return-candidate": {
+      "owner": "coil-v-b",
+      "point": [
+        27.900000000000002,
+        268.40000000000003,
+        262.7
+      ],
+      "axis": [
+        0,
+        1.0,
+        0
+      ],
+      "label": "VB blade localX+",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "VK:+candidate": {
+      "owner": "vk-solenoid",
+      "point": [
+        -34.39999999999999,
+        209.65,
+        281.05
+      ],
+      "axis": [
+        0,
+        -1.0,
+        0
+      ],
+      "label": "VK blade localX\u2212",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "VK:return-candidate": {
+      "owner": "vk-solenoid",
+      "point": [
+        -34.39999999999999,
+        209.65,
+        295.95
+      ],
+      "axis": [
+        0,
+        -1.0,
+        0
+      ],
+      "label": "VK blade localX+",
+      "basis": "Exact native front-face centre; reference does not establish electrical polarity"
+    },
+    "J1-COM-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        94.625,
+        183,
+        250.4
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 COM fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT3-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        94.625,
+        183,
+        248.7
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT3 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT4-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        94.625,
+        183,
+        247
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT4 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT5-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        94.625,
+        183,
+        245.3
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT5 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT6-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        94.625,
+        183,
+        243.6
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT6 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT7-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        96.325,
+        183,
+        243.6
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT7 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J1-OUT8-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        96.325,
+        183,
+        245.3
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J1 OUT8 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J2-COM-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        92.925,
+        183,
+        250.4
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J2 COM fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J2-FAN-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        92.925,
+        183,
+        248.7
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J2 FAN fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J2-OUT1-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        92.925,
+        183,
+        247
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J2 OUT1 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "J2-OUT2-fixed": {
+      "owner": "retained-manifold-loom",
+      "point": [
+        92.925,
+        183,
+        245.3
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "J2 OUT2 fixed bare-loom boundary",
+      "basis": "Accepted unsleeved side corridor X92.075..97.175,Z242.75..251.25; forward loom retained"
+    },
+    "keystone-IO33": {
+      "owner": "keystone-jack",
+      "point": [
+        -68.175,
+        441.3,
+        296.4999999999916
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "IDC IO33",
+      "basis": "Current native inboard face; four IDC clamp centres and lower-face offset5.405mm are nominal reservations"
+    },
+    "keystone-IO35": {
+      "owner": "keystone-jack",
+      "point": [
+        -65.175,
+        441.3,
+        296.4999999999916
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "IDC IO35",
+      "basis": "Current native inboard face; four IDC clamp centres and lower-face offset5.405mm are nominal reservations"
+    },
+    "keystone-V5": {
+      "owner": "keystone-jack",
+      "point": [
+        -62.175,
+        441.3,
+        296.4999999999916
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "IDC V5",
+      "basis": "Current native inboard face; four IDC clamp centres and lower-face offset5.405mm are nominal reservations"
+    },
+    "keystone-GND": {
+      "owner": "keystone-jack",
+      "point": [
+        -59.175,
+        441.3,
+        296.4999999999916
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "IDC GND",
+      "basis": "Current native inboard face; four IDC clamp centres and lower-face offset5.405mm are nominal reservations"
+    },
+    "R1-GND": {
+      "owner": "relay-1",
+      "point": [
+        36.5,
+        427,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay1 GND",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "R1-V5": {
+      "owner": "relay-1",
+      "point": [
+        36.5,
+        432,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay1 V5",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "R1-IO19": {
+      "owner": "relay-1",
+      "point": [
+        36.5,
+        437,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay1 IO19",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "R2-GND": {
+      "owner": "relay-2",
+      "point": [
+        36.5,
+        447.3,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay2 GND",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "R2-V5": {
+      "owner": "relay-2",
+      "point": [
+        36.5,
+        452.3,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay2 V5",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "R2-IO2": {
+      "owner": "relay-2",
+      "point": [
+        36.5,
+        457.3,
+        271.15
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "Relay2 IO2",
+      "basis": "Exact native top-face centre;5mm clamp pitch is representative"
+    },
+    "common-VA": {
+      "owner": "wago-mana",
+      "point": [
+        86.2,
+        165.05,
+        274.04
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "label": "COM branch VA",
+      "basis": "Nominal source groove face on retained common; metal clamp centre remains unmeasured"
+    },
+    "common-VB": {
+      "owner": "wago-mana",
+      "point": [
+        86.2,
+        165.05,
+        280
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "label": "COM branch VB",
+      "basis": "Nominal source groove face on retained common; metal clamp centre remains unmeasured"
+    },
+    "common-VK": {
+      "owner": "wago-manb",
+      "point": [
+        85.9,
+        169,
+        258
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "label": "COM branch VK",
+      "basis": "Nominal source groove face on retained common; metal clamp centre remains unmeasured"
+    },
+    "reed-A-RA1": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -28.65,
+        458.3,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RA1 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-A-RA2": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -29.33829906421161,
+        459.9617009357884,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RA2 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-A-RA3": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -31.0,
+        460.65000000000003,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RA3 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-A-RA4": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -32.66170093578839,
+        459.9617009357884,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RA4 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-B-RB1": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -28.65,
+        189.3,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RB1 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-B-RB2": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -29.33829906421161,
+        190.9617009357884,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RB2 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-B-RB3": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -31.0,
+        191.65,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RB3 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "reed-B-RB4": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -32.66170093578839,
+        190.9617009357884,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "RB4 retained column boundary",
+      "basis": "Actual accepted6.8mm bore; individual ring positions are nominal harness packing"
+    },
+    "wago-reeds-a:1": {
+      "owner": "wago-reeds-a",
+      "point": [
+        -93.35,
+        394.04999999999995,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-reeds-a:1",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "wago-reeds-b:1": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -44.92000000000001,
+        368.09999999999997,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:1",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "wago-sensors:1": {
+      "owner": "wago-sensors",
+      "point": [
+        -60.04999999999998,
+        394.05,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-sensors:1",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-A-GND1": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -33.35,
+        458.3,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirA ground1",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-a:2": {
+      "owner": "wago-reeds-a",
+      "point": [
+        -87.35,
+        394.04999999999995,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-reeds-a:2",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-A-GND2": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -32.66170093578839,
+        456.63829906421165,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirA ground2",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-a:3": {
+      "owner": "wago-reeds-a",
+      "point": [
+        -81.34999999999998,
+        394.04999999999995,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-reeds-a:3",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-A-GND3": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -31.0,
+        455.95,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirA ground3",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-a:4": {
+      "owner": "wago-reeds-a",
+      "point": [
+        -75.34999999999998,
+        394.04999999999995,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-reeds-a:4",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-A-GND4": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -29.338299064211615,
+        456.63829906421165,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirA ground4",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-a:5": {
+      "owner": "wago-reeds-a",
+      "point": [
+        -69.34999999999997,
+        394.04999999999995,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-reeds-a:5",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-B-GND1": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -33.35,
+        189.3,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirB ground1",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-b:2": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -38.96000000000001,
+        368.09999999999997,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:2",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-B-GND2": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -32.66170093578839,
+        187.63829906421162,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirB ground2",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-b:3": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -33.00000000000001,
+        368.09999999999997,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:3",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-B-GND3": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -31.0,
+        186.95000000000002,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirB ground3",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-b:4": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -27.040000000000006,
+        368.09999999999997,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:4",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "reed-B-GND4": {
+      "owner": "cold-core/foam-cap-lid-top",
+      "point": [
+        -29.338299064211615,
+        187.63829906421162,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "ReservoirB ground4",
+      "basis": "Nominal ring packing in accepted bore; existing pre-soldered column remains below boundary"
+    },
+    "wago-reeds-b:5": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -21.080000000000005,
+        368.09999999999997,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:5",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "carb-CHI": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -95.6,
+        408.55,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "CHI retained service lead",
+      "basis": "Carbonator lead exit is unlocated in native source; service-bay boundary reservation only"
+    },
+    "carb-CLO": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -93.8,
+        408.55,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "CLO retained service lead",
+      "basis": "Carbonator lead exit is unlocated in native source; service-bay boundary reservation only"
+    },
+    "probe-3V3": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -88.9,
+        396.0,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "3V3 probe lead boundary",
+      "basis": "Probe cable exit is unlocated in native source; service-bay reservation only"
+    },
+    "probe-IO26": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -87.1,
+        396.0,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "IO26 probe lead boundary",
+      "basis": "Probe cable exit is unlocated in native source; service-bay reservation only"
+    },
+    "carb-CHI-GND": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -81.6,
+        408.55,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "carb-CHI-GND",
+      "basis": "Unlocated retained core service lead; upper approach reservation only"
+    },
+    "wago-reeds-b:6": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -44.92000000000001,
+        376.0,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:6",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "carb-CLO-GND": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        -79.8,
+        408.55,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "carb-CLO-GND",
+      "basis": "Unlocated retained core service lead; upper approach reservation only"
+    },
+    "wago-reeds-b:7": {
+      "owner": "wago-reeds-b",
+      "point": [
+        -38.96000000000001,
+        376.0,
+        340.90000000000003
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "wago-reeds-b:7",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "probe-GND": {
+      "owner": "retained-cold-core-service-leads",
+      "point": [
+        0,
+        395,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "probe-GND",
+      "basis": "Unlocated retained core service lead; upper approach reservation only"
+    },
+    "wago-sensors:2": {
+      "owner": "wago-sensors",
+      "point": [
+        -54.049999999999976,
+        394.05,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-sensors:2",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "meter-V5": {
+      "owner": "digiten-flow",
+      "point": [
+        97.6,
+        402.51,
+        305.6
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "Flow meter V5",
+      "basis": "Measured pigtail root and outward axis;1.7mm conductor order within6x3mm root is nominal"
+    },
+    "meter-IO25": {
+      "owner": "digiten-flow",
+      "point": [
+        99.3,
+        402.51,
+        305.6
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "Flow meter IO25",
+      "basis": "Measured pigtail root and outward axis;1.7mm conductor order within6x3mm root is nominal"
+    },
+    "moisture-IO27": {
+      "owner": "moisture-comparator-reserve",
+      "point": [
+        -69.0,
+        303,
+        275.0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "Dry moisture comparator IO27",
+      "basis": "Dry comparator is not a purchased native model; nominal service lead boundary above the drip pan, west of the suction chain"
+    },
+    "moisture-IO23": {
+      "owner": "moisture-comparator-reserve",
+      "point": [
+        -66.5,
+        303,
+        275.0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "Dry moisture comparator IO23",
+      "basis": "Dry comparator is not a purchased native model; nominal service lead boundary above the drip pan, west of the suction chain"
+    },
+    "meter-GND": {
+      "owner": "digiten-flow",
+      "point": [
+        101.0,
+        402.51,
+        305.6
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "label": "meter-GND",
+      "basis": "Nominal lead interface; actual device contact remains unlocated"
+    },
+    "wago-sensors:3": {
+      "owner": "wago-sensors",
+      "point": [
+        -48.04999999999997,
+        394.05,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-sensors:3",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "moisture-GND": {
+      "owner": "moisture-comparator-reserve",
+      "point": [
+        -64,
+        303,
+        275.0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "moisture-GND",
+      "basis": "Nominal lead interface; actual device contact remains unlocated"
+    },
+    "wago-sensors:4": {
+      "owner": "wago-sensors",
+      "point": [
+        -42.04999999999997,
+        394.05,
+        340.45000000000005
+      ],
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "label": "wago-sensors:4",
+      "basis": "Exact rotated source groove pitch; nominal metal clamp reservation"
+    },
+    "J9-V12-fixed": {
+      "owner": "retained-display-loom",
+      "point": [
+        29.45,
+        95.20849207671873,
+        305.5045573971231
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "V12 admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J9-GND-fixed": {
+      "owner": "retained-display-loom",
+      "point": [
+        31.15,
+        95.20849207671873,
+        305.5045573971231
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "GND admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J9-A-fixed": {
+      "owner": "retained-display-loom",
+      "point": [
+        32.85,
+        95.20849207671873,
+        305.5045573971231
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "A admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J9-B-fixed": {
+      "owner": "retained-display-loom",
+      "point": [
+        34.55,
+        95.20849207671873,
+        305.5045573971231
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "B admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J13-AM2-fixed": {
+      "owner": "retained-cartridge-loom",
+      "point": [
+        -2.55,
+        93.836,
+        276.4256262237512
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "AM2 admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J13-AM1-fixed": {
+      "owner": "retained-cartridge-loom",
+      "point": [
+        -0.85,
+        93.836,
+        276.4256262237512
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "AM1 admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J13-BM2-fixed": {
+      "owner": "retained-cartridge-loom",
+      "point": [
+        0.85,
+        93.836,
+        276.4256262237512
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "BM2 admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J13-BM1-fixed": {
+      "owner": "retained-cartridge-loom",
+      "point": [
+        2.55,
+        93.836,
+        276.4256262237512
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "label": "BM1 admitted native cable-passage boundary",
+      "basis": "Actual retained native bore; individual ribbon order and downstream terminal dressing are nominal"
+    },
+    "J11-GND-fixed": {
+      "owner": "retained-mq6-loom",
+      "point": [
+        -93.4,
+        391.1,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "GND retained lower-cabinet loom upper approach",
+      "basis": "Nominal upper-bay approach only; the actual MQ6 module remains at its retained refrigeration-floor station"
+    },
+    "J11-V5-fixed": {
+      "owner": "retained-mq6-loom",
+      "point": [
+        -91.6,
+        391.1,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "V5 retained lower-cabinet loom upper approach",
+      "basis": "Nominal upper-bay approach only; the actual MQ6 module remains at its retained refrigeration-floor station"
+    },
+    "J11-DOUT-fixed": {
+      "owner": "retained-mq6-loom",
+      "point": [
+        -93.4,
+        392.9,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "DOUT retained lower-cabinet loom upper approach",
+      "basis": "Nominal upper-bay approach only; the actual MQ6 module remains at its retained refrigeration-floor station"
+    },
+    "J11-AOUT-fixed": {
+      "owner": "retained-mq6-loom",
+      "point": [
+        -91.6,
+        392.9,
+        253.4
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "label": "AOUT retained lower-cabinet loom upper approach",
+      "basis": "Nominal upper-bay approach only; the actual MQ6 module remains at its retained refrigeration-floor station"
+    }
+  },
+  "jobs": [
+    {
+      "name": "J1-OUT1-VA",
+      "from": "J1:OUT1",
+      "to": "VA:return-candidate",
+      "topology": "J1OUT1 to native sourceA blade",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT2-VB",
+      "from": "J1:OUT2",
+      "to": "VB:return-candidate",
+      "topology": "J1OUT2 to native sourceB blade",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J2-OUT3-VK",
+      "from": "J2:OUT3",
+      "to": "VK:return-candidate",
+      "topology": "J2OUT3 to nativeVK blade",
+      "loom": "J2",
+      "baseline_bench_cut_mm": 150
+    },
+    {
+      "name": "J1-COM",
+      "from": "J1:COM",
+      "to": "J1-COM-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 300
+    },
+    {
+      "name": "J1-OUT3",
+      "from": "J1:OUT3",
+      "to": "J1-OUT3-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT4",
+      "from": "J1:OUT4",
+      "to": "J1-OUT4-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT5",
+      "from": "J1:OUT5",
+      "to": "J1-OUT5-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT6",
+      "from": "J1:OUT6",
+      "to": "J1-OUT6-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT7",
+      "from": "J1:OUT7",
+      "to": "J1-OUT7-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J1-OUT8",
+      "from": "J1:OUT8",
+      "to": "J1-OUT8-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J1",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J2-COM",
+      "from": "J2:COM",
+      "to": "J2-COM-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J2",
+      "baseline_bench_cut_mm": 300
+    },
+    {
+      "name": "J2-FAN",
+      "from": "J2:FAN",
+      "to": "J2-FAN-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J2",
+      "baseline_bench_cut_mm": 650
+    },
+    {
+      "name": "J2-OUT1",
+      "from": "J2:OUT1",
+      "to": "J2-OUT1-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J2",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J2-OUT2",
+      "from": "J2:OUT2",
+      "to": "J2-OUT2-fixed",
+      "topology": "Controller to retained protected manifold loom",
+      "loom": "J2",
+      "baseline_bench_cut_mm": 550
+    },
+    {
+      "name": "J3-IO33",
+      "from": "J3:IO33",
+      "to": "keystone-IO33",
+      "topology": "Faucet TTL/5V/GND to retained inboard keystone",
+      "loom": "J3",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J3-IO35",
+      "from": "J3:IO35",
+      "to": "keystone-IO35",
+      "topology": "Faucet TTL/5V/GND to retained inboard keystone",
+      "loom": "J3",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J3-V5",
+      "from": "J3:V5",
+      "to": "keystone-V5",
+      "topology": "Faucet TTL/5V/GND to retained inboard keystone",
+      "loom": "J3",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J3-GND",
+      "from": "J3:GND",
+      "to": "keystone-GND",
+      "topology": "Faucet TTL/5V/GND to retained inboard keystone",
+      "loom": "J3",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-GND-R1",
+      "from": "J5:GND",
+      "to": "R1-GND",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-V5-R1",
+      "from": "J5:V5",
+      "to": "R1-V5",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-IO19-R1",
+      "from": "J5:IO19",
+      "to": "R1-IO19",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-GND-R2",
+      "from": "J5:GND",
+      "to": "R2-GND",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-V5-R2",
+      "from": "J5:V5",
+      "to": "R2-V5",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J5-IO2-R2",
+      "from": "J5:IO2",
+      "to": "R2-IO2",
+      "topology": "Relay opto-control and5V rail; AC/DC divider retained",
+      "loom": "J5",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "COM-VA",
+      "from": "common-VA",
+      "to": "VA:+candidate",
+      "topology": "Retained manifold common to changed native source-valve blade",
+      "loom": null,
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "COM-VB",
+      "from": "common-VB",
+      "to": "VB:+candidate",
+      "topology": "Retained manifold common to changed native source-valve blade",
+      "loom": null,
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "COM-VK",
+      "from": "common-VK",
+      "to": "VK:+candidate",
+      "topology": "Retained manifold common to changed native source-valve blade",
+      "loom": null,
+      "baseline_bench_cut_mm": 300
+    },
+    {
+      "name": "J6-RA1",
+      "from": "J6:RA1",
+      "to": "reed-A-RA1",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J6",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J6-RA2",
+      "from": "J6:RA2",
+      "to": "reed-A-RA2",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J6",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J6-RA3",
+      "from": "J6:RA3",
+      "to": "reed-A-RA3",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J6",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J6-RA4",
+      "from": "J6:RA4",
+      "to": "reed-A-RA4",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J6",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-RB1",
+      "from": "J7:RB1",
+      "to": "reed-B-RB1",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-RB2",
+      "from": "J7:RB2",
+      "to": "reed-B-RB2",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-RB3",
+      "from": "J7:RB3",
+      "to": "reed-B-RB3",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-RB4",
+      "from": "J7:RB4",
+      "to": "reed-B-RB4",
+      "topology": "Controller reed input to retained cold-core column",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J6-GND",
+      "from": "J6:GND",
+      "to": "wago-reeds-a:1",
+      "topology": "Shared rail to device-end ground fanout",
+      "loom": "J6",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-GND",
+      "from": "J7:GND",
+      "to": "wago-reeds-b:1",
+      "topology": "Shared rail to device-end ground fanout",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-GND",
+      "from": "J4:GND",
+      "to": "wago-sensors:1",
+      "topology": "Shared rail to device-end ground fanout",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-A-GND1",
+      "from": "wago-reeds-a:2",
+      "to": "reed-A-GND1",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-A-GND2",
+      "from": "wago-reeds-a:3",
+      "to": "reed-A-GND2",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-A-GND3",
+      "from": "wago-reeds-a:4",
+      "to": "reed-A-GND3",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-A-GND4",
+      "from": "wago-reeds-a:5",
+      "to": "reed-A-GND4",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-B-GND1",
+      "from": "wago-reeds-b:2",
+      "to": "reed-B-GND1",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-B-GND2",
+      "from": "wago-reeds-b:3",
+      "to": "reed-B-GND2",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-B-GND3",
+      "from": "wago-reeds-b:4",
+      "to": "reed-B-GND3",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-B-GND4",
+      "from": "wago-reeds-b:5",
+      "to": "reed-B-GND4",
+      "topology": "Device-end ground fanout to retained reed column",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-CHI",
+      "from": "J7:CHI",
+      "to": "carb-CHI",
+      "topology": "Carbonator reed service-bay lead boundary",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J7-CLO",
+      "from": "J7:CLO",
+      "to": "carb-CLO",
+      "topology": "Carbonator reed service-bay lead boundary",
+      "loom": "J7",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-3V3",
+      "from": "J4:3V3",
+      "to": "probe-3V3",
+      "topology": "Temperature lead boundary",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-IO26",
+      "from": "J4:IO26",
+      "to": "probe-IO26",
+      "topology": "Temperature lead boundary",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-carb-CHI-GND",
+      "from": "wago-reeds-b:6",
+      "to": "carb-CHI-GND",
+      "topology": "Device-end ground to retained core service lead boundary",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-carb-CLO-GND",
+      "from": "wago-reeds-b:7",
+      "to": "carb-CLO-GND",
+      "topology": "Device-end ground to retained core service lead boundary",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-probe-GND",
+      "from": "wago-sensors:2",
+      "to": "probe-GND",
+      "topology": "Device-end ground to retained core service lead boundary",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-V5",
+      "from": "J4:V5",
+      "to": "meter-V5",
+      "topology": "Flow meter signal/V5 nominal lead reservation",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-IO25",
+      "from": "J4:IO25",
+      "to": "meter-IO25",
+      "topology": "Flow meter signal/V5 nominal lead reservation",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-IO27",
+      "from": "J4:IO27",
+      "to": "moisture-IO27",
+      "topology": "Dry moisture comparator signal/switched supply",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J4-IO23",
+      "from": "J4:IO23",
+      "to": "moisture-IO23",
+      "topology": "Dry moisture comparator signal/switched supply",
+      "loom": "J4",
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-meter-GND",
+      "from": "wago-sensors:3",
+      "to": "meter-GND",
+      "topology": "Device-end sensor ground fanout",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "fanout-moisture-GND",
+      "from": "wago-sensors:4",
+      "to": "moisture-GND",
+      "topology": "Device-end sensor ground fanout",
+      "loom": null,
+      "baseline_bench_cut_mm": null
+    },
+    {
+      "name": "J9-V12",
+      "from": "J9:V12",
+      "to": "J9-V12-fixed",
+      "topology": "Controller to unchanged native J9 cable passage",
+      "loom": "J9",
+      "baseline_bench_cut_mm": 400
+    },
+    {
+      "name": "J9-GND",
+      "from": "J9:GND",
+      "to": "J9-GND-fixed",
+      "topology": "Controller to unchanged native J9 cable passage",
+      "loom": "J9",
+      "baseline_bench_cut_mm": 400
+    },
+    {
+      "name": "J9-A",
+      "from": "J9:A",
+      "to": "J9-A-fixed",
+      "topology": "Controller to unchanged native J9 cable passage",
+      "loom": "J9",
+      "baseline_bench_cut_mm": 400
+    },
+    {
+      "name": "J9-B",
+      "from": "J9:B",
+      "to": "J9-B-fixed",
+      "topology": "Controller to unchanged native J9 cable passage",
+      "loom": "J9",
+      "baseline_bench_cut_mm": 400
+    },
+    {
+      "name": "J13-AM2",
+      "from": "J13:AM2",
+      "to": "J13-AM2-fixed",
+      "topology": "Controller to unchanged native J13 cable passage",
+      "loom": "J13",
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "J13-AM1",
+      "from": "J13:AM1",
+      "to": "J13-AM1-fixed",
+      "topology": "Controller to unchanged native J13 cable passage",
+      "loom": "J13",
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "J13-BM2",
+      "from": "J13:BM2",
+      "to": "J13-BM2-fixed",
+      "topology": "Controller to unchanged native J13 cable passage",
+      "loom": "J13",
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "J13-BM1",
+      "from": "J13:BM1",
+      "to": "J13-BM1-fixed",
+      "topology": "Controller to unchanged native J13 cable passage",
+      "loom": "J13",
+      "baseline_bench_cut_mm": 350
+    },
+    {
+      "name": "J11-GND",
+      "from": "J11:GND",
+      "to": "J11-GND-fixed",
+      "topology": "Controller to retained lower-cabinet MQ6 loom",
+      "loom": "J11",
+      "baseline_bench_cut_mm": 600
+    },
+    {
+      "name": "J11-V5",
+      "from": "J11:V5",
+      "to": "J11-V5-fixed",
+      "topology": "Controller to retained lower-cabinet MQ6 loom",
+      "loom": "J11",
+      "baseline_bench_cut_mm": 600
+    },
+    {
+      "name": "J11-DOUT",
+      "from": "J11:DOUT",
+      "to": "J11-DOUT-fixed",
+      "topology": "Controller to retained lower-cabinet MQ6 loom",
+      "loom": "J11",
+      "baseline_bench_cut_mm": 600
+    },
+    {
+      "name": "J11-AOUT",
+      "from": "J11:AOUT",
+      "to": "J11-AOUT-fixed",
+      "topology": "Controller to retained lower-cabinet MQ6 loom",
+      "loom": "J11",
+      "baseline_bench_cut_mm": 600
+    }
+  ],
+  "boundaries": {
+    "J1-COM-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT3-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT4-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT5-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT6-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT7-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J1-OUT8-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J2-COM-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J2-FAN-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J2-OUT1-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "J2-OUT2-fixed": {
+      "scope": "Fixed foreground harness beyond upper-bay study",
+      "source": "hardware/wiring/manifold-junction-clearance-check.json"
+    },
+    "reed-A-RA1": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        458.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-A-RA2": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        458.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-A-RA3": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        458.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-A-RA4": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        458.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-B-RB1": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        189.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-B-RB2": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        189.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-B-RB3": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        189.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "reed-B-RB4": {
+      "scope": "Retained pre-soldered reed column below cap",
+      "bore_axis_mm": [
+        -31,
+        189.3,
+        253.4
+      ],
+      "bore_diameter_mm": 6.8
+    },
+    "carb-CHI": {
+      "scope": "Carbonator reed service lead exit is not physically located"
+    },
+    "carb-CLO": {
+      "scope": "Carbonator reed service lead exit is not physically located"
+    },
+    "probe-3V3": {
+      "scope": "Probe lead exit below retained core is not physically located"
+    },
+    "probe-IO26": {
+      "scope": "Probe lead exit below retained core is not physically located"
+    },
+    "J9-V12-fixed": {
+      "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          32.0,
+          95.20849207671873,
+          305.5045573971231
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 14.7,
+        "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces."
+      }
+    },
+    "J9-GND-fixed": {
+      "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          32.0,
+          95.20849207671873,
+          305.5045573971231
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 14.7,
+        "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces."
+      }
+    },
+    "J9-A-fixed": {
+      "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          32.0,
+          95.20849207671873,
+          305.5045573971231
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 14.7,
+        "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces."
+      }
+    },
+    "J9-B-fixed": {
+      "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          32.0,
+          95.20849207671873,
+          305.5045573971231
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 14.7,
+        "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces."
+      }
+    },
+    "J13-AM2-fixed": {
+      "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          0.0,
+          93.836,
+          276.4256262237512
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 11.0,
+        "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces."
+      }
+    },
+    "J13-AM1-fixed": {
+      "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          0.0,
+          93.836,
+          276.4256262237512
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 11.0,
+        "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces."
+      }
+    },
+    "J13-BM2-fixed": {
+      "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          0.0,
+          93.836,
+          276.4256262237512
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 11.0,
+        "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces."
+      }
+    },
+    "J13-BM1-fixed": {
+      "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces.",
+      "native_passage": {
+        "point": [
+          0.0,
+          93.836,
+          276.4256262237512
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "diameter_mm": 11.0,
+        "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces."
+      }
+    },
+    "J11-GND-fixed": {
+      "scope": "MQ6 header, actual lower exit and lower refrigeration harness remain outside the upper-bay rearrangement. This upper approach does not locate a header, claim a lower continuation or specify a new cold-core bore."
+    },
+    "J11-V5-fixed": {
+      "scope": "MQ6 header, actual lower exit and lower refrigeration harness remain outside the upper-bay rearrangement. This upper approach does not locate a header, claim a lower continuation or specify a new cold-core bore."
+    },
+    "J11-DOUT-fixed": {
+      "scope": "MQ6 header, actual lower exit and lower refrigeration harness remain outside the upper-bay rearrangement. This upper approach does not locate a header, claim a lower continuation or specify a new cold-core bore."
+    },
+    "J11-AOUT-fixed": {
+      "scope": "MQ6 header, actual lower exit and lower refrigeration harness remain outside the upper-bay rearrangement. This upper approach does not locate a header, claim a lower continuation or specify a new cold-core bore."
+    }
+  },
+  "connectors": [
+    {
+      "connector": "J1",
+      "count": 9,
+      "canonical_labels": [
+        "COM",
+        "OUT1",
+        "OUT2",
+        "OUT3",
+        "OUT4",
+        "OUT5",
+        "OUT6",
+        "OUT7",
+        "OUT8"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J2",
+      "count": 6,
+      "canonical_labels": [
+        "COM",
+        "FAN",
+        "OUT4",
+        "OUT3",
+        "OUT2",
+        "OUT1"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J3",
+      "count": 4,
+      "canonical_labels": [
+        "IO33",
+        "IO35",
+        "V5",
+        "GND"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J4",
+      "count": 7,
+      "canonical_labels": [
+        "IO23",
+        "IO27",
+        "IO26",
+        "IO25",
+        "V5",
+        "GND",
+        "3V3"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J5",
+      "count": 4,
+      "canonical_labels": [
+        "GND",
+        "V5",
+        "IO2",
+        "IO19"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J6",
+      "count": 5,
+      "canonical_labels": [
+        "RA1",
+        "RA2",
+        "RA3",
+        "RA4",
+        "GND"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J7",
+      "count": 7,
+      "canonical_labels": [
+        "GND",
+        "CHI",
+        "CLO",
+        "RB4",
+        "RB3",
+        "RB2",
+        "RB1"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J8",
+      "count": 4,
+      "canonical_labels": [
+        "GND",
+        "3V3",
+        "SDA",
+        "SCL"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Expansion wafer retained with no installed loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J9",
+      "count": 4,
+      "canonical_labels": [
+        "V12",
+        "GND",
+        "A",
+        "B"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J11",
+      "count": 4,
+      "canonical_labels": [
+        "GND",
+        "V5",
+        "DOUT",
+        "AOUT"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    },
+    {
+      "connector": "J13",
+      "count": 4,
+      "canonical_labels": [
+        "AM2",
+        "AM1",
+        "BM2",
+        "BM1"
+      ],
+      "pin_contact_allowance_mm": 11.65,
+      "status": "Populated loom",
+      "mating_housing_and_crimp_scope": "Purchased wafer is native; full XH mating housing and crimp insertion remain inherited fit reservations."
+    }
+  ],
+  "pins": {
+    "J1": {
+      "COM": "J1:COM",
+      "OUT1": "J1:OUT1",
+      "OUT2": "J1:OUT2",
+      "OUT3": "J1:OUT3",
+      "OUT4": "J1:OUT4",
+      "OUT5": "J1:OUT5",
+      "OUT6": "J1:OUT6",
+      "OUT7": "J1:OUT7",
+      "OUT8": "J1:OUT8"
+    },
+    "J2": {
+      "COM": "J2:COM",
+      "FAN": "J2:FAN",
+      "OUT4": "J2:OUT4",
+      "OUT3": "J2:OUT3",
+      "OUT2": "J2:OUT2",
+      "OUT1": "J2:OUT1"
+    },
+    "J3": {
+      "IO33": "J3:IO33",
+      "IO35": "J3:IO35",
+      "V5": "J3:V5",
+      "GND": "J3:GND"
+    },
+    "J4": {
+      "IO23": "J4:IO23",
+      "IO27": "J4:IO27",
+      "IO26": "J4:IO26",
+      "IO25": "J4:IO25",
+      "V5": "J4:V5",
+      "GND": "J4:GND",
+      "3V3": "J4:3V3"
+    },
+    "J5": {
+      "GND": "J5:GND",
+      "V5": "J5:V5",
+      "IO2": "J5:IO2",
+      "IO19": "J5:IO19"
+    },
+    "J6": {
+      "RA1": "J6:RA1",
+      "RA2": "J6:RA2",
+      "RA3": "J6:RA3",
+      "RA4": "J6:RA4",
+      "GND": "J6:GND"
+    },
+    "J7": {
+      "GND": "J7:GND",
+      "CHI": "J7:CHI",
+      "CLO": "J7:CLO",
+      "RB4": "J7:RB4",
+      "RB3": "J7:RB3",
+      "RB2": "J7:RB2",
+      "RB1": "J7:RB1"
+    },
+    "J8": {
+      "GND": "J8:GND",
+      "3V3": "J8:3V3",
+      "SDA": "J8:SDA",
+      "SCL": "J8:SCL"
+    },
+    "J9": {
+      "V12": "J9:V12",
+      "GND": "J9:GND",
+      "A": "J9:A",
+      "B": "J9:B"
+    },
+    "J11": {
+      "GND": "J11:GND",
+      "V5": "J11:V5",
+      "DOUT": "J11:DOUT",
+      "AOUT": "J11:AOUT"
+    },
+    "J13": {
+      "AM2": "J13:AM2",
+      "AM1": "J13:AM1",
+      "BM2": "J13:BM2",
+      "BM1": "J13:BM1"
+    }
+  },
+  "source_sha256": {
+    "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8",
+    "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90"
+  },
+  "board_translation_mm": [
+    0.9999999999999893,
+    0.0,
+    -1.9999928000000295
+  ],
+  "board_translation_z_mm": -1.9999928000000295
+}

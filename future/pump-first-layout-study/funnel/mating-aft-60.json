@@ -1,0 +1,180 @@
+{
+  "aft_extension_mm": 60.0,
+  "interfaces": {
+    "frame-blank": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/frame-blank.brep",
+      "sha256": "1634418e8966cb12253cfc040626caebc089e067e6f7a05eda4d9a9ff733b981",
+      "bounds_world_mm": [
+        -103.5,
+        95.45849207671873,
+        299.9,
+        103.50000000000003,
+        295.6915079232813,
+        355.0
+      ]
+    },
+    "frame-shell-clearance": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/frame-shell-clearance.brep",
+      "sha256": "95e8da628e93b67258a70503bd2820babeecf870a2577b50439c2b7625a96f60",
+      "bounds_world_mm": [
+        -103.75,
+        95.20849207671873,
+        299.65,
+        103.75000000000003,
+        295.9415079232813,
+        355.25
+      ]
+    },
+    "front-roof-clearance": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-roof-clearance.brep",
+      "sha256": "a92cd33bc1e63fb94708531fcc0375c2a74850724c44785db33502870801d4bb",
+      "bounds_world_mm": [
+        -98.5,
+        95.20849207671873,
+        345.75,
+        98.5,
+        295.9415079232813,
+        355.25
+      ]
+    },
+    "front-seam-relief": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-seam-relief.brep",
+      "sha256": "5f949e3d2a74e7fd4f98952392909c5ebcfe783f44ec3659e5efbb43731622ee",
+      "bounds_world_mm": [
+        -108.5,
+        199.75,
+        299.65,
+        108.5,
+        473.3,
+        330.45
+      ]
+    },
+    "front-receivers": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-receivers.brep",
+      "sha256": "1baf480c8f8a42e12bed2a79aa09e881d876ec7317678fdace8d506425023488",
+      "bounds_world_mm": [
+        -107.5000001,
+        108.70849207671873,
+        306.89999989999956,
+        107.5000001,
+        200.0000001,
+        330.2000001
+      ]
+    },
+    "back-receivers": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/back-receivers.brep",
+      "sha256": "9f6a9f107930b17f341401d5f8eec34b095a1908c103b0d2d3e1a1a12dfc809d",
+      "bounds_world_mm": [
+        -107.5,
+        200.0,
+        306.9,
+        107.5,
+        289.69150792328134,
+        330.2
+      ]
+    },
+    "front-rail-channels": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-rail-channels.brep",
+      "sha256": "f322dd6c073aac1be20677b8b4f4bf361dba5a12c0b6b9b30c70f18ebb99f04d",
+      "bounds_world_mm": [
+        -104.5000001,
+        111.70849207671873,
+        291.34999989999994,
+        104.5000001,
+        214.5500001,
+        341.7500001
+      ]
+    },
+    "back-rail-channels": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/back-rail-channels.brep",
+      "sha256": "1f7ddd9b6448505474f087c20aa0e3393b394268293bcc85d804a6d13f402708",
+      "bounds_world_mm": [
+        -103.75,
+        199.0,
+        305.9,
+        103.75,
+        286.69150792328134,
+        321.95
+      ]
+    },
+    "brim-pocket": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/brim-pocket.brep",
+      "sha256": "f971291efb2509fe301bdf2fd6cad65cd1d0bbc44b928ac342d208069e4a4885",
+      "bounds_world_mm": [
+        -89.75,
+        98.45849207671873,
+        349.0,
+        89.75,
+        290.6415079232813,
+        356.0
+      ]
+    },
+    "collar-throat": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/collar-throat.brep",
+      "sha256": "4d725def2cc9ed5b728203c0955f211595d77423ae1f3e92f595d3196a1cfd1f",
+      "bounds_world_mm": [
+        -82.75,
+        105.45849207671873,
+        348.0,
+        82.75,
+        283.6415079232813,
+        349.01000000000005
+      ]
+    }
+  },
+  "blank_stock_reads": [
+    {
+      "name": "valve-v-a",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 0.0,
+      "distance_mm": 21.899999899999955
+    },
+    {
+      "name": "coil-v-a",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 5777.972896526811,
+      "distance_mm": 0.0
+    },
+    {
+      "name": "valve-v-b",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 0.0,
+      "distance_mm": 21.899999899999955
+    },
+    {
+      "name": "coil-v-b",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 5777.972896527104,
+      "distance_mm": 0.0
+    },
+    {
+      "name": "asse-at-Y331-vent-Z280.2",
+      "transform": {
+        "yaw_deg": 90,
+        "translation_mm": [
+          361.51,
+          409.07,
+          -27.010580837550037
+        ]
+      },
+      "reference": "full frame blank before subtracting funnel clearance; zero common proves clearance from its contained final body",
+      "overlap_mm3": 0.0,
+      "distance_mm": 33.888130468404185
+    },
+    {
+      "name": "asse-at-Y334-vent-Z277.2",
+      "transform": {
+        "yaw_deg": 90,
+        "translation_mm": [
+          361.51,
+          412.07,
+          -30.010580837550037
+        ]
+      },
+      "reference": "full frame blank before subtracting funnel clearance; zero common proves clearance from its contained final body",
+      "overlap_mm3": 0.0,
+      "distance_mm": 37.986206679757544
+    }
+  ],
+  "scope": "Native matching receiver/channel/cutter interfaces, plus full-blank bounds. Positive blank overlap alone cannot establish a final frame collision after carving. A strictly positive gap from the blank proves gap from the final body, except rail heads outside ASSE X."
+}

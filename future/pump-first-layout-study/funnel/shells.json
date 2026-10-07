@@ -1,0 +1,1032 @@
+{
+  "aft_extension_mm": 60.0,
+  "parts": {
+    "enclosure-front-top": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-front-top.brep",
+      "sha256": "e17062859686dd86da176965a2e899ddfe13c1b65053dc7816fc3d52be8bf2fe",
+      "bounds_world_mm": [
+        -107.50000010000001,
+        4.999999899999999,
+        159.9999999,
+        107.5000001,
+        217.80000010000006,
+        355.0000001038191
+      ],
+      "volume_mm3": 1320119.079922246,
+      "valid": true,
+      "solids": 1,
+      "step": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-front-top.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-front-top.json",
+      "role": "structure",
+      "detail": "Native upper shell with aft bay hosts removed above the cold-core lid, enlarged removable funnel/frame mates, retained 9 mm flanks and original rear connector/nameplate/C14 interfaces."
+    },
+    "enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-back-top.brep",
+      "sha256": "d9452e3336caedccf3b72277f54e608f5b1856be3928fba074916f85d5648b04",
+      "bounds_world_mm": [
+        -107.5000001,
+        199.99999989999972,
+        159.9999999,
+        107.5000001,
+        471.30000010000003,
+        355.0000001000254
+      ],
+      "volume_mm3": 1179398.9511831861,
+      "valid": true,
+      "solids": 1,
+      "step": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-back-top.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-back-top.json",
+      "role": "structure",
+      "detail": "Native upper shell with aft bay hosts removed above the cold-core lid, enlarged removable funnel/frame mates, retained 9 mm flanks and original rear connector/nameplate/C14 interfaces."
+    }
+  },
+  "replacement_names": [
+    "enclosure-front-top",
+    "enclosure-back-top"
+  ],
+  "interfaces": {
+    "retained-c14-tunnel-stock": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/retained-c14-tunnel-stock.brep",
+      "sha256": "e9181f6cf706a8ca394a62df72cbc80330b50d23228a9f143df7acd621a187bd",
+      "bounds_world_mm": [
+        38.86500000000001,
+        458.05,
+        320.8105808375568,
+        94.935,
+        468.3,
+        351.36058083755677
+      ],
+      "volume_mm3": 17557.61962499997,
+      "valid": true,
+      "solids": 1
+    },
+    "retained-keystone-stock": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/retained-keystone-stock.brep",
+      "sha256": "a2d1531febf5b03738995aaf161e2b007e3008d64af88496f481dba23b4b42bf",
+      "bounds_world_mm": [
+        -48.285,
+        461.6,
+        287.7422904687784,
+        -27.334999999999994,
+        465.3,
+        322.1422904687784
+      ],
+      "volume_mm3": 2523.113249999995,
+      "valid": true,
+      "solids": 1
+    },
+    "retained-nameplate-stock": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/retained-nameplate-stock.brep",
+      "sha256": "fb1283e64b04a8ddc3be8bd23f88f8d127ddf8272eba3cbd522cf1b2e1ddf312",
+      "bounds_world_mm": [
+        -19.504999999999995,
+        464.34,
+        252.92850009999995,
+        95.825,
+        471.3,
+        298.92850009999995
+      ],
+      "volume_mm3": 19618.2776080316,
+      "valid": true,
+      "solids": 1
+    },
+    "bay-clear-cutter": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/bay-clear-cutter.brep",
+      "sha256": "704c4dde36ea248ce0f0f787c7496b48db3f43f5fd17d82b4745826f09613a94",
+      "bounds_world_mm": [
+        -98.5,
+        218.8,
+        253.40001,
+        98.5,
+        465.3,
+        352.0
+      ],
+      "volume_mm3": 4769032.520183431,
+      "valid": true,
+      "solids": 1
+    },
+    "nominal-ceiling-stock": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/nominal-ceiling-stock.brep",
+      "sha256": "045da32127ca3397e2584013bb181336c09e325e4da13e421d3a2eaf54286a1d",
+      "bounds_world_mm": [
+        -98.5,
+        219.8,
+        343.0,
+        98.5,
+        465.3,
+        353.0
+      ],
+      "volume_mm3": 483634.9999999999,
+      "valid": true,
+      "solids": 1
+    },
+    "original-c14-bore-and-pocket": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-bore-and-pocket.brep",
+      "sha256": "562e7d981ffe3c7ab7d4bef526054b7a571c8019215425541223af779b304338",
+      "bounds_world_mm": [
+        41.865,
+        448.05,
+        324.7255808375568,
+        91.935,
+        472.3,
+        347.4455808375568
+      ],
+      "volume_mm3": 17631.282358228334,
+      "valid": true,
+      "solids": 1
+    },
+    "original-c14-insert-0": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-insert-0.brep",
+      "sha256": "602813ac1d06ae2f59d64745d9a2f36bf36f9f552c5686ebba9ceca4e75a4e11",
+      "bounds_world_mm": [
+        44.900000000000006,
+        463.05,
+        333.9605808375568,
+        48.900000000000006,
+        468.3,
+        338.2105808375568
+      ],
+      "volume_mm3": 71.22002575111293,
+      "valid": true,
+      "solids": 1
+    },
+    "original-c14-insert-1": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-insert-1.brep",
+      "sha256": "42f710315a0d3f72909a235d6746a9e71b7ab5a798a76cfba9d81c4468ce3b21",
+      "bounds_world_mm": [
+        84.9,
+        463.05,
+        333.9605808375568,
+        88.9,
+        468.3,
+        338.2105808375568
+      ],
+      "volume_mm3": 71.22002575111311,
+      "valid": true,
+      "solids": 1
+    },
+    "original-keystone-cutter": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-cutter.brep",
+      "sha256": "6384061cff5e57f3d062eedfa09441852b38d4c738d1e740b9bd577417e97c9a",
+      "bounds_world_mm": [
+        -45.285,
+        461.59000000000003,
+        290.7422904687784,
+        -30.334999999999994,
+        471.31,
+        315.4422904687784
+      ],
+      "volume_mm3": 3295.123332569303,
+      "valid": true,
+      "solids": 1
+    },
+    "original-keystone-feature": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-feature.brep",
+      "sha256": "001e954fc64d813c566d9c2a7e2972cfb3d1647fe1c903adb79599c9b71ba45a",
+      "bounds_world_mm": [
+        -48.285,
+        461.6,
+        287.7422904687784,
+        -27.334999999999994,
+        465.3,
+        322.1422904687784
+      ],
+      "volume_mm3": 2523.1132499999953,
+      "valid": true,
+      "solids": 1
+    },
+    "original-keystone-catches": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-catches.brep",
+      "sha256": "a060ada7865570562284ba1d1ce20ed56a3b121ba1acae84050feddfa9fbd20a",
+      "bounds_world_mm": [
+        -45.26,
+        461.6,
+        290.74229046877844,
+        -30.359999999999996,
+        463.0,
+        315.44229046877837
+      ],
+      "volume_mm3": 93.08774999999945,
+      "valid": true,
+      "solids": 2
+    },
+    "original-c14-ceiling-pocket": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-ceiling-pocket.brep",
+      "sha256": "fb0ca3ffdb22a3ff4c2cef6fc88e6da61d565df8607022ea8467913c0b19c2b4",
+      "bounds_world_mm": [
+        41.865,
+        434.21000000000004,
+        324.9755808375568,
+        91.935,
+        465.05,
+        347.4455808375568
+      ],
+      "volume_mm3": 27327.967714229027,
+      "valid": true,
+      "solids": 1
+    },
+    "original-rear-port-0": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-0.brep",
+      "sha256": "a10e6a0d8c48c4c73ee8afa55e402e8be73449b80615da32c44d682a5da28815",
+      "bounds_world_mm": [
+        -86.78999999999999,
+        460.3,
+        325.4320680737586,
+        -69.35,
+        476.3,
+        344.9305808375568
+      ],
+      "volume_mm3": 3941.6075908163516,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "round",
+        -78.07,
+        336.2105808375568,
+        17.44
+      ]
+    },
+    "original-rear-port-1": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-1.brep",
+      "sha256": "cb00776453fd97c0eac388c886aad13f2c0e1b1c1b8e1bce2044c7ba99014ab1",
+      "bounds_world_mm": [
+        -86.78999999999999,
+        460.3,
+        258.2454873362018,
+        -69.35,
+        476.3,
+        277.7440001
+      ],
+      "volume_mm3": 3941.607590816352,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "round",
+        -78.07,
+        269.02400009999997,
+        17.44
+      ]
+    },
+    "original-rear-port-2": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-2.brep",
+      "sha256": "5f2e2e220875b96af8133217a5a3246c326500a154844de61faf366111585eff",
+      "bounds_world_mm": [
+        -46.529999999999994,
+        460.3,
+        258.2454873362018,
+        -29.089999999999996,
+        476.3,
+        277.7440001
+      ],
+      "volume_mm3": 3941.6075908163525,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "round",
+        -37.809999999999995,
+        269.02400009999997,
+        17.44
+      ]
+    },
+    "original-rear-port-3": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-3.brep",
+      "sha256": "d4898130e79a3ed5bf606dc6c768a2625a57cb1a060a1d9045561ca75089290d",
+      "bounds_world_mm": [
+        -46.529999999999994,
+        460.3,
+        325.4320680737586,
+        -29.089999999999996,
+        476.3,
+        344.9305808375568
+      ],
+      "volume_mm3": 3941.6075908163516,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "round",
+        -37.809999999999995,
+        336.2105808375568,
+        17.44
+      ]
+    },
+    "original-rear-port-4": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-4.brep",
+      "sha256": "92e8cc06bba8a1ecef3ff6564342a065212fc19b69c0ae80770eb5e2634fb8f0",
+      "bounds_world_mm": [
+        54.75000000000001,
+        460.3,
+        326.8105808375568,
+        79.05000000000001,
+        476.3,
+        345.36058083755677
+      ],
+      "volume_mm3": 7181.337335529188,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "rect",
+        66.9,
+        336.2105808375568,
+        24.3,
+        18.3,
+        1.5
+      ]
+    },
+    "original-rear-port-5": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-5.brep",
+      "sha256": "171ffc35182029742f2861abb2a7501a617b915e08d2c9a4db91cf7b90020bdb",
+      "bounds_world_mm": [
+        -6.1999999999999975,
+        460.3,
+        325.26859283218363,
+        11.100000000000003,
+        476.3,
+        344.61058083755677
+      ],
+      "volume_mm3": 3878.578901763539,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "round",
+        2.450000000000003,
+        335.9605808375568,
+        17.3
+      ]
+    },
+    "original-rear-port-6": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-6.brep",
+      "sha256": "3193afe43a96c721a3fa7b78fb22154bdb3be047e1a220bc8fbffc7825c93f95",
+      "bounds_world_mm": [
+        -45.209999999999994,
+        460.3,
+        293.1472904687784,
+        -30.409999999999997,
+        476.3,
+        309.69729046877836
+      ],
+      "volume_mm3": 3916.842477193174,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        "rect",
+        -37.809999999999995,
+        301.5472904687784,
+        14.8,
+        16.3,
+        0.4
+      ]
+    },
+    "original-rear-chip-pocket-0": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-0.brep",
+      "sha256": "99bfdbf299ac29058b1d679319429b83d3b5e63d38c1892bc801ec644cbe2bf2",
+      "bounds_world_mm": [
+        -96.69999999999999,
+        469.3,
+        317.3305808375568,
+        -59.44,
+        472.3,
+        355.1495808375568
+      ],
+      "volume_mm3": 3780.5077789060815,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        -78.07,
+        336.2105808375568,
+        37.26,
+        18.939
+      ]
+    },
+    "original-rear-chip-pocket-1": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-1.brep",
+      "sha256": "f858f7c609ad8ab841a2ac54cd1c0572af4f7c40b476be5b2f6f1a611a48d1d4",
+      "bounds_world_mm": [
+        -56.44,
+        469.3,
+        317.3305808375568,
+        -19.179999999999993,
+        472.3,
+        355.1495808375568
+      ],
+      "volume_mm3": 3780.5077789060806,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        -37.809999999999995,
+        336.2105808375568,
+        37.26,
+        18.939
+      ]
+    },
+    "original-rear-chip-pocket-2": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-2.brep",
+      "sha256": "0fe5d9bf7958d7acf70f402a7c4faec88443a7eeec4e15a7d969a8957b53127f",
+      "bounds_world_mm": [
+        -56.44,
+        469.3,
+        250.14400009999997,
+        -19.179999999999993,
+        472.3,
+        287.9630001
+      ],
+      "volume_mm3": 3780.5077789060824,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        -37.809999999999995,
+        269.02400009999997,
+        37.26,
+        18.939
+      ]
+    },
+    "original-rear-chip-pocket-3": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-3.brep",
+      "sha256": "6ea0b642737fe9c54278e122c09a305e1aa7cab17a478a79a403b441b9461321",
+      "bounds_world_mm": [
+        -96.69999999999999,
+        469.3,
+        250.14400009999997,
+        -59.44,
+        472.3,
+        287.9630001
+      ],
+      "volume_mm3": 3780.507778906081,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        -78.07,
+        269.02400009999997,
+        37.26,
+        18.939
+      ]
+    },
+    "original-rear-chip-pocket-4": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-4.brep",
+      "sha256": "8250fa1b990dca3b980c58f9df43b7768e3ea19921b0a911135303aa5f6fbc9a",
+      "bounds_world_mm": [
+        -15.719193234387532,
+        469.3,
+        317.54138760316926,
+        20.619193234387538,
+        472.3,
+        355.1495808375568
+      ],
+      "volume_mm3": 3674.7975678413422,
+      "valid": true,
+      "solids": 1,
+      "declaration": [
+        2.450000000000003,
+        335.9605808375568,
+        36.33838646877507,
+        19.189
+      ]
+    },
+    "original-co2-land-relief": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-co2-land-relief.brep",
+      "sha256": "010ac99c8e1a685a70ea2ac28145d7a787a2c4bf4857f5b7090c1d2cfb799a42",
+      "bounds_world_mm": [
+        -14.5500001,
+        464.2999999,
+        320.96058073755677,
+        19.4500001,
+        466.30000010000003,
+        352.9605809375568
+      ],
+      "volume_mm3": 2065.0,
+      "valid": true,
+      "solids": 1
+    },
+    "original-c14-land-relief": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-land-relief.brep",
+      "sha256": "6c234941f78d2dba37477e4c83751ad9bce0d04fb10ef05a053c920baa270845",
+      "bounds_world_mm": [
+        42.900000000000006,
+        465.3,
+        321.0605808375568,
+        90.9,
+        468.3,
+        351.36058083755677
+      ],
+      "volume_mm3": 4147.199999999993,
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "clear_bay": {
+    "x_mm": [
+      -98.5,
+      98.5
+    ],
+    "y_mm": [
+      218.8,
+      465.3
+    ],
+    "z_mm": [
+      253.40001,
+      352
+    ],
+    "rear_wall_thickness_mm": 6.0,
+    "retained_interface_names": [
+      "retained-c14-tunnel-stock",
+      "retained-keystone-stock",
+      "retained-nameplate-stock"
+    ]
+  },
+  "checks": [
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-front-top",
+      "part": "frame",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-front-top",
+      "part": "silicone",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-front-top",
+      "part": "lid",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "retained lower core and seam storey",
+      "shell": "enclosure-front-top",
+      "added_mm3": 0.0,
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-back-top",
+      "part": "frame",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-back-top",
+      "part": "silicone",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "installed native shell mate",
+      "shell": "enclosure-back-top",
+      "part": "lid",
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "retained lower core and seam storey",
+      "shell": "enclosure-back-top",
+      "added_mm3": 0.0,
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 10,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 20,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 40,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "front",
+      "approach_travel_mm": 70,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 10,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 20,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 40,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "local upper-shell/frame closing fit; bay hardware excluded",
+      "shell": "back",
+      "approach_travel_mm": 70,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 4,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 4,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 6,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 6,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 8,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 8,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 16,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 16,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 32,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 32,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 50,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 50,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "front",
+      "lift_mm": 75,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "silicone",
+      "shell": "back",
+      "lift_mm": 75,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 4,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 4,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 6,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 6,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 8,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 8,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "front",
+      "lift_mm": 12,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "customer vertical cleaning lift against upper shells",
+      "part": "lid",
+      "shell": "back",
+      "lift_mm": 12,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    }
+  ],
+  "pass_result": true,
+  "baseline_source_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91",
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/build_shells.py": "0c31297a167faba6d7fd1710be8623a8465dad185c5af1d908fb5ebe73300a2a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c73b5fbc41305e91bf944cfad644ae4d6aa7e83499a0868e0b9210bc1e5ad3d0",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819"
+  },
+  "scope": "Native clear-bay shell stock and enlarged funnel mates. Retained lower, front cartridge, rear C14, keystone and nameplate interfaces remain on their installed datums. New component hosts and rear CO2/CARB station exchange are integrated by the complete study. Geometry is not physical qualification or a print support acceptance.",
+  "annotation_scope": "Local fit-check labels state their hardware exclusion; native parts, poses and measured commons are unchanged."
+}

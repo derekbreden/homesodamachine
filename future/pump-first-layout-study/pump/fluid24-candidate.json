@@ -1,0 +1,332 @@
+{
+  "parts": {
+    "tube-fluid-24": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-24.brep",
+      "sha256": "5e31166bfa58fac877fa92cd65488866cd5f9393dd64db095eae6b4548c72807",
+      "role": "water",
+      "bounds_mm": [
+        -97.97500009999999,
+        102.11906604094021,
+        253.39999989999998,
+        -40.3249999,
+        236.47500010000002,
+        298.7500001
+      ],
+      "detail": "Reservoir B fill keeps the fixed V-I upward attachment and its R14 crown, takes the west perimeter outside VK, descends before its raised plinth, then returns from the fore at Z267.4 through a true cap-normal R14 quarter into the fixed B-fill mouth. Every rounded corner retains R14."
+    }
+  },
+  "replacement_names": [
+    "tube-fluid-24"
+  ],
+  "routes": {
+    "fluid-24": {
+      "from": "valve-v-i.outlet",
+      "to": "cold-core/foam-cap-lid-top.reservoir-b-fill",
+      "kind": "fluid",
+      "points_mm": [
+        [
+          -82.1,
+          105.29,
+          282.175
+        ],
+        [
+          -82.1,
+          105.96881471621755,
+          295.575
+        ],
+        [
+          -82.1,
+          127,
+          295.575
+        ],
+        [
+          -94.8,
+          157,
+          295.575
+        ],
+        [
+          -94.8,
+          205.3,
+          295.575
+        ],
+        [
+          -94.8,
+          205.3,
+          267.4
+        ],
+        [
+          -43.5,
+          205.3,
+          267.4
+        ],
+        [
+          -43.5,
+          233.3,
+          267.4
+        ],
+        [
+          -43.5,
+          233.3,
+          253.4
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": {
+        "1": 13.999999999999973,
+        "2": 13.999999999999973,
+        "3": 13.999999999999973,
+        "4": 13.999999999999973,
+        "5": 13.999999999999973,
+        "6": 13.999999999999973,
+        "7": 13.999999999999973
+      },
+      "tightest_mm": 13.999999999999973,
+      "developed_length_mm": 207.27817841699766,
+      "note": "Reservoir B fill keeps the fixed V-I upward attachment and its R14 crown, takes the west perimeter outside VK, descends before its raised plinth, then returns from the fore at Z267.4 through a true cap-normal R14 quarter into the fixed B-fill mouth. Every rounded corner retains R14."
+    }
+  },
+  "checks": [
+    {
+      "check": "stock R14 at every actual bend",
+      "pass": true,
+      "minimum_radius_mm": 13.999999999999973,
+      "blocked": {}
+    },
+    {
+      "check": "complete native route clears tube-fluid-26",
+      "pass": true,
+      "gap_mm": 13.118791436134028,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears vk-solenoid",
+      "pass": true,
+      "gap_mm": 3.8303564597223376,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears vk-cradle",
+      "pass": true,
+      "gap_mm": 9.249999999999972,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears tube-water-4",
+      "pass": true,
+      "gap_mm": 13.060870663830768,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears tube-water-5",
+      "pass": true,
+      "gap_mm": 13.151030212733087,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears funnel-frame",
+      "pass": true,
+      "gap_mm": 1.1499999999999773,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears tube-fluid-18",
+      "pass": true,
+      "gap_mm": 2.873519235795908,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears tube-fluid-28",
+      "pass": true,
+      "gap_mm": 1.1039727266953239,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears enclosure-back-top with declared matching flank relief",
+      "pass": true,
+      "gap_mm": 5.525000000000006,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "complete native route clears enclosure-front-top",
+      "pass": true,
+      "gap_mm": 0.9999999030670935,
+      "common_mm3": 0.0
+    },
+    {
+      "check": "native forward attachment and crown retained through Y123",
+      "pass": true,
+      "symmetric_difference_mm3": 0.0
+    }
+  ],
+  "pass": true,
+  "clearance_cutters": {
+    "tube-fluid-24": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-24-clearance-cutter.brep",
+      "sha256": "ad77d6dfd08626562de31c3673f9821b4fdfa11316f40f4f17d65a4fc5a01eeb",
+      "bounds_mm": [
+        -98.97500009999999,
+        101.12034668375603,
+        253.39999989999998,
+        -39.3249999,
+        237.47500010000002,
+        299.7500001
+      ],
+      "radial_air_mm": 1,
+      "nominal_flank_stock_remaining_mm": 8.524999900000012,
+      "scope": "Reorganized west flank above the cold-core lid only; preserve fixed conduit mouths."
+    }
+  },
+  "native_clearances": [
+    {
+      "other": "tube-fluid-26",
+      "gap_mm": 13.118791436134028,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "vk-solenoid",
+      "gap_mm": 3.8303564597223376,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "vk-cradle",
+      "gap_mm": 9.249999999999972,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "tube-water-4",
+      "gap_mm": 13.060870663830768,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "tube-water-5",
+      "gap_mm": 13.151030212733087,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "funnel-frame",
+      "gap_mm": 1.1499999999999773,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "tube-fluid-18",
+      "gap_mm": 2.873519235795908,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "tube-fluid-28",
+      "gap_mm": 1.1039727266953239,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "enclosure-back-top",
+      "gap_mm": 5.525000000000006,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "enclosure-front-top",
+      "gap_mm": 0.9999999030670935,
+      "common_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "native_inputs": {
+    "vk-solenoid": {
+      "brep": ".cache/pump-first-layout/pump/vk-solenoid.brep",
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07"
+    },
+    "vk-cradle": {
+      "brep": ".cache/pump-first-layout/pump/vk-cradle.brep",
+      "sha256": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b"
+    },
+    "tube-water-4": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-4.brep",
+      "sha256": "3a8fba7ca0d5174d94ad11a55be323f36dca2cbcb8f209b29e6be0d30f25b721"
+    },
+    "tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5.brep",
+      "sha256": "de0700e5fb1a32ef5bbbddee9fc6ab38d57a534e83e715bcba556972b15a3147"
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep",
+      "sha256": "1803801f5864f68fd396b5d36f3f7625f3b55bf19326f7a8fbec4ac373e15279"
+    },
+    "tube-fluid-18": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-18.brep",
+      "sha256": "847a88e8530bb925c637dcc70ac4145de28d430e691306753d3e3200e073abdf"
+    },
+    "tube-fluid-28": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-28.brep",
+      "sha256": "4abad5cf8c08d4a8762c970ce5c877da859eb3c3ba4c0e5bd10fd9e9a017ab5e"
+    },
+    "enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/structure/enclosure-back-top.brep",
+      "sha256": "2816f9d772b3b3dd507a97c79df241dc1ea52d8f62a8d7370c0a9865fe148468"
+    },
+    "enclosure-front-top": {
+      "brep": ".cache/pump-first-layout/structure/enclosure-front-top.brep",
+      "sha256": "ccaed28d658cdb97f441f35de9bf017c89387de0fc9ebacd084bfb6473bf8cfe"
+    }
+  },
+  "source_sha256": {
+    "baseline": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91",
+    "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd",
+    "future/pump-first-layout-study/pump/build_fluid24.py": "05a05f82db6072b389cf906894da62d2a305c052d79bf3355ed721820f9c64b9"
+  },
+  "manifest_sha256": {
+    "future/pump-first-layout-study/pump/candidate.json": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "future/pump-first-layout-study/funnel/candidate.json": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "future/pump-first-layout-study/routing/candidate.json": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "future/pump-first-layout-study/structure/candidate.json": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "future/pump-first-layout-study/mounts/candidate.json": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "future/pump-first-layout-study/funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "future/pump-first-layout-study/mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0",
+    "future/pump-first-layout-study/pump/build_fluid24.py": "05a05f82db6072b389cf906894da62d2a305c052d79bf3355ed721820f9c64b9",
+    "future/pump-first-layout-study/pump/generate.py": "0156f884fba9a5183f6728fa94b38310a9abdc9735889c79b20fe281acb69110",
+    "future/pump-first-layout-study/structure/proof_sources.py": "6ec264670856c41536e1b5afc6025a1739830c9d23c0931348affd2cb76c4296",
+    "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd"
+  },
+  "source_drift": [],
+  "manifest_drift": [],
+  "received_native_checks": [
+    {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-24.brep",
+      "missing_mm3": 0.0,
+      "excess_mm3": 0.0,
+      "volume_error_mm3": 3.637978807091713e-11,
+      "area_error_mm2": 3.637978807091713e-12,
+      "bounds_error_mm": 0.0,
+      "pass": true
+    },
+    {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-24-clearance-cutter.brep",
+      "missing_mm3": 0.0,
+      "excess_mm3": 0.0,
+      "volume_error_mm3": 5.275069270282984e-11,
+      "area_error_mm2": 6.366462912410498e-12,
+      "bounds_error_mm": 0.0,
+      "pass": true
+    }
+  ],
+  "qualification_limits": [
+    "Exact nominal stock radius and complete swept occupancy are checked. Tube memory, appliance vibration, installation tolerances and attachment strength require physical qualification."
+  ]
+}

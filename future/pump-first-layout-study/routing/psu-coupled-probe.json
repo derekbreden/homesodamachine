@@ -1,0 +1,4840 @@
+{
+  "selected_geometry_changed": false,
+  "complete_layout_feasible": false,
+  "hypothesis": {
+    "aft_funnel_growth_mm": 45.0,
+    "group_translation_mm": [
+      0,
+      -8,
+      0
+    ],
+    "controller_translation_mm": [
+      0,
+      -14,
+      0
+    ]
+  },
+  "capacity_to_brim_ml": 650.1057489453202,
+  "preview_funnel_parts": {
+    "funnel": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-aft45.brep",
+      "sha256": "21134ce1b31d31379bccae04f4d9aed89b7f6c958be67d91a9b3d2d74d3a0d2f",
+      "bounds_mm": [
+        -89.5,
+        98.70849207671873,
+        306.0499999,
+        89.5,
+        275.3915079232813,
+        355.0
+      ],
+      "valid_one_solid": true
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-frame-aft45.brep",
+      "sha256": "d087a1bbc23732d4daa2fcaf8613817f293360b0c1368c647761298ff638a60d",
+      "bounds_mm": [
+        -103.5000001,
+        95.45849197671873,
+        299.89999986228213,
+        103.50000010000002,
+        280.6915079232813,
+        355.0
+      ],
+      "valid_one_solid": true
+    },
+    "funnel-cover": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-cover-aft45.brep",
+      "sha256": "eccfd68a786f831af83432128ba22794b56e49e0ffee61bb856151d9369a7981",
+      "bounds_mm": [
+        -91.0,
+        93.20849207671873,
+        348.9999999,
+        91.0,
+        276.8915079232813,
+        358.0
+      ],
+      "valid_one_solid": true
+    }
+  },
+  "fixed_rear_carb2_envelope_parity": {
+    "members": [
+      {
+        "kind": "CYLINDER",
+        "length_mm": 0.3470709827454357,
+        "paired_missing_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "kind": "TORUS",
+        "length_mm": 6.650214504736282,
+        "paired_missing_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "kind": "TORUS",
+        "length_mm": 6.650214504736282,
+        "paired_missing_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "kind": "CYLINDER",
+        "length_mm": 0.3470709827454357,
+        "paired_missing_mm3": 0.0,
+        "pass": true
+      }
+    ],
+    "complete_length_mm": 13.994570974963436,
+    "received_section_volume_mm3": 7091.153779774701,
+    "member_section_volume_mm3": 7091.153779774722,
+    "radial_air_mm": 0.0,
+    "tangent_full_section_seams": [
+      {
+        "centre_mm": [
+          84.5,
+          433.357071,
+          332.1
+        ],
+        "diameter_mm": 25.4,
+        "outward_tangent_dot": -1.0,
+        "full_section_face_coincidence": true,
+        "pass": true
+      },
+      {
+        "centre_mm": [
+          84.5,
+          439.76,
+          330.55
+        ],
+        "diameter_mm": 25.4,
+        "outward_tangent_dot": -1.0,
+        "full_section_face_coincidence": true,
+        "pass": true
+      },
+      {
+        "centre_mm": [
+          84.5,
+          446.162929,
+          329.0
+        ],
+        "diameter_mm": 25.4,
+        "outward_tangent_dot": -1.0,
+        "full_section_face_coincidence": true,
+        "pass": true
+      }
+    ],
+    "open_end_centres_mm": [
+      [
+        84.5,
+        433.01,
+        332.1
+      ],
+      [
+        84.5,
+        446.51,
+        329.0
+      ]
+    ],
+    "physical_member_self_checks": [
+      {
+        "members": [
+          0,
+          1
+        ],
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "members": [
+          1,
+          2
+        ],
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "members": [
+          2,
+          3
+        ],
+        "common_mm3": 0.0,
+        "pass": true
+      }
+    ],
+    "clearance_union_containment_checks": [],
+    "clearance_union_valid_one_solid": false,
+    "scope": "Each received cylinder/torus lateral face supplies the exact centreline and cross-section boundaries. Surface areas and complete circular-section volume match. Every native physical member is contained by its own concentric enlarged clearance member.",
+    "supplied_centreline_length_mm": 13.994570974963432,
+    "centreline_length_error_mm": 3.552713678800501e-15,
+    "saved_centreline_lateral_correspondence": {
+      "received_lateral_faces": [
+        {
+          "kind": "CYLINDER",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              433.01,
+              332.1
+            ],
+            [
+              84.5,
+              433.3570709827454,
+              332.1
+            ]
+          ],
+          "area_mm2": 27.695033501548195
+        },
+        {
+          "kind": "TORUS",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              433.3570709827454,
+              332.1
+            ],
+            [
+              84.5,
+              439.76,
+              330.55
+            ]
+          ],
+          "area_mm2": 530.6635318350446,
+          "major_radius_mm": 14.000000000000739,
+          "arc_centre_mm": [
+            84.5,
+            433.35707098274526,
+            318.0999999999993
+          ]
+        },
+        {
+          "kind": "TORUS",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              439.76,
+              330.55
+            ],
+            [
+              84.5,
+              446.16292901725456,
+              329.0
+            ]
+          ],
+          "area_mm2": 530.663531835045,
+          "major_radius_mm": 14.000000000000743,
+          "arc_centre_mm": [
+            84.5,
+            446.1629290172547,
+            343.00000000000074
+          ]
+        },
+        {
+          "kind": "CYLINDER",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              446.16292901725456,
+              329.0
+            ],
+            [
+              84.5,
+              446.51,
+              329.0
+            ]
+          ],
+          "area_mm2": 27.695033501548195
+        }
+      ],
+      "expected_lateral_faces": [
+        {
+          "kind": "CYLINDER",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              433.01,
+              332.1
+            ],
+            [
+              84.5,
+              433.3570709827454,
+              332.1
+            ]
+          ],
+          "area_mm2": 27.695033501548195
+        },
+        {
+          "kind": "TORUS",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              433.3570709827454,
+              332.1
+            ],
+            [
+              84.5,
+              439.76,
+              330.55
+            ]
+          ],
+          "area_mm2": 530.6635318350446,
+          "major_radius_mm": 14.000000000000739,
+          "arc_centre_mm": [
+            84.5,
+            433.35707098274526,
+            318.0999999999993
+          ]
+        },
+        {
+          "kind": "TORUS",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              439.76,
+              330.55
+            ],
+            [
+              84.5,
+              446.16292901725456,
+              329.0
+            ]
+          ],
+          "area_mm2": 530.663531835045,
+          "major_radius_mm": 14.000000000000743,
+          "arc_centre_mm": [
+            84.5,
+            446.1629290172547,
+            343.00000000000074
+          ]
+        },
+        {
+          "kind": "CYLINDER",
+          "radius_mm": 12.7,
+          "section_centres_mm": [
+            [
+              84.5,
+              446.16292901725456,
+              329.0
+            ],
+            [
+              84.5,
+              446.51,
+              329.0
+            ]
+          ],
+          "area_mm2": 27.695033501548195
+        }
+      ],
+      "face_matches": [
+        {
+          "received_face": 0,
+          "expected_face": 0,
+          "pass": true
+        },
+        {
+          "received_face": 1,
+          "expected_face": 1,
+          "pass": true
+        },
+        {
+          "received_face": 2,
+          "expected_face": 2,
+          "pass": true
+        },
+        {
+          "received_face": 3,
+          "expected_face": 3,
+          "pass": true
+        }
+      ],
+      "unmatched_expected_faces": [],
+      "pass": true
+    },
+    "centreline_correspondence_pass": true,
+    "received_valid": true,
+    "physical_members_valid": true,
+    "diameter_mm": 25.4,
+    "pass": true,
+    "received_annular_sleeve": {
+      "valid": true,
+      "solids": 1,
+      "outer_lateral_correspondence": {
+        "received_lateral_faces": [
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.01,
+                332.1
+              ],
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ]
+            ],
+            "area_mm2": 27.695033501548195
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ],
+              [
+                84.5,
+                439.76,
+                330.55
+              ]
+            ],
+            "area_mm2": 530.6635318350457,
+            "major_radius_mm": 14.000000000000739,
+            "arc_centre_mm": [
+              84.5,
+              433.35707098274526,
+              318.0999999999993
+            ]
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 12.700000000000003,
+            "section_centres_mm": [
+              [
+                84.5,
+                439.76,
+                330.55
+              ],
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ]
+            ],
+            "area_mm2": 530.6635318350453,
+            "major_radius_mm": 14.000000000000743,
+            "arc_centre_mm": [
+              84.5,
+              446.1629290172547,
+              343.00000000000074
+            ]
+          },
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ],
+              [
+                84.5,
+                446.51,
+                329.0
+              ]
+            ],
+            "area_mm2": 27.695033501548195
+          }
+        ],
+        "expected_lateral_faces": [
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.01,
+                332.1
+              ],
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ]
+            ],
+            "area_mm2": 27.695033501548195
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ],
+              [
+                84.5,
+                439.76,
+                330.55
+              ]
+            ],
+            "area_mm2": 530.6635318350446,
+            "major_radius_mm": 14.000000000000739,
+            "arc_centre_mm": [
+              84.5,
+              433.35707098274526,
+              318.0999999999993
+            ]
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                439.76,
+                330.55
+              ],
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ]
+            ],
+            "area_mm2": 530.663531835045,
+            "major_radius_mm": 14.000000000000743,
+            "arc_centre_mm": [
+              84.5,
+              446.1629290172547,
+              343.00000000000074
+            ]
+          },
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 12.7,
+            "section_centres_mm": [
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ],
+              [
+                84.5,
+                446.51,
+                329.0
+              ]
+            ],
+            "area_mm2": 27.695033501548195
+          }
+        ],
+        "face_matches": [
+          {
+            "received_face": 0,
+            "expected_face": 0,
+            "pass": true
+          },
+          {
+            "received_face": 1,
+            "expected_face": 1,
+            "pass": true
+          },
+          {
+            "received_face": 2,
+            "expected_face": 2,
+            "pass": true
+          },
+          {
+            "received_face": 3,
+            "expected_face": 3,
+            "pass": true
+          }
+        ],
+        "unmatched_expected_faces": [],
+        "pass": true
+      },
+      "inner_lateral_correspondence": {
+        "received_lateral_faces": [
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.01,
+                332.1
+              ],
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ]
+            ],
+            "area_mm2": 6.923758375387049
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ],
+              [
+                84.5,
+                439.76,
+                330.55
+              ]
+            ],
+            "area_mm2": 132.66588295876136,
+            "major_radius_mm": 14.000000000000739,
+            "arc_centre_mm": [
+              84.5,
+              433.35707098274526,
+              318.0999999999993
+            ]
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 3.1750000000000007,
+            "section_centres_mm": [
+              [
+                84.5,
+                439.76,
+                330.55
+              ],
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ]
+            ],
+            "area_mm2": 132.66588295876122,
+            "major_radius_mm": 14.000000000000743,
+            "arc_centre_mm": [
+              84.5,
+              446.1629290172547,
+              343.00000000000074
+            ]
+          },
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ],
+              [
+                84.5,
+                446.51,
+                329.0
+              ]
+            ],
+            "area_mm2": 6.923758375387049
+          }
+        ],
+        "expected_lateral_faces": [
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.01,
+                332.1
+              ],
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ]
+            ],
+            "area_mm2": 6.923758375387049
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                433.3570709827454,
+                332.1
+              ],
+              [
+                84.5,
+                439.76,
+                330.55
+              ]
+            ],
+            "area_mm2": 132.66588295876136,
+            "major_radius_mm": 14.000000000000739,
+            "arc_centre_mm": [
+              84.5,
+              433.35707098274526,
+              318.0999999999993
+            ]
+          },
+          {
+            "kind": "TORUS",
+            "radius_mm": 3.1750000000000007,
+            "section_centres_mm": [
+              [
+                84.5,
+                439.76,
+                330.55
+              ],
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ]
+            ],
+            "area_mm2": 132.66588295876122,
+            "major_radius_mm": 14.000000000000743,
+            "arc_centre_mm": [
+              84.5,
+              446.1629290172547,
+              343.00000000000074
+            ]
+          },
+          {
+            "kind": "CYLINDER",
+            "radius_mm": 3.175,
+            "section_centres_mm": [
+              [
+                84.5,
+                446.16292901725456,
+                329.0
+              ],
+              [
+                84.5,
+                446.51,
+                329.0
+              ]
+            ],
+            "area_mm2": 6.923758375387049
+          }
+        ],
+        "face_matches": [
+          {
+            "received_face": 0,
+            "expected_face": 0,
+            "pass": true
+          },
+          {
+            "received_face": 1,
+            "expected_face": 1,
+            "pass": true
+          },
+          {
+            "received_face": 2,
+            "expected_face": 2,
+            "pass": true
+          },
+          {
+            "received_face": 3,
+            "expected_face": 3,
+            "pass": true
+          }
+        ],
+        "unmatched_expected_faces": [],
+        "pass": true
+      },
+      "native_planar_end_area_mm2": 950.076523307808,
+      "expected_annular_end_area_mm2": 950.0765233078082,
+      "end_section_pass": true,
+      "native_material_volume_mm3": 6647.956668538785,
+      "expected_annular_material_volume_mm3": 6647.956668538811,
+      "material_volume_pass": true,
+      "material_outside_occupied_outer_mm3": 0.0,
+      "tube_outside_occupied_outer_mm3": 0.0,
+      "native_containment_pass": true,
+      "scope": "Full occupied outer circular section; the saved insulation material is separately matched on both lateral surfaces and both annular ends. This does not treat the lumen as available space."
+    }
+  },
+  "moved_parts": {
+    "flavor-pair-wall-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-mount-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hose-clamp-pump-suction": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water3-east-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-gnd": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water2-tube-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-sensors": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "ground-stack": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "digiten-flow": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-boss-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wr1110": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-lid-platform": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water5-east-drop-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-n": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "gas-inlet-east-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-mount-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-washer-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "needle-feed-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-boss-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-mount-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-washer-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-silicone-cap-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-washer-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "discharge-chain-clip-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "co2-adapter-check-out": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "gas-inlet-east-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-screw-2": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "controller-roof-boss-3": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "discharge-chain-anchor": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-screw-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-washer-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-screw-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-screw-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "co2-adapter-regulator-in": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-roof-boss-1": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "supply-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "needle-retention-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-screw-3": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "asse1022-assembly": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-boss-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-beam-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-controller-rear-bridge": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-head-spacer-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "discharge-chain": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-washer-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water3-west-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-boss-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "suction-chain": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "g-ganen-pump": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-washer-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "discharge-chain-lower-key": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hose-clamp-chain-suction": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "tee-retention-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-head-spacer-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-mount-screw-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "co2-adapter-check-in": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-carrier-clamp-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-boss-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-web-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "needle-lid-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water5-east-drop-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "suction-chain-clip-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "west-junction-platform": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "meter-roof-seat-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water2-tube-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hose-clamp-pump-discharge": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-web-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water-split": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water2-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water3-west-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-roof-seat-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-head-spacer-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "flow-regulator": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-seam-silicone": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "flavor-pair-wall-key": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pcba": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "gas-outlet-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "psu": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-web-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wr-regulator-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-reeds-b": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-roof-seat-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-reeds-a": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-carrier-clamp-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-mount-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "check-retention-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "gate-a-east-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "ground-roof-boss": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "suction-chain-upper-key": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-drip-pan": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-boss-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-tube-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "meter-roof-seat-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "meter-retention-tie-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-mount-screw-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-retention-tie-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-mount-screw-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "suction-chain-clip-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "flavor-pair-wall-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wr-regulator-retention-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "discharge-chain-clip-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hose-clamp-chain-discharge": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water3-east-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "needle-feed-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-web-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-1-mount-screw-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-screw-4": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "hatch-screw-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-v12": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "gasher-co2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "suction-chain-anchor": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-roof-boss-2": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "moisture-plate": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "meter-retention-tie-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water2-tube-key": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "flavor-pair-wall-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "water5-east-drop-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-silicone-cap-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-lid-boss-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "gate-a-east-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-beam-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-carrier-screw-2": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "co2-adapter-regulator-out": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-screw-1": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "water5-east-drop-key": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-silicone-cap-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-retention-tie-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "tee-lid-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-h": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "wago-g": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "controller-roof-boss-4": [
+      0.0,
+      -14.0,
+      0.0
+    ],
+    "gas-outlet-tube-tie": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-roof-boss-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-screw-silicone-cap-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-washer-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "hatch-lap-ledge": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-removable-carrier": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "check-lid-seat": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "relay-2-head-spacer-1": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "pump-washer-4": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "supply-screw-3": [
+      0.0,
+      -8.0,
+      0.0
+    ],
+    "asse-carrier-screw-1": [
+      0.0,
+      -8.0,
+      0.0
+    ]
+  },
+  "fixed_rigid_parts": [
+    "bulkhead-carb",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-carb-word",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-co2-word",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-a-word",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-flavor-b-word",
+    "bulkhead-ring-water",
+    "bulkhead-ring-water-word",
+    "bulkhead-water",
+    "c14-inlet",
+    "co2-inlet",
+    "cold-core/foam-cap-lid-top",
+    "cold-core/foam-cap-top",
+    "elbow-cradle",
+    "fixed-rear-carb2-occupied-envelope",
+    "flavor-a-fore-key",
+    "flavor-a-fore-screw-1",
+    "flavor-a-fore-screw-2",
+    "flavor-a-fore-seat",
+    "funnel",
+    "funnel-cover",
+    "funnel-drain-union",
+    "funnel-frame",
+    "gas-inlet-west-tube-seat",
+    "gas-inlet-west-tube-tie",
+    "gate-a-upper-tube-seat",
+    "gate-a-upper-tube-tie",
+    "keystone-jack",
+    "keystone-new_receiver",
+    "nameplate",
+    "nameplate-ink",
+    "nameplate-new_backing",
+    "nameplate-new_receiver",
+    "source-a-cradle",
+    "source-b-cradle",
+    "tube-collar-co2",
+    "tube-collar-co2-word",
+    "tube-collar-water",
+    "tube-collar-water-word",
+    "valve-v-a",
+    "valve-v-b",
+    "vk-cradle",
+    "vk-solenoid",
+    "water5-front-retention-tie",
+    "water5-front-seat"
+  ],
+  "supply_bounds_mm": [
+    -45.0,
+    403.30000000000007,
+    289.75,
+    64.00000000000006,
+    455.30000000000007,
+    323.25
+  ],
+  "controller_bounds_mm": [
+    -19.00000000000001,
+    312.8,
+    327.9,
+    53.8,
+    403.61606375,
+    349.00000719999997
+  ],
+  "supply_controller_air_mm": 11.016564161641625,
+  "supply_rear_wall_air_mm": 9.999999999999943,
+  "supply_pump_air_mm": 10.194314638469663,
+  "supply_fixed_rear_carb2_full_envelope_air_mm": 21.28988820222862,
+  "controller_local_fore_scan": [
+    {
+      "controller_translation_mm": [
+        0,
+        -12.0,
+        0
+      ],
+      "supply_air_mm": 9.4365746395377,
+      "asse_roof_seat_2_air_mm": 0.44999999999998863,
+      "asse_roof_seat_2_common_mm3": 0.0,
+      "asse_carrier_air_mm": 11.54851588043499,
+      "funnel_frame_air_mm": 34.10849207671873,
+      "scope": "Local board/ASSE holder spacing only. Complete controller supports and all other body/route constraints are not re-proved by this small scan."
+    },
+    {
+      "controller_translation_mm": [
+        0,
+        -12.5,
+        0
+      ],
+      "supply_air_mm": 9.817223496364244,
+      "asse_roof_seat_2_air_mm": 0.0,
+      "asse_roof_seat_2_common_mm3": 0.28439712000006573,
+      "asse_carrier_air_mm": 11.513503577332756,
+      "funnel_frame_air_mm": 33.60849207671873,
+      "scope": "Local board/ASSE holder spacing only. Complete controller supports and all other body/route constraints are not re-proved by this small scan."
+    },
+    {
+      "controller_translation_mm": [
+        0,
+        -13.0,
+        0
+      ],
+      "supply_air_mm": 10.208173853709896,
+      "asse_roof_seat_2_air_mm": 0.0,
+      "asse_roof_seat_2_common_mm3": 3.1283683200000194,
+      "asse_carrier_air_mm": 11.500143921266774,
+      "funnel_frame_air_mm": 33.10849207671873,
+      "scope": "Local board/ASSE holder spacing only. Complete controller supports and all other body/route constraints are not re-proved by this small scan."
+    },
+    {
+      "controller_translation_mm": [
+        0,
+        -14.0,
+        0
+      ],
+      "supply_air_mm": 11.016564161641625,
+      "asse_roof_seat_2_air_mm": 0.0,
+      "asse_roof_seat_2_common_mm3": 8.816310719999926,
+      "asse_carrier_air_mm": 11.500000399999976,
+      "funnel_frame_air_mm": 32.10849207671873,
+      "scope": "Local board/ASSE holder spacing only. Complete controller supports and all other body/route constraints are not re-proved by this small scan."
+    }
+  ],
+  "pan_kept_at_selected_pose_probe": {
+    "bounds_mm": [
+      -107.5,
+      279.5999999,
+      254.3999999,
+      -1.0,
+      338.60000010000005,
+      266.40000010000006
+    ],
+    "moved_vent_y_mm": 302.3,
+    "selected_flat_floor_y_interval_mm": [
+      288.1,
+      330.1
+    ],
+    "vent_full_9_53mm_footprint_y_air_mm": 9.435000000000002,
+    "native_pairs": [
+      {
+        "part": "g-ganen-pump",
+        "air_mm": 0.9871654932282873,
+        "common_mm3": 0.0
+      },
+      {
+        "part": "suction-chain-anchor",
+        "air_mm": 2.0,
+        "common_mm3": 0.0
+      },
+      {
+        "part": "gas-inlet-west-tube-seat",
+        "air_mm": 1.9500000000000455,
+        "common_mm3": 0.0
+      },
+      {
+        "part": "gas-inlet-west-tube-tie",
+        "air_mm": 4.100000000000023,
+        "common_mm3": 0.0
+      }
+    ],
+    "scope": "Holding the complete selected pan keeps the moved ASSE vent footprint over its flat floor. These pair checks determine whether the moved rigid package permits that held pan; its factory removal and sensing need a new coupled proof."
+  },
+  "supply_rigid_surround": [
+    {
+      "part": "g-ganen-pump",
+      "air_mm": 10.194314638469663,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "discharge-chain",
+      "air_mm": 10.25,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "discharge-chain-lower-key",
+      "air_mm": 7.100000000000023,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "discharge-chain-anchor",
+      "air_mm": 7.3370634452756365,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "hose-clamp-pump-discharge",
+      "air_mm": 10.076627592299397,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": true
+    },
+    {
+      "part": "hose-clamp-chain-discharge",
+      "air_mm": 7.75,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "co2-inlet",
+      "air_mm": 10.172800194055688,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": true
+    },
+    {
+      "part": "keystone-jack",
+      "air_mm": 11.424999999999997,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "ground-stack",
+      "air_mm": 10.149999999999977,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "pcba",
+      "air_mm": 11.016564161641625,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "relay-lid-platform",
+      "air_mm": 11.75,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": true
+    },
+    {
+      "part": "west-junction-platform",
+      "air_mm": 10.0,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    },
+    {
+      "part": "gas-outlet-tube-seat",
+      "air_mm": 1.0,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": false
+    },
+    {
+      "part": "gas-outlet-tube-tie",
+      "air_mm": 4.5,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": false
+    },
+    {
+      "part": "bulkhead-flavor-a",
+      "air_mm": 9.29599989999997,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": true
+    },
+    {
+      "part": "keystone-new_receiver",
+      "air_mm": 10.340696301506972,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": true
+    }
+  ],
+  "surround_distance_failures": [
+    {
+      "part": "discharge-chain-lower-key",
+      "air_mm": 7.100000000000023,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "discharge-chain-anchor",
+      "air_mm": 7.3370634452756365,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "hose-clamp-chain-discharge",
+      "air_mm": 7.75,
+      "required_distance_mm": 10.0,
+      "below_base_plane": false,
+      "pass": false
+    },
+    {
+      "part": "gas-outlet-tube-seat",
+      "air_mm": 1.0,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": false
+    },
+    {
+      "part": "gas-outlet-tube-tie",
+      "air_mm": 4.5,
+      "required_distance_mm": 5.0,
+      "below_base_plane": true,
+      "pass": false
+    }
+  ],
+  "rigid_interferences": [
+    {
+      "parts": [
+        "valve-v-b",
+        "suction-chain-anchor"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 282.2759043643541
+    },
+    {
+      "parts": [
+        "source-b-cradle",
+        "suction-chain-upper-key"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 15.63590838084756
+    },
+    {
+      "parts": [
+        "asse-drip-pan",
+        "gas-inlet-west-tube-seat"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 198.08907487029828
+    },
+    {
+      "parts": [
+        "asse-drip-pan",
+        "gas-inlet-west-tube-tie"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 41.58548753033012
+    },
+    {
+      "parts": [
+        "moisture-plate",
+        "gas-inlet-west-tube-seat"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 8.359999999999427
+    },
+    {
+      "parts": [
+        "pcba",
+        "asse-roof-seat-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 8.816310719999926
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "hatch-seam-silicone"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 10.746465520234619
+    },
+    {
+      "parts": [
+        "controller-screw-4",
+        "hatch-controller-rear-bridge"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 2.8274333882306504
+    }
+  ],
+  "close_rigid_pairs": [
+    {
+      "parts": [
+        "g-ganen-pump",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-washer-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-screw-1"
+      ],
+      "air_mm": 0.39999999999997726,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-washer-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-screw-2"
+      ],
+      "air_mm": 0.39999999999997726,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-washer-3"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-screw-3"
+      ],
+      "air_mm": 0.39999999999997726,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-washer-4"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "pump-screw-4"
+      ],
+      "air_mm": 0.39999999999997726,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "wr-regulator-retention-tie"
+      ],
+      "air_mm": 0.8083118255196637,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "supply-tube-tie"
+      ],
+      "air_mm": 0.49842117560504273,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "vk-solenoid",
+        "suction-chain"
+      ],
+      "air_mm": 0.16912508661591008,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "suction-chain",
+        "suction-chain-anchor"
+      ],
+      "air_mm": 0.14999999999995675,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "suction-chain",
+        "suction-chain-upper-key"
+      ],
+      "air_mm": 0.39999999999995967,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain",
+        "discharge-chain-lower-key"
+      ],
+      "air_mm": 0.14999999999996305,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain",
+        "discharge-chain-anchor"
+      ],
+      "air_mm": 0.14999999999997346,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "asse-drip-pan"
+      ],
+      "air_mm": 0.9999898000000087,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "gas-inlet-east-tube-tie"
+      ],
+      "air_mm": 0.4249997999999948,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pump-washer-1",
+        "pump-screw-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pump-washer-2",
+        "pump-screw-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pump-washer-3",
+        "pump-screw-3"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pump-washer-4",
+        "pump-screw-4"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "suction-chain-anchor",
+        "suction-chain-upper-key"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "suction-chain-anchor",
+        "gas-inlet-west-tube-tie"
+      ],
+      "air_mm": 0.5749999999999886,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-clip-screw-1",
+        "discharge-chain-lower-key"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-clip-screw-1",
+        "discharge-chain-anchor"
+      ],
+      "air_mm": 0.49999999999996686,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-clip-screw-2",
+        "discharge-chain-lower-key"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-clip-screw-2",
+        "discharge-chain-anchor"
+      ],
+      "air_mm": 0.49999999999998174,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-lower-key",
+        "discharge-chain-anchor"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-lower-key",
+        "ground-stack"
+      ],
+      "air_mm": 0.4944410108488408,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-lower-key",
+        "ground-roof-boss"
+      ],
+      "air_mm": 0.4944410108488408,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "discharge-chain-anchor",
+        "hatch-seam-silicone"
+      ],
+      "air_mm": 0.32499999999998863,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-drip-pan",
+        "moisture-plate"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse1022-assembly",
+        "asse-removable-carrier"
+      ],
+      "air_mm": 0.2499999999931788,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse1022-assembly",
+        "asse-retention-tie-1"
+      ],
+      "air_mm": 0.2500000000032401,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse1022-assembly",
+        "asse-retention-tie-2"
+      ],
+      "air_mm": 0.2500000000032401,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "meter-roof-seat-1"
+      ],
+      "air_mm": 0.25406866524918664,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "meter-retention-tie-1"
+      ],
+      "air_mm": 0.32665668180163404,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "meter-roof-seat-2"
+      ],
+      "air_mm": 0.2540686652491865,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "digiten-flow",
+        "meter-retention-tie-2"
+      ],
+      "air_mm": 0.3266566818016309,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "flow-regulator",
+        "needle-lid-seat"
+      ],
+      "air_mm": 0.25,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "gasher-co2",
+        "check-lid-seat"
+      ],
+      "air_mm": 0.14999999999770353,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "gasher-co2",
+        "check-retention-tie"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "water-split",
+        "tee-lid-seat"
+      ],
+      "air_mm": 0.14999999999997235,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "water-split",
+        "tee-retention-tie"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "wr1110",
+        "wr-regulator-seat"
+      ],
+      "air_mm": 0.149999999998059,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "wr1110",
+        "wr-regulator-retention-tie"
+      ],
+      "air_mm": 0.2999999999988459,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pcba",
+        "water2-tube-seat"
+      ],
+      "air_mm": 0.6000000000000085,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "pcba",
+        "water2-tube-key"
+      ],
+      "air_mm": 0.6000000000000085,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "controller-roof-boss-1",
+        "controller-screw-1"
+      ],
+      "air_mm": 0.49999999999996214,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "controller-roof-boss-2",
+        "controller-screw-2"
+      ],
+      "air_mm": 0.49999999999996214,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "controller-roof-boss-2",
+        "hatch-seam-silicone"
+      ],
+      "air_mm": 0.5566877140747852,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "controller-roof-boss-3",
+        "controller-screw-3"
+      ],
+      "air_mm": 0.49999999999996086,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "controller-screw-4"
+      ],
+      "air_mm": 0.49999999999996086,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-lid-boss-1",
+        "supply-screw-1"
+      ],
+      "air_mm": 0.49999999999998385,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-washer-1",
+        "supply-screw-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-screw-1",
+        "supply-lid-web-1"
+      ],
+      "air_mm": 0.75,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-lid-boss-2",
+        "supply-screw-2"
+      ],
+      "air_mm": 0.49999999999998385,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-washer-2",
+        "supply-screw-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-screw-2",
+        "supply-lid-web-1"
+      ],
+      "air_mm": 0.75,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-lid-boss-3",
+        "supply-screw-3"
+      ],
+      "air_mm": 0.49999999999998385,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-washer-3",
+        "supply-screw-3"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-screw-3",
+        "supply-lid-web-2"
+      ],
+      "air_mm": 0.75,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-lid-boss-4",
+        "supply-screw-4"
+      ],
+      "air_mm": 0.49999999999998385,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-washer-4",
+        "supply-screw-4"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "supply-screw-4",
+        "supply-lid-web-2"
+      ],
+      "air_mm": 0.75,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "wr-regulator-retention-tie"
+      ],
+      "air_mm": 0.4999999999997263,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-removable-carrier",
+        "asse-carrier-clamp-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-removable-carrier",
+        "asse-carrier-clamp-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-removable-carrier",
+        "asse-retention-tie-1"
+      ],
+      "air_mm": 0.0999999999999659,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-removable-carrier",
+        "asse-retention-tie-2"
+      ],
+      "air_mm": 0.0999999999999659,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-roof-seat-1",
+        "asse-carrier-clamp-1"
+      ],
+      "air_mm": 5.684341886080802e-14,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-roof-seat-1",
+        "asse-carrier-screw-1"
+      ],
+      "air_mm": 0.49999999999997574,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-roof-seat-2",
+        "asse-carrier-clamp-2"
+      ],
+      "air_mm": 5.684341886080802e-14,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-roof-seat-2",
+        "asse-carrier-screw-2"
+      ],
+      "air_mm": 0.4999999999999831,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-carrier-clamp-1",
+        "asse-carrier-screw-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "asse-carrier-clamp-2",
+        "asse-carrier-screw-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "meter-roof-seat-1",
+        "meter-retention-tie-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "meter-roof-seat-2",
+        "meter-retention-tie-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "needle-lid-seat",
+        "needle-retention-tie"
+      ],
+      "air_mm": 0.34999999999997583,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "wr-regulator-seat",
+        "wr-regulator-retention-tie"
+      ],
+      "air_mm": 0.14999999999957278,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "check-lid-seat",
+        "check-retention-tie"
+      ],
+      "air_mm": 0.19999999999970441,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "tee-lid-seat",
+        "tee-retention-tie"
+      ],
+      "air_mm": 0.1999999999999857,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "water5-east-drop-seat",
+        "water5-east-drop-key"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-seam-silicone"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-controller-rear-bridge"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-roof-web-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-1"
+      ],
+      "air_mm": 0.5749999999999886,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-2"
+      ],
+      "air_mm": 0.5749999999999886,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-3"
+      ],
+      "air_mm": 0.5749999999999957,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-4"
+      ],
+      "air_mm": 0.5749999999999886,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-silicone-cap-1"
+      ],
+      "air_mm": 0.4250000000000007,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-silicone-cap-2"
+      ],
+      "air_mm": 0.42499999999999716,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-silicone-cap-3"
+      ],
+      "air_mm": 0.42499999999999716,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-seam-silicone",
+        "hatch-screw-silicone-cap-4"
+      ],
+      "air_mm": 0.42499999999999716,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-1",
+        "hatch-screw-1"
+      ],
+      "air_mm": 0.4999999999999571,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-beam-1",
+        "hatch-screw-1"
+      ],
+      "air_mm": 0.499999999999977,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-2",
+        "hatch-screw-2"
+      ],
+      "air_mm": 0.49999999999995887,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-3",
+        "hatch-screw-3"
+      ],
+      "air_mm": 0.49999999999995887,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-beam-3",
+        "hatch-screw-3"
+      ],
+      "air_mm": 0.49999999999996647,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-4",
+        "hatch-screw-4"
+      ],
+      "air_mm": 0.49999999999994116,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-screw-1",
+        "hatch-screw-silicone-cap-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-screw-2",
+        "hatch-screw-silicone-cap-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-screw-3",
+        "hatch-screw-silicone-cap-3"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    },
+    {
+      "parts": [
+        "hatch-screw-4",
+        "hatch-screw-silicone-cap-4"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 0.0
+    }
+  ],
+  "checked_rigid_pairs": 218,
+  "declared_contacts": [
+    {
+      "parts": [
+        "g-ganen-pump",
+        "hose-clamp-pump-suction"
+      ],
+      "reason": "barb engagement or clamp bearing"
+    },
+    {
+      "parts": [
+        "g-ganen-pump",
+        "hose-clamp-pump-discharge"
+      ],
+      "reason": "barb engagement or clamp bearing"
+    },
+    {
+      "parts": [
+        "suction-chain",
+        "hose-clamp-chain-suction"
+      ],
+      "reason": "barb engagement or clamp bearing"
+    },
+    {
+      "parts": [
+        "discharge-chain",
+        "hose-clamp-chain-discharge"
+      ],
+      "reason": "barb engagement or clamp bearing"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "suction-chain-anchor"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "supply-lid-boss-4"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "supply-lid-web-1"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "supply-lid-web-2"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "relay-1-mount-screw-3"
+      ],
+      "reason": "declared relocated blind-pilot station requiring parent-stock recut"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "relay-1-mount-screw-4"
+      ],
+      "reason": "declared relocated blind-pilot station requiring parent-stock recut"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "relay-2-mount-screw-1"
+      ],
+      "reason": "declared relocated blind-pilot station requiring parent-stock recut"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "relay-2-mount-screw-2"
+      ],
+      "reason": "declared relocated blind-pilot station requiring parent-stock recut"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "relay-lid-platform"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "needle-lid-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "check-lid-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "tee-lid-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "needle-feed-tube-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "gate-a-east-tube-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "gas-inlet-east-tube-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "gas-outlet-tube-seat"
+      ],
+      "reason": "declared print root"
+    },
+    {
+      "parts": [
+        "source-b-cradle",
+        "suction-chain-anchor"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "suction-chain-clip-screw-1",
+        "suction-chain-anchor"
+      ],
+      "reason": "preserved suction-chain screw/pilot assembly"
+    },
+    {
+      "parts": [
+        "suction-chain-clip-screw-1",
+        "suction-chain-upper-key"
+      ],
+      "reason": "preserved suction-chain screw/pilot assembly"
+    },
+    {
+      "parts": [
+        "suction-chain-clip-screw-2",
+        "suction-chain-anchor"
+      ],
+      "reason": "preserved suction-chain screw/pilot assembly"
+    },
+    {
+      "parts": [
+        "suction-chain-clip-screw-2",
+        "suction-chain-upper-key"
+      ],
+      "reason": "preserved suction-chain screw/pilot assembly"
+    },
+    {
+      "parts": [
+        "suction-chain-anchor",
+        "gas-inlet-west-tube-seat"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "discharge-chain-anchor",
+        "ground-roof-boss"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "co2-adapter-check-in",
+        "gasher-co2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "co2-adapter-check-out",
+        "gasher-co2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "co2-adapter-regulator-in",
+        "wr1110"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "co2-adapter-regulator-out",
+        "wr1110"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flow-regulator",
+        "needle-retention-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-mount-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-mount-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-mount-screw-3"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-head-spacer-3"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-mount-screw-4"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-1-head-spacer-4"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-mount-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-head-spacer-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-mount-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-head-spacer-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-mount-screw-3"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-2-mount-screw-4"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-g",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-gnd",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-h",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-n",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-reeds-a",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-reeds-b",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-sensors",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "wago-v12",
+        "west-junction-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "ground-stack",
+        "ground-roof-boss"
+      ],
+      "reason": "ground screw engagement"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-roof-boss-1"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-screw-1"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-roof-boss-2"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-screw-2"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-roof-boss-3"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-screw-3"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-roof-boss-4"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "pcba",
+        "controller-screw-4"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-lid-boss-1"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-washer-1"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-screw-1"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-lid-boss-2"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-washer-2"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-screw-2"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-lid-boss-3"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-washer-3"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-screw-3"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-lid-boss-4"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-washer-4"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "psu",
+        "supply-screw-4"
+      ],
+      "reason": "mounting land or fastener passage"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-2",
+        "west-junction-platform"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-2",
+        "hatch-lap-ledge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-2",
+        "hatch-roof-boss-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "hatch-lap-ledge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "hatch-controller-rear-bridge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "hatch-roof-boss-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "controller-roof-boss-4",
+        "hatch-roof-beam-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "supply-lid-boss-1",
+        "supply-lid-web-1"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "supply-lid-boss-2",
+        "supply-lid-web-1"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "supply-lid-boss-3",
+        "supply-lid-web-2"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "supply-lid-boss-4",
+        "supply-lid-web-2"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "supply-lid-boss-4",
+        "gas-outlet-tube-seat"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "supply-lid-web-2",
+        "gas-outlet-tube-seat"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-1",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-2",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-3",
+        "relay-1-head-spacer-3"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-3",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-head-spacer-3",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-4",
+        "relay-1-head-spacer-4"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-mount-screw-4",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-1-head-spacer-4",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-1",
+        "relay-2-head-spacer-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-1",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-head-spacer-1",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-2",
+        "relay-2-head-spacer-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-2",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-head-spacer-2",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-3",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "relay-2-mount-screw-4",
+        "relay-lid-platform"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "wr-regulator-seat"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "supply-tube-seat"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "hatch-lap-ledge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "hatch-roof-boss-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "hatch-roof-beam-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "west-junction-platform",
+        "nameplate-new_backing"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "meter-roof-seat-2",
+        "hatch-lap-ledge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "wr-regulator-seat",
+        "nameplate-new_backing"
+      ],
+      "reason": "joined stock sharing a declared parent"
+    },
+    {
+      "parts": [
+        "water5-east-drop-seat",
+        "water5-east-drop-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water5-east-drop-seat",
+        "water5-east-drop-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water5-east-drop-key",
+        "water5-east-drop-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water5-east-drop-key",
+        "water5-east-drop-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flavor-pair-wall-seat",
+        "flavor-pair-wall-key"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flavor-pair-wall-seat",
+        "flavor-pair-wall-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flavor-pair-wall-seat",
+        "flavor-pair-wall-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flavor-pair-wall-key",
+        "flavor-pair-wall-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "flavor-pair-wall-key",
+        "flavor-pair-wall-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water2-tube-seat",
+        "water2-tube-key"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water2-tube-seat",
+        "water2-tube-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water2-tube-seat",
+        "water2-tube-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water2-tube-key",
+        "water2-tube-screw-1"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water2-tube-key",
+        "water2-tube-screw-2"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "supply-tube-seat",
+        "supply-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water3-east-tube-seat",
+        "water3-east-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "water3-west-tube-seat",
+        "water3-west-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "needle-feed-tube-seat",
+        "needle-feed-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "gate-a-east-tube-seat",
+        "gate-a-east-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "gas-inlet-east-tube-seat",
+        "gas-inlet-east-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "gas-outlet-tube-seat",
+        "gas-outlet-tube-tie"
+      ],
+      "reason": "declared mating contact"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-controller-rear-bridge"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-boss-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-beam-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-web-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-boss-2"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-boss-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-beam-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-lap-ledge",
+        "hatch-roof-boss-4"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-1",
+        "hatch-roof-beam-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-1",
+        "hatch-roof-web-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-roof-beam-1",
+        "hatch-roof-web-1"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-roof-boss-3",
+        "hatch-roof-beam-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    },
+    {
+      "parts": [
+        "hatch-roof-beam-3",
+        "hatch-roof-web-3"
+      ],
+      "reason": "joined stock in the same declared print"
+    }
+  ],
+  "required_relocated_pilot_recuts": [
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "pump-screw-1"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 38.170350741115996,
+      "fastener": "pump-screw-1",
+      "fastener_translation_mm": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "hypothetical_fastener_bounds_mm": [
+        9.0,
+        316.65,
+        241.2,
+        14.5,
+        322.15,
+        264.2
+      ],
+      "print_owner": "cold-core-lid",
+      "required_action": "Recut the translated fastener pilot in the redesigned hypothetical lid parent.",
+      "scope": "Measured contact with the selected old pilot station. This is a required relocated-pilot recut, not an additional packing interference; the hypothetical fastener clearance, insert annulus, engagement and closed cap remain unproved."
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "pump-screw-2"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 38.170350741116,
+      "fastener": "pump-screw-2",
+      "fastener_translation_mm": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "hypothetical_fastener_bounds_mm": [
+        9.0,
+        396.65,
+        241.2,
+        14.5,
+        402.15,
+        264.2
+      ],
+      "print_owner": "cold-core-lid",
+      "required_action": "Recut the translated fastener pilot in the redesigned hypothetical lid parent.",
+      "scope": "Measured contact with the selected old pilot station. This is a required relocated-pilot recut, not an additional packing interference; the hypothetical fastener clearance, insert annulus, engagement and closed cap remain unproved."
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "pump-screw-3"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 38.170350741116,
+      "fastener": "pump-screw-3",
+      "fastener_translation_mm": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "hypothetical_fastener_bounds_mm": [
+        41.5,
+        316.65,
+        241.2,
+        47.0,
+        322.15,
+        264.2
+      ],
+      "print_owner": "cold-core-lid",
+      "required_action": "Recut the translated fastener pilot in the redesigned hypothetical lid parent.",
+      "scope": "Measured contact with the selected old pilot station. This is a required relocated-pilot recut, not an additional packing interference; the hypothetical fastener clearance, insert annulus, engagement and closed cap remain unproved."
+    },
+    {
+      "parts": [
+        "cold-core/foam-cap-lid-top",
+        "pump-screw-4"
+      ],
+      "air_mm": 0.0,
+      "common_mm3": 38.170350741116,
+      "fastener": "pump-screw-4",
+      "fastener_translation_mm": [
+        0.0,
+        -8.0,
+        0.0
+      ],
+      "hypothetical_fastener_bounds_mm": [
+        41.5,
+        396.65,
+        241.2,
+        47.0,
+        402.15,
+        264.2
+      ],
+      "print_owner": "cold-core-lid",
+      "required_action": "Recut the translated fastener pilot in the redesigned hypothetical lid parent.",
+      "scope": "Measured contact with the selected old pilot station. This is a required relocated-pilot recut, not an additional packing interference; the hypothetical fastener clearance, insert annulus, engagement and closed cap remain unproved."
+    }
+  ],
+  "fixed_core_normal_approach_blockers": [
+    {
+      "fixed_core_mouth": "a-fill",
+      "moved_part": "supply-lid-web-2",
+      "normal_reserve_mm": 14,
+      "common_mm3": 240.71235833479614
+    }
+  ],
+  "moved_print_root_checks": [
+    {
+      "part": "relay-lid-platform",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 972.6370889024325,
+      "pass": true
+    },
+    {
+      "part": "needle-lid-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.28500570000021247,
+      "pass": true
+    },
+    {
+      "part": "check-lid-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 421.242152403238,
+      "pass": true
+    },
+    {
+      "part": "tee-lid-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 39.69000891466875,
+      "pass": true
+    },
+    {
+      "part": "needle-feed-tube-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.2850057000002124,
+      "pass": true
+    },
+    {
+      "part": "gate-a-east-tube-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.8383917681633541,
+      "pass": true
+    },
+    {
+      "part": "gas-inlet-east-tube-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 1.2024262416667018,
+      "pass": true
+    },
+    {
+      "part": "gas-outlet-tube-seat",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.3000060000002258,
+      "pass": true
+    },
+    {
+      "part": "supply-lid-boss-1",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.0,
+      "pass": false
+    },
+    {
+      "part": "supply-lid-boss-2",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.0,
+      "pass": false
+    },
+    {
+      "part": "supply-lid-boss-3",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.0,
+      "pass": false
+    },
+    {
+      "part": "supply-lid-boss-4",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.502664877671233,
+      "pass": true
+    },
+    {
+      "part": "suction-chain-anchor",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 2.4349824166709304,
+      "pass": true
+    },
+    {
+      "part": "supply-lid-web-1",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 1.065021300000843,
+      "pass": true
+    },
+    {
+      "part": "supply-lid-web-2",
+      "parent": "cold-core/foam-cap-lid-top",
+      "root_common_mm3": 0.3302504024239806,
+      "pass": true
+    }
+  ],
+  "operation_errors": [],
+  "controller_pilot_cover_mm": 3.0,
+  "boundary_routing_reproof_required": true,
+  "native_inputs": {
+    "funnel": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel.brep",
+      "sha256": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c"
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/funnel-frame.brep",
+      "sha256": "d1dc732bd052281be28702187747539e9d0b439d91e62e04717ba2505dcf87fb"
+    },
+    "funnel-cover": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep",
+      "sha256": "1bf2832a7bc1f2e6ea685414f3ca701c768ff0769f4356f51b41c47aadf50b4c"
+    },
+    "valve-v-a": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-a.brep",
+      "sha256": "6aed2b159f7308e51c1e24a078147a9ab6fe135c47baa927b93b336fdf7b155a"
+    },
+    "valve-v-b": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-b.brep",
+      "sha256": "f8957cbe243716d99338f484849f45c9a04b0b943339f1615a81986b35e5d482"
+    },
+    "g-ganen-pump": {
+      "brep": ".cache/pump-first-layout/pump/g-ganen-pump.brep",
+      "sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9"
+    },
+    "vk-solenoid": {
+      "brep": ".cache/pump-first-layout/pump/vk-solenoid.brep",
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07"
+    },
+    "suction-chain": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain.brep",
+      "sha256": "bf19ae2a537cb4204c9b83d30ea965a885d27f5d6db70027536e7906c5d6e531"
+    },
+    "discharge-chain": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain.brep",
+      "sha256": "94b98748987a6130e76a4b6fda7cc3fbb3930a4fe0ebf88ba2ccb66924bf88eb"
+    },
+    "cold-core/foam-cap-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-top.brep",
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d"
+    },
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-lid-top.brep",
+      "sha256": "eddef42dd6efe21c5431452883fa578c4f1a4127dd150341ab7958275a50ebf5"
+    },
+    "pump-washer-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-1.brep",
+      "sha256": "90b91ed6eec75c02fcc8a005170c4f04138c2e78a3e1c8f6e96f272b74703954"
+    },
+    "pump-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-1.brep",
+      "sha256": "1fcf0978b48f5b188888fa35dcb3ab531ccc34736c5752f7855bb782f1d36795"
+    },
+    "pump-washer-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-2.brep",
+      "sha256": "1fcf267dba4d52719f6c48eae57c4d2d26b321d0f84bbc709d6cc32f53a1d4c5"
+    },
+    "pump-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-2.brep",
+      "sha256": "601fcf274a9acb3c82b2b9f9df529cbcdc6f8170d99174232f51fbd7edad20c2"
+    },
+    "pump-washer-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-3.brep",
+      "sha256": "a37fe5ab1af2d41bedce312b32e6e02644b16a72ef775d974d0d9ccb87907ea1"
+    },
+    "pump-screw-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-3.brep",
+      "sha256": "32b6597df338d371a3f99b1a9f807115933fe14a673e3d13439b5440b6e573dd"
+    },
+    "pump-washer-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-4.brep",
+      "sha256": "ad4068129d3a9d0e833b87a620120dedc125a42dfba17b7982e8da73d0b77a16"
+    },
+    "pump-screw-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-4.brep",
+      "sha256": "9904bc0519bc831a33b0e29de75e91f5aac89c91c392a20d363b71e678b4f41e"
+    },
+    "vk-cradle": {
+      "brep": ".cache/pump-first-layout/pump/vk-cradle.brep",
+      "sha256": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b"
+    },
+    "source-a-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-a-cradle.brep",
+      "sha256": "61689e44c217b30d1e9bcf3019b51069ff30ede8d8dd96432cea8abe9993e354"
+    },
+    "source-b-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-b-cradle.brep",
+      "sha256": "de7a798ecc9e14fa6cf1c612537971822fbe964652992b28ee42e1383c185bf7"
+    },
+    "suction-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-1.brep",
+      "sha256": "e0a377126f6f5487b6d798906361a3b8a5bf31098e30706bd4f07ebe2729773d"
+    },
+    "suction-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-2.brep",
+      "sha256": "62a65fdd1266a69067ed4c334f55384a071ee11348f73736a1f97486b3429984"
+    },
+    "suction-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-anchor.brep",
+      "sha256": "2fdc54bdce242b1afde1e9e2d7f533b40d121744ce720f3dc357840ba43831ea"
+    },
+    "suction-chain-upper-key": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-upper-key.brep",
+      "sha256": "e93dac24cacd4e39558ad257c2ebe3fe9801e7f1d753d4de8bbc329368258224"
+    },
+    "discharge-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-1.brep",
+      "sha256": "93c39289654038aa9ca11489851f43334e81f8499797fcd689ff65902a175867"
+    },
+    "discharge-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-2.brep",
+      "sha256": "6a7a2344606579b4db671fae678761724635e9c721a0e7449c228343935b7ee1"
+    },
+    "discharge-chain-lower-key": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-lower-key.brep",
+      "sha256": "2a55213576ddd7a1d11ee8b4822e4a4d097ce588d126c9d7d652b77fd9bed55d"
+    },
+    "discharge-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-anchor.brep",
+      "sha256": "3ce40469e79bf0d272e63d93dff67775aab0a02e457ac9a455d4c5cf86bd72a4"
+    },
+    "hose-clamp-pump-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-suction.brep",
+      "sha256": "8b08a51eeccbbaf729160e1843f7ac91e73e4a15b405c2f78d76ef8207b2c8a6"
+    },
+    "hose-clamp-pump-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-discharge.brep",
+      "sha256": "3955db6cfc8bb12a7b3a222683e51bbdfe5efc8d2c64ceb378558d85c4e24bc2"
+    },
+    "hose-clamp-chain-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-suction.brep",
+      "sha256": "2cacf7ca78fcabe789d32f512788b6742d5b4e84acbf8930d4dce5d96815182c"
+    },
+    "hose-clamp-chain-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-discharge.brep",
+      "sha256": "02e5c45e6919e65f71af6cd004a57337dbd5fc0db194826d5adc210b4e5d8ca3"
+    },
+    "asse-drip-pan": {
+      "brep": ".cache/pump-first-layout/routing/asse-drip-pan.brep",
+      "sha256": "27eb0b1f49483bbd5ff5acd152afcf9fc3bebee52e6175362a59c966cea8ffda"
+    },
+    "asse1022-assembly": {
+      "brep": ".cache/pump-first-layout/routing/asse1022-assembly.brep",
+      "sha256": "542c576961c830948ea295557e3d7a4108d6d3268b33f0f97096437067e44817"
+    },
+    "bulkhead-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-carb.brep",
+      "sha256": "981f3ca040e8a2115bfc59a9ae62dd2051319094c378c97623e33cf536732605"
+    },
+    "bulkhead-ring-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb.brep",
+      "sha256": "6a03fa53e08a0967bf9e5e9a91475e76db441ea5e79777d62ee5dcf655ff81a3"
+    },
+    "bulkhead-ring-carb-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb-word.brep",
+      "sha256": "65f0369c3e0d6351dce5380704aedafcf4c9d8b978210b9baffb1ad7e8bd8444"
+    },
+    "bulkhead-ring-co2": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2.brep",
+      "sha256": "97e6d6c3592bcba17d41e5e7e58e7b2f5b9b314770f3a37f14e00a616e45b284"
+    },
+    "bulkhead-ring-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2-word.brep",
+      "sha256": "91dc3acbc6b6031d1623db7762a004e870d8bf27900a920fc7eff7fdcf7069dd"
+    },
+    "bulkhead-ring-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water.brep",
+      "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645"
+    },
+    "bulkhead-ring-water-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water-word.brep",
+      "sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba"
+    },
+    "bulkhead-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-water.brep",
+      "sha256": "7bd546ad20be262205f9f829723fdefd76882f13fc9e3d176c6f67712bb7c94f"
+    },
+    "co2-adapter-check-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-in.brep",
+      "sha256": "e53cf8b9a62a127fa65870dc9ac0384e8582055b54ae927977bf80ec1c22b706"
+    },
+    "co2-adapter-check-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-out.brep",
+      "sha256": "5deaf45f270d89f200709ab8b504e49cd316751ca52a8c53e3a5682035a1582d"
+    },
+    "co2-adapter-regulator-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-in.brep",
+      "sha256": "358c354a55993b31d5886a68b971d3793e1f808e079b3379d4600963a81094f6"
+    },
+    "co2-adapter-regulator-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-out.brep",
+      "sha256": "27f7353d423d7a05e6b44f92a27a24b9d75ea4bd8d79bb5d4b7c75892762f1ba"
+    },
+    "co2-inlet": {
+      "brep": ".cache/pump-first-layout/routing/co2-inlet.brep",
+      "sha256": "c8066d4e047fca654a9b34eba54c7fcc2e32e538215f6edcda95557f1a88bcf5"
+    },
+    "digiten-flow": {
+      "brep": ".cache/pump-first-layout/routing/digiten-flow.brep",
+      "sha256": "e1684c3c8825d41cf64617b2a954c22ee49c4cd3f0743565d55a63b27384416f"
+    },
+    "flow-regulator": {
+      "brep": ".cache/pump-first-layout/routing/flow-regulator.brep",
+      "sha256": "b3fe324ebe4d9dae0d5dd83b463e3ad9d3783c20e52c1f548109c07ea464f15d"
+    },
+    "gasher-co2": {
+      "brep": ".cache/pump-first-layout/routing/gasher-co2.brep",
+      "sha256": "38ac5aaf46d48568a29ecc97d314c96be8830d26a76e54c08180a97760e6d078"
+    },
+    "keystone-jack": {
+      "brep": ".cache/pump-first-layout/structure/keystone-jack.brep",
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104"
+    },
+    "moisture-plate": {
+      "brep": ".cache/pump-first-layout/routing/moisture-plate.brep",
+      "sha256": "5102f3b4150751093907a5be11024ae861c1c2ef04f928a5f879863fe61fd7b2"
+    },
+    "nameplate": {
+      "brep": ".cache/pump-first-layout/routing/nameplate.brep",
+      "sha256": "65f6a7145edac25d3929e3506ccaffade66fa88e618472f6e8bd07bc056cfc6b"
+    },
+    "nameplate-ink": {
+      "brep": ".cache/pump-first-layout/routing/nameplate-ink.brep",
+      "sha256": "a7d7f65ac69786a44c7eda977676de0d94de7ab1db63ede08d1f78d488f10900"
+    },
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877"
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755"
+    },
+    "tube-collar-co2": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2.brep",
+      "sha256": "ed1543932b7d8dd3403df67b28a10008403021a98158bec986dbbcf7b335ebca"
+    },
+    "tube-collar-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2-word.brep",
+      "sha256": "c662051546f16769ddd76ff2a5f43ab684a1f599e46a91313b7c12c44a2d55c0"
+    },
+    "tube-collar-water": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water.brep",
+      "sha256": "402590ca245d97b876095ce2aea4738e0e0e21223fe8706a249c3e6c205d5206"
+    },
+    "tube-collar-water-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water-word.brep",
+      "sha256": "e28aab09bee3a73482f817cd93a294995cc3eff316b4f6d9034059fde7d69eae"
+    },
+    "wago-g": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-g.brep",
+      "sha256": "bd28f5481a3b07af6eccf173cf97ad2b288b57595fe422c43301dda2d54d3c6b"
+    },
+    "wago-gnd": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.brep",
+      "sha256": "603c2c790c8d494853ce53cc0218fa902fb7e2cc914b82adb0baa5995b92b37d"
+    },
+    "wago-h": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-h.brep",
+      "sha256": "ee133a53866c40dcbc45a089073e076e995d0d96d53c64fb53b9dedf28d5f0e7"
+    },
+    "wago-n": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-n.brep",
+      "sha256": "908ce59b24f95149e175962746dcfd0c4e7f5d8b2aff1b0e79a4d6d9ff551b9c"
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep",
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9"
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep",
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61"
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep",
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1"
+    },
+    "wago-v12": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.brep",
+      "sha256": "3f50f754c47495b82a0c02c0c7a66263a1501bc3ee4ef80516ea7ccd294dcdb5"
+    },
+    "water-split": {
+      "brep": ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep",
+      "sha256": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20"
+    },
+    "wr1110": {
+      "brep": ".cache/pump-first-layout/routing/wr1110.brep",
+      "sha256": "6c9d377bdb7f72b89dc9c1a9c12032486b58afb6b04d7158bdaf31bb60f94f72"
+    },
+    "c14-inlet": {
+      "brep": ".cache/pump-first-layout/structure/c14-inlet.brep",
+      "sha256": "8460923796e6f7b228b7ee5beb00bc70623f3d508c176b366d9e9c6c681768da"
+    },
+    "ground-stack": {
+      "brep": ".cache/pump-first-layout/structure/ground-stack.brep",
+      "sha256": "cab7e5272eae9849e2230d3cd71b28e6b1d44b8aaf3d1a693520fd448a96198c"
+    },
+    "pcba": {
+      "brep": ".cache/pump-first-layout/structure/pcba.brep",
+      "sha256": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1"
+    },
+    "psu": {
+      "brep": ".cache/pump-first-layout/structure/psu.brep",
+      "sha256": "f10d251aa2ef52e00187c6d8e44163e57a5c8d07c9d23e907e848b160622a66f"
+    },
+    "controller-roof-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-1.brep",
+      "sha256": "096d3adef06ec32a736ac6b3dcc81150ecfe1e11736800e852813c8a34deaeb9"
+    },
+    "controller-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-1.brep",
+      "sha256": "7eed59f77969e13aedb72134233db26077f3d62d8bfdc0f24f95f988af8728bd"
+    },
+    "controller-roof-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-2.brep",
+      "sha256": "54fe0221d5d40ab540ea71077533dc31f644f5e66d9dadd0d5905ddb043ae1b5"
+    },
+    "controller-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-2.brep",
+      "sha256": "f79430cb9dbdc6ab6c970fc9aec898eb9c9acdb4e99d2575522bc5307bf7d920"
+    },
+    "controller-roof-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-3.brep",
+      "sha256": "92e6c48c6d8e27f5fc9874897fbb50df3af6b69cdb485de2255d2c1842e6e396"
+    },
+    "controller-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-3.brep",
+      "sha256": "cf94215e1f1a0614ecdaf28ab778d441e1b5860fbfb22e33059593dd1368b29f"
+    },
+    "controller-roof-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-4.brep",
+      "sha256": "07905e6575f22a6d4fc0b47ac998020d876d777ed18dfbf6f23002f4ecd843b5"
+    },
+    "controller-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-4.brep",
+      "sha256": "42138b3f2bf60c495d2d10413094bbf41818abc98b254e59cf9418a6b090cabf"
+    },
+    "supply-lid-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-1.brep",
+      "sha256": "c99dba8dcab5ef4588465fae278091290654ffb9b33831f98d64dd6c953c40b2"
+    },
+    "supply-washer-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-1.brep",
+      "sha256": "3e8ad309376c92ea7b95451265af69fa09c11de133eefa26bf6760bf2d90dcd3"
+    },
+    "supply-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-1.brep",
+      "sha256": "53621c15bdded41b7f9368a4265ea046369f2832f294188b2879e727f948f299"
+    },
+    "supply-lid-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-2.brep",
+      "sha256": "d28aac89f86e6fbac1c8129936f26faed28723d67f2e6bda3143be7fc67f36ff"
+    },
+    "supply-washer-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-2.brep",
+      "sha256": "23ad11932889285b2d1f6b96fec222ed4ee59c2eaba81f1902de23869951cb1e"
+    },
+    "supply-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-2.brep",
+      "sha256": "3567e4466ece62f75ad263e42d1ea6a5fd0ffd52e2333fa63ee8989071e154fc"
+    },
+    "supply-lid-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-3.brep",
+      "sha256": "77b5af6a1f4192deb54368ca5e4acfe762e3a2c81431ef024f44a881b373b701"
+    },
+    "supply-washer-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-3.brep",
+      "sha256": "647d3969a3eca1674b7927586f9b35f0c3ef49c00c8b76f8801776f91c48a3e4"
+    },
+    "supply-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-3.brep",
+      "sha256": "25a74fab8691f5379b480e907bbeee086e428a2cf11ab9a0d9c0433f73624b81"
+    },
+    "supply-lid-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-4.brep",
+      "sha256": "d3a3b4e02c913a1bb109193607ace97788e4061f62fa04cb5fed64e3106d0e3a"
+    },
+    "supply-washer-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-4.brep",
+      "sha256": "6ff8dd47fee307dac970e9d7d5d26f6f7b4dfe33ba1d330e841040893d75ddc6"
+    },
+    "supply-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-4.brep",
+      "sha256": "7b4ec15df7ec067f1fd1a0ba7d6d60ffa6a6a9e027b357adf44d7a9f75ce5fab"
+    },
+    "supply-lid-web-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-web-1.brep",
+      "sha256": "0a2d1db70145724c36f54261088d784aade82fc63cacb727aee5af1ebdf6a630"
+    },
+    "supply-lid-web-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-web-2.brep",
+      "sha256": "340c2600cafeb94dbbd310a63fbf9b6fe7051587bddfb8c94731017bb7ef69a1"
+    },
+    "ground-roof-boss": {
+      "brep": ".cache/pump-first-layout/structure/ground-roof-boss.brep",
+      "sha256": "c722c39c69edb24b0690bcf93f1f0c1c41ad105a764b4fd717e1dd7914f8cd72"
+    },
+    "relay-1-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.brep",
+      "sha256": "d1b66b7a9ee150066a84c702b6edf35ccedb5329f05da56e9952ff654581d3d9"
+    },
+    "relay-1-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.brep",
+      "sha256": "bb803f28cdd45f94fedf29d009cf9f4ae0f9f601b83e4b9a4f83a15ef46449f3"
+    },
+    "relay-1-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.brep",
+      "sha256": "6cd5ddc23507b5810d29f95c3cf199eab96e938cb7ed90dc2a26032f0e4ff4f0"
+    },
+    "relay-1-head-spacer-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.brep",
+      "sha256": "1ceb2c0600dd89b8e9a72d637216b0bf2cca6c3548e19687bee7200eefab7df0"
+    },
+    "relay-1-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.brep",
+      "sha256": "321172194878ace7eb662dafcc0725a52e806c63f9d172ada125748ac5479ef3"
+    },
+    "relay-1-head-spacer-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.brep",
+      "sha256": "e60d9e3fc8a030aa6af17b52538468159b1e568591f3d1911ffbf3424e1f1074"
+    },
+    "relay-2-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.brep",
+      "sha256": "6f8f6ff53a519f6be4545baee3baa3a7123fbc8e330ae0e09cbb44bdd3f9e9a6"
+    },
+    "relay-2-head-spacer-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.brep",
+      "sha256": "3e8d8d4bcbbf15bd1bd84c577af2e9b1d1ef0f2c66c7088e3a5ca6584eca1b6c"
+    },
+    "relay-2-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.brep",
+      "sha256": "18efa60dd6ae7f59015d584e6917e30efdf4d8cf808e61b3e10a2500ae7c1018"
+    },
+    "relay-2-head-spacer-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.brep",
+      "sha256": "888a54a0dae90153e3a85c1e9c0712a99c257854e97ed2268fe33982aecba606"
+    },
+    "relay-2-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.brep",
+      "sha256": "68c76792dd8d34123b42130005f23f97cb76caa7d76f17f762554968f8b2f13f"
+    },
+    "relay-2-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.brep",
+      "sha256": "d31c8adf031f1a13c1fe07c56e6e2c0413ed2a3d50e4743c1f7115ca0ef0243d"
+    },
+    "relay-lid-platform": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.brep",
+      "sha256": "2286f65da079ddefa1224a2635f7dcbb2f8a2d5900be96f7f37d389a0ffa61e7"
+    },
+    "west-junction-platform": {
+      "brep": ".cache/pump-first-layout/mounts/wr/west-junction-platform.brep",
+      "sha256": "1c5c47089c028245bec376f227014fc7675e861ccd55ceb8460c9fec086f1e6b"
+    },
+    "asse-removable-carrier": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-removable-carrier.brep",
+      "sha256": "c742a637e4507bcad7bdd2ffdbe0ebf900b09b7bd9acb1db74dd0afe3a273d52"
+    },
+    "asse-roof-seat-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-1.brep",
+      "sha256": "85f187a5f0ac6290dc5a1ed87312dc71c6edf72c86a8a4a4c9902a7ff774c11c"
+    },
+    "asse-roof-seat-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-2.brep",
+      "sha256": "13f5c5c3c793112134e5527286532f7a3ec165368c662421cdfea08ab0a8a5ab"
+    },
+    "asse-carrier-clamp-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-1.brep",
+      "sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41"
+    },
+    "asse-carrier-clamp-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-2.brep",
+      "sha256": "5901e491a462e30e852ebe5cced3f3ec0ad49887bff208fe23f42f98a459d116"
+    },
+    "asse-carrier-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-1.brep",
+      "sha256": "cd361faa30a107e5556692b6aaadefeedf921fc8a88c6269511b04fd2a717906"
+    },
+    "asse-carrier-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-2.brep",
+      "sha256": "db79da146585543f3b1fae9e9c475660d0c77ec95b1a971b7d2be51ace22c896"
+    },
+    "asse-retention-tie-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-1.brep",
+      "sha256": "1e6f632a18a52f42612927d07febdcc8316f7e2d9dd88284e6a25655fdb42a5e"
+    },
+    "asse-retention-tie-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-2.brep",
+      "sha256": "caec1290b7d997f345a677a4f5b4514b87566a242068be75eb86fd5ab92c2766"
+    },
+    "meter-roof-seat-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-1.brep",
+      "sha256": "d6a564dc97a8d8d05c5ba040fcd0c9c2c95d43a085c2187a0aef0a618b9b86c4"
+    },
+    "meter-retention-tie-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-1.brep",
+      "sha256": "9c4f736df4961b7deee43411f8ea8cc763879f4290efa64a482149ecbbd3d39a"
+    },
+    "meter-roof-seat-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-2.brep",
+      "sha256": "fc012600500eea14381a5e2f4bb1cf9ca1d2d8aa79d27612a9762044c96cd9ef"
+    },
+    "meter-retention-tie-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-2.brep",
+      "sha256": "0fa1a11aca001590b8453ed4b440e7a11cb35ded22c85ec50d129e07a1ae2430"
+    },
+    "needle-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-lid-seat.brep",
+      "sha256": "e91b6064eaba42c037f803d60fd801cbf8f25d365bb3ca1241f6d74ab0834d64"
+    },
+    "needle-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-retention-tie.brep",
+      "sha256": "bde30ba8f3967679dda5db5132c6bc979263520435414026b2a41daf6c9b51b1"
+    },
+    "wr-regulator-seat": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-seat.brep",
+      "sha256": "69b84f42f0f37fb7f612ab98d914abe27ae463665bc9e32212a5e2863c028c87"
+    },
+    "wr-regulator-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-retention-tie.brep",
+      "sha256": "b55c42753d3be48cc0831b48d3ce7f06da36f4d24bbb1934a6b8a229afab7de9"
+    },
+    "check-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-lid-seat.brep",
+      "sha256": "e0b430fbda1e1bf436bd980d18c778a1c23e6caaab836a2269827bd6ca7d48da"
+    },
+    "check-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-retention-tie.brep",
+      "sha256": "d628fffff283c5b476aae841a11da04e3db47866067b43340130cd561d6ae417"
+    },
+    "tee-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-seat.brep",
+      "sha256": "647af5d079d66c0459603dfed1959c978a5396da4691eefa8952e9834b79b46e"
+    },
+    "tee-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-retention-tie.brep",
+      "sha256": "f17e5773913ef622742f708b3ea807eab71392225680a28ef30444ac7235dca4"
+    },
+    "water5-front-seat": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-front-seat.brep",
+      "sha256": "9e5d8737e5427995944c3a713dfe56025ed237f2d45d2c6f961d500f97faeb19"
+    },
+    "water5-front-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-front-retention-tie.brep",
+      "sha256": "6c5fd784916b57352b67413362f4d15247a45d33282b5ceb4ec43cef8a9da065"
+    },
+    "water5-east-drop-seat": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-seat.brep",
+      "sha256": "edf9efd9052b7632368308fee7ef8febe3f8da079d85d13c054ca51e24ef3d81"
+    },
+    "water5-east-drop-key": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-key.brep",
+      "sha256": "54802c8bddcbf483441d05f691a623c506bdf100510ae8c114301a3a5f1663c1"
+    },
+    "water5-east-drop-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-1.brep",
+      "sha256": "874174844a34303b8a0b48c6519225d23a6694eb2b9e02eafd35ea2e6e3609de"
+    },
+    "water5-east-drop-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-2.brep",
+      "sha256": "90ba0b126dd1b9a45b41ce408123ae48802f28ad1484da2c15d5b58fc85fee88"
+    },
+    "flavor-pair-wall-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-seat.brep",
+      "sha256": "b54b122535541b6299765d98bed4798273822cc737cfc3bdc26ea198d705a1c5"
+    },
+    "flavor-pair-wall-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-key.brep",
+      "sha256": "611ff4aace443396dc122007ecf1e671e4877f9d7ef76d9472b65182190520d0"
+    },
+    "flavor-pair-wall-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-1.brep",
+      "sha256": "b16083e0aa7a21155d9d63e66a26a9bda84ef68925f778a18a11bb395392e89d"
+    },
+    "flavor-pair-wall-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-2.brep",
+      "sha256": "c4fbc0109b79ef0be162a26693803e8f3b588ca2533e56e67688b4f9e766b28d"
+    },
+    "flavor-a-fore-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-seat.brep",
+      "sha256": "5422d1698a3a8c6215b6ba309a2d4b35b895436582586cfb1521a810cd784571"
+    },
+    "flavor-a-fore-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-key.brep",
+      "sha256": "8b34af9736e2bf9cd0d9e95f616f4c1725294a421038528e897012b1c6d518e0"
+    },
+    "flavor-a-fore-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-1.brep",
+      "sha256": "af7fa035c5de6f84e270af17241514a62a778642f701331fa4d52861f5cf3f7c"
+    },
+    "flavor-a-fore-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-2.brep",
+      "sha256": "0cda052714a8c44064a1042f69f2d8f1d96ee0a7ceec4c18f3183823e9761cf2"
+    },
+    "water2-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-seat.brep",
+      "sha256": "eebb9acc62efeb49068f851f4d9ca21ad06369cfa8b4d10c573744c7c91b9a5f"
+    },
+    "water2-tube-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-key.brep",
+      "sha256": "6224d27b48b35d45ec887aeaaa5e13af280b365c89de2a7e85f612f29f3fa9be"
+    },
+    "water2-tube-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-1.brep",
+      "sha256": "9cab70a7f7666657942fdde0d0d29db0650fcd910d68a155f4e66dd6ce7ed430"
+    },
+    "water2-tube-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-2.brep",
+      "sha256": "ee3e6e9ba4894b201b0f137a9b5632631699d0e2950e78139bcdcbe514ab17b5"
+    },
+    "supply-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/supply-tube-seat.brep",
+      "sha256": "4667be93efcab0566f5f369974c8c53f33526993e5c442e13b7e5a069e4a530b"
+    },
+    "supply-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/supply-tube-tie.brep",
+      "sha256": "be40b66592cbb74a1cf80629fda63e0dae5ca20d29f526f559109578d42da7d3"
+    },
+    "water3-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-east-tube-seat.brep",
+      "sha256": "275c9bfe8081b2e5b1732f4153e74bb0d056dc1cd2ea132bf6d365bf68111da2"
+    },
+    "water3-east-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-east-tube-tie.brep",
+      "sha256": "e90df2247819f6fc8e59be9b48979bb375f98e002ceee9959b01fd89c530e574"
+    },
+    "water3-west-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-west-tube-seat.brep",
+      "sha256": "3b413cb91bcf334d1a86529ec6ca23ecfd83c0460bd2c34b63f87c45954f48c4"
+    },
+    "water3-west-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-west-tube-tie.brep",
+      "sha256": "713c68c3000a99a6bb8e271f27627376d801f016bfcde80e6d83f9a8c7722842"
+    },
+    "needle-feed-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/needle-feed-tube-seat.brep",
+      "sha256": "fd5ab6fb132ec319150f3733cde0cf457756bb8fdbed2907532a750bae471404"
+    },
+    "needle-feed-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/needle-feed-tube-tie.brep",
+      "sha256": "8acd59b0cabb4af5604979b33148f5e81ecf6c0cc51aa09ba7bfee7c02efdaf6"
+    },
+    "gate-a-upper-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tube-seat.brep",
+      "sha256": "77f06f0876d241e1a68459b18a036ddf7d1526cff447b62d0fec523fbf8e5e33"
+    },
+    "gate-a-upper-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tube-tie.brep",
+      "sha256": "e16b5b0695d2ffe23853b90592a2aa37c539ec1505ed4fdd05bd8464248964d2"
+    },
+    "gate-a-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-east-tube-seat.brep",
+      "sha256": "8b37bf7b62b3ef27c1295455b2785a373179527eb4afe7d9b1855f4e2ab6a193"
+    },
+    "gate-a-east-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-east-tube-tie.brep",
+      "sha256": "a17bc6519d7172f13811b497bbfe065f02f0faebb39c41a2e55712176907e589"
+    },
+    "gas-inlet-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-east-tube-seat.brep",
+      "sha256": "33614c24e83f5c3399c59977b241fb710b94ae7b9fce64f6c005bbc19cf05a18"
+    },
+    "gas-inlet-east-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-east-tube-tie.brep",
+      "sha256": "38326c55427df99f3c88833146c15deb9624b24f9f46ba5affb907b51d5c1bbf"
+    },
+    "gas-inlet-west-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-west-tube-seat.brep",
+      "sha256": "6d9e1d78b12d8b7aec8c17f0377af0c277c2071a24c0158f9e6c422ea604e43a"
+    },
+    "gas-inlet-west-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-west-tube-tie.brep",
+      "sha256": "209c94a8cfc9c227e5a52b76e6317355fee88bf6d85a41fd915bf38ffce6727f"
+    },
+    "gas-outlet-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-tube-seat.brep",
+      "sha256": "a2059de5c575f28e4a17c224ce4304cb7978027fba9492028bbb68af5a1744a5"
+    },
+    "gas-outlet-tube-tie": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-tube-tie.brep",
+      "sha256": "f517dc92b61edabcd8917d49e8188b7839521a250f1a909da04ca45336592fa3"
+    },
+    "hatch-lap-ledge": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-lap-ledge.brep",
+      "sha256": "5f38d98f29b8b80eb09b8fbcfb9490e4939af90f7c0531b764ed6136b25c89a6"
+    },
+    "hatch-seam-silicone": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-seam-silicone.brep",
+      "sha256": "6b632a3057830962454f27313b1236620642346ea1d32e08393723d6c78000fa"
+    },
+    "hatch-controller-rear-bridge": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-controller-rear-bridge.brep",
+      "sha256": "eb63494eb42ed6d31bb43941ae052113f7a20336ddc1250b479ede78d2b3900c"
+    },
+    "hatch-roof-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-1.brep",
+      "sha256": "13950ce96886eff584c2b5187b72d2f12ed1b2a60ee92c04510907885e6af073"
+    },
+    "hatch-roof-beam-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-1.brep",
+      "sha256": "698490b4b831bb71a04cfcee0c435f39b0a2cda1e87869ae6f9bae0dff428245"
+    },
+    "hatch-roof-web-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-1.brep",
+      "sha256": "78c204bcdb89f7ab7564458235cfefbe4dc0bdbc65247008000184f23e3ebd66"
+    },
+    "hatch-roof-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-2.brep",
+      "sha256": "19c4e5c46147b0632ed466cbd98d0866fb1e56abe491c157d3826a0f1f43d8d3"
+    },
+    "hatch-roof-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-3.brep",
+      "sha256": "678769f18ea6f620c1de6100777a01218c1556943dbd8ba164251edd54c6cd59"
+    },
+    "hatch-roof-beam-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-3.brep",
+      "sha256": "1d5297efff60f1163a230f8ad8d8807753d9335bd8a88bd779c2ec25edc38f84"
+    },
+    "hatch-roof-web-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-3.brep",
+      "sha256": "b9a8d8d5b004014afbe4065aceba3b72a67a4b279c57588a3cef8e76121012b1"
+    },
+    "hatch-roof-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-4.brep",
+      "sha256": "47fc08974251720345025fcc0fd90e00d4692abefdaa2825493d303fa620957b"
+    },
+    "hatch-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-1.brep",
+      "sha256": "03ba7c8153ac862d92dadffe50df5ad344e928d9e3c36e62229ffca50d675647"
+    },
+    "hatch-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-2.brep",
+      "sha256": "a610d90080eee7e21d5eaa7227d3c7cf13936043930f57d4e86aa13ce74ead56"
+    },
+    "hatch-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-3.brep",
+      "sha256": "51cc444a9e7831b2394a136afc21feb7cedfd6fc7c672d6e8e332e0a579db9c8"
+    },
+    "hatch-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-4.brep",
+      "sha256": "21858e84c1bcc68639cdfcb50892922f75da2dfa57e509438215385e6d59d808"
+    },
+    "hatch-screw-silicone-cap-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-1.brep",
+      "sha256": "8496c774b38dbe8126e963b238302a9ab4a64e10cfbf158d7793162ce245578b"
+    },
+    "hatch-screw-silicone-cap-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-2.brep",
+      "sha256": "25f22b48da8651dff1f2b178f439c9aca9b366d916866810e9b8cd6a4ced8c88"
+    },
+    "hatch-screw-silicone-cap-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-3.brep",
+      "sha256": "ef532a10baa4e079dd1d5a7d9f16b055323e3f8b172c2249262c15405d7e3a25"
+    },
+    "hatch-screw-silicone-cap-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-4.brep",
+      "sha256": "a511ef1cdb3fc60cc3848752e021bf36c0a431a4bed76290d58f33ba72e1b82f"
+    },
+    "bulkhead-flavor-b": {
+      "brep": ".cache/pump-first-layout/baseline/147.brep",
+      "sha256": "70af4e2ba883ad7b21f9b51e08e12645fb98a9b010bff00c6f824b85ff50b3e1"
+    },
+    "bulkhead-flavor-a": {
+      "brep": ".cache/pump-first-layout/baseline/148.brep",
+      "sha256": "96667a2ca55a12cbd2f83664aa049375ee61ab94b6f2b48803d06647a16e8b8d"
+    },
+    "bulkhead-ring-flavor-a": {
+      "brep": ".cache/pump-first-layout/baseline/155.brep",
+      "sha256": "c23edee61fbcd0a61066aa8cc0057684a746b179c2dc65ac3ca82f2c5441be9c"
+    },
+    "bulkhead-ring-flavor-a-word": {
+      "brep": ".cache/pump-first-layout/baseline/156.brep",
+      "sha256": "5f69b8cc4d6a7a246e595b7bd10a900619bee1ab8735e74e51d8c7f67ba88825"
+    },
+    "bulkhead-ring-flavor-b": {
+      "brep": ".cache/pump-first-layout/baseline/157.brep",
+      "sha256": "544a5c97e81c876b03be4e962fee5d3e1883897a536bb9b103c52b79dc928300"
+    },
+    "bulkhead-ring-flavor-b-word": {
+      "brep": ".cache/pump-first-layout/baseline/158.brep",
+      "sha256": "1cb78f1a220e7f1519c70cc038b25c1afae6ea0debc0aa6ac42d69fc15280d7f"
+    },
+    "elbow-cradle": {
+      "brep": ".cache/pump-first-layout/baseline/193.brep",
+      "sha256": "14a6ea4becc2fea7139b5abfdacfbad6a1565281265298e736bdd26b3c390e1b"
+    },
+    "funnel-drain-union": {
+      "brep": ".cache/pump-first-layout/baseline/194.brep",
+      "sha256": "82d4de2a76e377a801aebf79bf03ad5181ef8075810372e1586a09ee9258cb09"
+    },
+    "nameplate-new_receiver": {
+      "brep": ".cache/pump-first-layout/routing/nameplate-west-receiver.brep",
+      "sha256": "5e4d0ff913fbb03566a32148978679ff56b51423e5dac0e38a104f9cc0c8fccb"
+    },
+    "nameplate-new_backing": {
+      "brep": ".cache/pump-first-layout/routing/nameplate-west-backing.brep",
+      "sha256": "d7622df78f9046f930dce1050763e6fded7308c82fb0e1bf4f2b326dce508f04"
+    },
+    "keystone-new_receiver": {
+      "brep": ".cache/pump-first-layout/routing/keystone-new_receiver.brep",
+      "sha256": "1c099aa5deb22e66550d550a4f83a9c78cf4f8ba639b475e8c77454e37ea5f06"
+    },
+    "tube-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-2.brep",
+      "sha256": "354a68df30a96f8ab889316ca61ac15886a977b2c3bedc974999125bad665913"
+    },
+    "carb-foam-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/carb-foam-carb-2.brep",
+      "sha256": "ad0c26b3e1c0e847b80b24e31dede032e88d93b32a3c5ede521170c57aaafeed"
+    },
+    "fixed-carb2-centreline": {
+      "brep": ".cache/pump-first-layout/routing/centreline-carb-2.brep",
+      "sha256": "faf788c2300f14a618b846105fdd7763ab343ac815c366b05d628670b6955571"
+    },
+    "fixed-relief-tube-fluid-14-clearance": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-14-clearance.brep",
+      "sha256": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893"
+    },
+    "fixed-relief-j13-frame-clearance": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/j13-frame-clearance.brep",
+      "sha256": "828fdb4497377d023f159565b777574c48ce0e37d9c3ff97cd3d7d6801c33ea5"
+    },
+    "preview-funnel-aft45": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-aft45.brep",
+      "sha256": "21134ce1b31d31379bccae04f4d9aed89b7f6c958be67d91a9b3d2d74d3a0d2f"
+    },
+    "preview-funnel-frame-aft45": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-frame-aft45.brep",
+      "sha256": "d087a1bbc23732d4daa2fcaf8613817f293360b0c1368c647761298ff638a60d"
+    },
+    "preview-funnel-cover-aft45": {
+      "brep": ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-cover-aft45.brep",
+      "sha256": "eccfd68a786f831af83432128ba22794b56e49e0ffee61bb856151d9369a7981"
+    }
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/routing/psu_coupled_probe.py": "215876fb6c2c5bfefa4f9d6e1d19bf0b09669365aa0ccaf6e7ce725a678b7cce",
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0",
+    "future/pump-first-layout-study/routing/fluid_members.py": "9cb808487de2b47fc1090a100f728b5262873de7df30e3f55a845a34ab26feb7",
+    "future/pump-first-layout-study/wiring/circular_clearance.py": "80918a71904b3fc1d563108ec54af88d04e0c4149ced6b2d8784c96e2077fdf5",
+    "future/pump-first-layout-study/wiring/native_harness.py": "8757a0134d9d59efaf1a2e5acaad74a555bb22f0d9af2b3ddb920828fda0ec80",
+    "future/pump-first-layout-study/funnel/build_candidate.py": "63b7f3dc63e2625a4fe368451953b7d9d73dfdd75b0c765c59aa9558b3ea0434",
+    "future/pump-first-layout-study/funnel/layout_funnel.py": "139f3f814b6e4e9736cd8f8476a450655a1313b1badc2077ee9d6a4a88ac69e4",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "185b06eef8600c0ad326594ef52fef46e91dac01ca9aec1f549a3340a6e67738",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "fbcba987f883375a8ef84a793a6260b1ee18c4470e16eb3a69d34790b1736a39"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "future/pump-first-layout-study/pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "future/pump-first-layout-study/pump/fluid24-candidate.json": "e1eb3570cb8d0bc3bfc1c2f9e46e2e69eaa56ed01bbca0a60933a19f568b17bc",
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "future/pump-first-layout-study/mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a",
+    "future/pump-first-layout-study/wiring/candidate.json": "da8fedffd82bc4619f0c3d2d34b3e9bee6367352c25586d32d57f1ea0ed5a87f",
+    "future/pump-first-layout-study/mounts/fluid-candidate.json": "18837365b51fa96347e53377d02fd6ef8b14096fa2cb1c282536ee2bafdc82b1",
+    "future/pump-first-layout-study/mounts/body-candidate.json": "91ed568d36fd97f61d3cde4dca9ca7b88c836af433c89906d3bcdb61fa61c001",
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6",
+    "future/pump-first-layout-study/routing/tube-hosts.json": "e218a7272e2d38b3d78c65aa74bcb8390880e47f932ecb7065fad51ebb479731",
+    "future/pump-first-layout-study/structure/roof-hatch.json": "db54c84f36d057641197c9f54773bcfaf37b757fdc63883d2b785172009d5368",
+    "future/pump-first-layout-study/structure/scene-stock.json": "a4c3496b5e89b6a7351c95b68466cfed50acb46261446944c6d852b24cf478ed",
+    "future/pump-first-layout-study/routing/co2-candidate.json": "e98a40eb04d7c91271888d9a9584f187325e7cc55c97e2bea28afef9798c0704",
+    "future/pump-first-layout-study/mounts/needle-candidate.json": "11b00ad13c471d54089906a642b8509333965952c81e8abe2b9ce8ddcb68f80f",
+    "future/pump-first-layout-study/mounts/wr-candidate.json": "7ed0f53aab4d4336dc73d568fe8044ea81bbbbccd1246eea6e2a9d2c11e0a39e",
+    "future/pump-first-layout-study/mounts/check-tee-candidate.json": "a3a99220fb01df4f60b5c1389a8ab84ec909d837d2e02e52c683cbfac2aaac4c"
+  },
+  "source_drift": [],
+  "source_binding_pass": true,
+  "elapsed_seconds": 49.4066801071167,
+  "scope": "Rigid-only bounded hypothesis. Fixed rear fittings, cap mouths, source manifold and valves remain at selected datums. Plain aft-bay bodies and hosts translate8mm fore; controller and its bosses/screws translate14mm fore at unchangedZ. Complete+45 funnel preview uses the fixed VK and front lead underside reliefs. Existing boundary tubes/wires, custom shell channels, print-root support, joined stock, fasteners, motion, Mylar/insulation, derating, ventilation and physical performance require redesign/reproof; this file does not establish a complete feasible installation."
+}

@@ -1,0 +1,44 @@
+{
+  "aft_extension_mm": 60.0,
+  "preferred_inspection_fill_ml": 500,
+  "straight_mouth_area_mm2": 25181.253584627673,
+  "rows": [
+    {
+      "fill_ml": 440,
+      "liquid_surface_world_z_mm": 344.07691634554885,
+      "headroom_mm": 10.923083654451142,
+      "native_measured_ml": 440.00000000023425,
+      "cover_skirt_underside_z_mm": 349,
+      "nominal_surface_below_cover_skirt": true
+    },
+    {
+      "fill_ml": 500,
+      "liquid_surface_world_z_mm": 346.45964124835626,
+      "headroom_mm": 8.54035875164376,
+      "native_measured_ml": 500.00000000018395,
+      "cover_skirt_underside_z_mm": 349,
+      "nominal_surface_below_cover_skirt": true,
+      "inspection_artifact": {
+        "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-500ml.brep",
+        "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-500ml.json",
+        "detail": "Actual500mL liquid volume in the selected native cavity; surfaceZ346.460,headroom8.540mm. Cover-skirt clearance is recorded independently."
+      }
+    },
+    {
+      "fill_ml": 600,
+      "liquid_surface_world_z_mm": 350.4308494197019,
+      "headroom_mm": 4.569150580298125,
+      "native_measured_ml": 600.0000000000979,
+      "cover_skirt_underside_z_mm": 349,
+      "nominal_surface_below_cover_skirt": false,
+      "inspection_artifact": {
+        "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-600ml.brep",
+        "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-600ml.json",
+        "detail": "Actual600mL liquid volume in the selected native cavity; surfaceZ350.431,headroom4.569mm. Cover-skirt clearance is recorded independently."
+      }
+    }
+  ],
+  "native_cavity_sha256": "39f422ea8ce597d57b462b3dadff2beb568d512240060cf2aaaa488b4b1b40b5",
+  "source_sha256": "225f1eec2faea98130a53e0d7c4c7cc5987722e5506b940e28114cf8490ac2b5",
+  "scope": "Gravity level in the nominal upright cavity. Fill levels do not establish draining rate, splash containment or molded-part tolerances."
+}

@@ -1,0 +1,29 @@
+{
+  "aft_extension_mm": 60.0,
+  "brep": ".cache/pump-first-layout/funnel/aft-60/shells/funnel-mated-ceiling-stock.brep",
+  "sha256": "dc6af21f40da8b1300e092ea261fd00e364622fe79a5fb5f6219b34da59d0d07",
+  "bounds_world_mm": [
+    -98.5,
+    218.8,
+    343.0,
+    98.5,
+    465.3,
+    353.0
+  ],
+  "nominal_finished_ceiling_mm": 12,
+  "nominal_finished_ceiling_z_mm": [
+    343,
+    355
+  ],
+  "added_stock_z_mm": [
+    343,
+    353
+  ],
+  "role": "structure",
+  "detail": "Native production12mm roof stock, added to retained3mm outer roof with current +60mm funnel/frame opening already cut; final component crown pockets must be opened after fusing.",
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/roof_stock.py": "822783ebf99cd5b330e833b1ae1b644d42bdc116910cbc8dbe9aff547363130a"
+  },
+  "valid": true,
+  "solids": 1
+}

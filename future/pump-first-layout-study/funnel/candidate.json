@@ -1,0 +1,460 @@
+{
+  "aft_extension_mm": 60.0,
+  "capacity_to_brim_ml": 715.0569394288343,
+  "capacity_10mm_below_brim_ml": 463.24440358277286,
+  "capacity_method": "OCCT native cavity Boolean bounded at actual brim and drain planes; 10 mm headroom slice also measured.",
+  "collar_dimensions_mm": [
+    165.0,
+    177.68301584656257
+  ],
+  "mouth_dimensions_mm": [
+    153.0,
+    165.68301584656257
+  ],
+  "collar_centre_world_mm": [
+    0,
+    194.55,
+    349
+  ],
+  "drain_world_mm": [
+    1.85,
+    164.55,
+    306.05
+  ],
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/build_candidate.py": "af153b56f802903d6e73ec26ff8373902b9948a0a88d3bddf45ecb77c13b6e30",
+    "future/pump-first-layout-study/funnel/layout_funnel.py": "139f3f814b6e4e9736cd8f8476a450655a1313b1badc2077ee9d6a4a88ac69e4",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "185b06eef8600c0ad326594ef52fef46e91dac01ca9aec1f549a3340a6e67738",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "fbcba987f883375a8ef84a793a6260b1ee18c4470e16eb3a69d34790b1736a39",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
+    "future/pump-first-layout-study/funnel/underframe_reliefs.py": "06bfd1687ae2a8845b63e4d56cb78a018c7fce9c17669cf232200d1bcfcd1b62"
+  },
+  "parts": {
+    "funnel": {
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -89.5,
+        98.70849207671873,
+        306.0499999,
+        89.5,
+        290.3915079232813,
+        355.0
+      ],
+      "volume_mm3": 318292.1237016995,
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/funnel.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/funnel.brep": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+        ".cache/pump-first-layout/funnel/aft-60/funnel.step": "ada06deeb2657ac38826afda5d118f2ef8f311c3a613f0177a1340c96b48b4de",
+        ".cache/pump-first-layout/funnel/aft-60/funnel.json": "81ae5b7b154d8fc83ad61f254eb667ee81d30b76eb73c8b84be735bbdffb4380"
+      },
+      "role": "funnel",
+      "detail": "Aft-only rounded mouth; drain and display edge retained. Native cavity capacity 715.057 mL; floor has measured 6.347 mm minimum stock."
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep": "1803801f5864f68fd396b5d36f3f7625f3b55bf19326f7a8fbec4ac373e15279",
+        ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.step": "2caa48643aaef97a3c7600c4a50c509ee84ba3e54d1a971d23129388f88f017f",
+        ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.json": "daeb60040e08a122525dbfe771e9cccfe3f07f893fefe8335873b6bd4ad43270"
+      },
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -103.50000013104804,
+        94.57469444713172,
+        288.08179255831595,
+        103.50000013104804,
+        295.6939066834448,
+        355.0052527968638
+      ],
+      "volume_mm3": 881305.9570396243,
+      "role": "structure",
+      "detail": "One PET-GF frame solid with full production slide rails and their3mm roots, complete3mm brim bearing and original drain/cradle socket;1mm-air underside corridors admit the raised VK casting and cradle throughout the102.2mm closing slide, the fixed Gate-A R14 elbow and the retained cartridge bore/ridge-clip lead. The lead chase retains the complete5.25mm source floor band. Final tee clears the unmodified underside."
+    },
+    "funnel-cover": {
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -91.0,
+        93.20849207671873,
+        348.9999999,
+        91.0,
+        291.8915079232813,
+        358.0
+      ],
+      "volume_mm3": 116280.05915580454,
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep": "1bf2832a7bc1f2e6ea685414f3ca701c768ff0769f4356f51b41c47aadf50b4c",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.step": "76df1e8ce6eb953c6565d07d73631c77438d6895e402e2db79695c58fbadfafe",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.json": "01360c120c088bc0ba70e8907299017b158f79783b4c22f306ddffda590e33cc"
+      },
+      "role": "funnel",
+      "detail": "Native lift-off 3 mm plate, locating skirt and four silicone friction pads; front lifting edge retained."
+    }
+  },
+  "roof": {
+    "width": 196.5,
+    "front": 95.45849207671873,
+    "back": 199.75,
+    "floor": 346.0,
+    "top": 355.0,
+    "taper_floor": 346.0,
+    "side_reach": 0.0,
+    "complete_brim_bearing_missing_mm3": 0.0,
+    "complete_brim_bearing_volume_mm3": 13546.663620579184
+  },
+  "retained": {
+    "display_face_y_mm": 95.20849207671873,
+    "frame_front_y_mm": 95.45849207671873,
+    "display_running_air_mm": 0.25,
+    "frame_underside_z_mm": 299.9,
+    "socket_floor_z_mm": 302.9,
+    "rail_z_mm": 306.9,
+    "rail_top_z_mm": 321.7,
+    "silicone_brim_seat_z_mm": 349,
+    "brim_top_z_mm": 355,
+    "socket_width_mm": 36.6,
+    "silicone_plug_width_mm": 36,
+    "drain_bore_mm": 6,
+    "drain_stub_od_mm": 6.35,
+    "drain_stub_engagement_mm": 5.01482064528494,
+    "frame_web_mm": 3,
+    "complete_front_corbel_foot_y_mm": 119.1,
+    "complete_rear_corbel_foot_y_mm": 270.0
+  },
+  "ramp": {
+    "rise_mm": 14.199233063709995,
+    "longest_axis_run_mm": 109.84150792328128,
+    "longest_axis_ramp_grade_deg": 7.365788434001637,
+    "required_minimum_wall_mm": 6,
+    "vertical_floor_stock_mm": 6.6,
+    "minimum_native_ramp_wall_mm": 6.347377489568639,
+    "wall_method": "OCCT minimum distance between the actual wet-ramp and dry-ramp lateral faces. The side collar retains 6 mm."
+  },
+  "tooling_screen": {
+    "flange_plan_mm": [
+      211.0,
+      223.68301584656257
+    ],
+    "flange_corner_radius_mm": 43.0,
+    "enclosing_circle_mm": 271.9613208508823,
+    "chamber_interior_diameter_mm": 299.72,
+    "radial_clearance_mm": 13.879339574558855,
+    "detail": "Constant16mm flange follows the silicone brim withR43corners. Complete native two-shell tooling closure, backing, release, passages, clamping and rod checks are in candidate-aft-60-tooling.json. Casting/chamber insertion and physical load capacity remain unqualified."
+  },
+  "scope": "Layout-study solids only. Exact seated silicone, frame, lid and cavity are generated; manufacturing fit, retained hardware clearances, motion, material strength and life are not established by this file.",
+  "capacity_artifact": {
+    "valid": true,
+    "solids": 1,
+    "bounds_world_mm": [
+      -76.50000010000001,
+      111.70849197671873,
+      306.05,
+      76.50000010000001,
+      277.39150802328135,
+      355.0
+    ],
+    "volume_mm3": 715056.9394288344,
+    "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.brep",
+    "step": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.step",
+    "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.json",
+    "sha256": {
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.brep": "39f422ea8ce597d57b462b3dadff2beb568d512240060cf2aaaa488b4b1b40b5",
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.step": "75c7c105de2401e5b4767d330fe7ae60830cedf472614f1128a9782d8f95f1ce",
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.json": "da7545104d9d269f55ac48509baf0c2758b2faa334a64a8cc3d91f64a7f6be51"
+    }
+  },
+  "replacement_names": [
+    "funnel",
+    "funnel-frame",
+    "funnel-cover"
+  ],
+  "tooling_artifact": "future/pump-first-layout-study/funnel/candidate-aft-60-tooling.json",
+  "matching_shells": "future/pump-first-layout-study/funnel/shells.json",
+  "matching_mating": "future/pump-first-layout-study/funnel/mating.json",
+  "underframe_reliefs": {
+    "aft_extension_mm": 60.0,
+    "closure_travel_mm": 102.2,
+    "checks": [
+      {
+        "test": "native relieved frame",
+        "valid": true,
+        "solids": 1,
+        "pass": true
+      },
+      {
+        "test": "complete production rails and their three-millimetre roots",
+        "removed_mm3": 0.0,
+        "protected_abs_x_min_mm": 95.25,
+        "lowest_rail_z_mm": 306.9,
+        "highest_valve_cutter_z_mm": 306.25,
+        "highest_cradle_cutter_z_mm": 308.3,
+        "pass": true
+      },
+      {
+        "test": "complete three-millimetre brim bearing and upper surround",
+        "removed_mm3": 0.0,
+        "lowest_protected_z_mm": 346,
+        "pass": true
+      },
+      {
+        "test": "exact raisedVK exterior air",
+        "gap_mm": 1.0,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "exact raisedVK cradle exterior air",
+        "gap_mm": 1.0,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "exact raised tee exterior air",
+        "gap_mm": 111.15433252196495,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "subset of original motion-checked frame",
+        "added_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "forming stock retained before silicone",
+        "native_removed_to_silicone_mm": 9.763985982468267,
+        "forming_expansion_upper_bound_mm": 0.6,
+        "remaining_stock_lower_bound_mm": 9.163985982468267,
+        "pass": true
+      },
+      {
+        "test": "Gate-A exact R14 elbow retains one-millimetre frame air",
+        "gap_mm": 0.9999999999988282,
+        "common_mm3": 0.0,
+        "cutter_bounds_mm": [
+          40.57499989999997,
+          101.12034662468089,
+          253.4000001,
+          92.6750001,
+          430.47500010000005,
+          300.79500918852676
+        ],
+        "pass": true
+      },
+      {
+        "test": "retained cartridge bore and ridge-clip lead has one-millimetre frame air",
+        "gap_mm": 0.9999999999990972,
+        "common_mm3": 0.0,
+        "cutter_bounds_mm": [
+          -3.1500001000000073,
+          95.3499999,
+          273.2756261237512,
+          93.1500001,
+          126.0,
+          304.1500001
+        ],
+        "pass": true
+      },
+      {
+        "test": "cartridge chase retains the complete source5.25mm frame-floor band",
+        "floor_band_z_mm": [
+          304.15,
+          309.4
+        ],
+        "additional_missing_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 0,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 0,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 0.5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 0.5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 1,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 1,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 2,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 2,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 10,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 10,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 20,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 20,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 40,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 40,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 70,
+        "common_mm3": 0.0,
+        "gap_mm": 9.630482155409128,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 70,
+        "common_mm3": 0.0,
+        "gap_mm": 12.748376493432453,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 90,
+        "common_mm3": 0.0,
+        "gap_mm": 26.3521722750469,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 90,
+        "common_mm3": 0.0,
+        "gap_mm": 30.06888456912124,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 102.2,
+        "common_mm3": 0.0,
+        "gap_mm": 36.91768220121704,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 102.2,
+        "common_mm3": 0.0,
+        "gap_mm": 40.63439449529138,
+        "pass": true
+      }
+    ],
+    "pass": true,
+    "removed_stock_mm3": 27786.064379256055,
+    "removed_bounds_mm": [
+      -91.6,
+      116.64626135594406,
+      299.89999986228213,
+      93.15,
+      274.8497422611929,
+      308.3
+    ],
+    "inputs_sha256": {
+      ".cache/pump-first-layout/funnel/aft-60/funnel-frame.brep": "8ee1eb22e5f77a5de88cda92de1e29f2afc9fcdea1b6c2a8e14749ef6c3cd9c7",
+      ".cache/pump-first-layout/funnel/aft-60/funnel.brep": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+      "future/pump-first-layout-study/pump/candidate.json": "dbe989045c9df9ede18d0618fb917eb95d964708ac6f86dd0c285e628ea48494",
+      ".cache/pump-first-layout/pump/vk-solenoid.brep": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07",
+      ".cache/pump-first-layout/pump/vk-cradle.brep": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b",
+      ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20",
+      "future/pump-first-layout-study/routing/frame-fluid-a-relief.json": "d043e940e0eac03d578b5abd769926c8433c90eab740f7622a4a6be20f0ee938",
+      ".cache/pump-first-layout/routing/tube-fluid-14-clearance.brep": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893",
+      ".cache/pump-first-layout/routing/tube-fluid-14.brep": "a1c1acb4c33eec2d1b85f4c6453785fc56452bdaba0d17580e4dcac9cd1e38b4",
+      "future/pump-first-layout-study/wiring/frame-j13-relief.json": "5fca0f43410ed32ad90942b03f2fa01606b98867cacf94b16649d6200ce9379c",
+      ".cache/pump-first-layout/wiring/controls-looms/j13-ridge-passage.brep": "ca6d581937440f34d9fdde00ff14cede6bca9cd1c76dd2c4c88854e1307dde90",
+      ".cache/pump-first-layout/wiring/controls-looms/j13-frame-clearance.brep": "828fdb4497377d023f159565b777574c48ce0e37d9c3ff97cd3d7d6801c33ea5"
+    },
+    "source_sha256": {
+      "future/pump-first-layout-study/funnel/underframe_reliefs.py": "06bfd1687ae2a8845b63e4d56cb78a018c7fce9c17669cf232200d1bcfcd1b62"
+    },
+    "scope": "One-millimetre fitting air and complete production rail/bearing geometry. Subset preserves previous interference motion checks; no printed strength, lifetime or physical fitting qualification is inferred."
+  }
+}

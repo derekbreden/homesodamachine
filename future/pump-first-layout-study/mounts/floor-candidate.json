@@ -1,0 +1,1047 @@
+{
+  "parts": {
+    "relay-1-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.json",
+      "sha256": "d1b66b7a9ee150066a84c702b6edf35ccedb5329f05da56e9952ff654581d3d9",
+      "bounds": [
+        -25.250543693132364,
+        422.7499998999999,
+        255.14970339465503,
+        -19.749456306867636,
+        428.2500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.json",
+      "sha256": "bb803f28cdd45f94fedf29d009cf9f4ae0f9f601b83e4b9a4f83a15ef46449f3",
+      "bounds": [
+        -25.250543693132364,
+        435.7499998999999,
+        255.14970339465503,
+        -19.749456306867636,
+        441.2500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.json",
+      "sha256": "6cd5ddc23507b5810d29f95c3cf199eab96e938cb7ed90dc2a26032f0e4ff4f0",
+      "bounds": [
+        40.749456306867636,
+        422.7499998999999,
+        253.14970339465503,
+        46.250543693132364,
+        428.2500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-head-spacer-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.json",
+      "sha256": "1ceb2c0600dd89b8e9a72d637216b0bf2cca6c3548e19687bee7200eefab7df0",
+      "bounds": [
+        41.2495551419826,
+        423.2499998999999,
+        261.14955514198255,
+        45.7504448580174,
+        427.7500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.json",
+      "sha256": "321172194878ace7eb662dafcc0725a52e806c63f9d172ada125748ac5479ef3",
+      "bounds": [
+        40.749456306867636,
+        435.7499998999999,
+        253.14970339465503,
+        46.250543693132364,
+        441.2500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-head-spacer-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.json",
+      "sha256": "e60d9e3fc8a030aa6af17b52538468159b1e568591f3d1911ffbf3424e1f1074",
+      "bounds": [
+        41.2495551419826,
+        436.2499998999999,
+        261.14955514198255,
+        45.7504448580174,
+        440.7500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.json",
+      "sha256": "6f8f6ff53a519f6be4545baee3baa3a7123fbc8e330ae0e09cbb44bdd3f9e9a6",
+      "bounds": [
+        -25.25054369313238,
+        443.04999989999993,
+        253.149703394655,
+        -19.74945630686762,
+        448.5500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-head-spacer-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.json",
+      "sha256": "3e8d8d4bcbbf15bd1bd84c577af2e9b1d1ef0f2c66c7088e3a5ca6584eca1b6c",
+      "bounds": [
+        -24.75044485801743,
+        443.54999989999993,
+        261.14955514198255,
+        -20.24955514198257,
+        448.0500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.json",
+      "sha256": "18efa60dd6ae7f59015d584e6917e30efdf4d8cf808e61b3e10a2500ae7c1018",
+      "bounds": [
+        -25.25054369313238,
+        456.04999989999993,
+        253.149703394655,
+        -19.74945630686762,
+        461.5500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-head-spacer-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.json",
+      "sha256": "888a54a0dae90153e3a85c1e9c0712a99c257854e97ed2268fe33982aecba606",
+      "bounds": [
+        -24.75044485801743,
+        456.54999989999993,
+        261.14955514198255,
+        -20.24955514198257,
+        461.0500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.json",
+      "sha256": "68c76792dd8d34123b42130005f23f97cb76caa7d76f17f762554968f8b2f13f",
+      "bounds": [
+        40.74945630686762,
+        443.04999989999993,
+        255.149703394655,
+        46.25054369313238,
+        448.5500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.json",
+      "sha256": "d31c8adf031f1a13c1fe07c56e6e2c0413ed2a3d50e4743c1f7115ca0ef0243d",
+      "bounds": [
+        40.74945630686762,
+        456.04999989999993,
+        255.149703394655,
+        46.25054369313238,
+        461.5500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-lid-platform": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.json",
+      "sha256": "2286f65da079ddefa1224a2635f7dcbb2f8a2d5900be96f7f37d389a0ffa61e7",
+      "bounds": [
+        -26.500793012928685,
+        420.49999989999986,
+        247.9992092190802,
+        49.50000010000014,
+        463.80000010000015,
+        278.00000010000133
+      ],
+      "role": "structure",
+      "detail": "One 3 mm lid-rooted platform, two horizontal relay seats and a 3 mm AC/DC divider; eight native PCB mounting holes with four long blind pilots rooted in the existing 5.4 mm lid.",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "replacement_names": [],
+  "expected_devices": {
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-1.json",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877",
+      "bounds": [
+        -24.500000100000115,
+        423.49999989999986,
+        257.64999989999995,
+        45.500000100000115,
+        440.50000010000014,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-2.json",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755",
+      "bounds": [
+        -24.5000001000001,
+        443.7999998999999,
+        257.6499998999999,
+        45.50000010000013,
+        460.80000010000015,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "mounts": [
+    {
+      "owner": "relay-1",
+      "mouth": [
+        -22.5,
+        425.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        -22.5,
+        438.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        43.5,
+        425.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        43.5,
+        438.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        -22.5,
+        445.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        -22.5,
+        458.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        43.5,
+        445.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        43.5,
+        458.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    }
+  ],
+  "pilot_cutters": {
+    "relay-1-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.json",
+      "sha256": "c84e1295667ce87eb081977e9d1bd4dd8be76d8ee82fb33eebb5bf473563df5f",
+      "bounds": [
+        -24.500395440459915,
+        423.4999999,
+        254.39960455954005,
+        -20.499604559540085,
+        427.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.json",
+      "sha256": "6f089542bceafef28d5544216110c3b9d03d36e0a4207c1631094fbe214c8501",
+      "bounds": [
+        -24.500395440459915,
+        436.4999999,
+        254.39960455954005,
+        -20.499604559540085,
+        440.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.json",
+      "sha256": "f6d6eaf5dba633bbd318fa8b40c66e58d44ffa722c767e706e913de154779dd7",
+      "bounds": [
+        41.49960455954008,
+        423.4999999,
+        251.14960455954005,
+        45.50039544045992,
+        427.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.json",
+      "sha256": "99fd4e44d78c2d67f7735d8f5a938be5a72725192eb8522b04c80012c245c9ca",
+      "bounds": [
+        41.49960455954008,
+        436.4999999,
+        251.14960455954005,
+        45.50039544045992,
+        440.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.json",
+      "sha256": "b8c67383d604ff50185db1ea32d405f5ec9d9797a4f5b61716e38deb86738dc5",
+      "bounds": [
+        -24.500395440459926,
+        443.7999999,
+        251.14960455954005,
+        -20.499604559540074,
+        447.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.json",
+      "sha256": "5602bceba646be42f5938e73cdb0a2f2317494aa38d8bbee6b2264a9e959f1cb",
+      "bounds": [
+        -24.500395440459926,
+        456.7999999,
+        251.14960455954005,
+        -20.499604559540074,
+        460.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.json",
+      "sha256": "e14330609d4df1329f254b2c3a07fdfb64722c66298ac2d06ca798a04ee12a9e",
+      "bounds": [
+        41.499604559540074,
+        443.7999999,
+        254.39960455954005,
+        45.500395440459926,
+        447.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.json",
+      "sha256": "18babe3a6f329de1218578544e5d56aa379f0919c2645b1ad280e503cc13e4f4",
+      "bounds": [
+        41.499604559540074,
+        456.7999999,
+        254.39960455954005,
+        45.500395440459926,
+        460.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "endpoints": {
+    "relay-1": {
+      "contacts": {
+        "point": [
+          -14.5,
+          432,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "logic": {
+        "point": [
+          36.5,
+          432,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "relay-2": {
+      "contacts": {
+        "point": [
+          -14.5,
+          452.3,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "logic": {
+        "point": [
+          36.5,
+          452.3,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "checks": [
+    {
+      "test": "native printed host clears mounted relay",
+      "part": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native printed host clears mounted relay",
+      "part": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-1",
+      "gap_mm": 27.733476799171566,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-2",
+      "gap_mm": 15.397389633085474,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-3",
+      "gap_mm": 75.25079852188185,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-head-spacer-3",
+      "gap_mm": 75.75079852188182,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-4",
+      "gap_mm": 70.9362503952553,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-head-spacer-4",
+      "gap_mm": 71.43625039525531,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-1",
+      "gap_mm": 8.966216457830951,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-head-spacer-1",
+      "gap_mm": 9.466216457830958,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-2",
+      "gap_mm": 2.3646931829631983,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-head-spacer-2",
+      "gap_mm": 2.8646931829631974,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-3",
+      "gap_mm": 69.39137938904743,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-4",
+      "gap_mm": 68.35167783345553,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-lid-platform",
+      "gap_mm": 1.1000000000000014,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1",
+      "gap_mm": 15.549670181826391,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2",
+      "gap_mm": 3.10000000000003,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-fluid-14",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-fluid-18",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-co2-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-fluid-18",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-co2-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "complete relay crown to supply underside",
+      "gap_mm": 12.100000000000023,
+      "pass_result": true
+    },
+    {
+      "test": "AC/DC divider crown to supply underside",
+      "gap_mm": 10.75,
+      "pass_result": true
+    },
+    {
+      "test": "PCB pin tips to printed deck",
+      "gap_mm": 1.25,
+      "pass_result": true
+    },
+    {
+      "test": "complete host single solid",
+      "valid": true,
+      "solids": 1,
+      "pass_result": true
+    }
+  ],
+  "pass_result": true,
+  "x_shift_mm": 25.0,
+  "lid_fuse_part_names": [
+    "relay-lid-platform"
+  ],
+  "source_sha256": {
+    "future/pump-first-layout-study/mounts/floor_relays.py": "138ea4632ad897b1f6b7e130b42cb1981e19e976f8c60f14d11cc812f56ba9c5"
+  },
+  "qualification_limits": [
+    "Calipered relay body and hole pattern; contact blocks and 3.2 mm hole diameter remain representative reference geometry.",
+    "Factory prewire the upward contact/logic connectors before supply installation; vertical lead shaping and service sequencing need explicit wiring geometry.",
+    "Printed load capacity, insert retention, divider electrical property and lifetime are not established by this geometric study."
+  ]
+}

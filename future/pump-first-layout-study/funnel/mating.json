@@ -1,0 +1,454 @@
+{
+  "aft_extension_mm": 60.0,
+  "interfaces": {
+    "frame-blank": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/frame-blank.brep",
+      "sha256": "1634418e8966cb12253cfc040626caebc089e067e6f7a05eda4d9a9ff733b981",
+      "bounds_world_mm": [
+        -103.5,
+        95.45849207671873,
+        299.9,
+        103.50000000000003,
+        295.6915079232813,
+        355.0
+      ]
+    },
+    "frame-shell-clearance": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/frame-shell-clearance.brep",
+      "sha256": "95e8da628e93b67258a70503bd2820babeecf870a2577b50439c2b7625a96f60",
+      "bounds_world_mm": [
+        -103.75,
+        95.20849207671873,
+        299.65,
+        103.75000000000003,
+        295.9415079232813,
+        355.25
+      ]
+    },
+    "front-roof-clearance": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-roof-clearance.brep",
+      "sha256": "a92cd33bc1e63fb94708531fcc0375c2a74850724c44785db33502870801d4bb",
+      "bounds_world_mm": [
+        -98.5,
+        95.20849207671873,
+        345.75,
+        98.5,
+        295.9415079232813,
+        355.25
+      ]
+    },
+    "front-seam-relief": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-seam-relief.brep",
+      "sha256": "5f949e3d2a74e7fd4f98952392909c5ebcfe783f44ec3659e5efbb43731622ee",
+      "bounds_world_mm": [
+        -108.5,
+        199.75,
+        299.65,
+        108.5,
+        473.3,
+        330.45
+      ]
+    },
+    "front-receivers": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-receivers.brep",
+      "sha256": "1baf480c8f8a42e12bed2a79aa09e881d876ec7317678fdace8d506425023488",
+      "bounds_world_mm": [
+        -107.5000001,
+        108.70849207671873,
+        306.89999989999956,
+        107.5000001,
+        200.0000001,
+        330.2000001
+      ]
+    },
+    "back-receivers": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/back-receivers.brep",
+      "sha256": "9f6a9f107930b17f341401d5f8eec34b095a1908c103b0d2d3e1a1a12dfc809d",
+      "bounds_world_mm": [
+        -107.5,
+        200.0,
+        306.9,
+        107.5,
+        289.69150792328134,
+        330.2
+      ]
+    },
+    "front-rail-channels": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/front-rail-channels.brep",
+      "sha256": "f322dd6c073aac1be20677b8b4f4bf361dba5a12c0b6b9b30c70f18ebb99f04d",
+      "bounds_world_mm": [
+        -104.5000001,
+        111.70849207671873,
+        291.34999989999994,
+        104.5000001,
+        214.5500001,
+        341.7500001
+      ]
+    },
+    "back-rail-channels": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/back-rail-channels.brep",
+      "sha256": "1f7ddd9b6448505474f087c20aa0e3393b394268293bcc85d804a6d13f402708",
+      "bounds_world_mm": [
+        -103.75,
+        199.0,
+        305.9,
+        103.75,
+        286.69150792328134,
+        321.95
+      ]
+    },
+    "brim-pocket": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/brim-pocket.brep",
+      "sha256": "f971291efb2509fe301bdf2fd6cad65cd1d0bbc44b928ac342d208069e4a4885",
+      "bounds_world_mm": [
+        -89.75,
+        98.45849207671873,
+        349.0,
+        89.75,
+        290.6415079232813,
+        356.0
+      ]
+    },
+    "collar-throat": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/mating/collar-throat.brep",
+      "sha256": "4d725def2cc9ed5b728203c0955f211595d77423ae1f3e92f595d3196a1cfd1f",
+      "bounds_world_mm": [
+        -82.75,
+        105.45849207671873,
+        348.0,
+        82.75,
+        283.6415079232813,
+        349.01000000000005
+      ]
+    }
+  },
+  "blank_stock_reads": [
+    {
+      "name": "valve-v-a",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 0.0,
+      "distance_mm": 21.899999899999955
+    },
+    {
+      "name": "coil-v-a",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 5777.972896526811,
+      "distance_mm": 0.0
+    },
+    {
+      "name": "valve-v-b",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 0.0,
+      "distance_mm": 21.899999899999955
+    },
+    {
+      "name": "coil-v-b",
+      "reference": "full frame blank before subtracting funnel clearance",
+      "overlap_mm3": 5777.972896527104,
+      "distance_mm": 0.0
+    },
+    {
+      "name": "asse-at-Y331-vent-Z280.2",
+      "transform": {
+        "yaw_deg": 90,
+        "translation_mm": [
+          361.51,
+          409.07,
+          -27.010580837550037
+        ]
+      },
+      "reference": "full frame blank before subtracting funnel clearance; zero common proves clearance from its contained final body",
+      "overlap_mm3": 0.0,
+      "distance_mm": 33.888130468404185
+    },
+    {
+      "name": "asse-at-Y334-vent-Z277.2",
+      "transform": {
+        "yaw_deg": 90,
+        "translation_mm": [
+          361.51,
+          412.07,
+          -30.010580837550037
+        ]
+      },
+      "reference": "full frame blank before subtracting funnel clearance; zero common proves clearance from its contained final body",
+      "overlap_mm3": 0.0,
+      "distance_mm": 37.986206679757544
+    }
+  ],
+  "scope": "Native matching receiver/channel/cutter interfaces, plus full-blank bounds. Positive blank overlap alone cannot establish a final frame collision after carving. A strictly positive gap from the blank proves gap from the final body, except rail heads outside ASSE X.",
+  "selected_frame_binding": {
+    "frame_brep": ".cache/pump-first-layout/structure/print-parts/funnel-frame.brep",
+    "frame_sha256": "f7c45f79b36810c087a193e9b038a8d623a3bcaa56793028712a2efaf2ba621b",
+    "interfaces_sha256": {
+      ".cache/pump-first-layout/funnel/aft-60/mating/frame-blank.brep": "1634418e8966cb12253cfc040626caebc089e067e6f7a05eda4d9a9ff733b981",
+      ".cache/pump-first-layout/funnel/aft-60/mating/frame-shell-clearance.brep": "95e8da628e93b67258a70503bd2820babeecf870a2577b50439c2b7625a96f60",
+      ".cache/pump-first-layout/funnel/aft-60/mating/front-roof-clearance.brep": "a92cd33bc1e63fb94708531fcc0375c2a74850724c44785db33502870801d4bb",
+      ".cache/pump-first-layout/funnel/aft-60/mating/front-seam-relief.brep": "5f949e3d2a74e7fd4f98952392909c5ebcfe783f44ec3659e5efbb43731622ee",
+      ".cache/pump-first-layout/funnel/aft-60/mating/front-receivers.brep": "1baf480c8f8a42e12bed2a79aa09e881d876ec7317678fdace8d506425023488",
+      ".cache/pump-first-layout/funnel/aft-60/mating/back-receivers.brep": "9f6a9f107930b17f341401d5f8eec34b095a1908c103b0d2d3e1a1a12dfc809d",
+      ".cache/pump-first-layout/funnel/aft-60/mating/front-rail-channels.brep": "f322dd6c073aac1be20677b8b4f4bf361dba5a12c0b6b9b30c70f18ebb99f04d",
+      ".cache/pump-first-layout/funnel/aft-60/mating/back-rail-channels.brep": "1f7ddd9b6448505474f087c20aa0e3393b394268293bcc85d804a6d13f402708",
+      ".cache/pump-first-layout/funnel/aft-60/mating/brim-pocket.brep": "f971291efb2509fe301bdf2fd6cad65cd1d0bbc44b928ac342d208069e4a4885",
+      ".cache/pump-first-layout/funnel/aft-60/mating/collar-throat.brep": "4d725def2cc9ed5b728203c0955f211595d77423ae1f3e92f595d3196a1cfd1f"
+    },
+    "checks": [
+      {
+        "test": "selected relieved frame versus front-receivers",
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "pass": true
+      },
+      {
+        "test": "selected relieved frame versus back-receivers",
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "pass": true
+      },
+      {
+        "test": "native relieved frame",
+        "valid": true,
+        "solids": 1,
+        "pass": true
+      },
+      {
+        "test": "complete production rails and their three-millimetre roots",
+        "removed_mm3": 0.0,
+        "protected_abs_x_min_mm": 95.25,
+        "lowest_rail_z_mm": 306.9,
+        "highest_valve_cutter_z_mm": 306.25,
+        "highest_cradle_cutter_z_mm": 308.3,
+        "pass": true
+      },
+      {
+        "test": "complete three-millimetre brim bearing and upper surround",
+        "removed_mm3": 0.0,
+        "lowest_protected_z_mm": 346,
+        "pass": true
+      },
+      {
+        "test": "exact raisedVK exterior air",
+        "gap_mm": 1.0,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "exact raisedVK cradle exterior air",
+        "gap_mm": 1.0,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "exact raised tee exterior air",
+        "gap_mm": 111.15433252196495,
+        "common_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "subset of original motion-checked frame",
+        "added_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "forming stock retained before silicone",
+        "native_removed_to_silicone_mm": 9.763985982468267,
+        "forming_expansion_upper_bound_mm": 0.6,
+        "remaining_stock_lower_bound_mm": 9.163985982468267,
+        "pass": true
+      },
+      {
+        "test": "Gate-A exact R14 elbow retains one-millimetre frame air",
+        "gap_mm": 0.9999999999988282,
+        "common_mm3": 0.0,
+        "cutter_bounds_mm": [
+          40.57499989999997,
+          101.12034662468089,
+          253.4000001,
+          92.6750001,
+          430.47500010000005,
+          300.79500918852676
+        ],
+        "pass": true
+      },
+      {
+        "test": "retained cartridge bore and ridge-clip lead has one-millimetre frame air",
+        "gap_mm": 0.9999999999990972,
+        "common_mm3": 0.0,
+        "cutter_bounds_mm": [
+          -3.1500001000000073,
+          95.3499999,
+          273.2756261237512,
+          93.1500001,
+          126.0,
+          304.1500001
+        ],
+        "pass": true
+      },
+      {
+        "test": "cartridge chase retains the complete source5.25mm frame-floor band",
+        "floor_band_z_mm": [
+          304.15,
+          309.4
+        ],
+        "additional_missing_mm3": 0.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 0,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 0,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 0.5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 0.5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 1,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 1,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 2,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 2,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 5,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 10,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 10,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 20,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 20,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 40,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 40,
+        "common_mm3": 0.0,
+        "gap_mm": 1.0,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 70,
+        "common_mm3": 0.0,
+        "gap_mm": 9.630482155409128,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 70,
+        "common_mm3": 0.0,
+        "gap_mm": 12.748376493432453,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 90,
+        "common_mm3": 0.0,
+        "gap_mm": 26.3521722750469,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 90,
+        "common_mm3": 0.0,
+        "gap_mm": 30.06888456912124,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK casting",
+        "frame_fore_of_home_mm": 102.2,
+        "common_mm3": 0.0,
+        "gap_mm": 36.91768220121704,
+        "pass": true
+      },
+      {
+        "test": "front-top/frame factory closure versus VK cradle",
+        "frame_fore_of_home_mm": 102.2,
+        "common_mm3": 0.0,
+        "gap_mm": 40.63439449529138,
+        "pass": true
+      }
+    ],
+    "pass": true,
+    "scope": "Seated native frame/receiver clearance and unchanged rail roots/brim bearing, bound to the selected relieved frame. Full populated back-top motion is qualified by the integrated factory audit."
+  }
+}

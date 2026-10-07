@@ -1,0 +1,56 @@
+[
+  {
+    "a": "psu",
+    "b": "pcba",
+    "distance_mm": 10.543870120954795,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "g-ganen-pump",
+    "distance_mm": 9.986881928690025,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "bulkhead-flavor-a",
+    "distance_mm": 8.29599989999997,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "bulkhead-flavor-b",
+    "distance_mm": 15.321448036597916,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "keystone-jack",
+    "distance_mm": 3.3500000000000014,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "tube-water-6",
+    "distance_mm": 0.8914258345911402,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "psu",
+    "b": "tube-water-7",
+    "distance_mm": 83.14653499410255,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "ground-stack",
+    "b": "c14-inlet",
+    "distance_mm": 8.527947341949728,
+    "overlap_mm3": 0.0
+  },
+  {
+    "a": "ground-stack",
+    "b": "psu",
+    "distance_mm": 33.31369838369794,
+    "overlap_mm3": 0.0
+  }
+]

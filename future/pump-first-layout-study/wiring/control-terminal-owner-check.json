@@ -1,0 +1,3750 @@
+{
+  "pass": true,
+  "required_grouped_routes": 26,
+  "completed_grouped_routes": 26,
+  "checks": [
+    {
+      "control": "control-loom-J1-coil-v-a",
+      "endpoint": "from_dock",
+      "owner": "control-header-J1-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.341120244715803,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-a",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-a",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J1-coil-v-a-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        18
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-a",
+      "endpoint": "to_dock",
+      "owner": "valve-v-a",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        18
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-b",
+      "endpoint": "from_dock",
+      "owner": "control-header-J1-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.34165176559382565,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-b",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-b",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J1-coil-v-b-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        18
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-coil-v-b",
+      "endpoint": "to_dock",
+      "owner": "valve-v-b",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        18
+      ],
+      "tested_member_count": 18,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J2-vk-solenoid",
+      "endpoint": "from_dock",
+      "owner": "control-header-J2-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.5023484300149369,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J2-vk-solenoid",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J2-vk-solenoid",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J2-vk-solenoid-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        20
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J2-vk-solenoid",
+      "endpoint": "to_dock",
+      "owner": "vk-solenoid",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        20
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-retained-manifold-loom",
+      "endpoint": "from_dock",
+      "owner": "control-header-J1-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-retained-manifold-loom",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J1-retained-manifold-loom",
+      "endpoint": "to_dock",
+      "owner": "control-manifold-aft-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        22
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 11.533150079229118,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          100.3,
+          460.2,
+          284.0
+        ],
+        "normal_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 21,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              100.3,
+              459.2,
+              284.0
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 21,
+            "common_mm3": 11.533150079229118,
+            "overlap_bounds_mm": [
+              97.54999989375459,
+              457.22777432153833,
+              281.2499999,
+              102.1380504144654,
+              459.2000001000001,
+              285.0959120496856
+            ],
+            "local_arc_connection": {
+              "member": 21,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                100.3,
+                459.2,
+                284.0
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J2-retained-manifold-loom",
+      "endpoint": "from_dock",
+      "owner": "control-header-J2-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 32,
+      "remaining_members_common_mm3": 0.06356898031647533,
+      "normal_terminal_member_common_mm3": 4.262989947415403,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          10.42999999999999,
+          411.61606375,
+          329.8
+        ],
+        "normal_axis": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 1,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              10.42999999999999,
+              412.11606375,
+              329.8
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 1,
+            "common_mm3": 0.06356898031647533,
+            "overlap_bounds_mm": [
+              8.831886307029789,
+              412.11606365,
+              331.2382394294122,
+              12.028113692970193,
+              412.2155137997242,
+              331.9519401110084
+            ],
+            "local_arc_connection": {
+              "member": 1,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                10.42999999999999,
+                412.11606375,
+                329.8
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J2-retained-manifold-loom",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 32,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J2-retained-manifold-loom",
+      "endpoint": "to_dock",
+      "owner": "control-manifold-aft-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        32
+      ],
+      "tested_member_count": 32,
+      "remaining_members_common_mm3": 51.45055927417952,
+      "normal_terminal_member_common_mm3": 28.977917245362697,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          94.7,
+          460.2,
+          276.5
+        ],
+        "normal_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 31,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              94.7,
+              458.2,
+              276.5
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 31,
+            "common_mm3": 51.45055927417952,
+            "overlap_bounds_mm": [
+              92.54999989999999,
+              453.7146772370664,
+              274.3499999,
+              96.8500001,
+              458.2000001,
+              279.82325549983864
+            ],
+            "local_arc_connection": {
+              "member": 31,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                94.7,
+                458.2,
+                276.5
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J3-keystone-jack",
+      "endpoint": "from_dock",
+      "owner": "control-header-J3-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 1.2975895757590985,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J3-keystone-jack",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J3-keystone-jack",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J3-keystone-jack-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J3-keystone-jack",
+      "endpoint": "to_dock",
+      "owner": "keystone-jack",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "endpoint": "from_dock",
+      "owner": "control-header-J5-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "endpoint": "to_dock",
+      "owner": "control-relay-logic-fork",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 1.8635814964914355,
+      "normal_terminal_member_common_mm3": 7.866861105736568,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          36.5,
+          442.15,
+          283.65
+        ],
+        "normal_axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 11,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              35.8,
+              442.15,
+              283.65
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 11,
+            "common_mm3": 1.8635814964914355,
+            "overlap_bounds_mm": [
+              35.15839990555626,
+              440.0020378519426,
+              281.4999999,
+              35.800000100000005,
+              444.29796214805737,
+              283.55641035855825
+            ],
+            "local_arc_connection": {
+              "member": 11,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                35.8,
+                442.15,
+                283.65
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "endpoint": "to_dock",
+      "owner": "relay-1",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "endpoint": "to_dock",
+      "owner": "relay-2",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-a",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-mana-coil-v-a-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 6,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-a",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-mana-coil-v-a-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        6
+      ],
+      "tested_member_count": 6,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-a",
+      "endpoint": "to_dock",
+      "owner": "valve-v-a",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        6
+      ],
+      "tested_member_count": 6,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-b",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-mana-coil-v-b-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 8,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-b",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-mana-coil-v-b-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        8
+      ],
+      "tested_member_count": 8,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-b",
+      "endpoint": "to_dock",
+      "owner": "valve-v-b",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        8
+      ],
+      "tested_member_count": 8,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-manb-vk-solenoid",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-manb-vk-solenoid-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-manb-vk-solenoid",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-manb-vk-solenoid-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-manb-vk-solenoid",
+      "endpoint": "to_dock",
+      "owner": "vk-solenoid",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-reed-A",
+      "endpoint": "from_dock",
+      "owner": "control-header-J6-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 34,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-reed-A",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 34,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-reed-A",
+      "endpoint": "to_dock",
+      "owner": "control-service-fork-A",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        34
+      ],
+      "tested_member_count": 34,
+      "remaining_members_common_mm3": 2.5425725632964804,
+      "normal_terminal_member_common_mm3": 7.427010371376143,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          -47.8,
+          403.2,
+          326.4
+        ],
+        "normal_axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 33,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              -47.8,
+              403.1999999999999,
+              325.7
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 33,
+            "common_mm3": 2.5425725632964804,
+            "overlap_bounds_mm": [
+              -49.9500001,
+              402.12241430858785,
+              324.7334694403479,
+              -47.05297945986874,
+              405.3786729038185,
+              325.70000010000007
+            ],
+            "local_arc_connection": {
+              "member": 33,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                -47.8,
+                403.1999999999999,
+                325.7
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J6-reed-A",
+      "endpoint": "to_dock",
+      "owner": "cold-core/foam-cap-lid-top",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        34
+      ],
+      "tested_member_count": 34,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-reed-B",
+      "endpoint": "from_dock",
+      "owner": "control-header-J7-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 1.350711251534425,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-reed-B",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-reed-B",
+      "endpoint": "to_dock",
+      "owner": "control-service-fork-B",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-reed-B",
+      "endpoint": "to_dock",
+      "owner": "cold-core/foam-cap-lid-top",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-wago-reeds-a",
+      "endpoint": "from_dock",
+      "owner": "control-header-J6-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-wago-reeds-a",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-wago-reeds-a",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J6-wago-reeds-a-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        20
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J6-wago-reeds-a",
+      "endpoint": "to_dock",
+      "owner": "wago-reeds-a",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        20
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-wago-reeds-b",
+      "endpoint": "from_dock",
+      "owner": "control-header-J7-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.10221864727846137,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-wago-reeds-b",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-wago-reeds-b",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J7-wago-reeds-b-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-wago-reeds-b",
+      "endpoint": "to_dock",
+      "owner": "wago-reeds-b",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-wago-sensors",
+      "endpoint": "from_dock",
+      "owner": "control-header-J4-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.5966435082246073,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-wago-sensors",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-wago-sensors",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J4-wago-sensors-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-wago-sensors",
+      "endpoint": "to_dock",
+      "owner": "wago-sensors",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        14
+      ],
+      "tested_member_count": 14,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "control-header-J7-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.8506419476354878,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J7-retained-cold-core-service-leads",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J7-retained-cold-core-service-leads-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        20
+      ],
+      "tested_member_count": 20,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "control-header-J4-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 14.172694991687889,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-retained-cold-core-service-leads",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J4-retained-cold-core-service-leads-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        24
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 26,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 1.5768892923170226,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "wago-reeds-b",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 26,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        26
+      ],
+      "tested_member_count": 26,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-sensors-retained-cold-core-service-leads-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-retained-cold-core-service-leads",
+      "endpoint": "from_dock",
+      "owner": "wago-sensors",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-retained-cold-core-service-leads",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-sensors-retained-cold-core-service-leads-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        16
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-digiten-flow",
+      "endpoint": "from_dock",
+      "owner": "control-header-J4-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 1.2142082829412664,
+      "normal_terminal_member_common_mm3": 7.3494666545120415,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          -4.899999999999999,
+          364.36606375,
+          325.15
+        ],
+        "normal_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 1,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              -4.899999999999999,
+              363.26606400000003,
+              325.15
+            ],
+            "shares_normal_stem_section": true,
+            "begins_tangent_at_actual_dressing_mouth": false
+          }
+        ],
+        "contacts": [
+          {
+            "member": 1,
+            "common_mm3": 1.2142082829412664,
+            "overlap_bounds_mm": [
+              -6.650000099999999,
+              362.46479688091165,
+              324.06196895311683,
+              -4.544365780281696,
+              363.26606410000005,
+              326.9000001
+            ],
+            "local_arc_connection": {
+              "member": 1,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                -4.899999999999999,
+                363.26606400000003,
+                325.15
+              ],
+              "shares_normal_stem_section": true,
+              "begins_tangent_at_actual_dressing_mouth": false
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J4-digiten-flow",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-digiten-flow",
+      "endpoint": "to_dock",
+      "owner": "control-meter-pigtail",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-digiten-flow",
+      "endpoint": "to_dock",
+      "owner": "digiten-flow",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-moisture-comparator-reserve",
+      "endpoint": "from_dock",
+      "owner": "control-header-J4-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 24.078251521403175,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-moisture-comparator-reserve",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J4-moisture-comparator-reserve",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J4-moisture-comparator-reserve-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        12
+      ],
+      "tested_member_count": 12,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-digiten-flow",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-sensors-digiten-flow-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-digiten-flow",
+      "endpoint": "from_dock",
+      "owner": "wago-sensors",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-digiten-flow",
+      "endpoint": "to_dock",
+      "owner": "control-meter-pigtail",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        24
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-digiten-flow",
+      "endpoint": "to_dock",
+      "owner": "digiten-flow",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        24
+      ],
+      "tested_member_count": 24,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-moisture-comparator-reserve",
+      "endpoint": "from_dock",
+      "owner": "control-loom-wago-sensors-moisture-comparator-reserve-source",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-moisture-comparator-reserve",
+      "endpoint": "from_dock",
+      "owner": "wago-sensors",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-wago-sensors-moisture-comparator-reserve",
+      "endpoint": "to_dock",
+      "owner": "control-loom-wago-sensors-moisture-comparator-reserve-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        16
+      ],
+      "tested_member_count": 16,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J9-retained-display-loom",
+      "endpoint": "from_dock",
+      "owner": "control-header-J9-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [],
+      "tested_member_count": 30,
+      "remaining_members_common_mm3": 1.2977161773333832,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": false,
+      "pass": true,
+      "nominal_endpoint_continuity": {
+        "named_route_end_contact_declared": true,
+        "actual_dressing_mouth_mm": [
+          -13.00000000000001,
+          382.86606375,
+          317.15
+        ],
+        "normal_axis": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "local_arc_connections": [
+          {
+            "member": 0,
+            "kind": "TORUS",
+            "shared_section_centre_mm": [
+              -13.000000000000007,
+              382.86606375,
+              317.15
+            ],
+            "shares_normal_stem_section": false,
+            "begins_tangent_at_actual_dressing_mouth": true
+          }
+        ],
+        "contacts": [
+          {
+            "member": 0,
+            "common_mm3": 1.2977161773333832,
+            "overlap_bounds_mm": [
+              -13.194933358455147,
+              380.71591643458066,
+              314.9999999,
+              -12.999999899999978,
+              385.01606385,
+              319.3000001
+            ],
+            "local_arc_connection": {
+              "member": 0,
+              "kind": "TORUS",
+              "shared_section_centre_mm": [
+                -13.000000000000007,
+                382.86606375,
+                317.15
+              ],
+              "shares_normal_stem_section": false,
+              "begins_tangent_at_actual_dressing_mouth": true
+            },
+            "pass": true
+          }
+        ],
+        "pass": true,
+        "scope": "Only the immediate native arc sharing the terminal-normal stem section, or beginning tangent at the actual dressing mouth, can meet this named bare dressing region. Later members remain tested."
+      }
+    },
+    {
+      "control": "control-loom-J9-retained-display-loom",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [],
+      "tested_member_count": 30,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J9-retained-display-loom",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J9-retained-display-loom-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        29
+      ],
+      "tested_member_count": 29,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J13-retained-cartridge-loom",
+      "endpoint": "from_dock",
+      "owner": "control-header-J13-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 40,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 1.5461795326175767,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J13-retained-cartridge-loom",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 40,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J13-retained-cartridge-loom",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J13-retained-cartridge-loom-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        40
+      ],
+      "tested_member_count": 40,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J11-retained-mq6-loom",
+      "endpoint": "from_dock",
+      "owner": "control-header-J11-fanout",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J11-retained-mq6-loom",
+      "endpoint": "from_dock",
+      "owner": "pcba",
+      "owner_scope": "canonical purchased or retained hardware",
+      "exempt_normal_approach_member_indices": [
+        0
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    },
+    {
+      "control": "control-loom-J11-retained-mq6-loom",
+      "endpoint": "to_dock",
+      "owner": "control-loom-J11-retained-mq6-loom-target",
+      "owner_scope": "nominal counted dressing region",
+      "exempt_normal_approach_member_indices": [
+        22
+      ],
+      "tested_member_count": 22,
+      "remaining_members_common_mm3": 0.0,
+      "normal_terminal_member_common_mm3": 0.0,
+      "strict_remaining_members_clear": true,
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "routes": [
+    {
+      "control": "control-loom-J1-coil-v-a",
+      "native_sha256": "b859568eb81a990b02c725d6572b53dfa94d50f7aab6e86ab3fd07f1213f660b",
+      "received_physical_member_count": 19,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J1-fanout",
+          "member": 0,
+          "mouth_mm": [
+            38.37999999999999,
+            411.61606375,
+            329.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.000000249999971,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J1-coil-v-a-target",
+          "member": 18,
+          "mouth_mm": [
+            90.2,
+            205.0,
+            277.6
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 13.400000000000034,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J1-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J1-coil-v-a-target",
+          "canonical_hardware_owners": [
+            "coil-v-a"
+          ],
+          "installed_hardware_owners": [
+            "valve-v-a"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J1-coil-v-b",
+      "native_sha256": "7f483b7a326d242e69a7e7be314e156d0435cbd1ab4dbec132f15471ca2970ed",
+      "received_physical_member_count": 19,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J1-fanout",
+          "member": 0,
+          "mouth_mm": [
+            35.679999999999986,
+            411.61606375,
+            329.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J1-coil-v-b-target",
+          "member": 18,
+          "mouth_mm": [
+            27.900000000000016,
+            276.8,
+            262.7
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 13.400000000000034,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J1-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J1-coil-v-b-target",
+          "canonical_hardware_owners": [
+            "coil-v-b"
+          ],
+          "installed_hardware_owners": [
+            "valve-v-b"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J2-vk-solenoid",
+      "native_sha256": "4d2b89ffc367a437240c5f9cfd662908f44a1bc1ed611cc24e96e403d687713d",
+      "received_physical_member_count": 21,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J2-fanout",
+          "member": 0,
+          "mouth_mm": [
+            14.42999999999999,
+            411.61606375,
+            329.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.000000249999971,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J2-vk-solenoid-target",
+          "member": 20,
+          "mouth_mm": [
+            -34.40000000000001,
+            201.25,
+            295.95
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 5.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J2-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J2-vk-solenoid-target",
+          "canonical_hardware_owners": [
+            "vk-solenoid"
+          ],
+          "installed_hardware_owners": [
+            "vk-solenoid"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J1-retained-manifold-loom",
+      "native_sha256": "fca202d5be7f4ed58e90d579f7910c9cdbe7e83c2f199c45bcecfd35e4a95f17",
+      "received_physical_member_count": 23,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J1-fanout",
+          "member": 0,
+          "mouth_mm": [
+            25.3,
+            424.6160637500001,
+            340.3
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.20000024999990273,
+          "diameter_mm": 5.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-manifold-aft-fanout",
+          "member": 22,
+          "mouth_mm": [
+            100.3,
+            460.2,
+            284.0
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 1.0,
+          "diameter_mm": 5.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J1-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-manifold-aft-fanout",
+          "canonical_hardware_owners": [
+            "retained-manifold-loom"
+          ],
+          "installed_hardware_owners": [
+            "retained-manifold-loom"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-manifold-loom"
+          ],
+          "normal_approach_member_indices": [
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J2-retained-manifold-loom",
+      "native_sha256": "3fc41c88df10cc1ef38e0aed398aaacacdefaef85627e35c105e531308f93424",
+      "received_physical_member_count": 33,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J2-fanout",
+          "member": 0,
+          "mouth_mm": [
+            10.42999999999999,
+            411.61606375,
+            329.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.5,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-manifold-aft-fanout",
+          "member": 32,
+          "mouth_mm": [
+            94.7,
+            460.2,
+            276.5
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J2-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-manifold-aft-fanout",
+          "canonical_hardware_owners": [
+            "retained-manifold-loom"
+          ],
+          "installed_hardware_owners": [
+            "retained-manifold-loom"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-manifold-loom"
+          ],
+          "normal_approach_member_indices": [
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J3-keystone-jack",
+      "native_sha256": "e16f4f6a2fd4d260a42ecf2223a1a4660ca1719e4cc510ab5f509264e9cc03b8",
+      "received_physical_member_count": 15,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J3-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -13.00000000000001,
+            348.36606375,
+            317.15
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 16.75000005477855,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J3-keystone-jack-target",
+          "member": 14,
+          "mouth_mm": [
+            -63.675,
+            433.90000000000003,
+            281.9999999999916
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.6999999999915758,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J3-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J3-keystone-jack-target",
+          "canonical_hardware_owners": [
+            "keystone-jack"
+          ],
+          "installed_hardware_owners": [
+            "keystone-jack"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J5-relay-logic-cluster",
+      "native_sha256": "70dc2d5eb8c1335ccb36dabf75f7f9ebee254be53c8d79acae6403509c82a683",
+      "received_physical_member_count": 13,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J5-fanout",
+          "member": 0,
+          "mouth_mm": [
+            56.69999999999998,
+            358.66606375000003,
+            330.6
+          ],
+          "normal_axis_dot": 0.9999999999999989,
+          "normal_straight_length_mm": 0.7000000000000249,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-relay-logic-fork",
+          "member": 12,
+          "mouth_mm": [
+            36.5,
+            442.15,
+            283.65
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.7000000000000028,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J5-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-relay-logic-fork",
+          "canonical_hardware_owners": [
+            "relay-1",
+            "relay-2"
+          ],
+          "installed_hardware_owners": [
+            "relay-1",
+            "relay-2"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-a",
+      "native_sha256": "dd74ed899334ef512afb88a8db12ae2279596d5ac3e38f10f8bd2da7b872f245",
+      "received_physical_member_count": 7,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-mana-coil-v-a-source",
+          "member": 0,
+          "mouth_mm": [
+            80.8,
+            165.05,
+            269.84000000000003
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 3.740000000000066,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-mana-coil-v-a-target",
+          "member": 6,
+          "mouth_mm": [
+            90.2,
+            205.0,
+            262.7
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 13.400000000000006,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-mana-coil-v-a-source",
+          "canonical_hardware_owners": [
+            "wago-mana"
+          ],
+          "installed_hardware_owners": [
+            "wago-mana"
+          ],
+          "unlocated_boundary_owners": [
+            "wago-mana"
+          ],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-mana-coil-v-a-target",
+          "canonical_hardware_owners": [
+            "coil-v-a"
+          ],
+          "installed_hardware_owners": [
+            "valve-v-a"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-mana-coil-v-b",
+      "native_sha256": "67b2d1a7b649e4155516256e3344dff727c750f8f260c6e7a0662afc64914540",
+      "received_physical_member_count": 9,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-mana-coil-v-b-source",
+          "member": 0,
+          "mouth_mm": [
+            80.8,
+            165.05,
+            284.2
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 3.400000000000034,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-mana-coil-v-b-target",
+          "member": 8,
+          "mouth_mm": [
+            35.300000000000004,
+            273.8,
+            277.6
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 21.900000000000006,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-mana-coil-v-b-source",
+          "canonical_hardware_owners": [
+            "wago-mana"
+          ],
+          "installed_hardware_owners": [
+            "wago-mana"
+          ],
+          "unlocated_boundary_owners": [
+            "wago-mana"
+          ],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-mana-coil-v-b-target",
+          "canonical_hardware_owners": [
+            "coil-v-b"
+          ],
+          "installed_hardware_owners": [
+            "valve-v-b"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-manb-vk-solenoid",
+      "native_sha256": "11f88de57e428b261161be35c8402034b272e64e251dbeed7404133a3bba6489",
+      "received_physical_member_count": 15,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-manb-vk-solenoid-source",
+          "member": 0,
+          "mouth_mm": [
+            80.5,
+            169.0,
+            253.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-manb-vk-solenoid-target",
+          "member": 14,
+          "mouth_mm": [
+            -34.4,
+            201.25,
+            281.05
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 3.4000000000000057,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-manb-vk-solenoid-source",
+          "canonical_hardware_owners": [
+            "wago-manb"
+          ],
+          "installed_hardware_owners": [
+            "wago-manb"
+          ],
+          "unlocated_boundary_owners": [
+            "wago-manb"
+          ],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-manb-vk-solenoid-target",
+          "canonical_hardware_owners": [
+            "vk-solenoid"
+          ],
+          "installed_hardware_owners": [
+            "vk-solenoid"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J6-reed-A",
+      "native_sha256": "494a8a0c957e19f3247379b5e02ea814f96f7e2fa6a765a2741ed39f8b218cbc",
+      "received_physical_member_count": 35,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J6-fanout",
+          "member": 0,
+          "mouth_mm": [
+            56.69999999999998,
+            374.86606374999997,
+            330.6
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 1.000000000000007,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-service-fork-A",
+          "member": 34,
+          "mouth_mm": [
+            -47.8,
+            403.2,
+            326.4
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.6999999999999886,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J6-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-service-fork-A",
+          "canonical_hardware_owners": [
+            "cold-core/foam-cap-lid-top"
+          ],
+          "installed_hardware_owners": [
+            "cold-core/foam-cap-lid-top"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J7-reed-B",
+      "native_sha256": "e6485f6eb07ae140f15a1a800a87d98f0bc3f93c79eb55ec8312ef072838036c",
+      "received_physical_member_count": 15,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J7-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -13.00000000000001,
+            396.51606375000006,
+            317.15
+          ],
+          "normal_axis_dot": 0.9999999999999998,
+          "normal_straight_length_mm": 16.70000005490652,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-service-fork-B",
+          "member": 14,
+          "mouth_mm": [
+            -19.0,
+            399.7,
+            326.4
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.6999999999999886,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J7-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-service-fork-B",
+          "canonical_hardware_owners": [
+            "cold-core/foam-cap-lid-top"
+          ],
+          "installed_hardware_owners": [
+            "cold-core/foam-cap-lid-top"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J6-wago-reeds-a",
+      "native_sha256": "6baf149d69713aaa402e51b14f380881be1f8789f944f3cc51ded1429e6bd7e2",
+      "received_physical_member_count": 21,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J6-fanout",
+          "member": 0,
+          "mouth_mm": [
+            56.69999999999998,
+            370.86606375,
+            330.6
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 0.5000000000000071,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J6-wago-reeds-a-target",
+          "member": 20,
+          "mouth_mm": [
+            -93.35,
+            388.65,
+            336.25000000000006
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 31.750000000000057,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J6-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J6-wago-reeds-a-target",
+          "canonical_hardware_owners": [
+            "wago-reeds-a"
+          ],
+          "installed_hardware_owners": [
+            "wago-reeds-a"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J7-wago-reeds-b",
+      "native_sha256": "a8c11e7339236ec2c7a8a9dd694fc21ab8a97e01361f48d636978bd13f9836c8",
+      "received_physical_member_count": 15,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J7-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -13.00000000000001,
+            405.0160637500001,
+            317.5
+          ],
+          "normal_axis_dot": 0.9999999999999998,
+          "normal_straight_length_mm": 10.649999999999997,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J7-wago-reeds-b-target",
+          "member": 14,
+          "mouth_mm": [
+            -44.920000000000016,
+            360.7,
+            348.3
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J7-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J7-wago-reeds-b-target",
+          "canonical_hardware_owners": [
+            "wago-reeds-b"
+          ],
+          "installed_hardware_owners": [
+            "wago-reeds-b"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J4-wago-sensors",
+      "native_sha256": "e9b217a265c0351d8cdb4ca0f4d795cba17a9cb4b1717e4738318369ad18482a",
+      "received_physical_member_count": 15,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J4-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -13.0,
+            360.61606375,
+            325.15
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 1.999999750000029,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J4-wago-sensors-target",
+          "member": 14,
+          "mouth_mm": [
+            -60.05,
+            388.65,
+            336.25000000000006
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 5.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J4-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J4-wago-sensors-target",
+          "canonical_hardware_owners": [
+            "wago-sensors"
+          ],
+          "installed_hardware_owners": [
+            "wago-sensors"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J7-retained-cold-core-service-leads",
+      "native_sha256": "cbbdec37a1558e444d5b57b37cd995e9517a983b49b2e5426834ea3b5e90b36e",
+      "received_physical_member_count": 21,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J7-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -13.00000000000001,
+            401.4160637500001,
+            317.5
+          ],
+          "normal_axis_dot": 0.9999999999999988,
+          "normal_straight_length_mm": 1.0999999999999956,
+          "diameter_mm": 3.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J7-retained-cold-core-service-leads-target",
+          "member": 20,
+          "mouth_mm": [
+            -94.7,
+            408.55,
+            261.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 12.5,
+          "diameter_mm": 3.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J7-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J7-retained-cold-core-service-leads-target",
+          "canonical_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "installed_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "normal_approach_member_indices": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J4-retained-cold-core-service-leads",
+      "native_sha256": "8a447c4bb3d5ae6eb9a1f696047ede10bf1a3c5944ad3a495349eb5c647ea32d",
+      "received_physical_member_count": 25,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J4-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -9.399999999999999,
+            363.11606375,
+            325.15
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 6.516063750000001,
+          "diameter_mm": 3.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J4-retained-cold-core-service-leads-target",
+          "member": 24,
+          "mouth_mm": [
+            -88.0,
+            396.0,
+            261.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 62.89999999999998,
+          "diameter_mm": 3.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J4-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J4-retained-cold-core-service-leads-target",
+          "canonical_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "installed_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "normal_approach_member_indices": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+      "native_sha256": "30cd7ad3af16cb405de7d17c6431dbd2c2048329dd6752ab0cd311e3ffa5d81c",
+      "received_physical_member_count": 27,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
+          "member": 0,
+          "mouth_mm": [
+            -41.94000000000001,
+            376.0,
+            347.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 10.485000000000014,
+          "diameter_mm": 3.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
+          "member": 26,
+          "mouth_mm": [
+            -80.69999999999997,
+            408.55,
+            261.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 12.5,
+          "diameter_mm": 3.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
+          "canonical_hardware_owners": [
+            "wago-reeds-b"
+          ],
+          "installed_hardware_owners": [
+            "wago-reeds-b"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
+          "canonical_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "installed_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "normal_approach_member_indices": [
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-sensors-retained-cold-core-service-leads",
+      "native_sha256": "906b3d30f628012ac4dcf8314589e2233a0e1a14dd2788ee8d441134eecf0587",
+      "received_physical_member_count": 17,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-sensors-retained-cold-core-service-leads-source",
+          "member": 0,
+          "mouth_mm": [
+            -54.049999999999976,
+            388.65000000000003,
+            336.25000000000006
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-sensors-retained-cold-core-service-leads-target",
+          "member": 16,
+          "mouth_mm": [
+            0.0,
+            395.0,
+            261.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 3.400000000000034,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-sensors-retained-cold-core-service-leads-source",
+          "canonical_hardware_owners": [
+            "wago-sensors"
+          ],
+          "installed_hardware_owners": [
+            "wago-sensors"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-sensors-retained-cold-core-service-leads-target",
+          "canonical_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "installed_hardware_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-cold-core-service-leads"
+          ],
+          "normal_approach_member_indices": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J4-digiten-flow",
+      "native_sha256": "d2c94ffb85d79401804bb02f941dcf4aade6ab539681fda36e3462358027ab95",
+      "received_physical_member_count": 13,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J4-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -4.899999999999999,
+            364.36606375,
+            325.15
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 1.099999749999995,
+          "diameter_mm": 3.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-meter-pigtail",
+          "member": 12,
+          "mouth_mm": [
+            98.3,
+            391.11,
+            301.1
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 8.300000000000011,
+          "diameter_mm": 3.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J4-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-meter-pigtail",
+          "canonical_hardware_owners": [
+            "digiten-flow"
+          ],
+          "installed_hardware_owners": [
+            "digiten-flow"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J4-moisture-comparator-reserve",
+      "native_sha256": "b3a3c8db08d4734633749d3ed6634674cdf8e3d94438bf874033c88c128cbc7c",
+      "received_physical_member_count": 13,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J4-fanout",
+          "member": 0,
+          "mouth_mm": [
+            -0.3999999999999986,
+            371.86606375,
+            325.15
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 17.04999975000004,
+          "diameter_mm": 3.5,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J4-moisture-comparator-reserve-target",
+          "member": 12,
+          "mouth_mm": [
+            -67.75,
+            311.4,
+            275.0
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 12.5,
+          "diameter_mm": 3.5,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J4-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J4-moisture-comparator-reserve-target",
+          "canonical_hardware_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "installed_hardware_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "unlocated_boundary_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "normal_approach_member_indices": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-sensors-digiten-flow",
+      "native_sha256": "ca4aad1d394cd9d53d368e710646a3f10d37099554ed588bb06a409b1bd05873",
+      "received_physical_member_count": 25,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-sensors-digiten-flow-source",
+          "member": 0,
+          "mouth_mm": [
+            -48.04999999999997,
+            388.65000000000003,
+            336.25000000000006
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 3.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-meter-pigtail",
+          "member": 24,
+          "mouth_mm": [
+            101.39999999999999,
+            391.11,
+            301.1
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-sensors-digiten-flow-source",
+          "canonical_hardware_owners": [
+            "wago-sensors"
+          ],
+          "installed_hardware_owners": [
+            "wago-sensors"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-meter-pigtail",
+          "canonical_hardware_owners": [
+            "digiten-flow"
+          ],
+          "installed_hardware_owners": [
+            "digiten-flow"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-wago-sensors-moisture-comparator-reserve",
+      "native_sha256": "62616bace2621d31f0ac6f661646f44080cbe475a8d9d6c4e6ddcc597baaaf23",
+      "received_physical_member_count": 17,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-loom-wago-sensors-moisture-comparator-reserve-source",
+          "member": 0,
+          "mouth_mm": [
+            -42.04999999999997,
+            388.65000000000003,
+            336.25000000000006
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.0,
+          "diameter_mm": 1.7,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-wago-sensors-moisture-comparator-reserve-target",
+          "member": 16,
+          "mouth_mm": [
+            -64.0,
+            311.4,
+            275.0
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 13.400000000000034,
+          "diameter_mm": 1.7,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-loom-wago-sensors-moisture-comparator-reserve-source",
+          "canonical_hardware_owners": [
+            "wago-sensors"
+          ],
+          "installed_hardware_owners": [
+            "wago-sensors"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-wago-sensors-moisture-comparator-reserve-target",
+          "canonical_hardware_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "installed_hardware_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "unlocated_boundary_owners": [
+            "moisture-comparator-reserve"
+          ],
+          "normal_approach_member_indices": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J9-retained-display-loom",
+      "native_sha256": "16486d0962f5f5dd0d7d33324ba96cbcabdbb4bb5accd8e02070747f2f1ce424",
+      "received_physical_member_count": 30,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J9-fanout",
+          "member": null,
+          "mouth_mm": [
+            -13.00000000000001,
+            382.86606375,
+            317.15
+          ],
+          "normal_axis": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "no_straight_member_exemption": true,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J9-retained-display-loom-target",
+          "member": 29,
+          "mouth_mm": [
+            31.999999999999993,
+            103.60849207671873,
+            305.5045573971231
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 1.9999999877770165,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J9-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": []
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J9-retained-display-loom-target",
+          "canonical_hardware_owners": [
+            "retained-display-loom"
+          ],
+          "installed_hardware_owners": [
+            "retained-display-loom"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-display-loom"
+          ],
+          "normal_approach_member_indices": [
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J13-retained-cartridge-loom",
+      "native_sha256": "ceaff947945371d3dd2ca9d4b69c8f8ed07263e63b9621673353c38aa5e1c987",
+      "received_physical_member_count": 41,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J13-fanout",
+          "member": 0,
+          "mouth_mm": [
+            48.29999999999998,
+            388.36606375,
+            320.0
+          ],
+          "normal_axis_dot": 0.9999999999999997,
+          "normal_straight_length_mm": 5.21999988155242,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J13-retained-cartridge-loom-target",
+          "member": 40,
+          "mouth_mm": [
+            0.0,
+            102.236,
+            276.4256262237512
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 5.063999999999993,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J13-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J13-retained-cartridge-loom-target",
+          "canonical_hardware_owners": [
+            "retained-cartridge-loom"
+          ],
+          "installed_hardware_owners": [
+            "retained-cartridge-loom"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-cartridge-loom"
+          ],
+          "normal_approach_member_indices": [
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "control": "control-loom-J11-retained-mq6-loom",
+      "native_sha256": "7a53bdf15bdc2b03960dabe90febff17bef53f7ac3b132c9e7e37c84f6a89cdd",
+      "received_physical_member_count": 23,
+      "localized_terminal_approach_witnesses": [
+        {
+          "endpoint": "from",
+          "owner": "control-header-J11-fanout",
+          "member": 0,
+          "mouth_mm": [
+            6.549999999999988,
+            338.61606375,
+            333.25
+          ],
+          "normal_axis_dot": 0.9999999999999996,
+          "normal_straight_length_mm": 3.699999860119023,
+          "diameter_mm": 4.3,
+          "pass": true
+        },
+        {
+          "endpoint": "to",
+          "owner": "control-loom-J11-retained-mq6-loom-target",
+          "member": 22,
+          "mouth_mm": [
+            -92.5,
+            374.0,
+            261.8
+          ],
+          "normal_axis_dot": 1.0,
+          "normal_straight_length_mm": 2.1000000000000227,
+          "diameter_mm": 4.3,
+          "pass": true
+        }
+      ],
+      "endpoints": [
+        {
+          "endpoint": "from_dock",
+          "nominal_owner": "control-header-J11-fanout",
+          "canonical_hardware_owners": [
+            "pcba"
+          ],
+          "installed_hardware_owners": [
+            "pcba"
+          ],
+          "unlocated_boundary_owners": [],
+          "normal_approach_member_indices": [
+            0
+          ]
+        },
+        {
+          "endpoint": "to_dock",
+          "nominal_owner": "control-loom-J11-retained-mq6-loom-target",
+          "canonical_hardware_owners": [
+            "retained-mq6-loom"
+          ],
+          "installed_hardware_owners": [
+            "retained-mq6-loom"
+          ],
+          "unlocated_boundary_owners": [
+            "retained-mq6-loom"
+          ],
+          "normal_approach_member_indices": [
+            22
+          ]
+        }
+      ]
+    }
+  ],
+  "canonical_to_installed_owner_map": {
+    "coil-v-a": "valve-v-a",
+    "coil-v-b": "valve-v-b"
+  },
+  "native_inputs": {
+    "control-loom-J1-coil-v-a": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a.brep",
+      "sha256": "b859568eb81a990b02c725d6572b53dfa94d50f7aab6e86ab3fd07f1213f660b"
+    },
+    "control-header-J1-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J1-fanout.brep",
+      "sha256": "3ca7294765c5270e62efeb93cb03403f6b0c1bed96f493923d38951c447a8b86"
+    },
+    "pcba": {
+      "brep": ".cache/pump-first-layout/structure/pcba.brep",
+      "sha256": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1"
+    },
+    "control-loom-J1-coil-v-a-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a-target.brep",
+      "sha256": "9fc706030e841ebef59b04f9c6a81b82393e94c2d56323a5243b6f4982c4dc64"
+    },
+    "valve-v-a": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-a.brep",
+      "sha256": "6aed2b159f7308e51c1e24a078147a9ab6fe135c47baa927b93b336fdf7b155a"
+    },
+    "control-loom-J1-coil-v-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b.brep",
+      "sha256": "7f483b7a326d242e69a7e7be314e156d0435cbd1ab4dbec132f15471ca2970ed"
+    },
+    "control-loom-J1-coil-v-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b-target.brep",
+      "sha256": "8238eb2b0631cdfcd33b2323c0d9ffcad92b7a95a22d4dd4b0f9fcfbadb505d2"
+    },
+    "valve-v-b": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-b.brep",
+      "sha256": "f8957cbe243716d99338f484849f45c9a04b0b943339f1615a81986b35e5d482"
+    },
+    "control-loom-J2-vk-solenoid": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid.brep",
+      "sha256": "4d2b89ffc367a437240c5f9cfd662908f44a1bc1ed611cc24e96e403d687713d"
+    },
+    "control-header-J2-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J2-fanout.brep",
+      "sha256": "157e87430e076fe0c84c5d9f6bf2afb56f8f7425ab3eb052d18375c7c3fa2c3d"
+    },
+    "control-loom-J2-vk-solenoid-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid-target.brep",
+      "sha256": "471fc5128b2795241e26148aede6b332543c370400b9292e303d4d6089fe89ef"
+    },
+    "vk-solenoid": {
+      "brep": ".cache/pump-first-layout/pump/vk-solenoid.brep",
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07"
+    },
+    "control-loom-J1-retained-manifold-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-retained-manifold-loom.brep",
+      "sha256": "fca202d5be7f4ed58e90d579f7910c9cdbe7e83c2f199c45bcecfd35e4a95f17"
+    },
+    "control-manifold-aft-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-manifold-aft-fanout.brep",
+      "sha256": "194f65324802947631f5b9807d9f424c9a2eec6c7395c52acb27e8e2f21a6aeb"
+    },
+    "control-loom-J2-retained-manifold-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-retained-manifold-loom.brep",
+      "sha256": "3fc41c88df10cc1ef38e0aed398aaacacdefaef85627e35c105e531308f93424"
+    },
+    "control-loom-J3-keystone-jack": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack.brep",
+      "sha256": "e16f4f6a2fd4d260a42ecf2223a1a4660ca1719e4cc510ab5f509264e9cc03b8"
+    },
+    "control-header-J3-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J3-fanout.brep",
+      "sha256": "08afa1ac47a52a37a5354b4055c9c4a8749e714e952b1198b46bda77e2590c63"
+    },
+    "control-loom-J3-keystone-jack-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack-target.brep",
+      "sha256": "078b1e164f3adaef0e153ef725089d8271d1a989188338aaa9722ba3e8b9a7bc"
+    },
+    "keystone-jack": {
+      "brep": ".cache/pump-first-layout/structure/keystone-jack.brep",
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104"
+    },
+    "control-loom-J5-relay-logic-cluster": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J5-relay-logic-cluster.brep",
+      "sha256": "70dc2d5eb8c1335ccb36dabf75f7f9ebee254be53c8d79acae6403509c82a683"
+    },
+    "control-header-J5-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J5-fanout.brep",
+      "sha256": "593a0882384c065fdb7c62484eed8dee990e210506e48620ccbe9fec29551b70"
+    },
+    "control-relay-logic-fork": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-relay-logic-fork.brep",
+      "sha256": "2cee9032033cf82bc3402a28535e99f30f1bce2eac74b257d732b697c65d953e"
+    },
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877"
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755"
+    },
+    "control-loom-wago-mana-coil-v-a": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a.brep",
+      "sha256": "dd74ed899334ef512afb88a8db12ae2279596d5ac3e38f10f8bd2da7b872f245"
+    },
+    "control-loom-wago-mana-coil-v-a-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-source.brep",
+      "sha256": "4709a22645d43ae69fc4c9e273ebe22d8ca9eaf697f975986193d1274bcab10e"
+    },
+    "control-loom-wago-mana-coil-v-a-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-target.brep",
+      "sha256": "6d506890a493f2d21199f4ec81b168da5265bccca38264648166175acfffdb8c"
+    },
+    "control-loom-wago-mana-coil-v-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b.brep",
+      "sha256": "67b2d1a7b649e4155516256e3344dff727c750f8f260c6e7a0662afc64914540"
+    },
+    "control-loom-wago-mana-coil-v-b-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-source.brep",
+      "sha256": "43697e75d2bdaf3ee7a0f543364bdc0dca7f328e6b214aef6805e1cce5b09b9b"
+    },
+    "control-loom-wago-mana-coil-v-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-target.brep",
+      "sha256": "b3d1eec781e0ff4f495485c35574b3c5820cd539318c03646530e5a7a7c05154"
+    },
+    "control-loom-wago-manb-vk-solenoid": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid.brep",
+      "sha256": "11f88de57e428b261161be35c8402034b272e64e251dbeed7404133a3bba6489"
+    },
+    "control-loom-wago-manb-vk-solenoid-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-source.brep",
+      "sha256": "7db84fffa1dc15aed372adfb7fdc1265044ea4e746a8d5c490e8f12097089a24"
+    },
+    "control-loom-wago-manb-vk-solenoid-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-target.brep",
+      "sha256": "26572d7116cf134676f03edf96ef1201554b2a14151b1e0468605ab97b5f5dfd"
+    },
+    "control-loom-J6-reed-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-reed-A.brep",
+      "sha256": "494a8a0c957e19f3247379b5e02ea814f96f7e2fa6a765a2741ed39f8b218cbc"
+    },
+    "control-header-J6-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J6-fanout.brep",
+      "sha256": "2b3f2d89eaa6b3593cd9fde4ace551ab9a7b1c33cb377f55382b0f17ea1eb3e8"
+    },
+    "control-service-fork-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-A.brep",
+      "sha256": "e9add6bd9e7614e0760859c23fe4c801ba5e427a46e9fac23ea65d9a9f9ca533"
+    },
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/cold-core-lid.brep",
+      "sha256": "338c6920b114b5b7c2278ff908ab545cbabcfa5bfa7a8d51874f1e3413126555"
+    },
+    "control-loom-J7-reed-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-reed-B.brep",
+      "sha256": "e6485f6eb07ae140f15a1a800a87d98f0bc3f93c79eb55ec8312ef072838036c"
+    },
+    "control-header-J7-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J7-fanout.brep",
+      "sha256": "8f3818040d08e51e966a1279de0ba8d0182235cc02561618520e5997629c9692"
+    },
+    "control-service-fork-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B.brep",
+      "sha256": "59a7b013dd544165d81fd12d94b4843057be7e2a14d3e5f4d48b8a44db2f2574"
+    },
+    "control-loom-J6-wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a.brep",
+      "sha256": "6baf149d69713aaa402e51b14f380881be1f8789f944f3cc51ded1429e6bd7e2"
+    },
+    "control-loom-J6-wago-reeds-a-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a-target.brep",
+      "sha256": "0b8c1b6c3b8309468b700fded5721509231d079bcd5a11f09a4088dd71151b0d"
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep",
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9"
+    },
+    "control-loom-J7-wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b.brep",
+      "sha256": "a8c11e7339236ec2c7a8a9dd694fc21ab8a97e01361f48d636978bd13f9836c8"
+    },
+    "control-loom-J7-wago-reeds-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b-target.brep",
+      "sha256": "bbc3fd7edc2d8ff9086f9c0902e0f683526dbacd46e2227d9ae26f9e1aeba779"
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep",
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61"
+    },
+    "control-loom-J4-wago-sensors": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors.brep",
+      "sha256": "e9b217a265c0351d8cdb4ca0f4d795cba17a9cb4b1717e4738318369ad18482a"
+    },
+    "control-header-J4-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J4-fanout.brep",
+      "sha256": "69971268bae7dc29f5e61c7bc7a0e07414a3054fd8b020790050b3c7bffc2546"
+    },
+    "control-loom-J4-wago-sensors-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors-target.brep",
+      "sha256": "d319fee323513e2dd02068efe1474a280fb5e7d22e55f45b158ba6e2a32e3d50"
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep",
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1"
+    },
+    "control-loom-J7-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads.brep",
+      "sha256": "cbbdec37a1558e444d5b57b37cd995e9517a983b49b2e5426834ea3b5e90b36e"
+    },
+    "control-loom-J7-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads-target.brep",
+      "sha256": "87709a6762d3710106e60ed3fe706eea4ed0245b54122a35c0f4c02d8e8b76ca"
+    },
+    "control-loom-J4-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads.brep",
+      "sha256": "8a447c4bb3d5ae6eb9a1f696047ede10bf1a3c5944ad3a495349eb5c647ea32d"
+    },
+    "control-loom-J4-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads-target.brep",
+      "sha256": "dbf1d38fd0081343fef18f0834a9ebfcdea81daf3afd10eb4c14678eb284f9a4"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads.brep",
+      "sha256": "30cd7ad3af16cb405de7d17c6431dbd2c2048329dd6752ab0cd311e3ffa5d81c"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-source.brep",
+      "sha256": "8cf30527d8c172cf1681e251aa8e85415f39f0b8526b32375e9b97cc24737321"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-target.brep",
+      "sha256": "434aae3386635336b6c913398887c08c6869d089e5f022360ca3a2545fa02e69"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads.brep",
+      "sha256": "906b3d30f628012ac4dcf8314589e2233a0e1a14dd2788ee8d441134eecf0587"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-source.brep",
+      "sha256": "5ea9f7bab63c35061d388c535d2bdc25194717e936a0270f794f7dd0137451fc"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-target.brep",
+      "sha256": "9135ed3580d4220c63d7c1cea114d6b819a559d971a13fc6366e5bb577d74a2c"
+    },
+    "control-loom-J4-digiten-flow": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-digiten-flow.brep",
+      "sha256": "d2c94ffb85d79401804bb02f941dcf4aade6ab539681fda36e3462358027ab95"
+    },
+    "control-meter-pigtail": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-meter-pigtail.brep",
+      "sha256": "b2351651a7d25f6c7d874002c2f314596e0ac530fe5f6d935f12189dbc4548cd"
+    },
+    "digiten-flow": {
+      "brep": ".cache/pump-first-layout/routing/digiten-flow.brep",
+      "sha256": "e1684c3c8825d41cf64617b2a954c22ee49c4cd3f0743565d55a63b27384416f"
+    },
+    "control-loom-J4-moisture-comparator-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve.brep",
+      "sha256": "b3a3c8db08d4734633749d3ed6634674cdf8e3d94438bf874033c88c128cbc7c"
+    },
+    "control-loom-J4-moisture-comparator-reserve-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve-target.brep",
+      "sha256": "a3ebe38c0771b5df2fc5194a910c31484177f56f285159021736d927c5f94f91"
+    },
+    "control-loom-wago-sensors-digiten-flow": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow.brep",
+      "sha256": "ca4aad1d394cd9d53d368e710646a3f10d37099554ed588bb06a409b1bd05873"
+    },
+    "control-loom-wago-sensors-digiten-flow-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow-source.brep",
+      "sha256": "291b24b1978b6121a9c8ab8151df552b539e2e8cc9cc52b0f88d4efe27578174"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve.brep",
+      "sha256": "62616bace2621d31f0ac6f661646f44080cbe475a8d9d6c4e6ddcc597baaaf23"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-source.brep",
+      "sha256": "206695f2bad7084887314e17ede94998bafa81be8e12c84283d35033ebcb3bb1"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-target.brep",
+      "sha256": "ed74aca1d4ddb773dc0a4ca1cd670b7b58c637b7efed7babfd056df692fb4cfb"
+    },
+    "control-loom-J9-retained-display-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom.brep",
+      "sha256": "16486d0962f5f5dd0d7d33324ba96cbcabdbb4bb5accd8e02070747f2f1ce424"
+    },
+    "control-header-J9-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J9-fanout.brep",
+      "sha256": "06bc2ee9790a4c3fd856e105863980699cf0aee211de67b063e9048a9a20ceaf"
+    },
+    "control-loom-J9-retained-display-loom-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom-target.brep",
+      "sha256": "0d9a19e1a4c2dfd397952ca8adec68dd5c4f5e93fa0539042a517a84f5c2126c"
+    },
+    "control-loom-J13-retained-cartridge-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom.brep",
+      "sha256": "ceaff947945371d3dd2ca9d4b69c8f8ed07263e63b9621673353c38aa5e1c987"
+    },
+    "control-header-J13-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J13-fanout.brep",
+      "sha256": "9add60171aa02235a561305fb41d35974ae366246e786aa424feb906a3fc17a8"
+    },
+    "control-loom-J13-retained-cartridge-loom-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom-target.brep",
+      "sha256": "abec254c49675ba8909493e064878a86875ea2c7c860b18c8ffd1ada5f208887"
+    },
+    "control-loom-J11-retained-mq6-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom.brep",
+      "sha256": "7a53bdf15bdc2b03960dabe90febff17bef53f7ac3b132c9e7e37c84f6a89cdd"
+    },
+    "control-header-J11-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J11-fanout.brep",
+      "sha256": "bd23069c0513ed41ef60745ed9be9cae149bc4018aade23392ba49eadafb18ee"
+    },
+    "control-loom-J11-retained-mq6-loom-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom-target.brep",
+      "sha256": "fa2c82b9391f66f6652fdee38ead3bbb719a056a86735a145772eb9e96b4b907"
+    }
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/wiring/check_control_terminal_owners.py": "128c78728c0b09f12d1e955dc091d13bf66edfd5560a4734145917e1903452fa",
+    "future/pump-first-layout-study/wiring/controls_looms.py": "dd55f7df396b461da76df6d388aa6aaa1e029984db6e9a51609b063de8466032",
+    "future/pump-first-layout-study/wiring/controls.py": "ae860beebb100d163a51e35e6ecf60a8a794ecdd6c07b86c5ccde631f1ef24c7",
+    "future/pump-first-layout-study/wiring/power_harness.py": "74061f25b87016f407f06dd7a147f10e2ee5a220c3f94d60b2aec808d26a6fcb",
+    "future/pump-first-layout-study/wiring/recover_power.py": "b71ee439142add308a97bb194f86135f24e35e8ebe97d610c3f7fd1af8fc4282",
+    "future/pump-first-layout-study/wiring/native_harness.py": "8757a0134d9d59efaf1a2e5acaad74a555bb22f0d9af2b3ddb920828fda0ec80",
+    "future/pump-first-layout-study/wiring/circular_clearance.py": "80918a71904b3fc1d563108ec54af88d04e0c4149ced6b2d8784c96e2077fdf5",
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
+  },
+  "inputs_sha256": {
+    "funnel": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "pump": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "pump-fluid24": "e466eb2cd9e76967152c99bcbad2ca8d079e20ece94ccc431f40f441a8b257c7",
+    "routing": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "structure": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "mounts": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c",
+    "wiring": "767a8f775c7c1455e5a8a5e232c94b3a9851335fe9ea04ae5eb048588e6ed615",
+    "fluid-mounts": "327de5f03cae94d69a931625761cefc5ccfcab0fd0d7e80d373493b90b791058",
+    "body-mounts": "f187292fbc42a3d9f0c8311fffd46ada3e817e41cd8c9338251524fda95a643e",
+    "water5-mounts": "aa66e1d98d7ea5ef72ac2bf36124b2da4bbbc1a9d145260b2395b927a7d7755b",
+    "tube-hosts": "c2d667182e5450300ea770bc86767852b3fe417d358ab62d5dff88e42c7e358f",
+    "roof-hatch": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807",
+    "scene-stock": "59cb9e0ab82aaf83b2f3e898c1aa488e9f75dd21517da2a4f41fa87fd8b607d0",
+    "future/pump-first-layout-study/wiring/controls-candidate.json": "7a4843edcba7a48516567c632e02b885ed1baeac643ca818a3af1af0b6b31e45"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "future/pump-first-layout-study/pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "future/pump-first-layout-study/pump/fluid24-candidate.json": "e1eb3570cb8d0bc3bfc1c2f9e46e2e69eaa56ed01bbca0a60933a19f568b17bc",
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "future/pump-first-layout-study/mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a",
+    "future/pump-first-layout-study/wiring/candidate.json": "da8fedffd82bc4619f0c3d2d34b3e9bee6367352c25586d32d57f1ea0ed5a87f",
+    "future/pump-first-layout-study/mounts/fluid-candidate.json": "18837365b51fa96347e53377d02fd6ef8b14096fa2cb1c282536ee2bafdc82b1",
+    "future/pump-first-layout-study/mounts/body-candidate.json": "91ed568d36fd97f61d3cde4dca9ca7b88c836af433c89906d3bcdb61fa61c001",
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6",
+    "future/pump-first-layout-study/routing/tube-hosts.json": "e218a7272e2d38b3d78c65aa74bcb8390880e47f932ecb7065fad51ebb479731",
+    "future/pump-first-layout-study/structure/roof-hatch.json": "db54c84f36d057641197c9f54773bcfaf37b757fdc63883d2b785172009d5368",
+    "future/pump-first-layout-study/structure/scene-stock.json": "a4c3496b5e89b6a7351c95b68466cfed50acb46261446944c6d852b24cf478ed",
+    "future/pump-first-layout-study/wiring/controls-candidate.json": "a382009118515378bbc1cd02aaf64f55bf6fc3904924ce4b41fa874993e05f8d"
+  },
+  "source_drift": [],
+  "manifest_drift": [],
+  "strict_purchased_owner_pass": true,
+  "declared_local_nominal_continuity_count": 7,
+  "scope": "Every actual received control cylinder/arc is tested against its own counted source/target dressing region and canonical purchased or retained hardware. Purchased hardware exempts only the unique straight endpoint cylinder aligned with the terminal normal; all arcs and later returns remain tested. Named nominal bare dressing joins separately admit only their immediate shared-stem arc or tangent mouth arc, with exact common volumes, overlap bounds and native section adjacency. They never waive a purchased body or a later return. Unlocated lower interfaces retain named scope. Native byte, source and scene-content bindings establish the receipt; no native part is written."
+}

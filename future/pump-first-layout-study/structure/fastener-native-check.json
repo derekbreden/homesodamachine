@@ -1,0 +1,2565 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "check": "cold-core-lid final joined print is one valid solid",
+      "pass": true,
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "check": "enclosure-back-top final joined print is one valid solid",
+      "pass": true,
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "check": "rear-roof-hatch final joined print is one valid solid",
+      "pass": true,
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "check": "meter seat 1 web 1 rectangular crown has only declared Water5 relief",
+      "pass": true,
+      "full_width_mm": 24.8,
+      "witness_volume_mm3": 274.03999999999576,
+      "full_stock_common_mm3": 270.30038541600294,
+      "intentional_water5_relief_mm3": 3.7396145840127435,
+      "complete_rectangle_retained": false,
+      "missing_bounds_mm": [
+        96.15,
+        375.85999999999996,
+        344.50999999999993,
+        96.9000000000019,
+        377.56,
+        348.387467277267
+      ],
+      "missing_solids": 1,
+      "source_missing_mm3": 0.0,
+      "conservation_error_mm3": 1.992539466755261e-11,
+      "missing_in_declared_water5_tool_mm3": 3.7396145840127435,
+      "missing_not_in_water5_tool_mm3": 0.0,
+      "stock_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 270.30038541600294
+        }
+      ],
+      "source_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 274.03999999999576
+        }
+      ],
+      "missing_tool_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 3.7396145840127435
+        }
+      ],
+      "witness_bounds_mm": [
+        72.1,
+        375.85999999999996,
+        344.51000000000005,
+        96.9,
+        377.55999999999995,
+        351.01
+      ]
+    },
+    {
+      "check": "meter seat 1 web 1 complete uninterrupted post-cut roof bridge",
+      "pass": true,
+      "missing_mm3": 2.5579538487363607e-12,
+      "crown_strip_width_mm": 24.05,
+      "axial_web_mm": 1.6999999999999886,
+      "radial_bearing_wall_mm": 3.0,
+      "positive_roof_join_mm": 0.01,
+      "witness_bounds_mm": [
+        72.1,
+        375.85999999999996,
+        344.51000000000005,
+        96.15,
+        377.55999999999995,
+        351.01
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 265.7524999999984
+        }
+      ]
+    },
+    {
+      "check": "meter seat 1 web 1 west complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        72.1,
+        375.85999999999996,
+        332.20000000000005,
+        75.1,
+        377.55999999999995,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": null,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 45.89999999999969
+        }
+      ]
+    },
+    {
+      "check": "meter seat 1 web 1 east complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        93.9,
+        375.85999999999996,
+        333.1,
+        96.9,
+        377.55999999999995,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": 333.0,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 41.30999999999984
+        }
+      ]
+    },
+    {
+      "check": "meter-root-coupon-1-fore complete unchanged positive roof stock",
+      "pass": true,
+      "missing_mm3": 8.881784197001252e-16,
+      "witness_volume_mm3": 5.0999999999999694,
+      "witness_bounds_mm": [
+        93.9,
+        375.86,
+        350.0,
+        96.9,
+        377.56,
+        351.0
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 5.099999999999969
+        }
+      ]
+    },
+    {
+      "check": "meter seat 1 web 2 rectangular crown has only declared Water5 relief",
+      "pass": true,
+      "full_width_mm": 24.8,
+      "witness_volume_mm3": 274.03999999999576,
+      "full_stock_common_mm3": 270.3003854159955,
+      "intentional_water5_relief_mm3": 3.7396145840051993,
+      "complete_rectangle_retained": false,
+      "missing_bounds_mm": [
+        96.15,
+        381.05999999999995,
+        344.50999999999993,
+        96.9,
+        382.76,
+        348.38746727726266
+      ],
+      "missing_solids": 1,
+      "source_missing_mm3": 0.0,
+      "conservation_error_mm3": 4.934719299853896e-12,
+      "missing_in_declared_water5_tool_mm3": 3.7396145840051993,
+      "missing_not_in_water5_tool_mm3": 0.0,
+      "stock_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 270.3003854159955
+        }
+      ],
+      "source_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 274.03999999999576
+        }
+      ],
+      "missing_tool_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 3.7396145840051993
+        }
+      ],
+      "witness_bounds_mm": [
+        72.1,
+        381.05999999999995,
+        344.51000000000005,
+        96.9,
+        382.75999999999993,
+        351.01
+      ]
+    },
+    {
+      "check": "meter seat 1 web 2 complete uninterrupted post-cut roof bridge",
+      "pass": true,
+      "missing_mm3": 2.5011104298755527e-12,
+      "crown_strip_width_mm": 24.05,
+      "axial_web_mm": 1.6999999999999886,
+      "radial_bearing_wall_mm": 3.0,
+      "positive_roof_join_mm": 0.01,
+      "witness_bounds_mm": [
+        72.1,
+        381.05999999999995,
+        344.51000000000005,
+        96.15,
+        382.75999999999993,
+        351.01
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 265.75249999999835
+        }
+      ]
+    },
+    {
+      "check": "meter seat 1 web 2 west complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        72.1,
+        381.05999999999995,
+        332.20000000000005,
+        75.1,
+        382.75999999999993,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": null,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 45.89999999999969
+        }
+      ]
+    },
+    {
+      "check": "meter seat 1 web 2 east complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        93.9,
+        381.05999999999995,
+        333.1,
+        96.9,
+        382.75999999999993,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": 333.0,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 41.30999999999984
+        }
+      ]
+    },
+    {
+      "check": "meter-root-coupon-1-aft complete unchanged positive roof stock",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "witness_volume_mm3": 5.0999999999999694,
+      "witness_bounds_mm": [
+        93.9,
+        381.06,
+        350.0,
+        96.9,
+        382.76,
+        351.0
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 5.0999999999999694
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 1 rectangular crown has only declared Water5 relief",
+      "pass": true,
+      "full_width_mm": 24.8,
+      "witness_volume_mm3": 274.03999999999576,
+      "full_stock_common_mm3": 270.3003854160086,
+      "intentional_water5_relief_mm3": 3.7396145840128625,
+      "complete_rectangle_retained": false,
+      "missing_bounds_mm": [
+        96.15,
+        422.26,
+        344.50999999999993,
+        96.9000000000019,
+        423.96000000000004,
+        348.387467277267
+      ],
+      "missing_solids": 1,
+      "source_missing_mm3": 0.0,
+      "conservation_error_mm3": 2.5728752461873228e-11,
+      "missing_in_declared_water5_tool_mm3": 3.7396145840128625,
+      "missing_not_in_water5_tool_mm3": 0.0,
+      "stock_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 270.3003854160086
+        }
+      ],
+      "source_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 274.03999999999576
+        }
+      ],
+      "missing_tool_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 3.7396145840128625
+        }
+      ],
+      "witness_bounds_mm": [
+        72.1,
+        422.26000000000005,
+        344.51000000000005,
+        96.9,
+        423.96000000000004,
+        351.01
+      ]
+    },
+    {
+      "check": "meter seat 2 web 1 complete uninterrupted post-cut roof bridge",
+      "pass": true,
+      "missing_mm3": 3.183231456205249e-12,
+      "crown_strip_width_mm": 24.05,
+      "axial_web_mm": 1.6999999999999886,
+      "radial_bearing_wall_mm": 3.0,
+      "positive_roof_join_mm": 0.01,
+      "witness_bounds_mm": [
+        72.1,
+        422.26000000000005,
+        344.51000000000005,
+        96.15,
+        423.96000000000004,
+        351.01
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 265.75249999999903
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 1 west complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        72.1,
+        422.26000000000005,
+        332.20000000000005,
+        75.1,
+        423.96000000000004,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": null,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 45.89999999999969
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 1 east complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        93.9,
+        422.26000000000005,
+        333.1,
+        96.9,
+        423.96000000000004,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": 333.0,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 41.30999999999984
+        }
+      ]
+    },
+    {
+      "check": "meter-root-coupon-2-fore complete unchanged positive roof stock",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "witness_volume_mm3": 5.0999999999999694,
+      "witness_bounds_mm": [
+        93.9,
+        422.26,
+        350.0,
+        96.9,
+        423.96,
+        351.0
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 5.0999999999999694
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 2 rectangular crown has only declared Water5 relief",
+      "pass": true,
+      "full_width_mm": 24.8,
+      "witness_volume_mm3": 274.03999999999576,
+      "full_stock_common_mm3": 270.30038541598987,
+      "intentional_water5_relief_mm3": 3.7396145840050803,
+      "complete_rectangle_retained": false,
+      "missing_bounds_mm": [
+        96.15,
+        427.46,
+        344.50999999999993,
+        96.9,
+        429.16,
+        348.38746727726266
+      ],
+      "missing_solids": 1,
+      "source_missing_mm3": 0.0,
+      "conservation_error_mm3": 8.117950756059145e-13,
+      "missing_in_declared_water5_tool_mm3": 3.7396145840050803,
+      "missing_not_in_water5_tool_mm3": 0.0,
+      "stock_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 270.30038541598987
+        }
+      ],
+      "source_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 274.03999999999576
+        }
+      ],
+      "missing_tool_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 3.7396145840050803
+        }
+      ],
+      "witness_bounds_mm": [
+        72.1,
+        427.46000000000004,
+        344.51000000000005,
+        96.9,
+        429.16,
+        351.01
+      ]
+    },
+    {
+      "check": "meter seat 2 web 2 complete uninterrupted post-cut roof bridge",
+      "pass": true,
+      "missing_mm3": 1.8758328224066645e-12,
+      "crown_strip_width_mm": 24.05,
+      "axial_web_mm": 1.6999999999999886,
+      "radial_bearing_wall_mm": 3.0,
+      "positive_roof_join_mm": 0.01,
+      "witness_bounds_mm": [
+        72.1,
+        427.46000000000004,
+        344.51000000000005,
+        96.15,
+        429.16,
+        351.01
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 265.7524999999977
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 2 west complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        72.1,
+        427.46000000000004,
+        332.20000000000005,
+        75.1,
+        429.16,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": null,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 45.89999999999969
+        }
+      ]
+    },
+    {
+      "check": "meter seat 2 web 2 east complete bearing wall",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "radial_wall_mm": 3.0,
+      "axial_web_mm": 1.6999999999999886,
+      "witness_bounds_mm": [
+        93.9,
+        427.46000000000004,
+        333.1,
+        96.9,
+        429.16,
+        341.20000000000005
+      ],
+      "tie_head_opening_below_mm": 333.0,
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 41.30999999999984
+        }
+      ]
+    },
+    {
+      "check": "meter-root-coupon-2-aft complete unchanged positive roof stock",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "witness_volume_mm3": 5.0999999999999694,
+      "witness_bounds_mm": [
+        93.9,
+        427.46,
+        350.0,
+        96.9,
+        429.15999999999997,
+        351.0
+      ],
+      "completed_valid_commons": [
+        {
+          "solid_indices": [
+            0,
+            0
+          ],
+          "completed": true,
+          "valid": true,
+          "result_solids": 1,
+          "tolerance_mm": 0.0001,
+          "common_mm3": 5.0999999999999694
+        }
+      ]
+    },
+    {
+      "check": "water5-east-drop station 1 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        95.7072122088424,
+        312.18400032409255,
+        308.5
+      ],
+      "axis": [
+        0.9063077870366499,
+        0.42261826174069944,
+        0.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "water5-east-drop station 1 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.750000000000028,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.4999999999999716,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "water5-east-drop station 1 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "water5-east-drop station 2 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        95.7072122088424,
+        312.18400032409255,
+        325.5
+      ],
+      "axis": [
+        0.9063077870366499,
+        0.42261826174069944,
+        0.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "water5-east-drop station 2 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.750000000000028,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.4999999999999716,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "water5-east-drop station 2 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "flavor-pair-wall station 1 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        -99.25,
+        318.5,
+        290.325
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "flavor-pair-wall station 1 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "flavor-pair-wall station 1 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "flavor-pair-wall station 2 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        -99.25,
+        329.5,
+        290.325
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "flavor-pair-wall station 2 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "flavor-pair-wall station 2 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "flavor-a-fore station 1 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        -37.4,
+        210.325,
+        260.825
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "flavor-a-fore station 1 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "flavor-a-fore station 1 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "flavor-a-fore station 2 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        -30.4,
+        210.325,
+        260.825
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "flavor-a-fore station 2 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "flavor-a-fore station 2 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "water2-tube station 1 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        58.39999999999999,
+        362.5,
+        345.925
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "water2-tube station 1 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "water2-tube station 1 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "water2-tube station 2 full joined pilot, insert annulus and closed end",
+      "pass": true,
+      "mouth_mm": [
+        58.39999999999999,
+        369.5,
+        345.925
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "pilot_depth_mm": 5.25,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "cap_missing_mm3": 0.0,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_mm": 3.0
+    },
+    {
+      "check": "water2-tube station 2 actual complete M3x8 shaft and tip reserve",
+      "pass": true,
+      "stock_common_mm3": 0.0,
+      "key_common_mm3": 0.0,
+      "actual_engagement_mm": 4.75,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 0.5,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "water2-tube station 2 complete native key head bearing",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "key_stock_mm": 3.25,
+      "key_hole_diameter_mm": 3.2,
+      "head_bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "pcba four native site holes",
+      "pass": true,
+      "hole_diameter_mm": 3.2,
+      "native_axes_mm": [
+        [
+          -16.0,
+          336.11606
+        ],
+        [
+          -16.0,
+          414.11606
+        ],
+        [
+          50.3,
+          336.11606
+        ],
+        [
+          50.3,
+          414.11606
+        ]
+      ]
+    },
+    {
+      "check": "pcba station 1 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        -16.0,
+        336.11606,
+        347.0
+      ],
+      "hole_radius_mm": 1.6
+    },
+    {
+      "check": "pcba station 1 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.10000000000000009
+    },
+    {
+      "check": "pcba station 1 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.0
+    },
+    {
+      "check": "pcba station 1 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "pcba station 1 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "pcba station 1 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 351.4,
+      "engagement_mm": 4.399999999999977,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.6000000000000227,
+      "insert_blind_relief_mm": 1.0
+    },
+    {
+      "check": "pcba station 1 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 2.4143201582879636e-06,
+      "bearing_plane_z_mm": 345.4000072,
+      "bearing_outer_radius_mm": 2.75,
+      "imported_board_plane_offset_mm": -1.9999927999999727
+    },
+    {
+      "check": "pcba station 2 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        -16.0,
+        414.11606,
+        347.0
+      ],
+      "hole_radius_mm": 1.6
+    },
+    {
+      "check": "pcba station 2 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.10000000000000009
+    },
+    {
+      "check": "pcba station 2 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.0
+    },
+    {
+      "check": "pcba station 2 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "pcba station 2 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "pcba station 2 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 351.4,
+      "engagement_mm": 4.399999999999977,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.6000000000000227,
+      "insert_blind_relief_mm": 1.0
+    },
+    {
+      "check": "pcba station 2 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 2.4143219874376426e-06,
+      "bearing_plane_z_mm": 345.4000072,
+      "bearing_outer_radius_mm": 2.75,
+      "imported_board_plane_offset_mm": -1.9999927999999727
+    },
+    {
+      "check": "pcba station 3 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        50.3,
+        336.11606,
+        347.0
+      ],
+      "hole_radius_mm": 1.6
+    },
+    {
+      "check": "pcba station 3 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.10000000000000009
+    },
+    {
+      "check": "pcba station 3 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.0
+    },
+    {
+      "check": "pcba station 3 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "pcba station 3 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "pcba station 3 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 351.4,
+      "engagement_mm": 4.399999999999977,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.6000000000000227,
+      "insert_blind_relief_mm": 1.0
+    },
+    {
+      "check": "pcba station 3 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 2.414320153733447e-06,
+      "bearing_plane_z_mm": 345.4000072,
+      "bearing_outer_radius_mm": 2.75,
+      "imported_board_plane_offset_mm": -1.9999927999999727
+    },
+    {
+      "check": "pcba station 4 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        50.3,
+        414.11606,
+        347.0
+      ],
+      "hole_radius_mm": 1.6
+    },
+    {
+      "check": "pcba station 4 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.10000000000000009
+    },
+    {
+      "check": "pcba station 4 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.0
+    },
+    {
+      "check": "pcba station 4 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "pcba station 4 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "pcba station 4 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 351.4,
+      "engagement_mm": 4.399999999999977,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.6000000000000227,
+      "insert_blind_relief_mm": 1.0
+    },
+    {
+      "check": "pcba station 4 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 2.414319325881771e-06,
+      "bearing_plane_z_mm": 345.4000072,
+      "bearing_outer_radius_mm": 2.75,
+      "imported_board_plane_offset_mm": -1.9999927999999727
+    },
+    {
+      "check": "psu four native site holes",
+      "pass": true,
+      "hole_diameter_mm": 3.5,
+      "native_axes_mm": [
+        [
+          -39.5,
+          420.8
+        ],
+        [
+          -39.5,
+          453.8
+        ],
+        [
+          58.5,
+          420.8
+        ],
+        [
+          58.5,
+          453.8
+        ]
+      ]
+    },
+    {
+      "check": "psu station 1 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        -39.5,
+        420.8,
+        289.75
+      ],
+      "hole_radius_mm": 1.75
+    },
+    {
+      "check": "psu station 1 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.25
+    },
+    {
+      "check": "psu station 1 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.25
+    },
+    {
+      "check": "psu station 1 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "psu station 1 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "psu station 1 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 285.25,
+      "engagement_mm": 4.5,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "psu station 1 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 296.45,
+      "bearing_outer_radius_mm": 3.5,
+      "imported_board_plane_offset_mm": 0
+    },
+    {
+      "check": "psu station 1 washer passage and seated ledge",
+      "pass": true,
+      "screw_washer_common_mm3": 0.0,
+      "washer_component_common_mm3": 0.0,
+      "washer_ledge_gap_mm": 0.0,
+      "ledge_stock_mm": 6.7,
+      "washer_stock_mm": 0.8,
+      "washer_bore_mm": 3.2,
+      "washer_radial_shank_air_mm": 0.1
+    },
+    {
+      "check": "psu station 2 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        -39.5,
+        453.8,
+        289.75
+      ],
+      "hole_radius_mm": 1.75
+    },
+    {
+      "check": "psu station 2 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.25
+    },
+    {
+      "check": "psu station 2 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.25
+    },
+    {
+      "check": "psu station 2 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "psu station 2 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "psu station 2 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 285.25,
+      "engagement_mm": 4.5,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "psu station 2 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 296.45,
+      "bearing_outer_radius_mm": 3.5,
+      "imported_board_plane_offset_mm": 0
+    },
+    {
+      "check": "psu station 2 washer passage and seated ledge",
+      "pass": true,
+      "screw_washer_common_mm3": 0.0,
+      "washer_component_common_mm3": 0.0,
+      "washer_ledge_gap_mm": 0.0,
+      "ledge_stock_mm": 6.7,
+      "washer_stock_mm": 0.8,
+      "washer_bore_mm": 3.2,
+      "washer_radial_shank_air_mm": 0.1
+    },
+    {
+      "check": "psu station 3 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        58.5,
+        420.8,
+        289.75
+      ],
+      "hole_radius_mm": 1.75
+    },
+    {
+      "check": "psu station 3 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.25
+    },
+    {
+      "check": "psu station 3 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.25
+    },
+    {
+      "check": "psu station 3 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "psu station 3 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "psu station 3 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 285.25,
+      "engagement_mm": 4.5,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "psu station 3 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 296.45,
+      "bearing_outer_radius_mm": 3.5,
+      "imported_board_plane_offset_mm": 0
+    },
+    {
+      "check": "psu station 3 washer passage and seated ledge",
+      "pass": true,
+      "screw_washer_common_mm3": 0.0,
+      "washer_component_common_mm3": 0.0,
+      "washer_ledge_gap_mm": 0.0,
+      "ledge_stock_mm": 6.7,
+      "washer_stock_mm": 0.8,
+      "washer_bore_mm": 3.2,
+      "washer_radial_shank_air_mm": 0.1
+    },
+    {
+      "check": "psu station 4 native hole and screw axis agree",
+      "pass": true,
+      "mouth_mm": [
+        58.5,
+        453.8,
+        289.75
+      ],
+      "hole_radius_mm": 1.75
+    },
+    {
+      "check": "psu station 4 complete screw passes populated component",
+      "pass": true,
+      "common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.25
+    },
+    {
+      "check": "psu station 4 full-depth open pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 5.25
+    },
+    {
+      "check": "psu station 4 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bore_diameter_mm": 4,
+      "minimum_surrounding_wall_mm": 1.6,
+      "nominal_host_diameter_mm": 8
+    },
+    {
+      "check": "psu station 4 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 31.1
+    },
+    {
+      "check": "psu station 4 actual screw tip, insert and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 285.25,
+      "engagement_mm": 4.5,
+      "insert_length_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "insert_blind_relief_mm": 1.25
+    },
+    {
+      "check": "psu station 4 complete native bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 296.45,
+      "bearing_outer_radius_mm": 3.5,
+      "imported_board_plane_offset_mm": 0
+    },
+    {
+      "check": "psu station 4 washer passage and seated ledge",
+      "pass": true,
+      "screw_washer_common_mm3": 0.0,
+      "washer_component_common_mm3": 0.0,
+      "washer_ledge_gap_mm": 0.0,
+      "ledge_stock_mm": 6.7,
+      "washer_stock_mm": 0.8,
+      "washer_bore_mm": 3.2,
+      "washer_radial_shank_air_mm": 0.1
+    },
+    {
+      "check": "ASSE carrier station 1 complete joined pilot, minimum annulus and blind end",
+      "pass": true,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "closed_end_missing_mm3": 0.0,
+      "blind_pilot_depth_mm": 5.7,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_stock_mm": 3.0
+    },
+    {
+      "check": "ASSE carrier station 1 actual complete M3x12 passage and short-insert reserve",
+      "pass": true,
+      "joined_roof_common_mm3": 0.0,
+      "clamp_common_mm3": 0.0,
+      "actual_engagement_mm": 4.699999999999989,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 1.0000000000000115,
+      "blind_relief_mm": 1.7000000000000002
+    },
+    {
+      "check": "ASSE carrier station 1 complete clamp head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "head_bearing_y_mm": 306.35,
+      "clamp_bearing_stock_mm": 3.0
+    },
+    {
+      "check": "ASSE carrier station 2 complete joined pilot, minimum annulus and blind end",
+      "pass": true,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "closed_end_missing_mm3": 0.0,
+      "blind_pilot_depth_mm": 5.7,
+      "minimum_annular_wall_mm": 1.6,
+      "closed_end_stock_mm": 3.0
+    },
+    {
+      "check": "ASSE carrier station 2 actual complete M3x12 passage and short-insert reserve",
+      "pass": true,
+      "joined_roof_common_mm3": 0.0,
+      "clamp_common_mm3": 0.0,
+      "actual_engagement_mm": 4.699999999999989,
+      "insert_length_mm": 4.0,
+      "pilot_tip_reserve_mm": 1.0000000000000115,
+      "blind_relief_mm": 1.7000000000000002
+    },
+    {
+      "check": "ASSE carrier station 2 complete clamp head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "head_bearing_y_mm": 306.35,
+      "clamp_bearing_stock_mm": 3.0
+    },
+    {
+      "check": "ground display contains the nominal M3 shank",
+      "pass": true,
+      "current_shank_common_mm3": 84.82300164692435,
+      "nominal_shank_mm3": 84.82300164692433
+    },
+    {
+      "check": "ground M3 passage through ring 1",
+      "pass": true,
+      "common_mm3": 0.0,
+      "eye_diameter_mm": 3.2,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.1
+    },
+    {
+      "check": "ground M3 passage through ring 2",
+      "pass": true,
+      "common_mm3": 0.0,
+      "eye_diameter_mm": 3.2,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.1
+    },
+    {
+      "check": "ground M3 passage through ring 3",
+      "pass": true,
+      "common_mm3": 0.0,
+      "eye_diameter_mm": 3.2,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.1
+    },
+    {
+      "check": "ground M3 passage through ring 4",
+      "pass": true,
+      "common_mm3": 0.0,
+      "eye_diameter_mm": 3.2,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.1
+    },
+    {
+      "check": "ground M3 passage through ring 5",
+      "pass": true,
+      "common_mm3": 0.0,
+      "eye_diameter_mm": 3.2,
+      "shank_diameter_mm": 3,
+      "radial_hole_air_mm": 0.1
+    },
+    {
+      "check": "ground M3 passage through tooth washer",
+      "pass": true,
+      "common_mm3": 0.0,
+      "bore_mm": 3.2,
+      "shank_mm": 3
+    },
+    {
+      "check": "ground screw complete washer bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_outer_radius_mm": 2.75
+    },
+    {
+      "check": "ground full pilot, minimum annulus and blind end",
+      "pass": true,
+      "pilot_common_mm3": 0.0,
+      "annular_missing_mm3": 0.0,
+      "end_missing_mm3": 0.0,
+      "surrounding_wall_mm": 1.6,
+      "end_cover_mm": 5.3
+    },
+    {
+      "check": "ground actual M3\u00d712 stack and insert reserve",
+      "pass": true,
+      "ring_stack_mm": 4,
+      "tooth_washer_mm": 0.8,
+      "screw_length_mm": 12,
+      "engagement_mm": 7.199999999999989,
+      "insert_length_mm": 5.7,
+      "tip_reserve_mm": 1.3000000000000114,
+      "blind_relief_mm": 2.8,
+      "head_bearing_z_mm": 336.4,
+      "tip_z_mm": 348.4
+    },
+    {
+      "check": "hatch four native clearance holes",
+      "pass": true,
+      "expected_axes_mm": [
+        [
+          -38.5,
+          466.7
+        ],
+        [
+          -25.0,
+          413.5
+        ],
+        [
+          58.8,
+          412.5
+        ],
+        [
+          61.0,
+          466.7
+        ]
+      ],
+      "native_axes_mm": [
+        [
+          -38.5,
+          466.7
+        ],
+        [
+          -25.0,
+          413.5
+        ],
+        [
+          58.8,
+          412.5
+        ],
+        [
+          61.0,
+          466.7
+        ]
+      ],
+      "clearance_diameter_mm": 3.3
+    },
+    {
+      "check": "hatch station 1 full-depth open fixed-roof pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 6.5
+    },
+    {
+      "check": "hatch station 1 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "surrounding_wall_mm": 1.6
+    },
+    {
+      "check": "hatch station 1 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "hatch station 1 complete screw passes joined roof and hatch",
+      "pass": true,
+      "roof_common_mm3": 0.0,
+      "hatch_common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "nominal_radial_clearance_mm": 0.15
+    },
+    {
+      "check": "hatch station 1 complete hatch head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 351.5,
+      "head_web_mm": 3.0
+    },
+    {
+      "check": "hatch station 1 actual M3x8 engagement and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 343.5,
+      "engagement_mm": 5.0,
+      "insert_length_mm": 4.0,
+      "tip_reserve_mm": 1.5,
+      "insert_blind_relief_mm": 2.5
+    },
+    {
+      "check": "hatch station 1 head remains below sealed roof height",
+      "pass": true,
+      "head_top_z_mm": 354.5,
+      "flush_silicone_cap_stock_mm": 0.5
+    },
+    {
+      "check": "hatch station 2 full-depth open fixed-roof pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 6.5
+    },
+    {
+      "check": "hatch station 2 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "surrounding_wall_mm": 1.6
+    },
+    {
+      "check": "hatch station 2 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "hatch station 2 complete screw passes joined roof and hatch",
+      "pass": true,
+      "roof_common_mm3": 0.0,
+      "hatch_common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "nominal_radial_clearance_mm": 0.15
+    },
+    {
+      "check": "hatch station 2 complete hatch head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 351.5,
+      "head_web_mm": 3.0
+    },
+    {
+      "check": "hatch station 2 actual M3x8 engagement and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 343.5,
+      "engagement_mm": 5.0,
+      "insert_length_mm": 4.0,
+      "tip_reserve_mm": 1.5,
+      "insert_blind_relief_mm": 2.5
+    },
+    {
+      "check": "hatch station 2 head remains below sealed roof height",
+      "pass": true,
+      "head_top_z_mm": 354.5,
+      "flush_silicone_cap_stock_mm": 0.5
+    },
+    {
+      "check": "hatch station 3 full-depth open fixed-roof pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 6.5
+    },
+    {
+      "check": "hatch station 3 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "surrounding_wall_mm": 1.6
+    },
+    {
+      "check": "hatch station 3 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "hatch station 3 complete screw passes joined roof and hatch",
+      "pass": true,
+      "roof_common_mm3": 0.0,
+      "hatch_common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "nominal_radial_clearance_mm": 0.15
+    },
+    {
+      "check": "hatch station 3 complete hatch head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 351.5,
+      "head_web_mm": 3.0
+    },
+    {
+      "check": "hatch station 3 actual M3x8 engagement and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 343.5,
+      "engagement_mm": 5.0,
+      "insert_length_mm": 4.0,
+      "tip_reserve_mm": 1.5,
+      "insert_blind_relief_mm": 2.5
+    },
+    {
+      "check": "hatch station 3 head remains below sealed roof height",
+      "pass": true,
+      "head_top_z_mm": 354.5,
+      "flush_silicone_cap_stock_mm": 0.5
+    },
+    {
+      "check": "hatch station 4 full-depth open fixed-roof pilot",
+      "pass": true,
+      "common_mm3": 0.0,
+      "pilot_depth_mm": 6.5
+    },
+    {
+      "check": "hatch station 4 complete minimum insert annulus",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "surrounding_wall_mm": 1.6
+    },
+    {
+      "check": "hatch station 4 complete native blind end",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "closed_cover_mm": 3.0
+    },
+    {
+      "check": "hatch station 4 complete screw passes joined roof and hatch",
+      "pass": true,
+      "roof_common_mm3": 0.0,
+      "hatch_common_mm3": 0.0,
+      "shank_diameter_mm": 3,
+      "nominal_radial_clearance_mm": 0.15
+    },
+    {
+      "check": "hatch station 4 complete hatch head bearing footprint",
+      "pass": true,
+      "missing_mm3": 0.0,
+      "bearing_plane_z_mm": 351.5,
+      "head_web_mm": 3.0
+    },
+    {
+      "check": "hatch station 4 actual M3x8 engagement and blind relief",
+      "pass": true,
+      "actual_tip_z_mm": 343.5,
+      "engagement_mm": 5.0,
+      "insert_length_mm": 4.0,
+      "tip_reserve_mm": 1.5,
+      "insert_blind_relief_mm": 2.5
+    },
+    {
+      "check": "hatch station 4 head remains below sealed roof height",
+      "pass": true,
+      "head_top_z_mm": 354.5,
+      "flush_silicone_cap_stock_mm": 0.5
+    },
+    {
+      "check": "fore-east bridge clears g-ganen-pump",
+      "pass": true,
+      "common_mm3": 0.0,
+      "native_gap_mm": 18.707805759388464
+    },
+    {
+      "check": "fore-east bridge clears tube-water-5",
+      "pass": true,
+      "common_mm3": 0.0,
+      "native_gap_mm": 54.64444733913958
+    },
+    {
+      "check": "fore-east bridge clears tube-water-6",
+      "pass": true,
+      "common_mm3": 0.0,
+      "native_gap_mm": 85.587688951157
+    },
+    {
+      "check": "fore-east bridge clears fixed flavor-A fill mouth and lead",
+      "pass": true,
+      "common_mm3": 0.0,
+      "native_gap_mm": 1.0249999999999773
+    },
+    {
+      "check": "fore-east boss reaches lid through native rail and web",
+      "pass": true,
+      "boss_web_gap_mm": 0.0,
+      "web_lid_gap_mm": 0.0,
+      "pilot_blind_root_mm": 3,
+      "rail_stock_mm": [
+        8,
+        3
+      ],
+      "floor_web_fore_edge_y_mm": 430.5
+    }
+  ],
+  "stations": [
+    {
+      "owner": "water5-east-drop",
+      "index": 1,
+      "mouth_mm": [
+        95.7072122088424,
+        312.18400032409255,
+        308.5
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.750000000000028,
+      "tip_reserve_mm": 0.4999999999999716
+    },
+    {
+      "owner": "water5-east-drop",
+      "index": 2,
+      "mouth_mm": [
+        95.7072122088424,
+        312.18400032409255,
+        325.5
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.750000000000028,
+      "tip_reserve_mm": 0.4999999999999716
+    },
+    {
+      "owner": "flavor-pair-wall",
+      "index": 1,
+      "mouth_mm": [
+        -99.25,
+        318.5,
+        290.325
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "flavor-pair-wall",
+      "index": 2,
+      "mouth_mm": [
+        -99.25,
+        329.5,
+        290.325
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "flavor-a-fore",
+      "index": 1,
+      "mouth_mm": [
+        -37.4,
+        210.325,
+        260.825
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "flavor-a-fore",
+      "index": 2,
+      "mouth_mm": [
+        -30.4,
+        210.325,
+        260.825
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "water2-tube",
+      "index": 1,
+      "mouth_mm": [
+        58.39999999999999,
+        362.5,
+        345.925
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "water2-tube",
+      "index": 2,
+      "mouth_mm": [
+        58.39999999999999,
+        369.5,
+        345.925
+      ],
+      "screw_length_mm": 8,
+      "actual_engagement_mm": 4.75,
+      "tip_reserve_mm": 0.5
+    },
+    {
+      "owner": "pcba",
+      "index": 1,
+      "native_hole_xy_mm": [
+        -16.0,
+        336.11606
+      ],
+      "mouth_mm": [
+        -16.0,
+        336.11606,
+        347.0
+      ],
+      "screw_length_mm": 6,
+      "actual_engagement_mm": 4.399999999999977,
+      "tip_reserve_mm": 0.6000000000000227
+    },
+    {
+      "owner": "pcba",
+      "index": 2,
+      "native_hole_xy_mm": [
+        -16.0,
+        414.11606
+      ],
+      "mouth_mm": [
+        -16.0,
+        414.11606,
+        347.0
+      ],
+      "screw_length_mm": 6,
+      "actual_engagement_mm": 4.399999999999977,
+      "tip_reserve_mm": 0.6000000000000227
+    },
+    {
+      "owner": "pcba",
+      "index": 3,
+      "native_hole_xy_mm": [
+        50.3,
+        336.11606
+      ],
+      "mouth_mm": [
+        50.3,
+        336.11606,
+        347.0
+      ],
+      "screw_length_mm": 6,
+      "actual_engagement_mm": 4.399999999999977,
+      "tip_reserve_mm": 0.6000000000000227
+    },
+    {
+      "owner": "pcba",
+      "index": 4,
+      "native_hole_xy_mm": [
+        50.3,
+        414.11606
+      ],
+      "mouth_mm": [
+        50.3,
+        414.11606,
+        347.0
+      ],
+      "screw_length_mm": 6,
+      "actual_engagement_mm": 4.399999999999977,
+      "tip_reserve_mm": 0.6000000000000227
+    },
+    {
+      "owner": "psu",
+      "index": 1,
+      "native_hole_xy_mm": [
+        -39.5,
+        420.8
+      ],
+      "mouth_mm": [
+        -39.5,
+        420.8,
+        289.75
+      ],
+      "screw_length_mm": 12,
+      "actual_engagement_mm": 4.5,
+      "tip_reserve_mm": 0.75
+    },
+    {
+      "owner": "psu",
+      "index": 2,
+      "native_hole_xy_mm": [
+        -39.5,
+        453.8
+      ],
+      "mouth_mm": [
+        -39.5,
+        453.8,
+        289.75
+      ],
+      "screw_length_mm": 12,
+      "actual_engagement_mm": 4.5,
+      "tip_reserve_mm": 0.75
+    },
+    {
+      "owner": "psu",
+      "index": 3,
+      "native_hole_xy_mm": [
+        58.5,
+        420.8
+      ],
+      "mouth_mm": [
+        58.5,
+        420.8,
+        289.75
+      ],
+      "screw_length_mm": 12,
+      "actual_engagement_mm": 4.5,
+      "tip_reserve_mm": 0.75
+    },
+    {
+      "owner": "psu",
+      "index": 4,
+      "native_hole_xy_mm": [
+        58.5,
+        453.8
+      ],
+      "mouth_mm": [
+        58.5,
+        453.8,
+        289.75
+      ],
+      "screw_length_mm": 12,
+      "actual_engagement_mm": 4.5,
+      "tip_reserve_mm": 0.75
+    },
+    {
+      "owner": "asse-removable-carrier",
+      "index": 1,
+      "mouth_mm": [
+        -48.0,
+        313.65000000000003,
+        337.0
+      ],
+      "screw_length_mm": 12.0,
+      "actual_engagement_mm": 4.699999999999989,
+      "tip_reserve_mm": 1.0000000000000115
+    },
+    {
+      "owner": "asse-removable-carrier",
+      "index": 2,
+      "mouth_mm": [
+        18.0,
+        313.65000000000003,
+        337.0
+      ],
+      "screw_length_mm": 12.0,
+      "actual_engagement_mm": 4.699999999999989,
+      "tip_reserve_mm": 1.0000000000000115
+    },
+    {
+      "owner": "ground-stack",
+      "mouth_mm": [
+        51.2,
+        430.5,
+        341.2
+      ],
+      "screw_length_mm": 12,
+      "actual_engagement_mm": 7.199999999999989,
+      "tip_reserve_mm": 1.3000000000000114,
+      "clock_degrees": 50.0
+    },
+    {
+      "owner": "rear-roof-hatch",
+      "index": 1,
+      "mouth_mm": [
+        -25.0,
+        413.5,
+        348.5
+      ],
+      "screw_length_mm": 8.0,
+      "actual_engagement_mm": 5.0,
+      "tip_reserve_mm": 1.5
+    },
+    {
+      "owner": "rear-roof-hatch",
+      "index": 2,
+      "mouth_mm": [
+        -38.5,
+        466.7,
+        348.5
+      ],
+      "screw_length_mm": 8.0,
+      "actual_engagement_mm": 5.0,
+      "tip_reserve_mm": 1.5
+    },
+    {
+      "owner": "rear-roof-hatch",
+      "index": 3,
+      "mouth_mm": [
+        58.8,
+        412.5,
+        348.5
+      ],
+      "screw_length_mm": 8.0,
+      "actual_engagement_mm": 5.0,
+      "tip_reserve_mm": 1.5
+    },
+    {
+      "owner": "rear-roof-hatch",
+      "index": 4,
+      "mouth_mm": [
+        61.0,
+        466.7,
+        348.5
+      ],
+      "screw_length_mm": 8.0,
+      "actual_engagement_mm": 5.0,
+      "tip_reserve_mm": 1.5
+    }
+  ],
+  "native_inputs": {
+    "joined-print/cold-core-lid": {
+      "brep": ".cache/pump-first-layout/structure/print-parts/cold-core-lid.brep",
+      "sha256": "e76c943054b97f6081e0430cd67cd813ec403f32575aed40755f8cdec0ec61e4"
+    },
+    "joined-print/enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/structure/print-parts/enclosure-back-top.brep",
+      "sha256": "078b51115ec6cc4bc3f8a042c1e17d7a0a2c64ee78d5a235dffa3bdac8d0060b"
+    },
+    "joined-print/rear-roof-hatch": {
+      "brep": ".cache/pump-first-layout/structure/print-parts/rear-roof-hatch.brep",
+      "sha256": "2af3da10c8a628092efa64831fb315bfdfe1d039b47caf96ab06bf6ea48cc18d"
+    },
+    "meter-bridge-clearance/tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5-clearance-cutter.brep",
+      "sha256": "b97db4133dbafdbe0c841d7385c8ccfac1729635b4f8b8c007e77b5a7b2c0bac"
+    },
+    "meter-roof-seat-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-1.brep",
+      "sha256": "d6a564dc97a8d8d05c5ba040fcd0c9c2c95d43a085c2187a0aef0a618b9b86c4"
+    },
+    "meter-root-coupon-1-fore": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-1-fore.brep",
+      "sha256": "8460511a0ac52820fbe600cc6bc97140c48251ac6de2b8fa96be98b83589fef2"
+    },
+    "meter-root-coupon-1-aft": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-1-aft.brep",
+      "sha256": "fcbfd2111b6e919cd405a202b1988093d21a6af916d16c3d8ae5bd6d18afbd23"
+    },
+    "meter-roof-seat-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-2.brep",
+      "sha256": "fc012600500eea14381a5e2f4bb1cf9ca1d2d8aa79d27612a9762044c96cd9ef"
+    },
+    "meter-root-coupon-2-fore": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-2-fore.brep",
+      "sha256": "8fa0adea8320d3bf02bb7d1e28979b7ff9722101324813db96e3c1a108d0b407"
+    },
+    "meter-root-coupon-2-aft": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-2-aft.brep",
+      "sha256": "f6f4c6244a37a481d7b838017e09d102a09b23f1fa55483046e2ef3f71428010"
+    },
+    "water5-east-drop-key": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-key.brep",
+      "sha256": "54802c8bddcbf483441d05f691a623c506bdf100510ae8c114301a3a5f1663c1"
+    },
+    "water5-east-drop-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-1.brep",
+      "sha256": "874174844a34303b8a0b48c6519225d23a6694eb2b9e02eafd35ea2e6e3609de"
+    },
+    "water5-east-drop-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-2.brep",
+      "sha256": "90ba0b126dd1b9a45b41ce408123ae48802f28ad1484da2c15d5b58fc85fee88"
+    },
+    "flavor-pair-wall-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-key.brep",
+      "sha256": "611ff4aace443396dc122007ecf1e671e4877f9d7ef76d9472b65182190520d0"
+    },
+    "flavor-pair-wall-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-1.brep",
+      "sha256": "b16083e0aa7a21155d9d63e66a26a9bda84ef68925f778a18a11bb395392e89d"
+    },
+    "flavor-pair-wall-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-2.brep",
+      "sha256": "c4fbc0109b79ef0be162a26693803e8f3b588ca2533e56e67688b4f9e766b28d"
+    },
+    "flavor-a-fore-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-key.brep",
+      "sha256": "8b34af9736e2bf9cd0d9e95f616f4c1725294a421038528e897012b1c6d518e0"
+    },
+    "flavor-a-fore-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-1.brep",
+      "sha256": "af7fa035c5de6f84e270af17241514a62a778642f701331fa4d52861f5cf3f7c"
+    },
+    "flavor-a-fore-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-2.brep",
+      "sha256": "0cda052714a8c44064a1042f69f2d8f1d96ee0a7ceec4c18f3183823e9761cf2"
+    },
+    "water2-tube-key": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-key.brep",
+      "sha256": "6224d27b48b35d45ec887aeaaa5e13af280b365c89de2a7e85f612f29f3fa9be"
+    },
+    "water2-tube-screw-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-1.brep",
+      "sha256": "9cab70a7f7666657942fdde0d0d29db0650fcd910d68a155f4e66dd6ce7ed430"
+    },
+    "water2-tube-screw-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-2.brep",
+      "sha256": "ee3e6e9ba4894b201b0f137a9b5632631699d0e2950e78139bcdcbe514ab17b5"
+    },
+    "pcba": {
+      "brep": ".cache/pump-first-layout/structure/pcba.brep",
+      "sha256": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1"
+    },
+    "controller-roof-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-1.brep",
+      "sha256": "096d3adef06ec32a736ac6b3dcc81150ecfe1e11736800e852813c8a34deaeb9"
+    },
+    "controller-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-1.brep",
+      "sha256": "7eed59f77969e13aedb72134233db26077f3d62d8bfdc0f24f95f988af8728bd"
+    },
+    "controller-roof-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-2.brep",
+      "sha256": "54fe0221d5d40ab540ea71077533dc31f644f5e66d9dadd0d5905ddb043ae1b5"
+    },
+    "controller-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-2.brep",
+      "sha256": "f79430cb9dbdc6ab6c970fc9aec898eb9c9acdb4e99d2575522bc5307bf7d920"
+    },
+    "controller-roof-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-3.brep",
+      "sha256": "92e6c48c6d8e27f5fc9874897fbb50df3af6b69cdb485de2255d2c1842e6e396"
+    },
+    "controller-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-3.brep",
+      "sha256": "cf94215e1f1a0614ecdaf28ab778d441e1b5860fbfb22e33059593dd1368b29f"
+    },
+    "controller-roof-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/controller-roof-boss-4.brep",
+      "sha256": "d7a6865be6cf5741211b9f11628cc4610098bbf91025570004679b27fde78f4f"
+    },
+    "controller-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-4.brep",
+      "sha256": "42138b3f2bf60c495d2d10413094bbf41818abc98b254e59cf9418a6b090cabf"
+    },
+    "psu": {
+      "brep": ".cache/pump-first-layout/structure/psu.brep",
+      "sha256": "f10d251aa2ef52e00187c6d8e44163e57a5c8d07c9d23e907e848b160622a66f"
+    },
+    "supply-lid-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-1.brep",
+      "sha256": "c99dba8dcab5ef4588465fae278091290654ffb9b33831f98d64dd6c953c40b2"
+    },
+    "supply-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-1.brep",
+      "sha256": "53621c15bdded41b7f9368a4265ea046369f2832f294188b2879e727f948f299"
+    },
+    "supply-washer-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-1.brep",
+      "sha256": "3e8ad309376c92ea7b95451265af69fa09c11de133eefa26bf6760bf2d90dcd3"
+    },
+    "supply-lid-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-2.brep",
+      "sha256": "d28aac89f86e6fbac1c8129936f26faed28723d67f2e6bda3143be7fc67f36ff"
+    },
+    "supply-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-2.brep",
+      "sha256": "3567e4466ece62f75ad263e42d1ea6a5fd0ffd52e2333fa63ee8989071e154fc"
+    },
+    "supply-washer-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-2.brep",
+      "sha256": "23ad11932889285b2d1f6b96fec222ed4ee59c2eaba81f1902de23869951cb1e"
+    },
+    "supply-lid-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-3.brep",
+      "sha256": "77b5af6a1f4192deb54368ca5e4acfe762e3a2c81431ef024f44a881b373b701"
+    },
+    "supply-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-3.brep",
+      "sha256": "25a74fab8691f5379b480e907bbeee086e428a2cf11ab9a0d9c0433f73624b81"
+    },
+    "supply-washer-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-3.brep",
+      "sha256": "647d3969a3eca1674b7927586f9b35f0c3ef49c00c8b76f8801776f91c48a3e4"
+    },
+    "supply-lid-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-4.brep",
+      "sha256": "d3a3b4e02c913a1bb109193607ace97788e4061f62fa04cb5fed64e3106d0e3a"
+    },
+    "supply-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-4.brep",
+      "sha256": "7b4ec15df7ec067f1fd1a0ba7d6d60ffa6a6a9e027b357adf44d7a9f75ce5fab"
+    },
+    "supply-washer-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-4.brep",
+      "sha256": "6ff8dd47fee307dac970e9d7d5d26f6f7b4dfe33ba1d330e841040893d75ddc6"
+    },
+    "asse-carrier-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-1.brep",
+      "sha256": "cd361faa30a107e5556692b6aaadefeedf921fc8a88c6269511b04fd2a717906"
+    },
+    "asse-carrier-clamp-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-1.brep",
+      "sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41"
+    },
+    "asse-carrier-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-2.brep",
+      "sha256": "db79da146585543f3b1fae9e9c475660d0c77ec95b1a971b7d2be51ace22c896"
+    },
+    "asse-carrier-clamp-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-2.brep",
+      "sha256": "5901e491a462e30e852ebe5cced3f3ec0ad49887bff208fe23f42f98a459d116"
+    },
+    "ground-stack": {
+      "brep": ".cache/pump-first-layout/structure/ground-stack.brep",
+      "sha256": "cab7e5272eae9849e2230d3cd71b28e6b1d44b8aaf3d1a693520fd448a96198c"
+    },
+    "hatch-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-1.brep",
+      "sha256": "03ba7c8153ac862d92dadffe50df5ad344e928d9e3c36e62229ffca50d675647"
+    },
+    "hatch-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-2.brep",
+      "sha256": "a610d90080eee7e21d5eaa7227d3c7cf13936043930f57d4e86aa13ce74ead56"
+    },
+    "hatch-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-3.brep",
+      "sha256": "51cc444a9e7831b2394a136afc21feb7cedfd6fc7c672d6e8e332e0a579db9c8"
+    },
+    "hatch-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-4.brep",
+      "sha256": "21858e84c1bcc68639cdfcb50892922f75da2dfa57e509438215385e6d59d808"
+    },
+    "supply-lid-web-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-web-2.brep",
+      "sha256": "340c2600cafeb94dbbd310a63fbf9b6fe7051587bddfb8c94731017bb7ef69a1"
+    },
+    "g-ganen-pump": {
+      "brep": ".cache/pump-first-layout/pump/g-ganen-pump.brep",
+      "sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9"
+    },
+    "tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5.brep",
+      "sha256": "de0700e5fb1a32ef5bbbddee9fc6ab38d57a534e83e715bcba556972b15a3147"
+    },
+    "tube-water-6": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-6.brep",
+      "sha256": "978fd66fd7e3409cbb03cadafd197063d9a9fdadace3ed63a8fd2addc979bc41"
+    },
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-lid-top.brep",
+      "sha256": "eddef42dd6efe21c5431452883fa578c4f1a4127dd150341ab7958275a50ebf5"
+    }
+  },
+  "source_sha256": {
+    "future/pump-first-layout-study/structure/build_candidate.py": "1cdbbeeba599519ead77d9024f61e470b3df3f8c85fcfb9e495825a9e3da4154",
+    "future/pump-first-layout-study/structure/check_fasteners.py": "b1411f25596463afdf1a04e5f83dca274c1312dd1ed70e8f8f4240b83fcbcd58",
+    "hardware/reference/ground-ring-stack/ground_ring_stack.py": "dfddc9d966cd48223c52e4c37b91e82255fc3f56cedc6a6e1fbea3ed3efddcb3",
+    "hardware/mechanical-qualification/README.md": "62329c16b7b7ca799751d917e03049c3720b491815dbdae9ee7bb36a0574e4c6"
+  },
+  "manifest_sha256": {
+    "pump": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "structure": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "routing": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "mounts": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c"
+  },
+  "hatch_manifest_sha256": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807",
+  "water5_manifest_sha256": "aa66e1d98d7ea5ef72ac2bf36124b2da4bbbc1a9d145260b2395b927a7d7755b",
+  "fluid_manifest_sha256": "327de5f03cae94d69a931625761cefc5ccfcab0fd0d7e80d373493b90b791058",
+  "tube_manifest_sha256": "c2d667182e5450300ea770bc86767852b3fe417d358ab62d5dff88e42c7e358f",
+  "joined_print_report_sha256": "38aedf553f0baf9ec2440994f403361c46c71b285de9d13e2eb06e55d8ebfd69",
+  "pilot_scope": "The complete fused and recut roof/lid/hatch print solids, including parent stock at each pilot mouth, annulus and blind end.",
+  "meter_profile_scope": "The full24.8mm crown rectangle has an explicitly recorded Water5 clearance corner. Complete24.05mm uninterrupted strips, lower3mm bearing walls and unchanged roof-root coupons are required; all missing rectangular material must lie wholly inside the full declared Water5 tool. This establishes nominal geometric attachment only, not loaded capacity or lifetime.",
+  "factory_sequence": [
+    "Install all heat-set inserts in the empty native roof and lid hosts. The complete 4.6mm knurl cannot pass through the assembled 3.2mm PCB or 3.5mm supply site holes.",
+    "Prewire the populated controller and mount it components down with M3\u00d76 screws. The supply is carried unfastened during the main back-top Y slide, then seated on its four native6.7mm ledges and clamped through the open rear hatch with0.8mm washers and M3\u00d712 screws.",
+    "Enter the bare ASSE valve through the fore aperture in its rolled pose with the purchased VK still absent. Hold the seated valve while its separate carrier and two bearing clamps are fitted; both M3\u00d712 screws enter the short4mm inserts before the purchased VK is installed. Full entry and tool paths are owned by asse-factory-check.json.",
+    "Clamp the five-lug ground fan and discharge-chain key to the removed hatch. After its checked +Z landing, install four M3\u00d78 hatch screws from the top and cast the continuous silicone seam and flush head caps after torque."
+  ],
+  "limits": [
+    "Exact nominal geometry and shaft passage are qualified. Insert pullout, print bending, tightening torque, creep and vibration remain physical properties.",
+    "The supply mounting ledges and ground rings retain their reference representative-envelope scope; machining tolerances and actual hardware must follow the controlled purchased parts.",
+    "The fore-east bridge check covers the fixed fill mouth and vertical attachment lead. The complete rebuilt fluid18 sweep belongs to the integrated native route audit.",
+    "This audit does not qualify whole roof closure motion or flexible hose and wire deformation."
+  ],
+  "source_drift": []
+}

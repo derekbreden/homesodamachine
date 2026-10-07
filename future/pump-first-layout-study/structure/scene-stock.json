@@ -1,0 +1,866 @@
+{
+  "parts": {
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/cold-core-lid.brep",
+      "sha256": "338c6920b114b5b7c2278ff908ab545cbabcfa5bfa7a8d51874f1e3413126555",
+      "role": "structure",
+      "detail": "Flat 5.4mm lid with relocated pump clearance holes; valve and chain support hosts are separate displayed structures.",
+      "bounds_mm": [
+        -90.49999999302005,
+        182.29999999999998,
+        248.0000002,
+        90.50000000697506,
+        465.30000000000007,
+        253.4000102
+      ],
+      "bounds": [
+        -90.49999999302005,
+        182.29999999999998,
+        248.0000002,
+        90.50000000697506,
+        465.30000000000007,
+        253.40001020000003
+      ]
+    },
+    "cold-core/foam-cap-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/cold-core-cap.brep",
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d",
+      "role": "structure",
+      "detail": "Native floor rooted \u00d88mm pump columns at transformed four-foot stations; original cold-core boundary and conduits retained.",
+      "bounds_mm": [
+        -90.49999999302005,
+        182.29999999999998,
+        233.4000002,
+        90.50000000697506,
+        465.30000000000007,
+        248.0000002
+      ],
+      "bounds": [
+        -90.49999999302005,
+        182.29999999999998,
+        233.4000002,
+        90.50000000697506,
+        465.30000000000007,
+        248.0000002
+      ]
+    },
+    "enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/enclosure-back-top.brep",
+      "sha256": "125454d177c771d91884351eff4dcb5157e44b59557f0144926555c989adf330",
+      "role": "structure",
+      "detail": "Retained back-top with a vertical hatch aperture and fixed controller, WAGO and C14 stock.",
+      "bounds_mm": [
+        -107.50000010000001,
+        199.99999989919687,
+        159.9999999,
+        107.5000001,
+        471.30000010000003,
+        355.0000001000254
+      ],
+      "valid": true,
+      "solids": 1,
+      "bounds": [
+        -107.50000010000001,
+        199.99999989919687,
+        159.9999999,
+        107.5000001,
+        471.30000010000003,
+        355.0000001000254
+      ]
+    },
+    "enclosure-front-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/enclosure-front-top.brep",
+      "sha256": "152c511e20a51c5fc90ae74b1670a74d58b9850805c9c7a2a678964f2b4d377b",
+      "role": "walls",
+      "detail": "Full native shell: 9mm flanks, 6mm rear wall, 12mm ceiling outside local hardware pockets; matching enlarged sliding funnel frame, local service-channel stock and exact relocated fitting/nameplate receivers.",
+      "bounds": [
+        -107.50000010000001,
+        4.999999899999999,
+        159.9999999,
+        107.5000001,
+        220.35644333526332,
+        355.0000001038191
+      ]
+    },
+    "rear-roof-hatch": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/rear-roof-hatch.brep",
+      "sha256": "b05de622d063e820df19d52980a77009b13ea6259ed166fff88437b99602efe9",
+      "role": "structure",
+      "detail": "Exact native roof article carrying the ground boss and discharge anchor; controller and C14 roof islands retained.",
+      "bounds_mm": [
+        -52.85,
+        389.14999988170706,
+        330.35,
+        82.85000009999999,
+        470.70000000000005,
+        355.0
+      ],
+      "valid": true,
+      "solids": 1,
+      "bounds": [
+        -52.85000000000004,
+        389.14999988170706,
+        330.35,
+        82.8500001,
+        470.7,
+        355.0
+      ]
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/funnel-frame.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.step",
+      "sha256": "d1dc732bd052281be28702187747539e9d0b439d91e62e04717ba2505dcf87fb",
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -103.50000013104804,
+        94.57469444713172,
+        288.08179255831595,
+        103.50000013104804,
+        295.6939066834448,
+        355.0052527968638
+      ],
+      "volume_mm3": 881305.9570396243,
+      "role": "structure",
+      "detail": "One PET-GF frame solid with full production slide rails and their3mm roots, complete3mm brim bearing and original drain/cradle socket;1mm-air underside corridors admit the raised VK casting and cradle throughout the102.2mm closing slide, the fixed Gate-A R14 elbow and the retained cartridge bore/ridge-clip lead. The lead chase retains the complete5.25mm source floor band. Final tee clears the unmodified underside.",
+      "bounds": [
+        -103.5000001,
+        95.45849197671873,
+        299.89999986228213,
+        103.50000010000002,
+        295.6915079232813,
+        355.00000000000006
+      ]
+    }
+  },
+  "replacement_names": [
+    "cold-core/foam-cap-lid-top",
+    "cold-core/foam-cap-top",
+    "enclosure-back-top",
+    "enclosure-front-top",
+    "funnel-frame",
+    "rear-roof-hatch"
+  ],
+  "checks": [
+    {
+      "part": "cold-core/foam-cap-lid-top",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [
+        "suction-chain-gas-portal",
+        "source-b-suction-passage",
+        "source-b-barrel-clearance",
+        "suction-chain-pilot-1",
+        "suction-chain-pilot-2",
+        "supply-1",
+        "supply-2",
+        "supply-3",
+        "supply-4",
+        "flavor-a-psu-portal",
+        "relay-1-pilot-1",
+        "relay-1-pilot-2",
+        "relay-1-pilot-3",
+        "relay-1-pilot-4",
+        "relay-2-pilot-1",
+        "relay-2-pilot-2",
+        "relay-2-pilot-3",
+        "relay-2-pilot-4",
+        "check-lid-tie-tunnel",
+        "tee-lid-exact-gas-clearance",
+        "tee-lid-outer-rib-relief",
+        "tee-lid-factory-toe-relief",
+        "tee-lid-tie-tunnel",
+        "tee-lid-gas-portal",
+        "flavor-a-fore-pilot-1",
+        "flavor-a-fore-pilot-2",
+        "gas-outlet-inlet-air"
+      ],
+      "pass": true
+    },
+    {
+      "part": "cold-core/foam-cap-top",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [],
+      "pass": true
+    },
+    {
+      "part": "enclosure-back-top",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [
+        "tube-water-5",
+        "meter-wall",
+        "tube-water-supply-link",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "tube-co2-0",
+        "tube-co2-1",
+        "controller-1",
+        "controller-2",
+        "controller-3",
+        "controller-4",
+        "rear-port-finish-0",
+        "rear-port-finish-1",
+        "rear-port-finish-2",
+        "rear-port-finish-3",
+        "rear-port-finish-4",
+        "rear-port-finish-5",
+        "rear-port-finish-6",
+        "rear-chip-finish-0",
+        "rear-chip-finish-1",
+        "rear-chip-finish-2",
+        "rear-chip-finish-3",
+        "rear-chip-finish-4",
+        "rear-co2-land-finish",
+        "rear-original-c14-bore-and-pocket-finish",
+        "rear-original-c14-insert-0-finish",
+        "rear-original-c14-insert-1-finish",
+        "rear-original-c14-ceiling-pocket-finish",
+        "rear-original-c14-land-relief-finish",
+        "rear-water-inboard-finish",
+        "wire-roof-finish-control-ground-upper-B-0",
+        "wire-roof-finish-control-loom-J7-wago-reeds-b-target-0",
+        "pan-full-profile-aperture",
+        "water5-key-running-pocket",
+        "asse-carrier-pilot-1",
+        "asse-carrier-pilot-2",
+        "asse-g2-wire-entry-channel",
+        "asse-carrier-roof-channel-0",
+        "asse-carrier-roof-channel-2",
+        "asse-carrier-roof-channel-3",
+        "asse-carrier-roof-channel-5",
+        "asse-carrier-roof-channel-6",
+        "asse-carrier-roof-channel-7",
+        "asse-carrier-roof-channel-15",
+        "asse-carrier-roof-channel-17",
+        "asse-carrier-roof-channel-18",
+        "asse-carrier-roof-channel-20",
+        "asse-carrier-roof-channel-23",
+        "asse-carrier-roof-channel-24",
+        "asse-carrier-roof-channel-25",
+        "asse-carrier-roof-channel-33",
+        "asse-carrier-roof-channel-35",
+        "asse-factory-supply-wall-fore",
+        "asse-factory-supply-wall-aft-turn",
+        "meter-roof-pocket-1",
+        "meter-tie-head-pocket-1",
+        "meter-roof-pocket-2",
+        "meter-tie-head-pocket-2",
+        "wr-regulator-tie-channel",
+        "tee-lid-factory-slide-clearance",
+        "water5-east-drop-pilot-1",
+        "water5-east-drop-pilot-2",
+        "flavor-pair-wall-pilot-1",
+        "flavor-pair-wall-pilot-2",
+        "water2-tube-pilot-1",
+        "water2-tube-pilot-2",
+        "flavor-pair-wall-key-entry",
+        "water2-tube-key-entry",
+        "hatch-pilot-1",
+        "hatch-pilot-2",
+        "hatch-pilot-3",
+        "hatch-pilot-4",
+        "hatch-seam-groove-roof",
+        "hatch-hose-family-roof-14",
+        "hatch-hose-family-roof-7",
+        "hatch-hose-family-roof-0",
+        "ground-tail-lap-working-channel",
+        "water2-hatch-relief",
+        "controller-island-corner",
+        "water5-lap-relief",
+        "g2-fore-tool-channel"
+      ],
+      "pass": true
+    },
+    {
+      "part": "enclosure-front-top",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [
+        "tube-water-5-front-slide",
+        "vk-cradle-front-slide"
+      ],
+      "pass": true
+    },
+    {
+      "part": "rear-roof-hatch",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [
+        "ground",
+        "hatch-ground-pilot",
+        "hatch-discharge-pilot-1",
+        "hatch-discharge-pilot-2",
+        "hatch-seam-groove-article",
+        "carb-foam-carb-2-hatch-clearance",
+        "hose-clamp-chain-discharge-hatch-clearance",
+        "water2-hatch-article-relief",
+        "hatch-hose-seated-article"
+      ],
+      "pass": true
+    },
+    {
+      "part": "funnel-frame",
+      "valid": true,
+      "solids": 1,
+      "recut_pilots": [
+        "gate-a-upper-tie-tunnel"
+      ],
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "inputs_sha256": {
+    "funnel/candidate.json": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "pump/candidate.json": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "routing/candidate.json": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "structure/candidate.json": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "mounts/candidate.json": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c",
+    "wiring/candidate.json": "767a8f775c7c1455e5a8a5e232c94b3a9851335fe9ea04ae5eb048588e6ed615",
+    "mounts/fluid-candidate.json": "833e4d9b3fb92f9b8188c300e24f47bd0b0426a95ba3311b6ce569b2eb79bc22",
+    "mounts/body-candidate.json": "f187292fbc42a3d9f0c8311fffd46ada3e817e41cd8c9338251524fda95a643e",
+    "mounts/water5-hosts.json": "cbe04e55effcb40c442008f0472d7f0984f192caf1f46a729ad39c66c3394b46",
+    "routing/tube-hosts.json": "8c0cdf4f4d9c7567cbbfb626a8d81155088c5fe89c543c40213cf465963eb0c2",
+    "structure/roof-hatch.json": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807"
+  },
+  "inputs_content_sha256": {
+    "funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a",
+    "wiring/candidate.json": "da8fedffd82bc4619f0c3d2d34b3e9bee6367352c25586d32d57f1ea0ed5a87f",
+    "mounts/fluid-candidate.json": "18837365b51fa96347e53377d02fd6ef8b14096fa2cb1c282536ee2bafdc82b1",
+    "mounts/body-candidate.json": "91ed568d36fd97f61d3cde4dca9ca7b88c836af433c89906d3bcdb61fa61c001",
+    "mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6",
+    "routing/tube-hosts.json": "e218a7272e2d38b3d78c65aa74bcb8390880e47f932ecb7065fad51ebb479731",
+    "structure/roof-hatch.json": "db54c84f36d057641197c9f54773bcfaf37b757fdc63883d2b785172009d5368"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "future/pump-first-layout-study/pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "future/pump-first-layout-study/mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a",
+    "future/pump-first-layout-study/wiring/candidate.json": "da8fedffd82bc4619f0c3d2d34b3e9bee6367352c25586d32d57f1ea0ed5a87f",
+    "future/pump-first-layout-study/mounts/fluid-candidate.json": "18837365b51fa96347e53377d02fd6ef8b14096fa2cb1c282536ee2bafdc82b1",
+    "future/pump-first-layout-study/mounts/body-candidate.json": "91ed568d36fd97f61d3cde4dca9ca7b88c836af433c89906d3bcdb61fa61c001",
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6",
+    "future/pump-first-layout-study/routing/tube-hosts.json": "e218a7272e2d38b3d78c65aa74bcb8390880e47f932ecb7065fad51ebb479731",
+    "future/pump-first-layout-study/structure/roof-hatch.json": "db54c84f36d057641197c9f54773bcfaf37b757fdc63883d2b785172009d5368"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/structure/build_scene_stock.py": "a80c7330fb51460430cef6e6de4abed1378d9604dabe566d673f0456b4047000",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
+  },
+  "native_inputs": {
+    "parent:cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-lid-top.brep",
+      "sha256": "eddef42dd6efe21c5431452883fa578c4f1a4127dd150341ab7958275a50ebf5"
+    },
+    "pilot:suction-chain-gas-portal": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-gas-portal.brep",
+      "sha256": "bb79c85ee0dea7ce9e0f1cf08d3d2ffc970240e3dc9d0e97fef69da204d8c3ce"
+    },
+    "pilot:source-b-suction-passage": {
+      "brep": ".cache/pump-first-layout/pump/source-b-suction-passage.brep",
+      "sha256": "2986c03576f2edef3943d1fdc9aed963dab772aeea3cad755ca7038884744f2c"
+    },
+    "pilot:source-b-barrel-clearance": {
+      "brep": ".cache/pump-first-layout/pump/source-b-barrel-clearance.brep",
+      "sha256": "29f70f6d3ece15b15d80475afde089dfda833d38ec6444447ebd594da4884ab7"
+    },
+    "pilot:suction-chain-pilot-1": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-pilot-1.brep",
+      "sha256": "241032d9eef77be299e2a2969d031bf9adf0e8bfd96e1ed7b602625cb976d94b"
+    },
+    "pilot:suction-chain-pilot-2": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-pilot-2.brep",
+      "sha256": "a45b6d599e629b3380820ad32c4b35ea050e859e8099d0a5ed83b5f1dd9d4fc5"
+    },
+    "pilot:supply-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-1-pilot.brep",
+      "sha256": "bb61f1947b46c98c79050fdd8008ae57f4e90c858918ea3b429312d5efa3ea70"
+    },
+    "pilot:supply-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-2-pilot.brep",
+      "sha256": "5ab811b8d3e058c2b1ccbf39d260ff0ba37a2d66e3a21f508133391ef8b023de"
+    },
+    "pilot:supply-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-3-pilot.brep",
+      "sha256": "b274e99cdf299ae93f2700f92e08fdbd3cfea0d41d78cbc5bb6158095c308f3c"
+    },
+    "pilot:supply-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-4-pilot.brep",
+      "sha256": "5070c283c5493e1d31341a250e9458df179d27972b7607a8ad94fbcd33c2400a"
+    },
+    "clearance:flavor-a-psu-portal": {
+      "brep": ".cache/pump-first-layout/routing/flavor-a-psu-portal.brep",
+      "sha256": "1248bbceff16a0fc5f99526f6f96078c259fb8988c7502bb2125f0ccdb13008e"
+    },
+    "pilot:relay-1-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.brep",
+      "sha256": "c84e1295667ce87eb081977e9d1bd4dd8be76d8ee82fb33eebb5bf473563df5f"
+    },
+    "pilot:relay-1-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.brep",
+      "sha256": "6f089542bceafef28d5544216110c3b9d03d36e0a4207c1631094fbe214c8501"
+    },
+    "pilot:relay-1-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.brep",
+      "sha256": "f6d6eaf5dba633bbd318fa8b40c66e58d44ffa722c767e706e913de154779dd7"
+    },
+    "pilot:relay-1-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.brep",
+      "sha256": "99fd4e44d78c2d67f7735d8f5a938be5a72725192eb8522b04c80012c245c9ca"
+    },
+    "pilot:relay-2-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.brep",
+      "sha256": "b8c67383d604ff50185db1ea32d405f5ec9d9797a4f5b61716e38deb86738dc5"
+    },
+    "pilot:relay-2-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.brep",
+      "sha256": "5602bceba646be42f5938e73cdb0a2f2317494aa38d8bbee6b2264a9e959f1cb"
+    },
+    "pilot:relay-2-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.brep",
+      "sha256": "e14330609d4df1329f254b2c3a07fdfb64722c66298ac2d06ca798a04ee12a9e"
+    },
+    "pilot:relay-2-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.brep",
+      "sha256": "18babe3a6f329de1218578544e5d56aa379f0919c2645b1ad280e503cc13e4f4"
+    },
+    "clearance:check-lid-tie-tunnel": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-lid-tie-tunnel.brep",
+      "sha256": "891d80773e4b26eb7d6aae908b256646b9e70b1c89814aea06e751cfeec14483"
+    },
+    "clearance:tee-lid-exact-gas-clearance": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-exact-gas-clearance.brep",
+      "sha256": "617b7ef50d67ce8a6c26e541f2741852755c6878f465afd8d80434c7efe603aa"
+    },
+    "clearance:tee-lid-outer-rib-relief": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-outer-rib-relief.brep",
+      "sha256": "7e49cdb630a8cb1cd879467164a4a9294c24f79251ed6b5ef13076be48cca7f7"
+    },
+    "clearance:tee-lid-factory-toe-relief": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-toe-relief.brep",
+      "sha256": "dde5d9b216b79794ca6b618f858fb311f958be81710811741c399d53542fa5b9"
+    },
+    "clearance:tee-lid-tie-tunnel": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-tie-tunnel.brep",
+      "sha256": "fb3178319c09ebbe2201f1bafc5ddef75bba0b9f5b69c196f5fb5fbd0abef8bc"
+    },
+    "clearance:tee-lid-gas-portal": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-gas-portal.brep",
+      "sha256": "4c9ed58fccc7d677712c659404c79e1b0093e54c7d0314b941838a259ea237ad"
+    },
+    "pilot:flavor-a-fore-pilot-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-pilot-1.brep",
+      "sha256": "f103cd877f6ef37f204204fb674804bd6373b9202aa9355f5d17d11156ed2e3a"
+    },
+    "pilot:flavor-a-fore-pilot-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-pilot-2.brep",
+      "sha256": "b3892f40a888d1116a4d2d1c4a85569374c167d9654503be40cab1fdce8c546f"
+    },
+    "pilot:gas-outlet-inlet-air": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-inlet-air.brep",
+      "sha256": "9c52e8378f16d1672f4b9afdcfbc0924f5c59c5c8484fddd8c63a24b3063c7c7"
+    },
+    "parent:cold-core/foam-cap-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-top.brep",
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d"
+    },
+    "parent:enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/enclosure-back-top.brep",
+      "sha256": "79eba8a9194fbd101ffc93c625212e29ea79fa7491038e24ab8d44719bffa575"
+    },
+    "clearance:tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5-clearance-cutter.brep",
+      "sha256": "b97db4133dbafdbe0c841d7385c8ccfac1729635b4f8b8c007e77b5a7b2c0bac"
+    },
+    "clearance:meter-wall": {
+      "brep": ".cache/pump-first-layout/routing/meter-wall-clearance.brep",
+      "sha256": "4cb61acdef502d4a850417f75eb211feb1f0f9de0663589057fc879ec5acd620"
+    },
+    "clearance:tube-water-supply-link": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-supply-link-clearance.brep",
+      "sha256": "0a805ee77a88ed636579863f470909702d9b90756dc8898f763d36c54e55ea76"
+    },
+    "clearance:tube-fluid-18": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-18-clearance.brep",
+      "sha256": "d66510f16af8f43f155046004b9a930364f55f7b1189d99fee76bba5a991950a"
+    },
+    "clearance:tube-fluid-28": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-28-clearance.brep",
+      "sha256": "b953f1f60f8cf21423a1b16c372e63c899e53b1577fecb18d8c973da443eeb69"
+    },
+    "clearance:tube-co2-0": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-0-clearance.brep",
+      "sha256": "efa03a820b89388ce1b52e3ad1c45e8916b3bde34b89dd9bba48377360d54876"
+    },
+    "clearance:tube-co2-1": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-1-clearance.brep",
+      "sha256": "e63ad90b38f375df53d2d730067e57aed7ed52f6ac442e13065a369308cf42af"
+    },
+    "pilot:controller-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-1-pilot.brep",
+      "sha256": "a846266d4aae08c2eb77b5761a8e8fe1c63ddfec2f7c32f492e9256d1adb7bb0"
+    },
+    "pilot:controller-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-2-pilot.brep",
+      "sha256": "708aafdd4622f64228ecec65b4edad0411b6a9eb255db22f3ad8ca4d3817ee5f"
+    },
+    "pilot:controller-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-3-pilot.brep",
+      "sha256": "d7d952300b87ccf19e6d374eaa7ea746c55be049be82d33466b8ff79fd1b6670"
+    },
+    "pilot:controller-4": {
+      "brep": ".cache/pump-first-layout/structure/controller-4-pilot.brep",
+      "sha256": "52dd4bb4ecef3c829bb5bca13b1eb8a0f88edc8ef03f68c2124172a41cf92a58"
+    },
+    "clearance:rear-port-finish-0": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-0.brep",
+      "sha256": "ea28ac25096a3ffcb34950837472aaff1ebdc19213f722aec41e24c827db9a53"
+    },
+    "clearance:rear-port-finish-1": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-1.brep",
+      "sha256": "ef847999db77d69f8b7583c38460ee1d40cb4d64ababc8021e2dbb14eaae274c"
+    },
+    "clearance:rear-port-finish-2": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-2.brep",
+      "sha256": "3039031929f5707c34bfcbc0efab44154efcbcd1b16e1f1611d68b41bd3e01bd"
+    },
+    "clearance:rear-port-finish-3": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-3.brep",
+      "sha256": "be4aa6c7461971a8bf4cbef4cc10a48f2da83e87cde451bf73b986efdd89b7ee"
+    },
+    "clearance:rear-port-finish-4": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-4.brep",
+      "sha256": "d2711fd18dee9616a31b744e44cc8cf544ea328d3037e7f30ec00d34d40b34c5"
+    },
+    "clearance:rear-port-finish-5": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-5.brep",
+      "sha256": "317bdd50a0179432d62c3740a892d6025b3d10ee10b724a712e8e4f7839bc367"
+    },
+    "clearance:rear-port-finish-6": {
+      "brep": ".cache/pump-first-layout/structure/rear-port-finish-6.brep",
+      "sha256": "8e3dc3bfca34b837e87d7eb84618e172105c0f5ad848ed88a8967c6d266a63e6"
+    },
+    "clearance:rear-chip-finish-0": {
+      "brep": ".cache/pump-first-layout/structure/rear-chip-finish-0.brep",
+      "sha256": "89e99d5de65c6c251a68f30589b0c9059f1ac1fadeb7186f364c604789165ccc"
+    },
+    "clearance:rear-chip-finish-1": {
+      "brep": ".cache/pump-first-layout/structure/rear-chip-finish-1.brep",
+      "sha256": "08c58cf759c6a68218b8dc8c2e97a11a2c85ee7d3d9f5b6bcba0a9811f19a092"
+    },
+    "clearance:rear-chip-finish-2": {
+      "brep": ".cache/pump-first-layout/structure/rear-chip-finish-2.brep",
+      "sha256": "d3a4220684afc72672fedc90a01c57692ad669c2a3c05d1383e202a63c34000b"
+    },
+    "clearance:rear-chip-finish-3": {
+      "brep": ".cache/pump-first-layout/structure/rear-chip-finish-3.brep",
+      "sha256": "47e14ec711da8fb7b362ac3602929d2e576ba18549a6e8dd73e9656b223ef0a4"
+    },
+    "clearance:rear-chip-finish-4": {
+      "brep": ".cache/pump-first-layout/structure/rear-chip-finish-4.brep",
+      "sha256": "1930448e6a18ae3aee95cd3901eba2ac074d280302c236901295eb748ab11446"
+    },
+    "clearance:rear-co2-land-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-co2-land-finish.brep",
+      "sha256": "4a520a773d8e29fc2d8a5b756335ef1449b9356cc5ccdbf4cadebf30a8b89920"
+    },
+    "clearance:rear-original-c14-bore-and-pocket-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-original-c14-bore-and-pocket-finish.brep",
+      "sha256": "ea54e94f6487e588ab0d38987466bb0101be13dc8cf954fcd787b5d569d0b3c2"
+    },
+    "clearance:rear-original-c14-insert-0-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-original-c14-insert-0-finish.brep",
+      "sha256": "0c44fdd938632eb2aa5281ace8531f0e8ee54ffaf93cb40242ff034ea8959937"
+    },
+    "clearance:rear-original-c14-insert-1-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-original-c14-insert-1-finish.brep",
+      "sha256": "05aa9172acb0a1582f465d4b72c439ff3d692e733edd1831aa2faa86c6ace37d"
+    },
+    "clearance:rear-original-c14-ceiling-pocket-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-original-c14-ceiling-pocket-finish.brep",
+      "sha256": "e5be09b911d385dc2eff104be152a0cbd21479d2ba0829a243a998398e62d767"
+    },
+    "clearance:rear-original-c14-land-relief-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-original-c14-land-relief-finish.brep",
+      "sha256": "29f433d265d6d704006ab6958f418bcbeefa82709b04ad329fccaed1fb01ec85"
+    },
+    "clearance:rear-water-inboard-finish": {
+      "brep": ".cache/pump-first-layout/structure/rear-water-inboard-finish.brep",
+      "sha256": "deb06e4afc0b00212c9da1c7af9c73edece8f3099e259b95c42a75eba46bf3ad"
+    },
+    "clearance:wire-roof-finish-control-ground-upper-B-0": {
+      "brep": ".cache/pump-first-layout/structure/wire-roof-finish-control-ground-upper-B-0.brep",
+      "sha256": "db7da99ea3cb2daf2032be17361f7c07630d6d6bd0c5b4bd71787990c32fdbf8"
+    },
+    "clearance:wire-roof-finish-control-loom-J7-wago-reeds-b-target-0": {
+      "brep": ".cache/pump-first-layout/structure/wire-roof-finish-control-loom-J7-wago-reeds-b-target-0.brep",
+      "sha256": "b9a8e7a38a105dd9397d58d0178e70ad1c22c5fb80fb72fa220017c92fcf2876"
+    },
+    "clearance:pan-full-profile-aperture": {
+      "brep": ".cache/pump-first-layout/structure/pan-full-profile-aperture.brep",
+      "sha256": "7ba51c9319eb012d0967c6d389c836d79219e770719dcdb3b2780cfe0a4bd1bc"
+    },
+    "clearance:water5-key-running-pocket": {
+      "brep": ".cache/pump-first-layout/structure/water5-key-running-pocket.brep",
+      "sha256": "918e2ec0af74c5943597b95475be0ce96de58b8a72496394efbff826bf6f9c82"
+    },
+    "pilot:asse-carrier-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-pilot-1.brep",
+      "sha256": "023db47ecccc3fb90652a49407851ec86ce7a5dda6c57600e006e127dc884628"
+    },
+    "pilot:asse-carrier-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-pilot-2.brep",
+      "sha256": "1276ab5304c1da1e931f175b595fbefb44f7baeda7862647420d214856a6e7a1"
+    },
+    "clearance:asse-g2-wire-entry-channel": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-g2-wire-entry-channel.brep",
+      "sha256": "78280fd01701163fad25cfe2d7f318ba86077f134c78797d25bab958fb7ff6c9"
+    },
+    "clearance:asse-carrier-roof-channel-0": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-0.brep",
+      "sha256": "3570a5344d8314adb749a46f257606160b903dd79ef2f41060a82dadba7a89ca"
+    },
+    "clearance:asse-carrier-roof-channel-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-2.brep",
+      "sha256": "e15d553f04ef3cdf9ae29055d4ac51f3b62a556ed1b5c0d686cd0d51e5479e75"
+    },
+    "clearance:asse-carrier-roof-channel-3": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-3.brep",
+      "sha256": "2418c61c3f8b469d0340fe0af28570eac8ee5796d6a147c4c3307412c2c5a27d"
+    },
+    "clearance:asse-carrier-roof-channel-5": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-5.brep",
+      "sha256": "f9ed164d535cf1e9495e1eab33e8f95403e1fb65ea168d1f0d5c83b0575c200a"
+    },
+    "clearance:asse-carrier-roof-channel-6": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-6.brep",
+      "sha256": "a75ae6498f93ba635a3684ebfcae5acdeb54ebc7385bd5f04c533a780d7e04a3"
+    },
+    "clearance:asse-carrier-roof-channel-7": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-7.brep",
+      "sha256": "b34af0051156ba295f953121c1076bac61d57bc7daab8aef6585e0c5a54f0917"
+    },
+    "clearance:asse-carrier-roof-channel-15": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-15.brep",
+      "sha256": "d77611b944e292b4afd76acb58725d5a378ebad3c8beab56191becce0644eb76"
+    },
+    "clearance:asse-carrier-roof-channel-17": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-17.brep",
+      "sha256": "5091227b47ac68d423d810b0312b5ea1ec1250571f18dd44a7900673f765cb3d"
+    },
+    "clearance:asse-carrier-roof-channel-18": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-18.brep",
+      "sha256": "8d36763cb04b18e47741e00fa872c48109dcc93caf9160b228cf5f73cb146f0b"
+    },
+    "clearance:asse-carrier-roof-channel-20": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-20.brep",
+      "sha256": "bca47ed649fca56d3a406fc76dd2d870a89b715e367f5c5db81b3afd45e5e7d8"
+    },
+    "clearance:asse-carrier-roof-channel-23": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-23.brep",
+      "sha256": "e535442037d5bfd9560945471a8e23df4706071c4191a10bbf322eae743bf3ac"
+    },
+    "clearance:asse-carrier-roof-channel-24": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-24.brep",
+      "sha256": "41d016334e4be2e5ae56b803c692a4e2ef591e0ed2b80abc1e8c8f082a1e3714"
+    },
+    "clearance:asse-carrier-roof-channel-25": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-25.brep",
+      "sha256": "87513cadf3ee5f7d0e8ad51aafde7eb12532462ffbe1bcf478762d73f32895ac"
+    },
+    "clearance:asse-carrier-roof-channel-33": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-33.brep",
+      "sha256": "2837fb9725c465d58b92687388ff795f4c7589f30db6c6084e80bbe0ac4e4749"
+    },
+    "clearance:asse-carrier-roof-channel-35": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-35.brep",
+      "sha256": "97f8f3919c68dbb7492bdd9dcabb20b77c6642c3fcafe520d3514779e271a8b3"
+    },
+    "clearance:asse-factory-supply-wall-fore": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-factory-supply-wall-fore.brep",
+      "sha256": "12f9b948be8486a9b686b62011c7bca2527aeb21a1fcf229a16756be473537f0"
+    },
+    "clearance:asse-factory-supply-wall-aft-turn": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-factory-supply-wall-aft-turn.brep",
+      "sha256": "18b8f45f0602220912608d8963315bee811eb86d62c0b22fc291623eaa739e5c"
+    },
+    "clearance:meter-roof-pocket-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-pocket-1.brep",
+      "sha256": "1cd3789428aea8878fcfea720e1143dfded639dcd608a74903921d2b8b1203ed"
+    },
+    "clearance:meter-tie-head-pocket-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-tie-head-pocket-1.brep",
+      "sha256": "e4ae5c3fac46beb3aec4c9e71e19400401edb7736ad96f8bd3b1c16c8fdef791"
+    },
+    "clearance:meter-roof-pocket-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-pocket-2.brep",
+      "sha256": "defe2b42679946f53ac4f49caed024b81d50444591bbcc2a6afb1207c7bc643e"
+    },
+    "clearance:meter-tie-head-pocket-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-tie-head-pocket-2.brep",
+      "sha256": "34aabefde45697690a136808d3c702def85d50527e75294f034921f3388732db"
+    },
+    "clearance:wr-regulator-tie-channel": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-tie-channel.brep",
+      "sha256": "2f0d76d8317a14e3e4cc7ab54dde864cf92a3e34a3b6ee63585b26ed1754a3a6"
+    },
+    "clearance:tee-lid-factory-slide-clearance": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-slide-clearance.brep",
+      "sha256": "e2d1218f40c365522ea143b09f6502a5c52e09429e44aebb6982822ed933db67"
+    },
+    "pilot:water5-east-drop-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-pilot-1.brep",
+      "sha256": "0d479c60af9ccf53b04b8d9a1f8245090c86465aa05873d7ee0e1729975410f1"
+    },
+    "pilot:water5-east-drop-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-pilot-2.brep",
+      "sha256": "333b714708f13755ea960c062050f7972fe6b0642b715c2508e3582198f938ae"
+    },
+    "pilot:flavor-pair-wall-pilot-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-pilot-1.brep",
+      "sha256": "ac18ccd4862b652a4ed86d5622d54e9c01104b8ff14bd7b9f02f6f8ec67802a4"
+    },
+    "pilot:flavor-pair-wall-pilot-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-pilot-2.brep",
+      "sha256": "36a1a4d1031c92f3fafb59c5aa41ed1206a49b3ed28ce8ac101e14dd9deb6084"
+    },
+    "pilot:water2-tube-pilot-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-pilot-1.brep",
+      "sha256": "6e97eb45fe664a25d9911a2a92a414b0fb5f426332145a81cb1171ba0d147b3d"
+    },
+    "pilot:water2-tube-pilot-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-pilot-2.brep",
+      "sha256": "229748b7244c8da5736eb90bb3eadb957e0edd2e64281c3d941baa091a4c72d4"
+    },
+    "clearance:flavor-pair-wall-key-entry": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-key-entry.brep",
+      "sha256": "5f302e733bfa1b9b6e0b8efec9c91adf7b497ef3ffc77e2dd2512b497d9f64bb"
+    },
+    "clearance:water2-tube-key-entry": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-key-entry.brep",
+      "sha256": "d208a7e66539b9c7480312d352691905cbdb9014eaa8398ef439fed8e22ef4af"
+    },
+    "pilot:hatch-pilot-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-1.brep",
+      "sha256": "c49860c1670b7cd0f82ea82da1e7892b251311ce03af973ca9671371c6644030"
+    },
+    "pilot:hatch-pilot-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-2.brep",
+      "sha256": "06acaa63608c70e8cf21f22ca620d997adf5adc4c535f95234b692ba0bc1bd4d"
+    },
+    "pilot:hatch-pilot-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-3.brep",
+      "sha256": "f84280f5bfe8e8710aec91476d21a794292683a3b61ec8b8a631f1df449780be"
+    },
+    "pilot:hatch-pilot-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-4.brep",
+      "sha256": "cb3c145719a6006357e7c124c219da942e5f914e452e2d7bb765c7a2a617e3b9"
+    },
+    "clearance:hatch-seam-groove-roof": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-seam-silicone.brep",
+      "sha256": "6b632a3057830962454f27313b1236620642346ea1d32e08393723d6c78000fa"
+    },
+    "clearance:hatch-hose-family-roof-14": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-14.brep",
+      "sha256": "9fd29f563aa44ffb984d2d641ca39488fa3c9f127f094126bae390713eb9ba62"
+    },
+    "clearance:hatch-hose-family-roof-7": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-7.brep",
+      "sha256": "61176c0f44d04ba9c6b1d0ca28449e5b228523db705b7b85d40682400fdd300c"
+    },
+    "clearance:hatch-hose-family-roof-0": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-0.brep",
+      "sha256": "84d503cdaef8e9a3433655de24ebb8b139ea5d0a2a5ce92d1358ef9f97a88494"
+    },
+    "clearance:ground-tail-lap-working-channel": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-working-channel.brep",
+      "sha256": "2c3bbb2a067e46bc2a1ad722a0a2f2591897fe12d7640da0d5d0c4aff2375577"
+    },
+    "clearance:water2-hatch-relief": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/water2-hatch-relief.brep",
+      "sha256": "193ceb2035a10ed75cdb00753b7e544f1737a1ce4c922d503e2dc07c49db8c9f"
+    },
+    "clearance:controller-island-corner": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/controller-island-corner-clearance.brep",
+      "sha256": "8f76bc74ec5940fc82f3017e2c66465218122ce49cf3bd0cbb632701b9cee69c"
+    },
+    "clearance:water5-lap-relief": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/water5-lap-relief.brep",
+      "sha256": "5a43903e757e958c420ba23f91c092bad95d8c91f7656bb67c30becbff18cbb5"
+    },
+    "clearance:g2-fore-tool-channel": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/g2-fore-tool-channel.brep",
+      "sha256": "bb7c0a4c3d478b8a719874a993350f63beae5075e2bce774e4a0b01efef2d052"
+    },
+    "parent:enclosure-front-top": {
+      "brep": ".cache/pump-first-layout/structure/enclosure-front-top.brep",
+      "sha256": "ccaed28d658cdb97f441f35de9bf017c89387de0fc9ebacd084bfb6473bf8cfe"
+    },
+    "clearance:tube-water-5-front-slide": {
+      "brep": ".cache/pump-first-layout/structure/tube-water-5-front-slide-clearance.brep",
+      "sha256": "f293ebd85675e5febe3ea65670e0948c31686cfc91596c4fba6786d7add3390c"
+    },
+    "clearance:vk-cradle-front-slide": {
+      "brep": ".cache/pump-first-layout/structure/vk-cradle-front-slide-clearance.brep",
+      "sha256": "d2a33e1cde96d366b33081e9ce043018bf0e2c9911d039aa88e724286bbe5a1b"
+    },
+    "parent:rear-roof-hatch": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/rear-roof-hatch.brep",
+      "sha256": "f452fa1859f6e665fa5a4fe7b743b5854314a5d9db1755f1e21dfa415a35b8b1"
+    },
+    "pilot:ground": {
+      "brep": ".cache/pump-first-layout/structure/ground-pilot.brep",
+      "sha256": "5313488793e028d6173e33c392c39a4cf17cf64251056066e7901e8da519ab67"
+    },
+    "pilot:hatch-ground-pilot": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-ground-pilot.brep",
+      "sha256": "5313488793e028d6173e33c392c39a4cf17cf64251056066e7901e8da519ab67"
+    },
+    "pilot:hatch-discharge-pilot-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-discharge-pilot-1.brep",
+      "sha256": "0e25680c59571972e24b8df1fe57cb931f50c35a07354acec17bc8091840cba1"
+    },
+    "pilot:hatch-discharge-pilot-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-discharge-pilot-2.brep",
+      "sha256": "22deb0da37e4fd769efdb8525a618ec43837d25c12124e844ab03b3f8fde7b7f"
+    },
+    "clearance:hatch-seam-groove-article": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-seam-silicone.brep",
+      "sha256": "6b632a3057830962454f27313b1236620642346ea1d32e08393723d6c78000fa"
+    },
+    "clearance:carb-foam-carb-2-hatch-clearance": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/carb-foam-carb-2-hatch-clearance.brep",
+      "sha256": "140400503ba88222d682525c1b1fe8975e570a3918fa5b536308a12257727568"
+    },
+    "clearance:hose-clamp-chain-discharge-hatch-clearance": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hose-clamp-chain-discharge-hatch-clearance.brep",
+      "sha256": "516947b14deca25616318bace8be6a00832427fd9e003741b88adef57c18ec4f"
+    },
+    "clearance:water2-hatch-article-relief": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/water2-hatch-relief.brep",
+      "sha256": "193ceb2035a10ed75cdb00753b7e544f1737a1ce4c922d503e2dc07c49db8c9f"
+    },
+    "clearance:hatch-hose-seated-article": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-seated-hose-clearance.brep",
+      "sha256": "84d503cdaef8e9a3433655de24ebb8b139ea5d0a2a5ce92d1358ef9f97a88494"
+    },
+    "parent:funnel-frame": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep",
+      "sha256": "1803801f5864f68fd396b5d36f3f7625f3b55bf19326f7a8fbec4ac373e15279"
+    },
+    "pilot:gate-a-upper-tie-tunnel": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tie-tunnel.brep",
+      "sha256": "59defe61e289ec0dcc5ea3232846f7d2e76f34111f3f94ac6539f9288eb1524b"
+    }
+  },
+  "source_drift": [],
+  "manifest_drift": [],
+  "scope": "Unfused parent scene stock with the same complete blind-pilot recuts as the joined articles. No load or lifetime qualification."
+}

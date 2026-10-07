@@ -1,0 +1,16 @@
+{
+  "enclosure-assembly.step": {
+    "original_source": "hardware/manifold-layout/enclosure-assembly.step",
+    "sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91",
+    "bytes": 98550124,
+    "snapshot": "future/pump-first-layout-study/inputs/enclosure-assembly.step.gz",
+    "compressed_bytes": 16510630
+  },
+  "enclosure-assembly.step.mesh": {
+    "original_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "sha256": "e427d586363874cac53b6914932e5585a8172343c018e1fe47716d04eac1822d",
+    "bytes": 35350000,
+    "snapshot": "future/pump-first-layout-study/inputs/enclosure-assembly.step.mesh.gz",
+    "compressed_bytes": 13858595
+  }
+}

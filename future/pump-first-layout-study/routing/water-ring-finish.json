@@ -1,0 +1,155 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "valid single printed chip",
+      "pass": true
+    },
+    {
+      "name": "215 mm appliance width",
+      "pass": true,
+      "west_face_mm": -107.5000001
+    },
+    {
+      "name": "complete flange bearing material preserved",
+      "removed_bearing_volume_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "complete chip bore preserved",
+      "material_in_bore_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "word and recessed lettering preserved",
+      "removed_word_region_mm3": 0.0,
+      "word_sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba",
+      "pass": true
+    },
+    {
+      "name": "purchased union native clearance",
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "complete chip fits the unchanged keyed receiver",
+      "outside_receiver_volume_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "upside-down chip placement remains rejected",
+      "outside_receiver_volume_mm3": 242.78511106397255,
+      "pass": true
+    },
+    {
+      "name": "selected producer geometry correspondence",
+      "missing_volume_mm3": 0.0,
+      "extra_volume_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "original_bounds_mm": [
+    -108.98000009999998,
+    469.3,
+    295.02,
+    -72.01999989999999,
+    471.30000010000003,
+    332.2890001
+  ],
+  "selected_bounds_mm": [
+    -107.5000001,
+    469.3,
+    295.02,
+    -72.01999989999999,
+    471.30000010000003,
+    332.2890001
+  ],
+  "decorative_material_removed_mm3": 70.03361077993145,
+  "finish": {
+    "finish": "Flat west decorative rim at the established exterior face",
+    "west_face_mm": -107.5,
+    "decorative_rim_trim_mm": 1.48,
+    "bore_diameter_mm": 17.44,
+    "west_material_outside_bore_mm": 8.28,
+    "west_visible_color_beyond_union_flange_mm": 5.57,
+    "unchanged": [
+      "union geometry and pose",
+      "17.44 mm chip bore",
+      "complete flange bearing annulus",
+      "lettering and recess",
+      "receiver bore, floor, slip and keying geometry"
+    ],
+    "receiver_scope": "The exact original chip pocket is retained inside the established width; its overhanging decorative outline lies outside the physical wall."
+  },
+  "part": {
+    "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water.brep",
+    "role": "water",
+    "detail": "WATER identification chip with its west decorative rim flat at X\u2212107.5; native bore, flange bearing and TAP lettering preserved.",
+    "bounds": [
+      -107.5000001,
+      469.3,
+      295.02,
+      -72.01999989999999,
+      471.30000010000003,
+      332.2890001
+    ],
+    "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645",
+    "transform": {
+      "translation": [
+        -12.43,
+        0.0,
+        -22.71058083755
+      ]
+    },
+    "decorative_finish": {
+      "finish": "Flat west decorative rim at the established exterior face",
+      "west_face_mm": -107.5,
+      "decorative_rim_trim_mm": 1.48,
+      "bore_diameter_mm": 17.44,
+      "west_material_outside_bore_mm": 8.28,
+      "west_visible_color_beyond_union_flange_mm": 5.57,
+      "unchanged": [
+        "union geometry and pose",
+        "17.44 mm chip bore",
+        "complete flange bearing annulus",
+        "lettering and recess",
+        "receiver bore, floor, slip and keying geometry"
+      ],
+      "receiver_scope": "The exact original chip pocket is retained inside the established width; its overhanging decorative outline lies outside the physical wall."
+    }
+  },
+  "native_inputs": {
+    "bulkhead-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-water.brep",
+      "sha256": "7bd546ad20be262205f9f829723fdefd76882f13fc9e3d176c6f67712bb7c94f"
+    },
+    "bulkhead-ring-water-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water-word.brep",
+      "sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba"
+    },
+    "original-ring": {
+      "brep": ".cache/pump-first-layout/baseline/151.brep",
+      "sha256": "204ed0f59213c918a4a293608a1d4a22b5390d59b922a130604ce4ea2844341b"
+    },
+    "original-chip-pocket": {
+      "brep": ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-0.brep",
+      "sha256": "99bfdbf299ac29058b1d679319429b83d3b5e63d38c1892bc801ec644cbe2bf2"
+    },
+    "selected-ring": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water.brep",
+      "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645"
+    }
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/routing/water_ring_finish.py": "9b71cdd8e46ef28de539a03a9b58baeb559260e95dc11b05ff263bdf9c8eb548",
+    "future/pump-first-layout-study/routing/build_candidate.py": "16ea8679f2e9aa826c8030f2ac8aec2eb4d8e37f35172192814d0bf83f8af86b",
+    "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
+  },
+  "source_drift": [],
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/funnel/shells.json": "903a2e1779d6c43ecbe6eb724ca4760de7bd8efd607c382034580f2576e0ddef"
+  },
+  "scope": "Native geometry and lettering preservation. The trim remains 5.57 mm outside the complete flange and preserves 8.28 mm material outside the bore. Existing physical finish acceptance retains its scope; the flat decorative rim is a new printed detail."
+}

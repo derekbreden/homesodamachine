@@ -1,0 +1,64 @@
+{
+  "parts": {
+    "compressor-jacket-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/compressor-jacket-reserve.brep",
+      "sha256": "d4ea15ac2c627ec973ed7d2afecbb78e2f5e821ee0604d1b3e47ee2af8a30663",
+      "bounds": [
+        92.0,
+        442.5,
+        253.4,
+        101.0,
+        451.5,
+        293.0
+      ],
+      "role": "wiring",
+      "color_role": "return",
+      "detail": "Conservative \u00d89 SJOOW jacket exterior; factory compressor termination remains unlocated."
+    },
+    "lower-carbonator-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-carbonator-earth-reserve.brep",
+      "sha256": "4f26798fdea438dd5ccdd502c2017a3403c0ca1b80b653ea28afe4ce9c94cd5d",
+      "bounds": [
+        93.4,
+        438.4,
+        253.4,
+        96.6,
+        441.6,
+        293.0
+      ],
+      "role": "wiring",
+      "color_role": "earth",
+      "detail": "carbonator protective-earth bay exit; lower metalwork termination remains unlocated."
+    },
+    "lower-under-counter-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-under-counter-earth-reserve.brep",
+      "sha256": "a96719a05a569553b65a84ae7ea0904b628fbc0b5a82027758452505b1c52ac3",
+      "bounds": [
+        97.4,
+        434.4,
+        253.4,
+        100.6,
+        437.6,
+        293.0
+      ],
+      "role": "wiring",
+      "color_role": "earth",
+      "detail": "under-counter protective-earth bay exit; lower metalwork termination remains unlocated."
+    }
+  },
+  "clearance_cutters": {
+    "compressor-jacket-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/compressor-jacket-reserve-clearance.brep",
+      "sha256": "c0ba51d364206e4646120c6634ce3a9e87cd340d4bd9a0150577a7370349cb17"
+    },
+    "lower-carbonator-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-carbonator-earth-reserve-clearance.brep",
+      "sha256": "f1d0fed6ade67381fd75cf1b770b241a410fb2f87834a9e2b19655a85b812c8b"
+    },
+    "lower-under-counter-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-under-counter-earth-reserve-clearance.brep",
+      "sha256": "c121e3ebbd1a3e1a2e9c06967f213fcb3e50d6437fbe6cf2526a2ce273d824b2"
+    }
+  },
+  "scope": "Full lead exteriors from Z253.4 to293 outside the foam cap. Installed occupancy is tested with the complete power module; no lower termination or cold-core hole is invented."
+}
