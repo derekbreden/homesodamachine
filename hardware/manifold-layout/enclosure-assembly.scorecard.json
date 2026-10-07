@@ -267,7 +267,7 @@
    "label": "The nameplate's receiving bar stands clear of the PSU",
    "kind": "gate",
    "status": "pass",
-   "value": "1.038 mm",
+   "value": "1.035 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "the bar and its corbel against the PSU's AC terminal block; the tabs' pitch `_nameplate_interface.TAB_X` sets the bar's ends"
