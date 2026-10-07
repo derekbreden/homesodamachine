@@ -107,53 +107,52 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 262 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2812 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1171 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 2849 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1174 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 55a93c0c115cd66c1831e14ee5cca859, enclosure-assembly.scorecard.json here is f7830f5c73454fa29723e414b0000228",
-      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 8c73f8d71cfa6e98b2c8bba87f64d157",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fd21da07c1cdba00bac7b802fad89058 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds ff8bdcd7ec7a71b72df8b4059e495dd2 for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6a18fe408cab9a1a6572d6a4e0a555c6 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
+      "PASS solid:display-ribbon-envelope",
       "FAIL clearance:signal-shell_base",
-      "FAIL clearance:signal-shell_tip",
-      "FAIL clearance:signal-above_counter_plate",
-      "FAIL clearance:signal-above_counter_gasket",
-      "FAIL clearance:signal-display_cover",
-      "FAIL clearance:signal-tpu_thimble",
+      "PASS clearance:signal-shell_tip",
+      "PASS clearance:signal-above_counter_plate",
+      "PASS clearance:signal-above_counter_gasket",
+      "PASS clearance:signal-display_cover",
+      "PASS clearance:signal-tpu_thimble",
       "FAIL clearance:signal-donor",
       "PASS clearance:signal-soda-tube",
-      "FAIL clearance:signal-flavor-a",
-      "FAIL clearance:signal-flavor-b",
-      "FAIL clearance:signal-countertop",
-      "FAIL clearance:signal-under-counter-plate",
-      "FAIL clearance:signal-display-body",
-      "FAIL clearance:signal-display-usb",
+      "PASS clearance:signal-flavor-a",
+      "PASS clearance:signal-flavor-b",
+      "PASS clearance:signal-countertop",
+      "PASS clearance:signal-under-counter-plate",
+      "PASS clearance:signal-display-body",
+      "PASS clearance:signal-display-usb",
       "PASS fit:signal-lane-section",
       "PASS wall:neck-signal-lane",
       "PASS seat:plate-gasket",
       "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2184, in <module>",
-      "    \"scope\": \"Rigid fit references and independent wing-clearance demand; no elastic deformation or force prediction.\"},",
-      "    ^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2134, in main",
-      "    full = f.build_shell()",
-      "        ^^^^^^^^^^^^^^^^^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2221, in <module>",
+      "    sys.exit(main())",
+      "             ~~~~^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2171, in main",
+      "    raise RuntimeError(\"a faucet source changed during the reading; rerun after its build settles\")",
       "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
     ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 18 files (18 procedures + 0 cards + cover) | ledger brands: 607 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 4 instruction(s) out of step with the ledger:",
+      "DRIFT: 5 instruction(s) out of step with the ledger:",
+      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B076Q7QVNM (hardware/assembly/internal-plumbing.md:45)",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/asse-drain.md (expected hardware/assembly/_asse_drain_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/lillium-cutover.md (expected hardware/assembly/_lillium_cutover_sync.py)",
@@ -183,7 +182,7 @@
       "    1 carry no colour, so the viewer draws them at its pale default: lens-upright",
       "  hardware/printed-parts/fixtures/gun-positioner/gun-positioner-assembly.step.mesh (published c3a0b4daafed, read from this disk):",
       "    12 carry no colour, so the viewer draws them at its pale default: x-rail--1, x-rail--1, x-rail-1, x-rail-1, y-rail--1, y-rail--1, and 6 more",
-      "  1660 body(ies) in 219 payload(s) carry a colour no finish row names and draw at DEFAULT_FINISH, which is counted and not failed: hardware/printed-parts/fixtures/gun-positioner/gun-positioner-assembly.step.mesh (1176), hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh (68), hardware/printed-parts/fixtures/gun-positioner-observation/camera-stage-assembly.step.mesh (40), ...",
+      "  1661 body(ies) in 220 payload(s) carry a colour no finish row names and draw at DEFAULT_FINISH, which is counted and not failed: hardware/printed-parts/fixtures/gun-positioner/gun-positioner-assembly.step.mesh (1176), hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh (68), hardware/printed-parts/fixtures/gun-positioner-observation/camera-stage-assembly.step.mesh (40), ...",
       "  A payload colour is `_materials.linear` of the body's constant; a colour read back from XCAF or a payload is linear already, and is rebuilt with `cq.Color(r, g, b, a, False)`."
     ],
     "hardware/scripts/check_payloads.py": [
@@ -247,12 +246,7 @@
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
-      "  hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py",
-      "    hardware/scripts/check_payload_colours.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/scripts/check_payload_colours.py",
-      "    hardware/scripts/materialize_material_colors.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/scripts/materialize_material_colors.py",
+      "  1 build-graph generator(s) are absent from the tree — hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py among them. Re-trace the renamed generator or remove its stale graph entry.",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
@@ -272,14 +266,12 @@
       "13 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 440 of 1000 and the next cut wants 928; 144 asset(s) may be retired for it",
+      "the release holds 440 of 1000 and the next cut wants 936; 189 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
-      "    every alias names a component an assembly carries",
-      "    short basenames don't substring-match longer step names (collision regression)",
+      "the suite did not finish within 300s",
       "  cd web && npm test"
     ]
   },
