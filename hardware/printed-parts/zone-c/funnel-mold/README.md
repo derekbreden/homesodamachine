@@ -118,7 +118,7 @@ uses plate 2 of this frozen project, accepted at **09:30:52 CDT on October 7**,
 task **1317250748**. Derek identifies the completed cavity as its intended mate.
 Finished-core quality, assembled fit and casting results are unassessed.
 The [core runtime/storage inspection](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json)
-reports timelapse disabled at layer 1 despite Send On, with 97 clips on the card.
+confirms runtime timelapse enabled at 09:50:36 CDT, with 97 clips on the card.
 The [count-based retention policy](../../../../tools/h2c-timelapse-gc.md) retains 96 clips per printer.
 
 [Rod and casting check](rod-check.json) verifies the straight stock profile,
