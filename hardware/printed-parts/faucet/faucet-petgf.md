@@ -1,76 +1,81 @@
 # Sculpted faucet PET-GF print project
 
-[`faucet-petgf.3mf`](faucet-petgf.3mf) contains the shell base, shell tip,
-display cover and above-counter plate on one plate. The current Mark2 job
-uses black Polymaker PET-GF with a left 0.4 mm nozzle.
+[`faucet-petgf.3mf`](faucet-petgf.3mf) contains the Sculpted shell base, shared
+shell tip, display cover and above-counter plate on one H2C plate. The matching
+[native print archive](vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf)
+is prepared for Polymaker PET-GF and the left 0.4 mm nozzle.
 
 | Position | Part | CAD X rotation |
-|---|---|---:|
+| --- | --- | ---: |
 | Left | Faucet shell base | −15° |
-| Right rear | Faucet shell tip | −105° |
+| Right rear | Faucet shell tip | −95° |
 | Far right rear | Faucet display cover | −50° |
 | Right front | Above-counter plate | 0° |
 
-The tip rests toward its hidden neck-joint end. The cover's visible bezel
-faces upward; its open underside provides access for support removal before
-installing the display. The above-counter plate rests on its gasket face,
-with its locating pedestals up. The base's long straight neck is 15° from
-vertical. The cover retains 1.25 mm inward preload per wing and the mating
-groove and lip geometry recorded in the successful complete-part print.
+The tip's open 50° neck joint, bottom drain port and display pocket provide
+support-removal access before tube and seal installation. The cover's visible
+bezel faces up and its underside remains open. The plate rests on its gasket
+face, with its locating pedestals up. The base's straight neck is 15° from
+vertical. Display-cover acceptance remains scoped to the
+[identified physical article](faucet-display-cover/physical-acceptance.json).
 
-## Settings
+The saved process uses 0.24 mm layers, a 0.20 mm first layer, two walls and
+15% grid infill. Three host/root modifiers retain six walls and 100% zigzag
+infill around the M3 heat-set insert pilots. The
+[emitted-deposition review](faucet-petgf.insert-beads.json) reads every complete
+slab through those regions and retains pore and edge-slab diagnostics.
+Installed brass is Ø4.6 mm; its supporting outer stock must extend at least
+2 mm beyond that envelope. Native deposition establishes nominal geometry;
+insert pullout and lifetime remain physical properties.
 
-The process uses **0.24 mm layers**, a **0.20 mm first layer**, two walls and
-15% grid infill. Nozzle temperatures are 265 °C for the first layer and
-280 °C thereafter, with an 80 °C Textured PEI plate. Part cooling is 0–70%,
-off for the first three layers. Automatic tree supports use a 0.45 mm top
-gap, 0.30 mm bottom gap, 0.40 mm XY gap, two top interface layers and 0.50 mm
-interface spacing. The external PET-GF uses the printer's existing
-PET-CF material mapping; the right nozzle is unused.
+Nozzle temperatures are 265 °C first layer and 280 °C thereafter; the Textured
+PEI plate is 80 °C. Cooling is 0–70%, off for the first three layers. Automatic
+tree supports retain a 0.45 mm top gap, 0.30 mm bottom gap, 0.40 mm XY gap,
+two top interface layers and 0.50 mm interface spacing. The H2C's +0.18 mm
+0.4 mm trim emits `G29.1 Z0.16` after stock Textured PEI compensation.
 
-**+0.18 mm Z trim** is added to the stock plate compensation. On Textured
-PEI with this 0.4 mm nozzle, the startup code clears the trim with
-`G29.1 Z0`, then applies `G29.1 Z0.16`. The printer profile is
-`Bambu Lab H2C 0.4 Standard +0.18 Z trim`.
-
-Refresh the four meshes while retaining the saved project settings:
+After generating and reviewing the source meshes, prepare and review locally:
 
 ```sh
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 tools/cad-venv/bin/python \
-  hardware/printed-parts/faucet/refresh_print_project.py \
-  --settings-from hardware/printed-parts/faucet/faucet-petgf.3mf --z-trim 0.18
+  hardware/printed-parts/faucet/prepare_vent_prints.py rigid
+tools/cad-venv/bin/python hardware/printed-parts/faucet/review_vent_prints.py supports
+tools/cad-venv/bin/python hardware/printed-parts/faucet/review_faucet_inserts.py sculpted
+tools/cad-venv/bin/python hardware/printed-parts/faucet/review_lower_supports.py sculpted
 ```
 
-The project opens in Bambu Studio for slicing. The writer also accepts
-`--slice-output /tmp/faucet-petgf-slice` for an offline toolpath/support
-reading; it does not contact a printer.
+Review the lower-support images and record their cleanup access as described in
+the [print workflow](vent-print-readiness/README.md), then finalize:
 
-## Slice and support removal
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/faucet/finalize_vent_prints.py rigid
+```
 
-The native slice estimates **4 h 30 min 50 s and 126.31 g** at the saved
-profile density. Toolpaths have 23.12 mm minimum bed margin and 27.17 mm
-minimum separation between parts.
+The native slice estimates 4 h 42 min 43 s and 127.54 g using the saved profile
+density. Its complete emitted model/support/brim envelope has 26.30 mm minimum
+usable-bed clearance; separate part toolpaths have 37.67 mm minimum clearance.
+The [readiness record](faucet-petgf.readiness.json) binds the current source,
+project, native payload, reviews and cleanup procedure. Preparation never
+connects to a printer.
 
-| Part | Support contact and removal access |
-|---|---|
-| Base | One bed-rooted body and three small model-rooted patches; 23 labelled interface islands. Remove through the counter-end and donor/lever openings. |
-| Tip | One bed-rooted body, with unlabelled interfaces at the joint, internal passages and display pocket. Sampled outer-skin proximity is confined to 1.36 mm from the joint seam. Remove through the joint and display opening. |
-| Cover | One bed-rooted body and two labelled interface islands under the inner bezel, bridge and opening edges. The sampled visible outer bezel and lip bearing faces are clear. Remove through the open underside. |
-| Above-counter plate | Three bed-rooted bodies inside the screw counterbores, reaching the screw seats. Remove through each counterbore. |
+| Part | Support removal |
+| --- | --- |
+| Base | Cut the tree into short fragments and remove through the counter-end, donor bay and lever opening. Clear all insert pilots and locating sockets. |
+| Tip | Release the tree through the joint, 12 × 22 mm bottom port and display pocket. Clear both gland grooves, seats and lips, then all dry tube/wire guides before inserting bungs. |
+| Cover | Remove through the underside before fitting the display. Retain the broad wings and their lip-bearing surfaces. |
+| Plate | Remove each counterbore support through its screw-head opening while retaining the screw seat. |
 
-The [contact reading](faucet-petgf.support-faces.json) includes support paths
-without explicit interface labels. Its bounded samples locate surfaces near
-the supports; physical removal and finish are established by the print.
+The [support audit](faucet-petgf.support-audit.json) counts connected support
+bodies, including those without interface labels. The
+[contact reading](faucet-petgf.support-faces.json) and
+[cavity image](vent-print-readiness/faucet-black-z018-h2c/native-cavity-supports.png)
+locate the emitted support paths. The
+[lower-guide review](faucet-petgf.lower-supports.json) retains
+[base sections](vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png)
+for cleanup around the cable relief and pedestal sockets. Accessible geometry
+does not establish physical release or deposited sealing finish. The
+[factory seal sequence](asse-vent-seals/README.md) follows support cleanup.
 
-## Records
-
-The [print report](faucet-petgf.print.json) records the exact source STL
-hashes, embedded-mesh agreement, bed transforms and intentional profile
-changes. The [native validation](faucet-petgf.native-validation.json) records
-the exported archive and G-code hashes, emitted settings and Z-trim commands.
-The [readiness record](faucet-petgf.readiness.json) identifies the matching
-slice, support reading and printer submission.
-
-Support bodies, their roots, build-up and contact islands are in the
-[support audit](faucet-petgf.support-audit.json). Physical support removal,
-finish and fit observations are recorded in the [print log](faucet-shell/print-log.md).
+The [complete print set](vent-print-readiness/README.md) also includes the
+TPU bungs, counter gasket and insertion tool. Physical support removal, finish,
+fit and retention observations belong in the [print log](faucet-shell/print-log.md).

@@ -1,0 +1,132 @@
+{
+  "check": "Postpublication consumer faucet vent, mounting and cover mesh lint",
+  "linter": "hardware/scripts/geometry_lint.py",
+  "linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "published_geometry_commit": "ff0e4a35dd86d9ac72cc524c6d3d335e97a9ba34",
+  "publication_live_confirmation": {
+    "live_base": "https://objects.homesodamachine.com",
+    "all_eight_current_geometry_pointers_match": true,
+    "pointer_probe_sha256": "28e5b09d1b6b30c491b80e39e3d57e37ae88a076336942c9789a5be921fb60af"
+  },
+  "commands": [
+    [
+      "tools/cad-venv/bin/python",
+      "hardware/scripts/geometry_lint.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "--all",
+      "--top",
+      "100"
+    ],
+    [
+      "tools/cad-venv/bin/python",
+      "hardware/scripts/geometry_lint.py",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "--all",
+      "--top",
+      "100"
+    ]
+  ],
+  "environment": {
+    "HSM_NO_BUILD_LOCK": "1"
+  },
+  "source_sha256": {
+    "hardware/scripts/geometry_lint.py": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d"
+  },
+  "records": [
+    {
+      "stl": "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+      "stl_sha256": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+      "printed_facet_count": 38500,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "reused_unchanged_geometry_witness": true,
+      "original_summary_sha256": "e5835792e8ae2cda0fb7e88ebcd6f4ad700e20eb3167b2fe841d0349887d8b9e",
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
+      "stl_sha256": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+      "printed_facet_count": 34712,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "reused_unchanged_geometry_witness": true,
+      "original_summary_sha256": "e5835792e8ae2cda0fb7e88ebcd6f4ad700e20eb3167b2fe841d0349887d8b9e",
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl",
+      "stl_sha256": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
+      "printed_facet_count": 71220,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "reused_unchanged_geometry_witness": true,
+      "original_summary_sha256": "e5835792e8ae2cda0fb7e88ebcd6f4ad700e20eb3167b2fe841d0349887d8b9e",
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "stl_sha256": "7004c418a63cf861b86886421d18249c5af84757016224c36aa89f0be75bd052",
+      "printed_facet_count": 15456,
+      "open_findings": 0,
+      "answered_findings": 2,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+      "lint_answers": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.lint-answers",
+      "lint_answers_sha256": "585e1c4b6ec7b687d00f3299c2424214e97adac28e486e8fd68229c1eed86995"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865",
+      "printed_facet_count": 15388,
+      "open_findings": 0,
+      "answered_findings": 2,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+      "lint_answers": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.lint-answers",
+      "lint_answers_sha256": "1b122563810f61368ecb48360c22d842c43cfb724b988e136720d0260b47f914"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "stl_sha256": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553",
+      "printed_facet_count": 3348,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "stl_sha256": "081cfead29ef351cce62bb3a63bc59d3c77807f349c6eaf28330cfcf31b6bef4",
+      "printed_facet_count": 3280,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+      "printed_facet_count": 31552,
+      "open_findings": 0,
+      "answered_findings": 2,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+      "lint_answers": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.lint-answers",
+      "lint_answers_sha256": "88067554bdf3cfd1916be4d6fb2adc71320aa4504af4381eddfa3f7039c9ec18"
+    }
+  ],
+  "open_finding_count": 0,
+  "answered_finding_count": 6,
+  "intentional_plate_boundary_witness": "hardware/printed-parts/faucet/asse-vent-seals/plate-boundary-lint-check.json",
+  "intentional_plate_boundary_witness_sha256": "4f33114523976796be82784bbc13908543be7a7138fd0bb47fc9084b49757379",
+  "intentional_cover_lower_land_witness": "hardware/printed-parts/faucet/faucet-display-cover/lower-land-lint-check.json",
+  "intentional_cover_lower_land_witness_sha256": "c54ec6dae022b7379194caf2f0d3313077d5fd6b1dbd02163bdbb59230eb8af1",
+  "scope": "Current published canonical printed meshes. Unchanged bungs and tool retain their exact earlier mesh-lint witnesses, guarded by matching STL hashes. Current plates, gaskets and cover were linted after the live pointer confirmation. Four plate boundary faces have native bulk-stock evidence; the cover has two supported or bed-facing slope annotations, with native lower-land evidence. Mesh anomaly review does not establish physical strength, containment or lifetime.",
+  "passed": true
+}

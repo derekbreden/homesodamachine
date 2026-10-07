@@ -161,10 +161,13 @@ def extrusion_segments(gcode: Path):
             current, feature = int(start.group(1)), ""
         elif line.startswith("; stop printing object"):
             current = None
+        elif line.startswith("; OBJECT_ID:"):
+            current, feature = int(line.split(":", 1)[1]), ""
         elif line.startswith("; FEATURE:"):
             feature = line.split(":", 1)[1].strip()
         elif line.startswith("; Z_HEIGHT:"):
             layer = float(line.split(":", 1)[1])
+            current, feature = None, ""
         elif line.startswith("; LINE_WIDTH:"):
             width = float(line.split(":", 1)[1])
         code = line.split(";", 1)[0].strip()

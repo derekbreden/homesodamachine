@@ -1,0 +1,58 @@
+{
+  "check": "Published Sculpted cover lower land mesh-lint witness",
+  "step_sha256": "85ec0e325430487fcaa13487156612e7772c105d0df4584ac76b1b3a73fa2675",
+  "stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+  "source_sha256": {
+    "cover": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "shell": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "linter": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+  },
+  "nominal_cad_only": true,
+  "lint_click_world_mm": [
+    0.0,
+    -120.449,
+    201.672
+  ],
+  "click_plane_coordinate_n_mm": 3.30245648297211,
+  "land_plane_n_mm": 3.3,
+  "canonical_mesh_tolerance_mm": 0.005,
+  "print_rotation_x_degrees": -50,
+  "native_land_faces": [
+    {
+      "area_mm2": 80.28029136313735,
+      "native_surface_type": "BSPLINE",
+      "world_normal": [
+        -2.6715963492733892e-12,
+        0.7660444431189926,
+        -0.6427876096865219
+      ],
+      "print_normal": [
+        -2.6718092385768588e-12,
+        2.2914838245976395e-14,
+        -1.0
+      ],
+      "print_land_flatness_mm": 2.1651143811141083e-07,
+      "print_land_height_from_bed_mm": 2.487342953827465e-08
+    },
+    {
+      "area_mm2": 80.28029197430028,
+      "native_surface_type": "BSPLINE",
+      "world_normal": [
+        2.969380235361774e-12,
+        0.7660444431185863,
+        -0.6427876096870062
+      ],
+      "print_normal": [
+        2.9668507384750695e-12,
+        -6.090891791716372e-13,
+        -1.0
+      ],
+      "print_land_flatness_mm": 2.703193331399234e-07,
+      "print_land_height_from_bed_mm": 0.0
+    }
+  ],
+  "complete_land_area_mm2": 160.56058333743763,
+  "passed": true,
+  "method": "Read both actual relaxed-cover lower land faces from the saved STEP, rotate through the saved print angle and measure complete native face boxes and normals relative to the rotated part bed. The affine wing transform represents these flat faces as BSpline surfaces; their complete native boxes have sub-micrometre Z span.",
+  "scope": "The named lower skirt and lip seating lands on the current saved relaxed cover. Native slice support/access review and physical fit are separate."
+}

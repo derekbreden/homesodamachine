@@ -2,6 +2,6 @@
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
 click: x=0.000 y=-133.838 z=212.552
 
-[slope] This is the flat lower skirt rim and the coplanar lip seating lands at local N3.30. The cover prints bezel up at -50 degrees about CAD X, so these lands face the bed and the upper retaining lands face up. The 3.00 mm lips have 0.25 mm relief only at their inner curved corners; their broad seating and retaining lands remain flat.
+[slope] These are the flat lower skirt and lip seating lands at local N3.30. The saved STEP witness in lower-land-lint-check.json measures 160.56 mm² across both lands. The cover's -50 degree CAD-X print pose makes both lands horizontal on the bed with downward normals; the upper retaining lands face up. The 3.00 mm lips have 0.25 mm relief only at their inner curved corners, preserving their broad flat seating and retaining lands.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
-click: x=0.000 y=-120.577 z=201.519
+click: x=0.000 y=-120.449 z=201.672

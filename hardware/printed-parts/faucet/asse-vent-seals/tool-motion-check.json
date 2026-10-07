@@ -1,0 +1,1237 @@
+{
+  "check": "Native vent-tool assembly motion",
+  "source_sha256": {
+    "checker": "d5990e070acc17b17b4034a87dd8cc66e51536a80a2601b71eda655066fdd82d",
+    "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "shell": "4ff60078a0743e7fd07c20592436bd46ffd143c64e207ee7e6d6ce06e157d75b"
+  },
+  "native_casing": "Circular neck minus actual shell vent-cavity and female-socket cutters; bottom outlet retained as conservative stock",
+  "motions": "Rotate about the actual water-arc center, distal bung first. No upstream bung is installed during distal insertion.",
+  "rotation_centre_world_mm": [
+    0,
+    -62.925023072273774,
+    153.38768926353117
+  ],
+  "entry_station_mm": -20.0,
+  "continuous_bounds": [
+    {
+      "gland": "upstream",
+      "nominal_gland_station_mm": 30.0,
+      "volume_outside_native_void_mm3": 0,
+      "casing_overlap_mm3": 0,
+      "minimum_native_casing_gap_mm": 0.13872307712180257,
+      "annular_bound_casing_distance_diagnostic_mm": 0.21447572486439065,
+      "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+      "fresh_seated_tool_outside_envelope_mm3": 0,
+      "fresh_seated_tool_casing_overlap_mm3": 0,
+      "complete_seated_tool_outside_lower_route_motion_bound_mm3": 0,
+      "feature_gaps_mm": {
+        "upstream_keeper": 0.13872307712180257,
+        "upstream_flange_groove": 0.5847703976315293,
+        "upstream_body_seat": 0.8222894000789858,
+        "upstream_backstop": 4.803848442393052,
+        "downstream_keeper": 24.541256231169143,
+        "downstream_flange_groove": 25.738298365203683,
+        "downstream_body_seat": 26.63423274440798,
+        "downstream_backstop": 30.599973334759817
+      }
+    },
+    {
+      "gland": "downstream",
+      "nominal_gland_station_mm": 59.3,
+      "volume_outside_native_void_mm3": 0,
+      "casing_overlap_mm3": 0,
+      "minimum_native_casing_gap_mm": 0.13872307712182302,
+      "annular_bound_casing_distance_diagnostic_mm": 0.21447572486422425,
+      "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+      "fresh_seated_tool_outside_envelope_mm3": 0,
+      "fresh_seated_tool_casing_overlap_mm3": 0,
+      "complete_seated_tool_outside_lower_route_motion_bound_mm3": 0,
+      "feature_gaps_mm": {
+        "upstream_keeper": 0.13872307712182982,
+        "upstream_flange_groove": 0.5847703976315274,
+        "upstream_body_seat": 0.2191593332836819,
+        "upstream_backstop": 0.1710741965539645,
+        "downstream_keeper": 0.13872307712182302,
+        "downstream_flange_groove": 0.5847703976315034,
+        "downstream_body_seat": 0.8222894000789646,
+        "downstream_backstop": 4.80009999999995
+      }
+    }
+  ],
+  "native_poses": [
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 90,
+      "rotation_from_seated_deg": -71.8191991524399,
+      "tool_inside_socket_mm3": 0,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 8.952789142968772,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999978,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 47.10107133257644,
+        "wire-2": 47.14385132917436,
+        "wire-3": 47.14385132918083,
+        "wire-4": 47.10107133264416
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 80,
+      "rotation_from_seated_deg": -63.83928813550212,
+      "tool_inside_socket_mm3": 12.57308834609315,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526545,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999565,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 37.52147393662349,
+        "wire-2": 37.90114619342208,
+        "wire-3": 37.90114619331265,
+        "wire-4": 37.52147393642246
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 70,
+      "rotation_from_seated_deg": -55.85937711856436,
+      "tool_inside_socket_mm3": 372.3724928063839,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526518,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999676,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 26.960523410382287,
+        "wire-2": 27.5148857654367,
+        "wire-3": 27.514885765436716,
+        "wire-4": 26.96052341038229
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 60,
+      "rotation_from_seated_deg": -47.87946610162659,
+      "tool_inside_socket_mm3": 732.1718338168293,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526496,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999552,
+        "F1": 1.1979725179004124,
+        "F2": 1.1979725179004124,
+        "D": 7.499999999999999,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 16.210749320635475,
+        "wire-2": 17.097125469026444,
+        "wire-3": 17.09712546902637,
+        "wire-4": 16.210749320635422
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 45,
+      "rotation_from_seated_deg": -35.90959957621995,
+      "tool_inside_socket_mm3": 1271.8706867514948,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526459,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999416,
+        "F1": 0.45461469803824367,
+        "F2": 0.45461469803823656,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.8505744209404975,
+        "wire-2": 7.9742372301663185,
+        "wire-3": 7.97423723016607,
+        "wire-4": 5.85057442094022
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 35,
+      "rotation_from_seated_deg": -27.92968855928218,
+      "tool_inside_socket_mm3": 1631.6697519257577,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526563,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999803,
+        "F1": 0.45461469803824295,
+        "F2": 0.45461469803823623,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940509,
+        "wire-2": 7.97423723016633,
+        "wire-3": 7.974237230166075,
+        "wire-4": 5.850574420940236
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 29.3,
+      "rotation_from_seated_deg": -23.381139279627654,
+      "tool_inside_socket_mm3": 1836.7551356996892,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712183182,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 0.9893906575810076,
+        "F1": 0.45461469803824545,
+        "F2": 0.45461469803823656,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940497,
+        "wire-2": 7.97423723016632,
+        "wire-3": 7.9742372301660644,
+        "wire-4": 5.85057442094022
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 26,
+      "rotation_from_seated_deg": -20.74776864403819,
+      "tool_inside_socket_mm3": 1955.4887487335545,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712180257,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 0.9388449018617958,
+        "F1": 0.4546146980382411,
+        "F2": 0.454614698038235,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940504,
+        "wire-2": 7.974237230166325,
+        "wire-3": 7.974237230166073,
+        "wire-4": 5.85057442094023
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 22,
+      "rotation_from_seated_deg": -17.555804237263082,
+      "tool_inside_socket_mm3": 2099.4082396006725,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712180057,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999627,
+        "F1": 0.45461469803824334,
+        "F2": 0.45461469803823523,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940495,
+        "wire-2": 7.974237230166325,
+        "wire-3": 7.974237230166066,
+        "wire-4": 5.850574420940229
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 15,
+      "rotation_from_seated_deg": -11.969866525406648,
+      "tool_inside_socket_mm3": 2351.267282073295,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712180057,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999854,
+        "F1": 0.4546146980382421,
+        "F2": 0.4546146980382363,
+        "D": 7.499999999999975,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940497,
+        "wire-2": 7.974237230166324,
+        "wire-3": 7.974237230166072,
+        "wire-4": 5.850574420940232
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 5,
+      "rotation_from_seated_deg": -3.9899555084688827,
+      "tool_inside_socket_mm3": 2711.0657064361294,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712182586,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.05998707799996,
+        "F1": 0.4546146980382422,
+        "F2": 0.4546146980382345,
+        "D": 7.499999999999975,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940493,
+        "wire-2": 7.974237230166317,
+        "wire-3": 7.9742372301660716,
+        "wire-4": 5.8505744209402275
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 2,
+      "rotation_from_seated_deg": -1.5959822033875533,
+      "tool_inside_socket_mm3": 2819.005165210168,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712180257,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.059987077999972,
+        "F1": 0.45461469803824206,
+        "F2": 0.4546146980382316,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940505,
+        "wire-2": 7.974237230166324,
+        "wire-3": 7.974237230166073,
+        "wire-4": 5.850574420940222
+      }
+    },
+    {
+      "gland": "downstream",
+      "retreat_soda_path_mm": 0,
+      "rotation_from_seated_deg": -0.0,
+      "tool_inside_socket_mm3": 2890.964814009846,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712179482,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999772,
+        "F1": 0.4546146980382424,
+        "F2": 0.45461469803823706,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940506,
+        "wire-2": 7.974237230166325,
+        "wire-3": 7.974237230166072,
+        "wire-4": 5.850574420940224
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 65,
+      "rotation_from_seated_deg": -51.86942161009547,
+      "tool_inside_socket_mm3": 0,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 12.793820416249591,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999874,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 51.09806942309355,
+        "wire-2": 51.100369252320434,
+        "wire-3": 51.10036925232074,
+        "wire-4": 51.09806942309355
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 55,
+      "rotation_from_seated_deg": -43.88951059315771,
+      "tool_inside_socket_mm3": 0,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 3.864863684036179,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999752,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 41.72647172495186,
+        "wire-2": 41.8977059893266,
+        "wire-3": 41.897705989345056,
+        "wire-4": 41.72647172491694
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 45,
+      "rotation_from_seated_deg": -35.90959957621995,
+      "tool_inside_socket_mm3": 217.65874778523994,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526594,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999623,
+        "F1": 1.197972517900459,
+        "F2": 1.1979725179004124,
+        "D": 7.5,
+        "ribbon_fan_bound": 5.550153917702617,
+        "wire-1": 31.561526060178384,
+        "wire-2": 32.0403363975312,
+        "wire-3": 32.040336397531206,
+        "wire-4": 31.561526060178377
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 30,
+      "rotation_from_seated_deg": -23.939733050813295,
+      "tool_inside_socket_mm3": 757.3577900312512,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526635,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999678,
+        "F1": 1.1979725179004124,
+        "F2": 1.1979725179004124,
+        "D": 7.499999999999998,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 15.473996183251993,
+        "wire-2": 16.399658363065036,
+        "wire-3": 16.399658363064926,
+        "wire-4": 15.473996183251899
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 15,
+      "rotation_from_seated_deg": -11.969866525406648,
+      "tool_inside_socket_mm3": 1297.056630525216,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526611,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999803,
+        "F1": 0.45461469803824317,
+        "F2": 0.45461469803823346,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940508,
+        "wire-2": 7.97423723016633,
+        "wire-3": 7.9742372301660716,
+        "wire-4": 5.850574420940227
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 5,
+      "rotation_from_seated_deg": -3.9899555084688827,
+      "tool_inside_socket_mm3": 1656.8556693167566,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.7499999904526525,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999803,
+        "F1": 0.45461469803824334,
+        "F2": 0.45461469803823396,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.850574420940509,
+        "wire-2": 7.9742372301663265,
+        "wire-3": 7.974237230166079,
+        "wire-4": 5.850574420940235
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 2,
+      "rotation_from_seated_deg": -1.5959822033875533,
+      "tool_inside_socket_mm3": 1764.7953489125666,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.6397228877045679,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 1.0599870779999723,
+        "F1": 0.4546146980382409,
+        "F2": 0.45461469803823484,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.8505744209405135,
+        "wire-2": 7.974237230166326,
+        "wire-3": 7.974237230166079,
+        "wire-4": 5.850574420940238
+      }
+    },
+    {
+      "gland": "upstream",
+      "retreat_soda_path_mm": 0,
+      "rotation_from_seated_deg": -0.0,
+      "tool_inside_socket_mm3": 1836.7551356996937,
+      "casing_overlap_mm3": 0,
+      "outside_native_void_mm3": 0,
+      "minimum_actual_tool_to_casing_gap_mm": 0.13872307712180257,
+      "outside_continuous_sleeve_bound_mm3": 0,
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      },
+      "minimum_tube_gap_mm": {
+        "S": 0.9893906575810236,
+        "F1": 0.45461469803824206,
+        "F2": 0.45461469803823057,
+        "D": 7.499999999999988,
+        "ribbon_fan_bound": 5.55,
+        "wire-1": 5.8505744209405055,
+        "wire-2": 7.974237230166327,
+        "wire-3": 7.974237230166074,
+        "wire-4": 5.850574420940238
+      }
+    }
+  ],
+  "side_removal_poses": [
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 0,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 5,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 10,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 20,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 30,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "downstream",
+      "withdrawal_retreat_mm": 90,
+      "radial_removal_shift_mm": 40,
+      "translation_direction": [
+        0,
+        -0.9868418429308538,
+        0.16168851858074557
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 0,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 5,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 10,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 20,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 30,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    },
+    {
+      "gland": "upstream",
+      "withdrawal_retreat_mm": 65,
+      "radial_removal_shift_mm": 40,
+      "translation_direction": [
+        0,
+        -0.9753951435861995,
+        0.2204638606857306
+      ],
+      "tube_overlap_mm3": {
+        "S": 0,
+        "F1": 0,
+        "F2": 0,
+        "D": 0,
+        "ribbon_fan_bound": 0,
+        "wire-1": 0,
+        "wire-2": 0,
+        "wire-3": 0,
+        "wire-4": 0
+      }
+    }
+  ],
+  "slot_width_mm": 19.0,
+  "nominal_bundle_width_mm": 18.09795132483015,
+  "slot_total_nominal_width_allowance_mm": 0.9020486751698513,
+  "handle_forwardmost_signed_distance_to_socket_entry_mm": {
+    "downstream_seated": -9.802781400860047,
+    "upstream_seated": -32.41925953394899
+  },
+  "intentional_elastic_installation": {
+    "free_flange_od_mm": 23.0,
+    "traversed_aperture_mm": 22.0,
+    "flange_radial_deflection_mm": 0.5,
+    "free_body_radial_deflection_mm": 0.1999999999999993,
+    "retaining_groove_radial_capture_mm": 0.40000000000000036,
+    "requirement": "The soft distal flange snaps through the empty upstream gland; its free STL is intentionally larger than the apertures. No rigid free-STL traversal claim is made.",
+    "downstream_bung_free_volume_mm3": 1293.6494734847968,
+    "uniform_22mm_passage_available_area_after_tubes_mm2": 240.22924536452538,
+    "minimum_uniform_22mm_compressed_axial_length_mm": 5.385062387062011,
+    "axial_bulge_required_beyond_free_length_mm": 0.5850623870620115,
+    "upstream_gland_available_axial_length_mm": 7.3,
+    "drain_tube_during_distal_bung_loading": "D stays outside the tip until the downstream bung is seated; the tool poses additionally checked clearance with the final D geometry present.",
+    "scope": "Conservative incompressible volume budget and required flange deflection; TPU snap-through force and retained capture are physical acceptance properties."
+  },
+  "scope": "Nominal native geometric clearances and assembly-motion bounds. Printed sizes, TPU snap-through force, complete flange capture, water containment and aging remain physical acceptance properties. Individual insulated wires are \u00d81.3; before s14 a 7.9x1.3 conservative fan envelope is used. Final annular flange-bearing contact is intentional and excluded from casing/tube interference.",
+  "failures": [],
+  "passed": true,
+  "elapsed_seconds": 412.42559695243835,
+  "native_pose_source_sha256": {
+    "checker": "d5990e070acc17b17b4034a87dd8cc66e51536a80a2601b71eda655066fdd82d",
+    "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "shell": "4ff60078a0743e7fd07c20592436bd46ffd143c64e207ee7e6d6ce06e157d75b"
+  },
+  "native_pose_source_unchanged_during_check": true,
+  "continuous_bound_source_sha256": {
+    "checker": "6b025f5b08adc5e2ee519348aa6e069f9300bfb034535a1352a88a8a08ec133d",
+    "shell": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+  },
+  "continuous_bound_geometry_signature_sha256": "3f9194d44d40abb1c290ff434a66c0ed9621fbe1efca59aadcbdc5974c475ddb",
+  "continuous_bound_dependencies_unchanged_during_check": true,
+  "native_pose_paths_and_tool_match_current_sources": true,
+  "minimum_actual_tool_to_casing_gap_mm": 0.13872307712179482,
+  "minimum_actual_tool_to_tube_gap_mm": 0.45461469803823057,
+  "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+  "continuous_bound_scope": "The full annular sleeve bounds every rotational tool pose inside the current native casing. Current final poses and true arc axis are rechecked. Minimum clearance uses the actual tool plus the analytical planar-keeper corner bound; the annular-bound surface distance is diagnostic only. Original upper-tube and side-removal poses retain their own source bindings; their tool and path sources are identical to current inputs. A separate fresh full-rotation, inward-filled complete-tool bound checks the actual current lower ribbon. The port remains conservatively filled with casing in the casing witness.",
+  "feature_gap_scope": "Actual casing clipped by native gland planes, 0.0001 mm inside each axial feature boundary to avoid coincident witness faces.",
+  "continuous_bound_elapsed_seconds": 29.219763040542603,
+  "prior_continuous_bound_witnesses": [
+    {
+      "source_sha256": {
+        "checker": "a9bc32fb00fe589329bc578d2fcd95aace8673e239702945e899a190cfb9abf7",
+        "shell": "4ff60078a0743e7fd07c20592436bd46ffd143c64e207ee7e6d6ce06e157d75b",
+        "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+        "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+      },
+      "geometry_signature_sha256": "3f9194d44d40abb1c290ff434a66c0ed9621fbe1efca59aadcbdc5974c475ddb",
+      "continuous_bounds": [
+        {
+          "gland": "upstream",
+          "nominal_gland_station_mm": 30.0,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712180257,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486439065,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712180257,
+            "upstream_flange_groove": 0.5847703976315293,
+            "upstream_body_seat": 0.8222894000789858,
+            "upstream_backstop": 4.803848442393052,
+            "downstream_keeper": 24.541256231169143,
+            "downstream_flange_groove": 25.738298365203683,
+            "downstream_body_seat": 26.63423274440798,
+            "downstream_backstop": 30.599973334759817
+          }
+        },
+        {
+          "gland": "downstream",
+          "nominal_gland_station_mm": 59.3,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712182302,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486422425,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712182982,
+            "upstream_flange_groove": 0.5847703976315274,
+            "upstream_body_seat": 0.2191593332836819,
+            "upstream_backstop": 0.1710741965539645,
+            "downstream_keeper": 0.13872307712182302,
+            "downstream_flange_groove": 0.5847703976315034,
+            "downstream_body_seat": 0.8222894000789646,
+            "downstream_backstop": 4.80009999999995
+          }
+        }
+      ],
+      "dependencies_unchanged_during_check": true,
+      "elapsed_seconds": 43.46617388725281
+    },
+    {
+      "source_sha256": {
+        "checker": "10551f8d3b082ce7ad628e4a0ef487f98820af9deefabece0fc8718e85587461",
+        "shell": "031e2809fa7c80ccddd6e9896b9eb48bdbff2ccac312acdb267716ddb9061c29",
+        "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+        "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+      },
+      "geometry_signature_sha256": "3f9194d44d40abb1c290ff434a66c0ed9621fbe1efca59aadcbdc5974c475ddb",
+      "continuous_bounds": [
+        {
+          "gland": "upstream",
+          "nominal_gland_station_mm": 30.0,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712180257,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486439065,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712180257,
+            "upstream_flange_groove": 0.5847703976315293,
+            "upstream_body_seat": 0.8222894000789858,
+            "upstream_backstop": 4.803848442393052,
+            "downstream_keeper": 24.541256231169143,
+            "downstream_flange_groove": 25.738298365203683,
+            "downstream_body_seat": 26.63423274440798,
+            "downstream_backstop": 30.599973334759817
+          }
+        },
+        {
+          "gland": "downstream",
+          "nominal_gland_station_mm": 59.3,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712182302,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486422425,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712182982,
+            "upstream_flange_groove": 0.5847703976315274,
+            "upstream_body_seat": 0.2191593332836819,
+            "upstream_backstop": 0.1710741965539645,
+            "downstream_keeper": 0.13872307712182302,
+            "downstream_flange_groove": 0.5847703976315034,
+            "downstream_body_seat": 0.8222894000789646,
+            "downstream_backstop": 4.80009999999995
+          }
+        }
+      ],
+      "dependencies_unchanged_during_check": true,
+      "elapsed_seconds": 25.07223892211914
+    },
+    {
+      "source_sha256": {
+        "checker": "2830be232e38bbc9426c794e5b647e90c7f4ca386f91864951f428f35c91cba3",
+        "shell": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+        "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+        "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+      },
+      "geometry_signature_sha256": "3f9194d44d40abb1c290ff434a66c0ed9621fbe1efca59aadcbdc5974c475ddb",
+      "continuous_bounds": [
+        {
+          "gland": "upstream",
+          "nominal_gland_station_mm": 30.0,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712180257,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486439065,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "complete_seated_tool_outside_lower_route_motion_bound_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712180257,
+            "upstream_flange_groove": 0.5847703976315293,
+            "upstream_body_seat": 0.8222894000789858,
+            "upstream_backstop": 4.803848442393052,
+            "downstream_keeper": 24.541256231169143,
+            "downstream_flange_groove": 25.738298365203683,
+            "downstream_body_seat": 26.63423274440798,
+            "downstream_backstop": 30.599973334759817
+          }
+        },
+        {
+          "gland": "downstream",
+          "nominal_gland_station_mm": 59.3,
+          "volume_outside_native_void_mm3": 0,
+          "casing_overlap_mm3": 0,
+          "minimum_native_casing_gap_mm": 0.13872307712182302,
+          "annular_bound_casing_distance_diagnostic_mm": 0.21447572486422425,
+          "minimum_analytical_keeper_edge_gap_over_rotation_mm": 0.1387230771218242,
+          "fresh_seated_tool_outside_envelope_mm3": 0,
+          "fresh_seated_tool_casing_overlap_mm3": 0,
+          "complete_seated_tool_outside_lower_route_motion_bound_mm3": 0,
+          "feature_gaps_mm": {
+            "upstream_keeper": 0.13872307712182982,
+            "upstream_flange_groove": 0.5847703976315274,
+            "upstream_body_seat": 0.2191593332836819,
+            "upstream_backstop": 0.1710741965539645,
+            "downstream_keeper": 0.13872307712182302,
+            "downstream_flange_groove": 0.5847703976315034,
+            "downstream_body_seat": 0.8222894000789646,
+            "downstream_backstop": 4.80009999999995
+          }
+        }
+      ],
+      "dependencies_unchanged_during_check": true,
+      "elapsed_seconds": 27.316256999969482
+    }
+  ],
+  "continuous_bound_geometry_matches_prior_witness": true,
+  "current_lower_ribbon_continuous_motion_witness": {
+    "bound_valid": true,
+    "bound_solid_count": 1,
+    "lower_cable_valid": true,
+    "lower_cable_solid_count": 1,
+    "lower_cable_volume_mm3": 474.3528794175297,
+    "tool_axis_radius_mm": 75.82753599427377,
+    "handle_radius_mm": 16.0,
+    "handle_tangent_length_mm": 4.0,
+    "radial_handle_inflation_mm": 0.13356859150019318,
+    "bound_minor_radius_mm": 16.133568591500193,
+    "maximum_point_angle_from_removal_midpoint_rad": 0.7283191660490018,
+    "maximum_checked_side_shift_mm": 40.0,
+    "radial_monotonic_shift_limit_mm": 89.29789176642342,
+    "minimum_native_bound_to_lower_ribbon_gap_mm": 50.485183502721995,
+    "native_bound_lower_ribbon_overlap_mm3": 0,
+    "passed": true,
+    "method": "Full 360-degree torus containing the complete curved tool and tangent handle, filled inward by a concentric cylinder. Rotation about the true water-arc axis leaves this bound invariant. The specified inward side translation decreases every tool point's radial distance throughout 0..40 mm, so it stays in the filled bound.",
+    "scope": "Continuous nominal tool motion versus the actual lower ribbon envelope, including its edge-on mounting exit and turn. Casing, upper tubes and finished print handling have separate witnesses.",
+    "geometry_signature_sha256": "60e60538bb8287775a05f6b041e4245e754be318ae6f576ee21b63aaaa8b6604",
+    "source_sha256": {
+      "checker": "6b025f5b08adc5e2ee519348aa6e069f9300bfb034535a1352a88a8a08ec133d",
+      "shell": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+      "paths": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+      "tool_generator": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca"
+    },
+    "dependencies_unchanged_during_check": true
+  }
+}

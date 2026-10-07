@@ -37,7 +37,7 @@ PARTS = (
 )
 # Millimetres from the centre of the shared printable area. The base occupies
 # the left column; the other three parts have separate support/brim spaces.
-PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 110.0), (43.0, -52.0))
+PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 106.0), (43.0, -52.0))
 
 
 def digest(data: bytes) -> str:
@@ -72,9 +72,76 @@ def archive_write(path: Path, members: dict[str, bytes]):
     temporary.replace(path)
 
 
+def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ...]) -> dict:
+    """Apply six-wall, solid-infill regions in the source STL's CAD frame.
+
+    Each modifier is a component of its actual normal part. Native road review
+    remains necessary: saved modifier metadata alone does not prove deposition.
+    """
+    with zipfile.ZipFile(project) as archive:
+        members = {name: archive.read(name) for name in archive.namelist()}
+    model = ET.fromstring(members["3D/3dmodel.model"])
+    config = ET.fromstring(members["Metadata/model_settings.config"])
+    relationships = ET.fromstring(members["3D/_rels/3dmodel.model.rels"])
+    rows = {row["name"]: row for row in report["parts"]}
+    next_id = max(int(node.get("id")) for node in model.findall(".//" + qn("object"))) + 1
+    records, bounds_cache = [], {}
+    for region in regions:
+        row = rows[region["part"]]
+        if row["name"] not in bounds_cache:
+            bounds_cache[row["name"]] = trimesh.load(ROOT / row["source"], force="mesh", process=True).bounds
+        mesh_low, mesh_high = bounds_cache[row["name"]]
+        requested = np.array(region["source_bounds_mm"], dtype=float)
+        low = np.maximum(requested[0], mesh_low + .001)
+        high = np.minimum(requested[1], mesh_high - .001)
+        if not np.all(np.isfinite(requested)) or np.any(high <= low):
+            raise ValueError(f"Invalid solid modifier bounds: {region['name']}")
+        box = trimesh.creation.box(extents=high - low)
+        box.apply_translation((low + high) / 2.0 - row["source_center_mm"])
+        part_id = str(next_id)
+        member = f"3D/Objects/solid-region-{next_id}.model"
+        document = ET.Element(qn("model"), unit="millimeter")
+        resources = ET.SubElement(document, qn("resources"))
+        solid = ET.SubElement(resources, qn("object"), id=part_id, type="model")
+        geometry = ET.SubElement(solid, qn("mesh"))
+        vertices, triangles = ET.SubElement(geometry, qn("vertices")), ET.SubElement(geometry, qn("triangles"))
+        for vertex in box.vertices:
+            ET.SubElement(vertices, qn("vertex"), **dict(zip("xyz", (f"{value:.9f}" for value in vertex))))
+        for face in box.faces:
+            ET.SubElement(triangles, qn("triangle"), **dict(zip(("v1", "v2", "v3"), map(str, face))))
+        members[member] = xml(document)
+        owner = model.find(f".//{qn('object')}[@id='{row['object_id']}']")
+        components = owner.find(qn("components"))
+        ET.SubElement(components, qn("component"), objectid=part_id,
+                      transform="1 0 0 0 1 0 0 0 1 0 0 0", **{
+                          f"{{{PROD}}}path": "/" + member,
+                          f"{{{PROD}}}UUID": identifier(region["name"] + "/component")})
+        object_config = config.find(f"object[@id='{row['object_id']}']")
+        modifier = ET.SubElement(object_config, "part", id=part_id, subtype="modifier_part",
+                                 uuid=identifier(region["name"] + "/modifier"))
+        for key, value in {"name": region["name"],
+                           "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+                           "wall_loops": 6, "sparse_infill_density": "100%",
+                           "sparse_infill_pattern": "zig-zag"}.items():
+            metadata(modifier, key, value)
+        ET.SubElement(relationships, f"{{{REL}}}Relationship", Target="/" + member,
+                      Id=f"solid-region-{next_id}",
+                      Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
+        records.append({**region, "applied_source_bounds_mm": [low.tolist(), high.tolist()],
+                        "modifier_part_id": part_id, "wall_loops": 6,
+                        "sparse_infill_percent": 100, "sparse_infill_pattern": "zig-zag"})
+        next_id += 1
+    members["3D/3dmodel.model"] = xml(model)
+    members["Metadata/model_settings.config"] = xml(config)
+    members["3D/_rels/3dmodel.model.rels"] = xml(relationships).replace(b"ns0:", b"").replace(b"xmlns:ns0=", b"xmlns=")
+    archive_write(project, members)
+    report.update(local_solid_regions=records, project_sha256=digest(project.read_bytes()))
+    return report
+
+
 def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
             offsets: tuple | None = None, title: str = "Faucet PET-GF",
-            z_trim: float | None = None, plate_border: float = 15.0) -> dict:
+            z_trim: float | None = None, plate_border: float = 20.0) -> dict:
     parts = PARTS if parts is None else parts
     offsets = PART_OFFSETS if offsets is None else offsets
     if len(parts) != len(offsets):
@@ -281,8 +348,8 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
     return report
 
 
-def object_toolpaths(gcode: Path, output: Path, identify_id: int) -> dict:
-    """Mask other objects' feature labels for reading, retaining all coordinate moves."""
+def object_toolpaths(gcode: Path, output: Path, identify_id: int | None) -> dict:
+    """Read one object's beads, or all layer beads when identify_id is None."""
     from enclosure_support_audit import _WORD, _arc_points
 
     current = None
@@ -298,22 +365,22 @@ def object_toolpaths(gcode: Path, output: Path, identify_id: int) -> dict:
             object_id = re.match(r"; OBJECT_ID:\s*(-?\d+)", line)
             if object_id:
                 current = int(object_id.group(1))
-                selected_seen |= current == identify_id
+                selected_seen |= identify_id is None or current == identify_id
                 target.write("; FEATURE: Other object\n")
             elif start:
                 current = int(start.group(1))
-                selected_seen |= current == identify_id
+                selected_seen |= identify_id is None or current == identify_id
                 target.write("; FEATURE: Other object\n")
             elif line.startswith("; stop printing object"):
                 current = None
                 target.write("; FEATURE: Other object\n")
-            if line.startswith("; FEATURE:") and current != identify_id:
+            if line.startswith("; FEATURE:") and identify_id is not None and current != identify_id:
                 target.write("; FEATURE: Other object\n")
             else:
                 target.write(raw)
             if line.startswith("; Z_HEIGHT:"):
                 layer_seen = True
-            if line.startswith("; LINE_WIDTH:") and current == identify_id:
+            if line.startswith("; LINE_WIDTH:") and (identify_id is None or current == identify_id):
                 width = max(width, float(line.split(":", 1)[1]))
             code = line.split(";", 1)[0].strip()
             if not code:
@@ -330,7 +397,7 @@ def object_toolpaths(gcode: Path, output: Path, identify_id: int) -> dict:
                 nx = words.get("X", x) if absolute_xy else x + words.get("X", 0.0)
                 ny = words.get("Y", y) if absolute_xy else y + words.get("Y", 0.0)
                 de = words.get("E", 0.0) if relative_e else words.get("E", e) - e
-                if current == identify_id and layer_seen and de > 1e-9 and (nx != x or ny != y):
+                if (identify_id is None or current == identify_id) and layer_seen and de > 1e-9 and (nx != x or ny != y):
                     points = [(x, y)] + ([(nx, ny)] if command in {"G0", "G1"} else
                                          _arc_points((x, y), (nx, ny), words, command == "G2"))
                     low = np.minimum(low, np.min(points, axis=0))
@@ -425,8 +492,8 @@ def slice_review(project: Path, report: dict, directory: Path) -> dict:
     for index, part in enumerate(result["parts"]):
         low, high = np.array(part["toolpaths"]["extrusion_bounds_xy_mm"])
         margin = float(min(np.min(low - area_low), np.min(area_high - high)))
-        if margin < 15.0:
-            raise ValueError(f"{part['piece']} toolpaths enter the 15 mm plate border")
+        if margin < report["plate_border_mm"]:
+            raise ValueError(f"{part['piece']} toolpaths enter the {report['plate_border_mm']:g} mm plate border")
         margins.append(margin)
         for other in result["parts"][:index]:
             other_low, other_high = np.array(other["toolpaths"]["extrusion_bounds_xy_mm"])
@@ -434,8 +501,15 @@ def slice_review(project: Path, report: dict, directory: Path) -> dict:
             if gap < 10.0:
                 raise ValueError(f"toolpaths of {part['piece']} and {other['piece']} are only {gap:.2f} mm apart")
             gaps.append({"parts": [other["piece"], part["piece"]], "separation_mm": gap})
+    all_beads = object_toolpaths(directory / "plate_1.gcode", directory / "all-layer-beads.gcode", None)
+    all_low, all_high = np.array(all_beads["extrusion_bounds_xy_mm"])
+    all_margin = float(min(np.min(all_low - area_low), np.min(area_high - all_high)))
+    if all_margin < report["plate_border_mm"]:
+        raise ValueError(f"Complete model/support/brim toolpaths enter the {report['plate_border_mm']:g} mm plate border")
     result["fit"] = {"minimum_shared_bed_margin_mm": min(margins),
-                     "minimum_toolpath_separation_mm": min(row["separation_mm"] for row in gaps),
+                     "complete_layer_bead_bounds": all_beads,
+                     "complete_layer_bead_minimum_bed_margin_mm": all_margin,
+                     "minimum_toolpath_separation_mm": min((row["separation_mm"] for row in gaps), default=None),
                      "pairwise_toolpath_separations": gaps}
     output = project.with_suffix(".support-audit.json")
     output.write_text(json.dumps(result, indent=2) + "\n")
