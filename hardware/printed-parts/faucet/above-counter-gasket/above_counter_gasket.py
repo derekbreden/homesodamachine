@@ -4,7 +4,7 @@ out of the deck hole, conforms to surface irregularities so the plate
 doesn't rock, anti-rotates under faucet-lever torque, and holds preload on the
 under-counter nut as the cabinet wood moves seasonally.
 
-Material: Bambu TPU 90A (black).
+Material: Bambu TPU 85A (black), using the saved gaskets.3mf profile.
 
 Footprint and hole pattern match the oval above-counter plate, including
 the signal-ribbon branch beside the flavor passage. The rigid plate
@@ -37,6 +37,8 @@ from _faucet_interface import (
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
+    bundle_slot_length_x,
+    bundle_slot_center_x,
 )
 from faucet_shell import (
     build_foot_outline,
@@ -67,8 +69,8 @@ shank_hole_center = (0.0, 0.0)
 
 # One rounded-rectangle slot covering both 1/4" flavor tubes, centered
 # [18.93 mm](FLAVOR_TUBE_Y) +Y. Long axis LATERAL (world X):
-# [13.6 mm](PILL_L) long × [7.25 mm](PILL_W) wide.
-flavor_tube_center = (0.0, +flavor_tube_depth)
+# [18.15 mm](PILL_L) long × [7.25 mm](PILL_W) wide.
+flavor_tube_center = (bundle_slot_center_x, +flavor_tube_depth)
 
 
 def gasket_workplane(center):
@@ -94,7 +96,7 @@ def build_above_counter_gasket():
     # Long axis along world X (lateral).
     pill_slot = (
         gasket_workplane(flavor_tube_center)
-        .slot2D(pill_length_x, pill_width_y, angle=0)
+        .slot2D(bundle_slot_length_x, pill_width_y, angle=0)
         .extrude(gasket_thickness)
         .unwrap()
     )

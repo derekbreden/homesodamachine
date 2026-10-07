@@ -19,6 +19,8 @@ from _faucet_interface import (
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
+    bundle_slot_length_x,
+    bundle_slot_center_x,
 )
 from faucet_shell import (
     build_foot_outline,
@@ -46,7 +48,7 @@ plate_center = (0.0, foot_center_y)
 shank_diameter_nominal = 11.0
 shank_hole_radius = shank_hole_diameter / 2.0
 shank_hole_center = (0.0, 0.0)
-pill_slot_center = (0.0, flavor_tube_depth)
+pill_slot_center = (bundle_slot_center_x, flavor_tube_depth)
 
 
 def vertical_cylinder(center, radius, z_range):
@@ -76,7 +78,7 @@ def build_above_counter_plate() -> cq.Workplane:
             center, base_pod_counterbore_dia / 2.0,
             (z0, z0 + base_screw_counterbore_depth)))
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
-    return (plate.cut(vertical_x_slot(pill_slot_center, pill_length_x, pill_width_y, plate_z_range))
+    return (plate.cut(vertical_x_slot(pill_slot_center, bundle_slot_length_x, pill_width_y, plate_z_range))
             .cut(build_lower_signal_lane()))
 
 
@@ -103,7 +105,7 @@ def main():
         "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
         "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
         "PLATE_FLAVOR_Y": f"{flavor_tube_depth:.4g} mm",
-        "PLATE_PILL_L": f"{pill_length_x:.4g} mm",
+        "PLATE_PILL_L": f"{bundle_slot_length_x:.4g} mm",
         "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
     }
     substitute_md(_here / "README.md", variables=variables)

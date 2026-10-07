@@ -103,6 +103,7 @@ def main():
         "PLATE_GASKET": f"{plate_gasket:g}",
         "FLAVOR_CUT": f"{faucet.flavor_cut_length:g}",
         "BLUE_CUT": f"{faucet.blue_cut_length:g}",
+        "DRAIN_CUT": f"{faucet.drain_factory_cut_length():g}",
         "FAUCET_FLAVOR_RUN": f"{faucet.flavor_path_above_foot():.1f}",
         "CUT_DIFFERENCE": f"{faucet.flavor_cut_length - faucet.blue_cut_length:g}",
         "TAIL_OFFSET": f"{faucet.tails_apart:.2f}",

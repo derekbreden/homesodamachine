@@ -1,22 +1,20 @@
 # Tube collar
 
-A printed collar threaded onto a 1/4" line, carrying the word and the colour of the bulkhead ring that
+A printed collar threaded onto a 1/4-inch or 4 mm line, carrying the word and the colour of the bulkhead ring that
 line goes through. The chip in [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md) marks the wall; this marks
 the tube.
 
-The outline is the chip's — a half circle below the bore's axis, a rectangle above it where the word
-goes — bored for the tube instead of the fitting's barrel and run along it, so the word reads down
-the line rather than across the face.
+The collar has a half circle below the bore's axis and a rectangle above it for the word. The word reads along the tube. The wall chip is rectangular.
 
 | | |
 |---|---|
-| tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, every line the customer meets |
+| tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, TAP, SODA, CO2 and both FLAVOR lines |
 | bore | Ø[6.68](COLLAR_BORE) mm modelled, Ø[6.58](COLLAR_BORE_PRINTED) mm printed |
 | width | Ø[12](COLLAR_OD) mm |
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
 | wall | [2.66](COLLAR_WALL) mm, with [1.66](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [2.98](COLLAR_VOL) cm³ + [0.20](COLLAR_WORD_VOL) cm³ of word |
+| volume | [3.02](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 
@@ -24,14 +22,15 @@ the line rather than across the face.
 |---|---|---|---|
 | `water` | TAP | white | the customer's tap-water run, up to their angle stop |
 | `carb` | SODA | blue | the umbilical's blue carbonated-water tail |
+| `drain` | DRAIN | white | the umbilical's 4 mm atmospheric-vent tail |
 | `co2` | CO2 | red | the customer's red tether, +Y wall of back-top to regulator |
 | `flavor-a` | FLAVOR | black | the umbilical's first black flavour tail |
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
-One collar per chip, on the same five stations, off the same five words and four spools —
+One collar per chip, on the same six stations, off the same station words and four spools —
 `bulkhead_ring.STATIONS` and `_y_wall_dimensions.chip_filaments` are what both read.
 
-The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
+The four on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §4, up to the braid's own end, and ride to the +Y wall of back-top on the un-sleeved tail. The other
 two go on at [`assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §6, onto the customer's own two runs, which
 ship made up in the install kit.
@@ -65,7 +64,7 @@ pair against each other.
 A second solid in a second colour, lying in a recess [1](COLLAR_WORD_DEPTH) mm into the flat and
 filling it flush, at [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md)'s own em and in its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
 [28](COLLAR_BAND_ALONG) mm one way and [10](COLLAR_BAND_ACROSS) mm the other. FLAVOR is the longest
-of the five and what `LENGTH` is set from.
+of the station words and what `LENGTH` is set from.
 
 The letters are loose, one solid each. `_cadq_export._per_solid_color` writes every one as its own
 component, so all of them carry the colour into `/3d`.
@@ -80,9 +79,11 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 | | |
 |---|---|
-| `tube_collar.py` | the part, its five stations and its selftest |
+| `tube_collar.py` | the part, its six stations and its selftest |
 | `tube-collar-<station>.step` | one per station, both bodies in the frame `seat()` places them by |
 
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`
+
+The white DRAIN collar uses a Ø4.25 mm modelled bore for 4 mm OD tubing. Its black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails.
