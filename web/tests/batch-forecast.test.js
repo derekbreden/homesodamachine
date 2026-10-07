@@ -94,7 +94,8 @@ test("known availability shortages are visible and are included in the budget", 
   assert.match(html, /aria-label="estimate or availability unresolved"/);
   assert.doesNotMatch(html, /NaN|Infinity|undefined/);
   assert.match(html, /no new purchase is budgeted/);
-  assert.match(html, /approximately 12 kg Black PET-GF15, 4 kg Clear PETG and 10 kg Black PETG/);
+  assert.match(html, /approximately 10.4 kg Black PET-GF15, 3 kg Clear PETG and 10 kg Black PETG/);
+  assert.match(html, /from October 6, 2026 filament balances and October 4, 2026 parts inventory/);
   assert.doesNotMatch(html, /Existing parts inventory is not credited|Full new-purchase budgets/);
 });
 
@@ -126,13 +127,13 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(boards.onHand, 10);
   assert.equal(boards.quantity, 0);
   assert.equal(twenty.rows.find(row => row.id === boards.id).quantity, 10);
-  assert.equal(row(ten, "petgf-black").quantity, 58);
-  assert.deepEqual(row(ten, "petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[19, 3], [1, 1]]);
-  assert.equal(row(twenty, "petgf-black").quantity, 127);
+  assert.equal(row(ten, "petgf-black").quantity, 59);
+  assert.deepEqual(row(ten, "petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[19, 3], [2, 1]]);
+  assert.equal(row(twenty, "petgf-black").quantity, 128);
   assert.equal(row(ten, "petg-clear").incoming, 10);
-  assert.equal(row(ten, "petg-clear").quantity, 0, "ten ordered refills and the 4 kg balance cover ten machines");
-  assert.equal(row(twenty, "petg-clear").quantity, 7);
-  assert.equal(row(twenty, "petg-clear").costCents, 9514, "seven new refills use the six-roll tier");
+  assert.equal(row(ten, "petg-clear").quantity, 0, "ten ordered refills and the 3 kg balance cover ten machines");
+  assert.equal(row(twenty, "petg-clear").quantity, 8);
+  assert.equal(row(twenty, "petg-clear").costCents, 10873, "eight new refills use the six-roll tier");
   assert.equal(row(ten, "petg-black").quantity, 0);
   assert.equal(row(twenty, "petg-black").quantity, 0);
   assert.equal(row(ten, "B0GCBNTBT8").quantity, 0);
@@ -153,10 +154,10 @@ test("five machines use opening stock and whole packs, with small-order reserves
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
   const [five, ten, twenty] = forecast.batches;
   const row = id => five.rows.find(row => row.id === id);
-  assert.equal(Math.round(row("petgf-black").shortfall * 1e4) / 1e4, 22.5575);
-  assert.equal(row("petgf-black").quantity, 23);
-  assert.deepEqual(row("petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[7, 3], [2, 1]]);
-  assert.equal(row("petgf-black").costCents, 58491);
+  assert.equal(Math.round(row("petgf-black").shortfall * 1e4) / 1e4, 24.1575);
+  assert.equal(row("petgf-black").quantity, 25);
+  assert.deepEqual(row("petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[8, 3], [1, 1]]);
+  assert.equal(row("petgf-black").costCents, 62991);
   assert.equal(row("petg-clear").quantity, 0);
   assert.equal(row("petg-black").quantity, 0);
   assert.equal(row("16awg-kit").packages[0].count, 1, "reserve for the limiting colour after the existing kit credit");
@@ -168,22 +169,22 @@ test("five machines use opening stock and whole packs, with small-order reserves
     assert.equal(supplier.shippingCents, 0, `${id}: no new shipment`);
   }
   assert.equal(five.pendingCents, ten.pendingCents, "same existing-order reserve, not half the ten-machine balance");
-  assert.equal(five.partsCents, 362009);
+  assert.equal(five.partsCents, 366509);
   assert.equal(five.inboundCents, 5000);
-  assert.equal(five.taxCents, 24390);
+  assert.equal(five.taxCents, 24716);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 499030);
+  assert.equal(five.cashCents, 503856);
   assert.equal(five.laborHours, 51.25);
   assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 1011530);
+  assert.equal(five.totalCents, 1016356);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1189162);
-  assert.equal(twenty.cashCents, 2840981);
+  assert.equal(ten.cashCents, 1192379);
+  assert.equal(twenty.cashCents, 2845655);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
   assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$4,990.30/);
+  assert.match(html, /\$5,038.56/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {
