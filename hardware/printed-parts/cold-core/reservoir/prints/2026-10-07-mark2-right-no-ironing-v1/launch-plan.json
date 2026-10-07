@@ -1,0 +1,208 @@
+{
+  "created_at_utc": "2026-10-07T14:23:41.944532+00:00",
+  "printer": "Mark2",
+  "read_alias": "Mark2",
+  "authorization_quotes": [
+    "Both print beds are clear. Ready for other half of funnel mold on mark1 and other reservor/cap on mark2."
+  ],
+  "start_authorized": true,
+  "send_attempted": true,
+  "status": "accepted",
+  "allowed_archive": ".cache/second-halves-20261007/Mark2/2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+  "archive_name": "2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+  "archive_sha256": "3b61a106fb9bd12fc32f4f4560f70123ca350e384ec02d3110c3c8450f4202e2",
+  "gcode_sha256": "37c8b9d7f6f34c9e6c37b8e8344cb8c2e10b866aa15ca39d686ece3757ee5fd0",
+  "parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "geometry_binding": {
+    "source_project": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "source_project_sha256": "b2ea21a4878f32b1b51d9503e544029a583de7460bb26e30a32e1818a324179b",
+    "left_launch": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-06-mark2-no-ironing-v1/launch.json",
+    "right_native_gcode_sha256": "37c8b9d7f6f34c9e6c37b8e8344cb8c2e10b866aa15ca39d686ece3757ee5fd0",
+    "ironing": false
+  },
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard"
+  },
+  "material": {
+    "type": "PETG",
+    "sub_brand": "PETG Translucent",
+    "color": "00000000",
+    "material_id": "GFG01",
+    "ams_unit": 0,
+    "tray": 3,
+    "slot_label": "A4",
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ]
+  },
+  "recipe": {
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "probing_clump_detection": "Off",
+    "timelapse_send_option": "On",
+    "camera_AI_preferences": "Preserve current user settings"
+  },
+  "native_estimate": {
+    "seconds": 69787.492,
+    "filament_g": 419.13,
+    "layers": 740
+  },
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "shared_circuit": {
+    "required_spacing_seconds": 180,
+    "peer_printer": "Mark1"
+  },
+  "native_review": "hardware/printed-parts/cold-core/reservoir/slice-review.json",
+  "native_review_sha256": "33def9b5bee97fc2ec449dc3d465bdecfaf76a0bf54a7e777d87cbc7edc4bc6a",
+  "packaging": "packaging.json",
+  "requirements": [
+    "Freshly read both printers immediately before Send; destination idle and without unresolved faults.",
+    "Verify exact archive and G-code hashes, matching saved geometry, nozzle and AMS filament mapping.",
+    "Wait at least 180 seconds after the peer accepts its most recent start or resume.",
+    "Use one foreground native Bambu Connect Send. Durably record the attempt before clicking; no ambiguous retry.",
+    "Verify a new matching task/job identity and PREPARE/RUNNING state, then runtime timelapse status.",
+    "Keep existing scheduled chat monitors paused. No other parts or settings changes are authorized."
+  ],
+  "send_attempted_at_utc": "2026-10-07T14:34:34.291706+00:00",
+  "successful_foreground_send_count": 1,
+  "accepted_at_utc": "2026-10-07T14:34:45.447711+00:00",
+  "accepted_at_central": "2026-10-07T09:34:45.447711-05:00",
+  "task_id": "1317261284",
+  "job_id": "1317261284",
+  "acceptance_state": "PREPARE",
+  "acceptance_reading": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-07T14:34:45.447633+00:00",
+    "task_id": "1317261284",
+    "job_id": "1317261284",
+    "subtask_name": "2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 740,
+    "total_layer_num": 740,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 30.0,
+    "bed_target_temper": 0.0,
+    "extruders": {
+      "0": {
+        "actual_c": 37,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 32,
+        "target_c": 0
+      }
+    },
+    "chamber": {
+      "actual_c": 29,
+      "target_c": 0
+    },
+    "ams": [
+      {
+        "id": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_info_idx": "GFG01",
+            "tray_color": "00000000",
+            "tray_sub_brands": "PETG Translucent"
+          },
+          {
+            "id": "1",
+            "tray_type": null,
+            "tray_info_idx": null,
+            "tray_color": null,
+            "tray_sub_brands": null
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_info_idx": "GFG01",
+            "tray_color": "00000000",
+            "tray_sub_brands": "PETG Translucent"
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_info_idx": "GFG01",
+            "tray_color": "00000000",
+            "tray_sub_brands": "PETG Translucent"
+          }
+        ]
+      }
+    ],
+    "timelapse": "disable"
+  },
+  "runtime_verification": {
+    "task_id": "1317261284",
+    "job_id": "1317261284",
+    "subtask_name": "2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 740,
+    "mc_remaining_time": 1157,
+    "mc_percent": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 70.0,
+    "bed_target_temper": 70.0,
+    "printer": "Mark2",
+    "observed_at_utc": "2026-10-07T14:46:26.417998+00:00",
+    "timelapse": "disable",
+    "extruders": {
+      "0": {
+        "actual_c": 44,
+        "target_c": 0,
+        "active_hotend_id": 0
+      },
+      "1": {
+        "actual_c": 256,
+        "target_c": 255,
+        "active_hotend_id": 1
+      }
+    },
+    "nozzles": [
+      {
+        "id": 0,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "timelapse_enabled_verified": false,
+  "first_layer_telemetry_observed": {
+    "observed_at_utc": "2026-10-07T14:46:26.417998+00:00",
+    "layer": 1,
+    "of_layers": 740,
+    "print_error": 0,
+    "hms": [],
+    "visual_adhesion_assessed": false
+  },
+  "shared_circuit_acceptance_spacing_seconds": 233.389087,
+  "start_notification_reported": true,
+  "timelapse_discrepancy_reported": true,
+  "timelapse_review": "timelapse-review.json"
+}

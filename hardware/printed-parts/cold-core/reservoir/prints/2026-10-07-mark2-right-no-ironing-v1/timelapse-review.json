@@ -1,0 +1,27 @@
+{
+  "printer": "Mark2",
+  "task_id": "1317261284",
+  "job_id": "1317261284",
+  "archive_name": "2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+  "observed_at_utc": "2026-10-07T14:46:26.417998+00:00",
+  "layer": 1,
+  "native_send_option": "On",
+  "runtime_status": "disable",
+  "timelapse_enabled_verified": false,
+  "storage_inventory": {
+    "printer": "Mark2",
+    "timelapse_file_count": 97,
+    "total_bytes": 468491900,
+    "observed_at_utc": "2026-10-07T14:36:02.368036+00:00"
+  },
+  "conclusion": "Printer reports timelapse disabled at layer 1 despite the native Send option On. The 97-file count is below the earlier 128-file observation; it does not explain the current disabled status.",
+  "native_control_inspection": {
+    "scope": "Read-only settings inspection; no detection preference changed.",
+    "Mark1_Studio_timelapse_status_indicator": "Off",
+    "runtime_timelapse_toggle_exposed": false,
+    "restart_or_repeat_send_attempted": false
+  },
+  "probing_clump_detection": "Off",
+  "camera_AI_preferences_changed": false,
+  "scheduled_chat_monitor_created": false
+}

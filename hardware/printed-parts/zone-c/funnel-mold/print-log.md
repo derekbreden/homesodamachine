@@ -1,5 +1,27 @@
 # Funnel mold print log
 
+
+## Matching core — 2026-10-07, Mark1 task 1317250748
+
+Derek requested the other half of the completed cavity, using the mold prior
+to recent geometry changes. The core's native G-code comes from plate 2 of
+the frozen October 6 +0.04 mm project; packaging changes only the single-plate
+container. Mark1 accepted it at **09:30:52 CDT**. Both printers were freshly
+read idle and without faults before Send.
+
+The job uses AMS HT-A clear PETG, the right 0.4 mm Standard nozzle,
+Textured PEI, +0.04 requested / +0.02 emitted trim, six walls, 15% gyroid
+and six top/bottom layers. Its native estimate is **11 h 35 min / 233.23 g**.
+Timelapse and all three startup calibration options are On; probing clump
+checks remain Off. The core has no supports and its full deposited
+footprint clears the usable bed by at least 39.565 mm.
+
+[Bound project, native toolpaths and launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
+Finished-core quality, assembled fit and casting results are unassessed.
+At 09:46:26 CDT, the core is RUNNING at layer 1/176 without faults.
+Timelapse reports disabled despite Send On; the card contains 97 clips.
+[timelapse-review.json](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
+
 ## Mark1 cavity retry at +0.04 trim — 2026-10-06
 
 Mark1 accepted **2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf**
@@ -164,7 +186,7 @@ Plate 1 G-code SHA-256:
 The exact slice is retained at
 `.cache/prints/2026-09-18-funnel-next/full-cavity/funnel-mold-04-standard-flow088-z018.gcode.3mf`.
 
-Bambu Connect submitted the cavity to **H2C**, serial **31B8AP612000452**,
+Bambu Connect submitted the cavity to **H2C**,
 using **AMS A2 PETG Translucent** (reported 72% remaining before submission).
 Timelapse is off, bed leveling on, and flow dynamic/nozzle offset calibration
 use Auto. At **2026-09-18 18:43:18 UTC** (13:43 CDT), the printer reports
@@ -209,7 +231,7 @@ Sliced file SHA-256:
 Plate 1 G-code SHA-256:
 `e6b1c00ed8592b7616f95c793aae4fb4a1c96358b2a0953f851e6ecf87d9f110`.
 
-Bambu Connect submitted plate 1 to **H2C**, serial **31B8AP612000452**, using
+Bambu Connect submitted plate 1 to **H2C**, using
 **AMS A2 PETG Translucent** (reported 100% remaining). Bed leveling is on,
 timelapse off, and flow dynamic/nozzle offset calibration use Auto. At
 **2026-09-18 00:01:04 UTC** (September 17, 19:01 CDT), the printer reports
@@ -344,7 +366,7 @@ The modeled geometry, support speed limits, reinforced trees and Z trim match
 the gentle-support trial. Forming slopes require sanding and finishing.
 
 Derek confirmed the bed clear and authorized starting the print. Bambu Connect
-submitted plate 1 to **H2C**, serial **31B8AP612000452**, with AMS A3 PETG
+submitted plate 1 to **H2C**, with AMS A3 PETG
 Translucent (96% remaining before submission), the left 0.8 mm High Flow nozzle
 and Textured PEI. Timelapse is off, bed leveling on, and flow/nozzle-offset
 calibration Auto. At 21:14:54 UTC the printer reports RUNNING, 199 layers and

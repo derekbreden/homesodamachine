@@ -1,0 +1,27 @@
+{
+  "printer": "Mark1",
+  "task_id": "1317250748",
+  "job_id": "1317250748",
+  "archive_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+  "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+  "layer": 1,
+  "native_send_option": "On",
+  "runtime_status": "disable",
+  "timelapse_enabled_verified": false,
+  "storage_inventory": {
+    "printer": "Mark1",
+    "timelapse_file_count": 97,
+    "total_bytes": 652604761,
+    "observed_at_utc": "2026-10-07T14:36:02.347874+00:00"
+  },
+  "conclusion": "Printer reports timelapse disabled at layer 1 despite the native Send option On. The 97-file count is below the earlier 128-file observation; it does not explain the current disabled status.",
+  "native_control_inspection": {
+    "scope": "Read-only settings inspection; no detection preference changed.",
+    "Mark1_Studio_timelapse_status_indicator": "Off",
+    "runtime_timelapse_toggle_exposed": false,
+    "restart_or_repeat_send_attempted": false
+  },
+  "probing_clump_detection": "Off",
+  "camera_AI_preferences_changed": false,
+  "scheduled_chat_monitor_created": false
+}

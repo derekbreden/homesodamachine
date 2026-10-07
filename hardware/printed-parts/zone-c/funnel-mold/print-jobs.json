@@ -151,7 +151,6 @@
   },
   {
     "printer": "H2C",
-    "printer_serial": "31B8AP612000452",
     "part": "cavity",
     "plate": 1,
     "submission": "Bambu Connect",
@@ -234,7 +233,6 @@
   },
   {
     "printer": "H2C",
-    "printer_serial": "31B8AP612000452",
     "part": "cavity",
     "plate": 1,
     "submission": "Bambu Connect",
@@ -331,7 +329,6 @@
   },
   {
     "printer": "H2C",
-    "printer_serial": "31B8AP612000452",
     "part": "cavity",
     "plate": 1,
     "submission": "Bambu Connect",
@@ -626,5 +623,81 @@
     },
     "timelapse_verification": "Runtime disabled despite Send option On; see native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json.",
     "physical_result": "Pending; telemetry does not establish adhesion or completed mold behavior."
+  },
+  {
+    "date": "2026-10-07",
+    "printer": "Mark1",
+    "parts": [
+      "Funnel mold core"
+    ],
+    "source_plate": 2,
+    "submitted_plate": 1,
+    "archive_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+    "archive_sha256": "d7d20293db3fec051a9ee1e0f38ccab365b87f974c91e70d70355da354ee6070",
+    "gcode_sha256": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961",
+    "geometry_binding": {
+      "frozen_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf",
+      "frozen_project_sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246",
+      "cavity_native_gcode_sha256": "a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba",
+      "core_native_gcode_sha256": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961",
+      "source_plate": 2,
+      "current_generator_used": false,
+      "mating_fit_physically_assessed": false
+    },
+    "launch_receipt": "native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/launch.json",
+    "send_options": {
+      "timelapse": "On",
+      "auto_bed_leveling": "On",
+      "flow_dynamic_calibration": "On",
+      "nozzle_offset_calibration": "On"
+    },
+    "successful_foreground_send_count": 1,
+    "accepted_job_id": "1317250748",
+    "accepted_at_utc": "2026-10-07T14:30:52.058624+00:00",
+    "accepted_at_central": "2026-10-07T09:30:52.058624-05:00",
+    "physical_result": "Finished core, mating fit and casting behavior unassessed.",
+    "printer_observation": {
+      "task_id": "1317250748",
+      "job_id": "1317250748",
+      "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1,
+      "total_layer_num": 176,
+      "mc_remaining_time": 683,
+      "mc_percent": 1,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 70.0,
+      "bed_target_temper": 70.0,
+      "printer": "Mark1",
+      "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+      "timelapse": "disable",
+      "extruders": {
+        "0": {
+          "actual_c": 250,
+          "target_c": 250,
+          "active_hotend_id": 0
+        },
+        "1": {
+          "actual_c": 48,
+          "target_c": 0,
+          "active_hotend_id": 1
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 1,
+          "diameter": 0.4,
+          "type": "HS01"
+        }
+      ]
+    },
+    "timelapse_verification": "Printer reports Disabled at layer 1 despite Send On; see dated timelapse-review.json."
   }
 ]

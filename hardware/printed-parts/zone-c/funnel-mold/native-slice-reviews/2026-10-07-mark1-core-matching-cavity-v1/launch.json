@@ -1,0 +1,117 @@
+{
+  "printer": "Mark1",
+  "status": "accepted",
+  "send_attempted": true,
+  "successful_foreground_send_count": 1,
+  "archive_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+  "archive_sha256": "d7d20293db3fec051a9ee1e0f38ccab365b87f974c91e70d70355da354ee6070",
+  "gcode_sha256": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961",
+  "send_attempted_at_utc": "2026-10-07T14:30:39.846601+00:00",
+  "accepted_at_utc": "2026-10-07T14:30:52.058624+00:00",
+  "accepted_at_central": "2026-10-07T09:30:52.058624-05:00",
+  "task_id": "1317250748",
+  "job_id": "1317250748",
+  "acceptance_state": "PREPARE",
+  "acceptance_reading": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-07T14:30:52.048196+00:00",
+    "task_id": "1317250748",
+    "job_id": "1317250748",
+    "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 404,
+    "total_layer_num": 404,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 40.0,
+    "bed_target_temper": 0.0,
+    "extruders": {
+      "0": {
+        "actual_c": 42,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 39,
+        "target_c": 0
+      }
+    },
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    },
+    "ams": [
+      {
+        "id": "128",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_info_idx": "GFG01",
+            "tray_color": "00000000",
+            "tray_sub_brands": "PETG Translucent"
+          }
+        ]
+      }
+    ],
+    "timelapse": "disable"
+  },
+  "runtime_verification": {
+    "task_id": "1317250748",
+    "job_id": "1317250748",
+    "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 176,
+    "mc_remaining_time": 683,
+    "mc_percent": 1,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 70.0,
+    "bed_target_temper": 70.0,
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+    "timelapse": "disable",
+    "extruders": {
+      "0": {
+        "actual_c": 250,
+        "target_c": 250,
+        "active_hotend_id": 0
+      },
+      "1": {
+        "actual_c": 48,
+        "target_c": 0,
+        "active_hotend_id": 1
+      }
+    },
+    "nozzles": [
+      {
+        "id": 0,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      }
+    ]
+  },
+  "timelapse_enabled_verified": false,
+  "first_layer_telemetry_observed": {
+    "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+    "layer": 1,
+    "of_layers": 176,
+    "print_error": 0,
+    "hms": [],
+    "visual_adhesion_assessed": false
+  },
+  "shared_circuit_acceptance_spacing_seconds": 233.389087,
+  "start_notification_reported": true,
+  "timelapse_discrepancy_reported": true,
+  "timelapse_review": "timelapse-review.json"
+}

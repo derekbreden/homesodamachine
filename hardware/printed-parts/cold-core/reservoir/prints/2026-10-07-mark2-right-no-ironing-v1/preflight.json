@@ -1,0 +1,157 @@
+{
+  "checked_at_utc": "2026-10-07T14:34:08.144237+00:00",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-07T14:34:08.143523+00:00",
+      "task_id": "1317250748",
+      "job_id": "1317250748",
+      "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 176,
+      "mc_percent": 0,
+      "mc_remaining_time": 695,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 54,
+      "bed_temper": 40.0,
+      "bed_target_temper": 40.0,
+      "extruders": {
+        "0": {
+          "actual_c": 250,
+          "target_c": 250
+        },
+        "1": {
+          "actual_c": 40,
+          "target_c": 0
+        }
+      },
+      "chamber": {
+        "actual_c": 33,
+        "target_c": 0
+      },
+      "ams": [
+        {
+          "id": "128",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_info_idx": "GFG01",
+              "tray_color": "00000000",
+              "tray_sub_brands": "PETG Translucent"
+            }
+          ]
+        }
+      ],
+      "timelapse": "disable"
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-07T14:34:08.045477+00:00",
+      "task_id": "1314692596",
+      "job_id": "1314692596",
+      "subtask_name": "2026-10-06-reservoir-left-no-ironing-mark2-z004-v1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 740,
+      "total_layer_num": 740,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 30.0,
+      "bed_target_temper": 0.0,
+      "extruders": {
+        "0": {
+          "actual_c": 37,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 32,
+          "target_c": 0
+        }
+      },
+      "chamber": {
+        "actual_c": 29,
+        "target_c": 0
+      },
+      "ams": [
+        {
+          "id": "0",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_info_idx": "GFG01",
+              "tray_color": "00000000",
+              "tray_sub_brands": "PETG Translucent"
+            },
+            {
+              "id": "1",
+              "tray_type": null,
+              "tray_info_idx": null,
+              "tray_color": null,
+              "tray_sub_brands": null
+            },
+            {
+              "id": "2",
+              "tray_type": "PETG",
+              "tray_info_idx": "GFG01",
+              "tray_color": "00000000",
+              "tray_sub_brands": "PETG Translucent"
+            },
+            {
+              "id": "3",
+              "tray_type": "PETG",
+              "tray_info_idx": "GFG01",
+              "tray_color": "00000000",
+              "tray_sub_brands": "PETG Translucent"
+            }
+          ]
+        }
+      ],
+      "timelapse": "disable"
+    }
+  ],
+  "destination_idle_without_fault": true,
+  "archive_sha256_verified": "3b61a106fb9bd12fc32f4f4560f70123ca350e384ec02d3110c3c8450f4202e2",
+  "gcode_sha256_verified": "37c8b9d7f6f34c9e6c37b8e8344cb8c2e10b866aa15ca39d686ece3757ee5fd0",
+  "frozen_project_and_native_review_hashes_verified": true,
+  "AMS_material_verified": {
+    "type": "PETG",
+    "sub_brand": "PETG Translucent",
+    "color": "00000000",
+    "material_id": "GFG01",
+    "ams_unit": 0,
+    "tray": 3,
+    "slot_label": "A4",
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ]
+  },
+  "native_UI_nozzle": {
+    "side": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard"
+  },
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "shared_circuit": {
+    "required_seconds": 180,
+    "peer_printer": "Mark1",
+    "peer_accepted_at_utc": "2026-10-07T14:30:52.058624+00:00",
+    "elapsed_seconds": 196.085602
+  },
+  "send_authorized": true,
+  "spool_quantity_is_not_a_launch_gate": true
+}

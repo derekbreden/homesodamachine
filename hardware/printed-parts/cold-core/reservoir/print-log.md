@@ -233,3 +233,25 @@ bed-edge inset. The native estimate was 419.09 g, 19 h 23 min and 740 layers.
 [Launch record](prints/2026-10-06-mark2-no-ironing-v1/launch.json) records the
 new job accepted without errors. Finished-part and water-hold outcomes are
 unassessed.
+
+
+## Right reservoir and cap, ironing off (2026-10-07, Mark2 task 1317261284)
+
+The right body and matching right cap use plate 2 of the frozen October 6
+reservoir project with identical reviewed native G-code and settings. Mark2
+accepted one foreground Send at **09:34:45 CDT**, 233.39 seconds after Mark1
+accepted its matching funnel core. Both printers were freshly read before Send;
+Mark2 was idle without faults.
+
+Clear PETG starts from A4 through the left 0.8 mm Standard nozzle,
+Textured PEI, +0.04 requested / +0.02 emitted trim, 255 °C nozzle and
+70 °C bed. Model and support ironing are Off. Timelapse and bed leveling
+are On; flow dynamic and nozzle offset calibration use Auto. Probing clump
+checks remain Off. Native estimates are **19 h 23 min, 419.13 g and 740 layers**.
+
+[Project binding, preflight and accepted launch](prints/2026-10-07-mark2-right-no-ironing-v1/README.md).
+Finished-part, gasket seal and water-hold results are unassessed.
+
+At 09:46:26 CDT, the right pair is RUNNING at layer 1/740 without faults.
+Timelapse reports disabled despite Send On; the card contains 97 clips.
+[Timelapse observation](prints/2026-10-07-mark2-right-no-ironing-v1/timelapse-review.json).
