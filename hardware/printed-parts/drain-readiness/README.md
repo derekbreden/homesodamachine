@@ -29,7 +29,7 @@ read emitted roads and bind the native archives to their source meshes by hash.
 ## Identification plates
 
 The four Mark2 plates contain both the chips and collars. Each chip has one
-rectangular flange-height bottom edge and lettering space above the fitting.
+28 mm width, R2 lower corners, a flange-height bottom edge and lettering space above the fitting.
 DRAIN's collar has a 4.25 mm bore; TAP retains its larger supply-tube bore.
 
 | Project | Parts | Filament 1 / left 0.4 mm | Filament 2 / right 0.4 mm | Native archive under `ready/` |

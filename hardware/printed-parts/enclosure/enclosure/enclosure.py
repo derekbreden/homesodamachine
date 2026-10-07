@@ -159,6 +159,7 @@ import _boxes
 import _realized
 import cable_clip as _cable_clip
 import fits
+import port_chip
 import reeding
 import trimesh
 import flute_skin as _flute_skin
@@ -3470,8 +3471,10 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
 
 
 def _port_chip(px, pz, width, rise, bottom, y0, y1):
-    """Rectangular identification pocket with the text band above its fitting."""
-    return _ybox(px - width / 2, px + width / 2, y0, y1, pz - bottom, pz + rise)
+    """The label's outline offset by the pocket slip, including its lower rounds."""
+    slip = (width - port_chip.WIDTH) / 2.0
+    return port_chip.outline(width, rise, bottom, y1 - y0, y0,
+                             port_chip.LOWER_CORNER_RADIUS + slip).translate((px, 0, pz))
 
 
 def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):

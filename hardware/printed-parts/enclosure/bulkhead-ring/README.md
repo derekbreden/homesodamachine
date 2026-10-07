@@ -5,17 +5,17 @@ through-wall fitting's own flange. The pocket is the chip's own thickness deep, 
 plane; the fitting's nut draws flange, chip and wall together. One at every crossing the wall
 passes a tube through, and each carries a raised word.
 
-The outline is rectangular. The bottom edge meets the flange envelope; the additional band above the flange carries the word. Its offset bore holds the text upright in the matching wall pocket.
+All six labels are [28](RING_OD) mm wide, with [2](RING_LOWER_RADIUS) mm lower-corner radii and square upper corners. The bottom edge meets the flange envelope; the additional band above the flange carries the word. Each matching wall pocket follows the same outline with its assembly clearance. Its offset bore holds the text upright.
 
 | | union station | CO2 station |
 |---|---|---|
 | fitting | John Guest PP1208E | neoFit ABU44 |
-| width | [27.952](RING_OD) | [23.94](CO2_RING_OD) |
+| width | [28](RING_OD) | [28.00](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
 | height | [30.22](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
-| volume | [1.16](RING_VOL) cm³ | [0.94](CO2_RING_VOL) cm³ |
+| volume | [1.16](RING_VOL) cm³ | [1.18](CO2_RING_VOL) cm³ |
 
-The 4 mm DRAIN chip is 24 × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The DRAIN word stands 0.48 mm proud, in black on white.
+The 4 mm DRAIN chip is [28](RING_OD) × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The DRAIN word stands 0.48 mm proud, in black on white.
 
 | | |
 |---|---|

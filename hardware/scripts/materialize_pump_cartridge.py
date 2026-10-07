@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Materialize selected pump-bay pieces: STEP, printed STL and viewer payload each.
+"""Materialize selected enclosure pieces: STEP, printed STL and viewer payload each.
 
 The ordinary enclosure producer deliberately draws all six pieces and its aggregate before the
 assembly runs.  That is the right reconciliation path and the wrong visual-iteration path for a
-change confined to the removable pump cartridge.  This entry reads the already-declared Box,
-calls the lower cradle's and the top clamp's builders directly, and uses the same tessellation,
+change confined to one piece. This entry reads the already-declared Box,
+calls each selected piece's builder directly, and uses the same tessellation,
 flute rails and payload cutter as the ordinary producer without drawing another enclosure piece
 or an assembly.
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cap
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cartridge front-top
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces back-top
 
 All three siblings are completed in a temporary directory and seated only after the printed STL
 has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
@@ -78,7 +79,7 @@ def _declared_box(box_spec, enc):
 # The two pieces this path can stand, each with the flute rails the ordinary producer gives it:
 # the cradle owns the show face and both flanks, the clamp carries no show field and takes none.
 DEFAULT_PIECES = ("pump-cartridge", "pump-cap")
-PIECES = (*DEFAULT_PIECES, "front-top")
+PIECES = (*DEFAULT_PIECES, "front-top", "back-top")
 
 
 def _builder(enc, name):
@@ -88,7 +89,7 @@ def _builder(enc, name):
             enc._pump_cartridge_front_flute_rail(box.outer)]
     if name == "pump-cap":
         return enc.build_pump_cap, lambda box: []
-    if name == "front-top":
+    if name in ("front-top", "back-top"):
         def rails(box):
             # The ordinary producer's shadow bodies, read from retained STEP
             # exports; changing one bay part never rebuilds the other quadrants.
@@ -98,8 +99,8 @@ def _builder(enc, name):
             if box.pack.collet_plate:
                 berthed.append(enc._piece_mesh(enc._collet_plate_body(box.pack.collet_plate)))
             return enc.flute_rails(box, berthed)
-        return lambda box: enc.build_piece(box, "front", "top"), rails
-    raise ValueError(f"{name!r} is not a pump-cartridge piece; this path stands {PIECES}")
+        return lambda box: enc.build_piece(box, name.split("-")[0], "top"), rails
+    raise ValueError(f"{name!r} is not supported; this path stands {PIECES}")
 
 
 def _materialize_piece(enc, flute_payload, box, name, output: Path, started: float) -> dict:
@@ -198,7 +199,7 @@ def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = DEFAULT_PIECES
     enc._last_box[0] = box
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    print("selected pump-bay pieces:")
+    print("selected enclosure pieces:")
     print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
     return {name: _materialize_piece(enc, flute_payload, box, name, output, time.perf_counter())
             for name in pieces}

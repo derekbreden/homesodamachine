@@ -13,14 +13,14 @@ of it.
     THICK     the chip's thickness, the depth the pocket is cut to, and — because the wall keeps
               its own full stock under every chip — the height of the boss the wall stands inboard
 
-THE OUTLINE IS RECTANGULAR. Its bottom edge meets the flange envelope; above the flange,
-a dedicated band carries the lettering.
+THE OUTLINE IS 28 MM WIDE AT EVERY STATION, with R2 lower corners. Its bottom edge meets
+the flange envelope; above the flange, a dedicated band carries the lettering.
 It is not a shape that turns — a pocket takes it one way up and no other, which is what puts the
 word level without anything holding it there.
 
 At the rear face the customer meets identical black fittings in a black wall, one of which takes
 the blue tube — `../y-wall-of-back-top/README.md` §"Umbilical port — tube identification". A chip's colour
-is its tube's colour and there are four of them; what a colour means is stated once, in
+is its tube's colour and there are six of them; what a colour means is stated once, in
 `../y-wall-of-back-top/_y_wall_dimensions.py`.
 
 THE WORD IS A SECOND SOLID. It fills a recess `WORD_DEPTH` into the chip's outboard face and
@@ -76,12 +76,13 @@ import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_drain_bulkhead as _drain
 import neofit_bulkhead as _neo  # noqa: E402
 import fits  # noqa: E402
+import port_chip  # noqa: E402
 import _enclosure_interface as _enc_interface  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
-# TWO FAMILIES OF FITTING CROSS THIS WALL, and a chip is struck on the flange it hides under and
+# THREE FAMILIES OF FITTING CROSS THIS WALL, and a chip is struck on the flange it hides under and
 # the barrel it passes — `union` for the PP1208E the water and umbilical ports use, `neofit` for
-# the ABU44 the CO2 inlet takes. `RING_W` and `THICK` are the same for both.
+# the ABU44 the CO2 inlet takes, and the metric DRAIN fitting. All labels share one width.
 FAMILIES = {"union": _jg, "neofit": _neo, "drain": _drain}
 
 # How far the chip stands past the fitting's own panel footprint — the width of colour that shows
@@ -185,10 +186,8 @@ def family(which: str) -> str:
 
 
 def od(fam: str) -> float:
-    """One family's rectangular chip width, sized for its flange and longest word."""
-    words = [WORD_WIDTHS[c.word] for c in STATIONS.values() if c.family == fam]
-    return max(FAMILIES[fam].flange_footprint() + 2.0 * WORD_MARGIN,
-               max(words) + 2.0 * WORD_MARGIN)
+    """The common width of all six labels, including the longest FLAVOR word."""
+    return port_chip.WIDTH
 
 
 def bottom(fam: str) -> float:
@@ -227,10 +226,9 @@ def seat() -> tuple:
 
 def build_outline(diameter: float, top: float, thick: float, y0: float = 0.0,
                   lower: float = None):
-    """Rectangular chip; only the top carries an additional text band."""
+    """Common-width chip with R2 lower corners and a text band above the flange."""
     lower = diameter / 2.0 if lower is None else lower
-    return cq.Solid.makeBox(diameter, thick, top + lower,
-                            cq.Vector(-diameter / 2, y0, -lower))
+    return port_chip.outline(diameter, top, lower, thick, y0)
 
 
 def word_band(which: str) -> tuple:
@@ -538,6 +536,7 @@ def main():
         "RING_W": f"{RING_W:g}",
         "RING_THICK": f"{THICK:g}",
         "RING_OD": f"{od('union'):g}",
+        "RING_LOWER_RADIUS": f"{port_chip.LOWER_CORNER_RADIUS:g}",
         "RING_BORE": f"{bore_d('union'):g}",
         "RING_VOL": f"{volumes['flavor-a']:.2f}",
         "RING_TALL": f"{tall('flavor-a'):.2f}",
