@@ -164,13 +164,19 @@ flavor_tube_x_offset = _fi.flavor_tube_x_offset
 # THE COUNTER THE STACK CLAMPS THROUGH. The slab is not a part — it is the customer's kitchen — but
 # it is what sets where the cut plate lands and so where the umbilical hangs from, and the assembly
 # carries it at the figure `assembly/faucet-and-umbilical.md` sums its tube lengths on: 30 mm of 3 cm
-# stone, in a 19–38 range.
+# stone. The 19–38 mm routing envelope reserves straight tube/cable clearance;
+# it does not establish the retained donor clamp's maximum deck thickness.
 countertop_thickness = 30.0
+countertop_min_thickness = 19.0
+countertop_max_thickness = 38.0
 countertop_top_z = above_counter_gasket.gasket_z_range[0]      # [-6 mm](COUNTERTOP_TOP_Z)
 countertop_bottom_z = countertop_top_z - countertop_thickness       # [-36 mm](COUNTERTOP_BOTTOM_Z)
 under_counter_plate_thickness = 1.524  # 0.060" 316 SS, the DXF's own sidecar
 # The plate's underside: the first plane below the counter a tube is free to bend on.
 under_counter_plate_bottom_z = countertop_bottom_z - under_counter_plate_thickness
+# Factory bends begin below the steel at the thickest routing-envelope slab.
+mount_return_start_z = countertop_top_z - countertop_max_thickness - under_counter_plate_thickness
+mount_return_lead = under_counter_plate_bottom_z - mount_return_start_z
 
 # Below the plate the four tubes gather under one sleeve
 # (`faucet-and-umbilical.md` §3). The flavor pair holds its lower X spacing
@@ -220,6 +226,8 @@ union_pass = union_ring_r + flavor_tube_r + union_air
 # and the neighboring flavor tube.
 step_bend_radius = 30.0
 step_x = union_pass - 2.0 * flavor_tube_x_offset
+flavor_a_step_lead = mount_return_lead + 8.0
+flavor_b_step_lead = mount_return_lead
 
 
 # The flavour pair by side: flavor-a at +X, flavor-b at −X — and so a White faucet's two unions.
@@ -247,10 +255,10 @@ step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
 
 # WHERE THE UNIONS STAND. Flavor-b's on the plane its step lands on, which is where the wrapped
 # umbilical starts, and flavor-a's end to end below it: the stagger is one union's length.
-union_b_top_z = under_counter_plate_bottom_z - step_rise    # [-59.32 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-101.1 mm](UNION_A_TOP_Z)
+union_b_top_z = mount_return_start_z - step_rise    # [-67.32 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-109.1 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-142.9 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-150.9 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -286,7 +294,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-185.4 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-193.4 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -321,7 +329,7 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [135.4 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [143.4 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
@@ -505,12 +513,15 @@ def _step_path(x_sign, bottom_z):
     """A flavor tube's centreline below the plate, down to `bottom_z` on its line at the unions: in
     `splay_path_plane`, relative to its mounting X and the plate's underside."""
     path = cq.Workplane(splay_path_plane).moveTo(0.0, 0.0)
+    lead = flavor_a_step_lead if x_sign > 0 else flavor_b_step_lead
+    if lead:
+        path = path.lineTo(0.0, -lead)
     out = union_x(x_sign)-flavor_mount_x(x_sign)
     theta = step_theta(x_sign)
     foot_x = 0.0
     if out:
         a1_mid, a1_end, a1_tan = _arc_from_tangent(
-            (0.0, 0.0), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
+            (0.0, -lead), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
         a2_mid, a2_end, _a2_tan = _arc_from_tangent(
             a1_end, a1_tan, step_bend_radius, theta, ccw=(out < 0))
         path = path.threePointArc(a1_mid, a1_end).threePointArc(a2_mid, a2_end)
@@ -810,7 +821,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [1.247 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [1.246 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)
@@ -895,7 +906,7 @@ def _drain_lower_path():
     current = (drain_tail_x,drain_tail_y,umbilical_tail_z)
     for x, y, top_z in ((drain_tail_x,drain_pack_y,drain_splay_top_z),
                         (drain_tail_x,drain_bypass_y,union_foot_z),
-                        (_fi.drain_tube_x,_fi.drain_tube_y,under_counter_plate_bottom_z)):
+                        (_fi.drain_tube_x,_fi.drain_tube_y,mount_return_start_z)):
         dx, dy = x-current[0], y-current[1]
         offset = math.hypot(dx,dy)
         theta = math.acos(1-offset/(2*drain_bend_radius))
@@ -915,6 +926,9 @@ def _drain_lower_path():
             edges.append(cq.Edge.makeThreePointArc(world(local),world(mid),world(end)))
             local = end
         current = (x,y,top_z)
+    if mount_return_lead > 1e-7:
+        end = (_fi.drain_tube_x,_fi.drain_tube_y,under_counter_plate_bottom_z)
+        edges.append(cq.Edge.makeLine(cq.Vector(*current),cq.Vector(*end)))
     return cq.Wire.assembleEdges(edges)
 
 
@@ -1476,6 +1490,8 @@ def main():
           f"Z = {union_b_top_z:.2f} → {union_a_top_z:.2f}, flavor-a's → {union_foot_z:.2f}")
     print(f"                         the pair {union_pass:.3f} apart at the unions; "
           f"mounting returns use at most {step_rise:.2f} mm at R{step_bend_radius:g}")
+    print(f"                         flavor-a stays vertical for {flavor_a_step_lead:g} mm "
+          f"below the plate before its R{step_bend_radius:g} return")
     print(f"                         tube stops {union_gap:g} mm apart in each — a Black "
           f"faucet's bridge")
     print(f"  Umbilical:             gathers of {gather_rise(+1):.2f} (flavor-a) and "

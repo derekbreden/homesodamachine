@@ -1694,6 +1694,7 @@ def build_shell() -> cq.Workplane:
         ("donor upper bores", build_zone3_inner_cut),
         ("vent chamber and glands", build_vent_cavity),
         ("underside fault outlet", build_vent_outlet),
+        ("lower common bundle opening", build_lower_signal_lane),
         ("soda and flavor passages", build_zone6_inner_cut),
         ("beverage passage centre", build_beverage_interstice_cut),
         ("upstream passage centre", build_upstream_interstice_cut),
@@ -1701,7 +1702,6 @@ def build_shell() -> cq.Workplane:
         ("lever motion", build_lever_clearance),
         ("display pocket", _display_cavity),
         ("display retention", build_display_retention_grooves),
-        ("lower cable exit", build_lower_signal_lane),
         ("lower soda passage", build_lower_soda_inner_cut),
         ("drain passage", lambda: build_drain_neck(cutter=True)),
     )
@@ -1712,6 +1712,12 @@ def build_shell() -> cq.Workplane:
         _cad_progress(f"Shell: cut {name} ({time.monotonic()-started:.1f}s)")
         part = part.cut(cutter)
         _cad_progress(f"Shell: after {name}: valid={part.isValid()}, solids={len(part.Solids())}")
+        if not part.isValid():
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            diagnostic = cached.with_name("invalid-" + name.replace(" ", "-") + ".brep")
+            part.exportBrep(str(diagnostic))
+            raise ValueError(f"shell cut {name!r} produced an invalid native body; "
+                             f"diagnostic={diagnostic}")
     _cad_progress(f"Shell: unify faces ({time.monotonic()-started:.1f}s)")
     part = part.clean()
     if not part.isValid() or len(part.Solids()) != 1:

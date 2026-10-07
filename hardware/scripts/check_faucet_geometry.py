@@ -53,6 +53,10 @@ def source_paths() -> tuple[Path, ...]:
             ROOT / "hardware/printed-parts/cadlib/fits.py",
             ROOT / "hardware/printed-parts/cadlib/world_workplane.py",
             ROOT / "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+            ROOT / "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
+            ROOT / "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
+            ROOT / "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+            ROOT / "hardware/reference/jg-pp0408w/jg-pp0408w.step",
             ROOT / "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step")
 
 
@@ -2101,6 +2105,108 @@ def saved_retention_reading(output: Path, *, sampled_seating=False) -> int:
     return 0 if passed else 1
 
 
+def stock_plate_reading(reading, f, assembly):
+    """Bind purchased steel and bound its complete sideways installation motion."""
+    import cadquery as cq
+    import ezdxf
+
+    reference_path = ROOT / "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json"
+    reference = json.loads(reference_path.read_text())
+    digits = reference["coordinate_rounding_digits"]
+    document = ezdxf.readfile(assembly.under_counter_dxf)
+    signature = []
+    for entity in document.modelspace():
+        kind = entity.dxftype()
+        if kind == "LINE":
+            values = (*entity.dxf.start, *entity.dxf.end)
+        elif kind == "ARC":
+            values = (*entity.dxf.center, entity.dxf.radius,
+                      entity.dxf.start_angle % 360.0, entity.dxf.end_angle % 360.0)
+        else:
+            raise ValueError(f"Unrecognized purchased steel profile entity: {kind}")
+        signature.append([kind, *(round(float(value), digits) for value in values)])
+    signature.sort()
+    reading.add("stock:under-counter-profile",
+                document.units == reference["dxf_insunits"]
+                and signature == reference["normalized_entity_signature"],
+                stock_order=reference["stock_order"],
+                stock_reference_commit=reference["reference_commit"],
+                stock_reference_dxf_sha256=reference["reference_dxf_sha256"],
+                current_dxf_sha256=digest(assembly.under_counter_dxf),
+                profile_entities=len(signature), comparison_rounding_digits=digits,
+                method="All native DXF line endpoints and arc centers/radii/angles match the fixed purchased profile; normalized entity order and full-turn angles.")
+
+    installed_plate = shape(assembly.build_under_counter_plate())
+    steel_thickness = installed_plate.BoundingBox().zlen
+    low = assembly.countertop_top_z - assembly.countertop_max_thickness - steel_thickness
+    high = assembly.countertop_top_z - assembly.countertop_min_thickness
+    height = high-low
+    # This complete vertical extrusion is the union of every installed plate
+    # position in the routing-envelope slab range, with the purchased profile.
+    plate = (cq.importers.importDXF(str(assembly.under_counter_dxf))
+             .wires().toPending().extrude(height)
+             .rotate((0,0,0),(0,0,1),90.0).translate((0,0,low)).val())
+    nominal_outside = volume(installed_plate.cut(plate))
+    slab = cq.Solid.makeBox(200.0, 200.0, height, cq.Vector(-100.0, -100.0, low))
+    # Holding the plate fixed and sweeping every captured member toward its
+    # open +X side is equivalent to sliding the steel from -X to its seat.
+    # A capsule is the exact continuous sweep of a circular cross-section;
+    # the rectangular cable uses its complete swept bounding rectangle.
+    travel = 60.0
+    members = {
+        "donor_shank": (assembly.load_westbrass(), assembly.shank_od),
+        "flavor_a": (assembly.build_flavor_tube(+1), 2.0*assembly.flavor_tube_r),
+        "flavor_b": (assembly.build_flavor_tube(-1), 2.0*assembly.flavor_tube_r),
+        "drain": (assembly.build_drain_tube(envelope=True), 2.0*assembly.drain_tube_r),
+        "ribbon": (assembly.build_display_ribbon(), None),
+    }
+    records = {}
+    for name, (member, diameter) in members.items():
+        actual = shape(member).intersect(slab)
+        if not actual.Solids() or not actual.isValid():
+            raise RuntimeError(f"{name}: counter-stack member has no valid native section")
+        box = actual.BoundingBox()
+        x, y = (box.xmin+box.xmax)/2.0, (box.ymin+box.ymax)/2.0
+        if diameter is None:
+            seated = (cq.Workplane("XY").workplane(offset=low).center(x,y)
+                      .rect(box.xlen,box.ylen).extrude(height).val())
+            swept = (cq.Workplane("XY").workplane(offset=low).center(x+travel/2.0,y)
+                     .rect(box.xlen+travel,box.ylen).extrude(height).val())
+        else:
+            seated = (cq.Workplane("XY").workplane(offset=low).center(x,y)
+                      .circle(diameter/2.0).extrude(height).val())
+            swept = (cq.Workplane("XY").workplane(offset=low).center(x+travel/2.0,y)
+                     .slot2D(travel+diameter,diameter).extrude(height).val())
+        unbounded = volume(actual.cut(seated))
+        overlap = volume(swept.intersect(plate))
+        gap = swept.distance(plate)
+        start_overlap = volume(seated.intersect(plate.translate((-travel,0,0))))
+        records[name] = {
+            "native_member_section_valid": actual.isValid(),
+            "native_member_outside_bound_mm3": clean_number(unbounded),
+            "section_center_xy_mm": [clean_number(x),clean_number(y)],
+            "section_bounds_mm": [clean_number(box.xlen),clean_number(box.ylen)],
+            "continuous_sweep_steel_overlap_mm3": clean_number(overlap),
+            "minimum_continuous_sweep_gap_mm": clean_number(gap),
+            "starting_position_steel_overlap_mm3": clean_number(start_overlap),
+            "passed": unbounded <= VOLUME_TOLERANCE and overlap <= VOLUME_TOLERANCE
+                      and start_overlap <= VOLUME_TOLERANCE and gap >= 0.1-DISTANCE_TOLERANCE,
+        }
+    reading.add("motion:stock-under-counter-plate-slide",
+                plate.isValid() and len(plate.Solids()) == 1
+                and nominal_outside <= VOLUME_TOLERANCE
+                and all(row["passed"] for row in records.values()),
+                relative_plate_motion_xyz_mm=[[-travel,0.0,0.0],[0.0,0.0,0.0]],
+                complete_steel_thickness_mm=clean_number(steel_thickness),
+                countertop_thickness_range_mm=[assembly.countertop_min_thickness,
+                                               assembly.countertop_max_thickness],
+                complete_plate_depth_envelope_z_mm=[clean_number(low),clean_number(high)],
+                installed_nominal_plate_outside_depth_envelope_mm3=clean_number(nominal_outside),
+                required_cad_gap_mm=0.1, members=records,
+                method="The purchased DXF profile is extruded through the union of all steel positions for the 19–38 mm routing envelope. Native member intersections through that complete depth range are contained in circular or rectangular bounds. Exact continuous +X sweeps of those bounds clear this conservative steel envelope for the entire 60 mm installation travel at every intermediate slab thickness.",
+                scope="Tube/cable clearance and plate slide within the routing envelope. This does not establish maximum clampable countertop thickness or donor thread engagement. Physical tolerances, cut-edge finish, hand access and installation force require the purchased plate and completed faucet.")
+
+
 def drain_reading(reading, f, assembly, parts):
     """Read the continuous drain against the complete installed counter stack."""
     import cadquery as cq
@@ -2120,11 +2226,15 @@ def drain_reading(reading, f, assembly, parts):
                  "soda": assembly.build_soda_faucet_tube(),
                  "flavor_a": assembly.build_flavor_tube(+1),
                  "flavor_b": assembly.build_flavor_tube(-1),
+                 "union_a": assembly.build_flavor_union(+1),
+                 "union_b": assembly.build_flavor_union(-1),
                  "foam": assembly.build_foam(),
                  "sleeve": assembly.build_sleeve(),
                  "signal_ribbon": assembly.build_display_ribbon()}
     for name, obstacle in obstacles.items():
         clearance_reading(reading, "drain:clearance-" + name, envelope, obstacle)
+    clearance_reading(reading, "clearance:flavor-pair",
+                      obstacles["flavor_a"], obstacles["flavor_b"])
     tube_end=f.drain_return_point(f.drain_exit_angle())
     p=f._paths
     end=p.station_point(p.PORT_START_S+p.PORT_LENGTH_S/2,n=p.SHELL_CENTER_N-p.SHELL_RADIUS)
@@ -2174,6 +2284,7 @@ def main() -> int:
     lower_outer_mesh_reading(reading, f)
     tube_radius_reading(reading, f, assembly)
     drain_reading(reading, f, assembly, parts)
+    stock_plate_reading(reading, f, assembly)
     base, tip, plate = parts["shell_base"], parts["shell_tip"], parts["above_counter_plate"]
     for name in ("shell_base", "shell_tip", "above_counter_plate", "display_cover"):
         clearance_reading(reading, f"clearance:donor-{name}", parts[name], assembly.load_westbrass())
