@@ -44,7 +44,7 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
       "hardware/faucet-layout/faucet_assembly.py": "5c78bec5462d340a39b5f95bc8e12c65775a8f371d6c93da1fac41d1537a631c",
       "hardware/manifold-layout/_drain.py": "a73e4192fc58763556b7be22745623ad7f89ef72c8509bea7d42ce3232da5fbd",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "0492dff317f4792258a488cfc78ea98e7a0c2bb5d6c35379af7440c63f117e01",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "ed4e7830de07d4a841c67f8e558a84f613e8ff92a7ca39d3d1e97fdcf54a78fc",
       "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
       "marketing/install-envelope.md": "2c1e2f42aa93a32784ea3f4e911018cb0db68b23260d6727787840571c1c1d20"
     },
