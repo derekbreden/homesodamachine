@@ -1,0 +1,42 @@
+<div id="pump-bay-native-gallery" aria-label="Detailed views of the pump-first upper bay">
+  <div class="viz-controls">
+    <label class="form-label">View<select class="form-select" data-view></select></label>
+  </div>
+  <div class="viz-row tabular-nums" data-readings></div>
+  <img data-scene alt="" />
+  <div class="sr-only" data-description aria-live="polite"></div>
+</div>
+<style>
+#pump-bay-native-gallery [data-scene]{display:block;width:100%;height:auto;margin-block:8px}
+</style>
+<script>
+(() => {
+  const root=document.getElementById('pump-bay-native-gallery');
+  const data=__NATIVE_GALLERY_DATA__;
+  const picker=root.querySelector('[data-view]');
+  const scene=root.querySelector('[data-scene]');
+  const state={view:data.views[0].id};
+  const saved=window.openai?.widgetState?.modelContent;
+  if(data.views.some(v=>v.id===saved?.view))state.view=saved.view;
+  for(const v of data.views)picker.add(new Option(v.label,v.id));
+  for(const text of data.readings){const span=document.createElement('span');span.textContent=text;root.querySelector('[data-readings]').append(span)}
+  function luminance(variable){
+    const p=document.createElement('span');p.style.color=`var(${variable})`;p.hidden=true;root.append(p);
+    const values=getComputedStyle(p).color.match(/[\d.]+/g)?.map(Number)||[0,0,0];p.remove();
+    return values[0]*.2126+values[1]*.7152+values[2]*.0722;
+  }
+  function draw(){
+    const view=data.views.find(v=>v.id===state.view)||data.views[0];
+    const theme=luminance('--foreground')>luminance('--background')?'dark':'light';
+    const size=root.clientWidth<520?'small':'large';
+    scene.src=view.images[`${theme}-${size}`];scene.alt=view.description;
+    root.querySelector('[data-description]').textContent=view.description;
+    picker.value=state.view;
+  }
+  picker.addEventListener('change',()=>{state.view=picker.value;draw();window.openai?.setWidgetState?.({modelContent:{...state},privateContent:null}).catch(()=>{})});
+  new ResizeObserver(draw).observe(root);
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+  window.addEventListener('openai:set_globals',event=>{const next=event.detail?.globals?.widgetState?.modelContent;if(data.views.some(v=>v.id===next?.view)){state.view=next.view;draw()}});
+  draw();
+})();
+</script>

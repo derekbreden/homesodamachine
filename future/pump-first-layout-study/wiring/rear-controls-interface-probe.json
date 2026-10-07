@@ -1,0 +1,149 @@
+{
+  "flavor_a_bounds": [
+    -77.93,
+    446.51,
+    283.5700001,
+    -55.07,
+    480.8,
+    306.43000010000003
+  ],
+  "keystone_bounds": [
+    -61.32500000000001,
+    441.3,
+    255.19999999999996,
+    -46.675000000000004,
+    471.3,
+    279.34999999999997
+  ],
+  "PSU_distances": {
+    "A": 10.07,
+    "key": 10.5340222612258
+  },
+  "reed_normal_gaps": {
+    "A": 22.938544522927856,
+    "key": 12.350000000000001
+  },
+  "between_parts": 5.876823259379587,
+  "nearby": [
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-ring-water",
+      "gap": 0.0,
+      "common": 0.0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-water",
+      "gap": 5.441943343169887,
+      "common": 0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "tube-co2-1",
+      "gap": 8.142037130190886,
+      "common": 0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-flavor-b",
+      "gap": 5.5762000977626744,
+      "common": 0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-ring-flavor-a",
+      "gap": 1.0558747791254302,
+      "common": 0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-ring-flavor-a-word",
+      "gap": 6.993195783148764,
+      "common": 0
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-ring-flavor-b",
+      "gap": 0.0,
+      "common": 17.486243765182444
+    },
+    {
+      "candidate": "new-flavor-a",
+      "other": "bulkhead-ring-flavor-b-word",
+      "gap": 0.0,
+      "common": 4.2454102666413265
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "cold-core/foam-cap-top",
+      "gap": 7.1999998000000005,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "cold-core/foam-cap-lid-top",
+      "gap": 1.7999997999999948,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "tube-co2-1",
+      "gap": 4.048151094233777,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "tube-fluid-18",
+      "gap": 5.7649999999999935,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "supply-lid-boss-2",
+      "gap": 4.887228253314985,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "supply-screw-2",
+      "gap": 9.37136596233444,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "supply-lid-web-1",
+      "gap": 4.887228253314985,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "bulkhead-flavor-b",
+      "gap": 5.389999999999986,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "bulkhead-ring-flavor-a",
+      "gap": 0.0,
+      "common": 173.28005552242584
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "bulkhead-ring-flavor-a-word",
+      "gap": 3.153417968086946,
+      "common": 0
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "bulkhead-ring-flavor-b",
+      "gap": 0.0,
+      "common": 32.31013390999482
+    },
+    {
+      "candidate": "new-keystone",
+      "other": "bulkhead-ring-flavor-b-word",
+      "gap": 4.914053918720572,
+      "common": 0
+    }
+  ]
+}

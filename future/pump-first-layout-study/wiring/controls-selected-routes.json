@@ -1,0 +1,62 @@
+{
+  "routes": {
+    "control-loom-wago-sensors-retained-cold-core-service-leads": {
+      "points_mm": [
+        [
+          -54.049999999999976,
+          388.65000000000003,
+          336.25000000000006
+        ],
+        [
+          -54.05,
+          388.65,
+          330.85
+        ],
+        [
+          -54.05,
+          399.015,
+          330.85
+        ],
+        [
+          -54.05,
+          399.015,
+          323.85
+        ],
+        [
+          -30.0,
+          399.015,
+          323.85
+        ],
+        [
+          -30.0,
+          406.0,
+          322.6
+        ],
+        [
+          -30.0,
+          406.0,
+          268.6
+        ],
+        [
+          0.0,
+          406.0,
+          268.6
+        ],
+        [
+          0.0,
+          395.0,
+          268.6
+        ],
+        [
+          0.0,
+          395.0,
+          261.8
+        ]
+      ],
+      "diameter_mm": 1.7,
+      "bend_radius_mm": 3.4,
+      "conductor_count": 1,
+      "scope": "The retained sensor ground branch passes at Z323.85 above the low supply return, then follows an explicit diagonal to its Z322.6 downward column. Actual WAGO and lower-boundary dressing mouths remain fixed."
+    }
+  }
+}

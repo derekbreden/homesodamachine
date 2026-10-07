@@ -1,0 +1,88 @@
+{
+  "parts": {
+    "needle-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-lid-seat.brep",
+      "sha256": "e91b6064eaba42c037f803d60fd801cbf8f25d365bb3ca1241f6d74ab0834d64",
+      "bounds": [
+        6.75,
+        302.4,
+        253.39,
+        16.25,
+        312.5,
+        285.35
+      ],
+      "role": "structure",
+      "detail": "Lid-rooted needle barrel saddle: measuredR6.85 body/R7.1 slip,3mm radial bearing,3mm axial end webs,3.5mm dressed tie tunnel."
+    },
+    "needle-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-retention-tie.brep",
+      "sha256": "bde30ba8f3967679dda5db5132c6bc979263520435414026b2a41daf6c9b51b1",
+      "bounds": [
+        10.0,
+        296.2,
+        264.15,
+        18.0,
+        320.35,
+        293.9
+      ],
+      "role": "structure",
+      "detail": "Complete nominal2.5\u00d71mm nylon tie with conservative8\u00d78\u00d75mm locking head; barrel contact and measured round seat are explicit. Purchased head/dressing remain unqualified."
+    }
+  },
+  "checks": [
+    {
+      "part": "needle-lid-seat",
+      "single_valid_solid": true,
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "part": "needle-retention-tie",
+      "single_valid_solid": true,
+      "interferences": [],
+      "pass": true
+    },
+    {
+      "test": "dressed tie clears actual seat tunnel",
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "needle complete purchased body clears saddle",
+      "common_mm3": 0.0,
+      "bearing_air_mm": 0.25,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "lid_fuse_part_names": [
+    "needle-lid-seat"
+  ],
+  "shell_fuse_part_names": [],
+  "intended_contacts": [
+    [
+      "needle-retention-tie",
+      "flow-regulator"
+    ]
+  ],
+  "retained_component": "flow-regulator",
+  "body_axis_mm": [
+    11.5,
+    312.5,
+    275.25
+  ],
+  "minimum_radial_stock_mm": 3,
+  "minimum_axial_end_web_mm": 3,
+  "manifests_sha256": {
+    "funnel": "415ad650b1642f3b6e898ccec5d256c61f33daf7887db03289e44ebf2469c156",
+    "pump": "3de94c55f71c2491f882b59ffd39b14c5bcc3f8dff59b110f0eadde715420c72",
+    "pump-fluid24": "cb3073e520dd9563a354208298a5b53b86f3661ca5524fe724775a758e06378d",
+    "routing": "bc6b97f77f59ffed3afb27dc4239c1bc74b60f5ac6c9321c46eda3bcaf67d915",
+    "structure": "04dabf1fd7a540565edd7f8b51dea1204f52dd28902bff7ccb34a5e29c75890e",
+    "mounts": "23563474a5327f78cae84ae9761a0f81a2d2a8edc13d831a9fa451c0a8f626ae",
+    "fluid-mounts": "1a104cb6362cd5104a61302f11e1346eee07b486acc1ed4bea3f2cfc18a37f3a",
+    "roof-hatch": "d3abfb89f0e435f6d049ddc3a20ebb7c39946d124f8d90db5ebfb854d615bcc7"
+  },
+  "routing_manifest_sha256": "bc6b97f77f59ffed3afb27dc4239c1bc74b60f5ac6c9321c46eda3bcaf67d915",
+  "scope": "Complete nominal seat/tie occupied geometry. Load, creep, vibration and finished tie retention require physical qualification."
+}

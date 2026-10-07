@@ -1,0 +1,191 @@
+<div id="pump-bay-study" aria-label="Pump-first bay layout study">
+  <div class="viz-controls">
+    <label class="form-label">Arrangement<select class="form-select" data-control="arrangement"><option value="candidate">Pump first · larger funnel</option><option value="current">Current bay</option><option value="factory">Front closure staging</option><option value="tooling">Funnel casting molds</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Above the core</option><option value="top">Top</option><option value="west">Water side</option><option value="east">Electronics side</option><option value="rear">Rear connections</option></select></label>
+    <label class="form-label">Show<select class="form-select" data-control="show"><option value="all">Complete bay</option><option value="pump">Pump and water circuit</option><option value="gas">CO₂ and carbonated water</option><option value="electronics">Electronics and wiring</option><option value="structure">Structure and mounts</option><option value="funnel">Funnel and drain</option></select></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="funnel" checked><span class="form-check-label">Funnel</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="cover"><span class="form-check-label">Cover</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="walls"><span class="form-check-label">Walls and roof</span></label>
+    <label class="form-label">Roof electronics<select class="form-select" data-control="roof"><option value="ghost">See through</option><option value="solid">Solid</option><option value="hidden">Hidden</option></select></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="labels" checked><span class="form-check-label">Labels</span></label>
+  </div>
+  <div class="pb-readout tabular-nums" data-readout aria-live="polite"></div>
+  <div class="pb-stage" role="img" aria-label="Rotatable native component geometry of the bay above the cold core. Select a component to inspect its name and measured position."></div>
+  <div class="pb-legend text-small"></div>
+  <div class="viz-controls pb-inspect">
+    <div class="pb-inspect-field"><label class="form-label">Inspect<select class="form-select" data-control="inspect"><option value="">All components</option></select></label></div>
+    <button type="button" class="btn" data-action="frame">Frame selection</button>
+  </div>
+  <div class="pb-detail text-small" data-detail aria-live="polite"></div>
+  <div class="sr-only">Full component geometry is shown in the existing enclosure coordinates: X is width, positive Y is aft, and Z is height above the cabinet floor. The study is bounded by the cold-core top lid and forward cartridge assembly. Printed fit and endurance qualification are separate from geometric readings.</div>
+</div>
+<style>
+#pump-bay-study .pb-stage{width:100%;height:510px;touch-action:none;position:relative;margin-block:8px}
+#pump-bay-study canvas{display:block;width:100%;height:100%}
+#pump-bay-study .pb-readout{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:14px;font-weight:500}
+#pump-bay-study .pb-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:14px}
+#pump-bay-study .pb-legend span{display:inline-flex;align-items:center;gap:6px}
+#pump-bay-study .pb-swatch{width:12px;height:12px;display:inline-block}
+#pump-bay-study .pb-detail{min-height:42px;margin-top:10px;overflow-wrap:anywhere}
+#pump-bay-study .pb-inspect{align-items:end}
+#pump-bay-study .pb-inspect-field{display:grid;grid-template-columns:minmax(0,1fr);min-width:0;flex:1 1 260px}
+#pump-bay-study .pb-leaders{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;color:var(--muted-foreground);overflow:hidden}
+#pump-bay-study .pb-leaders line{stroke:currentColor;stroke-width:1;opacity:.8;vector-effect:non-scaling-stroke}
+#pump-bay-study .pb-label{position:absolute;max-width:170px;pointer-events:none;padding:2px 6px;border:1px solid var(--border);border-radius:3px;background:var(--background);color:var(--foreground);font-size:11px;line-height:1.3;opacity:.94;transform:translate(-50%,-50%)}
+@media(max-width:580px){#pump-bay-study .pb-stage{height:390px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+const root=document.getElementById('pump-bay-study');
+const binary=Uint8Array.from(atob('__MODEL_DATA__'),c=>c.charCodeAt(0));
+const raw=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+const hlen=new DataView(raw).getUint32(0,true);
+const data=JSON.parse(new TextDecoder().decode(new Uint8Array(raw,4,hlen)));
+const offset=(hlen+7)&~3;
+const state={arrangement:'candidate',view:'three',show:'all',funnel:true,cover:false,walls:false,roof:'ghost',labels:true,inspect:''};
+const geometries=new Map(),parts=[];
+const saved=window.openai?.widgetState;
+if(saved?.modelContent)for(const k of Object.keys(state))if(typeof saved.modelContent[k]===typeof state[k])state[k]=saved.modelContent[k];
+function token(name){const probe=document.createElement('span');probe.style.color=`var(${name})`;probe.style.display='none';root.append(probe);const color=getComputedStyle(probe).color;probe.remove();return new THREE.Color(color)}
+const roles={pump:['Diaphragm pump','--viz-series-1'],water:['Tap-water circuit','--viz-series-1'],gas:['CO₂ and carbonated water','--viz-series-2'],electronics:['Electronics','--viz-series-3'],wiring:['Wiring','--viz-series-3'],funnel:['Funnel and drain','--viz-series-4'],flavor:['Flavor circuits','--viz-series-5'],structure:['Structure and mounts','--muted-foreground'],context:['Retained boundaries','--muted-foreground']};
+for(const [name,m] of Object.entries(data.meshes)){
+  const g=new THREE.BufferGeometry();
+  const positions=Float32Array.from(new Int32Array(raw,offset+m.p[0],m.p[1]));
+  for(let i=3;i<positions.length;i++)positions[i]+=positions[i-3];
+  for(let i=0;i<positions.length;i++)positions[i]/=1000;
+  const deltas=new Int32Array(raw,offset+m.i[0],m.i[1]),indices=new Uint32Array(deltas.length);
+  let sum=0;for(let i=0;i<deltas.length;i++){sum+=deltas[i];indices[i]=sum}
+  g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));
+  if(m.n){const normals=Float32Array.from(new Int32Array(raw,offset+m.n[0],m.n[1]));for(let i=3;i<normals.length;i++)normals[i]+=normals[i-3];for(let i=0;i<normals.length;i++)normals[i]/=10000;g.setAttribute('normal',new THREE.BufferAttribute(normals,3))}else g.computeVertexNormals();
+  g.computeBoundingBox();g.computeBoundingSphere();geometries.set(name,g);
+}
+const stage=root.querySelector('.pb-stage');
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;renderer.outputColorSpace=THREE.SRGBColorSpace;stage.append(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-300,300,240,-240,.1,3000);camera.up.set(0,0,1);
+const fg=token('--foreground'),bg=token('--background');
+const lightColor=(fg.r+fg.g+fg.b>bg.r+bg.g+bg.b ? fg : bg);
+const lights=[];
+const hemi=new THREE.HemisphereLight(lightColor,token('--muted-foreground'),.9);scene.add(hemi);
+for(const [p,intensity] of [[[100,-350,800],1.1],[[-400,100,500],.45],[[300,650,450],.65]]){const l=new THREE.DirectionalLight(lightColor,intensity);l.position.set(...p);scene.add(l);lights.push(l)}
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.minZoom=.65;controls.maxZoom=15;
+const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
+stage.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY]});
+stage.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const r=stage.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(pointer,camera);const hit=raycaster.intersectObjects(parts.filter(p=>p.object.visible&&(p.role!=='context'||floorPart(p))&&p.role!=='walls').map(p=>p.object),false)[0];state.inspect=hit?hit.object.userData.id:'';setSelection();save()});
+controls.addEventListener('change',()=>{renderer.render(scene,camera);updateLabels()});
+const wireTokens={line:'--viz-series-6','switched-line':'--viz-series-6',neutral:'--viz-series-1',earth:'--viz-series-3',positive:'--viz-series-2','switched-positive':'--viz-series-2',return:'--foreground'};
+function colorToken(p){return wireTokens[p.color_role]||(roles[p.role]||roles.structure)[1]}
+function floorPart(p){return p.id==='cold-core/foam-cap-top'||p.id==='cold-core/foam-cap-lid-top'}
+function funnelPart(p){return p.role==='funnel'||p.id==='funnel'||p.id?.startsWith('funnel-')||p.id==='elbow-cradle'||p.id==='tube-fluid-4'}
+function roofPart(p){return p.id==='pcba'||p.id==='ground-stack'||p.id==='west-junction-platform'||p.id?.startsWith('wago-')||p.id?.startsWith('controller-')||p.id==='ground-roof-boss'}
+function build(){
+  for(const p of parts){scene.remove(p.object);p.object.material.dispose();p.edges?.geometry.dispose();p.edges?.material.dispose()}parts.length=0;
+  for(const p of data.models[state.arrangement].parts){
+    const g=geometries.get(p.mesh);const role=p.role||'context';const color=token(colorToken({...p,role}));
+    const material=new THREE.MeshStandardMaterial({color,roughness:role==='pump' ? .6 : .76,metalness:0,side:THREE.DoubleSide});
+    const object=new THREE.Mesh(g,material);object.userData.id=p.id||p.mesh;
+    if(p.matrix)object.applyMatrix4(new THREE.Matrix4().fromArray(p.matrix));scene.add(object);
+    const edges=new THREE.LineSegments(new THREE.EdgesGeometry(g,40),new THREE.LineBasicMaterial({color:token('--foreground'),transparent:true,opacity:.15}));object.add(edges);
+    parts.push({...p,role,object,edges});
+  }
+  const inspect=root.querySelector('[data-control="inspect"]');inspect.replaceChildren(new Option('All components',''));
+  for(const p of [...parts].sort((a,b)=>a.label.localeCompare(b.label))){if(p.role==='context'&&!floorPart(p))continue;inspect.add(new Option(p.label,p.id||p.mesh))}
+  if(!parts.some(p=>(p.id||p.mesh)===state.inspect))state.inspect='';
+  setSelection();
+}
+function visible(p){
+  if(state.inspect&&(p.id||p.mesh)===state.inspect)return true;
+  if(roofPart(p)&&state.roof==='hidden'&&['all','electronics'].includes(state.show))return false;
+  if(p.id==='funnel-cover'&&!state.cover&&state.inspect!==p.id)return false;
+  if(p.role==='walls')return state.walls;
+  if(p.role==='context')return true;
+  if(funnelPart(p)&&!state.funnel&&state.show!=='funnel'&&!(state.show==='structure'&&p.id==='funnel-frame'))return false;
+  if(state.show==='all')return true;
+  if(state.show==='pump')return p.role==='pump'||p.role==='water';
+  if(state.show==='gas')return p.role==='gas'||p.id==='digiten-flow'||p.id==='bulkhead-carb'||p.id?.includes('carb-');
+  if(state.show==='electronics')return p.role==='electronics'||p.role==='wiring';
+  if(state.show==='structure')return p.role==='structure'||p.role==='hardware'||p.role==='pump'||funnelPart(p);
+  if(state.show==='funnel')return funnelPart(p);
+  return p.role===state.show;
+}
+function setSelection(){
+  for(const p of parts){
+    p.object.visible=visible(p);
+    const selected=state.inspect&&(p.id||p.mesh)===state.inspect;
+    const ghost=Boolean(state.inspect&&!selected&&p.role!=='context')||(!selected&&p.role==='walls')||(!selected&&p.role==='context')||(!selected&&funnelPart(p)&&state.show!=='funnel'&&state.show!=='structure')||(!selected&&roofPart(p)&&state.roof==='ghost'&&['all','electronics'].includes(state.show));
+    p.object.material.transparent=ghost;p.object.material.opacity=ghost ? (p.role==='context' ? .15 : p.role==='walls' ? .1 : (p.role==='funnel' && !state.inspect) ? .26 : .10) : 1;
+    p.object.material.depthWrite=!ghost;p.edges.material.opacity=selected ? .55 : ghost ? .13 : .16;
+  }
+  const p=parts.find(p=>(p.id||p.mesh)===state.inspect),detail=root.querySelector('[data-detail]');
+  detail.textContent=p?`${p.label} · ${p.detail||''}`:data.models[state.arrangement].detail;
+  const inspect=root.querySelector('[data-control="inspect"]');inspect.value=state.inspect;
+  const model=data.models[state.arrangement];const readout=root.querySelector('[data-readout]');readout.replaceChildren();
+  for(const text of model.readouts){const span=document.createElement('span');span.textContent=text;readout.append(span)}
+  for(const k of ['arrangement','view','show','funnel','cover','walls','roof','labels']){const e=root.querySelector(`[data-control="${k}"]`);if(e.type==='checkbox')e.checked=state[k];else e.value=state[k]}
+  renderer.render(scene,camera);
+  updateLabels();
+}
+function updateLabels(){
+  stage.querySelectorAll('.pb-label,.pb-leaders').forEach(e=>e.remove());if(!state.labels)return;
+  const ids=state.inspect?[state.inspect]:state.arrangement==='tooling'?['mold-cavity','mold-core']:state.arrangement==='factory'?['j13-front-stowed','pump-contact-male','funnel-frame','psu','g-ganen-pump']:state.view==='rear'&&state.show==='all'?['bulkhead-water','bulkhead-carb','co2-inlet','bulkhead-flavor-a','bulkhead-flavor-b','c14-inlet','keystone-jack']:state.show==='pump'?['g-ganen-pump','vk-solenoid','suction-chain','discharge-chain','asse1022-assembly','water-split']:state.show==='gas'?['wr1110','gasher-co2','digiten-flow','bulkhead-carb','co2-inlet']:state.show==='electronics'?['pcba','psu','relay-1','relay-2','c14-inlet','ground-stack']:state.show==='structure'?['rear-roof-hatch','west-junction-platform','asse-removable-carrier','suction-chain-anchor','meter-roof-seat-1','relay-lid-platform']:state.show==='funnel'?['funnel','funnel-frame','funnel-drain-union']:['funnel','g-ganen-pump','psu','pcba','wr1110','digiten-flow'];
+  const placed=[];const w=stage.clientWidth,h=stage.clientHeight;
+  const svgNS='http://www.w3.org/2000/svg',leaders=document.createElementNS(svgNS,'svg');
+  leaders.classList.add('pb-leaders');leaders.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  leaders.setAttribute('preserveAspectRatio','none');leaders.setAttribute('aria-hidden','true');leaders.setAttribute('focusable','false');stage.append(leaders);
+  for(const id of (w<500?ids.slice(0,3):ids)){const p=parts.find(p=>p.id===id&&p.object.visible);if(!p)continue;
+    const center=new THREE.Box3().setFromObject(p.object).getCenter(new THREE.Vector3()).project(camera);
+    if(Math.abs(center.x)>1.05||Math.abs(center.y)>1.05)continue;
+    const label=document.createElement('span');label.className='pb-label';label.textContent=p.label;stage.append(label);
+    const anchorX=(center.x+1)*w/2,anchorY=(1-center.y)*h/2;
+    let x=anchorX,y=anchorY;const bw=label.offsetWidth;
+    label.style.boxSizing='border-box';label.style.width=bw+'px';
+    const bh=label.offsetHeight;
+    x=Math.max(bw/2+4,Math.min(w-bw/2-4,x));
+    const lo=bh/2+4,hi=h-bh/2-4,preferred=Math.max(lo,Math.min(hi,y));
+    const candidates=[preferred,lo,hi,...placed.flatMap(q=>[q.y-(q.h+bh)/2-4,q.y+(q.h+bh)/2+4])];
+    const clear=cy=>cy>=lo&&cy<=hi&&!placed.some(q=>Math.abs(x-q.x)<(bw+q.w)/2+4&&Math.abs(cy-q.y)<(bh+q.h)/2+3);
+    candidates.sort((a,b)=>Math.abs(a-preferred)-Math.abs(b-preferred));
+    y=candidates.find(clear);
+    if(y===undefined){label.remove();throw new Error('No clear label placement for '+id)}
+    label.style.left=x+'px';label.style.top=y+'px';placed.push({x,y,w:bw,h:bh});
+    const endX=Math.max(x-bw/2,Math.min(x+bw/2,anchorX)),endY=Math.max(y-bh/2,Math.min(y+bh/2,anchorY));
+    if(Math.hypot(anchorX-endX,anchorY-endY)>.5){
+      const line=document.createElementNS(svgNS,'line');
+      line.setAttribute('x1',anchorX);line.setAttribute('y1',anchorY);line.setAttribute('x2',endX);line.setAttribute('y2',endY);leaders.append(line);
+    }
+  }
+}
+function viewBounds(){
+  if(state.arrangement==='factory'&&state.show==='all')return [[-110,-90,248],[110,492,359]];
+  if(state.arrangement!=='tooling'&&state.show==='all'&&state.view==='top'&&!state.funnel)return [[-110,210,248],[110,493,359]];
+  if(state.show==='all'&&state.arrangement!=='tooling')return data.bounds||[[-110,130,248],[110,492,359]];
+  const box=new THREE.Box3();
+  for(const p of parts)if(visible(p)&&!['context','walls'].includes(p.role))box.expandByObject(p.object);
+  return box.isEmpty()?(data.bounds||[[-110,130,248],[110,492,359]]):[box.min.toArray(),box.max.toArray()];
+}
+function orient(){
+  const bounds=viewBounds();
+  const focusBay=state.view==='top'&&!state.funnel;
+  const target=['factory','tooling'].includes(state.arrangement)||state.show!=='all'||focusBay?new THREE.Vector3(...bounds[0]).add(new THREE.Vector3(...bounds[1])).multiplyScalar(.5):new THREE.Vector3(...(data.target||[0,320,292]));
+  const dirs={three:[560,-580,670],top:[0,.01,1000],west:[-1100,0,0],east:[1100,0,0],rear:[0,1100,200]};
+  controls.target.copy(target);camera.position.copy(target).add(new THREE.Vector3(...dirs[state.view]));camera.zoom=1;camera.up.set(0,0,1);camera.lookAt(target);controls.update();resize();
+}
+function resize(){
+  const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);
+  const aspect=w/h,q=camera.quaternion.clone().invert(),bounds=viewBounds();let px=0,py=0;
+  for(const x of [bounds[0][0],bounds[1][0]])for(const y of [bounds[0][1],bounds[1][1]])for(const z of [bounds[0][2],bounds[1][2]]){const v=new THREE.Vector3(x,y,z).sub(controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}
+  const span=Math.max(py*2,px*2/aspect)*1.08;camera.left=-span*aspect/2;camera.right=span*aspect/2;camera.top=span/2;camera.bottom=-span/2;camera.updateProjectionMatrix();renderer.render(scene,camera);updateLabels();
+}
+function frameSelection(){const p=parts.find(p=>(p.id||p.mesh)===state.inspect);if(!p){orient();return}const b=new THREE.Box3().setFromObject(p.object),center=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()).length();const direction=camera.position.clone().sub(controls.target).normalize();controls.target.copy(center);camera.position.copy(center).add(direction.multiplyScalar(800));camera.zoom=Math.min(12,Math.max(1,400/size));controls.update();camera.updateProjectionMatrix();renderer.render(scene,camera);updateLabels()}
+function save(){window.openai?.setWidgetState?.({modelContent:{...state},privateContent:null}).catch(()=>{})}
+for(const e of root.querySelectorAll('[data-control]'))e.addEventListener('change',()=>{const k=e.dataset.control;state[k]=e.type==='checkbox'?e.checked:e.value;if(k==='arrangement'){if(state.arrangement==='tooling'){state.show='funnel';state.funnel=true;state.walls=false}build()}if(['arrangement','view','show','funnel'].includes(k))orient();setSelection();save()});
+root.querySelector('[data-action="frame"]').addEventListener('click',frameSelection);
+new ResizeObserver(resize).observe(stage);
+const legend=root.querySelector('.pb-legend');for(const [role,[label,color]] of Object.entries(roles)){if(role==='context'||role==='wiring'||role==='pump')continue;const s=document.createElement('span'),swatch=document.createElement('i');swatch.className='pb-swatch';swatch.style.background=`var(${color})`;s.append(swatch,document.createTextNode(label));legend.append(s)}
+new MutationObserver(()=>{for(const p of parts){p.object.material.color.copy(token(colorToken(p)));p.edges.material.color.copy(token('--foreground'))}const f=token('--foreground'),b=token('--background'),c=f.r+f.g+f.b>b.r+b.g+b.b?f:b;hemi.color.copy(c);hemi.groundColor.copy(token('--muted-foreground'));for(const l of lights)l.color.copy(c);setSelection()}).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+window.addEventListener('openai:set_globals',event=>{const s=event.detail?.globals?.widgetState?.modelContent;if(!s)return;for(const k of Object.keys(state))if(typeof s[k]===typeof state[k])state[k]=s[k];build();orient();setSelection()});
+build();orient();setSelection();root.dataset.ready='true';window.pumpBayStudy={state,data,parts,scene,camera,controls,renderer,build,orient,setSelection,resize,frameSelection};
+</script>

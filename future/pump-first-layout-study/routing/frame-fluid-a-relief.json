@@ -1,0 +1,17 @@
+{
+  "brep": ".cache/pump-first-layout/routing/frame-fluid-a-clearance.brep",
+  "sha256": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893",
+  "bounds": [
+    40.57499989999997,
+    101.12034662468089,
+    253.4000001,
+    92.6750001,
+    430.47500010000005,
+    300.79500918852676
+  ],
+  "target_host": "funnel-frame",
+  "print_owner": "funnel-frame",
+  "occupied_part": "tube-fluid-14",
+  "radial_air_mm": 1.0,
+  "scope": "Complete exact Gate-A run clearance; its actual maximumZ300.795mm is below all protected306.9mm rail stock."
+}

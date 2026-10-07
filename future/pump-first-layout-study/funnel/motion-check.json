@@ -1,0 +1,193 @@
+{
+  "aft_extension_mm": 60.0,
+  "checks": [
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 4,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 6,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 8,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 16,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 32,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 50,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "silicone vertical cleaning lift against frame",
+      "lift_mm": 75,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 0,
+      "intentional_pad_contact_mm3": 41.7273081577341,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 0.5,
+      "intentional_pad_contact_mm3": 37.12411592750445,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 2,
+      "intentional_pad_contact_mm3": 23.314539236930678,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 4,
+      "intentional_pad_contact_mm3": 4.901770316049553,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 6,
+      "intentional_pad_contact_mm3": 0.0,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 8,
+      "intentional_pad_contact_mm3": 0.0,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "lid vertical lift permits only four silicone friction pads",
+      "lift_mm": 12,
+      "intentional_pad_contact_mm3": 0.0,
+      "outside_pad_contact_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 0,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 1,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 2,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 5,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 10,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 20,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 40,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "frame insertion/removal through retained front-top rails; bay hardware excluded",
+      "travel_aft_mm": 70,
+      "overlap_mm3": 0.0,
+      "pass_result": true
+    }
+  ],
+  "pass_result": true,
+  "source_sha256": {
+    ".cache/pump-first-layout/funnel/aft-60/funnel.brep": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+    ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep": "1803801f5864f68fd396b5d36f3f7625f3b55bf19326f7a8fbec4ac373e15279",
+    ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep": "1bf2832a7bc1f2e6ea685414f3ca701c768ff0769f4356f51b41c47aadf50b4c",
+    ".cache/pump-first-layout/structure/print-parts/funnel-frame.brep": "f7c45f79b36810c087a193e9b038a8d623a3bcaa56793028712a2efaf2ba621b"
+  },
+  "retained_front_shell": {
+    "file": "203.brep",
+    "bounds": [
+      -107.50000010000001,
+      4.999999899999999,
+      159.9999999,
+      107.50000010000001,
+      217.80000010000006,
+      355.0000001038191
+    ]
+  },
+  "scope": "Native Boolean sampled poses. Customer cleaning is vertical silicone removal after lid removal; the 5.015 mm retained drain-tube engagement is unchanged. Frame sliding is factory assembly with the front-top off and captured by closing both upper shells. Other installed bay hardware and revised back-top insertion/closing are checked by the full study integration."
+}

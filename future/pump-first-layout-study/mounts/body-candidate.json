@@ -1,0 +1,524 @@
+{
+  "parts": {
+    "needle-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-lid-seat.brep",
+      "sha256": "e91b6064eaba42c037f803d60fd801cbf8f25d365bb3ca1241f6d74ab0834d64",
+      "bounds": [
+        6.75,
+        302.4,
+        253.39,
+        16.25,
+        312.5,
+        285.35
+      ],
+      "role": "structure",
+      "detail": "Lid-rooted needle barrel saddle: measuredR6.85 body/R7.1 slip,3mm radial bearing,3mm axial end webs,3.5mm dressed tie tunnel."
+    },
+    "needle-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-retention-tie.brep",
+      "sha256": "bde30ba8f3967679dda5db5132c6bc979263520435414026b2a41daf6c9b51b1",
+      "bounds": [
+        10.0,
+        296.2,
+        264.15,
+        18.0,
+        320.35,
+        293.9
+      ],
+      "role": "structure",
+      "detail": "Complete nominal2.5\u00d71mm nylon tie with conservative8\u00d78\u00d75mm locking head; barrel contact and measured round seat are explicit. Purchased head/dressing remain unqualified."
+    },
+    "wr-regulator-seat": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-seat.brep",
+      "mesh": ".cache/pump-first-layout/mounts/wr/wr-regulator-seat.json",
+      "sha256": "69b84f42f0f37fb7f612ab98d914abe27ae463665bc9e32212a5e2863c028c87",
+      "bounds": [
+        -99.50000010000008,
+        365.5272858227727,
+        308.8149999000014,
+        -74.10776632314382,
+        381.5087968475561,
+        333.98500010000174
+      ],
+      "role": "structure",
+      "detail": "West-wall/roof-carrier rooted9.5mm seat on the actual scanned18.87mm barrel;0.15 radial slip,3mm radial/end webs,3.5mm central tie passage."
+    },
+    "wr-regulator-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-retention-tie.brep",
+      "mesh": ".cache/pump-first-layout/mounts/wr/wr-regulator-retention-tie.json",
+      "sha256": "b55c42753d3be48cc0831b48d3ce7f06da36f4d24bbb1934a6b8a229afab7de9",
+      "bounds": [
+        -96.0792146932433,
+        366.12942018012876,
+        303.29999990000147,
+        -64.64423565031771,
+        379.2609401920559,
+        335.1352217734472
+      ],
+      "role": "hardware",
+      "detail": "Complete nominal6in narrow tie2.5\u00d71mm,0.15mm stock air, full tangent loop around the barrel and bearing rib; conservative8\u00d78\u00d75mm locking-head reserve below the west flank. Purchased head shape remains unmeasured."
+    },
+    "west-junction-platform": {
+      "brep": ".cache/pump-first-layout/mounts/wr/west-junction-platform.brep",
+      "mesh": ".cache/pump-first-layout/mounts/wr/west-junction-platform.json",
+      "sha256": "1c5c47089c028245bec376f227014fc7675e861ccd55ceb8460c9fec086f1e6b",
+      "bounds": [
+        -99.50000010000018,
+        343.69999989999985,
+        319.59999989999994,
+        -14.949999899999886,
+        415.8000001000002,
+        355.0000001000001
+      ],
+      "role": "structure",
+      "detail": "One rooted3mm carrier with the WR tie-band passage open; two full3mm bearing end webs remain beside the3.5mm channel."
+    },
+    "check-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-lid-seat.brep",
+      "sha256": "e0b430fbda1e1bf436bd980d18c778a1c23e6caaab836a2269827bd6ca7d48da",
+      "role": "structure",
+      "bounds_mm": [
+        66.6,
+        386.587,
+        250.8,
+        80.30000000000001,
+        398.413,
+        262.5
+      ],
+      "detail": "Lid-rooted lower keyed/fixed-collar seat with3mm fore/aft tunnel webs and bottom stock.",
+      "valid": true,
+      "solids": 1
+    },
+    "check-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-retention-tie.brep",
+      "sha256": "d628fffff283c5b476aae841a11da04e3db47866067b43340130cd561d6ae417",
+      "role": "structure",
+      "bounds_mm": [
+        64.50000000000001,
+        387.5,
+        257.13878406783226,
+        83.50000000000001,
+        397.5,
+        279.65
+      ],
+      "detail": "Closed nominal nylon tie and conservative locking head:4.826\u00d71mm wide check band or2.5\u00d71mm tee band; dressed before roof closure.",
+      "valid": true,
+      "solids": 1
+    },
+    "tee-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-seat.brep",
+      "sha256": "647af5d079d66c0459603dfed1959c978a5396da4691eefa8952e9834b79b46e",
+      "role": "structure",
+      "bounds_mm": [
+        87.4999999,
+        406.34999989469094,
+        252.4999999,
+        102.6500001,
+        421.05000010000003,
+        261.7500001
+      ],
+      "detail": "Lid-rooted lower keyed/fixed-collar seat with3mm fore/aft tunnel webs and bottom stock.",
+      "valid": true,
+      "solids": 1
+    },
+    "tee-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-retention-tie.brep",
+      "sha256": "f17e5773913ef622742f708b3ea807eab71392225680a28ef30444ac7235dca4",
+      "role": "structure",
+      "bounds_mm": [
+        84.58589838486226,
+        409.85,
+        257.0,
+        103.25,
+        419.5,
+        279.47076581449596
+      ],
+      "detail": "Closed nominal nylon tie and conservative locking head:4.826\u00d71mm wide check band or2.5\u00d71mm tee band; dressed before roof closure.",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "intended_contacts": [
+    [
+      "needle-retention-tie",
+      "flow-regulator"
+    ],
+    [
+      "wr-regulator-seat",
+      "west-junction-platform"
+    ],
+    [
+      "check-lid-seat",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tee-lid-seat",
+      "cold-core/foam-cap-lid-top"
+    ]
+  ],
+  "checks": [
+    {
+      "parts": [
+        "needle-lid-seat",
+        "needle-retention-tie"
+      ],
+      "common_mm3": 0.0,
+      "declared_contact": false,
+      "pass": true
+    },
+    {
+      "parts": [
+        "wr-regulator-seat",
+        "wr-regulator-retention-tie"
+      ],
+      "common_mm3": 0.0,
+      "declared_contact": false,
+      "pass": true
+    },
+    {
+      "parts": [
+        "wr-regulator-seat",
+        "west-junction-platform"
+      ],
+      "common_mm3": 32.880947330688166,
+      "declared_contact": true,
+      "pass": true
+    },
+    {
+      "parts": [
+        "wr-regulator-retention-tie",
+        "west-junction-platform"
+      ],
+      "common_mm3": 0.0,
+      "declared_contact": false,
+      "pass": true
+    },
+    {
+      "parts": [
+        "check-lid-seat",
+        "check-retention-tie"
+      ],
+      "common_mm3": 0.0,
+      "declared_contact": false,
+      "pass": true
+    },
+    {
+      "parts": [
+        "tee-lid-seat",
+        "tee-retention-tie"
+      ],
+      "common_mm3": 0.0,
+      "declared_contact": false,
+      "pass": true
+    }
+  ],
+  "inputs_sha256": {
+    "future/pump-first-layout-study/mounts/needle-candidate.json": "9ce5bca374af7150349b87f59b4c2b62ae9d3ca4624fa93eff590d840b9657bd",
+    "future/pump-first-layout-study/mounts/wr-candidate.json": "694deb605b9cfdd44ee3b104911bce6322467bfcf18194642631bfe0748ffbeb",
+    "future/pump-first-layout-study/mounts/check-tee-candidate.json": "b464c3c42cbf45471712dc49e478bf0ce514e850d72dd8339363b931435b6b15"
+  },
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/mounts/needle-candidate.json": "11b00ad13c471d54089906a642b8509333965952c81e8abe2b9ce8ddcb68f80f",
+    "future/pump-first-layout-study/mounts/wr-candidate.json": "7ed0f53aab4d4336dc73d568fe8044ea81bbbbccd1246eea6e2a9d2c11e0a39e",
+    "future/pump-first-layout-study/mounts/check-tee-candidate.json": "a3a99220fb01df4f60b5c1389a8ab84ec909d837d2e02e52c683cbfac2aaac4c"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0",
+    "future/pump-first-layout-study/mounts/compose_body_hosts.py": "308fcdbdec63bcd0397b36d37b5ef5e75cfc52f0b2e5074a450e2d0c53347293",
+    "future/pump-first-layout-study/structure/proof_sources.py": "6ec264670856c41536e1b5afc6025a1739830c9d23c0931348affd2cb76c4296"
+  },
+  "retained_components": [
+    "flow-regulator",
+    "wr1110",
+    "gasher-co2",
+    "water-split"
+  ],
+  "scope": "Complete nominal printed body restraints and dressed retention hardware; joined-stock, occupancy and factory motion are separate checks. Physical retention is unqualified.",
+  "shell_fuse_part_names": [
+    "wr-regulator-seat"
+  ],
+  "lid_fuse_part_names": [
+    "needle-lid-seat",
+    "check-lid-seat",
+    "tee-lid-seat"
+  ],
+  "front_shell_fuse_part_names": [],
+  "cap_fuse_part_names": [],
+  "factory_carried_part_names": [
+    "wr1110",
+    "co2-adapter-regulator-in",
+    "co2-adapter-regulator-out",
+    "wr-regulator-retention-tie"
+  ],
+  "factory_deferred_part_names": [],
+  "root_owner_overrides": {},
+  "pilot_owner_overrides": {},
+  "pilot_cutters": {},
+  "clearance_cutters": {
+    "wr-regulator-tie-channel": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-tie-channel.brep",
+      "mesh": ".cache/pump-first-layout/mounts/wr/wr-regulator-tie-channel.json",
+      "sha256": "2f0d76d8317a14e3e4cc7ab54dde864cf92a3e34a3b6ee63585b26ed1754a3a6",
+      "bounds": [
+        -92.05334627104153,
+        364.65208219796637,
+        306.81499990000145,
+        -60.79808995118224,
+        376.1649171871137,
+        336.2600001000001
+      ],
+      "role": "structure",
+      "detail": "Recut non-bearing carrier stock after host fusion so it cannot fill the real tie passage; complete seat/rib remains protected.",
+      "print_owner": "enclosure-back-top"
+    },
+    "check-lid-tie-tunnel": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-lid-tie-tunnel.brep",
+      "sha256": "891d80773e4b26eb7d6aae908b256646b9e70b1c89814aea06e751cfeec14483",
+      "role": "structure",
+      "bounds_mm": [
+        64.30000000000001,
+        389.587,
+        256.9387840678323,
+        83.70000000000002,
+        395.413,
+        274.0612159321677
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-exact-gas-clearance": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-exact-gas-clearance.brep",
+      "sha256": "617b7ef50d67ce8a6c26e541f2741852755c6878f465afd8d80434c7efe603aa",
+      "role": "structure",
+      "bounds_mm": [
+        -94.7049528025729,
+        271.14999989999995,
+        253.39999989999998,
+        104.5000001,
+        454.00260010000005,
+        325.5750001
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-outer-rib-relief": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-outer-rib-relief.brep",
+      "sha256": "7e49cdb630a8cb1cd879467164a4a9294c24f79251ed6b5ef13076be48cca7f7",
+      "role": "structure",
+      "bounds_mm": [
+        97.5,
+        406.34000000000003,
+        250.4,
+        104.5,
+        421.06,
+        253.7
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-factory-toe-relief": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-toe-relief.brep",
+      "sha256": "dde5d9b216b79794ca6b618f858fb311f958be81710811741c399d53542fa5b9",
+      "role": "structure",
+      "bounds_mm": [
+        95.25,
+        406.34000000000003,
+        250.4,
+        104.5,
+        421.06,
+        253.6
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-tie-tunnel": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-tie-tunnel.brep",
+      "sha256": "fb3178319c09ebbe2201f1bafc5ddef75bba0b9f5b69c196f5fb5fbd0abef8bc",
+      "role": "structure",
+      "bounds_mm": [
+        87.05,
+        409.35,
+        256.8,
+        103.45,
+        412.85,
+        273.2
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-gas-portal": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-gas-portal.brep",
+      "sha256": "4c9ed58fccc7d677712c659404c79e1b0093e54c7d0314b941838a259ea237ad",
+      "role": "structure",
+      "bounds_mm": [
+        78.825,
+        380.0,
+        253.39999999999998,
+        87.175,
+        470.0,
+        261.75
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "minimum_exterior_wall_stock_mm": null
+    },
+    "tee-lid-factory-slide-clearance": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-slide-clearance.brep",
+      "sha256": "e2d1218f40c365522ea143b09f6502a5c52e09429e44aebb6982822ed933db67",
+      "role": "structure",
+      "bounds_mm": [
+        83.58589838486226,
+        114.19999999999999,
+        253.4,
+        104.5,
+        425.0,
+        288.35
+      ],
+      "detail": "Exact tie passage or full rear-column/factory-entry clearance.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "enclosure-back-top",
+      "minimum_exterior_wall_stock_mm": 3.0,
+      "factory_upper_bay_channel": true,
+      "preserved_frame_receiver_z_min_mm": 303.9
+    }
+  },
+  "standalone_print_parts": {},
+  "joined_root_coupons": {
+    "tee-lid-bond-coupon-fore": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-bond-coupon-fore.brep",
+      "sha256": "908e6a5c7c514f5c53b62675e42d3905fbd490b0ce7a791a68887e76e5d5b39e",
+      "role": "structure",
+      "bounds_mm": [
+        87.5,
+        411.55,
+        252.5,
+        90.5,
+        414.55,
+        253.4
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    },
+    "tee-factory-toe-bearing-coupon-fore": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-factory-toe-bearing-coupon-fore.brep",
+      "sha256": "6494878d6c578f20cee3732d515a6b4f16c7932b7c068902d8edad1277fb46ba",
+      "role": "structure",
+      "bounds_mm": [
+        95.25,
+        411.55,
+        253.6,
+        96.25,
+        414.55,
+        256.6
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    },
+    "tee-outboard-bearing-coupon-fore": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-outboard-bearing-coupon-fore.brep",
+      "sha256": "4e862824170bcc2fbf63ca14c73bbbc09a0e5110c41ae4a3fe617b08c85faeaa",
+      "role": "structure",
+      "bounds_mm": [
+        97.5,
+        411.55,
+        253.7,
+        102.65,
+        414.55,
+        256.7
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    },
+    "tee-lid-bond-coupon-aft": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-bond-coupon-aft.brep",
+      "sha256": "c4cc173c10a7f081baac7cbca309ac9426a684ce051f1be4444b60d3ecdc38ad",
+      "role": "structure",
+      "bounds_mm": [
+        87.5,
+        418.05,
+        252.5,
+        90.5,
+        421.05,
+        253.4
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    },
+    "tee-factory-toe-bearing-coupon-aft": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-factory-toe-bearing-coupon-aft.brep",
+      "sha256": "30bdf4c3de469bcf015b203f64ac3a3711cc693018773dc8a318230f7f1aa960",
+      "role": "structure",
+      "bounds_mm": [
+        95.25,
+        418.05,
+        253.6,
+        96.25,
+        421.05,
+        256.6
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    },
+    "tee-outboard-bearing-coupon-aft": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-outboard-bearing-coupon-aft.brep",
+      "sha256": "f8efba56e5fd0f43a964e64fa7e764948808fc4772f3575abf7139c8983c3fd0",
+      "role": "structure",
+      "bounds_mm": [
+        97.5,
+        418.05,
+        253.7,
+        102.65,
+        421.05,
+        256.7
+      ],
+      "detail": "Exact positive lid bond or3mm outboard bearing-stock witness required after final parent fusion and recuts.",
+      "valid": true,
+      "solids": 1,
+      "print_owner": "cold-core-lid",
+      "host_part": "tee-lid-seat",
+      "require_missing_volume_mm3_below": 0.0001
+    }
+  },
+  "manifest_drift": [],
+  "source_drift": [],
+  "pass": true
+}

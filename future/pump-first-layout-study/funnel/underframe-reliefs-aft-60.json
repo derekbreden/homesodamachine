@@ -1,0 +1,276 @@
+{
+  "aft_extension_mm": 60.0,
+  "closure_travel_mm": 102.2,
+  "checks": [
+    {
+      "test": "native relieved frame",
+      "valid": true,
+      "solids": 1,
+      "pass": true
+    },
+    {
+      "test": "complete production rails and their three-millimetre roots",
+      "removed_mm3": 0.0,
+      "protected_abs_x_min_mm": 95.25,
+      "lowest_rail_z_mm": 306.9,
+      "highest_valve_cutter_z_mm": 306.25,
+      "highest_cradle_cutter_z_mm": 308.3,
+      "pass": true
+    },
+    {
+      "test": "complete three-millimetre brim bearing and upper surround",
+      "removed_mm3": 0.0,
+      "lowest_protected_z_mm": 346,
+      "pass": true
+    },
+    {
+      "test": "exact raisedVK exterior air",
+      "gap_mm": 1.0,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "exact raisedVK cradle exterior air",
+      "gap_mm": 1.0,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "exact raised tee exterior air",
+      "gap_mm": 111.15433252196495,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "subset of original motion-checked frame",
+      "added_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "forming stock retained before silicone",
+      "native_removed_to_silicone_mm": 9.763985982468267,
+      "forming_expansion_upper_bound_mm": 0.6,
+      "remaining_stock_lower_bound_mm": 9.163985982468267,
+      "pass": true
+    },
+    {
+      "test": "Gate-A exact R14 elbow retains one-millimetre frame air",
+      "gap_mm": 0.9999999999988282,
+      "common_mm3": 0.0,
+      "cutter_bounds_mm": [
+        40.57499989999997,
+        101.12034662468089,
+        253.4000001,
+        92.6750001,
+        430.47500010000005,
+        300.79500918852676
+      ],
+      "pass": true
+    },
+    {
+      "test": "retained cartridge bore and ridge-clip lead has one-millimetre frame air",
+      "gap_mm": 0.9999999999990972,
+      "common_mm3": 0.0,
+      "cutter_bounds_mm": [
+        -3.1500001000000073,
+        95.3499999,
+        273.2756261237512,
+        93.1500001,
+        126.0,
+        304.1500001
+      ],
+      "pass": true
+    },
+    {
+      "test": "cartridge chase retains the complete source5.25mm frame-floor band",
+      "floor_band_z_mm": [
+        304.15,
+        309.4
+      ],
+      "additional_missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 0,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 0,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 0.5,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 0.5,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 1,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 1,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 2,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 2,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 5,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 5,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 10,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 10,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 20,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 20,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 40,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 40,
+      "common_mm3": 0.0,
+      "gap_mm": 1.0,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 70,
+      "common_mm3": 0.0,
+      "gap_mm": 9.630482155409128,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 70,
+      "common_mm3": 0.0,
+      "gap_mm": 12.748376493432453,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 90,
+      "common_mm3": 0.0,
+      "gap_mm": 26.3521722750469,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 90,
+      "common_mm3": 0.0,
+      "gap_mm": 30.06888456912124,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK casting",
+      "frame_fore_of_home_mm": 102.2,
+      "common_mm3": 0.0,
+      "gap_mm": 36.91768220121704,
+      "pass": true
+    },
+    {
+      "test": "front-top/frame factory closure versus VK cradle",
+      "frame_fore_of_home_mm": 102.2,
+      "common_mm3": 0.0,
+      "gap_mm": 40.63439449529138,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "removed_stock_mm3": 27786.064379256055,
+  "removed_bounds_mm": [
+    -91.6,
+    116.64626135594406,
+    299.89999986228213,
+    93.15,
+    274.8497422611929,
+    308.3
+  ],
+  "inputs_sha256": {
+    ".cache/pump-first-layout/funnel/aft-60/funnel-frame.brep": "8ee1eb22e5f77a5de88cda92de1e29f2afc9fcdea1b6c2a8e14749ef6c3cd9c7",
+    ".cache/pump-first-layout/funnel/aft-60/funnel.brep": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+    "future/pump-first-layout-study/pump/candidate.json": "dbe989045c9df9ede18d0618fb917eb95d964708ac6f86dd0c285e628ea48494",
+    ".cache/pump-first-layout/pump/vk-solenoid.brep": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07",
+    ".cache/pump-first-layout/pump/vk-cradle.brep": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b",
+    ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20",
+    "future/pump-first-layout-study/routing/frame-fluid-a-relief.json": "d043e940e0eac03d578b5abd769926c8433c90eab740f7622a4a6be20f0ee938",
+    ".cache/pump-first-layout/routing/tube-fluid-14-clearance.brep": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893",
+    ".cache/pump-first-layout/routing/tube-fluid-14.brep": "a1c1acb4c33eec2d1b85f4c6453785fc56452bdaba0d17580e4dcac9cd1e38b4",
+    "future/pump-first-layout-study/wiring/frame-j13-relief.json": "5fca0f43410ed32ad90942b03f2fa01606b98867cacf94b16649d6200ce9379c",
+    ".cache/pump-first-layout/wiring/controls-looms/j13-ridge-passage.brep": "ca6d581937440f34d9fdde00ff14cede6bca9cd1c76dd2c4c88854e1307dde90",
+    ".cache/pump-first-layout/wiring/controls-looms/j13-frame-clearance.brep": "828fdb4497377d023f159565b777574c48ce0e37d9c3ff97cd3d7d6801c33ea5"
+  },
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/underframe_reliefs.py": "06bfd1687ae2a8845b63e4d56cb78a018c7fce9c17669cf232200d1bcfcd1b62"
+  },
+  "scope": "One-millimetre fitting air and complete production rail/bearing geometry. Subset preserves previous interference motion checks; no printed strength, lifetime or physical fitting qualification is inferred."
+}

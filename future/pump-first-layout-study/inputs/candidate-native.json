@@ -1,0 +1,3587 @@
+{
+  "archive": "future/pump-first-layout-study/inputs/candidate-native.tar.gz",
+  "sha256": "57fb99762f480f445f350631caf410d3ae09b2365707dbf3a7626163cacedf60",
+  "bytes": 18036996,
+  "manifests_sha256": {
+    "funnel/candidate.json": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "funnel/candidate-aft-60-tooling.json": "cd8ba07dc7eaf01d59b6868ea259d9f34f41834ba4b2f6d901781255bf7c9f11",
+    "funnel/shells.json": "be55a07656c5788b27e110ab40738d94cafbb3755377ba487c04d7cd0b0f7375",
+    "funnel/roof-stock.json": "a42b7b5f5ff6dc05aed47f35705728fa7a319ee729b00669f3d5990513ec35b5",
+    "funnel/mating.json": "896332e56e56d2bf43c9ffd9351414ed3af4b2624487764bed3c397ac493bdec",
+    "pump/candidate.json": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "pump/fluid24-candidate.json": "e466eb2cd9e76967152c99bcbad2ca8d079e20ece94ccc431f40f441a8b257c7",
+    "routing/candidate.json": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "structure/candidate.json": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "structure/print-parts.json": "38aedf553f0baf9ec2440994f403361c46c71b285de9d13e2eb06e55d8ebfd69",
+    "structure/pan-slot.json": "e70d9083f4a45a8c959da25fa1c28c6ffe4da5ba11f6b4e20682e7cb8c9d9bb1",
+    "structure/water5-key-pocket.json": "352c722848ac73bb11dc358a8f2aad3598c9542257cabc322b41eb7aacf1ab11",
+    "structure/print-material-union-check.json": "7e22dfc0bd6b92214144881552aad1aa6ad8d1e322088fe903eaf00c50249afa",
+    "structure/held-original-print-checks.json": "38aedf553f0baf9ec2440994f403361c46c71b285de9d13e2eb06e55d8ebfd69",
+    "structure/prv-factory-handling.json": "8cba94e1a8234ddc5d48c8e910dc9d831e701e5dfe914d4798d1d4b35f792a61",
+    "mounts/candidate.json": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c",
+    "mounts/roof-candidate.json": "866a89eb289ed3fd5a497ed14706f9e463e619b4d3aeb1937f0249400ea55d20",
+    "mounts/floor-candidate.json": "b43795001a70d4f9ecc60356d9b5e757b4590c6c45ad2f1640e579a959fecd50",
+    "mounts/shell-post.json": "6b10732644759aca7a02300f34cdbdebe65e0e8d7dcebc3b01fdc8557ff23eb8",
+    "mounts/shell-pan-post.json": "646a11af33d17c1f09b64ad11e374e897562b0b1d04ca2a0c0db1c223b32895f",
+    "mounts/fluid-candidate.json": "327de5f03cae94d69a931625761cefc5ccfcab0fd0d7e80d373493b90b791058",
+    "mounts/body-candidate.json": "f187292fbc42a3d9f0c8311fffd46ada3e817e41cd8c9338251524fda95a643e",
+    "mounts/needle-candidate.json": "9ce5bca374af7150349b87f59b4c2b62ae9d3ca4624fa93eff590d840b9657bd",
+    "mounts/wr-candidate.json": "694deb605b9cfdd44ee3b104911bce6322467bfcf18194642631bfe0748ffbeb",
+    "mounts/check-tee-candidate.json": "f37f170b8c521617e3b2ead39708b04bf6bb72d22233e1d367ee025220841a28",
+    "structure/roof-hatch.json": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807",
+    "structure/scene-stock.json": "59cb9e0ab82aaf83b2f3e898c1aa488e9f75dd21517da2a4f41fa87fd8b607d0",
+    "wiring/candidate.json": "767a8f775c7c1455e5a8a5e232c94b3a9851335fe9ea04ae5eb048588e6ed615",
+    "wiring/power-candidate.json": "f5a4734c483e1bfa1fe89c93ebd3be798b00caca84ba3b994e9c2a4f66c1a02e",
+    "wiring/controls-candidate.json": "2318d6f3895e0caf6e0d89826170136ba694215d94755c8a96a6c00c6993bdc3",
+    "wiring/control-reserves.json": "7d716eed573ed3b551e0675e51cbf21c4814994540ae6c613de0ac291fe277bf",
+    "wiring/control-fanouts-check.json": "d2e5133a4f0076c8bb0a7ab239830499637b5486049e00746b43aac6f0831c78",
+    "wiring/static-controls-pair-check.json": "aeb144174c65ac96a43e80fa60aa1a2e5278f2e2753dfe9438de5b5d293e87d7",
+    "wiring/control-fluid-air-check.json": "97691e5bc41a3709ae56d53f73d38de1fc345df8265a445016afac4f96775f81",
+    "wiring/control-terminal-owner-check.json": "a379362a0229cf810bacca2338cd57acb52d6794b871ee36d52147dad11c4128",
+    "wiring/front-loom-handling.json": "b38799e4de7cf8e902af84635dd42cd00dc1ddfd0681beaeffafa2de3c84daff",
+    "wiring/join-check.json": "391db975f09a53852990be54204e6fc3b839ab3e0a7932f600cd39c1009de6b2",
+    "wiring/lower-lead-exits.json": "c7c639bce74dbe20bbd446caa61c085a115f81735c574e34b7e204eabaa1ef30",
+    "wiring/power-members-check.json": "2f8599cc432dfc380e9cec5bdc40a24ecedc355796c13d74158526e4dbebf670",
+    "routing/co2-candidate.json": "15ec595954cf5093ba83c5c7d22335eb03772b7c878cd4155d4b68c5f1e2bf06",
+    "routing/tube-hosts.json": "c2d667182e5450300ea770bc86767852b3fe417d358ab62d5dff88e42c7e358f",
+    "routing/strict-route-audit.json": "1ecfac086094474217c77cc524ef03d84c6796258f458511297d827facb9520c",
+    "routing/water-ring-finish.json": "5695381dfc92a362e82d93d60dc72c20492da143ba10e4f1855e02da730f8154",
+    "routing/psu-surround-feasibility.json": "834369d2bcd49b4f5d3deb15c285b3d74d34da6b7ed30da08a147fd520529ff6",
+    "routing/psu-coupled-probe.json": "04db0eb426755f07f5884427affee2a25bd861c8643b88c24b839aaba4355a6e",
+    "mounts/water5-hosts.json": "aa66e1d98d7ea5ef72ac2bf36124b2da4bbbc1a9d145260b2395b927a7d7755b",
+    "native-audit.json": "27d07af2f5467110657792f60aea72b4d7408e56c89b23937e86b5beb3d98298",
+    "evidence-check.json": "a32f7f0c00ea4c23ecdd46cedfabb8708613451888f1ea924edc6608f74327f1",
+    "pump/external-native-check.json": "6b8410fbb9a77106c2a752453d0813e506b139dfb1b016324833ad2d906277ca",
+    "funnel/motion-check.json": "86e0961985d89ace4bb111615bb741ea97e572c97226e9acc2ce9647107c6d00",
+    "funnel/frame-continuous-closure-check.json": "d672ec0bff35c76970db6640cda116aaa3702e2c82d93e8c14557eae0ed2c606",
+    "funnel/mating-final-frame.json": "6aa33ca40ce62a09cba1eee1c0fe7b32df1864c4935ba7f5075817c1133e66d2",
+    "mounts/native-check.json": "977762f684208e7a003decb3ef159cfdf5a7c3c440a8def4900dc004483d52d7",
+    "mounts/floor-native-check.json": "4e5b2f8d60a47d86f8f85c635f99d5a3dba102b9b5f0babda165becf4e70d13f",
+    "structure/front-closure-check.json": "b0c3e908e745a05eff99b2788b912b2587e8e64974fb06b69070f75bd27d5cfb",
+    "structure/factory-slide-check.json": "1d847b256bb6b8305294e8b848f6ecdb1f332792136dbc5bbc7165d7588d7247",
+    "structure/asse-factory-check.json": "98c15efb2ba72febd4ede60e1afa271aada9dc98a55f6a3f9fe6a27f0fe97413",
+    "structure/ground-make-up-check.json": "27709d831b8e52940327dad97d160cbdd1af16b46a8d6f7fb3e9002e3fa1d8d8",
+    "structure/g2-factory-tool-probe.json": "1a23a47087b43c6b882836e6e51d98d38e43a867ac03ee9aeb3c136fc144309e",
+    "structure/hatch-hose-check.json": "a11e50ac80715bdf71030b5c9e0c6dcb25d498b5d4e79a1535a195e37c55df92",
+    "structure/fastener-native-check.json": "481d2fbee1bf96047783ec2817fd023923a843edccc75575834cd78605d16dc2"
+  },
+  "files": {
+    ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep": {
+      "sha256": "1bf2832a7bc1f2e6ea685414f3ca701c768ff0769f4356f51b41c47aadf50b4c",
+      "bytes": 75554
+    },
+    ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.brep": {
+      "sha256": "39f422ea8ce597d57b462b3dadff2beb568d512240060cf2aaaa488b4b1b40b5",
+      "bytes": 25461
+    },
+    ".cache/pump-first-layout/funnel/aft-60/funnel.brep": {
+      "sha256": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+      "bytes": 103576
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/back-rail-channels.brep": {
+      "sha256": "1f7ddd9b6448505474f087c20aa0e3393b394268293bcc85d804a6d13f402708",
+      "bytes": 16645
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/back-receivers.brep": {
+      "sha256": "9f6a9f107930b17f341401d5f8eec34b095a1908c103b0d2d3e1a1a12dfc809d",
+      "bytes": 22145
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/brim-pocket.brep": {
+      "sha256": "f971291efb2509fe301bdf2fd6cad65cd1d0bbc44b928ac342d208069e4a4885",
+      "bytes": 7080
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/collar-throat.brep": {
+      "sha256": "4d725def2cc9ed5b728203c0955f211595d77423ae1f3e92f595d3196a1cfd1f",
+      "bytes": 7760
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/frame-blank.brep": {
+      "sha256": "1634418e8966cb12253cfc040626caebc089e067e6f7a05eda4d9a9ff733b981",
+      "bytes": 17456
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/frame-shell-clearance.brep": {
+      "sha256": "95e8da628e93b67258a70503bd2820babeecf870a2577b50439c2b7625a96f60",
+      "bytes": 17596
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/front-rail-channels.brep": {
+      "sha256": "f322dd6c073aac1be20677b8b4f4bf361dba5a12c0b6b9b30c70f18ebb99f04d",
+      "bytes": 47910
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/front-receivers.brep": {
+      "sha256": "1baf480c8f8a42e12bed2a79aa09e881d876ec7317678fdace8d506425023488",
+      "bytes": 30347
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/front-roof-clearance.brep": {
+      "sha256": "a92cd33bc1e63fb94708531fcc0375c2a74850724c44785db33502870801d4bb",
+      "bytes": 3474
+    },
+    ".cache/pump-first-layout/funnel/aft-60/mating/front-seam-relief.brep": {
+      "sha256": "5f949e3d2a74e7fd4f98952392909c5ebcfe783f44ec3659e5efbb43731622ee",
+      "bytes": 12829
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/bay-clear-cutter.brep": {
+      "sha256": "704c4dde36ea248ce0f0f787c7496b48db3f43f5fd17d82b4745826f09613a94",
+      "bytes": 52596
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-back-top.brep": {
+      "sha256": "d9452e3336caedccf3b72277f54e608f5b1856be3928fba074916f85d5648b04",
+      "bytes": 492223
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/enclosure-front-top.brep": {
+      "sha256": "e17062859686dd86da176965a2e899ddfe13c1b65053dc7816fc3d52be8bf2fe",
+      "bytes": 875236
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/funnel-mated-ceiling-stock.brep": {
+      "sha256": "dc6af21f40da8b1300e092ea261fd00e364622fe79a5fb5f6219b34da59d0d07",
+      "bytes": 16600
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/nominal-ceiling-stock.brep": {
+      "sha256": "045da32127ca3397e2584013bb181336c09e325e4da13e421d3a2eaf54286a1d",
+      "bytes": 2594
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-bore-and-pocket.brep": {
+      "sha256": "562e7d981ffe3c7ab7d4bef526054b7a571c8019215425541223af779b304338",
+      "bytes": 54411
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-ceiling-pocket.brep": {
+      "sha256": "fb0ca3ffdb22a3ff4c2cef6fc88e6da61d565df8607022ea8467913c0b19c2b4",
+      "bytes": 12866
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-insert-0.brep": {
+      "sha256": "602813ac1d06ae2f59d64745d9a2f36bf36f9f552c5686ebba9ceca4e75a4e11",
+      "bytes": 5255
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-insert-1.brep": {
+      "sha256": "42f710315a0d3f72909a235d6746a9e71b7ab5a798a76cfba9d81c4468ce3b21",
+      "bytes": 5287
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-c14-land-relief.brep": {
+      "sha256": "6c234941f78d2dba37477e4c83751ad9bce0d04fb10ef05a053c920baa270845",
+      "bytes": 5789
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-co2-land-relief.brep": {
+      "sha256": "010ac99c8e1a685a70ea2ac28145d7a787a2c4bf4857f5b7090c1d2cfb799a42",
+      "bytes": 7043
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-catches.brep": {
+      "sha256": "a060ada7865570562284ba1d1ce20ed56a3b121ba1acae84050feddfa9fbd20a",
+      "bytes": 20309
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-cutter.brep": {
+      "sha256": "6384061cff5e57f3d062eedfa09441852b38d4c738d1e740b9bd577417e97c9a",
+      "bytes": 28791
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-keystone-feature.brep": {
+      "sha256": "001e954fc64d813c566d9c2a7e2972cfb3d1647fe1c903adb79599c9b71ba45a",
+      "bytes": 12932
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-0.brep": {
+      "sha256": "99bfdbf299ac29058b1d679319429b83d3b5e63d38c1892bc801ec644cbe2bf2",
+      "bytes": 17027
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-1.brep": {
+      "sha256": "f858f7c609ad8ab841a2ac54cd1c0572af4f7c40b476be5b2f6f1a611a48d1d4",
+      "bytes": 17065
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-2.brep": {
+      "sha256": "0fe5d9bf7958d7acf70f402a7c4faec88443a7eeec4e15a7d969a8957b53127f",
+      "bytes": 16901
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-3.brep": {
+      "sha256": "6ea0b642737fe9c54278e122c09a305e1aa7cab17a478a79a403b441b9461321",
+      "bytes": 16863
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-chip-pocket-4.brep": {
+      "sha256": "8250fa1b990dca3b980c58f9df43b7768e3ea19921b0a911135303aa5f6fbc9a",
+      "bytes": 17494
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-0.brep": {
+      "sha256": "a10e6a0d8c48c4c73ee8afa55e402e8be73449b80615da32c44d682a5da28815",
+      "bytes": 6553
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-1.brep": {
+      "sha256": "cb00776453fd97c0eac388c886aad13f2c0e1b1c1b8e1bce2044c7ba99014ab1",
+      "bytes": 6539
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-2.brep": {
+      "sha256": "5f2e2e220875b96af8133217a5a3246c326500a154844de61faf366111585eff",
+      "bytes": 6465
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-3.brep": {
+      "sha256": "d4898130e79a3ed5bf606dc6c768a2625a57cb1a060a1d9045561ca75089290d",
+      "bytes": 6479
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-4.brep": {
+      "sha256": "92e8cc06bba8a1ecef3ff6564342a065212fc19b69c0ae80770eb5e2634fb8f0",
+      "bytes": 18000
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-5.brep": {
+      "sha256": "171ffc35182029742f2861abb2a7501a617b915e08d2c9a4db91cf7b90020bdb",
+      "bytes": 6503
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/original-rear-port-6.brep": {
+      "sha256": "3193afe43a96c721a3fa7b78fb22154bdb3be047e1a220bc8fbffc7825c93f95",
+      "bytes": 20294
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/retained-c14-tunnel-stock.brep": {
+      "sha256": "e9181f6cf706a8ca394a62df72cbc80330b50d23228a9f143df7acd621a187bd",
+      "bytes": 10511
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/retained-keystone-stock.brep": {
+      "sha256": "a2d1531febf5b03738995aaf161e2b007e3008d64af88496f481dba23b4b42bf",
+      "bytes": 22812
+    },
+    ".cache/pump-first-layout/funnel/aft-60/shells/retained-nameplate-stock.brep": {
+      "sha256": "fb1283e64b04a8ddc3be8bd23f88f8d127ddf8272eba3cbd522cf1b2e1ddf312",
+      "bytes": 33460
+    },
+    ".cache/pump-first-layout/funnel/aft-60/tooling/cavity.brep": {
+      "sha256": "ff4b38142980689504758f88861daa0e33133685149c8d38cd2fce6555712189",
+      "bytes": 200471
+    },
+    ".cache/pump-first-layout/funnel/aft-60/tooling/core.brep": {
+      "sha256": "3d4084bc01efdae31283b38796f31c881c52821d5f9a75fccf893a937540dc3c",
+      "bytes": 134088
+    },
+    ".cache/pump-first-layout/funnel/aft-60/tooling/funnel.brep": {
+      "sha256": "183c00ea378184876610a76691dc60d343151d4b823223a04b7f3336b217c634",
+      "bytes": 151240
+    },
+    ".cache/pump-first-layout/funnel/aft-60/tooling/rod.brep": {
+      "sha256": "bde64721b494586c93099d10e7069de022e4e653bb43baaf35bdb27e7ef5b934",
+      "bytes": 1174
+    },
+    ".cache/pump-first-layout/funnel/aft-60/underframe-reliefs/funnel-frame.brep": {
+      "sha256": "1803801f5864f68fd396b5d36f3f7625f3b55bf19326f7a8fbec4ac373e15279",
+      "bytes": 320738
+    },
+    ".cache/pump-first-layout/mounts/check-tee/check-lid-seat.brep": {
+      "sha256": "e0b430fbda1e1bf436bd980d18c778a1c23e6caaab836a2269827bd6ca7d48da",
+      "bytes": 22485
+    },
+    ".cache/pump-first-layout/mounts/check-tee/check-lid-tie-tunnel.brep": {
+      "sha256": "891d80773e4b26eb7d6aae908b256646b9e70b1c89814aea06e751cfeec14483",
+      "bytes": 22383
+    },
+    ".cache/pump-first-layout/mounts/check-tee/check-retention-tie.brep": {
+      "sha256": "d628fffff283c5b476aae841a11da04e3db47866067b43340130cd561d6ae417",
+      "bytes": 29361
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-factory-toe-bearing-coupon-aft.brep": {
+      "sha256": "30bdf4c3de469bcf015b203f64ac3a3711cc693018773dc8a318230f7f1aa960",
+      "bytes": 3964
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-factory-toe-bearing-coupon-fore.brep": {
+      "sha256": "6494878d6c578f20cee3732d515a6b4f16c7932b7c068902d8edad1277fb46ba",
+      "bytes": 3761
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-bond-coupon-aft.brep": {
+      "sha256": "c4cc173c10a7f081baac7cbca309ac9426a684ce051f1be4444b60d3ecdc38ad",
+      "bytes": 3765
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-bond-coupon-fore.brep": {
+      "sha256": "908e6a5c7c514f5c53b62675e42d3905fbd490b0ce7a791a68887e76e5d5b39e",
+      "bytes": 4006
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-exact-gas-clearance.brep": {
+      "sha256": "617b7ef50d67ce8a6c26e541f2741852755c6878f465afd8d80434c7efe603aa",
+      "bytes": 37431
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-slide-clearance.brep": {
+      "sha256": "e2d1218f40c365522ea143b09f6502a5c52e09429e44aebb6982822ed933db67",
+      "bytes": 3884
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-factory-toe-relief.brep": {
+      "sha256": "dde5d9b216b79794ca6b618f858fb311f958be81710811741c399d53542fa5b9",
+      "bytes": 3626
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-gas-portal.brep": {
+      "sha256": "4c9ed58fccc7d677712c659404c79e1b0093e54c7d0314b941838a259ea237ad",
+      "bytes": 1258
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-outer-rib-relief.brep": {
+      "sha256": "7e49cdb630a8cb1cd879467164a4a9294c24f79251ed6b5ef13076be48cca7f7",
+      "bytes": 3561
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-seat.brep": {
+      "sha256": "647af5d079d66c0459603dfed1959c978a5396da4691eefa8952e9834b79b46e",
+      "bytes": 37150
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-lid-tie-tunnel.brep": {
+      "sha256": "fb3178319c09ebbe2201f1bafc5ddef75bba0b9f5b69c196f5fb5fbd0abef8bc",
+      "bytes": 2483
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-outboard-bearing-coupon-aft.brep": {
+      "sha256": "f8efba56e5fd0f43a964e64fa7e764948808fc4772f3575abf7139c8983c3fd0",
+      "bytes": 3971
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-outboard-bearing-coupon-fore.brep": {
+      "sha256": "4e862824170bcc2fbf63ca14c73bbbc09a0e5110c41ae4a3fe617b08c85faeaa",
+      "bytes": 4103
+    },
+    ".cache/pump-first-layout/mounts/check-tee/tee-retention-tie.brep": {
+      "sha256": "f17e5773913ef622742f708b3ea807eab71392225680a28ef30444ac7235dca4",
+      "bytes": 17456
+    },
+    ".cache/pump-first-layout/mounts/enclosure-back-top.brep": {
+      "sha256": "9886918b3e7da6f958bf720957e01e52a3f401f05f66fafd0637eafd6deb0a33",
+      "bytes": 735226
+    },
+    ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep": {
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877",
+      "bytes": 27609
+    },
+    ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep": {
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755",
+      "bytes": 27676
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.brep": {
+      "sha256": "1ceb2c0600dd89b8e9a72d637216b0bf2cca6c3548e19687bee7200eefab7df0",
+      "bytes": 2402
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.brep": {
+      "sha256": "e60d9e3fc8a030aa6af17b52538468159b1e568591f3d1911ffbf3424e1f1074",
+      "bytes": 2402
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.brep": {
+      "sha256": "d1b66b7a9ee150066a84c702b6edf35ccedb5329f05da56e9952ff654581d3d9",
+      "bytes": 9230
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.brep": {
+      "sha256": "bb803f28cdd45f94fedf29d009cf9f4ae0f9f601b83e4b9a4f83a15ef46449f3",
+      "bytes": 9230
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.brep": {
+      "sha256": "6cd5ddc23507b5810d29f95c3cf199eab96e938cb7ed90dc2a26032f0e4ff4f0",
+      "bytes": 9179
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.brep": {
+      "sha256": "321172194878ace7eb662dafcc0725a52e806c63f9d172ada125748ac5479ef3",
+      "bytes": 9179
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.brep": {
+      "sha256": "c84e1295667ce87eb081977e9d1bd4dd8be76d8ee82fb33eebb5bf473563df5f",
+      "bytes": 78988
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.brep": {
+      "sha256": "6f089542bceafef28d5544216110c3b9d03d36e0a4207c1631094fbe214c8501",
+      "bytes": 102606
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.brep": {
+      "sha256": "f6d6eaf5dba633bbd318fa8b40c66e58d44ffa722c767e706e913de154779dd7",
+      "bytes": 78342
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.brep": {
+      "sha256": "99fd4e44d78c2d67f7735d8f5a938be5a72725192eb8522b04c80012c245c9ca",
+      "bytes": 101709
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.brep": {
+      "sha256": "3e8d8d4bcbbf15bd1bd84c577af2e9b1d1ef0f2c66c7088e3a5ca6584eca1b6c",
+      "bytes": 2574
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.brep": {
+      "sha256": "888a54a0dae90153e3a85c1e9c0712a99c257854e97ed2268fe33982aecba606",
+      "bytes": 2574
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.brep": {
+      "sha256": "6f8f6ff53a519f6be4545baee3baa3a7123fbc8e330ae0e09cbb44bdd3f9e9a6",
+      "bytes": 9513
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.brep": {
+      "sha256": "18efa60dd6ae7f59015d584e6917e30efdf4d8cf808e61b3e10a2500ae7c1018",
+      "bytes": 9513
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.brep": {
+      "sha256": "68c76792dd8d34123b42130005f23f97cb76caa7d76f17f762554968f8b2f13f",
+      "bytes": 9458
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.brep": {
+      "sha256": "d31c8adf031f1a13c1fe07c56e6e2c0413ed2a3d50e4743c1f7115ca0ef0243d",
+      "bytes": 9458
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.brep": {
+      "sha256": "b8c67383d604ff50185db1ea32d405f5ec9d9797a4f5b61716e38deb86738dc5",
+      "bytes": 102850
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.brep": {
+      "sha256": "5602bceba646be42f5938e73cdb0a2f2317494aa38d8bbee6b2264a9e959f1cb",
+      "bytes": 79231
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.brep": {
+      "sha256": "e14330609d4df1329f254b2c3a07fdfb64722c66298ac2d06ca798a04ee12a9e",
+      "bytes": 101649
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.brep": {
+      "sha256": "18babe3a6f329de1218578544e5d56aa379f0919c2645b1ad280e503cc13e4f4",
+      "bytes": 78281
+    },
+    ".cache/pump-first-layout/mounts/floor/relay-lid-platform.brep": {
+      "sha256": "2286f65da079ddefa1224a2635f7dcbb2f8a2d5900be96f7f37d389a0ffa61e7",
+      "bytes": 42684
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-1.brep": {
+      "sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41",
+      "bytes": 11028
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-2.brep": {
+      "sha256": "5901e491a462e30e852ebe5cced3f3ec0ad49887bff208fe23f42f98a459d116",
+      "bytes": 9276
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-pilot-1.brep": {
+      "sha256": "023db47ecccc3fb90652a49407851ec86ce7a5dda6c57600e006e127dc884628",
+      "bytes": 1480
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-pilot-2.brep": {
+      "sha256": "1276ab5304c1da1e931f175b595fbefb44f7baeda7862647420d214856a6e7a1",
+      "bytes": 1375
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-0.brep": {
+      "sha256": "3570a5344d8314adb749a46f257606160b903dd79ef2f41060a82dadba7a89ca",
+      "bytes": 3777
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-15.brep": {
+      "sha256": "d77611b944e292b4afd76acb58725d5a378ebad3c8beab56191becce0644eb76",
+      "bytes": 3975
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-17.brep": {
+      "sha256": "5091227b47ac68d423d810b0312b5ea1ec1250571f18dd44a7900673f765cb3d",
+      "bytes": 3365
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-18.brep": {
+      "sha256": "8d36763cb04b18e47741e00fa872c48109dcc93caf9160b228cf5f73cb146f0b",
+      "bytes": 3358
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-2.brep": {
+      "sha256": "e15d553f04ef3cdf9ae29055d4ac51f3b62a556ed1b5c0d686cd0d51e5479e75",
+      "bytes": 3365
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-20.brep": {
+      "sha256": "bca47ed649fca56d3a406fc76dd2d870a89b715e367f5c5db81b3afd45e5e7d8",
+      "bytes": 3967
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-23.brep": {
+      "sha256": "e535442037d5bfd9560945471a8e23df4706071c4191a10bbf322eae743bf3ac",
+      "bytes": 3966
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-24.brep": {
+      "sha256": "41d016334e4be2e5ae56b803c692a4e2ef591e0ed2b80abc1e8c8f082a1e3714",
+      "bytes": 3930
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-25.brep": {
+      "sha256": "87513cadf3ee5f7d0e8ad51aafde7eb12532462ffbe1bcf478762d73f32895ac",
+      "bytes": 3966
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-3.brep": {
+      "sha256": "2418c61c3f8b469d0340fe0af28570eac8ee5796d6a147c4c3307412c2c5a27d",
+      "bytes": 3365
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-33.brep": {
+      "sha256": "2837fb9725c465d58b92687388ff795f4c7589f30db6c6084e80bbe0ac4e4749",
+      "bytes": 3941
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-35.brep": {
+      "sha256": "97f8f3919c68dbb7492bdd9dcabb20b77c6642c3fcafe520d3514779e271a8b3",
+      "bytes": 3332
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-5.brep": {
+      "sha256": "f9ed164d535cf1e9495e1eab33e8f95403e1fb65ea168d1f0d5c83b0575c200a",
+      "bytes": 3840
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-6.brep": {
+      "sha256": "a75ae6498f93ba635a3684ebfcae5acdeb54ebc7385bd5f04c533a780d7e04a3",
+      "bytes": 3804
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-roof-channel-7.brep": {
+      "sha256": "b34af0051156ba295f953121c1076bac61d57bc7daab8aef6585e0c5a54f0917",
+      "bytes": 3840
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-1.brep": {
+      "sha256": "cd361faa30a107e5556692b6aaadefeedf921fc8a88c6269511b04fd2a717906",
+      "bytes": 9666
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-2.brep": {
+      "sha256": "db79da146585543f3b1fae9e9c475660d0c77ec95b1a971b7d2be51ace22c896",
+      "bytes": 9417
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-factory-supply-wall-aft-turn.brep": {
+      "sha256": "18b8f45f0602220912608d8963315bee811eb86d62c0b22fc291623eaa739e5c",
+      "bytes": 3674
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-factory-supply-wall-fore.brep": {
+      "sha256": "12f9b948be8486a9b686b62011c7bca2527aeb21a1fcf229a16756be473537f0",
+      "bytes": 3627
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-g2-pilot-stock.brep": {
+      "sha256": "cf56f96e538c25aaadba190b846716c0cd2843b96c1901277592ea3d6d10da2c",
+      "bytes": 2698
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-g2-wire-entry-channel.brep": {
+      "sha256": "78280fd01701163fad25cfe2d7f318ba86077f134c78797d25bab958fb7ff6c9",
+      "bytes": 1465
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-removable-carrier.brep": {
+      "sha256": "c742a637e4507bcad7bdd2ffdbe0ebf900b09b7bd9acb1db74dd0afe3a273d52",
+      "bytes": 43982
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-1.brep": {
+      "sha256": "1e6f632a18a52f42612927d07febdcc8316f7e2d9dd88284e6a25655fdb42a5e",
+      "bytes": 27502
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-2.brep": {
+      "sha256": "caec1290b7d997f345a677a4f5b4514b87566a242068be75eb86fd5ab92c2766",
+      "bytes": 28122
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-1.brep": {
+      "sha256": "85f187a5f0ac6290dc5a1ed87312dc71c6edf72c86a8a4a4c9902a7ff774c11c",
+      "bytes": 6757
+    },
+    ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-2.brep": {
+      "sha256": "13f5c5c3c793112134e5527286532f7a3ec165368c662421cdfea08ab0a8a5ab",
+      "bytes": 4491
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-1.brep": {
+      "sha256": "9c4f736df4961b7deee43411f8ea8cc763879f4290efa64a482149ecbbd3d39a",
+      "bytes": 116341
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-2.brep": {
+      "sha256": "0fa1a11aca001590b8453ed4b440e7a11cb35ded22c85ec50d129e07a1ae2430",
+      "bytes": 121055
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-roof-pocket-1.brep": {
+      "sha256": "1cd3789428aea8878fcfea720e1143dfded639dcd608a74903921d2b8b1203ed",
+      "bytes": 20765
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-roof-pocket-2.brep": {
+      "sha256": "defe2b42679946f53ac4f49caed024b81d50444591bbcc2a6afb1207c7bc643e",
+      "bytes": 20877
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-1.brep": {
+      "sha256": "d6a564dc97a8d8d05c5ba040fcd0c9c2c95d43a085c2187a0aef0a618b9b86c4",
+      "bytes": 21063
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-2.brep": {
+      "sha256": "fc012600500eea14381a5e2f4bb1cf9ca1d2d8aa79d27612a9762044c96cd9ef",
+      "bytes": 21255
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-1-aft.brep": {
+      "sha256": "fcbfd2111b6e919cd405a202b1988093d21a6af916d16c3d8ae5bd6d18afbd23",
+      "bytes": 4209
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-1-fore.brep": {
+      "sha256": "8460511a0ac52820fbe600cc6bc97140c48251ac6de2b8fa96be98b83589fef2",
+      "bytes": 4251
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-2-aft.brep": {
+      "sha256": "f6f4c6244a37a481d7b838017e09d102a09b23f1fa55483046e2ef3f71428010",
+      "bytes": 4377
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-root-coupon-2-fore.brep": {
+      "sha256": "8fa0adea8320d3bf02bb7d1e28979b7ff9722101324813db96e3c1a108d0b407",
+      "bytes": 4323
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-tie-head-pocket-1.brep": {
+      "sha256": "e4ae5c3fac46beb3aec4c9e71e19400401edb7736ad96f8bd3b1c16c8fdef791",
+      "bytes": 2791
+    },
+    ".cache/pump-first-layout/mounts/fluid/meter-tie-head-pocket-2.brep": {
+      "sha256": "34aabefde45697690a136808d3c702def85d50527e75294f034921f3388732db",
+      "bytes": 3007
+    },
+    ".cache/pump-first-layout/mounts/needle/needle-lid-seat.brep": {
+      "sha256": "e91b6064eaba42c037f803d60fd801cbf8f25d365bb3ca1241f6d74ab0834d64",
+      "bytes": 23338
+    },
+    ".cache/pump-first-layout/mounts/needle/needle-retention-tie.brep": {
+      "sha256": "bde30ba8f3967679dda5db5132c6bc979263520435414026b2a41daf6c9b51b1",
+      "bytes": 22743
+    },
+    ".cache/pump-first-layout/mounts/rear-shell-with-platform-pan.brep": {
+      "sha256": "9ba57149f5e2aca3d5a4ad6b2caac584e33b62c832cb56a300e53fcb46224e77",
+      "bytes": 2589665
+    },
+    ".cache/pump-first-layout/mounts/rear-shell-with-platform.brep": {
+      "sha256": "01580327a44593a971c95871f28ca236929a165361bc8a99608aa5a12ca4b014",
+      "bytes": 2901002
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-g.brep": {
+      "sha256": "f0efc460e449237c21e0558916b8bd9d3565a9226ddb41d8e5af4da1b9cf7d9b",
+      "bytes": 9639
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-gnd.brep": {
+      "sha256": "95600c962f5e69da1fecfc3694b5b891cc7528dbc615023e6607c9820594bc58",
+      "bytes": 9647
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-h.brep": {
+      "sha256": "c62cdac7e70a27586ab16d41446bd8ad3367ec47f807a35d4b4865f174344266",
+      "bytes": 9675
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-n.brep": {
+      "sha256": "fa8efc21f9f58b0e5c96047dd841ac68aacc300c0c96381f3d7a6ad2117f32ae",
+      "bytes": 9659
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-a.brep": {
+      "sha256": "79e5baddde779e4157b99ef40a86df20cc39d7d03518751ce3cc724eb61e89d0",
+      "bytes": 15928
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-b.brep": {
+      "sha256": "1d87c8614702704f9baae0fc6d55b2448b1e2af1a6ff2b0d0ba3cba97f8e0834",
+      "bytes": 30879
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-sensors.brep": {
+      "sha256": "66cb0d2397bcf6c359dd52b804b966b248bfa071d951bd54fe4006bd933d7dbc",
+      "bytes": 16015
+    },
+    ".cache/pump-first-layout/mounts/roof/entry-wire-wago-v12.brep": {
+      "sha256": "7e944ae51daea6f4ec126f2b044f0072ee4dfe1b0546284167f643dd87fdcc04",
+      "bytes": 9380
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-g.brep": {
+      "sha256": "bd28f5481a3b07af6eccf173cf97ad2b288b57595fe422c43301dda2d54d3c6b",
+      "bytes": 15421
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.brep": {
+      "sha256": "603c2c790c8d494853ce53cc0218fa902fb7e2cc914b82adb0baa5995b92b37d",
+      "bytes": 15274
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-h.brep": {
+      "sha256": "ee133a53866c40dcbc45a089073e076e995d0d96d53c64fb53b9dedf28d5f0e7",
+      "bytes": 15291
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-n.brep": {
+      "sha256": "908ce59b24f95149e175962746dcfd0c4e7f5d8b2aff1b0e79a4d6d9ff551b9c",
+      "bytes": 15306
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep": {
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9",
+      "bytes": 22581
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep": {
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61",
+      "bytes": 37968
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep": {
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1",
+      "bytes": 22581
+    },
+    ".cache/pump-first-layout/mounts/roof/expected-wago-v12.brep": {
+      "sha256": "3f50f754c47495b82a0c02c0c7a66263a1501bc3ee4ef80516ea7ccd294dcdb5",
+      "bytes": 15362
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-g.brep": {
+      "sha256": "508c60fe52a8be69181f88991b1149d981efc4e9077fcede2a783141d5956af9",
+      "bytes": 4098
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-gnd.brep": {
+      "sha256": "e8ad12188fb99b84fdb3259af149d2e9d7d30f3cca7cc3f2df38ff109d05f6d7",
+      "bytes": 4090
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-h.brep": {
+      "sha256": "b1d7336ac30ff514ea58432e5681bd1202fc424d10159ab08cff2be731642662",
+      "bytes": 4085
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-n.brep": {
+      "sha256": "589ce445515937ca281af603e18ffc2e667a9fee6e66c51a5fd61793a74e832f",
+      "bytes": 4098
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-a.brep": {
+      "sha256": "71d48f4e1546aacafcc320370f28b9649acae418d6844d35380781b98f03845d",
+      "bytes": 4139
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-b.brep": {
+      "sha256": "9ed119949443a1660fab6b53f6c2faf203fef8a5899cba570b910fccc0b0456c",
+      "bytes": 7841
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-sensors.brep": {
+      "sha256": "7a82a0fd4b9fced787b88877e63fbcb8d8e1cb36d1c59ecb56231e31c9ac27c4",
+      "bytes": 4139
+    },
+    ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-v12.brep": {
+      "sha256": "28788f0224635bd7db5801b27e69a76515932cbec66923a3c1040c0bca6f7946",
+      "bytes": 4098
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-g.brep": {
+      "sha256": "4b2d209124aa254528ef7233651954a8c86f8d10f7fba3cd6a381c4906d554f1",
+      "bytes": 3460
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-gnd.brep": {
+      "sha256": "1c9cf342896b0a5a24c2a47a85d25d77490f349ff750d36b6de5fe701745f802",
+      "bytes": 3452
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-h.brep": {
+      "sha256": "90f0926115f75de2f7c917510d9aa45279b00210dd1b2c3443fc6bd0c08706b3",
+      "bytes": 3447
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-n.brep": {
+      "sha256": "e05ca669b6d79754fbdb786cd79cfa202247e45485409fd8743c9fc2dd68e7d9",
+      "bytes": 3460
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-a.brep": {
+      "sha256": "9de1adbae076746e9dbc1c4f76bd36f9d054bf7b0e2b5b2ccd3cd89e91b27c50",
+      "bytes": 3576
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-b.brep": {
+      "sha256": "7e5868ff5c8d61de38b1a72adc39e455ab487d2949aebf2aaf375bc758efa4d2",
+      "bytes": 3787
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-sensors.brep": {
+      "sha256": "4a97babe0f049afeb84eeb2cd171849f67db6726a2e9ee9e8df8cac45560968d",
+      "bytes": 3436
+    },
+    ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-v12.brep": {
+      "sha256": "abc14861fe488de42f8542c1277c2b01d5449cfd5426e166ce009a5c3c5aec27",
+      "bytes": 3460
+    },
+    ".cache/pump-first-layout/mounts/roof/west-junction-platform-power-channel.brep": {
+      "sha256": "b627c52fa64c00c28728b580e8e4dc12aadf3d4ef9ebd6c2f2e031d3ebbda893",
+      "bytes": 102694
+    },
+    ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep": {
+      "sha256": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20",
+      "bytes": 27559
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-key.brep": {
+      "sha256": "54802c8bddcbf483441d05f691a623c506bdf100510ae8c114301a3a5f1663c1",
+      "bytes": 16838
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-pilot-1.brep": {
+      "sha256": "0d479c60af9ccf53b04b8d9a1f8245090c86465aa05873d7ee0e1729975410f1",
+      "bytes": 1888
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-pilot-2.brep": {
+      "sha256": "333b714708f13755ea960c062050f7972fe6b0642b715c2508e3582198f938ae",
+      "bytes": 1881
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-1.brep": {
+      "sha256": "874174844a34303b8a0b48c6519225d23a6694eb2b9e02eafd35ea2e6e3609de",
+      "bytes": 2640
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-screw-2.brep": {
+      "sha256": "90ba0b126dd1b9a45b41ce408123ae48802f28ad1484da2c15d5b58fc85fee88",
+      "bytes": 2624
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-east-drop-seat.brep": {
+      "sha256": "edf9efd9052b7632368308fee7ef8febe3f8da079d85d13c054ca51e24ef3d81",
+      "bytes": 18137
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-front-retention-tie.brep": {
+      "sha256": "6c5fd784916b57352b67413362f4d15247a45d33282b5ceb4ec43cef8a9da065",
+      "bytes": 8928
+    },
+    ".cache/pump-first-layout/mounts/water5/water5-front-seat.brep": {
+      "sha256": "9e5d8737e5427995944c3a713dfe56025ed237f2d45d2c6f961d500f97faeb19",
+      "bytes": 16669
+    },
+    ".cache/pump-first-layout/mounts/wr/west-junction-platform.brep": {
+      "sha256": "1c5c47089c028245bec376f227014fc7675e861ccd55ceb8460c9fec086f1e6b",
+      "bytes": 111692
+    },
+    ".cache/pump-first-layout/mounts/wr/wr-regulator-retention-tie.brep": {
+      "sha256": "b55c42753d3be48cc0831b48d3ce7f06da36f4d24bbb1934a6b8a229afab7de9",
+      "bytes": 41889
+    },
+    ".cache/pump-first-layout/mounts/wr/wr-regulator-seat.brep": {
+      "sha256": "69b84f42f0f37fb7f612ab98d914abe27ae463665bc9e32212a5e2863c028c87",
+      "bytes": 21069
+    },
+    ".cache/pump-first-layout/mounts/wr/wr-regulator-tie-channel.brep": {
+      "sha256": "2f0d76d8317a14e3e4cc7ab54dde864cf92a3e34a3b6ee63585b26ed1754a3a6",
+      "bytes": 21048
+    },
+    ".cache/pump-first-layout/pump/cold-core-foam-cap-lid-top.brep": {
+      "sha256": "eddef42dd6efe21c5431452883fa578c4f1a4127dd150341ab7958275a50ebf5",
+      "bytes": 177973
+    },
+    ".cache/pump-first-layout/pump/cold-core-foam-cap-top.brep": {
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d",
+      "bytes": 109705
+    },
+    ".cache/pump-first-layout/pump/discharge-chain-anchor.brep": {
+      "sha256": "3ce40469e79bf0d272e63d93dff67775aab0a02e457ac9a455d4c5cf86bd72a4",
+      "bytes": 12166
+    },
+    ".cache/pump-first-layout/pump/discharge-chain-clip-screw-1.brep": {
+      "sha256": "93c39289654038aa9ca11489851f43334e81f8499797fcd689ff65902a175867",
+      "bytes": 2400
+    },
+    ".cache/pump-first-layout/pump/discharge-chain-clip-screw-2.brep": {
+      "sha256": "6a7a2344606579b4db671fae678761724635e9c721a0e7449c228343935b7ee1",
+      "bytes": 2400
+    },
+    ".cache/pump-first-layout/pump/discharge-chain-lower-key.brep": {
+      "sha256": "2a55213576ddd7a1d11ee8b4822e4a4d097ce588d126c9d7d652b77fd9bed55d",
+      "bytes": 11438
+    },
+    ".cache/pump-first-layout/pump/discharge-chain.brep": {
+      "sha256": "94b98748987a6130e76a4b6fda7cc3fbb3930a4fe0ebf88ba2ccb66924bf88eb",
+      "bytes": 8977
+    },
+    ".cache/pump-first-layout/pump/g-ganen-pump.brep": {
+      "sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9",
+      "bytes": 5455053
+    },
+    ".cache/pump-first-layout/pump/hose-clamp-chain-discharge.brep": {
+      "sha256": "02e5c45e6919e65f71af6cd004a57337dbd5fc0db194826d5adc210b4e5d8ca3",
+      "bytes": 14640
+    },
+    ".cache/pump-first-layout/pump/hose-clamp-chain-suction.brep": {
+      "sha256": "2cacf7ca78fcabe789d32f512788b6742d5b4e84acbf8930d4dce5d96815182c",
+      "bytes": 10631
+    },
+    ".cache/pump-first-layout/pump/hose-clamp-pump-discharge.brep": {
+      "sha256": "3955db6cfc8bb12a7b3a222683e51bbdfe5efc8d2c64ceb378558d85c4e24bc2",
+      "bytes": 14068
+    },
+    ".cache/pump-first-layout/pump/hose-clamp-pump-suction.brep": {
+      "sha256": "8b08a51eeccbbaf729160e1843f7ac91e73e4a15b405c2f78d76ef8207b2c8a6",
+      "bytes": 14066
+    },
+    ".cache/pump-first-layout/pump/hose-engagement-chain-discharge.brep": {
+      "sha256": "fe3ba8cdd9eec804d334517326c246313ab6121c07f7f067751040a672fdf81a",
+      "bytes": 2661
+    },
+    ".cache/pump-first-layout/pump/hose-engagement-chain-suction.brep": {
+      "sha256": "ec134c86f3afd2ae4104253415e5ca8dda613699c04b7352d1f9201573f3a0e3",
+      "bytes": 3013
+    },
+    ".cache/pump-first-layout/pump/hose-engagement-pump-discharge.brep": {
+      "sha256": "86f559bb8040bb074cec8c45ab1762ba58cca83757902e0ed96144edcddcdafa",
+      "bytes": 4600
+    },
+    ".cache/pump-first-layout/pump/hose-engagement-pump-suction.brep": {
+      "sha256": "833991f3ac9e95a79a6071c30896b484ad3c7c9693883565256d6d565360aa66",
+      "bytes": 4531
+    },
+    ".cache/pump-first-layout/pump/pump-screw-1.brep": {
+      "sha256": "1fcf0978b48f5b188888fa35dcb3ab531ccc34736c5752f7855bb782f1d36795",
+      "bytes": 2427
+    },
+    ".cache/pump-first-layout/pump/pump-screw-2.brep": {
+      "sha256": "601fcf274a9acb3c82b2b9f9df529cbcdc6f8170d99174232f51fbd7edad20c2",
+      "bytes": 2427
+    },
+    ".cache/pump-first-layout/pump/pump-screw-3.brep": {
+      "sha256": "32b6597df338d371a3f99b1a9f807115933fe14a673e3d13439b5440b6e573dd",
+      "bytes": 2421
+    },
+    ".cache/pump-first-layout/pump/pump-screw-4.brep": {
+      "sha256": "9904bc0519bc831a33b0e29de75e91f5aac89c91c392a20d363b71e678b4f41e",
+      "bytes": 2421
+    },
+    ".cache/pump-first-layout/pump/pump-washer-1.brep": {
+      "sha256": "90b91ed6eec75c02fcc8a005170c4f04138c2e78a3e1c8f6e96f272b74703954",
+      "bytes": 2410
+    },
+    ".cache/pump-first-layout/pump/pump-washer-2.brep": {
+      "sha256": "1fcf267dba4d52719f6c48eae57c4d2d26b321d0f84bbc709d6cc32f53a1d4c5",
+      "bytes": 2410
+    },
+    ".cache/pump-first-layout/pump/pump-washer-3.brep": {
+      "sha256": "a37fe5ab1af2d41bedce312b32e6e02644b16a72ef775d974d0d9ccb87907ea1",
+      "bytes": 2423
+    },
+    ".cache/pump-first-layout/pump/pump-washer-4.brep": {
+      "sha256": "ad4068129d3a9d0e833b87a620120dedc125a42dfba17b7982e8da73d0b77a16",
+      "bytes": 2423
+    },
+    ".cache/pump-first-layout/pump/source-a-cradle.brep": {
+      "sha256": "61689e44c217b30d1e9bcf3019b51069ff30ede8d8dd96432cea8abe9993e354",
+      "bytes": 17396
+    },
+    ".cache/pump-first-layout/pump/source-b-barrel-clearance.brep": {
+      "sha256": "29f70f6d3ece15b15d80475afde089dfda833d38ec6444447ebd594da4884ab7",
+      "bytes": 1389
+    },
+    ".cache/pump-first-layout/pump/source-b-cradle.brep": {
+      "sha256": "de7a798ecc9e14fa6cf1c612537971822fbe964652992b28ee42e1383c185bf7",
+      "bytes": 17377
+    },
+    ".cache/pump-first-layout/pump/source-b-suction-passage.brep": {
+      "sha256": "2986c03576f2edef3943d1fdc9aed963dab772aeea3cad755ca7038884744f2c",
+      "bytes": 11169
+    },
+    ".cache/pump-first-layout/pump/suction-chain-anchor.brep": {
+      "sha256": "2fdc54bdce242b1afde1e9e2d7f533b40d121744ce720f3dc357840ba43831ea",
+      "bytes": 66026
+    },
+    ".cache/pump-first-layout/pump/suction-chain-clip-screw-1.brep": {
+      "sha256": "e0a377126f6f5487b6d798906361a3b8a5bf31098e30706bd4f07ebe2729773d",
+      "bytes": 2385
+    },
+    ".cache/pump-first-layout/pump/suction-chain-clip-screw-2.brep": {
+      "sha256": "62a65fdd1266a69067ed4c334f55384a071ee11348f73736a1f97486b3429984",
+      "bytes": 2229
+    },
+    ".cache/pump-first-layout/pump/suction-chain-gas-portal.brep": {
+      "sha256": "bb79c85ee0dea7ce9e0f1cf08d3d2ffc970240e3dc9d0e97fef69da204d8c3ce",
+      "bytes": 19085
+    },
+    ".cache/pump-first-layout/pump/suction-chain-pilot-1.brep": {
+      "sha256": "241032d9eef77be299e2a2969d031bf9adf0e8bfd96e1ed7b602625cb976d94b",
+      "bytes": 1400
+    },
+    ".cache/pump-first-layout/pump/suction-chain-pilot-2.brep": {
+      "sha256": "a45b6d599e629b3380820ad32c4b35ea050e859e8099d0a5ed83b5f1dd9d4fc5",
+      "bytes": 1339
+    },
+    ".cache/pump-first-layout/pump/suction-chain-upper-key.brep": {
+      "sha256": "e93dac24cacd4e39558ad257c2ebe3fe9801e7f1d753d4de8bbc329368258224",
+      "bytes": 25048
+    },
+    ".cache/pump-first-layout/pump/suction-chain.brep": {
+      "sha256": "bf19ae2a537cb4204c9b83d30ea965a885d27f5d6db70027536e7906c5d6e531",
+      "bytes": 6825
+    },
+    ".cache/pump-first-layout/pump/tube-fluid-24-clearance-cutter.brep": {
+      "sha256": "ad77d6dfd08626562de31c3673f9821b4fdfa11316f40f4f17d65a4fc5a01eeb",
+      "bytes": 14390
+    },
+    ".cache/pump-first-layout/pump/tube-fluid-24.brep": {
+      "sha256": "5e31166bfa58fac877fa92cd65488866cd5f9393dd64db095eae6b4548c72807",
+      "bytes": 14333
+    },
+    ".cache/pump-first-layout/pump/tube-fluid-3.brep": {
+      "sha256": "3568eb7b8d95726ff9d8e4ee7ab16af2142661146305da74f1e857b233f4f85f",
+      "bytes": 6420
+    },
+    ".cache/pump-first-layout/pump/tube-fluid-4.brep": {
+      "sha256": "3ab35940550e142c8b276083b7f0e09ec107b62cc12f3fe8de9a3ebba9fb2d22",
+      "bytes": 6422
+    },
+    ".cache/pump-first-layout/pump/tube-fluid-5.brep": {
+      "sha256": "498bcaacbd8cbf8ec735e51d525706cc5b129a295a46069b91cb3507bc1ef319",
+      "bytes": 10976
+    },
+    ".cache/pump-first-layout/pump/tube-water-4.brep": {
+      "sha256": "3a8fba7ca0d5174d94ad11a55be323f36dca2cbcb8f209b29e6be0d30f25b721",
+      "bytes": 12975
+    },
+    ".cache/pump-first-layout/pump/tube-water-5-clearance-cutter.brep": {
+      "sha256": "b97db4133dbafdbe0c841d7385c8ccfac1729635b4f8b8c007e77b5a7b2c0bac",
+      "bytes": 24077
+    },
+    ".cache/pump-first-layout/pump/tube-water-5.brep": {
+      "sha256": "de0700e5fb1a32ef5bbbddee9fc6ab38d57a534e83e715bcba556972b15a3147",
+      "bytes": 24067
+    },
+    ".cache/pump-first-layout/pump/tube-water-6-clearance-cutter.brep": {
+      "sha256": "67c61416857fff4df41cabfb3634dc507fb2beac9adb246f03a7000d878b0f11",
+      "bytes": 13864
+    },
+    ".cache/pump-first-layout/pump/tube-water-6.brep": {
+      "sha256": "978fd66fd7e3409cbb03cadafd197063d9a9fdadace3ed63a8fd2addc979bc41",
+      "bytes": 13873
+    },
+    ".cache/pump-first-layout/pump/tube-water-7.brep": {
+      "sha256": "38e208073b991b9900b7af1bea8182dd26ec1e133cba847ad90159a1edcca815",
+      "bytes": 8000
+    },
+    ".cache/pump-first-layout/pump/valve-v-a.brep": {
+      "sha256": "6aed2b159f7308e51c1e24a078147a9ab6fe135c47baa927b93b336fdf7b155a",
+      "bytes": 682819
+    },
+    ".cache/pump-first-layout/pump/valve-v-b.brep": {
+      "sha256": "f8957cbe243716d99338f484849f45c9a04b0b943339f1615a81986b35e5d482",
+      "bytes": 682808
+    },
+    ".cache/pump-first-layout/pump/vk-cradle.brep": {
+      "sha256": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b",
+      "bytes": 20886
+    },
+    ".cache/pump-first-layout/pump/vk-solenoid.brep": {
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07",
+      "bytes": 682819
+    },
+    ".cache/pump-first-layout/routing/asse-drip-pan.brep": {
+      "sha256": "27eb0b1f49483bbd5ff5acd152afcf9fc3bebee52e6175362a59c966cea8ffda",
+      "bytes": 28581
+    },
+    ".cache/pump-first-layout/routing/asse1022-assembly.brep": {
+      "sha256": "542c576961c830948ea295557e3d7a4108d6d3268b33f0f97096437067e44817",
+      "bytes": 43868
+    },
+    ".cache/pump-first-layout/routing/bulkhead-carb.brep": {
+      "sha256": "981f3ca040e8a2115bfc59a9ae62dd2051319094c378c97623e33cf536732605",
+      "bytes": 6895
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-carb-word.brep": {
+      "sha256": "65f0369c3e0d6351dce5380704aedafcf4c9d8b978210b9baffb1ad7e8bd8444",
+      "bytes": 88074
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-carb.brep": {
+      "sha256": "6a03fa53e08a0967bf9e5e9a91475e76db441ea5e79777d62ee5dcf655ff81a3",
+      "bytes": 156427
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-co2-word.brep": {
+      "sha256": "91dc3acbc6b6031d1623db7762a004e870d8bf27900a920fc7eff7fdcf7069dd",
+      "bytes": 71089
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-co2.brep": {
+      "sha256": "97e6d6c3592bcba17d41e5e7e58e7b2f5b9b314770f3a37f14e00a616e45b284",
+      "bytes": 140040
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-water-word.brep": {
+      "sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba",
+      "bytes": 38545
+    },
+    ".cache/pump-first-layout/routing/bulkhead-ring-water.brep": {
+      "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645",
+      "bytes": 64464
+    },
+    ".cache/pump-first-layout/routing/bulkhead-water.brep": {
+      "sha256": "7bd546ad20be262205f9f829723fdefd76882f13fc9e3d176c6f67712bb7c94f",
+      "bytes": 7045
+    },
+    ".cache/pump-first-layout/routing/carb-foam-carb-1.brep": {
+      "sha256": "ec69e88040dfbb68aec5f4bdd3696562e3ac0df865565572f48c572dbde0b9bb",
+      "bytes": 16300
+    },
+    ".cache/pump-first-layout/routing/carb-foam-carb-2.brep": {
+      "sha256": "ad0c26b3e1c0e847b80b24e31dede032e88d93b32a3c5ede521170c57aaafeed",
+      "bytes": 8798
+    },
+    ".cache/pump-first-layout/routing/centreline-carb-1.brep": {
+      "sha256": "dccec633b780383da5ea21d364c2137da4f5563d09a9ffb7408811786f06edbc",
+      "bytes": 1968
+    },
+    ".cache/pump-first-layout/routing/centreline-carb-2.brep": {
+      "sha256": "faf788c2300f14a618b846105fdd7763ab343ac815c366b05d628670b6955571",
+      "bytes": 1073
+    },
+    ".cache/pump-first-layout/routing/centreline-co2-2.brep": {
+      "sha256": "9568beba96deaccb9d4665a3709993f02265fc52378fdecaa8b63f553bbc0cf7",
+      "bytes": 1578
+    },
+    ".cache/pump-first-layout/routing/centreline-fluid-1.brep": {
+      "sha256": "2ded1aed272239e8c37b994b37767a6cb277af119947bc8df526c1e58cb21f6e",
+      "bytes": 3688
+    },
+    ".cache/pump-first-layout/routing/centreline-fluid-14.brep": {
+      "sha256": "42312f6205d07031d336861f05b19dd639f3e8032e604d0c6fcf73e8a5366fd4",
+      "bytes": 7196
+    },
+    ".cache/pump-first-layout/routing/centreline-fluid-18.brep": {
+      "sha256": "f65783597f261a0de4b09f6f12a0d19b9d9f4d354336ffb92e27d350fc8d5346",
+      "bytes": 6335
+    },
+    ".cache/pump-first-layout/routing/centreline-fluid-2.brep": {
+      "sha256": "8853995ba35ab4f1e20f4b903e5ce7be930a703fd9f9307bba34a5176c61a85e",
+      "bytes": 1748
+    },
+    ".cache/pump-first-layout/routing/centreline-fluid-28.brep": {
+      "sha256": "8ed81c1f609ec539bfe0afc570674a97bd4cb0f9c69958387ffc9033b273f3fe",
+      "bytes": 7469
+    },
+    ".cache/pump-first-layout/routing/centreline-water-2.brep": {
+      "sha256": "1675636bd10475f036512fcdd1f3de08b0acb85570337e896ff87d2c5ac3efbb",
+      "bytes": 4744
+    },
+    ".cache/pump-first-layout/routing/centreline-water-3.brep": {
+      "sha256": "e7df9b205ee6ca48b87ff0c088cbf77a8606c3b6b2ba943f83276ff03c72b982",
+      "bytes": 4836
+    },
+    ".cache/pump-first-layout/routing/centreline-water-supply-link.brep": {
+      "sha256": "4b3f3713270c03c4dbe320ca97a3b22614fd67d71fe3918103ba62511ed9fb97",
+      "bytes": 5572
+    },
+    ".cache/pump-first-layout/routing/co2-adapter-check-in.brep": {
+      "sha256": "e53cf8b9a62a127fa65870dc9ac0384e8582055b54ae927977bf80ec1c22b706",
+      "bytes": 6440
+    },
+    ".cache/pump-first-layout/routing/co2-adapter-check-out.brep": {
+      "sha256": "5deaf45f270d89f200709ab8b504e49cd316751ca52a8c53e3a5682035a1582d",
+      "bytes": 15744
+    },
+    ".cache/pump-first-layout/routing/co2-adapter-regulator-in.brep": {
+      "sha256": "358c354a55993b31d5886a68b971d3793e1f808e079b3379d4600963a81094f6",
+      "bytes": 8849
+    },
+    ".cache/pump-first-layout/routing/co2-adapter-regulator-out.brep": {
+      "sha256": "27f7353d423d7a05e6b44f92a27a24b9d75ea4bd8d79bb5d4b7c75892762f1ba",
+      "bytes": 23954
+    },
+    ".cache/pump-first-layout/routing/co2-inlet.brep": {
+      "sha256": "c8066d4e047fca654a9b34eba54c7fcc2e32e538215f6edcda95557f1a88bcf5",
+      "bytes": 4201
+    },
+    ".cache/pump-first-layout/routing/co2/co2-0-centreline.brep": {
+      "sha256": "3b4e8d082056cc58fa45da0777da1eb86f20b58b8cf9df0eaa06b61feed06d7f",
+      "bytes": 8391
+    },
+    ".cache/pump-first-layout/routing/co2/co2-0-clearance.brep": {
+      "sha256": "efa03a820b89388ce1b52e3ad1c45e8916b3bde34b89dd9bba48377360d54876",
+      "bytes": 35866
+    },
+    ".cache/pump-first-layout/routing/co2/co2-0.brep": {
+      "sha256": "35939fdada6ee8363bfcf005b8c0c25ba3f18aee91b8160f3afd706ce0d1a2d2",
+      "bytes": 35887
+    },
+    ".cache/pump-first-layout/routing/co2/co2-1-centreline.brep": {
+      "sha256": "52ea56efda3b0432967c4fc9f0161121f07ac56c3083f4dc3e4ba70e095ee792",
+      "bytes": 4271
+    },
+    ".cache/pump-first-layout/routing/co2/co2-1-clearance.brep": {
+      "sha256": "e63ad90b38f375df53d2d730067e57aed7ed52f6ac442e13065a369308cf42af",
+      "bytes": 18446
+    },
+    ".cache/pump-first-layout/routing/co2/co2-1.brep": {
+      "sha256": "d6054ee007d3dcb15ff248619c15b44a8fc4c530c3e0db2d293e4c636e8e259c",
+      "bytes": 18335
+    },
+    ".cache/pump-first-layout/routing/digiten-flow.brep": {
+      "sha256": "e1684c3c8825d41cf64617b2a954c22ee49c4cd3f0743565d55a63b27384416f",
+      "bytes": 201339
+    },
+    ".cache/pump-first-layout/routing/flavor-a-psu-portal.brep": {
+      "sha256": "1248bbceff16a0fc5f99526f6f96078c259fb8988c7502bb2125f0ccdb13008e",
+      "bytes": 5055
+    },
+    ".cache/pump-first-layout/routing/flow-regulator.brep": {
+      "sha256": "b3fe324ebe4d9dae0d5dd83b463e3ad9d3783c20e52c1f548109c07ea464f15d",
+      "bytes": 15764
+    },
+    ".cache/pump-first-layout/routing/gasher-co2.brep": {
+      "sha256": "38ac5aaf46d48568a29ecc97d314c96be8830d26a76e54c08180a97760e6d078",
+      "bytes": 17102
+    },
+    ".cache/pump-first-layout/routing/keystone-jack.brep": {
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104",
+      "bytes": 18649
+    },
+    ".cache/pump-first-layout/routing/keystone-new_catches.brep": {
+      "sha256": "d85cc213c0d6ed3e9c666f11246ae1890f6e3303834dcde5654fafbfa86b0ca2",
+      "bytes": 12349
+    },
+    ".cache/pump-first-layout/routing/keystone-new_cutter.brep": {
+      "sha256": "f136fdd7fc7124221c0603dd8587b87b570ac709e834ba883bcea722a9ef6881",
+      "bytes": 18062
+    },
+    ".cache/pump-first-layout/routing/keystone-new_feature.brep": {
+      "sha256": "0ac3df132a8a222d9fa5a7e9f32a761eedea32aaac60711de1a5682a61248e46",
+      "bytes": 8266
+    },
+    ".cache/pump-first-layout/routing/keystone-new_receiver.brep": {
+      "sha256": "1c099aa5deb22e66550d550a4f83a9c78cf4f8ba639b475e8c77454e37ea5f06",
+      "bytes": 12612
+    },
+    ".cache/pump-first-layout/routing/meter-wall-clearance.brep": {
+      "sha256": "4cb61acdef502d4a850417f75eb211feb1f0f9de0663589057fc879ec5acd620",
+      "bytes": 3836
+    },
+    ".cache/pump-first-layout/routing/moisture-plate.brep": {
+      "sha256": "5102f3b4150751093907a5be11024ae861c1c2ef04f928a5f879863fe61fd7b2",
+      "bytes": 5445
+    },
+    ".cache/pump-first-layout/routing/nameplate-ink.brep": {
+      "sha256": "a7d7f65ac69786a44c7eda977676de0d94de7ab1db63ede08d1f78d488f10900",
+      "bytes": 877853
+    },
+    ".cache/pump-first-layout/routing/nameplate-original-removal.brep": {
+      "sha256": "c61a19c6bf9b0035768d931d0bb0d5119853b863655af082d00d622e2cdbb28f",
+      "bytes": 3925
+    },
+    ".cache/pump-first-layout/routing/nameplate-original-voids.brep": {
+      "sha256": "c3151343496d9bbaad7f1b915e6bc415a2b6ec09e8d60e26cc1bec00d57f3822",
+      "bytes": 41093
+    },
+    ".cache/pump-first-layout/routing/nameplate-west-backing.brep": {
+      "sha256": "d7622df78f9046f930dce1050763e6fded7308c82fb0e1bf4f2b326dce508f04",
+      "bytes": 3256
+    },
+    ".cache/pump-first-layout/routing/nameplate-west-cutter.brep": {
+      "sha256": "a71e4635f06cee54bc809ffd6603896a2eddfb5920eb504971d766c309a3bc32",
+      "bytes": 36295
+    },
+    ".cache/pump-first-layout/routing/nameplate-west-receiver.brep": {
+      "sha256": "5e4d0ff913fbb03566a32148978679ff56b51423e5dac0e38a104f9cc0c8fccb",
+      "bytes": 35935
+    },
+    ".cache/pump-first-layout/routing/nameplate.brep": {
+      "sha256": "65f6a7145edac25d3929e3506ccaffade66fa88e618472f6e8bd07bc056cfc6b",
+      "bytes": 1637166
+    },
+    ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-aft45.brep": {
+      "sha256": "21134ce1b31d31379bccae04f4d9aed89b7f6c958be67d91a9b3d2d74d3a0d2f",
+      "bytes": 99853
+    },
+    ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-cover-aft45.brep": {
+      "sha256": "eccfd68a786f831af83432128ba22794b56e49e0ffee61bb856151d9369a7981",
+      "bytes": 75529
+    },
+    ".cache/pump-first-layout/routing/psu-coupled-probe/funnel-frame-aft45.brep": {
+      "sha256": "d087a1bbc23732d4daa2fcaf8613817f293360b0c1368c647761298ff638a60d",
+      "bytes": 314474
+    },
+    ".cache/pump-first-layout/routing/relay-1.brep": {
+      "sha256": "70f757b26b4431c0bf161fcc9740ab06857793776c1bc7993d999da8dce1f265",
+      "bytes": 27609
+    },
+    ".cache/pump-first-layout/routing/relay-2.brep": {
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755",
+      "bytes": 27676
+    },
+    ".cache/pump-first-layout/routing/tube-carb-1-clearance.brep": {
+      "sha256": "2bcf2ebef65717a69d4815a63ab8f97504da9697b32a4b785407658eecb1d3fa",
+      "bytes": 8004
+    },
+    ".cache/pump-first-layout/routing/tube-carb-1.brep": {
+      "sha256": "053c0568752880b196175b3f029f60ce0835a9d76e26fed390c98c4bcf55c77d",
+      "bytes": 8025
+    },
+    ".cache/pump-first-layout/routing/tube-carb-2-clearance.brep": {
+      "sha256": "9fc32b45e56c7f6e6535eff0d1980ff96b0d6bda996e7b8e781259c9107c64c6",
+      "bytes": 4246
+    },
+    ".cache/pump-first-layout/routing/tube-carb-2.brep": {
+      "sha256": "354a68df30a96f8ab889316ca61ac15886a977b2c3bedc974999125bad665913",
+      "bytes": 4237
+    },
+    ".cache/pump-first-layout/routing/tube-co2-2-clearance.brep": {
+      "sha256": "e0cfd73253844b9147210de23110cab0dc3cb10992d14ad0cefe62922548bed3",
+      "bytes": 6204
+    },
+    ".cache/pump-first-layout/routing/tube-co2-2.brep": {
+      "sha256": "2ae06752639d5f129b3f32c6b14e2648c3995edf44afbfb5fed2ebb478619410",
+      "bytes": 6163
+    },
+    ".cache/pump-first-layout/routing/tube-collar-co2-word.brep": {
+      "sha256": "c662051546f16769ddd76ff2a5f43ab684a1f599e46a91313b7c12c44a2d55c0",
+      "bytes": 201893
+    },
+    ".cache/pump-first-layout/routing/tube-collar-co2.brep": {
+      "sha256": "ed1543932b7d8dd3403df67b28a10008403021a98158bec986dbbcf7b335ebca",
+      "bytes": 208879
+    },
+    ".cache/pump-first-layout/routing/tube-collar-water-word.brep": {
+      "sha256": "e28aab09bee3a73482f817cd93a294995cc3eff316b4f6d9034059fde7d69eae",
+      "bytes": 108877
+    },
+    ".cache/pump-first-layout/routing/tube-collar-water.brep": {
+      "sha256": "402590ca245d97b876095ce2aea4738e0e0e21223fe8706a249c3e6c205d5206",
+      "bytes": 114470
+    },
+    ".cache/pump-first-layout/routing/tube-customer-co2.brep": {
+      "sha256": "5327101f9ecc2df518f2585b9fe3c26023086dc799a469cde819448f8606e508",
+      "bytes": 1417
+    },
+    ".cache/pump-first-layout/routing/tube-customer-water.brep": {
+      "sha256": "202ef2d5d30d9f760acf813dd7e3aa2a347e9c2e6dcce7e127006f050e1cd214",
+      "bytes": 1431
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-1-clearance.brep": {
+      "sha256": "1d8b1ff8551ba91d7face8dd4744f0e99a0b3a319ffa5e0b1a30155f8a3b7636",
+      "bytes": 15916
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-1.brep": {
+      "sha256": "c21c1b3dc8ca4a6e3e0406352637e7e77ad7f5da13d3acda2f215defff81bdcd",
+      "bytes": 15941
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-14-clearance.brep": {
+      "sha256": "a9e03bcbf242cea182ca063db9195234b4d8dd70b8d6a25c519d2873d8df0893",
+      "bytes": 30284
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-14.brep": {
+      "sha256": "a1c1acb4c33eec2d1b85f4c6453785fc56452bdaba0d17580e4dcac9cd1e38b4",
+      "bytes": 30276
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-18-clearance.brep": {
+      "sha256": "d66510f16af8f43f155046004b9a930364f55f7b1189d99fee76bba5a991950a",
+      "bytes": 29418
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-18.brep": {
+      "sha256": "847a88e8530bb925c637dcc70ac4145de28d430e691306753d3e3200e073abdf",
+      "bytes": 29356
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-2-clearance.brep": {
+      "sha256": "c9e66721abf1927a6c1b0a08f1f2edc4fbe0c3c961bb83fb2e2f28153bb3fb0f",
+      "bytes": 6808
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-2.brep": {
+      "sha256": "6050b034745675a218c95a365e8aa6dee4b27ab8ecc141aa3aa0aea33d2fd6dc",
+      "bytes": 6808
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-28-clearance.brep": {
+      "sha256": "b953f1f60f8cf21423a1b16c372e63c899e53b1577fecb18d8c973da443eeb69",
+      "bytes": 34709
+    },
+    ".cache/pump-first-layout/routing/tube-fluid-28.brep": {
+      "sha256": "4abad5cf8c08d4a8762c970ce5c877da859eb3c3ba4c0e5bd10fd9e9a017ab5e",
+      "bytes": 34702
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-key.brep": {
+      "sha256": "8b34af9736e2bf9cd0d9e95f616f4c1725294a421038528e897012b1c6d518e0",
+      "bytes": 13378
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-pilot-1.brep": {
+      "sha256": "f103cd877f6ef37f204204fb674804bd6373b9202aa9355f5d17d11156ed2e3a",
+      "bytes": 1661
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-pilot-2.brep": {
+      "sha256": "b3892f40a888d1116a4d2d1c4a85569374c167d9654503be40cab1fdce8c546f",
+      "bytes": 1654
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-1.brep": {
+      "sha256": "af7fa035c5de6f84e270af17241514a62a778642f701331fa4d52861f5cf3f7c",
+      "bytes": 2667
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-screw-2.brep": {
+      "sha256": "0cda052714a8c44064a1042f69f2d8f1d96ee0a7ceec4c18f3183823e9761cf2",
+      "bytes": 2651
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-a-fore-seat.brep": {
+      "sha256": "5422d1698a3a8c6215b6ba309a2d4b35b895436582586cfb1521a810cd784571",
+      "bytes": 13843
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-key-entry.brep": {
+      "sha256": "5f302e733bfa1b9b6e0b8efec9c91adf7b497ef3ffc77e2dd2512b497d9f64bb",
+      "bytes": 30055
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-key.brep": {
+      "sha256": "611ff4aace443396dc122007ecf1e671e4877f9d7ef76d9472b65182190520d0",
+      "bytes": 26830
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-pilot-1.brep": {
+      "sha256": "ac18ccd4862b652a4ed86d5622d54e9c01104b8ff14bd7b9f02f6f8ec67802a4",
+      "bytes": 1886
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-pilot-2.brep": {
+      "sha256": "36a1a4d1031c92f3fafb59c5aa41ed1206a49b3ed28ce8ac101e14dd9deb6084",
+      "bytes": 1909
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-1.brep": {
+      "sha256": "b16083e0aa7a21155d9d63e66a26a9bda84ef68925f778a18a11bb395392e89d",
+      "bytes": 2621
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-screw-2.brep": {
+      "sha256": "c4fbc0109b79ef0be162a26693803e8f3b588ca2533e56e67688b4f9e766b28d",
+      "bytes": 2651
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-seat.brep": {
+      "sha256": "b54b122535541b6299765d98bed4798273822cc737cfc3bdc26ea198d705a1c5",
+      "bytes": 25705
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-east-tube-seat.brep": {
+      "sha256": "33614c24e83f5c3399c59977b241fb710b94ae7b9fce64f6c005bbc19cf05a18",
+      "bytes": 8789
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-east-tube-tie.brep": {
+      "sha256": "38326c55427df99f3c88833146c15deb9624b24f9f46ba5affb907b51d5c1bbf",
+      "bytes": 6831
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-west-tube-seat.brep": {
+      "sha256": "6d9e1d78b12d8b7aec8c17f0377af0c277c2071a24c0158f9e6c422ea604e43a",
+      "bytes": 8789
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-west-tube-tie.brep": {
+      "sha256": "209c94a8cfc9c227e5a52b76e6317355fee88bf6d85a41fd915bf38ffce6727f",
+      "bytes": 6831
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-inlet-air.brep": {
+      "sha256": "9c52e8378f16d1672f4b9afdcfbc0924f5c59c5c8484fddd8c63a24b3063c7c7",
+      "bytes": 35865
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-tube-seat.brep": {
+      "sha256": "a2059de5c575f28e4a17c224ce4304cb7978027fba9492028bbb68af5a1744a5",
+      "bytes": 63522
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-tube-tie.brep": {
+      "sha256": "f517dc92b61edabcd8917d49e8188b7839521a250f1a909da04ca45336592fa3",
+      "bytes": 10259
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gate-a-east-tube-seat.brep": {
+      "sha256": "8b37bf7b62b3ef27c1295455b2785a373179527eb4afe7d9b1855f4e2ab6a193",
+      "bytes": 10693
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gate-a-east-tube-tie.brep": {
+      "sha256": "a17bc6519d7172f13811b497bbfe065f02f0faebb39c41a2e55712176907e589",
+      "bytes": 9718
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tie-tunnel.brep": {
+      "sha256": "59defe61e289ec0dcc5ea3232846f7d2e76f34111f3f94ac6539f9288eb1524b",
+      "bytes": 1575
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tube-seat.brep": {
+      "sha256": "77f06f0876d241e1a68459b18a036ddf7d1526cff447b62d0fec523fbf8e5e33",
+      "bytes": 9148
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tube-tie.brep": {
+      "sha256": "e16b5b0695d2ffe23853b90592a2aa37c539ec1505ed4fdd05bd8464248964d2",
+      "bytes": 6831
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/needle-feed-tube-seat.brep": {
+      "sha256": "fd5ab6fb132ec319150f3733cde0cf457756bb8fdbed2907532a750bae471404",
+      "bytes": 13850
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/needle-feed-tube-tie.brep": {
+      "sha256": "8acd59b0cabb4af5604979b33148f5e81ecf6c0cc51aa09ba7bfee7c02efdaf6",
+      "bytes": 6831
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/supply-tube-seat.brep": {
+      "sha256": "4667be93efcab0566f5f369974c8c53f33526993e5c442e13b7e5a069e4a530b",
+      "bytes": 11421
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/supply-tube-tie.brep": {
+      "sha256": "be40b66592cbb74a1cf80629fda63e0dae5ca20d29f526f559109578d42da7d3",
+      "bytes": 10449
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-key-entry.brep": {
+      "sha256": "d208a7e66539b9c7480312d352691905cbdb9014eaa8398ef439fed8e22ef4af",
+      "bytes": 14742
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-key.brep": {
+      "sha256": "6224d27b48b35d45ec887aeaaa5e13af280b365c89de2a7e85f612f29f3fa9be",
+      "bytes": 13698
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-pilot-1.brep": {
+      "sha256": "6e97eb45fe664a25d9911a2a92a414b0fb5f426332145a81cb1171ba0d147b3d",
+      "bytes": 1450
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-pilot-2.brep": {
+      "sha256": "229748b7244c8da5736eb90bb3eadb957e0edd2e64281c3d941baa091a4c72d4",
+      "bytes": 1442
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-1.brep": {
+      "sha256": "9cab70a7f7666657942fdde0d0d29db0650fcd910d68a155f4e66dd6ce7ed430",
+      "bytes": 2638
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-screw-2.brep": {
+      "sha256": "ee3e6e9ba4894b201b0f137a9b5632631699d0e2950e78139bcdcbe514ab17b5",
+      "bytes": 2622
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water2-tube-seat.brep": {
+      "sha256": "eebb9acc62efeb49068f851f4d9ca21ad06369cfa8b4d10c573744c7c91b9a5f",
+      "bytes": 13389
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water3-east-tube-seat.brep": {
+      "sha256": "275c9bfe8081b2e5b1732f4153e74bb0d056dc1cd2ea132bf6d365bf68111da2",
+      "bytes": 13551
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water3-east-tube-tie.brep": {
+      "sha256": "e90df2247819f6fc8e59be9b48979bb375f98e002ceee9959b01fd89c530e574",
+      "bytes": 10182
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water3-west-tube-seat.brep": {
+      "sha256": "3b413cb91bcf334d1a86529ec6ca23ecfd83c0460bd2c34b63f87c45954f48c4",
+      "bytes": 13163
+    },
+    ".cache/pump-first-layout/routing/tube-hosts/water3-west-tube-tie.brep": {
+      "sha256": "713c68c3000a99a6bb8e271f27627376d801f016bfcde80e6d83f9a8c7722842",
+      "bytes": 6831
+    },
+    ".cache/pump-first-layout/routing/tube-water-2-clearance.brep": {
+      "sha256": "427a504f7527fb241251fa859f97d3100cb8127790c12281359bb049c980664b",
+      "bytes": 20710
+    },
+    ".cache/pump-first-layout/routing/tube-water-2.brep": {
+      "sha256": "8728748b54b1be2ee1ae2c663b0ed8f7f46bdb7c273d2040e838470d7e0f6709",
+      "bytes": 20692
+    },
+    ".cache/pump-first-layout/routing/tube-water-3-clearance.brep": {
+      "sha256": "781d212ff6a526935a57668bf0681ee9c789f1d5363fba01c2dfa5572a9bbfea",
+      "bytes": 20524
+    },
+    ".cache/pump-first-layout/routing/tube-water-3.brep": {
+      "sha256": "f0aebf0f0eb56d350b185b85e3cc319e4c12a8f0bb185895dd92d93b723f5d0e",
+      "bytes": 20463
+    },
+    ".cache/pump-first-layout/routing/tube-water-supply-link-clearance.brep": {
+      "sha256": "0a805ee77a88ed636579863f470909702d9b90756dc8898f763d36c54e55ea76",
+      "bytes": 22127
+    },
+    ".cache/pump-first-layout/routing/tube-water-supply-link.brep": {
+      "sha256": "6f5c44c8583bdba2cf879f231e31a032f9ff42d2b6c1513b8a3ba0e1dd71a958",
+      "bytes": 22130
+    },
+    ".cache/pump-first-layout/routing/wago-g.brep": {
+      "sha256": "8b3c6aad1862ba8bd0dfa78cc7abecf2898474cd25aab6e74b04454b608f1837",
+      "bytes": 15421
+    },
+    ".cache/pump-first-layout/routing/wago-gnd.brep": {
+      "sha256": "100e6d781cd5c6283d93596997638679c0b10f4457e7ea8be77ec64601066c52",
+      "bytes": 15274
+    },
+    ".cache/pump-first-layout/routing/wago-h.brep": {
+      "sha256": "f12eec39622e9ec722d8ac9ca56e82bdd6a7a170e021328f5123ada689255334",
+      "bytes": 15291
+    },
+    ".cache/pump-first-layout/routing/wago-n.brep": {
+      "sha256": "510d05d7762e5238264ab496f46769d2b1ec0bcc09136fe5b157d7415ac4b26a",
+      "bytes": 15306
+    },
+    ".cache/pump-first-layout/routing/wago-reeds-a.brep": {
+      "sha256": "29dea4a757abe8261f994bd4c11eed7f0bb13f0478415b0dfe7b92d132e0aa0f",
+      "bytes": 22581
+    },
+    ".cache/pump-first-layout/routing/wago-reeds-b.brep": {
+      "sha256": "6fb3744b409a26187b782d9423534b802a10de520d10530d4bcc5a3cfeea68a0",
+      "bytes": 38290
+    },
+    ".cache/pump-first-layout/routing/wago-sensors.brep": {
+      "sha256": "d5d06e438e609a0bea7fbd8bf3cf8fdd7011cd1b55f7f214cf424c384992587a",
+      "bytes": 22581
+    },
+    ".cache/pump-first-layout/routing/wago-v12.brep": {
+      "sha256": "023ad00e98d407003445f07e63e9c0efd3a3b1b77b51e1197a0ed7d0303b72af",
+      "bytes": 15354
+    },
+    ".cache/pump-first-layout/routing/wr1110.brep": {
+      "sha256": "6c9d377bdb7f72b89dc9c1a9c12032486b58afb6b04d7158bdaf31bb60f94f72",
+      "bytes": 198522
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-holding-prong-1.brep": {
+      "sha256": "3e54a0fdd4c90b560d9435c59d1b12eb706e281bd24e6dc7cf4eb5bb295be3d4",
+      "bytes": 5794
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-holding-prong-2.brep": {
+      "sha256": "ddc9a66fd1db4a4927bff2f41e53fc85136b7b5ce16523c7a9af470189e04e4d",
+      "bytes": 5694
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-0.brep": {
+      "sha256": "514e5d65a256a362369a91738d73a722ce54115e290295874699f3171747c7cb",
+      "bytes": 7337
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-1.brep": {
+      "sha256": "6ea950907d30aa995371d5256b3e7c02b797a23ec1a41453df88b6909166c0a9",
+      "bytes": 7342
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-10.brep": {
+      "sha256": "945e577d1365914319bdc50d3729abb3fee655471b6cb40e88e6abc43f91ac8a",
+      "bytes": 7257
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-11.brep": {
+      "sha256": "7e7bbba3ce966d2b9976c9a43bd2eb428927e5145815824c6861882a7a39cb2a",
+      "bytes": 7336
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-12.brep": {
+      "sha256": "7ff4543f494b4b80a13da025b49bd6133f1288d02d885d1188a20cb8df9550c2",
+      "bytes": 7340
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-13.brep": {
+      "sha256": "1cfaa6b73007ee67d02b58133ba2ce12d7d21f90db392d3ae61c1dcad59272c0",
+      "bytes": 7207
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-14.brep": {
+      "sha256": "6e9a30ec508919198e684c55e9fe87282bec31b3ace701ec23ce3751ee8fa53a",
+      "bytes": 5016
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-2.brep": {
+      "sha256": "0e0c197d7adf3f3a6904309b282ca5c19c275c738090167f5d1a166b0aa734e1",
+      "bytes": 7331
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-3.brep": {
+      "sha256": "82103ee75ca889c96b938f43b7a0e086963c05bcf2eab19311d4c5180287f87e",
+      "bytes": 7339
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-4.brep": {
+      "sha256": "cc1e0714793b807e7495651d82b17cf838b2247e9cd4f6184fc92a2b52d8094f",
+      "bytes": 7242
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-5.brep": {
+      "sha256": "2fb8077fbbad689eb02acca555ee7d4396fc80f24e536f7db2d9beddddfc7272",
+      "bytes": 7239
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-6.brep": {
+      "sha256": "858720e543df615c27649528d5e15b8ce371cbc61df0291c01bb07a09e880131",
+      "bytes": 7304
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-7.brep": {
+      "sha256": "6262db689df87690377f659fc11b0b5e7e0e9e71e12d589fe8b7a04e9431714e",
+      "bytes": 7182
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-8.brep": {
+      "sha256": "56764ea3590cdd96992bef965d931f61de0cc5c734acb25c289c749debfdedcb",
+      "bytes": 7273
+    },
+    ".cache/pump-first-layout/structure/asse-factory/asse-supply-free-9.brep": {
+      "sha256": "14fc784bfe5e41b1212026370eed4209068cd189a201dc6fb91eff137faf4c79",
+      "bytes": 7238
+    },
+    ".cache/pump-first-layout/structure/c14-inlet.brep": {
+      "sha256": "8460923796e6f7b228b7ee5beb00bc70623f3d508c176b366d9e9c6c681768da",
+      "bytes": 86065
+    },
+    ".cache/pump-first-layout/structure/controller-1-pilot.brep": {
+      "sha256": "a846266d4aae08c2eb77b5761a8e8fe1c63ddfec2f7c32f492e9256d1adb7bb0",
+      "bytes": 1126
+    },
+    ".cache/pump-first-layout/structure/controller-2-pilot.brep": {
+      "sha256": "708aafdd4622f64228ecec65b4edad0411b6a9eb255db22f3ad8ca4d3817ee5f",
+      "bytes": 1126
+    },
+    ".cache/pump-first-layout/structure/controller-3-pilot.brep": {
+      "sha256": "d7d952300b87ccf19e6d374eaa7ea746c55be049be82d33466b8ff79fd1b6670",
+      "bytes": 1218
+    },
+    ".cache/pump-first-layout/structure/controller-4-pilot.brep": {
+      "sha256": "52dd4bb4ecef3c829bb5bca13b1eb8a0f88edc8ef03f68c2124172a41cf92a58",
+      "bytes": 1218
+    },
+    ".cache/pump-first-layout/structure/controller-roof-boss-1.brep": {
+      "sha256": "096d3adef06ec32a736ac6b3dcc81150ecfe1e11736800e852813c8a34deaeb9",
+      "bytes": 2088
+    },
+    ".cache/pump-first-layout/structure/controller-roof-boss-2.brep": {
+      "sha256": "54fe0221d5d40ab540ea71077533dc31f644f5e66d9dadd0d5905ddb043ae1b5",
+      "bytes": 2088
+    },
+    ".cache/pump-first-layout/structure/controller-roof-boss-3.brep": {
+      "sha256": "92e6c48c6d8e27f5fc9874897fbb50df3af6b69cdb485de2255d2c1842e6e396",
+      "bytes": 2272
+    },
+    ".cache/pump-first-layout/structure/controller-roof-boss-4.brep": {
+      "sha256": "07905e6575f22a6d4fc0b47ac998020d876d777ed18dfbf6f23002f4ecd843b5",
+      "bytes": 2272
+    },
+    ".cache/pump-first-layout/structure/controller-screw-1.brep": {
+      "sha256": "7eed59f77969e13aedb72134233db26077f3d62d8bfdc0f24f95f988af8728bd",
+      "bytes": 9234
+    },
+    ".cache/pump-first-layout/structure/controller-screw-2.brep": {
+      "sha256": "f79430cb9dbdc6ab6c970fc9aec898eb9c9acdb4e99d2575522bc5307bf7d920",
+      "bytes": 9234
+    },
+    ".cache/pump-first-layout/structure/controller-screw-3.brep": {
+      "sha256": "cf94215e1f1a0614ecdaf28ab778d441e1b5860fbfb22e33059593dd1368b29f",
+      "bytes": 9607
+    },
+    ".cache/pump-first-layout/structure/controller-screw-4.brep": {
+      "sha256": "42138b3f2bf60c495d2d10413094bbf41818abc98b254e59cf9418a6b090cabf",
+      "bytes": 9607
+    },
+    ".cache/pump-first-layout/structure/enclosure-back-top.brep": {
+      "sha256": "2816f9d772b3b3dd507a97c79df241dc1ea52d8f62a8d7370c0a9865fe148468",
+      "bytes": 3751234
+    },
+    ".cache/pump-first-layout/structure/enclosure-front-top.brep": {
+      "sha256": "ccaed28d658cdb97f441f35de9bf017c89387de0fc9ebacd084bfb6473bf8cfe",
+      "bytes": 1181088
+    },
+    ".cache/pump-first-layout/structure/factory-rail-band/enclosure-back-bottom.brep": {
+      "sha256": "ecbc158e8d7a05735b0c3d2e9e6bfcee3e0264950e2ec832b26b221c43020386",
+      "bytes": 43451
+    },
+    ".cache/pump-first-layout/structure/factory-rail-band/enclosure-back-top.brep": {
+      "sha256": "e34045574e0a068b85f6c6a2072d8af90fcf5004f6f64449d511cb22334d6342",
+      "bytes": 35327
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x0-y0.brep": {
+      "sha256": "7f720a125a75e3592669e17cc4fa70d8d80f2e3f2a3c9af5ab4caf361d60edba",
+      "bytes": 412886
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x0-y1.brep": {
+      "sha256": "e8d7c66f600cca3b89ef24481ceaf380875e55b6fba1552fd3f268b5db82d56d",
+      "bytes": 16654
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x1-y0.brep": {
+      "sha256": "f9eefd6d6cbf6ed86ee2679078662ddebbe9c73a26905b9d95322ed5375944e2",
+      "bytes": 39598
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x1-y1.brep": {
+      "sha256": "995341d6225a4f46a24e93c41cfea48a5f6e2c24be629af53f4dfdf74098b976",
+      "bytes": 200896
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x2-y0.brep": {
+      "sha256": "d396045e960f0b51af4283ab33b52880e09b031ae471ffd54f0bfe588626419c",
+      "bytes": 793417
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/cells/x2-y1.brep": {
+      "sha256": "f256e0a9d8c8162c9f1ea2c5b88b84baaeecdc55bcdc3507a60eda69bbd695c7",
+      "bytes": 30699
+    },
+    ".cache/pump-first-layout/structure/factory-upper-bay-motion/enclosure-back-top.brep": {
+      "sha256": "6258930d074fae2ee1883b7d001aa0e525d4334adcc6403462989f600d22f768",
+      "bytes": 1640437
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/flatten--10.0.brep": {
+      "sha256": "770d65e14ed11939c478e426f0dffb791cd3587af073b6e98d2ad6df49241f6f",
+      "bytes": 6446
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/flatten--15.0.brep": {
+      "sha256": "38f09456b2a4a34069cd2b2eef0c7d79d77e1f998100c89ad742e982f9613997",
+      "bytes": 6432
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/flatten--20.0.brep": {
+      "sha256": "c04fe263a6e5493e1cf76dce96b03d52c406e22f5a5680b0a92581da9b22a377",
+      "bytes": 6450
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/flatten--25.173524524530166.brep": {
+      "sha256": "e3825b3d335de8b04e7b8e689906d3595883660184ba36170efb49501268bbe4",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/flatten--5.0.brep": {
+      "sha256": "16902f30178d45e90169f402a1605c5ad46bf113d6ef91d3d1568b7705482e49",
+      "bytes": 6430
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/g2-fore-channel.brep": {
+      "sha256": "9ad40f62c1d020d27784f14fc2f4e0247bc5bb2c9c9cb25b91f2dc7704f81f0b",
+      "bytes": 8835
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-0.0-0.0.brep": {
+      "sha256": "a7f678b946de614b16cb7c4903ccef961fd6b3a62afa7ef79ef4e6be3542628f",
+      "bytes": 4793
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-120.0-0.0.brep": {
+      "sha256": "6667db96cdcd166f2c9e4e9ca162e6ed84359b2ef826c1e74711c6b36612124d",
+      "bytes": 6721
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-150.0-0.0.brep": {
+      "sha256": "03c7327c3de6280b962b518c6e16ea8991c53a952657589fe312bbd24f43a371",
+      "bytes": 6667
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-180.0-0.0.brep": {
+      "sha256": "099d309b5fa037d9228b7655133111ffade5a12a5e44a14610e06409cd9d2d34",
+      "bytes": 6436
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-180.0-10.0.brep": {
+      "sha256": "3e45ac5fc329f54c759329ed9dc6656255799113c33aa83d28f6cb5c40d89fd5",
+      "bytes": 6439
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-180.0-12.0.brep": {
+      "sha256": "44d4e2cdb9aaec967f301e19bf520d1914f503bb2880d7eeb24433f23a4238eb",
+      "bytes": 6431
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-180.0-2.0.brep": {
+      "sha256": "a687a8bba907d7df382df91fcc4d2d820325d65cec826fc5d5f8bf419636c8b9",
+      "bytes": 6438
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-180.0-5.0.brep": {
+      "sha256": "dac82005d399d06e99b812f9beaeb9a186129fe7b7d399d808162d24c8bce27d",
+      "bytes": 6647
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-30.0-0.0.brep": {
+      "sha256": "c2fbaeb47f2b3417c8360ce9f036a79b327ee353a579008d51bd4da24c4ea7f0",
+      "bytes": 6673
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-60.0-0.0.brep": {
+      "sha256": "c4e04f4de8d2a43357c7bfd91226a0a6993f7edeee913a40b7b3248082a18334",
+      "bytes": 6704
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/hook-90.0-0.0.brep": {
+      "sha256": "cf16c4a12b1ddd68823ded91c02f13df9f34fce868b0866cf573eaa719ff791e",
+      "bytes": 6525
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/horizontal-out-10.0.brep": {
+      "sha256": "e13ac1a8d170abedb3c6f631f87ff9954e656c4f0cbca4f093d7e06512958449",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/horizontal-out-20.0.brep": {
+      "sha256": "2178d12bfce347c761c06ecf04459b83d15c6876060d34aeefa594881d770f41",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/horizontal-out-40.0.brep": {
+      "sha256": "9b45939dd740219302a68d56242ece8475cdbb7a6c211da6343767d00daf157f",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/horizontal-out-60.0.brep": {
+      "sha256": "9d00d9689956f838ea32e05af2698bf4598efd8caffed23c957ae7baec95e642",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/horizontal-out-80.0.brep": {
+      "sha256": "db033f98faa8abd352146f2e93681b0c93f57a4e40e1a8acb75c955553778c83",
+      "bytes": 6061
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/lower-1.0.brep": {
+      "sha256": "f976e330ac32195517a12d5c42259063f24787163661ed4d5cc30112822dfb82",
+      "bytes": 6431
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/lower-2.0.brep": {
+      "sha256": "5053031e243533c4fca3a3829ead103964667cd37ba5fd530d66eb727525e03f",
+      "bytes": 6431
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/lower-3.0.brep": {
+      "sha256": "74178bc93a16a763c58f0ae5efb21d78827498d3394d05ff7334ea144c2ded8f",
+      "bytes": 6431
+    },
+    ".cache/pump-first-layout/structure/g2-factory-tool/lower-3.8956663221309213.brep": {
+      "sha256": "9b9869f8eeef04c8b05f008fa24994f4270ee484b26e4d66cfec22e4cc8c1f96",
+      "bytes": 6439
+    },
+    ".cache/pump-first-layout/structure/ground-pilot.brep": {
+      "sha256": "5313488793e028d6173e33c392c39a4cf17cf64251056066e7901e8da519ab67",
+      "bytes": 1286
+    },
+    ".cache/pump-first-layout/structure/ground-roof-boss.brep": {
+      "sha256": "c722c39c69edb24b0690bcf93f1f0c1c41ad105a764b4fd717e1dd7914f8cd72",
+      "bytes": 2393
+    },
+    ".cache/pump-first-layout/structure/ground-stack.brep": {
+      "sha256": "cab7e5272eae9849e2230d3cd71b28e6b1d44b8aaf3d1a693520fd448a96198c",
+      "bytes": 150212
+    },
+    ".cache/pump-first-layout/structure/hose-closure/prv-factory-tucked.brep": {
+      "sha256": "8b038d54ffdb945ebb70d40b1beaa0db8c7527288cea70446acebeaac7ae2730",
+      "bytes": 5430
+    },
+    ".cache/pump-first-layout/structure/keystone-jack.brep": {
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104",
+      "bytes": 18649
+    },
+    ".cache/pump-first-layout/structure/lid-with-supply-mounts.brep": {
+      "sha256": "0222f4652717827da2b880973ded05caa2b18917ac30898cce7de03f090dd9fc",
+      "bytes": 256123
+    },
+    ".cache/pump-first-layout/structure/pan-full-profile-aperture.brep": {
+      "sha256": "7ba51c9319eb012d0967c6d389c836d79219e770719dcdb3b2780cfe0a4bd1bc",
+      "bytes": 33465
+    },
+    ".cache/pump-first-layout/structure/pan-slot/pan-slot.brep": {
+      "sha256": "7ba51c9319eb012d0967c6d389c836d79219e770719dcdb3b2780cfe0a4bd1bc",
+      "bytes": 33465
+    },
+    ".cache/pump-first-layout/structure/pcba.brep": {
+      "sha256": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1",
+      "bytes": 449437
+    },
+    ".cache/pump-first-layout/structure/print-parts/asse-carrier-clamp-1.brep": {
+      "sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41",
+      "bytes": 11028
+    },
+    ".cache/pump-first-layout/structure/print-parts/asse-carrier-clamp-2.brep": {
+      "sha256": "5901e491a462e30e852ebe5cced3f3ec0ad49887bff208fe23f42f98a459d116",
+      "bytes": 9276
+    },
+    ".cache/pump-first-layout/structure/print-parts/asse-drip-pan.brep": {
+      "sha256": "fbe6e8908f7909d89c2c7d9fdc8ebdddabd0144d1538b2c0a8e50cd61a916579",
+      "bytes": 28592
+    },
+    ".cache/pump-first-layout/structure/print-parts/asse-removable-carrier.brep": {
+      "sha256": "75cb3948909982d18eaaf78c328ddd9b9a0e7e815e2f38c4b6212a6ffc7b1b5f",
+      "bytes": 43982
+    },
+    ".cache/pump-first-layout/structure/print-parts/cold-core-cap.brep": {
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d",
+      "bytes": 109705
+    },
+    ".cache/pump-first-layout/structure/print-parts/cold-core-lid.brep": {
+      "sha256": "e76c943054b97f6081e0430cd67cd813ec403f32575aed40755f8cdec0ec61e4",
+      "bytes": 993025
+    },
+    ".cache/pump-first-layout/structure/print-parts/discharge-chain-lower-key.brep": {
+      "sha256": "2a55213576ddd7a1d11ee8b4822e4a4d097ce588d126c9d7d652b77fd9bed55d",
+      "bytes": 11438
+    },
+    ".cache/pump-first-layout/structure/print-parts/enclosure-back-top.brep": {
+      "sha256": "078b51115ec6cc4bc3f8a042c1e17d7a0a2c64ee78d5a235dffa3bdac8d0060b",
+      "bytes": 5351077
+    },
+    ".cache/pump-first-layout/structure/print-parts/enclosure-front-top.brep": {
+      "sha256": "b565b8c204f5caa69d267527f3cf9ae3c107e7a684bb0a05754312b5b26bf21f",
+      "bytes": 1414005
+    },
+    ".cache/pump-first-layout/structure/print-parts/flavor-a-fore-key.brep": {
+      "sha256": "8b34af9736e2bf9cd0d9e95f616f4c1725294a421038528e897012b1c6d518e0",
+      "bytes": 13378
+    },
+    ".cache/pump-first-layout/structure/print-parts/flavor-pair-wall-key.brep": {
+      "sha256": "fb830887747fb138d3eecbf3b4798b8f7aa7fd751a9e65f69da99c3f4cecf394",
+      "bytes": 26832
+    },
+    ".cache/pump-first-layout/structure/print-parts/funnel-frame.brep": {
+      "sha256": "f7c45f79b36810c087a193e9b038a8d623a3bcaa56793028712a2efaf2ba621b",
+      "bytes": 274410
+    },
+    ".cache/pump-first-layout/structure/print-parts/rear-roof-hatch.brep": {
+      "sha256": "2af3da10c8a628092efa64831fb315bfdfe1d039b47caf96ab06bf6ea48cc18d",
+      "bytes": 648355
+    },
+    ".cache/pump-first-layout/structure/print-parts/suction-chain-upper-key.brep": {
+      "sha256": "6fa557f29393c035a926f1b54967ff228f9aeee1be3f582e3ef4e598afc0725c",
+      "bytes": 25046
+    },
+    ".cache/pump-first-layout/structure/print-parts/water-identification-ring.brep": {
+      "sha256": "954aa9203c0177d2ed2a80757ffbc22d20402eed5207c2550dbf288adc38cae0",
+      "bytes": 64504
+    },
+    ".cache/pump-first-layout/structure/print-parts/water2-tube-key.brep": {
+      "sha256": "6224d27b48b35d45ec887aeaaa5e13af280b365c89de2a7e85f612f29f3fa9be",
+      "bytes": 13698
+    },
+    ".cache/pump-first-layout/structure/print-parts/water5-east-drop-key.brep": {
+      "sha256": "54802c8bddcbf483441d05f691a623c506bdf100510ae8c114301a3a5f1663c1",
+      "bytes": 16838
+    },
+    ".cache/pump-first-layout/structure/psu.brep": {
+      "sha256": "f10d251aa2ef52e00187c6d8e44163e57a5c8d07c9d23e907e848b160622a66f",
+      "bytes": 19609
+    },
+    ".cache/pump-first-layout/structure/rear-chip-finish-0.brep": {
+      "sha256": "89e99d5de65c6c251a68f30589b0c9059f1ac1fadeb7186f364c604789165ccc",
+      "bytes": 11995
+    },
+    ".cache/pump-first-layout/structure/rear-chip-finish-1.brep": {
+      "sha256": "08c58cf759c6a68218b8dc8c2e97a11a2c85ee7d3d9f5b6bcba0a9811f19a092",
+      "bytes": 12341
+    },
+    ".cache/pump-first-layout/structure/rear-chip-finish-2.brep": {
+      "sha256": "d3a4220684afc72672fedc90a01c57692ad669c2a3c05d1383e202a63c34000b",
+      "bytes": 12526
+    },
+    ".cache/pump-first-layout/structure/rear-chip-finish-3.brep": {
+      "sha256": "47e14ec711da8fb7b362ac3602929d2e576ba18549a6e8dd73e9656b223ef0a4",
+      "bytes": 12488
+    },
+    ".cache/pump-first-layout/structure/rear-chip-finish-4.brep": {
+      "sha256": "1930448e6a18ae3aee95cd3901eba2ac074d280302c236901295eb748ab11446",
+      "bytes": 12598
+    },
+    ".cache/pump-first-layout/structure/rear-co2-land-finish.brep": {
+      "sha256": "4a520a773d8e29fc2d8a5b756335ef1449b9356cc5ccdbf4cadebf30a8b89920",
+      "bytes": 6035
+    },
+    ".cache/pump-first-layout/structure/rear-original-c14-bore-and-pocket-finish.brep": {
+      "sha256": "ea54e94f6487e588ab0d38987466bb0101be13dc8cf954fcd787b5d569d0b3c2",
+      "bytes": 35413
+    },
+    ".cache/pump-first-layout/structure/rear-original-c14-ceiling-pocket-finish.brep": {
+      "sha256": "e5be09b911d385dc2eff104be152a0cbd21479d2ba0829a243a998398e62d767",
+      "bytes": 12942
+    },
+    ".cache/pump-first-layout/structure/rear-original-c14-insert-0-finish.brep": {
+      "sha256": "0c44fdd938632eb2aa5281ace8531f0e8ee54ffaf93cb40242ff034ea8959937",
+      "bytes": 4911
+    },
+    ".cache/pump-first-layout/structure/rear-original-c14-insert-1-finish.brep": {
+      "sha256": "05aa9172acb0a1582f465d4b72c439ff3d692e733edd1831aa2faa86c6ace37d",
+      "bytes": 4942
+    },
+    ".cache/pump-first-layout/structure/rear-original-c14-land-relief-finish.brep": {
+      "sha256": "29f433d265d6d704006ab6958f418bcbeefa82709b04ad329fccaed1fb01ec85",
+      "bytes": 4595
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-0.brep": {
+      "sha256": "ea28ac25096a3ffcb34950837472aaff1ebdc19213f722aec41e24c827db9a53",
+      "bytes": 5081
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-1.brep": {
+      "sha256": "ef847999db77d69f8b7583c38460ee1d40cb4d64ababc8021e2dbb14eaae274c",
+      "bytes": 5309
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-2.brep": {
+      "sha256": "3039031929f5707c34bfcbc0efab44154efcbcd1b16e1f1611d68b41bd3e01bd",
+      "bytes": 5325
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-3.brep": {
+      "sha256": "be4aa6c7461971a8bf4cbef4cc10a48f2da83e87cde451bf73b986efdd89b7ee",
+      "bytes": 5035
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-4.brep": {
+      "sha256": "d2711fd18dee9616a31b744e44cc8cf544ea328d3037e7f30ec00d34d40b34c5",
+      "bytes": 13032
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-5.brep": {
+      "sha256": "317bdd50a0179432d62c3740a892d6025b3d10ee10b724a712e8e4f7839bc367",
+      "bytes": 5006
+    },
+    ".cache/pump-first-layout/structure/rear-port-finish-6.brep": {
+      "sha256": "8e3dc3bfca34b837e87d7eb84618e172105c0f5ad848ed88a8967c6d266a63e6",
+      "bytes": 14161
+    },
+    ".cache/pump-first-layout/structure/rear-shell-with-mounts.brep": {
+      "sha256": "1024b942a072fc3cafb80d7227341ec19d5a87fc16bcaf9a8fa41ca70256289c",
+      "bytes": 3953198
+    },
+    ".cache/pump-first-layout/structure/rear-water-inboard-finish.brep": {
+      "sha256": "deb06e4afc0b00212c9da1c7af9c73edece8f3099e259b95c42a75eba46bf3ad",
+      "bytes": 5089
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/carb-foam-carb-2-hatch-clearance.brep": {
+      "sha256": "140400503ba88222d682525c1b1fe8975e570a3918fa5b536308a12257727568",
+      "bytes": 3845
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/controller-island-corner-clearance.brep": {
+      "sha256": "8f76bc74ec5940fc82f3017e2c66465218122ce49cf3bd0cbb632701b9cee69c",
+      "bytes": 4106
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/controller-roof-boss-4.brep": {
+      "sha256": "d7a6865be6cf5741211b9f11628cc4610098bbf91025570004679b27fde78f4f",
+      "bytes": 5202
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/enclosure-back-top.brep": {
+      "sha256": "79eba8a9194fbd101ffc93c625212e29ea79fa7491038e24ab8d44719bffa575",
+      "bytes": 4248134
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/g2-fore-tool-channel.brep": {
+      "sha256": "bb7c0a4c3d478b8a719874a993350f63beae5075e2bce774e4a0b01efef2d052",
+      "bytes": 9351
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-0.0.brep": {
+      "sha256": "be718694eea8664171a41e1f3a3f4c21dcf01fb2c0b221afbb20e01c9dec82fd",
+      "bytes": 8032
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-1.0.brep": {
+      "sha256": "d6dc8698b978383e8b483049763ba3d3cc623e059788ee28b086b56c5ab87250",
+      "bytes": 8032
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-10.0.brep": {
+      "sha256": "75016611086bc07f251bc6cb40aeeaf559dcdc617de229bebe9028e97d5b6e3a",
+      "bytes": 8008
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-14.0.brep": {
+      "sha256": "83c5e4d43826deda368b800366d8caf1ff2bd65be7b51370633c06e3a272dc4b",
+      "bytes": 8007
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-18.0.brep": {
+      "sha256": "b9296a9c2e195e01e4b8fe699f99d8336fab52177f38d188f7a1d892f18decbf",
+      "bytes": 8008
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-22.5.brep": {
+      "sha256": "078d94043f6b03396c0260b0813172f5ae07d185b860ea266f6f1ddd8ea4a173",
+      "bytes": 8008
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-3.0.brep": {
+      "sha256": "91427cff9df4ca87a816119c2b2ec9a48864d2790aa41753f61ba58c5d8870b2",
+      "bytes": 8032
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/AC6-G-hatch-z-6.0.brep": {
+      "sha256": "cbde695e89d94b55476fb17246570bd3c9759810135bf5ca2a018577a93484d7",
+      "bytes": 8008
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-0.0.brep": {
+      "sha256": "61cda6e7978113a52d58ded690dfbe6bb7a68225c8e1e76f5802c11878014514",
+      "bytes": 8650
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-1.0.brep": {
+      "sha256": "e1d62e0159a8ec5f8bad9ed944f7ba4107514a1cdbe1ca99d9c9673dee601f0c",
+      "bytes": 8651
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-10.0.brep": {
+      "sha256": "80184f1d09a7bc0ec1e7eea33be85c3988bd947d129ceea46457962e5722bff9",
+      "bytes": 8650
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-14.0.brep": {
+      "sha256": "09fc659fb93163a57f43b28726ddd3b4190e0d416283fb65aa96654c5f3a7f02",
+      "bytes": 8651
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-18.0.brep": {
+      "sha256": "d013b556aa0294afa78c98dc91e5ea51aa945ae7c1e25a85299607c8a2476f8a",
+      "bytes": 8651
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-22.5.brep": {
+      "sha256": "38c76b949bfec3f36fe73a2e19f23b0005e3aaaa6aab2f497518715c221accde",
+      "bytes": 8651
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-3.0.brep": {
+      "sha256": "26e87f45b6b5f8253b3e492794462198ae03ec833a6e636346d6e4b27d409cd2",
+      "bytes": 8651
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-carbonator-hatch-z-6.0.brep": {
+      "sha256": "487488080b8d8d6ab2ecfc3a67b4f4ad82e7e85a0506dbe14352c2dcc9e6e02c",
+      "bytes": 8650
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-0.0.brep": {
+      "sha256": "98fb81d369b503c7a8ceabcf4249493b0d37a8fbf36206c5c758632d3d713646",
+      "bytes": 6907
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-1.0.brep": {
+      "sha256": "a9f2aa65e0549867ab522f35b122e1c82da17a8764d1c6666f0e68e0623ccf44",
+      "bytes": 6907
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-10.0.brep": {
+      "sha256": "f1199e3d903336d1aa229cb8a8b96b9b9a94324e3598765564ebd3b961cfa88f",
+      "bytes": 6883
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-14.0.brep": {
+      "sha256": "0217a6e8510b16dcc5bca5cff5e486c9fcfba29a82113b1732c73c019d06c744",
+      "bytes": 6883
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-18.0.brep": {
+      "sha256": "eaea9eda021e78f8031a315061d252e4e7d823f6919064c03b296beb25ac70d5",
+      "bytes": 6883
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-22.5.brep": {
+      "sha256": "0ab9efb1a8250a8e39fd5ca7b886789b9151fdc547913c921ddb66375d0efce4",
+      "bytes": 6875
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-3.0.brep": {
+      "sha256": "6042e01f3fd131b7e556ec62d09ae114e4e4da1eca9e9ffd8414e9548f4c09f1",
+      "bytes": 6907
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-feed-hatch-z-6.0.brep": {
+      "sha256": "4fd27c08803b936c0d629c8edd9794b5bf3fd9ffab0a97f08fabe8687dc12842",
+      "bytes": 6907
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-0.0.brep": {
+      "sha256": "462a8591df2baed57c1aa43beb6035177bf9cbc77fdc353e82837ba868ab76ab",
+      "bytes": 7643
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-1.0.brep": {
+      "sha256": "80f89c6c93bc18848c40cdc82777dadc1faa51a704c1c25929c6bc46208bd652",
+      "bytes": 7656
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-10.0.brep": {
+      "sha256": "f11df368d01e9fafb4f3f9c35da6f8331bebc16bc2bc550047b4a28a3ec25b0c",
+      "bytes": 7632
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-14.0.brep": {
+      "sha256": "8c078bddcf07d17ce163468ef096cfc9692643c87fd22123924d2a918a0284aa",
+      "bytes": 7632
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-18.0.brep": {
+      "sha256": "0793b44f82c430917da5d5c3949022df06d58505972e1e83fa7b15d2f9f49b20",
+      "bytes": 7632
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-22.5.brep": {
+      "sha256": "8181305bb3d435d63cf33b148f049bd6f1f5269b4c1ea3b189fa7659fc62a241",
+      "bytes": 7588
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-3.0.brep": {
+      "sha256": "eb57f580d583c0c619c699d6d6894ffdad15287c7a35205e625595976397a92c",
+      "bytes": 7642
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-make-up/PE-under-counter-hatch-z-6.0.brep": {
+      "sha256": "efe2f3bae0d90759bbbf3e11263e9e0ef6fefa731e78ed4b8e7a3b6252b77af3",
+      "bytes": 7619
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-AC6-G-10.0.brep": {
+      "sha256": "afe88eb0ddc02e78b69a0bb582400a779fc37064c6e87d7fcd78f5f05531e921",
+      "bytes": 18470
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-AC6-G-14.0.brep": {
+      "sha256": "e9e56cfa6e8687e05816dfa75851ea7d070a0ea833971c174ebfee5b573d9829",
+      "bytes": 23569
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-AC6-G-22.5.brep": {
+      "sha256": "d2a65859e5fce2e1ca91519159b3008d17669d1fca4df65589a026872c9e9702",
+      "bytes": 1797
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-carbonator-10.0.brep": {
+      "sha256": "165311a5ecac7d9ffdddab8c6f8188ce422f8458f42ecb46b1c900f1cf42b92e",
+      "bytes": 4413
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-carbonator-14.0.brep": {
+      "sha256": "880d65e18b139a517c75c67621cae1b7173a81728478b3e635ffb77042b95e92",
+      "bytes": 22089
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-carbonator-22.5.brep": {
+      "sha256": "ac0ca4a55020edcdf76129a543052e907c0efb0deceda867493f6ddba86cdf19",
+      "bytes": 1991
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-feed-10.0.brep": {
+      "sha256": "e3372f632939b03c0add10198984accd5121aa6d3b51e61996866c22ef6afb84",
+      "bytes": 31282
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-feed-14.0.brep": {
+      "sha256": "3665e4d8cc1de2829137de3aa7e6aa71b5afa12bcb9c8b13744d66d07b16dcfd",
+      "bytes": 28412
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-feed-22.5.brep": {
+      "sha256": "a2ab0ae2fef672db51735cc3ed8dc0f3ffb8b930d89162aa56d84054b6db0f74",
+      "bytes": 2790
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-under-counter-10.0.brep": {
+      "sha256": "cb6c5b08c7eb3b73a26b3ed4eff026dee5bc45857c14a10b80a556418563b94c",
+      "bytes": 5737
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-under-counter-14.0.brep": {
+      "sha256": "4db1327936fd3a9d526ebd54e8d7a64cb92a8534ae8904af45e4124aacd4ed90",
+      "bytes": 23539
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-PE-under-counter-22.5.brep": {
+      "sha256": "617a56a05084eedc8ffee5895585929d136a1f98daf9bcd35d587078ffb66f5f",
+      "bytes": 1804
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/ground-tail-lap-working-channel.brep": {
+      "sha256": "2c3bbb2a067e46bc2a1ad722a0a2f2591897fe12d7640da0d5d0c4aff2375577",
+      "bytes": 8099
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-controller-rear-bridge.brep": {
+      "sha256": "eb63494eb42ed6d31bb43941ae052113f7a20336ddc1250b479ede78d2b3900c",
+      "bytes": 16445
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-discharge-pilot-1.brep": {
+      "sha256": "0e25680c59571972e24b8df1fe57cb931f50c35a07354acec17bc8091840cba1",
+      "bytes": 1278
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-discharge-pilot-2.brep": {
+      "sha256": "22deb0da37e4fd769efdb8525a618ec43837d25c12124e844ab03b3f8fde7b7f",
+      "bytes": 1278
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-ground-pilot.brep": {
+      "sha256": "5313488793e028d6173e33c392c39a4cf17cf64251056066e7901e8da519ab67",
+      "bytes": 1286
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-0.brep": {
+      "sha256": "84d503cdaef8e9a3433655de24ebb8b139ea5d0a2a5ce92d1358ef9f97a88494",
+      "bytes": 24472
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-14.brep": {
+      "sha256": "9fd29f563aa44ffb984d2d641ca39488fa3c9f127f094126bae390713eb9ba62",
+      "bytes": 24934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-hose-clearance-z-7.brep": {
+      "sha256": "61176c0f44d04ba9c6b1d0ca28449e5b228523db705b7b85d40682400fdd300c",
+      "bytes": 24283
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-lap-ledge.brep": {
+      "sha256": "5f38d98f29b8b80eb09b8fbcfb9490e4939af90f7c0531b764ed6136b25c89a6",
+      "bytes": 382743
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-1.brep": {
+      "sha256": "c49860c1670b7cd0f82ea82da1e7892b251311ce03af973ca9671371c6644030",
+      "bytes": 1200
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-2.brep": {
+      "sha256": "06acaa63608c70e8cf21f22ca620d997adf5adc4c535f95234b692ba0bc1bd4d",
+      "bytes": 1309
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-3.brep": {
+      "sha256": "f84280f5bfe8e8710aec91476d21a794292683a3b61ec8b8a631f1df449780be",
+      "bytes": 1307
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-pilot-4.brep": {
+      "sha256": "cb3c145719a6006357e7c124c219da942e5f914e452e2d7bb765c7a2a617e3b9",
+      "bytes": 1282
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-1.brep": {
+      "sha256": "698490b4b831bb71a04cfcee0c435f39b0a2cda1e87869ae6f9bae0dff428245",
+      "bytes": 11927
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-3.brep": {
+      "sha256": "1d5297efff60f1163a230f8ad8d8807753d9335bd8a88bd779c2ec25edc38f84",
+      "bytes": 28251
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-1.brep": {
+      "sha256": "13950ce96886eff584c2b5187b72d2f12ed1b2a60ee92c04510907885e6af073",
+      "bytes": 5341
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-2.brep": {
+      "sha256": "19c4e5c46147b0632ed466cbd98d0866fb1e56abe491c157d3826a0f1f43d8d3",
+      "bytes": 5793
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-3.brep": {
+      "sha256": "678769f18ea6f620c1de6100777a01218c1556943dbd8ba164251edd54c6cd59",
+      "bytes": 7838
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-4.brep": {
+      "sha256": "47fc08974251720345025fcc0fd90e00d4692abefdaa2825493d303fa620957b",
+      "bytes": 7891
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-1.brep": {
+      "sha256": "78c204bcdb89f7ab7564458235cfefbe4dc0bdbc65247008000184f23e3ebd66",
+      "bytes": 14851
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-3.brep": {
+      "sha256": "b9a8d8d5b004014afbe4065aceba3b72a67a4b279c57588a3cef8e76121012b1",
+      "bytes": 6841
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-1.brep": {
+      "sha256": "03ba7c8153ac862d92dadffe50df5ad344e928d9e3c36e62229ffca50d675647",
+      "bytes": 9858
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-2.brep": {
+      "sha256": "a610d90080eee7e21d5eaa7227d3c7cf13936043930f57d4e86aa13ce74ead56",
+      "bytes": 10376
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-3.brep": {
+      "sha256": "51cc444a9e7831b2394a136afc21feb7cedfd6fc7c672d6e8e332e0a579db9c8",
+      "bytes": 9941
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-4.brep": {
+      "sha256": "21858e84c1bcc68639cdfcb50892922f75da2dfa57e509438215385e6d59d808",
+      "bytes": 10293
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-1.brep": {
+      "sha256": "8496c774b38dbe8126e963b238302a9ab4a64e10cfbf158d7793162ce245578b",
+      "bytes": 8438
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-2.brep": {
+      "sha256": "25f22b48da8651dff1f2b178f439c9aca9b366d916866810e9b8cd6a4ced8c88",
+      "bytes": 8864
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-3.brep": {
+      "sha256": "ef532a10baa4e079dd1d5a7d9f16b055323e3f8b172c2249262c15405d7e3a25",
+      "bytes": 8290
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-4.brep": {
+      "sha256": "a511ef1cdb3fc60cc3848752e021bf36c0a431a4bed76290d58f33ba72e1b82f",
+      "bytes": 8776
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-seam-silicone.brep": {
+      "sha256": "6b632a3057830962454f27313b1236620642346ea1d32e08393723d6c78000fa",
+      "bytes": 89071
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-seated-hose-clearance.brep": {
+      "sha256": "84d503cdaef8e9a3433655de24ebb8b139ea5d0a2a5ce92d1358ef9f97a88494",
+      "bytes": 24472
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-1-0.0.brep": {
+      "sha256": "9cd62e3315360fd9516d11842fd872739a9e4df049a61432b0559cc84db4c491",
+      "bytes": 2825
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-1-1.8.brep": {
+      "sha256": "445475cf8372f7d889fbc6e7cc58de6d78b8414dda9a8d582117d7f055f46dd8",
+      "bytes": 2825
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-1-10.0.brep": {
+      "sha256": "da4b4e34a95f9b7d73b9812960d48dce3de67b3f4675820f53f33f71947a5186",
+      "bytes": 2825
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-1-30.0.brep": {
+      "sha256": "181f65d1583c3bca9a5a986185fec2437def9670ab9066a8a50b41e9e61d554f",
+      "bytes": 2825
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-1-60.0.brep": {
+      "sha256": "09fbf79c6cdafd1b2b8d4d76e901c3df9392417d33711c5834e935ac1436037e",
+      "bytes": 2825
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-2-0.0.brep": {
+      "sha256": "64a360a9c98cce2a7daf01e9add472a761a01f7361b8efb4047f992345d51747",
+      "bytes": 3004
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-2-1.8.brep": {
+      "sha256": "7dbd9fe15d1289c02f6a7429fd689df65c6263b1cbfd27a48b105027248f7a3b",
+      "bytes": 3004
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-2-10.0.brep": {
+      "sha256": "1e43735976e9e5ed06b38eb894c27dd139a1bfe27cdd100e4ba5eb540245cd42",
+      "bytes": 3004
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-2-30.0.brep": {
+      "sha256": "0c976901ec843ea90c85c5ed5537e3f6bfe60d896c3d52428ebc676b1bf62d30",
+      "bytes": 3004
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-2-60.0.brep": {
+      "sha256": "25a4483790d5135746f90b9f888cf32d0ad8aec181ae6749d466d2f29e161d0e",
+      "bytes": 3004
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-3-0.0.brep": {
+      "sha256": "0a36299e72388c5881f31323c0d13aaeb764e4dfc6b272d4c1ab317f3cb0a2f4",
+      "bytes": 2958
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-3-1.8.brep": {
+      "sha256": "c0983336187e423bc9aeb3072848a629fed98a690682647e091af08b96a8cd8a",
+      "bytes": 2958
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-3-10.0.brep": {
+      "sha256": "d7f964d0c2efea0e4f6b288d34a5c9f94e9676c6af4e8f4ba6464678c8e9ded3",
+      "bytes": 2958
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-3-30.0.brep": {
+      "sha256": "fd37a9069f8b5ceb6a289d9cda2a8fb6e73b065cc466a281b2f947de02ae6087",
+      "bytes": 2958
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-3-60.0.brep": {
+      "sha256": "4eec244be8f10e092b2f2ff8a029ac76a834b4cf4154ac26e0a3954360f560d9",
+      "bytes": 2958
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-4-0.0.brep": {
+      "sha256": "0732ee4c7f3c0d14de4a15efe8cfc8abbb63be7c561b23022c10e46a9e123265",
+      "bytes": 2940
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-4-1.8.brep": {
+      "sha256": "d2c26037dd470aeaefd44fe680024752984793952e0da89d5e649e50d04aca27",
+      "bytes": 2940
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-4-10.0.brep": {
+      "sha256": "53b3cf6b136630dfef33bf0fc976087e40844e0d05c86ef28144d228488011c9",
+      "bytes": 2940
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-4-30.0.brep": {
+      "sha256": "78fb18d243dcbd195881f0acc8f76d5ad7f400d1ff3041fd26e03cfd4708ce9a",
+      "bytes": 2940
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hatch-tool-4-60.0.brep": {
+      "sha256": "7aac1642ec29fd74308e4707ca035890d45341ee53e35c3d4b16f3037c1fbf29",
+      "bytes": 2940
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-clamp-chain-discharge-hatch-clearance.brep": {
+      "sha256": "516947b14deca25616318bace8be6a00832427fd9e003741b88adef57c18ec4f",
+      "bytes": 3920
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-0.brep": {
+      "sha256": "ea2d69841c9b5c9c5e76257a02537745b65b3fbf86b39f78b72c673a176fd9c9",
+      "bytes": 14100
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-1.brep": {
+      "sha256": "96d9fa15e495234ee76c79430868c896f43402adcc8dc98c2352af6cda4a178f",
+      "bytes": 14561
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-10.brep": {
+      "sha256": "3a4b4324f522c9b1dd94e0d04bbec9a0809cb5175ca27659112252cf1be63744",
+      "bytes": 14512
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-11.brep": {
+      "sha256": "7acd203275688c673366c8fcc3a4a4d1f06b0260f8d3c74680600e0c30ac98ce",
+      "bytes": 14548
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-12.brep": {
+      "sha256": "f10fe1994319d9bb767ce963e62d3cb5217a942d616b24535dbfc97e852ac00a",
+      "bytes": 14514
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-13.brep": {
+      "sha256": "82c7723173b122a8e67d85dd9e05a3ea4fc2197a0bae5ef572c0b9c092f2b180",
+      "bytes": 14531
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-14.brep": {
+      "sha256": "0fc4b18fbec6f902c391d3996a899daf578408231748929d35ec8d16c49e160d",
+      "bytes": 14492
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-2.brep": {
+      "sha256": "78048e82baa34e9948bb84fd253ac5986d570dd94313727d43966789a783aacd",
+      "bytes": 14507
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-3.brep": {
+      "sha256": "fc2607ac3ddfe37b052fb5593c860ea7db42c993894d04ad1a7879a05458d389",
+      "bytes": 14545
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-4.brep": {
+      "sha256": "389154e30fff2d4e0749e66c0d6279458d49d4e61a6062d2df53366e07a2bc2b",
+      "bytes": 14481
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-5.brep": {
+      "sha256": "9f5c614bee8f977710e1637a6136d4f0c1758de630174e6bbe7284d25f21baba",
+      "bytes": 14528
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-6.brep": {
+      "sha256": "2e97718e4588cbfc8668b741dea583cfeb2a23b44b5759b2b3d004a8ed52744b",
+      "bytes": 14489
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-7.brep": {
+      "sha256": "e4f4047d6001a963f1131e81da6ae6eee40b2097db716c20d4a4e8a5b6748d22",
+      "bytes": 14497
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-8.brep": {
+      "sha256": "9b0b29988c4713188a8fa85908c1503e9720572f6c8ec68bbedacd8ae04ea167",
+      "bytes": 14476
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/hose-landing/water6-hatch-z-9.brep": {
+      "sha256": "f74c7da5d04e4ee01852e5524d0bb878771fec2c8c3af57bb25b15ca19bedcc9",
+      "bytes": 14531
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/rear-roof-hatch.brep": {
+      "sha256": "f452fa1859f6e665fa5a4fe7b743b5854314a5d9db1755f1e21dfa415a35b8b1",
+      "bytes": 642519
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/roof-hatch-selector.brep": {
+      "sha256": "d86babef59396cfbcff942708c3c71be5aeff51d4e1145234ef2145255008772",
+      "bytes": 21461
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-1-0.0.brep": {
+      "sha256": "40eacbf19afceeb79902799e1393c3bf74bdae981cfea443e926329f64eed628",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-1-1.8.brep": {
+      "sha256": "1d2893eee33e7c43c29faf1c736465b736a9bae3534756d98f99272c3cc5126d",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-1-10.0.brep": {
+      "sha256": "b5ad9d468ae7f79c8dbf5550fd96dffb33531399741faf36e03faeb4bc851f97",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-1-30.0.brep": {
+      "sha256": "e398cb29bca3b2a64aa9fc412bfa7bc7cc69679e45e59a16f22754dfb07bd097",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-1-60.0.brep": {
+      "sha256": "59b08c7447664263da0b49e93f33b79bc8e5c5bfd3971af6d47cfd17ffb4c256",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-2-0.0.brep": {
+      "sha256": "2fc4c7c560aa2ea9f114ae06430363b052c3465e494ca574970d40dbe72321b2",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-2-1.8.brep": {
+      "sha256": "281e4328562a8734dfcf9198fe164c038b3ffe18578460a9f361ee4373a7f9f8",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-2-10.0.brep": {
+      "sha256": "12c153bdfc839ea0d54380d29961fb7ecabc15499a1a141fd3926a724a788673",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-2-30.0.brep": {
+      "sha256": "fa260d8949fbdb585eaae4853f15a753b8bc3c8aa19b2569bfe277041c4e3523",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-2-60.0.brep": {
+      "sha256": "849356f65d6ce480b4f1b825de7d6c7beb3cd8e3d1d52fcbe048d75014fa1f29",
+      "bytes": 2976
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-3-0.0.brep": {
+      "sha256": "e5187efdb088c7634e9be212cebd4d1ffe0aba5bf5cc865566ce4c2436910901",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-3-1.8.brep": {
+      "sha256": "82c98d03cd7c429cf069e3126c1aff755b0dcb5ba81c2695584c4aa6e4f27f1c",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-3-10.0.brep": {
+      "sha256": "260115002f55aead46b6dfab138b717a60c77b4465699887c5ffc1b74f74d3b1",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-3-30.0.brep": {
+      "sha256": "a3921785d9de2b72bc3927c817549d6a607513bea78dc85b6f45441f2d6b5c68",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-3-60.0.brep": {
+      "sha256": "66c3a9e821f8d9a863a28d779edfbe583d03b35453b8c4795d6479217002f965",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-4-0.0.brep": {
+      "sha256": "2dd9c7ff7194da9342d9ec09ef685b1e1df5c5c240ca90a68a6053b18ade01e5",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-4-1.8.brep": {
+      "sha256": "fdcf5c972d1b7aa9dcad543bbba41e4ba67cf651f371ce5a4c4ba94bc5bd609c",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-4-10.0.brep": {
+      "sha256": "02029358ce007aec070c2b01e16a47bffb692fbc45614dd9d4c6cb6c083f1d19",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-4-30.0.brep": {
+      "sha256": "6ddaddc92c6e13eb5fcd267693fdbf8ec6e4836b2182205cc1a8cabfade0b3c4",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/supply-tool-4-60.0.brep": {
+      "sha256": "9476109967aa52893b8994c3bb52456a761bd0add43ce2b3c7d8b11fce3344e0",
+      "bytes": 2934
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/water2-hatch-relief.brep": {
+      "sha256": "193ceb2035a10ed75cdb00753b7e544f1737a1ce4c922d503e2dc07c49db8c9f",
+      "bytes": 12761
+    },
+    ".cache/pump-first-layout/structure/roof-hatch/water5-lap-relief.brep": {
+      "sha256": "5a43903e757e958c420ba23f91c092bad95d8c91f7656bb67c30becbff18cbb5",
+      "bytes": 3238
+    },
+    ".cache/pump-first-layout/structure/scene-stock/cold-core-cap.brep": {
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d",
+      "bytes": 109705
+    },
+    ".cache/pump-first-layout/structure/scene-stock/cold-core-lid.brep": {
+      "sha256": "338c6920b114b5b7c2278ff908ab545cbabcfa5bfa7a8d51874f1e3413126555",
+      "bytes": 376271
+    },
+    ".cache/pump-first-layout/structure/scene-stock/enclosure-back-top.brep": {
+      "sha256": "125454d177c771d91884351eff4dcb5157e44b59557f0144926555c989adf330",
+      "bytes": 4823927
+    },
+    ".cache/pump-first-layout/structure/scene-stock/enclosure-front-top.brep": {
+      "sha256": "152c511e20a51c5fc90ae74b1670a74d58b9850805c9c7a2a678964f2b4d377b",
+      "bytes": 1194975
+    },
+    ".cache/pump-first-layout/structure/scene-stock/funnel-frame.brep": {
+      "sha256": "d1dc732bd052281be28702187747539e9d0b439d91e62e04717ba2505dcf87fb",
+      "bytes": 320737
+    },
+    ".cache/pump-first-layout/structure/scene-stock/rear-roof-hatch.brep": {
+      "sha256": "b05de622d063e820df19d52980a77009b13ea6259ed166fff88437b99602efe9",
+      "bytes": 697784
+    },
+    ".cache/pump-first-layout/structure/supply-1-pilot.brep": {
+      "sha256": "bb61f1947b46c98c79050fdd8008ae57f4e90c858918ea3b429312d5efa3ea70",
+      "bytes": 1224
+    },
+    ".cache/pump-first-layout/structure/supply-2-pilot.brep": {
+      "sha256": "5ab811b8d3e058c2b1ccbf39d260ff0ba37a2d66e3a21f508133391ef8b023de",
+      "bytes": 1224
+    },
+    ".cache/pump-first-layout/structure/supply-3-pilot.brep": {
+      "sha256": "b274e99cdf299ae93f2700f92e08fdbd3cfea0d41d78cbc5bb6158095c308f3c",
+      "bytes": 1216
+    },
+    ".cache/pump-first-layout/structure/supply-4-pilot.brep": {
+      "sha256": "5070c283c5493e1d31341a250e9458df179d27972b7607a8ad94fbcd33c2400a",
+      "bytes": 1216
+    },
+    ".cache/pump-first-layout/structure/supply-lid-boss-1.brep": {
+      "sha256": "c99dba8dcab5ef4588465fae278091290654ffb9b33831f98d64dd6c953c40b2",
+      "bytes": 2276
+    },
+    ".cache/pump-first-layout/structure/supply-lid-boss-2.brep": {
+      "sha256": "d28aac89f86e6fbac1c8129936f26faed28723d67f2e6bda3143be7fc67f36ff",
+      "bytes": 2276
+    },
+    ".cache/pump-first-layout/structure/supply-lid-boss-3.brep": {
+      "sha256": "77b5af6a1f4192deb54368ca5e4acfe762e3a2c81431ef024f44a881b373b701",
+      "bytes": 2260
+    },
+    ".cache/pump-first-layout/structure/supply-lid-boss-4.brep": {
+      "sha256": "d3a3b4e02c913a1bb109193607ace97788e4061f62fa04cb5fed64e3106d0e3a",
+      "bytes": 2329
+    },
+    ".cache/pump-first-layout/structure/supply-lid-web-1.brep": {
+      "sha256": "0a2d1db70145724c36f54261088d784aade82fc63cacb727aee5af1ebdf6a630",
+      "bytes": 42401
+    },
+    ".cache/pump-first-layout/structure/supply-lid-web-2.brep": {
+      "sha256": "340c2600cafeb94dbbd310a63fbf9b6fe7051587bddfb8c94731017bb7ef69a1",
+      "bytes": 6279
+    },
+    ".cache/pump-first-layout/structure/supply-screw-1.brep": {
+      "sha256": "53621c15bdded41b7f9368a4265ea046369f2832f294188b2879e727f948f299",
+      "bytes": 10223
+    },
+    ".cache/pump-first-layout/structure/supply-screw-2.brep": {
+      "sha256": "3567e4466ece62f75ad263e42d1ea6a5fd0ffd52e2333fa63ee8989071e154fc",
+      "bytes": 10223
+    },
+    ".cache/pump-first-layout/structure/supply-screw-3.brep": {
+      "sha256": "25a74fab8691f5379b480e907bbeee086e428a2cf11ab9a0d9c0433f73624b81",
+      "bytes": 10169
+    },
+    ".cache/pump-first-layout/structure/supply-screw-4.brep": {
+      "sha256": "7b4ec15df7ec067f1fd1a0ba7d6d60ffa6a6a9e027b357adf44d7a9f75ce5fab",
+      "bytes": 10169
+    },
+    ".cache/pump-first-layout/structure/supply-washer-1.brep": {
+      "sha256": "3e8ad309376c92ea7b95451265af69fa09c11de133eefa26bf6760bf2d90dcd3",
+      "bytes": 2550
+    },
+    ".cache/pump-first-layout/structure/supply-washer-2.brep": {
+      "sha256": "23ad11932889285b2d1f6b96fec222ed4ee59c2eaba81f1902de23869951cb1e",
+      "bytes": 2550
+    },
+    ".cache/pump-first-layout/structure/supply-washer-3.brep": {
+      "sha256": "647d3969a3eca1674b7927586f9b35f0c3ef49c00c8b76f8801776f91c48a3e4",
+      "bytes": 2534
+    },
+    ".cache/pump-first-layout/structure/supply-washer-4.brep": {
+      "sha256": "6ff8dd47fee307dac970e9d7d5d26f6f7b4dfe33ba1d330e841040893d75ddc6",
+      "bytes": 2534
+    },
+    ".cache/pump-first-layout/structure/tube-water-5-front-slide-clearance.brep": {
+      "sha256": "f293ebd85675e5febe3ea65670e0948c31686cfc91596c4fba6786d7add3390c",
+      "bytes": 73697
+    },
+    ".cache/pump-first-layout/structure/vk-cradle-front-slide-clearance.brep": {
+      "sha256": "d2a33e1cde96d366b33081e9ce043018bf0e2c9911d039aa88e724286bbe5a1b",
+      "bytes": 4981
+    },
+    ".cache/pump-first-layout/structure/water5-key-pocket/water5-key-pocket.brep": {
+      "sha256": "918e2ec0af74c5943597b95475be0ce96de58b8a72496394efbff826bf6f9c82",
+      "bytes": 4030
+    },
+    ".cache/pump-first-layout/structure/water5-key-running-pocket.brep": {
+      "sha256": "918e2ec0af74c5943597b95475be0ce96de58b8a72496394efbff826bf6f9c82",
+      "bytes": 4030
+    },
+    ".cache/pump-first-layout/structure/wire-roof-finish-control-ground-upper-B-0-source-stock.brep": {
+      "sha256": "19cc026020f7cf863d08e25f38dccc83b1449e1e16b2d0741a65513d055fe39c",
+      "bytes": 1768993
+    },
+    ".cache/pump-first-layout/structure/wire-roof-finish-control-ground-upper-B-0.brep": {
+      "sha256": "db7da99ea3cb2daf2032be17361f7c07630d6d6bd0c5b4bd71787990c32fdbf8",
+      "bytes": 4254
+    },
+    ".cache/pump-first-layout/structure/wire-roof-finish-control-loom-J7-wago-reeds-b-target-0-source-stock.brep": {
+      "sha256": "23286d3ca89cdfdae9e6cb0a5168bdaf4e2c6614b01fa10315d18e6f53f878f6",
+      "bytes": 2293063
+    },
+    ".cache/pump-first-layout/structure/wire-roof-finish-control-loom-J7-wago-reeds-b-target-0.brep": {
+      "sha256": "b9a8e7a38a105dd9397d58d0178e70ad1c22c5fb80fb72fa220017c92fcf2876",
+      "bytes": 4316
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-fixed-manifold-ribbon-clearance.brep": {
+      "sha256": "cad2a51b96e99e5ed83ae9d1603c03f0b4b68f481d7410c8ecb2d32a4fe8accf",
+      "bytes": 5325
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-fixed-manifold-ribbon.brep": {
+      "sha256": "7d83daed97eda1d5464b6e3323c292b0b5efa369115a9861ec42b4ffcc242825",
+      "bytes": 3330
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-descent-clearance.brep": {
+      "sha256": "c86484355c768ef1a7986ceaa57006a81ba7182292826e7dd73e0994bce9f046",
+      "bytes": 3001
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-descent.brep": {
+      "sha256": "9ab1df71e987ea4bb11453efdd0e3595d7b58868db898005694158b48f35c0cc",
+      "bytes": 1406
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-lower-fanout-clearance.brep": {
+      "sha256": "03e48a1f92e82f18fa31f1faa7cf8aacbc70f2b068615a5aa5f3783c6dc96e67",
+      "bytes": 158677
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-lower-fanout.brep": {
+      "sha256": "c53499eb2a5a6fbe32a67d5704c9df1301fab6ffe087c485c013e04f8cc96db1",
+      "bytes": 92328
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-A-clearance.brep": {
+      "sha256": "9059e5b8d697162b9384fbccf91abe0213cee7569873573b2fe4704481813946",
+      "bytes": 71583
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-A.brep": {
+      "sha256": "76711a427ea48d1b228bba68ca75ceafb590008055cdc4485de1c7ad46e652c7",
+      "bytes": 51618
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-B-clearance.brep": {
+      "sha256": "754018f8205fc2e77b4439f12d696859eb372d5cd6e5f346e8f40211c4eafab4",
+      "bytes": 73494
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-B.brep": {
+      "sha256": "3bd9c06e2503cf890cb3231188011dde588b0185f4ebe1dedd5c88ab24b84c4b",
+      "bytes": 51537
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-merger-clearance.brep": {
+      "sha256": "9e2ed5692a24472f45659b1332af83fd8b33099f6cf33e0ccadb9c9c36c53889",
+      "bytes": 187393
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-merger.brep": {
+      "sha256": "03c58f683defbbad6450e0987a5078bc6bf4c551c140b60c9399266a4e1c54bc",
+      "bytes": 106498
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J1-fanout-clearance.brep": {
+      "sha256": "b4cb94a381b021be5ac40b1ee43145f150812e8a66dfed2a9f6e075ae80af6cc",
+      "bytes": 169046
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J1-fanout.brep": {
+      "sha256": "3ca7294765c5270e62efeb93cb03403f6b0c1bed96f493923d38951c447a8b86",
+      "bytes": 83376
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J11-fanout-clearance.brep": {
+      "sha256": "67da26b56336ddb7859eb3aac21b05732f24d99491f3163d1b827b4c5e8163a9",
+      "bytes": 75097
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J11-fanout.brep": {
+      "sha256": "bd23069c0513ed41ef60745ed9be9cae149bc4018aade23392ba49eadafb18ee",
+      "bytes": 45960
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J13-fanout-clearance.brep": {
+      "sha256": "34cc761a2e8320ef5acdf0cad64fc52fa9309de39e762b0df5ed634d2d575d01",
+      "bytes": 57825
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J13-fanout.brep": {
+      "sha256": "9add60171aa02235a561305fb41d35974ae366246e786aa424feb906a3fc17a8",
+      "bytes": 32332
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J2-fanout-clearance.brep": {
+      "sha256": "e615faf551f3cd9451b86587a14e3d0664ab358f7379803844cc1abf494ae9f1",
+      "bytes": 48799
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J2-fanout.brep": {
+      "sha256": "157e87430e076fe0c84c5d9f6bf2afb56f8f7425ab3eb052d18375c7c3fa2c3d",
+      "bytes": 26245
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J3-fanout-clearance.brep": {
+      "sha256": "9401e7487f57325b91f0905ff9dd5a7a1d5ea402621cbb1730c3a5d3d873056e",
+      "bytes": 56237
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J3-fanout.brep": {
+      "sha256": "08afa1ac47a52a37a5354b4055c9c4a8749e714e952b1198b46bda77e2590c63",
+      "bytes": 31488
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J4-fanout-clearance.brep": {
+      "sha256": "9e59f4fa536543c680c3918879858478685c3f1bee5ec9fc3cbb31e88bcc9e8b",
+      "bytes": 136012
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J4-fanout.brep": {
+      "sha256": "69971268bae7dc29f5e61c7bc7a0e07414a3054fd8b020790050b3c7bffc2546",
+      "bytes": 94659
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J5-fanout-clearance.brep": {
+      "sha256": "3ffdede9566fb28580c863c1f2f608f110a6b70074a42cab8a69d10f5e208223",
+      "bytes": 71130
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J5-fanout.brep": {
+      "sha256": "593a0882384c065fdb7c62484eed8dee990e210506e48620ccbe9fec29551b70",
+      "bytes": 46548
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J6-fanout-clearance.brep": {
+      "sha256": "b4c19e0984e22c52a8393e4794f2a32788ef1ec6c47ba93fd3be9ce945bbc98b",
+      "bytes": 76158
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J6-fanout.brep": {
+      "sha256": "2b3f2d89eaa6b3593cd9fde4ace551ab9a7b1c33cb377f55382b0f17ea1eb3e8",
+      "bytes": 49152
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J7-fanout-clearance.brep": {
+      "sha256": "dd5878c288d787d86fadeafb234ea5cf93ab3dd5ec401ade55f9b72c1c94fb87",
+      "bytes": 64794
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J7-fanout.brep": {
+      "sha256": "8f3818040d08e51e966a1279de0ba8d0182235cc02561618520e5997629c9692",
+      "bytes": 35527
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J9-fanout-clearance.brep": {
+      "sha256": "2f9d24a6156142f05d6c41edd0340a471de5752419666ce4f683eb2840c249f2",
+      "bytes": 56235
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-header-J9-fanout.brep": {
+      "sha256": "06bc2ee9790a4c3fd856e105863980699cf0aee211de67b063e9048a9a20ceaf",
+      "bytes": 31471
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a-clearance.brep": {
+      "sha256": "68ad26648c012282ba87af3d6e936b7d4fdb4e952f76f306c96a2e4044d5a3a9",
+      "bytes": 19005
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a-target-clearance.brep": {
+      "sha256": "16f6f60ddb3f20ca1a52b12d72b820fd851886116d85841dca6e80d516734873",
+      "bytes": 49300
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a-target.brep": {
+      "sha256": "9fc706030e841ebef59b04f9c6a81b82393e94c2d56323a5243b6f4982c4dc64",
+      "bytes": 45115
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a.brep": {
+      "sha256": "b859568eb81a990b02c725d6572b53dfa94d50f7aab6e86ab3fd07f1213f660b",
+      "bytes": 30459
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b-clearance.brep": {
+      "sha256": "5e8968ade10ed6567c19b1d9920be48c505d7a9f61135daad7148f968428846b",
+      "bytes": 19315
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b-target-clearance.brep": {
+      "sha256": "726392dadbd6eb680d9423daa9f822f9972c7db48db14f9042a1a1dfbc05b660",
+      "bytes": 50320
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b-target.brep": {
+      "sha256": "8238eb2b0631cdfcd33b2323c0d9ffcad92b7a95a22d4dd4b0f9fcfbadb505d2",
+      "bytes": 46130
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b.brep": {
+      "sha256": "7f483b7a326d242e69a7e7be314e156d0435cbd1ab4dbec132f15471ca2970ed",
+      "bytes": 32614
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-retained-manifold-loom-clearance.brep": {
+      "sha256": "420004d1f913fbfcde73c231b0b7bb312b86c79e6c0b5dc9e9ab31b02f1cbbb9",
+      "bytes": 21349
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-retained-manifold-loom.brep": {
+      "sha256": "fca202d5be7f4ed58e90d579f7910c9cdbe7e83c2f199c45bcecfd35e4a95f17",
+      "bytes": 35057
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom-clearance.brep": {
+      "sha256": "c9f81ccb73f7ac2817bde98fc425cf40ed93581f8179a17561c4f631c2a7eff9",
+      "bytes": 23862
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom-target-clearance.brep": {
+      "sha256": "34d78e9d12c73add0f5e11eb4aad8ac4762636d6c77b4e8fe5d3a48265e3e9b3",
+      "bytes": 74149
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom-target.brep": {
+      "sha256": "fa2c82b9391f66f6652fdee38ead3bbb719a056a86735a145772eb9e96b4b907",
+      "bytes": 46037
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom.brep": {
+      "sha256": "7a53bdf15bdc2b03960dabe90febff17bef53f7ac3b132c9e7e37c84f6a89cdd",
+      "bytes": 38815
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom-clearance.brep": {
+      "sha256": "0c4641745c88629a7ba6d9ff9313500efe35b8705d1e8274aaf2bc06e79eee15",
+      "bytes": 39235
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom-target-clearance.brep": {
+      "sha256": "c6b3ffd0a4b453bde6887a4c5e7f67c1babf1b822bc2f8e89a8ab3f76650abeb",
+      "bytes": 71531
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom-target.brep": {
+      "sha256": "abec254c49675ba8909493e064878a86875ea2c7c860b18c8ffd1ada5f208887",
+      "bytes": 49377
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom.brep": {
+      "sha256": "ceaff947945371d3dd2ca9d4b69c8f8ed07263e63b9621673353c38aa5e1c987",
+      "bytes": 64776
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-retained-manifold-loom-clearance.brep": {
+      "sha256": "8f64d490123642c0a0c586b17e04f5f4cb34a6433a8c11947d5a6f75b5b6979b",
+      "bytes": 31852
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-retained-manifold-loom.brep": {
+      "sha256": "3fc41c88df10cc1ef38e0aed398aaacacdefaef85627e35c105e531308f93424",
+      "bytes": 52909
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid-clearance.brep": {
+      "sha256": "d83b7c37ad3edb46e774fa8afec4b3567f7e7ce0a16b0728e5e00dabc0ba5c2f",
+      "bytes": 20866
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid-target-clearance.brep": {
+      "sha256": "1b59e72bfa568ef99bd669d57c07d97007c0276f43b5aef4625a926d05b62a01",
+      "bytes": 49794
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid-target.brep": {
+      "sha256": "471fc5128b2795241e26148aede6b332543c370400b9292e303d4d6089fe89ef",
+      "bytes": 49414
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid.brep": {
+      "sha256": "4d2b89ffc367a437240c5f9cfd662908f44a1bc1ed611cc24e96e403d687713d",
+      "bytes": 35353
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack-clearance.brep": {
+      "sha256": "18e8c42354499f0e0c4a11ab0330b5bddfff35abe24d273c806fda91697db38a",
+      "bytes": 15421
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack-target-clearance.brep": {
+      "sha256": "317ddf2cec16f35c05c677b57ac7cc38d2fcfb2a993b9dc7c237f110b282aab7",
+      "bytes": 162773
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack-target.brep": {
+      "sha256": "078b1e164f3adaef0e153ef725089d8271d1a989188338aaa9722ba3e8b9a7bc",
+      "bytes": 102280
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack.brep": {
+      "sha256": "e16f4f6a2fd4d260a42ecf2223a1a4660ca1719e4cc510ab5f509264e9cc03b8",
+      "bytes": 25323
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-digiten-flow-clearance.brep": {
+      "sha256": "8c378308c5fa7f151c12b3adb7513b2586b53c056f11a9196bd53946955fa7c2",
+      "bytes": 13326
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-digiten-flow.brep": {
+      "sha256": "d2c94ffb85d79401804bb02f941dcf4aade6ab539681fda36e3462358027ab95",
+      "bytes": 20235
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve-clearance.brep": {
+      "sha256": "4329b83e074db975ea7d7a2d222eaec267279c1dbddd991fb8811adfc26c6802",
+      "bytes": 13298
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve-target-clearance.brep": {
+      "sha256": "ad44de5335169da6efed31b0431d7102551cee0146a35d5cdab0d7d76bd1abcb",
+      "bytes": 73290
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve-target.brep": {
+      "sha256": "a3ebe38c0771b5df2fc5194a910c31484177f56f285159021736d927c5f94f91",
+      "bytes": 46060
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve.brep": {
+      "sha256": "b3a3c8db08d4734633749d3ed6634674cdf8e3d94438bf874033c88c128cbc7c",
+      "bytes": 21226
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads-clearance.brep": {
+      "sha256": "b8f676550c7fce6e8d3255de5a68b736f6f6e3d8131c1ec181af5fd0a0d0a63a",
+      "bytes": 23966
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads-target-clearance.brep": {
+      "sha256": "08180665421e0e61bbd8755f09e7acd236077472077eba2ffc8b843e8e2c38ad",
+      "bytes": 71852
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads-target.brep": {
+      "sha256": "dbf1d38fd0081343fef18f0834a9ebfcdea81daf3afd10eb4c14678eb284f9a4",
+      "bytes": 49990
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads.brep": {
+      "sha256": "8a447c4bb3d5ae6eb9a1f696047ede10bf1a3c5944ad3a495349eb5c647ea32d",
+      "bytes": 37895
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors-clearance.brep": {
+      "sha256": "af1b3b87b98ded9c4820d41ce9dc8425a42c3ec60be540f6d4b33d443de146b9",
+      "bytes": 14478
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors-target-clearance.brep": {
+      "sha256": "6df4d9b5dd98093d39c35fb9bf9b4e2581bda0365573f2a014cc4c6b13b9523e",
+      "bytes": 4977
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors-target.brep": {
+      "sha256": "d319fee323513e2dd02068efe1474a280fb5e7d22e55f45b158ba6e2a32e3d50",
+      "bytes": 3447
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors.brep": {
+      "sha256": "e9b217a265c0351d8cdb4ca0f4d795cba17a9cb4b1717e4738318369ad18482a",
+      "bytes": 24318
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J5-relay-logic-cluster-clearance.brep": {
+      "sha256": "49a276aa67b938c057617cbba4d3d82c3279885386d938082d97baf4c472ffd9",
+      "bytes": 14558
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J5-relay-logic-cluster.brep": {
+      "sha256": "70dc2d5eb8c1335ccb36dabf75f7f9ebee254be53c8d79acae6403509c82a683",
+      "bytes": 23110
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-reed-A-clearance.brep": {
+      "sha256": "e1bb1f644dbaf4790661382f5e94d5820516dc9f991073f9553cecc0df0f89b2",
+      "bytes": 35078
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-reed-A.brep": {
+      "sha256": "494a8a0c957e19f3247379b5e02ea814f96f7e2fa6a765a2741ed39f8b218cbc",
+      "bytes": 58834
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a-clearance.brep": {
+      "sha256": "2fef0e215743c69bfb3b2502aa6095af1a6bc65c6c173005aab94cbee550e300",
+      "bytes": 23187
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a-target-clearance.brep": {
+      "sha256": "6c639080154826970da36bd437bf8b7e6aac25a35302541561d6bb34a446400e",
+      "bytes": 4930
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a-target.brep": {
+      "sha256": "0b8c1b6c3b8309468b700fded5721509231d079bcd5a11f09a4088dd71151b0d",
+      "bytes": 3412
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a.brep": {
+      "sha256": "6baf149d69713aaa402e51b14f380881be1f8789f944f3cc51ded1429e6bd7e2",
+      "bytes": 35824
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-reed-B-clearance.brep": {
+      "sha256": "19a16c28e9acb3af663b5d95aff68bf1a5856f0194e2e2bf3ccc6799cae9d581",
+      "bytes": 15242
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-reed-B.brep": {
+      "sha256": "e6485f6eb07ae140f15a1a800a87d98f0bc3f93c79eb55ec8312ef072838036c",
+      "bytes": 25340
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads-clearance.brep": {
+      "sha256": "12bedf3f799d6e3dee0db35d7ab6bdc7d82bd3ef172f49256b399371f0c02cf1",
+      "bytes": 22902
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads-target-clearance.brep": {
+      "sha256": "41d2807ea296ff6a37600742e050d536c41f4c27ed6b2d3b2110531cb37bc258",
+      "bytes": 73069
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads-target.brep": {
+      "sha256": "87709a6762d3710106e60ed3fe706eea4ed0245b54122a35c0f4c02d8e8b76ca",
+      "bytes": 46311
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads.brep": {
+      "sha256": "cbbdec37a1558e444d5b57b37cd995e9517a983b49b2e5426834ea3b5e90b36e",
+      "bytes": 34618
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b-clearance.brep": {
+      "sha256": "e391728ad58857b558f89b7426372666009a007849d572388c88d26687e377bb",
+      "bytes": 16754
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b-target-clearance.brep": {
+      "sha256": "a06cc11aa5442efe96ac3ad81963ba4564ac034b724722d15dbf309ee13c9c64",
+      "bytes": 4910
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b-target.brep": {
+      "sha256": "bbc3fd7edc2d8ff9086f9c0902e0f683526dbacd46e2227d9ae26f9e1aeba779",
+      "bytes": 3357
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b.brep": {
+      "sha256": "a8c11e7339236ec2c7a8a9dd694fc21ab8a97e01361f48d636978bd13f9836c8",
+      "bytes": 26697
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom-clearance.brep": {
+      "sha256": "6dd484c0239fb1e1783d87f5ba3d3ee0210f279fef1a35b57028cd6e0a0b25e2",
+      "bytes": 30882
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom-target-clearance.brep": {
+      "sha256": "393d02dea57830edc4569d8472f6eaed49e719441f5f4827f6f228db19f8173d",
+      "bytes": 72311
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom-target.brep": {
+      "sha256": "0d9a19e1a4c2dfd397952ca8adec68dd5c4f5e93fa0539042a517a84f5c2126c",
+      "bytes": 49976
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-J9-retained-display-loom.brep": {
+      "sha256": "16486d0962f5f5dd0d7d33324ba96cbcabdbb4bb5accd8e02070747f2f1ce424",
+      "bytes": 51802
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-clearance.brep": {
+      "sha256": "003dc2edd0dd37d7d58dc1131b18fc977c23281fe47e0e688a1dce5b75b02665",
+      "bytes": 7021
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-source-clearance.brep": {
+      "sha256": "c8408bd02180cfbb22a3f81451bdf52d7171403fb163ccdb3e9c1c9c7eb37b02",
+      "bytes": 4932
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-source.brep": {
+      "sha256": "4709a22645d43ae69fc4c9e273ebe22d8ca9eaf697f975986193d1274bcab10e",
+      "bytes": 3447
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-target-clearance.brep": {
+      "sha256": "b9c8838f887afb389ef140f3c7c8b953aa06437dc3c187c7195a9c23972ce303",
+      "bytes": 49559
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a-target.brep": {
+      "sha256": "6d506890a493f2d21199f4ec81b168da5265bccca38264648166175acfffdb8c",
+      "bytes": 45434
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-a.brep": {
+      "sha256": "dd74ed899334ef512afb88a8db12ae2279596d5ac3e38f10f8bd2da7b872f245",
+      "bytes": 11152
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-clearance.brep": {
+      "sha256": "2eb12c807666c56363e5b34af480772056ff2d64cb763279a91db31e8ac31e20",
+      "bytes": 8691
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-source-clearance.brep": {
+      "sha256": "94ed9f7ae04203d503023987ce181843c454a198b3065d2acdf41aee82914691",
+      "bytes": 4793
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-source.brep": {
+      "sha256": "43697e75d2bdaf3ee7a0f543364bdc0dca7f328e6b214aef6805e1cce5b09b9b",
+      "bytes": 3294
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-target-clearance.brep": {
+      "sha256": "5acc98f22d422387818222c25327dec3b22e27bb6883fbd88b73fd916d1d8e0a",
+      "bytes": 4730
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-target.brep": {
+      "sha256": "b3d1eec781e0ff4f495485c35574b3c5820cd539318c03646530e5a7a7c05154",
+      "bytes": 3291
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b.brep": {
+      "sha256": "67b2d1a7b649e4155516256e3344dff727c750f8f260c6e7a0662afc64914540",
+      "bytes": 14305
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-clearance.brep": {
+      "sha256": "b2d302bdc01252d0c00efcf20c1b7c3ffe85d9d7c23a6582f1a561c3faa3c366",
+      "bytes": 14611
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-source-clearance.brep": {
+      "sha256": "6fea4c781198a169fef84e54ac384c7fad37c07054c55b7f1c6bf0ad1090073e",
+      "bytes": 4407
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-source.brep": {
+      "sha256": "7db84fffa1dc15aed372adfb7fdc1265044ea4e746a8d5c490e8f12097089a24",
+      "bytes": 3099
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-target-clearance.brep": {
+      "sha256": "fdfd4dfab8b862636b5232349b579bfe7392309b6fa4329a4322f42d87972e09",
+      "bytes": 49772
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid-target.brep": {
+      "sha256": "26572d7116cf134676f03edf96ef1201554b2a14151b1e0468605ab97b5f5dfd",
+      "bytes": 45401
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-manb-vk-solenoid.brep": {
+      "sha256": "11f88de57e428b261161be35c8402034b272e64e251dbeed7404133a3bba6489",
+      "bytes": 23608
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-clearance.brep": {
+      "sha256": "28d802f1f9b2ac910fe1aba9c4203358db5f5ec860e8e16d634e7ffc28f7af3e",
+      "bytes": 25853
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-source-clearance.brep": {
+      "sha256": "931ea487da55cb776ee586a325d83a031a4f9a121ec4fdc3227587e3c0504160",
+      "bytes": 57738
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-source.brep": {
+      "sha256": "8cf30527d8c172cf1681e251aa8e85415f39f0b8526b32375e9b97cc24737321",
+      "bytes": 31929
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-target-clearance.brep": {
+      "sha256": "4b0d13877803fb479faaeda0da1fafd2e580f5fb789557d980232298f1f6a276",
+      "bytes": 73070
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-target.brep": {
+      "sha256": "434aae3386635336b6c913398887c08c6869d089e5f022360ca3a2545fa02e69",
+      "bytes": 47039
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads.brep": {
+      "sha256": "30cd7ad3af16cb405de7d17c6431dbd2c2048329dd6752ab0cd311e3ffa5d81c",
+      "bytes": 41478
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow-clearance.brep": {
+      "sha256": "120e77fc5f52053c7673fc1922d5602674377db62a079528bf10df42fb7ae3d0",
+      "bytes": 25053
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow-source-clearance.brep": {
+      "sha256": "f7ce88d8c522922be726629539274070fb5effb4ce641d87058413e33e35ef63",
+      "bytes": 4977
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow-source.brep": {
+      "sha256": "291b24b1978b6121a9c8ab8151df552b539e2e8cc9cc52b0f88d4efe27578174",
+      "bytes": 3447
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow.brep": {
+      "sha256": "ca4aad1d394cd9d53d368e710646a3f10d37099554ed588bb06a409b1bd05873",
+      "bytes": 41349
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-clearance.brep": {
+      "sha256": "48ba4f42c29952ffca458b60675e9e20f561a0d06b737660c115a94564c1a37f",
+      "bytes": 16897
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-source-clearance.brep": {
+      "sha256": "0bb0fa82a74c5f61895e893e9aac12765eff2bbeaa89f7fc6f720ff75dd3c48c",
+      "bytes": 4977
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-source.brep": {
+      "sha256": "206695f2bad7084887314e17ede94998bafa81be8e12c84283d35033ebcb3bb1",
+      "bytes": 3447
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-target-clearance.brep": {
+      "sha256": "21cd0a954d6b1d552d7aec064acd5b2b3537c0995c49021b241d1ca27bdbd293",
+      "bytes": 50194
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-target.brep": {
+      "sha256": "ed74aca1d4ddb773dc0a4ca1cd670b7b58c637b7efed7babfd056df692fb4cfb",
+      "bytes": 45704
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve.brep": {
+      "sha256": "62616bace2621d31f0ac6f661646f44080cbe475a8d9d6c4e6ddcc597baaaf23",
+      "bytes": 27990
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-clearance.brep": {
+      "sha256": "58233795e4e46833b8b1367d652bb73e2e3576590161f960bb3cc012ff6538f8",
+      "bytes": 24517
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-source-clearance.brep": {
+      "sha256": "8920714a159ecf4f9b29209ac5bbfa8ba8d1e08813281f0749863b0e887f1894",
+      "bytes": 4977
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-source.brep": {
+      "sha256": "5ea9f7bab63c35061d388c535d2bdc25194717e936a0270f794f7dd0137451fc",
+      "bytes": 3446
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-target-clearance.brep": {
+      "sha256": "6dfe9e91ba16622df1963cb88ddc1637354c30f0780774c1001be8ad48d2ca9e",
+      "bytes": 50285
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-target.brep": {
+      "sha256": "9135ed3580d4220c63d7c1cea114d6b819a559d971a13fc6366e5bb577d74a2c",
+      "bytes": 46810
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads.brep": {
+      "sha256": "906b3d30f628012ac4dcf8314589e2233a0e1a14dd2788ee8d441134eecf0587",
+      "bytes": 29018
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-manifold-aft-fanout-clearance.brep": {
+      "sha256": "efa99167a8cdbd564a05062cd6adb1684ed8628a3cb26bfbf9b098eb07303abf",
+      "bytes": 108987
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-manifold-aft-fanout.brep": {
+      "sha256": "194f65324802947631f5b9807d9f424c9a2eec6c7395c52acb27e8e2f21a6aeb",
+      "bytes": 57788
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-meter-pigtail-clearance.brep": {
+      "sha256": "f7f69179852b3f2a3991b9f9aefbd898bf274eece7e9c5d9d10cff7cbecd08ea",
+      "bytes": 151470
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-meter-pigtail.brep": {
+      "sha256": "b2351651a7d25f6c7d874002c2f314596e0ac530fe5f6d935f12189dbc4548cd",
+      "bytes": 94608
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-relay-logic-fork-clearance.brep": {
+      "sha256": "96ab093836bbe467f8b56aa2f327af1ee9e163ccfea27b469a11070cb85f2a72",
+      "bytes": 249090
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-relay-logic-fork.brep": {
+      "sha256": "2cee9032033cf82bc3402a28535e99f30f1bce2eac74b257d732b697c65d953e",
+      "bytes": 149648
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-A-clearance.brep": {
+      "sha256": "6836bcb1d19dbed0399c0b631c94ae950a23111ae9670da3c3e29f3a5dd52b77",
+      "bytes": 172366
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-A.brep": {
+      "sha256": "e9add6bd9e7614e0760859c23fe4c801ba5e427a46e9fac23ea65d9a9f9ca533",
+      "bytes": 108231
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B-clearance.brep": {
+      "sha256": "6475c16d81521369b1316fc7efb5ebbf2d7eb64d3122979aeeab38cc014e22b9",
+      "bytes": 73317
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B-split.brep": {
+      "sha256": "640f92a8f415266ea3e6b927d03db3f0cfd0c215d8435819d4cd372343169cb6",
+      "bytes": 47166
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B.brep": {
+      "sha256": "59a7b013dd544165d81fd12d94b4843057be7e2a14d3e5f4d48b8a44db2f2574",
+      "bytes": 47159
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-A-clearance.brep": {
+      "sha256": "d31fbe509c80eba9ac436f37004d028c99b1e5d63391c240547eefc4b0b0ce70",
+      "bytes": 171096
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-A.brep": {
+      "sha256": "8d709691273ee0cac84777dc3fc5e64d9ada1d586a02bdfddac4e374b21eaee3",
+      "bytes": 118940
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-B-clearance.brep": {
+      "sha256": "1eb0dc2da78c3da16552ef1e5daa33da6ab79e292dfc0fe5266bcf4fca375295",
+      "bytes": 192657
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-B-split-proved.brep": {
+      "sha256": "e8afdf7f6dac0a4b6cb48461b2ac985b4dac9aeb3b272f6f09c9e2ed20ae8288",
+      "bytes": 92418
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-B.brep": {
+      "sha256": "00b43e3081f9b3192c982852a1aed8722e78f9f2a10c831404996a473b21389b",
+      "bytes": 92416
+    },
+    ".cache/pump-first-layout/wiring/controls-looms/j13-frame-clearance.brep": {
+      "sha256": "828fdb4497377d023f159565b777574c48ce0e37d9c3ff97cd3d7d6801c33ea5",
+      "bytes": 10027
+    },
+    ".cache/pump-first-layout/wiring/controls/reed-a-service-fork.brep": {
+      "sha256": "d01de803f2cda037476f40ba1af0fba045e92090ce4f5e8cf57a54d764fad737",
+      "bytes": 108241
+    },
+    ".cache/pump-first-layout/wiring/controls/reed-a-service-route.brep": {
+      "sha256": "dc62678c411c8ce265f08db37cfed1b2a69af65031f2fedc37910d85114c61d4",
+      "bytes": 118919
+    },
+    ".cache/pump-first-layout/wiring/front-handling/j13-front-stowed.brep": {
+      "sha256": "2b5d1c163247d82aa80b99a4217e60bd154a698a4f78ba634212d7a5d90cbdb8",
+      "bytes": 57158
+    },
+    ".cache/pump-first-layout/wiring/power/compressor-jacket-reserve-clearance.brep": {
+      "sha256": "c0ba51d364206e4646120c6634ce3a9e87cd340d4bd9a0150577a7370349cb17",
+      "bytes": 1178
+    },
+    ".cache/pump-first-layout/wiring/power/compressor-jacket-reserve.brep": {
+      "sha256": "d4ea15ac2c627ec973ed7d2afecbb78e2f5e821ee0604d1b3e47ee2af8a30663",
+      "bytes": 1178
+    },
+    ".cache/pump-first-layout/wiring/power/lower-carbonator-earth-reserve-clearance.brep": {
+      "sha256": "f1d0fed6ade67381fd75cf1b770b241a410fb2f87834a9e2b19655a85b812c8b",
+      "bytes": 1260
+    },
+    ".cache/pump-first-layout/wiring/power/lower-carbonator-earth-reserve.brep": {
+      "sha256": "4f26798fdea438dd5ccdd502c2017a3403c0ca1b80b653ea28afe4ce9c94cd5d",
+      "bytes": 1260
+    },
+    ".cache/pump-first-layout/wiring/power/lower-under-counter-earth-reserve-clearance.brep": {
+      "sha256": "c121e3ebbd1a3e1a2e9c06967f213fcb3e50d6437fbe6cf2526a2ce273d824b2",
+      "bytes": 1262
+    },
+    ".cache/pump-first-layout/wiring/power/lower-under-counter-earth-reserve.brep": {
+      "sha256": "a96719a05a569553b65a84ae7ea0904b628fbc0b5a82027758452505b1c52ac3",
+      "bytes": 1262
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-G-clearance.brep": {
+      "sha256": "26ed56a7e176556c12f0b796041945121a481210078c7ebd968c95a45220386b",
+      "bytes": 23070
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-G.brep": {
+      "sha256": "1374d3da1b2cd49cf5dc880211b4155beb5ab398127b87a550d92cd8dedb2952",
+      "bytes": 53394
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-H-clearance.brep": {
+      "sha256": "619f77130783efd45416e873ba9016379b06402bd3b3b77560fefecd57a46928",
+      "bytes": 16842
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-H.brep": {
+      "sha256": "32729d5d286871f17febf980eb0eb048ad089ba21ef3e1b1af772d1dd4a846fc",
+      "bytes": 37812
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-N-clearance.brep": {
+      "sha256": "f39fa2b405e8b293f7675e1f263e9011edbfa89bdb87f3828866179d5124b3f2",
+      "bytes": 16053
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC1-N.brep": {
+      "sha256": "aa8bc1cfe637367bcda47caf9c211fc8de21cb38703392b7a32a09e35a16a3b7",
+      "bytes": 34216
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC2-H-clearance.brep": {
+      "sha256": "fcf0e1f60a387dac57d1deabd0b41be770776ae9c10d895754a6153dc44d7845",
+      "bytes": 21314
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC2-H.brep": {
+      "sha256": "81246dbec85c2ff75a7daeddfcae43076f6f62d2f44bcee76e07c9dcaa18f600",
+      "bytes": 48298
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC2-N-clearance.brep": {
+      "sha256": "3a05bf1341dc42ffc5cc42db76971f1318b0b8acb50a4a0955d820c52733d0fc",
+      "bytes": 29136
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC2-N.brep": {
+      "sha256": "a2bfe328ad84a96c59fa9fcfc29b7dc0ba70660a77bb19206dc4f5fc0a1e96ac",
+      "bytes": 64394
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC3-H-clearance.brep": {
+      "sha256": "e6402c3ec812a51716885d414d7259ec1c1e2e92ead9fd716d012b4c3b8a04d2",
+      "bytes": 33443
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC3-H.brep": {
+      "sha256": "f7b44deeea68ad9e331da6cf4d76347c33efd32aa4e83416f194a4cd6ee47a70",
+      "bytes": 65270
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC4-H-clearance.brep": {
+      "sha256": "b3b049f82e7f7b6323378f20d5bcffdaaae9dee8f5d7c3da8cba534c5bae86f7",
+      "bytes": 10498
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC4-H.brep": {
+      "sha256": "b6a59ad72ae6d93afa013b9ba94b0c8426b953878acacadc9570194845fceecd",
+      "bytes": 21088
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC5-N-clearance.brep": {
+      "sha256": "f3f787e3171dc212984e2f01ac26feafd2931a5d854fc2c7623f5200769afdb8",
+      "bytes": 36207
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC5-N.brep": {
+      "sha256": "42e85f5da3599bde8d98d2c61df8b58b472d45734ef750ee2b9f1f928348ab72",
+      "bytes": 54668
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC6-G-clearance.brep": {
+      "sha256": "09a6dd520a2b89aeb34ae955ff03f09c8f5990d21adee389b2c312cfde8e5cc3",
+      "bytes": 14596
+    },
+    ".cache/pump-first-layout/wiring/power/wire-AC6-G.brep": {
+      "sha256": "e50d4ca0b5e8cf2143e5f1e95b03d760af2f14c86e5a51dc83b1da6f7df37c68",
+      "bytes": 27821
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC1-GND-clearance.brep": {
+      "sha256": "1237ffcb7f745690567c94a8dc8a3726d2e446ae8667946159e08b8fca1a63a0",
+      "bytes": 28492
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC1-GND.brep": {
+      "sha256": "b850de8a7af017ae3921ede2ebc7fb5cdfa55805a362c2c54f2e0420b327452e",
+      "bytes": 59322
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC1-V12-clearance.brep": {
+      "sha256": "f71f80b912cdce4e89b87ab97bb821e1ada402698f571fd7db7cbebe463b84cd",
+      "bytes": 14083
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC1-V12.brep": {
+      "sha256": "eda2673d78241a40774b4429c2bf4ca0dc31c924cd428a7771ba4bfe5dcdb7f3",
+      "bytes": 28937
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC2-V12-clearance.brep": {
+      "sha256": "6afc3af35cf3fc47da89c73d5ff5bd967550aa9c4179af694887bd3558db5b54",
+      "bytes": 23229
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC2-V12.brep": {
+      "sha256": "d1e5e3d2f3638ec5a52341047b8756dccaaebad6ae6a555b553d0ca6a619bbcd",
+      "bytes": 48057
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC3-GND-clearance.brep": {
+      "sha256": "5b5982bd80879c1d4eb98a2f7b271f0f72565bf89bed5a066763044017b0025e",
+      "bytes": 33504
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC3-GND.brep": {
+      "sha256": "782a758b0ff48ebe5fcdee90719fbb96bbbd6424f3654c562206f87a25e156e3",
+      "bytes": 69808
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC3-V12-clearance.brep": {
+      "sha256": "25eb6bcc175857fa3a836bb1e8b8c570f752e21533315067eee5584c236b8811",
+      "bytes": 12482
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC3-V12.brep": {
+      "sha256": "a570559dad0c966a28a78974d54b97a0f0a079242fcab4d00db4bf75d896a105",
+      "bytes": 25164
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC4-GND-clearance.brep": {
+      "sha256": "8ff904287f84ff8178f4d1ca4b7018c0383d2c29d72903acd424662f35486d93",
+      "bytes": 28208
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC4-GND.brep": {
+      "sha256": "d13fe9cafd3bd0ad4a18f69ef847eb8b6d6541570fb491c67a8b0f3dab516cdd",
+      "bytes": 68155
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC4-V12-clearance.brep": {
+      "sha256": "bd3ab3070a706279090404b157dd0bcb8c0b0365c66e90e1ed1757efa28a6d1d",
+      "bytes": 39739
+    },
+    ".cache/pump-first-layout/wiring/power/wire-DC4-V12.brep": {
+      "sha256": "a74e10837784bfdf62738a1871c8afea57194f4b1494588771b00a85a57c17dc",
+      "bytes": 60886
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-carbonator-clearance.brep": {
+      "sha256": "9fd00b8d8f5780514cc2018fc99c1977c58730f7770619e30bb3524f65092bc6",
+      "bytes": 9511
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-carbonator.brep": {
+      "sha256": "6f509cf59573ad2f0c69ebb2cd5c1c4b2034ef8c32eebd814b5628f3b2618b0e",
+      "bytes": 19712
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-feed-clearance.brep": {
+      "sha256": "57f32377078272f731f711852726455114a0cd424dcb987e5dbafba0163e4dbd",
+      "bytes": 22029
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-feed.brep": {
+      "sha256": "a2cc270e1819167e6f6397a8f01d37f942f1ca688d23983b4eab5f392cf3262b",
+      "bytes": 50297
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-under-counter-clearance.brep": {
+      "sha256": "8d5e8b4fd6329dc306898298f5cb0e024dc6f2409d0fc87c1b203f0deca99302",
+      "bytes": 15038
+    },
+    ".cache/pump-first-layout/wiring/power/wire-PE-under-counter.brep": {
+      "sha256": "714d8f90a061c5b5ad1da153d0d0d2371f35a208641a43b86b1071986fb063a6",
+      "bytes": 31689
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/0c8ac00e0435083e4bff4dd338a1321c972f556789387ea53173a2334392c712.brep": {
+      "sha256": "4ca782137e7c1087f0bcfbf7efa6624d3a93ac43bbb59d88574518b84a465cbf",
+      "bytes": 42074
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/250e95dbfcd1e720b650a4ae85d64142f0971d7e4e4e59f9438cdd2be7c66703.brep": {
+      "sha256": "eeb94651a01671198fce516c0485d7e0caddb982485252e20cea0c0713a29e6a",
+      "bytes": 22954
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/294796f37f7fbd1dda8026d5376b3b616b9d44f6a7aa00aa9757df05377d5a42.brep": {
+      "sha256": "832d247d97cf0fb2ad95e62e5697733d727b96ec40f9fbc939ad37a51bd43a38",
+      "bytes": 34849
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/3e559a3d3f9ef01b768cffd6d981813f35d276259a5f73b657123d2cf01df6ba.brep": {
+      "sha256": "6adfe79e1f9dea9fdfcb6e9dc12bf133b252b102c0c49326c49dd96ff7ec7e5f",
+      "bytes": 54248
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/4b1927bef5b3f215121da90b7adeed204c50b024b41a00e27dd320335e842c7c.brep": {
+      "sha256": "d15297393409f7906843c1f1c42887c4c87ed84dcda0f449eec7013546a8db6e",
+      "bytes": 12166
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/54f3d4c6b19d01c54ceb7d8b5b537e0f4d9366523f7e116f5ca5db6d1e45e4a6.brep": {
+      "sha256": "c5c10bfe665bf71185bcc93c2a9c364a8a606e18da7f374910f5a18dfbef440f",
+      "bytes": 34608
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/59665e278668f603994a05493107e8cf3cdff9909e42e03aa45393b00e8e6576.brep": {
+      "sha256": "abdf105493c524277e13416c754c87333c427265bf65c4142e69151b3249df63",
+      "bytes": 40027
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/6680624d79700d26917d5bcfd793759e4c646f453fe403a598f4912600a7d83c.brep": {
+      "sha256": "fb1400a9160c3e47c5448d384b7943ed5713743f6cfb0d673f4f01919a98d155",
+      "bytes": 11939
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/6fb944995c4ba7f8c482a0494ed5f6762152e0b71d9d4c09096fd715fa809a9f.brep": {
+      "sha256": "f637211207af1d821b3190e621dbd4e3865d82697664701d8f24f3515f63b1ee",
+      "bytes": 11723
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/7af44ebb635f1378efd7d3051b0f2b2c6280510fef2c05a37b8dc7db46a489d1.brep": {
+      "sha256": "de795f53419069a11af3bf4a0096edbbb17db7b7ca124ceb1fb6ba244bd35aac",
+      "bytes": 21376
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/8d9465bb34d9a209c839559fea435963ea8c242999e44e066f08454debce30f7.brep": {
+      "sha256": "2223807624c6dba2518abae4b5577fa6322f22e481cdf831648e80bf4bfe524c",
+      "bytes": 13684
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/8fa8f1bd9069db6dcaf28a42e8784bbb8fbe5a59675fc07c0fcd1c0e2059c647.brep": {
+      "sha256": "7a2ad8c32b22900850c89a94dabe6cc70dd29ac6312591c08894b51f4758e173",
+      "bytes": 11056
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/913632dde9104165ebf0fd1c23319973528538db1d87add3b5b437c354301b85.brep": {
+      "sha256": "f305c88066ff7227e84bd331396f87ed6807de3b0f2b01cb2915f36fd9efbe5e",
+      "bytes": 22942
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/9c20cc391e0ede9f4e29c22ec20d3c0abe9f4c7f06f9acf7e88ce4aa86b982f0.brep": {
+      "sha256": "91a891ed3f37783112a8a6d0159c0b337f94d4004da32f640acadc28b17f4de1",
+      "bytes": 6456
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/a78255862774308f7f633a0b3faa3d5574c7f8a96c0b2810fd3457d3c90b8039.brep": {
+      "sha256": "aa207718e8f3c6506ec919442d8f4227721d849de43acb24c271d29b68beb796",
+      "bytes": 11731
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/bb146fbf6c78413dbc52325776c8e9ae7400c404510d1a5339a7ca5850cd2225.brep": {
+      "sha256": "d0a7e3cc915686b7239d9eb681b61f4151dd06149f68fca5be91c73c54f2b84c",
+      "bytes": 11774
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/bf3f1c245391512138f3c7a461e8b64f5f3a22cc3849c8d85003d9ee73f249f6.brep": {
+      "sha256": "dcdc999aa27c4d7fa15abd05759f19b5d99cddf3d5099e7bed4a064aee0c93d9",
+      "bytes": 47313
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/c5ff4eb20e2b8eaedce5095e4a0bb345a014ca44f72a1a2e4534add19b135f7d.brep": {
+      "sha256": "44262ab8df9886080db4c51820c7d3cd9a1e3521baa5993a6253b69b4845c3ca",
+      "bytes": 13337
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/d4193c2f74ac5ad204a81fc6e8b7b0006f6bf867c32f8e613d0eed1e95d08278.brep": {
+      "sha256": "c2652315b4f946b58983e0c1e28393ebbd1d32fc300641d1633fd3af51ee0290",
+      "bytes": 52723
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/d96faaea9b59040dfe38dee067a940149edae7e031e44bee1b3fa69d79415a64.brep": {
+      "sha256": "c9cc19c86fddf157e87acb932723040ce5bd5c1b499a84936790fed243cc58cb",
+      "bytes": 62601
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/db11c62846d58438b74d43ebdfad6bb591fdeb496c7451d86b4fade149987c8d.brep": {
+      "sha256": "fd8434dd5c7a0ba4460ce174bf876838912da6f6adb71400c3328db70cd2ea9b",
+      "bytes": 13499
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/dedd5ce8d58cc523a93b00acfb75439812bf819a67e564ea1bd01da4aff1034f.brep": {
+      "sha256": "618f7d8df1a500bfa35b74bc01f708e6fecf41b793b0516d3307c385ed9fd8e0",
+      "bytes": 19133
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/ea8bad014c04d7b174bda0161dfeaa03c73a9a52eaf16551881d9a53af739265.brep": {
+      "sha256": "351c2b85bf402c046603047132b0fedc86299cae805d033c33571ae00c9dac24",
+      "bytes": 29597
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/ef4cf83e35a48a7ee42e8cc8c17eb4447e5086b98401a481647e4fa7fa3793e2.brep": {
+      "sha256": "ac9ff1dbc7a0e533bb83660ebdb0cdc402889c430721c16f53daa7ff2447c4fc",
+      "bytes": 6686
+    },
+    ".cache/pump-first-layout/wiring/received-fluid-members/f6cc0ea1fb60ed5451def5ff0ba6663052121e11b20f8d777ab579ed9803ef10.brep": {
+      "sha256": "6b37a7ca41bf990ec8572ca4e8ab273ebe13a7c9dc6f3380d678d9082f6030b1",
+      "bytes": 26022
+    },
+    ".cache/pump-first-layout/wiring/required-power-departures/094ed49942ca68d14411f33ed92bd03f25894fe17283bc33a27d727f398e57fe.brep": {
+      "sha256": "77643bfb99bfd8bb55984eff1ca54ddf5a22cbbdd0364f46af4811f82a6e951b",
+      "bytes": 3246
+    },
+    ".cache/pump-first-layout/wiring/required-power-departures/8eae1a8092a1abb084cc3a4c4666eaa40e32187b87a844997874e35b41af4cd5.brep": {
+      "sha256": "c0534292c438eb039fa7be71e536656e01ad084d8411f3e8059b6f6b2f8edf3c",
+      "bytes": 3246
+    },
+    ".cache/pump-first-layout/wiring/required-power-departures/e5a7599f5f4dda9939522e1fa63f173f605f32c22bcf55785e882f07e337ca78.brep": {
+      "sha256": "ce8f2d2fa5a03683848ba458792cbb22f6cda9c9ff258f065cd081a14fa51025",
+      "bytes": 3202
+    }
+  },
+  "scope": "Exact reviewed native geometry snapshot. Restoring this archive changes only disposable study cache files."
+}

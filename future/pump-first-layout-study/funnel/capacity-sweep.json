@@ -1,0 +1,82 @@
+{
+  "rows": [
+    {
+      "aft_extension_mm": 0,
+      "capacity_to_brim_ml": 455.1822438023601,
+      "capacity_10mm_below_brim_ml": 295.1697079563678,
+      "collar_width_mm": 165.0,
+      "collar_depth_mm": 117.68301584656257,
+      "mouth_width_mm": 153.0,
+      "mouth_depth_mm": 105.68301584656257,
+      "collar_centre_world_mm": [
+        0,
+        164.55,
+        349
+      ],
+      "neck_local_mm": [
+        1.85,
+        0.0,
+        -42.95
+      ],
+      "drain_world_mm": [
+        1.85,
+        164.55,
+        306.05
+      ],
+      "brim_y_world_mm": [
+        98.70849207671873,
+        230.3915079232813
+      ],
+      "frame_front_world_y_mm": 95.45849207671873,
+      "frame_rear_world_y_mm": 235.69150792328128,
+      "full_width_corbel_foot_world_y_mm": [
+        119.1,
+        210
+      ],
+      "longest_axis_floor_run_mm": 75.35,
+      "longest_axis_ramp_grade_deg": 10.671880218588582,
+      "method": "OCCT native integration of the actual rounded mouth, lofted ramp and outlet, bounded at actual brim and drain planes. Geometric capacity only.",
+      "capacity_gain_ml": 0.0,
+      "capacity_gain_percent": 0.0
+    },
+    {
+      "aft_extension_mm": 60,
+      "capacity_to_brim_ml": 715.0569394288343,
+      "capacity_10mm_below_brim_ml": 463.244403582773,
+      "collar_width_mm": 165.0,
+      "collar_depth_mm": 177.68301584656257,
+      "mouth_width_mm": 153.0,
+      "mouth_depth_mm": 165.68301584656257,
+      "collar_centre_world_mm": [
+        0,
+        194.55,
+        349
+      ],
+      "neck_local_mm": [
+        1.85,
+        -30.0,
+        -42.95
+      ],
+      "drain_world_mm": [
+        1.85,
+        164.55,
+        306.05
+      ],
+      "brim_y_world_mm": [
+        98.70849207671873,
+        290.3915079232813
+      ],
+      "frame_front_world_y_mm": 95.45849207671873,
+      "frame_rear_world_y_mm": 295.6915079232813,
+      "full_width_corbel_foot_world_y_mm": [
+        119.1,
+        270
+      ],
+      "longest_axis_floor_run_mm": 109.84150792328128,
+      "longest_axis_ramp_grade_deg": 7.365788434001637,
+      "method": "OCCT native integration of the actual rounded mouth, lofted ramp and outlet, bounded at actual brim and drain planes. Geometric capacity only.",
+      "capacity_gain_ml": 259.8746956264742,
+      "capacity_gain_percent": 57.092450148233745
+    }
+  ]
+}

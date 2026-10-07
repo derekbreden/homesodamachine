@@ -1,0 +1,180 @@
+{
+  "aft_extension_mm": 60.0,
+  "capacity_to_brim_ml": 715.0569394288343,
+  "capacity_10mm_below_brim_ml": 463.24440358277286,
+  "capacity_method": "OCCT native cavity Boolean bounded at actual brim and drain planes; 10 mm headroom slice also measured.",
+  "collar_dimensions_mm": [
+    165.0,
+    177.68301584656257
+  ],
+  "mouth_dimensions_mm": [
+    153.0,
+    165.68301584656257
+  ],
+  "collar_centre_world_mm": [
+    0,
+    194.55,
+    349
+  ],
+  "drain_world_mm": [
+    1.85,
+    164.55,
+    306.05
+  ],
+  "source_sha256": {
+    "future/pump-first-layout-study/funnel/build_candidate.py": "af153b56f802903d6e73ec26ff8373902b9948a0a88d3bddf45ecb77c13b6e30",
+    "future/pump-first-layout-study/funnel/layout_funnel.py": "139f3f814b6e4e9736cd8f8476a450655a1313b1badc2077ee9d6a4a88ac69e4",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "185b06eef8600c0ad326594ef52fef46e91dac01ca9aec1f549a3340a6e67738",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "fbcba987f883375a8ef84a793a6260b1ee18c4470e16eb3a69d34790b1736a39",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0"
+  },
+  "parts": {
+    "funnel": {
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -89.5,
+        98.70849207671873,
+        306.0499999,
+        89.5,
+        290.3915079232813,
+        355.0
+      ],
+      "volume_mm3": 318292.1237016995,
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/funnel.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/funnel.brep": "5f37759d808d03620f82a5a2c549cab7a514a6850d2f9665406cfbd6e52f6a7c",
+        ".cache/pump-first-layout/funnel/aft-60/funnel.step": "ada06deeb2657ac38826afda5d118f2ef8f311c3a613f0177a1340c96b48b4de",
+        ".cache/pump-first-layout/funnel/aft-60/funnel.json": "81ae5b7b154d8fc83ad61f254eb667ee81d30b76eb73c8b84be735bbdffb4380"
+      },
+      "role": "funnel",
+      "detail": "Aft-only rounded mouth; drain and display edge retained. Native cavity capacity 715.057 mL; floor has measured 6.347 mm minimum stock."
+    },
+    "funnel-frame": {
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -103.5,
+        95.45849207671873,
+        299.9,
+        103.50000000000003,
+        295.6915079232813,
+        355.0
+      ],
+      "volume_mm3": 909091.0743233283,
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-frame.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/funnel-frame.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-frame.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/funnel-frame.brep": "8ee1eb22e5f77a5de88cda92de1e29f2afc9fcdea1b6c2a8e14749ef6c3cd9c7",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-frame.step": "04a3c74f1388d1c1c8db5c4237d185a462d294ff8492f930af8384cb7d27fc1a",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-frame.json": "5162742cd09d11300ffb6c77246a620bd73e0add639793088994a7187e603316"
+      },
+      "role": "structure",
+      "detail": "One native PET-GF solid with complete 3 mm brim bearing, production sliding rails/socket and full-width 30-degree corbels."
+    },
+    "funnel-cover": {
+      "valid": true,
+      "solids": 1,
+      "bounds_world_mm": [
+        -91.0,
+        93.20849207671873,
+        348.9999999,
+        91.0,
+        291.8915079232813,
+        358.0
+      ],
+      "volume_mm3": 116280.05915580454,
+      "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep",
+      "step": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.step",
+      "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-cover.json",
+      "sha256": {
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.brep": "1bf2832a7bc1f2e6ea685414f3ca701c768ff0769f4356f51b41c47aadf50b4c",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.step": "76df1e8ce6eb953c6565d07d73631c77438d6895e402e2db79695c58fbadfafe",
+        ".cache/pump-first-layout/funnel/aft-60/funnel-cover.json": "01360c120c088bc0ba70e8907299017b158f79783b4c22f306ddffda590e33cc"
+      },
+      "role": "funnel",
+      "detail": "Native lift-off 3 mm plate, locating skirt and four silicone friction pads; front lifting edge retained."
+    }
+  },
+  "roof": {
+    "width": 196.5,
+    "front": 95.45849207671873,
+    "back": 199.75,
+    "floor": 346.0,
+    "top": 355.0,
+    "taper_floor": 346.0,
+    "side_reach": 0.0,
+    "complete_brim_bearing_missing_mm3": 0.0,
+    "complete_brim_bearing_volume_mm3": 13546.663620579184
+  },
+  "retained": {
+    "display_face_y_mm": 95.20849207671873,
+    "frame_front_y_mm": 95.45849207671873,
+    "display_running_air_mm": 0.25,
+    "frame_underside_z_mm": 299.9,
+    "socket_floor_z_mm": 302.9,
+    "rail_z_mm": 306.9,
+    "rail_top_z_mm": 321.7,
+    "silicone_brim_seat_z_mm": 349,
+    "brim_top_z_mm": 355,
+    "socket_width_mm": 36.6,
+    "silicone_plug_width_mm": 36,
+    "drain_bore_mm": 6,
+    "drain_stub_od_mm": 6.35,
+    "drain_stub_engagement_mm": 5.01482064528494,
+    "frame_web_mm": 3,
+    "complete_front_corbel_foot_y_mm": 119.1,
+    "complete_rear_corbel_foot_y_mm": 270.0
+  },
+  "ramp": {
+    "rise_mm": 14.199233063709995,
+    "longest_axis_run_mm": 109.84150792328128,
+    "longest_axis_ramp_grade_deg": 7.365788434001637,
+    "required_minimum_wall_mm": 6,
+    "vertical_floor_stock_mm": 6.6,
+    "minimum_native_ramp_wall_mm": 6.347377489568639,
+    "wall_method": "OCCT minimum distance between the actual wet-ramp and dry-ramp lateral faces. The side collar retains 6 mm."
+  },
+  "tooling_screen": {
+    "flange_plan_mm": [
+      211.0,
+      223.68301584656257
+    ],
+    "flange_corner_radius_mm": 43.0,
+    "enclosing_circle_mm": 271.9613208508823,
+    "chamber_interior_diameter_mm": 299.72,
+    "radial_clearance_mm": 13.879339574558855,
+    "detail": "Constant 16 mm offset flange follows R27 silicone brim with R43 corners. Existing bolt stations remain on straight flank sections. The companion candidate-aft-60-tooling.json records the derived native mold closure, release, backing, passages and rod checks; chamber insertion and physical casting are unqualified."
+  },
+  "scope": "Layout-study solids only. Exact seated silicone, frame, lid and cavity are generated; manufacturing fit, retained hardware clearances, motion, material strength and life are not established by this file.",
+  "capacity_artifact": {
+    "valid": true,
+    "solids": 1,
+    "bounds_world_mm": [
+      -76.50000010000001,
+      111.70849197671873,
+      306.05,
+      76.50000010000001,
+      277.39150802328135,
+      355.0
+    ],
+    "volume_mm3": 715056.9394288344,
+    "brep": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.brep",
+    "step": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.step",
+    "mesh": ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.json",
+    "sha256": {
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.brep": "39f422ea8ce597d57b462b3dadff2beb568d512240060cf2aaaa488b4b1b40b5",
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.step": "75c7c105de2401e5b4767d330fe7ae60830cedf472614f1128a9782d8f95f1ce",
+      ".cache/pump-first-layout/funnel/aft-60/funnel-liquid-capacity.json": "da7545104d9d269f55ac48509baf0c2758b2faa334a64a8cc3d91f64a7f6be51"
+    }
+  },
+  "replacement_names": [
+    "funnel",
+    "funnel-frame",
+    "funnel-cover"
+  ]
+}
