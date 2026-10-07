@@ -20,6 +20,7 @@ LOWER_DRAIN_Y = 18.525
 LOWER_RIBBON_Y = 21.4875
 LOWER_START_Z = 40.0
 LOWER_END_Z = 67.5
+LOWER_FLAVOR_FLARE = 0.10
 OUTLET_Y = -133.99672200476698
 OUTLET_Z = 180.38874339162197
 TOTAL_ANGLE = math.radians(140.0)
@@ -72,7 +73,9 @@ def ease(t):
 
 def lower_positions(z):
     u = ease((z - LOWER_START_Z)/(LOWER_END_Z-LOWER_START_Z))
-    return (LOWER_FLAVOR_X + (TIGHT_FLAVOR_X-LOWER_FLAVOR_X)*u,
+    # Symmetric local separation preserves the tangent pack at both ends.
+    flare = LOWER_FLAVOR_FLARE*4*u*(1-u)
+    return (LOWER_FLAVOR_X + (TIGHT_FLAVOR_X-LOWER_FLAVOR_X)*u + flare,
             LOWER_Y-WATER_Y + (TIGHT_FLAVOR_N-(LOWER_Y-WATER_Y))*u,
             LOWER_DRAIN_Y-WATER_Y + (TIGHT_DRAIN_N-(LOWER_DRAIN_Y-WATER_Y))*u)
 

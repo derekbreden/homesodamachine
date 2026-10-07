@@ -15,7 +15,7 @@ for directory in (HARDWARE / "scripts", FAUCET, FAUCET / "faucet-shell",
                   FAUCET / "above-counter-plate", FAUCET / "above-counter-gasket"):
     sys.path.insert(0, str(directory))
 
-from _cadq_export import export_assembly, import_step
+from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, M_TPU_BLACK, one_body
 import faucet_shell as shell
 import above_counter_plate as plate
@@ -36,6 +36,8 @@ neck_center_y = shell.soda_faucet_tube_y + shell.tube_shell_center_y
 neck_radius = shell.tube_shell_outer_r
 neck_join_z = shell.zone5_z_top
 neck_join_overlap = 0.2
+neck_join_boolean_tolerance = 1e-6
+retained_upper_volume_tolerance = 1e-3
 
 
 def cylinder(radius, center_y, z_bottom, z_top):
@@ -82,10 +84,22 @@ def build_shell_base():
     lower = build_lower_outer().val()
     for cavity in lower_cavities().values():
         lower = lower.cut(cavity.val())
-    shared = import_step(FAUCET / "faucet-shell" / "faucet-shell-base.step").val()
+    # Keep native boundary parameters through the shared curved neck.
+    shared = shell.build_shell_base().val()
     upper = shared.intersect(cq.Solid.makeBox(
-        200.0, 400.0, 400.0, cq.Vector(-100.0, -200.0, neck_join_z)))
-    return cq.Workplane(obj=lower.fuse(upper).clean())
+        200.0, 400.0, 400.0, cq.Vector(-100.0, -200.0, neck_join_z)),
+        tol=neck_join_boolean_tolerance)
+    if (not upper.isValid() or len(upper.Solids()) != 1
+            or abs(upper.BoundingBox().zmax-shared.BoundingBox().zmax) > shell.piece_mesh_tol):
+        raise ValueError("Industrial shared upper must retain the complete native neck")
+    joined = lower.fuse(upper, tol=neck_join_boolean_tolerance)
+    missing = upper.cut(joined, tol=neck_join_boolean_tolerance)
+    if (not joined.isValid() or len(joined.Solids()) != 1
+            or abs(joined.BoundingBox().zmax-shared.BoundingBox().zmax) > shell.piece_mesh_tol
+            or not missing.isValid()
+            or abs(missing.Volume()) > retained_upper_volume_tolerance):
+        raise ValueError("Industrial base must retain every shared upper region")
+    return cq.Workplane(obj=joined)
 
 
 def build_above_counter_plate():
