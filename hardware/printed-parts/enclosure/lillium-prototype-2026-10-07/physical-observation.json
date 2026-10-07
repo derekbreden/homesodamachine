@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "reported_date": "2026-10-07",
+  "reported_timezone": "America/Chicago",
+  "reported_by": "Derek",
+  "session": "Preserve a fitting back top",
+  "status": "reported_fit_of_existing_prints",
+  "quotes": [
+    "I have a front top printed for it and a front bottom and a back bottom and a cold core foam shell (no top or cap) and pump cradle and cap, and a tee carrier, and a funnel frame. Reservoirs are starting to print now.",
+    "And all those prints fit together right now, the front top enclosure being printed most recently of those, just finished last night."
+  ],
+  "scope": "Reported fit of the listed existing prints. The back top is not included in this acceptance. Reservoir printing is in progress. CAD fixtures are associated with the most recent recorded production launches; the report does not independently identify their archive names. No completed wet prototype, back-top print cleanup, strength or lifetime result is reported."
+}
