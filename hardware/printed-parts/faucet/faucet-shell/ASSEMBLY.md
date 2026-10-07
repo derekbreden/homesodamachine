@@ -62,10 +62,9 @@ heads on the completed faucet.
    remains seated in its donor port, then close the curved lap.
 7. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
-   sockets; the donor and shell foot seat on the plate. The lower ribbon passes
-   edge-on beside the donor foot, turns inside the base, and lies flat behind
-   the flavor tubes before entering the neck. Keep this orientation through
-   the counter gasket and the metal plate's open ribbon relief.
+   sockets; the donor and shell foot seat on the plate. Keep the ribbon flat
+   behind the flavor/drain bundle through the base, plate and gasket. The
+   rear bundle eases into the centered neck arrangement inside the shell.
 8. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
    progressively so the plate closes evenly. Verify the lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
@@ -164,9 +163,19 @@ top port to the printed tip. The two flavor tubes pass through the plate's
 pill opening and continue to the same tip. The prints carry and protect the
 tubes; they do not form the pressurized fluid path.
 
-The signal ribbon follows a dedicated lane beside the flavor tubes. Its lower
-exit passes through the existing stainless plate's open flavor channel and
-the countertop hole. The ribbon is routed before either connector is fitted.
+The signal ribbon stays flat behind the flavor/drain bundle through the lower
+faucet and counter stack. The drain stays between the flavors. The hidden
+lower bundle sits toward the open side of the steel's rear channel and eases
+back to the centered gooseneck arrangement above the donor. Route the ribbon
+before either connector is fitted.
+
+The fixed stainless profile is the purchased SendCutSend S4177511 plate:
+Ø[54.45 mm](STEEL_PLATE_D), Ø[12.6 mm](STEEL_SHANK_HOLE_D) shank pocket and
+[13.4 mm](STEEL_PILL_L) × [7.05 mm](STEEL_PILL_W) rear pocket. Both channels open toward
+the same side. Slide the plate around the shank and the entire rear bundle
+from that side before tightening the captive washer and nut.
+[Stock profile](../../../cut-parts/faucet/under-counter-plate/stock-profile.json)
+records the purchased geometry.
 
 Follow [faucet and umbilical assembly](/hardware/assembly/faucet-and-umbilical.md)
 for the derived tube cuts, gasket, captive washer/nut, blue tube connection

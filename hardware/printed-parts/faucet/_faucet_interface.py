@@ -16,6 +16,7 @@ sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
                             if p.name == "printed-parts") / "cadlib"))
 
 import fits  # noqa: E402
+import faucet_paths as _paths  # noqa: E402
 
 
 # 1/4" LLDPE flavor tube — physical fact, set by the vinyl tube the
@@ -24,7 +25,8 @@ flavor_tube_od = 6.35
 
 # The mounting row is F1-D-F2. The flavor centers leave clearance around
 # the central 4 mm drain; the dispense face retains the tangent flavor pair.
-flavor_tube_x_offset = 5.45
+flavor_tube_x_offset = _paths.LOWER_FLAVOR_X
+bundle_mount_x = _paths.LOWER_BUNDLE_X
 dispense_flavor_x_offset = flavor_tube_od / 2.0
 
 # Diametric (total) clearance around each flavor tube through the pill
@@ -45,17 +47,19 @@ drain_tube_od = 4.0
 drain_tube_id = 2.5
 drain_bend_min_radius = 25.0
 drain_tube_gap = 0.25
-drain_tube_x = 0.0
+drain_tube_x = bundle_mount_x
+drain_tube_y = _paths.LOWER_DRAIN_Y
 drain_tube_hole_dia = drain_tube_od + flavor_tube_hole_clearance
 
-# The mounting slot is symmetric around the centered drain.
-bundle_slot_left_x = -pill_length_x / 2.0
-bundle_slot_right_x = pill_length_x / 2.0
+# The rounded printed passage surrounds the rear bundle. The purchased
+# steel plate admits its positive-X side through an open mounting channel.
+bundle_slot_left_x = bundle_mount_x - pill_length_x / 2.0
+bundle_slot_right_x = bundle_mount_x + pill_length_x / 2.0
 bundle_slot_length_x = bundle_slot_right_x - bundle_slot_left_x
 bundle_slot_center_x = (bundle_slot_right_x + bundle_slot_left_x) / 2.0
 
-# Lower row behind the donor: unchanged depth, widened lateral flavor spacing.
-flavor_tube_depth = 15.75 + flavor_tube_od / 2.0  # [18.925 mm](FLAVOR_TUBE_DEPTH)
+# Lower flavor row behind the donor.
+flavor_tube_depth = _paths.LOWER_Y  # [18.925 mm](FLAVOR_TUBE_DEPTH)
 
 # Central pocket for the shank. Ø12.6 matches the donor's own factory
 # plate; the threaded shank is ~Ø11 nominal. Used by all four parts in the

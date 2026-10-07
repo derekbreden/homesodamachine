@@ -13,14 +13,13 @@ Washer and nut then clamp the plate flat against the countertop.
 See `../../../assembly/faucet-and-umbilical.md` for the full install
 motion.
 
-HOLE POSITIONS MATCH THE ABOVE-COUNTER GASKET AND PLATE
-=======================================================
-The above-counter plate, above-counter gasket, and under-counter plate share the
-shank-hole position and pill-slot position. This plate's disc centers
-on the midpoint of its two reach constraints — the Westbrass-bore front
-edge and the pill pocket's far edge — landing within 0.05 mm of the
-upper parts' disc center. It adds the two open-edge channels at those
-hole positions.
+STOCK INTERFACE
+===============
+The profile is the 0.060-inch 316 stainless plate in SendCutSend order
+S4177511. Its shank pocket is 12.6 mm; its rear terminal pocket is
+13.4 by 7.05 mm, centered at DXF (18.925, 0). The printed counter stack
+and tube/ribbon routing fit these fixed steel openings. The disc and
+channel mouths use the purchased profile's dimensions.
 
 CHANNEL DIRECTION
 =================
@@ -68,34 +67,20 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-# _faucet_interface — the shared pill / shank geometry — lives in
-# hardware/printed-parts/faucet/.
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
-sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet" / "faucet-shell"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_md, substitute_py_comments
 from _cadq_export import export_dxf
-from _faucet_interface import (
-    flavor_tube_depth,
-    pill_length_x,
-    pill_width_y,
-    shank_hole_diameter,
-    bundle_slot_length_x,
-    bundle_slot_center_x,
-)
-from faucet_shell import westbrass_bore_diameter
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Hole positions match the above-counter gasket and plate; the
-# disc center and OD are derived from those holes below.
+# Fixed purchased steel interface; printed parts and routing fit this profile.
 
 shank_cx = 0.0
 shank_cy = 0.0
-# [12.6 mm](SHANK_HOLE_D) shank pocket — matches the above-counter
-# gasket / plate (the threaded shank passes through all three discs).
-shank_diameter = shank_hole_diameter
+# [12.6 mm](SHANK_HOLE_D) shank pocket — the threaded shank passes
+# through all three counter-stack parts.
+shank_diameter = 12.6
 shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
@@ -104,39 +89,25 @@ shank_radius = shank_diameter / 2.0
 # depth-magnitude offset from the shank in world coords (the pill sits
 # at world +Y relative to the Westbrass axis); this DXF Y is the lateral
 # (world X) axis. Channels open in DXF -Y (lateral).
-# [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
-# (= depth magnitude shared with the shell / above-counter gasket / plate).
-pill_cx = flavor_tube_depth
-pill_cy = bundle_slot_center_x
-# [18.15 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
-# matches the gasket's pill.
-pill_long_y = bundle_slot_length_x
-# [7.25 mm](PILL_W) pill short axis in DXF X (= world-depth Y) —
-# matches the gasket's pill.
-pill_short_x = pill_width_y
-pill_half_long = pill_long_y / 2.0       # [9.075 mm](PILL_HALF_LONG)
-pill_half_short = pill_short_x / 2.0     # [3.625 mm](PILL_HALF_SHORT)
-pill_cap_radius = pill_half_short        # [3.625 mm](PILL_CAP_R)
-pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [5.45 mm](PILL_TOP_CAP_CY)
-pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-5.45 mm](PILL_BOT_CAP_CY)
-pill_left_x = pill_cx - pill_half_short     # [15.3 mm](PILL_LEFT_X)
-pill_right_x = pill_cx + pill_half_short    # [22.55 mm](PILL_RIGHT_X)
+# [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of the steel pocket from the shank.
+pill_cx = 18.925
+pill_cy = 0.0
+# [13.4 mm](PILL_L) steel pocket long axis in DXF Y (= world-lateral X).
+pill_long_y = 13.4
+# [7.05 mm](PILL_W) steel pocket short axis in DXF X (= world-depth Y).
+pill_short_x = 7.05
+pill_half_long = pill_long_y / 2.0       # [6.7 mm](PILL_HALF_LONG)
+pill_half_short = pill_short_x / 2.0     # [3.525 mm](PILL_HALF_SHORT)
+pill_cap_radius = pill_half_short        # [3.525 mm](PILL_CAP_R)
+pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PILL_TOP_CAP_CY)
+pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
+pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
+pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 
-# Disc span, in DXF X (world depth). Two reach constraints bound it: the
-# Westbrass-bore front edge (the shell's pods are bore-tangent, so a deck-hole
-# edge past the bore line starts undermining their seats — the install's own
-# limit on any hole, and unreachable from the other side anyway: a hole
-# centered on the shank would need ~⌀47 before the tube pill could pass) and
-# the pill pocket's far edge (the slide-on capture needs solid steel beyond
-# the pocket). The disc centers on their midpoint — within 0.05 mm of the
-# upper parts' disc center — so one margin serves both ends; any other center
-# needs a larger disc to meet the same two. disc_reach_margin beyond each
-# constraint puts the OD a few mm past the ~2" (50.8 mm) backing washer
-# standard kitchen faucets ship (Delta RP49835), the proven under-sink
-# footprint. Bearing doesn't size it: the hand-tightened nut (~1-4 kN)
-# spreads to ~2 MPa here — ~5x under particleboard, ~100x under stone.
-# [54.55 mm](PLATE_D) disc centered at DXF ([3.275 mm](DISC_CX), 0).
-bore_front_x = -westbrass_bore_diameter / 2.0   # [-16 mm](BORE_FRONT_X)
+# Fixed purchased circular outline in the DXF frame. These dimensions retain
+# the stock drawing's centre and diameter independently of printed passages.
+# [54.45 mm](PLATE_D) disc centered at DXF ([3.225 mm](DISC_CX), 0).
+bore_front_x = -16.0   # [-16 mm](BORE_FRONT_X)
 disc_reach_margin = 8.0
 disc_cx = (pill_right_x + bore_front_x) / 2.0
 disc_cy = 0.0
@@ -146,12 +117,6 @@ disc_diameter = 2.0 * disc_radius
 # [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
 # where a vertical channel wall meets the disc rim.
 fillet_radius = 1.5
-
-# Outside the donor washer, the shank channel also admits the edge-on ribbon.
-# DXF X is world +Y; DXF -Y is the slide-on side of the finished plate.
-signal_relief_right_x = 8.4
-signal_relief_start_y = -14.6
-
 
 def rim_y_lower(x):
     """Lower Y on the disc rim at the given X (the bottom of the disc)."""
@@ -195,7 +160,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.275 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.225 mm](DISC_CX), [27.23 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
@@ -204,19 +169,19 @@ def make_dxf():
     shank_left_wall_top = (shank_left_wall_x, shank_cy)                # ([-6.3 mm](SHANK_LEFT_WALL_X), 0)
     shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
-    # edge (Y = pill_bot_cap_cy = [-5.45 mm](PILL_BOT_CAP_CY)) to the rim,
-    # width [7.25 mm](PILL_W) in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-5.45 mm](PILL_BOT_CAP_CY))
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-5.45 mm](PILL_BOT_CAP_CY))
+    # edge (Y = pill_bot_cap_cy = [-3.175 mm](PILL_BOT_CAP_CY)) to the rim,
+    # width [7.05 mm](PILL_W) in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [5.45 mm](PILL_TOP_CAP_CY))
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [5.45 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
 
     disc_center = (disc_cx, disc_cy)
 
     # Fillets at the four channel-mouth corners.
     sl_c, sl_wt, sl_rt = channel_corner_fillet(shank_left_wall_x, -1)
-    sr_c, sr_wt, sr_rt = channel_corner_fillet(signal_relief_right_x, +1)
+    sr_c, sr_wt, sr_rt = channel_corner_fillet(shank_right_wall_x, +1)
     pl_c, pl_wt, pl_rt = channel_corner_fillet(pill_left_x, -1)
     pr_c, pr_wt, pr_rt = channel_corner_fillet(pill_right_x, +1)
 
@@ -230,11 +195,7 @@ def make_dxf():
     msp.add_arc((shank_cx, shank_cy), shank_radius,
                 start_angle=0.0, end_angle=180.0)
 
-    relief_inner = (shank_right_wall_x, signal_relief_start_y)
-    relief_outer = (signal_relief_right_x, signal_relief_start_y)
-    msp.add_line(shank_right_wall_top, relief_inner)
-    msp.add_line(relief_inner, relief_outer)
-    msp.add_line(relief_outer, sr_wt)
+    msp.add_line(shank_right_wall_top, sr_wt)
 
     ccw_arc(msp, sr_c, fillet_radius, sr_wt, sr_rt)
 
@@ -294,6 +255,10 @@ if __name__ == "__main__":
         "PILL_LEFT_X": f"{pill_left_x:.4g} mm",
         "PILL_RIGHT_X": f"{pill_right_x:.4g} mm",
         "FILLET_R": f"{fillet_radius:.4g} mm",
+        "STEEL_PLATE_D": f"{disc_diameter:.4g} mm",
+        "STEEL_SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
+        "STEEL_PILL_L": f"{pill_long_y:.4g} mm",
+        "STEEL_PILL_W": f"{pill_short_x:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -308,3 +273,8 @@ if __name__ == "__main__":
         variables=variables,
     )
     print("-> ASSEMBLY.md")
+    substitute_md(
+        _hardware_dir / "assembly" / "faucet-and-umbilical.md",
+        variables=variables,
+    )
+    print("-> faucet-and-umbilical.md")

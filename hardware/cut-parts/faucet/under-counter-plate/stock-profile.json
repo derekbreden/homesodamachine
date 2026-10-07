@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "scope": "Purchased 0.060-inch 316 stainless plate profile; the finished faucet and wiring fit this fixed cut.",
+  "stock_order": "S4177511",
+  "purchase_record": "hardware/ledger/purchases.md#purchase:pur-bf8d135df8f84025b5e36f07d38b311c",
+  "reference_commit": "c44a6ffdf",
+  "reference_path": "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+  "reference_dxf_sha256": "48d11b21462f59772dd5185fe881c69c7f732fe4562d5627a5ae4e1f98b95c85",
+  "units": "mm",
+  "dxf_insunits": 4,
+  "coordinate_rounding_digits": 10,
+  "normalized_entity_signature": [
+    [
+      "ARC",
+      -7.8,
+      -23.2427408022,
+      0.0,
+      1.5,
+      244.6230664748,
+      0.0
+    ],
+    [
+      "ARC",
+      0.0,
+      0.0,
+      0.0,
+      6.3,
+      0.0,
+      180.0
+    ],
+    [
+      "ARC",
+      3.225,
+      0.0,
+      0.0,
+      27.225,
+      90.0,
+      244.6230664748
+    ],
+    [
+      "ARC",
+      3.225,
+      0.0,
+      0.0,
+      27.225,
+      280.2441205002,
+      294.5171745032
+    ],
+    [
+      "ARC",
+      3.225,
+      0.0,
+      0.0,
+      27.225,
+      323.6717743139,
+      90.0
+    ],
+    [
+      "ARC",
+      7.8,
+      -25.3149165513,
+      0.0,
+      1.5,
+      180.0,
+      280.2441205002
+    ],
+    [
+      "ARC",
+      13.9,
+      -23.4055548962,
+      0.0,
+      1.5,
+      294.5171745032,
+      0.0
+    ],
+    [
+      "ARC",
+      18.925,
+      3.175,
+      0.0,
+      3.525,
+      0.0,
+      180.0
+    ],
+    [
+      "ARC",
+      23.95,
+      -15.2397506541,
+      0.0,
+      1.5,
+      180.0,
+      323.6717743139
+    ],
+    [
+      "LINE",
+      -6.3,
+      -23.2427408022,
+      0.0,
+      -6.3,
+      0.0,
+      0.0
+    ],
+    [
+      "LINE",
+      6.3,
+      0.0,
+      0.0,
+      6.3,
+      -25.3149165513,
+      0.0
+    ],
+    [
+      "LINE",
+      15.4,
+      -23.4055548962,
+      0.0,
+      15.4,
+      3.175,
+      0.0
+    ],
+    [
+      "LINE",
+      22.45,
+      3.175,
+      0.0,
+      22.45,
+      -15.2397506541,
+      0.0
+    ]
+  ],
+  "dimensions_mm": {
+    "thickness": 1.524,
+    "shank_pocket_diameter": 12.6,
+    "rear_pocket_long_axis": 13.4,
+    "rear_pocket_short_axis": 7.05,
+    "rear_pocket_dxf_center": [
+      18.925,
+      0
+    ],
+    "outside_diameter": 54.45
+  },
+  "world_transform": "DXF (x,y) becomes world (-y,x); both open channels face world +X."
+}
