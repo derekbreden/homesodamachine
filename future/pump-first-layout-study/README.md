@@ -11,6 +11,9 @@ Open [the component viewer](index.html) to rotate the complete arrangement,
 compare the reference, hide the funnel/roof, and inspect individual fittings,
 tubes, insulation, looms, printed hosts and fasteners. Coordinates are the
 enclosure's world millimetres: X is width, +Y is aft, and Z is height.
+The **Tubes** and **Wires** controls independently toggle tube runs with their
+insulation and wire looms. Both are hidden by default; fittings, connectors and
+mounts remain visible. Inspecting a hidden tube or wire enables its category.
 
 The study boundary is the upper bay aft of the enlarged funnel, including its
 side/rear walls, roof and cold-core lid. The floor is Z 253.4. The lower cold core
