@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-05",
+  "as_of": "2026-10-07",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -7812,6 +7812,18 @@
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8"
       ]
+    },
+    "pur-65c979f1bb194148918426361d985f73": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ]
     }
   },
   "orders": {
@@ -13320,6 +13332,18 @@
       "source_ids": [
         "src-5b11f53981d74149bcc6a2119c6eddc8"
       ]
+    },
+    "fws:WEBFWS100711469": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100711469",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ]
     }
   },
   "events": [
@@ -15972,6 +15996,23 @@
       "order_ids": [
         "bambu:us783865986561351681"
       ]
+    },
+    {
+      "event_id": "evt-4991502f7a0d484788efb14e364fc889",
+      "vendor": "Fresh Water Systems",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 10998,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "verified_at": "2026-10-07",
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ]
     }
   ],
   "allocations": [
@@ -16829,6 +16870,14 @@
       "purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
       "order_id": "bambu:us783865986561351681",
       "amount_minor": 12005,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-476ac9466741403eafba9207206b01e5",
+      "event_id": "evt-4991502f7a0d484788efb14e364fc889",
+      "purchase_id": "pur-65c979f1bb194148918426361d985f73",
+      "order_id": "fws:WEBFWS100711469",
+      "amount_minor": 10998,
       "currency": "USD"
     }
   ],
@@ -25735,6 +25784,21 @@
       ],
       "verified_at": "2026-10-05",
       "note": "Gmail order confirmation: ten PETG Translucent Clear 32101 1 kg refills, USD 159.90 less a USD 47.97 Filament Bulk Sale discount (USD 111.93), USD 0.00 shipping, USD 8.12 tax (state 5.5% USD 6.16 + city 1.75% USD 1.96), USD 120.05 grand total; no store credit applied. The email prints no order date; it was received 2026-10-05 at 23:56 America/Chicago, the local-date basis of the other Bambu rows. Bambu states the order is being prepared for shipment. No shipment, delivery date or completed merchant charge is stated."
+    },
+    "src-535edab39a23469dad7dadceae02fad6": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100711469",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-07",
+      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 × 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -26693,6 +26757,26 @@
         "bambu:us783865986561351681"
       ],
       "note": "Scoped Gmail search and review of the named Bambu order confirmation; no claim of complete Bambu account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-b136418b081343e5b6fa252ee1b86a7c",
+      "vendor": "Fresh Water Systems",
+      "stream": "drain-line fittings order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-07",
+      "examined_period": {
+        "start": "2026-10-05",
+        "end": "2026-10-07"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "note": "Scoped Gmail search for Fresh Water Systems mail from the last two days and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
@@ -26958,6 +27042,26 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 120.05 charge remains expected.",
       "sources_checked": [
         "Bambu Lab order confirmation us783865986561351681"
+      ]
+    },
+    {
+      "gap_id": "gap-c6f8ac11a09a42aea90f001d75de8668",
+      "vendor": "Fresh Water Systems",
+      "purchase_ids": [
+        "pur-65c979f1bb194148918426361d985f73"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "event_ids": [
+        "evt-4991502f7a0d484788efb14e364fc889"
+      ],
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 109.98 charge remains expected.",
+      "sources_checked": [
+        "Fresh Water Systems order confirmation WEBFWS100711469"
       ]
     }
   ],
