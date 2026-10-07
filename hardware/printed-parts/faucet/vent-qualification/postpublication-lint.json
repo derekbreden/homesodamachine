@@ -1,0 +1,519 @@
+{
+  "schema": 2,
+  "reviewed_at_utc": "2026-10-07T11:05:28.406247+00:00",
+  "publication_basis": {
+    "confirmation": "Parent agent confirmed the exact current meshes live before this review. The unchanged Industrial cover also has its explicit live confirmation at 2823d75cf.",
+    "confirmed_main_commit": "ff0e4a35d",
+    "live_pointer_checked_by_this_record": false,
+    "parent_live_pointer_snapshot": {
+      "live_base": "https://objects.homesodamachine.com",
+      "rows": [
+        {
+          "path": "faucet-layout/faucet-assembly.step",
+          "matches_current_pointer": true,
+          "current_sha256": "57d1f787c4cd90bf32796741af05589f951b351fa5f57ebfac8c7995e40867ae"
+        },
+        {
+          "path": "faucet-layout/faucet-industrial-assembly.step",
+          "matches_current_pointer": true,
+          "current_sha256": "45c9780d3d8a4bad7ff64201b3855eacbf81828826cc191695114a16e2fc34c0"
+        },
+        {
+          "path": "printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "dd8b220fd3d6153754bb161f8c1a8f8bb312adf044f74d4a772c16186adcad81"
+        },
+        {
+          "path": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "4b4df1f32a91472ab55ca4dcb0b337fa5f82225d92bceacc842e43316756ed67"
+        },
+        {
+          "path": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "25a9c65cecbaf93e5fa5f46d322194941ee584fb0d928d6c41ad40cf295263b2"
+        },
+        {
+          "path": "printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "f3a92de7fd84274bb72bced235649d7b879ed9813bf1ef79c9023c8ec6f6050a"
+        },
+        {
+          "path": "printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "327fdd0ff6b2b4b3b9a7ba1369482b7ee70ee82de925ad36780269378a4b7b7c"
+        },
+        {
+          "path": "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+          "matches_current_pointer": true,
+          "current_sha256": "5b9e18212217e80103a18a604870f3a18e7d2d1773ece0b1f880134c62bd5d7e"
+        }
+      ],
+      "all_pointers_current": true
+    }
+  },
+  "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "all_findings_addressed": true,
+  "production_geometry_changed_by_this_review": false,
+  "native_stock_witness": {
+    "report": "hardware/printed-parts/faucet/vent-qualification/base-native-lint-witnesses.json",
+    "sha256": "35f37481f9cba08fab1f6ef748baa376ee5dde869fa4d800fda713a7a96fd69e",
+    "all_named_backing_witnesses_pass": true,
+    "all_named_ceiling_stock_witnesses_pass": true,
+    "scope": "Complete 2 mm inward witnesses of named faces only; no global wall or load-capacity bound."
+  },
+  "native_roof_support_witness": {
+    "report": "hardware/printed-parts/faucet/vent-qualification/lint-support-witnesses.json",
+    "sha256": "a70901976cef6e0f0e163a3999742ecb800468352690d4d144745af2e8226090",
+    "all_named_roofs_have_native_support_witnesses": true,
+    "scope": "Named roof geometry and retained native extrusion presence. The samples are not complete coverage or interface-contact proofs, and they do not establish physical support release, contact finish or part strength."
+  },
+  "scope": "Postpublication lint on current Sculpted base and tip STL files, with native complete local backing and roof-stock witnesses and retained native roof support paths. No physical print, support-removal, fit, surface, strength or lifetime acceptance.",
+  "shell_geometry_source_sha256": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+  "parts": [
+    {
+      "part": "base",
+      "stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "stl_sha256": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
+      "step_sha256": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
+      "lint_answers": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.lint-answers",
+      "lint_answers_sha256": "7c40203fd60bec6befe5ba0ed549f7ffa15ce2d85cc85bba9a65846a233483d2",
+      "printed_facets": 495196,
+      "open_findings": 0,
+      "answered_findings": 6,
+      "command": "HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl --all",
+      "answered_lint_output": "faucet-shell-base.stl \u00b7 495196 printed facets \u00b7 0 findings \u00b7 6 answered\n\n  [step \u00b7 answered] This is the clearance transition between the donor rectangle's X=8.75 mm side and the flavor-passage boundary at X=9.075 mm, beside the cable turn. The 0.325 mm offset opens the adjoining passages. The complete picked plane has a valid 2 mm inward material witness wholly present in the saved base STEP; the exact normal material chord at the pick is 13.071 mm. This cavity boundary carries no separate mounting datum.\n    \u03940.325 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 0.2 mm\n    faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=9.075 y=13.330 z=24.424\n    faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.750 y=0.000 z=32.749\n    click: x=9.075 y=13.286 z=24.424\n\n  [sliver \u00b7 answered] This is the positive-overlap edge joining the lower cable relief to the flavor passage. The connector overlaps the flavor-pill boundary by 0.02 mm; the picked planar face spans X=9.074945..9.095 mm and Z=0..14 mm. Its complete valid 2 mm inward material witness is present in the saved base STEP, and its center's exact normal material chord is 9.033 mm. The small face bounds a recess backed by continuous shell stock.\n    0.020 mm strip, 14.0 mm long\n    face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=9.085 y=18.945 z=7.000\n    edge: x=9.085 y=18.945 z=14.000 \u2192 x=9.085 y=18.945 z=0.000 \u00b7 len 14.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000\n    click: x=9.085 y=18.945 z=7.000\n\n  [ceiling \u00b7 answered] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. Its complete native picked face has 2 mm of inward stock. The shoulder follows the metal body's plateau envelope and is inclined 15 degrees to the bed in the base's -15 degree print pose. The retained native support audit places interface-19 of bed-rooted tree-1 below this shoulder. Break and withdraw its branches through the open bottom donor bore, then inspect the cavity before fitting the metal body or tubing. Physical cleanup effort and contact finish remain unmeasured.\n    67 mm\u00b2 flat print-down face at z=39.000 \u00b7 18.2 \u00d7 9.6 mm \u00b7 open to the bed (39.0 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=14.156 z=39.000\n    click: x=0.000 y=14.156 z=39.000\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-22.300 z=3.200\n    click: x=0.000 y=-22.300 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=22.500 y=-2.000 z=3.200\n    click: x=22.500 y=-2.000 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-22.500 y=-2.000 z=3.200\n    click: x=-22.500 y=-2.000 z=3.200\n",
+      "initial_lint_output": "faucet-shell-base.stl \u00b7 495196 printed facets \u00b7 3 findings \u00b7 3 answered\n\n  [step] \u03940.325 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 0.2 mm\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step\n    faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=9.075 y=13.330 z=24.424\n    faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.750 y=0.000 z=32.749\n    click: x=9.075 y=13.286 z=24.424\n\n  [ceiling] 40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=22.500 y=-2.000 z=3.200\n    click: x=22.500 y=-2.000 z=3.200\n\n  [ceiling] 40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-22.500 y=-2.000 z=3.200\n    click: x=-22.500 y=-2.000 z=3.200\n\n  [sliver \u00b7 answered] This is the positive-overlap edge joining the lower cable relief to the flavor passage. The connector overlaps the flavor-pill boundary by 0.02 mm; the picked planar face spans X=9.074945..9.095 mm and Z=0..14 mm. Its complete valid 2 mm inward material witness is present in the saved base STEP, and its center's exact normal material chord is 9.033 mm. The small face bounds a recess backed by continuous shell stock.\n    0.020 mm strip, 14.0 mm long\n    face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=9.085 y=18.945 z=7.000\n    edge: x=9.085 y=18.945 z=14.000 \u2192 x=9.085 y=18.945 z=0.000 \u00b7 len 14.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000\n    click: x=9.085 y=18.945 z=7.000\n\n  [ceiling \u00b7 answered] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. The shoulder follows the metal body's plateau envelope. It is inclined 15 degrees to the bed in the base's -15 degree print pose. The donor cavity is open below for inspection and support cleanup before installing the metal body; removal effort and contact finish are physical print observations.\n    67 mm\u00b2 flat print-down face at z=39.000 \u00b7 18.2 \u00d7 9.6 mm \u00b7 open to the bed (39.0 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=14.156 z=39.000\n    click: x=0.000 y=14.156 z=39.000\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm radial witnesses around these sockets are present in the finished base. The planes are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-22.300 z=3.200\n    click: x=0.000 y=-22.300 z=3.200\n"
+    },
+    {
+      "part": "tip",
+      "stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+      "step_sha256": "96d0c010f1df4819a3a0a307cdb324ca8822c1670af4dcdf48f26e1575c20322",
+      "lint_answers": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.lint-answers",
+      "lint_answers_sha256": "9a92c3c39ee434a1463f1e612a09ba438fe1972b374802a997175e26c0cc8200",
+      "printed_facets": 238448,
+      "open_findings": 0,
+      "answered_findings": 2,
+      "command": "HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl --all",
+      "answered_lint_output": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide\n  u /= np.linalg.norm(u)\nfaucet-shell-tip.stl \u00b7 238448 printed facets \u00b7 0 findings \u00b7 2 answered\n\n  [sliver \u00b7 answered] This pick identifies one zero-area STL triangle on the flavor-guide seam at the dispense transition. Its three vertices are collinear at Y=-139.569565 mm and Z=185.064926 mm, spanning X=-3.174998..3.175000 mm. Its normal is zero, so the lint's strip dimensions are NaN. No finite-area strip is represented by this primitive. The corresponding saved STEP remains one valid solid; this answer covers only the collapsed tessellation triangle at this pick.\n    nan mm strip, nan mm long\n    face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=0.000 y=-139.570 z=185.065\n    edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan\n    click: x=0.000 y=-139.570 z=185.065\n\n  [slope \u00b7 answered] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's -95 degree print pose, the joint end faces the bed, the crown is raised and this channel-end face points upward. Preserve the opening and remove any adjacent support through the display opening or neck joint before loading hardware; physical removal and contact finish remain print observations.\n    45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir -0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.9 mm \u00b7 102 mm\u00b2\n    faceA: plane \u00b7 n x=0.000 y=-0.643 z=-0.766 \u00b7 thru x=0.000 y=-109.269 z=221.303\n    faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-6.789 y=-122.040 z=202.495\n    click: x=0.000 y=-109.269 z=221.303\n",
+      "original_unanswered_lint_output_same_stl": "faucet-shell-tip.stl \u00b7 238448 printed facets \u00b7 2 findings\n\n  [sliver] nan mm strip, nan mm long\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=0.000 y=-139.570 z=185.065\n    edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan\n    click: x=0.000 y=-139.570 z=185.065\n\n  [slope] 45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir -0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.9 mm \u00b7 102 mm\u00b2\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step\n    faceA: plane \u00b7 n x=0.000 y=-0.643 z=-0.766 \u00b7 thru x=0.000 y=-109.269 z=221.303\n    faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-6.789 y=-122.040 z=202.495\n    click: x=0.000 y=-109.269 z=221.303\n"
+    }
+  ],
+  "base_material_witnesses": [
+    {
+      "class": "sliver",
+      "pick_mm": [
+        9.085,
+        18.945,
+        7.0
+      ],
+      "saved_step_face_index": 13,
+      "face_area_mm2": 0.2807724196760332,
+      "face_normal": [
+        0.0,
+        -1.0,
+        -0.0
+      ],
+      "face_bbox_mm": [
+        9.074944727165999,
+        18.9449999,
+        -1e-07,
+        9.095000100000016,
+        18.9450001,
+        14.0000001
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 0.5615448393520411,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "centre_normal_line_limit_mm": 25.0,
+      "centre_normal_material_segments": [
+        {
+          "length_mm": 9.032545416679454,
+          "start_mm": [
+            9.085,
+            18.945,
+            7.0
+          ],
+          "end_mm": [
+            9.085,
+            27.977545416679455,
+            7.0
+          ]
+        }
+      ],
+      "centre_normal_material_chord_mm": 9.032545416679454,
+      "pass": true
+    },
+    {
+      "class": "step",
+      "pick_mm": [
+        9.075,
+        13.286,
+        24.424
+      ],
+      "saved_step_face_index": 222,
+      "face_area_mm2": 0.9417313151607448,
+      "face_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "face_bbox_mm": [
+        9.0749999,
+        13.177419032744,
+        22.086122474215,
+        9.075000099999999,
+        13.48185182763326,
+        26.761338639724002
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 1.8834631592567983,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "centre_normal_line_limit_mm": 25.0,
+      "centre_normal_material_segments": [
+        {
+          "length_mm": 13.07149578274771,
+          "start_mm": [
+            9.075,
+            13.286,
+            24.424
+          ],
+          "end_mm": [
+            22.14649578274771,
+            13.286,
+            24.424
+          ]
+        }
+      ],
+      "centre_normal_material_chord_mm": 13.07149578274771,
+      "pass": true
+    }
+  ],
+  "base_ceiling_stock_witnesses": [
+    {
+      "class": "ceiling",
+      "feature": "donor shoulder Z39",
+      "actual_face_point_mm": [
+        0.0,
+        14.156,
+        39.0
+      ],
+      "lint_plane_pick_mm": [
+        0.0,
+        14.156,
+        39.0
+      ],
+      "lint_pick_distance_to_actual_face_mm": 0.0,
+      "saved_step_face_index": 69,
+      "face_area_mm2": 48.619624715906795,
+      "face_normal": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "face_bbox_mm": [
+        -9.075000099999999,
+        13.157419032743734,
+        38.9999999,
+        9.075000099999999,
+        18.925000100000002,
+        39.0000001
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 97.2392494318402,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "pass": true,
+      "print_pose_degrees_about_x": -15.0,
+      "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+    },
+    {
+      "class": "ceiling",
+      "feature": "registration socket roof",
+      "actual_face_point_mm": [
+        3.0,
+        -22.3,
+        3.2
+      ],
+      "lint_plane_pick_mm": [
+        0.0,
+        -22.3,
+        3.2
+      ],
+      "lint_pick_distance_to_actual_face_mm": 2.0,
+      "saved_step_face_index": 54,
+      "face_area_mm2": 40.24380189248524,
+      "face_normal": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "face_bbox_mm": [
+        -4.1,
+        -26.4,
+        3.2,
+        4.1,
+        -18.200000000000003,
+        3.2
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 80.48760378497049,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "pass": true,
+      "print_pose_degrees_about_x": -15.0,
+      "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+    },
+    {
+      "class": "ceiling",
+      "feature": "registration socket roof",
+      "actual_face_point_mm": [
+        -19.5,
+        -2.0,
+        3.2
+      ],
+      "lint_plane_pick_mm": [
+        -22.5,
+        -2.0,
+        3.2
+      ],
+      "lint_pick_distance_to_actual_face_mm": 2.0,
+      "saved_step_face_index": 53,
+      "face_area_mm2": 40.24380189248529,
+      "face_normal": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "face_bbox_mm": [
+        -26.6,
+        -6.1,
+        3.2,
+        -18.4,
+        2.0999999999999996,
+        3.2
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 80.48760378497053,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "pass": true,
+      "print_pose_degrees_about_x": -15.0,
+      "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+    },
+    {
+      "class": "ceiling",
+      "feature": "registration socket roof",
+      "actual_face_point_mm": [
+        25.5,
+        -2.0,
+        3.2
+      ],
+      "lint_plane_pick_mm": [
+        22.5,
+        -2.0,
+        3.2
+      ],
+      "lint_pick_distance_to_actual_face_mm": 2.0,
+      "saved_step_face_index": 52,
+      "face_area_mm2": 40.24380189248529,
+      "face_normal": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "face_bbox_mm": [
+        18.4,
+        -6.1,
+        3.2,
+        26.6,
+        2.0999999999999996,
+        3.2
+      ],
+      "required_inward_stock_mm": 2.0,
+      "complete_witness_volume_mm3": 80.48760378497053,
+      "missing_witness_volume_mm3": 0,
+      "witness_and_boolean_valid": true,
+      "pass": true,
+      "print_pose_degrees_about_x": -15.0,
+      "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+    }
+  ],
+  "native_roof_support_paths": {
+    "part": "sculpted",
+    "saved_base": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+    "rotation_x_degrees": -14.999999999999998,
+    "object_label": 1901,
+    "support_segment_midpoints_read": 153974,
+    "native_support_summary": {
+      "support_bodies": 1,
+      "interface_islands": 23,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 0.0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 23,
+      "shortest_labelled_build_up_mm": 0.0
+    },
+    "roofs": [
+      {
+        "feature": "donor shoulder Z39",
+        "native_roof_face_index": 69,
+        "roof_region_interface_from_audit": {
+          "id": "interface-19",
+          "first_z_mm": 40.04,
+          "last_z_mm": 40.76,
+          "bbox_xy_mm": [
+            76.8,
+            164.0,
+            87.2,
+            168.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 39.84,
+          "bbox_cad_xyz_mm": [
+            -5.699,
+            14.286,
+            37.426,
+            4.701,
+            18.336,
+            39.157
+          ]
+        },
+        "interface_tree_from_audit": {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 0.2,
+          "shortest_build_up_mm": 0.0,
+          "top_z_mm": 61.16,
+          "bbox_xy_mm": [
+            49.6,
+            108.8,
+            115.6,
+            168.0
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2",
+            "interface-3",
+            "interface-4",
+            "interface-5",
+            "interface-6",
+            "interface-7",
+            "interface-8",
+            "interface-9",
+            "interface-10",
+            "interface-11",
+            "interface-12",
+            "interface-13",
+            "interface-14",
+            "interface-15",
+            "interface-16",
+            "interface-17",
+            "interface-18",
+            "interface-19",
+            "interface-20",
+            "interface-21",
+            "interface-22",
+            "interface-23"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -32.899,
+            -44.313,
+            -15.343,
+            33.101,
+            28.647,
+            58.861
+          ]
+        },
+        "actual_native_support_samples": [
+          {
+            "support_centerline_midpoint_cad_mm": [
+              -4.158023437499992,
+              14.903876059140934,
+              38.53530377423564
+            ],
+            "projected_roof_point_cad_mm": [
+              -4.158023437499992,
+              14.903876059140934,
+              39.0
+            ],
+            "projection_distance_to_native_face_mm": 0.0,
+            "vertical_centreline_gap_mm": 0.46469622576435654,
+            "feature": "Support",
+            "line_width_mm": 0.62,
+            "native_plate_layer_z_mm": 41.0
+          },
+          {
+            "support_centerline_midpoint_cad_mm": [
+              -0.08702343749999386,
+              14.113451415294357,
+              38.57197641253772
+            ],
+            "projected_roof_point_cad_mm": [
+              -0.08702343749999386,
+              14.113451415294357,
+              39.0
+            ],
+            "projection_distance_to_native_face_mm": 0.0,
+            "vertical_centreline_gap_mm": 0.42802358746227753,
+            "feature": "Support",
+            "line_width_mm": 0.62,
+            "native_plate_layer_z_mm": 41.24
+          },
+          {
+            "support_centerline_midpoint_cad_mm": [
+              4.05547656249999,
+              14.960865682891988,
+              38.5505740978967
+            ],
+            "projected_roof_point_cad_mm": [
+              4.05547656249999,
+              14.960865682891988,
+              39.0
+            ],
+            "projection_distance_to_native_face_mm": 0.0,
+            "vertical_centreline_gap_mm": 0.44942590210330025,
+            "feature": "Support",
+            "line_width_mm": 0.62,
+            "native_plate_layer_z_mm": 41.0
+          }
+        ]
+      }
+    ]
+  },
+  "collapsed_tip_facet": {
+    "stl_triangle_index": 179627,
+    "triangle_area_mm2": 0,
+    "normal": [
+      0,
+      0,
+      0
+    ],
+    "vertices_mm": [
+      [
+        -3.174997568130493,
+        -139.56956481933594,
+        185.06492614746094
+      ],
+      [
+        3.863506847778808e-09,
+        -139.56956481933594,
+        185.06492614746094
+      ],
+      [
+        3.174999952316284,
+        -139.56956481933594,
+        185.06492614746094
+      ]
+    ],
+    "count_in_serialized_tip_stl": 1,
+    "lint_effect": "Zero normal triggers a divide warning and NaN strip dimensions. The exact picked collapsed primitive has a scoped lint answer; it represents no finite-area stock."
+  },
+  "support_scope": "Sculpted base prints at -15 degrees and tip at -95 degrees. Named base roof support is bed-rooted tree-1/interface-19. Inspect and remove supports through the open donor cavity, neck joint or display opening before loading hardware. Physical cleanup and contact finish are unmeasured."
+}

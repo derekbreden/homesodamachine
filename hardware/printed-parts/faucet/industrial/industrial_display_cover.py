@@ -24,9 +24,12 @@ import faucet_shell as shell
 
 @dataclass(frozen=True)
 class CoverDimensions:
-    width: float = 29.0
+    # The 27 mm neck clearance leaves at least 1.2 mm at the lower wings,
+    # including their inward preform; the glass aperture keeps its own size.
+    width: float = 29.8
     length: float = 49.75
     upper_side_wall: float = shell.wall_thickness_min
+    lower_side_wall: float = 1.25
     rear_wall: float = shell.wall_thickness_min
     front_wall: float = shell.dispense_face_thickness
     n_bottom: float = shell.display_cover_bottom_n
@@ -55,7 +58,10 @@ def build_plate_outer(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
 
 def build_plate_inner_cut(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
     upper_half_x = dimensions.width / 2.0 - dimensions.upper_side_wall
-    lower_half_x = upper_half_x + preload_inward_at(shell.display_feet_n, dimensions)
+    lower_half_x = min(
+        upper_half_x + preload_inward_at(shell.display_feet_n, dimensions),
+        dimensions.width / 2.0 - dimensions.lower_side_wall,
+    )
     s0, s1 = dimensions.front_wall, dimensions.length - dimensions.rear_wall
     sections = ((lower_half_x, dimensions.n_bottom - 1.0),
                 (lower_half_x, shell.display_feet_n),

@@ -1,0 +1,305 @@
+{
+  "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf",
+  "project_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+  "settings_sha256": "04c67c1b6a7120982a8d539c61e1269d2d1e7977d99384b6d5a625acd4371212",
+  "slicer": "BambuStudio 02.08.02.61",
+  "layer_height_mm": 0.23999999463558197,
+  "wall_loops": 2,
+  "sparse_infill_density_percent": 100.0,
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 3794.086669921875,
+      "saved_profile_filament_estimate_g": 8.367105484008789,
+      "slicer_warning": ""
+    }
+  ],
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "asse-vent-upstream-bung",
+      "inputs": {
+        "gcode": "support-labels-asse-vent-upstream-bung.gcode",
+        "gcode_sha256": "37d0ea7aef4a2aeb7233fc3708b9141f4114a66361073ef1c84b437897ee254a",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
+        "model_sha256": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+        "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf",
+        "profile_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+        "plate_gcode_sha256": "a575f70c1f0af4f474607528f08bde6e12272ab96b826476799fb928bc692d00",
+        "object_label": 1901,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -152.499713898,
+          -130.0,
+          0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -152.499714,
+          -130.0,
+          0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.18",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.35",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "30",
+        "support_top_z_distance": "0.18",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            140.72086120202175,
+            118.22337865074788
+          ],
+          [
+            164.2777744365787,
+            141.77901902476185
+          ]
+        ],
+        "maximum_line_width_mm": 0.979174,
+        "bounds_padding_mm": 0.589587
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "asse-vent-downstream-bung",
+      "inputs": {
+        "gcode": "support-labels-asse-vent-downstream-bung.gcode",
+        "gcode_sha256": "df11780925ba0231eb5dc968697d71e922608238fa6e2674aa4b0984982b5562",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
+        "model_sha256": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+        "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf",
+        "profile_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+        "plate_gcode_sha256": "a575f70c1f0af4f474607528f08bde6e12272ab96b826476799fb928bc692d00",
+        "object_label": 1902,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -202.499713898,
+          -130.0,
+          0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -202.499714,
+          -130.0,
+          0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.18",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.35",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "30",
+        "support_top_z_distance": "0.18",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            190.72118988119956,
+            118.22358969454675
+          ],
+          [
+            214.2777740136445,
+            141.77877165868182
+          ]
+        ],
+        "maximum_line_width_mm": 0.979174,
+        "bounds_padding_mm": 0.589587
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "above-counter-gasket",
+      "inputs": {
+        "gcode": "support-labels-above-counter-gasket.gcode",
+        "gcode_sha256": "1eab63709caa9155f8a6be59e7665900e0887b6edcf05c8648cbad1584a64baa",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "model_sha256": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553",
+        "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf",
+        "profile_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+        "plate_gcode_sha256": "a575f70c1f0af4f474607528f08bde6e12272ab96b826476799fb928bc692d00",
+        "object_label": 1903,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -177.500029564,
+          -204.999984741,
+          -6.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -177.50003,
+          -204.999985,
+          -6.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.18",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.35",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "30",
+        "support_top_z_distance": "0.18",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            148.2985167948395,
+            175.31885298575585
+          ],
+          [
+            206.69131662319901,
+            234.68401747394066
+          ]
+        ],
+        "maximum_line_width_mm": 0.8029,
+        "bounds_padding_mm": 0.50145
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 85.31598252605934,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          140.72086120202175,
+          118.22337865074788
+        ],
+        [
+          214.2777740136445,
+          234.77215447394065
+        ]
+      ],
+      "maximum_line_width_mm": 0.979174,
+      "bounds_padding_mm": 0.589587
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 85.22784552605935,
+    "minimum_toolpath_separation_mm": 26.443415444620854,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "asse-vent-upstream-bung",
+          "asse-vent-downstream-bung"
+        ],
+        "separation_mm": 26.443415444620854
+      },
+      {
+        "parts": [
+          "asse-vent-upstream-bung",
+          "above-counter-gasket"
+        ],
+        "separation_mm": 33.539833960994
+      },
+      {
+        "parts": [
+          "asse-vent-downstream-bung",
+          "above-counter-gasket"
+        ],
+        "separation_mm": 33.540081327074034
+      }
+    ]
+  }
+}

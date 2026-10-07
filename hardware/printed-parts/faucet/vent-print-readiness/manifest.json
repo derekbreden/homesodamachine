@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "status": "ready to print; all five native plate records finalized",
+  "scope": "Current geometry approval, source meshes, editable projects, native G-code archives, commanded bead reviews and geometric support cleanup access. Estimates use the saved profile density. Physical fit, support release, seal containment, insert retention and appliance qualification are not established by these files.",
+  "geometry_approval_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7",
+    "hardware/printed-parts/faucet/industrial/geometry-check.json": "5ca104614d2bffedc85f4494a5ed3976a04f6421671833649042df1254bf0314",
+    "hardware/printed-parts/faucet/industrial/display-cover-check.json": "a3c0f15b5586dda2b0d7fc24e13772db74bdf296921cedc17d5592cd693dae8d"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
+    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "7004c418a63cf861b86886421d18249c5af84757016224c36aa89f0be75bd052",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "081cfead29ef351cce62bb3a63bc59d3c77807f349c6eaf28330cfcf31b6bef4",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3"
+  },
+  "production_stl_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "7004c418a63cf861b86886421d18249c5af84757016224c36aa89f0be75bd052",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "081cfead29ef351cce62bb3a63bc59d3c77807f349c6eaf28330cfcf31b6bef4",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3"
+  },
+  "scripts_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+    "hardware/printed-parts/faucet/finalize_vent_prints.py": "e251969abd044e449e960a3b280d9c69fbaaa7653cfb0a1c0199f7b439e3ef64",
+    "hardware/printed-parts/faucet/review_vent_prints.py": "c87d9cf4952e0774e3b358d3c6169aead66238848052b332b7251fcbf04269ab",
+    "hardware/printed-parts/faucet/review_faucet_inserts.py": "6908e6b2d3ee4646bc6a1efda920a27722f0752417bab5bee3b557293bdb06e5",
+    "hardware/printed-parts/faucet/review_gasket_beads.py": "6df2839656e44e6d5e62afffe76411a5f49d9d5dd54435500c56f6ed1cc1efc6",
+    "hardware/printed-parts/faucet/review_lower_supports.py": "c0c84b1cb62621f0d64fa69b4bbaf37154cc0c32a9ba2b977b0bae83e23fe574",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "514af22595b39a3c731ce753edbe31508ce2c24a1c7385baaa9fd7a685449f81",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0"
+  },
+  "plates": [
+    {
+      "name": "rigid",
+      "kind": "rigid",
+      "printer": "H2C",
+      "filament": [
+        "Polymaker PET-GF @BBL H2C"
+      ],
+      "active_hotend": "left",
+      "nozzle_diameter_mm": 0.4,
+      "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "project_sha256": "2b86a605f408be5dec9f6a25a6c1b76d57ce8e8d2167d94e753c09d9655100e5",
+      "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+      "print_report": "hardware/printed-parts/faucet/faucet-petgf.print.json",
+      "print_report_sha256": "814438bf5d718d4fdc29712431086a9a2a654c79afb5921a1e61e7d86992348f",
+      "readiness_record": "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
+      "readiness_sha256": "1836755e20a763ad8dbfa2e74f886250b28977558ff7906b24d3ff8c53db7c4d",
+      "native_validation_record": "hardware/printed-parts/faucet/faucet-petgf.native-validation.json",
+      "native_validation_sha256": "f153657f13825709c5f2e3f1f3ca129ff8f2f621a732da9e861ce2a10011a38c",
+      "support_audit": "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+      "support_audit_sha256": "ac14875adf2c90c83b3e1ff98c6b28ac93ce387393a44ef6b57bd34b759b3a50",
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf",
+      "native_archive_sha256": "fb28aee615a4d6622891dc50f99b109ad758ed34e4b85c2b5be5def84938797a",
+      "gcode_sha256": "2fe58a788e031f5654eda9a08adaab69fdf7eda4fe0543d67976c5bd305ae591",
+      "native_layers": 916,
+      "native_estimated_seconds": 16962.865234375,
+      "saved_profile_density_mass_estimate_g": 127.54161834716797,
+      "complete_emitted_bead_minimum_bed_margin_mm": 26.295939999999973,
+      "review_sha256": {
+        "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json": "f378c48c19e1ae7f306edc7bf86b8f83d3fecb9eb70bad6db71032fb7bb2114d",
+        "hardware/printed-parts/faucet/faucet-petgf.support-faces.json": "c5d14574b73e51ffe62ea64385dbdde89960edae129a811fa0ac5c6d24117386",
+        "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json": "3ddb5e61e6b41ce69b11389eedbc326391a2bb1cef93bac4e899af8864c62fb2"
+      },
+      "geometry_approval_sha256": {
+        "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7"
+      }
+    },
+    {
+      "name": "industrial",
+      "kind": "rigid",
+      "printer": "H2C",
+      "filament": [
+        "Polymaker PET-GF @BBL H2C"
+      ],
+      "active_hotend": "left",
+      "nozzle_diameter_mm": 0.4,
+      "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+      "project_sha256": "e775fded619a6ab2ee7da594abaa8f7da2efbdd70c2cec022dcb22de57ae37f5",
+      "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+      "print_report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
+      "print_report_sha256": "56470b7467b167fb24b3829854a41bd50585c5d12cf4543bbeec59d341717403",
+      "readiness_record": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json",
+      "readiness_sha256": "57d50c92653ee2e90fe03b7429f1ff45d36d28c17818d9082f826ed1996a55db",
+      "native_validation_record": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.native-validation.json",
+      "native_validation_sha256": "767c0a3e15c9689d7fa0e910e047297004263f16cf1eb42e84464208ce900d06",
+      "support_audit": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
+      "support_audit_sha256": "b02efa45e36c0753a58c572449921db75527e664d8690cfe2f748e887090b27f",
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
+      "native_archive_sha256": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
+      "gcode_sha256": "d9d681582040a6e7345db2f8142c7a247661dcee235e9711d9b4b01d88a3cbc1",
+      "native_layers": 916,
+      "native_estimated_seconds": 17777.685546875,
+      "saved_profile_density_mass_estimate_g": 132.6654052734375,
+      "complete_emitted_bead_minimum_bed_margin_mm": 25.172077,
+      "review_sha256": {
+        "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.insert-beads.json": "3d1c596a0e0329104eb783ba22a1641085d3a8c1b5d20ce346cbedb10da3ac11",
+        "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-faces.json": "a9ad5eb19040372e6d4a8da0cce074080c7d96a876b273af6fc0f5ce2ddc82b9",
+        "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.lower-supports.json": "91396862fb084548d084ed9667a96cf77b834179373e6f4cce350626d1441f23"
+      },
+      "geometry_approval_sha256": {
+        "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7",
+        "hardware/printed-parts/faucet/industrial/geometry-check.json": "5ca104614d2bffedc85f4494a5ed3976a04f6421671833649042df1254bf0314",
+        "hardware/printed-parts/faucet/industrial/display-cover-check.json": "a3c0f15b5586dda2b0d7fc24e13772db74bdf296921cedc17d5592cd693dae8d"
+      }
+    },
+    {
+      "name": "seals",
+      "kind": "seals",
+      "printer": "H2C",
+      "filament": [
+        "Bambu TPU 85A @BBL H2C"
+      ],
+      "active_hotend": "right",
+      "nozzle_diameter_mm": 0.6,
+      "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.3mf",
+      "project_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+      "settings_sha256": "04c67c1b6a7120982a8d539c61e1269d2d1e7977d99384b6d5a625acd4371212",
+      "print_report": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.print.json",
+      "print_report_sha256": "9f1312c5063599ace442e08c13901770c3c3fc2cb48d09c8e1118132cba0ac2c",
+      "readiness_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.readiness.json",
+      "readiness_sha256": "99b2e40a13fa2f294b306e89d0cfb40a6a5add6a6561290b996ffcc0fcd3c40e",
+      "native_validation_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.native-validation.json",
+      "native_validation_sha256": "6f728d99f4732dcbeb0ccfb52ffd377d754b14bdbcc9c1e2a9091a2812360e5a",
+      "support_audit": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.support-audit.json",
+      "support_audit_sha256": "9b10976f68ab9284a038d6eb9877ff2cc65b83ca5a583b86e54ca89ead49d819",
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-tpu85a-h2c/vent-bungs-tpu85a-h2c.gcode.3mf",
+      "native_archive_sha256": "cd31730bd72b2d551038a94e54497136409ebb420d92a43635213bcd4df6cf81",
+      "gcode_sha256": "a575f70c1f0af4f474607528f08bde6e12272ab96b826476799fb928bc692d00",
+      "native_layers": 20,
+      "native_estimated_seconds": 3794.086669921875,
+      "saved_profile_density_mass_estimate_g": 8.367105484008789,
+      "complete_emitted_bead_minimum_bed_margin_mm": 85.22784552605935,
+      "review_sha256": {
+        "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.bead-review.json": "859193152d559e722d9f41ca38408026427bdf313111523aa00386eb21eb4895",
+        "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-tpu85a.gasket-beads.json": "006430fce3048dea64669150d5095f39eaaa5a55b4d755bbb0f0ca072f34a1c2"
+      },
+      "geometry_approval_sha256": {
+        "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7"
+      }
+    },
+    {
+      "name": "seals-industrial",
+      "kind": "seals",
+      "printer": "H2C",
+      "filament": [
+        "Bambu TPU 85A @BBL H2C"
+      ],
+      "active_hotend": "right",
+      "nozzle_diameter_mm": 0.6,
+      "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf",
+      "project_sha256": "70fc5625d112213feaf80f072abc0cb75ecaad8113246e1b0d6ef81278be9eb4",
+      "settings_sha256": "04c67c1b6a7120982a8d539c61e1269d2d1e7977d99384b6d5a625acd4371212",
+      "print_report": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.print.json",
+      "print_report_sha256": "5c3da621f473475011195aa3f35c5a98ff974cecbfd2a9c7b5083c9b5b1ef3e1",
+      "readiness_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.readiness.json",
+      "readiness_sha256": "8170b82fb3875893b1900bc9631382be69a644d51609bd4eb237d9a08406901a",
+      "native_validation_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.native-validation.json",
+      "native_validation_sha256": "3fc8a1c88dbff84112626eee9a074c7cf769f4aaf5f97e822237ca9fc6cbd6d9",
+      "support_audit": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.support-audit.json",
+      "support_audit_sha256": "ccac30a70ccee52d3d464b82879985c00ff18878d9676587b816b10283830583",
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-industrial-tpu85a-h2c/vent-bungs-industrial-tpu85a-h2c.gcode.3mf",
+      "native_archive_sha256": "b838284bb691defa27e722a0b4aa01dd0da6c3a2cd675984171f9d0f102bb2f5",
+      "gcode_sha256": "72ec6ba47ef812235b7a7718bd97befc483b54930b2e3eb08f7ee450c7a0fd70",
+      "native_layers": 20,
+      "native_estimated_seconds": 3833.683837890625,
+      "saved_profile_density_mass_estimate_g": 8.472350120544434,
+      "complete_emitted_bead_minimum_bed_margin_mm": 85.22100585301351,
+      "review_sha256": {
+        "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.bead-review.json": "66b68c493862906913c746283ef3c60f6dd43c154ac46a4a7c40e8cb2adaa086",
+        "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.gasket-beads.json": "6188b2be1b24fbff54027373db8743b658871c6a190db1e7633f04de9661b73b"
+      },
+      "geometry_approval_sha256": {
+        "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7",
+        "hardware/printed-parts/faucet/industrial/geometry-check.json": "5ca104614d2bffedc85f4494a5ed3976a04f6421671833649042df1254bf0314",
+        "hardware/printed-parts/faucet/industrial/display-cover-check.json": "a3c0f15b5586dda2b0d7fc24e13772db74bdf296921cedc17d5592cd693dae8d"
+      }
+    },
+    {
+      "name": "tool",
+      "kind": "tool",
+      "printer": "H2C",
+      "filament": [
+        "Polymaker PET-GF @BBL H2C"
+      ],
+      "active_hotend": "left",
+      "nozzle_diameter_mm": 0.4,
+      "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
+      "project_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
+      "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+      "print_report": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.print.json",
+      "print_report_sha256": "2343a2eb40c59bcda392fe8ad502f2813c5e8d54fd1652cbd99ab7df98353254",
+      "readiness_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.readiness.json",
+      "readiness_sha256": "5ff5869cc12dc4cc6a91a2dcb5630893dcd28b18f3ba37edec3118790ad74cec",
+      "native_validation_record": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.native-validation.json",
+      "native_validation_sha256": "b06af07d0960a8758f6a7756ecedd4ac66c9327655aec33bab6bd6c083500ae7",
+      "support_audit": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.support-audit.json",
+      "support_audit_sha256": "c9fc817c22fddd49e69db7376ecace320471ddbc10939a1a73e113a6158c6b5e",
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf",
+      "native_archive_sha256": "b0d6f4c9903c9af5809fc51b81e159a4daf9408389014a8d712381c126e17001",
+      "gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+      "native_layers": 337,
+      "native_estimated_seconds": 1469.1058349609375,
+      "saved_profile_density_mass_estimate_g": 7.845939636230469,
+      "complete_emitted_bead_minimum_bed_margin_mm": 124.402254,
+      "review_sha256": {
+        "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.tool-review.json": "0cf2959d62f66f8c751202be80a63dcdd01c373370ee6496c1b5d991cc0a5362",
+        "hardware/printed-parts/faucet/asse-vent-seals/tool-bearing-check.json": "9f03a5bd50318a22dd1fdd3311692eca3c0ccbd8d1103fbb4cc60f82223acafd",
+        "hardware/printed-parts/faucet/asse-vent-seals/tool-motion-check.json": "a6ff800f08257687ee7eefc2b9d312ff7e6afc9b552c3c09838a74ddc87332e6"
+      },
+      "geometry_approval_sha256": {}
+    }
+  ],
+  "submitted": false,
+  "physical_print_evaluated": false,
+  "consumer_assembly_qualified": false
+}
