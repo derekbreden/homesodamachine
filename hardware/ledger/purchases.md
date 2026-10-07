@@ -153,6 +153,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | <!--purchase:pur-8fd56a4ca4bd498da835783da1099138--> Fresh Water Systems order WEBFWS100707201, shipment 1 of 2 — JG **PP450822E** black female adapter (bag of 10) + **WC-316SS-06** 316 SS SAE #6 hose clamp (pack of 10) + JG **PI010822S** gray male connector (bag of 10) + neoFlo **LLDPE4-WHITE** 1/4" OD tubing (100 ft) + neoPure **PVCR-0610** reinforced PVC 3/8" ID × .594" OD (10 ft) + neoFlo **LLDPE4-BLACK** 1/4" OD tubing (2 × 100 ft) + neoFit **ABCVU44-E** flow-control bulkhead (bag of 10) + JG **ASVPP1LF** angle-stop adapter (10 singles) + JG **PE6-WHITE** 3/8" OD tubing (25 ft, white faucet soda line from Touch-Flo to dispense tip) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100707201) | 9 line items | $330.48 | WEBFWS100707201 | 2026-09-16 | 2026-09-19 | ACQUIRED (UPS 1Z89YF110334446471. Merchandise by line: PP450822E $34.06; WC-316SS-06 $21.34; PI010822S $11.64; white 1/4" tubing $12.00; reinforced PVC $6.12; black 1/4" tubing $24.00 total for 200 ft; ABCVU44-E $43.45; ASVPP1LF $121.30 total for 10; white 3/8" tubing $9.31 — $283.22 of the order's $312.00 merchandise, carrying its share of the $27.47 shipping and $24.59 tax) |
 | <!--purchase:pur-1d1f4567c6c34e248390df7f295564d0--> Fresh Water Systems order WEBFWS100707201, shipment 2 of 2 — JG **PP1208E** black bulkhead union (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100707201) | 1 bag (10) | $33.58 | WEBFWS100707201 | 2026-09-16 | — | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-2adc38c7f40a47c0a7ce61c92ac8671d--> John Guest Speedfit **ASVPP1LF** angle stop adapter valve, 3/8" × 3/8" × 1/4", lead-free push-to-connect — one single of the same fitting the bag of ten on WEBFWS100707201 carries. $15.28 + $1.11 NE tax | [B003YKF2JC](https://www.amazon.com/dp/B003YKF2JC) | 1 | $16.39 | 112-4818896-3446652 | 2026-09-08 | 2026-09-09 | ACQUIRED |
+| <!--purchase:pur-65c979f1bb194148918426361d985f73--> Fresh Water Systems order WEBFWS100711469 — neoFit **ABU44M-E** acetal black bulkhead connector, 4 mm (5/32") tube (bag of 10) + neoFit **ARD4M4-E** stem reducer, 4 mm tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-WHITE** white 4 mm OD LLDPE tubing (4 × 25 ft) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711469) | 3 line items | $109.98 | WEBFWS100711469 | 2026-10-07 | — | ON-ORDER (ground, 4–5 business days. Merchandise by line: ABU44M-E $27.58; ARD4M4-E $11.89; white 4 mm tubing $18.00 for 100 ft — $57.47 merchandise + $45.07 shipping + $7.44 tax. Hardware for the ASSE 1022 vent's DRAIN line to the faucet) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -779,16 +780,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,279.61](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,389.59](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,486.72](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,596.70](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$9,432.40](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$9,542.38](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,835.33](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 

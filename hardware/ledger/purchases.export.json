@@ -233,6 +233,14 @@
       "purchase_id": "pur-bd9cd829101241ce9c11a341dfe51b42"
     },
     {
+      "allocation_id": "alloc-476ac9466741403eafba9207206b01e5",
+      "amount_minor": 10998,
+      "currency": "USD",
+      "event_id": "evt-4991502f7a0d484788efb14e364fc889",
+      "order_id": "fws:WEBFWS100711469",
+      "purchase_id": "pur-65c979f1bb194148918426361d985f73"
+    },
+    {
       "allocation_id": "alloc-47ffad812ea8463cab26a3b4c5629ace",
       "amount_minor": 9515,
       "currency": "USD",
@@ -857,7 +865,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-05",
+  "as_of": "2026-10-07",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -1576,6 +1584,26 @@
       ],
       "stream": "project procurement records",
       "vendor": "Bambu Lab"
+    },
+    {
+      "checked_at": "2026-10-07",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-b136418b081343e5b6fa252ee1b86a7c",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-07",
+        "start": "2026-10-05"
+      },
+      "note": "Scoped Gmail search for Fresh Water Systems mail from the last two days and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence.",
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "stream": "drain-line fittings order",
+      "vendor": "Fresh Water Systems"
     },
     {
       "checked_at": "2026-10-04",
@@ -2575,6 +2603,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-476ac9466741403eafba9207206b01e5"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 10998,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-4991502f7a0d484788efb14e364fc889",
+      "event_type": "charge",
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "purchase_ids": [
+        "pur-65c979f1bb194148918426361d985f73"
+      ],
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-07"
     },
     {
       "allocation_ids": [
@@ -5339,6 +5391,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-4991502f7a0d484788efb14e364fc889"
+      ],
+      "gap_id": "gap-c6f8ac11a09a42aea90f001d75de8668",
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 109.98 charge remains expected.",
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "purchase_ids": [
+        "pur-65c979f1bb194148918426361d985f73"
+      ],
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "sources_checked": [
+        "Fresh Water Systems order confirmation WEBFWS100711469"
+      ]
+    },
+    {
       "gap_id": "gap-c87a74d7ef6a438d84bd3470c16b1c88",
       "missing_fact": "exact placed dates; merchant payment evidence. Confirmations verify amounts/item identities but only notification timestamps, not explicit placed dates.",
       "order_ids": [
@@ -5438,7 +5509,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:4b4e5b0c6c00a0b17eb56328b990e7fb323b2314b82fbaa80b4b82ea0e707464",
+  "input_fingerprint": "sha256:348e38fb45244c47ecdcb175671cb352e65b8023c5d657d4e69f054388506014",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13228,6 +13299,25 @@
       "source_ids": [
         "saved-fws:WEBFWS100708594",
         "src-2c42df8ef8704561930e3cd7dbd072c1"
+      ],
+      "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-4991502f7a0d484788efb14e364fc889"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "order_id": "fws:WEBFWS100711469",
+      "purchase_ids": [
+        "pur-65c979f1bb194148918426361d985f73"
+      ],
+      "reference": "WEBFWS100711469",
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
       ],
       "vendor": "Fresh Water Systems"
     },
@@ -25616,6 +25706,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 10998,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Fresh Water Systems order WEBFWS100711469 — neoFit ABU44M-E acetal black bulkhead connector, 4 mm (5/32\") tube (bag of 10) + neoFit ARD4M4-E stem reducer, 4 mm tube × 1/4\" stem (bag of 10) + neoFlo LLDPE4M-WHITE white 4 mm OD LLDPE tubing (4 × 25 ft)",
+      "event_ids": [
+        "evt-4991502f7a0d484788efb14e364fc889"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-65c979f1bb194148918426361d985f73",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "order_ids": [
+        "fws:WEBFWS100711469"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-65c979f1bb194148918426361d985f73",
+      "purpose": "components",
+      "quantity": 3,
+      "quantity_text": "3 line items",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "row_date_basis": "order_date",
+      "section": "3. Water supply + backflow prevention",
+      "service_period": null,
+      "source_ids": [
+        "src-535edab39a23469dad7dadceae02fad6"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Fresh Water Systems"
     },
     {
       "allocation_status": "all_project",
@@ -51850,6 +51986,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-07"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 × 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "WEBFWS100711469",
+      "source_id": "src-535edab39a23469dad7dadceae02fad6",
+      "vendor": "Fresh Water Systems",
+      "verified_at": "2026-10-07"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-18"
       },
       "document_type": "merchant_monetary_receipt",
@@ -54845,7 +54997,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 127961,
+          "amount_minor": 138959,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -54854,6 +55006,7 @@
             "pur-27bb6c07598243e390e2ca407e908695",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
+            "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
@@ -54885,6 +55038,7 @@
         "pur-27bb6c07598243e390e2ca407e908695",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
+        "pur-65c979f1bb194148918426361d985f73",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
@@ -54904,6 +55058,7 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-4991502f7a0d484788efb14e364fc889",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-859aaf61508e423492ba56484ab9f2df",
         "evt-c0203246ff88423a9af71d1977ede6c4",
@@ -55193,6 +55348,7 @@
             "evt-0447af18f1f34778b9cd0f9facee2d40",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-4991502f7a0d484788efb14e364fc889",
             "evt-5a6637d18fab4dbaa2c3a7428c33273f",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-69d186cf3c4c436788b6706105b50532",
@@ -55855,7 +56011,7 @@
           "currency": "USD",
           "estimate_minor": 13540,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 36266,
+          "final_vendor_amount_minor": 47264,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -55865,6 +56021,7 @@
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-633abd30f0524d80a397fcee998a7658",
+            "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -55877,7 +56034,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 80440,
+          "total_minor": 91438,
           "unknown_amount_ids": []
         },
         {
@@ -55905,7 +56062,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1023676,
+          "amount_minor": 1034674,
           "currency": "USD",
           "purpose": "components"
         },
@@ -55944,9 +56101,9 @@
         {
           "currency": "USD",
           "estimate_minor": 283533,
-          "final_vendor_amount_minor": 943240,
+          "final_vendor_amount_minor": 954238,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4548672
+          "total_minor": 4559670
         }
       ],
       "undated_unallocated": [
@@ -56088,6 +56245,7 @@
         "gap-8703c8fb55124412b9d51de641020ca7",
         "gap-b1f53214b3d74f37ac28c35ac094f60e",
         "gap-b513fdee8791439ca43d36cdba1179f2",
+        "gap-c6f8ac11a09a42aea90f001d75de8668",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
         "gap-f83ff884543e4158ac775f607e2c1fe3",
@@ -56101,7 +56259,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3840437,
+          "purchases_without_merchant_charge_minor": 3851435,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 1031234,
@@ -56164,6 +56322,7 @@
         "coverage-a914738fc688438f8d509e94711f1e9c",
         "coverage-a9a30503bf134e929097ac22eefffcbf",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
+        "coverage-b136418b081343e5b6fa252ee1b86a7c",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
         "coverage-c57ca481544248138b803bc112966160",
@@ -56925,6 +57084,7 @@
         "pur-6589f83fde5f4aeeabb9b600cb513c8c",
         "pur-65976621839343e7886b04de812da888",
         "pur-65b004ee31ff47e991a043d3d92847b3",
+        "pur-65c979f1bb194148918426361d985f73",
         "pur-66308bfbd5f94fd99e1e2975197c8ded",
         "pur-668385101ed147b6a915178e21b5d9e9",
         "pur-66c97ae5c6ad4297ae368293a49ce4e2",
@@ -57270,6 +57430,7 @@
         "evt-0447af18f1f34778b9cd0f9facee2d40",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-4991502f7a0d484788efb14e364fc889",
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-69d186cf3c4c436788b6706105b50532",
@@ -57404,7 +57565,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "13 authored evidence gap(s) remain",
+      "14 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -57441,6 +57602,7 @@
       "coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
       "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
+      "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
