@@ -273,8 +273,3 @@ if __name__ == "__main__":
         variables=variables,
     )
     print("-> ASSEMBLY.md")
-    substitute_md(
-        _hardware_dir / "assembly" / "faucet-and-umbilical.md",
-        variables=variables,
-    )
-    print("-> faucet-and-umbilical.md")
