@@ -24,6 +24,6 @@ Startup telemetry supplies no visual adhesion, completed finish or water-hold
 result. Existing scheduled chat monitors remain paused.
 
 Both printers reached layer 1 without print errors or HMS alerts. The
-[timelapse inspection](timelapse-review.json) records **runtime timelapse
-disabled** despite Send On, with 97 clips per card. Recording is not verified
-enabled for these jobs.
+[timelapse inspection](timelapse-review.json) confirms **runtime timelapse
+enabled** for both exact accepted jobs at 09:50:36 CDT. The read-only storage
+inventory contains 97 clips per card.
