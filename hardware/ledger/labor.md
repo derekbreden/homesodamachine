@@ -42,7 +42,7 @@ Four laser operations serve the carbonator: the float-rod tack, two closure weld
 | Weld the bottom-plate corner fillet under argon | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | 10 |
 | Close the carbonator — top-plate fillet, float captive | [pressure-vessel](/hardware/assembly/pressure-vessel.md) | Same joint, one shot, nothing comes back out after this | 10 |
 | Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | 10 |
-| Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Replace the drier; braze under the qualified dry-nitrogen setup. Minutes are a planning allowance; the service qualification is separate. | 25 |
+| Cut the loop, tie in the suction line, pinch-swage the capillary | [refrigerant-loop](/hardware/assembly/refrigerant-loop.md) | Brazing the harvested compressor path with argon flowing through the tube | 25 |
 | **Welding & brazing** | | | **[60](LAB_SEC2)** |
 
 ## 3. Pressure, leak & flow checks

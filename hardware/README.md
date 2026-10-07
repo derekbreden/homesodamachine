@@ -25,7 +25,7 @@ recessed endcap and gun, with roll about the tangent at the joint.
 
 ### Refrigeration
 
-The cold comes from a refrigeration loop harvested from a countertop ice maker — its compressor, condenser, fan and capillary tube retained and its drier replaced on opening, with a copper coil wound around the carbonator doing the evaporator's work. Firmware cycles the compressor against temperatures read at the carbonator wall and the coil, with a freeze cutout. The refrigerant is R-600a, handled through a controlled hydrocarbon-service setup. The [refrigeration procedure](/hardware/assembly/refrigerant-loop.md) defines circuit work, temporary access, permanent closure and the finished-charge qualification.
+The cold comes from a refrigeration loop harvested from a countertop ice maker — its compressor, condenser, fan, capillary tube, and drier kept in service, with a copper coil wound around the carbonator doing the evaporator's work. Firmware cycles the compressor against temperatures read at the carbonator wall and the coil, with a freeze cutout. The refrigerant is a natural hydrocarbon, vented and recharged through a permanent service valve.
 
 The teardown, the recharge and its charge mass, and the brazing safety are in [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md); the donor units and the keep-or-discard plan in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md); the coil winding in [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/). The refrigerant's regulatory standing is in [`/business/regulatory.md`](/business/regulatory.md).
 

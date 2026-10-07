@@ -268,7 +268,7 @@ def pages(c):
         a.label("THREE COLD-CORE POURS",263,220,14,BLUE,"PlexBold","center")
     figure(c,cover,height=367)
     actions(c,[("Funnel: pages 2-16", "Finish the printed tooling, prove the material stack, cast, open and inspect the removable funnel."),
-               ("Cold core: pages 17-22", "Prepare both cap pours and the body pour. Record the batch recipe before combining the foam liquids.")],y=540)
+               ("Cold core: pages 17-22", "Two cap pours bolted to the shell's top face, then the body pour through its open top. Each mixes 1:1.")],y=540)
     gate(c,"Use this at the bench", "Coral marks the current move. Blue marks gauges, air paths and surfaces to keep clear. Pictures are schematic; named dimensions govern.",tone=BLUE)
     finish(c,n,"Scope: funnel-mold/README.md; cold-core.md steps 3, 5-7", "mold-guide/README.md")
 
@@ -614,19 +614,19 @@ def pages(c):
         bottle(a,113,45,"B",GOLD)
         a.arrow(190,99,251,99,ORANGE)
         a.rect(275,33,222,264,PAPER)
-        a.label("BATCH RECIPE",291,59,16,BLUE,"PlexBold")
-        for yy,label in [(87,"ratio + measurement basis"),(121,"liquid / room temperature"),
-                         (155,"mix + working window"),(189,"A/B quantity for each shot"),
-                         (223,"release / cure / trim time")]:
+        a.label("MIX 1:1",291,59,16,BLUE,"PlexBold")
+        for yy,label in [(87,"measured shot per pour"),(121,"top cap / 12.6 mm deep"),
+                         (155,"bottom cap / 16 mm deep"),(189,"body / open top, all at once"),
+                         (223,"~5 L risen foam per build")]:
             a.label(label,291,yy,10,INK)
             a.line(291,yy+14,478,yy+14,RULE,1)
         a.label("TOP / BOTTOM / BODY",265,330,13,BLUE,"PlexSemi","center")
     figure(c,foam_recipe,height=355)
-    actions(c,[("Confirm the actual batch", "Use FSD B08R7TX8QJ and its container instructions/SDS. The official page says equal parts; ratio basis and process window need the batch record."),
-               ("Record each shot", "Top and bottom caps differ. Set the measured A/B quantities, expansion allowance, mixing/working time and cure/trim hold before combining."),
+    actions(c,[("Use the acquired foam", "FSD B08R7TX8QJ two-part 2 lb closed-cell PU. Mix the two parts 1:1 in measured shots, one shot per pour."),
+               ("Stage three separate pours", "Each cap pours bolted to the shell's top face; the body pours last through its open top. A build fills ~5 L of risen foam (~4 L cavity + waste), about 1/7 of the 1 qt kit."),
                ("Stage a dry, ventilated bench", "Use dry cups/tools, protective gloves and chemical eye protection. Keep moisture out of the liquids and vapors away from the operator.")],y=527)
-    gate(c,"Hold mixing and pouring", "The repository has no calibrated cap/body shot recipe or verified batch timing. Geometry and nominal density do not supply liquid dose or cure time.")
-    finish(c,n,"Cold-core.md open items; FSD official foam page + SDS checked 04 Oct 2026", "mold-guide/README.md#foam-recipe-gate")
+    gate(c,"Gloves on", "The PU foam's isocyanate component is a skin sensitizer. Clamp each cap before mixing its shot.")
+    finish(c,n,"Cold-core.md steps 3 and 6; BOM foam row; FSD official foam page + SDS", "assembly/cold-core.md")
 
     n=18
     start(c,n,"Clamp each cap mouth-up", "Use the shell's top face as the pour fixture for both cap stacks, one after the other.", "COLD CORE")
@@ -649,7 +649,7 @@ def pages(c):
     finish(c,n,"Cold-core.md step 3; foam-shell/README.md cap stack; heat-set geometry record", "assembly/cold-core.md")
 
     n=19
-    start(c,n,"Pour the two cap cavities", "With the recorded foam recipe ready, liquid enters the lid and air leaves through both vents.", "COLD CORE")
+    start(c,n,"Pour the two cap cavities", "Liquid enters through the lid's 20 mm hole and air leaves through both vents.", "COLD CORE")
     def cap_pour(a):
         cap_section(a,y=149,foam=True)
         a.arrow(335,107,335,164,ORANGE,3,8)
@@ -660,10 +660,10 @@ def pages(c):
         a.label("TOP 12.6 mm / BOTTOM 16 mm pour depth",262,298,13,BLUE,"PlexSemi","center")
         a.label("top-cap section / one stack at a time",262,324,11,INK,align="center")
     figure(c,cap_pour,height=350)
-    actions(c,[("Mix the recorded shot", "Use the batch recipe's measurement basis, A/B quantities, temperature and working window. Have the clamped cap ready before mixing."),
+    actions(c,[("Mix 1:1", "Mix the two parts 1:1 with the clamped cap ready beside you, and pour as soon as the shot is mixed."),
                ("Pour into the 20 mm hole", "Keep the two 6 mm vents clear while foam expands. The lid stays clamped; do not cover the vent paths to force fill."),
-               ("Cure, trim, unbolt, repeat", "After the recorded cure/trim hold, trim pour/vent overflow to the plate. Remove ten screws and repeat for the other labeled cap.")],y=526)
-    gate(c,"Preserve the top features", "Trim flush without cutting a valve cradle, conduit, anchor or deck-mount feature. No numeric shot size or cure timer is implied by this page.")
+               ("Cure, trim, unbolt, repeat", "After cure, trim pour/vent overflow to the plate, never into a cradle. Remove the ten screws and repeat for the other labeled cap.")],y=526)
+    gate(c,"Preserve the top features", "Trim flush without cutting a valve cradle, conduit, anchor or deck-mount feature. Every conduit bore stays open end to end.")
     finish(c,n,"Cold-core.md step 3; foam-shell/README.md cap pour", "assembly/cold-core.md")
 
     n=20
@@ -705,10 +705,10 @@ def pages(c):
         a.label("blue channels stay empty",264,330,11,BLUE,align="center")
         a.label("CORAL = foam zone / sealed vessel interiors take no foam",263,350,10,MUTED,align="center")
     figure(c,body_pour,height=370)
-    actions(c,[("Mix the recorded body shot", "Use the batch record's quantities, temperature and mix/working window. The top remains open; cap stacks are already poured separately."),
+    actions(c,[("Mix the body shot 1:1", "Mix 1:1 and pour all at once into the open +Z top, with no lid and no down-channels. The cap stacks are already poured separately."),
                ("Pour directly into the body", "One pour fills the connected outer gap and space around the carbonator/coil, through the open paths at the reservoir-pocket ends."),
-               ("Watch fill and squeeze-out", "Preserve empty reservoir/reed cavities and open tube paths. Foam may emerge at tube exits; leave trimming until the recorded cure hold.")],y=537)
-    gate(c,"Do not assume hidden wet-out", "Probe voids and trapped gaps around the embedded coil are insulation defects. A risen top surface does not prove the hidden zone is full.")
+               ("Watch fill and squeeze-out", "Preserve empty reservoir/reed cavities and open tube paths. Beads squeeze out at the lane slots and tight tube exits; trim them after cure.")],y=537)
+    gate(c,"A void at a probe is the defect", "The pour must fully wet each probe and its lead entry. Trapped air condenses and frosts on the cold metal.")
     finish(c,n,"Cold-core.md step 6; foam-shell/README.md body pour paths", "printed-parts/cold-core/foam-shell/README.md")
 
     n=22
@@ -734,10 +734,10 @@ def pages(c):
         a.line(120,310,148,310,BLUE,.8)
         a.label("BOTTOM / mouth down",266,376,13,BLUE,"PlexSemi","center")
     figure(c,cold_close,height=400)
-    actions(c,[("Trim only cured overflow", "Use the qualified trim method. Protect tubes/leads, plug webs, cradles and insert hosts; clear all conduits, vents and reed channels."),
+    actions(c,[("Trim only cured overflow", "Trim to the plate, never into a cradle. Protect tubes/leads, plug webs, cradles and insert hosts; clear all conduits, vents and reed channels."),
                ("Install reeds, gaskets and caps", "Drop reservoir reed columns in, route their cables out the top, and lay both TPU gaskets. Top cap rotates 180 deg; bottom mouth faces down."),
                ("Close and inspect", "Ten M3 x 25 screws per end. Identify top orientation by deck/cradle features. Check open paths, gasket seating and recessed screw heads.")],y=561)
-    gate(c,"Finished", "Both caps and body cured; exposed foam flush; probes protected; channels and relief path open. Buried-fill quality needs its own process evidence.",y=686,tone=BLUE)
+    gate(c,"Finished", "Both caps and body cured; exposed foam flush; probes wetted in with no void; channels and relief path open.",y=686,tone=BLUE)
     finish(c,n,"Cold-core.md output condition + step 7; foam-shell/README.md", "assembly/cold-core.md")
 
 
@@ -755,7 +755,7 @@ def main():
         assert tuple(float(v) for v in p.mediabox)==(0.,0.,W,H)
     publish(PDF, GUIDE, "Mold operations", "Shop guide - silicone funnel and three cold-core foam pours, 22 pages, 8.5 x 11 in", TOTAL, SOURCES,
             {"manufacturer_sources":MANUFACTURERS,"source_review_date":"2026-10-05", "recipe_limits": [
-                "Foam shot quantities, ratio measurement basis, processing temperature and mix/cure times must be supplied by the actual batch recipe before any pour.",
+                "Foam mixes 1:1; a build fills ~5 L of risen foam, about 1/7 of the 1 qt kit. Pot life, cure time, pour temperature window and trim method remain cold-core.md open items.",
                 "Project silicone hold is 5h demold/24h full use at23C; the direct manufacturer page states3h. No qualified post-cure bake or finished food-contact release is recorded.",
                 "Current molding operations exclude the unbuilt silicone reservoir alternative and printed ASA Aero floats.",
             ]})

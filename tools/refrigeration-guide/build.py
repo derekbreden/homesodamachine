@@ -40,14 +40,10 @@ SOURCES = [
 ]
 
 MANUFACTURERS = {
-    "secop_service": "https://www.secop.com/sustainability/natural-refrigerants/compressor-service",
-    "secop_repair": "https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf",
-    "supco_access": "https://supco.com/web/supco_live/products/BPV31.html",
-    "uniweld_purge": "https://www.uniweld.com/product/rhp-special-purpose-series/",
-    "orion_pump": "https://orionmotortech.com/cdn/shop/files/new_VPH-BN0A-O1_VPH-BN0A-O2.pdf?v=10939169087783086859",
     "epa_handling": "https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants",
     "harris_filler": "https://ch-delivery.lincolnelectric.com/api/public/content/7cdc09a3e3364eca8d9ecb0145977257?v=7aae3e72",
 }
+RL_DOC = "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md"
 
 
 def verify_manual_numbers():
@@ -66,6 +62,8 @@ def verify_manual_numbers():
         "refrigerant-loop.figures.json": {
             "UNIT_A_CHARGE":"15 g", "UNIT_B_CHARGE":"23 g", "VACUUM_TARGET":"500 microns",
             "VACUUM_HOLD":"15 min", "RECHARGE_TOL":"±1 g", "PETG_TG":"~80 °C",
+            "VOL_CORRECTION":"+5-15 g", "VENT_CLEARANCE":"3 m", "RUN_CURRENT":"~1 A",
+            "OFF_TIME":"3-minute", "JOINT_STANDOFF":"~92 mm",
         },
     }
     for name, required in expected.items():
@@ -156,7 +154,7 @@ def drier(a, x, y, w=84, h=24, highlight=False):
 def circuit(a, variant="new"):
     compressor(a, 36, 133, 100, 110)
     condenser(a, 220, 45, 95, 105)
-    drier(a, 371, 57, 96, 24, variant=="new")
+    drier(a, 371, 57, 96, 24)
     if variant=="new":
         tank(a,368,144,110,130,coil=True)
     else:
@@ -347,46 +345,25 @@ def fig_support(a):
     a.label("Lines carry refrigerant, not the assembly's weight.",253,276,12,align="center")
 
 
-def fig_bench(a):
-    a.rect(15,37,492,183,ICE,RULE)
-    for x in [34,68,102]:
-        a.arrow(x,44,x,94,BLUE)
-    a.label("VENTILATED WORKSPACE",139,56,11,BLUE)
-    a.label("Ignition control + gas monitoring",139,78,11)
-    compressor(a,56,111,80,91)
-    rounded(a,176,115,138,81,PAPER,INK)
-    a.label("HC-SUITABLE",245,142,11,BLUE,align="center")
-    a.label("SERVICE RIG",245,161,11,BLUE,align="center")
-    path(a,[(50,162),(25,162),(25,202),(176,202),(176,164)],BLUE,2)
-    path(a,[(314,155),(469,155),(469,17)],BLUE,2)
-    a.arrow(469,80,469,29)
-    a.label("Safe discharge",331,104,11,BLUE)
-    a.label("location outdoors",331,123,11,BLUE)
-    rounded(a,24,242,219,56,PAPER,RULE)
-    a.label("Equipment approval",38,264,12)
-    a.label("Exact model + R600a use",38,285,10,MUTED)
-    rounded(a,277,242,219,56,PAPER,RULE)
-    a.label("Written service setup",291,264,12)
-    a.label("Removal / purge / leak / charge",291,285,10,MUTED)
-
-
-def fig_remove(a):
+def fig_vent(a):
     compressor(a,36,65,138,156)
     path(a,[(39,115),(15,115),(15,150)],COPPER,8)
-    rounded(a,0,146,52,33,ORANGE,INK)
-    a.label("TEMP.",24,167,8,PAPER,align="center")
+    rounded(a,0,146,52,33,BLUE,INK)
+    a.label("BPV31",26,167,9,PAPER,align="center")
     path(a,[(27,179),(27,243),(273,243),(273,159)],BLUE,3)
     rounded(a,222,93,148,93,ICE,INK)
-    a.label("CONTROLLED",296,124,13,BLUE,align="center")
-    a.label("HC HANDLING",296,143,13,BLUE,align="center")
-    a.label("Approved method",296,166,10,align="center")
+    a.label("VENT TO",296,124,13,BLUE,align="center")
+    a.label("ATMOSPHERE",296,143,13,BLUE,align="center")
+    a.label("Outdoors or vent hood",296,166,10,align="center")
     path(a,[(370,139),(466,139),(466,56)],BLUE,3)
     a.arrow(466,95,466,56)
-    a.label("Safe destination",403,35,11,BLUE,align="center")
-    a.label("Process tube",4,56,11)
-    a.label("not suction / discharge",4,35,10,MUTED)
-    a.label("No flame at this stage",269,279,14,ORANGE,align="center")
-    cross(a,477,268,10)
+    a.label("Open air",466,35,11,BLUE,align="center")
+    a.label("Process tube",4,35,11)
+    a.label("pinched shut at the factory",4,52,10,MUTED)
+    a.label("BPV31 stays on for life",4,272,11,BLUE)
+    a.label("No ignition within 3 m",400,279,13,ORANGE,align="center")
+    cross(a,486,272,10)
+    a.label("Gauge atmospheric / no hiss / no smell",300,307,11,align="center")
 
 
 def fig_cuts(a):
@@ -407,34 +384,42 @@ def fig_cuts(a):
     a.line(274,270,369,220,ORANGE,1)
     a.label("Keep this length and bonded pair",82,176,11,BLUE)
     a.line(280,184,316,200,BLUE,1)
-    a.label("Remove hot-gas bypass",34,290,10)
-    a.label("and qualify the branch closure.",34,307,10)
-    a.label("Trace your donor; cut labels are functional.",40,12,10,MUTED)
+    a.label("Out: finger plate + hot-gas bypass",34,290,10)
+    a.label("solenoid, line and tee",34,307,10)
+    a.arrow(365,140,365,112)
+    a.arrow(377,222,404,222)
+    a.label("Argon flows out of both cuts.",40,12,10,BLUE)
 
 
-def fig_purge(a):
-    rounded(a,15,26,94,157,ICE,BLUE)
-    a.label("DRY",62,91,16,BLUE,align="center")
-    a.label("N2",62,115,22,BLUE,align="center")
-    a.rect(46,8,30,18,STEEL,INK)
-    rounded(a,137,48,112,75,PAPER,INK)
-    a.label("REGULATE",193,74,10,align="center")
-    a.label("+ METER FLOW",193,96,10,BLUE,align="center")
-    path(a,[(109,94),(137,94)],BLUE,3)
-    path(a,[(249,86),(289,86),(289,54),(466,54)],BLUE,3)
-    path(a,[(249,86),(289,86),(289,140),(466,140)],BLUE,3)
-    a.arrow(415,54,486,54)
-    a.arrow(415,140,486,140)
-    a.label("High branch",313,39,11)
-    a.label("Low branch",313,124,11)
-    a.label("OPEN OUTLETS",380,183,10,BLUE)
-    a.label("Check each path",137,155,11,BLUE)
-    drier(a,31,244,136,27,True)
-    a.label("NEW, SEALED DRIER",24,224,11,ORANGE)
-    a.arrow(184,257,217,257)
-    a.label("Keep capillary length /",245,252,11)
-    a.label("specify its new connection",245,271,11)
-    a.label("RHP400's pressure dial is not a purge flowmeter.",262,306,10,MUTED,align="center")
+def fig_argon(a):
+    rounded(a,15,40,80,150,ICE,BLUE)
+    a.rect(40,22,30,18,STEEL,INK)
+    a.label("ARGON",55,105,15,BLUE,align="center")
+    a.label("welder's",55,128,10,align="center")
+    a.label("cylinder",55,143,10,align="center")
+    rounded(a,118,60,100,62,PAPER,INK)
+    a.label("RHP400",168,86,12,align="center")
+    a.label("a few PSI, flowing",168,106,9,BLUE,align="center")
+    path(a,[(95,92),(118,92)],BLUE,3)
+    path(a,[(168,122),(168,180),(200,180),(200,218)],BLUE,3)
+    path(a,[(252,230),(212,230)],COPPER,6)
+    rounded(a,186,218,28,24,BLUE,INK)
+    a.label("BPV31",200,262,9,BLUE,align="center")
+    compressor(a,250,190,90,96)
+    a.rect(266,40,60,56,STEEL,INK)
+    a.label("CONDENSER",296,32,9,align="center")
+    path(a,[(296,190),(296,96)],COPPER,4)
+    path(a,[(326,66),(356,66)],COPPER,4)
+    drier(a,370,55,72,22)
+    a.label("FACTORY DRIER",406,48,9,BLUE,align="center")
+    a.label("stays in service",406,96,9,BLUE,align="center")
+    path(a,[(456,66),(484,66),(484,150)],COPPER,2)
+    a.arrow(484,150,484,180)
+    a.label("capillary cut",505,198,9,ORANGE,align="right")
+    path(a,[(340,250),(474,250)],COPPER,5)
+    a.arrow(474,250,505,250)
+    a.label("suction cut",505,272,9,ORANGE,align="right")
+    a.label("Argon enters at the BPV31 and leaves by both open cuts.",262,316,11,BLUE,align="center")
 
 
 def fig_suction(a):
@@ -451,11 +436,11 @@ def fig_suction(a):
     a.label("ACR slip coupling",260,58,14,ORANGE,align="center")
     a.label("Clean sockets / full intended engagement / no stress",260,229,12,align="center")
     rounded(a,38,252,440,45,ICE,RULE)
-    a.label("Copper to copper + verified BCuP-5 = dry joint",258,279,12,BLUE,align="center")
+    a.label("Copper to copper + BCuP-5 = dry joint, under argon",258,279,12,BLUE,align="center")
 
 
 def fig_swage(a):
-    for x,n,title in [(0,1,"TRY ON MATCHING SCRAP"),(177,2,"FORM THE COPPER"),(354,3,"PROVE THE JOINT")]:
+    for x,n,title in [(0,1,"SLIDE THE CAP TUBE IN"),(177,2,"FLATS, NOT BITES"),(354,3,"TURN, SQUEEZE, BRAZE")]:
         rounded(a,x+2,20,163,262,PAPER,RULE)
         a.label(str(n),x+14,42,17,BLUE)
         a.label(title,x+12,67,8)
@@ -463,8 +448,8 @@ def fig_swage(a):
             a.rect(x+14,118,86,25,COPPER,INK)
             a.line(x+89,130,x+145,130,INK,3)
             a.arrow(x+133,157,x+96,157)
-            a.label("Mark insertion",x+12,220,10)
-            a.label("Keep bore open",x+12,242,10,BLUE)
+            a.label("No reducer fitting",x+12,220,10)
+            a.label("Factory length",x+12,242,10,BLUE)
         elif n==2:
             a.shape([(x+14,118),(x+58,118),(x+97,128),(x+135,128),(x+135,132),(x+97,132),(x+58,143),(x+14,143)],COPPER,INK)
             a.line(x+131,130,x+150,130,INK,3)
@@ -472,55 +457,55 @@ def fig_swage(a):
             a.rect(x+62,151,52,13,STEEL,INK)
             a.arrow(x+88,86,x+88,110)
             a.arrow(x+88,180,x+88,149)
-            a.label("Smooth jaws",x+12,220,10)
-            a.label("Progressive rotation",x+12,242,10)
+            a.label("Knipex 86 01 180",x+12,220,10)
+            a.label("Smooth parallel jaws",x+12,242,10)
         else:
-            a.rect(x+15,106,71,56,ICE,BLUE)
-            a.label("FLOW",x+50,128,10,BLUE,align="center")
-            a.label("+ LEAK",x+50,146,10,BLUE,align="center")
-            a.line(x+86,133,x+142,133,COPPER,5)
+            a.shape([(x+14,124),(x+58,124),(x+97,129),(x+135,129),(x+135,131),(x+97,131),(x+58,137),(x+14,137)],COPPER,INK)
+            a.line(x+131,130,x+150,130,INK,3)
+            a.shape([(x+40,98),(x+62,90,x+90,90,x+108,100)],None,BLUE,2,False)
+            a.arrow(x+100,95,x+110,103)
             tick(a,x+115,182)
-            a.label("Bore + insertion +",x+12,220,10)
-            a.label("braze + tightness",x+12,242,10)
-    a.label("~0.031 in bore is a donor estimate; measure your capillary.",260,305,10,MUTED,align="center")
+            a.label("60 degrees per turn",x+12,220,10)
+            a.label("Braze dry, no flux",x+12,242,10)
+    a.label("1/4 in coil stub onto the ~0.031 in cap tube, under flowing argon.",260,305,10,MUTED,align="center")
 
 
-def fig_braze(a):
+def fig_rag(a):
     a.rect(8,53,134,222,STEEL,INK)
     a.rect(130,145,17,64,ORANGE,INK)
     a.line(148,177,481,177,COPPER,15)
-    a.shape([(151,147),(188,147),(196,154),(201,185),(191,205),(151,206)],ICE,BLUE)
-    a.label("Heat sink",8,25,12,BLUE)
-    a.line(71,31,167,148,BLUE,1)
+    a.shape([(149,143),(216,139),(226,158),(222,196),(214,214),(149,211)],"#BFD9F2",BLUE)
+    for x in [166,184,202]:
+        a.line(x,145,x-4,209,BLUE,.8,[3,3])
+    a.label("WET RAG",186,128,11,BLUE,align="center")
+    a.label("Hard against the plug face",8,25,12,BLUE)
+    a.line(92,31,150,145,BLUE,1)
     a.rect(270,167,66,20,ORANGE,INK)
-    a.line(126,155,126,118,BLUE,2)
-    rounded(a,104,83,80,33,ICE,BLUE)
-    a.label("T PLUG",144,104,10,BLUE,align="center")
     a.shape([(355,95),(425,52),(442,73),(372,112)],INK,INK)
     a.shape([(355,98),(350,116),(344,126),(326,148),(342,114)],ORANGE,None)
     a.line(313,137,297,176,COPPER,2)
     a.arrow(393,211,480,211,BLUE)
     a.label("Flame / hot gas away from core",258,241,11,ORANGE)
-    a.label("Open nitrogen outlet",319,271,11,BLUE)
+    a.label("Re-wet it between passes",258,264,11,BLUE)
     a.dim(147,224,271,224)
-    a.label("Actual reach governs the sample",164,296,10,MUTED)
+    a.label("~92 mm at most",160,296,10,MUTED)
 
 
-def fig_pressure(a):
-    rounded(a,19,24,89,164,ICE,BLUE)
-    a.label("DRY N2",63,113,18,BLUE,align="center")
-    a.ellipse(136,48,50,50,PAPER,INK)
-    a.line(161,73,174,62,BLUE,2)
-    path(a,[(108,137),(161,137),(161,98),(220,98),(220,224),(454,224),(454,137)],BLUE,3)
-    compressor(a,229,42,89,108)
-    tank(a,382,33,105,145,coil=True)
-    path(a,[(318,109),(343,109),(343,168),(382,168)],COPPER,4)
-    for x,y in [(339,166),(450,223),(217,117)]:
-        a.ellipse(x-10,y-10,20,20,None,ORANGE,1.5)
-    rounded(a,26,251,471,49,PAPER,RULE)
-    a.label("TEST PRESSURE + TIME + DECAY LIMIT",262,271,11,BLUE,align="center")
-    a.label("Specified from the weakest rated circuit component",262,289,10,align="center")
-    a.label("No pressure figure is inferred from the water-side hydro-test.",260,318,10,MUTED,align="center")
+def fig_sweep(a):
+    compressor(a,40,60,113,138)
+    tank(a,368,40,110,150,coil=True)
+    path(a,[(153,120),(196,120),(196,176),(368,176)],COPPER,4)
+    path(a,[(153,150),(300,150),(300,92),(368,92)],COPPER,4)
+    for x,y in [(196,176),(300,92),(42,160)]:
+        a.ellipse(x-12,y-12,24,24,None,ORANGE,1.8)
+    rounded(a,210,206,112,58,ICE,BLUE)
+    a.label("DETECTOR",266,230,11,BLUE,align="center")
+    a.label("or soap",266,250,10,align="center")
+    a.arrow(260,206,222,186)
+    a.label("~1 A running",40,232,12)
+    a.label("Suction cold in 1-2 min",40,252,12,BLUE)
+    a.label("Both tie-ins / BPV31 saddle + cap / every thread",262,300,11,align="center")
+    a.label("3 min off before any restart",262,320,11,ORANGE,align="center")
 
 
 def fig_vacuum(a):
@@ -536,11 +521,11 @@ def fig_vacuum(a):
     a.line(291,261,298,242,ORANGE,1)
     rounded(a,392,111,102,81,STEEL,INK)
     a.rect(420,99,45,12,INK,INK)
-    a.label("HC PUMP",443,154,11,BLUE,align="center")
-    a.arrow(446,100,446,46,BLUE)
-    a.label("Exhaust outdoors",388,29,11,BLUE)
-    a.label("Gauge stays with the system",138,293,13,BLUE)
-    a.label("after the pump is isolated.",138,311,11)
+    a.label("ORION 4 CFM",443,154,11,BLUE,align="center")
+    a.label("150 micron ultimate",443,174,9,align="center")
+    a.label("BPV31 flare",8,250,11,BLUE)
+    a.label("15 min on the pump, then valve off:",138,293,13,BLUE)
+    a.label("no rise for 15 min = tight.",138,311,11)
 
 
 def fig_charge(a):
@@ -550,37 +535,33 @@ def fig_charge(a):
     rounded(a,67,46,103,150,STEEL,INK)
     a.rect(99,28,38,18,ORANGE,INK)
     a.label("R600a",118,114,20,BLUE,align="center")
-    a.label("GRADE",118,139,11,align="center")
+    a.label("CAN",118,139,11,align="center")
     path(a,[(137,34),(208,34),(208,163),(325,163)],BLUE,3)
     compressor(a,347,90,114,136)
     path(a,[(325,163),(347,163)],BLUE,3)
     a.label("Can + valve on scale",17,282,12)
-    a.label("Hose support independent",213,69,11,BLUE)
+    a.label("Into the vacuum at the BPV31",213,69,11,BLUE)
     a.line(230,74,208,132,BLUE,1)
     rounded(a,246,233,254,63,PAPER,RULE)
-    a.label("NET TO CIRCUIT",262,253,11,ORANGE)
-    a.label("Can loss - retained / returned mass",262,277,11)
-    a.label("Target comes from the qualified build recipe.",255,316,11,BLUE,align="center")
+    a.label("CAN LOSS = CHARGE",262,253,11,ORANGE)
+    a.label("Close at the target drop, +/-1 g",262,277,11)
+    a.label("Start at factory mass + 5-15 g; iterate 1-2 g.",255,316,11,BLUE,align="center")
 
 
-def fig_close(a):
-    compressor(a,26,63,127,146)
-    path(a,[(30,115),(4,115),(4,168)],COPPER,8)
-    rounded(a,0,148,41,34,ORANGE,INK)
-    cross(a,21,165,24)
-    a.label("TEMPORARY",8,257,11,ORANGE)
-    a.label("Piercing access",8,278,11)
-    a.arrow(170,146,215,146)
-    compressor(a,271,63,127,146)
-    path(a,[(279,114),(236,114),(236,162)],COPPER,8)
-    a.rect(221,153,30,18,BLUE,INK)
-    a.label("FINAL",320,256,11,BLUE,align="center")
-    a.label("Qualified closure / service fitting",320,277,11,align="center")
-    tick(a,234,197)
-    a.line(437,221,238,171,BLUE,1.5)
-    rounded(a,425,212,72,36,ICE,BLUE)
-    a.label("LEAK",460,235,10,BLUE,align="center")
-    a.label("No torch on a charged circuit",253,26,14,ORANGE,align="center")
+def fig_cap(a):
+    compressor(a,90,63,140,160)
+    path(a,[(94,118),(60,118),(60,170)],COPPER,8)
+    rounded(a,40,152,40,32,BLUE,INK)
+    a.rect(50,184,20,14,INK,INK)
+    tick(a,60,222)
+    a.label("BPV31",2,145,10,BLUE)
+    a.label("Closed and capped",20,252,12,BLUE)
+    a.label("Clamped on for life",20,272,12)
+    rounded(a,300,60,200,170,ICE,RULE)
+    a.label("ONE SERVICE POINT",316,88,11,BLUE)
+    for i,lab in enumerate(["Vent","Argon purge","Vacuum","Recharge","Later service"]):
+        a.label(lab,316,118+i*22,11)
+    a.label("Record net grams on the unit",400,276,12,ORANGE,align="center")
 
 
 def fig_sensor(a):
@@ -714,9 +695,9 @@ def fig_thermal(a):
 
 
 def fig_return(a):
-    stages=[("POWER OFF","Isolate + identify",BLUE),("REMOVE CHARGE","Controlled HC route",ORANGE),
-            ("CLEAR / REPAIR","Nitrogen + new drier",BLUE),("TEST + EVACUATE","Pressure + microns",BLUE),
-            ("METER + CLOSE","Qualified target",BLUE)]
+    stages=[("POWER OFF","Isolate + find the leak",BLUE),("REMOVE CHARGE","Through the BPV31",ORANGE),
+            ("RECUT UNDER ARGON","Restore the flow first",BLUE),("REBRAZE + VACUUM","500 microns, no rise",BLUE),
+            ("RECHARGE","Mass-metered at the BPV31",BLUE)]
     for i,(title,sub,col) in enumerate(stages):
         y=13+i*56
         rounded(a,68,y,390,44,PAPER,RULE)
@@ -733,9 +714,9 @@ def fig_record(a):
     a.label("PER-UNIT REFRIGERATION RECORD",47,40,13,BLUE)
     lines=[("Donor / label / actual topology","Pages 2-3"),
            ("Coil / probes / routed protrusions","Pages 4-8"),
-           ("HC setup / drier / qualified joints","Pages 10-17"),
-           ("Micron trace / charge / final closure","Pages 18-20"),
-           ("Mount / airflow / controls / load test","Pages 21-26")]
+           ("Vent / argon / brazes / plug faces","Pages 10-15"),
+           ("Vacuum hold / net charge / leak sweep","Pages 16-19"),
+           ("Mount / airflow / controls / load test","Pages 20-25")]
     for i,(lab,pg) in enumerate(lines):
         y=78+i*39
         a.rect(47,y-10,12,12,PAPER,BLUE)
@@ -747,25 +728,25 @@ def fig_record(a):
 
 PAGES = [
     ("Build the cold loop", "Wind the evaporator, transfer the donor circuit, and prove the installed refrigeration assembly.", fig_cover,
-     [ ("Follow the physical sequence", "Coil work: pages 4-8. Donor prep and circuit service: 2-3 and 9-20. Mounting and commissioning: 21-28."),
+     [ ("Follow the physical sequence", "Coil work: pages 4-8. Donor prep and circuit work: 2-3 and 9-19. Mounting and commissioning: 20-27."),
        ("Read the pictures", "Coral marks the current work. Copper is refrigerant tube. Blue marks a tool, gauge or movement. Pictures are schematic; printed dimensions govern."),
-       ("Keep the scope honest", "Dry coil and mount work have bench steps. Opening or heating R600a requires the qualified service setup described at the actual operation.") ],
-     "CHECK", "A cured cold core alone does not qualify a refrigerant circuit or a finished charge.",
+       ("One valve for life", "The BPV31 goes onto the process tube once. Venting, the argon purge, vacuum and recharge all pass through its flare port, and it stays as the service point.") ],
+     "CHECK", "Argon flows from the first cut until vacuum starts; the factory drier stays in service throughout.",
      "cold-core.md / refrigerant-loop.md / enclosure-mechanical.md", None),
 
-    ("Read the donor's label", "Identify the exact appliance and compressor before choosing the service route or supplying power.", fig_labels,
+    ("Read the donor's label", "One label decides the session: the donor must run R600a, and its factory charge is the number the recharge target builds from.", fig_labels,
      [("Photograph the real labels", "Record appliance model, refrigerant, factory charge, compressor voltage, frequency and current ratings. Keep each donor's data with its parts."),
-      ("Verify R600a", "Use the actual label. A different refrigerant changes handling and circuit suitability. The referenced 15 g and 23 g values are donor baselines."),
+      ("Verify R600a", "The type must be R600a. Any HFC donor (R-134a, R-410a) is a full stop: this procedure does not apply. Record the factory charge: 15 g Unit A, 23 g Unit B."),
       ("Mark the assembly", "Tag Unit A or Unit B and its compressor. Do not infer charge from the cast-stamps or borrow Unit A's electrical lead colors for Unit B.")],
-     "DONE WHEN", "The labels and supply ratings are recorded; the finished-machine charge remains separate.",
+     "DONE WHEN", "The label reads R600a and the factory charge is recorded: 15 g (A) or 23 g (B).",
      "reference/ice-maker/README.md / refrigerant-loop.md §1", None),
 
-    ("Trace what stays", "Walk every tube while the donor is still intact. Mark the cuts and closure plan before dismantling.", fig_salvage,
+    ("Trace what stays", "Walk every tube while the donor is still intact. Mark the two cuts before dismantling.", fig_salvage,
      [("Keep the useful assembly", "Compressor, condenser/fan, original terminal cover, grommets and the bonded capillary/suction pair stay together."),
-      ("Remove the ice-making path", "The finger plate and hot-gas bypass serve ice harvest. Their removal must leave a continuous normal circuit with no bypass or open tee."),
-      ("Plan the drier replacement", "The loop-opening session consumes a compatible new drier. Record its capillary connection and preserve metering length or specify a recalculation.")],
-     "HOLD", "Unit A's topology is recorded. Trace Unit B at teardown; its exact branch closure is open.",
-     "reference/ice-maker/README.md / refrigerant-loop.md §3", MANUFACTURERS["secop_repair"]),
+      ("Remove the ice-making path", "The finger-plate evaporator and the hot-gas bypass solenoid, line and tee come out. Remove the valve entirely, or leave it in place and never energize it."),
+      ("Keep the factory drier", "The drier, its brazed-on capillary, the cap-tube helix and the bonded suction pair stay together as one preserved subassembly, at factory length.")],
+     "CHECK", "Both donors' topologies are verified. Nothing upstream of the evaporator-inlet cut is disturbed.",
+     "reference/ice-maker/README.md / refrigerant-loop.md §3", None),
 
     ("Reserve both coil tails", "Cut the dry coil stock with a tubing cutter, with enough copper for the wrap and each separate routed tail.", fig_lengths,
      [("Use the specified stock", 'GOORY ACR copper, 1/4 in OD x 0.031 in wall. Keep its bore clean and capped. Do not saw refrigerant tubing.'),
@@ -809,82 +790,75 @@ PAGES = [
      "CHECK", "A missing, cracked, altered or loose terminal cover fails the assembly before power is applied.",
      "reference/ice-maker/README.md / reference/compressor/README.md", None),
 
-    ("Make the HC bench ready", "Complete the service setup before piercing, cutting, pressure testing, evacuation or charging.", fig_bench,
-     [("Assign the service work", "A technician trained for R600a chooses the handling route and approves the exact equipment, hoses, connections, ventilation and ignition control."),
-      ("Stage the complete session", "Have the replacement drier, joint arrangement, final process closure, dry-nitrogen controls, leak-test method, micron gauge and charge procedure ready."),
-      ("Verify the real equipment", "An ultimate vacuum figure and a 1/4 in SAE fitting do not establish hydrocarbon suitability. The owned Orion gear has no recorded exact-model HC approval.")],
-     "HOLD", "Opening waits for this setup. The technician's approved method supplies the missing circuit limits.",
-     "refrigerant-loop.md / Secop HC service / Orion compatible-use manual", MANUFACTURERS["secop_service"]),
+    ("Vent the factory charge", "The loop opens for the first time through a valve that never comes off. Decompress fully before any flame.", fig_vent,
+     [("Find the process tube", "The short copper stub off the compressor, pinched and brazed shut at the factory. It connects to nothing else."),
+      ("Clamp the BPV31 on for life", "Clamp the saddle on and pierce. It stays as the single permanent service point: venting, argon, vacuum and recharge all use its flare port."),
+      ("Vent outdoors and confirm", "Open the valve outdoors or under a vent hood, with no ignition source within 3 m. This vents the household donor; it does not authorize venting a rebuilt unit.")],
+     "DONE WHEN", "Gauge reads atmospheric, no further hiss, no smell at the valve. Only then is anything cut or heated.",
+     "refrigerant-loop.md §2 / regulatory.md / EPA Section 608", MANUFACTURERS["epa_handling"]),
 
-    ("Remove the donor charge", "Use the factory process tube as controlled service access under the approved hydrocarbon-handling method.", fig_remove,
-     [("Fit temporary access correctly", "A BPV31 may be fitted if its adapter and instructions match the real tube. Connect the handling rig before piercing or opening."),
-      ("Use the approved destination", "The technician records donor end-use, handling route and discharge/collection arrangement. Keep ignition sources outside the defined service area."),
-      ("Prove the clearing condition", "Depressurize under the service method. Residual fuel can leave compressor oil; gauge zero and absence of smell alone do not authorize a cut or flame.")],
-     "CHECK", "EPA's exemption depends on end use. The donor's status does not authorize venting a rebuilt unit.",
-     "refrigerant-loop.md §2 / EPA Section 608 / Supco BPV31", MANUFACTURERS["epa_handling"]),
+    ("Start the argon purge", "Argon first, cuts second. One continuous low-pressure flow guards the whole loop-open period.", fig_argon,
+     [("Rig it to the BPV31 flare", "Uniweld RHP400 on the welder's argon cylinder, then the flared 1/4 in ACR stub, Joywayus flare nut and charging hose onto the BPV31 flare port."),
+      ("Flow a few PSI before cutting", "Open the BPV31 and start low-pressure argon, flowing, not static. Vented is not empty: R600a lingers in the compressor oil and in low spots."),
+      ("Never break the flow", "Argon runs from the first cut until vacuum begins on page 16. It is the fuel sweep and the factory drier's dry blanket at the same time.")],
+     "CHECK", "A lapse in flow lets the factory drier's desiccant take on moisture and invites capillary icing.",
+     "refrigerant-loop.md §3 / ice-maker/README.md / regulatory.md", RL_DOC),
 
-    ("Cut at the evaporator", "Remove the ice-making evaporator while preserving the donor's metering restriction and bonded heat exchanger.", fig_cuts,
-     [("Mark the two functional cuts", "Suction side: near the discarded evaporator outlet. Capillary side: at its evaporator-inlet end. Trace the actual donor before cutting."),
-      ("Use the dedicated cutters", "Tubing cutter for normal copper; Mastercool capillary cutter for the hair-bore tube. Clean the outside first and keep every burr or grit particle out."),
-      ("Close the bypass correctly", "Remove the harvest solenoid/branch under the donor-specific closure plan. Keep the capillary helix and bonded suction pair without shortening or pulling them apart.")],
-     "HOLD", "No improvised tee cap or guessed metering length: qualify the traced branch closure and capillary plan.",
-     "refrigerant-loop.md §3 / ice-maker/README.md / Secop repair §§2.1-2.2", MANUFACTURERS["secop_repair"]),
+    ("Cut at the evaporator", "Remove the ice-making evaporator with argon flowing, leaving the drier, capillary and bonded heat exchanger at factory length.", fig_cuts,
+     [("Cut the suction line", "Between the evaporator outlet and the compressor inlet, close to the evaporator, with the RIDGID tubing cutter. Argon leaves here."),
+      ("Cut the cap tube at the evaporator", "At its evaporator-inlet end, with the Mastercool capillary cutter. Drier, cap tube and helix stay untouched at factory length; argon leaves here too."),
+      ("Strip the ice-making path", "The finger-plate evaporator and the hot-gas bypass solenoid, line and tee come out. The bonded capillary/suction pair stays intact on the compressor side.")],
+     "DONE WHEN", "Both cuts are open with argon flowing out of each; drier, cap tube, helix and bonded pair are at factory length.",
+     "refrigerant-loop.md §3 / ice-maker/README.md", RL_DOC),
 
-    ("Clear, then replace the drier", "Use the technician's dry-nitrogen sequence to clear each circuit branch and protect every braze internally.", fig_purge,
-     [("Clear high and low paths", "Verify the actual gas path and open outlet for each branch. A pressure dial does not prove protective flow through the capillary or compressor."),
-      ("Fit a fresh compatible drier", "Cut the used drier out without heating it. Keep the selected replacement sealed until assembly; specify its connection to the retained capillary."),
-      ("Protect the open loop", "Continue approved dry protective flow through a joint while brazing. Close and protect any interrupted work against moisture. Keep an unobstructed outlet.")],
-     "HOLD", "Nitrogen pressure/flow and drier compatibility are specified by the service plan, not the picture.",
-     "refrigerant-loop.md §3 / Secop repair / Uniweld RHP400 specifications", MANUFACTURERS["uniweld_purge"]),
+    ("Wet rag on each stub", "Both joints sit on copper that runs back into a printed PETG plug with cured foam behind it. Protect it before each braze.", fig_rag,
+     [("Soak and wring a rag", "Cotton shop rag, heavy with water but not running. Do this immediately before each braze; a rag that has been through one braze is dry."),
+      ("Wrap it hard against the plug", "On the core side of the joint, covering as much of the stub as it reaches. The rag is the heat sink: wrap toward the plug, not the joint."),
+      ("Keep it wet; aim away", "Re-wet it between passes. Aim flame and hot gas away from the core, toward the compressor side, never along the stub toward the plug.")],
+     "CHECK", "After each braze: gloss, sag, dimpling or a scorched-foam smell at the plug face means it is compromised.",
+     "refrigerant-loop.md §4 / copper-plugs/README.md", RL_DOC),
 
-    ("Fit the suction coupling", "Join the upper coil outlet to the retained factory suction line with an ACR-grade 1/4 in slip coupling.", fig_suction,
-     [("Prepare the dry fit", "Clean both tube ODs and fitting sockets. Preserve a clean bore. Confirm the coupling takes the actual tube sizes and intended engagement."),
-      ("Align without spring load", "Support the core and donor assembly at their installed relationship. Each tube enters straight; the joint must not pull the plug or hang a component."),
-      ("Stage for brazing", "For verified copper-to-copper joints, BCuP-5 is self-fluxing. Keep flux out of the sealed loop. Use the qualified purge and plug-protection sequence on page 16.")],
-     "DONE WHEN", "The intended engagement is visible/marked, the joint is unstressed and the bore stays clean.",
+    ("Braze the suction coupling", "Join the upper coil outlet to the factory suction line with an ACR-grade 1/4 in slip coupling, under the flowing argon.", fig_suction,
+     [("Bright copper first", "Scotch-Brite both tube ODs and the coupling sockets until bright. Keep grit and swarf out of the bore."),
+      ("Stage the joint", "The coil-outlet stub leaves the wall on the west lane at the factory suction cut. Slide the slip coupling over both 1/4 in ends; no adapter."),
+      ("Braze dry under argon", "Wet rag on the stub first (page 13). BCuP-5 self-fluxes on copper, so no flux goes into the sealed loop. Flame away from the core.")],
+     "DONE WHEN", "A complete fillet ring at both coupling mouths, argon never interrupted, plug face unmarked.",
      "refrigerant-loop.md §5 / Harris Stay-Silv 15 technical sheet", MANUFACTURERS["harris_filler"]),
 
-    ("Prove the capillary joint", "The proposed pinch-swage reduces the coil-inlet tube around the donor capillary. Qualify a sample before the core.", fig_swage,
-     [("Measure and try the real pair", "The cited ~0.031 in capillary bore is an estimate. Use matching stock. Establish insertion, forming and braze details on a representative sample."),
-      ("Form without closing the bore", "The proposed tool is smooth parallel-jaw Knipex pliers. Progressive rotation collapses the larger tube; the 60-degree suggestion is a trial, not an accepted recipe."),
-      ("Record what the sample proves", "Prove the capillary remains open, the required insertion is retained, the braze is sound and the joint meets the specified leak test. Apply only the accepted sequence to the core.")],
-     "HOLD", "The metering-joint qualification is open. A closed-looking swage does not prove a working capillary.",
-     "refrigerant-loop.md §6 / ice-maker/README.md", None),
+    ("Pinch-swage the capillary", "No reducer: the 1/4 in coil-inlet stub collapses onto the cap tube and is brazed under the flowing argon.", fig_swage,
+     [("Slide the cap tube in", "The cap tube cut on page 12 goes into the coil-inlet stub, which leaves the front wall on the port lane."),
+      ("Swage with the Knipex", "Knipex 86 01 180 smooth parallel jaws, flats not bites: squeeze, rotate 60 degrees, squeeze again, until the stub has closed evenly onto the cap tube."),
+      ("Braze dry with a fresh rag", "A fresh wet rag hard against the plug face; page 14's rag is dry. Braze the swaged mouth with no flux, then check the plug face.")],
+     "CHECK", "The cap tube stays at factory length. If it ever changes substantially, a refrigeration tech recalculates it.",
+     "refrigerant-loop.md §6 / ice-maker/README.md", RL_DOC),
 
-    ("Protect the plug, then braze", "Use the qualified heat sink, flame shield and temperature limit at both installed-core joints.", fig_braze,
-     [("Qualify the thermal stack", "Use the same copper reach, PETG plug and foam as the installed joint. Measure plug-interface temperature through heating and cooling; justify its allowed limit."),
-      ("Make the controlled braze", "With residual-fuel clearing complete and protective nitrogen flowing, use the accepted joint sequence. Direct flame and hot gas away from the core."),
-      ("Stop and inspect", "Stop at the qualified temperature/time limit or a failing heat-sink contact. Let the joint cool, then inspect the plug and foam boundary before the second braze.")],
-     "HOLD", "A wet rag's boiling-point behavior is above nominal PETG Tg (~80 C). It does not qualify this stack.",
-     "refrigerant-loop.md §4 / copper-plugs/README.md / Secop HC service", MANUFACTURERS["secop_service"]),
+    ("Pull vacuum", "First proof of the brazes, and the handoff: argon stops only because the pump takes over.", fig_vacuum,
+     [("Argon off, manifold on", "With every braze done, stop argon at the RHP400 and close the BPV31. Swap the argon hose for the manifold's 1/4 in SAE flare; reopen the BPV31."),
+      ("Pull to 500 microns", "Orion 4 CFM pump (150 micron ultimate) through the Orion manifold. Reach 500 microns or below and hold at least 15 minutes on the pump."),
+      ("Valve off and watch", "Isolate the pump. No rise for 15 minutes means tight. A rise is moisture (pump longer) or a leak (find it and fix it).")],
+     "DONE WHEN", "500 microns or below, 15 minutes pumping, then 15 minutes valved off with no rise.",
+     "refrigerant-loop.md §7", RL_DOC),
 
-    ("Test the closed circuit", "Pressure leak-test after all joints are complete and cool, before evacuation and the first R600a charge.", fig_pressure,
-     [("Use the written test limits", "Dry nitrogen, regulated and pressure-protected. The technician specifies pressure, time, temperature correction and decay acceptance from the weakest rated component."),
-      ("Inspect every new connection", "Include both coil joins, replacement drier joins, hot-gas branch closure and the planned final service/process connection. Use the qualified leak-test method."),
-      ("Record and depressurize", "Log the gauges, starting/ending pressure, elapsed time and all inspected sites. Release test gas under the service method before connecting the vacuum rig.")],
-     "HOLD", "Circuit pressure-test limits are open. The stainless water-vessel hydro-test does not supply them.",
-     "refrigerant-loop.md §7 / Secop repair §3.4", MANUFACTURERS["secop_repair"]),
+    ("Meter the recharge", "The scale is the meter: what the can loses, the loop gains.", fig_charge,
+     [("Can on the scale, tared", "Enviro-Safe R600a can on the Smart Weigh Pro (0.1 g). Plumb can to manifold to the BPV31 flare port; open the BPV31."),
+      ("Charge into the vacuum", "Open the can valve. R600a flows in on its own vapor pressure and the readout falls. Close at the target drop: the can's lost grams are the charge."),
+      ("Start above factory", "The wound coil holds more than the finger plate. Start at factory mass (15 g A / 23 g B) plus 5-15 g; iterate 1-2 g against frost pattern and suction superheat.")],
+     "CHECK", "Charge within +/-1 g of the working target. The target is settled on first run-up (procedure open item 1).",
+     "refrigerant-loop.md §8 / open items §1", RL_DOC),
 
-    ("Measure the vacuum", "Read absolute pressure at the circuit with suitable HC evacuation equipment; keep that gauge on the isolated system.", fig_vacuum,
-     [("Place the system gauge", "An absolute micron gauge reads the circuit, not the isolated pump. Keep the compressor off and route pump exhaust to the approved outdoor location."),
-      ("Reach the project target", "The current target is 500 microns or less, with at least 15 minutes while pumping. Record the actual pressure trace; a compound manifold dial cannot prove it."),
-      ("Isolate and observe", "Isolate the pump and record the next 15 minutes at the system gauge. Diagnose a rapid rise. Some rebound is possible; use the technician's written decay limit.")],
-     "HOLD", "The isolated-pressure acceptance and exact equipment approval must be settled before charging.",
-     "refrigerant-loop.md §7 / Secop repair §§2.8-2.9", MANUFACTURERS["secop_repair"]),
+    ("Cap the BPV31 for life", "The valve that vented the donor stays on as the appliance's only service point.", fig_cap,
+     [("Button up", "Close the manifold valve and the BPV31, disconnect the manifold and cap the BPV31 flare port."),
+      ("Leave the valve on", "The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for vacuum, recharge and later service."),
+      ("Record the charge", "Write down the net grams delivered and the target they were aimed at. The measured charge belongs on the unit and in its record.")],
+     "DONE WHEN", "The BPV31 is closed and capped, clamped on as the service point for life, and the charge is recorded.",
+     "refrigerant-loop.md §8 / regulatory.md", RL_DOC),
 
-    ("Meter the qualified charge", "Use the finished-machine charge recipe and account for the refrigerant that remains outside the circuit.", fig_charge,
-     [("Start from an accepted target", "The redesigned evaporator has no qualified charge mass yet. Neither the donor's 15/23 g nor an automatic volume overage is the final recipe."),
-      ("Keep the scale honest", "The owned scale resolves 0.1 g. Check its response with a known mass; support hoses independently so their pull cannot change the reading."),
-      ("Record net delivery", "Follow the technician's refrigerant state/orientation and valve sequence. Record start/end mass, hose inventory and net to circuit. The project metering target is +/-1 g.")],
-     "HOLD", "Charging waits for the calibrated target, refrigerant grade and a repeatable net-delivery method.",
-     "refrigerant-loop.md §8 / Secop repair §3.1", MANUFACTURERS["secop_repair"]),
-
-    ("Finish the process access", "Leave a qualified permanent closure or service fitting, then check it after the charging connection is removed.", fig_close,
-     [("Use the specified closure", "The technician's plan establishes the final fitting/closure and when it is made. A charged circuit must not go directly to a torch."),
-      ("Remove temporary piercing access", "Supco's FAQ warns solderless piercing valves can leak over time and says they should not remain after repair. Do not leave the BPV31 as the lifetime service point."),
-      ("Check the final state", "After disconnection, test the final closure, caps/threads and every joint with the qualified R600a leak method. Record detector identity and proof check.")],
-     "DONE WHEN", "The final closure is recorded and leak-tested; no temporary saddle is counted as the permanent seal.",
-     "refrigerant-loop.md §§8-9 / Supco BPV31 FAQ", MANUFACTURERS["supco_access"]),
+    ("Run up and sweep for leaks", "First breath: the right current, a cold suction line and silence from the detector at every joint.", fig_sweep,
+     [("Energize briefly", "Through the inline 5 A fast-blow fuse. Expect ~1 A running; the suction line drops cold within a minute or two."),
+      ("Sweep every joint", "Toptes PT520A or soap solution at both tie-ins, the BPV31 saddle and flare cap, and every threaded connection. Zero hits, zero bubbles."),
+      ("Wait 3 minutes to restart", "Firmware holds a 3-minute minimum off. A quick restart stalls the motor against head pressure until the overload trips.")],
+     "DONE WHEN", "~1 A draw, suction cold in 1-2 minutes, no detector hit or bubble at any joint.",
+     "refrigerant-loop.md §9 / ice-maker/README.md", RL_DOC),
 
     ("Place the gas sensor first", "Install the MQ-6 in the open floor strip before the compressor makes the slot hard to reach.", fig_sensor,
      [("Orient the card on edge", "The card runs along the west (-X) flank. Mesh faces west into the wall well; its header faces east into the bay."),
@@ -924,22 +898,22 @@ PAGES = [
     ("Prove the loaded cold loop", "Commission refrigeration with the documented water load and verify the actual control limits.", fig_thermal,
      [("Confirm current firmware values", "Tank: on at 4 C, off at 2 C. Coil: trip at -8 C, recover at -5 C. Minimum off 3 min, on 60 s; stale probe after 30 s parks cooling."),
       ("Run the specified loaded test", "Record water fill, ambient, actual charge, starting temperatures, pull-down, outlet-water temperature, coil trend, current and cycle timing."),
-      ("Keep acceptance distinct", "The acceptance document's 8-hour window and 10-70% duty band are proposed defaults. Missing loaded measurements and a qualified charge block production acceptance.")],
+      ("Keep acceptance distinct", "The acceptance document's 8-hour window and 10-70% duty band are proposed defaults. Missing loaded measurements block production acceptance.")],
      "DONE WHEN", "The logged control behavior and load result meet a committed test specification, with no leak alarm.",
      "cold_policy.h / firmware-and-commissioning.md §9 / acceptance-and-burn-in.md", None),
 
-    ("Repair through the full sequence", "A leak or abnormal operation returns to diagnosis and controlled service, not direct reheating.", fig_return,
-     [("Stop and identify the fault", "Isolate power, keep the area ventilated and use the approved leak/diagnostic method. A gas alarm, repeated freeze trip or overload is not a tune-by-guessing cue."),
-      ("Remove charge under the right route", "The completed dispenser's end-use basis and HC equipment govern removal. Do not borrow the donor's venting exemption."),
-      ("Repeat the relevant proof", "After opening: replace drier, clear/purge, repair, test, evacuate, meter charge and finish access. Record the cause and repeat the affected installed/load checks.")],
-     "CHECK", "Any route that skips charge removal or residual-fuel clearing before heat fails this sequence.",
-     "refrigerant-loop.md §§2-9 / EPA Section 608 / Secop HC service", MANUFACTURERS["secop_service"]),
+    ("Repair through the full sequence", "A leak means the full redo: remove the charge, recut, restore argon, rebraze, pull vacuum and recharge.", fig_return,
+     [("Stop and find the leak", "Isolate power and ventilate. Find the joint with the detector or soap. A gas alarm, repeated freeze trip or overload is diagnosed, not tuned by guessing."),
+      ("Remove the charge at the BPV31", "Use the handling route for the completed dispenser and recovery equipment rated for flammable refrigerants. The donor vent does not cover a rebuilt unit."),
+      ("Redo the sequence", "Recut the joint, restore the argon flow from page 11, rebraze with a wet rag, pull vacuum and recharge by mass. Never repair under charge.")],
+     "CHECK", "Any route that applies heat before the charge is out and argon is flowing fails this sequence.",
+     "refrigerant-loop.md §9 / regulatory.md", RL_DOC),
 
     ("Keep the unit's evidence", "The guide supplies order and pictures; the per-unit record establishes which work and measurements were completed.", fig_record,
-     [("Keep the measured result", "Attach donor labels, coil/probe checks, service setup, joint qualifications, leak record, vacuum trace, net charge, final closure and installed control/load results."),
-      ("Use the written sources", "The footer names the responsible procedure or part reference. Click a source footer for an external service source where supplied; the README indexes local documents."),
+     [("Keep the measured result", "Attach donor labels, coil/probe checks, plug-face checks, the vacuum hold, net charge, the leak sweep and installed control/load results."),
+      ("Use the written sources", "The footer names the responsible procedure or part reference. The README indexes the local documents."),
       ("Keep this guide manual", "Rebuild it deliberately when its operation changes. The PDFs and source receipt are committed artifacts; the appliance build does not redraw them.")],
-     "HOLD", "Open service limits, joints, charge and commissioning claims are visible at their operation, not signed off by this book.",
+     "CHECK", "Open items stay where refrigerant-loop.md lists them; the unit record shows what was measured.",
      "refrigeration-guide/README.md / mechanical-qualification/README.md", None),
 ]
 
@@ -965,18 +939,18 @@ def draw_page(c, n, page):
         local_sources = {
             1:"hardware/assembly/refrigerant-loop.md",
             2:"hardware/reference/ice-maker/README.md",
+            3:"hardware/reference/ice-maker/README.md",
             4:"hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
             5:"hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
             6:"hardware/assembly/cold-core.md",7:"hardware/assembly/cold-core.md",
             8:"hardware/assembly/cold-core.md",9:"hardware/reference/ice-maker/README.md",
-            15:"hardware/assembly/refrigerant-loop.md",
+            20:"hardware/assembly/enclosure-mechanical.md",
             21:"hardware/assembly/enclosure-mechanical.md",
             22:"hardware/assembly/enclosure-mechanical.md",
-            23:"hardware/assembly/enclosure-mechanical.md",
-            24:"hardware/printed-parts/refrigeration/fuse-clamp/README.md",
-            25:"hardware/assembly/firmware-and-commissioning.md",
-            26:"firmware/lib/machine_policy/cold_policy.h",
-            28:"hardware/refrigeration-guide/README.md",
+            23:"hardware/printed-parts/refrigeration/fuse-clamp/README.md",
+            24:"hardware/assembly/firmware-and-commissioning.md",
+            25:"firmware/lib/machine_policy/cold_policy.h",
+            27:"hardware/refrigeration-guide/README.md",
         }
         link="https://github.com/derekbreden/homesodamachine/blob/main/"+local_sources[n]
     footer(c,n,source,link)
@@ -989,17 +963,17 @@ def build():
     c=canvas.Canvas(str(PDF),pagesize=(W,H),pageCompression=1,invariant=1)
     c.setTitle("Home Soda Machine - Refrigeration bench guide")
     c.setAuthor("Home Soda Machine")
-    c.setSubject("Manual illustrated Letter instructions, service hold points and measured evidence")
+    c.setSubject("Manual illustrated Letter instructions and measured evidence")
     for n,page in enumerate(PAGES,1):
         draw_page(c,n,page)
     c.save()
     publish(PDF,GUIDE,"Refrigeration bench guide",
-            f"Coil, donor circuit, HC service, mounts and commissioning - {len(PAGES)} illustrated Letter pages",
+            f"Coil, donor circuit, argon-purged brazing, mounts and commissioning - {len(PAGES)} illustrated Letter pages",
             len(PAGES),SOURCES,extra={
                 "manufacturer_sources":MANUFACTURERS,
                 "manufacturer_sources_checked":"2026-10-04",
                 "manual_number_review":numbers,
-                "qualification_scope":"Manual sequence and source review; no installed HC service, charge, joint, thermal or load qualification claimed",
+                "qualification_scope":"Manual sequence and source review; records no completed circuit build, charge or load test",
                 "page_inventory":[{"page":n,"operation":page[0]} for n,page in enumerate(PAGES,1)],
             })
     print(f"{PDF} ({len(PAGES)} Letter pages)")
