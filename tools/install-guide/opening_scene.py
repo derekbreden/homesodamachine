@@ -65,6 +65,7 @@ def main():
     import _install_art
 
     OUT.mkdir(parents=True, exist_ok=True)
+    ASSETS.mkdir(parents=True, exist_ok=True)
     scene = _install_art.s_opening()
     component = cq.Assembly(name="opening-components")
     for child in scene.children:
