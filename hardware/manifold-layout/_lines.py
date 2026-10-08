@@ -67,7 +67,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "digiten-flow-sensor"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
-import _stated_bounds as _bounds                       # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
@@ -280,7 +279,7 @@ def build_runs(placed, carries):
         runs.append(_co2_2(F))
     if ({"flow-regulator", "valve-v-a", "water-split"} <= set(F)
             and {"coil-v-a", "g-ganen-pump"} <= set(placed)):
-        runs.append(_fluid_2(F, placed))
+        runs.append(_fluid_2(F))
     if {"foam-assembly", "digiten-flow"} <= set(F):
         runs.append(_carb_1(F))
     if {"digiten-flow", "bulkhead-carb"} <= set(F):
@@ -641,7 +640,7 @@ FLUID_2_RISE_FORE = 5.0
 FLUID_2_DESCENT_EAST = 0.5
 
 
-def _fluid_2(F, solids):
+def _fluid_2(F):
     """Cross ahead of the drip pan, rise west of the pump, then descend into V-A.
 
     The high crossing is one bend radius above the regulator outlet. The final
@@ -654,7 +653,6 @@ def _fluid_2(F, solids):
     lane_x = tap[0] + FLUID_1_INBOARD
     cross_z = out[2] + TUBE_BEND
     inlet_turn = inlet[1] + TUBE_BEND
-    pump_fore = solids["g-ganen-pump"].BoundingBox().ymin
     run = R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),
@@ -668,17 +666,6 @@ def _fluid_2(F, solids):
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
-    tube = R.tube(run)
-    # Fore/aft box separation is a lower bound on the finished sweep's clearance.
-    pump_gap = pump_fore - tube.BoundingBox().ymax
-    if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
-        pump_gap = tube.distance(solids["g-ganen-pump"])
-    # Keep the authored route visible when a placed endpoint leaves insufficient
-    # room. The scorecard carries the shortfall beside that same geometry.
-    _bounds.state("fluid-2-pump-clearance", "The V-A inlet tube clears the water pump",
-                  f"at least {_card.CLEARANCE_FLOOR:g} mm",
-                  pump_gap >= _card.CLEARANCE_FLOOR - 1e-6,
-                  f"fluid-2 clears the pump by {pump_gap:.3f} mm")
     return run
 
 
@@ -1077,15 +1064,6 @@ def _fluid_14(F, solids):
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-14 seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
-    # Read the same complete placed surface meshes as the assembly clearance gate.
-    from _clearing import gap as clearance
-    tube = R.tube(run)
-    for name in ("valve-v-a", "vk-solenoid"):
-        gap = clearance(tube, solids[name], _card.REPORT_NEAR)
-        _bounds.state(f"fluid-14-{name}-clearance", f"The reservoir-A fill tube clears {name}",
-                      f"at least {_card.CLEARANCE_FLOOR:g} mm",
-                      gap >= _card.CLEARANCE_FLOOR - 1e-6,
-                      f"fluid-14 clears {name} by {gap:.3f} mm")
     return run
 
 

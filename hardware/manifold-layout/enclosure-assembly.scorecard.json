@@ -83,16 +83,6 @@
    "active": true
   },
   {
-   "id": "lines-clear",
-   "label": "No routed tube intersects a body, a piece or another tube",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0 clash",
-   "target": "0 clash",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
@@ -211,19 +201,6 @@
    "active": true
   },
   {
-   "id": "east-boss-corbels",
-   "label": "Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies",
-   "kind": "gate",
-   "status": "pass",
-   "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
-   "target": "one clear candidate corbel per mounting hole, one bar per hole pair",
-   "detail": [
-    "`pcba` y 323.300, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 325.298..327.300 stand down, 2.00 of 8.00 mm; no wing",
-    "`relay-2` y 347.800, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 330.800..333.800, y 348.800..351.800"
-   ],
-   "active": true
-  },
-  {
    "id": "east-boss-fills",
    "label": "The reviewed electronics-bay fills are rectangular and clear of the installed pack",
    "kind": "gate",
@@ -261,62 +238,12 @@
    "active": true
   },
   {
-   "id": "port-lane-width",
-   "label": "The port lane carries a bore with a wall either side of it",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "9.8 mm of lane",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "flute-even",
-   "label": "The flute count is even",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the spun cap's grooves land on the shell's",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "forward-band-takes-a-bore",
    "label": "The forward band still passes a line",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
    "target": "6.8 >= 6.8 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "boss-clears-lane",
-   "label": "Every \u00b1Y attachment boss stands clear of the port lane",
-   "kind": "gate",
-   "status": "pass",
-   "value": "8/8 hold",
-   "target": "every \u00b1Y boss inboard of the lane's outer edge",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "boss-clears-lane-x",
-   "label": "Every \u00b1X attachment boss stands clear of both lanes in y",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2/2 hold",
-   "target": "every \u00b1X boss inboard of both bands",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "flute-reveal",
-   "label": "A band on the run either carries the field or is a reveal",
-   "kind": "gate",
-   "status": "pass",
-   "value": "6/6 hold",
-   "target": "fluted iff it stands 10 mm tall",
    "detail": [],
    "active": true
   },
@@ -351,36 +278,6 @@
    "active": true
   },
   {
-   "id": "deck-mount-room",
-   "label": "Every deck-mount column leaves the pour its gap in the cup",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "1.5 mm off everything standing in the cup",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "forward-band-takes-a-tube",
-   "label": "A tube on the forward band's centre clears both its faces",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "6.8 >= 6.35 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "entry-skew-ceiling",
-   "label": "The countersink stands inside the boss its own column carries",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "45.0\u00b0 at most",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "entry-passes-section",
    "label": "The countersink's mouth passes the leaning tube's whole section",
    "kind": "gate",
@@ -407,16 +304,6 @@
    "status": "pass",
    "value": "2/2 hold",
    "target": "each conduit on the station its anchor strikes",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "cap-conduit-room",
-   "label": "Every conduit column leaves the pour its gap in the cup",
-   "kind": "gate",
-   "status": "pass",
-   "value": "9/9 hold",
-   "target": "1.5 mm off everything else standing in the cup",
    "detail": [],
    "active": true
   },
@@ -461,16 +348,6 @@
    "active": true
   },
   {
-   "id": "cradle-vent",
-   "label": "Every plinth clears both vents",
-   "kind": "gate",
-   "status": "pass",
-   "value": "6/6 hold",
-   "target": "1 mm off either vent",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "anchor-room",
    "label": "Every chain anchor stands its room off everything else the face opens",
    "kind": "gate",
@@ -501,116 +378,6 @@
    "active": true
   },
   {
-   "id": "funnel-floor-grade",
-   "label": "The funnel ramp falls toward the offset outlet",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a continuous downhill floor to the offset outlet",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-boss-leaves-motor",
-   "label": "The case-derived seams leave the part a motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a boss ending before the part's 62.55 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-motor-clears-tower",
-   "label": "The case's tower bore is deep enough for the motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a bore reaching 62.55 mm or past it",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-notches-on-tube-casings",
-   "label": "The case's arch notches stand on the part's own tube casings",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the two stations on one plane",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "crossbar-positive",
-   "label": "The crossbar leaves Y-A and Y-B their own tube",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a crossbar of 0 or more",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "inner-limb-pitch",
-   "label": "The inner limbs stand a valve body apart",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "34.25 mm between the inner limbs",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "limb-pitch-floor",
-   "label": "The two lanes stand a valve body apart",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "LIMB_PITCH at or over 34.25 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pump-motor-room",
-   "label": "The pump's three bodies are the part, end to end",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "110.43 mm across head, boss and can",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "limb-pitch-ceiling",
-   "label": "The lanes step inboard of the barbs, never outboard",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "LIMB_PITCH at or under 59.75 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "spine-bend-radius",
-   "label": "The spine turn holds the corner this stock takes",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "SPINE_R at or over 14 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "spine-straight",
-   "label": "The two quarter-turns leave straight tube between them",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "SPINE_R at or under 30.35 mm, half the park separation",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "source-step-room",
    "label": "Both source runs step on two arcs alone",
    "kind": "gate",
@@ -621,42 +388,12 @@
    "active": true
   },
   {
-   "id": "plug-per-station",
-   "label": "Every station is one plug's bottom face and every plug is one station's",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "2 plugs",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "plug-web",
-   "label": "Every plug leaves a printable wall standing between its arches",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2/2 hold",
-   "target": "1 mm of web",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "fuse-clamp-donor",
    "label": "The clamp closes on features the compressor actually has",
    "kind": "gate",
    "status": "pass",
    "value": "6/6 hold",
    "target": "head inside the flank's face, leaves filling its gap and under its own box",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "fuse-clamp-lead",
-   "label": "The clamp lets the cutoff's lead go where a bend becomes legal",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "channel past the case \u2265 3, short lead left in the open \u2265 12",
    "detail": [],
    "active": true
   },
@@ -677,16 +414,6 @@
    "status": "pass",
    "value": "holds",
    "target": "one slot holding the whole crossing",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "co2-bore-meets-fall",
-   "label": "The CO2 bore is struck where its line falls down the lane",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the co2-in conduit on the port lane (-77.5)",
    "detail": [],
    "active": true
   },
@@ -721,26 +448,6 @@
    "active": true
   },
   {
-   "id": "reservoir-float-clears-wall",
-   "label": "The Aero float keeps running clearance at full radial guide motion",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "at least 1 mm nominal geometric clearance",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "reservoir-rod-boss-inboard",
-   "label": "The rod's anchor boss stands clear of the cavity wall",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a boss inboard of 126.25 mm",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "stub-tails-billed",
    "label": "Each coil tail's in-shell run is the one its stub allowance bills",
    "kind": "gate",
@@ -757,16 +464,6 @@
    "status": "pass",
    "value": "holds",
    "target": "the complete circular tube opening inside the release rim",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "port-field-web",
-   "label": "Two neighbouring pockets leave standing wall between them",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a web of 3 mm or more, one rim's own width",
    "detail": [],
    "active": true
   },
@@ -791,62 +488,12 @@
    "active": true
   },
   {
-   "id": "c14-surround",
-   "label": "The C14 flange pockets into one block at its ceiling-clear mount",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "3 mm in XZ, a 5 mm pocket the rim seats at the floor of, a 9 mm entry relief, and one ceiling-bedded rectangular block",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "co2-relief",
    "label": "The CO2 station's wall relief stands on the neoFit's own column and storey",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
    "target": "x -3.35, z 335.96",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "keystone-receptacle",
-   "label": "The wall carries the jack's lip and stands the rest of its pocket",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a section between `LIP_D` 3 and `DEPTH` 9.7 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "fluid-2-pump-clearance",
-   "label": "The V-A inlet tube clears the water pump",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "at least 1 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "fluid-14-valve-v-a-clearance",
-   "label": "The reservoir-A fill tube clears valve-v-a",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "at least 1 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "fluid-14-vk-solenoid-clearance",
-   "label": "The reservoir-A fill tube clears vk-solenoid",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "at least 1 mm",
    "detail": [],
    "active": true
   },
@@ -902,16 +549,6 @@
    "status": "pass",
    "value": "seam at 160.00, band 35.00..299.20",
    "target": "inside the H2C's 320 mm Z",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-seam-two-pieces",
-   "label": "A column splits into two pieces the H2C can print",
-   "kind": "gate",
-   "status": "pass",
-   "value": "361.00 mm column, band 35.00..299.20",
-   "target": "a band inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
   },
@@ -986,32 +623,12 @@
    "active": true
   },
   {
-   "id": "box-depth",
-   "label": "The pack stands inside the appliance's stated depth",
-   "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches y 468.30 at foam-assembly, +Y wall at 468.30",
-   "target": "ahead of `rear_plane_y` 468.3",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "box-height",
    "label": "The pack stands under the appliance's stated ceiling",
    "kind": "gate",
    "status": "pass",
    "value": "pack reaches z 351.00, ceiling at 352.00",
    "target": "under a 361 mm appliance",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pump-cartridge-flush",
-   "label": "The pump cartridge is flush with the fixed front face",
-   "kind": "gate",
-   "status": "pass",
-   "value": "cartridge y 5.000, fixed face y 5.000",
-   "target": "the same plane",
    "detail": [],
    "active": true
   },
@@ -1032,26 +649,6 @@
    "status": "pass",
    "value": "262 grooves round 1342.00 mm, 5.1221 mm centres",
    "target": "within 0.15 mm of the coupon's 5",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "flute-hides-seam",
-   "label": "The Y seam runs down a groove, not across a land",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0.2660 mm off a groove centre, in a groove 4 mm wide",
-   "target": "within 0.5 mm of a centre",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "pump-bay-cavity-throat",
-   "label": "The pump bay throat reaches both cavity side planes",
-   "kind": "gate",
-   "status": "pass",
-   "value": "bay x -104.500..104.500, cavity x -104.500..104.500",
-   "target": "the same two planes",
    "detail": [],
    "active": true
   },
@@ -1086,52 +683,12 @@
    "active": true
   },
   {
-   "id": "pump-bay-vertical-datums",
-   "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
-   "kind": "gate",
-   "status": "pass",
-   "value": "head floor air 0.33 mm, motor-to-lintel air 7.20 mm",
-   "target": "0.33 mm head-to-floor and 7.20 mm motor-to-lintel",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "funnel-collar-frame",
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
    "value": "collar x -82.50..82.50, y 105.71..223.39",
    "target": "frame x -89.50..89.50, y 101.00..465.30",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-brim-overhang",
-   "label": "The funnel's brim overhang fits its top-wall margin",
-   "kind": "gate",
-   "status": "pass",
-   "value": "overhang 7.00 mm",
-   "target": "within brim_margin 7.00 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-brim-margin",
-   "label": "The funnel collar keeps a brim margin at each free edge",
-   "kind": "gate",
-   "status": "pass",
-   "value": "\u2212X 7.00, +X 7.00, +Y 241.91 mm",
-   "target": "each at least brim_margin 7.00 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-brim-lands",
-   "label": "The funnel's brim lands on top wall ahead of the throat",
-   "kind": "gate",
-   "status": "pass",
-   "value": "brim pocket front at y 98.46, facet arris at 95.34",
-   "target": "a 3 mm landing, so at or aft of 98.34",
    "detail": [],
    "active": true
   },

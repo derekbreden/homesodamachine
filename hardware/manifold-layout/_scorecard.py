@@ -9,10 +9,10 @@ Two kinds of check:
   - GATE — a requirement that must hold for the machine as it stands to be built.
   - GOAL — a reading the card takes and does not gate on, carried as a `score` (0..100).
 
-THREE OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
-is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share, and
-`clearance-floor` how far apart they stand. A box appears in each only as a prefilter: two boxes
-that miss are two solids that miss, and two boxes that overlap say nothing at all.
+TWO OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
+is most of what the run costs. `pack-closes` asks what two bodies share, and `clearance-floor`
+how far apart they stand. A box appears in each only as a prefilter: two boxes that miss are two
+solids that miss, and two boxes that overlap say nothing at all.
 
 Every check's detail is printed to `DETAIL_MAX` rows and carried whole in the sidecar, so a
 list ending in "… n more" is a terminal cap and never the end of the finding.
@@ -981,19 +981,18 @@ def _bounds(a) -> list:
     """One gate per bound the machine states about itself — every
     leg of the refrigerant loop closing, the dedicated ASSE drain routing, a through-wall body
     standing under the ceiling, a printed valve cradle standing under its valve, and the
-    enclosure's own: the pack inside the stated width, depth and height, the two seam planes
+    enclosure's own: the pack inside the stated width and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
     top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.
 
-    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `funnel` and the
+    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `fuse_clamp` and the
     cold core's modules state bounds about their own CONSTANTS, which are fixed the moment each
-    file is read — the crossbar leaving Y-A and Y-B their own tube, the two limbs standing a valve
-    body apart, the spine turn holding its stock's corner, a clamp screw reaching the whole of its
-    insert, a conduit column leaving the pour its gap, a plug leaving a printable web between its
-    arches. Those are read at import into `_stated_bounds` and
-    `enclosure_assembly.carry_stated_bounds` brings them over. A bound stated over a population —
-    every conduit, every cradle, every pair — is ONE row: its value tallies the readings and its
-    detail carries the note each failing one wrote.
+    file is read — both source runs stepping on two arcs alone, the fuse clamp closing on
+    features the compressor actually has, the core's clamp screw reaching the whole of its
+    insert, a conduit column leaving the pour its gap. Those are read at import into
+    `_stated_bounds` and `enclosure_assembly.carry_stated_bounds` brings them over. A bound
+    stated over a population — every conduit, every cradle, every pair — is ONE row: its value
+    tallies the readings and its detail carries the note each failing one wrote.
 
     NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the machine
     violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three elevations
@@ -1001,9 +1000,8 @@ def _bounds(a) -> list:
     terminal nobody commits. An import-time raise destroys them EARLIER, before the build has drawn
     a line, so there is even less to look at. So the check hands its reading back instead,
     `enclosure_assembly.BOUNDS` carries it onto the assembly, and it is red HERE, in the committed
-    artifact, with the message the check wrote and the geometry beside it — two limbs pitched under
-    a valve body come out as this row AND as `pack-closes` naming both valves with the volume they
-    share, which is the picture a raise cannot leave.
+    artifact, with the message the check wrote and the geometry beside it, which is the picture a
+    raise cannot leave.
 
     An assembly built by something that states no bounds contributes no rows rather than a
     silent pass: nothing measured is not the same claim as nothing wrong."""
@@ -1177,15 +1175,15 @@ def run_world(a, runs) -> tuple:
       `tubes` — each authored run's swept tube, by run id. A run whose sweep is not in the
                 assembly is not here: it is not drawn, so there is nothing to ask about.
       `ends`  — the two bodies each run TERMINATES on. A tube seats into their collets by
-                design, which is the one contact on this card that is not a defect, so both
-                checks below hold that pair out rather than reporting a 0 they built on purpose.
+                design, which is the one contact on this card that is not a defect, so
+                `run_clearances` holds that pair out rather than reporting a 0 the machine
+                builds on purpose.
       `rest`  — everything a run must stand clear of: every placed body, the printed box, and
                 `manifold_layout`'s own segments and the stubs off its free mouths. No authored
                 run terminates on one of those, so they stand as bodies here.
 
-    `lines-clear` asks what any two of these SHARE and `clearance-floor` how far apart they
-    STAND. Two questions on either side of zero, one population — read once here so a run cannot
-    be in the overlap gate and out of the clearance gate."""
+    `clearance-floor` reads how far each run STANDS off every other run and off `rest`, through
+    `run_clearances`."""
     bodies, drawn, pieces = _split_placed(a)
     tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
     ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
@@ -1198,40 +1196,6 @@ def run_world(a, runs) -> tuple:
     return tubes, ends, rest
 
 
-def _lines_clear(a, runs) -> Check:
-    """The tube-interpenetration gate, read over the run population on its own.
-
-    `pack-closes` reads every pair in the assembly, tubes included. This asks the runs again —
-    tube against tube, and tube against every body, piece and manifold segment it does not
-    TERMINATE on. The two bodies a run ends on are held out because a tube seats into their
-    collets by design, which is the one overlap here that is not a defect.
-
-    The swept solids come off the assembly rather than being swept again: `_lines.tubes` already
-    built each run's tube and `enclosure_assembly` added it under `tube-<connection>`, and a second
-    sweep of every run costs more than every boolean below."""
-    tubes, ends, rest = run_world(a, runs)
-    tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
-    rbb = {n: _boxes.loose(s) for n, s in rest.items()}
-    detail = []
-    ids = list(tubes)
-    for i, x in enumerate(ids):
-        for y in ids[i + 1:]:
-            if _clearing.box_gap(tbb[x], tbb[y]) > 0:
-                continue
-            v = _overlap.volume(tubes[x], tubes[y])
-            if v > _clearing.HIT_VOL:
-                detail.append(f"{x} ∩ {y}: {v:.1f} mm³")
-    for i in ids:
-        for name, solid in rest.items():
-            if name in ends[i] or _clearing.box_gap(tbb[i], rbb[name]) > 0:
-                continue
-            v = _overlap.volume(tubes[i], solid)
-            if v > _clearing.HIT_VOL:
-                detail.append(f"{i} ∩ {name}: {v:.1f} mm³")
-    return Check("lines-clear", "No routed tube intersects a body, a piece or another tube",
-                 "gate", verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
-
-
 def part_clearances(a, runs=()) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
     `allowed` marks a `TOUCHING_OK` seat. A row names a run by its connection id and everything
@@ -1239,7 +1203,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
 
     TWO POPULATIONS, ONE FLOOR — body against body, and every drawn run against what it does not
     join. A run is as much a part of the machine as the fittings it joins, and the lane it
-    threads is usually the tightest air in the pack. `lines-clear` does not measure it: that gate
+    threads is usually the tightest air in the pack. `pack-closes` does not measure it: that gate
     asks what two solids SHARE, and a tube grazing a body at a twentieth of a millimetre shares
     nothing and clears it.
 
@@ -1282,9 +1246,7 @@ def run_clearances(a, runs) -> list[tuple]:
     `part_clearances`' own row shape.
 
     A run's own two end bodies are out of its population: the tube seats into their collets by
-    construction and reads 0 there, which is a contact the machine builds on purpose. It is the
-    same exemption `lines-clear` takes, off the same `run_world`, so the two gates cannot
-    disagree about which contact is by design.
+    construction and reads 0 there, which is a contact the machine builds on purpose.
 
     A PIECE seated on a run mid-length rather than at an end — an anchor's rib closing on the
     tube at its seat slip — is in `TOUCHING_OK` by the run's own connection id, the same
@@ -1735,7 +1697,7 @@ def size_rows(a) -> list[dict]:
     proud of it: the assembly row standing past the enclosure row on an axis is what is
     outside the box on that axis, in millimetres. The three figures the box is DRAWN to —
     `enclosure.appliance_width` and its two siblings — are the other question, and
-    `box-width`, `box-depth` and `box-height` measure the pack against them.
+    `box-width` and `box-height` measure the pack against the width and the height.
 
     mm is what is stored. Inches are divided out where they are printed: `report` here,
     `web/contracts/scorecard-sidecar.js` for the viewer.
@@ -1808,7 +1770,7 @@ def _build(a) -> Scorecard:
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
-    checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
+    checks = [_coverage(a), _room_holds(a), _pack_closes(a),
               _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),

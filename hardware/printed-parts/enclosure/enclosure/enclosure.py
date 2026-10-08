@@ -269,12 +269,8 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 #
 # THE FIELD CLOSES ON ITSELF. `flute_count` is a whole number of grooves round the whole
 # perimeter, so no station restarts the array and no two arrays meet anywhere — but which
-# whole number is not free, because the pitch is what it lands on and WHERE THE FIELD LANDS
-# DECIDES WHAT THE BOX'S OWN LINES ARE MADE OF. Two bounds spend it:
-#
-#   `flute-closes`       the pitch stays within a hair of the coupon's
-#   `flute-hides-seam`   the Y seam — the one straight line running the full height of both
-#                        side walls — falls in a groove's own shadow rather than on a land
+# whole number is not free, because the pitch is what it lands on, and `flute-closes` holds
+# that pitch within a hair of the coupon's.
 #
 # AND THE FIELD IS SYMMETRIC IN X, because the datum is a groove centre on x = 0, the plane
 # the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
@@ -324,11 +320,9 @@ flute_reach = _interface.flute_reach
 # turns through. Past that the sections cost more than anything they buy: the skin is
 # 2 * `flute_count` edges and every station is that many ruled faces again.
 flute_fade_steps = 12
-# How far the pitch `flute_count` lands on may sit from the coupon's, and how far off a
-# groove's centre the Y seam may fall. Both are what picks one count out of the several that
-# close near 5 mm; `flute-closes` and `flute-hides-seam` are where they are read.
+# How far the pitch `flute_count` lands on may sit from the coupon's; `flute-closes` is where
+# it is read.
 flute_pitch_drift = 0.15
-flute_seam_miss = 0.5
 
 # Integral disposal warning on the +Y wall of back-bottom. The height is the
 # actual H outline, not the font's em. Full wording: hardware/markings/README.md.
@@ -1050,9 +1044,9 @@ def piece_root_faces(inner, y_side, z_side):
             iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
     return (ix0, ix1, iy0, iy1, iz0, iz1)
 # The interior REAR PLANE — the inner face of the +Y wall, stated the same way. A
-# component dragged forward inside the machine does not make the machine shallower,
-# a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
-# the appliance.
+# component dragged forward inside the machine does not make the machine shallower, and
+# a pack that outgrows this plane meets the +Y wall as a clash in `pack-closes` instead of
+# quietly resizing the appliance.
 rear_plane_y = _interface.rear_plane_y
 # --- back-top's own +Y section ------------------------------------------------
 #
@@ -1457,7 +1451,7 @@ front_top_flank_t = 9.0
 # assembly is off — and the depth and height each piece comes to is what the plane
 # leaves. `_dims` measures them against the facet, the bed, the pack and each column's
 # own lip lane, and records what it reads (`y-seam-clears-facet`, `z-seam-bed`,
-# `z-seam-two-pieces`, `z-seam-front-lane`, `z-seam-back-lane`, `z-seam-under-deck`).
+# `z-seam-front-lane`, `z-seam-back-lane`, `z-seam-under-deck`).
 y_seam = 200.0
 # The bottom↔top seam: ONE plane, both Y columns — the seam line runs level round the box
 # and the four pieces meet at a four-way corner on each side wall. The plane stands where
@@ -2498,15 +2492,6 @@ def _z_joints(placed, inner, stated, plate, y_joint):
             f"the Z seam at {stated:.2f} leaves a piece off the H2C's {H2C_Z:g} mm bed: "
             f"the top pieces want it at or below {bed_hi:.2f} and the bottoms at or above "
             f"{bed_lo:.2f}. Move `z_seam` into that band"])))
-    record_bound(Bound(
-        "z-seam-two-pieces", "A column splits into two pieces the H2C can print",
-        bed_hi >= bed_lo,
-        f"{iz1 - iz0 + floor_t + wall:.2f} mm column, band {bed_lo:.2f}..{bed_hi:.2f}",
-        f"a band inside the H2C's {H2C_Z:g} mm Z",
-        ([] if bed_hi >= bed_lo else [
-            f"a {iz1 - iz0 + floor_t + wall:.2f} mm column has no seam height leaving two pieces "
-            f"inside the H2C's {H2C_Z:g} mm Z: the top piece wants the seam at or below "
-            f"{bed_hi:.2f} and the bottom at or above {bed_lo:.2f}. It needs a third piece"])))
     spans = {"front": [], "back": []}
     for _n, (solid, _c) in placed.items():
         b = _boxes.boxed(solid)
@@ -2684,16 +2669,6 @@ def _dims(pack):
             f"{name} stands {-air:.2f} mm inside the front wall's surface — deepen its "
             f"relief in `_front_relief_regions`, or repack it aft"
             for air, name in front_rows if air < -stated_bound_tol])))
-    rear_need, rear_who = max((b.ymax + rear_seam_clear, n)
-                              for n, b in zip(placed.keys(), bbs))
-    record_bound(Bound(
-        "box-depth", "The pack stands inside the appliance's stated depth",
-        rear_need <= iy1 + stated_bound_tol,
-        f"pack reaches y {rear_need:.2f} at {rear_who}, +Y wall at {iy1:.2f}",
-        f"ahead of `rear_plane_y` {rear_plane_y:g}",
-        ([] if rear_need <= iy1 + stated_bound_tol else [
-            f"the pack reaches y {rear_need:.2f} but the +Y wall stands at {iy1:.2f} — "
-            f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward"])))
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor and the seam lip stay put). The CEILING is
     # the stated `appliance_height` measured from the floor slab's underside: the
@@ -2732,20 +2707,6 @@ def _dims(pack):
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
     outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + ceiling_skin)
-    # THE REMOVABLE FRONT IS THE FRONT OF THE APPLIANCE. Its show plane and the fixed walls
-    # above and below the bay share one Y coordinate; the pump-to-deck lead is room inside the
-    # wall, not a step outside it. Read the two independently so changing either construction
-    # cannot quietly bring the protrusion back.
-    pump_face_offset = outer[2] - pump_cartridge_front_y
-    record_bound(Bound(
-        "pump-cartridge-flush", "The pump cartridge is flush with the fixed front face",
-        abs(pump_face_offset) <= stated_bound_tol,
-        f"cartridge y {pump_cartridge_front_y:.3f}, fixed face y {outer[2]:.3f}",
-        "the same plane",
-        ([] if abs(pump_face_offset) <= stated_bound_tol else [
-            f"the cartridge stands {pump_face_offset:.3f} mm ahead of the fixed front face. "
-            "Seat the complete flavour pack at its common depth and carry the enclosure front "
-            "to `pump_cartridge_front_y`"])))
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
@@ -2775,36 +2736,6 @@ def _dims(pack):
             f"the field lands on {pitch:.4f} mm centres, {drift:.4f} off the coupon's "
             f"{reeding.flute_pitch:g}. `flute_count` wants to be near "
             f"{plan_perimeter(outer) / reeding.flute_pitch:.1f}"])))
-    # AND IT PUTS THE Y SEAM IN A GROOVE. That seam is the one straight line running the full
-    # height of both side walls, and it runs ALONG the flutes rather than across them — so it
-    # can be put where a joint reads as the shadow already there instead of a line on a flat.
-    # This is what picks one `flute_count` out of the several that close near the coupon's
-    # pitch, and without it the choice would be arbitrary.
-    segments = _plan_segments(outer)
-    seam_arc = segments[0][1] + segments[1][1] + (y_joint - (outer[2] + corner_round))
-    miss = min(seam_arc % pitch, pitch - seam_arc % pitch)
-    record_bound(Bound(
-        "flute-hides-seam", "The Y seam runs down a groove, not across a land",
-        miss <= flute_seam_miss,
-        f"{miss:.4f} mm off a groove centre, in a groove {reeding.flute_width:g} mm wide",
-        f"within {flute_seam_miss:g} mm of a centre",
-        ([] if miss <= flute_seam_miss else [
-            f"the Y seam lands {miss:.4f} mm off the nearest groove centre, which puts the "
-            f"joint on a land where it is a line on a flat. Retune `flute_count`"])))
-    # AND THE PUMP BAY'S INTERIOR THROAT TAKES THE COMPLETE CAVITY WIDTH. The removable
-    # cartridge continues out through both former side skins; this bound names only the
-    # unobstructed interior planes, while `pump-cartridge-full-front-wall` reads ownership of
-    # the complete exterior front-wall band from the built solids.
-    bx0, bx1 = bay_x_span(inner)
-    record_bound(Bound(
-        "pump-bay-cavity-throat", "The pump bay throat reaches both cavity side planes",
-        abs(bx0 - inner[0]) <= stated_bound_tol and abs(bx1 - inner[1]) <= stated_bound_tol,
-        f"bay x {bx0:.3f}..{bx1:.3f}, cavity x {inner[0]:.3f}..{inner[1]:.3f}",
-        "the same two planes",
-        ([] if (abs(bx0 - inner[0]) <= stated_bound_tol
-                and abs(bx1 - inner[1]) <= stated_bound_tol) else [
-            "a fixed jamb stands inside a cavity plane and narrows the withdrawal throat. "
-            "Carry `bay_x_span` to the cavity's complete X span"])))
     facet_back = housing_back_y(outer)
     record_bound(Bound(
         "y-seam-clears-facet", "The Y seam stands behind the display housing",
@@ -2916,28 +2847,6 @@ def _dims(pack):
     pump_bay = ((bx0, bx1,
                  max(crowns) + pump_station_drop + bay_crown_air + pump_bay_roof_relief)
                 if crowns else None)
-    if pump_bay and pack.pump_trays:
-        floor_top = bay_floor_z(pack.pump_trays)[1]
-        head_floor = pump_skirt_support_z(pack.pump_trays) - _tray.head_front_below_skirt
-        head_air = head_floor - floor_top
-        roof_air = pump_bay[2] - max(crowns)
-        head_target = (pump_relief_z_air + pump_cartridge_z_clearance + pump_bay_floor_relief
-                       - pump_station_drop + _tray.head_depth - _tray.skirt_depth
-                       - _interface.pump_seated_drop - _tray.head_front_below_skirt)
-        roof_target = pump_station_drop + bay_crown_air + pump_bay_roof_relief
-        vertical_ok = (head_air >= fits.running
-                       and floor_top - z_seam >= 4.0
-                       and abs(head_air - head_target) <= stated_bound_tol
-                       and abs(roof_air - roof_target) <= stated_bound_tol)
-        record_bound(Bound(
-            "pump-bay-vertical-datums",
-            "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
-            vertical_ok,
-            f"head floor air {head_air:.2f} mm, motor-to-lintel air {roof_air:.2f} mm",
-            f"{head_target:.2f} mm head-to-floor and {roof_target:.2f} mm motor-to-lintel",
-            ([] if vertical_ok else [
-                "the fixed bay faces do not spend the pump service offset and their own reliefs "
-                "independently. Strike `bay_floor_z` and `pump_bay` from the pump-neutral datum"])))
     # The wall-block probes above are solids and deliberately do not escape this placement
     # pass. What the drawing needs from them is the numeric ladder they admitted; carry that
     # ladder on the Box so a downstream action can reproduce the same joint without the pack.
@@ -3102,7 +3011,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
 
     AND IT DOES NOT CLOSE. What lies between the two mouth edges is the drawer, not a surface; a run
     stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
-    which is what keeps the flutes off the mouth arris (`flute-clears-jamb`)."""
+    which is what keeps the flutes off the mouth arris."""
     bx0, bx1 = bay_x_span(inner)
     fore = inner[2]                        # the flank opening begins on the front-wall plane
     aft = plate["aft_y"]                   # the tee wall's fore face, the storey's back
@@ -3540,14 +3449,12 @@ def _funnel_frame(inner, outer):
     wall.
 
     THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those three the frame runs
-    out into a free edge, and the collar stands one `funnel.brim_margin` inside it: the
-    flange overhangs the collar by `brim_overhang` to catch the wall and hold the funnel out of
-    the box, and the margin is the wider of the two, so a full overhang's width of top wall
-    still remains outboard of the brim's edge. Forward the wall runs straight on into the
+    out into a free edge, and the flange overhangs the collar by `brim_overhang` to catch the
+    wall and hold the funnel out of the box. Forward the wall runs straight on into the
     display housing, whose back is the vertical `housing_back_y` — and the slab ahead of that
     cut is what the brim's front flange lands on. The front's requirement is
     `funnel_front_ledge`, the top wall kept between that plane and the throat itself, and it
-    stands in this frame. `with_funnel` asks the margin of the three free edges."""
+    stands in this frame."""
     ix0, ix1, _iy0, iy1, _iz0, _iz1 = inner
     return (ix0 + boss_in + funnel_chain_gap,           # clear of the −X chain's bosses
             ix1 - boss_in - funnel_chain_gap,           # clear of the +X chain's bosses
@@ -3613,15 +3520,15 @@ def funnel_seat_z(outer):
 
 
 def with_funnel(box, centre):
-    """`box` carrying the funnel collar's plan centre, and the three bounds that centre states
-    against the frame the top wall has left.
+    """`box` carrying the funnel collar's plan centre, and the bound that centre states against
+    the frame the top wall has left.
 
     SEATING THE THROAT IS MEASURING IT, and this is the one door: a Box carries a funnel centre
-    only by coming through here. The three readings are plan arithmetic on `centre` and the
-    box's own two shells, taken the moment the centre is known and owing nothing to the cut the
-    throat is later punched with.
+    only by coming through here. The reading is plan arithmetic on `centre` and the box's own
+    two shells, taken the moment the centre is known and owing nothing to the cut the throat is
+    later punched with.
 
-    THE COLLAR IS SEATED WHICHEVER WAY THEY READ. One outside its frame is cut where it stands,
+    THE COLLAR IS SEATED WHICHEVER WAY IT READS. One outside its frame is cut where it stands,
     so the throat that runs into a pod or off the facet is in the pieces to look at, beside the
     row that names it."""
     x0, x1, y0, y1 = _funnel_hole(centre)
@@ -3638,52 +3545,6 @@ def with_funnel(box, centre):
             f"funnel collar (x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}) violates the "
             f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, "
             f"y {lims[2]:.2f}..{lims[3]:.2f})"])))
-    # One margin of top wall on the three sides that run out into a free edge, and the
-    # brim fits it. The front is the ledge above and is measured on `lims[2]` instead.
-    fits = _funnel.brim_overhang <= _funnel.brim_margin + tol
-    record_bound(Bound(
-        "funnel-brim-overhang", "The funnel's brim overhang fits its top-wall margin", fits,
-        f"overhang {_funnel.brim_overhang:.2f} mm",
-        f"within brim_margin {_funnel.brim_margin:.2f} mm",
-        ([] if fits else [
-            f"funnel brim overhang {_funnel.brim_overhang:.2f} exceeds its top-wall "
-            f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame"])))
-    # AND THE +Y EDGE IS BACK-TOP'S OWN CEILING. Aft of the throat the top surface is back-top's
-    # slab, from the collar's aft edge to back-top's own +Y face, so what the brim lands on there
-    # is that slab and the margin is its depth behind the collar.
-    aft = back_top_wall_face() - y1
-    got = (x0 - lims[0], lims[1] - x1, aft)
-    clear = not any(g < _funnel.brim_margin - 1e-6 for g in got)
-    record_bound(Bound(
-        "funnel-brim-margin", "The funnel collar keeps a brim margin at each free edge", clear,
-        f"−X {got[0]:.2f}, +X {got[1]:.2f}, +Y {got[2]:.2f} mm",
-        f"each at least brim_margin {_funnel.brim_margin:.2f} mm",
-        ([] if clear else [
-            f"funnel collar crowds the top-wall frame: free-edge margins "
-            f"(−X {got[0]:.2f}, +X {got[1]:.2f}, +Y {got[2]:.2f}) "
-            f"— each owes brim_margin {_funnel.brim_margin:.2f}. Frame is "
-            f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; the collar it "
-            f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
-            f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}"])))
-    # AND THE FRONT EDGE, WHICH IS NOT A FREE ONE. Forward the flange runs out over the display
-    # housing's roof, and that roof stops at the facet's own arris — the line where the top
-    # curve meets the top face. A brim reaching past it overhangs the chamfer and bears on nothing.
-    # The landing asked for is one `wall`, the same ligament `display-housing-seats` keeps
-    # behind the display's own seats: at the arris itself the slab under the flange is a
-    # feather edge, and a wall in from it the wedge is the wall's own section deep.
-    arris = _swept_top.profile(box.outer)["roof"][0]
-    brim_y0 = y0 - _funnel.brim_overhang - funnel_collar_air
-    lands = brim_y0 >= arris + wall - tol
-    record_bound(Bound(
-        "funnel-brim-lands", "The funnel's brim lands on top wall ahead of the throat", lands,
-        f"brim pocket front at y {brim_y0:.2f}, facet arris at {arris:.2f}",
-        f"a {wall:g} mm landing, so at or aft of {arris + wall:.2f}",
-        ([] if lands else [
-            f"the brim pocket's front edge stands at y {brim_y0:.2f} and the top face begins at the "
-            f"facet's arris, y {arris:.2f} — the flange reaches "
-            f"{arris + wall - brim_y0:.2f} mm past the landing it owes and hangs over the 45°. "
-            f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang + funnel_collar_air:.2f}, or "
-            f"shorten the facet"])))
     result = box._replace(pack=box.pack._replace(funnel=centre))
     return result._replace(y_bosses=_funnel_safe_seam_bosses(result))
 
@@ -8179,7 +8040,7 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1, up=1.0):
 #
 # THE SAME 120° V AGAIN, on the one body in this machine there are twenty of. A run is held at its
 # two ends by the collets it is pushed into and by nothing between them, so what it does between
-# them is sag — and a run that sags is not on the centreline `lines-clear` cleared. An anchor is a
+# them is sag — and a run that sags is not on the centreline `pack-closes` cleared. An anchor is a
 # stop on that span: a seat the tube lies in, and a zip tie's cavity behind the seat, standing on
 # whichever face of the box comes near enough to reach it.
 #

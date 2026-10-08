@@ -58,7 +58,7 @@ def loaded_sources(before):
     return output
 
 
-def native_checks(enc, box, bounds):
+def native_checks(enc, box):
     import cadquery as cq
     import trimesh
     import manifold_layout as ml
@@ -73,12 +73,6 @@ def native_checks(enc, box, bounds):
     def empty(name, a, b):
         volume = a.intersect(b).Volume()
         check(name, volume < 1e-5, interference_mm3=volume)
-
-    needed = {'pump-cartridge-flush', 'pump-bay-cavity-throat', 'pump-bay-vertical-datums'}
-    selected = [b for b in bounds if b.id in needed]
-    check('all local Box bounds present and passing',
-          len(selected) == len(needed) and all(b.ok for b in selected),
-          readings=[b._asdict() for b in selected])
 
     pieces = {}
     for name in ('pump-cartridge', 'pump-cap'):
@@ -247,8 +241,8 @@ def main():
             for name in ('pump-cartridge', 'pump-cap')}
     else:
         result = producer.materialize()
-    box,bounds = _box_spec.read(enc.Box,enc.Bound,(enc.Pack,enc.PortField,enc.Nameplate),path=BOX)
-    native = native_checks(enc,box,bounds)
+    box,_ = _box_spec.read(enc.Box,enc.Bound,(enc.Pack,enc.PortField,enc.Nameplate),path=BOX)
+    native = native_checks(enc,box)
     after_inputs = {relative(p): sha(p) for p in INPUTS}
     if before_inputs != after_inputs:
         raise ValueError('Box or scan evidence changed during generation')

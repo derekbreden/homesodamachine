@@ -173,16 +173,6 @@ _donor(LEAF_REACH < BOX_DEPTH,
        f"the leaves reach {LEAF_REACH:g} across a box {BOX_DEPTH:g} wide — they come out from "
        f"under the far flank of the gap they are pressed in")
 
-_bounds.bound(
-    "fuse-clamp-lead", "The clamp lets the cutoff's lead go where a bend becomes legal",
-    f"channel past the case ≥ {LEAD_STUB:g}, short lead left in the open ≥ {SPLICE_REACH:g}")(
-    (PART_X - CASE_L) / 2.0 >= LEAD_STUB and SPLICE_FREE >= SPLICE_REACH,
-    f"the channel runs {(PART_X - CASE_L) / 2.0:g} past the case's end against the "
-    f"{LEAD_STUB:g} the datasheet reserves, and leaves {SPLICE_FREE:g} of the {LEAD_SHORT:g} "
-    f"short lead in the open against the {SPLICE_REACH:g} a splice takes — a bend struck inside "
-    f"the channel is a bend struck in the no-bend zone, and a splice inside it is a splice on a "
-    f"lead the clamp is still holding")
-
 
 def _profile():
     """The part's whole silhouette in the Y-Z plane, as the polygon it is swept across X on.

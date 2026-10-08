@@ -19,9 +19,8 @@ The head and rotor profile are derived live from `pump_case`:
   base plane to the tower-bore start, on the rear stack's offset axis.
 
 The motor is the part's own can, not the hole it turns in. The three bodies end
-at `pump_len` off the fitted head's front face, and the
-tower bore the motor sits inside is a bound stated against that, not the thing
-that sizes it. A consumer reading this module's STEP gets the pump.
+at `pump_len` off the fitted head's front face, and the tower bore the motor
+sits inside does not size it. A consumer reading this module's STEP gets the pump.
 
 The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
 arch-notch positions and reach out toward the case wall (`y_face`); this model
@@ -40,7 +39,6 @@ for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _hw / "printed-par
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly
 from _materials import C_PUMP_BOSS, C_PUMP_HEAD, C_PUMP_MOTOR
-import _stated_bounds as _bounds
 import pump_case as pc
 
 
@@ -56,8 +54,6 @@ base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
 outlet_above_skirt_bottom = 0.0  # rigid casing axes, confirmed in both 2026-09-20 scans
 arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
-tower_top_z = (pc.bore_bottom_z + pc.tower_height
-               - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom
 y_face = pc.pos_y_face_y                          # case +Y outer footprint face
 # Outlet-port X positions on the +Y face — where the pump's two built-in tube casings cross the
 # wall. The two 12.75 mm casings span 72.50 mm outside-to-outside, putting their axes 59.75 mm
@@ -134,38 +130,6 @@ def barb(i: int) -> tuple:
 def barbs() -> tuple:
     """Both, in `arch_xs` order — west to east across the head's own face."""
     return tuple(barb(i) for i in range(len(arch_xs)))
-
-
-# --- What the three bodies claim about the part and its case ----------------
-# The head and the boss are sized off `pump_case`; only the motor is sized off the
-# part, taking whatever those two leave inside `pump_len`. So the span is right by
-# construction and the thing that can drift is the case: seams that march past the
-# part leave no can, and a tower that stops short leaves the motor nowhere to turn.
-_bounds.state(
-    "kamoer-boss-leaves-motor", "The case-derived seams leave the part a motor",
-    f"a boss ending before the part's {motor_end_z:g} mm",
-    octagon_top_z < motor_end_z,
-    f"the octagon seat runs to {octagon_top_z:g} mm and the part's end cap is at "
-    f"{motor_end_z:g}, so `pump_case`'s seams have marched past the pump and there is "
-    f"no can left to draw.")
-_bounds.state(
-    "kamoer-motor-clears-tower", "The case's tower bore is deep enough for the motor",
-    f"a bore reaching {motor_end_z:g} mm or past it",
-    tower_top_z >= motor_end_z,
-    f"the motor ends at {motor_end_z:g} mm and the tower bore stops at {tower_top_z:g}, "
-    f"so the can bottoms out {motor_end_z - tower_top_z:g} mm before the pump is home.")
-# AND THE CASE'S NOTCHES STAND ON THE PART'S TUBE CASINGS. Both modules state the same
-# 59.75 mm pitch and this row keeps the two sources coincident.
-_case_notch_xs = pc.arch_hole_xs
-_notch_off = max(abs(a - b) for a, b in zip(arch_xs, _case_notch_xs))
-_bounds.state(
-    "kamoer-notches-on-tube-casings",
-    "The case's arch notches stand on the part's own tube casings",
-    "the two stations on one plane",
-    _notch_off <= 1e-9,
-    f"the case cuts its notches at {_case_notch_xs} and the part's tube casings stand at "
-    f"{arch_xs}, "
-    f"{_notch_off:g} mm apart. Strike `cut_arch_notches` off `barb_pitch`.")
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):

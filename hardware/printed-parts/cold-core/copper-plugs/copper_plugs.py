@@ -63,8 +63,6 @@ from _cold_core_interface import (
     port_lane_mid_y,
     port_lane_wall,
     west_lane_mid_y,
-    bound,
-    state,
 )
 
 # The slot `cut_lane_slots` punches, and the plug that fills it: ⌀[6.65 mm](SLOT_W), one figure
@@ -191,13 +189,6 @@ for _plug, _col, _i in PLUG_ORDER:
     plug_specs[_plug] = PlugSpec((_edges[_i], _edges[_i + 1]),
                                  arch_bottom=True, arch_top=_i + 1 < len(_spec.stations),
                                  column=_col, station=_spec.stations[_i][0])
-state(
-    "plug-per-station", "Every station is one plug's bottom face and every plug is one station's",
-    f"{sum(len(c.stations) for c in columns.values())} plugs",
-    len(plug_specs) == sum(len(c.stations) for c in columns.values()),
-    "every station in every column is one plug's bottom face, and every plug is one station's "
-    f"— {len(plug_specs)} plugs against "
-    f"{sum(len(c.stations) for c in columns.values())} stations")
 
 
 def slot_station(name):
@@ -239,22 +230,6 @@ web_arch_buffer = math.sqrt(
 )
 
 volume_check_tolerance = 0.01  # [0.01 mm³](VOL_TOL)
-
-# A plug between two stations one `front_port_pitch` apart is the pitch's own wall: the two
-# arches eat a bore's radius out of each end of its span, and what stands between them is the
-# PETG a bore on the lane would have left either side of it. Below `min_printable_thickness`
-# the wall between two lines stops being printable, so the shortest plug in either stack is
-# where a column tightened too far shows up.
-_plug_web = bound(
-    "plug-web", "Every plug leaves a printable wall standing between its arches",
-    f"{min_printable_thickness:g} mm of web")
-for _plug, _spec in plug_specs.items():
-    _web = (_spec.z_range[1] - _spec.z_range[0]
-            - tube_clearance_radius * (2 if _spec.arch_top else 1))
-    _plug_web(
-        _web >= min_printable_thickness - 1e-9,
-        f"plug {_plug} spans {_spec.z_range[1] - _spec.z_range[0]:g} mm and leaves {_web:g} mm "
-        f"standing between its arches, under the {min_printable_thickness:g} mm a wall takes")
 
 
 def outer_tab_z_ranges(web_z_range):

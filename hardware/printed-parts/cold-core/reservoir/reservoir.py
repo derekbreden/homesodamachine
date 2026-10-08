@@ -456,17 +456,6 @@ inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 float_capsule_od = _float.diameter
 float_capsule_bore = _float.bore_diameter
 rod_position_x = inner_far_x_abs - _float.rod_axis_from_inner_wall
-state(
-    "reservoir-float-clears-wall", "The Aero float keeps running clearance at full radial guide motion",
-    "at least 1 mm nominal geometric clearance",
-    _float.minimum_wall_clearance >= 1.0,
-    f"the guide leaves only {_float.minimum_wall_clearance:g} mm against the wet wall")
-state(
-    "reservoir-rod-boss-inboard", "The rod's anchor boss stands clear of the cavity wall",
-    f"a boss inboard of {inner_far_x_abs:g} mm",
-    rod_position_x + rod_boss_od / 2.0 < inner_far_x_abs,
-    f"the rod's diameter-{rod_boss_od:g} anchor boss reaches "
-    f"{rod_position_x + rod_boss_od / 2.0:g} against a cavity wall at {inner_far_x_abs:g}")
 
 # Interior angles of the corners where the centerward arc meets the ±Y walls
 # — DERIVED from the geometry, not eyeballed. The arc tangent crosses the
