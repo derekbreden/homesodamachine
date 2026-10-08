@@ -48,7 +48,7 @@
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
         "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
         "hardware/manifold-layout/_drain.py": "517662f986e81eb2c19df5441468bd5d2892f22736197c9d4d0d7d217e0c8131",
-        "hardware/manifold-layout/enclosure-assembly.facts.json": "3a43c487adc9eb9571f9f518e1c5c2bb51f621d795fd6c68142ef5410e36a733",
+        "hardware/manifold-layout/enclosure-assembly.facts.json": "55d7c8c054e089dbe4e4a434e4dc6577d46ecc905aa54e7c912de1f0c635c006",
         "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
         "marketing/install-envelope.md": "2c1e2f42aa93a32784ea3f4e911018cb0db68b23260d6727787840571c1c1d20"
       },
@@ -100,13 +100,13 @@
       "completed_appliance_geometry": {
         "scope": "Producer handoff of the complete installed-body native clearance audit and its paired saved appliance STEP. This reader hashes the saved STEP; it does not independently rebuild or import the whole appliance. No hydraulic, physical fit or tolerance qualification.",
         "saved_appliance_step": "hardware/manifold-layout/enclosure-assembly.step",
-        "saved_appliance_step_sha256": "32c3c71d81fa2d7328eecc0d0e25f0e68033e5c048d260fffd4de6bdb7633ef8",
+        "saved_appliance_step_sha256": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
         "clearance_report": "hardware/manifold-layout/drain-clearance-check.json",
-        "clearance_report_sha256": "806205047543684f112bb0787ff761eb75498592395519ae8c0927e5be0b74f4",
+        "clearance_report_sha256": "976d5791b9fe09388cba879662a348d16aa0525530343e54f8f2d21fdce8c176",
         "clearance_source_sha256": {
           "hardware/scripts/check_asse_drain.py": "4c2a414fde754fbe8588de8dd4eddced959f289adda80541df06bc2fa5b3c4a3",
           "hardware/manifold-layout/_drain.py": "517662f986e81eb2c19df5441468bd5d2892f22736197c9d4d0d7d217e0c8131",
-          "hardware/manifold-layout/enclosure_assembly.py": "547b175ef721076e9741db3fc9dcb28eddd2dcf26f10f19c2235dde814b1d4ae",
+          "hardware/manifold-layout/enclosure_assembly.py": "82ac8ed8a67a2a8587cbe3252ee97fa8c057ff4eb511cf74d53f58f2f7e52397",
           "hardware/manifold-layout/_lines.py": "73678dae445715fca7814f7b9e55253dba0b6c65670a38a59c0c6329ce8ca53d",
           "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
           "hardware/reference/asse1022-assembly/asse1022_assembly.py": "883031e94d29d4e53c34013e0d398303097093bcdc4b37efaaf818bb8a8038a3"
@@ -587,5 +587,5 @@
     "Native geometry does not establish deposited-part water tightness, elastomer seal performance or assembly repeatability."
   ],
   "calculation_source_sha256": "99d1b026217ee8a6b70c8708796090ae340d05dbccb6e52815ca9e80044f8482",
-  "input_file_sha256": "e3bace4703f2809696866c1ce58e6bbc8696c45a16142070900eac331f185ad3"
+  "input_file_sha256": "f12b9bbeb728ac5c338974fd72042d330ca22902825ebad75ccbd5acf1d6e858"
 }

@@ -1,10 +1,10 @@
 {
   "native_archive": "hardware/printed-parts/drain-readiness/ready/back-top-black-z004-mark2.gcode.3mf",
-  "native_archive_sha256": "f416974511af29a5b0d4eaabff1f683976ddbb4030a4397fabd86a87ae949901",
-  "gcode_sha256": "41e7121efb39b1d4a2ef3b263ad07c9c7096c7b491fcb1636213715ec3cd6d00",
+  "native_archive_sha256": "aac5a16d4f135b047f35f0ffee7e9f563349a032ecff22a269418f95179fe47e",
+  "gcode_sha256": "ee154144ac2094c30d3802a4699a591871fd2c075c8575873664de007785596f",
   "zip_crc_and_gcode_md5_pass": true,
-  "source_stl_sha256": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
-  "source_step_sha256": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
   "essential_native_settings_retained": true,
   "settings": {
     "initial_layer_print_height": "0.2",

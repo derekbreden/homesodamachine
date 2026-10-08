@@ -2,7 +2,7 @@
   "checks": [
     {
       "check": "hardware/scripts/check_asse_drain.py",
-      "note": "ASSE drain clearance True; 227 bodies including the conservative foam envelope",
+      "note": "ASSE drain clearance True",
       "status": "ok"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "  and the 520 sources behind them stand where they stood when it was written",
+      "note": "and the 523 sources behind them stand where they stood when it was written",
       "status": "ok"
     },
     {
@@ -47,7 +47,7 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)",
+      "note": "✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)",
       "status": "red"
     },
     {
@@ -87,7 +87,7 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "71/72 artifacts have their record in the index",
+      "note": "72/73 artifacts have their record in the index",
       "status": "red"
     },
     {
@@ -117,12 +117,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 5 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 306 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 17 of 2949 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1202 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2830 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1202 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -219,7 +219,7 @@
     "hardware/scripts/check_tracked.py": [
       "hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json — the figures of hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.md",
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
-      "71/72 artifacts have their record in the index"
+      "72/73 artifacts have their record in the index"
     ],
     "tools/check_paths.py": [
       "hardware/concerns.md:97 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",

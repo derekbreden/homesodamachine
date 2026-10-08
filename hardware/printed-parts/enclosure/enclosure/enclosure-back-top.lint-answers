@@ -159,14 +159,14 @@ click: x=-78.070 y=470.300 z=291.217
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=34.470 y=469.620 z=256.553
 
-[step] The purchased keystone's side-clearance plane is at Y464.95, 0.35 mm inside the surrounding Y465.3 interior field. It is part of the independently mounted jack pocket, not a seam or thin wall. The backed DATA pad and keystone boss surround the recess; data-ring/fit-check.json verifies the purchased jack, separate trim, retention lips and complete rear-wall fit.
+[step] The keystone's side clearance ends at Y464.95 beside the Y465.3 interior wall field. The 0.35 mm offset is between module-clearance datums within the full rear-wall boss. The independently mounted purchased jack retains its seating position; data-ring/fit-check.json verifies its complete native clearance from the wall and DATA plate. This exposed offset is not a 0.35 mm wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-33.260 y=464.950 z=300.847
 
-[sliver] This is the exposed rear end of DATA's backing above the keystone pocket at Y464.34. Its 1.294 mm vertical run is the remainder between the module pocket's upper boundary and DATA's pad ramp. It is a face of the complete backing toward +Y, not a separate 1.294 mm load-bearing ligament. The module and trim use their own supported bosses and catches; data-ring/fit-check.json records the production fit and backing sections.
+[sliver] The 0.444 mm strip is the exposed upper remainder of the DATA backing pad at Y464.34. Its complete 6.6378 square mm finite native face retains 2 mm of stock toward +Y, with zero missing witness volume in data-ring/fit-check.json. The short exposed height bounds that backed pad; it is not the material thickness.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=464.340 z=320.159
+click: x=-40.710 y=464.340 z=319.734
 
-[ceiling] DATA's 28 x 3.36 mm lower mouth floor locates the removable trim. It retains the separate 3.6 mm rear backing and the two plain retaining lips. Back-top prints roof-down, so the floor receives normal support through its rear-facing mouth. Remove that support through the empty opening before installing the jack and DATA trim. The production fit check records the aperture, backing, lips and release access; finished fit and cleanup remain physical observations.
+[ceiling] The DATA mouth's 28 x 3.36 mm locating floor retains 1.5 mm of native stock across its complete 94.08 square mm face, with zero missing witness volume in data-ring/fit-check.json. The roof-down print receives support through the empty rear-facing aperture. The current native archive's nearest interface road midplane is 0.5527 mm below the exact floor; its 0.24 mm layer places the nominal top 0.4327 mm away. Drain-readiness/reviews/rear-wall-lint-witness.json binds these actual support roads to the complete finite floor. Remove support through the aperture before seating the DATA plate and jack. Finished fit and cleanup effort remain physical observations.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=469.620 z=291.217

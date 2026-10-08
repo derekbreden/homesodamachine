@@ -36,26 +36,27 @@ EAST_RELIEF_START = WIDTH/2+.125
 box = dimensions.box
 
 
-def wings():
+def wings(*, width=WIDTH, span=WING_SPAN):
     """The full-height roots overlap the plate; both wings begin at back Y=0."""
     parts = []
     for side in (-1, 1):
-        wing = (cq.Workplane('XY').rect(PROJECTION+1, WING_SPAN)
+        wing = (cq.Workplane('XY').rect(PROJECTION+1, span)
                 .extrude(WING_THICK).edges('|Z').fillet(END_RADIUS).val()
                 .rotate((0,0,0),(1,0,0),-90)
-                .translate((side*(WIDTH/2+(PROJECTION-1)/2),0,0)))
+                .translate((side*(width/2+(PROJECTION-1)/2),0,0)))
         parts.append(wing)
     return parts
 
 
-def blank():
-    plate = (cq.Workplane('XY').rect(WIDTH,HEIGHT).extrude(THICK)
+def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
+    plate = (cq.Workplane('XY').rect(width,height).extrude(thick)
              .edges('|Z').fillet(dimensions.CORNER_R).val()
              .rotate((0,0,0),(1,0,0),-90))
-    return plate.fuse(*wings()).clean()
+    return plate.fuse(*wings(width=width)).clean()
 
 
-def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
+def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
+          width=WIDTH, height=HEIGHT, wing_span=WING_SPAN):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -68,7 +69,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     """
     floor = y_outer-THICK
     shift = (station.x,floor,station.z)
-    pw, ph = WIDTH+2*FACE_SLIP, HEIGHT+2*FACE_SLIP
+    pw, ph = width+2*FACE_SLIP, height+2*FACE_SLIP
     pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+4)
            .extrude(FLOOR_STOCK+THICK).edges('|Z').fillet(dimensions.CORNER_R+2).val()
            .rotate((0,0,0),(1,0,0),-90).translate((0,-FLOOR_STOCK,0)))
@@ -78,22 +79,22 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
             .polyline([(-FLOOR_STOCK,zedge),(-FLOOR_STOCK,zedge+up*FLOOR_STOCK),(0,zedge)])
             .close().extrude(2*pw).val())
     solid = solid.fuse(pad.cut(ramp).translate(shift))
-    mouth = (cq.Workplane('XY').rect(WIDTH+2*FACE_X_AIR,ph).extrude(THICK+1)
+    mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1)
              .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()
              .rotate((0,0,0),(1,0,0),-90))
     # The print-down mouth edge gets the same rough-surface allowance as the
     # slot end; otherwise that edge can bind before the wings are seated.
     mouth=mouth.fuse(mouth.translate((0,0,up*supported)))
     solid = solid.cut(mouth.translate(shift))
-    z0 = -WING_SPAN/2-END_AIR+min(0,up*supported)
-    z1 = WING_SPAN/2+END_AIR+max(0,up*supported)
+    z0 = -wing_span/2-END_AIR+min(0,up*supported)
+    z1 = wing_span/2+END_AIR+max(0,up*supported)
     for side in (-1,1):
-        xa,xb = sorted((side*(WIDTH/2-.1),side*(WIDTH/2+PROJECTION+TIP_AIR)))
+        xa,xb = sorted((side*(width/2-.1),side*(width/2+PROJECTION+TIP_AIR)))
         solid = solid.cut(box(xa,xb,0,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
         # Entry bevel clears the rotating wing during hand-bent insertion.
         # The outer flat bearing retains the trial thickness gap.
         # The bevel follows the slot roof with its width and slope fixed.
-        mouth_x = WIDTH/2+FACE_SLIP
+        mouth_x = width/2+FACE_SLIP
         roof_y = WING_THICK+THICKNESS_AIR
         lead = (cq.Workplane('XY').workplane(offset=z0)
                 .polyline([(side*mouth_x,roof_y),
@@ -123,12 +124,12 @@ def production_backing(solid, station, y_outer):
     return solid.cut(keepout.translate((station.x,y_outer-THICK,station.z))).clean()
 
 
-def plain_lips(station, y_outer):
+def plain_lips(station, y_outer, *, width=WIDTH, wing_span=WING_SPAN):
     """Preserve the coupon's complete retaining thickness through the show flutes."""
     fields=[]
     for side in (-1,1):
-        x0,x1=sorted((side*(WIDTH/2+FACE_X_AIR),side*(WIDTH/2+PROJECTION+TIP_AIR)))
+        x0,x1=sorted((side*(width/2+FACE_X_AIR),side*(width/2+PROJECTION+TIP_AIR)))
         fields.append((station.x+x0-.4,station.x+x1+.4,y_outer-THICK,y_outer+1,
-                       station.z-WING_SPAN/2-END_AIR-SUPPORTED_END_AIR-.4,
-                       station.z+WING_SPAN/2+END_AIR+.4))
+                       station.z-wing_span/2-END_AIR-SUPPORTED_END_AIR-.4,
+                       station.z+wing_span/2+END_AIR+.4))
     return tuple(fields)

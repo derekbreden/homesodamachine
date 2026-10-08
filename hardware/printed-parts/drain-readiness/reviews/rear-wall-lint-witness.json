@@ -1,15 +1,15 @@
 {
   "scope": "Finite native face identification, complete source-profile dimensions, sampled full backing and complete floor stock, actual fresh archive support witnesses. No product geometry changed and no physical strength/finish claim.",
   "input_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b2fe7f0d8f8e180af13a86369cb88e40b4b1dc03b06b322714386690c35fd0cf",
-    "hardware/manifold-layout/enclosure_assembly.py": "547b175ef721076e9741db3fc9dcb28eddd2dcf26f10f19c2235dde814b1d4ae",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "b13fa03ee31082d5a57f180616a541afa53ca1a4f2c44e31276cfc7d547b1670",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "da1cacfefadecd11011965ff226b931174b16a93ab72747bea3a0d189151e26e",
+    "hardware/manifold-layout/enclosure_assembly.py": "82ac8ed8a67a2a8587cbe3252ee97fa8c057ff4eb511cf74d53f58f2f7e52397",
     "hardware/manifold-layout/_drain.py": "517662f986e81eb2c19df5441468bd5d2892f22736197c9d4d0d7d217e0c8131",
     "hardware/manifold-layout/_lines.py": "73678dae445715fca7814f7b9e55253dba0b6c65670a38a59c0c6329ce8ca53d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
-    ".cache/prints/2026-10-07-drain/back-top-mark2/ready/back-top-black-z004-mark2.gcode.3mf": "f416974511af29a5b0d4eaabff1f683976ddbb4030a4397fabd86a87ae949901",
-    ".cache/prints/2026-10-07-drain/back-top-mark2/back-top-black-z004-mark2.preparation.json": "c0f467651f480e0529b323f6d6232fd6672e528e251216ffb9cb8ee6a47f03cc"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+    ".cache/prints/2026-10-07-drain/back-top-mark2/ready/back-top-black-z004-mark2.gcode.3mf": "aac5a16d4f135b047f35f0ffee7e9f563349a032ecff22a269418f95179fe47e",
+    ".cache/prints/2026-10-07-drain/back-top-mark2/back-top-black-z004-mark2.preparation.json": "415bed9d792a105562c6d28d732d14ee74f6f9c0c1fa7a6df83fc9eacdde970d"
   },
   "source_nameplate_station_mm": [
     34.47,
@@ -18,7 +18,7 @@
   "finite_native_faces": [
     {
       "feature": "east backing depth transition",
-      "native_face": 90,
+      "native_face": 272,
       "mesh_pick_mm": [
         86.86,
         465.07,
@@ -30,7 +30,7 @@
         0.0,
         -0.0
       ],
-      "area_mm2": 61.580954359920206,
+      "area_mm2": 61.580954359920106,
       "bounds_mm": [
         86.86,
         464.34,
@@ -43,7 +43,7 @@
     },
     {
       "feature": "receiver mouth floor",
-      "native_face": 295,
+      "native_face": 88,
       "mesh_pick_mm": [
         34.47,
         469.62,
@@ -68,7 +68,7 @@
     },
     {
       "feature": "west diamond slope",
-      "native_face": 664,
+      "native_face": 602,
       "mesh_pick_mm": [
         29.97,
         466.14,
@@ -97,7 +97,7 @@
     },
     {
       "feature": "east diamond slope",
-      "native_face": 662,
+      "native_face": 603,
       "mesh_pick_mm": [
         38.97,
         466.14,
@@ -126,7 +126,7 @@
     },
     {
       "feature": "PRV exterior crown",
-      "native_face": 69,
+      "native_face": 102,
       "mesh_pick_mm": [
         -94.5,
         323.8,
@@ -146,6 +146,31 @@
         -90.50000010697,
         332.8,
         214.59999999302
+      ],
+      "native_valid": true
+    },
+    {
+      "feature": "DATA receiver mouth floor",
+      "native_face": 74,
+      "mesh_pick_mm": [
+        -40.71,
+        469.62,
+        291.217
+      ],
+      "finite_native_pick_distance_mm": 0.00029046877000382665,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "area_mm2": 94.08000000000035,
+      "bounds_mm": [
+        -54.71,
+        467.94,
+        291.21729046877,
+        -26.71,
+        471.3,
+        291.21729046877
       ],
       "native_valid": true
     }
@@ -178,6 +203,13 @@
       "missing_volume_mm3": 0.0,
       "native_valid": true,
       "passed": true
+    },
+    {
+      "name": "complete finite DATA receiver floor with 1.50mm underlying stock",
+      "witness_volume_mm3": 141.12000000000057,
+      "missing_volume_mm3": 0.0,
+      "native_valid": true,
+      "passed": true
     }
   ],
   "receiver_floor_support": {
@@ -185,7 +217,7 @@
     "finite_native_queries": 226,
     "nearest_support_roads": [
       {
-        "gcode_line": 2904052,
+        "gcode_line": 2909630,
         "feature": "Support interface",
         "print_z_mm": 97.91,
         "road_width_mm": 0.62,
@@ -206,7 +238,7 @@
         ]
       },
       {
-        "gcode_line": 2904054,
+        "gcode_line": 2909632,
         "feature": "Support interface",
         "print_z_mm": 97.91,
         "road_width_mm": 0.62,
@@ -227,7 +259,7 @@
         ]
       },
       {
-        "gcode_line": 2904050,
+        "gcode_line": 2909628,
         "feature": "Support interface",
         "print_z_mm": 97.91,
         "road_width_mm": 0.62,
@@ -248,7 +280,7 @@
         ]
       },
       {
-        "gcode_line": 2897619,
+        "gcode_line": 2903197,
         "feature": "Support interface",
         "print_z_mm": 97.67,
         "road_width_mm": 0.62,
@@ -269,7 +301,7 @@
         ]
       },
       {
-        "gcode_line": 2897621,
+        "gcode_line": 2903199,
         "feature": "Support interface",
         "print_z_mm": 97.67,
         "road_width_mm": 0.62,
@@ -290,7 +322,7 @@
         ]
       },
       {
-        "gcode_line": 2897617,
+        "gcode_line": 2903195,
         "feature": "Support interface",
         "print_z_mm": 97.67,
         "road_width_mm": 0.62,
@@ -311,7 +343,7 @@
         ]
       },
       {
-        "gcode_line": 2891340,
+        "gcode_line": 2896911,
         "feature": "Support interface",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -332,7 +364,7 @@
         ]
       },
       {
-        "gcode_line": 2891342,
+        "gcode_line": 2896913,
         "feature": "Support interface",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -353,7 +385,7 @@
         ]
       },
       {
-        "gcode_line": 2891343,
+        "gcode_line": 2896914,
         "feature": "Support interface",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -374,7 +406,7 @@
         ]
       },
       {
-        "gcode_line": 2891389,
+        "gcode_line": 2896960,
         "feature": "Support transition",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -395,7 +427,7 @@
         ]
       },
       {
-        "gcode_line": 2891390,
+        "gcode_line": 2896961,
         "feature": "Support transition",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -416,7 +448,7 @@
         ]
       },
       {
-        "gcode_line": 2891391,
+        "gcode_line": 2896962,
         "feature": "Support transition",
         "print_z_mm": 97.43,
         "road_width_mm": 0.62,
@@ -445,7 +477,7 @@
     "finite_native_queries": 90,
     "nearest_support_roads": [
       {
-        "gcode_line": 3901604,
+        "gcode_line": 3907308,
         "feature": "Support",
         "print_z_mm": 140.188,
         "road_width_mm": 0.62,
@@ -466,7 +498,7 @@
         ]
       },
       {
-        "gcode_line": 3901605,
+        "gcode_line": 3907309,
         "feature": "Support",
         "print_z_mm": 140.188,
         "road_width_mm": 0.62,
@@ -487,7 +519,7 @@
         ]
       },
       {
-        "gcode_line": 3901606,
+        "gcode_line": 3907310,
         "feature": "Support",
         "print_z_mm": 140.188,
         "road_width_mm": 0.62,
@@ -508,7 +540,7 @@
         ]
       },
       {
-        "gcode_line": 3896125,
+        "gcode_line": 3901829,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -529,7 +561,7 @@
         ]
       },
       {
-        "gcode_line": 3896126,
+        "gcode_line": 3901830,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -550,7 +582,7 @@
         ]
       },
       {
-        "gcode_line": 3896128,
+        "gcode_line": 3901832,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -571,7 +603,7 @@
         ]
       },
       {
-        "gcode_line": 3896129,
+        "gcode_line": 3901833,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -592,7 +624,7 @@
         ]
       },
       {
-        "gcode_line": 3896130,
+        "gcode_line": 3901834,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -613,7 +645,7 @@
         ]
       },
       {
-        "gcode_line": 3896132,
+        "gcode_line": 3901836,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -634,7 +666,7 @@
         ]
       },
       {
-        "gcode_line": 3896133,
+        "gcode_line": 3901837,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -655,7 +687,7 @@
         ]
       },
       {
-        "gcode_line": 3896134,
+        "gcode_line": 3901838,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -676,7 +708,7 @@
         ]
       },
       {
-        "gcode_line": 3896136,
+        "gcode_line": 3901840,
         "feature": "Support interface",
         "print_z_mm": 139.91,
         "road_width_mm": 0.62,
@@ -700,7 +732,267 @@
     "potential_own_width_height_capsule_contacts": 0,
     "scope": "Actual current native support roads against the complete finite face. Conservative capsule readings describe nominal geometry, not removal effort or physical finish."
   },
-  "gcode_sha256": "41e7121efb39b1d4a2ef3b263ad07c9c7096c7b491fcb1636213715ec3cd6d00",
-  "elapsed_seconds": 17.369749069213867,
+  "data_floor_support": {
+    "native_face_print_z_mm": 63.78270953123004,
+    "finite_native_queries": 140,
+    "nearest_support_roads": [
+      {
+        "gcode_line": 2063170,
+        "feature": "Support interface",
+        "print_z_mm": 63.35,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.24,
+        "finite_native_face_centreline_distance_mm": 0.5527095312300503,
+        "conservative_bead_capsule_clearance_mm": 0.22029412845815705,
+        "endpoints_source_mm": [
+          [
+            -54.882000000000005,
+            470.27999389648437,
+            291.77000000000004
+          ],
+          [
+            -26.53800000000001,
+            470.27999389648437,
+            291.77000000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2063172,
+        "feature": "Support interface",
+        "print_z_mm": 63.35,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.24,
+        "finite_native_face_centreline_distance_mm": 0.5527095312300503,
+        "conservative_bead_capsule_clearance_mm": 0.22029412845815705,
+        "endpoints_source_mm": [
+          [
+            -26.53800000000001,
+            469.21099389648435,
+            291.77000000000004
+          ],
+          [
+            -55.138000000000005,
+            469.21099389648435,
+            291.77000000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2063168,
+        "feature": "Support interface",
+        "print_z_mm": 63.35,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.24,
+        "finite_native_face_centreline_distance_mm": 0.5547893654462852,
+        "conservative_bead_capsule_clearance_mm": 0.22237396267439197,
+        "endpoints_source_mm": [
+          [
+            -26.53800000000001,
+            471.34799389648435,
+            291.77000000000004
+          ],
+          [
+            -54.882000000000005,
+            471.34799389648435,
+            291.77000000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068791,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5625309361469284,
+        "conservative_bead_capsule_clearance_mm": 0.22441113489299414,
+        "endpoints_source_mm": [
+          [
+            -26.53200000000001,
+            471.77599389648435,
+            291.51500000000004
+          ],
+          [
+            -27.616000000000014,
+            471.7839938964844,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068794,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5639735081140873,
+        "conservative_bead_capsule_clearance_mm": 0.22585370686015305,
+        "endpoints_source_mm": [
+          [
+            -30.685000000000002,
+            473.7329938964844,
+            291.51500000000004
+          ],
+          [
+            -30.685000000000002,
+            471.7789938964844,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068795,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5639735081140873,
+        "conservative_bead_capsule_clearance_mm": 0.22585370686015305,
+        "endpoints_source_mm": [
+          [
+            -30.685000000000002,
+            471.7789938964844,
+            291.51500000000004
+          ],
+          [
+            -33.753,
+            471.7839938964844,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068803,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5639735081140873,
+        "conservative_bead_capsule_clearance_mm": 0.22585370686015305,
+        "endpoints_source_mm": [
+          [
+            -42.959,
+            471.78299389648436,
+            291.51500000000004
+          ],
+          [
+            -46.027,
+            471.7789938964844,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068804,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5639735081140873,
+        "conservative_bead_capsule_clearance_mm": 0.22585370686015305,
+        "endpoints_source_mm": [
+          [
+            -46.027,
+            471.7789938964844,
+            291.51500000000004
+          ],
+          [
+            -46.027,
+            473.7329938964844,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068798,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5648230746414815,
+        "conservative_bead_capsule_clearance_mm": 0.22670327338754725,
+        "endpoints_source_mm": [
+          [
+            -36.822,
+            473.7329938964844,
+            291.51500000000004
+          ],
+          [
+            -36.822,
+            471.77999389648437,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068799,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5648230746414815,
+        "conservative_bead_capsule_clearance_mm": 0.22670327338754725,
+        "endpoints_source_mm": [
+          [
+            -36.822,
+            471.77999389648437,
+            291.51500000000004
+          ],
+          [
+            -39.89,
+            471.78099389648435,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068807,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5648230746414815,
+        "conservative_bead_capsule_clearance_mm": 0.22670327338754725,
+        "endpoints_source_mm": [
+          [
+            -49.096000000000004,
+            471.7839938964844,
+            291.51500000000004
+          ],
+          [
+            -52.164,
+            471.77999389648437,
+            291.51500000000004
+          ]
+        ]
+      },
+      {
+        "gcode_line": 2068808,
+        "feature": "Support",
+        "print_z_mm": 63.62,
+        "road_width_mm": 0.62,
+        "road_height_mm": 0.27,
+        "finite_native_face_centreline_distance_mm": 0.5648230746414815,
+        "conservative_bead_capsule_clearance_mm": 0.22670327338754725,
+        "endpoints_source_mm": [
+          [
+            -52.164,
+            471.77999389648437,
+            291.51500000000004
+          ],
+          [
+            -52.164,
+            473.7329938964844,
+            291.51500000000004
+          ]
+        ]
+      }
+    ],
+    "potential_own_width_height_capsule_contacts": 0,
+    "scope": "Actual current native support roads against the complete finite face. Conservative capsule readings describe nominal geometry, not removal effort or physical finish."
+  },
+  "gcode_sha256": "ee154144ac2094c30d3802a4699a591871fd2c075c8575873664de007785596f",
+  "elapsed_seconds": 22.322078943252563,
   "passed": true
 }

@@ -18,7 +18,7 @@
       "render_sha256": "b32c8a1cc8244c58a1ecb9aa977cbf85ea338113c78bc7f34fea84c46bbb1c05",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
       "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png",
-      "scene_step_sha256": "4032b84ccd04ca39d79cfffee113bafbc5e7e9b5ec4855e6f24db81ce1643188",
+      "scene_step_sha256": "54893e9e74e66cea0ef2716feeffdada3a9089711a5ebe407f69dc77f542a9c1",
       "scene_mesh_sha256": null,
       "registered_camera": {
         "cam": [
@@ -73,7 +73,7 @@
       "render_sha256": "8e217b05cdc8c8f00f50eb8b08e34d43c185c0e1e201c9817d79ed8deaca1508",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
       "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png",
-      "scene_step_sha256": "fdfc44d3e64eefd168e057776748a8f46188673585074c2a17ee6cef9408a224",
+      "scene_step_sha256": "601529ca55fed5fb0befbc1ab1a060a26e8562677af1393c916ffefffadc3af0",
       "scene_mesh_sha256": null,
       "registered_camera": {
         "cam": [
@@ -134,7 +134,7 @@
         4296
       ],
       "coordinate_reference_path": "reference/drain-mount-drop.png",
-      "scene_step_sha256": "6aa6c5c1ef914d0bac1ce0ad315db10ba2a62e2ae453f5f3ce1d5be3975e0d04",
+      "scene_step_sha256": "49c81bf9ffa9cac2e98206634eafb13efcd456b19b0d849c1c062296e14c0ecb",
       "scene_mesh_sha256": null,
       "registered_camera": {
         "cam": [
@@ -221,12 +221,12 @@
       ],
       "coordinate_reference_path": "reference/drain-the-back-face.png",
       "coordinate_reference_sha256": "4f8859bef65b9647e9336f2f5b538268a5aa5ffb9371056a2ecb08a291a9d91a",
-      "render_sha256": "77ffb35160fac97bb8b9c8111eeedeeecec634a148f559c361d55b9731b0cf51",
+      "render_sha256": "209a60602f227bf3a63cfa02b9334f847c184bea017d506c33fd4099397a885a",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "7c54d1d46fd8ea246dcc20df008432683f18af8937b7f2513ee12e40c003d30b",
+      "scene_step_sha256": "9cb3b84360abfc83310b137a616ede7af4c3a5a5cf97cd0ce4cbad0f2f5739c9",
       "fixed_native_crop": null,
       "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "df913e9ed41c2dfebcd456d9d30c5c90e681d7d24ea601bb1cb2066ed6ea2aba",
+      "scene_mesh_sha256": "fd93a46f50f21c69730a3dd7c45b6b1c2dcb7c9bb6a3fee4ccd9452817eb1ca9",
       "registered_camera": {
         "cam": [
           0,
@@ -308,16 +308,16 @@
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-open.png",
       "coordinate_reference_sha256": "4786bdfddaecf186f8240e51a6c3ee8f3e4e0e42be3143b2aaa3b5854f478073",
-      "render_sha256": "6acfbae37e3bf53ae67c2f05ac62780b706490c47a8077afd20bbb450d5307c2",
+      "render_sha256": "e86aa45c3bb931a3385a60dc5c430631a2846fb579d8803f06ee9d7381eb7eb6",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "44d9adc1b81116598702fe617ffd006b4569dab3d2f205f9a4b1f39a3ad1ab43",
+      "scene_step_sha256": "4edd497f96dc028cb58e429d32be65cde44f50ae11b61ded423b353dbf14aef8",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "acb551328d10ea150d44af829f6cb553be9afe5dd8def38dd20aa7f68e331717",
+      "scene_mesh_sha256": "d93fb4d29926850008b06f074ffefbbad2a9c04f4f1c6f6676e5038e43bd301e",
       "registered_camera": {
         "cam": [
           0.7,
@@ -384,8 +384,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "a998690769305a3ce214eff742972b6ecb87f49a44384328437cb94e13a0912c",
-      "render_sha256": "7b2edf5dadc71649fd6c2bd455185785abde660b6e924755b546016df38001be"
+      "coordinate_reference_sha256": "fcfaa7ccff9633e9744f902d57af829aa1b9bbd332bc37b275f3ff5da0b4f0fc",
+      "render_sha256": "4c5be3f43de7af0cbeea633fa4f9fe6b2da0ad54e57608ad7598f7ef1eb62827"
     },
     "steps/connect-rear-connected.png": {
       "reference_size": [
@@ -402,16 +402,16 @@
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-connected.png",
       "coordinate_reference_sha256": "92f5ed26345439321685c100448877182b0b0b3cebeec1f0eb8ba2e858ae960e",
-      "render_sha256": "a9aa7f4408eeed9d9ea7ded514ce5a237124cb30ddb62290ab43fe78db41bc21",
+      "render_sha256": "290c0d8a665642e7641695192f2a4d7a0c6329015f8ee807d6a7bdd30ae5c3be",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "99640ba9bb748deaf00b443f2ce4df3aca2be8568873df9929fba6c3897df2da",
+      "scene_step_sha256": "1d3d30b6fb5c12d9550ee9d6ace87e2b783ed7342648fc0ff60880a9b517cf9d",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "f7cb1d70b9caf782dfba2899d4f8ad2ea73717f8fb4c0e2b68ac20b1ba1895d8",
+      "scene_mesh_sha256": "ee6f1c27ad2b00172a4c31a9b091f4e285057192a54be3fd477d352092fc203b",
       "registered_camera": {
         "cam": [
           0.7,
@@ -470,9 +470,9 @@
         1,
         1
       ],
-      "render_sha256": "47d27ed2980c81a7feed545ef88fef3647ab624b6feda4eb5ba7704ab6fb4291",
-      "scene_step_sha256": "70e939addd6d1c6174df504297c0b0e358cec71abab1ff77f54fc4225fb3919f",
-      "scene_mesh_sha256": "e42af59f765821e4569b3524fa6e4d7d3da34cb8cf3628051ab1e76b6c77a9b9",
+      "render_sha256": "df73703f9a0fcf7f41afd616db7ce3562e9706dd44c90d818e13e24454252617",
+      "scene_step_sha256": "0fb01407ff278c1e767effb385ec397504a25f14909217e8c38c255d9d13d688",
+      "scene_mesh_sha256": "a74b37e9aabe70554eec35b02888f84ec256063c7422a6033f37bf9591e00032",
       "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
       "registered_camera": {
         "cam": [

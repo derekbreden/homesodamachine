@@ -1,81 +1,81 @@
 {
-  "scope": "Fresh geometry lint of the exact 26 body/word source meshes on the seven-label and six-collar native plates. Intentional glyph contours, recesses and DATA flexures are described per source geometry; deposited strength and finished fit remain physical properties.",
+  "scope": "Fresh geometry lint of the exact 26 body/word source meshes on the seven-label and six-collar native plates. Intentional glyph contours, recesses and DATA nameplate wings are described per source geometry; deposited strength and finished fit remain physical properties.",
   "analysis_script_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
   "records": [
     {
       "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/data-chip-body.stl",
-      "sha256": "9b97011f8f779ebc914e82dde6b7617040bf1dc1f680fe971fc7fd24ed933dd7",
+      "sha256": "078849586f056fb623f9918b6bc7ef87e85337fc3828ac56d832aeddb615e703",
       "print_frame": true,
-      "facets": 5844,
+      "facets": 5564,
       "findings": {
         "step": [
           {
             "class": "step",
-            "score": 4.678223771625566,
-            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 4.0 mm",
+            "score": 6.4975328225049385,
+            "line": "\u03940.720 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 4.0 mm",
             "pick": [
-              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-6.751 y=11.000 z=2.360",
-              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=3.360",
-              "click: x=-5.437 y=10.931 z=2.360"
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-6.751 y=11.000 z=0.960",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=1.680",
+              "click: x=-5.437 y=10.931 z=0.960"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           }
         ],
         "sliver": [
           {
             "class": "sliver",
             "score": 4.9671697922853255,
-            "line": "1.000 mm strip, 5.0 mm long",
+            "line": "0.720 mm strip, 5.0 mm long",
             "pick": [
-              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=-3.531 y=11.000 z=2.860",
-              "edge: x=-2.696 y=13.339 z=2.860 \u2192 x=-4.366 y=8.661 z=2.860 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
-              "click: x=-3.531 y=11.000 z=2.860"
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=-3.531 y=11.000 z=1.320",
+              "edge: x=-2.696 y=13.339 z=1.320 \u2192 x=-4.366 y=8.661 z=1.320 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=-3.531 y=11.000 z=1.320"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           },
           {
             "class": "sliver",
             "score": 4.9671697922853255,
-            "line": "1.000 mm strip, 5.0 mm long",
+            "line": "0.720 mm strip, 5.0 mm long",
             "pick": [
-              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=5.134 y=11.000 z=2.860",
-              "edge: x=5.968 y=13.339 z=2.860 \u2192 x=4.299 y=8.661 z=2.860 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
-              "click: x=5.134 y=11.000 z=2.860"
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=5.134 y=11.000 z=1.320",
+              "edge: x=5.968 y=13.339 z=1.320 \u2192 x=4.299 y=8.661 z=1.320 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=5.134 y=11.000 z=1.320"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           },
           {
             "class": "sliver",
             "score": 4.962917400765528,
-            "line": "1.000 mm strip, 5.0 mm long",
+            "line": "0.720 mm strip, 5.0 mm long",
             "pick": [
-              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=-0.763 y=11.000 z=2.860",
-              "edge: x=0.065 y=8.661 z=2.860 \u2192 x=-1.592 y=13.339 z=2.860 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
-              "click: x=-0.763 y=11.000 z=2.860"
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=-0.763 y=11.000 z=1.320",
+              "edge: x=0.065 y=8.661 z=1.320 \u2192 x=-1.592 y=13.339 z=1.320 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=-0.763 y=11.000 z=1.320"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           },
           {
             "class": "sliver",
             "score": 4.962917383355279,
-            "line": "1.000 mm strip, 5.0 mm long",
+            "line": "0.720 mm strip, 5.0 mm long",
             "pick": [
-              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=7.901 y=11.000 z=2.860",
-              "edge: x=8.730 y=8.661 z=2.860 \u2192 x=7.073 y=13.339 z=2.860 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
-              "click: x=7.901 y=11.000 z=2.860"
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=7.901 y=11.000 z=1.320",
+              "edge: x=8.730 y=8.661 z=1.320 \u2192 x=7.073 y=13.339 z=1.320 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=7.901 y=11.000 z=1.320"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           },
           {
             "class": "sliver",
             "score": 4.67822265625,
-            "line": "1.000 mm strip, 4.7 mm long",
+            "line": "0.720 mm strip, 4.7 mm long",
             "pick": [
-              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.730 y=11.000 z=2.860",
-              "edge: x=-8.730 y=13.339 z=2.860 \u2192 x=-8.730 y=8.661 z=2.860 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
-              "click: x=-8.730 y=11.000 z=2.860"
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.730 y=11.000 z=1.320",
+              "edge: x=-8.730 y=13.339 z=1.320 \u2192 x=-8.730 y=8.661 z=1.320 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-8.730 y=11.000 z=1.320"
             ],
-            "answer": "DATA retains a 2.36 mm floor below its lettering pockets. The open side slots free the 1.2 mm flexure stems and 1.68 mm retaining noses. Those thin sections provide snap travel; they print flat-back-down without enclosed bridges. The production rear-wall fit check verifies the retention lips, release space and plug-latch opening; it does not qualify insertion force or endurance."
+            "answer": "DATA is the accepted nameplate blank with a 32 mm face width, 1.68 mm depth throughout, and centred jack opening. Its 21.789 mm broad wings project 2.4 mm and have R0.6 ends. The 0.72 mm lettering recess leaves 0.96 mm backing and is filled with the separate white letters. The continuous face and wings print directly on the bed. Native fit verifies the complete retaining lands and plug approach; physical fit and endurance remain unmeasured."
           }
         ],
         "ceiling": [],
@@ -84,12 +84,57 @@
     },
     {
       "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/data-chip-word.stl",
-      "sha256": "57b5e8cfb302391cf07b3d2973aa9e0e0a52c394e17ff637eaacca0793c4d99e",
+      "sha256": "12ef44185bfd74c47a4c83d2b9243bd963cbd4172e32cd1b42b055009a61b82d",
       "print_frame": true,
-      "facets": 4576,
+      "facets": 4032,
       "findings": {
         "step": [],
-        "sliver": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.200 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.942 y=0.336 z=0.000 \u00b7 thru x=-3.531 y=11.000 z=1.560",
+              "edge: x=-4.366 y=8.661 z=1.560 \u2192 x=-2.696 y=13.339 z=1.560 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.336 y=0.942 z=0.000",
+              "click: x=-3.531 y=11.000 z=1.560"
+            ],
+            "answer": "Raised lettering fills its matching pocket and rises 0.48 mm over the show face. Thin glyph boundaries are identification features, not unsupported enclosure stock. The native archive preserves the separate word filament and checks its emitted layers."
+          },
+          {
+            "class": "sliver",
+            "score": 4.967169792285324,
+            "line": "1.200 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.942 y=0.336 z=0.000 \u00b7 thru x=5.134 y=11.000 z=1.560",
+              "edge: x=4.299 y=8.661 z=1.560 \u2192 x=5.968 y=13.339 z=1.560 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.336 y=0.942 z=0.000",
+              "click: x=5.134 y=11.000 z=1.560"
+            ],
+            "answer": "Raised lettering fills its matching pocket and rises 0.48 mm over the show face. Thin glyph boundaries are identification features, not unsupported enclosure stock. The native archive preserves the separate word filament and checks its emitted layers."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291731775403,
+            "line": "1.200 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.943 y=0.334 z=0.000 \u00b7 thru x=-0.761 y=11.001 z=1.560",
+              "edge: x=-1.589 y=13.340 z=1.560 \u2192 x=0.066 y=8.661 z=1.560 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.334 y=-0.943 z=0.000",
+              "click: x=-0.761 y=11.001 z=1.560"
+            ],
+            "answer": "Raised lettering fills its matching pocket and rises 0.48 mm over the show face. Thin glyph boundaries are identification features, not unsupported enclosure stock. The native archive preserves the separate word filament and checks its emitted layers."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917300352773,
+            "line": "1.200 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.943 y=0.334 z=0.000 \u00b7 thru x=7.903 y=11.000 z=1.560",
+              "edge: x=7.075 y=13.340 z=1.560 \u2192 x=8.731 y=8.661 z=1.560 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.334 y=-0.943 z=0.000",
+              "click: x=7.903 y=11.000 z=1.560"
+            ],
+            "answer": "Raised lettering fills its matching pocket and rises 0.48 mm over the show face. Thin glyph boundaries are identification features, not unsupported enclosure stock. The native archive preserves the separate word filament and checks its emitted layers."
+          }
+        ],
         "ceiling": [],
         "slope": []
       }

@@ -33,12 +33,13 @@ def main():
              HERE / 'data-ring.step',
              ROOT / 'hardware/reference/riteav-keystone/riteav-keystone.step',
              ROOT / 'hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step')
+    paths += (Path(fit.nameplate.__file__), Path(fit.nameplate.dimensions.__file__))
     before = {str(p.relative_to(ROOT)): sha(p) for p in paths}
     facts = json.loads(paths[5].read_text())
     station = tuple(facts['constants']['KEYSTONE_STATION'])
     outer, inner = tuple(facts['box']['outer']), tuple(facts['box']['inner'])
     y_outer = outer[3]
-    shift = (station[0], y_outer - fit.THICK, station[1])
+    shift = (station[0], y_outer - fit.POCKET_DEPTH, station[1])
     wall = cq.importers.importStep(str(paths[6])).val()
     body, word = data.build_ring(), data.build_word()
     placed = body.translate(shift)
@@ -57,41 +58,66 @@ def main():
         common = volume(a.intersect(b))
         add('clearance:' + name, common <= 1e-7, overlap_mm3=common)
 
-    # The entry ramp ends before this complete rectangular bearing land.
+    # Read the complete broad wing bearing lands in the production wall.
     lips = []
     for side in (-1, 1):
-        witness = fit.box(fit.WIDTH/2 + fit.FACE_AIR + fit.ENTRY_WIDTH,
-                          fit.WIDTH/2 + fit.PROJECTION,
-                          fit.WING_THICK + fit.THICKNESS_AIR, fit.THICK,
-                          fit.TIP_LOW, fit.TIP_HIGH)
-        witness = fit.mirrored(witness, side).translate(shift)
+        lo, hi = sorted((side*(fit.WIDTH/2+fit.FACE_AIR+fit.ENTRY_WIDTH),
+                         side*(fit.WIDTH/2+fit.PROJECTION)))
+        witness = fit.box(lo, hi, fit.WING_THICK+fit.THICKNESS_AIR,
+                          fit.POCKET_DEPTH, fit.CENTER_Z-fit.WING_SPAN/2, fit.CENTER_Z+fit.WING_SPAN/2).translate(shift)
         missing = volume(witness.cut(wall))
         lips.append(dict(side=side, required_volume_mm3=volume(witness),
-                         missing_mm3=missing, thickness_mm=fit.THICK-fit.WING_THICK-fit.THICKNESS_AIR))
+                         missing_mm3=missing,
+                         thickness_mm=fit.POCKET_DEPTH-fit.WING_THICK-fit.THICKNESS_AIR))
         add('stock:retaining-lip:' + str(side), missing <= 1e-7, **lips[-1])
 
-    # Full finite surfaces for the two DATA material findings in mesh lint.
-    # Their complete stock is read from the production wall, not a point ray.
+    # Check the saved native frame against the continuous face and shared
+    # nameplate wings, including its exact DATA/DRAIN Z envelope.
+    native = cq.importers.importStep(str(paths[7])).val()
+    native_body = next(s for s in native.Solids() if s.BoundingBox().ymin < 1e-6)
+    expected = fit.port_chip.outline(fit.WIDTH,fit.TOP,fit.BOTTOM,fit.THICK)
+    wings = [w.translate((0,0,fit.CENTER_Z)) for w in
+             fit.nameplate.wings(width=fit.WIDTH,span=fit.WING_SPAN)]
+    expected = expected.fuse(*wings).cut(fit.aperture(-.01,fit.THICK+.01)).cut(word)
+    mismatch = volume(native_body.cut(expected))+volume(expected.cut(native_body))
+    bb = native_body.BoundingBox()
+    add('construction:shared-nameplate-wings-and-continuous-face', mismatch <= 1e-7,
+        symmetric_difference_mm3=mismatch, face_width_mm=fit.WIDTH,
+        height_mm=bb.zlen, body_and_wing_depth_mm=bb.ylen,
+        wing_projection_mm=fit.PROJECTION, wing_span_mm=fit.WING_SPAN,
+        outside_corner_radius_mm=fit.CORNER_R)
+    pushed = placed.translate((0,fit.THICKNESS_AIR+.1,0))
+    add('retention:complete-wings-meet-wall', volume(pushed.intersect(wall)) > 1,
+        outward_motion_mm=fit.THICKNESS_AIR+.1,
+        interference_mm3=volume(pushed.intersect(wall)))
+
+    # Read the complete finite native surfaces behind the mesh-lint picks.
     for name, point, normal, thickness in (
-        ('upper-pad-remainder', (station[0], shift[1]-fit.FLOOR_STOCK, station[1]+17.542), (0,-1,0), 2.0),
-        ('lower-mouth-floor', (station[0], shift[1]+fit.THICK/2, station[1]-fit.BOTTOM-fit.FACE_AIR-fit.SUPPORTED_AIR), (0,0,1), 1.5),
+        ('upper-pad-remainder', (station[0],shift[1]-fit.FLOOR_STOCK,station[1]+17.117), (0,-1,0),2.0),
+        ('lower-mouth-floor', (station[0],shift[1]+fit.POCKET_DEPTH/2,
+                               station[1]-fit.BOTTOM-fit.FACE_AIR-fit.SUPPORTED_AIR), (0,0,1),1.5),
     ):
         near=[]
         for index, face in enumerate(wall.Faces()):
-            if face.geomType() != 'PLANE' or face.normalAt().dot(cq.Vector(*normal)) < .999999:
+            if face.geomType()!='PLANE' or face.normalAt().dot(cq.Vector(*normal))<.999999:
                 continue
-            if face.distance(cq.Vertex.makeVertex(*point)) < .002:
-                near.append((index, face))
-        if len(near) != 1:
-            raise ValueError(f'Expected one finite DATA {name} face; found {len(near)}')
-        index, face=near[0]
+            if face.distance(cq.Vertex.makeVertex(*point))<.002:near.append((index,face))
+        if len(near)!=1:raise ValueError(f'Expected one finite DATA {name} face; found {len(near)}')
+        index,face=near[0]
         witness=cq.Solid.extrudeLinear(face.outerWire(),face.innerWires(),face.normalAt().multiply(-thickness))
-        missing=witness.cut(wall)
-        missing_volume=volume(missing)
-        add('stock:finite-'+name, face.isValid() and witness.isValid() and missing.isValid()
-            and volume(witness)>0 and 0<=missing_volume<=1e-7,
-            native_face=index, face_area_mm2=face.Area(), stock_thickness_mm=thickness,
-            witness_volume_mm3=volume(witness), missing_volume_mm3=missing_volume)
+        missing=witness.cut(wall);missing_volume=volume(missing)
+        add('stock:finite-'+name,face.isValid() and witness.isValid() and missing.isValid()
+            and volume(witness)>0 and abs(missing_volume)<=1e-7,
+            native_face=index,face_area_mm2=face.Area(),stock_thickness_mm=thickness,
+            witness_volume_mm3=volume(witness),missing_volume_mm3=missing_volume)
+
+    drain_bounds=facts['bodies']['bulkhead-ring-drain']
+    frame_bounds=facts['bodies']['data-ring']
+    add('layout:DATA-and-DRAIN-identical-Z',
+        abs(frame_bounds[2]-drain_bounds[2])<1e-6 and
+        abs(frame_bounds[5]-drain_bounds[5])<1e-6,
+        data_z_bounds_mm=[frame_bounds[2],frame_bounds[5]],
+        drain_z_bounds_mm=[drain_bounds[2],drain_bounds[5]])
 
     # This reference envelope includes the RJ11 plug body and its lower latch.
     # It establishes the trim's approach space, not a connector insertion force.
@@ -118,20 +144,12 @@ def main():
         add('receiver:' + name, common <= 1e-7 and gap >= 3.0-1e-6,
             overlap_mm3=common, clearance_mm=gap, required_clearance_mm=3.0)
 
-    # The snap nose retracts inside the opening with room to spare; the open
-    # relief beside each stem has space for the screened 2.4 mm tip movement.
-    nose_clearance = fit.WIDTH/2 + fit.FACE_AIR - (fit.WIDTH/2 + fit.PROJECTION - fit.MAX_DEFLECTION)
-    stem_clearance = fit.STEM_INNER - fit.MAX_DEFLECTION - fit.FLEXURE_INNER
-    add('snap:screened-deflection-space', min(nose_clearance, stem_clearance) > 0,
-        retracted_nose_clearance_mm=nose_clearance, inner_stem_clearance_mm=stem_clearance)
-    strain = fit.strain_screen()
     after = {str(p.relative_to(ROOT)): sha(p) for p in paths}
     add('provenance:inputs-unchanged', before == after)
     result = dict(passed=all(r['passed'] for r in checks.values()), checks=checks,
                   source_and_artifact_sha256=before, station_mm=station,
-                  jack_show_face_y_mm=shift[1], trim_show_face_y_mm=y_outer,
-                  strain_screen=strain,
-                  scope='Production native fit, finite retaining stock and nominal snap/plug envelopes. Printed fit, insertion force, pullout strength and endurance are unmeasured.')
+                  jack_show_face_y_mm=shift[1], trim_show_face_y_mm=shift[1]+fit.THICK,
+                  scope='Production native fit, shared nameplate construction, complete broad wing lands, DATA/DRAIN alignment and plug approach. Printed fit, insertion force, pullout strength and endurance are unmeasured.')
     (HERE / 'fit-check.json').write_text(json.dumps(result, indent=2)+'\n')
     return 0 if result['passed'] else 1
 

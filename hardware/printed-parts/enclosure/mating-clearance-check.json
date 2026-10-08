@@ -4,7 +4,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "919178e182b5b33d227d60dc5b3394d4c1050a79146d0ce09a6b67b71d81968c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "430d3a813cd4c754796de4063637783a0dd119c587444dedd8b4b283755de19a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "1502b8b5e89214bb98c32bdc1b0cfaa32f88359629fd671c8adbc57d0135c7c5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9"
   },
   "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
   "checked_patches": 53,
@@ -1156,7 +1156,7 @@
       ],
       "face_indices": [
         1704,
-        15
+        24
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
@@ -1190,7 +1190,7 @@
       ],
       "face_indices": [
         1706,
-        18
+        26
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
@@ -1224,7 +1224,7 @@
       ],
       "face_indices": [
         1722,
-        135
+        161
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
@@ -1258,7 +1258,7 @@
       ],
       "face_indices": [
         1563,
-        22
+        32
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1292,7 +1292,7 @@
       ],
       "face_indices": [
         1565,
-        500
+        511
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1326,7 +1326,7 @@
       ],
       "face_indices": [
         1564,
-        23
+        31
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1360,7 +1360,7 @@
       ],
       "face_indices": [
         1700,
-        35
+        21
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1394,7 +1394,7 @@
       ],
       "face_indices": [
         1557,
-        17
+        15
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1428,7 +1428,7 @@
       ],
       "face_indices": [
         1699,
-        16
+        25
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1462,7 +1462,7 @@
       ],
       "face_indices": [
         1701,
-        14
+        20
       ],
       "gap_mm": 0.2500000000000142,
       "minimum_mm": 0.25,
@@ -1496,7 +1496,7 @@
       ],
       "face_indices": [
         1705,
-        16
+        25
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1530,7 +1530,7 @@
       ],
       "face_indices": [
         26,
-        4
+        8
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1564,7 +1564,7 @@
       ],
       "face_indices": [
         1527,
-        8
+        4
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1588,7 +1588,7 @@
         160.0,
         -98.5,
         317.8,
-        160.0
+        160.00000000000003
       ]
     },
     {
@@ -1598,7 +1598,7 @@
       ],
       "face_indices": [
         1702,
-        38
+        100
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1632,7 +1632,7 @@
       ],
       "face_indices": [
         1720,
-        194
+        218
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1666,7 +1666,7 @@
       ],
       "face_indices": [
         210,
-        31
+        16
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1700,7 +1700,7 @@
       ],
       "face_indices": [
         265,
-        17
+        15
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1734,7 +1734,7 @@
       ],
       "face_indices": [
         338,
-        137
+        156
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1768,7 +1768,7 @@
       ],
       "face_indices": [
         339,
-        32
+        17
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1802,7 +1802,7 @@
       ],
       "face_indices": [
         5,
-        7
+        3
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1836,7 +1836,7 @@
       ],
       "face_indices": [
         8,
-        7
+        3
       ],
       "gap_mm": 0.24999999999997158,
       "minimum_mm": 0.25,
@@ -1870,7 +1870,7 @@
       ],
       "face_indices": [
         12,
-        7
+        3
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1904,7 +1904,7 @@
       ],
       "face_indices": [
         24,
-        25
+        29
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1938,7 +1938,7 @@
       ],
       "face_indices": [
         67,
-        25
+        29
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1972,7 +1972,7 @@
       ],
       "face_indices": [
         69,
-        25
+        29
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -2006,7 +2006,7 @@
       ],
       "face_indices": [
         209,
-        24
+        30
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -2040,7 +2040,7 @@
       ],
       "face_indices": [
         337,
-        22
+        32
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,

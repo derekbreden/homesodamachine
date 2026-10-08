@@ -8711,7 +8711,7 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
     x, z = station
     if not z0 <= z <= z1:
         return None
-    y_face = outer[3] - _data_fit.THICK
+    y_face = outer[3] - _data_fit.POCKET_DEPTH
     block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
     if block is not None:
         # Preserve the receptacle's three-millimetre surrounding section after applying

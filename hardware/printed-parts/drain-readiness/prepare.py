@@ -257,9 +257,8 @@ def labels():
                 for key, value in {"object_id": oid, "instance_id": 0, "identify_id": 2901 + index}.items():
                     writer.metadata(instance, key, value)
                 # A multi-material prime tower requires one shared layer schedule.
-                # DATA nose closure applies to all five black-plate objects.
-                bands = ([("1.40", "1.68", "0.14"), ("1.92", "2.0", "0.08"),
-                          ("3.20", "3.36", "0.08")] if colour == "black"
+                # The wing-thick DATA face closes on the accepted 1.68 mm datum.
+                bands = ([("1.40", "1.68", "0.14"), ("1.92", "2.48", "0.08")] if colour == "black"
                          else [("1.88", "2.0", "0.12")])
                 object_ranges = ET.SubElement(ranges, "object", id=str(index + 1))
                 for low, high, height in bands:
@@ -275,7 +274,7 @@ def labels():
                         "[Content_Types].xml": b'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/><Default Extension="config" ContentType="application/octet-stream"/></Types>'})
         writer.archive_write(p, members)
         save(directory / "preparation.json", {"project_sha256": sha(p), "parts": details,
-             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__), Path(data.__file__), Path(data.interface.__file__), Path(__file__))},
+             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__), Path(data.__file__), Path(data.interface.__file__), Path(data.interface.nameplate.__file__), Path(data.interface.nameplate.dimensions.__file__), Path(__file__))},
              "extruder_offset": settings["extruder_offset"], "z_trim_mm": .04,
              "first_layer_mm": .20, "normal_layer_mm": .24})
         slice_project(p)

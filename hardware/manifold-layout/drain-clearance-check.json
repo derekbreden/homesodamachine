@@ -694,14 +694,14 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "4c2a414fde754fbe8588de8dd4eddced959f289adda80541df06bc2fa5b3c4a3",
     "hardware/manifold-layout/_drain.py": "517662f986e81eb2c19df5441468bd5d2892f22736197c9d4d0d7d217e0c8131",
-    "hardware/manifold-layout/enclosure_assembly.py": "547b175ef721076e9741db3fc9dcb28eddd2dcf26f10f19c2235dde814b1d4ae",
+    "hardware/manifold-layout/enclosure_assembly.py": "82ac8ed8a67a2a8587cbe3252ee97fa8c057ff4eb511cf74d53f58f2f7e52397",
     "hardware/manifold-layout/_lines.py": "73678dae445715fca7814f7b9e55253dba0b6c65670a38a59c0c6329ce8ca53d",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "883031e94d29d4e53c34013e0d398303097093bcdc4b37efaaf818bb8a8038a3"
   },
   "passed": true,
   "serialized_input_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "32c3c71d81fa2d7328eecc0d0e25f0e68033e5c048d260fffd4de6bdb7633ef8",
+    "hardware/manifold-layout/enclosure-assembly.step": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b0f721d6dd62939f1507e305cf7a0a8d84bb8cdfec9d9d40403f5fab867a51a0"
   },
   "placement_fact_bounds_mm": [
