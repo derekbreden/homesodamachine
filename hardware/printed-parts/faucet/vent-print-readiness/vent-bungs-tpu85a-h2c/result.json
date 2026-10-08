@@ -1,39 +1,39 @@
 {
     "error_string": "Success.",
-    "export_time": 628,
+    "export_time": 493,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 144,
+    "prepare_time": 111,
     "return_code": 0,
     "sliced_plates": [
         {
             "feature_type_times": {
-                "Bottom surface": 194.24595642089844,
-                "Custom": 345.7997131347656,
+                "Bottom surface": 212.81134033203125,
+                "Custom": 345.7984619140625,
                 "Flush": 15.0,
-                "Inner wall": 552.2090454101563,
-                "Internal solid infill": 1176.1368408203125,
-                "Outer wall": 642.7109375,
-                "Sparse infill": 477.91424560546875,
-                "Top surface": 278.48992919921875,
-                "Travel": 121.2225341796875,
-                "Undefined": 111.49456787109375
+                "Inner wall": 539.4226684570313,
+                "Internal solid infill": 1287.0867919921875,
+                "Outer wall": 628.1405029296875,
+                "Sparse infill": 499.9522399902344,
+                "Top surface": 298.4685363769531,
+                "Travel": 121.41583251953125,
+                "Undefined": 111.6878662109375
             },
             "filament_change_times": 0,
             "filaments": [
                 {
                     "filament_id": "GFU04",
                     "id": 1,
-                    "main_used_g": 8.367105484008789,
-                    "total_used_g": 8.367105484008789
+                    "main_used_g": 8.759267807006836,
+                    "total_used_g": 8.759267807006836
                 }
             ],
-            "generate_support_material_time": 78,
+            "generate_support_material_time": 54,
             "id": 1,
-            "infill_time": 97,
+            "infill_time": 65,
             "layer_filament_change": 0,
-            "main_predication": 3428.014892578125,
-            "make_perimeters_time": 420,
+            "main_predication": 3572.3828125,
+            "make_perimeters_time": 271,
             "obj_cached_cnt": 0,
             "objects": [
                 {
@@ -73,13 +73,13 @@
                     },
                     "id": 13,
                     "name": "above-counter-gasket",
-                    "triangle_count": 3348
+                    "triangle_count": 3104
                 }
             ],
-            "sliced_time": 1209,
-            "sliced_time_with_cache": 566,
-            "total_predication": 3794.086669921875,
-            "triangle_count": 76560,
+            "sliced_time": 801,
+            "sliced_time_with_cache": 375,
+            "total_predication": 3938.453369140625,
+            "triangle_count": 76316,
             "warning_message": ""
         }
     ],

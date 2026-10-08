@@ -1,10 +1,10 @@
 {
   "native_archive": "hardware/printed-parts/drain-readiness/ready/back-top-black-z004-mark2.gcode.3mf",
-  "native_archive_sha256": "606f8a153363ac0a3ab1a5defbdea4821aa56f4d989673e6039e7356ee67d694",
-  "gcode_sha256": "c6ef3d9b2be16cc7fccdeb7d7c95d38be71fddb88e1fe109ce8900dbe24a2105",
+  "native_archive_sha256": "f416974511af29a5b0d4eaabff1f683976ddbb4030a4397fabd86a87ae949901",
+  "gcode_sha256": "41e7121efb39b1d4a2ef3b263ad07c9c7096c7b491fcb1636213715ec3cd6d00",
   "zip_crc_and_gcode_md5_pass": true,
-  "source_stl_sha256": "6f8b50646c7f35860b9900139cf43dec21cbf54e0e23ccb743cb64b1f8eae2b7",
-  "source_step_sha256": "7dd74665a0a81f99e5c358064d04777ccc1bcce7499b6a3756b892313a9e5b48",
+  "source_stl_sha256": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
+  "source_step_sha256": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
   "essential_native_settings_retained": true,
   "settings": {
     "initial_layer_print_height": "0.2",
@@ -259,11 +259,6 @@
     },
     {
       "body": "tree-38",
-      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
-      "physical_removal_effort_verified": false
-    },
-    {
-      "body": "tree-39",
       "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
       "physical_removal_effort_verified": false
     }

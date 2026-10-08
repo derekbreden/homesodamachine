@@ -1,14 +1,11 @@
 {
   "archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-bungs-tpu85a-h2c/vent-bungs-tpu85a-h2c.gcode.3mf",
-  "archive_sha256": "cd31730bd72b2d551038a94e54497136409ebb420d92a43635213bcd4df6cf81",
-  "gcode_sha256": "a575f70c1f0af4f474607528f08bde6e12272ab96b826476799fb928bc692d00",
+  "archive_sha256": "9a64764a20fadb424020c3201227df3bfa7af077648e0ffb3bacb4b7e2ad18ed",
+  "gcode_sha256": "ca1bb790de97e847910a832be64ff58883ac7fcba6ead644575ca21a413f2e8c",
   "native_settings_normalizations": {
-    "extruder_nozzle_stats_new": [
+    "ams_filament_unload_time_n3f_s": [
       null,
-      [
-        "Standard#1",
-        "Standard#1"
-      ]
+      "0"
     ],
     "ams_filament_load_time_n3f_s": [
       null,
@@ -18,13 +15,24 @@
       null,
       "0"
     ],
-    "bed_heat_soak_area": [
+    "default_ams_type": [
       null,
-      []
+      "-1"
     ],
-    "counterbore_hole_bridging": [
+    "inherits_group": [
       null,
-      "none"
+      [
+        "",
+        "",
+        ""
+      ]
+    ],
+    "extruder_nozzle_stats_new": [
+      null,
+      [
+        "Standard#1",
+        "Standard#1"
+      ]
     ],
     "filament_map_2": [
       null,
@@ -32,17 +40,13 @@
         "1"
       ]
     ],
-    "default_ams_type": [
+    "bed_heat_soak_area": [
       null,
-      "-1"
+      []
     ],
-    "ams_filament_unload_time_ams_lite": [
-      null,
-      "0"
-    ],
-    "ams_filament_load_time_ams_lite": [
-      null,
-      "0"
+    "version": [
+      "02.07.01.57",
+      "02.08.02.61"
     ],
     "filament_prime_volume": [
       [
@@ -56,23 +60,19 @@
       null,
       "0"
     ],
-    "inherits_group": [
+    "counterbore_hole_bridging": [
       null,
-      [
-        "",
-        "",
-        ""
-      ]
+      "none"
+    ],
+    "ams_filament_unload_time_ams_lite": [
+      null,
+      "0"
     ],
     "ams_filament_load_time_ams": [
       null,
       "0"
     ],
-    "version": [
-      "02.07.01.57",
-      "02.08.02.61"
-    ],
-    "ams_filament_unload_time_n3f_s": [
+    "ams_filament_load_time_ams_lite": [
       null,
       "0"
     ]
@@ -91,8 +91,8 @@
   "active_nozzle": 1,
   "nozzle_diameter_mm": 0.6,
   "layers": 20,
-  "estimated_seconds": 3794.086669921875,
-  "estimated_grams_saved_profile_density": 8.367105484008789,
+  "estimated_seconds": 3938.453369140625,
+  "estimated_grams_saved_profile_density": 8.759267807006836,
   "slicer_return_code": 0,
   "slicer_warning": "",
   "objects": 3

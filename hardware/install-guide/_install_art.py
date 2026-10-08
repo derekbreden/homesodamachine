@@ -17,7 +17,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 import math
 
@@ -221,6 +220,8 @@ REAR_CHILDREN = frozenset({
     "bulkhead-drain",
     "c14-inlet",
     "keystone-jack",
+    "data-ring",
+    "data-ring-word",
     "co2-inlet",
     "bulkhead-water",
     "bulkhead-carb",
@@ -354,7 +355,9 @@ def s_opening():
     lift = 128.0
     for name, colour in (("flavor_tube_pos_x", BLACK_PART),
                          ("flavor_tube_neg_x", BLACK_PART),
-                         ("soda_umbilical_tube", BLUE_TUBE)):
+                         ("soda_umbilical_tube", BLUE_TUBE),
+                         ("drain_tube", WHITE_TUBE),
+                         ("display_signal_ribbon", BLACK_PART)):
         child = parts.get(name)
         if child is not None:
             _add(a, _cad_art._clip_z(child.obj, -70.0, 40.0).translate((0, 0, lift)),
@@ -391,7 +394,7 @@ def s_collet_press():
 
 
 def s_the_back_face():
-    """The face with nothing in it: seven stations to count, in two rows and four columns."""
+    """Three rows of tube ports, with the power inlet and signal socket."""
     return _rear_face(cq.Assembly(name="the-back-face-scene"))
 
 

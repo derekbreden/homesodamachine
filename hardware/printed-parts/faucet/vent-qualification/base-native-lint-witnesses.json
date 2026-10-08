@@ -1,171 +1,496 @@
 {
-  "schema": 1,
-  "checked_at_utc": "2026-10-07T10:59:06.264558+00:00",
-  "scope": "Local native geometric witnesses for final saved base files; no geometry mutation, global wall guarantee, physical print, strength or lifetime result.",
-  "method": "Select the named saved-STEP planar face. Extrude its complete outer and inner wires 2 mm inward, subtract the saved solid, and sum missing solid volumes. Intersect a separate 25 mm inward line from the pick with the saved solid. Require valid native operations and no missing witness volume within 1e-7 mm3.",
+  "schema": 2,
+  "checked_at_utc": "2026-10-08T06:05:38.842345+00:00",
+  "scope": "Current saved-base finite roof geometry only; no global wall guarantee, deposited print, mechanical capacity or lifetime result.",
+  "method": "Resolve every donor/lever-corridor/socket elevation from the current source without executing it, plus the Industrial lever roof. Select all actual downward native planes at those elevations and match every current ceiling locator separately. Extrude complete outer and every inner wire exactly 2 mm inward; require positive valid volume and native cut/common consistency with missing volume below 1e-7 mm3. An invalid original operation can only use the separately reported exact finite-partition proof with complete bidirectional coverage and valid set consistency; it cannot pass from sampled rays or numerical validity alone.",
   "source_and_artifact_sha256": {
-    "hardware/printed-parts/faucet/vent-qualification/check_base_witnesses.py": "c5fe3993117da8edc419add0568887d8a42c30e1060c3058585f1347a1a18b24",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "4a2d50bc61f922693273b97b33426e6f0c33e9dcd44108bb51826bcb9ef09eb7",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d"
+    "hardware/printed-parts/faucet/vent-qualification/check_base_witnesses.py": "caacaed50f5e7af3c6d553b90b6abd635b42bce7913bfed1dca63028a072277e",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/vent-qualification/roof-correction-fresh-lint-execution.json": "c7805a2e82e3781582d844f8fb046c86fa5c74ed957d9654ace40fbd8a9b0851",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "5d14b8a99a99bce9fd893caaee7a5ae185ad249f375e8bc7040956059c833870",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8",
+    "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "ae20063a52ebe15358c58dae8fb115784146c58090668bb0d4f5211a0f56fa74",
+    "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "be227c2f58851a164e3c1d9127903294cb7fbc908e1c5b1cee113d6c7c7ae355",
+    "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json": "e7e8f7ef1ea1b58cbcce83b18b3f696b948a581de040100cc340fcdadf617231",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": "3dc13f9e6534cd3a173079feb0ea87c4078b9197242f645be2748b07c2d8d0f6",
+    "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6"
   },
+  "resolved_roof_elevations_mm": {
+    "donor": 39.0,
+    "corridor": 52.0,
+    "lever": 57.5,
+    "socket": 3.2
+  },
+  "current_material_finding_count": 0,
+  "material_finding_scope": "Fresh executed lint has no step or sliver finding. No backing measurement is asserted for absent findings.",
   "all_named_backing_witnesses_pass": true,
   "all_named_ceiling_stock_witnesses_pass": true,
+  "complete_native_roof_witness_count": 15,
+  "source_based_roof_selection_complete": true,
   "parts": [
     {
       "part": "sculpted",
       "saved_step": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
       "saved_stl": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
       "native_shape_valid_one_positive_solid": true,
-      "native_volume_mm3": 125722.61786535635,
-      "material_witnesses": [
-        {
-          "class": "sliver",
-          "pick_mm": [
-            9.085,
-            18.945,
-            7.0
-          ],
-          "saved_step_face_index": 13,
-          "face_area_mm2": 0.2807724196760332,
-          "face_normal": [
-            0.0,
-            -1.0,
-            -0.0
-          ],
-          "face_bbox_mm": [
-            9.074944727165999,
-            18.9449999,
-            -1e-07,
-            9.095000100000016,
-            18.9450001,
-            14.0000001
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 0.5615448393520411,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "centre_normal_line_limit_mm": 25.0,
-          "centre_normal_material_segments": [
-            {
-              "length_mm": 9.032545416679454,
-              "start_mm": [
-                9.085,
-                18.945,
-                7.0
-              ],
-              "end_mm": [
-                9.085,
-                27.977545416679455,
-                7.0
-              ]
-            }
-          ],
-          "centre_normal_material_chord_mm": 9.032545416679454,
-          "pass": true
-        },
-        {
-          "class": "step",
-          "pick_mm": [
-            9.075,
-            13.286,
-            24.424
-          ],
-          "saved_step_face_index": 222,
-          "face_area_mm2": 0.9417313151607448,
-          "face_normal": [
-            -1.0,
-            0.0,
-            0.0
-          ],
-          "face_bbox_mm": [
-            9.0749999,
-            13.177419032744,
-            22.086122474215,
-            9.075000099999999,
-            13.48185182763326,
-            26.761338639724002
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 1.8834631592567983,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "centre_normal_line_limit_mm": 25.0,
-          "centre_normal_material_segments": [
-            {
-              "length_mm": 13.07149578274771,
-              "start_mm": [
-                9.075,
-                13.286,
-                24.424
-              ],
-              "end_mm": [
-                22.14649578274771,
-                13.286,
-                24.424
-              ]
-            }
-          ],
-          "centre_normal_material_chord_mm": 13.07149578274771,
-          "pass": true
-        }
+      "native_volume_mm3": 127967.53407897118,
+      "selected_native_roof_counts": {
+        "donor": 3,
+        "corridor": 2,
+        "lever": 0,
+        "socket": 3
+      },
+      "current_material_finding_count": 0,
+      "absent_lint_classes": [
+        "step",
+        "sliver"
       ],
+      "material_witnesses": [],
       "ceiling_faces": [
         {
           "class": "ceiling",
-          "feature": "donor shoulder Z39",
+          "feature": "donor lever corridor roof Z52",
+          "roof_id": "face-21",
+          "saved_step_face_index": 21,
+          "face_area_mm2": 2.0480748705505047,
+          "face_normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            4.860599785816862,
+            9.354999899999862,
+            51.999999899999864,
+            6.850000100000138,
+            10.460000100000139,
+            52.000000100000136
+          ],
+          "inner_wire_count": 0,
           "actual_face_point_mm": [
-            0.0,
-            14.156,
-            39.0
+            6.242531352374529,
+            9.872625400763232,
+            52.0
           ],
-          "lint_plane_pick_mm": [
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": null,
+          "lint_pick_distance_to_actual_face_mm": null,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": false,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 4.0961497411014856,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 4.0961497411014856,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor lever corridor roof Z52",
+          "roof_id": "face-26",
+          "saved_step_face_index": 26,
+          "face_area_mm2": 2.048074870550506,
+          "face_normal": [
+            -0.0,
             0.0,
-            14.156,
-            39.0
+            -1.0
           ],
-          "lint_pick_distance_to_actual_face_mm": 0.0,
-          "saved_step_face_index": 69,
-          "face_area_mm2": 48.619624715906795,
+          "face_bbox_mm": [
+            -6.850000100000015,
+            9.354999899999985,
+            51.999999899999985,
+            -4.8605997858169845,
+            10.460000100000016,
+            52.000000100000015
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            -6.242531352374529,
+            9.87262540076323,
+            52.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": null,
+          "lint_pick_distance_to_actual_face_mm": null,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": false,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 4.096149741101662,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 4.096149741101662,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 left",
+          "roof_id": "face-32",
+          "saved_step_face_index": 32,
+          "face_area_mm2": 20.140936311086303,
           "face_normal": [
             -0.0,
             -0.0,
             -1.0
           ],
           "face_bbox_mm": [
-            -9.075000099999999,
-            13.157419032743734,
-            38.9999999,
-            9.075000099999999,
-            18.925000100000002,
-            39.0000001
+            -6.800000100000277,
+            10.459999899999724,
+            38.99999989999972,
+            -1.6187928588917229,
+            18.43227525003028,
+            39.00000010000028
           ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            -5.985865894639187,
+            12.114985821106709,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            -4.209,
+            14.446,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": true,
           "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 97.2392494318402,
+          "complete_witness_volume_mm3": 40.28187262217225,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 40.28187262217225,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
           "missing_witness_volume_mm3": 0,
           "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
           "pass": true,
           "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 right",
+          "roof_id": "face-42",
+          "saved_step_face_index": 42,
+          "face_area_mm2": 28.84157385429129,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            3.187477211175861,
+            10.459999899999863,
+            38.999999899999864,
+            11.350000100000138,
+            18.43227525003014,
+            39.000000100000136
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            5.987838665683896,
+            12.11146343585855,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            7.269,
+            14.446,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": true,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 57.6831477085712,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 57.6831477085712,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 unflagged native plane face-45",
+          "roof_id": "face-45",
+          "saved_step_face_index": 45,
+          "face_area_mm2": 3.542601391057498,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -2.682275250030238,
+            21.34986206149076,
+            38.999999899999764,
+            7.232275250030239,
+            22.55000010000024,
+            39.000000100000236
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            1.7416666666666671,
+            22.42487390826664,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": null,
+          "lint_pick_distance_to_actual_face_mm": null,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": false,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 7.085202782115855,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 7.085202778417046,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
         },
         {
           "class": "ceiling",
           "feature": "registration socket roof",
+          "roof_id": "face-49",
+          "saved_step_face_index": 49,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            18.39999989999999,
+            -6.098725746203354,
+            3.199999899999993,
+            26.60000010000001,
+            2.0987257462033533,
+            3.2000001000000076
+          ],
+          "inner_wire_count": 1,
           "actual_face_point_mm": [
-            3.0,
-            -22.3,
+            22.854963327351363,
+            -5.3803982429012915,
             3.2
           ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
           "lint_plane_pick_mm": [
-            0.0,
-            -22.3,
+            22.5,
+            -2.0,
             3.2
           ],
           "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 54,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497053,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "roof_id": "face-50",
+          "saved_step_face_index": 50,
+          "face_area_mm2": 40.24380189248529,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -26.60000010000001,
+            -6.098725746203354,
+            3.199999899999993,
+            -18.39999989999999,
+            2.0987257462033533,
+            3.2000001000000076
+          ],
+          "inner_wire_count": 1,
+          "actual_face_point_mm": [
+            -22.145036672648633,
+            -5.3803982429012915,
+            3.2
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            -22.5,
+            -2.0,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497053,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "registration socket roof",
+          "roof_id": "face-51",
+          "saved_step_face_index": 51,
           "face_area_mm2": 40.24380189248524,
           "face_normal": [
             -0.0,
@@ -173,94 +498,54 @@
             -1.0
           ],
           "face_bbox_mm": [
-            -4.1,
-            -26.4,
-            3.2,
-            4.1,
-            -18.200000000000003,
+            -4.100000100000007,
+            -26.398725746203354,
+            3.1999998999999932,
+            4.100000100000007,
+            -18.201274253796647,
+            3.200000100000007
+          ],
+          "inner_wire_count": 1,
+          "actual_face_point_mm": [
+            -3.3174230164717757,
+            -23.040132268015526,
             3.2
           ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            0.0,
+            -22.3,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
           "required_inward_stock_mm": 2.0,
           "complete_witness_volume_mm3": 80.48760378497049,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497049,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
           "missing_witness_volume_mm3": 0,
           "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
           "pass": true,
           "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
-        },
-        {
-          "class": "ceiling",
-          "feature": "registration socket roof",
-          "actual_face_point_mm": [
-            -19.5,
-            -2.0,
-            3.2
-          ],
-          "lint_plane_pick_mm": [
-            -22.5,
-            -2.0,
-            3.2
-          ],
-          "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 53,
-          "face_area_mm2": 40.24380189248529,
-          "face_normal": [
-            -0.0,
-            -0.0,
-            -1.0
-          ],
-          "face_bbox_mm": [
-            -26.6,
-            -6.1,
-            3.2,
-            -18.4,
-            2.0999999999999996,
-            3.2
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 80.48760378497053,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "pass": true,
-          "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
-        },
-        {
-          "class": "ceiling",
-          "feature": "registration socket roof",
-          "actual_face_point_mm": [
-            25.5,
-            -2.0,
-            3.2
-          ],
-          "lint_plane_pick_mm": [
-            22.5,
-            -2.0,
-            3.2
-          ],
-          "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 52,
-          "face_area_mm2": 40.24380189248529,
-          "face_normal": [
-            -0.0,
-            -0.0,
-            -1.0
-          ],
-          "face_bbox_mm": [
-            18.4,
-            -6.1,
-            3.2,
-            26.6,
-            2.0999999999999996,
-            3.2
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 80.48760378497053,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "pass": true,
-          "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
         }
       ]
     },
@@ -269,189 +554,86 @@
       "saved_step": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
       "saved_stl": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
       "native_shape_valid_one_positive_solid": true,
-      "native_volume_mm3": 136660.4886501012,
-      "material_witnesses": [
-        {
-          "class": "sliver",
-          "pick_mm": [
-            9.085,
-            18.945,
-            7.0
-          ],
-          "saved_step_face_index": 12,
-          "face_area_mm2": 0.2807724196760332,
-          "face_normal": [
-            0.0,
-            -1.0,
-            -0.0
-          ],
-          "face_bbox_mm": [
-            9.074944727165999,
-            18.9449999,
-            -1e-07,
-            9.095000100000016,
-            18.9450001,
-            14.0000001
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 0.5615448393520427,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "centre_normal_line_limit_mm": 25.0,
-          "centre_normal_material_segments": [
-            {
-              "length_mm": 9.121221245475851,
-              "start_mm": [
-                9.085,
-                18.945,
-                7.0
-              ],
-              "end_mm": [
-                9.085,
-                28.06622124547585,
-                7.0
-              ]
-            }
-          ],
-          "centre_normal_material_chord_mm": 9.121221245475851,
-          "pass": true
-        },
-        {
-          "class": "step",
-          "pick_mm": [
-            9.075,
-            13.286,
-            24.424
-          ],
-          "saved_step_face_index": 210,
-          "face_area_mm2": 0.9417313151607448,
-          "face_normal": [
-            -1.0,
-            0.0,
-            0.0
-          ],
-          "face_bbox_mm": [
-            9.0749999,
-            13.177419032744,
-            22.086122474215,
-            9.075000099999999,
-            13.48185182763326,
-            26.761338639724002
-          ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 1.8834631592567983,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "centre_normal_line_limit_mm": 25.0,
-          "centre_normal_material_segments": [
-            {
-              "length_mm": 14.015495966955754,
-              "start_mm": [
-                9.075,
-                13.286,
-                24.424
-              ],
-              "end_mm": [
-                23.090495966955753,
-                13.286,
-                24.424
-              ]
-            }
-          ],
-          "centre_normal_material_chord_mm": 14.015495966955754,
-          "pass": true
-        }
+      "native_volume_mm3": 137484.61831943324,
+      "selected_native_roof_counts": {
+        "donor": 3,
+        "corridor": 0,
+        "lever": 1,
+        "socket": 3
+      },
+      "current_material_finding_count": 0,
+      "absent_lint_classes": [
+        "step",
+        "sliver"
       ],
+      "material_witnesses": [],
       "ceiling_faces": [
         {
           "class": "ceiling",
-          "feature": "donor shoulder Z39",
-          "actual_face_point_mm": [
-            0.0,
-            14.156,
-            39.0
-          ],
-          "lint_plane_pick_mm": [
-            0.0,
-            14.156,
-            39.0
-          ],
-          "lint_pick_distance_to_actual_face_mm": 0.0,
-          "saved_step_face_index": 75,
-          "face_area_mm2": 48.619624715906795,
+          "feature": "registration socket roof",
+          "roof_id": "face-15",
+          "saved_step_face_index": 15,
+          "face_area_mm2": 40.24380189248529,
           "face_normal": [
             -0.0,
             -0.0,
             -1.0
           ],
           "face_bbox_mm": [
-            -9.075000099999999,
-            13.157419032743734,
-            38.9999999,
-            9.075000099999999,
-            18.925000100000002,
-            39.0000001
+            -26.60000010000001,
+            -6.098725746203354,
+            3.199999899999993,
+            -18.39999989999999,
+            2.0987257462033533,
+            3.2000001000000076
           ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 97.2392494318402,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "pass": true,
-          "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
-        },
-        {
-          "class": "ceiling",
-          "feature": "rear lever roof Z57.5",
+          "inner_wire_count": 1,
           "actual_face_point_mm": [
-            -4.0,
-            4.932,
-            57.5
+            -22.145036672648633,
+            -5.3803982429012915,
+            3.2
           ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
           "lint_plane_pick_mm": [
-            0.0,
-            4.932,
-            57.5
+            -22.5,
+            -2.0,
+            3.2
           ],
-          "lint_pick_distance_to_actual_face_mm": 1.1695000000000002,
-          "saved_step_face_index": 88,
-          "face_area_mm2": 86.21240711111267,
-          "face_normal": [
-            -0.0,
-            -0.0,
-            -1.0
-          ],
-          "face_bbox_mm": [
-            -6.850000000000044,
-            -0.5974870780000003,
-            57.5,
-            6.850000000000039,
-            10.460000000000008,
-            57.5
-          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
           "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 172.42481422222383,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497053,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
           "missing_witness_volume_mm3": 0,
           "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
           "pass": true,
           "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
         },
         {
           "class": "ceiling",
           "feature": "registration socket roof",
-          "actual_face_point_mm": [
-            3.0,
-            -22.3,
-            3.2
-          ],
-          "lint_plane_pick_mm": [
-            0.0,
-            -22.3,
-            3.2
-          ],
-          "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 20,
+          "roof_id": "face-16",
+          "saved_step_face_index": 16,
           "face_area_mm2": 40.24380189248524,
           "face_normal": [
             -0.0,
@@ -459,36 +641,60 @@
             -1.0
           ],
           "face_bbox_mm": [
-            -4.1,
-            -26.4,
-            3.2,
-            4.1,
-            -18.200000000000003,
+            -4.100000100000007,
+            -26.398725746203354,
+            3.1999998999999932,
+            4.100000100000007,
+            -18.201274253796647,
+            3.200000100000007
+          ],
+          "inner_wire_count": 1,
+          "actual_face_point_mm": [
+            -3.3174230164717757,
+            -23.040132268015526,
             3.2
           ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            0.0,
+            -22.3,
+            3.2
+          ],
+          "lint_pick_distance_to_actual_face_mm": 2.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
           "required_inward_stock_mm": 2.0,
           "complete_witness_volume_mm3": 80.48760378497049,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497049,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
           "missing_witness_volume_mm3": 0,
           "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
           "pass": true,
           "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
         },
         {
           "class": "ceiling",
           "feature": "registration socket roof",
-          "actual_face_point_mm": [
-            -19.5,
-            -2.0,
-            3.2
-          ],
-          "lint_plane_pick_mm": [
-            -22.5,
-            -2.0,
-            3.2
-          ],
-          "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 19,
+          "roof_id": "face-17",
+          "saved_step_face_index": 17,
           "face_area_mm2": 40.24380189248529,
           "face_normal": [
             -0.0,
@@ -496,57 +702,294 @@
             -1.0
           ],
           "face_bbox_mm": [
-            -26.6,
-            -6.1,
-            3.2,
-            -18.4,
-            2.0999999999999996,
-            3.2
+            18.39999989999999,
+            -6.098725746203354,
+            3.199999899999993,
+            26.60000010000001,
+            2.0987257462033533,
+            3.2000001000000076
           ],
-          "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 80.48760378497053,
-          "missing_witness_volume_mm3": 0,
-          "witness_and_boolean_valid": true,
-          "pass": true,
-          "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
-        },
-        {
-          "class": "ceiling",
-          "feature": "registration socket roof",
+          "inner_wire_count": 1,
           "actual_face_point_mm": [
-            25.5,
-            -2.0,
+            22.854963327351363,
+            -5.3803982429012915,
             3.2
           ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
           "lint_plane_pick_mm": [
             22.5,
             -2.0,
             3.2
           ],
           "lint_pick_distance_to_actual_face_mm": 2.0,
-          "saved_step_face_index": 21,
-          "face_area_mm2": 40.24380189248529,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 80.48760378497053,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 80.48760378497053,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 right",
+          "roof_id": "face-37",
+          "saved_step_face_index": 37,
+          "face_area_mm2": 28.84157385428652,
           "face_normal": [
             -0.0,
             -0.0,
             -1.0
           ],
           "face_bbox_mm": [
-            18.4,
-            -6.1,
-            3.2,
-            26.6,
-            2.0999999999999996,
-            3.2
+            3.1874772111758816,
+            10.459999899999882,
+            38.999999899999885,
+            11.350000100000118,
+            18.43227525003012,
+            39.000000100000115
           ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            5.987838665683896,
+            12.11146343585855,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            7.269,
+            14.446,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": true,
           "required_inward_stock_mm": 2.0,
-          "complete_witness_volume_mm3": 80.48760378497053,
+          "complete_witness_volume_mm3": 57.68314770857134,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 57.68314770857134,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
           "missing_witness_volume_mm3": 0,
           "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
           "pass": true,
           "print_pose_degrees_about_x": -15.0,
-          "scope": "Named saved-face identification and complete 2 mm inward stock. Retained native toolpaths supply support evidence. Physical cleanup and contact finish are not measured."
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 left",
+          "roof_id": "face-48",
+          "saved_step_face_index": 48,
+          "face_area_mm2": 20.140936311086115,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -6.8000001000001555,
+            10.459999899999845,
+            38.99999989999984,
+            -1.6187928588918445,
+            18.432275250030155,
+            39.00000010000016
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            -5.985865894639187,
+            12.114985821106709,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            -4.209,
+            14.446,
+            39.0
+          ],
+          "lint_pick_distance_to_actual_face_mm": 0.0,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": true,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 40.28187262217182,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 40.28187262217182,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "donor shoulder Z39 unflagged native plane face-52",
+          "roof_id": "face-52",
+          "saved_step_face_index": 52,
+          "face_area_mm2": 3.5426013910574987,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -2.682275250030238,
+            21.34986206149076,
+            38.999999899999764,
+            7.232275250030239,
+            22.55000010000024,
+            39.000000100000236
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            1.7416666666666671,
+            22.42487390826664,
+            39.0
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": null,
+          "lint_pick_distance_to_actual_face_mm": null,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": false,
+          "lint_support_witness_required": false,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 7.085202782115859,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 7.085202777113925,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
+        },
+        {
+          "class": "ceiling",
+          "feature": "rear lever roof Z57.5",
+          "roof_id": "face-57",
+          "saved_step_face_index": 57,
+          "face_area_mm2": 86.21240711110832,
+          "face_normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "face_bbox_mm": [
+            -6.850000100000501,
+            -0.5974871780005013,
+            57.4999998999995,
+            6.850000100001501,
+            10.460000100000501,
+            57.5000001000005
+          ],
+          "inner_wire_count": 0,
+          "actual_face_point_mm": [
+            6.196572432001881,
+            6.370573961191932,
+            57.5
+          ],
+          "actual_point_distance_to_finite_native_face_mm": 0.0,
+          "native_membership_tolerance_mm": 1e-06,
+          "lint_plane_pick_mm": [
+            0.0,
+            4.932,
+            57.5
+          ],
+          "lint_pick_distance_to_actual_face_mm": 1.1695000000000002,
+          "lint_locator_tolerance_mm": 0.02,
+          "current_lint_finding_present": true,
+          "lint_support_witness_required": true,
+          "required_inward_stock_mm": 2.0,
+          "complete_witness_volume_mm3": 172.4248142222361,
+          "complete_area_times_2mm_agrees": true,
+          "original_complete_default_cut": {
+            "valid": true,
+            "volume_mm3": 0,
+            "solid_count": 0,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_common": {
+            "valid": true,
+            "volume_mm3": 172.4248142222361,
+            "solid_count": 1,
+            "solid_volumes_nonnegative": true
+          },
+          "original_complete_cut_common_consistency_pass": true,
+          "finite_partition_alternative": null,
+          "complete_stock_proof_method": "complete copied non-destructive cut/common consistency",
+          "missing_witness_volume_mm3": 0,
+          "witness_and_boolean_valid": true,
+          "face_and_witness_positive": true,
+          "pass": true,
+          "print_pose_degrees_about_x": -15.0,
+          "scope": "Complete finite native face with every inner wire and exactly 2 mm inward stock. Original cut/common invalidity remains explicit; an alternative needs complete exact partition coverage and valid native set consistency. Rounded mesh locators are separate from actual native membership. Native toolpaths supply separate support presence; no physical cleanup, contact, strength or lifetime result."
         }
       ]
     }

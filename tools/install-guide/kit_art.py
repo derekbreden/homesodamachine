@@ -22,7 +22,6 @@ from OCP.BRepLib import BRepLib
 ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / 'hardware'
 ART = HARDWARE / 'install-guide/assets/kit'
-os.environ.setdefault('HSM_NO_BUILD_LOCK', '1')
 sys.path[:0] = [str(HARDWARE/'install-guide'),
                str(HARDWARE/'printed-parts/enclosure/enclosure')]
 import _cad_art
@@ -69,14 +68,16 @@ def faucet_and_plate():
     parts = _cad_art._children_by_name(faucet.build_assembly())
     rest, _ = _cad_art._physical_levers(faucet)
     selected = []
-    names = ['westbrass', 'soda_faucet_tube', 'tpu_o_ring',
+    names = ['westbrass', 'drain_tube', 'display_signal_ribbon',
+             'soda_faucet_tube', 'tpu_o_ring',
              'flavor_tube_pos_x', 'flavor_tube_neg_x', 'lever',
              'above_counter_plate', 'above_counter_gasket', 'shell_base',
              'shell_tip', 'faucet-display-cover-seated', 'faucet_display',
              'faucet_display_screen']
     for name in names:
         obj = rest if name == 'lever' else parts[name].obj
-        if name in {'westbrass', 'flavor_tube_pos_x', 'flavor_tube_neg_x'}:
+        if name in {'westbrass', 'drain_tube', 'display_signal_ribbon',
+                    'flavor_tube_pos_x', 'flavor_tube_neg_x'}:
             obj = _cad_art._clip_z(obj, -110, 260)
         selected.append(obj)
     # Show the supplied slide-on plate beside the faucet, with both channels visible.

@@ -140,6 +140,14 @@ def labels():
         project = directory / ("labels-" + colour + "-z004-mark2.3mf")
         prep = json.loads((directory / "preparation.json").read_text())
         assert sha(project) == prep["project_sha256"]
+        with zipfile.ZipFile(project) as z:
+            layer_ranges = ET.fromstring(z.read("Metadata/layer_config_ranges.xml"))
+        expected = ([(1.40, 1.68, .14), (1.92, 2.0, .08), (3.20, 3.36, .08)]
+                    if colour == "black" else [(1.88, 2.0, .12)])
+        schedules = [[(float(r.get("min_z")), float(r.get("max_z")),
+                       float(r.find("option[@opt_key='layer_height']").text))
+                      for r in obj.findall("range")] for obj in layer_ranges.findall("object")]
+        assert len(schedules) == len(prep["parts"]) and all(row == expected for row in schedules)
         archive = directory / "ready" / (project.stem + ".gcode.3mf")
         raw, settings = integrity(archive)
         assert settings["extruder_offset"] == ["0x0", "0.5x-0.7"]
@@ -168,8 +176,19 @@ def labels():
                             "model_layer_count": len(object_layers[ident]),
                             "last_model_z_mm": max(object_layers[ident]),
                             "both_body_and_letter_tools_present": True})
+        snap_layers = None
+        if colour == "black":
+            data_index = next(i for i, part in enumerate(prep["parts"]) if part["station"] == "data")
+            data_layers = sorted(object_layers[2901 + data_index])
+            for height in (1.40, 1.54, 1.68, 2.00, 3.20, 3.28, 3.36, 3.60, 3.84):
+                assert any(abs(z - height) < 1e-5 for z in data_layers), ("DATA layer", height, data_layers)
+            assert abs(max(data_layers) - 3.84) < 1e-5, data_layers
+            snap_layers = {"nose_top_mm": 1.68, "face_top_mm": 3.36,
+                           "word_top_mm": 3.84, "model_layer_heights_mm": data_layers,
+                           "passed": True}
         records.append({"colour": colour, "parts": prep["parts"],
-                        "emitted_objects": objects,
+                        "emitted_objects": objects, "shared_variable_layer_bands_mm": expected,
+                        "prime_tower_layer_schedules_match": True, "data_closing_layers": snap_layers,
                         "native_archive": str(archive.relative_to(ROOT)), "native_archive_sha256": sha(archive),
                         "gcode_sha256": hashlib.sha256(raw).hexdigest(), "zip_crc_and_gcode_md5_pass": True,
                         "full_native_bead_margin_mm": native["minimum_shared_bed_margin_mm"],

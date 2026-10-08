@@ -225,5 +225,24 @@
     "https://www.parker.com/content/dam/Parker-com/Literature/O-Ring-Division-Literature/ORD-5700.pdf",
     "https://us.store.bambulab.com/products/tpu-85a-tpu-90a/",
     "https://bntechgo.com/bntechgo-28-gauge-silicone-ribbon-cable-copper-wire-4p-flat-cable-28-awg-flexible-soft-silicone-rubber-parallel-wire-stranded-tinned-copper-wire-4-pin-black-50-ft//"
-  ]
+  ],
+  "native_export_provenance": {
+    "generator_sha256": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "path_source_sha256": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "original_manifest_sha256": "8f453d7a5ca32d70e877042242cab4314c669a788f01dd0d1765a9de6e4233f2",
+    "scope": "Source bindings of the actual saved native STEP/STL export."
+  },
+  "current_geometry_binding": {
+    "path_source_sha256": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "generator_sha256": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "shell_source_sha256": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "complete_faucet_check": "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json",
+    "complete_faucet_check_sha256": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe",
+    "complete_faucet_checks_passed": 164,
+    "retained_part_witness": "hardware/printed-parts/faucet/asse-vent-seals/lower-body-correction-check.json",
+    "retained_part_witness_sha256": "30dfe7fec84242fd81e192943a02c87c26b849b1cc5fde3509023002482367e5",
+    "exact_saved_step_and_stl_hashes_preserved": true,
+    "unchanged_shared_upper_construction_verified_by_AST": true,
+    "scope": "Current builders and exported print surfaces checked against the complete faucet audit; exact free seal and tool artifacts retained with their native export provenance. Geometric fit and access do not establish physical insertion, sealing or lifetime."
+  }
 }

@@ -20,6 +20,12 @@ on [Drawings](https://homesodamachine.com/drawings) and at
 The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
 (PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
 The faucet has four attached tubes, including the small white 4 mm DRAIN tail.
+Numbered pages 7–8 (PDF pages 8–9) show the seated plate from below, with a shared
+rear narrow slot for both black flavor tubes, white DRAIN and the flat display ribbon.
+The front wide slot carries the shank; the blue SODA tube connects beneath it.
+The vector slot map follows the purchased steel DXF and production line positions.
+Its washer and nut are omitted to expose both openings; the adjacent mounting scene
+shows their assembled order.
 The mounting-hole center sits at most 2 inches behind the bowl edge, with the faucet
 aimed within 10 degrees of straight into the bowl and its complete drain opening exposed
 above the bowl. DRAIN keeps its factory length and connects to its own labeled metric port.
@@ -31,6 +37,11 @@ The Fill pages show the Big Blue screen inside the machine display's frame, with
 The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
 back down after **Filled**. Page 30 has the funnel and both faces of its cover washed by hand.
 The cabinet dimensions include the seated 3 mm funnel-cover plate.
+
+The mounting illustrations use a nominal 30 mm countertop and approximate retained
+washer and nut envelopes. Complete clamp engagement and maximum supported countertop
+thickness remain open in the [mechanical concerns](../concerns.md). The 19–38 mm
+geometric routing envelope measures tube and plate clearance.
 
 ## Artwork
 
@@ -64,6 +75,8 @@ are suppressed; the cord, washer, bag and booklet are illustration props.
 `assets/opening-faucet-outline.svg` supplies the faucet shank and tube silhouette in the
 counter-opening scene. Its dimensions and source hash register it to `opening.png`; the contour
 compositor adds the component boundary where it meets the counter.
+[`opening_scene.py`](../../tools/install-guide/opening_scene.py) renders the current opening,
+four tube tails and display cable, then registers the component silhouette from the same pose.
 Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
 with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
 `_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
@@ -77,6 +90,7 @@ From the repository root:
 tools/cad-venv/bin/python tools/install-guide/fill_scene.py --publish
 tools/cad-venv/bin/python tools/install-guide/fill_scene.py --scale 2 --publish
 tools/cad-venv/bin/python tools/install-guide/kit_art.py
+tools/cad-venv/bin/python tools/install-guide/opening_scene.py
 tools/cad-venv/bin/python tools/install-guide/build.py
 tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page

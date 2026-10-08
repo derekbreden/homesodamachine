@@ -1,167 +1,345 @@
 {
-  "schema": 1,
-  "checked_at_utc": "2026-10-07T11:02:27.463233+00:00",
-  "scope": "Named roof geometry and retained native extrusion presence. The samples are not complete coverage or interface-contact proofs, and they do not establish physical support release, contact finish or part strength.",
-  "method": "Read every actual Support feature extrusion for the base object from the hash-bound native archive. Invert its retained print transform. Select three centerline midpoint witnesses whose vertical projections lie on each exact native roof face. Audit interface IDs describe the roof region and supporting tree; the sampled paths are not asserted to carry those interface labels.",
+  "schema": 2,
+  "checked_at_utc": "2026-10-08T06:07:41.042479+00:00",
+  "scope": "Every current named finite native donor/lever-corridor/lever roof finding and actual native support presence. Three distinct finite-face projections per roof do not establish complete coverage, bead contact, physical cleanup, deposited finish, strength or lifetime.",
+  "method": "Read all actual Support feature extrusions for each base object from the current hash-bound native archive. Invert the retained print transform and require three distinct bead midpoints whose vertical projections lie on the exact finite native face within1e-6mm. Current audit regions are selected by valid positive-area projected rectangle/native-face intersections, not retained interface IDs; An absent interface-labelled region remains explicit while distinct actual Support paths supply the finite local presence witness; sampled paths are not asserted to inherit those labels.",
+  "native_membership_tolerance_mm": 1e-06,
+  "support_midpoint_vertical_gap_selection_window_mm": [
+    0.15,
+    0.85
+  ],
+  "distinct_midpoint_tolerance_mm": 0.0001,
+  "gap_window_scope": "Witness selection only; no physical support-contact acceptance.",
   "source_and_artifact_sha256": {
-    "hardware/printed-parts/faucet/vent-qualification/check_lint_supports.py": "2ae22c029445e45f9c1c5a46f4b9244670e37a77d3e66fee799866461bb1b055",
+    "hardware/printed-parts/faucet/vent-qualification/check_lint_supports.py": "b712c2e1b20371de615cbc60a2e8ecbcc943d87dc1c8e5effaaa79eadc0acd44",
     "hardware/printed-parts/faucet/prepare_display_print.py": "514af22595b39a3c731ce753edbe31508ce2c24a1c7385baaa9fd7a685449f81",
-    "hardware/printed-parts/faucet/vent-qualification/base-native-lint-witnesses.json": "35f37481f9cba08fab1f6ef748baa376ee5dde869fa4d800fda713a7a96fd69e",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "814438bf5d718d4fdc29712431086a9a2a654c79afb5921a1e61e7d86992348f",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "ac14875adf2c90c83b3e1ff98c6b28ac93ce387393a44ef6b57bd34b759b3a50",
-    "hardware/printed-parts/faucet/faucet-petgf.native-validation.json": "f153657f13825709c5f2e3f1f3ca129ff8f2f621a732da9e861ce2a10011a38c",
-    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf": "fb28aee615a4d6622891dc50f99b109ad758ed34e4b85c2b5be5def84938797a",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "a14913f765f9a1def268ab9a02452e1d950cb9f1f1cba8bfdf543bc99dfd153b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "56470b7467b167fb24b3829854a41bd50585c5d12cf4543bbeec59d341717403",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "b02efa45e36c0753a58c572449921db75527e664d8690cfe2f748e887090b27f",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.native-validation.json": "767c0a3e15c9689d7fa0e910e047297004263f16cf1eb42e84464208ce900d06",
-    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "4a2d50bc61f922693273b97b33426e6f0c33e9dcd44108bb51826bcb9ef09eb7",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b"
+    "hardware/printed-parts/faucet/vent-qualification/check_base_witnesses.py": "caacaed50f5e7af3c6d553b90b6abd635b42bce7913bfed1dca63028a072277e",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/vent-qualification/roof-correction-fresh-lint-execution.json": "c7805a2e82e3781582d844f8fb046c86fa5c74ed957d9654ace40fbd8a9b0851",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "5d14b8a99a99bce9fd893caaee7a5ae185ad249f375e8bc7040956059c833870",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8",
+    "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "ae20063a52ebe15358c58dae8fb115784146c58090668bb0d4f5211a0f56fa74",
+    "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "be227c2f58851a164e3c1d9127903294cb7fbc908e1c5b1cee113d6c7c7ae355",
+    "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json": "e7e8f7ef1ea1b58cbcce83b18b3f696b948a581de040100cc340fcdadf617231",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": "3dc13f9e6534cd3a173079feb0ea87c4078b9197242f645be2748b07c2d8d0f6",
+    "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
+    "hardware/printed-parts/faucet/vent-qualification/base-native-lint-witnesses.json": "1c9ec3151a478492e882b9d05771a4e3c71293803c986f3c5b218afd8a461e87",
+    "hardware/printed-parts/faucet/vent-qualification/native-print-review-evidence.json": "d985cbc47a0ef4a877b737e9c852a387f682415ceadf31adb18154a5090e7c90",
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "63fa0369c4c0d6eaa32429fdb3e59e148c2591420092db4be4ce8a6a8faa497c",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "7ed8be352ea1db4d41abddc02c5126f2821e36ad8f92e7dc88e945a65bc233ec",
+    "hardware/printed-parts/faucet/faucet-petgf.native-validation.json": "21d4ef56695e649100b9cda252ecfc09decce488754fa2c43c722ac0fe0b88c2",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf": "071d4f62727df49858b70ee33cbd3cb37b9a7ac36a4c5838738f22cedacfd63e",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/plate_1.gcode": "c10eb8fb99d50342a028e8cb818a6a5946dde9012e52b960aeb481c371dd6b4d",
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d",
+    "hardware/printed-parts/faucet/faucet-petgf.support-faces.json": "8df825cff5ac9c4cdc11811ead89af9265169901a37b954d7ec67ca0a2084376",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-cavity-supports.png": "12515bfae7aaae9fd51a07fc165ef9aa1dea6d5726132fe28e14a5bee3098dc9",
+    "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json": "c100c1dd691a1a0184b71f48159ffd84baa20d5ea50e42dc951adf2cd72c90eb",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/insert-host-commanded-beads.png": "bed82b4336c0d8df82b6c1123aebf757fdf4df994f72f5fbe69b74507168873c",
+    "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json": "305c3143e271cfbc66da59582bbe7f6af2cba00c67a11ceb9e1c0d74e1ee6c2c",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-supports.png": "390d0e47d5d0f723cfd1e5821d61e8e71f08fa332c4a3ca3016ae7756df1b0f8",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png": "6e1929895e9dea671f31f878bcad8e51320c84a46d67b0ffb4598f5d1d2d8d36",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lever-roof-support-sections.png": "895a04df89dd1eb33a1f3da479c366b3b7fef5d2104377e47697d40159b3d50e",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "c0c0a75909ab90e02c28940767b5801be01e91a9b133565d9a0a66a7cb332d5c",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "01fcce339bfa3aef6b3a804c11a0ee61528f9082b09c3b2fddda7fa0506153eb",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.native-validation.json": "47581a2cef64b6d5d27b7abc1e9d76c5e3162ca96847c6afe125fc6e80c933e9",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "d8ca1460ed1a547bda4287f9b693c054b6e60f0c366ff0700cb0414f9b23bfbf",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf": "c97c4aa4b8f7d249d73a3c374218d1a68075328efb0f5e29b602d3802ab12c7c",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/plate_1.gcode": "e681e403731d1403e5824af38d223ae6fb874c20696c243ca4508e1b27874d28",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-faces.json": "c1802c45b069951b70afc6ba560b92911765659ece4d42789fc1cd2bf5a62b4d",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-cavity-supports.png": "2d1880534ee7f364cd51a66936dd636b0ba328a1e278cfa8c8059d3277dd3b9d",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.insert-beads.json": "fa8a3f4880469d006ad90052c860281a06828911b7855733ad59d490b21a7040",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/insert-host-commanded-beads.png": "871d6cc510aed5fc7e9a1b1ee545fed2fa37a190771c0b96eccadae305e131b5",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.lower-supports.json": "add0a700ff6b2e93ae932773cbad869d1547a5a3ee9becca8132b6e495b559eb",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-supports.png": "71b75ed6d85658016de2f8dd2fa03de1d990b341ac057c66e0137f474be62f21",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-support-sections.png": "583c9a67b1320c2c49a5c22a553c2993e3d693648c48332fc3e874c323a59d78",
+    "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lever-roof-support-sections.png": "cd2324b4272bc6cfc19057ed32e9e17a2238b3c5fd884f8a7740dbe247851da9"
   },
   "all_named_roofs_have_native_support_witnesses": true,
+  "named_roof_count": 5,
   "parts": [
     {
       "part": "sculpted",
       "saved_base": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
       "rotation_x_degrees": -14.999999999999998,
       "object_label": 1901,
-      "support_segment_midpoints_read": 153974,
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf",
+      "native_gcode_sha256": "c10eb8fb99d50342a028e8cb818a6a5946dde9012e52b960aeb481c371dd6b4d",
+      "support_segment_midpoints_read": 153845,
+      "support_midpoints_in_named_roof_windows": 547,
       "native_support_summary": {
-        "support_bodies": 1,
-        "interface_islands": 23,
+        "support_bodies": 2,
+        "interface_islands": null,
         "bed_rooted_bodies": 1,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": 0.0,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 23,
+        "model_rooted_bodies": 1,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 21,
         "shortest_labelled_build_up_mm": 0.0
+      },
+      "detailed_geometry_access_review": {
+        "reviewer": "Codex",
+        "lower_relief_open_to_main_donor_flavor_passage": true,
+        "reviewed_image_sha256": {
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-preview.png": "f827b3af570787f86790e8112ed551e27c543563312f15f68fb7aab3879d65f2",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-cavity-supports.png": "12515bfae7aaae9fd51a07fc165ef9aa1dea6d5726132fe28e14a5bee3098dc9",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/insert-host-commanded-beads.png": "bed82b4336c0d8df82b6c1123aebf757fdf4df994f72f5fbe69b74507168873c",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-supports.png": "390d0e47d5d0f723cfd1e5821d61e8e71f08fa332c4a3ca3016ae7756df1b0f8",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png": "6e1929895e9dea671f31f878bcad8e51320c84a46d67b0ffb4598f5d1d2d8d36",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lever-roof-support-sections.png": "895a04df89dd1eb33a1f3da479c366b3b7fef5d2104377e47697d40159b3d50e"
+        },
+        "cleanup_route": "Cut the sacrificial tree into short fragments through the open counter end, donor bay and lever opening. Withdraw lower ribbon stock through the common rear tube exit and counter end. Clear all three socket pilots and the donor/lever roof supports before installing brass, donor hardware or the ribbon.",
+        "assessment": "Current lower and donor/lever sections show connected open donor/flavor access above the shoulder; the base end and rear ribbon opening expose the lower support roots. The tip cavity is accessible from the joint, bottom discharge port and display pocket before the two bungs are installed.",
+        "physical_support_release_evaluated": false
       },
       "roofs": [
         {
-          "feature": "donor shoulder Z39",
-          "native_roof_face_index": 69,
-          "roof_region_interface_from_audit": {
-            "id": "interface-19",
-            "first_z_mm": 40.04,
-            "last_z_mm": 40.76,
-            "bbox_xy_mm": [
-              76.8,
-              164.0,
-              87.2,
-              168.0
-            ],
-            "tree": "tree-1",
-            "build_up_mm": 39.84,
-            "bbox_cad_xyz_mm": [
-              -5.699,
-              14.286,
-              37.426,
-              4.701,
-              18.336,
-              39.157
-            ]
-          },
-          "interface_tree_from_audit": {
-            "id": "tree-1",
-            "root": "bed",
-            "base_z_mm": 0.2,
-            "first_interface_z_mm": 0.2,
-            "shortest_build_up_mm": 0.0,
-            "top_z_mm": 61.16,
-            "bbox_xy_mm": [
-              49.6,
-              108.8,
-              115.6,
-              168.0
-            ],
-            "interfaces": [
-              "interface-1",
-              "interface-2",
-              "interface-3",
-              "interface-4",
-              "interface-5",
-              "interface-6",
-              "interface-7",
-              "interface-8",
-              "interface-9",
-              "interface-10",
-              "interface-11",
-              "interface-12",
-              "interface-13",
-              "interface-14",
-              "interface-15",
-              "interface-16",
-              "interface-17",
-              "interface-18",
-              "interface-19",
-              "interface-20",
-              "interface-21",
-              "interface-22",
-              "interface-23"
-            ],
-            "interface_reading": "explicit_feature",
-            "bbox_cad_xyz_mm": [
-              -32.899,
-              -44.313,
-              -15.343,
-              33.101,
-              28.647,
-              58.861
-            ]
-          },
+          "feature": "donor shoulder Z39 left",
+          "roof_id": "face-32",
+          "native_roof_face_index": 32,
+          "actual_finite_native_roof_point_mm": [
+            -5.985865894639187,
+            12.114985821106709,
+            39.0
+          ],
+          "finite_native_support_midpoint_candidates": 146,
+          "three_distinct_native_extrusion_midpoints": true,
+          "minimum_selected_midpoint_separation_mm": 4.270129974602626,
+          "current_geometric_audit_contexts": [],
+          "current_native_audit_interface_region_found": false,
+          "actual_sampled_support_features": [
+            "Support"
+          ],
           "actual_native_support_samples": [
             {
+              "native_extrusion_segment_ordinal": 498763,
               "support_centerline_midpoint_cad_mm": [
-                -4.158023437499992,
-                14.903876059140934,
-                38.53530377423564
+                -6.1498724822997985,
+                12.05727650267699,
+                38.5179585718016
               ],
               "projected_roof_point_cad_mm": [
-                -4.158023437499992,
-                14.903876059140934,
+                -6.1498724822997985,
+                12.05727650267699,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.46469622576435654,
+              "vertical_centreline_gap_mm": 0.4820414281984,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.72
+            },
+            {
+              "native_extrusion_segment_ordinal": 493537,
+              "support_centerline_midpoint_cad_mm": [
+                -2.13437248229981,
+                15.211916279337121,
+                38.61784290247353
+              ],
+              "projected_roof_point_cad_mm": [
+                -2.13437248229981,
+                15.211916279337121,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.3821570975264734,
               "feature": "Support",
               "line_width_mm": 0.62,
               "native_plate_layer_z_mm": 41.0
             },
             {
+              "native_extrusion_segment_ordinal": 490395,
               "support_centerline_midpoint_cad_mm": [
-                -0.08702343749999386,
-                14.113451415294357,
-                38.57197641253772
+                -6.223372482299794,
+                16.430543382171823,
+                38.44744048395593
               ],
               "projected_roof_point_cad_mm": [
-                -0.08702343749999386,
-                14.113451415294357,
+                -6.223372482299794,
+                16.430543382171823,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.42802358746227753,
+              "vertical_centreline_gap_mm": 0.5525595160440702,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 41.24
+              "native_plate_layer_z_mm": 40.52
+            }
+          ]
+        },
+        {
+          "feature": "donor shoulder Z39 right",
+          "roof_id": "face-42",
+          "native_roof_face_index": 42,
+          "actual_finite_native_roof_point_mm": [
+            5.987838665683896,
+            12.11146343585855,
+            39.0
+          ],
+          "finite_native_support_midpoint_candidates": 190,
+          "three_distinct_native_extrusion_midpoints": true,
+          "minimum_selected_midpoint_separation_mm": 4.524923673389411,
+          "current_geometric_audit_contexts": [
+            {
+              "current_interface_from_audit": {
+                "id": "interface-18",
+                "first_z_mm": 40.28,
+                "last_z_mm": 40.76,
+                "bbox_xy_mm": [
+                  86.8,
+                  164.0,
+                  90.0,
+                  166.0
+                ],
+                "tree": "tree-1",
+                "build_up_mm": 40.08,
+                "bbox_cad_xyz_mm": [
+                  4.301,
+                  14.276,
+                  37.655,
+                  7.501,
+                  16.332,
+                  38.636
+                ]
+              },
+              "current_tree_from_audit": {
+                "id": "tree-1",
+                "root": "bed",
+                "base_z_mm": 0.2,
+                "first_interface_z_mm": 0.2,
+                "shortest_build_up_mm": 0.0,
+                "top_z_mm": 61.4,
+                "bbox_xy_mm": [
+                  49.6,
+                  110.4,
+                  115.2,
+                  167.2
+                ],
+                "interfaces": [
+                  "interface-1",
+                  "interface-2",
+                  "interface-3",
+                  "interface-4",
+                  "interface-5",
+                  "interface-6",
+                  "interface-7",
+                  "interface-8",
+                  "interface-9",
+                  "interface-10",
+                  "interface-11",
+                  "interface-12",
+                  "interface-13",
+                  "interface-14",
+                  "interface-15",
+                  "interface-16",
+                  "interface-17",
+                  "interface-18",
+                  "interface-19",
+                  "interface-20",
+                  "interface-21"
+                ],
+                "interface_reading": "explicit_feature",
+                "bbox_cad_xyz_mm": [
+                  -32.899,
+                  -42.84,
+                  -14.932,
+                  32.701,
+                  27.864,
+                  58.883
+                ]
+              },
+              "projected_audit_region_overlap_with_finite_roof_mm2": 3.4333402940855993,
+              "native_context_intersection_valid": true,
+              "scope": "Geometric audit region context; sampled actual support paths are not assigned these interface or tree labels."
+            }
+          ],
+          "current_native_audit_interface_region_found": true,
+          "actual_sampled_support_features": [
+            "Support"
+          ],
+          "actual_native_support_samples": [
+            {
+              "native_extrusion_segment_ordinal": 496992,
+              "support_centerline_midpoint_cad_mm": [
+                5.978127517700187,
+                11.795807921694752,
+                38.19943199338286
+              ],
+              "projected_roof_point_cad_mm": [
+                5.978127517700187,
+                11.795807921694752,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.8005680066171408,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.48
             },
             {
+              "native_extrusion_segment_ordinal": 490112,
               "support_centerline_midpoint_cad_mm": [
-                4.05547656249999,
-                14.960865682891988,
-                38.5505740978967
+                10.310627517700198,
+                16.32429154128004,
+                38.41897038899465
               ],
               "projected_roof_point_cad_mm": [
-                4.05547656249999,
-                14.960865682891988,
+                10.310627517700198,
+                16.32429154128004,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.44942590210330025,
+              "vertical_centreline_gap_mm": 0.5810296110053486,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 41.0
+              "native_plate_layer_z_mm": 40.52
+            },
+            {
+              "native_extrusion_segment_ordinal": 498588,
+              "support_centerline_midpoint_cad_mm": [
+                10.77612751770019,
+                11.823522452715045,
+                38.455324362886785
+              ],
+              "projected_roof_point_cad_mm": [
+                10.77612751770019,
+                11.823522452715045,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.5446756371132153,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.72
             }
           ]
         }
@@ -172,249 +350,383 @@
       "saved_base": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
       "rotation_x_degrees": -14.999999999999998,
       "object_label": 1901,
-      "support_segment_midpoints_read": 158852,
+      "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
+      "native_gcode_sha256": "e681e403731d1403e5824af38d223ae6fb874c20696c243ca4508e1b27874d28",
+      "support_segment_midpoints_read": 154216,
+      "support_midpoints_in_named_roof_windows": 1202,
       "native_support_summary": {
         "support_bodies": 1,
-        "interface_islands": 14,
+        "interface_islands": 12,
         "bed_rooted_bodies": 1,
         "model_rooted_bodies": 0,
         "shortest_build_up_mm": 8.16,
         "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 14,
+        "explicit_interface_islands": 12,
         "shortest_labelled_build_up_mm": 8.16
+      },
+      "detailed_geometry_access_review": {
+        "reviewer": "Codex",
+        "lower_relief_open_to_main_donor_flavor_passage": true,
+        "reviewed_image_sha256": {
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-preview.png": "ca46106b735216e39ceef181a503bff80c4e3f1b349b44d1740c6ad067361491",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-cavity-supports.png": "2d1880534ee7f364cd51a66936dd636b0ba328a1e278cfa8c8059d3277dd3b9d",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/insert-host-commanded-beads.png": "871d6cc510aed5fc7e9a1b1ee545fed2fa37a190771c0b96eccadae305e131b5",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-supports.png": "71b75ed6d85658016de2f8dd2fa03de1d990b341ac057c66e0137f474be62f21",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-support-sections.png": "583c9a67b1320c2c49a5c22a553c2993e3d693648c48332fc3e874c323a59d78",
+          "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lever-roof-support-sections.png": "cd2324b4272bc6cfc19057ed32e9e17a2238b3c5fd884f8a7740dbe247851da9"
+        },
+        "cleanup_route": "Cut the sacrificial tree into short fragments through the open counter end, donor bay and lever opening. Withdraw lower ribbon stock through the common rear tube exit and counter end. Clear all three socket pilots and the donor/lever roof supports before installing brass, donor hardware or the ribbon.",
+        "assessment": "Current lower and donor/lever sections show connected open donor/flavor access above the shoulder; the base end and rear ribbon opening expose the lower support roots. The tip cavity is accessible from the joint, bottom discharge port and display pocket before the two bungs are installed.",
+        "physical_support_release_evaluated": false
       },
       "roofs": [
         {
-          "feature": "donor shoulder Z39",
-          "native_roof_face_index": 75,
-          "roof_region_interface_from_audit": {
-            "id": "interface-10",
-            "first_z_mm": 40.04,
-            "last_z_mm": 40.76,
-            "bbox_xy_mm": [
-              76.8,
-              163.6,
-              87.6,
-              167.6
-            ],
-            "tree": "tree-1",
-            "build_up_mm": 39.84,
-            "bbox_cad_xyz_mm": [
-              -5.7,
-              14.102,
-              37.377,
-              5.1,
-              18.152,
-              39.107
-            ]
-          },
-          "interface_tree_from_audit": {
-            "id": "tree-1",
-            "root": "bed",
-            "base_z_mm": 0.2,
-            "first_interface_z_mm": 8.36,
-            "shortest_build_up_mm": 8.16,
-            "top_z_mm": 62.84,
-            "bbox_xy_mm": [
-              48.8,
-              108.8,
-              116.8,
-              168.0
-            ],
-            "interfaces": [
-              "interface-1",
-              "interface-2",
-              "interface-3",
-              "interface-4",
-              "interface-5",
-              "interface-6",
-              "interface-7",
-              "interface-8",
-              "interface-9",
-              "interface-10",
-              "interface-11",
-              "interface-12",
-              "interface-13",
-              "interface-14"
-            ],
-            "interface_reading": "explicit_feature",
-            "bbox_cad_xyz_mm": [
-              -33.7,
-              -44.545,
-              -15.289,
-              34.3,
-              28.85,
-              60.538
-            ]
-          },
+          "feature": "donor shoulder Z39 right",
+          "roof_id": "face-37",
+          "native_roof_face_index": 37,
+          "actual_finite_native_roof_point_mm": [
+            5.987838665683896,
+            12.11146343585855,
+            39.0
+          ],
+          "finite_native_support_midpoint_candidates": 185,
+          "three_distinct_native_extrusion_midpoints": true,
+          "minimum_selected_midpoint_separation_mm": 4.124952514878187,
+          "current_geometric_audit_contexts": [
+            {
+              "current_interface_from_audit": {
+                "id": "interface-9",
+                "first_z_mm": 40.28,
+                "last_z_mm": 40.76,
+                "bbox_xy_mm": [
+                  86.4,
+                  163.6,
+                  89.6,
+                  166.0
+                ],
+                "tree": "tree-1",
+                "build_up_mm": 40.08,
+                "bbox_cad_xyz_mm": [
+                  3.9,
+                  14.102,
+                  37.608,
+                  7.1,
+                  16.544,
+                  38.693
+                ]
+              },
+              "current_tree_from_audit": {
+                "id": "tree-1",
+                "root": "bed",
+                "base_z_mm": 0.2,
+                "first_interface_z_mm": 8.36,
+                "shortest_build_up_mm": 8.16,
+                "top_z_mm": 62.84,
+                "bbox_xy_mm": [
+                  48.8,
+                  108.8,
+                  116.0,
+                  167.6
+                ],
+                "interfaces": [
+                  "interface-1",
+                  "interface-2",
+                  "interface-3",
+                  "interface-4",
+                  "interface-5",
+                  "interface-6",
+                  "interface-7",
+                  "interface-8",
+                  "interface-9",
+                  "interface-10",
+                  "interface-11",
+                  "interface-12"
+                ],
+                "interface_reading": "explicit_feature",
+                "bbox_cad_xyz_mm": [
+                  -33.7,
+                  -44.545,
+                  -15.289,
+                  33.5,
+                  28.463,
+                  60.435
+                ]
+              },
+              "projected_audit_region_overlap_with_finite_roof_mm2": 3.4729885906954348,
+              "native_context_intersection_valid": true,
+              "scope": "Geometric audit region context; sampled actual support paths are not assigned these interface or tree labels."
+            }
+          ],
+          "current_native_audit_interface_region_found": true,
+          "actual_sampled_support_features": [
+            "Support"
+          ],
           "actual_native_support_samples": [
             {
+              "native_extrusion_segment_ordinal": 476049,
               "support_centerline_midpoint_cad_mm": [
-                -4.400499999999994,
-                14.074810359989034,
-                38.56162257297396
+                6.1370000000000005,
+                11.95449149831347,
+                38.49041741288835
               ],
               "projected_roof_point_cad_mm": [
-                -4.400499999999994,
-                14.074810359989034,
+                6.1370000000000005,
+                11.95449149831347,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.4383774270260403,
+              "vertical_centreline_gap_mm": 0.5095825871116517,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 41.24
+              "native_plate_layer_z_mm": 41.72
             },
             {
+              "native_extrusion_segment_ordinal": 467693,
               "support_centerline_midpoint_cad_mm": [
-                -0.05449999999999022,
-                14.11393035595375,
-                38.5721047443006
+                9.79249999999999,
+                15.871841387799858,
+                38.29773673575427
               ],
               "projected_roof_point_cad_mm": [
-                -0.05449999999999022,
-                14.11393035595375,
+                9.79249999999999,
+                15.871841387799858,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.4278952556993971,
+              "vertical_centreline_gap_mm": 0.7022632642457296,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 41.24
+              "native_plate_layer_z_mm": 40.52
             },
             {
+              "native_extrusion_segment_ordinal": 476030,
               "support_centerline_midpoint_cad_mm": [
-                4.283999999999992,
-                14.013957032932808,
-                38.545316973132486
+                10.561000000000007,
+                11.822159660111868,
+                38.45495920370929
               ],
               "projected_roof_point_cad_mm": [
-                4.283999999999992,
-                14.013957032932808,
+                10.561000000000007,
+                11.822159660111868,
                 39.0
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.4546830268675137,
+              "vertical_centreline_gap_mm": 0.5450407962907065,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 41.24
+              "native_plate_layer_z_mm": 41.72
+            }
+          ]
+        },
+        {
+          "feature": "donor shoulder Z39 left",
+          "roof_id": "face-48",
+          "native_roof_face_index": 48,
+          "actual_finite_native_roof_point_mm": [
+            -5.985865894639187,
+            12.114985821106709,
+            39.0
+          ],
+          "finite_native_support_midpoint_candidates": 170,
+          "three_distinct_native_extrusion_midpoints": true,
+          "minimum_selected_midpoint_separation_mm": 4.55466815476166,
+          "current_geometric_audit_contexts": [],
+          "current_native_audit_interface_region_found": false,
+          "actual_sampled_support_features": [
+            "Support"
+          ],
+          "actual_native_support_samples": [
+            {
+              "native_extrusion_segment_ordinal": 476296,
+              "support_centerline_midpoint_cad_mm": [
+                -6.1839999999999975,
+                12.02935074985086,
+                38.51047588888379
+              ],
+              "projected_roof_point_cad_mm": [
+                -6.1839999999999975,
+                12.02935074985086,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.48952411111621075,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.72
+            },
+            {
+              "native_extrusion_segment_ordinal": 471106,
+              "support_centerline_midpoint_cad_mm": [
+                -1.8385000000000105,
+                14.373578758254464,
+                38.393211040714704
+              ],
+              "projected_roof_point_cad_mm": [
+                -1.8385000000000105,
+                14.373578758254464,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.6067889592852964,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 41.0
+            },
+            {
+              "native_extrusion_segment_ordinal": 466430,
+              "support_centerline_midpoint_cad_mm": [
+                -6.165000000000006,
+                16.575815670193553,
+                38.23789979291553
+              ],
+              "projected_roof_point_cad_mm": [
+                -6.165000000000006,
+                16.575815670193553,
+                39.0
+              ],
+              "projection_distance_to_native_face_mm": 0.0,
+              "vertical_centreline_gap_mm": 0.7621002070844725,
+              "feature": "Support",
+              "line_width_mm": 0.62,
+              "native_plate_layer_z_mm": 40.28
             }
           ]
         },
         {
           "feature": "rear lever roof Z57.5",
-          "native_roof_face_index": 88,
-          "roof_region_interface_from_audit": {
-            "id": "interface-14",
-            "first_z_mm": 61.16,
-            "last_z_mm": 61.64,
-            "bbox_xy_mm": [
-              76.4,
-              157.6,
-              82.0,
-              160.0
-            ],
-            "tree": "tree-1",
-            "build_up_mm": 60.96,
-            "bbox_cad_xyz_mm": [
-              -6.1,
-              2.902,
-              56.224,
-              -0.5,
-              5.345,
-              57.309
-            ]
-          },
-          "interface_tree_from_audit": {
-            "id": "tree-1",
-            "root": "bed",
-            "base_z_mm": 0.2,
-            "first_interface_z_mm": 8.36,
-            "shortest_build_up_mm": 8.16,
-            "top_z_mm": 62.84,
-            "bbox_xy_mm": [
-              48.8,
-              108.8,
-              116.8,
-              168.0
-            ],
-            "interfaces": [
-              "interface-1",
-              "interface-2",
-              "interface-3",
-              "interface-4",
-              "interface-5",
-              "interface-6",
-              "interface-7",
-              "interface-8",
-              "interface-9",
-              "interface-10",
-              "interface-11",
-              "interface-12",
-              "interface-13",
-              "interface-14"
-            ],
-            "interface_reading": "explicit_feature",
-            "bbox_cad_xyz_mm": [
-              -33.7,
-              -44.545,
-              -15.289,
-              34.3,
-              28.85,
-              60.538
-            ]
-          },
+          "roof_id": "face-57",
+          "native_roof_face_index": 57,
+          "actual_finite_native_roof_point_mm": [
+            6.196572432001881,
+            6.370573961191932,
+            57.5
+          ],
+          "finite_native_support_midpoint_candidates": 527,
+          "three_distinct_native_extrusion_midpoints": true,
+          "minimum_selected_midpoint_separation_mm": 10.56992035211241,
+          "current_geometric_audit_contexts": [
+            {
+              "current_interface_from_audit": {
+                "id": "interface-12",
+                "first_z_mm": 61.16,
+                "last_z_mm": 61.64,
+                "bbox_xy_mm": [
+                  76.0,
+                  157.6,
+                  82.0,
+                  160.0
+                ],
+                "tree": "tree-1",
+                "build_up_mm": 60.96,
+                "bbox_cad_xyz_mm": [
+                  -6.5,
+                  2.902,
+                  56.224,
+                  -0.5,
+                  5.345,
+                  57.309
+                ]
+              },
+              "current_tree_from_audit": {
+                "id": "tree-1",
+                "root": "bed",
+                "base_z_mm": 0.2,
+                "first_interface_z_mm": 8.36,
+                "shortest_build_up_mm": 8.16,
+                "top_z_mm": 62.84,
+                "bbox_xy_mm": [
+                  48.8,
+                  108.8,
+                  116.0,
+                  167.6
+                ],
+                "interfaces": [
+                  "interface-1",
+                  "interface-2",
+                  "interface-3",
+                  "interface-4",
+                  "interface-5",
+                  "interface-6",
+                  "interface-7",
+                  "interface-8",
+                  "interface-9",
+                  "interface-10",
+                  "interface-11",
+                  "interface-12"
+                ],
+                "interface_reading": "explicit_feature",
+                "bbox_cad_xyz_mm": [
+                  -33.7,
+                  -44.545,
+                  -15.289,
+                  33.5,
+                  28.463,
+                  60.435
+                ]
+              },
+              "projected_audit_region_overlap_with_finite_roof_mm2": 11.404202176576936,
+              "native_context_intersection_valid": true,
+              "scope": "Geometric audit region context; sampled actual support paths are not assigned these interface or tree labels."
+            }
+          ],
+          "current_native_audit_interface_region_found": true,
+          "actual_sampled_support_features": [
+            "Support"
+          ],
           "actual_native_support_samples": [
             {
+              "native_extrusion_segment_ordinal": 605791,
               "support_centerline_midpoint_cad_mm": [
-                -4.956000000000003,
-                1.52348619159347,
-                57.06353832837208
+                6.0565,
+                5.745400034303049,
+                56.703999033249374
               ],
               "projected_roof_point_cad_mm": [
-                -4.956000000000003,
-                1.52348619159347,
+                6.0565,
+                5.745400034303049,
                 57.5
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.43646167162791727,
+              "vertical_centreline_gap_mm": 0.7960009667506256,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 62.36
+              "native_plate_layer_z_mm": 60.92
             },
             {
+              "native_extrusion_segment_ordinal": 601253,
               "support_centerline_midpoint_cad_mm": [
-                -2.844999999999999,
-                2.4274071200290237,
-                57.057276927869566
+                -6.275000000000006,
+                9.652496029642332,
+                57.005503400056156
               ],
               "projected_roof_point_cad_mm": [
-                -2.844999999999999,
-                2.4274071200290237,
+                -6.275000000000006,
+                9.652496029642332,
                 57.5
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.44272307213043405,
+              "vertical_centreline_gap_mm": 0.49449659994384376,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 62.12
+              "native_plate_layer_z_mm": 60.2
             },
             {
+              "native_extrusion_segment_ordinal": 616554,
               "support_centerline_midpoint_cad_mm": [
-                -0.9344999999999999,
-                -0.33748158572348785,
-                57.06182608189651
+                -2.643500000000003,
+                -0.2724672374200292,
+                56.830780340722434
               ],
               "projected_roof_point_cad_mm": [
-                -0.9344999999999999,
-                -0.33748158572348785,
+                -2.643500000000003,
+                -0.2724672374200292,
                 57.5
               ],
               "projection_distance_to_native_face_mm": 0.0,
-              "vertical_centreline_gap_mm": 0.4381739181034874,
+              "vertical_centreline_gap_mm": 0.6692196592775659,
               "feature": "Support",
               "line_width_mm": 0.62,
-              "native_plate_layer_z_mm": 62.84
+              "native_plate_layer_z_mm": 62.6
             }
           ]
         }

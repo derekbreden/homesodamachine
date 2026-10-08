@@ -166,8 +166,8 @@
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
       "source": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
-      "stl_sha256": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553",
-      "triangles": 3348,
+      "stl_sha256": "6c42c900b0e5d268a4e67a15329eaea5167d6596b5abfea8da95c5de1b7e6299",
+      "triangles": 3104,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         -2.956390380859375e-05,
@@ -212,22 +212,22 @@
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000000413701855e-10
+      "embedded_vertex_error_mm": 4.995115432393504e-10
     }
   ],
-  "project_sha256": "3094a2fb538512b5573e9fbf7f671973e68f3fe79911d2c58b4771bf125d3314",
+  "project_sha256": "9a80ec3467b160ee46622e535d17050aad1be5d0ea1c8a600b900f103b7f03b5",
   "settings_preserved_byte_for_byte": true,
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
-    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "af8fc13622ffe818c2c030dc1b8aa5381f6657446bf694e93e83404274228553"
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "6c42c900b0e5d268a4e67a15329eaea5167d6596b5abfea8da95c5de1b7e6299"
   },
   "active_nozzle": 1,
   "requested_z_trim_mm": null,

@@ -8,12 +8,12 @@ click: x=-104.500 y=323.800 z=172.325
 
 [sliver] This face is the ceiling slab's section between its aft edge and the CO2 station's drafted nut land. The 0.480 mm measure is the short plan remainder where that draft meets the slab, not the slab thickness. The continuous ceiling carries its full section behind the face.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=2.450 y=465.540 z=352.000
+click: x=-3.350 y=465.540 z=352.000
 
 [sliver] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=462.300 z=313.417
-click: x=-40.710 y=462.250 z=293.367
+click: x=-40.710 y=458.940 z=314.487
+click: x=-40.710 y=458.890 z=294.437
 
 [sliver] The ASSE anchor's aft round seat closes against its common crown. The reported 1.304 mm vertical face is the crown's exposed end above the supported fitting seat, backed west to the side wall over the complete 13.5 mm run. It is not a thin ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -72,8 +72,9 @@ click: x=-101.125 y=270.800 z=168.700
 
 [ceiling] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=464.955 z=290.742
-click: x=-40.710 y=469.805 z=293.147
+click: x=-40.710 y=461.595 z=291.812
+click: x=-40.710 y=466.445 z=294.217
+click: x=-40.710 y=463.140 z=319.512
 
 [ceiling] The PRV mouth's floor spans the 12 mm passage between its jambs. Its square section preserves the tube's path; the print-down edge includes the 0.25 mm supported-face allowance. The wall behind the mouth retains its full section and support leaves through the passage.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -109,18 +110,18 @@ click: x=106.867 y=331.567 z=351.683
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=91.716 y=465.800 z=275.928
 
-[sliver] This vertical face is the 1.46 mm depth change from the nameplate's 3.60 mm backing to its local 2.14 mm backing beside the PSU. It bounds solid material toward the exterior, not a separate 1.46 mm ligament. The slot and its retaining face keep the accepted fit.
+[sliver] This vertical face is the 1.46 mm depth change from the nameplate's 3.60 mm backing to its local 2.14 mm backing beside the PSU. It bounds solid material toward the exterior, not a separate 1.46 mm ligament. The finite east backing transition and zero-missing-volume backing witnesses are recorded in drain-readiness/reviews/rear-wall-lint-witness.json. The slot and its retaining face keep the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=86.848 y=465.070 z=275.953
+click: x=86.860 y=465.070 z=275.953
 
 [sliver] The short horizontal face closes the PSU relief at Z299.928. The measured strip is the relief's depth at the end of the surrounding ramp, not wall thickness. It faces print-up in the roof-down orientation and joins the complete 2.14 mm backing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=93.688 y=465.300 z=299.928
 
-[slope] These two sloping edges form the diamond opening used to press the nameplate outward for removal. Their 9 mm horizontal run and 10 mm rise form a self-supporting access ceiling in the roof-down print orientation. The surrounding floor retains its 3.60 mm thickness.
+[slope] These two finite sloping faces form the diamond opening used to press the nameplate outward for removal. Each has a 9 mm horizontal run, 10 mm rise and complete 3.60 mm depth, matching `_nameplate_wing_interface.apply` and a 48.013 degree access ceiling in the roof-down print orientation. They bound the opening through the pocket's backed wall. Both finite diamond slopes are recorded in drain-readiness/reviews/rear-wall-lint-witness.json.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.958 y=466.140 z=270.953
-click: x=29.958 y=466.140 z=270.953
+click: x=38.970 y=466.140 z=270.953
+click: x=29.970 y=466.140 z=270.953
 
 [ceiling] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -141,7 +142,7 @@ click: x=0.000 y=465.425 z=248.000
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=0.000 y=465.425 z=248.000
 
-[ceiling] The PRV chase's flat exterior crown is the complete 8 x 18 mm structural roof backing at the lip's height; the 12 mm passage and inner 45 degree air roof retain their datums. Its +Z face prints down in the ceiling-bedded back-top. The current v9 archive's tree-1/interface-30 carries this exact crown, and its first two model slabs contain full crown roads. Release the contact from the empty forebay above the crown or through the lateral approach, break the sacrificial branch and remove every fragment before the cold core and tubes are installed. The exact native face, actual interface roads and 6.801/3.500 mm native air-line clearances are in native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/prv-crown-lint-contact-review.json; physical cleanup effort and finish remain unqualified.
+[ceiling] The PRV chase's flat exterior crown is the complete 8 x 18 mm structural roof backing at the lip's height; the 12 mm passage and inner 45 degree air roof retain their datums. Its +Z face prints down in the ceiling-bedded back-top. The delivered native archive carries this crown with removable support. The finite crown retains a complete 2 mm native backing witness; current support interface roads are recorded against that exact face in drain-readiness/reviews/rear-wall-lint-witness.json. Release the contact from the empty forebay above the crown or through the lateral approach, break the sacrificial branch and remove every fragment before the cold core and tubes are installed. Physical cleanup effort and finish remain unqualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-94.500 y=323.800 z=214.600
 
@@ -153,3 +154,19 @@ click: x=-78.070 y=470.300 z=324.381
 click: x=-40.710 y=470.300 z=324.381
 click: x=-3.350 y=470.300 z=324.591
 click: x=-78.070 y=470.300 z=291.217
+
+[ceiling] The nameplate mouth's 98.53 x 3.36 mm floor is its flat locating bearing. The source preserves 0.15 mm Z fit plus 0.25 mm supported-face allowance. Its complete finite face retains at least 1.50 mm of underlying native stock. The current native archive places support interface roads under this floor with the saved 0.45 mm top support distance; the closest current interface midplane is 0.6565 mm from the exact face, placing its nominal top 0.5365 mm away after layer placement. These supports leave through the empty rear-facing nameplate pocket before insertion. Drain-readiness/reviews/rear-wall-lint-witness.json identifies the complete receiver floor, zero missing floor stock and actual interface roads. This is geometric preparation evidence; cleanup effort, finish and assembled fit remain physical observations.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=34.470 y=469.620 z=256.553
+
+[step] The purchased keystone's side-clearance plane is at Y464.95, 0.35 mm inside the surrounding Y465.3 interior field. It is part of the independently mounted jack pocket, not a seam or thin wall. The backed DATA pad and keystone boss surround the recess; data-ring/fit-check.json verifies the purchased jack, separate trim, retention lips and complete rear-wall fit.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-33.260 y=464.950 z=300.847
+
+[sliver] This is the exposed rear end of DATA's backing above the keystone pocket at Y464.34. Its 1.294 mm vertical run is the remainder between the module pocket's upper boundary and DATA's pad ramp. It is a face of the complete backing toward +Y, not a separate 1.294 mm load-bearing ligament. The module and trim use their own supported bosses and catches; data-ring/fit-check.json records the production fit and backing sections.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=464.340 z=320.159
+
+[ceiling] DATA's 28 x 3.36 mm lower mouth floor locates the removable trim. It retains the separate 3.6 mm rear backing and the two plain retaining lips. Back-top prints roof-down, so the floor receives normal support through its rear-facing mouth. Remove that support through the empty opening before installing the jack and DATA trim. The production fit check records the aperture, backing, lips and release access; finished fit and cleanup remain physical observations.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=469.620 z=291.217

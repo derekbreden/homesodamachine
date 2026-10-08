@@ -1,0 +1,235 @@
+{
+  "schema": 4,
+  "passed": true,
+  "scope": "Current exact two-rigid native preparations and executed support/insert/lower-section reviews. Codex visually inspected all twelve current images and recorded cleanup access. Archive/G-code, source meshes, placements and review image hashes are bound here. This evidence does not establish physical release, surface finish, strength or lifetime.",
+  "records": [
+    {
+      "project": {
+        "path": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+        "sha256": "63fa0369c4c0d6eaa32429fdb3e59e148c2591420092db4be4ce8a6a8faa497c"
+      },
+      "print": {
+        "path": "hardware/printed-parts/faucet/faucet-petgf.print.json",
+        "sha256": "7ed8be352ea1db4d41abddc02c5126f2821e36ad8f92e7dc88e945a65bc233ec"
+      },
+      "native_validation": {
+        "path": "hardware/printed-parts/faucet/faucet-petgf.native-validation.json",
+        "sha256": "21d4ef56695e649100b9cda252ecfc09decce488754fa2c43c722ac0fe0b88c2"
+      },
+      "support_audit": {
+        "path": "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+        "sha256": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97"
+      },
+      "native_archive": {
+        "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf",
+        "sha256": "071d4f62727df49858b70ee33cbd3cb37b9a7ac36a4c5838738f22cedacfd63e"
+      },
+      "gcode": {
+        "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/plate_1.gcode",
+        "sha256": "c10eb8fb99d50342a028e8cb818a6a5946dde9012e52b960aeb481c371dd6b4d"
+      },
+      "source_sha256": {
+        "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+        "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+        "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+        "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+        "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+        "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d"
+      },
+      "reviews": {
+        ".support-faces.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/faucet-petgf.support-faces.json",
+            "sha256": "8df825cff5ac9c4cdc11811ead89af9265169901a37b954d7ec67ca0a2084376"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-cavity-supports.png",
+              "sha256": "12515bfae7aaae9fd51a07fc165ef9aa1dea6d5726132fe28e14a5bee3098dc9"
+            }
+          ]
+        },
+        ".insert-beads.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json",
+            "sha256": "c100c1dd691a1a0184b71f48159ffd84baa20d5ea50e42dc951adf2cd72c90eb"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/insert-host-commanded-beads.png",
+              "sha256": "bed82b4336c0d8df82b6c1123aebf757fdf4df994f72f5fbe69b74507168873c"
+            }
+          ]
+        },
+        ".lower-supports.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json",
+            "sha256": "305c3143e271cfbc66da59582bbe7f6af2cba00c67a11ceb9e1c0d74e1ee6c2c"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-supports.png",
+              "sha256": "390d0e47d5d0f723cfd1e5821d61e8e71f08fa332c4a3ca3016ae7756df1b0f8"
+            },
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png",
+              "sha256": "6e1929895e9dea671f31f878bcad8e51320c84a46d67b0ffb4598f5d1d2d8d36"
+            },
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lever-roof-support-sections.png",
+              "sha256": "895a04df89dd1eb33a1f3da479c366b3b7fef5d2104377e47697d40159b3d50e"
+            }
+          ]
+        }
+      },
+      "actual_visual_review_images": [
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-preview.png",
+          "sha256": "f827b3af570787f86790e8112ed551e27c543563312f15f68fb7aab3879d65f2"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-cavity-supports.png",
+          "sha256": "12515bfae7aaae9fd51a07fc165ef9aa1dea6d5726132fe28e14a5bee3098dc9"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/insert-host-commanded-beads.png",
+          "sha256": "bed82b4336c0d8df82b6c1123aebf757fdf4df994f72f5fbe69b74507168873c"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-supports.png",
+          "sha256": "390d0e47d5d0f723cfd1e5821d61e8e71f08fa332c4a3ca3016ae7756df1b0f8"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png",
+          "sha256": "6e1929895e9dea671f31f878bcad8e51320c84a46d67b0ffb4598f5d1d2d8d36"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/native-lever-roof-support-sections.png",
+          "sha256": "895a04df89dd1eb33a1f3da479c366b3b7fef5d2104377e47697d40159b3d50e"
+        }
+      ]
+    },
+    {
+      "project": {
+        "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+        "sha256": "c0c0a75909ab90e02c28940767b5801be01e91a9b133565d9a0a66a7cb332d5c"
+      },
+      "print": {
+        "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
+        "sha256": "01fcce339bfa3aef6b3a804c11a0ee61528f9082b09c3b2fddda7fa0506153eb"
+      },
+      "native_validation": {
+        "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.native-validation.json",
+        "sha256": "47581a2cef64b6d5d27b7abc1e9d76c5e3162ca96847c6afe125fc6e80c933e9"
+      },
+      "support_audit": {
+        "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
+        "sha256": "d8ca1460ed1a547bda4287f9b693c054b6e60f0c366ff0700cb0414f9b23bfbf"
+      },
+      "native_archive": {
+        "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
+        "sha256": "c97c4aa4b8f7d249d73a3c374218d1a68075328efb0f5e29b602d3802ab12c7c"
+      },
+      "gcode": {
+        "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/plate_1.gcode",
+        "sha256": "e681e403731d1403e5824af38d223ae6fb874c20696c243ca4508e1b27874d28"
+      },
+      "source_sha256": {
+        "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
+        "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+        "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+        "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+        "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+        "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+        "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
+        "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
+        "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+        "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+        "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4"
+      },
+      "reviews": {
+        ".support-faces.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-faces.json",
+            "sha256": "c1802c45b069951b70afc6ba560b92911765659ece4d42789fc1cd2bf5a62b4d"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-cavity-supports.png",
+              "sha256": "2d1880534ee7f364cd51a66936dd636b0ba328a1e278cfa8c8059d3277dd3b9d"
+            }
+          ]
+        },
+        ".insert-beads.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.insert-beads.json",
+            "sha256": "fa8a3f4880469d006ad90052c860281a06828911b7855733ad59d490b21a7040"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/insert-host-commanded-beads.png",
+              "sha256": "871d6cc510aed5fc7e9a1b1ee545fed2fa37a190771c0b96eccadae305e131b5"
+            }
+          ]
+        },
+        ".lower-supports.json": {
+          "record": {
+            "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.lower-supports.json",
+            "sha256": "add0a700ff6b2e93ae932773cbad869d1547a5a3ee9becca8132b6e495b559eb"
+          },
+          "images": [
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-supports.png",
+              "sha256": "71b75ed6d85658016de2f8dd2fa03de1d990b341ac057c66e0137f474be62f21"
+            },
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-support-sections.png",
+              "sha256": "583c9a67b1320c2c49a5c22a553c2993e3d693648c48332fc3e874c323a59d78"
+            },
+            {
+              "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lever-roof-support-sections.png",
+              "sha256": "cd2324b4272bc6cfc19057ed32e9e17a2238b3c5fd884f8a7740dbe247851da9"
+            }
+          ]
+        }
+      },
+      "actual_visual_review_images": [
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-preview.png",
+          "sha256": "ca46106b735216e39ceef181a503bff80c4e3f1b349b44d1740c6ad067361491"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-cavity-supports.png",
+          "sha256": "2d1880534ee7f364cd51a66936dd636b0ba328a1e278cfa8c8059d3277dd3b9d"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/insert-host-commanded-beads.png",
+          "sha256": "871d6cc510aed5fc7e9a1b1ee545fed2fa37a190771c0b96eccadae305e131b5"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-supports.png",
+          "sha256": "71b75ed6d85658016de2f8dd2fa03de1d990b341ac057c66e0137f474be62f21"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-support-sections.png",
+          "sha256": "583c9a67b1320c2c49a5c22a553c2993e3d693648c48332fc3e874c323a59d78"
+        },
+        {
+          "path": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/native-lever-roof-support-sections.png",
+          "sha256": "cd2324b4272bc6cfc19057ed32e9e17a2238b3c5fd884f8a7740dbe247851da9"
+        }
+      ]
+    }
+  ]
+}

@@ -8,7 +8,19 @@ discharge cavity from the dry tube passages and display.
 The [plate manifest](manifest.json) binds all five finalized projects, native
 archives, reviews and estimates to their current sources and geometry approvals.
 
-Regenerate the reviewed source STLs before preparing the plates:
+Regenerate the source STLs, then run the geometry readers serially after the
+exports settle:
+
+```sh
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+  tools/cad-venv/bin/python hardware/scripts/check_faucet_geometry.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+  tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/check_geometry.py
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+  tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/check_display_cover.py
+```
+
+Prepare and review the native plates serially:
 
 ```sh
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 tools/cad-venv/bin/python \
@@ -29,6 +41,8 @@ requires that access review.
 
 ```sh
 tools/cad-venv/bin/python \
+  hardware/printed-parts/faucet/asse-vent-seals/check_tool_motion.py
+tools/cad-venv/bin/python \
   hardware/printed-parts/faucet/asse-vent-seals/check_tool_bearing.py \
   --last-model-layer-z 80.84
 tools/cad-venv/bin/python hardware/printed-parts/faucet/finalize_vent_prints.py
@@ -37,9 +51,18 @@ tools/cad-venv/bin/python hardware/printed-parts/faucet/finalize_vent_prints.py
 Preparation uses the installed Bambu Studio locally. It exports native G-code
 archives and records their checksums, source meshes, exact placements, emitted
 process settings and support paths. It never connects to a printer.
-Finalization verifies the current 159-reading whole-faucet report and all of its
-source bindings. Industrial plates also require the current 26-reading geometry
-and 43-reading display-cover reports, including their saved artifact bindings.
+Finalization verifies the current 164-reading whole-faucet report and its 22
+source and artifact bindings, including the purchased under-counter steel profile
+and continuous 60 mm slide-on clearance, the actual drain-to-both-union gaps,
+and flavor-pair clearance. The routing review spans the 19–38 mm counter datum
+range. The mounting clamp uses its nominal 30 mm counter stack; clamp capacity
+requires physical qualification. Industrial plates also require the
+current 26-reading geometry and 43-reading display-cover reports, including
+their saved artifact bindings.
+The tool motion record covers the complete flat lower ribbon and return.
+Its native pose samples bind the unchanged tool and obstruction geometry;
+the current casing clearance uses the checked containment bounds. Every plate has a fresh native slice bound to its
+current source meshes, placements and settings.
 Finalizing all five plates writes the manifest.
 
 | Plate | Editable project | Native print archive |
@@ -52,11 +75,11 @@ Finalizing all five plates writes the manifest.
 
 | Plate | Native time estimate | Saved-density mass estimate | Complete emitted bead margin |
 | --- | ---: | ---: | ---: |
-| Sculpted rigid | 4 h 42 min 43 s | 127.54 g | 26.30 mm |
-| Industrial rigid | 4 h 56 min 18 s | 132.67 g | 25.17 mm |
-| Sculpted bungs/gasket | 1 h 3 min 14 s | 8.37 g | 85.23 mm |
-| Industrial bungs/gasket | 1 h 3 min 54 s | 8.47 g | 85.22 mm |
-| Insertion tool | 24 min 29 s | 7.85 g | 124.40 mm |
+| Sculpted rigid | 4 h 36 min 24 s | 127.98 g | 26.30 mm |
+| Industrial rigid | 4 h 50 min 1 s | 132.33 g | 25.17 mm |
+| Sculpted bungs/gasket | 1 h 5 min 38 s | 8.76 g | 85.23 mm |
+| Industrial bungs/gasket | 1 h 6 min 18 s | 8.86 g | 85.23 mm |
+| Insertion tool | 24 min 26 s | 7.85 g | 124.40 mm |
 
 PET-GF uses the saved Polymaker material profile, 0.24 mm layers and a 0.20 mm
 first layer. The H2C 0.4 mm plates use its +0.18 mm user trim, emitted as
@@ -104,7 +127,9 @@ and lever opening, cover supports through the underside, and each plate
 counterbore body through its screw-head opening. The retained lower-support
 views locate native trees around the cable route and pedestal sockets; they
 receive a geometry/access review before finalization, with its removal route
-bound into the plate record. The
+bound into the plate record. Clear the shared rear tube opening and counter end
+so the flat ribbon passes freely behind the F1-D-F2 bundle before the mounting
+stack closes. The
 [factory sequence](../asse-vent-seals/README.md) follows cleanup.
 The insertion tool has a 19 mm side opening for support removal. Its native
 slice retains 99.04% of the exact annular bearing area, with the tiny omitted
