@@ -54,8 +54,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "stl_sha256": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
-      "triangles": 684452,
+      "stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+      "triangles": 689932,
       "rotation_x_degrees": 180.0,
       "source_center_mm": [
         0.0,
@@ -104,7 +104,7 @@
       "rotation_z_degrees": 90.0
     }
   ],
-  "project_sha256": "b1bdee60dcafe110f930412635eb1e0d878c18e25b3c3e1e2836614c7ceebd7b",
+  "project_sha256": "460b90144153915c80f3dd735b99710e9e615c8fa1b8dd94a45000ae7d5db6c9",
   "settings_preserved_byte_for_byte": true,
   "show_support_blocked_faces": 53543,
   "solid_host_regions": [

@@ -92,7 +92,7 @@
       "prime_tower_layer_schedules_match": true,
       "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-white-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "1c4a42195559734416cb928ff4d797078be6dee1dcb9bee84ee3deb26e57bef9",
+      "native_archive_sha256": "8ea3ea3f2085ff05f6ba8b8db74bf6496a8a612f0f6c8d51c77f2c87867b1482",
       "gcode_sha256": "370fe0393118464494b21285f01c45389af88a30bbcc86ead07abf181870b40b",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
@@ -101,6 +101,12 @@
         "0.5x-0.7"
       ],
       "submitted": false,
+      "native_preview": {
+        "path": "hardware/printed-parts/drain-readiness/reviews/labels-white.png",
+        "sha256": "7f5b269ce0c3c7454d9d74c261ad649871520e86209f82af565dbcde73d9dd7c",
+        "native_archive_member": "Metadata/plate_1.png",
+        "native_archive_sha256": "8ea3ea3f2085ff05f6ba8b8db74bf6496a8a612f0f6c8d51c77f2c87867b1482"
+      },
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
         "sha256": "f6cb79e17fa62f7768a74b450b007164f34960dff7c814be3d071d50017a3b45"
@@ -160,7 +166,7 @@
       "prime_tower_layer_schedules_match": true,
       "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-blue-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "89fa0d2abd0ef642e3c6cfb581c80c18dc0f6e1f2ecd196fdb0d13f9b4393003",
+      "native_archive_sha256": "6a8f58eff99ee56d1794fead384b436caa72e6ab1d1c51bf7b2750f2c9d9a4e6",
       "gcode_sha256": "d6f8f073e0f84b96f6f0c9d22125998b6bd8892e68a97ceae5291a96fe1b501e",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
@@ -169,6 +175,12 @@
         "0.5x-0.7"
       ],
       "submitted": false,
+      "native_preview": {
+        "path": "hardware/printed-parts/drain-readiness/reviews/labels-blue.png",
+        "sha256": "660a562a7b38e1db9201c92eaf9cf434fd9c77f35c7e21504b5910b0aeef15fa",
+        "native_archive_member": "Metadata/plate_1.png",
+        "native_archive_sha256": "6a8f58eff99ee56d1794fead384b436caa72e6ab1d1c51bf7b2750f2c9d9a4e6"
+      },
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-blue-z004-mark2.3mf",
         "sha256": "15dbef8d1b891707829c0f9c624911eb33fb1b6b294addc0fa56fd4aca65640d"
@@ -228,7 +240,7 @@
       "prime_tower_layer_schedules_match": true,
       "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-red-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "101e0cd07a061492628ba01eb9b165647cda090e3eb1fca1ec74aef5521a4aff",
+      "native_archive_sha256": "2130737e11ac4a73f8e4c451c7b9cd4f0d1341e1117f60095dee13a00feeb65f",
       "gcode_sha256": "da8efcac3b2785626066f1ee6d793526f9f8b41026404e0a9d757669d899f304",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
@@ -237,6 +249,12 @@
         "0.5x-0.7"
       ],
       "submitted": false,
+      "native_preview": {
+        "path": "hardware/printed-parts/drain-readiness/reviews/labels-red.png",
+        "sha256": "d91beab1de946b8298cd0a6ccf2f8d0ee71d3327e38575f2edfe8cf088880329",
+        "native_archive_member": "Metadata/plate_1.png",
+        "native_archive_sha256": "2130737e11ac4a73f8e4c451c7b9cd4f0d1341e1117f60095dee13a00feeb65f"
+      },
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-red-z004-mark2.3mf",
         "sha256": "3febb6810525b387b45b99f8b88b2db321db6e69c7a3c3d17313baefa7005d8f"
@@ -301,8 +319,8 @@
           "identify_id": 2901,
           "station": "flavor-a",
           "kind": "chip",
-          "model_road_count": 8346,
-          "model_layer_count": 12,
+          "model_road_count": 9166,
+          "model_layer_count": 16,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
         },
@@ -310,17 +328,17 @@
           "identify_id": 2902,
           "station": "flavor-a",
           "kind": "collar",
-          "model_road_count": 11599,
-          "model_layer_count": 57,
-          "last_model_z_mm": 12.96,
+          "model_road_count": 12035,
+          "model_layer_count": 60,
+          "last_model_z_mm": 13.04,
           "both_body_and_letter_tools_present": true
         },
         {
           "identify_id": 2903,
           "station": "flavor-b",
           "kind": "chip",
-          "model_road_count": 8346,
-          "model_layer_count": 12,
+          "model_road_count": 9116,
+          "model_layer_count": 16,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
         },
@@ -328,18 +346,18 @@
           "identify_id": 2904,
           "station": "flavor-b",
           "kind": "collar",
-          "model_road_count": 11840,
-          "model_layer_count": 57,
-          "last_model_z_mm": 12.96,
+          "model_road_count": 12205,
+          "model_layer_count": 60,
+          "last_model_z_mm": 13.04,
           "both_body_and_letter_tools_present": true
         },
         {
           "identify_id": 2905,
           "station": "data",
           "kind": "chip",
-          "model_road_count": 5555,
-          "model_layer_count": 19,
-          "last_model_z_mm": 3.84,
+          "model_road_count": 4988,
+          "model_layer_count": 12,
+          "last_model_z_mm": 2.16,
           "both_body_and_letter_tools_present": true
         }
       ],
@@ -351,20 +369,15 @@
         ],
         [
           1.92,
-          2.0,
-          0.08
-        ],
-        [
-          3.2,
-          3.36,
+          2.48,
           0.08
         ]
       ],
       "prime_tower_layer_schedules_match": true,
       "data_closing_layers": {
-        "nose_top_mm": 1.68,
-        "face_top_mm": 3.36,
-        "word_top_mm": 3.84,
+        "wing_top_mm": 1.68,
+        "face_top_mm": 1.68,
+        "word_top_mm": 2.16,
         "model_layer_heights_mm": [
           0.2,
           0.44,
@@ -376,21 +389,14 @@
           1.68,
           1.92,
           2.0,
-          2.24,
-          2.48,
-          2.72,
-          2.96,
-          3.2,
-          3.28,
-          3.36,
-          3.6,
-          3.84
+          2.08,
+          2.16
         ],
         "passed": true
       },
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-black-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "07d99d4edfe59cc009fb138155a6e4c39fe92281e93175c5c5eccf5ded36fc71",
-      "gcode_sha256": "9af6bcc4e522f7327543730dbcc506dafd0a2defb0c02dc459952200a286a623",
+      "native_archive_sha256": "fdacf238ab287a51378331fd8bc1fccd49c6443637d63352e33ae1f7d6a97b4c",
+      "gcode_sha256": "c0461ed34f86defc9d12a58f2c35368b0467d0f6d4c43e5f9aae8a2af13a9e87",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -398,9 +404,15 @@
         "0.5x-0.7"
       ],
       "submitted": false,
+      "native_preview": {
+        "path": "hardware/printed-parts/drain-readiness/reviews/labels-black.png",
+        "sha256": "b01b69d39af8f066821928f6f4ee2001138e0fcdc3add2296078646b779fd43a",
+        "native_archive_member": "Metadata/plate_1.png",
+        "native_archive_sha256": "fdacf238ab287a51378331fd8bc1fccd49c6443637d63352e33ae1f7d6a97b4c"
+      },
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-black-z004-mark2.3mf",
-        "sha256": "0e46941ebba5faec8aa902cffb7ad710b8cac69247406d09ee607d75a4d92495"
+        "sha256": "3cbe88d0062680add5c0788fd656440afec8db1a142c69cab84086292150ea10"
       }
     }
   ],

@@ -1,4 +1,4 @@
-"""Black DATA trim, white raised lettering, flat-back side snaps."""
+"""Black DATA trim, white raised lettering, continuous nameplate wings."""
 import sys
 from pathlib import Path
 import cadquery as cq
@@ -18,13 +18,13 @@ STEP=_hw/'printed-parts/enclosure/data-ring/data-ring.step'
 
 
 def build_word():
-    text=(cq.Workplane('XY').text('DATA',ring.WORD_SIZE,ring.WORD_DEPTH+ring.WORD_RAISE,
+    text=(cq.Workplane('XY').text('DATA',ring.WORD_SIZE,interface.INK_DEPTH+ring.WORD_RAISE,
                                 font=ring.WORD_FONT,kind=ring.WORD_KIND,
                                 halign='center',valign='center').val()
           .rotate((0,0,0),(1,0,0),90).rotate((0,0,0),(0,0,1),180))
     bb=text.BoundingBox()
     return text.translate((-(bb.xmin+bb.xmax)/2,
-                           interface.THICK-ring.WORD_DEPTH-bb.ymin,
+                           interface.THICK-interface.INK_DEPTH-bb.ymin,
                            (11.0+interface.TOP)/2-(bb.zmin+bb.zmax)/2))
 
 
