@@ -410,8 +410,8 @@ CHANNEL_X = -94.0
 # the run forward, so the fall ends beneath the storey it hands the water to.
 #
 # THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
-# own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds its
-# lane over the lid's outer face.
+# own belly is the deepest the run gets, one bend radius and the tube's half-diameter under the
+# branch collet, and it holds its lane over the lid's outer face.
 #
 # THE CROSSING IS SEATED ON THE CAP, so its intentional anchor contact cannot measure the free
 # first bend's clearance. Read that bend separately, aft of Y=190: its swept tube clears the core

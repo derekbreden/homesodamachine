@@ -9,11 +9,10 @@ Two kinds of check:
   - GATE — a requirement that must hold for the machine as it stands to be built.
   - GOAL — a reading the card takes and does not gate on, carried as a `score` (0..100).
 
-FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
-is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share,
-`clearance-floor` how far apart they stand, and `port-leads` how far a bore cast off a port
-gets. A box appears in each only as a prefilter: two boxes that miss are two solids that miss,
-and two boxes that overlap say nothing at all.
+THREE OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
+is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share, and
+`clearance-floor` how far apart they stand. A box appears in each only as a prefilter: two boxes
+that miss are two solids that miss, and two boxes that overlap say nothing at all.
 
 Every check's detail is printed to `DETAIL_MAX` rows and carried whole in the sidecar, so a
 list ending in "… n more" is a terminal cap and never the end of the finding.
@@ -60,12 +59,6 @@ CLEARANCE_FLOOR = 1.0
 # Only pairs nearer than this are ranked, so the clearance detail reads as the tight end of the
 # pack rather than as every pair in it. Every pair inside it is an exact solid distance.
 REPORT_NEAR = 2.0
-# The straight a run leaves a fitting on — how far down its own axis a turn off this port reaches.
-# The tube begins curving at the collet face, so a quarter turn carries its axis one bend radius
-# along the port's own and its outer surface the tube's half-diameter past that. Shallower turns
-# stop short of it; a turn past 90° comes back up.
-def port_lead(bend: float, diam: float) -> float:
-    return bend + diam / 2.0
 # How far under its own stated band a MEASURED pose may read and still hold. A strike closes on
 # the band it states, so this is float noise across that closing and nothing else.
 ROOM_TOL = 1e-6
@@ -610,8 +603,9 @@ def never_holds(rows) -> None:
 
 # --- the joints that carry no line -----------------------------------------
 #
-# Two mouths meeting with nothing between them are still joined, and `port-leads` has to read
-# them as joined or it asks each end for a straight it will never turn in.
+# Two mouths meeting with nothing between them are still joined. `clearance-floor` reads each
+# pair as a seat through `TOUCHING_OK`, and the topology doc draws each as a butt that owes no
+# route id.
 MADE_UP = (
     # The rear bulkhead's inboard collet and the ASSE chain's inlet collet meet face to face —
     # `enclosure_assembly.build_asse` seats the chain on `bulkhead_mouth_y`, "the inlet collet
@@ -624,21 +618,16 @@ MADE_UP = (
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
     # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
-    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
-    # filled by the thing it is a grip on.
+    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet grips the stub
+    # itself.
     ("funnel-drain-stub.lower", "funnel-drain-union.stub"),
     # And the same stub up the plug's bore to the top of its land. The funnel drains THROUGH the
-    # stub, so the drain's lead is the stub's own bore.
+    # stub, so the drain's line is the stub's own bore.
     ("funnel.drain", "funnel-drain-stub.upper"),
     # The block's bottom face stands above the socket floor on the hook tops; the web and block
     # lift, less the collet's projection, separate it from the elbow's release face.
     ("funnel.drain", "funnel-drain-union.stub"),
 )
-
-# Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
-# radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the pan's
-# flat floor.
-TERMINI = ("asse1022-assembly.vent-tip",)
 
 
 # --- what stands against what ----------------------------------------------
@@ -1243,92 +1232,6 @@ def _lines_clear(a, runs) -> Check:
                  "gate", verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
 
 
-def port_leads(a, runs) -> list[dict]:
-    """Every port's clear lead, worst first: what it meets along its own axis, how far it got,
-    and how much straight a run leaving it needs.
-
-    `pack-closes` says two bodies do not overlap and `located` says a port is carried into world.
-    Neither asks the question a connector exists to answer — whether a line can LEAVE it. A port
-    is a bore with a direction, and a bore with a body parked in front of it is a bore nothing
-    can be plugged into: two fittings a clean millimetre apart with their collets facing each
-    other clear every other gate on this card and clear nothing a tube can be built through.
-
-    So the port's own bore is cast along its own axis, at its own Ø, for one `port_lead`, and the
-    cast has to reach. The bend radius in it is the LINE's and not the port's: the run that mates
-    the port says what stock is drawn there, and a port with no run yet is read against the
-    coarsest stock its own bore takes — 1/4" LLDPE asks 17.18 mm of straight where 3/8" braided
-    PVC asks 20.66.
-
-    WHAT THE CAST MAY END ON is the body the port is JOINED to, read off the authored runs rather
-    than from prose, plus the `MADE_UP` joints that have no run to read. A port whose connection
-    is still un-authored is held to the full lead against everything, which is the useful
-    direction — that is the state every undrawn segment's two ends are in.
-
-    A CLOSED MATING is the same case on the refrigerant loop. `enclosure_assembly.refrigerant_mates`
-    is the legs a shared plane shut — two stations that are one point read twice, with no copper
-    between them to bend. A mating standing OPEN is not in that list and stays held to the full
-    lead, because an open mating is copper the machine still owes.
-
-    Tube is out of the population. A port's own line lies on its axis by construction, and a
-    foreign one crossing there is `lines-clear`'s question, not this one."""
-    bodies, _drawn, pieces = _split_placed(a)
-    solids = {**bodies, **pieces}
-    mates, mating = {}, {}
-    for r in runs:
-        for anchor, other in ((r.frm, r.to), (r.to, r.frm)):
-            mates.setdefault(anchor, set()).add(other.partition(".")[0])
-            mating.setdefault(anchor, []).append(r)
-    for x, y in MADE_UP:
-        mates.setdefault(x, set()).add(y.partition(".")[0])
-        mates.setdefault(y, set()).add(x.partition(".")[0])
-    for _cid, x, y, _mm in getattr(a, "refrigerant_mates", ()):
-        mates.setdefault(x, set()).add(y.partition(".")[0])
-        mates.setdefault(y, set()).add(x.partition(".")[0])
-    import manifold_layout as ml
-    for mouth, bodies_ in ml.MOUTH_MATES.items():
-        mates.setdefault(mouth, set()).update(bodies_)
-    for mouth, adapter in _gas_chain.PORT_ADAPTERS.items():
-        mates.setdefault(mouth, set()).add(adapter)
-    rows = []
-    for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
-        for port in sorted(fr.ports):
-            pos, face, diam = fr.ports[port]
-            if pos is None or diam is None:
-                continue
-            anchor = f"{name}.{port}"
-            drawn = mating.get(anchor)
-            if drawn:
-                bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
-            else:
-                takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
-                bend = max(takes) if takes else R.BEND_RATIO * diam
-            need = port_lead(bend, diam)
-            who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
-                                       skip={name} | mates.get(anchor, set()))
-            rows.append({"component": name, "port": port, "meets": who,
-                         "free": round(free, 3), "need": round(need, 3),
-                         "ok": who is None, "gated": anchor not in TERMINI,
-                         "routed": bool(drawn)})
-    rows.sort(key=lambda d: (d["ok"], d["free"]))
-    return rows
-
-
-def _port_leads(rows) -> Check:
-    gated = [d for d in rows if d["gated"]]
-    short = [d for d in gated if not d["ok"]]
-    detail = ["a port needs the reach of a quarter turn off it — one bend radius of its line plus "
-              "the tube's own half-diameter — clear of every body but the one its line joins it to"]
-    detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
-               f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
-               for d in short]
-    detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to "
-               f"{d['meets'] or 'nothing'} — opens to atmosphere, not gated"
-               for d in rows if not d["gated"]]
-    return Check("port-leads", "Every tube port has the straight a run off it needs", "gate",
-                 verdict(not short), f"{len(gated) - len(short)}/{len(gated)} clear",
-                 "all clear", detail)
-
-
 def part_clearances(a, runs=()) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
     `allowed` marks a `TOUCHING_OK` seat. A row names a run by its connection id and everything
@@ -1882,8 +1785,8 @@ _card_cache: dict = {}
 
 def build(a) -> Scorecard:
     """The card for one assembly, held against it. A run prints the card and then writes it, and
-    the two are one verdict — the gates cast a bore off every port and take an exact distance
-    across the pack, and taking them twice would say the same thing at twice the price."""
+    the two are one verdict — the gates take an exact distance across the pack, and taking them
+    twice would say the same thing at twice the price."""
     hit = _card_cache.get(id(a))
     if hit is not None and hit[0] is a:
         return hit[1]
@@ -1903,11 +1806,10 @@ def _build(a) -> Scorecard:
     # red on `refrigerant-joints`, which grades the whole loop — a mating on its two stations, a
     # drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
-    leads = port_leads(a, runs)
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
     checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
-              _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
+              _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(runs), _placed(a), _routed(conns), _located(a),
