@@ -2749,6 +2749,11 @@
       "future/weld-positioning-study/sourcing/who-moves-what.md",
       "future/weld-positioning-study/sourcing/work-as-datum.md",
       "future/weld-positioning-study/sourcing/workspace-as-structure.md",
+      "hardware/assembly/scenes/_scenes.py",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+      "hardware/printed-parts/cold-core/foam-shell/README.md",
+      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+      "hardware/printed-parts/enclosure/enclosure/README.md",
       "hardware/printed-parts/faucet/asse-vent-seals/check_free_seal_binding.py",
       "hardware/printed-parts/faucet/asse-vent-seals/flared-lower-path-scope-check.json",
       "hardware/printed-parts/faucet/asse-vent-seals/free-seal-binding-witness-45eae6821c04.json",
@@ -2767,7 +2772,12 @@
       "hardware/printed-parts/faucet/vent-qualification/run_frozen_checks.py",
       "hardware/printed-parts/zone-c/funnel/flush-roof-review/aggregate-refresh.json",
       "hardware/reference/iec-c14-inlet/.scan-check-cache.npz",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_routing.py",
+      "hardware/scripts/_stated_bounds.py",
       "hardware/scripts/_tools_totals.py",
+      "hardware/scripts/lanes.py",
+      "hardware/scripts/probe.py",
       "marketing/lincoln/README.md",
       "marketing/lincoln/advertising.md",
       "marketing/lincoln/working-materials.md",
@@ -2788,7 +2798,9 @@
       "output/xlaserlab-sup29f-xh/xlaserlab-sup29f-xh.glb",
       "output/xlaserlab-sup29f-xh/xlaserlab-sup29f-xh.stl",
       "platformio.ini",
-      "result.json"
+      "result.json",
+      "tools/fusion/session.py",
+      "web/tests/scorecard-sidecar.test.js"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -5320,9 +5332,9 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": "c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199"
   },
   "sidecars": {
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "4626d9e84cd2f0725c4b9c88f66760496ed28d91f805a8b577bfaa3be504ee06",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125"
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "ff3a357a648f7ff2dd3b72c0fa1d2f823737386d033166d740ede0fec9ab1606",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "b5a66af8829a085e1387b46036a8fd4ec72948c9b5f51c2766a9a796c193735d",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "ff3a357a648f7ff2dd3b72c0fa1d2f823737386d033166d740ede0fec9ab1606"
   },
   "moved": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": 1791257167,
