@@ -12,7 +12,6 @@ ROOT=Path(__file__).resolve().parents[2]
 HARDWARE=ROOT/'hardware'
 OUT=HARDWARE/'install-guide/out'
 ART=HARDWARE/'install-guide/art'
-os.environ.setdefault('HSM_NO_BUILD_LOCK','1')
 sys.path[:0]=[str(HARDWARE/'install-guide'),str(HARDWARE/'scripts')]
 import cadquery as cq
 import _install_art as install

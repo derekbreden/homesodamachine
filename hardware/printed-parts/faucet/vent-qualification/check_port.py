@@ -16,8 +16,6 @@ import sys
 
 import cadquery as cq
 
-# Saved-part and local-witness reads do not acquire the production export lock.
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 HERE = Path(__file__).resolve().parent
 FAUCET = HERE.parent
 REPO = next(p for p in HERE.parents if (p / "hardware").is_dir() and (p / "tools").is_dir())

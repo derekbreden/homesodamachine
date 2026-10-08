@@ -15,9 +15,46 @@
         3.4083438685208596
       ],
       "coordinate_reference_sha256": "79d597efdd7c3615afa7f4a904e654e7e36f3a18b1cafbf6ff1db6d08f4d63c3",
-      "render_sha256": "4de84fab4a13448c41ccf3b46a714581f349c5139c42b78711bddd52cf70adb6",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
-      "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png"
+      "render_sha256": "b32c8a1cc8244c58a1ecb9aa977cbf85ea338113c78bc7f34fea84c46bbb1c05",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png",
+      "scene_step_sha256": "4032b84ccd04ca39d79cfffee113bafbc5e7e9b5ec4855e6f24db81ce1643188",
+      "scene_mesh_sha256": null,
+      "registered_camera": {
+        "cam": [
+          0.58,
+          -1.6,
+          -0.72
+        ],
+        "target": [
+          0.0,
+          0.0,
+          -34.0
+        ],
+        "size": "7200x7200",
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_anchor_crop_native_pixels": [
+        61,
+        61,
+        5389,
+        2757
+      ],
+      "frame_centers_native_pixels": [
+        [
+          16.521466905187836,
+          2785.144007155635
+        ],
+        [
+          16.511190689346464,
+          19.130707251566697
+        ]
+      ]
     },
     "steps/mount-under-tighten-clean.png": {
       "reference_size": [
@@ -33,9 +70,46 @@
         3.4083438685208596
       ],
       "coordinate_reference_sha256": "253cc17dd442031a8f631f2694973acd9559a8c6b795dfbf02304ad83ee5beac",
-      "render_sha256": "fc79650559cd42516c671a402a6912db420fc76603faeb47490c0a0bc3bad30c",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
-      "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png"
+      "render_sha256": "8e217b05cdc8c8f00f50eb8b08e34d43c185c0e1e201c9817d79ed8deaca1508",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png",
+      "scene_step_sha256": "fdfc44d3e64eefd168e057776748a8f46188673585074c2a17ee6cef9408a224",
+      "scene_mesh_sha256": null,
+      "registered_camera": {
+        "cam": [
+          0.58,
+          -1.6,
+          -0.72
+        ],
+        "target": [
+          0.0,
+          0.0,
+          -34.0
+        ],
+        "size": "7200x7200",
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_anchor_crop_native_pixels": [
+        61,
+        61,
+        5389,
+        2757
+      ],
+      "frame_centers_native_pixels": [
+        [
+          16.521466905187836,
+          2785.144007155635
+        ],
+        [
+          16.511190689346464,
+          19.130707251566697
+        ]
+      ]
     },
     "steps/mount-drop.png": {
       "reference_size": [
@@ -51,15 +125,54 @@
         2.7813390313390314
       ],
       "coordinate_reference_sha256": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12",
-      "render_sha256": "0a45f6d6d77f0b10cecee14ee1e502aa1cc73f30731a89672130ecd598140a03",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "render_sha256": "ba6b065aafb3e9347c837ccda5f46b763befb5c53ec903d44fa72704f41de361",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
       "frame_anchor_crop_native_pixels": [
         55,
         391,
         2190,
         4296
       ],
-      "coordinate_reference_path": "reference/drain-mount-drop.png"
+      "coordinate_reference_path": "reference/drain-mount-drop.png",
+      "scene_step_sha256": "6aa6c5c1ef914d0bac1ce0ad315db10ba2a62e2ae453f5f3ce1d5be3975e0d04",
+      "scene_mesh_sha256": null,
+      "registered_camera": {
+        "cam": [
+          1.0,
+          -1.45,
+          -0.38
+        ],
+        "target": [
+          0.0,
+          0.0,
+          110.0
+        ],
+        "size": "4800x4800",
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "frame_centers_native_pixels": [
+        [
+          2239.5449101796407,
+          7.622754491017964
+        ],
+        [
+          5.526946107784431,
+          7.622754491017964
+        ],
+        [
+          2239.524096385542,
+          4457.1626506024095
+        ],
+        [
+          5.524096385542169,
+          4457.1626506024095
+        ]
+      ]
     },
     "steps/co2-connected.png": {
       "reference_size": [
@@ -108,11 +221,45 @@
       ],
       "coordinate_reference_path": "reference/drain-the-back-face.png",
       "coordinate_reference_sha256": "4f8859bef65b9647e9336f2f5b538268a5aa5ffb9371056a2ecb08a291a9d91a",
-      "render_sha256": "2905fd55953e3c67131483bb3d0efb5d052966523dfbc43564f651a4222bf370",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
-      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "render_sha256": "77ffb35160fac97bb8b9c8111eeedeeecec634a148f559c361d55b9731b0cf51",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "scene_step_sha256": "7c54d1d46fd8ea246dcc20df008432683f18af8937b7f2513ee12e40c003d30b",
       "fixed_native_crop": null,
-      "lighting": "Default studio lighting; axial rear camera; native transparent background."
+      "lighting": "Default studio lighting; axial rear camera; native transparent background.",
+      "scene_mesh_sha256": "df913e9ed41c2dfebcd456d9d30c5c90e681d7d24ea601bb1cb2066ed6ea2aba",
+      "registered_camera": {
+        "cam": [
+          0,
+          1,
+          0.12
+        ],
+        "target": [
+          -3,
+          467,
+          292.05227339500965
+        ],
+        "span": 70.5,
+        "size": "3200x2240",
+        "trim": false,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "anchors_reference_pixels": {
+        "jack-port": [
+          1099.540425531915,
+          485.45337664196404
+        ]
+      },
+      "anchor_source_mm": {
+        "jack-port": [
+          -40.709999999999994,
+          467.94,
+          301.6172904687784
+        ]
+      }
     },
     "hose-attached.png": {
       "reference_size": [
@@ -161,15 +308,36 @@
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-open.png",
       "coordinate_reference_sha256": "4786bdfddaecf186f8240e51a6c3ee8f3e4e0e42be3143b2aaa3b5854f478073",
-      "render_sha256": "2e6907a4511235e548d2a0a8ca02dc0fa7f89ed74d28a64cced84cbcc51f4c1f",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
-      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "render_sha256": "6acfbae37e3bf53ae67c2f05ac62780b706490c47a8077afd20bbb450d5307c2",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "scene_step_sha256": "44d9adc1b81116598702fe617ffd006b4569dab3d2f205f9a4b1f39a3ad1ab43",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
-      ]
+      ],
+      "scene_mesh_sha256": "acb551328d10ea150d44af829f6cb553be9afe5dd8def38dd20aa7f68e331717",
+      "registered_camera": {
+        "cam": [
+          0.7,
+          1,
+          0.16
+        ],
+        "target": [
+          -6,
+          630,
+          370
+        ],
+        "span": 180,
+        "size": "3200x3600",
+        "trim": false,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      }
     },
     "steps/startup-gas.png": {
       "reference_size": [
@@ -216,8 +384,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "7254d9bc0ec89549951b62acfff2678d7d9b4c16f8d45cc14c11d133ff9cf1b5",
-      "render_sha256": "e8345c98a953baf931d641d0cfe0ae759331284e3c971c58fe65ec14869022bd"
+      "coordinate_reference_sha256": "a998690769305a3ce214eff742972b6ecb87f49a44384328437cb94e13a0912c",
+      "render_sha256": "7b2edf5dadc71649fd6c2bd455185785abde660b6e924755b546016df38001be"
     },
     "steps/connect-rear-connected.png": {
       "reference_size": [
@@ -234,15 +402,98 @@
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-connected.png",
       "coordinate_reference_sha256": "92f5ed26345439321685c100448877182b0b0b3cebeec1f0eb8ba2e858ae960e",
-      "render_sha256": "0279fa893300c0eb699eb6c64fde91cbff42582897288ce9104419377838548c",
-      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
-      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "render_sha256": "a9aa7f4408eeed9d9ea7ded514ce5a237124cb30ddb62290ab43fe78db41bc21",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "scene_step_sha256": "99640ba9bb748deaf00b443f2ce4df3aca2be8568873df9929fba6c3897df2da",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
-      ]
+      ],
+      "scene_mesh_sha256": "f7cb1d70b9caf782dfba2899d4f8ad2ea73717f8fb4c0e2b68ac20b1ba1895d8",
+      "registered_camera": {
+        "cam": [
+          0.7,
+          1,
+          0.16
+        ],
+        "target": [
+          -6,
+          630,
+          370
+        ],
+        "span": 180,
+        "size": "3200x3600",
+        "trim": false,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "opening.png": {
+      "reference_size": [
+        3800,
+        3130
+      ],
+      "render_size": [
+        3800,
+        3130
+      ],
+      "scale": [
+        1.0,
+        1.0
+      ],
+      "render_sha256": "bfa6ce7a11f64b88d31b9ef07b8b53bad98ffac3af3c085239bd2692160e0959",
+      "source_sha256": "5e3f9e7270c908a8eb9612fe05af1bd9b378990b5b6e3a709e873f52c3cef6e3",
+      "scene_step_sha256": "8c8b3b06e48f4221580fb8e4e025fee4c73d1df6803f9e12f40d0d34bc0db371",
+      "fixed_native_crop": [
+        0,
+        70,
+        3800,
+        3200
+      ],
+      "silhouette": "opening-faucet-outline.svg"
+    },
+    "steps/power-ready.png": {
+      "reference_size": [
+        1800,
+        1300
+      ],
+      "render_size": [
+        1800,
+        1300
+      ],
+      "scale": [
+        1,
+        1
+      ],
+      "render_sha256": "47d27ed2980c81a7feed545ef88fef3647ab624b6feda4eb5ba7704ab6fb4291",
+      "scene_step_sha256": "70e939addd6d1c6174df504297c0b0e358cec71abab1ff77f54fc4225fb3919f",
+      "scene_mesh_sha256": "e42af59f765821e4569b3524fa6e4d7d3da34cb8cf3628051ab1e76b6c77a9b9",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "registered_camera": {
+        "cam": [
+          -0.85,
+          1,
+          0.25
+        ],
+        "target": [
+          58.9,
+          501,
+          320.2105808375568
+        ],
+        "span": 64,
+        "size": "1800x1300",
+        "trim": false,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      }
     }
   }
 }

@@ -1,0 +1,306 @@
+enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
+
+  [step · answered] The rounded foam-cap pocket ends at Y465.55, 0.25 mm behind the surrounding Y465.3 interior field. That offset is the cap's XY running clearance, bounded to Z248..253.4. The native pocket floor has 3.75 mm of continuous backing across its flat face, and at least 3.5 mm across its entire rectangular bounds; forward-expansion-check.json records both stock witnesses. This is an exposed clearance step, not a 0.25 mm wall.
+    Δ0.250 mm between parallel planes · footprint met 157.0 × 5.4 mm
+    faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=465.550 z=250.700
+    faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=465.300 z=254.320
+    click: x=0.000 y=465.550 z=250.700
+
+  [step · answered] The purchased keystone's side-clearance plane is at Y464.95, 0.35 mm inside the surrounding Y465.3 interior field. It is part of the independently mounted jack pocket, not a seam or thin wall. The backed DATA pad and keystone boss surround the recess; data-ring/fit-check.json verifies the purchased jack, separate trim, retention lips and complete rear-wall fit.
+    Δ0.350 mm between parallel planes · footprint met 24.7 × 15.0 mm
+    faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=465.300 z=254.320
+    faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-40.710 y=464.950 z=304.162
+    click: x=-33.260 y=464.950 z=300.847
+
+  [step · answered] The PRV duct's seam-storey jamb meets the Z-slide channel wall. The skin at X-104.5 and channel at X-103.75 leave a 0.75 mm step between these two clearance datums; the full exterior wall backs both. `_vent_chase` and `_back_top_flanks` supply the faces.
+    Δ0.750 mm between parallel planes · footprint met 12.0 × 4.9 mm
+    faceA: plane · n x=1.000 y=0.000 z=0.000 · thru x=-104.500 y=323.800 z=172.325
+    faceB: plane · n x=1.000 y=0.000 z=0.000 · thru x=-103.750 y=338.050 z=171.875
+    click: x=-104.500 y=323.800 z=172.325
+
+  [sliver · answered] The cap pocket's lower return is the 0.25 mm plan remainder between its Y465.55 wall and the surrounding Y465.3 interior field. The return lies at Z248 and bounds the fully backed pocket floor. It does not form a separate thin ligament; the complete rounded-pocket stock witnesses are in forward-expansion-check.json.
+    0.250 mm strip, 161.9 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=465.425 z=248.000
+    edge: x=80.962 y=465.425 z=248.000 → x=-80.962 y=465.425 z=248.000 · len 161.924 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=465.425 z=248.000
+
+  [sliver · answered] This vertical face is the 1.46 mm depth change from the nameplate's 3.60 mm backing to its local 2.14 mm backing beside the PSU. It bounds solid material toward the exterior, not a separate 1.46 mm ligament. The finite east backing transition and zero-missing-volume backing witnesses are recorded in drain-readiness/reviews/rear-wall-lint-witness.json. The slot and its retaining face keep the accepted fit.
+    1.460 mm strip, 48.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=86.860 y=465.070 z=275.953
+    edge: x=86.860 y=465.070 z=299.953 → x=86.860 y=465.070 z=251.954 · len 48.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=86.860 y=465.070 z=275.953
+
+  [sliver · answered] This face is the ceiling slab's section between its aft edge and the CO2 station's drafted nut land. The 0.480 mm measure is the short plan remainder where that draft meets the slab, not the slab thickness. The continuous ceiling carries its full section behind the face.
+    0.480 mm strip, 34.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-3.350 y=465.540 z=352.000
+    edge: x=13.650 y=465.540 z=352.000 → x=-20.350 y=465.540 z=352.000 · len 34.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-3.350 y=465.540 z=352.000
+
+  [sliver · answered] This is the exposed rear end of DATA's backing above the keystone pocket at Y464.34. Its 1.294 mm vertical run is the remainder between the module pocket's upper boundary and DATA's pad ramp. It is a face of the complete backing toward +Y, not a separate 1.294 mm load-bearing ligament. The module and trim use their own supported bosses and catches; data-ring/fit-check.json records the production fit and backing sections.
+    1.294 mm strip, 15.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-40.710 y=464.340 z=320.159
+    edge: x=-33.235 y=464.340 z=320.159 → x=-48.185 y=464.340 z=320.159 · len 14.950 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-40.710 y=464.340 z=320.159
+
+  [sliver · answered] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
+    1.400 mm strip, 14.9 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-40.710 y=458.940 z=314.487
+    edge: x=-33.260 y=458.940 z=314.487 → x=-48.160 y=458.940 z=314.487 · len 14.900 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-40.710 y=458.940 z=314.487
+
+  [sliver · answered] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
+    1.300 mm strip, 14.9 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=458.890 z=294.437
+    edge: x=-33.260 y=458.890 z=294.437 → x=-48.160 y=458.890 z=294.437 · len 14.900 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-40.710 y=458.890 z=294.437
+
+  [sliver · answered] The PRV duct's 0.75 mm strip is the bottom of the flank section at the seam rim, between the X-104.5 skin and X-103.75 slide-channel wall. Both are clearance datums backed by the full exterior wall; this strip faces print-up on the ceiling-bedded piece.
+    0.750 mm strip, 12.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-104.125 y=323.800 z=174.800
+    edge: x=-104.125 y=329.800 z=174.800 → x=-104.125 y=317.800 z=174.800 · len 12.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-104.125 y=323.800 z=174.800
+
+  [sliver · answered] These two vertical returns join the flow-meter housing pocket at X-15.31 to its lead-root pocket at X-15.21. Their 0.10 mm exposed width is the difference between the two overlapping clearance envelopes. Native sections confirm continuous material toward +X behind each return and the complete 3 mm ceiling at Z352..355 above them. Both pockets remain open from below before meter installation.
+    0.100 mm strip, 9.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-15.260 y=399.010 z=347.500
+    edge: x=-15.260 y=399.010 z=352.000 → x=-15.260 y=399.010 z=343.000 · len 9.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.260 y=399.010 z=347.500
+
+  [sliver · answered] The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane.
+    0.750 mm strip, 4.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-104.125 y=221.800 z=168.700
+    edge: x=-104.125 y=223.800 z=168.700 → x=-104.125 y=219.800 z=168.700 · len 4.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-104.125 y=221.800 z=168.700
+
+  [sliver · answered] The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane.
+    0.750 mm strip, 4.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=104.125 y=221.800 z=168.700
+    edge: x=104.125 y=223.800 z=168.700 → x=104.125 y=219.800 z=168.700 · len 4.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=104.125 y=221.800 z=168.700
+
+  [sliver · answered] These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements.
+    nan mm strip, nan mm long
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-106.867 y=331.567 z=351.683
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=-106.867 y=331.567 z=351.683
+
+  [sliver · answered] These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements.
+    nan mm strip, nan mm long
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=107.455 y=200.004 z=349.730
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=107.455 y=200.004 z=349.730
+
+  [sliver · answered] These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements.
+    nan mm strip, nan mm long
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=106.867 y=331.567 z=351.683
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=106.867 y=331.567 z=351.683
+
+  [sliver · answered] These two vertical returns join the flow-meter housing pocket at X-15.31 to its lead-root pocket at X-15.21. Their 0.10 mm exposed width is the difference between the two overlapping clearance envelopes. Native sections confirm continuous material toward +X behind each return and the complete 3 mm ceiling at Z352..355 above them. Both pockets remain open from below before meter installation.
+    0.100 mm strip, 9.0 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-15.260 y=389.010 z=347.500
+    edge: x=-15.260 y=389.010 z=352.000 → x=-15.260 y=389.010 z=343.000 · len 9.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.260 y=389.010 z=347.500
+
+  [sliver · answered] The aft end wall of the ASSE ceiling pocket has a 1 mm run beyond the anchor, not a 1 mm material thickness. The purchased body ends at Y410.51 and the pocket at Y412.51, keeping its 2 mm routing clearance. The complete shell lies west of this face, with 14.273 mm continuous stock at the anchor point.
+    1.000 mm strip, 9.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-93.227 y=412.010 z=347.500
+    edge: x=-93.227 y=412.010 z=352.000 → x=-93.227 y=412.010 z=343.000 · len 9.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-93.227 y=412.010 z=347.500
+
+  [ceiling · answered] The PRV chase's flat exterior crown is the complete 8 x 18 mm structural roof backing at the lip's height; the 12 mm passage and inner 45 degree air roof retain their datums. Its +Z face prints down in the ceiling-bedded back-top. The delivered native archive carries this crown with removable support. The finite crown retains a complete 2 mm native backing witness; current support interface roads are recorded against that exact face in drain-readiness/reviews/rear-wall-lint-witness.json. Release the contact from the empty forebay above the crown or through the lateral approach, break the sacrificial branch and remove every fragment before the cold core and tubes are installed. Physical cleanup effort and finish remain unqualified.
+    144 mm² flat print-down face at z=214.600 · 18.0 × 8.0 mm · drop 37.0–128.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-94.500 y=323.800 z=214.600
+    click: x=-94.500 y=323.800 z=214.600
+
+  [ceiling · answered] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
+    135 mm² flat print-down face at z=276.899 · 20.4 × 9.5 mm · drop 66.1–66.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-88.285 y=282.000 z=276.899
+    click: x=-88.285 y=282.000 z=276.899
+
+  [ceiling · answered] The nameplate mouth's 98.53 x 3.36 mm floor is its flat locating bearing. The source preserves 0.15 mm Z fit plus 0.25 mm supported-face allowance. Its complete finite face retains at least 1.50 mm of underlying native stock. The current native archive places support interface roads under this floor with the saved 0.45 mm top support distance; the closest current interface midplane is 0.6565 mm from the exact face, placing its nominal top 0.5365 mm away after layer placement. These supports leave through the empty rear-facing nameplate pocket before insertion. Drain-readiness/reviews/rear-wall-lint-witness.json identifies the complete receiver floor, zero missing floor stock and actual interface roads. This is geometric preparation evidence; cleanup effort, finish and assembled fit remain physical observations.
+    331 mm² flat print-down face at z=256.553 · 98.5 × 3.4 mm · drop 38.5–38.5 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=34.470 y=469.620 z=256.553
+    click: x=34.470 y=469.620 z=256.553
+
+  [ceiling · answered] Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.
+    34 mm² flat print-down face at z=259.400 · 15.0 × 2.2 mm · drop 58.0–58.0 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=97.375 y=341.300 z=259.400
+    click: x=97.375 y=341.300 z=259.400
+
+  [ceiling · answered] The regulator and water-split anchors expose flat flanks and relief-lobe floors across their 3.5 mm tie bands. These spans connect the end webs and leave room for the closed zip-tie loops. The nominal fitting seats remain on their axes and the support-facing routing cavities include the 0.25 mm allowance. Removable support is accessible before hardware installation.
+    81 mm² flat print-down face at z=315.011 · 10.0 × 9.5 mm · drop 28.0–37.0 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-87.850 y=310.260 z=315.011
+    click: x=-87.850 y=310.260 z=315.011
+
+  [ceiling · answered] The ASSE tie cavity's lower threshold spans 31.6 mm with a full 3 mm wall at X-101.5..-98.5. The closed tie loop passes over this flat threshold. Its Z321.671 face includes the 0.25 mm supported allowance, with the surrounding anchor stock retained. Support is accessible before the ASSE chain is installed.
+    95 mm² flat print-down face at z=321.671 · 31.6 × 3.0 mm · drop 30.3–30.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-100.000 y=378.510 z=321.671
+    click: x=-100.000 y=378.510 z=321.671
+
+  [ceiling · answered] DATA's 28 x 3.36 mm lower mouth floor locates the removable trim. It retains the separate 3.6 mm rear backing and the two plain retaining lips. Back-top prints roof-down, so the floor receives normal support through its rear-facing mouth. Remove that support through the empty opening before installing the jack and DATA trim. The production fit check records the aperture, backing, lips and release access; finished fit and cleanup remain physical observations.
+    94 mm² flat print-down face at z=291.217 · 28.0 × 3.4 mm · drop 30.3–30.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=469.620 z=291.217
+    click: x=-40.710 y=469.620 z=291.217
+
+  [ceiling · answered] The regulator and water-split anchors expose flat flanks and relief-lobe floors across their 3.5 mm tie bands. These spans connect the end webs and leave room for the closed zip-tie loops. The nominal fitting seats remain on their axes and the support-facing routing cavities include the 0.25 mm allowance. Removable support is accessible before hardware installation.
+    44 mm² flat print-down face at z=305.411 · 11.4 × 9.5 mm · drop 37.6–37.6 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-95.550 y=256.810 z=305.411
+    click: x=-95.550 y=256.810 z=305.411
+
+  [ceiling · answered] The C14 tunnel's aperture and flange-pocket floors follow the purchased shroud and flange with 0.15 mm per-face fit plus 0.25 mm on their print-down edges. Both bridge between the tunnel flanks. The tunnel block grows behind the relief to retain its wall section, and support leaves through the open aperture and pocket.
+    176 mm² flat print-down face at z=326.811 · 21.3 × 8.2 mm · drop 18.6–18.6 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=66.900 y=467.175 z=326.811
+    click: x=66.900 y=467.175 z=326.811
+
+  [ceiling · answered] The C14 tunnel's aperture and flange-pocket floors follow the purchased shroud and flange with 0.15 mm per-face fit plus 0.25 mm on their print-down edges. Both bridge between the tunnel flanks. The tunnel block grows behind the relief to retain its wall section, and support leaves through the open aperture and pocket.
+    107 mm² flat print-down face at z=324.726 · 21.5 × 5.0 mm · drop 22.7–22.7 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=66.900 y=460.550 z=324.726
+    click: x=66.900 y=460.550 z=324.726
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=257.194 · 28.0 × 2.0 mm · drop 30.8–30.8 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=470.300 z=257.194
+    click: x=-40.710 y=470.300 z=257.194
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=257.194 · 28.0 × 2.0 mm · drop 30.8–30.8 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-78.070 y=470.300 z=257.194
+    click: x=-78.070 y=470.300 z=257.194
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=324.381 · 28.0 × 2.0 mm · open to the bed (30.6 mm up)
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=470.300 z=324.381
+    click: x=-40.710 y=470.300 z=324.381
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=324.381 · 28.0 × 2.0 mm · open to the bed (30.6 mm up)
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-78.070 y=470.300 z=324.381
+    click: x=-78.070 y=470.300 z=324.381
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=324.591 · 28.0 × 2.0 mm · open to the bed (30.4 mm up)
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-3.350 y=470.300 z=324.591
+    click: x=-3.350 y=470.300 z=324.591
+
+  [ceiling · answered] These rectangular label-pocket bearing edges retain the chip's flange-height lower boundary and 2 mm pocket depth. The rear wall backs the edges; the purchased fitting clamps wall and chip on their continuous nut land. They face print-down in the roof-down orientation and open onto the rear port field. Normal supports leave directly through each pocket before chips and fittings are installed. The delivered back-top archive preserves this functional support access; the protected exterior roof and transition faces remain clear of support roads (drain-readiness/reviews/show-support-clearance-summary.json).
+    56 mm² flat print-down face at z=291.217 · 28.0 × 2.0 mm · drop 30.3–30.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-78.070 y=470.300 z=291.217
+    click: x=-78.070 y=470.300 z=291.217
+
+  [ceiling · answered] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
+    81 mm² flat print-down face at z=291.812 · 15.0 × 6.7 mm · drop 24.7–24.7 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=461.595 z=291.812
+    click: x=-40.710 y=461.595 z=291.812
+
+  [ceiling · answered] The rear Z-slide feet retain their complete nominal sections through Z168.70. The mating back-bottom catches stand at Z169.45, allocating 0.25 mm running fit plus one 0.25 mm allowance for each supported mating face entirely on the bottom head. Lifting the top closes this gap onto broad square bearing faces. Support carries these ceiling-down feet and leaves through the open channels.
+    1221 mm² flat print-down face at z=168.700 · 232.5 × 5.2 mm · drop 6.4–6.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=101.125 y=340.050 z=168.700
+    click: x=101.125 y=340.050 z=168.700
+
+  [ceiling · answered] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
+    36 mm² flat print-down face at z=319.512 · 15.0 × 2.4 mm · drop 29.1–29.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=463.140 z=319.512
+    click: x=-40.710 y=463.140 z=319.512
+
+  [ceiling · answered] The rear Z-slide feet retain their complete nominal sections through Z168.70. The mating back-bottom catches stand at Z169.45, allocating 0.25 mm running fit plus one 0.25 mm allowance for each supported mating face entirely on the bottom head. Lifting the top closes this gap onto broad square bearing faces. Support carries these ceiling-down feet and leaves through the open channels.
+    664 mm² flat print-down face at z=168.700 · 126.5 × 5.2 mm · drop 6.4–6.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-101.125 y=393.050 z=168.700
+    click: x=-101.125 y=393.050 z=168.700
+
+  [ceiling · answered] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
+    53 mm² flat print-down face at z=299.650 · 10.1 × 5.2 mm · drop 7.2–22.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-101.125 y=205.072 z=299.650
+    click: x=-101.125 y=205.072 z=299.650
+
+  [ceiling · answered] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
+    53 mm² flat print-down face at z=299.650 · 10.1 × 5.2 mm · drop 7.2–22.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=101.125 y=205.072 z=299.650
+    click: x=101.125 y=205.072 z=299.650
+
+  [ceiling · answered] The rear Z-slide feet retain their complete nominal sections through Z168.70. The mating back-bottom catches stand at Z169.45, allocating 0.25 mm running fit plus one 0.25 mm allowance for each supported mating face entirely on the bottom head. Lifting the top closes this gap onto broad square bearing faces. Support carries these ceiling-down feet and leaves through the open channels.
+    493 mm² flat print-down face at z=168.700 · 94.0 × 5.2 mm · drop 6.4–6.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-101.125 y=270.800 z=168.700
+    click: x=-101.125 y=270.800 z=168.700
+
+  [ceiling · answered] The PRV mouth's floor spans the 12 mm passage between its jambs. Its square section preserves the tube's path; the print-down edge includes the 0.25 mm supported-face allowance. The wall behind the mouth retains its full section and support leaves through the passage.
+    36 mm² flat print-down face at z=185.600 · 12.0 × 3.0 mm · drop 21.0–22.0 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-92.000 y=323.800 z=185.600
+    click: x=-92.000 y=323.800 z=185.600
+
+  [ceiling · answered] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
+    44 mm² flat print-down face at z=294.217 · 14.8 × 3.0 mm · drop 17.7–18.9 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=466.445 z=294.217
+    click: x=-40.710 y=466.445 z=294.217
+
+  [ceiling · answered] The regulator and water-split anchors expose flat flanks and relief-lobe floors across their 3.5 mm tie bands. These spans connect the end webs and leave room for the closed zip-tie loops. The nominal fitting seats remain on their axes and the support-facing routing cavities include the 0.25 mm allowance. Removable support is accessible before hardware installation.
+    21 mm² flat print-down face at z=280.611 · 6.0 × 3.5 mm · drop 1.8–26.8 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-101.500 y=256.810 z=280.611
+    click: x=-101.500 y=256.810 z=280.611
+
+  [ceiling · answered] The joined upper main-board and relay-2 mounting pad is a 9.3 mm tall rectangular block linking three insert stations to the east wall. Its crown joins relay 1's aft column. The first printed face projects 2.25 mm from the wall; the complete mounting block backs that short projection.
+    52 mm² flat print-down face at z=327.200 · 23.0 × 2.2 mm · drop 7.3–15.8 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=97.375 y=340.300 z=327.200
+    click: x=97.375 y=340.300 z=327.200
+
+  [ceiling · answered] The ASSE anchor's web between its tie cavity and the V ends in a flat top over the tie channel's span. The loop needs that span open above it, so no column carries it. Its support stands on the ceiling slab inside the tie channel and leaves into the chain's own pocket.
+    105 mm² flat print-down face at z=345.211 · 31.6 × 3.3 mm · drop 6.8–6.8 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-91.207 y=378.510 z=345.211
+    click: x=-91.207 y=378.510 z=345.211
+
+  [ceiling · answered] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
+    119 mm² flat print-down face at z=315.600 · 22.7 × 5.2 mm · drop 6.4–6.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=101.125 y=215.346 z=315.600
+    click: x=101.125 y=215.346 z=315.600
+
+  [ceiling · answered] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
+    119 mm² flat print-down face at z=315.600 · 22.7 × 5.2 mm · drop 6.4–6.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-101.125 y=215.346 z=315.600
+    click: x=-101.125 y=215.346 z=315.600
+
+  [ceiling · answered] The 0.25 mm-deep lower return of the foam-cap recess faces print-down in the roof-down orientation. It is backed by the complete rear wall and opens into the cap recess. Any contact support can leave directly through that opening before the cap is installed; this small return is not a hidden cavity.
+    40 mm² flat print-down face at z=248.000 · 161.9 × 0.2 mm · drop 5.4–5.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=465.425 z=248.000
+    click: x=0.000 y=465.425 z=248.000
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    88 mm² flat print-down face at z=348.546 · 25.2 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-3.350 y=363.653 z=348.546
+    click: x=-3.350 y=363.653 z=348.546
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    86 mm² flat print-down face at z=344.400 · 24.6 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-43.710 y=370.810 z=344.400
+    click: x=-43.710 y=370.810 z=344.400
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    86 mm² flat print-down face at z=344.400 · 24.6 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-43.710 y=417.210 z=344.400
+    click: x=-43.710 y=417.210 z=344.400
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    76 mm² flat print-down face at z=346.861 · 21.8 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.650 y=329.153 z=346.861
+    click: x=32.650 y=329.153 z=346.861
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    44 mm² flat print-down face at z=338.425 · 12.6 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=16.895 y=270.600 z=338.425
+    click: x=16.895 y=270.600 z=338.425
+
+  [ceiling · answered] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+    44 mm² flat print-down face at z=342.286 · 12.6 × 3.5 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=55.075 y=406.653 z=342.286
+    click: x=55.075 y=406.653 z=342.286
+
+  [slope · answered] These two finite sloping faces form the diamond opening used to press the nameplate outward for removal. Each has a 9 mm horizontal run, 10 mm rise and complete 3.60 mm depth, matching `_nameplate_wing_interface.apply` and a 48.013 degree access ceiling in the roof-down print orientation. They bound the opening through the pocket's backed wall. Both finite diamond slopes are recorded in drain-readiness/reviews/rear-wall-lint-witness.json.
+    45° underside runs along a wall with no level foot · slope dir +1.00,-0.00 vs wall n +0.00,+1.00 · along 13.5 mm · 48 mm²
+    faceA: plane · n x=0.743 y=0.000 z=0.669 · thru x=29.970 y=466.140 z=270.953
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.263 y=467.940 z=289.055
+    click: x=29.970 y=466.140 z=270.953
+
+  [slope · answered] These two finite sloping faces form the diamond opening used to press the nameplate outward for removal. Each has a 9 mm horizontal run, 10 mm rise and complete 3.60 mm depth, matching `_nameplate_wing_interface.apply` and a 48.013 degree access ceiling in the roof-down print orientation. They bound the opening through the pocket's backed wall. Both finite diamond slopes are recorded in drain-readiness/reviews/rear-wall-lint-witness.json.
+    45° underside runs along a wall with no level foot · slope dir -1.00,+0.00 vs wall n +0.00,+1.00 · along 13.5 mm · 48 mm²
+    faceA: plane · n x=-0.743 y=0.000 z=0.669 · thru x=38.970 y=466.140 z=270.953
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.263 y=467.940 z=289.055
+    click: x=38.970 y=466.140 z=270.953

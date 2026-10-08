@@ -1,0 +1,117 @@
+{
+  "passed": true,
+  "checks": {
+    "frame:one-valid-solid": {
+      "passed": true
+    },
+    "word:four-valid-letters": {
+      "passed": true
+    },
+    "print:flat-back": {
+      "passed": true
+    },
+    "clearance:word-frame": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "clearance:frame-wall": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "clearance:jack-wall": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "clearance:jack-frame": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "stock:retaining-lip:-1": {
+      "passed": true,
+      "side": -1,
+      "required_volume_mm3": 2.879999999999963,
+      "missing_mm3": 0,
+      "thickness_mm": 1.2
+    },
+    "stock:retaining-lip:1": {
+      "passed": true,
+      "side": 1,
+      "required_volume_mm3": 2.879999999999963,
+      "missing_mm3": 0,
+      "thickness_mm": 1.2
+    },
+    "stock:finite-upper-pad-remainder": {
+      "passed": true,
+      "native_face": 488,
+      "face_area_mm2": 19.345299999999742,
+      "stock_thickness_mm": 2.0,
+      "witness_volume_mm3": 38.69059999999949,
+      "missing_volume_mm3": 0
+    },
+    "stock:finite-lower-mouth-floor": {
+      "passed": true,
+      "native_face": 288,
+      "face_area_mm2": 94.08000000000035,
+      "stock_thickness_mm": 1.5,
+      "witness_volume_mm3": 141.12000000000057,
+      "missing_volume_mm3": 0
+    },
+    "access:plug-and-latch-through-trim": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "plug_width_mm": 9.0,
+      "plug_height_mm": 6.45,
+      "lower_latch_depth_mm": 2.35
+    },
+    "receiver:bulkhead-carb": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 3.6272237100450915,
+      "required_clearance_mm": 3.0
+    },
+    "receiver:bulkhead-flavor-a": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 8.650659968396273,
+      "required_clearance_mm": 3.0
+    },
+    "snap:screened-deflection-space": {
+      "passed": true,
+      "retracted_nose_clearance_mm": 0.6500000000000004,
+      "inner_stem_clearance_mm": 0.40000000000000036
+    },
+    "provenance:inputs-unchanged": {
+      "passed": true
+    }
+  },
+  "source_and_artifact_sha256": {
+    "hardware/printed-parts/enclosure/data-ring/check_fit.py": "1740afc280ff7f060ac3d28a2cda3686d03dfbeb7a6173e4046836c37a846514",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py": "19da35229da483ea3baae512d618f923f3a557e779252f571897c3517e8d4435",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "ff3b535ed5e6100b5f43734516b578d58f38fddbd89f504d196068fdc3ea0b27",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b2fe7f0d8f8e180af13a86369cb88e40b4b1dc03b06b322714386690c35fd0cf",
+    "hardware/manifold-layout/enclosure_assembly.py": "547b175ef721076e9741db3fc9dcb28eddd2dcf26f10f19c2235dde814b1d4ae",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "3a43c487adc9eb9571f9f518e1c5c2bb51f621d795fd6c68142ef5410e36a733",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
+    "hardware/printed-parts/enclosure/data-ring/data-ring.step": "4e0af4a0d44a3763507db817ef3994199f7d27db657da6a3c12dd1f41e4b4804",
+    "hardware/reference/riteav-keystone/riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
+    "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d"
+  },
+  "station_mm": [
+    -40.709999999999994,
+    302.6172904687784
+  ],
+  "jack_show_face_y_mm": 467.94,
+  "trim_show_face_y_mm": 471.3,
+  "strain_screen": {
+    "minimum_free_length_mm": 17.4,
+    "stem_width_mm": 1.2,
+    "stem_print_height_mm": 3.36,
+    "barb_print_height_mm": 1.68,
+    "root_radius_mm": 0.6,
+    "maximum_required_deflection_mm": 1.9,
+    "screened_deflection_mm": 2.4,
+    "nominal_peak_outer_strain": 0.014268727705112961,
+    "scope": "Small-deflection in-plane cantilever estimate; root concentrations, anisotropy, fit force and endurance are not measured."
+  },
+  "scope": "Production native fit, finite retaining stock and nominal snap/plug envelopes. Printed fit, insertion force, pullout strength and endurance are unmeasured."
+}

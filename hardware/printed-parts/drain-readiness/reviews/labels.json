@@ -10,7 +10,7 @@
           "word_filament": 2,
           "position_xy_mm": [
             150,
-            155
+            145
           ]
         },
         {
@@ -20,7 +20,7 @@
           "word_filament": 2,
           "position_xy_mm": [
             200,
-            155
+            145
           ]
         },
         {
@@ -30,7 +30,7 @@
           "word_filament": 2,
           "position_xy_mm": [
             150,
-            200
+            180
           ]
         },
         {
@@ -40,7 +40,7 @@
           "word_filament": 2,
           "position_xy_mm": [
             200,
-            200
+            180
           ]
         }
       ],
@@ -49,7 +49,7 @@
           "identify_id": 2901,
           "station": "water",
           "kind": "chip",
-          "model_road_count": 4885,
+          "model_road_count": 5302,
           "model_layer_count": 11,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
@@ -67,7 +67,7 @@
           "identify_id": 2903,
           "station": "drain",
           "kind": "chip",
-          "model_road_count": 5662,
+          "model_road_count": 6356,
           "model_layer_count": 11,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
@@ -82,9 +82,18 @@
           "both_body_and_letter_tools_present": true
         }
       ],
+      "shared_variable_layer_bands_mm": [
+        [
+          1.88,
+          2.0,
+          0.12
+        ]
+      ],
+      "prime_tower_layer_schedules_match": true,
+      "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-white-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "042861bbc0b1feadce6f2e988740dbf57a6461c972169fee93cc5597c35314fd",
-      "gcode_sha256": "1572cad81220e80899110bf397fa5884ff8c0f8ab8131ef74f13479546a0abe0",
+      "native_archive_sha256": "1c4a42195559734416cb928ff4d797078be6dee1dcb9bee84ee3deb26e57bef9",
+      "gcode_sha256": "370fe0393118464494b21285f01c45389af88a30bbcc86ead07abf181870b40b",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -94,7 +103,7 @@
       "submitted": false,
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
-        "sha256": "bc5677c4ce91451c809e96c48a05cc81473417f8273c83d8f6991f45be4f33e9"
+        "sha256": "f6cb79e17fa62f7768a74b450b007164f34960dff7c814be3d071d50017a3b45"
       }
     },
     {
@@ -107,7 +116,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             150,
-            155
+            145
           ]
         },
         {
@@ -117,7 +126,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             200,
-            155
+            145
           ]
         }
       ],
@@ -126,7 +135,7 @@
           "identify_id": 2901,
           "station": "carb",
           "kind": "chip",
-          "model_road_count": 7664,
+          "model_road_count": 8062,
           "model_layer_count": 11,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
@@ -141,9 +150,18 @@
           "both_body_and_letter_tools_present": true
         }
       ],
+      "shared_variable_layer_bands_mm": [
+        [
+          1.88,
+          2.0,
+          0.12
+        ]
+      ],
+      "prime_tower_layer_schedules_match": true,
+      "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-blue-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "07e4300a306a1ea33a43903002c02f918fd04baa6a4b2f31097856f6a45f38a1",
-      "gcode_sha256": "067cc999b26b259d120aeca29cc9449975da44de22ac4aaf1945871f02a3f667",
+      "native_archive_sha256": "89fa0d2abd0ef642e3c6cfb581c80c18dc0f6e1f2ecd196fdb0d13f9b4393003",
+      "gcode_sha256": "d6f8f073e0f84b96f6f0c9d22125998b6bd8892e68a97ceae5291a96fe1b501e",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -153,7 +171,7 @@
       "submitted": false,
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-blue-z004-mark2.3mf",
-        "sha256": "d0a4250522de91bc14d8c0bd192a8608fd18c65061b8832554b7fded8270f5b6"
+        "sha256": "15dbef8d1b891707829c0f9c624911eb33fb1b6b294addc0fa56fd4aca65640d"
       }
     },
     {
@@ -166,7 +184,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             150,
-            155
+            145
           ]
         },
         {
@@ -176,7 +194,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             200,
-            155
+            145
           ]
         }
       ],
@@ -185,7 +203,7 @@
           "identify_id": 2901,
           "station": "co2",
           "kind": "chip",
-          "model_road_count": 7225,
+          "model_road_count": 7756,
           "model_layer_count": 11,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
@@ -200,9 +218,18 @@
           "both_body_and_letter_tools_present": true
         }
       ],
+      "shared_variable_layer_bands_mm": [
+        [
+          1.88,
+          2.0,
+          0.12
+        ]
+      ],
+      "prime_tower_layer_schedules_match": true,
+      "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-red-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "dffabfbe2fe800c844186a57392ea8fbbfe38f97e3bdd9ba5efac8c1715e2dcc",
-      "gcode_sha256": "d9e246d85ff435fa21def22d120ecc4d9d2c90de61bdbcaa0de442d059467b6d",
+      "native_archive_sha256": "101e0cd07a061492628ba01eb9b165647cda090e3eb1fca1ec74aef5521a4aff",
+      "gcode_sha256": "da8efcac3b2785626066f1ee6d793526f9f8b41026404e0a9d757669d899f304",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -212,7 +239,7 @@
       "submitted": false,
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-red-z004-mark2.3mf",
-        "sha256": "98581d74bc8099829c83aa2221e1f9ef4a111f1a590c12d172e7a08d85588d32"
+        "sha256": "3febb6810525b387b45b99f8b88b2db321db6e69c7a3c3d17313baefa7005d8f"
       }
     },
     {
@@ -225,7 +252,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             150,
-            155
+            145
           ]
         },
         {
@@ -235,7 +262,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             200,
-            155
+            145
           ]
         },
         {
@@ -245,7 +272,7 @@
           "word_filament": 1,
           "position_xy_mm": [
             150,
-            200
+            180
           ]
         },
         {
@@ -255,7 +282,17 @@
           "word_filament": 1,
           "position_xy_mm": [
             200,
-            200
+            180
+          ]
+        },
+        {
+          "station": "data",
+          "kind": "chip",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            150,
+            215
           ]
         }
       ],
@@ -264,8 +301,8 @@
           "identify_id": 2901,
           "station": "flavor-a",
           "kind": "chip",
-          "model_road_count": 6726,
-          "model_layer_count": 11,
+          "model_road_count": 8346,
+          "model_layer_count": 12,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
         },
@@ -273,17 +310,17 @@
           "identify_id": 2902,
           "station": "flavor-a",
           "kind": "collar",
-          "model_road_count": 10795,
-          "model_layer_count": 55,
-          "last_model_z_mm": 13.04,
+          "model_road_count": 11599,
+          "model_layer_count": 57,
+          "last_model_z_mm": 12.96,
           "both_body_and_letter_tools_present": true
         },
         {
           "identify_id": 2903,
           "station": "flavor-b",
           "kind": "chip",
-          "model_road_count": 6726,
-          "model_layer_count": 11,
+          "model_road_count": 8346,
+          "model_layer_count": 12,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
         },
@@ -291,15 +328,69 @@
           "identify_id": 2904,
           "station": "flavor-b",
           "kind": "collar",
-          "model_road_count": 11045,
-          "model_layer_count": 55,
-          "last_model_z_mm": 13.04,
+          "model_road_count": 11840,
+          "model_layer_count": 57,
+          "last_model_z_mm": 12.96,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2905,
+          "station": "data",
+          "kind": "chip",
+          "model_road_count": 5555,
+          "model_layer_count": 19,
+          "last_model_z_mm": 3.84,
           "both_body_and_letter_tools_present": true
         }
       ],
+      "shared_variable_layer_bands_mm": [
+        [
+          1.4,
+          1.68,
+          0.14
+        ],
+        [
+          1.92,
+          2.0,
+          0.08
+        ],
+        [
+          3.2,
+          3.36,
+          0.08
+        ]
+      ],
+      "prime_tower_layer_schedules_match": true,
+      "data_closing_layers": {
+        "nose_top_mm": 1.68,
+        "face_top_mm": 3.36,
+        "word_top_mm": 3.84,
+        "model_layer_heights_mm": [
+          0.2,
+          0.44,
+          0.68,
+          0.92,
+          1.16,
+          1.4,
+          1.54,
+          1.68,
+          1.92,
+          2.0,
+          2.24,
+          2.48,
+          2.72,
+          2.96,
+          3.2,
+          3.28,
+          3.36,
+          3.6,
+          3.84
+        ],
+        "passed": true
+      },
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-black-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "e404f484247f4fca45bdca799b2eff52e31e5e8c1135d1d46effa0e0b7af2a44",
-      "gcode_sha256": "a13416cffa097129b764f80ca0c44a68be7df02d16ea8c0964858e7a91106c73",
+      "native_archive_sha256": "07d99d4edfe59cc009fb138155a6e4c39fe92281e93175c5c5eccf5ded36fc71",
+      "gcode_sha256": "9af6bcc4e522f7327543730dbcc506dafd0a2defb0c02dc459952200a286a623",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -309,7 +400,7 @@
       "submitted": false,
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-black-z004-mark2.3mf",
-        "sha256": "52698acfc8954eaca83026ea7ffe01794cf71890a0d2d4770221f0789cc9a260"
+        "sha256": "0e46941ebba5faec8aa902cffb7ad710b8cac69247406d09ee607d75a4d92495"
       }
     }
   ],

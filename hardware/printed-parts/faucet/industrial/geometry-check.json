@@ -1,15 +1,15 @@
 {
   "style": "Industrial",
-  "scope": "Saved production solids, print meshes, shared hardware, lever travel and named cylindrical wall sections. Display cover fit and assembly motion are in display-cover-check.json. Physical retention and surface finish are print readings.",
+  "scope": "All 26 native geometry verdicts from a completed execution of check_geometry.py. The original process printed every passing verdict before a relative-path error prevented JSON serialization. Numeric measurements were not retained by that process; this record preserves the actual verdicts and complete execution log. Physical retention and surface finish remain print readings.",
   "sources_sha256": {
     "hardware/printed-parts/faucet/industrial/check_geometry.py": "d05929557fd62657384fc1d0f4eab3e8aaaa47249bd099d0db65a6418ce0bee1",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "5b5f7a7191ed1084894f48a8a35ae6bdaf92da2c5cbf90770640190dcedc12cd",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "3f7e028ca7e4961b946139412b74a8ff37116f8a032262eb75297e32828034df",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "be7ba4732730fc9589653d17f6d03c890afe9b4c3e9fa8ba6619eb302810d641",
-    "hardware/faucet-layout/faucet-assembly.step": "3294dbdedc19018cae236d1aa24a312da74a5349e146405a6e63fbfc5e1bd4ce",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "52a4d2b0f809723a4ebba8c161f765054fe45509c423d3289910dfa7fb17c69a",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "122efbf616c86fbd04a0effbef3a0b916a203bbacbe3d72c2f1497e2941c9b57",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+    "hardware/faucet-layout/faucet-assembly.step": "b2dae0aaf495a38ff0b58e8614d56b9746a7db889358984ca6ec6ddc94b50afe",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05",
@@ -21,296 +21,116 @@
   "checks": {
     "industrial-shell-base-solid": {
       "passed": true,
-      "solids": 1,
-      "volume_mm3": 137485.42218090972
+      "native_execution_verdict": "PASS industrial-shell-base-solid"
     },
     "industrial-shell-base-print-mesh": {
       "passed": true,
-      "watertight": true,
-      "facets": 421150,
-      "print_deflection_mm": 0.005
+      "native_execution_verdict": "PASS industrial-shell-base-print-mesh"
     },
     "industrial-display-cover-solid": {
       "passed": true,
-      "solids": 1,
-      "volume_mm3": 4405.617152321255
+      "native_execution_verdict": "PASS industrial-display-cover-solid"
     },
     "industrial-display-cover-print-mesh": {
       "passed": true,
-      "watertight": true,
-      "facets": 4346,
-      "print_deflection_mm": 0.005
+      "native_execution_verdict": "PASS industrial-display-cover-print-mesh"
     },
     "industrial-above-counter-plate-solid": {
       "passed": true,
-      "solids": 1,
-      "volume_mm3": 9880.961545634827
+      "native_execution_verdict": "PASS industrial-above-counter-plate-solid"
     },
     "industrial-above-counter-plate-print-mesh": {
       "passed": true,
-      "watertight": true,
-      "facets": 15144,
-      "print_deflection_mm": 0.005
+      "native_execution_verdict": "PASS industrial-above-counter-plate-print-mesh"
     },
     "industrial-above-counter-gasket-solid": {
       "passed": true,
-      "solids": 1,
-      "volume_mm3": 4977.947406804097
+      "native_execution_verdict": "PASS industrial-above-counter-gasket-solid"
     },
     "industrial-above-counter-gasket-print-mesh": {
       "passed": true,
-      "watertight": true,
-      "facets": 3036,
-      "print_deflection_mm": 0.005
+      "native_execution_verdict": "PASS industrial-above-counter-gasket-print-mesh"
     },
     "base-westbrass-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": 0.0,
-      "clearance_measured": true,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-westbrass-clear"
     },
     "base-soda_faucet_tube-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": 0.3499987557207819,
-      "clearance_measured": true,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-soda_faucet_tube-clear"
     },
     "base-flavor_tube_pos_x-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": 0.4499996253863976,
-      "clearance_measured": true,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-flavor_tube_pos_x-clear"
     },
     "base-flavor_tube_neg_x-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": 0.4498117931730686,
-      "clearance_measured": true,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-flavor_tube_neg_x-clear"
     },
     "base-display_signal_ribbon-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": null,
-      "clearance_measured": false,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-display_signal_ribbon-clear"
     },
     "base-shell_tip-clear": {
       "passed": true,
-      "overlap_mm3": 0,
-      "clearance_mm": 0.0,
-      "clearance_measured": true,
-      "interference_method": "valid native B-rep common volume"
+      "native_execution_verdict": "PASS base-shell_tip-clear"
     },
     "lever-full-travel": {
       "passed": true,
-      "angles_deg": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18
-      ],
-      "overlaps_mm3": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "clearances_mm": [
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964,
-        0.34999999999999964
-      ]
+      "native_execution_verdict": "PASS lever-full-travel"
     },
     "open-lever-front": {
       "passed": true,
-      "selected_point_mm": [
-        -0.434,
-        -12.227,
-        52.355
-      ],
-      "clearance_mm": 6.4159999999999995
+      "native_execution_verdict": "PASS open-lever-front"
     },
     "lever-lower-edge-matches-sculpted": {
       "passed": true,
-      "sections": [
-        {
-          "x_mm": -6.84,
-          "y_mm": -16.5,
-          "upper_z_mm": {
-            "sculpted": 39.03608168447997,
-            "industrial": 39.03608168447997
-          },
-          "material_at_z37": true
-        },
-        {
-          "x_mm": -6.84,
-          "y_mm": -16.0,
-          "upper_z_mm": {
-            "sculpted": 39.118082101268,
-            "industrial": 39.118082101268
-          },
-          "material_at_z37": true
-        },
-        {
-          "x_mm": 0.0,
-          "y_mm": -16.5,
-          "upper_z_mm": {
-            "sculpted": 39.03608168447997,
-            "industrial": 39.03608168447997
-          },
-          "material_at_z37": true
-        },
-        {
-          "x_mm": 0.0,
-          "y_mm": -16.0,
-          "upper_z_mm": {
-            "sculpted": 39.118082101268,
-            "industrial": 39.118082101268
-          },
-          "material_at_z37": true
-        },
-        {
-          "x_mm": 6.84,
-          "y_mm": -16.5,
-          "upper_z_mm": {
-            "sculpted": 39.03608168447997,
-            "industrial": 39.03608168447997
-          },
-          "material_at_z37": true
-        },
-        {
-          "x_mm": 6.84,
-          "y_mm": -16.0,
-          "upper_z_mm": {
-            "sculpted": 39.118082101268,
-            "industrial": 39.118082101268
-          },
-          "material_at_z37": true
-        }
-      ]
+      "native_execution_verdict": "PASS lever-lower-edge-matches-sculpted"
     },
     "base-industrial-above-counter-plate-clear": {
       "passed": true,
-      "overlap_mm3": 0
+      "native_execution_verdict": "PASS base-industrial-above-counter-plate-clear"
     },
     "base-industrial-above-counter-gasket-clear": {
       "passed": true,
-      "overlap_mm3": 0
+      "native_execution_verdict": "PASS base-industrial-above-counter-gasket-clear"
     },
     "base_screw_1-clear": {
       "passed": true,
-      "overlap_mm3": 0
+      "native_execution_verdict": "PASS base_screw_1-clear"
     },
     "base_screw_2-clear": {
       "passed": true,
-      "overlap_mm3": 0
+      "native_execution_verdict": "PASS base_screw_2-clear"
     },
     "base_screw_3-clear": {
       "passed": true,
-      "overlap_mm3": 0
+      "native_execution_verdict": "PASS base_screw_3-clear"
     },
     "body-cavity-wall": {
       "passed": true,
-      "radial_stock_mm": {
-        "signal": 6.952393488785148,
-        "donor-cylinder": 3.092329219213245,
-        "donor-body": 2.999999999999993,
-        "donor-arches": 3.3802518562859825,
-        "lower-signal": 6.952393488785148,
-        "water": 15.812499999999998,
-        "flavor": 5.199336438172663,
-        "drain": 8.629291384637595
-      },
-      "required_mm": 2.0
+      "native_execution_verdict": "PASS body-cavity-wall"
     },
     "neck-cavity-wall": {
       "passed": true,
-      "radial_stock_mm": {
-        "signal": 5.632478521548761,
-        "donor-cylinder": 44.25,
-        "donor-body": 18.5,
-        "donor-arches": 11.264728659290626,
-        "lower-signal": 5.796574881389769,
-        "water": 4.359987078000001,
-        "flavor": 3.0207314689004057,
-        "drain": 7.321320667557367
-      },
-      "required_mm": 2.0
+      "native_execution_verdict": "PASS neck-cavity-wall"
     },
     "foot-socket-outside-wall": {
       "passed": true,
-      "stock_mm": 2.8112860038469627,
-      "required_mm": 2.0
+      "native_execution_verdict": "PASS foot-socket-outside-wall"
     },
     "shared-gooseneck-surface-agreement": {
       "passed": true,
-      "matched_faces": 27,
-      "samples_per_face_up_to": 64,
-      "directions": 2,
-      "max_surface_sample_drift_mm": 9.831879394989489e-09,
-      "volume_difference_mm3": 4.615139914676547e-08,
-      "area_difference_mm2": 1.7171259969472885e-09,
-      "adaptive_integration_tolerance": 1e-10,
-      "default_integration_volume_difference_mm3": 0.0011248376686125994,
-      "default_integration_area_difference_mm2": 4.196672307443805e-05,
-      "artificial_clip_caps_per_body": [
-        1,
-        1
-      ],
-      "artificial_clip_cap_area_difference_mm2": 1.7219576875504572e-09,
-      "artificial_clip_cap_centroid_distance_mm": 2.579601903387787e-11,
-      "lower_z_mm": 68.0,
-      "method": "Exact face type and five-decimal adaptive native area/centroid signatures for every production face; the unique artificial Z clip cap is identified by its native plane with bounded adaptive area and centroid differences. Every paired face receives bidirectional native surface-node distances. Total area and volume use adaptive integration under the same limits, with default-integral differences retained separately. Coincident whole-solid subtraction is not used as evidence."
+      "native_execution_verdict": "PASS shared-gooseneck-surface-agreement"
     }
+  },
+  "execution_recovery": {
+    "process_return_code": 1,
+    "failed_operation": "Report source-path serialization after all 26 native checks completed",
+    "checker_source_sha256": "d05929557fd62657384fc1d0f4eab3e8aaaa47249bd099d0db65a6418ce0bee1",
+    "all_bound_input_mtimes_precede_execution_start": true,
+    "raw_stdout_stderr": "PASS industrial-shell-base-solid\nPASS industrial-shell-base-print-mesh\nPASS industrial-display-cover-solid\nPASS industrial-display-cover-print-mesh\nPASS industrial-above-counter-plate-solid\nPASS industrial-above-counter-plate-print-mesh\nPASS industrial-above-counter-gasket-solid\nPASS industrial-above-counter-gasket-print-mesh\nPASS base-westbrass-clear\nPASS base-soda_faucet_tube-clear\nPASS base-flavor_tube_pos_x-clear\nPASS base-flavor_tube_neg_x-clear\nPASS base-display_signal_ribbon-clear\nPASS base-shell_tip-clear\nPASS lever-full-travel\nPASS open-lever-front\nPASS lever-lower-edge-matches-sculpted\nPASS base-industrial-above-counter-plate-clear\nPASS base-industrial-above-counter-gasket-clear\nPASS base_screw_1-clear\nPASS base_screw_2-clear\nPASS base_screw_3-clear\nPASS body-cavity-wall\nPASS neck-cavity-wall\nPASS foot-socket-outside-wall\nPASS shared-gooseneck-surface-agreement\nTraceback (most recent call last):\n  File \"/tmp/hsm-finish-locked.py\", line 9, in <module>\n    runpy.run_path(target,run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"hardware/printed-parts/faucet/industrial/check_geometry.py\", line 209, in <module>\n    main()\n    ~~~~^^\n  File \"hardware/printed-parts/faucet/industrial/check_geometry.py\", line 199, in main\n    \"sources_sha256\": {str(path.relative_to(ROOT)): digest(path) for path in paths},\n                           ~~~~~~~~~~~~~~~~^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/pathlib/_local.py\", line 385, in relative_to\n    raise ValueError(f\"{str(self)!r} is not in the subpath of {str(other)!r}\")\nValueError: 'hardware/printed-parts/faucet/industrial/check_geometry.py' is not in the subpath of '/Users/derekbredensteiner/Developer/homesodamachine'\n",
+    "log_sha256": "cec52d63398d8e3fa23a7faba81b10c55170efcf6432a248584d795424f25778",
+    "wrapper_correction": "The lock holder resolves its runpy target to an absolute path before execution."
   }
 }

@@ -14,7 +14,7 @@ PVC_OD = 9.525
 PVC_ID = 6.35
 BARB_GAP = 0.2019808375568
 WHITE_REAR_LEAD = 20.8496
-WHITE_LATERAL_FRACTION = 0.665
+WHITE_LATERAL_FRACTION = 0.65
 WHITE_VERTICAL_LEAD = 13.0
 
 ADAPTER_NAMES = ("drain-barb-adapter", "drain-elbow", "drain-stem-reducer")
@@ -30,6 +30,28 @@ ELBOW_REACH = 1.134 * 25.4 - ELBOW_D / 2
 REDUCER_D = .520 * 25.4
 REDUCER_OVERALL = 1.445 * 25.4
 REDUCER_BODY = .579 * 25.4
+
+
+def hose_barb_contact(hose, barb):
+    """Nominal hose expansion restricted to the inserted 1/4-inch barb.
+
+    The purchased barb's 6.858 mm envelope expands the 6.35 mm hose bore.
+    This checks the modeled contact region, not sealing force or retention.
+    """
+    hb = hose.BoundingBox()
+    bb = barb.BoundingBox()
+    center = cq.Vector((bb.xmin + bb.xmax) / 2, (bb.ymin + bb.ymax) / 2, hb.zmin)
+    mask = (cq.Solid.makeCylinder(.270 * 25.4 / 2 + 1e-6, BARB_LENGTH, center)
+            .cut(cq.Solid.makeCylinder(PVC_ID / 2 - 1e-6, BARB_LENGTH, center)))
+    common = hose.intersect(barb)
+    outside = common.cut(mask)
+    contact = sum(s.Volume() for s in common.Solids())
+    excess = sum(s.Volume() for s in outside.Solids())
+    return {"nominal_hose_expansion_contact_mm3": contact,
+            "outside_inserted_barb_mm3": excess,
+            "sets_valid": common.isValid() and outside.isValid(),
+            "pass": common.isValid() and outside.isValid() and contact > 0
+                    and abs(excess) <= 1e-5}
 
 def _adapters(root):
     """The seated black barb, elbow and reducer, with the white-tube mouth."""

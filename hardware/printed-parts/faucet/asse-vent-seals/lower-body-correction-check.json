@@ -1,0 +1,383 @@
+{
+  "scope": "Local lower flavor-mouth relief on both faucet styles. Shared upper construction and all its dependencies are unchanged; exact checked tip, seals, mounting parts and covers are retained. Native source bodies and exported print meshes are checked. Physical fit, cleanup, sealing and lifetime remain observations on the next assembly.",
+  "source_sha256": {
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+    "hardware/faucet-layout/faucet_industrial_assembly.py": "7dd79a8b18842674b14fad0eb7a542a184e9ddda4c1ffe1fd082214d237f9e94",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
+    "hardware/assembly/_faucet_and_umbilical_sync.py": "dfb2f4bb6db02c4db892fecf38fb2f6c6fc220421ebc87732631a5f5d7716925",
+    "hardware/scripts/_cadq_export.py": "a60336e8035f25d73f433a609c183280f1436b98ac3f13724bce428a3ab382b8",
+    "hardware/scripts/flute_payload.py": "c897acd5dbc84fae2eb9109dddb288dab7a73b2bce4808e4ff0b06c338427071"
+  },
+  "unchanged_unsplit_construction_verified_by_AST": true,
+  "reused_unsplit_native_body_sha256": "5254cd702af996c1f1f873747b7ab18ef7a181de66256180eb983d212acf3704",
+  "checked_shared_tip_and_free_parts_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "ee9969a0a2dff2baf2220a8c076d4dbc2bc95d038096447f65d170a3a035b980",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "b0c09a7caad1c20af8a774cb4508dd556e875258a989a19bb6233b0ba39cc9ad",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "838a69dc98d129548d795b1b00f21a4536e6dc69c84e1d7e949f528ae7716caf",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "6c42c900b0e5d268a4e67a15329eaea5167d6596b5abfea8da95c5de1b7e6299",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": "de5dc06838102d553e488338c10908fe49db80ad7a008161baf253e8cab40ceb",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "fd3e42aaaf7af47589f90fd5e35547a8bd353990452234d226c0d5df28bcbb0f",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "95e94afc406f7ca894695c19de96c0985b1747478e28e4e5a4e8371bfe4b3e67",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "052de7f774cd3abca104df251aef7cfe568a4214a2035b3a47d29f6473556296",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "cefde026a00916811f9d48ba22c272c49cd0013bce2d0861d8b4c3c47ad75f2c",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step": "a1c0dd81a71b4092706b331bc1ae55f0d45a89bc5b8f0a1e89ddad1b929c576c",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": "68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step": "069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66",
+    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "85ec0e325430487fcaa13487156612e7772c105d0df4584ac76b1b3a73fa2675",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "25a9c65cecbaf93e5fa5f46d322194941ee584fb0d928d6c41ad40cf295263b2",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": "bbf91c9991891df51deba395931c8d1ecc7fd8bd1817ad4644bb4e3fe47eb07d"
+  },
+  "lower_access_checks": {
+    "section:lower-closed-body": {
+      "method": "72 exact radial B-rep chords from the shank axis at each of eight heights",
+      "scope": "closed body below the lever opening; radial chords are not global normal thickness",
+      "samples": [
+        {
+          "z_mm": 12.0,
+          "minimum_sampled_radial_wall_mm": 5.4880501
+        },
+        {
+          "z_mm": 16.0,
+          "minimum_sampled_radial_wall_mm": 5.6401082
+        },
+        {
+          "z_mm": 20.0,
+          "minimum_sampled_radial_wall_mm": 5.9091116
+        },
+        {
+          "z_mm": 24.0,
+          "minimum_sampled_radial_wall_mm": 5.3114624
+        },
+        {
+          "z_mm": 28.0,
+          "minimum_sampled_radial_wall_mm": 4.8527336
+        },
+        {
+          "z_mm": 32.0,
+          "minimum_sampled_radial_wall_mm": 4.7322948
+        },
+        {
+          "z_mm": 36.0,
+          "minimum_sampled_radial_wall_mm": 4.5932489
+        },
+        {
+          "z_mm": 38.0,
+          "minimum_sampled_radial_wall_mm": 4.3962836
+        }
+      ],
+      "required_mm": 2.0,
+      "passed": true
+    },
+    "wall:loft-to-donor-rectangle": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 4.0313986,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-donor-arches": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 2.5108734,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-soda-passage": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 4.3091393,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-flavor-transition": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 2.1024221,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-signal-transition": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 5.548976,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-lower-signal-lane": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 5.7277737,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-vertical-neck": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 4.3091393,
+      "required_mm": 2.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:lever-to-flavor-transition": {
+      "method": "exact minimum separation between the swept lever clearance and flavor-passage cutters",
+      "minimum_distance_mm": 2.829832,
+      "required_mm": 2.0,
+      "scope": "the rear lever web; intersections with the donor outlet cavity are intentional",
+      "passed": true
+    },
+    "wall:lever-cheek": {
+      "method": "complete outward extrusion of each donor-arch cavity outer face into the finished base",
+      "required_outward_stock_mm": 2.0,
+      "samples": [
+        {
+          "cavity_face_x_mm": 8.75,
+          "witness_volume_mm3": 341.4803848,
+          "missing_witness_mm3": 0.0
+        },
+        {
+          "cavity_face_x_mm": -8.75,
+          "witness_volume_mm3": 341.4803848,
+          "missing_witness_mm3": 0.0
+        }
+      ],
+      "scope": "the two outer cheeks over the complete donor-arch footprint",
+      "passed": true
+    },
+    "clearance:lever-overhead-profile": {
+      "profile_volume_mm3": 922.1568176,
+      "printed_material_inside_profile_mm3": 0.0,
+      "clearance_builder_symmetric_difference_mm3": 0.0,
+      "x_half_width_mm": 6.85,
+      "rear_y_mm": 9.355,
+      "minimum_z_mm": 52.0,
+      "circle_center_yz_mm": [
+        10.46,
+        19.4342282
+      ],
+      "circle_radius_mm": 38.0657718,
+      "method": "independently reconstructed circular overhead volume, clipped to the lever opening and above the rest-lever top, intersected with the complete printed base",
+      "scope": "keeps the full overhead relief for the rising rear arm; it is not a measured metal-arm shape or proof of the harvested lever's complete travel",
+      "passed": true
+    },
+    "clearance:lever-front-opening": {
+      "complete_open_span_mm3": 12969.116609,
+      "printed_material_in_open_span_mm3": 0.0,
+      "clearance_builder_symmetric_difference_mm3": 0.0,
+      "selected_point_xyz_mm": [
+        -0.434,
+        -12.227,
+        52.355
+      ],
+      "selected_point_gap_mm": 6.5133223,
+      "insertion_ceiling_z_mm": 52.355,
+      "remaining_downward_ceiling_area_mm2": 0.0,
+      "x_half_width_mm": 6.85,
+      "z_range_mm": [
+        52.0,
+        67.5
+      ],
+      "cap_circle_xy_mm": [
+        0.0,
+        21.1299663
+      ],
+      "cap_radius_mm": 25.367466331733404,
+      "method": "independent three-point-arc XY opening profile extruded over its complete height, exact material intersection, the selected point's gap, and any surviving downward insertion-ceiling face area",
+      "scope": "the entire central span forward of the rounded cap; the circular aft relief and complete donor cheeks have separate readings",
+      "passed": true
+    },
+    "wall:lever-front-cap-rim": {
+      "required_radial_arch_stock_mm": 2.0,
+      "required_inward_cap_band_mm": 2.0,
+      "open_boundary_inset_mm": 0.0001,
+      "complete_witness_mm3": 59.1345205,
+      "missing_complete_witness_mm3": 0.0,
+      "method": "complete radial arch annulus across an equally wide inward band following the rounded front cap, over the full opening width",
+      "scope": "material inside the retained cap at the open rim; not a global minimum-wall certificate",
+      "passed": true
+    },
+    "wall:lever-roof-bridge": {
+      "method": "complete 2 mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, clipped to the retained rounded cap and ending one wall-width forward of the water bore",
+      "xy_bounds_mm": [
+        -6.5,
+        6.5,
+        -2.2376,
+        1.7624
+      ],
+      "required_vertical_stock_mm": 2.0,
+      "missing_witness_mm3": 0.0,
+      "scope": "the bridge from the lever roof into the neck; not every exterior opening edge",
+      "passed": true
+    },
+    "section:lever-roof-continuity": {
+      "method": "nine exact vertical B-rep chords from the circular roof at each Y station through two wall-widths of roof and neck",
+      "probe_height_mm": 4.0,
+      "minimum_continuous_stock_mm": 2.0,
+      "samples": [
+        {
+          "x_mm": -6.5,
+          "y_mm": -2.2376,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 55.3197955,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              3.8982975
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": -6.5,
+          "y_mm": -0.2376,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 55.9659177,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": -6.5,
+          "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 56.4930293,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -2.2376,
+          "rounded_cap_front_y_mm": -4.2375,
+          "circular_roof_z_mm": 55.3197955,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -0.2376,
+          "rounded_cap_front_y_mm": -4.2375,
+          "circular_roof_z_mm": 55.9659177,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -4.2375,
+          "circular_roof_z_mm": 56.4930293,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": -2.2376,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 55.3197955,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              3.8982975
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": -0.2376,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 55.9659177,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -3.3906036,
+          "circular_roof_z_mm": 56.4930293,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ],
+          "continuous": true
+        }
+      ],
+      "scope": "no separated upper slit in the roof-to-neck bridge; exterior rays may end at the show surface",
+      "passed": true
+    }
+  },
+  "native_bases_valid_one_solid": true,
+  "print_mesh_checks": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": {
+      "watertight": true,
+      "one_body": true,
+      "facets": 505794,
+      "sha256": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1"
+    },
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": {
+      "watertight": true,
+      "one_body": true,
+      "facets": 422120,
+      "sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce"
+    }
+  },
+  "entry_relief_bounds_mm": {
+    "z": [
+      38.5,
+      40.0
+    ],
+    "radial_at_start": 0.05,
+    "radial_at_end": 0
+  },
+  "elapsed_seconds": 158.65615445902222,
+  "passed": true
+}

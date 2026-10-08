@@ -22,7 +22,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
 JOB = ROOT / ".cache/prints/2026-10-07-drain"
 SLICER = "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+sys.path.insert(0, str(ROOT / "hardware/scripts"))
+from _run_lock import acquire
+acquire(str(Path(__file__)))
 sys.path.insert(0, str(ROOT / "hardware/printed-parts/faucet"))
 import refresh_print_project as writer
 
@@ -166,6 +168,8 @@ def labels():
     sys.path.insert(0, str(ROOT / "hardware/printed-parts/faucet/tube-collar"))
     import bulkhead_ring as ring
     import tube_collar as collar
+    sys.path.insert(0, str(ROOT / "hardware/printed-parts/enclosure/data-ring"))
+    import data_ring as data
     base = ROOT / "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf"
     registration_path = ROOT / "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json"
     registration = json.loads(registration_path.read_text())
@@ -174,7 +178,7 @@ def labels():
     groups = (("white", ["water", "drain"], ["#FFFFFF", "#000000"], 1, 2),
               ("blue", ["carb"], ["#FFFFFF", "#46A8F9"], 2, 1),
               ("red", ["co2"], ["#FFFFFF", "#F54749"], 2, 1),
-              ("black", ["flavor-a", "flavor-b"], ["#FFFFFF", "#000000"], 2, 1))
+              ("black", ["flavor-a", "flavor-b", "data"], ["#FFFFFF", "#000000"], 2, 1))
     for colour, stations, colours, body_tool, letter_tool in groups:
         directory = JOB / ("labels-" + colour + "-mark2")
         p = directory / ("labels-" + colour + "-z004-mark2.3mf")
@@ -198,7 +202,11 @@ def labels():
             writer.metadata(plate, key, value)
         details = []
         for station in stations:
-            shapes = [("chip", [s.rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
+            if station == "data":
+                shapes = [("chip", [s.rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
+                                    for s in (data.build_ring(), data.build_word())])]
+            else:
+                shapes = [("chip", [s.rotate((0, 0, 0), (1, 0, 0), 90).rotate((0, 0, 0), (0, 0, 1), 180)
                                  for s in (ring.build_ring(station), ring.build_word(station))]),
                       ("collar", [s.rotate((0, 0, 0), (1, 0, 0), 180).translate((0, 0, collar.RISE))
                                    for s in (collar.build_collar(station), collar.build_word(station))])]
@@ -243,13 +251,20 @@ def labels():
                     for key, value in {"name": label, "extruder": tool,
                                        "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"}.items():
                         writer.metadata(item, key, value)
-                position = (150 + (index % 2) * 50, 155 + (index // 2) * 45)
+                position = (150 + (index % 2) * 50, 145 + (index // 2) * 35)
                 ET.SubElement(build, Q("item"), objectid=str(oid), transform=f"1 0 0 0 1 0 0 0 1 {position[0]} {position[1]} 0", printable="1")
                 instance = ET.SubElement(plate, "model_instance")
                 for key, value in {"object_id": oid, "instance_id": 0, "identify_id": 2901 + index}.items():
                     writer.metadata(instance, key, value)
-                band = ET.SubElement(ET.SubElement(ranges, "object", id=str(index + 1)), "range", min_z="1.88", max_z="2.0")
-                ET.SubElement(band, "option", opt_key="layer_height").text = "0.12"
+                # A multi-material prime tower requires one shared layer schedule.
+                # DATA nose closure applies to all five black-plate objects.
+                bands = ([("1.40", "1.68", "0.14"), ("1.92", "2.0", "0.08"),
+                          ("3.20", "3.36", "0.08")] if colour == "black"
+                         else [("1.88", "2.0", "0.12")])
+                object_ranges = ET.SubElement(ranges, "object", id=str(index + 1))
+                for low, high, height in bands:
+                    band = ET.SubElement(object_ranges, "range", min_z=low, max_z=high)
+                    ET.SubElement(band, "option", opt_key="layer_height").text = height
                 details.append({"station": station, "kind": kind, "body_filament": body_tool,
                                 "word_filament": letter_tool, "position_xy_mm": position})
         members.update({"3D/3dmodel.model": writer.xml(model),
@@ -260,7 +275,7 @@ def labels():
                         "[Content_Types].xml": b'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/><Default Extension="config" ContentType="application/octet-stream"/></Types>'})
         writer.archive_write(p, members)
         save(directory / "preparation.json", {"project_sha256": sha(p), "parts": details,
-             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__))},
+             "source_sha256": {str(f.relative_to(ROOT)): sha(f) for f in (base, registration_path, Path(ring.__file__), Path(ring.port_chip.__file__), Path(collar.__file__), Path(data.__file__), Path(data.interface.__file__), Path(__file__))},
              "extruder_offset": settings["extruder_offset"], "z_trim_mm": .04,
              "first_layer_mm": .20, "normal_layer_mm": .24})
         slice_project(p)

@@ -54,8 +54,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "stl_sha256": "6f8b50646c7f35860b9900139cf43dec21cbf54e0e23ccb743cb64b1f8eae2b7",
-      "triangles": 731758,
+      "stl_sha256": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
+      "triangles": 684452,
       "rotation_x_degrees": 180.0,
       "source_center_mm": [
         0.0,
@@ -104,9 +104,9 @@
       "rotation_z_degrees": 90.0
     }
   ],
-  "project_sha256": "bb882db6947c8f769e7b0bfb8878b22d7e8b28919c5dc144596784f9a82bac77",
+  "project_sha256": "b1bdee60dcafe110f930412635eb1e0d878c18e25b3c3e1e2836614c7ceebd7b",
   "settings_preserved_byte_for_byte": true,
-  "show_support_blocked_faces": 53541,
+  "show_support_blocked_faces": 53543,
   "solid_host_regions": [
     {
       "name": "Y seam shank and fore ligament +1/282.05",
@@ -594,10 +594,8 @@
   ],
   "solid_host_region_source_sha256": "c3453fa6e8fb35f8881e977ea983477494829785899afde85d9425e580340095",
   "support_type": "normal(auto)",
-  "support_reason": "Vertical support columns keep the full model/support/brim footprint within the 20 mm bed margin.",
-  "detect_narrow_internal_solid_infill": false,
   "solid_host_wall_loops": 10,
+  "detect_narrow_internal_solid_infill": "0",
   "top_one_wall_type": "not apply",
-  "working_directory": ".cache/prints/2026-10-07-drain/back-top-mark2",
-  "approved_native_candidate_origin": ".cache/prints/2026-10-07-drain-local-ten/back-top-mark2"
+  "support_reason": "Vertical support columns keep the full model/support/brim footprint within the 20 mm bed margin."
 }

@@ -1,0 +1,75 @@
+{
+  "phase": "lint",
+  "inputs_unchanged_during_phase": true,
+  "source_and_artifact_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "5d14b8a99a99bce9fd893caaee7a5ae185ad249f375e8bc7040956059c833870",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8",
+    "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+    "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "ae20063a52ebe15358c58dae8fb115784146c58090668bb0d4f5211a0f56fa74",
+    "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "be227c2f58851a164e3c1d9127903294cb7fbc908e1c5b1cee113d6c7c7ae355",
+    "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json": "e7e8f7ef1ea1b58cbcce83b18b3f696b948a581de040100cc340fcdadf617231",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": "3dc13f9e6534cd3a173079feb0ea87c4078b9197242f645be2748b07c2d8d0f6",
+    "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2"
+  },
+  "commands": [
+    {
+      "command": [
+        "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python",
+        "hardware/scripts/geometry_lint.py",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+        "--all"
+      ],
+      "return_code": 0,
+      "raw_log_text": "faucet-shell-base.stl \u00b7 505794 printed facets \u00b7 2 findings \u00b7 3 answered\n\n  [ceiling] 29 mm\u00b2 flat print-down face at z=39.000 \u00b7 8.2 \u00d7 8.0 mm \u00b7 open to the bed (39.0 mm up)\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=7.269 y=14.446 z=39.000\n    click: x=7.269 y=14.446 z=39.000\n\n  [ceiling] 20 mm\u00b2 flat print-down face at z=39.000 \u00b7 8.0 \u00d7 5.2 mm \u00b7 open to the bed (39.0 mm up)\n    file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-4.209 y=14.446 z=39.000\n    click: x=-4.209 y=14.446 z=39.000\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-22.300 z=3.200\n    click: x=0.000 y=-22.300 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=22.500 y=-2.000 z=3.200\n    click: x=22.500 y=-2.000 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, and the insert pilot opens through the center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the plate is attached; printed fit and cleanup require inspection.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-22.500 y=-2.000 z=3.200\n    click: x=-22.500 y=-2.000 z=3.200\n",
+      "log_sha256": "7be79d0c2d1616a01dbe768e253c6cf27f8c01223fe9a72bdcd5cf7b83f0271f",
+      "log": "/tmp/hsm-finish-lint-faucet-shell-base.log"
+    },
+    {
+      "command": [
+        "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python",
+        "hardware/scripts/geometry_lint.py",
+        "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+        "--all"
+      ],
+      "return_code": 0,
+      "raw_log_text": "industrial-shell-base.stl \u00b7 422120 printed facets \u00b7 2 findings \u00b7 4 answered\n\n  [ceiling] 29 mm\u00b2 flat print-down face at z=39.000 \u00b7 8.2 \u00d7 8.0 mm \u00b7 open to the bed (39.0 mm up)\n    file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=7.269 y=14.446 z=39.000\n    click: x=7.269 y=14.446 z=39.000\n\n  [ceiling] 20 mm\u00b2 flat print-down face at z=39.000 \u00b7 8.0 \u00d7 5.2 mm \u00b7 open to the bed (39.0 mm up)\n    file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-4.209 y=14.446 z=39.000\n    click: x=-4.209 y=14.446 z=39.000\n\n  [ceiling \u00b7 answered] This is the 13.7 mm-wide roof behind the open lever region, where the lower cylinder meets the narrower neck at Z57.5. Its complete native face has 2 mm of inward stock. It is inclined 15 degrees to the bed in the base's -15 degree print pose. The retained native support audit places interface-14 of bed-rooted tree-1 beneath this rear lever/tube transition. Break and withdraw that support through the open lever region or bottom donor bore before installing hardware and tubing. The lint plane-center pick is inside the soda-guide opening; (-4, 4.932, 57.5) is an actual point on the adjoining native roof. Physical release and contact finish remain unmeasured.\n    86 mm\u00b2 flat print-down face at z=57.500 \u00b7 13.7 \u00d7 11.1 mm \u00b7 open to the bed (57.5 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=4.932 z=57.500\n    click: x=0.000 y=4.932 z=57.500\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-22.300 z=3.200\n    click: x=0.000 y=-22.300 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-22.500 y=-2.000 z=3.200\n    click: x=-22.500 y=-2.000 z=3.200\n\n  [ceiling \u00b7 answered] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.\n    40 mm\u00b2 flat print-down face at z=3.200 \u00b7 8.2 \u00d7 8.2 mm \u00b7 open to the bed (3.2 mm up)\n    face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=22.500 y=-2.000 z=3.200\n    click: x=22.500 y=-2.000 z=3.200\n",
+      "log_sha256": "d4a919fe58d96ecd6ddd6621bca3d268969e6f5a2b17f175820124688838e4bd",
+      "log": "/tmp/hsm-finish-lint-industrial-shell-base.log"
+    },
+    {
+      "command": [
+        "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python",
+        "hardware/scripts/geometry_lint.py",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        "--all"
+      ],
+      "return_code": 0,
+      "raw_log_text": "faucet-shell-tip.stl \u00b7 238386 printed facets \u00b7 0 findings \u00b7 1 answered\n\n  [slope \u00b7 answered] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's -95 degree print pose, the joint end faces the bed, the crown is raised and this channel-end face points upward. Preserve the opening and remove any adjacent support through the display opening or neck joint before loading hardware; physical removal and contact finish remain print observations.\n    45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir -0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.9 mm \u00b7 102 mm\u00b2\n    faceA: plane \u00b7 n x=0.000 y=-0.643 z=-0.766 \u00b7 thru x=0.000 y=-109.269 z=221.303\n    faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-6.789 y=-122.040 z=202.495\n    click: x=0.000 y=-109.269 z=221.303\n",
+      "log_sha256": "72fc8f594c54a19953f8dbfbcf3a331d7e1040ae561aa92c814a31ede9656a68",
+      "log": "/tmp/hsm-finish-lint-faucet-shell-tip.log"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # DRAIN print set
 
-This set supplies the three-row rear enclosure wall, six rectangular identification
-chips and six matching tube collars. The black 4 mm DRAIN bulkhead receives the
+This set supplies the three-row rear enclosure wall, six rectangular fluid identification
+chips, six matching tube collars and a snap-in DATA frame. The black 4 mm DRAIN bulkhead receives the
 white drain return. The separate [faucet print set](../faucet/vent-print-readiness/README.md)
 contains the shell, counter stack, vent seals and insertion tool.
 The [assembly instructions](../../assembly/asse-drain.md) list every drain plumbing
@@ -28,20 +28,27 @@ read emitted roads and bind the native archives to their source meshes by hash.
 
 ## Identification plates
 
-The four Mark2 plates contain both the chips and collars. Each chip has one
-28 mm width, R2 lower corners, a flange-height bottom edge and lettering space above the fitting.
+The four Mark2 plates contain the chips, collars and DATA frame. Every visible label
+has a 32 mm width, R2 lower corners and lettering space above its fitting or jack.
 DRAIN's collar has a 4.25 mm bore; TAP retains its larger supply-tube bore.
+The [rear-label layout review](reviews/label-layout.json) records all seven native
+label widths, lower corner radii and their placement in the complete appliance.
+The black [DATA frame](../enclosure/data-ring/README.md) has white lettering and
+two side snaps; the jack mounts independently behind it.
 
 | Project | Parts | Filament 1 / left 0.4 mm | Filament 2 / right 0.4 mm | Native archive under `ready/` |
 | --- | --- | --- | --- | --- |
 | [White](projects/labels-white-z004-mark2.3mf) | TAP and DRAIN | White PET-GF | Black PET-GF | [Native archive](ready/labels-white-z004-mark2.gcode.3mf) |
 | [Blue](projects/labels-blue-z004-mark2.3mf) | SODA | White PET-GF | Blue PET-GF | [Native archive](ready/labels-blue-z004-mark2.gcode.3mf) |
 | [Red](projects/labels-red-z004-mark2.3mf) | CO2 | White PET-GF | Red PET-GF | [Native archive](ready/labels-red-z004-mark2.gcode.3mf) |
-| [Black](projects/labels-black-z004-mark2.3mf) | Two FLAVOR chips and two collars | White PET-GF | Black PET-GF | [Native archive](ready/labels-black-z004-mark2.gcode.3mf) |
+| [Black](projects/labels-black-z004-mark2.3mf) | Two FLAVOR chips, two collars and DATA | White PET-GF | Black PET-GF | [Native archive](ready/labels-black-z004-mark2.gcode.3mf) |
 
 The body and lettering keep their separate materials. Chips print face-up;
 collars print flat-face-down. The saved recipe uses a 0.20 mm first layer, 0.24 mm
-normal layers, a 0.12 mm closing band and no supports or brim. The accepted Mark2
+normal layers and no supports or brim. White, blue and red use a 0.12 mm chip
+closing band. All five black-plate objects share DATA's two 0.14 mm nose-closing
+layers from 1.40 to 1.68 mm, then 0.08 mm bands close the 2.00 mm chip face
+and the 3.36 mm DATA face. The accepted Mark2
 nozzle registration is `0x0`, `0.5x-0.7`. Requested +0.04 mm user trim emits
 `G29.1 Z0.02` on Textured PEI.
 
@@ -68,14 +75,14 @@ modifiers uses ten walls and 100% zig-zag infill. The
 sampled region, with a minimum 99.048% nominal own-width bead coverage.
 [Native archive review](reviews/back-top-native.json) verifies ZIP CRC, embedded
 G-code MD5, source meshes, layer bands and a 21.904 mm full model/support/brim
-bead margin. The saved time estimate is 26 h 55 min.
+bead margin. The saved time estimate is 27 h 0 min.
 
 [Exterior support review](reviews/show-support-clearance-summary.json) checks
-all 143,044 support/interface/transition roads against nine protected native
+all 141,333 support/interface/transition roads against nine protected native
 roof, chamfer, corner and sidewall faces. No nominal bead contacts those faces;
 the minimum geometric clearance is 0.133 mm. Functional contacts on the rear
 port field remain in [their separate record](reviews/rear-port-support-contacts.json).
-Release the 39 support bodies through the empty forebay, interior and rear
+Release the 38 support bodies through the empty forebay, interior and rear
 openings; cut sacrificial connections into removable fragments and clear every
 pilot, pocket and tie passage before installing fittings, boards, loom or insulation.
 Physical release effort remains unmeasured.
@@ -84,14 +91,21 @@ The [native insert-stock review](reviews/insert-stock.json) passes all 19 comple
 supplier envelopes. The separate [strict radial pore/bore diagnostic](reviews/insert-radial-backing.json)
 retains finite gaps in commanded deposition: 678 of 680 sampled rays retain at
 least 1.6 mm of uninterrupted nominal backing; the two remaining rays contain
-0.000288 and 0.000407 mm interval gaps near the insert entry. No gap-closing
-tolerance is applied. The maximum commanded bore contour extends 0.0557 mm
+0.000293 and 0.000414 mm interval gaps near the insert entry. No gap-closing
+tolerance is applied. The maximum commanded bore contour extends 0.0600 mm
 past the nominal brass knurl radius at a sampled location. These readings do
 not measure actual bead fusion, installed brass contact or retention, and do
 not supersede the separate complete-stock and regional-deposition checks.
 
 [Identification geometry lint](reviews/identification-lint.json) records each
 intentional lettering-pocket step and glyph face in the saved print frame.
+[Rear-wall geometry lint](reviews/rear-wall-lint.json) records the current 684,452-facet mesh,
+with no open findings and 57 answered findings.
+[Rear-wall finite surface witnesses](reviews/rear-wall-lint-witness.json) identify
+the nameplate's backed relief, diamond release opening and locating floor. The
+complete floor retains 1.50 mm of native stock; current interface roads lie below
+it with the saved 0.45 mm support gap. These are nameplate fit and print-preparation
+readings, with cleanup effort and finished fit remaining physical observations.
 
 ![Rear-wall plate](reviews/back-top.png)
 

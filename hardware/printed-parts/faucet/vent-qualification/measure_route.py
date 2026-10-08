@@ -15,9 +15,7 @@ import os
 from pathlib import Path
 import sys
 
-# This reads geometry and writes only qualification JSON; it never runs a
-# production exporter or supersedes another agent's build.
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+# This reads geometry and writes qualification JSON.
 HERE = Path(__file__).resolve().parent
 REPO = next(p for p in HERE.parents if (p / "hardware").is_dir() and (p / "tools").is_dir())
 FAUCET = HERE.parent

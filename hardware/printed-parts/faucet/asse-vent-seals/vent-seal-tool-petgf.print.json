@@ -117,22 +117,12 @@
   "settings_preserved_byte_for_byte": false,
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3"
   },
   "active_nozzle": 0,
   "requested_z_trim_mm": 0.18,
-  "submitted": false,
-  "source_binding_basis": "Current frozen generator hashes and exact verified consumer STL hashes; native project and emitted payload hashes are unchanged.",
-  "unchanged_geometry_source_binding": {
-    "reason": "Preparation dependency declaration now records the Sculpted plate/gasket cable-relief drivers. The tool STL, project, native archive and G-code hashes are identical.",
-    "verified_source_changes": {
-      "hardware/printed-parts/faucet/prepare_vent_prints.py": [
-        "7530b7ac06ca02fe779464758fbc6c32450cb092e8dad9f2872a757f794319db",
-        "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514"
-      ]
-    }
-  }
+  "submitted": false
 }

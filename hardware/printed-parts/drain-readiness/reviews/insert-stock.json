@@ -3,12 +3,12 @@
   "reviewer_sha256": "5ad34a849eb77cfe50911bdab1c467989e51eb1d659a21d25c49ac79f601c3df",
   "station_driver_sha256": "5f37f066201f863d2fb85fc24bbf5a28020a699804084f5c055fc015e1856a98",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "0aa6d790a642d3cd490022f13fad378b873bdde0d9d888709e24e273a0eb0083",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b2fe7f0d8f8e180af13a86369cb88e40b4b1dc03b06b322714386690c35fd0cf",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/manifold-layout/enclosure-box.json": "c2c9adc9b95f03b83247ea0b6ed62b9b7a6ce62c421142f9d20476e51bb88b2c"
+    "hardware/manifold-layout/enclosure-box.json": "8eb63094b87779ec49e64bbc2796d409b172462e3831aff289431d008de67029"
   },
-  "source_step_sha256": "7dd74665a0a81f99e5c358064d04777ccc1bcce7499b6a3756b892313a9e5b48",
-  "source_stl_sha256": "6f8b50646c7f35860b9900139cf43dec21cbf54e0e23ccb743cb64b1f8eae2b7",
+  "source_step_sha256": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
+  "source_stl_sha256": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
   "stations": [
     {
       "piece": "back-top",

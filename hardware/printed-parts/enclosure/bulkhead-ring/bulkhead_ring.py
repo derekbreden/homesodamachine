@@ -13,7 +13,7 @@ of it.
     THICK     the chip's thickness, the depth the pocket is cut to, and — because the wall keeps
               its own full stock under every chip — the height of the boss the wall stands inboard
 
-THE OUTLINE IS 28 MM WIDE AT EVERY STATION, with R2 lower corners. Its bottom edge meets
+THE OUTLINE IS 32 MM WIDE AT EVERY STATION, with R2 lower corners. Its bottom edge meets
 the flange envelope; above the flange, a dedicated band carries the lettering.
 It is not a shape that turns — a pocket takes it one way up and no other, which is what puts the
 word level without anything holding it there.

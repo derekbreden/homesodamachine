@@ -181,6 +181,9 @@ import riteav_keystone as _keystone                   # noqa: E402
 import yyfkgcp_pogo_4p as _pogo                       # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "data-ring"))
+import data_ring as _data_ring
+import _data_wing_interface as _data_fit
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
 import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
@@ -1934,8 +1937,12 @@ NAMEPLATE_CAP_CLEAR = 1.0
 
 
 def nameplate_field() -> tuple:
-    """The field bounded by the flavour pocket, rear tangent and top port row."""
-    return (PANEL_X["bulkhead-flavor-a"]+port_pocket_d()/2,
+    """The nameplate field located from the union flange and rear tangent.
+
+    Its west datum is 2.72 mm beyond the nominal flange. Decorative label
+    width does not move the accepted PSU clearance or cap ligament.
+    """
+    return (PANEL_X["bulkhead-flavor-a"]+_jg.flange_footprint()/2+2.72,
             _enc.interior_x()[1]-(_enc.corner_round-_enc.wall),
             deck_storey()-port_pocket_d()/2)
 
@@ -2847,7 +2854,7 @@ def keystone_station(flavor: float) -> tuple:
     soda = (PANEL_X["bulkhead-carb"], deck_storey())
     flavour = (PANEL_X["bulkhead-flavor-a"], flavor)
     return ((soda[0] + flavour[0]) / 2.0,
-            (soda[1] + flavour[1]) / 2.0 - _keystone.POCKET_RISE + KEYSTONE_LIFT)
+            (soda[1] + flavour[1]) / 2.0)
 
 
 # The exact finished receptacle keeps 3.031/5.480 mm from the show-face station to the
@@ -2880,15 +2887,27 @@ KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
 
 
 def build_keystone(station: tuple):
-    """The jack snapped into its receptacle, face flush with the wall's outer plane.
+    """The jack snapped into its fixed receptacle behind the flush DATA trim.
 
-    `riteav_keystone` states that plane as its own Y = 0 and hangs the whole body inboard of it,
-    so the seat is the wall's outer face at the station and nothing else."""
+    The purchased face lands on the DATA pocket's seating plane, 3.36 mm
+    behind the rear wall. The fixed enclosure lip and catches retain the jack.
+    """
     body = import_step(str(KEYSTONE_STEP)).val()
     x, z = station
     return seat_body(body, (), seat="keystone-jack",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                              (x, _enc.rear_plane_y + _enc.wall, z)))
+                              (x, _enc.rear_plane_y + _enc.wall - _data_fit.THICK, z)))
+
+
+def build_data_ring(station: tuple):
+    """Black DATA trim and white text seated flush on their own side snaps."""
+    x,z=station
+    floor=_enc.rear_plane_y+_enc.wall-_data_fit.THICK
+    body,word=_data_ring.split(import_step(str(_data_ring.STEP)).val())
+    return (("data-ring",body.translate((x,floor,z)),
+             cq.Color(*(c/255 for c in _rear.chip_color("flavor")))),
+            ("data-ring-word",word.translate((x,floor,z)),
+             cq.Color(*(c/255 for c in _rear.word_color("flavor")))))
 
 
 def _keystone_clearances(station: tuple, flavor: float, placed: dict) -> tuple:
@@ -4509,6 +4528,8 @@ def build_pack() -> cq.Assembly:
     # struck on. They lie OUTBOARD of the +Y wall of back-top's outer face, in the field the wall raises.
     for name, solid, colour in build_bulkhead_rings(a.wall_stations):
         a.add(solid, name=name, color=colour)
+    for name, solid, colour in build_data_ring(a.keystone_station):
+        a.add(solid, name=name, color=colour)
     # And outboard of two of them, the customer's own tube and the collar that carries the
     # station's word out along it.
     for name, solid, colour in build_customer_tubes(bulkhead_carry, panel_carries, co2in_carry):
@@ -4654,6 +4675,7 @@ IN_THE_WALL = (
     *(name(which)
       for _m, _r, which, _fluid in Y_WALL_FITTINGS.values()
       for name in (ring_name, word_name)),
+    "data-ring", "data-ring-word",
 )
 # And the bodies standing OUTBOARD of it: the customer's supply tubes and DRAIN return,
 # and the collar that carries the station's word out along it. The wall's outer face is where the machine stops, so none of this is in the room the pack
@@ -6197,7 +6219,7 @@ def main():
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     import check_asse_drain
-    check_asse_drain.write(_solids(a))
+    check_asse_drain.write({**_solids(a), **_core_solids(a)})
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

@@ -1,7 +1,7 @@
 {
   "archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf",
-  "archive_sha256": "b0d6f4c9903c9af5809fc51b81e159a4daf9408389014a8d712381c126e17001",
-  "gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+  "archive_sha256": "8d68201c28d4edf2da5fa924a36fc6a89b1a01892235d586eef4af3d5f541e91",
+  "gcode_sha256": "ef9b613ed03a0db3755a7e461ae6ae0b27af6fd2203ccbe97b3fc760c7a97448",
   "native_settings_normalizations": {
     "filament_map_2": [
       null,
@@ -32,8 +32,8 @@
   "active_nozzle": 0,
   "nozzle_diameter_mm": 0.4,
   "layers": 337,
-  "estimated_seconds": 1469.1058349609375,
-  "estimated_grams_saved_profile_density": 7.845939636230469,
+  "estimated_seconds": 1465.504150390625,
+  "estimated_grams_saved_profile_density": 7.845816135406494,
   "slicer_return_code": 0,
   "slicer_warning": "",
   "objects": 1

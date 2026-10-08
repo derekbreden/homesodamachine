@@ -19,19 +19,30 @@ import sys
 import time
 from pathlib import Path
 
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 HERE = Path(__file__).resolve().parent
 FAUCET = HERE.parent
-sys.path[:0] = [str(FAUCET), str(FAUCET / "faucet-shell")]
+REPO = next(path for path in HERE.parents
+            if (path / "hardware").is_dir() and (path / "tools").is_dir())
+sys.path[:0] = [str(FAUCET), str(FAUCET / "faucet-shell"),
+               str(REPO / "hardware" / "faucet-layout")]
 
 import cadquery as cq
 import faucet_paths as p
 import faucet_shell as f
 import vent_seals as v
+import faucet_assembly as a
 
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def source_paths():
+    return {"checker": Path(__file__), "tool_generator": Path(v.__file__),
+            "paths": Path(p.__file__), "shell": Path(f.__file__),
+            "assembly": Path(a.__file__), "interface": FAUCET / "_faucet_interface.py",
+            "plate": FAUCET / "above-counter-plate" / "above_counter_plate.py",
+            "gasket": FAUCET / "above-counter-gasket" / "above_counter_gasket.py"}
 
 
 def volume(shape):
@@ -112,7 +123,12 @@ def lower_ribbon_signature():
     parameters={name:getattr(f,name) for name in (
         "signal_lower_exit_x","signal_lower_exit_y","signal_lower_exit_angle",
         "signal_ribbon_max_width","signal_ribbon_max_depth","flavor_tube_depth")}
-    return hashlib.sha256(json.dumps({"functions":functions,"parameters":parameters},
+    assembly_parameters={name:getattr(a,name) for name in (
+        "under_counter_plate_bottom_z","union_foot_z","umbilical_bend_radius",
+        "cable_width","cable_lane")}
+    return hashlib.sha256(json.dumps({"functions":functions,"parameters":parameters,
+                                    "assembly_source_sha256":sha(a.__file__),
+                                    "assembly_parameters":assembly_parameters},
                                     sort_keys=True).encode()).hexdigest()
 
 
@@ -129,7 +145,7 @@ def lower_ribbon_motion_bound():
     cylinder=cq.Solid.makeCylinder(major,2*minor,
                                    pnt=centre-cq.Vector(minor,0,0),dir=cq.Vector(1,0,0))
     bound=torus.fuse(cylinder)
-    lower=f.build_lower_signal_ribbon().val()
+    lower=a.build_lower_display_ribbon().val()
     # Every tool point lies within this angle of the radial removal direction.
     # Its radius decreases throughout 0..40 mm because shift < 2*r*cos(angle).
     angle=v.TOOL_ARC_LENGTH/(2*p.WATER_RADIUS)+math.atan2(
@@ -153,20 +169,21 @@ def lower_ribbon_motion_bound():
                   "native_bound_lower_ribbon_overlap_mm3":overlap,
                   "passed":passed,
                   "method":"Full 360-degree torus containing the complete curved tool and tangent handle, filled inward by a concentric cylinder. Rotation about the true water-arc axis leaves this bound invariant. The specified inward side translation decreases every tool point's radial distance throughout 0..40 mm, so it stays in the filled bound.",
-                  "scope":"Continuous nominal tool motion versus the actual lower ribbon envelope, including its edge-on mounting exit and turn. Casing, upper tubes and finished print handling have separate witnesses."}
+                  "scope":"Continuous nominal tool motion versus the assembled lower ribbon envelope, including its flat rear mounting exit and below-plate return drawn to Z-50. Casing, upper tubes and finished print handling have separate witnesses."}
 
 
 def refresh_bounds():
     """Rebind the continuous casing proof without repeating unchanged tube poses."""
     begun=time.time()
-    current_paths={"checker":Path(__file__),"shell":Path(f.__file__),
-                   "paths":Path(p.__file__),"tool_generator":Path(v.__file__)}
+    current_paths=source_paths()
     current_sources={name:sha(path) for name,path in current_paths.items()}
     target=HERE/"tool-motion-check.json"
     report=json.loads(target.read_text())
     cached=report.get("native_pose_source_sha256",report["source_sha256"])
     assert sha(p.__file__)==cached["paths"],"Tube paths changed; run complete motion check"
     assert sha(v.__file__)==cached["tool_generator"],"Tool source changed; run complete motion check"
+    for name in ("assembly","interface","plate","gasket"):
+        assert sha(current_paths[name])==cached.get(name),f"{name} changed; run complete motion check"
     signature=bound_signature()
     lower_signature=lower_ribbon_signature()
     previous_signature=report.get("continuous_bound_geometry_signature_sha256")
@@ -286,8 +303,7 @@ def refresh_bounds():
 
 def main():
     begun = time.time()
-    sources = {"checker": Path(__file__), "tool_generator": Path(v.__file__),
-               "paths": Path(p.__file__), "shell": Path(f.__file__)}
+    sources = source_paths()
     digests = {k: sha(path) for k, path in sources.items()}
     centre = (0, p.WATER_Y-p.WATER_RADIUS, p.ARC_START_Z)
     axis_end = (1, centre[1], centre[2])
@@ -408,7 +424,7 @@ def main():
                   "free_body_radial_deflection_mm":(v.BODY_OD-v.BODY_SEAT_ID)/2,
                   "retaining_groove_radial_capture_mm":(v.GROOVE_ID-v.BODY_SEAT_ID)/2,
                   "requirement":"The soft distal flange snaps through the empty upstream gland; its free STL is intentionally larger than the apertures. No rigid free-STL traversal claim is made."},
-              "scope":"Nominal native geometric clearances and assembly-motion bounds. Printed sizes, TPU snap-through force, complete flange capture, water containment and aging remain physical acceptance properties. Individual insulated wires are Ø1.3; before s14 a 7.9x1.3 path-based fan bound is used. A separate continuous complete-tool bound checks the actual lower ribbon. Final annular flange-bearing contact is intentional and excluded from casing/tube interference.",
+              "scope":"Nominal native geometric clearances and assembly-motion bounds. Printed sizes, TPU snap-through force, complete flange capture, water containment and aging remain physical acceptance properties. Individual insulated wires are Ø1.3; before s14 a 7.9x1.3 path-based fan bound is used. A separate continuous complete-tool bound checks the assembled flat lower ribbon and its below-plate return drawn to Z-50. Final annular flange-bearing contact is intentional and excluded from casing/tube interference.",
               "source_unchanged_during_check":unchanged,
               "failures":bad,"passed":not bad and unchanged,"elapsed_seconds":time.time()-begun}
     (HERE/"tool-motion-check.json").write_text(json.dumps(report,indent=2)+"\n")

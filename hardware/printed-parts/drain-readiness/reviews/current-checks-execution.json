@@ -1,0 +1,208 @@
+{
+  "scope": "Current-tree check results from serial execution. The complete 164-reading faucet audit is reused from its actual execution in this task only after verifying every recorded source and native artifact hash. Wider repository failures remain visible in the served verdict.",
+  "heavy_checks_serialized_with_existing_build_lock": true,
+  "build_lock_opt_out": false,
+  "served_verdict": "web/public/checks.json",
+  "served_verdict_sha256": "af5b0b648fe15595a6f154cfd324b09951108588cb3a1ad007d3444f3c50b591",
+  "checks": [
+    {
+      "check": "hardware/scripts/check_asse_drain.py",
+      "return_code": 0,
+      "log_sha256": "05ce6bc62088eb6350363849f2661bb6a9f3c1844e834e433c995448cea68b29",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_build_exit.py",
+      "return_code": 0,
+      "log_sha256": "09daeabce38a7a1783234c2415c9d8b1fb92eb0c3f10d0619640f25b701ef641",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_copper_plug_clearance.py",
+      "return_code": 0,
+      "log_sha256": "509ef140955727620a4b2be68457a71fbad49fefd5efd90bea80f6179d0832c5",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_core_and_faucet_heatsets.py",
+      "return_code": 0,
+      "log_sha256": "1a1f1d4db06896d7e169190e6817e054e7c04c000492e270b34da0a3fdbb9d8b",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_enclosure_mating_clearance.py",
+      "return_code": 0,
+      "log_sha256": "9959ffa104e85a1fb3aead3fba238f73b2b6e17eadec3705cff9e56cb1f76925",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_facts_current.py",
+      "return_code": 0,
+      "log_sha256": "afd8da236314828c3280047ac483106419d09296e20fbc8111ae17618e9bc6c9",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_faucet_geometry.py",
+      "return_code": 0,
+      "log_sha256": "c3cd1a1098a72b0ca5fb08170b3a6c1880f3b5bdca59121e1f37b8f167e26640",
+      "same_task_actual_execution_reused": {
+        "actual_execution_log_sha256": "c3cd1a1098a72b0ca5fb08170b3a6c1880f3b5bdca59121e1f37b8f167e26640",
+        "current_bindings_verified": true
+      }
+    },
+    {
+      "check": "hardware/scripts/check_finishes.py",
+      "return_code": 0,
+      "log_sha256": "781ea8742eecd139d3d2b26ea48daf753a8ae5fd8dce5ad99f91ce388b5a5558",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_flutes.py",
+      "return_code": 0,
+      "log_sha256": "26aa10ed4fcab0de79a9bb38b9434e3a8181bd1c252a0192b0f735b97fe8c6a6",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_ledger.py",
+      "return_code": 1,
+      "log_sha256": "c705415707ac3b30a09f3571a914a0b5e68bdaa3ba5e1a85e2f4f33d7b9e1402",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_payload_colours.py",
+      "return_code": 1,
+      "log_sha256": "725d1c920a7a84ed8d70922a367f4585e6e22c714eaaa19473cbd126ca1cf5dd",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_payloads.py",
+      "return_code": 1,
+      "log_sha256": "ced87e6360ad2c5781e8e255f2c78c5343dcca8284c0c3a480d6cbc01811df99",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_pinmap.py",
+      "return_code": 0,
+      "log_sha256": "9d5a8e7ee44b699bae3c2e30198e454a4cfb346d7dd473faa445167b9743f05e",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_print_profile.py",
+      "return_code": 0,
+      "log_sha256": "ecdebb67734941e7f818c11429b8e57eabd06a82b4a3cb8dc03d3d29e00baa5b",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_purchase_evidence.py",
+      "return_code": 0,
+      "log_sha256": "765351ef7a3bfa461c3f71721b4aae1ad913db5e474f7c3e915c1e726ba3293f",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_show_faces.py",
+      "return_code": 0,
+      "log_sha256": "d9ae8b52cdcb74f5a2f0c2079e93adf2c32b7cc4f70a2e23a166b90aefcbf85d",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_step_colours.py",
+      "return_code": 1,
+      "log_sha256": "ca7ad45aef7e66541e6f965ffa30e221f24dba54dd434273a902f77a6b2df257",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "hardware/scripts/check_tracked.py",
+      "return_code": 1,
+      "log_sha256": "e727bb88f03421a4c86ddf6ad86136b3fe4db02119bf9c6d6eaaa5370bc6e311",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/check_paths.py",
+      "return_code": 1,
+      "log_sha256": "8b257683332dde476e35d2e0fcdb0026a8bf0c9d99dfd77296cb812c63a17911",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/check_release_room.py",
+      "return_code": 1,
+      "log_sha256": "eb2c7d06237beecc6bbb7378aaa04929319594e2ed2c7424085244b84bbf9b35",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/check_web_tests.py",
+      "return_code": 1,
+      "log_sha256": "986de2120c6e45fdb5183710a5c8416ec0f1928f9209d1fb70217111b5df507e",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/bazel/check_build_file.py",
+      "return_code": 0,
+      "log_sha256": "edbb52725894b631650b7016f296ea93eb8cd94ac8cd11bcf03a804805e059da",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/bazel/check_ci_targets.py",
+      "return_code": 0,
+      "log_sha256": "971f25fb768f4a509bf36cc8c8765dd0769454697d62727ec61a98c3a2a07e25",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/bazel/check_declared_imports.py",
+      "return_code": 0,
+      "log_sha256": "f518c8b20018beaad416bbf74a2df6b3d8ec5da003230bfbdd0119f54f1c182c",
+      "same_task_actual_execution_reused": null
+    },
+    {
+      "check": "tools/bazel/check_unbounded_reach.py",
+      "return_code": 0,
+      "log_sha256": "1ddde3bff61a1aafd44fc354b907275f9188196a3b2922b724d6440f1cb423fa",
+      "same_task_actual_execution_reused": null
+    }
+  ],
+  "complete_faucet_execution": {
+    "report": "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json",
+    "report_sha256": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe",
+    "source_sha256": {
+      "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
+      "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+      "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+      "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
+      "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
+      "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+      "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+      "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+      "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+      "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+      "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "ae20063a52ebe15358c58dae8fb115784146c58090668bb0d4f5211a0f56fa74",
+      "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "be227c2f58851a164e3c1d9127903294cb7fbc908e1c5b1cee113d6c7c7ae355",
+      "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json": "e7e8f7ef1ea1b58cbcce83b18b3f696b948a581de040100cc340fcdadf617231",
+      "hardware/reference/jg-pp0408w/jg_pp0408w.py": "3dc13f9e6534cd3a173079feb0ea87c4078b9197242f645be2748b07c2d8d0f6",
+      "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
+      "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2"
+    },
+    "native_artifact_sha256": {
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "e5037f6839d8f632209783b943869a42d67bc5b8ccab19ade0ec318d674f7b67",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": "c29bb0bc6c4bd389f783e444a4c59f8f5185a0188e576f150eaf19e68e62ea1c",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8"
+    },
+    "actual_execution_log_sha256": "c3cd1a1098a72b0ca5fb08170b3a6c1880f3b5bdca59121e1f37b8f167e26640",
+    "passed_readings": 164
+  },
+  "current_drain_execution": {
+    "report": "hardware/manifold-layout/drain-clearance-check.json",
+    "report_sha256": "806205047543684f112bb0787ff761eb75498592395519ae8c0927e5be0b74f4",
+    "installed_body_count": 227,
+    "conservative_foam_envelope_included": true
+  }
+}

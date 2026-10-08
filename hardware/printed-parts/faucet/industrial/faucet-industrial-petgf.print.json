@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
-      "triangles": 395042,
+      "stl_sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+      "triangles": 422120,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.0,
@@ -120,8 +120,8 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
-      "triangles": 238448,
+      "stl_sha256": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+      "triangles": 238386,
       "rotation_x_degrees": -95.0,
       "source_center_mm": [
         0.0,
@@ -232,8 +232,8 @@
       "member": "3D/Objects/object_4.model",
       "identify_id": 1904,
       "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
-      "stl_sha256": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865",
-      "triangles": 15388,
+      "stl_sha256": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+      "triangles": 15144,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -281,7 +281,7 @@
       "embedded_vertex_error_mm": 4.99755792304768e-10
     }
   ],
-  "project_sha256": "e775fded619a6ab2ee7da594abaa8f7da2efbdd70c2cec022dcb22de57ae37f5",
+  "project_sha256": "c0c0a75909ab90e02c28940767b5801be01e91a9b133565d9a0a66a7cb332d5c",
   "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
@@ -383,20 +383,20 @@
   ],
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865"
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4"
   },
   "active_nozzle": 0,
   "requested_z_trim_mm": 0.18,

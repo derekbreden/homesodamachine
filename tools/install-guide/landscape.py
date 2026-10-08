@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Compose the 32-interior-page, 9 x 7 inch owner install guide."""
 from pathlib import Path
+import ast
+import hashlib
 import io
 import json
 import math
@@ -10,6 +12,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 from PIL import Image
+import ezdxf
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -44,7 +47,7 @@ c.setTitle('Home Soda Machine - Install guide')
 c.setAuthor('Derek Bredensteiner')
 c.setSubject('Seven steps to the first glass. 32 interior pages. 9 x 7 inch landscape.')
 page_no = 0
-checks, image_checks, titles = [], [], []
+checks, image_checks, titles, mount_slot_checks = [], [], [], []
 resolutions = json.loads((ART/'print-resolution.json').read_text())['assets']
 FILL = json.loads((ART/'fill-scene-inputs.json').read_text())
 FILL_POSE = tuple(FILL['pose'][key] for key in ('cam', 'target', 'span'))
@@ -273,6 +276,163 @@ def projected(mapper, point, cam, target, span, size=(1600, 1500)):
                   size[1]/2-sum(a*b for a, b in zip(delta, up))*scale)
 
 
+def mounting_slots():
+    """Show the seated steel opening and line envelopes, looking up from below.
+
+    Read the purchased DXF and the production mounting coordinates directly.
+    The washer/nut are omitted in this section so both slots remain visible.
+    """
+    plate_dir = ROOT/'hardware/cut-parts/faucet/under-counter-plate'
+    sources = [plate_dir/'under-counter-plate.dxf', plate_dir/'stock-profile.json',
+               ROOT/'hardware/printed-parts/faucet/faucet_paths.py',
+               ROOT/'hardware/faucet-layout/faucet_assembly.py',
+               ROOT/'hardware/printed-parts/faucet/faucet-shell/faucet_shell.py']
+
+    def literals(path, names):
+        values = {}
+        for node in ast.parse(path.read_text()).body:
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id in names:
+                        values[target.id] = float(ast.literal_eval(node.value))
+        if set(values) != set(names):
+            raise ValueError(f'Missing literal mounting dimensions: {path}')
+        return values
+
+    coords = literals(sources[2], ('FLAVOR_OD', 'DRAIN_OD', 'LOWER_FLAVOR_X',
+                                   'LOWER_BUNDLE_X', 'LOWER_Y',
+                                   'LOWER_DRAIN_Y', 'LOWER_RIBBON_Y'))
+    shank = literals(sources[3], ('shank_od',))['shank_od']
+    cable = literals(sources[4], ('signal_ribbon_max_width', 'signal_ribbon_max_depth'))
+    stock = json.loads(sources[1].read_text())
+    drawing = ezdxf.readfile(sources[0])
+    if drawing.header.get('$INSUNITS') != 4:
+        raise ValueError('The mounting-slot diagram requires a millimetre DXF')
+    segments, signature = [], []
+    for entity in drawing.modelspace():
+        if entity.dxftype() == 'LINE':
+            start, finish = entity.dxf.start, entity.dxf.end
+            segments.append([(start.x, start.y), (finish.x, finish.y)])
+            signature.append(['LINE', *start, *finish])
+        elif entity.dxftype() == 'ARC':
+            center, radius = entity.dxf.center, entity.dxf.radius
+            start, finish = entity.dxf.start_angle, entity.dxf.end_angle
+            sweep = (finish-start) % 360
+            count = max(1, math.ceil(sweep))
+            segments.append([(center.x+radius*math.cos(math.radians(start+sweep*i/count)),
+                              center.y+radius*math.sin(math.radians(start+sweep*i/count)))
+                             for i in range(count+1)])
+            signature.append(['ARC', *center, radius, start % 360, finish % 360])
+        else:
+            raise ValueError(f'Unsupported steel-outline entity: {entity.dxftype()}')
+    normalized = sorted([[row[0], *[round(float(v), 10) for v in row[1:]]]
+                         for row in signature])
+    if normalized != stock['normalized_entity_signature']:
+        raise ValueError('Mounting diagram DXF disagrees with the purchased steel profile')
+    outline = segments.pop(0)
+    while segments:
+        match = next(((i, reverse) for i, points in enumerate(segments)
+                      for reverse, endpoint in ((False, points[0]), (True, points[-1]))
+                      if math.dist(outline[-1], endpoint) < 1e-6), None)
+        if match is None:
+            raise ValueError('The mounting steel outline is not one continuous boundary')
+        i, reverse = match
+        points = segments.pop(i)
+        outline.extend((points[::-1] if reverse else points)[1:])
+    if math.dist(outline[0], outline[-1]) > 1e-6:
+        raise ValueError('The mounting steel outline is open')
+
+    rect(M, 282, CW, 158, '#F5F7FC', r=6)
+    text('Back / toward wall', M+12, 286, 8, 'Semibold', MUTED)
+    text('Plate seen from below; washer and nut omitted.', 350, 286, 8, 'Regular', MUTED)
+    scale, center = 2.5, (144, 371)
+
+    def at(x, y):
+        # Looking up: world +Y is the back, world +X is page left.
+        return center[0]-x*scale, center[1]-y*scale
+
+    c.saveState()
+    c.setLineWidth(.8)
+    c.setStrokeColor(HexColor('#46515b'))
+    c.setFillColor(HexColor('#E7E9EE'))
+    path = c.beginPath()
+    for i, (dx, dy) in enumerate(outline):
+        px, py = at(-dy, dx)  # The same DXF-to-world rotation as the assembly.
+        (path.moveTo if i == 0 else path.lineTo)(px, H-py)
+    path.close()
+    c.drawPath(path, stroke=1, fill=1)
+
+    def disc(point, diameter, fill):
+        px, py = at(*point)
+        c.setFillColor(HexColor(fill))
+        c.setStrokeColor(HexColor(INK))
+        c.circle(px, H-py, diameter*scale/2, stroke=1, fill=1)
+
+    flavors = [(coords['LOWER_BUNDLE_X']+sign*coords['LOWER_FLAVOR_X'],
+                coords['LOWER_Y']) for sign in (-1, 1)]
+    drain = (coords['LOWER_BUNDLE_X'], coords['LOWER_DRAIN_Y'])
+    ribbon = (coords['LOWER_BUNDLE_X'], coords['LOWER_RIBBON_Y'])
+    disc((0, 0), shank, '#202337')
+    for point in flavors:
+        disc(point, coords['FLAVOR_OD'], '#202337')
+    disc(drain, coords['DRAIN_OD'], '#FFFFFF')
+    px, py = at(*ribbon)
+    cable_w = cable['signal_ribbon_max_width']*scale
+    cable_h = cable['signal_ribbon_max_depth']*scale
+    rect(px-cable_w/2, py-cable_h/2, cable_w, cable_h, '#202337')
+    ends = [(x+sx*coords['FLAVOR_OD']/2, y+sy*coords['FLAVOR_OD']/2)
+            for x, y in flavors for sx in (-1, 1) for sy in (-1, 1)]
+    ends += [(drain[0]+sx*coords['DRAIN_OD']/2,
+              drain[1]+sy*coords['DRAIN_OD']/2)
+             for sx in (-1, 1) for sy in (-1, 1)]
+    ends += [(ribbon[0]+sx*cable['signal_ribbon_max_width']/2,
+              ribbon[1]+sy*cable['signal_ribbon_max_depth']/2)
+             for sx in (-1, 1) for sy in (-1, 1)]
+    points = [at(*point) for point in ends]
+    left, top = min(p[0] for p in points)-3, min(p[1] for p in points)-3
+    right, bottom = max(p[0] for p in points)+3, max(p[1] for p in points)+3
+    c.setStrokeColor(HexColor(BLUE))
+    c.setLineWidth(1.1)
+    c.roundRect(left, H-bottom, right-left, bottom-top, 4, fill=0, stroke=1)
+    c.restoreState()
+
+    def pointer(start, point):
+        for color, width in [('#FFFFFF', 3), (INK, .8)]:
+            line(*start, *point, color, width)
+        c.setFillColor(HexColor(CORAL))
+        c.setStrokeColor(white)
+        c.circle(point[0], H-point[1], 2.2, fill=1, stroke=1)
+
+    label('BACK / NARROW SLOT', 250, 302)
+    pointer((244, 310), (right, (top+bottom)/2))
+    for x in (261, 272):
+        c.setFillColor(HexColor(INK))
+        c.circle(x, H-328, 4.5, fill=1, stroke=0)
+    text('Both black flavor tubes', 288, 323, 11, 'Semibold')
+    c.setFillColor(white)
+    c.setStrokeColor(HexColor(INK))
+    c.setLineWidth(.8)
+    c.circle(266.5, H-350, 4.5, fill=1, stroke=1)
+    text('White DRAIN tube', 288, 345, 11, 'Semibold')
+    rect(257, 370, 19, 4.5, INK)
+    text('Flat display ribbon', 288, 367, 11, 'Semibold')
+    label('FRONT / WIDE SLOT', 250, 397)
+    pointer((244, 405), at(shank/3, -shank/3))
+    text('Shank; blue SODA connects below.', 250, 417, 10)
+    mount_slot_checks.append(dict(
+        reading_pdf_page=page_no, numbered_interior=page_no-1,
+        source_sha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                       for path in sources},
+        purchased_profile_matches=True, view='Looking up; world +Y at page top, world +X at page left',
+        rear_slot={'flavor_centers_mm': flavors, 'flavor_od_mm': coords['FLAVOR_OD'],
+                   'drain_center_mm': drain, 'drain_od_mm': coords['DRAIN_OD'],
+                   'ribbon_center_mm': ribbon, 'ribbon_envelope_mm':
+                   [cable['signal_ribbon_max_width'], cable['signal_ribbon_max_depth']]},
+        front_slot={'shank_center_mm': [0, 0], 'shank_od_mm': shank,
+                    'blue_soda_attachment': 'Below the plate at the shank bottom'},
+        omitted_for_visibility=['retained washer', 'retained nut']))
+
+
 def front_cover():
     global page_no
     page_no = 1
@@ -378,7 +538,7 @@ end()
 header('Prepare the counter opening', 'INSTALL / MOUNT THE FAUCET', 1)
 pic('opening.png', M, 151, 264, 220)
 text('One 1-3/8 in opening', RIGHT, 158, 18, 'Bold', NAVY)
-para('Counter thickness: <b>3/4 to 1-1/2 in.</b><br/><br/>Place the hole center <b>at most 2 in behind the bowl edge.</b> Aim the faucet into the bowl, within 10 degrees of straight ahead.', RIGHT, 194, RW, 12, 17, limit=133)
+para('Place the hole center <b>at most 2 in behind the bowl edge.</b> Aim the faucet into the bowl, within 10 degrees of straight ahead.', RIGHT, 194, RW, 12, 17, limit=133)
 note('STONE COUNTER', 'Use a spare 1-3/8 in sink or counter hole, or a 1-3/8 in diamond core bit kept wet.', 351, RIGHT, RW)
 caption('Prepare the opening before lowering the faucet.', 390)
 end()
@@ -389,23 +549,26 @@ p = pic('steps/mount-drop.png', M, 125, 274, 294, crop=(9, 33, 763, 1331))
 arrow(*p(190, 660), *p(190, 963), head=11)
 arrow(*p(382, 866), *p(585, 928), head=10)
 item('1 / LOWER', 'Feed the tails through', 'Pass all four attached tubes and the display cable through the opening. The small white tube is DRAIN. Lower the faucet onto the counter.', 151)
-item('2 / POSITION', 'Push the faucet back', 'Push it away from you until the two black tubes beneath it meet the back edge of the hole. Hold that position for the plate.', 299)
+item('2 / POSITION', 'Push the faucet back', 'Push it away from you until the rear tube bundle meets the back edge of the hole. Hold that position for the plate.', 299)
 end()
 
 # Interior 7
 header('Slide the plate into place', 'INSTALL / MOUNT THE FAUCET', 1)
-p = pic('steps/mount-under-slide-clean.png', M, 167, 278, 177, crop=(205, 280, 1090, 650))
+p = pic('steps/mount-under-slide-clean.png', M, 132, 278, 126, crop=(205, 280, 1090, 650))
 arrow(*p(430, 540), *p(870, 455), head=10)
-caption('The plate sits above the washer and nut.', 365)
-item('3 / FROM BELOW', 'Hold the plate flat', 'Hold the steel plate against the underside of the counter, above the washer and nut already on the shank.', 153)
-para('Slide its <b>wide slot around the shank and cable</b> and its <b>narrow slot around the black tubes and white DRAIN tube.</b>', RIGHT, 318, RW, 13, 19, limit=95)
+caption('The plate sits above the washer and nut.', 261)
+item('3 / FROM BELOW', 'Hold the plate flat', 'Hold the steel plate flat against the counter, above the washer and nut. Slide it onto the shank and rear bundle.', 132)
+para('Match the slots as shown below.', RIGHT, 250, RW, 12, 17, limit=17)
+mounting_slots()
 end()
 
 # Interior 8
 header('Tighten the faucet nut', 'INSTALL / MOUNT THE FAUCET', 1)
-pic('steps/mount-under-tighten-clean.png', M, 156, 270, 228, crop=(850, 390, 1110, 680))
-item('4 / SECURE', 'Hand-tighten the nut', 'Keep the plate flat against the underside of the counter. The faucet stays seated above.', 158)
-note('CHECK THE POSITION', 'Keep the faucet pushed back. Its separate bottom drain opening near the neck joint must be entirely over the bowl and remain uncovered.', 297, RIGHT, RW)
+pic('steps/mount-under-tighten-clean.png', M, 132, 278, 126, crop=(740, 310, 1180, 610))
+caption('The plate stays above the washer and nut.', 261)
+item('4 / SECURE', 'Hand-tighten the nut', 'Keep the plate flat against the counter and the faucet pushed back. Hand-tighten the nut against the washer.', 132)
+para('Keep the neck-joint drain opening entirely over the bowl and uncovered.', RIGHT, 244, RW, 11, 14, limit=28)
+mounting_slots()
 end()
 
 # Interior 9
@@ -485,7 +648,7 @@ end()
 # Interior 17
 header('Match the rear connections', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
 p = pic('steps/the-back-face.png', M, 148, 282, 253, crop=(565, 40, 1565, 855))
-leader('Faucet cable', M, 414, p(1099.540, 497.072))
+leader('DATA / Faucet cable', M, 414, p(*resolutions['steps/the-back-face.png']['anchors_reference_pixels']['jack-port']))
 para('Pull off the <b>CO2 and TAP shipping caps.</b> They cover the fittings; leave the fittings mounted.', RIGHT, 136, RW, 12, 17, limit=68)
 rows = [('CO2', 'Red tube from the cylinder', '#D7333C', '#FFFFFF'),
         ('SODA', 'Blue tube from the faucet', '#1670DB', '#FFFFFF'),
@@ -504,7 +667,7 @@ header('Push home. Then tug.', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
 pic('steps/connect-rear-open.png', M, 155, 283, 183, crop=(195, 160, 1350, 880))
 caption('Push straight into the fitting, all the way to its stop.', 362)
 item('CHECK EVERY TUBE', 'Push to its stop', 'Match each tube label to its port. A fitting can grip before the tube reaches the seal. Push fully home, then tug gently.', 144)
-para('<b>Click the faucet cable into its jack.</b><br/><br/>Leave the DRAIN tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
+para('<b>Click the faucet cable into DATA.</b><br/><br/>Leave the DRAIN tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
 end()
 
 # Interior 19
@@ -684,6 +847,7 @@ im.save(DIR/'install-guide.cover.png')
 ), indent=2)+'\n')
 (OUT/'layout-checks.json').write_text(json.dumps(checks, indent=2)+'\n')
 (OUT/'image-checks.json').write_text(json.dumps(image_checks, indent=2)+'\n')
+(OUT/'mount-slot-checks.json').write_text(json.dumps(mount_slot_checks, indent=2)+'\n')
 (OUT/'page-plan.json').write_text(json.dumps(dict(interior_pages=32, titles=titles), indent=2)+'\n')
 print(f'{PDF}: 32 interior pages + covers, {PDF.stat().st_size//1024} KB')
 make_order_bundle(PRESS_DIR, ROOT/'output/pdf')

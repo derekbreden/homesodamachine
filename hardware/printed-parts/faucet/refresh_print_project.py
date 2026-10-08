@@ -25,7 +25,6 @@ REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 SETTINGS_MEMBER = "Metadata/project_settings.config"
 ET.register_namespace("", CORE)
 ET.register_namespace("p", PROD)
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HERE / "faucet-shell"))
 import faucet_shell as shell
 

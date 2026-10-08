@@ -51,7 +51,7 @@ the [print workflow](vent-print-readiness/README.md), then finalize:
 tools/cad-venv/bin/python hardware/printed-parts/faucet/finalize_vent_prints.py rigid
 ```
 
-The native slice estimates 4 h 42 min 43 s and 127.54 g using the saved profile
+The native slice estimates 4 h 37 min 27 s and 127.29 g using the saved profile
 density. Its complete emitted model/support/brim envelope has 26.30 mm minimum
 usable-bed clearance; separate part toolpaths have 37.67 mm minimum clearance.
 The [readiness record](faucet-petgf.readiness.json) binds the current source,
@@ -60,7 +60,7 @@ connects to a printer.
 
 | Part | Support removal |
 | --- | --- |
-| Base | Cut the tree into short fragments and remove through the counter-end, donor bay and lever opening. Clear all insert pilots and locating sockets. |
+| Base | Cut the tree into short fragments and remove through the counter-end, common rear tube opening, donor bay and lever opening. Clear all insert pilots and locating sockets; the flat ribbon must pass freely behind the F1-D-F2 bundle. |
 | Tip | Release the tree through the joint, 12 × 22 mm bottom port and display pocket. Clear both gland grooves, seats and lips, then all dry tube/wire guides before inserting bungs. |
 | Cover | Remove through the underside before fitting the display. Retain the broad wings and their lip-bearing surfaces. |
 | Plate | Remove each counterbore support through its screw-head opening while retaining the screw seat. |
@@ -72,7 +72,7 @@ bodies, including those without interface labels. The
 locate the emitted support paths. The
 [lower-guide review](faucet-petgf.lower-supports.json) retains
 [base sections](vent-print-readiness/faucet-black-z018-h2c/native-lower-support-sections.png)
-for cleanup around the cable relief and pedestal sockets. Accessible geometry
+for cleanup around the shared rear passage and pedestal sockets. Accessible geometry
 does not establish physical release or deposited sealing finish. The
 [factory seal sequence](asse-vent-seals/README.md) follows support cleanup.
 

@@ -1,28 +1,28 @@
 {
   "status": "ready to print; native geometry and support access reviewed",
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "2b86a605f408be5dec9f6a25a6c1b76d57ce8e8d2167d94e753c09d9655100e5",
+  "project_sha256": "63fa0369c4c0d6eaa32429fdb3e59e148c2591420092db4be4ce8a6a8faa497c",
   "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "print_report_sha256": "814438bf5d718d4fdc29712431086a9a2a654c79afb5921a1e61e7d86992348f",
+  "print_report_sha256": "7ed8be352ea1db4d41abddc02c5126f2821e36ad8f92e7dc88e945a65bc233ec",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "af078d8ca607ebdff3d33a41a1748dfcecc033a8fee20f263be3d72d9916529a",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
-    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "7004c418a63cf861b86886421d18249c5af84757016224c36aa89f0be75bd052"
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d"
   },
   "native": {
     "archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-black-z018-h2c/faucet-black-z018-h2c.gcode.3mf",
-    "archive_sha256": "fb28aee615a4d6622891dc50f99b109ad758ed34e4b85c2b5be5def84938797a",
-    "gcode_sha256": "2fe58a788e031f5654eda9a08adaab69fdf7eda4fe0543d67976c5bd305ae591",
+    "archive_sha256": "071d4f62727df49858b70ee33cbd3cb37b9a7ac36a4c5838738f22cedacfd63e",
+    "gcode_sha256": "c10eb8fb99d50342a028e8cb818a6a5946dde9012e52b960aeb481c371dd6b4d",
     "native_settings_normalizations": {
       "filament_map_2": [
         null,
@@ -53,19 +53,19 @@
     "active_nozzle": 0,
     "nozzle_diameter_mm": 0.4,
     "layers": 916,
-    "estimated_seconds": 16962.865234375,
-    "estimated_grams_saved_profile_density": 127.54161834716797,
+    "estimated_seconds": 16583.634765625,
+    "estimated_grams_saved_profile_density": 127.98046112060547,
     "slicer_return_code": 0,
     "slicer_warning": "",
     "objects": 4
   },
-  "support_audit_sha256": "ac14875adf2c90c83b3e1ff98c6b28ac93ce387393a44ef6b57bd34b759b3a50",
+  "support_audit_sha256": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
   "fit": {
     "minimum_shared_bed_margin_mm": 26.330810499999984,
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
-          49.136939999999996,
+          49.020939999999996,
           78.22794
         ],
         [
@@ -77,42 +77,42 @@
       "bounds_padding_mm": 0.48306000000000004
     },
     "complete_layer_bead_minimum_bed_margin_mm": 26.295939999999973,
-    "minimum_toolpath_separation_mm": 37.66907699999999,
+    "minimum_toolpath_separation_mm": 37.671689500000014,
     "pairwise_toolpath_separations": [
       {
         "parts": [
           "faucet-shell-base",
           "faucet-shell-tip"
         ],
-        "separation_mm": 52.656017000000006
+        "separation_mm": 52.88462950000003
       },
       {
         "parts": [
           "faucet-shell-base",
           "faucet-display-cover"
         ],
-        "separation_mm": 124.28489588844455
+        "separation_mm": 124.50243195904449
       },
       {
         "parts": [
           "faucet-shell-tip",
           "faucet-display-cover"
         ],
-        "separation_mm": 40.83088749999999
+        "separation_mm": 40.833500000000015
       },
       {
         "parts": [
           "faucet-shell-base",
           "above-counter-plate"
         ],
-        "separation_mm": 60.21394000000002
+        "separation_mm": 60.43994000000002
       },
       {
         "parts": [
           "faucet-shell-tip",
           "above-counter-plate"
         ],
-        "separation_mm": 37.66907699999999
+        "separation_mm": 37.671689500000014
       },
       {
         "parts": [
@@ -125,13 +125,13 @@
   },
   "support_summary": {
     "faucet-shell-base": {
-      "support_bodies": 1,
-      "interface_islands": 23,
+      "support_bodies": 2,
+      "interface_islands": null,
       "bed_rooted_bodies": 1,
-      "model_rooted_bodies": 0,
-      "shortest_build_up_mm": 0.0,
-      "bodies_without_interface_labels": 0,
-      "explicit_interface_islands": 23,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 21,
       "shortest_labelled_build_up_mm": 0.0
     },
     "faucet-shell-tip": {
@@ -167,15 +167,14 @@
   },
   "submitted": false,
   "physical_print_evaluated": false,
-  "geometry_review_pending": false,
   "review_sha256": {
-    "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json": "f378c48c19e1ae7f306edc7bf86b8f83d3fecb9eb70bad6db71032fb7bb2114d",
-    "hardware/printed-parts/faucet/faucet-petgf.support-faces.json": "c5d14574b73e51ffe62ea64385dbdde89960edae129a811fa0ac5c6d24117386",
-    "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json": "3ddb5e61e6b41ce69b11389eedbc326391a2bb1cef93bac4e899af8864c62fb2"
+    "hardware/printed-parts/faucet/faucet-petgf.insert-beads.json": "c100c1dd691a1a0184b71f48159ffd84baa20d5ea50e42dc951adf2cd72c90eb",
+    "hardware/printed-parts/faucet/faucet-petgf.support-faces.json": "8df825cff5ac9c4cdc11811ead89af9265169901a37b954d7ec67ca0a2084376",
+    "hardware/printed-parts/faucet/faucet-petgf.lower-supports.json": "305c3143e271cfbc66da59582bbe7f6af2cba00c67a11ceb9e1c0d74e1ee6c2c"
   },
   "cleanup_route": [
     "Base: cut sacrificial trees into short pieces and withdraw through the counter-end, donor bay and lever opening. Clear all three insert pilots and pedestal sockets before installing brass.",
-    "Lower cable route: remove turn-roof fragments through the shared donor/flavor opening. The actual ribbon must pass freely before the mounting stack closes.",
+    "Lower cable route: remove supports through the common rear tube opening and open counter end. The flat ribbon must pass freely behind the flavor/drain bundle before the mounting stack closes.",
     "Tip: release the connected tree through the open neck joint, the 12 by 22 mm bottom discharge port and the open display pocket. Remove cavity fragments before either bung is installed. Clear both gland lips, body seats and flange grooves; preserve their modeled edge and radius.",
     "Continue through the dry S/F/ribbon guides from the joint and beverage/display ends. The source removes inaccessible interstice needles. Pass each actual tube freely before installing the bungs.",
     "Cover: remove supports through the open underside before the display is fitted; retain the bezel, broad snap wings and their lip-bearing faces.",
@@ -183,9 +182,10 @@
     "Brush and rinse away loose fragments. Visually inspect gland seats through the open joint and bottom port; no support stock may remain in a tube guide, seal groove or drain opening."
   ],
   "review_scope": "Native meshes, process, placement, nominal insert-host deposition and geometrically accessible support cleanup. Actual support release, surface finish, insert retention and assembled lifetime remain physical acceptance items.",
-  "finalization_script_sha256": "e251969abd044e449e960a3b280d9c69fbaaa7653cfb0a1c0199f7b439e3ef64",
+  "finalization_script_sha256": "79c1691477d8a947c9b1daaf5bad428e9b444ceabec12eb7716207c2d25c5601",
   "consumer_assembly_qualified": false,
+  "geometry_review_pending": false,
   "geometry_approval_sha256": {
-    "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "8e0a6f31b7f04c2ffe0aacd2af5bdbd112cb50f6e65e1a59d524d1ab3945e3e7"
+    "hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json": "95d52bdcfb51e353183111bcf1b26f35fc2df506ea5955ceaed9f678f30f3bbe"
   }
 }

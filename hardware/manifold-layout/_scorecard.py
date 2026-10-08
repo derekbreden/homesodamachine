@@ -48,6 +48,7 @@ import _clearing                                       # noqa: E402
 import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
 import _gas_chain                                      # noqa: E402
+import _drain                                          # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 
@@ -303,11 +304,12 @@ MOUNTS = (
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
     # square to the axis and the brass barrel is trapped between two of them. What the V beds on
     # is that barrel's own two flats, which is the one section on the run whose clock the vent is
-    # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
+    # machined into — so keying it holds the connected vent hose upright. Two zip ties through the
     # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
     ("bulkhead-drain", "enclosure-back-top", "bulkhead"),
-    ("drain-barb-adapter", "asse1022-assembly", "hose"),
+    ("hose-drain-vent", "asse1022-assembly", "hose"),
+    ("drain-barb-adapter", "hose-drain-vent", "hose"),
     ("drain-elbow", "drain-barb-adapter", "push-fit"),
     ("drain-stem-reducer", "drain-elbow", "push-fit"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
@@ -345,6 +347,8 @@ MOUNTS = (
     ("bulkhead-drain", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
+    ("data-ring", "enclosure-back-top", "snap"),
+    ("data-ring-word", "data-ring", "well"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
     # The check's round inlet boss takes its own tied ceiling cradle. Its connecting tubes
     # bend between the fixed regulator and the cold core and do not locate the valve.
@@ -442,6 +446,7 @@ RIDES = {
     **{f"coil-v-{v}": f"valve-v-{v}" for v in "abcdefghij"},
     **{f"pump-{p}-{part}": f"pump-{p}-head"
        for p in ("a", "b") for part in ("boss", "motor")},
+    "data-ring-word": "data-ring",
     **{f"bulkhead-ring-{w}-word": f"bulkhead-ring-{w}"
        for w in ("water", "carb", "co2", "flavor-a", "flavor-b", "drain")},
     "nameplate-ink": "nameplate",
@@ -643,6 +648,7 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
     ("funnel-cover", "funnel"),
+    ("funnel-cover", "funnel-frame"),
     ("funnel-cover", "enclosure-front-top"),
     ("funnel-cover", "enclosure-back-top"),
     # A return spring's ends: one on its pocket's floor in the tee wall, one on its bore's floor.
@@ -701,6 +707,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("bulkhead-carb", "bulkhead-ring-carb"),
     ("bulkhead-drain", "bulkhead-ring-drain"),
     ("asse1022-assembly", "drain-barb-adapter"),
+    ("asse1022-assembly", "hose-drain-vent"),
+    ("drain-barb-adapter", "hose-drain-vent"),
     ("drain-barb-adapter", "drain-elbow"),
     ("drain-elbow", "drain-stem-reducer"),
     ("co2-inlet", "bulkhead-ring-co2"),
@@ -717,6 +725,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
+    ("data-ring", "data-ring-word"),
     # The grip covers' wings and backs retain their running clearances within the bottom halves.
     *((cover, wall) for cover in ("grip-cover-east", "grip-cover-west")
                    for wall in ("enclosure-front-bottom", "enclosure-back-bottom")),
@@ -1103,6 +1112,17 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("funnel-drain-stub", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
+    hose_pair = frozenset(("hose-drain-vent", "drain-barb-adapter"))
+    if any(frozenset((hit.a, hit.b)) == hose_pair for hit in bad):
+        try:
+            reading = _drain.hose_barb_contact(
+                bodies["hose-drain-vent"], bodies["drain-barb-adapter"])
+            a.vent_hose_contact_reading = reading
+            if reading["pass"]:
+                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != hose_pair]
+        except Exception as exc:
+            unanswered.append(("hose-drain-vent", "drain-barb-adapter",
+                               "inserted barb contact: " + str(exc).splitlines()[0]))
     cover_pair = frozenset(("funnel-cover", "funnel"))
     if any(frozenset((hit.a, hit.b)) == cover_pair for hit in bad):
         try:
@@ -1134,6 +1154,10 @@ def _pack_closes(a) -> Check:
         detail.append(
             f"Drain stub in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
             f"seal's ring, {seal['outside_land_mm3']:.6f} mm³ outside it")
+    if hose := getattr(a, "vent_hose_contact_reading", None):
+        detail.append(
+            f"Vent hose on its inserted barb: {hose['nominal_hose_expansion_contact_mm3']:.3f} mm³ "
+            f"nominal expansion contact, {hose['outside_inserted_barb_mm3']:.6f} mm³ outside it")
     return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
                  verdict(not bad and not unanswered), f"{len(bad)} clash, {len(unanswered)} unanswered",
                  "0 clash, 0 unanswered", detail)

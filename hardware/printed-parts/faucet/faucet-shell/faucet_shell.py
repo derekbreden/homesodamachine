@@ -820,6 +820,24 @@ def build_flavor_transition_inner_cut():
            _tube_envelope("flavor", flavor_tube_hole_dia, zone3_z_bottom-0.5, -1))
 
 
+def build_flavor_entry_relief():
+    """Taper each lower bore mouth before its curved return begins."""
+    z0, z1 = zone3_z_bottom - 0.5, _paths.LOWER_START_Z
+    if z1 <= z0:
+        raise ValueError("The flavor bore entry must precede the lower return")
+    cutters = []
+    for sign in (1, -1):
+        origin = _paths.lower_point(z0, "flavor", sign)
+        end = _paths.lower_point(z1, "flavor", sign)
+        if math.dist(origin[:2], end[:2]) > 1e-7:
+            raise ValueError("The flavor bore entry must remain vertical")
+        cutters.append(cq.Solid.makeCone(
+            flavor_tube_hole_dia / 2.0 + 0.05,
+            flavor_tube_hole_dia / 2.0,
+            z1 - z0, cq.Vector(*origin), cq.Vector(0, 0, 1)))
+    return cq.Workplane(obj=cq.Compound.makeCompound(cutters))
+
+
 def _ribbon_section(point, tangent, width, clearance):
     plane=cq.Plane(origin=point,xDir=(1,0,0),normal=tangent)
     wp=cq.Workplane(plane)
@@ -1747,8 +1765,13 @@ def build_shell_base(full_shell=None):
     outer_band=_build_bend_overlap(_tube_shell_outer_sketch(),side="socket")
     plug_core=_build_bend_overlap(_tube_shell_outer_shrunk_sketch(split_plug_shrink),side="socket")
     # Eighteen millimetres of male land; two millimetres of axial relief at its end.
-    base=full.intersect(below).cut(outer_band.cut(plug_core))
-    return base.clean()
+    base=full.intersect(below).cut(outer_band.cut(plug_core)).clean()
+    # Apply the local mouth relief to the lower print after the shared neck
+    # has been split. Preserve its native tapered boundary after this cut.
+    base=base.val().cut(build_flavor_entry_relief().val())
+    if not base.isValid() or len(base.Solids()) != 1:
+        raise ValueError("The relieved faucet base must be one valid solid")
+    return cq.Workplane(obj=base)
 
 
 def build_shell_tip(full_shell=None):

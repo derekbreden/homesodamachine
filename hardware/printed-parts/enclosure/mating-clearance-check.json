@@ -1,10 +1,10 @@
 {
   "status": "pass",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "919178e182b5b33d227d60dc5b3394d4c1050a79146d0ce09a6b67b71d81968c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "430d3a813cd4c754796de4063637783a0dd119c587444dedd8b4b283755de19a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "1502b8b5e89214bb98c32bdc1b0cfaa32f88359629fd671c8adbc57d0135c7c5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb"
   },
   "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
   "checked_patches": 53,
@@ -364,7 +364,7 @@
         -6.0,
         -90.5,
         214.55,
-        -3.2499999999999813
+        -3.249999999999982
       ]
     },
     {
@@ -381,11 +381,11 @@
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 3.501839828205002,
+      "area_mm2": 3.5018398282050045,
       "center_mm": [
         90.25,
-        215.68214886979936,
-        -0.8821488698003309
+        215.68214886979933,
+        -0.8821488698003316
       ],
       "normal_from_first": [
         1.0,
@@ -670,7 +670,7 @@
         -6.0,
         90.5,
         214.55,
-        -3.2499999999999813
+        -3.249999999999982
       ]
     },
     {
@@ -687,11 +687,11 @@
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 3.501839828205002,
+      "area_mm2": 3.5018398282050045,
       "center_mm": [
         -90.25,
-        215.68214886979936,
-        -0.8821488698003309
+        215.68214886979933,
+        -0.8821488698003316
       ],
       "normal_from_first": [
         -1.0,
@@ -750,16 +750,16 @@
         12,
         9
       ],
-      "gap_mm": 0.25000000000475725,
+      "gap_mm": 0.2500000000047569,
       "minimum_mm": 0.25,
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 1486.4682880491994,
+      "area_mm2": 1486.4682880491998,
       "center_mm": [
-        8.628032285371813e-16,
-        214.53483495705,
-        -2.9116116523499915
+        -1.7256064570743552e-15,
+        214.53483495704998,
+        -2.911611652349992
       ],
       "normal_from_first": [
         -0.0,
@@ -792,7 +792,7 @@
       "area_mm2": 309.06999999999994,
       "center_mm": [
         -101.0,
-        160.093,
+        160.09300000000002,
         169.2
       ],
       "normal_from_first": [
@@ -826,7 +826,7 @@
       "area_mm2": 309.06999999999994,
       "center_mm": [
         101.0,
-        160.093,
+        160.09300000000002,
         169.2
       ],
       "normal_from_first": [
@@ -1132,7 +1132,7 @@
       "area_mm2": 5746.216191713108,
       "center_mm": [
         -6.900883585704024e-14,
-        68.91404906862793,
+        68.91404906862796,
         160.0
       ],
       "normal_from_first": [
@@ -1156,7 +1156,7 @@
       ],
       "face_indices": [
         1704,
-        19
+        15
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
@@ -1190,14 +1190,14 @@
       ],
       "face_indices": [
         1706,
-        22
+        18
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 2,
-      "area_mm2": 628.1000000000039,
+      "area_mm2": 628.1000000000037,
       "center_mm": [
         -100.99469298943905,
         392.61084912169014,
@@ -1224,14 +1224,14 @@
       ],
       "face_indices": [
         1722,
-        160
+        135
       ],
       "gap_mm": 0.75,
       "minimum_mm": 0.75,
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 2,
-      "area_mm2": 1158.100000000004,
+      "area_mm2": 1158.1000000000035,
       "center_mm": [
         100.99712172236134,
         339.6104605244226,
@@ -1258,7 +1258,7 @@
       ],
       "face_indices": [
         1563,
-        26
+        22
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1292,7 +1292,7 @@
       ],
       "face_indices": [
         1565,
-        503
+        500
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1326,7 +1326,7 @@
       ],
       "face_indices": [
         1564,
-        27
+        23
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1360,7 +1360,7 @@
       ],
       "face_indices": [
         1700,
-        44
+        35
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1394,7 +1394,7 @@
       ],
       "face_indices": [
         1557,
-        21
+        17
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1428,7 +1428,7 @@
       ],
       "face_indices": [
         1699,
-        20
+        16
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1462,7 +1462,7 @@
       ],
       "face_indices": [
         1701,
-        18
+        14
       ],
       "gap_mm": 0.2500000000000142,
       "minimum_mm": 0.25,
@@ -1496,7 +1496,7 @@
       ],
       "face_indices": [
         1705,
-        20
+        16
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1540,7 +1540,7 @@
       "area_mm2": 4745.794482503021,
       "center_mm": [
         22.299827856047912,
-        389.517686749507,
+        389.5176867495069,
         160.0
       ],
       "normal_from_first": [
@@ -1598,7 +1598,7 @@
       ],
       "face_indices": [
         1702,
-        47
+        38
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1632,7 +1632,7 @@
       ],
       "face_indices": [
         1720,
-        218
+        194
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1666,7 +1666,7 @@
       ],
       "face_indices": [
         210,
-        40
+        31
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1700,7 +1700,7 @@
       ],
       "face_indices": [
         265,
-        21
+        17
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1734,7 +1734,7 @@
       ],
       "face_indices": [
         338,
-        162
+        137
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1768,7 +1768,7 @@
       ],
       "face_indices": [
         339,
-        41
+        32
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1904,7 +1904,7 @@
       ],
       "face_indices": [
         24,
-        29
+        25
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -1938,7 +1938,7 @@
       ],
       "face_indices": [
         67,
-        29
+        25
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -1972,7 +1972,7 @@
       ],
       "face_indices": [
         69,
-        29
+        25
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,
@@ -2006,7 +2006,7 @@
       ],
       "face_indices": [
         209,
-        28
+        24
       ],
       "gap_mm": 0.25,
       "minimum_mm": 0.25,
@@ -2040,7 +2040,7 @@
       ],
       "face_indices": [
         337,
-        26
+        22
       ],
       "gap_mm": 0.0,
       "minimum_mm": 0.0,

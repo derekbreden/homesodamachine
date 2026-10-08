@@ -1110,7 +1110,7 @@ c14_wall_relief_h = c14_bore_h + 2.0 * back_top_wall_t
 # wall beyond them. The aperture and both insert stations lie inside the relieved field and
 # their cutters still run after the tunnel is fused.
 back_top_wall_reliefs = (
-    ("co2-inlet", 2.45, back_top_port_row_z - co2_axis_drop, 30.0, 30.0),  # the neoFit's nut across its
+    ("co2-inlet", -3.35, back_top_port_row_z - co2_axis_drop, 30.0, 30.0),  # the neoFit's nut across its
                                                   # corners, on
                                                   # enclosure_assembly.CO2_COLUMN (`co2-relief`)
     ("c14-inlet", c14_station_x, back_top_port_row_z,
@@ -1740,6 +1740,7 @@ pull_edge_r = handhold_edge_r
 PortField = namedtuple("PortField", "proud rim pockets")
 from _nameplate_interface import Nameplate
 import _nameplate_wing_interface as _nameplate_fit
+import _data_wing_interface as _data_fit
 
 
 Box = namedtuple(
@@ -3185,7 +3186,9 @@ def flute_rails(box, berthed=()):
                               length=plan_perimeter(outer),
                               plain=((disposal_field(outer),) +
                                      (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
-                                      if box.pack.nameplate else ())))]
+                                      if box.pack.nameplate else ()) +
+                                     (_data_fit.plain_lips(box.pack.keystone,outer[3])
+                                      if box.pack.keystone else ())))]
     if box.pump_bay and box.pack.collet_plate:
         segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
@@ -8708,7 +8711,7 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
     x, z = station
     if not z0 <= z <= z1:
         return None
-    y_face = outer[3]
+    y_face = outer[3] - _data_fit.THICK
     block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
     if block is not None:
         # Preserve the receptacle's three-millimetre surrounding section after applying
@@ -8734,6 +8737,21 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         feature = feature.intersect(below_ceiling)
         if catches is not None:
             catches = catches.intersect(below_ceiling)
+    if block is not None:
+        # Full surrounding stock joins the recessed receptacle to the actual wall.
+        # Only its two three-millimetre side cheeks carry the longer run-out;
+        # the complete central roof retains the receiver's own corbel.
+        b=block.BoundingBox()
+        root=outer[3]-back_wall_t_at(x,z)
+        if root>b.ymax:
+            extension=_ybox(b.xmin,b.xmax,b.ymax-.01,root+.01,b.zmin,b.zmax)
+            feature=feature.fuse(_supported_cut(extension,up))
+            edge=b.zmin if up>0 else b.zmax
+            for xa,xb in ((b.xmin,x-pw/2),(x+pw/2,b.xmax)):
+                cheek=_yz_prism(xa,xb,[(root,edge),(b.ymin,edge),
+                                           (root,edge-up*(root-b.ymin))])
+                feature=feature.fuse(cheek)
+            feature=feature.intersect(below_ceiling)
     cutter, _bands = _keystone_pocket_cut(x, z, y_face)
     if catches is not None:
         catches = _keystone_catches(catches, up)
@@ -8906,6 +8924,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # The port field: its pockets are cut into the wall's outer face, so the face the
         # customer meets is flush, and its bores run past the deepest nut land — a bore that
         # crosses the wall crosses the whole station.
+        if box.pack.keystone is not None and zlo <= box.pack.keystone[1] <= zhi:
+            piece = _data_fit.apply(piece, box.pack.keystone, oy1, up=up)
         piece = _port_field(piece, box.pack.port_field, box.pack.back_ports, oy1,
                             None if rear is None else back_wall_t_at, up=up)
         # And the C14's tunnel, on whichever piece holds its two stations. Last on this wall

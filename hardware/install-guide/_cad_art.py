@@ -78,7 +78,6 @@ CONNECT_CROP = (0, 650, 1350, 1800)
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
-os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 from _cadq_export import _per_solid_color, _write_mesh_payload, note_read, note_write  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 
@@ -303,6 +302,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         )
         return washer, nut
 
+    signal_geometry = None
+
     def signal_ribbon(lift_z: float):
         """The actual fitted SIG-6 route, with its free tail continued below the slab.
 
@@ -310,26 +311,27 @@ def _build_steps(work: Path) -> dict[str, Path]:
         distinguish its exposed flat tail from the adjacent round flavor lines; they are an
         illustration texture, not conductor geometry.
         """
-        shell = fa.faucet_shell
-        ribbon_bottom_z = -123.0
-        ribbon_length = 73.5
-        tail = (
-            cq.Workplane("XY")
-            .workplane(offset=ribbon_bottom_z)
-            .center(shell.signal_lower_exit_x, shell.signal_lower_exit_y)
-            .rect(shell.signal_ribbon_max_width, shell.signal_ribbon_max_depth)
-            .extrude(ribbon_length)
-        )
-        ribbon = parts["display_signal_ribbon"].obj.union(tail).translate((0.0, 0.0, lift_z))
-        stripes = (
-            cq.Workplane("XY")
-            .workplane(offset=ribbon_bottom_z + lift_z)
-            .center(shell.signal_lower_exit_x,
-                    shell.signal_lower_exit_y - shell.signal_ribbon_max_depth / 2.0 - 0.04)
-            .pushPoints([(-1.05, 0.0), (0.0, 0.0), (1.05, 0.0)])
-            .rect(0.24, 0.08)
-            .extrude(ribbon_length)
-        )
+        nonlocal signal_geometry
+        if signal_geometry is None:
+            shell = fa.faucet_shell
+            # The free tail shares the actual positive-flavor R30 return below
+            # the steel, then continues down its union lane within this frame.
+            path = fa._step_path(+1, -123.0)
+            origin = (shell.signal_lower_exit_x, shell.signal_lower_exit_y,
+                      fa.under_counter_plate_bottom_z)
+            tail = (cq.Workplane("XY")
+                    .rect(shell.signal_ribbon_max_width, shell.signal_ribbon_max_depth)
+                    .sweep(path, transition="round").translate(origin))
+            ribbon = parts["display_signal_ribbon"].obj.union(tail)
+            stripes = (cq.Workplane("XY")
+                       .pushPoints([(-1.05, 0.0), (0.0, 0.0), (1.05, 0.0)])
+                       .rect(0.24, 0.08).sweep(path, transition="round")
+                       .translate((origin[0], origin[1]
+                                   - shell.signal_ribbon_max_depth / 2.0 - 0.04,
+                                   origin[2])))
+            signal_geometry = ribbon, stripes
+        ribbon, stripes = (_moved(obj, (0.0, 0.0, lift_z))
+                           for obj in signal_geometry)
         return _clip_z(ribbon, *mount_clip), _clip_z(stripes, *mount_clip)
 
     def add_render_frame(out: cq.Assembly):
@@ -538,7 +540,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
 
 def _build_connection_steps(work: Path) -> dict[str, Path]:
-    """Build the two rear connection states as literal, fixed-camera CAD scenes.
+    """Build the rear face and two connection states as literal CAD scenes.
 
     The appliance exterior and every connection station come from the current enclosure STEP and
     its generated facts.  All six tube collars are production solids, including their recessed
@@ -569,6 +571,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     exact_names = {
         "c14-inlet",
         "keystone-jack",
+        "data-ring",
+        "data-ring-word",
         "co2-inlet",
         "bulkhead-water",
         "bulkhead-flavor-a",
@@ -733,10 +737,10 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             color=collar_word_colors[which],
         )
 
-    # The jack's face is the enclosure's exact +Y outer plane.  Its opening is centred 1 mm below
-    # the keystone show-face station in the production reference model.
+    # The jack's face is recessed behind the DATA trim. Its opening is centred
+    # 1 mm below the keystone show-face station in the production reference model.
     jack_x, jack_station_z = facts["constants"]["KEYSTONE_STATION"]
-    jack_face_y = facts["box"]["outer"][3]
+    jack_face_y = facts["bodies"]["keystone-jack"][4]
     jack_port_z = jack_station_z - 1.0
     plug_w = 9.0
     plug_h = 6.45
@@ -830,6 +834,10 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         )
         return _export_colored(scene, work / f"{name}.step", mesh=True)
 
+    rear = cq.Assembly(name="the-back-face")
+    for child in rear_children:
+        rear.add(child)
+    rear_step = _export_colored(rear, work / "the-back-face.step", mesh=True)
     open_step = state("connect-rear-open", CONNECT_OPEN_GAP)
     connected_step = state("connect-rear-connected", 0.0)
 
@@ -840,7 +848,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
 
     source_meshes = flute_payload.read_payload(MACHINE_MESH) or []
     exact_meshes = {entry["name"]: entry for entry in source_meshes}
-    for step in (open_step, connected_step):
+    for step in (rear_step, open_step, connected_step):
         mesh = Path(str(step) + ".mesh")
         landed = flute_payload.graft(mesh, exact_meshes)
         if landed < 3:
@@ -849,6 +857,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             )
 
     return {
+        "the-back-face": rear_step,
         "connect-rear-open": open_step,
         "connect-rear-connected": connected_step,
     }
