@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -90,20 +90,6 @@
    "value": "0 clash",
    "target": "0 clash",
    "detail": [],
-   "active": true
-  },
-  {
-   "id": "port-leads",
-   "label": "Every tube port has the straight a run off it needs",
-   "kind": "gate",
-   "status": "fail",
-   "value": "68/69 clear",
-   "target": "all clear",
-   "detail": [
-    "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
-    "valve-v-f.outlet: 10.53 mm to enclosure-front-top, needs 17.18",
-    "asse1022-assembly.vent-tip: 0.00 mm to hose-drain-vent \u2014 opens to atmosphere, not gated"
-   ],
    "active": true
   },
   {

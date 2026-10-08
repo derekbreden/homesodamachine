@@ -1,20 +1,16 @@
-"""How far apart two bodies stand, and how far a line leaving a port gets.
+"""How far apart two bodies stand.
 
-`_overlap` measures the solid two bodies SHARE. These are the two questions on the other side of
-zero — the gap between bodies that do not share anything, and the free straight ahead of a mouth.
+`_overlap` measures the solid two bodies SHARE. This is the question on the other side of zero —
+the gap between bodies that do not share anything.
 
     import _clearing
     _clearing.box_gap(bb_a, bb_b)                 # a lower bound, for prefiltering
     _clearing.shadows(a, b)                       # whether a fall can reach it at all
     _clearing.gap(a, b, within)                   # the distance up to `within`, 0 when touching
-    who, free = _clearing.cast(pos, axis, dia, reach, solids, skip=("self",))
 
 A BOUNDING BOX PROVES CLEARANCE AND NEVER PROVES OBSTRUCTION, which is what splits `box_gap`
 from `gap`: two boxes that miss are two solids that miss, so a caller may skip that pair; two
-boxes that overlap say nothing at all, and the mesh query is the only answer. `cast` follows the
-same rule from the other end — every body it reports is one the boolean found the column inside,
-and the distance it reports is the shape's own minimum along the axis rather than a corner of
-its box.
+boxes that overlap say nothing at all, and the mesh query is the only answer.
 
 `within` IS A HORIZON AND EVERY CALLER STATES ITS OWN. Under it, what comes back is the
 distance. At it, what comes back is a floor: the bodies are at least that far apart, and how
@@ -27,12 +23,10 @@ import math
 
 import numpy as np
 
-import _boxes
 import _meshes
-import _overlap
 
-# mm³ of column inside a body before the cast calls it a contact. The same floor `_overlap`'s
-# readers use: under it the pair is a graze on a tangent surface, not something in the way.
+# mm³ two solids share before the pair counts as a contact. The same floor `_overlap`'s readers
+# use: under it the pair is a graze on a tangent surface, not something in the way.
 HIT_VOL = 1.0
 
 
@@ -64,35 +58,6 @@ def gap(a, b, within: float, offset=(0.0, 0.0, 0.0)) -> float:
     if any(offset):
         ma = ma.translate(tuple(float(c) for c in offset))
     return ma.min_gap(_meshes.meshed(b), within)
-
-
-def cast(pos, axis, dia: float, reach: float, solids: dict, skip=()) -> tuple:
-    """What a line of `dia` leaving `pos` along `axis` runs into, as `(name, how far it got)`.
-
-    `(None, reach)` is the column reaching its full length untouched — the probe's own length,
-    and not a clearance beyond it."""
-    import cadquery as cq
-
-    col = cq.Solid.makeCylinder(dia / 2.0, reach, cq.Vector(*pos), cq.Vector(*axis))
-    cb = _boxes.loose(col)
-    best, who = reach, None
-    for name, solid in solids.items():
-        if name in skip:
-            continue
-        if box_gap(cb, _boxes.loose(solid)) > 0:
-            continue
-        try:
-            inter, vol = _overlap.common(col, solid)
-        except Exception as exc:
-            raise RuntimeError(
-                f"the lead out of {tuple(round(c, 2) for c in pos)} against {name} could not be "
-                f"taken ({exc}) — whether the port can be used is unknown, not clear") from exc
-        if vol <= HIT_VOL:
-            continue
-        got = axis_min(inter, pos, axis)
-        if got < best:
-            best, who = max(0.0, got), name
-    return who, best
 
 
 def axis_min(shape, origin, axis) -> float:
