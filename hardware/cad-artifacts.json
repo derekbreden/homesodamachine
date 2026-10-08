@@ -2749,17 +2749,6 @@
       "future/weld-positioning-study/sourcing/who-moves-what.md",
       "future/weld-positioning-study/sourcing/work-as-datum.md",
       "future/weld-positioning-study/sourcing/workspace-as-structure.md",
-      "hardware/manifold-layout/drain-clearance-check.json",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/manifold-layout/enclosure_assembly.py",
-      "hardware/printed-parts/drain-readiness/prepare.py",
-      "hardware/printed-parts/drain-readiness/review_native.py",
-      "hardware/printed-parts/enclosure/data-ring/check_fit.py",
-      "hardware/printed-parts/enclosure/data-ring/data_ring.py",
-      "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
-      "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/faucet/asse-vent-seals/check_free_seal_binding.py",
       "hardware/printed-parts/faucet/asse-vent-seals/flared-lower-path-scope-check.json",
       "hardware/printed-parts/faucet/asse-vent-seals/free-seal-binding-witness-45eae6821c04.json",
@@ -2799,8 +2788,7 @@
       "output/xlaserlab-sup29f-xh/xlaserlab-sup29f-xh.glb",
       "output/xlaserlab-sup29f-xh/xlaserlab-sup29f-xh.stl",
       "platformio.ini",
-      "result.json",
-      "tools/bazel/graph.json"
+      "result.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -5333,7 +5321,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "9778aa61d8b8bf9880dcb2bf1e9bf967d0e857e142a29a297a08de1c01cbda44",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "4626d9e84cd2f0725c4b9c88f66760496ed28d91f805a8b577bfaa3be504ee06",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125"
   },
   "moved": {
