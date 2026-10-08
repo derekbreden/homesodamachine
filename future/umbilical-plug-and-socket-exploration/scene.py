@@ -3,7 +3,7 @@ mated, and the plug in the countertop hole, each with its viewer payload, into `
 
 Four John Guest PP0408W unions (reference/jg-pp0408w, Ø15.1) side by side at one depth, 8.5 mm of
 PET-GF in front of their collets, the YYFKGCP pogo standing on end between the two columns with
-its M1.4 inserts and screws, and one K&J B633 bar each side sealed under a 1.20 mm cover. DRAIN's
+its M1.4 inserts and screws, and one K&J SB443-IN grooved bar each side, flush and bare. DRAIN's
 4 mm tube steps up to a 1/4" stem inside the plug, so all four unions are the same part. The plug
 drops through the 1-3/8" countertop hole (faucet_assembly.countertop_hole_diameter = 34.93).
 
@@ -15,7 +15,9 @@ import math
 import sys
 from pathlib import Path
 
-ROOT = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_dir())
+_HERE = (Path(__file__).resolve() if "__file__" in globals()
+         else Path.cwd() / "future/umbilical-plug-and-socket-exploration/scene.py")
+ROOT = next(p for p in _HERE.parents if (p / "hardware").is_dir())
 REF = ROOT / "hardware" / "reference"
 sys.path[:0] = [str(ROOT / "hardware/scripts"), str(ROOT / "hardware/printed-parts/cadlib"),
                 str(ROOT / "hardware/printed-parts/enclosure/y-wall-of-back-top"),
@@ -27,7 +29,7 @@ import _materials as M  # noqa: E402
 import _y_wall_dimensions as yw  # noqa: E402
 import jg_pp0408w as U  # noqa: E402
 
-OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parent / "out"
+OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else _HERE.parent / "out"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -47,8 +49,13 @@ COUNTER_T = 30.0
 WEB = 1.5
 BORE = 6.68                   # tube-collar bore for 1/4"
 WALL = 8.5                    # PET-GF in front of the collets: room for the pogo inserts and screws
-UNION_CLR = 0.5
-PITCH = U.RING_D + UNION_CLR  # 15.6 between neighbouring union axes
+# K&J SB443-IN, 1/4 x 1/4 x 3/16 in N42 through thickness, grooved on two sides (drawing SB443-IN
+# rev 0): 1.6 mm full-width top, a 1.6 mm groove 0.79 mm deep each side, then full width again.
+SB443_W, SB443_T = 6.35, 4.7625
+GROOVE_TOP, GROOVE_H, GROOVE_D = 1.6, 1.6, (6.35 - 4.7625) / 2
+RAIL_H, RAIL_CLR, MAG_CLR = 1.5, 0.09, 0.05      # printed rails in the grooves; slide clearance
+# The bars sit between each tube pair with WEB of PET-GF to the holes; that sets the pitch.
+PITCH = 2 * (BORE / 2 + WEB + SB443_W / 2 + MAG_CLR)   # 16.13; leaves the unions 1.03 apart
 H = PITCH / 2
 R_AXIS = H * math.sqrt(2)
 
@@ -69,12 +76,7 @@ EAR_PITCH = 20.44                       # YYFKGCP ear holes
 INSERT_D, INSERT_L, INSERT_HOLE = 2.3, 4.0, 2.6
 SCREW_D, SCREW_L, HEAD_D, HEAD_H = 1.4, 8.0, 2.6, 1.4
 INSERT_TOP = 3.2
-# K&J B633 bar, 3/8 x 3/16 x 3/16 in, N42, magnetized through thickness: one each side, on the face.
-B633 = (9.525, 4.7625, 4.7625)
-MAG_X = 8.6
-# Sealed like the cartridge's RC62 pair (magnet-retention/README.md): a continuous 1.20 mm PET-GF
-# cover on the mating face, the bar dropped in at a print pause against it, 0.48 mm of roof air.
-COVER, ROOF_AIR = 1.20, 0.48
+MAG_X = 9.0                               # bar centres, midway from the pogo slot to the wall
 
 FACE_R = R_AXIS + BORE / 2 + WEB
 PLUG_D = 2 * FACE_R
@@ -128,19 +130,39 @@ def pogo_fasteners(sign):
 
 
 def magnet_pockets(sign):
+    """Each bar's slot, open only at the face: full width, with printed rails left in the two
+    grooves. The bar slides down the rails at a print pause and the next layers close over it."""
     def span(a, b):
         return (min(sign * a, sign * b), max(sign * a, sign * b))
-    L, W, T = B633
-    return [box(x - L / 2 - 0.05, x + L / 2 + 0.05, *span(COVER, COVER + T + ROOF_AIR), -W / 2 - 0.05, W / 2 + 0.05)
-            for x in (-MAG_X, MAG_X)]
+    h = SB443_W / 2 + MAG_CLR
+    out = []
+    for x in (-MAG_X, MAG_X):
+        cav = box(x - h, x + h, *span(-0.1, SB443_T + MAG_CLR), -h, h)
+        reach = h - (SB443_W / 2 - GROOVE_D + RAIL_CLR)
+        for side in (-1, 1):
+            x0 = x + side * h
+            rail = box(min(x0, x0 - side * reach), max(x0, x0 - side * reach),
+                       *span(GROOVE_TOP + 0.05, GROOVE_TOP + 0.05 + RAIL_H), -h - 0.1, h + 0.1)
+            cav = cav.cut(rail)
+        out.append(cav)
+    return out
 
 
 def magnets(sign):
-    """The two bars, flush with the face. sign: +1 for the panel, -1 for the plug."""
-    L, W, T = B633
+    """The two SB443-IN bars, pole faces flush with the face. sign: +1 for the panel, -1 for the plug."""
     def span(a, b):
         return (min(sign * a, sign * b), max(sign * a, sign * b))
-    return [(x, box(x - L / 2, x + L / 2, *span(COVER, COVER + T), -W / 2, W / 2)) for x in (-MAG_X, MAG_X)]
+    h = SB443_W / 2
+    out = []
+    for x in (-MAG_X, MAG_X):
+        bar = box(x - h, x + h, *span(0.0, SB443_T), -h, h)
+        for side in (-1, 1):
+            x0 = x + side * h
+            groove = box(min(x0, x0 - side * GROOVE_D), max(x0, x0 - side * GROOVE_D),
+                         *span(GROOVE_TOP, GROOVE_TOP + GROOVE_H), -h - 0.1, h + 0.1)
+            bar = bar.cut(groove)
+        out.append((x, bar))
+    return out
 
 
 def fasteners(sign):
@@ -214,7 +236,7 @@ def add_panel(a):
         a.add(UNION, name=f"{name}-john-guest-pp0408w-union", color=C_UNION, loc=union_loc(x, z))
     a.add(POGO_M, name="pogo-4p-male-spring-pins", color=M.C_DOCK, loc=on_end(-1))
     for x, m in magnets(+1):
-        a.add(m, name=f"kj-b633-magnet-panel-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE)
+        a.add(m, name=f"kj-sb443-magnet-panel-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE)
     for kind, zc, solid in fasteners(+1):
         a.add(solid, name=f"pogo-{kind}-panel-{'top' if zc > 0 else 'bottom'}",
               color=C_INSERT if kind == "insert" else C_SCREW)
@@ -266,7 +288,7 @@ def add_plug(a, loc):
     a.add(plug_shell(), name="umbilical-plug", color=C_PLUG, loc=loc)
     a.add(POGO_F, name="pogo-4p-female-flush-pads", color=M.C_DOCK, loc=loc * on_end(+1))
     for x, m in magnets(-1):
-        a.add(m, name=f"kj-b633-magnet-plug-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE, loc=loc)
+        a.add(m, name=f"kj-sb443-magnet-plug-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE, loc=loc)
     for kind, zc, solid in fasteners(-1):
         a.add(solid, name=f"pogo-{kind}-plug-{'top' if zc > 0 else 'bottom'}",
               color=C_INSERT if kind == "insert" else C_SCREW, loc=loc)
@@ -336,3 +358,73 @@ for d, a, b in pairs[:9]:
     print(f"  {d:6.3f}  {a}  vs  {b}")
 own = min(placed[f"{n}:union"].distance(placed[f"{n}:stub"]) for n in PORTS)
 print(f"stub in its own union socket: min gap {own:.3f}")
+
+
+# --- the README's figures and the page's captions, from the constants above --------------------
+def closest(a, b):
+    return min(d for d, x, y in pairs if {x.split(":")[0].rstrip("TBLR"), y.split(":")[0].rstrip("TBLR")} == {a, b})
+
+
+RC62_HOLE_R = 19.05 / 2 + WEB + BORE / 2
+FIG = {
+    "UMB_PLUG_D": f"{PLUG_D:.2f}",
+    "UMB_SOCK_D": f"{SOCK_D:.2f}",
+    "UMB_SOCK_DEPTH": f"{SOCK_DEPTH:g}",
+    "UMB_PLATE_W": f"{PLATE_W:g}",
+    "UMB_COUNTER_SIDE": f"{(COUNTER_HOLE - PLUG_D) / 2:.2f}",
+    "UMB_PITCH": f"{PITCH:.2f}",
+    "UMB_UNION_GAP": f"{PITCH - U.RING_D:.2f}",
+    "UMB_STUB": f"{STUB:g}",
+    "UMB_WALL": f"{WALL:g}",
+    "UMB_MAG_X": f"{MAG_X:.1f}",
+    "UMB_BORE": f"{BORE:.2f}",
+    "UMB_WEB": f"{WEB:g}",
+    "UMB_RAIL_H": f"{RAIL_H:g}",
+    "UMB_RC62_HOLE_R": f"{RC62_HOLE_R:.2f}",
+    "UMB_RC62_FACE_D": f"{2 * (RC62_HOLE_R + BORE / 2 + WEB):.1f}",
+    "UMB_CLR_INSERT": f"{closest('insert', 'pogo'):.2f}",
+    "UMB_CLR_SCREW": f"{closest('screw', 'flavor-a'):.2f}",
+}
+sys.path.insert(0, str(ROOT / "tools"))
+from docgen import substitute_md  # noqa: E402
+substitute_md(_HERE.parent / "README.md", FIG)
+
+f = FIG
+rel = OUT.resolve().relative_to(ROOT).as_posix()
+step = lambda name: f"{rel}/umbilical-{name}.step"
+spec = {
+    "title": "One-plug umbilical",
+    "lede": "Countertop version with neodymium. Real John Guest PP0408W unions and pogo pair, "
+            "K&J SB443-IN grooved bars; the socket, plug and bundle are new.",
+    "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
+    "panels": [
+        {"name": "Machine side",
+         "caption": f"Four 1/4\u2033 holes, the pogo on end with its two M1.4 screws, and a K&J SB443-IN bar "
+                    f"each side, its pole face flush and bare. \u00d8{float(f['UMB_SOCK_D']):.1f} socket.",
+         "models": [{"step": step("panel"), "only": ["back-panel-*", "pogo-*", "kj-sb443-*"],
+                     "ghost": ["back-panel-carrier"]}]},
+        {"name": "Plug",
+         "caption": f"\u00d8{float(f['UMB_PLUG_D']):.1f} end to end. Four {f['UMB_STUB']} mm stubs, the pogo pads "
+                    f"and two SB443-IN bars flush in the face.",
+         "models": [{"step": step("plug")}]},
+        {"name": "Plugged in",
+         "caption": "The bars meet face to face. Each slid down printed rails in its grooves at a print pause "
+                    "and was printed over. N faces out on one side and S on the other, so an upside-down plug "
+                    "pushes away.",
+         "models": [{"step": step("mated")}]},
+        {"name": "Behind the face",
+         "caption": f"All four unions at one depth, {f['UMB_PITCH']} mm apart ({f['UMB_UNION_GAP']} mm between "
+                    f"them), collets {f['UMB_WALL']} mm behind the face: the depth the pogo's M1.4 inserts and "
+                    f"8 mm screws need. The bars sit in front of the unions.",
+         "models": [{"step": step("mated"),
+                     "only": ["*-union", "*-stub", "pogo-*", "kj-sb443-*", "back-panel-*", "umbilical-plug"],
+                     "ghost": ["back-panel-*", "umbilical-plug"]}]},
+        {"name": "Through the counter",
+         "caption": f"The \u00d8{float(f['UMB_PLUG_D']):.1f} plug in the 1\u215c\u2033 (\u00d8{COUNTER_HOLE}) "
+                    f"countertop hole: {float(f['UMB_COUNTER_SIDE']):.1f} mm a side.",
+         "models": [{"step": step("counter"), "ghost": ["countertop*"]}]},
+    ],
+}
+import json  # noqa: E402
+(_HERE.parent / "viz-spec.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1) + "\n")
+print("README figures and viz-spec.json written")
