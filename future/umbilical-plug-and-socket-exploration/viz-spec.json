@@ -1,6 +1,6 @@
 {
  "title": "One-plug umbilical",
- "lede": "Countertop version with neodymium. Real John Guest PP0408W unions and pogo pair, K&J SB443-IN grooved bars; the socket, plug and bundle are new.",
+ "lede": "The printable socket and plug. Real John Guest PP0408W, neoFit AUC44M, YYFKGCP pogo and K&J SB443-IN; the socket, retainer, plug, key and wall patch are new.",
  "view": {
   "az": -70,
   "el": 20
@@ -10,24 +10,19 @@
  "panels": [
   {
    "name": "Machine side",
-   "caption": "Four 1/4″ holes, the pogo on end with its two M1.4 screws, and a K&J SB443-IN bar each side, its pole face flush and bare. Ø33.1 socket.",
+   "caption": "Flush in back-top: a 47.0 x 44.6 face on a 2.5 mm side ledge, held from inside by two snap leaves.",
    "models": [
     {
-     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-panel.step",
-     "only": [
-      "back-panel-*",
-      "pogo-*",
-      "kj-sb443-*"
-     ],
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-socket.step",
      "ghost": [
-      "back-panel-carrier"
+      "back-top-wall"
      ]
     }
    ]
   },
   {
    "name": "Plug",
-   "caption": "Ø32.5 end to end. Four 24.5 mm stubs, the pogo pads and two SB443-IN bars flush in the face.",
+   "caption": "Ø32.44 across, 52 long. One key clamps all four tubes; the foam on the soda tube stops at the plug.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-plug.step"
@@ -36,37 +31,31 @@
   },
   {
    "name": "Plugged in",
-   "caption": "The bars meet face to face. Each slid down printed rails in its grooves at a print pause and was printed over. N faces out on one side and S on the other, so an upside-down plug pushes away.",
+   "caption": "The plug runs 8.2 mm into the 34 mm cup before a stub reaches its hole. The bars meet face to face.",
    "models": [
     {
-     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step"
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step",
+     "ghost": [
+      "back-top-wall"
+     ]
     }
    ]
   },
   {
-   "name": "Behind the face",
-   "caption": "All four unions at one depth, 16.13 mm apart (1.03 mm between them), collets 8.5 mm behind the face: the depth the pogo's M1.4 inserts and 8 mm screws need. The bars sit in front of the unions.",
+   "name": "Release",
+   "caption": "FLAVOR-B over DRAIN. Each union floats 1.83 mm: a pull drags it forward until its collet lands on the floor's back face and lets go. Side shows the cut.",
    "models": [
     {
-     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step",
-     "only": [
-      "*-union",
-      "*-stub",
-      "pogo-*",
-      "kj-sb443-*",
-      "back-panel-*",
-      "umbilical-plug"
-     ],
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-section.step",
      "ghost": [
-      "back-panel-*",
-      "umbilical-plug"
+      "back-top-wall"
      ]
     }
    ]
   },
   {
    "name": "Through the counter",
-   "caption": "The Ø32.5 plug in the 1⅜″ (Ø34.93) countertop hole: 1.2 mm a side.",
+   "caption": "The plug in the 1⅜″ countertop hole: 1.2 mm a side, 0.9 at its flats' corners.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-counter.step",
@@ -75,6 +64,16 @@
      ]
     }
    ]
+  },
+  {
+   "name": "Machine-side plate",
+   "image": "renders/print-machine-side.png",
+   "caption": "The slicer's plate: socket on its flats, retainer, wall coupon roof-down. One pause for the socket's bars."
+  },
+  {
+   "name": "Plug-side plate",
+   "image": "renders/print-plug-side.png",
+   "caption": "The plug upside down on its top flat and the key on end. One pause for the plug's bars."
   }
  ]
 }
