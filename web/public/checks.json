@@ -1,6 +1,11 @@
 {
   "checks": [
     {
+      "check": "hardware/scripts/check_asse_drain.py",
+      "note": "ASSE drain clearance True; 227 bodies including the conservative foam envelope",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_build_exit.py",
       "note": "✓ every lock-taking script ends through sys.exit or an exception",
       "status": "ok"
@@ -22,13 +27,13 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "  and the 520 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "PASS seat:plate-gasket",
-      "status": "red"
+      "note": "PASS faucet geometry: 164 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/centered-vent-check.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -36,8 +41,13 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_flutes.py",
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)",
+      "note": "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)",
       "status": "red"
     },
     {
@@ -97,8 +107,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -107,54 +117,21 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 5 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 2849 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1174 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 17 of 2949 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1202 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds ff8bdcd7ec7a71b72df8b4059e495dd2 for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6a18fe408cab9a1a6572d6a4e0a555c6 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_faucet_geometry.py": [
-      "PASS solid:display-ribbon-envelope",
-      "FAIL clearance:signal-shell_base",
-      "PASS clearance:signal-shell_tip",
-      "PASS clearance:signal-above_counter_plate",
-      "PASS clearance:signal-above_counter_gasket",
-      "PASS clearance:signal-display_cover",
-      "PASS clearance:signal-tpu_thimble",
-      "FAIL clearance:signal-donor",
-      "PASS clearance:signal-soda-tube",
-      "PASS clearance:signal-flavor-a",
-      "PASS clearance:signal-flavor-b",
-      "PASS clearance:signal-countertop",
-      "PASS clearance:signal-under-counter-plate",
-      "PASS clearance:signal-display-body",
-      "PASS clearance:signal-display-usb",
-      "PASS fit:signal-lane-section",
-      "PASS wall:neck-signal-lane",
-      "PASS seat:plate-gasket",
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2221, in <module>",
-      "    sys.exit(main())",
-      "             ~~~~^^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2171, in main",
-      "    raise RuntimeError(\"a faucet source changed during the reading; rerun after its build settles\")",
-      "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
-    ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 18 files (18 procedures + 0 cards + cover) | ledger brands: 607 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 5 instruction(s) out of step with the ledger:",
+      "instructions: 18 files (18 procedures + 0 cards + cover) | ledger brands: 606 | waived: 1 ASIN + 4 brand",
+      "DRIFT: 4 instruction(s) out of step with the ledger:",
       "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B076Q7QVNM (hardware/assembly/internal-plumbing.md:45)",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
-      "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/asse-drain.md (expected hardware/assembly/_asse_drain_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/lillium-cutover.md (expected hardware/assembly/_lillium_cutover_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
@@ -244,13 +221,8 @@
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
     ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
     "tools/check_paths.py": [
-      "hardware/concerns.md:95 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
+      "hardware/concerns.md:97 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
       "  hardware/ledger/purchases.md:571 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:55 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
@@ -266,12 +238,15 @@
       "13 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 440 of 1000 and the next cut wants 936; 189 asset(s) may be retired for it",
+      "the release holds 440 of 1000 and the next cut wants 964; 207 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
-      "the suite did not finish within 300s",
+      "3 test(s) in web/ fail:",
+      "    the sourced plan covers the current BOM, including shared parts and unpriced requirements",
+      "    the pruning holds on the tree it runs against",
+      "    short basenames don't substring-match longer step names (collision regression)",
       "  cd web && npm test"
     ]
   },

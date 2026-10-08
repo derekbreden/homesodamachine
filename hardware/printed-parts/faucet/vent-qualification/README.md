@@ -62,7 +62,7 @@ discharge reaches the sink. The dry CO2 model is an ideal-gas, low-Mach screen;
 it does not predict liquid slugs, flashing, high-rate choking or the device's
 response to a retained column.
 
-For the reference installation, the small tube is 2106.419 mm long and rises
+For the reference installation, the small tube is 2105.639 mm long and rises
 708.194 mm from the device vent to D's cut end. The nominal bores contain about
 10.34 mL in the small tube plus 0.58 mL in the modeled PVC span, using unobstructed
 bores and excluding fitting insertion interiors and overlaps. Its
@@ -71,8 +71,8 @@ static water column imposes about 1.005 psi at the device. The cavity has
 projected wet opening. D's lowest bore edge is 13.754 mm above the low floor.
 
 At the nominal 125 psi unrestricted-line sizing envelope, the model predicts
-2.606 L/min. With the assumed 0.6 discharge coefficient, cavity head is 6.595 mm
-and the bore remains 7.160 mm above water. The independent 3 L/min cavity proof
+2.606 L/min. With the assumed 0.6 discharge coefficient, cavity head is 6.597 mm
+and the bore remains 7.157 mm above water. The independent 3 L/min cavity proof
 target predicts 8.315 mm head and 5.439 mm bore clearance. The 200 psi device-rating
 sensitivity predicts 3.415 L/min. These are conditional
 single-phase calculations. The deliberately conservative area with a 0.4
@@ -113,12 +113,12 @@ bound separately to its saved appliance STEP and passed clearance audit.
 Factory-tool geometry, the display-cover assembly motion and production-export
 locking are outside the recorded consumer port witnesses.
 
-[Postpublication Sculpted mesh review](postpublication-lint.json) and
-[Industrial mesh review](postpublication-industrial-lint.json) bind the current
-STL hashes and scoped lint answers. [check_base_witnesses.py](check_base_witnesses.py)
+[Postpublication faucet mesh review](postpublication-lint-execution.json) binds
+both current body meshes, the shared tip and their scoped lint answers, with no
+open findings. [check_base_witnesses.py](check_base_witnesses.py)
 records [complete 2 mm inward stock](base-native-lint-witnesses.json) for the
 named passage planes, donor/lever roofs and all six annular socket roofs.
-[check_lint_supports.py](check_lint_supports.py) reads the retained native G-code;
+[check_lint_supports.py](check_lint_supports.py) reads the current native G-code;
 its [roof support record](lint-support-witnesses.json) projects three actual
 support extrusion samples onto each named donor/lever roof. These local witnesses
 do not establish global wall thickness, complete support coverage, physical

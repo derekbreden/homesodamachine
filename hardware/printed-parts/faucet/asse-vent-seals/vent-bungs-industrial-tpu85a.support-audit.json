@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf",
-  "project_sha256": "70fc5625d112213feaf80f072abc0cb75ecaad8113246e1b0d6ef81278be9eb4",
+  "project_sha256": "ddd8c875120637d548483242e8c6d4159ce4ae763a0431a850e11c5de4083af5",
   "settings_sha256": "04c67c1b6a7120982a8d539c61e1269d2d1e7977d99384b6d5a625acd4371212",
   "slicer": "BambuStudio 02.08.02.61",
   "layer_height_mm": 0.23999999463558197,
@@ -13,8 +13,8 @@
   "plates": [
     {
       "plate": 1,
-      "estimated_total_seconds": 3833.683837890625,
-      "saved_profile_filament_estimate_g": 8.472350120544434,
+      "estimated_total_seconds": 3977.844482421875,
+      "saved_profile_filament_estimate_g": 8.86223316192627,
       "slicer_warning": ""
     }
   ],
@@ -24,12 +24,12 @@
       "piece": "asse-vent-upstream-bung",
       "inputs": {
         "gcode": "support-labels-asse-vent-upstream-bung.gcode",
-        "gcode_sha256": "42e145f6cea62947e30e9abe82dfc33d706f21b525148116b4c91990a76c2a00",
+        "gcode_sha256": "dc49c952b9c867e62dfb688086cda55341220221b87e16ba6d2044a8dcb8ca1f",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl",
         "model_sha256": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
         "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf",
-        "profile_sha256": "70fc5625d112213feaf80f072abc0cb75ecaad8113246e1b0d6ef81278be9eb4",
-        "plate_gcode_sha256": "72ec6ba47ef812235b7a7718bd97befc483b54930b2e3eb08f7ee450c7a0fd70",
+        "profile_sha256": "ddd8c875120637d548483242e8c6d4159ce4ae763a0431a850e11c5de4083af5",
+        "plate_gcode_sha256": "caf5d179cc2ab3f671756c153aea4c25daac263c2342f5e5105189c3e9d0bcaf",
         "object_label": 1901,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -104,12 +104,12 @@
       "piece": "asse-vent-downstream-bung",
       "inputs": {
         "gcode": "support-labels-asse-vent-downstream-bung.gcode",
-        "gcode_sha256": "90d2e40bfa8b9bdce0a80a7ad555470ad0b24e4a01ef550a2fe7f75e51d5c14c",
+        "gcode_sha256": "68730a09ccae84044d48c1dfd885af8cebb4c776b7cafbeb52fb1be52a743f17",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl",
         "model_sha256": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
         "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf",
-        "profile_sha256": "70fc5625d112213feaf80f072abc0cb75ecaad8113246e1b0d6ef81278be9eb4",
-        "plate_gcode_sha256": "72ec6ba47ef812235b7a7718bd97befc483b54930b2e3eb08f7ee450c7a0fd70",
+        "profile_sha256": "ddd8c875120637d548483242e8c6d4159ce4ae763a0431a850e11c5de4083af5",
+        "plate_gcode_sha256": "caf5d179cc2ab3f671756c153aea4c25daac263c2342f5e5105189c3e9d0bcaf",
         "object_label": 1902,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -184,12 +184,12 @@
       "piece": "industrial-above-counter-gasket",
       "inputs": {
         "gcode": "support-labels-industrial-above-counter-gasket.gcode",
-        "gcode_sha256": "d40fb94a2e049c7d8bc8bdd1d9cbcf307a63e2523c36380507d1799b823d61c5",
+        "gcode_sha256": "b6f827e6cf889211c6251f51803f2a366201ac53a9060700a3a66a006f96e866",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
-        "model_sha256": "081cfead29ef351cce62bb3a63bc59d3c77807f349c6eaf28330cfcf31b6bef4",
+        "model_sha256": "052de7f774cd3abca104df251aef7cfe568a4214a2035b3a47d29f6473556296",
         "profile": "hardware/printed-parts/faucet/asse-vent-seals/vent-bungs-industrial-tpu85a.3mf",
-        "profile_sha256": "70fc5625d112213feaf80f072abc0cb75ecaad8113246e1b0d6ef81278be9eb4",
-        "plate_gcode_sha256": "72ec6ba47ef812235b7a7718bd97befc483b54930b2e3eb08f7ee450c7a0fd70",
+        "profile_sha256": "ddd8c875120637d548483242e8c6d4159ce4ae763a0431a850e11c5de4083af5",
+        "plate_gcode_sha256": "caf5d179cc2ab3f671756c153aea4c25daac263c2342f5e5105189c3e9d0bcaf",
         "object_label": 1903,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -247,21 +247,21 @@
       "toolpaths": {
         "extrusion_bounds_xy_mm": [
           [
-            147.81109283952685,
-            175.31109884644715
+            147.89716819815465,
+            175.38915492216327
           ],
           [
-            207.19062558439225,
-            234.6908521469865
+            207.1010704696634,
+            234.5975976607699
           ]
         ],
-        "maximum_line_width_mm": 0.80289,
-        "bounds_padding_mm": 0.501445
+        "maximum_line_width_mm": 0.625644,
+        "bounds_padding_mm": 0.412822
       }
     }
   ],
   "fit": {
-    "minimum_shared_bed_margin_mm": 85.30914785301351,
+    "minimum_shared_bed_margin_mm": 85.4024023392301,
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
@@ -270,13 +270,13 @@
         ],
         [
           214.2777740136445,
-          234.7789941469865
+          234.7743626607699
         ]
       ],
       "maximum_line_width_mm": 0.979174,
       "bounds_padding_mm": 0.589587
     },
-    "complete_layer_bead_minimum_bed_margin_mm": 85.22100585301351,
+    "complete_layer_bead_minimum_bed_margin_mm": 85.2256373392301,
     "minimum_toolpath_separation_mm": 26.443415444620854,
     "pairwise_toolpath_separations": [
       {
@@ -291,14 +291,14 @@
           "asse-vent-upstream-bung",
           "industrial-above-counter-gasket"
         ],
-        "separation_mm": 33.5320798216853
+        "separation_mm": 33.61013589740142
       },
       {
         "parts": [
           "asse-vent-downstream-bung",
           "industrial-above-counter-gasket"
         ],
-        "separation_mm": 33.53232718776533
+        "separation_mm": 33.61038326348145
       }
     ]
   }

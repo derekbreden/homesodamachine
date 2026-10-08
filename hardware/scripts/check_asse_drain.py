@@ -1,6 +1,6 @@
 """Read the dedicated ASSE drain against the actual installed appliance bodies.
 
-Call write(enclosure_assembly._solids(a)) while the fresh assembly is in memory,
+Call write with the pack and cold-core bodies while the fresh assembly is in memory,
 or run this file to read the exported enclosure-assembly.step. Connections share
 material by design. This is nominal geometry evidence, not vent-flow qualification.
 """
@@ -36,7 +36,9 @@ def write(placed, output=OUTPUT):
     for name in NAMES:
         body = shapes[name]
         bb = body.BoundingBox()
-        row = {"valid": body.isValid(), "solids": len(body.Solids()), "neighbors": []}
+        required_gap = 1.0 if name == "tube-drain-vent" else 0.0
+        row = {"valid": body.isValid(), "solids": len(body.Solids()),
+               "minimum_unconnected_gap_mm": required_gap, "neighbors": []}
         for other, obstacle in shapes.items():
             if other == name or frozenset((name, other)) in CONNECTED:
                 continue
@@ -54,7 +56,9 @@ def write(placed, output=OUTPUT):
                                      "overlap_mm3": round(overlap, 7)})
             print(name, other, f"gap {gap:.4f}; overlap {overlap:.6f}", flush=True)
         row["passed"] = (row["valid"] and row["solids"] == 1
-                         and all(n["overlap_mm3"] <= 1e-5 for n in row["neighbors"]))
+                         and all(n["overlap_mm3"] <= 1e-5
+                                 and n["gap_mm"] >= required_gap - 1e-6
+                                 for n in row["neighbors"]))
         checks[name] = row
     radii = {}
     for name in ("hose-drain-vent", "tube-drain-vent"):
@@ -76,7 +80,8 @@ def write(placed, output=OUTPUT):
                ROOT / "hardware/manifold-layout/_lines.py",
                ROOT / "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
                ROOT / "hardware/reference/asse1022-assembly/asse1022_assembly.py"]
-    result = {"scope": "Nominal exact B-rep clearance of the dedicated ASSE drain and its two rerouted flavor returns against every installed appliance body; connected interfaces are excluded. Pump occupied envelopes are read per component. Hardware tolerances, clamps, actual hose bending and vent performance require physical qualification.",
+    result = {"scope": "Nominal exact B-rep clearance of the dedicated ASSE drain and its two rerouted flavor returns against the complete installed assembly population, including cold-core bodies. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. Hardware tolerances, clamps, actual hose bending and vent performance require physical qualification.",
+              "conservative_cold_core_envelope_included": "foam-assembly" in shapes,
               "installed_body_count": len(shapes), "checks": checks, "bend_radii": radii,
               "source_sha256": {str(p.relative_to(ROOT)): sha(p) for p in sources},
               "passed": all(c["passed"] for c in checks.values()) and all(c["passed"] for c in radii.values())}
@@ -85,6 +90,39 @@ def write(placed, output=OUTPUT):
     return result
 
 
-if __name__ == "__main__":
+def main():
+    """Read the exported bodies and restore the pack's conservative foam envelope."""
     from _cadq_export import import_assembly
-    sys.exit(0 if write(import_assembly(ROOT / "hardware/manifold-layout/enclosure-assembly.step"))["passed"] else 1)
+    import _facts
+
+    sys.path.insert(0, str(ROOT / "hardware/manifold-layout"))
+    import enclosure_assembly as assembly
+
+    facts = _facts.read()
+    if not facts.agrees_with_card() or facts.agrees_with_step() is not True:
+        raise ValueError("The saved assembly, scorecard and placement facts disagree")
+    expected = json.loads(_facts.ARTIFACT.read_text())["bodies"]["foam-assembly"]
+    foam, _ = assembly.build_foam(expected[1])
+    bounds = foam.BoundingBox()
+    actual = [getattr(bounds, k) for k in ("xmin", "ymin", "zmin", "xmax", "ymax", "zmax")]
+    if any(abs(a - b) > 1e-5 for a, b in zip(actual, expected)):
+        raise ValueError("The native foam envelope does not match the saved placement")
+    native = ROOT / "hardware/manifold-layout/enclosure-assembly.step"
+    placed = import_assembly(native)
+    if not any(name.startswith("cold-core/") for name in placed):
+        raise ValueError("The exported assembly contains no cold-core bodies")
+    result = write({**placed, "foam-assembly": foam})
+    result["serialized_input_sha256"] = {
+        str(p.relative_to(ROOT)): sha(p)
+        for p in (native, assembly.FOAM_STEP)
+    }
+    result["placement_fact_bounds_mm"] = expected
+    result["placement_fact_bounds_sha256"] = hashlib.sha256(
+        json.dumps(expected, separators=(",", ":")).encode()).hexdigest()
+    result["foam_envelope_matches_saved_placement"] = True
+    OUTPUT.write_text(json.dumps(result, indent=2) + "\n")
+    return 0 if result["passed"] else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

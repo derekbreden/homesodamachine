@@ -1,45 +1,45 @@
 {
     "error_string": "Success.",
-    "export_time": 5664,
+    "export_time": 4678,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 1075,
+    "prepare_time": 692,
     "return_code": 0,
     "sliced_plates": [
         {
             "feature_type_times": {
-                "Bottom surface": 89.51902770996094,
-                "Bridge": 573.85205078125,
-                "Brim": 38.78114700317383,
+                "Bottom surface": 89.76005554199219,
+                "Bridge": 563.9600219726563,
+                "Brim": 38.78243637084961,
                 "Custom": 297.39410400390625,
                 "Flush": 15.0,
-                "Gap infill": 442.5363464355469,
-                "Inner wall": 2475.595703125,
-                "Internal solid infill": 1235.066650390625,
-                "Outer wall": 3015.319580078125,
-                "Overhang wall": 516.790771484375,
-                "Sparse infill": 2449.37451171875,
-                "Support": 2519.612548828125,
-                "Support interface": 35.129119873046875,
-                "Top surface": 225.3359375,
-                "Travel": 3817.362060546875,
-                "Undefined": 3815.79296875
+                "Gap infill": 426.637939453125,
+                "Inner wall": 2449.025634765625,
+                "Internal solid infill": 1183.6085205078125,
+                "Outer wall": 2953.324462890625,
+                "Overhang wall": 509.20477294921875,
+                "Sparse infill": 2441.340087890625,
+                "Support": 2465.31787109375,
+                "Support interface": 29.991098403930664,
+                "Top surface": 223.4311065673828,
+                "Travel": 3691.26708984375,
+                "Undefined": 3689.697998046875
             },
             "filament_change_times": 0,
             "filaments": [
                 {
                     "filament_id": "GFT01",
                     "id": 1,
-                    "main_used_g": 132.6654052734375,
-                    "total_used_g": 132.6654052734375
+                    "main_used_g": 132.33204650878906,
+                    "total_used_g": 132.33204650878906
                 }
             ],
-            "generate_support_material_time": 6209,
+            "generate_support_material_time": 4597,
             "id": 1,
-            "infill_time": 2441,
+            "infill_time": 1751,
             "layer_filament_change": 0,
-            "main_predication": 17451.861328125,
-            "make_perimeters_time": 3388,
+            "main_predication": 17074.84375,
+            "make_perimeters_time": 2889,
             "obj_cached_cnt": 0,
             "objects": [
                 {
@@ -53,7 +53,7 @@
                     },
                     "id": 5,
                     "name": "industrial-shell-base",
-                    "triangle_count": 395042
+                    "triangle_count": 422120
                 },
                 {
                     "bbox": {
@@ -66,7 +66,7 @@
                     },
                     "id": 9,
                     "name": "faucet-shell-tip",
-                    "triangle_count": 238448
+                    "triangle_count": 238386
                 },
                 {
                     "bbox": {
@@ -92,13 +92,13 @@
                     },
                     "id": 17,
                     "name": "industrial-above-counter-plate",
-                    "triangle_count": 15388
+                    "triangle_count": 15144
                 }
             ],
-            "sliced_time": 19954,
-            "sliced_time_with_cache": 7307,
-            "total_predication": 17777.685546875,
-            "triangle_count": 653224,
+            "sliced_time": 14539,
+            "sliced_time_with_cache": 4890,
+            "total_predication": 17400.66796875,
+            "triangle_count": 679996,
             "warning_message": ""
         }
     ],

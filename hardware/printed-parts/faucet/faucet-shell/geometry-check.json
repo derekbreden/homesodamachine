@@ -9,7 +9,7 @@
     "hardware/faucet-layout/faucet_assembly.py": "cce60992627f3678377acc932c3a0dacaa2fe06e7b5fae563c5afe4d2bc1d66a",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "78ec647cba763ef165e8e4f5c7f9d96e236254490c7636774d217e96c480853c",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "bfac67e2fdf36b53bc93e872464b919a33caf4298edb5f6cb036d11d2bab6ea6",

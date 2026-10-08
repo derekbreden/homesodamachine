@@ -3,7 +3,7 @@
 import cadquery as cq
 
 
-WIDTH = 28.0
+WIDTH = 32.0
 LOWER_CORNER_RADIUS = 2.0
 
 

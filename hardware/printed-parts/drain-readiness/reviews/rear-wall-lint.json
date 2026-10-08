@@ -1,0 +1,26 @@
+{
+  "scope": "Executed postpublication geometry lint of the current rear-wall STL. Finite native stock and emitted support paths support the nameplate and PRV roof answers. Physical strength, support removal and finished fit remain observations on the assembled print.",
+  "command": [
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "--all"
+  ],
+  "build_lock_held": true,
+  "build_lock_opt_out": false,
+  "return_code": 0,
+  "facets": 684452,
+  "findings": 0,
+  "answered": 57,
+  "passed": true,
+  "source_sha256": {
+    "hardware/scripts/geometry_lint.py": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1079d3221318588a9e4ee256e30077e5439aec1a7ef924d189b5a32f1bf9f3fb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ab1139f425020c448942060076209c734fe19efe061443b25ca302b7978cae68",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers": "b5f33dfb69ea2d7427b8a9dee2933b5a9ab16d26a07a1caed2060fa28cb281ea",
+    "hardware/printed-parts/drain-readiness/reviews/rear-wall-lint-witness.json": "95d15cfd5a34c6d228e8624da4772061f4f0805b2d44ea21fa8236a1d3ae94de"
+  },
+  "log": "rear-wall-lint.log",
+  "log_sha256": "a114e1e1e8d11c25c32d5b68b4013cbb1b5c14fc65ef262368edb1e84f4199c0",
+  "native_surface_witness": "rear-wall-lint-witness.json"
+}

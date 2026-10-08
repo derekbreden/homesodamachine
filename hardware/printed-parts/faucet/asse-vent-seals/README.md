@@ -21,7 +21,13 @@ curved shell joint outside the contained liquid region.
 The [generator](../vent_seals.py) shares tube positions and bend geometry
 with [faucet paths](../faucet_paths.py). Its [manifest](manifest.json) binds
 the STEP/STL hashes, part bounds, volumes and nominal geometry checks to
-their source. STL surface tolerance is 0.005 mm and angular tolerance is
+their source. It records native export provenance and the current geometry
+binding separately. The [complete faucet audit](../faucet-shell/centered-vent-check.json)
+passes 164 checks against the current builders and saved print surfaces, including
+the cavity, gland stock, seals, tube routes and tool access. The
+[retained-part witness](lower-body-correction-check.json) binds the exact saved
+tip, free seals, tool, mounting parts and covers to the current shared upper
+construction. STL surface tolerance is 0.005 mm and angular tolerance is
 0.04 radians. The bungs print flange-down; the insertion tool prints on its
 flat handle face. Only the two bungs ship in the faucet.
 
@@ -200,6 +206,11 @@ X/lateral, Y/outward relative to shell center, Z/downstream tangent.
 `build_gland_cutter()` cuts solid neck stock; unioning a Ø23 cavity cutter
 through the gland would erase its keeper and backstop.
 
+The [Sculpted shell](../faucet-shell/faucet_shell.py) has a 30 × 31 mm
+elliptical shoulder section at Z=59 mm, centered at Y=11.5 mm. It
+transitions to the Ø27 mm circular neck at Z=65 mm. These outer sections
+preserve the tube routes, rear mounting bundle and purchased steel plate.
+
 [Parker's static-seal guidance](https://www.parker.com/content/dam/Parker-com/Literature/O-Ring-Division-Literature/ORD-5700.pdf)
 supports positive interference and room for elastomer deformation. Its
 general 30% static squeeze ceiling is a design reference: the nominal
@@ -218,13 +229,16 @@ the complete faucet. Acceptance uses the intended assembled drain path
 and the faucet flow procedure; source dimensions alone do not supply
 those results.
 
-The [postpublication mesh lint](geometry-lint-check.json) has no open
-findings across both bungs, the insertion tool, both countertop gaskets
-and both above-counter plates, plus the Sculpted display cover. The four
-named plate boundary patches have
-[saved STEP stock witnesses](plate-boundary-lint-check.json): each joins a
-bulk wall with over 9 mm of material inward and the full 4 mm plate
-thickness. Their exact lint points are answered beside the plate meshes.
+The [postpublication mounting lint](rear-mounting-lint-check.json) has no
+findings on either above-counter plate or either countertop gasket.
+Those STEP, STL and viewer payload hashes are retained exactly. The
+record preserves its executed publication and source bindings; reuse
+requires matching the actual artifact hashes. The
+[current body and tip lint](../vent-qualification/postpublication-lint-execution.json)
+has no open findings on either body or the shared tip. Its roof answers link
+complete native stock and current emitted support paths. The
+[mounting lint record](rear-mounting-lint-check.json) binds the separate
+unchanged mounting meshes to their executed witness.
 The cover's [lower-land witness](../faucet-display-cover/lower-land-lint-check.json)
 measures 160.56 mm² of flat seating land on the bed in its saved print pose.
 

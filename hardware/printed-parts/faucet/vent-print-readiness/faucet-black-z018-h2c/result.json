@@ -1,59 +1,59 @@
 {
     "error_string": "Success.",
-    "export_time": 7155,
+    "export_time": 4910,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 2786,
+    "prepare_time": 874,
     "return_code": 0,
     "sliced_plates": [
         {
             "feature_type_times": {
-                "Bottom surface": 88.01738739013672,
-                "Bridge": 546.6040649414063,
-                "Brim": 40.66960144042969,
+                "Bottom surface": 88.36698913574219,
+                "Bridge": 524.7011108398438,
+                "Brim": 41.11907196044922,
                 "Custom": 297.39105224609375,
                 "Flush": 15.0,
-                "Gap infill": 452.9674987792969,
-                "Inner wall": 2421.764892578125,
-                "Internal solid infill": 1201.281494140625,
-                "Outer wall": 2890.08349609375,
-                "Overhang wall": 504.3662414550781,
-                "Sparse infill": 2316.26953125,
-                "Support": 2462.577392578125,
-                "Support interface": 38.747291564941406,
-                "Top surface": 90.24810028076172,
-                "Travel": 3586.3515625,
-                "Undefined": 3584.782470703125
+                "Gap infill": 434.09503173828125,
+                "Inner wall": 2364.41455078125,
+                "Internal solid infill": 1149.2791748046875,
+                "Outer wall": 2823.43408203125,
+                "Overhang wall": 499.72393798828125,
+                "Sparse infill": 2325.0732421875,
+                "Support": 2458.588134765625,
+                "Support interface": 34.090179443359375,
+                "Top surface": 88.83126068115234,
+                "Travel": 3430.77197265625,
+                "Undefined": 3429.202880859375
             },
             "filament_change_times": 0,
             "filaments": [
                 {
                     "filament_id": "GFT01",
                     "id": 1,
-                    "main_used_g": 127.54161071777344,
-                    "total_used_g": 127.54161834716797
+                    "main_used_g": 127.98046112060547,
+                    "total_used_g": 127.98046112060547
                 }
             ],
-            "generate_support_material_time": 11622,
+            "generate_support_material_time": 3816,
             "id": 1,
-            "infill_time": 3940,
+            "infill_time": 1637,
             "layer_filament_change": 0,
-            "main_predication": 16637.04296875,
-            "make_perimeters_time": 5276,
+            "main_predication": 16257.8125,
+            "make_perimeters_time": 2095,
             "obj_cached_cnt": 0,
             "objects": [
                 {
                     "bbox": {
-                        "depth": 116.92594909667969,
-                        "height": 227.3062286376953,
-                        "width": 60.750701904296875,
-                        "x": 52.12464904785156,
-                        "y": 110.57879638671875,
-                        "z": -0.5632942914962769
+                        "depth": 116.9843978881836,
+                        "height": 227.32188415527344,
+                        "width": 60.92536926269531,
+                        "x": 52.037315368652344,
+                        "y": 110.56229400634766,
+                        "z": -0.5716941356658936
                     },
                     "id": 5,
                     "name": "faucet-shell-base",
-                    "triangle_count": 495196
+                    "triangle_count": 505794
                 },
                 {
                     "bbox": {
@@ -66,7 +66,7 @@
                     },
                     "id": 9,
                     "name": "faucet-shell-tip",
-                    "triangle_count": 238448
+                    "triangle_count": 238386
                 },
                 {
                     "bbox": {
@@ -92,13 +92,13 @@
                     },
                     "id": 17,
                     "name": "above-counter-plate",
-                    "triangle_count": 15456
+                    "triangle_count": 15212
                 }
             ],
-            "sliced_time": 33233,
-            "sliced_time_with_cache": 11566,
-            "total_predication": 16962.865234375,
-            "triangle_count": 780652,
+            "sliced_time": 12916,
+            "sliced_time_with_cache": 4956,
+            "total_predication": 16583.634765625,
+            "triangle_count": 790944,
             "warning_message": ""
         }
     ],

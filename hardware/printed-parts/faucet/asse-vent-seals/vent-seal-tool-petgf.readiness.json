@@ -3,18 +3,18 @@
   "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
   "project_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
   "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
-  "print_report_sha256": "2343a2eb40c59bcda392fe8ad502f2813c5e8d54fd1652cbd99ab7df98353254",
+  "print_report_sha256": "12fadff47b33c85498e0dc67e19ff685aa29e0d68d1e402b631e7a4f990ab586",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3"
   },
   "native": {
     "archive": "hardware/printed-parts/faucet/vent-print-readiness/vent-seal-tool-petgf-z018-h2c/vent-seal-tool-petgf-z018-h2c.gcode.3mf",
-    "archive_sha256": "b0d6f4c9903c9af5809fc51b81e159a4daf9408389014a8d712381c126e17001",
-    "gcode_sha256": "c6b58417e2811491bc824291f3e0ece482c6957a6417946782f3adf6998c4252",
+    "archive_sha256": "8d68201c28d4edf2da5fa924a36fc6a89b1a01892235d586eef4af3d5f541e91",
+    "gcode_sha256": "ef9b613ed03a0db3755a7e461ae6ae0b27af6fd2203ccbe97b3fc760c7a97448",
     "native_settings_normalizations": {
       "filament_map_2": [
         null,
@@ -45,13 +45,13 @@
     "active_nozzle": 0,
     "nozzle_diameter_mm": 0.4,
     "layers": 337,
-    "estimated_seconds": 1469.1058349609375,
-    "estimated_grams_saved_profile_density": 7.845939636230469,
+    "estimated_seconds": 1465.504150390625,
+    "estimated_grams_saved_profile_density": 7.845816135406494,
     "slicer_return_code": 0,
     "slicer_warning": "",
     "objects": 1
   },
-  "support_audit_sha256": "c9fc817c22fddd49e69db7376ecace320471ddbc10939a1a73e113a6158c6b5e",
+  "support_audit_sha256": "40da2ecb3de96a5386f6437f817b650238dd474df07f276c03b3da402c858a5b",
   "fit": {
     "minimum_shared_bed_margin_mm": 124.402254,
     "complete_layer_bead_bounds": {
@@ -87,15 +87,15 @@
   "submitted": false,
   "physical_print_evaluated": false,
   "review_sha256": {
-    "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.tool-review.json": "0cf2959d62f66f8c751202be80a63dcdd01c373370ee6496c1b5d991cc0a5362",
-    "hardware/printed-parts/faucet/asse-vent-seals/tool-bearing-check.json": "9f03a5bd50318a22dd1fdd3311692eca3c0ccbd8d1103fbb4cc60f82223acafd",
-    "hardware/printed-parts/faucet/asse-vent-seals/tool-motion-check.json": "a6ff800f08257687ee7eefc2b9d312ff7e6afc9b552c3c09838a74ddc87332e6"
+    "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.tool-review.json": "b5f09e9b0d3b390c7c291bbc35048c8bbf9ffa74b79bd949879c53022fbbc9d8",
+    "hardware/printed-parts/faucet/asse-vent-seals/tool-bearing-check.json": "98a827577b350d39df7ab89f619e7c847bbe0cb345c97a18840afc7be6bbc652",
+    "hardware/printed-parts/faucet/asse-vent-seals/tool-motion-check.json": "c4717d5a1688f3a9f6c8c42a5e77785cb8684494c761f71bcfcf2ab0f0d607b7"
   },
   "cleanup_route": [
     "Release the tree through the 19 mm open side slot. Cut sacrificial stock into small fragments; remove through the slot and both ends. Retain the main flat annular flange-bearing face and curved outside envelope.",
     "Inspect the curved outer sleeve and main annular bearing. They must have no support remnants, raised strings or sharp burrs before entering the seal glands."
   ],
   "review_scope": "Native toolpaths and accessible supports, exact retained bearing area, and CAD assembly motion clearances. Deposited fit, sleeve stiffness and insertion force are unmeasured.",
-  "finalization_script_sha256": "e251969abd044e449e960a3b280d9c69fbaaa7653cfb0a1c0199f7b439e3ef64",
+  "finalization_script_sha256": "79c1691477d8a947c9b1daaf5bad428e9b444ceabec12eb7716207c2d25c5601",
   "consumer_assembly_qualified": false
 }

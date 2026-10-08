@@ -55,8 +55,8 @@ tools/cad-venv/bin/python hardware/printed-parts/faucet/finalize_vent_prints.py 
 
 The [native validation](faucet-industrial-petgf.native-validation.json) records
 the source meshes, emitted settings, trim, archive/G-code checksums, estimated
-time and profile-density mass. The current slice estimates 4 h 56 min 18 s
-and 132.67 g at the saved density. Its complete emitted model/support/brim
+time and profile-density mass. The current slice estimates 4 h 51 min 27 s
+and 132.43 g at the saved density. Its complete emitted model/support/brim
 envelope retains 25.17 mm usable-bed clearance; separate part toolpaths retain
 37.67 mm clearance. The
 [readiness record](faucet-industrial-petgf.readiness.json) binds those files
@@ -67,7 +67,7 @@ these tools.
 
 | Part | Support removal |
 | --- | --- |
-| Base | Cut sacrificial stock into small fragments; remove through the counter-end, donor bay and lever opening. Clear the insert pilots and pedestal sockets while retaining their seating faces. |
+| Base | Cut sacrificial stock into small fragments; remove through the counter-end, common rear tube opening, donor bay and lever opening. Clear the insert pilots and pedestal sockets while retaining their seating faces; the flat ribbon must pass freely behind the F1-D-F2 bundle. |
 | Shared tip | Release through the open joint, 12 × 22 mm bottom port and display pocket. Clear both gland grooves, seats and lips, then all dry tube/wire guides before fitting bungs. |
 | Cover | Remove supports through the open underside before fitting the display; retain snap wings and lip-bearing faces. |
 | Plate | Remove the three screw-counterbore bodies through their screw-head openings while retaining the seats. |
@@ -78,7 +78,7 @@ and [cavity image](../vent-print-readiness/faucet-industrial-black-z018-h2c/nati
 locate their paths. The
 [lower-guide review](faucet-industrial-petgf.lower-supports.json) and its
 [base sections](../vent-print-readiness/faucet-industrial-black-z018-h2c/native-lower-support-sections.png)
-locate trees around the cable relief and pedestal sockets. Physical release and
+locate trees around the shared rear passage and pedestal sockets. Physical release and
 deposited finish remain inspection items. The
 [complete print set](../vent-print-readiness/README.md) provides
 the matching bungs, gasket, insertion tool and

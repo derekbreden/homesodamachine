@@ -1,5 +1,5 @@
 {
-  "project_sha256": "d0a4250522de91bc14d8c0bd192a8608fd18c65061b8832554b7fded8270f5b6",
+  "project_sha256": "15dbef8d1b891707829c0f9c624911eb33fb1b6b294addc0fa56fd4aca65640d",
   "parts": [
     {
       "station": "carb",
@@ -8,7 +8,7 @@
       "word_filament": 1,
       "position_xy_mm": [
         150,
-        155
+        145
       ]
     },
     {
@@ -18,15 +18,19 @@
       "word_filament": 1,
       "position_xy_mm": [
         200,
-        155
+        145
       ]
     }
   ],
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
     "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "69516ebe4692a93918878f333cab6fbdd385a3476cdaf44e795546d1af6803d9",
-    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b0b4f108e4ab0746cc4555179931efc9b5f65d6516ee8caebb9fada1597285c5"
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "29a1d34d8c49f49f3ff77126a4dd6fe6982d63925403cbe50ce805eb6f90b406",
+    "hardware/printed-parts/cadlib/port_chip.py": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b0b4f108e4ab0746cc4555179931efc9b5f65d6516ee8caebb9fada1597285c5",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py": "19da35229da483ea3baae512d618f923f3a557e779252f571897c3517e8d4435",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "ff3b535ed5e6100b5f43734516b578d58f38fddbd89f504d196068fdc3ea0b27",
+    "hardware/printed-parts/drain-readiness/prepare.py": "c9419b5c22b3b3db9b738c34c6455b2f667cd06adc24221120be6c5b3b1d637d"
   },
   "extruder_offset": [
     "0x0",
@@ -34,11 +38,5 @@
   ],
   "z_trim_mm": 0.04,
   "first_layer_mm": 0.2,
-  "normal_layer_mm": 0.24,
-  "source_equivalence": {
-    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
-      "method": "Complete AST equality after removing docstrings; comments and locations are excluded. Every executable source node is identical.",
-      "executable_ast_sha256": "80a139bb1656e4738d8882528621cc4479402f81db761a7b2326b1c2cb126db3"
-    }
-  }
+  "normal_layer_mm": 0.24
 }

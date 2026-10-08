@@ -1,0 +1,95 @@
+{
+  "check": "Postpublication mesh lint of both consumer mounting plates and countertop gaskets",
+  "published_geometry_commit": "b214e4ca1998b2b728e5b5f54af7446c716f4df2",
+  "publication_live_confirmation": {
+    "report": "hardware/printed-parts/faucet/asse-vent-seals/rear-bundle-publication-check.json",
+    "report_sha256": "9ca06e3aed3a90fca5cf54975bc62769d46c655e497969abceadab51bb45aaea",
+    "live_base": "https://objects.homesodamachine.com",
+    "all_18_faucet_geometry_pointers_and_bytes_match": true
+  },
+  "command": [
+    "tools/cad-venv/bin/python",
+    "-u",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+    "--all",
+    "--top",
+    "100"
+  ],
+  "environment": {
+    "HSM_NO_BUILD_LOCK": "1"
+  },
+  "source_sha256": {
+    "hardware/faucet-layout/faucet_assembly.py": "e1ef8e9da11fedc444c1b3ea641c802b731cfd51f1ac86cabea1e4b2671b59b7",
+    "hardware/faucet-layout/faucet_industrial_assembly.py": "7dd79a8b18842674b14fad0eb7a542a184e9ddda4c1ffe1fd082214d237f9e94",
+    "hardware/printed-parts/faucet/faucet_paths.py": "d2decf45a4a62367a94afd2c54f6b82ee0df2be8d21b5c6e2a534dd7fe014a26",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b5c1a4dec0da38c20a1f5e55199475a006cea663e6057085d882beeb18c88ccd",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d",
+    "hardware/scripts/geometry_lint.py": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "hardware/scripts/pick_read.py": "59a005a35d8cce2e5bce407ebf0ec110b8de9057294e35b8504fe3d0072c35d7",
+    "hardware/scripts/pick_text.py": "5f38dee585665016d5a7766588a15e6ecfca13c98d92a5e69a3cb7a3fd39396d"
+  },
+  "raw_log": "hardware/printed-parts/faucet/asse-vent-seals/rear-mounting-postpublication-lint.log",
+  "raw_log_sha256": "da3be9cc8323c410f41263f8c2520e72398d4f798d8b9f99f1927984bceabc7a",
+  "raw_log_text": "above-counter-plate.stl \u00b7 15212 printed facets \u00b7 0 findings\n\nindustrial-above-counter-plate.stl \u00b7 15144 printed facets \u00b7 0 findings\n\nabove-counter-gasket.stl \u00b7 3104 printed facets \u00b7 0 findings\n\nindustrial-above-counter-gasket.stl \u00b7 3036 printed facets \u00b7 0 findings\n",
+  "records": [
+    {
+      "stl": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "stl_sha256": "86be12263a381f3d63afd7cbdff13ec2e9dafb0c109de64c389fb9cb81d7579d",
+      "step": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "step_sha256": "ee9969a0a2dff2baf2220a8c076d4dbc2bc95d038096447f65d170a3a035b980",
+      "viewer_payload": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+      "viewer_payload_sha256": "b0c09a7caad1c20af8a774cb4508dd556e875258a989a19bb6233b0ba39cc9ad",
+      "printed_facet_count": 15212,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+      "step": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "step_sha256": "bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05",
+      "viewer_payload": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
+      "viewer_payload_sha256": "fd3e42aaaf7af47589f90fd5e35547a8bd353990452234d226c0d5df28bcbb0f",
+      "printed_facet_count": 15144,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "stl_sha256": "6c42c900b0e5d268a4e67a15329eaea5167d6596b5abfea8da95c5de1b7e6299",
+      "step": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+      "step_sha256": "838a69dc98d129548d795b1b00f21a4536e6dc69c84e1d7e949f528ae7716caf",
+      "viewer_payload": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+      "viewer_payload_sha256": "de5dc06838102d553e488338c10908fe49db80ad7a008161baf253e8cab40ceb",
+      "printed_facet_count": 3104,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    },
+    {
+      "stl": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "stl_sha256": "052de7f774cd3abca104df251aef7cfe568a4214a2035b3a47d29f6473556296",
+      "step": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
+      "step_sha256": "95e94afc406f7ca894695c19de96c0985b1747478e28e4e5a4e8371bfe4b3e67",
+      "viewer_payload": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
+      "viewer_payload_sha256": "cefde026a00916811f9d48ba22c272c49cd0013bce2d0861d8b4c3c47ad75f2c",
+      "printed_facet_count": 3036,
+      "open_findings": 0,
+      "answered_findings": 0,
+      "witness_linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+    }
+  ],
+  "open_finding_count": 0,
+  "answered_finding_count": 0,
+  "scope": "Current published canonical printed mounting meshes. All four linter classes completed on each part. These observations address mesh anomalies; physical strength, sealing and lifetime require the complete assembled-part acceptance procedure.",
+  "passed": true
+}

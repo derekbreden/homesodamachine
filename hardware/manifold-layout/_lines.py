@@ -803,6 +803,7 @@ GATE_STUB_CLEAR = 4.0
 # fences above are on the leg, so both are read from there too, and `bend-radius` is what reports
 # the climb's quarter when the leg is short of the first one.
 GATE_B_JOG_LEG = 19.9
+GATE_B_DRAIN_RETURN_RISE = 7.5
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is
 # THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
@@ -875,7 +876,7 @@ def _gate_climb_under_cruise(F) -> float:
 def _fluid_28(F, solids):
     """Flavor B retains the front support and bypasses the drain fittings to the west.
 
-    The return rises 6 mm, passes 13 mm west of the rear union's column and
+    The return rises 7.5 mm, passes 13 mm west of the rear union's column and
     reaches its collet on-axis. The new return corners hold R25.4.
     """
     gate = F["valve-v-j"].at("outlet")
@@ -886,9 +887,9 @@ def _fluid_28(F, solids):
         (gate[0], gate[1], climb),                          # up what the reservoir stub leaves
         (tin[0], gate[1] + GATE_B_JOG_LEG, climb),          # the one jog, onto the union's column
         (tin[0], 302.0, climb),
-        (tin[0], 340.0, climb + 6.0),
-        (tin[0] - 13.0, 365.0, climb + 6.0),
-        (tin[0] - 13.0, 398.0, climb + 6.0),
+        (tin[0], 340.0, climb + GATE_B_DRAIN_RETURN_RISE),
+        (tin[0] - 13.0, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
+        (tin[0] - 13.0, 398.0, climb + GATE_B_DRAIN_RETURN_RISE),
         (tin[0], 435.0, tin[2]),
         "bulkhead-flavor-b.tube-in",
         kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,

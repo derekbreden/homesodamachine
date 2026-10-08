@@ -5,16 +5,16 @@
   "distance_tolerance_mm": 0.0001,
   "overlap_tolerance_mm3": 1e-05,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "676023b54a0517e54ed11ef4f059ce8a0cf8c1bc002e3b92f3d1fe6234789bfb",
+    "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
     "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
     "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
     "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "3f7e028ca7e4961b946139412b74a8ff37116f8a032262eb75297e32828034df",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
@@ -82,7 +82,7 @@
     "solid:shell_base": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 127968.4937388,
+      "volume_mm3": 127967.6846565,
       "bounds_mm": [
         -30.4635907,
         30.4635907,
@@ -167,8 +167,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 504294,
-      "volume_mm3": 127959.5225699,
+      "triangle_count": 505794,
+      "volume_mm3": 127958.7308821,
       "tolerance_mm": 0.005,
       "angular_tolerance_rad": 0.05,
       "tolerance_is_relative": false,
@@ -263,8 +263,8 @@
     },
     "mesh:lower-outer-loft-accuracy": {
       "mesh": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "stl_sha256": "60fd96033b2f1aaca5c8b52e04afa6defe641b04a22fcd52d7fabc06c3128192",
-      "triangle_count": 504728,
+      "stl_sha256": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
+      "triangle_count": 505794,
       "grid_per_bspline_face": [
         41,
         51

@@ -2,81 +2,13 @@
   "schema": 1,
   "scope": "Saved production tip STEP with native full-circumference seal-wall witnesses, continuous bottom escape corridor, analytic torus opening faces and bowl halfspaces. Nominal CAD only; no physical seal, splash, clogging or hydraulic qualification.",
   "saved_tip_step": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
-  "witness_execution_source_sha256": {
-    "hardware/printed-parts/faucet/vent-qualification/check_port.py": "1a6c8e5ce7552aea861ba30541ad3a6d282a87813e6f4d21c2a8b48da64463da",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
-    "hardware/printed-parts/faucet/vent_seals.py": "3a56b56109ec9f3a5df352dbf6bf1e63cf452f442fcebca52294d8c014c06b70",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "4ff60078a0743e7fd07c20592436bd46ffd143c64e207ee7e6d6ce06e157d75b",
-    "hardware/faucet-layout/faucet_assembly.py": "e29fdff83ba84fa2f4b74d8d3d869914573447255a281a992e663a445e8a5a07",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "96d0c010f1df4819a3a0a307cdb324ca8822c1670af4dcdf48f26e1575c20322"
-  },
-  "source_binding_refresh": {
-    "scope": "Same saved production tip STEP, port/gland/cavity/tip-frame function geometry, station source, seal wall dimensions and installed hole pose. Lower shell cable relief, mounting stock, factory insertion-tool dimensions, display-cover factory approach, comments and the qualification-reader export-lock setting are outside these saved-tip geometric witnesses. Final full cabinet route binding is recorded separately in native-inputs.json.",
-    "saved_step_digest_unchanged": true,
-    "maximum_seal_witness_volume_binding_difference_mm3": 4.547473508864641e-13,
-    "seal_constant_values": {
-      "BODY_LENGTH": 4,
-      "KEEPER_LENGTH": 1.2,
-      "GROOVE_ID": 22.8,
-      "GROOVE_LENGTH": 0.9,
-      "BODY_SEAT_ID": 22
-    },
-    "station_source_digest_unchanged": true,
-    "port_geometry_function_AST_digests_unchanged": true,
-    "factory_display_motion_source_equivalence": {
-      "previous_bound_shell_source_sha256": "4ff60078a0743e7fd07c20592436bd46ffd143c64e207ee7e6d6ce06e157d75b",
-      "current_bound_shell_source_sha256": "031e2809fa7c80ccddd6e9896b9eb48bdbff2ccac312acdb267716ddb9061c29",
-      "exact_previous_source_reconstructed_by_reversing_only_factory_motion_value_and_added_comments": true,
-      "changed_factory_motion_parameter": "display_cartridge_lift_n",
-      "factory_display_approach_lift_mm": 9.5,
-      "all_shell_function_ASTs_unchanged": true,
-      "port_gland_function_AST_sha256": {
-        "_round_cavity_segment": "9aaca89cf04e45e12bf3ab4d2dd77232cef18d8c8994eeecb4f4d5b7aa1bab0c",
-        "_gland_world": "5534d217e39d04de33c695f585494eb32318326eb8d3b3c780fa22ac6f3ebba6",
-        "_gland_halfspace": "853ae70b959a5f83abf019a7cda264e04e5d256b85bdeda7d290741e72b79eda",
-        "build_vent_outlet": "135d5f14a74807bb51ed6ce6b8de435701fedb7a44b81cf654328572158abd59",
-        "_display_outline_wire": "91dfdef9fa3f384f2452b3353c6da03825850196fe422659638ec374bcd6cc20"
-      },
-      "saved_consumer_tip_STEP_digest_unchanged": true,
-      "scope": "Factory assembly motion setting and explanatory comments; no consumer port, gland, tube or printed-part geometry change."
-    },
-    "saved_tip_source_equivalence": {
-      "baseline_shell_source_sha256": "031e2809fa7c80ccddd6e9896b9eb48bdbff2ccac312acdb267716ddb9061c29",
-      "current_shell_source_sha256": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-      "required_function_AST_sha256": {
-        "_round_cavity_segment": "9aaca89cf04e45e12bf3ab4d2dd77232cef18d8c8994eeecb4f4d5b7aa1bab0c",
-        "_gland_world": "5534d217e39d04de33c695f585494eb32318326eb8d3b3c780fa22ac6f3ebba6",
-        "_gland_halfspace": "853ae70b959a5f83abf019a7cda264e04e5d256b85bdeda7d290741e72b79eda",
-        "build_vent_outlet": "135d5f14a74807bb51ed6ce6b8de435701fedb7a44b81cf654328572158abd59",
-        "_display_outline_wire": "91dfdef9fa3f384f2452b3353c6da03825850196fe422659638ec374bcd6cc20",
-        "_tip_frame": "6db0cd77903d5594ac5408a5bf5d55c0914a25d97f107d646066f61553bed9bf"
-      },
-      "required_function_ASTs_unchanged": true,
-      "station_source_digest_unchanged": true,
-      "saved_tip_STEP_digest_unchanged": true,
-      "scope": "Saved tip outlet, gland stock and cavity witnesses; lower base stock and cable relief are not covered."
-    },
-    "saved_tip_geometry_inputs_unchanged": true,
-    "complete_route_inputs_unchanged": false,
-    "complete_route_binding": {
-      "native_inputs": "hardware/printed-parts/faucet/vent-qualification/native-inputs.json",
-      "native_inputs_sha256": "49ef4b06362d83e0ac906b00068d74a78f6bfd081e22b7c158466fd34d06a8ba",
-      "hydraulic_report": "hardware/printed-parts/faucet/vent-qualification/hydraulic-report.json",
-      "hydraulic_report_sha256": "37824a05b3c0d5b5ef6bc29065938baad78db8bb60dcc5b2ac6932f87778238b",
-      "saved_appliance_step_sha256": "aa3b4669ab9cae8dd0884cd298019c1850dc9c493e58e55f65ed55a6f745065b",
-      "clearance_report_sha256": "dd6371db2d45f053118b1b14147caa4d2809f70bf89b352350c728542d2267f6",
-      "nominal_installed_clearance_passed": true,
-      "bound_at_utc": "2026-10-07T12:44:22.604895+00:00",
-      "scope": "The source-verified complete appliance route supplies revised pipe lengths and volumes. These affect the separately regenerated conditional hydraulic calculations. The saved tip, gland dimensions, port area and sink envelope remain identical; original native witness-execution hashes are retained."
-    }
-  },
   "source_sha256": {
-    "hardware/printed-parts/faucet/vent-qualification/check_port.py": "a3e60c17602e61f46190a338d7ec535d7e3e497ee22859e2b54885d690dba6f5",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/vent-qualification/check_port.py": "e5430d74d7e668735630b4094098e48927caea31aaf2a76e00b4e9b85be2665d",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-    "hardware/faucet-layout/faucet_assembly.py": "5c78bec5462d340a39b5f95bc8e12c65775a8f371d6c93da1fac41d1537a631c",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "96d0c010f1df4819a3a0a307cdb324ca8822c1670af4dcdf48f26e1575c20322"
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3"
   },
   "volume_tolerance_mm3": 1e-05,
   "area_tolerance_mm2": 1e-05,
@@ -200,26 +132,26 @@
   "bowl_installation": {
     "maximum_hole_center_setback_behind_bowl_edge_mm": 50.8,
     "maximum_yaw_deg": 10.0,
-    "counter_hole_center_behind_shank_mm": 5.715094625622786,
+    "counter_hole_center_behind_shank_mm": 6.9030003743137645,
     "rotation_rule": "Rotate the faucet relative to the accessory hole center; the bowl is the forward halfplane. No lateral bowl-width or curved corner envelope is inferred.",
     "native_continuous_opening_projections": [
       {
         "yaw_deg": -10.0,
         "native_opening_in_counter_region_mm2": 0,
-        "conservative_minimum_opening_reach_from_hole_mm": 55.67332326724848,
-        "margin_beyond_stated_bowl_edge_mm": 4.87332326724848
+        "conservative_minimum_opening_reach_from_hole_mm": 56.84318205840712,
+        "margin_beyond_stated_bowl_edge_mm": 6.043182058407126
       },
       {
         "yaw_deg": 0.0,
         "native_opening_in_counter_region_mm2": 0,
-        "conservative_minimum_opening_reach_from_hole_mm": 57.52186408998209,
-        "margin_beyond_stated_bowl_edge_mm": 6.721864089982091
+        "conservative_minimum_opening_reach_from_hole_mm": 58.70976983867307,
+        "margin_beyond_stated_bowl_edge_mm": 7.909769838673071
       },
       {
         "yaw_deg": 10.0,
         "native_opening_in_counter_region_mm2": 0,
-        "conservative_minimum_opening_reach_from_hole_mm": 55.673323265779814,
-        "margin_beyond_stated_bowl_edge_mm": 4.873323265779817
+        "conservative_minimum_opening_reach_from_hole_mm": 56.84318205693846,
+        "margin_beyond_stated_bowl_edge_mm": 6.043182056938463
       }
     ]
   },

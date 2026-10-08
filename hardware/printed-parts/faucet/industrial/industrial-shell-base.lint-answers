@@ -1,21 +1,14 @@
-[ceiling] This is the 13.7 mm-wide roof behind the open lever region, where the lower cylinder meets the narrower neck at Z57.5. Its complete native face has 2 mm of inward stock. It is inclined 15 degrees to the bed in the base's -15 degree print pose. The retained native support audit places interface-14 of bed-rooted tree-1 beneath this rear lever/tube transition. Break and withdraw that support through the open lever region or bottom donor bore before installing hardware and tubing. The lint plane-center pick is inside the soda-guide opening; (-4, 4.932, 57.5) is an actual point on the adjoining native roof. Physical release and contact finish remain unmeasured.
+[ceiling] This is the 13.7 mm-wide roof behind the open lever region, where the lower cylinder meets the narrower neck at Z57.5. Its complete native face has 2 mm of inward stock. It is inclined 15 degrees to the bed in the base's -15 degree print pose. Current native stock and finite support-path witnesses are recorded in ../vent-qualification/base-native-lint-witnesses.json and ../vent-qualification/lint-support-witnesses.json. Break and withdraw that support through the open lever region or bottom donor bore before installing hardware and tubing. The lint plane-center pick is inside the soda-guide opening; (-4, 4.932, 57.5) is an actual point on the adjoining native roof. Physical release and contact finish remain unmeasured.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
 click: x=0.000 y=4.932 z=57.500
 
-[ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. Its complete native picked face has 2 mm of inward stock. It follows the metal body's plateau envelope and is inclined 15 degrees to the bed in the base's -15 degree print pose. The retained native support audit places interface-10 of bed-rooted tree-1 below this shoulder. Break and withdraw its branches through the open bottom donor bore, then inspect the cavity before fitting the metal body or tubing. Physical cleanup effort and contact finish remain unmeasured.
+[ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. Each complete finite shoulder face has 2 mm of inward stock, including its flavor-entry boundary. It follows the metal body's plateau envelope and is inclined 15 degrees to the bed in the base's -15 degree print pose. Current native stock and finite support-path witnesses are recorded in ../vent-qualification/base-native-lint-witnesses.json and ../vent-qualification/lint-support-witnesses.json. Break and withdraw its branches through the open bottom donor bore, then inspect the cavity before fitting the metal body or tubing. Physical cleanup effort and contact finish remain unmeasured.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=0.000 y=14.156 z=39.000
+click: x=7.269 y=14.446 z=39.000
+click: x=-4.209 y=14.446 z=39.000
 
 [ceiling] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
 click: x=0.000 y=-22.300 z=3.200
 click: x=-22.500 y=-2.000 z=3.200
 click: x=22.500 y=-2.000 z=3.200
-
-[step] This is the clearance transition between the donor rectangle's X=8.75 mm side and the flavor-passage boundary at X=9.075 mm, beside the cable turn. The 0.325 mm offset opens the adjoining passages. The complete picked plane has a valid 2 mm inward material witness wholly present in the saved Industrial base STEP. The exact inward material chord at the pick is 14.015 mm. This cavity boundary carries no separate mounting datum.
-file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=9.075 y=13.286 z=24.424
-
-[sliver] This is the positive-overlap edge joining the lower cable relief to the flavor passage. The connector overlaps the flavor-pill boundary by 0.02 mm; the picked planar face spans X=9.074945..9.095 mm and Z=0..14 mm. Its complete valid 2 mm inward material witness is present in the saved Industrial base STEP, and the exact inward material chord at the pick is 9.121 mm. The small face bounds a recess backed by continuous shell stock.
-file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=9.085 y=18.945 z=7.000

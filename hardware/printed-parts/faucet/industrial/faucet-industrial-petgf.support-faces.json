@@ -1,76 +1,77 @@
 {
   "schema": 1,
   "native_archive": "hardware/printed-parts/faucet/vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf",
-  "native_archive_sha256": "e1e8b1d6de50e26fd1a955d4cf3bb840773fecb63cc147e767b14522d2e642de",
-  "gcode_sha256": "d9d681582040a6e7345db2f8142c7a247661dcee235e9711d9b4b01d88a3cbc1",
+  "native_archive_sha256": "c97c4aa4b8f7d249d73a3c374218d1a68075328efb0f5e29b602d3802ab12c7c",
+  "gcode_sha256": "e681e403731d1403e5824af38d223ae6fb874c20696c243ca4508e1b27874d28",
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "d09bcb57e103ee6113172dfacb425e21ea9b93bd5f13b6b8026dbb7cb0cf6514",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "08a68cdd10fb54407a74790205086f5439e42867a0c93fcb400d3b10db2072d0",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "e17c5680324191ae054121f524b76ef1273952b3bfcbe1db432d88017d5d185d",
-    "hardware/printed-parts/faucet/faucet_paths.py": "0ec32760c63ff39616eaf157cb05847fda0e807604314cafe6df0dc6b8005971",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "333cfbc6c20f9f5f9d097bd066075347556e02d964885c29cbc0568399255f52",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+    "hardware/printed-parts/faucet/faucet_paths.py": "9ab8d1c28c5e7e83340de98e71a470397593129c9591d6199e736995db1b2f13",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/vent_seals.py": "e1fd40785e5c4cb2f9a87879eac054978a7e21d470e16703e43474bf30a68eca",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "198083e808972ee41b8bd59b798010a14632821681b73ce8d9bd2c8f7a48a108",
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "220bd9fc58ffecf7e7d6a1961b9eef9ad2d991eab8c07bb1f823172b72a70e28",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "4ef04dd5dfa6a5d4d851a2ba1ddf71ff0bd587c6b0e4c0836c8879ce7c392a6d",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "e9fef8c24094ca3384757142fa8c95ee387e34d88992ca205fb2874acb775bf6",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9d8dd0cd1e2e7c0567a3069592dc5b6b2976de60f435c0b232aeaf15da708f7b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "dd6439a226f6ff6ca48451e261acf4fffcb55016b6dbbfc3660ba63a7f42b74e",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "4ea9daa48a944ddd1bfa0775049d43a0ca1dc864c3f3a37530d622b69775c865"
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4"
   },
   "analysis_script_sha256": "c87d9cf4952e0774e3b358d3c6169aead66238848052b332b7251fcbf04269ab",
   "method": "All Support feature centerlines, including unlabeled bodies; up to 2,500 per-part nearest-surface witnesses within 0.85 mm.",
   "parts": [
     {
       "part": "faucet-shell-tip",
-      "support_path_samples": 71655,
+      "support_path_samples": 70832,
       "nearby_face_witness_counts": {
         "downstream gland": 7,
+        "dry transition": 1,
         "upstream gland": 14
       },
       "representative_nearby_faces": [
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            -5.680982915582212,
-            59.07548868476884,
-            -7.150436643357594
+            -4.47148607495598,
+            59.39366312126283,
+            -7.112086009935254
           ],
-          "distance_from_support_centerline_mm": 0.4734530227225265,
+          "distance_from_support_centerline_mm": 0.6853202459440123,
           "normal_world": [
-            0.5258872657533291,
-            0.8434307114936896,
-            -0.10985089270340927
+            -2.031903200968297e-05,
+            0.999729522526796,
+            -0.023256856526224275
           ]
         },
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            -4.070499024045202,
-            59.378389770206226,
-            -7.022325820858697
+            -3.1955025320710906,
+            59.47862754651848,
+            -7.606800946337415
           ],
-          "distance_from_support_centerline_mm": 0.43376994824014414,
+          "distance_from_support_centerline_mm": 0.49940225724337656,
           "normal_world": [
-            -2.2499363583635506e-06,
-            0.999729394236866,
-            -0.023262379365123043
+            5.0702035737980875e-06,
+            0.9997293265115968,
+            -0.023265289316106098
           ]
         },
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            3.172011076041451,
-            59.33656372888261,
-            -6.775232192143534
+            2.898829632214106,
+            59.288183884962926,
+            -6.487059532235861
           ],
-          "distance_from_support_centerline_mm": 0.4060299918801064,
+          "distance_from_support_centerline_mm": 0.5644418209261088,
           "normal_world": [
-            -2.727887514453943e-05,
-            0.9997291632972849,
-            -0.023272286281614735
+            -0.2670584089650905,
+            -0.17508130498292848,
+            0.9476425184881212
           ]
         },
         {
@@ -90,169 +91,183 @@
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            3.1461494856580043,
-            59.322577068311574,
-            -6.417918981155211
+            3.0175891850212735,
+            59.354846874051304,
+            -6.457415617420963
           ],
-          "distance_from_support_centerline_mm": 0.8198168579523364,
+          "distance_from_support_centerline_mm": 0.5095858450914761,
           "normal_world": [
-            -0.28744161988395217,
-            -0.1736562747439819,
-            0.9419239955540639
+            -0.2670584089650905,
+            -0.17508130498292848,
+            0.9476425184881212
           ]
         },
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            1.7621666345734237,
-            65.35783954248008,
-            -5.785406794954085
+            0.7224439605331011,
+            65.36214654622289,
+            -5.915719601200422
           ],
-          "distance_from_support_centerline_mm": 0.6465261496255716,
+          "distance_from_support_centerline_mm": 0.795542493328087,
           "normal_world": [
-            5.285490531338884e-06,
-            0.98351221001422,
-            0.1808417339139622
+            -3.583437337207083e-06,
+            0.9835118350887166,
+            0.1808437729853699
           ]
         },
         {
           "station": "downstream gland",
           "point_x_s_n_mm": [
-            2.0699334793111817,
-            66.09926667468,
-            -5.700635061991733
+            0.42682555285983603,
+            65.88705402514134,
+            -5.915997849510148
           ],
-          "distance_from_support_centerline_mm": 0.7913144429562663,
+          "distance_from_support_centerline_mm": 0.5836059087242448,
           "normal_world": [
-            -0.21032534006253928,
-            -0.17679700025588474,
-            0.9615123878703269
+            -0.03739775854488087,
+            -0.18071567112202352,
+            0.9828241215328077
+          ]
+        },
+        {
+          "station": "dry transition",
+          "point_x_s_n_mm": [
+            -0.3648304994786482,
+            66.66942846478491,
+            -5.887337169633312
+          ],
+          "distance_from_support_centerline_mm": 0.8189212123496775,
+          "normal_world": [
+            0.03739775854488087,
+            -0.18071567112202352,
+            0.9828241215328077
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            1.4708465294245838,
-            25.70960735073671,
-            -7.379241110296675
+            0.4206765453308764,
+            27.353716470470978,
+            -7.46591192083595
           ],
-          "distance_from_support_centerline_mm": 0.7816421859173143,
+          "distance_from_support_centerline_mm": 0.662304398225038,
           "normal_world": [
-            -0.1207029650195618,
-            0.3274053739957916,
-            0.9371427400957457
+            -0.037258616124238086,
+            0.31450309923050884,
+            0.9485249580790751
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            0.7609044888064962,
-            25.857861984250704,
-            -7.448956680545223
+            -0.35125727836189147,
+            27.700484345871242,
+            -7.466713351044817
           ],
-          "distance_from_support_centerline_mm": 0.5575045596561518,
+          "distance_from_support_centerline_mm": 0.7788160319133379,
           "normal_world": [
-            -0.0581241682157454,
-            0.3292577466709996,
-            0.9424494242803503
+            0.02536835087144806,
+            0.3146200541532304,
+            0.948878637286498
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            0.48669776106650414,
-            25.83582150504558,
-            -7.463586149297285
+            0.9967909053059838,
+            29.669854076941448,
+            -6.8244970561482745
           ],
-          "distance_from_support_centerline_mm": 0.5278374454288529,
+          "distance_from_support_centerline_mm": 0.5728315433302578,
           "normal_world": [
-            -0.03731785464844268,
-            0.329583009965431,
-            0.9433887943295511
+            -0.06160782470325152,
+            0.8470659412440282,
+            0.5279050739666193
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            -0.341769835355301,
-            26.174939394634144,
-            -7.468728480431693
+            -0.07097028606727337,
+            30.672511441055473,
+            -6.906766029488992
           ],
-          "distance_from_support_centerline_mm": 0.6229848763099203,
+          "distance_from_support_centerline_mm": 0.7625864618083787,
           "normal_world": [
-            0.025313351824391747,
-            0.3297071759853943,
-            0.9437438277006905
+            0.01244679030591564,
+            0.22428674917331715,
+            0.9744437036362571
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            0.36693843537490334,
-            29.594899864253257,
-            -6.921730324745781
+            -0.8098020180079204,
+            30.673947275295046,
+            -6.877689090305239
           ],
-          "distance_from_support_centerline_mm": 0.8107613705884892,
+          "distance_from_support_centerline_mm": 0.6636889210340895,
           "normal_world": [
-            -0.026442349318304012,
-            0.8475690759961145,
-            0.5300259084022416
+            0.06228817251866591,
+            0.22386857244298963,
+            0.9726268790428437
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            0.10446447894462241,
-            29.371672033359324,
-            -7.1051045083167566
+            0.3840591735408833,
+            32.12778870137588,
+            -6.945600575582617
           ],
-          "distance_from_support_centerline_mm": 0.675552097741569,
+          "distance_from_support_centerline_mm": 0.7637250475520749,
           "normal_world": [
-            -0.008829043628997425,
-            0.847667719963252,
-            0.5304540362000267
+            -0.03739457496178219,
+            0.22415314944133194,
+            0.9738362343633346
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            1.0121722578719021,
-            31.7940077756986,
-            -6.897645640022304
+            0.36465478861964673,
+            33.52989346758154,
+            -6.964905967226116
           ],
-          "distance_from_support_centerline_mm": 0.5697769213550876,
+          "distance_from_support_centerline_mm": 0.7796528948235714,
           "normal_world": [
-            -0.08717843073354163,
-            0.22345602404002438,
-            0.9708075641109629
+            -0.03739457496178219,
+            0.22415314944133194,
+            0.9738362343633346
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            -0.8404070108932064,
-            33.51142704774502,
-            -6.939259004197709
+            0.08563427911318634,
+            33.425008441438166,
+            -6.970103346817254
           ],
-          "distance_from_support_centerline_mm": 0.704383072470116,
+          "distance_from_support_centerline_mm": 0.4928402383804793,
           "normal_world": [
-            0.08717843073354163,
-            0.22345602404002438,
-            0.9708075641109629
+            -0.01244679032975912,
+            0.22429266073274212,
+            0.9744423429592507
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            0.595068947798815,
-            34.834997981000036,
-            -6.950185846865153
+            0.35987395770201625,
+            34.928874968255194,
+            -6.958975808696735
           ],
-          "distance_from_support_centerline_mm": 0.5148737975471359,
+          "distance_from_support_centerline_mm": 0.7855138808780555,
           "normal_world": [
-            -0.06228506471217471,
-            0.22387451648576936,
-            0.972625709912124
+            -0.03739457496178219,
+            0.22415314944133194,
+            0.9738362343633346
           ]
         },
         {
@@ -272,25 +287,25 @@
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            1.4478404826640685,
-            36.338332620272084,
-            -6.838065946649735
+            0.3549170333098275,
+            36.32058869980992,
+            -6.928644988491499
           ],
-          "distance_from_support_centerline_mm": 0.7487791265236896,
+          "distance_from_support_centerline_mm": 0.7732948787193265,
           "normal_world": [
-            -0.13667646311031006,
-            0.22220505305699803,
-            0.9653727046211701
+            -0.03739457496178219,
+            0.22415314944133194,
+            0.9738362343633346
           ]
         },
         {
           "station": "upstream gland",
           "point_x_s_n_mm": [
-            -0.8508840304182025,
-            37.42171916612362,
-            -6.86031496633322
+            -0.8523532784982037,
+            37.421712159000236,
+            -6.860186546352267
           ],
-          "distance_from_support_centerline_mm": 0.7790521001740351,
+          "distance_from_support_centerline_mm": 0.6985352474460558,
           "normal_world": [
             0.08717843073354163,
             0.22345602404002438,

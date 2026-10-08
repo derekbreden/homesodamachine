@@ -19,6 +19,8 @@ import os
 from pathlib import Path
 import sys
 
+from _run_lock import acquire
+
 ROOT = Path(__file__).resolve().parents[2]
 FAUCET = ROOT / "hardware/printed-parts/faucet"
 SHELL = FAUCET / "faucet-shell"
@@ -2052,10 +2054,10 @@ def print_reading(f, parts):
 
 def saved_retention_reading(output: Path, *, sampled_seating=False) -> int:
     """Bounded production-tip/cover audit; it does not replace the full scorecard."""
+    acquire(str(Path(__file__).resolve()))
     import cadquery as cq
     import trimesh
 
-    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
     sys.path.insert(0, str(ROOT / "hardware/faucet-layout"))
     import faucet_assembly as assembly
     f, cover_builder = assembly.faucet_shell, assembly.faucet_display_cover
@@ -2324,9 +2326,9 @@ def main() -> int:
         return saved_retention_reading(output, sampled_seating=args.sampled_seating)
     if args.sampled_seating:
         parser.error("--sampled-seating requires --saved-retention")
+    acquire(str(Path(__file__).resolve()))
     paths = source_paths()
     before = hashes(paths)
-    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
     sys.path.insert(0, str(ROOT / "hardware/faucet-layout"))
     import faucet_assembly as assembly
     f = assembly.faucet_shell

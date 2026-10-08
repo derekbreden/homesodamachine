@@ -23,7 +23,6 @@ OUT = DIR / 'out/fill-redesign'
 SOURCE = HARDWARE / 'manifold-layout/enclosure-assembly.step'
 FACTS = SOURCE.with_suffix('.facts.json')
 RENDERER = ROOT / 'tools/render/render-step-posed.js'
-os.environ.setdefault('HSM_NO_BUILD_LOCK', '1')
 sys.path.insert(0, str(HARDWARE / 'scripts'))
 sys.path.insert(0, str(HARDWARE / 'printed-parts/enclosure/enclosure'))
 from _cadq_export import _per_solid_color

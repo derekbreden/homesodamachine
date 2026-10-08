@@ -53,6 +53,17 @@ linked here are the authority for each observation, including their print bindin
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. | Operating force and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. | These results belong to the identified articles and recipes. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 
+## Rear identification and DATA frame
+
+The [rear label set](../printed-parts/drain-readiness/README.md) uses 32 mm faces
+and rounded lower corners. The [DATA frame](../printed-parts/enclosure/data-ring/README.md)
+has separate lateral snaps around an independently mounted RJ11 jack. Its
+[native fit record](../printed-parts/enclosure/data-ring/fit-check.json) measures
+plug approach, neighboring hardware clearance and complete retaining-lip stock.
+Nominal flexure screening does not establish printed fit, insertion force,
+pullout capacity or cycle life. The accepted nameplate and display-cover results
+retain their identified geometry and print scope.
+
 ## Front-top support removal and rim finish
 
 The [front-top v17 physical result](../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
