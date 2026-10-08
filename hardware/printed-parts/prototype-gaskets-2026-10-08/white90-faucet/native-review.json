@@ -1,0 +1,218 @@
+{
+  "pass": true,
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.gcode.3mf",
+  "archive_sha256": "82918b53f842a78cccc1e913aefc683f41ee713d04c122255e54d3604dcae61c",
+  "gcode_sha256": "6e37a3285fba198f7bfb2dc7f86983f2851b1250ea891869b416cae60ed1c966",
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+  "project_sha256": "79046db4fa341be522e22eef0e367f0edc41829becb6c7a4cbe2402c284cf5b7",
+  "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.stl",
+  "source_stl_sha256": "7463c22cd27f52cb6acea858c969245d6b67cf3cc60c885b2202b62dd8082a99",
+  "stock_material": "Bambu TPU 90A @BBL H2C",
+  "bed_type": "Engineering Plate",
+  "nozzle_c": 225,
+  "bed_c": 35,
+  "flow_ratio": 1,
+  "maximum_volumetric_mm3_s": 2.8,
+  "active_side": "RIGHT",
+  "active_nozzle_mm": 0.6,
+  "external_slot": 255,
+  "zip_crc_and_gcode_md5_pass": true,
+  "retained_gasket_process": true,
+  "z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "probing_clump_calls": 0,
+  "native_settings_normalizations": {
+    "ams_filament_unload_time_ams": [
+      null,
+      "0"
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_dev_chamber_drying_bed_temperature": [
+      [
+        "90.0"
+      ],
+      [
+        "90"
+      ]
+    ],
+    "filament_long_retractions_when_ec": [
+      [
+        "nil"
+      ],
+      null
+    ],
+    "farthest_point_timelapse": [
+      null,
+      "0"
+    ],
+    "filament_emission_safe": [
+      "1",
+      null
+    ],
+    "filament_ingredients_safe": [
+      "1",
+      null
+    ],
+    "ams_filament_unload_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "ams_filament_unload_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "ams_filament_load_time_ams": [
+      null,
+      "0"
+    ],
+    "extruder_nozzle_stats_new": [
+      null,
+      [
+        "Standard#1",
+        "Standard#1"
+      ]
+    ],
+    "ams_filament_load_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "version": [
+      "02.07.01.57",
+      "02.08.02.61"
+    ],
+    "default_ams_type": [
+      null,
+      "-1"
+    ],
+    "filament_contact_safe": [
+      "1",
+      null
+    ],
+    "counterbore_hole_bridging": [
+      null,
+      "none"
+    ],
+    "bed_heat_soak_area": [
+      null,
+      []
+    ],
+    "filament_retraction_distances_when_ec": [
+      [
+        "nil"
+      ],
+      null
+    ],
+    "ams_filament_load_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "part_count": 1,
+  "layers": [
+    {
+      "z_mm": 0.3,
+      "slab_height_mm": 0.3,
+      "model_roads": 416,
+      "wall_roads": 86,
+      "extrusion_e_mm": 301.91422
+    },
+    {
+      "z_mm": 0.48,
+      "slab_height_mm": 0.18,
+      "model_roads": 402,
+      "wall_roads": 92,
+      "extrusion_e_mm": 184.26139
+    },
+    {
+      "z_mm": 0.66,
+      "slab_height_mm": 0.18,
+      "model_roads": 413,
+      "wall_roads": 96,
+      "extrusion_e_mm": 184.31101
+    },
+    {
+      "z_mm": 0.84,
+      "slab_height_mm": 0.18,
+      "model_roads": 394,
+      "wall_roads": 92,
+      "extrusion_e_mm": 182.86523
+    },
+    {
+      "z_mm": 1.02,
+      "slab_height_mm": 0.18,
+      "model_roads": 395,
+      "wall_roads": 92,
+      "extrusion_e_mm": 182.89245
+    },
+    {
+      "z_mm": 1.2,
+      "slab_height_mm": 0.18,
+      "model_roads": 404,
+      "wall_roads": 92,
+      "extrusion_e_mm": 184.25896
+    },
+    {
+      "z_mm": 1.38,
+      "slab_height_mm": 0.18,
+      "model_roads": 417,
+      "wall_roads": 100,
+      "extrusion_e_mm": 184.41487
+    },
+    {
+      "z_mm": 1.56,
+      "slab_height_mm": 0.18,
+      "model_roads": 404,
+      "wall_roads": 93,
+      "extrusion_e_mm": 184.26114
+    },
+    {
+      "z_mm": 1.74,
+      "slab_height_mm": 0.18,
+      "model_roads": 407,
+      "wall_roads": 91,
+      "extrusion_e_mm": 184.30955
+    },
+    {
+      "z_mm": 1.92,
+      "slab_height_mm": 0.18,
+      "model_roads": 346,
+      "wall_roads": 39,
+      "extrusion_e_mm": 184.25176
+    }
+  ],
+  "complete_plate_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        148.39454329726786,
+        130.40739879779986
+      ],
+      [
+        206.6004924994008,
+        189.59313175145658
+      ]
+    ],
+    "maximum_line_width_mm": 0.625178,
+    "bounds_padding_mm": 0.412589
+  },
+  "minimum_complete_plate_bead_margin_mm": 123.39454329726786,
+  "support_roads": 0,
+  "estimated_seconds": 2066.83984375,
+  "saved_density_mass_estimate_g": 5.774224758148193,
+  "submitted": false,
+  "scope": "Native extrusion and source-bound geometry review; no physical result for white 90A yet."
+}

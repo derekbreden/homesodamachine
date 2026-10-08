@@ -1,0 +1,443 @@
+{
+  "created_at_utc": "2026-10-08T23:17:30.244194+00:00",
+  "stock_filament": "Bambu TPU 90A @BBL H2C",
+  "stock_filament_id": "GFU03",
+  "stock_process": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+  "system_preset_sha256": {
+    "filament/Bambu TPU 85A @BBL H2C.json": "917831324963e57d378111936a8a0c06d0bdee0e0880f228f4f89602614b6cba",
+    "filament/Bambu TPU 85A @base.json": "45a7113e27a2a2dabe9f64298c17e4782b041a2d9562b43303f3fbe11b46cb01",
+    "filament/fdm_filament_tpu.json": "8fc12ed3883ae4419cad7300c28b7d9492c32c20831a820b4c030670fa1bdb49",
+    "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19",
+    "filament/Bambu TPU 90A @BBL H2C.json": "a59270a9229fb15c8a3342f17052f761ff1be44df2004cafe42f424ce6e42358",
+    "filament/Bambu TPU 90A @base.json": "384d33e76a9c956da039853b71044cc1e40cdd4d34fe5e98be8d8a6bd5178cb5",
+    "process/0.18mm Balanced Quality @BBL H2C 0.6 nozzle.json": "bb156b22dae9e4d31cee337859c3cc3ca5e36bffce4e452dabc1e0c9a392c0ad",
+    "process/fdm_process_dual_0.18_nozzle_0.6.json": "4240537f964022cdab1874a2592dba687e956870b307f931bf3d05d1dc8899a0",
+    "process/fdm_process_dual_common.json": "743303a5c3c1962f8c8d178d21e23fc409027ea48574017db51230eac72bd063",
+    "process/fdm_process_common.json": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7"
+  },
+  "successful_85a_project": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+  "successful_85a_project_sha256": "9bbc671dcfa8640b5cd295bf6b86c4681511db84fb6d312378d309bfdf2cfa3e",
+  "successful_85a_task_id": "1321062707",
+  "settings": [
+    {
+      "setting": "nozzle_temperature",
+      "successful_85a": [
+        "225",
+        "225"
+      ],
+      "stock_85a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "stock_90a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "chosen_90a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "nozzle_temperature_initial_layer",
+      "successful_85a": [
+        "225",
+        "225"
+      ],
+      "stock_85a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "stock_90a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "chosen_90a": [
+        "225",
+        "225",
+        "225"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "eng_plate_temp",
+      "successful_85a": [
+        "35"
+      ],
+      "stock_85a": [
+        "35"
+      ],
+      "stock_90a": [
+        "35"
+      ],
+      "chosen_90a": [
+        "35"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "textured_plate_temp",
+      "successful_85a": [
+        "35"
+      ],
+      "stock_85a": [
+        "35"
+      ],
+      "stock_90a": [
+        "35"
+      ],
+      "chosen_90a": [
+        "35"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "filament_flow_ratio",
+      "successful_85a": [
+        "1",
+        "1"
+      ],
+      "stock_85a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "stock_90a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "chosen_90a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "filament_max_volumetric_speed",
+      "successful_85a": [
+        "2.2",
+        "2.2"
+      ],
+      "stock_85a": [
+        "2.2",
+        "2.2",
+        "2.2"
+      ],
+      "stock_90a": [
+        "2.8",
+        "2.8",
+        "2.8"
+      ],
+      "chosen_90a": [
+        "2.8",
+        "2.8",
+        "2.8"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "fan_min_speed",
+      "successful_85a": [
+        "100"
+      ],
+      "stock_85a": [
+        "100"
+      ],
+      "stock_90a": [
+        "100"
+      ],
+      "chosen_90a": [
+        "100"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "fan_max_speed",
+      "successful_85a": [
+        "100"
+      ],
+      "stock_85a": [
+        "100"
+      ],
+      "stock_90a": [
+        "100"
+      ],
+      "chosen_90a": [
+        "100"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "filament_retraction_length",
+      "successful_85a": [
+        "1",
+        "1"
+      ],
+      "stock_85a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "stock_90a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "chosen_90a": [
+        "1",
+        "1",
+        "1"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "filament_retraction_speed",
+      "successful_85a": [
+        "10",
+        "10"
+      ],
+      "stock_85a": [
+        "10",
+        "10",
+        "10"
+      ],
+      "stock_90a": [
+        "10",
+        "10",
+        "10"
+      ],
+      "chosen_90a": [
+        "10",
+        "10",
+        "10"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "slow_down_layer_time",
+      "successful_85a": [
+        "20"
+      ],
+      "stock_85a": [
+        "20"
+      ],
+      "stock_90a": [
+        "14"
+      ],
+      "chosen_90a": [
+        "14"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "slow_down_min_speed",
+      "successful_85a": [
+        "10",
+        "10"
+      ],
+      "stock_85a": [
+        "10",
+        "10",
+        "10"
+      ],
+      "stock_90a": [
+        "20",
+        "20",
+        "20"
+      ],
+      "chosen_90a": [
+        "20",
+        "20",
+        "20"
+      ],
+      "choice": "Bambu material default"
+    },
+    {
+      "setting": "layer_height",
+      "successful_85a": "0.18",
+      "stock_process": "0.18",
+      "chosen_90a": "0.18",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "initial_layer_print_height",
+      "successful_85a": "0.3",
+      "stock_process": "0.3",
+      "chosen_90a": "0.3",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "line_width",
+      "successful_85a": "0.62",
+      "stock_process": "0.62",
+      "chosen_90a": "0.62",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "initial_layer_line_width",
+      "successful_85a": "0.62",
+      "stock_process": "0.62",
+      "chosen_90a": "0.62",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "wall_generator",
+      "successful_85a": "arachne",
+      "stock_process": "classic",
+      "chosen_90a": "arachne",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "wall_loops",
+      "successful_85a": "2",
+      "stock_process": "2",
+      "chosen_90a": "2",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "sparse_infill_density",
+      "successful_85a": "100%",
+      "stock_process": "15%",
+      "chosen_90a": "100%",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "sparse_infill_pattern",
+      "successful_85a": "zig-zag",
+      "stock_process": "grid",
+      "chosen_90a": "zig-zag",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "skeleton_infill_density",
+      "successful_85a": "100%",
+      "stock_process": "15%",
+      "chosen_90a": "100%",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "skin_infill_density",
+      "successful_85a": "100%",
+      "stock_process": "15%",
+      "chosen_90a": "100%",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "top_surface_pattern",
+      "successful_85a": "zig-zag",
+      "stock_process": "monotonicline",
+      "chosen_90a": "zig-zag",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "bottom_surface_pattern",
+      "successful_85a": "zig-zag",
+      "stock_process": "monotonic",
+      "chosen_90a": "zig-zag",
+      "choice": "Retained successful seal-specific process"
+    },
+    {
+      "setting": "top_shell_layers",
+      "successful_85a": "3",
+      "stock_process": "3",
+      "chosen_90a": "3",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "bottom_shell_layers",
+      "successful_85a": "3",
+      "stock_process": "3",
+      "chosen_90a": "3",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "raft_layers",
+      "successful_85a": "0",
+      "stock_process": "0",
+      "chosen_90a": "0",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "brim_type",
+      "successful_85a": "auto_brim",
+      "stock_process": null,
+      "chosen_90a": "auto_brim",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "brim_width",
+      "successful_85a": "5",
+      "stock_process": "5",
+      "chosen_90a": "5",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "brim_object_gap",
+      "successful_85a": "0.1",
+      "stock_process": "0.1",
+      "chosen_90a": "0.1",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    },
+    {
+      "setting": "enable_support",
+      "successful_85a": "0",
+      "stock_process": "0",
+      "chosen_90a": "0",
+      "choice": "Retained saved process; numeric settings match Bambu preset where supplied"
+    }
+  ],
+  "plate": {
+    "type": "Engineering Plate",
+    "glue_user_report": true,
+    "requested_z_trim_mm": 0.04,
+    "expected_emitted_z_trim_mm": 0.04
+  },
+  "operating_choices": {
+    "side": "RIGHT",
+    "external_slot": 255,
+    "active_nozzle_mm": 0.6,
+    "timelapse": true,
+    "bed_leveling": true,
+    "probing_clump_detection": false
+  },
+  "source_binding": {
+    "name": "faucet-counter-gasket-printed-white",
+    "frozen_source_revision": "14594f74e",
+    "frozen_source_path": "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+    "frozen_source_sha256": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
+    "scope": "Footprint and openings match the printed September 18 white Sculpted faucet foot.",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step",
+    "step_sha256": "d36bf13df6842066b23f8986e5e71d9a07e26410be36a62688c4f19f23e80913",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.stl",
+    "stl_sha256": "7463c22cd27f52cb6acea858c969245d6b67cf3cc60c885b2202b62dd8082a99",
+    "bounds_mm": [
+      [
+        -29.00721071989848,
+        -29.506424370519706,
+        -6.007466947601329
+      ],
+      [
+        29.005160925442212,
+        29.50746694760133,
+        -3.9925330523986706
+      ]
+    ],
+    "size_mm": [
+      58.01237164534069,
+      59.01389131812104,
+      2.0149338952026583
+    ],
+    "solid_count": 1,
+    "volume_mm3": 4889.425014788706
+  },
+  "scope": "Bambu 90A material defaults with retained solid-gasket process and the exact prototype faucet footprint. White 90A physical fit and appearance remain unobserved."
+}

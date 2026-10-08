@@ -1,0 +1,126 @@
+{
+  "printer": "Mark2",
+  "status": "Accepted",
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.gcode.3mf",
+  "archive_sha256": "82918b53f842a78cccc1e913aefc683f41ee713d04c122255e54d3604dcae61c",
+  "gcode_sha256": "6e37a3285fba198f7bfb2dc7f86983f2851b1250ea891869b416cae60ed1c966",
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+  "project_sha256": "79046db4fa341be522e22eef0e367f0edc41829becb6c7a4cbe2402c284cf5b7",
+  "native_review": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/native-review.json",
+  "native_review_sha256": "2e18c819b29bc4c18b1184f2e876640bf4d14ab8e923e074e2d65efbda8bdaf9",
+  "settings_comparison": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/settings-comparison.json",
+  "settings_comparison_sha256": "c457affbfb8abd18a3a47a72261fa5103351af9d2f9faeec27fc85680cbb4ea5",
+  "source_binding": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/source-binding.json",
+  "source_binding_sha256": "39b208e793ada00e84aa93d4bc754abbc6708456ba4bb707a68a45d0e84d4a46",
+  "settings": {
+    "physical_material": "White Bambu TPU 90A",
+    "filament_id": "GFU03",
+    "side": "RIGHT",
+    "external_slot": 255,
+    "active_nozzle_mm": 0.6,
+    "plate": "Engineering Plate",
+    "glue_user_report": true,
+    "nozzle_c": 225,
+    "bed_c": 35,
+    "filament_flow_ratio": 1,
+    "maximum_volumetric_mm3_s": 2.8,
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.04,
+    "timelapse": true,
+    "bed_leveling": true,
+    "probing_clump_detection": false
+  },
+  "send_attempted": true,
+  "accepted_at_utc": "2026-10-08T23:23:57.756290+00:00",
+  "estimated_seconds": 2066.83984375,
+  "authorizations": [
+    "I have white TPU 90A loaded now on mark2 in right 0.6 mm hotend.",
+    "I need the faucet above counter gasket in white.",
+    "Please talk to me about the settings you choose and how you chose them based on our preference for Bambu defaults and what changes we had made for the 85A filament that you just did that turned out fine.",
+    "Oh, also, I have an engineering plate with glue on there on mark2."
+  ],
+  "start_gate": "Fresh readings of both printers; Mark2 idle without unresolved faults; white GFU03 in external RIGHT slot255 with fixed RIGHT standard 0.6 mm hotend; native/source/review hashes match; at least 180 seconds after peer accepted start/resume.",
+  "automatic_start": false,
+  "monitor_scheduled": false,
+  "send_attempted_at_utc": "2026-10-08T23:23:30.795048+00:00",
+  "foreground_send_method": "Bambu Connect CUA",
+  "send_count": 1,
+  "preflight": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/preflight.json",
+  "ui_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "probing_clump_detection": false
+  },
+  "accepted_at_central": "2026-10-08T18:23:57.756290-05:00",
+  "printer_task_id": "1321640808",
+  "printer_job_id": "1321640808",
+  "accepted_state": "RUNNING",
+  "accepted_archive_name": "2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.gcode.3mf",
+  "acceptance_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-08T23:23:57.756290+00:00",
+    "task_id": "1321640808",
+    "job_id": "1321640808",
+    "subtask_name": "2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 10,
+    "mc_percent": 0,
+    "mc_remaining_time": 34,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 25.0,
+    "bed_target_temper": 25.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU03",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        "temperature": {
+          "actual_c": 145,
+          "target_c": 145
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.8
+        },
+        "temperature": {
+          "actual_c": 30,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 26,
+      "target_c": 0
+    }
+  },
+  "send_successful": true,
+  "start_notification_reported": true
+}
