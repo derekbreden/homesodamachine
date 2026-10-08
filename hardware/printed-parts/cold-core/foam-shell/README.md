@@ -430,7 +430,7 @@ one lane pitch above it, on `_cold_core_interface.front_slot_standoff`.
 That standoff is **stated, not derived**. Nothing inside this shell sets it — what does is
 the appliance's own floor slab outside this face, which both of the evaporator's coppers
 would cross into if the slot dropped to the bottom of its lane. `enclosure_assembly` reads
-that against the loop itself, on `clearance-floor`, `port-leads` and `lines-clear`, so a
+that against the loop itself, on `clearance-floor` and `pack-closes`, so a
 slot that drops reads red over there rather than quietly walking the refrigerant loop into
 a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up from this top.
 
@@ -771,9 +771,8 @@ What holds the skin instead, and what to read when a refactor touches it:
 - `hardware/scripts/check_flutes.py` holds each payload against the print it was cut
   from, point-to-surface. A payload that lost the flutes stands about a groove deep away
   from the printed mesh, which is far outside the deflection budget it was accepted on.
-- The two bounds `flute-closes` and `flute-even` in `_cold_core_interface` say the count
-  still divides the perimeter near the coupon's pitch and still lands the spun cap's
-  grooves on the shell's.
+- The bound `flute-closes` in `_cold_core_interface` says the count still divides the
+  perimeter near the coupon's pitch.
 
 None of those is a scalar in a table, because the skin is not a scalar: it is a field
 over a surface, and what makes it right is that it closes, stands off the edges, and

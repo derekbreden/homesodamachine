@@ -677,15 +677,14 @@ def main():
     # THE TOP CAP INSTALLS SPUN a half turn about Z (`foam_assembly._spin`), which shifts its
     # field by half the perimeter; on an even `flute_count` that is a whole number of pitches,
     # so a field cut in the cap's own frame lands on the shell's grooves after the spin and
-    # neither piece has to be told about the other (`flute-even`).
+    # neither piece has to be told about the other.
     #   THE TWO LIDS TAKE NONE OF IT, so each one's edge is a smooth band of the silhouette —
     # one `wall_and_floor_thickness` where the bottom lid closes the stack, and the whole
     # [5.4 mm](LID_Z_H) of its plate where the top lid meets the crown. Neither is tall enough
     # to carry the field: the fade runs over `flute_rise` off each of a band's own two faces, so
     # a band reaches full depth only at twice that, and cut on the core's own run these two come
-    # back at 0.604 mm and 0.121 mm against the shell's [1.2 mm](FLUTE_D). `flute-reveal` is that
-    # bound, read over every band of the silhouette. What a band like this reads as is a reveal,
-    # which is what a seam wants.
+    # back at 0.604 mm and 0.121 mm against the shell's [1.2 mm](FLUTE_D). What a band like this
+    # reads as is a reveal, which is what a seam wants.
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
 

@@ -170,7 +170,7 @@ test("a check the build did not compute reads as unread, and not as a pass or a 
 
   const outstanding = {
     gatesPass: false,
-    checks: [gate("pack-closes", "unread"), gate("lines-clear", "unread"), gate("mounted", "pass")],
+    checks: [gate("pack-closes", "unread"), gate("clearance-floor", "unread"), gate("mounted", "pass")],
   };
   assert.ok(isScorecard(outstanding),
     "an unread row is a shape the viewer reads — an unrecognised status costs the whole bar");
@@ -178,11 +178,11 @@ test("a check the build did not compute reads as unread, and not as a pass or a 
   assert.equal(gatesFailing(outstanding), 0,
     "a gate nobody read is not a gate that failed — the badge would say ✗ over a verdict it does not have");
 
-  const bad = { gatesPass: false, checks: [gate("pack-closes", "fail"), gate("lines-clear", "unread")] };
+  const bad = { gatesPass: false, checks: [gate("pack-closes", "fail"), gate("clearance-floor", "unread")] };
   assert.equal(gatesFailing(bad), 1, "only the measured one is failing");
   assert.equal(gatesUnread(bad), 1, "only the uncomputed one is outstanding");
 
-  const warned = { gatesPass: false, checks: [gate("port-leads", "warn")] };
+  const warned = { gatesPass: false, checks: [gate("bend-radius", "warn")] };
   assert.equal(gatesUnread(warned), 0,
     "warn is a verdict that came back marginal, and unread is no verdict at all");
 

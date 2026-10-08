@@ -390,8 +390,7 @@ the minority of the span stands down so the chord is offered whole. The two rela
 in pairs 13 mm apart at either end of each board, and each pair stands in one flat-topped bar
 with two bores, carried on its upper hole's corbel where the pair stands one over the other and
 on one wedge across the bar's span where it stands side by side; the other nine stems stay
-D-shaped and whole across their holes. `east-boss-corbels` reads all 17 candidate corbels back
-against the installed bodies and records the full-width, split and held-back populations.
+D-shaped and whole across their holes.
 
 Four exact-pack rectangles complete this field (`east_mount_fills`), and their names and bounds
 are part of the pack rather than a proximity rule. The ground-stack stem stands under one
@@ -539,17 +538,15 @@ nothing to stop. The Y seam is one, and so is every jamb.
 plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
 flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
 station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [5.1221 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH), and three bounds spend
-the choice:
+on, [5.1221 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
+one straight line running the full height of both side walls — lands [0.27 mm](FLUTE_SEAM_MISS)
+off a groove's centre, in the shadow that is already there rather than on a land.
+**`flute-closes`** holds the pitch to the coupon's.
 
-- **`flute-closes`** holds the pitch to the coupon's.
-- **`flute-hides-seam`** puts the **Y seam inside a groove** — the one straight line running the
-  full height of both side walls, landing [0.27 mm](FLUTE_SEAM_MISS) off a groove's centre, in
-  the shadow that is already there rather than on a land.
-- **`flute-clears-jamb`** is the opposite ask and the right one for the bay: each mouth arris
-  and the pump cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
-  nothing on the groove's floor, and a wedge that fine at a 0.42 mm bead prints ragged — on the
-  one line the user looks straight at.
+The bay's mouths are the opposite case: the field ramps out at each run's two ends
+(`flute_rails`), so every mouth arris and the pump cartridge edge inside it stand on unfluted
+wall. A rim landing in a groove is an arris tapering to nothing on the groove's floor, and a
+wedge that fine at a 0.42 mm bead prints ragged — on the one line the user looks straight at.
 
 The datum is a groove centre on **x = 0**, the plane the whole machine is struck about, so the
 field is symmetric in x whatever its pitch.
@@ -931,8 +928,7 @@ quadrant prints the two its own two exterior arrises stand behind.
 
 A wall's inner face is **flat only past that landing**, so anything ROOTED on it answers to
 `enclosure.wall_flat_from_corner` rather than to the relief's own tangent. The C14 tunnel
-follows `c14_station_x`, and the `c14-surround` state reads the wall relief, cutout and screw
-stations back to that datum.
+follows `c14_station_x`.
 
 **The pump-cartridge storey has no fixed front-top frame in its withdrawal span.** `_bay_cut`
 removes the complete exterior front-wall band, both rounded corners and both side skins from
