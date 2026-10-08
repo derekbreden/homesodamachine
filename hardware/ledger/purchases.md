@@ -655,7 +655,7 @@ Receipts grouped by order; itemized orders separate equipment, filament and tax.
 
 ## 16. Laser welding / cleaning / cutting
 
-Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator and related SS fabrication. The welder was purchased direct from the manufacturer. Computer-control diagnostic hardware is purchased from Amazon; its [receive-only wiring and staged test plan](/tools/x1_control/README.md) starts at the rear RS232 port.
+Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator and related SS fabrication. The welder was purchased direct from the manufacturer. Computer-control diagnostic hardware is purchased from Amazon; the [rear-port console wiring and tools](/tools/x1_control/README.md) reach the laser controller's serial shell over the rear RS232 port.
 
 | Order date | Vendor / order # | Item | $ | Status |
 |---|---|---|---|---|
@@ -663,10 +663,10 @@ Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 |---|---|---|---|---|---|---|---|
-| <!--purchase:pur-c08cee116c73400bae488deb2d2015f4--> Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — use the isolated DB9 RS232 receiver for X1 Pro interface discovery. $33.99 item + $2.46 estimated tax; free shipping; Amazon order details verified 2026-10-04 | [B07L2VLY5D](https://www.amazon.com/dp/B07L2VLY5D) | 1 | $36.45 | 112-5001639-8705857 | 2026-10-04 | — | ON-ORDER (ordered, not shipped; Amazon estimate 2026-10-05) |
-| <!--purchase:pur-406788001c4d41f39213bbd4ec7a35ad--> MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; only machine TX3 → adapter RX2 and GND5 → GND5 connected. $7.99 item + $0.58 estimated tax; free shipping; Amazon order details verified 2026-10-04 | [B0DRZ15WW8](https://www.amazon.com/dp/B0DRZ15WW8) | 1 pk (4) | $8.57 | 112-8546983-6242641 | 2026-10-04 | — | ON-ORDER (ordered, not shipped; Amazon estimate 2026-10-06) |
+| <!--purchase:pur-c08cee116c73400bae488deb2d2015f4--> Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — isolated DB9 RS232 link to the X1 Pro rear-port console; two-way comms established at 115200 8N1. $33.99 item + $2.46 estimated tax; free shipping | [B07L2VLY5D](https://www.amazon.com/dp/B07L2VLY5D) | 1 | $36.45 | 112-5001639-8705857 | 2026-10-04 | 2026-10-07 | ACQUIRED |
+| <!--purchase:pur-406788001c4d41f39213bbd4ec7a35ad--> MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; harness is machine pins 2/3/5 straight through to adapter pins 2/3/5 (the unit transmits on pin 2, not the pin 3 the manual labels TXD). $7.99 item + $0.58 estimated tax; free shipping | [B0DRZ15WW8](https://www.amazon.com/dp/B0DRZ15WW8) | 1 pk (4) | $8.57 | 112-8546983-6242641 | 2026-10-04 | 2026-10-07 | ACQUIRED |
 
-Both single-item orders were placed 2026-10-04 and total **$45.02**, including estimated sales tax. Tracking shows Ordered, with shipment pending. These are [diagnostic inventory](/hardware/ledger/inventory.md#diagnostic); no received-hardware or welder communication result is recorded.
+Both single-item orders were placed 2026-10-04 and total **$45.02**, including estimated sales tax. Both arrived and were bench-wired on 2026-10-07, establishing two-way communication with the welder's RT-Thread controller console over the rear RS232 port ([tools/x1_control](/tools/x1_control/README.md)). These are [diagnostic inventory](/hardware/ledger/inventory.md#diagnostic).
 
 ## 17. Domain / infrastructure
 
@@ -778,10 +778,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$37,719.67](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,430.77](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$44,199.06](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,385.75](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$45,637.88](LEDGER_GRAND_TOTAL) |
@@ -823,7 +823,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 13 | Printing consumables | [$3,336.75](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,229.31](LEDGER_SEC15) |
-| 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
+| 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$857.82](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
