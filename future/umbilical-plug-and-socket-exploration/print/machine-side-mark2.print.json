@@ -1,0 +1,280 @@
+{
+  "project": "machine-side-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "socket",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/umbilical/socket.stl",
+      "stl_sha256": "973932e4d384702fdf1ade04570aea28e3d2a90ef59d48e4a60976e7affb003f",
+      "triangles": 13614,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        7.680000305175781,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        107.5,
+        160.0,
+        22.299999237060547
+      ],
+      "plate_translation_mm": [
+        107.5,
+        160.0,
+        22.299999237060547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          84.0,
+          118.31999969482422,
+          0.0
+        ],
+        [
+          131.0,
+          201.68000030517578,
+          44.599998474121094
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "retainer",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": ".cache/prints/umbilical/retainer.stl",
+      "stl_sha256": "145f68f55140aec0e149172822bae2dc20715736ea78ec55c66e25a6aed27978",
+      "triangles": 5392,
+      "rotation_x_degrees": -90.0,
+      "source_center_mm": [
+        0.0,
+        47.22999954223633,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        202.5,
+        128.0,
+        6.130001068115236
+      ],
+      "plate_translation_mm": [
+        202.5,
+        128.0,
+        6.130001068115236
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          182.0,
+          106.20000076293945,
+          0.0
+        ],
+        [
+          223.0,
+          149.79999923706055,
+          12.26000213623047
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "wall-coupon",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": ".cache/prints/umbilical/wall-coupon.stl",
+      "stl_sha256": "3157e38da9a49eca0447ed6290f2fae3e91494c39ba3cbe06d3e7f527689b525",
+      "triangles": 688,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -31.0,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        202.5,
+        196.0,
+        34.0
+      ],
+      "plate_translation_mm": [
+        202.5,
+        196.0,
+        34.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          160.5,
+          181.0,
+          0.0
+        ],
+        [
+          244.5,
+          211.0,
+          68.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.985345469776803e-10
+    }
+  ],
+  "project_sha256": "ade6e698c9d18a2904c3b9c25b0c4db1a6c9f8711c6ae04f2f200a939b8dfcf8",
+  "settings_preserved_byte_for_byte": false,
+  "z_trim_mm": 0.04,
+  "settings_changes_after_refresh": {
+    "enable_support": "0",
+    "wall_loops": "4",
+    "sparse_infill_density": "25%"
+  },
+  "pause_before_layer_top_z_mm": 25.88,
+  "slot_top_mm": 25.64,
+  "bar_top_print_z_mm": 25.475,
+  "pause_message": "Socket: slide one K&J SB443-IN down each slot in the cup floor, grooves on the rails, pole face flush with the floor. Looking at the mating face, the left bar shows N and the right bar S. Mark each bar's N face with a compass first. Resume; the next layer closes over them.",
+  "native": {
+    "archive": "machine-side-mark2.gcode.3mf",
+    "archive_sha256": "aae3feb33267cec12b917926ea716b6e16fc3ff35ecd692d36e47076efa7f900",
+    "layers": 283,
+    "first_layer_z": 0.2,
+    "last_layer_before_pause_z": 25.64,
+    "pause_opens_layer_z": 25.88,
+    "expected_pause_layer_z": 25.88,
+    "pause_placed_as_designed": true,
+    "air_over_bar_mm": 0.165,
+    "support_features": 0,
+    "estimated_time": "2h 38m 32s",
+    "filament_g": [
+      87.29
+    ],
+    "bar_coverage": {
+      "bar_x-9_z25.64": {
+        "moves": 0,
+        "features": []
+      },
+      "bar_x-9_z25.88": {
+        "moves": 10,
+        "features": [
+          "Bridge",
+          "Overhang wall"
+        ]
+      },
+      "bar_x+9_z25.64": {
+        "moves": 0,
+        "features": []
+      },
+      "bar_x+9_z25.88": {
+        "moves": 10,
+        "features": [
+          "Bridge",
+          "Overhang wall"
+        ]
+      }
+    }
+  }
+}
