@@ -114,11 +114,10 @@ A second unit behind the first does not cost another [4.9](MT_DAYS_TURN) days �
    0.6 (measured, three runs), collet press PET-GF 0.4, rings and collars PET-GF 0.4, faucet PET-GF 0.4. The small-parts group — ASSE drip pan, plug stack, PRV
    shroud, reed bridge, fuse clamp — has no print log and no chosen nozzle, so a bead width for
    those parts does not exist in this tree. Two constants stand on one anyway:
-   `copper_plugs.min_printable_thickness` = 1.0, whose bound is labelled "Every plug leaves a
-   **printable** wall standing between its arches", and `_cold_core_interface.port_lane_wall` =
-   1.5, whose comment says below it "the wall between two features stops being printable". Neither
-   is wrong — both clear one bead on any nozzle this shop runs — but neither is held either, and a
-   label that says printable reads as though it were. The faucet's saved [print project](/hardware/printed-parts/faucet/faucet-petgf.md) names
+   `copper_plugs.min_printable_thickness` = 1.0, the thinnest the plug web's sliver is let run,
+   and `_cold_core_interface.port_lane_wall` = 1.5, whose comment says below it "the wall between
+   two features stops being printable". Neither is wrong — both clear one bead on any nozzle this
+   shop runs — but neither is held either, and a name that says printable reads as though it were. The faucet's saved [print project](/hardware/printed-parts/faucet/faucet-petgf.md) names
    its 0.4 mm nozzle, 0.42 mm outer wall and 0.45 mm inner wall lines.
 4. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
 5. **ASA Aero production duration.** The current float has 0.20 mm more upper pocket clearance than the identified v1 slice. Its native v2 duration and the elapsed pause for each of the [3](MT_FLOAT_QTY) inserted magnets are unmeasured. The v1 contribution is a provisional allowance, not an accepted production recipe or a completed-job timing.

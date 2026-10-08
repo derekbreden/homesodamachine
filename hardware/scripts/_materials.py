@@ -147,8 +147,7 @@ C_REED = M_GLASS
 # enclosure` cuts them and `enclosure_assembly` stands them, off this dict — whose keys are also
 # the roll of the pieces the box has, which is what `enclosure.build_pieces` walks. Shading one
 # piece off its neighbour would draw a box nobody prints, and against the box's own intent:
-# `enclosure.flute-hides-seam` strikes the flute field so the Y seam falls in a groove's own
-# shadow. WHAT TELLS A PIECE FROM ITS NEIGHBOUR IN THE VIEWER is x-ray's feature edges and the
+# the flute field is struck so the Y seam falls in a groove's own shadow. WHAT TELLS A PIECE FROM ITS NEIGHBOUR IN THE VIEWER is x-ray's feature edges and the
 # component picker, neither of which needs the paint to lie.
 WALL_COLORS = {name: M_PETGF_BLACK
                for name in ("front-bottom", "front-top", "back-bottom", "back-top",

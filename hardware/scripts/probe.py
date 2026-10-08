@@ -1895,7 +1895,7 @@ def selftest() -> int:
     # the whole Steinmetz region. Boxes, rods and `corridor()` all resolve cleanly at the
     # same crossing, so only a fixture built through `_routing.tube` — the sweep the routed
     # tubes in `world()` are made of — puts the question. A world that answers CLEAR here
-    # answers CLEAR for a pair `lines-clear` reds on.
+    # answers CLEAR for a pair `pack-closes` reds on.
     tx, ty, tz = 105.0, 417.0, 358.0
     t1 = _swept_tube((tx, ty - 60, tz - 60), (tx, ty - 60, tz), (tx, ty + 33, tz))
     t2 = _swept_tube((tx + 20, ty + 51, tz), (tx + 20, ty, tz), (tx - 60, ty, tz))

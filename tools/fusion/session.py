@@ -8,9 +8,9 @@ entry point appended:
     send(src + "\\n\\ndef run(_context):\\n    sync()\\n    look('iso-top-right')\\n")
 
 WHAT IS HERE IS A VIEWER AND NOT A SOURCE. `manifold-layout/enclosure_assembly.py` places every
-one of these bodies and `_scorecard.py` grades the placement — `clearance-floor` walks every body
-pair at exact solid distance, and `lines-clear` every routed tube. This module shows. It does not
-measure.
+one of these bodies and `_scorecard.py` grades the placement — `pack-closes` asks what any two
+solids share, routed tubes included, and `clearance-floor` walks every pair at exact solid
+distance. This module shows. It does not measure.
 
 A pose taken here is a proposal. It goes back as numbers in the layout, and the gates decide.
 

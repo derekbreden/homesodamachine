@@ -59,7 +59,7 @@
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 at stock",
+   "value": "19/19 corners at stock",
    "target": "14.00 mm",
    "detail": [],
    "active": true

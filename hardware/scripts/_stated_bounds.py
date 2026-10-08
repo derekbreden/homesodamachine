@@ -1,7 +1,7 @@
 """_stated_bounds — the bounds a module states about its own constants, read at import.
 
 A generator's constants carry claims about each other: a screw is long enough for its insert, a
-lane is wide enough for its bore, two lanes stand far enough apart for the bodies on them. Those
+band is wide enough for the bore it carries. Those
 claims are settled the moment the module is read, before any solid exists — so they have no
 assembly to hang a reading on and no build to be measured during. This is the ledger they record
 into instead. `enclosure_assembly.carry_stated_bounds` drains it onto the assembly beside the

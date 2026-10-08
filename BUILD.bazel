@@ -4058,6 +4058,7 @@ genrule(
         ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md",
         "pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json",
         "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
@@ -5666,9 +5667,11 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
         "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
@@ -7411,7 +7414,6 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
@@ -7431,12 +7433,15 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
         "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -8112,9 +8117,13 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
+        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
@@ -8128,11 +8137,18 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/README.md",
         "pysrc/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
+        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
@@ -8148,27 +8164,39 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
-    ],
+    ] + glob(
+        [
+            "hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
     outs = [
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json",
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step)
-O1=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh)
-O2=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl)
-O3=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step)
-O4=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh)
-O5=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl)
+O0=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json)
+O1=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step)
+O2=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh)
+O3=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl)
+O4=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step)
+O5=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh)
+O6=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl)
+O7=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json)
+O8=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8185,12 +8213,15 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step $$O0
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh $$O1
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl $$O2
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step $$O3
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh $$O4
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl $$O5
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json $$O0
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step $$O1
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh $$O2
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl $$O3
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step $$O4
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh $$O5
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl $$O6
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json $$O7
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.md $$O8
 """,
 )
 
@@ -8201,10 +8232,14 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
+        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
         "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
@@ -8223,6 +8258,12 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
+        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
