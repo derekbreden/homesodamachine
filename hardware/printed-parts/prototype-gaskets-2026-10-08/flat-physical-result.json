@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-10-08T23:18:10.647808+00:00",
+  "printer": "Mark2",
+  "task_id": "1321062707",
+  "archive_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+  "completion_observation": {
+    "observed_at_utc": "2026-10-08T23:13:56.095799+00:00",
+    "task_id": "1321062707",
+    "job_id": "1321062707",
+    "subtask_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 10,
+    "total_layer_num": 10,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": []
+  },
+  "physical_print_report": {
+    "user_quote": "Please talk to me about the settings you choose and how you chose them based on our preference for Bambu defaults and what changes we had made for the 85A filament that you just did that turned out fine.",
+    "outcome": "User reports the recent 85A print turned out fine",
+    "scope": "Print outcome; no additional dimensional fit, compression, leak or lifetime result supplied."
+  }
+}

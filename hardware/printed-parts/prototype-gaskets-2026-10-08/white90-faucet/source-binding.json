@@ -1,0 +1,30 @@
+{
+  "name": "faucet-counter-gasket-printed-white",
+  "frozen_source_revision": "14594f74e",
+  "frozen_source_path": "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+  "frozen_source_sha256": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
+  "scope": "Footprint and openings match the printed September 18 white Sculpted faucet foot.",
+  "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step",
+  "step_sha256": "d36bf13df6842066b23f8986e5e71d9a07e26410be36a62688c4f19f23e80913",
+  "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.stl",
+  "stl_sha256": "7463c22cd27f52cb6acea858c969245d6b67cf3cc60c885b2202b62dd8082a99",
+  "bounds_mm": [
+    [
+      -29.00721071989848,
+      -29.506424370519706,
+      -6.007466947601329
+    ],
+    [
+      29.005160925442212,
+      29.50746694760133,
+      -3.9925330523986706
+    ]
+  ],
+  "size_mm": [
+    58.01237164534069,
+    59.01389131812104,
+    2.0149338952026583
+  ],
+  "solid_count": 1,
+  "volume_mm3": 4889.425014788706
+}
