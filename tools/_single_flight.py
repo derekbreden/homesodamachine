@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """_single_flight.py — one marker, one runner, and the marker that outlives its runner.
 
-`.githooks/post-commit` fires two detached jobs on every commit, `publish_now.py` and
-`checks_now.py`, and both want the same thing from a tree several sessions commit into at once:
-many commits landing together produce one run against the newest tree, not one run each. Each
-keeps a marker naming its own pid, drops it in `finally`, and stands down for a live holder.
+`publish_now.py`, which `.githooks/post-commit` fires detached on every commit, and
+`checks_now.py`, run by hand, want the same thing from a tree several sessions commit into at
+once: many requests landing together produce one run against the newest tree, not one run each.
+Each keeps a marker naming its own pid, drops it in `finally`, and stands down for a live holder.
 
 THE MARKER OUTLIVES A RUNNER THAT IS KILLED. `finally` drops it when the process gets to run its
 own unwinding, and a SIGKILL, a panic or a machine that sleeps hard is where it does not — after
 which every later run reads a marker whose pid is gone and stands down for it, with nothing to
-end the wait. Both jobs are detached under `nohup` into a log nobody opens, so there is no
+end the wait. The publish is detached under `nohup` into a log nobody opens, so there is no
 failure to see: only a thing that quietly stops happening. A tree that stops reaching the site,
 or a verdict on it that stops moving while every page goes on showing the last one.
 

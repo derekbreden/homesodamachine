@@ -55,9 +55,9 @@ def deploy_filter() -> tuple:
 
     BOTH HALVES OF IT. Render builds on a changed file that is under `paths` and NOT under
     `ignoredPaths`, and the second half is not a footnote here: `web/public/checks.json` is
-    pinned after every commit, so reading `paths` alone counts the most frequent commit in this
-    tree as a deploy that will never happen. That is the lag no push would ever clear, which is
-    the one reading this file exists to not report."""
+    pinned as a commit of its own, so reading `paths` alone counts each pin as a deploy that will
+    never happen. That is the lag no push would ever clear, which is the one reading this file
+    exists to not report."""
     text = (ROOT / "render.yaml").read_text()
     body = text.split("buildFilter:", 1)
     if len(body) < 2:

@@ -15,7 +15,7 @@ nothing on the site, so a silent skip is indistinguishable from a passing suite.
 is one command and it is printed.
 
 NO CLOCK AND NO COUNTS THAT MOVE ON THEIR OWN. `checks.py --json` is committed, so a verdict
-holding durations would commit on every commit forever. TAP carries `duration_ms` on every
+holding durations would commit on every reading forever. TAP carries `duration_ms` on every
 assertion and a total on the run; none of it is read here. What is printed is which tests
 failed, by name, in the order TAP numbered them.
 """

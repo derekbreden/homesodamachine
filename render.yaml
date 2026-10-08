@@ -73,7 +73,7 @@ services:
         # The owner install guide is committed with its cover and sidecar.
         - hardware/install-guide/**
       ignoredPaths:
-        # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every
+        # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins each reading as a
         # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the
         # 24 deploying commits in six hours, serialized, which is how a reading lands twenty
         # minutes after the tree it describes. `web/lib/artifacts-live.js` carries it onto the
@@ -87,9 +87,8 @@ services:
         # push while it did.
         #
         # WHAT ACTUALLY HOLDS THEM IS THE BOARD. `tools/check_web_tests.py` runs the suite
-        # against the tree and `checks_now.py` pins the reading after every commit, so a
-        # broken test reddens the gear on the same look it always did. The deploy was never
-        # the thing asking.
+        # against the tree and `checks_now.py` pins the reading, so a broken test reddens the
+        # gear on the next reading. The deploy was never the thing asking.
         - web/tests/**
     envVars:
       - key: DATABASE_URL

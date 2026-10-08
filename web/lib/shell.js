@@ -23,13 +23,12 @@ import { fileURLToPath } from "url";
 import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
-// `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
+// `tools/checks.py --json` and committed by `tools/checks_now.py` when it is run.
 //
 // READ ON DEMAND, NOT ONCE AT MODULE LOAD. A boot-time constant was right while the file shipped
-// with a deploy and moved when one restarted this process. It does not any more: a pin is the
-// most frequent commit in this tree and `render.yaml` holds it out of the build filter rather
-// than buy an `npm ci` and a restart for each one, so `artifacts-live.js` carries the file onto
-// the running container instead. Under a constant this process kept whatever verdict it booted
+// with a deploy and moved when one restarted this process. It does not any more: `render.yaml`
+// holds a pin out of the build filter rather than buy an `npm ci` and a restart for each one, so
+// `artifacts-live.js` carries the file onto the running container instead. Under a constant this process kept whatever verdict it booted
 // with — the gear stayed red over a board that had gone green until something unrelated pushed
 // `web/**` and restarted it, which is the same way a scorecard used to reach the site.
 //
@@ -439,8 +438,8 @@ ${pageHead}
 // available space and leave a big gap between them).
 
 // The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
-// when no verdict shipped. `tools/checks_now.py` writes it after every commit, so the dot turns
-// on the deploy that follows the commit that moved it, and /settings names what is red.
+// when no verdict shipped. `tools/checks_now.py` writes it when it is run, and /settings names
+// what is red.
 export function checksNavClass() {
   const CHECKS = readChecks();
   if (!CHECKS) return "";

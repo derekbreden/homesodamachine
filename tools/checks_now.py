@@ -1,33 +1,31 @@
 #!/usr/bin/env python3
-"""checks_now.py — run every check after a commit and put the answer where it is looked at.
+"""checks_now.py — run every check and put the answer where it is looked at.
 
     tools/cad-venv/bin/python tools/checks_now.py           read this tree, commit what changed
     tools/cad-venv/bin/python tools/checks_now.py --check    say what it would do, touch nothing
 
-`post-commit` runs this detached beside `publish_now.py`, so the commit that changes the tree is
-what asks the tree how it is doing. It asks `tools/checks.py --interactive`: the ordinary full
-reading still includes every check, while this path leaves out checks that take the CAD build
-lock and delay the visible cut.
+It runs when someone runs it; no hook starts it. It asks `tools/checks.py --interactive`: the
+ordinary full reading still includes every check, while this path leaves out checks that take
+the CAD build lock and delay the visible cut.
 
 THE ANSWER GOES TO THE SITE. `web/public/checks.json` is under `render.yaml`'s buildFilter, so
 committing it deploys. `web/lib/shell.js` puts it on the settings gear's corner — green when
 every check passes, red when one does not — and /settings names the rows.
 
-IT REPORTS AND HOLDS NOTHING. The commit is made and pushed before this starts, and a red rides
-to the site with it.
+IT REPORTS AND HOLDS NOTHING. A red changes nothing about what ships; it reaches the site as a
+reading.
 
 ONE AT A TIME, AND THE LAST REQUEST WINS — `publish_now.py`'s arrangement, for its reason.
-Several sessions commit at once, so a second invocation marks the running one to read again
+Several sessions share this checkout, so a second invocation marks the running one to read again
 rather than queueing behind it, and what gets reported is the newest tree.
 
-THE TREE IS WRITTEN WHILE IT IS READ. Six sessions edit this checkout, and `publish_now.py` runs
-from the same hook and recuts payloads mid-read — so a verdict can name a red a repair has
-already fixed, or miss one that landed a second later. Every commit takes another reading.
+THE TREE IS WRITTEN WHILE IT IS READ. Six sessions edit this checkout, and `publish_now.py`
+recuts payloads after every commit — so a verdict can name a red a repair has already fixed, or
+miss one that landed a second later.
 
-THE RECURSION ENDS ON THE MESSAGE, NOT ON THE BYTES. This commits, and a commit runs
-`post-commit`, which runs this. An unchanged verdict writes identical bytes and stops there; a
-check whose output carried anything volatile would not. So a tree whose HEAD is already one of
-these is left alone — that reading was taken from this same content.
+A HEAD THAT IS ALREADY A READING IS LEFT ALONE. An unchanged verdict writes identical bytes and
+stops there; a check whose output carried anything volatile would not. So a tree whose HEAD is
+already one of these commits is not read again — that reading was taken from this same content.
 """
 
 from __future__ import annotations
@@ -82,9 +80,8 @@ def land() -> int:
     """Commit the verdict. `--only` keeps it to this file whatever else the tree holds, and
     `--no-verify` skips the pre-commit re-derive, which has nothing to say about a reading.
 
-    THE INDEX IS SHARED AND SO IS THE RACE. `publish_now.py` runs detached from the same hook
-    and commits the lock, so both can reach `index.lock` at once. Three tries, then the next
-    commit in this tree takes the reading again off content that has not moved.
+    THE INDEX IS SHARED AND SO IS THE RACE. `publish_now.py` runs detached off every commit
+    and commits the lock, so both can reach `index.lock` at once. Three tries, then it says so.
     """
     for attempt in range(3):
         run(["git", "add", REL], quiet=True)
@@ -92,7 +89,7 @@ def land() -> int:
                quiet=True).returncode == 0:
             return 0
         time.sleep(1.5 * (attempt + 1))
-    print("  the reading did not commit; the next commit takes it", file=sys.stderr)
+    print("  the reading did not commit; run this again", file=sys.stderr)
     return 1
 
 
