@@ -1,0 +1,152 @@
+{
+  "pass": true,
+  "checked_at_utc": "2026-10-08T18:37:50.144434+00:00",
+  "printer": "Mark1",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-08T18:37:13.078389+00:00",
+      "task_id": "1013",
+      "job_id": "0",
+      "subtask_name": "Funnel mold",
+      "gcode_state": "FINISH",
+      "layer_num": 176,
+      "total_layer_num": 176,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 32,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 26,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 25,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-08T18:37:12.876189+00:00",
+      "task_id": "1320929816",
+      "job_id": "1320929816",
+      "subtask_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 86,
+      "total_layer_num": 87,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 34.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.6
+          },
+          "temperature": {
+            "actual_c": 85,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          },
+          "temperature": {
+            "actual_c": 30,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    }
+  ],
+  "archive_sha256": "0f7e4b7da515c4954eac0a8a1707da6ba8295223329d903b2cc7789e4fae9e3d",
+  "gcode_sha256": "23c40d079d1bd3c926d143272a6db1f34f23c96eddfab1922f2b1bfc17ae5def",
+  "compatibility_review_sha256": "ac6fc7045087e201b871af42bf597c82746781c6cf29bf737b46fae3f9fe839f",
+  "native_review_sha256": "809af0f8accc526adb47b84e938499aad3709171bb4c298d2985bdef08499026",
+  "bed_clear_authorization": "Mark1 and Mark2 beds are clear.",
+  "physical_material_authorization": "Mark1 is loaded with PET-GF in left nozzle 0.4",
+  "shared_circuit_spacing_seconds": 982.984196,
+  "peer_last_observed_accepted_start_utc": "2026-10-08T18:21:27.160238+00:00",
+  "dialog": {
+    "printer": "Mark1",
+    "mapping": "LEFT Ext PET-CF",
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_mm": 0.16,
+  "probing_clump_detection": false
+}

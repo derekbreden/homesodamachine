@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "printer": "Mark1",
+  "read_alias": "H2C",
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "0f7e4b7da515c4954eac0a8a1707da6ba8295223329d903b2cc7789e4fae9e3d",
+  "gcode_sha256": "23c40d079d1bd3c926d143272a6db1f34f23c96eddfab1922f2b1bfc17ae5def",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "source_project": "hardware/printed-parts/drain-readiness/projects/back-top-black-z004-mark2.3mf",
+  "source_project_sha256": "460b90144153915c80f3dd735b99710e9e615c8fa1b8dd94a45000ae7d5db6c9",
+  "native_review": "hardware/printed-parts/drain-readiness/reviews/back-top-native.json",
+  "native_review_sha256": "020a70963de1db6e90d962b39e01b41bf3f9a83e8245e976aeb1e479082ef383",
+  "compatibility_review": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/compatibility-check.json",
+  "compatibility_review_sha256": "ac6fc7045087e201b871af42bf597c82746781c6cf29bf737b46fae3f9fe839f",
+  "compatibility_passed": true,
+  "compatibility_checks": 50,
+  "authorizations": [
+    "Your peer \"Back top\" saved a viable print for me in case the changes that were being made had been made incompatible with the prints I already have, but I'm thinking perhaps they did not. Please take a look at the situation, and if we can do a print of \"back top\" with the new geometry there and have it fit my existing front-top and back-bottom prints, then great let's get that started on Mark1.",
+    "Mark1 and Mark2 beds are clear.",
+    "Mark1 is loaded with PET-GF in left nozzle 0.4"
+  ],
+  "settings": {
+    "material": "PET-GF",
+    "device_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "side": "LEFT",
+    "fixed_nozzle_mm": 0.4,
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16,
+    "timelapse": true,
+    "bed_leveling": true,
+    "probing_clump_detection": false
+  },
+  "estimated_seconds": 97275.6875,
+  "send_attempted": true,
+  "accepted_at_utc": "2026-10-08T18:38:15.148901+00:00",
+  "printer_task_id": "1320974719",
+  "monitor_scheduled": false,
+  "status": "Accepted",
+  "prepared_project": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+  "prepared_project_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+  "trim_native_review": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/native-trim-review.json",
+  "trim_native_review_sha256": "809af0f8accc526adb47b84e938499aad3709171bb4c298d2985bdef08499026",
+  "send_attempted_at_utc": "2026-10-08T18:37:50.144434+00:00",
+  "foreground_send_method": "Bambu Connect CUA",
+  "preflight": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/preflight.json",
+  "accepted_at_central": "2026-10-08T13:38:15.148901-05:00",
+  "printer_job_id": "1320974719",
+  "accepted_state": "PREPARE",
+  "accepted_archive_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+  "acceptance_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-08T18:38:15.148901+00:00",
+    "task_id": "1320974719",
+    "job_id": "1320974719",
+    "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 176,
+    "total_layer_num": 176,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 32,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 26,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 25,
+      "target_c": 0
+    }
+  },
+  "send_successful": true,
+  "send_count": 1,
+  "start_notification_reported": true
+}

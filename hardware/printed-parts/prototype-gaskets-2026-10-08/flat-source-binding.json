@@ -1,0 +1,172 @@
+[
+  {
+    "name": "faucet-counter-gasket-printed-white",
+    "frozen_source_revision": "14594f74e",
+    "frozen_source_path": "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+    "frozen_source_sha256": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
+    "scope": "Footprint and openings match the printed September 18 white Sculpted faucet foot.",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step",
+    "step_sha256": "d36bf13df6842066b23f8986e5e71d9a07e26410be36a62688c4f19f23e80913",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.stl",
+    "stl_sha256": "7463c22cd27f52cb6acea858c969245d6b67cf3cc60c885b2202b62dd8082a99",
+    "bounds_mm": [
+      [
+        -29.00721071989848,
+        -29.506424370519706,
+        -6.007466947601329
+      ],
+      [
+        29.005160925442212,
+        29.50746694760133,
+        -3.9925330523986706
+      ]
+    ],
+    "size_mm": [
+      58.01237164534069,
+      59.01389131812104,
+      2.0149338952026583
+    ],
+    "solid_count": 1,
+    "volume_mm3": 4889.425014788706
+  },
+  {
+    "name": "reservoir-cap-gasket",
+    "source_step": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+    "source_step_sha256": "8a58fee954f9dfbd8ee844965ff94b5473ee7ef18232276a4a5fa978f5c3ee7b",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-cap-gasket.step",
+    "step_sha256": "29c0e15f97a6ccb7b5a3989d6703766cc8fdc460e06b54a23a870c01069c04d2",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-cap-gasket.stl",
+    "stl_sha256": "b6a12fb413770a63f160e099349662a1028644083ace7e771235aa3cc4b01688",
+    "bounds_mm": [
+      [
+        52.28627148976654,
+        -70.2518071878228,
+        -0.024722136365158243
+      ],
+      [
+        129.2518071878228,
+        70.2518071878228,
+        2.0247221363651584
+      ]
+    ],
+    "size_mm": [
+      76.96553569805627,
+      140.5036143756456,
+      2.049444272730317
+    ],
+    "solid_count": 1,
+    "volume_mm3": 4549.94488399127
+  },
+  {
+    "name": "reservoir-dry-bulkhead-washer",
+    "source_step": "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
+    "source_step_sha256": "75e8fafa3e0672fffb531252b5c5564ef91fd805f7d383e60cfd2ef5e9b308bf",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.step",
+    "step_sha256": "8ab55eb84e3d261d03a31d636e9c1fc9522825631a2cbb11625b77e6116921a8",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.stl",
+    "stl_sha256": "5070d96ca98e30e56a7e04e4a77b5da01930962ad04775cbed8793f28a376f58",
+    "bounds_mm": [
+      [
+        -9.252875166492451,
+        -9.250000100000003,
+        -0.002875166492451608
+      ],
+      [
+        9.252875166492451,
+        9.250000100000001,
+        2.002875166492452
+      ]
+    ],
+    "size_mm": [
+      18.505750332984903,
+      18.500000200000002,
+      2.0057503329849036
+    ],
+    "solid_count": 1,
+    "volume_mm3": 145.47144782447842
+  },
+  {
+    "name": "reservoir-vent-filter-ring",
+    "source_step": "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
+    "source_step_sha256": "1efcd78fbab531576c7c412ed2aef0320f02453f7b4d32876258d984e5475b48",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step",
+    "step_sha256": "022cb0b12e12e86ec3555b607c4e0f40245ea4938f3b8af4724f308b9407de03",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.stl",
+    "stl_sha256": "95e7eacae7ffcd4ce9f68ba34b817630c007f9a3fd8b49231af6084c3e990a8a",
+    "bounds_mm": [
+      [
+        -6.752098121494492,
+        -6.750000100000003,
+        -0.002098121494491822
+      ],
+      [
+        6.752098121494492,
+        6.750000100000002,
+        2.002098121494492
+      ]
+    ],
+    "size_mm": [
+      13.504196242988984,
+      13.500000200000006,
+      2.004196242988984
+    ],
+    "solid_count": 1,
+    "volume_mm3": 159.04312808798682
+  },
+  {
+    "name": "foam-cap-gasket",
+    "source_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "source_step_sha256": "345143192d75be73084ecf77a5571cc47b61c54d1cfa477bfca8ef2d162dfe0e",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/foam-cap-gasket.step",
+    "step_sha256": "74b081355896d73595eb8c5f041cf25a4aa79de24d3cd4762fcc7e684d7d3b8b",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/foam-cap-gasket.stl",
+    "stl_sha256": "d23833ea90e55c1863ee0520260b8ae975c5b93ea811f10806494d71d7fced97",
+    "bounds_mm": [
+      [
+        -141.5036142756456,
+        -90.50361427564557,
+        -0.0036142756455776644
+      ],
+      [
+        141.5036142756456,
+        90.50361427564557,
+        2.0036142756455777
+      ]
+    ],
+    "size_mm": [
+      283.0072285512912,
+      181.00722855129115,
+      2.0072285512911554
+    ],
+    "solid_count": 1,
+    "volume_mm3": 9070.059809253646
+  },
+  {
+    "name": "display-gasket",
+    "source_step": "hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
+    "source_step_sha256": "1caf4a13ebc12ffcd8e41b50df6dd194cb3c8b329f029bd4eeecd6a9f2c52362",
+    "step": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.step",
+    "step_sha256": "bd424f634be59e8b22ba6918382d40d3c0a0392d64b4d11addb7050996ec5c3d",
+    "stl": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.stl",
+    "stl_sha256": "24ad7a42b922aa465c25e09ba20a8d392b16d4d514ce275ae146c4d2c000f607",
+    "bounds_mm": [
+      [
+        -56.750753053259494,
+        -38.500753053259494,
+        -4.840753053259496
+      ],
+      [
+        56.750753053259494,
+        38.500753053259494,
+        -3.839246946740504
+      ]
+    ],
+    "size_mm": [
+      113.50150610651899,
+      77.00150610651899,
+      1.0015061065189919
+    ],
+    "solid_count": 1,
+    "volume_mm3": 1107.000000000001
+  }
+]
