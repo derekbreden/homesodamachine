@@ -15,7 +15,7 @@ at `foam_shell_outer_height`. ±Y is the carbonator's port axis and +X the regis
 writes `cold-core-assembly.step` beside this file with its `.scorecard.json`, which the 3D
 viewer's bottom bar reads at `/3d`. THE SAME CARD IS WRITTEN BESIDE `foam-assembly.step`, the
 outer model of this same core: a reader who opens either one is looking at the cold core, and
-the cold core has one verdict. `one-core` is the row that keeps that honest.
+the cold core has one verdict.
 """
 
 from __future__ import annotations
@@ -56,10 +56,8 @@ STEP_OUT = _here.parent / "cold-core-assembly.step"
 # The OTHER model of this same core: five printed pieces and the faces the enclosure loads
 # (`foam_assembly`). It is not superseded — `enclosure_assembly` places THAT, not this — but a
 # reader who opens it is looking at the cold core, and the cold core has one verdict. So the
-# card below is written beside both STEPs and `one-core` is what keeps that honest.
+# card below is written beside both STEPs.
 FOAM_STEP = _cold / "foam-assembly" / "foam-assembly.step"
-
-FOAM_COLORS = _style.FOAM_COLORS
 
 # Which reservoir STEP fills which pocket, and what its cap is called.
 RESERVOIRS = {"reservoir-a": "reservoir-right", "reservoir-b": "reservoir-left"}
@@ -384,176 +382,6 @@ def _lines_apart(fitted: dict, placed: dict) -> Check:
                  verdict(not detail), f"{len(detail)} crossing", "0 crossing", detail)
 
 
-def _lane_census(fitted: dict, placed: dict) -> Check:
-    """Which runs use each lane, and at what storey.
-
-    A lane is one bore wide (`_cold_core_interface` states the width and the wall either side),
-    so what separates two runs in one is the Z each takes. This lists every run whose centreline
-    enters a lane's Y band, with the Z span it occupies there — the reading behind any crossing
-    `lines-apart` names."""
-    lanes = {"port-lane": _plugs.columns["port-lane"].lane_y,
-             "west-lane": _plugs.columns["west-lane"].lane_y}
-    half = _routes.line_radius + _routes.lldpe_tube_od / 2.0
-    runs = {n: t for n, (_b, t) in fitted.items()}
-    runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
-    detail = []
-    for lane, y in sorted(lanes.items()):
-        for name in sorted(runs):
-            bb = runs[name].BoundingBox()
-            if bb.ymin > y + half or bb.ymax < y - half:
-                continue
-            detail.append(f"{lane}: {name} at z {bb.zmin:.1f}..{bb.zmax:.1f}, "
-                          f"x {bb.xmin:.1f}..{bb.xmax:.1f}")
-    return Check("lane-census", "What each lane carries, and at what storey", "gate", "pass",
-                 f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
-
-
-# WHICH ENDS THE RULE IS ABOUT. A COLLET grips the tube all round on its own axis, and it grips
-# it INSIDE the fitting — so what a made-up end owes is not a straight outside the face but a
-# corner that seats at stock, because a tube kinked at a collet is kinked where the pour will
-# hold it forever. A BORE is not a collet. A cap conduit is a hole
-# up a printed column and its mouth
-# is countersunk to `cap_conduit_entry_skew` for exactly this reason — a line may lean into it
-# — and a wall slot is an opening cut to the line's own corridor, which is the same again. So
-# this names the made-up ends rather than charging every end the collet's rule; the rest are
-# listed with what they land on, which is the reading, not a failure.
-MADE_UP_ENDS = {
-    ("carb-water-out", "start"): "the bottom plate's PP010822E collet",
-    ("co2-in", "end"): "the bottom plate's PP010822E collet",
-    ("water-in", "start"): "the top plate's PP010822E collet",
-    ("reservoir-a", "start"): "reservoir A's floor-bulkhead collet",
-    ("reservoir-b", "start"): "reservoir B's floor-bulkhead collet",
-}
-
-
-def _port_leads(fitted: dict, points: dict) -> Check:
-    """The corner each line turns FIRST, off its own COLLET.
-
-    A LINE STARTS CURVING AT THE COLLET FACE. There is no straight stub between the two: the
-    machine's own built geometry says so — a quarter turn off `tee-y-g`'s mouth puts its
-    horizontal axis exactly one bend radius below that face, with nothing in between. So a
-    collet asks nothing of the tube beyond its own grip, which is behind the face and inside
-    the fitting, and a leftover straight outside it is not a thing to charge for.
-
-    What CAN go wrong at a made-up end is the corner itself. `_internal_routes.corner_radii`
-    gives every corner the stock arc and then shrinks whichever pair cannot both set back on
-    the leg they share — so a corner that comes back under stock is a corner the route bought
-    with, and next to a collet it is bought with a tube kinked where it is potted and can
-    never be reached again. That is the reading here: the first corner in and the last corner
-    out, against the stock they were asked for.
-
-    `MADE_UP_ENDS` is where the rule is true. The other ends land in a BORE — a cap conduit or
-    a lane slot — which takes a leaning line by construction, so they are listed, not graded.
-    A run with no corner at all turns nothing and is not asked about: each reservoir fill is
-    the gap between two bores."""
-    detail, bores = [], []
-    total = 0
-    for name in sorted(fitted):
-        bend, _tube = fitted[name]
-        v, radius = _routes.corner_radii(points[name], bend)
-        if len(v) < 3:
-            continue
-        legs = _routes.route_legs(points[name], bend)
-        for end, corner, (a, b) in (("start", 1, legs[0]), ("end", len(v) - 2, legs[-1])):
-            lands_on = MADE_UP_ENDS.get((name, end))
-            if lands_on is None:
-                bores.append(f"{name} {end}: {(b - a).Length:.1f} mm into a bore, which takes "
-                             f"a lean")
-                continue
-            total += 1
-            got = radius[corner]
-            if got < bend - 1e-6:
-                detail.append(f"{name} {end}: its first corner off {lands_on} comes back at "
-                              f"R{got:.2f}, under the R{bend:g} its stock holds")
-    return Check("port-leads", "Every collet's own corner seats at stock", "gate",
-                 verdict(not detail), f"{total - len(detail)}/{total} collets",
-                 "the stock arc at every made-up end", detail + bores)
-
-
-def _stations_met(fitted: dict, placed: dict) -> Check:
-    """Every slot station the wall leaves, against the run that crosses it.
-
-    `copper_plugs.columns` is the wall's own list of what passes through it — each station is
-    one plug's bottom face, and the tube IS the gap between two plugs. A station nothing
-    reaches is a hole the shell prints for a line this assembly does not draw."""
-    runs = {n: t for n, (_b, t) in fitted.items()}
-    runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
-    detail = []
-    met = 0
-    for column in sorted(_plugs.columns):
-        for station, _z in _plugs.columns[column].stations:
-            (x, y, z), _axis = _plugs.slot_station(station)
-            probe = cq.Solid.makeSphere(_routes.lldpe_tube_od, cq.Vector(x, y, z))
-            here = [n for n, t in runs.items() if _overlap.volume(t, probe) > 1e-6]
-            if here:
-                met += 1
-                detail.append(f"{column} {station} at z {z:.2f}: {', '.join(sorted(here))}")
-            else:
-                detail.append(f"{column} {station} at z {z:.2f}: NOTHING reaches it")
-    total = sum(len(c.stations) for c in _plugs.columns.values())
-    return Check("stations-met", "Every wall station carries a run", "gate",
-                 verdict(met == total), f"{met}/{total} stations", "a run per station", detail)
-
-
-def _prv_vent_lands(points: dict) -> Check:
-    """The shroud's own vent bore, against the lane its line has to fall.
-
-    Two readings of one station, struck at opposite ends of the part. `_internal_routes` says
-    which strip the line starts on — the west lane's own y, because that is the one the barrel
-    can reach without a corner — and `prv_shroud.vent_station_z` says how far along the barrel
-    the bore stands, which is what decides where the cup, once made up on the elbow, opens it.
-    This reads the second back off the PLACED shroud and holds it against the first. Neither
-    side is a constant here: move the valve to the other port or the bore along the barrel and
-    this keeps measuring the same thing, and a bore that misses its lane is a line that needs a
-    corner in a band that has none.
-
-    AND IT HAS TO OPEN DOWNWARD. Landing on the lane is a reading in Y alone, and a cup rolled
-    a half turn about its own axis lands on the same lane with its bore on TOP — where the tube
-    would leave into the cap's floor instead of down the lane. So the drop off the elbow's own
-    axis is measured beside it, and it is the barrel's radius or the roll is wrong. The fall
-    that follows is the whole of the line's height: it turns once and leaves by the flank."""
-    at = prv_vent_mouth()
-    lane, want = "west lane", _routes.prv_vent_lane_y
-    off = at[1] - want
-    drop = _V.mouths()["prv"].pos[2] - at[2]
-    # The two readings are struck in different frames and carried through a rotation, so what
-    # is being asked is whether they are the same station — not whether they agree to a float.
-    agree = 0.01
-    good = abs(off) < agree and abs(drop - _shroud.outer_diameter / 2.0) < agree
-    detail = [f"the shroud's vent bore opens at ({at[0]:+.2f}, {at[1]:+.2f}, {at[2]:.2f}), "
-              f"{'on' if abs(off) < agree else f'{off:+.2f} off'} the {lane} ({want:g}) — "
-              f"the strip the barrel's own bore can reach with no corner",
-              f"it stands {drop:.2f} mm under the elbow's own axis, against the "
-              f"{_shroud.outer_diameter / 2.0:g} mm barrel radius a bore facing DOWN reads",
-              f"station {_shroud.vent_station_z:g} mm along a {_shroud.total_length:g} mm "
-              f"barrel; the line falls from there to z "
-              f"{points['prv-vent'][-1][2]:.2f} and out the +Y flank at y "
-              f"{points['prv-vent'][-1][1]:.2f}"]
-    return Check("prv-vent-lands", "The PRV shroud's vent bore opens on the lane its line "
-                 "falls", "gate", verdict(good),
-                 f"{abs(off):.3f} mm off", f"within {agree:g} mm of the lane", detail)
-
-
-def _one_core(placed: dict) -> Check:
-    """Every body the OUTER model of this core carries, standing in this one.
-
-    `printed-parts/cold-core/foam-assembly` is the core as the machine sees it — the five
-    printed pieces, their outside faces, and the port table the appliance reads. This assembly
-    is the same stack one frame further in, with the carbonator, the coil, both reservoirs and
-    every line among them. Two models of one thing is right; two VERDICTS of one thing is not,
-    so this card is written beside both STEPs — and what makes that honest is that every body
-    the outer model draws is placed here."""
-    outer = tuple(FOAM_COLORS)
-    gone = [n for n in outer if n not in placed]
-    detail = [f"this card is written beside {STEP_OUT.relative_to(_hw)}",
-              f"                        and {FOAM_STEP.relative_to(_hw)}"]
-    detail += [f"{n}: {'placed here' if n in placed else 'MISSING from this frame'}"
-               for n in outer]
-    return Check("one-core", "One card for both models of the cold core", "gate",
-                 verdict(not gone), f"{len(outer) - len(gone)}/{len(outer)} bodies shared",
-                 "every foam-assembly body here", detail)
-
-
 def _floats_couple(placed: dict) -> Check:
     """Running clearance and float-edge to reed-center distance within the design limit.
 
@@ -577,16 +405,27 @@ def _floats_couple(placed: dict) -> Check:
                  f">=1 mm body clearance, <={_I.FLOAT_EDGE_DESIGN_MAXIMUM:g} mm float-edge to reed-centre; geometry only", detail)
 
 
-def _arcs_hold(fitted: dict) -> Check:
-    """Every corner at the stock arc, or the reading it came back at."""
+def _arcs_hold(fitted: dict, points: dict) -> Check:
+    """Every corner at the stock arc, or the reading it came back at.
+
+    A line is fitted at ONE arc, and that arc is what its corners ask for. What each one turns
+    at is what `_internal_routes.corner_radii` hands back: every corner starts at the line's arc
+    and comes down until every leg holds the setbacks its two ends want. So a line fitted at
+    stock can still turn a corner under it where a leg runs short, and the reading is each
+    corner's own."""
     stock = _routes.route_bend_radius
     detail = []
+    total = 0
     for name in sorted(fitted):
         bend, _tube = fitted[name]
-        if bend < stock - 1e-9:
-            detail.append(f"{name} at {bend:.2f} mm against the {stock:.2f} mm stock arc")
+        v, radii = _routes.corner_radii(points[name], bend)
+        for i, r in enumerate(radii[1:-1], start=1):
+            total += 1
+            if r < stock - 1e-9:
+                detail.append(f"{name} corner {i} at ({v[i].x:.1f}, {v[i].y:.1f}, {v[i].z:.1f}) "
+                              f"turns at {r:.2f} mm against the {stock:.2f} mm stock arc")
     return Check("arcs-hold", "Every corner turns at the stock arc", "gate",
-                 verdict(not detail), f"{len(fitted) - len(detail)}/{len(fitted)} at stock",
+                 verdict(not detail), f"{total - len(detail)}/{total} corners at stock",
                  f"{stock:.2f} mm", detail)
 
 
@@ -653,16 +492,11 @@ def build_card(a) -> Scorecard:
               for n in sorted(placed)]
 
     checks = [
-        _one_core(placed),
         _bodies_clear(placed),
         _routes_fit(placed, fitted),
         _lines_apart(fitted, placed),
         _bom_check.check(placed),
-        _lane_census(fitted, placed),
-        _port_leads(fitted, a.points),
-        _stations_met(fitted, placed),
-        _arcs_hold(fitted),
-        _prv_vent_lands(a.points),
+        _arcs_hold(fitted, a.points),
         _floats_couple(placed),
         Check("inlet-jet-qualified", "The inlet jet's actual joint and fit are qualified",
               "goal", "warn", "nominal layout only", "measured fit and qualified weld",

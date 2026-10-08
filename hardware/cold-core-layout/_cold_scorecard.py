@@ -14,8 +14,7 @@ reading nobody sees at `/3d`.
   routes-fit     no line meets a solid
   lines-apart    no line meets another line
   arcs-hold      every corner turns at the stock arc
-  port-leads     every made-up end has a straight to receive the tube
-  lane-census    what each lane carries, and at what storey
+  floats-couple  every Aero float clears its wall and rides within the reed distance limit
 """
 
 from __future__ import annotations

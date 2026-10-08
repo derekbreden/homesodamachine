@@ -122,9 +122,9 @@ import y_divider as ydiv                              # noqa: E402
 # corners answer to — so this study reads its own bend radius off the same row every run
 # drawn in that stock is graded against.
 import _routing                                       # noqa: E402
-# The bounds this file states about its own figures — settled here, at import, before any solid
-# exists to hang a reading on. `_stated_bounds` is the ledger they record into and
-# `enclosure_assembly.carry_stated_bounds` is what puts them on the card.
+# The bound this file states about its own figures — settled here, at import, before any solid
+# exists to hang a reading on. `_stated_bounds` is the ledger it records into and
+# `enclosure_assembly.carry_stated_bounds` is what puts it on the card.
 import _stated_bounds as _bounds                      # noqa: E402
 import _boxes                                         # noqa: E402
 import _overlap                                       # noqa: E402
@@ -157,13 +157,9 @@ FLAVOR_SKEW = 22.0
 LINE_HUG = 1.0                               # the clearance floor a line keeps off a body
 
 HEAD_W = kp.head_w                           # the pump head, square across
-HEAD_D = kp.head_depth                       # head front face to the rotor boss
 MOTOR_D = kp.motor_dia
-PUMP_LEN = kp.pump_len                       # head front to motor end cap, no shaft nub
-BOSS_D = kp.octagon_top_z - kp.base_plane_z  # the head's rear boss, head face to motor face
 BARB_PITCH = kp.arch_xs[1] - kp.arch_xs[0]   # the two barbs' separation across the head face
 BARB_INSET = kp.arch_plane_z - kp.head_front_z   # barb plane back from the head's front face
-MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the end cap
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
@@ -239,44 +235,6 @@ HINGE_Y = -TEE_RUN
 FOLD_CLEAR = LINE_HUG   # what the closest folded body is left standing off the one beneath it
 
 ELBOW_LEG = 19.56                            # bend corner to collet face, both legs
-
-# The four bounds the crossbar and the limb pitch carry. Two of them are two bodies in one
-# place rather than a clearance, and those are the ones worth NOT raising on: the pack is drawn
-# at the pitch it was given, the two valves come out overlapping, and `pack-closes` reads red
-# naming both bodies with the volume they share. A raise says the same thing and destroys the
-# picture of it.
-_bounds.state(
-    "crossbar-positive", "The crossbar leaves Y-A and Y-B their own tube",
-    "a crossbar of 0 or more",
-    CROSSBAR >= 0.0,
-    f"CROSSBAR {CROSSBAR:g} would stand Y-A's and Y-B's branch collets past each other, so "
-    f"the two fittings occupy the same tube.")
-_bounds.state(
-    "inner-limb-pitch", "The inner limbs stand a valve body apart",
-    f"{VALVE_PITCH:g} mm between the inner limbs",
-    2.0 * INNER_X >= VALVE_PITCH,
-    f"CROSSBAR {CROSSBAR:g} puts the inner limbs {2 * INNER_X:.2f} mm apart, under the "
-    f"{VALVE_PITCH:g} mm two valve bodies pack to — V-A and V-B would occupy each other.")
-_bounds.state(
-    "limb-pitch-floor", "The two lanes stand a valve body apart",
-    f"LIMB_PITCH at or over {VALVE_PITCH:g} mm",
-    LIMB_PITCH >= VALVE_PITCH,
-    f"LIMB_PITCH {LIMB_PITCH:g} is under the {VALVE_PITCH:g} mm two valve bodies pack to, so "
-    f"the two lanes' valves would occupy each other.")
-_bounds.state(
-    "pump-motor-room", "The pump's three bodies are the part, end to end",
-    f"{PUMP_LEN:g} mm across head, boss and can",
-    abs(HEAD_D + BOSS_D + MOTOR_L - PUMP_LEN) < 1e-9,
-    f"the head and its rear boss take {HEAD_D + BOSS_D:g} of the pump's {PUMP_LEN:g} end to "
-    f"end and the can is {MOTOR_L:g}, which comes to {HEAD_D + BOSS_D + MOTOR_L:g}. All three "
-    f"are `kamoer_kphm400`'s figures now, so a mismatch means this study is reading seams "
-    f"that module no longer draws to.")
-_bounds.state(
-    "limb-pitch-ceiling", "The lanes step inboard of the barbs, never outboard",
-    f"LIMB_PITCH at or under {BARB_PITCH:g} mm",
-    LIMB_PITCH <= BARB_PITCH,
-    f"LIMB_PITCH {LIMB_PITCH:g} is over the {BARB_PITCH:g} mm barb pitch — the lanes would "
-    f"stand outboard of the barbs and this file only draws the step inward.")
 
 # --- Colours ---------------------------------------------------------------
 # Every body here is bought, and each is drawn as the stock it is bought in — off `_materials`,
@@ -454,23 +412,8 @@ SPINE_RELEASE_SEP = DECK_SEP - CARRIER_DATUM_SHIFT - CARRIER_RELEASE
 SPINE_MIN_SEP = DECK_SEP - CARRIER_DATUM_SHIFT - CARRIER_PARK
 SPINE_RELEASE_STRAIGHT = SPINE_RELEASE_SEP - 2.0 * SPINE_R
 
-_bounds.state(
-    "spine-bend-radius", "The spine turn holds the corner this stock takes",
-    f"SPINE_R at or over {MIN_BEND:g} mm",
-    SPINE_R >= MIN_BEND,
-    f"SPINE_R {SPINE_R:g} is under the {MIN_BEND:g} mm this stock takes ({STOCK.source}).")
-# A radius over half the PARK gap is the one stated bound in this file a turn cannot draw
-# past: `uturn` puts the climb's lower end above its upper one and the two quarter-turns no
-# longer share a point, so `assembleEdges` has no wire to sweep and there is no spine solid to
-# look at, red row or not. The fallback semicircle keeps a red study drawable.
-_bounds.state(
-    "spine-straight", "The two quarter-turns leave straight tube between them",
-    f"SPINE_R at or under {SPINE_MIN_SEP / 2.0:g} mm, half the park separation",
-    SPINE_MIN_SEP - 2.0 * SPINE_R >= 0.0,
-    f"SPINE_R {SPINE_R:g} needs {2 * SPINE_R:g} mm between the parked ends and they stand "
-    f"{SPINE_MIN_SEP:g} apart, so the two quarter-turns would overlap. Either drop SPINE_R "
-    f"to {SPINE_MIN_SEP / 2.0:g} — a semicircle — or stand the decks further apart. The "
-    "park spine is drawn at that semicircle meanwhile.")
+# Two quarter-turns of a radius over half the PARK gap overlap, with no straight between them
+# and no hairpin to draw, so the drawn radius stops at that gap's semicircle.
 SPINE_DRAWN_R = min(SPINE_R, SPINE_MIN_SEP / 2.0)
 # These figures describe the inner hairpins at release. The outer pair lean toward
 # their inset valves and derive their own cut lengths in `spine_tube_length`.

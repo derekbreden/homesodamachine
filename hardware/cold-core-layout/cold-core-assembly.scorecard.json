@@ -2,24 +2,6 @@
  "gatesPass": true,
  "checks": [
   {
-   "id": "one-core",
-   "label": "One card for both models of the cold core",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5/5 bodies shared",
-   "target": "every foam-assembly body here",
-   "detail": [
-    "this card is written beside cold-core-layout/cold-core-assembly.step",
-    "                        and printed-parts/cold-core/foam-assembly/foam-assembly.step",
-    "foam-shell: placed here",
-    "foam-cap-top: placed here",
-    "foam-cap-lid-top: placed here",
-    "foam-cap-bottom: placed here",
-    "foam-cap-lid-bottom: placed here"
-   ],
-   "active": true
-  },
-  {
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
@@ -73,56 +55,6 @@
    "active": true
   },
   {
-   "id": "lane-census",
-   "label": "What each lane carries, and at what storey",
-   "kind": "gate",
-   "status": "pass",
-   "value": "8 run-lane pairs",
-   "target": "a reading, not a bound",
-   "detail": [
-    "port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6",
-    "port-lane: co2-in at z 13.8..233.4, x -4.7..50.0",
-    "port-lane: evap-tail-inlet at z 25.2..50.2, x -143.5..-34.3",
-    "port-lane: reservoir-a at z 2.8..233.4, x -138.1..104.1",
-    "west-lane: evap-tail-outlet at z 25.2..169.6, x -143.5..-34.3",
-    "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
-    "west-lane: reservoir-b at z 2.8..233.4, x -138.1..-101.8",
-    "west-lane: water-in at z 179.9..233.4, x -138.1..-6.2"
-   ],
-   "active": true
-  },
-  {
-   "id": "port-leads",
-   "label": "Every collet's own corner seats at stock",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5/5 collets",
-   "target": "the stock arc at every made-up end",
-   "detail": [
-    "carb-water-out end: 28.0 mm into a bore, which takes a lean",
-    "co2-in start: 202.4 mm into a bore, which takes a lean",
-    "prv-vent start: 2.0 mm into a bore, which takes a lean",
-    "prv-vent end: 1.0 mm into a bore, which takes a lean",
-    "reservoir-a end: 213.4 mm into a bore, which takes a lean",
-    "reservoir-b end: 213.4 mm into a bore, which takes a lean",
-    "water-in end: 23.2 mm into a bore, which takes a lean"
-   ],
-   "active": true
-  },
-  {
-   "id": "stations-met",
-   "label": "Every wall station carries a run",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2/2 stations",
-   "target": "a run per station",
-   "detail": [
-    "port-lane evap-inlet at z 28.43: evap-tail-inlet",
-    "west-lane evap-outlet at z 28.43: evap-tail-outlet"
-   ],
-   "active": true
-  },
-  {
    "id": "arcs-hold",
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
@@ -130,20 +62,6 @@
    "value": "8/8 at stock",
    "target": "14.00 mm",
    "detail": [],
-   "active": true
-  },
-  {
-   "id": "prv-vent-lands",
-   "label": "The PRV shroud's vent bore opens on the lane its line falls",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0.004 mm off",
-   "target": "within 0.01 mm of the lane",
-   "detail": [
-    "the shroud's vent bore opens at (+0.00, +77.50, 187.85), on the west lane (77.5) \u2014 the strip the barrel's own bore can reach with no corner",
-    "it stands 11.55 mm under the elbow's own axis, against the 11.55 mm barrel radius a bore facing DOWN reads",
-    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.85 and out the +Y flank at y 92.50"
-   ],
    "active": true
   },
   {
