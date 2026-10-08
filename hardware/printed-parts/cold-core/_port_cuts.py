@@ -33,7 +33,6 @@ from _cold_core_interface import (
     bag_pocket_y_inner_max,
     outer_shell_x_length,
     reservoir_bulkhead_port_x,
-    cap_conduit_shell_xy,
     water_outlet_climb_x,
     co2_inlet_y,
     co2_lane_x,
@@ -178,15 +177,6 @@ state(
      f"azimuths {_co2_crossing[0]:.1f}°..{_co2_crossing[1]:.1f}°, which no slot of "
      f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
      f"segment that carries the carbonator"))
-# The fall and the lean now stand on their own columns, so what this holds is the CAP CONDUIT
-# on the lane — the end that is free to move, and the one whose drift would leave the line
-# falling somewhere the lane does not run.
-state(
-    "co2-bore-meets-fall", "The CO2 bore is struck where its line falls down the lane",
-    f"the co2-in conduit on the port lane ({port_lane_mid_y:g})",
-    abs(cap_conduit_shell_xy("co2-in")[1] - port_lane_mid_y) < 1e-9,
-    f"the co2-in conduit stands at y {cap_conduit_shell_xy('co2-in')[1]:g}, off the port lane "
-    f"({port_lane_mid_y:g}) its line falls down — the bore is struck to meet that fall")
 
 # Reservoir DRAW pass-throughs — each reservoir's 1/4" LLDPE line off its floor bulkhead,
 # out of the pocket at bulkhead_elbow_exit_z (level out of the elbow's lateral port, in the

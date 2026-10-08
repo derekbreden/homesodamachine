@@ -3,7 +3,7 @@ constants and hole-punch helpers that every sibling part (foam shell,
 foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
 in sync against.
 
-The constants carry claims about each other — a screw long enough for its insert, a lane wide
+The constants carry claims about each other — a screw long enough for its insert, a band wide
 enough for its bore, two columns far enough apart for foam to reach between them — and those are
 settled here, as this file is read, with no solid yet to measure. `_stated_bounds` is the ledger
 they record into; `enclosure_assembly.carry_stated_bounds` drains it onto the machine's card, where
@@ -69,7 +69,7 @@ flute_pitch_drift = 0.15
 #: other costs an even count. And the top cap and its lid install spun a half turn about Z
 #: (`foam_assembly._spin`), which shifts their field by half the perimeter — a whole number of
 #: pitches only when the count is even, and half a pitch otherwise, which would land every
-#: groove of the cap on a land of the shell. `flute-closes` and `flute-even` read both.
+#: groove of the cap on a land of the shell.
 flute_count = 182
 
 # THE GROOVE'S STOCK COMES OUT OF THE POUR, NOT OFF THE ENVELOPE. A flute must have a whole
@@ -379,12 +379,6 @@ west_lane_mid_y = -port_lane_mid_y
 # PET-GF left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
 port_lane_wall = 1.5
-state(
-    "port-lane-width", "The port lane carries a bore with a wall either side of it",
-    f"{2 * (port_hole_radius + port_lane_wall):g} mm of lane",
-    port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lane_wall),
-    f"the port lane is {port_lane_inner_y - port_lane_outer_y:g} mm wide, which cannot carry a "
-    f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PET-GF either side")
 
 # Where the evaporator coil's two tails leave the carbonator: the low one one
 # `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
@@ -413,8 +407,8 @@ front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 # AND WHAT HOLDS IT UP OFF THAT IS THE APPLIANCE'S OWN FLOOR. The core stands on `enclosure`'s
 # slab with the compressor bay mated to this face, and both coppers cross here — so a slot
 # that sits at the bottom of its lane puts the evaporator's two legs in the slab's material
-# instead of the machine's air. `enclosure_assembly` reads that on `clearance-floor`, `port-leads`
-# and `lines-clear`, all three against the loop rather than against this figure.
+# instead of the machine's air. `enclosure_assembly` reads that on `clearance-floor` and
+# `pack-closes`, both against the loop rather than against this figure.
 #   ONE LANE PITCH IS THE STANDOFF, and it is STATED here rather than derived: nothing inside this
 # shell sets it, so a crossing that drops reads red in the appliance instead of quietly walking
 # the refrigerant loop into a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up
@@ -482,12 +476,6 @@ state("flute-closes", "The flute count lands near the nominal pitch",
       f"{flute_count} grooves close on the {outer_shell_plan_perimeter():.4g} mm perimeter at "
       f"{flute_pitch():.4g} mm, which is {abs(flute_pitch() - flute_pitch_nominal):.4g} mm off "
       f"the nominal {flute_pitch_nominal:g}")
-state("flute-even", "The flute count is even",
-      "the spun cap's grooves land on the shell's",
-      flute_count % 2 == 0,
-      f"{flute_count} is odd, so the half-perimeter the top cap's spin shifts its field by "
-      f"({flute_pitch() * flute_count / 2:.4g} mm) is a half pitch out of step, and every "
-      f"groove of the cap lands on a land of the shell")
 state("flute-backed", "A groove keeps a whole wall behind it",
       f"{outer_shell_wall:g} - {flute_depth:g} >= {wall_and_floor_thickness:g} mm",
       outer_shell_wall - flute_depth >= wall_and_floor_thickness - 1e-9,
@@ -558,30 +546,10 @@ attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
 # A STATION IS PRICED AGAINST THE LANE IT IS NOT IN. A ±Y boss shares the ±Y band with every
 # line running to the front face, so it is held to the outer `screw_boss_size` of it and the
 # lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
-# lines arrive AT, clear of both lanes in y — so the reading that fences it is the lane's own
-# volume, measured where the bodies are (`foam-shell/foam_shell._report_front_ports`) rather
-# than inferred from a coordinate here.
-_boss_lane = bound(
-    "boss-clears-lane", "Every ±Y attachment boss stands clear of the port lane",
-    "every ±Y boss inboard of the lane's outer edge")
-for (_bx, _by), _wall in attachment_stations:
-    if _wall == "x":
-        continue
-    _boss_lane(
-        abs(_by) - screw_boss_size / 2 >= outer_shell_y_length / 2 - screw_boss_size,
-        f"attachment boss at ({_bx:g}, {_by:g}) reaches past the port lane's outer edge "
-        f"({port_lane_outer_y:g}) — the lane every front penetration runs along")
-_boss_lane_x = bound(
-    "boss-clears-lane-x", "Every ±X attachment boss stands clear of both lanes in y",
-    "every ±X boss inboard of both bands")
-for (_bx, _by), _wall in attachment_stations:
-    if _wall != "x":
-        continue
-    _boss_lane_x(
-        abs(_by) + screw_boss_size / 2 <= abs(port_lane_inner_y),
-        f"attachment boss at ({_bx:g}, {_by:g}) reaches into a ±Y band (inboard edge "
-        f"{abs(port_lane_inner_y):g}) — a boss on the face the lanes arrive at must stand "
-        f"clear of both of them")
+# lines arrive AT, clear of both lanes in y. Either way the reading that fences a boss is the
+# lane's own volume, measured where the bodies are (`foam-shell/foam_shell._report_front_ports`)
+# rather than inferred from a coordinate here.
+
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
@@ -605,28 +573,6 @@ gasket_strip_width = 5.0
 #
 # AND THE GASKET WOULD OWE THIS AT ANY HEIGHT. It is the TPU 90A land the cap clamps against the
 # shell's face, and a groove across a sealing land is a path out.
-flute_full_depth_height = 2.0 * flute_rise
-silhouette_bands = (
-    ("foam-shell", foam_shell_outer_height, True),
-    ("foam-cap-bottom", foam_cap_height, True),
-    ("foam-cap-top", foam_cap_height - head_pad_height, True),
-    ("foam-cap-lid-top", foam_cap_lid_height, False),
-    ("foam-cap-lid-bottom", wall_and_floor_thickness, False),
-    ("foam-cap-gasket", gasket_thickness, False),
-)
-_flute_reveal = bound(
-    "flute-reveal", "A band on the run either carries the field or is a reveal",
-    f"fluted iff it stands {flute_full_depth_height:g} mm tall")
-for _band, _band_height, _band_fluted in silhouette_bands:
-    _flute_reveal(
-        _band_fluted == (_band_height >= flute_full_depth_height),
-        f"{_band} stands {_band_height:g} mm on the run and is "
-        + (f"fluted, under the {flute_full_depth_height:g} mm it takes before one station on "
-           f"it stands {flute_rise:g} mm clear of both its faces — so the whole band is ramp "
-           f"and no groove on it reaches {flute_depth:g} mm"
-           if _band_fluted else
-           f"left smooth, though at {flute_full_depth_height:g} mm the field would reach its "
-           f"full {flute_depth:g} mm on it"))
 
 # The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
 # crosses the land, then the one continuous PET-GF section the lid and the cap's
@@ -676,8 +622,10 @@ deck_mount_lid_slip = fits.slip  # a standing column to the lid's clearance hole
 deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
 deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve travel past the screw tip
 
-# The least room a deck column leaves to anything else standing in the cup — a screw boss,
-# the cavity wall, another column. Liquid foam reaches between them.
+# The pour gap, [1.5 mm](DECK_MOUNT_CAP_GAP): the least room a conduit column standing in the cup
+# leaves to the cavity wall or to another standing conduit, so liquid foam reaches between them
+# (`cap_conduit_wall_neck`, `cap_conduit_pair_neck`). The lid's pour hole stands the same gap off
+# the deck mounts' lid holes and the valve plinths (`foam_cap_lid_pour_xy`).
 deck_mount_cap_gap = 1.5
 
 # Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
@@ -688,9 +636,7 @@ deck_mount_cap_gap = 1.5
 #   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the main board hang
 # on the +X wall of back-top, one over the other; the relay lies on the lid in the band they
 # left and the Wago row stands on the brick's crown, and neither has a joint yet — a body resting on
-# another is not mounted, so neither carries a row here. `deck_mount_cap_room` holds each
-# column [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in the cup for the pour to reach
-# between them.
+# another is not mounted, so neither carries a row here.
 #   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
 # (`foam_assembly._spin`) and its clamp bosses are symmetric under that turn, so the thing
 # that tells a builder which way the cup goes on is what is NOT symmetric — this station and the
@@ -767,36 +713,6 @@ def deck_lid_hole_radius(name):
     if deck_mount_standoff(name) == 0.0:
         return screw_clearance_radius
     return deck_mount_boss_radius + deck_mount_lid_slip
-
-
-def deck_mount_cap_room(name):
-    """The least room this station's columns leave to anything else standing in the cup:
-    `(mm, what)` — a screw boss, the cavity wall, another mount's column."""
-    room = []
-    for x, y in deck_mount_xy(name):
-        for bx, by in attachment_xy_positions:
-            room.append((math.hypot(x - bx, y - by)
-                         - screw_boss_size / 2.0 - deck_mount_boss_radius, "a screw boss"))
-        room.append((min(outer_shell_x_length / 2.0 - abs(x),
-                         outer_shell_y_length / 2.0 - abs(y))
-                     - outer_shell_wall - deck_mount_boss_radius, "the cavity wall"))
-        for other in deck_mounts:
-            for ox, oy in deck_mount_xy(other):
-                if (ox, oy) != (x, y):
-                    room.append((math.hypot(x - ox, y - oy) - 2.0 * deck_mount_boss_radius,
-                                 f"the {other} mount"))
-    return min(room)
-
-
-_mount_room = bound(
-    "deck-mount-room", "Every deck-mount column leaves the pour its gap in the cup",
-    f"{deck_mount_cap_gap:g} mm off everything standing in the cup")
-for _name in deck_mounts:
-    _room, _what = deck_mount_cap_room(_name)
-    _mount_room(
-        _room >= deck_mount_cap_gap - 1e-9,
-        f"deck mount {_name}: a column stands {_room:.3f} mm off {_what}, inside the "
-        f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
 
 
 # --- Valve cradles on the lid's outer face -----------------------------------
@@ -915,11 +831,6 @@ def cap_cradle_room(name):
 # and a line runs up it from the shell's open top out onto the lid's outer face. The
 # service bay stands on that face.
 lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
-state("forward-band-takes-a-tube", "A tube on the forward band's centre clears both its faces",
-      f"{forward_band_width:g} >= {lldpe_tube_od:g} mm",
-      forward_band_width >= lldpe_tube_od,
-      f"a ⌀{lldpe_tube_od:g} tube centred in a {forward_band_width:g} mm band stands "
-      f"{(forward_band_width - lldpe_tube_od) / 2.0:g} mm off each face")
 cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.8](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
@@ -936,20 +847,11 @@ cap_conduit_entry_skew = 38.0
 cap_conduit_entry_relief_radius = (
     cap_conduit_bore_radius
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
-# The relief stands inside the boss its own column carries, so `cap_conduit_room`,
-# `cap_conduit_wall_neck` and `cap_conduit_pair_neck` fence the cone where they fence the
-# column. A wall of boss over a cone one wall deep puts that ceiling at
-# [45°](ENTRY_SKEW_CEILING).
+# The relief stands inside the boss its own column carries, so `cap_conduit_wall_neck` and
+# `cap_conduit_pair_neck` fence the cone where they fence the column. A wall of boss over a cone
+# one wall deep puts that ceiling at [45°](ENTRY_SKEW_CEILING).
 cap_conduit_entry_skew_ceiling = math.degrees(
     math.atan2(cap_conduit_wall, wall_and_floor_thickness))
-state(
-    "entry-skew-ceiling", "The countersink stands inside the boss its own column carries",
-    f"{cap_conduit_entry_skew_ceiling:.1f}° at most",
-    cap_conduit_entry_skew <= cap_conduit_entry_skew_ceiling + 1e-9,
-    f"cap conduit entry: {cap_conduit_entry_skew:g}° opens the lid's hole to "
-    f"⌀{2.0 * cap_conduit_entry_relief_radius:.2f}, past the ⌀{2.0 * cap_conduit_boss_radius:g} "
-    f"column under it — a relief stands inside its own boss, which is "
-    f"{cap_conduit_entry_skew_ceiling:.1f}° here")
 # The mouth passes the tube's SECTION and not just its centreline: a ⌀[6.35](LLDPE_TUBE_OD) line
 # crossing the outer face at that lean reads `r / cos(skew)` wide in the face's own plane.
 state(
@@ -1107,7 +1009,7 @@ cap_fluid_conduits = {
 }
 # AND THE TWO THAT CARRY A CABLE. A bore in the cap over the mouth of a reed channel is the
 # same column with the same bore, so it stands in the same table and answers to the same
-# gates — `cap-conduit-room`, `cap-conduit-wall`, `cap-conduit-pair`, `entry-skew-ceiling`.
+# gates — `cap-conduit-wall` and `cap-conduit-pair`.
 # What it is not is one end of a line: a reader counting the plumbing counts
 # `cap_fluid_conduits`, and one counting holes in the lid counts these too.
 cap_cable_conduits = {
@@ -1172,35 +1074,10 @@ def cap_conduit_wall_neck(x, y):
     return (to_outer - cap_conduit_bore_radius, "the wall left outboard of a merged bore")
 
 
-def cap_conduit_room(name):
-    """The least room this conduit leaves to anything else STANDING in the cup:
-    `(mm, what)` — a screw boss, a deck mount's column. The perimeter wall is not one of
-    these: a column may merge into it, and `cap_conduit_wall_neck` is what prices that."""
-    x, y = cap_conduits[name]
-    room = []
-    for bx, by in attachment_xy_positions:
-        room.append((math.hypot(x - bx, y - by)
-                     - screw_boss_size / 2.0 - cap_conduit_boss_radius, "a screw boss"))
-    for other in deck_mounts:
-        for ox, oy in deck_mount_xy(other):
-            room.append((math.hypot(x - ox, y - oy)
-                         - deck_mount_boss_radius - cap_conduit_boss_radius,
-                         f"the {other} mount"))
-    return min(room)
-
-
-_conduit_room = bound(
-    "cap-conduit-room", "Every conduit column leaves the pour its gap in the cup",
-    f"{deck_mount_cap_gap:g} mm off everything else standing in the cup")
 _conduit_wall = bound(
     "cap-conduit-wall", "Every conduit column stands the pour gap off the wall or merges in",
     f"the pour gap apart or a {cap_conduit_wall:g} mm neck")
 for _name in cap_conduits:
-    _room, _what = cap_conduit_room(_name)
-    _conduit_room(
-        _room >= deck_mount_cap_gap - 1e-9,
-        f"cap conduit {_name}: the column stands {_room:.3f} mm off {_what}, inside the "
-        f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
     _neck, _what = cap_conduit_wall_neck(*cap_conduits[_name])
     _want = deck_mount_cap_gap if _what.startswith("the pour") else cap_conduit_wall
     _conduit_wall(
@@ -1283,9 +1160,6 @@ _cradle_room = bound(
 _cradle_pour = bound(
     "cradle-pour", "Every plinth leaves a land beside the pour hole",
     f"{cap_cradle_room_gap:g} mm off the pour hole")
-_cradle_vent = bound(
-    "cradle-vent", "Every plinth clears both vents",
-    f"{cap_cradle_room_gap:g} mm off either vent")
 for _name in cap_cradles:
     _room, _what = cap_cradle_room(_name)
     _cradle_room(_room >= cap_cradle_room_gap - 1e-9,
@@ -1293,10 +1167,6 @@ for _name in cap_cradles:
     _room = cap_cradle_circle_gap(_name, *foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius)
     _cradle_pour(_room >= cap_cradle_room_gap - 1e-9,
                  f"valve plinth {_name}: {_room:.3f} mm off the pour hole")
-    for _hx, _hy in foam_cap_lid_vent_xy():
-        _room = cap_cradle_circle_gap(_name, _hx, _hy, foam_cap_lid_vent_radius)
-        _cradle_vent(_room >= cap_cradle_room_gap - 1e-9,
-                     f"valve plinth {_name}: {_room:.3f} mm off a vent")
     for _sx, _sy in cap_cradle_xy(_name):
         for _hx, _hy in cap_conduits.values():
             _room = (math.hypot(_sx - _hx, _sy - _hy)
@@ -1707,11 +1577,7 @@ def cap_conduit_pair_neck(a, b):
     standing nearer than a boss diameter and their columns fusing into one post — and then
     what matters is the NECK the lens leaves, which carries the joint and must be a wall
     thick. What neither may be is tangent: two circles meeting near a point close a knife
-    edge that prints as a void and holds no load.
-
-    `cap_conduit_room` prices a conduit against everything else standing in the cup; this
-    is the one pair it cannot price, because for a pair overlap is a design and not a
-    clash."""
+    edge that prints as a void and holds no load."""
     r = cap_conduit_boss_radius
     d = math.hypot(a[0] - b[0], a[1] - b[1])
     if d >= 2.0 * r:

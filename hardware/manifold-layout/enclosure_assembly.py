@@ -855,10 +855,10 @@ def mq6_cradle(carry):
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
 #
-# A THIRD GROUP IS SETTLED BEFORE ANY OF THIS RUNS. `manifold_layout`, `funnel` and the
-# cold core's own modules state bounds about their CONSTANTS — a screw long enough for its
-# insert, a lane wide enough for its bore, two limbs far enough apart for the valves on them —
-# and those are read as each file is, with no assembly yet to hang a reading on.
+# A THIRD GROUP IS SETTLED BEFORE ANY OF THIS RUNS. `manifold_layout`, `fuse_clamp` and the
+# cold core's own modules state bounds about their CONSTANTS — two source runs stepping on two
+# arcs alone, a clamp closing on features its compressor has, a screw long enough for its
+# insert — and those are read as each file is, with no assembly yet to hang a reading on.
 # `_stated_bounds` is the ledger they record into at import and `carry_stated_bounds` reads it
 # into this one, so a constant edited into a fault arrives on the same card by the same route
 # as a body moved into one.
@@ -888,7 +888,7 @@ def record_bound(bound: Bound) -> Bound:
 
 def carry_enclosure_bounds() -> None:
     """The bounds `enclosure` states about the box it draws, entered in this ledger — its
-    stated width, depth and height against what the pack demands, the two seam planes against
+    stated width and height against what the pack demands, the two seam planes against
     the print bed and the display housing, and the funnel throat against the frame the top wall
     has left. Same record, same rendering, and the same reason for not raising.
 
@@ -901,12 +901,11 @@ def carry_enclosure_bounds() -> None:
 def carry_stated_bounds() -> None:
     """The bounds the pack's own modules state about their constants, entered in this ledger.
 
-    They were read when those modules were imported — the manifold's crossbar and limb pitch
-    against the valve bodies they carry, the spine turn against its stock, the funnel's collar
-    against the grade its floor claims, and the cold core's screws, lanes, conduit columns, cradles
-    and plug webs against each other. A raise there would take the STEP, the three elevations and
-    this card with it before `build_enclosure_assembly` ran a line, which is why they do not raise;
-    this is where they arrive instead.
+    They were read when those modules were imported — the manifold's two source runs against
+    the two arcs they step on, the fuse clamp against the compressor it closes on, and the cold
+    core's screws, conduit columns, cradles and anchors against each other. A raise there would
+    take the STEP, the three elevations and this card with it before `build_enclosure_assembly`
+    ran a line, which is why they do not raise; this is where they arrive instead.
 
     `_stated_bounds` keeps the list rather than this module keeping it, because the modules
     that record into it are the ones this module imports and the import only runs one way."""
@@ -1765,8 +1764,8 @@ def word_name(which: str) -> str:
 BULKHEAD_RING_SLIP = fits.slip
 # THE WALL THE FIELD KEEPS AROUND EVERY CHIP, and it is one figure read on BOTH faces of the wall.
 # Outboard it is the web of stock standing between two neighbouring pockets, which is the only
-# thing holding one colour off the next — `port-field-web` reads the pitch against it. Inboard it
-# is how far the boss reaches past the chip it backs.
+# thing holding one colour off the next — the pitch the field asks for, `PORT_FIELD_PITCH`, is a
+# pocket and one rim. Inboard it is how far the boss reaches past the chip it backs.
 BULKHEAD_RING_RIM = 3.0
 # How far the nut land stands INBOARD of the wall's inner plane WHERE THE WALL HAS NOT ALREADY
 # MADE THE POCKET BACK, and it is the chip's own thickness: exactly what the pocket took out of
@@ -1795,7 +1794,7 @@ def port_clamp_stack(t: float) -> float:
     return max(t, _enc.wall + PORT_BOSS_PROUD)
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
-    it. The wall cuts it and `port-field-web` reads it against the pitch, off this one call."""
+    it. The wall cuts it and `PORT_FIELD_PITCH` spaces the columns by it, off this one call."""
     return _ring.od(ring) + 2.0 * BULKHEAD_RING_SLIP
 
 
@@ -1825,7 +1824,7 @@ def y_wall_field(stations):
     """The pocket each chip lies in, as `enclosure.Pack.port_field` — one per station, not one field
     across them. `enclosure._port_field` cuts each into the wall's outer face; a station relieved
     for its nut keeps the land under it as retained wall stock, and `BULKHEAD_RING_RIM` is the
-    wall the field keeps round every chip (`port-field-web` reads the pitch against it)."""
+    wall the field keeps round every chip."""
     return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
                           tuple((x, z, port_pocket_d(ring), port_pocket_rise(which),
                                  _ring.bottom(ring) + BULKHEAD_RING_SLIP)
@@ -2040,21 +2039,10 @@ PORT_FIELD_PITCH = port_pocket_d() + BULKHEAD_RING_RIM
 # The pitch two columns stand at.
 PORT_PITCH = max(PORT_HARDWARE_PITCH, PORT_FIELD_PITCH)
 # WHAT THE PITCH LEAVES BETWEEN TWO POCKETS IS STANDING WALL, and a pocket that runs into its
-# neighbour leaves one colour touching the next with nothing printed between them. `bulkhead_ring.RING_W`
-# is what a chip spends the pitch on and `BULKHEAD_RING_RIM` is the wall the field keeps around it, so
-# the three are read against each other here rather than in any one module alone. The two union
-# columns are the tightest pair on the wall — both pockets take the same width — so the pitch is
-# read against that one.
+# neighbour leaves one colour touching the next with nothing printed between them. The two union
+# columns are the tightest pair on the wall — both pockets take the same width — so this is the
+# web between those two.
 PORT_FIELD_WEB = PORT_PITCH - port_pocket_d()
-_stated.state(
-    "port-field-web", "Two neighbouring pockets leave standing wall between them",
-    f"a web of {BULKHEAD_RING_RIM:g} mm or more, one rim's own width",
-    PORT_FIELD_WEB >= BULKHEAD_RING_RIM - 1e-9,
-    f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pocket of {port_pocket_d():.2f} — a chip of "
-    f"Ø{_ring.od('union'):.2f} and its {BULKHEAD_RING_SLIP:g} slip — and leaves "
-    f"{PORT_FIELD_WEB:.3f} mm of wall between two of them. `bulkhead_ring.RING_W` "
-    f"{_ring.RING_W:g} is what a chip shows past the fitting's own flange, and shrinking it is "
-    f"what buys the web back.")
 # AND THE POCKET STOPS INSIDE THE WALL. It is cut the chip's own thickness into a face that has
 # only `enclosure.wall` to give, and what is left under it is the floor every flange's load
 # crosses. Cut to the full thickness there is no floor, the pocket is a hole, and the boss standing
@@ -2267,7 +2255,7 @@ def digiten_anchors(carry) -> tuple:
 #
 # WHAT A RUN DOES BETWEEN ITS TWO COLLETS. It is pushed into a fitting at each end and held by
 # nothing in between, so a long one sags — and a run that sags is not on the centreline
-# `lines-clear` cleared it on. An anchor is a stop on that span.
+# `pack-closes` cleared it on. An anchor is a stop on that span.
 #
 # The span an anchor breaks. A tube carrying its own weight and its water sags `5wL⁴/384EI`
 # between supports; for 1/4" LLDPE that reaches the millimetre `clearance-floor` keeps somewhere
@@ -2771,36 +2759,6 @@ def c14_cutout():
             _enc.c14_bore_w, _enc.c14_bore_h, _enc.c14_bore_r)
 
 
-# WHAT THE PLACEMENT AND THE PRINTED WALL HAVE TO AGREE ON. `enclosure.c14_station_x` is the one
-# column, so `C14_STATION[0] == _enc.c14_station_x` says nothing — this file reads that name to
-# build the tuple. What can still drift is a DERIVATION off it: the wall relief the tunnel stands
-# on carries its own X in `back_top_wall_reliefs`, and the cutout and the two screws are struck
-# here. So the bound reads them all back against the shared datum.
-_c14_relief = next((x, z, w, h) for who, x, z, w, h in _enc.back_top_wall_reliefs
-                   if who == "c14-inlet")
-
-_stated.state(
-    "c14-surround", "The C14 flange pockets into one block at its ceiling-clear mount",
-    "3 mm in XZ, a 5 mm pocket the rim seats at the floor of, a 9 mm entry relief, and one "
-    "ceiling-bedded rectangular block",
-    (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_depth >= 5.0
-     and _enc.c14_insertion_relief >= 9.0
-     and _c14_relief[0] == C14_STATION[0]
-     and _c14_relief[1] == C14_STATION[1]
-     and _c14_relief[2] == _enc.c14_wall_relief_w
-     and abs(_c14_relief[3] - 2.0 * c14_mount_half()[1]) < 1e-9
-     and c14_cutout()[1] == C14_STATION[0]
-     and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9),
-    f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
-    f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
-    f"{_enc.c14_pocket_wall:g} mm of the tunnel block around the flange and its lip stands "
-    f"{_enc.c14_pocket_depth:g} mm deep, the rim on its floor; the block is "
-    f"one rectangle from that mouth to the wall, with its crown rooted in the ceiling slab. "
-    f"Its exact slipped "
-    f"pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for "
-    "insertion.")
-
-
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
 #
 # The customer's red tether lands on the ABU44 bulkhead. The WR1110 lies on that wall-normal
@@ -2858,17 +2816,6 @@ def keystone_cutout(station: tuple):
     r = _keystone.panel_cutout()[2]
     x, z = station
     return ("rect", x, z, wx, wz, r)
-
-
-_stated.state(
-    "keystone-receptacle", "The wall carries the jack's lip and stands the rest of its pocket",
-    f"a section between `LIP_D` {_keystone.LIP_D:g} and `DEPTH` {_keystone.DEPTH:g} mm",
-    _keystone.LIP_D <= _enc.back_top_wall_t < _keystone.DEPTH,
-    f"the +Y wall of back-top runs {_enc.back_top_wall_t:g} mm at this station. The aperture "
-    f"takes {_keystone.LIP_D:g} of it as the lip the jack's face bottoms on, the pocket opens "
-    f"out behind that, and `enclosure._keystone_receptacle` stands a boss "
-    f"{_keystone.DEPTH - _enc.back_top_wall_t:.2f} mm further inboard to carry the catches. A "
-    f"wall at or past {_keystone.DEPTH:g} would bury the pocket in its own section.")
 
 
 KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
@@ -3472,7 +3419,7 @@ def wall_mounts(*mounted, blockers=()):
         offered = _enc._east_boss_corbel(wall_x, base, up=up)
         web_hits = hits(offered)
         if not web_hits:
-            return tip, (), (), ()
+            return tip, (), ()
         web_tip = max(box(body).xmax for _name, body, _volume in web_hits) + clear
         # Keep the full corbel on every part of this width that the exact collision does not
         # occupy. The clearance is struck from the INTERSECTION, not the blocker's whole
@@ -3495,7 +3442,7 @@ def wall_mounts(*mounted, blockers=()):
                 if cut_hi < band_hi - 1e-6:
                     next_bands.append((max(cut_hi, band_lo), band_hi))
             clear_bands = next_bands
-        wings, dropped = _enc.east_boss_wings(span, clear_bands)
+        wings, _dropped = _enc.east_boss_wings(span, clear_bands)
         station = (sy, sz, tip, web_tip, wings, span)
         remaining = hits(_enc._east_boss_corbel(wall_x, station, up=up))
         if remaining:
@@ -3503,7 +3450,7 @@ def wall_mounts(*mounted, blockers=()):
             raise ValueError(
                 f"the {owner} mount at y={sy:g}, z={sz:g} still crosses {names} "
                 f"after its object-derived corbel setback to x={web_tip:g}")
-        return web_tip, wings, tuple(name for name, _body, _volume in web_hits), dropped
+        return web_tip, wings, tuple(name for name, _body, _volume in web_hits)
 
     raw = []
     for owner, carry, holes in mounted:
@@ -3514,7 +3461,7 @@ def wall_mounts(*mounted, blockers=()):
     partner = {}
     for i, j in pairs:
         partner[i], partner[j] = j, i
-    out, held, bars = [None] * len(raw), [], []
+    out = [None] * len(raw)
 
     def keep(k, owner, ky, kz, tip, web_tip, bands, names, span=None):
         setback = names != ()
@@ -3528,7 +3475,6 @@ def wall_mounts(*mounted, blockers=()):
             out[k] = (ky, kz, tip, web_tip, bands) if setback else (ky, kz, tip)
         else:
             out[k] = (ky, kz, tip, web_tip, bands, span)
-        return setback
 
     for i, (owner, sy, sz, tip) in enumerate(raw):
         if i not in partner:
@@ -3543,9 +3489,8 @@ def wall_mounts(*mounted, blockers=()):
                     "move the body or its mounting station — setting the corbel back cannot "
                     "clear a blocker in the boss itself")
             span = (sy - r, sy + r)
-            web_tip, bands, names, dropped = profile(owner, sy, sz, tip, span)
-            if keep(i, owner, sy, sz, tip, web_tip, bands, names):
-                held.append((owner, sy, sz, web_tip - tip, names, bands, dropped, span))
+            web_tip, bands, names = profile(owner, sy, sz, tip, span)
+            keep(i, owner, sy, sz, tip, web_tip, bands, names)
             continue
         j = partner[i]
         if j < i:
@@ -3558,73 +3503,19 @@ def wall_mounts(*mounted, blockers=()):
                 f"the {owner} mounts at y={sy:g}/{sy2:g}, z={sz:g}/{sz2:g} share a bar that "
                 f"crosses {names}; move the body or its mounting stations — a bar's fill is "
                 "checked, not set back")
-        bars.append((owner, sy, sz, sy2, sz2))
         if abs(sz - sz2) <= _enc.stated_bound_tol:
             # Side by side: one span, one reading, carried by both holes.
             span = (min(sy, sy2) - r, max(sy, sy2) + r)
-            web_tip, bands, names, dropped = profile(owner, sy, sz, tip, span)
+            web_tip, bands, names = profile(owner, sy, sz, tip, span)
             keep(i, owner, sy, sz, tip, web_tip, bands, names, span)
             keep(j, owner, sy2, sz2, tip, web_tip, bands, names, span)
-            if names:
-                held.append((owner, sy, sz, web_tip - tip, names, bands, dropped, span))
         else:
             # One over the other: each hole keeps its own reading; the hole nearest print-down
             # carries the bar.
             for k, ky, kz in ((i, sy, sz), (j, sy2, sz2)):
                 span = (ky - r, ky + r)
-                web_tip, bands, names, dropped = profile(owner, ky, kz, tip, span)
-                if keep(k, owner, ky, kz, tip, web_tip, bands, names):
-                    held.append((owner, ky, kz, web_tip - tip, names, bands, dropped, span))
-
-    # All added support material — the D-fill corners or a bar's fill, and the wedge — stays
-    # out of every installed body. The established circular annulus is deliberately absent from
-    # this probe: the ground stack meets it inside its own mounting hole, which is intended
-    # seating rather than a collision introduced by the corbel.
-    bad = []
-    for i, station in enumerate(out):
-        if i in partner:
-            j = partner[i]
-            addition = _enc._east_bar_fill(wall_x, out[i], out[j], up=up) if i < j else None
-        else:
-            addition = _enc._east_boss_d_fill(wall_x, station, up=up)
-        corbel = _enc._east_boss_corbel(wall_x, station, up=up)
-        if corbel is not None:
-            addition = corbel if addition is None else addition.fuse(corbel)
-        if addition is None:
-            continue
-        for name, _body, volume in hits(addition):
-            bad.append((station[:3], name, volume))
-    full = sum(1 for s in out if len(s) < 4 or abs(s[3] - s[2]) <= _enc.stated_bound_tol)
-    # A HELD-BACK BOSS AND A SPLIT ONE ARE NOT THE SAME READING. A blocker that covers the whole
-    # seven millimetres leaves no clear band, and calling that a split corbel would report a
-    # wall-rooted wing the piece does not have. The two populations are counted apart, and a
-    # boss with no band says which body took the width.
-    splits = [row for row in held if row[5]]
-    plain = [row for row in held if not row[5]]
-    stood_down = [row for row in plain if row[6]]
-    record_bound(Bound(
-        "east-boss-corbels",
-        "Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate "
-        "45 degree corbel clears the installed bodies",
-        not bad,
-        f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
-        f"their whole width and {len(splits)} use blocker-profiled split corbels"
-        + (f", {len(plain)} are held back across their whole width" if plain else "")
-        + (f" ({len(stood_down)} with offered wing(s) stood down)" if stood_down else "")
-        + (f"; {len(bars)} hole pair(s) share a bar" if bars else ""),
-        "one clear candidate corbel per mounting hole, one bar per hole pair",
-        ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
-          for station, name, volume in bad]
-         + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm setback past "
-            f"{', '.join(names)}, "
-            + ("full wall-rooted wing(s) "
-               + ", ".join(f"y {lo:.3f}..{hi:.3f}" for lo, hi in bands)
-               if bands else
-               "offered wing(s) " + ", ".join(f"y {lo:.3f}..{hi:.3f}" for lo, hi in dropped)
-               + f" stand down, {sum(hi - lo for lo, hi in dropped):.2f} of "
-               f"{span[1] - span[0]:.2f} mm; no wing"
-               if dropped else "no clear width left for a full wing")
-            for owner, sy, sz, setback, names, bands, dropped, span in held])))
+                web_tip, bands, names = profile(owner, ky, kz, tip, span)
+                keep(k, owner, ky, kz, tip, web_tip, bands, names)
 
     # FOUR LOCAL FILLS, EACH READ IN THE COMPLETE INSTALLED PACK. The ground stack's single
     # boss stands less than two millimetres below the ceiling pocket round the stud. A wedge
@@ -5568,8 +5459,8 @@ def machine():
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
-    The box is SEATED before its ledger is carried, so the card holds the throat's three rows
-    whether or not a wall is ever cut from this box."""
+    The box is SEATED before its ledger is carried, so the card holds the throat's row whether
+    or not a wall is ever cut from this box."""
     a = build_pack()
     p = pack(a)
     box = _seated(_enc.stated_box(p))

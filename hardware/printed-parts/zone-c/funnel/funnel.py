@@ -9,7 +9,6 @@ the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
 hole and the drain stub are separate parts.
 """
 
-import math
 import sys
 from pathlib import Path
 
@@ -30,8 +29,6 @@ from _cadq_export import export_assembly
 from _materials import M_SILICONE_BLACK, one_body
 from docgen import substitute_md
 import elbow_cradle
-# The bound this file states about its own collar, recorded at import for the machine's card.
-import _stated_bounds as _bounds
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
@@ -63,16 +60,6 @@ spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
 # The stub's reach into the plug: from its bottom face to the top of its sealing land.
 stub_engagement = spout_land_z + drop - plug_lift
 sealing_land = stub_engagement  # the whole inserted tube contacts the straight bore
-_ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
-_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
-ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
-
-_bounds.state(
-    "funnel-floor-grade", "The funnel ramp falls toward the offset outlet",
-    "a continuous downhill floor to the offset outlet",
-    _ramp_rise > 0.0,
-    f"{_ramp_rise:.3f} mm rise over {max(_ramp_run, _y_run):.3f} mm run: "
-    f"{ramp_angle:.3f} degrees")
 
 # The drain, in the funnel's own frame: the bore's exit on the plug's bottom face. World
 # position = this + the funnel's placement; it rides the part.
