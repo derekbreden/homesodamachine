@@ -219,8 +219,8 @@ else
 fi
 
 # --- the hooks and the pointer file's merge driver ------------------------------------------------
-# `.githooks/post-commit` is what lands a commit on main (`push.py`) and reads the checks
-# (`checks_now.py`), and a clone runs it only once its config names the directory. The driver
+# `.githooks/post-commit` is what lands a commit on main (`push.py`), and a clone runs it only
+# once its config names the directory. The driver
 # `.gitattributes` names for hardware/cad-artifacts.json lives in config as well: `push.py`
 # writes it the first time it runs, and this writes it first, so a rebase by hand in a clone
 # that has never pushed merges the pointer file by member.

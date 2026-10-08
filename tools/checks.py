@@ -39,9 +39,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DIRS = ("hardware/scripts", "tools", "tools/bazel")
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
 
-# Post-commit is the visual loop, not reconciliation. This check opens every fluted mesh and may
-# take the global CAD lock for minutes; it remains in the ordinary all-checks run and is omitted
-# only when the detached interactive reader explicitly asks for that path.
+# `checks_now.py`'s reading is the visual loop, not reconciliation. This check opens every fluted
+# mesh and may take the global CAD lock for minutes; it remains in the ordinary all-checks run and
+# is omitted only when that interactive reader explicitly asks for that path.
 INTERACTIVE_OMITS = {"hardware/scripts/check_flutes.py"}
 
 
