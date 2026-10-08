@@ -5,11 +5,11 @@
     "hardware/printed-parts/faucet/industrial/check_geometry.py": "d05929557fd62657384fc1d0f4eab3e8aaaa47249bd099d0db65a6418ce0bee1",
     "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "5b5f7a7191ed1084894f48a8a35ae6bdaf92da2c5cbf90770640190dcedc12cd",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "838fab0004d4b78e14259939b820f290a9ff337fad348995b40b9098940ca836",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "36244b63769035d4af61b642e588321e880fc483b9cf9b02050960286dba2cdf",
-    "hardware/faucet-layout/faucet-assembly.step": "dbe43e08d66ac206cd120c175c94e9150f39c01e6e6789abb74b35ad0dbc542d",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "c9d2eb50527a4ac1770ef5fe7542d9a6f54903cad5c04bd6b1826d29d4f34447",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a748db41c669044416fed03b7b418fb3983134c0fa7e25f9201de9406775b7a8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "3f7e028ca7e4961b946139412b74a8ff37116f8a032262eb75297e32828034df",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "be7ba4732730fc9589653d17f6d03c890afe9b4c3e9fa8ba6619eb302810d641",
+    "hardware/faucet-layout/faucet-assembly.step": "3294dbdedc19018cae236d1aa24a312da74a5349e146405a6e63fbfc5e1bd4ce",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "52a4d2b0f809723a4ebba8c161f765054fe45509c423d3289910dfa7fb17c69a",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "122efbf616c86fbd04a0effbef3a0b916a203bbacbe3d72c2f1497e2941c9b57",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05",
@@ -22,12 +22,12 @@
     "industrial-shell-base-solid": {
       "passed": true,
       "solids": 1,
-      "volume_mm3": 137518.92137862786
+      "volume_mm3": 137485.42218090972
     },
     "industrial-shell-base-print-mesh": {
       "passed": true,
       "watertight": true,
-      "facets": 421238,
+      "facets": 421150,
       "print_deflection_mm": 0.005
     },
     "industrial-display-cover-solid": {
@@ -297,12 +297,12 @@
       "matched_faces": 27,
       "samples_per_face_up_to": 64,
       "directions": 2,
-      "max_surface_sample_drift_mm": 2.6505951847456937e-08,
-      "volume_difference_mm3": 7.310954970307648e-07,
-      "area_difference_mm2": 3.8493453757837415e-08,
+      "max_surface_sample_drift_mm": 9.831879394989489e-09,
+      "volume_difference_mm3": 4.615139914676547e-08,
+      "area_difference_mm2": 1.7171259969472885e-09,
       "adaptive_integration_tolerance": 1e-10,
-      "default_integration_volume_difference_mm3": 0.0030736242042621598,
-      "default_integration_area_difference_mm2": 0.0016367797907150816,
+      "default_integration_volume_difference_mm3": 0.0011248376686125994,
+      "default_integration_area_difference_mm2": 4.196672307443805e-05,
       "artificial_clip_caps_per_body": [
         1,
         1

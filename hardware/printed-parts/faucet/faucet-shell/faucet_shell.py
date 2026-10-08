@@ -692,10 +692,16 @@ def build_lower_signal_lane() -> cq.Workplane:
         left = _paths.lower_point(z,"flavor",-1)
         right = _paths.lower_point(z,"flavor",1)
         ribbon = _paths.lower_point(z,"ribbon")
-        points = [(0.0,soda_faucet_tube_y), (right[0],right[1]),
+        # A short entry relief opens the centre edges into the donor cavity.
+        # Its vertices remain inside the tube bores and return to their
+        # nominal positions before the tube bundle starts bending.
+        entry_relief = 0.20 * max(0.0, (_paths.LOWER_START_Z-z)
+                                 / (_paths.LOWER_START_Z-z0))
+        points = [(0.0,soda_faucet_tube_y-entry_relief),
+                  (right[0]+entry_relief,right[1]),
                   (ribbon[0]+cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
                   (ribbon[0]-cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
-                  (left[0],left[1])]
+                  (left[0]-entry_relief,left[1])]
         wires.append(cq.Workplane("XY").workplane(offset=z)
                      .polyline(points).close().val())
     opening = cq.Solid.makeLoft(wires,ruled=True)
@@ -1605,12 +1611,11 @@ def build_lever_clearance() -> cq.Workplane:
             regions.append(Polygon((before[i], before[j], after[j], after[i])).buffer(0))
     envelope_allowance = clearance + lever_sweep_allowance
     outline = unary_union(regions).simplify(0.001).buffer(envelope_allowance, join_style=2)
-    # Connect the donor's open plateau to the rest-lever corridor. This region
-    # stays inside the donor footprint and opens the complete space under the
-    # lever; the side arch bores and rear structural wall retain their stock.
+    # A flat rear wall opens the donor plateau through the lever corridor.
+    # The central span retains the complete lever envelope; the side arches
+    # and the wall behind fill_y_min retain their stock.
     plateau_join = box(-westbrass_bore_rect_long_y / 2.0, zone2_z_top - 0.01,
-                       lever_clearance_y_back,
-                       zone2_z_top + 1.0 - envelope_allowance + 0.01)
+                       fill_y_min, lever_rest_top_z)
     outline = outline.union(plateau_join)
     return (_vertical_plane(-x_half).polyline(list(outline.exterior.coords)[:-1]).close()
             .extrude(2.0 * x_half)
