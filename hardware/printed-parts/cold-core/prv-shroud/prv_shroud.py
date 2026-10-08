@@ -105,8 +105,7 @@ vent_hole_diameter = 2.0 * port_hole_radius
 # at y +39.62 (one catalog elbow leg off the +Y port) and the foam shell's west lane runs at
 # y +77.5, so the hole lands on that lane's centreline and the tube falls it with no
 # corner at all. It sits inside the cavity by more than its own radius, so the bore opens
-# on the annulus around the valve. `cold-core-layout`'s `prv-vent-lands` is what holds
-# this reading against the placed shroud's.
+# on the annulus around the valve.
 vent_station_z = 37.88
 
 outer_diameter = inner_diameter + 2 * wall_thickness  # [23.1 mm](PRV_OUTER_D)

@@ -32,7 +32,7 @@ Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom lo
 # own bodies — the shell and its caps AND the carbonator, the coil, both reservoirs, every
 # fitting, the sensing and the eight lines among them — so a scene can draw as much or as little
 # of the stack as its bench step has reached. `cold-core-layout/cold_core_assembly` is the same
-# stack in the shell's own frame, and its `one-core` gate holds the two agreeing about it.
+# stack in the shell's own frame.
 #
 # `inner` NAMES WHICH OF THOSE BODIES A SCENE DRAWS, in place of `INNER_ROOT`. `INNER_ALL` takes
 # every one — the core on a bench with its lid off is a picture of what is inside it, and no list

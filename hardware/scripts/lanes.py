@@ -14,7 +14,7 @@ fittings this run's own mouths are cut into. Nothing here moves a coordinate oth
 read, so no row of it is a half-move and there is no chain to print: what varies is which way a
 length of tube goes between two points that do not move. The gates cannot answer this. They are
 exact and they are the oracle, and what they grade is the corridor already drawn — `bend-radius`
-prices the corners of the lane the run is in, `lines-clear` asks what its tube shares with the
+prices the corners of the lane the run is in, `pack-closes` asks what its tube shares with the
 machine, and neither has any way to say that the corridor one strip over is shorter, holds a
 bigger radius, or can be reached without lifting the pack out. That question has to be enumerated
 before there is anything for a gate to grade.
@@ -1343,7 +1343,7 @@ def _rounded(run) -> tuple:
     A clearance taken on the polyline is a clearance taken on a shape the machine does not
     contain: the arc cuts the vertex off, so the tube stands where the polyline does not and the
     polyline stands where the tube does not. This is the centreline `_routing.tube` sweeps, which
-    is the one `lines-clear` measures.
+    is the one `pack-closes` measures.
 
     The chords lie INSIDE the arc, so a clearance read off them is a hair optimistic on the
     convex side and a hair pessimistic on the concave one. `ARC_STEPS` is what bounds that."""

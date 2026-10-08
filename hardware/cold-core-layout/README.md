@@ -10,8 +10,7 @@ reads at [`/3d`](https://homesodamachine.com/3d).
 the same stack one frame out — five printed pieces, the faces the enclosure loads and stands
 its own bodies off. `enclosure_assembly` places THAT, as one solid with a port table. Neither
 model supersedes the other, so **the card below is written beside both STEPs**: open either at
-`/3d` and the bottom bar reads the same verdict. `one-core` is the row that holds them
-together — every body the outer model draws stands in this one.
+`/3d` and the bottom bar reads the same verdict.
 
 ## Frame
 
@@ -43,16 +42,11 @@ writes. `bom-covered` is the axis the work is on.
 
 | | |
 |---|---|
-| `one-core` | every body `foam-assembly` draws, standing in this frame — the two models, one card |
 | `bom-covered` | every billed cold-core part against the body that realizes it, held to `bom.md` from both ends |
 | `bodies-clear` | no two solids share volume |
 | `routes-fit` | no line meets a solid it is not made up on |
 | `lines-apart` | no two runs want the same corridor — copper counts as a run |
-| `lane-census` | what each lane carries, and at what storey |
-| `port-leads` | every made-up end has a straight to receive the tube |
 | `arcs-hold` | every corner turns at the stock arc |
-| `stations-met` | every station the wall's slot leaves carries a run |
-| `prv-vent-lands` | the PRV shroud's own vent bore opens on the lane its line falls |
 | `floats-couple` | ASA Aero bodies keep at least 1 mm upright wall clearance; float-edge to reed-center distance stays within the provisional 18 mm maximum, with installed switching unmeasured |
 | `inlet-jet-qualified` | the cap is a nominal layout; its actual weld land, joint and installed projection await the fabrication trial |
 | `gas-adapter-envelope` | the PI010822S gas adapter uses the existing nominal collet envelope until the acquired fitting is measured |
