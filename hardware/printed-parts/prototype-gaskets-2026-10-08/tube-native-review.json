@@ -1,0 +1,714 @@
+{
+  "pass": true,
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.3mf",
+  "project_sha256": "efc2430f18df20d6b96293683db2bd92cb6b606b192790e5ece92fb0a02f268a",
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+  "archive_sha256": "4127d016034e0fe67fe5bae80d9eba45dd5f54eb974f2ed3ea74b9430199971e",
+  "gcode_sha256": "57c7838f226634a9c2c4c341a84cebbce38f44d6eb6069e80ee630e01aa4ca47",
+  "saved_recipe_sha256": "b1e51287c3c28af3c6fc955a19ce149b034c2a2aefca94418c98c76e3aa57f32",
+  "saved_geometry_mesh_member_sha256": "ca4061a588bcd4b5b57d1f55ef26b4986aee3632d853548f9a3a7cbf796baa70",
+  "saved_core_process_retained": true,
+  "native_settings_normalizations": {
+    "machine_max_force_Y": [
+      null,
+      "0"
+    ],
+    "extruder_nozzle_stats_new": [
+      null,
+      [
+        "Standard#1",
+        "Standard#1"
+      ]
+    ],
+    "inherits_group": [
+      null,
+      [
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "ams_filament_load_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "support_fast_purge_mode": [
+      null,
+      "0"
+    ],
+    "machine_max_printed_mass": [
+      null,
+      "0"
+    ],
+    "version": [
+      "02.07.00.55",
+      "02.08.02.61"
+    ],
+    "farthest_point_timelapse": [
+      null,
+      "0"
+    ],
+    "filament_mixed_gradient_curve": [
+      null,
+      [
+        ""
+      ]
+    ],
+    "ams_filament_unload_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "default_ams_type": [
+      null,
+      "-1"
+    ],
+    "retract_when_changing_layer": [
+      [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    ],
+    "enable_order_independent_overlap_carving": [
+      null,
+      "0"
+    ],
+    "skirt_per_object": [
+      null,
+      "1"
+    ],
+    "ams_filament_load_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "filament_flush_temp_fast": [
+      null,
+      [
+        "0"
+      ]
+    ],
+    "ams_filament_load_time_ams": [
+      null,
+      "0"
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "counterbore_hole_bridging": [
+      null,
+      "none"
+    ],
+    "bed_heat_soak_area": [
+      null,
+      []
+    ],
+    "filament_prime_volume": [
+      [
+        "30",
+        "30"
+      ],
+      [
+        "45",
+        "45"
+      ]
+    ],
+    "flush_multiplier_fast": [
+      null,
+      [
+        "1.2"
+      ]
+    ],
+    "machine_bed_mass_Y": [
+      null,
+      "0"
+    ],
+    "ams_filament_unload_time_ams": [
+      null,
+      "0"
+    ],
+    "ams_filament_unload_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "alternate_extra_wall": [
+      null,
+      "0"
+    ],
+    "filament_retract_when_changing_layer": [
+      [
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    ]
+  },
+  "normalization_scope": "Current native TPU slicing disables layer-change retraction; startup prime-volume default is 45 rather than 30. Nominal temperatures, flow, speed limit, layer heights, wall generator/count and infill/shell counts retain the saved recipe.",
+  "active_side": "RIGHT",
+  "active_nozzle_mm": 0.6,
+  "external_slot": 255,
+  "gcode_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "probing_clump_calls": 0,
+  "model_count": 1,
+  "layer_markers": 87,
+  "distinct_deposition_heights": 86,
+  "final_z_marker_repeated": true,
+  "complete_layer_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        172.0867385,
+        154.5887385
+      ],
+      [
+        182.9132615,
+        165.4132615
+      ]
+    ],
+    "maximum_line_width_mm": 0.806523,
+    "bounds_padding_mm": 0.5032615
+  },
+  "complete_layer_bead_minimum_bed_margin_mm": 147.0867385,
+  "all_deposition_heights_have_outer_wall_roads": true,
+  "layers": [
+    {
+      "print_z_mm": 0.3,
+      "model_extrusion_segments": 209,
+      "outer_wall_segments": 129,
+      "outer_wall_length_mm": 53.01448789092468
+    },
+    {
+      "print_z_mm": 0.48,
+      "model_extrusion_segments": 172,
+      "outer_wall_segments": 130,
+      "outer_wall_length_mm": 53.014579497115506
+    },
+    {
+      "print_z_mm": 0.66,
+      "model_extrusion_segments": 236,
+      "outer_wall_segments": 128,
+      "outer_wall_length_mm": 53.0137744184215
+    },
+    {
+      "print_z_mm": 0.84,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 31.563345343483228
+    },
+    {
+      "print_z_mm": 1.02,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833269464566847
+    },
+    {
+      "print_z_mm": 1.2,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.830678336545024
+    },
+    {
+      "print_z_mm": 1.38,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.82905052153361
+    },
+    {
+      "print_z_mm": 1.56,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.8288458292861
+    },
+    {
+      "print_z_mm": 1.74,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83143314277284
+    },
+    {
+      "print_z_mm": 1.92,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836136674337133
+    },
+    {
+      "print_z_mm": 2.1,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83303954096817
+    },
+    {
+      "print_z_mm": 2.28,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83496852366099
+    },
+    {
+      "print_z_mm": 2.46,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83288540172457
+    },
+    {
+      "print_z_mm": 2.64,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.8340547370558
+    },
+    {
+      "print_z_mm": 2.82,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.828360668214703
+    },
+    {
+      "print_z_mm": 3.0,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.830229605340794
+    },
+    {
+      "print_z_mm": 3.18,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836748045701494
+    },
+    {
+      "print_z_mm": 3.36,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834694387702157
+    },
+    {
+      "print_z_mm": 3.54,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829414223044605
+    },
+    {
+      "print_z_mm": 3.72,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.828741072273328
+    },
+    {
+      "print_z_mm": 3.9,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83423956563688
+    },
+    {
+      "print_z_mm": 4.08,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836751418263507
+    },
+    {
+      "print_z_mm": 4.26,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83450941613168
+    },
+    {
+      "print_z_mm": 4.44,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836260786202256
+    },
+    {
+      "print_z_mm": 4.62,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832421748373164
+    },
+    {
+      "print_z_mm": 4.8,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832389175623728
+    },
+    {
+      "print_z_mm": 4.98,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83254943266576
+    },
+    {
+      "print_z_mm": 5.16,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834268379889526
+    },
+    {
+      "print_z_mm": 5.34,
+      "model_extrusion_segments": 64,
+      "outer_wall_segments": 64,
+      "outer_wall_length_mm": 30.82990130097619
+    },
+    {
+      "print_z_mm": 5.52,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829869259236368
+    },
+    {
+      "print_z_mm": 5.7,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83445697867988
+    },
+    {
+      "print_z_mm": 5.88,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832288119029148
+    },
+    {
+      "print_z_mm": 6.06,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833532295307755
+    },
+    {
+      "print_z_mm": 6.24,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836663722407206
+    },
+    {
+      "print_z_mm": 6.42,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83179432251644
+    },
+    {
+      "print_z_mm": 6.6,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833235667346415
+    },
+    {
+      "print_z_mm": 6.78,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834996230413637
+    },
+    {
+      "print_z_mm": 6.96,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833415418463755
+    },
+    {
+      "print_z_mm": 7.14,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83075546047995
+    },
+    {
+      "print_z_mm": 7.32,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83215129149397
+    },
+    {
+      "print_z_mm": 7.5,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.836742786406667
+    },
+    {
+      "print_z_mm": 7.68,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83464131762648
+    },
+    {
+      "print_z_mm": 7.86,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83520556662124
+    },
+    {
+      "print_z_mm": 8.04,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.824437329451534
+    },
+    {
+      "print_z_mm": 8.22,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83230031731717
+    },
+    {
+      "print_z_mm": 8.4,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.8348216664835
+    },
+    {
+      "print_z_mm": 8.58,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834464828486624
+    },
+    {
+      "print_z_mm": 8.76,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834284644537888
+    },
+    {
+      "print_z_mm": 8.94,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.831707440139592
+    },
+    {
+      "print_z_mm": 9.12,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832614822531003
+    },
+    {
+      "print_z_mm": 9.3,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83536942939321
+    },
+    {
+      "print_z_mm": 9.48,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83220461403802
+    },
+    {
+      "print_z_mm": 9.66,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833186838635314
+    },
+    {
+      "print_z_mm": 9.84,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.830590632547295
+    },
+    {
+      "print_z_mm": 10.02,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83395387723901
+    },
+    {
+      "print_z_mm": 10.2,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.835501801575703
+    },
+    {
+      "print_z_mm": 10.38,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832772420712235
+    },
+    {
+      "print_z_mm": 10.56,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834347595082498
+    },
+    {
+      "print_z_mm": 10.74,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833645744689942
+    },
+    {
+      "print_z_mm": 10.92,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83291230642467
+    },
+    {
+      "print_z_mm": 11.1,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.8338620180875
+    },
+    {
+      "print_z_mm": 11.28,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832503798498784
+    },
+    {
+      "print_z_mm": 11.46,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83565355503126
+    },
+    {
+      "print_z_mm": 11.64,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.82136817544774
+    },
+    {
+      "print_z_mm": 11.82,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833158994158424
+    },
+    {
+      "print_z_mm": 12.0,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829897974767153
+    },
+    {
+      "print_z_mm": 12.18,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83372336258023
+    },
+    {
+      "print_z_mm": 12.36,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.832764221314534
+    },
+    {
+      "print_z_mm": 12.54,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83300453150806
+    },
+    {
+      "print_z_mm": 12.72,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.826086498182555
+    },
+    {
+      "print_z_mm": 12.9,
+      "model_extrusion_segments": 64,
+      "outer_wall_segments": 64,
+      "outer_wall_length_mm": 30.829929486340234
+    },
+    {
+      "print_z_mm": 13.08,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.82766487691531
+    },
+    {
+      "print_z_mm": 13.26,
+      "model_extrusion_segments": 64,
+      "outer_wall_segments": 64,
+      "outer_wall_length_mm": 30.83164432628978
+    },
+    {
+      "print_z_mm": 13.44,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834702842644635
+    },
+    {
+      "print_z_mm": 13.62,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829901364172095
+    },
+    {
+      "print_z_mm": 13.8,
+      "model_extrusion_segments": 64,
+      "outer_wall_segments": 64,
+      "outer_wall_length_mm": 30.824561344178726
+    },
+    {
+      "print_z_mm": 13.98,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834298113725215
+    },
+    {
+      "print_z_mm": 14.16,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.830897150504136
+    },
+    {
+      "print_z_mm": 14.34,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829345344988962
+    },
+    {
+      "print_z_mm": 14.52,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.834887458079
+    },
+    {
+      "print_z_mm": 14.7,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.829254710712934
+    },
+    {
+      "print_z_mm": 14.88,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.82896889621993
+    },
+    {
+      "print_z_mm": 15.06,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.833022179035137
+    },
+    {
+      "print_z_mm": 15.24,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.830150601440273
+    },
+    {
+      "print_z_mm": 15.42,
+      "model_extrusion_segments": 65,
+      "outer_wall_segments": 65,
+      "outer_wall_length_mm": 30.83288616847682
+    },
+    {
+      "print_z_mm": 15.6,
+      "model_extrusion_segments": 129,
+      "outer_wall_segments": 129,
+      "outer_wall_length_mm": 61.60646895669559
+    }
+  ],
+  "estimated_seconds": 660.0018920898438,
+  "support_enabled": false,
+  "fit_evidence": "Successful combined Touch-Flo metal-body / LLDPE / TPU 85A seat reported May 30; saved nominal 0.6 profile. That print's physical nozzle diameter is not established. This print uses the requested right 0.6 nozzle.",
+  "submitted": false
+}

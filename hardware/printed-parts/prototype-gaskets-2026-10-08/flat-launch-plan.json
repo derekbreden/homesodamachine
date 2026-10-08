@@ -1,0 +1,85 @@
+{
+  "printer": "Mark2",
+  "status": "Native reviewed; await completed tube removal and clear bed",
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+  "archive_sha256": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
+  "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+  "project_sha256": "9bbc671dcfa8640b5cd295bf6b86c4681511db84fb6d312378d309bfdf2cfa3e",
+  "native_review": "hardware/printed-parts/prototype-gaskets-2026-10-08/flat-native-review.json",
+  "native_review_sha256": "eec81720d0b88a82e7f85fa9f18a052cfaf4b599e4b3fa5a26508843c36411fc",
+  "source_binding": "hardware/printed-parts/prototype-gaskets-2026-10-08/flat-source-binding.json",
+  "source_binding_sha256": "fec0779c49d64329d57a501cce03b80f19306ef1910c05a32cfb53c772e74144",
+  "settings": {
+    "physical_material": "TPU 85A",
+    "side": "RIGHT",
+    "external_slot": 255,
+    "active_nozzle_mm": 0.6,
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "timelapse": true,
+    "bed_leveling": true,
+    "probing_clump_detection": false
+  },
+  "parts": [
+    {
+      "name": "Reservoir cap gasket left",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-cap-gasket.stl",
+      "stl_sha256": "b6a12fb413770a63f160e099349662a1028644083ace7e771235aa3cc4b01688"
+    },
+    {
+      "name": "Reservoir cap gasket right",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-cap-gasket.stl",
+      "stl_sha256": "b6a12fb413770a63f160e099349662a1028644083ace7e771235aa3cc4b01688"
+    },
+    {
+      "name": "Machine display gasket",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.stl",
+      "stl_sha256": "24ad7a42b922aa465c25e09ba20a8d392b16d4d514ce275ae146c4d2c000f607"
+    },
+    {
+      "name": "Printed white faucet counter gasket",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.stl",
+      "stl_sha256": "7463c22cd27f52cb6acea858c969245d6b67cf3cc60c885b2202b62dd8082a99"
+    },
+    {
+      "name": "Dry bulkhead washer left",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.stl",
+      "stl_sha256": "5070d96ca98e30e56a7e04e4a77b5da01930962ad04775cbed8793f28a376f58"
+    },
+    {
+      "name": "Dry bulkhead washer right",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.stl",
+      "stl_sha256": "5070d96ca98e30e56a7e04e4a77b5da01930962ad04775cbed8793f28a376f58"
+    },
+    {
+      "name": "Vent filter ring left",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.stl",
+      "stl_sha256": "95e7eacae7ffcd4ce9f68ba34b817630c007f9a3fd8b49231af6084c3e990a8a"
+    },
+    {
+      "name": "Vent filter ring right",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.stl",
+      "stl_sha256": "95e7eacae7ffcd4ce9f68ba34b817630c007f9a3fd8b49231af6084c3e990a8a"
+    }
+  ],
+  "send_attempted": false,
+  "accepted_at_utc": null,
+  "estimated_seconds": 7527.89697265625,
+  "authorizations": [
+    "We have a lot of gaskets I need for my prototype, for the reservoirs and faucet and maybe something else I am forgetting.",
+    "I think all the flat gaskets can be printed on one plate (if they fit), but the very special \"tube gasket\" for the touch flo to 3/8 LLDPE I think needs printing on its own. Hopefully the successful settings I last used are saved, and hopefully they correspond to my verified successful fit print.",
+    "Tube gasket first; flat set next"
+  ],
+  "start_gate": "Fresh reading of both printers, tube job finished, physical tube removed and Mark2 bed clear, correct RIGHT TPU 85A/0.6, no unresolved destination fault, at least 180 seconds after the most recent accepted Mark1 start/resume.",
+  "automatic_start": false,
+  "monitor_scheduled": false
+}

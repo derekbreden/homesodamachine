@@ -1,0 +1,152 @@
+{
+  "checked_at_utc": "2026-10-08T18:21:10.356193+00:00",
+  "printer": "Mark2",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-08T18:20:38.458532+00:00",
+      "task_id": "1013",
+      "job_id": "0",
+      "subtask_name": "Funnel mold",
+      "gcode_state": "FINISH",
+      "layer_num": 176,
+      "total_layer_num": 176,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 32,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 27,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 25,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-08T18:20:38.627394+00:00",
+      "task_id": "1317261284",
+      "job_id": "1317261284",
+      "subtask_name": "2026-10-07-reservoir-right-cap-no-ironing-mark2-z004-v1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 740,
+      "total_layer_num": 740,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.6
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          },
+          "temperature": {
+            "actual_c": 29,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    }
+  ],
+  "archive_sha256": "4127d016034e0fe67fe5bae80d9eba45dd5f54eb974f2ed3ea74b9430199971e",
+  "gcode_sha256": "57c7838f226634a9c2c4c341a84cebbce38f44d6eb6069e80ee630e01aa4ca47",
+  "native_review_sha256": "4b9ff4d6b2688b4b46a7fb09d5f60a0a94dc4f0aee1e4a5a87c3ada1cbcf223e",
+  "bed_clear_authorization": "Mark1 and Mark2 beds are clear.",
+  "physical_material_authorization": "Mark2 is loaded with TPU 85A in right nozzle 0.6",
+  "dialog": {
+    "printer": "Mark2",
+    "mapping": "RIGHT Ext TPU R",
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "peer_startup_spacing": {
+    "peer_state": "FINISH",
+    "peer_task_id": "1013",
+    "peer_accepted_start_in_this_launch": null,
+    "gate_passed": true
+  },
+  "pass": true
+}

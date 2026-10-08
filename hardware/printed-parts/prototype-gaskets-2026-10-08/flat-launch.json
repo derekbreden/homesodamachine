@@ -1,0 +1,10 @@
+{
+  "printer": "Mark2",
+  "status": "Native reviewed; await completed tube removal and clear bed",
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+  "archive_sha256": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
+  "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
+  "send_attempted": false,
+  "accepted_at_utc": null,
+  "automatic_start": false
+}
