@@ -28,8 +28,9 @@ and no supports. The [native review](flat-native-review.json) records eight
 complete models with a 36.21 mm complete bead inset and a 2 hour 5 minute
 estimate. The current native slicer disables layer-change retraction for TPU;
 the retained temperature, flow, geometry and core recipe are recorded separately.
-The [flat launch plan](flat-launch-plan.json) requires the tube to be removed,
-a clear bed and fresh checks of both printers before a separate Send.
+The [flat launch receipt](flat-launch.json) binds the accepted eight-part job.
+Its [preflight](flat-preflight.json) records the clear bed, fresh readings of
+both printers, right external TPU mapping and shared-circuit startup spacing.
 
 The 283 × 181 mm foam-cap gasket is outside this plate. Its complete footprint
 exceeds Mark2's required 20 mm usable-bed inset even before brim. Its source
