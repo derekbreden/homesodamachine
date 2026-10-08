@@ -1,0 +1,796 @@
+{
+  "pass": true,
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+  "archive_sha256": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
+  "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+  "project_sha256": "9bbc671dcfa8640b5cd295bf6b86c4681511db84fb6d312378d309bfdf2cfa3e",
+  "saved_flat_recipe": "hardware/printed-parts/gaskets.3mf",
+  "saved_flat_recipe_sha256": "07b85189418db5d95e986983650d9d454c2cd42c56fdf178edec691683fa0513",
+  "saved_core_process_retained": true,
+  "zip_crc_and_gcode_md5_pass": true,
+  "native_settings_normalizations": {
+    "counterbore_hole_bridging": [
+      null,
+      "none"
+    ],
+    "ams_filament_unload_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "extruder_nozzle_stats_new": [
+      null,
+      [
+        "Standard#1",
+        "Standard#1"
+      ]
+    ],
+    "ams_filament_load_time_ams": [
+      null,
+      "0"
+    ],
+    "ams_filament_unload_time_ams": [
+      null,
+      "0"
+    ],
+    "ams_filament_load_time_ams_lite": [
+      null,
+      "0"
+    ],
+    "version": [
+      "02.07.01.57",
+      "02.08.02.61"
+    ],
+    "ams_filament_load_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "ams_filament_unload_time_n3f_s": [
+      null,
+      "0"
+    ],
+    "default_ams_type": [
+      null,
+      "-1"
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "farthest_point_timelapse": [
+      null,
+      "0"
+    ],
+    "bed_heat_soak_area": [
+      null,
+      []
+    ]
+  },
+  "normalization_scope": "Current native TPU slicing disables layer-change retraction; nominal temperatures, flow, volumetric speed limit, wall generator/count, layer heights, infill and shell counts retain the saved recipe.",
+  "active_side": "RIGHT",
+  "active_physical_nozzle_mm": 0.6,
+  "external_slot": 255,
+  "z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "probing_clump_calls": 0,
+  "part_count": 8,
+  "parts": [
+    {
+      "name": "Reservoir cap gasket left",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 1858,
+          "wall_road_count": 656,
+          "extrusion_e_mm": 272.40342
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1594,
+          "wall_road_count": 663,
+          "extrusion_e_mm": 168.16758
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1596,
+          "wall_road_count": 667,
+          "extrusion_e_mm": 168.18217
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1735,
+          "wall_road_count": 654,
+          "extrusion_e_mm": 174.86983
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1741,
+          "wall_road_count": 659,
+          "extrusion_e_mm": 174.59275
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 643,
+          "wall_road_count": 643,
+          "extrusion_e_mm": 81.30097
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1561,
+          "wall_road_count": 644,
+          "extrusion_e_mm": 168.17829
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1593,
+          "wall_road_count": 674,
+          "extrusion_e_mm": 168.17129
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1580,
+          "wall_road_count": 663,
+          "extrusion_e_mm": 168.16085999999999
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1423,
+          "wall_road_count": 311,
+          "extrusion_e_mm": 174.82648
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            66.23754145163984,
+            39.4663616840047
+          ],
+          [
+            143.77294501816905,
+            180.54264756577058
+          ]
+        ],
+        "maximum_line_width_mm": 0.984728,
+        "bounds_padding_mm": 0.592364
+      }
+    },
+    {
+      "name": "Reservoir cap gasket right",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 1858,
+          "wall_road_count": 656,
+          "extrusion_e_mm": 272.40342
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1594,
+          "wall_road_count": 663,
+          "extrusion_e_mm": 168.16758
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1596,
+          "wall_road_count": 667,
+          "extrusion_e_mm": 168.18217
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1735,
+          "wall_road_count": 654,
+          "extrusion_e_mm": 174.86983
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1741,
+          "wall_road_count": 659,
+          "extrusion_e_mm": 174.59275
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 643,
+          "wall_road_count": 643,
+          "extrusion_e_mm": 81.30097
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1561,
+          "wall_road_count": 644,
+          "extrusion_e_mm": 168.17829
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1593,
+          "wall_road_count": 674,
+          "extrusion_e_mm": 168.17129
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1580,
+          "wall_road_count": 663,
+          "extrusion_e_mm": 168.16085999999999
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 1423,
+          "wall_road_count": 311,
+          "extrusion_e_mm": 174.82648
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            166.23754145163986,
+            39.4663616840047
+          ],
+          [
+            243.77294501816905,
+            180.54264756577058
+          ]
+        ],
+        "maximum_line_width_mm": 0.984728,
+        "bounds_padding_mm": 0.592364
+      }
+    },
+    {
+      "name": "Machine display gasket",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 250,
+          "wall_road_count": 212,
+          "extrusion_e_mm": 121.68999
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 217,
+          "wall_road_count": 119,
+          "extrusion_e_mm": 81.7323
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 222,
+          "wall_road_count": 119,
+          "extrusion_e_mm": 81.73198000000001
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 222,
+          "wall_road_count": 119,
+          "extrusion_e_mm": 81.73308
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 942,
+          "wall_road_count": 56,
+          "extrusion_e_mm": 86.29282
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            78.02275021806734,
+            206.26403337799135
+          ],
+          [
+            191.97717101690415,
+            283.7359704825727
+          ]
+        ],
+        "maximum_line_width_mm": 0.874111,
+        "bounds_padding_mm": 0.5370555
+      }
+    },
+    {
+      "name": "Printed white faucet counter gasket",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 416,
+          "wall_road_count": 86,
+          "extrusion_e_mm": 301.91422
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 402,
+          "wall_road_count": 92,
+          "extrusion_e_mm": 184.26139
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 413,
+          "wall_road_count": 96,
+          "extrusion_e_mm": 184.31101
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 394,
+          "wall_road_count": 92,
+          "extrusion_e_mm": 182.86523
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 395,
+          "wall_road_count": 92,
+          "extrusion_e_mm": 182.89245
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 404,
+          "wall_road_count": 92,
+          "extrusion_e_mm": 184.25896
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 417,
+          "wall_road_count": 100,
+          "extrusion_e_mm": 184.41487
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 404,
+          "wall_road_count": 93,
+          "extrusion_e_mm": 184.26114
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 407,
+          "wall_road_count": 91,
+          "extrusion_e_mm": 184.30955
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 346,
+          "wall_road_count": 39,
+          "extrusion_e_mm": 184.25176
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            220.89454329726786,
+            215.40739879779986
+          ],
+          [
+            279.10049249940084,
+            274.5931317514566
+          ]
+        ],
+        "maximum_line_width_mm": 0.625178,
+        "bounds_padding_mm": 0.412589
+      }
+    },
+    {
+      "name": "Dry bulkhead washer left",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 17,
+          "wall_road_count": 17,
+          "extrusion_e_mm": 7.44383
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 13,
+          "wall_road_count": 13,
+          "extrusion_e_mm": 5.269299999999999
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 11,
+          "wall_road_count": 11,
+          "extrusion_e_mm": 5.26931
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 21,
+          "wall_road_count": 21,
+          "extrusion_e_mm": 5.28808
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.2791
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 18,
+          "wall_road_count": 18,
+          "extrusion_e_mm": 5.279850000000001
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.28128
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.27416
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 11,
+          "wall_road_count": 11,
+          "extrusion_e_mm": 5.26958
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 10,
+          "wall_road_count": 10,
+          "extrusion_e_mm": 5.27001
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            265.6481049366186,
+            55.64833038436868
+          ],
+          [
+            284.3525135818693,
+            74.35230205370343
+          ]
+        ],
+        "maximum_line_width_mm": 0.703628,
+        "bounds_padding_mm": 0.45181400000000005
+      }
+    },
+    {
+      "name": "Dry bulkhead washer right",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 17,
+          "wall_road_count": 17,
+          "extrusion_e_mm": 7.44383
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 13,
+          "wall_road_count": 13,
+          "extrusion_e_mm": 5.269299999999999
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 11,
+          "wall_road_count": 11,
+          "extrusion_e_mm": 5.26931
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 21,
+          "wall_road_count": 21,
+          "extrusion_e_mm": 5.28808
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.2791
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 18,
+          "wall_road_count": 18,
+          "extrusion_e_mm": 5.279850000000001
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.28128
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 20,
+          "wall_road_count": 20,
+          "extrusion_e_mm": 5.27416
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 11,
+          "wall_road_count": 11,
+          "extrusion_e_mm": 5.26958
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 10,
+          "wall_road_count": 10,
+          "extrusion_e_mm": 5.27001
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            265.6481049366186,
+            90.64833038436868
+          ],
+          [
+            284.3525135818693,
+            109.35230205370343
+          ]
+        ],
+        "maximum_line_width_mm": 0.703628,
+        "bounds_padding_mm": 0.45181400000000005
+      }
+    },
+    {
+      "name": "Vent filter ring left",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 34,
+          "wall_road_count": 34,
+          "extrusion_e_mm": 8.32248
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 80,
+          "wall_road_count": 80,
+          "extrusion_e_mm": 5.84971
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 79,
+          "wall_road_count": 79,
+          "extrusion_e_mm": 5.84978
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 76,
+          "wall_road_count": 76,
+          "extrusion_e_mm": 5.84941
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 77,
+          "wall_road_count": 77,
+          "extrusion_e_mm": 5.84978
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 74,
+          "wall_road_count": 74,
+          "extrusion_e_mm": 5.85036
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 69,
+          "wall_road_count": 69,
+          "extrusion_e_mm": 5.8505
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 70,
+          "wall_road_count": 70,
+          "extrusion_e_mm": 5.84967
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 71,
+          "wall_road_count": 71,
+          "extrusion_e_mm": 5.84942
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 134,
+          "wall_road_count": 46,
+          "extrusion_e_mm": 6.45454
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            268.0456095,
+            128.03960678657918
+          ],
+          [
+            281.96196713202613,
+            141.95928232384549
+          ]
+        ],
+        "maximum_line_width_mm": 0.848781,
+        "bounds_padding_mm": 0.5243905
+      }
+    },
+    {
+      "name": "Vent filter ring right",
+      "layers": [
+        {
+          "z_mm": 0.3,
+          "slab_height_mm": 0.3,
+          "model_road_count": 34,
+          "wall_road_count": 34,
+          "extrusion_e_mm": 8.32248
+        },
+        {
+          "z_mm": 0.48,
+          "slab_height_mm": 0.18,
+          "model_road_count": 80,
+          "wall_road_count": 80,
+          "extrusion_e_mm": 5.84971
+        },
+        {
+          "z_mm": 0.66,
+          "slab_height_mm": 0.18,
+          "model_road_count": 79,
+          "wall_road_count": 79,
+          "extrusion_e_mm": 5.84978
+        },
+        {
+          "z_mm": 0.84,
+          "slab_height_mm": 0.18,
+          "model_road_count": 76,
+          "wall_road_count": 76,
+          "extrusion_e_mm": 5.84941
+        },
+        {
+          "z_mm": 1.02,
+          "slab_height_mm": 0.18,
+          "model_road_count": 77,
+          "wall_road_count": 77,
+          "extrusion_e_mm": 5.84978
+        },
+        {
+          "z_mm": 1.2,
+          "slab_height_mm": 0.18,
+          "model_road_count": 74,
+          "wall_road_count": 74,
+          "extrusion_e_mm": 5.85036
+        },
+        {
+          "z_mm": 1.38,
+          "slab_height_mm": 0.18,
+          "model_road_count": 69,
+          "wall_road_count": 69,
+          "extrusion_e_mm": 5.8505
+        },
+        {
+          "z_mm": 1.56,
+          "slab_height_mm": 0.18,
+          "model_road_count": 70,
+          "wall_road_count": 70,
+          "extrusion_e_mm": 5.84967
+        },
+        {
+          "z_mm": 1.74,
+          "slab_height_mm": 0.18,
+          "model_road_count": 71,
+          "wall_road_count": 71,
+          "extrusion_e_mm": 5.84942
+        },
+        {
+          "z_mm": 1.92,
+          "slab_height_mm": 0.18,
+          "model_road_count": 134,
+          "wall_road_count": 46,
+          "extrusion_e_mm": 6.45454
+        }
+      ],
+      "all_printed_layers_have_walls": true,
+      "complete_model_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            268.0456095,
+            158.03960678657918
+          ],
+          [
+            281.96196713202613,
+            171.95928232384549
+          ]
+        ],
+        "maximum_line_width_mm": 0.848781,
+        "bounds_padding_mm": 0.5243905
+      }
+    }
+  ],
+  "complete_plate_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        66.23754145163984,
+        39.4663616840047
+      ],
+      [
+        284.49306358186925,
+        283.7912789825727
+      ]
+    ],
+    "maximum_line_width_mm": 0.984728,
+    "bounds_padding_mm": 0.592364
+  },
+  "minimum_complete_plate_bead_margin_mm": 36.20872101742731,
+  "support_roads": 0,
+  "estimated_seconds": 7527.89697265625,
+  "saved_profile_mass_estimate_g": 18.38532829284668,
+  "submitted": false,
+  "scope": "Prepared flat-seal plate, source-bound matching profiles, every model deposited, complete native bead footprint. Physical seal performance remains untested."
+}

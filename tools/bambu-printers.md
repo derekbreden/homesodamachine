@@ -1,6 +1,7 @@
 # Bambu printers
 
-H2C and Mark2 are Bambu Lab H2C printers. Their names identify the individual machines.
+Mark1 and Mark2 are Bambu Lab H2C printers. Their names identify the individual machines.
+Mark1 retains `H2C` as its local connection key.
 
 ## Status and chamber lights
 
@@ -95,7 +96,10 @@ names carry the requested value (`z004`, `z018`).
 | --- | --- | --- | --- | --- |
 | Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
-| H2C | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+| Mark1 (`H2C` connection key) | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+
+Mark1's standard user Z trim is +0.18 mm. A different trim requires explicit
+authorization for the specific print and remains local to that print.
 
 Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
 the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared

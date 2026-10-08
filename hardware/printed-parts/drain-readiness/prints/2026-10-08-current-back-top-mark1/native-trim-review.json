@@ -1,0 +1,56 @@
+{
+  "pass": true,
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "0f7e4b7da515c4954eac0a8a1707da6ba8295223329d903b2cc7789e4fae9e3d",
+  "gcode_sha256": "23c40d079d1bd3c926d143272a6db1f34f23c96eddfab1922f2b1bfc17ae5def",
+  "baseline_archive": "hardware/printed-parts/drain-readiness/ready/back-top-black-z004-mark2.gcode.3mf",
+  "baseline_archive_sha256": "aac5a16d4f135b047f35f0ffee7e9f563349a032ecff22a269418f95179fe47e",
+  "baseline_gcode_sha256": "ee154144ac2094c30d3802a4699a591871fd2c075c8575873664de007785596f",
+  "project": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+  "project_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+  "source_project_sha256": "460b90144153915c80f3dd735b99710e9e615c8fa1b8dd94a45000ae7d5db6c9",
+  "geometry_and_modifier_members_byte_identical": true,
+  "modifier_count": 23,
+  "essential_native_process_settings_unchanged": true,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "probing_clump_calls": 0,
+  "zip_crc_and_gcode_md5_pass": true,
+  "estimated_seconds": 97275.6875,
+  "deposition_comparison": "deposition-comparison.json",
+  "deposition_comparison_sha256": "14968e0967b936e60919df9e3a97d795842bf0b25246b13866d3d823663a28a3",
+  "reviewed_dense_sample_layer_count": 203,
+  "reviewed_dense_sample_layer_roads_identical": true,
+  "additive_band_and_first_two_layer_roads_identical": true,
+  "all_support_and_brim_roads_identical": true,
+  "baseline_reviews": [
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/back-top-native.json",
+      "sha256": "020a70963de1db6e90d962b39e01b41bf3f9a83e8245e976aeb1e479082ef383"
+    },
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/dense-region-review.json",
+      "sha256": "b22847e194b5db2d3189cf9727d0b81958ef050804917660b811cc81c7d4128e"
+    },
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/show-support-clearance-summary.json",
+      "sha256": "c4579c4d1354958ad844fd6a563dccdcc5082b91ba6fc8420acac7ebab0bd594"
+    },
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/rear-port-support-contacts.json",
+      "sha256": "707a71a405d4a294bb3f441d2a87edc31b01afc0e4753b48b6f09e9a2e46da9d"
+    },
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/insert-stock.json",
+      "sha256": "8d662836ec72312f26fdac1880bd254dafb4cbeec502973091bc6941c00399c2"
+    },
+    {
+      "path": "hardware/printed-parts/drain-readiness/reviews/insert-radial-backing.json",
+      "sha256": "150eb1c6c3397efc8ccc51455a90f0a924c234fc8226aa3427bbe6942ef4d409"
+    }
+  ],
+  "scope": "Native source geometry/modifiers and core process preserved; early additive band, all supports and all 203 sampled dense deposition layers match the reviewed paths exactly. Three inner-wall seams have at most 0.002064 mm own-width envelope difference. Physical adhesion, cleanup, appearance, fit, strength and lifetime remain separate."
+}

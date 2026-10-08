@@ -1,0 +1,235 @@
+{
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+  "archive_sha256": "4127d016034e0fe67fe5bae80d9eba45dd5f54eb974f2ed3ea74b9430199971e",
+  "gcode_sha256": "57c7838f226634a9c2c4c341a84cebbce38f44d6eb6069e80ee630e01aa4ca47",
+  "project": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.3mf",
+  "project_sha256": "efc2430f18df20d6b96293683db2bd92cb6b606b192790e5ece92fb0a02f268a",
+  "native_review": "hardware/printed-parts/prototype-gaskets-2026-10-08/tube-native-review.json",
+  "native_review_sha256": "4b9ff4d6b2688b4b46a7fb09d5f60a0a94dc4f0aee1e4a5a87c3ada1cbcf223e",
+  "settings": {
+    "physical_material": "TPU 85A",
+    "device_label": "TPU/GFU04",
+    "external_slot": 255,
+    "side": "RIGHT",
+    "active_nozzle_mm": 0.6,
+    "requested_z_trim_mm": 0.04,
+    "expected_emitted_z_trim_mm": 0.02,
+    "timelapse": true,
+    "bed_leveling": true,
+    "probing_clump_detection": false
+  },
+  "send_attempted": true,
+  "accepted_at_utc": "2026-10-08T18:21:27.160238+00:00",
+  "printer_task_id": "1320929816",
+  "authorizations": [
+    "Mark1 and Mark2 beds are clear.",
+    "Mark2 is loaded with TPU 85A in right nozzle 0.6",
+    "We have a lot of gaskets I need for my prototype, for the reservoirs and faucet and maybe something else I am forgetting.",
+    "I think all the flat gaskets can be printed on one plate (if they fit), but the very special \"tube gasket\" for the touch flo to 3/8 LLDPE I think needs printing on its own. Hopefully the successful settings I last used are saved, and hopefully they correspond to my verified successful fit print.",
+    "Tube gasket first; flat set next"
+  ],
+  "status": "Finished; awaiting physical fit observation",
+  "estimated_seconds": 660.0018920898438,
+  "monitor_scheduled": false,
+  "send_attempted_at_utc": "2026-10-08T18:21:10.356193+00:00",
+  "foreground_send_method": "Bambu Connect CUA",
+  "preflight": "hardware/printed-parts/prototype-gaskets-2026-10-08/tube-preflight.json",
+  "accepted_at_central": "2026-10-08T13:21:27.160238-05:00",
+  "printer_job_id": "1320929816",
+  "accepted_state": "RUNNING",
+  "accepted_archive_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+  "acceptance_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-08T18:21:27.160238+00:00",
+    "task_id": "1320929816",
+    "job_id": "1320929816",
+    "subtask_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 87,
+    "mc_percent": 0,
+    "mc_remaining_time": 11,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        "temperature": {
+          "actual_c": 33,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.8
+        },
+        "temperature": {
+          "actual_c": 28,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 27,
+      "target_c": 0
+    }
+  },
+  "send_successful": true,
+  "send_count": 1,
+  "completion_observed_at_utc": "2026-10-08T18:37:12.876189+00:00",
+  "completion_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-08T18:37:12.876189+00:00",
+    "task_id": "1320929816",
+    "job_id": "1320929816",
+    "subtask_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 86,
+    "total_layer_num": 87,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 34.0,
+    "bed_target_temper": 0.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        "temperature": {
+          "actual_c": 85,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.8
+        },
+        "temperature": {
+          "actual_c": 30,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 26,
+      "target_c": 0
+    }
+  },
+  "past_first_layer_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-08T18:34:21.847610+00:00",
+    "task_id": "1320929816",
+    "job_id": "1320929816",
+    "subtask_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 68,
+    "total_layer_num": 87,
+    "mc_percent": 88,
+    "mc_remaining_time": 1,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "timelapse": "enable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        "temperature": {
+          "actual_c": 225,
+          "target_c": 225
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.8
+        },
+        "temperature": {
+          "actual_c": 31,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 26,
+      "target_c": 0
+    }
+  },
+  "timelapse_enabled_during_deposition_observed": true
+}
