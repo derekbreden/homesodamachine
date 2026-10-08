@@ -2677,16 +2677,16 @@
     },
     "112-5001639-8705857": {
       "ordered": "2026-10-04",
+      "delivered": "2026-10-07",
       "subtotal": 33.99,
       "shipping": 0.0,
       "tax": 2.46,
       "tax_estimated": true,
       "total": 36.45,
-      "in_transit": true,
-      "status": "Ordered; not shipped",
+      "in_transit": false,
+      "status": "Delivered",
       "project": true,
       "verified": "2026-10-04",
-      "expected_delivery": "2026-10-05",
       "prime_verified": "2026-10-04",
       "items": [
         {
@@ -2698,16 +2698,16 @@
     },
     "112-8546983-6242641": {
       "ordered": "2026-10-04",
+      "delivered": "2026-10-07",
       "subtotal": 7.99,
       "shipping": 0.0,
       "tax": 0.58,
       "tax_estimated": true,
       "total": 8.57,
-      "in_transit": true,
-      "status": "Ordered; not shipped",
+      "in_transit": false,
+      "status": "Delivered",
       "project": true,
       "verified": "2026-10-04",
-      "expected_delivery": "2026-10-06",
       "prime_verified": "2026-10-04",
       "items": [
         {

@@ -5580,7 +5580,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:9b9833fd50945e3148b1332a89b80379312b4bc4b66408467a59beba0fd67857",
+  "input_fingerprint": "sha256:f6f0c116338232b37e05c4128a3f061920b142276eadd4677fc3ef1d10a781cd",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -20688,10 +20688,13 @@
       "amount_minor": 857,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; only machine TX3 → adapter RX2 and GND5 → GND5 connected. $7.99 item + $0.58 estimated tax; free shipping; Amazon order details verified 2026-10-04",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "description": "MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; harness is machine pins 2/3/5 straight through to adapter pins 2/3/5 (the unit transmits on pin 2, not the pin 3 the manual labels TXD). $7.99 item + $0.58 estimated tax; free shipping",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-406788001c4d41f39213bbd4ec7a35ad",
       "merchant_charge_allocated_minor": 0,
@@ -36754,12 +36757,15 @@
       "amount_minor": 3645,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — use the isolated DB9 RS232 receiver for X1 Pro interface discovery. $33.99 item + $2.46 estimated tax; free shipping; Amazon order details verified 2026-10-04",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "description": "Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — isolated DB9 RS232 link to the X1 Pro rear-port console; two-way comms established at 115200 8N1. $33.99 item + $2.46 estimated tax; free shipping",
       "event_ids": [
         "evt-c0203246ff88423a9af71d1977ede6c4"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-c08cee116c73400bae488deb2d2015f4",
       "merchant_charge_allocated_minor": 0,
@@ -54486,7 +54492,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4407684,
+          "amount_minor": 4412186,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -54628,6 +54634,7 @@
             "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
             "pur-3f7c2f57bc594cc8abbc5e9896c1503a",
             "pur-3fd35fa4c22c45f1b2d62e92652a2757",
+            "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-415e4865fe8f4ce2b2eca1a2e49db87b",
             "pur-418cda134a6d4c6786b36931d0c34d7f",
             "pur-41f67e61e80f4bbda2004fa71d913663",
@@ -54958,6 +54965,7 @@
             "pur-bf8d135df8f84025b5e36f07d38b311c",
             "pur-bf96f7ff6f474774b8ede117e4bfcc27",
             "pur-c01bce081d9a4efca8aa89f14d74129f",
+            "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-c0a6d79ff3c7456896e951e6bf38d090",
             "pur-c14d5fae8407426499099fb8dd0f03bc",
             "pur-c15a18f816b14734a30f8c7b455afce2",
@@ -55149,7 +55157,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 143077,
+          "amount_minor": 138575,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -55158,14 +55166,12 @@
             "pur-1394610e499a45c08ba665ed1200053c",
             "pur-27bb6c07598243e390e2ca407e908695",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
-            "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-99a0644333ed4c5a8e5d5514098319fa",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
-            "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d36058a2086244bb96897635d4ec352a",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
@@ -55191,7 +55197,6 @@
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-27bb6c07598243e390e2ca407e908695",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
-        "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-65c979f1bb194148918426361d985f73",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -55199,7 +55204,6 @@
         "pur-99a0644333ed4c5a8e5d5514098319fa",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d36058a2086244bb96897635d4ec352a",
