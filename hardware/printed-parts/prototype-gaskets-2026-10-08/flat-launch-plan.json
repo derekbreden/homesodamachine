@@ -1,6 +1,6 @@
 {
   "printer": "Mark2",
-  "status": "Accepted",
+  "status": "Finished; user reports print turned out fine",
   "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
   "archive_sha256": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
   "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
@@ -166,5 +166,19 @@
     "nozzle_offset_calibration": "Auto",
     "send_enabled": true,
     "observed_in": "Bambu Connect foreground Send dialog"
-  }
+  },
+  "completion_observed_at_utc": "2026-10-08T23:13:56.095799+00:00",
+  "completion_observation": {
+    "observed_at_utc": "2026-10-08T23:13:56.095799+00:00",
+    "task_id": "1321062707",
+    "job_id": "1321062707",
+    "subtask_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 10,
+    "total_layer_num": 10,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": []
+  },
+  "physical_result": "hardware/printed-parts/prototype-gaskets-2026-10-08/flat-physical-result.json"
 }
