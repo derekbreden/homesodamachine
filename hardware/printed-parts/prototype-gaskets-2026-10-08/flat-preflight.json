@@ -1,0 +1,170 @@
+{
+  "printer": "Mark2",
+  "checked_at_utc": "2026-10-08T19:11:30.143786+00:00",
+  "pass": true,
+  "bed_clear_user_quote": "Mark2 plate is clear",
+  "material_user_report": "Mark2 is loaded with TPU 85A in right nozzle 0.6",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-08T19:10:36.755317+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1,
+      "total_layer_num": 1535,
+      "mc_percent": 1,
+      "mc_remaining_time": 1596,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 51,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 265,
+            "target_c": 265
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 35,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-08T19:10:36.855048+00:00",
+      "task_id": "1320929816",
+      "job_id": "1320929816",
+      "subtask_name": "2026-10-08-touch-flo-tube-gasket-tpu85a-right06-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 86,
+      "total_layer_num": 87,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 28.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.6
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          },
+          "temperature": {
+            "actual_c": 29,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 27,
+        "target_c": 0
+      }
+    }
+  ],
+  "previous_destination_task_id": "1320929816",
+  "peer_accepted_at_utc": "2026-10-08T18:38:15.148901+00:00",
+  "peer_printer_task_id": "1320974719",
+  "seconds_since_peer_acceptance": 1994.994885,
+  "required_startup_spacing_seconds": 180,
+  "hashes_verified": {
+    "archive": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
+    "project": "9bbc671dcfa8640b5cd295bf6b86c4681511db84fb6d312378d309bfdf2cfa3e",
+    "native_review": "eec81720d0b88a82e7f85fa9f18a052cfaf4b599e4b3fa5a26508843c36411fc",
+    "source_binding": "fec0779c49d64329d57a501cce03b80f19306ef1910c05a32cfb53c772e74144"
+  },
+  "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
+  "all_part_source_hashes_match": true,
+  "zip_crc_and_gcode_md5_pass": true,
+  "native_review_pass": true,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "probing_clump_detection": false,
+  "send_options": {
+    "destination": "Mark2",
+    "mapping": "Ext TPU R",
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "send_enabled": true,
+    "observed_in": "Bambu Connect foreground Send dialog"
+  },
+  "send_attempted": true,
+  "send_attempted_at_utc": "2026-10-08T19:11:30.143786+00:00",
+  "foreground_send_method": "Bambu Connect CUA",
+  "send_successful": true,
+  "accepted_at_utc": "2026-10-08T19:11:45.893218+00:00",
+  "printer_task_id": "1321062707",
+  "accepted_archive_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf"
+}

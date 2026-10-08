@@ -1,6 +1,6 @@
 {
   "printer": "Mark2",
-  "status": "Native reviewed; await completed tube removal and clear bed",
+  "status": "Accepted",
   "archive": "hardware/printed-parts/prototype-gaskets-2026-10-08/ready/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
   "archive_sha256": "ded7c0f4d12b1d3b50063d0276f58e4f45af6b2cb71a06134e778d9193611821",
   "gcode_sha256": "6c1070040a913cd7f8861aee89179f182641980923742b3a3d5437f47c2679ca",
@@ -71,15 +71,100 @@
       "stl_sha256": "95e7eacae7ffcd4ce9f68ba34b817630c007f9a3fd8b49231af6084c3e990a8a"
     }
   ],
-  "send_attempted": false,
-  "accepted_at_utc": null,
+  "send_attempted": true,
+  "accepted_at_utc": "2026-10-08T19:11:45.893218+00:00",
   "estimated_seconds": 7527.89697265625,
   "authorizations": [
     "We have a lot of gaskets I need for my prototype, for the reservoirs and faucet and maybe something else I am forgetting.",
     "I think all the flat gaskets can be printed on one plate (if they fit), but the very special \"tube gasket\" for the touch flo to 3/8 LLDPE I think needs printing on its own. Hopefully the successful settings I last used are saved, and hopefully they correspond to my verified successful fit print.",
-    "Tube gasket first; flat set next"
+    "Tube gasket first; flat set next",
+    "Mark2 plate is clear"
   ],
   "start_gate": "Fresh reading of both printers, tube job finished, physical tube removed and Mark2 bed clear, correct RIGHT TPU 85A/0.6, no unresolved destination fault, at least 180 seconds after the most recent accepted Mark1 start/resume.",
   "automatic_start": false,
-  "monitor_scheduled": false
+  "monitor_scheduled": false,
+  "send_attempted_at_utc": "2026-10-08T19:11:30.143786+00:00",
+  "foreground_send_method": "Bambu Connect CUA",
+  "preflight": "hardware/printed-parts/prototype-gaskets-2026-10-08/flat-preflight.json",
+  "accepted_at_central": "2026-10-08T14:11:45.893218-05:00",
+  "printer_task_id": "1321062707",
+  "printer_job_id": "1321062707",
+  "accepted_state": "RUNNING",
+  "accepted_archive_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+  "acceptance_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-08T19:11:45.893218+00:00",
+    "task_id": "1321062707",
+    "job_id": "1321062707",
+    "subtask_name": "2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 10,
+    "mc_percent": 0,
+    "mc_remaining_time": 125,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 28.0,
+    "bed_target_temper": 0.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        "temperature": {
+          "actual_c": 34,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.8
+        },
+        "temperature": {
+          "actual_c": 28,
+          "target_c": 0
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 27,
+      "target_c": 0
+    }
+  },
+  "send_successful": true,
+  "send_count": 1,
+  "start_notification_reported": true,
+  "send_options": {
+    "destination": "Mark2",
+    "mapping": "Ext TPU R",
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "send_enabled": true,
+    "observed_in": "Bambu Connect foreground Send dialog"
+  }
 }
