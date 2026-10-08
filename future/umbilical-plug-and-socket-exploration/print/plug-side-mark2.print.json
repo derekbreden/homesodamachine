@@ -1,0 +1,224 @@
+{
+  "project": "plug-side-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "plug",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/umbilical/plug.stl",
+      "stl_sha256": "8eb15fefc2d93a9b8e60dd410486fe8b6fe03122623f6472a8c6bba460880c17",
+      "triangles": 7572,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -26.0,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        132.5,
+        160.0,
+        15.000000000000004
+      ],
+      "plate_translation_mm": [
+        132.5,
+        160.0,
+        15.000000000000004
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          116.28022575378418,
+          134.0,
+          0.0
+        ],
+        [
+          148.71977424621582,
+          186.0,
+          30.000000000000007
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "tube-key",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": ".cache/prints/umbilical/tube-key.stl",
+      "stl_sha256": "813781ed5ab06523989a88498ab89bb4c87b96b8bacf8fc53b15cc178f9e454c",
+      "triangles": 140,
+      "rotation_x_degrees": 90.0,
+      "source_center_mm": [
+        0.0022420883178710938,
+        -23.0,
+        -0.5999999046325684
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        1.0,
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        194.5,
+        160.0,
+        6.0
+      ],
+      "plate_translation_mm": [
+        194.5,
+        160.0,
+        6.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          178.28246784210205,
+          153.875,
+          0.0
+        ],
+        [
+          210.71753215789795,
+          166.125,
+          12.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.975593270728496e-10
+    }
+  ],
+  "project_sha256": "0e9367dab1add44fde870e7f3354aa3c06943c4f7d8f71887ecc74f268476edf",
+  "settings_preserved_byte_for_byte": false,
+  "z_trim_mm": 0.04,
+  "settings_changes_after_refresh": {
+    "enable_support": "0",
+    "wall_loops": "4",
+    "sparse_infill_density": "25%"
+  },
+  "pause_before_layer_top_z_mm": 18.68,
+  "slot_top_mm": 18.44,
+  "bar_top_print_z_mm": 18.175,
+  "pause_message": "Plug: slide one K&J SB443-IN down each slot in the plug's face, grooves on the rails, pole face flush with the face. Looking at the mating face, the left bar shows N and the right bar S. Mark each bar's N face with a compass first. Resume; the next layer closes over them.",
+  "native": {
+    "archive": "plug-side-mark2.gcode.3mf",
+    "archive_sha256": "d244f563f851c4a2764eadf8a97e8e5076e94244ee3e8154f7f442d9ac68b28f",
+    "layers": 125,
+    "first_layer_z": 0.2,
+    "last_layer_before_pause_z": 18.44,
+    "pause_opens_layer_z": 18.68,
+    "expected_pause_layer_z": 18.68,
+    "pause_placed_as_designed": true,
+    "air_over_bar_mm": 0.265,
+    "support_features": 0,
+    "estimated_time": "57m 40s",
+    "filament_g": [
+      28.43
+    ],
+    "bar_coverage": {
+      "bar_x-9_z18.44": {
+        "moves": 0,
+        "features": []
+      },
+      "bar_x-9_z18.68": {
+        "moves": 10,
+        "features": [
+          "Bridge",
+          "Overhang wall"
+        ]
+      },
+      "bar_x+9_z18.44": {
+        "moves": 0,
+        "features": []
+      },
+      "bar_x+9_z18.68": {
+        "moves": 10,
+        "features": [
+          "Bridge",
+          "Overhang wall"
+        ]
+      }
+    }
+  }
+}

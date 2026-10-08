@@ -1,33 +1,25 @@
-"""Scene STEPs for the umbilical plug and socket exploration: the socket side, the plug, the two
-mated, and the plug in the countertop hole, each with its viewer payload, into `out/` (ignored).
-
-Four John Guest PP0408W unions (reference/jg-pp0408w, Ø15.1) side by side at one depth, 8.5 mm of
-PET-GF in front of their collets, the YYFKGCP pogo standing on end between the two columns with
-its M1.4 inserts and screws, and one K&J SB443-IN grooved bar each side, flush and bare. DRAIN's
-4 mm tube steps up to a 1/4" stem inside the plug, so all four unions are the same part. The plug
-drops through the 1-3/8" countertop hole (faucet_assembly.countertop_hole_diameter = 34.93).
-
-Frame: the socket floor (mating face) is y = 0, outside is -Y, the machine is +Y, up is +Z.
+"""Scene STEPs for the umbilical plug and socket, with their viewer payloads, into `out/` (ignored):
+the socket in a patch of back-top, the plug on its tubes, the two plugged in, a section through the
+right-hand column, and the plug in the countertop hole. Prints the clearance check, fills the
+README's figures and writes viz-spec.json. The parts themselves are umbilical.py's.
 
     tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/scene.py
 """
+import json
 import math
 import sys
 from pathlib import Path
 
 _HERE = (Path(__file__).resolve() if "__file__" in globals()
          else Path.cwd() / "future/umbilical-plug-and-socket-exploration/scene.py")
-ROOT = next(p for p in _HERE.parents if (p / "hardware").is_dir())
-REF = ROOT / "hardware" / "reference"
-sys.path[:0] = [str(ROOT / "hardware/scripts"), str(ROOT / "hardware/printed-parts/cadlib"),
-                str(ROOT / "hardware/printed-parts/enclosure/y-wall-of-back-top"),
-                str(REF / "jg-pp0408w")]
+sys.path.insert(0, str(_HERE.parent))
+import umbilical as u  # noqa: E402
+from umbilical import ROOT, cq, cyl, box, PORTS  # noqa: E402
 
-import cadquery as cq  # noqa: E402
+sys.path[:0] = [str(ROOT / "hardware/printed-parts/enclosure/y-wall-of-back-top")]
 from _cadq_export import export_assembly, import_step  # noqa: E402
 import _materials as M  # noqa: E402
 import _y_wall_dimensions as yw  # noqa: E402
-import jg_pp0408w as U  # noqa: E402
 
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else _HERE.parent / "out"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -37,394 +29,244 @@ def rgb(t):
     return cq.Color(*(c / 255.0 for c in t))
 
 
-C_PANEL, C_PLUG = M.M_PETGF_BLACK, M.M_PETG_BLACK
-C_TAP, C_FLAVOR, C_DRAIN = rgb(yw.port_colors["carb"]), rgb(yw.port_colors["flavor"]), rgb(yw.port_colors["drain"])
-C_UNION = M.M_JG_WHITE_PP
+C_PART = M.M_PETGF_BLACK
+C_WALL = cq.Color(0.30, 0.30, 0.32)
+COLOURS = {"flavor-a": rgb(yw.port_colors["flavor"]), "flavor-b": rgb(yw.port_colors["flavor"]),
+           "soda": rgb(yw.port_colors["carb"]), "drain": rgb(yw.port_colors["drain"])}
+C_SCREW = cq.Color(0.16, 0.16, 0.17)
 C_RIBBON = cq.Color(0.62, 0.62, 0.65)
 C_COUNTER = cq.Color(0.82, 0.81, 0.78)
 
-COUNTER_HOLE = 34.93          # faucet_assembly.countertop_hole_diameter, 1-3/8"
+PP0408W = import_step(u.U.STEP).val()
+SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), u.plug(), u.key(), u.wall_patch()
+DRAIN_PROUD = 1.8                          # as drawn; see umbilical.D_PROUD_MIN
+
+
+def tube(od, idd, y0, y1, x, z):
+    return cyl(od, y0, y1, x, z).cut(cyl(idd, y0 - 1, y1 + 1, x, z))
+
+
+def union_solids(shift=0.0):
+    """The four unions at their connected stations, or `shift` toward the plug."""
+    out = {}
+    for name, (x, z, od) in PORTS.items():
+        if od > 5:
+            out[name] = PP0408W.moved(u.union_location(x, z, u.COLLET_Q - shift))
+        else:
+            face = u.DRAIN_STOP - u.D_L + DRAIN_PROUD
+            out[name] = u.auc44m(x, z, face - shift, DRAIN_PROUD)
+    return out
+
+
+def add_socket(a, pins=u.P.PIN_PROUD):
+    a.add(SOCKET, name="umbilical-socket", color=C_PART)
+    a.add(RETAINER, name="union-retainer", color=C_PART)
+    for name, s in union_solids().items():
+        label = "jg-pp0408w" if PORTS[name][2] > 5 else "neofit-auc44m"
+        a.add(s, name=f"{name}-{label}-union", color=M.M_JG_WHITE_PP if PORTS[name][2] > 5 else M.M_NEOFIT_ACETAL)
+    a.add(u.P.build_male(pins).val().moved(u.pogo_location(+1)), name="pogo-4p-male-spring-pins", color=M.C_DOCK)
+    for x, bar in u.bars(+1):
+        a.add(bar, name=f"kj-sb443-in-socket-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE)
+    for tag, s in u.pogo_hardware(+1):
+        a.add(s, name=f"pogo-{tag}-socket", color=M.M_BRASS if tag.startswith("insert") else C_SCREW)
+    for zc in u.RETAINER_SCREWS:
+        tag = "top" if zc > 0 else "bottom"
+        a.add(cyl(4.6, u.REAR - 5.7, u.REAR, 0, zc).cut(cyl(3.0, u.REAR - 6, u.REAR + 1, 0, zc)),
+              name=f"m3-insert-{tag}", color=M.M_BRASS)
+        head = u.REAR + u.RETAINER_T - 3.2
+        a.add(cyl(5.5, head, head + 3.0, 0, zc).fuse(cyl(3.0, head - 8.0, head, 0, zc)),
+              name=f"m3x8-screw-{tag}", color=C_SCREW)
+    for name, (x, z, od) in PORTS.items():          # the machine's own runs out of each rear collet
+        y0 = u.REAR + 2.74 - 16.0 if od > 5 else u.DRAIN_STOP + DRAIN_PROUD - 13.0
+        a.add(tube(od, 4.32 if od > 5 else 2.5, y0, u.REAR + 40.0, x, z), name=f"{name}-machine-tube",
+              color=COLOURS[name])
+
+
+BUNDLE = 60.0
+
+
+def add_plug(a, loc=cq.Location()):
+    a.add(PLUG, name="umbilical-plug", color=C_PART, loc=loc)
+    a.add(KEY, name="tube-key", color=C_PART, loc=loc)
+    a.add(u.P.build_female().val().moved(u.pogo_location(-1)), name="pogo-4p-female-pads", color=M.C_DOCK, loc=loc)
+    for x, bar in u.bars(-1):
+        a.add(bar, name=f"kj-sb443-in-plug-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE, loc=loc)
+    for tag, s in u.pogo_hardware(-1):
+        a.add(s, name=f"pogo-{tag}-plug", color=M.M_BRASS if tag.startswith("insert") else C_SCREW, loc=loc)
+    for name, (x, z, od) in PORTS.items():
+        tip = u.STUB_Q if od > 5 else u.STUB_D
+        a.add(tube(od, 4.32 if od > 5 else 2.5, -u.PLUG_L - BUNDLE, tip, x, z), name=f"{name}-umbilical-tube",
+              color=COLOURS[name], loc=loc)
+    x, z, _ = PORTS["soda"]
+    a.add(tube(25.4, 6.35, -u.PLUG_L - BUNDLE, -u.PLUG_L, x, z), name="soda-tube-foam", color=M.M_NITRILE_BLACK,
+          loc=loc)
+    zr = sum(u.RIBBON_TOP) / 2
+    a.add(box(-u.RIBBON_W / 2, u.RIBBON_W / 2, -u.PLUG_L - BUNDLE, u.RIBBON_DROP[1] - 0.5, zr - u.RIBBON_T / 2,
+              zr + u.RIBBON_T / 2), name="display-ribbon", color=C_RIBBON, loc=loc)
+
+
+def export(name, build):
+    a = cq.Assembly(name=f"scene-{name}")
+    build(a)
+    export_assembly(a, str(OUT / f"umbilical-{name}.step"))
+
+
+export("socket", lambda a: (a.add(PATCH, name="back-top-wall", color=C_WALL), add_socket(a)))
+export("plug", lambda a: add_plug(a, cq.Location(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180)))
+MATED_PINS = 2 * u.POGO_RECESS
+
+
+def mated(a):
+    a.add(PATCH, name="back-top-wall", color=C_WALL)
+    add_socket(a, MATED_PINS)
+    add_plug(a)
+
+
+export("mated", mated)
+
+
+def section(a):
+    """Everything plugged in, cut on the right-hand column's axes: FLAVOR-B over DRAIN, the cut facing +X."""
+    keep = box(-200, u.H, -300, 300, -200, 200)
+    tmp = cq.Assembly()
+    mated(tmp)
+    for child in tmp.children:
+        shape = child.obj if isinstance(child.obj, cq.Shape) else child.obj.val()
+        moved = shape.moved(child.loc)
+        cut = moved.intersect(keep)
+        if cut.Volume() > 1e-6:
+            a.add(cut, name=child.name, color=child.color)
+
+
+export("section", section)
 COUNTER_T = 30.0
 
-WEB = 1.5
-BORE = 6.68                   # tube-collar bore for 1/4"
-WALL = 8.5                    # PET-GF in front of the collets: room for the pogo inserts and screws
-# K&J SB443-IN, 1/4 x 1/4 x 3/16 in N42 through thickness, grooved on two sides (drawing SB443-IN
-# rev 0): 1.6 mm full-width top, a 1.6 mm groove 0.79 mm deep each side, then full width again.
-SB443_W, SB443_T = 6.35, 4.7625
-GROOVE_TOP, GROOVE_H, GROOVE_D = 1.6, 1.6, (6.35 - 4.7625) / 2
-RAIL_H, RAIL_CLR, MAG_CLR = 1.5, 0.09, 0.05      # printed rails in the grooves; slide clearance
-# The bars sit between each tube pair with WEB of PET-GF to the holes; that sets the pitch.
-PITCH = 2 * (BORE / 2 + WEB + SB443_W / 2 + MAG_CLR)   # 16.13; leaves the unions 1.03 apart
-H = PITCH / 2
-R_AXIS = H * math.sqrt(2)
 
-# name: (x, z, stub OD, stub ID, stub colour, umbilical OD, umbilical ID, umbilical colour)
-PORTS = {
-    "flavor-a": (-H, H, 6.35, 4.32, C_FLAVOR, 6.35, 4.32, C_FLAVOR),
-    "flavor-b": (H, H, 6.35, 4.32, C_FLAVOR, 6.35, 4.32, C_FLAVOR),
-    "tap": (-H, -H, 6.35, 4.32, C_TAP, 6.35, 4.32, C_TAP),
-    "drain": (H, -H, 6.35, 4.0, M.M_NEOFIT_ACETAL, 4.0, 2.5, C_DRAIN),   # 1/4" stem of the 4 mm reducer
-}
-STUB = WALL + U.INSERTION     # 19.0 from the plug face
-
-NOSE_L, NOSE_W, EAR_L = 17.54, 4.00, 23.4
-POGO_CLR = 0.2
-EAR_PITCH = 20.44                       # YYFKGCP ear holes
-# yyfkgcp-pogo-4p/mounting-audit.md: two M1.4 x 4 x Ø2.3 heat-set inserts (Ø2.6 entry) and two
-# M1.4 x 8 socket-head screws per half. Head Ø2.6 x 1.4 seats on the ear plate, 2 mm under the face.
-INSERT_D, INSERT_L, INSERT_HOLE = 2.3, 4.0, 2.6
-SCREW_D, SCREW_L, HEAD_D, HEAD_H = 1.4, 8.0, 2.6, 1.4
-INSERT_TOP = 3.2
-MAG_X = 9.0                               # bar centres, midway from the pogo slot to the wall
-
-FACE_R = R_AXIS + BORE / 2 + WEB
-PLUG_D = 2 * FACE_R
-SOCK_D = PLUG_D + 0.6
-SOCK_DEPTH = 15.0
-PLATE_W, PLATE_T = 60.0, 6.0
-UNION_MID = WALL + U.OVERALL / 2          # union mid-plane depth
-CARRIER_END = WALL + U.OVERALL + 1.5
-CARRIER_D = 2 * (R_AXIS + U.RING_D / 2 + 2.0)
-SPLIT_Y = WALL                            # face part in front, carrier behind
+def counter(a):
+    slab = (cq.Workplane("XY").box(120, 120, COUNTER_T, centered=(True, True, False)).translate((0, 0, -COUNTER_T))
+            .faces(">Z").workplane().hole(u.COUNTER_HOLE).val())
+    a.add(slab, name="countertop-1-3-8in-hole", color=C_COUNTER)
+    add_plug(a, cq.Location(cq.Vector(0, 0, -COUNTER_T - 14.0), cq.Vector(1, 0, 0), -90))
 
 
-def cyl(d, y0, y1, x=0.0, z=0.0):
-    return cq.Solid.makeCylinder(d / 2.0, y1 - y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0))
+export("counter", counter)
+
+# --- checks ---------------------------------------------------------------------------------------
+checks = {}
 
 
-def ring(do, di, y0, y1, x=0.0, z=0.0):
-    return cyl(do, y0, y1, x, z).cut(cyl(di, y0 - 0.1, y1 + 0.1, x, z))
+def gap(a, b):
+    return a.distance(b)
 
 
-def box(x0, x1, y0, y1, z0, z1):
-    return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+cup_wall = SOCKET.intersect(box(-60, 60, u.FACE - 1, -0.5, -60, 60))
+checks["plug_in_cup"] = gap(PLUG, cup_wall)
+tx, tz, xf = u.profile_corners(u.PLUG_R, u.PLUG_F)
+plug_reach = math.hypot(xf, u.PLUG_F)
+checks["countertop_side"] = u.COUNTER_HOLE / 2 - u.PLUG_R
+checks["countertop_corner"] = u.COUNTER_HOLE / 2 - plug_reach
+unions = union_solids()
+checks["union_to_socket"] = min(gap(s, SOCKET) for s in unions.values())
+checks["union_to_union"] = min(gap(unions[a], unions[b]) for i, a in enumerate(unions) for b in list(unions)[i + 1:])
+checks["union_to_retainer"] = min(gap(s, RETAINER) for s in unions.values())
+released = union_solids(u.NOSE_AIR + u.U.COLLET_TRAVEL)
+checks["released_ring_to_shoulder"] = min(gap(released[n].intersect(box(-60, 60, u.RING_FROM - 1, 60, -60, 60)),
+                                              SOCKET) for n in ("flavor-a", "flavor-b", "soda"))
+checks["screw_tip_to_union_cavity"] = u.RING_FROM - u.PILOT_END
+male = u.P.build_male(MATED_PINS).val().moved(u.pogo_location(+1))
+female = u.P.build_female().val().moved(u.pogo_location(-1))
+checks["pogo_noses_apart"] = 2 * u.POGO_RECESS
+checks["pogo_pin_compression"] = u.P.PIN_PROUD - MATED_PINS
+checks["pogo_to_socket"] = gap(male, SOCKET)
+checks["pogo_to_plug"] = gap(female, PLUG)
+checks["hook_overlap"] = (u.BODY_R + 1.6) - (u.BODY_R + u.HOLE_CLR)
+checks["stub_q_short_of_stop"] = u.COLLET_Q + u.U.INSERTION - u.STUB_Q
+checks["key_bite"] = u.KEY_BITE
+checks["cup_lead_before_stubs"] = u.CUP_DEPTH - u.STUB_Q
+for k, v in checks.items():
+    print(f"  {k:28s} {v:7.3f}")
 
 
-def stadium_z(length, width, y0, y1):
-    """A slot standing on end (long axis Z) at the centre."""
-    s = length - width
-    b = box(-width / 2, width / 2, y0, y1, -s / 2, s / 2)
-    return b.fuse(cyl(width, y0, y1, 0, -s / 2)).fuse(cyl(width, y0, y1, 0, s / 2))
+# --- the README's figures and the page's captions -------------------------------------------------
+def f2(v):
+    return f"{v:.2f}"
 
 
-def pogo_pocket(sign):
-    def span(a, b):
-        return (min(sign * a, sign * b), max(sign * a, sign * b))
-    w = NOSE_W + 2 * POGO_CLR
-    return [stadium_z(NOSE_L + 2 * POGO_CLR, w, *span(-0.1, 2.0)),
-            stadium_z(EAR_L + 2 * POGO_CLR, w, *span(2.0, 3.2)),
-            stadium_z(NOSE_L + 2 * POGO_CLR, w, *span(3.2, 5.6))]
-
-
-def pogo_fasteners(sign):
-    """Head counterbores, insert holes and screw clearance at both ear holes. sign: +1 into the panel."""
-    def span(a, b):
-        return (min(sign * a, sign * b), max(sign * a, sign * b))
-    out = []
-    for zc in (EAR_PITCH / 2, -EAR_PITCH / 2):
-        out += [cyl(HEAD_D + 0.6, *span(-0.1, 2.0), 0, zc),
-                cyl(INSERT_HOLE, *span(INSERT_TOP, INSERT_TOP + INSERT_L + 0.5), 0, zc),
-                cyl(SCREW_D + 0.1, *span(INSERT_TOP + INSERT_L + 0.5, 2.0 + SCREW_L + 0.5), 0, zc)]
-    return out
-
-
-def magnet_pockets(sign):
-    """Each bar's slot, open only at the face: full width, with printed rails left in the two
-    grooves. The bar slides down the rails at a print pause and the next layers close over it."""
-    def span(a, b):
-        return (min(sign * a, sign * b), max(sign * a, sign * b))
-    h = SB443_W / 2 + MAG_CLR
-    out = []
-    for x in (-MAG_X, MAG_X):
-        cav = box(x - h, x + h, *span(-0.1, SB443_T + MAG_CLR), -h, h)
-        reach = h - (SB443_W / 2 - GROOVE_D + RAIL_CLR)
-        for side in (-1, 1):
-            x0 = x + side * h
-            rail = box(min(x0, x0 - side * reach), max(x0, x0 - side * reach),
-                       *span(GROOVE_TOP + 0.05, GROOVE_TOP + 0.05 + RAIL_H), -h - 0.1, h + 0.1)
-            cav = cav.cut(rail)
-        out.append(cav)
-    return out
-
-
-def magnets(sign):
-    """The two SB443-IN bars, pole faces flush with the face. sign: +1 for the panel, -1 for the plug."""
-    def span(a, b):
-        return (min(sign * a, sign * b), max(sign * a, sign * b))
-    h = SB443_W / 2
-    out = []
-    for x in (-MAG_X, MAG_X):
-        bar = box(x - h, x + h, *span(0.0, SB443_T), -h, h)
-        for side in (-1, 1):
-            x0 = x + side * h
-            groove = box(min(x0, x0 - side * GROOVE_D), max(x0, x0 - side * GROOVE_D),
-                         *span(GROOVE_TOP, GROOVE_TOP + GROOVE_H), -h - 0.1, h + 0.1)
-            bar = bar.cut(groove)
-        out.append((x, bar))
-    return out
-
-
-def fasteners(sign):
-    """Brass inserts and the M1.4 x 8 screws through the ears. sign: +1 for the panel, -1 for the plug."""
-    def span(a, b):
-        return (min(sign * a, sign * b), max(sign * a, sign * b))
-    out = []
-    for zc in (EAR_PITCH / 2, -EAR_PITCH / 2):
-        out.append(("insert", zc, ring(INSERT_D, SCREW_D, *span(INSERT_TOP, INSERT_TOP + INSERT_L), 0, zc)))
-        head = cyl(HEAD_D, *span(2.0 - HEAD_H, 2.0), 0, zc)
-        shank = cyl(SCREW_D, *span(2.0, 2.0 + SCREW_L), 0, zc)
-        out.append(("screw", zc, head.fuse(shank)))
-    return out
-
-
-C_INSERT = M.M_BRASS
-C_SCREW = cq.Color(0.16, 0.16, 0.17)
-
-
-def cut_all(body, tools):
-    for t in tools:
-        body = body.cut(t)
-    return body.clean()
-
-
-UNION = import_step(U.STEP).val()
-POGO_M = import_step(REF / "yyfkgcp-pogo-4p" / "pogo-4p-male.step").val()
-POGO_F = import_step(REF / "yyfkgcp-pogo-4p" / "pogo-4p-female.step").val()
-
-
-def union_loc(x, z):
-    """Axis along Y, near port face WALL behind the floor."""
-    return cq.Location(cq.Vector(x, UNION_MID, z), cq.Vector(1, 0, 0), 90)
-
-
-def on_end(face_dir):
-    """Pogo frame (face +Z, long axis X) to face `face_dir` (+-1 along Y) with its long axis on Z."""
-    return cq.Location(cq.Vector(0, 0, 0), cq.Vector(0, 1, 0), -90) * \
-        cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), 90 if face_dir < 0 else -90)
-
-
-def union_cavity(x, z):
-    c = 0.3
-    r0 = WALL
-    segs = [(U.COLLET_D, r0, r0 + U.COLLET_PROUD),
-            (U.RING_D, r0 + U.COLLET_PROUD, r0 + U.COLLET_PROUD + U.RING_LEN),
-            (U.BARREL_D, r0 + U.COLLET_PROUD + U.RING_LEN, r0 + U.COLLET_PROUD + U.RING_LEN + U.BARREL_LEN),
-            (U.RING_D, r0 + U.COLLET_PROUD + U.RING_LEN + U.BARREL_LEN, r0 + U.COLLET_PROUD + U.BODY_LEN),
-            (U.COLLET_D, r0 + U.COLLET_PROUD + U.BODY_LEN, r0 + U.OVERALL)]
-    return [cyl(d + 2 * c, a, b + 0.01, x, z) for d, a, b in segs] + [cyl(BORE, r0 + U.OVERALL, CARRIER_END + 1, x, z)]
-
-
-def panel_shell():
-    plate = (cq.Workplane("XY").box(PLATE_W, PLATE_T, PLATE_W, centered=(True, False, True))
-             .translate((0, -SOCK_DEPTH, 0)).edges("|Y").fillet(6).val())
-    body = plate.fuse(cyl(CARRIER_D, -SOCK_DEPTH, CARRIER_END)).clean()
-    tools = [cyl(SOCK_D, -SOCK_DEPTH - 1, 0.0),
-             cq.Solid.makeCone(SOCK_D / 2 + 1.2, SOCK_D / 2, 1.2, cq.Vector(0, -SOCK_DEPTH, 0), cq.Vector(0, 1, 0))]
-    tools += pogo_pocket(+1) + pogo_fasteners(+1) + magnet_pockets(+1)
-    for (x, z, *_r) in PORTS.values():
-        tools.append(cyl(BORE, -0.1, WALL + 0.01, x, z))
-        tools += union_cavity(x, z)
-    return cut_all(body, tools)
-
-
-def add_panel(a):
-    shell = panel_shell()
-    a.add(shell.intersect(box(-200, 200, -100, SPLIT_Y, -200, 200)), name="back-panel-face", color=C_PANEL)
-    a.add(shell.intersect(box(-200, 200, SPLIT_Y, 200, -200, 200)), name="back-panel-carrier", color=C_PANEL)
-    for name, (x, z, *_r) in PORTS.items():
-        a.add(UNION, name=f"{name}-john-guest-pp0408w-union", color=C_UNION, loc=union_loc(x, z))
-    a.add(POGO_M, name="pogo-4p-male-spring-pins", color=M.C_DOCK, loc=on_end(-1))
-    for x, m in magnets(+1):
-        a.add(m, name=f"kj-sb443-magnet-panel-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE)
-    for kind, zc, solid in fasteners(+1):
-        a.add(solid, name=f"pogo-{kind}-panel-{'top' if zc > 0 else 'bottom'}",
-              color=C_INSERT if kind == "insert" else C_SCREW)
-
-
-# --- the plug, face at y = 0 facing +Y ------------------------------------------------------------
-IN_SOCKET = SOCK_DEPTH + 0.5
-BODY_LEN, TAIL_LEN, TAIL_END_D = IN_SOCKET + 20.0, 14.0, 22.0
-Y_TAIL = -BODY_LEN
-Y_END = Y_TAIL - TAIL_LEN
-
-
-def plug_shell():
-    body = cyl(PLUG_D, Y_TAIL, 0.0).fuse(cq.Solid.makeCone(PLUG_D / 2, TAIL_END_D / 2, TAIL_LEN,
-                                                         cq.Vector(0, Y_TAIL, 0), cq.Vector(0, -1, 0))).clean()
-    tools = [cyl(19.0, Y_END - 0.1, Y_END + 8.0)] + pogo_pocket(-1) + pogo_fasteners(-1) + magnet_pockets(-1)
-    for k in range(14):
-        a = 2 * math.pi * (k + 0.5) / 14
-        tools.append(cyl(3.0, Y_TAIL - 0.1, -IN_SOCKET - 2.0, (PLUG_D / 2 + 0.9) * math.cos(a),
-                         (PLUG_D / 2 + 0.9) * math.sin(a)))
-    for (x, z, *_r) in PORTS.values():
-        tools.append(cyl(BORE, -12.0, 0.1, x, z))
-    return cut_all(body, tools)
-
-
-BEND_R, DOWN = 36.0, 80.0
-Y_BEND = Y_END - 30.0
-BUNDLE = {"flavor-a": (-5.2, 2.6), "drain": (0.0, 2.6), "flavor-b": (5.2, 2.6), "tap": (0.0, -2.6)}
-RIBBON_AT = (0.0, -6.45)
-
-
-def path(ox, oz, y_start, down):
-    rho = BEND_R + oz
-    c = cq.Vector(ox, Y_BEND, -BEND_R)
-    p1 = cq.Vector(ox, Y_BEND, oz)
-    mid = c + cq.Vector(0, -rho * math.sin(math.pi / 4), rho * math.cos(math.pi / 4))
-    p2 = c + cq.Vector(0, -rho, 0)
-    return cq.Wire.assembleEdges([cq.Edge.makeLine(cq.Vector(ox, y_start, oz), p1),
-                                  cq.Edge.makeThreePointArc(p1, mid, p2),
-                                  cq.Edge.makeLine(p2, p2 + cq.Vector(0, 0, -down))])
-
-
-def swept(ox, oz, y_start, profile, down=DOWN):
-    plane = cq.Plane(origin=(ox, y_start, oz), xDir=(1, 0, 0), normal=(0, -1, 0))
-    return profile(cq.Workplane(plane)).sweep(path(ox, oz, y_start, down), transition="round").val()
-
-
-def add_plug(a, loc):
-    a.add(plug_shell(), name="umbilical-plug", color=C_PLUG, loc=loc)
-    a.add(POGO_F, name="pogo-4p-female-flush-pads", color=M.C_DOCK, loc=loc * on_end(+1))
-    for x, m in magnets(-1):
-        a.add(m, name=f"kj-sb443-magnet-plug-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE, loc=loc)
-    for kind, zc, solid in fasteners(-1):
-        a.add(solid, name=f"pogo-{kind}-plug-{'top' if zc > 0 else 'bottom'}",
-              color=C_INSERT if kind == "insert" else C_SCREW, loc=loc)
-    y_in = Y_END + 5.0
-    for name, (x, z, sod, sid, scol, uod, uid, ucol) in PORTS.items():
-        a.add(ring(sod, sid, -11.5, STUB, x, z), name=f"{name}-stub", color=scol, loc=loc)
-        ox, oz = BUNDLE[name]
-        a.add(swept(ox, oz, y_in, lambda w, od=uod, idd=uid: w.circle(od / 2).circle(idd / 2)),
-              name=f"{name}-tube-umbilical", color=ucol, loc=loc)
-    a.add(swept(*RIBBON_AT, y_in, lambda w: w.rect(6.0, 1.0)), name="display-ribbon", color=C_RIBBON, loc=loc)
-    a.add(swept(0.0, 0.0, Y_END + 3.0, lambda w: w.circle(10.1).circle(9.6), DOWN - 45.0),
-          name="braided-sleeve", color=M.M_PET_BRAID, loc=loc)
-
-
-panel = cq.Assembly(name="scene-panel")
-add_panel(panel)
-export_assembly(panel, str(OUT / "umbilical-panel.step"))
-
-plug = cq.Assembly(name="scene-plug")
-add_plug(plug, cq.Location(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180))
-export_assembly(plug, str(OUT / "umbilical-plug.step"))
-
-mated = cq.Assembly(name="scene-mated")
-add_panel(mated)
-add_plug(mated, cq.Location(cq.Vector(0, 0, 0)))
-export_assembly(mated, str(OUT / "umbilical-mated.step"))
-
-# Dropping through the countertop: plug face down, the plug part-way through the hole.
-counter = cq.Assembly(name="scene-counter")
-slab = (cq.Workplane("XY").box(120, 120, COUNTER_T, centered=(True, True, False)).translate((0, 0, -COUNTER_T))
-        .faces(">Z").workplane().hole(COUNTER_HOLE).val())
-counter.add(slab, name="countertop-1-3-8in-hole", color=C_COUNTER)
-add_plug(counter, cq.Location(cq.Vector(0, 0, -COUNTER_T - 12.0), cq.Vector(1, 0, 0), -90))
-export_assembly(counter, str(OUT / "umbilical-counter.step"))
-
-# --- checks -------------------------------------------------------------------------------------
-pm = POGO_M.moved(on_end(-1)).BoundingBox()
-print(f"pitch {PITCH:.2f} r_axis {R_AXIS:.3f} plug_d {PLUG_D:.2f} sock_d {SOCK_D:.2f} stub {STUB:.1f} "
-      f"carrier_d {CARRIER_D:.1f} carrier_end {CARRIER_END:.1f}")
-print(f"countertop hole {COUNTER_HOLE} - plug {PLUG_D:.2f} = {COUNTER_HOLE - PLUG_D:.2f} "
-      f"({(COUNTER_HOLE - PLUG_D) / 2:.2f} a side)")
-print(f"pogo male bbox x {pm.xmin:.2f}..{pm.xmax:.2f} y {pm.ymin:.2f}..{pm.ymax:.2f} z {pm.zmin:.2f}..{pm.zmax:.2f}")
-placed = {}
-for name, (x, z, sod, sid, *_r) in PORTS.items():
-    placed[f"{name}:union"] = UNION.moved(union_loc(x, z))
-    placed[f"{name}:stub"] = ring(sod, sid, -11.5, STUB, x, z)
-placed["pogo:male"] = POGO_M.moved(on_end(-1))
-for x, m in magnets(+1):
-    placed[f"magnet{'R' if x > 0 else 'L'}:panel"] = m
-for kind, zc, solid in fasteners(+1):
-    placed[f"{kind}{'T' if zc > 0 else 'B'}:panel"] = solid
-placed["pogo:female"] = POGO_F.moved(on_end(+1))
-names = sorted(placed)
-pairs = []
-for i, a in enumerate(names):
-    for b in names[i + 1:]:
-        if a.split(":")[0] == b.split(":")[0]:
-            continue
-        ka, kb = a.split(":")[0].rstrip("TBLR"), b.split(":")[0].rstrip("TBLR")
-        if "screw" in (ka, kb) and ({ka, kb} & {"insert", "pogo"}) and a[-6:] == b[-6:] or \
-                ("screw" in (ka, kb) and "pogo" in (ka, kb)):
-            continue                      # a screw is meant to bear on the ear and thread its insert
-        pairs.append((placed[a].distance(placed[b]), a, b))
-pairs.sort()
-print("closest pairs (mm):")
-for d, a, b in pairs[:9]:
-    print(f"  {d:6.3f}  {a}  vs  {b}")
-own = min(placed[f"{n}:union"].distance(placed[f"{n}:stub"]) for n in PORTS)
-print(f"stub in its own union socket: min gap {own:.3f}")
-
-
-# --- the README's figures and the page's captions, from the constants above --------------------
-def closest(a, b):
-    return min(d for d, x, y in pairs if {x.split(":")[0].rstrip("TBLR"), y.split(":")[0].rstrip("TBLR")} == {a, b})
-
-
-RC62_HOLE_R = 19.05 / 2 + WEB + BORE / 2
 FIG = {
-    "UMB_PLUG_D": f"{PLUG_D:.2f}",
-    "UMB_SOCK_D": f"{SOCK_D:.2f}",
-    "UMB_SOCK_DEPTH": f"{SOCK_DEPTH:g}",
-    "UMB_PLATE_W": f"{PLATE_W:g}",
-    "UMB_COUNTER_SIDE": f"{(COUNTER_HOLE - PLUG_D) / 2:.2f}",
-    "UMB_PITCH": f"{PITCH:.2f}",
-    "UMB_UNION_GAP": f"{PITCH - U.RING_D:.2f}",
-    "UMB_STUB": f"{STUB:g}",
-    "UMB_WALL": f"{WALL:g}",
-    "UMB_MAG_X": f"{MAG_X:.1f}",
-    "UMB_BORE": f"{BORE:.2f}",
-    "UMB_WEB": f"{WEB:g}",
-    "UMB_RAIL_H": f"{RAIL_H:g}",
-    "UMB_RC62_HOLE_R": f"{RC62_HOLE_R:.2f}",
-    "UMB_RC62_FACE_D": f"{2 * (RC62_HOLE_R + BORE / 2 + WEB):.1f}",
-    "UMB_CLR_INSERT": f"{closest('insert', 'pogo'):.2f}",
-    "UMB_CLR_SCREW": f"{closest('screw', 'flavor-a'):.2f}",
+    "UMB_PLUG_D": f2(2 * u.PLUG_R),
+    "UMB_PLUG_H": f2(2 * u.PLUG_F),
+    "UMB_PLUG_L": f"{u.PLUG_L:g}",
+    "UMB_COUNTER_SIDE": f2(checks["countertop_side"]),
+    "UMB_COUNTER_CORNER": f2(checks["countertop_corner"]),
+    "UMB_PITCH": f2(u.PITCH),
+    "UMB_UNION_GAP": f2(u.PITCH - u.U.RING_D),
+    "UMB_CUP_DEPTH": f"{u.CUP_DEPTH:g}",
+    "UMB_CUP_CLR": f2(u.CUP_CLR),
+    "UMB_CUP_LEAD": f"{checks['cup_lead_before_stubs']:.1f}",
+    "UMB_STUB_Q": f"{u.STUB_Q:.1f}",
+    "UMB_STUB_D": f"{u.STUB_D:.1f}",
+    "UMB_RELEASE": f"{u.RELEASE:g}",
+    "UMB_NOSE_AIR": f"{u.NOSE_AIR:g}",
+    "UMB_FLOAT": f2(u.NOSE_AIR + u.U.COLLET_TRAVEL),
+    "UMB_HOLE_Q": f"{u.HOLE_Q:g}",
+    "UMB_HOLE_D": f"{u.HOLE_D:g}",
+    "UMB_FACE_W": f"{2 * u.FLANGE_R:.1f}",
+    "UMB_FACE_H": f"{2 * u.BODY_F:.1f}",
+    "UMB_FLANGE_T": f"{u.FLANGE_T:g}",
+    "UMB_LEDGE": f"{u.FLANGE_R - u.BODY_R:g}",
+    "UMB_HOOK_OVERLAP": f2(checks["hook_overlap"]),
+    "UMB_SOCKET_DEPTH": f"{u.REAR + u.RETAINER_T - u.WALL_IN:.0f}",
+    "UMB_WEB": f"{u.WEB:g}",
+    "UMB_MAG_X": f"{u.MAG_X:.1f}",
+    "UMB_KEY_BITE": f"{u.KEY_BITE:g}",
+    "UMB_POGO_GAP": f"{2 * u.POGO_RECESS:.3f}",
+    "UMB_CLR_UNION": f2(checks["union_to_union"]),
+    "UMB_CLR_SCREW": f2(checks["screw_tip_to_union_cavity"]),
 }
 sys.path.insert(0, str(ROOT / "tools"))
 from docgen import substitute_md  # noqa: E402
 substitute_md(_HERE.parent / "README.md", FIG)
 
-f = FIG
 rel = OUT.resolve().relative_to(ROOT).as_posix()
-step = lambda name: f"{rel}/umbilical-{name}.step"
+
+
+def step(name):
+    return f"{rel}/umbilical-{name}.step"
+
+
+f = FIG
 spec = {
     "title": "One-plug umbilical",
-    "lede": "Countertop version with neodymium. Real John Guest PP0408W unions and pogo pair, "
-            "K&J SB443-IN grooved bars; the socket, plug and bundle are new.",
+    "lede": "The printable socket and plug. Real John Guest PP0408W, neoFit AUC44M, YYFKGCP pogo and "
+            "K&J SB443-IN; the socket, retainer, plug, key and wall patch are new.",
     "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
     "panels": [
         {"name": "Machine side",
-         "caption": f"Four 1/4\u2033 holes, the pogo on end with its two M1.4 screws, and a K&J SB443-IN bar "
-                    f"each side, its pole face flush and bare. \u00d8{float(f['UMB_SOCK_D']):.1f} socket.",
-         "models": [{"step": step("panel"), "only": ["back-panel-*", "pogo-*", "kj-sb443-*"],
-                     "ghost": ["back-panel-carrier"]}]},
+         "caption": f"Flush in back-top: a {f['UMB_FACE_W']} x {f['UMB_FACE_H']} face on a "
+                    f"{f['UMB_LEDGE']} mm side ledge, held from inside by two snap leaves.",
+         "models": [{"step": step("socket"), "ghost": ["back-top-wall"]}]},
         {"name": "Plug",
-         "caption": f"\u00d8{float(f['UMB_PLUG_D']):.1f} end to end. Four {f['UMB_STUB']} mm stubs, the pogo pads "
-                    f"and two SB443-IN bars flush in the face.",
+         "caption": f"Ø{f['UMB_PLUG_D']} across, {f['UMB_PLUG_L']} long. One key clamps all four tubes; "
+                    "the foam on the soda tube stops at the plug.",
          "models": [{"step": step("plug")}]},
         {"name": "Plugged in",
-         "caption": "The bars meet face to face. Each slid down printed rails in its grooves at a print pause "
-                    "and was printed over. N faces out on one side and S on the other, so an upside-down plug "
-                    "pushes away.",
-         "models": [{"step": step("mated")}]},
-        {"name": "Behind the face",
-         "caption": f"All four unions at one depth, {f['UMB_PITCH']} mm apart ({f['UMB_UNION_GAP']} mm between "
-                    f"them), collets {f['UMB_WALL']} mm behind the face: the depth the pogo's M1.4 inserts and "
-                    f"8 mm screws need. The bars sit in front of the unions.",
-         "models": [{"step": step("mated"),
-                     "only": ["*-union", "*-stub", "pogo-*", "kj-sb443-*", "back-panel-*", "umbilical-plug"],
-                     "ghost": ["back-panel-*", "umbilical-plug"]}]},
+         "caption": f"The plug runs {f['UMB_CUP_LEAD']} mm into the {f['UMB_CUP_DEPTH']} mm cup before a stub "
+                    "reaches its hole. The bars meet face to face.",
+         "models": [{"step": step("mated"), "ghost": ["back-top-wall"]}]},
+        {"name": "Release",
+         "caption": f"FLAVOR-B over DRAIN. Each union floats {f['UMB_FLOAT']} mm: a pull drags it forward "
+                    f"until its collet lands on the floor's back face and lets go. Side shows the cut.",
+         "models": [{"step": step("section"), "ghost": ["back-top-wall"]}]},
         {"name": "Through the counter",
-         "caption": f"The \u00d8{float(f['UMB_PLUG_D']):.1f} plug in the 1\u215c\u2033 (\u00d8{COUNTER_HOLE}) "
-                    f"countertop hole: {float(f['UMB_COUNTER_SIDE']):.1f} mm a side.",
+         "caption": f"The plug in the 1⅜″ countertop hole: {float(f['UMB_COUNTER_SIDE']):.1f} mm a side, "
+                    f"{float(f['UMB_COUNTER_CORNER']):.1f} at its flats' corners.",
          "models": [{"step": step("counter"), "ghost": ["countertop*"]}]},
+        {"name": "Machine-side plate", "image": "renders/print-machine-side.png",
+         "caption": "The slicer's plate: socket on its flats, retainer, wall coupon roof-down. One pause for "
+                    "the socket's bars."},
+        {"name": "Plug-side plate", "image": "renders/print-plug-side.png",
+         "caption": "The plug upside down on its top flat and the key on end. One pause for the plug's bars."},
     ],
 }
-import json  # noqa: E402
 (_HERE.parent / "viz-spec.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1) + "\n")
 print("README figures and viz-spec.json written")
