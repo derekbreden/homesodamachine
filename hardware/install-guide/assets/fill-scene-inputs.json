@@ -1,8 +1,8 @@
 {
   "sources": {
-    "hardware/manifold-layout/enclosure-assembly.step": "32c3c71d81fa2d7328eecc0d0e25f0e68033e5c048d260fffd4de6bdb7633ef8",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "04865b0e703ed6241886987dd55bedaeac3b2a0fa8c304b07fc1e6ea011d9e3a",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "3a43c487adc9eb9571f9f518e1c5c2bb51f621d795fd6c68142ef5410e36a733",
+    "hardware/manifold-layout/enclosure-assembly.step": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "fdd6d1a709316c1a6fd0b1d84c4d6d7cac8a6c2e18829858b6f0f923d9a69fb7",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "c0d0ff81ee5f4523907ab5c07e1310afef8447a63b1310c1d7b56a0a41f60942",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "tools/install-guide/fill_scene.py": "d865daeaf3ddd4e39e9dabc59278388396c262dd9e97a53824ccc8929ada306d",
@@ -61,7 +61,7 @@
     ]
   },
   "artwork": {
-    "hardware/install-guide/assets/reference/fill-ready.png": "a998690769305a3ce214eff742972b6ecb87f49a44384328437cb94e13a0912c",
+    "hardware/install-guide/assets/reference/fill-ready.png": "fcfaa7ccff9633e9744f902d57af829aa1b9bbd332bc37b275f3ff5da0b4f0fc",
     "hardware/install-guide/assets/reference/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c"
   }
 }

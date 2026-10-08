@@ -2841,25 +2841,13 @@ _stated.state(
 # SIG-6 crosses this wall in a keystone jack, so that the umbilical's ribbon ends at the same
 # face its three tubes do.
 #
-# THE SODA AND ITS FLAVOUR STAND ON ONE COLUMN. Their two storeys leave a deliberate vertical
-# interval between the coloured chips, and that is the umbilical's own interval: the signal
-# opening belongs with the three tube openings rather than beside the power inlet. The show-face
-# aperture stands midway between the two axes in X; in Z the station sits `POCKET_RISE` under
-# their midpoint, so the taller pocket behind the aperture clears both bores, and `KEYSTONE_LIFT`
-# over that, so the show face keeps one `wall` between the aperture and the flavour-A ring below
-# it. The receptacle's outer boss joins the two port-field bosses into one simple printed web;
-# its aperture and pocket remain clear of the rings and through-bores respectively.
+# DATA and DRAIN share the middle row between SODA and FLAVOR. Their
+# identification faces have the same Z height and alignment.
 def keystone_station(flavor: float) -> tuple:
-    """The jack's show-face centre between the soda and flavour-A stations, as `(x, z)`."""
-    soda = (PANEL_X["bulkhead-carb"], deck_storey())
-    flavour = (PANEL_X["bulkhead-flavor-a"], flavor)
-    return ((soda[0] + flavour[0]) / 2.0,
-            (soda[1] + flavour[1]) / 2.0)
+    """The jack centre on the middle row, as `(x, z)`."""
+    return (PANEL_X["bulkhead-carb"], (deck_storey()+flavor)/2)
 
 
-# The exact finished receptacle keeps 3.031/5.480 mm from the show-face station to the
-# flavour-A/soda solids, and 7.608/3.120 mm from the inboard station to those same solids.
-KEYSTONE_LIFT = 0.6
 KEYSTONE_NEIGHBOUR_CLEAR = _enc.wall
 
 
@@ -2887,7 +2875,7 @@ KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
 
 
 def build_keystone(station: tuple):
-    """The jack snapped into its fixed receptacle behind the flush DATA trim.
+    """The jack snapped into its fixed receptacle behind the wing-thick DATA plate.
 
     The purchased face lands on the DATA pocket's seating plane, 3.36 mm
     behind the rear wall. The fixed enclosure lip and catches retain the jack.
@@ -2896,13 +2884,13 @@ def build_keystone(station: tuple):
     x, z = station
     return seat_body(body, (), seat="keystone-jack",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                              (x, _enc.rear_plane_y + _enc.wall - _data_fit.THICK, z)))
+                              (x, _enc.rear_plane_y + _enc.wall - _data_fit.POCKET_DEPTH, z)))
 
 
 def build_data_ring(station: tuple):
-    """Black DATA trim and white text seated flush on their own side snaps."""
+    """Black DATA plate and white text seated on the nameplate wing datum."""
     x,z=station
-    floor=_enc.rear_plane_y+_enc.wall-_data_fit.THICK
+    floor=_enc.rear_plane_y+_enc.wall-_data_fit.POCKET_DEPTH
     body,word=_data_ring.split(import_step(str(_data_ring.STEP)).val())
     return (("data-ring",body.translate((x,floor,z)),
              cq.Color(*(c/255 for c in _rear.chip_color("flavor")))),

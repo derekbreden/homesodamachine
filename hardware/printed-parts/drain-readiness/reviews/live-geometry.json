@@ -1,0 +1,388 @@
+{
+  "timestamp_unix": 1791444638.139963,
+  "scope": "Exact live content-addressed native STEP/payload and scene bytes for the finished faucet, DATA plate, rear wall and enclosure. The unchanged objects reuse their actual byte reads in this task only after checking the identical local hash and immutable URL. No physical fit or product qualification claim.",
+  "rows": [
+    {
+      "path": "assembly/scenes/glb/back-half.glb",
+      "sha256": "b03d79c5823b7b4fa99845fd2c79a8b6b218cc80e40683fa6cd2bda9df0fefb0",
+      "url": "https://objects.homesodamachine.com/s-b03d79c5823b7b4fa99845fd2c79a8b6b218cc80e40683fa6cd2bda9df0fefb0.gz",
+      "bytes": 20686804,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/back-top.glb",
+      "sha256": "4feee1ca6450c2cdc36d06940067656a7d9609a37ca8ee65b386303d4ccceef5",
+      "url": "https://objects.homesodamachine.com/s-4feee1ca6450c2cdc36d06940067656a7d9609a37ca8ee65b386303d4ccceef5.gz",
+      "bytes": 6779844,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/cap-lid-fill.glb",
+      "sha256": "b3c7b6909ed1f5ed56c4ee365865c4f761ef4eaac7cd8611ceaa9c31e3db3fb8",
+      "url": "https://objects.homesodamachine.com/s-b3c7b6909ed1f5ed56c4ee365865c4f761ef4eaac7cd8611ceaa9c31e3db3fb8.gz",
+      "bytes": 1307816,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/cap-lid.glb",
+      "sha256": "e796a9c007610b0c77f002d05c9007d8568cec1af0ea95ede017638004267e99",
+      "url": "https://objects.homesodamachine.com/s-e796a9c007610b0c77f002d05c9007d8568cec1af0ea95ede017638004267e99.gz",
+      "bytes": 3796284,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/cold-core-open.glb",
+      "sha256": "23d2c99ad25f7b7cc85b4cf5b4c838ea76e0a9097853675e51707a9dabaa4e9d",
+      "url": "https://objects.homesodamachine.com/s-23d2c99ad25f7b7cc85b4cf5b4c838ea76e0a9097853675e51707a9dabaa4e9d.gz",
+      "bytes": 4953932,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/cold-core.glb",
+      "sha256": "4a98f3cab503b7a9423b453081084751ef297a4ad1baf9d927f45534ccf3a53d",
+      "url": "https://objects.homesodamachine.com/s-4a98f3cab503b7a9423b453081084751ef297a4ad1baf9d927f45534ccf3a53d.gz",
+      "bytes": 8727368,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/en04-compressor-bay.glb",
+      "sha256": "f1da9df5a658b717030a7eb11e145c7b2f7180bc66a628ee171e41f20b83bd96",
+      "url": "https://objects.homesodamachine.com/s-f1da9df5a658b717030a7eb11e145c7b2f7180bc66a628ee171e41f20b83bd96.gz",
+      "bytes": 58008,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/en07-electronics-bay.glb",
+      "sha256": "da20c702cf3642b3c5e06b982aef6eb256351bb305244f1c3f75885cd7d9fe24",
+      "url": "https://objects.homesodamachine.com/s-da20c702cf3642b3c5e06b982aef6eb256351bb305244f1c3f75885cd7d9fe24.gz",
+      "bytes": 198912,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/front-top.glb",
+      "sha256": "bd5f16bbf66bad69095276e3e1be4f17d73d3012ea8b5610e9b4393343258d23",
+      "url": "https://objects.homesodamachine.com/s-bd5f16bbf66bad69095276e3e1be4f17d73d3012ea8b5610e9b4393343258d23.gz",
+      "bytes": 8284704,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/funnel-drain.glb",
+      "sha256": "51b47362d338f7fcd94a007687b4ef8a2d24b02dd8d1e0f0ea16e2a4d31efbf3",
+      "url": "https://objects.homesodamachine.com/s-51b47362d338f7fcd94a007687b4ef8a2d24b02dd8d1e0f0ea16e2a4d31efbf3.gz",
+      "bytes": 681216,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "assembly/scenes/glb/pump-cartridge.glb",
+      "sha256": "34864429cdccb127f932a18e23023dbe7b8719d015d73c1c953268902b162842",
+      "url": "https://objects.homesodamachine.com/s-34864429cdccb127f932a18e23023dbe7b8719d015d73c1c953268902b162842.gz",
+      "bytes": 1585344,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "manifold-layout/enclosure-assembly.step",
+      "sha256": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
+      "url": "https://objects.homesodamachine.com/s-d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a.gz",
+      "bytes": 99318570,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "fdd6d1a709316c1a6fd0b1d84c4d6d7cac8a6c2e18829858b6f0f923d9a69fb7",
+      "url": "https://objects.homesodamachine.com/s-fdd6d1a709316c1a6fd0b1d84c4d6d7cac8a6c2e18829858b6f0f923d9a69fb7.gz",
+      "bytes": 35173096,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/enclosure/data-ring/data-ring.step",
+      "sha256": "c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199",
+      "url": "https://objects.homesodamachine.com/s-c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199.gz",
+      "bytes": 526360,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+      "sha256": "430d3a813cd4c754796de4063637783a0dd119c587444dedd8b4b283755de19a",
+      "url": "https://objects.homesodamachine.com/s-430d3a813cd4c754796de4063637783a0dd119c587444dedd8b4b283755de19a.gz",
+      "bytes": 11682706,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+      "sha256": "5bbd9728c41943b1ccdfde65f6e27a76e0423979f5c98186aa1db0b410461760",
+      "url": "https://objects.homesodamachine.com/s-5bbd9728c41943b1ccdfde65f6e27a76e0423979f5c98186aa1db0b410461760.gz",
+      "bytes": 6696576,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+      "url": "https://objects.homesodamachine.com/s-9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9.gz",
+      "bytes": 2942903,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "sha256": "64e3dd150291878c59d870b9eeb11d318206d92e9d821cd3c18c14978a98f3a9",
+      "url": "https://objects.homesodamachine.com/s-64e3dd150291878c59d870b9eeb11d318206d92e9d821cd3c18c14978a98f3a9.gz",
+      "bytes": 4776964,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "sha256": "919178e182b5b33d227d60dc5b3394d4c1050a79146d0ce09a6b67b71d81968c",
+      "url": "https://objects.homesodamachine.com/s-919178e182b5b33d227d60dc5b3394d4c1050a79146d0ce09a6b67b71d81968c.gz",
+      "bytes": 5826690,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+      "sha256": "c5baf507a7f0c9651f8f5426d9b2596f4d28bbcdeeb1ecc37d095c302f7dedf7",
+      "url": "https://objects.homesodamachine.com/s-c5baf507a7f0c9651f8f5426d9b2596f4d28bbcdeeb1ecc37d095c302f7dedf7.gz",
+      "bytes": 1670456,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "1502b8b5e89214bb98c32bdc1b0cfaa32f88359629fd671c8adbc57d0135c7c5",
+      "url": "https://objects.homesodamachine.com/s-1502b8b5e89214bb98c32bdc1b0cfaa32f88359629fd671c8adbc57d0135c7c5.gz",
+      "bytes": 2601855,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "sha256": "6bd87b44ab44b4d7840e2041629863d56e4f90d40a003e4e28c7cb897eb834e1",
+      "url": "https://objects.homesodamachine.com/s-6bd87b44ab44b4d7840e2041629863d56e4f90d40a003e4e28c7cb897eb834e1.gz",
+      "bytes": 3056308,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "sha256": "c8b3f3c5251a888233760f9683a2fb664b695dec5ef87e75082a13796a7dc7ee",
+      "url": "https://objects.homesodamachine.com/s-c8b3f3c5251a888233760f9683a2fb664b695dec5ef87e75082a13796a7dc7ee.gz",
+      "bytes": 427508,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+      "sha256": "4ae9fea305605ff11c563e1d26703f493f09d6fc4737dafb433780d402434484",
+      "url": "https://objects.homesodamachine.com/s-4ae9fea305605ff11c563e1d26703f493f09d6fc4737dafb433780d402434484.gz",
+      "bytes": 520428,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "sha256": "ba8aca0ec1d84dd15c14d8db9c488ce7536160312f601d81492a2f6db0f4a1ec",
+      "url": "https://objects.homesodamachine.com/s-ba8aca0ec1d84dd15c14d8db9c488ce7536160312f601d81492a2f6db0f4a1ec.gz",
+      "bytes": 1235589,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+      "sha256": "d93b64ab177e044dda48e4988c73634edd316aaf43dcc865c14c838dc50fec67",
+      "url": "https://objects.homesodamachine.com/s-d93b64ab177e044dda48e4988c73634edd316aaf43dcc865c14c838dc50fec67.gz",
+      "bytes": 984652,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+      "sha256": "838a69dc98d129548d795b1b00f21a4536e6dc69c84e1d7e949f528ae7716caf",
+      "url": "https://objects.homesodamachine.com/s-838a69dc98d129548d795b1b00f21a4536e6dc69c84e1d7e949f528ae7716caf.gz",
+      "bytes": 28207,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+      "sha256": "de5dc06838102d553e488338c10908fe49db80ad7a008161baf253e8cab40ceb",
+      "url": "https://objects.homesodamachine.com/s-de5dc06838102d553e488338c10908fe49db80ad7a008161baf253e8cab40ceb.gz",
+      "bytes": 111992,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "sha256": "ee9969a0a2dff2baf2220a8c076d4dbc2bc95d038096447f65d170a3a035b980",
+      "url": "https://objects.homesodamachine.com/s-ee9969a0a2dff2baf2220a8c076d4dbc2bc95d038096447f65d170a3a035b980.gz",
+      "bytes": 73372,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+      "sha256": "b0c09a7caad1c20af8a774cb4508dd556e875258a989a19bb6233b0ba39cc9ad",
+      "url": "https://objects.homesodamachine.com/s-b0c09a7caad1c20af8a774cb4508dd556e875258a989a19bb6233b0ba39cc9ad.gz",
+      "bytes": 529596,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step",
+      "sha256": "68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c",
+      "url": "https://objects.homesodamachine.com/s-68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c.gz",
+      "bytes": 74115,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh",
+      "sha256": "6d78f5d4e688cd37afe2fbe6bc43cbfdecfd14f4d2a4c0d61cfe4db3a700652e",
+      "url": "https://objects.homesodamachine.com/s-6d78f5d4e688cd37afe2fbe6bc43cbfdecfd14f4d2a4c0d61cfe4db3a700652e.gz",
+      "bytes": 969288,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step",
+      "sha256": "069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66",
+      "url": "https://objects.homesodamachine.com/s-069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66.gz",
+      "bytes": 69661,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh",
+      "sha256": "5c761a2e5dff1981d46608f50c4cc3b888c773b6c7c070a285ab9af69eb86ef3",
+      "url": "https://objects.homesodamachine.com/s-5c761a2e5dff1981d46608f50c4cc3b888c773b6c7c070a285ab9af69eb86ef3.gz",
+      "bytes": 1745284,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step",
+      "sha256": "a1c0dd81a71b4092706b331bc1ae55f0d45a89bc5b8f0a1e89ddad1b929c576c",
+      "url": "https://objects.homesodamachine.com/s-a1c0dd81a71b4092706b331bc1ae55f0d45a89bc5b8f0a1e89ddad1b929c576c.gz",
+      "bytes": 83190,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh",
+      "sha256": "0f449db8b3f89090bed3370bcec57781d35be41cbc4833bfc1928abc1f00fdc9",
+      "url": "https://objects.homesodamachine.com/s-0f449db8b3f89090bed3370bcec57781d35be41cbc4833bfc1928abc1f00fdc9.gz",
+      "bytes": 1075280,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+      "sha256": "85ec0e325430487fcaa13487156612e7772c105d0df4584ac76b1b3a73fa2675",
+      "url": "https://objects.homesodamachine.com/s-85ec0e325430487fcaa13487156612e7772c105d0df4584ac76b1b3a73fa2675.gz",
+      "bytes": 677923,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+      "sha256": "25a9c65cecbaf93e5fa5f46d322194941ee584fb0d928d6c41ad40cf295263b2",
+      "url": "https://objects.homesodamachine.com/s-25a9c65cecbaf93e5fa5f46d322194941ee584fb0d928d6c41ad40cf295263b2.gz",
+      "bytes": 799884,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "sha256": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
+      "url": "https://objects.homesodamachine.com/s-912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b.gz",
+      "bytes": 19562980,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "sha256": "948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e",
+      "url": "https://objects.homesodamachine.com/s-948f6168b8b8bd1320ed1d375013b40a4269b24e66108562a32f6698572e222e.gz",
+      "bytes": 12354848,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "sha256": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3",
+      "url": "https://objects.homesodamachine.com/s-7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3.gz",
+      "bytes": 1606272,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+      "sha256": "0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8",
+      "url": "https://objects.homesodamachine.com/s-0fe594b7768c8b8923d97ec540d63b5f26911570f212498e42f31db343228aa8.gz",
+      "bytes": 5965928,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell.step",
+      "sha256": "e5037f6839d8f632209783b943869a42d67bc5b8ccab19ade0ec318d674f7b67",
+      "url": "https://objects.homesodamachine.com/s-e5037f6839d8f632209783b943869a42d67bc5b8ccab19ade0ec318d674f7b67.gz",
+      "bytes": 21172032,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "sha256": "c29bb0bc6c4bd389f783e444a4c59f8f5185a0188e576f150eaf19e68e62ea1c",
+      "url": "https://objects.homesodamachine.com/s-c29bb0bc6c4bd389f783e444a4c59f8f5185a0188e576f150eaf19e68e62ea1c.gz",
+      "bytes": 18320612,
+      "actual_live_bytes_verified": true,
+      "unchanged_immutable_object_execution_reused": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
+      "sha256": "95e94afc406f7ca894695c19de96c0985b1747478e28e4e5a4e8371bfe4b3e67",
+      "url": "https://objects.homesodamachine.com/s-95e94afc406f7ca894695c19de96c0985b1747478e28e4e5a4e8371bfe4b3e67.gz",
+      "bytes": 27563,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
+      "sha256": "cefde026a00916811f9d48ba22c272c49cd0013bce2d0861d8b4c3c47ad75f2c",
+      "url": "https://objects.homesodamachine.com/s-cefde026a00916811f9d48ba22c272c49cd0013bce2d0861d8b4c3c47ad75f2c.gz",
+      "bytes": 109552,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "sha256": "bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05",
+      "url": "https://objects.homesodamachine.com/s-bbbb43b539907e570853edd63baff3c0587a4388a57c6e850cb35ea8868d2f05.gz",
+      "bytes": 72619,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
+      "sha256": "fd3e42aaaf7af47589f90fd5e35547a8bd353990452234d226c0d5df28bcbb0f",
+      "url": "https://objects.homesodamachine.com/s-fd3e42aaaf7af47589f90fd5e35547a8bd353990452234d226c0d5df28bcbb0f.gz",
+      "bytes": 527160,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-display-cover.step",
+      "sha256": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
+      "url": "https://objects.homesodamachine.com/s-f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943.gz",
+      "bytes": 306214,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
+      "sha256": "bbf91c9991891df51deba395931c8d1ecc7fd8bd1817ad4644bb4e3fe47eb07d",
+      "url": "https://objects.homesodamachine.com/s-bbf91c9991891df51deba395931c8d1ecc7fd8bd1817ad4644bb4e3fe47eb07d.gz",
+      "bytes": 136572,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-shell-base.step",
+      "sha256": "23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30",
+      "url": "https://objects.homesodamachine.com/s-23d319dad8e53c500bb4682068a5008d4671415e82630ddd0c15d74de1b91c30.gz",
+      "bytes": 19061441,
+      "actual_live_bytes_verified": true
+    },
+    {
+      "path": "printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
+      "sha256": "5d14b8a99a99bce9fd893caaee7a5ae185ad249f375e8bc7040956059c833870",
+      "url": "https://objects.homesodamachine.com/s-5d14b8a99a99bce9fd893caaee7a5ae185ad249f375e8bc7040956059c833870.gz",
+      "bytes": 10364120,
+      "actual_live_bytes_verified": true
+    }
+  ],
+  "cad_viewer_http_success": true,
+  "passed": true
+}

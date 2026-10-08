@@ -1,31 +1,32 @@
-# DATA frame
+# DATA plate
 
-The RJ11 jack carries a black PET-GF identification frame with white DATA lettering.
-Its visible face is 32 mm wide, with square upper corners and R2 lower corners,
-matching the six fluid labels. The jack sits 3.36 mm behind the rear show plane
-in its own fixed receptacle. The removable frame's 20.8 × 18.3 mm opening leaves
-the plug and latch accessible.
+The black PET-GF plate uses the nameplate's continuous face and two broad
+horizontal wings. The face is 32 × 29.789 mm,
+matching DRAIN's Z height and alignment, with square upper and R2 lower corners.
+The complete plate, including both wings, is 1.68 mm deep. Each wing projects
+2.4 mm, spans 21.789 mm and has R0.6 ends. A 20.8 × 18.3 mm opening centres on
+the RJ11 jack.
+White DATA lettering fills a 0.72 mm recess and rises 0.48 mm above the face.
 
-Two lateral flexures snap into separately backed wall pockets. Each stem is
-1.2 mm wide, has a 17.4 mm free length and an R0.6 root. The snap noses are
-1.68 mm thick, with a 1.9 mm outward projection. The retaining lips have
-1.2 mm of complete plain stock, clear of the decorative flutes. Diamond openings
-inside the enclosure let a small tool press each stem inward for removal.
-The fixed jack receptacle carries cable insertion and withdrawal loads.
+The plate and jack sit on the nameplate pocket's seating datum, 3.36 mm behind
+the rear wall. The plate face is 1.68 mm behind that wall; the fixed jack
+receptacle carries cable insertion and withdrawal loads. The matching wing
+slots use the accepted nameplate's 0.45 mm Y clearance, entry bevel and complete
+1.23 mm retaining lands. The three rear rows retain their installed positions.
 
-Print the frame flat-back-down with its lettering facing up. Open side reliefs
-keep the snaps free of enclosed bridges. The frame and lettering use the black
-identification plate in the [DRAIN print set](../../drain-readiness/README.md),
+Print flat-back-down with the lettering facing up. The continuous face and both
+wings lie directly on the bed, without supports. The plate uses the black
+identification project in the [DRAIN print set](../../drain-readiness/README.md),
 with black PET-GF on Mark2's right nozzle and white PET-GF on its left nozzle.
-No supports are required. Clean the relief slots before pressing the frame
-squarely into its pocket; do not glue the stems.
+Bend the plate gently to seat its wings in the side slots, as for the nameplate.
 
-The [fit check](fit-check.json) records native clearances, complete retention
-stock and the nominal flexure screening. A 2.4 mm inward deflection gives a
-1.43% nominal linear cantilever strain estimate. That estimate does not establish
-insertion force, printed fit, pullout load or endurance; those properties belong
-to the finished frame and wall.
+The [native fit check](fit-check.json) reads the saved production wall, shared
+nameplate construction, complete wing retaining lands, DATA/DRAIN alignment
+and plug/latch approach. Printed fit, insertion force, pullout capacity and
+endurance remain observations on the finished plate and wall. Accepted
+nameplate and display results retain their identified print scope.
 
-`data_ring.py` exports the colored frame and lettering. The shared
-[`_data_wing_interface.py`](../enclosure/_data_wing_interface.py) supplies both
-the frame and its enclosure pocket.
+`data_ring.py` exports the colored plate and lettering. The shared
+[`_data_wing_interface.py`](../enclosure/_data_wing_interface.py) calls the
+[nameplate construction](../enclosure/_nameplate_wing_interface.py) for both
+the plate and its enclosure pocket.

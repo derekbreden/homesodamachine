@@ -142,7 +142,7 @@ def labels():
         assert sha(project) == prep["project_sha256"]
         with zipfile.ZipFile(project) as z:
             layer_ranges = ET.fromstring(z.read("Metadata/layer_config_ranges.xml"))
-        expected = ([(1.40, 1.68, .14), (1.92, 2.0, .08), (3.20, 3.36, .08)]
+        expected = ([(1.40, 1.68, .14), (1.92, 2.48, .08)]
                     if colour == "black" else [(1.88, 2.0, .12)])
         schedules = [[(float(r.get("min_z")), float(r.get("max_z")),
                        float(r.find("option[@opt_key='layer_height']").text))
@@ -180,11 +180,11 @@ def labels():
         if colour == "black":
             data_index = next(i for i, part in enumerate(prep["parts"]) if part["station"] == "data")
             data_layers = sorted(object_layers[2901 + data_index])
-            for height in (1.40, 1.54, 1.68, 2.00, 3.20, 3.28, 3.36, 3.60, 3.84):
+            for height in (1.40, 1.54, 1.68, 1.92, 2.00, 2.08, 2.16):
                 assert any(abs(z - height) < 1e-5 for z in data_layers), ("DATA layer", height, data_layers)
-            assert abs(max(data_layers) - 3.84) < 1e-5, data_layers
-            snap_layers = {"nose_top_mm": 1.68, "face_top_mm": 3.36,
-                           "word_top_mm": 3.84, "model_layer_heights_mm": data_layers,
+            assert abs(max(data_layers) - 2.16) < 1e-5, data_layers
+            snap_layers = {"wing_top_mm": 1.68, "face_top_mm": 1.68,
+                           "word_top_mm": 2.16, "model_layer_heights_mm": data_layers,
                            "passed": True}
         records.append({"colour": colour, "parts": prep["parts"],
                         "emitted_objects": objects, "shared_variable_layer_bands_mm": expected,

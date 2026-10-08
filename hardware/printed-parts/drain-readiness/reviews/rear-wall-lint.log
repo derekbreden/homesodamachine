@@ -1,4 +1,6 @@
-enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
+enclosure-back-top.stl · 689932 printed facets · 0 findings · 57 answered
 
   [step · answered] The rounded foam-cap pocket ends at Y465.55, 0.25 mm behind the surrounding Y465.3 interior field. That offset is the cap's XY running clearance, bounded to Z248..253.4. The native pocket floor has 3.75 mm of continuous backing across its flat face, and at least 3.5 mm across its entire rectangular bounds; forward-expansion-check.json records both stock witnesses. This is an exposed clearance step, not a 0.25 mm wall.
     Δ0.250 mm between parallel planes · footprint met 157.0 × 5.4 mm
@@ -6,7 +8,7 @@ enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
     faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=465.300 z=254.320
     click: x=0.000 y=465.550 z=250.700
 
-  [step · answered] The purchased keystone's side-clearance plane is at Y464.95, 0.35 mm inside the surrounding Y465.3 interior field. It is part of the independently mounted jack pocket, not a seam or thin wall. The backed DATA pad and keystone boss surround the recess; data-ring/fit-check.json verifies the purchased jack, separate trim, retention lips and complete rear-wall fit.
+  [step · answered] The keystone's side clearance ends at Y464.95 beside the Y465.3 interior wall field. The 0.35 mm offset is between module-clearance datums within the full rear-wall boss. The independently mounted purchased jack retains its seating position; data-ring/fit-check.json verifies its complete native clearance from the wall and DATA plate. This exposed offset is not a 0.35 mm wall.
     Δ0.350 mm between parallel planes · footprint met 24.7 × 15.0 mm
     faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=465.300 z=254.320
     faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-40.710 y=464.950 z=304.162
@@ -36,11 +38,11 @@ enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
     edge: x=13.650 y=465.540 z=352.000 → x=-20.350 y=465.540 z=352.000 · len 34.000 · straight · dir x=-1.000 y=0.000 z=0.000
     click: x=-3.350 y=465.540 z=352.000
 
-  [sliver · answered] This is the exposed rear end of DATA's backing above the keystone pocket at Y464.34. Its 1.294 mm vertical run is the remainder between the module pocket's upper boundary and DATA's pad ramp. It is a face of the complete backing toward +Y, not a separate 1.294 mm load-bearing ligament. The module and trim use their own supported bosses and catches; data-ring/fit-check.json records the production fit and backing sections.
-    1.294 mm strip, 15.0 mm long
-    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-40.710 y=464.340 z=320.159
-    edge: x=-33.235 y=464.340 z=320.159 → x=-48.185 y=464.340 z=320.159 · len 14.950 · straight · dir x=-1.000 y=0.000 z=0.000
-    click: x=-40.710 y=464.340 z=320.159
+  [sliver · answered] The 0.444 mm strip is the exposed upper remainder of the DATA backing pad at Y464.34. Its complete 6.6378 square mm finite native face retains 2 mm of stock toward +Y, with zero missing witness volume in data-ring/fit-check.json. The short exposed height bounds that backed pad; it is not the material thickness.
+    0.444 mm strip, 15.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-40.710 y=464.340 z=319.734
+    edge: x=-33.235 y=464.340 z=319.734 → x=-48.185 y=464.340 z=319.734 · len 14.950 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-40.710 y=464.340 z=319.734
 
   [sliver · answered] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
     1.400 mm strip, 14.9 mm long
@@ -138,7 +140,7 @@ enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
     face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-100.000 y=378.510 z=321.671
     click: x=-100.000 y=378.510 z=321.671
 
-  [ceiling · answered] DATA's 28 x 3.36 mm lower mouth floor locates the removable trim. It retains the separate 3.6 mm rear backing and the two plain retaining lips. Back-top prints roof-down, so the floor receives normal support through its rear-facing mouth. Remove that support through the empty opening before installing the jack and DATA trim. The production fit check records the aperture, backing, lips and release access; finished fit and cleanup remain physical observations.
+  [ceiling · answered] The DATA mouth's 28 x 3.36 mm locating floor retains 1.5 mm of native stock across its complete 94.08 square mm face, with zero missing witness volume in data-ring/fit-check.json. The roof-down print receives support through the empty rear-facing aperture. The current native archive's nearest interface road midplane is 0.5527 mm below the exact floor; its 0.24 mm layer places the nominal top 0.4327 mm away. Drain-readiness/reviews/rear-wall-lint-witness.json binds these actual support roads to the complete finite floor. Remove support through the aperture before seating the DATA plate and jack. Finished fit and cleanup effort remain physical observations.
     94 mm² flat print-down face at z=291.217 · 28.0 × 3.4 mm · drop 30.3–30.3 mm to material below
     face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=469.620 z=291.217
     click: x=-40.710 y=469.620 z=291.217
@@ -229,7 +231,7 @@ enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
     click: x=-92.000 y=323.800 z=185.600
 
   [ceiling · answered] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
-    44 mm² flat print-down face at z=294.217 · 14.8 × 3.0 mm · drop 17.7–18.9 mm to material below
+    44 mm² flat print-down face at z=294.217 · 14.8 × 3.0 mm · drop 19.6–19.6 mm to material below
     face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-40.710 y=466.445 z=294.217
     click: x=-40.710 y=466.445 z=294.217
 
@@ -294,13 +296,13 @@ enclosure-back-top.stl · 684452 printed facets · 0 findings · 57 answered
     click: x=55.075 y=406.653 z=342.286
 
   [slope · answered] These two finite sloping faces form the diamond opening used to press the nameplate outward for removal. Each has a 9 mm horizontal run, 10 mm rise and complete 3.60 mm depth, matching `_nameplate_wing_interface.apply` and a 48.013 degree access ceiling in the roof-down print orientation. They bound the opening through the pocket's backed wall. Both finite diamond slopes are recorded in drain-readiness/reviews/rear-wall-lint-witness.json.
-    45° underside runs along a wall with no level foot · slope dir +1.00,-0.00 vs wall n +0.00,+1.00 · along 13.5 mm · 48 mm²
+    45° underside runs along a wall with no level foot · slope dir +1.00,+0.00 vs wall n +0.00,+1.00 · along 13.5 mm · 48 mm²
     faceA: plane · n x=0.743 y=0.000 z=0.669 · thru x=29.970 y=466.140 z=270.953
-    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.263 y=467.940 z=289.055
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.013 y=467.940 z=289.055
     click: x=29.970 y=466.140 z=270.953
 
   [slope · answered] These two finite sloping faces form the diamond opening used to press the nameplate outward for removal. Each has a 9 mm horizontal run, 10 mm rise and complete 3.60 mm depth, matching `_nameplate_wing_interface.apply` and a 48.013 degree access ceiling in the roof-down print orientation. They bound the opening through the pocket's backed wall. Both finite diamond slopes are recorded in drain-readiness/reviews/rear-wall-lint-witness.json.
     45° underside runs along a wall with no level foot · slope dir -1.00,+0.00 vs wall n +0.00,+1.00 · along 13.5 mm · 48 mm²
     faceA: plane · n x=-0.743 y=0.000 z=0.669 · thru x=38.970 y=466.140 z=270.953
-    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.263 y=467.940 z=289.055
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=15.013 y=467.940 z=289.055
     click: x=38.970 y=466.140 z=270.953

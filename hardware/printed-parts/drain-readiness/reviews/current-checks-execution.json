@@ -1,15 +1,18 @@
 {
-  "scope": "Current-tree check results from serial execution. The complete 164-reading faucet audit is reused from its actual execution in this task only after verifying every recorded source and native artifact hash. Wider repository failures remain visible in the served verdict.",
+  "scope": "Current-tree check results from serial execution. The complete 164-reading faucet audit and current 227-body drain check are reused from their actual executions in this task only after verifying all recorded source and native artifact hashes. Wider repository failures remain visible in the served verdict.",
   "heavy_checks_serialized_with_existing_build_lock": true,
   "build_lock_opt_out": false,
   "served_verdict": "web/public/checks.json",
-  "served_verdict_sha256": "af5b0b648fe15595a6f154cfd324b09951108588cb3a1ad007d3444f3c50b591",
+  "served_verdict_sha256": "b7a83aba4bf7d436b7a34b99b8f265f23a245bcc87da98a7297da039f07f7cc5",
   "checks": [
     {
       "check": "hardware/scripts/check_asse_drain.py",
       "return_code": 0,
       "log_sha256": "05ce6bc62088eb6350363849f2661bb6a9f3c1844e834e433c995448cea68b29",
-      "same_task_actual_execution_reused": null
+      "same_task_actual_execution_reused": {
+        "actual_execution_log_sha256": "05ce6bc62088eb6350363849f2661bb6a9f3c1844e834e433c995448cea68b29",
+        "current_native_input_bindings_verified": true
+      }
     },
     {
       "check": "hardware/scripts/check_build_exit.py",
@@ -38,7 +41,7 @@
     {
       "check": "hardware/scripts/check_facts_current.py",
       "return_code": 0,
-      "log_sha256": "afd8da236314828c3280047ac483106419d09296e20fbc8111ae17618e9bc6c9",
+      "log_sha256": "ad2e0b19cdf208cfbdbd4b6f46100800b701022b6193b6cf18b5e7f45dd417e5",
       "same_task_actual_execution_reused": null
     },
     {
@@ -113,7 +116,7 @@
     {
       "check": "hardware/scripts/check_tracked.py",
       "return_code": 1,
-      "log_sha256": "e727bb88f03421a4c86ddf6ad86136b3fe4db02119bf9c6d6eaaa5370bc6e311",
+      "log_sha256": "d035bfc8c06115371854e3167e225866cf85111910aab8bcbd40694b961cf1e8",
       "same_task_actual_execution_reused": null
     },
     {
@@ -149,13 +152,13 @@
     {
       "check": "tools/bazel/check_declared_imports.py",
       "return_code": 0,
-      "log_sha256": "f518c8b20018beaad416bbf74a2df6b3d8ec5da003230bfbdd0119f54f1c182c",
+      "log_sha256": "c53d3c4f5cc86ba02cbd386a692d94582ea8e289db6d4ee125cf72e17d97d73d",
       "same_task_actual_execution_reused": null
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
       "return_code": 0,
-      "log_sha256": "1ddde3bff61a1aafd44fc354b907275f9188196a3b2922b724d6440f1cb423fa",
+      "log_sha256": "07b1660cbba96e688ec0b42904aa23591168258b5f3f012f86c63186cfa0d20d",
       "same_task_actual_execution_reused": null
     }
   ],
@@ -201,8 +204,15 @@
   },
   "current_drain_execution": {
     "report": "hardware/manifold-layout/drain-clearance-check.json",
-    "report_sha256": "806205047543684f112bb0787ff761eb75498592395519ae8c0927e5be0b74f4",
+    "report_sha256": "976d5791b9fe09388cba879662a348d16aa0525530343e54f8f2d21fdce8c176",
+    "serialized_input_sha256": {
+      "hardware/manifold-layout/enclosure-assembly.step": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b0f721d6dd62939f1507e305cf7a0a8d84bb8cdfec9d9d40403f5fab867a51a0"
+    },
+    "actual_execution_log_sha256": "05ce6bc62088eb6350363849f2661bb6a9f3c1844e834e433c995448cea68b29",
     "installed_body_count": 227,
     "conservative_foam_envelope_included": true
-  }
+  },
+  "pass_count": 17,
+  "check_count": 25
 }
