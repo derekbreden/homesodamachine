@@ -21,9 +21,8 @@ root=$(git rev-parse --show-toplevel) || exit 0
 
 # A COMMIT MADE INSIDE A REPLAY IS THE PUSH'S OWN. `tools/push.py` replays this tree's commits
 # in a linked worktree with `git cherry-pick`, which runs this hook for each one; the push that
-# started the replay lands the result, publishes from the main tree, and reads the tree's
-# checks there. Nothing below is for a replay tree — least of all a publish, which would pack
-# a checkout that holds no solids.
+# started the replay lands the result and publishes from the main tree. Nothing below is for a
+# replay tree — least of all a publish, which would pack a checkout that holds no solids.
 [ -n "$HSM_PUSHING" ] && exit 0
 [ "$(git rev-parse --git-dir)" != "$(git rev-parse --git-common-dir)" ] && exit 0
 
@@ -71,14 +70,4 @@ _py="$root/tools/cad-venv/bin/python"
 mkdir -p "$root/.cache"
 nohup "$_py" "$root/tools/publish_now.py" \
   >>"$root/.cache/publish-now.log" 2>&1 &
-
-# AND THE TREE IS ASKED HOW IT IS DOING. `checks_now.py` runs every check against the tree —
-# 7-27 seconds, no build lock — and commits the verdict to `web/public/checks.json`, a deploying
-# path, so it colours the settings gear's dot on every page. Detached and behind its own
-# single-flight lock, as the publish above is: nothing here stands in front of the agent's next
-# tool call, and six sessions committing at once produce one reading of the newest tree.
-#
-# A RED CHANGES NOTHING ABOUT WHAT SHIPS. It rides out with the commit that caused it.
-nohup "$_py" "$root/tools/checks_now.py" \
-  >>"$root/.cache/checks-now.log" 2>&1 &
 exit 0
