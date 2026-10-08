@@ -1,0 +1,80 @@
+{
+ "title": "One-plug umbilical",
+ "lede": "Countertop version with neodymium. Real John Guest PP0408W unions and pogo pair, K&J B633 bars; the socket, plug and bundle are new.",
+ "view": {
+  "az": -70,
+  "el": 20
+ },
+ "frame": "each",
+ "sync": true,
+ "panels": [
+  {
+   "name": "Machine side",
+   "caption": "Four 1/4″ holes and the pogo on end with its two M1.4 screws. The B633 bars are sealed under 1.2 mm of PET-GF, so the face shows only those. Ø32.3 socket.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-panel.step",
+     "only": [
+      "back-panel-*",
+      "pogo-*",
+      "kj-b633-*"
+     ],
+     "ghost": [
+      "back-panel-carrier"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Plug",
+   "caption": "Ø31.7 end to end. Four 24.5 mm stubs and the pogo pads; the two B633 bars are sealed under the face.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-plug.step"
+    }
+   ]
+  },
+  {
+   "name": "Plugged in",
+   "caption": "The bars meet through both 1.2 mm covers, 2.4 mm apart. N faces out on one side and S on the other, so an upside-down plug pushes away instead of seating.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step"
+    }
+   ]
+  },
+  {
+   "name": "Behind the face",
+   "caption": "All four unions at one depth, 15.6 mm apart, collets 8.5 mm behind the face: the depth the pogo's M1.4 inserts and 8 mm screws need. The bars sit sealed in pockets in front of the unions, dropped in at a print pause like the cartridge's RC62s.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step",
+     "only": [
+      "*-union",
+      "*-stub",
+      "pogo-*",
+      "kj-b633-*",
+      "back-panel-*",
+      "umbilical-plug"
+     ],
+     "ghost": [
+      "back-panel-*",
+      "umbilical-plug"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Through the counter",
+   "caption": "The Ø31.7 plug in the 1⅜″ (Ø34.93) countertop hole: 1.6 mm a side.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-counter.step",
+     "ghost": [
+      "countertop*"
+     ]
+    }
+   ]
+  }
+ ]
+}
