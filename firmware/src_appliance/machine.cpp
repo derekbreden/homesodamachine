@@ -59,6 +59,14 @@ static machine_policy::PumpTimer pumpTimer;
 static machine_policy::PrimeSession primeSession;
 static bool primeRunUsesSession = false;
 static bool primeEventUsesSession = false;
+static bool primeIoFaulted = false;
+static uint32_t primeFaultElapsedMs = 0;
+static uint32_t primeLastReedMs = 0;
+
+static uint32_t pumpingElapsedNow(uint32_t now) {
+    return hold == HOLD_PRIME && primeIoFaulted
+        ? primeFaultElapsedMs : pumpTimer.elapsedMs(now);
+}
 
 // Everything that reaches a load. Parked as inputs, which is dark: a DRV8870
 // IN1 coasts on the driver's own pull-down and a Teyleten opto with no drive
@@ -308,6 +316,16 @@ static void pumpPark(uint8_t channel) {
     pinMode(kPump[channel].pin, INPUT);       // back to the boot parking
 }
 
+// Expander faults park valves inside the driver, including faults discovered
+// by a console health read or the cold loop. Stop the held pump first, without
+// another bus call; machineService publishes its terminal state afterward.
+static void primeBeforeFaultPark() {
+    if (state != ST_PUMPING || hold != HOLD_PRIME) return;
+    if (!primeIoFaulted) primeFaultElapsedMs = pumpTimer.elapsedMs(millis());
+    primeIoFaulted = true;
+    pumpPark(channelNow);
+}
+
 static const char *primeStateName(uint8_t s) {
     switch (s) {
         case PRIME_RUNNING: return "running";
@@ -347,9 +365,22 @@ static void endPumping(uint8_t primeState, uint32_t ran) {
     uint8_t  ch  = channelNow;
     PumpHold why = hold;
     const bool sessionRun = primeRunUsesSession;
+    if (why == HOLD_PRIME && primeIoFaulted) ran = primeFaultElapsedMs;
 
     pumpTimer.stop();
     pumpPark(ch);
+    if (why == HOLD_PRIME) {
+        // A fault has already stopped the pump and attempted its valve park.
+        // Preserve that driver's fault details when its park was verified.
+        if (primeIoFaulted || !pcba::expanders().initialized()) {
+            primeState = PRIME_REFUSED;
+            if (!pcba::expanders().outputsKnownParked()) pcba::expanders().parkAll();
+        } else if (!applyOutputs(0)) {
+            primeState = PRIME_REFUSED;
+            if (!pcba::expanders().outputsKnownParked()) pcba::expanders().parkAll();
+        }
+        primeIoFaulted = false;
+    }
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
 
@@ -357,11 +388,11 @@ static void endPumping(uint8_t primeState, uint32_t ran) {
         primeSession.pumpStopped(primeOutcome(primeState), ran);
         // The mirror of the engage. A finger that MEANT to lift already knows, but
         // one that slid off the pad does not — PRESS_LOST ends a hold exactly as a
-        // lift does, and a pump spinning down sounds the same either way. The two
-        // endings below are the machine deciding rather than the finger, and they
-        // get the fault pattern instead: the display stopped answering, or the
-        // ceiling arrived under a finger that was still holding.
-        if (primeState == PRIME_TIMEOUT || primeState == PRIME_LIMIT) soundPlay(SND_FAULT);
+        // lift does, and a pump spinning down sounds the same either way.
+        // Machine-decided endings get the fault pattern: the display stopped
+        // answering, the ceiling arrived, or the run became unsafe.
+        if (primeState == PRIME_TIMEOUT || primeState == PRIME_LIMIT ||
+            primeState == PRIME_REFUSED) soundPlay(SND_FAULT);
         else                                                          soundPlay(SND_RELEASE);
         primeEventUsesSession = sessionRun;
         announce(primeState, ch, ran);
@@ -375,7 +406,21 @@ static void endPumping(uint8_t primeState, uint32_t ran) {
 }
 
 static void endPumping(uint8_t primeState) {
-    endPumping(primeState, pumpTimer.elapsedMs(millis()));
+    endPumping(primeState, pumpingElapsedNow(millis()));
+}
+
+static void primeSafetyService(uint32_t now) {
+    if (state != ST_PUMPING || hold != HOLD_PRIME) return;
+    if (primeIoFaulted || machineGasTripped() || !pcba::expanders().initialized()) {
+        endPumping(PRIME_REFUSED);
+        return;
+    }
+    // Prime draws from a reservoir, so refresh its level and exercise the
+    // same reed/I/O fault path as the other operations that move a level.
+    if (now - primeLastReedMs >= machine_policy::kFillReedPeriodMs) {
+        primeLastReedMs = now;
+        if (!readReeds()) endPumping(PRIME_REFUSED);
+    }
 }
 
 // ── The funnel fill ───────────────────────────────────────────────────────
@@ -1191,7 +1236,9 @@ static void pourService(uint32_t now) {
 }
 
 bool machineIsPouring()          { return state == ST_POURING; }
-bool machineDispenseWindowOpen() { return state == ST_POURING; }
+bool machineDispenseWindowOpen() {
+    return state == ST_POURING || (state == ST_PUMPING && hold == HOLD_PRIME);
+}
 uint32_t machinePourCycles()     { return pourCycles; }
 uint32_t machineFlowPulsesTotal() { return flowTotal; }
 
@@ -1401,11 +1448,14 @@ void machineFlowSimulate(uint32_t pulses, uint32_t ms) {
 }
 
 // What the running operation is doing to a reservoir's level: a fill or a
-// clean water fill raises it, a flush or a purge's Out step draws it down,
+// clean water fill raises it, a prime, flush or purge's Out step draws it down,
 // and nothing else moves it.
 static machine_policy::LevelMotion levelMotionFor(uint8_t channel) {
     using machine_policy::LevelMotion;
     switch (state) {
+        case ST_PUMPING:
+            return hold == HOLD_PRIME && channelNow == channel && !primeIoFaulted
+                       ? LevelMotion::Falling : LevelMotion::Still;
         case ST_FILLING:
             return fillChannel == channel ? LevelMotion::Rising : LevelMotion::Still;
         case ST_CLEANING:
@@ -1562,6 +1612,8 @@ void machineBegin() {
     primeSession = machine_policy::PrimeSession();
     primeRunUsesSession = false;
     primeEventUsesSession = false;
+    primeIoFaulted = false;
+    pcba::expanders().beforeFaultPark(primeBeforeFaultPark);
     fillDrawing  = false;
     fillParkAtMs = 0;
     fillOutcome  = FILL_OUTCOME_NONE;
@@ -1599,7 +1651,7 @@ static void primeSessionLeaseService(uint32_t now) {
 
     const machine_policy::PrimeSessionSnapshot snapshot = primeSession.snapshot();
     const uint32_t elapsed = snapshot.phase == machine_policy::PrimeSessionPhase::Running
-        ? pumpTimer.elapsedMs(now)
+        ? pumpingElapsedNow(now)
         : snapshot.elapsed_ms;
     if (!primeSession.cancel(snapshot.session_token,
                              machine_policy::PrimeSessionOutcome::LeaseExpired,
@@ -1619,6 +1671,7 @@ void machineService() {
     gasService();
     const uint32_t now = millis();
     primeSessionLeaseService(now);
+    primeSafetyService(now);
     fillService(now);
     cleanService(now);
     airService(now);
@@ -1629,8 +1682,13 @@ void machineService() {
     refillService(now);
     reedIdleService(now);
     if (state != ST_PUMPING) return;
+    // A cold-loop valve/fan write can discover a fault later in this pass.
+    if (hold == HOLD_PRIME && (primeIoFaulted || !pcba::expanders().initialized())) {
+        endPumping(PRIME_REFUSED);
+        return;
+    }
 
-    const uint32_t elapsed = pumpTimer.elapsedMs(now);
+    const uint32_t elapsed = pumpingElapsedNow(now);
     if (hold == HOLD_PRIME) {
         if (now - lastHoldNoteMs >= HOLD_NOTE_MS) {
             lastHoldNoteMs = now;
@@ -1663,11 +1721,26 @@ static bool claimPump(uint8_t channel, PumpHold why, uint32_t requestedMs = 0,
                       uint32_t *acceptedMs = nullptr) {
     if (channel > 1)         return false;
     if (state != ST_IDLE)    return false;   // one operation at a time is the interlock
-    if (!pumpDrive(channel)) return false;   // no LEDC channel free
+    if (why == HOLD_PRIME) {
+        if (machineGasTripped() || !pcba::expanders().initialized() || !readReeds())
+            return false;
+        const machine_policy::ActuatorPlan plan = machine_policy::canonicalPlan(
+            channel == 0 ? machine_policy::Operation::DispenseA
+                         : machine_policy::Operation::DispenseB);
+        if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
+            !applyOutputs(plan.valves)) return false;
+    }
+    if (!pumpDrive(channel)) {
+        // A failed motor attachment must leave the wet path valve-locked.
+        if (why == HOLD_PRIME && !applyOutputs(0)) pcba::expanders().parkAll();
+        return false;
+    }
 
     const uint32_t now = millis();
     if (why == HOLD_PRIME) {
         pumpTimer.beginPrime(now);
+        primeLastReedMs = now;
+        primeIoFaulted = false;
     } else {
         const uint32_t accepted = pumpTimer.beginBounded(now, requestedMs);
         if (acceptedMs) *acceptedMs = accepted;
@@ -1731,7 +1804,7 @@ bool machinePrimeSessionCancel(uint32_t sessionToken,
                                bool tombstonePendingActivation) {
     const machine_policy::PrimeSessionSnapshot snapshot = primeSession.snapshot();
     const uint32_t elapsed = snapshot.phase == machine_policy::PrimeSessionPhase::Running
-        ? pumpTimer.elapsedMs(millis())
+        ? pumpingElapsedNow(millis())
         : snapshot.elapsed_ms;
     if (!primeSession.cancel(sessionToken,
                              machine_policy::PrimeSessionOutcome::Canceled,
@@ -1804,7 +1877,7 @@ void machineReadPrimeSessionState(MachinePrimeSessionState &session) {
     session.owner = static_cast<uint8_t>(snapshot.owner);
     session.outcome = static_cast<uint8_t>(snapshot.outcome);
     session.elapsedMs = snapshot.phase == machine_policy::PrimeSessionPhase::Running
-        ? pumpTimer.elapsedMs(millis())
+        ? pumpingElapsedNow(millis())
         : snapshot.elapsed_ms;
     session.revision = snapshot.revision;
     session.sessionToken = snapshot.session_token;
@@ -1859,6 +1932,6 @@ uint8_t      machinePumpChannel()   {
     }
 }
 uint32_t     machinePumpElapsedMs() {
-    return state == ST_PUMPING ? pumpTimer.elapsedMs(millis()) : 0;
+    return state == ST_PUMPING ? pumpingElapsedNow(millis()) : 0;
 }
 const char  *machinePumpName(uint8_t channel) { return kPump[channel & 1].who; }

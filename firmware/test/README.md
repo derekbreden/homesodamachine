@@ -22,6 +22,12 @@ sweep of both channels that draws on no reservoir, and the purge that airs one a
 out. It also checks that Prime queries renew the main-board lease while giving queued J9
 announcements a turn, that snapshots stay fresh through a full queue at dark-display polling
 speed, and that discovery queries and direct hold/stop/cancel replies retain priority.
+`test_machine_prime` runs the production machine arbiter and expander driver with host
+GPIO, clock and I2C fakes. It checks wet Prime's reservoir dispense pairs, pump-before-valve
+stop ordering including expander faults, token/session retries and competing displays,
+cancel/disconnect/heartbeat/lease/ceiling endings, gas and I/O admission, the falling
+reservoir gauge, refill/pour exclusion and fan preservation. Console motor checks and the
+self-test remain individual motor loads. These tests do not establish physical wet operation.
 `test_pour_policy` checks the pour's cycle timing at 1:20, 1:6 and 1:24, the clamps either
 side of the flow reading and the floor and ceiling on the two phases, the sequence one pour
 walks — valves and pump opening on the first reading, each cycle's timing taken from the

@@ -116,6 +116,11 @@ public:
     // even after one stops answering.
     bool parkAll();
 
+    // Called before a fault closes expander outputs. The machine can first
+    // stop a separately driven pump; the handler must not use this bus or
+    // publish state. No handler is required by host-only expander callers.
+    void beforeFaultPark(void (*handler)()) { beforeFaultPark_ = handler; }
+
     // Applies an absolute logical output set. Removed outputs are written on
     // both expanders before any new output is added. Invalid masks, more than
     // three open solenoids, or any transfer/readback failure cause parkAll().
@@ -154,6 +159,7 @@ private:
     Fault lastFault_;
     uint8_t faultAddress_;
     uint8_t faultRegister_;
+    void (*beforeFaultPark_)();
 
     void clearFault();
     void setFault(Fault fault, uint8_t address, uint8_t reg);

@@ -10,10 +10,10 @@
 // the serial console, and the faucet when it exists all ask for a thing here,
 // and the three limits in main.cpp's header are held here.
 //
-// What is implemented today is one flavor pump turning — held from the glass,
-// or bounded from the console — the funnel fill, the clean cycle, the two air
-// cycles, the pour the flow meter opens, and the commissioning self-test that
-// walks every solenoid, the condenser fan and both pumps one load at a time.
+// A hold from the glass draws from its reservoir through the dispense valves;
+// a bounded console motor check drives only its pump. The funnel fill, clean
+// cycle, two air cycles, flow-meter pour, and commissioning self-test run here
+// too. The self-test walks every solenoid, the fan and both pumps one at a time.
 // The two MCP23017s are initialized fail-closed: every output is parked low and
 // the reed inputs have internal pull-ups. Both relays are driven from here:
 // relay #1 by the cold loop against the two 1-wire probes, relay #2 by the
@@ -21,7 +21,7 @@
 
 enum MachineState : uint8_t {
     ST_IDLE,      // nothing driven
-    ST_PUMPING,   // one flavor pump turning
+    ST_PUMPING,   // a wet held prime or a bounded console motor check
     ST_FILLING,   // a funnel fill: three valves open, that channel's pump drawing
     ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
     ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
@@ -119,6 +119,9 @@ void machineService();   // call every loop; the deadlines are read here
 // ── Intents ───────────────────────────────────────────────────────────────
 // Each answers whether the machine took it. A refusal is announced too, so a
 // caller that only listens still learns what happened.
+// Prime opens the selected reservoir's dispense pair before running its pump;
+// every ending stops the pump before closing the valves. Unverified I/O, a
+// gas alarm, or a busy machine refuse a hold; an I/O fault or gas trip ends it.
 bool machinePrimeBegin(uint8_t channel);
 void machinePrimeTick(uint8_t channel);
 void machinePrimeEnd();
@@ -198,7 +201,8 @@ void machineReadAirState(MachineAirState &state);
 // duty cycle machine_policy::Pour sets from the flow and the channel's ratio;
 // a cooldown with nothing flowing closes it. Nothing is injected while
 // another operation runs, while the expanders are unverified, or under the
-// gas alarm; the water still pours. Relay #2 stays off while the path is open.
+// gas alarm; the water still pours. Relay #2 stays off while a pour or held
+// prime has its dispense path open.
 bool machineIsPouring();
 bool machineDispenseWindowOpen();
 uint32_t machinePourCycles();     // pump bursts in the running or last pour

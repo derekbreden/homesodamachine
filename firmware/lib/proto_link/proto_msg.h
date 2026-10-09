@@ -655,7 +655,7 @@ constexpr uint8_t PRIME_RUNNING = 0;  // pump is turning
 constexpr uint8_t PRIME_STOPPED = 1;  // MSG_PRIME_STOP arrived
 constexpr uint8_t PRIME_TIMEOUT = 2;  // ticks stopped coming
 constexpr uint8_t PRIME_LIMIT   = 3;  // PRIME_MAX_MS reached
-constexpr uint8_t PRIME_REFUSED = 4;  // bad channel, or something else was already running
+constexpr uint8_t PRIME_REFUSED = 4;  // blocked hold, or a running hold became unsafe
 
 static_assert(PRIME_OUTCOME_STOPPED == PRIME_STOPPED, "prime stopped outcome drift");
 static_assert(PRIME_OUTCOME_TIMEOUT == PRIME_TIMEOUT, "prime timeout outcome drift");
