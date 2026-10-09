@@ -341,6 +341,27 @@ at 500000 for the duration of a session and drops back when it ends.
 
 `tools/boards.py` names each S3 on sight — every one reports its MAC as its USB serial number.
 
+## The bench, from the shell
+
+The boards and the camera on this Mac's USB are run and watched from the shell, with no hand on
+the glass.
+
+- **The main board's console** — `status`, `pump <a|b> [ms]`, `ui <page> [a|b] [go]`, `test`,
+  `wake`, `selftest` and the rest — is in [`src_appliance/README.md`](src_appliance/README.md).
+  Opening its CH340 port restarts the board; [`tools/panelcam-console.py`](/tools/panelcam-console.py)
+  waits out the restart and sends one line.
+- **The machine display's own console**, on its native USB, runs the pads' handlers without a
+  finger: `PRIME:START:<1|2>` / `PRIME:STOP`, `FILL:START:<1|2>`, `CLEAN:START:<1|2>`, `AIR:DRY`
+  ([`src_front/README.md`](src_front/README.md)). [`tools/firmware_live_check.py`](/tools/firmware_live_check.py)
+  runs the live checks through that port and never opens the main board's; `--prime a|b` holds
+  Prime for one second. [`tools/firmware_faucet_check.py`](/tools/firmware_faucet_check.py)
+  checks the faucet display through its own native USB and drives nothing
+  ([`test/README.md`](test/README.md)).
+- **The camera** is [`tools/panelcam.sh`](/tools/panelcam.sh): `shot front` photographs the
+  machine display onto its own 800×480 grid, and `aim front` refits the corners after the rig
+  moves. The frame is taken by `tools/panelcam-shot/PanelCamShot.app`, which holds the camera
+  permission; a shell cannot open the camera.
+
 ## Building and Flashing
 
 Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -e <env>` and
