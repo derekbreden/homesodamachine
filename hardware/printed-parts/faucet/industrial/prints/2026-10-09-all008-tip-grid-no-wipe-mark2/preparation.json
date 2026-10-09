@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Accepted; startup in progress",
+  "status": "Canceled by operator after reported early model-edge lifting",
   "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.3mf",
   "project_sha256": "96916e083f90d05e9faba194560df86fe7c98c4609b95e77b31ea4d8ddc7ab11",
   "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.gcode.3mf",
@@ -441,5 +441,18 @@
   "printer_job_id": "1324180997",
   "accepted_archive_name": "2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.gcode.3mf",
   "accepted_state": "PREPARE",
-  "start_notification_reported": true
+  "start_notification_reported": true,
+  "latest_observation": {
+    "observed_at": "2026-10-09T20:51:18.399065+00:00",
+    "task_id": "1324180997",
+    "job_id": "1324180997",
+    "subtask_name": "2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.gcode.3mf",
+    "gcode_state": "FAILED",
+    "layer_num": 0,
+    "total_layer_num": 4049,
+    "print_error": 0,
+    "hms": []
+  },
+  "physical_result_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/physical-result/physical-result.json",
+  "cancellation_quote": "I've stopped it."
 }

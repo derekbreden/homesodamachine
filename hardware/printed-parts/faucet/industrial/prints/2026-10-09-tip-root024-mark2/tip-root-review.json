@@ -1,0 +1,269 @@
+{
+  "method": "Native positive XY model extrusion only; modal object/feature tracking; arcs sampled by the repository native-path reader. Centerlines buffered by half commanded width. All Support* features excluded. Nominal coverage does not establish physical adhesion.",
+  "source_job": "1324180997",
+  "source_archive": "2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.gcode.3mf",
+  "baseline_all008_first_model_layer": {
+    "z": 0.2,
+    "heights": [
+      0.2
+    ],
+    "widths": [
+      0.449712
+    ],
+    "features": [
+      "Outer wall"
+    ],
+    "area": 1.339,
+    "bounds": [
+      181.1391,
+      192.3671,
+      183.8609,
+      192.9248
+    ],
+    "overlap_with_previous_percent": null
+  },
+  "candidate_layers": [
+    {
+      "z_mm": 0.2,
+      "height_mm": 0.2,
+      "nominal_model_bead_xy_area_mm2": 2.636043,
+      "bounds_xy_mm": [
+        180.36714400000002,
+        192.323144,
+        184.661856,
+        193.06567811196504
+      ],
+      "overlap_with_previous_model_layer_percent": null
+    },
+    {
+      "z_mm": 0.44,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 2.701613,
+      "bounds_xy_mm": [
+        180.283,
+        192.32299999999998,
+        184.739,
+        193.06581432726344
+      ],
+      "overlap_with_previous_model_layer_percent": 97.53540992961285
+    },
+    {
+      "z_mm": 0.68,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 6.956656,
+      "bounds_xy_mm": [
+        178.96099999999998,
+        192.19,
+        186.03900000000002,
+        193.50592669948406
+      ],
+      "overlap_with_previous_model_layer_percent": 38.834940351662894
+    },
+    {
+      "z_mm": 0.92,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 11.509216,
+      "bounds_xy_mm": [
+        178.047,
+        192.057,
+        186.948,
+        193.91496910071626
+      ],
+      "overlap_with_previous_model_layer_percent": 56.33781627874015
+    },
+    {
+      "z_mm": 1.16,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 17.383673,
+      "bounds_xy_mm": [
+        177.31799999999998,
+        191.923,
+        187.68300000000002,
+        194.3168086045646
+      ],
+      "overlap_with_previous_model_layer_percent": 64.29728905172321
+    },
+    {
+      "z_mm": 1.4,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 23.17129,
+      "bounds_xy_mm": [
+        176.702,
+        191.79,
+        188.306,
+        194.72581988475417
+      ],
+      "overlap_with_previous_model_layer_percent": 71.11620790571698
+    },
+    {
+      "z_mm": 1.64,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 30.517792,
+      "bounds_xy_mm": [
+        176.15099999999998,
+        191.65699999999998,
+        188.85500000000002,
+        195.1279400266536
+      ],
+      "overlap_with_previous_model_layer_percent": 74.6218224571316
+    },
+    {
+      "z_mm": 1.88,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 38.172651,
+      "bounds_xy_mm": [
+        175.643,
+        191.524,
+        189.35500000000002,
+        195.52294960228173
+      ],
+      "overlap_with_previous_model_layer_percent": 79.07933834991742
+    },
+    {
+      "z_mm": 2.12,
+      "height_mm": 0.24,
+      "nominal_model_bead_xy_area_mm2": 44.279565,
+      "bounds_xy_mm": [
+        175.20499999999998,
+        191.39,
+        189.80200000000002,
+        195.91894050148628
+      ],
+      "overlap_with_previous_model_layer_percent": 82.90272604202322
+    },
+    {
+      "z_mm": 2.2,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 47.374253,
+      "bounds_xy_mm": [
+        174.926,
+        191.302,
+        190.074,
+        196.17894050148627
+      ],
+      "overlap_with_previous_model_layer_percent": 89.43785790352091
+    },
+    {
+      "z_mm": 2.28,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 48.930768,
+      "bounds_xy_mm": [
+        174.78200011028383,
+        191.25700011022735,
+        190.21799988977267,
+        196.3059500013275
+      ],
+      "overlap_with_previous_model_layer_percent": 94.32532741189164
+    },
+    {
+      "z_mm": 2.36,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 50.398485,
+      "bounds_xy_mm": [
+        174.65300006702114,
+        191.21300006702114,
+        190.33899993276418,
+        196.43197958663427
+      ],
+      "overlap_with_previous_model_layer_percent": 94.56763578605381
+    },
+    {
+      "z_mm": 2.44,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 51.807038,
+      "bounds_xy_mm": [
+        174.52800012763635,
+        191.16800012763633,
+        190.47299987236366,
+        196.56094050148627
+      ],
+      "overlap_with_previous_model_layer_percent": 94.67939369551387
+    },
+    {
+      "z_mm": 2.52,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 53.20695,
+      "bounds_xy_mm": [
+        174.40200007652936,
+        191.12400007652937,
+        190.59699992347063,
+        196.68697958663427
+      ],
+      "overlap_with_previous_model_layer_percent": 94.76925771916123
+    },
+    {
+      "z_mm": 2.6,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 54.552166,
+      "bounds_xy_mm": [
+        174.2820001445622,
+        191.07900014439275,
+        190.71799985560725,
+        196.81397974830028
+      ],
+      "overlap_with_previous_model_layer_percent": 94.950020365653
+    },
+    {
+      "z_mm": 2.68,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 55.840533,
+      "bounds_xy_mm": [
+        174.16600008609714,
+        191.03500008594142,
+        190.83399991405858,
+        196.94197958663426
+      ],
+      "overlap_with_previous_model_layer_percent": 95.06576949329556
+    },
+    {
+      "z_mm": 2.76,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 57.09737,
+      "bounds_xy_mm": [
+        174.04800009035486,
+        190.99100008996496,
+        190.95799991003503,
+        197.0699500013275
+      ],
+      "overlap_with_previous_model_layer_percent": 95.15031109100912
+    },
+    {
+      "z_mm": 2.84,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 58.311901,
+      "bounds_xy_mm": [
+        173.9320001683486,
+        190.9460001683486,
+        191.06599983143803,
+        197.19685249929893
+      ],
+      "overlap_with_previous_model_layer_percent": 95.24959524870981
+    },
+    {
+      "z_mm": 2.92,
+      "height_mm": 0.08,
+      "nominal_model_bead_xy_area_mm2": 59.400374,
+      "bounds_xy_mm": [
+        173.8240000996162,
+        190.90200009929356,
+        191.17699990070645,
+        197.32097974830026
+      ],
+      "overlap_with_previous_model_layer_percent": 95.36644748140446
+    }
+  ],
+  "single_change": {
+    "part": "faucet-shell-tip",
+    "layer_range_model_object_index": 2,
+    "print_z_range_mm": [
+      0,
+      2.12
+    ],
+    "key": "layer_height",
+    "source_mm": 0.08,
+    "candidate_mm": 0.24,
+    "first_bed_layer_mm": 0.2,
+    "above_range_mm": 0.08
+  },
+  "complete_early_tip_physical_result": "Not yet observed"
+}
