@@ -125,8 +125,10 @@ SYSTEM_ROOTS = {"tmp", "Users", "home", "opt", "usr", "var", "private", "etc", "
 # shape — `/tour/:step`, `/steps/*splat` — and stands for a family rather than a page.
 ROUTE_RE = re.compile(r"""\bapp\.get\(\s*["'](/[^"'\n]*)["']""")
 
+# The interactability study is a project of its own whose scripts name paths from its own
+# root (`tools/check-scene.mjs` is `future/ai-interactability-study/tools/check-scene.mjs`).
 SKIP_TREES = ("node_modules/", "tools/cad-venv/", "tools/pcb-venv/", "tools/video-venv/",
-              ".pio/", "bazel-")
+              ".pio/", "bazel-", "future/ai-interactability-study/")
 
 
 def _is_transcript(rel: str) -> bool:
