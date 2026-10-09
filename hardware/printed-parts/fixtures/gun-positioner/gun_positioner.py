@@ -21,7 +21,8 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[2] / "scripts"))
-from _material_base import M_PETGF_BLACK  # noqa: E402
+from _cadq_export import export_assembly  # noqa: E402
+from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
 T = 6.35
 LEAD = 2.0
 RATIO = 4
@@ -1263,7 +1264,7 @@ def build():
         if d['kind'] not in ('print','metal'):continue
         model=d['model']
         if not model.val().isValid():raise RuntimeError(f"InvalidCAD:{name}")
-        cq.exporters.export(model,str(HERE/'step'/f'{name}.step'))
+        export_assembly(one_body(model,name,cq.Color(*COLORS[d['material']])),HERE/'step'/f'{name}.step')
         cq.exporters.export(model,str(HERE/'stl'/f'{name}.stl'),tolerance=.03,angularTolerance=.1)
         row={k:v for k,v in d.items() if k!='model'}
         row.update(name=name,step=f'step/{name}.step',stl=f'stl/{name}.stl')
