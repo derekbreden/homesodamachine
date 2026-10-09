@@ -359,7 +359,7 @@
   "send_attempted": true,
   "submitted": true,
   "physical_finish_evaluated": false,
-  "physical_result_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json",
+  "physical_result_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/physical-result.json",
   "send_attempted_at_utc": "2026-10-09T15:39:49.725715+00:00",
   "accepted": true,
   "send_successful": true,
@@ -370,5 +370,5 @@
   "printer_job_id": "1323545051",
   "accepted_archive_name": "2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.gcode.3mf",
   "accepted_state": "PREPARE",
-  "status": "Accepted; startup in progress"
+  "status": "Failed; support collapse reported"
 }
