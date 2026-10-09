@@ -32,7 +32,7 @@
   "submitted": true,
   "auto_resume_authorized": false,
   "scheduled_monitor_requested": false,
-  "status": "Accepted",
+  "status": "Cancelled by user before leveling",
   "accepted_at_utc": "2026-10-09T05:18:36.738902+00:00",
   "accepted_at_central": "2026-10-09T00:18:36.738902-05:00",
   "printer_task_id": "1322263030",
@@ -57,20 +57,20 @@
   "latest_observation": {
     "printer": "Mark2",
     "read_alias": "Mark2",
-    "observed_at_utc": "2026-10-09T05:19:29.119685+00:00",
+    "observed_at_utc": "2026-10-09T05:24:04.954396+00:00",
     "task_id": "1322263030",
     "job_id": "1322263030",
     "subtask_name": "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
-    "gcode_state": "RUNNING",
+    "gcode_state": "FAILED",
     "layer_num": 0,
     "total_layer_num": 1408,
     "mc_percent": 0,
-    "mc_remaining_time": 361,
-    "print_error": 0,
+    "mc_remaining_time": 0,
+    "print_error": 50348044,
     "hms": [],
-    "stg_cur": 13,
-    "bed_temper": 43.0,
-    "bed_target_temper": 43.0,
+    "stg_cur": -1,
+    "bed_temper": 42.0,
+    "bed_target_temper": 0.0,
     "timelapse": "disable",
     "external_spools": [
       {
@@ -95,7 +95,7 @@
           "diameter": 0.4
         },
         "temperature": {
-          "actual_c": 47,
+          "actual_c": 45,
           "target_c": 0
         }
       },
@@ -107,13 +107,13 @@
           "diameter": 0.4
         },
         "temperature": {
-          "actual_c": 196,
-          "target_c": 200
+          "actual_c": 249,
+          "target_c": 0
         }
       }
     ],
     "chamber": {
-      "actual_c": 38,
+      "actual_c": 34,
       "target_c": 0
     }
   },
@@ -179,5 +179,79 @@
       "actual_c": 34,
       "target_c": 0
     }
-  }
+  },
+  "cancellation": {
+    "authority_quote": "I went ahead and stopped your job so you can start a new one with the lever, it hadn't even got to leveling yet.",
+    "observed_at_utc": "2026-10-09T05:24:04.954396+00:00",
+    "telemetry": {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T05:24:04.954396+00:00",
+      "task_id": "1322263030",
+      "job_id": "1322263030",
+      "subtask_name": "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 1408,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 50348044,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 42.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 45,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 249,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    "print_error_hex": "0300400C",
+    "catalog_definition": "The task was canceled.",
+    "replacement_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf",
+    "repeat_send_authorized": false,
+    "replacement_task_id": "1322285082",
+    "replacement_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf"
+  },
+  "forecast_active": false
 }
