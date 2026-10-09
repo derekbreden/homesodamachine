@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/organizer-mark2",
+  "--export-3mf",
+  "2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/umbilical-organizer-exploration/fit-trial-mark2/2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.3mf"
+]
