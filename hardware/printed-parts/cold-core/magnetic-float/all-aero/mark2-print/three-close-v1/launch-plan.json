@@ -1,0 +1,50 @@
+{
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "archive_sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+  "gcode_sha256": "047a630e8fbe64e0c9f7b5a31fab7b019592308bb32b78c46b1cefcce03c52a5",
+  "project": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.3mf",
+  "project_sha256": "8d192662daa771666a103ae2935cc730de23f311fe0e4c15c51eaef5c922b4f5",
+  "native_review_sha256": "b92abb5415a3181640b873a2810398e9fa823cb03cf9341843a11a72d3bb2569",
+  "pause_forecast_sha256": "c45f2f08e4cd22f3a9836f1dad3f84c5df8ba2c713e1067ca697c145c047554d",
+  "status": "Accepted",
+  "authorization_quotes": [
+    "Okay great, we have plenty of time then, start the print whenever you're ready.",
+    "And after starting the print, tell me when I will need to be there for the magnet.",
+    "(magnets)"
+  ],
+  "launch_authorized": true,
+  "maximum_send_transactions": 1,
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ],
+  "ui_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "probing_clump_detection": false
+  },
+  "send_attempted": true,
+  "send_attempted_at_utc": "2026-10-09T00:44:33.683026+00:00",
+  "accepted_at_utc": "2026-10-09T00:45:03.925326+00:00",
+  "monitor_scheduled": false,
+  "send_successful": true,
+  "send_count": 1,
+  "accepted_at_central": "2026-10-08T19:45:03.925326-05:00",
+  "printer_task_id": "1321804313",
+  "printer_job_id": "1321804313",
+  "accepted_archive_name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "start_notification_reported": true,
+  "start_notification_reported_at_utc": "2026-10-09T00:46:44.193566+00:00",
+  "accepted_time_scope": "First matching new-job acceptance recorded by the foreground sender.",
+  "insertion_pause_reported": false,
+  "pause_monitor_scheduled": false,
+  "automatic_resume_authorized": false
+}
