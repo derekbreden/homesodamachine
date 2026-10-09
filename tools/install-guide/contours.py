@@ -42,6 +42,8 @@ class Contours:
         self.color = color
         self.width = width
         self.pending = []
+        self.renderer_digest = hashlib.sha256(
+            Path(__file__).with_name('render-contours.mjs').read_bytes()).hexdigest()
         OUT.mkdir(parents=True, exist_ok=True)
 
     def picture(self, source, bounds, iw, ih, fade_crops=True):
@@ -56,6 +58,7 @@ class Contours:
         silhouette = raw
         lip = ''
         source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        source_digests = [source_digest]
         component_outline = ''
         component_defs = ''
         if source.name == 'opening.png':
@@ -82,6 +85,7 @@ class Contours:
                                  f'stroke-linejoin="round" stroke-linecap="round">{paths}</g></svg></g>')
         if source.name == 'pour-base.png':
             mask = source.parent / 'pour-glass-mask.png'
+            source_digests.append(hashlib.sha256(mask.read_bytes()).hexdigest())
             silhouette += f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="{mask.as_uri()}"/>'
             lip = f'<path d="{glass_lip((x,y,w,h))}" fill="none" stroke="{self.color}" stroke-width="{self.width}"/>'
 
@@ -116,7 +120,8 @@ class Contours:
         </mask>
         </defs><g mask="url(#mx)"><g mask="url(#my)"><g filter="url(#contour)">{silhouette}</g>{raw}{lip}{component_outline}</g></g>
         </svg></body></html>'''
-        digest = hashlib.sha256((body+source_digest).encode()).hexdigest()[:20]
+        digest = hashlib.sha256(
+            (body+''.join(source_digests)+self.renderer_digest).encode()).hexdigest()[:20]
         target = OUT / f'{digest}.png'
         if not target.exists():
             page = OUT / f'{digest}.html'
