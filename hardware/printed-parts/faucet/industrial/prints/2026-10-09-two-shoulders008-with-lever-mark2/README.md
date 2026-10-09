@@ -56,3 +56,8 @@ supported layers. Exterior lines/defects beside each screw point remain an open
 finish issue. The [native screw-point comparison and all-fine time estimate](../2026-10-09-all008-estimate-mark2/README.md)
 locate repeated outer-wall starts and stops at the rectangular insert-host
 reinforcement boundaries.
+
+The [complete 0.08 mm correction plate](../2026-10-09-all008-solid-foot-mark2/README.md)
+uses one six-wall solid foot region and Arachne widths on the base. Its native
+paths remove the repeated screw-region starts/stops and pass all three insert
+backing reviews. Physical exterior finish on that article remains unevaluated.
