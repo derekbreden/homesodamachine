@@ -2,8 +2,8 @@
   "/hardware/scripts/_ledger_totals.py": {
     "LEDGER_ACQUIRED_COMBINED": "$44,199.06",
     "LEDGER_ACQUIRED_HW": "$37,719.67",
-    "LEDGER_ESTIMATES": "$2,835.33",
-    "LEDGER_FINAL_VENDOR": "$9,583.56",
+    "LEDGER_ESTIMATES": "$1,706.33",
+    "LEDGER_FINAL_VENDOR": "$10,712.56",
     "LEDGER_GRAND_TOTAL": "$45,637.88",
     "LEDGER_LABOR": "$6,479.39",
     "LEDGER_LEGACY_UNVERIFIED": "$33,218.99",

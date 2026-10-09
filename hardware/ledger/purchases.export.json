@@ -940,13 +940,13 @@
       "vendor": "K&J Magnetics"
     },
     {
-      "checked_at": "2026-10-04",
+      "checked_at": "2026-10-09",
       "complete_period": null,
       "coverage": "partial",
       "coverage_id": "coverage-1c9926717ab0406190d964f145af545d",
       "evidence_type": "order_price_fulfillment",
       "examined_period": {
-        "end": "2026-10-04",
+        "end": "2026-10-09",
         "start": "2026-01-01"
       },
       "note": "Review of saved project ledger and named vendor sources only; no claim of complete merchant-account order or payment coverage.",
@@ -5449,16 +5449,18 @@
     },
     {
       "gap_id": "gap-b513fdee8791439ca43d36cdba1179f2",
-      "missing_fact": "exact placed date; merchant payment evidence; exact delivery date. 1129.00 order confirmation retrieved, but only notification dates and shipment-status update supplied.",
+      "missing_fact": "merchant payment evidence; exact delivery date. The order confirmation proves the USD 1,129.00 total and the 2026-02-01 order date; the 2026-02-06 shipment-status update states no delivery date.",
       "order_ids": [
         "lilium:1566"
       ],
       "purchase_ids": [
         "pur-f34a0cbf6ba74d11887b5ec0c8206984"
       ],
-      "source_ids": [],
+      "source_ids": [
+        "src-7148038d612540248b7e4db9017b1f8d"
+      ],
       "sources_checked": [
-        "2026-01-01 through 2026-10-04 order confirmation and shipment-status notices"
+        "Gmail, all dates: Liliumfaucet order 1566 confirmation (2026-02-01), shipment-status update (2026-02-06) and review request (2026-03-08)"
       ]
     },
     {
@@ -5580,7 +5582,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f6f0c116338232b37e05c4128a3f061920b142276eadd4677fc3ef1d10a781cd",
+  "input_fingerprint": "sha256:9b6d1786028462a9ae5f947d19e6f17a6c5501ed5701bd709f1a69554ea675ac",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13510,7 +13512,10 @@
     {
       "allocation_status": "all_project",
       "event_ids": [],
-      "order_date": null,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "order_id": "lilium:1566",
       "purchase_ids": [
         "pur-f34a0cbf6ba74d11887b5ec0c8206984"
@@ -43381,7 +43386,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 112900,
       "contributes": true,
       "currency": "USD",
@@ -43393,7 +43398,10 @@
       "ledger_purchase_id": "pur-f34a0cbf6ba74d11887b5ec0c8206984",
       "merchant_charge_allocated_minor": 0,
       "merchant_refund_allocated_minor": 0,
-      "order_date": null,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "order_ids": [
         "lilium:1566"
       ],
@@ -43405,7 +43413,10 @@
       "quantity_text": "1",
       "receipt_date": null,
       "record_role": "purchase",
-      "row_date": null,
+      "row_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "row_date_basis": "order_date",
       "section": "2. CO2 subsystem",
       "service_period": null,
@@ -52565,16 +52576,20 @@
       "verified_at": "2026-10-04"
     },
     {
-      "document_date": null,
+      "document_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "document_type": "order_confirmation",
-      "note": "Only project line evidence published; confirmation notification timestamp is not an exact placed date.",
+      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110–120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated.",
       "proves": [
-        "price"
+        "price",
+        "order_date"
       ],
       "reference": "1566",
       "source_id": "src-7148038d612540248b7e4db9017b1f8d",
       "vendor": "Lillium",
-      "verified_at": "2026-10-04"
+      "verified_at": "2026-10-09"
     },
     {
       "document_date": {
@@ -55556,7 +55571,7 @@
           "currency": "USD",
           "estimate_minor": 0,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 0,
+          "final_vendor_amount_minor": 112900,
           "legacy_unverified_minor": 127440,
           "month": "2026-02",
           "purchase_ids": [
@@ -55615,11 +55630,12 @@
             "pur-d4adc853109e40bb8d221d35850778a1",
             "pur-d53a0cd0b7bd411ba9fb2c18b43ff15c",
             "pur-dde3fb13bc1848948e853aa0cf358c04",
+            "pur-f34a0cbf6ba74d11887b5ec0c8206984",
             "pur-f388c05169ab4897ac280a4f223c0c5f",
             "pur-f70555b4b44a48bfb6a721df7ce9c67a",
             "pur-fb6f485b48b34426b671478c8513a450"
           ],
-          "total_minor": 127440,
+          "total_minor": 240340,
           "unknown_amount_ids": []
         },
         {
@@ -56261,8 +56277,8 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 283533,
-          "final_vendor_amount_minor": 958356,
+          "estimate_minor": 170633,
+          "final_vendor_amount_minor": 1071256,
           "legacy_unverified_minor": 3321899,
           "total_minor": 4563788
         }
@@ -56270,7 +56286,7 @@
       "undated_unallocated": [
         {
           "currency": "USD",
-          "estimate_minor": 134378,
+          "estimate_minor": 21478,
           "final_vendor_amount_minor": 673223,
           "legacy_unverified_minor": 223633,
           "purchase_ids": [
@@ -56383,14 +56399,13 @@
             "pur-ebad0d868fbc408e936f0fe9925474b2",
             "pur-ee24b4d0aad04c8c9d937c573a2edee3",
             "pur-f10cde8ae10f42f2bd7058cbee72b609",
-            "pur-f34a0cbf6ba74d11887b5ec0c8206984",
             "pur-f87e1857e1274f4399e5b2dbd2ea0680",
             "pur-fae26b5fdf05431a9cf22b914afcb168",
             "pur-fbeb6d70584a4d0fba20a4e555a33932",
             "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
             "pur-fed6d00353fc4faab696ce743483e8b4"
           ],
-          "total_minor": 1031234,
+          "total_minor": 918334,
           "unknown_amount_ids": []
         }
       ]
@@ -56417,14 +56432,14 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 283533,
+          "estimated_purchase_minor": 170633,
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
           "purchases_without_merchant_charge_minor": 3855553,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
-          "undated_unallocated_purchase_minor": 1031234,
+          "undated_unallocated_purchase_minor": 918334,
           "unknown_amount_event_count": 0,
           "unknown_amount_purchase_count": 0,
           "unresolved_allocation_purchase_minor": 0,
@@ -56444,8 +56459,7 @@
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
-        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
-        "pur-f34a0cbf6ba74d11887b5ec0c8206984"
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
       ],
       "incomplete_coverage_ids": [
         "coverage-008d521abab24498bf9db4a8c5993e38",
@@ -57714,7 +57728,6 @@
         "pur-ebad0d868fbc408e936f0fe9925474b2",
         "pur-ee24b4d0aad04c8c9d937c573a2edee3",
         "pur-f10cde8ae10f42f2bd7058cbee72b609",
-        "pur-f34a0cbf6ba74d11887b5ec0c8206984",
         "pur-f87e1857e1274f4399e5b2dbd2ea0680",
         "pur-fae26b5fdf05431a9cf22b914afcb168",
         "pur-fbeb6d70584a4d0fba20a4e555a33932",
