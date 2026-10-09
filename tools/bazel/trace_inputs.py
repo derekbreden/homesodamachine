@@ -69,30 +69,41 @@ def _keep(into, path):
 # `_cadq_export._sweep_orphan_temps` globs the target's directory to unlink the temps a
 # SIGKILLed build left behind, and `_matches_existing_target` compares the target's bytes to
 # decide whether the rename is a no-op. A glob scans and a compare opens, so untold apart they
-# both arrive as reading — and the scan is the expensive half, because a scanned directory is
-# taken below as an input area whole. A generator would read the solid it writes, its own
+# both arrive as reading — and the scan is the expensive half, because every file a scanned
+# directory holds is taken below as read. A generator would read the solid it writes, its own
 # thumbnail, the README beside it, and the sibling assembly shelved in the same folder.
 WRITE_MACHINERY = ("_sweep_orphan_temps", "_matches_existing_target")
 
-def _by_write_machinery():
-    """Whether `_cadq_export`'s write bookkeeping is what reached the disk here.
+# A PIECE FINDER LISTS A FOLDER TO PICK THE PIECES IT THEN OPENS. `flute_payload.pieces` globs
+# each printed-part folder for a `*.step` with an `.stl` beside it, and `flute_payload.payloads`
+# for the `*.step.mesh` a graft lands in; the solid and payload of every piece kept are opened,
+# and read, in their own right. The rest of the folder — its README, its print log, the records
+# filed beside the part — is nothing a piece is cut from.
+PIECE_FINDERS = ("pieces", "payloads")
 
-    Both calls land under `glob` or `filecmp`, so the frame that raised the event never names
-    the one that meant it — the stack is walked to find it. Bounded, because both sit within a
-    few frames of the call they make, and entered only for a path inside this tree.
+def _on_stack(names, module):
+    """Whether a function `names` holds, defined in `module`, is what reached the disk here.
+
+    The call lands under `glob` or `filecmp`, so the frame that raised the event never names
+    the one that meant it — the stack is walked to find it. Bounded, because each sits within
+    a few frames of the call it makes, and entered only for a path inside this tree.
     """
     try:
         f = sys._getframe(1)
     except ValueError:
         return False
-    for _ in range(8):
+    for _ in range(10):
         if f is None:
             return False
         code = f.f_code
-        if code.co_name in WRITE_MACHINERY and code.co_filename.endswith("_cadq_export.py"):
+        if code.co_name in names and code.co_filename.endswith(module):
             return True
         f = f.f_back
     return False
+
+def _by_write_machinery():
+    """Whether `_cadq_export`'s write bookkeeping is what reached the disk here."""
+    return _on_stack(WRITE_MACHINERY, "_cadq_export.py")
 
 def _hook(event, args):
     # `open` is most of it, and its mode says which side of the edge it is. `import` is the
@@ -117,18 +128,17 @@ def _hook(event, args):
                     _keep(read, a)
             except (TypeError, ValueError):
                 pass
-    # A DIRECTORY THIS RUN GLOBS names its files without opening one. `_build.py` asks its
-    # own directory for `*.html` to know which cards there are; `Path.glob` scans and nothing
-    # is read until node opens them, out of sight.
+    # A DIRECTORY THIS RUN GLOBS names its files without opening one, and which files stand
+    # there is part of what the run read: `flute_payload.pieces` takes each `*.step` in a piece
+    # folder that has an `.stl` beside it.
     #
     # A DIRECTORY THE IMPORT MACHINERY SCANS IS NOT ONE THIS RUN GLOBBED. Python lists every
-    # `sys.path` entry to find the module it is about to load, and a scan is read below as an
-    # input area whole — so the entries a generator inserts arrived as every tracked file
-    # beneath them: `tools/` for `docgen`, 61 files into 77 of the hundred targets, the CAD
-    # venv and sixteen animation frames among them; `hardware/scripts/` for the shared machinery,
-    # 29 into 103; and the run's own directory, which for a doc sync is `hardware/assembly/`
-    # entire, 401 files. What an import reads is the module, which the `import` event below
-    # names outright, and `exec` names the ones loaded by path.
+    # `sys.path` entry to find the module it is about to load, and a scan's files are read
+    # below — so every entry a generator inserts would arrive as files it never opened:
+    # `tools/` for `docgen`, `hardware/scripts/` for the shared machinery, and the run's own
+    # directory, which for a doc sync is `hardware/assembly/`. What an import reads is the
+    # module, which the `import` event below names outright, and `exec` names the ones loaded
+    # by path.
     #
     # TWO PARTS OF THAT MACHINERY WALK `sys.path` AND THEY DO NOT LOOK ALIKE FROM HERE. The
     # finder runs frozen, so its frame is `<frozen importlib._bootstrap_external>`; the
@@ -141,7 +151,8 @@ def _hook(event, args):
         except ValueError:
             by = ""
         if not (by.startswith("<frozen importlib") or "/importlib/" in by) \
-                and not _by_write_machinery():
+                and not _by_write_machinery() \
+                and not _on_stack(PIECE_FINDERS, "flute_payload.py"):
             _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
@@ -266,12 +277,14 @@ def trace(gen: str, files: set, argv=()) -> dict:
         # The runner left no reading: killed, or stopped before its own `finally`.
         return {"reads": [], "writes": [], "raised": "no reading"}
     out = _filtered(seen, files)
-    # A SCANNED DIRECTORY IS AN INPUT AREA, and what it holds below the top counts. `_build.py`
-    # globs its own directory for `*.html` and hands each card to a browser, which resolves
-    # `tools.css` and `img/tool/*.png` against it — reads no scan and no `open` here sees.
-    here = tuple(d + "/" for d in seen.get("scanned", ()))
+    # A SCANNED DIRECTORY IS READ FOR ITS OWN ENTRIES. A listing names the files standing in
+    # that folder and nothing in the folders beneath it: `flute_payload` globs
+    # `enclosure/enclosure/*.step`, and the print records filed under it are not what the
+    # appliance is cut from. A walk scans each directory it enters, so a reader that descends
+    # still has every level counted.
+    here = set(seen.get("scanned", ()))
     if here:
-        out["reads"] |= {f for f in files if f.startswith(here)}
+        out["reads"] |= {f for f in files if os.path.dirname(f) in here}
     answer = {k: sorted(v) for k, v in out.items()}
     if seen.get("raised"):
         answer["raised"] = seen["raised"]

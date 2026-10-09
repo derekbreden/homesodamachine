@@ -260,6 +260,11 @@ def pieces(directories=PIECES_DIRS):
     return out
 
 
+def payloads(directories=PIECES_DIRS):
+    """Every surface payload standing in `directories` — what `main` grafts the cut pieces into."""
+    return [path for directory in directories for path in sorted(directory.glob("*.step.mesh"))]
+
+
 def surfaces(directories=PIECES_DIRS):
     """The fluted surfaces standing on this disk, keyed by the name a payload holds them under.
 
@@ -715,14 +720,13 @@ def main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
     # `assembly/scenes/render_scenes.py` for each bench scene — so nothing here walks the tree
     # looking for them, and this reads only the directories it was handed.
     cut_here = {step.name + ".mesh" for step, _ in found}
-    for directory in directories:
-        for path in sorted(directory.glob("*.step.mesh")):
-            if path.name in cut_here:
-                continue
-            landed = graft(path, fluted)
-            if landed:
-                print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
-                      f"{path.stat().st_size / 1e6:.2f} MB")
+    for path in payloads(directories):
+        if path.name in cut_here:
+            continue
+        landed = graft(path, fluted)
+        if landed:
+            print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
+                  f"{path.stat().st_size / 1e6:.2f} MB")
     return 0
 
 
