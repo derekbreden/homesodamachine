@@ -53,39 +53,39 @@
     "hardware/scripts/_routing.py": "bed6ac3add88ca1912958fe3ebeec092a88181c8d55f2287d798d44160e2a048",
     "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
     "hardware/scripts/_stated_bounds.py": "aceb3e758743cfeb90e79c235a161898388ce8b4ad309bcc4839964fbfd86741",
-    "hardware/scripts/check_core_and_faucet_heatsets.py": "a5955b7ef5f67ca9609fd5c78ed6b0d9943737fcabf807bb2270d320d6d1828f",
+    "hardware/scripts/check_core_and_faucet_heatsets.py": "144e3852a7b8b046daa2881b3cd85fbe24204e5f1d7428f1d0004823d96a6e43",
     "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
   },
   "solids": {
     "foam-shell": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 1264096.1271160515
+      "volume_mm3": 1264096.1
     },
     "foam-cap-top": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 148247.8609612742
+      "volume_mm3": 148247.9
     },
     "reservoir-right": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 303777.3162198273
+      "volume_mm3": 303777.3
     },
     "reservoir-left": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 303777.31623413507
+      "volume_mm3": 303777.3
     },
     "faucet-shell-base": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 127967.6794337548
+      "volume_mm3": 127967.7
     },
     "pcba-bench-tray": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 19349.573403523278
+      "volume_mm3": 19349.6
     }
   },
   "pockets": [
