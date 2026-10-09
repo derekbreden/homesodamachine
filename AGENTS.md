@@ -47,6 +47,15 @@ For hardware optimizations, identify the customer outcome, supporting evidence a
 Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
 Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
 
+## What Runs Every Time
+
+"Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.
+
+- Nothing joins that path unless I asked for that specific thing: no hook, gate, scorecard row, build-stopping assertion or verification step added because it seems safer.
+- A check runs when someone asks the question it answers, not because a file changed.
+- In your own loop, check what the change touched, once. Don't re-run the machine's checks after every small edit.
+- Taking something off that path needs no defense beyond its cost.
+
 ## Privacy
 
 This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
