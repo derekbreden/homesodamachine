@@ -35,6 +35,8 @@ PAD = "#EBC77D"
 PCB = "#30353D"
 SOURCES = [
     FU, SHELL, SEALS,
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+    "hardware/faucet-layout/faucet_assembly.py",
     "hardware/reference/touch-flo-faucet/display-reference/README.md",
     "hardware/wiring/ac-wiring-schedule.md",
     "hardware/assembly/wiring.md",
@@ -146,37 +148,63 @@ def board(a, x, y, scale=1, connected=False):
                 label(names[i],113,yy+2.4,4.8,"#DCE2EB","right")
 
 
+def installed_orientation_art(a, y=0):
+    """Side section: USB at the outlet, opposite end up the gooseneck."""
+    a.rect(8,y,504,87,ICE,RULE)
+    a.label("INSTALLED: USB-C TOWARD THE DISPENSE FACE",20,y+18,11,BLUE,font="PlexBold")
+    # Straight dispense tip at left, rising gooseneck at right.
+    a.shape([(180,y+55),(270,y+55),(296,y+47),(316,y+30),
+             (326,y+23),(342,y+23),(330,y+44),(308,y+63),
+             (272,y+74),(180,y+74)],STEEL)
+    a.line(180,y+55,180,y+74,BLUE,3)
+    # Glass, PCB and USB socket all have their outlet end at left.
+    a.rect(186,y+33,90,4,"#B7DAF1",BLUE)
+    a.rect(186,y+37,90,12,PCB,PCB)
+    a.rect(178,y+41,14,8,BRASS,INK)
+    a.line(179,y+44,185,y+44,INK,2)
+    a.label("display",234,y+29,9,MUTED,align="center")
+    a.label("USB-C",24,y+45,12,ORANGE,font="PlexBold")
+    a.arrow(112,y+43,177,y+45,ORANGE,1.8,5)
+    a.label("dispense face",24,y+73,11,BLUE)
+    a.arrow(135,y+68,177,y+65,BLUE,1.5,5)
+    a.label("gooseneck",378,y+45,12,BLUE)
+    a.arrow(370,y+49,330,y+37,BLUE,1.5,5)
+
+
 def wiring_art(a):
     a.label("REAR / COMPONENT SIDE",14,24,12,BLUE)
     a.label("Glass faces away from you",14,43,11,MUTED,font="Plex")
-    board(a,335,20,1,True)
+    board(a,335,20,.8,True)
     rows = [
-        ("+5 V to VBUS", "P1 pin 1  ·  main board J3 V5", 82, 96, ORANGE),
-        ("0 V to GND", "P1 pin 3  ·  main board J3 GND", 140, 110.6, MUTED),
-        ("TX to main board RX", "P1 pin 5  ·  GPIO43 to J3 IO35", 198, 125.2, BLUE),
-        ("RX from main board TX", "P1 pin 7  ·  GPIO44 from J3 IO33", 256, 139.8, PURPLE),
+        ("+5 V to VBUS", "P1 pin 1  ·  main board J3 V5", 76, 80.8, ORANGE),
+        ("0 V to GND", "P1 pin 3  ·  main board J3 GND", 124, 92.48, MUTED),
+        ("TX to main board RX", "P1 pin 5  ·  GPIO43 to J3 IO35", 172, 104.16, BLUE),
+        ("RX from main board TX", "P1 pin 7  ·  GPIO44 from J3 IO33", 220, 115.84, PURPLE),
     ]
     for label,sub,y,pady,ink in rows:
         a.label(label,14,y,17,ink,font="PlexBold")
         a.label(sub,14,y+17,10.3,MUTED,font="Plex")
-        a.shape([(257,y-5),(282,y-5),(354,pady)],None,ink,2,False)
-        a.ellipse(349,pady-5,10,10,None,ink,2)
-    a.label("USB-C at the TOP",405,312,12,BLUE,align="center")
-    a.label("Top four LEFT pads",14,310,12,BLUE)
+        a.shape([(257,y-5),(282,y-5),(350.2,pady)],None,ink,2,False)
+        a.ellipse(346.2,pady-4,8,8,None,ink,2)
+    a.label("USB-C UP ON BENCH",391,252,10.5,BLUE,align="center")
+    a.label("Top four LEFT pads",14,252,12,BLUE)
+    installed_orientation_art(a,266)
 
 
 def write_wiring_svg():
     a=SvgArt()
     wiring_art(a)
     (GUIDE / "display-wiring.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="652" viewBox="0 0 520 326" '
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="724" viewBox="0 0 520 362" '
         'role="img" aria-labelledby="title desc">\n'
         '<title id="title">Faucet display wiring, rear view with USB-C at top</title>\n'
         '<desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are '
         'VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. Connect main board J3 V5 to VBUS; '
         'GND to GND; IO35 RX to display GPIO43 TX; IO33 TX to display GPIO44 RX. '
-        'Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored.</desc>\n'
-        '<rect width="520" height="326" fill="#FFFFFF"/>\n'
+        'Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. '
+        'In the installed faucet, USB-C points toward the dispense face; the opposite end '
+        'points up the gooseneck. The inset shows this in a side section.</desc>\n'
+        '<rect width="520" height="362" fill="#FFFFFF"/>\n'
         '<g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">\n'
         + "\n".join(a.parts) + '\n</g>\n</svg>\n')
 
@@ -439,34 +467,37 @@ def solder_art(a):
 
 
 def display_art(a):
+    installed_orientation_art(a)
     for i,(x,label) in enumerate([(12,"1  DISPLAY INTO COVER"),(185,"2  SLIDE FROM OUTLET"),(359,"3  LOWER TO SEAT")]):
-        a.rect(x,16,155,248,PAPER,RULE)
-        a.label(label,x+77,39,8.8,BLUE,align="center")
-        a.shape([(x+28,181),(x+130,181),(x+130,222),(x+28,222)],STEEL)
+        a.rect(x,101,155,192,PAPER,RULE)
+        a.label(label,x+77,122,8.8,BLUE,align="center")
+        a.shape([(x+28,240),(x+130,240),(x+130,261),(x+28,261)],STEEL)
         for xx in [x+39,x+112]:
-            a.rect(xx,167,9,14,STEEL)
+            a.rect(xx,229,9,11,STEEL)
         if i==0:
-            a.shape([(x+39,79),(x+39,63),(x+116,63),(x+116,79)],None,ORANGE,9,False)
-            a.rect(x+42,103,71,18,PCB)
-            a.arrow(x+76,95,x+76,82,BLUE)
-            a.arrow(x+45,79,x+28,79,BLUE,1.5)
-            a.arrow(x+110,79,x+130,79,BLUE,1.5)
-            a.label("spread plastic wings",x+77,245,9,MUTED,align="center")
+            a.shape([(x+39,170),(x+39,153),(x+116,153),(x+116,170)],None,ORANGE,9,False)
+            a.rect(x+42,194,71,16,PCB)
+            a.rect(x+34,198,12,8,BRASS,INK)
+            a.arrow(x+76,185,x+76,173,BLUE)
+            a.arrow(x+45,170,x+28,170,BLUE,1.5)
+            a.arrow(x+110,170,x+130,170,BLUE,1.5)
+            a.label("spread plastic wings",x+77,281,9,MUTED,align="center")
         else:
-            yy=104 if i==1 else 147
+            yy=169 if i==1 else 208
             a.rect(x+35,yy,91,17,PCB)
+            a.rect(x+27,yy+4,12,8,BRASS,INK)
             a.shape([(x+28,yy+34),(x+28,yy-4),(x+134,yy-4),(x+134,yy+34)],None,ORANGE,7,False)
             for xx in [x+39,x+112]:
                 a.rect(xx,yy+17,9,10,BRASS)
             if i==1:
                 a.arrow(x+12,yy-25,x+106,yy-25,BLUE)
-                a.dim(x+147,yy+27,x+147,181)
-                a.label("9.5 mm lift",x+77,245,11,BLUE,align="center")
+                a.dim(x+147,yy+27,x+147,240)
+                a.label("9.5 mm lift",x+77,281,11,BLUE,align="center")
             else:
-                a.arrow(x+77,108,x+77,141,BLUE)
-                a.line(x+28,181,x+41,181,BLUE,3)
-                a.line(x+121,181,x+134,181,BLUE,3)
-                a.label("feet + both lips seated",x+77,245,9,MUTED,align="center")
+                a.arrow(x+77,161,x+77,199,BLUE)
+                a.line(x+28,240,x+41,240,BLUE,3)
+                a.line(x+121,240,x+134,240,BLUE,3)
+                a.label("feet + both lips seated",x+77,281,9,MUTED,align="center")
 
 
 def mount_art(a):
@@ -595,10 +626,10 @@ def cover(c):
 
 def wiring_page(c):
     start(c,2,"The display wiring","Waveshare ESP32-S3-Touch-LCD-1.47. Hold the loose module with its back toward you and USB-C up.")
-    panel(c,32,151,548,342)
+    panel(c,32,151,548,365)
     with Art(c,44,157) as a:
         wiring_art(a)
-    y=514
+    y=529
     for x,label in [(37,"DISPLAY PAD"),(205,"FUNCTION"),(408,"MAIN BOARD J3")]:
         text(c,label,x,y,9.8,"PlexBold",BLUE)
     rows=[("VBUS / P1-1","+5 V power","V5"),
@@ -606,11 +637,11 @@ def wiring_page(c):
           ("TXD / P1-5","GPIO43, display TX","IO35, main RX"),
           ("RXD / P1-7","GPIO44, display RX","IO33, main TX")]
     for i,row in enumerate(rows):
-        yy=538+i*27
+        yy=551+i*27
         box(c,32,yy-18,548,25,ICE if i%2==0 else PAPER)
         for x,value in zip([37,205,408],row):
             text(c,value,x,yy,11.5,"PlexSemi")
-    paragraph(c,"P1 uses odd pin numbers down the left and even numbers down the right. Count from the USB end. The drawing looks directly at the PCB back; it is not mirrored.",35,641,537,10.6,13.2,max_height=31)
+    paragraph(c,"Count P1 from the USB end: odd numbers left, even numbers right. This rear view is not mirrored.",35,646,537,10.6,13.2,max_height=28)
     note(c,"POWER AND SERIAL ARE DIFFERENT","VBUS takes 5 V. TX/RX are 3.3 V TTL at 921600 baud, 8N1. Leave VBAT, 3V3, RST and all other GPIO pads open. Disconnect J3 and USB while making the joints.")
     footer(c,2,"Waveshare P1 schematic + rear layout | faucet base_link.cpp | appliance pins.h",SCHEMATIC)
     end_page(c)
@@ -736,9 +767,9 @@ def build():
           "Pass F1/D/F2 and the flat ribbon through the plate's rear passage, and the bare shank through its center. Keep the ribbon flat behind the bundle. Seat all three pedestals.",
           "Install three M3 × 8 screws from below with a 2.5 mm hex key, progressively and evenly. Square-trim only the three beverage outlets flush with their symmetric drink face."],
          "The plate and curved seam close evenly. Lever travel and both flavor paths remain free. D ends inside the chamber and its separate bottom opening remains bare. Now connect/check the display using pages 2-3.",SHELL)
-    page(c,12,"Fit the display and cover","Finish the page-3 electrical joints and unpowered check before enclosing the display.",display_art,
-         "Side sections; two of four feet are visible. The 9.5 mm lift is measured perpendicular to the glass.",
-         ["Route the leads freely below the PCB toward its southwest corner as viewed from the glass. Spread the plastic wings and put the display inside the cover from the open underside.",
+    page(c,12,"Fit the display and cover","USB-C faces the dispense face; the opposite end points up the gooseneck. Complete the page-3 joints/check first.",display_art,
+         "Side sections show the USB-C end at the outlet. Two of four feet are visible; the 9.5 mm lift is normal to the glass.",
+         ["Keep USB-C toward the dispense face. Route the leads freely below the PCB toward its southwest corner as viewed from the glass. Spread the wings and load the display through the cover's open underside.",
           "Hold the pair 9.5 mm above the final seat, normal to the glass. Slide it along the tip from the outlet end until the four metal feet align with their supports; feed the ribbon as it moves.",
           "Lower the pair normal to the glass until both broad lips seat in the side grooves. Check all four feet, the glass/bezel clearance and the real tube/wire/component clearances."],
          "Both retaining lips and four feet are seated, the seam closes and touch pressure leaves the display seated. No wire is pinched or pulling a solder pad. The display has no mounting screw or insert.",SHELL)
@@ -779,6 +810,7 @@ def build():
             N,SOURCES,extra={
                 "artwork":"original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
                 "display":{"model":"ESP32-S3-Touch-LCD-1.47", "view":"rear PCB, USB-C at top",
+                           "installed_orientation":"USB-C toward dispense face; opposite end up the gooseneck",
                            "left_top_four":[{"P1":1,"pad":"VBUS","J3":"V5"},
                                             {"P1":3,"pad":"GND","J3":"GND"},
                                             {"P1":5,"pad":"TXD","GPIO":43,"J3":"IO35 RX"},

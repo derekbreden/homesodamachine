@@ -118,6 +118,9 @@ Start with the separate prints, bare donor, tubes and unterminated SIG-6 ribbon.
 
 #### Display wiring (SIG-6)
 
+In the installed faucet, **USB-C points toward the dispense face**; the opposite
+end points up the gooseneck. The side-section inset below shows this orientation.
+
 The display is the **Waveshare ESP32-S3-Touch-LCD-1.47**. Look directly at its
 rear PCB, glass facing away, with **USB-C at the top**. The top four pads down
 the **left** are VBUS, GND, TXD and RXD. P1's odd pin numbers run down that side.
