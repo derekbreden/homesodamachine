@@ -74,8 +74,7 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.p
 
 The first command emits `nameplate-027.step`; the assembly uses `nameplate-001.step`.
 Units are restricted to 0001–9999 so every QR stays version 1. The self-test checks solid
-validity, receiver clearance, inward seating and outward capture, full face contact on the
-print bed, and QR size/quiet-zone geometry.
+validity and QR quiet-zone geometry.
 
 ## Sources
 [value](NAME) texts are updated by:

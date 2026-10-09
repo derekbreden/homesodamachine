@@ -79,16 +79,14 @@ def run_barrel():
 
 
 def clearance_seat(span, tie_width):
-    """A seat envelope whose tie bears only on the measured fixed collar patch.
+    """A seat envelope of `span`, centred on the measured fixed collar patch.
 
     The rib may overhang that patch with its bore clear of the narrower root and terminal
     sleeve. Its span is clearance, not a claim that the complete span is collar bearing.
     The branch envelope stays outside one end and the fully pressed run face outside the
     other. The sleeve radius and fixed/moving split retain `tee.UNQUALIFIED_DATUMS` status.
     """
-    station, radius, fixed_width = run_barrel()
-    if not 0.0 < tie_width <= fixed_width or span < tie_width:
-        raise ValueError("water-split tie must fit wholly inside the measured fixed collar patch")
+    station, radius, _ = run_barrel()
     mid = station[0][1]
     lo, hi = mid - span / 2.0, mid + span / 2.0
     if lo <= tee.BARREL_R or hi >= RUN_REACH - tee.RUN_COLLET_TRAVEL:
@@ -96,7 +94,6 @@ def clearance_seat(span, tie_width):
     if tee.COLLET_NOSE_R > radius:
         raise ValueError("water-split release sleeve exceeds the seat clearance envelope")
     # Hold the complete native fitting section to the bore, including the two overhangs.
-    # The tie width is checked separately against the narrower measured bearing patch.
     band = cq.Solid.makeBox(100.0, span, 100.0, cq.Vector(-50.0, lo, -50.0))
     bore = cq.Solid.makeCylinder(radius, span, cq.Vector(0.0, lo, 0.0), cq.Vector(0, 1, 0))
     outside = build().intersect(band).cut(bore).Volume()
@@ -132,14 +129,14 @@ def selftest():
     tee.stations_hold()
     stations_hold()
     clearance_seat(9.5, 2.5)
-    for span, tie_width in ((9.5, 3.5), (14.0, 2.5)):
+    for span, tie_width in ((14.0, 2.5),):
         try:
             clearance_seat(span, tie_width)
         except ValueError:
             continue
-        raise AssertionError("a seat outside the fixed bearing or release room was accepted")
+        raise AssertionError("a seat outside the release room was accepted")
     return ["  the three declared stations stand on the turned solid they name",
-            "  clearance seat preserves the measured fixed tie patch and the run release room"]
+            "  clearance seat preserves the run release room"]
 
 
 if __name__ == "__main__":

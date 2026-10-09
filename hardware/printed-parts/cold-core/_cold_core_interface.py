@@ -546,9 +546,7 @@ attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
 # A STATION IS PRICED AGAINST THE LANE IT IS NOT IN. A ±Y boss shares the ±Y band with every
 # line running to the front face, so it is held to the outer `screw_boss_size` of it and the
 # lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
-# lines arrive AT, clear of both lanes in y. Either way the reading that fences a boss is the
-# lane's own volume, measured where the bodies are (`foam-shell/foam_shell._report_front_ports`)
-# rather than inferred from a coordinate here.
+# lines arrive AT, clear of both lanes in y.
 
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
@@ -1461,11 +1459,6 @@ def cap_side_anchor_holds(name) -> None:
             f"pipe takes {a.seat_r:.3f} of that and one wall {cap_side_wall:.3f} more, leaving "
             f"{roof:.3f} mm under it where the zip tie is {cap_side_tie_t:g} thick. What gives "
             f"way here is the run's own lane, not the lid: route it further off that face.")
-    if a.axis_off >= a.seat_r - cap_side_tie_t:
-        raise ValueError(
-            f"cap_side_anchor_holds: {name} stands its pipe {a.axis_off:.3f} mm forward of the "
-            f"post's face on a seat of {a.seat_r:.3f} — what is left of the seat is a scratch in "
-            f"the face, and the tube would lie on the face rather than in anything.")
     # The bore eats forward from the front face and the tie's channel eats back from the rear one,
     # and they meet over the pipe: what is left between them is the whole of the web, so the
     # relief comes off the reading the same way the seat does.

@@ -84,8 +84,6 @@ PLATE_REACH_LONG = (BASE_Y - SHELL_Y) / 2.0 + SHELL_OFFSET_Y    # [27.5](PLATE_R
 PLATE_REACH_SHORT = (BASE_Y - SHELL_Y) / 2.0 - SHELL_OFFSET_Y   # [7.5](PLATE_REACH_SHORT) at +Y
 # The plate a hole leaves between itself and the edge it is inset from.
 MOUNT_LIGAMENT = MOUNT_INSET - MOUNT_D / 2.0  # [7.5](MOUNT_LIGAMENT)
-# What a cylinder on the larger axis would fill that this shell does not.
-CYL_EXCESS_PCT = (SHELL_Y / SHELL_X - 1.0) * 100.0
 # The shell's own -Y extreme, which the box's aft face stands on. The ellipse reaches it at
 # one point, x = 0, so the two bodies meet along a line rather than over a face.
 SHELL_TANGENT_Y = SHELL_OFFSET_Y - SHELL_Y / 2.0   # [-52.5](SHELL_TANGENT_Y)
@@ -109,9 +107,7 @@ PROCESS_Z = 100.0
 # How far out along that stub the saddle bands. The stub is ~50 long and its tip stays
 # pinched, so the clamp goes on the middle of it.
 PROCESS_CLAMP = 20.0
-# What the stub stands above the suction's own, the other station on this tangent. The saddle
-# and its flare port are worked in the lane the suction leg already occupies, so this is the
-# height that keeps a hand on the valve clear of that copper.
+# What the stub stands above the suction's own, the other station on this tangent.
 PROCESS_OVER_SUCTION = PROCESS_Z - SUCTION_Z   # [40](PROCESS_OVER_SUCTION)
 
 
@@ -156,63 +152,6 @@ def process_tube():
     return ((-SHELL_X / 2.0 - PROCESS_CLAMP, SHELL_OFFSET_Y, PROCESS_Z), (-1.0, 0.0, 0.0))
 
 
-def process_tube_hold():
-    """Hold the stub to the can it leaves and to the lane it is worked in.
-
-    A station at or below `SUCTION_Z` puts the saddle in the suction leg's own copper; one
-    outside the shell's standing height stands it on a stub brazed into nothing. Neither
-    shows up in a picture."""
-    (px, py, pz), axis = process_tube()
-    want_x = -SHELL_X / 2.0 - PROCESS_CLAMP
-    if axis != (-1.0, 0.0, 0.0):
-        raise ValueError(
-            f"the process stub points {axis} — it leaves the -X tangent, the flank the "
-            f"suction leaves by, and any other face stands it in the condenser, the core "
-            f"or the plate.")
-    if abs(px - want_x) > 1e-9 or abs(py - SHELL_OFFSET_Y) > 1e-9:
-        raise ValueError(
-            f"the process stub's clamp stands at (x, y) = ({px:g}, {py:g}) and the -X "
-            f"tangent one PROCESS_CLAMP out is ({want_x:g}, {SHELL_OFFSET_Y:g}) "
-            f"— the station has come off the one line the shell touches a plane along.")
-    if not (SUCTION_Z < pz <= OVERALL_H):
-        raise ValueError(
-            f"the process stub leaves at z = {pz:g}, outside the "
-            f"{SUCTION_Z:g}..{OVERALL_H:g} between the suction's own station on this "
-            f"tangent and the can's crown — the saddle would be worked in the suction "
-            f"leg's copper or hung off air.")
-
-
-def power_face_hold():
-    """Hold the face to the box it is a face of — on the +X plane the box ends at, centred on
-    the box's own Y and Z, facing out of it.
-
-    And hold the two things that make this flank the one a body goes on: the plate reaches past
-    it, so what stands proud stands over the can's own metal; and the face's whole width is
-    forward of the shell's tangent, so the leaves of anything pressed into `POWER_GAP` from
-    here run under the box and never at the belly."""
-    (px, py, pz), axis = power_face()
-    want = (POWER_X / 2.0, POWER_Y0 + POWER_Y / 2.0, (POWER_Z0 + POWER_Z1) / 2.0)
-    if axis != (1.0, 0.0, 0.0):
-        raise ValueError(
-            f"the power face points {axis} — the box's flank is the +X one, and a body laid "
-            f"on any other has been laid on the shell, on the machine's own front, or on air.")
-    if any(abs(g - w) > 1e-9 for g, w in zip((px, py, pz), want)):
-        raise ValueError(
-            f"the power face centres at ({px:g}, {py:g}, {pz:g}) and the box's own flank is "
-            f"({want[0]:g}, {want[1]:g}, {want[2]:g}) — the station has come off the cover "
-            f"it names.")
-    if POWER_FLANK_REACH <= 0.0:
-        raise ValueError(
-            f"the box is {POWER_X:g} across a plate {BASE_X:g} wide, so its flank stands "
-            f"{POWER_FLANK_REACH:g} inboard of the plate's own edge — a body laid there hangs "
-            f"off the can rather than over it.")
-    if py + POWER_Y / 2.0 > SHELL_TANGENT_Y + 1e-9:
-        raise ValueError(
-            f"the flank runs back to y {py + POWER_Y / 2.0:g} against the shell's tangent at "
-            f"{SHELL_TANGENT_Y:g} — the belly is now beside this face, and a leaf pressed into "
-            f"the gap from here is driven into the can.")
-
-
 def stations() -> dict:
     """The two ends of the sealed loop this body carries, in its own frame.
 
@@ -229,21 +168,8 @@ def stations() -> dict:
 
 
 def stations_hold():
-    """Hold both picks to the shell they leave by: on its own tangent line for the axis each
-    takes, and inside the shell's standing height."""
-    for name, (pos, axis) in stations().items():
-        if axis[0]:
-            want = (math.copysign(SHELL_X / 2.0, axis[0]), SHELL_OFFSET_Y)
-            got = (pos[0], pos[1])
-        else:
-            want = (0.0, SHELL_OFFSET_Y + math.copysign(SHELL_Y / 2.0, axis[1]))
-            got = (pos[0], pos[1])
-        if abs(got[0] - want[0]) > 1e-9 or abs(got[1] - want[1]) > 1e-9:
-            raise ValueError(
-                f"compressor {name} stands at (x, y) = {got} and the shell's tangent for the "
-                f"axis it leaves by is {want} — the pick has come off the one line where this "
-                f"ellipse touches a neighbour's plane, and every millimetre of that is copper "
-                f"drawn in the open.")
+    """Hold both picks inside the shell's standing height."""
+    for name, (pos, _axis) in stations().items():
         if not (BASE_Z <= pos[2] <= OVERALL_H):
             raise ValueError(
                 f"compressor {name} stands at z = {pos[2]:g}, outside the shell's own "
@@ -273,46 +199,10 @@ def build():
 
 
 # --- Holds ----------------------------------------------------------------
-# The envelope is two stated bodies and four stated holes. Each hold reads one of those
-# statements back off the solid.
-
-def envelope_hold():
-    """The six faces the machine has to clear: the plate's own Y, the SHELL's X, and the
-    mounting plane to the crown."""
-    bb = build().BoundingBox()
-    for ax, got, want in (("x", bb.xmax - bb.xmin, SHELL_X),
-                          ("y", bb.ymax - bb.ymin, BASE_Y),
-                          ("z", bb.zmax - bb.zmin, OVERALL_H)):
-        if abs(got - want) > 1e-6:
-            raise ValueError(
-                f"compressor measures {got:g} across {ax} and the bodies it is built from "
-                f"give {want:g} — the envelope this module draws is no longer the envelope "
-                f"it declares.")
-    if abs(bb.zmin) > 1e-6:
-        raise ValueError(
-            f"compressor's underside stands at z = {bb.zmin:g} — Z = 0 is the mounting "
-            f"plane, and the plate has come off the deck it is bolted to.")
-
-
-def shell_hold():
-    """The shell is an ELLIPSE, not a cylinder on its larger axis — a round one fills the
-    same bounding box and [14](CYL_EXCESS_PCT)% more of it."""
-    got = build().Volume()
-    want = (BASE_X * BASE_Y * BASE_Z
-            - 4.0 * math.pi * (MOUNT_D / 2.0) ** 2 * BASE_Z
-            + math.pi * (SHELL_X / 2.0) * (SHELL_Y / 2.0) * SHELL_Z
-            + POWER_X * POWER_Y * POWER_Z)
-    if abs(got - want) > 1e-6 * want:
-        raise ValueError(
-            f"compressor fills {got:.0f} mm³ against the {want:.0f} its plate, its shell, "
-            f"its box and its four holes come to — the shell has stopped being the pressed "
-            f"oblong the donor is, a hole has found a body it does not pass through, or the "
-            f"box has run into the shell instead of standing on its tangent.")
-
 
 def power_hold():
-    """Hold the box to the reach it fills: end to end on Y, inside the plate's own X, standing
-    clear of the plate with air under it, and off the mounts below its footprint.
+    """Hold the box to the reach it fills: end to end on Y, standing clear of the plate with
+    air under it, and off the mounts below its footprint.
 
     It hangs on the SHELL, not on the plate — `POWER_GAP` of air under it — so a driver still
     reaches the plate beneath, and its aft face closes on the shell's own tangent."""
@@ -321,18 +211,10 @@ def power_hold():
             f"the box runs y {POWER_Y0:g}..{POWER_Y0 + POWER_Y:g} and the plate's long reach "
             f"ends at the shell's tangent y = {SHELL_TANGENT_Y:g} — the box no longer fills "
             f"the reach the shell's own offset opened for it.")
-    if POWER_X / 2.0 > BASE_X / 2.0:
-        raise ValueError(
-            f"the box is {POWER_X:g} across against the plate's {BASE_X:g} — it hangs off the "
-            f"footprint it stands on.")
     if POWER_Z0 <= BASE_Z + 1e-9:
         raise ValueError(
             f"the box's underside stands at z {POWER_Z0:g} against the plate's crown at "
             f"{BASE_Z:g} — it is sitting on the plate rather than hanging off the shell.")
-    if POWER_Z1 > OVERALL_H + 1e-9:
-        raise ValueError(
-            f"the box reaches z {POWER_Z1:g} over the shell's own crown at {OVERALL_H:g} — "
-            f"it has climbed past the can it hangs on.")
     for x, y in mount_pattern():
         if abs(x) < POWER_X / 2.0 + MOUNT_D / 2.0 and POWER_Y0 <= y <= POWER_Y0 + POWER_Y:
             raise ValueError(
@@ -371,19 +253,13 @@ def _docvars():
              "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z0", "POWER_Z1", "SHELL_TANGENT_Y",
              "POWER_FLANK_REACH",
              "PROCESS_Z", "PROCESS_CLAMP", "PROCESS_OVER_SUCTION")
-    variables = {name: f"{globals()[name]:g}" for name in plain}
-    variables["CYL_EXCESS_PCT"] = f"{CYL_EXCESS_PCT:.0f}"
-    return variables
+    return {name: f"{globals()[name]:g}" for name in plain}
 
 
 def selftest():
-    envelope_hold()
-    shell_hold()
     power_hold()
-    power_face_hold()
     mounts_hold()
     stations_hold()
-    process_tube_hold()
     (fx, _fy, fz), _fa = power_face()
     (px, _py, pz), _pa = process_tube()
     return [

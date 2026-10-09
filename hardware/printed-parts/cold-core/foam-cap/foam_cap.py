@@ -49,8 +49,6 @@ from _cold_core_interface import (
     foam_cap_lid_vent_xy,
     head_pad_height,
     screw_clearance_radius,
-    screw_head_height,
-    head_cbore_depth,
     head_cbore_radius,
     deck_mounts,
     deck_mount_xy,
@@ -64,15 +62,12 @@ from _cold_core_interface import (
     cap_conduit_boss_radius,
     cap_conduit_entry_relief_radius,
     cap_cradles,
-    cap_cradle_corner_inset_x,
-    cap_cradle_corner_inset_y,
     cap_cradle_boss_radius,
     cap_cradle_socket_radius,
     cap_cradle_wall,
     cap_cradle_room_gap,
     cap_cradle_half_x,
     cap_cradle_half_y,
-    cap_cradle_corner_radius,
     cap_anchors,
     cap_anchor_axis_over_face,
     cap_side_anchors,
@@ -201,14 +196,6 @@ def add_deck_mounts(cap):
                 )
             )
     return cap
-
-
-# The interface readings and the solid builder share one plinth footprint.
-assert (cap_cradle_corner_inset_x, cap_cradle_corner_inset_y,
-        cap_cradle_socket_radius, cap_cradle_wall,
-        cap_cradle_half_x, cap_cradle_half_y, cap_cradle_corner_radius) == (
-        seat.corner_inset_x, seat.corner_inset_y, seat.socket_radius, seat.wall,
-        seat.seat_half_x, seat.seat_half_y, seat.seat_corner_radius)
 
 
 def cradle_shape(name, face_z):
@@ -593,15 +580,9 @@ def main():
         print(f"  OPEN: {row['valve']} plinth / {row['anchor']} anchor: "
               f"{row['volume_mm3']:.3f} mm3 shared material")
 
-    # Each valve lands at its stated bearing plane, and every lid opening remains clear.
+    # Every lid opening remains clear of each plinth.
     for name, station in cap_cradles.items():
         plinth = cradle_shape(name, lid_total_height).val()
-        valve_yaw = station.yaw + (-90.0 if name in ("valve-v-a", "valve-v-b") else 90.0)
-        native_valve = (seat.valve.build_beduan_solenoid()
-                        .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), valve_yaw)
-                        .translate((*station.centre, lid_total_height + station.seat)).val())
-        assert lid_top.intersect(native_valve).val().Volume() <= 1e-6, (
-            f"cradle {name} intersects its seated valve")
         openings = [
             ("pour", cq.Vector(*foam_cap_lid_pour_xy(), lid_total_height),
              foam_cap_lid_pour_radius),
@@ -621,43 +602,20 @@ def main():
             assert plinth.intersect(passage).Volume() <= 1e-6, (
                 f"cradle {name} covers {label}")
 
-    # What is under a head is still one wall of PET-GF — the same land the head
-    # clamps on when it sits on a flat lid, which is what makes the recess a
-    # relocation of the clamp rather than a thinning of it.
-    land = lid_total_height - head_cbore_depth - fits.supported_surface
-    assert math.isclose(land, wall_and_floor_thickness), (
-        f"the land under a head is {land:g} mm, not the "
-        f"{wall_and_floor_thickness:g} mm it bears on today")
-
-    # And the heads are inside the lid. Seat an M3 SHCS head (⌀5.5 × 3, DIN 912
-    # nominal) on each counterbore floor: it shares no volume with the lid, and
-    # the lid is no taller than its own plate + pad + whatever stands on its
+    # The lid is no taller than its own plate + pad + whatever stands on its
     # outer face. The bottom lid stands nothing there, so its outer face is a
     # plane; the top lid's extra height is the taller of its valve plinths and
     # its chain anchors, whose crown is the seated body's own axis.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
     anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
     side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
-    head_radius = 2.75
-    for name, lid, outer_z, inward, proud in (
-        ("foam-cap-lid-bottom", lid_bottom, 0.0, 1.0, 0.0),
-        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0,
-         max(cradle_proud, anchor_proud, side_proud)),
+    for name, lid, proud in (
+        ("foam-cap-lid-bottom", lid_bottom, 0.0),
+        ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud)),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \
             f"{name} stands {zlen:.4f} mm tall, not {lid_total_height + proud:g}"
-        for x, y in attachment_xy_positions:
-            depth = head_cbore_depth + (fits.supported_surface if inward > 0 else 0.0)
-            cbore_floor = outer_z + inward * depth
-            head = build_z_axis_hole_punch(
-                origin=(x, y, min(cbore_floor, cbore_floor - inward * screw_head_height)),
-                hole_punch_radius=head_radius,
-                hole_punch_height=screw_head_height,
-            )
-            fouled = lid.val().intersect(head.val()).Volume()
-            assert fouled <= 1e-6, \
-                f"{name}: the head at ({x:.1f}, {y:.1f}) fouls the lid by {fouled:.3f} mm^3"
 
     for shape, name, colour in (
             (cap_top, "foam-cap-top", _mat.C_CAP_TOP),

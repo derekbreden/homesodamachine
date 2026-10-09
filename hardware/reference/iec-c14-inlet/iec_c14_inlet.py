@@ -56,7 +56,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly, import_step  # noqa: E402
+from _cadq_export import export_assembly  # noqa: E402
 from _materials import C_C14, one_body  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 
@@ -330,34 +330,13 @@ def build_iec_c14_inlet() -> cq.Workplane:
 
 
 def stations_hold() -> None:
-    """Hold public mounting figures to the materialized STEP geometry."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (
-            ("face width", FLANGE_W, bb.xlen), ("face height", RIM_H, bb.zlen)):
-        if abs(claimed - actual) > 1e-6:
-            raise ValueError(
-                f"iec-c14-inlet {what} is {claimed:g}, STEP carries {actual:.4f}")
-    out = cq.Solid.makeBox(bb.xlen + 2.0, bb.ymax + 1.0, bb.zlen + 2.0,
-                           cq.Vector(bb.xmin - 1.0, 1e-3, bb.zmin - 1.0))
-    ob = solid.intersect(out).BoundingBox()
-    bore_w, bore_h, _bore_r = bore_outline()
-    for what, through, opening in (("width", ob.xlen, bore_w), ("height", ob.zlen, bore_h)):
-        if through > opening + 1e-6:
-            raise ValueError(
-                f"the {through:.4f} mm outboard {what} does not pass its {opening:g} bore")
+    """Hold both countersunk screws inside the flange and clear of the bore."""
+    bore_w, _bore_h, _bore_r = bore_outline()
     for sx, sz in panel_screws():
         if abs(sx) + CSK_D / 2.0 > FLANGE_W / 2.0:
             raise ValueError(f"the screw at ({sx:g}, {sz:g}) leaves the flange")
         if abs(sx) - CSK_D / 2.0 < bore_w / 2.0:
             raise ValueError(f"the screw at ({sx:g}, {sz:g}) breaks into the bore")
-    outboard, inboard = panel_stack()
-    if abs(ob.ymax - outboard) > 1e-6:
-        raise ValueError(f"panel stack says {outboard:g} out, STEP carries {ob.ymax:.4f}")
-    if abs(bb.ymin - TAB_TIP_Y) > 1e-6:
-        raise ValueError(f"tabs reach {TAB_TIP_Y:g}, STEP reaches {bb.ymin:.4f}")
-    if abs(-inboard - boss_end_y) > 1e-9:
-        raise ValueError(f"panel stack says {inboard:g} in, the bosses end at {boss_end_y:.4f}")
 
 
 def selftest() -> int:

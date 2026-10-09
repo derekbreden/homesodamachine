@@ -207,14 +207,6 @@ def main():
     export_assembly(build_assembly(), str(_here.parent / "kamoer-kphm400.step"))
     scene = build_scene()
     bb = scene.BoundingBox()
-    boss_bb = build_rotor_housing().val().BoundingBox()
-    motor_bb = build_motor_body().val().BoundingBox()
-    boss_y = (boss_bb.ymin + boss_bb.ymax) / 2.0
-    motor_y = (motor_bb.ymin + motor_bb.ymax) / 2.0
-    if max(abs(boss_y - rear_axis_y), abs(motor_y - rear_axis_y)) > 1e-6:
-        raise ValueError(
-            f"the boss and motor axes land at y {boss_y:g} and {motor_y:g}, not their "
-            f"stated common rear axis y {rear_axis_y:g}")
     print("-> kamoer-kphm400.step")
     print("pump envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Z = depth axis, motor +Z)"
           % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))

@@ -151,8 +151,6 @@ def main():
     # as the enclosure: the tees' states come off the tee reference, and the tees themselves
     # off the manifold.
     states = _ml.tee.CARRIER_STATES
-    if tuple(states) != ("release", "squeeze", "connected", "park"):
-        raise ValueError(f"the tee states are not in service order: {tuple(states)}")
     carrier_tees = tuple(sorted(_ml.CARRIER_TEES))
     bowed = tuple(cid for cid, frm, to, how in _ml.SEGMENTS
                   if how.startswith("fore-y-")

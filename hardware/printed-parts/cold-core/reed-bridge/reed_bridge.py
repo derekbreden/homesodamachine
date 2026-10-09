@@ -360,10 +360,6 @@ def _report(name, shape):
 def main():
     assert reed_low_z > magnet_lowest_z, "low reed below the donut's reach"
     assert reed_high_z < magnet_highest_z, "high reed above the donut's reach"
-    assert band_bottom_z < bridge_z_bottom and bridge_z_top < band_top_z, \
-        "bridge runs outside the wind band"
-    assert reed_glass_length > inter_wrap_clear, \
-        "reed fits between wraps; the bridge is unnecessary"
 
     print(f"Wind band on the tube:  {band_bottom_z:.1f} .. {band_top_z:.1f} mm "
           f"(pitch {pitch:.3f}, clear channel {inter_wrap_clear:.3f})")

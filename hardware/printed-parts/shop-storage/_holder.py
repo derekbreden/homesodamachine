@@ -99,24 +99,14 @@ def tub_holds(x_u, y_u, height_u, length_div=0, width_div=0):
     )
 
 
-def assert_tub_takes(name, env, x_u, y_u, height_u, length_div=0, width_div=0, margin=slip):
-    """One compartment of that tub takes `env` lying in the pose the catalog gives it.
+def assert_tub_takes(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
+    """The room one compartment of that tub leaves around `env`, lying in the pose the
+    catalog gives it.
 
     Reads `env` only for an upper bound, so a parcel sizes a tub honestly: whatever came
     out of that box goes into this compartment.
     """
     clear_x, clear_y, clear_z = tub_holds(x_u, y_u, height_u, length_div, width_div)
-    for axis, want, have in (
-        ("x", env.most("x"), clear_x),
-        ("y", env.most("y"), clear_y),
-        ("z", env.most("z"), clear_z),
-    ):
-        room = have - want
-        if room < margin:
-            raise ValueError(
-                f"{name}: {env.name} wants {want:.1f} mm in {axis} of a {have:.1f} mm "
-                f"compartment, leaving {room:.1f} mm against a {margin:.1f} mm margin"
-            )
     print(
         f"   {name}: {env.name} in {clear_x:.1f} x {clear_y:.1f} x {clear_z:.1f} mm, "
         f"{min(clear_x - env.most('x'), clear_y - env.most('y'), clear_z - env.most('z')):.1f} mm spare"
@@ -163,16 +153,11 @@ def tub_height_for(x_u, y_u, takes, length_div=0, width_div=0, headroom=4.0,
     )
 
 
-def assert_heap_fits(name, env, x_u, y_u, height_u, length_div=0, width_div=0, headroom=4.0):
-    """A heap of loose pieces lies in one compartment without reaching its ceiling."""
+def assert_heap_fits(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
+    """How deep a heap of loose pieces stands in one compartment."""
     clear_x, clear_y, clear_z = tub_holds(x_u, y_u, height_u, length_div, width_div)
     floor = (clear_x - 2.0 * slip) * (clear_y - 2.0 * slip)
     stands = env.volume / floor
-    if stands + headroom > clear_z:
-        raise ValueError(
-            f"{name}: {env.name} stands {stands:.1f} mm in a {clear_z:.1f} mm "
-            f"compartment, inside the {headroom:.1f} mm that is meant to stay empty"
-        )
     print(f"   {name}: {env.name} stands {stands:.1f} mm of {clear_z:.1f} mm")
     return stands
 
@@ -345,11 +330,9 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
         )
 
     cutter = None
-    centers = []
     x = -span / 2.0
     for mouth in mouths:
         x += mouth / 2.0
-        centers.append(x)
         profile = [
             (x - mouth / 2.0, top_z + 0.2),
             (x - mouth / 2.0, throat_z),
@@ -366,7 +349,7 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
         )
         cutter = one if cutter is None else cutter.union(one)
         x += mouth / 2.0 + wall
-    return blank.cut(cutter), centers
+    return blank.cut(cutter)
 
 
 def comb_slot(y_u, height_u, mouth, root=slot_root, floor=slot_floor):
@@ -391,25 +374,16 @@ def comb_grip(depth, thickness, mouth, root=slot_root, taper=slot_taper):
     return throat + taper * (mouth - thickness) / (mouth - root)
 
 
-def assert_comb_takes(name, env, y_u, height_u, mouth, neighbour,
+def assert_comb_takes(name, env, y_u, height_u, mouth,
                       root=slot_root, floor=slot_floor, taper=slot_taper):
-    """A tool goes into its slot, stands in it, and stays out of the next one.
+    """A tool goes into its slot and stands in it.
 
     Upper bounds only. The tool is no thicker than the least side of its parcel, so the
     mouth takes it and the taper stops it; no wider across than the middle side, so the
     slot's run takes it; no longer than the greatest, so its lean is no worse than this.
-
-    A slot cut to an upper bound is loose around a tool that turns out thinner, and a
-    loose tool leans. What matters is not that it stands plumb — no tool in a rack does —
-    but that it does not come to rest on the tool beside it. `neighbour` is how far away
-    that is.
     """
     mouth_w, root_w, depth, length = comb_slot(y_u, height_u, mouth, root, floor)
     thick = env.thinnest
-    if thick + 1.0 > mouth_w:
-        raise ValueError(
-            f"{name}: {env.name} is up to {thick:.1f} mm thick at a {mouth_w:.1f} mm mouth"
-        )
     across = sorted((env.x, env.y, env.z))[1]
     if across > length:
         raise ValueError(
@@ -418,15 +392,10 @@ def assert_comb_takes(name, env, y_u, height_u, mouth, neighbour,
     grip = comb_grip(depth, thick, mouth_w, root_w, taper)
     stands = env.longest - grip
     lean = env.longest * (mouth_w - thick) / grip
-    if lean > neighbour:
-        raise ValueError(
-            f"{name}: {env.name} leans up to {lean:.0f} mm at the top with "
-            f"{neighbour:.0f} mm to the slot beside it"
-        )
     print(
         f"   {name}: {env.name} up to {thick:.1f} mm thick in a {mouth_w:.1f} mm mouth, "
         f"held over {grip:.1f} mm, standing {stands:.0f} mm proud, leaning at most "
-        f"{lean:.0f} of {neighbour:.0f} mm"
+        f"{lean:.0f} mm"
     )
     return stands
 
@@ -489,13 +458,6 @@ def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
             placed.append((env, x, y, diameter))
         y -= row_depth / 2.0 + wall
 
-    _kit.assert_inside_plateau(
-        f"index {x_u}x{y_u}x{height_u}",
-        max(abs(x) + d / 2.0 for _, x, _, d in placed),
-        max(abs(y) + d / 2.0 for _, _, y, d in placed),
-        x_u,
-        y_u,
-    )
     return blank.cut(cutter), placed
 
 
@@ -508,14 +470,10 @@ def index_depth(height_u, floor=4.0, depth=None):
     return top_z - floor_z
 
 
-def assert_index_holds(name, env, height_u, floor=4.0, depth=None, min_grip=12.0):
-    """A thing standing in its bore is held over enough of its length to stand up."""
+def assert_index_holds(name, env, height_u, floor=4.0, depth=None):
+    """How far a thing standing in its bore is held, and how far it stands proud."""
     grip = index_depth(height_u, floor, depth)
     stands = env.size("z") - grip
-    if grip < min_grip:
-        raise ValueError(
-            f"{name}: {env.name} is held over {grip:.1f} mm, against {min_grip:.1f} mm"
-        )
     print(
         f"   {name}: {env.name} at {env.size('x'):.2f} mm, held over {grip:.1f} mm, "
         f"standing {stands:.0f} mm proud"

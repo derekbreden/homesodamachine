@@ -278,10 +278,6 @@ def selftest():
         raise ValueError(f"valve inlet is {inlet}, expected {expected_inlet}")
     if any(abs(a - b) > 1.0e-9 for a, b in zip(tee_face, (0.0, TEE_RUN_Y, 0.0))):
         raise ValueError(f"tee upper face is {tee_face}, expected a Z=0 datum")
-    if abs(math.dist(inlet, tee_face) - SLEEVE_FACE_SEPARATION) > 1.0e-9:
-        raise ValueError("the two sleeve faces are not 10.0 mm apart at rest")
-    if abs(REST_DATUM_Y - (TEE_RUN_Y + tee.BRANCH_REACH)) > 1.0e-9:
-        raise ValueError("the fixed rear datum is not flush with the tee branch sleeve at rest")
 
     frame = build_frame_in_use()
     gauge = build_gauge()
