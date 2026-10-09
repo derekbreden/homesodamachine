@@ -2,8 +2,8 @@
 
 One push connects the umbilical to the appliance: a plug on the umbilical's machine end carries
 all four tubes and the faucet display's contacts, and a socket snapped into back-top's rear wall
-receives it. These are printable test parts. Nothing here is in the build, the BOM or the
-production enclosure.
+receives it. Saved prints cover the coupling geometry; the boot is a material-packing study.
+Nothing here is in the build, the BOM or the production enclosure.
 
 **Color layout:** the boot/plug body and tube key are entirely Fiberon PET-GF15
 Blue, matching the blue socket. The enclosure receiver/wall and rear union
@@ -11,8 +11,8 @@ retainer are PET-GF Black. The machine-side color layout uses those two filament
 the socket remains a separate part that snaps into the black wall receiver.
 The scene reads the blue from the shared [filament catalog](../../hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py).
 Purchased hardware, tubes, cable and insulation retain their own material colors.
-The saved print projects are single-color geometry trials and do not encode this
-two-color layout.
+The saved print projects are single-color geometry trials without the boot pocket
+and do not encode this two-color layout.
 
 **Current assessment:** this is an exploratory mechanism, not a qualified connector.
 The [engineering review](assessment/README.md) recommends keeping the separate connections
@@ -22,9 +22,10 @@ has filled magnet pockets and no pauses. The original functional print projects 
 remain provisional: magnet fit, complete seating, bundle transition and retention require
 correction or evidence.
 
-![Machine side, plug, plugged in, the release section, through the counter](renders/one-plug-umbilical.png)
+![Machine side, plug, plugged in, release section, counter passage and boot materials](renders/one-plug-umbilical.png)
 
-[`one-plug-umbilical.html`](one-plug-umbilical.html) is the same five views to turn in 3D, with both print plates.
+[`one-plug-umbilical.html`](one-plug-umbilical.html) includes the assembly and boot cutaway
+to turn in 3D, with both saved print plates.
 
 ## Machine side
 
@@ -79,14 +80,30 @@ One printed key across the plug between the tube rows bites [0.5](UMB_KEY_BITE) 
 four, its lug reaching down to the thinner DRAIN tube. It goes in from the DRAIN side, the only
 way it fits.
 
-**The bundle transition is unfinished.** The scene's foam butts against the plug's back face
-while the tubes continue straight. Its nominal uncompressed outline needs at least 38.71 mm
-across before braid or cable, versus the 34.93 mm hole. The purchased foam is reported to be
-quite compressible, and deliberate compression is intended in the boot. The [bundle study](assessment/README.md#foam-compression-belongs-in-the-boot-design)
-therefore calls for trying direct compressed packing first, with rearrangement after a
-bare-tube fan as an alternative. Compressed capture and actual passage need the real bundle.
-The display ribbon enters a channel under the top flat and drops to the pogo pad half's tails
-behind its seat.
+**Foam and fabric enter the boot.** The [packing study](boot_concept.py) gives the blue body
+one plain rear pocket, 15 mm deep, ending before the tube key. Soda-tube insulation extends
+to its shoulder. The purchased [Alex Tech 1-inch black/blue PET braid](../../hardware/ledger/purchases.md)
+encloses the four tubes, insulation and display ribbon and tucks 10 mm into the same pocket.
+The ribbon continues through its top channel to the pogo pad half. The cutaway passes through
+the soda tube so the insulation and fabric inside the body are visible. The braid is drawn as
+a smooth material envelope; the inline preview's weave is schematic.
+
+**This pocket is a packing study, not qualified capture.** It keeps the existing plug's
+outer profile and straight tube axes, allows a 1 mm mouth wall and assumes 0.35 mm compressed
+braid thickness. These allowances leave only **0.275 mm** of foam space at the soda tube's
+outer diagonal corner, against its purchased nominal 9.525 mm foam wall. A clipped foam solid
+shows the space available; it does not predict that the real foam will compress to that shape
+or retain useful insulation. Compression force, cable protection, mouth strength and fabric
+pull-out retention are unestablished. The [native geometry record](boot-packing.json) confirms
+separate valid solids and material inside the pocket, without intersections into the plug,
+tubes or ribbon; it does not qualify those physical properties.
+
+The purchased foam is [reported to be quite compressible](../../hardware/reference/cargen-pipe-insulation/physical-observations.json).
+The [bundle study](assessment/README.md#foam-compression-belongs-in-the-boot-design) includes
+rearrangement as a candidate for reducing the extreme local squeeze. Boot wall stock, tube
+arrangement and actual compressed packing need resolution before preparing a boot print.
+The loose fabric/foam outline also needs compression during passage through the 34.93 mm
+counter hole; the shown rigid-plug clearance alone does not establish complete bundle passage.
 
 ## Printing
 
@@ -95,7 +112,8 @@ behind its seat.
 | [`machine-side`](print/machine-side-mark2.3mf) · [sliced](print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z [25.88](UMB_PAUSE_SOCKET): two bars into the cup floor | [2 h 39 min](UMB_TIME_SOCKET), [87](UMB_G_SOCKET) g |
 | [`plug-side`](print/plug-side-mark2.3mf) · [sliced](print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z [18.68](UMB_PAUSE_PLUG): two bars into the face | [58 min](UMB_TIME_PLUG), [28](UMB_G_PLUG) g |
 
-These saved jobs use black PET-GF on [Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the
+These saved jobs omit the packing-study pocket and fabric/foam tuck. They use black PET-GF on
+[Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the
 [shared profile](/hardware/printed-parts/petgf.3mf), [+0.04](UMB_TRIM) mm trim, supports off,
 four walls and 25 % infill. Every overhang closes on a 36-degree plane or lies over a bar, so
 neither job has supports. The socket stands on its flats with the cup on its side, the plug lies
@@ -156,7 +174,8 @@ tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/prepare_p
 python3 tools/viz/build.py future/umbilical-plug-and-socket-exploration/viz-spec.json --out future/umbilical-plug-and-socket-exploration/one-plug-umbilical.html
 ```
 
-[`umbilical.py`](umbilical.py) draws the parts. `scene.py` writes the scene STEPs and viewer
+[`umbilical.py`](umbilical.py) draws the saved print parts; [`boot_concept.py`](boot_concept.py)
+draws the packing-study pocket and soft-material envelopes. `scene.py` writes the scene STEPs and viewer
 payloads to `out/`, which git ignores, and prints its clearance check.
 `prepare_prints.py` writes the two projects from the shared profile, slices them with the
 installed Bambu Studio, checks the pause in the emitted G-code and sends nothing to a printer;
