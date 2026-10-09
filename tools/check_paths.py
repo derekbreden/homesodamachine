@@ -68,6 +68,7 @@ file, and a scan that drops files reports clean.
 import bisect
 import itertools
 import json
+import posixpath
 import re
 from functools import lru_cache
 import subprocess
@@ -501,6 +502,9 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
                 hw = str(Path("hardware") / path)   # the path space /api/steps serves
                 cands = [root_rel, sib, top, hw] if root_rel.split("/")[0] in topdirs \
                     else [top, sib, hw, root_rel]
+            # `../../x.json` is a path to the filesystem and not to git, which looks a tag's
+            # tree up by its literal name — so each reading is collapsed before either asks.
+            cands = [posixpath.normpath(c) for c in cands]
             if any(c in held or (ROOT / c).exists() for c in cands):
                 continue
             # REPORT THE READING THAT GOT CLOSEST. Of the roots a path could be written

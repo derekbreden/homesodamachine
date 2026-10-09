@@ -13,7 +13,8 @@ finished funnel's 8.4 mm entry, 6.7 mm relief and 6.0 mm by 3.0 mm sealing land.
 The current native casting matches the complete finished funnel in both solid
 differences, including the block, ramp, collar and brim. Its silicone volume is
 219.294495 mL. The [tooling check](../../forming-mandrel-check.json) records the
-complete comparison and the measured finishing target. The shell STEP/STL and
+complete comparison and the measured finishing target; it stands at the
+`archive-forming-mandrel` tag. The shell STEP/STL and
 frozen half-slice receipts retain their exact geometry scope.
 
 | Plate | Orientation | Layers | Estimated time | PETG | Minimum deposited-path bed margin |

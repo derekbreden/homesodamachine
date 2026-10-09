@@ -4,7 +4,7 @@ Who the soda machine is for, what they are sold, and at what price. The machine 
 [`/hardware/README.md`](/hardware/README.md). Where it is going and what done looks like is
 [`/future/README.md`](/future/README.md). The cabinet it goes into is
 [`/marketing/install-envelope.md`](/marketing/install-envelope.md), and what the buyer does on
-install day is drawn in [`/hardware/quickstart/`](/hardware/quickstart/README.md).
+install day is drawn in [`/hardware/install-guide/`](/hardware/install-guide/README.md).
 
 ## What the buyer is sold
 
@@ -34,14 +34,13 @@ water into a bottle that is flat before it reaches the glass
 
 One hole through the countertop, then an afternoon of push-fittings.
 
-The buyer or their installer cuts a 1-3/8" opening through the counter, and the quick start begins
-at the prepared opening
+The buyer or their installer cuts a 1-3/8" opening through the counter
 ([`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) "Not in scope"). On
-stone that is a diamond core bit, and usually a countertop pro. The hole, and everything else the
-sheet does not draw, is in the [install guide](/hardware/install-guide/README.md) beside it.
+stone that is a diamond core bit, and usually a countertop pro. The
+[install guide](/hardware/install-guide/README.md) begins with preparing that opening.
 
 Downstream of the hole the
-[seven-step quick start](/hardware/quickstart-codex/README.md) draws what the buyer's hands do,
+[seven-step install guide](/hardware/install-guide/README.md) draws what the buyer's hands do,
 and every connection on that path is push-fit or hand-tight: lower the complete factory
 faucet-and-umbilical assembly through the opening, slide the under-counter plate around the tubes,
 hand-tighten the retained nut; close the cold-water valve; press the collet on the existing 1/4"
@@ -393,7 +392,7 @@ that is explicitly what is for sale. He is the product for the first fifty, and 
 this stage is a video presence: a person showing a real product in a real kitchen, consistently.
 
 The unboxing extends that trust. The brief at
-[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) defines what
+[`/marketing/unboxing-and-installation.md`](/marketing/unboxing-and-installation.md) defines what
 the customer sees in what order from the moment the carton opens.
 
 By the time Standard opens the brand carries more of the weight. At Founder Edition, the face
