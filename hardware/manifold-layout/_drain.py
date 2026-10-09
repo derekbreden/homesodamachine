@@ -12,10 +12,11 @@ import cadquery as cq
 
 PVC_OD = 9.525
 PVC_ID = 6.35
-BARB_GAP = 0.2019808375568
-WHITE_REAR_LEAD = 20.8496
-WHITE_LATERAL_FRACTION = 0.65
-WHITE_VERTICAL_LEAD = 13.0
+BARB_GAP = 1.2
+WHITE_FORE_LOOP_Y = 410.0
+WHITE_REAR_S_Y = 418.0
+WHITE_EAST_UP = (.8, 0, .6)
+WHITE_WEST_UP = (-.96, 0, .28)
 
 ADAPTER_NAMES = ("drain-barb-adapter", "drain-elbow", "drain-stem-reducer")
 OD = 4.0
@@ -65,22 +66,22 @@ def _adapters(root):
             .cut(cylinder(ID, (x, y, z - BARB_OVERALL), (0, 0, 1), 2 * BARB_OVERALL)))
     elbow_face_z = z - 2.97 - stem_length + STEM_INSERTION
     elbow_z = elbow_face_z - ELBOW_REACH
-    elbow_face_y = y - ELBOW_REACH
+    elbow_face_y = y + ELBOW_REACH
     elbow = (cylinder(ELBOW_BODY_D, (x, y, elbow_z), (0, 0, 1), ELBOW_REACH)
-             .fuse(cylinder(ELBOW_BODY_D, (x, elbow_face_y, elbow_z), (0, 1, 0), ELBOW_REACH))
+             .fuse(cylinder(ELBOW_BODY_D, (x, elbow_face_y, elbow_z), (0, -1, 0), ELBOW_REACH))
              .fuse(cq.Workplane("XY").sphere(ELBOW_BODY_D / 2).val().translate((x, y, elbow_z)))
              .cut(cylinder(6.35, (x, y, elbow_z - 3.175), (0, 0, 1), ELBOW_REACH + 3.175))
-             .cut(cylinder(6.35, (x, elbow_face_y, elbow_z), (0, 1, 0), ELBOW_REACH + 3.175)).clean())
-    reducer_y = elbow_face_y - REDUCER_OVERALL + STEM_INSERTION
-    reducer = (cylinder(REDUCER_D, (x, reducer_y, elbow_z), (0, 1, 0), REDUCER_BODY)
-               .fuse(cylinder(6.35, (x, reducer_y + REDUCER_BODY, elbow_z),
-                              (0, 1, 0), REDUCER_OVERALL - REDUCER_BODY))
-               .cut(cylinder(ID, (x, reducer_y, elbow_z), (0, 1, 0), REDUCER_OVERALL)))
+             .cut(cylinder(6.35, (x, elbow_face_y, elbow_z), (0, -1, 0), ELBOW_REACH + 3.175)).clean())
+    reducer_y = elbow_face_y + REDUCER_OVERALL - STEM_INSERTION
+    reducer = (cylinder(REDUCER_D, (x, reducer_y, elbow_z), (0, -1, 0), REDUCER_BODY)
+               .fuse(cylinder(6.35, (x, reducer_y - REDUCER_BODY, elbow_z),
+                              (0, -1, 0), REDUCER_OVERALL - REDUCER_BODY))
+               .cut(cylinder(ID, (x, reducer_y, elbow_z), (0, -1, 0), REDUCER_OVERALL)))
     return barb, elbow, reducer, cq.Vector(x, reducer_y, elbow_z)
 
 
 def bodies(vent_tip, drain_mouth):
-    """A straight clear hose and tangent R25 white return to the DRAIN bulkhead."""
+    """Straight clear hose, aft-facing fittings and a four-bend R25 rear return."""
     vent = cq.Vector(*vent_tip)
     target = cq.Vector(*drain_mouth)
     root = vent - cq.Vector(0, 0, BARB_LENGTH + BARB_GAP)
@@ -89,38 +90,34 @@ def bodies(vent_tip, drain_mouth):
             .sweep(cq.Edge.makeLine(vent, root)).val())
     barb, elbow, reducer, source = _adapters(root)
     radius = MIN_R
-    q = math.sqrt(.5)
-    forward = cq.Vector(0, -1, 0)
-    side = cq.Vector(WHITE_LATERAL_FRACTION, 0,
-                     math.sqrt(1 - WHITE_LATERAL_FRACTION ** 2))
-    p1 = source + forward.multiply(radius) + side.multiply(radius)
-    m1 = source + forward.multiply(radius * q) + side.multiply(radius * (1 - q))
-    theta = math.acos(side.z)
-    inward = (cq.Vector(0, 0, 1) - side.multiply(side.z)).normalized()
-    p2 = p1 + side.multiply(radius * math.sin(theta)) + inward.multiply(radius * (1 - math.cos(theta)))
-    m2 = p1 + side.multiply(radius * math.sin(theta / 2)) + inward.multiply(radius * (1 - math.cos(theta / 2)))
-    p3 = cq.Vector(p2.x, p2.y, root.z + WHITE_VERTICAL_LEAD)
-    if p3.z <= p2.z:
-        raise ValueError("Drain return requires a straight vertical lead")
-    p4 = p3 + cq.Vector(0, radius, radius)
-    m4 = p3 + cq.Vector(0, radius * (1 - q), radius * q)
-    p5 = p4 + cq.Vector(0, WHITE_REAR_LEAD, 0)
+    aft = cq.Vector(0, 1, 0)
+    fore = -aft
+    east_up = cq.Vector(*WHITE_EAST_UP)
+    west_up = cq.Vector(*WHITE_WEST_UP)
+    p1 = source + east_up.multiply(2 * radius)
+    m1 = source + aft.multiply(radius) + east_up.multiply(radius)
+    p2 = cq.Vector(p1.x, WHITE_FORE_LOOP_Y, p1.z)
+    p3 = p2 + west_up.multiply(2 * radius)
+    m3 = p2 + fore.multiply(radius) + west_up.multiply(radius)
+    p4 = cq.Vector(p3.x, WHITE_REAR_S_Y, p3.z)
+    if p1.y <= p2.y or p4.y <= p3.y:
+        raise ValueError("Drain return requires straight leads between the rear bends")
     edges = [cq.Edge.makeThreePointArc(source, m1, p1),
-             cq.Edge.makeThreePointArc(p1, m2, p2), cq.Edge.makeLine(p2, p3),
-             cq.Edge.makeThreePointArc(p3, m4, p4), cq.Edge.makeLine(p4, p5)]
-    offset = cq.Vector(target.x - p5.x, 0, target.z - p5.z)
+             cq.Edge.makeLine(p1, p2), cq.Edge.makeThreePointArc(p2, m3, p3),
+             cq.Edge.makeLine(p3, p4)]
+    offset = cq.Vector(target.x - p4.x, 0, target.z - p4.z)
     theta = math.acos(1 - offset.Length / (2 * radius))
     side = offset.normalized()
     run = 2 * radius * math.sin(theta)
-    end = p5 + cq.Vector(0, run, 0) + offset
-    half = p5 + cq.Vector(0, radius * math.sin(theta), 0) + offset.multiply(.5)
-    first_mid = p5 + cq.Vector(0, radius * math.sin(theta / 2), 0) + side.multiply(radius * (1 - math.cos(theta / 2)))
+    end = p4 + aft.multiply(run) + offset
+    half = p4 + aft.multiply(radius * math.sin(theta)) + offset.multiply(.5)
+    first_mid = p4 + aft.multiply(radius * math.sin(theta / 2)) + side.multiply(radius * (1 - math.cos(theta / 2)))
     second_mid = end - cq.Vector(0, radius * math.sin(theta / 2), 0) - side.multiply(radius * (1 - math.cos(theta / 2)))
     if target.y <= end.y:
         raise ValueError("Drain return requires a straight rearward lead")
-    edges.extend([cq.Edge.makeThreePointArc(p5, first_mid, half),
+    edges.extend([cq.Edge.makeThreePointArc(p4, first_mid, half),
                   cq.Edge.makeThreePointArc(half, second_mid, end), cq.Edge.makeLine(end, target)])
-    tube = (cq.Workplane(cq.Plane(origin=source, xDir=(0, 0, 1), normal=forward))
+    tube = (cq.Workplane(cq.Plane(origin=source, xDir=(0, 0, 1), normal=aft))
             .circle(OD / 2).circle(ID / 2)
             .sweep(cq.Wire.assembleEdges(edges), transition="round").val())
     return dict(zip(ADAPTER_NAMES, (barb, elbow, reducer))) | {"hose-drain-vent": hose, "tube-drain-vent": tube}

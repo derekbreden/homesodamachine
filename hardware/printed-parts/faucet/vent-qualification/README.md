@@ -62,21 +62,21 @@ discharge reaches the sink. The dry CO2 model is an ideal-gas, low-Mach screen;
 it does not predict liquid slugs, flashing, high-rate choking or the device's
 response to a retained column.
 
-For the reference installation, the small tube is 2105.639 mm long and rises
+For the reference installation, the small tube is 2085.353 mm long and rises
 708.194 mm from the device vent to D's cut end. The nominal bores contain about
-10.34 mL in the small tube plus 0.58 mL in the modeled PVC span, using unobstructed
+10.24 mL in the small tube plus 0.61 mL in the modeled PVC span, using unobstructed
 bores and excluding fitting insertion interiors and overlaps. Its
 static water column imposes about 1.005 psi at the device. The cavity has
 270.61 mm² free cross-section after D ends, and the model credits 224.52 mm² of
 projected wet opening. D's lowest bore edge is 13.754 mm above the low floor.
 
 At the nominal 125 psi unrestricted-line sizing envelope, the model predicts
-2.606 L/min. With the assumed 0.6 discharge coefficient, cavity head is 6.597 mm
-and the bore remains 7.157 mm above water. The independent 3 L/min cavity proof
+2.621 L/min. With the assumed 0.6 discharge coefficient, cavity head is 6.656 mm
+and the bore remains 7.099 mm above water. The independent 3 L/min cavity proof
 target predicts 8.315 mm head and 5.439 mm bore clearance. The 200 psi device-rating
-sensitivity predicts 3.415 L/min. These are conditional
+sensitivity predicts 3.434 L/min. These are conditional
 single-phase calculations. The deliberately conservative area with a 0.4
-coefficient leaves only about 0.54 mm at the 125 psi nominal-bore envelope, below
+coefficient leaves only about 0.41 mm at the 125 psi nominal-bore envelope, below
 the 2 mm physical proof target. The report exposes that sensitivity rather than
 turning an unmeasured coefficient into a qualification result. The report also
 shows that shortening the small tube to 1 m can consume the bore-clearance

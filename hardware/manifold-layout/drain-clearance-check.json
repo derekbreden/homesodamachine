@@ -9,18 +9,13 @@
       "minimum_unconnected_gap_mm": 0.0,
       "neighbors": [
         {
-          "name": "asse1022-assembly",
-          "gap_mm": 0.2019808,
-          "overlap_mm3": 0
-        },
-        {
           "name": "drain-stem-reducer",
           "gap_mm": 4.0751978,
           "overlap_mm3": 0
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 3.2272685,
+          "gap_mm": 5.1038903,
           "overlap_mm3": 0
         },
         {
@@ -30,22 +25,22 @@
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 27.4816458,
+          "gap_mm": 27.3009929,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 13.8447222,
+          "gap_mm": 14.5245,
           "overlap_mm3": 0
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 16.6213998,
+          "gap_mm": 15.6233806,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 16.6213998,
+          "gap_mm": 15.6233806,
           "overlap_mm3": 0
         }
       ],
@@ -58,12 +53,7 @@
       "neighbors": [
         {
           "name": "tube-drain-vent",
-          "gap_mm": 18.5076011,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-fluid-2",
-          "gap_mm": 18.820689,
+          "gap_mm": 15.9142863,
           "overlap_mm3": 0
         },
         {
@@ -73,7 +63,7 @@
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 11.5161804,
+          "gap_mm": 21.6077561,
           "overlap_mm3": 0
         },
         {
@@ -83,12 +73,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 2.1192998,
+          "gap_mm": 1.1212806,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 2.1192998,
+          "gap_mm": 1.1212806,
           "overlap_mm3": 0
         }
       ],
@@ -105,33 +95,28 @@
           "overlap_mm3": 0
         },
         {
-          "name": "tube-fluid-2",
-          "gap_mm": 31.5171061,
-          "overlap_mm3": 0
-        },
-        {
           "name": "tube-fluid-28",
-          "gap_mm": 3.5291626,
+          "gap_mm": 3.2486395,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 1.5132554,
+          "gap_mm": 28.0669678,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 10.526,
+          "gap_mm": 13.826,
           "overlap_mm3": 0
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 3.9607998,
+          "gap_mm": 2.9627806,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 3.9607998,
+          "gap_mm": 2.9627806,
           "overlap_mm3": 0
         }
       ],
@@ -144,7 +129,7 @@
       "neighbors": [
         {
           "name": "tube-drain-vent",
-          "gap_mm": 1.8785589,
+          "gap_mm": 3.7703903,
           "overlap_mm3": 0
         },
         {
@@ -161,83 +146,68 @@
       "minimum_unconnected_gap_mm": 1.0,
       "neighbors": [
         {
+          "name": "g-ganen-pump",
+          "gap_mm": 11.9035121,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "keystone-jack",
+          "gap_mm": 2.1010869,
+          "overlap_mm3": 0
+        },
+        {
           "name": "asse1022-assembly",
-          "gap_mm": 1.7950446,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "flow-regulator",
-          "gap_mm": 7.5096,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "discharge-chain",
-          "gap_mm": 6.2320476,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "bulkhead-water",
-          "gap_mm": 20.1632904,
+          "gap_mm": 6.428622,
           "overlap_mm3": 0
         },
         {
           "name": "bulkhead-flavor-b",
-          "gap_mm": 20.1632904,
+          "gap_mm": 3.502276,
           "overlap_mm3": 0
         },
         {
-          "name": "digiten-flow",
-          "gap_mm": 4.1458741,
+          "name": "bulkhead-flavor-a",
+          "gap_mm": 6.3407807,
           "overlap_mm3": 0
         },
         {
           "name": "drain-barb-adapter",
-          "gap_mm": 3.2272685,
+          "gap_mm": 5.1038903,
           "overlap_mm3": 0
         },
         {
           "name": "drain-elbow",
-          "gap_mm": 18.5076011,
+          "gap_mm": 15.9142863,
           "overlap_mm3": 0
         },
         {
           "name": "hose-drain-vent",
-          "gap_mm": 1.8785589,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-water-6",
-          "gap_mm": 1.114164,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-fluid-2",
-          "gap_mm": 11.1832804,
+          "gap_mm": 3.7703903,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-28",
-          "gap_mm": 1.0951617,
+          "gap_mm": 1.3204414,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-18",
-          "gap_mm": 1.1241303,
+          "gap_mm": 12.3952246,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 2.799867,
+          "gap_mm": 9.814548,
           "overlap_mm3": 0
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 8.5647998,
+          "gap_mm": 7.5667806,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 8.5647998,
+          "gap_mm": 7.5667806,
           "overlap_mm3": 0
         }
       ],
@@ -330,22 +300,22 @@
         },
         {
           "name": "drain-barb-adapter",
-          "gap_mm": 27.4816458,
+          "gap_mm": 27.3009929,
           "overlap_mm3": 0
         },
         {
           "name": "drain-elbow",
-          "gap_mm": 11.5161804,
+          "gap_mm": 21.6077561,
           "overlap_mm3": 0
         },
         {
           "name": "drain-stem-reducer",
-          "gap_mm": 1.5132554,
+          "gap_mm": 28.0669678,
           "overlap_mm3": 0
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 1.1241303,
+          "gap_mm": 12.3952246,
           "overlap_mm3": 0
         },
         {
@@ -573,12 +543,12 @@
         },
         {
           "name": "drain-stem-reducer",
-          "gap_mm": 3.5291626,
+          "gap_mm": 3.2486395,
           "overlap_mm3": 0
         },
         {
           "name": "tube-drain-vent",
-          "gap_mm": 1.0951617,
+          "gap_mm": 1.3204414,
           "overlap_mm3": 0
         },
         {
@@ -692,12 +662,26 @@
     }
   },
   "source_sha256": {
-    "hardware/scripts/check_asse_drain.py": "494506d3bf35413e63cd3150e491faf36b9d00bb8f5f78ed592cc2e162efb036",
-    "hardware/manifold-layout/_drain.py": "99d5932ea34b093a436a99f7ff960510bd56941902580168f9d6b735fd2deaa8",
-    "hardware/manifold-layout/enclosure_assembly.py": "fba3a28949730fa2309acc2871e4e668495ebe1b8d89b1c53dce10758e0a92b8",
-    "hardware/manifold-layout/_lines.py": "8f386f4d1f52e95704ac3b482d3fb3bcd8d2c1fcb685927faa976d577de6bf80",
-    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "074830a27da378a232ca0f6e643b7a2724785d93bd4c3e0cc6c6892a887abbba",
-    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "19a789c053886be8ac4883b8f4d3cd2448968418db815e4081bcb0170d9dea39"
+    "hardware/scripts/check_asse_drain.py": "4c2a414fde754fbe8588de8dd4eddced959f289adda80541df06bc2fa5b3c4a3",
+    "hardware/manifold-layout/_drain.py": "36a4af034459fdafe323f8c2d29561bf5549b642f7e2ba65d363f159c95c8f3e",
+    "hardware/manifold-layout/enclosure_assembly.py": "97bb3e66438bdb6e503a3a600a776649a18a2f3adda96f12a6593f002c592fdd",
+    "hardware/manifold-layout/_lines.py": "7d22d75a737ec3cf45275697deb8cbdf2147e0a190ee0da8756028ba6f8af4f5",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "883031e94d29d4e53c34013e0d398303097093bcdc4b37efaaf818bb8a8038a3"
   },
-  "passed": true
+  "passed": true,
+  "serialized_input_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step": "41e96d8fa67cb316d07de1da8cb7865d8bdc0e352c821b62e1eda8bb5ab34413",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b0f721d6dd62939f1507e305cf7a0a8d84bb8cdfec9d9d40403f5fab867a51a0"
+  },
+  "placement_fact_bounds_mm": [
+    -90.5000001069748,
+    182.29999989999996,
+    0.0,
+    90.5000001069748,
+    465.3,
+    269.2940002
+  ],
+  "placement_fact_bounds_sha256": "8a0a3a8e3d165b6b3f044aacf5fdf3b214259c250388bc4aa5c28fa03600061b",
+  "foam_envelope_matches_saved_placement": true
 }
