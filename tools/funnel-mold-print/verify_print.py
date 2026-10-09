@@ -139,11 +139,6 @@ def geometry_figures(info):
         'SOCKET_D': f"{info['rod_socket']['diameter_mm']:g} mm",
         'SOCKET_DEPTH': f"{info['rod_socket']['depth_mm']:g} mm",
         'ROD_END_DEPTH': f"{info['rod_socket']['rod_end_depth_mm']:g} mm",
-        'ROD_OFFSET': f"{info['rod_tolerance_screen']['offset_mm']:g} mm",
-        'ROD_TILT': f"{info['rod_tolerance_screen']['tilt_deg']:g}°",
-        'ROD_AXIAL': f"{info['rod_tolerance_screen']['axial_lift_mm']:g} mm",
-        'ROD_MIN_SOCKET': f"{info['rod_tolerance_screen']['minimum_socket_clearance_mm']:.2f} mm",
-        'ROD_MIN_END': f"{info['rod_tolerance_screen']['minimum_end_depth_mm']:.2f} mm",
         'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
         **({'PLUG_BLANK': ' × '.join(f'{v:.1f}'.removesuffix('.0')
                                    for v in info['plug_blank_mm'])+' mm'}

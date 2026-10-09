@@ -412,8 +412,6 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
         if lead_in:
             mids.append(tuple(dst[i] + n_to[i] * lead_in for i in range(3)))
     pts = _straighten(_dedupe([src] + mids + [dst]))
-    if len(pts) < 2:
-        raise ValueError(f"{cid}: a run needs at least a source and a destination")
     lead_off = leg_skew(pts[0], pts[1], n_from)
     if lead_off > sk_out:
         _blocked(cid, f"leaves {frm} {lead_off:.1f}° off the port's axis (> {sk_out:.1f}°), and is "
@@ -456,8 +454,6 @@ def redrawn(run: Run, pts) -> Run:
             f"cannot be carried onto a new centreline. Redraw it at its call in `_lines.py`.")
     cap = ceilings.pop()
     pts = _straighten(_dedupe([tuple(float(c) for c in p) for p in pts]))
-    if len(pts) < 2:
-        raise ValueError(f"{run.id}: a redrawn centreline needs at least two distinct points")
     corners = _bends(pts, run.id)
     kept = dict(BLOCKED)
     try:

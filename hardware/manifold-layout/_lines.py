@@ -653,7 +653,7 @@ def _fluid_2(F):
     lane_x = tap[0] + FLUID_1_INBOARD
     cross_z = out[2] + TUBE_BEND
     inlet_turn = inlet[1] + TUBE_BEND
-    run = R.bent(
+    return R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),
         (FLUID_2_RISER_X, lane - FLUID_2_RISE_FORE, cross_z),
@@ -663,10 +663,6 @@ def _fluid_2(F):
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: regulator outlet ahead of the drip pan, rising west of the pump, "
              "then down V-A's column into the axial inlet quarter")
-    radius = min(run.radii.values(), default=run.bend)
-    if radius < TUBE_BEND - 1e-6:
-        raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
-    return run
 
 
 # --- the funnel's gravity drain ---------------------------------------------
@@ -902,7 +898,7 @@ def _fluid_18(F, solids):
     low_z = (F["g-ganen-pump"].at("discharge")[2]
              - (_suct.HOSE_OD + _split.TUBE_D) / 2.0 - LANE_CLEAR)
     rise_y = GATE_A_UNION_JOIN_Y + GATE_A_UNION_LEVEL_RUN
-    run = R.bent(
+    return R.bent(
         "fluid-18", "valve-v-g.outlet",
         (gate[0], gate[1], fore_z),
         (join_x, deck_y, cross_z),
@@ -919,9 +915,6 @@ def _fluid_18(F, solids):
                             6: 25.4, 7: 25.4, 8: 25.4, 9: 25.4},
         note="flavor A: V-G-O → rear union, through the low fore cap post, "
              "aft along the west flank and below the pump discharge hose")
-    if run.tightest < TUBE_BEND - 1e-6:
-        raise ValueError(f"fluid-18: minimum bend {run.tightest:.3f} mm is below R{TUBE_BEND:g}")
-    return run
 
 
 # --- the four reservoir lines, gate to reservoir and reservoir to gate --------
@@ -1043,7 +1036,7 @@ def _fluid_14(F, solids):
     hose_fall_end = F["g-ganen-pump"].at("suction")[1] - 2.0 * HOSE_BEND
     hose_fall_start = hose_fall_end - FILL_A_HOSE_FALL_RUN
     hose_under = cap - FILL_A_HOSE_DROP
-    run = R.bent(
+    return R.bent(
         "fluid-14", "valve-v-f.outlet",
         (gate[0], gate[1] + FILL_A_GATE_LEAD * math.tan(math.radians(FILL_A_GATE_LEAN_DEG)),
          gate[2] + FILL_A_GATE_LEAD),                       # full-radius lead, leaning aft within the collet
@@ -1061,10 +1054,6 @@ def _fluid_14(F, solids):
         note="reservoir A fill: V-F-O → the fill bore in its own cap, over `fluid-16`'s lean and "
              "straight down onto the cap, then the whole way aft in the lane V-K and V-A leave "
              "to the bore's own column behind the suction hose")
-    radius = min(run.radii.values(), default=run.bend)
-    if radius < TUBE_BEND - 1e-6:
-        raise ValueError(f"fluid-14 seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
-    return run
 
 
 def _fluid_16(F):

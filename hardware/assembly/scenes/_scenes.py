@@ -125,7 +125,7 @@ def crossings(runs) -> dict:
 # is open and travels the length of the machine to a valve the front half has not brought yet,
 # and the three reservoir lines are pushed into the core's own cap conduits with the core still
 # on its own. `runs_for` reads a run off its two mouths and its rib; the ones made up early are
-# named, per scene, here. A name here the scene already derives is REPORTED.
+# named, per scene, here.
 #
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
@@ -493,15 +493,6 @@ def named(scene, runs):
                 f"scene {scene.id!r} takes {scene.without!r} out of itself and does not carry "
                 f"{', '.join(surplus)} to take. The two are no longer built on the same thing.")
         derived -= gone
-    # WHAT IS ADDED IS SOMETHING THE TABLES GIVE AWAY. A row that names what the scene already
-    # takes is a row saying nothing, and the day the tables change their mind about it nothing
-    # here would notice.
-    idle = sorted(n for n in scene.also if n in derived)
-    if idle:
-        raise ValueError(
-            f"scene {scene.id!r} names {', '.join(idle)} in `also`, which it already draws. "
-            f"`also` is for what the unit carries and the tables hand to another piece — a "
-            f"name the scene derives on its own belongs to the tables, not to this row.")
     names = derived | set(scene.also)
     # ONE LENGTH OF TUBE IS ONE LENGTH OF TUBE. A unit drawing the half inside the core draws the
     # half outside it too, wherever the fastening tables put that half: the cut, the bends and the

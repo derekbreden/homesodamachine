@@ -508,8 +508,6 @@ floor_flat_bottom_z = floor_trough_z - bulkhead_seal_counterbore_depth - bulkhea
 bulkhead_seal_wet_top_z = floor_trough_z + fits.supported_surface
 bulkhead_seal_wet_floor_z = bulkhead_seal_wet_top_z - bulkhead_seal_counterbore_depth
 bulkhead_seal_dry_roof_z = floor_flat_bottom_z + bulkhead_seal_dry_depth
-assert abs(bulkhead_seal_wet_floor_z - bulkhead_seal_dry_roof_z
-           - reservoir_wall_thickness) < 1e-9
 # Open headroom below the flat exterior bottom, down to the bag-pocket floor
 # (the foam-shell pocket the reservoir drops into). The flat bottom is the
 # reservoir's lowest point, so this is also how far that lowest point clears

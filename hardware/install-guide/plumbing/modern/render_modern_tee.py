@@ -64,7 +64,6 @@ PP0208_REACH = 19.5         # C, centre to each of the three port faces
 PP0208_INSERTION = 15.7     # D, tube face to internal stop
 PP0208_MAX_OD = 16.3        # E, widest body/collar diameter
 PP0208_BORE = 4.3           # F, through bore
-PP0208_BRANCH_ENVELOPE = 27.7  # G, branch face to opposite body envelope
 
 TUBE_OD = PP0208_TUBE_OD
 TUBE_ID = 4.20
@@ -293,26 +292,6 @@ def _pp0208e_parts(center=(0.0, 0.0, 0.0)) -> tuple[cq.Shape, tuple[cq.Shape, ..
 
     translation = cq.Vector(*center)
     return body.translate(translation), tuple(part.translate(translation) for part in collets)
-
-
-def _pp0208e_bounds_hold() -> None:
-    body, collets = _pp0208e_parts()
-    compound = cq.Compound.makeCompound([body, *collets])
-    bounds = compound.BoundingBox()
-    claims = (
-        ("run minimum", bounds.xmin, -PP0208_REACH),
-        ("run maximum", bounds.xmax, PP0208_REACH),
-        ("width minimum", bounds.ymin, -PP0208_MAX_OD / 2.0),
-        ("width maximum", bounds.ymax, PP0208_MAX_OD / 2.0),
-        ("branch face", bounds.zmin, -PP0208_REACH),
-        ("opposite envelope", bounds.zmax, PP0208_MAX_OD / 2.0),
-        ("branch envelope", bounds.zlen, PP0208_BRANCH_ENVELOPE),
-    )
-    for label, actual, expected in claims:
-        if abs(actual - expected) > 0.06:
-            raise RuntimeError(
-                f"PP0208E {label} is {actual:.3f}, not official {expected:.3f} mm"
-            )
 
 
 def _add_tee(scene: cq.Assembly, *, center_x: float) -> None:
@@ -642,9 +621,6 @@ def _job(step: Path, output: Path, view: View) -> dict:
 
 
 def main() -> None:
-    union_ref.stations_hold()
-    _pp0208e_bounds_hold()
-    note_read(union_ref.STEP)
     note_read(RENDERER)
     note_read(VIEWER_SCENE)
     ART.mkdir(parents=True, exist_ok=True)

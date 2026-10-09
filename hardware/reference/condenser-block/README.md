@@ -30,8 +30,8 @@ is crossed as one straight length of tube.
 both at every build — a mating on its two stations, a tube on both its mouths. The fan
 is on the face its air leaves by.
 
-`stations_hold()` holds all three to the box this module draws: each stands on
-the face its own axis points out of, and inside that face's own edges.
+`stations_hold()` holds all three to the box this module draws: each stands
+inside the edges of the face its own axis points out of.
 
 ## The two recesses
 
@@ -64,9 +64,8 @@ boss under it has to reach. The machine sets the block down unturned
 those two insets read off the world's X− and Y+ faces at this pose.
 
 `mounts_hold()` holds both holes clear of all four flanks, inside the aft
-recess's own depth and clear of both its flange root and its free edge, the sheet
-at either end at its own thickness, and probes the solid for material or air where
-each of those puts it.
+recess's own depth and clear of both its flange root and its free edge, and probes
+the solid for material or air where each of those puts it.
 
 ## Where it stands
 

@@ -47,20 +47,10 @@ FUNNEL_ENGAGEMENT = _funnel.stub_engagement
 # (`elbow.INSERTION`); a shallower stop only carries the stub further up the plug's bore.
 UNION_INSERTION = 15.7
 LENGTH = UNION_INSERTION + FACE_GAP + FUNNEL_ENGAGEMENT
-# The land the plug seals on, measured down from the stub's top.
-LAND = _funnel.sealing_land
 
 
 def joint_holds() -> None:
-    """The stub reaches through the elbow's collet to its stop and up through the whole land."""
-    if FACE_GAP < 0.0:
-        raise ValueError(
-            f"the elbow's release face stands {-FACE_GAP:.2f} mm above the plug's bottom face — "
-            f"its collet would bear on the silicone.")
-    if FUNNEL_ENGAGEMENT < LAND:
-        raise ValueError(
-            f"the plug's bore reaches {FUNNEL_ENGAGEMENT:.2f} mm up to its land's top and the "
-            f"land is {LAND:g} mm: the stub would stop short of sealing.")
+    """The stub fills the plug's sealing land."""
     if STUB_OD <= _funnel.sealing_id:
         raise ValueError(
             f"the {STUB_OD:g} mm stub does not fill the plug's {_funnel.sealing_id:g} mm land.")

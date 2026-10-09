@@ -74,8 +74,7 @@ own component, so every one of them carries the colour into `/3d`.
 | bead | [0.42](WORD_BEAD) mm laid through a [0.4](WORD_NOZZLE) mm tip |
 
 Every stroke is wider than one bead. The bridge is not: the slicer runs a single outer wall of chip
-through FLAVOR's L and A up to the face, and the raised tops stand apart above it. The bridge
-scales with the em, which is what puts a floor under how small these words can be set.
+through FLAVOR's L and A up to the face, and the raised tops stand apart above it.
 
 Which of black and white a chip's word letters in is
 [`_y_wall_dimensions.chip_word_colors`](../y-wall-of-back-top/_y_wall_dimensions.py), one entry per
@@ -84,7 +83,7 @@ spool in `chip_filaments` beside it. The two white chips take **black**; the oth
 
 `bulkhead_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
 repo's, so a machine that resolves it to something else letters a different part; `words_hold`
-reads the built solid back against those figures, and against being one solid.
+reads the built solid back against those figures.
 
 ## Print
 

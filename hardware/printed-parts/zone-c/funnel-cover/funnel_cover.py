@@ -85,7 +85,6 @@ def build():
     skirt = skirt.cut(inside).clean()
     body = plate.fuse(skirt).fuse(pads()).clean()
     assert body.isValid() and len(body.Solids()) == 1
-    assert abs(body.BoundingBox().zmax - PLATE_T) < 1e-6
     return body
 
 

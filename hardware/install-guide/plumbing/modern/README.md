@@ -79,6 +79,5 @@ sheet Pp4608_01/23](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks
 - through bore F: 4.3 mm;
 - branch-face envelope G: 27.7 mm.
 
-The generator checks those published bounds before exporting any frame.  The
-minor profile breakpoints not dimensioned by the manufacturer are symmetric
-instruction-detail features inside that held envelope.
+The minor profile breakpoints not dimensioned by the manufacturer are symmetric
+instruction-detail features inside that envelope.

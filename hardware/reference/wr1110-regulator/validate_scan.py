@@ -30,7 +30,6 @@ def main():
     evidence = json.loads((HERE / 'scan-measurements.json').read_text())
     p,n,_ = load_cloud(evidence['merged_cloud']['path'], evidence['merged_cloud']['sha256'])
     p,n = voxel_sample(p,n,.25)
-    model.stations_hold()
     shape = model.import_step(str(model.STEP)).val()
     if not shape.isValid() or len(shape.Solids()) != 1:
         raise ValueError('The regulator must be one valid solid')

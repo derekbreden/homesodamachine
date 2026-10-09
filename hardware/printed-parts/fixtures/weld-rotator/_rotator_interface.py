@@ -15,8 +15,6 @@ TUBE_WALL = 0.065 * MM_PER_IN
 TUBE_ID = TUBE_OD - 2.0 * TUBE_WALL
 TUBE_LENGTH = 6.0 * MM_PER_IN
 ENDCAP_RECESS = 0.25 * MM_PER_IN
-ENDCAP_PORT_OFFSET = 0.75 * MM_PER_IN
-ENDCAP_SERVICE_ENVELOPE = 1.0 * MM_PER_IN
 
 # Both lower end-cap ports have to remain reachable while the already-welded
 # end supports the second closure.  The feet hold this unobstructed passage
@@ -66,7 +64,6 @@ MOTOR_PILOT_DIAMETER = 38.1
 MOTOR_PILOT_LENGTH = 1.6
 MOTOR_MOUNT_SQUARE = 47.14
 MOTOR_MOUNT_HOLE_DIAMETER = 5.2
-MOTOR_MOUNT_TAPPED_DEPTH = 4.5
 
 
 def pitch_diameter(teeth: int) -> float:

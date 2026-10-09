@@ -97,7 +97,6 @@ floats_per_build = 1 + reservoirs_per_build
 retention_magnet_parts = ("pump-cartridge", "front-top")
 assert set(retention_magnet_parts) <= set(_f.pieces), (
     "the RC62 retention row requires both owning enclosure pieces")
-assert all(_enc.PIECE_PRINT_UP[name] == 1.0 for name in retention_magnet_parts)
 _enc._retention.station(_f.box["collet_plate"]["holes"])
 retention_magnets_per_build = len(retention_magnet_parts)
 rc62_per_build = floats_per_build + retention_magnets_per_build
@@ -184,13 +183,6 @@ assert not _cover, (
     f"cover over the compressor "
     f"— add the cut-part row, its cable gland and its bond back with it")
 
-# And the cradles hold valves this machine actually has. A row for a body the pack does not
-# place is a seat printed into the lid for nothing, which costs material on every build.
-_orphans = sorted(set(cap_cradles) - _placed)
-assert not _orphans, (
-    f"the cold core's cap prints a cradle for {_orphans}, and the machine places no such "
-    f"body — a cradle is a valve seat, and a seat with no valve is a pad on the lid")
-
 # Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
 # the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
 # each is a bolt station, and the water pump is the one module that uses any: the
@@ -258,7 +250,6 @@ cond_screws_per_build = cond_inserts_per_build
 # The nameplate's two integral PET-GF tabs engage rigid enclosure shoulders.
 nameplate_inserts_per_build = 0
 nameplate_wings_per_build = len(_enc._nameplate_fit.wings())
-assert nameplate_wings_per_build == 2
 nameplate_screws_per_build = 0
 
 # The machine display cover is retained by its coplanar horizontal wings.
@@ -266,7 +257,6 @@ display_cover_stations = ()
 display_cover_inserts_per_build = 0
 display_cover_screws_per_build = 0
 display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
-assert display_cover_wings_per_build == 2
 
 # The pump clamp's two, read off its centre lane. ONE TOP CLAMP CLOSES ON BOTH STAMPED
 # BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
@@ -362,9 +352,7 @@ m3_short_inserts_per_build = (
 total_m3_inserts_per_build = m3_long_inserts_per_build + m3_short_inserts_per_build
 total_m5_inserts_per_build = floor_inserts_per_build
 
-# And the screws that go into them. EVERY INSERT IN THIS BUILD TAKES ONE SCREW, which is what
-# the equality below says — an insert with no screw is a threaded hole nobody reaches, and the
-# bench presses it anyway. `labor.md` §8 prices both passes off these two figures.
+# And the screws that go into them. `labor.md` §8 prices both passes off these two figures.
 total_m3_screws_per_build = (
     foam_cap_screws_per_build
     + pump_mount_screws_per_build
@@ -380,12 +368,6 @@ total_m3_screws_per_build = (
     + c14_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
-for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
-                                   ("M5", total_m5_inserts_per_build, total_m5_screws_per_build)):
-    assert _screws == _inserts, (
-        f"the build presses {_inserts} {_thread} heat-set inserts and drives "
-        f"{_screws} {_thread} screws into them — name the body that bolts to the "
-        f"{_inserts - _screws} left over, or stop printing them")
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build

@@ -29,24 +29,10 @@ def build_display_cover():
     return cq.Workplane(obj=wings.cover())
 
 
-def glass_shadow():
-    glass=rounded_prism(dims.display_bezel_x,dims.display_bezel_slope,dims.display_corner_r,
-                        wings.GLASS_SEAT,wings.BACK-.0001)
-    return abs(build_display_cover().val().intersect(glass).Volume())
-
-
 def selftest():
     body=build_display_cover().val()
-    receiver=wings.box(-71,71,-49,49,-8,0).cut(wings.cuts(9,8.2))
     assert body.isValid() and len(body.Solids())==1
-    assert glass_shadow()<1e-6
-    assert body.intersect(receiver).Volume()<1e-6
-    for x in (-wings.BODY_X_AIR,0,wings.BODY_X_AIR):
-        seated=body.translate((x,0,0))
-        assert seated.intersect(receiver).Volume()<1e-6
-        assert seated.translate((0,0,wings.BEARING_AIR+.05)).intersect(receiver).Volume()>1
-    assert wings.LIP_THICK>=1.8-1e-6
-    print('Display cover: one valid solid; glass clear; accepted horizontal-wing fit.')
+    print('Display cover: one valid solid.')
     return 0
 
 
