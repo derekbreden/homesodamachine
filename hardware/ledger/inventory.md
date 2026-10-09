@@ -6,7 +6,7 @@ This is a **view** over purchases.md: each entry below points back to its row(s)
 
 Categories:
 - **[Abandoned](#abandoned)** — purchased and on-hand, but no longer in the current production design. Kept as spare / bench-test stock or because removal isn't cost-effective.
-- **[Spare](#spare)** — deliberate extra of a currently-used BOM item. Hedge against supplier drift, install/test consumption, or unit-002 head start.
+- **[Spare](#spare)** — deliberate extra of a specified BOM item or tool component. Hedge against wear, supplier drift, install/test consumption, or unit-002 head start.
 - **[Diagnostic](#diagnostic)** — bought for a specific test / investigation, not production.
 - **[Donor](#donor)** — harvest sources. Disassembled for specific subassemblies; remainder discarded or kept as spare.
 - **[Fab fixture](#fab-fixture)** — one-time fabrication-support stock (wood, MDF, glue, clamps) used to build jigs and templates rather than appliance parts.
@@ -61,7 +61,7 @@ Items purchased and on-hand whose original role has been superseded by a differe
 
 ## Spare
 
-Deliberate extras of currently-used BOM items.
+Deliberate extras of specified BOM items or tool components.
 
 | Item | On-hand | Notes |
 |---|---|---|
@@ -72,6 +72,7 @@ Deliberate extras of currently-used BOM items.
 | **Interstate Pneumatics WR1105 fixed 3-bar regulator** | 3 on order (Amazon 112-6207769-5063458, [purchases.md §2](/hardware/ledger/purchases.md)); Amazon estimates Oct 7 | One per build ([bom.md §4](/hardware/ledger/bom.md)). Read each one's lock-up pressure on the bench before it goes into a cradle. |
 | **John Guest PI450822S gray acetal female adapter, 1/4" tube × 1/4" NPTF** | 30 on order (FWS WEBFWS100708594, [purchases.md §2](/hardware/ledger/purchases.md)) | Two per build, on the male outlets of the WR1105 and the CO2 check ([bom.md §4](/hardware/ledger/bom.md)). |
 | **Hosifiy 316 SS nominal 9.5 mm × 400 mm round rod** | One on order ([B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS), [purchases.md §1](/hardware/ledger/purchases.md)); Amazon estimates Sep 18 | Jet-cap stock. Coupon consumption, cutting allowance and bore/end-face fit are unmeasured; production BOM carries a provisional stock allowance. |
+| **JST WC-110P FLAP LOCATOR** | 0 on hand; 1 on order (DigiKey 101910359, 2026-09-29; [purchases.md §9](/hardware/ledger/purchases.md)) | Spare contact-positioning flap for the [WC-110 crimper](/hardware/ledger/tools.md#soldering--electronics-bench). DigiKey 455-WC-110PFLAPLOCATOR-ND; no backorder on the acknowledgement. |
 
 ## Diagnostic
 
