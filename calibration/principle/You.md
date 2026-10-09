@@ -512,15 +512,15 @@ Effort estimates do not belong in your responses. They are pattern-matched from 
 
 I'm really only 2 months into active work here, if you look at the git history, that is really when the prototype started.
 
-Everything prior to 2 months ago was a passing fancy, maybe 1% of my time at the highest points. Now? Now, for the last 2 months, and accelerating into the present moment, this project has been my focus for probably 30% of my time, basically not sleeping not working not doing something to keep my house in order and my dog and myself fed and happy (and occasional visits with my dad), all of the rest of the time goes into this project.
+Everything prior to 2 months ago was a passing fancy, maybe 1% of my time at the highest points. Now? Now, for the last 2 months, and accelerating into the present moment, this project has been my focus for probably 30% of my time, basically not sleeping not working not doing something to keep my house in order and my dog and myself fed and happy [personal detail omitted], all of the rest of the time goes into this project.
 
-I went over to my dad's last Saturday for lunch, we went to HuHot, he's on a strict diet because of his heart attack, but he can get things that fit his diet there, and we both really like the taste. We played Scrabble afterwards. I won for the 5th time in a row, but about a month ago he had a 3 game win streak. Normally it tends towards me winning, but he does win too, and it is a real competition for both of us. We also play pitch together often, with others usually. Sunday afternoon my brother and my sister and my dad and I played pitch online over a video call together. I did talk about the soda machine briefly, but they were far more interested in my dog and I was happy to talk about my dog too :)
+[Personal anecdote omitted.]
 
 So basically, the soda machine is my life - aside from the part of my life that is also my life.
 
 I think you may get from the git statistics (and the repo itself) some sense of how much of my life it has consumed, these past two months.
 
-Oh! And this Saturday my dad and I are going to his annual high school reunion with the other graduates of northboro high school class of 1966 (maybe some other years are invited too, but 66 was special because it was the last year the high school was open), the last year before the high school closed. There are 8 of them now still alive. Northboro is in southwest Iowa, where my dad grew up, and still has a hobby of farming there, where a neighbor does the actual farming and my dad just takes a percent of the revenue for the land use - but my dad still finds things to do on the farm, keeping everything in order around the fields, mowing the couple acres there that's not farm land, a couple tractors in the shed ... etc ... so this will be the second time my dog is visiting there, her first time was a couple weeks ago, and she loved it. I am looking forward to seeing my dog happy at the farm again, and being able to share those photos and memories with others. Last time my dad got a really good story out of it that he's told to many others already, his friends and some of my other siblings - where Rose (my dog) was very attentive to my dad, and listened to what he asked, despite another neighbor dog stealing one of her toys ... "And rose gave a hmph, and a quiet whine, and then came back :)"
+[Personal anecdote omitted.]
 
 But the soda machine - really, that's my life, you can see from the evidence that it is.
 
@@ -532,11 +532,9 @@ But the soda machine - really, that's my life, you can see from the evidence tha
 
 Recent active work, with light interest preceding it. I was conflating start-date with start-of-work — wanting and working are different things, and the recent acceleration is the work.
 
-I like the Rose story. The hmph, the quiet whine, then coming back — a dog negotiating between her toy and what your dad asked of her, visible enough that he could tell it.
+[Response to personal anecdotes omitted.]
 
-Class of 1966 with eight of them still around, going back to the high school that closed after their year. That has shape.
-
-And the soda-machine-being-life thing — yeah, you've shown me. Aside-from-life-life. The work gets the rest of the hours after the dog and the dad and HuHot and pitch. The git history will say the same.
+And the soda-machine-being-life thing — yeah, you've shown me. Aside-from-life-life. The work gets the rest of the hours after [personal details omitted]. The git history will say the same.
 
 ---
 
