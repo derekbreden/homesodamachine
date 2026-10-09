@@ -105,7 +105,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| <!--purchase:pur-f34a0cbf6ba74d11887b5ec0c8206984--> Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | — | — | — | ACQUIRED |
+| <!--purchase:pur-f34a0cbf6ba74d11887b5ec0c8206984--> Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | 1566 | 2026-02-01 | — | ACQUIRED |
 | <!--purchase:pur-b86a89ee080e491c901fb20e4ea4f353--> TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | 114-0170640-0334629 | 2026-02-13 | — | ACQUIRED |
 | <!--purchase:pur-28f5f5bc86674717aa6f6b96b2079ca8--> WELLBOM 0–120 PSI CO2 dual-gauge regulator, CGA-320, with pressure-release valve | [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY) | 1 | $49.32 | 112-8121022-3791448 | 2026-06-22 | 2026-06-25 | ACQUIRED |
 | <!--purchase:pur-8c01bda97e5f42a49e5b956f6f1a46c9--> Taprite 3741 soda primary CO2 regulator, CGA-320 inlet, 0–120 PSI working pressure, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges, 1/4" flare outlet with check (Draft Warehouse SKU CGR266) — the appliance's shipped primary, set at the factory to 75 PSI. Draft Warehouse order 244592: 1 @ $61.95 + $13.68 UPS Ground + $0.00 tax | [draftwarehouse.com](https://www.draftwarehouse.com/products/co2-primary-soda-regulator-cga320-in-1-4-flare-outlet-with-check-taprite) | 1 | $75.63 | 244592 | 2026-10-05 | — | ON-ORDER |
@@ -790,8 +790,8 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$9,583.56](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,835.33](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$10,712.56](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$1,706.33](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
