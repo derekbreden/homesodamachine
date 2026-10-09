@@ -339,6 +339,10 @@ def main() -> int:
         # declares it, so it is not a file this carries and its staleness says nothing about
         # the outputs that are. Held out by name, and everything else still refuses.
         stale = [ln for ln in owed if "BazelWorkspaceStatusAction" not in ln]
+        # A TARGET NAMED `--failed` IS STALE BY DEFINITION, and its outputs are held back below,
+        # so its own line is no reason to refuse the carry of every target that did build.
+        stale = [ln for ln in stale
+                 if not ((m := re.search(r"//:([^\s']+)", ln)) and m.group(1) in failed)]
         # AND A NON-ZERO EXIT THAT NAMED NOTHING IS STILL A REFUSAL. `--check_up_to_date` runs
         # no action, so a failure carrying no `not up-to-date` line is bazel unable to answer —
         # a broken graph, a missing input — which is not permission to carry.

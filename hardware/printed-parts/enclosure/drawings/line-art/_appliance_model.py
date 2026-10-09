@@ -5,7 +5,7 @@ The appliance the enclosure iso drawings show: THE MACHINE'S OWN WALLS.
 carries, and cuts the printed pieces of the box around them. This module takes
 that one build and keeps what stands OUTSIDE the closed machine:
 
-- the [8](PIECE_N) printed pieces — front/back × bottom/top — carrying the 45°
+- the [9](PIECE_N) printed pieces — front/back × bottom/top — carrying the 45°
   display facet let into the top-front arris and the funnel throat cut through
   the top wall,
 - the funnel standing in that throat and the display let into that facet,
@@ -80,7 +80,7 @@ APPLIANCE_H = OUTER[5] - OUTER[4]
 # The pieces the enclosure comes apart into, by the name they go into the
 # assembly under. None of them is a separate face — the front of this machine is
 # `enclosure-front-*`'s own skin, and it is BLANK: `enclosure_assembly.pack()` fills
-# `back_ports` with [7](BACK_PORT_N) stations and leaves `front_ports` at the
+# `back_ports` with [8](BACK_PORT_N) stations and leaves `front_ports` at the
 # `Pack` default, so the front wall is cut [0](FRONT_PORT_N) times and the
 # drawing shows a face with nothing on it.
 PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
@@ -88,7 +88,7 @@ PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
 # What a customer's line reaches. `enclosure_assembly.THROUGH_WALL` is the machine's own
 # list of bodies clamped IN a wall rather than standing inside one, so the
 # drawing carries exactly the fittings the machine presents to the room — the
-# four unions as a rectangle on two columns at [40.26 mm](PANEL_PITCH) pitch and two
+# four unions as a rectangle on two columns at [37.36 mm](PANEL_PITCH) pitch and two
 # storeys, carbonated water and tap water above the two flavour unions, the signal
 # jack between the carbonated-water union and the flavour union under it, and the
 # CO2 inlet and the mains inlet east along the upper storey — all of them on the +Y

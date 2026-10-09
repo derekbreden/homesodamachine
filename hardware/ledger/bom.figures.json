@@ -35,7 +35,7 @@
     "FUNNEL_KIT_YIELD": "4.03",
     "FUNNEL_MIXED_G": "273",
     "FUNNEL_MIX_ALLOWANCE": "10%",
-    "FUNNEL_VOLUME_ML": "219.3",
+    "FUNNEL_VOLUME_ML": "219.4",
     "GAS_CHECK_LOOP": "71.4 mm",
     "GROMMET_SQUEEZE": "0.4",
     "LAID_FT": "13.41 ft",
@@ -95,13 +95,13 @@
     "VENT_FILTERS": "2",
     "WASHER_MAX_OD": "29",
     "WATER_3_POST_LOOP": "48.8 mm",
-    "WHITE_A_CUT": "495",
-    "WHITE_B_CUT": "454",
-    "WHITE_FLAVOR_FT": "3.11",
+    "WHITE_A_CUT": "496",
+    "WHITE_B_CUT": "455",
+    "WHITE_FLAVOR_FT": "3.12",
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,430.11",
+    "BOM_GRAND": "$1,429.73",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$40.74",
     "BOM_SEC12": "$35.66",
@@ -112,7 +112,7 @@
     "BOM_SEC4": "$128.94",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$166.12",
+    "BOM_SEC7": "$165.74",
     "BOM_SEC8": "$229.61",
     "BOM_SEC9": "$71.96"
   }
