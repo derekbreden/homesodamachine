@@ -19,7 +19,8 @@ substitute for that result.
 Keep the current refill sequence: dispense first, refill with the faucet closed.
 Record the following together for the initial fill, a normal refill, and the
 successive-glass sequence. A measurement without its pressure, temperature and
-timing context cannot distinguish the failure modes below.
+timing context cannot distinguish the failure modes below. [The model](/future/model.md)
+states what the dispense-side readings should be before they are taken.
 
 | Measurement | What it separates |
 |---|---|
