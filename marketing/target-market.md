@@ -230,9 +230,8 @@ avoid cans. Cost savings is math you show a buyer who has already decided.
 drawers it. Fewer of them at $7,500, and they are returns and bad reviews. We want daily users.
 
 **Not people who don't notice the cans.** Some daily drinkers do not experience the cans as a
-burden. Derek's stepmother: 84, retired, a 12-pack of Diet Coke a week, buys iPads and big TVs.
-She has the money and the habit and no hatred at all. Twelve cans a week is not heavy when you
-have the time and the store trip is happening anyway. She would not buy this at any price.
+burden. A manageable quantity fits their existing shopping routine, and they feel no need to
+change it. Having the money and the habit does not by itself make someone a buyer.
 
 ## The internal plan: rings of trust
 
@@ -248,9 +247,9 @@ this stage is a side effect of the deliverable. This is mark two of
 
 ### Concentric rings, not a sales funnel
 
-**Ring 1.** The first ten units go to people Derek knows directly or one degree out — friends,
-family, friends of friends. Price is whatever moves the unit; $2,000–3,000 is the expectation,
-some at or below cost for family willing to be beta testers. Against $1,416 of parts and ten
+**Ring 1.** The first ten units go to people Derek knows directly or one degree out — friends
+and direct referrals. Price is whatever moves the unit; $2,000–3,000 is the expectation,
+some at or below cost for beta participants. Against $1,416 of parts and ten
 hours of hand work, those prices pay for the box. What ring 1 produces is three things: units in
 homes generating real use data, supplier relationships established at quantity-of-fifty on the
 BOM lines where that matters, and a tighter, faster-to-build design by the time the ring closes.
@@ -295,6 +294,18 @@ job without anxiety.
 Someday someone may build a business against the whole category. That someone does not have to
 be this founder, and this product does not have to be the vehicle.
 
+## Lincoln sales and installation
+
+A parallel local track is under exploration: advertise to Lincoln households, include
+installation with the purchase, and have Derek deliver, install and support the machines.
+Car decals and a roof topper can make the work visible in the neighborhoods it serves.
+The [local plan](lincoln/README.md) holds the proposed pilot, installation scope and open
+decisions; [advertising research](lincoln/advertising.md) holds current sources and contacts.
+
+One nearby household is planned for the ring-one beta; the other currently identified
+ring-one prospects are remote. Local acquisition and the relationship rings share build
+capacity. The local offer's price, budget and service boundary remain undecided.
+
 ## Finding the first ten buyers
 
 The first buyers are **solvers** — people who have already discovered, at least once, that they
@@ -334,8 +345,9 @@ way to say "look at this" to the friend they already know drinks Diet Coke every
 **Direct only.** The one sales channel is homesodamachine.com. What that means for listings and
 certifications is [`/business/regulatory.md`](/business/regulatory.md).
 
-**Every sale is a conversation.** No ads, no retail. Buyers found one at a time and shown the
-faucet. The founder is the sales team.
+**Every sale is a conversation.** Buyers are found one at a time and shown the faucet. The
+founder is the sales team. Local advertising is an exploratory discovery path in the
+[Lincoln plan](lincoln/README.md), with delivery and installation as part of the proposed offer.
 
 **Discovery is the entire problem.** The product sells itself once someone knows it exists and
 believes it works. The hours go into manufacturing the "wait, that's *real*?" moment.
@@ -430,7 +442,7 @@ desire with no plan behind it, held at
 Three, and each one is Derek's to close. Nothing in the tree can answer them. None of them is
 a date: this tree does not hold one.
 
-1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and
+1. **Real people who fit the profile.** Friends, coworkers and referrals who drink diet soda daily and
    carry the can hatred. Three or four named examples validate or challenge everything above,
    and they are also ring 1.
 2. **The coworker.** The one who mentioned robot mowers. Do they drink soda? Do they know this

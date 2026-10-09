@@ -43,6 +43,11 @@ fifty. Ring 1 closes when the tenth unit is installed and the design is tighter 
 unit one received. Each plate those units carry is lettered and coded with the
 unit's own address — [Unit links](/future/unit-links.md).
 
+The [Lincoln sales and installation track](/marketing/lincoln/README.md) explores local
+advertising, founder delivery and installation, and nearby service alongside the relationship
+rings. It shares the build queue and founder hours; its local offer and pilot size remain
+proposals.
+
 **Three. The Founder Edition run.** Units 001–050 at $7,500, numbered and signed, built one
 at a time by one person. This is the public plan and the price anchor; it opens when the
 machine has been built enough times that the build is boring, and it closes when the
