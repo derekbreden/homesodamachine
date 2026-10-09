@@ -720,14 +720,18 @@ Enclosure parts and receiver test coupons use the tree support settings from
 nameplate itself has no supports: its back and both horizontal wings print
 directly on the bed.
 
-Tree supports are the default because normal supports have been difficult to
-remove. The [Normal Snug receiver coupon](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/physical-result.json)
-is rejected for impossible support removal. Use normal supports only for a named
-feature that specifically needs them, or a case with evidence of easier removal;
+Use Tree (auto) with the saved default style and retain Bambu's automatic
+support choices, including normal sections it generates. Explicit normal-support
+overrides have caused difficult removal: the
+[Normal Snug receiver coupon](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/physical-result.json)
+is rejected for impossible support removal. An explicit normal choice needs a
+named feature that specifically requires it, or evidence of easier removal;
 record and explain the exception's reason and scope before printing. An open
-removal lane or a smaller footprint alone does not establish easy cleanup.
-Retain the required bed margin when reviewing tree-support placement; if that
-cannot fit, explain the concrete constraint before choosing an exception.
+removal lane or smaller footprint alone does not establish easy cleanup.
+Retain the required bed margin when reviewing automatic tree-support placement;
+if that cannot fit, explain the concrete constraint before choosing an override.
+Do not replace the automatic recipe with a trees-only rule or blanket blockers
+for automatically generated normal sections.
 
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
