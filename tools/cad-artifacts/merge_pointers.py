@@ -143,7 +143,7 @@ def merge(base: dict, ours: dict, theirs: dict, merge_base=git_merge_base) -> tu
     notes += n
 
     # THE BUNDLE COMES FROM THE SIDE THAT CUT ONE. A held publish keeps the bundle it found and
-    # marks it behind; a runner's plain publish cuts a new one. Whichever side's digest moved
+    # marks it behind; a plain `pack.py --write` cuts a new one. Whichever side's digest moved
     # from the base is the side with the newer asset; main's when both moved.
     base_digest = (base.get("bundle") or {}).get("sha256")
     ours_new = (ours.get("bundle") or {}).get("sha256") != base_digest

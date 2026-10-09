@@ -46,7 +46,7 @@ from inventory import ACTION_INTERMEDIATE                 # noqa: E402
 #: inputs; this is what tells a declared output from one of those.
 _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
-#: The remote publisher carries only bytes the deployed viewer consumes. Geometry leaves through
+#: `--solids-only` carries only bytes the deployed viewer consumes. Geometry leaves through
 #: the artifact bundle; scorecards remain tracked beside it because the viewer reads them directly.
 #: Everything else stays in bazel-bin so a scoped CAD publish never grows into a docs,
 #: ledger, facts, or thumbnail regeneration lane.

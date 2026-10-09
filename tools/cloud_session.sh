@@ -14,7 +14,7 @@
 # THE KERNEL HERE IS THE RUNNER'S, NOT THE MAC'S. `cadquery-ocp` at the pin resolves to the
 # manylinux_2_31_x86_64 wheel, the same one `derive` runs in, so what this machine cuts is
 # byte-identical to what the runner cuts and NOT to what the Mac writes into the pointer file
-# (`publish.yml` says why: 95 of 124 members differ across the two wheels). A session here can
+# (`cad-runner-bench.yml` says why: 95 of 124 members differ across the two wheels). A session here can
 # build, check, derive and compare, and a commit it makes lands on main by itself.
 #
 # IT PUBLISHES TO THE SITE'S STORE. The GitHub release refuses a cloud session's writes:
@@ -104,7 +104,7 @@ fi
 
 # --- the CAD venv at the tree's pin ---------------------------------------------------------
 # `uv` when it is there (seconds), else the venv module and pip (minutes). Python 3.13 either
-# way: `cad-requirements.txt` pins wheels that exist for cp313, and `publish.yml` asserts it.
+# way: `cad-requirements.txt` pins wheels that exist for cp313.
 if "$PY" -c "import cadquery" 2>/dev/null; then
   say "tools/cad-venv: cadquery $("$PY" -c 'import cadquery; print(cadquery.__version__)')"
 elif [ "$CHECK" = 1 ]; then

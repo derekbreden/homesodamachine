@@ -56,11 +56,9 @@ _py="$root/tools/cad-venv/bin/python"
 [ -x "$_py" ] || _py=python3
 "$_py" "$root/tools/push.py" 2>&1 | sed 's/^/post-commit: /' >&2
 
-# AND A CAD CHANGE IS CUT HERE RATHER THAN WAITED FOR. A solid reaches the site when someone
-# writes it into the pointer file, which the running container adopts without a deploy. Measured on
-# 2026-08-24: a hardware commit took 5.7 minutes to become visible, 4.2 of them between the
-# commit and the runner pushing the pointer file. `publish_now.py` does that from this machine, where
-# the build cache and the cut already are.
+# AND A CAD CHANGE IS CUT HERE. A solid reaches the site when someone writes it into the pointer
+# file, which the running container adopts without a deploy. `publish_now.py` does that from this
+# machine, where the build cache and the cut already are.
 #
 # DETACHED, BECAUSE IT IS NOT IN FRONT OF ANYTHING. The commit is made and the push is done by
 # the line above; this only moves the pointer file, so the agent's next tool call does not wait on a

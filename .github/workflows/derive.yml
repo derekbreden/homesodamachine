@@ -9,9 +9,6 @@
 #
 # THE FULL BUILD AND CARRY MUST BOTH BE GREEN. A partial bazel-bin contains prior-run outputs,
 # so it is useful for warming caches but is never committed as a current derivation.
-#
-# THE PUSH-BACK EXPLICITLY DISPATCHES PUBLICATION. GitHub does not start another workflow from
-# its own token's push, so the successful commit step queues the pointer file boundary itself.
 
 name: derive
 
@@ -336,9 +333,8 @@ jobs:
         # NOTHING HERE HOLDS THE DERIVE. `gen_build.py` has already written the current graph
         # to this checkout's BUILD.bazel, so the drift is named and the build runs against the
         # regenerated file — which `git add -A` below then lands, the same way every other
-        # derived file in this job does. Refusing here threw away the whole derivation, and
-        # with it the `publish.yml` run at the end, over a file this step had just brought
-        # current on the disk.
+        # derived file in this job does. Refusing here would throw away the whole derivation
+        # over a file this step had just brought current on the disk.
         run: |
           tools/cad-venv/bin/python tools/bazel/gen_build.py
           if ! git diff --quiet -- BUILD.bazel; then
@@ -470,8 +466,9 @@ jobs:
         continue-on-error: true
         run: tools/cad-venv/bin/python tools/checks.py
 
-      # Bundle publication is isolated in `publish.yml`. This full derive verifies that
-      # its carried tree is complete and reports a behind pointer file without competing to re-point it.
+      # `publish_now.py` moves the pointer file from the machine that cut the solids. This full
+      # derive verifies that its carried tree is complete and reports a behind pointer file
+      # without re-pointing it.
       - name: Artifact publication status
         run: |
           set +e
@@ -531,8 +528,6 @@ jobs:
               base="$tip"
             fi
             if git push origin HEAD:main; then
-              GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-                gh workflow run publish.yml --ref main
               exit 0
             fi
             echo "main moved under the push — retrying"

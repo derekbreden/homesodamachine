@@ -6,12 +6,8 @@ and names it after the step's own path, so a source that moves takes its target'
 it — and `.github/workflows/` keeps whatever it was told. The graph regenerates, every gate
 stays green, and the run dies naming a target bazel has never heard of.
 
-IT DIES LATE. A publish builds the CAD first and reaches the steps that name targets by hand
+IT DIES LATE. A workflow builds the CAD first and reaches the steps that name targets by hand
 at the end, so the run cuts everything and then stops on the label.
-
-AND A WORKFLOW MATCHES ON THESE LABELS AS WELL AS BUILDING THEM: scoping greps one out of the
-requested list, debt greps one out of a provenance range. A `grep` for a name nothing emits
-returns nothing, and the branch behind it stops being taken.
 
 So this reads the labels out of the workflows and holds them against the names in
 BUILD.bazel. Text and a set: no venv, no bazel, no network.
