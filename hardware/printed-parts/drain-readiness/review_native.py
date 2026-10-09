@@ -77,7 +77,7 @@ def back_top():
     assert settings["detect_narrow_internal_solid_infill"] == "0"
     assert settings["top_one_wall_type"] == "not apply"
     assert float(settings["minimum_sparse_infill_area"]) == 15
-    assert settings["support_type"] == "normal(auto)"
+    assert settings["support_type"] == "tree(auto)"
     trims = [float(v) for v in re.findall(rb"^\s*G29\.1 Z([-+.\d]+)", raw, re.M)]
     assert trims == [0., .02], trims
     fine = check_span(wall_layers(archive, part["identify_id"]), "additive exterior roof band",

@@ -66,12 +66,20 @@ observations on the finished pieces.
 
 ## Rear wall
 
+Fresh rear-wall preparation retains the shared PET-GF tree support profile.
+The complete emitted footprint must fit the 20 mm bed margin. Normal supports
+require a specific exception under the
+[support-removal strategy](../enclosure/enclosure/README.md#support-removal-strategy).
+A tree-support preparation requires its own native footprint and contact review;
+the saved archive's readings below apply only to that archive.
+
 [Editable rear-wall project](projects/back-top-black-z004-mark2.3mf) and
 [ready native archive](ready/back-top-black-z004-mark2.gcode.3mf) contain the
 current rear wall on the Mark2's fixed left 0.4 mm nozzle with black PET-GF. Its roof-down orientation
 preserves the additive exterior transition, with six walls through the first
-9.4 mm and a 0.20 mm bed layer followed by 0.24 mm layers. Normal supports remain
-on internal functional features and stay clear of the protected exterior faces.
+9.4 mm and a 0.20 mm bed layer followed by 0.24 mm layers. This saved archive's
+normal supports reach internal functional features and stay clear of the protected
+exterior faces.
 
 Ordinary stock uses two walls. Each of the 23 complete insert-host and seam-root
 modifiers uses ten walls and 100% zig-zag infill. The
@@ -90,6 +98,10 @@ Release the 38 support bodies through the empty forebay, interior and rear
 openings; cut sacrificial connections into removable fragments and clear every
 pilot, pocket and tie passage before installing fittings, boards, loom or insulation.
 Physical release effort remains unmeasured.
+
+The [Mark1 print observation](prints/2026-10-08-current-back-top-mark1/physical-result.json)
+records completion and the reported large amount of normal supports. Removal
+effort and installed fit for that article remain unassessed.
 
 The [native insert-stock review](reviews/insert-stock.json) passes all 19 complete
 supplier envelopes. The separate [strict radial pore/bore diagnostic](reviews/insert-radial-backing.json)
