@@ -1,0 +1,73 @@
+{
+  "pdf": "faucet-assembly-guide.pdf",
+  "pages": 18,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "print_layout": {
+    "content_scale": 0.98,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "bleed_layer_scale": 1,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
+  },
+  "artwork": "original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
+  "source_sha256": {
+    "hardware/assembly/faucet-and-umbilical.md": "b66f7fe343bd9ecb9f9f0562b64c9a59247b103e96b9a1d0e35775a867127215",
+    "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md": "37607f841d75fbf5cf2a585369c6183d651fa2547429849ca4d436a78e8641b2",
+    "hardware/printed-parts/faucet/asse-vent-seals/README.md": "2e8cfa9dd10e424291c451a14db004eacd5192085bf6c35effff9b93c86dce8c",
+    "hardware/reference/touch-flo-faucet/display-reference/README.md": "6e2871dac41e372b47327973a42964aa39db833b24debeaa6996825cd7f96140",
+    "hardware/wiring/ac-wiring-schedule.md": "1b4cc9adfecb32415eec655e64eb18d3517310d08ee5295c0f458e2bc44f0f9a",
+    "hardware/assembly/wiring.md": "20d96470afa088aa57bdf6e1af39c7744042459b35c1e1c1980b4ced458b5054",
+    "firmware/src_faucet/base_link.cpp": "cff149855e6b93f118e8e3809f444d703c91e08a5810d51f1111000c85b8e631",
+    "firmware/src_faucet/README.md": "231af4a76f036e282906e901d5847176f056f3bc1c709eba64786fdf38fd8ff8",
+    "firmware/src_appliance/pins.h": "dd0bf054de143538661cee491b655a84617b458cdb8c632f18c016974abb9207",
+    "hardware/printed-parts/faucet/README.md": "9fad58762de2f2afbca26122454c6cb6987f2f5c6a688eff23d0c1ce1f439dbc",
+    "hardware/printed-parts/faucet/tpu-o-ring/README.md": "aa2683909547db25a5681a63582c17d14b3fdc8dac941e5c8d81900fa488ece5",
+    "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json": "a815ff0270dc08ccba2641f6af43649b0f6a7f4ebb1241b578813c0c942cbab0",
+    "hardware/printed-parts/faucet/lever-replica/physical-acceptance.json": "6b360c5547cf816729eec506695c65689614dde0ea925722e3e1294792f05b7b",
+    "hardware/printed-parts/faucet/vent-qualification/README.md": "1e1791f373adcaa56b4dc9ef972229409379d965047b61d2fd7f8add616fe0a7",
+    "hardware/mechanical-qualification/README.md": "2632c62fbbed655eed5c56d7292c3f86918961699d83d971d6d6261591fd1b4d",
+    "hardware/install-guide/assets/reference/drain-mount-drop.png": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12"
+  },
+  "pdf_sha256": "372cad2f19673a3a76e309072b1ab63eddbdf7244ca0c4bc1ae9eac88533a089",
+  "display": {
+    "model": "ESP32-S3-Touch-LCD-1.47",
+    "view": "rear PCB, USB-C at top",
+    "left_top_four": [
+      {
+        "P1": 1,
+        "pad": "VBUS",
+        "J3": "V5"
+      },
+      {
+        "P1": 3,
+        "pad": "GND",
+        "J3": "GND"
+      },
+      {
+        "P1": 5,
+        "pad": "TXD",
+        "GPIO": 43,
+        "J3": "IO35 RX"
+      },
+      {
+        "P1": 7,
+        "pad": "RXD",
+        "GPIO": 44,
+        "J3": "IO33 TX"
+      }
+    ],
+    "power_volts": 5,
+    "logic_volts": 3.3,
+    "baud": 921600
+  },
+  "manufacturer_references": {
+    "reviewed": "2026-10-08",
+    "docs": "https://docs.waveshare.com/ESP32-S3-Touch-LCD-1.47",
+    "schematic": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf",
+    "rear_layout": "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-LCD-1.47-details-inter-f60fcf8e6f1405b29f83509d1d1246e7.webp"
+  }
+}

@@ -122,6 +122,14 @@ The lever is the [printed replica](../lever-replica/README.md), rebuilt from a s
 donor's own and printed in the faucet's finish. The assembly model's lever is a
 dimensioned clearance stand-in.
 
+The [illustrated wiring reference](../../../faucet-assembly-guide/README.md#display-wiring-at-a-glance)
+shows the rear PCB with USB-C up: the first four left pads are **VBUS, GND,
+TXD (GPIO43), RXD (GPIO44)**, P1 pins **1, 3, 5, 7**. Connect them to main-board
+J3 **V5, GND, IO35 (RX), IO33 (TX)** respectively. Make the dry-end joints
+with power removed after the four continuously insulated conductors pass
+through both seated bungs. [SIG-6 wiring and checks](../../../assembly/faucet-and-umbilical.md#display-wiring-sig-6)
+give the full endpoint map and plug/jack continuity procedure.
+
 1. Route SIG-6 from the neck into the open space below the PCB, toward its
    southwest corner as viewed from the glass. The cable lies freely between
    the components and supports.
