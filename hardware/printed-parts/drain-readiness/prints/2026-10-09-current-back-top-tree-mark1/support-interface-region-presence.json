@@ -1,0 +1,1446 @@
+{
+  "pass": true,
+  "baseline_gcode_sha256": "1593627b223df86aec7a56f67f30c6f009a192a0434290daaaaa0fb806fd5454",
+  "new_gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "new_to_baseline_xy_translation_mm": [
+    5.0,
+    0
+  ],
+  "baseline_relevance_area_mm2": 0.1,
+  "presence_numerical_epsilon_mm2": 1e-06,
+  "target_region_slabs_checked": 101,
+  "failed_regions": [],
+  "readings": [
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        52.5,
+        298.149994,
+        267.5
+      ],
+      "overhang_region_area_mm2": 45377.38068665348,
+      "baseline_interface_contact_area_mm2": 20.220462122775952,
+      "new_interface_contact_area_mm2": 20.69330020216309,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 5.72,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        189.252594,
+        144.065,
+        191.752594,
+        169.235
+      ],
+      "overhang_region_area_mm2": 62.92500000000004,
+      "baseline_interface_contact_area_mm2": 59.20553666130898,
+      "new_interface_contact_area_mm2": 59.20553666130898,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 5.96,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        189.252594,
+        144.065,
+        191.752594,
+        169.235
+      ],
+      "overhang_region_area_mm2": 62.92500000000004,
+      "baseline_interface_contact_area_mm2": 59.99234804412857,
+      "new_interface_contact_area_mm2": 59.99234804412857,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        154.752594,
+        181.75,
+        157.252594,
+        203.549999
+      ],
+      "overhang_region_area_mm2": 54.499997500000035,
+      "baseline_interface_contact_area_mm2": 17.73233157623259,
+      "new_interface_contact_area_mm2": 16.610198875422295,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 7.4,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        154.752594,
+        181.75,
+        157.252594,
+        203.549999
+      ],
+      "overhang_region_area_mm2": 54.499997500000035,
+      "baseline_interface_contact_area_mm2": 51.572294368547404,
+      "new_interface_contact_area_mm2": 51.572294368547404,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 7.64,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        154.752594,
+        181.75,
+        157.252594,
+        203.549999
+      ],
+      "overhang_region_area_mm2": 54.499997500000035,
+      "baseline_interface_contact_area_mm2": 51.25732872128058,
+      "new_interface_contact_area_mm2": 51.25732872128058,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        67.103989,
+        220.655518,
+        70.423752
+      ],
+      "overhang_region_area_mm2": 101.55488321205183,
+      "baseline_interface_contact_area_mm2": 47.62435361372797,
+      "new_interface_contact_area_mm2": 47.55215425581869,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 9.08,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        66.965425,
+        220.655518,
+        70.400658
+      ],
+      "overhang_region_area_mm2": 105.08722644393232,
+      "baseline_interface_contact_area_mm2": 101.06217388460696,
+      "new_interface_contact_area_mm2": 100.96044522896086,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 9.32,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        66.826861,
+        220.655518,
+        70.377564
+      ],
+      "overhang_region_area_mm2": 108.61956967581237,
+      "baseline_interface_contact_area_mm2": 103.42982473533273,
+      "new_interface_contact_area_mm2": 103.42958929800255,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 9.8,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        196.410004,
+        103.990002,
+        198.910004,
+        128.59
+      ],
+      "overhang_region_area_mm2": 61.499995,
+      "baseline_interface_contact_area_mm2": 58.015328464324185,
+      "new_interface_contact_area_mm2": 58.305324371593315,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 9.8,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        242.809998,
+        103.990002,
+        245.309998,
+        128.59
+      ],
+      "overhang_region_area_mm2": 61.499995,
+      "baseline_interface_contact_area_mm2": 58.10351220102004,
+      "new_interface_contact_area_mm2": 58.370091455276665,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 10.04,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        196.410004,
+        103.990002,
+        198.910004,
+        128.59
+      ],
+      "overhang_region_area_mm2": 61.499995,
+      "baseline_interface_contact_area_mm2": 58.30532437159333,
+      "new_interface_contact_area_mm2": 58.015328464324114,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 10.04,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        242.809998,
+        103.990002,
+        245.309998,
+        128.59
+      ],
+      "overhang_region_area_mm2": 61.499995,
+      "baseline_interface_contact_area_mm2": 58.37009145527667,
+      "new_interface_contact_area_mm2": 58.10351220102006,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 11.72,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        227.177612,
+        213.825001,
+        239.827606,
+        216.325001
+      ],
+      "overhang_region_area_mm2": 31.62498499999998,
+      "baseline_interface_contact_area_mm2": 11.024861202967417,
+      "new_interface_contact_area_mm2": 10.45584309368975,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 11.96,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        227.177612,
+        213.825001,
+        239.827606,
+        216.325001
+      ],
+      "overhang_region_area_mm2": 31.62498499999998,
+      "baseline_interface_contact_area_mm2": 29.448275079968425,
+      "new_interface_contact_area_mm2": 30.254107912359387,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 12.2,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        227.177612,
+        213.825001,
+        239.827606,
+        216.325001
+      ],
+      "overhang_region_area_mm2": 31.62498499999998,
+      "baseline_interface_contact_area_mm2": 30.254107912359387,
+      "new_interface_contact_area_mm2": 29.448275079968425,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 15.8,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        91.125,
+        175.645,
+        103.774994,
+        178.145
+      ],
+      "overhang_region_area_mm2": 31.624985000000017,
+      "baseline_interface_contact_area_mm2": 29.84150348301608,
+      "new_interface_contact_area_mm2": 29.574533340806994,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 16.04,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        91.125,
+        175.645,
+        103.774994,
+        178.145
+      ],
+      "overhang_region_area_mm2": 31.624985000000017,
+      "baseline_interface_contact_area_mm2": 29.574533340806994,
+      "new_interface_contact_area_mm2": 29.84150348301608,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        289.899994,
+        215.398436,
+        298.149994,
+        238.401563
+      ],
+      "overhang_region_area_mm2": 189.5424276636909,
+      "baseline_interface_contact_area_mm2": 69.64182675988638,
+      "new_interface_contact_area_mm2": 69.85401063342212,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.56,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        289.899994,
+        215.54314,
+        298.149994,
+        238.256859
+      ],
+      "overhang_region_area_mm2": 187.10623964278503,
+      "baseline_interface_contact_area_mm2": 178.22775149832324,
+      "new_interface_contact_area_mm2": 177.6504215741771,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.8,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        289.899994,
+        215.764339,
+        298.149994,
+        238.035662
+      ],
+      "overhang_region_area_mm2": 183.40117429565274,
+      "baseline_interface_contact_area_mm2": 174.9886611702522,
+      "new_interface_contact_area_mm2": 174.99867109015523,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        172.360016,
+        77.460688,
+        185.860016,
+        79.011608
+      ],
+      "overhang_region_area_mm2": 20.937419999999875,
+      "baseline_interface_contact_area_mm2": 4.06458069826044,
+      "new_interface_contact_area_mm2": 3.9994963868124347,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        172.360016,
+        77.975283,
+        185.860016,
+        81.93
+      ],
+      "overhang_region_area_mm2": 53.38867950000004,
+      "baseline_interface_contact_area_mm2": 29.41514671679882,
+      "new_interface_contact_area_mm2": 27.655466682156522,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 6,
+      "overhang_region_bounds_xy_mm": [
+        284.899994,
+        214.611798,
+        289.399994,
+        215.868759
+      ],
+      "overhang_region_area_mm2": 5.656324500000082,
+      "baseline_interface_contact_area_mm2": 4.664255847338014,
+      "new_interface_contact_area_mm2": 4.7831325173191,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 7,
+      "overhang_region_bounds_xy_mm": [
+        284.899994,
+        237.931244,
+        289.399994,
+        239.188205
+      ],
+      "overhang_region_area_mm2": 5.656324500000082,
+      "baseline_interface_contact_area_mm2": 3.50382212067296,
+      "new_interface_contact_area_mm2": 3.6432419871253128,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        52.5,
+        298.149994,
+        267.5
+      ],
+      "overhang_region_area_mm2": 6484.1925034516735,
+      "baseline_interface_contact_area_mm2": 164.65338048637088,
+      "new_interface_contact_area_mm2": 163.1943521276287,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        172.360016,
+        79.299298,
+        185.860016,
+        81.93
+      ],
+      "overhang_region_area_mm2": 35.51447700000019,
+      "baseline_interface_contact_area_mm2": 17.18110574572385,
+      "new_interface_contact_area_mm2": 17.48611959578929,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        284.899994,
+        215.408852,
+        289.399994,
+        238.391151
+      ],
+      "overhang_region_area_mm2": 103.42034550000005,
+      "baseline_interface_contact_area_mm2": 98.52952193822608,
+      "new_interface_contact_area_mm2": 98.88778172680789,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 6,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        141.59162821712016,
+        298.149994,
+        171.70797
+      ],
+      "overhang_region_area_mm2": 44.97117844936722,
+      "baseline_interface_contact_area_mm2": 41.449675313590696,
+      "new_interface_contact_area_mm2": 40.199854193905686,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.055799,
+        298.149994,
+        134.52429720126318
+      ],
+      "overhang_region_area_mm2": 45.540783588661164,
+      "baseline_interface_contact_area_mm2": 23.604422308929358,
+      "new_interface_contact_area_mm2": 24.12099502605325,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.695792,
+        298.149994,
+        97.1642
+      ],
+      "overhang_region_area_mm2": 45.54568333137477,
+      "baseline_interface_contact_area_mm2": 28.20625180734597,
+      "new_interface_contact_area_mm2": 25.00704024102197,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 6,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        141.86185773758456,
+        298.149994,
+        171.437939
+      ],
+      "overhang_region_area_mm2": 44.257522964924654,
+      "baseline_interface_contact_area_mm2": 40.45794233162532,
+      "new_interface_contact_area_mm2": 39.41788567414443,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 7,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.26001588987302,
+        298.149994,
+        134.32008816503048
+      ],
+      "overhang_region_area_mm2": 44.90311364102558,
+      "baseline_interface_contact_area_mm2": 39.52649608777467,
+      "new_interface_contact_area_mm2": 39.91925859761342,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 8,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.90011115773812,
+        298.149994,
+        96.959754
+      ],
+      "overhang_region_area_mm2": 44.90376151390778,
+      "baseline_interface_contact_area_mm2": 40.523134156867,
+      "new_interface_contact_area_mm2": 40.92044819582527,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.2,
+      "region": 6,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.541969,
+        298.149994,
+        134.0380290219603
+      ],
+      "overhang_region_area_mm2": 44.140614131449105,
+      "baseline_interface_contact_area_mm2": 39.79471869150271,
+      "new_interface_contact_area_mm2": 39.584509564783616,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.2,
+      "region": 7,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        67.181969,
+        298.149994,
+        96.67816500925596
+      ],
+      "overhang_region_area_mm2": 44.14227099555188,
+      "baseline_interface_contact_area_mm2": 40.405288874750426,
+      "new_interface_contact_area_mm2": 39.58755975231179,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        224.860016,
+        76.718984,
+        238.360016,
+        78.963006
+      ],
+      "overhang_region_area_mm2": 30.294296999999823,
+      "baseline_interface_contact_area_mm2": 13.383289943825655,
+      "new_interface_contact_area_mm2": 10.594845726522822,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        224.860016,
+        77.23738,
+        238.360016,
+        80.290073
+      ],
+      "overhang_region_area_mm2": 41.21135550000007,
+      "baseline_interface_contact_area_mm2": 20.861828825790077,
+      "new_interface_contact_area_mm2": 24.080028605640983,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 31.16,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        224.860016,
+        77.826271,
+        238.360016,
+        81.93
+      ],
+      "overhang_region_area_mm2": 55.400341499999996,
+      "baseline_interface_contact_area_mm2": 42.27853494879442,
+      "new_interface_contact_area_mm2": 39.28431241789997,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 31.4,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        224.860016,
+        78.5176,
+        238.360016,
+        81.93
+      ],
+      "overhang_region_area_mm2": 46.067400000000085,
+      "baseline_interface_contact_area_mm2": 26.965363816607002,
+      "new_interface_contact_area_mm2": 28.161939426979764,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        59.0,
+        220.655518,
+        61.5
+      ],
+      "overhang_region_area_mm2": 76.47751,
+      "baseline_interface_contact_area_mm2": 22.607688407888503,
+      "new_interface_contact_area_mm2": 22.89097847397748,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 32.6,
+      "region": 6,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        59.0,
+        220.655518,
+        61.5
+      ],
+      "overhang_region_area_mm2": 76.47751,
+      "baseline_interface_contact_area_mm2": 72.90103978348299,
+      "new_interface_contact_area_mm2": 73.06358929016204,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 32.84,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        190.064514,
+        59.0,
+        220.655518,
+        61.5
+      ],
+      "overhang_region_area_mm2": 76.47751,
+      "baseline_interface_contact_area_mm2": 73.06358929016204,
+      "new_interface_contact_area_mm2": 72.90103978348299,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.6,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        30.850006,
+        56.75,
+        53.041519,
+        61.5
+      ],
+      "overhang_region_area_mm2": 105.40968675,
+      "baseline_interface_contact_area_mm2": 102.86222321987997,
+      "new_interface_contact_area_mm2": 102.31851693493628,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.6,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        30.850006,
+        258.5,
+        53.041519,
+        263.25
+      ],
+      "overhang_region_area_mm2": 105.40968675,
+      "baseline_interface_contact_area_mm2": 102.65241524169465,
+      "new_interface_contact_area_mm2": 103.08589307735579,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.84,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        30.850006,
+        56.75,
+        53.041519,
+        61.5
+      ],
+      "overhang_region_area_mm2": 105.40968675,
+      "baseline_interface_contact_area_mm2": 102.42927816776421,
+      "new_interface_contact_area_mm2": 102.83967284112727,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.84,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        30.850006,
+        258.5,
+        53.041519,
+        263.25
+      ],
+      "overhang_region_area_mm2": 105.40968675,
+      "baseline_interface_contact_area_mm2": 103.03154723485498,
+      "new_interface_contact_area_mm2": 102.40859846735758,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        67.150002,
+        141.860016,
+        77.150002
+      ],
+      "overhang_region_area_mm2": 81.38383643868187,
+      "baseline_interface_contact_area_mm2": 29.979538215863307,
+      "new_interface_contact_area_mm2": 35.391276448379145,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.32,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        67.150002,
+        141.860016,
+        77.150002
+      ],
+      "overhang_region_area_mm2": 79.70383643868186,
+      "baseline_interface_contact_area_mm2": 76.29736389114109,
+      "new_interface_contact_area_mm2": 75.90619035873966,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.56,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        67.150002,
+        141.860016,
+        77.150002
+      ],
+      "overhang_region_area_mm2": 78.02382943868173,
+      "baseline_interface_contact_area_mm2": 75.98159616510931,
+      "new_interface_contact_area_mm2": 76.0747683456301,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 48.68,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        58.75,
+        88.410004,
+        70.150002
+      ],
+      "overhang_region_area_mm2": 35.883869438681735,
+      "baseline_interface_contact_area_mm2": 16.815304741207093,
+      "new_interface_contact_area_mm2": 13.358060689284581,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 48.92,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        58.75,
+        88.410004,
+        70.150002
+      ],
+      "overhang_region_area_mm2": 34.20386943868178,
+      "baseline_interface_contact_area_mm2": 31.53433591160481,
+      "new_interface_contact_area_mm2": 26.564322445984875,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 49.16,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        58.75,
+        88.410004,
+        70.150002
+      ],
+      "overhang_region_area_mm2": 32.523869438681814,
+      "baseline_interface_contact_area_mm2": 30.3741382338748,
+      "new_interface_contact_area_mm2": 27.502839260653037,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        56.75,
+        37.008184,
+        61.5
+      ],
+      "overhang_region_area_mm2": 48.2513455,
+      "baseline_interface_contact_area_mm2": 18.97093965062529,
+      "new_interface_contact_area_mm2": 18.222621299906955,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        258.5,
+        37.008184,
+        263.25
+      ],
+      "overhang_region_area_mm2": 48.25134549999999,
+      "baseline_interface_contact_area_mm2": 15.296248591021358,
+      "new_interface_contact_area_mm2": 16.901693390073373,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.68,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        56.75,
+        36.86962,
+        61.5
+      ],
+      "overhang_region_area_mm2": 47.59316649999999,
+      "baseline_interface_contact_area_mm2": 46.10682746283547,
+      "new_interface_contact_area_mm2": 45.905072674317566,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.68,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        258.5,
+        36.86962,
+        263.25
+      ],
+      "overhang_region_area_mm2": 47.59316649999998,
+      "baseline_interface_contact_area_mm2": 46.01241566176933,
+      "new_interface_contact_area_mm2": 45.841364244726485,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.92,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        56.75,
+        36.731056,
+        61.5
+      ],
+      "overhang_region_area_mm2": 46.934987500000005,
+      "baseline_interface_contact_area_mm2": 45.45686095757674,
+      "new_interface_contact_area_mm2": 45.61140616856278,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.92,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        258.5,
+        36.731056,
+        263.25
+      ],
+      "overhang_region_area_mm2": 46.934987500000005,
+      "baseline_interface_contact_area_mm2": 45.39301226855792,
+      "new_interface_contact_area_mm2": 45.614171268947935,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.12,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        73.884358,
+        141.860016,
+        75.865462
+      ],
+      "overhang_region_area_mm2": 18.820487999999884,
+      "baseline_interface_contact_area_mm2": 9.77949370421723,
+      "new_interface_contact_area_mm2": 10.481040194528987,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.36,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        74.290102,
+        141.860016,
+        77.150002
+      ],
+      "overhang_region_area_mm2": 27.169049999999963,
+      "baseline_interface_contact_area_mm2": 17.599797468100153,
+      "new_interface_contact_area_mm2": 16.859098026884357,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.6,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        132.360016,
+        74.771422,
+        141.860016,
+        77.150002
+      ],
+      "overhang_region_area_mm2": 22.596509999999995,
+      "baseline_interface_contact_area_mm2": 14.656085597950758,
+      "new_interface_contact_area_mm2": 15.508124001487438,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 59.96,
+      "region": 5,
+      "overhang_region_bounds_xy_mm": [
+        291.800018,
+        112.389999,
+        294.790009,
+        126.189999
+      ],
+      "overhang_region_area_mm2": 41.26187579999964,
+      "baseline_interface_contact_area_mm2": 39.783799967167646,
+      "new_interface_contact_area_mm2": 39.70948385876343,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 60.2,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        291.800018,
+        112.389999,
+        294.790009,
+        126.189999
+      ],
+      "overhang_region_area_mm2": 41.26187579999964,
+      "baseline_interface_contact_area_mm2": 39.85215681124839,
+      "new_interface_contact_area_mm2": 39.77227780495542,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.36,
+      "region": 4,
+      "overhang_region_bounds_xy_mm": [
+        286.890015,
+        112.314999,
+        291.300018,
+        126.264999
+      ],
+      "overhang_region_area_mm2": 61.51954185000026,
+      "baseline_interface_contact_area_mm2": 59.20122758612914,
+      "new_interface_contact_area_mm2": 58.85911465580564,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.6,
+      "region": 4,
+      "overhang_region_bounds_xy_mm": [
+        286.890015,
+        112.314999,
+        291.300018,
+        126.264999
+      ],
+      "overhang_region_area_mm2": 61.51954185000026,
+      "baseline_interface_contact_area_mm2": 58.85911465580564,
+      "new_interface_contact_area_mm2": 59.20122758612914,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        104.02476906088263,
+        298.149994,
+        134.555101
+      ],
+      "overhang_region_area_mm2": 87.22629060555663,
+      "baseline_interface_contact_area_mm2": 29.52154921308797,
+      "new_interface_contact_area_mm2": 36.91491411876046,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.664901,
+        298.149994,
+        97.19532671880789
+      ],
+      "overhang_region_area_mm2": 45.7099366409462,
+      "baseline_interface_contact_area_mm2": 23.42064992465656,
+      "new_interface_contact_area_mm2": 20.863551603567636,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.08,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        104.21821178667206,
+        298.149994,
+        134.361391
+      ],
+      "overhang_region_area_mm2": 86.10227340272395,
+      "baseline_interface_contact_area_mm2": 81.63519779234005,
+      "new_interface_contact_area_mm2": 80.63840636934863,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.08,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.85860626871383,
+        298.149994,
+        97.00198988800189
+      ],
+      "overhang_region_area_mm2": 45.11141804996198,
+      "baseline_interface_contact_area_mm2": 40.51936259636116,
+      "new_interface_contact_area_mm2": 41.29511382632218,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.32,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        104.483385,
+        298.149994,
+        134.096615
+      ],
+      "overhang_region_area_mm2": 84.57972626622451,
+      "baseline_interface_contact_area_mm2": 79.61993067561463,
+      "new_interface_contact_area_mm2": 79.13790046340755,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.32,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        67.12338,
+        298.149994,
+        96.73680750627517
+      ],
+      "overhang_region_area_mm2": 44.30385343996756,
+      "baseline_interface_contact_area_mm2": 40.52480189796161,
+      "new_interface_contact_area_mm2": 39.79288421364714,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.6,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        66.639587,
+        88.410004,
+        69.339542
+      ],
+      "overhang_region_area_mm2": 25.64957249999989,
+      "baseline_interface_contact_area_mm2": 10.3095891418998,
+      "new_interface_contact_area_mm2": 10.804518918443721,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.84,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        67.117853,
+        88.410004,
+        70.150002
+      ],
+      "overhang_region_area_mm2": 28.805415500000038,
+      "baseline_interface_contact_area_mm2": 17.743646177947934,
+      "new_interface_contact_area_mm2": 18.298853115289663,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 69.08,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        78.910004,
+        67.690176,
+        88.410004,
+        70.150002
+      ],
+      "overhang_region_area_mm2": 23.368347000000064,
+      "baseline_interface_contact_area_mm2": 14.968323235378937,
+      "new_interface_contact_area_mm2": 13.730243487113189,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 73.4,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        82.410004,
+        56.0,
+        84.910004,
+        61.5
+      ],
+      "overhang_region_area_mm2": 13.75,
+      "baseline_interface_contact_area_mm2": 9.137133159502632,
+      "new_interface_contact_area_mm2": 8.7030380669772,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 73.64,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        82.410004,
+        56.0,
+        84.910004,
+        61.5
+      ],
+      "overhang_region_area_mm2": 13.75,
+      "baseline_interface_contact_area_mm2": 12.276921070383315,
+      "new_interface_contact_area_mm2": 13.116001499375411,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 73.88,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        82.410004,
+        56.0,
+        84.910004,
+        61.5
+      ],
+      "overhang_region_area_mm2": 13.75,
+      "baseline_interface_contact_area_mm2": 13.116001499375415,
+      "new_interface_contact_area_mm2": 12.276921070383315,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        104.100006,
+        62.0,
+        113.600006,
+        81.93
+      ],
+      "overhang_region_area_mm2": 127.9550224386818,
+      "baseline_interface_contact_area_mm2": 63.609519664503814,
+      "new_interface_contact_area_mm2": 54.11641800011368,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.48,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        52.5,
+        298.149994,
+        81.93
+      ],
+      "overhang_region_area_mm2": 2233.8057680918837,
+      "baseline_interface_contact_area_mm2": 123.53444810105503,
+      "new_interface_contact_area_mm2": 122.34133200547791,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.72,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        104.100006,
+        62.0,
+        113.600006,
+        81.93
+      ],
+      "overhang_region_area_mm2": 124.5950224386819,
+      "baseline_interface_contact_area_mm2": 120.66063604712312,
+      "new_interface_contact_area_mm2": 120.6508666900051,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.06560819922052,
+        298.149994,
+        134.514305
+      ],
+      "overhang_region_area_mm2": 45.534525640577996,
+      "baseline_interface_contact_area_mm2": 24.063647294337393,
+      "new_interface_contact_area_mm2": 23.28039872957923,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.705688,
+        298.149994,
+        97.15449826528595
+      ],
+      "overhang_region_area_mm2": 45.54454345386448,
+      "baseline_interface_contact_area_mm2": 22.810561367684574,
+      "new_interface_contact_area_mm2": 22.200917565571075,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.16,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.2734062458727,
+        298.149994,
+        134.306308
+      ],
+      "overhang_region_area_mm2": 44.89959916311008,
+      "baseline_interface_contact_area_mm2": 39.476896465725474,
+      "new_interface_contact_area_mm2": 40.026841946389105,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.16,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        66.913688,
+        298.149994,
+        96.94668770571467
+      ],
+      "overhang_region_area_mm2": 44.906031544930606,
+      "baseline_interface_contact_area_mm2": 40.10507838319446,
+      "new_interface_contact_area_mm2": 40.74157008166239,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        244.273735,
+        298.149994,
+        245.5613559648514
+      ],
+      "overhang_region_area_mm2": 3.6762981198476155,
+      "baseline_interface_contact_area_mm2": 3.2880417752470077,
+      "new_interface_contact_area_mm2": 3.6356005998317538,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        143.3786460632323,
+        298.144794,
+        144.666264
+      ],
+      "overhang_region_area_mm2": 3.6549893386335395,
+      "baseline_interface_contact_area_mm2": 0.5053105848757953,
+      "new_interface_contact_area_mm2": 0.09548534058306679,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        104.561138,
+        298.149994,
+        134.018862
+      ],
+      "overhang_region_area_mm2": 44.11108991426539,
+      "baseline_interface_contact_area_mm2": 39.76796782077476,
+      "new_interface_contact_area_mm2": 39.52694069745061,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 3,
+      "overhang_region_bounds_xy_mm": [
+        296.649994,
+        67.20114,
+        298.149994,
+        96.65900427191842
+      ],
+      "overhang_region_area_mm2": 44.11765049709324,
+      "baseline_interface_contact_area_mm2": 39.9385820375621,
+      "new_interface_contact_area_mm2": 39.42053777723323,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.64,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        143.622636,
+        298.149994,
+        245.31744848584168
+      ],
+      "overhang_region_area_mm2": 289.44489403029826,
+      "baseline_interface_contact_area_mm2": 275.95151562976315,
+      "new_interface_contact_area_mm2": 277.6296585966437,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.88,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        295.290009,
+        143.931838,
+        298.149994,
+        245.00852721497077
+      ],
+      "overhang_region_area_mm2": 288.57003255896893,
+      "baseline_interface_contact_area_mm2": 276.4204337137413,
+      "new_interface_contact_area_mm2": 276.1816769447527,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        141.649994,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 135.0,
+      "baseline_interface_contact_area_mm2": 67.54222395690533,
+      "new_interface_contact_area_mm2": 58.28466215150486,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.64,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        141.649994,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 135.0,
+      "baseline_interface_contact_area_mm2": 133.3451058600545,
+      "new_interface_contact_area_mm2": 132.8787197599465,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.88,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        141.649994,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 135.0,
+      "baseline_interface_contact_area_mm2": 133.01027112949657,
+      "new_interface_contact_area_mm2": 133.02191133325817,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 168.44,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        145.149994,
+        66.5,
+        156.149994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 33.0,
+      "baseline_interface_contact_area_mm2": 19.887159010910523,
+      "new_interface_contact_area_mm2": 16.305427528138246,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 168.68,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        145.149994,
+        66.5,
+        156.149994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 33.0,
+      "baseline_interface_contact_area_mm2": 32.39837706110215,
+      "new_interface_contact_area_mm2": 31.389039580540256,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 168.92,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        145.149994,
+        66.5,
+        156.149994,
+        69.5
+      ],
+      "overhang_region_area_mm2": 33.0,
+      "baseline_interface_contact_area_mm2": 31.385432460424227,
+      "new_interface_contact_area_mm2": 32.23305354582453,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.48,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        26.850006,
+        52.5,
+        298.149994,
+        267.5
+      ],
+      "overhang_region_area_mm2": 5158.317232075025,
+      "baseline_interface_contact_area_mm2": 2150.7353193522813,
+      "new_interface_contact_area_mm2": 2150.133262753753,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 0,
+      "overhang_region_bounds_xy_mm": [
+        50.650009,
+        56.75,
+        144.649994,
+        61.5
+      ],
+      "overhang_region_area_mm2": 446.49992875,
+      "baseline_interface_contact_area_mm2": 436.513628091185,
+      "new_interface_contact_area_mm2": 437.03373433812726,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 1,
+      "overhang_region_bounds_xy_mm": [
+        156.649994,
+        56.75,
+        282.649994,
+        61.5
+      ],
+      "overhang_region_area_mm2": 598.5,
+      "baseline_interface_contact_area_mm2": 585.0455150825944,
+      "new_interface_contact_area_mm2": 585.9737406899392,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 2,
+      "overhang_region_bounds_xy_mm": [
+        50.650009,
+        258.5,
+        282.649994,
+        263.25
+      ],
+      "overhang_region_area_mm2": 1101.99992875,
+      "baseline_interface_contact_area_mm2": 1079.1349848518437,
+      "new_interface_contact_area_mm2": 1078.1291500498585,
+      "support_present": true
+    }
+  ],
+  "method": "Exact closed native STL sections in the frozen original plate frame. Newly projecting stock in the 0.45\u20131.0 mm window above each interface is separated from stock already below, allowing 0.5 mm for self-supporting expansion. Each connected overhang region contacted by at least 0.1 mm\u00b2 of baseline automatic interface must retain nonzero emitted interface-envelope overlap in the new slice; 1e-6 mm\u00b2 is a numerical zero tolerance, not a physical support-area requirement. Source and reinforcement geometry are identical. Interface roads use own-width envelopes plus half the saved 0.5-mm spacing to reconstruct contact regions.",
+  "scope": "Contact-region presence for the unchanged automatic overhang targets. Different contact area and head placement are allowed; this does not establish complete contact coverage, support stiffness, physical removal or surface finish.",
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "baseline_recipe": {
+    "source_project": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+    "source_project_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+    "settings_changes": {
+      "support_type": {
+        "from": "normal(auto)",
+        "to": "tree(auto)"
+      }
+    },
+    "branch_angle_degrees": 45,
+    "trunk_diameter_growth_degrees": 5,
+    "public_archive_saved": false
+  }
+}

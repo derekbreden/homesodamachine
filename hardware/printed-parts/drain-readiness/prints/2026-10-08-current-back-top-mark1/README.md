@@ -25,9 +25,9 @@ foreground Send and observed printer acceptance.
 This archive uses Normal (auto) supports with the default style across the rear
 wall. Its preparation selected normal columns for the 20 mm bed margin; the
 native removal routes establish access and do not qualify cleanup effort.
-The [physical observation](physical-result.json) records reported completion
-and the large amount of normal supports while the article cools. Support removal
-and installed fit remain unassessed. The standing preparation preference is
+The [physical result](physical-result.json) rejects this article for impracticable
+removal of every normal support. The operator intends to discard it. Installed
+fit and finished surface qualification remain unassessed. The standing preparation preference is
 [tree supports with specific exceptions](../../../enclosure/enclosure/README.md#support-removal-strategy).
 
 Recheck current geometry against the prototype fixtures with:

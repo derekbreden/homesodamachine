@@ -1,0 +1,167 @@
+{
+  "pass": true,
+  "checked_at_utc": "2026-10-09T22:45:54.357234+00:00",
+  "printer": "Mark1",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T22:45:54.242983+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 1535,
+      "total_layer_num": 1535,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 27,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T22:45:54.243289+00:00",
+      "task_id": "1324374637",
+      "job_id": "1324374637",
+      "subtask_name": "2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 121,
+      "total_layer_num": 3509,
+      "mc_percent": 14,
+      "mc_remaining_time": 665,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 48,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 36,
+        "target_c": 0
+      }
+    }
+  ],
+  "bed_clear_authorization_quote": "Please try again. Mark1 bed is clear.",
+  "peer_last_recorded_accepted_start_at_utc": "2026-10-09T20:57:34.534460+00:00",
+  "peer_launch_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/launch.json",
+  "peer_accepted_task_id": "1324374637",
+  "elapsed_since_peer_accepted_seconds": 6499.822774,
+  "minimum_spacing_seconds": 180,
+  "prepared_and_frozen_native_hashes_verified": true,
+  "current_geometry_matches_frozen_source": true,
+  "imported_gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "import_copy_metadata_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "native_reviews_pass": true,
+  "support_type": "tree(auto)",
+  "support_style": "default",
+  "required_bed_margin_mm": 20,
+  "observed_native_full_bead_margin_mm": 21.399318,
+  "fixed_left_standard_flow_hardened_04_verified": true,
+  "left_external_material_verified": "PET-GF physically confirmed; PET-CF/GFT01 black slot 254",
+  "plate": "Textured PEI",
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_mm": 0.16,
+  "probing_clump_detection": false,
+  "ui_selected_printer": "Mark1",
+  "ui_selected_external_side": "LEFT",
+  "ui_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "ui_options_verified_by_native_screenshot": true,
+  "maximum_foreground_transactions": 1,
+  "foreground_method": "Bambu Connect CUA",
+  "auto_resume_authorized": false,
+  "monitor_scheduled": false
+}

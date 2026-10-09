@@ -42,13 +42,16 @@ settles whether what somebody saw in the viewer was there.
 
 ## Supports
 
-Use tree supports by default. Derek reports that normal supports are horribly
-difficult to remove. Normal supports are a specific exception for a named feature
-that needs them, or a case with evidence that they are easier to remove. Explain
-and record the reason and scope before printing; do not generalize that exception
-to the entire part or other parts. Geometric access alone does not establish easy
-removal. A bed-footprint constraint needs a tree-support placement review, not a
-silent switch to normal supports.
+Use Tree (auto) with the saved Bambu default style by default, retaining Bambu's
+automatic support decisions, including normal sections it generates. Derek accepts
+those automatic choices. His difficult-removal reports concern explicit normal
+support overrides. A manual normal-support choice needs a specific feature that
+requires it, or evidence that it is easier to remove there; explain and record the
+reason and scope before printing. Do not generalize a local override to other
+features or parts. Geometric access alone does not establish easy removal. A bed
+footprint constraint needs an automatic tree-support placement review before
+choosing an explicit normal override. Do not impose a trees-only rule or add
+blanket blockers to Bambu's automatically generated normal sections.
 
 Prefer simple solid stock and broad flat interior walls with few face breaks.
 Set one wall plane that preserves the required hardware clearance and backing
