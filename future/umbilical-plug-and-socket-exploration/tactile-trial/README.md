@@ -4,6 +4,11 @@ This trial answers whether the plug size, guidance, exposed grip, snap frame and
 bundle transition feel worthwhile. It is prepared for **Mark1 (H2C), left 0.4 mm nozzle,
 black PET-GF, +0.18 mm user trim**. Nothing has been sent to a printer.
 
+Its plug is the 52 mm coupling article. The [guided boot trial](../guided-boot-trial/README.md)
+provides the 98 mm blue boot and matching key for curved tube-feed, foam and fabric tests.
+Use this plate's socket, wall coupon and counter ring as its mating fixtures; its plug
+and key are separate articles.
+
 | File | Contents |
 | --- | --- |
 | [Editable project](tactile-mark1-z018.3mf) | Six parts with reviewed placement and settings |
@@ -12,7 +17,7 @@ black PET-GF, +0.18 mm user trim**. Nothing has been sent to a printer.
 
 The socket and plug have **filled magnet pockets**. They need no SB443-IN magnets or pause,
 and cannot receive those magnets later without replacement prints. The retainer, tube key
-and 6 mm wall coupon use the exploration's current geometry. The sixth part is a simple
+and 6 mm wall coupon use the saved coupling geometry in `umbilical.py`. The sixth part is a simple
 50 mm outside-diameter ring with a 34.93 mm bore through 30 mm, representing the counter hole.
 Printable meshes are in [parts/](parts/).
 

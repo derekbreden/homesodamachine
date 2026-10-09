@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "piece": "guided-boot-and-key",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "d46ff7c4166726022aa109175ebca15d5d03ec00969e74f23070a7ef8f4a2bcb",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/future/umbilical-plug-and-socket-exploration/guided-boot-trial/guided-boot-mark2-z004.3mf",
+    "profile_sha256": "e08a83a6d51f24fc95f34848bcd0f60b56de505b71e1d97044ef2c0fc7985c07"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      -0.0,
+      -0.0,
+      6.123233995736766e-17,
+      1.0,
+      0.0,
+      -1.0,
+      6.123233995736766e-17,
+      -137.5,
+      -7.105427357601002e-15,
+      -160.0
+    ],
+    "part": "guided-boot-tactile"
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 13.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 13.92
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 28.52,
+      "shortest_build_up_mm": 28.32,
+      "top_z_mm": 28.76,
+      "bbox_xy_mm": [
+        112.0,
+        149.2,
+        162.8,
+        170.8
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -25.5,
+        -28.76,
+        -10.8,
+        25.3,
+        -0.2,
+        10.8
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 14.12,
+      "shortest_build_up_mm": 13.92,
+      "top_z_mm": 14.6,
+      "bbox_xy_mm": [
+        135.6,
+        156.0,
+        139.2,
+        171.6
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -1.9,
+        -14.6,
+        -4.0,
+        1.7,
+        -0.2,
+        11.6
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        135.6,
+        156.0,
+        139.2,
+        171.6
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 13.92,
+      "bbox_cad_xyz_mm": [
+        -1.9,
+        -14.6,
+        -4.0,
+        1.7,
+        -14.12,
+        11.6
+      ],
+      "surface": "Front cable-drop pocket ceiling",
+      "removal_access": "Open mating-face pogo pocket; remove before fitting the contacts."
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 28.52,
+      "last_z_mm": 28.76,
+      "bbox_xy_mm": [
+        121.6,
+        154.0,
+        153.6,
+        164.8
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 28.32,
+      "bbox_cad_xyz_mm": [
+        -15.9,
+        -28.76,
+        -6.0,
+        16.1,
+        -28.52,
+        4.8
+      ],
+      "surface": "Tube-key window ceiling",
+      "removal_access": "Open side window on both sides; remove before fitting the key."
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "physical_removal_tested": false
+}
