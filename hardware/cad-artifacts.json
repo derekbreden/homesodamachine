@@ -383,6 +383,8 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step",
       "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step",
       "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh",
@@ -2532,7 +2534,9 @@
     "hardware/install-guide/art/flavor-2.png": "5bbe3d357c9659030c5c84ba3fad4f30526ec5c40d909b9688e8f93ee8e28095",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.step": "1e4ed9c8ebea605ef20e10455824795c1b795d3e9458aea1ced41d55cb52d1e1",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.stl": "a7ca570ba0339c69866fc63a57f12220c8c90f68b19825e759b29dff41547d17",
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "6451b2d98d649e578191cd574bb6e0967a7e301559335819b5b8d5bea225c21a"
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "6451b2d98d649e578191cd574bb6e0967a7e301559335819b5b8d5bea225c21a",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "02bbaca64d47e365b9bfe04967bced1846dc5ddf55df533ae59e13a261a93625",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c0b3fee0aabe719722d3a90a3ada4467bd75088940713b8abfa7e2d32bb74ee0",
@@ -2932,6 +2936,8 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1791352325,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1791352325,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1791560844,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": 1791560924,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": 1791560924,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1791257167,
