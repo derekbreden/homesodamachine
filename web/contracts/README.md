@@ -27,7 +27,7 @@ same file the server does — Node by path, the browser by URL, one source eithe
 
 The tree a page is a browse of. It states the one thing the repository's own files do not — where a
 directory stands relative to the others — and reads everything else off disk, so a part added on the
-tree appears with no edit here and anything unseated is reported on the page.
+tree needs no edit here.
 
 - **parts-tree.js** — the two units `/3d` browses (the soda machine, which holds the cold core,
   and the faucet and umbilical), the directories each places from, the bought geometry no one of them

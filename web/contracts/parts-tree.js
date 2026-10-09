@@ -34,9 +34,7 @@
 // directories it places from, `PURCHASED` takes the bought bodies, `INSTALL_KIT`
 // takes fabricated tools delivered loose to the customer, and `TOOLING` takes
 // what makes the machine without being part of it. A directory in none of them
-// comes back in `unseated`, which the page names. Nothing below the two cards is
-// drawn, so what those classifications produce is read by the gate and by
-// nothing else.
+// comes back in `unseated`. Nothing below the two cards is drawn.
 //
 // A PART IS A NAME, NOT A FILE. `endcap-circular-2hole` is a `.step` solid and the
 // `.dxf` the laser reads, and it is one part with two representations, so
@@ -235,8 +233,7 @@ export function walkAssemblies(nodes = ASSEMBLIES) {
  *   `model` part the page draws, the `inside` its own `holds` claimed, and its
  *   `children` seated the same way. `installKit`, `purchased`, and `tooling` are
  *   what no one assembly owns. None is drawn — the page is the two roots.
- *   `unseated` names every directory holding a file nothing claims, which the
- *   page shows rather than swallows.
+ *   `unseated` names every directory holding a file nothing claims.
  */
 export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
   const pool = [
