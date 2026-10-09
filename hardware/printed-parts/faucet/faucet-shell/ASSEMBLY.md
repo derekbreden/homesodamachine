@@ -118,6 +118,10 @@ through normal lever operation and handling.
 ## Display
 
 Use the exact Waveshare ESP32-S3-Touch-LCD-1.47 housing and PCB envelope.
+**The USB-C end points toward the dispense face; the opposite end points up
+the gooseneck.** The side-section inset in the
+[illustrated guide, page 2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=2)
+and the installation pictures on page 12 show the installed orientation.
 The lever is the [printed replica](../lever-replica/README.md), rebuilt from a scan of the
 donor's own and printed in the faucet's finish. The assembly model's lever is a
 dimensioned clearance stand-in.

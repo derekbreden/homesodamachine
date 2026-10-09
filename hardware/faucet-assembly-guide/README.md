@@ -15,7 +15,11 @@ Look directly at the **back of the PCB**, glass facing away from you, with
 **USB-C at the top**. The first four pads down the **left** are the four
 connections. This is a bench orientation; rotate the loose display to match.
 
-![Rear display view, USB-C at top: VBUS, GND, TX and RX are the top four left pads](display-wiring.svg)
+**Installed in the faucet, USB-C points toward the dispense face.** The opposite
+end points up the gooseneck. The side-section inset below and the installation
+pictures on page 12 show that orientation.
+
+![Rear pad map with USB-C up on the bench; installed side section shows USB-C toward the dispense face and the opposite end up the gooseneck](display-wiring.svg)
 
 | Display pad | P1 pin | Function | Main board J3 |
 | --- | ---: | --- | --- |
@@ -61,7 +65,9 @@ manufacturer's pad order. Printed picture size is not a dimension or template.
 - [Faucet and umbilical procedure](../assembly/faucet-and-umbilical.md):
   cuts, gasket, retained hardware, supply, braid and packing.
 - [Shell assembly](../printed-parts/faucet/faucet-shell/ASSEMBLY.md):
-  donor and lever seating, neck/base closure, display motion and clearance.
+  donor and lever seating, neck/base closure, USB-C toward the dispense face,
+  display motion and clearance. The shell's USB keepout and assembly's display
+  placement define the installed orientation.
 - [Vent-seal assembly](../printed-parts/faucet/asse-vent-seals/README.md):
   two retained bungs, continuously insulated wires, curved perimeter pusher
   and the nominal 8.0 ± 0.2 mm D setting from the tool-contact flange face.
