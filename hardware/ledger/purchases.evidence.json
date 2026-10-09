@@ -1013,7 +1013,7 @@
     "pur-f34a0cbf6ba74d11887b5ec0c8206984": {
       "vendor": "Lillium",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "lilium:1566"
       ],
@@ -13210,7 +13210,10 @@
     "lilium:1566": {
       "vendor": "Lillium",
       "reference": "1566",
-      "order_date": null,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "allocation_status": "all_project",
       "source_ids": [
         "src-7148038d612540248b7e4db9017b1f8d"
@@ -25571,12 +25574,16 @@
       "vendor": "Lillium",
       "document_type": "order_confirmation",
       "reference": "1566",
-      "document_date": null,
+      "document_date": {
+        "precision": "day",
+        "value": "2026-02-01"
+      },
       "proves": [
-        "price"
+        "price",
+        "order_date"
       ],
-      "verified_at": "2026-10-04",
-      "note": "Only project line evidence published; confirmation notification timestamp is not an exact placed date."
+      "verified_at": "2026-10-09",
+      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110–120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated."
     },
     "src-d6f9512dde3e40729b20f6af320816bd": {
       "vendor": "Howdy Brewer",
@@ -26271,10 +26278,10 @@
       "vendor": "Lillium",
       "stream": "project procurement records",
       "evidence_type": "order_price_fulfillment",
-      "checked_at": "2026-10-04",
+      "checked_at": "2026-10-09",
       "examined_period": {
         "start": "2026-01-01",
-        "end": "2026-10-04"
+        "end": "2026-10-09"
       },
       "complete_period": null,
       "coverage": "partial",
@@ -27017,10 +27024,12 @@
       "order_ids": [
         "lilium:1566"
       ],
-      "source_ids": [],
-      "missing_fact": "exact placed date; merchant payment evidence; exact delivery date. 1129.00 order confirmation retrieved, but only notification dates and shipment-status update supplied.",
+      "source_ids": [
+        "src-7148038d612540248b7e4db9017b1f8d"
+      ],
+      "missing_fact": "merchant payment evidence; exact delivery date. The order confirmation proves the USD 1,129.00 total and the 2026-02-01 order date; the 2026-02-06 shipment-status update states no delivery date.",
       "sources_checked": [
-        "2026-01-01 through 2026-10-04 order confirmation and shipment-status notices"
+        "Gmail, all dates: Liliumfaucet order 1566 confirmation (2026-02-01), shipment-status update (2026-02-06) and review request (2026-03-08)"
       ]
     },
     {
