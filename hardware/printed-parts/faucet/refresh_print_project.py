@@ -87,12 +87,17 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
     records, bounds_cache = [], {}
     for region in regions:
         row = rows[region["part"]]
-        if row["name"] not in bounds_cache:
-            bounds_cache[row["name"]] = trimesh.load(ROOT / row["source"], force="mesh", process=True).bounds
-        mesh_low, mesh_high = bounds_cache[row["name"]]
         requested = np.array(region["source_bounds_mm"], dtype=float)
-        low = np.maximum(requested[0], mesh_low + .001)
-        high = np.minimum(requested[1], mesh_high - .001)
+        if region.get("clip_to_part_bounds", True):
+            if row["name"] not in bounds_cache:
+                bounds_cache[row["name"]] = trimesh.load(ROOT / row["source"], force="mesh", process=True).bounds
+            mesh_low, mesh_high = bounds_cache[row["name"]]
+            low = np.maximum(requested[0], mesh_low + .001)
+            high = np.minimum(requested[1], mesh_high - .001)
+        else:
+            # A perimeter-spanning modifier extends past the normal mesh so its
+            # boundary does not split that perimeter. It creates no model stock.
+            low, high = requested
         if not np.all(np.isfinite(requested)) or np.any(high <= low):
             raise ValueError(f"Invalid solid modifier bounds: {region['name']}")
         box = trimesh.creation.box(extents=high - low)
@@ -118,10 +123,11 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
         object_config = config.find(f"object[@id='{row['object_id']}']")
         modifier = ET.SubElement(object_config, "part", id=part_id, subtype="modifier_part",
                                  uuid=identifier(region["name"] + "/modifier"))
-        for key, value in {"name": region["name"],
-                           "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
-                           "wall_loops": 6, "sparse_infill_density": "100%",
-                           "sparse_infill_pattern": "zig-zag"}.items():
+        settings = {"name": region["name"],
+                    "matrix": "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1",
+                    "wall_loops": 6, "sparse_infill_density": "100%",
+                    "sparse_infill_pattern": "zig-zag"}
+        for key, value in settings.items():
             metadata(modifier, key, value)
         ET.SubElement(relationships, f"{{{REL}}}Relationship", Target="/" + member,
                       Id=f"solid-region-{next_id}",

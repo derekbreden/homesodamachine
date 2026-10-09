@@ -1,5 +1,15 @@
 # Industrial faucet PET-GF print project
 
+The [complete Mark2 0.08 mm print](prints/2026-10-09-all008-solid-foot-mark2/README.md)
+contains all five rigid parts, including the accepted side-down lever replica.
+Its single continuous six-wall solid foot removes the native wall starts/stops
+beside the three screw hosts. The base uses Arachne wall widths with 15% infill/wall
+overlap; all three native insert-backing reviews pass. This plate retains the
+0.20 mm first bed layer and Mark2's +0.04 mm requested trim. Its source meshes and
+placements match the identified complete fine-shoulder plate.
+
+The four-part 0.24 mm project and preparation workflow are described below.
+
 [`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains the
 Industrial shell base, display cover and counter plate with the shared faucet
 tip. The [native print archive](../vent-print-readiness/faucet-industrial-black-z018-h2c/faucet-industrial-black-z018-h2c.gcode.3mf)
@@ -25,8 +35,9 @@ the shared tip, display and tubes. Physical acceptance remains scoped to the
 
 The mature PET-GF process uses 0.24 mm layers and a 0.20 mm first layer,
 two walls, 15% grid infill, 265/280 °C nozzle temperatures, an 80 °C Textured
-PEI plate and 0–70% cooling. Three local insert-host/root modifiers use six
-walls and 100% zigzag infill. The installed Ø4.6 mm inserts require at least
+PEI plate and 0–70% cooling. The preparation tool uses one continuous foot
+modifier with six walls and 100% zigzag infill, while reviewing the three
+insert-host/root regions separately. The installed Ø4.6 mm inserts require at least
 2 mm of supporting outer stock. The
 [native deposition review](faucet-industrial-petgf.insert-beads.json) reads
 the actual host slabs and retains missing-area and pore diagnostics.
