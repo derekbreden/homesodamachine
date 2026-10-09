@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "reading_utc": "2026-10-08T07:52:22.587280+00:00",
+  "reading_utc": "2026-10-09T04:48:52.610999+00:00",
   "scope": "Both finished copper-plug STEPs against the finished front-top and foam assembly, using production placement transforms. Other cold-core bodies, routed tubing, print meshes and physical prints are outside this reading.",
   "nominal_cad_only": true,
   "minimum_front_top_clearance_mm": 0.15,
@@ -17,11 +17,11 @@
   },
   "placement_source_sha256": {
     "hardware/scripts/check_copper_plug_clearance.py": "712a78539a0c433eb641ff9f863bb65c26d6f72e30dc4f3d9849662039291013",
-    "hardware/manifold-layout/enclosure_assembly.py": "82ac8ed8a67a2a8587cbe3252ee97fa8c057ff4eb511cf74d53f58f2f7e52397",
-    "hardware/cold-core-layout/cold_core_assembly.py": "2618da32aee9b3a0b242e779928de2850232c5b9dbf5aa6237c791282e244c4b",
-    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9f8c15c30d29f0740afd506fde805c703bec6d4bb4b01feb2ce4a8bec42c87ed",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "da1cacfefadecd11011965ff226b931174b16a93ab72747bea3a0d189151e26e",
+    "hardware/manifold-layout/enclosure_assembly.py": "130faf0978a6f98e6f2a9285e168e73733c232b872777d5e5a1311ee12698544",
+    "hardware/cold-core-layout/cold_core_assembly.py": "4eaf41925cf46c0322750da1212cf8e433ef4493c17815acab0f0ff2f5b42181",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "8c0ad703024dfb364f469322bf8cfc76ac52c5f77fe06ccf0884700d8889d2bd",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "1c4895612e8d674e9e2ddc176b4ebb023cd3df40442a92e627036387efa80512",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6fef4c74f652eca13686be1b125862bbec43701afcb22d05c45a6730499cce9",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191"
   },
   "west": {
