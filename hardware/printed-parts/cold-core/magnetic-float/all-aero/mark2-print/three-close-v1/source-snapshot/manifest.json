@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+      "snapshot": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.stl",
+      "sha256": "a7ca570ba0339c69866fc63a57f12220c8c90f68b19825e759b29dff41547d17"
+    },
+    {
+      "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+      "snapshot": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.step",
+      "sha256": "1e4ed9c8ebea605ef20e10455824795c1b795d3e9458aea1ced41d55cb52d1e1"
+    },
+    {
+      "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+      "snapshot": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/all_aero_float.py",
+      "sha256": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440"
+    },
+    {
+      "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+      "snapshot": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/design.json",
+      "sha256": "f1b347b4758b285ea42665607e65eabdca377702041bb165d9ff830889b4945e"
+    },
+    {
+      "source": "hardware/printed-parts/cold-core/_float_interface.py",
+      "snapshot": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/_float_interface.py",
+      "sha256": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a"
+    }
+  ],
+  "scope": "Frozen geometry for this three-float plate; no production geometry is regenerated."
+}

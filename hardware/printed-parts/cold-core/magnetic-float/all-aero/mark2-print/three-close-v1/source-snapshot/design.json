@@ -1,0 +1,115 @@
+{
+  "article": "One-piece ASA Aero guided bench float; RC62 inserted during printing",
+  "cad_revision": "v2-upper-clearance",
+  "accepted_print_reference": "mark2-print/v1/float-preflight.json; immutable v1 source commit and snapshot",
+  "dimensions_mm": {
+    "diameter": 36.0,
+    "height": 28.0,
+    "guide_bore": 4.8,
+    "bench_guide": 3.175,
+    "guide_radial_clearance": 0.8125,
+    "magnet_midplane": 14.0,
+    "magnet_seat": 12.4125,
+    "pocket_roof": 16.0125,
+    "pocket_od": 19.35,
+    "pocket_id": 9.225,
+    "pocket_depth": 3.6,
+    "bore_side_collar": 2.2125,
+    "outer_band_beside_magnet": 8.325,
+    "foam_below_magnet": 12.4125,
+    "foam_above_pocket": 11.9875
+  },
+  "sizing": {
+    "outcome": "Positive guided lift with a 5 g allowance for density and absorbed-water variation in a bench trial",
+    "water_density_g_cc": 0.9997,
+    "design_foam_density_g_cc": 0.65,
+    "minimum_reserve_lift_g": 5.0,
+    "minimum_calculated_height_mm": 27.338787828332563,
+    "upward_height_rounding_mm": 1.0,
+    "equation": "H = (reserve + magnet_mass - foam_density * pocket_volume) / ((water_density - foam_density) * annular_area)",
+    "scope": "Foam density is an engineering assumption, not a measured tolerance or a water-absorption allowance proven adequate for service."
+  },
+  "volumes_cc": {
+    "external_displacement_excluding_open_bore": 27.993852490195643,
+    "asa_aero": 27.175814160875092,
+    "magnet_pocket": 0.8180383293205423
+  },
+  "magnet": {
+    "model": "K&J RC62",
+    "od_mm": 19.05,
+    "id_mm": 9.525,
+    "thickness_mm": 3.175,
+    "dimensional_tolerance_mm": 0.1,
+    "mass_g": 5.09,
+    "grade": "N42",
+    "continuous_operating_limit_c": 80,
+    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
+  },
+  "installation": {
+    "rod_axis_from_inner_wall_mm": 20.0,
+    "body_wall_clearance_range_mm": [
+      1.1875,
+      2.8125
+    ],
+    "design_magnet_above_waterline_mm": -8.766105924664824,
+    "scope": "Upright geometric clearances; liquid switching heights require finished-float and installed-reed calibration"
+  },
+  "buoyancy": [
+    {
+      "foam_density_g_cc": 0.46,
+      "assembled_mass_g": 17.590874514002543,
+      "reserve_lift_g": 10.39457982044604,
+      "guided_upright_freeboard_mm": 10.39998248712455
+    },
+    {
+      "foam_density_g_cc": 0.53,
+      "assembled_mass_g": 19.4931815052638,
+      "reserve_lift_g": 8.492272829184785,
+      "guided_upright_freeboard_mm": 8.496686756465309
+    },
+    {
+      "foam_density_g_cc": 0.55,
+      "assembled_mass_g": 20.036697788481302,
+      "reserve_lift_g": 7.9487565459672815,
+      "guided_upright_freeboard_mm": 7.952887976276953
+    },
+    {
+      "foam_density_g_cc": 0.6,
+      "assembled_mass_g": 21.395488496525054,
+      "reserve_lift_g": 6.589965837923529,
+      "guided_upright_freeboard_mm": 6.593391025806068
+    },
+    {
+      "foam_density_g_cc": 0.65,
+      "assembled_mass_g": 22.75427920456881,
+      "reserve_lift_g": 5.231175129879773,
+      "guided_upright_freeboard_mm": 5.233894075335178
+    },
+    {
+      "foam_density_g_cc": 0.7,
+      "assembled_mass_g": 24.113069912612563,
+      "reserve_lift_g": 3.8723844218360206,
+      "guided_upright_freeboard_mm": 3.8743971248642937
+    }
+  ],
+  "neutral_foam_density_g_cc": 0.8424937776992557,
+  "print_intent": {
+    "layer_height_mm": 0.2,
+    "wall_loops": 300,
+    "pause_before_layer_z_mm": 16.2,
+    "xy_contour_compensation_mm": 0.05,
+    "xy_hole_compensation_mm": -0.05,
+    "minimum_compensated_radial_magnet_clearance_mm": 0.05000000000000035,
+    "minimum_nominal_pocket_depth_clearance_mm": 0.3250000000000003,
+    "scope": "Native slicing must verify the printed seat, last open-pocket layer, pause and first covering deposition. CAD midpoint is exact; the physical center depends on layer quantization and actual magnet thickness."
+  },
+  "qualification": {
+    "density_measured": false,
+    "buoyancy_measured": false,
+    "paused_magnet_retention_verified": false,
+    "magnet_heat_exposure_verified": false,
+    "pressure_rating": "Unqualified bench prototype",
+    "wetted_service": "Not qualified; no water uptake, pressure endurance or material-contact acceptance is recorded",
+    "upright_scope": "Guided on the bench rod; no free-floating upright stability claim"
+  }
+}

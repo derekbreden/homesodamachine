@@ -1,0 +1,34 @@
+{
+  "status": "native_pause_forecast_verified",
+  "checked_utc": "2026-10-09T00:42:53.427409+00:00",
+  "archive": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "archive_sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+  "gcode_sha256": "047a630e8fbe64e0c9f7b5a31fab7b019592308bb32b78c46b1cefcce03c52a5",
+  "project_sha256": "8d192662daa771666a103ae2935cc730de23f311fe0e4c15c51eaef5c922b4f5",
+  "quantity": 3,
+  "printer": "Mark2",
+  "active_side": "RIGHT",
+  "nozzle_mm": 0.4,
+  "programmed_pause": {
+    "count": 1,
+    "command": "M400 U1",
+    "gcode_line_1_based": 786091,
+    "before_layer": 81,
+    "total_layers": 140,
+    "top_z_mm": 16.2,
+    "completed_open_layer_z_mm": 16.0,
+    "remaining_minutes": 93
+  },
+  "native_forecast": {
+    "approximate_elapsed_from_start_minutes": 136,
+    "initial_emitted_countdown_minutes": 135,
+    "total_prediction_seconds": 13741.34765625,
+    "total_prediction_minutes": 229.0224609375,
+    "remaining_after_pause_minutes": 93,
+    "method": "Native total estimate minus minute-rounded pause-list remainder, compared with initial emitted M73 C countdown.",
+    "scope": "Approximate start-to-pause forecast; startup and physical print timing can shift it. Manual magnet-insertion time is additional."
+  },
+  "submitted": false,
+  "launch_authorized": false,
+  "send_attempted": false
+}
