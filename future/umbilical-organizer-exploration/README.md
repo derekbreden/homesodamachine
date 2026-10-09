@@ -1,4 +1,13 @@
-# Umbilical tube organizer candidate
+# Umbilical tube organizer fit trial
+
+The **L / rightmost / loose** sample is the accepted
+[production umbilical organizer](../../hardware/printed-parts/faucet/umbilical-organizer/README.md):
+Ø32 × 10 mm PET-GF, three Ø6.65 mm beverage bores and one Ø4.20 mm drain bore.
+Its [physical acceptance record](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
+binds the reported fit to the original Mark2 job. This folder retains the three
+trial articles and their preparation source; `organizer.py` represents the
+middle trial article. Current product geometry and placement are defined under
+`hardware/printed-parts/faucet/umbilical-organizer/` and `hardware/faucet-layout/`.
 
 One floating round puck is intended to keep the soda, two flavor and drain tubes
 in formation below the faucet mounting workspace. The target is deliberate

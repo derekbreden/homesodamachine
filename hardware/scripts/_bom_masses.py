@@ -101,8 +101,8 @@ PROFILES = {
     # outer 0.42 + inner 0.45 mm, 15 % grid. Material density and paid price
     # come from MATERIALS, independently of the slicer's saved cost metadata.
     "petgf": (0.87, 0.45, 0.15),
-    # No slice of its own. A part this small is nearly all perimeter whatever it is
-    # sliced at, so it carries the exterior's figures and lands near solid anyway.
+    # Small parts carry the two-wall, 15% recipe. The organizer's accepted
+    # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
     # collet-press/README.md — 0.4 nozzle, 0.24 layer, at least 6 walls and a
     # dense core. Until its first committed slice, bill the specified core as
@@ -212,6 +212,7 @@ PARTS = {
     # The lever the donor Westbrass arrives with is set aside; the printed replica, rebuilt from
     # a scan of it and printed in the faucet's finish, is the one that ships.
     "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
+    "Umbilical organizer — below faucet mount": ["faucet/umbilical-organizer/umbilical-organizer.step"],
     # The funnel's sliding frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
@@ -233,6 +234,7 @@ GROUP_OF = [
     ("Faucet display cover plate",  "petgf"),
     ("Above-counter plate",         "petgf"),
     ("Faucet lever",                "petgf"),
+    ("Umbilical organizer",         "small"),
     ("Copper-plug stack",           "small"),
     ("PRV shroud",                  "small"),
     ("Carbonator reed bridge",      "small"),

@@ -1,8 +1,12 @@
 # Three PET-GF organizer fit samples — Mark2
 
+The **rightmost / L / loose** sample is the accepted production fit. The
+[product part](../../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
+and its [physical acceptance record](../../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
+identify the selected article and the scope of the reported result.
+
 The plate contains three Ø32 × 10 mm pucks with smooth vertical passages. The
-middle sample is the current best estimate for a fit that stays put during
-handling but lets a user push or pull an individual tube through with two hands.
+middle sample is the baseline for this fit comparison.
 The other samples change each tube bore by ±0.10 mm in **diameter** (±0.05 mm in
 radius). The Ø5 mm loose signal-cable passage is identical in all three.
 
@@ -64,7 +68,7 @@ before this send. Its acceptance time is not present in the local sender
 records; the earlier running observation establishes that its startup preceded
 this launch by more than three minutes. Mark1 remains on that task.
 
-## What the samples decide
+## Fit assessment procedure
 
 Use the actual blue and both black quarter-inch tubes and the white 4 mm drain
 tube. Thread each puck onto free tube ends. Hold the puck in one hand and each
