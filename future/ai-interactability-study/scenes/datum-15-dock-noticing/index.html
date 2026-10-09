@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What a dock visit notices</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dn text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .dn .tm { fill: #8b98ab; } .dn .tf { fill: #64748b; } .dn .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .dn .tt { fill: #14b8a6; } .dn .ta { fill: #f5a524; } .dn .tr { fill: #ff6b5f; } .dn .tp { fill: #c084fc; } .dn .ts { fill: #60a5fa; } .dn .tk { fill: #f472b6; } .dn .tg { fill: #94a3b8; } .dn .tw { fill: #f1f5f9; } .dn .tok { fill: #34d399; }
+  .dn .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-15-dock-noticing",
+  "title": "What a dock visit notices: the dock as a control specimen",
+  "by": "datum",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "The dock of trials-02 re-creates the shell's pose against the bench. Once a probe finds the corner on each tube, those coordinates stop carrying the trial. What a dock visit can still do is notice change: a weigh-in reads the cable, a corner in the dock (a coupon under the docked dot) reads the gun and the camera, the probe on the tube reads everything else. The scene injects six kinds of change and shows what each reading sees and what stays silent.",
+  "tags": ["lens", "dock", "control specimen", "coupon", "change detection", "dot versus wire", "datum chain"],
+  "branchOf": ["trials-02-dock-reset"],
+  "combines": ["datum-07-touch-off", "trials-05-artefact-ladder"],
+  "transferable": ["a known corner at the dock separates a change in the gun or camera from a change in the tube", "the dock's coordinates matter less than what it can detect", "dock seats on the rotator base take the bench clamp out of the chain"],
+  "how": {
+    "motion": "any positioner carries the shell between dock and tube; here only what each visit reads is shown",
+    "load": "the dock's seats carry the shell when parked; the mount is a choice: bench or the rotator's own base",
+    "reference": "three kinematic seats re-create the shell; a coupon corner under the docked dot is a known corner",
+    "observe": "seat contact, three cells, a probe of the coupon (proposed), a probe of the tube (proposed)",
+    "use": "every dock visit between trials; the coupon is probed like the tube is, at the start of each visit"
+  },
+  "software": {
+    "commands": ["undock, hover, probe the coupon, probe the tube (positioner path)", "weigh-in on docking", "what to do with each shift: recalibrate, flag, or stop"],
+    "observes": ["three cell readings against baseline", "dot against the coupon corner (camera + sweep or touch)", "dot against this tube's corner"],
+    "manual": ["making and placing the coupon", "deciding which shift is allowed", "re-aligning the red light if the dot moved in the gun"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-15-dock-noticing.md", "../../exchange/datum--on--trials-w2.md", "../../explorers/trials/ideas/trials-02-dock-reset.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The dock in trials-02 does four jobs. This scene asks what it can <b>notice</b>. Its kinematic seats re-create the shell against the bench, but the pose that decides the weld is dot-to-corner on <i>this tube</i>. If a probe finds the corner at the start of every trial (the dot sweep of trials-03, the stylus of datum-07), the dock\'s coordinates are not what the trial rests on. What the dock can still do is <b>detect that something changed</b> between visits, and say <b>which link</b>.</p>' +
+        '<p>Six kinds of change are injected: the rotator re-clamped, the dot moved in the shell, a scale error in the positioner, a change in the cable\'s drag, a new tube seated deeper, the camera nudged. Three readings look for them: the <b>weigh-in</b> (forces, not positions), a <b>coupon</b> (a short length of tube and plate, a corner with a known place, under the docked dot: the same probe run on a known corner), and the <b>probe on the tube</b> (the sum of everything between the dock and this corner). The difference between the last two is the useful thing: <b>a change that shows on the coupon is in the gun or the camera; a change that shows only on the tube is outside them.</b></p>' +
+        '<p>Choose where the dock stands (on the bench, or on a bracket from the rotator\'s own base), whether the coupon is there, whether the tube is probed, and how big the changes are. The matrix shows what each reading says for every change and what stays silent at the trial.</p>',
+      carries:
+        '<p>The dock\'s ramp and seats carry the shell when parked (trials-02). Nothing else in this scene carries anything. On a bench mount the dock is a link in the chain from the room to the corner; on the rotator base the bench-to-rotator clamp drops out of that chain, but the dock stands close to the tube and the gun\'s body then sits in the column the tube leaves by (trials-02 draws this collision).</p>',
+      software:
+        '<p><b>Commands:</b> the positioner path (undock, hover, probe the coupon, probe the tube, dock); the weigh-in on docking. <b>Observes:</b> three cell readings; the coupon\'s dot-versus-corner (through the same camera and sweep or touch used on tubes); the tube\'s dot-versus-corner. <b>Blind:</b> whether a coupon shift is the dot or the camera (one number cannot say); what happens during the trial; the melt.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the dock is a room reference and the corner is a work reference. <b>Assumption (in trials-02):</b> re-anchoring the shell re-anchors the trial. <b>What the scene shows:</b> with no probe on the tube, a re-clamp of the rotator (1 mm here, illustrative) or a 0.1 per cent scale error over 330 mm passes straight to the dot. With a probe on the tube both are absorbed, and the dock\'s coordinates stop mattering. What is left for the dock to do is not coordinates.</li>' +
+        '<li><b>Conflict:</b> a dot that moves inside the gun moves relative to the wire and the nozzle, which the tube probe cannot see. <b>What the scene shows:</b> the tube probe finds the dot\'s own corner and absorbs the shift, so the dot-versus-wire column stays at its full size. The coupon sees it. This is a change in the very term the datum-chain scene shows no reference on the work can touch (dot versus melt, of which dot versus wire is the part a dry run can reach).</li>' +
+        '<li><b>Conflict:</b> the coupon sees a sum. A shift in its reading is the dot moving <i>or</i> the camera moving. <b>Repair not drawn:</b> a second observer that sees only one of them (a mark on the shell in the camera\'s frame). <b>Left uncertain:</b> whether the AI should re-zero the judge or re-align the red light when only the sum is known.</li>' +
+        '<li><b>Conflict:</b> a dock on the rotator base removes the clamp play, but it stands within 200 mm of the axis. <b>Assumption:</b> the tube can leave upward. <b>What it leaves:</b> a tube that leaves sideways or downward (room-01 and room-05 arrangements), or a dock that swings clear.</li>' +
+        '<li><b>Left standing:</b> everything here is a rule with an illustrative size, not a measurement; the thresholds (50 micrometres on a probe, 0.2 N on the cells) are placeholders; a coupon of real 316L on the dock has not been made.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Question for the originator (trials):</b> the dock\'s three cells and the coupon could share one plate. Is a coupon worth the mass and heat of a short 316L tube stub, or is a printed corner enough for a dry-run dock (and a real one only for the confirming runs)?</li>' +
+        '<li>Whether the shell\'s three lugs re-seat the same way when the gun has been taken out of the shell and put back: the dock cannot say, the coupon can.</li>' +
+        '<li>How the dot probe is done at the dock without lifting the shell off its seats: a sweep by the positioner, or by the head\'s own fine axis (datum-13) if that exists.</li>' +
+        '<li>Bench test that would replace the placeholders: probe one coupon and one tube ten times each, after re-seating the gun in its shell and after moving the camera 0.3 mm.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Nominal sizes: re-clamp 1.0 mm, dot in shell 0.20 mm, scale 0.10 per cent (0.33 mm at 330 mm), drag 1.0 N, seat 0.5 mm, camera 0.30 mm; all <b>illustrative</b>. The slider scales all of them.</li>' +
+        '<li>Boom or arm compliance at the dot 0.4 mm/N (freedom-01: 0.3 to 0.9 for a rigid grip): <b>illustrative</b>. Cells: 68 g per newton of sideways pull on the most affected cell (trials-02 gives 45 to 90 g per newton): <b>illustrative</b>.</li>' +
+        '<li>Probe repeatability 0.03 mm; a probe or coupon shift counts as seen above 0.05 mm: <b>illustrative</b>. The amber highlight above 0.10 mm is a reading aid, not a tolerance (Derek\'s tolerance is <b>[unknown]</b>).</li>' +
+        '<li>The rotator is clamped through four 10 mm holes in the base <b>[repo]</b>; how much it shifts between sessions is <b>[unknown]</b>.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model
+  const EV = [
+    { id: 'clamp',    name: 'Rotator re-clamped on the bench',        unit: 'mm', nom: 1.0,  fmt: v => v.toFixed(2) + ' mm' },
+    { id: 'dotshell', name: 'Dot moved inside the gun / shell',       unit: 'mm', nom: 0.20, fmt: v => v.toFixed(2) + ' mm' },
+    { id: 'scale',    name: 'Positioner scale off, dock to corner',   unit: '%',  nom: 0.10, fmt: v => v.toFixed(2) + ' %' },
+    { id: 'drag',     name: 'Umbilical drag changed',                 unit: 'N',  nom: 1.0,  fmt: v => v.toFixed(2) + ' N' },
+    { id: 'seat',     name: 'New tube: plate seated deeper',          unit: 'mm', nom: 0.5,  fmt: v => v.toFixed(2) + ' mm' },
+    { id: 'camera',   name: 'Camera nudged',                          unit: 'mm', nom: 0.30, fmt: v => v.toFixed(2) + ' mm' },
+  ];
+  const P = { mount: 'bench', dockX: 330, coupon: true, probe: true, cells: true, mult: 1, sel: 'dotshell' };
+  const COMP = 0.4, GPN = 68, REPEAT = 0.03, SEEN = 0.05, AMBER = 0.10;
+  const dockDist = () => P.mount === 'bench' ? P.dockX : 190;
+  function rowFor(e) {
+    const s = e.nom * P.mult, id = e.id;
+    let cells = 0, coupon = 0, tube = 0, A = 0, B = 0, C = 0;
+    if (id === 'clamp') { tube = P.mount === 'bench' ? s : 0; }
+    if (id === 'dotshell') { coupon = s; tube = s; B = s; }
+    if (id === 'scale') { tube = s / 100 * dockDist(); }
+    if (id === 'drag') { cells = s * GPN; coupon = COMP * s; tube = COMP * s; }
+    if (id === 'seat') { tube = s; }
+    if (id === 'camera') { coupon = s; C = s; }
+    A = tube;                                                    // what dead reckoning from the dock would leave at the dot
+    const seen = { cells: P.cells && cells >= 0.2 * GPN, coupon: P.coupon && coupon >= SEEN, tube: P.probe && tube >= SEEN };
+    const silentA = P.probe ? (A > 0 ? REPEAT : 0) : A;         // absorbed by the probe, to its repeatability
+    const silentB = P.coupon ? (B > 0 ? REPEAT : 0) : B;        // corrected from the coupon, to its repeatability
+    const silentC = P.coupon ? (C > 0 ? REPEAT : 0) : C;        // re-zeroed from the coupon (the sum: see the note)
+    return { e: e, s: s, cells: cells, coupon: coupon, tube: tube, seen: seen, A: silentA, B: silentB, C: silentC, A0: A };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 740, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'dn', role: 'img', 'aria-label': 'Dock elevation and a matrix of changes against readings', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  const rect = (x, y, w, h, a) => S('rect', Object.assign({ x: x, y: y, width: Math.max(0, w), height: Math.max(0, h) }, a));
+  const poly = (pts, a) => S('polygon', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') }, a));
+
+  const SC = 0.5, AX = 176, ZB = 306;                       // px per mm, tube axis x in px, bench y in px
+  const X = x => AX + x * SC, Z = z => ZB - z * SC;          // z above the bench, mm
+  const B32 = 32 * DEG, sb = Math.sin(B32), cb = Math.cos(B32);
+  function drawElev(g, sel) {
+    g.append(T(12, 22, 'Elevation: the docked gun, the tube and what each visit reads', 'tb'));
+    g.append(rect(6, 30, 520, 296, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    g.append(rect(6, ZB, 520, 8, { fill: '#3a4658' })); g.append(T(10, ZB + 20, 'bench', 'tf'));
+    // rotator base, turntable, tube, plate
+    const hi = id => sel === id ? { stroke: '#f5a524', 'stroke-width': 2.2 } : {};
+    g.append(rect(X(-150), Z(36), 300 * SC, 12 * SC + 4, Object.assign({ fill: '#6b7a90' }, hi('clamp')))); g.append(T(X(-150), Z(36) - 3, 'rotator base (clamped through 10 mm holes)', 'tf'));
+    [-130, 110].forEach(x => g.append(rect(X(x), Z(24), 20 * SC, 24 * SC, { fill: '#4b5a72' })));
+    g.append(rect(X(-98), Z(86), 196 * SC, 50 * SC, { fill: '#a855f7', opacity: 0.45 }));
+    const zt = 238.4, zp = zt - 6.35;
+    g.append(rect(X(-63.5), Z(zt), 1.65 * 2.2, 152.4 * SC, { fill: '#c8d0da' })); g.append(rect(X(62), Z(zt), 1.65 * 2.2, 152.4 * SC, { fill: '#c8d0da' }));
+    g.append(rect(X(-61.85), Z(zp), 123.7 * SC, 6.35 * SC + 1, Object.assign({ fill: '#dfe6ee' }, hi('seat'))));
+    g.append(T(X(0), Z(zt) - 5, 'tube', 'tf', 'middle'));
+    g.append(S('circle', { cx: X(61.85), cy: Z(zp), r: 2.8, fill: '#14b8a6' })); g.append(T(X(61.85) + 6, Z(zp) + 12, 'seam', 'tt'));
+    // judge camera above the tube
+    g.append(rect(X(0) - 10, Z(470) - 6, 20, 12, Object.assign({ fill: '#3b82f6', rx: 2 }, hi('camera')))); g.append(T(X(0), Z(470) - 10, 'camera (judge)', 'ts', 'middle'));
+    g.append(line(X(0), Z(470) + 6, X(58), Z(zp) - 4, { stroke: '#3b82f6', 'stroke-dasharray': '2 3', opacity: 0.6 }));
+    // dock
+    const dx = dockDist(), dockTop = P.mount === 'bench' ? 215 : 235;
+    const N = { x: dx, z: dockTop };                          // nozzle tip on the dock
+    const eb = [-sb, cb], nn = [cb, sb], PT = (L, w) => [N.x + L * eb[0] + w * nn[0], N.z + L * eb[1] + w * nn[1]];
+    const base = P.mount === 'bench' ? 0 : 36;
+    [60, 140, 220].forEach(L => { const p = PT(L, -26); g.append(rect(X(p[0]) - 2.5, Z(p[1]), 5, (p[1] - base) * SC, { fill: '#4b5a72' })); g.append(S('circle', { cx: X(p[0]), cy: Z(p[1]), r: 2.6, fill: '#14b8a6' })); });
+    g.append(rect(X(Math.min(PT(60, -26)[0], PT(220, -26)[0])) - 14, Z(base) - 3, Math.abs(PT(220, -26)[0] - PT(60, -26)[0]) * SC + 28, 4, { fill: '#4b5a72' }));
+    if (P.mount === 'base') g.append(poly([[X(140), Z(36)], [X(dx + 60), Z(36) + 2], [X(dx + 60), Z(36) - 6], [X(140), Z(36) - 6]], { fill: '#4b5a72' }));
+    g.append(T(X(dx + 8), Z(base) + 14 + (P.mount === 'bench' ? 6 : 0), 'dock (' + (P.mount === 'bench' ? 'on the bench, ' + dx + ' mm out' : 'bracket on the rotator base, ' + dx + ' mm out') + ')', 'tt'));
+    // gun on the dock (zones as trials-02)
+    const ZN = [[0, 23, 2.2, 5], [23, 54, 8.5, 8.5], [54, 100, 5.5, 5.5], [100, 118, 12, 12], [118, 253, 17, 17]];
+    ZN.forEach((z, i) => g.append(poly([PT(z[0], -z[2]), PT(z[0], z[2]), PT(z[1], z[3]), PT(z[1], -z[3])].map(q => [X(q[0]), Z(q[1])]), Object.assign({ fill: '#59636f', stroke: '#9aa7b8', 'stroke-width': 0.7, 'fill-opacity': i === 4 ? 0.55 : 0.95 }, i === 0 ? hi('dotshell') : {}))));
+    const dot = PT(-16 * 0, 0); const dotp = [N.x + 16 * sb, N.z - 16 * cb];
+    g.append(line(X(N.x), Z(N.z), X(dotp[0]), Z(dotp[1]), { stroke: '#ff3b30', 'stroke-width': 1.5 }));
+    g.append(S('circle', { cx: X(dotp[0]), cy: Z(dotp[1]), r: 3, fill: '#ff3b30' }));
+    // coupon under the docked dot
+    if (P.coupon) {
+      const cxp = dotp[0], czp = dotp[1];
+      g.append(rect(X(cxp - 18), Z(czp) , 36 * SC, 6 * SC + 2, { fill: '#dfe6ee' })); g.append(rect(X(cxp + 1.5), Z(czp + 8), 1.65 * 2.2 + 1, 8 * SC + 6, { fill: '#c8d0da' }));
+      g.append(T(X(cxp) - 40, Z(czp) + 26, 'coupon: a corner with a known place', 'ta'));
+      g.append(rect(X(cxp) - 8, Z(czp + 84) - 5, 16, 10, Object.assign({ fill: '#3b82f6', rx: 2 }, hi('camera')))); g.append(line(X(cxp), Z(czp + 84) + 5, X(cxp), Z(czp) - 2, { stroke: '#3b82f6', 'stroke-dasharray': '2 3', opacity: 0.6 }));
+      g.append(T(X(cxp) + 12, Z(czp + 84) + 3, 'same camera path', 'ts'));
+    }
+    // three cells under the seats
+    if (P.cells) [60, 140, 220].forEach(L => { const p = PT(L, -26); g.append(rect(X(p[0]) - 5, Z(base + 6), 10, 5, Object.assign({ fill: '#f5a524' }, hi('drag')))); });
+    // travel path dock -> tube
+    g.append(S('path', { d: 'M' + X(dotp[0]) + ',' + Z(dotp[1] + 60) + ' Q' + X((dotp[0] + 61.85) / 2) + ',' + Z(330) + ' ' + X(61.85 + 6) + ',' + Z(zp + 30), fill: 'none', stroke: '#c084fc', 'stroke-dasharray': '4 3', 'stroke-width': sel === 'scale' ? 2.4 : 1.2 }));
+    g.append(T(X((dotp[0] + 61.85) / 2), Z(345), 'travel dock to corner (' + Math.round(dx - 62) + ' mm)', 'tp', 'middle'));
+    // umbilical stub
+    const back = PT(253, 0);
+    g.append(S('path', { d: 'M' + X(back[0]) + ',' + Z(back[1]) + ' q30,-40 60,-52', fill: 'none', stroke: sel === 'drag' ? '#f5a524' : '#4b5563', 'stroke-width': 3, 'stroke-linecap': 'round' })); g.append(T(X(back[0]) + 34, Math.max(46, Z(back[1]) - 40), 'umbilical (drag)', 'tf'));
+    if (P.mount === 'base') g.append(T(X(dx) - 2, Z(dockTop + 160), 'gun body in the tube\'s lift column: the tube must leave sideways or down', 'ta', 'middle'));
+  }
+
+  function drawRight(g) {
+    const x = 546, y = 44, e = EV.find(v => v.id === P.sel), r = rowFor(e);
+    g.append(T(x, y - 22, 'Selected change', 'tb'));
+    g.append(T(x, y - 8, e.name + ', ' + e.fmt(r.s), 'tw'));
+    const line3 = (yy, label, val, seen, note) => {
+      g.append(S('circle', { cx: x + 6, cy: yy - 4, r: 4.5, fill: seen ? '#f5a524' : '#334155' }));
+      g.append(T(x + 18, yy, label, seen ? 'tw hot' : 'tg')); g.append(T(x + 306, yy, val, seen ? 'ta hot' : 'tm', 'end')); if (note) g.append(T(x + 18, yy + 12, note, 'tf'));
+    };
+    g.append(T(x, y + 22, 'What each reading says', 'tb'));
+    line3(y + 42, 'Weigh-in, three cells', P.cells ? r.cells.toFixed(0) + ' g' : 'off', r.seen.cells, 'a force, not a position: sees the cable');
+    line3(y + 76, 'Coupon probe', P.coupon ? r.coupon.toFixed(2) + ' mm' : 'no coupon', r.seen.coupon, 'gun and camera; one number, cannot say which');
+    line3(y + 110, 'Tube probe', P.probe ? r.tube.toFixed(2) + ' mm' : 'not run', r.seen.tube, 'everything from dock to corner, summed');
+    g.append(T(x, y + 146, 'Attribution', 'tb'));
+    const att = !P.coupon || !P.probe ? 'needs both the coupon and the tube probe' : (r.seen.coupon && r.seen.tube ? 'on both: in the gun or the camera' : (r.seen.tube ? 'on the tube only: outside gun and camera' : (r.seen.coupon ? 'on the coupon only: gun or camera changed' : 'below the thresholds')));
+    g.append(T(x, y + 162, att, 'tw'));
+    g.append(T(x, y + 190, 'Left at the trial', 'tb'));
+    const bar = (yy, label, v, note) => {
+      g.append(T(x, yy, label, 'tg')); g.append(rect(x + 124, yy - 9, 110, 9, { fill: '#10161e', stroke: '#2a3341', rx: 2 })); g.append(rect(x + 124, yy - 9, Math.min(110, v / 1.0 * 110), 9, { fill: v > AMBER ? '#f5a524' : '#34d399', rx: 2, opacity: 0.85 }));
+      g.append(T(x + 244, yy, v.toFixed(2) + ' mm', v > AMBER ? 'ta hot' : 'tw')); g.append(T(x + 124, yy + 12, note, 'tf'));
+    };
+    bar(y + 210, 'dot vs corner', r.A, P.probe ? 'absorbed by the tube probe' : 'dead reckoning from the dock');
+    bar(y + 242, 'dot vs wire, melt', r.B, P.coupon ? 'caught by the coupon' : 'nothing sees it');
+    bar(y + 274, 'judge reading', r.C, P.coupon ? 're-zeroed from the coupon' : 'nothing sees it');
+  }
+
+  function drawMatrix(g) {
+    const x0 = 12, y0 = 372, cw = [232, 72, 84, 84, 84, 84, 84, 84];
+    let xs = [x0]; cw.forEach((w, i) => xs.push(xs[i] + w));
+    g.append(T(x0, y0 - 28, 'Every change against every reading (sizes: nominal × ' + P.mult.toFixed(2) + ')', 'tb'));
+    g.append(line(xs[5] + 2, y0 - 12, xs[8] - 2, y0 - 12, { stroke: '#475569' })); g.append(T((xs[5] + xs[8]) / 2, y0 - 16, 'silent at the trial', 'tf', 'middle'));
+    g.append(line(xs[2] + 2, y0 - 12, xs[5] - 2, y0 - 12, { stroke: '#475569' })); g.append(T((xs[2] + xs[5]) / 2, y0 - 16, 'what each reading shows', 'tf', 'middle'));
+    ['change', 'size', 'weigh-in', 'coupon', 'tube probe', 'dot/corner', 'dot/wire', 'judge'].forEach((h, i) => g.append(T(xs[i] + 4, y0 + 6, h, 'tf')));
+    EV.forEach((e, i) => {
+      const r = rowFor(e), yy = y0 + 28 + i * 30, on = e.id === P.sel;
+      g.append(rect(x0 - 4, yy - 14, 850, 26, { fill: on ? '#f472b6' : '#10161e', opacity: on ? 0.14 : 1, stroke: on ? '#f472b6' : '#2a3341', rx: 4 }));
+      g.append(T(xs[0] + 2, yy + 3, e.name, on ? 'tw hot' : 'tg')); g.append(T(xs[1] + 4, yy + 3, e.fmt(r.s), 'tm'));
+      const cell = (i2, txt, seen, off) => g.append(T(xs[i2] + 4, yy + 3, off ? 'off' : (txt + (seen ? '  seen' : '')), off ? 'tf' : (seen ? 'ta hot' : 'tm')));
+      cell(2, r.cells.toFixed(0) + ' g', r.seen.cells, !P.cells); cell(3, r.coupon.toFixed(2), r.seen.coupon, !P.coupon); cell(4, r.tube.toFixed(2), r.seen.tube, !P.probe);
+      const sil = (i2, v) => g.append(T(xs[i2] + 4, yy + 3, v > 0 ? v.toFixed(2) + ' mm' : '-', v > AMBER ? 'ta hot' : (v > 0 ? 'tw' : 'tf')));
+      sil(5, r.A); sil(6, r.B); sil(7, r.C);
+    });
+    // summary
+    const silent = EV.map(e => { const r = rowFor(e); return { e: e, v: Math.max(r.A, r.B, r.C) }; }).filter(o => o.v > AMBER);
+    const sy = y0 + 28 + 6 * 30 + 10;
+    g.append(T(x0, sy, 'This configuration leaves silent (above 0.10 mm):', 'tb'));
+    { const txt = silent.length ? silent.map(o => o.e.name.toLowerCase() + ' (' + o.v.toFixed(2) + ')').join('; ') : 'nothing above the reading-aid threshold'; const ws = txt.split(' '); let ln = '', k = 0; ws.forEach(w => { if ((ln + ' ' + w).length > 120) { g.append(T(x0, sy + 16 + k * 13, ln, silent.length ? 'ta' : 'tok')); k++; ln = w; } else ln = ln ? ln + ' ' + w : w; }); g.append(T(x0, sy + 16 + k * 13, ln, silent.length ? 'ta' : 'tok')); }
+    g.append(T(x0, sy + 44, 'Seat contact (the shell is on its three seats) sees none of these six: it says the shell is home, not that anything else is.', 'tf'));
+    g.append(T(x0, sy + 58, 'Rules, not measurements: cells read forces; the coupon reads what is inside the gun and camera; the tube probe reads the sum from dock to corner.', 'tf'));
+    g.append(T(x0, sy + 72, 'Sizes are illustrative; the amber threshold is a reading aid, not a tolerance.', 'tf'));
+  }
+
+  function updateIO() {
+    const e = EV.find(v => v.id === P.sel), r = rowFor(e);
+    app.io.set({
+      commands: [
+        { name: 'Positioner path', value: 'dock, hover, coupon, tube', note: 'any positioner; not chosen' },
+        { name: 'Weigh-in on docking', value: P.cells ? 'on' : 'off', note: 'three cells under the seats (trials-02)' },
+        { name: 'Probe the coupon, then the tube', value: (P.coupon ? 'coupon ' : '') + (P.probe ? 'tube' : ''), note: 'the same sweep or touch on both' },
+      ],
+      observes: [
+        { name: 'Cell shares', value: P.cells ? r.cells.toFixed(0) : '-', unit: P.cells ? 'g change' : '', status: P.cells ? 'seen' : 'blind', note: 'forces only' },
+        { name: 'Dot vs coupon corner', value: P.coupon ? r.coupon.toFixed(2) : '-', unit: P.coupon ? 'mm' : '', status: P.coupon ? 'partly' : 'blind', note: 'gun and camera; the sum' },
+        { name: 'Dot vs this tube\'s corner', value: P.probe ? r.tube.toFixed(2) : '-', unit: P.probe ? 'mm shift' : '', status: P.probe ? 'partly' : 'blind', note: 'every link from dock to corner, summed' },
+        { name: 'Dot vs wire', value: '-', status: P.coupon ? 'partly' : 'blind', note: 'only through the coupon; the tube probe absorbs a moved dot' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Making and fixing the coupon', 'Deciding what shift is allowed', 'Re-aligning the red light if the dot moved'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    drawElev(gDyn, P.sel); drawRight(gDyn); drawMatrix(gDyn);
+    app.badge('lift', P.mount === 'base' ? 'dock on the rotator base: the gun body stands in the tube\'s lift column at the swap' : null, 'warn');
+    updateIO();
+  }
+
+  // ---------------------------------------------------------------- controls
+  const gc = app.ui.group('The dock (scene edits)', { open: true });
+  gc.radio({ id: 'mount', label: 'The dock stands on', options: [{ value: 'bench', label: 'The bench' }, { value: 'base', label: 'The rotator base' }], value: 'bench', kind: 'branch', help: 'On the base, the bench-to-rotator clamp drops out of the chain; the dock then stands close to the tube.', onChange: v => { P.mount = v; app.ui.enable('dockX', v === 'bench'); render(); } });
+  gc.slider({ id: 'dockX', label: 'Dock distance from the tube axis (bench mount)', min: 200, max: 460, step: 10, value: 330, unit: 'mm', kind: 'scene', help: 'The scale error of the positioner acts over this travel.', onChange: v => { P.dockX = v; render(); } });
+  gc.toggle({ id: 'coupon', label: 'A coupon (a known corner) under the docked dot', value: true, kind: 'branch', help: 'A short length of tube and plate, or a printed corner. Probed with the same camera and sweep as tubes.', onChange: v => { P.coupon = v; render(); } });
+  gc.toggle({ id: 'cells', label: 'Weigh-in on three cells', value: true, kind: 'branch', onChange: v => { P.cells = v; render(); } });
+  const gp = app.ui.group('The trial (scene edits)', { open: true });
+  gp.toggle({ id: 'probe', label: 'Probe the tube\'s corner at the start of each trial', value: true, kind: 'branch', help: 'The dot sweep (trials-03) or a stylus touch (datum-07). Off: the positioner dead-reckons from the dock.', onChange: v => { P.probe = v; render(); } });
+  gp.radio({ id: 'sel', label: 'Change to look at', options: EV.map(e => ({ value: e.id, label: e.name })), value: 'dotshell', kind: 'view', help: 'Highlights the link in the drawing and the row in the matrix.', onChange: v => { P.sel = v; render(); } });
+  gp.slider({ id: 'mult', label: 'How big the changes are', min: 0.25, max: 3, step: 0.05, value: 1, unit: '× nominal', kind: 'scene', help: 'Scales all six nominal sizes.', onChange: v => { P.mult = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

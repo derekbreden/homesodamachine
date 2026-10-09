@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arm parks, rotator turns</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .t21 { padding: 6px 8px 14px; color: #c7d3e6; font-size: 12px; }
+  .t21 h3 { margin: 0 0 6px; font-size: 13px; color: #fff; }
+  .t21 .bar { display: flex; height: 26px; border: 1px solid #394559; border-radius: 6px; overflow: hidden; margin: 0 0 10px; }
+  .t21 .bar > div { display: flex; align-items: center; justify-content: center; font-size: 10px; color: #0e1218; border-right: 1px solid #0e1218; white-space: nowrap; overflow: hidden; cursor: pointer; }
+  .t21 table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  .t21 th, .t21 td { border: 1px solid #2a3341; padding: 3px 4px; vertical-align: top; font-size: 10.5px; line-height: 1.3; }
+  .t21 th { background: #1b222c; color: #e7ebf1; font-weight: 600; cursor: pointer; }
+  .t21 th.rowh, .t21 td.rowh { width: 92px; text-align: left; color: #93a4bd; background: #151b23; font-weight: 500; }
+  .t21 td.hand { background: rgba(245,165,36,.16); } .t21 td.free { background: rgba(20,184,166,.10); color: #7dd3c7; }
+  .t21 td.turn { background: rgba(147,197,253,.16); } .t21 td.still { color: #6c788b; }
+  .t21 td.j { text-align: right; font-variant-numeric: tabular-nums; }
+  .t21 td.dim, .t21 th.dim { opacity: .35; }
+  .t21 .sel { outline: 2px solid #fbbf24; outline-offset: -2px; }
+  .t21 .card { margin-top: 10px; padding: 8px 10px; border: 1px solid #394559; border-radius: 8px; background: #151b23; }
+  .t21 .card .ln { margin: 3px 0; } .t21 .card .k { display: inline-block; min-width: 88px; font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: #93a4bd; }
+  .t21 .note { margin-top: 6px; color: #98a4b6; font-size: 11px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-21-arm-parks-rotator-turns",
+  "title": "Arm parks, rotator turns: one closure, joint by joint",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A lens on what an arm and the rotator share in one closure. Eleven states in columns (use's states), and for each: what the hand does, whether the rotator turns, how far each of the six joints is from the weld pose, who makes the last trim, and what the AI commands and reads. The arm is still in every state where the rotator turns (unless you ask it to follow the runout), and its big moves (park, approach, escape) are the returns a maker's repeatability figure describes. The stack under the work has no shuttle and no drop tier because the arm parks instead.",
+  "tags": [
+    "lens",
+    "robot arm",
+    "allocation",
+    "states",
+    "joint space",
+    "coarse-fine",
+    "new direction"
+  ],
+  "branchOf": [],
+  "combines": [
+    "travel-20-arm-joints-at-the-dot",
+    "use-13-work-states"
+  ],
+  "transferable": [
+    "arm and rotator never move together",
+    "repeatability = the closure's approaches",
+    "park replaces shuttle and drop tier"
+  ],
+  "how": {
+    "motion": "arm: park, approach, escape between states; rotator: tacks, dry lap, weld; nothing moves together",
+    "load": "arm flange carries the shell; rotator carries the tube; a fine stack only if chosen",
+    "reference": "the taught pose (return repeatability), then a trim body's floor, then the arm's hold",
+    "observe": "joint encoders, flange force on some arms, a camera or touch for the dot",
+    "use": "per state: the joint or Cartesian command and the read-back the AI has"
+  },
+  "software": {
+    "commands": [
+      "moveJ / moveL to the park pose and back to the taught pose",
+      "trim: joint counts, a stack under the rotator or a stage at the flange",
+      "optional streaming of a fitted runout table keyed by the rotator angle",
+      "force-limited retract for the escape"
+    ],
+    "observes": [
+      "joint encoders (absolute)",
+      "flange force on some arms",
+      "the rotator angle through a pulse input or the console",
+      "the dot only through a camera or touch"
+    ],
+    "manual": [
+      "loading, indicating, seating the plate",
+      "firing the tacks and the weld",
+      "cutting a fused wire and telling the machine",
+      "declaring the payload"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-21-arm-parks-rotator-turns.md",
+    "../../explorers/travel/ideas/travel-20-arm-joints-at-the-dot.md",
+    "../../scenes/use-13-work-states/index.html",
+    "../../exchange/travel--reply-to-use-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="arm6r.js"></script>
+<script>
+(function () {
+  const A = window.ARM6R, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', minWidth: 980, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>One closure, eleven states, six joints.</b> Each column is a state of the closure (use-13’s states). The rows say what the hand does, whether the rotator turns, <b>how far each joint is from the weld pose</b>, who makes the last trim and what the AI commands and reads. Read the joint rows across: the six joints sit at the weld pose (0°) in the states where the rotator turns, and move only to park, to come back, and to leave at the end of a bead. That is the allocation: <b>the tube’s rotation makes the whole path, so the arm has none to make.</b></p>' +
+        '<p>Three consequences follow. <b>(1) Park replaces the shuttle and the drop tier</b> of travel-01 and travel-19: the tube never moves off the rotator, the recess opens because the arm leaves. <b>(2) The maker’s repeatability figure is the figure the closure asks for</b>: two approaches (before and after the face check), each a return to the taught pose; the last trim comes after the second. What the arm holds (stiffness, drift) is what the datasheet does not state. <b>(3) The arm and the rotator never move at the same time</b>, unless you switch on “follow the runout”, which streams a fitted table into the arm keyed by the rotator angle; the readout counts how many seconds and how many updates that costs.</p>',
+      carries:
+        '<p>Nothing is drawn in 3D here: travel-20 draws the arm on the gun. The purple cells are what software could command; amber is a hand; blue is the rotator turning. The joint rows use travel-20’s arrangement (six-axis arm, housing-top grip, base 300 mm out, 150 mm up).</p>',
+      software:
+        '<p>The last two rows are the interface: joint-space commands (<code>moveJ</code>, streaming <code>servoJ</code>) move the arm between poses and read the six encoder angles back exactly; a Cartesian command (<code>moveL</code>, <code>servoCart</code> in a user frame) hides which joints move. The rotator’s angle reaches the arm through a pulse input (the UR3e datasheet lists four quadrature inputs; the Fairino FR3 page lists two high-speed pulse inputs) or through the console; today the controller’s degrees are a readout. Nothing here reads the dot.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>The arm never needs to be fast, or to follow a path.</b> Its big moves take a few seconds against a closure of about 20 minutes at the illustrative durations; with the follow off, the arm and the rotator move together for 0 s. <i>Assumption:</i> the trim is done in the gaps. <i>Leaves:</i> the two approaches per closure (the guide’s order: tack, then check the face) stand unless the dial can stand opposite the gun.</li>' +
+        '<li><b>Follow the runout.</b> Turning the follow on asks the arm for what travel-02’s follow stage does: a first-harmonic table of 0.125 mm amplitude is at most 16 µm/s at 8 mm/s; against a smallest step of about 0.4 to 3 µm at the dot (19-bit joints), that is a few to some tens of counts per second. The arm can do it on paper; nobody has measured whether a harmonic-drive joint moves smoothly at 16 µm/s or sticks and slips. <i>Leaves:</i> stick-slip; the table’s angle zero (a hall pulse per turn, or the pulse input).</li>' +
+        '<li><b>Escape.</b> Zero is the sequence as written (release the trigger, then the pedal). Above zero the arm retreats along the beam by the distance set; a fused wire stops a force-limited retract (the flange force on some arms, or the joint current on the others) and the HOLD state inhibits every axis until a hand has cut it and says so. <i>Leaves:</i> how far the head must leave, if at all (Derek).</li>' +
+        '<li><b>Park is a pose the rest of the room has to allow.</b> The arm goes up and out by the two sliders (this arm and base can reach only part of the range: the badge says when it cannot); the fibre (5 m, 350 mm bend radius, no twist) and the wire conduit go with it, and a wrist joint that turns a full revolution twists the fibre. <i>Leaves:</i> the routing; a joint-limit rule for J6.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Durations, park distances, escape distance, the return repeatability and the lap speed are <b>illustrative</b>; the arm is travel-20’s UR3e-link-length model, not a measured arm. The joint deviations come from an inverse-kinematics solve at each pose (nearest solution to the previous one).</li>' +
+        '<li>What the arm holds while the tube turns, and how much it drifts as its joints warm up, is on no datasheet read; travel-20’s compliance slider is the placeholder.</li>' +
+        '<li><b>Questions for Derek:</b> how do you end a bead today and how far does the head go before the wire is free; can the dial stand opposite the gun for the face-runout check (that removes one approach); how far out of the way does the gun have to be for you to seat the plate?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>States and order: guide 46 <b>[repo]</b> as read by use (indicate, seat and tack the plate, verify the face, engage the shoe, dry revolution, set speed and return the index, weld about 20° past the first tack, release trigger then pedal, snip a stuck wire). The lift-away at the end of a bead is the shared context’s, <b>unconfirmed</b>: the escape slider starts at 0.</li>' +
+        '<li>Durations (minutes) from use-01/use-15 (illustrative): load and indicate 8.0, seat the plate 3.0, approach 0.3, trim and tack 2.0, check 1.5, approach 0.3, trim and dry lap 1.5, weld 1.0, escape 0.2, hold 0.5 (fused wire only), unload 1.0. Bead speed 8 mm/s, circle 388.6 mm <b>[repo]</b>.</li>' +
+        '<li>Arm: UR3e link lengths <b>[manual]</b>, base 300 mm out, 150 mm above the bench, six-axis, housing-top grip; gun proxy in the opening pose (illustrative). Return repeatability ±0.03 mm is the UR3e datasheet’s ISO 9283 figure; the Fairino FR3 page states ±0.02 mm.</li>' +
+        '</ul>',
+    },
+  });
+
+  // ------------------------------------------------------------------ arm poses (same construction as travel-20)
+  const G = { o: [54.6, -8.58, 157.44], x: [0.77, 0.16, 0.61], y: [-0.44, 0.83, 0.34], z: [-0.45, -0.54, 0.71] };
+  const lw = l => [0, 1, 2].map(i => G.o[i] + l[0] * G.x[i] + l[1] * G.y[i] + l[2] * G.z[i]), lv = l => [0, 1, 2].map(i => l[0] * G.x[i] + l[1] * G.y[i] + l[2] * G.z[i]);
+  const nrm = v => { const n = Math.hypot(v[0], v[1], v[2]); return v.map(a => a / n); };
+  const BEAM = [0.45, 0.54, -0.71];
+  function target(shift) {
+    const lug = lw([0, 17, 185.5]), n = nrm(lv([0, 1, 0])), zf = n.map(a => -a); let xr = lv([1, 0, 0]); const d = xr[0] * zf[0] + xr[1] * zf[1] + xr[2] * zf[2]; xr = nrm(xr.map((a, i) => a - d * zf[i]));
+    return { p: [0, 1, 2].map(i => lug[i] + n[i] * 40 + shift[i]), z: zf, x: xr };
+  }
+  const base = A.baseMat(300, 0, -186 + 150, Math.PI);
+  const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
+  let sol = A.ikBest(target([0, 0, 0]), base);
+  const qProc = sol ? sol.q.slice() : [0, -1.2, 1.9, -2.3, -1.57, 0];
+  // continuation: move the target in ten steps so the solve follows one branch (a park pose is only useful if the arm can get there from the weld pose)
+  const jdev = (shift) => { let q = qProc.slice(); for (let k = 1; k <= 10; k++) { const f = k / 10, r = A.ik(target([shift[0] * f, shift[1] * f, shift[2] * f]), base, q, { iters: 120 }); if (r.errPos > 0.1 || r.errRot > 2e-3) return null; q = r.q; } return q.map((v, i) => Math.abs(wrap(v - qProc[i])) / DEG); };
+  // the smallest step at the dot for one count of the finest joint (19-bit output encoder)
+  const dotP = [61.85, 0, 146.05];
+  let minStep = 0.0004;
+  if (sol) { const J = A.jac(sol.F, dotP), cnt = 2 * Math.PI / Math.pow(2, 19); minStep = Math.min(...[0, 1, 2, 3, 4, 5].map(i => Math.hypot(J[0][i], J[1][i], J[2][i]) * cnt).filter(v => v > 1e-9)); }
+
+  // ------------------------------------------------------------------ states
+  const S = [
+    { n: '0 Load, indicate', d: 8.0, hand: ['hand', 'tube: load, three screws, dial'], rot: ['turn', 'turned by the pedal, by hand'], mode: 'park', cmd: 'holds the park pose', reads: 'encoders: still at park', loc: 'nothing: the hand works', trim: '-' },
+    { n: '1 Seat the plate', d: 3.0, hand: ['hand', 'tube: seat the plate'], rot: ['still', 'still'], mode: 'park', cmd: 'holds the park pose', reads: 'encoders: still', loc: 'nothing', trim: '-' },
+    { n: '2 Approach 1', d: 0.3, hand: ['free', 'free'], rot: ['still', 'still'], mode: 'move', cmd: 'moveJ park → taught pose (joint space); then a Cartesian nudge in the user frame', reads: 'joint angles all the way; pose error against the taught joints', loc: 'the arm’s return repeatability', trim: '-' },
+    { n: '3 Trim, tack', d: 2.0, hand: ['hand', 'trigger: eight tacks'], rot: ['turn', '8 indexes'], mode: 'trim', cmd: 'trim by the chosen body; rotator index by degrees', reads: 'a camera or a touch: the dot; encoders', loc: 'the trim body’s floor', trim: 'x' },
+    { n: '4 Check the face', d: 1.5, hand: ['hand', 'dial on the plate face'], rot: ['turn', 'turned by the pedal'], mode: 'park', cmd: 'moveJ taught pose → park', reads: 'encoders', loc: 'nothing: the hand reads a dial', trim: '-' },
+    { n: '5 Approach 2', d: 0.3, hand: ['free', 'free'], rot: ['still', 'still'], mode: 'move', cmd: 'moveJ park → taught pose: a fresh return', reads: 'joint angles; pose error against the taught joints', loc: 'the arm’s return repeatability (a new draw)', trim: '-' },
+    { n: '6 Trim, dry lap', d: 1.5, hand: ['free', 'free'], rot: ['turn', 'one lap, 360°'], mode: 'lap', cmd: 'trim after the last approach; arm still (or follows a table)', reads: 'dot against the seam for the whole lap; encoders', loc: 'the trim body’s floor; the last look after the last shift', trim: 'x' },
+    { n: '7 Weld', d: 1.0, hand: ['hand', 'pedal, trigger'], rot: ['turn', 'about 380°'], mode: 'weld', cmd: 'the rotator only; the arm holds (a veto is possible, a command is not)', reads: 'encoders; flange force where fitted', loc: 'the arm’s holding stiffness and drift', trim: '-' },
+    { n: '8 Escape', d: 0.2, hand: ['hand', 'trigger held, then released'], rot: ['turn', 'turning'], mode: 'esc', cmd: 'moveL along the beam, force-limited (0 = as written: nothing)', reads: 'flange force or joint current: stops on a fused wire', loc: 'a stop, not a position', trim: '-' },
+    { n: '9 Hold (fused wire)', d: 0.5, hand: ['hand', 'snip the wire'], rot: ['still', 'stopped'], mode: 'esc', cmd: 'every axis inhibited until a hand confirms the cut', reads: 'nothing: a hand tells the machine', loc: 'nothing may move', trim: '-', opt: 'fused' },
+    { n: '10 Unload', d: 1.0, hand: ['hand', 'tube: purge, invert'], rot: ['still', 'still'], mode: 'park', cmd: 'moveJ to park', reads: 'encoders', loc: 'nothing', trim: '-' },
+  ];
+
+  const root = WK.h('div', { class: 't21' }); app.stageEl.appendChild(root);
+  let selected = 3;
+  const V = { dev: {}, }; let readMove, readTog, readMax, readRet, readFollow;
+  function compute() {
+    const up = app.ui.get('up'), out = app.ui.get('out'), E = app.ui.get('esc');
+    const park = jdev([out, 0, up]);
+    const esc = E > 0 ? jdev([-BEAM[0] * E, -BEAM[1] * E, -BEAM[2] * E]) : [0, 0, 0, 0, 0, 0];
+    return { park: park, esc: esc };
+  }
+  function draw() {
+    const c = compute(), fused = app.ui.get('fused'), follow = app.ui.get('follow'), trimBy = app.ui.get('trim'), v = app.ui.get('speed'), bits = app.ui.get('bits');
+    const cnt = 2 * Math.PI / Math.pow(2, bits), stepUm = minStep * 1000 * (cnt / (2 * Math.PI / Math.pow(2, 19)));
+    const T = S.map(s => (s.opt === 'fused' && !fused) ? 0 : s.d), Ttot = T.reduce((a, b) => a + b, 0);
+    root.innerHTML = '';
+    // bar
+    const bar = WK.h('div', { class: 'bar' }); const cols = { hand: '#f5a524', turn: '#93c5fd', free: '#14b8a6', still: '#6c788b' };
+    S.forEach((s, i) => { if (!T[i]) return; const d = WK.h('div', { style: { width: (T[i] / Ttot * 100) + '%', background: cols[s.hand[0]] }, title: s.n + ': ' + T[i] + ' min (illustrative)', text: T[i] > 0.9 ? s.n.split(' ')[0] : '', on: { click: () => { selected = i; app.ui.set('state', String(i), { silent: true }); draw(); } } }); if (i === selected) d.style.outline = '2px solid #fff'; bar.appendChild(d); });
+    root.appendChild(WK.h('h3', { text: 'One closure, about ' + Ttot.toFixed(0) + ' minutes at the illustrative durations (amber: a hand on the work; teal: hands free; click a block)' })); root.appendChild(bar);
+    // table
+    const tb = WK.h('table', {}), th = WK.h('tr', {}, WK.h('th', { class: 'rowh', text: 'state' }));
+    S.forEach((s, i) => th.appendChild(WK.h('th', { class: (i === selected ? 'sel ' : '') + ((s.opt === 'fused' && !fused) ? 'dim' : ''), text: s.n, on: { click: () => { selected = i; app.ui.set('state', String(i), { silent: true }); draw(); } } })));
+    tb.appendChild(th);
+    const row = (label, f, cls) => { const tr = WK.h('tr', {}, WK.h('td', { class: 'rowh', text: label })); S.forEach((s, i) => { const r = f(s, i); tr.appendChild(WK.h('td', { class: (r.cls || cls || '') + ((s.opt === 'fused' && !fused) ? ' dim' : ''), text: r.t })); }); tb.appendChild(tr); };
+    row('minutes', (s, i) => ({ t: T[i] ? T[i].toFixed(1) : '(not needed)' }));
+    row('hand', s => ({ t: s.hand[1], cls: s.hand[0] }));
+    row('rotator', s => ({ t: s.rot[1], cls: s.rot[0] }));
+    const dev = (s) => { if (s.mode === 'park' || s.mode === 'move') return c.park; if (s.mode === 'esc') return c.esc; return [0, 0, 0, 0, 0, 0]; };
+    for (let j = 0; j < 6; j++) {
+      const tr = WK.h('tr', {}, WK.h('td', { class: 'rowh', text: 'J' + (j + 1) + ' from the weld pose' }));
+      S.forEach((s, i) => { const d = dev(s), val = d ? d[j] : NaN; let t, bg = 'transparent';
+        if (!d) { t = 'n/a'; } else { t = (s.mode === 'move' ? '→ ' : '') + val.toFixed(val < 1 ? 2 : 0) + '°'; const a = Math.min(1, val / 90); bg = 'rgba(168,85,247,' + (a * 0.85).toFixed(2) + ')'; }
+        if (follow && (s.mode === 'lap' || s.mode === 'weld')) { t = '±0.0x° (follows)'; bg = 'rgba(168,85,247,.25)'; }
+        if (trimBy === 'arm' && s.trim === 'x' && j >= 1 && j <= 3) { t = '0.00x°'; bg = 'rgba(168,85,247,.2)'; }
+        tr.appendChild(WK.h('td', { class: 'j' + ((s.opt === 'fused' && !fused) ? ' dim' : ''), style: { background: bg }, text: t })); });
+      tb.appendChild(tr);
+    }
+    row('fine trim by', s => ({ t: s.trim === 'x' ? { arm: 'the arm’s joint counts', stack: 'stack under the rotator: X, Z', tip: 'stage at the flange' }[trimBy] : '-', cls: s.trim === 'x' ? 'turn' : 'still' }));
+    row('what sets the position', s => ({ t: s.loc }));
+    row('AI commands', s => ({ t: s.cmd }));
+    row('AI reads', s => ({ t: s.reads }));
+    root.appendChild(tb);
+    // card for the selected state
+    const s = S[selected], card = WK.h('div', { class: 'card' });
+    card.innerHTML = '<h3>' + s.n + '</h3><div class="ln"><span class="k">hand</span>' + s.hand[1] + '</div><div class="ln"><span class="k">rotator</span>' + s.rot[1] + '</div><div class="ln"><span class="k">AI commands</span>' + s.cmd + '</div><div class="ln"><span class="k">AI reads</span>' + s.reads + '</div><div class="ln"><span class="k">position from</span>' + s.loc + '</div>';
+    root.appendChild(card);
+    // numbers
+    const movesT = 2 * (c.park ? Math.max(...c.park) / app.ui.get('jspeed') : 0) * 2 + (app.ui.get('esc') > 0 ? app.ui.get('esc') / 50 : 0) + (S.filter(x => x.trim === 'x').length) * 1.5;
+    const together = follow ? (60 * 2 + 50) : 0;
+    const slope = 0.125 * v / 61.85 * 1000, counts = slope / Math.max(0.05, stepUm);
+    readMove(movesT.toFixed(0) + ' s of ' + (Ttot * 60).toFixed(0), 's');
+    readTog(together ? '~' + together + ' s (the lap and the weld)' : '0', together ? '' : 's');
+    const mx = c.park ? Math.max(...c.park) : NaN; readMax(isNaN(mx) ? 'park pose not reachable' : mx.toFixed(0) + '° at J' + (c.park.indexOf(mx) + 1), '');
+    readRet('2 returns; last look after the second', '');
+    readFollow(follow ? slope.toFixed(0) + ' µm/s: ' + counts.toFixed(0) + ' counts/s of ' + stepUm.toFixed(1) + ' µm' : 'off', '');
+    app.badge('park', c.park ? null : 'the park pose is not reachable from this arm and base (try less up or out)', 'limit');
+    app.badge('fusedb', fused ? 'wire fused in the bead: HOLD column active, every axis inhibited until a hand has cut it' : null, 'warn');
+    app.io.set({
+      commands: [
+        { name: 'moveJ / moveL between park and the taught pose', value: '4 moves per closure', note: 'joint space for the big moves, Cartesian for the nudge' },
+        { name: 'Trim', value: { arm: 'joint counts', stack: 'stack under the rotator', tip: 'stage at the flange' }[trimBy], note: 'in the two trim states' },
+        { name: 'Streaming follow', value: follow ? 'on' : 'off', note: 'servoJ / servoCart at 60 to 1000 Hz, table keyed by rotator angle' },
+        { name: 'Escape retract', value: app.ui.get('esc') + ' mm', note: '0 = as written; force-limited' },
+      ],
+      observes: [
+        { name: 'Joint encoders', value: 'every state', status: 'seen', note: 'absolute; exact joint angles, not the dot' },
+        { name: 'Rotator angle', value: 'pulse input or console', status: 'partly', note: 'the controller’s degrees are a readout; a hall pulse per turn makes the zero readable' },
+        { name: 'Dot vs seam', value: 'camera or touch', status: 'blind', note: 'nothing here reads it' },
+        { name: 'Arm hold: stiffness, drift', value: '-', status: 'unresolved', note: 'not on any datasheet read' },
+        { name: 'Fused wire', value: '-', status: 'blind', note: 'a hand tells the machine' },
+      ],
+      manual: ['Load, indicate, seat the plate', 'Fire the tacks and the weld', 'Cut a fused wire and say so', 'Declare the payload'],
+    });
+  }
+  readMove = app.ui.readout('rmove', 'Arm in motion'); readTog = app.ui.readout('rtog', 'Arm and rotator moving together'); readMax = app.ui.readout('rmax', 'Largest joint excursion (park)'); readRet = app.ui.readout('rret', 'Returns to the taught pose'); readFollow = app.ui.readout('rfol', 'Follow needs');
+  const g1 = app.ui.group('Arrangement (branches and states)');
+  g1.select({ id: 'state', label: 'State shown in the card', options: S.map((s, i) => ({ value: String(i), label: s.n })), value: '3', kind: 'state', noVisual: true, onChange: v => { selected = +v; draw(); } });
+  g1.radio({ id: 'trim', label: 'Who makes the last trim', options: [{ value: 'arm', label: 'the arm’s joints' }, { value: 'stack', label: 'stack under the rotator' }, { value: 'tip', label: 'stage at the flange' }], value: 'arm', kind: 'branch', noVisual: true, onChange: draw });
+  g1.toggle({ id: 'fused', label: 'A wire is fused in the bead', value: false, kind: 'state', noVisual: true, help: 'Adds the HOLD state: every axis inhibited until a hand has cut the wire.', onChange: draw });
+  g1.toggle({ id: 'follow', label: 'The arm follows the runout during the lap and weld', value: false, kind: 'state', noVisual: true, help: 'Streams a fitted first-harmonic table into the arm keyed by the rotator angle (travel-02’s follow stage, done by the arm).', onChange: draw });
+  const g2 = app.ui.group('The poses (scene edits)', { help: 'Illustrative. Park is where the gun goes so the recess is open for indicating and seating the plate.' });
+  g2.slider({ id: 'up', label: 'Park: up', min: 100, max: 250, step: 10, value: 200, unit: 'mm', kind: 'scene', noVisual: true, onChange: draw });
+  g2.slider({ id: 'out', label: 'Park: out along +X (away from the tube)', min: 50, max: 250, step: 10, value: 200, unit: 'mm', kind: 'scene', noVisual: true, onChange: draw });
+  g2.slider({ id: 'esc', label: 'Escape along the beam', min: 0, max: 40, step: 1, value: 0, unit: 'mm', kind: 'scene', noVisual: true, help: '0 = the sequence as written. Above 0 the shared context’s lift-away: how far is unmeasured.', onChange: draw });
+  g2.slider({ id: 'jspeed', label: 'Joint speed for the big moves', min: 10, max: 180, step: 5, value: 60, unit: '°/s', kind: 'scene', noVisual: true, help: 'The UR3e datasheet allows 180°/s on the big joints; a slow, quiet move is fine here.', onChange: draw });
+  g2.slider({ id: 'speed', label: 'Bead speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'scene', noVisual: true, help: '5 to 15 mm/s [repo].', onChange: draw });
+  g2.slider({ id: 'bits', label: 'Joint encoder, output side', min: 12, max: 22, step: 1, value: 19, unit: 'bit', kind: 'scene', noVisual: true, onChange: draw });
+  app.legend([{ color: '#f5a524', label: 'a hand on the work' }, { color: '#14b8a6', label: 'hands free' }, { color: '#93c5fd', label: 'rotator turning' }, { color: '#a855f7', label: 'joint away from the weld pose (software commanded)' }]);
+  draw();
+})();
+</script>
+</body>
+</html>

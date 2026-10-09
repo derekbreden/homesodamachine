@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="806" viewBox="0 0 1360 806">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14" y="26" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#111">F  Hand-steered isocentre: balanced, damped, lockable hinges about the dot, steered by hand while the camera watches</text>
+<g transform="translate(10,40)">
+<rect x="0" y="0" width="1000" height="720" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Seen from +X: the hole hinge's axis points at you through the dot</text>
+<line x1="10.0" y1="620.0" x2="986.5" y2="620.0" stroke="#6b4f2a" stroke-width="3"/>
+<text x="20.5" y="609.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#6b4f2a" text-anchor="start" font-weight="normal">work side below: X micrometer, Y read as the yaw knob, Z per tube (one-knob / who-moves-what)</text>
+<polygon points="573.3,529.7 706.7,529.7 706.7,369.7 573.3,369.7" stroke="#444" fill="#9aa5ad" stroke-width="1" fill-opacity="0.5"/>
+<circle cx="640.0" cy="376.3" r="2.3" stroke="#d62828" fill="#d62828" stroke-width="1.2"/>
+<polygon points="616.1,348.4 616.3,347.5 617.2,346.5 618.4,345.8 619.5,345.6 620.0,346.0 632.9,363.2 632.7,364.1 631.8,365.1 630.6,365.8 629.6,366.0 629.1,365.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="593.1,328.6 594.0,325.2 597.4,321.4 602.0,318.6 606.1,317.8 608.0,319.4 625.5,342.6 624.6,346.0 621.2,349.8 616.6,352.7 612.5,353.4 610.6,351.8" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="569.8,292.6 570.4,290.4 572.6,287.9 575.6,286.1 578.2,285.6 579.5,286.7 605.4,321.0 604.8,323.2 602.6,325.7 599.7,327.6 597.0,328.0 595.7,327.0" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="554.0,282.7 555.2,277.9 560.0,272.5 566.5,268.5 572.3,267.4 575.1,269.7 585.2,283.1 584.0,287.9 579.2,293.3 572.7,297.4 566.9,298.4 564.1,296.1" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="470.9,192.3 476.5,170.5 506.1,158.2 582.1,259.1 576.5,281.0 546.9,293.2" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="392.4,251.1 393.4,228.1 398.4,208.8 523.6,224.8 522.6,247.7 517.6,267.0" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="392.4,251.1 393.4,228.1 398.4,208.8 476.5,170.5 506.1,158.2 582.1,259.1 605.4,321.0 604.8,323.2 602.6,325.7 599.7,327.6 597.0,328.0" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.6" fill-opacity="0.12" stroke-dasharray="5,3"/>
+<line x1="560.4" y1="308.2" x2="640.0" y2="376.3" stroke="#8a5a00" stroke-width="1.4"/>
+<line x1="631.0" y1="364.4" x2="640.0" y2="376.3" stroke="#d62828" stroke-width="1.0" stroke-dasharray="3,2"/>
+<polyline points="394.8,229.8 386.9,228.1 379.5,225.4 372.7,221.8 366.1,217.5 359.8,212.7 353.5,207.7 347.1,202.6 340.4,197.7 333.3,193.1 333.3,193.1 316.5,183.7 299.3,175.2 281.7,167.7 263.7,161.2 245.4,155.7 226.8,151.3 208.0,147.8 189.1,145.5 170.1,144.1 151.0,143.9 132.0,144.7 113.0,146.5 94.2,149.4 75.5,153.4 57.1,158.4 38.9,164.4 21.1,171.3 3.6,179.3 -13.3,188.3 -29.9,198.1 -45.8,208.9 -61.2,220.5 -76.0,233.0 -90.1,246.3 -103.5,260.4 -116.1,275.1 -128.0,290.6 -139.0,306.7 -149.2,323.3 -158.5,340.6 -166.9,358.3 -174.4,376.4 -180.9,395.0 -186.4,413.8 -191.0,433.0 -194.5,452.4 -197.1,471.9 -198.6,491.6 -199.1,511.3 -199.1,668.8" stroke="#555" fill="none" stroke-width="3.0" fill-opacity="1.0"/>
+<circle cx="640.0" cy="376.3" r="84.0" stroke="#6c757d" fill="none" stroke-width="3"/>
+<circle cx="640.0" cy="376.3" r="14.7" stroke="#1b7f3b" fill="#fff" stroke-width="2"/>
+<circle cx="640.0" cy="376.3" r="3.2" stroke="#1b7f3b" fill="#1b7f3b" stroke-width="1.2"/>
+<polygon points="621.1,302.8 658.9,302.8 658.9,275.5 621.1,275.5" stroke="#111" fill="#495057" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="663.1" y="279.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">bicycle cable disc brake on a 160 mm rotor = the hinge lock</text>
+<text x="663.1" y="407.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">hole hinge: preloaded bearing pair on the X line</text>
+<text x="663.1" y="421.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">through the dot, 40 mm outboard (in front here)</text>
+<line x1="640.0" y1="376.3" x2="324.5" y2="187.8" stroke="#1b7f3b" stroke-width="8"/>
+<line x1="640.0" y1="376.3" x2="536.5" y2="257.6" stroke="#1b7f3b" stroke-width="4" stroke-dasharray="6,3"/>
+<circle cx="536.5" cy="257.6" r="4.2" stroke="#111" fill="#fff" stroke-width="1.2"/>
+<circle cx="640.0" cy="218.8" r="7.4" stroke="#111" fill="#dee2e6" stroke-width="1.2"/>
+<line x1="536.5" y1="257.6" x2="640.0" y2="218.8" stroke="#b5451b" stroke-width="1.5"/>
+<polyline points="640.0,218.8 658.9,209.4 662.1,201.9 677.8,205.8 684.1,190.9 699.8,194.8 706.2,179.9 721.9,183.8 728.2,168.9 743.9,172.7 747.1,165.3 766.0,155.8" stroke="#b5451b" fill="none" stroke-width="1.4" fill-opacity="1.0"/>
+<circle cx="766.0" cy="155.8" r="3.2" stroke="#111" fill="#111" stroke-width="1.2"/>
+<text x="703.0" y="161.1" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">counterbalance: spring behind a pulley = zero-length spring</text>
+<text x="703.0" y="174.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">tau = k a b sin(theta) matches m g r sin(theta) at every hole angle;</text>
+<text x="703.0" y="188.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">anchor height b is the trim knob (a video fluid head's counterbalance)</text>
+<circle cx="513.7" cy="231.5" r="4.2" stroke="#111" fill="#ffd166" stroke-width="1.2"/>
+<line x1="441.7" y1="257.8" x2="399.7" y2="89.8" stroke="#333" stroke-width="6"/>
+<polygon points="368.2,98.2 431.2,98.2 431.2,81.4 368.2,81.4" stroke="#111" fill="#adb5bd" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="242.2" y="47.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">tiller: hand steers the hole angle here, 250+ mm from the dot;</text>
+<text x="242.2" y="61.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">brake lever (lock) and trigger lever (Bowden to the shell) on it</text>
+<line x1="380.9" y1="221.5" x2="262.3" y2="150.6" stroke="#7b2cbf" stroke-width="22"/>
+<line x1="380.9" y1="221.5" x2="262.3" y2="150.6" stroke="#e0c3fc" stroke-width="18"/>
+<line x1="373.0" y1="194.8" x2="353.6" y2="227.2" stroke="#111" stroke-width="6"/>
+<line x1="289.6" y1="144.9" x2="270.2" y2="177.4" stroke="#111" stroke-width="6"/>
+<line x1="315.0" y1="182.1" x2="294.0" y2="66.6" stroke="#7b2cbf" stroke-width="4"/>
+<text x="20.5" y="74.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">roll: who-moves-what's stub shaft on the grip axis (or hinged rings); its own small</text>
+<text x="20.5" y="87.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">zero-length spring (0.9 sin(roll) N*m), drag, tiller, lock</text>
+<polygon points="850.0,273.5 883.6,273.5 883.6,250.4 850.0,250.4" stroke="#333" fill="#222" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="850.0" y1="263.0" x2="644.2" y2="373.2" stroke="#999" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="797.5" y="235.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">dot camera (+Y side): live dot vs corner</text>
+<polygon points="850.0,578.0 934.0,578.0 934.0,525.5 850.0,525.5" stroke="#333" fill="#f1f3f5" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="856.3" y="540.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">hole 30.4</text>
+<text x="856.3" y="556.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">roll 45.1</text>
+<text x="856.3" y="571.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">dot +0.02</text>
+<text x="845.8" y="515.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#111" text-anchor="start" font-weight="normal">readout (encoders + camera)</text>
+<text x="663.1" y="449.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">drag: damping-grease film in the hinge housing (~1 N*m*s/rad)</text>
+</g>
+<g transform="translate(1020,40)">
+<rect x="0" y="0" width="330" height="720" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Zero-length spring balance (principle)</text>
+<circle cx="120.0" cy="420.0" r="5.0" stroke="#111" fill="#111" stroke-width="1.2"/>
+<text x="60.0" y="440.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">pivot</text>
+<line x1="120.0" y1="420.0" x2="229.3" y2="289.8" stroke="#1b7f3b" stroke-width="5"/>
+<circle cx="229.3" cy="289.8" r="9.0" stroke="#111" fill="#ffd166" stroke-width="1.2"/>
+<text x="241.3" y="289.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">CG (m)</text>
+<line x1="229.3" y1="289.8" x2="229.3" y2="349.8" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="235.3" y="339.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">m g</text>
+<circle cx="180.1" cy="348.4" r="4.0" stroke="#111" fill="#fff" stroke-width="1.2"/>
+<circle cx="120.0" cy="310.0" r="6.0" stroke="#111" fill="#dee2e6" stroke-width="1.2"/>
+<line x1="180.1" y1="348.4" x2="120.0" y2="310.0" stroke="#b5451b" stroke-width="2"/>
+<text x="20.0" y="270.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">anchor b above the pivot</text>
+<text x="188.1" y="358.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">attach a along the CG line</text>
+<text x="10.0" y="500.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">gravity: m g r sin(theta)</text>
+<text x="10.0" y="516.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">spring (zero free length):</text>
+<text x="10.0" y="530.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">k a b sin(theta)</text>
+<text x="10.0" y="546.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">equal for all theta if k a b = m g r</text>
+<text x="10.0" y="570.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">The same law holds for roll about the</text>
+<text x="10.0" y="584.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">grip axis (0.90 sin(roll) N*m, 1.5 kg).</text>
+<text x="10.0" y="608.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">Anglepoise lamps and video fluid heads</text>
+<text x="10.0" y="622.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">use it; drag makes the hand smooth.</text>
+</g>
+<text x="14" y="780" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Combines one-knob-one-parameter's isocentric gantry (rotations about the dot, walk test), sequence-of-use's HAND state (the hand as actuator), machine-that-learns' dot camera, and the film/lamp counterbalance.</text>
+<text x="14" y="798" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Corrected opening pose. Rotor, spring, tiller and camera placement schematic; gun mass 1.5 kg assumed for the spring numbers.</text>
+</svg>

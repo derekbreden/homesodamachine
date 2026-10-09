@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1350" height="726" viewBox="0 0 1350 726">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14" y="26" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#111">Exchange branch for one-knob-one-parameter: both gun-side rotations as gravity-preloaded sine arms on bought metrology</text>
+<g transform="translate(10,40)">
+<rect x="0" y="0" width="900" height="640" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Seen from +X: the hole axis points at you through the dot</text>
+<line x1="32.0" y1="570.0" x2="893.0" y2="570.0" stroke="#6b4f2a" stroke-width="3"/>
+<text x="37.2" y="561.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#6b4f2a" text-anchor="start" font-weight="normal">baseplate (couch stack below the rotator not drawn)</text>
+<polygon points="553.3,479.7 686.7,479.7 686.7,319.7 553.3,319.7" stroke="#444" fill="#9aa5ad" stroke-width="1" fill-opacity="0.5"/>
+<circle cx="620.0" cy="326.3" r="2.3" stroke="#d62828" fill="#d62828" stroke-width="1.2"/>
+<polygon points="596.1,298.4 596.3,297.5 597.2,296.5 598.4,295.8 599.5,295.6 600.0,296.0 612.9,313.2 612.7,314.1 611.8,315.1 610.6,315.8 609.6,316.0 609.1,315.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="573.1,278.6 574.0,275.2 577.4,271.4 582.0,268.6 586.1,267.8 588.0,269.4 605.5,292.6 604.6,296.0 601.2,299.8 596.6,302.7 592.5,303.4 590.6,301.8" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="549.8,242.6 550.4,240.4 552.6,237.9 555.6,236.1 558.2,235.6 559.5,236.7 585.4,271.0 584.8,273.2 582.6,275.7 579.7,277.6 577.0,278.0 575.7,277.0" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="534.0,232.7 535.2,227.9 540.0,222.5 546.5,218.5 552.3,217.4 555.1,219.7 565.2,233.1 564.0,237.9 559.2,243.3 552.7,247.4 546.9,248.4 544.1,246.1" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="450.9,142.3 456.5,120.5 486.1,108.2 562.1,209.1 556.5,231.0 526.9,243.2" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="372.4,201.1 373.4,178.1 378.4,158.8 503.6,174.8 502.6,197.7 497.6,217.0" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="372.4,201.1 373.4,178.1 378.4,158.8 456.5,120.5 486.1,108.2 562.1,209.1 585.4,271.0 584.8,273.2 582.6,275.7 579.7,277.6 577.0,278.0" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.6" fill-opacity="0.12" stroke-dasharray="5,3"/>
+<line x1="540.4" y1="258.2" x2="620.0" y2="326.3" stroke="#8a5a00" stroke-width="1.4"/>
+<line x1="611.0" y1="314.4" x2="620.0" y2="326.3" stroke="#d62828" stroke-width="1.0" stroke-dasharray="3,2"/>
+<polyline points="374.8,179.8 366.9,178.1 359.5,175.4 352.7,171.8 346.1,167.5 339.8,162.7 333.5,157.7 327.1,152.6 320.4,147.7 313.3,143.1 313.3,143.1 296.5,133.7 279.3,125.2 261.7,117.7 243.7,111.2 225.4,105.7 206.8,101.3 188.0,97.8 169.1,95.5 150.1,94.1 131.0,93.9 112.0,94.7 93.0,96.5 74.2,99.4 55.5,103.4 37.1,108.4 18.9,114.4 1.1,121.3 -16.4,129.3 -33.3,138.3 -49.9,148.1 -65.8,158.9 -81.2,170.5 -96.0,183.0 -110.1,196.3 -123.5,210.4 -136.1,225.1 -148.0,240.6 -159.0,256.7 -169.2,273.3 -178.5,290.6 -186.9,308.3 -194.4,326.4 -200.9,345.0 -206.4,363.8 -211.0,383.0 -214.5,402.4 -217.1,421.9 -218.6,441.6 -219.1,461.3 -219.1,650.3" stroke="#555" fill="none" stroke-width="3.0" fill-opacity="1.0"/>
+<circle cx="620.0" cy="326.3" r="14.7" stroke="#1b7f3b" fill="#fff" stroke-width="2"/>
+<circle cx="620.0" cy="326.3" r="3.2" stroke="#1b7f3b" fill="#1b7f3b" stroke-width="1.2"/>
+<text x="641.0" y="353.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">hole pivot: bearing pair on the X line through the dot,</text>
+<text x="641.0" y="367.3" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">40 mm outboard (in front of the tube in this view)</text>
+<line x1="620.0" y1="326.3" x2="295.5" y2="132.4" stroke="#1b7f3b" stroke-width="8"/>
+<text x="274.5" y="96.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b7f3b" text-anchor="start" font-weight="normal">spoke (turns about the hole axis)</text>
+<circle cx="439.7" cy="218.6" r="5.2" stroke="#111" fill="#adb5bd" stroke-width="1.2"/>
+<polygon points="376.7,330.6 481.7,330.6 481.7,318.0 376.7,318.0" stroke="#333" fill="#8d99ae" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="177.2" y="345.3" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">anvil on the Z-carriage bracket (same body as the pivot)</text>
+<polygon points="427.1,318.0 452.3,318.0 452.3,294.5 427.1,294.5" stroke="#333" fill="#ced4da" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="427.1,294.5 452.3,294.5 452.3,270.9 427.1,270.9" stroke="#333" fill="#e9ecef" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="427.1,270.9 452.3,270.9 452.3,247.4 427.1,247.4" stroke="#333" fill="#ced4da" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="427.1,247.4 452.3,247.4 452.3,223.9 427.1,223.9" stroke="#333" fill="#e9ecef" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="460.7" y="257.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">gauge-block stack h = 89.6 mm</text>
+<text x="460.7" y="272.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">sets the hole angle: sin(e - e0) = (h - h0)/L, L = 200 mm</text>
+<text x="460.7" y="287.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">gun weight presses the ball down with 8-19 N (1-2 kg)</text>
+<line x1="418.7" y1="176.6" x2="418.7" y2="206.0" stroke="#b5451b" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="360.9" y1="171.5" x2="242.3" y2="100.6" stroke="#7b2cbf" stroke-width="26"/>
+<line x1="360.9" y1="171.5" x2="242.3" y2="100.6" stroke="#e0c3fc" stroke-width="22"/>
+<line x1="354.1" y1="143.0" x2="332.5" y2="179.0" stroke="#111" stroke-width="7"/>
+<line x1="270.6" y1="93.1" x2="249.1" y2="129.2" stroke="#111" stroke-width="7"/>
+<text x="51.8" y="63.9" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">printed sleeve (halves) on the grip axis behind the butt;</text>
+<text x="51.8" y="77.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">two hinged clamshell rings 95 mm apart (lens collar /</text>
+<text x="51.8" y="91.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">tube-ring class): they close around it, nothing threads</text>
+<line x1="295.5" y1="132.4" x2="259.9" y2="127.9" stroke="#1b7f3b" stroke-width="5"/>
+<line x1="349.6" y1="164.8" x2="343.3" y2="177.8" stroke="#1b7f3b" stroke-width="5"/>
+<text x="53.0" y="584.7" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">Knob kinds (one-knob-one-parameter's vocabulary): gauge stack and micrometer are knobs; the rings' three screws are calibration screws;</text>
+<text x="53.0" y="598.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">lifting the spoke off the stack (a lever) is a motion to a stop that returns to the same stack.</text>
+</g>
+<g transform="translate(920,40)">
+<rect x="0" y="0" width="420" height="640" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Looking along the grip axis at the rear ring (schematic)</text>
+<circle cx="190.0" cy="330.0" r="67.2" stroke="#7b2cbf" fill="#e0c3fc" stroke-width="2"/>
+<circle cx="190.0" cy="330.0" r="19.2" stroke="#555" fill="#555" stroke-width="1.2"/>
+<text x="142.0" y="333.2" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#fff" text-anchor="start" font-weight="normal">umbilical</text>
+<circle cx="190.0" cy="330.0" r="83.2" stroke="#111" fill="none" stroke-width="6"/>
+<circle cx="190.0" cy="246.8" r="8.0" stroke="#111" fill="#fff" stroke-width="2"/>
+<text x="202.8" y="227.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">hinge</text>
+<polygon points="177.2,432.4 202.8,432.4 202.8,413.2 177.2,413.2" stroke="#111" fill="#6c757d" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="209.2" y="435.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">clamp knob (lock)</text>
+<line x1="190.0" y1="246.8" x2="190.0" y2="259.6" stroke="#b5451b" stroke-width="3"/>
+<line x1="117.9" y1="371.6" x2="129.0" y2="365.2" stroke="#b5451b" stroke-width="3"/>
+<line x1="262.1" y1="371.6" x2="251.0" y2="365.2" stroke="#b5451b" stroke-width="3"/>
+<text x="30.0" y="189.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">3 PTFE-tipped screws per ring:</text>
+<text x="30.0" y="208.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">calibration (sleeve axis onto grip axis)</text>
+<line x1="238.0" y1="378.0" x2="358.0" y2="378.0" stroke="#7b2cbf" stroke-width="6"/>
+<circle cx="358.0" cy="378.0" r="6.4" stroke="#111" fill="#adb5bd" stroke-width="1.2"/>
+<polygon points="346.8,458.0 369.2,458.0 369.2,390.8 346.8,390.8" stroke="#111" fill="#dee2e6" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="342.0,490.0 374.0,490.0 374.0,458.0 342.0,458.0" stroke="#111" fill="#adb5bd" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="206.0" y="514.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="bold">micrometer under a 100 mm lever:</text>
+<text x="206.0" y="534.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">roll knob, 0.01 mm = 0.006 deg</text>
+<text x="206.0" y="555.6" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">gravity roll torque 0.3-0.9 N*m -&gt; 3-9 N on the tip</text>
+<polyline points="84.8,368.3 89.0,378.3 94.1,387.9 100.2,396.9 107.1,405.3 114.7,412.9 123.1,419.8 132.1,425.9 141.7,431.0 151.7,435.2" stroke="#b5451b" fill="none" stroke-width="1.5" fill-opacity="1.0"/>
+<line x1="141.7" y1="431.0" x2="151.7" y2="435.2" stroke="#b5451b" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="-66.0" y="482.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">one-signed for roll &gt; ~10 deg</text>
+</g>
+<text x="14" y="700" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Corrected opening pose (grip 45, hole dial 30, vertical -15). Gravity torque about the hole axis is 1.4-3.1 N*m and about the grip axis 0.3-0.9 N*m for 1-2 kg over the working range, one sign each.</text>
+<text x="14" y="718" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Parts: WEN 81-pc gauge blocks ($105), micrometer head ($16, partner's sourcing), hinged lens-collar/tube-ring clamshells or printed equivalents, deep-groove pivot bearings, printed sleeve and spoke.</text>
+</svg>

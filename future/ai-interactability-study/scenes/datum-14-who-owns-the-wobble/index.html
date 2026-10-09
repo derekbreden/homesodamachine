@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who owns the wobble</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ow text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .ow .tm { fill: #8b98ab; } .ow .tf { fill: #64748b; } .ow .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .ow .tt { fill: #14b8a6; } .ow .ta { fill: #f5a524; } .ow .tr { fill: #ff6b5f; } .ow .tp { fill: #c084fc; } .ow .ts { fill: #60a5fa; } .ow .tk { fill: #f472b6; } .ow .tg { fill: #94a3b8; } .ow .tw { fill: #f1f5f9; }
+  .ow .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-14-who-owns-the-wobble",
+  "title": "Who owns the wobble: rig, seat, work, and the judge's own bias",
+  "by": "datum",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "The seam map of trials-04 is one curve keyed to the rotator angle. Here it is four pieces with different owners and lifetimes: the rotator (rig), the way this tube sits in the nest (seat), the tube and plate themselves (work), and whatever the camera judge gets wrong that turns with the tube (bias). Drive an event, see which pieces move, what one judge lap can tell, and what a handful of touches adds that the judge cannot.",
+  "tags": ["lens", "datum", "seam map", "ownership", "invariants", "unlike sensor", "touch check"],
+  "branchOf": ["trials-04-seam-map-replay"],
+  "combines": ["datum-02-seam-signature", "datum-07-touch-off"],
+  "transferable": ["a learned map has owners with different lifetimes", "harmonic invariants tell which link moved", "an unlike sensor at a few azimuths bounds a judge bias that turns with the work"],
+  "how": {
+    "motion": "the existing rotator turns; nothing new moves. Touches use a small axis and a stylus or wire (proposed).",
+    "load": "not addressed; any arrangement that holds the gun still enough to read.",
+    "reference": "four owned pieces of the wobble: rig, seat, work, judge bias; the work piece keyed to the tube's own angle",
+    "observe": "judge laps (camera) and K touches at chosen azimuths (contact); harmonics 1 to 3 of each",
+    "use": "after any event that could move a piece: lift and return, re-seat, turn in the nest, re-clamp, tack, new tube"
+  },
+  "software": {
+    "commands": ["rotator angle and speed (existing)", "which azimuth to touch, and when (proposed)", "what to relearn after an event (the policy)"],
+    "observes": ["judge harmonics k = 1, 2, 3 of the learned map, now against stored", "touch readings at K azimuths (no camera in them)", "the difference judge minus touch, at those azimuths"],
+    "manual": ["fitting a stylus or letting the wire touch (unresolved)", "a master lap for the rig piece", "deciding what error the weld tolerates (unknown)"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-14-who-owns-the-wobble.md", "../../exchange/datum--on--trials-w2.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex, DEG = Math.PI / 180, TAU = Math.PI * 2;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The seam map in trials-04 is <b>one curve keyed to the rotator angle</b>. That is right for a tube that never leaves the rig. But the curve has more than one owner. The <b>rig</b> (belt, printed race, sorted balls) moves the tube the same way whatever tube is on it. The <b>seat</b> is how <i>this</i> tube stands in the nest: its eccentricity and lean, a first harmonic only, redrawn at every re-seat. The <b>work</b> is the tube and its plate: plate offset in the bore, ovality, the pull of the tacks; it turns with the tube. And the <b>judge</b> adds its own error to what it reads; any part of that which repeats with table angle must come from the tube, so it too turns with the tube.</p>' +
+        '<p>Press an event (lift the puck and put it back, re-seat, turn the tube in its nest, re-clamp the rotator, tack, a new tube). The scene moves the hidden pieces and shows three things. <b>First</b>, what one judge lap can tell: the harmonics of the stored map against now, and a diagnosis from which harmonics moved. <b>Second</b>, what each policy leaves if it replays anyway: the stored map, a full relearn through the judge, or a rebuild of only the moved piece from a few touches. <b>Third</b>, the ownership table, with the pieces that really moved highlighted.</p>' +
+        '<p>Nothing new is proposed to <i>move</i> here. It changes what the map is, how the AI knows which part is stale, and adds one thing the camera cannot supply: a few contact readings that carry no camera bias.</p>',
+      carries:
+        '<p>Not addressed: any arrangement that holds the gun steady enough to read. The stage in this scene is a plot, not a mechanism. The touches assume a stylus, the wire tip or another contact probe on a small axis (datum-07); the master lap assumes a ground ring that fits the nest.</p>',
+      software:
+        '<p><b>Commands:</b> the rotator (existing); which azimuth to touch (proposed); which piece to relearn after an event. <b>Observes:</b> the judge map as bins over the lap, its harmonics, the touch readings. <b>Does not observe:</b> the pieces themselves; the four coloured curves are the scene\'s hidden truth, drawn so the reader can see what the estimates are estimating.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the trials-04 model scores the replay against the true seam, which the simulation knows. In a rig it is scored against the judge. <b>Assumption:</b> judge error is random per reading. <b>What the scene shows:</b> raise <i>Judge bias</i>: a relearn through the judge leaves the bias behind, because a bias that repeats with table angle looks exactly like seam. At the default 0.03 mm it is the biggest term left (0.025 mm of 0.026).</li>' +
+        '<li><b>Conflict:</b> the first harmonic mixes rig, seat and work; one lap cannot split it. <b>Change:</b> keep the first harmonic as one lump and rebuild it (four touches). Harmonics 2 and 3 have no seat in them, so they survive a re-seat and can be checked against stored. Their noise from a learned map is about 3 micrometres at N = 3, so a 10 micrometre change is visible without any ground truth.</li>' +
+        '<li><b>Conflict:</b> turning the tube in its nest by 120 degrees makes harmonic 3 look unchanged (three full turns of it). <b>Change:</b> the event here turns it 100 degrees; the diagnosis fits one turn to harmonics 2 and 3 together and needs the rig part of them from a master lap. Without the master the fit has more unknowns than numbers.</li>' +
+        '<li><b>Conflict:</b> the saving in time is small. A judge relearn at N = 3 is 2.4 minutes, the diagnosis lap 49 seconds and eight touches about two minutes (illustrative). <b>What it buys instead:</b> a lift-and-return costs one lap and no relearn, and the touch-based estimate has no camera bias in it.</li>' +
+        '<li><b>Left standing:</b> touches see only low harmonics at K = 8. A narrow feature (a tack, a scratch) is not in them, and the judge sees it but cannot say whether it is seam or artefact.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The size of each piece. Nobody has rotated a tube in its nest and read the indicator both times: the part of the trace that stays put in table angle is the rig and seat, the part that turns with the tube is the work. That test needs the Neoteck indicator and ten minutes and would replace every amplitude here.</li>' +
+        '<li>Whether the camera judge has a bias that repeats with table angle at all. The scene assumes it can; if it cannot, the touches only confirm.</li>' +
+        '<li>How the touch is made without disturbing the seat, and how quickly a stylus or the wire tip can be brought to a chosen azimuth (datum-07 and trials-14 carry the open questions).</li>' +
+        '<li><b>Question for the originator (trials):</b> the puck seats are asymmetric so that the phase is unique. A symmetric pattern would let the puck be turned 120 degrees on the rig, which separates the rig piece from everything else in one extra lap. Which is worth more?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Amplitudes are <b>illustrative</b>: rig 0.06 / 0.03, seat 0.20, work 0.06 / 0.05 / 0.02, bias 0.03 / 0 / 0.02 (first, second, third harmonic, mm). The rig doc\'s acceptance limit for radial runout at the weld end is 0.25 mm TIR [repo], which the seat and work sum roughly matches.</li>' +
+        '<li>Pieces are exact harmonics up to the third; a real seam has more. The model is radial only; height has the same structure.</li>' +
+        '<li>Judge noise, touch noise, time per lap (49 s at 8 mm/s [repo]) and time per touch (16 s including moving the table) are illustrative. The master lap gives the rig piece at harmonics 2 and 3 to half the touch noise.</li>' +
+        '<li>Randomness is seeded; press <i>New tube state</i> for another draw. Numbers in the exchange file (<code>explorers/datum/calc/owners_model.js</code>) come from the same code.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model (same as explorers/datum/calc/owners_model.js)
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  const cx = (a, ph) => [a * Math.cos(-ph), a * Math.sin(-ph)];
+  const cadd = (x, y) => [x[0] + y[0], x[1] + y[1]], csub = (x, y) => [x[0] - y[0], x[1] - y[1]];
+  const cmul = (x, y) => [x[0] * y[0] - x[1] * y[1], x[0] * y[1] + x[1] * y[0]], cabs = x => Math.hypot(x[0], x[1]);
+  const crot = (x, k, psi) => cmul(x, [Math.cos(-k * psi), Math.sin(-k * psi)]);
+  const HH = 3, NB = 60, REV = 388.61 / 8.0, TOUCH = 16;
+  const zero = () => [[0, 0], [0, 0], [0, 0]];
+  const draw = (r, amps) => amps.map(a => cx(a, r() * TAU));
+  const psum = (...ps) => zero().map((_, k) => ps.reduce((s, p) => cadd(s, p[k]), [0, 0]));
+  const prot = (p, psi) => p.map((c, k) => crot(c, k + 1, psi));
+  const sigAt = (p, th) => { let s = 0; for (let k = 0; k < HH; k++) s += p[k][0] * Math.cos((k + 1) * th) - p[k][1] * Math.sin((k + 1) * th); return s; };
+  const rmsDiff = (a, b) => { let s = 0; for (let k = 0; k < HH; k++) { const d = csub(a[k], b[k]); s += (d[0] * d[0] + d[1] * d[1]) / 2; } return Math.sqrt(s); };
+  function fitHarm(angles, vals, hh) {
+    const n = 2 * hh + 1, M = Array.from({ length: n }, () => new Array(n + 1).fill(0));
+    const row = a => { const r = [1]; for (let k = 1; k <= hh; k++) r.push(Math.cos(k * a), Math.sin(k * a)); return r; };
+    angles.forEach((a, i) => { const r = row(a); for (let p = 0; p < n; p++) { for (let q = 0; q < n; q++) M[p][q] += r[p] * r[q]; M[p][n] += r[p] * vals[i]; } });
+    for (let p = 0; p < n; p++) M[p][p] += 1e-6;
+    for (let i = 0; i < n; i++) { let m = i; for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[m][i])) m = r; [M[i], M[m]] = [M[m], M[i]]; for (let r = 0; r < n; r++) if (r !== i) { const f = M[r][i] / M[i][i]; for (let c = i; c <= n; c++) M[r][c] -= f * M[i][c]; } }
+    const x = M.map((row2, i) => row2[n] / row2[i]), out = zero();
+    for (let k = 1; k <= hh; k++) out[k - 1] = [x[2 * k - 1], -x[2 * k]];
+    return out;
+  }
+  const touchAngles = K => Array.from({ length: K }, (_, j) => TAU * j / K + 0.3);
+
+  const P = { rig: 0.06, seat: 0.20, work: 0.05, bias: 0.03, noise: 0.03, N: 3, K: 8, tnoise: 0.02, showPieces: true, showTouch: true };
+  let seed = 11, base, cur, ch, lastEv = null, res = null;
+
+  function fresh(r) {
+    return { R: draw(r, [P.rig, P.rig * 0.5, 0]), S: draw(r, [P.seat, 0, 0]), Wb: draw(r, [P.work * 1.2, P.work, P.work * 0.4]), Bb: draw(r, [P.bias, 0, P.bias * 0.65]), psi: 0 };
+  }
+  const trueOf = s => psum(s.R, s.S, prot(s.Wb, s.psi)), biasOf = s => prot(s.Bb, s.psi);
+  function applyEvent(ev, s, r) {
+    const n = Object.assign({}, s);
+    switch (ev) {
+      case 'lift': n.S = [cadd(s.S[0], cx(0.015, r() * TAU)), [0, 0], [0, 0]]; break;   // coupling repeats to about 10-20 µm [trials-01, illustrative]
+      case 'reseat': n.S = draw(r, [P.seat, 0, 0]); break;
+      case 'rotate': n.S = draw(r, [P.seat, 0, 0]); n.psi = s.psi + 100 * DEG; break;
+      case 'reclamp': n.R = draw(r, [P.rig, P.rig * 0.5, 0]); break;
+      case 'tack': n.Wb = draw(r, [P.work * 1.2, P.work, P.work * 1.2]); n.Bb = draw(r, [P.bias, 0, P.bias * 1.3]); break;
+      case 'newtube': n.S = draw(r, [P.seat, 0, 0]); n.Wb = draw(r, [P.work * 1.2, P.work, P.work * 0.4]); n.Bb = draw(r, [P.bias, 0, P.bias * 0.65]); n.psi = r() * TAU; break;
+    }
+    return n;
+  }
+  function judgeLap(s, N, r) {
+    const ang = [], y = [], T = trueOf(s), B = biasOf(s);
+    for (let j = 0; j < NB; j++) { const th = TAU * j / NB; let acc = 0; for (let n = 0; n < N; n++) acc += sigAt(T, th) + sigAt(B, th) + P.noise * gauss(r); ang.push(th); y.push(acc / N); }
+    return { bins: y, harm: fitHarm(ang, y, HH) };
+  }
+  function touchSet(s, K, r) {
+    const a = touchAngles(K), T = trueOf(s), vals = a.map(t => sigAt(T, t) + P.tnoise * gauss(r));
+    return { ang: a, vals: vals, harm: fitHarm(a, vals, Math.min(HH, Math.floor((K - 1) / 2))) };
+  }
+  function first4(s, r) { const a = touchAngles(4), T = trueOf(s); return fitHarm(a, a.map(t => sigAt(T, t) + P.tnoise * gauss(r)), 1)[0]; }   // 1st harmonic from four touches
+  function characterise(s, r) {
+    const j = judgeLap(s, P.N, r), t = touchSet(s, P.K, r);
+    const Rm = [[0, 0], [s.R[1][0] + P.tnoise * 0.5 * gauss(r), s.R[1][1] + P.tnoise * 0.5 * gauss(r)], [P.tnoise * 0.5 * gauss(r), P.tnoise * 0.5 * gauss(r)]];
+    return { j: j, t: t, Rm: Rm, seedState: s };
+  }
+  const sigma1 = n => P.noise * Math.sqrt(2 / (NB * n));                  // per real component of one harmonic from n laps
+
+  function evaluate() {
+    const r = rng(seed * 977 + 13);
+    const T1 = trueOf(cur), B1 = biasOf(cur);
+    const stale = rmsDiff(T1, ch.j.harm);
+    const jn = judgeLap(cur, P.N, r), relearn = rmsDiff(T1, jn.harm);
+    // one diagnostic lap, then act on what moved
+    const jd = judgeLap(cur, 1, r), sd = Math.sqrt(sigma1(P.N) * sigma1(P.N) + sigma1(1) * sigma1(1)), thr = 3.5 * sd;
+    const d = [0, 1, 2].map(k => cabs(csub(jd.harm[k], ch.j.harm[k])));
+    const moved = d.map(x => x > thr);
+    let diag, action, est, cost = REV, turn = null;
+    const t1 = touchSet(cur, P.K, r);
+    if (!moved[0] && !moved[1] && !moved[2]) { diag = 'Nothing moved at harmonics 1 to 3 (limit ' + (thr * 1000).toFixed(0) + ' µm). Keep the map.'; action = 'none'; est = ch.t.harm; }
+    else if (moved[0] && !moved[1] && !moved[2]) { diag = 'Only harmonic 1 moved. Harmonics 2 and 3 hold no seat, so this is the seat (or a rig 1st harmonic). Rebuild the 1st harmonic.'; action = 'seat'; est = [first4(cur, r), ch.t.harm[1], ch.t.harm[2]]; cost += 4 * TOUCH; }
+    else {
+      // is it one turn of the work? fit a common turn to harmonics 2 and 3 with the rig part from the master lap
+      let best = 0, bestE = 1e9;
+      for (let dd = 0; dd < 360; dd += 0.5) { const q = dd * DEG; let e = 0; for (const k of [2, 3]) { const pred = cadd(ch.Rm[k - 1], crot(csub(ch.j.harm[k - 1], ch.Rm[k - 1]), k, q)); const z = csub(jd.harm[k - 1], pred); e += z[0] * z[0] + z[1] * z[1]; } if (e < bestE) { bestE = e; best = q; } }
+      const okTurn = Math.sqrt(bestE / 2) < thr;
+      if (okTurn) {
+        turn = best / DEG;
+        diag = 'Harmonics 2 and 3 moved together, as one turn of the work by ' + turn.toFixed(0) + '° (scene truth ' + ((((cur.psi - base.psi) / DEG) % 360 + 360) % 360).toFixed(0) + '°) (rig part from the master lap). Re-key them; rebuild harmonic 1.';
+        action = 'turn';
+        est = [first4(cur, r), cadd(ch.Rm[1], crot(csub(ch.t.harm[1], ch.Rm[1]), 2, best)), cadd(ch.Rm[2], crot(csub(ch.t.harm[2], ch.Rm[2]), 3, best))]; cost += 4 * TOUCH;
+      } else {
+        diag = 'Harmonics moved, and not as one turn: rig re-clamped, tacks pulled, or another tube. The judge cannot say which. Refit all from ' + P.K + ' touches.';
+        action = 'refit'; est = t1.harm; cost += P.K * TOUCH;
+      }
+    }
+    const owner = rmsDiff(T1, est);
+    // touch check: judge minus touch at the touch azimuths
+    const jt = t1.ang.map((a, i) => { const b = a / TAU * NB, j0 = Math.floor(b) % NB, j1 = (j0 + 1) % NB, f = b - Math.floor(b); return jn.bins[j0] * (1 - f) + jn.bins[j1] * f; });
+    const tvals = t1.vals, mj = jt.reduce((a, b) => a + b, 0) / jt.length, mt = tvals.reduce((a, b) => a + b, 0) / tvals.length;
+    let gap = 0; jt.forEach((v, i) => { const g = (v - mj) - (tvals[i] - mt); gap += g * g; }); gap = Math.sqrt(gap / jt.length);
+    res = { T1, B1, stale, relearn, owner, jn, jd, d, moved, thr, diag, action, est, cost, turn, t1, gap, staleH: ch.j.harm, sd };
+  }
+
+  function rebuild(keepEvents) {
+    const r = rng(seed * 31 + 5); base = fresh(r); cur = base; lastEv = null;
+    ch = characterise(base, rng(seed * 53 + 1));
+    evaluate();
+  }
+  function doEvent(ev) { const r = rng(seed * 101 + ev.length * 7 + (cur.psi * 100 | 0)); cur = applyEvent(ev, cur, r); lastEv = ev; evaluate(); render(); }
+  function storeNow() { base = cur; ch = characterise(base, rng(seed * 53 + 2)); lastEv = null; evaluate(); render(); }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 790, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'ow', role: 'img', 'aria-label': 'Radial seam offset against table angle, pieces, harmonics and replay residuals', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const path = (pts, attrs) => S('polyline', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none' }, attrs));
+  const PAL = { R: '#94a3b8', S: '#f5a524', W: '#14b8a6', B: '#f472b6', T: '#e2e8f0', J: '#60a5fa', X: '#c084fc' };
+
+  function plotFrame(g, x0, y0, w, h, ymax, title, sub) {
+    g.append(S('rect', { x: x0, y: y0, width: w, height: h, fill: '#10161e', stroke: '#2a3341' }));
+    const yc = y0 + h / 2, ky = (h / 2) / ymax;
+    for (let v = -ymax; v <= ymax + 1e-9; v += ymax / 2) { g.append(S('line', { x1: x0, y1: yc - v * ky, x2: x0 + w, y2: yc - v * ky, stroke: Math.abs(v) < 1e-9 ? '#3b4658' : '#1f2733' })); g.append(T(x0 - 5, yc - v * ky + 3, v.toFixed(2), 'tf', 'end')); }
+    [0, 90, 180, 270, 360].forEach(a => { const xx = x0 + a / 360 * w; g.append(S('line', { x1: xx, y1: y0, x2: xx, y2: y0 + h, stroke: '#1f2733' })); g.append(T(xx, y0 + h + 12, String(a), 'tf', 'middle')); });
+    g.append(T(x0, y0 - 8, title, 'tb')); if (sub) g.append(T(x0 + w, y0 - 8, sub, 'tf', 'end'));
+    return { px: th => x0 + th / TAU * w, py: v => yc - Math.max(-ymax * 1.02, Math.min(ymax * 1.02, v)) * ky };
+  }
+  const curve = (f, px, py) => { const pts = []; for (let i = 0; i <= 180; i++) { const th = TAU * i / 180; pts.push([px(th), py(f(th))]); } return pts; };
+
+  function drawTop(g) {
+    const f = plotFrame(g, 50, 60, 500, 200, 0.5, 'Radial offset at the station, mm (+ = into the wall)', 'table angle °');
+    const s = cur, R = s.R, Sx = s.S, Wt = prot(s.Wb, s.psi), Bt = prot(s.Bb, s.psi);
+    if (P.showPieces) {
+      [['R', R], ['S', Sx], ['W', Wt], ['B', Bt]].forEach(([k, p]) => g.append(path(curve(th => sigAt(p, th), f.px, f.py), { stroke: PAL[k], 'stroke-width': 1.3, opacity: 0.9 })));
+    }
+    g.append(path(curve(th => sigAt(res.T1, th), f.px, f.py), { stroke: PAL.T, 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }));
+    g.append(path(curve(th => sigAt(res.staleH, th), f.px, f.py), { stroke: PAL.J, 'stroke-width': 1.2, opacity: 0.55 }));
+    // judge map now (bins)
+    const bm = res.jn.bins.reduce((a, b) => a + b, 0) / NB;
+    res.jn.bins.forEach((v, j) => g.append(S('circle', { cx: f.px(TAU * j / NB), cy: f.py(v - bm), r: 1.9, fill: PAL.J })));
+    if (P.showTouch) res.t1.ang.forEach((a, i) => { const tm = res.t1.vals.reduce((x, y) => x + y, 0) / res.t1.vals.length; const x = f.px(a), y = f.py(res.t1.vals[i] - tm); g.append(S('path', { d: 'M' + x + ',' + (y - 5) + ' L' + (x + 5) + ',' + y + ' L' + x + ',' + (y + 5) + ' L' + (x - 5) + ',' + y + ' Z', fill: '#fbbf24', stroke: '#0e1218' })); });
+    const lg = [[PAL.T, 'truth now (hidden)', '5 4'], [PAL.J, 'stored judge map', null], ['dots', 'judge now', null], ['dia', 'touch', null]];
+    let lx = 50; [[PAL.R, 'rig'], [PAL.S, 'seat'], [PAL.W, 'work'], [PAL.B, 'judge bias']].forEach(([c, t], i) => { g.append(S('line', { x1: lx, y1: 16, x2: lx + 14, y2: 16, stroke: c, 'stroke-width': 2 })); g.append(T(lx + 18, 19, t, 'tm')); lx += 26 + t.length * 5.6 + 6; });
+    g.append(S('line', { x1: lx, y1: 16, x2: lx + 14, y2: 16, stroke: PAL.T, 'stroke-dasharray': '5 4' })); g.append(T(lx + 18, 19, 'truth now', 'tm')); lx += 80;
+    g.append(S('line', { x1: lx, y1: 16, x2: lx + 14, y2: 16, stroke: PAL.J, opacity: 0.55, 'stroke-width': 1.5 })); g.append(T(lx + 18, 19, 'stored map', 'tm')); lx += 84;
+    g.append(S('circle', { cx: lx + 4, cy: 16, r: 2.5, fill: PAL.J })); g.append(T(lx + 12, 19, 'judge now', 'tm')); lx += 72;
+    g.append(S('path', { d: 'M' + (lx + 4) + ',11 L' + (lx + 9) + ',16 L' + (lx + 4) + ',21 L' + (lx - 1) + ',16 Z', fill: '#fbbf24' })); g.append(T(lx + 14, 19, 'touch', 'tm'));
+  }
+
+  function drawHarm(g) {
+    const x = 578, y = 44;
+    g.append(T(x, y, 'What one judge lap can tell', 'tb'));
+    g.append(T(x, y + 14, 'learned-map harmonics: stored (N=' + P.N + ') vs now (1 lap)', 'tf'));
+    g.append(T(x, y + 34, 'k', 'tm')); g.append(T(x + 14, y + 34, 'stored', 'tm')); g.append(T(x + 84, y + 34, 'now', 'tm')); g.append(T(x + 154, y + 34, 'change', 'tm')); g.append(T(x + 208, y + 34, 'limit', 'tm'));
+    for (let k = 0; k < 3; k++) {
+      const yy = y + 52 + k * 20, mv = res.moved[k];
+      const a0 = cabs(res.staleH[k]), a1 = cabs(res.jd.harm[k]);
+      g.append(T(x, yy, String(k + 1), 'tw')); g.append(T(x + 14, yy, (a0 * 1000).toFixed(0) + ' µm ' + (Math.atan2(-res.staleH[k][1], res.staleH[k][0]) / DEG).toFixed(0) + '°', 'tg'));
+      g.append(T(x + 84, yy, (a1 * 1000).toFixed(0) + ' µm ' + (Math.atan2(-res.jd.harm[k][1], res.jd.harm[k][0]) / DEG).toFixed(0) + '°', 'tg'));
+      g.append(T(x + 154, yy, (res.d[k] * 1000).toFixed(0) + ' µm', mv ? 'ta hot' : 'tm')); g.append(T(x + 208, yy, (res.thr * 1000).toFixed(0), 'tf'));
+      g.append(S('circle', { cx: x + 250, cy: yy - 4, r: 4.5, fill: mv ? '#f5a524' : '#34d399' }));
+    }
+    // diagnosis, wrapped
+    const words = res.diag.split(' '), lines = []; let line = '';
+    words.forEach(w => { if ((line + ' ' + w).length > 46) { lines.push(line); line = w; } else line = line ? line + ' ' + w : w; }); lines.push(line);
+    g.append(T(x, y + 122, 'The AI concludes', 'tb'));
+    lines.forEach((l, i) => g.append(T(x, y + 138 + i * 13, l, 'tw')));
+    const yy = y + 138 + lines.length * 13 + 8;
+    g.append(T(x, yy, 'Touch check (' + P.K + ' azimuths, no camera)', 'tb'));
+    const expN = Math.sqrt(P.tnoise * P.tnoise + P.noise * P.noise / P.N), exc = Math.sqrt(Math.max(0, res.gap * res.gap - expN * expN));
+    g.append(T(x, yy + 15, 'judge minus touch: ' + (res.gap * 1000).toFixed(0) + ' µm rms', 'tw'));
+    g.append(T(x, yy + 29, 'noise alone: ' + (expN * 1000).toFixed(0) + ' µm; excess ' + (exc * 1000).toFixed(0) + ' µm', exc > 0.01 ? 'ta hot' : 'tw'));
+    g.append(T(x, yy + 43, 'true judge bias (hidden): ' + (rmsDiff(res.B1, zero()) * 1000).toFixed(0) + ' µm rms', 'tk'));
+  }
+
+  function drawResid(g) {
+    const f = plotFrame(g, 50, 318, 500, 170, 0.3, 'What replay leaves, by policy', 'residual, mm');
+    const T1 = res.T1;
+    const pol = [[PAL.S, res.staleH, 'stored map as is'], [PAL.J, res.jn.harm, 'judge relearn'], [PAL.X, res.est, 'diagnose + touches']];
+    pol.forEach(([c, h, n]) => g.append(path(curve(th => sigAt(T1, th) - sigAt(h, th), f.px, f.py), { stroke: c, 'stroke-width': 1.8 })));
+  }
+
+  function drawBars(g) {
+    const x = 578, y = 310;
+    g.append(T(x, y, 'Residual rms and cost', 'tb'));
+    const rows = [[PAL.S, 'Replay the stored map', res.stale, 0], [PAL.J, 'Relearn: ' + P.N + ' judge laps', res.relearn, P.N * REV], [PAL.X, 'Diagnose: ' + (res.action === 'none' ? 'nothing to do' : res.action === 'refit' ? 'refit from touches' : res.action === 'turn' ? 're-key, rebuild k=1' : 'rebuild k=1'), res.owner, res.cost]];
+    rows.forEach(([c, n, v, cost], i) => {
+      const yy = y + 22 + i * 44;
+      g.append(S('rect', { x: x, y: yy - 11, width: 8, height: 30, fill: c }));
+      g.append(T(x + 14, yy, n, 'tw'));
+      g.append(S('rect', { x: x + 14, y: yy + 6, width: 150, height: 9, rx: 2, fill: '#10161e', stroke: '#2a3341' }));
+      g.append(S('rect', { x: x + 14, y: yy + 6, width: Math.max(1, Math.min(150, v / 0.25 * 150)), height: 9, rx: 2, fill: c, opacity: 0.85 }));
+      g.append(T(x + 172, yy + 14, (v * 1000).toFixed(0) + ' µm', 'tw'));
+      g.append(T(x + 226, yy + 14, Math.round(cost) + ' s', 'tm'));
+    });
+    g.append(T(x, y + 150, 'bars: full scale 250 µm. time: 49 s per lap,', 'tf')); g.append(T(x, y + 162, '16 s per touch (illustrative)', 'tf'));
+    g.append(T(x, y + 178, 'bias a judge-only relearn leaves: ' + (rmsDiff(res.B1, zero()) * 1000).toFixed(0) + ' µm rms', 'tk'));
+  }
+
+  function moved(a, b) { for (let k = 0; k < 3; k++) if (cabs(csub(a[k], b[k])) > 0.004) return true; return false; }
+  function drawTable(g) {
+    const y0 = 512, x0 = 12;
+    g.append(T(x0, y0, 'Who owns what, and how long it lives (highlighted: moved in the last event; the scene knows, software must infer)', 'tb'));
+    const cols = [x0, x0 + 62, x0 + 244, x0 + 418, x0 + 604];
+    ['piece', 'belongs to', 'keyed to', 'changes when', 'survives'].forEach((h, i) => g.append(T(cols[i], y0 + 18, h, 'tf')));
+    const mv = { R: moved(cur.R, base.R), S: moved(cur.S, base.S), W: moved(cur.Wb, base.Wb) || cur.psi !== base.psi, B: moved(cur.Bb, base.Bb) || cur.psi !== base.psi };
+    const rows = [
+      ['R', 'rig', 'the rotator: printed race, sorted balls, belt', 'rotator angle', 're-clamp, belt tension, race reloaded', 'every tube swap and every re-seat'],
+      ['S', 'seat', 'how this tube stands in this nest (1st harmonic only)', 'rotator angle (the nest is fixed to it)', 'every re-seat; not a lift-and-return of a puck', 'a lift and return (coupling repeats to about 20 µm)'],
+      ['W', 'work', 'the tube and its plate: offset in bore, ovality, tack pull', 'the tube’s own angle (ports mod 180°; a tack or mark for 360°)', 'tacking, a new tube', 're-seat and turning in the nest (it turns with the tube)'],
+      ['B', 'judge bias', 'what the camera gets wrong on this tube: glare, tint, tack marks', 'the tube’s own angle (it is on the tube)', 'surface, lighting, tacks, cleaning', 're-seat (turns with the tube); NOT visible to the judge itself'],
+    ];
+    rows.forEach((r, i) => {
+      const yy = y0 + 44 + i * 50, on = mv[r[0]] && lastEv;
+      g.append(S('rect', { x: x0 - 4, y: yy - 13, width: 848, height: 44, rx: 4, fill: on ? PAL[r[0]] : '#10161e', opacity: on ? 0.16 : 1, stroke: '#2a3341' }));
+      g.append(S('rect', { x: x0 - 4, y: yy - 13, width: 5, height: 44, fill: PAL[r[0]] }));
+      g.append(T(cols[0] + 6, yy + 2, r[1], on ? 'tw hot' : 'tw'));
+      const wrap = (s, w, x, yb, cls) => { const ws = s.split(' '); let l = '', n = 0; ws.forEach(word => { if ((l + ' ' + word).length > w) { g.append(T(x, yb + n * 12, l, cls)); n++; l = word; } else l = l ? l + ' ' + word : word; }); g.append(T(x, yb + n * 12, l, cls)); };
+      wrap(r[2], 32, cols[1], yy - 2, 'tg'); wrap(r[3], 30, cols[2], yy - 2, 'tg'); wrap(r[4], 32, cols[3], yy - 2, 'tg'); wrap(r[5], 42, cols[4], yy - 2, 'tg');
+    });
+    g.append(T(x0, y0 + 44 + 4 * 50 + 4, lastEv ? 'Last event: ' + ({ lift: 'the puck was lifted and put back', reseat: 'the tube was re-seated at the same phase', rotate: 'the tube was turned 100° in its nest and re-seated', reclamp: 'the rotator was re-clamped', tack: 'the plate was tacked', newtube: 'a new tube' }[lastEv]) + '.' : 'No event yet: the stored map is current.', 'tw'));
+  }
+
+  function updateIO() {
+    app.io.set({
+      commands: [
+        { name: 'Rotator', value: '49 s/rev', note: 'existing; 8 mm/s at the bead [repo]' },
+        { name: 'Touch azimuths', value: P.K, unit: 'points', note: 'proposed: stylus or wire on a small axis' },
+        { name: 'Policy after this event', value: res.action, note: 'chosen from the diagnosis, not from knowing the event' },
+      ],
+      observes: [
+        { name: 'Judge harmonics k = 1, 2, 3', value: res.d.map(x => (x * 1000).toFixed(0)).join(' / '), unit: 'µm change', status: 'seen', note: 'stored against now; noise floor about ' + (res.thr / 3.5 * 1000).toFixed(0) + ' µm per harmonic' },
+        { name: 'Touch readings', value: P.K, unit: 'azimuths', status: 'seen', note: 'contact; no camera in them; low harmonics only' },
+        { name: 'Judge minus touch', value: (res.gap * 1000).toFixed(0), unit: 'µm rms', status: 'partly', note: 'the only number in the scene that reads the judge’s bias' },
+        { name: 'Which piece moved', value: '-', status: 'blind', note: 'inferred; the coloured curves are hidden scene truth' },
+        { name: 'Narrow features (tacks)', value: '-', status: 'blind', note: 'harmonics up to 3 only' },
+      ],
+      manual: ['A master lap for the rig piece (a ground ring in the nest)', 'Fitting the touch probe; the stylus swap', 'The weld tolerance itself: unknown'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    drawTop(gDyn); drawHarm(gDyn); drawResid(gDyn); drawBars(gDyn); drawTable(gDyn);
+    app.badge('stale', res.stale > 0.1 ? 'replaying the stored map now leaves ' + (res.stale * 1000).toFixed(0) + ' µm rms' : null, 'warn');
+    updateIO();
+  }
+
+  // ---------------------------------------------------------------- controls
+  const ge = app.ui.group('Events (state: each moves the hidden pieces)', { open: true, help: 'The stored map is from the last characterisation. Events stack until you store again.' });
+  [['lift', 'Lift the puck and put it back'], ['reseat', 'Re-seat the tube, same phase'], ['rotate', 'Turn the tube 100° in its nest'], ['reclamp', 'Re-clamp the rotator'], ['tack', 'Tack the plate'], ['newtube', 'Load a new tube']].forEach(([id, label]) => ge.button({ id: 'ev-' + id, label: label, kind: 'state', onClick: () => doEvent(id) }));
+  ge.button({ id: 'store', label: 'Store this state as the characterisation', kind: 'state', onClick: storeNow });
+  ge.button({ id: 'again', label: 'New tube state (another random draw)', kind: 'state', onClick: () => { seed++; rebuild(); render(); } });
+  const gp = app.ui.group('Size of the pieces (scene edits, illustrative; regenerate the state)', { open: true });
+  const regen = () => { rebuild(); render(); };
+  gp.slider({ id: 'rig', label: 'Rig: rotator’s own error (1st harmonic)', min: 0, max: 0.2, step: 0.01, value: 0.06, unit: 'mm', kind: 'scene', visual: 'the slate curve', onChange: v => { P.rig = v; regen(); } });
+  gp.slider({ id: 'seat', label: 'Seat: how the tube stands in the nest', min: 0, max: 0.6, step: 0.01, value: 0.20, unit: 'mm', kind: 'scene', visual: 'the amber curve', onChange: v => { P.seat = v; regen(); } });
+  gp.slider({ id: 'work', label: 'Work: ovality and plate (2nd harmonic)', min: 0, max: 0.15, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', visual: 'the teal curve', onChange: v => { P.work = v; regen(); } });
+  gp.slider({ id: 'bias', label: 'Judge bias that turns with the tube', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: 'the pink curve and the judge dots', onChange: v => { P.bias = v; regen(); } });
+  const gs = app.ui.group('Sensors and policy (scene edits)', { open: true });
+  gs.slider({ id: 'noise', label: 'Judge noise per reading', min: 0.005, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.noise = v; regen(); } });
+  gs.slider({ id: 'N', label: 'Judge laps for a relearn / the stored map', min: 1, max: 8, step: 1, value: 3, kind: 'scene', help: 'Each lap is 49 s at 8 mm/s [repo].', onChange: v => { P.N = v; regen(); } });
+  gs.slider({ id: 'K', label: 'Touch azimuths', min: 4, max: 16, step: 1, value: 8, kind: 'scene', help: 'Three harmonics need at least 7 well-spread azimuths.', onChange: v => { P.K = v; regen(); } });
+  gs.slider({ id: 'tnoise', label: 'Touch noise', min: 0.005, max: 0.08, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', help: 'A stylus is about ten times better than a nozzle at the same repeatability (datum-07); illustrative.', onChange: v => { P.tnoise = v; regen(); } });
+  const gv = app.ui.group('View', { open: false });
+  gv.toggle({ id: 'pieces', label: 'Show the four hidden pieces', value: true, kind: 'view', onChange: v => { P.showPieces = v; render(); } });
+  gv.toggle({ id: 'touch', label: 'Show the touch points', value: true, kind: 'view', onChange: v => { P.showTouch = v; render(); } });
+
+  window.__diag = () => ({ diag: res.diag, action: res.action, stale: res.stale, relearn: res.relearn, owner: res.owner, cost: res.cost, gap: res.gap, moved: res.moved, d: res.d, thr: res.thr });
+  rebuild(); render();
+})();
+</script>
+</body>
+</html>

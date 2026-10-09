@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The dock: the gun's home between trials</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+  .dk-row2 { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 10px; margin-top: 10px; align-items: start; }
+  @container dkstage (max-width: 820px) { .dk-grid, .dk-row2 { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: dkstage; }
+  .dk-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .dk-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .dk-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .dk-svg { display: block; width: 100%; height: auto; }
+  .dk-svg text { font: 10px system-ui, sans-serif; fill: #9aa7ba; }
+  .dk-svg text.b { fill: #e7ebf1; font-weight: 600; } .dk-svg text.sm { font-size: 8.5px; fill: #6c788b; }
+  .dk-svg text.pinkt { fill: #f472b6; } .dk-svg text.amber { fill: #fbbf24; } .dk-svg text.blue { fill: #7fb0ff; } .dk-svg text.teal { fill: #5eead4; } .dk-svg text.red { fill: #ff8a80; } .dk-svg text.purple { fill: #d8b4fe; }
+  .dk-steps { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 6px; }
+  .dk-chip { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--wk-line2); color: var(--wk-muted); cursor: pointer; background: var(--wk-panel); }
+  .dk-chip.on { border-color: #f472b6; color: #fff; background: rgba(244, 114, 182, .16); }
+  .dk-chip i { font-style: normal; color: var(--wk-faint); font-size: 10px; margin-left: 4px; }
+  .dk-caption { font-size: 12.5px; color: #cfd6e2; line-height: 1.4; min-height: 3.6em; padding: 2px 2px 0; }
+  .dk-caption b { color: #fff; }
+  table.dk-tab { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .dk-tab td, .dk-tab th { padding: 3px 5px; border-bottom: 1px solid var(--wk-line); text-align: left; font-weight: 400; color: #b7c1d0; vertical-align: top; }
+  .dk-tab thead th { color: var(--wk-faint); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+  .dk-tab tr.hot td { background: rgba(244, 114, 182, .12); color: #fff; }
+  .dk-tab td:first-child { color: #e7ebf1; white-space: nowrap; }
+  .dk-verdict { font-size: 12.5px; padding: 4px 4px 0; }
+  .dk-ok { color: var(--lvl-ok); font-weight: 600; } .dk-bad { color: var(--lvl-limit); font-weight: 600; }
+  .dk-note { font-size: 10.5px; color: var(--wk-faint); padding: 3px 3px 0; font-style: italic; line-height: 1.3; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-02-dock-reset",
+  "title": "The dock: the gun's home between trials",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Between trials the gun-in-shell returns to a kinematic cradle. The dock re-anchors the software's coordinates, clears the tube for the swap, closes a 'seated' contact, and with three load cells weighs the gun and umbilical every visit so a changed cable drag shows up as a changed reading. Step through one full trial cycle and see what resets at each step.",
+  "tags": ["dock", "reset", "swap", "homing", "load cells", "hysteresis", "trial cycle", "coupon"],
+  "branchOf": [],
+  "combines": ["datum-15-dock-noticing"],
+  "transferable": ["docking as homing", "weigh-in as reset check", "unidirectional final approach", "swap interlock"],
+  "how": {
+    "motion": "any positioner; here it only carries the shell between dock, hover and corner",
+    "load": "the cradle carries the shell when parked; nothing is chosen for the working pose",
+    "reference": "the dock's kinematic seats and contact switch re-anchor the shell's pose every cycle; the corner is probed on each tube",
+    "observe": "dock contact, three load cells, the judge camera during the trial",
+    "use": "every trial cycle: depart, approach, trial, retreat, dock, swap"
+  },
+  "software": {
+    "commands": ["positioner path: dock, hover, corner", "rotator speed", "swap interlock"],
+    "observes": ["dock seated contact", "three cell readings vs baseline", "tube seat check and ID after the swap"],
+    "manual": ["the swap itself (hand) or the tool that does it", "re-exercising a dragging umbilical"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-02-dock-reset.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, RAD = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The gun in its printed shell does not just <i>stop</i> between trials: it <b>goes home</b>. The dock is a cradle with three kinematic seats (three lugs on the shell, three seats, a magnet to pull them together), a contact switch that closes only when the shell is seated, and a load cell under each seat. Docking does four jobs at once.</p>' +
+        '<ul><li><b>It re-anchors the shell.</b> Missed steps, backlash, cable and bungee hysteresis, drift in whatever carries the gun: all of it is discarded when the shell drops into the seats, so every trial starts from the same shell pose, not a remembered coordinate. It does not re-anchor the trial: the pose that decides a trial is dot to corner on this tube, and the chain from the dock to the corner (bench clamp, positioner scale over the travel, seat depth, the dot in the shell, the camera) has links the dock does not touch. The corner is found by a probe on the tube, every trial (trials-03).</li>' +
+        '<li><b>It clears the tube.</b> The tube (or puck) must lift straight out past the gun. Parked in the dock, the gun is out of the lift column and locked there by a swap interlock.</li>' +
+        '<li><b>It weighs.</b> Three cells give the total weight and, from how it is shared, the sideways pull of the umbilical. The reading at every visit is compared with the first visit (the baseline). A dragging cable shows up as a changed reading before it shows up as a strange trial.</li>' +
+        '<li><b>It gives a repeatable start</b> for a final approach that always comes from the same direction, so friction and backlash add the same offset every time (see the last panel).</li></ul>' +
+        '<p>Use the step slider (or click a step) to walk one full cycle. The two views are the same cycle: plan on the left, elevation on the right. The positioner is deliberately unspecified.</p>',
+      carries: '<p>When parked, the cradle carries the shell and the umbilical\'s share of the weight. At the corner nothing here is modelled: whichever arrangement positions the gun carries it. The overhead umbilical hook is drawn only to check the bend radius.</p>',
+      tried: '<ul>' +
+        '<li><b>The gun body sits in the lift column.</b> Slide the dock closer (or make the tube lift higher): the shell\'s body enters the column above the tube and a LIMIT badge appears. Assumption behind it: the tube lifts straight up. Repair drawn: the dock stands well outside the column. What it costs: a longer positioner travel every cycle (about 270 mm here), and it only works if the positioner has that reach; in a table-with-side-opening arrangement the tube leaves sideways and the dock can be close.</li>' +
+        '<li><b>The umbilical drags differently every time.</b> Sideways pull changes with the path the cable took. Repair: the weigh-in. Drag the sideways pull slider up; the cell shares move while the total does not (a single scale cannot see it, three cells can). Left standing: a threshold that separates harmless from harmful is <b>[unknown]</b>; the 10 g used is a placeholder.</li>' +
+        '<li><b>Kinematic seats on a soft cell.</b> A load cell deflects a little under load, which softens a kinematic seat. Repair not drawn: a hard seat above the cells that takes the shell at the last millimetre. Left standing: whether a bar cell under three balls stays repeatable is untested.</li>' +
+        '<li><b>Hysteresis.</b> If the final approach comes from both sides, friction in the support splits the landing positions into two clusters; from one side they collapse to one calibratable offset (last panel).</li><li><b>The dock\'s coordinates are not what the trial rests on (datum, wave 2).</b> A 1 mm bench re-clamp or a 0.1 per cent scale error over the 330 mm to the corner (0.33 mm) reaches the dot unless a probe on the tube absorbs it, and step 3 finds the corner with the dot probe. Assumption behind the first version: re-anchoring the shell re-anchors the trial. What the dock alone notices is force (the weigh-in). Repair, adopted from datum-15: a coupon under the docked dot (toggle): a change that shows on the coupon is in the gun or the camera, one that shows only on the tube is outside them. A coupon on a puck on the rotator (trials-22) is read at the trial\'s own station and so also sees the bench clamp and the positioner\'s scale. Left standing: one shift in one number cannot say whether the dot or the camera moved; how the dot probe is run at the dock without lifting the shell off its seats; a dock within 200 mm of the axis stands in the lift column.</li></ul>',
+      unresolved: '<ul><li>The X1 Pro\'s mass, centre of mass and how it sits on lugs on a printed shell are <b>[unknown]</b>; the 1.5 kg here is a placeholder.</li>' +
+        '<li>Umbilical stiffness and how far it pulls sideways, per pose, is <b>[unknown]</b>: the docking weigh-in is a cheap way to measure it.</li>' +
+        '<li>The rotator has no absolute angle sensor (turned-so-far degrees only <b>[repo]</b>), so the tube\'s rotational phase after a swap comes from a keyed seat (the puck idea) or from seeing the plate\'s register hole.</li>' +
+        '<li>What the laser box exposes to software (ready, emitting, alarm LEDs are visible; a protocol is <b>[unknown]</b>).</li></ul>',
+      assumptions: '<ul><li>Tube height, recess, rim, wall: <b>[repo]</b>. Beam 32° from vertical, 16 mm to the dot, the proxy gun profile and pitch: <b>[illustrative]</b> from the reference scene.</li>' +
+        '<li>Dock position, cradle height, seat triangle, tube lift and the 1.5 kg mass are <b>[illustrative]</b>.</li>' +
+        '<li>Cell readings come from a static solve (weight through the centre of gravity, sideways pull at 100 mm above the seats). The share change per newton does not depend on the mass; noise and thresholds are made up.</li>' +
+        '<li>Approach hysteresis is drawn as a symmetric ± value plus 0.03 mm noise; nothing has been measured.</li></ul>'
+    }
+  });
+
+  // ---------------------------------------------------------------- state and geometry (elevation coordinates, mm)
+  const B = 32 * RAD, sb = Math.sin(B), cb = Math.cos(B), TUBE_H = 152.4, PLATE_Z = 146.05, WTH = 1.65, RI = 61.85, BENCH = -86;
+  const ST = { step: 0, dockX: 330, lift: 130, pull: 0.1, hyst: 0.25, oneSide: true, swapper: 'hand', mass: 1.5, coupon: false };
+  const NC = { x: RI - 16 * sb, z: PLATE_Z + 16 * cb };                       // nozzle at the corner (dot on the seam)
+  const NH = { x: NC.x - 40 * sb, z: NC.z + 40 * cb };                         // hover: 40 mm back along the beam axis
+  const DOCKZ = 215;
+  const STEPS = [
+    { name: 'Docked', who: 'S', cap: 'The shell rests on its three seats; the seated contact is closed. The three cells give the <b>baseline weigh-in</b>. The shell\'s pose and its cable drag are anchored here; the corner is not (it is found by the dot probe at step 3).', hot: ['pose', 'drift', 'cable', 'dotcam'] },
+    { name: 'Depart', who: 'S', cap: '<b>Undock</b>: the positioner lifts the shell out of the seats and up. The seated contact opens; the swap interlock is released.', hot: ['pose'] },
+    { name: 'Hover', who: 'S', cap: 'Over the bore, 40 mm back along the beam axis from the corner: <b>clear of the rim</b>, no contact yet.', hot: ['pose'] },
+    { name: 'Approach', who: 'S', cap: '<b>Final approach along the beam axis</b>, always from the same direction, until the dot sits on the seam (found by the dot probe, trials-03). The trial rests on this probe, not on the dock\'s coordinates.', hot: ['pose', 'hyst', 'corner'] },
+    { name: 'Trial', who: 'S', cap: 'The rotator turns at bead speed; the judge camera records the dot-to-seam error at each angle. This is the measurement everything else exists to make comparable.', hot: ['tube', 'phase'] },
+    { name: 'Retreat', who: 'S', cap: 'Back along the beam axis to hover, then out toward the dock. The log for this trial is closed with the tube ID, the dock baseline and the approach direction.', hot: ['pose'] },
+    { name: 'Dock + weigh', who: 'S', cap: 'The shell drops into the seats. The <b>weigh-in</b> is compared with the baseline: the umbilical\'s sideways pull shows as a change in how the weight is shared.', hot: ['pose', 'drift', 'cable', 'dotcam'] },
+    { name: 'Swap', who: 'H', cap: 'The swap interlock is on: the shell is locked in the dock, the lift column above the tube is free. The tube (or puck) is lifted out and the next one lowered in. <b>Nobody reaches under the gun.</b>', hot: ['tube', 'phase'] },
+    { name: 'Verify', who: 'S', cap: 'New tube: ID read, seat checked (rim height by camera or probe), rotator index found, then the cycle starts again from the dock.', hot: ['tube', 'phase', 'light'] },
+  ];
+  function keyframe(step) {
+    const dock = { x: ST.dockX, z: DOCKZ };
+    const up = { x: ST.dockX + 30 * cb, z: DOCKZ + 30 * sb + 50 };   // first motion is along the seat normal (+n), then up
+    switch (step) {
+      case 0: return { N: dock, lift: 0, spin: false, tube: 'A', seated: true };
+      case 1: return { N: up, lift: 0, spin: false, tube: 'A', seated: false };
+      case 2: return { N: NH, lift: 0, spin: false, tube: 'A', seated: false };
+      case 3: return { N: NC, lift: 0, spin: false, tube: 'A', seated: false };
+      case 4: return { N: NC, lift: 0, spin: true, tube: 'A', seated: false };
+      case 5: return { N: NH, lift: 0, spin: false, tube: 'A', seated: false };
+      case 6: return { N: dock, lift: 0, spin: false, tube: 'A', seated: true };
+      case 7: return { N: dock, lift: ST.lift, spin: false, tube: 'AB', seated: true };
+      default: return { N: dock, lift: 0, spin: false, tube: 'B', seated: true };
+    }
+  }
+  let cur = keyframe(0), from = cur, to = cur, tw = 1;
+  const lerp = (a, b, t) => a + (b - a) * t, ease = t => t * t * (3 - 2 * t);
+  function pose() { const t = ease(Math.min(1, tw)); return { N: { x: lerp(from.N.x, to.N.x, t), z: lerp(from.N.z, to.N.z, t) }, lift: lerp(from.lift, to.lift, t), spin: to.spin, tube: to.tube, seated: t > 0.98 ? to.seated : (to.seated && from.seated) } }
+
+  // ---------------------------------------------------------------- polygons and collision (elevation)
+  const ZONES = [[0, 23, 2.2, 5], [23, 54, 8.5, 8.5], [54, 100, 5.5, 5.5], [100, 118, 12, 12], [118, 253, 17, 17]];
+  function gunPolys(N) {
+    const eb = [-sb, cb], nn = [cb, sb], P = (L, w) => [N.x + L * eb[0] + w * nn[0], N.z + L * eb[1] + w * nn[1]];
+    return ZONES.map(z => [P(z[0], -z[2]), P(z[0], z[2]), P(z[1], z[3]), P(z[1], -z[3])]);
+  }
+  function polysHit(a, b) {
+    for (const poly of [a, b]) for (let i = 0; i < poly.length; i++) {
+      const p = poly[i], q = poly[(i + 1) % poly.length], ax = [q[1] - p[1], p[0] - q[0]];
+      let a0 = 1e9, a1 = -1e9, b0 = 1e9, b1 = -1e9;
+      a.forEach(v => { const d = v[0] * ax[0] + v[1] * ax[1]; a0 = Math.min(a0, d); a1 = Math.max(a1, d); });
+      b.forEach(v => { const d = v[0] * ax[0] + v[1] * ax[1]; b0 = Math.min(b0, d); b1 = Math.max(b1, d); });
+      if (a1 < b0 || b1 < a0) return false;
+    }
+    return true;
+  }
+  const rectP = (x0, z0, x1, z1) => [[x0, z0], [x1, z0], [x1, z1], [x0, z1]];
+  function tubeObstacles(lift) {
+    const o = [rectP(RI, lift, RI + WTH, lift + TUBE_H), rectP(-RI - WTH, lift, -RI, lift + TUBE_H), rectP(-RI, lift + PLATE_Z - 6.35, RI, lift + PLATE_Z)];
+    return o;
+  }
+  // the dock: a ramp plate parallel to the shell's axis on its underside (-n) with three seat pads; three legs and cells below
+  const RAMP = { off: -26, thick: 8, L0: 30, L1: 245, pads: [60, 140, 220] };
+  function rampAt(N) {
+    const eb = [-sb, cb], nn = [cb, sb], P = (L, w) => [N.x + L * eb[0] + w * nn[0], N.z + L * eb[1] + w * nn[1]];
+    return { plate: [P(RAMP.L0, RAMP.off), P(RAMP.L1, RAMP.off), P(RAMP.L1, RAMP.off - RAMP.thick), P(RAMP.L0, RAMP.off - RAMP.thick)], pads: RAMP.pads.map(L => ({ top: P(L, RAMP.off), under: P(L, RAMP.off - RAMP.thick) })), P: P };
+  }
+  const dockPose = () => ({ x: ST.dockX, z: DOCKZ });
+  const shrink = (poly, d) => { const cx = poly.reduce((a, p) => a + p[0], 0) / poly.length, cz = poly.reduce((a, p) => a + p[1], 0) / poly.length; return poly.map(p => { const dx = p[0] - cx, dz = p[1] - cz, l = Math.hypot(dx, dz) || 1; return [p[0] - dx / l * d, p[1] - dz / l * d]; }); };
+
+  // ---------------------------------------------------------------- SVG scaffolding
+  const PW = 440, PH = 300, EW = 440, EH = 336;
+  const plan = S('svg', { viewBox: '0 0 ' + PW + ' ' + PH, class: 'dk-svg', role: 'img', 'aria-label': 'plan view of the cycle' });
+  const elev = S('svg', { viewBox: '0 0 ' + EW + ' ' + EH, class: 'dk-svg', role: 'img', 'aria-label': 'elevation view of the cycle' });
+  const cells = S('svg', { viewBox: '0 0 260 178', class: 'dk-svg', role: 'img', 'aria-label': 'dock cell readings' });
+  const hyst = S('svg', { viewBox: '0 0 260 178', class: 'dk-svg', role: 'img', 'aria-label': 'landing positions over trials' });
+  const stepsEl = h('div', { class: 'dk-steps' });
+  const capEl = h('div', { class: 'dk-caption' });
+  const verdict = h('div', { class: 'dk-verdict' });
+  const tabEl = h('table', { class: 'dk-tab' });
+
+  const planCard = h('div', { class: 'dk-card' }, h('h3', {}, h('span', { text: 'Plan (from above)' }), h('em', { text: 'illustrative dimensions' })), plan);
+  const elevCard = h('div', { class: 'dk-card' }, h('h3', {}, h('span', { text: 'Elevation (from the side)' }), h('em', { text: 'tube height, recess, rim from the repo' })), elev);
+  const tabCard = h('div', { class: 'dk-card' }, h('h3', {}, h('span', { text: 'What resets, and where' }), h('em', { text: 'highlighted = this step' })), tabEl);
+  const cellCard = h('div', { class: 'dk-card' }, h('h3', {}, h('span', { text: 'Dock weigh-in' }), h('em', { text: 'three cells · illustrative' })), cells, verdict);
+  const hystCard = h('div', { class: 'dk-card' }, h('h3', {}, h('span', { text: 'Where 16 trials land' }), h('em', { text: 'approach direction · illustrative' })), hyst,
+    h('div', { class: 'dk-note', text: 'Each dot is the final dot position of one trial. Two-sided approach splits into two clusters; one-sided is one offset that can be calibrated.' }));
+  app.stageEl.appendChild(h('div', {}, h('div', { class: 'dk-steps-wrap' }, stepsEl, capEl), h('div', { class: 'dk-grid' }, planCard, elevCard), h('div', { class: 'dk-row2' }, tabCard, cellCard, hystCard)));
+
+  // ---------------------------------------------------------------- drawing
+  const poly = (pts, attrs) => S('polygon', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') }, attrs));
+  const line = (x1, y1, x2, y2, attrs) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, attrs));
+  const dashCol = '#a855f7';
+
+  function drawElev(p, polys, hit, col) {
+    elev.textContent = '';
+    const SC = 0.5, X0 = 24, X = x => X0 + (x + 250) * SC, Z0 = EH - 26, Y = z => Z0 - (z - BENCH + 20) * SC;
+    elev.append(S('rect', { x: 0, y: 0, width: EW, height: EH, fill: '#0f141b', rx: 6 }));
+    for (let z = 0; z <= 500; z += 100) elev.append(line(X(-250), Y(z), X(520), Y(z), { stroke: '#1a222d' }), S('text', { x: 3, y: Y(z) + 3, class: 'sm', text: z }));
+    // bench, rotator block
+    elev.append(S('rect', { x: X(-250), y: Y(BENCH), width: (770) * SC, height: 8, fill: '#3a4658' }), S('text', { x: X(-245), y: Y(BENCH) + 18, class: 'sm', text: 'bench' }),
+      S('rect', { x: X(-150), y: Y(-50), width: 300 * SC, height: 36 * SC + 5, fill: '#6b7a90' }), S('rect', { x: X(-98), y: Y(-14), width: 196 * SC, height: 14 * SC + 2, fill: '#a855f7', opacity: 0.55 }));
+    elev.append(S('text', { x: X(-150), y: Y(-50) + 16, class: 'sm', text: 'rotator' }));
+    // dock: ramp plate under the shell, three seat pads, three legs on cells
+    const dk = rampAt(dockPose()), dx = ST.dockX;
+    elev.append(poly(dk.plate.map(q => [X(q[0]), Y(q[1])]), { fill: '#6b7a90', stroke: '#8aa0bd', 'stroke-width': 0.8 }));
+    dk.pads.forEach(pd => {
+      elev.append(S('rect', { x: X(pd.under[0]) - 3, y: Y(pd.under[1]) + 1, width: 6, height: (pd.under[1] - BENCH) * SC - 1, fill: '#4b5a72' }),
+        S('rect', { x: X(pd.under[0]) - 5, y: Y(pd.under[1]) + 1, width: 10, height: 5, fill: col.cell }),
+        S('circle', { cx: X(pd.top[0]), cy: Y(pd.top[1]), r: 2.6, fill: '#14b8a6' }));
+    });
+    const bx0 = Math.min(dk.pads[0].under[0], dk.pads[2].under[0]), bx1 = Math.max(dk.pads[0].under[0], dk.pads[2].under[0]);
+    elev.append(S('rect', { x: X(bx0) - 18, y: Y(BENCH) - 4, width: (bx1 - bx0) * SC + 36, height: 4, fill: '#4b5a72' }));
+    elev.append(S('text', { x: EW - 8, y: Y(BENCH) - 8, 'text-anchor': 'end', class: 'sm teal', text: 'dock: ramp, 3 legs, 3 seats + cells' }));
+    // coupon under the docked dot: a post with a short plate and a short wall (a known corner)
+    if (ST.coupon) {
+      const cxp = dx + 16 * sb, czp = DOCKZ - 16 * cb;
+      elev.append(S('rect', { x: X(cxp) - 3, y: Y(czp), width: 6, height: (czp - BENCH) * SC, fill: '#4b5a72' }),
+        S('rect', { x: X(cxp - 16), y: Y(czp), width: 16 * SC + 3, height: 2 * SC, fill: '#c8d0da' }), S('rect', { x: X(cxp), y: Y(czp + 8), width: 3, height: 10 * SC, fill: '#c8d0da' }),
+        S('text', { x: X(cxp) + 8, y: Y(czp) + 22, class: 'sm teal', text: 'dock coupon' }));
+    }
+    // tube (seated) and lifted ghost
+    const drawTube = (lift, tint, op, label) => {
+      const g = S('g', { opacity: op });
+      g.append(S('rect', { x: X(-RI - WTH), y: Y(lift + TUBE_H), width: WTH * SC * 3, height: TUBE_H * SC, fill: tint }), S('rect', { x: X(RI), y: Y(lift + TUBE_H), width: WTH * SC * 3, height: TUBE_H * SC, fill: tint }),
+        S('rect', { x: X(-RI), y: Y(lift + PLATE_Z), width: RI * 2 * SC, height: 6.35 * SC, fill: tint, opacity: 0.85 }));
+      if (label) g.append(S('text', { x: X(0), y: Y(lift + TUBE_H) - 4, 'text-anchor': 'middle', class: 'sm', text: label }));
+      elev.append(g);
+    };
+    const tubeCol = p.tube === 'B' ? '#e8d9b0' : '#c8d0da';
+    if (p.tube === 'A') drawTube(0, '#c8d0da', 1, 'tube A');
+    else if (p.tube === 'B') drawTube(0, '#e8d9b0', 1, 'tube B');
+    else { drawTube(p.lift, '#c8d0da', 0.85, 'tube A lifted'); drawTube(0, '#e8d9b0', Math.max(0, 1 - p.lift / ST.lift * 1.2) < 0.05 ? 0.35 : 0.35, 'tube B (next)'); }
+    elev.append(line(X(-RI - 40), Y(TUBE_H + ST.lift), X(RI + 40), Y(TUBE_H + ST.lift), { stroke: '#f472b6', 'stroke-dasharray': '2 3', opacity: 0.6 }), S('text', { x: X(RI + 44), y: Y(TUBE_H + ST.lift) + 3, class: 'sm pinkt', text: 'swap lift ' + ST.lift + ' mm' }));
+    // lift column
+    if (ST.step === 7) elev.append(S('rect', { x: X(-RI - 12), y: Y(TUBE_H + ST.lift + 6), width: (RI * 2 + 24) * SC, height: (TUBE_H + ST.lift) * SC, fill: 'none', stroke: '#f472b6', 'stroke-dasharray': '4 3' }), S('text', { x: X(-RI - 8), y: Y(TUBE_H + ST.lift + 6) - 4, class: 'sm', fill: '#f472b6', text: 'lift column' }));
+    // swapper icon
+    if (ST.step === 7) {
+      if (ST.swapper === 'hand') elev.append(S('text', { x: X(-RI) - 30, y: Y(TUBE_H + p.lift) - 16, class: 'b amber', text: '✋ by hand' }));
+      else elev.append(S('rect', { x: X(-RI) - 5, y: Y(TUBE_H + p.lift) - 22, width: RI * 2 * SC + 10, height: 8, fill: '#a855f7' }), S('text', { x: X(-RI), y: Y(TUBE_H + p.lift) - 26, class: 'sm purple', text: 'gripper tool (trials-07)' }));
+    }
+    // dot / seam marker
+    elev.append(S('circle', { cx: X(RI), cy: Y(PLATE_Z), r: 2.6, fill: '#14b8a6' }));
+    // path (dashed) dock -> up -> hover -> corner
+    const pa = keyframe(0).N, pb = keyframe(1).N;
+    elev.append(S('polyline', { points: [pa, pb, NH, NC].map(q => X(q.x).toFixed(1) + ',' + Y(q.z).toFixed(1)).join(' '), fill: 'none', stroke: dashCol, 'stroke-dasharray': '4 3', 'stroke-width': 1.2, opacity: 0.85 }));
+    elev.append(S('text', { x: X(NH.x) - 2, y: Y(NH.z) - 116 * SC, class: 'sm purple', text: 'path (illustrative)' }));
+    // gun
+    polys.forEach((pl, i) => elev.append(poly(pl.map(q => [X(q[0]), Y(q[1])]), { fill: hit ? '#b91c1c' : '#59636f', stroke: '#9aa7b8', 'stroke-width': 0.8, 'fill-opacity': i === 4 ? 0.55 : 0.95 })));
+    // beam to the dot
+    elev.append(line(X(p.N.x), Y(p.N.z), X(p.N.x + 16 * sb), Y(p.N.z - 16 * cb), { stroke: '#ff3b30', 'stroke-width': 1.5 }));
+    // umbilical: bezier from the back end up to an overhead hook, min radius badge
+    const back = { x: p.N.x - 253 * sb, z: p.N.z + 253 * cb };
+    const hook = { x: -170, z: 1050 };
+    const cv = WK.bezierCable(new THREE.Vector3(back.x, 0, back.z), new THREE.Vector3(-sb, 0, cb), new THREE.Vector3(hook.x, 0, hook.z), new THREE.Vector3(0, 0, 1), { stiffness: 0.42 });
+    const pts = cv.getPoints(40).filter(q => q.z < 540);
+    elev.append(S('polyline', { points: pts.map(q => X(q.x).toFixed(1) + ',' + Y(q.z).toFixed(1)).join(' '), fill: 'none', stroke: '#4b5563', 'stroke-width': 3, 'stroke-linecap': 'round' }));
+    elev.append(S('text', { x: EW - 8, y: Y(BENCH) + 14, 'text-anchor': 'end', class: 'sm', text: 'umbilical: 5 m, to an overhead hook off the top' }));
+    const mr = WK.curveMinRadius(cv), bd = WK.cableBadge(mr);
+    app.badge('bend', bd.level === 'ok' ? null : bd.text, bd.level);
+    elev.append(S('text', { x: 8, y: 27, class: 'sm', text: 'umbilical min bend R ' + Math.round(mr) + ' mm (manual 350 emitting / 240 stored)' }));
+    // labels
+    elev.append(S('text', { x: 8, y: 14, class: 'b', text: 'Step ' + ST.step + ': ' + STEPS[ST.step].name }));
+    elev.append(S('text', { x: X(RI) + 8, y: Y(PLATE_Z) + 12, class: 'sm teal', text: 'seam' }));
+    if (p.spin) elev.append(S('text', { x: X(0), y: Y(20), 'text-anchor': 'middle', class: 'b purple', text: '⟳ rotator turning' }));
+    return { mr: mr };
+  }
+
+  function drawPlan(p, polys, hit, col) {
+    plan.textContent = '';
+    const SC = 0.5, cxp = 24 + 300 * SC, cyp = PH / 2 + 4, X = x => cxp + x * SC, Y = y => cyp - y * SC;
+    plan.append(S('rect', { x: 0, y: 0, width: PW, height: PH, fill: '#0f141b', rx: 6 }));
+    for (let x = -300; x <= 500; x += 100) plan.append(line(X(x), 6, X(x), PH - 6, { stroke: '#1a222d' }), S('text', { x: X(x), y: PH - 8, 'text-anchor': 'middle', class: 'sm', text: x }));
+    // rotator, nest, tube
+    plan.append(S('rect', { x: X(-150), y: Y(125), width: 300 * SC, height: 250 * SC, fill: '#6b7a90', opacity: 0.7 }), S('circle', { cx: X(0), cy: Y(0), r: 75 * SC, fill: '#7d4ac0', opacity: 0.55 }),
+      S('circle', { cx: X(0), cy: Y(0), r: 63.5 * SC, fill: p.tube === 'B' ? '#e8d9b0' : '#c8d0da' }), S('circle', { cx: X(0), cy: Y(0), r: RI * SC, fill: '#8e98a6' }),
+      S('circle', { cx: X(RI), cy: Y(0), r: 2.8, fill: '#ff3b30' }), S('text', { x: X(RI) - 4, y: Y(0) - 8, 'text-anchor': 'end', class: 'sm', text: 'station' }));
+    elev.append(line(X(-RI - 40), Y(TUBE_H + ST.lift), X(RI + 40), Y(TUBE_H + ST.lift), { stroke: '#f472b6', 'stroke-dasharray': '2 3', opacity: 0.6 }), S('text', { x: X(RI + 44), y: Y(TUBE_H + ST.lift) + 3, class: 'sm pinkt', text: 'swap lift ' + ST.lift + ' mm' }));
+    // lift column
+    if (ST.step === 7) plan.append(S('circle', { cx: X(0), cy: Y(0), r: (RI + 12) * SC, fill: 'none', stroke: '#f472b6', 'stroke-dasharray': '4 3' }), S('text', { x: X(0), y: Y(0) + 4, 'text-anchor': 'middle', class: 'sm', fill: '#111827', text: 'lift column' }));
+    // dock
+    const dx = ST.dockX;
+    const rp = rampAt(dockPose()).plate, rx0 = Math.min.apply(null, rp.map(q => q[0])), rx1 = Math.max.apply(null, rp.map(q => q[0]));
+    plan.append(S('rect', { x: X(rx0), y: Y(34), width: (rx1 - rx0) * SC, height: 68 * SC, fill: '#334155', stroke: '#14b8a6' }), S('text', { x: X(rx0), y: Y(-34) + 11, class: 'sm teal', text: 'dock (ramp footprint)' }));
+    rampAt(dockPose()).pads.forEach((pd, i) => plan.append(S('circle', { cx: X(pd.top[0]), cy: Y([-14, 0, 14][i]), r: 3, fill: col.cell })));
+    if (ST.coupon) plan.append(S('rect', { x: X(dx + 16 * sb) - 4, y: Y(0) - 8 * SC, width: 8 * SC + 8, height: 16 * SC, fill: '#c8d0da', opacity: 0.9 }), S('text', { x: X(dx + 16 * sb) - 2, y: Y(0) - 8 * SC - 4, class: 'sm teal', text: 'coupon' }));
+    // path
+    const pth = [keyframe(0).N, keyframe(1).N, NH, NC];
+    plan.append(S('polyline', { points: pth.map(q => X(q.x).toFixed(1) + ',' + Y(0).toFixed(1)).join(' '), fill: 'none', stroke: dashCol, 'stroke-dasharray': '4 3', opacity: 0.85 }));
+    // gun plan projection: nozzle at N.x, body toward -x (projected length 253 sin b), 34 wide; plus the grip hanging tangentially (+y)
+    const Lp = 253 * sb;
+    plan.append(S('rect', { x: X(p.N.x - Lp), y: Y(17), width: Lp * SC, height: 34 * SC, fill: hit ? '#b91c1c' : '#59636f', opacity: 0.85, stroke: '#9aa7b8' }),
+      S('rect', { x: X(p.N.x - Lp) + Lp * SC * 0.42, y: Y(17) + 34 * SC, width: 30 * SC, height: 86 * SC, fill: '#59636f', opacity: 0.55, stroke: '#9aa7b8' }),
+      S('text', { x: X(p.N.x - Lp), y: Y(17) - 4, class: 'sm', text: 'gun (projection)' }));
+    // positioner ghost
+    plan.append(S('rect', { x: X(p.N.x - Lp * 0.75), y: Y(30), width: Lp * 0.5 * SC, height: 60 * SC, fill: 'none', stroke: '#94a3b8', 'stroke-dasharray': '2 3' }), S('text', { x: 8, y: PH - 22, class: 'sm', text: 'dashed box: positioner (unspecified)' }));
+    plan.append(S('text', { x: 8, y: 14, class: 'b', text: 'Plan' }));
+    // approach arrow (beam direction in plan is toward +x)
+  }
+
+  // ---------------------------------------------------------------- cells
+  const SEATS = [[-60, -40], [60, -40], [0, 70]];
+  function reactions(pull) {
+    const g = 9.81, m = ST.mass, cog = [0, 5], h = 100;
+    const fx = pull * 0.6, fy = pull * 0.8;   // pull direction: mostly sideways/back (illustrative)
+    const W = m * g, Mx = W * cog[1] / 1000 - fy * h / 1000, My = -W * cog[0] / 1000 + fx * h / 1000;
+    // solve sum R = W; sum R*y = Mx; sum R*(-x) = My  (3x3)
+    const A = [[1, 1, 1], SEATS.map(s => s[1] / 1000), SEATS.map(s => -s[0] / 1000)], b = [W, Mx, My];
+    return solve3(A, b);
+  }
+  function solve3(A, b) {
+    const M = A.map((r, i) => r.concat([b[i]]));
+    for (let i = 0; i < 3; i++) { let p = i; for (let r = i + 1; r < 3; r++) if (Math.abs(M[r][i]) > Math.abs(M[p][i])) p = r; [M[i], M[p]] = [M[p], M[i]]; for (let r = i + 1; r < 3; r++) { const f = M[r][i] / M[i][i]; for (let c = i; c < 4; c++) M[r][c] -= f * M[i][c]; } }
+    const x = [0, 0, 0]; for (let i = 2; i >= 0; i--) { let s = M[i][3]; for (let c = i + 1; c < 3; c++) s -= M[i][c] * x[c]; x[i] = s / M[i][i]; } return x;
+  }
+  const TOL_G = 10;
+  function drawCells(p) {
+    cells.textContent = '';
+    const base = reactions(0.1).map(v => v / 9.81 * 1000), now = reactions(ST.pull).map(v => v / 9.81 * 1000);
+    const d = now.map((v, i) => v - base[i]);
+    const seated = STEPS[ST.step].name === 'Dock + weigh' || ST.step === 0 || ST.step >= 7 ? true : false;
+    cells.append(S('text', { x: 4, y: 12, class: 'b', text: 'baseline vs now (g per cell)' }));
+    const labels = ['front left', 'front right', 'rear'];
+    d.forEach((dv, i) => {
+      const y = 34 + i * 44;
+      const scale = 0.4;  // px per g
+      cells.append(S('text', { x: 4, y: y + 4, class: 'sm', text: labels[i] }), line(120, y - 12, 120, y + 14, { stroke: '#3a4658' }));
+      cells.append(S('rect', { x: 120, y: y - 6, width: Math.min(120, Math.abs(dv) * scale) * (dv >= 0 ? 1 : 1), height: 12, fill: dv >= 0 ? '#22c55e' : '#f59e0b', transform: dv >= 0 ? '' : 'translate(' + (-Math.min(112, Math.abs(dv) * scale)) + ',0)' }));
+      cells.append(S('text', { x: dv >= 0 ? 124 + Math.min(112, Math.abs(dv) * scale) : 116 - Math.min(112, Math.abs(dv) * scale), y: y + 22, 'text-anchor': dv >= 0 ? 'start' : 'end', class: 'sm', text: (dv >= 0 ? '+' : '−') + Math.abs(dv).toFixed(0) + ' g' }));
+      cells.append(S('text', { x: 4, y: y + 16, class: 'sm', text: base[i].toFixed(0) + ' → ' + now[i].toFixed(0) }));
+      const tol = TOL_G * scale; cells.append(S('rect', { x: 120 - tol, y: y - 10, width: tol * 2, height: 20, fill: 'none', stroke: '#64748b', 'stroke-dasharray': '2 2' }));
+    });
+    cells.append(S('text', { x: 4, y: 172, class: 'sm', text: 'total ' + now.reduce((a, v) => a + v, 0).toFixed(0) + ' g (unchanged by sideways pull); dashed box = ±' + TOL_G + ' g placeholder tolerance' }));
+    const bad = d.some(v => Math.abs(v) > TOL_G);
+    verdict.innerHTML = STEPS[ST.step].hot.indexOf('cable') >= 0 || ST.step === 6 ? (bad ? '<span class="dk-bad">reset check FAILED</span>: umbilical is dragging (' + d.map(v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(0)).join(', ') + ' g). Re-exercise and weigh again.' : '<span class="dk-ok">reset check passed</span>: cable drag within tolerance of the baseline.') : '<span class="dk-note">The weigh-in happens whenever the shell is docked (steps 0, 6, 7, 8).</span>';
+    return { d: d, bad: bad, base: base, now: now };
+  }
+
+  // ---------------------------------------------------------------- hysteresis panel
+  function drawHyst() {
+    hyst.textContent = '';
+    const x0 = 20, x1 = 246, Xh = v => (x0 + x1) / 2 + v / 0.8 * ((x1 - x0) / 2), y = 92;
+    hyst.append(S('text', { x: 4, y: 12, class: 'b', text: ST.oneSide ? 'one-sided final approach' : 'approach from either side' }));
+    hyst.append(line(x0, y, x1, y, { stroke: '#3a4658' }), line(Xh(0), y - 40, Xh(0), y + 8, { stroke: '#14b8a6', 'stroke-dasharray': '3 3' }), S('text', { x: Xh(0), y: y - 44, 'text-anchor': 'middle', class: 'sm teal', text: 'seam (target)' }));
+    for (let v = -0.8; v <= 0.81; v += 0.2) hyst.append(line(Xh(v), y, Xh(v), y + 4, { stroke: '#64748b' }), S('text', { x: Xh(v), y: y + 14, 'text-anchor': 'middle', class: 'sm', text: v.toFixed(1) }));
+    let s = 99; const u = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296, gauss = () => Math.sqrt(-2 * Math.log(1 - u())) * Math.cos(2 * Math.PI * u());
+    const xs = [];
+    for (let i = 0; i < 16; i++) {
+      const dir = ST.oneSide ? 1 : (u() < 0.5 ? 1 : -1);
+      const v = dir * ST.hyst + gauss() * 0.03; xs.push(v);
+      hyst.append(S('circle', { cx: Xh(v), cy: y - 10 - (i % 4) * 8, r: 3, fill: dir > 0 ? '#f472b6' : '#60a5fa', opacity: 0.9 }));
+    }
+    const mean = xs.reduce((a, v) => a + v, 0) / xs.length, sd = Math.sqrt(xs.reduce((a, v) => a + (v - mean) ** 2, 0) / xs.length);
+    hyst.append(S('text', { x: 4, y: 128, class: 'sm', text: 'mean ' + (mean >= 0 ? '+' : '−') + Math.abs(mean).toFixed(2) + ' mm, spread (sd) ' + sd.toFixed(2) + ' mm' }),
+      S('text', { x: 4, y: 141, class: 'sm', text: ST.oneSide ? 'a constant offset: measured once, then subtracted' : 'two clusters: no single offset removes them' }),
+      S('text', { x: 4, y: 156, class: 'sm', text: 'pink: came from +side · blue: from −side' }), S('text', { x: 4, y: 169, class: 'sm', text: 'support friction of ±' + ST.hyst.toFixed(2) + ' mm is a placeholder' }));
+    return { mean: mean, sd: sd };
+  }
+
+  // ---------------------------------------------------------------- what resets
+  const ROWS = [
+    ['pose', 'Gun pose (the shell)', 'kinematic seats: the pose is re-created, not remembered'],
+    ['corner', 'The corner itself', 'found by the dot probe on every tube; the dock does not carry it'],
+    ['dotcam', 'The dot in the shell, the camera', 'read every visit from a coupon under the docked dot (toggle) or a coupon puck (trials-22)'],
+    ['drift', 'Positioner drift, backlash, missed steps', 'discarded at every dock; contact switch re-zeroes'],
+    ['hyst', 'Support friction / hysteresis', 'always approach the corner from the same side'],
+    ['cable', 'Umbilical shape and drag', 'weigh-in vs baseline; re-exercise if it moved'],
+    ['tube', 'The tube', 'lifted out and replaced; ID read; seat checked'],
+    ['phase', 'Tube rotational phase', 'keyed seat, or seen from the plate register hole (no index sensor today)'],
+    ['light', 'Lighting and cameras', 'golden-target frame each session (trials-05)'],
+  ];
+  function drawTable() {
+    tabEl.innerHTML = '<thead><tr><th>What</th><th>How it is reset or recorded</th></tr></thead><tbody>' + ROWS.map(r => '<tr class="' + (STEPS[ST.step].hot.indexOf(r[0]) >= 0 ? 'hot' : '') + '"><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</tbody>';
+  }
+
+  // ---------------------------------------------------------------- update
+  let animating = false;
+  function setStepChips() {
+    stepsEl.textContent = '';
+    STEPS.forEach((s, i) => stepsEl.appendChild(h('button', { class: 'dk-chip' + (i === ST.step ? ' on' : ''), type: 'button', on: { click: () => app.ui.set('step', i) } }, (i) + ' ' + s.name, h('i', { text: s.who === 'H' ? 'hand' : 'sw' }))));
+  }
+  function redraw() {
+    const p = pose(), polys = gunPolys(p.N);
+    // collisions: the gun body against the tube, its plate, the dock stand, and (in the swap) the lifted tube column
+    const obst = tubeObstacles(p.lift);
+    const dkp = shrink(rampAt(dockPose()).plate, 3);
+    if (ST.step === 7) obst.push(rectP(-RI - 12, 0, RI + 12, TUBE_H + ST.lift + 6));
+    let hit = polys.some(pl => obst.some(o => polysHit(pl, o))) || polys.some(pl => polysHit(pl, dkp) && Math.hypot(p.N.x - ST.dockX, p.N.z - DOCKZ) > 1);
+    // the docked ramp must also stay out of the tube's lift column at the swap step (a fixed part of the dock, not the gun)
+    const rampInColumn = ST.step === 7 && polysHit(rampAt(dockPose()).plate, rectP(-RI - 12, 0, RI + 12, TUBE_H + ST.lift + 6));
+    if (rampInColumn) hit = true;
+    const seatedNow = p.seated;
+    const col = { cell: seatedNow ? '#22c55e' : '#f59e0b' };
+    if (hit) app.badge('col', ST.step === 7 ? 'the gun or the dock is in the tube\'s lift column: the swap cannot happen. Move the dock out.' : 'gun body would touch the tube or the dock', 'limit'); else app.badge('col', null);
+    drawElev(p, polys, hit, col); drawPlan(p, polys, hit, col);
+    const c = drawCells(p); drawHyst(); drawTable();
+    capEl.innerHTML = '<b>' + ST.step + ' · ' + STEPS[ST.step].name + '</b> (' + (STEPS[ST.step].who === 'H' ? 'a hand or a tool acts' : 'software acts') + '). ' + STEPS[ST.step].cap;
+    setStepChips();
+    ioUpdate(c, p, hit);
+  }
+  function ioUpdate(c, p, hit) {
+    const docked = ST.step === 0 || ST.step >= 6;
+    const nm = STEPS[ST.step].name;
+    app.io.set({
+      commands: [
+        { name: 'Positioner: go to', value: ['dock', 'lift out', 'hover', 'corner (dot on seam)', 'corner', 'hover → dock', 'dock', 'hold (interlock)', 'dock'][ST.step], note: 'proposed; the positioner is unspecified' },
+        { name: 'Rotator', value: p.spin ? 'turning' : 'stopped', note: 'existing controller' },
+        { name: 'Swap interlock', value: ST.step === 7 ? 'ON: shell locked' : 'off', note: 'proposed' },
+      ],
+      observes: [
+        { name: 'Dock "seated" contact', value: p.seated ? 'closed' : 'open', status: 'seen', note: 'shell touches all three seats' },
+        { name: 'Cell shares vs baseline (g)', value: docked ? c.d.map(v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(0)).join(' / ') : '(shell not docked)', status: docked ? 'seen' : 'blind', note: docked ? (c.bad ? 'outside placeholder tolerance' : 'within placeholder tolerance') : '' },
+        { name: 'Umbilical drag while working', value: '–', status: 'blind', note: 'no cell under the shell away from the dock' },
+        { name: 'Dot on the dock coupon vs stored', value: ST.coupon ? (docked ? 'read at this visit' : '(not docked)') : 'no coupon', status: ST.coupon ? (docked ? 'partly' : 'blind') : 'unresolved', note: ST.coupon ? 'a shift here is inside the gun or the camera, not outside them; it cannot say which of the two (datum-15)' : 'a moved dot or a nudged camera is silent to the tube probe' },
+        { name: 'Tube ID and seat', value: ST.step >= 8 || ST.step <= 6 ? 'read at Verify' : '–', status: 'partly', note: 'tag and rim check are proposals' },
+        { name: 'Rotator phase after a swap', value: '–', status: 'unresolved', note: 'no index sensor today' },
+      ],
+      manual: ['The tube swap (or a tool that does it)', 'Re-exercising the umbilical after a failed weigh-in']
+    });
+  }
+  app.onFrame(function (dt) {
+    if (tw >= 1) return false;
+    tw = Math.min(1, tw + dt / 0.7);
+    redraw();
+    return true;
+  });
+  function goto(step) { from = { N: pose().N, lift: pose().lift, spin: to.spin, tube: to.tube, seated: to.seated }; to = keyframe(step); tw = 0; ST.step = step; redraw(); app.invalidate(); }
+
+  // ---------------------------------------------------------------- controls
+  const cyc = app.ui.group('The cycle');
+  cyc.slider({ id: 'step', label: 'Cycle step', min: 0, max: 8, step: 1, value: 0, kind: 'state', visual: 'gun, tube and dock in both views', help: '0 docked · 1 depart · 2 hover · 3 approach · 4 trial · 5 retreat · 6 dock + weigh · 7 swap · 8 verify', format: v => v + ' ' + STEPS[v].name, onChange: v => goto(v) });
+  cyc.radio({ id: 'swapper', label: 'Who swaps the tube', options: [{ value: 'hand', label: 'a hand' }, { value: 'tool', label: 'a gripper tool (trials-07)' }], value: 'hand', kind: 'branch', help: 'Changes what the swap step draws; the dock does the same job either way.', onChange: v => { ST.swapper = v; redraw(); } });
+  const lay = app.ui.group('Layout (scene edits, illustrative)', { help: 'These edit the explanatory scene, not hardware.' });
+  lay.slider({ id: 'dockX', label: 'Dock distance from the tube axis', min: 150, max: 460, step: 5, value: 330, unit: 'mm', kind: 'scene', visual: 'dock in both views', help: 'Too close and the gun body stands in the tube\'s lift column at the swap step; far away costs positioner travel and umbilical.', onChange: v => { ST.dockX = v; if (tw >= 1) { to = keyframe(ST.step); from = to; } redraw(); } });
+  lay.slider({ id: 'lift', label: 'Tube lift for the swap', min: 40, max: 300, step: 5, value: 130, unit: 'mm', kind: 'scene', visual: 'lifted tube', help: 'How high the tube must rise to clear the nest and be carried away.', onChange: v => { ST.lift = v; if (tw >= 1) { to = keyframe(ST.step); from = to; } redraw(); } });
+  lay.toggle({ id: 'coupon', label: 'A coupon under the docked dot', value: false, kind: 'scene', visual: 'coupon in both views', help: 'A short stub of tube and plate at the real recess on a post, so the dot probe can be run on a corner whose place is known. Adopted from datum-15; the same corner on a coupon puck on the rotator (trials-22) also covers the bench-to-rotator clamp and the positioner\'s scale.', onChange: v => { ST.coupon = v; redraw(); } });
+  const wg = app.ui.group('The weigh-in', { help: 'Sideways umbilical pull, seen as a change in how the shell\'s weight is shared by three cells.' });
+  wg.slider({ id: 'pull', label: 'Umbilical sideways pull at the shell', min: 0, max: 2, step: 0.05, value: 0.1, unit: 'N', kind: 'scene', visual: 'cell bars', help: 'Made-up value; the real pull per pose is unknown. 1 N at 100 mm above the seats moves each cell by tens of grams.', onChange: v => { ST.pull = v; redraw(); } });
+  wg.button({ id: 'reex', label: 'Re-exercise the umbilical (wiggle), then weigh again', kind: 'state', help: 'Puts the pull back near the baseline.', onClick: () => { app.ui.set('pull', 0.1); app.toast('Umbilical re-exercised; weighed again against the baseline'); } });
+  const hg = app.ui.group('Approach and friction', { help: 'What the last panel shows.' });
+  hg.slider({ id: 'hyst', label: 'Support friction (± landing offset)', min: 0, max: 0.6, step: 0.01, value: 0.25, unit: 'mm', kind: 'scene', visual: 'landing panel', help: 'Placeholder for how far friction in a compliant support shifts the dot depending on the side it came from.', onChange: v => { ST.hyst = v; redraw(); } });
+  hg.toggle({ id: 'oneSide', label: 'Always approach from the same side', value: true, kind: 'state', visual: 'landing panel', onChange: v => { ST.oneSide = v; redraw(); } });
+
+  app.io.manual(['The tube swap']);
+  goto(0);
+})();
+</script>
+</body>
+</html>

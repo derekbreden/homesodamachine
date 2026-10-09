@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arm docks, then floats</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .t22 { padding: 6px 8px 12px; color: #c7d3e6; font-size: 12px; }
+  .t22 svg { width: 100%; height: auto; display: block; max-height: 560px; }
+  .t22 svg text { font: 11.5px system-ui, sans-serif; fill: #98a4b6; }
+  .t22 svg .big { font-size: 12.5px; fill: #e7ebf1; font-weight: 600; }
+  .t22 svg .mono { font: 11.5px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+  .t22 table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+  .t22 th, .t22 td { border: 1px solid #2a3341; padding: 3px 6px; font-size: 11px; text-align: left; }
+  .t22 th { background: #1b222c; color: #e7ebf1; font-weight: 600; }
+  .t22 td.ok { color: #86efac; } .t22 td.no { color: #fca5a5; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-22-arm-docks-then-floats",
+  "title": "Arm docks, then floats: what the arm's force does to a three-ball seat",
+  "by": "travel",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "An arm brings the gun to a three-ball dock, then either holds it, brakes, or floats it (gravity compensation, the arm's zero-force mode). The seat locates; whatever force the arm still applies is a load on the seat. This scene draws the arm as a spring (or as a small residual force), the seat as three ball contacts seen from above, and computes the contact loads, whether the seat opens, and how far the dot moves. It shows why a sideways force at the flange, not the seat's sideways stiffness, sets the shift, why the seat belongs near the dot, and why the AI should float, read the joint angles, re-teach the dock and only then hold.",
+  "tags": [
+    "dock",
+    "kinematic seat",
+    "zero-force release",
+    "gravity compensation",
+    "handover",
+    "robot arm",
+    "new direction",
+    "combination"
+  ],
+  "branchOf": [
+    "travel-04-return-seat"
+  ],
+  "combines": [
+    "travel-04-return-seat",
+    "use-14-handover-shift"
+  ],
+  "transferable": [
+    "float, read, re-teach, then hold",
+    "seat rocking = force x height x lever",
+    "a payload error is a force on the seat",
+    "the arm's encoders read the seat's pose"
+  ],
+  "how": {
+    "motion": "the arm brings the gun to the dock within capture, then holds, brakes or floats",
+    "load": "the seat carries the gun when docked; the arm carries weight (float) or fights it",
+    "reference": "three balls in three grooves; after a float the joint angles are the seat's pose",
+    "observe": "joint encoders; flange force on some arms; contact continuity at the seat",
+    "use": "dock, float, read, re-teach, hold or brake, weld; per closure, by software"
+  },
+  "software": {
+    "commands": [
+      "dock: move to the taught pose, descend to capture",
+      "float: the arm's gravity-compensation or hand-guide mode (zero-force)",
+      "re-teach the dock pose from the joint angles read while floating",
+      "hold (position control) or brake"
+    ],
+    "observes": [
+      "joint encoders (absolute)",
+      "contact continuity at the three balls",
+      "flange force on some arms (UR3e: precision ±2 N)"
+    ],
+    "manual": [
+      "declaring the payload mass and centre of gravity",
+      "placing the dock and its magnets",
+      "the fibre and conduit routing"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-22-arm-docks-then-floats.md",
+    "../../explorers/travel/ideas/travel-14b-crown-cartridge.md",
+    "../../explorers/travel/calc/17-float-release.mjs",
+    "../../exchange/use--on--travel-w2.md",
+    "../../exchange/travel--reply-to-use-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', minWidth: 920, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>Who docks the gun, a hand or a machine?</b> use asked this of travel-14b and found that a hand-run dock leaves no state for software to command. Here a six-axis arm brings the gun to the dock and puts it within capture (a few millimetres); the three-ball seat then locates it. What the arm does next decides whether it helps or fights: <b>hold</b> (position control: it pushes wherever its taught pose differs from the seat’s), <b>brake</b> (stiff, and it shifts as the brakes take), or <b>float</b> (its gravity-compensation mode: it carries the weight and adds almost no force, but whatever declared mass and joint friction it has left is a force on the seat).</p>' +
+        '<p>The left drawing is a side elevation with the arm as a spring (or as a small residual force), the gun on two of the three balls, the magnet preload and the umbilical’s load change. The right drawing is the seat from above: each ball’s contact load, red where it has lost contact. The readouts give the dot’s shift from the seat’s <b>translation</b> and from its <b>rocking</b> (a sideways force at the flange, at a height above the balls, tips the plate about the far balls and the dot sits at a lever from that axis). The last row, <b>release</b>, is use-14’s handover shift: how far the gun moves when the arm lets go of it.</p>' +
+        '<p>The repair is a sequence: dock, <b>float</b>, read the joint angles (the arm’s encoders now say where the seat is), <b>re-teach</b> the dock pose from them, then hold. Toggle it and watch the arm’s mismatch fall to the encoder’s own error and the seat’s load with it.</p>',
+      carries:
+        '<p>The <b>slate</b> yoke and the three balls carry the gun once docked (teal: they locate). The <b>amber</b> gun and adaptor hang from the <b>purple</b> flange. In float the arm carries the weight and the seat carries only the preload and whatever the arm gets wrong; in hold the arm and the seat share the sideways load in proportion to their stiffnesses.</p>',
+      software:
+        '<p>Software commands the dock move, the float mode, the re-teach and the hold. It reads the six joint angles (exactly), the flange force on arms that have a sensor (UR3e: ±2 N precision, too coarse to see a 1 N load change), and contact continuity at the balls if the seat has switches. It cannot read the dot. The float mode is a feature of every collaborative arm the sourcing notes list (hand-guiding with gravity compensation); the declared payload is what it compensates.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>The seat’s sideways stiffness is not what sets the shift.</b> <i>Conflict:</i> use-14’s row F takes the weld load change over a seat stiffness of 40 N/mm (25 µm per newton). A sideways force at the flange, 120 mm above the balls, also tips the plate about the far balls; with 40 N/mm per ball, a 50 mm ball circle and a 200 mm lever from the rocking axis to the dot, the rocking term is about 0.16 mm per newton, ten times the translation. <i>Assumption:</i> the seat is a spring in translation only. <i>Change:</i> the rocking term is in the readout; putting the seat near the dot (a nose seat: lever 20 mm) or widening the ball circle brings it down. <i>Leaves:</i> the real contact stiffness of a printed groove and a steel ball, and the real heights.</li>' +
+        '<li><b>Hold fights the seat; float leaves a residual; neither is small at these numbers.</b> <i>Conflict:</i> an arm holding a taught pose 0.5 mm off the seat, at 5 N/mm, ends with the dot 352 \u00b5m off and about 1 N still pushing sideways into the seat (2.5 N if the seat were rigid); the brakes 491 \u00b5m; float 444 \u00b5m, with no arm force at all but a residual of 1.5 N of joint friction, 1 N of umbilical change and a 0.1 kg declaration error (1 N up on the gun): the rocking term is nine tenths of each (<code>calc/17</code>). <i>Assumption:</i> the arm\u2019s taught pose is the seat\u2019s. <i>Change:</i> float, read the joints, re-teach, hold: the mismatch falls to 0.08 mm (the encoder\u2019s 0.03 plus 0.05 of drift) and the dot to 131 \u00b5m; with the seat moved to the nozzle end (lever 20 mm, ring 80 mm, flange 60 mm up) 25 \u00b5m; with 400 N/mm contacts instead 23 \u00b5m. <i>Leaves:</i> the drift of an arm as it warms up; the seat\u2019s own repeatability; every number here.</li>' +
+        '<li><b>The declared mass is a force.</b> An arm that thinks the gun is 0.1 kg heavier than it is pushes the gun up with 1 N. The preload has to exceed that, plus the umbilical’s change, by the margin the tipping term eats. <i>Leaves:</i> nobody has weighed the gun; the umbilical’s pull changes as the arm floats, because the fibre is not in the payload.</li>' +
+        '<li><b>Which arm can do it.</b> The table at the bottom compares the gun mass you set against the payloads of the arms in the sourcing notes. No Prime-listed arm carries a gun of 1 kg; the two in the table that do (the UR3e class and the Fairino FR3) are sold by their makers.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every stiffness, force, height, lever and mismatch is <b>illustrative</b>. Gun mass and the umbilical’s pull are <b>[unknown]</b>. Whether a printed groove and a steel ball stay at 40 N/mm under repeated docking, and whether the trunnion housing exists, is open (travel-14b, use-16).</li>' +
+        '<li>One horizontal direction (you set it) and the vertical; the seat is three balls at 120°, the balls’ own friction is one coefficient (0.2, illustrative). A crown docks two pins in two V-notches, not three balls: the rocking argument is the same, the geometry is not.</li>' +
+        '<li><b>Questions for Derek:</b> the gun’s mass with the shell on; whether you would let a machine put the gun on a dock; whether a printed seat could sit at the nozzle end rather than at the housing.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Ball circle radius 50 mm, flange 120 mm above the ball plane, dot 200 mm from the rocking axis, contact stiffness 40 N/mm per ball, friction coefficient 0.2, preload 15 N, arm hold stiffness 5 N/mm (use-14’s arm), float stiffness 0.1 N/mm, float residual 1.5 N, brake stiffness 20 N/mm with a 0.03 mm shift, encoder re-teach error 0.03 mm (the UR3e datasheet’s repeatability): <b>illustrative</b>. Weight 9.81 N per kg.</li>' +
+        '<li><b>Models:</b> statics of a rigid plate on three spring contacts with a spring (hold, brake) or a force (float) at the flange; contact loads from force and moment balance. <b>Depicts only:</b> the gun, yoke and arm outlines.</li>' +
+        '</ul>',
+    },
+  });
+
+  const G = 9.81;
+  const root = WK.h('div', { class: 't22' }); app.stageEl.appendChild(root);
+  const W = 980, H = 470;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Elevation of the arm and gun on the dock, and the seat from above' });
+  root.appendChild(svg);
+  const tbl = WK.h('div', {}); root.appendChild(tbl);
+  const gg = WK.svg('g', {}); svg.appendChild(gg);
+  const T = (x, y, text, cls, anchor) => gg.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text }));
+  const R = (x, y, w, h, fill, extra) => gg.appendChild(WK.svg('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill, rx: 3 }, extra || {})));
+  const L = (x1, y1, x2, y2, stroke, sw) => gg.appendChild(WK.svg('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: stroke, 'stroke-width': sw || 2 }));
+  function spring(x0, x1, y, color, n, amp) { const pts = [[x0, y]]; for (let i = 0; i < n; i++) pts.push([x0 + (x1 - x0) * (i + 0.5) / n, y + (i % 2 ? -amp : amp)]); pts.push([x1, y]); gg.appendChild(WK.svg('polyline', { points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: color, 'stroke-width': 2.5 })); }
+  function arrow(x1, y1, x2, y2, color) { L(x1, y1, x2, y2, color, 3); const a = Math.atan2(y2 - y1, x2 - x1), h = 8; gg.appendChild(WK.svg('polygon', { points: [x2, y2, x2 - h * Math.cos(a - 0.45), y2 - h * Math.sin(a - 0.45), x2 - h * Math.cos(a + 0.45), y2 - h * Math.sin(a + 0.45)].join(' '), fill: color })); }
+
+  let readSh, readTr, readRk, readRel, readMin, readN, readMm;
+  function model(mode, o) {
+    // 1D along the load direction u (the load and the mismatch both lie along it), plus the vertical
+    const P = o.P, kc = o.kc, rb = o.rb, h = o.h, Ld = o.L, mass = o.mass;
+    const mEff = (o.teach ? 0.03 + o.drift : o.m + o.drift) + (mode === 'brake' ? 0.03 : 0);
+    const mvEff = o.teach ? 0.03 : o.mv;
+    const ka = mode === 'hold' ? o.ka : mode === 'brake' ? 20 : o.kf;
+    const fext = o.dF + (mode === 'float' ? o.fr : 0);
+    const Ctr = 1 / (1.5 * kc), Crk = h * Ld / (1.5 * kc * rb * rb), Cdot = Ctr + Crk;       // mm per N at the dot, translation and rocking
+    const x = Cdot * (ka * mEff + fext) / (1 + Cdot * ka);                                    // dot shift along u (mm)
+    const Fs = x / Cdot;                                                                      // sideways force into the seat (N)
+    const Farm = ka * (mEff - x);                                                             // sideways force the arm applies (N)
+    const Ntot = mode === 'float' ? P - o.dm * G : P + ka * mvEff * (mode === 'hold' ? 1 : 0.5);   // total normal load on the balls (N)
+    const dN = Fs * h / (1.5 * rb * rb);                                                     // N per mm of p.u
+    const ang = [90, 210, 330].map(a => a * Math.PI / 180), u = o.phi * Math.PI / 180;
+    const Ni = ang.map(a => Ntot / 3 + dN * rb * Math.cos(a - u));
+    const slip = Math.abs(Fs) > 0.2 * Math.max(Ntot, 0);
+    return { x: x, xt: Fs * Ctr, xr: Fs * Crk, Fs: Fs, Farm: Farm, Ntot: Ntot, Ni: Ni, slip: slip, mEff: mEff, ka: ka, Cdot: Cdot, Ctr: Ctr, Crk: Crk };
+  }
+
+  function draw() {
+    const o = { mode: app.ui.get('mode'), teach: app.ui.get('teach'), m: app.ui.get('m'), mv: app.ui.get('mv'), drift: app.ui.get('drift'), ka: app.ui.get('ka'), kf: app.ui.get('kf'), fr: app.ui.get('fr'), dm: app.ui.get('dm'), dF: app.ui.get('dF'), phi: app.ui.get('phi'), P: app.ui.get('P'), kc: app.ui.get('kc'), rb: app.ui.get('rb'), h: app.ui.get('h'), L: app.ui.get('L'), mass: app.ui.get('mass') };
+    const lift = app.ui.get('lift');
+    const m = model(o.mode, o), mh = model('hold', o), mf = model('float', o);
+    while (gg.firstChild) gg.removeChild(gg.firstChild);
+    // ---- elevation (left)
+    const X0 = 20, Y0 = 20, M = 300;   // px per mm of dot shift (exaggerated)
+    T(X0, Y0 + 6, 'Elevation: the arm as a spring or a force; the gun on the seat (shift drawn ×' + M + ')', 'big');
+    const gy = 400, cx = 290, sh = lift > 0 ? 0 : m.x * M, up = lift * 3;
+    R(150, gy, 280, 26, '#6b7a90'); T(290, gy + 44, 'dock (yoke) with three balls, magnets', 'small', 'middle');
+    [200, 380].forEach(bx => gg.appendChild(WK.svg('circle', { cx: bx, cy: gy - 2, r: 9, fill: '#14b8a6' })));
+    R(cx - 110 + sh, gy - 34 - up, 220, 26, '#f5a524', { 'fill-opacity': 0.85 });               // plate
+    R(cx - 42 + sh, gy - 190 - up, 84, 158, '#f5a524', { 'fill-opacity': 0.55 });               // housing
+    T(cx + sh, gy - 100 - up, 'gun in shell', 'big', 'middle');
+    const fy = gy - 214 - up;
+    R(cx - 26 + sh, fy, 52, 24, '#a855f7');                                                       // flange
+    L(cx + sh, fy + 24, cx + sh, gy - 190 - up, '#f5a524', 6); T(cx + sh + 34, fy + 20, 'flange', 'small');
+    // arm spring or force
+    const wall = 40, wallX = wall + (o.mode === 'float' || lift > 0 ? 0 : (m.mEff * M));
+    R(wall - 22, fy - 34, 22, 100, '#6b7a90'); T(wall - 22, fy - 42, 'arm base', 'small');
+    if (o.mode !== 'float' && lift === 0) { L(wall, fy + 12, wallX, fy + 12, '#6b7a90', 5); gg.appendChild(WK.svg('circle', { cx: wallX, cy: fy + 12, r: 5, fill: '#a855f7' })); T(wallX, fy + 34, 'where the arm is commanded to be', 'small', 'middle'); }
+    if (o.mode === 'float') { spring(wall, cx - 26 + sh, fy + 12, '#4ade80', 20, 3); T(140, fy - 4, 'float: k ' + o.kf.toFixed(2) + ' N/mm (nearly nothing)', 'small'); }
+    else { spring(wallX, cx - 26 + sh, fy + 12, '#a855f7', o.mode === 'brake' ? 5 : 7, 8); T(140, fy - 4, (o.mode === 'brake' ? 'brake: ' : 'hold: ') + m.ka.toFixed(0) + ' N/mm, mismatch ' + (m.mEff * 1000).toFixed(0) + ' µm', 'small'); }
+    // forces
+    if (Math.abs(m.Farm) > 0.05) { arrow(cx + sh + 70, fy + 12, cx + sh + 70 + Math.max(-90, Math.min(90, m.Farm * 22)), fy + 12, '#a855f7'); T(cx + sh + 76, fy + 60, 'arm force ' + m.Farm.toFixed(1) + ' N', 'small'); }
+    arrow(cx + 150 + sh, gy - 150 - up, cx + 150 + sh + Math.max(10, Math.min(90, o.dF * 22)), gy - 150 - up, '#ff3b30'); T(cx + 128 + sh, gy - 168 - up, 'umbilical load change ' + o.dF.toFixed(1) + ' N', 'small');
+    arrow(cx - 150 + sh, gy - 90 - up, cx - 150 + sh, gy - 40 - up, '#94a3b8'); T(cx - 200 + sh, gy - 96 - up, 'magnets ' + o.P.toFixed(0) + ' N', 'small');
+    if (o.mode === 'float') { const fu = o.dm * G, len = Math.max(6, Math.min(44, Math.abs(fu) * 8)), y0 = gy - 232 - up; arrow(cx + sh - 76, fu >= 0 ? y0 : y0 - len, cx + sh - 76, fu >= 0 ? y0 - len : y0, '#4ade80'); T(cx + sh - 250, gy - 240 - up, 'declared mass error ' + (o.dm * 1000).toFixed(0) + ' g = ' + Math.abs(fu).toFixed(1) + ' N ' + (fu >= 0 ? 'up on the gun' : 'down'), 'small'); }
+    T(X0, gy + 66, 'gun ' + o.mass.toFixed(1) + ' kg' + (lift > 0 ? '   |   the arm holds the gun ' + lift + ' mm above the seat (capture range a few mm)' : ''), 'small');
+    // ---- plan (right)
+    const PX = 700, PY = 200, PR = 96;
+    T(PX - 160, Y0 + 6, 'Seat from above: contact load on each ball, N', 'big');
+    gg.appendChild(WK.svg('circle', { cx: PX, cy: PY, r: PR, fill: 'none', stroke: '#394559', 'stroke-dasharray': '5 4' }));
+    const ang = [90, 210, 330];
+    m.Ni.forEach((N, i) => { const a = ang[i] * Math.PI / 180, bx = PX + PR * Math.cos(a), by = PY - PR * Math.sin(a), ok = N > 0.2 && lift === 0; gg.appendChild(WK.svg('circle', { cx: bx, cy: by, r: 18, fill: lift > 0 ? '#394559' : (ok ? '#14b8a6' : '#f87171'), 'fill-opacity': 0.85 })); T(bx, by + 4, lift > 0 ? '-' : N.toFixed(1), 'mono', 'middle'); });
+    const u = o.phi * Math.PI / 180; arrow(PX, PY, PX + 60 * Math.cos(u), PY - 60 * Math.sin(u), '#ff3b30'); T(PX + 66 * Math.cos(u), PY - 66 * Math.sin(u), 'sideways load', 'small');
+    T(PX - 160, PY + 130, 'total on the balls ' + m.Ntot.toFixed(1) + ' N   sideways into the seat ' + m.Fs.toFixed(1) + ' N', 'mono');
+    T(PX - 160, PY + 150, 'friction limit 0.2 × load = ' + (0.2 * Math.max(0, m.Ntot)).toFixed(1) + ' N' + (m.slip ? '  → SLIPS' : ''), 'mono');
+    // readouts
+    readSh((m.x * 1000).toFixed(0), 'µm at the dot');
+    readTr((m.xt * 1000).toFixed(0) + ' / ' + (m.xr * 1000).toFixed(0), 'µm translation / rocking');
+    readRk((m.Crk * 1000).toFixed(0) + ' vs ' + (m.Ctr * 1000).toFixed(0), 'µm/N rocking vs translation');
+    const rel = (mf.x - mh.x) * 1000; readRel(Math.abs(rel).toFixed(0), 'µm when the arm lets go (hold → float)');
+    const mn = Math.min(...m.Ni); readMin(mn.toFixed(1), 'N (lowest ball)');
+    readMm(m.mEff * 1000 < 1 ? '0' : (m.mEff * 1000).toFixed(0), 'µm arm-to-seat mismatch');
+    app.badge('open', lift === 0 && mn <= 0.2 ? 'the seat opens: a ball has lost contact (' + mn.toFixed(1) + ' N)' : null, 'limit');
+    app.badge('slip', lift === 0 && m.slip && mn > 0.2 ? 'the sideways load exceeds friction: the gun slips on the balls' : null, 'warn');
+    app.badge('lift', lift > 0 ? 'the arm holds the gun off the seat: nothing locates it yet' : null, 'info');
+    app.badge('mass', o.mass > 3 ? 'the gun is over 3 kg: no arm in the table below carries it' : null, 'warn');
+    // arms table
+    const arms = [['UR3e (Universal Robots)', 3, 'maker; 6-axis, ±0.03 mm', 'UR3e datasheet'], ['Fairino FR3', 3, 'maker web store, $6,799; ±0.02 mm', 'fairino.us'], ['UFACTORY Lite 6', 0.6, 'reseller, ±0.5 mm', 'search summary'], ['Dobot Magician (educational)', 0.5, 'Amazon Prime $1,799 to $1,999; ±0.2 mm', 'Prime listing; payload from the maker (search)'], ['Dobot Magician Lite', 0.25, 'Amazon Prime $999; ±0.2 mm', 'Prime listing bullet'], ['Hiwonder SO-ARM101 kit', 0.5, 'Amazon Prime $459.99; 12-bit servos', 'Prime listing; payload from search']];
+    let th = '<table><tr><th>arm</th><th>payload, kg</th><th>carries the ' + o.mass.toFixed(1) + ' kg gun?</th><th>how it is sold</th><th>source</th></tr>';
+    arms.forEach(a => { const ok = a[1] >= o.mass; th += '<tr><td>' + a[0] + '</td><td>' + a[1] + '</td><td class="' + (ok ? 'ok' : 'no') + '">' + (ok ? 'yes, by rating' : 'no') + '</td><td>' + a[2] + '</td><td>' + a[3] + '</td></tr>'; });
+    tbl.innerHTML = th + '</table>';
+    app.io.set({
+      commands: [
+        { name: 'Dock', value: lift > 0 ? 'holding ' + lift + ' mm above' : 'seated', note: 'move to the taught pose, descend to capture' },
+        { name: 'Arm mode', value: { hold: 'hold (position)', brake: 'brake', float: 'float (gravity compensation)' }[o.mode], note: 'float is the arm’s hand-guide mode with the declared payload' },
+        { name: 'Re-teach from the joint angles', value: o.teach ? 'done' : 'not done', note: 'after a float, the encoders read the seat’s pose' },
+      ],
+      observes: [
+        { name: 'Joint encoders', value: 'exact', status: 'seen', note: 'in float they read where the seat put the gun' },
+        { name: 'Flange force', value: '±2 N (UR3e)', status: 'partly', note: 'too coarse for a 1 N change' },
+        { name: 'Contact at the balls', value: mn > 0.2 ? 'closed' : 'open', status: 'partly', note: 'only if the seat has switches (travel-04)' },
+        { name: 'Dot', value: '-', status: 'blind', note: 'the shift is computed here, not read' },
+        { name: 'Declared payload error, umbilical pull', value: '-', status: 'unresolved', note: 'nobody has measured either' },
+      ],
+      manual: ['Declare payload mass and centre of gravity', 'Place the dock and its magnets', 'Route the fibre'],
+    });
+  }
+  const readouts = { sh: 'Dot shift, this arm mode', tr: 'of which translation / rocking', rk: 'Seat compliance: rocking vs translation', rel: 'Release shift', min: 'Lowest ball load', mm: 'Mismatch the arm brings' };
+  readSh = app.ui.readout('rsh', readouts.sh); readTr = app.ui.readout('rtr', readouts.tr); readRk = app.ui.readout('rrk', readouts.rk); readRel = app.ui.readout('rrel', readouts.rel); readMin = app.ui.readout('rmin', readouts.min); readMm = app.ui.readout('rmm', readouts.mm);
+  const g1 = app.ui.group('The arm at the dock (branches, states and the actuator)');
+  g1.radio({ id: 'mode', label: 'What the arm does once docked', options: [{ value: 'hold', label: 'hold (position control)' }, { value: 'brake', label: 'brakes on' }, { value: 'float', label: 'float (zero force)' }], value: 'hold', kind: 'branch', noVisual: true, onChange: draw });
+  g1.toggle({ id: 'teach', label: 'Float, read the joints, re-teach the dock pose', value: false, kind: 'state', noVisual: true, help: 'The arm’s mismatch to the seat falls to the encoder’s own error plus the drift since the teach.', onChange: draw });
+  g1.slider({ id: 'lift', label: 'Arm holds the gun above the seat by', min: 0, max: 40, step: 1, value: 0, unit: 'mm', kind: 'actuator', noVisual: true, help: 'The dock move: 0 = seated. A few millimetres is inside the capture range of the magnets.', onChange: draw });
+  const g2 = app.ui.group('What the arm gets wrong (scene edits, illustrative)', { help: 'Nothing here is measured.' });
+  g2.slider({ id: 'm', label: 'Taught pose vs the seat, sideways', min: 0, max: 1.5, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', noVisual: true, onChange: draw });
+  g2.slider({ id: 'mv', label: 'Taught pose vs the seat, pushing down', min: -0.5, max: 0.5, step: 0.02, value: 0.1, unit: 'mm', kind: 'scene', noVisual: true, help: 'Negative: the arm holds the gun off the seat a little.', onChange: draw });
+  g2.slider({ id: 'drift', label: 'Arm drift since the teach', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', noVisual: true, onChange: draw });
+  g2.slider({ id: 'ka', label: 'Arm stiffness at the flange, hold', min: 1, max: 30, step: 0.5, value: 5, unit: 'N/mm', kind: 'scene', noVisual: true, help: 'use-14’s arm. On no datasheet.', onChange: draw });
+  g2.slider({ id: 'kf', label: 'Float: what stiffness is left', min: 0.01, max: 1, step: 0.01, value: 0.1, unit: 'N/mm', kind: 'scene', noVisual: true, onChange: draw });
+  g2.slider({ id: 'fr', label: 'Float: joint friction, as force at the flange', min: 0, max: 4, step: 0.1, value: 1.5, unit: 'N', kind: 'scene', noVisual: true, help: 'A residual the arm cannot null.', onChange: draw });
+  g2.slider({ id: 'dm', label: 'Declared payload minus true', min: -0.4, max: 0.4, step: 0.02, value: 0.1, unit: 'kg', kind: 'scene', noVisual: true, help: 'A heavier declaration makes the arm lift the gun: 0.1 kg is 1 N.', onChange: draw });
+  g2.slider({ id: 'mass', label: 'Gun and shell mass', min: 0.5, max: 4, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', noVisual: true, help: '[unknown]: weigh it.', onChange: draw });
+  const g3 = app.ui.group('The seat and the loads (scene edits, illustrative)');
+  g3.slider({ id: 'dF', label: 'Umbilical load change', min: 0, max: 5, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', noVisual: true, help: 'Wire feed, gas, the fibre: unmeasured; it also changes as the arm floats.', onChange: draw });
+  g3.slider({ id: 'phi', label: 'Direction of the sideways load', min: 0, max: 359, step: 5, value: 0, unit: '°', kind: 'scene', noVisual: true, help: 'Against the three balls (one at 90°, 210°, 330°).', onChange: draw });
+  g3.slider({ id: 'P', label: 'Magnet preload', min: 2, max: 40, step: 1, value: 15, unit: 'N', kind: 'scene', noVisual: true, onChange: draw });
+  g3.slider({ id: 'kc', label: 'Contact stiffness per ball', min: 10, max: 400, step: 5, value: 40, unit: 'N/mm', kind: 'scene', noVisual: true, help: 'A steel ball in a printed groove: unmeasured.', onChange: draw });
+  g3.slider({ id: 'rb', label: 'Ball circle radius', min: 15, max: 120, step: 1, value: 50, unit: 'mm', kind: 'scene', noVisual: true, help: 'The proxy housing is 34 mm wide: pins on its sides span about 40 mm (travel-14b).', onChange: draw });
+  g3.slider({ id: 'h', label: 'Flange height above the ball plane', min: 20, max: 300, step: 5, value: 120, unit: 'mm', kind: 'scene', noVisual: true, onChange: draw });
+  g3.slider({ id: 'L', label: 'Dot distance from the rocking axis', min: 10, max: 300, step: 5, value: 200, unit: 'mm', kind: 'scene', noVisual: true, help: 'About 200 mm for a seat at the housing (use-16); about 20 mm for a seat at the nozzle.', onChange: draw });
+  app.legend([{ role: 'actuated', label: 'arm flange (software could command)' }, { role: 'load', label: 'gun in shell' }, { role: 'locate', label: 'ball, seat (locates)' }, { role: 'fixed', label: 'yoke, arm base' }, { role: 'compliant', label: 'spring (float)' }, { color: '#ff3b30', label: 'load' }]);
+  draw();
+})();
+</script>
+</body>
+</html>

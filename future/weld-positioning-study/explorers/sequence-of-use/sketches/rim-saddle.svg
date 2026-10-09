@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="780" viewBox="0 0 980 780" font-family="Helvetica,Arial,sans-serif" font-size="11">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="12" y="20" font-size="14" font-weight="bold">Rim-riding saddle (idea C) — plan from above (left, to scale) and radial section (right, schematic)</text>
+<text x="12" y="36">Contacts on the ARRIVING (cold) side. At the true pose the wire comes from −Y, so the table turns ccw and the contacts sit on −Y, under the wire and barrel.</text>
+<circle cx="260" cy="250" r="101.60000000000001" fill="#dfe9e9" stroke="#577"/>
+<circle cx="260" cy="250" r="98.9584" fill="#cfdede" stroke="#577"/>
+<text x="220" y="256">end plate face</text>
+<circle cx="358.9584" cy="250.0" r="4" fill="#d00"/><text x="366.9584" y="264.0" fill="#d00">dot (+X)</text>
+<polyline points="204.6,282.0 207.6,286.7 211.0,291.1 214.7,295.3 218.9,299.0 223.3,302.4 228.0,305.4 233.0,308.0 238.1,310.1 243.4,311.8 248.9,313.0 254.4,313.8 260.0,314.0 265.6,313.8 271.1,313.0 276.6,311.8 281.9,310.1 287.0,308.0" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#a)"/>
+<text x="204.0" y="333.2">table turns ccw</text>
+<polyline points="347.4,263.7 261.8,365.0 163.9,480.9" fill="none" stroke="#335" stroke-width="10" opacity="0.35" stroke-linecap="round"/>
+<line x1="240.3" y1="444.5" x2="258.8" y2="623.7" stroke="#335" stroke-width="14" opacity="0.25" stroke-linecap="round"/>
+<text x="268.8" y="623.7">grip / cable exit (proxy pose)</text>
+<circle cx="212.9" cy="423.0" r="6" fill="none" stroke="#000"/><line x1="204.9" y1="423.0" x2="220.9" y2="423.0" stroke="#000"/><text x="222.9" y="427.0">gun CG (proxy)</text>
+<g transform="translate(353.0,287.6) rotate(22.0)"><rect x="-11" y="-3.5" width="22" height="7" fill="#e7c" stroke="#704"/></g>
+<text x="361.0" y="279.6" fill="#704">R1</text>
+<g transform="translate(321.7,329.0) rotate(52.0)"><rect x="-11" y="-3.5" width="22" height="7" fill="#e7c" stroke="#704"/></g>
+<text x="329.7" y="321.0" fill="#704">R2</text>
+<circle cx="370.5" cy="294.7" r="17.6" fill="none" stroke="#704" />
+<text x="391.1" y="298.7" fill="#704">O1</text>
+<circle cx="333.4" cy="343.9" r="17.6" fill="none" stroke="#704" />
+<text x="354.0" y="347.9" fill="#704">O2</text>
+<circle cx="355.2" cy="321.7" r="17.6" fill="none" stroke="#704" stroke-dasharray="3 2"/>
+<text x="375.8" y="325.7" fill="#704">O3 (lower)</text>
+<polygon points="417.6,277.8 415.9,286.0 413.8,294.1 411.3,302.1 408.3,309.9 405.0,317.6 401.3,325.1 397.1,332.4 392.6,339.5 387.8,346.3 382.6,352.8 377.0,359.1 371.1,365.1 365.0,370.8 358.5,376.1 351.8,381.1 344.8,385.7 337.6,389.9 316.7,361.2 322.4,358.1 328.0,354.7 333.4,351.0 338.5,347.0 343.5,342.7 348.2,338.2 352.7,333.5 357.0,328.5 361.0,323.4 364.7,318.0 368.1,312.4 371.2,306.7 374.0,300.8 376.5,294.7 378.7,288.6 380.5,282.3 382.1,275.9" fill="#f3e7c9" fill-opacity="0.5" stroke="#a70" stroke-dasharray="5 3"/>
+<text x="412.0" y="314.0" fill="#a70">saddle (printed), bridges the rim below rim+35</text>
+<line x1="340.0" y1="388.6" x2="460.0" y2="460.6" stroke="#333" stroke-width="2"/><circle cx="460.0" cy="460.6" r="4" fill="#fff" stroke="#333"/>
+<text x="400.0" y="480.6">tether to frame: takes roller drag only</text>
+<line x1="447.1" y1="358.0" x2="409.6" y2="336.4" stroke="#2a7" stroke-width="2.5" marker-end="url(#a)"/><text x="457.1" y="372.0" fill="#2a7">radial preload</text>
+<text x="12" y="730">Five contacts: R1,R2 on the rim top (height, tilt about radius); O1,O2 on the OD near the rim (radius, yaw); O3 lower on the OD (tilt about the tangent).</text>
+<text x="12" y="746">Sixth freedom (along the circumference) held by the tether. Weight carried by a balancer; net load chosen to keep all five contacts loaded.</text>
+<text x="12" y="762">Angles to scale: R/O at −22° and −52°. The wire crosses over the OD near −54° at ~rim+49 and the barrel near −81° at ~rim+76 (proxy, dial 30).</text>
+<text x="640" y="92" font-weight="bold">Radial section through O3 (schematic, ~3 px/mm)</text>
+<rect x="760" y="190" width="4.9" height="240.0" fill="#8aa" stroke="#577"/>
+<rect x="610" y="209.1" width="150" height="19.0" fill="#9bb" stroke="#577"/>
+<text x="614" y="223.1">end plate (inside)</text>
+<text x="770" y="186">rim</text>
+<circle cx="762.5" cy="173.5" r="16.5" fill="none" stroke="#704"/><text x="700" y="170" fill="#704">R (rim top)</text>
+<circle cx="798.0" cy="208.0" r="33.0" fill="none" stroke="#704"/><text x="835.0" y="212.0" fill="#704">O1/O2 (upper OD)</text>
+<circle cx="798.0" cy="280.0" r="33.0" fill="none" stroke="#704"/><text x="835.0" y="284.0" fill="#704">O3 (lower OD)</text>
+<path d="M740,155 L855,155 L855,322" fill="none" stroke="#a70" stroke-width="4" opacity="0.6"/>
+<text x="860" y="160" fill="#a70">saddle body</text>
+<line x1="930" y1="270" x2="865" y2="270" stroke="#2a7" stroke-width="2.5" marker-end="url(#a)"/><text x="880" y="262" fill="#2a7">inward</text>
+<line x1="762" y1="110" x2="762" y2="144" stroke="#2a7" stroke-width="2.5" marker-end="url(#a)"/><text x="768" y="122" fill="#2a7">down (net of balancer)</text>
+<text x="600" y="450">At dial 65 the CG sat over the tube centre and lifted O3. At the true pose</text>
+<text x="600" y="464">(dial 30) it sits at (−30, −108), beyond R2 and outboard: a balancer</text>
+<text x="600" y="478">hooked at the CG carries it; a small preload goes between R1 and R2.</text>
+</svg>

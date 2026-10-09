@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cords see a spot</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .e13 svg { display: block; width: 100%; height: auto; background: #0f141b; border-radius: 8px; }
+  .e13 text { font: 11.5px system-ui, sans-serif; fill: #cbd5e1; }
+  .e13 .g { fill: #93a1b5; font-size: 10.5px; }
+  .e13 .b { font-weight: 600; fill: #e7ebf1; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-13-cords-see-a-spot",
+  "title": "Cords see a spot: what a calibration camera can and cannot tell",
+  "by": "eyes",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "room-06's self-calibration takes the dot's 3-D position as its measurement. A camera sees a spot on a surface: a point on the beam's line. Slide the gun along its beam and the spot does not move; the fit loses one direction and lands 0.2 to 0.3 mm from the target instead of 0.04. A second camera on the nozzle height, the pair drawn in room-05, brings the direction back.",
+  "tags": ["observer", "calibration", "cords", "spot", "beam line", "observability"],
+  "branchOf": ["room-06-corner-cords"],
+  "combines": ["room-06-corner-cords", "room-05-drawer-cell"],
+  "transferable": ["a spot on a surface is a line", "spot camera plus nozzle-height camera", "error table by observation type"],
+  "how": {
+    "motion": "not moved here: room-06's eight winches set the pose; this scene changes only what is observed",
+    "load": "as room-06 (taut cords carry the shell); the gun is drawn on the reference pose",
+    "reference": "the tube's corner or a board at plate height (the surface the spot lands on)",
+    "observe": "camera A on the spot; optional camera B on the nozzle tip's height over the rim",
+    "use": "calibration poses driven dry, laser on at the red dot only"
+  },
+  "software": {
+    "commands": ["room-06's eight winch lengths (not drawn here)", "which calibration poses to visit"],
+    "observes": ["where the spot lands on the surface (two numbers per pose)", "nozzle-tip height over the rim (one number per pose, camera B)", "NOT: where the gun is along its own beam, from the spot alone"],
+    "manual": ["placing camera A and B and calibrating them to the cage or the tube", "deciding what surface the spot lands on"]
+  },
+  "notes": ["../../exchange/eyes--on--room-w2.md", "../../explorers/eyes/ideas/eyes-13-cords-see-a-spot.md", "../../explorers/room/ideas/room-06-corner-cords.md", "../../explorers/room/ideas/room-05-drawer-cell.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, J = WK.JOINT, DEG = WK.deg, RIM = WK.DIM.tubeHeight;
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k);
+  const GRID = /*GRID*/null/*END*/;
+  const app = WK.app({
+    view: 'joint', viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [30, -30, 170], dir: [-0.55, 0.55, 0.5], dist: 620 },
+      joint: { target: [58, -10, 160], dir: [-0.5, 0.55, 0.5], dist: 210 },
+      top: { target: [20, -20, 150], dir: [0, -0.003, 1], dist: 620 },
+      side: { target: [40, 0, 165], dir: [0.02, 1, 0.08], dist: 620 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>room-06 calibrates its eight cords by driving the shell to many poses and watching <b>where the dot is</b>. Its fit takes that as a 3-D position with 0.10 mm noise per axis. Here is what a camera actually gets: the red dot is <b>a spot on a surface</b> (the plate, the wall, a board), a point where the beam <i>ends</i>, and the beam is a line. The camera reports where that line meets the surface: two numbers per pose.</p>' +
+        '<p><b>Try:</b> slide the gun along its own beam (<i>Gun slid along its beam</i>). The red spot on the corner does not move; the nozzle does. Camera A cannot tell. Now switch on camera B (a low camera on the nozzle tip): its number changes 0.7 mm for every millimetre of slide, so the missing direction is back.</p>' +
+        '<p>The bars (right) are the expected error of the dot after self-calibration, by what the observer reports. A single board, a stepped board and the tube\'s own corner are all about the same: <b>more surfaces do not help</b>, because what none of them can see is the gun\'s position along its beam. The nozzle height does.</p>',
+      carries: '<p>Not the subject: room-06\'s taut cords carry the shell. The gun is drawn at the reference pose on the kit\'s tube. <b>Blue</b> parts are the two proposed observers; the dashed line is the beam\'s <b>line</b>, which is what a spot actually determines. The scene edits (gun slide, camera choices) are not actuators.</p>',
+      software: '<p>Software commands room-06\'s winches to a list of poses (not drawn) and reads camera A (spot on the surface) and optionally camera B (nozzle height over the rim). The <i>Observes</i> table marks the gun\'s position along its beam as blind for A alone. The bars come from a linearised fit (<code>calc/cords-spot-cov.mjs</code>, <code>cords-spot-grid.mjs</code>), not from a run in this page.</p>',
+      tried: '<ul><li><b>Assumed:</b> "the observer reports where the dot is." <b>Found:</b> a spot lies on the beam line, so its position is known only across the beam. Sliding the gun 6 mm along the beam moves the dot 6 mm (corner inset) and the spot by 0.00 mm (readout). <b>Change:</b> model the fit\'s observation as a beam-surface intersection. <b>Leaves:</b> the surface\'s own position in the cage frame is assumed known (a board on the rotator would set it; the tube\'s seat depth would not).</li>' +
+        '<li><b>Tried:</b> more surfaces. A stepped board (0, 6, 12 mm above plate height) and the tube\'s own corner (plate and wall) give 0.19 / 0.23 / 0.29 mm radial, tangent and vertical: no better than one plane (0.19 / 0.23 / 0.31). The missing direction is along the beam, and every surface cuts the beam at some point; none says where the gun is on it.</li>' +
+        '<li><b>Repair:</b> add one number that depends on the gun\'s position along the beam. The nozzle tip\'s height (camera B, 0.2 mm) brings 0.19 / 0.23 / 0.31 down to 0.057 / 0.051 / 0.054; the nozzle tip in 3-D (two cameras, tag) to 0.046 / 0.039 / 0.043. room-05 already draws such a camera. A 3-D dot (room-06\'s assumption) is 0.043 / 0.036 / 0.036.</li>' +
+        '<li><b>Checked:</b> a Monte Carlo of the actual nonlinear fit (25 seeds, 40 poses) gave 0.10 mm rms (3-D dot) and about 0.5 mm (one plane), the same order as the linearised numbers (0.07 and 0.43 in 3-D).</li>' +
+        '<li><b>A narrow stereo pair</b> looking at a dot in air would cost depth: with five times the noise along one axis the radial number goes from 0.043 to 0.145. But a dot in air is not visible to anything: it needs a surface.</li></ul>',
+      unresolved: '<ul><li>Whether the calibration poses can keep the beam on a known surface for the whole ±25 × ±25 × ±15 mm range: the nozzle sits 5 mm over the rim and 11 mm over the plate at the opening pose, so poses that lower the dot 14 mm land the nozzle in the plate. The calc keeps only poses whose beam lands in front of the nozzle.</li>' +
+        '<li>The surface\'s position in the cage frame (board registration), the second camera\'s own calibration, glare, and whether the spot is a small enough blob to centroid to 0.1 mm on stainless. None modelled.</li>' +
+        '<li>The aim (beam direction) is not improved by any of these: 0.10 to 0.15 degrees in every row.</li></ul>',
+      assumptions: '<ul><li>room-06\'s assumptions carried over unchanged: anchors 2 mm, cord zeros 1 mm (1 sigma), eight-cord pairing 6 0 1 4 5 7 2 3, poses ±25 × ±25 × ±15 mm and ±4 degrees, ridge prior at those sigmas [illustrative, room].</li>' +
+        '<li>Spot noise 0.05 to 0.30 mm per in-surface axis; nozzle height and nozzle 3-D noise fixed at 0.2 mm [illustrative]. Means over 4 random draws of the true errors and 100 fresh targets.</li>' +
+        '<li>Linearised at the true parameters: expected 1-sigma error (Sigma = (J^T J / s^2 + P^2)^-1). The camera views in this scene are drawn geometry, not optics.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(true);
+  const st = { slide: 0, obs: 'plane+nz', N: 40, sig: 0.1, camB: true };
+
+  // beam line (dashed), the spot, camera bodies
+  const line = P.dashed([J, J.clone().add(V(0, 0, 1))], 'laser', { dash: 4, gap: 3 }); app.addHelper(line);
+  const spotMark = P.sphere(1.6, 'compliant'); app.addHelper(spotMark);
+  const camPos = { A: V(0, 0, 0), B: V(0, 0, 0) };
+  const A = { az: 190, el: 55, r: 330 }, B = { az: 90, r: 330, h: RIM + 12 };
+  camPos.A.set(J.x + A.r * Math.cos(A.el * DEG) * Math.cos(A.az * DEG), J.y + A.r * Math.cos(A.el * DEG) * Math.sin(A.az * DEG), J.z + A.r * Math.sin(A.el * DEG));
+  camPos.B.set(B.r * Math.cos(B.az * DEG), B.r * Math.sin(B.az * DEG), B.h);
+  const insA = app.inset.add({ id: 'A', label: 'Camera A: sees the spot on the surface (proposed)', position: camPos.A, target: J.clone(), fov: 28, near: 40, far: 1500, size: [230, 150], corner: 'br', noise: 0.2 });
+  const insB = app.inset.add({ id: 'B', label: 'Camera B: sees the nozzle tip against the rim (proposed)', position: camPos.B, target: () => gun.local('nozzleTip'), fov: 22, near: 40, far: 1500, size: [230, 130], corner: 'bl', noise: 0.2 });
+  app.cornerInset({ gun: gun });
+  app.label(() => gun.dotWorld(), 'dot (moves with the gun)', { cls: 'laser' });
+  app.label(() => spotMark.position, 'spot on the surface', { cls: 'compliant' });
+  app.label(() => gun.local('nozzleTip'), 'nozzle tip', { cls: 'gun' });
+  app.label(camPos.A, 'camera A', { cls: 'sensor' });
+  app.label(camPos.B, 'camera B', { cls: 'sensor' });
+
+  // ---------------------------------------------------------------- the bars
+  const svg = S('svg', { viewBox: '0 0 380 340' });
+  const panel = app.ui.panel({ id: 'bars', title: 'Expected error of the dot after self-calibration (mm)', open: true, node: svg });
+  panel.card.classList.add('e13');
+  const KINDS = [
+    { k: 'dot3d', t: '3-D dot (room-06)', role: 'g' },
+    { k: 'plane', t: 'spot on one board', role: 'p' },
+    { k: 'steps', t: 'spot on a stepped board', role: 'p' },
+    { k: 'corner', t: "spot on the tube's corner", role: 'p' },
+    { k: 'plane+nz', t: 'spot + nozzle height (B)', role: 'n' },
+    { k: 'plane+n3', t: 'spot + nozzle in 3-D', role: 'n' },
+  ];
+  const sigKey = v => (v === 0.1 ? '0.1' : v === 0.05 ? '0.05' : v === 0.2 ? '0.2' : '0.3');
+
+  // ---------------------------------------------------------------- update
+  const val = id => app.ui.get(id);
+  function update() {
+    gun.setDials(45, 30, -15);
+    const dir = gun.beamDir().clone().normalize();
+    gun.group.position.addScaledVector(dir, st.slide);
+    gun.group.updateMatrixWorld(true);
+    // spot: first surface the beam lands on (the beam line is the same whatever the slide)
+    const bs = gun.beamSurfacePoint();
+    const tip = gun.local('nozzleTip'), dot = gun.dotWorld();
+    line.setPoints([tip.clone().addScaledVector(dir, -40), tip.clone().addScaledVector(dir, 90)]);
+    const spot = bs ? bs.point : null;
+    if (spot) { spotMark.position.copy(spot); spotMark.visible = true; } else spotMark.visible = false;
+    // reference (slide 0) for the readouts
+    gun.setDials(45, 30, -15); const tip0 = gun.local('nozzleTip').clone(), dot0 = gun.dotWorld().clone();
+    const bs0 = gun.beamSurfacePoint(); const spot0 = bs0 ? bs0.point.clone() : null;
+    gun.group.position.addScaledVector(dir, st.slide); gun.group.updateMatrixWorld(true);
+    const dSpot = spot && spot0 ? spot.distanceTo(spot0) : NaN;
+    const nzH = tip.z - RIM, nzH0 = tip0.z - RIM;
+    const seeA = app.inset.markVisibility('A', spot ? spot.clone().add(V(0, 0, 0.4)) : dot, { eps: 3 });
+    const seeB = app.inset.markVisibility('B', tip, { eps: 3 });
+    const kind = st.obs, useB = kind === 'plane+nz' || kind === 'plane+n3';
+    app.io.set({
+      commands: [{ name: "room-06's eight winch lengths", value: '(not drawn)', note: 'they set the pose; here only the observation changes' }, { name: 'Gun slid along its beam (scene edit)', value: st.slide.toFixed(1), unit: 'mm', note: 'a stand-in for a cord error along the beam' }],
+      observes: [
+        { name: 'Spot on the surface (camera A): change', value: isNaN(dSpot) ? '-' : dSpot.toFixed(2), unit: 'mm', status: seeA.visible ? 'seen' : 'blind', note: 'where the beam meets the tube: unchanged by a slide along the beam' },
+        { name: 'Nozzle tip height over the rim (camera B): change', value: (nzH - nzH0).toFixed(2), unit: 'mm', status: seeB.visible ? (useB ? 'seen' : 'partly') : 'blind', note: useB ? 'this number is what gives back the direction along the beam' : 'drawn but not used in this observation type' },
+        { name: 'Gun position along its own beam', value: st.slide.toFixed(1), unit: 'mm (truth)', status: useB ? 'partly' : 'blind', note: useB ? 'inferred from the nozzle height, through 0.7 mm of height per mm along the beam' : 'no observer in this row can see it' },
+      ],
+      manual: ['Place and calibrate the two cameras to the cage or the tube', 'Register the board or the tube to the cage frame'],
+    });
+    app.badge('spot', Math.abs(st.slide) > 0.5 && isFinite(dSpot) && dSpot < 0.1 && !useB ? 'the dot moved ' + Math.abs(st.slide).toFixed(1) + ' mm along the beam and the spot moved ' + dSpot.toFixed(2) + ' mm: this observer cannot see it' : null, 'warn');
+    drawBars();
+    setSpot(isNaN(dSpot) ? '-' : dSpot.toFixed(2), 'mm'); setNz((nzH - nzH0).toFixed(2), 'mm'); setDot(Math.abs(st.slide).toFixed(1), 'mm');
+    app.invalidate();
+  }
+  const setDot = app.ui.readout('rdot', 'Dot moved (exact scene geometry)'), setSpot = app.ui.readout('rspot', 'Spot moved on the surface (camera A)'), setNz = app.ui.readout('rnz', 'Nozzle height changed (camera B)');
+
+  // ---------------------------------------------------------------- controls
+  const g1 = app.ui.group('The line the spot lies on', { help: 'Scene edits only: they stand in for a cord error along the beam.' });
+  g1.slider({ id: 'slide', label: 'Gun slid along its beam', min: -6, max: 6, step: 0.1, value: 0, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Moves the whole gun along the beam direction. The beam line does not change, so the spot does not move.', onChange: v => { st.slide = v; update(); } });
+  const g2 = app.ui.group('What the calibration observer reports', {});
+  g2.radio({ id: 'obs', label: 'Observation type', kind: 'branch', value: 'plane+nz',
+    options: [{ value: 'dot3d', label: '3-D dot', help: 'room-06\'s assumption: a 3-D position of the dot, 0.1 mm per axis.' }, { value: 'plane', label: 'One board', help: 'A spot on a flat board at plate height.' }, { value: 'steps', label: 'Stepped board', help: 'Board at three known heights.' }, { value: 'corner', label: 'Tube corner', help: 'Plate or wall, whichever the beam meets.' }, { value: 'plane+nz', label: 'Spot + nozzle height', help: 'Adds camera B: one number that depends on the position along the beam.' }, { value: 'plane+n3', label: 'Spot + nozzle 3-D' }],
+    onChange: v => { st.obs = v; update(); } });
+  g2.radio({ id: 'N', label: 'Calibration poses N', kind: 'scene', value: '40', options: ['10', '20', '40', '80'], onChange: v => { st.N = +v; update(); } });
+  g2.radio({ id: 'sig', label: 'Spot noise per axis (mm)', kind: 'scene', value: '0.1', options: ['0.05', '0.1', '0.2', '0.3'], onChange: v => { st.sig = +v; update(); } });
+  function drawBars() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const X0 = 148, W = 220, maxV = 0.6;
+    svg.appendChild(S('text', { x: 6, y: 14, class: 'g', text: 'N = ' + st.N + ' poses, spot noise ' + st.sig + ' mm; nozzle aux 0.2 mm' }));
+    [['radial', '#60a5fa'], ['tangent', '#34d399'], ['vertical', '#f59e0b']].forEach((c, i) => { svg.appendChild(S('rect', { x: 148 + i * 78, y: 20, width: 8, height: 8, fill: c[1] })); svg.appendChild(S('text', { x: 160 + i * 78, y: 28, class: 'g', text: c[0] })); });
+    [0, 0.2, 0.4, 0.6].forEach(g => { const x = X0 + g / maxV * W; svg.appendChild(S('line', { x1: x, y1: 38, x2: x, y2: 334, stroke: '#20293a' })); svg.appendChild(S('text', { x: x - 6, y: 338, class: 'g', text: g.toFixed(1) })); });
+    KINDS.forEach((K, i) => {
+      const y = 46 + i * 47, row = GRID.data[K.k] && GRID.data[K.k][st.N], d = row ? row[sigKey(st.sig)] : null, on = K.k === st.obs;
+      if (on) svg.appendChild(S('rect', { x: 2, y: y - 6, width: 376, height: 44, fill: 'rgba(96,165,250,0.10)', rx: 4 }));
+      svg.appendChild(S('text', { x: 6, y: y + 12, class: on ? 'b' : '', text: K.t }));
+      if (!d) return;
+      [['x', '#60a5fa'], ['y', '#34d399'], ['z', '#f59e0b']].forEach((c, j) => {
+        const v = d[c[0]], w = Math.min(v, maxV) / maxV * W;
+        svg.appendChild(S('rect', { x: X0, y: y + j * 12, width: Math.max(1, w), height: 8, fill: c[1], opacity: on ? 1 : 0.65 }));
+        svg.appendChild(S('text', { x: X0 + w + 3, y: y + j * 12 + 8, class: 'g', text: v.toFixed(3) }));
+      });
+    });
+  }
+  app.onReady(function () { app.legend(); app.legend([{ role: 'gun', label: 'Gun (proxy)' }, { role: 'work', label: 'Tube, plate' }, { role: 'laser', label: 'Beam and its line (dashed)' }, { role: 'compliant', label: 'Spot on the surface' }, { role: 'sensor', label: 'Proposed camera' }]); update(); });
+  window.__spot = () => { const b = gun.beamSurfacePoint(); return b ? b.point.toArray() : null; };
+})();
+</script>
+</body>
+</html>

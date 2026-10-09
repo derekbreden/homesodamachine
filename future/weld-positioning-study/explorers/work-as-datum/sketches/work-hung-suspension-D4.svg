@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="755" viewBox="0 0 980 755">
+<rect width="980" height="755" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">D4. Work-hung suspension with a dot-centred cup: the work holds the dot, room lines hold the angles, a float carries</text>
+<text class="s" x="20" y="40">Seen from +X, +Y right. Tube, plate, ports: repo; gun: scene proxy at the opening pose; cup, hanger, lines: schematic.</text>
+<rect class="metal" x="518.4" y="529.8" width="2.6" height="74.2"/>
+<rect class="metal" x="719.0" y="529.8" width="2.6" height="74.2"/>
+<rect class="plate" x="521.2" y="540.0" width="197.5" height="10.2"/>
+<rect class="buy" x="578.6" y="517.6" width="21.9" height="22.4"/>
+<rect class="buy" x="639.5" y="517.6" width="21.9" height="22.4"/>
+<rect class="print" x="575.2" y="517.6" width="89.6" height="8.0"/>
+<rect class="print" x="548.0" y="492.0" width="144.0" height="12.8"/>
+<circle class="buy" cx="620.0" cy="529.6" r="10.4"/>
+<circle class="buy" cx="559.2" cy="529.6" r="10.4"/>
+<line x1="606.3" y1="521.8" x2="477.5" y2="350.9" stroke="#1f4e9a" stroke-width="32.0" stroke-opacity="0.18"/>
+<line class="gun" x1="606.3" y1="521.8" x2="477.5" y2="350.9"/>
+<polygon class="gun" points="362.2,259.6 370.9,226.3 416.0,207.6 531.8,361.4 523.2,394.7 478.1,413.4" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="425.5,339.6 246.3,316.7" stroke-width="7" stroke-opacity="0.5"/>
+<line class="beam" x1="606.3" y1="521.8" x2="620.0" y2="540.0"/>
+<circle cx="620.0" cy="540.0" r="3" fill="#d22"/>
+<line class="dim" x1="546.7" y1="509.5" x2="620.0" y2="540.0"/>
+<circle class="metal" cx="546.7" cy="509.5" r="6.4"/>
+<circle cx="555.5" cy="513.1" r="4.8" fill="#2f6b3a"/>
+<rect x="533.9" y="501.8" width="8" height="8" fill="#c05a00"/>
+<line x1="555.5" y1="513.1" x2="604.0" y2="479.2" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<line class="dim" x1="609.8" y1="461.1" x2="620.0" y2="540.0"/>
+<circle class="metal" cx="609.8" cy="461.1" r="6.4"/>
+<circle cx="611.0" cy="470.6" r="4.8" fill="#2f6b3a"/>
+<rect x="604.6" y="447.7" width="8" height="8" fill="#c05a00"/>
+<line x1="611.0" y1="470.6" x2="604.0" y2="479.2" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<line class="dim" x1="598.0" y1="509.5" x2="620.0" y2="540.0"/>
+<circle class="metal" cx="598.0" cy="509.5" r="6.4"/>
+<circle cx="600.6" cy="513.1" r="4.8" fill="#2f6b3a"/>
+<rect x="591.4" y="501.8" width="8" height="8" fill="#c05a00"/>
+<line x1="600.6" y1="513.1" x2="604.0" y2="479.2" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<text x="668.0" y="300.0">cup on the work: each shell ball is held between</text>
+<text x="668.0" y="312.0" class="s">an inner pad (green) and a sprung outer pad (orange), both on</text>
+<text x="668.0" y="323.0" class="s">spheres centred on the dot: ~25 N preload closes inside the cup;</text>
+<text x="668.0" y="334.0" class="s">the dot is fixed, rotations about it free (friction 0.15–0.5 N·m).</text>
+<text x="556.0" y="588.0">plate hanger (port seat, pin, three wheels, clamp) — as in D1</text>
+<circle cx="192.8" cy="284.7" r="10" fill="none" stroke="#8a6d1f" stroke-width="3.5"/>
+<rect class="room" x="134.0" y="124.0" width="12" height="480.0"/>
+<line x1="140.0" y1="140.0" x2="192.8" y2="274.7" stroke="#444" stroke-width="1.4"/>
+<path d="M192.8,294.7 l6,8 l-12,8 l12,8 l-12,8 l6,8" fill="none" stroke="#7a3fa0"/>
+<line x1="192.8" y1="334.7" x2="140.0" y2="444.0" stroke="#7a3fa0"/>
+<circle cx="170.8" cy="284.7" r="5" fill="#fff" stroke="#444"/><circle cx="170.8" cy="284.7" r="1.5" fill="#444"/>
+<text x="20" y="80.0">base loop: Z line + its own bungee, X line (⊙) + bungee,</text>
+<text x="20" y="92.0" class="s">all anchored on a post from the rotator frame (not the ceiling);</text>
+<text x="20" y="103.0" class="s">they set pitch and yaw about the dot and no longer move it</text>
+<circle cx="418.5" cy="233.3" r="8" fill="none" stroke="#8a6d1f" stroke-width="3"/>
+<line x1="418.5" y1="225.3" x2="140.0" y2="120.8" stroke="#444" stroke-width="1.2"/>
+<text x="430.5" y="223.3" class="s">third ring: roll (line + bungee)</text>
+<line x1="394.8" y1="310.5" x2="394.8" y2="60" stroke="#444" stroke-dasharray="2 2"/>
+<rect class="room" x="380.8" y="48" width="28" height="12"/>
+<text x="412.8" y="74" class="s">spring balancer: carries the weight (float)</text>
+<path class="cable" d="M246.3,316.7 C92.0,268.7 44.0,412.0 12.0,588.0"/>
+<text class="t" x="20" y="640">What each part sets (D4)</text>
+<text x="30" y="658" class="s">dot: 3 translations</text><text x="230" y="658" class="s">work (plate face + port-pair centre)</text><text x="470" y="658" class="s">cup centred on the dot, preload internal</text>
+<text x="30" y="673" class="s">pitch + yaw about the dot</text><text x="230" y="673" class="s">rotator frame post</text><text x="470" y="673" class="s">base Z and X lines, each with its own bungee</text>
+<text x="30" y="688" class="s">roll</text><text x="230" y="688" class="s">rotator frame post</text><text x="470" y="688" class="s">third-ring line + bungee</text>
+<text x="30" y="703" class="s">weight</text><text x="230" y="703" class="s">room</text><text x="470" y="703" class="s">spring balancer; the plate carries ~nothing</text>
+<text x="30" y="718" class="s">umbilical + conduit</text><text x="230" y="718" class="s">room</text><text x="470" y="718" class="s">saddle behind the base loop</text>
+<text x="30" y="733" class="s">trigger</text><text x="230" y="733" class="s">inside the shell</text><text x="470" y="733" class="s">presser (Bowden or solenoid)</text>
+</svg>

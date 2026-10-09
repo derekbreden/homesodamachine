@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit gallery</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "00-kit-gallery",
+  "title": "Kit gallery: primitives, roles, controls",
+  "by": "coordinator",
+  "origin": "reference",
+  "status": "developed",
+  "summary": "A catalogue for scene authors: every primitive and role colour on a shelf, the gun proxy with a printed-shell sleeve and lug markers, a camera on a post with a line-of-sight inset, a cable with a bend-radius badge, and one control of each kind. Not a welding arrangement.",
+  "tags": ["reference", "kit-demo"],
+  "how": {
+    "motion": "one slide carriage (actuator badge) and one two-link arm target (scene badge)",
+    "load": "nothing here carries the gun; it is placed freely with setTransform",
+    "reference": "the shelf is fixed ground; the marker is the sensor's target",
+    "observe": "a camera on a post looks at a marker; move the occluder to block it",
+    "use": "copy patterns into your own scene"
+  },
+  "software": {
+    "commands": ["carriage position (example actuator)"],
+    "observes": ["marker visible to the post camera"],
+    "manual": ["everything else in this catalogue"]
+  }
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  const P = WK.prim;
+  const app = WK.app({
+    workstation: false, gun: false,
+    viewButtons: ['overall', 'top', 'front', 'side'],
+    views: {
+      overall: { target: [30, 50, 90], dir: [0.1, -1, 0.75], dist: 1900 },
+      top: { target: [30, 40, 0], dir: [0, -0.003, 1], dist: 1300 },
+      front: { target: [30, 40, 100], dir: [0, -1, 0.05], dist: 1500 },
+      side: { target: [30, 40, 100], dir: [1, 0, 0.06], dist: 1500 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes: '<p>Everything the kit can draw, on one shelf. Colour tells the role of a part: <b>slate</b> fixed, <b>amber</b> carries load, <b>teal</b> locates or references, <b>purple</b> moved by an actuator software could command, <b>green</b> compliant or free, <b>blue</b> sensor, <b>dark steel</b> gun, <b>light steel</b> work, <b>near-black</b> cable, <b>gold</b> wire feed, <b>red</b> laser and dot. The legend lists only roles in the scene.</p>' +
+        '<p>Rings, springs and elastic cords are generic primitives; they appear here isolated, not as an arrangement.</p>',
+      carries: '<p>The gun is placed with <code>gun.setTransform</code> (free 6-DoF) and wears a translucent printed-shell sleeve with lug markers; lugs can go anywhere on the shell. Nothing carries it here.</p>' +
+        '<p>Control badges: ⚙ a proposed actuator, ✎ an edit of the explanatory scene, ⏱ a mode, ⑂ a variant, ◉ view only. Hover a control that declares <code>visual</code> and the part it affects glows.</p>',
+      software: '<p>The I/O panel shows every status chip. <b>seen</b> and <b>partly</b> are sensors doing their job in the proposal; <b>blind</b> is what they cannot observe; <b>manual</b> is done by a person; <b>unresolved</b> has no mechanism yet.</p>',
+      tried: '<p>Push the arm target beyond its reach: the arm stops at full reach and a red LIMIT badge appears instead of a stretched link. Bend the cable too tightly: the badge turns amber, then red. Slide the occluder into the camera’s line: the inset frame turns red.</p>',
+      unresolved: '<p>Nothing physical is claimed by this page.</p>',
+      assumptions: '<p>Gun proxy dimensions follow the manual envelope; everything else is illustrative. The 350 mm / 240 mm cable bend numbers are manufacturer manual values (emitting / stored); the badge is an illustrative check on the drawn curve.</p>',
+    },
+  });
+  // ---- shelf (fixed ground) with a grid so scale reads
+  const shelf = P.box(1080, 560, 8, 'fixed'); shelf.position.set(30, 30, -4); app.add(shelf);
+  (function grid() {
+    const pts = [];
+    for (let x = -500; x <= 560; x += 50) pts.push(V(x, -250, 0.2), V(x, 310, 0.2));
+    for (let y = -250; y <= 310; y += 50) pts.push(V(-510, y, 0.2), V(570, y, 0.2));
+    const g = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.35 })); g.userData.role = 'fixed'; g.userData.occludes = false; app.add(g);
+  })();
+  // place(obj, x, y, z, label, labelRole): x = null keeps the position the primitive already has
+  function place(o, x, y, z, name, cls) { if (x != null) o.position.set(x, y, z); app.add(o); if (name) app.label(o, name, { cls: cls }); return o; }
+
+  // ---- role swatches (2 x 6)
+  Object.keys(WK.ROLE).forEach(function (r, i) {
+    const s = P.box(46, 46, 12, r); s.position.set(-460 + (i % 6) * 62, 250 - Math.floor(i / 6) * 62, 6); app.add(s);
+  });
+  app.label(V(-305, 250, 12), 'role palette (see legend)');
+
+  // ---- primitive row 1 (front)
+  place(P.box(56, 40, 30, 'fixed'), -440, -170, 15, 'box');
+  place(P.cyl(20, 50, 'load'), -360, -170, 25, 'cyl z');
+  place(P.cyl(14, 60, 'locate', { axis: 'x' }), -280, -170, 14, 'cyl x');
+  place(P.sphere(22, 'compliant'), -200, -170, 22, 'sphere');
+  place(P.rod([-130, -170, 6], [-90, -170, 76], 6, 'actuated'), null, 0, 0, 'rod');
+  const rail = place(P.rail(V(-40, -170, 4), V(120, -170, 4), { width: 16, height: 8, role: 'fixed' }), null, 0, 0, 'rail');
+  const carriage = place(P.carriage([26, 34, 18], 'actuated', { rail: rail, t: 0.3 }), null, 0, 0, 'carriage', 'actuated');
+  place(P.motor(42, 'actuated'), 190, -170, 52, 'motor', 'actuated');
+  place(P.pulley(22, 10, 'fixed'), 260, -170, 6, 'pulley');
+  place(P.magnet(18, 'locate'), 320, -170, 9, 'magnet');
+
+  // ---- primitive row 2: ring (open in setup, closed in operation), spring, elastic, symbols. Isolated, not on the gun.
+  const ringClosed = place(P.ring(24, 3, { role: 'load', axis: [0, 1, 0] }), -440, -70, 28, 'ring');
+  const ringOpen = place(P.ring(24, 3, { role: 'load', openGap: true, axis: [0, 1, 0] }), -440, -70, 28);
+  const spring = place(P.spring(V(-360, -70, 3), V(-360, -70, 95), { coils: 8, radius: 9, wire: 1.1, role: 'compliant' }), null, 0, 0, 'spring', 'compliant');
+  const elastic = P.elastic(V(-300, -70, 60), V(-190, -70, 60), { role: 'compliant', rest: 90 });
+  place(elastic, null, 0, 0, 'elastic', 'compliant');
+  [-300, -190].forEach(x => app.add(P.rod([x, -70, 0], [x, -70, 70], 3, 'fixed')));
+  place(P.arrow(V(-120, -70, 4), V(0, 0, 1), 70, 'laser'), null, 0, 0, 'arrow', 'laser');
+  place(P.axes(50), -70, -70, 3, 'axes');
+  app.add(P.dashed([V(-10, -85, 4), V(20, -55, 30), V(50, -85, 4), V(80, -55, 30)], 'locate')); app.label(V(50, -85, 4), 'dashed', { cls: 'locate' });
+  place(P.groundHatch(40, 'fixed'), 150, -70, 0, 'ground hatch');
+  const plane = P.plane(70, 50, 'ghost'); plane.rotation.x = Math.PI / 2; place(plane, 240, -70, 30, 'plane');
+
+  // ---- gun proxy, freely placed with setTransform, wearing a shell with lug markers; bezier umbilical + bend badge
+  const gun = WK.addGun(app, { pose: 'none' });
+  gun.setTransform(V(-90, 200, 210), new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(V(0, 1, 0), V(0, 0, 1), V(1, 0, 0))));
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load' });
+  shell.attachPoint('housingTop', { side: 'top', role: 'locate' });
+  shell.attachPoint('gripMid', { side: 'back', role: 'locate' });
+  shell.attachPoint('barrelMid', { side: 'top', role: 'locate' });
+  app.label(() => gun.local('housingBack'), 'gun proxy + shell', { cls: 'load' });
+  app.label(() => gun.local('housingTop'), 'lug', { cls: 'locate' });
+  app.label(() => gun.local('dot'), 'dot', { cls: 'laser' });
+  const anchor = P.groundHatch(36, 'fixed'), anchorPost = P.rod([0, 0, 0], [0, 0, 1], 4, 'fixed'); app.add(anchor); app.add(anchorPost);
+  let cableMesh = null;
+  function rebuildCable(zEnd) {
+    const ex = gun.cableExit(), end = V(ex.point.x + 400, ex.point.y, zEnd);
+    anchor.position.set(end.x, end.y, 0); anchorPost.setEnds(V(end.x, end.y, 0), end);
+    const curve = WK.bezierCable(ex.point, ex.dir, end, V(1, 0, 0), { stiffness: 0.45 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 4.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const r = WK.curveMinRadius(curve), b = WK.cableBadge(r);
+    app.badge('bend', b.text, b.level);
+    return r;
+  }
+
+  // ---- camera on a post looking at a marker; an occluder slides into its line of sight
+  app.add(P.rod([420, -170, 0], [420, -170, 112], 5, 'fixed'));
+  const marker = place(P.sphere(7, 'laser'), 420, 130, 12, 'marker (target)', 'laser');
+  const occl = place(P.box(44, 30, 70, 'fixed'), 340, -10, 35, 'occluder');
+  app.inset.add({ id: 'post', label: 'Camera on a post (proposed)', position: V(420, -170, 118), target: marker, fov: 34, near: 30, far: 900, size: [230, 160], corner: 'br', noise: 0.2 });
+  app.label(V(420, -170, 130), 'camera on a post', { cls: 'sensor' });
+  const ioRow = (name, value, status, note) => ({ name: name, value: value, status: status, note: note });
+  const IO_STATIC = [
+    ioRow('Carriage position', 'from step count', 'partly', 'open loop, no limit switch in this example'),
+    ioRow('Gun tilt', '-', 'blind', 'nothing in this example measures it'),
+    ioRow('Rail alignment', '-', 'manual', 'set by hand with a square'),
+    ioRow('Marker position error', '?', 'unresolved'),
+  ];
+  function checkView() {
+    const r = app.inset.markVisibility('post', marker.position);
+    app.io.set({ observes: [ioRow('Marker visible to post camera', r.visible ? 'yes' : (r.inFov ? 'blocked' : 'out of view'), r.visible ? 'seen' : 'blind', 'drawn-scene line of sight, not a measurement')].concat(IO_STATIC) });
+  }
+
+  // ---- two-link arm: IK never stretches; an unreachable target stops the end and shows a LIMIT badge
+  const base = V(-460, 60, 6), shoulder = V(base.x, base.y, 30);
+  const link1 = P.rod(base, base, 6, 'actuated'), link2 = P.rod(base, base, 5, 'actuated'), elbow = P.sphere(9, 'fixed'), hand = P.sphere(8, 'locate');
+  const armBase = P.cyl(16, 12, 'fixed'); armBase.position.set(base.x, base.y, 6);
+  [armBase, link1, link2, elbow, hand].forEach(o => app.add(o));
+  const targetMark = place(P.sphere(5, 'compliant'), 0, 0, 0, 'arm target', 'compliant');
+  function arm(dist) {
+    const t = V(base.x + dist, base.y, 60), r = WK.kin.twoLinkIK(shoulder, t, 150, 130, { bend: [0, 0, 1] });
+    link1.setEnds(shoulder, r.elbow); link2.setEnds(r.elbow, r.end);
+    elbow.position.copy(r.elbow); hand.position.copy(r.end); targetMark.position.copy(t);
+    app.badge('reach', r.ok ? null : 'arm target out of reach by ' + r.over.toFixed(0) + ' mm; end stops at full reach', 'limit');
+    setReach(r.ok ? 'reachable' : 'LIMIT: stopped');
+  }
+
+  // ---- controls: one of each kind
+  const setCar = app.ui.readout('car', 'Carriage t'), setReach = app.ui.readout('reach', 'Arm'), setBend = app.ui.readout('bend', 'Cable min bend radius');
+  // kit self-check: the bend-radius maths against analytic radii (quarter circle R 400 as a cubic Bezier; helix R 100, pitch 300 -> R 122.8)
+  (function () {
+    const R = 400, arc = WK.bezierCable(V(R, 0, 0), V(0, 1, 0), V(0, R, 0), V(-1, 0, 0), { stiffness: 4 / 3 * Math.tan(Math.PI / 8) * R / Math.hypot(R, R) });
+    const c = 300 / (2 * Math.PI), helix = [];
+    for (let i = 0; i <= 120; i++) { const a = i / 120 * 6 * Math.PI; helix.push(V(100 * Math.cos(a), 100 * Math.sin(a), c * a)); }
+    app.ui.readout('selfcheck', 'Bend maths: arc R400 | helix R122.8')(WK.curveMinRadius(arc).toFixed(0) + ' | ' + WK.curveMinRadius(helix).toFixed(1), 'mm');
+  })();
+  app.ui.slider({ id: 'carriage', label: 'Carriage on rail', min: 0, max: 1, step: 0.01, value: 0.3, kind: 'actuator', visual: () => carriage, help: 'A proposed axis the software could command.',
+    onChange: v => { carriage.setT(v); setCar(v.toFixed(2)); app.io.set({ commands: [{ name: 'Carriage', value: v, unit: 't', note: 'example actuator' }, { name: 'Arm target', value: app.ui.get('arm'), unit: 'mm', note: 'scene edit, not a command' }] }); } });
+  app.ui.slider({ id: 'arm', label: 'Arm target distance', min: 60, max: 340, step: 5, value: 200, unit: 'mm', kind: 'scene', visual: () => [link1, link2, targetMark],
+    help: 'Moves the target. Beyond about 280 mm the arm cannot reach: it stops and shows a LIMIT badge.', onChange: arm });
+  app.ui.slider({ id: 'cable', label: 'Umbilical end height', min: 6, max: 120, step: 2, value: 30, unit: 'mm', kind: 'scene', visual: () => cableMesh,
+    help: 'Bezier umbilical from the grip base to a post. Raise the end and the bend tightens: the badge is an illustrative check against the manual\u2019s 350 mm (emitting) / 240 mm (stored).', onChange: v => setBend(rebuildCable(v).toFixed(0), 'mm') });
+  app.ui.slider({ id: 'occluder', label: 'Occluder position X', min: 330, max: 510, step: 5, value: 340, unit: 'mm', kind: 'scene', visual: () => occl,
+    help: 'Slide it across the camera’s line of sight (near x = 420).', onChange: v => { occl.position.x = v; occl.updateMatrixWorld(true); checkView(); } });
+  app.ui.toggle({ id: 'latch', label: 'Setup / operating', value: false, kind: 'state', help: 'Mode example: the loop is open in setup and closed in operation.',
+    onChange: v => { ringOpen.visible = !v; ringClosed.visible = v; } });
+  app.ui.radio({ id: 'variant', label: 'Compliant element', options: [{ value: 'both', label: 'both' }, { value: 'spring', label: 'spring' }, { value: 'elastic', label: 'elastic' }], value: 'both', kind: 'branch', help: 'Branch example: compare variants.',
+    onChange: v => { spring.visible = v !== 'elastic'; elastic.visible = v !== 'spring'; } });
+  app.ui.select({ id: 'cam', label: 'View preset', options: ['overall', 'top', 'front', 'side'], value: 'overall', kind: 'view', onChange: v => app.setView(v) });
+  app.ui.button({ id: 'pulse', label: 'Show a toast', kind: 'state', onClick: () => app.toast('buttons run a function; Reset all does not press them') });
+  app.io.manual(['Place the shelf items (this page is a catalogue)', 'Nothing here needs a human at run time']);
+})();
+</script>
+</body>
+</html>

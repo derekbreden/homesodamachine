@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roll turns into twist and swing</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-18-roll-into-twist",
+  "title": "Roll about the grip axis turns into twist and swing: where the fibre's twist goes",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A lens on the roll about the grip axis, the reference scene's rotation that a motor would drive. The fibre leaves the grip base along the grip's rake, about 30 degrees off the roll axis, so a roll is not a pure twist: part of it turns the exit tangent through a cone (swing) and bends the fibre. The twist that is left is not removed by a ring or a swivel, only moved: it is spread over the fibre between the gun and the first place that holds its rotation. The scene draws the cone from the end and the side, and the twist rate along the fibre for four ways of holding it.",
+  "tags": ["lens", "roll", "twist", "swing", "umbilical", "rotational hold", "torsion spring"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["roll = part twist, part swing", "twist rate = twist / distance to hold", "a swivel moves the hold, not the twist"],
+  "how": {
+    "motion": "the roll motor (or a hand) turns the gun about the grip axis",
+    "load": "the fibre is a torsion spring on the roll axis and a bending spring across it",
+    "reference": "the roll axis, from the dot to the grip base; the fibre is laid untwisted at one roll",
+    "observe": "a stripe on the fibre or a collar encoder shows twist (eyes-11b); the roll motor's torque shows the rest",
+    "use": "choose where the fibre's rotation is held, and decide whether roll is a setup value or a run-time axis"
+  },
+  "software": {
+    "commands": ["roll about the grip axis (motor) in the arrangement this lens serves"],
+    "observes": ["twist from a stripe (eyes-11b) or a swivel collar's encoder", "roll motor torque or current"],
+    "manual": ["laying the fibre untwisted at the chosen roll", "un-twisting after a roll change", "choosing where the fibre's rotation is held"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-18-roll-into-twist.md", "../../explorers/freedom/ideas/freedom-16-fibre-line.md", "../../exchange/freedom--reply-to-borrowed-w3.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script src="../../explorers/freedom/calc/cable-rod.js"></script>
+<script src="../../explorers/freedom/calc/fibre-line.js"></script>
+<script>
+(function () {
+  const FL = FibreLine, D2R = Math.PI / 180, svgel = WK.svg;
+  const app = WK.app({
+    stage: 'custom', minWidth: 900,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The gun rolls about the line from the dot to the grip base (the reference scene’s grip-axis roll; a motor in the automated vision). The fibre is clamped at that grip base. If it left along the roll axis, a roll would be a pure twist of the fibre about its own axis. In the kit it leaves along the grip’s rake, about 30° off the roll axis, so its tangent sweeps a cone when the gun rolls: the roll is part <b>twist</b> (about the fibre’s tangent) and part <b>swing</b> (the tangent itself turns and the fibre bends). The manual forbids twisting the fibre and says nothing about how much.</p>' +
+        '<p>Left: the cone from the end and the side, and what one roll does to the tangent. Middle: <b>where the twist goes</b>. Twist is the difference between the gun’s turn and the turn of the fibre at the first place that holds its rotation, and it spreads over the length between them. A rubber-coated hook, a clip or a cable sock holds rotation; a swivel or a free ring does not, so the hold moves to the next place, and in the end to the laser unit’s connector about 4.6 m away. Right: the torque this puts back on the roll motor, and what the swing adds, against the gravity spring the study has met elsewhere.</p>',
+      carries:
+        '<p>Nothing carries anything here: it is a lens. <b>Amber</b>: the roll axis and the gun’s turn. <b>Blue</b>: the fibre’s exit tangent, before and after the roll. <b>Green</b>: where the fibre’s rotation is held. <b>Red</b>: the twist rate, per metre, along the fibre for the chosen holding; the bar to its right is what would be comfortable, which is a slider because the manual gives no number.</p>',
+      software:
+        '<p><b>Commands:</b> the roll motor. <b>Observes:</b> twist, by a painted stripe read by a camera (eyes-11b) or by an encoder on a swivel collar (freedom-16); the roll motor’s torque or current, which reads the twist and swing torques together. <b>Manual:</b> laying the fibre untwisted at a chosen roll, and un-twisting it after a roll change.</p>',
+      tried:
+        '<p><b>Roll is not pure twist.</b> With the exit tangent 30.2° off the axis, 10° of roll is 8.6° of twist and 5.0° of swing of the exit direction (30°: 26.1° and 15.0°). Only when the fibre leaves along the roll axis is the whole roll twist.</p>' +
+        '<p><b>A swivel does not remove twist, it moves the hold.</b> A ring or a swivel that lets the fibre spin frees it at that point; the twist then spreads over the fibre to the next hold. 10° of roll over a clip 0.4 m out is 25° per metre, over one 0.7 m out 14°/m, at a rubber-coated hook 0.12 m out 83°/m (a hook is a hold), and with a swivel and the laser end as the hold 2.2°/m. The manual says “strictly forbidden” and gives no number: the slider for what would be comfortable is a guess.</p>' +
+        '<p><b>The torque is small next to gravity, the swing’s bend is not.</b> A fibre with EI 0.1 N·m² and GJ 0.08 turns 10° over 0.4 m with a torque of 30 N·mm about the axis (the gravity spring of freedom-08 would be 73 N·mm per 10°) but the swing at 30° adds a bending moment of 88 N·mm and a lateral force of 0.33 N on the gun; with a hold at 4.6 m all three fall to 3, 8 and 0.003. The moment and force are the parts that reach the dot.</p>' +
+        '<p><b>Twist is a state, not a motion, if the roll is set once.</b> Setting the roll at setup and un-twisting the fibre before the neighbourhood is established makes the twist zero at the weld. If the roll is an axis the AI scans, every roll change is a twist change, and the twist rate is the number to keep.</p>',
+      unresolved:
+        '<p>Where the real fibre leaves the grip base (the exit-angle slider), its torsion stiffness GJ (taken as 0.8 EI) and bending stiffness EI, whether the QBH connector and the fibre inside the armour tolerate any twist, and whether the maker has a limit: not known; the manual’s only statement is that twisting is strictly forbidden (p. 20). A fibre lying on a bench is held rotationally by friction along its length in a way the four holds here do not model.</p>',
+      assumptions:
+        '<ul><li>Exit tangent angle 30.2° from the kit’s proxy (the stub leaves along the grip’s rake), roll axis through the dot and the grip base: <b>illustrative</b>.</li>' +
+        '<li>EI 0.1 N·m², GJ = 0.8 EI: <b>illustrative</b> ([unknown]). Swing response by the small-angle clamped-beam formulas (moment 4EIγ/L, force 6EIγ/L² for a swing γ over length L); twist torque GJφ/L; twist and swing from the rotation of the clamp frame decomposed about the tangent (calc/fibre-line.js).</li>' +
+        '<li>Fibre length 5 m, the laser end 4.6 m from the first hold: from the manual (5 m).</li></ul>',
+    },
+  });
+  const S = { alpha: 30.2, roll: 10, EI: 0.1, gj: 0.8, hold: 'clip', L: 400, lim: 10, ring: false };
+  const HOLDS = { hook: { name: 'rubber-coated hook 0.12 m out', L: 120 }, clip: { name: 'clip on a post', L: 400 }, swivel: { name: 'swivel collar, then the laser end', L: 4600 }, custom: { name: 'a hold you place', L: 700 } };
+  const svg = svgel('svg', { viewBox: '0 0 1000 620', width: '100%', role: 'img', 'aria-label': 'cone of the exit tangent, twist along the fibre and the torque it puts back' }); svg.style.display = 'block'; svg.style.minWidth = '900px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'load', label: 'Roll axis, the gun’s turn' }, { role: 'sensor', label: 'Exit tangent before and after' }, { role: 'compliant', label: 'Where rotation is held' }, { color: '#ff6b6b', label: 'Twist rate' }]);
+  const C = r => WK.roleHex(r);
+  const T = (x, y, t, op) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12, 'font-family': 'system-ui, sans-serif', text: t }, op || {}));
+  const L = (x1, y1, x2, y2, col, w, op) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, op || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const rd = { tw: app.ui.readout('tw', 'Twist of the fibre at the hold'), sw: app.ui.readout('sw', 'Swing of the exit tangent'), rate: app.ui.readout('rate', 'Twist rate along the fibre'), tq: app.ui.readout('tq', 'Twist torque on the roll axis'), bm: app.ui.readout('bm', 'Bending moment from the swing'), fl: app.ui.readout('fl', 'Lateral force on the gun') };
+  function update() {
+    clear();
+    const holdL = S.hold === 'custom' ? S.L : HOLDS[S.hold].L;
+    const ts = FL.twistSwing(S.alpha, S.roll), rw = FL.rollWrenchClamped(S.alpha, S.roll, holdL, S.EI, S.gj * S.EI);
+    const rate = ts.twistDeg / (holdL / 1000);
+    // ---- left: the cone, end view and side view
+    g.appendChild(T(20, 26, 'The exit tangent rides a cone about the roll axis', { 'font-weight': 600, 'font-size': 13 }));
+    const ex = 170, ey = 170, er = 88;                                    // end view centre and radius (radius = 1 = unit tangent)
+    g.appendChild(T(ex - 60, ey - er - 14, 'end view, looking along the roll axis', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(svgel('circle', { cx: ex, cy: ey, r: er, fill: 'none', stroke: '#2a3441' }));
+    const a = S.alpha * D2R, rr = Math.sin(a) * er, ph0 = -70 * D2R, ph1 = ph0 + S.roll * D2R;                  // tangent tip position on the cone circle
+    g.appendChild(svgel('circle', { cx: ex, cy: ey, r: rr, fill: 'none', stroke: '#3b4a5f', 'stroke-dasharray': '4 3' }));
+    g.appendChild(svgel('circle', { cx: ex, cy: ey, r: 4, fill: C('load') })); g.appendChild(T(ex + 8, ey + 4, 'roll axis', { fill: C('load'), 'font-size': 11 }));
+    const p0 = [ex + rr * Math.cos(ph0), ey + rr * Math.sin(ph0)], p1 = [ex + rr * Math.cos(ph1), ey + rr * Math.sin(ph1)];
+    g.appendChild(L(ex, ey, p0[0], p0[1], C('sensor'), 2, { opacity: 0.5 })); g.appendChild(L(ex, ey, p1[0], p1[1], C('sensor'), 3));
+    g.appendChild(svgel('circle', { cx: p0[0], cy: p0[1], r: 4, fill: C('sensor'), opacity: 0.5 })); g.appendChild(svgel('circle', { cx: p1[0], cy: p1[1], r: 5, fill: C('sensor') }));
+    g.appendChild(T(p1[0] + 8, p1[1] - 6, 'tangent after', { fill: C('sensor'), 'font-size': 11 })); g.appendChild(T(p0[0] - 84, p0[1] - 6, 'tangent before', { fill: C('sensor'), 'font-size': 11, opacity: 0.7 }));
+    const arcR = er - 8; g.appendChild(svgel('path', { d: 'M' + (ex + arcR * Math.cos(ph0)) + ' ' + (ey + arcR * Math.sin(ph0)) + ' A' + arcR + ' ' + arcR + ' 0 0 ' + (S.roll >= 0 ? 1 : 0) + ' ' + (ex + arcR * Math.cos(ph1)) + ' ' + (ey + arcR * Math.sin(ph1)), fill: 'none', stroke: C('load'), 'stroke-width': 3 }));
+    g.appendChild(T(ex - 128, ey + er + 22, 'amber arc: the roll (' + S.roll.toFixed(0) + '°). The tangent’s tip', { fill: '#c8d0da', 'font-size': 10.5 })); g.appendChild(T(ex - 128, ey + er + 36, 'follows it round the dashed circle.', { fill: '#c8d0da', 'font-size': 10.5 }));
+    // side view
+    const sx0 = 40, sy0 = 470, sl = 200;
+    g.appendChild(T(sx0, sy0 - 150, 'side view: the tangent is ' + S.alpha.toFixed(1) + '° off the axis', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(L(sx0, sy0, sx0 + sl, sy0, C('load'), 3, { 'stroke-dasharray': '7 4' })); g.appendChild(T(sx0 + sl - 36, sy0 + 16, 'roll axis', { fill: C('load'), 'font-size': 11 }));
+    g.appendChild(L(sx0, sy0, sx0 + sl * Math.cos(a), sy0 - sl * Math.sin(a), C('sensor'), 3)); g.appendChild(T(sx0 + sl * Math.cos(a) - 30, sy0 - sl * Math.sin(a) - 8, 'tangent', { fill: C('sensor'), 'font-size': 11 }));
+    const t1 = ts.tangentAfter; g.appendChild(svgel('circle', { cx: sx0, cy: sy0, r: 4, fill: '#e6edf6' })); g.appendChild(T(sx0 - 2, sy0 + 16, 'grip base', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(T(sx0, sy0 + 44, 'twist ' + ts.twistDeg.toFixed(1) + '°, swing ' + ts.swingDeg.toFixed(1) + '° (of ' + S.roll.toFixed(0) + '° roll)', { fill: '#e6edf6', 'font-weight': 600, 'font-size': 12.5 }));
+    g.appendChild(T(sx0, sy0 + 62, S.alpha < 1 ? 'Fibre on the axis: all twist.' : 'The rest turns the tangent: the fibre bends.', { fill: '#94a3b8', 'font-size': 11 }));
+    void t1;
+    // ---- middle: where the twist goes (the fibre from the gun to the laser unit)
+    const fx = 360, fw = 600, fy = 110;
+    g.appendChild(T(fx, 26, 'Where the twist goes: the fibre from the gun to the laser unit (5 m)', { 'font-weight': 600, 'font-size': 13 }));
+    const totalL = 4600, X = l => fx + Math.min(l, totalL) / totalL * fw;
+    const holds = [['hook', 'rubber-coated hook', 120], ['clip', 'clip on a post', 400], ['swivel', 'swivel collar; next hold: the laser end', 4600]];
+    if (S.hold === 'custom') holds.push(['custom', 'your hold', S.L]);
+    holds.forEach((h, i) => {
+      const y = fy + 40 + i * 62, act = h[0] === S.hold, len = h[2], rt = ts.twistDeg / (len / 1000);
+      g.appendChild(T(fx, y - 20, h[1] + (len < 4600 ? ' at ' + (len / 1000).toFixed(2) + ' m' : ' at about 4.6 m'), { fill: act ? '#f5f5f5' : '#94a3b8', 'font-weight': act ? 700 : 400, 'font-size': 12 }));
+      g.appendChild(svgel('rect', { x: fx, y: y - 12, width: fw, height: 18, fill: '#171e28', stroke: '#2a3441' }));
+      const inten = Math.min(1, rt / Math.max(1, S.lim * 3));
+      g.appendChild(svgel('rect', { x: fx, y: y - 12, width: Math.max(2, X(len) - fx), height: 18, fill: 'rgb(255,' + Math.round(107 * (1 - inten)) + ',' + Math.round(107 * (1 - inten)) + ')', 'fill-opacity': 0.4 + 0.6 * inten }));
+      g.appendChild(svgel('rect', { x: X(len) - 3, y: y - 16, width: 6, height: 26, fill: C('compliant') }));
+      g.appendChild(T(fx + fw + 6 - 46, y - 20, rt.toFixed(1) + ' °/m', { fill: rt > S.lim ? '#ff8a80' : '#e6edf6', 'font-weight': 700, 'font-size': 12, 'text-anchor': 'end' }));
+    });
+    g.appendChild(T(fx, fy + 40 + holds.length * 62 - 14, 'Gun at the left. Same fibre, same roll: the red is the twist spread over the length up to the hold (green); darker = faster.', { fill: '#94a3b8', 'font-size': 11 }));
+    // ---- right/bottom: torque against a gravity spring, and the swing's bending
+    const bx = 360, by = 420;
+    g.appendChild(T(bx, by - 18, 'What the roll costs, for the chosen hold (' + (holdL < 4600 ? (holdL / 1000).toFixed(2) + ' m' : '4.6 m') + ')', { 'font-weight': 600, 'font-size': 13 }));
+    const items = [['twist torque about the axis', rw.torqueTwist, 'N·mm', C('load')], ['bending moment from the swing', rw.momentBend, 'N·mm', C('sensor')], ['gravity spring at 0.42 N·m/rad, same angle', 0.42 * 1000 * S.roll * D2R, 'N·mm', '#64748b']];
+    const mx = Math.max(10, ...items.map(i => i[1])) * 1.15;
+    items.forEach((it, i) => { const y = by + i * 34; g.appendChild(T(bx, y + 12, it[0], { fill: '#c8d0da', 'font-size': 11.5 })); g.appendChild(svgel('rect', { x: bx + 250, y: y, width: Math.max(2, it[1] / mx * 300), height: 16, fill: it[3], rx: 2 })); g.appendChild(T(bx + 256 + it[1] / mx * 300, y + 12, it[1].toFixed(it[1] < 10 ? 1 : 0) + ' ' + it[2], { fill: '#e6edf6', 'font-size': 11.5 })); });
+    g.appendChild(T(bx, by + 3 * 34 + 12, 'lateral force on the gun: ' + rw.forceLat.toFixed(3) + ' N (6EIγ/L²)', { fill: '#c8d0da', 'font-size': 11.5 }));
+    g.appendChild(T(bx, by + 3 * 34 + 32, 'Twist stays in the fibre; the bending moment and the lateral force are the parts that reach the dot.', { fill: '#94a3b8', 'font-size': 11 }));
+    rd.tw(ts.twistDeg.toFixed(1), '°'); rd.sw(ts.swingDeg.toFixed(1), '°'); rd.rate(rate.toFixed(1), '° per metre'); rd.tq(rw.torqueTwist.toFixed(1), 'N·mm'); rd.bm(rw.momentBend.toFixed(1), 'N·mm'); rd.fl(rw.forceLat.toFixed(3), 'N');
+    app.badge('rate', rate > S.lim ? 'twist rate ' + rate.toFixed(0) + '°/m is over the ' + S.lim + '°/m you called comfortable (the manual gives no number)' : null, 'warn');
+    app.badge('axis', S.alpha < 1 ? 'the fibre leaves on the axis: pure twist, no swing' : null, 'info');
+    app.io.set({ commands: [{ name: 'Roll about the grip axis (motor)', value: S.roll.toFixed(0), unit: '°', note: 'a change from the roll the fibre was laid untwisted at' }],
+      observes: [{ name: 'Twist of the fibre', value: ts.twistDeg.toFixed(1), unit: '°', status: 'partly', note: 'a stripe (eyes-11b) shows the sheath’s twist, not the fibre inside it; a swivel collar’s encoder shows the turn between gun and gallows' }, { name: 'Roll motor torque', value: (rw.torqueTwist + 0).toFixed(1), unit: 'N·mm', status: 'partly', note: 'reads twist and swing together' }, { name: 'The maker’s limit on twist', value: '-', status: 'unresolved', note: 'the manual says forbidden, gives no number' }],
+      manual: ['Lay the fibre untwisted at a chosen roll', 'Un-twist after a roll change', 'Choose where the rotation is held'] });
+  }
+  const g1 = app.ui.group('The roll and the fibre (scene edits)', { open: true });
+  g1.slider({ id: 'roll', label: 'Roll from the laid position', min: -45, max: 45, step: 1, value: 10, unit: '°', kind: 'scene', help: 'The gun’s turn about the grip axis since the fibre was laid untwisted.', onChange: v => { S.roll = v; update(); } });
+  g1.slider({ id: 'alpha', label: 'Exit tangent off the roll axis', min: 0, max: 45, step: 0.2, value: 30.2, unit: '°', kind: 'scene', help: 'The kit’s stub leaves along the grip’s rake: 30.2°. Unknown for the real gun.', onChange: v => { S.alpha = v; update(); } });
+  g1.slider({ id: 'EI', label: 'Fibre bending stiffness EI', min: 0.02, max: 0.6, step: 0.01, value: 0.1, unit: 'N·m²', kind: 'scene', help: 'Unknown. Measure it: overhang a metre off a table edge.', onChange: v => { S.EI = v; update(); } });
+  g1.slider({ id: 'gj', label: 'Torsion stiffness as a fraction of EI', min: 0.3, max: 2, step: 0.05, value: 0.8, kind: 'scene', help: 'GJ / EI: 0.8 for an isotropic rod; an armoured cable can differ.', onChange: v => { S.gj = v; update(); } });
+  const g2 = app.ui.group('Where the rotation is held', { open: true });
+  g2.radio({ id: 'hold', label: 'Chosen hold', options: [{ value: 'hook', label: 'hook 0.12 m' }, { value: 'clip', label: 'clip 0.4 m' }, { value: 'swivel', label: 'swivel, laser end' }, { value: 'custom', label: 'my own' }], value: 'clip', kind: 'branch', help: 'A hook or clip holds rotation; a swivel collar does not, so the next hold is the laser unit’s connector.', onChange: v => { S.hold = v; app.ui.enable('L', v === 'custom'); update(); } });
+  g2.slider({ id: 'L', label: 'Distance to my own hold', min: 100, max: 4600, step: 50, value: 700, unit: 'mm', kind: 'scene', onChange: v => { S.L = v; update(); } });
+  g2.slider({ id: 'lim', label: 'Twist rate you would call comfortable', min: 1, max: 60, step: 1, value: 10, unit: '°/m', kind: 'scene', help: 'A guess: the manual forbids twist and gives no number.', onChange: v => { S.lim = v; update(); } });
+  app.ui.enable('L', false);
+  update();
+})();
+</script>
+</body>
+</html>

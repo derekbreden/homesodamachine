@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lever map</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-05-lever-map",
+  "title": "Lever map: where an angle, a step or a bit of slop lands at the dot",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A side view of the gun proxy with a pivot and an actuator attachment you can move. It shows the lever from pivot to dot, the reduction between the actuator and the dot, and what one motor step or one bit of backlash is at the dot. A second panel adds up the slop of a serial arm.",
+  "tags": [
+    "lens",
+    "calculator",
+    "lever arm",
+    "reduction",
+    "pivot",
+    "actuator attachment",
+    "backlash",
+    "serial arm"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "dot travel = lever x angle",
+    "actuator lever a versus dot lever L: travel ratio L/a",
+    "joint slop times lever, summed along a serial arm"
+  ],
+  "how": {
+    "motion": "one rotation about a pivot you place; an actuator pushes at an attachment",
+    "load": "not drawn: pivot, actuator attachment and weight support may be at three different places",
+    "reference": "the dot (red)",
+    "observe": "nothing: this is a calculator drawn on the gun",
+    "use": "choose where to put a pivot and an actuator before drawing any mechanism"
+  },
+  "software": {
+    "commands": [
+      "angle or actuator push (illustrative)",
+      "encoder or step count as the only feedback"
+    ],
+    "observes": [
+      "angle from the motor or encoder only; the dot is not observed here"
+    ],
+    "manual": [
+      "everything mechanical: this scene has no arrangement in it"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-05-lever-map.md",
+    "../../explorers/travel/calc/01-pose-and-levers.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+<style>
+  .lm-svg { width: 100%; height: 100%; min-height: 540px; display: block; }
+  .lm-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .lm-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .lm-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .lm-svg .gun { fill: #59636f; stroke: #7d8896; stroke-width: 1; }
+  .lm-svg .grid { stroke: #232c39; stroke-width: 1; }
+  .lm-svg .lever { stroke: var(--role-locate); stroke-width: 1.6; stroke-dasharray: 6 4; fill: none; }
+  .lm-svg .alever { stroke: var(--role-actuated); stroke-width: 1.6; stroke-dasharray: 3 3; fill: none; }
+  .lm-svg .arc { stroke: var(--role-laser); stroke-width: 2; fill: none; }
+  .lm-svg .bar { fill: var(--role-locate); }
+  .lm-svg .bar.me { fill: var(--role-laser); }
+  .lm-svg .bar.arm { fill: var(--role-actuated); }
+  .lm-svg .band { stroke: rgba(52, 211, 153, .8); stroke-dasharray: 4 3; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The gun proxy from the side, nozzle at the left, grip at the lower right. <b>Teal</b> is a pivot you place (a hinge line seen end-on). <b>Purple</b> is where an actuator pushes on the shell. <b>Red</b> is the dot. Turn the angle and the dot moves along an arc of radius L (the teal dashed line). The three numbers that matter: <b>L</b> (pivot to dot), <b>a</b> (pivot to the actuator attachment) and their ratio.</p>' +
+        '<p>Pushing at a distance a from the pivot turns the gun by (push ÷ a); the dot moves L times that. So an actuator attached <i>closer</i> to the pivot than the dot is <b>amplifies</b> its travel and its backlash by L/a; one attached <i>beyond</i> the dot (a larger than L) <b>reduces</b> them. The bars compare what one angular step is at the dot for a pivot at each place on the gun.</p>',
+      carries: '<p>Nothing carries anything here. The pivot, the actuator attachment and the place the weight is carried can all be different points on the shell (Derek’s note); moving them separately is the point.</p>',
+      software: '<p>This is a calculator: no arrangement, no sensors. It says what the angle resolution and backlash of a motor become at the dot, so a resolution can be chosen before a mechanism is drawn. The only feedback assumed is the motor’s own step count or an encoder on the pivot.</p>',
+      tried: '<p><b>Break 1: the grip pivot.</b> A pivot at the grip base is 279 mm from the dot: 0.05° per step is 0.24 mm at the dot. <i>Change:</i> put the pivot nearer the dot, or the actuator beyond it.</p>' +
+        '<p><b>Break 2: reduction by geometry needs room.</b> An actuator attached past the dot (a > L) sits over the recess where there is no room. <i>Leaves standing:</i> a reduction can instead be inside the actuator (leadscrew, micrometer head).</p>' +
+        '<p><b>Break 3: the serial arm.</b> Three joints each 0.1° loose at 600, 350 and 200 mm: about 1.9 mm at the dot in the worst case. An arm like that can carry and roughly place the gun; it cannot locate the dot unless something else does.</p>',
+      unresolved: '<p>The side plane hides the out-of-plane rotations. The real gun is not this proxy, and the real wire, cable and mass are not drawn. The lever depends on the pose: the pivot-to-dot distance here is measured in the gun’s own frame.</p>',
+      assumptions: '<ul><li>Gun profile: the kit proxy of the manual’s 253 × 143 × 34 mm envelope (illustrative). Dot at 16 mm from the nozzle tip (illustrative).</li>' +
+        '<li>The serial-arm joint slop and levers are illustrative, not a monitor arm’s measured slop.</li>' +
+        '<li>Small-angle: dot displacement = L × angle (the arc is drawn exactly).</li></ul>',
+    },
+  });
+  const D2R = Math.PI / 180;
+  const W = 1000, H = 740, S = 2.2, OX = 70, OY = 56;             // scale px per mm; gun local (z right, y up) -> screen
+  const sx = z => OX + (z + 40) * S, sy = y => OY + (30 - y) * S;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'lm-svg', role: 'img', 'aria-label': 'gun side view with a pivot, an actuator attachment and the dot' });
+  app.stageEl.appendChild(svg);
+  app.legend && app.legend([{ role: 'locate', label: 'pivot and lever' }, { role: 'actuated', label: 'actuator attachment' }, { role: 'laser', label: 'dot and its motion' }, { role: 'gun', label: 'gun (proxy)' }]);
+  const g = WK.svg('g', {}); svg.appendChild(g);
+  function clear() { while (g.firstChild) g.removeChild(g.firstChild); }
+  const T = (x, y, text, cls, anchor) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text }));
+
+  // proxy outline in gun local (z, y)
+  const DOT = [-16, 0], TIP = [0, 0], GRIP_BASE = [237, -118], HOUSE = { z0: 118, z1: 253, y: 17 };
+  const gripS = [172, -25], gripE = [232, -111];
+  const PIV = { grip: [237, -118], house: [185, 17], barrel: [77, 0], dot: [-16, 0] };
+
+  function drawGun() {
+    // barrel profile
+    const prof = [[0, 2.2], [23, 5], [23, 8.5], [54, 8.5], [54, 5.5], [100, 5.5], [100, 12], [118, 12]];
+    let up = 'M' + sx(0) + ' ' + sy(2.2), dn = '';
+    const top = prof.map(p => [sx(p[0]), sy(p[1])]), bot = prof.map(p => [sx(p[0]), sy(-p[1])]).reverse();
+    const d = 'M' + top.map(p => p.join(' ')).join('L') + 'L' + bot.map(p => p.join(' ')).join('L') + 'Z';
+    g.appendChild(WK.svg('path', { d: d, class: 'gun' }));
+    g.appendChild(WK.svg('rect', { x: sx(HOUSE.z0), y: sy(HOUSE.y), width: (HOUSE.z1 - HOUSE.z0) * S, height: 2 * HOUSE.y * S, class: 'gun', rx: 3 }));
+    // grip: rectangle along the grip direction
+    const gd = [gripE[0] - gripS[0], gripE[1] - gripS[1]], gl = Math.hypot(gd[0], gd[1]), gu = [gd[0] / gl, gd[1] / gl], gn = [-gu[1], gu[0]];
+    const ext = 8, hw = 14, a0 = [gripS[0] - gu[0] * ext, gripS[1] - gu[1] * ext], a1 = [gripE[0] + gu[0] * ext, gripE[1] + gu[1] * ext];
+    const corners = [[a0[0] + gn[0] * hw, a0[1] + gn[1] * hw], [a1[0] + gn[0] * hw, a1[1] + gn[1] * hw], [a1[0] - gn[0] * hw, a1[1] - gn[1] * hw], [a0[0] - gn[0] * hw, a0[1] - gn[1] * hw]];
+    g.appendChild(WK.svg('path', { d: 'M' + corners.map(c => sx(c[0]).toFixed(1) + ' ' + sy(c[1]).toFixed(1)).join('L') + 'Z', class: 'gun' }));
+    // wire guide + wire to the dot (gold), umbilical stub (dark)
+    g.appendChild(WK.svg('line', { x1: sx(87.1), y1: sy(-24.7), x2: sx(DOT[0]), y2: sy(DOT[1]), stroke: '#e6b422', 'stroke-width': 1.6 }));
+    g.appendChild(WK.svg('line', { x1: sx(GRIP_BASE[0]), y1: sy(GRIP_BASE[1]), x2: sx(GRIP_BASE[0] + 20), y2: sy(GRIP_BASE[1] - 38), stroke: '#30343b', 'stroke-width': 7, 'stroke-linecap': 'round' }));
+    // dimension ticks for scale: 50 mm bar
+    g.appendChild(WK.svg('line', { x1: sx(-30), y1: sy(-118), x2: sx(20), y2: sy(-118), stroke: '#6c788b', 'stroke-width': 2 }));
+    T(sx(-30), sy(-118) - 6, '50 mm', 'small');
+    T(sx(2), sy(12) - 16, 'nozzle', 'small'); T(sx(200), sy(30), 'housing', 'small'); T(sx(213), sy(-70), 'grip', 'small');
+  }
+
+  const rotAbout = (p, c, th) => [c[0] + (p[0] - c[0]) * Math.cos(th) - (p[1] - c[1]) * Math.sin(th), c[1] + (p[0] - c[0]) * Math.sin(th) + (p[1] - c[1]) * Math.cos(th)];
+  const setL = app.ui.readout('L', 'Lever L (pivot to dot)'), setA = app.ui.readout('a', 'Lever a (pivot to actuator)'), setR = app.ui.readout('r', 'Ratio L / a'), setD = app.ui.readout('d', 'Dot travel for this angle'), setS = app.ui.readout('s', 'Dot per actuator step'), setB = app.ui.readout('b', 'Dot per backlash'), setF = app.ui.readout('f', 'Force ratio at the dot (a / L)');
+  function redraw() {
+    clear();
+    const P = [app.ui.get('pz'), app.ui.get('py')], A = [app.ui.get('az'), app.ui.get('ay')];
+    const ang = app.ui.get('angle'), th = ang * D2R;
+    T(24, 26, 'Gun proxy, side view (gun frame, illustrative). Rotation is in the plane of the page, about the teal pivot.', 'big');
+    drawGun();
+    // arc of the dot
+    const L = Math.hypot(DOT[0] - P[0], DOT[1] - P[1]), a = Math.hypot(A[0] - P[0], A[1] - P[1]);
+    const d0 = DOT, d1 = rotAbout(DOT, P, th);
+    let arc = ''; const n = 40, aStart = 0;
+    for (let i = 0; i <= n; i++) { const t = th * i / n, q = rotAbout(DOT, P, t); arc += (i ? 'L' : 'M') + sx(q[0]).toFixed(1) + ' ' + sy(q[1]).toFixed(1); }
+    // lever lines
+    g.appendChild(WK.svg('line', { x1: sx(P[0]), y1: sy(P[1]), x2: sx(DOT[0]), y2: sy(DOT[1]), class: 'lever' }));
+    g.appendChild(WK.svg('line', { x1: sx(P[0]), y1: sy(P[1]), x2: sx(A[0]), y2: sy(A[1]), class: 'alever' }));
+    if (Math.abs(ang) > 0.001) g.appendChild(WK.svg('path', { d: arc, class: 'arc' }));
+    // ghost dot and moved dot
+    g.appendChild(WK.svg('circle', { cx: sx(d0[0]), cy: sy(d0[1]), r: 5, fill: 'none', stroke: '#ff3b30', 'stroke-dasharray': '3 2' }));
+    g.appendChild(WK.svg('circle', { cx: sx(d1[0]), cy: sy(d1[1]), r: 5.5, fill: '#ff3b30' }));
+    // pivot, attachment
+    g.appendChild(WK.svg('circle', { cx: sx(P[0]), cy: sy(P[1]), r: 8, fill: '#14b8a6', stroke: '#0f766e', 'stroke-width': 2 }));
+    g.appendChild(WK.svg('rect', { x: sx(A[0]) - 7, y: sy(A[1]) - 7, width: 14, height: 14, fill: '#a855f7', stroke: '#7e22ce', 'stroke-width': 2 }));
+    T(sx(P[0]) + 12, sy(P[1]) - 10, 'pivot', 'small'); T(sx(A[0]) + 10, sy(A[1]) - 10, 'actuator pushes here', 'small'); T(sx(DOT[0]) - 8, sy(DOT[1]) + 22, 'dot', 'small', 'end');
+    T(sx(DOT[0]) - 8, sy(DOT[1]) + 38, 'one actuator step = ' + (a > 0.5 ? (app.ui.get('act') / 1000 * L / a).toFixed(4) : '-') + ' mm here', 'small');
+    T(sx(DOT[0]) - 8, sy(DOT[1]) + 52, 'its backlash = ' + (a > 0.5 ? (app.ui.get('back') / 1000 * L / a).toFixed(4) : '-') + ' mm here', 'small');
+    T((sx(P[0]) + sx(DOT[0])) / 2, (sy(P[1]) + sy(DOT[1])) / 2 - 8, 'L = ' + L.toFixed(0) + ' mm', 'small');
+    // numbers
+    const per = L * D2R, stepAng = app.ui.get('astep') * D2R, actStep = app.ui.get('act') / 1000, backl = app.ui.get('back') / 1000;
+    const dTravel = Math.hypot(d1[0] - d0[0], d1[1] - d0[1]);
+    const dotPerAct = a > 0.5 ? actStep * L / a : Infinity, dotPerBack = a > 0.5 ? backl * L / a : Infinity;
+    setL(L.toFixed(0), 'mm'); setA(a.toFixed(0), 'mm'); setR(a > 0.5 ? (L / a).toFixed(2) : '-', ''); setD(dTravel.toFixed(2), 'mm'); setS(isFinite(dotPerAct) ? dotPerAct.toFixed(4) : '-', 'mm'); setB(isFinite(dotPerBack) ? dotPerBack.toFixed(4) : '-', 'mm'); setF(a > 0.5 ? (a / L).toFixed(2) : '-', '×');
+
+    // ---- bar chart: dot step for one angular step, pivot at each place; plus yours
+    const bx0 = 110, bw = 480, by0 = 520, rowH = 30;
+    T(24, 494, 'What one angular step of ' + app.ui.get('astep').toFixed(3) + '° is at the dot, by pivot place', 'big');
+    const maxv = 0.30, scale = bw / maxv;
+    const rows = [['grip base', PIV.grip], ['housing top', PIV.house], ['barrel middle', PIV.barrel], ['dot', PIV.dot], ['your pivot', P]];
+    rows.forEach((r, i) => {
+      const Lr = Math.hypot(DOT[0] - r[1][0], DOT[1] - r[1][1]), v = Lr * stepAng, y = by0 + i * rowH;
+      T(bx0 - 8, y + 13, r[0], 'small', 'end');
+      g.appendChild(WK.svg('rect', { x: bx0, y: y, width: Math.min(bw, v * scale), height: 17, class: 'bar' + (i === 4 ? ' me' : '') }));
+      T(bx0 + Math.min(bw, v * scale) + 6, y + 13, v.toFixed(3) + ' mm  (L ' + Lr.toFixed(0) + ')', 'small');
+    });
+    const tol = app.ui.get('tol');
+    g.appendChild(WK.svg('line', { x1: bx0 + tol * scale, x2: bx0 + tol * scale, y1: by0 - 4, y2: by0 + 5 * rowH, class: 'band' }));
+    T(bx0 + tol * scale + 4, by0 - 6, 'illustrative band ±' + tol.toFixed(2) + ' mm', 'small');
+
+    // ---- serial arm panel
+    const sxr = 700, sy0 = 520, sw = 240;
+    T(sxr - 40, 494, 'Serial arm: slop of each joint at the dot', 'big');
+    const j = [['joint 1', app.ui.get('l1'), app.ui.get('s1')], ['joint 2', app.ui.get('l2'), app.ui.get('s2')], ['joint 3', app.ui.get('l3'), app.ui.get('s3')]];
+    let sum = 0, rss = 0; const smax = 3.0;
+    j.forEach((r, i) => {
+      const v = r[1] * Math.tan(r[2] * D2R), y = sy0 + i * rowH; sum += v; rss += v * v;
+      T(sxr - 6, y + 13, r[0], 'small', 'end');
+      g.appendChild(WK.svg('rect', { x: sxr, y: y, width: Math.min(sw, v / smax * sw), height: 17, class: 'bar arm' }));
+      T(sxr + Math.min(sw, v / smax * sw) + 6, y + 13, v.toFixed(2) + ' mm  (' + r[1] + ' mm, ' + r[2].toFixed(2) + '°)', 'small');
+    });
+    T(sxr - 6, sy0 + 3 * rowH + 13, 'worst-case sum', 'small', 'end'); T(sxr, sy0 + 3 * rowH + 13, sum.toFixed(2) + ' mm', 'big');
+    T(sxr - 6, sy0 + 4 * rowH + 13, 'root-sum-square', 'small', 'end'); T(sxr, sy0 + 4 * rowH + 13, Math.sqrt(rss).toFixed(2) + ' mm', 'big');
+    app.io.set({
+      commands: [{ name: 'Angle about the pivot', value: ang.toFixed(2), unit: '°', note: 'illustrative' }, { name: 'Actuator step', value: app.ui.get('act'), unit: 'µm', note: 'linear step at the attachment' }],
+      observes: [{ name: 'Angle', value: ang.toFixed(2), unit: '°', status: 'partly', note: 'from a step count or encoder on the pivot; open loop otherwise' }, { name: 'Dot position', value: '-', status: 'blind', note: 'this calculator has no sensor; the dot is computed, not observed' }],
+      manual: ['Everything mechanical: this scene has no arrangement'],
+    });
+  }
+
+  const gp = app.ui.group('Place the pivot and the actuator (scene edits)', { help: 'Positions are in the gun frame: z along the barrel toward the back, y up (grip is at negative y).' });
+  gp.slider({ id: 'pz', label: 'Pivot z (along the barrel)', min: -16, max: 255, step: 1, value: 237, unit: 'mm', kind: 'scene', onChange: redraw });
+  gp.slider({ id: 'py', label: 'Pivot y (up/down)', min: -125, max: 40, step: 1, value: -118, unit: 'mm', kind: 'scene', onChange: redraw });
+  gp.slider({ id: 'az', label: 'Actuator attach z', min: -10, max: 255, step: 1, value: 60, unit: 'mm', kind: 'scene', onChange: redraw });
+  gp.slider({ id: 'ay', label: 'Actuator attach y', min: -125, max: 40, step: 1, value: 12, unit: 'mm', kind: 'scene', onChange: redraw });
+  const mo = app.ui.group('Motion and resolution (proposed actuator)');
+  mo.slider({ id: 'angle', label: 'Angle', min: -10, max: 10, step: 0.05, value: 1.5, unit: '°', kind: 'actuator', onChange: redraw });
+  mo.slider({ id: 'astep', label: 'Angular step (for the bars)', min: 0.005, max: 0.2, step: 0.005, value: 0.05, unit: '°', kind: 'actuator', help: 'What the motor and its gearing can command about the pivot.', onChange: redraw });
+  mo.slider({ id: 'act', label: 'Actuator linear step', min: 1, max: 200, step: 1, value: 10, unit: 'µm', kind: 'actuator', help: 'Push at the attachment.', onChange: redraw });
+  mo.slider({ id: 'back', label: 'Actuator backlash', min: 0, max: 200, step: 1, value: 20, unit: 'µm', kind: 'scene', onChange: redraw });
+  mo.slider({ id: 'tol', label: 'Drawing band', min: 0.02, max: 0.3, step: 0.01, value: 0.1, unit: '± mm', kind: 'view', help: 'Not a requirement.', onChange: redraw });
+  const sa = app.ui.group('Serial arm slop (illustrative)', { help: 'Angular play at each joint and its distance to the dot.' });
+  [['l1', 'Joint 1 lever', 600], ['l2', 'Joint 2 lever', 350], ['l3', 'Joint 3 lever', 200]].forEach(r => sa.slider({ id: r[0], label: r[1], min: 50, max: 900, step: 10, value: r[2], unit: 'mm', kind: 'scene', onChange: redraw }));
+  [['s1', 'Joint 1 slop', 0.10], ['s2', 'Joint 2 slop', 0.10], ['s3', 'Joint 3 slop', 0.10]].forEach(r => sa.slider({ id: r[0], label: r[1], min: 0, max: 0.5, step: 0.01, value: r[2], unit: '°', kind: 'scene', onChange: redraw }));
+  const pr = app.ui.group('Presets');
+  pr.select({ id: 'preset', label: 'Pivot at', options: [{ value: 'custom', label: 'as placed' }, { value: 'grip', label: 'grip base' }, { value: 'house', label: 'housing top' }, { value: 'barrel', label: 'barrel middle' }, { value: 'dot', label: 'the dot' }], value: 'custom', kind: 'branch', onChange: v => { if (v !== 'custom') { app.ui.set('pz', PIV[v][0]); app.ui.set('py', PIV[v][1]); } } });
+})();
+</script>
+</body>
+</html>

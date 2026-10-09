@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ring pivots around the dot</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-01-ring-pivots",
+  "title": "Ring pivots: turn about the dot with nothing on the axis",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "A telescope mount turns about a point with big rings and arcs instead of shafts. Here three bearing rings, each around an empty axis through the dot (yaw ring above the rim, a trunnion ring outside the wall, a roll ring round the grip), give the reference gun's three rotations while the dot stays on the seam. Switch to shafts on the axes to see where a photo or gimbal head cannot go.",
+  "tags": [
+    "pivot",
+    "rings",
+    "dobsonian",
+    "printed ball race",
+    "orientation"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "ring bearing around an empty axis",
+    "trim stage carries the whole pivot frame",
+    "collision-limited range readout"
+  ],
+  "how": {
+    "motion": "three ring drives turn yaw, hole and roll; a trim stage moves the frame",
+    "load": "gun on roll ring, trunnion ring, yaw ring, then a post from the bench",
+    "reference": "three ring axes meet at the dot by construction; frame placement sets that point",
+    "observe": "ring encoders give angles; an outside camera would give the dot (illustrative)",
+    "use": "setup places the frame by hand; operating trims and turns under software"
+  },
+  "software": {
+    "commands": [
+      "yaw, hole and roll ring angles",
+      "trim stage radial and vertical",
+      "rotator speed (existing)"
+    ],
+    "observes": [
+      "ring encoder angles",
+      "dot vs seam by an outside camera when the line of sight is free"
+    ],
+    "manual": [
+      "placing the frame so the axes meet at the dot within setup accuracy",
+      "routing the umbilical",
+      "balancing or counter-torque for the gun's weight about the rings"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-01-ring-pivots.md",
+    "../../explorers/borrowed/ideas/borrowed-04-axis-map.md"
+  ],
+  "sources": [
+    "../../sourcing/borrowed.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone(), AXZ = V(0, 0, 1);
+  const app = WK.app({
+    gun: { pose: 'none' },
+    view: 'main',
+    views: {
+      main: { target: [95, -100, 210], dir: [0.42, -0.85, 0.36], dist: 1180 },
+      joint: { target: [70, -20, 175], dir: [0.7, -0.45, 0.55], dist: 420 },
+      top: { target: [80, -70, 150], dir: [0, -0.003, 1], dist: 1000 },
+      side: { target: [90, -70, 180], dir: [0.03, -1, 0.06], dist: 1100 },
+    },
+    viewButtons: ['main', 'joint', 'top', 'side'],
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Photographers and astronomers turn a heavy load about a point with no shaft on it. A Dobsonian telescope sits on big circular arcs and a lazy-susan ring; a pano head pivots a camera about its lens. The dot is on a corner of metal, so a shaft on any axis through it starts inside the tube wall or the endcap (see the axis map). A <b>ring bearing</b> only needs its circle clear.</p>' +
+        '<p>Three rings, one per rotation of the reference gun: a <b>yaw ring</b> above the rim whose bore holds the swinging barrel, a <b>trunnion ring</b> outside the wall around the hole axis, and a <b>roll ring</b> around the grip. Each ring’s stator (amber) hangs from the ring outside it; each rotor (purple) turns inside. Rods carry the load from the bench post to the roll ring. Ring sizes and positions are sliders; the page checks gun, rings, rods and tube for contact and holds the last valid pose (LIMIT) when they touch.</p>' +
+        '<p>Switch <b>Pivot type</b> to shafts to see the same three axes as photo-head shafts: red parts of each shaft are inside metal. Switch <b>Frame route</b> to compare two ways the load path can reach the yaw ring; the I/O panel lists the collision-free ranges of the three rotations.</p>',
+      carries: '<p>Weight path: gun → roll ring rotor (a collar on the grip) → roll ring stator → rod A2 → trunnion ring rotor → trunnion stator → rod A1 → yaw ring rotor → yaw stator → frame arm → post → lift block on the slab → bench. Location: the three ring axes meet at the dot, so all three rotations leave the dot fixed. Position of that point relative to the seam is set by the frame’s placement (manual, then trimmed).</p>' +
+        '<p>Weight about the ring axes is <b>not solved</b>: the gun’s centre of mass is not on any axis, so each drive must hold a torque or a counterweight is needed (unresolved).</p>',
+      software: '<p>Software drives three ring angles and two trim axes and reads three ring encoders. The dot is not measured by the rings; the outside camera in the corner is the only thing that sees it, and it is blind at some azimuths. The <b>Let software null the estimate</b> button nulls what the camera reports, so a fixed camera bias becomes a fixed error.</p>',
+      tried: '<p><b>Round 1: shafts on the axes (pano head).</b> Yaw axis lies on the wall face for the first 6.35 mm above the dot; the hole axis lies on the endcap face and its far half runs into the plate; only the roll axis has free air, and its shaft coincides with the umbilical. Assumption broken: the donor head has free air around its pivot. Change: none possible with a shaft. Left standing: a cantilever shaft can only be needle-thin.</p>' +
+        '<p><b>Round 2: rings (Dobsonian).</b> Rings around empty axes clear the tube. Conflict found in this variant: the frame arm from the post passes through the trunnion ring\u2019s bore, and the ring swings into it as yaw grows: the collision-free yaw range at the opening pose is \u221237\u00B0 to +37\u00B0. Assumption behind it: the load path from the post can reach the yaw ring at ring height. Change: <b>Frame route</b> \u201Carm over the swept ring, strut down\u201D lifts the arm above the trunnion ring\u2019s sweep and drops a strut to the yaw stator inside it; yaw range becomes \u221289\u00B0 to +89\u00B0 at default sizes. It does not survive every size: a larger trunnion ring (distance 120, radius 105) collapses it again to \u00B139\u00B0.</p>' +
+        '<p><b>Round 3: the yaw bore.</b> The barrel is not concentric with the yaw ring: it swings inside it as hole and roll change, so the bore must exceed the ring\u2019s height times the tangent of the beam angle plus the barrel radius. At bore radius 62 the hole dial can go no lower than 18\u00B0 and roll no higher than 71\u00B0 (the barrel touches the yaw ring). At bore radius 100 they open to 12\u00B0 and 79\u00B0, but the overhead strut now sits outside the trunnion ring\u2019s minimum reach and yaw drops to \u00B125\u00B0; moving the trunnion ring outward runs it into the post. The three ranges trade against each other in this layout (sweeps in calc/ring_grid.mjs). Left standing: no size gives wide yaw, low hole and high roll at once, and nobody has specified the ranges that are needed (the encoded-arm scene borrowed-03 is a way to record them).</p>' +
+        '<p><b>Round 4: the fibre.</b> The grip-axis roll turns the cable about its own axis (the stub leaves along that axis). Manual p. 20 forbids twisting. Left standing: either a swivel that no one has, roll set once by hand and locked, or a roll ring that lets the fibre exit off the axis.</p>' +
+        '<p><b>Round 5: setup accuracy.</b> Three axes meet at a point only as accurately as the frame is placed. Set a frame error and the dot leaves the seam for every pose; the trim stage plus a camera can null it, but only down to the camera’s own bias.</p>',
+      unresolved: '<ul><li>How the three ring axes are made to meet at one point to a fraction of a millimetre (printed race, three-ball contact, indicator alignment) is not shown.</li><li>Holding torque or counterweights for the gun’s weight about each ring.</li><li>Roll ring placement round the grip and how the umbilical leaves without a twist.</li><li>Ring drives: belt, friction wheel or worm on a printed ring is not drawn.</li><li>The rods are a plausible load path, not a checked structure; only contact between drawn parts is tested.</li><li>The gun’s real shape (scan) and centre of mass.</li></ul>',
+      assumptions: '<ul><li>Gun proxy from the manual envelope (253 × 143 × 34 mm); the three rotations are the reference scene’s dial model, pitch and clearance illustrative.</li><li>All ring radii, distances, thicknesses, rod radii and the post position are <b>illustrative</b> sliders or constants.</li><li>Contact tests sample points on the drawn gun proxy against drawn rings, rods and the analytic tube; they are not clearances of a real part.</li><li>The camera estimate carries a made-up bias of 0.3 mm radial and −0.2 mm vertical.</li><li>Runout limits 0.25 / 0.30 mm TIR are the rig-doc acceptance values, wobble exaggerated.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, D = WK.DIM;
+
+  // ---------- geometry helpers
+  const G = { RIN: WK.INNER_RADIUS, ROUT: D.tubeOd / 2, H: D.tubeHeight, PR: D.capDiameter / 2, PZ0: WK.CAP_TOP - D.capThickness, PZ1: WK.CAP_TOP };
+  function rectD(r, z, r0, r1, z0, z1) { const dr = Math.max(r0 - r, 0, r - r1), dz = Math.max(z0 - z, 0, z - z1); return Math.sqrt(dr * dr + dz * dz); }
+  function tubeClear(x, y, z) { const r = Math.sqrt(x * x + y * y); return Math.min(rectD(r, z, G.RIN, G.ROUT, 0, G.H), rectD(r, z, 0, G.PR, G.PZ0, G.PZ1)); }
+  function segDist(p, a, b) {
+    const abx = b.x - a.x, aby = b.y - a.y, abz = b.z - a.z, apx = p.x - a.x, apy = p.y - a.y, apz = p.z - a.z;
+    const l2 = abx * abx + aby * aby + abz * abz; let t = l2 > 0 ? (apx * abx + apy * aby + apz * abz) / l2 : 0; t = Math.max(0, Math.min(1, t));
+    const dx = apx - t * abx, dy = apy - t * aby, dz = apz - t * abz; return Math.sqrt(dx * dx + dy * dy + dz * dz);
+  }
+  const s60 = Math.sin(WK.PITCH), c60 = Math.cos(WK.PITCH);
+  const axisLocal = WK.LOCAL_ROLL_AXIS.clone();
+  const a0 = V(axisLocal.x, -c60 * axisLocal.z + s60 * axisLocal.y, s60 * axisLocal.z + c60 * axisLocal.y);   // roll axis in the base frame (all dials zero, hole dial 35)
+  const DOT_LOCAL = V(0, 0, -WK.CLEARANCE);
+
+  // ---------- gun surface samples (local frame), for contact tests
+  const GS = (function () {
+    const pts = [], rad = z => z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12;
+    for (let z = 0; z <= 118; z += 2) for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; pts.push(V(rad(z) * Math.cos(a), rad(z) * Math.sin(a), z)); }
+    function box(c, hx, hy, hz, q, step) {
+      const nx = Math.max(1, Math.round(2 * hx / step)), ny = Math.max(1, Math.round(2 * hy / step)), nz = Math.max(1, Math.round(2 * hz / step));
+      for (let i = 0; i <= nx; i++) for (let j = 0; j <= ny; j++) for (let k = 0; k <= nz; k++) {
+        if (!(i === 0 || i === nx || j === 0 || j === ny || k === 0 || k === nz)) continue;
+        const p = V(-hx + 2 * hx * i / nx, -hy + 2 * hy * j / ny, -hz + 2 * hz * k / nz); if (q) p.applyQuaternion(q); pts.push(p.add(c));
+      }
+    }
+    box(V(0, 0, 185.5), 17, 17, 67.5, null, 6);
+    const gs = V(0, -25, 172), ge = V(0, -111, 232), gl = gs.distanceTo(ge), gd = ge.clone().sub(gs).normalize();
+    box(gs.clone().add(ge).multiplyScalar(0.5), 15, (gl + 16) / 2, 14, new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), gd), 5);
+    return pts;
+  })();
+
+  // ---------- state
+  const S = { v: -15, h: 30, r: 45, trimR: 0, trimZ: 0, errR: 0, errZ: 0, pivots: 'rings', hy: 28, Ry: 62, dh: 95, Rh: 80, dr: 264, Rr: 34, w: 4, rho: 6, route: 'low', two: true, laid: 45, camAz: 200 };
+  const POST_X = J.x + 172, H0 = 24, BIAS = { radial: 0.3, vertical: -0.2 };
+  const benchZ = ws.benchZ;
+
+  // ---------- layout: everything in rig-local coordinates (nominal J), pure function of the three dials
+  function mats(v, h) {
+    const hp = h - WK.HOLE_AXIS_OFFSET;
+    const T = new THREE.Matrix4().makeTranslation(J.x, J.y, J.z), Ti = new THREE.Matrix4().makeTranslation(-J.x, -J.y, -J.z);
+    const Rz = new THREE.Matrix4().makeRotationZ(v * DEG), Rx = new THREE.Matrix4().makeRotationX(-hp * DEG);   // pose maths turns the hole roll by -h'
+    return { yaw: T.clone().multiply(Rz).multiply(Ti), hole: T.clone().multiply(Rz).multiply(Rx).multiply(Ti), Rz: Rz, RzRx: Rz.clone().multiply(Rx) };
+  }
+  function layout(v, h) {
+    const M = mats(v, h), w = S.w, L = { M: M };
+    const yc = J.clone().add(V(0, 0, S.hy));
+    L.yaw = { name: 'yaw ring', c: yc, n: V(0, 0, 1), R: S.Ry };
+    const ch0 = J.clone().add(V(S.dh, 0, 0));
+    L.hole = { name: 'trunnion ring', c: ch0.clone().applyMatrix4(M.yaw), n: V(1, 0, 0).transformDirection(M.Rz), R: S.Rh };
+    const cr0 = J.clone().addScaledVector(a0, S.dr);
+    L.roll = { name: 'roll ring', c: cr0.clone().applyMatrix4(M.hole), n: a0.clone().transformDirection(M.RzRx), R: S.Rr };
+    // rods (name, a, b, radius, attached ring names)
+    const over = S.route === 'over', zOv = J.z + S.Rh + 4 * w + 14;
+    const postTop = V(POST_X, 0, over ? zOv : yc.z - 1.5 * w);
+    const sA0 = V(J.x + S.Ry + 3.6 * w, 0, yc.z - 1.5 * w);
+    const rim1 = yc.clone().add(V(S.Ry + 1.4 * w, 0, 1.5 * w)).applyMatrix4(M.yaw);
+    const sH = ch0.clone().add(V(0, 0, S.Rh + 2.6 * w)).applyMatrix4(M.yaw);
+    const phi = -50 * DEG, rH = ch0.clone().add(V(0, (S.Rh + w) * Math.sin(phi), (S.Rh + w) * Math.cos(phi))).applyMatrix4(M.hole);
+    const srR = cr0.clone().add(V(S.Rr + 3.6 * w, 0, 0)).applyMatrix4(M.hole);
+    const armEnd = over ? V(sA0.x, 0, zOv) : sA0;
+    L.rods = [
+      { name: 'post', a: V(POST_X, 0, benchZ + H0), b: postTop, r: 7, ends: [] },
+      { name: 'frame arm', a: postTop, b: armEnd, r: 4.5, ends: over ? [] : ['yaw ring'] },
+      { name: 'rod A1', a: rim1, b: sH, r: 4.5, ends: ['yaw ring', 'trunnion ring'] },
+      { name: 'rod A2', a: rH, b: srR, r: 4.5, ends: ['trunnion ring', 'roll ring'] },
+    ];
+    if (over) L.rods.push({ name: 'frame strut', a: armEnd, b: sA0, r: 4.5, ends: ['yaw ring'] });
+    return L;
+  }
+  function gunPts(v, h, r, off) {
+    const pose = WK.dialsToPose(r, h, v), out = [];
+    for (let i = 0; i < GS.length; i++) out.push(GS[i].clone().applyQuaternion(pose.quaternion).add(pose.position));
+    return { pts: out, pose: pose };
+  }
+  function ringCircle(rg, n) { const ref = Math.abs(rg.n.z) < 0.9 ? V(0, 0, 1) : V(1, 0, 0), u = new THREE.Vector3().crossVectors(rg.n, ref).normalize(), t = new THREE.Vector3().crossVectors(rg.n, u), out = [], R = rg.R + 2 * S.w; for (let i = 0; i < n; i++) { const p = i / n * Math.PI * 2; out.push(rg.c.clone().addScaledVector(u, R * Math.cos(p)).addScaledVector(t, R * Math.sin(p))); } return out; }
+  // contacts among the gun (samples), rings, rods and the tube. Returns unique part names.
+  function collide(v, h, r) {
+    const L = layout(v, h), gp = gunPts(v, h, r), bad = new Set(), off = V(S.trimR + S.errR, 0, S.trimZ + S.errZ), w = S.w;
+    for (const p of gp.pts) { if (tubeClear(p.x + off.x, p.y + off.y, p.z + off.z) < 1.0) { bad.add('tube'); break; } }
+    [L.yaw, L.hole, L.roll].forEach(function (rg) {
+      for (const p of gp.pts) { const d = p.clone().sub(rg.c), ax = d.dot(rg.n); if (Math.abs(ax) <= w) { const rad = Math.sqrt(Math.max(0, d.lengthSq() - ax * ax)); if (rad >= rg.R - 1) { bad.add(rg.name + (rad < rg.R + 4 * w ? '' : ' (gun outside bore)')); break; } } }
+    });
+    L.rods.forEach(function (rd) { for (const p of gp.pts) { if (segDist(p, rd.a, rd.b) < rd.r + 1.5) { bad.add(rd.name); break; } } });
+    [L.yaw, L.hole, L.roll].forEach(function (rg) {
+      const circ = ringCircle(rg, 48);
+      L.rods.forEach(function (rd) { if (rd.ends.indexOf(rg.name) >= 0) return; for (const p of circ) { if (segDist(p, rd.a, rd.b) < rd.r + w) { bad.add(rg.name + ' hits ' + rd.name); break; } } });
+    });
+    return { bad: Array.from(bad), L: L, gp: gp };
+  }
+  // straight path in dial space from a to b: first contact along it, or null
+  function pathBlock(a, b) {
+    const n = Math.ceil(Math.max(Math.abs(a.v - b.v), Math.abs(a.h - b.h), Math.abs(a.r - b.r)) / 1.5);
+    for (let i = 1; i < n; i++) { const t = i / n, c = collide(a.v + (b.v - a.v) * t, a.h + (b.h - a.h) * t, a.r + (b.r - a.r) * t); if (c.bad.length) return c.bad; }
+    return null;
+  }
+  function freeRange(which, cur) {
+    const lim = which === 'v' ? [-90, 90] : which === 'h' ? [-25, 95] : [0, 80];
+    function ok(x) { const t = Object.assign({}, cur); t[which] = x; return collide(t.v, t.h, t.r).bad.length === 0; }
+    if (!ok(cur[which])) return null;
+    let lo = cur[which], hi = cur[which];
+    while (lo - 2 >= lim[0] && ok(lo - 2)) lo -= 2;
+    while (hi + 2 <= lim[1] && ok(hi + 2)) hi += 2;
+    return [lo, hi];
+  }
+
+  // ---------- scene objects
+  const rig = new THREE.Group(); rig.name = 'pivot frame + gun'; app.add(rig); rig.add(gun.group);
+  let ringObjs = [];
+  const dbl = (R, w, role) => P.ring(R, w, { role: role });
+  const yawStator = { o: null }, yawRotor = { o: null }, holeStator = { o: null }, holeRotor = { o: null }, rollStator = { o: null }, rollRotor = { o: null };
+  function buildRings() {
+    [yawStator, yawRotor, holeStator, holeRotor, rollStator].forEach(function (k) { if (k.o && k.o.parent) k.o.parent.remove(k.o); });
+    if (rollRotor.o && rollRotor.o.parent) rollRotor.o.parent.remove(rollRotor.o);
+    const w = S.w;
+    yawStator.o = dbl(S.Ry + 3 * w, w, 'load'); yawRotor.o = dbl(S.Ry + w, w, 'actuated');
+    holeStator.o = dbl(S.Rh + 3 * w, w, 'load'); holeRotor.o = dbl(S.Rh + w, w, 'actuated');
+    rollStator.o = dbl(S.Rr + 3 * w, w, 'load'); rollRotor.o = dbl(S.Rr + w, w, 'actuated');
+    [yawStator, yawRotor, holeStator, holeRotor, rollStator].forEach(k => rig.add(k.o));
+    gun.group.add(rollRotor.o);
+    rollRotor.o.position.copy(DOT_LOCAL).addScaledVector(axisLocal, S.dr); rollRotor.o.quaternion.setFromUnitVectors(AXZ, axisLocal);
+  }
+  const post = P.rod(V(0, 0, 0), V(0, 0, 1), 7, 'fixed'), rods = ['frame arm', 'rod A1', 'rod A2', 'frame strut'].map(() => P.rod(V(0, 0, 0), V(0, 0, 1), 4.5, 'load'));
+  const liftBlk = P.box(70, 70, 10, 'actuated'), slab = P.box(220, 90, 8, 'fixed'); slab.position.set(POST_X, 0, benchZ + 4);
+  const rodGroup = new THREE.Group(); rig.add(rodGroup); [post].concat(rods).forEach(o => rodGroup.add(o));
+  app.add(liftBlk); app.add(slab);
+  // cable: from the stub end to an overhead hook (illustrative)
+  const HOOK = V(-80, -650, 560);
+  const hookPost = P.rod(V(HOOK.x, HOOK.y, benchZ), HOOK, 5, 'fixed'); app.add(hookPost); const hookDot = P.sphere(9, 'fixed'); hookDot.position.copy(HOOK); app.add(hookDot);
+  let cableMesh = null;
+  const stubEndLocal = WK.GRIP_BASE_LOCAL.clone().addScaledVector(axisLocal, 70);
+  function drawCable() {
+    const p = gun.local(stubEndLocal), d = gun.dir(axisLocal), curve = WK.bezierCable(p, d, HOOK, HOOK.clone().sub(p).normalize(), { stiffness: 0.42 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    return curve.minRadius();
+  }
+  // shafts branch: three axes drawn as rods, teal while in free air, red inside metal (a pool of segment rods per shaft)
+  const shaftDefs = [
+    { id: 'yaw up', dir: () => V(0, 0, 1), t1: 130 }, { id: 'yaw down', dir: () => V(0, 0, -1), t1: 60, two: true },
+    { id: 'hole out', dir: () => V(Math.cos(S.v * DEG), Math.sin(S.v * DEG), 0), t1: 130 }, { id: 'hole in', dir: () => V(-Math.cos(S.v * DEG), -Math.sin(S.v * DEG), 0), t1: 130, two: true },
+  ];
+  const mkShaft = role => { const o = P.rod(V(0, 0, 0), V(0, 0, 1), 1, role); o.userData.kx = S.rho; return o; };
+  const shaftGroup = new THREE.Group(); rig.add(shaftGroup);
+  const shaftObjs = shaftDefs.map(function (d) { const ok = [], bad = []; for (let i = 0; i < 5; i++) { ok.push(mkShaft('locate')); bad.push(mkShaft('laser')); } shaftGroup.add.apply(shaftGroup, ok.concat(bad)); return { d: d, ok: ok, bad: bad }; });
+  const rollTail = mkShaft('locate'); shaftGroup.add(rollTail);
+  function drawShafts(off) {
+    shaftObjs.forEach(function (s) {
+      const d = s.d, dir = d.dir(), vis = !d.two || S.two;
+      s.ok.concat(s.bad).forEach(o => { o.visible = false; });
+      if (!vis) return;
+      let segs = [], cur = null;
+      for (let t = 0; t <= d.t1; t += 1) {
+        const p = J.clone().addScaledVector(dir, t), free = tubeClear(p.x + off.x, p.y + off.y, p.z + off.z) >= S.rho - 0.01;
+        if (!cur || cur.free !== free) { cur = { free: free, t0: t, t1: t }; segs.push(cur); } else cur.t1 = t;
+      }
+      let iok = 0, ibad = 0;
+      segs.forEach(function (sg) {
+        const o = sg.free ? s.ok[iok++] : s.bad[ibad++]; if (!o) return;
+        o.visible = true; o.setEnds(J.clone().addScaledVector(dir, sg.t0), J.clone().addScaledVector(dir, sg.t1 + 1));
+      });
+    });
+    const base = gun.local('gripBase').sub(rig.position), gd = gun.dir(axisLocal);
+    rollTail.setEnds(base.clone().addScaledVector(gd, 8), base.clone().addScaledVector(gd, 95));
+  }
+
+  // dashed axes
+  function dashedLine(color, dash, gap) {
+    const l = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineDashedMaterial({ color: WK.color(color), dashSize: dash, gapSize: gap, transparent: true, opacity: 0.9, depthTest: false }));
+    l.renderOrder = 5; l.frustumCulled = false;
+    l.set = function (a, b) { l.geometry.setFromPoints([a, b]); l.computeLineDistances(); return l; };
+    return l;
+  }
+  const yawLine = dashedLine(0xfbbf24, 6, 3), holeLine = dashedLine(0x22d3ee, 4, 3), rollLine = dashedLine(0xc084fc, 5, 3);
+  [yawLine, holeLine, rollLine].forEach(l => { app.addHelper(l); rig.add(l); });
+
+  // labels
+  app.label(() => gun.dotWorld(), 'Laser dot (the point all three rings turn about)', { cls: 'laser' });
+  const ringLabels = [
+    app.label(() => yawStator.o.getWorldPosition(new THREE.Vector3()).add(V(0, 0, 6)), 'yaw ring', { cls: 'load' }),
+    app.label(() => holeStator.o.getWorldPosition(new THREE.Vector3()).add(V(0, 0, S.Rh + 3 * S.w)), 'trunnion (hole-axis) ring', { cls: 'load' }),
+    app.label(() => rollStator.o.getWorldPosition(new THREE.Vector3()), 'roll ring at the grip base', { cls: 'load' }),
+    app.label(() => liftBlk.position.clone().add(V(0, 0, 30)), 'trim stage (radial + vertical)', { cls: 'actuated' })];
+  app.label(() => HOOK, 'umbilical hook (illustrative)');
+
+  // observer camera
+  const cam = { r: 250, h: 330 }, camPos = V(0, 0, 0);
+  function placeCam() { camPos.set(cam.r * Math.cos(S.camAz * DEG), cam.r * Math.sin(S.camAz * DEG), cam.h); }
+  placeCam();
+  app.inset.add({ id: 'obs', label: 'Outside camera (proposed, illustrative)', position: () => camPos, target: () => gun.dotWorld(), fov: 38, near: 30, far: 1500, size: [230, 158], corner: 'br', noise: 0.25 });
+  app.label(camPos, 'camera', { cls: 'sensor' });
+  app.cornerInset({ gun: gun });
+  gun.setLaser(true);
+
+  // ---------- apply
+  let last = { v: S.v, h: S.h, r: S.r }, lastRes = null;
+  function place(o, c, n) { o.position.copy(c); o.quaternion.setFromUnitVectors(AXZ, n.clone().normalize()); }
+  function fmtRange(x) { return x ? x[0] + '° to ' + x[1] + '°' : 'pose blocked'; }
+  function update() {
+    if (!yawStator.o) return;
+    const off = V(S.trimR + S.errR, 0, S.trimZ + S.errZ);
+    rig.position.copy(off);
+    liftBlk.scale.set(1, 1, 1); const hgt = H0 + off.z; liftBlk.geometry.dispose(); liftBlk.geometry = new THREE.BoxGeometry(70, 70, hgt); liftBlk.position.set(POST_X + off.x, 0, benchZ + hgt / 2);
+    let use = { v: S.v, h: S.h, r: S.r }, res = collide(use.v, use.h, use.r);
+    const rings = S.pivots === 'rings';
+    let block = res.bad.length ? 'gun, rings or rods touch: ' + res.bad.join('; ') : null;
+    if (rings && !block) { const pb = pathBlock(last, use); if (pb) block = 'cannot get there from the last pose without touching: ' + pb.join('; '); }
+    if (rings && block) { app.badge('limit', block + '. Holding the last valid pose', 'limit'); use = last; res = collide(use.v, use.h, use.r); }
+    else { app.badge('limit', null); last = { v: use.v, h: use.h, r: use.r }; }
+    const L = res.L;
+    gun.setDials(use.r, use.h, use.v);
+    // rings
+    place(yawStator.o, L.yaw.c, L.yaw.n); place(yawRotor.o, L.yaw.c, L.yaw.n);
+    place(holeStator.o, L.hole.c, L.hole.n); place(holeRotor.o, L.hole.c, L.hole.n);
+    place(rollStator.o, L.roll.c, L.roll.n);
+    yawRotor.o.rotation.z += 0;   // symmetric; rotation shown by the rod A1 riding the rotor
+    // rods
+    post.setEnds(L.rods[0].a, L.rods[0].b);
+    rods.forEach((o, i) => { const rd = L.rods[i + 1]; o.visible = !!rd; if (rd) o.setEnds(rd.a, rd.b); });
+    rodGroup.visible = rings; [yawStator, yawRotor, holeStator, holeRotor, rollStator, rollRotor].forEach(k => { k.o.visible = rings; });
+    liftBlk.visible = slab.visible = rings;
+    shaftGroup.visible = !rings; ringLabels.forEach(l => l.show(rings)); drawShafts(off);
+    // axis lines
+    yawLine.set(J.clone().add(V(0, 0, -22)), J.clone().add(V(0, 0, 170)));
+    const ha = V(Math.cos(use.v * DEG), Math.sin(use.v * DEG), 0);
+    holeLine.set(J.clone().addScaledVector(ha, -(2 * WK.INNER_RADIUS + 16)), J.clone().addScaledVector(ha, S.dh + S.Rh + 30));
+    const ga = gun.dir(axisLocal); rollLine.set(J.clone(), gun.local('gripBase').addScaledVector(ga, 90));
+    gun.updateLaser();
+    const minR = drawCable(), cb = WK.cableBadge(minR);
+    app.badge('cable', cb.level === 'ok' ? null : cb.text, cb.level);
+    const twist = use.r - S.laid;
+    // observer + estimate
+    placeCam();
+    const vis = app.inset.markVisibility('obs', gun.dotWorld()), offs = gun.dotOffset();
+    app.cornerInset.setEstimate(vis && vis.visible ? { radial: offs.radial + BIAS.radial, vertical: offs.vertical + BIAS.vertical } : null);
+    lastRes = { vis: vis, offs: offs, use: use };
+    const ranges = rings ? { v: freeRange('v', use), h: freeRange('h', use), r: freeRange('r', use) } : null;
+    app.io.set({
+      commands: [
+        { name: 'Yaw ring', value: use.v.toFixed(0), unit: '°', note: 'drive on the ring (belt / friction / worm): not drawn' },
+        { name: 'Hole (trunnion) ring', value: use.h.toFixed(0), unit: '° dial' },
+        { name: 'Roll ring', value: use.r.toFixed(0), unit: '°' },
+        { name: 'Trim stage radial / vertical', value: (S.trimR).toFixed(1) + ' / ' + (S.trimZ).toFixed(1), unit: 'mm' },
+      ],
+      observes: [
+        { name: 'Ring encoder angles', value: use.v.toFixed(1) + ' / ' + use.h.toFixed(1) + ' / ' + use.r.toFixed(1), unit: '°', status: 'seen', note: 'encoder type and resolution not chosen; angles only, not the dot' },
+        { name: 'Dot visible to outside camera', value: vis ? (vis.visible ? 'yes' : (vis.inFov ? 'blocked' : 'out of view')) : '-', status: vis && vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Dot vs seam (r, z)', value: vis && vis.visible ? (offs.radial + BIAS.radial).toFixed(2) + ', ' + (offs.vertical + BIAS.vertical).toFixed(2) : '-', unit: vis && vis.visible ? 'mm' : '', status: vis && vis.visible ? 'partly' : 'blind', note: 'estimate has a made-up bias; the truth is in the corner inset' },
+        { name: 'Collision-free yaw range', value: rings ? fmtRange(ranges.v) : '-', status: rings ? 'seen' : 'unresolved', note: 'from the drawn parts at the current hole and roll settings' },
+        { name: 'Collision-free hole range', value: rings ? fmtRange(ranges.h) : '-', status: rings ? 'seen' : 'unresolved' },
+        { name: 'Collision-free roll range', value: rings ? fmtRange(ranges.r) : '-', status: rings ? 'seen' : 'unresolved' },
+        { name: 'Fibre twist at the exit', value: twist.toFixed(0), unit: '° from where it was laid', status: 'unresolved', note: 'roll turns the cable about its own axis; twist tolerance unknown (manual p. 20: forbidden)' },
+        { name: 'Weight torque on each ring', value: '-', status: 'unresolved', note: 'centre of mass and gun mass unknown' },
+      ],
+      manual: ['Place the frame so the three axes meet at the dot', 'Align ring axes (indicator or laser)', 'Lay the umbilical without a twist', 'Set the gun in the roll collar'],
+    });
+    app.invalidate();
+  }
+
+  // ---------- controls
+  const rot = app.ui.group('Ring drives (proposed actuators)', { help: 'Each turns one ring; the dot stays on the seam by the geometry of the rings.' });
+  rot.slider({ id: 'yaw', label: 'Yaw ring', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'actuator', visual: () => [yawRotor.o, yawStator.o], onChange: v => { S.v = v; update(); } });
+  rot.slider({ id: 'hole', label: 'Trunnion (hole-axis) ring, dial', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'actuator', visual: () => [holeRotor.o, holeStator.o], onChange: v => { S.h = v; update(); } });
+  rot.slider({ id: 'roll', label: 'Roll ring (grip axis)', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'actuator', visual: () => [rollRotor.o, rollStator.o], onChange: v => { S.r = v; update(); } });
+  const trim = app.ui.group('Trim stage under the frame (proposed actuators)', { help: 'Moves the whole frame, so the dot moves. Sized by runout and tube-to-tube variation, not by the rings.' });
+  trim.slider({ id: 'trimR', label: 'Trim, radial', min: -8, max: 8, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => liftBlk, onChange: v => { S.trimR = v; update(); } });
+  trim.slider({ id: 'trimZ', label: 'Trim, vertical', min: -8, max: 8, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => liftBlk, onChange: v => { S.trimZ = v; update(); } });
+  trim.button({ id: 'null', label: 'Let software null the camera’s estimate', kind: 'state', onClick: function () {
+    if (!lastRes || !lastRes.vis || !lastRes.vis.visible) { app.toast('The outside camera cannot see the dot: nothing to null'); return; }
+    const e = { r: lastRes.offs.radial + BIAS.radial, z: lastRes.offs.vertical + BIAS.vertical };
+    app.ui.set('trimR', Math.max(-8, Math.min(8, +(S.trimR - e.r).toFixed(1)))); app.ui.set('trimZ', Math.max(-8, Math.min(8, +(S.trimZ - e.z).toFixed(1))));
+  } });
+  const setup = app.ui.group('Setup (what a person did by hand)', { help: 'Scene edits: how far the frame was placed from where the axes meet the seam.' });
+  setup.slider({ id: 'errR', label: 'Frame placement error, radial', min: -4, max: 4, step: 0.1, value: 0, unit: 'mm', kind: 'scene', visual: () => rig, onChange: v => { S.errR = v; update(); } });
+  setup.slider({ id: 'errZ', label: 'Frame placement error, vertical', min: -4, max: 4, step: 0.1, value: 0, unit: 'mm', kind: 'scene', visual: () => rig, onChange: v => { S.errZ = v; update(); } });
+  setup.slider({ id: 'laid', label: 'Roll at which the umbilical was laid untwisted', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', onChange: v => { S.laid = v; update(); } });
+  const br = app.ui.group('Compare');
+  br.radio({ id: 'pivots', label: 'Pivot type', kind: 'branch', value: 'rings', options: [{ value: 'rings', label: 'rings round empty axes' }, { value: 'shafts', label: 'shafts on the axes' }], help: 'Shafts = a photo pano head or gimbal at the same three axes: red parts are inside metal.', onChange: v => { S.pivots = v; app.ui.enable('rho', v === 'shafts'); app.ui.enable('two', v === 'shafts'); app.ui.enable('route', v === 'rings'); update(); } });
+  br.radio({ id: 'route', label: 'Frame route (rings branch)', kind: 'branch', value: 'low', options: [{ value: 'low', label: 'arm at ring height' }, { value: 'over', label: 'arm over the swept ring, strut down' }], help: 'Where the load path from the post reaches the yaw ring. Compare the collision-free yaw range.', onChange: v => { S.route = v; update(); } });
+  br.slider({ id: 'rho', label: 'Shaft radius (shafts branch)', min: 2, max: 14, step: 0.5, value: 6, unit: 'mm', kind: 'scene', onChange: v => { S.rho = v; shaftObjs.forEach(s => s.ok.concat(s.bad).forEach(o => { o.userData.kx = v; })); rollTail.userData.kx = v; update(); } });
+  br.toggle({ id: 'two', label: 'Two-sided shafts (fork / yoke)', value: true, kind: 'scene', onChange: v => { S.two = v; update(); } });
+  const rg = app.ui.group('Ring sizes and places (illustrative)');
+  rg.slider({ id: 'hy', label: 'Yaw ring height above the dot', min: 12, max: 90, step: 1, value: 28, unit: 'mm', kind: 'scene', visual: () => yawStator.o, onChange: v => { S.hy = v; update(); } });
+  rg.slider({ id: 'Ry', label: 'Yaw ring bore radius', min: 25, max: 120, step: 1, value: 62, unit: 'mm', kind: 'scene', visual: () => yawStator.o, onChange: v => { S.Ry = v; buildRings(); update(); } });
+  rg.slider({ id: 'dh', label: 'Trunnion ring distance outside the dot', min: 70, max: 170, step: 1, value: 95, unit: 'mm', kind: 'scene', visual: () => holeStator.o, onChange: v => { S.dh = v; update(); } });
+  rg.slider({ id: 'Rh', label: 'Trunnion ring radius', min: 40, max: 130, step: 1, value: 80, unit: 'mm', kind: 'scene', visual: () => holeStator.o, onChange: v => { S.Rh = v; buildRings(); update(); } });
+  rg.slider({ id: 'dr', label: 'Roll ring position along the grip axis', min: 235, max: 282, step: 1, value: 264, unit: 'mm', kind: 'scene', visual: () => rollStator.o, help: 'Distance from the dot along the line to the cable exit (279 mm). The line runs in air in front of the grip and only meets the grip at its lower end.', onChange: v => { S.dr = v; buildRings(); update(); } });
+  rg.slider({ id: 'Rr', label: 'Roll ring bore radius', min: 22, max: 60, step: 1, value: 34, unit: 'mm', kind: 'scene', visual: () => rollStator.o, onChange: v => { S.Rr = v; buildRings(); update(); } });
+  const rigc = app.ui.group('Rotator, tube and camera');
+  rigc.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  rigc.toggle({ id: 'runout', label: 'Show indicated runout (rig-doc limits)', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+  rigc.slider({ id: 'camAz', label: 'Camera azimuth', min: 0, max: 360, step: 1, value: 200, unit: '°', kind: 'scene', visual: 'the blue outside camera and its frustum', onChange: v => { S.camAz = v; update(); } });
+  rigc.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+
+  buildRings();
+  update();
+})();
+</script>
+</body>
+</html>

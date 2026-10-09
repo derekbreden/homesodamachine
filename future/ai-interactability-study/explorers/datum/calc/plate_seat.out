@@ -1,0 +1,40 @@
+A. Does the slip fit square the plate?
+   plate OD 123.444 mm, bore 123.698 mm, radial slip 0.127 mm, thickness 6.350 mm
+   plate diagonal sqrt(D^2 + t^2) = 123.607 mm, bore 123.698 mm: the diagonal is 0.091 mm SHORTER than the bore.
+   A tilted plug of thickness t needs a bore of D cos(a) + t sin(a); its maximum over a is the diagonal, so this plate can lie at ANY tilt,
+   edge-on if it were let, without touching the wall on both sides. The slip fit does not square it; a burr or a spacer or a hand does.
+   (Repo: "a rolled-over saw burr is enough to catch a plate part-way down and hold it off its seated depth".)
+
+B. Face wobble at the weld circle from a plate tilt a (rig acceptance: face TIR <= 0.30 mm)
+   tilt 0.050 deg -> face TIR at the weld circle 0.108 mm (amplitude at the station 0.054 mm)
+   tilt 0.100 deg -> face TIR at the weld circle 0.216 mm (amplitude at the station 0.108 mm)
+   tilt 0.139 deg -> face TIR at the weld circle 0.300 mm (amplitude at the station 0.150 mm)
+   tilt 0.250 deg -> face TIR at the weld circle 0.540 mm (amplitude at the station 0.270 mm)
+   tilt 0.500 deg -> face TIR at the weld circle 1.080 mm (amplitude at the station 0.540 mm)
+   tilt 1.000 deg -> face TIR at the weld circle 2.159 mm (amplitude at the station 1.080 mm)
+   the 0.30 mm acceptance is a tilt of 0.139 deg between plate and rotation axis; the crown follows the RIM, so the plate tilt against the rim is what it cannot see.
+
+C. Three feet on the setting ring (radius rf, azimuths 22.5 + 120 k deg), foot-length error d_i, plate pressed flat against all three
+   feet at r = 40 mm, foot length tolerance +-0.02 mm: face tilt amplitude at the weld circle rms 0.021 mm, worst of 4000 draws 0.040 mm, one-long-two-short 0.041 mm
+   feet at r = 40 mm, foot length tolerance +-0.05 mm: face tilt amplitude at the weld circle rms 0.052 mm, worst of 4000 draws 0.101 mm, one-long-two-short 0.103 mm
+   feet at r = 40 mm, foot length tolerance +-0.10 mm: face tilt amplitude at the weld circle rms 0.104 mm, worst of 4000 draws 0.201 mm, one-long-two-short 0.206 mm
+   feet at r = 52 mm, foot length tolerance +-0.02 mm: face tilt amplitude at the weld circle rms 0.016 mm, worst of 4000 draws 0.031 mm, one-long-two-short 0.032 mm
+   feet at r = 52 mm, foot length tolerance +-0.05 mm: face tilt amplitude at the weld circle rms 0.040 mm, worst of 4000 draws 0.077 mm, one-long-two-short 0.079 mm
+   feet at r = 52 mm, foot length tolerance +-0.10 mm: face tilt amplitude at the weld circle rms 0.080 mm, worst of 4000 draws 0.155 mm, one-long-two-short 0.159 mm
+   Set-screw feet (M3, 0.5 mm pitch, set with a depth gauge) are +-0.02; printed feet +-0.10. The plate face is then the RING's plane to that amplitude,
+   whatever the rim, the tilt in the slip fit or the burr under it did: the surface that set the plate is the surface the gun rides.
+
+D. Eight tacks, order 0,180,90,270,45,225,135,315 deg [repo: opposite-side-bisecting]; each tack locks the plate edge at its own height h0 + u_i
+   Plate face after the eighth tack = constant + first harmonic (plane fit of the eight locked heights):
+   tack lift mean 0.02 mm, spread 0.01 mm: plate constant 0.020 mm, first-harmonic amplitude rms 0.007 mm (about half the spread)
+   tack lift mean 0.05 mm, spread 0.02 mm: plate constant 0.050 mm, first-harmonic amplitude rms 0.014 mm (about half the spread)
+   tack lift mean 0.10 mm, spread 0.05 mm: plate constant 0.101 mm, first-harmonic amplitude rms 0.036 mm (about half the spread)
+   tack lift mean 0.20 mm, spread 0.10 mm: plate constant 0.202 mm, first-harmonic amplitude rms 0.072 mm (about half the spread)
+   A steady lift (the same u at every tack) is a constant: a seat depth shift, one number per tube. Only the spread between tacks tilts the plate.
+   Feet that clamp during the tacks are a ceiling: the plate cannot rise, the tack pull is locked in as stress, and what comes back when the plug is lifted
+   is elastic recovery, a fraction r of what a free plate would have moved (r is unknown; the scene uses 0.3). Nothing here knows r; an indicator on the plate face before and after the tacks does.
+
+E. What the ring removes from the datum chain (illustrative spreads, mm, worst case in sum): seat depth spread and plate seat tilt
+   plate pressed by hand to a spacer, as today          depth +-0.50, tilt +-0.10
+   setting ring, set-screw feet, feet hold during tacks depth +-0.06, tilt +-0.03
+   setting ring, printed feet, no hold                  depth +-0.20, tilt +-0.10

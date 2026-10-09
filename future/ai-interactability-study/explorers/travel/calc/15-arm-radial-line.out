@@ -1,0 +1,55 @@
+Six-axis (UR3e link lengths), base 300 mm from the axis, 150 mm above the bench, 40 mm adaptor. Each joint 0.01 degree off. Micrometres at the dot.
+
+housing top: flange 209 mm from the dot
+  azimuth  reachable  radial+vertical  tangent   per joint J1..J6 (r+z)
+     0      yes        68             60       0  40   5  41  12  35
+    30      yes        70             40      26  43   8  21  26  35
+    60      yes        88             45      45  32  44  36  17  35
+    90      yes        86             34      52  30  39  18  26  35
+   120      yes        78             58      45  31  36   7  21  35
+   150      yes        78             75      26  38  48  15  17  35
+   180      yes       100             77       0  52  70  34  11  35
+   210      yes        61             66      26  36   6   5  20  35
+   270      yes        78             40      52  33  12  28  13  35
+   330      yes        77             54      26  37  14  50   4  35
+
+barrel: flange 107 mm from the dot
+  azimuth  reachable  radial+vertical  tangent   per joint J1..J6 (r+z)
+     0      yes        64             55       0  35  36  33  16  16
+    30      yes        63             39      26  44  19  12  25  16
+    60      yes        80             33      45  27  49  27  15  16
+    90      yes        96             52      52  52  53  19  18  16
+   120      yes       102             49      45  52  63  35  15  16
+   150      yes        87             68      26  54  52  26  18  16
+   180      yes        84             72       0  45  58  26  25  16
+   210      yes       102             63      26  62  67  31  17  16
+   270      yes        76             30      52  42   9  25  18  16
+   330      yes        66             57      26  41  28  24  18  16
+
+from behind, along the beam: flange 309 mm from the dot
+  azimuth  reachable  radial+vertical  tangent   per joint J1..J6 (r+z)
+     0    no
+    30    no
+    60    no
+    90    no
+   120    no
+   150      yes        99             75      26  56  24  35  65   0
+   180      yes        76             92       0  13  16  21  70   0
+   210      yes       109             84      26  62  36  62  46   0
+   270      yes       142             54      52  53  86  54  65   0
+   330      yes        90             68      26  39  34  57  39   0
+
+SCARA (225 + 175 mm), quill on the housing-top lug, joint 0.01 degree; slides 0.01 mm:
+     0   radial+vertical 20  tangent 45  per axis r+z 0 7 10 17
+    90   radial+vertical 58  tangent 28  per axis r+z 52 14 10 17
+   180   radial+vertical 39  tangent 78  per axis r+z 0 33 10 17
+gantry aligned with the radial (azimuth 0): radial+vertical 14 tangent 10 (0.01 mm per slide); azimuth 45: radial+vertical 17 (both horizontal slides feed the radial)
+SCARA on the radial line (azimuth 0), housing-top lug; base distance sets how straight the arm is. 0.01 deg per joint, 0.01 mm Z; stiffness 8000 N.m/rad per joint
+ base mm  elbow deg  radial+vertical um  tangent um   compliance mm/N (radial, tangent)
+    280        69             21             42     0.0014 0.0072
+    300        59             20             45     0.0013 0.0083
+    320        46             20             49     0.0012 0.0097
+    340        28             19             52     0.0011 0.0112
+    350        12             20             54     0.0013 0.0121
+    356  unreachable (404 mm)
+    360  unreachable (407 mm)

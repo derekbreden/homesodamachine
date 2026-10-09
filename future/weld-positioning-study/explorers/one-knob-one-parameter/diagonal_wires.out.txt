@@ -1,0 +1,48 @@
+4 layouts keep every wire >= 5 N; stiffest worst-case dot motion under 5 N: 34 um
+best layout: worst-case minimum tension 5.9 N over gravity, preloads, +/-5 N at the dot, 5 N trigger, 5 N umbilical pulls
+  W_x     attach [117.  28. 146.]  pulls toward az   26.8 el   0.0  tension at rest  11.5 N
+  W_y     attach [ 62.  62. 146.]  pulls toward az   90.0 el   0.0  tension at rest  14.4 N
+  W_z     attach [ 62. -27. 183.]  pulls toward az  -90.0 el  53.7  tension at rest  13.9 N
+  W_grip  attach [114. -14. 218.]  pulls toward az  165.0 el  66.5  tension at rest   8.6 N
+  W_hole  attach [  -1. -234.  286.]  pulls toward az -105.0 el  69.1  tension at rest  37.9 N
+  W_vert  attach [  -1. -234.  286.]  pulls toward az   -5.8 el  -5.3  tension at rest  17.7 N
+  preload at [  -1. -234.  286.] pulling az  161.8 el -48.0 with 24.1 N
+  preload at [132. -25. 206.] pulling az -157.4 el -73.3 with 21.2 N
+
+1. First-order knob effects: 1 mm longer on each wire changes (X mm, Z mm, S deg, V deg, H deg, G deg)
+  W_x     X= +1.1198  Z= +0.0000  S= +0.0000  V= -0.2675  H= -0.0337  G= +0.3628
+  W_y     X= -0.5040  Z= +0.7338  S= +0.9264  V= -0.7655  H= +0.1260  G= -0.8173
+  W_z     X= -0.0000  Z= +1.2404  S= +0.0000  V= +0.0276  H= +0.3772  G= -0.9587
+  W_grip  X= +0.0000  Z= +0.0000  S= -0.0000  V= -0.0000  H= +0.0000  G= +0.8426
+  W_hole  X= +0.0000  Z= +0.0000  S= -0.0000  V= -0.0000  H= -0.3256  G= +0.0000
+  W_vert  X= -0.0000  Z= +0.0000  S= -0.0000  V= +0.2411  H= +0.0000  G= -0.0000
+
+2. Finite moves (exact wire geometry): turn one knob, others fixed
+  W_grip  for G    2: X +0.026 Z +0.017 Y +0.013 mm | G -1.990 H +0.003 V -0.005 (V incl. tangent -0.018) deg
+  W_grip  for G    5: X +0.157 Z +0.107 Y +0.084 mm | G -4.941 H +0.020 V -0.032 (V incl. tangent -0.109) deg
+  W_grip  for G   10: X +0.607 Z +0.431 Y +0.342 mm | G -9.810 H +0.083 V -0.119 (V incl. tangent -0.437) deg
+  W_hole  for H    2: X +0.002 Z +0.071 Y +0.042 mm | G -0.015 H -2.055 V +0.025 (V incl. tangent -0.014) deg
+  W_hole  for H    5: X +0.014 Z +0.494 Y +0.288 mm | G -0.099 H -5.402 V +0.177 (V incl. tangent -0.089) deg
+  W_hole  for H   10: X +0.106 Z +2.603 Y +1.448 mm | G -0.471 H -12.347 V +0.990 (V incl. tangent -0.351) deg
+  W_vert  for V    2: X +0.027 Z +0.046 Y +0.045 mm | G -0.039 H -0.038 V -2.010 (V incl. tangent -2.052) deg
+  W_vert  for V    5: X +0.178 Z +0.296 Y +0.297 mm | G -0.255 H -0.236 V -5.071 (V incl. tangent -5.346) deg
+  W_vert  for V   10: X +0.775 Z +1.263 Y +1.319 mm | G -1.127 H -0.953 V -10.342 (V incl. tangent -11.564) deg
+  W_x     for X  0.5: X -0.500 Z +0.001 Y +0.000 mm | G -0.162 H +0.015 V +0.119 (V incl. tangent +0.119) deg
+  W_x     for X    1: X -1.000 Z +0.003 Y +0.002 mm | G -0.325 H +0.030 V +0.239 (V incl. tangent +0.237) deg
+  W_x     for X    2: X -2.000 Z +0.011 Y +0.007 mm | G -0.653 H +0.059 V +0.478 (V incl. tangent +0.472) deg
+  W_z     for Z  0.5: X +0.000 Z -0.498 Y +0.002 mm | G +0.386 H -0.152 V -0.010 (V incl. tangent -0.012) deg
+  W_z     for Z    1: X +0.000 Z -0.993 Y +0.006 mm | G +0.772 H -0.304 V -0.020 (V incl. tangent -0.025) deg
+  W_z     for Z    2: X +0.000 Z -1.971 Y +0.025 mm | G +1.541 H -0.608 V -0.034 (V incl. tangent -0.057) deg
+
+3. Stiffness at the dot, 1/16 in 7x7 stainless (EA ~130 kN), 400 mm free lengths, frame rigid
+  5 N +X at dot                       : dot moves  25.1 um, gun turns  0.66 arcmin
+  5 N +Y at dot                       : dot moves  20.6 um, gun turns  0.70 arcmin
+  5 N +Z at dot                       : dot moves  34.4 um, gun turns  1.67 arcmin
+  5 N umbilical pull -Y at grip base  : dot moves  14.3 um, gun turns  0.71 arcmin
+
+4. Knob resolution with a 0.01 mm micrometer anchor slide
+  W_grip : 0.01 mm -> G 0.0084 deg; 25 mm travel spans 21.1 deg (lever 68 mm per rad)
+  W_hole : 0.01 mm -> H 0.0033 deg; 25 mm travel spans 8.1 deg (lever 176 mm per rad)
+  W_vert : 0.01 mm -> V 0.0024 deg; 25 mm travel spans 6.0 deg (lever 238 mm per rad)
+  W_x    : 0.01 mm -> X 11.2 um;  25 mm micrometer travel spans 28.0 mm
+  W_z    : 0.01 mm -> Z 12.4 um;  25 mm micrometer travel spans 31.0 mm

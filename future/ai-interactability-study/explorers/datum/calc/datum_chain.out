@@ -1,0 +1,26 @@
+nominal corner height above bench: 232.05 mm (rim 238.4 - recess 6.35)
+plate diameter 123.44 mm vs bore 123.70 -> radial play 0.128 mm
+
+HEIGHT (z)   ref      worst   RSS
+             room     2.16   0.85
+             base     1.76   0.78
+             turn     1.56   0.76
+             rim      0.85   0.55
+             plate    0.23   0.20
+             seam     0.30   0.22
+
+RADIAL (r)   ref      worst   RSS
+             room     1.62   1.05
+             base     0.53   0.28
+             rim      0.40   0.24
+             wall     0.25   0.21
+             plate    0.48   0.26
+             seam     0.30   0.22
+
+HEIGHT with tube-length and seat-depth spread cut to 0.10 mm
+             room     1.36   0.49
+             turn     0.76   0.31
+             rim      0.45   0.25
+             plate    0.23   0.20
+
+floor from dot-vs-melt alone: +-0.20 (all references)

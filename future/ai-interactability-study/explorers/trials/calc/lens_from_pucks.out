@@ -1,0 +1,8 @@
+flat board puck only                             sigma f     7.46 px ( 0.50 %)   sigma k1 0.0044   height  1507.0 um   station point 62 mm off axis:    6.6 /    4.5 um
+flat board + a board tilted 10 degrees           sigma f     3.75 px ( 0.25 %)   sigma k1 0.0030   height   755.4 um   station point 62 mm off axis:    5.3 /    3.3 um
+flat + tilted 10 degrees + tilted -10 degrees    sigma f     2.43 px ( 0.16 %)   sigma k1 0.0024   height   493.1 um   station point 62 mm off axis:    3.3 /    2.5 um
+
+Reading: with the raised rim ring (6.35 mm of relief) and a grid across the field, the FLAT board puck already pins a point 62 mm off the axis to about 7 um
+(0.15 px, distortion free).  Focal length and camera height trade against each other (sigma height 1.5 mm, sigma f 0.5 %) but the trade leaves the plate-plane
+point where it is; a board tilted 10 degrees halves both (0.25 %, 0.76 mm).  What depends on H itself is the parallax of the rim edge (6.35 r / H^2 x dH =
+6.5 um for dH = 1.5 mm at H = 300), so the wedge puck is optional.  Distortion is the one thing a comparison in a tight frame never needs.

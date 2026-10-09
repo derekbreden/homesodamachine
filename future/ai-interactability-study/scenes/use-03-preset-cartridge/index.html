@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preset cartridge: the tube brings its correction</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-panel { position: absolute; background: rgba(8, 12, 18, .88); border: 1px solid #3a4658; border-radius: 6px; z-index: 2; pointer-events: auto; overflow: hidden; color: #c7d3e6; font-size: 10.5px; line-height: 1.35; }
+  .use-panel canvas { display: block; width: 100%; }
+  .use-panel .ttl { padding: 3px 7px; font-size: 10.5px; background: rgba(8,12,18,.85); color: #dbe6ff; }
+  .use-panel .rd { padding: 3px 7px 5px; }
+  .use-panel b { color: #fff; font-weight: 600; }
+  .use-panel em { color: #93a4bd; font-style: normal; }
+  .use-bars { padding: 4px 7px 6px; }
+  .use-bars .row { display: grid; grid-template-columns: 96px 1fr 52px; gap: 6px; align-items: center; margin: 2px 0; }
+  .use-bars .bar { position: relative; height: 8px; background: #1b2431; border-radius: 3px; }
+  .use-bars .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #22d3ee; border-radius: 3px; }
+  .use-bars .bar u { position: absolute; top: -2px; bottom: -2px; width: 2px; background: #fbbf24; }
+  .use-bars .v { text-align: right; font-variant-numeric: tabular-nums; }
+  .use-advice { padding: 4px 7px 6px; color: #e8eefb; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-03-preset-cartridge",
+  "title": "Preset cartridge: the tube brings its correction",
+  "by": "use",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "The nest and tube travel as one cartridge. Each is height-set and indicated off the rotator, at a presetter, while the last tube is still being welded; the gun stays fixed and is never re-aimed between tubes. Change the tube, the ring, the register or the hand's accuracy and see what reaches the dot.",
+  "tags": ["cartridge", "presetter", "workpiece-positioning", "parallel-states", "tolerance-stack", "screw-advisor"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["measure where the gun is not", "screw advisor: software observes, a hand moves", "the pallet carries its own record", "height by ring or by a single gun-side axis"],
+  "how": {
+    "motion": "a hand carries the cartridge between stations; only the existing rotator (and, in one branch, a single z axis on the gun) is driven",
+    "load": "cartridge on its register at either station; gun on a fixed stand",
+    "reference": "cartridge datum face and register; height ring sets seam z; three screws set the centre",
+    "observe": "rim-height gauge, indicator trace at the presetter, ID on the cartridge, dot at the seam",
+    "use": "presetter runs in parallel with the last weld; on the rotator only a quick verify"
+  },
+  "software": {
+    "commands": ["rotator speed and turning (existing controller)", "gun-side z axis (branch only)"],
+    "observes": ["rim height from a digital gauge", "runout trace from a digital indicator", "which cartridge is where (ID)", "dot at the seam (camera, as in other scenes)"],
+    "manual": ["loading the tube", "turning the three screws", "setting the ring", "carrying the cartridge", "seating and tacking the plate"]
+  },
+  "notes": ["../../explorers/use/ideas/use-03-preset-cartridge.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, RIM = WK.DIM.tubeHeight, CAP = WK.CAP_TOP, CAPT = WK.DIM.capThickness, CAPD = WK.DIM.capDiameter;
+  const S_POS = V(-440, -70, 0);          // presetter axis (illustrative bench layout)
+
+  const app = WK.app({
+    workstation: { tube: false, cap: false, benchSize: [1250, 720], benchCenter: [-150, -130] },
+    view: 'overall', viewButtons: ['overall', 'presetter', 'rotator', 'top'],
+    views: {
+      overall: { target: [-190, -70, 110], dir: [-0.15, 0.95, 0.42], dist: 1380 },
+      presetter: { target: [-440, -70, 100], dir: [-0.5, 0.75, 0.45], dist: 620 },
+      rotator: { target: [20, -60, 140], dir: [-0.45, 0.8, 0.4], dist: 620 },
+      top: { target: [-200, -100, 0], dir: [0, -0.004, 1], dist: 1250 },
+    },
+    open: ['proposes'],
+    sections: {
+      proposes:
+        '<p>Two <b>cartridges</b> (nest collar + height ring + tube + plate, teal) are used in turn. One is on the rotator with the gun fixed over it. The other is on a <b>presetter</b> to the side, where a digital gauge reads the rim height and a digital indicator reads the runout of the working end while the cartridge is turned by hand. Software turns the readings into <i>advice</i>: which of the three screws to advance or back off and by how much, and what height the ring should be. A hand does the work; the loop repeats until the indicator is satisfied. Then the cartridge is carried to the rotator, dropped on its register, and the gun, which has not moved, sees a seam close to where it was for the last tube.</p>' +
+        '<p>Move the <b>Transfer</b> slider to swap the cartridges. Choose how seam height is compensated: a printed height ring, a single gun-side z axis (a purple slide appears under the gun mount), or not at all.</p>',
+      carries:
+        '<p>Each cartridge stands on a register (a plinth at the presetter, the turntable on the rotator) and carries its own tube by the nest. The three screws on the collar locate the tube centre; the ring under the tube sets its height. The gun is held by a fixed post and a shell clamp and is never moved between tubes (except by the optional z slide). Cables are not drawn: the gun umbilical is out of scope in this scene.</p>',
+      software:
+        '<p>The presetter is where most of the observing happens. <b>Rim height</b> and <b>runout</b> are one-dimensional readings from digital gauges; the trace panel shows what an indicator would record over a turn of the cartridge. The <b>screw advisor</b> uses only the once-per-turn part of the trace (the tube centre offset); the out-of-round part of the tube cannot be corrected by any screw. On the rotator only a quick verify is left. Software also holds the cartridge’s record (ID, ring, screw settings, indicated TIR) so the station knows what it just received.</p>' +
+        '<p>Commands are the existing rotator controller; the optional gun z axis is the only new actuator. Everything that changes the tube’s position is a hand.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>A threaded height ring tilts the tube.</b> A thread clearance of 0.1 mm over 40 mm of engagement tips the tube 2.5 mrad; over the 146 mm to the weld that is 0.36 mm at the rim, more than the whole radial budget. <i>Repair:</i> set height with flat stacked or printed rings, not a thread, and keep the ring parallel (slider: parallelism). Ring tilt goes 1:1 into face TIR (0.05 mm of parallelism = 0.05 mm of the 0.30 mm face allowance) and 1.15:1 into radial eccentricity at the weld end, which the screws can remove. <i>Leaves:</i> nobody has measured a printed ring’s parallelism.</li>' +
+        '<li><b>The register adds runout.</b> A cartridge that can sit anywhere within its register clearance adds up to that clearance to the radial TIR after the indicating was finished. <i>Repair:</i> keep the register clearance in the low hundredths (three balls in three grooves and magnets, not a sliding fit), or verify on the rotator. <i>Leaves:</i> the achievable register on printed parts.</li>' +
+        '<li><b>The tube’s own out-of-roundness.</b> The advisor converges in one to three rounds unless the tube is oval enough that no centring can bring TIR under the limit. Nothing here can fix that; it would need a different criterion or a rejected tube.</li>' +
+        '<li><b>What the presetter cannot see.</b> The plate face TIR only exists after the plate is seated and tacked, on the rotator. The presetter helps the tube; the plate step stays on the station.</li>' +
+        '<li><b>Height by ring or by gun-side axis.</b> Both remove the tube-length spread from the dot. The ring costs a printed part per tube and a parallelism risk; the axis costs one actuator and a measurement handover. Compare with the radio control.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Spread of tube length and plate seat depth: <b>unknown</b>. The slider covers ±2 mm; the true spread may be far smaller, in which case a ring is unnecessary.</li>' +
+        '<li>Whether a printed cartridge can repeat its register on the turntable to a few hundredths, and whether the heat of a just-welded tube damages a printed nest.</li>' +
+        '<li><b>The station\u2019s verify pass belongs with the copper shoe engaged.</b> The written sequence indicates first and engages the shoe afterwards; if engaging it moves the tube in the nest, an indicated cartridge and its register check are both a shoe-off reading. Unmeasured; <code>use-17-driven-presetter</code> puts the shoe term next to the register term.</li>' +
+        '<li>How the digital gauge and indicator would be read (serial output, a linear scale on a micrometer head, or a camera on a dial) is not chosen. Sourcing lists candidates.</li>' +
+        '<li>Question for Derek: how long does indicating a tube take now, and how often does it need more than one attempt? That decides whether parallel presetting is worth a second station.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Accepted runout at the working end is <b>0.25 mm TIR radial and 0.30 mm TIR face</b> [repo, weld-rotation-rig.md]; the bar markers show half of those.</li>' +
+        '<li>Illustrative: the tube-length range, plate seat variation, ring range (0.5 to 6 mm), out-of-round amplitude, hand error, register clearance, presetter layout, tube length exaggeration (none) and runout exaggeration (a slider).</li>' +
+        '<li>Illustrative bench layout: presetter about 440 mm from the rotator. The kit’s rotator and gun proxy are proxies.</li>' +
+        '<li>Tilt and register arithmetic: <code>explorers/use/calc/preset_budget.mjs</code>; the screw advisor and its convergence: <code>explorers/use/calc/screw_advisor.mjs</code>.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculations (preset budget, screw advisor)', href: '../../explorers/use/calc/' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+  const benchZ = ws.benchZ;
+  let lblZ = null;
+  gun.setLaser(true);
+
+  // ------------------------------------------------------------------ state
+  const rnd = (function () { let s = 424242; return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const H_WELD = CAP;                                     // seam height above the tube bottom (nominal)
+  const C = {                                             // per-cartridge state. e = centre offset of the tube at the weld end, cartridge frame (mm)
+    A: { name: 'A', len: 0.8, dr: -0.8, e: [-0.035, -0.03], face: 0.10, oval: 0.05, ovalPsi: 1.1 },
+    B: { name: 'B', len: -0.9, dr: 0, e: [0.30, 0.22], face: 0.10, oval: 0.06, ovalPsi: 0.4 },
+  };
+  const S = { t: 0, mode: 'ring', hand: 15, parallel: 0.05, reg: 0.05, regVec: [0, 0], quantum: 0.1, gunQ: 0.05, dzGun: 0, exag: 1, spinS: false, sAng: 0, tiltPhi: 40 * DEG, lastAdvice: null, round: 0 };
+  const TILT = () => { const a = S.parallel / 127, m = a * H_WELD; return [m * Math.cos(S.tiltPhi), m * Math.sin(S.tiltPhi)]; };   // eccentricity at the weld end from ring tilt
+  const eTotal = c => [c.e[0] + TILT()[0], c.e[1] + TILT()[1]];
+  const faceTIR = c => c.face + 0.97 * S.parallel;
+  const zErr = c => c.len + c.dr;                         // seam height above nominal, before any gun-side shift
+
+  // ------------------------------------------------------------------ fixed things: presetter, gun stand
+  const plinth = P.cyl(95, 76, 'fixed'); plinth.position.set(S_POS.x, S_POS.y, -48); app.add(plinth);
+  const plinthBase = P.box(280, 280, 10, 'fixed'); plinthBase.position.set(S_POS.x, S_POS.y, benchZ + 5); app.add(plinthBase);
+  // rim-height gauge (digital, proposed): post + arm + indicator + probe onto the rim
+  const gPost = P.rod(V(S_POS.x + 180, S_POS.y - 40, benchZ), V(S_POS.x + 180, S_POS.y - 40, 250), 8, 'fixed'); app.add(gPost);
+  const gArm = P.rod(V(S_POS.x + 180, S_POS.y - 40, 250), V(S_POS.x + 62, S_POS.y, 250), 4, 'fixed'); app.add(gArm);
+  const gBody = P.box(22, 22, 40, 'sensor'); app.add(gBody);
+  const gProbe = P.rod(V(0, 0, 0), V(0, 0, 1), 1.2, 'sensor'); app.add(gProbe);
+  // runout indicator (digital, proposed) touching the OD near the working end
+  const iPost = P.rod(V(S_POS.x + 20, S_POS.y + 190, benchZ), V(S_POS.x + 20, S_POS.y + 190, 130), 8, 'fixed'); app.add(iPost);
+  const iBody = P.box(24, 40, 22, 'sensor'); app.add(iBody);
+  const iProbe = P.rod(V(0, 0, 0), V(0, 1, 0), 1.2, 'sensor'); app.add(iProbe);
+  const screen = P.box(70, 6, 44, 'sensor'); screen.position.set(S_POS.x - 180, S_POS.y + 60, 60); screen.rotation.z = -0.5; app.add(screen);
+  app.add(P.rod(V(S_POS.x - 180, S_POS.y + 60, benchZ), V(S_POS.x - 180, S_POS.y + 60, 40), 6, 'fixed'));
+  // fixed gun stand
+  const housingBack = gun.local('housingBack');
+  const gunPost = P.rod(V(housingBack.x - 50, housingBack.y - 60, benchZ), V(housingBack.x - 50, housingBack.y - 60, housingBack.z), 12, 'fixed'); app.add(gunPost);
+  const gunArm = P.rod(V(housingBack.x - 50, housingBack.y - 60, housingBack.z), housingBack, 6, 'load'); app.add(gunArm);
+  gun.addShell({ style: 'frame', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const zSlide = P.box(40, 40, 60, 'actuated'); app.add(zSlide);
+  const gun0 = gun.group.position.clone();
+
+  // ------------------------------------------------------------------ cartridges
+  const idTex = n => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 64, 64); x.fillStyle = '#000'; for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) if ((((n * 7 + i * 3 + j * 5 + i * j) % 3) === 0) || i === 0 || j === 0) x.fillRect(6 + i * 10.4, 6 + j * 10.4, 9, 9); return new THREE.CanvasTexture(c); };
+  function makeCart(c, idn) {
+    const g = new THREE.Group(); g.name = 'cartridge ' + c.name;
+    const prof = [[64, -10], [77, -10], [77, 18], [64, 18], [64, -10]].map(p => new THREE.Vector2(p[0], p[1]));
+    const nest = new THREE.Mesh(new THREE.LatheGeometry(prof, 64).rotateX(Math.PI / 2), WK.mat('locate', { side: 'double' })); nest.userData.role = 'locate'; g.add(nest);
+    [90, 210, 330].forEach((d, i) => {
+      const a = d * DEG, adj = P.rod(V(Math.cos(a) * 86, Math.sin(a) * 86, 8), V(Math.cos(a) * 63.6, Math.sin(a) * 63.6, 8), 1.8, 'locate'); g.add(adj);
+      const knob = P.cyl(6, 5, 'locate', { axis: 'x' }); knob.position.set(Math.cos(a) * 88, Math.sin(a) * 88, 8); knob.rotation.z = a; g.add(knob);
+    });
+    const id = new THREE.Mesh(new THREE.BoxGeometry(2, 26, 26), new THREE.MeshBasicMaterial({ map: idTex(idn) })); id.userData.role = 'sensor'; id.position.set(Math.cos(30 * DEG) * 77.5, Math.sin(30 * DEG) * 77.5, 4); id.rotation.z = 30 * DEG; g.add(id);
+    const ring = new THREE.Mesh(new THREE.BufferGeometry(), WK.mat('locate', { side: 'double' })); ring.userData.role = 'locate'; g.add(ring);
+    const tubeG = new THREE.Group(); g.add(tubeG);
+    const tube = new THREE.Mesh(new THREE.BufferGeometry(), WK.mat('work', { side: 'double' })); tube.userData.role = 'work'; tubeG.add(tube);
+    const shape = new THREE.Shape(); shape.absarc(0, 0, CAPD / 2, 0, Math.PI * 2, false);
+    [-WK.DIM.portOffset, WK.DIM.portOffset].forEach(x => { const h = new THREE.Path(); h.absarc(x, 0, WK.DIM.portDiameter / 2, 0, Math.PI * 2, true); shape.holes.push(h); });
+    const plate = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: CAPT, bevelEnabled: false, curveSegments: 40 }), WK.mat('work', { shade: 0.62, side: 'double' })); plate.userData.role = 'work'; tubeG.add(plate);
+    const weld = new THREE.Mesh(new THREE.TorusGeometry(RI, 0.45, 6, 120), WK.mat('locate', { basic: true })); weld.userData.occludes = false; weld.userData.role = 'locate'; tubeG.add(weld);
+    const sg = new THREE.CylinderGeometry(RO + 0.15, RO + 0.15, 60, 4, 1, true, Math.PI / 2 - 0.05, 0.1); sg.rotateX(Math.PI / 2); sg.translate(0, 0, 40);
+    const stripe = new THREE.Mesh(sg, WK.mat('locate', { side: 'double', basic: true })); stripe.userData.role = 'locate'; stripe.userData.occludes = false; tubeG.add(stripe);
+    const cart = { c: c, g: g, ring: ring, tubeG: tubeG, tube: tube, plate: plate, weld: weld, where: 'S' };
+    cart.rebuild = function () {
+      const H = RIM + c.len;
+      const tp = [[RO, 0], [RO, H], [RI, H], [RI, 0], [RO, 0]].map(p => new THREE.Vector2(p[0], p[1]));
+      tube.geometry.dispose(); tube.geometry = new THREE.LatheGeometry(tp, 96).rotateX(Math.PI / 2);
+      plate.position.z = CAP + c.len - CAPT; weld.position.z = CAP + c.len + 0.3;
+      const th = 3 + c.dr, rp = [[50, -3], [63.4, -3], [63.4, c.dr], [50, c.dr], [50, -3]].map(p => new THREE.Vector2(p[0], p[1]));
+      ring.geometry.dispose(); ring.geometry = new THREE.LatheGeometry(rp, 64).rotateX(Math.PI / 2);
+      tubeG.position.z = c.dr;
+    };
+    cart.rebuild();
+    app.add(g);
+    return cart;
+  }
+  const cartA = makeCart(C.A, 1), cartB = makeCart(C.B, 2);
+  cartA.where = 'R'; cartB.where = 'S';
+
+  // ------------------------------------------------------------------ station attachment and transfer
+  const onR = () => (S.t >= 1 ? cartB : cartA), onS = () => (S.t >= 1 ? cartA : cartB);
+  function attach(cart, where, pos) {
+    cart.where = where;
+    if (where === 'R') { ws.tubeGroup.add(cart.g); cart.g.position.set(0, 0, 0); cart.g.rotation.set(0, 0, 0); }
+    else if (where === 'S') { app.scene.add(cart.g); cart.g.position.copy(S_POS); cart.g.rotation.set(0, 0, 0); cart.g.rotation.z = S.sAng; }
+    else { app.scene.add(cart.g); cart.g.position.copy(pos); cart.g.rotation.set(0, 0, 0); }
+  }
+  function arcPos(t, side) {                              // between the presetter and the rotator, lifted, offset sideways so the two carts do not collide
+    const x = S_POS.x + (0 - S_POS.x) * t, y = S_POS.y + (0 - S_POS.y) * t + side * 110 * Math.sin(Math.PI * t), z = (side > 0 ? 250 : 340) * Math.sin(Math.PI * t);
+    return V(x, y, z);
+  }
+  function applyTransfer() {
+    const t = S.t;
+    if (t <= 0) { attach(cartA, 'R'); attach(cartB, 'S'); }
+    else if (t >= 1) { attach(cartB, 'R'); attach(cartA, 'S'); }
+    else { attach(cartB, 'air', arcPos(t, 1)); attach(cartA, 'air', arcPos(1 - t, -1)); }
+    setRotatorRunout();
+  }
+  function setRotatorRunout() {
+    const c = onR().c, e = eTotal(c), er = [e[0] + S.regVec[0], e[1] + S.regVec[1]];
+    const mag = Math.hypot(er[0], er[1]);
+    ws.setRunout(2 * mag, faceTIR(c), S.exag);
+    ws.runout.phaseRadial = Math.atan2(er[1], er[0]); ws.runout.phaseFace = 1.05;
+    ws.setSpin(ws.spinAngle);
+  }
+
+  // ------------------------------------------------------------------ gun-side z compensation (branch)
+  function placeGun() {
+    gun.group.position.copy(gun0); gun.group.position.z += S.dzGun;
+    zSlide.visible = S.mode === 'gun'; if (lblZ) lblZ.show(S.mode === 'gun');
+    const hb = gun.local('housingBack'); zSlide.position.set(hb.x - 50, hb.y - 60, hb.z - 30);
+    gunArm.setEnds(V(hb.x - 50, hb.y - 60, hb.z), hb);
+    gun.updateLaser();
+  }
+
+  // ------------------------------------------------------------------ indicator trace and screw advice at the presetter
+  const BETA = [90, 210, 330].map(d => d * DEG), PITCH = 0.5;
+  function reading(c, thDeg) { const th = thDeg * DEG, e = eTotal(c); return e[0] * Math.cos(th) + e[1] * Math.sin(th) + c.oval * Math.cos(2 * th + c.ovalPsi) + 0.004 * Math.sin(7 * th); }
+  function tirOf(c) { let mn = 1e9, mx = -1e9; for (let k = 0; k < 360; k += 2) { const v = reading(c, k); mn = Math.min(mn, v); mx = Math.max(mx, v); } return mx - mn; }
+  function advice(c) {                                    // from the once-per-turn part only
+    let a = 0, b = 0; for (let k = 0; k < 360; k += 2) { const v = reading(c, k) * 2 / 180; a += v * Math.cos(k * DEG); b += v * Math.sin(k * DEG); }
+    const adv = BETA.map(be => a * Math.cos(be) + b * Math.sin(be));
+    return { e: [a, b], adv: adv, turns: adv.map(x => x / PITCH) };
+  }
+  function applyAdvice() {
+    const c = onS().c, adv = advice(c);
+    let dx = 0, dy = 0;
+    adv.adv.forEach((x, i) => { const done = x + 0.05 * x * gauss() + (S.hand / 360) * PITCH * gauss(); dx -= done * Math.cos(BETA[i]) * 2 / 3; dy -= done * Math.sin(BETA[i]) * 2 / 3; });
+    c.e = [c.e[0] + dx, c.e[1] + dy]; S.round++;
+  }
+  function setHeight() {
+    const c = onS().c;
+    if (S.mode === 'ring') { c.dr = Math.max(-2.5, Math.min(3, Math.round(-c.len / S.quantum) * S.quantum)); }
+    else if (S.mode === 'gun') { S.dzGun = -Math.round(-c.len / S.gunQ) * S.gunQ * -1; S.dzGun = -Math.round(c.len / S.gunQ) * S.gunQ; }
+    onS().rebuild();
+  }
+
+  // ------------------------------------------------------------------ panels (custom slots)
+  const cv = document.createElement('canvas'); cv.width = 460; cv.height = 250;
+  const adv = WK.h('div', { class: 'use-advice' }), tr = WK.h('div', { class: 'rd' });
+  const trace = WK.h('div', { class: 'use-panel' }, WK.h('div', { class: 'ttl', text: 'Presetter indicator trace (scene-derived, not measured)' }), cv, tr, adv);
+  const bars = WK.h('div', { class: 'use-bars' });
+  const budget = WK.h('div', { class: 'use-panel' }, WK.h('div', { class: 'ttl', text: 'What reaches the dot on the rotator (scene geometry)' }), bars);
+  const slots = app.stageEl.querySelector('.wk-slots'); slots.appendChild(trace); slots.appendChild(budget);
+  app._addSlot({ corner: 'tr', w: 250, h: 260, el: trace, autoH: true });
+  app._addSlot({ corner: 'br', w: 250, h: 120, el: budget, autoH: true });
+  function bar(label, val, ref, max, unit) {
+    const w = Math.min(100, Math.abs(val) / max * 100), r = ref != null ? ref / max * 100 : null;
+    return '<div class="row"><span>' + label + '</span><div class="bar"><i style="width:' + w.toFixed(1) + '%"></i>' + (r != null ? '<u style="left:' + r.toFixed(1) + '%"></u>' : '') + '</div><span class="v">' + (val >= 0 ? '' : '−') + Math.abs(val).toFixed(3) + '</span></div>';
+  }
+  function drawTrace() {
+    const c = onS().c, cx = cv.getContext('2d'), W = cv.width, H = cv.height;
+    cx.clearRect(0, 0, W, H);
+    const X0 = 34, X1 = W - 8, Y0 = 14, Y1 = H - 26, sc = (Y1 - Y0) / 2 / 0.5;
+    cx.strokeStyle = '#2b3646'; cx.lineWidth = 1; cx.beginPath(); cx.moveTo(X0, (Y0 + Y1) / 2); cx.lineTo(X1, (Y0 + Y1) / 2); cx.moveTo(X0, Y0); cx.lineTo(X0, Y1); cx.stroke();
+    cx.fillStyle = '#7d8ea8'; cx.font = '16px sans-serif'; cx.fillText('+0.5', 2, Y0 + 10); cx.fillText('−0.5', 2, Y1); cx.fillText('0', 16, (Y0 + Y1) / 2 - 3);
+    [0, 90, 180, 270, 360].forEach(a => { const x = X0 + (X1 - X0) * a / 360; cx.fillText(String(a), x - 8, H - 8); });
+    const tir = tirOf(c);
+    let mn = 1e9, mx = -1e9; for (let k = 0; k <= 360; k += 2) { const v = reading(c, k % 360); mn = Math.min(mn, v); mx = Math.max(mx, v); }
+    const mid = (mn + mx) / 2;
+    cx.strokeStyle = '#fbbf24'; cx.setLineDash([5, 4]); [mid - 0.125, mid + 0.125].forEach(v => { const y = (Y0 + Y1) / 2 - v * sc; cx.beginPath(); cx.moveTo(X0, y); cx.lineTo(X1, y); cx.stroke(); }); cx.setLineDash([]);
+    cx.strokeStyle = '#22d3ee'; cx.lineWidth = 2; cx.beginPath();
+    for (let k = 0; k <= 360; k += 2) { const x = X0 + (X1 - X0) * k / 360, y = (Y0 + Y1) / 2 - reading(c, k % 360) * sc; if (k === 0) cx.moveTo(x, y); else cx.lineTo(x, y); } cx.stroke();
+    const ang = ((S.sAng / DEG) % 360 + 360) % 360, xm = X0 + (X1 - X0) * ang / 360; cx.strokeStyle = '#ff3b30'; cx.beginPath(); cx.moveTo(xm, Y0); cx.lineTo(xm, Y1); cx.stroke();
+    tr.innerHTML = '<em>Cartridge ' + c.name + ' indicated at the weld end:</em> TIR <b>' + tir.toFixed(3) + ' mm</b> (accepted ≤ 0.25 [repo], dashed = ±0.125 about the middle). Tube out-of-round part: <b>' + (2 * c.oval).toFixed(3) + '</b> mm TIR that no screw removes.';
+    const a = advice(c);
+    const stg = a.turns.map((t, i) => 'screw ' + (i + 1) + ' ' + (t >= 0 ? 'advance ' : 'back off ') + Math.abs(t).toFixed(2) + ' turn').join('; ');
+    adv.innerHTML = '<em>Advice (once-per-turn part, M3 × 0.5):</em><br>' + stg + '<br><em>Height:</em> rim reads ' + (c.len >= 0 ? '+' : '−') + Math.abs(c.len).toFixed(2) + ' mm; ring is at ' + (c.dr >= 0 ? '+' : '−') + Math.abs(c.dr).toFixed(2) + ' mm' + (S.mode === 'gun' ? '; gun z at ' + (S.dzGun >= 0 ? '+' : '−') + Math.abs(S.dzGun).toFixed(2) + ' mm' : '') + '. Rounds so far: ' + S.round + '. <em>Hand error per screw: \u00b1' + (S.hand / 360 * PITCH).toFixed(3) + ' mm at the tip.</em>';
+    return tir;
+  }
+  function drawBars() {
+    const c = onR().c, e = eTotal(c), er = [e[0] + S.regVec[0], e[1] + S.regVec[1]];
+    const z = zErr(c) + S.dzGun, rad = Math.hypot(er[0], er[1]) + c.oval, face = faceTIR(c) / 2;
+    bars.innerHTML = bar('seam height off', z, null, 2.5) + bar('radial swing ±', rad, 0.125, 0.4) + bar('face swing ±', face, 0.15, 0.4) +
+      '<div style="margin-top:3px"><em>Cartridge ' + c.name + ' is on the rotator. Amber tick = half of the accepted TIR [repo]. Height has no accepted value here: it is where the dot lands relative to the seam.</em></div>';
+  }
+
+  // ------------------------------------------------------------------ observers
+  const obsPos = V(-230, -40, 320);
+  app.inset.add({ id: 'obs', label: 'Dot camera (proposed, illustrative)', position: () => obsPos, target: () => gun.dotWorld(), fov: 38, near: 30, far: 1600, size: [230, 160], corner: 'bl', noise: 0.25 });
+  const gunLike = { dotOffset: () => { const o = ws.offsetOf(gun.dotWorld()); o.vertical -= zErr(onR().c); return o; }, beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: gunLike });
+
+  const setRim = app.ui.readout('rim', 'Rim height gauge reads'), setTir = app.ui.readout('tir', 'Presetter TIR now');
+  function sync() {
+    placeGun();
+    // gauge and indicator geometry follow the cartridge on S
+    const c = onS().c, s = onS(), rimZ = RIM + c.len + c.dr, rp = V(S_POS.x + 62.7, S_POS.y, rimZ);
+    gBody.position.set(rp.x, rp.y, 250 - 32); gProbe.setEnds(V(rp.x, rp.y, 250 - 52), rp);
+    const th = S.sAng, e = eTotal(c), cxs = e[0] * Math.cos(th) - e[1] * Math.sin(th), cys = e[0] * Math.sin(th) + e[1] * Math.cos(th);
+    const oy = S_POS.y + cys + RO + c.oval * Math.cos(2 * (th - Math.PI / 2 * 0) + c.ovalPsi) * 0;
+    iBody.position.set(S_POS.x + 20, S_POS.y + 175, 130); iProbe.setEnds(V(S_POS.x + 20, S_POS.y + 165, 130), V(S_POS.x + 20, oy + 0.0, 130));
+    setRim((c.len >= 0 ? '+' : '') + c.len.toFixed(2), 'mm');
+    const tir = drawTrace(); setTir(tir.toFixed(3), 'mm');
+    drawBars();
+    const cr = onR().c, vis = app.inset.markVisibility('obs', gun.dotWorld()), off = gunLike.dotOffset();
+    app.cornerInset.setEstimate(vis && vis.visible ? { radial: off.radial + 0.4, vertical: off.vertical - 0.3 } : null);
+    const moving = S.t > 0 && S.t < 1;
+    app.badge('carry', moving ? 'cartridges in the hand: not on either register' : null, 'info');
+    app.io.set({
+      commands: [
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing controller and pedal' },
+        { name: 'Gun z axis', value: S.mode === 'gun' ? (S.dzGun >= 0 ? '+' : '') + S.dzGun.toFixed(2) + ' mm' : 'not in this branch', note: 'the only new actuator, branch 3' },
+      ],
+      observes: [
+        { name: 'Rim height (digital gauge)', value: (c.len >= 0 ? '+' : '') + c.len.toFixed(2), unit: 'mm', status: 'seen', note: 'presetter only; one reading per cartridge' },
+        { name: 'Runout trace at the weld end', value: tir.toFixed(3), unit: 'mm TIR', status: 'seen', note: 'digital indicator + angle from a hand-turned encoder or the spin toggle' },
+        { name: 'Cartridge ID', value: 'A/B via the printed pattern', status: 'seen', note: 'a camera at each station reads it; the station loads that cartridge’s record' },
+        { name: 'Seat of the cartridge on the rotator', value: moving ? 'in transit' : 'on register', status: 'partly', note: 'three contacts could report "sat"; how well it sat is not observed' },
+        { name: 'Plate face TIR', value: '-', status: 'blind', note: 'exists only after the plate is seated and tacked on the station' },
+        { name: 'Dot vs seam (r, z)', value: vis && vis.visible ? (off.radial + 0.4).toFixed(2) + ', ' + (off.vertical - 0.3).toFixed(2) : '-', unit: vis && vis.visible ? 'mm' : '', status: vis && vis.visible ? 'partly' : 'blind', note: 'made-up 0.4 / −0.3 mm bias; truth is the corner inset' },
+      ],
+      manual: ['Loading the tube into the nest', 'Turning the three screws by the advised amounts', 'Setting the ring (or reading the gun z)', 'Carrying the cartridge between stations', 'Seating and tacking the plate; face TIR'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  const gB = app.ui.group('Cartridge B: what comes off the shelf (scene edits)', { help: 'B is on the presetter at Transfer = 0. Change the tube it holds; the readings and advice follow.' });
+  gB.slider({ id: 'len', label: 'Tube length deviation', min: -2, max: 2, step: 0.05, value: -0.9, unit: 'mm', kind: 'scene', visual: () => cartB.tube, help: 'Rim height above nominal. The true spread is unknown; ±1.6 mm (1/16 in) is only a common cut tolerance, unchecked.', onChange: v => { C.B.len = v; cartB.rebuild(); sync(); } });
+  gB.slider({ id: 'ecc', label: 'Centre offset of the tube', min: 0, max: 0.6, step: 0.01, value: 0.37, unit: 'mm', kind: 'scene', visual: () => cartB.tubeG, help: 'How far the tube centre sits from the rotation axis before the screws are touched.', onChange: v => { const ph = Math.atan2(C.B.e[1], C.B.e[0]); C.B.e = [v * Math.cos(ph), v * Math.sin(ph)]; sync(); } });
+  gB.slider({ id: 'oval', label: 'Tube out-of-round (amplitude)', min: 0, max: 0.15, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', help: 'The part of the trace no screw can remove. Illustrative.', onChange: v => { C.B.oval = v; sync(); } });
+  gB.slider({ id: 'par', label: 'Height-ring parallelism error', min: 0, max: 0.25, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', visual: () => [cartA.ring, cartB.ring], help: 'Tilts the tube: 0.97 x this goes into face TIR, 1.15 x into radial offset at the weld end.', onChange: v => { S.parallel = v; sync(); } });
+  const gH = app.ui.group('Hand steps at the presetter (manual work, modelled)', { help: 'These stand for a person turning a screw or setting a ring. Software only advises.' });
+  gH.radio({ id: 'mode', label: 'How seam height is compensated', options: [{ value: 'none', label: 'not' }, { value: 'ring', label: 'height ring' }, { value: 'gun', label: 'gun z axis' }], value: 'ring', kind: 'branch', help: 'Compare: ring under the tube, or one axis under the gun.', onChange: v => { S.mode = v; if (v !== 'gun') S.dzGun = 0; sync(); } });
+  gH.button({ id: 'setheight', label: 'Hand: set height to the gauge reading', kind: 'state', onClick: () => { setHeight(); sync(); } });
+  gH.slider({ id: 'hand', label: 'Hand accuracy per screw', min: 5, max: 60, step: 5, value: 15, unit: '° of a turn', kind: 'scene', help: 'One degree of an M3 x 0.5 screw is 0.0014 mm at the tip.', onChange: v => { S.hand = v; sync(); } });
+  gH.button({ id: 'turn', label: 'Hand: turn the screws as advised', kind: 'state', help: 'Applies the advice with the hand accuracy above. Press again for another round.', onClick: () => { applyAdvice(); sync(); } });
+  gH.toggle({ id: 'spinS', label: 'Hand turns the cartridge at the presetter', value: false, kind: 'state', onChange: v => { S.spinS = v; app.animate(v || ws.spin.on); } });
+  const gT = app.ui.group('Transfer and the rotator');
+  gT.slider({ id: 'transfer', label: 'Transfer', min: 0, max: 1, step: 0.02, value: 0, kind: 'state', help: '0: A on the rotator, B on the presetter. 1: B on the rotator, A back at the presetter. In between, both are in the hand.', onChange: v => { const prev = S.t; S.t = v; if (prev < 1 && v >= 1) drawRegister(); applyTransfer(); sync(); } });
+  gT.slider({ id: 'reg', label: 'Register clearance on the rotator', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'The cartridge may sit anywhere within half of this on either side.', onChange: v => { S.reg = v; drawRegister(); sync(); } });
+  gT.button({ id: 'reseat', label: 'Re-seat the cartridge on the register', kind: 'state', onClick: () => { drawRegister(); sync(); } });
+  gT.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; app.animate(v || S.spinS); sync(); } });
+  gT.slider({ id: 'exag', label: 'Wobble exaggeration (scales the inset numbers too)', min: 1, max: 40, step: 1, value: 1, unit: '×', kind: 'scene', help: '1 = the true runout of the cartridge on the rotator. Raise it only to make the wobble visible.', onChange: v => { S.exag = v; setRotatorRunout(); sync(); } });
+  gT.toggle({ id: 'ghost', label: 'See-through cartridges', value: false, kind: 'view', onChange: v => { [cartA, cartB].forEach(c => { c.tube.material = WK.mat('work', v ? { side: 'double', opacity: 0.3 } : { side: 'double' }); }); app.invalidate(); } });
+  function drawRegister() { const r = S.reg / 2 * Math.sqrt(rnd()), a = rnd() * 2 * Math.PI; S.regVec = [r * Math.cos(a), r * Math.sin(a)]; setRotatorRunout(); }
+
+  app.onFrame(function (dt) {
+    let on = false;
+    if (S.spinS) { S.sAng += 24 * DEG * dt; const s = onS(); if (s.where === 'S') s.g.rotation.z = S.sAng; sync(); on = true; }
+    return on || ws.spin.on;
+  });
+
+  // labels
+  app.label(() => V(cartA.g.getWorldPosition(V(0, 0, 0)).x, cartA.g.getWorldPosition(V(0, 0, 0)).y, 8), 'cartridge A', { cls: 'locate' });
+  app.label(() => V(cartB.g.getWorldPosition(V(0, 0, 0)).x, cartB.g.getWorldPosition(V(0, 0, 0)).y, 8), 'cartridge B', { cls: 'locate' });
+  app.label(() => gBody.position, 'rim-height gauge (digital)', { cls: 'sensor' });
+  app.label(() => iBody.position, 'runout indicator (digital)', { cls: 'sensor' });
+  app.label(screen, 'advice screen', { cls: 'sensor' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => gunPost.position, 'gun: fixed stand', { cls: 'fixed' });
+  lblZ = app.label(() => zSlide.position, 'gun z slide (branch)', { cls: 'actuated' });
+  app.label(() => V(S_POS.x, S_POS.y, -48), 'presetter plinth', { cls: 'fixed' });
+
+  drawRegister(); applyTransfer(); sync();
+  app.onReady(function () { app.setView('overall'); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+1. Four sweeps (0.25 and 1.0 mm/s, both directions), knee noise 0.02 mm per sweep, tau 0.15 s, lash 0.10 mm.  Mean and sd of the estimates over 2000 draws
+   timestamp jitter   pairs per speed    seam (mm)          tau (s)            lash (mm)
+       0 ms             1                +0.000 +/- 0.010    0.150 +/- 0.026     0.100 +/- 0.039
+       0 ms             5                -0.000 +/- 0.004    0.150 +/- 0.012     0.100 +/- 0.017
+      15 ms             1                +0.000 +/- 0.011    0.150 +/- 0.031     0.100 +/- 0.041
+      15 ms             5                +0.000 +/- 0.005    0.150 +/- 0.014     0.100 +/- 0.019
+      50 ms             1                -0.000 +/- 0.021    0.149 +/- 0.057     0.101 +/- 0.053
+      50 ms             5                -0.000 +/- 0.009    0.149 +/- 0.025     0.100 +/- 0.023
+   (one sweep up alone reads the seam wrong by v tau + L/2 = 0.2 mm at 1 mm/s, and 0.087 mm at 0.25 mm/s)
+
+2. Step test, tau = 0.15 s: estimate of tau and its sd for N random-phase steps (a frame every 33.3 ms)
+   30 fps   N=  20   mean  150.1 ms   sd  2.15 ms   (T/sqrt(12 N) =  2.15 ms)
+   30 fps   N= 100   mean  150.0 ms   sd  0.99 ms   (T/sqrt(12 N) =  0.96 ms)
+   30 fps   N= 400   mean  150.0 ms   sd  0.48 ms   (T/sqrt(12 N) =  0.48 ms)
+   100 fps  N=  20   mean  150.0 ms   sd  0.65 ms   (T/sqrt(12 N) =  0.65 ms)
+   100 fps  N= 100   mean  150.0 ms   sd  0.29 ms   (T/sqrt(12 N) =  0.29 ms)
+   100 fps  N= 400   mean  150.0 ms   sd  0.14 ms   (T/sqrt(12 N) =  0.14 ms)
+
+3. A moving comparison: dot speed x tau.  The AI cannot compare the arm pose with the frame while the hand moves
+   tau (s)     hand at 20 mm/s    hand at 5 mm/s    dot at 0.5 mm/s (a sweep)    at rest
+    0.03         0.60 mm          0.15 mm            15 um                    0
+    0.10         2.00 mm          0.50 mm            50 um                    0
+    0.25         5.00 mm          1.25 mm           125 um                    0
+   a stillness gate (dot image speed below 0.3 mm/s for 2 tau) keeps the mismatch to 30 um at tau = 0.10 s
+
+4. Seam map learned and replayed at different speeds (the lag is baked into the map at the learn speed).  Error in micrometres
+   bead speed learn -> replay     d_omega (deg/s)    tau 0.05 s   0.15 s   0.5 s     for a1 = 0.125 mm (rig limit), k = 1 | for a3 = 0.05, k = 3
+    8 ->  8 mm/s               0.00                0.0| 0.0    0.0| 0.0    0.0| 0.0
+    8 -> 12 mm/s               3.71                0.4| 0.5    1.2| 1.5    4.0| 4.9
+    5 -> 15 mm/s               9.26                1.0| 1.2    3.0| 3.6   10.1|12.1
+   the map is smooth in angle, so a time error costs micrometres; a sweep or a hand costs tenths of a millimetre
+
+5. Rolling shutter: readout 16 ms.  The tube edge moves along the seam at 8 mm/s: skew 0.128 mm along the seam (does not matter, 0.008 mm/mm across); a dot swept at 0.5 mm/s: 8 um across the frame
+
+6. Angle stamp: a rotator status line every 50 ms with a 30 ms jitter puts the frame at the wrong angle by 0.22 deg = 0.24 mm along the seam at 8 mm/s (tack and bump positions, not the radial map)
+
+7. Duplicate frames: sensor read noise of even 1 grey level makes two real frames differ; a stalled camera repeats one exactly.  P(two real 1280x960 frames identical) is zero for practical purposes.

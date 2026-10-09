@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Driven presetter</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dp { min-width: 820px; max-width: 1300px; color: #c7d3e6; font: 12px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .dp h3 { margin: 0 0 6px; font-size: 13px; color: #fff; }
+  .dp .panel { border: 1px solid #222c3a; border-radius: 8px; background: #0f151d; padding: 10px 12px; margin-bottom: 10px; }
+  .dp .row { display: grid; grid-template-columns: 250px 1fr 110px; gap: 8px; align-items: center; margin: 5px 0; }
+  .dp .bar { display: flex; height: 18px; border-radius: 4px; overflow: hidden; background: #151b23; }
+  .dp .bar span { display: block; height: 100%; }
+  .dp .num { font: 11px ui-monospace, Menlo, monospace; color: #cbd5e1; text-align: right; }
+  .dp .lbl b { color: #fff; }
+  .dp .lbl small { display: block; color: #7d8ea8; font-size: 10.5px; }
+  .dp .key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0; font-size: 10.5px; color: #98a4b6; }
+  .dp .key i { display: inline-block; width: 12px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .dp .verdict { margin-top: 8px; color: #c7d3e6; font-size: 12.5px; }
+  .dp .verdict b { color: #fff; }
+  .c-hand { background: #f5a524; } .c-mach { background: #a855f7; } .c-free { background: #14b8a6; }
+  .c-res { background: #60a5fa; } .c-reg { background: #f87171; } .c-shoe { background: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-17-driven-presetter",
+  "title": "Driven presetter: what binds, and what the last centring must be",
+  "by": "use",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Four ways to centre the tube before the weld: by hand on the station (today), by advisor and hand on a presetter (use-03), by driver and probe on the station (travel-06), and the driver on a presetter. For each, the scene sums hand minutes, presetter minutes and station minutes per tube, says which of the three binds a steady cycle, and lists the errors left at the weld: the centring residual, the register error if the last centring was off the station, and the shoe shift if it was done with the ground shoe disengaged. The written sequence engages the shoe after indicating, so the last centring belongs on the station with the shoe on. Everything is illustrative and meant to be overwritten with Derek's durations.",
+  "tags": ["presetter", "nest driver", "station time", "hand time", "ground shoe", "register", "sequence", "combination of travel-06 and use-03"],
+  "branchOf": ["travel-06-nest-driver"],
+  "combines": ["travel-06-nest-driver", "use-03-preset-cartridge"],
+  "transferable": ["the last centring is shoe-on, on the station", "a presetter frees the station, a driver the hand", "the presetter can also seat the plate"],
+  "how": {
+    "motion": "no mechanism is animated: a time and error budget for four ways of centring the tube",
+    "load": "each row says what carries the tube during the centring: the station's rotator or the presetter's",
+    "reference": "the rotator's own axis and the nest; a register transfers a cartridge between rotators",
+    "observe": "a dial read by a hand, or a probe read by software; the shoe-on pass is the one that sees the weld state",
+    "use": "type in your durations and see which resource binds"
+  },
+  "software": {
+    "commands": ["rotator jog to an angle and hold (a firmware addition: the pedal is the whole of today's control)", "driver engage and turn"],
+    "observes": ["probe reading against table angle", "the verify pass"],
+    "manual": ["loading, bringing three screws to contact", "seating the plate", "everything at the bench that is not centring"]
+  },
+  "notes": ["../../exchange/use--on--travel-w2.md", "../../explorers/use/calc/w2_presetter.mjs", "../../explorers/travel/ideas/travel-06-nest-driver.md", "../../explorers/use/ideas/use-03-preset-cartridge.md", "../../explorers/use/ideas/use-17-driven-presetter.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Four rows, one per way of centring the tube. Each shows, per tube, the <b>minutes a hand spends</b>, the <b>minutes on a presetter</b> and the <b>minutes the station is occupied</b>, and which of the three <b>binds a steady cycle</b> (the largest). Below them, the <b>error left at the weld</b> from three sources: the centring residual (what a hand with a dial, an advisor, or a driver and probe leaves), the <b>register error</b> if the last centring was done on another rotator and the cartridge was moved, and the <b>shoe shift</b> if the last centring was done with the ground shoe disengaged.</p>' +
+        '<p>The third source is a step of the written sequence. The guide indicates the tube first and only later says “scuff and engage the copper shoe”. The shoe wipes the tube on one side; if the nest’s three contacts are not stiff, engaging it moves the tube. So the last centring, and any verify pass, belongs on the station with the shoe on. That rule applies to travel-06’s driver too: it should run after the shoe is engaged.</p>' +
+        '<p>Change the durations to yours. Toggle whether the presetter also seats the plate (the cartridge then carries it) and whether the last pass is made with the shoe on.</p>',
+      carries:
+        '<p>Nothing is drawn. The rows say where the centring happens: on the station’s rotator (which carries the tube in the nest for the weld) or on a presetter’s rotator (a second turntable and nest, or a lazy-Susan with an encoder), and whether the tube travels between them in a cartridge with a three-ball register.</p>',
+      software:
+        '<p>Today the rotator’s controller has one input, the pedal: held, the table turns; released, it stops, and the driver lets the motor go ten seconds later; the console’s degrees are a readout and never a limit [repo firmware README]. A driver that presents a screw to a bit needs a command to go to an angle and hold, which is firmware that does not exist yet. A probe is read against that angle. In the presetter rows a second rotary and probe (or an encoder on a hand-turned table) would have to exist.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Presetting frees the station; a driver frees the hand.</b> At the defaults every row is bound by the station: what a presetter removes from it is the centring, and what it leaves is the rest of the closure at the station. The hand column is smaller in the driver rows because the driver, not the person, turns the screws. <i>Change drawn:</i> the toggle that moves plate seating to the presetter takes another three minutes off the station. <i>Left standing:</i> every duration is illustrative.</li>' +
+        '<li><b>The last centring is shoe-on, on the station.</b> With it off, the shoe shift lands in the weld unless a verify pass with the shoe on follows. In the presetter rows the register error does too. <i>Change:</i> a station verify pass (one lap at measuring speed, shoe engaged) after the tack and the face check. <i>Left standing:</i> the shoe’s force and the nest’s contact stiffness are unmeasured; 0.05 mm is a placeholder.</li>' +
+        '<li><b>The driver needs an interface today’s rotator does not have.</b> Go to an angle, hold torque, report degrees since a reference. The ten-second release means an index step must be one command that holds. <i>Left standing:</i> whether the ESP32 firmware can take it (the rotator is Derek’s own code); a jog speed above the weld speed range is not documented.</li>' +
+        '<li><b>A probe is still the missing part.</b> A digital indicator with a documented data output is the natural probe; on Prime, none under about $100 listed one (sourcing/use.md). The caliper-style clock and data pads route is documented by open-source readers and unchecked here.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Durations, pass counts, residuals, the register error and the shoe shift are <b>illustrative</b>. Only the lap time at a given speed is derived (388.6 mm circumference). Derek’s real durations would replace them.</li>' +
+        '<li>Whether the shoe moves the tube in the nest at all, and by how much: an indicator on the tube while the shoe is engaged and disengaged would say. Whether the second closure (tube inverted, first plate down, ports through the service bore) changes the routine is not drawn.</li>' +
+        '<li><b>Questions for Derek:</b> what does the indicator read at the weld circle before and after you engage the shoe? What is the rotator’s fastest safe jog, and does the controller accept a command over the console while the pedal is held?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Circumference 388.61 mm <b>[repo]</b>; the measuring lap time is that circumference over the speed you set. The rotator’s own accepted range is 5 to 15 mm/s for a weld <b>[repo]</b>; a faster measuring speed is a proposal. The three-jaw rule and the round counts follow travel-06 and <code>explorers/use/calc/screw_advisor.mjs</code>.</li>' +
+        '<li>Durations (min): load 1.0, three screws to contact 1.5, hand indicating on the station 6.0 (the use-01 figure), advisor rounds 2 at 1.0, index and turn 6 s per screw move, passes 3, verify pass 1.0, plate seating 3.0, the rest of the closure at the station 9.0 of which 5.0 with a hand. Residuals (mm, 1-sigma): hand and dial 0.06, advisor 0.05, driver and probe 0.024 (travel-06’s figure). Register 0.03, shoe shift 0.05. All <b>illustrative</b>.</li>' +
+        '<li>Errors combine as root-sum-square: a simplification. The steady cycle is the largest of the three resource minutes: it ignores start-up, batching and the person walking between stations.</li>' +
+        '</ul>',
+    },
+  });
+  const root = WK.h('div', { class: 'dp' }); app.stageEl.appendChild(root);
+  const pT = WK.h('div', { class: 'panel' }), pE = WK.h('div', { class: 'panel' });
+  root.appendChild(pT); root.appendChild(pE);
+
+  const P = { tl: 1.0, tc: 1.5, ti: 6.0, ra: 2, tr: 1.0, tp: 44, np: 3, tv: 1.0, plate: 3.0, rest: 9.0, resth: 5.0, rh: 0.06, ra_: 0.05, rd: 0.024, reg: 0.03, shoe: 0.05, plateAtPre: false, shoeOn: false, station: true };
+  const rms = (...v) => Math.sqrt(v.reduce((t, x) => t + x * x, 0));
+  function rows() {
+    const drv = P.np * P.tp / 60, plateH = P.plateAtPre ? P.plate : 0, plateS = P.plateAtPre ? 0 : 0;
+    const rest = P.rest - (P.plateAtPre ? P.plate : 0), restH = P.resth - (P.plateAtPre ? Math.min(P.plate, P.resth) : 0);
+    const vf = P.station ? P.tv : 0, vfh = P.station ? 0.5 : 0;
+    // last centring properties: [who, where, shoe]
+    const R = [];
+    R.push({ id: 'today', name: 'By hand on the station', sub: 'today: indicate with a dial, shoe still off' + (P.shoeOn ? ' (plus one shoe-on round)' : ''),
+      hand: P.tl + P.ti + P.resth + (P.shoeOn ? P.tr : 0), pre: 0, sta: P.tl + P.ti + P.rest + (P.shoeOn ? P.tr : 0), handPre: 0,
+      e: { res: P.rh, reg: 0, shoe: P.shoeOn ? 0 : P.shoe } });
+    R.push({ id: 'use03', name: 'Presetter, advisor, hand turns the screws', sub: 'use-03: register to the station' + (P.station ? ', then a verify pass with the shoe on' : ''),
+      hand: P.tl + P.tc + P.ra * P.tr + plateH + vfh + restH, pre: P.tl + P.tc + P.ra * P.tr + plateH, sta: 0.3 + vf + rest, handPre: P.tl + P.tc + P.ra * P.tr + plateH,
+      e: { res: P.ra_, reg: P.station ? 0 : P.reg, shoe: (P.station && P.shoeOn) ? 0 : P.shoe } });
+    R.push({ id: 'tr06', name: 'Driver and probe on the station', sub: 'travel-06: the rotator indexes the screws' + (P.shoeOn ? ', the last pass with the shoe on' : ', shoe off'),
+      hand: P.tl + P.tc + restH, pre: 0, sta: P.tl + P.tc + drv + rest, handPre: 0,
+      e: { res: P.rd, reg: 0, shoe: P.shoeOn ? 0 : P.shoe } });
+    R.push({ id: 'comb', name: 'Driver and probe on a presetter', sub: 'the combination: register to the station' + (P.station ? ', verify pass with the shoe on' : ''),
+      hand: P.tl + P.tc + plateH + vfh + restH, pre: P.tl + P.tc + drv + plateH, sta: 0.3 + vf + rest, handPre: P.tl + P.tc + plateH,
+      e: { res: P.rd, reg: P.station ? 0 : P.reg, shoe: (P.station && P.shoeOn) ? 0 : P.shoe } });
+    R.forEach(r => { r.bind = Math.max(r.hand, r.pre, r.sta); r.who = r.bind === r.sta ? 'the station' : r.bind === r.hand ? 'the person' : 'the presetter'; r.err = rms(r.e.res, r.e.reg, r.e.shoe); });
+    return R;
+  }
+  function render() {
+    app.ui.enable('plate', !!P.plateAtPre); app.ui.enable('reg', !P.station); app.ui.enable('shoe', true);
+    const R = rows(), mx = Math.max(...R.map(r => Math.max(r.hand, r.pre, r.sta))) * 1.05, me = Math.max(0.1, ...R.map(r => r.err)) * 1.1;
+    const bar = (v, cls) => '<div class="bar"><span class="' + cls + '" style="width:' + (v / mx * 100).toFixed(1) + '%"></span></div>';
+    let h = '<h3>Minutes per tube, and what binds a steady cycle</h3>';
+    R.forEach(r => {
+      h += '<div class="row"><div class="lbl"><b>' + r.name + '</b><small>' + r.sub + '</small></div><div>' +
+        '<div style="display:grid;grid-template-columns:70px 1fr 46px;gap:6px;align-items:center"><small>person</small>' + bar(r.hand, 'c-hand') + '<span class="num">' + r.hand.toFixed(1) + '</span></div>' +
+        '<div style="display:grid;grid-template-columns:70px 1fr 46px;gap:6px;align-items:center"><small>presetter</small>' + bar(r.pre, 'c-free') + '<span class="num">' + r.pre.toFixed(1) + '</span></div>' +
+        '<div style="display:grid;grid-template-columns:70px 1fr 46px;gap:6px;align-items:center"><small>station</small>' + bar(r.sta, 'c-mach') + '<span class="num">' + r.sta.toFixed(1) + '</span></div></div>' +
+        '<div class="num">binds: ' + r.who + '<br>' + r.bind.toFixed(1) + ' min / tube</div></div>';
+    });
+    h += '<div class="key"><span><i class="c-hand"></i>person: hands on anything, at either bench</span><span><i class="c-free"></i>presetter rotary occupied</span><span><i class="c-mach"></i>station rotator occupied (the laser is on for under a minute of it)</span></div>';
+    pT.innerHTML = h;
+    let g = '<h3>Radial error left at the weld from the centring (mm, root-sum-square of three terms)</h3>';
+    R.forEach(r => {
+      const w = v => (v / me * 100).toFixed(1) + '%';
+      g += '<div class="row"><div class="lbl"><b>' + r.name + '</b><small>residual ' + r.e.res.toFixed(3) + ' &middot; register ' + r.e.reg.toFixed(3) + ' &middot; shoe ' + r.e.shoe.toFixed(3) + '</small></div><div class="bar"><span class="c-res" style="width:' + w(r.err) + '" title="root-sum-square of the three terms"></span></div><div class="num">' + r.err.toFixed(3) + '</div></div>';
+    });
+    g += '<div class="key"><span>residual: what the centring itself leaves</span><span>register: the cartridge was moved from another rotator</span><span>shoe: the last centring was done with the shoe off</span></div>';
+    const st = R[0].sta, best = R.reduce((a, b) => (b.bind < a.bind ? b : a));
+    g += '<div class="verdict">At these numbers the station is the binding resource in ' + R.filter(r => r.who === 'the station').length + ' of 4 rows; the largest hand load is <b>' + Math.max(...R.map(r => r.hand)).toFixed(1) + ' min</b>, the smallest <b>' + Math.min(...R.map(r => r.hand)).toFixed(1) + ' min</b>. Removing centring from the station and the plate from the station (the toggle) is what shortens a steady cycle; a driver shortens the hand. Nothing here says which is worth building: it says which resource to measure first.</div>';
+    pE.innerHTML = g;
+    app.io.set({
+      commands: [{ name: 'Rotator jog to an angle and hold', value: 'a firmware addition', note: 'today the pedal is the whole of the control' }, { name: 'Driver engage and turn', value: 'in 1/N turn steps' }],
+      observes: [{ name: 'Probe reading vs table angle', value: 'needs a probe', status: 'unresolved', note: 'a digital indicator with a data output; unchecked' }, { name: 'Shoe-on verify pass', value: P.shoeOn ? 'on' : 'off', status: 'partly', note: 'the only pass that sees the weld state' }],
+      manual: ['Loading, screws to contact', 'Seating the plate (either bench)', 'The rest of the closure at the station'],
+    });
+  }
+  const a = app.ui.group('Choices');
+  a.toggle({ id: 'plateAtPre', label: 'The cartridge carries a seated plate', value: false, kind: 'branch', help: 'Seating the plate needs no rotator: do it at the presetter and the station is free of it.', onChange: v => { P.plateAtPre = !!v; render(); } });
+  a.toggle({ id: 'shoeOn', label: 'Every last pass is made with the shoe engaged', value: false, kind: 'state', help: 'The written sequence engages the shoe after indicating, so off (the default) is as written and the last centring saw the tube without it. On is the repair: by hand, one more round after the shoe; by driver, run after the shoe is engaged.', onChange: v => { P.shoeOn = !!v; render(); } });
+  a.toggle({ id: 'station', label: 'A verify pass on the station follows a presetter', value: true, kind: 'state', help: 'One lap at measuring speed with the shoe engaged, then a correction if outside the limit.', onChange: v => { P.station = !!v; render(); } });
+  const b = app.ui.group('Durations (minutes, illustrative)');
+  [['tl', 'Load the tube', 0.2, 4, 0.1], ['tc', 'Three screws to light contact', 0.2, 6, 0.1], ['ti', 'Indicate by hand on the station', 1, 15, 0.5], ['ra', 'Advisor rounds', 1, 5, 1], ['tr', 'One advisor round (read, turn)', 0.2, 3, 0.1], ['tv', 'Station verify pass', 0.3, 4, 0.1], ['plate', 'Seat the plate', 0.5, 8, 0.5], ['rest', 'The rest of the closure at the station', 3, 20, 0.5], ['resth', '... of which a person is at work', 1, 12, 0.5]].forEach(([id, label, mn, mx, stp]) => {
+    b.slider({ id: id, label: label, min: mn, max: mx, step: stp, value: P[id], unit: id === 'ra' ? 'rounds' : 'min', kind: 'scene', onChange: v => { P[id] = v; render(); } });
+  });
+  const c = app.ui.group('Driver: pass length and count');
+  c.slider({ id: 'tp', label: 'One driver pass (measure lap, index, turn)', min: 10, max: 120, step: 1, value: 44, unit: 's', kind: 'scene', help: 'A lap at 15 mm/s is 26 s; three index and turn moves at 6 s each add 18 s. A faster measuring speed shortens it.', onChange: v => { P.tp = v; render(); } });
+  c.slider({ id: 'np', label: 'Passes', min: 1, max: 6, step: 1, value: 3, unit: '', kind: 'scene', help: 'travel-06 reaches 0.024 mm in about two or three at slip 0.7.', onChange: v => { P.np = v; render(); } });
+  const d = app.ui.group('Errors (mm, 1-sigma, illustrative)');
+  d.slider({ id: 'rh', label: 'Residual, hand and dial', min: 0.01, max: 0.2, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', onChange: v => { P.rh = v; render(); } });
+  d.slider({ id: 'ra_', label: 'Residual, advisor and hand', min: 0.01, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', onChange: v => { P.ra_ = v; render(); } });
+  d.slider({ id: 'rd', label: 'Residual, driver and probe', min: 0.005, max: 0.2, step: 0.001, value: 0.024, unit: 'mm', kind: 'scene', onChange: v => { P.rd = v; render(); } });
+  d.slider({ id: 'reg', label: 'Register error after moving a cartridge', min: 0, max: 0.2, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: v => { P.reg = v; render(); } });
+  d.slider({ id: 'shoe', label: 'Shoe shift on the tube', min: 0, max: 0.3, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Unmeasured: an indicator on the tube with the shoe engaged and not would say.', onChange: v => { P.shoe = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

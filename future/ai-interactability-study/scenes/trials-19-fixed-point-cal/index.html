@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch calibration: one cross, many orientations</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .fc-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr); gap: 12px; align-items: start; }
+  @container fcstage (max-width: 760px) { .fc-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: fcstage; }
+  .fc-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .fc-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .fc-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .fc-col { display: grid; gap: 10px; align-content: start; }
+  .fc-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @container fcstage (max-width: 560px) { .fc-two { grid-template-columns: 1fr; } }
+  .fc-svg { display: block; width: 100%; height: auto; }
+  .fc-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .fc-svg text.b { fill: #e7ebf1; font-weight: 600; } .fc-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .fc-svg text.teal { fill: #5eead4; } .fc-svg text.grey { fill: #94a3b8; } .fc-svg text.amber { fill: #fbbf24; } .fc-svg text.red { fill: #ff8a80; }
+  table.fc-tab { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .fc-tab td, .fc-tab th { padding: 3px 6px; border-bottom: 1px solid var(--wk-line); text-align: right; font-weight: 400; color: #cfd6e2; }
+  .fc-tab th:first-child, .fc-tab td:first-child { text-align: left; color: var(--wk-muted); }
+  .fc-tab thead th { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .fc-tab b { color: #fff; } .fc-tab .g { color: #5eead4; } .fc-tab .w { color: #fbbf24; }
+  .fc-note { font-size: 11px; color: var(--wk-faint); padding: 4px 4px 0; font-style: italic; line-height: 1.35; }
+  .fc-status { font: 600 12.5px system-ui, sans-serif; padding: 5px 9px; border: 1px solid var(--wk-line2); border-radius: 8px; margin: 6px 0 2px; background: var(--wk-panel2); color: #cfd6e2; }
+  .fc-status.busy { color: #fbbf24; } .fc-status.done { color: #5eead4; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-19-fixed-point-cal",
+  "title": "Touch calibration: one cross, many orientations",
+  "by": "trials",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "A hand-moved encoded arm (borrowed-03) or a software-run gimbal and gantry (borrowed-02) puts the red dot on one printed cross from many orientations while a camera reads where on the board the dot fell. The arrangement's own idea of where the beam met the board must be one point; the spread is its error, and a least-squares fit removes the part that repeats. Draws the spread before and after on fresh poses, and what the fit cannot remove.",
+  "tags": ["lens", "calibration", "fixed point", "pivot", "encoded arm", "gimbal", "board", "trial"],
+  "branchOf": [],
+  "combines": ["borrowed-03-encoded-arm", "borrowed-02-gimbal-on-gantry", "trials-05-artefact-ladder"],
+  "transferable": ["fixed-point calibration of any pose reporter", "score on fresh poses, never the fitted ones", "the along-beam component is invisible to a board", "calibrate over the window you will use"],
+  "how": {
+    "motion": "arm: a hand takes the orientations the software asks for; gimbal: software runs the gantry and gimbal itself",
+    "load": "not the subject: the arm's spring or the gantry carries the gun; the board sits on the rotator at plate-face height",
+    "reference": "one printed cross on the board (rung 1 of the artefact ladder), read by camera A",
+    "observe": "camera A reads the dot's board xy for every touch; joint encoders or commanded angles are the features",
+    "use": "once per setup or per session, laser off (red dot only); 30 to 40 touches"
+  },
+  "software": {
+    "commands": ["arm: which orientation to take next (a list shown to the hand)", "gimbal: yaw, hole and roll angles and the compensating gantry move", "fit and apply the correction"],
+    "observes": ["dot xy on the board (camera A) per touch", "six joint readings, or the commanded angles", "spread of the arrangement's own estimate on fresh poses"],
+    "manual": ["placing the board at plate-face height and the arm base or gantry origin", "moving the arm hand-over-hand (arm branch)", "repeating the trial when something was bumped"]
+  },
+  "notes": ["../../exchange/trials--on--borrowed-w2.md", "../../explorers/trials/ideas/trials-19-fixed-point-cal.md", "../../explorers/borrowed/ideas/borrowed-03-encoded-arm.md", "../../explorers/borrowed/ideas/borrowed-02-gimbal-on-gantry.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>An arrangement that reports its own pose (an encoded balanced arm, or a gimbal steered by a gantry formula) also carries an error: encoder zeros and linearity, link lengths, where the gun really sits in a cradle. If the beam is put on the <b>same printed cross</b> from many orientations, the arrangement’s idea of where the beam met the board has to come out as one point. The spread is its error, and most of that error repeats from touch to touch, so a least-squares fit can take it out. That is the pivot calibration of trials-13 with the arrangement’s own pose in place of a tilt about a supposed pivot.</p>' +
+        '<p>Left: the touches, as the camera reads them. Right of it: <b>fresh poses</b> the fit never saw, plotted as the arrangement’s error (grey before, teal after). Try the two branches, then the floors: coarse encoders, play the encoders cannot read, a camera that is noisy, an orientation window you fit narrower than you use.</p>',
+      carries: '<p>Not the subject. In the arm branch the arm’s spring and joints carry the gun and a hand supplies motion; in the gimbal branch the gimbal and the gantry carry it and software supplies motion. The board (a printed disc on a pedestal at plate-face height, rung 1 of trials-05) sits on the rotator and carries nothing. What establishes position here is the cross and the camera; the fit turns that into corrections to the arrangement’s own numbers.</p>',
+      software: '<p>Arm: software shows a list of orientations (roll, hole, vertical), the hand takes each and puts the dot on the cross, software reads the six joint angles and the camera’s board xy, then fits. It commands nothing. Gimbal: software commands the angles and the gantry formula itself, one pose after another, with no hand; that branch could run overnight. Both: the score is on poses that were not used to fit.</p>',
+      tried: '<ul>' +
+        '<li><b>What the fit removes.</b> With the encoder model of borrowed-03 (12-bit or better, a first-harmonic linearity error up to 1°, zeros up to 0.3°, links off by up to 2 mm) and an orientation window of ±15°, the arm’s error on fresh poses is about 1.3 to 1.6 mm rms after a one-point touch-off. A fit on 40 touches leaves 0.03 mm with 16-bit encoders and no play <i>(calc/arm_touch_cal.py; this page reruns the same idea with other random draws)</i>. Over a window of ±15° a per-turn sine looks like an offset plus a gain, so the fit can absorb it; a calibration over the whole joint range would be harder.</li>' +
+        '<li><b>What it cannot remove.</b> Two floors. <b>Quantisation</b>: a 12-bit code is 0.088° per count, about 0.28 mm at this arm’s lever arms (14-bit 0.10, 16-bit 0.03). <b>Play</b> the encoders cannot read (bearing slop, arm bend under the umbilical): 0.02° of random play is about 0.3 mm, 0.05° about 0.8 mm. The dashed line in the chart is what a perfect fit would still leave.</li>' +
+        '<li><b>Calibrate the window you use.</b> Fit at ±10° and test at ±25° and the error is 1.2 mm, not 0.3. The touches must span what the hand will do.</li>' +
+        '<li><b>The gimbal formula has a term the error sliders in borrowed-02 do not show.</b> The gantry moves C by t·Δg assuming C sits exactly at t along the roll line in the gun’s frame. A printed cradle is not that exact; 1 mm of cradle error costs 0.2, 0.4 and 0.5 mm rms at ±10°, ±20° and ±30°, against 0.17 mm for a 0.05° angle error (calc/gimbal_fixed_point.py). The fit finds the two cradle components across the beam to about 0.05 mm from 20 poses. The component <b>along</b> the beam cannot be seen on a board: it moves the nozzle along its own beam and the spot does not move. Spot size (trials-03) is its sensor.</li>' +
+        '<li><b>It drifts.</b> An arm’s joints settle and a gantry gets bumped: the calibration belongs to a session. A kinematic seat that the gun or arm returns to (trials-02) is the cheap check that the zeros have not moved.</li></ul>',
+      unresolved: '<ul><li>Whether a real magnetic encoder’s error over a ±15° window is well described by an offset and one harmonic: the model draws the truth that way and the fit models it that way, so the near-perfect result with 16 bits is the best case, not a prediction. Unmodelled second and third harmonics and a leaning post cost little in calc (about 0.05 mm more) but the real error is unknown <b>[unknown]</b>.</li>' +
+        '<li>Whether a spring arm’s joints have play in the 0.02° class or worse <b>[unknown]</b>. It sets the floor.</li>' +
+        '<li>Whether camera A can read the dot on the board to 0.05 mm (a matte paper or printed dot is not the dot on polished steel) <b>[unknown]</b>.</li>' +
+        '<li>Whether a person can put the dot within 0.3 mm of a cross in an assigned orientation; the fit does not need accuracy from the hand, only the camera’s reading of where the dot fell.</li></ul>',
+      assumptions: '<ul><li>Arm: borrowed-03’s six-joint arm (post 260 mm, links 260 + 260 mm, wrist centre 150 mm behind the tip), the reference scene’s dial model and 16 mm nozzle-to-dot <b>[illustrative]</b>. Encoder error: rounding, one sine per joint with random phase and 0.5 to 1 times the amplitude, a random-sign zero offset; not the specification of any part.</li>' +
+        '<li>Truth is drawn at random from a seed; “new arm” draws another. The fit knows the structure of the error (offset, first harmonic, links, wrist, beam origin and tilt) but not the numbers.</li>' +
+        '<li>Board plane, cross position, hand scatter (±0.3 mm), standoff scatter (±2 mm) and camera noise are made up. Gimbal branch: t = 200 mm, borrowed-02’s gun proxy and dial model; the gantry and gimbal do what they are told.</li>' +
+        '<li>The scene runs a JavaScript port of the fit; the Python scripts are the independent check. Nothing here is a measurement of any product.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ small maths
+  const V3 = (x, y, z) => [x, y, z];
+  const mul = (A, B) => { const C = new Array(9); for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[3 * i + j] = A[3 * i] * B[j] + A[3 * i + 1] * B[3 + j] + A[3 * i + 2] * B[6 + j]; return C; };
+  const mulv = (A, v) => [A[0] * v[0] + A[1] * v[1] + A[2] * v[2], A[3] * v[0] + A[4] * v[1] + A[5] * v[2], A[6] * v[0] + A[7] * v[1] + A[8] * v[2]];
+  const tr3 = A => [A[0], A[3], A[6], A[1], A[4], A[7], A[2], A[5], A[8]];
+  const RX = a => { const c = Math.cos(a), s = Math.sin(a); return [1, 0, 0, 0, c, -s, 0, s, c]; };
+  const RY = a => { const c = Math.cos(a), s = Math.sin(a); return [c, 0, s, 0, 1, 0, -s, 0, c]; };
+  const RZ = a => { const c = Math.cos(a), s = Math.sin(a); return [c, -s, 0, s, c, 0, 0, 0, 1]; };
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  // gun rotation for the three dials (the kit's posePoint maths applied to basis vectors); columns = images of local x, y, z
+  const PITCH = WK.PITCH, CLR = WK.CLEARANCE, RA = WK.LOCAL_ROLL_AXIS;
+  function posePt(p, roll, holeRoll, vert) {
+    const s = Math.sin(PITCH), c = Math.cos(PITCH), x = p[0], y = p[1], z = p[2], along = z + CLR;
+    const py = -c * along + s * y, pz = s * along + c * y;
+    const ay = -c * RA.z + s * RA.y, az = s * RA.z + c * RA.y, dot = ay * py + az * pz;
+    const cr = Math.cos(roll), sr = Math.sin(roll);
+    const rx = x * cr + (ay * pz - az * py) * sr, ry = py * cr + az * x * sr + ay * dot * (1 - cr), rz = pz * cr - ay * x * sr + az * dot * (1 - cr);
+    const ch = Math.cos(holeRoll), sh = Math.sin(holeRoll), hy = ry * ch + rz * sh, hz = -ry * sh + rz * ch;
+    const cv = Math.cos(vert), sv = Math.sin(vert);
+    return [rx * cv - hy * sv, rx * sv + hy * cv, hz];
+  }
+  function gunR(rollDeg, holeDial, vertDeg) {           // row-major 3x3
+    const hr = (holeDial - WK.HOLE_AXIS_OFFSET) * DEG, r = rollDeg * DEG, v = vertDeg * DEG;
+    const o = posePt([0, 0, 0], r, hr, v), bx = posePt([1, 0, 0], r, hr, v), by = posePt([0, 1, 0], r, hr, v), bz = posePt([0, 0, 1], r, hr, v);
+    return [bx[0] - o[0], by[0] - o[0], bz[0] - o[0], bx[1] - o[1], by[1] - o[1], bz[1] - o[1], bx[2] - o[2], by[2] - o[2], bz[2] - o[2]];
+  }
+  // seeded random
+  function rng(seed) {
+    let s = (seed * 2654435761) >>> 0 || 1;
+    const u = () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; };
+    const n = () => { let a = 0; for (let i = 0; i < 6; i++) a += u(); return (a - 3) * Math.SQRT2; };
+    return { u: u, n: n };
+  }
+  function solve(A, b) {                                  // Gaussian elimination, partial pivoting; A is n x n (array of rows)
+    const n = b.length, M = A.map((r, i) => r.concat([b[i]]));
+    for (let c = 0; c < n; c++) {
+      let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+      const t = M[c]; M[c] = M[p]; M[p] = t;
+      const d = M[c][c] || 1e-12;
+      for (let r = c + 1; r < n; r++) { const f = M[r][c] / d; if (f) for (let k = c; k <= n; k++) M[r][k] -= f * M[c][k]; }
+    }
+    const x = new Array(n).fill(0);
+    for (let r = n - 1; r >= 0; r--) { let s = M[r][n]; for (let k = r + 1; k < n; k++) s -= M[r][k] * x[k]; x[r] = s / (M[r][r] || 1e-12); }
+    return x;
+  }
+
+  // ------------------------------------------------------------------ the arm (borrowed-03's geometry)
+  const BASE = [-300, -330, -86 + 260], L1_0 = 260, L2_0 = 260, W0 = 150, ZB = 60, TARGET = [-100, -100];
+  function fkArm(th, L1, L2, W, o, tilt, zb) {
+    const c1 = Math.cos(th[0]), s1 = Math.sin(th[0]), c2 = Math.cos(th[1]), s2 = Math.sin(th[1]), t23 = th[1] + th[2];
+    const f = [c1 * Math.cos(t23), s1 * Math.cos(t23), Math.sin(t23)], y = [-s1, c1, 0], z = cross(f, y);
+    const Ra = [f[0], y[0], z[0], f[1], y[1], z[1], f[2], y[2], z[2]];
+    const Wc = [BASE[0] + L1 * c1 * c2 + L2 * f[0], BASE[1] + L1 * s1 * c2 + L2 * f[1], BASE[2] + L1 * s2 + L2 * f[2]];
+    const Rt = mul(Ra, mul(RX(th[3]), mul(RY(th[4]), RZ(th[5]))));
+    const pos = [Wc[0] - Rt[2] * W, Wc[1] - Rt[5] * W, Wc[2] - Rt[8] * W];
+    return hitPlane(pos, Rt, zb, o, tilt);
+  }
+  function hitPlane(pos, Rt, zb, o, tilt) {
+    const org = [pos[0] + Rt[0] * o[0] + Rt[1] * o[1], pos[1] + Rt[3] * o[0] + Rt[4] * o[1], pos[2] + Rt[6] * o[0] + Rt[7] * o[1]];
+    const nrm = Math.sqrt(tilt[0] * tilt[0] + tilt[1] * tilt[1] + 1), dl = [tilt[0] / nrm, tilt[1] / nrm, -1 / nrm];
+    const d = mulv(Rt, dl), s = (zb - org[2]) / d[2];
+    return [org[0] + s * d[0], org[1] + s * d[1]];
+  }
+  function ikArm(Rt, pos, L1, L2, W) {
+    const Wc = [pos[0] + Rt[2] * W, pos[1] + Rt[5] * W, pos[2] + Rt[8] * W], d = [Wc[0] - BASE[0], Wc[1] - BASE[1], Wc[2] - BASE[2]];
+    const D = Math.hypot(d[0], d[1], d[2]);
+    if (D > L1 + L2 - 1e-6 || D < Math.abs(L1 - L2) + 1e-6) return null;
+    const u = [d[0] / D, d[1] / D, d[2] / D], a = (L1 * L1 - L2 * L2 + D * D) / (2 * D), hh = Math.sqrt(Math.max(0, L1 * L1 - a * a));
+    let hint = [-u[2] * u[0], -u[2] * u[1], 1 - u[2] * u[2]]; const hn = Math.hypot(hint[0], hint[1], hint[2]); hint = [hint[0] / hn, hint[1] / hn, hint[2] / hn];
+    const E = [BASE[0] + a * u[0] + hh * hint[0], BASE[1] + a * u[1] + hh * hint[1], BASE[2] + a * u[2] + hh * hint[2]];
+    const t1 = Math.atan2(d[1], d[0]), c1 = Math.cos(t1), s1 = Math.sin(t1), e = [E[0] - BASE[0], E[1] - BASE[1], E[2] - BASE[2]];
+    const t2 = Math.atan2(e[2], e[0] * c1 + e[1] * s1), fv = [Wc[0] - E[0], Wc[1] - E[1], Wc[2] - E[2]], t23 = Math.atan2(fv[2], fv[0] * c1 + fv[1] * s1);
+    const f = [c1 * Math.cos(t23), s1 * Math.cos(t23), Math.sin(t23)], y = [-s1, c1, 0], z = cross(f, y);
+    const Ra = [f[0], y[0], z[0], f[1], y[1], z[1], f[2], y[2], z[2]], Rw = mul(tr3(Ra), Rt);
+    const b = Math.asin(Math.max(-1, Math.min(1, Rw[2]))); let a4, c6;
+    if (Math.abs(Rw[2]) < 0.9999999) { a4 = Math.atan2(-Rw[5], Rw[8]); c6 = Math.atan2(-Rw[1], Rw[0]); } else { a4 = Math.atan2(Rw[7], Rw[4]); c6 = 0; }
+    return [t1, t2, t23 - t2, a4, b, c6];
+  }
+
+  // ------------------------------------------------------------------ hidden truths (drawn from a seed; scaled by the sliders)
+  const S0 = { seed: 3, arr: 'arm', N: 40, win: 15, testWin: 15, cam: 0.05, hand: 0.3, bits: 12, inl: 0.5, off: 0.3, dl: 2, play: 0.01, cradle: 1.0, ang: 0.1 };
+  function armTruth(seed) {
+    const r = rng(seed * 7 + 1), A = [], phi = [], sgn = [], mag = [];
+    for (let i = 0; i < 6; i++) { A.push(0.5 + 0.5 * r.u()); phi.push(2 * Math.PI * r.u()); sgn.push(r.u() < 0.5 ? -1 : 1); mag.push(0.5 + 0.5 * r.u()); }
+    const dl = [2 * r.u() - 1, 2 * r.u() - 1, 2 * r.u() - 1], tilt = [0.003 * r.n(), 0.003 * r.n()], o = [0.4 * r.n(), 0.4 * r.n()];
+    return { A: A, phi: phi, sgn: sgn, mag: mag, dl: dl, tilt: tilt, o: o };
+  }
+  function armCfg(T) {
+    return { A: T.A.map(a => a * S0.inl), phi: T.phi, off: T.sgn.map((s, i) => s * T.mag[i] * S0.off), dL1: T.dl[0] * S0.dl, dL2: T.dl[1] * S0.dl, dW: T.dl[2] * S0.dl, tilt: T.tilt, o: T.o };
+  }
+  function encode(cfg, th) {
+    const q = 360 / Math.pow(2, S0.bits), out = [];
+    for (let i = 0; i < 6; i++) { const d = th[i] / DEG + cfg.A[i] * Math.sin(th[i] + cfg.phi[i]); out.push((Math.round(d / q) * q + cfg.off[i]) * DEG); }
+    return out;
+  }
+  function armTouches(seed, cfg, n, win, salt) {
+    const r = rng(seed * 101 + salt), out = { enc: [], cam: [], hit: [], feat: [] };
+    let tries = 0;
+    while (out.enc.length < n && tries < 40 * n) {
+      tries++;
+      const roll = 45 + (2 * r.u() - 1) * win, hole = 30 + (2 * r.u() - 1) * win, vert = -15 + (2 * r.u() - 1) * win;
+      const Rt = gunR(roll, hole, vert), d = mulv(Rt, [0, 0, -1]);
+      const want = [TARGET[0] + r.n() * S0.hand, TARGET[1] + r.n() * S0.hand, ZB], sd = 16 + r.n() * 2;
+      const pos = [want[0] - sd * d[0], want[1] - sd * d[1], want[2] - sd * d[2]];
+      const th = ikArm(Rt, pos, L1_0 + cfg.dL1, L2_0 + cfg.dL2, W0 + cfg.dW);
+      const pl = [r.n(), r.n(), r.n(), r.n(), r.n(), r.n()];                // always drawn so the sequence does not depend on the sliders
+      const cn = [r.n(), r.n()];
+      if (!th || !isFinite(th[0] + th[1] + th[2] + th[3] + th[4] + th[5]) || Math.abs(th[4]) > 80 * DEG) continue;
+      const real = th.map((t, i) => t + pl[i] * S0.play * DEG);
+      const hit = fkArm(real, L1_0 + cfg.dL1, L2_0 + cfg.dL2, W0 + cfg.dW, cfg.o, cfg.tilt, ZB);
+      out.enc.push(encode(cfg, th)); out.hit.push(hit); out.cam.push([hit[0] + cn[0] * S0.cam, hit[1] + cn[1] * S0.cam]);
+    }
+    out.feat = out.enc;
+    return out;
+  }
+  // parameters (arm): off[6] deg, c[6] deg, s[6] deg, dL1, dL2, dW mm, o[2] mm, tilt[2] rad, T[2] mm, zb mm
+  const ARM_NP = 28;
+  const ARM_PRIOR = [1, 1, 1, 1, 1, 1, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 5, 5, 5, 2, 2, 0.02, 0.02, 1e3, 1e3, 20];
+  const ARM_STEP = p => (p === 23 || p === 24) ? 1e-5 : 2e-2;
+  function armPredict(p, enc) {
+    const th = new Array(6);
+    for (let i = 0; i < 6; i++) th[i] = enc[i] - p[i] * DEG - p[6 + i] * DEG * Math.cos(enc[i]) - p[12 + i] * DEG * Math.sin(enc[i]);
+    const q = fkArm(th, L1_0 + p[18], L2_0 + p[19], W0 + p[20], [p[21], p[22]], [p[23], p[24]], ZB + p[27]);
+    return [q[0] - p[25], q[1] - p[26]];
+  }
+  function armOracle(cfg) {
+    const p = new Array(ARM_NP).fill(0);
+    for (let i = 0; i < 6; i++) { p[i] = cfg.off[i]; p[6 + i] = cfg.A[i] * Math.sin(cfg.phi[i]); p[12 + i] = cfg.A[i] * Math.cos(cfg.phi[i]); }
+    p[18] = cfg.dL1; p[19] = cfg.dL2; p[20] = cfg.dW; p[21] = cfg.o[0]; p[22] = cfg.o[1]; p[23] = cfg.tilt[0]; p[24] = cfg.tilt[1];
+    return p;
+  }
+
+  // ------------------------------------------------------------------ the gimbal branch (borrowed-02's formula)
+  const J0 = [WK.JOINT.x, WK.JOINT.y, WK.JOINT.z], TG = 200, AX = [RA.x, RA.y, RA.z], DOTL = [0, 0, -CLR];
+  const GIM_NP = 9, GIM_PRIOR = [5, 5, 5, 1, 1, 1, 1e3, 1e3, 20];
+  const GIM_STEP = () => 1e-2;
+  function gimTruthCfg(seed) {
+    const r = rng(seed * 13 + 5), d = [r.n(), r.n(), r.n()], dn = Math.hypot(d[0], d[1], d[2]) || 1, e = [r.n(), r.n(), r.n()];
+    return { dir: [d[0] / dn, d[1] / dn, d[2] / dn], e: e };
+  }
+  function gimHit(delta, ang, f) {                       // f = commanded [roll, hole, vert] deg; ang = actual - commanded (deg)
+    const Rc = gunR(f[0], f[1], f[2]), Ra = gunR(f[0] + ang[0], f[1] + ang[1], f[2] + ang[2]);
+    const tA = [TG * AX[0], TG * AX[1], TG * AX[2]], Cc = mulv(Rc, tA);
+    const C = [J0[0] + Cc[0], J0[1] + Cc[1], J0[2] + Cc[2]];
+    const c = [DOTL[0] + tA[0] + delta[0], DOTL[1] + tA[1] + delta[1], DOTL[2] + tA[2] + delta[2]], Rcv = mulv(Ra, c);
+    const N = [C[0] - Rcv[0], C[1] - Rcv[1], C[2] - Rcv[2]], d = mulv(Ra, [0, 0, -1]), zb = J0[2];
+    return { N: N, d: d };
+  }
+  function gimPredict(p, f, zbOff) {
+    const g = gimHit([p[0], p[1], p[2]], [p[3], p[4], p[5]], f), zb = J0[2] + p[8], s = (zb - g.N[2]) / g.d[2];
+    return [g.N[0] + s * g.d[0] - p[6], g.N[1] + s * g.d[1] - p[7]];
+  }
+  function gimTouches(seed, T, n, win, salt) {
+    const r = rng(seed * 103 + salt), out = { feat: [], cam: [], hit: [] };
+    const delta = T.dir.map(x => x * S0.cradle), ang = T.e.map(x => x * S0.ang / 1.0);
+    for (let i = 0; i < n; i++) {
+      const f = [45 + (2 * r.u() - 1) * win, 30 + (2 * r.u() - 1) * win, -15 + (2 * r.u() - 1) * win];
+      const jit = [r.n(), r.n(), r.n()], cn = [r.n(), r.n()];
+      const g = gimHit(delta, [ang[0] + jit[0] * S0.play, ang[1] + jit[1] * S0.play, ang[2] + jit[2] * S0.play], f), s = (J0[2] - g.N[2]) / g.d[2];
+      const hit = [g.N[0] + s * g.d[0], g.N[1] + s * g.d[1]];
+      out.feat.push(f); out.hit.push(hit); out.cam.push([hit[0] + cn[0] * S0.cam, hit[1] + cn[1] * S0.cam]);
+    }
+    return out;
+  }
+
+  // ------------------------------------------------------------------ generic fit
+  function fit(spec, feats, cam, iters) {
+    const NP = spec.np, p = new Array(NP).fill(0), free = spec.free || null;
+    const n = feats.length;
+    // start: frame shift = mean of (prediction - camera) at p = 0
+    let mx = 0, my = 0;
+    for (let i = 0; i < n; i++) { const q = spec.predict(p, feats[i]); mx += q[0] + p[spec.shift] - cam[i][0]; my += q[1] + p[spec.shift + 1] - cam[i][1]; }
+    p[spec.shift] = mx / n; p[spec.shift + 1] = my / n;
+    const sig = Math.max(S0.cam, 1e-3);
+    const resid = pv => { const r = new Array(2 * n); for (let i = 0; i < n; i++) { const q = spec.predict(pv, feats[i]); r[2 * i] = (q[0] - cam[i][0]) / sig; r[2 * i + 1] = (q[1] - cam[i][1]) / sig; } return r; };
+    for (let it = 0; it < (iters || 30); it++) {
+      const r0 = resid(p), m = r0.length, Jm = [];
+      for (let k = 0; k < NP; k++) {
+        const d = spec.step(k), pp = p.slice(), pm = p.slice(); pp[k] += d; pm[k] -= d;
+        const a = resid(pp), b = resid(pm), col = new Array(m);
+        for (let i = 0; i < m; i++) col[i] = (a[i] - b[i]) / (2 * d);
+        Jm.push(col);
+      }
+      const A = [], bv = [];
+      for (let a = 0; a < NP; a++) {
+        const row = new Array(NP); let g = 0;
+        for (let b = 0; b < NP; b++) { let s = 0; const ca = Jm[a], cb = Jm[b]; for (let i = 0; i < m; i++) s += ca[i] * cb[i]; row[b] = s + (a === b ? 1 / (spec.prior[a] * spec.prior[a]) + 1e-3 : 0); }
+        for (let i = 0; i < m; i++) g += Jm[a][i] * r0[i];
+        A.push(row); bv.push(-(g + p[a] / (spec.prior[a] * spec.prior[a])));
+      }
+      const step = solve(A, bv); let nn = 0;
+      for (let k = 0; k < NP; k++) { p[k] += step[k]; nn += step[k] * step[k]; }
+      if (Math.sqrt(nn) < 1e-7) break;
+    }
+    return p;
+  }
+  function rmsErr(pred, hit) {
+    const n = pred.length; let mx = 0, my = 0;
+    for (let i = 0; i < n; i++) { mx += pred[i][0] - hit[i][0]; my += pred[i][1] - hit[i][1]; }
+    mx /= n; my /= n; let s = 0;
+    const errs = [];
+    for (let i = 0; i < n; i++) { const ex = pred[i][0] - hit[i][0] - mx, ey = pred[i][1] - hit[i][1] - my; s += ex * ex + ey * ey; errs.push([ex, ey]); }
+    return { rms: Math.sqrt(s / n), errs: errs };
+  }
+
+  // ------------------------------------------------------------------ state
+  const ST = { T: null, cfg: null, touches: null, fresh: null, uncal: null, cal: null, oracle: null, p: null, curve: null, stale: true, timer: null, busy: false, run: 0 };
+  function spec() {
+    if (S0.arr === 'arm') return { np: ARM_NP, predict: armPredict, prior: ARM_PRIOR, step: ARM_STEP, shift: 25 };
+    return { np: GIM_NP, predict: gimPredict, prior: GIM_PRIOR, step: GIM_STEP, shift: 6 };
+  }
+  function regenerate() {
+    if (S0.arr === 'arm') {
+      ST.T = armTruth(S0.seed); ST.cfg = armCfg(ST.T);
+      ST.touches = armTouches(S0.seed, ST.cfg, S0.N, S0.win, 11);
+      ST.fresh = armTouches(S0.seed, ST.cfg, 160, S0.testWin, 97);
+      ST.oracleP = armOracle(ST.cfg);
+    } else {
+      ST.T = gimTruthCfg(S0.seed);
+      ST.touches = gimTouches(S0.seed, ST.T, S0.N, S0.win, 11);
+      ST.fresh = gimTouches(S0.seed, ST.T, 160, S0.testWin, 97);
+      const dl = ST.T.dir.map(x => x * S0.cradle), an = ST.T.e.map(x => x * S0.ang);
+      ST.oracleP = [dl[0], dl[1], dl[2], an[0], an[1], an[2], 0, 0, 0];
+    }
+    const sp = spec(), pz = new Array(sp.np).fill(0);
+    const pred0 = ST.fresh.feat.map(f => sp.predict(pz, f));
+    ST.uncal = rmsErr(pred0, ST.fresh.hit);
+    const predO = ST.fresh.feat.map(f => sp.predict(ST.oracleP, f));
+    ST.oracle = rmsErr(predO, ST.fresh.hit);
+    ST.cal = null; ST.p = null; ST.curve = null; ST.stale = true; ST.run++; ST.busy = false;
+    render();
+    clearTimeout(ST.timer); ST.timer = setTimeout(runFit, 260);
+  }
+  function runFit() {
+    if (!ST.touches || !ST.touches.feat.length) return;
+    const t0 = performance.now(), sp = spec();
+    ST.p = fit(sp, ST.touches.feat, ST.touches.cam, 25);
+    const pred = ST.fresh.feat.map(f => sp.predict(ST.p, f));
+    ST.cal = rmsErr(pred, ST.fresh.hit);
+    const pf = ST.touches.feat.map(f => sp.predict(ST.p, f));
+    // fit residual against the camera on the touches (what the fit could see)
+    let s = 0; for (let i = 0; i < pf.length; i++) { const a = pf[i][0] - ST.touches.cam[i][0], b = pf[i][1] - ST.touches.cam[i][1]; s += a * a + b * b; }
+    ST.fitRms = Math.sqrt(s / pf.length); ST.fitMs = performance.now() - t0; ST.stale = false;
+    render();
+  }
+  function runCurve() {
+    if (ST.busy) return;
+    const sp = spec(), ns = [6, 10, 15, 20, 30, 45, 70, 100, 150].filter(n => n <= ST.touches.feat.length);
+    if (ST.touches.feat.length > ns[ns.length - 1]) ns.push(ST.touches.feat.length);
+    ST.busy = true; ST.curve = []; status.textContent = 'running fits on the first n touches...'; status.className = 'fc-status busy'; render();
+    let k = 0; const token = ++ST.run;
+    const step = () => {
+      if (token !== ST.run) return;                                   // the settings changed: this run is stale
+      if (k >= ns.length) { ST.busy = false; render(); return; }
+      const n = ns[k++], p = fit(sp, ST.touches.feat.slice(0, n), ST.touches.cam.slice(0, n), 25);
+      const pred = ST.fresh.feat.map(f => sp.predict(p, f));
+      ST.curve.push({ n: n, rms: rmsErr(pred, ST.fresh.hit).rms });
+      render(); setTimeout(step, 10);
+    };
+    setTimeout(step, 10);
+  }
+
+  // ------------------------------------------------------------------ drawing
+  const SV = 300;
+  const mk = (title, sub, svgh, svgw) => { const svg = S('svg', { viewBox: '0 0 ' + (svgw || SV) + ' ' + svgh, class: 'fc-svg', role: 'img', 'aria-label': title }); const em = h('em', { text: sub }); return { svg: svg, em: em, card: h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: title }), em), svg) }; };
+  const pTouch = mk('The touches', 'what camera A read, mm from the cross', 300);
+  const pFresh = mk('Fresh poses: the arrangement’s error', 'never fitted, constant removed', 300);
+  const pCurve = mk('Error against number of touches', 'fits on the first n touches', 190, 520);
+  const status = h('div', { class: 'fc-status', text: 'ready' });
+  const tabBox = h('div');
+  const note = h('div', { class: 'fc-note', text: 'The scene knows the truth to draw the error. The software only has the camera’s board xy and its own readings; it never sees the grey or teal cloud.' });
+  const readBox = h('div', { class: 'fc-note', style: { fontStyle: 'normal', color: '#cfd6e2', fontSize: '12.5px' } });
+  app.stageEl.appendChild(h('div', { class: 'fc-grid' },
+    h('div', { class: 'fc-col' }, h('div', { class: 'fc-two' }, pTouch.card, pFresh.card), status, note, pCurve.card),
+    h('div', { class: 'fc-col' }, h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'What the fit had and what it left' }), h('em', { text: 'rms, mm' })), tabBox), h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'Reading' })), readBox))));
+
+  function niceRange(v) { const r = [0.5, 1, 2, 3, 5, 10, 20, 40]; for (const x of r) if (v <= x * 0.92) return x; return 80; }
+  function scatter(svg, clouds, rng0, title, ringList) {
+    svg.textContent = '';
+    const cx = SV / 2, cy = 150, sc = 118 / rng0, X = x => cx + x * sc, Y = y => cy - y * sc;
+    svg.append(S('rect', { x: 0, y: 0, width: SV, height: 300, fill: '#0f141b', rx: 6 }));
+    svg.append(S('line', { x1: cx - 128, y1: cy, x2: cx + 128, y2: cy, stroke: '#26303d' }), S('line', { x1: cx, y1: cy - 128, x2: cx, y2: cy + 128, stroke: '#26303d' }));
+    ringList.forEach(r => { if (r * sc < 132 && r * sc > 12) { svg.append(S('circle', { cx: cx, cy: cy, r: r * sc, fill: 'none', stroke: '#2f3b4c', 'stroke-dasharray': '3 3' }), S('text', { x: cx + r * sc * 0.72 + 2, y: cy - r * sc * 0.72 - 2, class: 'sm', text: r + ' mm' })); } });
+    clouds.forEach(c => { c.pts.forEach(p => { const x = X(p[0]), y = Y(p[1]); if (Math.abs(x - cx) < 140 && Math.abs(y - cy) < 140) svg.append(S('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: c.r || 2.4, fill: c.color, opacity: c.op || 0.75 })); }); });
+    svg.append(S('line', { x1: cx - 6, y1: cy, x2: cx + 6, y2: cy, stroke: '#14b8a6', 'stroke-width': 1.4 }), S('line', { x1: cx, y1: cy - 6, x2: cx, y2: cy + 6, stroke: '#14b8a6', 'stroke-width': 1.4 }));
+    svg.append(S('text', { x: 8, y: 16, class: 'b', text: title }), S('text', { x: SV - 8, y: 292, 'text-anchor': 'end', class: 'sm', text: 'full scale ±' + rng0 + ' mm' }));
+  }
+  const fmt = v => v == null || !isFinite(v) ? '–' : (v < 0.1 ? v.toFixed(3) : v.toFixed(2));
+  function render() {
+    if (!ST.touches) return;
+    // touches: camera reading minus the cross (arm) or minus the nominal cross (gimbal: the formula's own aim)
+    const ctr = S0.arr === 'arm' ? TARGET : [J0[0] + 0, J0[1] + 0];
+    const tp = ST.touches.cam.map(c => [c[0] - ctr[0], c[1] - ctr[1]]);
+    // for the gimbal the hits scatter about the formula's aim (no hand): centre on the mean so the panel is readable
+    const tmean = S0.arr === 'arm' ? [0, 0] : [tp.reduce((a, b) => a + b[0], 0) / tp.length, tp.reduce((a, b) => a + b[1], 0) / tp.length];
+    const tpts = tp.map(p => [p[0] - tmean[0], p[1] - tmean[1]]);
+    let mxT = 0; tpts.forEach(p => { mxT = Math.max(mxT, Math.abs(p[0]), Math.abs(p[1])); });
+    pTouch.em.textContent = S0.arr === 'arm' ? 'what camera A read, mm from the cross' : 'where each pose landed, mm from their mean';
+    scatter(pTouch.svg, [{ pts: tpts, color: '#7fb0ff', r: 2.6 }], niceRange(mxT || 0.5), S0.N + ' touches', [0.1, 0.3, 1, 3]);
+    let mx = 0; ST.uncal.errs.forEach(e => { mx = Math.max(mx, Math.abs(e[0]), Math.abs(e[1])); });
+    const rangeF = niceRange(mx || 0.5);
+    const cl = [{ pts: ST.uncal.errs, color: '#94a3b8', r: 2.2, op: 0.8 }];
+    if (ST.cal) cl.push({ pts: ST.cal.errs, color: '#2dd4bf', r: 2.4, op: 0.9 });
+    scatter(pFresh.svg, cl, rangeF, ST.cal ? 'grey: before   teal: after the fit' : 'grey: before the fit', [0.1, 0.3, 1, 3, 10]);
+    // table
+    const sp = S0.arr === 'arm' ? { np: ARM_NP, name: 'arm' } : { np: GIM_NP, name: 'gimbal' };
+    const row = (a, b, c) => '<tr><td>' + a + '</td><td>' + b + '</td>' + (c !== undefined ? '<td>' + c + '</td>' : '') + '</tr>';
+    tabBox.innerHTML = '<table class="fc-tab"><thead><tr><th>quantity</th><th>value</th></tr></thead><tbody>' +
+      row('touches used · numbers fitted', '<b>' + ST.touches.feat.length + '</b> · ' + sp.np + ' (from ' + 2 * ST.touches.feat.length + ' readings)') +
+      row('window fitted · window tested', '±' + S0.win + '° · ±' + S0.testWin + '°') +
+      row('error before (nominal model)', '<b>' + fmt(ST.uncal.rms) + '</b> mm') +
+      row('error after, on fresh poses', ST.cal ? '<b class="g">' + fmt(ST.cal.rms) + '</b> mm' : '<span class="w">fitting...</span>') +
+      row('what a perfect fit would still leave', fmt(ST.oracle.rms) + ' mm <span style="color:#6c788b">(' + (S0.arr === 'arm' ? 'quantisation and play' : 'angle repeatability') + ')</span>') +
+      row('fit residual on the touches vs the camera', ST.cal ? fmt(ST.fitRms * 1) + ' mm' : '–') + '</tbody></table>';
+    // curve
+    const cs = pCurve.svg; cs.textContent = '';
+    cs.append(S('rect', { x: 0, y: 0, width: 520, height: 190, fill: '#0f141b', rx: 6 }));
+    const x0 = 40, x1 = 500, y0 = 160, y1 = 26, ymax = Math.max(0.5, niceRange(ST.uncal.rms * 1.05));
+    const XN = n => x0 + (Math.log(n) - Math.log(5)) / (Math.log(200) - Math.log(5)) * (x1 - x0), YV = v => y0 - Math.min(v, ymax) / ymax * (y0 - y1);
+    [5, 10, 20, 40, 80, 160].forEach(n => cs.append(S('line', { x1: XN(n), y1: y1, x2: XN(n), y2: y0, stroke: '#1e2733' }), S('text', { x: XN(n), y: 176, 'text-anchor': 'middle', class: 'sm', text: n })));
+    for (let i = 0; i <= 4; i++) { const v = ymax * i / 4; cs.append(S('line', { x1: x0, y1: YV(v), x2: x1, y2: YV(v), stroke: '#1e2733' }), S('text', { x: 4, y: YV(v) + 3, class: 'sm', text: v.toFixed(2) })); }
+    cs.append(S('line', { x1: x0, y1: YV(ST.uncal.rms), x2: x1, y2: YV(ST.uncal.rms), stroke: '#94a3b8', 'stroke-width': 1.4 }), S('text', { x: x1, y: YV(ST.uncal.rms) - 4, 'text-anchor': 'end', class: 'grey', text: 'before' }));
+    cs.append(S('line', { x1: x0, y1: YV(ST.oracle.rms), x2: x1, y2: YV(ST.oracle.rms), stroke: '#fbbf24', 'stroke-dasharray': '4 3' }), S('text', { x: x1, y: YV(ST.oracle.rms) - 4, 'text-anchor': 'end', class: 'amber', text: 'floor' }));
+    if (ST.curve && ST.curve.length) {
+      cs.append(S('polyline', { points: ST.curve.map(c => XN(c.n).toFixed(1) + ',' + YV(c.rms).toFixed(1)).join(' '), fill: 'none', stroke: '#2dd4bf', 'stroke-width': 1.8 }));
+      ST.curve.forEach(c => cs.append(S('circle', { cx: XN(c.n), cy: YV(c.rms), r: 3, fill: '#2dd4bf' })));
+    } else cs.append(S('text', { x: 270, y: 96, 'text-anchor': 'middle', class: 'sm', text: 'press “Run the touches-versus-error curve”' }));
+    cs.append(S('text', { x: 8, y: 14, class: 'b', text: 'fresh-pose error (mm) against touches used' }));
+    // status and reading
+    if (!ST.busy) { status.textContent = ST.stale ? 'fitting...' : 'fitted in ' + Math.round(ST.fitMs) + ' ms (this browser)'; status.className = 'fc-status ' + (ST.stale ? 'busy' : 'done'); }
+    const ratio = ST.cal ? ST.uncal.rms / Math.max(ST.cal.rms, 1e-6) : null;
+    let msg = '';
+    if (S0.arr === 'arm') {
+      msg = 'The encoded arm’s error on poses it was not fitted on falls from <b>' + fmt(ST.uncal.rms) + ' mm</b> to <b>' + (ST.cal ? fmt(ST.cal.rms) : '…') + ' mm</b>' + (ST.cal ? ' (' + ratio.toFixed(0) + ' times)' : '') + '. ' +
+        'What the fit cannot take out is set by the two floors: ' + fmt(ST.oracle.rms) + ' mm here from rounding to ' + S0.bits + ' bits and ' + S0.play.toFixed(2) + '° of unread play. ' +
+        (S0.testWin > S0.win + 3 ? 'The test window is wider than the fitted one: the fit is being asked to extrapolate.' : 'Calibrate over the window you will use.');
+    } else {
+      msg = 'The gantry formula lands the beam <b>' + fmt(ST.uncal.rms) + ' mm</b> off across this swing because the cradle is ' + S0.cradle.toFixed(1) + ' mm from where the formula assumes, and the gimbal reads ' + S0.ang.toFixed(2) + '° off. After the fit: <b>' + (ST.cal ? fmt(ST.cal.rms) : '…') + ' mm</b>. ' +
+        'Only the two cradle components across the beam can be found from a board; the component along the beam moves the nozzle along its own beam, the spot does not move, and the fit leaves it near zero.';
+    }
+    readBox.innerHTML = msg;
+    app.io.set({
+      commands: S0.arr === 'arm' ?
+        [{ name: 'Next orientation to take (roll / hole / vertical)', value: 'a list of ' + ST.touches.feat.length + ', spread over ±' + S0.win + '°', note: 'shown to the hand; software moves nothing' }, { name: 'Fit', value: sp.np + ' numbers', note: 'least squares, then applied to the arm’s forward kinematics' }] :
+        [{ name: 'Gimbal angles + gantry move for each touch', value: ST.touches.feat.length + ' poses, ±' + S0.win + '°', note: 'software runs them itself; unattended-capable' }, { name: 'Fit', value: sp.np + ' numbers', note: 'cradle offset (3), angle zeros (3), board height, frame shift' }],
+      observes: [
+        { name: 'Dot on the board (camera A)', value: 'x, y per touch, noise ' + S0.cam.toFixed(2) + ' mm', status: 'seen', note: 'proposed camera; the dot on a printed board, not on steel' },
+        { name: S0.arr === 'arm' ? 'Six joint readings per touch' : 'Commanded and read-back angles', value: S0.arr === 'arm' ? S0.bits + ' bit' : 'as commanded', status: 'seen' },
+        { name: 'Arrangement error on fresh poses', value: ST.cal ? fmt(ST.uncal.rms) + ' → ' + fmt(ST.cal.rms) + ' mm' : fmt(ST.uncal.rms) + ' mm', status: 'partly', note: 'this scene knows it because it knows the truth; software estimates it from held-out touches' },
+        { name: 'Play, bearing slop, umbilical bend', value: '–', status: 'blind', note: 'beyond the encoders; only the floor shows it' }],
+      manual: ['Board at plate-face height on the rotator; camera A over it', S0.arr === 'arm' ? 'The hand takes each orientation' : 'Nothing per touch; setup only', 'Re-run after anything is bumped']
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  const ga = app.ui.group('Arrangement (branch)', { open: true });
+  ga.radio({ id: 'arr', label: 'What is being calibrated', kind: 'branch', value: 'arm', options: [{ value: 'arm', label: 'encoded arm (borrowed-03)' }, { value: 'gimbal', label: 'gimbal + gantry (borrowed-02)' }], help: 'Same trial, two arrangements. The arm is moved by a hand; the gimbal branch is run by software.', onChange: v => { S0.arr = v; setEnabled(); regenerate(); } });
+  const gt = app.ui.group('The trial (set by the software; state)', { open: true });
+  gt.slider({ id: 'N', label: 'Touches used to fit', min: 6, max: 150, step: 1, value: 40, kind: 'state', help: 'Each touch is one orientation with the dot on the cross.', onChange: v => { S0.N = v; regenerate(); } });
+  gt.slider({ id: 'win', label: 'Orientation window fitted (± on each dial)', min: 3, max: 30, step: 1, value: 15, unit: '°', kind: 'state', help: 'The three dials are varied this far about the reference opening pose.', onChange: v => { S0.win = v; regenerate(); } });
+  gt.slider({ id: 'testWin', label: 'Orientation window tested', min: 3, max: 30, step: 1, value: 15, unit: '°', kind: 'state', help: 'Fresh poses are drawn from this window. Wider than the fitted one: the fit must extrapolate.', onChange: v => { S0.testWin = v; regenerate(); } });
+  gt.button({ id: 'curve', label: 'Run the touches-versus-error curve', kind: 'state', onClick: () => runCurve() });
+  gt.button({ id: 'newarm', label: 'Draw another arm / cradle (new seed)', kind: 'state', onClick: () => { S0.seed++; regenerate(); } });
+  const gr = app.ui.group('The camera and the hand (scene edits: hidden truth)', { open: true });
+  gr.slider({ id: 'cam', label: 'Camera noise on the board xy', min: 0.01, max: 0.4, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'Per axis, per touch.', onChange: v => { S0.cam = v; regenerate(); } });
+  gr.slider({ id: 'hand', label: 'How far the hand lands from the cross', min: 0, max: 1, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'The camera reads where it fell, so this costs the fit nothing. Arm branch only.', onChange: v => { S0.hand = v; regenerate(); } });
+  gr.slider({ id: 'play', label: 'Unread play (arm: per joint; gimbal: angle repeatability)', min: 0, max: 0.1, step: 0.005, value: 0.01, unit: '°', kind: 'scene', help: 'What the encoders cannot see: it sets the floor no fit removes.', onChange: v => { S0.play = v; regenerate(); } });
+  const ge = app.ui.group('The arm (scene edits: hidden truth)', { open: true });
+  ge.select({ id: 'bits', label: 'Encoder resolution', options: [{ value: 10, label: '10 bit' }, { value: 12, label: '12 bit (AS5600 class)' }, { value: 14, label: '14 bit' }, { value: 16, label: '16 bit' }], value: 12, kind: 'scene', onChange: v => { S0.bits = +v; regenerate(); } });
+  ge.slider({ id: 'inl', label: 'Linearity error per turn', min: 0, max: 1.5, step: 0.05, value: 0.5, unit: '°', kind: 'scene', help: 'One sine per joint; the datasheet maximum for an AS5600 is 1°.', onChange: v => { S0.inl = v; regenerate(); } });
+  ge.slider({ id: 'off', label: 'Zero offsets', min: 0, max: 1, step: 0.05, value: 0.3, unit: '°', kind: 'scene', onChange: v => { S0.off = v; regenerate(); } });
+  ge.slider({ id: 'dl', label: 'Link and wrist length error', min: 0, max: 6, step: 0.5, value: 2, unit: 'mm', kind: 'scene', help: 'The drawing is not the arm.', onChange: v => { S0.dl = v; regenerate(); } });
+  const gg = app.ui.group('The gimbal cradle (scene edits: hidden truth)', { open: true });
+  gg.slider({ id: 'cradle', label: 'Gun-in-cradle position error', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'mm', kind: 'scene', help: 'How far C really is from where the formula puts it, in the gun’s frame (random direction).', onChange: v => { S0.cradle = v; regenerate(); } });
+  gg.slider({ id: 'ang', label: 'Gimbal angle zero error', min: 0, max: 0.5, step: 0.01, value: 0.1, unit: '°', kind: 'scene', onChange: v => { S0.ang = v; regenerate(); } });
+  function setEnabled() {
+    const arm = S0.arr === 'arm';
+    try { ['bits', 'inl', 'off', 'dl', 'hand'].forEach(id => app.ui.enable(id, arm)); ['cradle', 'ang'].forEach(id => app.ui.enable(id, !arm)); } catch (e) { /* controls not built yet */ }
+  }
+  setEnabled();
+  window.__fc = { S0: S0, ST: ST, gunR: gunR, ikArm: ikArm, fkArm: fkArm };   // for the checker and for comparing with calc/*.py
+  regenerate();
+})();
+</script>
+</body>
+</html>

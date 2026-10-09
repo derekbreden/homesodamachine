@@ -1,0 +1,60 @@
+A. Preload against the umbilical's pull: the clip holds a radial pull toward the axis only up to its preload; a pull outward loads the roller into the wall
+   pull toward the axis (N)   preload 4 N   8 N   15 N     (margin = preload - pull; the roller lifts when negative)
+      0.5                       3.5      7.5     14.5
+      1.5                       2.5      6.5     13.5
+        3                       1.0      5.0     12.0
+        6                      -2.0      2.0      9.0
+   The cable's pull direction at the gun is [unknown]; the exit leaves 234 mm out and 0.13 m above the rim in the proxy pose [derived].
+
+B. What the pinch does to the wall: roller inside, pad outside, on one radial line, so the wall sees a local squeeze and no net force
+   roller R 2.5 mm, force 8 N over 5 mm: line load 1.60 N/mm, contact half width 7.1 um; the elastic approach is of the order of a micrometre, about 0.001 mm
+   roller R 2.5 mm, force 15 N over 5 mm: line load 3.00 N/mm, contact half width 9.7 um; the elastic approach is of the order of a micrometre, about 0.001 mm
+   roller R 4 mm, force 15 N over 6 mm: line load 2.50 N/mm, contact half width 11.3 um; the elastic approach is of the order of a micrometre, about 0.001 mm
+   A pinch OFF the radial line (pad displaced a along the axis) makes a couple F a on the wall: 8 N x 3 mm = 24 N mm, a local rotation of the wall, not a diameter change.
+   Pinching a thin ring at TWO OPPOSITE points instead would ovalise it: a 1.65 mm wall of R 62.7 mm loaded across a diameter gives about 0.15 PL^3/EI, roughly 50 N/mm over a 27 mm axial spread (ring model, order of magnitude), i.e. about 0.15 mm at 8 N.
+   That is why the clip pinches ONE place from both sides rather than gripping the tube from opposite sides.
+
+C. Stiffness of the hook: a finger from the rim down the bore (cantilever, length L from the rim), a strip b wide and h thick, steel or stiff plastic
+   The radial stiffness that matters is the finger's, in series with the spine over the rim. k = E b h^3 / (4 L^3) for a cantilever with a tip load.
+   steel strip  b 6 h 1.5 L  5 mm:    7817 N/mm, so 3 N moves the roller    0.4 um
+   steel strip  b 6 h 2.5 L  8 mm:    8835 N/mm, so 3 N moves the roller    0.3 um
+   steel strip  b 6 h 1.5 L 12 mm:     565 N/mm, so 3 N moves the roller    5.3 um
+   PA-CF print  b 6 h 1.5 L  5 mm:     365 N/mm, so 3 N moves the roller    8.2 um
+   PA-CF print  b 6 h 2.5 L  8 mm:     412 N/mm, so 3 N moves the roller    7.3 um
+   PA-CF print  b 6 h 1.5 L 12 mm:      26 N/mm, so 3 N moves the roller  113.8 um
+   PETG print   b 6 h 1.5 L  5 mm:      85 N/mm, so 3 N moves the roller   35.3 um
+   PETG print   b 6 h 2.5 L  8 mm:      96 N/mm, so 3 N moves the roller   31.2 um
+   PETG print   b 6 h 1.5 L 12 mm:       6 N/mm, so 3 N moves the roller  487.6 um
+   A printed strip 1.5 mm thick and 12 mm long is soft (0.02 N/um is not available): the finger should be short (5 mm) and steel, or a roller bearing on a stiff printed post.
+
+D. Rolling and sliding drag along the tangent (the tube turns under the clip; the clip is free along the seam, so a drag is a force the holder must react)
+   ball transfer or roller, rolling     mu 0.01 x 5 N = 0.05 N along the seam
+   printed skid on the rim, dry         mu 0.25 x 5 N = 1.25 N along the seam
+   PTFE-faced skid on the rim           mu 0.08 x 5 N = 0.40 N along the seam
+   A skid at 0.25 gives more drag than the umbilical's 1.5 to 3 N would leave room for; a rolling contact does not.
+
+E. Room beside the kit's proxy wire and barrel: the wire arrives from the -Y (arriving) side; the clip sits at s mm arc ahead of the dot on the same side
+   s (mm)   roller-to-wire  rim wheel-to-wire  outside pad-to-wire  hook top-to-wire  roller-to-nozzle+shell   (clearances: distance minus radii; roller 2.5, wheel 3, pad 4, hook half thickness 1.5; nozzle radius 2.2 to 5 plus a 3 mm shell)
+    -12          6.5             9.6                6.3                10.0              11.3
+     -6          1.9             5.9                2.2                 6.2               6.7
+      0         -1.5             2.9                2.6                 3.3               3.1
+      4          0.1             1.7                4.4                 2.5               1.8
+      6          1.4             1.6                5.4                 2.7               1.7
+     10          3.8             2.2                7.6                 3.9               2.4
+     14          6.2             3.6                9.8                 5.7               4.3
+     18          8.6             5.3               12.0                 7.6               6.9
+     25         12.7             8.8               15.8                11.3              11.3
+   tightest gap at s = -12 mm: 6.3 mm
+   tightest gap at s =  -6 mm: 1.9 mm
+   tightest gap at s =   6 mm: 1.4 mm
+   tightest gap at s =  10 mm: 2.2 mm
+   tightest gap at s =  14 mm: 3.6 mm
+   tightest gap at s =  18 mm: 5.3 mm
+   s < 0 is the trailing side (behind the dot, over the bead: hot). On the arriving side the proxy wire and nozzle leave a gap of 1.5 to 2 mm at s = 6 to 10 mm
+   and 3.6 mm or more from s = 14 mm; how much gap the real wire bracket and its outward lean (datum-20) leave is [unknown].
+   Clearances of the kit's proxy geometry are illustrative; the wire guide bracket of the real gun and its lean (datum-20) decide.
+
+F. What the clip cannot know: the tube's longitudinal weld seam on the bore (if the tube is welded tube: [unknown]) is a bump under the roller once per revolution.
+   bump 0.03 mm high, 3 mm wide, roller R 2.5: the roller rises 0.03 mm and the gun with it for 0.38 s at 8 mm/s (a step, not a harmonic); a rigid ring on the OD never sees it.
+   bump 0.08 mm high, 3 mm wide, roller R 2.5: the roller rises 0.08 mm and the gun with it for 0.38 s at 8 mm/s (a step, not a harmonic); a rigid ring on the OD never sees it.
+   bump 0.15 mm high, 3 mm wide, roller R 2.5: the roller rises 0.15 mm and the gun with it for 0.38 s at 8 mm/s (a step, not a harmonic); a rigid ring on the OD never sees it.

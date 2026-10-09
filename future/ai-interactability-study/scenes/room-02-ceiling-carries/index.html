@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ceiling carries, table locates</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-02-ceiling-carries",
+  "title": "Ceiling carries the load, table locates the gun",
+  "by": "room",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Split the job between two room surfaces. A spring balancer on a ceiling trolley takes part of the gun's weight and the whole umbilical hangs from the same track; the gun stands on three ball feet on the table plane, so the table sets height and tilt by contact and a planar drive only has to move it sideways. Slide the balancer share, the stance and the umbilical route and watch which foot lifts.",
+  "tags": ["ceiling", "balancer", "festoon", "stool", "table-plane", "umbilical"],
+  "branchOf": ["room-01-table-opening"],
+  "combines": [],
+  "transferable": ["three-foot stance on a flat datum", "foot-load solver", "umbilical hung from a passive trolley", "share of weight taken from above", "weigh-in: three feet as three load cells give gun mass, plan centre of mass and the umbilical's weight and sideways pull (borrowed from trials-02)"],
+  "how": {
+    "motion": "a planar drive slides the gun on the table; the balancer lifts it for a tube swap",
+    "load": "ceiling balancer takes a chosen share of the weight; the rest stands on three feet on the table",
+    "reference": "table plane gives height, pitch and roll by contact; the planar drive gives x, y, yaw",
+    "observe": "foot contact switches, balancer line load cell; a top camera as in room-01 (not drawn)",
+    "use": "lift for a tube swap, lower, null with the drive, weld"
+  },
+  "software": {
+    "commands": ["planar drive X, Y", "balancer lift up / down", "balancer share (line tension setpoint)"],
+    "observes": ["three foot contacts: seated, and height, pitch and roll by touch (or as load cells: mass, centre of mass, the umbilical's pull)", "line tension from a load cell in the balancer line", "step counts of the drive"],
+    "manual": ["printing the stance: leg lengths and spread", "hanging the umbilical bundle on its trolleys", "loading the tube"]
+  },
+  "notes": ["../../explorers/room/ideas/room-02-ceiling-carries.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const TOP = 152.4, HOLE_R = 80, ZC = TOP + 1050, G = 9.81, MASS = 1.47;   // MASS: proxy, unknown
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'none' }, view: 'room',
+    viewButtons: ['room', 'joint', 'side'],
+    views: {
+      room: { target: [-20, -420, 560], dir: [0.72, -0.5, 0.34], dist: 3050 },
+      joint: { target: [-10, -130, 230], dir: [0.8, -0.55, 0.3], dist: 520 },
+      side: { target: [0, -350, 500], dir: [1, 0.02, 0.05], dist: 2600 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Two room surfaces share the work. The <b>ceiling</b> carries: a spring balancer on a trolley that rolls freely along an overhead track takes a chosen share of the gun\'s weight through one line, and the umbilical bundle hangs from the same track in loops. The <b>table</b> locates: the printed shell has three legs ending in ball feet, so the gun stands on the table plane and height, pitch and roll come from contact, not from a stiff stage. A planar drive (not drawn: mechanism open) only moves the gun sideways.</p>' +
+        '<p><b>Try:</b> raise the balancer share until a foot turns red and the gun would tip; pull the feet closer together; switch the umbilical from hanging to lying on the table and watch the drag; press <i>Lift for a tube swap</i>.</p>',
+      carries: '<p><b>Amber</b> carries: the balancer line and the legs. The share of weight each takes is on the sliders and the foot loads are on the feet. <b>Green</b> is free by design: the trolley rolls along the track and follows the gun; the ball feet roll on the table. <b>Teal</b> is the datum: the table plane (three contacts fix height and tilt) and the balancer\'s attach lug. <b>Purple</b> is the planar drive, drawn as arrows because its mechanism is open.</p>' +
+        '<p>The foot loads are solved from static equilibrium: gun weight at the centre of mass, the balancer\'s upward pull at the housing lug, the umbilical\'s weight and drag at the grip base, everything against three feet. A foot with no load is lifting; three contacts stop defining the plane.</p>',
+      software: '<p><b>Weigh-in (borrowed from trials-02-dock-reset).</b> With the balancer detached the three feet can be three load cells. The gun alone gives its mass and the plan position of its centre of mass; with the umbilical hung on, the change in the total is the cable\'s weight on the gun and the change in the moments, at the grip base\'s known height, is its sideways pull. That is how this stool can answer the unknowns that the study keeps hitting (gun mass, centre of mass, umbilical pull). Try <i>Weigh-in mode</i> and the cell resolution slider; readouts show the estimate beside the value the drawing uses. The height of the centre of mass is not available from one attitude.</p>' +
+        '<p>Software can command the drive, lift or lower the balancer, and set the share (a line-tension setpoint). It could observe foot contact (switches or load cells in the feet) and line tension. It cannot see the dot in this scene: the camera views from room-01 apply unchanged. The <b>foot loads</b> shown here are computed for the drawing; on real hardware only contact switches or load cells would tell.</p>',
+      tried: '<ul>' +
+        '<li><b>"Ceiling as the positioner."</b> A gun hanging on one line is a pendulum: lateral stiffness m·g/L is 0.02&nbsp;N/mm at 1&nbsp;m (a 1&nbsp;N tug moves it 50&nbsp;mm; <code>suspension-stiffness.mjs</code>), and longer is softer. <i>Repair:</i> the ceiling only carries; the table locates. <i>Leaves:</i> the balancer line still tilts by dx/L, adding dx·F/L of sideways force (the readout).</li>' +
+        '<li><b>The first tripod was unstable.</b> With feet at the shell lugs (16&nbsp;mm either side of the centre line) the centre of mass projected <i>outside</i> the foot triangle: the gun wanted to tip even with no cable (<code>stool-feet.mjs</code>). <i>Repair:</i> outriggers: the shell prints splayed legs, feet 100 to 200&nbsp;mm apart (stance slider). <i>Leaves:</i> the stance must clear the tube, the hole and the cable.</li>' +
+        '<li><b>Weight relief costs stability.</b> Every newton the balancer lifts is a newton less on the feet. At the default stance and a hanging umbilical, foot A carries 2.3&nbsp;N at 30&nbsp;% relief, 0.7&nbsp;N at 50&nbsp;% and is unloaded (−0.9&nbsp;N) at 70&nbsp;%; with the umbilical lying on the table (0.8&nbsp;N drag at the grip base, 133&nbsp;mm above the table) 50&nbsp;% already leaves foot A at 0.5&nbsp;N. The centre of mass is only 25&nbsp;mm inside the front edge of the foot triangle whatever the stance width. <i>Repair:</i> take about a third; hold the umbilical\'s horizontal component near zero by hanging it. <i>Leaves:</i> a 10&nbsp;N stuck-wire pull lifts a foot at any share (<code>stool-feet.mjs</code>); that needs a hold-down (magnet, latch) that this scene does not draw.</li>' +
+        '<li><b>Where the umbilical goes decides the horizontal force.</b> Lying on the table it drags with friction in a direction that flips with the motion; hanging from a trolley that follows the gun it adds only vertical weight plus rolling resistance; hanging from a fixed hook adds a sideways force that grows with travel. Switch the route to compare. <i>Leaves:</i> the cable\'s own bending stiffness, which nobody has measured; it may dominate all three.</li>' +
+        '<li><b>Height by contact needs the contact to be light and smooth.</b> Ball transfer feet roll on the table but a hole edge or a scratch catches them; the feet must stay outside the hole. <i>Leaves:</i> whether the table\'s flatness (±0.1&nbsp;mm?) is enough; it is unmeasured.</li></ul>',
+      unresolved: '<ul><li>The planar drive: a printer-style gantry pushing a pin, a magnetic drive under the table, or cords. Its yaw stiffness is the open part.</li>' +
+        '<li>A hold-down for the yank at the end of a bead (the workflow lifts the head straight away while the trigger is held).</li>' +
+        '<li>Gun mass, centre of mass, umbilical linear mass and bending stiffness: unmeasured. Weigh the gun and hold the cable end on a spring scale [Derek].</li>' +
+        '<li>Hole clearance and the plate depth are handled in room-01; this scene assumes the shelf and top camera from there.</li></ul>',
+      assumptions: '<ul><li>Gun proxy at the opening pose; mass 1.47&nbsp;kg with centre of mass at local (0, −23, 181): illustrative.</li>' +
+        '<li>Umbilical linear mass 0.3&nbsp;kg/m (fibre plus wire conduit plus gas tube): illustrative. Friction coefficient of cable on the table 0.35: illustrative. Trolley rolling resistance 0.1&nbsp;N: illustrative.</li>' +
+        '<li>Ceiling 1.05&nbsp;m above the table top; track 1.2&nbsp;m long: illustrative. Drive stiffness 10&nbsp;N/mm: illustrative.</li>' +
+        '<li>Foot loads are statics only: no friction at the feet, no tilt of the balancer line except where stated, no dynamics.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setGhost(false);
+  const S = { gx: 0, gy: 0, share: 0.3, stance: 150, rear: 260, route: 'follow', wlin: 0.3, lift: false, mu: 0.35, roll: 0.1, k: 10, follow: 'xy', weigh: false, cellRes: 1, shareSaved: 0.3 };
+
+  // ---------------------------------------------------------------- room: table with hole, ceiling, track
+  const table = new THREE.Mesh(new THREE.BufferGeometry(), WK.mat('fixed', { opacity: 0.4, side: 'double' })); table.userData.role = 'fixed'; table.userData.occludes = false; app.add(table);
+  (function () {
+    const sh = new THREE.Shape(); sh.moveTo(-450, -1050); sh.lineTo(450, -1050); sh.lineTo(450, 230); sh.lineTo(-450, 230); sh.closePath();
+    const hp = new THREE.Path(); hp.absarc(0, 0, HOLE_R, 0, Math.PI * 2, true); sh.holes.push(hp);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: 30, bevelEnabled: false, curveSegments: 56 }); g.translate(0, 0, TOP - 30); table.geometry = g;
+  })();
+  const ceil = P.plane(1100, 1500, 'ghost'); ceil.position.set(0, -450, ZC + 8); app.add(ceil);
+  const TRACK_X = -30;
+  const track = P.rail(V(TRACK_X, -1100, ZC), V(TRACK_X, 200, ZC), { width: 26, height: 14, role: 'fixed' }); app.add(track);
+  [-1100, -700, -300, 100].forEach(y => app.add(P.rod(V(TRACK_X, y, ZC), V(TRACK_X, y, ZC + 30), 4, 'fixed')));
+  // laser unit on a shelf at the back wall
+  const laserBox = P.box(240, 200, 160, 'fixed'); laserBox.position.set(-30, -1010, TOP + 90); app.add(laserBox);
+  app.label(laserBox, 'laser unit and feeder (fixed)');
+  // gantry-free planar drive drawn as double arrows + label (mechanism open)
+  const driveX = P.arrow(V(0, 0, 0), V(1, 0, 0), 60, 'actuated'), driveY = P.arrow(V(0, 0, 0), V(0, 1, 0), 60, 'actuated'); app.add(driveX); app.add(driveY);
+  const driveXb = P.arrow(V(0, 0, 0), V(-1, 0, 0), 60, 'actuated'), driveYb = P.arrow(V(0, 0, 0), V(0, -1, 0), 60, 'actuated'); app.add(driveXb); app.add(driveYb);
+
+  // ---------------------------------------------------------------- gun, shell, legs and feet
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const lugBal = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  const legLugs = [[-16, -20, 150], [16, -20, 150], [0, -125, 237]].map(p => shell.attachPoint(p, { side: 'grip', role: 'load', size: 7 }));
+  const feet = [0, 1, 2].map(() => { const f = P.sphere(9, 'locate'); app.add(f); return f; });
+  const legs = [0, 1, 2].map(() => { const r = P.rod(V(0, 0, 0), V(0, 0, 1), 3, 'load'); app.add(r); return r; });
+  const balLine = P.rod(V(0, 0, 0), V(0, 0, 1), 1.4, 'load'); app.add(balLine);
+  const trolley = P.box(46, 40, 26, 'compliant'); app.add(trolley);
+  const balancer = P.cyl(24, 74, 'compliant'); app.add(balancer);
+  gun.setLaser(true);
+  const arrows = { w: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'load'), h: P.arrow(V(0, 0, 0), V(0, -1, 0), 40, 'load'), b: P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'compliant') };
+  Object.values(arrows).forEach(a => app.add(a));
+  const footLabels = feet.map((f, i) => app.label(f, 'foot ' + 'ABC'[i], { cls: 'locate' }));
+
+  // ---------------------------------------------------------------- umbilical routes
+  let cable = null;
+  function curveTo(pts) { if (!cable) { cable = P.cable(pts, { radius: 4.5, role: 'cable', segments: 160 }); app.add(cable); } else cable.setPoints(pts); }
+  function parab(a, b, sag, n) { const out = []; for (let i = 0; i <= n; i++) { const t = i / n; const p = a.clone().lerp(b, t); p.z -= sag * 4 * t * (1 - t); out.push(p); } return out; }
+  function arcRoute(P0, d0, Q, Rmin) {
+    const w = Q.clone().sub(P0), a = w.dot(d0), wp = w.clone().addScaledVector(d0, -a), b = wp.length();
+    const n = wp.clone().multiplyScalar(1 / Math.max(b, 1e-6)), Rarc = w.lengthSq() / (2 * Math.max(b, 1e-6)), ok = Rarc >= Rmin, R = ok ? Rmin : Rarc;
+    const dQ = Math.hypot(a, b - R), delta = Math.atan2(R - b, a);
+    let phi = Math.asin(Math.min(1, R / dQ)) - delta; if (!ok) phi = 2 * Math.asin(Math.min(1, w.length() / (2 * R))); if (phi < 0) phi = 0;
+    const at = q => P0.clone().addScaledVector(d0, R * Math.sin(q)).addScaledVector(n, R * (1 - Math.cos(q)));
+    const pts = []; for (let i = 0; i <= 28; i++) pts.push(at(phi * i / 28));
+    const T = pts[pts.length - 1]; for (let i = 1; i <= 6; i++) pts.push(T.clone().lerp(Q, i / 6));
+    return { pts: pts, R: R, ok: ok };
+  }
+
+  // ---------------------------------------------------------------- statics: three feet + balancer + cable forces
+  function solve3(M, b) {
+    const det = a => a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]) - a[0][1] * (a[1][0] * a[2][2] - a[1][2] * a[2][0]) + a[0][2] * (a[1][0] * a[2][1] - a[1][1] * a[2][0]);
+    const D = det(M); if (Math.abs(D) < 1e-9) return [0, 0, 0];
+    return [0, 1, 2].map(c => det(M.map((row, i) => row.map((v, j) => (j === c ? b[i] : v)))) / D);
+  }
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+  function update() {
+    // gun pose at the opening pose, translated by the planar drive; lifted for a swap
+    gun.setDials(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical);
+    const lift = S.lift ? 90 : 0;
+    gun.group.position.x += S.gx; gun.group.position.y += S.gy; gun.group.position.z += lift; gun.group.updateMatrixWorld(true);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, 0);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+    const com = gun.local([0, -23, 181]), grip = gun.local('gripBase'), balW = lugBal.world();
+    // feet: plan positions from the print-time stance; they ride with the gun (the drive moves the whole gun)
+    const cx = com.x, cy = com.y;
+    const footXY = [[cx - S.stance / 2 - 17 * 0 + 0, -100 + S.gy], [cx + S.stance / 2, -100 + S.gy], [cx, -S.rear + S.gy]];
+    footXY[0][0] = -17 - S.stance * 0.6 + S.gx; footXY[1][0] = -17 + S.stance * 0.4 + S.gx; footXY[2][0] = -17 + S.gx;
+    const fz = TOP + 9 + lift;
+    feet.forEach((f, i) => { f.position.set(footXY[i][0], footXY[i][1], fz); const lw = legLugs[i].world(); legs[i].setEnds(lw, f.position); });
+    // umbilical route and forces on the gun (worst-case direction for drag)
+    const wlin = S.wlin, gh = grip.z - TOP - lift;     // grip base height above the table plane
+    let Wc = 0, H = [0, 0], routeTxt = '', badgeText = null;
+    const start = gun.local(WK.GRIP_BASE_LOCAL.clone().addScaledVector(WK.LOCAL_ROLL_AXIS, 70)), sdir = gun.dir(WK.LOCAL_ROLL_AXIS).normalize();
+    const yFollow = S.follow === 'y' ? balW.y : balW.y, xFollow = S.follow === 'xy' ? balW.x : TRACK_X;
+    const hangHeight = ZC - 60 - start.z;
+    if (S.route === 'lying') {
+      const Q = V(-40, -1000, TOP + 3), r = arcRoute(start, sdir, Q, WK.CABLE.minBendEmitting);
+      curveTo(r.pts);
+      const lie = Math.hypot(Q.x - r.pts[Math.floor(r.pts.length * 0.5)].x, Q.y - r.pts[Math.floor(r.pts.length * 0.5)].y);
+      const Llie = Math.max(0, -(-1000) - 0) ; // cable length on the table ~ from touchdown (about y=-560) to the edge (y=-1000)
+      const drag = S.mu * wlin * 0.8 * G;             // N: friction of the lying part (about 0.8 m on the table) [illustrative]
+      H = [0, -drag]; routeTxt = 'lies on the table: friction ' + drag.toFixed(2) + ' N, direction depends on the motion';
+      Wc = wlin * G * 0.25;                            // the short hanging part [illustrative]
+      badgeText = r.ok ? null : 'umbilical too tight for the grommet';
+    } else {
+      const pts = [], laser = V(-30, -1010, TOP + 160), h0 = V(TRACK_X, -1000, ZC - 60);
+      const tr = [V(xFollow, yFollow, ZC - 60)];
+      const yb = Math.max(-1000, yFollow - 300), ym = Math.max(-1000, yFollow - 620);
+      const t1 = V(TRACK_X, yb, ZC - 60), t2 = V(TRACK_X, ym, ZC - 60);
+      const seg = [laser, V(-30, -1000, ZC - 500), h0];
+      curveTo(new THREE.CatmullRomCurve3([].concat(seg, parab(h0, t2, 150, 8).slice(1), parab(t2, t1, 150, 8).slice(1), parab(t1, tr[0], 150, 8).slice(1), [V(tr[0].x + 0, tr[0].y + 0, tr[0].z - 200), start]), false, 'centripetal'));
+      const dropLen = tr[0].z - start.z;
+      Wc = wlin * G * dropLen / 1000;                 // weight of the hanging drop carried by the gun end
+      if (S.route === 'follow') { H = [0, -S.roll]; routeTxt = 'hangs from a trolley that follows the gun: ' + Wc.toFixed(1) + ' N down, ' + S.roll.toFixed(2) + ' N rolling resistance'; }
+      else {
+        // fixed hook 1 m above and 200 mm behind the neutral position: sideways = Wc * offset / height
+        const hookX = -30, hookY = -300, dxh = hookX - start.x, dyh = hookY - start.y;
+        H = [Wc * dxh / hangHeight, Wc * dyh / hangHeight]; routeTxt = 'hangs from a fixed hook: ' + Math.hypot(H[0], H[1]).toFixed(2) + ' N sideways at this position';
+      }
+    }
+    // balancer line: from the ceiling trolley to the housing lug
+    const Fb = S.share * MASS * G;
+    const trolPos = V(S.route === 'fixed' ? TRACK_X : (S.follow === 'xy' ? balW.x : TRACK_X), balW.y, ZC - 20);
+    if (S.route !== 'follow' && S.route !== 'lying') { trolPos.y = -100; }   // fixed hook: balancer also hangs from a fixed point 200 mm off
+    trolley.position.set(trolPos.x, trolPos.y, ZC - 14); balancer.position.set(trolPos.x, trolPos.y, ZC - 66); balancer.rotation.x = Math.PI / 2 * 0;
+    balLine.setEnds(V(trolPos.x, trolPos.y, ZC - 100), balW);
+    const lineLen = ZC - 100 - balW.z, tilt = [(trolPos.x - balW.x) / lineLen, (trolPos.y - balW.y) / lineLen];
+    const Hline = [Fb * tilt[0], Fb * tilt[1]];      // sideways force from the tilted balancer line
+    H = [H[0] + Hline[0], H[1] + Hline[1]];
+    // foot loads
+    const F3 = footXY;
+    const Ntot = MASS * G - Fb + Wc;
+    const rx = MASS * G * com.x - Fb * balW.x + Wc * grip.x + gh * H[0], ry = MASS * G * com.y - Fb * balW.y + Wc * grip.y + gh * H[1];
+    const N = S.lift ? [0, 0, 0] : solve3([[1, 1, 1], F3.map(f => f[0]), F3.map(f => f[1])], [Ntot, rx, ry]);
+    feet.forEach((f, i) => { const role = S.lift ? 'compliant' : (N[i] <= 0.05 ? 'laser' : (N[i] < 1 ? 'load' : 'locate')); WK.setRole(f, role); footLabels[i].set('foot ' + 'ABC'[i] + (S.lift ? ': lifted' : ': ' + N[i].toFixed(1) + ' N')); });
+    // weigh-in (borrowed from trials-02): with the balancer off, the three feet are three load cells. Baseline = gun alone; then the cable.
+    let weighTxt = null;
+    if (S.weigh && !S.lift) {
+      const qN = S.cellRes / 1000 * G, qn = v => Math.round(v / qN) * qN;
+      const N0 = solve3([[1, 1, 1], F3.map(f => f[0]), F3.map(f => f[1])], [MASS * G, MASS * G * com.x, MASS * G * com.y]);
+      const c0 = N0.map(qn), c1 = N.map(qn), sum = a => a.reduce((x, y) => x + y, 0), mom = (a, k) => a.reduce((x, y, i) => x + y * F3[i][k], 0);
+      const M0 = sum(c0), estM = M0 / G, estX = mom(c0, 0) / M0, estY = mom(c0, 1) / M0;
+      const dW = sum(c1) - M0, dHx = (mom(c1, 0) - mom(c0, 0) - dW * grip.x) / gh, dHy = (mom(c1, 1) - mom(c0, 1) - dW * grip.y) / gh;
+      weighTxt = { estM: estM, estX: estX, estY: estY, trueX: com.x, trueY: com.y, dW: dW, dH: Math.hypot(dHx, dHy), trueW: Wc, trueH: Math.hypot(H[0], H[1]) };
+      setWm(estM.toFixed(3) + ' kg (true ' + MASS.toFixed(3) + ')', ''); setWc('(' + estX.toFixed(1) + ', ' + estY.toFixed(1) + ') (true ' + com.x.toFixed(1) + ', ' + com.y.toFixed(1) + ')', 'mm');
+      setWw((dW / G * 1000).toFixed(0) + ' g (true ' + (Wc / G * 1000).toFixed(0) + ')', ''); setWh(weighTxt.dH.toFixed(2) + ' N (true ' + weighTxt.trueH.toFixed(2) + ')', '');
+    } else { setWm('-', ''); setWc('-', ''); setWw('-', ''); setWh('-', ''); }
+    const lifting = !S.lift && Math.min(...N) <= 0.05;
+    app.badge('foot', lifting ? 'a foot has no load: the three contacts no longer hold height and tilt' : null, 'limit');
+    // arrows at the grip base: weight, sideways force; balancer arrow at the lug
+    arrows.w.set(grip, V(0, 0, -1), Math.max(6, Wc * 30)); arrows.h.set(grip, V(H[0], H[1], 0).length() > 1e-6 ? V(H[0], H[1], 0) : V(0, -1, 0), Math.max(6, Math.hypot(H[0], H[1]) * 60));
+    arrows.b.set(balW, V(0, 0, 1), Math.max(6, Fb * 8));
+    // planar drive glyph next to the rear foot
+    const dp = V(footXY[2][0] + 90, footXY[2][1], TOP + 6); [driveX, driveY, driveXb, driveYb].forEach((a, i) => { a.position.copy(dp); a.set(dp, [V(1, 0, 0), V(0, 1, 0), V(-1, 0, 0), V(0, -1, 0)][i], 45); });
+    // readouts
+    const Hm = Math.hypot(H[0], H[1]);
+    setW((Fb).toFixed(1), 'N'); setFoot((S.lift ? '-' : N.map(v => v.toFixed(1)).join(' / ')), 'N'); setH(Hm.toFixed(2), 'N'); setDisp((Hm / S.k).toFixed(3), 'mm');
+    // stability margin: distance from the CoM plan point to the nearest foot-triangle edge (positive = inside)
+    const edge = (a, b, p) => ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])) / Math.hypot(b[0] - a[0], b[1] - a[1]);
+    const signs = [edge(F3[0], F3[1], [com.x, com.y]), edge(F3[1], F3[2], [com.x, com.y]), edge(F3[2], F3[0], [com.x, com.y])];
+    const inside = signs.every(v => v >= 0) || signs.every(v => v <= 0), margin = Math.min(...signs.map(Math.abs)) * (inside ? 1 : -1);
+    setMargin(margin.toFixed(0), 'mm');
+    app.io.set({
+      commands: [
+        { name: 'Planar drive X, Y', value: S.gx.toFixed(1) + ', ' + S.gy.toFixed(1), unit: 'mm', note: 'mechanism not drawn; moves the whole gun on its feet' },
+        { name: 'Balancer share (line tension setpoint)', value: (S.share * 100).toFixed(0), unit: '% of weight', note: 'about ' + Fb.toFixed(1) + ' N in the line' },
+        { name: 'Balancer lift', value: S.lift ? 'lifted 90 mm' : 'feet down', note: 'raises the gun clear of the tube for a swap' },
+      ],
+      observes: [
+        { name: 'Weigh-in (feet as 3 load cells, balancer detached)', value: S.weigh ? 'on' : 'off', status: S.weigh ? 'partly' : 'blind', note: 'mass and plan centre of mass from the gun alone; then umbilical weight and sideways pull from the change; borrowed from trials-02' },
+        { name: 'Foot contact (3 switches or load cells)', value: S.lift ? 'off' : (lifting ? 'a foot is off' : 'all three on'), status: 'seen', note: 'the loads shown are computed for the drawing; switches would only say on or off' },
+        { name: 'Balancer line tension (load cell)', value: Fb.toFixed(1), unit: 'N', status: 'seen' },
+        { name: 'Sideways force on the gun', value: Hm.toFixed(2), unit: 'N', status: 'blind', note: 'no sensor proposed; shown only because the scene computes it' },
+        { name: 'Dot shift from that force', value: (Hm / S.k * 1000).toFixed(0), unit: '\u00B5m', status: 'partly', note: 'force divided by the drive stiffness (' + S.k + ' N/mm, illustrative); a camera would see it as a slow drift' },
+        { name: 'Dot vs seam', value: 'as in room-01', status: 'unresolved', note: 'this scene draws no camera' },
+      ],
+      manual: ['Print the stance: leg lengths and foot spread set height and tilt', 'Hang the umbilical bundle on its trolleys', 'Load the tube through the hole'],
+    });
+    badgeLegs(routeTxt);
+  }
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setW = app.ui.readout('bal', 'Balancer line force'), setFoot = app.ui.readout('foot', 'Foot loads A / B / C'), setH = app.ui.readout('hforce', 'Sideways force on the gun'), setDisp = app.ui.readout('disp', 'Dot moves (at drive stiffness)'), setMargin = app.ui.readout('margin', 'Tipping margin (CoM inside feet)');
+  const setWm = app.ui.readout('wm', 'Weigh-in: gun mass from the cells'), setWc = app.ui.readout('wc', 'Weigh-in: centre of mass, plan'), setWw = app.ui.readout('ww', 'Weigh-in: umbilical weight on the gun'), setWh = app.ui.readout('wh', 'Weigh-in: umbilical sideways pull');
+  const routeNote = app.ui.readout('route', 'Umbilical route');
+  function badgeLegs(t) { routeNote(t.length > 34 ? t.slice(0, 34) + '…' : t); if (t) routeNote.el.title = t; }
+
+  app.label(() => trolley.position.clone().add(V(0, 0, 30)), 'trolley (free, follows)', { cls: 'compliant' });
+  app.label(() => balancer.position.clone().add(V(0, 0, -40)), 'balancer', { cls: 'compliant' });
+  app.label(() => lugBal.world(), 'balancer lug', { cls: 'locate' });
+  app.label(V(300, 100, TOP), 'table top = datum plane', { cls: 'locate' });
+  app.label(() => driveX.position.clone().add(V(50, 0, 0)), 'planar drive (mechanism open)', { cls: 'actuated' });
+  app.label(V(TRACK_X, -1000, ZC + 40), 'overhead track', {});
+
+  // ---------------------------------------------------------------- controls
+  const drv = app.ui.group('Commands (proposed actuators)', {});
+  drv.slider({ id: 'gx', label: 'Planar drive X', min: -15, max: 15, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [driveX, driveXb], help: 'Slides the gun and its feet sideways; the trolley follows.', onChange: v => { S.gx = v; update(); } });
+  drv.slider({ id: 'gy', label: 'Planar drive Y', min: -15, max: 15, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [driveY, driveYb], onChange: v => { S.gy = v; update(); } });
+  drv.toggle({ id: 'lift', label: 'Lift for a tube swap', value: false, kind: 'state', visual: () => [balancer, balLine], help: 'The balancer raises the gun 90 mm so the tube can come out.', onChange: v => { S.lift = v; update(); } });
+  drv.slider({ id: 'share', label: 'Balancer share of the gun\'s weight', min: 0, max: 1, step: 0.01, value: 0.3, kind: 'actuator', visual: () => [balancer, balLine], help: 'Line tension setpoint: more share = lighter contact = easier drive, less stable.', format: v => (v * 100).toFixed(0) + ' %', onChange: v => { S.share = v; update(); } });
+  const wg = app.ui.group('Weigh-in (borrowed from trials-02)', { help: 'With the balancer detached, the three feet are three load cells. The gun alone gives its mass and plan centre of mass; the same feet with the umbilical hung on give its weight and, from the moment, its sideways pull. Readouts show the estimate and the true value used by the drawing.' });
+  wg.toggle({ id: 'weigh', label: 'Weigh-in mode (balancer detached)', value: false, kind: 'state', visual: () => feet, help: 'Sets the balancer share to 0 and reads the feet as cells.', onChange: v => { if (v) { S.shareSaved = S.share; app.ui.set('share', 0); app.ui.enable('share', false); } else { app.ui.enable('share', true); app.ui.set('share', S.shareSaved); } S.weigh = v; update(); } });
+  wg.slider({ id: 'cellres', label: 'Cell resolution', min: 0.1, max: 20, step: 0.1, value: 1, unit: 'g', kind: 'scene', noVisual: true, help: 'What the bar cell and HX711 can tell apart. Illustrative: about 1 g for a 1 to 5 kg bar cell, unchecked.', onChange: v => { S.cellRes = v; update(); } });
+  const pr = app.ui.group('Print-time and hang-time choices (scene edits)', { help: 'Legs and feet are printed as part of the shell; the trolleys are hung by hand.' });
+  pr.slider({ id: 'stance', label: 'Stance width of the front feet', min: 30, max: 240, step: 5, value: 150, unit: 'mm', kind: 'scene', visual: () => [feet[0], feet[1], legs[0], legs[1]], help: 'Too narrow and the centre of mass leaves the triangle.', onChange: v => { S.stance = v; update(); } });
+  pr.slider({ id: 'rear', label: 'Rear foot distance from the tube axis', min: 160, max: 380, step: 5, value: 260, unit: 'mm', kind: 'scene', visual: () => [feet[2], legs[2]], onChange: v => { S.rear = v; update(); } });
+  pr.radio({ id: 'route', label: 'Umbilical route', options: [{ value: 'follow', label: 'hangs, trolley follows', help: 'a trolley on the track follows the gun in Y (and X)' }, { value: 'fixed', label: 'hangs, fixed hook', help: 'sideways pull grows with travel' }, { value: 'lying', label: 'lies on the table', help: 'as in room-01: friction drag' }], value: 'follow', kind: 'branch', visual: () => [cable], onChange: v => { S.route = v; update(); } });
+  pr.radio({ id: 'follow', label: 'Ceiling follows in', options: [{ value: 'xy', label: 'X and Y (bridge)' }, { value: 'y', label: 'Y only (one track)' }], value: 'xy', kind: 'branch', visual: () => [trolley, track], help: 'With Y only, the balancer line tilts by the X offset and pushes sideways.', onChange: v => { S.follow = v; update(); } });
+  pr.slider({ id: 'wlin', label: 'Umbilical linear mass', min: 0.1, max: 0.8, step: 0.05, value: 0.3, unit: 'kg/m', kind: 'scene', visual: () => [cable], help: 'Fibre, wire conduit, gas tube together. Not measured.', onChange: v => { S.wlin = v; update(); } });
+  pr.slider({ id: 'roll', label: 'Trolley rolling resistance', min: 0.02, max: 0.6, step: 0.02, value: 0.1, unit: 'N', kind: 'scene', visual: () => [trolley], onChange: v => { S.roll = v; update(); } });
+  pr.slider({ id: 'k', label: 'Drive stiffness at the gun', min: 1, max: 100, step: 1, value: 10, unit: 'N/mm', kind: 'scene', help: 'How stiffly the planar drive holds the gun sideways; sets the dot shift in the readout.', onChange: v => { S.k = v; update(); } });
+  drv.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); } });
+  drv.toggle({ id: 'ceilvis', label: 'Show ceiling plane', value: true, kind: 'view', onChange: v => { ceil.visible = v; } });
+})();
+</script>
+</body>
+</html>

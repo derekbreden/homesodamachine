@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scan first, weld second</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sw-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .sw-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .sw-card h3 { font: 600 11px system-ui, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: var(--wk-muted); margin: 0 0 4px; }
+  .sw-card svg { display: block; width: 100%; height: auto; }
+  .sw-top { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 10px; align-items: start; }
+  @media (max-width: 800px) { .sw-top { grid-template-columns: 1fr; } }
+  .sw-note { font: 11.5px/1.4 system-ui, sans-serif; color: var(--wk-muted); margin-top: 4px; }
+  .sw-note b { color: var(--wk-text); } .sw-n { font: 12px ui-monospace, Menlo, monospace; color: #fbbf24; }
+  svg text { font: 10.5px system-ui, sans-serif; fill: #c9d3e0; } svg .g { fill: #8391a5; } svg .lb { fill: #93c5fd; } svg .lr { fill: #fca5a5; } svg .ly { fill: #fcd34d; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-09-scan-then-weld",
+  "title": "Scan first, weld second: a seam map and a look-ahead eye",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The seam is slow: runout moves it at most 0.02 mm per second under a fixed gun. So observe it in one dry turn, when nothing hides the corner, and play a slow correction back during the bead. Or watch it from 35 degrees upstream. Or watch it at the dot. Compare what each leaves over: runout, tacks, a re-seated tube, thermal distortion, sensor bias, and a step in the support at the bead start (wire feed, gas, the fibre changing radius) that a dry turn taken in the wrong state does not contain.",
+  "tags": ["lens", "sequence", "feedforward", "look-ahead", "time-multiplexed-observation", "seam-map", "bead-start step"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["observe where nothing is in the way", "look-ahead arc as a time budget", "what each strategy cannot see"],
+  "how": {
+    "motion": "a slow trim axis plays a correction along the turn; the rotator turns the tube as today.",
+    "load": "not addressed; any of the supports in other ideas.",
+    "reference": "the rotator's turned-so-far degrees index a map fixed to the tube; the index mark is the first tack.",
+    "observe": "a probe or camera during a dry turn (map); an upstream camera; the gun-borne eye at the dot.",
+    "use": "dry turn first, then the bead; or continuous look-ahead."
+  },
+  "software": {
+    "commands": ["rotator (existing: pedal and speed)", "trim axis follows the stored map or the live measurement"],
+    "observes": ["radial and vertical seam offset against angle (map)", "seam ahead of the dot by the look-ahead angle", "offset at the dot"],
+    "manual": ["seating the tube once and not touching it between scan and bead", "calibrating whatever sensor measures the map", "choosing the first tack as index"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-09-scan-then-weld.md", "../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md", "../../exchange/freedom--on--eyes-w2.md", "../../exchange/eyes--reply-to-freedom-w3.md", "../freedom-13-map-and-step/index.html"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k), H = WK.h, D = Math.PI / 180, RI = WK.INNER_RADIUS;
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The tube turns under the gun at 5 to 15 mm/s. Whatever makes the seam move relative to the gun (radial runout up to 0.25 mm TIR, face runout up to 0.30 mm TIR, ovality, tack welds) repeats every turn, slowly: at most about 0.02 mm/s at the station (calc/runout-rates.mjs). That suggests three ways to use an eye.</p>' +
+        '<p><b>Scan first.</b> Turn the tube once with the laser off and a sensor that could not be there during the bead (a probe, a camera looking straight into the canyon, the dot sweep of eyes-06). The rotator’s degrees index a map of seam offset. During the bead a slow trim axis plays the map back. <b>Look ahead.</b> A camera 35° upstream (37.8 mm of arc, 4.7 s at 8 mm/s) sees the seam before it reaches the dot. <b>At the dot.</b> The gun-borne eye of eyes-01 sees the seam at the dot, including what the heat has done.</p>' +
+        '<p>Pick a strategy, set the disturbances, drag the turn angle. The residual is what is left at the dot. Each strategy fails on something different. <b>New:</b> a step at the bead start, when the wire feeds, the gas starts and the fibre is asked to emit at a larger bend radius, moves the gun relative to the seam once and for good. It is not periodic, so a map indexed by angle holds it only if the dry turn was taken in that state; a fixed look-ahead camera never sees the gun move; only an eye at the dot sees it, after its lag.</p>',
+      carries: '<p>Not addressed here: any support with a slow trim axis (eyes-01) or another idea’s positioner. The scan sensor may be a probe on a stand, a camera on a post, or the same gun-borne eye used in a dry turn.</p>',
+      software: '<p>Software indexes a table by turned-so-far degrees (the rotator already reports them to 0.025°), fits or filters the scan, commands the trim axis from the table, and compares live look-ahead or dot readings with it. The bandwidth needed is tiny; the accuracy needed is the whole problem.</p>',
+      tried: '<p><b>Broke:</b> re-seating the tube between scan and bead. The map is of a tube that is no longer there; the residual is the re-seat error. <b>Repaired:</b> do not touch the tube; check with a second look-ahead reading that the map still fits.</p>' +
+        '<p><b>Broke:</b> thermal distortion. The 6.35 mm lip is unbacked above the weld and “will distort” (pressure-vessel.md); a map made cold cannot contain what the heat does. The size is unknown; the slider is a guess. <b>Repaired only partly:</b> look-ahead sees the seam before the heat arrives, so it misses the same thing; only an eye at the dot sees it.</p>' +
+        '<p><b>Broke:</b> a biased sensor. Every strategy inherits the bias (the loop, the map and the look-ahead all trust the sensor). Calibrate against a ground-truth view (eyes-07).</p>' +
+        '<p><b>Broke (freedom, wave 2):</b> the assumption that the dry turn is representative. A step in the support at the bead start is not in a dry turn taken idle (wire retracted, gas off, fibre stored at the tighter radius). Set <i>Step at the bead start</i> and choose what the dry turn was taken with: idle leaves the whole step in the residual for the rest of the bead; taken in the weld state, the map contains it and what is left is the mismatch between the two starts. The look-ahead camera on a post sees the seam, not the gun, so it misses the step too. <b>Repaired:</b> the dry turn is taken in the weld state (freedom-13 adds a load-cell term that acts before the dot has left). <b>Left standing:</b> whether the support moves at all when the wire feeds or the gas starts is unmeasured; a dial gauge on the shell with the laser disabled answers it in five minutes.</p>' +
+        '<p><b>Found:</b> with the 0.25 / 0.30 mm limits the uncorrected error is about 0.09 mm rms radial and 0.11 vertical; scan-then-weld takes that to noise and re-seat error; the residual that survives is dominated by distortion and bias, not by runout.</p>',
+      unresolved: '<p>The size and shape of thermal distortion (nobody has measured it here). Whether tack welds are stable bumps or move when heated. Whether the map from a dry turn matches the map during the bead because the tube warms and the nest expands. The size of the bead-start step and whether it repeats (the fibre recoil is 0.4 to 4 N at the 350 mm emitting radius and 0.9 to 8.7 N at 240 mm for a bending stiffness of 0.05 to 0.5 N·m², freedom-15; nothing here is measured). Whether a look-ahead camera sees the corner ahead through the melt light and fume (it looks at cold metal, so probably yes). How to make the scan sensor independent of the one that later closes the loop.</p>',
+      assumptions: '<ul><li>Radial runout TIR 0.25 mm gives eccentricity 0.125 mm; face TIR 0.30 mm gives 0.15 mm at the weld circle; both are the rig’s acceptance limits, not measured [repo weld-rotation-rig.md].</li>' +
+        '<li>Ovality, tack bump height, distortion size and shape (saturating with a 90° time constant), re-seat error, noise, bias and actuator step are all illustrative sliders. Distortion moves the seam inward and up.</li>' +
+        '<li>Speed 5 to 15 mm/s, weld radius 61.85 mm [repo]. Look-ahead time = arc length / speed. Scan and look-ahead corrections are applied instantly. The eye at the dot closes a loop at 4 corrections per second with gain 0.6 (eyes-01’s figures), so it lags a step: per degree of turn the gain is 1 - 0.4^(4 x seconds per degree).</li>' +
+        '<li>Bead-start step: a ramp over 3 mm of bead (2.8°) to the chosen radial size, vertical 1.5 times as large (illustrative; freedom’s statics give 1.4 mm / 4.2 mm per newton on one elastic, 0.45 / 1.0 on a rigid base, 0.1 / 0.01 on the nose seat). Look-ahead camera assumed fixed on a post. Tolerance 0.15 mm is freedom-13’s.</li>' +
+        '<li>Strategies: none: e0 + seam. Scan: seam map measured once (noise, bias, step) and played back. Look-ahead: cold seam measured upstream, applied at the dot (misses distortion). At the dot: measured at the dot (bias + noise only). Look-ahead + at the dot: the second removes what the first misses; the bias remains.</li></ul>',
+    },
+  });
+  app.legend([{ color: '#94a3b8', label: 'true seam offset at weld time' }, { color: '#f59e0b', label: 'correction played (negated)' }, { color: '#f87171', label: 'residual at the dot' }, { color: '#60a5fa', label: 'scan / measurement' }]);
+  const wrap = H('div', { class: 'sw-wrap' }); app.stageEl.appendChild(wrap);
+  const top = H('div', { class: 'sw-top' }); wrap.appendChild(top);
+  const cGeo = H('div', { class: 'sw-card' }, H('h3', { text: 'From above' })), cSum = H('div', { class: 'sw-card' }, H('h3', { text: 'What is left at the dot' }));
+  top.append(cGeo, cSum);
+  const cPlot = H('div', { class: 'sw-card' }, H('h3', { text: 'Seam offset and residual against turned angle (mm)' })); wrap.appendChild(cPlot);
+  const geo = S('svg', { viewBox: '0 0 240 240' }); cGeo.appendChild(geo);
+  const sum = H('div', { class: 'sw-note' }); cSum.appendChild(sum);
+  const plot = S('svg', { viewBox: '0 0 900 470' }); cPlot.appendChild(plot);
+
+  // ---------------------------------------------------------------- model
+  const gaussN = k => { const a = Math.sin(k * 127.1 + 311.7) * 43758.5453, b = Math.sin(k * 269.5 + 183.3) * 43758.5453; const u = a - Math.floor(a) || 1e-6, v = b - Math.floor(b); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  let seed = 1;
+  const val = id => app.ui.get(id);
+  function tackBump(phi) { let s = 0; for (let k = 0; k < 8; k++) { let d = ((phi - (22.5 + 45 * k)) % 360 + 540) % 360 - 180; s += Math.exp(-d * d / (2 * 3 * 3)); } return s; }
+  function seam(phi, kind) {   // cold seam (map), radial or vertical
+    const rad = kind === 'r';
+    const e = rad ? val('trir') / 2 : val('tfz') / 2, a2 = val('oval'), h = val('tack');
+    const p = rad ? 0.6 : 2.1, p2 = rad ? 1.3 : 0.4;
+    return e * Math.cos((phi - p / D) * D) + a2 * (rad ? 1 : 0.3) * Math.cos(2 * (phi - 40) * D) + h * (rad ? 1 : 0.5) * tackBump(phi);
+  }
+  const N = 381;
+  function distort(theta, kind) { const Dm = val('dist') * (1 - Math.exp(-theta / 90)); return kind === 'r' ? -Dm : 0.5 * Dm; }
+  function startStep(th, kind) { const S0 = val('start'); return S0 * Math.min(1, Math.max(0, th / 2.8)) * (kind === 'r' ? 1 : 1.5); }   // support steps once at the bead start
+  function reseat(phi, kind) { return val('reseat') * Math.cos((phi - (kind === 'r' ? 70 : 200)) * D) * (kind === 'r' ? 1 : 0.6); }
+  function mapMeasure(phi, kind, th) {   // one dry-turn map sample: smoothed noise + bias + quantisation; in the weld state it also holds the bead-start step
+    const w = 3, sd = val('noise') / Math.sqrt(2 * w + 1);
+    const raw = seam(phi, kind) + val('e0') * (kind === 'r' ? 1 : 0.4) + (kind === 'r' ? val('bias') : 0.6 * val('bias')) + (val('dry') === 'weld' ? (1 - val('mism') / 100) * startStep(th, kind) : 0);
+    const n = gaussN(seed * 1000 + (kind === 'r' ? 0 : 500) + Math.round(phi)) * sd;
+    const q = val('step'); const v = raw + n;
+    return q > 0 ? Math.round(v / q) * q : v;
+  }
+  function evalRun() {
+    const strat = val('strat'), out = { th: [], r: [], z: [], truer: [], truez: [], cr: [], cz: [] };
+    const dtDeg = D * RI / val('v'), gDot = 1 - Math.pow(0.4, 4 * dtDeg);   // the eye at the dot: 4 corrections per second, gain 0.6, per degree of turn
+    const loop = { r: 0, z: 0 };   // the correction the dot loop has built up so far
+    for (let i = 0; i < N; i++) {
+      const th = i, phi = th % 360;
+      const rec = k => {
+        const e0 = val('e0') * (k === 'r' ? 1 : 0.4), stp = startStep(th, k), t = seam(phi, k) + reseat(phi, k) + distort(th, k) + e0 + stp;   // truth at weld time, step included
+        const bias = k === 'r' ? val('bias') : 0.6 * val('bias'), nz = val('noise') * gaussN(seed * 7 + i * 2 + (k === 'r' ? 0 : 1));
+        let cmd = 0;   // correction added to the seam offset (negative of the estimate)
+        if (strat === 'none') cmd = 0;
+        else if (strat === 'scan') cmd = -mapMeasure(phi, k, th);   // the map replays what the dry turn held (the step only if it was taken in the weld state)
+        else if (strat === 'la') cmd = -(seam(phi, k) + reseat(phi, k) + e0 + bias + nz * 0.5);   // the cold seam at this angle, seen la degrees earlier by a fixed camera: no distortion, no step
+        else {   // 'dot' and 'lad': a loop on the residual measured at the dot, with its lag
+          const ff = strat === 'lad' ? -(seam(phi, k) + reseat(phi, k) + e0 + bias + nz * 0.5) : 0;
+          const resMeas = t + ff + loop[k] + bias + nz;
+          loop[k] -= gDot * resMeas;
+          cmd = ff + loop[k];
+        }
+        const res = t + cmd;
+        return { t: t, cmd: cmd, res: res };
+      };
+      const a = rec('r'), b = rec('z');
+      out.th.push(th); out.truer.push(a.t); out.truez.push(b.t); out.cr.push(a.cmd); out.cz.push(b.cmd); out.r.push(a.res); out.z.push(b.res);
+    }
+    return out;
+  }
+  const rms = a => Math.sqrt(a.reduce((s, x) => s + x * x, 0) / a.length), peak = a => Math.max(...a.map(Math.abs));
+
+  // ---------------------------------------------------------------- drawing
+  const PL = { x0: 50, x1: 880, r: [22, 152], z: [172, 302], e: [330, 450] };
+  function path(xs, ys, f) { return xs.map((x, i) => (i ? 'L' : 'M') + f.x(x).toFixed(1) + ' ' + f.y(ys[i]).toFixed(1)).join(''); }
+  function update() {
+    try { app.ui.enable('mism', val('dry') === 'weld' && val('strat') === 'scan'); app.ui.enable('dry', val('strat') === 'scan'); } catch (e) { /* controls not created yet */ }
+    const run = evalRun(), th = val('th'), v = val('v');
+    while (plot.firstChild) plot.removeChild(plot.firstChild);
+    const XT = t => PL.x0 + t / 380 * (PL.x1 - PL.x0);
+    const panels = [{ key: 'r', box: PL.r, span: 1.2, title: 'seam radial offset from the dot (+ toward the wall)', a: run.truer, c: run.cr, s: run.r }, { key: 'z', box: PL.z, span: 1.2, title: 'seam vertical offset from the dot (+ above the plate face)', a: run.truez, c: run.cz, s: run.z }];
+    panels.forEach(function (p) {
+      const y0 = (p.box[0] + p.box[1]) / 2, k = (p.box[1] - p.box[0]) / 2 / p.span, Y = v_ => y0 - v_ * k;
+      plot.appendChild(S('rect', { x: PL.x0, y: p.box[0], width: PL.x1 - PL.x0, height: p.box[1] - p.box[0], fill: 'none', stroke: '#2a3341' }));
+      [-1.2, -0.6, 0, 0.6, 1.2].forEach(g => { plot.appendChild(S('line', { x1: PL.x0, y1: Y(g), x2: PL.x1, y2: Y(g), stroke: g === 0 ? '#3b4658' : '#20293a' })); plot.appendChild(S('text', { x: PL.x0 - 4, y: Y(g) + 3, 'text-anchor': 'end', class: 'g', text: g.toFixed(1) })); });
+      plot.appendChild(S('text', { x: PL.x0 + 4, y: p.box[0] + 12, class: 'g', text: p.title }));
+      plot.appendChild(S('path', { d: path(run.th, p.a, { x: XT, y: Y }), fill: 'none', stroke: '#94a3b8', 'stroke-width': 2 }));
+      plot.appendChild(S('path', { d: path(run.th, p.c, { x: XT, y: Y }), fill: 'none', stroke: '#f59e0b', 'stroke-width': 1.5 }));
+      if (val('strat') === 'scan') for (let i = 0; i < N; i += 6) plot.appendChild(S('circle', { cx: XT(i), cy: Y(-p.c[i]), r: 1.6, fill: '#60a5fa' }));
+    });
+    // residual panel
+    const y0 = (PL.e[0] + PL.e[1]) / 2, ke = (PL.e[1] - PL.e[0]) / 2 / 1.2, YE = v_ => y0 - v_ * ke;
+    plot.appendChild(S('rect', { x: PL.x0, y: PL.e[0], width: PL.x1 - PL.x0, height: PL.e[1] - PL.e[0], fill: 'none', stroke: '#2a3341' }));
+    [-1.2, -0.6, 0, 0.6, 1.2].forEach(g => { plot.appendChild(S('line', { x1: PL.x0, y1: YE(g), x2: PL.x1, y2: YE(g), stroke: g === 0 ? '#3b4658' : '#20293a' })); plot.appendChild(S('text', { x: PL.x0 - 4, y: YE(g) + 3, 'text-anchor': 'end', class: 'g', text: g.toFixed(1) })); });
+    plot.appendChild(S('text', { x: PL.x0 + 4, y: PL.e[0] + 12, class: 'g', text: 'residual at the dot: radial (red), vertical (orange dashed)' }));
+    plot.appendChild(S('path', { d: path(run.th, run.r, { x: XT, y: YE }), fill: 'none', stroke: '#f87171', 'stroke-width': 2 }));
+    plot.appendChild(S('path', { d: path(run.th, run.z, { x: XT, y: YE }), fill: 'none', stroke: '#fb923c', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+    [0, 90, 180, 270, 360].forEach(t => { plot.appendChild(S('text', { x: XT(t), y: 466, 'text-anchor': 'middle', class: 'g', text: t + '°' + (t === 0 ? ' (first tack)' : '') + '  ' + (t / 360 * 2 * Math.PI * RI / v).toFixed(0) + ' s' })); });
+    plot.appendChild(S('line', { x1: XT(th), y1: 14, x2: XT(th), y2: PL.e[1], stroke: '#fff', 'stroke-width': 1.5, 'stroke-dasharray': '2 3' }));
+    plot.appendChild(S('line', { x1: XT(Math.min(380, th + val('la'))), y1: 14, x2: XT(Math.min(380, th + val('la'))), y2: PL.e[1], stroke: '#60a5fa', 'stroke-width': 1, 'stroke-dasharray': '2 3', opacity: (val('strat') === 'la' || val('strat') === 'lad') ? 1 : 0.35 }));
+    plot.appendChild(S('text', { x: XT(th) + 3, y: 12, class: 'ly', text: 'dot' })); plot.appendChild(S('text', { x: XT(Math.min(380, th + val('la'))) + 3, y: 12, class: 'lb', text: 'look-ahead eye' }));
+    // geometry from above
+    while (geo.firstChild) geo.removeChild(geo.firstChild);
+    const cx = 120, cy = 128, R = 78, ang = a => (-a) * D;   // seam angle 0 at the station (right), angle grows counter-clockwise seen from above
+    geo.appendChild(S('circle', { cx: cx, cy: cy, r: R, fill: 'none', stroke: '#7b8797', 'stroke-width': 3 }));
+    for (let k = 0; k < 8; k++) { const a = (22.5 + 45 * k - th) * D; geo.appendChild(S('circle', { cx: cx + R * Math.cos(a), cy: cy - R * Math.sin(a), r: 3, fill: '#94a3b8' })); }
+    const st = { x: cx + R, y: cy };
+    geo.appendChild(S('circle', { cx: st.x, cy: st.y, r: 6, fill: '#ff3b30' })); geo.appendChild(S('text', { x: st.x - 40, y: st.y - 10, class: 'lr', text: 'dot (station)' }));
+    const a2 = val('la') * D, lx = cx + (R + 10) * Math.cos(a2), ly = cy - (R + 10) * Math.sin(a2);
+    geo.appendChild(S('rect', { x: lx - 6, y: ly - 4, width: 12, height: 8, fill: '#3b82f6' })); geo.appendChild(S('text', { x: lx - 30, y: ly - 10, class: 'lb', text: 'look-ahead eye' }));
+    geo.appendChild(S('path', { d: 'M' + (cx + (R + 24) * Math.cos(a2)) + ' ' + (cy - (R + 24) * Math.sin(a2)) + ' A ' + (R + 24) + ' ' + (R + 24) + ' 0 0 1 ' + (cx + R + 24) + ' ' + cy, fill: 'none', stroke: '#60a5fa', 'stroke-dasharray': '3 3' }));
+    geo.appendChild(S('text', { x: 8, y: 16, class: 'g', text: 'features turn toward the dot' }));
+    geo.appendChild(S('text', { x: 8, y: 232, class: 'g', text: 'look-ahead ' + (val('la') * D * RI).toFixed(0) + ' mm of arc = ' + (val('la') * D * RI / v).toFixed(1) + ' s at ' + v + ' mm/s' }));
+    // summary
+    const un = evalRunNone(), pt = parts(), stt = val('strat');
+    const left = { none: 'everything', scan: 'the step unless mapped, distortion ' + pt.dist.toFixed(3) + ', re-seat ' + pt.reseat.toFixed(3) + ', bias ' + pt.bias.toFixed(3) + ', noise ' + pt.noise.toFixed(3), la: 'distortion ' + pt.dist.toFixed(3) + ', bias ' + pt.bias.toFixed(3) + ', noise ' + (pt.noise / 2).toFixed(3), dot: 'bias ' + pt.bias.toFixed(3) + ', noise ' + pt.noise.toFixed(3), lad: 'bias ' + pt.bias.toFixed(3) + ', noise ' + (pt.noise / 2).toFixed(3) }[stt];
+    const rr = rms(run.r), rz = rms(run.z), pr = peak(run.r), pz = peak(run.z), ur = rms(un.r), uz = rms(un.z);
+    const first30 = run.r.slice(0, 29).map(Math.abs), pk30 = Math.max.apply(null, first30); let settle = -1; for (let i = 0; i < N; i++) { let ok = true; for (let j = i; j < Math.min(N, i + 20); j++) if (Math.abs(run.r[j]) > 0.15 + Math.abs(val('bias')) ) { ok = false; break; } if (ok) { settle = i; break; } }
+    const stepTxt = val('start') > 0 ? '<br><br>Bead-start step: ' + val('start').toFixed(2) + ' mm radial, ' + (1.5 * val('start')).toFixed(2) + ' mm vertical. Radial residual over the first 30 mm of bead: peak <span class="sw-n">' + pk30.toFixed(2) + '</span> mm; inside 0.15 mm (plus the bias) from ' + (settle < 0 ? 'never in this bead' : (settle * D * RI).toFixed(0) + ' mm of bead') + '.' : '';
+    sum.innerHTML = '<b>' + ({ none: 'No correction', scan: 'Scan first, weld second', la: 'Look-ahead eye only', dot: 'Eye at the dot only', lad: 'Look-ahead + eye at the dot' })[val('strat')] + '.</b> Residual at the dot over the whole bead (380°): radial rms <span class="sw-n">' + rr.toFixed(3) + '</span> (peak ' + pr.toFixed(3) + '), vertical rms <span class="sw-n">' + rz.toFixed(3) + '</span> (peak ' + pz.toFixed(3) + ') mm. With no correction: ' + ur.toFixed(3) + ' / ' + uz.toFixed(3) + '.' + stepTxt +
+      '<br><br>Seam speed under the gun at most ' + (Math.max(val('trir') / 2, 0.001) * v / RI).toFixed(3) + ' mm/s radial, ' + (Math.max(val('tfz') / 2, 0.001) * v / RI).toFixed(3) + ' mm/s vertical (runout only). A 10 frame per second camera sees ' + ((Math.max(val('trir'), val('tfz')) / 2) * v / RI / 10).toFixed(4) + ' mm of that per frame.' +
+      '<br><br>Radial leftovers this strategy cannot remove (rms mm): ' + left + '.<br><br>What this strategy cannot see: ' + ({ none: 'nothing is measured.', scan: 'a tube that was re-seated after the scan, distortion during the bead, any bias of the scan sensor, and the bead-start step unless the dry turn was taken in the weld state (then only its mismatch).', la: 'distortion (the heat has not arrived yet), the bead-start step (a camera on a post does not see the gun move), and any bias of the look-ahead camera.', dot: 'nothing that the eye sees badly at the dot: its own bias and fume/glare at the puddle (unresolved); it corrects a step only after its lag.', lad: 'the bias both eyes share.' })[val('strat')];
+    app.io.set({
+      commands: [{ name: 'Rotator turned-so-far', value: th, unit: 'deg', note: 'existing controller reports it (0.025 deg step)' }, { name: 'Trim axis: playing the correction', value: (run.cr[th] >= 0 ? '+' : '') + run.cr[th].toFixed(3) + ' / ' + (run.cz[th] >= 0 ? '+' : '') + run.cz[th].toFixed(3), unit: 'mm (r / z)', note: 'proposed slow axis; the scene applies it exactly' }],
+      observes: [
+        { name: 'Seam map from a dry turn', value: val('strat') === 'scan' ? 'recorded' : '-', status: val('strat') === 'scan' ? 'partly' : 'unresolved', note: 'a sensor that could not be there during the bead' },
+        { name: 'Seam ahead of the dot (look-ahead)', value: (val('strat') === 'la' || val('strat') === 'lad') ? 'live' : '-', status: (val('strat') === 'la' || val('strat') === 'lad') ? 'partly' : 'unresolved' },
+        { name: 'Offset at the dot', value: (val('strat') === 'dot' || val('strat') === 'lad') ? 'live' : '-', status: (val('strat') === 'dot' || val('strat') === 'lad') ? 'partly' : 'unresolved' },
+        { name: 'Thermal distortion during the bead', value: '-', status: (val('strat') === 'dot' || val('strat') === 'lad') ? 'partly' : 'blind', note: 'only an eye at the dot sees it; size unknown' },
+        { name: 'Whether the tube was re-seated after the scan', value: '-', status: 'blind', note: 'a second look-ahead reading could check' },
+        { name: 'Sensor bias', value: '-', status: 'blind', note: 'needs a ground-truth view (eyes-07)' },
+      ],
+      manual: ['Seat the tube once and leave it', 'Choose the first tack as the index mark', 'Calibrate the scan sensor'],
+    });
+    app.invalidate();
+  }
+  function parts() { const d = [], r = []; for (let i = 0; i < N; i++) { d.push(distort(i, 'r')); r.push(reseat(i % 360, 'r')); } return { dist: rms(d), reseat: rms(r), bias: Math.abs(val('bias')), noise: val('noise') }; }
+  function evalRunNone() { const out = { r: [], z: [] }; for (let i = 0; i < N; i++) { const phi = i % 360; out.r.push(seam(phi, 'r') + reseat(phi, 'r') + distort(i, 'r') + val('e0')); out.z.push(seam(phi, 'z') + reseat(phi, 'z') + distort(i, 'z') + val('e0') * 0.4); } return out; }
+
+  const g0 = app.ui.group('Strategy');
+  g0.radio({ id: 'strat', label: 'How the eye is used', kind: 'branch', value: 'scan', options: [{ value: 'none', label: 'None' }, { value: 'scan', label: 'Scan first' }, { value: 'la', label: 'Look-ahead' }, { value: 'dot', label: 'At the dot' }, { value: 'lad', label: 'Both' }], help: 'None: uncorrected. Scan first: one dry turn builds a map. Look-ahead: a camera upstream. At the dot: the gun-borne eye of eyes-01. Both: look-ahead plus at the dot.', onChange: update });
+  g0.slider({ id: 'th', label: 'Turned so far (dot position on the bead)', min: 0, max: 380, step: 1, value: 120, unit: '°', kind: 'actuator', help: 'The rotator turns the tube; 380 includes the overlap past the first tack. Existing controller.', onChange: update });
+  g0.slider({ id: 'v', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', help: 'Existing controller window 5-15 mm/s.', onChange: update });
+  g0.slider({ id: 'la', label: 'Look-ahead angle upstream of the dot', min: 10, max: 60, step: 1, value: 35, unit: '°', kind: 'scene', onChange: update });
+  const g1 = app.ui.group('The tube (scene edits: illustrative)');
+  g1.slider({ id: 'trir', label: 'Radial runout TIR', min: 0, max: 0.25, step: 0.005, value: 0.25, unit: 'mm', kind: 'scene', help: 'Rig acceptance limit 0.25 mm.', onChange: update });
+  g1.slider({ id: 'tfz', label: 'Face runout TIR at the weld circle', min: 0, max: 0.3, step: 0.005, value: 0.3, unit: 'mm', kind: 'scene', help: 'Rig acceptance limit 0.30 mm.', onChange: update });
+  g1.slider({ id: 'oval', label: 'Ovality (second harmonic)', min: 0, max: 0.15, step: 0.005, value: 0.04, unit: 'mm', kind: 'scene', onChange: update });
+  g1.slider({ id: 'tack', label: 'Tack weld bump height (8 tacks)', min: 0, max: 0.2, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', onChange: update });
+  g1.slider({ id: 'dist', label: 'Thermal distortion during the bead', min: 0, max: 0.4, step: 0.01, value: 0.12, unit: 'mm', kind: 'scene', help: 'Unknown for this joint. The unbacked 6.35 mm lip may distort.', onChange: update });
+  g1.slider({ id: 'reseat', label: 'Re-seat error between scan and bead', min: 0, max: 0.3, step: 0.01, value: 0.0, unit: 'mm', kind: 'scene', help: 'The nest has 0.2 mm radial clearance; touching the tube can move it.', onChange: update });
+  g1.slider({ id: 'e0', label: 'Setup error of the dot (constant)', min: -0.6, max: 0.6, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'What manual setup leaves before any correction.', onChange: update });
+  const g1b = app.ui.group('The bead start (scene edits: illustrative)');
+  g1b.slider({ id: 'start', label: 'Step at the bead start (radial; vertical 1.5x)', min: 0, max: 2, step: 0.05, value: 0.6, unit: 'mm', kind: 'scene', help: 'The support moves once when the wire feeds, the gas starts or the fibre is asked to emit at a larger radius. Freedom’s statics: 1.4 mm per newton of pull change on one elastic, 0.1 mm on the nose seat.', onChange: update });
+  g1b.radio({ id: 'dry', label: 'The dry turn was taken with', kind: 'branch', value: 'idle', options: [{ value: 'idle', label: 'idle' }, { value: 'weld', label: 'weld state' }], help: 'Idle: wire retracted, gas off, fibre stored at the tighter radius, hand off. Weld state: wire fed, gas on, fibre at the emitting radius. Only the scan strategy uses the dry turn.', onChange: update });
+  g1b.slider({ id: 'mism', label: 'Bead step differs from the dry turn’s by', min: 0, max: 100, step: 5, value: 25, unit: '%', kind: 'scene', help: 'Only matters when the dry turn was taken in the weld state.', onChange: update });
+  const g2 = app.ui.group('The eye and the trim axis (scene edits: illustrative)');
+  g2.slider({ id: 'noise', label: 'Measurement noise (1 sigma)', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: update });
+  g2.slider({ id: 'bias', label: 'Calibration bias (radial; vertical is 0.6 of it)', min: -0.5, max: 0.5, step: 0.01, value: 0.1, unit: 'mm', kind: 'scene', onChange: update });
+  g2.slider({ id: 'step', label: 'Trim axis step', min: 0, max: 0.1, step: 0.005, value: 0.01, unit: 'mm', kind: 'scene', help: 'Quantisation of the played correction.', onChange: update });
+  g2.button({ id: 'renoise', label: 'Draw new noise', kind: 'state', onClick: () => { seed++; update(); } });
+  update();
+})();
+</script>
+</body>
+</html>

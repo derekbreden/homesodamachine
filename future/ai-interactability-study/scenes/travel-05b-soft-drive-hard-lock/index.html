@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soft drive, hard lock</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-05b-soft-drive-hard-lock",
+  "title": "Soft drive, hard lock: a spring as a reduction gear, a clamp as the precision",
+  "by": "travel",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "A one-axis schematic of Derek's bungee idea read as a gear. A motor moves an anchor; a soft spring between anchor and gun turns 10 mm of anchor into 1 mm of gun; friction in the guide sets a dead band; a clamp locks the gun so the cable's pull meets a stiff mount. The clamp also moves the gun as it closes, and nothing looked after that: the scene now carries the look-unlock-trim-relock loop and the share of 2000 closures that end inside the window with and without it.",
+  "tags": [
+    "compliance as reduction",
+    "friction dead band",
+    "temporary lock",
+    "suspension",
+    "one axis",
+    "handover shift",
+    "relock loop"
+  ],
+  "branchOf": [
+    "travel-05-lever-map"
+  ],
+  "combines": [],
+  "transferable": [
+    "gun move = k1/(k1+k2) x anchor move",
+    "dead band = friction / (k1 + k2)",
+    "position by compliance during setup, by a clamp during the weld"
+  ],
+  "how": {
+    "motion": "a motor moves an anchor; the gun follows a soft spring; a clamp locks it",
+    "load": "the guide carries the gun; the clamp carries the disturbance once locked",
+    "reference": "anchor position and the clamp: no sensor on the gun",
+    "observe": "anchor step count; the dot from a camera is what would close the loop",
+    "use": "setup and per-tube trim by soft drive, weld with the clamp closed"
+  },
+  "software": {
+    "commands": [
+      "anchor position (motor, step you set)",
+      "clamp open / closed",
+      "the relock loop: unlock, move the anchor by the camera reading, relock, look again"
+    ],
+    "observes": [
+      "anchor step count",
+      "clamp state (a switch)",
+      "the dot from a camera, after the clamp: what the loop needs (noise you set)"
+    ],
+    "manual": [
+      "choosing the springs",
+      "cleaning the guide"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-05b-soft-drive-hard-lock.md",
+    "../../explorers/travel/calc/13-clamp-relock.mjs",
+    "../../exchange/use--on--travel-w2.md",
+    "../../exchange/travel--reply-to-use-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+<style>
+  .sd-svg { width: 100%; height: 100%; min-height: 520px; display: block; }
+  .sd-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .sd-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .sd-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .sd-svg .mono { font: 11.5px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>One axis of Derek’s suspension example, read as a mechanism with three parts: a <b>motor-driven anchor</b> (purple), a <b>soft spring</b> k1 between the anchor and the gun, and the gun on a <b>guide</b> with a second spring k2 to the frame (the other bungee or the cable). Move the anchor a and the gun moves <b>r × a</b> with r = k1/(k1 + k2): a soft link is a <b>reduction gear</b>. A <b>clamp</b> on the guide can then lock the gun.</p>' +
+        '<p>Three things decide whether it works: the ratio r (resolution), the <b>friction dead band</b> in the guide (± friction ÷ (k1 + k2)), and the <b>disturbance</b> (cable pull) which moves an unlocked gun by force ÷ (k1 + k2) but a locked one by force ÷ k_clamp.</p>',
+      carries: '<p>Unlocked: the guide carries the gun’s weight; the two springs carry the horizontal forces. Locked: the clamp carries the horizontal disturbance. The anchor motor carries almost nothing (it sets a spring length).</p>',
+      software: '<p>Software commands the anchor (a step count) and the clamp. It has no sensor on the gun in this drawing: the anchor count tells it where the anchor is, not where the gun is, and the dead band is exactly the difference. A camera on the dot would close the loop.</p>',
+      tried: '<p><b>Break 1: friction.</b> A guide with 1 N of friction and springs totalling 0.5 N/mm has a dead band of ±2 mm: the reduction is useless. <i>Change (after use\'s exchange):</i> the band costs rounds, not accuracy. The loop winds the anchor until the gun breaks out and lands on the band\'s edge; over 2000 closures the median first trim takes 3 rounds at 0.15 N of friction and 2 at 0.02 N (<code>calc/13</code>), and 11 % of closures hit the six-round limit at 0.15 N. <i>Leaves:</i> real friction is unmeasured.</p>' +
+        '<p><b>Break 2: the disturbance.</b> Unlocked, 1 N of cable pull moves the gun 2 mm. <i>Repair:</i> lock. Locked, the same pull moves it 20 microns (k_clamp = 50 N/mm, illustrative). <i>Leaves:</i> the clamp’s own slip and creep, and the position shift as it closes.</p>' +
+        '<p><b>Break 3: the anchor step.</b> The gun’s smallest step is r × the anchor step, which is small; but nothing tells the software the gun arrived, so the loop must be closed by a camera or a person.</p>' +
+        '<p><b>Break 4 (from use): the clamp is the last handover and nothing looked after it.</b> <i>Conflict:</i> the clamp moves the gun as it closes, and in the first version of this scene the camera\'s last look came before it. At the defaults (closing scatter 0.05 mm, camera 0.05 mm, window ±0.10 mm, hand ±1 mm) 81 % of 2000 closures end inside the window with no look after the clamp and 95 % with one look-unlock-trim-relock loop. <i>Assumption:</i> the clamp\'s shift is a scatter that only a look can see. <i>Change:</i> the loop is a button and a toggle here, the closing shift is a mean and a scatter you set, and the panel counts closures. A clamp that always pushes the same way (a wedge: mean 0.08 mm, scatter 0.01 mm) ends 48 % inside with no look and 91 % once the mean is learned from logged closures and removed, 97 % with a look as well; a pinching clamp of the same size (scatter 0.05) ends 81 % and 95 %. <i>Leaves:</i> the real shift and whether it has a mean: an indicator on the shell while the clamp closes would say (Derek).</p>',
+      unresolved: '<p>Real spring stiffnesses, friction, clamp stiffness and creep are all placeholders, and so is the size of the clamp\'s closing shift and whether it has a mean. Nothing observes the gun between the last look and the weld. Only one axis is drawn; a clamp also shifts the other axes and the angles. Heat (a locked ring on a tube that grows 0.03 to 0.06 mm) is not in it. <b>Question for Derek:</b> tighten the clamp or a magic-arm knob on a gun shell with the indicator on the shell and read what it does to the dot: a push to one side (a wedge: learnable) or a pinch (scatter).</p>',
+      assumptions: '<ul><li>Linear springs, Coulomb friction (constant), a clamp with linear stiffness. Everything on the sliders is <b>illustrative</b>. The 2000-closure count is the model of <code>explorers/use/calc/w2_handover.mjs</code> (arrangement B), re-run in <code>calc/13</code>: hand ±1.0 mm, camera noise, window and closing shift as set, at most six trim rounds.</li><li>Scale: the drawing is exaggerated in the horizontal direction so a 1 mm move is visible.</li></ul>',
+    },
+  });
+  const W = 1000, H = 640;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'sd-svg', role: 'img', 'aria-label': 'anchor, spring, gun on a guide, second spring, clamp' });
+  app.stageEl.appendChild(svg);
+  app.legend && app.legend([{ role: 'actuated', label: 'anchor (motor)' }, { role: 'compliant', label: 'springs (compliant)' }, { role: 'load', label: 'gun on its guide' }, { role: 'fixed', label: 'frame, clamp' }, { role: 'laser', label: 'dead band / error' }]);
+  const g = WK.svg('g', {}); svg.appendChild(g);
+  const T = (x, y, text, cls, anchor) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text }));
+  function spring(x0, x1, y, color, coils) { const n = coils || 10, pts = [[x0, y]]; for (let i = 0; i < n; i++) pts.push([x0 + (x1 - x0) * (i + 0.5) / n, y + (i % 2 ? -12 : 12)]); pts.push([x1, y]); g.appendChild(WK.svg('polyline', { points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: color, 'stroke-width': 3 })); }
+  let lockedAt = 0, wasLocked = false, gunX = 0, lastShift = 0, curX = 0, lookMsg = '';
+  function mulberry(seed) { let a = seed >>> 0; return () => { a += 0x6D2B79F5; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const gauss = (rng) => { const u = Math.max(1e-12, rng()), v = rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const live = mulberry(2026);
+  const quant = (v, q) => Math.round(v / q) * q;
+  const settle = (x, xeq, band) => (Math.abs(x - xeq) <= band ? x : xeq + Math.sign(x - xeq) * band);
+  // 2000 closures of arrangement B (the model of explorers/use/calc/w2_handover.mjs): hand, soft trim, clamp closes, optional looks after
+  function closureB(P, rng, after, learn) {
+    const g = () => gauss(rng), r = P.k1 / (P.k1 + P.k2), band = P.fg / (P.k1 + P.k2), bias = learn ? 0 : P.bm; let x = P.sh * g(), xs = x;
+    const trim = () => { let m = 0; for (; m < P.n; m++) { const obs = x + P.sc * g(); if (Math.abs(obs) <= 0.5 * P.w) break; xs += r * quant(-obs / r, P.q); x = settle(x, xs, band); } return m; };
+    trim(); x = x + P.sl * g() + bias;
+    if (after) for (let c = 0; c < P.n; c++) { const obs = x + P.sc * g(); if (Math.abs(obs) <= 0.5 * P.w) break; trim(); x = x + P.sl * g() + bias; }
+    return x + P.dF / P.kL;
+  }
+  function mc(P) { const out = {}; [['no', false, false], ['look', true, false], ['learn', false, true]].forEach(a => { const rng = mulberry(7); let n = 0; for (let i = 0; i < 2000; i++) if (Math.abs(closureB(P, rng, a[1], a[2])) <= P.w) n++; out[a[0]] = n / 2000; }); return out; }
+  const mcPanel = app.ui.panel({ id: 'mc', title: '2000 closures at these settings', open: true, html: '<div class="sd-mc"></div>' });
+  function redraw() {
+    while (g.firstChild) g.removeChild(g.firstChild);
+    const a0 = app.ui.get('anchor'), astep = app.ui.get('astep') / 1000, a = Math.round(a0 / astep) * astep;
+    const k1 = app.ui.get('k1'), k2 = app.ui.get('k2'), ff = app.ui.get('fric'), fd = app.ui.get('fd'), locked = app.ui.get('lock'), kl = app.ui.get('kl');
+    const r = k1 / (k1 + k2), ktot = k1 + k2, band = ff / ktot;
+    const xFree = (k1 * a + fd) / ktot;                                   // equilibrium without friction (mm), from the relaxed position
+    if (locked && !wasLocked) { lastShift = app.ui.get('cm') + app.ui.get('cs') * gauss(live); lockedAt = gunX + lastShift; }   // the clamp captures the gun and moves it as it closes
+    if (!locked && wasLocked) gunX = lockedAt;                            // released where the clamp left it; the friction band below then settles it
+    wasLocked = locked;
+    // with friction the gun stops anywhere within +-band of xFree: take the side it approached from (last position), clamped
+    let x = gunX; if (!locked) { x = Math.max(xFree - band, Math.min(xFree + band, gunX)); gunX = x; }
+    const xLocked = lockedAt + fd / kl - 0;                                // clamp compliance shifts it by force / stiffness
+    const xNow = locked ? xLocked : x; curX = xNow;
+    const SC = 34;                                                        // px per mm (exaggerated)
+    const y = 260, x0 = 90, x1 = 910;
+    T(24, 26, 'One axis, schematic and horizontally exaggerated. Ground left and right; gun in the middle on a guide.', 'big');
+    g.appendChild(WK.svg('rect', { x: 50, y: 150, width: 24, height: 220, fill: '#6b7a90' })); g.appendChild(WK.svg('rect', { x: 926, y: 150, width: 24, height: 220, fill: '#6b7a90' }));
+    // anchor block (purple)
+    const ax = 190 + a * SC;
+    g.appendChild(WK.svg('rect', { x: ax - 24, y: y - 30, width: 48, height: 60, rx: 5, fill: '#a855f7' })); T(ax, y + 56, 'anchor (motor)', 'small', 'middle');
+    line(74, y, ax - 24, y, '#a855f7');
+    // gun block
+    const gx = 500 + xNow * SC;
+    spring(ax + 24, gx - 40, y, '#4ade80'); T((ax + gx) / 2, y - 34, 'k1 ' + k1.toFixed(2) + ' N/mm', 'small', 'middle');
+    g.appendChild(WK.svg('rect', { x: gx - 40, y: y - 40, width: 80, height: 80, rx: 6, fill: '#f5a524', 'fill-opacity': 0.8, stroke: '#b45309', 'stroke-width': 2 })); T(gx, y + 5, 'gun', 'big', 'middle');
+    spring(gx + 40, 926, y, '#4ade80'); T((gx + 926) / 2, y - 34, 'k2 ' + k2.toFixed(2) + ' N/mm', 'small', 'middle');
+    // guide + clamp
+    g.appendChild(WK.svg('rect', { x: 130, y: y + 62, width: 740, height: 10, fill: '#394559' })); T(140, y + 92, 'guide with friction ' + ff.toFixed(2) + ' N', 'small');
+    g.appendChild(WK.svg('rect', { x: gx - 30, y: y + 72, width: 60, height: 22, fill: locked ? '#ff3b30' : '#6b7a90', rx: 3 })); T(gx, y + 108, locked ? 'clamp CLOSED (k ' + kl + ' N/mm)' : 'clamp open', 'small', 'middle');
+    // disturbance arrow on the gun
+    const dl = Math.max(-80, Math.min(80, fd * 40)); if (Math.abs(dl) > 2) { line(gx, y - 62, gx + dl, y - 62, '#ff3b30', 4); g.appendChild(WK.svg('polygon', { points: [gx + dl, y - 62, gx + dl - Math.sign(dl) * 10, y - 68, gx + dl - Math.sign(dl) * 10, y - 56].join(' '), fill: '#ff3b30' })); T(gx, y - 76, 'cable pull ' + fd.toFixed(1) + ' N', 'small', 'middle'); }
+    // dead band ruler under the gun
+    const bandPx = band * SC, ry = 400;
+    g.appendChild(WK.svg('line', { x1: 500 - 300, x2: 500 + 300, y1: ry, y2: ry, stroke: '#394559' }));
+    for (let mm = -8; mm <= 8; mm += 2) { g.appendChild(WK.svg('line', { x1: 500 + mm * SC, x2: 500 + mm * SC, y1: ry - 5, y2: ry + 5, stroke: '#394559' })); T(500 + mm * SC, ry + 20, mm + ' mm', 'small', 'middle'); }
+    const cx = 500 + (locked ? xLocked : xFree) * SC;
+    g.appendChild(WK.svg('rect', { x: cx - bandPx, y: ry - 12, width: 2 * bandPx, height: 24, fill: 'rgba(255,59,48,.25)', stroke: '#ff3b30' }));
+    const tg = app.ui.get('tgt'), wn = app.ui.get('win');
+    g.appendChild(WK.svg('rect', { x: 500 + (tg - wn) * SC, y: ry - 20, width: 2 * wn * SC, height: 40, fill: 'rgba(74,222,128,.14)', stroke: '#4ade80', 'stroke-dasharray': '4 3' })); T(500 + 312, ry + 4, 'green: wanted ±' + wn.toFixed(2) + ' mm', 'small', 'start');
+    g.appendChild(WK.svg('circle', { cx: 500 + xNow * SC, cy: ry, r: 6, fill: '#f5a524' }));
+    if (locked) T(500, ry + 62, 'the clamp moved the gun ' + (lastShift * 1000).toFixed(0) + ' µm as it closed' + (lookMsg ? '   |   ' + lookMsg : ''), 'small', 'middle'); else if (lookMsg) T(500, ry + 62, lookMsg, 'small', 'middle');
+    T(500, ry + 44, locked ? 'locked: gun sits at ' + xNow.toFixed(3) + ' mm, moved by ' + (fd / kl * 1000).toFixed(0) + ' um by the cable pull (clamp stiffness)' : 'unlocked: gun in a band of ±' + band.toFixed(2) + ' mm around ' + xFree.toFixed(3) + ' mm', 'small', 'middle');
+    // numbers
+    const yy = 500;
+    T(60, yy, 'ratio r = k1/(k1+k2) = ' + r.toFixed(3) + '   ->  anchor ' + a.toFixed(3) + ' mm gives the gun ' + (r * a).toFixed(3) + ' mm; one anchor step (' + (astep * 1000).toFixed(0) + ' um) is ' + (r * astep * 1000).toFixed(1) + ' um at the gun', 'mono');
+    T(60, yy + 22, 'dead band from friction: ±' + band.toFixed(3) + ' mm  (' + (band / Math.max(r * astep, 1e-9)).toFixed(0) + ' anchor steps of gun motion)', 'mono');
+    T(60, yy + 44, 'cable pull ' + fd.toFixed(1) + ' N moves an unlocked gun ' + (fd / ktot).toFixed(3) + ' mm; a locked gun ' + (fd / kl).toFixed(3) + ' mm', 'mono');
+    const err = xNow - tg; app.badge('err', Math.abs(err) > wn ? 'the gun is ' + err.toFixed(3) + ' mm from where it is wanted: outside the ±' + wn.toFixed(2) + ' mm window' : null, Math.abs(err) > wn ? 'warn' : 'ok');
+    const Pm = { k1: k1, k2: k2, kL: kl, fg: ff, sl: app.ui.get('cs'), bm: app.ui.get('cm'), sc: app.ui.get('cam'), w: wn, q: astep, sh: 1.0, n: 6, dF: app.ui.get('dF') }, m = mc(Pm);
+    mcPanel.innerHTML = '<div class="sd-mc" style="font-size:12.5px;line-height:1.5"><b>inside the window (±' + wn.toFixed(2) + ' mm):</b><br>no look after the clamp: <b>' + (100 * m.no).toFixed(0) + ' %</b><br>one look-unlock-trim-relock loop: <b>' + (100 * m.look).toFixed(0) + ' %</b><br>bias learned from logs (mean ' + app.ui.get('cm').toFixed(3) + ' mm removed), no look: <b>' + (100 * m.learn).toFixed(0) + ' %</b><br><span style="color:#98a4b6">Hand ±1 mm, six rounds at most, load change after the last look ' + app.ui.get('dF').toFixed(1) + ' N over the clamp\'s stiffness. Illustrative; <code>calc/13</code>.</span></div>';
+    app.badge('band', (!locked && band > 0.25) ? 'dead band ±' + band.toFixed(2) + ' mm: the guide’s friction defeats the reduction' : null, 'warn');
+    app.badge('free', (!locked && Math.abs(fd / ktot) > 0.3) ? 'the cable pull moves the unlocked gun ' + (fd / ktot).toFixed(1) + ' mm: lock before the weld' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Anchor position', value: a.toFixed(3), unit: 'mm', note: 'step ' + (astep * 1000).toFixed(0) + ' µm' }, { name: 'Clamp', value: locked ? 'closed' : 'open', note: 'a solenoid or a small motor' }],
+      observes: [
+        { name: 'Anchor position', value: 'from step count', status: 'partly', note: 'open loop' },
+        { name: 'Gun position', value: '-', status: 'blind', note: 'not sensed here: the dead band is the difference between anchor count and gun' },
+        { name: 'Clamp state', value: locked ? 'closed' : 'open', status: 'seen', note: 'a switch' },
+        { name: 'Shift as the clamp closes', value: '-', status: 'unresolved', note: 'not modelled' },
+      ],
+      manual: ['Choose springs', 'Clean the guide'],
+    });
+  }
+  function line(x1, y1, x2, y2, stroke) { g.appendChild(WK.svg('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: stroke, 'stroke-width': 5 })); }
+  const c1 = app.ui.group('Anchor and clamp (proposed)');
+  c1.slider({ id: 'anchor', label: 'Anchor position', min: -10, max: 10, step: 0.05, value: 3, unit: 'mm', kind: 'actuator', onChange: redraw });
+  c1.slider({ id: 'astep', label: 'Anchor step', min: 1, max: 100, step: 1, value: 10, unit: 'µm', kind: 'actuator', onChange: redraw });
+  c1.toggle({ id: 'lock', label: 'Clamp the gun', value: false, kind: 'state', help: 'Closing captures the gun where it sits; then the cable pull meets the clamp’s stiffness instead of the springs.', onChange: redraw });
+  c1.button({ id: 'look', label: 'Look, unlock, trim, relock (up to 6 rounds)', kind: 'actuator', help: 'A camera reads the gun against where it is wanted (noise you set). Outside the window: unlock, move the anchor by minus the reading over the ratio, relock (the clamp shifts the gun again), look again.', onClick: () => {
+    const rounds = []; let n = 0;
+    if (!app.ui.get('lock')) app.ui.set('lock', true);
+    for (; n < 6; n++) {
+      const obs = (curX - app.ui.get('tgt')) + app.ui.get('cam') * gauss(live);
+      if (Math.abs(obs) <= 0.5 * app.ui.get('win')) { rounds.push('read ' + (obs * 1000).toFixed(0) + ' µm: inside'); break; }
+      rounds.push('read ' + (obs * 1000).toFixed(0) + ' µm');
+      const r = app.ui.get('k1') / (app.ui.get('k1') + app.ui.get('k2'));
+      app.ui.set('lock', false);
+      app.ui.set('anchor', Math.max(-10, Math.min(10, +(app.ui.get('anchor') + quant(-obs / r, app.ui.get('astep') / 1000)).toFixed(3))));
+      app.ui.set('lock', true);
+    }
+    lookMsg = 'loop: ' + rounds.join(', then ') + (n >= 6 ? ' (six-round limit)' : ''); redraw();
+  } });
+  c1.slider({ id: 'tgt', label: 'Where the gun is wanted', min: -3, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'scene', help: 'The dot on the seam. Illustrative.', onChange: redraw });
+  c1.slider({ id: 'kl', label: 'Clamp stiffness', min: 5, max: 500, step: 5, value: 50, unit: 'N/mm', kind: 'scene', onChange: redraw });
+  const c2 = app.ui.group('The springs and the guide (scene edits)', { help: 'Placeholders. The two springs can be bungees, or a spring and the cable’s own stiffness.' });
+  c2.slider({ id: 'k1', label: 'k1 anchor spring', min: 0.02, max: 2, step: 0.01, value: 0.1, unit: 'N/mm', kind: 'scene', onChange: redraw });
+  c2.slider({ id: 'k2', label: 'k2 frame spring', min: 0.02, max: 2, step: 0.01, value: 0.4, unit: 'N/mm', kind: 'scene', onChange: redraw });
+  c2.slider({ id: 'fric', label: 'Guide friction', min: 0, max: 3, step: 0.05, value: 0.15, unit: 'N', kind: 'scene', help: 'Sets the dead band. A flexure or air guide would be near 0.', onChange: redraw });
+  const c3 = app.ui.group('The clamp\'s closing shift and the look (scene edits)', { help: 'Unmeasured. A mean can be learned from logged closures; a scatter needs a look afterwards.' });
+  c3.slider({ id: 'cm', label: 'Closing shift, mean', min: -0.15, max: 0.15, step: 0.005, value: 0, unit: 'mm', kind: 'scene', help: 'A wedge or cam that always pushes one way.', onChange: redraw });
+  c3.slider({ id: 'cs', label: 'Closing shift, scatter (1 sigma)', min: 0, max: 0.15, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'A jaw that pinches unevenly.', onChange: redraw });
+  c3.slider({ id: 'cam', label: 'Camera noise on the gun position', min: 0.005, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Made-up.', onChange: redraw });
+  c3.slider({ id: 'win', label: 'Window', min: 0.02, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', onChange: redraw });
+  c3.slider({ id: 'dF', label: 'Load change after the last look', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', noVisual: true, help: 'Wire feed, gas, the fibre: unmeasured.', onChange: redraw });
+  c2.slider({ id: 'fd', label: 'Cable pull on the gun', min: -3, max: 3, step: 0.1, value: 0.5, unit: 'N', kind: 'scene', help: 'Unknown; placeholder.', onChange: redraw });
+})();
+</script>
+</body>
+</html>

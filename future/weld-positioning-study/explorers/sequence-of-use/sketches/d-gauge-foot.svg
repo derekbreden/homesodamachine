@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" font-family="Helvetica,Arial,sans-serif" font-size="11">
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="12" y="20" font-size="14" font-weight="bold">D — gauge-set, lock-held: original rim gauge and the rate-split branch (D-r / D-m), plan at the true opening pose</text>
+<text x="12" y="36">Tube and proxy gun to scale (grip 45, hole dial 30, vertical −15); gauge, foot pads, holder and stack placements are proposals.</text>
+<circle cx="440" cy="300" r="101.60000000000001" fill="#dfeaea" stroke="#577"/><circle cx="440" cy="300" r="98.9584" fill="#d3e2e2" stroke="#577"/>
+<circle cx="538.9584" cy="300.0" r="4" fill="#d00"/><text x="544.9584" y="316.0" fill="#d00">dot</text>
+<polyline points="527.4,313.7 441.8,415.0 343.9,530.9" fill="none" stroke="#335" stroke-width="16" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="420.3" y1="494.5" x2="438.8" y2="673.7" stroke="#335" stroke-width="20" stroke-opacity="0.2" stroke-linecap="round"/>
+<line x1="539.0" y1="300.0" x2="481.6" y2="421.3" stroke="#b36b00" stroke-width="2"/>
+<text x="421.6" y="435.3" fill="#b36b00">wire from −Y</text>
+<polyline points="531.1,363.8 534.3,358.9 537.3,353.9 539.9,348.7 542.4,343.4 544.5,338.0 546.3,332.5 547.9,326.9 549.2,321.2 550.1,315.5 550.8,309.7 551.1,303.9 551.2,298.1 550.9,292.2 550.4,286.4 549.5,280.7 548.3,275.0 546.9,269.3 545.1,263.8 543.1,258.3 540.8,253.0 538.2,247.8" fill="none" stroke="#a70" stroke-width="10" stroke-opacity="0.45"/>
+<text x="568.0" y="364.0" fill="#a70">D original: printed rim gauge (split, slides out</text><text x="568.0" y="380.8" fill="#a70">on +Y past the wire) receives the shell; kept as a pose CHECK</text>
+<rect x="514.3317037693455" y="284.68104767658997" width="10" height="10" fill="#2a6"/><circle cx="535.8" cy="282.4" r="5" fill="#2a6"/>
+<text x="376.0" y="236.0" fill="#2a6">D-r foot (on the shell, 3 mm cam slide): Z pad on the</text>
+<text x="376.0" y="252.8" fill="#2a6">plate face r≈50, X pad on the bore; +Y side, 8 mm along</text>
+<text x="376.0" y="269.6" fill="#2a6">the seam (free side at this pose)</text>
+<circle cx="531.4" cy="262.1" r="3" fill="#555"/>
+<circle cx="531.4" cy="337.9" r="3" fill="#555"/>
+<circle cx="477.9" cy="208.6" r="3" fill="#555"/>
+<circle cx="477.9" cy="391.4" r="3" fill="#555"/>
+<circle cx="402.1" cy="208.6" r="3" fill="#555"/>
+<circle cx="402.1" cy="391.4" r="3" fill="#555"/>
+<circle cx="348.6" cy="262.1" r="3" fill="#555"/>
+<circle cx="348.6" cy="337.9" r="3" fill="#555"/>
+<text x="344.0" y="420.0" fill="#555">tacks (grey) while gauging: table indexed 22.5°, so the foot lands between tacks</text>
+<line x1="120.0" y1="492.0" x2="376.0" y2="476.0" stroke="#555" stroke-width="7" stroke-opacity="0.7"/>
+<rect x="108.0" y="480.0" width="24" height="24" fill="#999"/><text x="40.0" y="522.0">holder base (lockable arm, D original;</text><text x="40.0" y="536.0">in D-r the lead-screw slides hold)</text>
+<rect x="350.0" y="464.0" width="52" height="24" fill="#f3e7c9" stroke="#a70"/><text x="266.0" y="458.0" fill="#a70">stack: X slide, Y slide (yaw), recipe block</text>
+<text x="790" y="70" font-weight="bold">D original (wave 1)</text>
+<text x="790" y="86" >one printed gauge on the rim sets all six freedoms per tube;</text>
+<text x="790" y="102" >a single-lock holder holds; gauge removed before the weld.</text>
+<text x="790" y="118" >Breaks: lock shift strains the gauge; the gauge must split</text>
+<text x="790" y="134" >to pass the wire.</text>
+<text x="790" y="150" ></text>
+<text x="790" y="166" font-weight="bold">D-r (who-moves-what, wave 2)</text>
+<text x="790" y="182" >split by rate: angles in a printed block (per recipe),</text>
+<text x="790" y="198" >yaw/radial on lead-screw slides (per recipe; stopping</text>
+<text x="790" y="214" >turning is locking), height per tube by the work,</text>
+<text x="790" y="230" >set with the retractable foot.</text>
+<text x="790" y="246" ></text>
+<text x="790" y="262" font-weight="bold">D-m (who-moves-what)</text>
+<text x="790" y="278" >a dial on the Z pad read at the eight between-tack angles:</text>
+<text x="790" y="294" >the tube's runout map; set height to the mean.</text>
+<text x="790" y="310" ></text>
+<text x="790" y="326" font-weight="bold">Sequence (sequence-of-use)</text>
+<text x="790" y="342" >index 22.5° → touch → read / set → retract → back to tack 1.</text>
+<text x="790" y="358" >With the stand-hung plate head the foot only measures.</text>
+</svg>

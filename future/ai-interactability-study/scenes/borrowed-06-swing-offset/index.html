@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swing offset: the gun's own fine axis</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sw-panel { position: absolute; right: 10px; top: 46px; width: 250px; background: rgba(12,16,22,.95); border: 1px solid var(--wk-line2); border-radius: 8px; padding: 4px 4px 6px; z-index: 3; }
+  .sw-panel svg { width: 100%; height: auto; display: block; }
+  .sw-panel text { font: 9.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .sw-panel .t { fill: #dbe3ee; font-weight: 600; font-size: 10.5px; }
+  .sw-read { font: 11.5px ui-monospace, Menlo, monospace; color: #e7ebf1; padding: 2px 6px 0; }
+  .sw-note { font-size: 10.5px; color: var(--role-sensor); font-style: italic; padding: 0 6px; }
+  @media (max-width: 720px) { .sw-panel { width: 200px; } }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-06-swing-offset",
+  "title": "Swing offset: the gun already has a fine axis across the seam",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The X1 Pro oscillates its beam with a motor (2 mm swing in the recorded settings) and its settings screen shifts the red light left or right of the nozzle centre. If software could set that shift, the gun would carry its own actuator across the seam. This page shows what a centre offset does to where the sweep lands on the corner, what a nulling loop needs, and what nobody knows yet.",
+  "tags": [
+    "gun internal",
+    "swing",
+    "red light alignment",
+    "rs232",
+    "fine axis"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "use the process head's own scanner as the fine axis",
+    "corner path coordinate along the L"
+  ],
+  "how": {
+    "motion": "the swing centre shifts along the gun's local X, across the seam; nothing else moves",
+    "load": "nothing new: the gun is carried however the arrangement carries it",
+    "reference": "the sweep line crossing the corner; the seam is where the plate meets the wall",
+    "observe": "a camera would be needed; the gun itself reports nothing (unresolved)",
+    "use": "operating: a nulling loop trims the centre while hand or rotator drifts"
+  },
+  "software": {
+    "commands": [
+      "swing centre offset (if RS232 or the DB25 port can set it)",
+      "swing width",
+      "rotator speed (existing)"
+    ],
+    "observes": [
+      "spot position along the corner (needs a camera)",
+      "range reached"
+    ],
+    "manual": [
+      "setting the red-light alignment once on the gun's screen",
+      "holding or carrying the gun"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-06-swing-offset.md"
+  ],
+  "sources": [
+    "../../sourcing/borrowed.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone();
+  const app = WK.app({
+    gun: { pose: 'opening' },
+    view: 'joint',
+    views: { joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 170 }, wide: { target: [30, -60, 170], dir: [-0.6, 0.35, 0.55], dist: 700 }, top: { target: [58, -6, 150], dir: [0, -0.003, 1], dist: 220 }, side: { target: [58, -6, 150], dir: [0.03, -1, 0.05], dist: 260 } },
+    viewButtons: ['joint', 'wide', 'top', 'side'],
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The gun’s head contains a motor that swings the beam (the recorded settings use an 80 Hz, 2 mm swing) and its settings screen has a “red light alignment” page whose two buttons move the red light left or right of the nozzle centre. So the head already has an actuator that moves the spot across the seam, without moving any part of the arrangement.</p>' +
+        '<p>Whether software can command that shift, over what range, and whether the beam and the red light move together are <b>not known</b>: the manual documents an RS232 port for “PC-based supervisory software” and a DB25 port for PLC integration, and nothing more. This page draws what the shift would do if it exists. The panel on the right is the seam cross-section: red dots are where the swung beam lands on the plate and the wall.</p>',
+      carries: '<p>Nothing new is carried. The offset is along the gun’s local X, the 34 mm width of the gun, which is across the seam when the barrel follows the tangent.</p>',
+      software: '<p>If the offset is settable, the loop is one axis: read the spot position along the corner (from a camera, not shown here beyond a bias slider), move the swing centre by minus that position divided by how far a unit of offset moves the spot. The “Software nulls” toggle does that every frame. The guide-star page (borrowed-05) is the calibration for this loop: nudge the offset, watch the spot, solve the slope.</p>',
+      tried: '<p><b>Round 1: what does an offset move?</b> The spot position along the corner path (down the plate, up the wall) changes by roughly the offset divided by the sine of the angle between the sweep line and the path; near the opening pose the slope is close to 1 mm per mm on the plate side and larger on the wall side. Change the three dials to see that the slope depends on the pose. Assumption broken: one mm of offset is one mm at the seam. It is not, and the slope changes sign of sensitivity near tangent poses.</p>' +
+        '<p><b>Round 2: range.</b> The offset moves the centre; the sweep width stays. When the centre goes far enough the sweep straddles the corner unevenly, then leaves the wall. The range slider stands in for what the head allows; the loop stops at it (LIMIT). Left standing: the actual range might be a fraction of a millimetre.</p>' +
+        '<p><b>Round 3: it is one axis.</b> Drift of the hand or the rotator has two components across the corner (into the wall, above the plate); an offset along one line corrects the component along the corner path and leaves the other as a standoff error. That is fine for seam position and useless for focus.</p>' +
+        '<p><b>Round 4: trusting the sensor.</b> The loop nulls what it sees. A sensor bias becomes a bias of the bead. The bias slider shows it.</p>',
+      unresolved: '<ul><li><b>For Derek to observe:</b> does the red-light alignment screen shift the actual beam spot or only the pilot? By how much at each end of its range, and does the 2 mm swing keep its shape while shifted?</li><li>Whether the RS232 or DB25 ports accept a shift or a swing setting at all (the manual documents no protocol).</li><li>Whether the shift changes the focus or the head’s standoff.</li><li>Any camera that sees the spot on the corner well enough to read it.</li></ul>',
+      assumptions: '<ul><li>Swing shape: a straight line along the gun’s local X through the dot, width from a slider (2 mm is the repo’s recorded practice setting [repo]; the manual specifies 2 mm at 10 Hz for its own welding note [manual]).</li><li>Range of the shift: slider, <b>unknown</b>.</li><li>Sweep landing: rays from the nozzle tip to points on that line, first hit on the drawn tube or plate. Geometry only, no energy or melt claim.</li><li>Corner path coordinate: signed distance along the L: up the wall is +, across the plate toward the axis is −.</li><li>Gun proxy from the manual envelope; dials as the reference scene (illustrative).</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { roll: 45, hole: 30, vert: -15, dr: 0, dz: 0, s: 0, w: 2, range: 2, auto: false, bias: 0, gain: 0.6 };
+  const rc = new THREE.Raycaster(), N = 21;
+  const XL = V(1, 0, 0);
+
+  // ---------- drawn sweep: fan lines from the nozzle and the landing polyline
+  const fanLines = [];
+  const fanMat = WK.lineMat('laser', { opacity: 0.5, onTop: true });
+  const fanGeo = new THREE.BufferGeometry(); fanGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 2 * 3), 3));
+  const fan = new THREE.LineSegments(fanGeo, fanMat); fan.frustumCulled = false; fan.userData.role = 'laser'; fan.userData.occludes = false; app.add(fan);
+  const landGeo = new THREE.BufferGeometry(); landGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+  const land = new THREE.Line(landGeo, new THREE.LineBasicMaterial({ color: 0xffd0cc, depthTest: false })); land.frustumCulled = false; land.renderOrder = 6; land.userData.occludes = false; app.add(land);
+  const centre = P.sphere(0.5, 'laser'); centre.userData.occludes = false; app.add(centre);
+  const seamMark = P.sphere(0.35, 'locate'); seamMark.userData.occludes = false; app.add(seamMark);
+  app.label(() => centre.position, 'sweep centre', { cls: 'laser' });
+  app.label(() => seamMark.position, 'seam', { cls: 'locate' });
+
+  function traceAt(s, halfW, n) {
+    const origin = gun.local('nozzleTip'), out = [];
+    ws.tube.updateWorldMatrix(true, false); ws.cap.updateWorldMatrix(true, false);
+    for (let i = 0; i < n; i++) {
+      const xi = s + (n === 1 ? 0 : (i / (n - 1) - 0.5) * 2 * halfW);
+      const focal = gun.local(V(xi, 0, -WK.CLEARANCE)), dir = focal.clone().sub(origin).normalize();
+      rc.set(origin, dir); const hit = rc.intersectObjects([ws.tube, ws.cap], false)[0];
+      if (!hit) { out.push(null); continue; }
+      const off = ws.offsetOf(hit.point), isCap = hit.object === ws.cap;
+      out.push({ pt: hit.point, off: off, cap: isCap, l: isCap ? off.radial : off.vertical });
+    }
+    return { origin: origin, hits: out };
+  }
+  // corner-path coordinate of the sweep centre for a centre offset s
+  const ellAt = s => { const r = traceAt(s, 0, 1).hits[0]; return r ? r.l : null; };
+
+  // ---------- side panel: seam cross-section with the landing points
+  const panel = WK.h('div', { class: 'sw-panel' });
+  const VW = 240, VH = 226, R0 = -6, R1 = 4, Z0 = -3, Z1 = 7, SC = 20, X0 = 16, Y0 = 22;
+  const sx = r => X0 + (r - R0) * SC, sy = z => Y0 + (Z1 - z) * SC;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + VW + ' ' + VH });
+  svg.appendChild(WK.svg('rect', { x: X0, y: Y0, width: (R1 - R0) * SC, height: (Z1 - Z0) * SC, fill: '#0f141b' }));
+  svg.appendChild(WK.svg('rect', { x: X0, y: sy(0), width: sx(0) - X0, height: sy(Z0) - sy(0), fill: '#8e98a6' }));
+  svg.appendChild(WK.svg('rect', { x: sx(0), y: sy(Z1), width: 1.65 * SC, height: sy(Z0) - sy(Z1), fill: '#c8d0da' }));
+  svg.appendChild(WK.svg('circle', { cx: sx(0), cy: sy(0), r: 3, fill: '#14b8a6' }));
+  svg.appendChild(WK.svg('text', { x: X0, y: 13, class: 't', text: 'Where the swung beam lands (mm)' }));
+  svg.appendChild(WK.svg('text', { x: sx(0) + 6, y: sy(0) + 13, text: 'seam', style: 'fill:#14b8a6' }));
+  const dotsG = WK.svg('g'); svg.appendChild(dotsG);
+  const cMk = WK.svg('path', { stroke: '#ffffff', 'stroke-width': 1.6, fill: 'none' }); svg.appendChild(cMk);
+  const readEl = WK.h('div', { class: 'sw-read' }), noteEl = WK.h('div', { class: 'sw-note', text: 'geometry of the drawn scene, not a measurement' });
+  panel.append(svg, readEl, noteEl); app.stageEl.appendChild(panel);
+  function drawPanel(tr, ellC) {
+    dotsG.innerHTML = '';
+    const ra = traceAt(-S.range, 0, 1).hits[0], rb = traceAt(S.range, 0, 1).hits[0];
+    if (ra && rb) {
+      const ax = Math.max(X0 + 2, Math.min(sx(R1) - 2, sx(ra.off.radial))), ay = Math.max(Y0 + 2, Math.min(sy(Z0) - 2, sy(ra.off.vertical))), bx = Math.max(X0 + 2, Math.min(sx(R1) - 2, sx(rb.off.radial))), by = Math.max(Y0 + 2, Math.min(sy(Z0) - 2, sy(rb.off.vertical)));
+      dotsG.appendChild(WK.svg('line', { x1: ax, y1: ay, x2: bx, y2: by, stroke: '#a855f7', 'stroke-width': 1.4, 'stroke-dasharray': '3 2', opacity: 0.9 }));
+      [[ax, ay], [bx, by]].forEach(p => dotsG.appendChild(WK.svg('circle', { cx: p[0], cy: p[1], r: 3, fill: 'none', stroke: '#a855f7', 'stroke-width': 1.4 })));
+    }
+    tr.hits.forEach(function (h, i) {
+      if (!h) return;
+      const r = h.off.radial, z = h.off.vertical, px = Math.max(X0 + 2, Math.min(sx(R1) - 2, sx(r))), py = Math.max(Y0 + 2, Math.min(sy(Z0) - 2, sy(z)));
+      dotsG.appendChild(WK.svg('circle', { cx: px, cy: py, r: i === (N - 1) / 2 ? 3.6 : 2.4, fill: h.cap ? '#ff8a80' : '#ffcf7a', stroke: '#0f141b', 'stroke-width': 0.6 }));
+    });
+    const c = tr.hits[(N - 1) / 2];
+    if (c) { const px = sx(c.off.radial), py = sy(c.off.vertical); cMk.setAttribute('d', 'M' + (px - 7) + ' ' + py + 'H' + (px + 7) + 'M' + px + ' ' + (py - 7) + 'V' + (py + 7)); cMk.style.display = ''; } else cMk.style.display = 'none';
+  }
+
+  // ---------- update
+  function place() { gun.setDials(S.roll, S.hole, S.vert); gun.group.position.add(V(S.dr, 0, S.dz)); gun.group.updateMatrixWorld(true); }
+  let statusRange = null;
+  function update() {
+    place();
+    const tr = traceAt(S.s, S.w / 2, N), cIdx = (N - 1) / 2, c = tr.hits[cIdx];
+    const arr = fanGeo.attributes.position.array, la = landGeo.attributes.position.array; let m = 0, k = 0;
+    tr.hits.forEach(function (h) { if (!h) return; tr.origin.toArray(arr, m * 3); h.pt.toArray(arr, (m + 1) * 3); m += 2; h.pt.toArray(la, k * 3); k++; });
+    fanGeo.setDrawRange(0, m); fanGeo.attributes.position.needsUpdate = true; landGeo.setDrawRange(0, k); landGeo.attributes.position.needsUpdate = true;
+    if (c) centre.position.copy(c.pt); centre.visible = !!c;
+    seamMark.position.copy(ws.jointNow());
+    const ell = c ? c.l : null;
+    const slope = (function () { const a = ellAt(S.s + 0.1), b = ellAt(S.s - 0.1); return (a != null && b != null) ? (a - b) / 0.2 : null; })();
+    const onWall = tr.hits.filter(h => h && !h.cap).length, onPlate = tr.hits.filter(h => h && h.cap).length, miss = tr.hits.filter(h => !h).length;
+    drawPanel(tr, ell);
+    readEl.textContent = 'purple = reach of the centre (\u00B1' + S.range + ' mm, unknown)  |  centre at ' + (ell == null ? 'no hit' : (ell >= 0 ? '+' : '') + ell.toFixed(2) + ' mm along the corner path') + '  |  sweep: ' + onPlate + ' plate, ' + onWall + ' wall, ' + miss + ' miss of ' + N;
+    const needed = ell == null ? null : -ell / (slope || 1);
+    const out = S.auto && needed != null && Math.abs(S.s) >= S.range - 1e-6 && Math.abs(needed + S.s) > 0;
+    app.badge('range', S.auto && ell != null && Math.abs(ell + (S.bias || 0)) > 0.05 && Math.abs(S.s) >= S.range - 1e-6 ? 'swing centre at the end of its range (±' + S.range + ' mm, unknown): the loop cannot correct the rest' : null, 'limit');
+    app.cornerInset.setEstimate(null);
+    const off = ws.offsetOf(gun.dotWorld());
+    app.io.set({
+      commands: [
+        { name: 'Swing centre offset', value: S.s.toFixed(2), unit: 'mm', note: 'if the head accepts it: red-light alignment shift; range unknown' },
+        { name: 'Swing width', value: S.w.toFixed(1), unit: 'mm', note: 'a setting on the head today' },
+        { name: 'Software nulling', value: S.auto ? 'on' : 'off' },
+      ],
+      observes: [
+        { name: 'Spot centre along the corner path', value: ell == null ? '-' : (ell + S.bias).toFixed(2), unit: 'mm', status: 'partly', note: 'needs a camera; the bias slider is its error. The truth is in the panel.' },
+        { name: 'Slope: mm along the path per mm of offset', value: slope == null ? '-' : slope.toFixed(2), status: 'partly', note: 'from nudging the offset (see borrowed-05)' },
+        { name: 'Geometric dot vs seam (r, z)', value: off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2), unit: 'mm', status: 'blind', note: 'the drift the loop is correcting; only the simulation knows' },
+        { name: 'Does the offset exist, over what range?', value: 'unknown', status: 'unresolved', note: 'the red-light alignment screen suggests it; the manual documents nothing more' },
+      ],
+      manual: ['Set the red-light alignment on the head once', 'Carry and aim the gun'],
+    });
+    app.invalidate();
+  }
+  function setS(v) { S.s = Math.max(-S.range, Math.min(S.range, v)); app.ui.set('s', +S.s.toFixed(3), { silent: true }); }
+  app.onFrame(function () {
+    if (!S.auto) { if (ws.spin.on) { update(); return true; } return false; }
+    const ell = ellAt(S.s), slope = (function () { const a = ellAt(S.s + 0.1), b = ellAt(S.s - 0.1); return (a != null && b != null) ? (a - b) / 0.2 : null; })();
+    if (ell == null || !slope) return false;
+    const err = ell + S.bias;
+    if (Math.abs(err) < 0.005) { update(); return true; }
+    setS(S.s - S.gain * err / slope); update(); return true;
+  });
+
+  // ---------- controls
+  const ac = app.ui.group('Head actuators (proposed, if the head accepts them)', { help: 'Range and protocol unknown.' });
+  ac.slider({ id: 's', label: 'Swing centre offset', min: -5, max: 5, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => gun.group, help: 'Along the gun’s local X: the red-light left/right shift.', onChange: v => { if (Math.abs(v) > S.range) { v = Math.sign(v) * S.range; } S.s = v; update(); } });
+  ac.slider({ id: 'w', label: 'Swing width', min: 0.5, max: 5, step: 0.1, value: 2, unit: 'mm', kind: 'actuator', visual: () => gun.group, onChange: v => { S.w = v; update(); } });
+  ac.toggle({ id: 'auto', label: 'Software nulls the spot position', value: false, kind: 'state', help: 'Reads the spot along the corner path (with the bias below) and moves the centre.', onChange: v => { S.auto = v; update(); } });
+  ac.slider({ id: 'range', label: 'Range the head allows (unknown)', min: 0.3, max: 5, step: 0.1, value: 2, unit: '± mm', kind: 'scene', help: 'A stand-in for what the head really allows.', onChange: v => { S.range = v; setS(S.s); update(); } });
+  ac.slider({ id: 'bias', label: 'Sensor bias on the spot position', min: -0.5, max: 0.5, step: 0.01, value: 0, unit: 'mm', kind: 'scene', help: 'What the camera gets wrong; the loop nulls the biased value.', onChange: v => { S.bias = v; update(); } });
+  const hd = app.ui.group('What drifts (scene edits)');
+  hd.slider({ id: 'dr', label: 'Gun drift, radial (into the wall +)', min: -3, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: v => { S.dr = v; update(); } });
+  hd.slider({ id: 'dz', label: 'Gun drift, vertical', min: -3, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: v => { S.dz = v; update(); } });
+  const gd = app.ui.group('Gun orientation (reference dials, scene edits)');
+  gd.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.roll = v; update(); } });
+  gd.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.hole = v; update(); } });
+  gd.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.vert = v; update(); } });
+  const rg = app.ui.group('Rotator and tube');
+  rg.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  rg.toggle({ id: 'runout', label: 'Show indicated runout (rig-doc limits)', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 12); update(); } });
+  rg.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+
+  gun.setLaser(false);
+  // corner inset shows the effective sweep centre instead of the geometric dot
+  const tip = { dotOffset: function () { const t = traceAt(S.s, 0, 1).hits[0]; return t ? t.off : gun.dotOffset(); }, beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: tip });
+  update();
+})();
+</script>
+</body>
+</html>

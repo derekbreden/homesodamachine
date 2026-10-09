@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corner cords</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-06-corner-cords",
+  "title": "Corner cords: eight taut lines from the room to the shell",
+  "by": "room",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "Nothing carries the gun but eight taut lines that run from the corners of a cage (or four floor-to-ceiling tension poles) to lugs on the printed shell. Winches set the lengths; the room's corners are the anchors. The scene solves cord tensions for the current pose, shows stiffness and which cords go slack, and lets you sabotage the anchor positions and watch software calibrate them away by looking. What it looks with is a choice: a camera sees a spot where the beam meets a surface, not a point in air, so a spot alone leaves the gun's position along its beam unknown (eyes-13); a nozzle-height camera or a marker cube on the shell brings it back.",
+  "tags": ["cable-robot", "tension", "winch", "cage", "self-calibration", "suspension", "observer"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["self-calibration by observing the dot", "wrench-feasibility solve", "room corners as anchors", "taut line vs gravity stiffness"],
+  "how": {
+    "motion": "eight winches set cord lengths; the whole 6-DoF pose follows",
+    "load": "cords in tension carry everything; the cage frame carries the cords",
+    "reference": "anchor eyelets at the cage corners; calibrated by watching the dot",
+    "observe": "camera on the spot, camera on the nozzle height, or a marker cube; winch step counts; motor current",
+    "use": "hang the shell, calibrate, drive to poses; nothing sits on the bench but the rotator"
+  },
+  "software": {
+    "commands": ["eight winch lengths (from a commanded pose by inverse kinematics)", "rotator speed and direction (existing)"],
+    "observes": ["the spot where the beam meets the plate (two numbers per pose)", "nozzle-tip height over the rim (second camera)", "winch step counts", "motor current as a proxy for cord tension", "NOT: the gun's position along its own beam, from a spot alone"],
+    "manual": ["setting up the cage or poles", "fitting the shell and tying the eight cords", "loading the tube", "the first rough anchor positions"]
+  },
+  "notes": ["../../explorers/room/ideas/room-06-corner-cords.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+/* ---- kernel: pasted from explorers/room/calc/cdpr-core.mjs (dependency-free) ---- */
+// cdpr-core.mjs - small dependency-free kernel for the "corner cords" idea (room-06): eight taut lines from fixed anchors
+// to lugs on the gun shell. Tension solve (non-negative, with a minimum pretension), translational stiffness, forward
+// kinematics by Gauss-Newton, and a tiny dense linear solver. Classic maths, written out so it can be pasted into a scene.
+// Units: mm, N. The gun's mass / centre of mass / umbilical pull are [unknown]; callers pass [illustrative] values.
+
+const V = {
+  add: (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]],
+  sub: (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]],
+  scl: (a, k) => [a[0] * k, a[1] * k, a[2] * k],
+  dot: (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2],
+  cross: (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]],
+  len: a => Math.hypot(a[0], a[1], a[2]),
+  unit: a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; },
+};
+const M3 = {
+  mulV: (m, v) => [m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2], m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2], m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2]],
+  mul: (a, b) => [0, 1, 2].map(i => [0, 1, 2].map(j => a[i][0] * b[0][j] + a[i][1] * b[1][j] + a[i][2] * b[2][j])),
+  rodrigues: w => {
+    const th = Math.hypot(w[0], w[1], w[2]);
+    if (th < 1e-12) return [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    const k = [w[0] / th, w[1] / th, w[2] / th], c = Math.cos(th), s = Math.sin(th), t = 1 - c;
+    return [[t * k[0] * k[0] + c, t * k[0] * k[1] - s * k[2], t * k[0] * k[2] + s * k[1]],
+            [t * k[0] * k[1] + s * k[2], t * k[1] * k[1] + c, t * k[1] * k[2] - s * k[0]],
+            [t * k[0] * k[2] - s * k[1], t * k[1] * k[2] + s * k[0], t * k[2] * k[2] + c]];
+  },
+  fromColumns: (x, y, z) => [[x[0], y[0], z[0]], [x[1], y[1], z[1]], [x[2], y[2], z[2]]],
+  inv3: m => {
+    const [a, b, c] = m[0], [d, e, f] = m[1], [g, h, i] = m[2];
+    const A = e * i - f * h, B = -(d * i - f * g), C = d * h - e * g, det = a * A + b * B + c * C;
+    return [[A / det, -(b * i - c * h) / det, (b * f - c * e) / det], [B / det, (a * i - c * g) / det, -(a * f - c * d) / det], [C / det, -(a * h - b * g) / det, (a * e - b * d) / det]];
+  },
+};
+
+// Solve A x = b for a dense square system by Gaussian elimination with partial pivoting (small n).
+function solveLinear(A, b) {
+  const n = b.length, M = A.map((r, i) => r.slice().concat([b[i]]));
+  for (let c = 0; c < n; c++) {
+    let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    if (Math.abs(M[p][c]) < 1e-14) return null;
+    [M[c], M[p]] = [M[p], M[c]];
+    for (let r = c + 1; r < n; r++) { const f = M[r][c] / M[c][c]; for (let k = c; k <= n; k++) M[r][k] -= f * M[c][k]; }
+  }
+  const x = new Array(n).fill(0);
+  for (let r = n - 1; r >= 0; r--) { let s = M[r][n]; for (let k = r + 1; k < n; k++) s -= M[r][k] * x[k]; x[r] = s / M[r][r]; }
+  return x;
+}
+
+// Lawson-Hanson NNLS: minimise |A s - b| subject to s >= 0. A is m x n (array of rows).
+function nnls(A, b, maxIter = 200) {
+  const m = A.length, n = A[0].length;
+  const x = new Array(n).fill(0), P = new Array(n).fill(false);
+  const AT = (v) => { const w = new Array(n).fill(0); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) w[j] += A[i][j] * v[i]; return w; };
+  const resid = () => b.map((bi, i) => bi - A[i].reduce((s, a, j) => s + a * x[j], 0));
+  const lsq = (idx) => {   // least squares on columns idx
+    const k = idx.length, G = idx.map(i => idx.map(j => { let s = 0; for (let r = 0; r < m; r++) s += A[r][i] * A[r][j]; return s + (i === j ? 1e-12 : 0); }));
+    const h = idx.map(i => { let s = 0; for (let r = 0; r < m; r++) s += A[r][i] * b[r]; return s; });
+    return solveLinear(G, h);
+  };
+  for (let it = 0; it < maxIter; it++) {
+    const w = AT(resid());
+    let t = -1, best = 1e-10;
+    for (let j = 0; j < n; j++) if (!P[j] && w[j] > best) { best = w[j]; t = j; }
+    if (t < 0) break;
+    P[t] = true;
+    for (let inner = 0; inner < 100; inner++) {
+      const idx = P.map((p, j) => p ? j : -1).filter(j => j >= 0);
+      const z = lsq(idx);
+      if (!z) { P[t] = false; break; }
+      if (z.every(v => v > 1e-12)) { idx.forEach((j, k) => { x[j] = z[k]; }); for (let j = 0; j < n; j++) if (!P[j]) x[j] = 0; break; }
+      let alpha = Infinity;
+      idx.forEach((j, k) => { if (z[k] <= 1e-12) { const a = x[j] / (x[j] - z[k]); if (a < alpha) alpha = a; } });
+      idx.forEach((j, k) => { x[j] += alpha * (z[k] - x[j]); });
+      for (const j of idx) if (Math.abs(x[j]) < 1e-12) { x[j] = 0; P[j] = false; }
+    }
+  }
+  const r = resid();
+  return { x, resNorm: Math.hypot(...r) };
+}
+
+// Structure: anchors a[i] (world), lugs l[i] (LOCAL to the gun, same frame as `dotLocal`), pose {R, p} where p is the
+// world position of dotLocal and R the world rotation of the gun. Returns geometry of cord i.
+function cordGeometry(anchors, lugsLocal, dotLocal, pose) {
+  return anchors.map((a, i) => {
+    const lw = V.add(pose.p, M3.mulV(pose.R, V.sub(lugsLocal[i], dotLocal)));
+    const d = V.sub(a, lw), L = V.len(d);
+    return { lugW: lw, anchor: a, L, u: V.scl(d, 1 / L) };   // u: unit vector from lug toward the anchor (the direction the cord pulls the gun)
+  });
+}
+
+// Tension solve. wrench = external force F (N, world) and moment M about `com` (N mm) acting on the gun (gravity, umbilical pull...).
+// Cords must satisfy sum(t_i u_i) + F = 0 and sum((l_i - com) x t_i u_i) + M = 0 with t_i >= tMin.
+function solveTensions(geo, com, F, Mo, tMin) {
+  const n = geo.length;
+  const A = [[], [], [], [], [], []];
+  geo.forEach(g => {
+    const r = V.sub(g.lugW, com), m = V.cross(r, g.u);
+    [g.u[0], g.u[1], g.u[2], m[0], m[1], m[2]].forEach((v, k) => A[k].push(v));
+  });
+  const rhs0 = [-F[0], -F[1], -F[2], -Mo[0], -Mo[1], -Mo[2]];
+  const shift = A.map(row => row.reduce((s, a) => s + a, 0) * tMin);
+  const b = rhs0.map((v, k) => v - shift[k]);
+  const { x, resNorm } = nnls(A, b);
+  const t = x.map(v => v + tMin);
+  return { t, resNorm, A, feasible: resNorm < 1e-6 * (1 + Math.hypot(...rhs0)) };
+}
+
+// Translational stiffness matrix at the gun (3x3, N/mm) for cord axial stiffness EA (N): k_i = EA / L_i plus geometric T_i/L_i.
+function stiffness3(geo, t, EA) {
+  const K = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  geo.forEach((g, i) => {
+    const ki = EA / g.L, gi = t[i] / g.L;
+    for (let a = 0; a < 3; a++) for (let c = 0; c < 3; c++) {
+      const uu = g.u[a] * g.u[c];
+      K[a][c] += ki * uu + gi * ((a === c ? 1 : 0) - uu);
+    }
+  });
+  return K;
+}
+
+// Symmetric 3x3 eigenvalues (Jacobi) - returns sorted ascending eigenvalues and the eigenvector of the smallest.
+function eig3(K) {
+  const A = K.map(r => r.slice()), Vv = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  for (let sweep = 0; sweep < 50; sweep++) {
+    let off = 0; for (let i = 0; i < 3; i++) for (let j = i + 1; j < 3; j++) off += A[i][j] * A[i][j];
+    if (off < 1e-18) break;
+    for (let p = 0; p < 2; p++) for (let q = p + 1; q < 3; q++) {
+      if (Math.abs(A[p][q]) < 1e-18) continue;
+      const th = (A[q][q] - A[p][p]) / (2 * A[p][q]), t = Math.sign(th || 1) / (Math.abs(th) + Math.sqrt(th * th + 1)), c = 1 / Math.sqrt(t * t + 1), s = t * c;
+      for (let k = 0; k < 3; k++) { const akp = A[k][p], akq = A[k][q]; A[k][p] = c * akp - s * akq; A[k][q] = s * akp + c * akq; }
+      for (let k = 0; k < 3; k++) { const apk = A[p][k], aqk = A[q][k]; A[p][k] = c * apk - s * aqk; A[q][k] = s * apk + c * aqk; }
+      for (let k = 0; k < 3; k++) { const vkp = Vv[k][p], vkq = Vv[k][q]; Vv[k][p] = c * vkp - s * vkq; Vv[k][q] = s * vkp + c * vkq; }
+    }
+  }
+  const ev = [A[0][0], A[1][1], A[2][2]], order = [0, 1, 2].sort((i, j) => ev[i] - ev[j]);
+  return { values: order.map(i => ev[i]), weakest: [Vv[0][order[0]], Vv[1][order[0]], Vv[2][order[0]]] };
+}
+
+// Forward kinematics: given cord lengths Ls (mm) and the geometry (anchors, lugsLocal, dotLocal), find the pose (p, R) by
+// Gauss-Newton starting from `init` {p, R}. Returns {p, R, rms}.
+function forwardKin(anchors, lugsLocal, dotLocal, Ls, init, iters = 30) {
+  let p = init.p.slice(), R = init.R.map(r => r.slice());
+  for (let it = 0; it < iters; it++) {
+    const geo = cordGeometry(anchors, lugsLocal, dotLocal, { p, R });
+    const r = geo.map((g, i) => g.L - Ls[i]);
+    const J = geo.map(g => { const rl = V.sub(g.lugW, p); const m = V.cross(rl, g.u); return [-g.u[0], -g.u[1], -g.u[2], -m[0], -m[1], -m[2]]; });   // d L / d [dp, dw] (world-frame small rotation about p)
+    const JTJ = Array.from({ length: 6 }, (_, i) => Array.from({ length: 6 }, (_, j) => J.reduce((s, row) => s + row[i] * row[j], 0) + (i === j ? 1e-9 : 0)));
+    const JTr = Array.from({ length: 6 }, (_, i) => J.reduce((s, row, k) => s + row[i] * r[k], 0));
+    const dx = solveLinear(JTJ, JTr.map(v => -v));
+    if (!dx) break;
+    p = V.add(p, dx.slice(0, 3));
+    R = M3.mul(M3.rodrigues(dx.slice(3, 6)), R);
+    if (Math.hypot(...dx) < 1e-10) break;
+  }
+  const geo = cordGeometry(anchors, lugsLocal, dotLocal, { p, R });
+  return { p, R, rms: Math.sqrt(geo.reduce((s, g, i) => s + (g.L - Ls[i]) ** 2, 0) / geo.length) };
+}
+
+// tiny seeded RNG for reproducible Monte Carlo
+function rng(seed) {
+  let a = seed >>> 0;
+  const u = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const n = () => { let x = 0, y = 0; while (x === 0) x = u(); y = u(); return Math.sqrt(-2 * Math.log(x)) * Math.cos(2 * Math.PI * y); };
+  return { u, n };
+}
+
+/* ---- scene ---- */
+const T3 = THREE, tv = (x, y, z) => new T3.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+const G = 9.81, MASS = 1.47, COM_LOCAL = [0, -23, 181], DOT_LOCAL = [0, 0, -16];   // proxy values [illustrative, unknown]
+const LINES = { dyneema: { label: 'Dyneema-type 1 mm braid (EA ~60 kN, illustrative)', EA: 6e4 }, steel: { label: '0.5 mm stainless wire (EA ~12 kN, illustrative)', EA: 1.2e4 }, nylon: { label: '1 mm nylon monofilament (EA ~0.3 kN, illustrative)', EA: 3e2 } };
+const app = WK.app({
+  workstation: { benchSize: [900, 820], benchCenter: [0, 0] }, gun: { pose: 'none' }, view: 'overall',
+  viewButtons: ['overall', 'joint', 'top', 'side'],
+  views: {
+    overall: { target: [0, -60, 250], dir: [0.75, -0.62, 0.42], dist: 1500 },
+    joint: { target: [20, -60, 200], dir: [0.8, -0.55, 0.4], dist: 520 },
+    top: { target: [0, -40, 300], dir: [0, -0.003, 1], dist: 1250 },
+    side: { target: [0, -40, 300], dir: [1, 0.01, 0.06], dist: 1500 },
+  },
+  open: ['proposes', 'tried'],
+  sections: {
+    proposes: '<p>Four corner poles (a bolted cage about 0.7 to 1.2&nbsp;m across, or, only with a wide-winged shell, four floor-to-ceiling poles that need no drilling) carry eight anchor eyelets, each with a small winch. Eight thin taut lines run from the anchors to eight lugs on the printed shell. The gun hangs in the middle; <b>nothing else touches it</b> except its own umbilical. The lengths of the eight lines are the whole control: software commands a pose, inverse kinematics turns it into eight lengths.</p>' +
+      '<p><b>Try:</b> the anchors were placed by hand and are 2&nbsp;mm out; the winches were zeroed to 1&nbsp;mm. The dot misses the seam by several mm (corner inset). Press <i>Self-calibrate</i>: the scene commands 32 poses, reads what the chosen <b>observer</b> reports, fits the anchor and length errors, and the readout shows the error over 100 fresh poses before and after. Switch the observer to <i>Spot on the plate</i> and calibrate again: the fit is left with about twice the error, because a spot does not change when the gun slides along its beam. Add the nozzle-height camera or the marker cube and it comes back. Then lower the line to nylon, raise the pull, or move the pose and watch tensions and stiffness.</p>',
+    carries: '<p><b>Amber</b> cords carry everything; thickness follows tension. If the equilibrium has no non-negative solution, every cord turns <b>red</b> and a badge says the lines would go slack. <b>Slate</b> is the cage. <b>Purple</b> are the winches (actuators). <b>Teal</b> lugs are where cords tie to the shell.</p>' +
+      '<p>Tensions come from a non-negative least-squares solve of the six equilibrium equations (gun weight at the centre of mass, the umbilical pull at the grip base, minimum pretension on every cord). Stiffness is the axial stiffness of the taut lines (EA/L) plus the pretension term.</p>',
+    software: '<p>Software commands eight winch lengths by inverse kinematics from a commanded pose. It can observe the dot (camera on the cage top), winch step counts, and motor current as a rough tension proxy. <b>Self-calibration</b> is the point: the anchor positions come from a tape measure, and a few dozen poses seen by a camera make them exact enough. What the camera sees is where the beam meets a surface (two numbers), so one more number that depends on the gun\'s place along its beam has to come from somewhere: a nozzle-height camera or a marker cube. The scene shows the exact truth and the recovered values; the software would only see the noisy observations.</p>',
+    tried: '<ul>' +
+      '<li><b>"It will sway."</b> True for gravity (a 1&nbsp;m pendulum: 0.015&nbsp;N/mm) and for pretension (0.03 to 0.07&nbsp;N/mm for a bungee pair; <code>suspension-stiffness.mjs</code>). It is not true of fixed-length taut lines: 1&nbsp;mm Dyneema-type braid at about 0.5 to 0.7&nbsp;m is roughly 100&nbsp;N/mm along each line, and the eight together give 190 to 380&nbsp;N/mm in every direction at the opening pose (readout). A 2&nbsp;N umbilical pull then moves the dot about 10&nbsp;µm (32&nbsp;µm including the shell turning). <i>Leaves:</i> creep, winch drums, guides: none modelled.</li>' +
+      '<li><b>My first pairing of lugs to corners had no positive tension mode.</b> Every cord turned the gun the same way about x, so the gun could not be held at all. <i>Repair:</i> search all 8! pairings (<code>corner-cords-pairing-search.mjs</code>): 4360 hold the gun, but only 43 also keep every cord clear of the shell, and eight of those held all 72 sampled poses and umbilical directions in [5, 150] N. The scene uses one of them. <i>Leaves:</i> anyone re-tying the cords must copy the pairing.</li>' +
+      '<li><b>Sloppy anchors.</b> 2&nbsp;mm anchor and 1&nbsp;mm winch-zero errors put the dot 2.4 to 8&nbsp;mm off. Fitting 32 parameters to 10 to 40 observed poses gave 0.05 to 0.25&nbsp;mm rms on 200 fresh targets (<code>corner-cords-calibration.mjs</code>, observer noise 0.1&nbsp;mm per axis). 1&nbsp;mm lug errors (unfitted) leave 0.25&nbsp;mm rms; 5&nbsp;mm anchors and 0.3&nbsp;mm noise leave 0.16&nbsp;mm. <i>Repair (if lugs matter):</i> scan the shell and print the lugs from the model. <i>Leaves:</i> pulleys instead of fixed eyelets move the cord\'s effective end by radius times angle: 0.3 mm for an 8 mm pulley over 2°.</li>' +
+      '<li><b>The observer was promised a 3-D dot (eyes, wave 3).</b> A camera reports where a line ends. Re-run with each observer (<code>corner-cords-observer.mjs</code>): a spot on the plate leaves 0.2 to 0.4&nbsp;mm; adding the nozzle-tip height 0.14; a marker cube on the shell 0.11 and the beam direction to 0.03°. The first figures above are the 3-D-dot row. <i>Leaves:</i> the second camera\'s own calibration, whether the spot centroids on stainless, and a spot on plate and wall together did not converge with this fit.</li>' +
+      '<li><b>The lines cross the working space.</b> They run through the volume above the tube, past the umbilical and the wire conduit, and near the plume. Dyneema melts; a stray beam or spatter can cut it. <i>Repair (untested):</i> stainless wire for the lines within 200&nbsp;mm of the nozzle; keep every lug on the far side of the housing from the nozzle. <i>Leaves:</i> sag of steel wire is 0.15 to 0.44&nbsp;mm at 10 to 30&nbsp;N over 0.9&nbsp;m (calc).</li>' +
+      '<li><b>The room is too big for a small shell.</b> Take the same lug layout to a 2.4&nbsp;m cage (anchors at the room\'s corners, ceiling at 2.3&nbsp;m) and the pairing search finds <i>none</i> of the 40320 pairings that holds the gun: 43 at 0.7&nbsp;m, 10 at 1.2&nbsp;m, 0 at 2.4&nbsp;m (<code>corner-cords-pairing-search.mjs</code> with <code>CAGE=</code>). The cords become near-parallel bundles and the shell\'s few centimetres cannot generate the moments a positive-tension mode needs. <i>Repair:</i> a cage 3 to 5 times the shell\'s size, or wings on the shell: lugs scaled 3 times about the centre of mass (300&nbsp;mm outriggers) restore 59 pairings at 2.4&nbsp;m, 4 times restores 161. Stiffness at 2.4&nbsp;m falls with cord length to about 56&nbsp;N/mm (<code>corner-cords-room-scale.mjs</code>). <i>Leaves:</i> outriggers sweep the working volume; telescoping poles jammed against a ceiling also need to take the cords\' sideways pull (untested).</li>' +
+      '<li><b>Orientation range is small.</b> The three dials of the reference scene become "how far the shell may turn before a cord goes slack or hits the gun". Sampled: ±25 × ±25 × ±15&nbsp;mm and ±4° held with every cord between 5 and 97&nbsp;N. Larger turns were not tried. <i>Repair:</i> print a different shell for a different coarse angle; the lug layout is the setup.</li></ul>',
+    unresolved: '<ul><li>Whether Derek would accept eight cords through the working space, and how a hand reaches the nozzle to snip a stuck wire.</li>' +
+      '<li>Winch design: a NEMA 17 with a 10&nbsp;mm drum sees up to 100&nbsp;N (0.5 to 1&nbsp;N·m): a geared or NEMA 23 stage. Not designed.</li>' +
+      '<li>Tension sensing: motor current is an estimate; a load cell per line is more.</li>' +
+      '<li>Camera A as first drawn is crossed by two of the eight cords in about a fifth of the poses in range; over the shell it is 3 %. Where the second camera (nozzle height) stands, and whether the marker cube is seen through the cords, is not drawn here.</li>' +
+      '<li>Gun mass, centre of mass, umbilical pull: unmeasured. The shell\'s real lug positions come from a scan.</li></ul>',
+    assumptions: '<ul><li>Gun proxy and opening pose; mass 1.47&nbsp;kg, centre of mass local (0, −23, 181): illustrative.</li>' +
+      '<li>Cage 700 × 700&nbsp;mm; anchors at 650 and 170&nbsp;mm above the tube bottom: illustrative. Line stiffness EA and the winch/anchor error sigmas are illustrative.</li>' +
+      '<li>Observer noise: 0.10&nbsp;mm in the surface, 0.20&nbsp;mm for the nozzle tip and the marker cube, 0.05° for its aim: illustrative; a real camera would add its own calibration error.</li>' +
+      '<li>The drawn cords are thicker than 1&nbsp;mm and do not occlude in the drawing; the crossing test uses the true 1.15&nbsp;mm sight-line margin on the true cord segments.</li>' +
+      '<li>Anchors are point eyelets; cords are massless straight segments; small sag is ignored in the tension solve (calc lists it).</li></ul>',
+  },
+});
+const ws = app.workstation, gun = app.gun;
+const S = { dx: 0, dy: 0, dz: 0, ra: 0, rb: 0, rc: 0, tmin: 5, pull: 2, pdir: '-Y', line: 'dyneema', sigA: 2, sigC: 1, cal: false, errs: false, seed: 39, obs: 'plane+nz', cam: 'shell', calInfo: null };
+
+// ---------------------------------------------------------------- shell, lugs, cage
+const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+const lugSpecs = [[[-16, 0, 109], [-1, 0, 0]], [[16, 0, 109], [1, 0, 0]], [[-20, 20, 150], [-1, 1, 0]], [[20, 20, 150], [1, 1, 0]], [[-20, 20, 235], [-1, 1, 0]], [[20, 20, 235], [1, 1, 0]], [[-18, -118, 237], [-1, 0, 0]], [[18, -118, 237], [1, 0, 0]]];
+const lugs = lugSpecs.map(sp => shell.attachPoint(sp[0], { side: sp[1], role: 'locate', size: 6 }));
+const LUG = lugs.map(l => l.local.toArray());
+const CAGE = [[350, 350, 650], [-350, 350, 650], [-350, -350, 650], [350, -350, 650], [350, -350, 170], [-350, -350, 170], [-350, 350, 170], [350, 350, 170]];
+const PAIRING = [6, 0, 1, 4, 5, 7, 2, 3];                 // lug i -> anchor index (from corner-cords-pairing-search.mjs)
+const NOM = LUG.map((_, i) => CAGE[PAIRING[i]]);
+const BZ = WK.RIG ? -86 : -86;
+[[350, 350], [-350, 350], [-350, -350], [350, -350]].forEach(xy => { const r = P.rod(tv(xy[0], xy[1], BZ), tv(xy[0], xy[1], 690), 8, 'fixed'); app.add(r); });
+[[350, 350, -350, 350], [-350, 350, -350, -350], [-350, -350, 350, -350], [350, -350, 350, 350]].forEach(q => app.add(P.rod(tv(q[0], q[1], 690), tv(q[2], q[3], 690), 5, 'fixed')));
+const winchBoxes = NOM.map(a => { const b = P.box(28, 28, 28, 'actuated'); b.position.set(a[0], a[1], a[2]); app.add(b); return b; });
+const cords = LUG.map(() => { const r = P.rod(tv(0, 0, 0), tv(0, 0, 1), 1.3, 'load'); r.userData.occludes = false; app.add(r); return r; });
+const errTrue = [], errEst = [];
+NOM.forEach(() => { const a = P.dashed([tv(0, 0, 0), tv(0, 0, 1)], 'laser', { dash: 3, gap: 2 }), b = P.dashed([tv(0, 0, 0), tv(0, 0, 1)], 'sensor', { dash: 6, gap: 2 }); app.addHelper(a); app.addHelper(b); errTrue.push(a); errEst.push(b); });
+gun.setLaser(true);
+
+// ---------------------------------------------------------------- truth (hidden from the "software") and estimate
+const base = WK.dialsToPose(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical), q0 = base.quaternion.clone(), D0 = WK.JOINT.clone();
+let TRUTH = null, EST = null;
+function makeTruth() {
+  const r = rng(S.seed);
+  TRUTH = { anchors: NOM.map(a => a.map(v => v + r.n() * S.sigA)), off: NOM.map(() => r.n() * S.sigC) };
+  EST = { anchors: NOM.map(a => a.slice()), off: NOM.map(() => 0) };
+  S.cal = false; S.calInfo = null;
+}
+function mat3FromQuat(q) { const m = new T3.Matrix4().makeRotationFromQuaternion(q).elements; return [[m[0], m[4], m[8]], [m[1], m[5], m[9]], [m[2], m[6], m[10]]]; }
+function poseFor(shift, dw) {
+  const qe = new T3.Quaternion().setFromEuler(new T3.Euler(dw[0], dw[1], dw[2], 'XYZ')), q = qe.multiply(q0.clone());
+  return { q: q, R: mat3FromQuat(q), p: [D0.x + shift[0], D0.y + shift[1], D0.z + shift[2]] };
+}
+function commandedLengths(pose, est) { return cordGeometry(est.anchors, LUG, DOT_LOCAL, pose).map((g, i) => g.L - est.off[i]); }
+function actualPose(pose) {
+  const cmd = commandedLengths(pose, EST), Ls = cmd.map((c, i) => c + TRUTH.off[i]);
+  const fk = forwardKin(TRUTH.anchors, LUG, DOT_LOCAL, Ls, { p: pose.p, R: pose.R });
+  return { p: fk.p, R: fk.R, cmd: cmd };
+}
+const FDIRS = { '+X': [1, 0, 0], '-X': [-1, 0, 0], '+Y': [0, 1, 0], '-Y': [0, -1, 0], '+Z': [0, 0, 1], '-Z': [0, 0, -1] };
+
+// ---------------------------------------------------------------- calibration: fit 24 anchor + 8 length offsets to what an observer REPORTS
+// A camera does not report a 3-D point in air: the red dot is where the beam meets a surface. So the observer is a choice (radio below):
+//   dot3d    a 3-D position of the dot, 0.10 mm per axis (what the first version of this scene assumed; no camera gives it)
+//   plane    the spot where the beam meets the plate plane, two numbers per pose (one camera, 0.10 mm in the surface)
+//   plane+nz the same, plus the height of the nozzle tip over the rim seen in profile (a second camera, 0.20 mm)
+//   tags     a marker cube on the shell seen by two cameras: the dot in 3-D at 0.20 mm and the beam direction at 0.05 degrees
+// Poses are limited to those whose nozzle tip stays inside the bore (a dot 14 mm into the wall is not a pose).
+const RIN = WK.INNER_RADIUS, ZPL = WK.CAP_TOP, AIM = 0.05 * Math.PI / 180;
+function observe(kind, p, R) {
+  const tip = V.add(p, M3.mulV(R, [0, 0, 16])), d = M3.mulV(R, [0, 0, -1]);
+  if (kind === 'dot3d') return { y: p.slice(), s: [0.1, 0.1, 0.1] };
+  if (kind === 'tags') return { y: p.concat(d), s: [0.2, 0.2, 0.2, AIM, AIM, AIM] };
+  const t = (ZPL - tip[2]) / d[2], sp = V.add(tip, V.scl(d, t));
+  if (kind === 'plane') return { y: [sp[0], sp[1]], s: [0.1, 0.1] };
+  return { y: [sp[0], sp[1], tip[2]], s: [0.1, 0.1, 0.2] };
+}
+function inBore(tp) { const tip = V.add(tp.p, M3.mulV(tp.R, [0, 0, 16])); return Math.hypot(tip[0], tip[1]) < RIN - 3; }
+function pickPose(r) { for (;;) { const tp = poseFor([(r.u() * 2 - 1) * 25, (r.u() * 2 - 1) * 25, (r.u() * 2 - 1) * 15], [0, 1, 2].map(() => (r.u() * 2 - 1) * 4 * DEG)); if (inBore(tp)) return tp; } }
+function calibrate() {
+  const r = rng(S.seed + 99), N = 32, kind = S.obs;
+  const nomEst = { anchors: NOM.map(a => a.slice()), off: NOM.map(() => 0) };
+  const train = [];
+  for (let k = 0; k < N; k++) {
+    const tp = pickPose(r), cmd = cordGeometry(nomEst.anchors, LUG, DOT_LOCAL, tp).map(g => g.L);
+    const fk = forwardKin(TRUTH.anchors, LUG, DOT_LOCAL, cmd.map((c, i) => c + TRUTH.off[i]), { p: tp.p, R: tp.R });
+    const ob = observe(kind, fk.p, fk.R);
+    train.push({ cmd: cmd, y: ob.y.map((v, i) => v + r.n() * ob.s[i]), s: ob.s, init: tp });
+  }
+  const NP = 32, prior = new Array(NP).fill(0).map((_, i) => 1 / (i < 24 ? Math.max(S.sigA, 0.5) : Math.max(S.sigC, 0.3)));
+  let theta = new Array(NP).fill(0), lam = 1e-3;
+  const pose = (th, t) => forwardKin(NOM.map((a, i) => [a[0] + th[3 * i], a[1] + th[3 * i + 1], a[2] + th[3 * i + 2]]), LUG, DOT_LOCAL, t.cmd.map((c, i) => c + th[24 + i]), { p: t.init.p, R: t.init.R }, 20);
+  const yOf = (th, t) => { const f = pose(th, t); return observe(kind, f.p, f.R).y; };
+  const cost = th => { let c = 0; train.forEach(t => yOf(th, t).forEach((v, i) => { c += ((t.y[i] - v) / t.s[i]) ** 2; })); return c + th.reduce((q, v, i) => q + (v * prior[i]) ** 2, 0); };
+  let c0 = cost(theta);
+  for (let iter = 0; iter < 12; iter++) {
+    const base = train.map(t => yOf(theta, t)), res = [];
+    train.forEach((t, k) => base[k].forEach((v, i) => res.push((t.y[i] - v) / t.s[i])));
+    const cols = [];
+    for (let j = 0; j < NP; j++) { const th2 = theta.slice(); th2[j] += 1e-3; const col = []; train.forEach((t, k) => yOf(th2, t).forEach((v, i) => col.push((v - base[k][i]) / 1e-3 / t.s[i]))); cols.push(col); }
+    const JTJ = Array.from({ length: NP }, (_, i) => Array.from({ length: NP }, (_, j) => { let q = 0; for (let k = 0; k < res.length; k++) q += cols[i][k] * cols[j][k]; return q; }));
+    const JTr = Array.from({ length: NP }, (_, i) => { let q = 0; for (let k = 0; k < res.length; k++) q += cols[i][k] * res[k]; return q - prior[i] ** 2 * theta[i]; });
+    let improved = false;
+    for (let tries = 0; tries < 8 && !improved; tries++) {
+      const A = JTJ.map((row, i) => row.map((v, j) => v + (i === j ? prior[i] ** 2 + lam * (JTJ[i][i] + 1) : 0)));
+      const dx = solveLinear(A, JTr); if (!dx) { lam *= 10; continue; }
+      const th2 = theta.map((v, i) => v + dx[i]), c1 = cost(th2);
+      if (c1 < c0) { theta = th2; c0 = c1; lam = Math.max(lam / 5, 1e-6); improved = true; } else lam *= 8;
+    }
+    if (!improved) break;
+  }
+  const before = testRms(nomEst, 100);
+  EST = { anchors: NOM.map((a, i) => [a[0] + theta[3 * i], a[1] + theta[3 * i + 1], a[2] + theta[3 * i + 2]]), off: theta.slice(24) };
+  S.cal = true; S.calInfo = { kind: kind, before: before, after: testRms(EST, 100) };
+}
+function testRms(est, n) {
+  const r = rng(555); let s = 0;
+  const saved = EST; EST = est;
+  for (let k = 0; k < n; k++) { const tp = pickPose(r); const a = actualPose(tp); s += V.len(V.sub(a.p, tp.p)) ** 2; }
+  EST = saved; return Math.sqrt(s / n);
+}
+
+// ---------------------------------------------------------------- update
+const proxy = { dotOffset: () => ws.offsetOf(tv(...actual.p)), beamDir: () => gun.beamDir() };
+let actual = { p: D0.toArray(), R: [[1, 0, 0], [0, 1, 0], [0, 0, 1]] };
+app.cornerInset({ gun: proxy });
+const camTop = app.inset.add({ id: 'cage', label: 'Camera on the cage top (proposed)', position: tv(20, -40, 700), target: () => gun.dotWorld(), fov: 38, near: 60, far: 1600, size: [220, 150], corner: 'br', noise: 0.25 });
+app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+app.label(winchBoxes[0], 'winch + eyelet (x8)', { cls: 'actuated' });
+app.label(tv(350, -350, -86), 'cage pole (or floor-to-ceiling tension pole)', {});
+
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+// nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+// back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+function nozzleClear(tip, back, tubeOff, seat) {
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+  const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+  const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+  let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+  const pts = [];
+  for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+  pts.forEach(p => {
+    const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+    const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+    if (dist < rim) rim = dist;
+  });
+  return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+}
+function segDist3(p1, q1, p2, q2) {     // closest distance between two segments (mm)
+  const d1 = V.sub(q1, p1), d2 = V.sub(q2, p2), r = V.sub(p1, p2), a = V.dot(d1, d1), e = V.dot(d2, d2), f = V.dot(d2, r), c = V.dot(d1, r), b = V.dot(d1, d2), den = a * e - b * b;
+  let u = den > 1e-12 ? Math.min(1, Math.max(0, (b * f - c * e) / den)) : 0, t = (b * u + f) / e;
+  if (t < 0) { t = 0; u = Math.min(1, Math.max(0, -c / a)); } else if (t > 1) { t = 1; u = Math.min(1, Math.max(0, (b - c) / a)); }
+  return V.len(V.sub(V.add(p1, V.scl(d1, u)), V.add(p2, V.scl(d2, t))));
+}
+function update() {
+  const pose = poseFor([S.dx, S.dy, S.dz], [S.ra * DEG, S.rb * DEG, S.rc * DEG]);
+  actual = actualPose(pose);
+  const Ra = actual.R, pa = actual.p;
+  const q = new T3.Quaternion().setFromRotationMatrix(new T3.Matrix4().set(Ra[0][0], Ra[0][1], Ra[0][2], 0, Ra[1][0], Ra[1][1], Ra[1][2], 0, Ra[2][0], Ra[2][1], Ra[2][2], 0, 0, 0, 0, 1));
+  const tip = V.add(pa, M3.mulV(Ra, [0, 0, 16]));
+  gun.setTransform(tv(tip[0], tip[1], tip[2]), q); gun.group.updateMatrixWorld(true);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, 0);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+  const geo = cordGeometry(TRUTH.anchors, LUG, DOT_LOCAL, { p: pa, R: Ra });
+  const com = V.add(pa, M3.mulV(Ra, V.sub(COM_LOCAL, DOT_LOCAL)));
+  const grip = V.add(pa, M3.mulV(Ra, V.sub(gun.anchor('gripBase').toArray(), DOT_LOCAL)));
+  const Fu = V.scl(FDIRS[S.pdir] || [0, -1, 0], S.pull);
+  const Fg = [0, 0, -MASS * G];
+  const sol = solveTensions(geo, com, V.add(Fg, Fu), V.cross(V.sub(grip, com), Fu), S.tmin);
+  cords.forEach((c, i) => { c.userData.kx = sol.feasible ? Math.min(3.6, 0.8 + sol.t[i] * 0.028) : 1.6; c.setEnds(tv(...geo[i].lugW), tv(...TRUTH.anchors[i])); WK.setRole(c, sol.feasible ? 'load' : 'laser'); });
+  // stiffness: translation (3x3) and dot deflection under the pull in the worst of six directions, gun turning included (6x6, axial term)
+  const EA = LINES[S.line].EA, K3 = stiffness3(geo, sol.t, EA), ev = eig3(K3);
+  const A6 = geo.map(g => { const m = V.cross(V.sub(g.lugW, com), g.u); return [g.u[0], g.u[1], g.u[2], m[0], m[1], m[2]]; });
+  const K6 = Array.from({ length: 6 }, (_, i) => Array.from({ length: 6 }, (_, j) => A6.reduce((s, row, k) => s + row[i] * row[j] * EA / geo[k].L, 0)));
+  let worst = 0;
+  Object.values(FDIRS).forEach(d => { const F = V.scl(d, S.pull), Mo = V.cross(V.sub(grip, com), F), x = solveLinear(K6.map(r => r.slice()), [F[0], F[1], F[2], Mo[0], Mo[1], Mo[2]]); if (x) { const dd = V.add(x.slice(0, 3), V.cross(x.slice(3, 6), V.sub(pa, com))); worst = Math.max(worst, V.len(dd)); } });
+  const commandedErr = V.len(V.sub(pa, pose.p));
+  app.badge('slack', sol.feasible ? null : 'no positive-tension solution at this pose: cords would go slack (all red)', 'limit');
+  app.badge('miss', commandedErr > 0.5 ? 'dot is ' + commandedErr.toFixed(2) + ' mm from where it was commanded: anchors and winch zeros are not what the software believes' : null, commandedErr > 2 ? 'limit' : 'warn');
+  setCal(S.calInfo ? S.calInfo.before.toFixed(2) + ' / ' + S.calInfo.after.toFixed(3) : 'press Self-calibrate', S.calInfo ? 'mm rms' : '');
+  setTen(sol.feasible ? Math.min(...sol.t).toFixed(1) + ' to ' + Math.max(...sol.t).toFixed(1) : 'infeasible', 'N'); setK(ev.values[0].toFixed(0) + ' / ' + ev.values[2].toFixed(0), 'N/mm'); setDef((worst * 1000).toFixed(0), 'µm'); setErr(commandedErr.toFixed(2), 'mm');
+  // dot camera and corner inset
+  const CAMS = { first: [20, -40, 700], shell: [-60, -20, 700], side: [20, 300, 600] };
+  camTop.setPose(tv(...CAMS[S.cam]), () => gun.dotWorld());
+  const seen = app.inset.markVisibility('cage', gun.dotWorld(), { ignore: [] });
+  // cords are 1 mm thin: the drawn rods are thicker and do not occlude; test each true cord segment against the sight line analytically
+  const crossing = []; { const cp = CAMS[S.cam], dw = [pa[0], pa[1], pa[2]]; geo.forEach((g, i) => { if (segDist3(cp, dw, g.lugW, TRUTH.anchors[i]) < 1.15) crossing.push(i + 1); }); }
+  app.badge('cordview', crossing.length ? 'cord ' + crossing.join(', ') + ' crosses camera A\'s line to the dot at this pose' : null, 'warn');
+  // anchor error display
+  errTrue.forEach((l, i) => { const a = tv(...NOM[i]), t = tv(...TRUTH.anchors[i]), e = tv(...EST.anchors[i]); l.setPoints([a, a.clone().add(t.clone().sub(a).multiplyScalar(40))]); errEst[i].setPoints([a, a.clone().add(e.clone().sub(a).multiplyScalar(40))]); l.visible = errEst[i].visible = S.errs; });
+  app.io.set({
+    commands: [
+      { name: 'Commanded pose: dot offset', value: S.dx.toFixed(1) + ', ' + S.dy.toFixed(1) + ', ' + S.dz.toFixed(1), unit: 'mm', note: 'inverse kinematics makes eight lengths from it' },
+      { name: 'Winch lengths', value: actual.cmd.map(v => v.toFixed(0)).join(' '), unit: 'mm', note: S.cal ? 'from the calibrated model' : 'from the nominal (hand-measured) model' },
+      { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing console' },
+    ],
+    observes: [
+      { name: 'Spot where the beam meets the plate (camera A)', value: seen.visible ? (crossing.length ? 'a cord crosses' : 'seen') : (seen.inFov ? 'blocked' : 'out of view'), status: seen.visible && !crossing.length ? 'partly' : 'blind', note: 'two numbers per pose in the surface; drawn-scene line of sight, the 1 mm cords tested analytically' },
+      { name: 'Nozzle-tip height over the rim (camera B, proposed)', value: S.obs === 'plane+nz' ? 'used by the fit' : 'not used', status: S.obs === 'plane+nz' ? 'partly' : 'unresolved', note: 'the number that depends on where the gun is along its own beam; drawn in eyes-13 and room-05' },
+      { name: 'Gun position along its own beam', value: S.obs === 'dot3d' ? 'assumed seen' : (S.obs === 'plane' ? 'blind' : 'inferred'), status: S.obs === 'dot3d' ? 'unresolved' : (S.obs === 'plane' ? 'blind' : 'partly'), note: 'a spot on a surface does not move when the gun slides along its beam' },
+      { name: 'Winch step counts', value: 'lengths', status: 'seen', note: 'exact for the winch, not for the cord after creep' },
+      { name: 'Cord tension (motor current proxy)', value: sol.feasible ? Math.min(...sol.t).toFixed(1) + ' to ' + Math.max(...sol.t).toFixed(1) : 'slack', unit: 'N', status: 'partly', note: 'computed here; a real proxy would be coarse' },
+      { name: 'Dot shift when the pull is applied', value: (worst * 1000).toFixed(0), unit: '\u00B5m', status: 'partly', note: 'computed from the line stiffness; a camera at this range resolves perhaps 50 \u00B5m (illustrative)' },
+      { name: 'Anchor and zero errors', value: S.cal ? 'fitted (' + S.calInfo.kind + ')' : 'unknown', status: S.cal ? 'partly' : 'blind', note: 'recovered only by observing over many poses; the observer decides how well' },
+    ],
+    manual: ['Stand the cage or poles and fit the winches', 'Fit the shell and tie the eight cords in the recorded order', 'Load the tube', 'Guess the anchor positions to a few mm'],
+  });
+}
+const setCal = app.ui.readout('calres', 'Fresh-pose error: nominal model / calibrated'), setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setTen = app.ui.readout('ten', 'Cord tensions min to max'), setK = app.ui.readout('k', 'Stiffness weakest / strongest'), setDef = app.ui.readout('def', 'Dot shift under the pull (worst dir.)'), setErr = app.ui.readout('cerr', 'Dot vs commanded (exact)');
+
+// ---------------------------------------------------------------- controls
+const cmd = app.ui.group('Commands (proposed actuators: eight winches through a pose)', { help: 'The software commands a pose; inverse kinematics sets eight lengths.' });
+cmd.slider({ id: 'dx', label: 'Dot X', min: -25, max: 25, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => cords, onChange: v => { S.dx = v; update(); } });
+cmd.slider({ id: 'dy', label: 'Dot Y', min: -25, max: 25, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => cords, onChange: v => { S.dy = v; update(); } });
+cmd.slider({ id: 'dz', label: 'Dot Z', min: -15, max: 15, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => cords, onChange: v => { S.dz = v; update(); } });
+cmd.slider({ id: 'ra', label: 'Tilt about the dot: X axis', min: -4, max: 4, step: 0.1, value: 0, unit: '°', kind: 'actuator', visual: () => cords, onChange: v => { S.ra = v; update(); } });
+cmd.slider({ id: 'rb', label: 'Tilt about the dot: Y axis', min: -4, max: 4, step: 0.1, value: 0, unit: '°', kind: 'actuator', visual: () => cords, onChange: v => { S.rb = v; update(); } });
+cmd.slider({ id: 'rc', label: 'Turn about the dot: Z axis', min: -4, max: 4, step: 0.1, value: 0, unit: '°', kind: 'actuator', visual: () => cords, onChange: v => { S.rc = v; update(); } });
+cmd.button({ id: 'calib', label: 'Self-calibrate (32 poses, observer chosen below)', kind: 'state', help: 'Commands 32 poses inside the bore, reads what the chosen observer reports (noise as listed), fits 24 anchor offsets and 8 length offsets, then judges the fit on 100 fresh poses. Simulated; takes a second.', onClick: () => { app.toast('calibrating: 32 poses, fitting 32 numbers...', 1800); setTimeout(() => { calibrate(); update(); app.toast('dot error over 100 fresh poses: ' + S.calInfo.before.toFixed(2) + ' mm rms before, ' + S.calInfo.after.toFixed(3) + ' mm after (observer: ' + S.obs + ')', 6000); }, 40); } });
+cmd.button({ id: 'uncal', label: 'Forget calibration', kind: 'state', onClick: () => { EST = { anchors: NOM.map(a => a.slice()), off: NOM.map(() => 0) }; S.cal = false; S.calInfo = null; update(); } });
+cmd.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+
+const obsg = app.ui.group('What the calibration camera reports (branches)', { help: 'A camera sees where a line ends on a surface, not a point in air. The fit is the same; only what it is told changes.' });
+obsg.radio({ id: 'obs', label: 'Observer', kind: 'branch', value: 'plane+nz', options: [
+  { value: 'dot3d', label: '3-D dot (assumed at first)', help: 'A 3-D position of the dot at 0.10 mm per axis. No camera reports this: the dot is a spot on a surface. Kept to show what the fit was promised.' },
+  { value: 'plane', label: 'Spot on the plate', help: 'One camera: where the beam meets the plate plane, two numbers per pose at 0.10 mm. Sliding the gun along its beam does not change them.' },
+  { value: 'plane+nz', label: 'Spot + nozzle height', help: 'The spot, plus a second camera at rim height that sees the nozzle tip against the rim (0.20 mm): the number that depends on where the gun is along its beam (eyes-13).' },
+  { value: 'tags', label: 'Marker cube on the shell', help: 'Two cameras see a marker cube on the shell: the dot in 3-D at 0.20 mm and the beam direction at 0.05 degrees.' }],
+  onChange: v => { S.obs = v; update(); } });
+obsg.radio({ id: 'cam', label: 'Where camera A stands', kind: 'scene', value: 'shell', options: [
+  { value: 'first', label: 'Cage top, first drawn', help: 'Two of the eight cords cross this sight line to the dot in about a fifth of the poses in range (calc/corner-cords-occlusion.mjs).' },
+  { value: 'shell', label: 'Cage top, over the shell', help: 'About 3 % of poses have a cord across the line.' },
+  { value: 'side', label: 'Off to the +Y side', help: 'No cord crosses it in the sampled poses; the wall and the gun body are what it has to clear.' }],
+  onChange: v => { S.cam = v; update(); } });
+
+const bld = app.ui.group('How badly the room was measured (scene edits)', { help: 'Not hardware. Anchor placement and winch-zero errors the software does not know about.' });
+bld.slider({ id: 'sigA', label: 'Anchor placement error (1 sigma)', min: 0, max: 5, step: 0.25, value: 2, unit: 'mm', kind: 'scene', visual: () => winchBoxes, onChange: v => { S.sigA = v; makeTruth(); update(); } });
+bld.slider({ id: 'sigC', label: 'Winch zero error (1 sigma)', min: 0, max: 3, step: 0.25, value: 1, unit: 'mm', kind: 'scene', visual: () => winchBoxes, onChange: v => { S.sigC = v; makeTruth(); update(); } });
+bld.toggle({ id: 'errs', label: 'Show anchor errors x40 (red truth, blue estimate)', value: false, kind: 'view', onChange: v => { S.errs = v; update(); } });
+const ld = app.ui.group('Load and line', {});
+ld.slider({ id: 'pull', label: 'Umbilical pull at the grip base', min: 0, max: 10, step: 0.5, value: 2, unit: 'N', kind: 'scene', visual: () => [gun.group], help: 'Illustrative; not measured.', onChange: v => { S.pull = v; update(); } });
+ld.select({ id: 'pdir', label: 'Direction of the pull (tension solve)', options: ['-Y', '+Y', '-X', '+X', '-Z', '+Z'], value: '-Y', kind: 'scene', onChange: v => { S.pdir = v; update(); } });
+ld.slider({ id: 'tmin', label: 'Minimum pretension per line', min: 2, max: 30, step: 1, value: 5, unit: 'N', kind: 'scene', visual: () => cords, onChange: v => { S.tmin = v; update(); } });
+ld.radio({ id: 'line', label: 'Line type', options: [{ value: 'dyneema', label: 'Dyneema-type', help: LINES.dyneema.label }, { value: 'steel', label: '0.5 mm steel', help: LINES.steel.label }, { value: 'nylon', label: 'nylon', help: LINES.nylon.label }], value: 'dyneema', kind: 'branch', visual: () => cords, onChange: v => { S.line = v; update(); } });
+ld.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+makeTruth();
+{ const rows = [['3-D dot (no camera gives this)', '0.114', '0.096 / 0.038 / 0.044', '0.17'], ['spot on the plate', '0.39 (median 0.22)', '0.19 / 0.21 / 0.25', '0.13'], ['spot + nozzle height', '0.135', '0.10 / 0.05 / 0.06', '0.14'], ['marker cube on the shell', '0.107', '0.07 / 0.05 / 0.06', '0.03']];
+  const h = '<table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="text-align:left;color:#93a1b5"><th>observer</th><th>3-D rms</th><th>radial / tangent / vertical</th><th>aim (deg)</th></tr>' + rows.map(r => '<tr><td>' + r.join('</td><td>') + '</td></tr>').join('') + '</table><p style="font-size:11.5px;color:#93a1b5;margin:6px 0 0">Dot error in mm over 100 fresh poses after the fit, mean of 8 seeds, N = 40 poses, anchors 2 mm, cord zeros 1 mm, noise as in the radio help (calc/corner-cords-observer.mjs, illustrative). A one-plane spot is the row that fails to converge in 1 of 8 runs; a spot on plate or wall together (the tube\'s own corner) did not converge in 7 of 8 with this fit, because the surface changes where the beam crosses the corner. Agrees with eyes-13.</p>';
+  app.ui.panel({ id: 'mc', title: 'What the observer costs the fit (Monte Carlo)', open: false, html: h }); }
+window.__room6 = { S: S, makeTruth: makeTruth, update: update, off: () => proxy.dotOffset() };
+})();
+</script>
+</body>
+</html>

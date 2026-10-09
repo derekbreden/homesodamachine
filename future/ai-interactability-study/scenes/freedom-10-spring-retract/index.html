@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spring retract with a latch</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-10-spring-retract",
+  "title": "Spring-driven retract: assign the end-of-bead lift to a spring and a latch",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "At the end of a bead the head has to leave the seam straight away while the trigger is still held, and the retract cycle breaks the wire in air. A preloaded spring (or a bungee) held by a latch can do that: software releases the latch, the spring lifts the head, a hard stop ends the travel, a slow motor re-arms. The scene simulates the lift and reports when the head has moved 5 mm and 20 mm, its peak speed and how hard it hits the stop. How fast is fast enough is unknown.",
+  "tags": ["spring", "latch", "retract", "assign motion to a force", "sequence"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["a one-shot motion by a preloaded spring, released by a latch", "the stop sets the end position, not the actuator", "energy needed is small; impact is the issue"],
+  "how": {
+    "motion": "a latch releases; the spring lifts the head along its approach; a slow motor re-arms",
+    "load": "the balance support carries the weight; the spring supplies only the net lift",
+    "reference": "the hard stop at the top of the stroke",
+    "observe": "latch state, a limit switch at the stop, the lift time",
+    "use": "at the end of each bead, trigger held"
+  },
+  "software": {
+    "commands": ["latch release (servo hook or solenoid)", "re-arm motor (slow)"],
+    "observes": ["limit switch at the stop", "time from release to stop"],
+    "manual": ["fitting the guide, spring and stop"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-10-nudge-box.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>The seam procedure ends with a motion that is easy for a hand and awkward for a motor: <b>at the stop the trigger stays held while the head is lifted straight away, and the gun’s retract cycle breaks the wire in air; then the trigger and pedal release</b> [repo]. Here that motion is given to a <b>spring</b>. A bungee or spring is preloaded so that, with the head’s weight already carried by the support, it lifts the head along its own approach line. A latch (a servo hook or a solenoid) holds it. When the bead has passed its stop, software releases the latch; the head lifts; a hard stop ends the travel; a slow motor re-arms for the next weld.</p>' +
+        '<p>The plot shows position and speed against time after the release. Change the spring’s net force, the head’s mass, the guide’s friction and damping, and the stroke. <b>Play</b> shows it happening at one tenth of real time.</p>',
+      carries:
+        '<p>The weight is carried by the balancer or suspension (not drawn), so the spring supplies only the <i>net</i> lift and the friction of the guide. Energy is trivial (24 mJ for 20 mm at 1.2 N); the problem is <b>speed</b> and <b>impact</b>: too soft and the wire has not broken when the trigger releases, too hard and the head hits the stop. <b>Purple</b>: the latch and the re-arm motor, the only things software commands.</p>',
+      software:
+        '<p><b>Commands:</b> release the latch; re-arm slowly. <b>Observes:</b> a limit switch at the top (did it arrive), and the time from release to arrival. The sequence around it (trigger held, pedal held, rotator stop) is the existing one.</p>',
+      tried:
+        '<p><b>How fast is fast enough?</b> Nobody has recorded how quickly the head must leave for the wire to break cleanly in air ([unknown]); the slider marks a guess. Measure the hand lift (a phone video) and set the spring to match.</p>' +
+        '<p><b>Guide friction.</b> A sticky guide eats a small net force: with 0.3 N of friction on a 0.5 N net lift the head barely moves. Damping and friction also smooth the impact.</p>' +
+        '<p><b>The last millimetres (from borrowed’s critique).</b> At the defaults the head reaches its stop at 166 mm/s and puts 16.4 mJ of its 24 mJ into it as an impact on a 1.2 kg gun. A hydraulic soft-close damper, or a gas spring with end-of-stroke damping, is the mass-produced way to spend the last few millimetres: 40 N·s/m over the last 6 mm brings the impact to 0.5 mJ and the speed at the stop to 27 mm/s, for a few milliseconds of slower travel. The two new sliders are that damper.</p>' +
+        '<p><b>Repeatability.</b> A spring lift is as repeatable as the spring rate and the guide; the stop sets the end position exactly; the lift time varies with friction.</p>',
+      unresolved:
+        '<p>The required retract speed and distance; whether the head must leave <i>along its approach line</i> or straight up; how the umbilical and wire feed behave in a fast lift; whether a latch release is clean at the moment the trigger is held; safety (a fast-moving laser head must not lift beyond where the laser is still emitting; the interlock and trigger release timing belong to the existing sequence).</p>',
+      assumptions:
+        '<ul><li>Head mass 1.2 kg (gun and shell): <b>illustrative</b> (gun mass is [unknown]). Net spring force 1.2 N, friction 0.15 N, damping 2 N·s/m, stroke 20 mm: <b>illustrative</b>.</li>' +
+        '<li>Constant net force over the stroke (a constant-force spring or a long bungee): <b>modelling choice</b>. The stop is an instantaneous contact with a restitution of 0.15, after which the spring holds the head against it.</li>' +
+        '<li>Required speed 60 mm/s in the first 5 mm: a guess, a slider, not a requirement.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { Fs: 1.2, m: 1.2, mu: 0.15, c: 2, e: 0.15, cs: 0, ds: 5, stroke: 20, vreq: 60, playing: false, tp: 0 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 640', width: '100%', role: 'img', 'aria-label': 'spring retract: position and speed against time' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'gun', label: 'Head' }, { role: 'compliant', label: 'Spring' }, { role: 'actuated', label: 'Latch and re-arm motor' }, { role: 'locate', label: 'Seam' }, { role: 'laser', label: 'Wire break needs (a guess)' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const rd1 = app.ui.readout('t5', 'Time to move 5 mm'), rd2 = app.ui.readout('t20', 'Time to reach the stop'), rd3 = app.ui.readout('vp', 'Peak speed / speed at the stop'), rd4 = app.ui.readout('en', 'Spring energy over the stroke');
+  let traj = null;
+  function simulate() {
+    const dt = 0.0002, N = 6000, out = { t: [], x: [], v: [] }; let x = 0, v = 0, t = 0, t5 = null, tS = null, vpk = 0, vhit = 0;
+    const stroke = S.stroke / 1000;
+    for (let i = 0; i < N; i++) {
+      let F = S.Fs - S.c * v - (x >= stroke - S.ds / 1000 ? S.cs * v : 0);        // soft-close damper over the last ds mm (borrowed's remark)
+      if (Math.abs(v) < 1e-6) { if (Math.abs(F) <= S.mu) F = 0; else F -= Math.sign(F) * S.mu; } else F -= Math.sign(v) * S.mu;
+      v += F / S.m * dt; x += v * dt; t += dt;
+      if (x < 0) { x = 0; v = Math.max(0, v); }
+      if (x >= stroke) { if (tS == null) { tS = t; vhit = Math.max(v, 0); } x = stroke; v = v > 0 ? -S.e * v : 0; }
+      vpk = Math.max(vpk, v);
+      if (t5 == null && x >= 0.005) t5 = t;
+      if (i % 5 === 0) { out.t.push(t); out.x.push(x * 1000); out.v.push(Math.max(0, v * 1000)); }
+    }
+    out.t5 = t5; out.tS = tS; out.vpk = vpk * 1000; out.vhit = vhit * 1000; out.xf = x * 1000; return out;
+  }
+  function update() {
+    traj = simulate(); clear();
+    const tr = traj, tmax = 0.6;
+    // ---- left: a schematic of the head and stop (moving marker when playing)
+    g.appendChild(T(20, 30, 'The head lifts along its approach line when the latch lets go', { 'font-weight': 600 }));
+    const SX = 210, SY0 = 460, K = 6;   // px per mm (stroke drawn to scale, 20 mm = 120 px)
+    g.appendChild(R(SX - 70, SY0 + 22, 200, 10, C('work'), { opacity: 0.9 })); g.appendChild(T(SX - 70, SY0 + 52, 'seam and tube (not to scale)', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(L(SX + 90, SY0 + 22, SX + 90, SY0 - 250, '#3a4656', 1.4, { 'stroke-dasharray': '3 4' })); g.appendChild(T(SX + 98, SY0 - 240, 'approach line', { fill: '#94a3b8', 'font-size': 11 }));
+    const xp = S.playing ? posAt(S.tp) : 0;
+    const hy = SY0 - xp * K;
+    g.appendChild(R(SX + 60, SY0 - S.stroke * K - 20, 60, 12, C('locate'), { opacity: 0.9 })); g.appendChild(T(SX + 126, SY0 - S.stroke * K - 10, 'hard stop', { fill: C('locate'), 'font-size': 11 }));
+    g.appendChild(R(SX + 70, hy - 40, 40, 40, C('gun'), { rx: 4 })); g.appendChild(T(SX + 116, hy - 16, 'head ' + xp.toFixed(1) + ' mm', { fill: '#c8d0da', 'font-size': 11.5 }));
+    // spring drawn from the head up to a fixed point above
+    let d = 'M' + (SX + 90) + ' ' + (hy - 40); const top = SY0 - S.stroke * K - 110, n = 12; for (let j = 1; j <= n; j++) d += ' L' + (SX + 90 + (j % 2 ? -12 : 12)) + ' ' + (hy - 40 + (top - (hy - 40)) * j / n); g.appendChild(svgel('path', { d: d, fill: 'none', stroke: C('compliant'), 'stroke-width': 2.4 })); g.appendChild(T(SX + 122, top + 4, 'spring or bungee, preloaded', { fill: C('compliant'), 'font-size': 11 }));
+    g.appendChild(R(SX + 30, SY0 - 50, 26, 20, C('actuated'), { rx: 3 })); g.appendChild(T(SX - 60, SY0 - 34, 'latch', { fill: C('actuated'), 'font-size': 11.5 }));
+    g.appendChild(T(20, SY0 + 92, 'Energy over the stroke: ' + (S.Fs * S.stroke).toFixed(0) + ' mJ. Net force ' + S.Fs.toFixed(2) + ' N on ' + S.m.toFixed(1) + ' kg.', { fill: '#94a3b8', 'font-size': 11.5 }));
+    // ---- right: plots
+    const PX0 = 520, PX1 = 960, drawPlot = (y0, H, title, arr, ymax, unit, col) => {
+      g.appendChild(T(PX0, y0 - 8, title, { 'font-weight': 600 })); g.appendChild(R(PX0, y0, PX1 - PX0, H, '#171e28', { stroke: '#2a3441' }));
+      const xa = t => PX0 + Math.min(t, tmax) / tmax * (PX1 - PX0), ya = v => y0 + H - Math.min(v, ymax) / ymax * H;
+      let p = ''; for (let i = 0; i < tr.t.length; i++) { if (tr.t[i] > tmax) break; p += (i ? 'L' : 'M') + xa(tr.t[i]).toFixed(1) + ' ' + ya(arr[i]).toFixed(1); }
+      g.appendChild(svgel('path', { d: p, fill: 'none', stroke: col, 'stroke-width': 2.4 })); [0, 0.2, 0.4, 0.6].forEach(t => g.appendChild(T(xa(t) - 8, y0 + H + 14, t.toFixed(1) + ' s', { fill: '#94a3b8', 'font-size': 10.5 }))); g.appendChild(T(PX0 - 8, y0 + 10, ymax + ' ' + unit, { fill: '#94a3b8', 'font-size': 10.5, 'text-anchor': 'end' }));
+      if (S.playing) g.appendChild(L(xa(S.tp), y0, xa(S.tp), y0 + H, C('laser'), 1.4));
+      return { xa: xa, ya: ya };
+    };
+    const A = drawPlot(60, 190, 'Head position after the latch releases (mm)', tr.x, Math.max(25, S.stroke * 1.3), 'mm', '#e6edf6');
+    A.ya && g.appendChild(L(PX0, A.ya(5), PX1, A.ya(5), C('locate'), 1, { 'stroke-dasharray': '3 3' })); g.appendChild(T(PX0 + 4, A.ya(5) - 4, '5 mm clear of the puddle', { fill: C('locate'), 'font-size': 10.5 }));
+    const vmax = Math.max(200, Math.ceil(Math.max(tr.vpk, S.vreq) * 1.2 / 50) * 50);
+    const B = drawPlot(310, 170, 'Head speed (mm/s)', tr.v, vmax, 'mm/s', C('compliant'));
+    g.appendChild(L(PX0, B.ya(S.vreq), PX1, B.ya(S.vreq), C('laser'), 1.4, { 'stroke-dasharray': '4 3' })); g.appendChild(T(PX0 + 4, B.ya(S.vreq) - 4, 'speed the wire break needs (a guess) ' + S.vreq + ' mm/s', { fill: C('laser'), 'font-size': 10.5 }));
+    // ---- numbers
+    const t5 = tr.t5, tS = tr.tS, vpk = tr.vpk, vh = tr.vhit;
+    const speedAt5 = (() => { for (let i = 0; i < tr.x.length; i++) if (tr.x[i] >= 5) return tr.v[i]; return 0; })();
+    g.appendChild(T(520, 540, 'Time to move 5 mm: ' + (t5 ? (t5 * 1000).toFixed(0) + ' ms' : 'never (the guide holds it)'), { fill: '#e6edf6', 'font-weight': 600 }));
+    g.appendChild(T(520, 560, 'Time to reach the stop: ' + (tS ? (tS * 1000).toFixed(0) + ' ms' : 'not reached'), { fill: '#e6edf6' }));
+    g.appendChild(T(520, 580, 'Speed after 5 mm: ' + speedAt5.toFixed(0) + ' mm/s   peak ' + vpk.toFixed(0) + '   at the stop ' + vh.toFixed(0), { fill: speedAt5 < S.vreq ? '#ff8a80' : '#e6edf6', 'font-weight': 600 }));
+    g.appendChild(T(520, 600, 'Impact energy at the stop ' + (0.5 * S.m * Math.pow(vh / 1000, 2) * 1000).toFixed(1) + ' mJ', { fill: '#94a3b8', 'font-size': 11.5 }));
+    rd1(t5 ? (t5 * 1000).toFixed(0) : '∞', 'ms'); rd2(tS ? (tS * 1000).toFixed(0) : '-', 'ms'); rd3(vpk.toFixed(0) + ' / ' + vh.toFixed(0), 'mm/s'); rd4((S.Fs * S.stroke).toFixed(0), 'mJ');
+    app.badge('slow', speedAt5 < S.vreq ? 'the head is slower than the guess at 5 mm (' + speedAt5.toFixed(0) + ' < ' + S.vreq + ' mm/s): the wire may not break' : null, 'warn');
+    app.badge('stuck', !t5 ? 'the guide’s friction holds the head: the net force does not exceed it' : null, 'limit');
+    app.io.set({ commands: [{ name: 'Latch', value: S.playing ? 'released' : 'holding', note: 'servo hook or solenoid (proposed)' }, { name: 'Re-arm motor', value: 'slow, after the weld', note: 'proposed' }],
+      observes: [{ name: 'Limit switch at the stop (proposed)', value: tS ? 'reached at ' + (tS * 1000).toFixed(0) + ' ms' : 'not reached', status: 'seen', note: 'did the head arrive' }, { name: 'Lift time, release to stop', value: tS ? (tS * 1000).toFixed(0) : '-', unit: 'ms', status: 'seen', note: 'varies with friction: watch it drift' }, { name: 'Speed the wire break needs', value: 'guess ' + S.vreq, unit: 'mm/s', status: 'unresolved', note: '[unknown]; measure the hand lift' }, { name: 'Wire break in air', value: '-', status: 'blind', note: 'nothing here sees it; a stuck wire is snipped by hand today' }], manual: ['Fit guide, spring, stop and latch', 'Snip a stuck wire between nozzle and bead (existing procedure)'] });
+  }
+  function posAt(t) { if (!traj) return 0; for (let i = 0; i < traj.t.length; i++) if (traj.t[i] >= t) return traj.x[i]; return traj.xf; }
+  let anim = null;
+  app.onFrame(function (dt) { if (!S.playing) return false; S.tp += dt / 10; if (S.tp > 0.7) { S.playing = false; S.tp = 0; } update(); return true; });
+  const sg = app.ui.group('Spring, head and guide (scene edits)', { open: true });
+  sg.slider({ id: 'Fs', label: 'Net spring force over the stroke', min: 0.1, max: 6, step: 0.05, value: 1.2, unit: 'N', kind: 'scene', help: 'What is left after the support carries the weight. Constant force (a constant-force spring or a long bungee).', onChange: v => { S.Fs = v; update(); } });
+  sg.slider({ id: 'm', label: 'Head mass (gun + shell)', min: 0.6, max: 3, step: 0.1, value: 1.2, unit: 'kg', kind: 'scene', help: 'Illustrative.', onChange: v => { S.m = v; update(); } });
+  sg.slider({ id: 'mu', label: 'Guide friction', min: 0, max: 1.5, step: 0.05, value: 0.15, unit: 'N', kind: 'scene', help: 'Coulomb friction of the slide.', onChange: v => { S.mu = v; update(); } });
+  sg.slider({ id: 'c', label: 'Damping', min: 0, max: 20, step: 0.5, value: 2, unit: 'N·s/m', kind: 'scene', help: 'Viscous, from a small damper or an air dashpot.', onChange: v => { S.c = v; update(); } });
+  sg.slider({ id: 'cs', label: 'Soft-close damper over the last mm of the stroke', min: 0, max: 60, step: 1, value: 0, unit: 'N·s/m', kind: 'scene', help: 'A hydraulic soft-close damper (a cabinet hinge’s) or a gas spring with end-of-stroke damping spends the last millimetres: the mass-produced way to lower the impact. Borrowed’s remark on the retract.', onChange: v => { S.cs = v; update(); } });
+  sg.slider({ id: 'ds', label: 'Length of the soft-close zone', min: 1, max: 15, step: 0.5, value: 5, unit: 'mm', kind: 'scene', noVisual: true, help: 'Acts only when the soft-close damper above is not zero.', onChange: v => { S.ds = v; update(); } });
+  sg.slider({ id: 'e', label: 'Stop bounce (restitution)', min: 0, max: 0.6, step: 0.05, value: 0.15, kind: 'scene', help: 'Fraction of the speed the head keeps after hitting the stop. A rubber stop or a damper lowers it.', onChange: v => { S.e = v; update(); } });
+  sg.slider({ id: 'stroke', label: 'Stroke to the stop', min: 5, max: 60, step: 1, value: 20, unit: 'mm', kind: 'scene', help: 'How far the head lifts.', onChange: v => { S.stroke = v; update(); } });
+  sg.slider({ id: 'vreq', label: 'Speed the wire break needs (a guess)', min: 5, max: 400, step: 5, value: 60, unit: 'mm/s', kind: 'scene', help: 'Unknown. Marks the plot and the warning.', onChange: v => { S.vreq = v; update(); } });
+  const ag = app.ui.group('Latch (software commands)', { open: true });
+  ag.button({ id: 'release', label: 'Release the latch: play the lift at 1/10 speed', kind: 'actuator', help: 'Software lets go; the spring lifts the head.', onClick: () => { S.playing = true; S.tp = 0; app.invalidate(); } });
+})();
+</script>
+</body>
+</html>

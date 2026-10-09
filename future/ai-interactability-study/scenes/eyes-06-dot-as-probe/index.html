@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The dot as the probe</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dp-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: start; }
+  @media (max-width: 900px) { .dp-wrap { grid-template-columns: 1fr; } }
+  .dp-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .dp-card h3 { font: 600 11px system-ui, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: var(--wk-muted); margin: 0 0 4px; }
+  .dp-card svg { display: block; width: 100%; height: auto; }
+  .dp-note { font: 11.5px/1.4 system-ui, sans-serif; color: var(--wk-muted); margin-top: 5px; }
+  .dp-note b { color: var(--wk-text); }
+  .dp-read { font: 12px ui-monospace, "SF Mono", Menlo, monospace; color: #fbbf24; }
+  svg text { font: 10.5px system-ui, sans-serif; fill: #c9d3e0; }
+  svg .lbl-g { fill: #8391a5; } svg .lbl-r { fill: #fca5a5; } svg .lbl-s { fill: #93c5fd; } svg .lbl-y { fill: #fcd34d; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-06-dot-as-probe",
+  "title": "The dot as the probe: sweep to find the corner, or read its bounce",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Instead of measuring where the gun is, use the red dot itself as a probe. Sweep it across the seam and find the corner where its image changes speed or direction. Or read the second spot the plate bounces onto the wall: the two spots merge exactly when the dot is on the corner. Both need a camera that can see a spot, not a calibrated one.",
+  "tags": ["observer", "dot-as-probe", "sweep", "specular-bounce", "camera-geometry"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["find the corner in actuator units", "two-spot ruler from a mirror plate", "kink depends on camera direction"],
+  "how": {
+    "motion": "one small actuator sweeps the beam radially across the corner (any of the trim or aim axes in other ideas).",
+    "load": "nothing new; the sweep is a few millimetres of whatever positions the gun.",
+    "reference": "the corner itself: the dot's trajectory changes where it climbs the wall; the bounce spots merge on it.",
+    "observe": "any camera that sees the spot; tangential views give a direction change, in-plane views a speed change.",
+    "use": "dry-run registration before a bead: learn the dot-to-corner offset in actuator units."
+  },
+  "software": {
+    "commands": ["sweep the small radial axis across the corner, then move to the desired offset from it"],
+    "observes": ["image trajectory of the spot during the sweep", "the position of the change of speed or direction", "the two-spot pattern and their separation"],
+    "manual": ["placing a camera where the spot shows on both surfaces", "deciding the offset from the corner to aim at"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-06-dot-as-probe.md", "../../explorers/eyes/ideas/eyes-06b-corner-mirror.md", "../../explorers/eyes/ideas/eyes-02-where-can-an-eye-stand.md", "../../exchange/freedom--on--eyes-w2.md", "../../exchange/eyes--reply-to-freedom-w3.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k), H = WK.h, D = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p><b>Sweep.</b> A small radial axis moves the beam across the seam. The spot travels along the plate, reaches the corner, then climbs the wall (1.6 mm of height for each millimetre of shift at a 32° beam tilt). In a camera that sees both surfaces, the spot’s image path <i>changes speed or direction exactly at the corner</i>. Fit two lines, read the break, and you know where the corner is in the axis’s own units. No calibration of the camera or of where the gun is is needed. That is the offset software needs to place the dot a chosen distance from the corner.</p>' +
+        '<p><b>Bounce.</b> If the plate is mirror-like, the beam reflects off it and lands on the wall. Off the corner there are always two spots, one on each surface; on the corner they merge into one. The wall spot sits higher than the plate spot is short of the corner (by cot of the tilt: 1.6 x at 32°), so the pair separation is a magnified, easy-to-see ruler for a small radial offset. For a low camera across the bore it is about 19 times more sensitive than watching a single dot against the corner.</p>' +
+        '<p>Both are ways of using the equipment differently, not adding a sensor. Neither is proven: whether the dot shows on stainless, and whether a bounce spot shows on the wall, are questions for a look at the real plate.</p>',
+      carries: '<p>Nothing new. The sweep is a few millimetres of motion from whatever positions the gun in another idea (the trim stage of eyes-01, a rail, a hand-turned micrometer). The camera can be any of the eyes in eyes-02; the two modes work best from different places.</p>',
+      software: '<p>Sweep mode: software commands the axis in steps, grabs a frame at each, finds the spot, fits two lines with a shared break point and reports the break in axis units and its uncertainty. The uncertainty here comes from the pixel noise and the sweep speed contrast; it is a model. Bounce mode: software finds the one or two spots and reports their separation along the profile, which is proportional to the offset.</p>',
+      tried: '<p><b>Broke:</b> camera in the section plane at about 58° elevation. The plate motion and the wall motion appear equally fast in the same direction: the kink vanishes (kink strength 0.00). <b>Changed:</b> move off 58° or off the plane; the kink returns. The dome scene (eyes-02, Kink colouring) shows the same hole.</p>' +
+        '<p><b>Broke:</b> a very low camera. The kink strength is high (0.9) but the plate spot is seen at a grazing angle: it is 11 times dimmer (Lambert factor 0.09) and 11 times compressed. <b>Left standing:</b> whether the spot is visible on the plate from there at all.</p>' +
+        '<p><b>Broke:</b> a rough plate: the bounce spot fades (brightness ratio bounce/direct = reflectance x specular fraction: 0.12 at 0.2 specular, 0.48 at 0.8). <b>Left standing:</b> the finish of the plate is not measured.</p>' +
+        '<p><b>Broke (freedom, wave 2):</b> a sweep through an axis that sticks. The image path is still the same two lines, but the spot advances in jumps, and the fit is told the commanded position, so the staircase reads as speed changes and the break moves by up to about the step. <b>Repaired:</b> sweep by stop-and-look, pairing each frame with a reading of where the gun really is (a scale on the gun side, or the stiffest axis available), or read the direction change, which stick-slip does not fake. <b>Also:</b> “aim 0.4 mm short of the corner” needs the gain of the axis that swept, not just the break in its units. <b>Left standing:</b> nothing here says how large a real slip is.</p>' +
+        '<p><b>Broke:</b> the wall is not flat at the corner: a fillet, a tack weld or the slip gap (0.13 mm) can hide the true corner by a fraction of a millimetre. The sweep would find the visible break, which could differ from the geometric corner. <b>Left standing.</b></p>',
+      unresolved: '<p>Whether the red pilot stays on and steady while the sweep runs. Whether the wobble (80 Hz x 2 mm during welding) also applies to the pilot; the pilot is drawn as a point. Spot size on the plate (0.3 mW class; diameter unknown). Whether the reflected pilot from a mirror-like plate is safe enough to look at: 0.3 mW is small; the real 700 W beam reflects the same way and is not: the bounce in this scene is drawn for the pilot only.</p>' +
+        '<p><b>Question for Derek:</b> with the dot on the plate a few millimetres short of the wall, do you see a second red spot on the wall above it? Does it merge with the first when you move the dot into the corner?</p>',
+      assumptions: '<ul><li>Beam tilt 32° from vertical in section (reference pose, illustrative) and adjustable. Plate top at z = 0, wall face at r = 0 [repo dimensions].</li>' +
+        '<li>Spot positions are exact geometry (mirror reflection). Camera: orthographic, pixel size 0.05 mm at the corner by default, pixel noise 0.6 px [illustrative].</li>' +
+        '<li>Kink strength K = |u_wall - u_plate| / (|u_wall| + |u_plate|) where u is the image motion per mm of sweep (calc/dot-probe.mjs). [derived]</li>' +
+        '<li>Bounce brightness ratio = reflectance x specular fraction; reflectance 0.6 at 650 nm is illustrative, not measured.</li>' +
+        '<li>The actuator has an unknown offset between its zero and the corner (drawn as a hidden value of 1.7 mm); the software finds it.</li></ul>',
+    },
+  });
+  app.legend([{ role: 'work', label: 'Plate and wall (metal)' }, { role: 'gun', label: 'Nozzle' }, { role: 'laser', label: 'Dot / beam' }, { color: '#f59e0b', label: 'Spot on the wall' }, { color: '#60a5fa', label: 'Fitted line / kink' }]);
+  const wrap = H('div', { class: 'dp-wrap' }); app.stageEl.appendChild(wrap);
+  const c1 = H('div', { class: 'dp-card' }, H('h3', { text: 'Section through the seam (what happens)' })), c2 = H('div', { class: 'dp-card' }, H('h3', { id: 'imgTitle', text: 'What the camera sees (schematic, orthographic)' }));
+  wrap.append(c1, c2);
+  const noteBox = H('div', { class: 'dp-card', style: { gridColumn: '1 / -1' } }); wrap.appendChild(noteBox);
+  const note = H('div', { class: 'dp-note' }); noteBox.appendChild(note);
+
+  // ---------------------------------------------------------------- geometry
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2], norm = a => { const l = Math.hypot(...a); return a.map(x => x / l); };
+  function basis(psi, el) { const c = [-Math.cos(el * D) * Math.cos(psi * D), -Math.cos(el * D) * Math.sin(psi * D), Math.sin(el * D)], v = c.map(x => -x), right = norm(cross(v, [0, 0, 1])), up = cross(right, v); return { right: right, up: up, v: v }; }
+  const proj = (b, p) => [dot(p, b.right), dot(p, b.up)];
+  const D0 = 1.7;   // hidden offset between the actuator zero and the corner (mm)
+  const beta = () => app.ui.get('beta') * D, cot = () => 1 / Math.tan(beta());
+  const RIMH = 6.35;   // the wall face ends at the rim: a spot cannot climb past it
+  function spotAt(s) { if (s <= 0) return { surf: 'plate', p: [s, 0, 0] }; const z = s * cot(); return z <= RIMH ? { surf: 'wall', p: [0, 0, z] } : { surf: 'none', p: [0, 0, RIMH] }; }
+  function bounceAt(s) { if (s > 0) return { surf: 'plate', p: [-s, 0, 0] }; const z = -s * cot(); return z <= RIMH ? { surf: 'wall', p: [0, 0, z] } : { surf: 'none', p: [0, 0, RIMH] }; }
+  const seedRand = k => { const a = Math.sin(k * 127.1 + 311.7) * 43758.5453, b = Math.sin(k * 269.5 + 183.3) * 43758.5453; const u = a - Math.floor(a) || 1e-6, v = b - Math.floor(b); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  let seed = 1;
+
+  // ---------------------------------------------------------------- section drawing
+  const K1 = 30, VW = 480, VH = 330, X = r => 300 + r * K1, Y = z => 250 - z * K1;
+  const svg1 = S('svg', { viewBox: '0 0 ' + VW + ' ' + VH }); c1.appendChild(svg1);
+  const wm = WK.roleHex('work'), gm = WK.roleHex('gun'), lm = WK.roleHex('laser');
+  for (let r = -9; r <= 5; r++) svg1.appendChild(S('line', { x1: X(r), y1: 0, x2: X(r), y2: VH, stroke: '#232c3a' })), svg1.appendChild(S('text', { x: X(r) + 2, y: VH - 3, class: 'lbl-g', text: r }));
+  for (let z = -2; z <= 8; z++) svg1.appendChild(S('line', { x1: 0, y1: Y(z), x2: VW, y2: Y(z), stroke: '#232c3a' })), svg1.appendChild(S('text', { x: 2, y: Y(z) - 2, class: 'lbl-g', text: z }));
+  svg1.append(S('rect', { x: 0, y: Y(0), width: X(0), height: 2.4 * K1, fill: wm, opacity: 0.9 }), S('rect', { x: X(0), y: Y(6.35), width: 1.65 * K1, height: 8.35 * K1, fill: wm, opacity: 0.9 }), S('text', { x: X(2), y: Y(6.4), class: 'lbl-g', text: 'wall, rim at 6.35' }), S('text', { x: 6, y: Y(-1), class: 'lbl-g', text: 'plate (metal)' }));
+  const nozzle = S('polygon', { fill: gm, opacity: 0.95 }), beamL = S('line', { stroke: lm, 'stroke-width': 2 }), spotD = S('circle', { r: 5, fill: lm }), spotB = S('circle', { r: 5, fill: '#f59e0b', opacity: 0.9 }), refl = S('line', { stroke: '#f59e0b', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }), cornerMark = S('circle', { cx: X(0), cy: Y(0), r: 4, fill: 'none', stroke: '#60a5fa', 'stroke-width': 2 });
+  const sT = S('text', { class: 'lbl-r' }), bT = S('text', { class: 'lbl-y' }), gapT = S('text', { x: 8, y: 18, class: 'lbl-s' });
+  svg1.append(nozzle, beamL, refl, spotB, spotD, cornerMark, sT, bT, gapT);
+
+  // ---------------------------------------------------------------- image panel
+  const VW2 = 480, VH2 = 330, cx2 = 210, cy2 = 262;
+  const svg2 = S('svg', { viewBox: '0 0 ' + VW2 + ' ' + VH2 }); c2.appendChild(svg2);
+  const gI = S('g'); svg2.appendChild(gI);
+
+  // ---------------------------------------------------------------- update
+  function sweepFit(pts) {   // pts: [{a, u, v}] -> best break in a (continuous piecewise-linear, both image coordinates)
+    let best = { cost: Infinity, ac: 0 };
+    const lo = pts[2].a, hi = pts[pts.length - 3].a;
+    for (let ac = lo; ac <= hi; ac += 0.02) {
+      let cost = 0;
+      for (const key of ['u', 'v']) {
+        // model y = P0 + m1*min(a-ac,0) + m2*max(a-ac,0); solve 3 params by normal equations
+        let A = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], bb = [0, 0, 0];
+        for (const p of pts) { const x = [1, Math.min(p.a - ac, 0), Math.max(p.a - ac, 0)]; for (let i = 0; i < 3; i++) { bb[i] += x[i] * p[key]; for (let j = 0; j < 3; j++) A[i][j] += x[i] * x[j]; } }
+        const sol = solve3(A, bb); if (!sol) { cost = Infinity; break; }
+        for (const p of pts) { const x = [1, Math.min(p.a - ac, 0), Math.max(p.a - ac, 0)]; const r = p[key] - (sol[0] * x[0] + sol[1] * x[1] + sol[2] * x[2]); cost += r * r; }
+      }
+      if (cost < best.cost) best = { cost: cost, ac: ac };
+    }
+    return best;
+  }
+  function solve3(A, b) { const M = A.map((r, i) => r.concat(b[i])); for (let i = 0; i < 3; i++) { let p = i; for (let k = i + 1; k < 3; k++) if (Math.abs(M[k][i]) > Math.abs(M[p][i])) p = k; if (Math.abs(M[p][i]) < 1e-12) return null; [M[i], M[p]] = [M[p], M[i]]; for (let k = i + 1; k < 3; k++) { const f = M[k][i] / M[i][i]; for (let j = i; j < 4; j++) M[k][j] -= f * M[i][j]; } } const x = [0, 0, 0]; for (let i = 2; i >= 0; i--) { let s = M[i][3]; for (let j = i + 1; j < 3; j++) s -= M[i][j] * x[j]; x[i] = s / M[i][i]; } return x; }
+
+  function update() {
+    app.ui.enable('spec', app.ui.get('mode') === 'bounce'); app.ui.enable('want', app.ui.get('mode') === 'sweep'); app.ui.enable('noise', app.ui.get('mode') === 'sweep'); app.ui.enable('stick', app.ui.get('mode') === 'sweep'); app.ui.enable('look', app.ui.get('mode') === 'sweep');
+    const mode = app.ui.get('mode'), a = app.ui.get('act'), s = a - D0, be = beta();
+    const b = basis(app.ui.get('psi'), app.ui.get('el')), pxmm = app.ui.get('px'), sig = app.ui.get('sig');
+    const scale = 1 / pxmm;   // px per mm
+    // section drawing: nozzle 16 mm from the dot; beam direction (sin, -cos)
+    const sp = spotAt(s), tipR = (sp.surf === 'plate' ? s : 0 - 0) , dotX = sp.surf === 'plate' ? s : 0, dotZ = sp.surf === 'plate' ? 0 : s * cot();
+    const dirx = Math.sin(be), dirz = -Math.cos(be), nx = Math.cos(be), nz = Math.sin(be);
+    // the beam line passes through the spot; the nozzle sits 16 mm back along the beam from the FOCUS (plate intersection extended)
+    const fx = s, fz = 0, tip = [fx - 16 * dirx, fz - 16 * dirz], back = [fx - 62 * dirx, fz - 62 * dirz];
+    nozzle.setAttribute('points', [[tip[0] + 2 * nx, tip[1] + 2 * nz], [back[0] + 8 * nx, back[1] + 8 * nz], [back[0] - 8 * nx, back[1] - 8 * nz], [tip[0] - 2 * nx, tip[1] - 2 * nz]].map(q => X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join(' '));
+    const hitX = sp.p[0], hitZ = sp.p[2];
+    beamL.setAttribute('x1', X(tip[0])); beamL.setAttribute('y1', Y(tip[1])); beamL.setAttribute('x2', X(hitX)); beamL.setAttribute('y2', Y(hitZ));
+    spotD.setAttribute('cx', X(hitX)); spotD.setAttribute('cy', Y(hitZ)); spotD.style.display = sp.surf === 'none' ? 'none' : '';
+    const bn = bounceAt(s), showB = mode === 'bounce' && bn.surf !== 'none';
+    refl.style.display = spotB.style.display = bT.style.display = showB ? '' : 'none';
+    if (showB) { refl.setAttribute('x1', X(hitX)); refl.setAttribute('y1', Y(hitZ)); refl.setAttribute('x2', X(bn.p[0])); refl.setAttribute('y2', Y(bn.p[2])); spotB.setAttribute('cx', X(bn.p[0])); spotB.setAttribute('cy', Y(bn.p[2])); bT.setAttribute('x', X(bn.p[0]) + 8); bT.setAttribute('y', Y(bn.p[2]) - 8); bT.textContent = 'bounce'; }
+    sT.setAttribute('x', X(hitX) + 8); sT.setAttribute('y', Y(hitZ) + 16); sT.textContent = sp.surf === 'none' ? 'beam clears the rim: no spot' : 'spot on the ' + sp.surf;
+    gapT.textContent = 'actuator ' + a.toFixed(2) + ' mm    corner is at ' + D0.toFixed(2) + ' (hidden from the software)    offset s = ' + s.toFixed(2) + ' mm';
+    // image panel
+    while (gI.firstChild) gI.removeChild(gI.firstChild);
+    const zoom = 24;   // svg px per mm of image plane
+    const P2 = p => { const q = proj(b, p); return [cx2 + q[0] * zoom, cy2 - q[1] * zoom]; };
+    gI.appendChild(S('text', { x: 8, y: 16, class: 'lbl-g', text: 'orthographic view; 1 camera pixel = ' + pxmm.toFixed(3) + ' mm at the corner; drawn at 24 screen px per mm' }));
+    for (let g = -8; g <= 8; g++) { const p0 = proj(b, [g, 0, 0]), p1 = proj(b, [0, 0, g]); }
+    // profile: plate line (r from -9..0) and wall line (z 0..6.35) in the image
+    const pa = P2([-9, 0, 0]), pb = P2([0, 0, 0]), pc = P2([0, 0, 6.35]);
+    gI.append(S('line', { x1: pa[0], y1: pa[1], x2: pb[0], y2: pb[1], stroke: '#7b8797', 'stroke-width': 3 }), S('line', { x1: pb[0], y1: pb[1], x2: pc[0], y2: pc[1], stroke: '#b6bfcb', 'stroke-width': 3 }));
+    gI.append(S('circle', { cx: pb[0], cy: pb[1], r: 5, fill: 'none', stroke: '#60a5fa', 'stroke-width': 2 }), S('text', { x: pb[0] + 8, y: pb[1] + 14, class: 'lbl-s', text: 'corner' }));
+    if (mode === 'sweep') {
+      // sweep samples across the whole actuator range with pixel noise
+      const N = 33, pts = [], stick = app.ui.get('stick'), look = app.ui.get('look'); let pathD = '', got = -7;
+      for (let i = 0; i < N; i++) {
+        const aa = -7 + i * (16 / (N - 1));
+        if (stick > 0 && aa - got >= stick) got = aa; else if (stick <= 0) got = aa;   // a sticking axis moves only when the command has run 'stick' ahead, then jumps to it
+        const sp2 = spotAt(got - D0), q = proj(b, sp2.p);
+        const nu = seedRand(seed * 97 + i * 2) * sig * pxmm, nv = seedRand(seed * 97 + i * 2 + 1) * sig * pxmm;
+        const abscissa = look ? got + seedRand(seed * 53 + i) * 0.005 : aa;   // stop-and-look reads where the axis is (a scale); a continuous sweep trusts the command
+        if (sp2.surf !== 'none') pts.push({ a: abscissa, u: q[0] + nu, v: q[1] + nv, sf: sp2.surf });
+      }
+      pts.forEach((p, i) => { const x = cx2 + p.u * zoom, y = cy2 - p.v * zoom; gI.appendChild(S('circle', { cx: x, cy: y, r: 2.6, fill: p.sf === 'plate' ? '#94a3b8' : '#f59e0b' })); });
+      const fit = sweepFit(pts), ac = fit.ac, sp3 = proj(b, [0, 0, 0]);
+      const fp = P2([0, 0, 0]);
+      const cur = proj(b, sp.p);
+      if (sp.surf !== 'none') gI.appendChild(S('circle', { cx: cx2 + cur[0] * zoom, cy: cy2 - cur[1] * zoom, r: 6, fill: lm, stroke: '#fff', 'stroke-width': 1.5 }));
+      const kink = (function () { const up_ = proj(b, [1, 0, 0]), uw_ = proj(b, [0, 0, cot()]); const d = Math.hypot(uw_[0] - up_[0], uw_[1] - up_[1]), m = Math.hypot(...up_) + Math.hypot(...uw_); return { K: d / m, dv: d, plate: Math.hypot(...up_), wall: Math.hypot(...uw_) }; })();
+      const sigEst = kink.dv > 0.02 ? (sig * pxmm / kink.dv / 3) : Infinity, err = ac - D0;
+      const stickTxt = app.ui.get('stick') > 0 ? (app.ui.get('look') ? ' <b>Stop-and-look:</b> the axis sticks by ' + app.ui.get('stick').toFixed(2) + ' mm, but each frame is paired with where the axis actually is, so the fit does not see the sticking.' : ' <b>Continuous sweep on a sticking axis</b> (' + app.ui.get('stick').toFixed(2) + ' mm): the fit is told the command, the spot is where the axis got to; the staircase reads as speed changes and the break moves by up to about the stick.') : '';
+      note.innerHTML = '<b>Sweep.</b> The dots are the spot in successive frames while the actuator moves from -7 to +9 mm (grey on the plate, amber on the wall; past ' + (RIMH / cot() + D0).toFixed(1) + ' mm on the axis the beam clears the rim and there is no spot). The path changes ' + (kink.K > 0.4 ? 'sharply' : kink.K > 0.15 ? 'weakly' : 'not at all') + ' at the corner: kink strength <span class="dp-read">' + kink.K.toFixed(2) + '</span>; image speed ' + kink.plate.toFixed(2) + ' on the plate, ' + kink.wall.toFixed(2) + ' on the wall (per mm of sweep). Fitted break: <span class="dp-read">' + ac.toFixed(2) + ' mm</span> (true ' + D0.toFixed(2) + ', error ' + (err >= 0 ? '+' : '') + err.toFixed(3) + ' mm; model 1-sigma ' + (isFinite(sigEst) ? sigEst.toFixed(3) : 'undefined') + ' mm). Lambert brightness of the spot: plate ' + Math.abs(b.v[2]).toFixed(2) + ', wall ' + Math.abs(b.v[0]).toFixed(2) + '.' + stickTxt;
+      app.badge('kink', kink.K < 0.15 ? 'this camera direction cannot see the corner: the plate and wall motions look the same' : null, 'limit');
+      app.badge('dim', Math.min(Math.abs(b.v[2]), Math.abs(b.v[0])) < 0.15 ? 'one of the two surfaces is seen at a grazing angle: its spot is very dim' : null, 'warn');
+      app.io.set({
+        commands: [{ name: 'Radial sweep axis', value: a.toFixed(2), unit: 'mm', note: 'proposed small axis; sweep from -7 to +9 mm' }, { name: 'Then: go to corner + chosen offset', value: (ac - app.ui.get('want')).toFixed(2), unit: 'mm', note: 'offset from the corner you set below' }],
+        observes: [
+          { name: 'Spot trajectory in the image', value: N + ' frames', status: 'seen' },
+          { name: 'Corner in actuator units (from the break)', value: ac.toFixed(2), unit: 'mm', status: 'partly', note: 'error ' + err.toFixed(3) + ' mm this draw; needs a spot visible on both surfaces' },
+          { name: 'Camera calibration', value: 'not needed', status: 'seen', note: 'only the break of the path matters' },
+          { name: 'Wire tip, puddle, bead', value: '-', status: 'blind', note: 'this is a dry-run registration' },
+          { name: 'Is the visible break the geometric corner (fillet, tack, slip gap)?', value: '-', status: 'unresolved' },
+          { name: 'Does the dot show on the plate at this view angle?', value: '-', status: 'unresolved' },
+        ],
+        manual: ['Place a camera with a good view of both surfaces', 'Decide the offset from the corner to aim at'],
+      });
+    } else {
+      const d = spotAt(s), bo = bounceAt(s), pd = proj(b, d.p), pbo = proj(b, bo.p);
+      if (d.surf === 'none' || bo.surf === 'none') { note.innerHTML = '<b>Bounce.</b> At this offset one of the two spots would be above the rim (' + RIMH + ' mm): the beam or its bounce clears the wall and there is only one spot, or none. Move the axis toward the corner.'; app.io.set({ commands: [{ name: 'Radial axis', value: a.toFixed(2), unit: 'mm' }], observes: [{ name: 'Two-spot pattern present', value: d.surf === 'none' ? 'no spot (beam clears the rim)' : 'one spot (bounce above the rim)', status: 'blind' }], manual: [] }); app.invalidate(); return; }
+      const spec = app.ui.get('spec'), R = 0.6, ratio = R * spec, lobe = (2 + 12 * (1 - spec)) * D, pathLen = Math.abs(s) / Math.sin(be);
+      const blur = Math.max(1.5, pathLen * Math.tan(lobe) * zoom);
+      const xd = cx2 + pd[0] * zoom, yd = cy2 - pd[1] * zoom, xb = cx2 + pbo[0] * zoom, yb = cy2 - pbo[1] * zoom;
+      gI.append(S('circle', { cx: xb, cy: yb, r: blur, fill: '#f59e0b', opacity: 0.25 + 0.6 * Math.min(1, ratio / 0.5) * 0.4 }), S('circle', { cx: xb, cy: yb, r: 4, fill: '#f59e0b', opacity: Math.min(1, 0.3 + ratio) }), S('circle', { cx: xd, cy: yd, r: 5, fill: lm }));
+      gI.append(S('line', { x1: xd, y1: yd, x2: xb, y2: yb, stroke: '#60a5fa', 'stroke-dasharray': '3 3' }));
+            const sepMm = Math.hypot(pd[0] - pbo[0], pd[1] - pbo[1]);
+      const singleMm = Math.hypot(...proj(b, [1, 0, 0])), pairMm = Math.hypot(...[0, 1].map(i => proj(b, [0, 0, cot()])[i] + proj(b, [1, 0, 0])[i]));
+      note.innerHTML = '<b>Bounce.</b> Off the corner there are two spots, the direct dot and its bounce, one on each surface; they merge when the dot is on the corner (offset s = 0). Separation now <span class="dp-read">' + (sepMm / pxmm).toFixed(1) + ' px</span> for an offset of ' + Math.abs(s).toFixed(2) + ' mm. Per mm of offset the pair moves ' + (pairMm / pxmm).toFixed(1) + ' px apart, against ' + (singleMm / pxmm).toFixed(1) + ' px for the single dot walking toward the corner: a gain of <span class="dp-read">x' + (pairMm / Math.max(singleMm, 1e-6)).toFixed(1) + '</span> from this camera. Brightness bounce / direct = reflectance 0.6 x specular ' + spec.toFixed(2) + ' = <span class="dp-read">' + ratio.toFixed(2) + '</span>; the bounce blurs to about ' + (pathLen * Math.tan(lobe)).toFixed(2) + ' mm across on the wall.';
+      app.badge('kink', null); app.badge('dim', ratio < 0.15 ? 'a rough plate: the bounce spot is too dim to use' : null, 'warn');
+      app.io.set({
+        commands: [{ name: 'Radial axis', value: a.toFixed(2), unit: 'mm', note: 'moves the dot toward the merge of the two spots' }],
+        observes: [
+          { name: 'Two-spot pattern present', value: Math.abs(s) < 0.05 ? 'merged: dot is on the corner' : 'two spots', status: ratio >= 0.15 ? 'seen' : 'blind', note: ratio >= 0.15 ? '' : 'bounce too dim at this finish' },
+          { name: 'Separation along the profile', value: (sepMm / pxmm).toFixed(1), unit: 'px', status: 'partly', note: 'proportional to the offset: (1 + cot(tilt)) x |s|' },
+          { name: 'Which spot is the direct dot (sign of the offset)', value: d.surf === 'plate' ? 'on the plate: short of the corner' : 'on the wall: past the corner', status: 'partly', note: 'the direct spot is the brighter one (ratio < 1)' },
+          { name: 'Plate finish (specular fraction) and reflectance', value: '-', status: 'unresolved', note: 'not measured; a look at the real plate answers it' },
+          { name: 'Wire tip mirror images', value: '-', status: 'unresolved', note: 'a related idea: the wire tip and its reflections converge on the corner' },
+        ],
+        manual: ['Look at the real plate: does a second spot appear on the wall?', 'Decide the surface finish assumption'],
+      });
+    }
+    app.invalidate();
+  }
+  const ui = app.ui;
+  const g1 = ui.group('Method');
+  g1.radio({ id: 'mode', label: 'Use the dot as', kind: 'branch', value: 'sweep', options: [{ value: 'sweep', label: 'A sweeping probe' }, { value: 'bounce', label: 'A mirror pair' }], help: 'Sweep: find the corner from the break in the spot’s path. Bounce: read the second spot the plate throws onto the wall.', onChange: update });
+  g1.slider({ id: 'act', label: 'Radial axis (sweeps the dot across the corner)', min: -7, max: 9, step: 0.05, value: -0.4, unit: 'mm', kind: 'actuator', help: 'A proposed small axis. Its zero is not at the corner: the software does not know where the corner is in these units.', onChange: update });
+  g1.slider({ id: 'beta', label: 'Beam tilt from vertical toward the wall', min: 15, max: 60, step: 1, value: 32, unit: '°', kind: 'scene', help: 'Reference pose 32° in section (illustrative). Wall height per mm of shift = cot(tilt).', onChange: update });
+  g1.slider({ id: 'want', label: 'Where to aim: distance from the corner on the plate', min: 0, max: 1.5, step: 0.05, value: 0.4, unit: 'mm', kind: 'scene', help: 'Sweep mode reports the axis value that puts the dot this far short of the corner.', onChange: update });
+  g1.slider({ id: 'spec', label: 'Plate finish: specular fraction', min: 0, max: 1, step: 0.05, value: 0.7, kind: 'scene', help: 'Bounce mode only. Illustrative; nobody has measured the plate.', onChange: update });
+  const g2 = ui.group('Camera (scene edits)');
+  g2.slider({ id: 'psi', label: 'Azimuth off the section plane', min: 0, max: 90, step: 1, value: 60, unit: '°', kind: 'scene', help: '0: looking within the radial-vertical plane from the bore side. 90: along the tangent (only possible on a sectioned tube, eyes-07). Near-tangent views from above the rim are possible in between (eyes-02, look-ahead).', onChange: update });
+  g2.slider({ id: 'el', label: 'Elevation above the plate', min: 3, max: 75, step: 1, value: 20, unit: '°', kind: 'scene', help: 'At azimuth 0 and about 58° the plate and wall motions look identical: no kink.', onChange: update });
+  g2.slider({ id: 'px', label: 'Pixel size at the corner', min: 0.01, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', onChange: update });
+  g2.slider({ id: 'sig', label: 'Spot localisation noise', min: 0, max: 3, step: 0.05, value: 0.6, unit: 'px', kind: 'scene', onChange: update });
+  g2.button({ id: 'noise', label: 'Draw new noise', kind: 'state', onClick: () => { seed++; update(); } });
+  const g3 = ui.group('The sweeping axis (scene edit and procedure)');
+  g3.slider({ id: 'stick', label: 'Axis sticks: it moves only after the command runs this far ahead', min: 0, max: 1.2, step: 0.05, value: 0, unit: 'mm', kind: 'scene', help: 'A seat, a rail or a bungee-carried gun slips in steps (freedom, wave 2). Sweep mode only.', onChange: update });
+  g3.toggle({ id: 'look', label: 'Stop and look: pair each frame with where the axis really is', value: false, kind: 'state', help: 'A scale on the gun side (or the stiffest axis) as the abscissa of the fit. Sweep mode only; matters only when the axis sticks.', onChange: update });
+  update();
+})();
+</script>
+</body>
+</html>

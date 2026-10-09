@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measure the tube first</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .e16 svg { display: block; width: 100%; height: auto; background: #0f141b; border-radius: 8px; }
+  .e16 text { font: 11px system-ui, sans-serif; fill: #cbd5e1; }
+  .e16 .g { fill: #93a1b5; font-size: 10.5px; }
+  .e16 .b { font-weight: 600; fill: #e7ebf1; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-16-measure-the-tube-first",
+  "title": "Measure the tube first: plate depth from a low look, and a PTZ camera's aim stops mattering",
+  "by": "eyes",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Before any gun arrives, a camera across the bore sees the far wall from the rim to the corner: the plate seat depth, the number room-09's shelf and every fine stage is waiting for. A pan-tilt-zoom camera can do it because both features share one frame: its pointing error moves the whole picture (0.86 mm at the wall for 0.1 degree) and leaves the difference alone. What it needs is a ruler in the frame.",
+  "tags": ["lens", "observer", "PTZ", "seat depth", "calibration", "differential measurement", "dry run"],
+  "branchOf": ["room-01-table-opening"],
+  "combines": [],
+  "transferable": ["difference in one frame", "the tube ID as the ruler", "measure before the gun arrives"],
+  "how": {
+    "motion": "not moved here; the result would drive a shelf or a fine stage (room-09, room-01, room-05)",
+    "load": "not addressed: the camera stands on the table or a post",
+    "reference": "the rim edge and the plate-wall corner in one frame; the tube's ID as the scale",
+    "observe": "a low PTZ or fixed camera across the bore; optionally a second look from above",
+    "use": "at loading, laser off, no gun in the way; software writes the seat depth beside the tube's other numbers"
+  },
+  "software": {
+    "commands": ["camera pan, tilt, zoom to a preset (a moving window, not a measurement)", "shelf or stage height from the measured depth (not drawn)"],
+    "observes": ["rim edge and corner pixel rows on the far wall", "the tube's inner edges across the bore (scale)", "whether the corner is visible over the near rim"],
+    "manual": ["placing the camera", "checking the corner edge is really the plate (not a tack or a burr)"]
+  },
+  "notes": ["../../exchange/eyes--on--room-w2.md", "../../explorers/eyes/ideas/eyes-16-measure-the-tube-first.md", "../../explorers/room/ideas/room-09-move-only-shelf.md", "../../explorers/room/ideas/room-01-table-opening.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS, RIM = WK.DIM.tubeHeight, S = (t, a, ...k) => WK.svg(t, a, ...k);
+  const app = WK.app({
+    gun: false, view: 'overall', viewButtons: ['overall', 'top', 'side'],
+    views: { overall: { target: [0, 0, 160], dir: [-0.6, -0.7, 0.4], dist: 950 }, top: { target: [0, 0, 150], dir: [0, -0.002, 1], dist: 800 }, side: { target: [0, 0, 160], dir: [0.05, -1, 0.06], dist: 900 } },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Everything the machines in this study are waiting for begins with one unknown: <b>how deep the plate sits</b> in this tube. Nobody has to guess it, and nobody has to bring the gun near to find out. A camera standing across the bore, a little above the rim, sees the far wall from the rim edge down to the corner where the plate meets it. The pixel distance between the two, times a scale, is the seat depth plus the 6.35 mm nominal recess.</p>' +
+        '<p>The camera may be a <b>pan-tilt-zoom</b> unit (Derek\'s automated vision). Its aim is not repeatable to the accuracy of the measurement: the <i>Pointing error</i> slider moves the whole picture by tenths of a millimetre at the wall. But both features are in one frame, so the aim cancels. What does not cancel is the <b>scale</b>: it comes from a ruler in the frame. The tube\'s own inner diameter (123.7 mm, edge to edge across the bore) is one if the zoom is wide enough to include it.</p>' +
+        '<p><b>Try:</b> slide the seat depth and watch the two marked points and the estimate; turn the pointing error up (the dot-sized 0.05 mm you care about is many pixels smaller than the shift); zoom in until the ruler leaves the frame and see the scale term take over; lower the camera until the corner disappears behind the near rim.</p>',
+      carries: '<p>Not addressed: the camera stands on the table or a post at rim height or above. The tube is the kit\'s; the seat depth is a scene edit (illustrative range, not measured: it is <b>[unknown]</b> in the repo).</p>',
+      software: '<p>Software points the camera (a preset), grabs a frame, finds two edges in one image (rim top edge, plate-wall corner), and measures the vertical pixel distance and the tube\'s width in the same frame. The numbers on the right are 1-sigma errors from the sliders, not a run of an edge detector: a real detector on stainless with glare will sit at 0.5 to 2 pixels, not 0.3.</p>',
+      tried: '<ul><li><b>Assumed (room-09):</b> height by open loop, seat depth repeatable. <b>Found:</b> it does not have to be assumed: a look across the bore reads it directly, once per tube, before loading the gun. At 3840 px, a 9 degree lens (the bore just fills the frame at 480 mm) and 0.5 px edges the error is about 0.03 mm; a 20 degree lens 0.06; at 1280 px across 0.08. The same order as a caliper on a dozen tubes, with no one holding a caliper in the bore.</li>' +
+        '<li><b>Broke:</b> the corner is hidden when the camera is too low. The near rim clears the line to the far corner only above about atan((6.35 + depth) / 125) of elevation, 3 degrees at nominal, more when the plate sits deeper. The scene marks it (target blocked). <b>Repair:</b> stand 10 degrees or more above the rim.</li>' +
+        '<li><b>Broke:</b> a PTZ camera as a measuring instrument. A 0.1 degree pointing error shifts the picture 0.86 mm at the far wall (480 mm away) and 24 pixels at 9 degrees (11 at 20): 17 times a 0.05 mm dot correction. <b>Change:</b> never compare where one thing is between visits; compare two things in one frame. The rim edge and the corner move together.</li>' +
+        '<li><b>Left standing:</b> the scale. Zoomed to 92 mm across the picture (6 degrees) the tube\'s diameter is out of frame and the scale is whatever the lens says (1 % repeat is typical of a zoom, illustrative): 1 % of an 8 mm span is 0.085 mm. <b>Repair options:</b> a printed scale on the nest or table in the same plane as the wall, a wide look to fix the scale then a narrow look, or stay at the widest zoom that holds the bore: with 4K that is 0.036 mm per pixel.</li>' +
+        '<li><b>Also seen:</b> the lateral offset of the plate in the tube (0.005 in of slip, about 0.13 mm) is not read by a look across the bore; two looks 90 degrees apart, or one from above at the ports, would.</li></ul>',
+      unresolved: '<ul><li>Whether the corner between plate and wall gives a clean edge on stainless: glare, the slip gap (0.127 mm wide, 0.25 in deep), a tack weld or burr. Not modelled. A phone photo from the far side at 10 to 15 degrees above the rim would answer it (question for Derek).</li>' +
+        '<li>PTZ pointing repeatability and zoom scale repeatability are not in any listing read for this study; the sliders are guesses.</li>' +
+        '<li>The tube may lean (face runout up to 0.30 mm TIR): a lean of the wall changes the vertical scale by a hair; not modelled.</li></ul>',
+      assumptions: '<ul><li>Camera resolution 1280, 1920 or 3840 px across, 16:9. Pixel noise (edge location) 0.1 to 3 px. Ruler = tube inner diameter 123.7 mm known to 0.13 % (wall and OD tolerances: illustrative). Zoom scale repeat 1 % when the ruler is out of frame. Pointing error is applied as pan and tilt of the aim, from 0 to 1 degree.</li>' +
+        '<li>Depth estimate = (vertical pixel gap x mm per pixel) / cos(elevation) - 6.35. mm per pixel = 2 x distance x tan(fov/2) / image height. All illustrative; the drawn camera views are the kit\'s.</li></ul>',
+    },
+  });
+  const ws = app.workstation;
+  const st = { seat: -2, az: 200, el: 12, dist: 420, fov: 9, ptz: 0.1, px: 0.5, res: 3840, zoomRep: 1 };
+  const val = id => app.ui.get(id);
+  const camPos = V(0, 0, 0);
+  function place() {
+    const a = st.az * DEG, e = st.el * DEG, rimTop = RIM;
+    // st.dist = horizontal distance from the tube axis; height so that the elevation to the far rim edge is st.el
+    const horiz = st.dist, far = horiz + RI, h = rimTop + Math.tan(e) * far;
+    camPos.set(horiz * Math.cos(a), horiz * Math.sin(a), h);
+  }
+  const farAz = () => (st.az + 180) * DEG;
+  const rimPt = () => V(RI * Math.cos(farAz()), RI * Math.sin(farAz()), RIM);
+  const cornerPt = () => V(RI * Math.cos(farAz()), RI * Math.sin(farAz()), WK.CAP_TOP + st.seat);
+  const cornerVis = () => V((RI - 0.4) * Math.cos(farAz()), (RI - 0.4) * Math.sin(farAz()), WK.CAP_TOP + st.seat + 0.4);   // nudged toward the camera for the line-of-sight test
+  const aim = () => {   // the PTZ's actual aim: the intended target rotated by the pointing error (pan and tilt, one draw)
+    const mid = rimPt().add(cornerPt()).multiplyScalar(0.5), d = mid.clone().sub(camPos), len = d.length(); d.normalize();
+    const up = V(0, 0, 1), right = new THREE.Vector3().crossVectors(d, up).normalize(), upv = new THREE.Vector3().crossVectors(right, d).normalize();
+    const e = st.ptz * DEG; d.addScaledVector(right, Math.tan(e) * 0.8).addScaledVector(upv, Math.tan(e) * 0.6).normalize();
+    return camPos.clone().addScaledVector(d, len);
+  };
+  place();
+  const ins = app.inset.add({ id: 'ptz', label: 'PTZ camera across the bore (proposed): the far wall', position: camPos, target: aim, fov: st.fov, near: 20, far: 1800, size: [300, 169], corner: 'br', noise: 0.15 });
+  app.label(() => rimPt(), 'rim edge', { cls: 'laser' });
+  app.label(() => cornerPt(), 'corner (plate meets wall)', { cls: 'locate' });
+  app.label(camPos, 'PTZ camera', { cls: 'sensor' });
+  const rimMark = P.sphere(1.6, 'laser'), cornMark = P.sphere(1.6, 'locate'); app.addHelper(rimMark); app.addHelper(cornMark);
+  const chord = P.dashed([V(0, 0, 0), V(0, 0, 1)], 'compliant', { dash: 3, gap: 3 }); app.addHelper(chord);
+
+  const barsSvg = S('svg', { viewBox: '0 0 380 190' });
+  const panel = app.ui.panel({ id: 'err', title: 'What the measurement is made of (mm, 1 sigma)', open: true, node: barsSvg }); panel.card.classList.add('e16');
+
+  function project(p) {   // NDC of a world point in the PTZ camera
+    const c = ins.camera; c.updateMatrixWorld(true); c.updateProjectionMatrix();
+    return p.clone().project(c);
+  }
+  function update() {
+    place();
+    ws.cap.position.z = st.seat; ws.weldCircle.position.z = WK.CAP_TOP + 0.3 + st.seat; if (ws.parts.plateTick) ws.parts.plateTick.position.z = WK.CAP_TOP + 0.25 + st.seat;
+    ins.setFov && ins.setFov(st.fov);
+    ins.setPose && ins.setPose(camPos, aim());
+    const rp = rimPt(), cp = cornerPt();
+    rimMark.position.copy(rp); cornMark.position.copy(cp);
+    chord.setPoints([rp, cp]);
+    const dist = camPos.distanceTo(rp.clone().add(cp).multiplyScalar(0.5));
+    const H = st.res * 9 / 16, aspect = 16 / 9;
+    const sMM = 2 * dist * Math.tan(st.fov * DEG / 2) / H;          // mm per pixel (vertical, at the wall)
+    const hfovW = 2 * dist * Math.tan(st.fov * DEG / 2) * aspect;    // width of the picture at the wall
+    const rulerIn = hfovW >= 130;                                      // tube ID edge to edge across the bore, about 124 mm plus margin
+    const cosE = Math.cos(Math.atan2(camPos.z - (RIM + WK.CAP_TOP + st.seat) / 2, Math.hypot(camPos.x - rp.x, camPos.y - rp.y)));
+    const span = RIM - (WK.CAP_TOP + st.seat);
+    const nPx = Math.SQRT2 * st.px * sMM / cosE;
+    const nScale = span * (rulerIn ? 0.0013 : st.zoomRep / 100);
+    const tot = Math.hypot(nPx, nScale);
+    // visible? the corner over the near rim
+    const vis = app.inset.markVisibility('ptz', cornerVis(), { eps: 0.8 });
+    // pointing error: the whole picture shifts
+    const fpx = (H / 2) / Math.tan(st.fov * DEG / 2), shiftPx = fpx * Math.tan(st.ptz * DEG), shiftMM = shiftPx * sMM;
+    const a = project(rp), b = project(cp);
+    const gapPx = Math.abs(a.y - b.y) * H / 2;
+    const depthNow = gapPx * sMM / cosE - 6.35;
+    app.io.set({
+      commands: [{ name: 'PTZ preset: pan, tilt, zoom', value: st.fov.toFixed(0) + ' deg fov', note: 'a moving window: its aim is not part of the measurement' }, { name: 'Shelf or stage height from the measured depth', value: '(not drawn)', note: 'room-09 / room-01 / room-05' }],
+      observes: [
+        { name: 'Plate seat depth vs nominal (this tube)', value: (st.seat).toFixed(2) + ' +/- ' + tot.toFixed(3), unit: 'mm', status: vis.visible ? 'seen' : 'blind', note: vis.visible ? 'rim edge to corner in one frame' : 'the near rim hides the corner from this camera height' },
+        { name: 'Picture shift from the pointing error', value: shiftPx.toFixed(1) + ' px = ' + shiftMM.toFixed(2) + ' mm', status: 'seen', note: 'moves rim edge and corner together' },
+        { name: 'Scale source', value: rulerIn ? 'tube ID in frame' : 'zoom repeat', status: rulerIn ? 'seen' : 'partly', note: rulerIn ? 'the far wall picture is wide enough to hold the bore' : 'the ruler left the frame: the scale is the lens\'s' },
+        { name: 'Plate lateral offset, tilt, tube lean', value: '-', status: 'blind', note: 'not read by a look across the bore' },
+        { name: 'Glare, slip gap, burr at the corner', value: '-', status: 'unresolved', note: 'not modelled' },
+      ],
+      manual: ['Place the camera', 'Check the corner edge is the plate'],
+    });
+    setS(sMM.toFixed(3), 'mm/px'); setW(hfovW.toFixed(0), 'mm'); setShift(shiftPx.toFixed(1) + ' px / ' + shiftMM.toFixed(2) + ' mm'); setGap(gapPx.toFixed(0), 'px'); setDepth((depthNow).toFixed(2), 'mm (noise-free)'); setTot(tot.toFixed(3), 'mm');
+    app.badge('hidden', vis.visible ? null : 'the corner is behind the near rim from this camera: raise it or move it back', 'warn');
+    app.badge('scale', !rulerIn ? 'zoomed past the ruler: the scale term is ' + nScale.toFixed(3) + ' mm' : null, 'info');
+    drawBars(nPx, nScale, tot, shiftMM);
+    app.invalidate();
+  }
+  const setS = app.ui.readout('rs', 'Scale at the far wall'), setW = app.ui.readout('rw', 'Picture width at the far wall'), setShift = app.ui.readout('rsh', 'Picture shift from the pointing error'), setGap = app.ui.readout('rg', 'Rim edge to corner in the picture'), setDepth = app.ui.readout('rd', 'Depth from the picture (minus the 6.35 mm recess)'), setTot = app.ui.readout('rt', 'Depth error, 1 sigma');
+  function drawBars(nPx, nScale, tot, shiftMM) {
+    while (barsSvg.firstChild) barsSvg.removeChild(barsSvg.firstChild);
+    const add = (t, a, ...c) => barsSvg.appendChild(S(t, a, ...c));
+    const X0 = 150, W = 215, lo = Math.log10(0.005), hi = Math.log10(3), xs = v => X0 + (Math.log10(Math.max(v, 0.005)) - lo) / (hi - lo) * W;
+    [0.01, 0.1, 1].forEach(g => { add('line', { x1: xs(g), y1: 8, x2: xs(g), y2: 168, stroke: '#20293a' }); add('text', { x: xs(g) - 8, y: 182, class: 'g', text: g + '' }); });
+    [['edge noise (pixels)', nPx, '#60a5fa'], ['scale (ruler or zoom)', nScale, '#f59e0b'], ['depth error, total', tot, '#2dd4bf'], ['pointing shift of the picture', shiftMM, '#f87171']].forEach((r, i) => {
+      const y = 12 + i * 38; add('text', { x: 4, y: y + 10, class: i === 2 ? 'b' : '', text: r[0] });
+      add('rect', { x: X0, y: y, width: Math.max(1, xs(r[1]) - X0), height: 13, fill: r[2], opacity: 0.9 });
+      add('text', { x: xs(r[1]) + 4, y: y + 11, class: 'g', text: r[1].toFixed(r[1] < 0.1 ? 3 : 2) });
+      if (i === 3) add('text', { x: X0, y: y + 26, class: 'g', text: 'moves both features: cancels in the difference' });
+    });
+  }
+  const g1 = app.ui.group('The tube (scene edit)', {});
+  g1.slider({ id: 'seat', label: 'Plate seat depth vs nominal', min: -6, max: 3, step: 0.05, value: -2, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Negative: deeper. Unknown in the repo; illustrative range.', onChange: v => { st.seat = v; update(); } });
+  const g2 = app.ui.group('The camera (proposed)', {});
+  g2.slider({ id: 'az', label: 'Camera azimuth round the tube', min: 0, max: 355, step: 5, value: 200, unit: '°', kind: 'scene', visual: () => ins.helper, onChange: v => { st.az = v; update(); } });
+  g2.slider({ id: 'el', label: 'Elevation of the line to the far rim', min: 1, max: 40, step: 0.5, value: 12, unit: '°', kind: 'scene', visual: () => ins.helper, help: 'Below about 3 degrees the near rim hides the corner.', onChange: v => { st.el = v; update(); } });
+  g2.slider({ id: 'dist', label: 'Distance from the tube axis', min: 200, max: 900, step: 10, value: 420, unit: 'mm', kind: 'scene', visual: () => ins.helper, onChange: v => { st.dist = v; update(); } });
+  g2.slider({ id: 'fov', label: 'Zoom: vertical field of view', min: 4, max: 40, step: 1, value: 9, unit: '°', kind: 'scene', visual: () => ins.helper, help: 'Narrower = finer pixels, but the tube\'s diameter leaves the frame.', onChange: v => { st.fov = v; update(); } });
+  g2.radio({ id: 'res', label: 'Pixels across', kind: 'scene', value: '3840', options: ['1280', '1920', '3840'], onChange: v => { st.res = +v; update(); } });
+  const g3 = app.ui.group('What goes wrong (scene edits)', {});
+  g3.slider({ id: 'ptz', label: 'Pointing error of the preset', min: 0, max: 1, step: 0.01, value: 0.1, unit: '°', kind: 'scene', visual: () => ins.helper, help: 'Where the PTZ actually looks against where it was told to.', onChange: v => { st.ptz = v; update(); } });
+  g3.slider({ id: 'px', label: 'Edge location noise', min: 0.1, max: 3, step: 0.1, value: 0.5, unit: 'px', kind: 'scene', noVisual: true, onChange: v => { st.px = v; update(); } });
+  g3.slider({ id: 'zoomRep', label: 'Zoom scale repeat when the ruler is out of frame', min: 0, max: 3, step: 0.1, value: 1, unit: '%', kind: 'scene', noVisual: true, onChange: v => { st.zoomRep = v; update(); } });
+  app.onReady(function () { app.legend(); app.legend([{ role: 'work', label: 'Tube, plate' }, { role: 'sensor', label: 'PTZ camera' }, { role: 'laser', label: 'Rim edge' }, { role: 'locate', label: 'Corner' }, { role: 'compliant', label: 'Depth chord' }]); update(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit the gun, park the tube</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-04-orbit-the-gun",
+  "title": "Orbit the gun around a parked tube",
+  "by": "room",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "Reverse who moves. The tube stands still on the rotator (now only a stand); a spindle centred on the tube's bore turns a boom that carries the gun once around. The tangent approach and the standoff are then the same all the way round by symmetry, the work clip stops turning, and a camera on the boom sees the dot at one fixed pixel. The price: an umbilical that must not twist, and a room camera that loses sight of the dot behind the tube.",
+  "tags": ["orbit", "boom", "spindle", "parked-tube", "umbilical-twist", "gun-mounted-camera"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["steady ring on the OD centres the work on an overhead axis", "gun-mounted camera sees a constant view", "orbit coverage test for a room-fixed camera", "symmetry replaces per-position setup"],
+  "how": {
+    "motion": "a spindle turns a boom that carries the gun 360 degrees; two small slides on the boom trim radius and height",
+    "load": "a frame over the bench carries the spindle, boom and gun; the tube only stands",
+    "reference": "a steady ring of three pads on the tube outside pulls the tube onto the spindle axis",
+    "observe": "camera on the boom (constant view); a room camera loses the dot behind the tube; encoder angle",
+    "use": "seat tube, close the steady ring, dry-run one orbit, weld one orbit and a bit"
+  },
+  "software": {
+    "commands": ["orbit angle and speed", "gun radial slide and Z slide", "steady ring open and close"],
+    "observes": ["dot vs seam from a boom-mounted camera (always in view)", "room-camera coverage of the orbit", "encoder angle"],
+    "manual": ["seating the tube and closing the steady ring", "routing the umbilical and wire conduit", "the rotary joint for the fibre (unresolved)"]
+  },
+  "notes": ["../../explorers/room/ideas/room-04-orbit-the-gun.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RIM = 152.4, ZS = 470, ZSW = 1050;     // spindle height, swivel height above the tube bottom
+  const app = WK.app({
+    workstation: true, gun: { pose: 'none' }, view: 'overall',
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -60, 330], dir: [0.7, -0.7, 0.42], dist: 1700 },
+      joint: { target: [20, -20, 170], dir: [0.8, -0.5, 0.4], dist: 380 },
+      top: { target: [0, -40, 300], dir: [0, -0.003, 1], dist: 1000 },
+      side: { target: [0, -40, 330], dir: [1, 0.02, 0.05], dist: 1700 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A frame over the bench carries a spindle on the tube axis; a <b>steady ring</b> of three pads closes on the tube\'s outside just below the rim and pulls the tube onto that axis. The spindle turns a boom; the boom carries the printed shell and gun on the same opening pose as the other scenes, with two small slides (radial and height). Turn the boom and the gun orbits the <b>parked</b> tube. Rotation symmetry does what the rotator did: every point on the seam sees the same approach, the same angle, the same standoff. The existing rotator is a stand (its motor idles), and the work clip can be a plain clip.</p>' +
+        '<p><b>Try:</b> turn the orbit slider; toggle <i>Orbit turning</i>; open the steady ring and set the tube 3 mm off the spindle axis: the dot then swings in and out radially once per turn (the corner inset). Watch the room camera lose the dot behind the tube; the boom camera never does. Watch the umbilical twist badge.</p>',
+      carries: '<p><b>Slate</b> frame over the bench carries the spindle bearing; <b>purple</b> is the orbit drive and the two boom slides; <b>amber</b> boom and shell carry the gun; <b>teal</b> is the steady ring that puts the tube on the spindle axis (the datum). The tube and the rotator carry only the tube.</p>' +
+        '<p>The gun\'s <i>position relative to the seam</i> now depends on one thing: how well the spindle axis matches the tube axis. That is the steady ring (fitted) or a hand alignment (loose). Everything else is symmetry.</p>',
+      software: '<p>Software commands the orbit angle and speed and the two slides, and could close and open the steady ring. Its best sensor is a camera <b>on the boom</b>: gun and camera share a frame, so the dot is at the same pixel in every frame and the seam edge is what moves. The room camera coverage (I/O panel) is the fraction of the orbit for which it sees the dot at all.</p>',
+      tried: '<ul>' +
+        '<li><b>The fibre must not twist</b> (manual: twisting is strictly forbidden; 350 mm bend radius while emitting). A gun that orbits 380° about an axis, tied to a fixed cable end above the spindle, twists the fibre by the angle it turns. <i>Repair (untested):</i> a rotary joint at the swivel that passes the fibre; or limit the orbit to a wrap-unwrap of the cable around the mast and accept a return sweep; or ride the laser and feeder on the boom (heavy). <i>Leaves:</i> nobody has established a fibre rotary joint here. This is the main open problem.</li>' +
+        '<li><b>Centring.</b> Without the pilot, an axis offset e turns into a radial error e·cos(θ) once per revolution: 0.25&nbsp;mm TIR of runout is what the rig doc accepts today, and this arrangement adds the spindle-to-tube offset to it. <i>Repair:</i> a bore plug would fill the space the nozzle needs and blocks every camera (I drew one first; the camera inset showed it), and it cannot pass a plate already in the tube for the second closure. A steady ring on the <i>outside</i> diameter, just below the rim, stays out of the beam path. <i>Leaves:</i> it references the OD while the seam is on the ID: wall-thickness variation (not measured) enters as eccentricity.</li>' +
+        '<li><b>A room camera cannot follow.</b> The dot is against the far wall for half the orbit; the coverage readout counts the fraction of the circle that stays visible (drawn-scene line of sight). <i>Repair:</i> the boom camera.</li>' +
+        '<li><b>What the rotator was for.</b> The rotator also carried the ground shoe and the deadman pedal logic; with a parked tube a fixed clip suffices. <i>Leaves:</i> the pedal still gates rotation of <i>something</i>: a boom.</li>' +
+        '<li><b>Wire feed and gas conduit</b> orbit with the gun: two more lines through a rotary path, and the wire must still arrive on the arriving side of the puddle (it does, by symmetry).</li></ul>',
+      unresolved: '<ul><li>The fibre rotary path or the wrap-unwrap sequence. Ask the manufacturer? (Derek only.) A dry lap with a stripe painted along the fibre would show whether 380° of wrap twists it before anyone fires the laser (eyes-11b): a marker pen, no machine.</li>' +
+        '<li>The frame above the tube: it must let a tube be lowered in from above (spindle raised) and stay stiff enough.</li>' +
+        '<li>Whether an orbiting head with a boom-mounted camera is easier or harder to calibrate than a fixed camera on a rotating tube.</li></ul>',
+      assumptions: '<ul><li>Gun proxy at the opening pose; boom geometry, spindle height and slide ranges (±8 mm radial, ±8 mm Z) are illustrative.</li>' +
+        '<li>Steady-ring centring 0.08&nbsp;mm and the hand-set axis offset ±5&nbsp;mm are illustrative.</li>' +
+        '<li>Orbit speed 7.4°/s = 8&nbsp;mm/s at the weld radius (the rig doc\'s starting value); the boom drive is not designed.</li>' +
+        '<li>Camera visibility is drawn-scene line of sight.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { th: 0, fr: 0, fz: 0, pilot: true, ex: 3, ey: -2, swivel: false, camAz: 200, camH: 330, camR: 250, spin: false };
+  ws.setGhost(false);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.22 });
+  const lugTop = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  gun.setLaser(true);
+  const base = WK.dialsToPose(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical), q0 = base.quaternion.clone(), p0 = base.position.clone();
+
+  // frame, spindle, pilot, boom
+  const posts = [[-330, -330], [330, -330], [-330, 330], [330, 330]];
+  posts.forEach(p => app.add(P.rod(V(p[0], p[1], -86), V(p[0], p[1], ZSW), 8, 'fixed')));
+  [[0, 1], [1, 3], [3, 2], [2, 0]].forEach(ij => app.add(P.rod(V(posts[ij[0]][0], posts[ij[0]][1], ZSW), V(posts[ij[1]][0], posts[ij[1]][1], ZSW), 5, 'fixed')));
+  const bridge = P.rod(V(-330, 0, ZSW), V(330, 0, ZSW), 6, 'fixed'); app.add(bridge);
+  const swivel = P.sphere(11, 'compliant'); swivel.position.set(0, 0, ZSW - 16); app.add(swivel);
+  const spindle = P.cyl(30, 120, 'fixed'); spindle.position.set(0, 0, ZS + 60); app.add(spindle);
+  const spindleShaft = P.rod(V(0, 0, ZS + 120), V(0, 0, ZSW), 6, 'fixed'); app.add(spindleShaft);
+  const drive = P.motor(46, 'actuated'); drive.position.set(80, 0, ZS + 140); app.add(drive);
+  const belt = P.rod(V(0, 0, ZS + 130), V(80, 0, ZS + 130), 3, 'actuated'); app.add(belt);
+  const pilot = new THREE.Group(); pilot.userData.role = 'locate'; (function () {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(70, 3.2, 8, 72), WK.mat('locate')); ring.userData.role = 'locate'; pilot.add(ring);
+    [90, 210, 330].forEach(a => { const pad = P.box(16, 10, 14, 'locate'); pad.position.set(64 * Math.cos(a * DEG), 64 * Math.sin(a * DEG), 0); pad.rotation.z = a * DEG; pilot.add(pad); const arm = P.rod(V(70 * Math.cos(a * DEG), 70 * Math.sin(a * DEG), 0), V(150 * Math.cos(a * DEG), 150 * Math.sin(a * DEG), 60), 4, 'locate'); pilot.add(arm); });
+  })(); app.add(pilot);
+  const pilotRod = P.rod(V(0, 0, ZS), V(0, 0, ZS + 1), 1, 'locate'); pilotRod.visible = false; app.add(pilotRod);
+  const boomArm = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'load'), boomDrop = P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'load'); app.add(boomArm); app.add(boomDrop);
+  const slideBox = P.box(40, 40, 30, 'actuated'); app.add(slideBox);
+  let cable = null;
+  const proxy = { dotOffset: () => { const d = gun.dotWorld().sub(ws.group.position), o = ws.offsetOf(d); o.miss = Math.hypot(o.radial, o.vertical); return o; }, beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: proxy });
+  const boomCam = app.inset.add({ id: 'boom', label: 'Camera on the boom, orbits with the gun (proposed)', position: () => gun.local([0, 70, 24]), target: () => gun.dotWorld(), fov: 30, near: 20, far: 800, size: [220, 150], corner: 'br', noise: 0.25 });
+  const camPos = V(0, 0, 0);
+  function placeCam() { camPos.set(S.camR * Math.cos(S.camAz * DEG), S.camR * Math.sin(S.camAz * DEG), S.camH); }
+  placeCam();
+  const roomCam = app.inset.add({ id: 'room', label: 'Room-fixed camera (proposed)', position: () => camPos, target: () => gun.dotWorld(), fov: 38, near: 30, far: 1600, size: [220, 150], corner: 'bl', noise: 0.25 });
+  app.label(() => camPos, 'room camera', { cls: 'sensor' });
+  app.label(pilot, 'steady ring on the tube OD (datum)', { cls: 'locate' });
+  app.label(swivel, 'swivel: fibre must not twist', { cls: 'compliant' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(drive, 'orbit drive', { cls: 'actuated' });
+  app.label(slideBox, 'boom slides (radial, Z)', { cls: 'actuated' });
+
+  function arcRoute(P0, d0, Q, Rmin) {
+    const w = Q.clone().sub(P0), a = w.dot(d0), wp = w.clone().addScaledVector(d0, -a), b = wp.length();
+    const n = wp.clone().multiplyScalar(1 / Math.max(b, 1e-6)), Rarc = w.lengthSq() / (2 * Math.max(b, 1e-6)), ok = Rarc >= Rmin, R = ok ? Rmin : Rarc;
+    const dQ = Math.hypot(a, b - R), delta = Math.atan2(R - b, a);
+    let phi = Math.asin(Math.min(1, R / dQ)) - delta; if (!ok) phi = 2 * Math.asin(Math.min(1, w.length() / (2 * R))); if (phi < 0) phi = 0;
+    const at = q => P0.clone().addScaledVector(d0, R * Math.sin(q)).addScaledVector(n, R * (1 - Math.cos(q)));
+    const pts = []; for (let i = 0; i <= 28; i++) pts.push(at(phi * i / 28));
+    const T = pts[pts.length - 1]; for (let i = 1; i <= 6; i++) pts.push(T.clone().lerp(Q, i / 6));
+    return { pts: pts, R: R, ok: ok };
+  }
+  function placeGun(th) {
+    const c = Math.cos(th * DEG), s = Math.sin(th * DEG);
+    const off = V(S.fr, 0, S.fz);
+    const pos = p0.clone().add(off);
+    const qz = new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), th * DEG);
+    gun.setTransform(V(pos.x * c - pos.y * s, pos.x * s + pos.y * c, pos.z), qz.multiply(q0.clone()));
+    gun.group.updateMatrixWorld(true);
+  }
+  function coverage() {
+    let vis = 0, n = 0;
+    for (let a = 0; a < 360; a += 10) { placeGun(a); const r = app.inset.markVisibility('room', gun.dotWorld()); n++; if (r.visible) vis++; }
+    placeGun(S.th); app.inset.markVisibility('room', gun.dotWorld());
+    return vis / n;
+  }
+  let covCache = { key: '', v: 0 };
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+  function update() {
+    const e = S.pilot ? [0.08, 0.0] : [S.ex, S.ey];
+    if (app.ui.get('ex') !== undefined) { app.ui.enable('ex', !S.pilot); app.ui.enable('ey', !S.pilot); }
+    ws.group.position.set(e[0], e[1], 0);
+    placeGun(S.th);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, 0);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+    placeCam();
+    // boom geometry
+    const lw = lugTop.world(), th = S.th * DEG;
+    boomArm.setEnds(V(0, 0, ZS), V(lw.x, lw.y, ZS)); boomDrop.setEnds(V(lw.x, lw.y, ZS), lw);
+    slideBox.position.set(lw.x, lw.y, ZS + 4); slideBox.rotation.z = th;
+    pilot.position.set(0, 0, RIM - 6 + (S.pilot ? 0 : 40)); pilot.scale.set(S.pilot ? 1 : 1.35, S.pilot ? 1 : 1.35, 1);
+    // umbilical: grip base up to the swivel, twisted by the orbit angle when there is no rotary joint
+    const start = gun.local(WK.GRIP_BASE_LOCAL.clone().addScaledVector(WK.LOCAL_ROLL_AXIS, 70)), sdir = gun.dir(WK.LOCAL_ROLL_AXIS).normalize();
+    const route = arcRoute(start, sdir, V(0, 0, ZSW - 40), WK.CABLE.minBendEmitting);
+    if (!cable) { cable = P.cable(route.pts, { radius: 4.5, role: 'cable', segments: 120 }); app.add(cable); } else cable.setPoints(route.pts);
+    const r = route.ok ? WK.CABLE.minBendEmitting : route.R;
+    app.badge('bend', route.ok ? null : 'umbilical would need R ' + r.toFixed(0) + ' mm to reach the swivel (manual: 350 emitting)', route.ok ? 'ok' : (r >= WK.CABLE.minBendStored ? 'warn' : 'limit'));
+    const tw = S.swivel ? 0 : S.th;
+    app.badge('twist', Math.abs(tw) > 5 ? 'fibre twisted ' + tw.toFixed(0) + '° about its own axis (manual: strictly forbidden): needs a rotary path' : null, 'limit');
+    // observers
+    const seeBoom = app.inset.markVisibility('boom', gun.dotWorld());
+    const key = [S.camAz, S.camH, S.camR, S.fr, S.fz].join('|');
+    if (covCache.key !== key) { covCache = { key: key, v: coverage() }; }
+    const seeRoom = app.inset.markVisibility('room', gun.dotWorld());
+    const off = proxy.dotOffset();
+    app.badge('miss', off.miss > 0.25 ? 'dot is ' + off.miss.toFixed(2) + ' mm from the seam' : null, off.miss > 1 ? 'limit' : 'warn');
+    setAng(S.th.toFixed(0), '°'); setCov((covCache.v * 100).toFixed(0), '% of the orbit'); setEcc(S.pilot ? '0.08 (steady ring)' : Math.hypot(S.ex, S.ey).toFixed(1), 'mm'); setMiss(off.miss.toFixed(2), 'mm'); setBend(route.ok ? '350+ (ok)' : r.toFixed(0) + ' (too tight)', 'mm');
+    app.io.set({
+      commands: [
+        { name: 'Orbit angle / speed', value: S.th.toFixed(0) + '°', note: S.spin ? 'turning at 7.4°/s = 8 mm/s at the weld radius' : 'stopped' },
+        { name: 'Boom slides radial, Z', value: S.fr.toFixed(1) + ', ' + S.fz.toFixed(1), unit: 'mm' },
+        { name: 'Steady ring', value: S.pilot ? 'closed on the tube' : 'open', note: 'three pads on the outside diameter just below the rim; a hand or a small drive' },
+      ],
+      observes: [
+        { name: 'Dot vs seam (boom camera)', value: seeBoom.visible ? (off.radial + 0.08).toFixed(2) + ', ' + (off.vertical - 0.05).toFixed(2) : '-', unit: seeBoom.visible ? 'mm r, z' : '', status: seeBoom.visible ? 'partly' : 'blind', note: 'same pixel for the dot at every angle; estimate uses a made-up bias' },
+        { name: 'Dot visible to the room camera', value: seeRoom.visible ? 'yes' : 'no', status: seeRoom.visible ? 'partly' : 'blind', note: 'over the whole orbit: ' + (covCache.v * 100).toFixed(0) + '%' },
+        { name: 'Orbit encoder angle', value: S.th.toFixed(1), unit: '°', status: 'seen' },
+        { name: 'Fibre twist', value: S.swivel ? 'free (assumed rotary joint)' : S.th.toFixed(0) + '°', status: S.swivel ? 'unresolved' : 'partly', note: 'the rotary joint that passes the fibre is not established' },
+      ],
+      manual: ['Seat the tube and close the steady ring', 'Route umbilical, wire conduit and gas line on the boom', 'Alternatively wrap-unwrap the cable around the mast'],
+    });
+  }
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setAng = app.ui.readout('ang', 'Orbit angle'), setCov = app.ui.readout('cov', 'Room camera sees the dot for'), setEcc = app.ui.readout('ecc', 'Spindle to tube axis offset'), setMiss = app.ui.readout('miss', 'Dot vs seam (exact)'), setBend = app.ui.readout('bend', 'Umbilical min bend radius');
+  app.onFrame(function (dt) { if (!S.spin) return false; S.th = (S.th + 7.4 * dt) % 380; app.ui.set('th', +S.th.toFixed(1), { silent: true }); update(); return true; });
+
+  const act = app.ui.group('Commands (proposed actuators)', {});
+  act.slider({ id: 'th', label: 'Orbit angle', min: 0, max: 380, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => [boomArm, boomDrop, drive], help: '380 degrees is one revolution plus about 20 degrees past the first tack.', onChange: v => { S.th = v; update(); } });
+  act.toggle({ id: 'spin', label: 'Orbit turning', value: false, kind: 'state', visual: () => drive, onChange: v => { S.spin = v; update(); } });
+  act.slider({ id: 'fr', label: 'Boom slide: radial', min: -8, max: 8, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => slideBox, onChange: v => { S.fr = v; update(); } });
+  act.slider({ id: 'fz', label: 'Boom slide: height', min: -8, max: 8, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => slideBox, onChange: v => { S.fz = v; update(); } });
+  act.toggle({ id: 'pilot', label: 'Steady ring closed on the tube OD', value: true, kind: 'state', visual: () => [pilot], help: 'Closed: the tube axis is pulled onto the frame axis (0.08 mm, illustrative). Open: the tube is wherever it sits.', onChange: v => { S.pilot = v; update(); } });
+  const sc = app.ui.group('Scene edits', { help: 'Not hardware.' });
+  sc.slider({ id: 'ex', label: 'Tube axis offset from the spindle, X (ring open)', min: -5, max: 5, step: 0.1, value: 3, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { S.ex = v; update(); } });
+  sc.slider({ id: 'ey', label: 'Tube axis offset from the spindle, Y (ring open)', min: -5, max: 5, step: 0.1, value: -2, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { S.ey = v; update(); } });
+  sc.toggle({ id: 'swivel', label: 'Assume a fibre rotary joint at the swivel', value: false, kind: 'branch', visual: () => swivel, help: 'Unresolved: not shown to exist. Removes the twist badge.', onChange: v => { S.swivel = v; update(); } });
+  sc.slider({ id: 'camaz', label: 'Room camera azimuth', min: 0, max: 360, step: 1, value: 200, unit: '°', kind: 'scene', visual: () => roomCam.helper, onChange: v => { S.camAz = v; update(); } });
+  sc.slider({ id: 'camh', label: 'Room camera height', min: 200, max: 700, step: 5, value: 330, unit: 'mm', kind: 'scene', visual: () => roomCam.helper, onChange: v => { S.camH = v; update(); } });
+  sc.slider({ id: 'camr', label: 'Room camera radius', min: 120, max: 450, step: 5, value: 250, unit: 'mm', kind: 'scene', visual: () => roomCam.helper, onChange: v => { S.camR = v; update(); } });
+  sc.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+re-run of use's numbers (2000 closures, window +-0.10 mm):
+  B, look after the clamp          95%
+  B, no look after the clamp       81%
+  B, clamp bias 0.08, look after   82%  no look  49%  bias learned, no look  81%
+
+how large may the clamp's closing scatter be? (mean 0)
+  sigma mm   no look   one look-and-relock loop (up to 6)   mean relocks
+  0.005       91%                  97%                        1.01
+  0.01        91%                  97%                        0.93
+  0.02        90%                  96%                        1.05
+  0.03        88%                  96%                        1.13
+  0.05        81%                  95%                        1.30
+  0.08        69%                  91%                        1.71
+  0.1         61%                  90%                        2.02
+  0.15        46%                  81%                        2.61
+
+a wedge that always pushes to one side (mean shift, small scatter 0.01 mm) against a pinch (mean 0, scatter 0.05):
+  wedge, mean 0.08, sigma 0.01, no look                     48%
+  wedge, mean 0.08, sigma 0.01, bias learned, no look       91%
+  wedge, mean 0.08, sigma 0.01, bias learned, one look      97%
+  pinch, mean 0, sigma 0.05, no look                        81%
+  pinch, mean 0, sigma 0.05, look after                     95%
+
+friction: rounds, not accuracy (median rounds of the first trim, 2000 closures):
+  friction 0.02  N: median 2  90th percentile 4  at the 6-round limit 3%
+  friction 0.15  N: median 3  90th percentile 6  at the 6-round limit 11%
+  friction 0.5   N: median 4  90th percentile 6  at the 6-round limit 23%
+  friction 1     N: median 5  90th percentile 6  at the 6-round limit 43%

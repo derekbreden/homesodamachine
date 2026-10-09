@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dot-centred orientation</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-03-dot-centred",
+  "title": "Dot-centred orientation: where the pivot is decides what an angle costs",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Turn the gun (or the tube) about an axis and watch the dot: a pivot at the grip base turns 1 degree into about 5 mm at the dot; a pivot at the dot turns it into none. Pick the axis, the pivot and who moves; add a compensating XYZ move and see what its step size leaves.",
+  "tags": [
+    "remote centre",
+    "lever arm",
+    "decoupling",
+    "arcs",
+    "work-side cradle"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "error = lever x angle: the pivot location table",
+    "grip-axis roll is free on that line",
+    "tilting the work = tilting the gun"
+  ],
+  "how": {
+    "motion": "one rotation at a time about a pivot you choose; gun or work moves",
+    "load": "hinge post, arcs held by struts, or arcs under the rotator (work branch)",
+    "reference": "the dot: a pivot at the dot leaves it where it was",
+    "observe": "outside camera and the exact corner inset; the angle motor's step is the resolution",
+    "use": "orientation stage that never disturbs position; hand-set neighbourhood elsewhere"
+  },
+  "software": {
+    "commands": [
+      "angle about the chosen axis (motor, angular step you set)",
+      "a compensating XYZ move when the pivot is not the dot"
+    ],
+    "observes": [
+      "dot against the seam (camera, when visible)",
+      "angle from the motor step count"
+    ],
+    "manual": [
+      "placing the pivot or arcs so their centre really is the dot",
+      "hand-setting the neighbourhood",
+      "any wire retract"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-03-dot-centred.md",
+    "../../explorers/travel/calc/01-pose-and-levers.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, CAPTOP = WK.CAP_TOP, RIMZ = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2;
+  const BENCH_Z = -WK.RIG.benchToTubeBottom;
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'opening' },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -80, 130], dir: [-0.55, 0.5, 0.45], dist: 1500 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 220 },
+      top: { target: [10, -90, 146], dir: [0, -0.0035, 1], dist: 900 },
+      side: { target: [10, -90, 130], dir: [1, 0.03, 0.06], dist: 1400 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>An orientation change is a rotation about some line. If the line passes through the dot, the dot does not move. If it does not, the dot moves by <b>lever × angle</b>, where the lever is the distance from the line to the dot. Choose an <b>axis</b> (pitch about the radial hole axis, plan angle about the vertical, or beam roll about the dot–grip line), a <b>pivot</b> (dot, barrel middle, grip base) and <b>who moves</b> (the gun, or the tube and rotator turning about the dot).</p>' +
+        '<p>Pivot at the dot needs arcs (printed tracks whose centre is the dot) because there is nothing to put a hinge on inside the recess. The red arrow shows where the dot went; the grey ball is where it was.</p>',
+      carries: '<p><b>Teal</b> hinge or arcs and the <b>slate</b> post carry the gun (amber shell) to the room; <b>purple</b> is the angle motor. In the work branch the arcs carry the rotator and tube instead and the gun does not move. The rotator’s ball race, printed base and belt see a side load of sin(angle) of the weight in that branch: not designed here.</p>',
+      software: '<p>Software commands one angle. What it can read: the step count, and (when a camera sees it) the dot against the seam, which is how a pivot far from the dot would be caught. With a pivot away from the dot software must also command an XYZ move to bring the dot back: the <b>compensate</b> toggle does that with the step you choose, and the residual is what that step leaves. With the pivot at the dot there is no coupling to compensate.</p>',
+      tried: '<p><b>Break 1: remote pivot.</b> Pitch about the grip base: about 4.9 mm per degree at the dot; a motor step of 0.05° is 0.24 mm at the dot. <i>Change:</i> put the pivot at the dot (arcs), or compensate with XYZ, which trades the angle resolution for the XYZ step.</p>' +
+        '<p><b>Break 2: the free axis.</b> Beam roll about the dot–grip line costs nothing for a pivot on that line, so that rotation can sit at the grip base. Pitch and plan angle cannot. <i>Consequence:</i> only two of the three rotations need dot-centred hardware.</p>' +
+        '<p><b>Break 2b: the free axis is not free for the cable.</b> Beam roll is a rotation about the line from the dot to the cable exit. If the umbilical leaves along that line, rolling the gun twists the fibre about its own axis, and the manual says twisting is strictly forbidden. <i>Leaves standing:</i> the real direction the cable leaves the grip is unknown; the work-side form leaves the cable alone.</p><p><b>Break 3: the work side.</b> Tilting the tube about the dot gives the same relative pose without moving the gun or its cables. <i>Leaves standing:</i> a tilted rotator loads its printed ball race sideways, and the rim must still clear the nozzle (the badge shows when it does not).</p>',
+      unresolved: '<p>Nothing here says how large the useful orientation range is: ±12° is illustrative. The arcs’ centre must really coincide with the dot to within the accuracy that matters, and the dot is a laser reference of unknown offset from the melt. Printed arcs with a drive (rack, friction wheel) and their backlash are not designed. Arcs around the tube top reduce access for the operator and the wire feed.</p>',
+      assumptions: '<ul><li>Gun geometry and opening pose: the kit proxy (illustrative). Lever arms are computed from it, not measured.</li>' +
+        '<li>±12° travel, angular steps and the XYZ compensation steps are illustrative. The arcs’ radii come from where the shell lug happens to be.</li>' +
+        '<li>The rotations use ideal lines; no hinge play, arc flex or cable force is modelled.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ---------------------------------------------------------------- fixed context: bench, post
+  const bench = P.box(980, 820, 20, 'fixed'); bench.position.set(-40, -120, BENCH_Z - 10); app.add(bench);
+  (function grid() {
+    const pts = [], z = BENCH_Z + 0.2;
+    for (let x = -500; x <= 420; x += 50) pts.push(V(x, -520, z), V(x, 280, z));
+    for (let y = -500; y <= 280; y += 50) pts.push(V(-530, y, z), V(450, y, z));
+    const g = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.4 })); g.userData.role = 'fixed'; g.userData.occludes = false; app.add(g);
+  })();
+  // the work stands in a cradle group so the tube branch can turn it about the dot
+  const cradle = new THREE.Group(); app.scene.remove(ws.group); cradle.add(ws.group); app.scene.add(cradle);
+  const dot0 = WK.JOINT.clone();
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const shell = gun.addShell({ style: 'sleeve', from: 'barrelMid', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.30 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  app.scene.updateMatrixWorld(true);
+  const N0 = { lug: lug.world(), grip: gun.local('gripBase'), barrel: gun.local('barrelMid'), dot: gun.dotWorld() };
+  const AXES = {
+    pitch: { dir: V(1, 0, 0), label: 'pitch (radial hole axis)' },
+    plan: { dir: V(0, 0, 1), label: 'plan angle (vertical axis)' },
+    roll: { dir: N0.grip.clone().sub(N0.dot).normalize(), label: 'beam roll (dot to grip base)' },
+  };
+  const PIVOTS = { dot: N0.dot.clone(), barrel: N0.barrel.clone(), grip: N0.grip.clone() };
+
+  // ghost of where the dot was, and the displacement arrow
+  const ghostDot = P.sphere(3.4, 'ghost'); ghostDot.position.copy(N0.dot); app.addHelper(ghostDot);
+  const arrow = P.arrow(N0.dot, V(0, 0, 1), 10, 'laser'); app.addHelper(arrow);
+  const pivMark = P.sphere(6.5, 'locate'); app.addHelper(pivMark);
+  const leverLine = P.dashed([N0.dot, N0.dot.clone().add(V(0, 0, 1))], 'locate', { dash: 5, gap: 4 }); app.addHelper(leverLine);
+  const axisLine = P.dashed([N0.dot, N0.dot.clone().add(V(1, 0, 0))], 'locate', { dash: 8, gap: 5 }); app.addHelper(axisLine);
+  app.label(() => ghostDot.position, 'dot before', { cls: 'ghost' });
+  app.label(() => gun.dotWorld(), 'dot now', { cls: 'laser' });
+  app.label(() => pivMark.position, 'pivot', { cls: 'locate' });
+
+  // mechanism group rebuilt when axis / pivot / who changes
+  const mech = new THREE.Group(); app.scene.add(mech);
+  let carriage = null, arcPts = null;
+  function clearMech() { while (mech.children.length) { const c = mech.children.pop(); c.traverse(o => { if (o.geometry) o.geometry.dispose(); }); } }
+  function arcTrack(pt, axisPoint, u, span, radius, role) {
+    const pts = []; for (let a = -span; a <= span; a += span / 20) pts.push(rot(pt, axisPoint, u, a * DEG));
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const m = new THREE.Mesh(new THREE.TubeGeometry(curve, 60, radius, 8, false), WK.mat(role)); m.userData.role = role; return { mesh: m, pts: pts };
+  }
+  function rot(p, c, u, a) { return p.clone().sub(c).applyAxisAngle(u, a).add(c); }
+  const post = { base: V(-190, -330, BENCH_Z), top: V(-190, -330, 330) };
+  function buildMech() {
+    clearMech(); carriage = null;
+    const who = app.ui.get('who'), axk = app.ui.get('axis'), pvk = who === 'work' ? 'dot' : app.ui.get('pivot');
+    const u = AXES[axk].dir, pv = PIVOTS[pvk];
+    const add = o => { mech.add(o); return o; };
+    if (who === 'gun') {
+      // room post
+      add(P.rod(post.base, post.top, 9, 'fixed'));
+      const bp = P.box(140, 140, 14, 'fixed'); bp.position.set(post.base.x, post.base.y, BENCH_Z + 7); add(bp);
+      if (pvk === 'dot') {
+        const tr = arcTrack(N0.lug, N0.dot, u, 26, 4.5, 'locate');
+        add(tr.mesh);
+        [tr.pts[0], tr.pts[tr.pts.length - 1]].forEach(e => add(P.rod(V(post.top.x, post.top.y, post.top.z), e, 3.5, 'fixed')));
+        carriage = P.box(26, 26, 26, 'actuated'); add(carriage);
+        const mo = P.box(34, 34, 34, 'actuated'); mo.position.copy(tr.pts[tr.pts.length - 1]); add(mo);
+      } else {
+        // hinge pin along the axis at the pivot, supported from the post
+        const a = pv.clone().addScaledVector(u, -55), b = pv.clone().addScaledVector(u, 55);
+        add(P.rod(a, b, 5, 'locate'));
+        add(P.rod(post.top, pv.clone().addScaledVector(u, -55), 5, 'fixed'));
+        const mo = P.box(34, 34, 34, 'actuated'); mo.position.copy(b.clone().addScaledVector(u, 22)); add(mo);
+      }
+    } else {
+      // work branch: two arc tracks under the rotator, centred on the dot, carrying the rotator base
+      const q0 = V(0, 0, -62);
+      [-150, 150].forEach(off => {
+        const tr = arcTrack(q0.clone().addScaledVector(u, off), N0.dot, u, 26, 3.6, 'fixed'); add(tr.mesh);
+        [tr.pts[0], tr.pts[tr.pts.length - 1]].forEach(e => add(P.rod(V(e.x, e.y, BENCH_Z), e, 3.5, 'fixed')));
+      });
+      const mo = P.box(34, 34, 34, 'actuated'); mo.position.copy(rot(q0.clone().addScaledVector(u, 150), N0.dot, u, 26 * DEG)); add(mo);
+    }
+    app.invalidate();
+  }
+
+  // observers
+  app.inset.add({ id: 'obs', label: 'Outside camera (proposed)', position: V(-250, -45, 340), target: () => gun.dotWorld(), fov: 32, near: 30, far: 1600, size: [220, 150], corner: 'br', noise: 0.2 });
+  app.label(V(-250, -45, 340), 'outside camera', { cls: 'sensor' });
+  const inv = new THREE.Matrix4();
+  function seamNow() {
+    app.scene.updateMatrixWorld(true);
+    inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const d = gun.dotWorld().applyMatrix4(inv);
+    return { radial: Math.hypot(d.x, d.y) - RI, vertical: d.z - CAPTOP, along: 0, total: 0 };
+  }
+  app.cornerInset({ gun: { dotOffset: () => seamNow(), beamDir: () => gun.beamDir() } });
+  function rimClearance() {
+    app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const prof = z => (z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12);
+    let min = Infinity;
+    for (let z = 0; z <= 118; z += 4) { const p = gun.local([0, 0, z]).applyMatrix4(inv); const d = Math.hypot(Math.hypot(p.x, p.y) - (RI + RO) / 2, p.z - RIMZ) - (RO - RI) / 2 - prof(z); if (d < min) min = d; }
+    return min;
+  }
+
+  // ---------------------------------------------------------------- update
+  const setLever = app.ui.readout('lever', 'Lever: pivot line to dot'), setPer = app.ui.readout('per', 'Dot travel per degree'), setStep = app.ui.readout('dstep', 'Dot travel per motor step'), setDisp = app.ui.readout('disp', 'Dot moved (before compensation)'), setRes = app.ui.readout('res', 'Dot vs seam now');
+  function sync() {
+    const who = app.ui.get('who'), axk = app.ui.get('axis'), pvk = who === 'work' ? 'dot' : app.ui.get('pivot');
+    const u = AXES[axk].dir, pv = PIVOTS[pvk];
+    const stepA = app.ui.get('astep'), ang = Math.round(app.ui.get('angle') / stepA) * stepA;
+    const Q = new THREE.Quaternion().setFromAxisAngle(u, (who === 'gun' ? ang : -ang) * DEG);
+    // who moves
+    let comp = V(0, 0, 0);
+    if (who === 'gun') {
+      gun.setTransform(N0_pos_after(Q, pv), Q.clone().multiply(gunBase.quat));
+      cradle.position.set(0, 0, 0); cradle.quaternion.identity();
+    } else {
+      gun.setTransform(gunBase.pos, gunBase.quat);
+      cradle.quaternion.copy(Q); cradle.position.copy(N0.dot).sub(N0.dot.clone().applyQuaternion(Q));
+    }
+    app.scene.updateMatrixWorld(true);
+    const d1 = gun.dotWorld().sub(N0.dot);
+    // the same displacement, from the tube's point of view, for the work branch
+    const dispRaw = who === 'gun' ? d1.length() : 0;
+    // compensation: XYZ move that returns the dot, rounded to the step (gun side: translate the gun; work side has no coupling)
+    const compOn = app.ui.get('comp'), cs = app.ui.get('cstep');
+    if (compOn && who === 'gun') {
+      comp = d1.clone().multiplyScalar(-1); comp.set(Math.round(comp.x / cs) * cs, Math.round(comp.y / cs) * cs, Math.round(comp.z / cs) * cs);
+      gun.setTransform(N0_pos_after(Q, pv).add(comp), Q.clone().multiply(gunBase.quat));
+      app.scene.updateMatrixWorld(true);
+    }
+    const dNow = gun.dotWorld().sub(N0.dot);
+    // visuals
+    pivMark.position.copy(pv); pivMark.visible = true;
+    const lvl = perp(N0.dot.clone().sub(pv), u);
+    leverLine.setPoints([pv, pv.clone().add(lvl)]); axisLine.setPoints([pv.clone().addScaledVector(u, -110), pv.clone().addScaledVector(u, 110)]);
+    if (dNow.length() > 0.05) { arrow.set(N0.dot, dNow.clone().normalize(), Math.max(6, Math.min(dNow.length(), 200)) * 1); arrow.visible = true; } else arrow.visible = false;
+    if (carriage) carriage.position.copy(who === 'gun' ? lug.world() : N0.lug);
+    gun.updateLaser();
+    // readouts
+    const L = lvl.length(), per = L * DEG;
+    setLever(L.toFixed(0), 'mm'); setPer(per.toFixed(2), 'mm/deg'); setStep((per * stepA).toFixed(3), 'mm'); setDisp(dispRaw.toFixed(2), 'mm');
+    const off = seamNow(); setRes(Math.hypot(off.radial, off.vertical).toFixed(2), 'mm');
+    const vis = app.inset.markVisibility('obs', gun.dotWorld());
+    app.badge('rim', rimClearance() < 0 ? 'nozzle or barrel meets the rim ring at this angle (bare barrel, drawn geometry)' : null, 'limit');
+    app.badge('free', (who === 'gun' && axk === 'roll' && pvk !== 'barrel') ? 'beam roll about the dot–grip line: the dot does not move for a pivot on that line' : null, 'ok');
+    app.badge('twist', (who === 'gun' && axk === 'roll' && Math.abs(ang) > 0.01) ? 'beam roll about the grip axis turns the umbilical about its own axis if it leaves along that line: the manual forbids twisting the fibre (real exit direction unknown)' : null, 'warn');
+    app.badge('work', who === 'work' ? 'work branch: ball race side load = ' + (Math.sin(Math.abs(ang) * DEG) * 100).toFixed(0) + '% of the weight (not designed)' : null, 'info');
+    app.io.set({
+      commands: [
+        { name: 'Angle about ' + AXES[axk].label.split(' (')[0], value: ang.toFixed(3), unit: '°', note: 'step ' + stepA + '°; motor on ' + (who === 'gun' ? 'the gun side' : 'the work side') },
+        { name: 'Compensating XYZ move', value: compOn && who === 'gun' ? comp.toArray().map(v => v.toFixed(2)).join(', ') : (who === 'work' ? 'none needed' : 'off'), unit: compOn && who === 'gun' ? 'mm' : '', note: 'step ' + cs + ' mm; a second set of axes software would command' },
+      ],
+      observes: [
+        { name: 'Angle', value: ang.toFixed(2), unit: '°', status: 'partly', note: 'from the motor step count, open loop' },
+        { name: 'Dot visible to the camera', value: vis.visible ? 'yes' : (vis.blocked ? 'blocked' : 'out of view'), status: vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight' },
+        { name: 'Dot vs seam (r, z)', value: vis.visible ? off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2) : '-', unit: vis.visible ? 'mm' : '', status: vis.visible ? 'partly' : 'blind', note: 'shown exactly here; a sensor would estimate it' },
+        { name: 'Where the arcs’ centre really is', value: '-', status: 'unresolved', note: 'set by hand; how close it is to the dot is unknown' },
+      ],
+      manual: ['Place the arcs or hinge so the centre is at the dot', 'Hand-set the neighbourhood'],
+    });
+  }
+  function perp(v, u) { return v.clone().sub(u.clone().multiplyScalar(v.dot(u))); }
+  function N0_pos_after(Q, pv) { return pv.clone().add(gunBase.pos.clone().sub(pv).applyQuaternion(Q)); }
+
+  // ---------------------------------------------------------------- controls
+  const br = app.ui.group('Compare variants', { help: 'Branch controls: which body moves, about which axis, through which pivot.' });
+  br.radio({ id: 'who', label: 'Who turns', options: [{ value: 'gun', label: 'the gun' }, { value: 'work', label: 'the tube and rotator' }], value: 'gun', kind: 'branch', help: 'Work: the gun stays put and the rotator turns about a line through the dot (arcs under it).', onChange: v => { app.ui.enable('pivot', v === 'gun'); buildMech(); sync(); } });
+  br.select({ id: 'axis', label: 'Rotation axis', options: [{ value: 'pitch', label: AXES.pitch.label }, { value: 'plan', label: AXES.plan.label }, { value: 'roll', label: AXES.roll.label }], value: 'pitch', kind: 'branch', onChange: () => { buildMech(); sync(); } });
+  br.radio({ id: 'pivot', label: 'Pivot', options: [{ value: 'dot', label: 'the dot (arcs)' }, { value: 'barrel', label: 'barrel middle' }, { value: 'grip', label: 'grip base' }], value: 'grip', kind: 'branch', help: 'Where the axis passes. Only the dot has no lever.', onChange: () => { buildMech(); sync(); } });
+  const mv = app.ui.group('Angle motor (proposed)');
+  mv.slider({ id: 'angle', label: 'Angle', min: -12, max: 12, step: 0.05, value: 1.5, unit: '°', kind: 'actuator', visual: () => (carriage || pivMark), help: 'Commanded angle, rounded to the motor step below.', onChange: sync });
+  mv.slider({ id: 'astep', label: 'Angle step (motor)', min: 0.005, max: 0.5, step: 0.005, value: 0.05, unit: '°', kind: 'actuator', help: 'Smallest angle the motor and its reduction can command. Illustrative.', onChange: sync });
+  mv.toggle({ id: 'comp', label: 'Compensate with an XYZ move', value: false, kind: 'actuator', help: 'Software brings the dot back by moving the gun in XYZ, rounded to the step below. Only meaningful for a gun-side pivot away from the dot.', onChange: sync });
+  mv.slider({ id: 'cstep', label: 'XYZ compensation step', min: 0.005, max: 0.2, step: 0.005, value: 0.02, unit: 'mm', kind: 'actuator', onChange: sync });
+  const vw = app.ui.group('View');
+  vw.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+  vw.toggle({ id: 'mech', label: 'Show pivot mechanism', value: true, kind: 'view', onChange: v => { mech.visible = v; app.invalidate(); } });
+  buildMech();
+})();
+</script>
+</body>
+</html>

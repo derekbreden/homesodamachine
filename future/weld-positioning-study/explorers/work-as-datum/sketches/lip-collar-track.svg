@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+<rect width="900" height="600" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">C. Riding the tube — C0 rollers on the lip; C1 collar track (elevation near the weld azimuth, schematic)</text>
+<rect class="metal" x="248.3" y="303.4" width="7.4" height="231.1"/>
+<rect class="plate" x="60.0" y="332.0" width="187.7" height="28.6"/>
+<circle cx="248.3" cy="332.0" r="3" fill="#d22"/>
+<text x="238.3" y="326.0" fill="#d22" text-anchor="end">corner (fillet) — dot</text>
+<text x="78.0" y="350.4" class="s">end plate (recessed 6.35)</text>
+<circle cx="252.0" cy="289.9" r="13.5" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<circle cx="234.8" cy="308.8" r="13.5" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<circle cx="269.2" cy="308.8" r="13.5" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<text x="458.2" y="267.4" fill="#2f6b3a">C0 (dashed): rim roller + lip pinch pair</text>
+<text x="458.2" y="279.4" class="s">25° ahead of the puddle, top 2 mm of the lip;</text>
+<text x="458.2" y="291.4" class="s">the lip moves ~30 µm per N if pushed, so pinch, do not push</text>
+<rect class="metal" x="255.8" y="386.0" width="99.0" height="81.0" fill="#e7d9c4"/>
+<rect x="254.8" y="377.0" width="3" height="99.0" fill="#555"/>
+<text x="458.2" y="396.0">C1 collar (two halves + 5 in exhaust band clamp)</text>
+<text x="458.2" y="408.0" class="s">turns with the tube; top face + outer cylinder = running track</text>
+<circle class="buy" cx="318.8" cy="368.0" r="18.0"/>
+<circle class="buy" cx="372.8" cy="426.5" r="18.0"/>
+<polyline points="318.8,350.0 318.8,152.0 225.8,84.5" fill="none" stroke="#8a6d1f" stroke-width="6"/>
+<polyline points="372.8,426.5 417.8,426.5 417.8,152.0 318.8,152.0" fill="none" stroke="#8a6d1f" stroke-width="4"/>
+<text x="435.8" y="125.0">carriage (azimuth held; up and over the lip to the shell)</text>
+<line class="beam" x1="215.7" y1="280.7" x2="248.3" y2="332.0"/>
+<circle cx="215.7" cy="280.7" r="22.5" fill="none" stroke="#1f4e9a"/>
+<text x="95.7" y="272.7" fill="#1f4e9a">nozzle (opening pose)</text>
+<text x="20" y="560" class="s">Collar 12–30 mm below the fillet: heat decides the material (printed doubtful, aluminium likely).</text>
+<text x="20" y="573" class="s">Height registration at install from the rim (fingers, removed before welding) or from the plate face (gauge through the interior).</text>
+</svg>

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datum chain</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dc text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .dc .tm { fill: #8b98ab; } .dc .tf { fill: #64748b; } .dc .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .dc .tt { fill: #14b8a6; } .dc .ta { fill: #f5a524; } .dc .tr { fill: #ff6b5f; }
+  .dc .strike { text-decoration: line-through; fill: #64748b; }
+  .dc .node { cursor: pointer; }
+  .dc .node:hover circle { stroke: #fff; }
+  .dc .pill { cursor: pointer; }
+  .dc .pill:hover text { fill: #fff; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-01-datum-chain",
+  "title": "Datum chain: what each reference makes unnecessary",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The dimension chain from the room to the corner, drawn once. Pick where the gun is referenced (room, rotator, nest, rim, plate face, the seam itself) and see which links stop mattering and which spreads remain. A way of seeing the problem, not a mechanism: no motor here.",
+  "tags": ["lens", "datum", "reference", "tolerance chain", "diagram"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["datum-chain elevation", "per-link residual bars", "per-tube measurement list"],
+  "how": {
+    "motion": "nothing moves; controls pick the reference and edit the illustrative spreads",
+    "load": "not addressed; this scene is about position, not support",
+    "reference": "the reader chooses: room, rotator base, nest, rim, plate face, or the seam directly",
+    "observe": "what each reference lets software know is listed in the I/O panel",
+    "use": "decide which per-tube measurement or reference is worth building first"
+  },
+  "software": {
+    "commands": ["nothing in this scene; each reference implies different axes (see I/O panel)"],
+    "observes": ["depends on the reference: encoder counts only, a contact switch, a plunger, or a dot-versus-corner estimate"],
+    "manual": ["measuring tube length and seat depth per tube unless the reference removes the need", "everything that is not a datum: the dot versus the melt position"]
+  },
+  "links": [{"label": "datum-22 setting ring", "href": "../datum-22-setting-ring/index.html"}, {"label": "datum-21 mates on the tube", "href": "../datum-21-mates-on-the-tube/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-01-datum-chain.md"],
+  "sources": []
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The gun has to end up at the inside corner of <i>this</i> tube and plate. Between the room and that corner sit links that each carry a spread: how the rotator sits on the bench, how the printed race floats, where the nest seats the tube, how long this tube is, how deep this plate sits, whether the plate sits square. Whatever the gun is referenced to, the links <b>between that reference and the corner</b> still add error, and the links on the other side stop mattering.</p>' +
+        '<p>Choose the height reference and the radial reference separately, then change the spreads. The bars show what is left. The largest remaining bar is the measurement worth making first.</p>',
+      carries:
+        '<p>Not a support proposal. It only asks what the gun is <i>located</i> from. A reference on the work (rim, plate face, wall at the station) travels with the work, so the links below it fall out. A reference in the room cannot do that.</p>',
+      software:
+        '<p>The I/O panel changes with the reference you pick. The pattern: a room reference lets software know axis positions and nothing about the work; a reference on the work lets software also read a contact or a depth; the seam itself is the only reference that reads the dot against the corner, and it needs a sensor that can see or feel it.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the plate face as the radial reference (pins in the ports, a mast on the plate). <b>Assumption:</b> the plate is concentric with the bore. <b>What the scene shows:</b> the plate is a slip fit with 0.005 in of radial play [repo], so the plate centre is a <i>worse</i> radial datum than the wall: choose &ldquo;Plate centre&rdquo; for radial and a term appears that the wall reference does not have. Kept: the plate face remains a good <i>height</i> datum. <b>Left uncertain:</b> the plate is only tacked when the gun would hang from it.</li>' +
+        '<li><b>Conflict:</b> the seam-direct reference removes every link, but the total never reaches zero. <b>Assumption:</b> the dot marks where the melt lands. <b>What the scene shows:</b> the dot-versus-melt term stays in every option. No datum on the work removes it; only a witness pass (see the idea file) touches it. <b>Left uncertain:</b> its size [unknown].</li>' +
+        '<li><b>Conflict:</b> rim reference leaves seat depth. <b>Assumption:</b> seat depth varies tube to tube [repo says it does, not by how much]. <b>What the scene shows:</b> with the rim as reference the seat-depth bar is the biggest one left at the default spreads. <b>Change:</b> a plunger on the plate face at the station removes it (the &ldquo;Plate face&rdquo; height option). <b>Left uncertain:</b> whether a plunger fits beside the gun.</li>' +
+        '<li><b>Conflict:</b> the two largest links left under the rim reference, seat depth and plate tilt, are treated as things to measure. <b>Assumption:</b> they are properties of the tube. <b>What the scene shows now</b> (<i>How the plate was seated</i>): they are properties of how the plate was placed, and the slip fit does not square it (the plate can lie at any tilt without touching the wall on both sides), so a part that places the plate from the same plane the gun rides makes them small instead of measuring them (<code>datum-22</code>; foot length tolerance and the tack pull are what remain, both illustrative here). <b>Left uncertain:</b> the size of every spread; the tack pull is unmeasured.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every spread except the runout limits is an illustrative number. Tube length spread and seat-depth spread are <b>[unknown]</b>: measuring them across the tubes on hand (a depth gauge and calipers) would replace the two largest sliders with real numbers.</li>' +
+        '<li>Spreads are added as if independent and constant. Real links drift with temperature and interact.</li>' +
+        '<li>The scene does not say how any reference is built. See the crown, follower, collar and eddy scenes for mechanisms.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Nominal heights are from the rig doc: tube bottom 86 mm above the bench, rim 238.4 mm above the bench, plate recessed 6.35 mm, so the corner is 232.05 mm above the bench [repo][derived]. The drawing is to scale vertically and schematic in width.</li>' +
+        '<li>Runout: radial 0.25 mm TIR and face 0.30 mm TIR are the rig doc&rsquo;s acceptance limits [repo]; the scene uses half of each as a &plusmn; spread. The face limit is split into a part common to rim and plate and a part that is the plate seat against the rim; the split is illustrative.</li>' +
+        '<li>Plate slip 0.005 in radial [repo]. Nest radial clearance 0.20 mm nominal [repo].</li>' +
+        '<li>Everything else (clamp, race float, length, seat depth spread, tilt, ovality, reference repeatability, dot versus melt, the window) is <b>illustrative</b>. Wire is 0.030 in [repo] = 0.76 mm [derived] and the wobble swing 2 mm [repo]; the default window of &plusmn;0.30 mm is a placeholder, not a process limit.</li>' +
+        '<li><b>Models:</b> the arithmetic of which links remain (worst-case sum and root-sum-square). <b>Depicts only:</b> the rig outline.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ------------------------------------------------------------------ data
+  const Z_NODES = [
+    { id: 'room',  label: 'Room / arm base', own: 0.20, ownLabel: 'arm calibration to the room' },
+    { id: 'base',  label: 'Rotator base',    own: 0.10, ownLabel: 'mount on the rotator base' },
+    { id: 'turn',  label: 'Turntable + nest', own: 0.05, ownLabel: 'touch-off on the turntable' },
+    { id: 'rim',   label: 'Rim',             own: 0.05, ownLabel: 'rim seat repeatability' },
+    { id: 'plate', label: 'Plate face',      own: 0.03, ownLabel: 'plunger / stylus repeat' },
+    { id: 'seam',  label: 'Seam, measured',  own: 0.10, ownLabel: 'seam sensor error' },
+  ];
+  const R_NODES = [
+    { id: 'room',  label: 'Room / arm base', own: 0.20, ownLabel: 'arm calibration to the room', x: 150 },
+    { id: 'base',  label: 'Rotator base',    own: 0.10, ownLabel: 'mount on the rotator base', x: 165 },
+    { id: 'rim',   label: 'Rim ring on the outside (OD skirt)', own: 0.10, ownLabel: 'ring clearance on the OD (0.20 mm / 2)', x: 240 },
+    { id: 'wall',  label: 'Wall at the station', own: 0.05, ownLabel: 'local pad or feeler repeat', x: 273 },
+    { id: 'plate', label: 'Plate centre (ports)', own: 0.05, ownLabel: 'pin fit in the ports', x: 240 },
+    { id: 'seam',  label: 'Seam, measured',  own: 0.10, ownLabel: 'seam sensor error', x: 273 },
+  ];
+  // keep: the options for which the term still adds error
+  const TERMS = [
+    { id: 'zclamp', axis: 'z', label: 'Rotator on bench: clamp, shim, flatness', v: 0.30, keep: ['room'], tag: 'illustrative' },
+    { id: 'zrace',  axis: 'z', label: 'Ball race and turntable axial float', v: 0.15, keep: ['room', 'base'], tag: 'illustrative' },
+    { id: 'znest',  axis: 'z', label: 'Nest seat under the tube bottom', v: 0.10, keep: ['room', 'base', 'turn'], tag: 'illustrative' },
+    { id: 'zlen',   axis: 'z', label: 'Tube length spread', v: 0.50, keep: ['room', 'base', 'turn'], tag: '[unknown] spread' },
+    { id: 'zwob',   axis: 'z', label: 'Work wobble common to rim and plate', v: 0.11, keep: ['room', 'base', 'turn'], tag: '[derived] from 0.30 mm face TIR [repo]' },
+    { id: 'zseat',  axis: 'z', label: 'Seat depth spread (rim to plate face)', v: 0.50, keep: ['room', 'base', 'turn', 'rim'], tag: '[unknown] spread; 6.35 nominal [repo]' },
+    { id: 'ztilt',  axis: 'z', label: 'Plate seat tilt against the rim plane', v: 0.10, keep: ['room', 'base', 'turn', 'rim'], tag: 'illustrative; the slip fit does not square the plate at any tilt (plate diagonal 123.607 mm against a 123.698 mm bore), so this is set by how the plate is held: the rig accepts 0.30 mm face TIR, i.e. +-0.15' },
+    { id: 'rclamp', axis: 'r', label: 'Rotator position on the bench, in plan', v: 1.00, keep: ['room'], tag: 'illustrative' },
+    { id: 'rrun',   axis: 'r', label: 'Tube eccentricity after indicating', v: 0.125, keep: ['room', 'base'], tag: '[repo] 0.25 mm TIR / 2' },
+    { id: 'rovl',   axis: 'r', label: 'Bore out-of-round, OD-to-bore offset', v: 0.10, keep: ['room', 'base', 'rim', 'plate'], tag: 'illustrative ([repo]: slightly oval)' },
+    { id: 'rslip',  axis: 'r', label: 'Plate slip in the bore (0.005 in)', v: 0.127, keep: ['plate'], tag: '[repo] 0.005 in radial' },
+  ];
+  const MELT = { v: 0.20, label: 'Dot versus melt position (no datum removes it)', tag: '[unknown] size' };
+  const st = { zref: 'rim', rref: 'wall', win: 0.3 };
+  const val = {}; TERMS.forEach(t => { val[t.id] = t.v; }); val.melt = MELT.v;
+
+  // ------------------------------------------------------------------ svg scaffold
+  const W = 980, H = 610;
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'dc', width: '100%', role: 'img', 'aria-label': 'Dimension chain from the room to the weld corner with residual error bars for the chosen reference', style: 'display:block;margin:0 auto;width:100%;height:100%;max-height:100%', preserveAspectRatio: 'xMidYMid meet' });
+  stage.appendChild(svg);
+  const gStatic = S('g'), gDyn = S('g');
+  svg.append(gStatic, gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+
+  // --- elevation geometry (vertical to scale, k px per mm; width schematic)
+  const K = 1.45, YB = 500, AX = 240;
+  const yz = z => YB - K * z;
+  const Y = { base: yz(36), nest: yz(86), rim: yz(238.4), plate: yz(232.05), room: 556 };
+  const WALL = 7, XL = AX - 40, XR = AX + 40;   // tube walls at AX+-40 .. +-33 (schematic width)
+
+  (function drawStatic() {
+    const R = (x, y, w, h, role, o) => S('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: hex(role), stroke: '#0e1218', 'stroke-width': 1 }, o || {}));
+    // bench, feet, base
+    gStatic.append(R(140, YB, 200, 18, 'fixed', { opacity: 0.55 }), T(146, YB + 13, 'bench', 'tm'));
+    gStatic.append(R(158, yz(24), 22, K * 24, 'fixed'), R(300, yz(24), 22, K * 24, 'fixed'));
+    gStatic.append(R(152, Y.base, 176, yz(24) - Y.base, 'fixed'), T(262, Y.base + 13, 'base 12 mm', 'tm'));
+    // turntable + nest (moves with the tube)
+    gStatic.append(R(190, Y.nest, 100, Y.base - Y.nest, 'actuated', { opacity: 0.85 }), T(196, Y.base - 22, 'turntable', 'tm'), T(196, Y.base - 10, '+ nest', 'tm'));
+    // tube: two walls, plate
+    const wallFill = hex('work');
+    gStatic.append(R(XL, Y.rim, WALL, Y.nest - Y.rim, 'work'), R(XR - WALL, Y.rim, WALL, Y.nest - Y.rim, 'work'));
+    gStatic.append(R(XL + WALL, Y.plate, XR - XL - 2 * WALL, K * 6.35, 'work', { opacity: 0.75 }));
+    gStatic.append(S('line', { x1: AX, y1: Y.rim - 14, x2: AX, y2: Y.nest, stroke: '#64748b', 'stroke-dasharray': '6 3 1 3', 'stroke-width': 1 }));
+    gStatic.append(T(AX + 4, Y.nest - 60, 'tube 6 in', 'tm'), T(AX + 4, Y.nest - 48, 'axis', 'tf'));
+    // gun schematic and beam at the right corner
+    const dx = XR - WALL, dy = Y.plate;   // the corner: inner face of the right wall, top of the plate
+    gStatic.append(S('line', { x1: dx - 26 * Math.sin(0.5585), y1: dy - 26 * Math.cos(0.5585), x2: dx, y2: dy, stroke: hex('laser'), 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+    gStatic.append(S('line', { x1: dx - 26 * Math.sin(0.5585), y1: dy - 26 * Math.cos(0.5585), x2: 338, y2: 78, stroke: hex('gun'), 'stroke-width': 11, 'stroke-linecap': 'round' }));
+    gStatic.append(S('circle', { cx: dx, cy: dy, r: 4, fill: hex('laser'), stroke: '#0e1218' }));
+    gStatic.append(T(dx - 6, dy + 26, 'dot at the corner', 'tr', 'end'));
+    gStatic.append(T(338, 66, 'gun (schematic)', 'tm', 'end'));
+    gStatic.append(T(XR - WALL + 12, Y.rim - 5, 'rim', 'tm'), T(XR + 2, Y.plate + 24, 'plate face', 'tm'));
+    gStatic.append(T(140, 20, 'Elevation (height to scale)', 'tf'));
+    // chain column
+    gStatic.append(S('line', { x1: 112, y1: Y.room, x2: 112, y2: Y.plate, stroke: '#334155', 'stroke-width': 2 }));
+  })();
+
+  // ------------------------------------------------------------------ calc
+  function sumFor(axis) {
+    const nodes = axis === 'z' ? Z_NODES : R_NODES, id = axis === 'z' ? st.zref : st.rref;
+    const node = nodes.find(n => n.id === id);
+    const rows = [];
+    TERMS.filter(t => t.axis === axis).forEach(t => rows.push({ label: t.label, v: val[t.id], kept: t.keep.indexOf(id) >= 0, kind: 'link', tag: t.tag }));
+    rows.push({ label: 'Reference: ' + node.ownLabel, v: node.own, kept: true, kind: 'own', tag: 'illustrative' });
+    rows.push({ label: MELT.label, v: val.melt, kept: true, kind: 'melt', tag: MELT.tag });
+    const kept = rows.filter(r => r.kept);
+    const wc = kept.reduce((a, r) => a + r.v, 0), rss = Math.sqrt(kept.reduce((a, r) => a + r.v * r.v, 0));
+    const big = kept.filter(r => r.kind === 'link').sort((a, b) => b.v - a.v)[0];
+    return { rows: rows, wc: wc, rss: rss, big: big, node: node };
+  }
+
+  // ------------------------------------------------------------------ dynamic drawing
+  const BX = 650, SC = 190, LBLX = 352;   // bar start x, px per mm, label x
+  function drawChart(y0, title, res, axis) {
+    const g = S('g'); const rowH = 19;
+    g.append(T(LBLX, y0, title, 'tb'));
+    g.append(T(LBLX, y0 + 14, axis === 'z' ? 'height of the dot against the corner, ± mm' : 'radial position of the dot against the corner, ± mm', 'tm'));
+    let y = y0 + 26;
+    // window band behind the whole chart
+    const winPx = st.win * SC;
+    const chartH = (res.rows.length + 2) * rowH + 22;
+    g.append(S('rect', { x: BX, y: y - 6, width: winPx, height: chartH, fill: hex('locate'), opacity: 0.10 }));
+    g.append(S('line', { x1: BX + winPx, y1: y - 6, x2: BX + winPx, y2: y - 6 + chartH, stroke: hex('locate'), 'stroke-dasharray': '4 3' }));
+    g.append(T(BX + winPx + 4, y - 9, 'window ±' + st.win.toFixed(2) + ' (illustrative)', 'tt'));
+    res.rows.forEach(r => {
+      const wpx = Math.max(1.5, Math.min(r.v * SC, 300));
+      const col = !r.kept ? '#475569' : r.kind === 'melt' ? hex('laser') : r.kind === 'own' ? hex('locate') : hex('load');
+      g.append(T(LBLX + 232, y + 11, r.label.length > 44 ? r.label.slice(0, 43) + '…' : r.label, r.kept ? '' : 'strike', 'end'));
+      g.append(S('rect', { x: BX, y: y + 2, width: wpx, height: 11, rx: 2, fill: r.kept ? col : 'none', stroke: col, 'stroke-width': r.kept ? 0 : 1, 'stroke-dasharray': r.kept ? '' : '3 2', opacity: r.kept ? 0.92 : 0.9 }));
+      g.append(T(BX + wpx + 5, y + 11, r.kept ? '±' + r.v.toFixed(2) : 'removed', r.kept ? 'tm' : 'tf'));
+      const tip = S('title'); tip.textContent = r.label + ' — ' + r.tag; g.lastChild.appendChild(tip);
+      y += rowH;
+    });
+    y += 8;
+    [['worst case (sum)', res.wc], ['root-sum-square', res.rss]].forEach((tr, i) => {
+      const wpx = Math.min(tr[1] * SC, 300), inside = tr[1] <= st.win;
+      g.append(T(BX - 8, y + 13, tr[0], 'tb', 'end'));
+      g.append(S('rect', { x: BX, y: y + 1, width: wpx, height: 15, rx: 3, fill: inside ? hex('compliant') : hex('load'), opacity: 0.95 }));
+      g.append(T(BX + wpx + 6, y + 13, '±' + tr[1].toFixed(2) + ' mm' + (inside ? '  within window' : '  outside window'), inside ? 'tt' : 'ta'));
+      y += 22;
+    });
+    if (res.big) g.append(T(LBLX, y + 12, 'largest link left: ' + res.big.label.toLowerCase() + ' (±' + res.big.v.toFixed(2) + ')', 'tm'));
+    return g;
+  }
+
+  function drawChain() {
+    const g = S('g');
+    const zi = Z_NODES.findIndex(n => n.id === st.zref);
+    const ys = [Y.room, Y.base, Y.nest, Y.rim, Y.plate, Y.plate + 34];
+    const segLbl = ['clamp', 'race', 'tube', 'seat'];
+    // chain segments: link i (1..4) lies between node i-1 and node i; it counts when it is above the chosen node
+    for (let i = 1; i <= 4; i++) {
+      const kept = i > zi;
+      const a = ys[i - 1], b = ys[i];
+      g.append(S('line', { x1: 112, y1: a, x2: 112, y2: b, stroke: kept ? hex('load') : '#475569', 'stroke-width': kept ? 5 : 3, 'stroke-dasharray': kept ? '' : '4 3', 'stroke-linecap': 'butt' }));
+      g.append(T(120, (a + b) / 2 + 4 + (i === 4 ? 16 : 0) + (i === 1 ? 30 : 0), 'L' + i + ' ' + segLbl[i - 1], kept ? 'ta' : 'tf'));
+    }
+    Z_NODES.forEach((n, i) => {
+      const sel = i === zi, y = ys[i];
+      const ng = S('g', { class: 'node' });
+      ng.append(S('circle', { cx: 112, cy: y, r: sel ? 7 : 5, fill: sel ? hex('locate') : '#1b222c', stroke: sel ? '#fff' : '#94a3b8', 'stroke-width': sel ? 2 : 1.3 }));
+      const ty = i === 3 ? y - 6 : i === 4 ? y + 10 : y + 4;
+      ng.append(T(98, ty, n.label, sel ? 'tb tt' : 'tm', 'end'));
+      ng.addEventListener('click', () => app.ui.set('zref', n.id));
+      const tt = S('title'); tt.textContent = 'reference the height from: ' + n.label; ng.appendChild(tt);
+      g.append(ng);
+    });
+    // seam node connects to the dot
+    g.append(S('line', { x1: 112, y1: ys[5], x2: 268, y2: Y.plate + 5, stroke: hex('locate'), 'stroke-dasharray': '2 3', opacity: zi === 5 ? 1 : 0.35 }));
+    // z datum plane and arrow
+    const yd = ys[zi];
+    g.append(S('line', { x1: 112, y1: yd, x2: 338, y2: yd, stroke: hex('locate'), 'stroke-width': 1.5, 'stroke-dasharray': '7 4', opacity: zi === 5 ? 0 : 0.9 }));
+    if (zi < 4) g.append(S('line', { x1: 328, y1: yd, x2: 328, y2: Y.plate + 2, stroke: hex('locate'), 'stroke-width': 2, 'marker-end': 'url(#ah)' }));
+    return g;
+  }
+
+  function drawRadial() {
+    const g = S('g'); const ri = R_NODES.findIndex(n => n.id === st.rref), n = R_NODES[ri];
+    const x = n.x, yTop = 96, cornerX = XR - WALL;
+    g.append(S('line', { x1: x, y1: yTop - 10, x2: x, y2: Y.base + 4, stroke: hex('locate'), 'stroke-width': 1.5, 'stroke-dasharray': '7 4', opacity: 0.9 }));
+    if (Math.abs(x - cornerX) > 1) g.append(S('line', { x1: x, y1: yTop, x2: cornerX, y2: yTop, stroke: hex('locate'), 'stroke-width': 2, 'marker-end': 'url(#ah)' }));
+    g.append(T(x, yTop - 14, 'radial datum: ' + n.label, 'tt', x > 250 ? 'end' : 'start'));
+    return g;
+  }
+
+  // arrow marker
+  const defs = S('defs', {}, S('marker', { id: 'ah', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 9, markerHeight: 9, markerUnits: 'userSpaceOnUse', orient: 'auto-start-reverse' }, S('path', { d: 'M0 0L10 5L0 10z', fill: hex('locate') })));
+  svg.prepend(defs);
+
+  // R node pills (clickable), one row between the two charts
+  function drawRadialPills(y) {
+    const g = S('g');
+    g.append(T(LBLX, y - 14, 'Radial reference (click one):', 'tf'));
+    R_NODES.forEach((n, i) => {
+      const sel = n.id === st.rref, gg = S('g', { class: 'pill' });
+      const w = 98, x = LBLX + i * (w + 4);
+      gg.append(S('rect', { x: x, y: y - 8, width: w, height: 17, rx: 8, fill: sel ? 'rgba(20,184,166,.25)' : 'transparent', stroke: sel ? hex('locate') : '#334155' }));
+      const short = { room: 'Room', base: 'Rotator base', rim: 'Ring on OD', wall: 'Wall at station', plate: 'Plate centre', seam: 'Seam, measured' }[n.id];
+      gg.append(T(x + w / 2, y + 4, short, sel ? 'tt' : 'tm', 'middle'));
+      gg.addEventListener('click', () => app.ui.set('rref', n.id));
+      const tt = S('title'); tt.textContent = 'reference the radial position from: ' + n.label; gg.appendChild(tt);
+      g.append(gg);
+    });
+    return g;
+  }
+
+  // ------------------------------------------------------------------ I/O text per reference
+  const IO_Z = {
+    room:  { c: 'arm axes, in the room frame', o: 'encoder or step counts only: nothing about the work', m: ['calibrate the arm to the rotator', 'measure tube length and seat depth per tube'] },
+    base:  { c: 'axes of an arm carried on the rotator base', o: 'encoder or step counts only', m: ['measure tube length and seat depth per tube'] },
+    turn:  { c: 'a touch-off on the turntable or nest, then axes', o: 'one contact per setup', m: ['measure tube length and seat depth per tube'] },
+    rim:   { c: 'fine height axis on a rim-seated carrier', o: 'crown seated on the rim (a contact)', m: ['seat depth per tube (depth gauge) unless a plunger reads it'] },
+    plate: { c: 'height servo or touch-off against the plate face', o: 'plunger or stylus contact at the station', m: ['nothing for height'] },
+    seam:  { c: 'fine axes servoed to the measured corner', o: 'dot against the corner, from a sensor that can see or feel it', m: ['dot versus melt position'] },
+  };
+  const IO_R = {
+    room:  { o: 'nothing about the work radially' }, base: { o: 'nothing about the work radially' },
+    rim:   { o: 'ring seated on the outside of the tube: follows the tube runout' }, wall: { o: 'local pad or feeler reads the wall where the dot is' },
+    plate: { o: 'pins in the ports: plate centre, not the bore' }, seam: { o: 'dot against the corner from a sensor' },
+  };
+  function updateIO(rz, rr) {
+    const z = IO_Z[st.zref], r = IO_R[st.rref];
+    const stat = id => id === 'seam' ? 'partly' : (id === 'room' || id === 'base') ? 'blind' : 'seen';
+    app.io.set({
+      commands: [{ name: 'Height', value: z.c }],
+      observes: [
+        { name: 'Height reference', value: Z_NODES.find(n => n.id === st.zref).label, status: stat(st.zref), note: z.o },
+        { name: 'Radial reference', value: R_NODES.find(n => n.id === st.rref).label, status: stat(st.rref), note: r.o },
+        { name: 'Left-over height error (RSS)', value: '±' + rz.rss.toFixed(2), unit: 'mm', status: 'partly', note: 'arithmetic on illustrative spreads' },
+        { name: 'Left-over radial error (RSS)', value: '±' + rr.rss.toFixed(2), unit: 'mm', status: 'partly', note: 'arithmetic on illustrative spreads' },
+        { name: 'Dot versus melt', value: '?', status: 'unresolved', note: 'no reference here touches it' },
+      ],
+      manual: z.m,
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    const rz = sumFor('z'), rr = sumFor('r');
+    gDyn.append(drawChain(), drawRadial());
+    gDyn.append(drawChart(22, 'Height chain', rz, 'z'));
+    gDyn.append(drawRadialPills(322));
+    gDyn.append(drawChart(350, 'Radial chain', rr, 'r'));
+    // key
+    const ky = 600;
+    [[hex('load'), 'still adds error'], ['#475569', 'removed by this reference'], [hex('locate'), 'reference / window'], [hex('laser'), 'not removable by a datum']].forEach((k, i) => {
+      gDyn.append(S('rect', { x: LBLX + i * 165, y: ky - 8, width: 10, height: 10, rx: 2, fill: k[0] }), T(LBLX + i * 165 + 14, ky + 1, k[1], 'tm'));
+    });
+    updateIO(rz, rr);
+
+  }
+
+  // ------------------------------------------------------------------ controls
+  const zopts = Z_NODES.map(n => ({ value: n.id, label: n.label }));
+  const ropts = R_NODES.map(n => ({ value: n.id, label: n.label }));
+  app.ui.select({ id: 'zref', label: 'Reference for height', options: zopts, value: 'rim', kind: 'branch', visual: 'height datum line and the amber chain links',
+    help: 'What the gun is located from, vertically. Links above it still add error; links below it drop out.', onChange: v => { st.zref = v; render(); } });
+  app.ui.select({ id: 'rref', label: 'Reference for radial position', options: ropts, value: 'wall', kind: 'branch', visual: 'radial datum line',
+    help: 'What the gun is located from, across the seam.', onChange: v => { st.rref = v; render(); } });
+  app.ui.slider({ id: 'win', label: 'Window to hit (illustrative)', min: 0.1, max: 1.2, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene',
+    help: 'Placeholder, not a process limit. Compare with wire 0.76 mm and swing 2 mm [repo][derived].', onChange: v => { st.win = v; render(); } });
+  app.ui.slider({ id: 'melt', label: 'Dot versus melt position spread', min: 0, max: 1, step: 0.01, value: MELT.v, unit: 'mm', kind: 'scene', help: 'Present in every option. [unknown] size; the dot is a 0.3 mW red beam [manual].', onChange: v => { val.melt = v; render(); } });
+  app.ui.radio({ id: 'seated', label: 'How the plate was seated', options: [{ value: 'hand', label: 'By hand to a spacer (as today)', help: 'Depth and tilt are whatever the hand, the spacer and any burr left: 0.50 and 0.10 (illustrative).' }, { value: 'ring', label: 'By the setting ring\'s plug (datum-22)', help: 'Three set-screw feet against the ring\'s ledge, the plate hung by its ports: depth 0.06, tilt 0.03 (illustrative). Height from the rim then carries almost nothing from the plate.' }], value: 'hand', kind: 'branch', visual: 'the seat depth and tilt bars', onChange: v => { app.ui.set('zseat', v === 'ring' ? 0.06 : 0.50); app.ui.set('ztilt', v === 'ring' ? 0.03 : 0.10); } });
+  const gz = app.ui.group('Height links: spread of each (± mm)', { open: true, help: 'Scene edits, not actuators. Tube length and seat depth spreads are [unknown]: set them to what a depth gauge says.' });
+  const gr = app.ui.group('Radial links: spread of each (± mm)', { open: false });
+  TERMS.forEach(t => {
+    const grp = t.axis === 'z' ? gz : gr;
+    grp.slider({ id: t.id, label: t.label, min: 0, max: t.id === 'rclamp' ? 2 : 1, step: 0.01, value: t.v, unit: 'mm', kind: 'scene', help: t.tag, onChange: v => { val[t.id] = v; render(); } });
+  });
+
+  // reset: the group sliders reset through app.ui.reset()
+})();
+</script>
+</body>
+</html>

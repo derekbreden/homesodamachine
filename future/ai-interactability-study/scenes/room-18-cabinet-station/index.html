@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cabinet as a station</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-18-cabinet-station",
+  "title": "The cabinet as a station: extraction, argon, light and a hand port",
+  "by": "room",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "room-05's drawer cell with the station designed around it. The cabinet is the hood: a fan and duct at the top and a vent low down, because argon is 1.4 times as dense as air and a sealed 0.34 cubic metre box fills with it in about a minute at 18 litres a minute. Lamps, a red band-pass on the top camera and a matte interior make a designed light environment, and a map of where each lamp position sends the plate's specular reflection and the corner's double bounce (geometry only; no photograph yet). A sleeve port on the door reaches the nozzle for a stuck wire. Camera B's nozzle-height view is corrected (the drawn test read it as blocked).",
+  "tags": ["station", "enclosure", "extraction", "argon", "oxygen", "lighting", "glare", "sleeve port", "cameras", "fume"],
+  "branchOf": ["room-05-drawer-cell"],
+  "combines": [],
+  "transferable": ["box is the hood, sized to argon", "lamp glare map from camera direction", "permit chain with fan proven"],
+  "how": {
+    "motion": "as room-05: the drawer moves the rotator; a small stage moves the gun; the fan is a switch",
+    "load": "the cell frame carries the gun stage, the cameras, the lamps, the duct and the fan",
+    "reference": "three-ball dock for the rotator; gun, cameras and lamps share one frame",
+    "observe": "two fixed cameras; dock, door and fan-airflow switches; an oxygen sensor low in the box (proposed)",
+    "use": "fan on, drawer in, null the dot, weld; a hand reaches the nozzle through the sleeve port"
+  },
+  "software": {
+    "commands": ["drawer position (optional motor)", "gun fine stage X, Y, Z", "rotator speed and direction (existing)", "extraction fan on and off (interlocked)", "lamp on and off"],
+    "observes": ["dot and seam from two fixed cameras", "dock, door and fan-airflow switches", "oxygen at the floor of the box (proposed sensor)", "step counts"],
+    "manual": ["loading, seating, indicating and tacking with the drawer out", "a stuck wire through the sleeve port with the laser interlocked off", "one-time gun, camera and lamp alignment"]
+  },
+  "notes": ["../../explorers/room/ideas/room-18-cabinet-station.md", "../../explorers/room/ideas/room-05-drawer-cell.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const BZ = -165, TOPZ = 560, DOCK_DROP = 26;
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'none' }, view: 'overall',
+    viewButtons: ['overall', 'joint', 'front', 'top'],
+    views: {
+      overall: { target: [0, 60, 180], dir: [0.8, 0.9, 0.55], dist: 1600 },
+      joint: { target: [30, -30, 190], dir: [0.8, 0.5, 0.4], dist: 420 },
+      front: { target: [0, 0, 200], dir: [0, 1, 0.12], dist: 1500 },
+      top: { target: [0, 60, 200], dir: [0, 0.003, 1], dist: 1300 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>room-05\'s cabinet (a frame with panels, a drawer that rolls the rotator to a dock under a gun and cameras that never move) with the <b>station</b> put in: what has to be true of the air, the light and the hand for it to work.</p>' +
+        '<ul><li><b>The box is the hood.</b> A fan and a 100&nbsp;mm duct at the top take the plume and the fume; a low vent and a make-up louvre on the door keep the air moving through the volume. It is sized to the <i>argon</i>, not the fume: 15 to 20 litres a minute [manual] into 0.34 cubic metres, and argon is 1.4 times as dense as air.</li>' +
+        '<li><b>A designed light environment.</b> A matte black interior, a red band-pass on the top camera and lamps that software switches. The map in the controls column draws, for camera A and the plate\'s mirror-like stainless, where a lamp would send its specular reflection and the corner\'s double bounce back, so a lamp can be put where it does not.</li>' +
+        '<li><b>A hand port.</b> Two rubber sleeves on the door reach the nozzle for a stuck wire, laser interlocked off, without opening the box.</li></ul>' +
+        '<p><b>Try:</b> turn the fan off and read the oxygen; move the fan size and the argon flow; pick a lighting option and read the two verdicts; slide the drawer and watch the interlock now need the fan proven; move camera B to the profile place (it stands on the drawer\'s path).</p>',
+      carries:
+        '<p><b>Slate</b> is the frame; the duct, fan (<b>purple</b>: something software switches), low vent and louvre are fixed to it. <b>Amber</b> carries the drawer plate and the shell arm; <b>teal</b> locates (the dock balls, the nest). <b>Blue</b> parts are the proposed observers: the two cameras and the lamps. <b>Green</b> sleeves are compliant. Nothing here stretches; the duct and lamps are drawn at illustrative sizes.</p>',
+      software:
+        '<p>Commanded: drawer, gun stage X, Y, Z, the rotator, the fan and the lamps. Observed: two fixed cameras, dock, door and fan-airflow switches, an oxygen sensor low in the box (proposed), step counts. The interlock is a state machine: <b>the laser may only be enabled when the drawer is seated, the door is closed and the fan has proved airflow</b>; the fan-proven contact joins room-14\'s permit chain, and Derek\'s work-contact interlock stays on top.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>A sealed box fills with argon in about a minute (eyes, wave 2: "a cabinet is a designed environment").</b> At 18 L/min into 0.34&nbsp;m³ the oxygen falls to 19.5 % in 1.3 minutes if the gas can only leave by displacement (well-mixed, <code>gas balance in the scene</code>). <i>Repair:</i> extraction of at least 10 to 20 times the argon flow: 100 CFM (2,830 L/min) keeps the steady argon share at 0.6 % and the oxygen at 20.8 %, and gives about 8 changes of air a minute. <i>Leaves:</i> the number is for a well-mixed box; argon settles, so the floor layer is worse than the average: a low vent takes it, an oxygen sensor at floor level would tell. Nothing here is a safety design.</li>' +
+        '<li><b>Where can a lamp go?</b> The plate is a flat mirror-like face and the plate-and-wall corner is a dihedral mirror. For camera A (elevation 52.5°, azimuth 141° from the tube\'s +X) the plate reflects a lamp that sits at 52.5° elevation on the opposite side (azimuth 321°); the corner sends a double bounce back to a lamp at the camera\'s direction mirrored across the section plane (azimuth 219°), not to a lamp beside the camera. A ring light around camera A therefore does <i>not</i> light the corner band, and a diffuse panel that begins below about 60° elevation does glare on the plate (at the 8° spread). <i>Leaves:</i> everything photometric: how specular the real 316L plate is (the 8° spread is a guess), the red dot\'s own reflection, the melt\'s glow. A photograph of the corner under a phone flashlight would replace the guess (eyes-06b).</li>' +
+        '<li><b>Camera B\'s "blocked by gun" was the drawn test, not the physics.</b> The tip is a point on the axis of a thin part, which the kit hides behind its own skin unless <code>eps</code> is 3. With that, B reads the nozzle tip over the rim from the far side of the bore. The profile place eyes drew sits on the drawer\'s own path (the tube would reach it at y&nbsp;=&nbsp;330).</li>' +
+        '<li><b>Hand access.</b> The port centres are 300 to 350&nbsp;mm from the nozzle, within a forearm\'s reach through a sleeve (about 450&nbsp;mm, illustrative); the tube\'s rim and the shell arm are in the way of a straight reach. <i>Leaves:</i> a person cannot see the nozzle through a sleeve: the window and camera B are the eyes.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul><li>How specular the real stainless corner is, and what the process glow does to a camera set for a 0.3&nbsp;mW dot: one phone photo, one coupon.</li>' +
+        '<li>Fan size, duct run, make-up air path, and where the outlet goes (a garage, a window). An oxygen monitor and an airflow switch are the proposed observers; neither is designed or tested. This is a study drawing, not an enclosure design: nothing here replaces the laser\'s own interlocks, OD-rated glazing or a competent safety review.</li>' +
+        '<li>Everything room-05 already lists: dock hardware, motorised drawer, cabinet size and place, the second closure\'s service bore.</li></ul>',
+      assumptions:
+        '<ul><li>Cabinet 760 × 620 × 725&nbsp;mm inside = 342&nbsp;L: illustrative. Argon 15 to 20 L/min [manual p.19]; 1.78 vs 1.20 kg/m³ (ordinary gas data); 19.5 % oxygen as the deficiency threshold (common definition).</li>' +
+        '<li>Well-mixed gas balance: V dc/dt = Q − c E with outflow E = the larger of the fan flow and the argon flow (a sealed box displaces). 1 CFM = 28.3 L/min.</li>' +
+        '<li>Lamp and glare map: pure geometry. Plate lobe = mirror direction of camera A across the plate; corner lobe = the camera direction mirrored across the section plane; the spread is a slider (brushed 316L, illustrative). Lamps are drawn at illustrative places and sizes.</li>' +
+        '<li>Gun proxy, dock, nest, runout and everything else as room-05.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { s: 0, fx: 0, fy: 0, fz: 0, nx: 0.15, ny: -0.2, seat: -1.2, dock: [0.02, -0.03, 0.01], door: true, roll: 45, hole: 30, vert: -15, tableSee: true, bAt: 'far', fan: true, cfm: 100, ar: 18, light: 'ring', spread: 8, pel: 66 };
+
+  // ---------------------------------------------------------------- cell frame, ghost panels, rails, dock
+  const posts = [[-380, -320], [380, -320], [-380, 300], [380, 300]];
+  posts.forEach(p => app.add(P.rod(V(p[0], p[1], BZ), V(p[0], p[1], TOPZ), 8, 'fixed')));
+  [[-380, -320, 380, -320], [380, -320, 380, 300], [380, 300, -380, 300], [-380, 300, -380, -320]].forEach(q => { app.add(P.rod(V(q[0], q[1], TOPZ), V(q[2], q[3], TOPZ), 5, 'fixed')); app.add(P.rod(V(q[0], q[1], BZ), V(q[2], q[3], BZ), 5, 'fixed')); });
+  const floor = P.box(780, 640, 10, 'fixed'); floor.position.set(0, -10, BZ + 5); app.add(floor);
+  const back = P.plane(760, TOPZ - BZ, 'ghost'), left = P.plane(TOPZ - BZ, 620, 'ghost'), right = P.plane(TOPZ - BZ, 620, 'ghost'), top = P.plane(760, 620, 'ghost'), door = P.plane(760, TOPZ - BZ, 'ghost');
+  back.rotation.x = Math.PI / 2; back.position.set(0, -320, (TOPZ + BZ) / 2); app.add(back);
+  [left, right].forEach((w, i) => { w.rotation.set(0, Math.PI / 2, 0); w.position.set(i ? 380 : -380, -10, (TOPZ + BZ) / 2); app.add(w); });
+  top.position.set(0, -10, TOPZ); app.add(top);
+  door.rotation.x = Math.PI / 2; door.position.set(0, 300, (TOPZ + BZ) / 2); app.add(door);
+  // drawer rails (fixed) and dock balls
+  const RAILZ = -145;
+  [-170, 170].forEach(x => app.add(P.rail(V(x, -260, RAILZ), V(x, 700, RAILZ), { width: 14, height: 8, role: 'fixed' })));
+  const balls = [[-120, -100], [120, -100], [0, 110]].map(p => { const b = P.sphere(9, 'locate'); b.position.set(p[0], p[1], -120); app.add(b); app.add(P.rod(V(p[0], p[1], BZ + 10), V(p[0], p[1], -128), 4, 'fixed')); return b; });
+  // drawer plate and V seats ride with the tube
+  const plate = P.box(380, 330, 9, 'load'); ws.group.add(plate); plate.position.set(0, 0, -90.5);
+  const seats = [[-120, -100], [120, -100], [0, 110]].map(p => { const b = P.box(24, 24, 10, 'locate'); b.position.set(p[0], p[1], -106); ws.group.add(b); return b; });
+  const slidersL = [-170, 170].map(x => { const b = P.box(16, 300, 20, 'actuated'); b.position.set(x, 0, -105); ws.group.add(b); return b; });
+  ws.tube.material = WK.mat('work', { side: 'double' });
+
+  // ---------------------------------------------------------------- gun, shell, stage on the back wall
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const lug = shell.attachPoint('housingBack', { side: 'back', role: 'locate', size: 9 });
+  gun.setLaser(true);
+  const stageBase = P.box(120, 40, 120, 'fixed'); app.add(stageBase);
+  const stageCar = P.box(90, 50, 80, 'actuated'); app.add(stageCar);
+  const arm = P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'load'); app.add(arm);
+  const proxy = {
+    dotOffset: function () { const d = gun.dotWorld().sub(ws.group.position), o = ws.offsetOf(d); o.vertical -= S.seat; o.miss = Math.hypot(o.radial, o.vertical); return o; },
+    beamDir: () => gun.beamDir(),
+  };
+  app.cornerInset({ gun: proxy });
+
+  // ---------------------------------------------------------------- cameras fixed to the frame
+  const camA = app.inset.add({ id: 'A', label: 'Camera A: frame top, sees the dot (fixed)', position: V(-150, 170, 500), target: () => gun.dotWorld(), fov: 32, near: 40, far: 1500, size: [220, 150], corner: 'br', noise: 0.25 });
+  const B_AT = { far: V(-330, 20, 168), profile: V(62, 330, 164) };   // far side of the bore (as first drawn) or in profile beside the station (eyes-16): the profile place is on the drawer's own path
+  const camB = app.inset.add({ id: 'B', label: 'Camera B: rim height, sees the nozzle tip (fixed)', position: B_AT.far, target: () => gun.local('nozzleTip'), fov: 22, near: 40, far: 1500, size: [220, 130], corner: 'bl', noise: 0.2 });
+  app.label(() => ws.group.position.clone().add(V(0, 0, 60)), 'rotator + tube on the drawer', { cls: 'actuated' });
+  app.label(balls[2], 'dock ball (x3)', { cls: 'locate' });
+  app.label(stageCar, 'gun fine stage (XYZ)', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => B_AT[S.bAt], 'camera B', { cls: 'sensor' });
+  app.label(V(-150, 170, 500), 'camera A', { cls: 'sensor' });
+  app.label(door, 'door (interlocked)', {});
+
+
+  // ---------------------------------------------------------------- the station: hood and fan, low vent, louvre, lamps, sleeve ports
+  const hood = P.cyl(72, 50, 'fixed'); hood.position.set(20, -140, TOPZ - 30); app.add(hood);
+  const duct = P.rod(V(20, -140, TOPZ - 8), V(20, -330, TOPZ - 8), 44, 'fixed'); app.add(duct);
+  const fanBox = P.box(120, 100, 110, 'actuated'); fanBox.position.set(20, -385, TOPZ - 8); app.add(fanBox);
+  const ventLow = P.box(220, 10, 55, 'fixed'); ventLow.position.set(-170, -317, BZ + 40); app.add(ventLow);
+  const louvre = P.box(220, 10, 55, 'fixed'); louvre.position.set(170, 297, BZ + 40); app.add(louvre);
+  const airArrows = [P.arrow(V(170, 330, BZ + 60), V(0, -1, 0), 90, 'cable'), P.arrow(V(20, -20, 260), V(0, 0, 1), 110, 'cable'), P.arrow(V(-170, -290, BZ + 60), V(0, -1, 0), 70, 'cable'), P.arrow(V(20, -260, TOPZ - 8), V(0, -1, 0), 80, 'cable')];
+  airArrows.forEach(a => { a.userData.occludes = false; app.addHelper(a); });
+  const lampRing = P.ring(30, 4, { role: 'sensor' }); lampRing.userData.occludes = false; app.add(lampRing);
+  const lampBars = [-360, 360].map(x => { const b = P.box(10, 520, 14, 'sensor'); b.position.set(x, -10, 175); app.add(b); return b; });
+  const lampPanel = P.box(640, 500, 6, 'sensor'); lampPanel.position.set(0, -10, TOPZ - 22); lampPanel.userData.occludes = false; app.add(lampPanel);
+  const ports = [-130, 130].map(x => { const c = P.cyl(40, 70, 'compliant', { axis: 'y' }); c.position.set(x, 266, 40); app.add(c); const fl = P.cyl(54, 6, 'fixed', { axis: 'y' }); fl.position.set(x, 300, 40); app.add(fl); return c; });
+  app.label(hood, 'hood over the gun (the box is the hood)', { cls: 'fixed' });
+  app.label(fanBox, 'extraction fan (airflow switch)', { cls: 'actuated' });
+  app.label(ventLow, 'low vent (argon settles)', { cls: 'fixed' });
+  app.label(louvre, 'make-up air louvre', { cls: 'fixed' });
+  app.label(ports[1], 'sleeve port (hand reaches the nozzle)', { cls: 'compliant' });
+  app.label(() => lampRing.visible ? lampRing.position : (lampPanel.visible ? lampPanel.position : lampBars[0].position), 'lamp (proposed)', { cls: 'sensor' });
+
+  // gas balance (well mixed): V dc/dt = Q - c E ; a sealed box displaces (E = Q)
+  const BOX_L = 760 * 620 * 725 / 1e6, O2 = 20.9;
+  function gas() {
+    const E = S.fan ? S.cfm * 28.317 : 0, Q = S.ar, Eeff = Math.max(E, Q), css = Q / Eeff, tau = BOX_L / Eeff;
+    const t195 = css > 0.067 ? -tau * Math.log(1 - 0.067 / css) : Infinity, c10 = css * (1 - Math.exp(-10 / tau));
+    return { E: E, css: css, o2ss: O2 * (1 - css), t195: t195, o210: O2 * (1 - c10), ach: E / BOX_L };
+  }
+  // lamp geometry (camera A, plate specular lobe, corner double-bounce lobe): directions from the corner in the tube frame (+X out, +Y tangent, +Z up)
+  const CAMA = V(-150, 170, 500);
+  function skyGeom() {
+    const q = ws.jointNow().clone(), d = CAMA.clone().sub(q).normalize(), az = Math.atan2(d.y, d.x) / DEG, el = Math.asin(d.z) / DEG;
+    return { az: az, el: el, plate: { az: (az + 180 + 360) % 360, el: el }, corner: { az: (-az + 360) % 360, el: el } };
+  }
+  const angDist = (a1, e1, a2, e2) => { const r = x => x * DEG, c = Math.sin(r(e1)) * Math.sin(r(e2)) + Math.cos(r(e1)) * Math.cos(r(e2)) * Math.cos(r(a1 - a2)); return Math.acos(Math.max(-1, Math.min(1, c))) / DEG; };
+  function lampVerdict(g) {
+    const sp = S.spread, out = { plate: false, corner: false, rake: false, note: '' };
+    if (S.light === 'ring') { out.plate = angDist(g.az, g.el, g.plate.az, g.plate.el) < sp + 4; out.corner = angDist(g.az, g.el, g.corner.az, g.corner.el) < sp + 4; }
+    else if (S.light === 'bars') { for (let a = 135; a <= 225; a += 3) { if (angDist(a, 3, g.plate.az, g.plate.el) < sp) out.plate = true; if (angDist(a, 3, g.corner.az, g.corner.el) < sp) out.corner = true; } out.rake = true; }
+    else if (S.light === 'panel') { out.plate = g.plate.el + sp >= S.pel; out.corner = g.corner.el + sp >= S.pel; }
+    return out;
+  }
+  const skySvg = WK.svg('svg', { viewBox: '0 0 300 330', width: '100%' });
+  const skyPanel = app.ui.panel({ id: 'sky', title: 'Lamp map for camera A (geometry only)', open: true, node: skySvg });
+  function drawSky() {
+    while (skySvg.firstChild) skySvg.removeChild(skySvg.firstChild);
+    const g = skyGeom(), cx = 150, cy = 128, R = 104, pt = (az, el) => { const r = (90 - el) / 90 * R, a = az * DEG; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; };
+    const el2 = (tag, at) => { const n = WK.svg(tag, at); skySvg.appendChild(n); return n; };
+    el2('rect', { x: 0, y: 0, width: 300, height: 330, fill: '#0f141b' });
+    [0, 30, 60].forEach(e => el2('circle', { cx: cx, cy: cy, r: (90 - e) / 90 * R, fill: 'none', stroke: '#2a3341' })); [0, 90, 180, 270].forEach(a => { const p = pt(a, 0); el2('line', { x1: cx, y1: cy, x2: p[0], y2: p[1], stroke: '#2a3341' }); });
+    [['+X (wall side)', 0], ['+Y', 90], ['-X', 180], ['-Y', 270]].forEach(l => { const p = pt(l[1], -6); el2('text', { x: p[0] - 8, y: p[1] + 4, fill: '#7d8ea8', 'font-size': 9, text: l[0] }); });
+    const spr = S.spread / 90 * R;
+    const lobe = (az, e, col, lab) => { const p = pt(az, e); el2('circle', { cx: p[0], cy: p[1], r: Math.max(3, spr), fill: col, opacity: 0.35, stroke: col }); el2('text', { x: p[0] + spr + 3, y: p[1] + 3, fill: col, 'font-size': 9, text: lab }); };
+    lobe(g.plate.az, g.plate.el, '#60a5fa', 'plate mirror'); lobe(g.corner.az, g.corner.el, '#f59e0b', 'corner bounce');
+    // lamp regions
+    if (S.light === 'ring') { const p = pt(g.az, g.el); el2('circle', { cx: p[0], cy: p[1], r: 4, fill: '#fde047' }); }
+    if (S.light === 'bars') { let d = ''; for (let a = 135; a <= 225; a += 3) { const p = pt(a, 3); d += (a === 135 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1) + ' '; } el2('path', { d: d, fill: 'none', stroke: '#fde047', 'stroke-width': 5, 'stroke-linecap': 'round' }); }
+    if (S.light === 'panel') el2('circle', { cx: cx, cy: cy, r: Math.max(2, (90 - S.pel) / 90 * R), fill: '#fde047', opacity: 0.4, stroke: '#fde047' });
+    const c = pt(g.az, g.el); el2('circle', { cx: c[0], cy: c[1], r: 5, fill: '#e2e8f0', stroke: '#0f141b' }); el2('text', { x: c[0] + 8, y: c[1] - 4, fill: '#e2e8f0', 'font-size': 9, text: 'camera A' });
+    const v = lampVerdict(g), lines = S.light === 'off' ? ['no lamp: the dot and the melt only'] : ['plate mirror glare in A: ' + (v.plate ? 'YES' : 'no'), 'corner double-bounce band in A: ' + (v.corner ? 'YES' : 'no'), v.rake ? 'raking light along the plate: yes' : ''];
+    lines.filter(Boolean).forEach((t, i) => el2('text', { x: 12, y: 262 + i * 16, fill: t.indexOf('YES') >= 0 ? '#fca5a5' : '#cbd5e1', 'font-size': 11.5, text: t }));
+    el2('text', { x: 8, y: 314, fill: '#7d8ea8', 'font-size': 9, text: 'Polar map from the corner: centre straight up, edge horizontal.' });
+    el2('text', { x: 8, y: 325, fill: '#7d8ea8', 'font-size': 9, text: 'Blue and amber discs: lobes as wide as the roughness spread.' });
+  }
+  function stationUpdate() {
+    const gs = gas();
+    fanBox.visible = duct.visible = hood.visible = true;
+    airArrows.forEach(a => { a.visible = S.fan; });
+    lampRing.visible = S.light === 'ring'; lampBars.forEach(b => { b.visible = S.light === 'bars'; }); lampPanel.visible = S.light === 'panel';
+    const dirA = ws.jointNow().clone().sub(CAMA).normalize(); lampRing.position.copy(CAMA).addScaledVector(dirA, 30); lampRing.quaternion.setFromUnitVectors(V(0, 0, 1), dirA);
+    lampPanel.position.z = TOPZ - 22; { const hw = (TOPZ - 22 - 146) / Math.tan(S.pel * DEG); lampPanel.scale.set(Math.min(1.2, 2 * hw / 640), Math.min(1.2, 2 * hw / 500), 1); }   // the panel's edge as seen from the corner sits at the chosen elevation
+    app.ui.enable('pel', S.light === 'panel');
+    const clr = gs.t195 === Infinity ? 'never (steady ' + gs.o2ss.toFixed(1) + ' %)' : (gs.t195 < 10 ? gs.t195.toFixed(1) + ' min' : gs.t195.toFixed(0) + ' min');
+    setO2(gs.o2ss.toFixed(1), '% steady'); setT195(clr); setAch(gs.ach.toFixed(1), 'per min'); setCss((gs.css * 100).toFixed(1), '% argon');
+    app.badge('o2', gs.o2ss < 19.5 || gs.t195 < 30 ? 'oxygen in the box falls to 19.5 % in ' + (gs.t195 < 10 ? gs.t195.toFixed(1) : gs.t195.toFixed(0)) + ' min at ' + S.ar + ' L/min: a sealed box fills with argon (a hand in the sleeve is in it)' : null, 'limit');
+    const pn = ports[1].position, tip = gun.local('nozzleTip'), reach = Math.hypot(pn.x - tip.x, pn.y - tip.y, pn.z - tip.z); setReach(reach.toFixed(0), 'mm');
+    drawSky();
+  }
+  const setO2 = app.ui.readout('o2', 'Oxygen in the box, well mixed'), setT195 = app.ui.readout('t195', 'Time to 19.5 % oxygen'), setAch = app.ui.readout('ach', 'Air changes'), setCss = app.ui.readout('css', 'Argon share in the box'), setReach = app.ui.readout('reach', 'Sleeve port to the nozzle');
+  const _ioSet = app.io.set.bind(app.io);
+  app.io.set = function (o) {
+    const gs = gas();
+    o.commands = (o.commands || []).concat([{ name: 'Extraction fan', value: S.fan ? 'on, ' + S.cfm + ' CFM' : 'off', note: 'a switch; the laser permit needs airflow proven' }, { name: 'Lamps', value: S.light === 'off' ? 'off' : S.light, note: 'software switches them; the dry lap and the bead can differ' }]);
+    o.observes = (o.observes || []).concat([{ name: 'Fan airflow (switch)', value: S.fan ? 'proven' : 'no flow', status: 'seen', note: 'joins the permit chain: door, dock, seat, software, pedal, fan' }, { name: 'Oxygen low in the box (proposed sensor)', value: gs.o2ss.toFixed(1), unit: '% steady', status: 'partly', note: 'a floor-level electrochemical sensor would read the settled argon; the value is the well-mixed model' }, { name: 'Lamp glare in camera A', value: lampVerdict(skyGeom()).plate || lampVerdict(skyGeom()).corner ? 'yes' : 'no', status: 'unresolved', note: 'geometry only; a photograph decides' }]);
+    o.manual = (o.manual || []).concat(['A stuck wire through the sleeve port with the laser interlocked off']);
+    return _ioSet(o);
+  };
+
+  // ---------------------------------------------------------------- update
+  const zOf = s => -DOCK_DROP * Math.min(1, Math.max(0, s / 40));
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+  function update() {
+    const docked = S.s < 0.5;
+    // tube frame: drawer travel along +Y, ramp lowers it, dock error only when seated, nest offset and seat depth are the tube's
+    const dk = docked ? S.dock : [0, 0, 0];
+    ws.group.position.set(dk[0] + S.nx, S.s + dk[1] + S.ny, zOf(S.s) + dk[2]);
+    ws.cap.position.z = S.seat; ws.weldCircle.position.z = WK.CAP_TOP + 0.3 + S.seat; if (ws.parts.plateTick) ws.parts.plateTick.position.z = WK.CAP_TOP + 0.25 + S.seat;
+    gun.setDials(S.roll, S.hole, S.vert); gun.group.position.x += S.fx; gun.group.position.y += S.fy; gun.group.position.z += S.fz; gun.group.updateMatrixWorld(true);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, S.seat);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+    const lw = lug.world();
+    stageBase.position.set(lw.x + 0, -286, lw.z); stageCar.position.set(lw.x + S.fx * 0, -240, lw.z);
+    stageCar.position.set(lw.x, -250, lw.z);
+    arm.setEnds(V(lw.x, -228, lw.z), lw);
+    door.visible = S.door;
+    app.badge('lock', (docked && S.door && S.fan) ? null : 'laser interlock OPEN: ' + (!S.door ? 'door open' : (!docked ? 'drawer not seated' : 'fan airflow not proven')), (docked && S.door && S.fan) ? 'ok' : 'warn');
+    const seeDot = app.inset.markVisibility('A', gun.dotWorld());
+    camB.setPose(B_AT[S.bAt], () => gun.local('nozzleTip'));
+    // the tip is a point ON the axis of a thin part: without eps it is hidden by the nozzle's own skin (this was read as 'blocked by gun' before; kit README section 5)
+    const seeTip = app.inset.markVisibility('B', gun.local('nozzleTip'), { eps: 3 });
+    const bInPath = S.bAt === 'profile';
+    app.badge('bpath', bInPath && S.s > 250 ? 'camera B stands on the drawer\'s path: the tube would reach it at y = 330' : null, 'limit');
+    const off = proxy.dotOffset();
+    app.badge('miss', docked && off.miss > 0.25 ? 'dot is ' + off.miss.toFixed(2) + ' mm from the seam' : null, off.miss > 1 ? 'limit' : 'warn');
+    setDock(docked ? 'seated' : 'out ' + S.s.toFixed(0) + ' mm'); setMiss(docked ? off.miss.toFixed(2) : '-', 'mm');
+    app.io.set({
+      commands: [
+        { name: 'Drawer position', value: S.s.toFixed(0), unit: 'mm', note: 'motorised (optional) or hand-pulled with a position switch; the ramp lowers the tube ' + Math.abs(zOf(S.s)).toFixed(0) + ' mm now' },
+        { name: 'Gun stage X, Y, Z', value: S.fx.toFixed(2) + ', ' + S.fy.toFixed(2) + ', ' + S.fz.toFixed(2), unit: 'mm', note: 'small stage on the back wall' },
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing console; needs the drawer seated' },
+      ],
+      observes: [
+        { name: 'Dot vs seam (camera A)', value: docked && seeDot.visible ? (off.radial + 0.08).toFixed(2) + ', ' + (off.vertical - 0.05).toFixed(2) : '-', unit: docked && seeDot.visible ? 'mm r, z' : '', status: docked && seeDot.visible ? 'partly' : 'blind', note: docked ? (seeDot.visible ? 'estimate with made-up bias; exact error in the corner inset' : 'camera A is blocked or looking away') : 'drawer is out: there is no dot to see at the seam' },
+        { name: 'Nozzle over the rim (camera B, ' + (S.bAt === 'far' ? 'far side of the bore' : 'in profile') + ')', value: docked && seeTip.visible ? (gun.local('nozzleTip').z - (WK.CAP_TOP + 6.35 + ws.group.position.z)).toFixed(1) : '-', unit: 'mm', status: docked && seeTip.visible ? 'seen' : 'blind', note: 'the tip needs eps 3 in the drawn-scene test; the wire tip beside it is not drawn as an occluder here' },
+        { name: 'Rim height and sideways position while the drawer rolls in', value: docked ? '-' : 'passing the frame', status: docked ? 'unresolved' : 'partly', note: 'the drawer stroke is an observing stroke: a fixed camera sees the rim go by before the dock seats it (eyes)' },
+        { name: 'Dock seated / door closed', value: (docked ? 'seated' : 'out') + ' / ' + (S.door ? 'closed' : 'open'), status: 'seen', note: 'two switches; the interlock is logic on these' },
+        { name: 'Plate depth, tube tilt', value: '-', status: 'blind', note: 'plate depth shows only as a vertical dot error; tilt is the face runout and is not corrected' },
+        { name: 'Wire tip, fume', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Pull out; load, seat and indicate the tube by hand', 'Tack the plate', 'Align gun and cameras once in the cell', 'Snip a stuck wire with the door open'],
+    });
+    stationUpdate();
+    // tolerance roll-up: fine-stage range needed (worst-case sum, illustrative dock)
+    const xy = 0.04 + 0.20 + 0.25 / 2, z = 3 + 0.30 / 2 + 0.04;
+    setRoll('±' + xy.toFixed(2) + ' mm X,Y; ±' + z.toFixed(1) + ' mm Z');
+  }
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setDock = app.ui.readout('dock', 'Drawer'), setMiss = app.ui.readout('miss', 'Dot to seam (exact, docked)'), setRoll = app.ui.readout('roll', 'Fine-stage range this cell needs');
+
+  // ---------------------------------------------------------------- controls
+  const act = app.ui.group('Commands (proposed actuators)', {});
+  act.slider({ id: 'drawer', label: 'Drawer: 0 = docked, 420 = out at the load station', min: 0, max: 420, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [ws.group, plate], help: 'Motorised (optional) or hand-pulled. The first 40 mm are the ramp that lowers the tube.', onChange: v => { S.s = v; update(); } });
+  act.slider({ id: 'fx', label: 'Gun stage X (radial)', min: -3, max: 3, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fx = v; update(); } });
+  act.slider({ id: 'fy', label: 'Gun stage Y (tangent)', min: -3, max: 3, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fy = v; update(); } });
+  act.slider({ id: 'fz', label: 'Gun stage Z', min: -5, max: 5, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fz = v; update(); } });
+  act.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  act.toggle({ id: 'door', label: 'Door closed', value: true, kind: 'state', visual: () => [door], help: 'Open it to see the interlock; the laser cannot be enabled.', onChange: v => { S.door = v; update(); } });
+  const tube = app.ui.group('What the last tube did (scene edits)', { help: 'Not hardware: where this tube sits in its nest and how deep its plate is.' });
+  tube.slider({ id: 'nx', label: 'Tube offset in the nest, X', min: -0.5, max: 0.5, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', visual: () => [ws.tube], help: 'The nest ID pilot has 0.20 mm radial clearance.', onChange: v => { S.nx = v; update(); } });
+  tube.slider({ id: 'ny', label: 'Tube offset in the nest, Y', min: -0.5, max: 0.5, step: 0.01, value: -0.2, unit: 'mm', kind: 'scene', visual: () => [ws.tube], onChange: v => { S.ny = v; update(); } });
+  tube.slider({ id: 'seat', label: 'Plate seat depth vs nominal', min: -6, max: 3, step: 0.05, value: -1.2, unit: 'mm', kind: 'scene', visual: () => [ws.cap], help: 'Unknown magnitude; illustrative.', onChange: v => { S.seat = v; update(); } });
+  tube.button({ id: 'redock', label: 'Dock again (new dock repeat error)', kind: 'scene', help: 'Draws a new random dock error of about 0.04 mm.', onClick: () => { const r = () => (Math.random() * 2 - 1) * 0.05; S.dock = [r(), r(), r() * 0.5]; update(); } });
+  tube.toggle({ id: 'runout', label: 'Show indicated runout while turning', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+  const st2 = app.ui.group('The station', { help: 'Gas, air, light and the hand port. Nothing here is a safety design.' });
+  st2.toggle({ id: 'fan', label: 'Extraction fan on (airflow proven)', value: true, kind: 'state', visual: () => [fanBox, duct, hood], help: 'The laser permit needs it: with it off the interlock badge opens.', onChange: v => { S.fan = v; update(); } });
+  st2.slider({ id: 'cfm', label: 'Fan size', min: 10, max: 250, step: 5, value: 100, unit: 'CFM', kind: 'scene', visual: () => [fanBox], help: '4 in inline duct fans sell at 100 to 200 CFM. 1 CFM = 28.3 L/min.', onChange: v => { S.cfm = v; update(); } });
+  st2.slider({ id: 'ar', label: 'Argon flow', min: 5, max: 30, step: 1, value: 18, unit: 'L/min', kind: 'scene', help: '15 to 20 L/min [manual p.19].', noVisual: true, onChange: v => { S.ar = v; update(); } });
+  st2.radio({ id: 'light', label: 'Lighting', kind: 'branch', value: 'ring', options: [{ value: 'off', label: 'none' }, { value: 'ring', label: 'ring around camera A', help: 'A lamp ring at the lens. The corner returns light to the camera mirrored across the section plane, so an off-plane camera is not lit by it.' }, { value: 'bars', label: 'low side bars', help: 'Bars at rim height on the side rails: raking light along the plate.' }, { value: 'panel', label: 'diffuse panel above', help: 'A large panel under the roof from the chosen elevation upward.' }], visual: () => [lampRing].concat(lampBars, [lampPanel]), onChange: v => { S.light = v; update(); } });
+  st2.slider({ id: 'pel', label: 'Panel starts at elevation', min: 30, max: 85, step: 1, value: 66, unit: '°', kind: 'scene', visual: () => [lampPanel], help: 'The plate\'s mirror lobe for camera A tops out near 60° (52.5° plus the spread).', onChange: v => { S.pel = v; update(); } });
+  st2.slider({ id: 'spread', label: 'Stainless roughness spread', min: 2, max: 20, step: 1, value: 8, unit: '°', kind: 'scene', noVisual: true, help: 'How wide a mirror-like face blurs a reflection. Brushed 316L: a guess.', onChange: v => { S.spread = v; update(); } });
+  const cb = app.ui.group('Camera B station (scene edit)', { help: 'Camera B is the nozzle-height camera: it sees the tip against the rim and so gives the position along the beam that camera A cannot (eyes-13).' });
+  cb.radio({ id: 'bAt', label: 'Where camera B stands', kind: 'scene', value: 'far', options: [{ value: 'far', label: 'Far side of the bore', help: 'As first drawn: 330 mm out on the radial line behind the gun, 15.6 mm above the rim. Sees the tip.' }, { value: 'profile', label: 'In profile (on the drawer path)', help: 'Beside the station looking along the tangent, 12 mm above the rim (eyes-16). It is on the line the drawer travels along.' }], onChange: v => { S.bAt = v; update(); } });
+  const pr = app.ui.group('Print-time choices (shell angles)', { open: false });
+  pr.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.roll = v; update(); } });
+  pr.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.hole = v; update(); } });
+  pr.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.vert = v; update(); } });
+  const vw = app.ui.group('View', { open: false });
+  vw.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+})();
+</script>
+</body>
+</html>

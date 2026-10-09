@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Axis map: where can a pivot go</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .am { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px 16px; align-items: start; }
+  @media (max-width: 1100px) { .am { grid-template-columns: minmax(0, 1fr); } }
+  .am h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .am svg { width: 100%; height: auto; display: block; background: #0f141b; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .am text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .am .cell-ok { fill: #0f8f83; } .am .cell-no { fill: #5b1c22; }
+  .am .gridl { stroke: #232d3b; stroke-width: 1; } .am .axl { fill: #64748b; font-size: 10px; }
+  .am .mk { stroke: #0f141b; stroke-width: 1.5; }
+  .am .sel { fill: none; stroke: #fff; stroke-width: 2; }
+  .am table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  .am th, .am td { border: 1px solid var(--wk-line); padding: 5px 8px; text-align: left; }
+  .am th { color: var(--wk-muted); font-weight: 600; background: var(--wk-panel2); }
+  .am td.ok { color: #34d399; } .am td.no { color: #f87171; } .am td.part { color: #fbbf24; }
+  .am .note { font-size: 12px; color: var(--wk-muted); margin: 0; }
+  .am .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--wk-muted); }
+  .am .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-04-axis-map",
+  "title": "Axis map: where a pivot can physically be",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Photo heads, gimbals, goniometers and telescope mounts all rotate about a point in free air. The dot is on a corner of metal. For any axis direction through the dot this page tests whether a shaft, a two-sided shaft or a ring bearing can sit on it, so donor pivots can be judged before any are drawn.",
+  "tags": [
+    "analysis",
+    "pivot",
+    "donor-check"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "ring bearing around an empty axis",
+    "free-direction map"
+  ],
+  "how": {
+    "motion": "none: an analysis of where pivot hardware can stand on axes through the dot",
+    "load": "nothing here carries the gun; it decides where a bearing can stand",
+    "reference": "the dot at the wall/plate corner; solids are the tube wall, endcap and bench",
+    "observe": "geometry only, no sensor",
+    "use": "design-time check for pano-head, gimbal, goniometer and ring pivots"
+  },
+  "software": {
+    "commands": [
+      "none: this page is not an arrangement"
+    ],
+    "observes": [
+      "none"
+    ],
+    "manual": [
+      "choosing where the three pivots go; anything drawn as an axis here still needs a mechanism"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-04-axis-map.md",
+    "../../explorers/borrowed/ideas/borrowed-01-ring-pivots.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = WK.svg, DEGR = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Every donor pivot (photographic pano head, three-axis gimbal, goniometer cradle, moving-head yoke, telescope fork) assumes free air around the point it turns about. Here the dot sits in the corner between a 1.65 mm wall and the endcap, so every axis through it starts in metal on at least one side.</p>' +
+        '<p>The map shows, for every direction of an axis through the dot, whether something can sit on that axis. <b>Teal</b> cells are free, <b>dark red</b> cells run into the tube, the endcap or the bench. Switch what sits on the axis: a shaft on one side (cantilever), a shaft through the dot (two sides), or a <b>ring bearing</b> that turns about an empty axis. The circles are the three rotation axes and the beam line of the reference gun at the dials set below.</p>',
+      carries: '<p>Nothing here carries the gun. The page decides where a bearing may stand; it is not a support.</p>',
+      tried: '<p><b>Shaft on the axis.</b> With any thickness at all, the whole family of horizontal axes (toward the tube axis, along the crease, and the hole axis at zero yaw) is red: they lie on the endcap face or the wall face. Only directions up and inward stay free, and a shaft of 10 mm radius leaves almost none.</p>' +
+        '<p><b>Two-sided shaft.</b> A yoke or fork needs both rays free, and a ray pointing down or outward starts inside the wall or plate: the free set is empty at 10 mm.</p>' +
+        '<p><b>Ring bearing.</b> A ring has nothing on its axis, so it only needs its circle clear of metal. Put a ring 60 to 100 mm along an axis and most directions are free, including all three rotation axes of the reference dials (hole axis: outside the wall; yaw: above the rim; grip axis: around the grip). That is the case for rings and arcs over shafts, and it is why telescope mounts look the way they do.</p>',
+      unresolved: '<p>The gun body, the umbilical and the arms that would join one ring to the next are not tested here: a ring is free of the tube but its bore must still pass the gun, and the parts that hold its stator must reach it. Those are the next question (see borrowed-01-ring-pivots).</p>' +
+        '<p>The rotator base and towers are not solids in this test; only the wall, the plate and the bench plane are.</p>',
+      assumptions: '<ul><li>Tube 5.000 in OD, 0.065 in wall, 6 in long; plate 4.860 in dia, 0.250 in thick, recessed 0.250 in: [repo] dimensions via <code>WK.DIM</code>.</li>' +
+        '<li>Nose taper (how fast the thing on the axis may widen with distance from the dot) is <b>illustrative</b>; it stands for the nozzle and barrel of a gun.</li>' +
+        '<li>Shaft radius, bearing length, ring distance, radius and section are <b>illustrative</b> sliders.</li>' +
+        '<li>Dial values start at the reference scene’s opening pose (illustrative).</li>' +
+        '<li>Clearances are analytic distances to solids of revolution; no fasteners, printed wall thickness or tolerances.</li></ul>',
+    },
+  });
+
+  // ---------- geometry (mm; +Z up, tube axis Z, dot at the +X wall/plate corner)
+  const D = WK.DIM;
+  const G = { RIN: WK.INNER_RADIUS, ROUT: D.tubeOd / 2, H: D.tubeHeight, PR: D.capDiameter / 2, PZ0: WK.CAP_TOP - D.capThickness, PZ1: WK.CAP_TOP, BENCH: -86 };
+  const DOT = { x: G.RIN, y: 0, z: G.PZ1 };
+  function rectD(r, z, r0, r1, z0, z1) { const dr = Math.max(r0 - r, 0, r - r1), dz = Math.max(z0 - z, 0, z - z1); return Math.sqrt(dr * dr + dz * dz); }
+  function clearance(x, y, z) {
+    const r = Math.sqrt(x * x + y * y);
+    return Math.min(rectD(r, z, G.RIN, G.ROUT, 0, G.H), rectD(r, z, 0, G.PR, G.PZ0, G.PZ1), z - G.BENCH);
+  }
+  const st = { kind: 'shaft', rho: 6, k: 0.15, L: 150, d: 80, R: 60, w: 6, az: 0, el: 60, roll: 45, hole: 30, vert: -15 };
+
+  // first distance along direction a (from the dot) where a shaft of radius min(rho, k t) touches metal, or Infinity
+  function shaftFail(a) {
+    const step = 1.5;
+    for (let t = 0.75; t <= st.L; t += step) {
+      const c = clearance(DOT.x + a[0] * t, DOT.y + a[1] * t, DOT.z + a[2] * t);
+      if (c < Math.min(st.rho, st.k * t) - 0.02) return t;
+    }
+    return Infinity;
+  }
+  function crossv(u, v) { return [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]; }
+  function norm(v) { const m = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / m, v[1] / m, v[2] / m]; }
+  function ringBasis(a) { const ref = Math.abs(a[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0]; const u = norm(crossv(a, ref)); return [u, crossv(a, u)]; }
+  function ringPts(a, dist) {
+    const c = [DOT.x + a[0] * dist, DOT.y + a[1] * dist, DOT.z + a[2] * dist], b = ringBasis(a), out = [];
+    for (let i = 0; i < 72; i++) { const p = i / 72 * Math.PI * 2, cp = Math.cos(p) * st.R, sp = Math.sin(p) * st.R; out.push([c[0] + cp * b[0][0] + sp * b[1][0], c[1] + cp * b[0][1] + sp * b[1][1], c[2] + cp * b[0][2] + sp * b[1][2]]); }
+    return out;
+  }
+  function ringOk(a, dist) { const pts = ringPts(a, dist); for (let i = 0; i < pts.length; i++) if (clearance(pts[i][0], pts[i][1], pts[i][2]) < st.w) return false; return true; }
+  const neg = a => [-a[0], -a[1], -a[2]];
+  // verdict for one kind on axis a: {ok, note}
+  function verdict(kind, a) {
+    if (kind === 'shaft') { const f1 = shaftFail(a), f2 = shaftFail(neg(a)); const o1 = f1 === Infinity, o2 = f2 === Infinity; return { ok: o1 || o2, both: o1 && o2, note: o1 && o2 ? 'either side' : o1 ? 'on the +axis side only' : o2 ? 'on the −axis side only' : '' }; }
+    if (kind === 'through') { const o = shaftFail(a) === Infinity && shaftFail(neg(a)) === Infinity; return { ok: o, note: '' }; }
+    const o1 = ringOk(a, st.d), o2 = ringOk(a, -st.d); return { ok: o1 || o2, both: o1 && o2, note: o1 && o2 ? 'either side' : o1 ? 'ring on the +axis side' : o2 ? 'ring on the −axis side' : '' };
+  }
+
+  // ---------- named axes at the reference dials
+  function named() {
+    const pose = WK.dialsToPose(st.roll, st.hole, st.vert), q = pose.quaternion;
+    const v = st.vert * DEGR;
+    const g = WK.LOCAL_ROLL_AXIS.clone().applyQuaternion(q), b = new THREE.Vector3(0, 0, -1).applyQuaternion(q);
+    return [
+      { id: 'yaw', name: 'Yaw axis (vertical)', a: [0, 0, 1], col: '#fbbf24' },
+      { id: 'hole', name: 'Hole axis (level, through both ports)', a: [Math.cos(v), Math.sin(v), 0], col: '#22d3ee' },
+      { id: 'grip', name: 'Grip axis (dot to cable exit)', a: [g.x, g.y, g.z], col: '#c084fc' },
+      { id: 'beam', name: 'Beam line (dot back to nozzle)', a: [-b.x, -b.y, -b.z], col: '#ff5a4f' },
+    ];
+  }
+  const dirOf = (azI, el) => { const A = azI * DEGR, E = el * DEGR; return [-Math.cos(E) * Math.cos(A), Math.cos(E) * Math.sin(A), Math.sin(E)]; };
+  const angOf = a => ({ azI: (Math.abs(a[0]) < 1e-6 && Math.abs(a[1]) < 1e-6) ? 0 : Math.atan2(a[1], -a[0]) / DEGR, el: Math.asin(Math.max(-1, Math.min(1, a[2]))) / DEGR });
+
+  // ---------- page structure
+  const root = WK.h('div', { class: 'am' });
+  app.stageEl.appendChild(root);
+  const NX = 72, NY = 36, X0 = 40, Y0 = 22, CS = 7.2;
+  const mapSvg = S('svg', { viewBox: '0 0 ' + (X0 + NX * CS + 10) + ' ' + (Y0 + NY * CS + 40), role: 'img', 'aria-label': 'free-direction map' });
+  const cells = [];
+  const gCells = S('g');
+  for (let j = 0; j < NY; j++) { cells[j] = []; for (let i = 0; i < NX; i++) { const r = S('rect', { x: X0 + i * CS, y: Y0 + j * CS, width: CS, height: CS, class: 'cell-no' }); gCells.appendChild(r); cells[j][i] = r; } }
+  mapSvg.appendChild(gCells);
+  [-180, -135, -90, -45, 0, 45, 90, 135, 180].forEach(function (az) {
+    const x = X0 + (az + 180) / 5 * CS;
+    mapSvg.appendChild(S('line', { x1: x, y1: Y0, x2: x, y2: Y0 + NY * CS, class: 'gridl' }));
+    const lab = az === 0 ? 'toward tube axis' : Math.abs(az) === 180 ? 'outward' : (az < 0 ? 'tangent (' : 'tangent (') + Math.abs(az) + '°';
+    if (az === 0 || Math.abs(az) === 180 || Math.abs(az) === 90) mapSvg.appendChild(S('text', { x: x, y: Y0 + NY * CS + 14, 'text-anchor': 'middle', text: az === 0 ? 'toward tube axis' : Math.abs(az) === 180 ? 'outward' : 'tangent' }));
+    else mapSvg.appendChild(S('text', { x: x, y: Y0 + NY * CS + 14, 'text-anchor': 'middle', class: 'axl', text: az + '°' }));
+  });
+  [-90, -60, -30, 0, 30, 60, 90].forEach(function (el) {
+    const y = Y0 + (90 - el) / 5 * CS;
+    mapSvg.appendChild(S('line', { x1: X0, y1: y, x2: X0 + NX * CS, y2: y, class: 'gridl' }));
+    mapSvg.appendChild(S('text', { x: X0 - 6, y: y + 4, 'text-anchor': 'end', class: 'axl', text: (el > 0 ? '+' : '') + el + '°' }));
+  });
+  mapSvg.appendChild(S('text', { x: X0 + NX * CS / 2, y: 14, 'text-anchor': 'middle', text: 'direction of the axis line from the dot (elevation up the side, azimuth across)' }));
+  mapSvg.appendChild(S('text', { x: X0 + NX * CS / 2, y: Y0 + NY * CS + 32, 'text-anchor': 'middle', text: 'azimuth in plan: 0 = pointing toward the tube axis, ±180 = pointing outward through the wall' }));
+  const markG = S('g'); mapSvg.appendChild(markG);
+  const selMk = S('circle', { r: 8, class: 'sel' }); mapSvg.appendChild(selMk);
+  mapSvg.style.cursor = 'crosshair';
+  mapSvg.addEventListener('click', function (ev) {
+    const pt = mapSvg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+    const m = pt.matrixTransform(mapSvg.getScreenCTM().inverse());
+    const azI = (m.x - X0) / CS * 5 - 180, el = 90 - (m.y - Y0) / CS * 5;
+    if (azI < -180 || azI > 180 || el < -90 || el > 90) return;
+    app.ui.set('az', Math.round(azI)); app.ui.set('el', Math.round(el));
+  });
+
+  const legend = WK.h('div', { class: 'legend' },
+    WK.h('span', null, WK.h('i', { style: { background: '#0f8f83' } }), 'free: fits without touching tube, plate or bench'),
+    WK.h('span', null, WK.h('i', { style: { background: '#5b1c22' } }), 'blocked'),
+    WK.h('span', null, WK.h('i', { style: { background: 'transparent', border: '2px solid #fff' } }), 'selected axis (click the map or use the sliders)'));
+  const share = WK.h('p', { class: 'note' });
+  const secSvg = S('svg', { viewBox: '0 0 340 400' }), planSvg = S('svg', { viewBox: '0 0 340 300' });
+  const tblWrap = WK.h('div');
+  root.appendChild(WK.h('div', null, WK.h('h3', { text: 'Free directions from the dot' }), mapSvg, legend, share,
+    WK.h('p', { class: 'note', text: 'An axis is a line, so a direction and its opposite are the same axis: the map is symmetric. Big circles are the axis pointing one way, faint circles the other way.' })));
+  root.appendChild(WK.h('div', null, WK.h('h3', { text: 'Section through the tube axis (side view, +X right)' }), secSvg));
+  root.appendChild(WK.h('div', null, WK.h('h3', { text: 'The reference gun\u2019s three rotation axes and its beam line' }), tblWrap));
+  root.appendChild(WK.h('div', null, WK.h('h3', { text: 'Plan (from above)' }), planSvg));
+
+  // ---------- drawing
+  // silhouette polygon of the tapered shaft (radius min(rho, k t)) seen along Y (section) or Z (plan)
+  function conePoly(a, t0, t1, proj) {
+    const left = [], right = [], n = 40;
+    const p0 = proj(0), pd = proj(1);
+    let dx = pd[0] - p0[0], dy = pd[1] - p0[1]; const m = Math.hypot(dx, dy);
+    if (m < 1e-6) return null;
+    dx /= m; dy /= m;
+    for (let i = 0; i <= n; i++) {
+      const t = t0 + (t1 - t0) * i / n, r = Math.min(st.rho, st.k * t), c = proj(t);
+      left.push([c[0] - dy * r, c[1] + dx * r]); right.push([c[0] + dy * r, c[1] - dx * r]);
+    }
+    return left.concat(right.reverse());
+  }
+  function ptsStr(pts, f) { return pts.map(p => f(p).map(v => v.toFixed(2)).join(',')).join(' '); }
+  // draw both rays of the selected axis into group g using projector P(dir)->(t->[u,v]) and a to-pixel function f
+  function drawShafts(g, a, proj, f, tEnd) {
+    [a, neg(a)].forEach(function (dv) {
+      const fail = shaftFail(dv), tf = Math.min(fail, tEnd), P = t => proj(dv, t);
+      const p1 = conePoly(dv, 0, tf, P);
+      if (p1) g.appendChild(S('polygon', { points: ptsStr(p1, f), fill: '#34d399', opacity: 0.85 }));
+      if (fail < tEnd) { const p2 = conePoly(dv, fail, tEnd, P); if (p2) g.appendChild(S('polygon', { points: ptsStr(p2, f), fill: '#f87171', opacity: 0.8 })); }
+      if (!p1 && !(fail < tEnd)) g.appendChild(S('circle', { cx: f(P(0))[0], cy: f(P(0))[1], r: 3, fill: '#34d399' }));
+    });
+  }
+  function drawRings(g, a, proj, f, lw) {
+    [st.d, -st.d].forEach(function (dist) {
+      const pts = ringPts(a, dist), ok = ringOk(a, dist);
+      g.appendChild(S('polygon', { points: ptsStr(pts.map(p => proj(p)), f), fill: 'none', stroke: ok ? '#34d399' : '#f87171', 'stroke-width': lw, opacity: 0.9, 'stroke-linejoin': 'round' }));
+    });
+  }
+  const sec = { x0: -100, z1: 300 };
+  const secF = p => [p[0] - sec.x0, sec.z1 - p[1]];
+  function drawSection(a) {
+    secSvg.innerHTML = '';
+    secSvg.appendChild(S('rect', { x: 0, y: sec.z1 - G.BENCH, width: 340, height: 400 - (sec.z1 - G.BENCH), fill: '#1b222c' }));
+    secSvg.appendChild(S('text', { x: 6, y: sec.z1 - G.BENCH + 14, text: 'bench' }));
+    [[-G.ROUT, -G.RIN], [G.RIN, G.ROUT]].forEach(r => secSvg.appendChild(S('rect', { x: r[0] - sec.x0, y: sec.z1 - G.H, width: r[1] - r[0], height: G.H, fill: '#c8d0da' })));
+    secSvg.appendChild(S('rect', { x: -G.PR - sec.x0, y: sec.z1 - G.PZ1, width: 2 * G.PR, height: G.PZ1 - G.PZ0, fill: '#8e98a6' }));
+    secSvg.appendChild(S('text', { x: -40 - sec.x0, y: sec.z1 - G.H - 6, text: 'tube (section)' }));
+    const proj = (dv, t) => [DOT.x + dv[0] * t, DOT.z + dv[2] * t];
+    const g = S('g'); secSvg.appendChild(g);
+    if (st.kind === 'ring') drawRings(g, a, p => [p[0], p[2]], secF, Math.max(1.5, 2 * st.w));
+    else drawShafts(g, a, proj, secF, 260);
+    // thin axis line for reference
+    g.appendChild(S('line', { x1: secF([DOT.x - a[0] * 260, DOT.z - a[2] * 260])[0], y1: secF([DOT.x - a[0] * 260, DOT.z - a[2] * 260])[1], x2: secF([DOT.x + a[0] * 260, DOT.z + a[2] * 260])[0], y2: secF([DOT.x + a[0] * 260, DOT.z + a[2] * 260])[1], stroke: '#fff', 'stroke-width': 0.8, 'stroke-dasharray': '3 3', opacity: 0.7 }));
+    secSvg.appendChild(S('circle', { cx: secF([DOT.x, DOT.z])[0], cy: secF([DOT.x, DOT.z])[1], r: 3.5, fill: '#ff3b30', stroke: '#0f141b' }));
+    secSvg.appendChild(S('text', { x: secF([DOT.x, DOT.z])[0] + 7, y: secF([DOT.x, DOT.z])[1] - 6, text: 'dot', style: 'fill:#ff5a4f' }));
+    // corner detail (6x): wall, plate, rim and the first millimetres of the shaft
+    const wx = 36, wz = 30, IW = 160, IH = 138;           // window 36 x 30 mm around the dot
+    const inset = S('svg', { x: 6, y: 6, width: IW, height: IH, viewBox: (DOT.x - 26) + ' ' + (-(DOT.z + 16)) + ' ' + wx + ' ' + wz, preserveAspectRatio: 'xMidYMid meet' });
+    inset.appendChild(S('rect', { x: DOT.x - 26, y: -(DOT.z + 16), width: wx, height: wz, fill: '#0f141b' }));
+    inset.appendChild(S('rect', { x: G.RIN, y: -G.H, width: G.ROUT - G.RIN, height: G.H, fill: '#c8d0da' }));
+    inset.appendChild(S('rect', { x: DOT.x - 30, y: -G.PZ1, width: 30, height: G.PZ1 - G.PZ0, fill: '#8e98a6' }));
+    const gi = S('g'); inset.appendChild(gi);
+    const projI = (dv, t) => [DOT.x + dv[0] * t, -(DOT.z + dv[2] * t)];
+    if (st.kind !== 'ring') drawShafts(gi, a, projI, p => p, 40);
+    inset.appendChild(S('circle', { cx: DOT.x, cy: -DOT.z, r: 0.55, fill: '#ff3b30' }));
+    secSvg.appendChild(S('rect', { x: 6, y: 6, width: IW, height: IH, fill: 'none', stroke: '#394559' }));
+    secSvg.appendChild(inset);
+    secSvg.appendChild(S('rect', { x: 6, y: 6, width: 148, height: 15, fill: '#0f141b', opacity: 0.85 }));
+    secSvg.appendChild(S('text', { x: 10, y: 17, text: 'corner detail, 36 mm across' }));
+  }
+  const pl = { x0: -100, y1: 150 };
+  const plF = p => [p[0] - pl.x0, pl.y1 - p[1]];
+  function drawPlan(a) {
+    planSvg.innerHTML = '';
+    planSvg.appendChild(S('circle', { cx: plF([0, 0])[0], cy: plF([0, 0])[1], r: G.ROUT, fill: '#c8d0da', opacity: 0.85 }));
+    planSvg.appendChild(S('circle', { cx: plF([0, 0])[0], cy: plF([0, 0])[1], r: G.RIN, fill: '#8e98a6' }));
+    const g = S('g'); planSvg.appendChild(g);
+    if (st.kind === 'ring') drawRings(g, a, p => [p[0], p[1]], plF, Math.max(1.5, 2 * st.w));
+    else drawShafts(g, a, (dv, t) => [DOT.x + dv[0] * t, DOT.y + dv[1] * t], plF, 250);
+    planSvg.appendChild(S('circle', { cx: plF([DOT.x, DOT.y])[0], cy: plF([DOT.x, DOT.y])[1], r: 3.5, fill: '#ff3b30', stroke: '#0f141b' }));
+    planSvg.appendChild(S('text', { x: plF([0, 0])[0] - 24, y: plF([0, 0])[1] + 4, text: 'tube axis', style: 'fill:#0f141b' }));
+  }
+
+  function updateMap() {
+    let free = 0, tot = 0;
+    for (let j = 0; j < NY; j++) {
+      const el = 87.5 - j * 5, wgt = Math.cos(el * DEGR);
+      for (let i = 0; i < NX; i++) {
+        const azI = -177.5 + i * 5, a = dirOf(azI, el), ok = verdict(st.kind, a).ok;
+        cells[j][i].setAttribute('class', ok ? 'cell-ok' : 'cell-no');
+        free += ok ? wgt : 0; tot += wgt;
+      }
+    }
+    return free / tot;
+  }
+  function mapPos(a) { const g = angOf(a); return [X0 + (g.azI + 180) / 5 * CS, Y0 + (90 - g.el) / 5 * CS]; }
+  const KIND_TXT = { shaft: 'a shaft (thickness set below) on one side of the dot', through: 'a shaft through the dot, free on both sides', ring: 'a ring bearing (circle set below), on either side' };
+  function refresh() {
+    const frac = updateMap();
+    share.textContent = 'Free fraction of all directions for ' + KIND_TXT[st.kind] + ': ' + (frac * 100).toFixed(0) + '%.';
+    const sel = dirOf(st.az, st.el);
+    const sp = mapPos(sel); selMk.setAttribute('cx', sp[0]); selMk.setAttribute('cy', sp[1]);
+    markG.innerHTML = '';
+    const N = named();
+    N.forEach(function (n) {
+      [[n.a, 1], [neg(n.a), -1]].forEach(function (pair) {
+        const p = mapPos(pair[0]);
+        markG.appendChild(S('circle', { cx: p[0], cy: p[1], r: pair[1] > 0 ? 6 : 4, fill: n.col, opacity: pair[1] > 0 ? 1 : 0.55, class: 'mk' }));
+        if (pair[1] > 0) markG.appendChild(S('text', { x: p[0] + 9, y: p[1] + 4, text: n.id === 'yaw' ? 'yaw' : n.id === 'hole' ? 'hole' : n.id === 'grip' ? 'grip' : 'beam', fill: '#e7ebf1', style: 'fill:#e7ebf1;font-weight:600' }));
+      });
+    });
+    drawSection(sel); drawPlan(sel);
+    // table
+    const rows = N.map(function (n) {
+      const vs = verdict('shaft', n.a), vt = verdict('through', n.a), vr = verdict('ring', n.a);
+      const cell = v => '<td class="' + (v.ok ? (v.both === false ? 'part' : 'ok') : 'no') + '">' + (v.ok ? '✓ ' + (v.note || '') : '✗ blocked') + '</td>';
+      return '<tr><th style="font-weight:600;color:' + n.col + '">' + n.name + '</th>' + cell(vs) + cell(vt) + cell(vr) + '</tr>';
+    }).join('');
+    tblWrap.innerHTML = '<table><tr><th>Axis</th><th>Shaft on one side</th><th>Shaft through the dot</th><th>Ring bearing at ±' + st.d + ' mm, R ' + st.R + ' mm</th></tr>' + rows + '</table>' +
+      '<p class="note" style="margin-top:6px">Shaft radius ' + st.rho + ' mm (nose taper ' + st.k + '), length ' + st.L + ' mm. Amber = free on one side only. The ring test checks the ring’s circle only, not the gun that must pass through it.</p>';
+    app.io.set({
+      commands: [{ name: 'Nothing to command', value: 'analysis page', note: 'no actuator is proposed here' }],
+      observes: [{ name: 'Selected axis, ' + KIND_TXT[st.kind], value: verdict(st.kind, sel).ok ? 'free' : 'blocked', status: 'seen', note: 'analytic geometry, not a measurement' }],
+      manual: ['Deciding where the pivots go', 'Everything about linking one ring to the next (unresolved)'],
+    });
+    app.invalidate();
+  }
+
+  // ---------- controls
+  const shaft = app.ui.group('What sits on the axis', { help: 'Analysis controls: they edit the test, not any hardware.' });
+  shaft.radio({ id: 'kind', label: 'Pivot type', kind: 'branch', value: 'shaft', options: [{ value: 'shaft', label: 'shaft, one side' }, { value: 'through', label: 'shaft through the dot' }, { value: 'ring', label: 'ring bearing' }], help: 'Compare what each kind of pivot can do.', onChange: v => { st.kind = v; refresh(); } });
+  shaft.slider({ id: 'rho', label: 'Shaft radius', min: 0, max: 20, step: 0.5, value: 6, unit: 'mm', kind: 'scene', help: 'Thickest part of whatever sits on the axis (illustrative).', onChange: v => { st.rho = v; refresh(); } });
+  shaft.slider({ id: 'k', label: 'Nose taper', min: 0, max: 0.4, step: 0.01, value: 0.15, kind: 'scene', help: 'Radius growth per mm of distance from the dot: a needle at the dot, widening away (illustrative).', onChange: v => { st.k = v; refresh(); } });
+  shaft.slider({ id: 'L', label: 'Shaft length', min: 30, max: 300, step: 10, value: 150, unit: 'mm', kind: 'scene', onChange: v => { st.L = v; refresh(); } });
+  const ring = app.ui.group('Ring bearing');
+  ring.slider({ id: 'd', label: 'Ring distance from the dot along the axis', min: 10, max: 250, step: 5, value: 80, unit: 'mm', kind: 'scene', onChange: v => { st.d = v; refresh(); } });
+  ring.slider({ id: 'R', label: 'Ring radius', min: 10, max: 250, step: 5, value: 60, unit: 'mm', kind: 'scene', help: 'Radius of the bore (illustrative). The gun must fit through it; not tested here.', onChange: v => { st.R = v; refresh(); } });
+  ring.slider({ id: 'w', label: 'Ring housing half-thickness', min: 2, max: 20, step: 1, value: 6, unit: 'mm', kind: 'scene', onChange: v => { st.w = v; refresh(); } });
+  const selg = app.ui.group('Selected axis (white circle)');
+  selg.slider({ id: 'az', label: 'Azimuth', min: -180, max: 180, step: 1, value: 0, unit: '°', kind: 'scene', help: '0 = toward the tube axis; ±180 = outward.', onChange: v => { st.az = v; refresh(); } });
+  selg.slider({ id: 'el', label: 'Elevation', min: -90, max: 90, step: 1, value: 60, unit: '°', kind: 'scene', onChange: v => { st.el = v; refresh(); } });
+  ['yaw', 'hole', 'grip', 'beam'].forEach(function (id) {
+    selg.button({ id: 'pick-' + id, label: 'Select the ' + id + ' axis', kind: 'view', onClick: function () { const n = named().find(x => x.id === id), g = angOf(n.a); app.ui.set('az', Math.round(g.azI)); app.ui.set('el', Math.round(g.el)); } });
+  });
+  const dials = app.ui.group('Reference gun dials (moves the coloured circles)', { help: 'Scene edits: the reference scene’s three ideal rotations, opening pose 45 / 30 / −15.' });
+  dials.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', onChange: v => { st.roll = v; refresh(); } });
+  dials.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', onChange: v => { st.hole = v; refresh(); } });
+  dials.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', onChange: v => { st.vert = v; refresh(); } });
+})();
+</script>
+</body>
+</html>

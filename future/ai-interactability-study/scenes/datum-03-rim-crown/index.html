@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rim crown</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-03-rim-crown",
+  "title": "Rim crown: the gun rides on the tube, not on the room",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "A ring seats on the tube rim and turns with it; a second ring rides on balls above it, does not turn, and carries a boom and the gun. The gun then follows this tube's own wobble, so the runout a room-fixed gun sees is not seen. What replaces it: a counterweight, a tether, a seat-depth term the rim cannot know, and a ring that must stay out of the nozzle and the beam.",
+  "tags": ["datum", "rim", "work-carried gun", "crown", "counterweight", "tether", "depth plunger", "ring seat"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["work-carried support", "depth plunger on the plate face", "rotation about the tube axis is a free motion", "counterweight against the gun's centre of mass"],
+  "how": {
+    "motion": "rotator turns tube and lower ring; a proposed vertical stage moves the gun; the upper ring stays put",
+    "load": "the rim carries ring, boom, counterweight and gun; a soft tether keeps the upper ring from circling",
+    "reference": "the rim (height), the outside of the tube (radial), a plunger on the plate face (fine height)",
+    "observe": "plunger reads plate-face height at the station; nothing here observes the dot",
+    "use": "seat the crown, set the stage, hand-aim the gun once; then the rotator turns"
+  },
+  "software": {
+    "commands": ["rotator speed (existing controller)", "vertical stage position (proposed)"],
+    "observes": ["plate-face height against the ring, from the plunger (proposed)"],
+    "manual": ["seating the crown on the rim", "the gun's roll, pitch and radial position on the boom", "seat depth if there is no plunger"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-03-rim-crown.md", "../../exchange/datum--reply-to-travel-w3.md"],
+  "links": [{"label": "datum-21 mates on the tube", "href": "../datum-21-mates-on-the-tube/index.html"}, {"label": "datum-22 setting ring", "href": "../datum-22-setting-ring/index.html"}, {"label": "travel-14 crown seat", "href": "../travel-14-exact-crown/index.html"}],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, J = WK.JOINT, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight;            // 152.4, rim height above the tube bottom
+  const RO = WK.DIM.tubeOd / 2;             // 63.5
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'overall',
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [-40, -90, 215], dir: [0.72, -0.5, 0.45], dist: 1000 },
+      joint: { target: [40, -30, 175], dir: [0.6, -0.6, 0.5], dist: 340 },
+      top: { target: [0, -60, 150], dir: [0, -0.004, 1], dist: 800 },
+      side: { target: [0, -60, 190], dir: [1, 0, 0.05], dist: 900 },
+    },
+    sections: {
+      proposes:
+        '<p><b>A gun carried by the work.</b> A ring (teal) seats on the tube rim and outer wall and turns with the tube. A second ring (amber) rides on balls above it and does not turn. A boom from the upper ring carries the gun in a printed shell, a proposed vertical stage (purple) sets its height, and a plunger (blue) reaches the plate face beside the dot. Because rim and plate are one rigid tube, the gun follows the tube&rsquo;s wobble and the runout a room-fixed gun would see mostly drops out.</p>' +
+        '<p><b>What is left</b> is what the rim cannot know: seat depth (how far the plate sits below the rim), how square the plate sits against the rim, and how concentric the wall is. Switch the support to &ldquo;Room post&rdquo; to see the same tube against a fixed gun.</p>' +
+        '<p>Rotation of the whole upper assembly about the tube axis does <b>not</b> change gun-to-corner pose (the seam is a circle). Turn up the umbilical drag: the ring turns on its tether, the dot moves along the seam, and the seam cross-section does not change.</p>' +
+        '<p><b>What a ring can and cannot follow.</b> A ring rigid on the tube follows the tube&rsquo;s <i>motion</i> (its rigid wobble) and none of its <i>shape</i> (wall eccentricity, ovality, lobing). The seat decides how much of the outside&rsquo;s shape leaks into the ring&rsquo;s own centre: choose <i>Ring seat on the outside</i>. The crown&rsquo;s radial win over a room post is the wobble left after indicating minus what its pads pass; its lasting case is height, and there the plate&rsquo;s own depth and tilt still need the plunger, the stage, or the ring that sets the plate (<code>datum-22</code>).</p>',
+      carries:
+        '<p><b>Rim</b> carries every gram of the upper assembly: rings, boom, stage, gun, counterweight. <b>Tether</b> (two elastic cords to posts on the rotator base or bench) carries only the umbilical&rsquo;s drag torque. <b>Balls</b> carry the upper ring on the lower ring. Locating: the OD skirt centres the ring on the outside of the tube (three spring pads in practice), the rim top sets height, the plunger sets the fine height. Nothing about the bench or the rotator height enters.</p>',
+      software:
+        '<p><b>Command:</b> the existing rotator, and a proposed vertical stage (a few tenths of a millimetre, illustrative). <b>Observe:</b> the plunger reading, which is the plate face against the ring at the station. That is the only observation here; radial position is set by the ring and the boom, and nothing observes the dot. The I/O panel lists what stays blind.</p>' +
+        '<p>The three supports compare like this: <i>Room post</i> (gun fixed on a post, tube wobbles under it), <i>Crown, stage by hand</i> (gun follows the wobble; seat-depth error stays unless someone sets the stage), <i>Crown with plunger servo</i> (stage follows the plunger).</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the first ring had a spigot in the bore, to centre on the bore. <b>Assumption:</b> the bore is free at rim height. <b>What the scene shows:</b> the nozzle tip sits about 5 mm above the rim and 55 mm from the axis, and the beam crosses the bore below the rim. Choose &ldquo;Ring locates on: bore spigot&rdquo; and the LIMIT badge fires: material of the turning ring would sweep through the beam and nozzle. <b>Change:</b> the ring locates on the outside of the tube with an OD skirt, and its inner edge stays outside the beam corridor (adjust the ring inner radius to see the clash). <b>Cost:</b> radial position now depends on wall thickness and OD-to-bore offset (a slider).</li>' +
+        '<li><b>Conflict:</b> the gun&rsquo;s centre of mass is not over the ring. <b>Assumption:</b> the boom can simply hold it. <b>What the scene shows:</b> with the proxy gun in the opening pose the centre of mass is about 118 mm from the axis against a 66 mm ball ring, so the assembly would tip. <b>Change:</b> a counterweight opposite the gun at 100 mm radius: about 0.23 kg stops the tipping, about 0.7 kg keeps contact all round the ring (the centre of mass within half its radius), about 1.5 kg centres everything on the axis [calc/rim_crown.py; illustrative masses]. Drop the counterweight slider or raise the gun mass and the tip badge fires. <b>Left uncertain:</b> real gun mass and centre of mass are <b>[unknown]</b>; a printed shell could also shift the balance.</li>' +
+        '<li><b>Conflict:</b> the umbilical drags the upper ring around. <b>Assumption:</b> it needs a stiff tether. <b>What the scene shows:</b> a turning ring only slides the dot along the seam; the seam cross-section is unchanged. <b>Change:</b> the tether is two soft cords that only stop the ring wandering to another azimuth. <b>Left uncertain:</b> cable drag is <b>[unknown]</b>; the fibre&rsquo;s 350 mm bend limit while emitting is a manufacturer value [manual p. 20], and the hook-height slider shows when routing breaks it.</li>' +
+        '<li><b>Conflict:</b> the rim is not the plate. <b>Assumption:</b> a rim datum gives the corner height. <b>What the scene shows:</b> seat depth and plate-against-rim tilt stay in the vertical offset (corner inset) unless the stage is set. <b>Change:</b> a plunger on the plate face at the station; the servo branch drives the stage from it. <b>Left uncertain:</b> whether a plunger fits beside the dot and survives the heat and spatter; it is drawn 3.9 mm from the wall (inside the bore radius, in the pocket).</li>' +
+        '<li><b>Conflict:</b> a printed ring on a 1.65 mm rim. <b>What the numbers say:</b> the whole assembly is a few kilograms, 0.05 MPa on the rim [calc]; the wall is not the problem. <b>Left uncertain:</b> tipping and rocking on the rim at the ring level, heat near the pocket, and whether the printed race copes.</li>' +
+        '</ul>' +
+        '<p><b>From travel&rsquo;s exchange (wave 3)</b> [<code>exchange/travel--on--datum-w2.md</code> section 1, <code>exchange/datum--reply-to-travel-w3.md</code>]:</p><ul>' +
+        '<li><b>Conflict:</b> the first version drew the ring exactly on the outside&rsquo;s centre; a real seat is a clearance fit with a job it cannot do both ways. <b>Assumption:</b> the ring is centred by construction. <b>What the scene now shows:</b> <i>Ring seat on the outside</i>. A plain clearance ring is a one-point follower loaded where the cable pulls; three pads pass the ovality into the ring centre at gain 1; six pads or rockers reject it (<code>travel-14</code>). On the default tube the radial p-p over a lap is 0.24 mm for the ideal ring, 0.37 clearance, 0.18 three pads (by luck of the clock: move it), 0.24 six pads, against 0.43 for the room post. <b>Change:</b> the seat is drawn, not assumed. <b>Left uncertain:</b> the tube&rsquo;s real lobes; the wall eccentricity (<i>OD-to-bore offset</i>) passes every seat and every room post alike, so it raises the floor of both and no seat removes it: only a bore reference or a measurement does.</li>' +
+        '<li><b>Conflict:</b> the plunger closes the loop on the ring, not on the gun, and stands 22&deg; from the dot. <b>What the scene now shows:</b> with the servo the 1x tilt term arrives phase-shifted by 22&deg; (3 s at 8 mm/s); <i>Delay the plunger reading</i> holds it for that time. The boom, the shell and the gun&rsquo;s own compliance stay outside the loop. <b>Left uncertain:</b> the compliance between ring and dot.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Ball retention where the upper ring has its gap, and the rotating cage. Drawn as a full ring of balls; how they are held is not solved.</li>' +
+        '<li>The wire feed and its conduit reach the gun&rsquo;s wire bracket from the bench; here they are not drawn. Any drag from them is inside the drag slider.</li>' +
+        '<li>How the shell and boom leave the gun&rsquo;s hand-aiming free (roll, pitch, radial) while staying rigid.</li>' +
+        '<li>Plunger placement beside the dot (heat, spatter, bead passing under it on the last 20&deg; overlap).</li>' +
+        '<li><b>Questions for Derek:</b> the gun&rsquo;s mass and centre of mass; how much tube length and seat depth vary; whether the OD of the tubes is clear from the rim down to the nest; and for the seat, five tubes, eight positions each: outside diameter by calipers and wall thickness by ball micrometer, rim flatness on a plate with a feeler gauge.</li>' +
+        '<li>The tube&rsquo;s real out-of-round and wall eccentricity decide whether the crown wins anything radially; <code>datum-21</code> shows the harmonics, <code>datum-22</code> the ring that sets the plate so that its height case stands.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry: tube, plate, rim, joint [repo]; rotator proxy [kit]; gun proxy 253 &times; 143 &times; 34 mm [manual], sections and opening pose <b>illustrative</b> [kit]. The nozzle tip is 5.0 mm above the rim and 55 mm from the axis in the opening pose [derived].</li>' +
+        '<li>Ring sizes, ball pitch radius 66 mm, ring heights, boom, tether posts, plunger position: <b>illustrative</b>. Wall shape (eccentricity, ovality, three-lobing, fixed phases) is illustrative; equal-force pads and a rigid locked ring are the model of <code>travel/calc/08</code>.</li>' +
+        '<li>Masses (gun, shell, rings, boom, counterweight) and umbilical drag: <b>illustrative</b>; tether stiffness <b>illustrative</b>.</li>' +
+        '<li>Runout: rig limits 0.25 mm radial and 0.30 mm face TIR [repo], applied as one rigid wobble of the whole tube (the kit&rsquo;s model); at &times;1 it is real size and the corner inset carries the effect. Seat-depth error, plate tilt against the rim, OD-to-bore offset: <b>illustrative</b>.</li>' +
+        '<li><b>Models:</b> rigid following of the wobble, the tether rotation from drag torque, statics of the centre of mass, sampled clearance of ring against nozzle, beam and shell, a servo with lag and noise. <b>Depicts only:</b> balls, cage, cords&rsquo; stiffness at the cable, the plunger as a telescoping rod.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(WK.RIG.runoutRadialTIR, WK.RIG.runoutFaceTIR, 1);
+
+  // ------------------------------------------------------------------ state
+  const P = { support: 'crown', zs: 0, seat: 0.30, tilt: 0.10, odb: 0.08, o2: 0.06, o3: 0.03, rseat: 'pads3', clock: 20, delay: false, exag: 1, rin: 62.2, gap: 40, locate: 'od', mgun: 1.15, mcw: 1.35, drag: 3, tk: 1.0, hook: 430, speed: 8 };
+  let servoZ = 0, servoBusy = false, frameNoise = 0;
+
+  // ------------------------------------------------------------------ gun, shell, non-rotating frame
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load', opacity: 0.22 });
+  const ns = new THREE.Group(); ns.name = 'non-rotating assembly'; ns.matrixAutoUpdate = false;
+  app.scene.add(ns);
+  ns.add(gun.group);
+  const gunPos0 = gun.group.position.clone();
+  const I4 = new THREE.Matrix4();
+  const zr = RIM;   // rim height (tube bottom is z = 0)
+  const R_BALL = 66, Z_BALLS = zr + 8, Z_UP0 = zr + 10, Z_UP1 = zr + 16;
+
+  // ---- lower ring (turns with the tube)
+  function mkMesh(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  function latheGeo(profile, phiStart, phiLength) {
+    const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 128, phiStart || 0, phiLength == null ? Math.PI * 2 : phiLength);
+    g.rotateX(Math.PI / 2); return g;
+  }
+  const lower = mkMesh(new THREE.BufferGeometry(), 'locate'); lower.name = 'lower ring'; ws.tubeGroup.add(lower);
+  function buildLower() {
+    let prof;
+    if (P.locate === 'od') prof = [[P.rin, zr], [63.9, zr], [63.9, zr - 8], [66.2, zr - 8], [66.2, zr], [72, zr], [72, zr + 6], [P.rin, zr + 6], [P.rin, zr]];
+    else prof = [[Math.min(P.rin, 60.5), zr - 3], [61.5, zr - 3], [61.5, zr], [72, zr], [72, zr + 6], [Math.min(P.rin, 60.5), zr + 6], [Math.min(P.rin, 60.5), zr - 3]];
+    lower.geometry.dispose(); lower.geometry = latheGeo(prof);
+  }
+  // ---- upper ring (does not turn), with a gap for the gun
+  const AZ_GAP = -13 * DEG;
+  const upper = mkMesh(new THREE.BufferGeometry(), 'load'); upper.name = 'upper ring'; ns.add(upper);
+  function buildUpper() {
+    const g = P.gap * DEG;
+    upper.geometry.dispose();
+    upper.geometry = latheGeo([[P.rin, Z_UP0], [72, Z_UP0], [72, Z_UP1], [P.rin, Z_UP1], [P.rin, Z_UP0]], AZ_GAP + g / 2 + Math.PI / 2, Math.PI * 2 - g);
+  }
+  // balls (drawn as a full ring; the cage is not drawn)
+  const balls = new THREE.Group(); ns.add(balls);
+  for (let i = 0; i < 24; i++) { const b = P3.sphere(2, 'fixed'); const a = i / 24 * Math.PI * 2; b.position.set(R_BALL * Math.cos(a), R_BALL * Math.sin(a), Z_BALLS); balls.add(b); }
+
+  // ---- boom, rail, carriage (vertical stage) and lug on the shell
+  const AZ_BOOM = -56 * DEG;
+  const R0 = V(68 * Math.cos(AZ_BOOM), 68 * Math.sin(AZ_BOOM), Z_UP1);
+  scene_update();
+  function scene_update() { app.scene.updateMatrixWorld(true); }
+  const lugRec = (function () {
+    const barrelMid = gun.local('barrelMid');
+    const dirLocal = gun.group.worldToLocal(R0.clone()).sub(gun.anchor('barrelMid')).normalize();
+    return shell.attachPoint('barrelMid', { side: [dirLocal.x, dirLocal.y, dirLocal.z], role: 'locate', size: 7 });
+  })();
+  scene_update();
+  const L0 = lugRec.world();                         // nominal lug position (ns frame = world at start)
+  const railTop = L0.clone().add(V(0, 0, 22)), railBot = L0.clone().add(V(0, 0, -22));
+  const rail = P3.rail(railTop, railBot, { width: 10, height: 6, role: 'actuated' }); ns.add(rail);
+  const carriage = P3.carriage([12, 14, 10], 'actuated', { rail: rail, t: 0.5 }); ns.add(carriage);
+  const boomRod = P3.rod(R0, railTop, 3.2, 'load'); ns.add(boomRod);
+  // ---- counterweight (fixed at the opposite azimuth; mass sets its size)
+  const cgGun = () => {
+    const pts = [[gun.anchor([0, 0, 60]), 0.15], [gun.anchor([0, 0, 185.5]), 0.55], [gun.anchor('gripMid'), 0.30]];
+    const c = V(0, 0, 0); pts.forEach(p => c.addScaledVector(p[0].clone().applyMatrix4(gun.group.matrix), p[1])); return c;
+  };
+  let azCw = 0;
+  (function () {
+    const c = cgGun(); azCw = Math.atan2(-c.y, -c.x);
+  })();
+  const cwArm = P3.rod(V(72 * Math.cos(azCw), 72 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2), V(100 * Math.cos(azCw), 100 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2), 3.5, 'load'); ns.add(cwArm);
+  const cwBox = P3.box(1, 1, 1, 'load'); cwBox.position.set(100 * Math.cos(azCw), 100 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2 - 6); ns.add(cwBox);
+  cwBox.rotation.z = azCw;
+
+  // ---- tether: tab on the upper ring, two soft cords to posts on the rotator base
+  const AZ_TAB = 150 * DEG;
+  const tabP = V(76 * Math.cos(AZ_TAB), 76 * Math.sin(AZ_TAB), (Z_UP0 + Z_UP1) / 2);
+  const tab = P3.box(10, 10, 6, 'load'); tab.position.copy(tabP); tab.rotation.z = AZ_TAB; ns.add(tab);
+  const tng = V(-Math.sin(AZ_TAB), Math.cos(AZ_TAB), 0);
+  const postA = tabP.clone().addScaledVector(tng, 118), postB = tabP.clone().addScaledVector(tng, -118);
+  const baseTopZ = -50;
+  [postA, postB].forEach(p => app.add(P3.rod(V(p.x, p.y, baseTopZ), V(p.x, p.y, p.z), 3.5, 'fixed')));
+  const cordA = P3.elastic(tabP, postA, { role: 'compliant', radius: 1.1, rest: 118 }), cordB = P3.elastic(tabP, postB, { role: 'compliant', radius: 1.1, rest: 118 });
+  app.add(cordA); app.add(cordB);
+
+  // ---- depth plunger on the ring, reaching the plate face inside the bore
+  const AZ_PL = -22 * DEG, R_PL = 58;
+  const plTop = V(R_PL * Math.cos(AZ_PL), R_PL * Math.sin(AZ_PL), Z_UP0 + 2);
+  const plBr = P3.rod(V(P.rin * Math.cos(AZ_PL), P.rin * Math.sin(AZ_PL), Z_UP0 + 2), plTop, 1.6, 'load'); ns.add(plBr);
+  const plRod = P3.rod(plTop, V(plTop.x, plTop.y, J.z), 1.3, 'sensor'); ns.add(plRod);
+  const plTipMark = P3.sphere(2, 'sensor'); ns.add(plTipMark);
+
+  // ---- room post branch: post on the bench, rod to the lug
+  const postRoom = P3.rod(V(105, -150, ws.benchZ), V(105, -150, L0.z), 6, 'fixed'); app.add(postRoom);
+  const roomRod = P3.rod(V(105, -150, L0.z), L0, 3.2, 'fixed'); app.add(roomRod);
+  const roomFoot = P3.groundHatch(40, 'fixed'); roomFoot.position.set(105, -150, ws.benchZ); app.add(roomFoot);
+
+  // ---- overhead hook and umbilical
+  const hookBase = V(0, -420, ws.benchZ);
+  const hookPost = P3.rod(hookBase, V(0, -420, P.hook), 5, 'fixed'); app.add(hookPost);
+  const hookBall = P3.sphere(9, 'fixed'); app.add(hookBall);
+  let cableMesh = null;
+  function updateCable() {
+    hookPost.setEnds(hookBase, V(0, -420, P.hook)); hookBall.position.set(0, -420, P.hook);
+    const ex = gun.cableExit();
+    const hook = V(0, -420, P.hook), curve = WK.bezierCable(ex.point, ex.dir, hook, hook.clone().sub(ex.point).normalize(), { stiffness: 0.45 });
+    if (!cableMesh) { cableMesh = P3.cable(curve, { radius: 5.5, role: 'cable' }); cableMesh.material = WK.mat('cable', { shade: 2.6 }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const r = WK.curveMinRadius(curve), b = WK.cableBadge(r);
+    app.badge('bend', b.level === 'ok' ? null : b.text, b.level);
+    return r;
+  }
+
+  // ------------------------------------------------------------------ dot offset bookkeeping (exact scene geometry)
+  // The wall in the TUBE frame (azimuth ph): eccentricity b1 (outside centre against the bore centre), ovality b2, three-lobing b3; the outside has
+  // the same lobes and no eccentricity (a uniform wall). A ring rigid on the tube follows the tube's MOTION and none of its SHAPE; what its seat
+  // does is decide how much of the outside's shape leaks into the ring's own centre (calc/mate_harmonics.js, travel/calc/08).
+  const TAU = 2 * Math.PI;
+  const wallT = ph => P.odb * Math.cos(ph - 0.5) + P.o2 * Math.cos(2 * ph - 0.7) + P.o3 * Math.cos(3 * ph - 2.0);
+  const odT = ph => P.o2 * Math.cos(2 * ph - 0.7) + P.o3 * Math.cos(3 * ph - 2.0);
+  function padCentre(fn, k) { let cx = 0, cy = 0; for (let i = 0; i < k; i++) { const t = P.clock * DEG + i * TAU / k, r = fn(t); cx += r * Math.cos(t); cy += r * Math.sin(t); } return [2 / k * cx, 2 / k * cy]; }
+  function seatTerm(sp) {                   // radial position of the ring centre along the station direction (tube azimuth -sp), mm
+    const ph = -sp;
+    if (P.locate === 'bore') { return P.odb * Math.cos(ph - 0.5); }                        // a bore spigot centres on the bore: the eccentricity is known
+    if (P.rseat === 'ideal') return 0;                                                     // as first drawn: exactly on the outside's centre
+    if (P.rseat === 'clear') return odT(ph + Math.PI / 2);                                 // one-point follower, loaded 90 degrees round from the station by the cable: follows the outside THERE
+    const k = P.rseat === 'pads3' ? 3 : 6, c = padCentre(odT, k);                          // k equal pads, then locked: the ring centre is where they settled
+    return c[0] * Math.cos(ph) + c[1] * Math.sin(ph);
+  }
+  const baseDotOffset = gun.dotOffset;
+  gun.dotOffset = function () {
+    const o = baseDotOffset(), sp = ws.spinAngle * DEG;
+    if (P.support !== 'room') o.vertical += P.seat + P.tilt * Math.cos(sp + 1.3);
+    o.radial += (P.support !== 'room' ? seatTerm(sp) : 0) - wallT(-sp);                  // the room post also meets the whole wall (its wobble is in the kit's own offset)
+    o.total = Math.hypot(o.radial, o.along, o.vertical);
+    return o;
+  };
+  app.cornerInset({ gun: gun, corner: 'tr' });
+
+  // ------------------------------------------------------------------ pose: everything that follows the tube
+  const Wm = new THREE.Matrix4(), Rzm = new THREE.Matrix4();
+  const clamp = WK.clamp;
+  function armLen() { app.scene.updateMatrixWorld(true); const q = ns.worldToLocal(gun.cableExit().point.clone()); return Math.hypot(q.x, q.y); }
+  let ARM = 233;   // mm, horizontal distance of the cable exit from the axis (set at start)
+  function dzTrue(sp) { return P.seat + P.tilt * Math.cos(sp * DEG + 1.3); }                                   // plate face under the DOT
+  function dzPlunger(sp) { return P.seat + P.tilt * Math.cos(sp * DEG + 22 * DEG + 1.3); }                       // plate face under the plunger: 22 degrees ahead on the arriving side, so it reads what reaches the dot 3 s later
+  const dzRead = sp => (P.delay ? dzTrue(sp) : dzPlunger(sp));                                                 // with the delay the reading is held 22 degrees of table travel before it is used
+  function targetStage(dt, noisy) {
+    if (P.support === 'servo') {
+      const nn = Math.sin(frameNoise * 127.1) * 43758.5453, meas = dzRead(ws.spinAngle) + (noisy ? (nn - Math.floor(nn) - 0.5) * 0.04 : 0);
+      return clamp(meas, -1, 1);
+    }
+    return P.support === 'crown' ? P.zs : 0;
+  }
+  function poseCore(dt) {
+    const crown = P.support !== 'room';
+    // stage
+    const tgt = targetStage(dt, true);
+    if (dt > 0 && P.support === 'servo') { servoZ += (tgt - servoZ) * (1 - Math.exp(-dt / 0.3)); servoBusy = Math.abs(tgt - servoZ) > 0.03; frameNoise += dt; }
+    else if (P.support === 'servo') { servoZ = targetStage(0, false); servoBusy = false; }
+    const zs = P.support === 'servo' ? servoZ : (P.support === 'crown' ? P.zs : 0);
+    // ring rotation under umbilical drag (tether)
+    const torque = P.drag * ARM;                              // N.mm
+    const phi = crown ? clamp(torque / (2 * P.tk * 76 * 76), 0, 0.7) : 0;
+    Wm.copy(ws.tubeGroup.matrix).multiply(Rzm.makeRotationZ(-ws.spinAngle * DEG));   // wobble without the spin
+    ns.matrix.copy(crown ? Wm : I4).multiply(Rzm.makeRotationZ(phi));
+    ns.matrixWorldNeedsUpdate = true;
+    gun.group.position.set(gunPos0.x, gunPos0.y, gunPos0.z - zs);
+    carriage.setT(0.5 + zs / 44);
+    app.scene.updateMatrixWorld(true);
+    // cords follow the ring; plunger tip follows the plate face under it
+    const tw = V(0, 0, 0).setFromMatrixPosition(tab.matrixWorld);
+    cordA.setEnds(tw, postA); cordB.setEnds(tw, postB);
+    const psi = AZ_PL - ws.spinAngle * DEG, zFace = J.z - P.seat - P.tilt * Math.cos(ws.spinAngle * DEG + 1.3) * 0;   // drawn plate: nominal plus seat error
+    const tipTube = V(R_PL * Math.cos(psi), R_PL * Math.sin(psi), zFace - ws.seam().amp * Math.cos(psi - ws.seam().beta));
+    const tipWorld = tipTube.applyMatrix4(ws.tubeGroup.matrix);
+    const tipNs = ns.worldToLocal(tipWorld.clone());
+    plRod.setEnds(plTop, tipNs); plTipMark.position.copy(tipNs);
+    app.invalidate();
+    return { zs: zs, phi: phi };
+  }
+  function pose(dt) {
+    const r = poseCore(dt);
+    updateCable(); updateStatics(); updateIO(r.zs, r.phi);
+    return r.zs;
+  }
+
+  // ------------------------------------------------------------------ statics (illustrative masses)
+  let rdCg = null, rdNeed = null, rdRim = null, rdRot = null, rdLap = null, rdTeth = null;
+  function statics() {
+    const c = cgGun(), mg = P.mgun + 0.0;
+    const bm = R0.clone().add(railTop).multiplyScalar(0.5);
+    const parts = [[mg, c], [0.25, V(bm.x, bm.y, 0)], [0.30, V(0, 0, 0)]];
+    let M = 0, cx = 0, cy = 0;
+    parts.forEach(p => { M += p[0]; cx += p[0] * p[1].x; cy += p[0] * p[1].y; });
+    const cw = V(100 * Math.cos(azCw), 100 * Math.sin(azCw), 0);
+    const Mc = M + P.mcw, ccx = (cx + P.mcw * cw.x) / Mc, ccy = (cy + P.mcw * cw.y) / Mc;
+    const need = Math.hypot(cx, cy) / 100;         // kg at r=100 mm to bring the cg to the axis (assembly cg direction is opposite the counterweight)
+    const C = Math.hypot(cx, cy);   // sum of mass x radius of everything but the counterweight (kg mm)
+    const needT = Math.max(0, (C - R_BALL * M) / (100 + R_BALL)), needC = Math.max(0, (C - R_BALL / 2 * M) / (100 + R_BALL / 2));   // to stop tipping (cg inside the ring) and to keep contact all round (cg within half the ring radius)
+    return { M: Mc, cg: Math.hypot(ccx, ccy), need: need, needT: needT, needC: needC, gunCg: Math.hypot(c.x, c.y), area: Math.PI * (RO * RO - RI * RI) };
+  }
+  function updateStatics() {
+    const s = statics(); updateStatics.last = s;
+    if (rdCg) { rdCg(s.cg.toFixed(0) + ' mm (ring ' + R_BALL + ')'); rdNeed(s.need.toFixed(2) + ' kg centres it on the axis; ' + s.needC.toFixed(2) + ' keeps contact all round; ' + s.needT.toFixed(2) + ' stops tipping (r = 100 mm)'); rdRim(((s.M + 0.15) * 9.81 / s.area).toFixed(3) + ' MPa (' + (s.M + 0.15).toFixed(1) + ' kg)'); }
+    const tip = P.support !== 'room' && s.cg > R_BALL;
+    app.badge('tip', tip ? 'assembly would tip: centre of mass ' + s.cg.toFixed(0) + ' mm from the axis, ball ring ' + R_BALL + ' mm; needs at least ' + s.needT.toFixed(2) + ' kg counterweight at r=100 mm (' + s.needC.toFixed(2) + ' to keep contact all round)' : null, 'limit');
+    app.badge('part', P.support !== 'room' && !tip && s.cg > R_BALL / 2 ? 'centre of mass ' + s.cg.toFixed(0) + ' mm out: beyond half the ring radius part of the ring unloads and the crown can rock on the rim' : null, 'warn');
+    cwBox.scale.setScalar(Math.max(4, 40 * Math.cbrt(Math.max(P.mcw, 0.01) / 1.35)));
+    cwBox.visible = P.support !== 'room' && P.mcw > 0.02; cwArm.visible = cwBox.visible;
+  }
+
+  // ------------------------------------------------------------------ clearance check: ring against nozzle, beam, wire guide, shell
+  function insideZone(z, p) {
+    if (z.type === 'cyl') {
+      const rad = Math.hypot(p.x, p.y);
+      if (p.z < z.z0 || p.z > z.z1) return false;
+      const r = z.r0 + (z.r1 - z.r0) * (p.z - z.z0) / (z.z1 - z.z0);
+      return rad < r;
+    }
+    const q = p.clone().sub(z.center).applyQuaternion(z.quat.clone().invert());
+    return Math.abs(q.x) < z.half.x && Math.abs(q.y) < z.half.y && Math.abs(q.z) < z.half.z;
+  }
+  const segDist = (p, a, b) => { const ab = b.clone().sub(a), t = clamp(p.clone().sub(a).dot(ab) / ab.lengthSq(), 0, 1); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+  const BEAM_A = V(0, 0, 0), BEAM_B = V(0, 0, -WK.CLEARANCE), GUIDE_A = V(0, -24.7, 87.1), GUIDE_B = V(0, -15.4, 48.2);
+  function clash() {
+    const inv = gun.group.matrix.clone().invert();   // ns frame -> gun local
+    const pts = [];
+    const lowerRegion = P.locate === 'od' ? [[P.rin, zr], [P.rin, zr + 6], [72, zr + 3]] : [[Math.min(P.rin, 60.5), zr - 3], [Math.min(P.rin, 60.5), zr + 6], [61.5, zr - 1.5]];
+    for (let i = 0; i < 360; i += 3) {
+      const a = i * DEG;
+      lowerRegion.forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'turning lower ring' }));
+      // upper ring (has a gap)
+      const d = ((i * DEG - AZ_GAP + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+      if (Math.abs(d) > P.gap * DEG / 2) [[P.rin, Z_UP0], [P.rin, Z_UP1]].forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'upper ring' }));
+    }
+    for (let k = 0; k < pts.length; k++) {
+      const pl = pts[k].p.clone().applyMatrix4(inv);
+      for (let z = 0; z < shell.zones.length; z++) if (insideZone(shell.zones[z], pl)) return { who: pts[k].who, what: 'nozzle and shell' };
+      if (segDist(pl, BEAM_A, BEAM_B) < 2.5) return { who: pts[k].who, what: 'the laser beam (illustrative 2.5 mm corridor)' };
+      if (segDist(pl, GUIDE_A, GUIDE_B) < 3.5) return { who: pts[k].who, what: 'the wire guide' };
+    }
+    return null;
+  }
+  function updateClash() {
+    const c = clash();
+    app.badge('clash', c ? 'ring clash: the ' + c.who + ' would hit ' + c.what : null, 'limit');
+    return c;
+  }
+
+  // ------------------------------------------------------------------ lap statistics (exact scene geometry, not a sensor reading)
+  function lapStats() {
+    const keep = ws.spinAngle, keepSpin = ws.spin.on;
+    let rMin = 1e9, rMax = -1e9, zMin = 1e9, zMax = -1e9;
+    const keepServo = servoZ;
+    for (let a = 0; a < 360; a += 5) {
+      ws.setSpin(a);
+      if (P.support === 'servo') servoZ = targetStage(0, false);
+      poseCore(0);
+      const o = gun.dotOffset();
+      rMin = Math.min(rMin, o.radial); rMax = Math.max(rMax, o.radial); zMin = Math.min(zMin, o.vertical); zMax = Math.max(zMax, o.vertical);
+    }
+    servoZ = keepServo; ws.setSpin(keep); pose(0);
+    if (rdLap) rdLap('p-p r ' + (rMax - rMin).toFixed(2) + ', z ' + (zMax - zMin).toFixed(2) + ' (mean z ' + ((zMax + zMin) / 2).toFixed(2) + ')');
+  }
+
+  // ------------------------------------------------------------------ I/O panel
+  function updateIO(zs, phi) {
+    const crown = P.support !== 'room', servo = P.support === 'servo';
+    const off = gun.dotOffset();
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: P.speed, unit: 'mm/s', note: 'existing controller; 5-15 mm/s window [repo]' },
+        { name: 'Vertical stage (down +)', value: (crown ? zs : 0).toFixed(2), unit: 'mm', note: crown ? (servo ? 'proposed actuator; servoed to the plunger' : 'proposed actuator; set by hand or by software from a measured seat depth') : 'no stage on the room post' },
+      ],
+      observes: [
+        { name: 'Plate face against the ring (plunger)', value: crown ? dzPlunger(ws.spinAngle).toFixed(2) : '-', unit: crown ? 'mm' : '', status: crown ? 'seen' : 'blind', note: crown ? 'proposed plunger on the ring, 22° (24 mm of arc, 3 s at 8 mm/s) ahead of the dot and 3.9 mm inside the wall: it reads plate-against-ring and leaves the boom and shell out of the loop' : 'room post: nothing reads the plate face' },
+        { name: 'Ring seated on the rim', value: '-', status: 'unresolved', note: 'no sensor proposed; a contact switch on one pad would do' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'nothing here observes the dot. The corner inset is exact scene geometry (r ' + off.radial.toFixed(2) + ', z ' + off.vertical.toFixed(2) + ' mm), not a sensor reading' },
+        { name: 'Ring turning under drag', value: (phi / DEG).toFixed(1), unit: '°', status: 'blind', note: 'no encoder on the upper ring; harmless to the pose, but the dot moves ' + (phi * RI).toFixed(1) + ' mm along the seam' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Seat the crown on the rim and check it sits square', 'Gun roll, pitch and radial position on the boom', 'Counterweight for the gun in use', crown && !servo ? 'Seat depth into the stage (calipers) if there is no plunger' : 'Nothing about height in the servo branch'],
+    });
+    rdRot((phi / DEG).toFixed(1) + '°, dot slides ' + (phi * RI).toFixed(1) + ' mm along the seam');
+    if (rdTeth) rdTeth(crown ? (P.drag * ARM / 76).toFixed(1) + ' N (a tab at 76 mm reacts the drag torque as a force, ' + (ARM / 76).toFixed(2) + ' × the drag)' : '-');
+  }
+
+  // ------------------------------------------------------------------ controls
+  function refreshAll() { buildLower(); buildUpper(); const c = updateClash(); pose(0); lapStats(); return c; }
+  app.ui.radio({ id: 'support', label: 'What carries the gun', options: [{ value: 'room', label: 'Room post', help: 'Gun fixed on a post to the bench: the tube wobbles under it.' }, { value: 'crown', label: 'Crown, stage by hand', help: 'The gun follows the tube; seat depth is set by hand into the stage slider.' }, { value: 'servo', label: 'Crown + plunger servo', help: 'The stage follows the plunger reading on the plate face.' }], value: 'crown', kind: 'branch',
+    onChange: v => { P.support = v; ['zstage'].forEach(id => app.ui.enable(id, v === 'crown')); if (app.ui.get('delay') !== undefined) app.ui.enable('delay', v === 'servo'); const on = v !== 'room'; [upper, lower, balls, rail, carriage, boomRod, cwArm, cwBox, tab, plBr, plRod, plTipMark].forEach(o => { o.visible = on; }); cordA.visible = cordB.visible = on; [postRoom, roomRod, roomFoot].forEach(o => { o.visible = !on; }); servoZ = 0; refreshAll(); } });
+  app.ui.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'The tube and the lower ring turn; the upper ring and gun do not.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  app.ui.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', noVisual: true, visual: () => ws.turntable, help: 'The existing rotator controller: 5-15 mm/s [repo].', onChange: v => { P.speed = v; ws.spin.speedDegPerSec = v / RI / DEG; } });
+  app.ui.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'Scrub the table; the seam wobbles under a room-fixed gun and with the crown.', onChange: v => { ws.setSpin(v); pose(0); } });
+  app.ui.toggle({ id: 'delay', label: 'Delay the plunger reading by the travel to the dot', value: false, kind: 'branch', noVisual: true, visual: () => plTipMark, help: 'Servo branch only. The plunger stands 22 degrees ahead of the dot (3 s at 8 mm/s), so the plate feature it reads reaches the dot later. Off: the servo applies it now and the 1x tilt arrives phase-shifted. On: software holds the reading for that time.', onChange: v => { P.delay = v; lapStats(); } });
+  app.ui.slider({ id: 'zstage', label: 'Vertical stage, down +', min: -1, max: 1, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [rail, carriage], help: 'Proposed axis. Set it to the seat-depth error to null the vertical offset. Servo branch drives it from the plunger.', onChange: v => { P.zs = v; pose(0); lapStats(); } });
+  const gw = app.ui.group('The tube (scene edits)', { open: true });
+  gw.slider({ id: 'seat', label: 'Seat depth error (plate deeper than nominal)', min: -0.6, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Illustrative. Rim datum cannot know it.', onChange: v => { P.seat = v; ws.cap.position.z = -v; pose(0); lapStats(); } });
+  gw.slider({ id: 'tilt', label: 'Plate tilt against the rim plane', min: 0, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'Illustrative amplitude at the station; the rim cannot know it.', onChange: v => { P.tilt = v; pose(0); lapStats(); } });
+  gw.slider({ id: 'odb', label: 'OD-to-bore offset (wall thickness variation)', min: 0, max: 0.3, step: 0.01, value: 0.08, unit: 'mm', kind: 'scene', help: 'Illustrative. The outside centre against the bore centre: it passes every seat at gain 1, so only a bore reference or a measurement removes it. The room post meets it too.', onChange: v => { P.odb = v; pose(0); lapStats(); } });
+  gw.slider({ id: 'o2', label: 'Ovality (outside and bore alike)', min: 0, max: 0.2, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'Illustrative. The OD indicator reads twice this. A rigid ring cannot follow it; the seat decides how much leaks into the ring centre.', onChange: v => { P.o2 = v; pose(0); lapStats(); } });
+  gw.slider({ id: 'o3', label: 'Three-lobing', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'Illustrative.', onChange: v => { P.o3 = v; pose(0); lapStats(); } });
+  gw.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 40, step: 1, value: 1, unit: '×', kind: 'view', visual: () => ws.tubeGroup, help: 'Makes the wobble visible. The corner inset scales with it (kit convention); at 1 it is real size.', onChange: v => { P.exag = v; ws.setRunout(null, null, v); pose(0); lapStats(); app.badge('exag', v > 1 ? 'runout exaggerated ×' + v + ': the corner inset and lap numbers scale with it' : null, 'info'); } });
+  const gc = app.ui.group('Crown geometry (scene edits)', { open: true });
+  gc.radio({ id: 'locate', label: 'Ring locates on', options: [{ value: 'od', label: 'Outside (OD skirt)', help: 'Centres on the OD; radial position depends on wall thickness and OD-to-bore offset.' }, { value: 'bore', label: 'Bore spigot', help: 'Centres on the bore, but its material turns through the nozzle and beam corridor.' }], value: 'od', kind: 'branch', onChange: v => { P.locate = v; refreshAll(); } });
+  gc.radio({ id: 'rseat', label: 'Ring seat on the outside', options: [
+    { value: 'ideal', label: 'Exactly on the centre', help: 'As first drawn: not a hardware seat. Kept as the reference.' },
+    { value: 'clear', label: 'Plain clearance ring', help: 'A one-point follower: it rides the outside where the cable loads it, 90 degrees round from the station.' },
+    { value: 'pads3', label: 'Three pads, locked', help: 'Equal pads pass out-of-round harmonics k-1 and k+1 at gain 1: three pads pass the ovality into the ring centre.' },
+    { value: 'pads6', label: 'Six pads or rockers, locked', help: 'Six reject harmonics 2 to 4 (travel-14): nothing of these lobes leaks.' }], value: 'pads3', kind: 'branch', visual: () => lower, onChange: v => { P.rseat = v; pose(0); lapStats(); } });
+  gc.slider({ id: 'clock', label: 'Where the pads happen to sit (clock)', min: 0, max: 120, step: 5, value: 20, unit: '°', kind: 'scene', visual: () => lower, help: 'The seat\'s leak depends on where the pads sit against the lobes: move it and the radial p-p changes. On average, over all clocks, a pad seat leaks (calc/mate_harmonics.js).', onChange: v => { P.clock = v; pose(0); lapStats(); } });
+  gc.slider({ id: 'rin', label: 'Ring inner radius', min: 54, max: 66, step: 0.2, value: 62.2, unit: 'mm', kind: 'scene', visual: () => [lower, upper], help: 'Both rings. The nozzle tip is 55 mm from the axis in the opening pose; the rim is at 61.85-63.5 [repo][derived].', onChange: v => { P.rin = v; refreshAll(); } });
+  gc.slider({ id: 'gap', label: 'Gap in the upper ring for the gun', min: 0, max: 60, step: 1, value: 40, unit: '°', kind: 'scene', visual: () => upper, help: 'The upper ring does not turn, so it may have a gap. The lower ring turns and cannot.', onChange: v => { P.gap = v; refreshAll(); } });
+  const gm = app.ui.group('Loads (illustrative)', { open: true, help: 'Nobody has weighed the gun [unknown]. These are placeholders.' });
+  gm.slider({ id: 'mgun', label: 'Gun + shell mass', min: 0.5, max: 2.5, step: 0.05, value: 1.15, unit: 'kg', kind: 'scene', visual: () => gun.group, onChange: v => { P.mgun = v; updateStatics(); } });
+  gm.slider({ id: 'mcw', label: 'Counterweight mass', min: 0, max: 3, step: 0.05, value: 1.35, unit: 'kg', kind: 'scene', visual: () => [cwBox, cwArm], help: 'Sits opposite the gun at r = 100 mm.', onChange: v => { P.mcw = v; updateStatics(); } });
+  gm.slider({ id: 'drag', label: 'Umbilical drag at the cable exit', min: 0, max: 10, step: 0.5, value: 3, unit: 'N', kind: 'scene', visual: () => cableMesh, help: 'Illustrative. Turns the upper ring on its tether.', onChange: v => { P.drag = v; pose(0); } });
+  gm.slider({ id: 'tk', label: 'Tether stiffness (both cords)', min: 0.2, max: 5, step: 0.1, value: 1.0, unit: 'N/mm', kind: 'scene', visual: () => [cordA, cordB], help: 'Illustrative.', onChange: v => { P.tk = v; pose(0); } });
+  gm.slider({ id: 'hook', label: 'Overhead umbilical hook height', min: 120, max: 520, step: 10, value: 430, unit: 'mm', kind: 'scene', visual: () => [hookPost, hookBall, cableMesh], help: 'Lower it and the umbilical bends tighter than the 350 mm emitting limit [manual].', onChange: v => { P.hook = v; updateCable(); app.invalidate(); } });
+
+  const gr = app.ui.group('Numbers (exact scene geometry, not sensor readings)', { open: true });
+  rdCg = gr.readout('cg', 'Centre of mass, upper assembly'); rdNeed = gr.readout('need', 'Counterweight needed'); rdRim = gr.readout('rimp', 'Load on the rim'); rdRot = gr.readout('rot', 'Ring under drag'); rdLap = gr.readout('lap', 'Dot vs seam over one lap'); rdTeth = gr.readout('teth', 'Tether force into the ring seat');
+
+  // ------------------------------------------------------------------ labels
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(lower.matrixWorld).add(V(-60, 40, zr + 6)), 'lower ring: seats on the rim, turns with the tube', { cls: 'locate' });
+  app.label(() => V(66 * Math.cos(2.4), 66 * Math.sin(2.4), Z_UP1).applyMatrix4(ns.matrix), 'upper ring: does not turn, carries', { cls: 'load' });
+  app.label(() => V(cwBox.position.x, cwBox.position.y, cwBox.position.z + 20).applyMatrix4(ns.matrix), 'counterweight', { cls: 'load' });
+  app.label(() => carriage.getWorldPosition(new THREE.Vector3()), 'vertical stage (proposed)', { cls: 'actuated' });
+  app.label(() => plTop.clone().applyMatrix4(ns.matrix), 'depth plunger', { cls: 'sensor' });
+  app.label(() => V(tabP.x, tabP.y, tabP.z).applyMatrix4(ns.matrix), 'tether (two soft cords)', { cls: 'compliant' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  // ------------------------------------------------------------------ frame loop
+  app.onFrame(function (dt) {
+    if (!ws.spin.on && !servoBusy) return false;
+    pose(dt);
+    if (ws.spin.on) app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true });
+    if (P.support === 'servo') app.ui.set('zstage', servoZ, { silent: true });
+    return true;
+  });
+
+  // initial state
+  ARM = armLen();
+  ws.cap.position.z = -P.seat;
+  refreshAll();
+  app.ui.enable('zstage', true);
+})();
+</script>
+</body>
+</html>

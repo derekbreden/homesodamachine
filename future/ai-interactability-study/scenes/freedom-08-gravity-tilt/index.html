@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gravity as the tilt actuator</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-08-gravity-tilt",
+  "title": "Gravity as the tilt actuator: a plumb-bob gun, and why the umbilical wins",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "Hang the gun from a pivot above its centre of mass and gravity sets pitch or roll for free; a trim mass on a screw shifts the balance a fraction of a degree. The catch is stiffness: gravity is a weak spring, and even 2 N from the umbilical leans the gun tens of degrees. The scene shows the tilt, what the dot does, and how much trim it would take to win it back.",
+  "tags": ["pendulum", "trim mass", "gravity spring", "cable torque", "feedback"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["gravity as a restoring force, and how weak it is", "the umbilical's torque about a pivot is the number to beat", "trim mass as a very fine orientation actuator"],
+  "how": {
+    "motion": "a trim mass on a lead screw (actuator); the tilt follows",
+    "load": "the pivot carries all the weight",
+    "reference": "gravity: the plumb line through the pivot and the centre of mass",
+    "observe": "tilt by an IMU or a magnetic encoder; the dot by camera",
+    "use": "orientation trimmed while the pivot is moved by the position axes"
+  },
+  "software": {
+    "commands": ["trim mass position (stepper on a screw)"],
+    "observes": ["tilt (IMU or encoder, proposed)", "dot vs seam (camera, not drawn)"],
+    "manual": ["choosing the pivot point on the shell", "cable routing"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-08-gravity-tilt.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>The gun hangs from a pivot placed <b>above its centre of mass</b>. Left alone it settles with the centre of mass directly below the pivot: gravity sets the tilt in the plane drawn (the same works for the other tilt with a two-axis pivot). A small mass on a lead screw inside the shell moves the balance point by a fraction of a millimetre and the gun tilts by a fraction of a degree. There is nothing at the tail to fight the cable.</p>' +
+        '<p>The scene is the side view of the gun in that plane. The amber dot is the pivot, the small white circle the centre of mass, the red dot the laser dot; the dashed line is the plumb line. Push with the umbilical and see how far the gun leans, and what the dot does about it. Yaw about the vertical through the pivot has no restoring torque and is not drawn.</p>',
+      carries:
+        '<p>The pivot carries the whole weight. Gravity is the only restoring force: its torque is M·g·ℓ per radian of tilt, ℓ being how far the pivot is above the centre of mass. <b>Purple</b>: the trim mass, the only actuator. <b>Green</b> arrow: the cable pull at the tail.</p>',
+      software:
+        '<p><b>Commands:</b> trim mass position. <b>Observes:</b> tilt (an inertial sensor or a magnetic encoder on the pivot; not drawn) and the dot (a camera). With feedback on, software moves the trim mass to zero the tilt: the scene shows how far it would have to go and whether the screw has that much travel.</p>',
+      tried:
+        '<p><b>Gravity is a weak spring.</b> With the illustrative 1.2 kg and ℓ = 36 mm the stiffness is 0.42 N·m/rad (0.0074 N·m per degree). A 2 N pull at the cable exit, 145 mm from a housing-top pivot, is 0.29 N·m: the gun leans about 39°. To hold 0.1° the cable torque must stay under 0.74 N·mm, a quarter of a percent of that pull.</p>' +
+        '<p><b>Trim cannot pay for it.</b> A 100 g mass moved ±30 mm shifts the COM ±2.5 mm and corrects about ±4° at this ℓ; cancelling the 0.29 N·m of a 2 N pull would take 100 g at 296 mm. Feedback saturates. Trim is a very fine <i>adjust</i> (1° per 100 g × 7.5 mm) for a support whose cable torque is already almost nil.</p>' +
+        '<p><b>Time (from borrowed’s critique).</b> The scene had no time in it. With the inertia 0.0106 kg·m² (illustrative) and the gravity spring above the period is 1.0 s and the bearing alone damps to a ratio of 0.03: a 1 N step of pull at 145 mm leans the gun about 20° and the first swing goes to twice that, 137 mm at the dot, and rings for the whole bead. A fluid head (the readouts and the damper slider) settles it at a ratio near 1 (0.13 N·m·s/rad here). The cable’s lever and its couple are now sliders: anchor the line of action on the pivot and the force has no lever, but a couple of 50 N·mm at the exit alone still tilts the gun 6°. borrowed-15 and freedom-17 carry the rest (keel, sled, pivot on the line).</p>' +
+        '<p><b>What has to change.</b> The cable must leave the gun on the line through the pivot with almost no pull on the tail (the tail carried by a balancer, the cable weight taken by a separate support), or the tilt must be held by something stiffer (the seat and bridle of freedom-01b) with gravity only as a trim.</p>',
+      unresolved:
+        '<p>The real umbilical torque about a candidate pivot; where on a printed shell a pivot can sit so the working pose is a plumb pose; pivot friction and stick; how the ball or gimbal is built for a 1.2 kg gun. In the plane drawn only.</p>',
+      assumptions:
+        '<ul><li>Mass 1.2 kg; the centre of mass is ℓ below the pivot (slider); the pivot-to-dot distance 202 mm (kit proxy geometry, housing-top pivot); cable exit 145 mm from the pivot: <b>illustrative</b> (gun mass and COM are [unknown]).</li>' +
+        '<li>Trim mass 100 g on a screw with ±30 mm travel: <b>illustrative</b>. The cable pull is a fixed force at the tail with adjustable direction: <b>illustrative</b>.</li>' +
+        '<li>Frictionless pivot, planar statics, exact solution of the torque balance.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { ell: 36, F: 0.5, gam: 20, d: 0, fb: false, dmax: 30, anch: 1, couple: 0, cdamp: 0 };
+  const M = 1.2, G = 9.80665, MS = 0.1;
+  const svg = svgel('svg', { viewBox: '0 0 1000 640', width: '100%', role: 'img', 'aria-label': 'gun hanging from a pivot above its centre of mass' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'gun', label: 'Gun' }, { role: 'load', label: 'Pivot (carries all the weight)' }, { role: 'actuated', label: 'Trim mass (software)' }, { role: 'cable', label: 'Cable pull' }, { role: 'laser', label: 'Dot' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const D = Math.PI / 180;
+  const rd1 = app.ui.readout('k', 'Gravity stiffness'), rd2 = app.ui.readout('tilt', 'Tilt'), rd3 = app.ui.readout('dot', 'Dot moves'), rd4 = app.ui.readout('trim', 'Trim needed to cancel it'), rd5 = app.ui.readout('per', 'Swing period / damping ratio'), rd6 = app.ui.readout('step', '1 N step: static lean / first swing at the dot');
+  // body frame: x forward (toward the dot), y up; pivot at the origin; COM at (delta, -ell); dot at (150, -135); cable exit at (-110, -85)
+  const DOT = [150, -135], TAIL0 = [-110, -85];
+  const tailPt = () => [TAIL0[0] * S.anch, TAIL0[1] * S.anch];                // where the cable's line of action passes: at the tail (1) or anchored on the pivot (0)
+  function tiltFor(ell, F, gam, delta) {
+    // torque balance about the pivot: -M g (ell sin t + delta cos t) + tau_cable(t) = 0
+    const TL = tailPt(), tau = t => { const c = Math.cos(t), s = Math.sin(t), rx = (TL[0] * c - TL[1] * s) / 1000, ry = (TL[0] * s + TL[1] * c) / 1000, Fx = -F * Math.cos(gam * D), Fy = F * Math.sin(gam * D); return -M * G * (ell * Math.sin(t) + delta * Math.cos(t)) / 1000 + (rx * Fy - ry * Fx) + S.couple / 1000; };
+    let best = null, prev = tau(-1.5), pt = -1.5;
+    for (let t = -1.5; t <= 1.5; t += 0.002) { const v = tau(t); if (prev * v <= 0) { let lo = pt, hi = t; for (let i = 0; i < 50; i++) { const mid = (lo + hi) / 2; if (tau(lo) * tau(mid) <= 0) hi = mid; else lo = mid; } const r = (lo + hi) / 2; if (best == null || Math.abs(r) < Math.abs(best)) best = r; } prev = v; pt = t; }
+    return best == null ? NaN : best;
+  }
+  function update() {
+    clear();
+    const ell = S.ell, TL0 = tailPt(), tauC0 = (() => { const rx = TL0[0] / 1000, ry = TL0[1] / 1000, Fx = -S.F * Math.cos(S.gam * D), Fy = S.F * Math.sin(S.gam * D); return rx * Fy - ry * Fx + S.couple / 1000; })();   // cable torque at zero tilt (N*m)
+    // trim: feedback moves the trim mass until the tilt is zero, if the screw has the travel
+    let d = S.d, needD = tauC0 / (G * MS) * 1000;             // mm of trim-mass travel that would zero the tilt: M g delta = tau  ->  delta = tau/(M g); m_s d = M delta
+    // delta = MS*d/M (mm) ; zero tilt requires -M g delta + tau = 0 -> delta = tau/(M g) [m] -> d = tau/(g MS) [m]
+    if (S.fb) d = Math.max(-S.dmax, Math.min(S.dmax, needD));
+    const delta = MS * d / M;                                 // COM shift, mm
+    const t = tiltFor(ell, S.F, S.gam, delta), tdeg = t / D;
+    const kst = M * G * ell / 1000;                           // N*m/rad
+    // draw
+    const K = 1.25, PX = 330, PY = 130;
+    const P = (x, y, th) => { const c = Math.cos(th), s = Math.sin(th); return [PX + (x * c - y * s) * K, PY - (x * s + y * c) * K]; };
+    g.appendChild(T(20, 30, 'Side view of the gun hanging from its pivot (mm, drawn to scale)', { 'font-weight': 600 }));
+    g.appendChild(L(PX, PY - 30, PX, PY + 300, '#3a4656', 1.2, { 'stroke-dasharray': '4 4' })); g.appendChild(T(PX + 6, PY + 314, 'plumb line', { fill: '#94a3b8', 'font-size': 11 }));
+    const th = isFinite(t) ? t : 0;
+    // gun body: a slab from the tail through the pivot region to the nozzle
+    const poly = [[-150, -20], [170, -10], [190, -145], [-135, -80]].map(p => P(p[0], p[1] - 0, th));
+    g.appendChild(svgel('polygon', { points: poly.map(p => p.join(',')).join(' '), fill: C('gun'), 'fill-opacity': 0.75, stroke: '#94a3b8' }));
+    const piv = P(0, 0, th), com = P(delta, -ell, th), dot = P(DOT[0], DOT[1], th), tail = P(TL0[0], TL0[1], th), dot0 = P(DOT[0], DOT[1], 0);
+    g.appendChild(svgel('circle', { cx: dot0[0], cy: dot0[1], r: 6, fill: 'none', stroke: C('laser'), 'stroke-dasharray': '3 3' })); g.appendChild(T(dot0[0] + 10, dot0[1] + 4, 'dot at zero tilt', { fill: C('laser'), 'font-size': 10.5 }));
+    g.appendChild(svgel('circle', { cx: dot[0], cy: dot[1], r: 5, fill: C('laser') })); g.appendChild(T(dot[0] + 10, dot[1] + 18, 'dot', { fill: C('laser') }));
+    g.appendChild(svgel('circle', { cx: piv[0], cy: piv[1], r: 8, fill: C('load'), stroke: '#fff2cc', 'stroke-width': 2 })); g.appendChild(T(piv[0] + 12, piv[1] - 8, 'pivot', { fill: C('load') }));
+    g.appendChild(svgel('circle', { cx: com[0], cy: com[1], r: 7, fill: '#fff', stroke: '#141a22', 'stroke-width': 2 })); g.appendChild(T(com[0] + 12, com[1] + 4, 'centre of mass', { fill: '#e6edf6', 'font-size': 11.5 }));
+    g.appendChild(L(com[0], com[1], com[0], com[1] + 60, C('load'), 3)); g.appendChild(T(com[0] + 6, com[1] + 76, 'weight ' + (M * G).toFixed(1) + ' N', { fill: C('load'), 'font-size': 11.5 }));
+    // trim mass position: on the body near the tail-to-pivot line, offset along x by d from the centre (drawn as a purple block)
+    const tm = P(d * 1.0, -ell - 10, th); g.appendChild(svgel('rect', { x: tm[0] - 10, y: tm[1] - 8, width: 20, height: 16, fill: C('actuated'), rx: 3 })); g.appendChild(T(tm[0] - 30, tm[1] + 30, 'trim mass ' + d.toFixed(1) + ' mm', { fill: C('actuated'), 'font-size': 11 }));
+    // cable arrow at the tail
+    const fx = -Math.cos(S.gam * D), fy = Math.sin(S.gam * D), len = 20 + S.F * 40;
+    g.appendChild(L(tail[0], tail[1], tail[0] + fx * len, tail[1] - fy * len, '#cbd5e1', 4)); g.appendChild(T(tail[0] + fx * len - 20, tail[1] - fy * len - 10, 'cable pull ' + S.F.toFixed(1) + ' N', { fill: '#cbd5e1' }));
+    // tilt arc
+    g.appendChild(T(PX - 250, PY + 314, 'tilt ' + (isFinite(tdeg) ? tdeg.toFixed(1) : 'no equilibrium') + '°', { fill: Math.abs(tdeg) > 2 ? '#ff8a80' : '#e6edf6', 'font-weight': 700, 'font-size': 15 }));
+    const dm = isFinite(t) ? Math.hypot(dot[0] - dot0[0], dot[1] - dot0[1]) / K : NaN;
+    // right column: bars
+    const RX = 690; g.appendChild(T(RX, 70, 'Tilt from the cable pull vs pull (trim at 0)', { 'font-weight': 600, 'font-size': 12 }));
+    const BX0 = RX, BY0 = 90, BW = 270, BH = 170; g.appendChild(svgel('rect', { x: BX0, y: BY0, width: BW, height: BH, fill: '#171e28', stroke: '#2a3441' }));
+    const xs = f => BX0 + f / 6 * BW, ys = a => BY0 + BH - Math.min(60, Math.abs(a)) / 60 * BH;
+    let path = ''; for (let f = 0; f <= 6.0001; f += 0.1) { const a = tiltFor(ell, f, S.gam, 0) / D; path += (f === 0 ? 'M' : 'L') + xs(f).toFixed(1) + ' ' + ys(isFinite(a) ? a : 60).toFixed(1); }
+    g.appendChild(svgel('path', { d: path, fill: 'none', 'stroke-width': 2.2, stroke: '#cbd5e1' }));
+    g.appendChild(L(xs(S.F), BY0, xs(S.F), BY0 + BH, C('actuated'), 1.6, { 'stroke-dasharray': '3 3' })); g.appendChild(T(BX0, BY0 + BH + 16, '0 N', { fill: '#94a3b8', 'font-size': 10.5 })); g.appendChild(T(BX0 + BW - 24, BY0 + BH + 16, '6 N', { fill: '#94a3b8', 'font-size': 10.5 })); g.appendChild(T(BX0 - 4, BY0 - 6, '60°', { fill: '#94a3b8', 'font-size': 10.5, 'text-anchor': 'end' }));
+    g.appendChild(L(BX0, ys(0.1), BX0 + BW, ys(0.1), C('locate'), 1, { 'stroke-dasharray': '2 3' })); g.appendChild(T(BX0 + 4, ys(0.1) - 4, '0.1° (illustrative tolerance)', { fill: C('locate'), 'font-size': 10 }));
+    // numbers
+    g.appendChild(T(40, 500, 'Gravity spring: ' + kst.toFixed(2) + ' N·m/rad = ' + (kst * D).toFixed(4) + ' N·m per degree', { fill: '#e6edf6' }));
+    g.appendChild(T(40, 524, 'Cable torque at zero tilt: ' + tauC0.toFixed(3) + ' N·m', { fill: '#e6edf6' }));
+    g.appendChild(T(40, 548, 'Trim mass needed to cancel it: ' + Math.abs(needD).toFixed(0) + ' mm (100 g); screw has ±' + S.dmax + ' mm', { fill: Math.abs(needD) > S.dmax ? '#ff8a80' : '#e6edf6', 'font-weight': 600 }));
+    g.appendChild(T(40, 580, 'One degree of trim = ' + (Math.tan(D) * ell * M / MS).toFixed(1) + ' mm of trim-mass travel (100 g)', { fill: '#94a3b8', 'font-size': 11.5 }));
+    g.appendChild(T(RX, 392, 'Cable torque allowed for 0.1°: ' + (kst * 0.1 * D * 1000).toFixed(2) + ' N·mm', { fill: '#94a3b8', 'font-size': 11.5 }));
+    // time: period and damping (borrowed-15's inertia 0.0106 kg m^2, bearing damping ratio 0.03), and a 1 N step of pull across the cable's lever
+    const Iin = 0.0106, Kst = Math.max(kst, 1e-6), wn = Math.sqrt(Kst / Iin), cbear = 2 * 0.03 * Math.sqrt(Kst * Iin), zeta = (cbear + S.cdamp) / (2 * Math.sqrt(Kst * Iin));
+    const lever1 = Math.abs(TL0[0] * Math.sin(S.gam * D) + TL0[1] * Math.cos(S.gam * D)) / 1000, lean1 = lever1 / Kst, over = zeta < 1 ? 1 + Math.exp(-Math.PI * zeta / Math.sqrt(1 - zeta * zeta)) : 1;
+    rd5((2 * Math.PI / wn).toFixed(2) + ' s / ' + zeta.toFixed(2), '');
+    rd6((lean1 / D).toFixed(1) + '° / ' + (lean1 * 202 * over).toFixed(0) + ' mm', over > 1.05 ? '(×' + over.toFixed(2) + ' overshoot)' : '(settles)');
+    rd1((kst * D).toFixed(4), 'N·m/deg'); rd2(isFinite(tdeg) ? tdeg.toFixed(2) : '-', '°'); rd3(isFinite(dm) ? dm.toFixed(1) : '-', 'mm'); rd4(Math.abs(needD).toFixed(0), 'mm of trim travel');
+    const sat = S.fb && Math.abs(needD) > S.dmax;
+    app.badge('sat', sat ? 'feedback saturates: cancelling the cable needs ' + Math.abs(needD).toFixed(0) + ' mm of trim travel, the screw has ±' + S.dmax : null, 'warn');
+    app.badge('lean', Math.abs(tdeg) > 10 ? 'the cable leans the gun ' + Math.abs(tdeg).toFixed(0) + '° (gravity is a weak spring)' : null, 'limit');
+    app.io.set({ commands: [{ name: 'Trim mass position (stepper, screw)', value: d.toFixed(1), unit: 'mm', note: S.fb ? 'set by the feedback loop' : 'manual slider' }],
+      observes: [{ name: 'Tilt (IMU or pivot encoder, proposed)', value: isFinite(tdeg) ? tdeg.toFixed(2) : '-', unit: '°', status: 'seen', note: 'this is the loop’s error signal' }, { name: 'Dot vs seam (camera, proposed; scene truth here)', value: isFinite(dm) ? dm.toFixed(1) : '-', unit: 'mm from zero-tilt', status: 'partly', note: 'lever from pivot to dot is 202 mm' }, { name: 'Cable torque about the pivot', value: tauC0.toFixed(3), unit: 'N·m', status: 'unresolved', note: 'never measured' }], manual: ['Choose the pivot point on the shell', 'Route the cable so it leaves on the pivot line'] });
+  }
+  const gg = app.ui.group('Gun and cable (scene edits)', { open: true });
+  gg.slider({ id: 'ell', label: 'Pivot height above the centre of mass', min: 15, max: 150, step: 1, value: 36, unit: 'mm', kind: 'scene', help: 'The restoring stiffness is weight × this. Higher = stiffer, but the pivot is then further from the dot.', onChange: v => { S.ell = v; update(); } });
+  gg.slider({ id: 'F', label: 'Cable pull at the tail', min: 0, max: 6, step: 0.05, value: 0.5, unit: 'N', kind: 'scene', help: 'Illustrative. Try 2 N.', onChange: v => { S.F = v; update(); } });
+  gg.slider({ id: 'anch', label: 'Where the cable’s line of action passes (1 tail, 0 the pivot)', min: 0, max: 1, step: 0.05, value: 1, kind: 'scene', help: 'borrowed-15: anchor the cable on the pivot (a hollow ball the fibre passes through) and its force has no lever. The couple below stays.', onChange: v => { S.anch = v; update(); } });
+  gg.slider({ id: 'couple', label: 'Couple the fibre applies at the exit', min: -100, max: 200, step: 5, value: 0, unit: 'N·mm', kind: 'scene', help: 'A fibre clamped at the exit and leaving already bent applies up to EI/R (freedom-15). 50 N·mm alone tilts the gun.', onChange: v => { S.couple = v; update(); } });
+  gg.slider({ id: 'gam', label: 'Pull direction (above horizontal)', min: -60, max: 60, step: 1, value: 20, unit: '°', kind: 'scene', help: 'Away from the gun; positive is up.', onChange: v => { S.gam = v; update(); } });
+  const ag = app.ui.group('Trim (software commands)', { open: true });
+  ag.slider({ id: 'd', label: 'Trim mass (100 g) position', min: -30, max: 30, step: 0.5, value: 0, unit: 'mm', kind: 'actuator', help: 'A stepper moves a mass along the shell. Shifts the balance point by 0.083 mm per mm of travel.', onChange: v => { S.d = v; update(); } });
+  ag.toggle({ id: 'fb', label: 'Feedback on tilt (software loop)', value: false, kind: 'actuator', help: 'Software reads the tilt and moves the trim mass to zero it, within the screw travel.', onChange: v => { S.fb = v; app.ui.enable('d', !v); update(); } });
+  ag.slider({ id: 'cdamp', label: 'Damper (rotary, about the pivot)', min: 0, max: 1, step: 0.01, value: 0, unit: 'N·m·s/rad', kind: 'scene', noVisual: true, help: 'A fluid head damps a pendulum; critical damping for these masses is 0.13 (borrowed-15). Set by hand or by a motor; not drawn.', onChange: v => { S.cdamp = v; update(); } });
+  ag.slider({ id: 'dmax', label: 'Screw travel (each side)', min: 10, max: 300, step: 5, value: 30, unit: 'mm', kind: 'scene', help: 'How far the trim mass can go. Try 300.', onChange: v => { S.dmax = v; update(); } });
+})();
+</script>
+</body>
+</html>

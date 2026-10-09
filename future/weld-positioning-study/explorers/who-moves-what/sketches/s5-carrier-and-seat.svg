@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760" font-family="Helvetica, Arial, sans-serif">
+<rect width="1180" height="760" fill="#fcfcf8"/>
+<text x="12" y="22" font-size="15" font-weight="bold" fill="#222">S5 - Carrier + seat (side view from +X; opening pose, hole dial 30)</text>
+<line x1="20.0" y1="740.0" x2="800.0" y2="740.0" stroke="#222" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="417.5,717.2 702.5,717.2 702.5,705.8 417.5,705.8" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="431.8,740.0 450.8,740.0 450.8,717.2 431.8,717.2" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="669.2,740.0 688.2,740.0 688.2,717.2 669.2,717.2" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="488.8,705.8 631.2,705.8 631.2,658.3 488.8,658.3" stroke="#8a5a2b" fill="none" stroke-width="0.8" fill-opacity="1.0" stroke-dasharray="3,2"/>
+<text x="636.0" y="683.0" font-size="9" fill="#8a5a2b" text-anchor="start">rotator (turntable, nest; motor/ground towers not drawn)</text>
+<polygon points="499.7,658.3 620.3,658.3 620.3,513.5 499.7,513.5" stroke="#8a5a2b" fill="none" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="501.2,525.6 618.8,525.6 618.8,519.6 501.2,519.6" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.25"/>
+<text x="626.0" y="532.5" font-size="10" fill="#8a5a2b" text-anchor="start">tube + recessed plate</text>
+<line x1="550.3" y1="508.7" x2="536.5" y2="493.2" stroke="#3a6ea5" stroke-width="10.4" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="536.5" y1="493.2" x2="517.1" y2="471.5" stroke="#3a6ea5" stroke-width="15.8" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="517.1" y1="471.5" x2="492.4" y2="443.8" stroke="#3a6ea5" stroke-width="12.2" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="492.4" y1="443.8" x2="480.9" y2="431.0" stroke="#3a6ea5" stroke-width="21.8" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="480.9" y1="431.0" x2="401.2" y2="341.7" stroke="#3a6ea5" stroke-width="32.3" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="422.7" y1="383.7" x2="332.3" y2="385.0" stroke="#3a6ea5" stroke-width="36.1" stroke-opacity="0.35" stroke-linecap="round"/>
+<circle cx="560.0" cy="519.6" r="4.0" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="415.6,705.8 438.4,705.8 438.4,464.5 415.6,464.5" stroke="#2e7d32" fill="#2e7d32" stroke-width="1.2" fill-opacity="0.25"/>
+<text x="265.5" y="626.0" font-size="10" fill="#2e7d32" text-anchor="start">seat post on the rotator base</text>
+<text x="265.5" y="639.3" font-size="10" fill="#2e7d32" text-anchor="start">(same datum as the nest)</text>
+<polygon points="408.0,462.6 484.0,462.6 484.0,451.2 408.0,451.2" stroke="#2e7d32" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.9"/>
+<circle cx="417.5" cy="447.4" r="5.0" stroke="#222" fill="#bbb" stroke-width="1.2" fill-opacity="1.0"/>
+<circle cx="446.0" cy="447.4" r="5.0" stroke="#222" fill="#bbb" stroke-width="1.2" fill-opacity="1.0"/>
+<circle cx="474.5" cy="447.4" r="5.0" stroke="#222" fill="#bbb" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="446.0" y1="443.6" x2="410.0" y2="410.7" stroke="#2e7d32" stroke-width="5.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<text x="132.5" y="483.5" font-size="10" fill="#8d6e00" text-anchor="start">3 balls on the shell / 3 V's on the seat,</text>
+<text x="132.5" y="496.8" font-size="10" fill="#8d6e00" text-anchor="start">magnet or toggle preload; recipe block below</text>
+<circle cx="477.7" cy="472.1" r="13.0" stroke="#2e7d32" fill="none" stroke-width="2.5" fill-opacity="1.0"/>
+<line x1="477.7" y1="459.7" x2="477.7" y2="75.0" stroke="#555" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,3"/>
+<polygon points="464.4,75.0 491.0,75.0 491.0,46.5 464.4,46.5" stroke="#222" fill="#ddd" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="494.8" y="63.6" font-size="10" fill="#555" text-anchor="start">balancer</text>
+<text x="493.7" y="476.1" font-size="10" fill="#2e7d32" text-anchor="start">ring A (front)</text>
+<circle cx="288.5" cy="362.8" r="13.0" stroke="#2e7d32" fill="none" stroke-width="2.5" fill-opacity="1.0"/>
+<line x1="288.5" y1="350.5" x2="288.5" y2="75.0" stroke="#555" stroke-width="1.0" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,3"/>
+<polygon points="275.2,75.0 301.8,75.0 301.8,46.5 275.2,46.5" stroke="#222" fill="#ddd" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="305.6" y="63.6" font-size="10" fill="#555" text-anchor="start">balancer</text>
+<text x="304.5" y="366.8" font-size="10" fill="#2e7d32" text-anchor="start">ring B (behind butt)</text>
+<line x1="560.0" y1="519.6" x2="288.5" y2="362.8" stroke="#555" stroke-width="0.8" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<text x="435.7" y="434.1" font-size="10" fill="#555" text-anchor="start">grip axis</text>
+<polyline points="330.3,387.0 315.5,386.0 300.6,385.1 285.7,384.1 270.9,383.2 256.0,382.2 241.2,381.3 226.3,380.3 198.7,377.5 173.4,372.7 150.6,366.0 130.2,357.2 112.2,346.6 96.7,333.9 83.6,319.3 72.9,302.8 64.6,284.3 58.8,263.8 55.4,241.4 54.4,217.0 55.8,190.6 59.7,162.3 66.0,132.0" stroke="#b23b3b" fill="none" stroke-width="3" fill-opacity="1.0"/>
+<text x="810.0" y="60.0" font-size="11" fill="#222" text-anchor="start" font-weight="bold">Who moves what</text>
+<text x="810.0" y="77.0" font-size="11" fill="#555" text-anchor="start"> weight: carrier (monitor-arm gas</text>
+<text x="810.0" y="94.0" font-size="11" fill="#555" text-anchor="start">   spring, or two balancers)</text>
+<text x="810.0" y="111.0" font-size="11" fill="#555" text-anchor="start"> gross motion, lift-off, swing-away</text>
+<text x="810.0" y="128.0" font-size="11" fill="#555" text-anchor="start">   for loading: carrier, by hand</text>
+<text x="810.0" y="145.0" font-size="11" fill="#555" text-anchor="start"> location during the weld: the seat</text>
+<text x="810.0" y="162.0" font-size="11" fill="#555" text-anchor="start">   (kinematic, preloaded)</text>
+<text x="810.0" y="179.0" font-size="11" fill="#555" text-anchor="start"> recipe angles: printed block or</text>
+<text x="810.0" y="196.0" font-size="11" fill="#555" text-anchor="start">   adjusters under the seat</text>
+<text x="810.0" y="213.0" font-size="11" fill="#555" text-anchor="start"> spin: rotator; yaw: seat along Y</text>
+<text x="810.0" y="230.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="810.0" y="247.0" font-size="11" fill="#555" text-anchor="start">Drawn: branch D2 - Derek's two rings,</text>
+<text x="810.0" y="264.0" font-size="11" fill="#555" text-anchor="start">centred on the grip axis, hang from</text>
+<text x="810.0" y="281.0" font-size="11" fill="#555" text-anchor="start">balancers; roll is then a hinge while</text>
+<text x="810.0" y="298.0" font-size="11" fill="#555" text-anchor="start">hanging; lock one ring to hold it.</text>
+<text x="810.0" y="315.0" font-size="11" fill="#555" text-anchor="start">Seat post and rings are schematic.</text>
+</svg>

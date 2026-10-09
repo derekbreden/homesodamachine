@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="20.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="start" fill="#111" font-weight="bold">Drop-in collar: close the gun-to-joint loop in one frame, not in the bench top</text>
+<text x="20.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#444" font-weight="normal">Section through the opening, looking toward +X. The bench top only carries the collar's weight.</text>
+<polygon points="182.0,250.0 443.0,250.0 443.0,277.0 182.0,277.0" fill="#efe7da" fill-opacity="1.0" stroke="#9b8563" stroke-width="1.2"/>
+<polygon points="677.0,250.0 1028.0,250.0 1028.0,277.0 677.0,277.0" fill="#efe7da" fill-opacity="1.0" stroke="#9b8563" stroke-width="1.2"/>
+<text x="218.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#6b5a3a" font-weight="normal">bench top (wood)</text>
+<polygon points="380.0,239.2 920.0,239.2 920.0,250.0 632.0,250.0 632.0,260.8 488.0,260.8 488.0,250.0 380.0,250.0" fill="#f6c7cf" fill-opacity="1.0" stroke="#b00020" stroke-width="1.5"/>
+<text x="915.5" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="end" fill="#b00020" font-weight="normal">collar plate (MIC-6 1/2 in or steel 3/8 in, laser-cut opening and holes)</text>
+<polygon points="677.0,250.0 659.0,250.0 659.0,520.0 677.0,520.0" fill="#f6c7cf" fill-opacity="1.0" stroke="#b00020" stroke-width="1.5"/>
+<polygon points="461.0,250.0 443.0,250.0 443.0,520.0 461.0,520.0" fill="#f6c7cf" fill-opacity="1.0" stroke="#b00020" stroke-width="1.5"/>
+<text x="443.0" y="511.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#b00020" font-weight="normal">posts hang from the collar, not the wood</text>
+<polygon points="417.8,250.0 396.2,250.0 396.2,253.6 417.8,253.6" fill="#333" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<polygon points="795.8,250.0 774.2,250.0 774.2,253.6 795.8,253.6" fill="#333" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<polygon points="912.8,250.0 891.2,250.0 891.2,253.6 912.8,253.6" fill="#333" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<text x="776.0" y="268.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#333" font-weight="normal">3 pads on the wood (kinematic rest; wood only supports)</text>
+<polygon points="502.9,250.0 617.1,250.0 617.1,387.2 502.9,387.2" fill="none" fill-opacity="1.0" stroke="#333" stroke-width="1.5"/>
+<polygon points="504.3,255.7 615.7,255.7 615.7,261.4 504.3,261.4" fill="#bbb" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<polygon points="492.5,387.2 627.5,387.2 627.5,443.0 492.5,443.0" fill="#ddd" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<polygon points="461.0,443.0 659.0,443.0 659.0,464.6 461.0,464.6" fill="#ddd" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<polygon points="443.0,464.6 677.0,464.6 677.0,475.4 443.0,475.4" fill="#f6c7cf" fill-opacity="1.0" stroke="#b00020" stroke-width="1.5"/>
+<text x="560.0" y="493.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle" fill="#b00020" font-weight="normal">shelf (Z on 4 synced screws)</text>
+<polygon points="695.0,239.2 776.0,239.2 776.0,219.4 695.0,219.4" fill="#c9d7f0" fill-opacity="1.0" stroke="#1f4e9c" stroke-width="1.2"/>
+<polygon points="708.5,219.4 762.5,219.4 749.0,178.0 722.0,178.0" fill="#c9d7f0" fill-opacity="1.0" stroke="#1f4e9c" stroke-width="1.2"/>
+<polygon points="659.7,125.8 660.6,145.5 664.9,162.0 772.2,148.3 771.4,128.7 767.1,112.1" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="609.6,155.2 614.4,174.0 639.8,184.5 705.0,98.0 700.1,79.2 674.8,68.7" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="607.1,177.7 608.4,180.5 610.9,183.4 614.2,186.1 617.7,188.0 621.0,188.9 623.5,188.7 624.9,187.4 633.6,175.8 633.6,173.6 632.3,170.8 629.8,167.8 626.5,165.2 623.0,163.2 619.7,162.3 617.2,162.6 615.8,163.9 607.1,175.4" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="589.7,209.2 590.3,210.5 591.5,211.8 593.0,213.0 594.6,213.9 596.1,214.3 597.3,214.2 597.9,213.6 620.1,184.1 620.1,183.1 619.5,181.8 618.4,180.4 616.9,179.2 615.2,178.4 613.7,177.9 612.6,178.0 611.9,178.7 589.7,208.1" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="561.4,242.8 562.3,244.8 564.1,246.9 566.4,248.8 568.9,250.1 571.3,250.8 573.1,250.6 574.0,249.7 600.1,215.1 600.1,213.5 599.2,211.5 597.4,209.4 595.1,207.5 592.6,206.2 590.3,205.5 588.5,205.7 587.5,206.6 561.4,241.2" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<circle cx="560.0" cy="255.7" r="3.5" fill="#d00000" stroke="#d00000" stroke-width="1.2"/>
+<path d="M 560.0 255.7 L 596.0 196.0 L 735.5 196.0 L 735.5 244.6 L 668.0 244.6 L 668.0 469.6 L 560.0 469.6 L 560.0 394.0 L 524.0 268.0 L 560.0 255.7" stroke="#b00020" stroke-width="2.2" fill="none" stroke-dasharray="7,4"/>
+<text x="569.0" y="367.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#b00020" font-weight="bold">structural loop</text>
+<polygon points="461.0,239.2 416.0,239.2 416.0,203.2 461.0,203.2" fill="#888" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<line x1="438.5" y1="203.2" x2="488.0" y2="169.0" stroke="#333" stroke-width="2"/>
+<line x1="488.0" y1="169.0" x2="510.5" y2="248.2" stroke="#333" stroke-width="2"/>
+<text x="411.5" y="196.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="end" fill="#111" font-weight="normal">indicator base on the collar: reads the bore lip in the gun's frame</text>
+<text x="40.0" y="590.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#111" font-weight="normal">A lean or bump on the bench tilts the collar as one body: gun and joint move together. The wood top can creep or swell without entering the loop.</text>
+</svg>

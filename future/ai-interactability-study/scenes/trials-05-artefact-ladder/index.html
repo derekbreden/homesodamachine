@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The artefact ladder</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .al-card { position: absolute; left: 10px; top: 52px; width: 270px; max-width: 40%; z-index: 5; background: rgba(12, 16, 22, .93); border: 1px solid var(--wk-line2); border-radius: 9px; padding: 8px 10px 9px; font-size: 12px; color: #cfd6e2; line-height: 1.38; pointer-events: none; }
+  .al-card h4 { margin: 0 0 3px; font-size: 13px; color: #fff; }
+  .al-card dl { margin: 4px 0 0; display: grid; grid-template-columns: 74px 1fr; gap: 2px 8px; }
+  .al-card dt { color: var(--wk-faint); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; padding-top: 2px; }
+  .al-card dd { margin: 0; }
+  .al-card .truth { color: #a7f3d0; }
+  @media (max-width: 900px) { .al-card { display: none; } }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-05-artefact-ladder",
+  "title": "The artefact ladder: swap the workpiece, not the machine",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Five things can stand on the rotator, each isolating one difficulty and each with a different ground truth: a flat calibration board, a short corner coupon, a tube with a window cut in its wall, a printed tube with designed errors, and the real 316L tube. Software climbs the ladder; two proposed judge cameras show what each rung lets them see. A pivot trial on the board finds where the dot really is in the gun's frame.",
+  "tags": ["calibration", "ground truth", "artefacts", "printed zoo", "notch tube", "pivot calibration", "judge cameras"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["calibration board at seam height", "notch tube for an outside camera", "printed tubes with known errors", "pivot calibration of the dot"],
+  "how": {
+    "motion": "the rotator turns; software commands the gun's pose through whatever positions it (tilt about the assumed dot here)",
+    "load": "not modelled: the gun floats as in the reference scene",
+    "reference": "each artefact has its own ground truth: printed coordinates, cut geometry, designed errors",
+    "observe": "judge A above the bore, judge B outside through the notch (both proposed)",
+    "use": "calibrate on the board first, then climb; the AI knows which rung it is on"
+  },
+  "software": {
+    "commands": ["rotator speed (existing)", "gun tilt about the assumed dot (proposed axis)"],
+    "observes": ["dot position on the artefact (judge A)", "dot vs seam through the notch (judge B)", "dot wander during the pivot trial"],
+    "manual": ["fitting the artefacts to the rotator", "making the notch tube and the zoo tubes"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-05-artefact-ladder.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = Math.PI / 180;
+  const CAP = WK.CAP_TOP, RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, HT = WK.DIM.tubeHeight;
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    viewButtons: ['overall', 'joint', 'top', 'rack'],
+    views: {
+      overall: { target: [0, -110, 120], dir: [-0.5, 0.62, 0.6], dist: 1450 },
+      rack: { target: [0, -300, 60], dir: [0.25, -0.75, 0.6], dist: 1000 },
+    },
+    sections: {
+      proposes: '<p>The AI does not need to learn everything on the real tube. <b>Five things can stand on the rotator</b>, in order of increasing realism, and each one makes one thing easy to know.</p>' +
+        '<ol><li><b>Calibration board.</b> A flat printed disc at plate-face height. No wall, no glare, no occlusion. The dot lands on coordinates the printer wrote: this is where the AI learns how commands move the dot, and, with a <b>pivot trial</b>, where the dot really is in the gun\'s frame.</li>' +
+        '<li><b>Corner coupon.</b> A short ring of tube and a plate at the real recess, on a pedestal. The corner is exact and cheap to cut or print many times, with no long tube in the way.</li>' +
+        '<li><b>Notch tube.</b> A scrap tube with the top of the wall sawn away over an arc at the station. A camera outside can now see the dot at the corner: the only rung that gives a direct ground-truth view.</li>' +
+        '<li><b>Printed zoo.</b> Printed tubes with errors put in on purpose (plate depth, eccentricity, ovality, tilt): a population with known truth and cases worse than any real tube. Blind to glare.</li>' +
+        '<li><b>Real 316L tube.</b> The population that matters: real glare, real variation, truth unknown without a measuring machine.</li></ol>' +
+        '<p>Pick a rung; the rack behind the rotator shows all five. Two proposed judge cameras look at the dot: A above the bore and B outside at the height of the corner. Their frames turn green, red or amber for what they can and cannot see (drawn geometry, not optics). Wave 3: each rung is also drawn as a puck on the same three kinematic seats as any tube (trials-22-reference-pucks), so the board\'s frame is the tube\'s frame.</p>',
+      carries: '<p>Not modelled: the gun floats as in the reference scene. Each artefact sits on the existing turntable (the coupon and board on a pedestal that puts their top surface at plate-face height, 6.35 mm below the rim height of a real tube).</p>',
+      tried: '<ul>' +
+        '<li><b>Board reflects too little of the real problem.</b> Nothing on the board blocks or reflects the dot, so it says nothing about the corner. Repair: it is only the first rung; its job is command-to-dot geometry and the dot\'s place in the shell frame. Left standing: whether the board\'s matte paper dot looks like the dot on polished 316L.</li>' +
+        '<li><b>Notch tube shows only the top 6.35 mm.</b> The window is the wall above the plate; the view is grazing. Try Judge B on the notch rung: green. On the real tube: red, blocked by the wall. Repair: it is a ground-truth instrument, not a production view. What it leaves: the notch changes the tube (no wall to hit), so the dot lands on the plate edge instead of the corner.</li>' +
+        '<li><b>Zoo is blind to glare.</b> A printed tube is matte. Any vision method that works on it may fail on 316L. Repair: the ladder puts glare-only questions on the last rung. Left standing: how much of the real variation the zoo\'s designed errors cover is <b>[unknown]</b>: real tube variation has never been measured.</li>' +
+        '<li><b>Pivot trial.</b> Tilt the gun about where the software thinks the dot is, on the board. If the real dot is d mm off along the beam, it wanders about d times the tilt in radians (0.1 rad gives 0.3 mm for 3 mm). The wander is the measurement. Repair for noise: larger tilts (calc/pivot_cal.py: +-2° is poor, +-12° is good). Left standing: the tilt axis needs to be commandable and well known.</li></ul>',
+      unresolved: '<ul><li>The dot\'s real size, brightness and relation to the melt position are <b>[unknown]</b>; the ladder can show the dot, not the IR focus.</li>' +
+        '<li>Who makes the notch tube and the zoo tubes, and how many are enough, is open. Printing a 127 mm tube with a plate is a job the two Bambu printers already do <b>[Derek]</b>; the metal band saw makes the notch <b>[repo]</b>.</li>' +
+        '<li>How the board is fitted so its plane is exactly plate-face height and its centre is on the axis is unresolved.</li></ul>',
+      assumptions: '<ul><li>Tube, plate, recess dimensions: <b>[repo]</b>. Gun proxy, opening pose, 16 mm nozzle clearance: <b>[illustrative]</b> (reference scene). Camera positions and fields of view: <b>[illustrative]</b>.</li>' +
+        '<li>Board pattern is a picture; the zoo\'s drawn errors are exaggerated by the chosen factor, the numbers are exact.</li>' +
+        '<li>Judge frames use WK.inset.markVisibility: straight-line visibility against drawn solids. No optics, lighting, glare or fume.</li>' +
+        '<li>The pivot trial uses the ideal rotation about the assumed dot and moves the drawn dot; wander readings are exact scene numbers, not sensor readings.</li></ul>'
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(false);
+
+  // ------------------------------------------------------------------ artefact builders (origin: tube axis, z = 0 tube bottom)
+  const lathe = (pts, seg, pStart, pLen, role, o) => {
+    const g = new THREE.LatheGeometry(pts.map(p => new THREE.Vector2(p[0], p[1])), seg || 160, pStart == null ? 0 : pStart, pLen == null ? Math.PI * 2 : pLen); g.rotateX(Math.PI / 2);
+    const m = new THREE.Mesh(g, WK.mat(role, Object.assign({ side: 'double' }, o || {}))); m.userData.role = WK.role(role); return m;
+  };
+  function boardTexture() {
+    const c = document.createElement('canvas'); c.width = c.height = 512; const x = c.getContext('2d');
+    x.fillStyle = '#f4f4ee'; x.fillRect(0, 0, 512, 512);
+    const s = 512 / 130;   // px per mm
+    x.save(); x.beginPath(); x.arc(256, 256, 64 * s, 0, 7); x.clip();
+    const q = 8 * s; for (let i = -9; i < 9; i++) for (let j = -9; j < 9; j++) if ((i + j) & 1) { x.fillStyle = '#20242a'; x.fillRect(256 + i * q, 256 + j * q, q, q); }
+    x.restore();
+    x.strokeStyle = '#e11d48'; x.lineWidth = 2.2; x.beginPath(); x.arc(256, 256, RI * s, 0, 7); x.stroke();
+    // fiducial-like squares near the seam ring and a register mark
+    const seed = [3, 9, 5, 11, 1, 7]; x.fillStyle = '#111';
+    [0, 90, 180, 270].forEach((a, k) => { const cx = 256 + Math.cos(a * DEG) * 50 * s, cy = 256 - Math.sin(a * DEG) * 50 * s; x.fillRect(cx - 9, cy - 9, 18, 18); x.fillStyle = '#f4f4ee'; for (let b = 0; b < 4; b++) if ((seed[k] >> b) & 1) x.fillRect(cx - 7 + (b % 2) * 7, cy - 7 + Math.floor(b / 2) * 7, 6, 6); x.fillStyle = '#111'; });
+    x.fillStyle = '#0d9488'; x.beginPath(); x.arc(256 + 19.05 * s, 256, 5.6 * s, 0, 7); x.arc(256 - 19.05 * s, 256, 5.6 * s, 0, 7); x.fill();
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; return t;
+  }
+  const boardTex = boardTexture();
+  function makeBoard() {
+    const g = new THREE.Group();
+    const ped = P.cyl(52, CAP - 3, 'fixed'); ped.position.z = (CAP - 3) / 2; g.add(ped);
+    const disc = P.cyl(65, 3, 'locate'); disc.position.z = CAP - 1.5; g.add(disc);
+    const top = new THREE.Mesh(new THREE.CircleGeometry(64.5, 96), new THREE.MeshBasicMaterial({ map: boardTex })); top.position.z = CAP + 0.06; top.userData.role = 'locate'; g.add(top);
+    return g;
+  }
+  function makeCoupon() {
+    const g = new THREE.Group();
+    const ped = P.cyl(52, CAP - 6.35, 'fixed'); ped.position.z = (CAP - 6.35) / 2; g.add(ped);
+    g.add(lathe([[RI, CAP - 6.35], [RO, CAP - 6.35], [RO, CAP + 6.35], [RI, CAP + 6.35], [RI, CAP - 6.35]], 160, 0, Math.PI * 2, 'work'));
+    const pl = P.cyl(RI - 0.06, 6.35, 'work', { segments: 96 }); pl.position.z = CAP - 3.175; g.add(pl);
+    return g;
+  }
+  function makeNotch(tint) {
+    const g = new THREE.Group(), half = 17, phi0 = (half + 90) * DEG, plen = (360 - 2 * half) * DEG;
+    g.add(lathe([[RI, 0], [RO, 0], [RO, CAP], [RI, CAP], [RI, 0]], 160, 0, Math.PI * 2, 'work'));                       // tube up to plate-top height, full circle
+    g.add(lathe([[RI, CAP], [RO, CAP], [RO, HT], [RI, HT], [RI, CAP]], 160, phi0, plen, 'work'));                       // the top 6.35 mm of wall, with the window
+    return g;
+  }
+  const zoo = { group: new THREE.Group(), tube: null, plate: null };
+  function makeZoo() {
+    const g = zoo.group, mat = { shade: 1.18 };
+    const tube = lathe([[RI, 0], [RO, 0], [RO, HT], [RI, HT], [RI, 0]], 160, 0, Math.PI * 2, 'work', mat); g.add(tube); zoo.tube = tube;
+    const pl = P.cyl(RI - 0.06, 6.35, 'work', { segments: 96 }); pl.material = WK.mat('work', { shade: 0.9 }); pl.position.z = CAP - 3.175; g.add(pl); zoo.plate = pl;
+    return g;
+  }
+  const board = makeBoard(), coupon = makeCoupon(), notch = makeNotch(), zoog = makeZoo();
+  [board, coupon, notch, zoog].forEach(g => { g.visible = false; ws.tubeGroup.add(g); });
+  
+  // ------------------------------------------------------------------ rack (all five, for the family portrait)
+  const RACK_Y = -300, RACK_X = [-340, -170, 0, 170, 340], RUNGS = ['board', 'coupon', 'notch', 'zoo', 'real'];
+  const rackBase = P.box(860, 160, 86, 'fixed'); rackBase.position.set(0, RACK_Y, -43); app.add(rackBase);
+  function rackItem(kind, i) {
+    const g = new THREE.Group();
+    if (kind === 'board') g.add(makeBoard()); else if (kind === 'coupon') g.add(makeCoupon()); else if (kind === 'notch') { const n = makeNotch(); g.add(n); const c = new THREE.Mesh(ws.cap.geometry, ws.cap.material); g.add(c); }
+    else if (kind === 'zoo') { const t = lathe([[RI, 0], [RO, 0], [RO, HT], [RI, HT], [RI, 0]], 120, 0, Math.PI * 2, 'work', { shade: 1.18 }); g.add(t); const pl = P.cyl(RI - 0.06, 6.35, 'work'); pl.position.z = CAP - 3.175; g.add(pl); }
+    else { const t = lathe([[RI, 0], [RO, 0], [RO, HT], [RI, HT], [RI, 0]], 120, 0, Math.PI * 2, 'work'); g.add(t); const pl = P.cyl(RI - 0.06, 6.35, 'work', { segments: 96 }); pl.material = WK.mat('work', { shade: 0.62 }); pl.position.z = CAP - 3.175; g.add(pl); }
+    g.position.set(RACK_X[i], RACK_Y, 0); app.add(g); return g;
+  }
+  RUNGS.forEach((k, i) => { rackItem(k, i); app.label(V(RACK_X[i], RACK_Y, 6), (i + 1) + ' ' + ({ board: 'calibration board', coupon: 'corner coupon', notch: 'notch tube', zoo: 'printed zoo tube', real: 'real 316L tube' })[k], { cls: i === 4 ? 'work' : 'locate' }); });
+  const ring = P.ring(76, 2, { role: 'locate' }); app.add(ring);
+
+  // ------------------------------------------------------------------ judge cameras (proposed) on the drawn scene
+  const camA = app.inset.add({ id: 'A', label: 'Judge A: above the bore (proposed)', position: V(0, 0, 470), target: () => gun.dotWorld(), fov: 16, near: 50, far: 900, size: [220, 150], corner: 'br', noise: 0.2 });
+  const camB = app.inset.add({ id: 'B', label: 'Judge B: outside, at the corner (proposed)', position: V(330, 0, CAP + 24), target: () => gun.dotWorld(), fov: 14, near: 50, far: 900, size: [220, 150], corner: 'tr', noise: 0.2 });
+  app.label(V(0, 0, 470), 'judge A', { cls: 'sensor' }); app.label(V(330, 0, CAP + 24), 'judge B', { cls: 'sensor' });
+
+  // ------------------------------------------------------------------ info card
+  const card = WK.h('div', { class: 'al-card' }); app.stageEl.appendChild(card);
+  const INFO = {
+    board: { t: '1 · Calibration board', iso: 'Command-to-dot geometry and the dot\'s place in the gun frame, with nothing else in the way.', truth: 'printed coordinates (fiducials, 8 mm squares, the 61.85 mm ring)', blind: 'the corner: no wall, no rim, no glare, no shadow' },
+    coupon: { t: '2 · Corner coupon', iso: 'The corner itself: wall, plate, rim at the real recess, cheap to make in bulk.', truth: 'the cut or printed corner, known to caliper accuracy', blind: 'the long tube: outside views and tube-length effects are absent' },
+    notch: { t: '3 · Notch tube', iso: 'A direct outside view of the dot at the corner: the one ground-truth camera view.', truth: 'judge B sees the dot against the plate edge through the window', blind: 'the wall to hit: the dot lands on the plate edge; only 6.35 mm of window' },
+    zoo: { t: '4 · Printed zoo', iso: 'Tube-to-tube variation with known truth, including errors beyond a real tube.', truth: 'designed by construction: numbers on the right are exact', blind: 'glare and real steel; matte plastic is easier to see than 316L' },
+    real: { t: '5 · Real 316L tube', iso: 'The population that matters: glare, real variation, the real corner.', truth: 'unknown without a measuring machine; only the judges see the dot', blind: 'what judge B cannot see: the wall blocks the view' },
+  };
+
+  // ------------------------------------------------------------------ pose: tilt about the ASSUMED dot with the real dot offset along the beam
+  const ST = { rung: 'real', tilt: 0, dotOff: 3, ov: 1.0, dz: 0.5, ecc: 0.4, faceTilt: 0.3, exag: 12, spin: false };
+  const base = WK.dialsToPose(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical);
+  const W0 = gun.dotWorld().clone();                 // the seam point: where the real dot sits at zero tilt
+  function poseGun() {
+    // The software rotates the gun about P_a, where it BELIEVES the dot is (local z = -16 + off, nearer the nozzle than the real dot).
+    // At zero tilt the real dot is on the seam; tilting sweeps the real dot by about off * tilt(rad).
+    const off = ST.dotOff, assumed = V(0, 0, -WK.CLEARANCE + off);
+    const Pa = base.position.clone().add(assumed.clone().applyQuaternion(base.quaternion));
+    const beam = V(0, 0, -1).applyQuaternion(base.quaternion);
+    const axis = new THREE.Vector3().crossVectors(V(0, 0, 1), beam).normalize();
+    const R = new THREE.Quaternion().setFromAxisAngle(axis, ST.tilt * DEG);
+    const q = R.clone().multiply(base.quaternion), pos = Pa.clone().add(base.position.clone().sub(Pa).applyQuaternion(R));
+    gun.setTransform(pos, q);
+  }
+  // errors that live in the tube (zoo): truth offsets of the dot from the seam at the station for the current spin angle
+  function zooTruth() {
+    const a = ws.spinAngle * DEG;
+    return { radial: -(ST.ecc / 2 * Math.cos(a) + ST.ov / 2 * Math.cos(2 * a)), vertical: ST.dz + ST.faceTilt / 2 * Math.cos(a + 1.05) };
+  }
+
+  function apply() {
+    const r = ST.rung;
+    // exactly one artefact on the rotator
+    ws.tube.visible = r === 'real'; ws.cap.visible = r === 'real' || r === 'notch'; ws.parts.stripe.visible = r === 'real'; ws.parts.plateTick.visible = r !== 'board' && r !== 'coupon';
+    board.visible = r === 'board'; coupon.visible = r === 'coupon'; notch.visible = r === 'notch'; zoog.visible = r === 'zoo';
+    // zoo geometry: designed errors drawn exaggerated
+    if (r === 'zoo') { const k = ST.ov * ST.exag / 2 / RI * 0.5; zoo.tube.scale.set(1 + k, 1 - k, 1); zoo.plate.position.set(ST.ecc * ST.exag * 0.2, 0, CAP - 3.175 - ST.dz * ST.exag * 0.35); }
+    ws.setRunout(r === 'zoo' ? ST.ecc : 0.25, r === 'zoo' ? ST.faceTilt : 0.30, ST.exag);
+    ring.position.set(RACK_X[RUNGS.indexOf(r)], RACK_Y, 4);
+    poseGun();
+    const dot = gun.dotWorld();
+    const resA = app.inset.markVisibility('A', dot, { eps: 0.8 }), resB = app.inset.markVisibility('B', dot, { eps: 0.8 });
+    ['ov', 'ecc', 'dz'].forEach(id => app.ui.enable(id, r === 'zoo'));
+    const info = INFO[r], zt = zooTruth();
+    card.innerHTML = '<h4>' + info.t + '</h4><div>' + info.iso + '</div><dl><dt>Truth</dt><dd class="truth">' + info.truth + (r === 'zoo' ? ' · dot vs seam at the station: radial ' + (zt.radial >= 0 ? '+' : '−') + Math.abs(zt.radial).toFixed(2) + ' mm, height ' + (zt.vertical >= 0 ? '+' : '−') + Math.abs(zt.vertical).toFixed(2) + ' mm' : '') + '</dd><dt>Blind to</dt><dd>' + info.blind + '</dd></dl>';
+    // pivot trial: wander of the real dot relative to where it started
+    const wander = dot.clone().sub(W0), wl = Math.hypot(wander.x, wander.y, wander.z);
+    const est = Math.abs(ST.tilt) > 0.5 ? wl / (Math.abs(ST.tilt) * DEG) : null;
+    app.io.set({
+      commands: [
+        { name: 'Rotator', value: ST.spin ? 'turning' : 'stopped', note: 'existing controller' },
+        { name: 'Gun tilt about the assumed dot', value: ST.tilt, unit: '°', note: 'proposed axis; the software rotates about where it thinks the dot is' },
+      ],
+      observes: [
+        { name: 'Judge A: dot visible', value: resA.visible ? 'yes' : (resA.inFov ? 'blocked' : 'out of view'), status: resA.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Judge B: dot visible', value: resB.visible ? 'yes' : (resB.inFov ? 'blocked' : 'out of view'), status: resB.visible ? 'seen' : 'blind', note: r === 'notch' ? 'through the window' : (r === 'real' || r === 'zoo' ? 'the tube wall is in the way' : (r === 'coupon' ? 'the coupon wall is in the way' : 'nothing in the way')) },
+        { name: 'Pivot trial: dot wander', value: wl.toFixed(2), unit: 'mm', status: r === 'board' ? 'seen' : 'partly', note: r === 'board' ? 'read on printed coordinates' : 'needs a flat known surface: the board' },
+        { name: 'Dot offset estimated from the wander', value: est == null ? '–' : est.toFixed(1), unit: est == null ? '' : 'mm along the beam', status: est == null ? 'unresolved' : 'partly', note: 'wander / tilt in radians; the true offset (' + ST.dotOff.toFixed(1) + ' mm) is hidden from the software' },
+        { name: 'Ground truth of dot-vs-seam', value: r === 'real' ? 'unknown' : (r === 'zoo' ? 'known (designed)' : 'by construction'), status: r === 'real' ? 'unresolved' : 'seen', note: r === 'real' ? 'only a measuring machine would know' : 'the artefact carries it' },
+      ],
+      manual: ['Fitting an artefact to the rotator', 'Making the notch and zoo tubes'],
+    });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const g1 = app.ui.group('The rung', { help: 'Which artefact stands on the rotator.' });
+  g1.radio({ id: 'rung', label: 'Artefact on the rotator', options: [{ value: 'board', label: '1 board' }, { value: 'coupon', label: '2 coupon' }, { value: 'notch', label: '3 notch' }, { value: 'zoo', label: '4 zoo' }, { value: 'real', label: '5 real' }], value: 'real', kind: 'branch', visual: () => ws.tubeGroup, help: 'Watch the two judge frames change colour.', onChange: v => { ST.rung = v; apply(); } });
+  g1.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; ST.spin = v; apply(); } });
+  const g2 = app.ui.group('Pivot trial (software commands the tilt)', { help: 'Tilt about where the software believes the dot is. The real dot is a little off; its wander on the board is the measurement.' });
+  g2.slider({ id: 'tilt', label: 'Gun tilt about the assumed dot', min: -14, max: 14, step: 0.5, value: 0, unit: '°', kind: 'actuator', visual: () => gun.group, help: 'A proposed rotation axis (any positioner that can tilt).', onChange: v => { ST.tilt = v; apply(); } });
+  g2.slider({ id: 'dotOff', label: 'Real dot is this far from the assumed dot (along the beam)', min: 0, max: 6, step: 0.25, value: 3, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Unknown to the software: standoff, lens and the "red light alignment" setting all move it.', onChange: v => { ST.dotOff = v; apply(); } });
+  const g3 = app.ui.group('Zoo tube: designed errors (scene edits)', { help: 'Printed by construction, so the truth is known. Drawn exaggerated; numbers exact.' });
+  g3.slider({ id: 'ov', label: 'Ovality (2× per turn)', min: 0, max: 2, step: 0.05, value: 1, unit: 'mm', kind: 'scene', visual: () => zoog, onChange: v => { ST.ov = v; apply(); } });
+  g3.slider({ id: 'ecc', label: 'Plate offset / tube eccentricity', min: 0, max: 1.5, step: 0.05, value: 0.4, unit: 'mm', kind: 'scene', visual: () => zoog, onChange: v => { ST.ecc = v; apply(); } });
+  g3.slider({ id: 'dz', label: 'Plate seat depth error', min: -1.5, max: 1.5, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', visual: () => zoog, onChange: v => { ST.dz = v; apply(); } });
+  g3.slider({ id: 'exag', label: 'Drawing exaggeration', min: 1, max: 40, step: 1, value: 12, unit: '×', kind: 'view', help: 'Only makes the errors visible.', onChange: v => { ST.exag = v; apply(); } });
+  apply();
+})();
+</script>
+</body>
+</html>

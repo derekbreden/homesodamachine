@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Force path</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-08-force-path",
+  "title": "Force path: give the cable its own travel, keep soft stages off the gun",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "A free-body side view. The umbilical bundle pulls on the grip; a constant-force balancer on a gallows can carry its weight; the fine stage is either on the gun side (where the cable pulls on it) or under the work (where nothing pulls). Move the sliders and read what the same cable does to the dot in each case. All forces are placeholders: gun mass and cable force are unknown.",
+  "tags": [
+    "lens",
+    "schematic",
+    "force path",
+    "cable",
+    "balancer",
+    "stiffness",
+    "gun side vs work side"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "the cable eats k_ext/(k_stage + k_ext)",
+    "a soft stage belongs where no cable pulls",
+    "a balancer has no stiffness along the line"
+  ],
+  "how": {
+    "motion": "a fine stage of set stiffness moves the gun or the tube a set amount",
+    "load": "gallows carries the cable via a balancer; holder or stage carries the gun",
+    "reference": "none: this is a force diagram",
+    "observe": "nothing: a load cell on the balancer line is the only sensor suggested",
+    "use": "decide where a soft stage may sit before drawing one"
+  },
+  "software": {
+    "commands": [
+      "fine stage move (mm)"
+    ],
+    "observes": [
+      "balancer line force, if a load cell were fitted"
+    ],
+    "manual": [
+      "setting the balancer",
+      "weighing the cable bundle and gun"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-08-cable-travel.md",
+    "../../explorers/travel/calc/06-holder-and-flexure-stiffness.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+<style>
+  .fp-svg { width: 100%; height: 100%; min-height: 540px; display: block; }
+  .fp-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .fp-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .fp-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .fp-svg .mono { font: 11.5px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Every arrangement in this study has the umbilical and the wire conduit pulling on the gun at the grip base. That pull enters whatever carries the gun, which is the very stage meant to be insensitive to it. This scene draws the <b>force path</b>: the cable’s weight goes down through a <b>balancer</b> to a <b>gallows</b> (green line), or, unbalanced, through the grip into the gun’s support. A <b>fine stage</b> of stiffness k can be on the <b>gun side</b> (the cable pulls on it) or <b>under the work</b> (nothing pulls on it, and its mass does not matter at micron-per-second speeds).</p>' +
+        '<p>Two numbers per case: the <b>constant offset</b> the cable’s residual force leaves (force ÷ stiffness), and the <b>fraction of every commanded move the cable eats</b> (k_cable ÷ (k_stage + k_cable)). A constant-force balancer has no stiffness along its line; the hanging cable still has lateral stiffness and a pendulum term.</p>',
+      carries: '<p>Green: the balancer line, carrying the cable’s weight to the gallows. Dark: what reaches the grip. Purple: the fine stage (a spring, stiffness you set). Slate: the rigid holder and post. The path from load to ground is what to read.</p>',
+      software: '<p>Software commands one stage move. The only sensor suggested is a load cell in the balancer line, which would report cable pull and let the software feed it forward to a gun-side stage. Everything else is manual: weighing the bundle, setting the balancer.</p>',
+      tried: '<p><b>Break 1: unknowns.</b> The bundle mass, its lateral stiffness and the force at the grip are unknown; the sliders are placeholders. <i>Change:</i> hang the bundle from a spring scale in the working pose (Derek).</p>' +
+        '<p><b>Break 2: a soft stage on the gun.</b> A printed flexure of 0.5–4 N/mm under the gun with an armoured cable of 0.1 N/mm eats 2–20 percent of every move and drifts as the cable moves. <i>Change:</i> put the soft stage under the work, or use stiff spring-steel leaves (300 N/mm).</p>' +
+        '<p><b>Break 3: the balancer is not free.</b> A balancer set 10 percent off leaves a residual force; a hanging cable is a pendulum. <i>Change:</i> a long hang, a load cell to read the residual. <i>Leaves:</i> torsion of the fibre (its own idea note).</p>',
+      unresolved: '<p>Bundle weight, stiffness, hysteresis (friction in conduit and armour is not modelled), how the cable leaves the grip, and whether a Prime balancer of the right range exists at useful volume (one low-volume 1–3 kg listing seen). Torsion of the fibre under beam roll is a separate problem.</p>',
+      assumptions: '<ul><li>All masses, stiffnesses and forces are <b>placeholders</b> on sliders. Half the bundle’s weight ends at the grip (simple hung span). Pendulum term F = weight × offset ÷ hang length. Small displacements, linear springs.</li><li>Fibre bend radii 24 / 35 cm <b>[manual]</b> p. 20 are not checked here.</li></ul>',
+    },
+  });
+  const G = 9.81;
+  const W = 1000, H = 700;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'fp-svg', role: 'img', 'aria-label': 'free-body side view of gun, cable, balancer and stage' });
+  app.stageEl.appendChild(svg);
+  app.legend && app.legend([{ role: 'compliant', label: 'balancer line (carries the cable)' }, { role: 'actuated', label: 'fine stage' }, { role: 'fixed', label: 'holder, gallows, bench' }, { role: 'laser', label: 'residual force / dot shift' }]);
+  const g = WK.svg('g', {}); svg.appendChild(g);
+  const T = (x, y, text, cls, anchor) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text }));
+  const line = (x1, y1, x2, y2, stroke, w, dash) => g.appendChild(WK.svg('line', { x1: x1, y1: y1, x2: x2, y2: y2, stroke: stroke, 'stroke-width': w || 2, 'stroke-dasharray': dash || null, 'stroke-linecap': 'round' }));
+  function arrow(x, y, dy, color, label, w) {                    // vertical arrow starting at (x,y), length dy (screen, positive down)
+    if (Math.abs(dy) < 2) return;
+    line(x, y, x, y + dy, color, w || 3);
+    const s = dy > 0 ? 1 : -1; g.appendChild(WK.svg('polygon', { points: [x, y + dy, x - 6, y + dy - 10 * s, x + 6, y + dy - 10 * s].join(' '), fill: color }));
+    if (label) T(x + 10, y + dy / 2 + 4, label, 'small');
+  }
+  function spring(x, y0, y1, color, coils) {                     // vertical zig-zag
+    const n = coils || 8, pts = [[x, y0]]; for (let i = 0; i < n; i++) pts.push([x + (i % 2 ? -9 : 9), y0 + (y1 - y0) * (i + 0.5) / n]); pts.push([x, y1]);
+    g.appendChild(WK.svg('polyline', { points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: color, 'stroke-width': 2.5 }));
+  }
+  function redraw() {
+    while (g.firstChild) g.removeChild(g.firstChild);
+    const m = app.ui.get('mass'), L = app.ui.get('hang'), useB = app.ui.get('bal') === 'on', err = app.ui.get('berr') / 100, kc = app.ui.get('kc') / 1000 /* N/m -> N/mm */,
+      ks = app.ui.get('ks'), kh = app.ui.get('kh'), side = app.ui.get('side'), cmd = app.ui.get('cmd'), mg = app.ui.get('gun');
+    const We = m * G / 2;                                        // share of the bundle's weight that ends at the grip (N)
+    const Fb = useB ? We * (1 + err) : 0;                        // balancer line force (N), set to carry all of We, with an error
+    const Rz = We - Fb;                                          // residual vertical force on the grip (N, + down)
+    const kext = kc + (Math.abs(Rz) + (useB ? Fb : We)) / L;    // lateral stiffness the cable presents (N/mm): bending + pendulum term of the hanging load / hang length
+    // gun side: fine stage stiffness ks carries the gun; work side: rigid holder kh carries the gun, tube on the stage
+    const kGun = side === 'gun' ? 1 / (1 / ks + 1 / kh) : kh;      // gun side: the fine stage sits on the holder (springs in series)
+    const offsetGun = Rz / kGun;                                 // constant vertical offset of the gun (mm) from the residual force
+    const eat = side === 'gun' ? kext / (ks + kext) : 0;         // fraction of a commanded move lost to the cable (gun-side stage only)
+    const moveLost = cmd * eat, moveGot = cmd - moveLost;
+    const perN = 1000 / kGun;                                    // um per newton of cable force at the gun
+    const lat = side === 'gun' ? (kext * cmd) : 0;               // force the cable applies back on the stage after a move (N)
+    // ---- drawing (screen units are schematic)
+    const BY = 600, TX = 300;
+    T(24, 26, 'Side view, schematic. Arrows are not to scale; all forces are placeholders.', 'big');
+    line(60, BY, 940, BY, '#6b7a90', 4);                            // bench
+    // rotator + tube on the work-side stage
+    const stageY = 560;
+    if (side === 'work') { spring(TX + 70, BY, stageY, '#a855f7', 6); g.appendChild(WK.svg('rect', { x: TX - 20, y: stageY - 14, width: 180, height: 14, fill: '#a855f7' })); T(TX + 90, stageY + 42, 'fine stage under the work: k = ' + ks.toFixed(1) + ' N/mm', 'small', 'middle'); }
+    else g.appendChild(WK.svg('rect', { x: TX - 20, y: stageY - 14, width: 180, height: 14, fill: '#6b7a90' }));
+    g.appendChild(WK.svg('rect', { x: TX, y: 420, width: 140, height: stageY - 14 - 420, fill: 'rgba(200,208,218,.15)', stroke: '#c8d0da', 'stroke-width': 2 }));
+    T(TX + 70, 500, 'tube + rotator', 'small', 'middle');
+    // gun on its support: holder post (rigid) with the fine stage spring on the gun side
+    const gx0 = 470, gx1 = 730, gy = 330;
+    g.appendChild(WK.svg('rect', { x: gx0, y: gy, width: gx1 - gx0, height: 44, rx: 6, fill: '#59636f', stroke: '#7d8896' }));
+    line(gx0, gy + 22, gx0 - 26, gy + 34, '#ff3b30', 3);         // nozzle toward the dot
+    g.appendChild(WK.svg('circle', { cx: gx0 - 30, cy: gy + 36, r: 5, fill: '#ff3b30' })); T(gx0 - 36, gy + 60, 'dot', 'small', 'end');
+    const px = 600;
+    if (side === 'gun') { line(px, gy + 44, px, gy + 70, '#a855f7', 6); spring(px, gy + 70, 555, '#a855f7', 8); g.appendChild(WK.svg('rect', { x: px - 60, y: 555, width: 120, height: 18, fill: '#6b7a90' })); line(px, 573, px, BY, '#6b7a90', 12); T(px - 24, 470, 'fine stage on the gun: k = ' + ks.toFixed(1) + ' N/mm', 'small', 'end'); }
+    else { line(px, gy + 44, px, BY, '#6b7a90', 14); T(px - 24, 470, 'rigid holder: k = ' + kh + ' N/mm', 'small', 'end'); }
+    T((gx0 + gx1) / 2, gy - 10, 'gun in shell (' + mg.toFixed(1) + ' kg, placeholder)', 'small', 'middle');
+    arrow((gx0 + gx1) / 2 - 40, gy + 46, 0, '#7d8896');
+    // gallows, hanger, cable, balancer
+    line(880, BY, 880, 150, '#6b7a90', 10); line(880, 150, 800, 150, '#6b7a90', 8);
+    const hx = 800, hy = 158, cx = gx1, cy = gy + 22;
+    g.appendChild(WK.svg('path', { d: 'M' + cx + ' ' + cy + ' C ' + (cx + 60) + ' ' + (cy + 20) + ', ' + (hx - 20) + ' ' + (hy + 120) + ', ' + hx + ' ' + hy, fill: 'none', stroke: '#30343b', 'stroke-width': 9, 'stroke-linecap': 'round' }));
+    T(hx + 6, hy - 12, 'hanger (gallows)', 'small');
+    if (useB) { const clipX = 752, clipY = 262; g.appendChild(WK.svg('circle', { cx: clipX, cy: clipY, r: 6, fill: '#4ade80' })); line(clipX, clipY, hx - 24, hy + 10, '#4ade80', 3); T(hx - 96, 215, 'balancer line', 'small'); }
+    // arrows: cable weight at the grip (down), balancer up, residual on the grip
+    arrow(cx + 14, cy + 30, 30 + We * 10 * 0.5, '#7d8896', '');
+    T(cx + 24, cy + 120, We.toFixed(1) + ' N cable weight at the grip (grey, down)', 'small');
+    if (useB) { arrow(cx + 44, cy + 92, -(Fb * 10 * 0.5) - 6, '#4ade80', ''); T(cx + 24, cy + 138, Fb.toFixed(1) + ' N carried by the balancer (green, up)', 'small'); }
+    arrow(cx - 40, cy + 30, Math.max(-60, Math.min(60, Rz * 12)), '#ff3b30', '', 4);
+    T(gx0 + 110, gy - 30, Math.abs(Rz).toFixed(2) + ' N residual on the grip (red, ' + (Rz >= 0 ? 'down' : 'up') + ')', 'small');
+    // readouts panel
+    const x0 = 24, y0 = 52;
+    T(x0, y0, 'residual force on the grip ' + Rz.toFixed(2) + ' N;  cable presents ' + (kext * 1000).toFixed(0) + ' N/m of lateral stiffness (bending ' + (kc * 1000).toFixed(0) + ' + hang term)', 'mono');
+    T(x0, y0 + 20, 'stage carrying the gun (' + (side === 'gun' ? 'fine stage' : 'rigid holder') + '): ' + kGun.toFixed(1) + ' N/mm -> constant dot offset ' + (offsetGun * 1000).toFixed(1) + ' um;  ' + perN.toFixed(1) + ' um per newton', 'mono');
+    T(x0, y0 + 40, side === 'gun' ? 'commanded move ' + cmd.toFixed(2) + ' mm -> delivered ' + moveGot.toFixed(3) + ' mm (cable eats ' + (eat * 100).toFixed(1) + ' percent, ' + (moveLost * 1000).toFixed(0) + ' um); cable pushes back ' + lat.toFixed(2) + ' N' : 'commanded move ' + cmd.toFixed(2) + ' mm applied to the tube: the cable does not see it', 'mono');
+    app.badge('soft', (side === 'gun' && eat > 0.1) ? 'the cable eats ' + (eat * 100).toFixed(0) + ' percent of every gun-side move: stage is too soft for the cable' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Fine stage move', value: cmd.toFixed(2), unit: 'mm', note: side === 'gun' ? 'gun side: fights the cable' : 'work side: no cable force' }],
+      observes: [
+        { name: 'Balancer line force', value: useB ? Fb.toFixed(2) : '-', unit: useB ? 'N' : '', status: useB ? 'partly' : 'blind', note: 'only if a load cell is fitted in the line (proposal, not in the drawing)' },
+        { name: 'Cable weight, stiffness, hysteresis', value: '-', status: 'unresolved', note: 'unmeasured: sliders are placeholders' },
+        { name: 'Delivered move', value: moveGot.toFixed(3), unit: 'mm', status: 'partly', note: 'stage position from step count would say ' + cmd.toFixed(3) + '; the difference is invisible without a dot sensor' },
+      ],
+      manual: ['Weigh the bundle and the gun', 'Set the balancer'],
+    });
+  }
+  const c1 = app.ui.group('Placeholders (scene edits)', { help: 'Not measured. Gun mass, bundle mass and stiffness are unknown.' });
+  c1.slider({ id: 'mass', label: 'Cable bundle mass, grip to first support', min: 0.2, max: 3, step: 0.1, value: 1.0, unit: 'kg', kind: 'scene', onChange: redraw });
+  c1.slider({ id: 'hang', label: 'Hang length', min: 200, max: 900, step: 10, value: 400, unit: 'mm', kind: 'scene', help: 'Pendulum term: weight x offset / length.', onChange: redraw });
+  c1.slider({ id: 'kc', label: 'Cable lateral stiffness at the grip', min: 0, max: 400, step: 5, value: 100, unit: 'N/m', kind: 'scene', help: 'Bending of armoured fibre and conduit: unknown.', onChange: redraw });
+  c1.slider({ id: 'gun', label: 'Gun mass', min: 0.4, max: 3, step: 0.1, value: 1.0, unit: 'kg', kind: 'scene', onChange: redraw });
+  const c2 = app.ui.group('Compare variants');
+  c2.radio({ id: 'bal', label: 'Balancer', options: [{ value: 'on', label: 'constant-force balancer on' }, { value: 'off', label: 'none (cable hangs on the grip)' }], value: 'on', kind: 'branch', onChange: redraw });
+  c2.slider({ id: 'berr', label: 'Balancer setting error', min: -30, max: 30, step: 1, value: 10, unit: '%', kind: 'scene', help: 'Set 10 percent low or high of the weight it should carry.', onChange: redraw });
+  c2.radio({ id: 'side', label: 'Fine stage on', options: [{ value: 'gun', label: 'the gun side' }, { value: 'work', label: 'the work side' }], value: 'gun', kind: 'branch', onChange: redraw });
+  const c3 = app.ui.group('The stage (proposed)');
+  c3.slider({ id: 'ks', label: 'Fine stage stiffness', min: 0.5, max: 300, step: 0.5, value: 4, unit: 'N/mm', kind: 'actuator', help: '0.5–4: printed flexure. 300: spring-steel leaves (calc/06).', onChange: redraw });
+  c3.slider({ id: 'kh', label: 'Rigid holder stiffness (work-side case)', min: 20, max: 500, step: 5, value: 100, unit: 'N/mm', kind: 'scene', onChange: redraw });
+  c3.slider({ id: 'cmd', label: 'Commanded move', min: -0.5, max: 0.5, step: 0.01, value: 0.3, unit: 'mm', kind: 'actuator', onChange: redraw });
+})();
+</script>
+</body>
+</html>

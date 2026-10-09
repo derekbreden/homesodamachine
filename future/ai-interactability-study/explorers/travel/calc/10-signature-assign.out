@@ -1,0 +1,31 @@
+A. Who takes which term (illustrative amplitudes from datum-02's default tube; rms of a sinusoid is amplitude / sqrt 2; peak is the in-phase worst case)
+
+   nothing (as hand-aimed, uncompensated)                     radial rms 0.223 peak<= 0.38   vertical rms 0.185 peak<= 0.33   both rms 0.290   (the scene says 0.29)
+   static trim: one number per axis per tube (hand, shim, or a stage set once) radial rms 0.098 peak<= 0.18   vertical rms 0.108 peak<= 0.18   both rms 0.146
+     + radial 1x taken out at its source (nest screws, travel-06: 90 percent) radial rms 0.037 peak<= 0.06   vertical rms 0.108 peak<= 0.18   both rms 0.114
+     + vertical 1x by a Z follow under the work (95 percent)  radial rms 0.037 peak<= 0.06   vertical rms 0.022 peak<= 0.04   both rms 0.043
+     + 2x terms replayed too (all terms, ideal)               radial rms 0.000 peak<= 0.00   vertical rms 0.000 peak<= 0.00   both rms 0.000   (fit noise leaves about 0.022 in the scene)
+
+   So: the constant terms are two thirds of the uncompensated rms (0.29 -> 0.15 by a static trim). Against a window of +-0.30 mm the static trim alone leaves
+   the dot inside the window everywhere (peaks 0.18 radial, 0.18 vertical); a replay stage earns its place only when the window is below about 0.2 mm, and
+   then it is the vertical axis that is needed first (the 1x face wobble cannot be taken out by any screw in the nest).
+
+B. The hold between the dry turn and the weld turn. The replay applies the dry-turn constant term; anything that moves the gun relative to the room between
+   the two turns adds a constant the fit never saw. Error = change of force x compliance of the chain from gun to room. Change of force: [unknown]
+   (wire feeder starting and its conduit, gas hose, fibre emitting, hands off). Compliance per newton from calc/06:
+   holder                                                                            0.3 N     1 N       3 N   (mm of constant error)
+   20 mm steel rod, 300 mm, bolted                                                      0.002    0.006    0.017
+   12 mm steel rod, 300 mm, bolted                                                      0.013    0.044    0.133
+   12 mm aluminium rod, 300 mm                                                          0.038    0.128    0.384
+   (A friction-locked joint is not a spring: calc/06 B gives 0.087 mm for 0.02 degree of creep at a 250 mm lever, whatever the force.)
+   Compare with the fit residual, 0.022 rms: a 1 N change against a 12 mm steel rod is twice that and the same sign every lap.
+   A stage carried in the gun's shell is in series with the holder: add its stiffness. A 20 N/mm stage gives 0.05 mm per newton on top of the holder.
+
+   Requirement to keep the parity error under 0.02 mm at a 1 N change: chain compliance under 20 um/N, i.e. stiffer than 50 N/mm gun-to-room, stage included.
+
+C. Backlash on a horizontal axis. The replay reverses at the peaks of a sinusoid. With a backlash b in the stage and no preload (a horizontal axis has no gravity),
+   the load sits on one flank and lags the command by up to b at each reversal: the swing is b peak to peak, so b/2 either side once the mean is trimmed:
+   backlash 0.02 mm -> residual amplitude 0.010 mm, rms 0.010 mm (radial 1x + 2x terms replayed)
+   backlash 0.05 mm -> residual amplitude 0.025 mm, rms 0.024 mm (radial 1x + 2x terms replayed)
+   backlash 0.10 mm -> residual amplitude 0.050 mm, rms 0.046 mm (radial 1x + 2x terms replayed)
+   A vertical axis is loaded one way by the gun's (or the rotator's) weight and does not see this; a horizontal one wants a light spring preload or a flexure.

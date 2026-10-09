@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The dot as a touch probe</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .tp-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(240px, 1fr); gap: 12px; align-items: start; }
+  @container tpstage (max-width: 760px) { .tp-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: tpstage; }
+  .tp-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .tp-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .tp-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .tp-col { display: grid; gap: 10px; align-content: start; }
+  .tp-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @container tpstage (max-width: 560px) { .tp-two { grid-template-columns: 1fr; } }
+  .tp-svg { display: block; width: 100%; height: auto; }
+  .tp-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .tp-svg text.b { fill: #e7ebf1; font-weight: 600; }
+  .tp-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .tp-svg text.red { fill: #ff8a80; } .tp-svg text.blue { fill: #7fb0ff; } .tp-svg text.teal { fill: #5eead4; } .tp-svg text.amber { fill: #fbbf24; }
+  .tp-status { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--wk-muted); padding: 4px 4px 0; }
+  .tp-status b { color: var(--wk-text); font-weight: 600; }
+  .tp-result { font-size: 12.5px; color: #cfd6e2; padding: 6px 8px; line-height: 1.45; }
+  .tp-result b { color: #fff; } .tp-result .k { color: var(--wk-faint); }
+  .tp-result .bad { color: var(--lvl-warn); }
+  .tp-note { font-size: 11px; color: var(--wk-faint); padding: 2px 6px 0; font-style: italic; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-03-dot-touch-probe",
+  "title": "The dot as a touch probe",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Sweep the gun one axis at a time and watch what the red dot does at the recessed corner: where its image stops moving, how much of it survives, how sharp it is, and whether the plate throws a second spot up the wall that works as a ruler. One axis and one camera could find the seam in axis coordinates.",
+  "tags": ["lens", "dot probe", "one axis", "observe", "trial", "2D section"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["dot as touch-off probe", "dot size as standoff meter", "specular ruler on the wall", "unidirectional scan"],
+  "how": {
+    "motion": "one radial gun axis (a height axis for the second sweep); any positioner, none chosen here",
+    "load": "nothing modelled: the positioner is unspecified",
+    "reference": "the corner itself: the sweep finds the wall in axis coordinates",
+    "observe": "camera A over the bore (line of sight off vertical), camera B from the far rim (proposed)",
+    "use": "per-tube seam finding before a dry run or weld; also a rig self-test"
+  },
+  "software": {
+    "commands": ["gun radial axis (step 0.05 mm)", "gun height axis", "start/stop a sweep"],
+    "observes": ["dot centroid and visible fraction in camera A", "dot size (standoff meter)", "second-spot height in camera B", "knee position in axis coordinates"],
+    "manual": ["rough setup so the dot lands on the plate", "camera A's line of sight and the seam foot's place in its picture (from the rim and ports, datum-19)", "confirming the reflection exists on the real plate"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-03-dot-touch-probe.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg;
+  const RAD = Math.PI / 180, RIM = 6.35, WT = 1.65, PT = 6.35;
+
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The gun is moved along <b>one axis at a time</b> while the red reference dot sits in the recessed corner. Nothing else is needed to learn something about the tube: the wall is a hard edge for the dot. As the dot crosses the seam it climbs the wall, and from above (camera A) the part of it on the plate <i>vanishes</i>. The axis value where half the dot is gone is the wall position in the software\'s own coordinates. That is a touch probe made of light.</p>' +
+        '<p>Three extra signals ride on the same dot. <b>Spot size</b> is smallest at focus, so a height sweep gives the plate height (the standoff meter). If the plate is mirror-like, the plate <b>reflects</b> the dot as a second spot up the wall; its height above the seam is a ruler for how far the dot still is from the corner (camera B). The sign of the height error is ambiguous at the focus, so the software dithers.</p>' +
+        '<p>The beam comes from inside the bore over the plate, as in the reference corner inset. Scene geometry is exact; what the cameras <i>would</i> see is drawn from an explicit, simple model (see Assumptions).</p>',
+      carries: '<p>Not modelled: any positioner that moves the gun radially by fractions of a millimetre will do, and the tangent slide costs almost nothing (0.008 mm per mm at r = 61.85 mm). The idea needs a motion axis and a way to read it (step count is enough for a sweep), not a particular arm.</p>',
+      tried: '<ul>' +
+        '<li><b>Beam from outside the bore.</b> A beam arriving over the rim from outside cannot reach the corner once it is steeper than atan(1.65 / 6.35) = 14.6° from vertical (rim shadow, [derived] from the 1.65 mm wall and 6.35 mm recess). The dot from inside has no such limit, so the probe assumes the inside approach. Assumption behind it: the gun body can stand over the bore. What it leaves open: the inside approach puts the barrel across the bore.</li>' +
+        '<li><b>Height error looks like radial error.</b> Raising the gun moves the dot along the plate by tan β per mm (0.62 mm per mm at 32°), so the plate-only image cannot separate them. Repair: the second signal, spot size, depends on height alone. Not repaired: near focus the size curve is flat, so the software has to dither in height and compare.</li>' +
+        '<li><b>Wall hits are invisible from straight above, not from a camera over the bore.</b> Straight down over the station the wall spot is edge-on and the dot vanishes at the seam. A camera over the bore centre looks at the wall face at atan(61.85 / H) (11.6° at 300 mm, 22° at 150): the wall part of the dot then shows in a strip 6.35 tan ψ wide beyond the seam foot (1.30 mm at 11.6°), foreshortened, and the total visible fraction stays near 100 % through the crossing. The plate side of the seam foot still falls to 50 % when the dot\'s centre is on the seam (calc/knee_view_angle.py), so the knee is unchanged <i>if the software knows where the seam foot is in the picture</i>; without that line the centroid of everything visible bends from slope 1 to 0.33 over about 0.7 mm and the knee is hard to call. The rim edge is 6.35 tan ψ from the seam foot in the image: reading the dot against the rim edge is wrong by that (datum, wave 2). Repair: the seam foot\'s image position from the rim and ports fit (datum-19), or a camera over the station; camera B or the reflection ruler still gives the wall spot height, only if the plate is specular. Try the ψ slider.</li>' +
+        '<li><b>Try it.</b> Raise the spot size and see the knee round off; set the plate to matte and see the ruler vanish; lower camera B and see the gun body block it.</li></ul>',
+      unresolved: '<ul><li>What the dot actually looks like at the 316L corner (size at focus, brightness under shop light, whether the plate face is specular enough to throw a second spot) is <b>[unknown]</b>. A photograph with a phone at a few heights would answer most of it.</li>' +
+        '<li>Where the seam foot is in camera A\'s picture. Straight above the station it is where the dot vanishes; from a camera over the bore it has to come from the tube\'s own rim and ports (datum-19), whose fit has not been run on a real frame <b>[unknown]</b>.</li>' +
+        '<li>Whether the dot can be switched or blinked by software (which would allow frame-differencing against glare) depends on the laser box\'s RS232 protocol, which the manual pages here do not give <b>[unknown]</b>.</li>' +
+        '<li>How the dot relates to where the infrared beam melts is not a dry-run quantity: it needs a witness mark. The probe finds the dot, not the melt.</li></ul>',
+      assumptions: '<ul><li>Recess 6.35 mm and wall 1.65 mm are the repo\'s numbers <b>[repo]</b>. Beam 32° from vertical and 16 mm nozzle-to-dot are the reference scene\'s illustrative values <b>[illustrative]</b>.</li>' +
+        '<li>Spot diameter d = d0 · sqrt(1 + ((s − 16)/4)²), d0 = 0.5 mm: a Rayleigh-style curve <b>[illustrative]</b>; nobody has measured the dot.</li>' +
+        '<li>Camera A reports the part of the dot on the plate side of the seam foot, a line whose image position is assumed known (from the rim and ports fit, datum-19); the wall part appears foreshortened in the wall-face strip when its line of sight is off vertical (default 11.6°, a camera 300 mm over the bore centre). Camera B sees the wall face at a shallow angle; its blocking test is a 2D line against the drawn barrel, with no optics, glare or fume.</li>' +
+        '<li>Mirror: the reflected spot is the specular image of the plate hit. Satin: 30 % as bright and blurred. Matte: none. All illustrative.</li>' +
+        '<li>"Software\'s reading" adds Gaussian noise of the chosen size to the values; the truth in the scene is exact and hidden from the estimators.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ model
+  const st = { beta: 32, f: 16, d0: 0.5, zR: 4, tubeOff: 1.2, plateOff: 0.8, noise: 0.04, surface: 'mirror', hB: 60, xg: -1.5, zg: 0, plot: 'radial', psi: 11.6 };
+  let last = null, lastValid = null;
+  const randn = (function () { let s = 12345; const u = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; return () => Math.sqrt(-2 * Math.log(1 - u())) * Math.cos(2 * Math.PI * u()); })();
+
+  // first surface hit of a ray from (r0,z0) travelling (sin b, -cos b): plate, wall, rim top, or outside
+  function cast(r0, z0, b) {
+    const sb = Math.sin(b), cb = Math.cos(b), c = [];
+    if (z0 > 0) { const t = z0 / cb, r = r0 + t * sb; if (r <= 0) c.push({ kind: 'plate', r: r, z: 0, t: t }); }
+    if (r0 < 0) { const t = -r0 / sb, z = z0 - t * cb; if (z >= 0 && z <= RIM) c.push({ kind: 'wall', r: 0, z: z, t: t }); }
+    if (z0 > RIM) { const t = (z0 - RIM) / cb, r = r0 + t * sb; if (r >= 0 && r <= WT) c.push({ kind: 'rim', r: r, z: RIM, t: t }); }
+    if (!c.length) return { kind: 'outside', r: null, z: null, t: null };
+    c.sort((x, y) => x.t - y.t); return c[0];
+  }
+  // barrel zones of the proxy gun (local L back from the nozzle tip, half-width w), kit proxy dimensions
+  const ZONES = [[0, 23, 2.2, 5], [23, 54, 8.5, 8.5], [54, 100, 5.5, 5.5], [100, 118, 12, 12], [118, 253, 17, 17]];
+  function gunPolys(N, b) {
+    const sb = Math.sin(b), cb = Math.cos(b), eb = [-sb, cb], nn = [cb, sb];
+    const P = (L, w) => [N.r + L * eb[0] + w * nn[0], N.z + L * eb[1] + w * nn[1]];
+    return ZONES.map(z => [P(z[0], -z[2]), P(z[0], z[2]), P(z[1], z[3]), P(z[1], -z[3])]);
+  }
+  function inPoly(p, poly) { let s = 0; for (let i = 0; i < poly.length; i++) { const a = poly[i], c = poly[(i + 1) % poly.length], cr = (c[0] - a[0]) * (p[1] - a[1]) - (c[1] - a[1]) * (p[0] - a[0]); if (Math.abs(cr) > 1e-12) { const sg = cr > 0 ? 1 : -1; if (s && sg !== s) return false; s = sg; } } return true; }
+  function polysHit(a, b) {
+    for (const poly of [a, b]) for (let i = 0; i < poly.length; i++) {
+      const p = poly[i], q = poly[(i + 1) % poly.length], ax = [q[1] - p[1], p[0] - q[0]];
+      let a0 = 1e9, a1 = -1e9, b0 = 1e9, b1 = -1e9;
+      a.forEach(v => { const d = v[0] * ax[0] + v[1] * ax[1]; a0 = Math.min(a0, d); a1 = Math.max(a1, d); });
+      b.forEach(v => { const d = v[0] * ax[0] + v[1] * ax[1]; b0 = Math.min(b0, d); b1 = Math.max(b1, d); });
+      if (a1 < b0 || b1 < a0) return false;
+    }
+    return true;
+  }
+  const OBST = [[[0, -12], [WT, -12], [WT, RIM], [0, RIM]], [[-80, -PT], [0, -PT], [0, 0], [-80, 0]]];
+  function collides(polys) { return polys.some(p => OBST.some(o => polysHit(p, o))); }
+  function segBlocked(p0, p1, polys) {
+    for (let i = 1; i < 160; i++) { const t = i / 160, p = [p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t]; if (polys.some(q => inPoly(p, q))) return true; }
+    return false;
+  }
+  const camB = () => [-126, RIM + st.hB];
+  // Camera B image coordinate (vertical axis only): distance along the image "up" direction from the reference point (0, 3)
+  function bAxis() { const B = camB(), T = [0, 3], dx = T[0] - B[0], dz = T[1] - B[1], L = Math.hypot(dx, dz), d = [dx / L, dz / L]; return { B: B, T: T, d: d, n: [-d[1], d[0]] }; }
+  const bV = (p, ax) => (p[0] - ax.T[0]) * ax.n[0] + (p[1] - ax.T[1]) * ax.n[1];
+
+  function sim(xg, zg) {
+    const b = st.beta * RAD, sb = Math.sin(b), cb = Math.cos(b), tb = sb / cb;
+    const N = { r: -st.f * sb + (xg - st.tubeOff), z: st.f * cb + zg + st.plateOff };
+    const polys = gunPolys(N, b);
+    const o = { N: N, b: b, polys: polys, collide: collides(polys) };
+    const cen = cast(N.r, N.z, b);
+    const s = cen.t == null ? st.f : cen.t;
+    o.center = cen; o.s = cen.t; o.standoff = cen.t == null ? null : s - st.f;
+    o.d = cen.t == null ? st.d0 : st.d0 * Math.sqrt(1 + Math.pow((s - st.f) / st.zR, 2));
+    const n = 25, plate = [], wall = [], rim = [], outside = [];
+    o.rays = [];
+    for (let i = 0; i < n; i++) {
+      const off = (i / (n - 1) - 0.5) * o.d, r0 = N.r + off * cb, z0 = N.z + off * sb, hit = cast(r0, z0, b);
+      hit.r0 = r0; hit.z0 = z0; o.rays.push(hit);
+      (hit.kind === 'plate' ? plate : hit.kind === 'wall' ? wall : hit.kind === 'rim' ? rim : outside).push(hit);
+    }
+    o.frac = plate.length / n; o.plate = plate; o.wall = wall; o.rim = rim; o.outsideN = outside.length;
+    o.centroidA = plate.length ? plate.reduce((a, r) => a + r.r, 0) / plate.length : null;
+    o.wallZ = wall.length ? wall.reduce((a, r) => a + r.z, 0) / wall.length : null;
+    // distance of the dot's centre from the seam (positive = still on the plate, this many mm short of the wall)
+    o.a = cen.kind === 'plate' ? -cen.r : (cen.kind === 'wall' ? -cen.z / tb : null);
+    // specular reflection off the plate: each plate ray reflects toward +r and up
+    o.sec = [];
+    if (st.surface !== 'matte') plate.forEach(p => { const zr = -p.r / tb; if (zr <= RIM) o.sec.push({ r: 0, z: zr, from: p.r }); });
+    o.secZ = o.sec.length ? o.sec.reduce((a, r) => a + r.z, 0) / o.sec.length : null;
+    o.secFrac = plate.length ? o.sec.length / n : 0;
+    o.secBright = (st.surface === 'mirror' ? 0.9 : 0.3) * o.secFrac;
+    // camera B visibility
+    const ax = bAxis(); o.ax = ax;
+    const seeB = p => !segBlocked(ax.B, p, polys);
+    o.bSeesPlate = plate.length ? seeB([o.centroidA, 0]) : false;
+    o.bSeesWall = wall.length ? seeB([0, o.wallZ]) : false;
+    o.bSeesSec = o.sec.length ? seeB([0, o.secZ]) : false;
+    o.bSeesSeam = seeB([0, 0]);
+    return o;
+  }
+
+  // ------------------------------------------------------------------ main section drawing
+  const VBW = 620, VBH = 384, R0 = -32, Z0 = -8, SC = 12.4, PX0 = 12;
+  const X = r => PX0 + (r - R0) * SC, Y = z => VBH - 14 - (z - Z0) * SC;
+  const main = S('svg', { viewBox: '0 0 ' + VBW + ' ' + VBH, class: 'tp-svg', role: 'img', 'aria-label': 'section through the recessed corner with gun, beam and dot' });
+  const gGrid = S('g'), gStatic = S('g'), gGun = S('g'), gBeam = S('g'), gCam = S('g'), gLab = S('g');
+  main.append(S('rect', { x: 0, y: 0, width: VBW, height: VBH, fill: '#0f141b', rx: 6 }), gGrid, gStatic, gGun, gBeam, gCam, gLab);
+  for (let r = -30; r <= 15; r += 5) { gGrid.append(S('line', { x1: X(r), y1: 8, x2: X(r), y2: VBH - 14, stroke: '#1e2733' }), S('text', { x: X(r), y: VBH - 3, 'text-anchor': 'middle', class: 'sm', text: r })); }
+  for (let z = -5; z <= 20; z += 5) { gGrid.append(S('line', { x1: PX0, y1: Y(z), x2: VBW - 6, y2: Y(z), stroke: '#1e2733' }), S('text', { x: 3, y: Y(z) + 3, class: 'sm', text: z })); }
+  gGrid.append(S('text', { x: VBW - 8, y: VBH - 16, 'text-anchor': 'end', class: 'sm', text: 'r (mm), + toward the wall' }));
+  // plate, wall
+  gStatic.append(S('rect', { x: X(R0), y: Y(0), width: X(0) - X(R0), height: PT * SC, fill: '#8e98a6' }),
+    S('rect', { x: X(0), y: Y(RIM), width: WT * SC, height: (RIM + 8) * SC, fill: WK.roleHex('work') }),
+    S('circle', { cx: X(0), cy: Y(0), r: 3.2, fill: WK.roleHex('locate') }),
+    S('text', { x: X(0) + 8, y: Y(0) + 15, class: 'teal', text: 'seam' }),
+    S('text', { x: X(-31), y: Y(-3), class: 'sm', fill: '#0f141b', text: 'plate 6.35' }),
+    S('text', { x: X(WT) + 5, y: Y(-4), class: 'sm', text: 'wall 1.65' }),
+    S('text', { x: X(WT) + 6, y: Y(RIM) + 4, class: 'sm', text: 'rim (6.35 above the plate)' }));
+  const gunPolyEls = ZONES.map((z, i) => { const p = S('polygon', { fill: '#59636f', stroke: '#8896a8', 'stroke-width': 1, 'fill-opacity': i === 4 ? 0.55 : 0.92 }); gGun.appendChild(p); return p; });
+  const beamLine = S('line', { stroke: WK.roleHex('laser'), 'stroke-width': 1.6, 'stroke-dasharray': '5 3' });
+  const edgeL1 = S('line', { stroke: WK.roleHex('laser'), 'stroke-width': 0.7, opacity: 0.55 }), edgeL2 = S('line', { stroke: WK.roleHex('laser'), 'stroke-width': 0.7, opacity: 0.55 });
+  const spotPlate = S('line', { stroke: '#ff5a4d', 'stroke-width': 5, 'stroke-linecap': 'round' });
+  const spotWall = S('line', { stroke: '#ff5a4d', 'stroke-width': 5, 'stroke-linecap': 'round' });
+  const spotRim = S('line', { stroke: '#ff5a4d', 'stroke-width': 5, 'stroke-linecap': 'round' });
+  const refl = S('line', { stroke: '#ff9d94', 'stroke-width': 1.3, 'stroke-dasharray': '3 3' });
+  const secSpot = S('ellipse', { rx: 3, ry: 4.5, fill: '#ffb3ab' });
+  const nozzleDot = S('circle', { r: 2.4, fill: '#dbe3ee' });
+  gBeam.append(edgeL1, edgeL2, beamLine, refl, spotPlate, spotWall, spotRim, secSpot, nozzleDot);
+  // truth markers (hidden from the software)
+  const truthSeam = S('line', { stroke: '#f0abfc', 'stroke-width': 1, 'stroke-dasharray': '2 4' });
+  // camera A icon and lines
+  const camA = S('g'); gCam.appendChild(camA);
+  camA.append(S('rect', { x: X(-5) - 16, y: 10, width: 32, height: 18, rx: 3, fill: WK.roleHex('sensor') }), S('circle', { cx: X(-5), cy: 32, r: 5, fill: '#1e3a8a', stroke: '#93c5fd' }),
+    S('text', { x: X(-5) + 22, y: 24, class: 'blue', text: 'camera A: above the bore, 11.6° off vertical' }));
+  const camALab = camA.lastChild;
+  const aRay = S('line', { stroke: WK.roleHex('sensor'), 'stroke-width': 1, 'stroke-dasharray': '2 3', opacity: 0.8 });
+  const aRay2 = S('line', { stroke: WK.roleHex('sensor'), 'stroke-width': 1, 'stroke-dasharray': '2 3', opacity: 0.5 });
+  const rimApp = S('g'); rimApp.append(S('line', { x1: 0, y1: -6, x2: 0, y2: 6, stroke: '#fbbf24', 'stroke-width': 2.4 }));
+  gCam.append(aRay, aRay2, rimApp);
+  const bIcon = S('g'); gCam.appendChild(bIcon);
+  bIcon.append(S('rect', { x: -16, y: -10, width: 32, height: 20, rx: 3, fill: WK.roleHex('sensor') }), S('circle', { cx: 19, cy: 0, r: 6, fill: '#1e3a8a', stroke: '#93c5fd' }));
+  const bLab = S('text', { class: 'blue', text: '' }); gCam.appendChild(bLab);
+  const bRay1 = S('line', { stroke: WK.roleHex('sensor'), 'stroke-width': 1, 'stroke-dasharray': '2 3', opacity: 0.85 }), bRay2 = S('line', { stroke: WK.roleHex('sensor'), 'stroke-width': 1, 'stroke-dasharray': '2 3', opacity: 0.85 });
+  gCam.append(bRay1, bRay2);
+  const gunLab = S('text', { class: 'sm', text: 'gun barrel (proxy profile)' });
+  const kneeMark = S('g'); gLab.append(gunLab, kneeMark);
+
+  // ------------------------------------------------------------------ side panels
+  const aSvg = S('svg', { viewBox: '0 0 300 134', class: 'tp-svg', role: 'img', 'aria-label': 'camera A one-dimensional view' });
+  const bSvg = S('svg', { viewBox: '0 0 300 156', class: 'tp-svg', role: 'img', 'aria-label': 'camera B vertical view of the wall' });
+  const p1Svg = S('svg', { viewBox: '0 0 300 138', class: 'tp-svg', role: 'img', 'aria-label': 'sweep record: camera A signals' });
+  const p2Svg = S('svg', { viewBox: '0 0 300 138', class: 'tp-svg', role: 'img', 'aria-label': 'sweep record: spot size and ruler' });
+  const RES0 = '<span class="k">Press <b>Run the sweep</b>: the software steps one axis, reads the cameras (with the noise you set) and reports what it concludes, next to the hidden truth.</span>';
+  const status = h('div', { class: 'tp-status' });
+  const result = h('div', { class: 'tp-result', html: '<span class="k">Press <b>Run the sweep</b>: the software steps one axis, reads the cameras (with the noise you set) and reports what it concludes, next to the hidden truth.</span>' });
+  const note = h('div', { class: 'tp-note', text: 'Scene geometry is exact. Panels A and B show what a proposed camera would be given by the drawn model, with the noise set below; they are not measurements.' });
+  const mainCard = h('div', { class: 'tp-card' }, h('h3', {}, h('span', { text: 'Recessed corner in section' }), h('em', { text: 'exact scene geometry · beam from inside the bore' })), main, status, note);
+  const colA = h('div', { class: 'tp-card' }, h('h3', {}, h('span', { text: 'Camera A image (1-D, along r)' }), h('em', { text: 'proposed · model' })), aSvg);
+  const colB = h('div', { class: 'tp-card' }, h('h3', {}, h('span', { text: 'Camera B image (up = along wall)' }), h('em', { text: 'proposed · model' })), bSvg);
+  const plotsCard = h('div', { class: 'tp-card' }, h('h3', {}, h('span', { text: 'Sweep record (ideal curves; a run adds samples)' }), h('em', { id: 'plotname', text: '' })), h('div', { class: 'tp-two' }, p1Svg, p2Svg));
+  const resCard = h('div', { class: 'tp-card' }, h('h3', {}, h('span', { text: 'What the software concludes' }), h('em', { text: 'from the noisy readings only' })), result);
+  app.stageEl.appendChild(h('div', { class: 'tp-grid' }, h('div', { class: 'tp-col' }, mainCard, plotsCard), h('div', { class: 'tp-col' }, colA, colB, resCard)));
+
+  // ------------------------------------------------------------------ redraw
+  const pt = (o, r, z) => [X(r), Y(z)];
+  function setLine(el, x1, y1, x2, y2) { el.setAttribute('x1', x1); el.setAttribute('y1', y1); el.setAttribute('x2', x2); el.setAttribute('y2', y2); }
+  const fmt = (v, d) => v == null || !isFinite(v) ? '–' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 2 : d);
+
+  function drawMain(o) {
+    o.polys.forEach((p, i) => gunPolyEls[i].setAttribute('points', p.map(q => X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join(' ')));
+    const b = o.b, sb = Math.sin(b), cb = Math.cos(b);
+    const c = o.center, endR = c.r == null ? o.N.r + 90 * sb : c.r, endZ = c.z == null ? o.N.z - 90 * cb : c.z;
+    setLine(beamLine, X(o.N.r), Y(o.N.z), X(endR), Y(endZ));
+    nozzleDot.setAttribute('cx', X(o.N.r)); nozzleDot.setAttribute('cy', Y(o.N.z));
+    const r1 = o.rays[0], r2 = o.rays[o.rays.length - 1];
+    const e = (ry, el) => { if (ry.kind === 'outside') setLine(el, X(ry.r0), Y(ry.z0), X(ry.r0 + 90 * sb), Y(ry.z0 - 90 * cb)); else setLine(el, X(ry.r0), Y(ry.z0), X(ry.r), Y(ry.z)); };
+    e(r1, edgeL1); e(r2, edgeL2);
+    // spot footprints
+    const seg = (el, pts, ax) => { if (!pts.length) { el.setAttribute('visibility', 'hidden'); return; } el.setAttribute('visibility', 'visible'); const v = pts.map(q => q[ax]); const lo = Math.min.apply(null, v), hi = Math.max.apply(null, v); if (ax === 0) setLine(el, X(lo), Y(0), X(hi), Y(0)); else setLine(el, X(0), Y(lo), X(0), Y(hi)); };
+    seg(spotPlate, o.plate.map(q => [q.r, q.z]), 0);
+    seg(spotWall, o.wall.map(q => [q.r, q.z]), 1);
+    if (o.rim.length) { const v = o.rim.map(q => q.r); spotRim.setAttribute('visibility', 'visible'); setLine(spotRim, X(Math.min.apply(null, v)), Y(RIM), X(Math.max.apply(null, v)), Y(RIM)); } else spotRim.setAttribute('visibility', 'hidden');
+    // reflection
+    if (o.sec.length && st.surface !== 'matte') {
+      const p0 = [o.centroidA, 0]; refl.setAttribute('visibility', 'visible'); setLine(refl, X(p0[0]), Y(0), X(0), Y(o.secZ));
+      secSpot.setAttribute('visibility', 'visible'); secSpot.setAttribute('cx', X(0)); secSpot.setAttribute('cy', Y(o.secZ));
+      secSpot.setAttribute('opacity', st.surface === 'mirror' ? 1 : 0.4); secSpot.setAttribute('ry', st.surface === 'mirror' ? 4.5 : 9);
+    } else { refl.setAttribute('visibility', 'hidden'); secSpot.setAttribute('visibility', 'hidden'); }
+    // camera A vertical view lines through the dot
+    const dr = o.centroidA != null ? o.centroidA : (c.r == null ? 0 : c.r);
+    const tp = Math.tan(st.psi * RAD), zc = 18.6, rcam = dr - zc * tp;
+    setLine(aRay, X(rcam), 40, X(dr), Y(0));                                      // line of sight to the dot (camera drawn near; it is far above)
+    setLine(aRay2, X(-(zc - RIM) * tp), 40, X(RIM * tp), Y(0));                   // the same line of sight through the rim's inner edge, continued to the plate plane
+    rimApp.setAttribute('transform', 'translate(' + X(RIM * tp) + ',' + Y(0) + ')'); rimApp.setAttribute('visibility', st.psi > 0.4 ? 'visible' : 'hidden');
+    camA.setAttribute('transform', 'translate(' + (X(rcam) - X(-5)) + ',0)'); camALab.textContent = 'camera A: ' + (st.psi < 0.4 ? 'straight down over the station' : 'above the bore, ' + st.psi.toFixed(1) + '° off vertical');
+    // camera B icon on the LOS where it enters the view
+    const ax = o.ax, tgtR = 0, tgtZ = 3, dxr = tgtR - ax.B[0], dzr = tgtZ - ax.B[1];
+    const tEnter = (R0 - ax.B[0]) / dxr, entry = [R0, ax.B[1] + dzr * tEnter];
+    bIcon.setAttribute('transform', 'translate(' + (X(entry[0]) + 20) + ',' + Y(entry[1]) + ') rotate(' + (Math.atan2(-(dzr), dxr) * -180 / Math.PI) + ')');
+    bLab.setAttribute('x', X(entry[0]) + 4); bLab.setAttribute('y', Y(entry[1]) + 26); bLab.textContent = 'camera B (far rim, +' + st.hB + ')';
+    const tgts = [];
+    if (o.plate.length) tgts.push([o.centroidA, 0]); if (o.sec.length) tgts.push([0, o.secZ]);
+    const t1 = tgts[0] || [0, 0], t2 = tgts[1] || [0, RIM];
+    const clip = (t) => { const dx = t[0] - ax.B[0], dz = t[1] - ax.B[1], te = (R0 - ax.B[0]) / dx; return [R0, ax.B[1] + dz * te]; };
+    const c1 = clip(t1), c2 = clip(t2);
+    setLine(bRay1, X(c1[0]), Y(c1[1]), X(t1[0]), Y(t1[1])); setLine(bRay2, X(c2[0]), Y(c2[1]), X(t2[0]), Y(t2[1]));
+    bRay1.setAttribute('stroke', o.bSeesPlate || !o.plate.length ? WK.roleHex('sensor') : '#f87171'); bRay2.setAttribute('stroke', o.bSeesSec || !o.sec.length ? WK.roleHex('sensor') : '#f87171');
+    // gun label
+    const gp = o.polys[1]; const gcx = (gp[1][0] + gp[2][0]) / 2, gcz = (gp[1][1] + gp[2][1]) / 2; gunLab.setAttribute('x', Math.min(VBW - 190, Math.max(6, X(gcx) + 14))); gunLab.setAttribute('y', Math.max(56, Math.min(VBH - 60, Y(gcz))));
+    // truth: seam marker in axis coordinates is shown in the record plots; here mark the true seam
+    // knee marker set by run()
+  }
+
+  function drawA(o) {
+    aSvg.textContent = '';
+    const x0 = 16, w = 268, rmin = -10, rmax = 6, XA = r => x0 + (r - rmin) / (rmax - rmin) * w, tp = Math.tan(st.psi * RAD), strip = RIM * tp;
+    // what camera A's picture contains along r: plate | wall-face strip (6.35 tan psi wide) | rim top (1.65) | outside
+    aSvg.append(S('rect', { x: x0, y: 30, width: XA(0) - x0, height: 34, fill: '#8e98a6' }));
+    if (strip > 0.02) aSvg.append(S('rect', { x: XA(0), y: 30, width: XA(strip) - XA(0), height: 34, fill: '#6f7a88' }), S('text', { x: XA(0) + 1, y: 72, class: 'sm', text: 'wall face' }));
+    aSvg.append(S('rect', { x: XA(strip), y: 30, width: XA(strip + WT) - XA(strip), height: 34, fill: WK.roleHex('work') }),
+      S('rect', { x: XA(strip + WT), y: 30, width: Math.max(0, XA(rmax) - XA(strip + WT)), height: 34, fill: '#252d39' }),
+      S('text', { x: x0 + 2, y: 25, class: 'sm', text: 'plate (seen from above)' }), S('text', { x: XA(0) - 2, y: 25, 'text-anchor': 'end', class: 'sm teal', text: 'seam foot' }),
+      S('line', { x1: XA(0), y1: 28, x2: XA(0), y2: 66, stroke: WK.roleHex('locate'), 'stroke-width': 1 }),
+      S('text', { x: XA(strip + WT) + 3, y: 46, class: 'sm', text: 'rim top' }));
+    if (strip > 0.02) aSvg.append(S('line', { x1: XA(strip), y1: 28, x2: XA(strip), y2: 66, stroke: '#fbbf24', 'stroke-width': 1, 'stroke-dasharray': '2 2' }), S('text', { x: XA(strip) + 2, y: 25, class: 'sm amber', text: 'rim edge' }));
+    for (let r = -10; r <= 6; r += 2) aSvg.append(S('line', { x1: XA(r), y1: 66, x2: XA(r), y2: 70, stroke: '#64748b' }), S('text', { x: XA(r), y: 80, 'text-anchor': 'middle', class: 'sm', text: r }));
+    if (o.plate.length) {
+      const rs = o.plate.map(q => q.r), lo = Math.min.apply(null, rs), hi = Math.max.apply(null, rs), wpx = Math.max(3, (hi - lo) / (rmax - rmin) * w);
+      aSvg.append(S('rect', { x: XA(lo) - 1.5, y: 36, width: wpx + 3, height: 22, rx: 4, fill: '#ff3b30', opacity: (0.35 + 0.65 * o.frac).toFixed(2) }));
+      aSvg.append(S('line', { x1: XA(o.centroidA), y1: 30, x2: XA(o.centroidA), y2: 64, stroke: '#fff', 'stroke-width': 1 }));
+    }
+    if (o.wall.length && st.psi > 0.4) {                                             // the wall part of the dot, foreshortened into the wall-face strip
+      const zs = o.wall.map(q => q.z), a = XA(Math.min.apply(null, zs) * tp), b = XA(Math.max.apply(null, zs) * tp);
+      aSvg.append(S('rect', { x: a - 1, y: 40, width: Math.max(2, b - a) + 2, height: 14, rx: 3, fill: '#ff3b30', opacity: 0.55 }));
+    }
+    const wallPart = o.wall.length && st.psi > 0.4 ? (Math.max.apply(null, o.wall.map(q => q.z)) - Math.min.apply(null, o.wall.map(q => q.z))) * tp : 0;
+    if (o.plate.length) aSvg.append(S('text', { x: 16, y: 92, class: 'b', text: 'centroid ' + fmt(o.centroidA, 2) + ' mm · visible ' + Math.round(o.frac * 100) + ' % · size ' + o.d.toFixed(2) + ' mm' }));
+    else aSvg.append(S('text', { x: 16, y: 48, class: 'b red', text: o.center.kind === 'wall' ? (st.psi > 0.4 ? 'dot is on the wall: only the strip shows it' : 'dot is on the wall: invisible from above') : 'no dot on the plate' }));
+    aSvg.append(S('text', { x: 16, y: 104, class: 'sm', text: st.psi < 0.4 ? 'wall spot edge-on: the dot vanishes at the seam' : (o.wall.length ? 'wall part in the strip, ' + wallPart.toFixed(2) + ' mm wide: the dot does not vanish' : 'dot still wholly on the plate side') }));
+    aSvg.append(S('text', { x: 16, y: 116, class: 'sm amber', text: st.psi < 0.4 ? 'rim edge and seam foot coincide (no parallax)' : 'amber: rim edge, ' + strip.toFixed(2) + ' mm from the seam foot (6.35 tan ψ)' }));
+    aSvg.append(S('text', { x: 16, y: 128, class: 'sm', text: st.psi < 0.4 ? '' : 'read against the rim edge, the dot would be wrong by that' }));
+    aSvg.append(S('text', { x: 16, y: 13, class: 'b', text: 'A reports the plate side of the seam foot' }));
+  }
+
+  function drawB(o) {
+    bSvg.textContent = '';
+    const ax = o.ax, vRim = bV([0, RIM], ax), vSeam = bV([0, 0], ax), K = 10, ySeam = 128;
+    const yv = v => ySeam - (v - vSeam) * K;
+    bSvg.append(S('rect', { x: 16, y: yv(vRim), width: 268, height: yv(vSeam) - yv(vRim), fill: WK.roleHex('work'), opacity: 0.8 }),
+      S('rect', { x: 16, y: yv(vSeam), width: 268, height: 26, fill: '#8e98a6', opacity: 0.85 }),
+      S('line', { x1: 16, y1: yv(vRim), x2: 284, y2: yv(vRim), stroke: '#dbe3ee' }), S('line', { x1: 16, y1: yv(vSeam), x2: 284, y2: yv(vSeam), stroke: WK.roleHex('locate'), 'stroke-width': 1.5 }),
+      S('text', { x: 20, y: yv(vRim) - 4, class: 'sm', text: 'rim' }), S('text', { x: 20, y: yv(vSeam) + 12, class: 'sm teal', text: 'seam · plate below' }));
+    const wl = S('text', { x: 150, y: (yv(vRim) + yv(vSeam)) / 2 + 3, 'text-anchor': 'middle', class: 'sm', text: 'inner wall face (6.35 mm)' }); wl.style.fill = '#0f141b'; bSvg.append(wl);
+    const spot = (p, rad, col, op) => bSvg.append(S('ellipse', { cx: 150, cy: yv(bV(p, ax)), rx: rad * 1.6, ry: rad, fill: col, opacity: op }));
+    let msg = '';
+    if (o.plate.length && o.bSeesPlate) spot([o.centroidA, 0], 1.5 + o.d * 2.5, '#ff3b30', 1);
+    if (o.wall.length && o.bSeesWall) spot([0, o.wallZ], 1.5 + o.d * 2.5, '#ff3b30', 1);
+    if (o.sec.length) {
+      if (o.bSeesSec) { spot([0, o.secZ], st.surface === 'mirror' ? 2.6 : 5, '#ffb3ab', st.surface === 'mirror' ? 0.95 : 0.4); msg = 'spot ' + o.secZ.toFixed(2) + ' mm up the wall: dot ' + (o.secZ * Math.tan(o.b)).toFixed(2) + ' mm short (a = h tan β)'; }
+      else msg = 'second spot exists but the gun body blocks camera B';
+    } else msg = st.surface === 'matte' ? 'matte plate: no second spot' : (o.plate.length ? 'dot too far from the seam: reflection passes over the rim' : 'dot not on the plate');
+    if (!o.bSeesPlate && o.plate.length) bSvg.append(S('text', { x: 16, y: 152, class: 'sm red', text: 'primary dot hidden from B by the gun body' }));
+    bSvg.append(S('text', { x: 16, y: 13, class: 'b', text: 'ruler: reflected spot height above the seam' }), S('text', { x: 16, y: 27, class: 'sm', text: msg }));
+  }
+
+  // sweep record ---------------------------------------------------------------------------------
+  let samples = null, estimate = null, runAnim = null;
+  function cancelRun() { if (runAnim) { runAnim(); runAnim = null; } app.ui.enable('run', true); }
+  const runs = {};
+  function resetRuns() { cancelRun(); samples = null; estimate = null; runs.radial = null; runs.height = null; result.innerHTML = RES0; }
+  const kneeTruth = () => st.tubeOff - (st.zg + st.plateOff) * Math.tan(st.beta * RAD);
+  function sweepSeries(kind) {
+    const out = [], lo = kind === 'radial' ? -8 : -6, hi = kind === 'radial' ? 8 : 8, stp = 0.1;
+    for (let v = lo; v <= hi + 1e-9; v += stp) {
+      const o = kind === 'radial' ? sim(v, st.zg) : sim(st.xg, v);
+      out.push({ v: +v.toFixed(3), o: o });
+    }
+    return { lo: lo, hi: hi, pts: out };
+  }
+  function polyline(pts, col, wd, dash) { return S('polyline', { points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none', stroke: col, 'stroke-width': wd || 1.6, 'stroke-dasharray': dash || null }); }
+  function drawPlots() {
+    const kind = st.plot, sw = sweepSeries(kind), lo = sw.lo, hi = sw.hi;
+    const x0 = 34, w = 258, XP = v => x0 + (v - lo) / (hi - lo) * w;
+    p1Svg.textContent = ''; p2Svg.textContent = '';
+    const cur = kind === 'radial' ? st.xg : st.zg;
+    const truth = kind === 'radial' ? kneeTruth() : -st.plateOff;
+    // panel 1: A centroid (blue, scaled -10..+2) and visible fraction (amber 0..1)
+    const y1a = 18, y1b = 108;
+    p1Svg.append(S('text', { x: 4, y: 11, class: 'b', text: 'camera A: centroid (blue), visible % (amber)' }), S('rect', { x: x0, y: y1a, width: w, height: y1b - y1a, fill: '#0f141b', stroke: '#2a3341' }));
+    const yC = r => y1b - (Math.max(-10, Math.min(2, r)) + 10) / 12 * (y1b - y1a), yF = f => y1b - f * (y1b - y1a);
+    const cs = [], fs = [];
+    sw.pts.forEach(p => { if (p.o.collide) return; if (p.o.centroidA != null) cs.push([XP(p.v), yC(p.o.centroidA)]); fs.push([XP(p.v), yF(p.o.frac)]); });
+    p1Svg.append(polyline(fs, '#fbbf24', 1.6), polyline(cs, '#60a5fa', 1.6));
+    // panel 2: spot size (white, 0..3 mm) and ruler height (teal 0..6.35)
+    p2Svg.append(S('text', { x: 4, y: 11, class: 'b', text: 'spot size (white), B ruler height (teal)' }), S('rect', { x: x0, y: y1a, width: w, height: y1b - y1a, fill: '#0f141b', stroke: '#2a3341' }));
+    const yS = d => y1b - Math.min(3, d) / 3 * (y1b - y1a), yH = z => y1b - Math.min(RIM, z) / RIM * (y1b - y1a);
+    const ss = [], hs = [];
+    sw.pts.forEach(p => { if (p.o.collide) return; if (p.o.center.kind !== 'outside') ss.push([XP(p.v), yS(p.o.d)]); if (p.o.sec.length && p.o.bSeesSec) hs.push([XP(p.v), yH(p.o.secZ)]); });
+    p2Svg.append(polyline(ss, '#e7ebf1', 1.6), polyline(hs, '#2dd4bf', 1.8));
+    // scales and markers on both
+    [p1Svg, p2Svg].forEach((sv, idx) => {
+      for (let v = Math.ceil(lo); v <= hi; v += 2) sv.append(S('line', { x1: XP(v), y1: y1b, x2: XP(v), y2: y1b + 3, stroke: '#64748b' }), S('text', { x: XP(v), y: y1b + 13, 'text-anchor': 'middle', class: 'sm', text: v }));
+      sv.append(S('text', { x: x0 + w, y: y1b + 25, 'text-anchor': 'end', class: 'sm', text: kind === 'radial' ? 'gun radial axis (mm), + toward the wall' : 'gun height axis (mm), + up' }));
+      sv.append(S('line', { x1: XP(truth), y1: y1a, x2: XP(truth), y2: y1b, stroke: '#f0abfc', 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+      sv.append(S('line', { x1: XP(cur), y1: y1a, x2: XP(cur), y2: y1b, stroke: '#a855f7', 'stroke-width': 1.6 }));
+      if (idx === 0) { sv.append(S('text', { x: x0 + 3, y: y1a + 10, class: 'sm blue', text: '+2' }), S('text', { x: x0 + 3, y: y1b - 3, class: 'sm blue', text: '−10 mm' }), S('text', { x: x0 + w - 3, y: y1a + 10, 'text-anchor': 'end', class: 'sm amber', text: '100 %' })); }
+      else { sv.append(S('text', { x: x0 + 3, y: y1a + 10, class: 'sm', text: '3 mm' }), S('text', { x: x0 + w - 3, y: y1a + 10, 'text-anchor': 'end', class: 'sm teal', text: '6.35 mm' })); }
+    });
+    p1Svg.append(S('text', { x: x0 + 2, y: y1a - 0, class: 'sm', fill: '#f0abfc', text: '' }));
+    // noisy samples from a run
+    if (samples && samples.kind === kind) {
+      samples.pts.forEach(q => {
+        p1Svg.append(S('circle', { cx: XP(q.v), cy: yF(q.frac), r: 2, fill: '#fbbf24' }));
+        if (q.cen != null) p1Svg.append(S('circle', { cx: XP(q.v), cy: yC(q.cen), r: 2, fill: '#60a5fa' }));
+        p2Svg.append(S('circle', { cx: XP(q.v), cy: yS(q.d), r: 2, fill: '#e7ebf1' }));
+      });
+    }
+    if (estimate && estimate.kind === kind && estimate.done) {
+      [p1Svg, p2Svg].forEach(sv => sv.append(S('line', { x1: XP(estimate.at), y1: y1a, x2: XP(estimate.at), y2: y1b, stroke: '#22d3ee', 'stroke-width': 2 })));
+    }
+    document.getElementById('plotname') && (document.getElementById('plotname').textContent = kind === 'radial' ? 'radial sweep, height fixed at ' + fmt(st.zg, 1) : 'height sweep, radial fixed at ' + fmt(st.xg, 1));
+    return sw;
+  }
+
+  function statusFor(o) {
+    const c = o.center;
+    let where;
+    if (o.collide) where = '<b class="bad">gun body touches the tube: pose not applied</b>';
+    else if (c.kind === 'plate') where = 'dot on the <b>plate</b>, <b>' + o.a.toFixed(2) + ' mm</b> short of the seam';
+    else if (c.kind === 'wall') where = 'dot on the <b>wall</b>, <b>' + c.z.toFixed(2) + ' mm</b> above the seam';
+    else if (c.kind === 'rim') where = 'dot on the <b>rim top</b>';
+    else where = 'beam passes over the wall (dot lands outside)';
+    status.innerHTML = '<span>' + where + '</span><span>standoff error <b>' + (o.standoff == null ? '–' : fmt(o.standoff, 2) + ' mm') + '</b></span><span>spot <b>' + (c.kind === 'outside' ? '–' : o.d.toFixed(2)) + ' mm</b></span>' +
+      '<span>Δ software would not know: seam at axis <b>' + fmt(st.tubeOff, 1) + '</b> mm, plate at axis <b>' + fmt(-st.plateOff, 1) + '</b> mm (hidden)</span>';
+  }
+
+  function ioUpdate(o) {
+    const nz = () => randn() * st.noise;
+    const vis = o.plate.length > 0;
+    app.io.set({
+      commands: [
+        { name: 'Gun radial axis', value: st.xg, unit: 'mm', note: 'proposed axis; step 0.05 mm' },
+        { name: 'Gun height axis', value: st.zg, unit: 'mm', note: 'proposed axis; used for the standoff sweep' },
+        { name: 'Red dot on/off', value: 'not commanded', note: 'RS232 protocol not in the manual pages: unknown' },
+      ],
+      observes: [
+        { name: 'Dot centroid (camera A)', value: vis ? fmt(o.centroidA + nz(), 2) : '–', unit: vis ? 'mm from seam' : '', status: vis ? 'seen' : 'blind', note: vis ? 'plate part only; noise ' + st.noise.toFixed(2) + ' mm' : 'wall spot is edge-on to A' },
+        { name: 'Visible fraction (camera A)', value: vis ? Math.round(Math.max(0, Math.min(1, o.frac + nz())) * 100) : 0, unit: '%', status: 'seen', note: 'half-drop = dot centre on the seam' },
+        { name: 'Spot size', value: o.center.kind === 'outside' ? '–' : (o.d + nz() * 0.5).toFixed(2), unit: 'mm', status: 'partly', note: 'smallest at focus; sign of height error needs a dither' },
+        { name: 'Reflected-spot height (camera B)', value: o.bSeesSec ? (o.secZ + nz()).toFixed(2) : '–', unit: o.bSeesSec ? 'mm above seam' : '', status: o.bSeesSec ? 'partly' : 'blind', note: st.surface === 'matte' ? 'matte plate: none' : (o.sec.length && !o.bSeesSec ? 'blocked by the gun' : 'needs a specular plate: unverified') },
+        { name: 'Dot height on the wall', value: o.wall.length ? '–' : '–', status: 'blind', note: 'wall spot is invisible to A; B sees it only if the gun does not block' },
+        { name: 'Gun-to-work standoff', value: '–', status: 'unresolved', note: 'inferred from spot size only; no direct sensor' },
+      ],
+      manual: ['Rough setup so the dot starts on the plate, 2 to 8 mm short of the wall', 'Checking that the real plate reflects the dot (a phone photo)'],
+    });
+  }
+
+  function update() {
+    const o = sim(st.xg, st.zg);
+    if (o.collide) { app.badge('col', 'gun body would touch the wall or plate: pose held at the last valid one', 'limit'); }
+    else { app.badge('col', null); lastValid = o; }
+    const show = o.collide && lastValid ? lastValid : o;
+    last = show;
+    drawMain(show); drawA(show); drawB(show); drawPlots(); statusFor(o); ioUpdate(show);
+    // truth marker in the main view: seam is at r = 0 by construction (drawn); note the beam origin moves with the axes
+  }
+
+  // ------------------------------------------------------------------ run a sweep (noisy samples, knee estimate)
+  function run() {
+    const kind = st.plot, lo = kind === 'radial' ? -8 : -6, hi = 8, stp = 0.25;
+    const pts = [];
+    for (let v = lo; v <= hi + 1e-9; v += stp) {
+      const o = kind === 'radial' ? sim(v, st.zg) : sim(st.xg, v);
+      if (o.collide) continue;
+      pts.push({ v: v, frac: Math.max(0, Math.min(1, o.frac + randn() * st.noise * 0.5)), cen: o.centroidA == null ? null : o.centroidA + randn() * st.noise, d: o.d + randn() * st.noise * 0.5, kindHit: o.center.kind, sec: o.bSeesSec ? o.secZ + randn() * st.noise : null, a: o.a });
+    }
+    samples = { kind: kind, pts: [] }; estimate = { kind: kind, done: false, at: 0 };
+    let i = 0;
+    app.ui.enable('run', false);
+    if (runAnim) runAnim();
+    runAnim = app.onFrame(function (dt) {
+      if (!samples) return false;
+      if (i >= pts.length) { finish(pts, kind); runAnim = null; app.ui.enable('run', true); return false; }
+      const n = Math.max(1, Math.round(dt * 60 * 1.6));
+      for (let k = 0; k < n && i < pts.length; k++) samples.pts.push(pts[i++]);
+      drawPlots(); return true;
+    });
+    app._dirty = true;
+  }
+  function finish(pts, kind) {
+    samples.pts = pts;
+    const tb = Math.tan(st.beta * RAD);
+    if (kind === 'radial') {
+      let at = null;   // knee: where the visible fraction falls through 0.5 (linear interpolation between samples)
+      for (let i = 1; i < pts.length; i++) if (pts[i - 1].frac >= 0.5 && pts[i].frac < 0.5) { const t = (pts[i - 1].frac - 0.5) / (pts[i - 1].frac - pts[i].frac); at = pts[i - 1].v + t * (pts[i].v - pts[i - 1].v); break; }
+      estimate = { kind: kind, done: at != null, at: at };
+      runs.radial = at == null ? null : { at: at, zg: st.zg };
+      const o = sim(st.xg, st.zg), ruler = o.bSeesSec ? st.xg + (o.secZ + randn() * st.noise) * tb : null;
+      result.dataset.radial = at == null ? '<span class="bad">No knee found: the dot never left the plate, or never reached it. Move the start point.</span>' :
+        '<b>Radial sweep, height ' + fmt(st.zg, 1) + ': the dot leaves the plate at axis ' + fmt(at, 2) + ' mm</b><br><span class="k">scene truth for this height:</span> ' + fmt(kneeTruth(), 2) + ' mm · <b>error ' + fmt(at - kneeTruth(), 2) + ' mm</b> (step 0.25 mm, noise ' + st.noise.toFixed(2) + ' mm)' +
+        (ruler != null ? '<br><b>One-frame ruler</b> at the current pose: ' + fmt(ruler, 2) + ' mm (error ' + fmt(ruler - kneeTruth(), 2) + ' mm)' : '<br><span class="k">no ruler at this pose (blocked, matte, or dot out of range)</span>');
+    } else {
+      const on = pts.filter(p => p.kindHit === 'plate'); let best = null;
+      on.forEach(p => { if (!best || p.d < best.d) best = p; });
+      let at = best ? best.v : null;
+      if (best) { const i = pts.indexOf(best); if (i > 0 && i < pts.length - 1 && pts[i - 1].kindHit === 'plate' && pts[i + 1].kindHit === 'plate') { const y0 = pts[i - 1].d, y1 = pts[i].d, y2 = pts[i + 1].d, den = y0 - 2 * y1 + y2; if (Math.abs(den) > 1e-9) at = pts[i].v + 0.25 * 0.5 * (y0 - y2) / den; } }
+      estimate = { kind: kind, done: at != null, at: at };
+      runs.height = at == null ? null : { at: at, xg: st.xg };
+      result.dataset.height = at == null ? '<span class="bad">The dot left the plate during this sweep: lower the radial start.</span>' :
+        '<b>Height sweep: smallest spot at axis ' + fmt(at, 2) + ' mm</b> (plate at focus)<br><span class="k">scene truth:</span> ' + fmt(-st.plateOff, 2) + ' mm · <b>error ' + fmt(at + st.plateOff, 2) + ' mm</b>. Near focus the size curve is flat: the loosest of these estimates.';
+    }
+    let html = (kind === 'radial' ? result.dataset.radial : result.dataset.height) || '';
+    if (runs.radial && runs.height) {
+      const tubeEst = runs.radial.at + (runs.radial.zg - runs.height.at) * tb, zEst = runs.height.at;
+      html += '<hr style="border:0;border-top:1px solid #2a3341;margin:6px 0"><b>Both sweeps together: dot on the seam at focus is at axis (x, z) = (' + fmt(tubeEst, 2) + ', ' + fmt(zEst, 2) + ') mm</b><br><span class="k">scene truth:</span> (' + fmt(st.tubeOff, 2) + ', ' + fmt(-st.plateOff, 2) + ') · <b>error (' + fmt(tubeEst - st.tubeOff, 2) + ', ' + fmt(zEst + st.plateOff, 2) + ')</b>. The knee alone mixes wall position with height (tan β per mm); the focus sweep separates them.';
+    } else if (runs.radial || runs.height) html += '<br><span class="k">Run the other sweep too: the radial knee depends on height, and the focus depends only on height.</span>';
+    result.innerHTML = html;
+    drawPlots(); app._dirty = true;
+  }
+
+  // ------------------------------------------------------------------ controls
+  const ax = app.ui.group('Proposed axes (software could command)', { help: 'Two motions of the gun. Nothing carries them here; any positioner that can step 0.05 mm would do.' });
+  ax.slider({ id: 'xg', label: 'Gun radial axis', min: -8, max: 8, step: 0.05, value: -1.5, unit: 'mm', kind: 'actuator', visual: 'gun barrel, beam and dot in the section', help: '+ moves the gun and dot toward the wall. The seam sits at an unknown axis value (see Setup unknowns).', onChange: v => { st.xg = v; update(); } });
+  ax.slider({ id: 'zg', label: 'Gun height axis', min: -6, max: 8, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: 'gun barrel, beam and dot in the section', help: 'Raising the gun moves the dot along the plate (tan β per mm) and changes the standoff.', onChange: v => { st.zg = v; update(); } });
+  const sw = app.ui.group('The software\'s sweep', { help: 'A scan is a run of noisy readings; the estimate is computed from those readings only.' });
+  sw.radio({ id: 'plot', label: 'Sweep which axis', options: [{ value: 'radial', label: 'radial (knee)' }, { value: 'height', label: 'height (focus)' }], value: 'radial', kind: 'view', help: 'The plots show the ideal curves; a run adds the noisy samples and the estimate.', onChange: v => { st.plot = v; cancelRun(); samples = null; estimate = null; drawPlots(); } });
+  sw.button({ id: 'run', label: 'Run the sweep', kind: 'state', help: 'Steps the chosen axis across its range, reads camera A and B at each step, then estimates the seam or plate position.', onClick: run });
+  const un = app.ui.group('Setup unknowns (scene edits: what the tube is really like this time)', { help: 'These edit the explanatory scene. The software does not know them; a good sweep recovers them.' });
+  un.slider({ id: 'tubeOff', label: 'Where the wall really is (axis)', min: -4, max: 4, step: 0.05, value: 1.2, unit: 'mm', kind: 'scene', visual: 'the seam in axis coordinates (pink dashed line in the plots)', help: 'How the tube happened to sit this time.', onChange: v => { st.tubeOff = v; resetRuns(); update(); } });
+  un.slider({ id: 'plateOff', label: 'Plate seated deeper by', min: -3, max: 3, step: 0.05, value: 0.8, unit: 'mm', kind: 'scene', visual: 'plate height in the plots', help: 'Tube-to-tube variation in seat depth [unknown how much].', onChange: v => { st.plateOff = v; resetRuns(); update(); } });
+  const md = app.ui.group('Model choices (scene edits, illustrative)');
+  md.slider({ id: 'beta', label: 'Beam angle from vertical', min: 15, max: 50, step: 1, value: 32, unit: '°', kind: 'scene', visual: 'beam and barrel', help: '32° is the reference scene\'s opening pose value, not a requirement.', onChange: v => { st.beta = v; resetRuns(); update(); } });
+  md.slider({ id: 'd0', label: 'Spot size at focus', min: 0.2, max: 2.5, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', visual: 'red spot on the plate', help: 'Bigger spot: rounder knee, softer focus. Unknown for the real dot.', onChange: v => { st.d0 = v; resetRuns(); update(); } });
+  md.radio({ id: 'surface', label: 'Plate surface', options: [{ value: 'mirror', label: 'mirror' }, { value: 'satin', label: 'satin' }, { value: 'matte', label: 'matte' }], value: 'mirror', kind: 'branch', help: 'Decides whether a second spot appears on the wall.', onChange: v => { st.surface = v; resetRuns(); update(); } });
+  md.slider({ id: 'psi', label: 'Camera A: line of sight off vertical (toward the wall face)', min: 0, max: 30, step: 0.5, value: 11.6, unit: '°', kind: 'scene', visual: 'camera A, its line of sight and panel A', help: '0 = straight down over the station (the gun stands there). 11.6° = a camera 300 mm above the bore centre; 22° = 150 mm. Sets how much of the wall face camera A sees and how far the rim edge appears from the seam foot.', onChange: v => { st.psi = v; update(); } });
+  md.slider({ id: 'noise', label: 'Camera noise (position)', min: 0, max: 0.3, step: 0.01, value: 0.04, unit: 'mm', kind: 'scene', help: 'Noise added to every value the software reads. Made up.', onChange: v => { st.noise = v; update(); } });
+  md.slider({ id: 'hB', label: 'Camera B height above the rim', min: 10, max: 160, step: 5, value: 60, unit: 'mm', kind: 'scene', visual: 'camera B and its sight lines', help: 'Low: the gun body blocks the view of the wall spot.', onChange: v => { st.hB = v; update(); } });
+
+  app.io.manual(['Rough setup so the dot starts on the plate']);
+  update();
+})();
+</script>
+</body>
+</html>
