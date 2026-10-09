@@ -46,7 +46,7 @@ chamber-recording directory, and 328.7 MB of files in the drive root. The
 printer reports normal storage state without a fault. Its current telemetry
 and file service do not provide a free-space count, so exact remaining
 capacity is unverified. The existing six-hour rotation retains up to 180 GB
-of timelapses and currently has no archive-before-delete option enabled.
+of timelapses and currently archives no clip before deleting it.
 The matching October 6 rotation retains all 128 clips and deletes none.
 This inspection archives and deletes no files. Existing scheduled monitors
 remain paused.

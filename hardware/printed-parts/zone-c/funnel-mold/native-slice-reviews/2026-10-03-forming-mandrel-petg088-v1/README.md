@@ -47,7 +47,8 @@ The [manifest](manifest.json) binds the lint receipt and native slice evidence.
 ![First layer and all native support paths](native-supports.png)
 
 The raw print reserves stock for the separately measured finishing stack in
-[the tool design](../../forming-mandrel-design.json). The finished target has
+[the tool design](../../forming-mandrel-design.json), which stands at the
+`archive-forming-mandrel` tag. The finished target has
 an 8.4 mm entry, 6.7 mm relief, 6.0 mm by 3.0 mm seal land and 6.35 mm throat.
 Mask the specified bare registration zones and measure the finished profile
 against the finished reference before casting. Finishing must retain the relief
@@ -57,4 +58,5 @@ finishing, release and casting remain unqualified.
 
 The [complete tooling check](../../forming-mandrel-check.json) and
 [shell review](../2026-10-03-centred-short-block/README.md) retain their own
-geometry and print scopes. This isolated offline review submits no print.
+geometry and print scopes; the tooling check stands at the `archive-forming-mandrel`
+tag. This isolated offline review submits no print.
