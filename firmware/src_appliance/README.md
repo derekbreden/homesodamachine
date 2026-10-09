@@ -61,9 +61,13 @@ foundation the next connected bench uses.
 - **A shared prime-ready session.** Service → Prime → a flavor on the 4.3B enclosure display
   opens a main-board-owned session and wakes the faucet into the same mode. Either display
   can hold its pad to run that selected pump; tokenized `MSG_PRIME_SESSION_*` controls keep
-  retries idempotent and the complete absolute state is mirrored to both displays. The pump
-  stops on lift, a hold heartbeat more than 2 s late, loss of its owning faucet connection,
-  expiry of the enclosure's 5 s session lease, or the 60 s ceiling.
+  retries idempotent and the complete absolute state is mirrored to both displays. A hold
+  opens that reservoir's draw and outlet valves (V-E and V-G, or V-H and V-J) before the pump
+  starts, and every ending stops the pump before they close. The pump stops on lift, a hold
+  heartbeat more than 2 s late, loss of its owning faucet connection, expiry of the
+  enclosure's 5 s session lease, or the 60 s ceiling. A hold is refused while anything else
+  runs, while the expanders are unverified or under the gas alarm, and a hold that meets an
+  I/O fault or a gas trip ends refused.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
 - **The shared flavor selection.** A faucet tap reaches J3, or an enclosure card tap reaches
   J9, as an absolute flavor and request token. The main board acknowledges its authoritative
@@ -289,8 +293,9 @@ these do:
   faster or louder to say so. It stays a tick rather than a tone: a tone held under a
   running pump for a minute is a thing people learn to hate, and it would mask the pump.
 
-The two endings that are the machine's decision rather than the finger's — a display that
-stopped answering, and the ceiling — get `fault` instead of `release`.
+The endings that are the machine's decision rather than the finger's — a display that
+stopped answering, the ceiling, and a hold that became unsafe — get `fault` instead of
+`release`.
 
 ### What can be silenced, and what cannot
 

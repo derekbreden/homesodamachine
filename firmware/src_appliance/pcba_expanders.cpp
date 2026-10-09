@@ -87,7 +87,8 @@ Expanders::Expanders(Transport &transport)
       currentPortA21_(0),
       lastFault_(Fault::NotInitialized),
       faultAddress_(0),
-      faultRegister_(0) {}
+      faultRegister_(0),
+      beforeFaultPark_(nullptr) {}
 
 void Expanders::clearFault() {
     lastFault_ = Fault::None;
@@ -171,6 +172,7 @@ bool Expanders::parkRaw() {
 
 bool Expanders::failAndPark(Fault fault, uint8_t address, uint8_t reg,
                             bool requireReinitialize) {
+    if (beforeFaultPark_) beforeFaultPark_();
     const bool parked = parkRaw();
     if (requireReinitialize || !parked) initialized_ = false;
     setFault(fault, address, reg);
