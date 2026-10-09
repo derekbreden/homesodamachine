@@ -1,0 +1,91 @@
+{
+  "status": "candidate; physical sliding fit unqualified",
+  "material": "Bambu TPU 90A",
+  "od_mm": 32.0,
+  "length_mm": 20.0,
+  "center_xy": [
+    -0.9124999999999996,
+    10.510023117569354
+  ],
+  "smooth_contact_length_mm": 19.2,
+  "bores": [
+    {
+      "name": "S",
+      "label": "Soda",
+      "xy": [
+        0.0,
+        0.0
+      ],
+      "bore": 6.2,
+      "tube_od": 6.35
+    },
+    {
+      "name": "F1",
+      "label": "Flavor A",
+      "xy": [
+        5.45,
+        18.925
+      ],
+      "bore": 6.2,
+      "tube_od": 6.35
+    },
+    {
+      "name": "F2",
+      "label": "Flavor B",
+      "xy": [
+        -7.2749999999999995,
+        18.925
+      ],
+      "bore": 6.2,
+      "tube_od": 6.35
+    },
+    {
+      "name": "D",
+      "label": "Drain",
+      "xy": [
+        0.0,
+        8.9
+      ],
+      "bore": 3.85,
+      "tube_od": 4.0
+    },
+    {
+      "name": "SIG",
+      "label": "Loose signal cable",
+      "xy": [
+        5.45,
+        11.5
+      ],
+      "bore": 5.0
+    }
+  ],
+  "nominal_diametral_interference_mm": 0.15,
+  "outer_edge_chamfer_mm": 0.6,
+  "entry_chamfer_mm": 0.4,
+  "min_straight_bore_web_mm": 1.6134,
+  "min_straight_bore_outer_wall_mm": 2.3504,
+  "native_faces": 20,
+  "native_edges": 42,
+  "solid_volume_mm3": 13599.777,
+  "installed": {
+    "union_b_top_z": -115.0,
+    "union_a_top_z": -156.8,
+    "union_foot_z": -198.60000000000002,
+    "foam_top_z": -241.06221850068601,
+    "drain_parallel_from_z": -75.37705228223967,
+    "plate_bottom_z": -37.524,
+    "plate_to_organizer_mm": 50.476,
+    "shank_bottom_to_organizer_mm": 38.0
+  },
+  "nominal_braided_od_mm": 34.0,
+  "counter_hole_mm": 34.93,
+  "context_limits": [
+    "Proposed lower routing and union positions",
+    "Retained washer, nut and compression fitting are not modeled",
+    "Cable continuation shown only near the puck",
+    "No modeled jacket weave or physical compression measurement"
+  ],
+  "source_sha256": "329ec91f610d2ab1a2aa5ebd85cfb47919d46a1135796a19d9dc05db056fcf62",
+  "faucet_source_sha256": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
+  "stl_sha256": "9cefc436b5785797fbadef6e5e689bfa0cd0ed0030a78729dac41b450d827688"
+}
