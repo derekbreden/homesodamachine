@@ -24,15 +24,27 @@ DOCS = "https://homesodamachine.com/read/"
 VENDOR = "https://docs.waveshare.com/ESP32-S3-Touch-LCD-1.47"
 SCHEMATIC = "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf"
 INTERFACE = "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-LCD-1.47-details-inter-f60fcf8e6f1405b29f83509d1d1246e7.webp"
+JACK = "https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack"
+USOC = "https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf"
+MODULAR_VIEW = "https://www.apo.nmsu.edu/mainpage/sdss/rj11basics/"
 FU = "hardware/assembly/faucet-and-umbilical.md"
 SHELL = "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md"
 SEALS = "hardware/printed-parts/faucet/asse-vent-seals/README.md"
 N = 18
 GREEN = "#217E57"
-PURPLE = "#7542A6"
 BRASS = "#C89542"
 PAD = "#EBC77D"
 PCB = "#30353D"
+WIRE = "#272A30"
+# Assembly assignment: C1 is the deliberately indexed edge of the black 28 AWG
+# ribbon. RJ11 numbers retain all six positions; only 2-5 carry contacts.
+# J3 physical numbers include the 180-degree wafer rotation in parts.tsx.
+SIG6 = [
+    {"wire":"C1", "pad":"VBUS", "P1":1, "RJ11":2, "IDC":"white/orange", "J3_pin":3, "J3":"V5", "function":"+5 V input"},
+    {"wire":"C2", "pad":"GND", "P1":3, "RJ11":3, "IDC":"blue", "J3_pin":4, "J3":"GND", "function":"0 V return"},
+    {"wire":"C3", "pad":"TXD", "P1":5, "GPIO":43, "RJ11":4, "IDC":"white/blue", "J3_pin":2, "J3":"IO35 RX", "function":"GPIO43, display TX"},
+    {"wire":"C4", "pad":"RXD", "P1":7, "GPIO":44, "RJ11":5, "IDC":"orange", "J3_pin":1, "J3":"IO33 TX", "function":"GPIO44, display RX"},
+]
 SOURCES = [
     FU, SHELL, SEALS,
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
@@ -40,6 +52,9 @@ SOURCES = [
     "hardware/reference/touch-flo-faucet/display-reference/README.md",
     "hardware/wiring/ac-wiring-schedule.md",
     "hardware/assembly/wiring.md",
+    "hardware/assembly/cable-assemblies.md",
+    "hardware/pcb/pcba/pcba.tsx",
+    "hardware/pcb/pcba/parts.tsx",
     "firmware/src_faucet/base_link.cpp",
     "firmware/src_faucet/README.md",
     "firmware/src_appliance/pins.h",
@@ -178,20 +193,23 @@ def installed_orientation_art(a, y=0):
 def wiring_art(a):
     a.label("REAR / COMPONENT SIDE",14,24,12,BLUE)
     a.label("Glass faces away from you",14,43,11,MUTED,font="Plex")
-    board(a,335,20,.8,True)
-    rows = [
-        ("+5 V to VBUS", "P1 pin 1  ·  main board J3 V5", 76, 80.8, ORANGE),
-        ("0 V to GND", "P1 pin 3  ·  main board J3 GND", 124, 92.48, MUTED),
-        ("TX to main board RX", "P1 pin 5  ·  GPIO43 to J3 IO35", 172, 104.16, BLUE),
-        ("RX from main board TX", "P1 pin 7  ·  GPIO44 from J3 IO33", 220, 115.84, PURPLE),
-    ]
-    for label,sub,y,pady,ink in rows:
-        a.label(label,14,y,17,ink,font="PlexBold")
-        a.label(sub,14,y+17,10.3,MUTED,font="Plex")
-        a.shape([(257,y-5),(282,y-5),(350.2,pady)],None,ink,2,False)
-        a.ellipse(346.2,pady-4,8,8,None,ink,2)
-    a.label("USB-C UP ON BENCH",391,252,10.5,BLUE,align="center")
-    a.label("Top four LEFT pads",14,252,12,BLUE)
+    board(a,345,20,.8,True)
+    for i,row in enumerate(SIG6):
+        y=73+i*43
+        a.label(f'{row["wire"]}  {row["pad"]}',14,y,17,INK,font="PlexBold")
+        a.label(f'P1-{row["P1"]}  ·  {row["function"]}',14,y+16,10.7,MUTED,font="Plex")
+        # Actual four black conductors, splayed only at the dry PCB end.
+        xx=267+i*16
+        yy=129+i*15
+        pady=80.8+i*11.68
+        a.shape([(xx,230),(xx,yy),(360.2,pady)],None,WIRE,4,False)
+        a.ellipse(357.2,pady-3,6,6,PAD,WIRE,1)
+        a.label(row["wire"],xx,248,10,INK,align="center")
+    a.line(267,211,267,225,PAPER,2)
+    a.label("All four wires are BLACK",14,235,11,INK)
+    a.label("Add a white C1 mark at both ends",14,252,10.2,BLUE)
+    a.arrow(226,246,263,222,BLUE,1.2,4)
+    a.label("USB-C AT TOP",411,252,10.5,BLUE,align="center")
     installed_orientation_art(a,266)
 
 
@@ -203,8 +221,10 @@ def write_wiring_svg():
         'role="img" aria-labelledby="title desc">\n'
         '<title id="title">Faucet display wiring, rear view with USB-C at top</title>\n'
         '<desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are '
-        'VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. Connect main board J3 V5 to VBUS; '
-        'GND to GND; IO35 RX to display GPIO43 TX; IO33 TX to display GPIO44 RX. '
+        'VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. All four ribbon wires are black. '
+        'Add a white mark to edge C1 at both ends; count C1-C4 across the ribbon from that edge. '
+        'C1 VBUS goes through RJ11 pin 2 to J3 pin 3 V5; C2 GND through RJ11 pin 3 to J3 pin 4 GND; '
+        'C3 TXD through RJ11 pin 4 to J3 pin 2 IO35 RX; C4 RXD through RJ11 pin 5 to J3 pin 1 IO33 TX. '
         'Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. '
         'In the installed faucet, USB-C points toward the dispense face; the opposite end '
         'points up the gooseneck. The inset shows this in a side section.</desc>\n'
@@ -356,7 +376,9 @@ def thread_art(a):
     for i,ink in enumerate([INK,INK,BLUE]):
         a.line(22,104+i*39,477,104+i*39,ink,7 if i<2 else 11)
     for i in range(4):
-        a.line(22,52+i*8,477,52+i*8,BLUE,2)
+        a.line(22,52+i*10,477,52+i*10,WIRE,2)
+        a.label(f"C{i+1}",486,55+i*10,8.5,INK)
+    a.line(465,52,474,52,PAPER,.9)
     for x,label,drain in [(169,"1  UPSTREAM",True),(332,"2  DISTAL",False)]:
         bung(a,x,86,drain)
         a.label(label,x+51,226,12,BLUE,align="center")
@@ -459,8 +481,8 @@ def solder_art(a):
     a.label("AFTER BOTH BUNGS ARE SEATED",14,20,11,BLUE)
     a.rect(163,115,119,20,STEEL)
     a.ellipse(194,118,16,14,BRASS)
-    a.line(20,211,170,211,BLUE,5)
-    a.line(170,211,202,131,BLUE,5)
+    a.line(20,211,170,211,WIRE,5)
+    a.line(170,211,202,131,WIRE,5)
     a.line(199,137,202,131,COPPER,3)
     a.shape([(362,57),(422,82),(397,123),(337,91)],BLUE)
     a.shape([(337,91),(354,113),(211,126),(205,118)],STEEL)
@@ -545,26 +567,113 @@ def supply_art(a):
 
 
 def plug_art(a):
-    a.label("CRIMP ON THE WALL END",13,21,11,BLUE)
-    a.rect(48,66,101,164,STEEL)
-    a.rect(62,83,72,129,PAPER)
-    a.rect(81,43,34,28,STEEL)
-    for i in range(4):
-        x=74+i*15
-        a.rect(x,106,8,24,BRASS)
-        a.line(x+4,130,x+4,278,BLUE if i==0 else MUTED,7)
-    a.line(64,166,134,166,ORANGE,11)
-    a.arrow(158,166,196,166,ORANGE)
-    a.label("bar grips jacket",210,164,13,ORANGE)
-    a.label("shim final 15 mm",210,184,11,MUTED)
-    a.label("marked ribbon edge",126,290,11,BLUE,align="center")
-    a.rect(317,54,176,83,STEEL)
-    a.rect(339,70,72,43,PCB)
-    for i in range(4):
-        a.line(348+i*15,94,348+i*15,109,BRASS,3)
-    a.label("RiteAV 6P4C jack",405,168,12,BLUE,align="center")
-    a.label("trace contacts through",405,218,12,BLUE,align="center")
-    a.label("to J3 by continuity",405,239,12,BLUE,align="center")
+    a.label("PLUG / GOLD CONTACTS FACE YOU",5,18,10.2,BLUE)
+    a.label("Nose up · cable down · latch behind",5,36,9.8,MUTED,font="Plex")
+    a.rect(31,65,141,143,STEEL)
+    a.rect(42,87,119,112,PAPER)
+    # Latch is on the far side, dashed through the transparent body.
+    a.shape([(82,173),(82,211),(121,211),(121,173)],None,MUTED,1,False)
+    a.label("PIN",11,81,8,BLUE)
+    for pin in range(1,7):
+        xx=53+(pin-1)*18
+        a.label(str(pin),xx,81,12,BLUE,align="center")
+        a.rect(xx-4,94,8,25,BRASS if 2<=pin<=5 else STEEL,
+               INK if 2<=pin<=5 else RULE)
+    for i,row in enumerate(SIG6):
+        xx=71+i*18
+        a.line(xx,119,xx,252,WIRE,8)
+        a.label(row["wire"],xx,271,10.5,INK,align="center")
+    a.line(71,226,71,244,PAPER,2.5)
+    a.line(60,166,136,166,ORANGE,10)
+    a.arrow(186,166,145,166,ORANGE,1.4,4)
+    a.label("grip",190,160,9.5,ORANGE)
+    a.label("jacket",190,175,9.5,ORANGE)
+    a.label("C1 = white edge mark",102,293,10.5,BLUE,align="center")
+    a.label("1 and 6: empty positions",102,311,10,MUTED,align="center")
+
+    a.label("JACK / PUNCHDOWN SIDE UP",243,18,10.2,BLUE)
+    a.label("Plug opening toward bottom of picture",243,36,9.8,MUTED,font="Plex")
+    # RiteAV CAT3 USOC block: rows 3/4 at rear, 2/5 middle, 1/6
+    # nearest the port. Numbers are contacts, not ribbon conductor numbers.
+    a.rect(296,62,156,178,PCB)
+    a.rect(319,63,111,145,STEEL)
+    slots=[(3,328,85,"blue","C2 / GND",False),
+           (2,328,130,"orange","C1 / V5",True),
+           (1,328,175,"green","open",True),
+           (4,421,85,"blue","C3 / IO35",True),
+           (5,421,130,"orange","C4 / IO33",False),
+           (6,421,175,"green","open",False)]
+    shades={"blue":"#1777BE","orange":"#E49127","green":"#258D62"}
+    for pin,xx,yy,shade,label,striped in slots:
+        left=xx==328
+        # These colored dots reproduce the jack's printed USOC legend.
+        chipx=300 if left else 441
+        a.ellipse(chipx-7,yy+8,14,14,PAPER if striped else shades[shade],shades[shade],1.5)
+        if striped:
+            a.line(chipx-4,yy+19,chipx+4,yy+11,shades[shade],2)
+        a.rect(xx-10,yy-12,20,24,PAPER)
+        a.label(str(pin),xx,yy+4,12,INK,align="center")
+        if pin not in [1,6]:
+            outer=268 if left else 477
+            inner=xx-13 if left else xx+13
+            a.line(outer,yy,inner,yy,WIRE,4)
+            a.label(label,278 if left else 465,yy-15,10,INK,
+                    align="right" if left else "left")
+        else:
+            a.label(label,278 if left else 465,yy+4,9.5,MUTED,
+                    align="right" if left else "left")
+    a.rect(303,208,142,42,PCB)
+    a.rect(329,219,90,21,"#11151B")
+    a.rect(360,231,28,13,"#11151B","#11151B")
+    a.label("FRONT / PLUG OPENING",374,270,10.5,BLUE,align="center")
+    a.label("Colors are labels on the jack.",374,293,10.2,MUTED,align="center")
+    a.label("The connected wires are BLACK.",374,311,10.2,INK,align="center")
+
+
+def sig6_table(c, y):
+    columns=[(37,"WIRE"),(92,"DISPLAY PAD"),(230,"RJ11 PIN"),
+             (300,"JACK IDC LABEL"),(451,"J3 PIN / NET")]
+    for x,label in columns:
+        text(c,label,x,y,9.1,"PlexBold",BLUE)
+    for i,row in enumerate(SIG6):
+        yy=y+22+i*27
+        box(c,32,yy-18,548,25,ICE if i%2==0 else PAPER)
+        values=[row["wire"],f'{row["pad"]} / P1-{row["P1"]}',
+                str(row["RJ11"]),row["IDC"],f'{row["J3_pin"]} / {row["J3"]}']
+        for (x,_),value in zip(columns,values):
+            text(c,value,x,yy,10.6,"PlexSemi")
+
+
+def plug_page(c):
+    start(c,15,"Wire the RJ11 plug and jack",
+          "Use the same C1-C4 identities as page 2. Plug pins 2-5 carry the four wires; positions 1 and 6 stay empty.")
+    panel(c,32,148,548,329)
+    with Art(c,44,155) as a:
+        plug_art(a)
+    sig6_table(c,493)
+    paragraph(c,"At the plug, C1-C4 run left to right in the view above. At the jack, punch J3 pin 3/V5 into slot 2, pin 4/GND into slot 3, pin 2/IO35 into slot 4 and pin 1/IO33 into slot 5.",35,616,538,11,14,max_height=42)
+    note(c,"MAKE THESE TERMINATIONS WITH J3 AND USB UNPLUGGED",
+         "Crimp a 3-prong 6P4C plug on the 28 AWG ribbon. Shim the final 15 mm so the bar grips the jacket. Punch the 22 AWG J3 leads into the numbered slots without stripping their insulation; trim outward and refit the dust cover.")
+    footer(c,15,"RiteAV CAT3 USOC jack | Leviton 6-contact USOC labels | main-board J3",JACK)
+    end_page(c)
+
+
+def write_connector_svg():
+    a=SvgArt()
+    plug_art(a)
+    (GUIDE / "sig6-connector-wiring.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="650" viewBox="0 0 520 325" '
+        'role="img" aria-labelledby="title desc">\n'
+        '<title id="title">SIG-6 RJ11 plug and RiteAV punchdown jack wiring</title>\n'
+        '<desc id="desc">Plug gold contacts toward viewer, nose up, cable down, latch behind. '
+        'C1-C4 occupy pins 2-5 left to right. All wires are black; C1 has an added white edge mark. '
+        'Jack punchdown side up, front opening toward bottom: rear row 3 and 4, middle 2 and 5, '
+        'front 1 and 6 unused. J3 pin 3 V5 goes to jack 2 white/orange; J3 pin 4 GND to jack 3 blue; '
+        'J3 pin 2 IO35 RX to jack 4 white/blue; J3 pin 1 IO33 TX to jack 5 orange. '
+        'Colored symbols reproduce labels on the jack, not wire insulation.</desc>\n'
+        '<rect width="520" height="325" fill="#FFFFFF"/>\n'
+        '<g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">\n'
+        + "\n".join(a.parts) + '\n</g>\n</svg>\n')
 
 
 def sleeve_art(a):
@@ -633,19 +742,8 @@ def wiring_page(c):
     panel(c,32,151,548,378)
     with Art(c,44,157) as a:
         wiring_art(a)
-    y=542
-    for x,label in [(37,"DISPLAY PAD"),(205,"FUNCTION"),(408,"MAIN BOARD J3")]:
-        text(c,label,x,y,9.8,"PlexBold",BLUE)
-    rows=[("VBUS / P1-1","+5 V power","V5"),
-          ("GND / P1-3","0 V return","GND"),
-          ("TXD / P1-5","GPIO43, display TX","IO35, main RX"),
-          ("RXD / P1-7","GPIO44, display RX","IO33, main TX")]
-    for i,row in enumerate(rows):
-        yy=564+i*27
-        box(c,32,yy-18,548,25,ICE if i%2==0 else PAPER)
-        for x,value in zip([37,205,408],row):
-            text(c,value,x,yy,11.5,"PlexSemi")
-    paragraph(c,"Count P1 from the USB end: odd numbers left, even numbers right. This rear view is not mirrored.",35,659,537,10.6,13.2,max_height=18)
+    sig6_table(c,542)
+    paragraph(c,"Count C1-C4 across the black ribbon from the edge you mark. Page 15 shows plug orientation and the exact jack slots. Jack colors above name its printed labels.",35,653,537,10.5,12.5,max_height=25)
     note(c,"POWER AND SERIAL ARE DIFFERENT","VBUS takes 5 V. TX/RX are 3.3 V TTL at 921600 baud, 8N1. Leave VBAT, 3V3, RST and all other GPIO pads open. Disconnect J3 and USB while making the joints.")
     footer(c,2,"Waveshare P1 schematic + rear layout | faucet base_link.cpp | appliance pins.h",SCHEMATIC)
     end_page(c)
@@ -660,11 +758,13 @@ def sources_page(c):
         ("Waveshare: actual rear layout and interface labels",VENDOR),
         ("Waveshare: P1 numbers and power/UART schematic",SCHEMATIC),
         ("Faucet firmware: GPIO43 TX, GPIO44 RX, 921600 baud",SITE+"firmware/src_faucet/base_link.cpp"),
-        ("Main board: J3 IO33 TX and IO35 RX",SITE+"firmware/src_appliance/pins.h"),
+        ("Main board: J3 physical pin numbers and nets",SITE+"hardware/pcb/pcba/parts.tsx"),
         ("SIG-6: the inboard loom and rear jack",SITE+"hardware/assembly/wiring.md"),
+        ("RiteAV: CAT3 USOC punchdown jack, mpn46181",JACK),
+        ("Leviton: numbered 6-contact USOC terminal colors",USOC),
     ]
     for i,(title,url) in enumerate(refs):
-        yy=177+i*38
+        yy=177+i*31
         text(c,title,35,yy,11.3,"PlexSemi",BLUE)
         text(c,"OPEN SOURCE",575,yy+14,8,"PlexSemi",MUTED,"right")
         box(c,33,yy+21,545,.7,RULE)
@@ -687,6 +787,7 @@ def build():
     GUIDE.mkdir(parents=True,exist_ok=True)
     PDF.parent.mkdir(parents=True,exist_ok=True)
     write_wiring_svg()
+    write_connector_svg()
     c=canvas.Canvas(str(PDF),pagesize=(W,H),pageCompression=1,invariant=1)
     c.setTitle("Home Soda Machine - Faucet assembly")
     c.setAuthor("Home Soda Machine")
@@ -695,12 +796,12 @@ def build():
     page(c,3,"Connect and check the display",
          "Use page 2 for the pad map. In a complete build, do this after the wires pass through both seated vent bungs (pages 8-10).",
          solder_art,"Detail section through one P1 pad. Make the electrical joints in the dry display pocket.",
-         ["With J3 and USB disconnected, preserve the four lead identities. Strip only the dry PCB ends; solder each insulated lead directly to its page-2 P1 pad. Inspect for adjacent-pad bridges.",
+         ["Keep C1-C4 identified from the white C1 edge mark shown on page 2. With J3 and USB unplugged, strip only the dry PCB ends. Solder C1/VBUS, C2/GND, C3/TXD and C4/RXD at the page-2 pads; inspect for bridges.",
           "Leave free wire length for the page-12 slide and lowering motion. Route the leads in the open space below the PCB, clear of feet, components, lips and the USB socket.",
-          "With the harness disconnected at J3, trace V5 to VBUS, GND to GND, IO35 to TXD and IO33 to RXD through the actual plug/jack. Confirm there is no power-to-ground or adjacent-wire short."],
+          "After the page-15 terminations, check the specified connections with J3 unplugged: pin 3/V5 to VBUS, 4/GND to GND, 2/IO35 to TXD and 1/IO33 to RXD. Confirm no adjacent-wire or power-to-ground short."],
          "After the unpowered checks, power through J3. The screen should boot and receive the main board's selected flavor. A bright-screen tap changes the selection and the main board ticks; a dim-screen first tap only wakes it.","firmware/src_faucet/README.md")
     # Page 4 is a cut table rather than a generic parts picture.
-    start(c,4,"Lay out the matching kit","Choose the style and finish before cutting. Keep the donor washer and nut loose, and both signal-cable ends unterminated.")
+    start(c,4,"Lay out the matching kit","Choose the style and finish before cutting. Mark one black ribbon edge white at both free ends as C1; count C1-C4 from it. Leave both ends unterminated.")
     paragraph(c,"<b>Rigid parts:</b> matching base, display cover and above-counter plate; shared shell tip; printed lever. <b>Soft parts:</b> matching countertop gasket, fresh TPU thimble and two vent bungs. <b>Hardware:</b> bare Westbrass, Waveshare 1.47 display, 3 short M3 inserts, 3 M3 × 8 screws, captive donor washer/nut, loose stainless under-counter plate.",34,161,542,11.3,14.2,max_height=74)
     text(c,"Factory tube cuts / mm",34,251,19,"PlexBold")
     cutrows=[
@@ -789,12 +890,7 @@ def build():
           "Keep F1/D/F2 and ribbon straight through the countertop routing zone. Below that zone, preserve the specified R30 flavor/ribbon returns and R25 drain returns around the unions.",
           "Put one Siptenk brass stiffener fully inside the blue 1/4-inch tube end. Insert the stiffened end into the donor's lower compression port and tighten its factory ferrule/nut hand-snug plus 1/4 turn."],
          "Both White-faucet unions bottom and pass a tug check. The blue tube is connected below the captive hardware. The separate 3/8-inch soda tube remains in the donor's top port.",FU)
-    page(c,15,"Finish the wall plug by continuity","The four nets are on page 2. Match the actual modular plug and jack to those endpoints.",plug_art,
-         "Four center contacts and jacket strain-relief bar. The picture does not assign a telephone color code or modular-contact net order.",
-         ["Crimp a 3-prong RJ11 6P4C plug on the wall end, conductor 1 on the ribbon's marked edge. The strain-relief bar must grip the jacket; shim its final 15 mm with tape or heat-shrink as specified.",
-          "With power removed and J3 unplugged, identify which actual jack contact each display lead reaches. Terminate the inboard J3 loom so V5, GND, IO35 and IO33 reach VBUS, GND, TXD and RXD respectively.",
-          "Record the four contact-to-net identities for the build. Trace through the mated plug/jack and check adjacent conductors. Use contact labels and continuity, including any reversal across the connector."],
-         "The page-2 four-net map holds end to end through the mated connector, and the crimp bar carries cable tension. A telephone/T568B color diagram does not define SIG-6.","hardware/assembly/wiring.md")
+    plug_page(c)
     page(c,16,"Insulate and sleeve the bundle","Lay the completed signal cable beside all four tubes before sliding on any braid segment.",sleeve_art,
          "Bundle section at left; two fitted sleeve segments at right. D gathers opposite the cold foam from the flavors.",
          ["Fit foam only to the blue cold tube, one segment at a time, butting the segment above it. The standard run uses five pieces covering 1322 mm; leave 143 mm bare at the top and 75 mm at the wall tail.",
@@ -815,15 +911,17 @@ def build():
                 "artwork":"original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
                 "display":{"model":"ESP32-S3-Touch-LCD-1.47", "view":"rear PCB, USB-C at top",
                            "installed_orientation":"USB-C toward dispense face; opposite end up the gooseneck",
-                           "left_top_four":[{"P1":1,"pad":"VBUS","J3":"V5"},
-                                            {"P1":3,"pad":"GND","J3":"GND"},
-                                            {"P1":5,"pad":"TXD","GPIO":43,"J3":"IO35 RX"},
-                                            {"P1":7,"pad":"RXD","GPIO":44,"J3":"IO33 TX"}],
+                           "left_top_four":SIG6,
+                           "wire_stock":"28 AWG all-black 4P ribbon outboard; 22 AWG all-black inboard",
+                           "C1_index":"builder adds white mark to one ribbon edge at both free ends",
+                           "RJ11_plug_view":"gold contacts toward viewer, nose up, cable down, latch behind",
+                           "jack_view":"punchdown side up, front opening down; rear 3/4, middle 2/5, front 1/6 unused",
                            "power_volts":5,"logic_volts":3.3,"baud":921600},
                 "manufacturer_references":{"reviewed":"2026-10-08", "docs":VENDOR,
-                                           "schematic":SCHEMATIC,"rear_layout":INTERFACE},
+                                           "schematic":SCHEMATIC,"rear_layout":INTERFACE,
+                                           "jack":JACK,"six_contact_USOC":USOC,"jack_contact_view":MODULAR_VIEW},
             })
-    print(f"Wrote {PDF.relative_to(ROOT)} ({N} pages) and display-wiring.svg")
+    print(f"Wrote {PDF.relative_to(ROOT)} ({N} pages), display-wiring.svg and sig6-connector-wiring.svg")
 
 
 if __name__ == "__main__":

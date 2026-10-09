@@ -21,12 +21,34 @@ pictures on page 12 show that orientation.
 
 ![Rear pad map with USB-C up on the bench; installed side section shows USB-C toward the dispense face and the opposite end up the gooseneck](display-wiring.svg)
 
-| Display pad | P1 pin | Function | Main board J3 |
-| --- | ---: | --- | --- |
-| VBUS | 1 | 5 V power input | V5 |
-| GND | 3 | 0 V return | GND |
-| TXD | 5 | GPIO43, display transmit | IO35, main board receive |
-| RXD | 7 | GPIO44, display receive | IO33, main board transmit |
+All four conductors are **black**. Before separating the ribbon, add a white
+index mark to **one edge at both free ends**. That edge is **C1**; count C1-C4
+across the ribbon from it. These identities stay with the wires through the
+vent bungs, display solder joints and wall-end plug.
+
+| Ribbon wire | Display pad / P1 pin | RJ11 plug and jack pin | Jack's printed USOC label | Main board J3 pin / net |
+| --- | --- | ---: | --- | --- |
+| C1, marked edge | VBUS / P1-1, +5 V | 2 | White/orange | 3 / V5 |
+| C2 | GND / P1-3, 0 V | 3 | Blue | 4 / GND |
+| C3 | TXD / P1-5, GPIO43 display TX | 4 | White/blue | 2 / IO35, main RX |
+| C4 | RXD / P1-7, GPIO44 display RX | 5 | Orange | 1 / IO33, main TX |
+
+![Contact-side plug orientation and the numbered RiteAV jack punchdown slots, with black wire identities and J3 destinations](sig6-connector-wiring.svg)
+
+**Plug:** gold contacts face you, nose up, cable down, latch on the far side.
+The six positions read **1-6 left to right**. Insert **C1, C2, C3, C4 into
+positions 2, 3, 4, 5**, respectively; positions 1 and 6 are empty. The C1 mark
+is on the left edge in this view. Crimp a 3-prong 6P4C plug; shim the final
+15 mm so its strain-relief bar grips the ribbon jacket.
+
+**RiteAV jack:** punchdown side up, plug opening toward the bottom of the
+picture. Land **J3 3/V5 in jack 2, J3 4/GND in jack 3, J3 2/IO35 in jack 4,
+and J3 1/IO33 in jack 5**. The blue/orange colors belong to the jack's printed
+terminal legend; the 22 AWG inboard wires are black. Punch them down with
+their insulation intact, trim outward and refit the dust cover. Leave jack
+terminals 1 and 6 open. J3's PCB silk reads **GND, V5, IO35, IO33** from left
+to right with the component side up and J3 at the lower edge; the corresponding
+physical pin numbers are **4, 3, 2, 1**.
 
 P1 has odd pin numbers down the left and even numbers down the right. UART
 is 3.3 V TTL, 921600 baud, 8N1. Leave the remaining pads open. Make the joints
@@ -35,10 +57,8 @@ have passed through both seated vent bungs. Solder only at the dry PCB ends.
 Page 3 covers the joint, continuity and powered flavor-response check; page 12
 covers fitting the wired display and cover without trapping the leads.
 
-The procedure specifies the four SIG-6 nets but does not publish a modular
-contact-to-net assignment. Page 15 traces the actual plug and jack to the J3
-endpoints by continuity and records the build's contact identities. The
-telephone or T568B color diagram does not specify this harness.
+Page 2 and page 15 carry the same complete connection table. The page-3
+continuity check verifies those specified connections before power is applied.
 
 ## Page map
 
@@ -78,6 +98,11 @@ manufacturer's pad order. Printed picture size is not a dimension or template.
   [main-board pins](../../firmware/src_appliance/pins.h): GPIO43 TX / GPIO44 RX,
   crossed to IO35 RX / IO33 TX, at 921600 baud.
 - [Inboard SIG-6 wiring](../assembly/wiring.md): J3 loom through the rear jack.
+- [Main-board connector implementation](../pcb/pcba/parts.tsx) and
+  [J3 placement](../pcb/pcba/pcba.tsx): physical J3 pin numbers and silk order.
+- [RiteAV mpn46181 jack](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack)
+  and [Leviton's six-contact USOC terminal-color table](https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf):
+  jack terminal identities. The SIG-6 net assignment is the table above.
 
 The [cover acceptance](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json)
 and [lever acceptance](../printed-parts/faucet/lever-replica/physical-acceptance.json)
@@ -102,6 +127,7 @@ procedure figures without importing or executing CAD. It writes:
 - `hardware/faucet-assembly-guide/faucet-assembly-guide.cover.png`
 - `hardware/faucet-assembly-guide/faucet-assembly-guide.pdf.json`
 - `hardware/faucet-assembly-guide/display-wiring.svg`, from the PDF's same drawing
+- `hardware/faucet-assembly-guide/sig6-connector-wiring.svg`, from the page-15 drawing
 - `output/pdf/faucet-assembly-guide.pdf`, the identical delivery copy
 - `output/pdf/faucet-assembly-guide.sources.json`, source hashes and wiring provenance
 

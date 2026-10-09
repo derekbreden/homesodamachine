@@ -107,6 +107,38 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the electronics bay's 12 V distribution block (lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
+### Faucet display (SIG-6)
+
+Build the inboard loom from **black 22 AWG 4P ribbon**. Its XH housing plugs
+into J3; its other end punches down onto the **RiteAV CAT3 USOC jack**.
+The outboard ribbon is black 28 AWG: mark one edge white at both free ends,
+call that edge **C1**, and count C1-C4 across from it before separating wires.
+
+| Inboard J3 lead | Jack IDC pin and printed label | Outboard plug pin | Outboard ribbon wire | Display pad |
+| --- | --- | ---: | --- | --- |
+| Pin 3 / V5 | 2 / white-orange | 2 | C1, white index mark | VBUS / P1-1 |
+| Pin 4 / GND | 3 / blue | 3 | C2 | GND / P1-3 |
+| Pin 2 / IO35, main RX | 4 / white-blue | 4 | C3 | TXD / P1-5, GPIO43 |
+| Pin 1 / IO33, main TX | 5 / orange | 5 | C4 | RXD / P1-7, GPIO44 |
+
+![SIG-6 plug orientation and exact jack punchdown destinations](../faucet-assembly-guide/sig6-connector-wiring.svg)
+
+All four inboard leads are black; the colors in this table identify **labels
+printed on the jack**. Punch the insulated lead from **J3 3/V5 into jack 2,
+J3 4/GND into jack 3, J3 2/IO35 into jack 4 and J3 1/IO33 into jack 5**.
+Leave jack terminals 1 and 6 open. Use the 110 tool with its cutting edge
+outward and refit the dust cover after trimming. At the outboard plug, gold
+contacts face you, nose up, cable down and latch behind: **C1-C4 occupy
+positions 2-5 left to right**, with positions 1 and 6 empty.
+
+With the PCB component side up and J3 on the lower edge, its silk reads
+**GND, V5, IO35, IO33 left to right**, corresponding to physical pins
+**4, 3, 2, 1**. The wafer's 180-degree rotation is included in those numbers
+([`pcba.tsx`](../pcb/pcba/pcba.tsx), [`parts.tsx`](../pcb/pcba/parts.tsx)).
+Pages [2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=2)
+and [15](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=15)
+show the same assignment at the display and wall connector.
+
 ### Contact pair — DC-5
 
 Two cables, both soldered to one half of the
