@@ -170,3 +170,5 @@ future/ai-interactability-study/thumbs/
 # A scan check's local cache, and the result file the Bambu CLI drops in its working directory.
 .scan-check-cache.npz
 /result.json
+# Sessions' scratch space at the repository root.
+/tmp/
