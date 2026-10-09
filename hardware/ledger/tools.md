@@ -239,11 +239,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-<<<<<<< this tree
 Total tooling, acquired and on order: **[$17,754.37](TOOLS_TOTAL)**
-=======
-Total tooling, acquired and on order: **[$17,754.37](TOOLS_TOTAL)**
->>>>>>> main ff9b45a71 the tree names what it makes
 
 ## Open items
 
