@@ -1,0 +1,204 @@
+{
+  "observations": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T13:54:47.312455+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1054,
+      "total_layer_num": 1535,
+      "mc_percent": 72,
+      "mc_remaining_time": 438,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 47,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 279,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T13:54:46.989836+00:00",
+      "task_id": "1322285082",
+      "job_id": "1322285082",
+      "subtask_name": "2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 1408,
+      "total_layer_num": 1408,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 27.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 35,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 30,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 27,
+        "target_c": 0
+      }
+    }
+  ],
+  "earlier_running_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-09T13:40:55.222557+00:00",
+    "task_id": "1320974719",
+    "job_id": "1320974719",
+    "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1029,
+    "total_layer_num": 1535,
+    "mc_percent": 72,
+    "mc_remaining_time": 453,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "timelapse": "enable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 47,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  },
+  "shared_circuit_spacing": {
+    "required_seconds": 180,
+    "other_printer": "Mark1",
+    "other_task_id": "1320974719",
+    "other_acceptance_timestamp": null,
+    "other_acceptance_no_later_than_utc": "2026-10-09T13:40:55.222557+00:00",
+    "mark2_acceptance_utc": "2026-10-09T13:56:37.385732+00:00",
+    "minimum_elapsed_seconds_from_existing_run_to_mark2_acceptance": 942.163175,
+    "satisfied": true,
+    "basis": "The same Mark1 job was RUNNING in the earlier and preflight observations. Its acceptance precedes the earlier observation."
+  }
+}

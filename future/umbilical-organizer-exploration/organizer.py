@@ -22,9 +22,9 @@ sys.path.insert(0, str(ROOT / "hardware/faucet-layout"))
 import faucet_assembly as faucet
 
 OD = 32.0
-LENGTH = 20.0
-TUBE_BORE = 6.20
-DRAIN_BORE = 3.85
+LENGTH = 10.0
+TUBE_BORE = 6.55
+DRAIN_BORE = 4.10
 CABLE_BORE = 5.0
 ENTRY = 0.40
 OUTSIDE_EASE = 0.60
@@ -47,18 +47,19 @@ BORES = (
 )
 
 
-def build_puck():
+def build_puck(*, length=LENGTH, tube_bore=TUBE_BORE, drain_bore=DRAIN_BORE):
     """One cylinder, four friction bores and a round cable clearance passage."""
-    body = cq.Workplane("XY").circle(OD / 2).extrude(LENGTH)
+    body = cq.Workplane("XY").circle(OD / 2).extrude(length)
     body = body.edges("%Circle").chamfer(OUTSIDE_EASE)
     for station in BORES:
         x, y = station["xy"][0] - CX, station["xy"][1] - CY
-        r = station["bore"] / 2
+        diameter = CABLE_BORE if station["name"] == "SIG" else drain_bore if station["name"] == "D" else tube_bore
+        r = diameter / 2
         # The cable gets a smaller entrance relief to preserve broad webs.
         entry = 0.20 if station["name"] == "SIG" else ENTRY
-        bore = cq.Solid.makeCylinder(r, LENGTH + 2, cq.Vector(x, y, -1))
+        bore = cq.Solid.makeCylinder(r, length + 2, cq.Vector(x, y, -1))
         bottom = cq.Solid.makeCone(r + entry, r, entry, cq.Vector(x, y, 0))
-        top = cq.Solid.makeCone(r, r + entry, entry, cq.Vector(x, y, LENGTH-entry))
+        top = cq.Solid.makeCone(r, r + entry, entry, cq.Vector(x, y, length-entry))
         body = body.cut(bore.fuse(bottom, top))
     return body.val().clean()
 
@@ -184,10 +185,11 @@ def main():
     minimum_web = min(math.dist(a["xy"], b["xy"])-(a["bore"]+b["bore"])/2
                       for i, a in enumerate(BORES) for b in BORES[i+1:])
     minimum_wall = min(OD/2-math.dist((CX, CY), b["xy"])-b["bore"]/2 for b in BORES)
-    facts = {"status": "candidate; physical sliding fit unqualified", "material": "Bambu TPU 90A",
+    facts = {"status": "candidate; physical sliding fit unqualified", "material": "PET-GF",
              "od_mm": OD, "length_mm": LENGTH, "center_xy": [CX, CY],
              "smooth_contact_length_mm": LENGTH-2*ENTRY,
-             "bores": BORES, "nominal_diametral_interference_mm": 0.15,
+             "bores": BORES, "nominal_diametral_clearance_mm": {
+                 "quarter_inch": round(TUBE_BORE-6.35, 3), "drain": round(DRAIN_BORE-4.0, 3)},
              "outer_edge_chamfer_mm": OUTSIDE_EASE, "entry_chamfer_mm": ENTRY,
              "min_straight_bore_web_mm": round(minimum_web, 4),
              "min_straight_bore_outer_wall_mm": round(minimum_wall, 4),
