@@ -26,7 +26,7 @@ const COMMITTED_DOCUMENT_FILES = new Set([
 
 export function isCommittedDocumentFile(repoRel) {
   return COMMITTED_DOCUMENT_FILES.has(repoRel) || (
-    /^hardware\/(?:drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide|gun-positioner-guide)\//.test(repoRel)
+    /^hardware\/(?:faucet-assembly-guide|drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide|gun-positioner-guide)\//.test(repoRel)
     && /(?:\.pdf|\.cover\.png|\.pdf\.json)$/.test(repoRel)
   );
 }
