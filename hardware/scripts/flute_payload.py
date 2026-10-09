@@ -90,6 +90,7 @@ FAUCET_DIRS = (
     _ROOT / "hardware/printed-parts/faucet/above-counter-plate",
     _ROOT / "hardware/printed-parts/faucet/above-counter-gasket",
     _ROOT / "hardware/printed-parts/faucet/asse-vent-seals",
+    _ROOT / "hardware/printed-parts/faucet/umbilical-organizer",
 )
 PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS + FAUCET_DIRS
 

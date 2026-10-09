@@ -56,7 +56,7 @@ Blue naming carbonated water is what makes the other two fall out: the umbilical
 
 ## Umbilical bundle construction
 
-The 4-tube umbilical from the faucet down to this wall is bundled into a single sleeved run, in PET braid segments laid over the foam's own, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3.
+The 4-tube umbilical from the faucet down to this wall is bundled into a single sleeved run, in PET braid segments laid over the foam's own, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3. One [PET-GF organizer](../../faucet/umbilical-organizer/README.md) sits on the bare tubes below the faucet mounting workspace, inside the top braid and above the White faucet's staggered unions. It holds the four tubes in formation while permitting deliberate hand adjustment.
 
 **Foam insulation on the soda umbilical tube only.** The two flavor tubes carry ambient-temperature syrup at low duty cycle (a few mL per dispense) — warm-in, warm-out, no thermal benefit from insulation. The soda umbilical tube is the temperature-critical run: a multi-meter cold-line carrying chilled CO2-saturated water from the cold-core reservoir up to the faucet, where every degree of warm-up costs dissolved-CO2 retention. Insulating that one tube (and leaving the flavor tubes bare inside the sleeve) is the right thermal allocation.
 

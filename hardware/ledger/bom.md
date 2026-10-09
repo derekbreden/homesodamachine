@@ -150,12 +150,13 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
+| Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--> |
 | Funnel frame | 1 | PET-GF | 0.241 | $6.02 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.19** | **[$165.74](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.20** | **[$165.86](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.26.
+By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.38.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -195,7 +196,7 @@ Soft seals consume per-unit-trivial stock and are not costed here. Bambu TPU 90A
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | Carbonated-water outlet adapter — threads onto the bottom-plate Port 3 TAISHER elbow (1/4" NPT F), 1/4" PTC accepts the blue LLDPE riser. Same water-service PTC×NPT SKU as the §3 transitions; PTC suits soft LLDPE better than a compression ferrule. FWS WEBFWS100675224 May 15: $17.41 ÷ 10 = $1.741/ea | 1 (of 10 pk) | $1.74 | $1.74 <!--@plumbing--> |
 | [Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | donor faucet; its body, washer and nut, with the printed lever in place of its own; assembly sequence in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Base joint" | 1 | $32.18 | $32.18 <!--@faucet--> |
 | SendCutSend 0.060" 316 SS under-counter plate (`under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Tubes and countertop mounting"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--> |
-| [neoFlo White 1/4" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)](https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing) | **White faucet — the flavor pair's runs through the faucet.** A White faucet's flavor tube is white from the printed tip down to the John Guest union that joins it to its black run inside the braid's top ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1–2): flavor-a [496](WHITE_A_CUT) mm, flavor-b [455](WHITE_B_CUT) mm, off the §3 tap-water spool at its $0.14002/ft. A Black faucet's flavor tubes are black end to end (§3) and take none. | [3.12](WHITE_FLAVOR_FT) ft (of 100 ft) | $0.14 | $0.44 <!--@plumbing--> |
+| [neoFlo White 1/4" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)](https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing) | **White faucet — the flavor pair's runs through the faucet.** A White faucet's flavor tube is white from the printed tip down to the John Guest union that joins it to its black run inside the braid's top ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1–2): flavor-a [534](WHITE_A_CUT) mm, flavor-b [492](WHITE_B_CUT) mm, off the §3 tap-water spool at its $0.14002/ft. A Black faucet's flavor tubes are black end to end (§3) and take none. | [3.37](WHITE_FLAVOR_FT) ft (of 100 ft) | $0.14 | [$0.47](WHITE_FLAVOR_COST) <!--@plumbing--> |
 | [John Guest PP0408W 1/4" union connector, white polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-connector-polypro-1-4) | **White faucet — one union per flavor tube**, joining its white run through the faucet to its black run in the umbilical, the two end to end inside the braid's top ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §2; geometry [`reference/jg-pp0408w/`](/hardware/reference/jg-pp0408w/)). A Black faucet takes none. FWS list, bag of 10 (PP0408W-US:10PK) @ $14.01 = $1.401/ea. | [2](FAUCET_UNIONS) (of 10 pk) | $1.40 | $2.80 <!--@plumbing--> |
 | [neoFlo White 3/8" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)](https://www.freshwatersystems.com/products/white-3-8-od-lldpe-polyethylene-tubing) | **White faucet — the soda faucet tube**, the 3/8" tube from the TPU thimble in the Westbrass's top port to the printed tip, cut [330](SODA_FAUCET_CUT) mm ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1). A Black faucet cuts the same length from the black 3/8" stock (FWS `WEBFWS100673540`, [purchases.md](/hardware/ledger/purchases.md)). FWS list, 25 ft @ $6.50 = $0.26/ft. | [1.08](SODA_FAUCET_FT) ft (of 25 ft) | $0.26 | $0.28 <!--@plumbing--> |
 | [DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min](https://www.amazon.com/dp/B07QRXLRTH) | flow detection on the carbonated-water dispense path; ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7) | 1 | $10.18 | $10.18 <!--@sensors--> |
@@ -331,15 +332,15 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.74](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.86](BOM_SEC7) |
 | 8. Flavor subsystem | [$229.61](BOM_SEC8) |
-| 9. Dispensing | [$71.96](BOM_SEC9) |
+| 9. Dispensing | [$71.99](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$40.74](BOM_SEC11) |
 | 12. Level sensing | [$35.66](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.02](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,429.73](BOM_GRAND)** |
+| **Total** | **[$1,429.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "part": "umbilical-organizer",
+  "status": "accepted for current product sliding fit",
+  "authority": "Derek's direct observation of the printed L sample",
+  "observed_date": "2026-10-09",
+  "observation": "The \"L\" or \"furthest right\" or \"0.10 diameter extra\" or however you want me to refer to it, that loosest one, is pretty close to perfect, or at least good enough for now, please ensure that is documented and we have some of this organizers in our /3d views and in our BOM and everywhere they need to be to truly be part of our product (this is entirely orthogonal to the umbilical plug/port stuff which is still in the design phase)",
+  "selected_sample": "L / rightmost / loose",
+  "printer": "Mark2",
+  "printer_task_id": "1323252957",
+  "native_archive": "future/umbilical-organizer-exploration/fit-trial-mark2/2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "394bd9b9d1d6f1fccccd17a7f411095f7e91a2500ab6abab40e4c2974e192afc",
+  "native_object": "organizer-loose-q6.65-d4.20",
+  "native_identify_id": 1903,
+  "printed_stl": "future/umbilical-organizer-exploration/fit-trial-mark2/parts/organizer-loose-q6.65-d4.20.stl",
+  "printed_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
+  "material": "PET-GF",
+  "geometry": {
+    "od_mm": 32.0,
+    "length_mm": 10.0,
+    "quarter_inch_bore_diameter_mm": 6.65,
+    "drain_bore_diameter_mm": 4.20,
+    "signal_bore_diameter_mm": 5.0,
+    "tube_entrance_chamfer_mm": 0.4,
+    "outside_chamfer_mm": 0.6
+  },
+  "physical_fit": "accepted as good enough for current use",
+  "scope": "The identified PET-GF L article printed upright on Mark2. The report does not separately enumerate tubes tested, give a numerical push/pull force, or establish assembled mounting access, wear, creep or lifetime.",
+  "quantified_sliding_force": null,
+  "quantified_endurance": null,
+  "full_installation_acceptance": null
+}

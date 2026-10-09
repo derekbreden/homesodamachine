@@ -1,0 +1,86 @@
+{
+  "scope": "Manual CAD and accepted-article binding for the upper organizer; no physical mounting-access or endurance claim.",
+  "product_source_sha256": "6b9fe7c2867257d7a9e24e99d07b9f52ec8c1382cc27b04d400f644334380800",
+  "faucet_source_sha256": "f18735146fe54340bcc85c5eada554fff0a1331f5841f5f41fdf4002fae9fdf6",
+  "accepted_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
+  "production_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
+  "production_stl_identical_to_accepted_article": true,
+  "valid_single_solid": true,
+  "faces": 20,
+  "edges": 42,
+  "geometry_volume_mm3": 6616.556197013433,
+  "quantity_per_umbilical": 1,
+  "installed_top_z_mm": -88.0,
+  "installed_bottom_z_mm": -98.0,
+  "nominal_plate_gap_mm": 50.476,
+  "maximum_slab_plate_gap_mm": 42.476,
+  "upper_union_gap_mm": 7.0,
+  "passages": [
+    {
+      "passage": "S",
+      "shape_valid": true,
+      "tube_length_through_puck_mm": 10.0,
+      "puck_intersection_volume_mm3": 0.0
+    },
+    {
+      "passage": "F1",
+      "shape_valid": true,
+      "tube_length_through_puck_mm": 10.0,
+      "puck_intersection_volume_mm3": 0.0
+    },
+    {
+      "passage": "F2",
+      "shape_valid": true,
+      "tube_length_through_puck_mm": 10.0,
+      "puck_intersection_volume_mm3": 0.0
+    },
+    {
+      "passage": "D",
+      "shape_valid": true,
+      "tube_length_through_puck_mm": 10.0,
+      "puck_intersection_volume_mm3": 0.0
+    },
+    {
+      "passage": "SIG",
+      "shape_valid": true,
+      "tube_length_through_puck_mm": 10.0,
+      "puck_intersection_volume_mm3": 0.0
+    }
+  ],
+  "cable_check_z_range_mm": [
+    -98.0,
+    -37.524
+  ],
+  "cable_to_tube_intersection_volume_mm3": {
+    "S": 0.0,
+    "F1": 0.0,
+    "F2": 0.0,
+    "D": 0.0
+  },
+  "braid_shape_valid": true,
+  "braid_to_puck_intersection_volume_mm3": 0.0,
+  "nominal_braided_od_at_puck_mm": 34.0,
+  "counter_hole_mm": 34.93,
+  "foam_top_z_mm": -231.06221850068601,
+  "blue_bare_at_faucet_mm": 181.06221850068601,
+  "evidence_limits": [
+    "Retained donor washer, nut and compression fitting are not modeled.",
+    "Ribbon continuation below the puck is partial.",
+    "Braid is a nominal continuous envelope; weave and folds are not modeled.",
+    "Only the user-reported selected printed fit is physically accepted."
+  ],
+  "viewer_hosts": [
+    {
+      "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "sha256": "cbf3a1072b40a4d1d870b77cbe4447e41164a9121babd876d625414d5cce5ef1",
+      "organizer_mesh_name": "umbilical-organizer",
+      "organizer_triangles": 5904
+    },
+    {
+      "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
+      "sha256": "c0596529e239a9cdce802ad00d14a5f86d3df500fc41405a345af4a29fbe039e",
+      "organizer_mesh_name": "umbilical-organizer",
+      "organizer_triangles": 5904
+    }
+  ]
+}

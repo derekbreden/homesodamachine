@@ -91,6 +91,9 @@ def main():
         "COLLAR_BORE_PRINTED": f"{faucet.tube_collar.bore_printed():.4g}",
         "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
         "COLLAR_SLEEVE_TAIL": f"{faucet.foam_bare_at_wall:.3g} mm",
+        "ORGANIZER_PLATE_GAP": f"{faucet.under_counter_plate_bottom_z-faucet.organizer_top_z:.4g} mm",
+        "ORGANIZER_TOP_Z": f"{faucet.organizer_top_z:g} mm",
+        "ORGANIZER_LENGTH": f"{faucet.umbilical_organizer.LENGTH:g} mm",
         # The braid over the pack — §3. It is bought by what it opens to.
         # The umbilical ribbon's own section, which is what the 6P4C plug closes on — §2.
         "RIBBON_T": f"{faucet.cable_lane:.4g} mm",

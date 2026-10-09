@@ -118,6 +118,7 @@ export const ALIASES = {
   "tee-y-g": "reference/tee-connector/tee-connector.step",
   "thermal-fuse": "reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
   "tpu_o_ring": "printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+  "umbilical-organizer": "printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
   "tube-collar-co2-word": "printed-parts/faucet/tube-collar/tube-collar-co2.step",
   "tube-collar-water-word": "printed-parts/faucet/tube-collar/tube-collar-water.step",
   "valve-v-a": "reference/beduan-solenoid/beduan-solenoid.step",

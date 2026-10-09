@@ -559,6 +559,7 @@ def main(*, only_bom=False):
         "WHITE_A_CUT": f"{_faucet_gen.white_cut_length(+1):g}",
         "WHITE_B_CUT": f"{_faucet_gen.white_cut_length(-1):g}",
         "WHITE_FLAVOR_FT": f"{_white_flavor_mm / 304.8:.2f}",
+        "WHITE_FLAVOR_COST": f"${_white_flavor_mm / 304.8 * 0.14002:.2f}",
         "SODA_FAUCET_CUT": f"{_faucet_gen.soda_faucet_cut_length:g}",
         "SODA_FAUCET_FT": f"{_faucet_gen.soda_faucet_cut_length / 304.8:.2f}",
         "FAUCET_UNIONS": f"{len(_faucet_gen.flavor_sides):d}",

@@ -10,6 +10,13 @@ Bench issues and accepted results retain the scope of their linked physical reco
 An accepted fit establishes that fit; a geometric clearance establishes that clearance.
 Neither supplies an unmeasured load capacity or endurance result.
 
+The [umbilical organizer's accepted L fit](../printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
+is the Ø32 × 10 mm PET-GF puck with Ø6.65 mm beverage bores and Ø4.20 mm drain
+bore. Derek accepted the identified Mark2 article as good enough for current use.
+It is a production umbilical part. This records its reported fit; quantified
+sliding force, endurance and the complete installed mounting sequence are not
+separately reported.
+
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
 those outcomes and durable operation. Material price and printer occupancy describe the
