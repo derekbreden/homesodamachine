@@ -1,0 +1,91 @@
+{
+  "recorded_at_utc": "2026-10-09T19:21:48.717895+00:00",
+  "printer": "Mark2",
+  "task_id": "1323967341",
+  "job_id": "1323967341",
+  "archive_name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+  "archive_sha256": "636f8658af0ad0f2f44fe7e5224cb3417208fd11b75ebd3875681999f5265e1e",
+  "gcode_sha256": "be1c3357bee96c84710d7d74a9c1d64b892ac69981a04983b87d387fe309bac5",
+  "status": "Repeated tip-side support disruption reported; job canceled; complete article unassessed",
+  "user_report": "It is interesting, the *exact same* support failed on this print too. It looks like it might recover, so I'm going to let it keep going, but you can see it has dragged some part of that support out of the intended area, on that same part of the tip.",
+  "reported_location": "Same tip-side support as the identified complete all-0.08 article",
+  "prior_article_evidence": "../../2026-10-09-all008-solid-foot-mark2/physical-result/physical-result.json",
+  "new_photo_or_video_examined": false,
+  "initiating_contact_observed": false,
+  "failure_height_observed_mm": null,
+  "physical_recovery_observed": false,
+  "progress_observation": {
+    "observed_at": "2026-10-09T19:08:56.472634+00:00",
+    "gcode_state": "RUNNING",
+    "task_id": "1323967341",
+    "job_id": "1323967341",
+    "layer_num": 93,
+    "total_layer_num": 3825,
+    "print_error": 0,
+    "hms": []
+  },
+  "progress_limitation": "Independent support planes prevent comparing layer counters directly with the prior article. This reading does not identify the disruption height or establish physical recovery.",
+  "native_path_evidence": {
+    "tip_object_id": 1902,
+    "fine_support_regions_present": true,
+    "support_top_z_distance_mm": 0.45,
+    "support_bottom_z_distance_mm": 0.3,
+    "support_speed_mm_s": 60,
+    "support_acceleration_mm_s2": 8000,
+    "support_wipe_witness": {
+      "gcode_lines": [
+        18437,
+        18448
+      ],
+      "feature": "Support",
+      "z_mm": 0.31,
+      "first_wipe_move_start_xy_mm": [
+        186.192,
+        189.707
+      ],
+      "first_wipe_move_end_xy_mm": [
+        186.802,
+        189.668
+      ],
+      "speed_mm_s": 60,
+      "sequence": "Same-height retracting wipe, remaining retraction, 0.4 mm lift, travel, return to print height",
+      "limitation": "This is a commanded tip-support path, not an observed impact at the reported damaged branch."
+    },
+    "support_layer_review": "../support-layer-review.json"
+  },
+  "working_hypotheses": [
+    {
+      "rank": 1,
+      "mechanism": "A locally curled or loosely attached support strand catches the nozzle during a same-height wipe or nearby travel and is peeled or dragged out of position.",
+      "basis": "Repeated reported location; fine support regions and same-height wipes remain in the retry.",
+      "confirmed": false
+    },
+    {
+      "rank": 2,
+      "mechanism": "Fine model extrusion droops or curls at a tip support contact and starts the snag.",
+      "basis": "The retained 0.45 mm top separation is large relative to the 0.08 mm model layers. The first damaged strand and contact height are unidentified.",
+      "confirmed": false
+    },
+    {
+      "rank": 3,
+      "mechanism": "A local support foot or branch connection peels under repeated nozzle motion.",
+      "basis": "Repeated localized disruption is compatible with a weak attachment at this geometry; general bed-adhesion failure is unestablished.",
+      "confirmed": false
+    }
+  ],
+  "printer_changes_made_for_this_report": false,
+  "additional_send_performed": false,
+  "scheduled_monitor_requested": false,
+  "stop_and_bed_clear_quote": "Job stopped and bed is clear and ready for your next attempt.",
+  "latest_observation": {
+    "observed_at": "2026-10-09T19:32:28.678804+00:00",
+    "gcode_state": "FAILED",
+    "task_id": "1323967341",
+    "job_id": "1323967341",
+    "layer_num": 0,
+    "total_layer_num": 3825,
+    "print_error": 0,
+    "hms": []
+  },
+  "candidate_resolution_record": "../../2026-10-09-all008-tip-grid-no-wipe-mark2/native-check.json"
+}
