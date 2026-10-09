@@ -195,6 +195,8 @@ TOOLS = [
     ("Haisstronica", "T_CRIMPER", A("B08F3JKDD3")),
     ("Taiss Dupont crimp", "T_DUPONT_KIT", A("B0B11RLGDZ")),
     ("SN-2549", "T_SN2549", A("B01N4L8QMW")),
+    ("JST WC-110 hand crimper", "T_WC110",
+     L(contains="JST WC-110 hand crimper", order="DigiKey 101910359")),
     ("Kill-A-Watt", "T_KILL_A_WATT", A("B00009MDBU")),
     ("Virtua CCS safety glasses", "T_GLASSES", A("B00AEXKR4C")),
     ("iFixit precision tweezers", "T_TWEEZERS", A("B079K874CQ")),
