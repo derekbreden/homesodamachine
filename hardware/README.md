@@ -75,6 +75,8 @@ The sequence the whole machine is built in is the dependency chain of the proced
 
 [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 begins before enclosure closure because `enclosure-front-top` is the assembly fixture. Its order is bare tees loaded into the tee wall's journals; aft valves raised from the underside and pressed into their sockets; fore valves and four bowed flex stubs. The pump cartridge goes in only after the box closes. The rest of internal plumbing follows [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md), and [`wiring.md`](/hardware/assembly/wiring.md) takes a chassis that already carries its plumbing. [Letter shop guides](/hardware/assembly/guides/README.md) illustrate drilling and cutting, molds, refrigeration, and the carbonator weld operation.
 
+The Lillium-fed build, the flavor side in the enclosure with none of the cold core, is [`lillium-cutover.md`](/hardware/assembly/lillium-cutover.md).
+
 ## Layout
 
 | Path | What's there |
