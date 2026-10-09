@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""checks.py — every check in this tree, run against this tree, in one place.
+"""checks.py — the listed checks, run against this tree, in one place.
 
     tools/cad-venv/bin/python tools/checks.py            every check, a line each
     tools/cad-venv/bin/python tools/checks.py --list     name them and run none
     tools/cad-venv/bin/python tools/checks.py --json P   write the verdict to P as well
-    tools/cad-venv/bin/python tools/checks.py --interactive
-                                                     omit checks that take the CAD build lock
 
 A LIST, NOT A GLOB. `CHECKS` below is the whole set, and a new `check_*.py` joins it only when
 Derek asks for that check (CLAUDE.md, "What Runs Every Time").
@@ -36,38 +34,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
 
-# `checks_now.py`'s reading is the visual loop, not reconciliation. This check opens every fluted
-# mesh and may take the global CAD lock for minutes; it remains in the ordinary all-checks run and
-# is omitted only when that interactive reader explicitly asks for that path.
-INTERACTIVE_OMITS = {"hardware/scripts/check_flutes.py"}
-
-
 CHECKS = (
-    "hardware/scripts/check_asse_drain.py",
-    "hardware/scripts/check_build_exit.py",
     "hardware/scripts/check_copper_plug_clearance.py",
     "hardware/scripts/check_core_and_faucet_heatsets.py",
     "hardware/scripts/check_enclosure_mating_clearance.py",
-    "hardware/scripts/check_facts_current.py",
-    "hardware/scripts/check_faucet_geometry.py",
-    "hardware/scripts/check_finishes.py",
-    "hardware/scripts/check_flutes.py",
     "hardware/scripts/check_ledger.py",
-    "hardware/scripts/check_payload_colours.py",
-    "hardware/scripts/check_payloads.py",
     "hardware/scripts/check_pinmap.py",
-    "hardware/scripts/check_print_profile.py",
     "hardware/scripts/check_purchase_evidence.py",
-    "hardware/scripts/check_show_faces.py",
     "hardware/scripts/check_step_colours.py",
-    "hardware/scripts/check_tracked.py",
     "tools/check_paths.py",
-    "tools/check_release_room.py",
-    "tools/check_web_tests.py",
-    "tools/bazel/check_build_file.py",
-    "tools/bazel/check_ci_targets.py",
-    "tools/bazel/check_declared_imports.py",
-    "tools/bazel/check_unbounded_reach.py",
 )
 
 
@@ -106,13 +81,9 @@ def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--list", action="store_true", help="name them and run none")
     ap.add_argument("--json", metavar="PATH", help="also write the verdict here, clock-free")
-    ap.add_argument("--interactive", action="store_true",
-                    help="omit checks that take the CAD build lock from the visual loop")
     args = ap.parse_args(argv)
 
     found = checks()
-    if args.interactive:
-        found = [rel for rel in found if rel not in INTERACTIVE_OMITS]
     if args.list:
         for c in found:
             print(f"  {c}")

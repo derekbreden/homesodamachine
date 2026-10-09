@@ -4,9 +4,7 @@
     tools/cad-venv/bin/python tools/checks_now.py           read this tree, commit what changed
     tools/cad-venv/bin/python tools/checks_now.py --check    say what it would do, touch nothing
 
-It runs when someone runs it; no hook starts it. It asks `tools/checks.py --interactive`: the
-ordinary full reading still includes every check, while this path leaves out checks that take
-the CAD build lock and delay the visible cut.
+It runs when someone runs it; no hook starts it. It runs `tools/checks.py`'s list.
 
 THE ANSWER GOES TO THE SITE. `web/public/checks.json` is under `render.yaml`'s buildFilter, so
 committing it deploys. `web/lib/shell.js` puts it on the settings gear's corner — green when
@@ -61,7 +59,7 @@ def head_is_ours() -> bool:
 
 def read() -> bool:
     """Run every check into the served file. True when a check is red."""
-    return run([str(PY), "tools/checks.py", "--interactive", "--json", str(OUT)],
+    return run([str(PY), "tools/checks.py", "--json", str(OUT)],
                quiet=True).returncode != 0
 
 

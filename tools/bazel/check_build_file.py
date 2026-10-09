@@ -8,11 +8,10 @@ step fails with `ModuleNotFoundError` on a file tracked and committed in the tre
 
 `check_declared_imports.py` cannot see this one: it reads the graph, and the graph is right.
 
-IT REPORTS AND HOLDS NOTHING, which is the whole of why it is a `check_` here rather than a
-gate. `gen_build.py --check` is the same reading and `.githooks/pre-commit` names its checks
-one at a time — this is not one of them. Several sessions share the graph and one of them is
-often part-way through moving it, so this row goes red while that is true and green on the
-next reading; a red row is a thing to look at, not a thing to stop for.
+IT REPORTS AND HOLDS NOTHING, and it runs when someone asks. `gen_build.py --check` is the
+same reading. Several sessions share the graph and one of them is often part-way through moving
+it, so this goes red while that is true and green on the next reading; red is a thing to look
+at, not a thing to stop for.
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py     writes it
 """

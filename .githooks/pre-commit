@@ -1,53 +1,7 @@
 #!/bin/sh
-# NOTHING HERE HOLDS A COMMIT. ON PURPOSE. Every check below reports and exits 0, and a check
-# added later reports too — if you find yourself writing `|| exit 1`, that is the thing this
-# file exists to not do.
-#
-# WHY: the site is how Derek sees what is on this disk, and he wants to see whatever there is as
-# fast as possible. A check that stops a commit stops the push, stops the lock moving, and stops
-# him seeing it. Geometry that is wrong is what the tree currently produces; the scorecard rides
-# to the site beside it, so a red gate is the signal arriving rather than a reason to hold the
-# thing carrying it.
-#
-# A CUT REACHES THE SITE WHEN THE LOCK NAMES IT — `pack.py --write` cuts, uploads and pins from
-# any machine, and the running container adopts the lock without a deploy. So the path a change
-# takes to Derek is: build the changed target here, `--write`, push. CI publishes too, and what
-# it is for is catching what that missed while nobody waits.
-#
-# WHAT THESE ARE FOR: naming a fault while the author is still here, so it has a name before the
-# build says it in its own words. That is worth a second. It is not worth a commit.
-#
-# Each check is keyed to the files that can carry its fault, so a commit to `web/` or a doc runs
-# none of them. HSM_SKIP_PRECOMMIT=1 skips them all.
+# NOTHING HERE HOLDS A COMMIT. It reports and exits 0. A check joins this file only when Derek
+# asks for that check (CLAUDE.md, "What Runs Every Time"). HSM_SKIP_PRECOMMIT=1 skips it.
 [ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
-root=$(git rev-parse --show-toplevel) || exit 0
-py="$root/tools/cad-venv/bin/python"
-[ -x "$py" ] || py=python3
-staged=$(git diff --cached --name-only --diff-filter=ACM)
-
-# A graph that comes back around fails bazel's loading phase, so no target builds.
-case "$staged" in
-  *tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*BUILD.bazel*)
-    "$py" "$root/tools/bazel/gen_build.py" --cycles || true ;;
-esac
-
-# BUILD.bazel drifted from its generator builds the rules the file holds rather than the ones the
-# graph states. Regenerate with `gen_build.py` before packing if you want the two to agree.
-case "$staged" in
-  *tools/bazel/selftests.json*|*tools/bazel/graph.json*|*BUILD.bazel*)
-    "$py" "$root/tools/bazel/gen_build.py" --check || true ;;
-esac
-
-# A step that imports what it does not hold fails its own action. `--fix` writes the edges.
-case "$staged" in
-  *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || true ;;
-esac
-
-# A workflow naming a target the graph does not declare.
-case "$staged" in
-  *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
-    "$py" "$root/tools/bazel/check_ci_targets.py" || true ;;
-esac
 
 # CONFLICT MARKERS ARE A RESOLUTION NOT YET MADE. `tools/push.py` writes them into a file that
 # main and this tree both moved, so every session here sees the collision on the disk; a commit

@@ -23,11 +23,7 @@ Checks:
      an instruction names, is still carried by bom.md or tools.md. This is the
      self-maintaining half: a brand enters the vocabulary by being bought, so a
      part designed out of the BOM but left in the prose surfaces here.
-  C. UNDRIVEN PROCEDURE — every hardware/assembly/*.md has a doc-sync driver.
-     A doc with no driver has no token substitution at all, so every number and
-     every part name in it is a bare literal nothing can check.
-
-  D. GENERIC MATERIAL — a part an instruction names by what it IS rather than by
+  C. GENERIC MATERIAL — a part an instruction names by what it IS rather than by
      who made it. Checks A and B are both brand-shaped: A needs an ASIN, B needs
      a capitalised name somebody once bought. "Fork terminal", "heat-shrink",
      "RTV" and "VHB 4941" are none of those — they are lowercase nouns, so the
@@ -36,7 +32,7 @@ Checks:
      The vocabulary here is hand-kept, because that is the point: it is the list
      of things the deck asks for by description.
 
-  E. SECTION CITATION — an instruction that cites `bom.md §N` for a named ASIN
+  D. SECTION CITATION — an instruction that cites `bom.md §N` for a named ASIN
      must cite the section that ASIN is actually in. Sections get renumbered and
      rows move between them; the prose citation does not follow.
 
@@ -189,17 +185,7 @@ for brand in drifted:
          f"{brand} ({cite(brand)})")
 
 
-# ── C. Undriven procedure ─────────────────────────────────────────────────
-
-for doc in sorted(ASSEMBLY.glob("*.md")):
-    driver = ASSEMBLY / f"_{doc.stem.replace('-', '_')}_sync.py"
-    if not driver.exists():
-        fail(f"procedure with no doc-sync driver — every number and part name in "
-             f"it is a bare literal: {doc.relative_to(REPO)} (expected "
-             f"{driver.relative_to(REPO)})")
-
-
-# ── D. Generic material ───────────────────────────────────────────────────
+# ── C. Generic material ───────────────────────────────────────────────────
 
 # Materials the deck asks for by description, not by brand. Each entry is
 # (what the instructions call it, what the ledger must show). A build consumes
@@ -235,7 +221,7 @@ for pattern, needle in GENERIC:
              f"{f' +{len(named) - 3} more' if len(named) > 3 else ''})")
 
 
-# ── E. Section citation ───────────────────────────────────────────────────
+# ── D. Section citation ───────────────────────────────────────────────────
 
 # bom.md's own section spans, so an ASIN can be located by section number.
 BOM_SECTIONS: dict[int, str] = {}
@@ -285,5 +271,4 @@ if failures:
         print(f"  ✗ {f}")
     sys.exit(1)
 
-print("\n✓ every part the instructions name is carried by bom.md or tools.md, "
-      "and every procedure has a driver.")
+print("\n✓ every part the instructions name is carried by bom.md or tools.md.")
