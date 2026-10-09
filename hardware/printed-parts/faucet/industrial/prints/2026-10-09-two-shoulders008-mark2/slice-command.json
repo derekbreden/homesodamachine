@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/industrial-two-shoulders008/final",
+    "--export-3mf",
+    "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.3mf"
+  ],
+  "submitted": false
+}

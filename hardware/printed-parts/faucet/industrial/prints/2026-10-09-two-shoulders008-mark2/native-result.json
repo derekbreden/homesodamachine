@@ -1,0 +1,114 @@
+{
+    "error_string": "Success.",
+    "export_time": 4371,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 697,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 89.760009765625,
+                "Bridge": 483.2575378417969,
+                "Brim": 38.81026840209961,
+                "Custom": 297.39410400390625,
+                "Flush": 15.0,
+                "Gap infill": 543.5697021484375,
+                "Inner wall": 3298.47265625,
+                "Internal solid infill": 1502.4281005859375,
+                "Outer wall": 3736.473876953125,
+                "Overhang wall": 434.59637451171875,
+                "Sparse infill": 3394.0927734375,
+                "Support": 2820.429931640625,
+                "Support interface": 142.67823791503906,
+                "Support transition": 248.44696044921875,
+                "Top surface": 95.14212799072266,
+                "Travel": 4519.646484375,
+                "Undefined": 4518.0771484375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 133.97984313964844,
+                    "total_used_g": 133.97984313964844
+                }
+            ],
+            "generate_support_material_time": 3182,
+            "id": 1,
+            "infill_time": 1593,
+            "layer_filament_change": 0,
+            "main_predication": 21375.544921875,
+            "make_perimeters_time": 2189,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 113.8528060913086,
+                        "height": 226.48277282714844,
+                        "width": 59.0,
+                        "x": 53.0,
+                        "y": 111.6299819946289,
+                        "z": -0.07764548063278198
+                    },
+                    "id": 5,
+                    "name": "industrial-shell-base",
+                    "triangle_count": 422120
+                },
+                {
+                    "bbox": {
+                        "depth": 81.9704360961914,
+                        "height": 163.87892150878906,
+                        "width": 27.0,
+                        "x": 169.0,
+                        "y": 163.52052307128906,
+                        "z": -3.427302598953247
+                    },
+                    "id": 9,
+                    "name": "faucet-shell-tip",
+                    "triangle_count": 238386
+                },
+                {
+                    "bbox": {
+                        "depth": 68.0181655883789,
+                        "height": 67.54417419433594,
+                        "width": 29.79999351501465,
+                        "x": 236.60000610351563,
+                        "y": 231.9909210205078,
+                        "z": -24.497085571289063
+                    },
+                    "id": 13,
+                    "name": "industrial-display-cover",
+                    "triangle_count": 4346
+                },
+                {
+                    "bbox": {
+                        "depth": 59.0,
+                        "height": 6.200000286102295,
+                        "width": 59.0,
+                        "x": 176.0,
+                        "y": 78.5,
+                        "z": -1.1905115115951048e-07
+                    },
+                    "id": 17,
+                    "name": "industrial-above-counter-plate",
+                    "triangle_count": 15144
+                }
+            ],
+            "sliced_time": 13404,
+            "sliced_time_with_cache": 5798,
+            "total_predication": 21701.369140625,
+            "triangle_count": 679996,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

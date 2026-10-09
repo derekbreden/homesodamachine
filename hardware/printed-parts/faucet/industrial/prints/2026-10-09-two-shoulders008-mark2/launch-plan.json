@@ -1,0 +1,183 @@
+{
+  "printer": "Mark2",
+  "authorization": {
+    "quote": "Mark2 has PET-GF in left nozzle 0.4 with textured plate and bed clear. Please print me an industrial faucet with an adjustment to use thinner layers on this object only on these two faces only.",
+    "complete_set_quote": "We necessarily print the base at an angle to avoid supports and have clean faces, but that introduces a slope that is too gradual to look nice at 0.24 layers, so I need to see what 0.08 layers for the layers going through those faces looks like, and I'd like a *complete* faucet print for a number of reasons (consistency, tuning for the settings we'll actually use, having a complete set, etc, etc)."
+  },
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "78ff89dbbb4e7c87f2ea26070f779a80ed3390e7af1c67eb20a1c1a0f99c2302",
+  "gcode_sha256": "81a024b35ae854e33d4157e20b4ce70285aee676ed036b27c16afe0bbc57a495",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "7de460328f99f141ddcf6d2d28d622e5f657128e2c69a509d835a5299d9b271e",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "maximum_foreground_transactions": 1,
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_attempted": true,
+  "send_attempted_at_utc": "2026-10-09T05:18:06.670489+00:00",
+  "accepted": true,
+  "submitted": true,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "status": "Accepted",
+  "accepted_at_utc": "2026-10-09T05:18:36.738902+00:00",
+  "accepted_at_central": "2026-10-09T00:18:36.738902-05:00",
+  "printer_task_id": "1322263030",
+  "printer_job_id": "1322263030",
+  "accepted_archive_name": "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "send_successful": true,
+  "send_count": 1,
+  "native_estimated_seconds": 21701.369140625,
+  "forecast_complete_at_utc": "2026-10-09T11:20:18.108043+00:00",
+  "forecast_complete_at_central": "2026-10-09T06:20:18.108043-05:00",
+  "acceptance_observation": {
+    "observed_at": "2026-10-09T05:18:36.738902+00:00",
+    "printer_task_id": "1322263030",
+    "subtask_name": "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "start_notification_reported": true,
+  "first_layer_observed": false,
+  "latest_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-09T05:19:29.119685+00:00",
+    "task_id": "1322263030",
+    "job_id": "1322263030",
+    "subtask_name": "2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 1408,
+    "mc_percent": 0,
+    "mc_remaining_time": 361,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 43.0,
+    "bed_target_temper": 43.0,
+    "timelapse": "disable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 47,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 196,
+          "target_c": 200
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 38,
+      "target_c": 0
+    }
+  },
+  "post_start_peer_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-09T05:19:28.318732+00:00",
+    "task_id": "1320974719",
+    "job_id": "1320974719",
+    "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 347,
+    "total_layer_num": 1535,
+    "mc_percent": 39,
+    "mc_remaining_time": 980,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "timelapse": "enable",
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 47,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  }
+}

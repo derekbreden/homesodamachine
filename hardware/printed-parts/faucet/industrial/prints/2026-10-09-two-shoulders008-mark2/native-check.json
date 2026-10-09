@@ -1,0 +1,307 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "78ff89dbbb4e7c87f2ea26070f779a80ed3390e7af1c67eb20a1c1a0f99c2302",
+    "gcode_sha256": "81a024b35ae854e33d4157e20b4ce70285aee676ed036b27c16afe0bbc57a495",
+    "native_settings_normalizations": {
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ],
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1408,
+    "estimated_seconds": 21701.369140625,
+    "estimated_grams_saved_profile_density": 133.97984313964844,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 4
+  },
+  "geometry": [
+    {
+      "part": "industrial-shell-base",
+      "vertex_rounding_maximum_mm": 3.86400000706999e-06,
+      "triangles_identical": true,
+      "placement_rounding_maximum_mm": 3.0457198363365023e-07
+    },
+    {
+      "part": "faucet-shell-tip",
+      "vertex_rounding_maximum_mm": 3.863999992859135e-06,
+      "triangles_identical": true,
+      "placement_rounding_maximum_mm": 4.840573808451154e-08
+    },
+    {
+      "part": "industrial-display-cover",
+      "vertex_rounding_maximum_mm": 5.000000058430487e-08,
+      "triangles_identical": true,
+      "placement_rounding_maximum_mm": 1.966969875866198e-08
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "vertex_rounding_maximum_mm": 1.1900000007614153e-07,
+      "triangles_identical": true,
+      "placement_rounding_maximum_mm": 3.8418579428878274e-09
+    }
+  ],
+  "selected_face_wall_layer_checks": [
+    {
+      "name": "shoulder_CAD_Z14.0",
+      "print_z_mm": [
+        13.87164833714327,
+        28.793285229095687
+      ],
+      "wall_layer_count": 188,
+      "first_wall_layer": [
+        13.88,
+        0.08
+      ],
+      "last_wall_layer": [
+        28.84,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "shoulder_CAD_Z57.5",
+      "print_z_mm": [
+        55.46308929809068,
+        67.83949056838945
+      ],
+      "wall_layer_count": 156,
+      "first_wall_layer": [
+        55.48,
+        0.08
+      ],
+      "last_wall_layer": [
+        67.88,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "wall_layer_runs": [
+    {
+      "part": "industrial-shell-base",
+      "identify_id": 1901,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 13.4,
+          "layer_count": 55
+        },
+        {
+          "height_mm": 0.08,
+          "bottom_z_mm": 13.4,
+          "last_z_mm": 29.0,
+          "layer_count": 195
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 29.0,
+          "last_z_mm": 55.16,
+          "layer_count": 109
+        },
+        {
+          "height_mm": 0.08,
+          "bottom_z_mm": 55.16,
+          "last_z_mm": 68.12,
+          "layer_count": 162
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 68.12,
+          "last_z_mm": 219.8,
+          "layer_count": 632
+        }
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "identify_id": 1902,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 158.84,
+          "layer_count": 661
+        }
+      ]
+    },
+    {
+      "part": "industrial-display-cover",
+      "identify_id": 1903,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 18.44,
+          "layer_count": 76
+        }
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "identify_id": 1904,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 6.2,
+          "layer_count": 25
+        }
+      ]
+    }
+  ],
+  "complete_model_support_brim_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        49.107236,
+        78.22523600000001
+      ],
+      [
+        266.676764,
+        294.846764
+      ]
+    ],
+    "maximum_line_width_mm": 0.773528,
+    "bounds_padding_mm": 0.486764
+  },
+  "minimum_bed_margin_mm": 25.153235999999993,
+  "selected_face_support_midpoint_reading": [
+    {
+      "cad_z_mm": 14.0,
+      "total_base_support_midpoints": 192343,
+      "midpoints_within_0_85_mm_normal_band": 3045,
+      "midpoints_within_0_85_mm_of_face_projected_region": 0,
+      "midpoints_projected_inside_face_inset_0_4_mm": 0,
+      "near_face_witnesses_cad_mm": [],
+      "inside_face_witnesses_cad_mm": []
+    },
+    {
+      "cad_z_mm": 57.5,
+      "total_base_support_midpoints": 192343,
+      "midpoints_within_0_85_mm_normal_band": 651,
+      "midpoints_within_0_85_mm_of_face_projected_region": 14,
+      "midpoints_projected_inside_face_inset_0_4_mm": 0,
+      "near_face_witnesses_cad_mm": [
+        [
+          6.085499999999996,
+          0.95481603310857,
+          56.69375562076026
+        ],
+        [
+          6.097999999999999,
+          1.0963241666599213,
+          56.731672610867776
+        ],
+        [
+          -6.097999999999999,
+          1.0963241666599213,
+          56.731672610867776
+        ],
+        [
+          -6.085499999999996,
+          0.95481603310857,
+          56.69375562076026
+        ],
+        [
+          -6.097999999999999,
+          1.6218496978181733,
+          56.95530884697637
+        ],
+        [
+          6.097999999999999,
+          1.6218496978181733,
+          56.95530884697637
+        ],
+        [
+          -6.097999999999999,
+          1.174687921903329,
+          56.91831430466674
+        ],
+        [
+          -6.085499999999996,
+          0.9134049858921658,
+          56.84830375296651
+        ],
+        [
+          6.085499999999996,
+          0.9134049858921658,
+          56.84830375296651
+        ],
+        [
+          6.097999999999999,
+          1.145710147114684,
+          56.910549733313665
+        ],
+        [
+          6.085499999999996,
+          0.8926994622839646,
+          56.92557781906963
+        ],
+        [
+          6.097999999999999,
+          1.010059450178055,
+          56.95702433304958
+        ]
+      ],
+      "inside_face_witnesses_cad_mm": []
+    }
+  ],
+  "probing_clump_detection": false,
+  "bare_G39_commands": 0,
+  "three_solid_insert_modifiers_preserved": true,
+  "scope": "Native commanded geometry and layer-height verification; printed finish requires physical observation.",
+  "pass": true
+}
