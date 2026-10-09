@@ -5,6 +5,14 @@ all four tubes and the faucet display's contacts, and a socket snapped into back
 receives it. These are printable test parts. Nothing here is in the build, the BOM or the
 production enclosure.
 
+**Current assessment:** this is an exploratory mechanism, not a qualified connector.
+The [engineering review](assessment/README.md) recommends keeping the separate connections
+for shipping and using the [optional tactile trial](tactile-trial/README.md) to assess the
+plug and actual bundle before purchasing the missing magnets or 4 mm union. That trial
+has filled magnet pockets and no pauses. The original functional print projects below
+remain provisional: magnet fit, complete seating, bundle transition and retention require
+correction or evidence.
+
 ![Machine side, plug, plugged in, the release section, through the counter](renders/one-plug-umbilical.png)
 
 [`one-plug-umbilical.html`](one-plug-umbilical.html) is the same five views to turn in 3D, with both print plates.
@@ -40,8 +48,9 @@ its collet sleeve lands on that face, [9.8](UMB_RELEASE) mm behind the floor; th
 sleeve while the body keeps coming, which opens the collet, and the stub slides out. Each union
 has [1.83](UMB_FLOAT) mm of travel for it. That is the pump cartridge's fixed release plate
 ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §4), turned to face the plug.
-Under pressure the stub and the machine's tube pull a union both ways at once, so it stays where it
-is and both collets keep their grip.
+Pressure and bundle loads must be carried through the plug, unions, retainer and snapped-in
+socket. Stable union position and installed retention under those loads are unestablished.
+Shutdown and depressurization are required before unplugging.
 
 **The plug goes in one way up.** DRAIN's own 4 mm union is the key: a 1/4″ stub cannot enter its
 Ø4.3 hole. The bars' polarity and the pogo's own magnets agree with it.
@@ -53,14 +62,22 @@ flats and [52](UMB_PLUG_L) mm long. It drops through the 1-3/8″ countertop hol
 [1.25](UMB_COUNTER_SIDE) mm a side, [0.93](UMB_COUNTER_CORNER) at its flats' corners.
 
 **The tubes are the umbilical's own.** Each passes a slip-fit bore and stands proud of the face,
-the 1/4″ tubes [25.8](UMB_STUB_Q) mm and DRAIN [22.8](UMB_STUB_D) mm, 0.5 mm short of their tube
-stops. One printed key across the plug between the tube rows bites [0.5](UMB_KEY_BITE) mm into all
+the 1/4″ tubes [25.8](UMB_STUB_Q) mm and DRAIN [22.8](UMB_STUB_D) mm. These are illustrative
+projections; a functional assembly must achieve full insertion into each real fitting. The
+[review](assessment/README.md#the-main-engineering-problem-is-consistent-seating-and-release)
+describes the seating correction and the drain's additional dimensional uncertainty.
+One printed key across the plug between the tube rows bites [0.5](UMB_KEY_BITE) mm into all
 four, its lug reaching down to the thinner DRAIN tube. It goes in from the DRAIN side, the only
 way it fits.
 
-**The foam stops at the plug.** The soda tube's foam butts against the plug's back face, centred on
-its tube, and clears the other three. The braid ends on the foam as it does today. The display
-ribbon enters a channel under the top flat and drops to the pogo pad half's tails behind its seat.
+**The bundle transition is unfinished.** The scene's foam butts against the plug's back face
+while the tubes continue straight. Its nominal uncompressed outline needs at least 38.71 mm
+across before braid or cable, versus the 34.93 mm hole. The purchased foam is reported to be
+quite compressible, and deliberate compression is intended in the boot. The [bundle study](assessment/README.md#foam-compression-belongs-in-the-boot-design)
+therefore calls for trying direct compressed packing first, with rearrangement after a
+bare-tube fan as an alternative. Compressed capture and actual passage need the real bundle.
+The display ribbon enters a channel under the top flat and drops to the pogo pad half's tails
+behind its seat.
 
 ## Printing
 
@@ -114,10 +131,10 @@ be tried without a back-top.
 
 - Every fit here is geometry: the plug in the cup, the bars on their rails, the leaves in the
   wall, the key's grip. None has been printed.
-- Neither neoFit nor John Guest dimensions the AUC44M's collet sleeve. Its back stop assumes a
-  sleeve at least 1.0 mm proud, and its 13.0 mm insertion is John Guest's for the PM0404E
-  ([DS-PM04](https://docs.rs-online.com/0f8c/0900766b800bd8c0.pdf)), which neoFit lists as its
-  equivalent. Check both on the part.
+- The AUC44M's modeled release geometry is unconfirmed. Its back stop assumes a sleeve at
+  least 1.0 mm proud; its 13.0 mm insertion comes from John Guest's different PM0404E
+  ([DS-PM04](https://docs.rs-online.com/0f8c/0900766b800bd8c0.pdf)). These dimensions need the
+  exact fitting or its complete manufacturer drawing before a functional revision.
 - The force to push four collets on at once, the key's hold on the tubes, and the bars' installed
   pull. K&J rates the SB443-IN at 3.42 lb to steel at contact.
 - What the first layer printed over each N42 bar does to it.
