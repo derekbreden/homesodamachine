@@ -1,0 +1,52 @@
+{
+  "reviewed_local_date": "2026-10-09",
+  "scope": "Native geometry of a material-packing study. Foam is clipped to the available volume, not a prediction of deformation. Fabric is an envelope. No physical fit, insertion force, insulation performance, strain relief, wall strength or retention is established. Saved print projects omit this pocket.",
+  "source_sha256": {
+    "umbilical.py": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+    "boot_concept.py": "2da935a96edc1efea8c4028d8a570de2118133d60c370c1650ab4b83849bf5c3",
+    "scene.py": "47b6038b4eb61ad1190935ac9d56a65c43227e5c30fbea2f503d443c7c87a490"
+  },
+  "valid_solids": {
+    "plug": true,
+    "foam": true,
+    "fabric": true,
+    "ribbon": true
+  },
+  "solid_count": {
+    "plug": 1,
+    "foam": 1,
+    "fabric": 1,
+    "ribbon": 1
+  },
+  "dimensions_mm": {
+    "foam_tuck": 15.0,
+    "fabric_tuck": 10.0,
+    "mouth_wall_allowance": 1.0,
+    "assumed_compressed_fabric_wall": 0.35,
+    "foam_space_at_soda_outer_diagonal_corner": 0.27500000000000124,
+    "purchased_nominal_foam_wall": 9.525
+  },
+  "material_inside_pocket_mm3": {
+    "foam": 3738.654739302245,
+    "fabric": 329.8361401240038
+  },
+  "intersection_mm3": {
+    "foam_with_plug": 0.0,
+    "fabric_with_plug": 0.0,
+    "fabric_with_foam": 0.0,
+    "foam_with_ribbon": 0.0,
+    "fabric_with_ribbon": 0.0,
+    "foam_with_tubes": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    },
+    "fabric_with_tubes": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    }
+  }
+}

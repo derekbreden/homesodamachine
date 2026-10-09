@@ -115,7 +115,12 @@ and intends the boot to compress it. That is relevant physical evidence. Deliber
 may allow a simpler direct transition with insulation against the plug. The first tactile
 candidate is therefore direct packing and compression. A clamp or sleeve would ultimately
 need to hold that compressed shape and the jacket securely without deforming the tubes or
-pinching the cable. This capture feature is absent from the current plug model.
+pinching the cable. The [boot packing study](../README.md#plug-side) shows foam and braid
+tucked into a plain rear pocket. With the straight square tube layout it leaves only
+0.275 mm of foam space at the soda tube's outer diagonal corner, even with a 1 mm model
+mouth wall and assumed 0.35 mm braid thickness. That is a visible packing constraint,
+not evidence that such compression or wall stock is appropriate. The study provides no
+qualified braid retention or cable strain relief; the saved tactile article has no pocket.
 
 A candidate rearranges the other three tubes along one side of the soda foam. It has a
 32.01 mm bare enclosing circle. With the existing modeling allowance of 1.3 mm radially

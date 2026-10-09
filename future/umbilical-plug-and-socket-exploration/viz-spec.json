@@ -1,6 +1,6 @@
 {
  "title": "One-plug umbilical",
- "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. Exploratory geometry; the insulation and jacket capture are unfinished.",
+ "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. Foam and black/blue fabric enter a rear boot pocket; this is a material-packing study.",
  "view": {
   "az": -70,
   "el": 20
@@ -22,7 +22,7 @@
   },
   {
    "name": "Plug",
-   "caption": "Ø32.44 across, 52 long. One key clamps all four tubes; the foam on the soda tube stops at the plug.",
+   "caption": "Ø32.44 across, 52 long. One key clamps all four tubes; the foam and fabric jacket tuck into its rear pocket.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-plug.step"
@@ -55,13 +55,22 @@
   },
   {
    "name": "Through the counter",
-   "caption": "The plug in the 1⅜″ countertop hole: 1.2 mm a side, 0.9 at its flats' corners.",
+   "caption": "The plug in the 1⅜″ countertop hole: 1.2 mm a side, 0.9 at its flats' corners. The loose foam and braid need compression during passage.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-counter.step",
      "ghost": [
       "countertop*"
      ]
+    }
+   ]
+  },
+  {
+   "name": "Boot materials",
+   "caption": "Cut through the soda tube: foam enters 15 mm; the fabric jacket encloses the whole bundle and enters 10 mm. Compression, mouth strength and pull-out retention are unqualified.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-boot-section.step"
     }
    ]
   },
@@ -73,7 +82,7 @@
   {
    "name": "Plug-side plate",
    "image": "renders/print-plug-side.png",
-   "caption": "The plug upside down on its top flat and the key on end. One pause for the plug's bars."
+   "caption": "Saved geometry trial without the boot pocket: the plug upside down on its top flat and the key on end. One pause for the plug's bars."
   }
  ]
 }
