@@ -1124,8 +1124,8 @@ def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = Fals
     # against the release's whole listing before it removes anything, and eight round trips
     # measured on 2026-08-28 against a release holding 981 assets ran 1.90 s each serially,
     # 0.62 s each four-wide and 0.60 s each eight-wide — the client saturates at four. This
-    # sweep runs from `make_room` inside a publish, on the path that exists to beat the runner's
-    # 5.7 minutes, and the 648 assets retirable that night are 20.5 minutes of it serially.
+    # sweep runs from `make_room` inside a publish, on the post-commit path, and the 648 assets
+    # retirable that night are 20.5 minutes of it serially.
     with cf.ThreadPoolExecutor(max_workers=min(4, len(going))) as pool:
         failed = [name for name in pool.map(drop, going) if name]
     for name in failed:
@@ -1152,9 +1152,9 @@ def make_room(root: Path, need: int) -> bool:
     if free >= need:
         return False
     print(f"  release holds {held} of {RELEASE_ASSET_CAP} and this cut wants {need}")
-    # A SHALLOW CLONE DOES NOT SWEEP, IT SAYS SO. `publish.yml` checks out at `fetch-depth: 1`,
-    # where reach is read off a single pointer file and all but the newest cut looks unreachable — so
-    # the cliff is exactly where this would have deleted the bytes older commits resolve to.
+    # A SHALLOW CLONE DOES NOT SWEEP, IT SAYS SO. At `fetch-depth: 1` reach is read off a single
+    # pointer file and all but the newest cut looks unreachable — so the cliff is exactly where
+    # this would have deleted the bytes older commits resolve to.
     # Declining costs a publish its `objects` lane, which `upload_objects` already degrades
     # gracefully; sweeping wrongly costs the release. `.github/workflows/retire.yml` holds the
     # store down from a full history so this floor is not reached.
@@ -1323,8 +1323,8 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict,
     """The bundle a held publish left behind, cut whole and pointed at.
 
     The members it lacked are on the release by their own hashes, which is what a reader
-    fetches by; this is the one asset that answers a pointer file without `objects`, made current on
-    the runner where a minute of tar and upload costs nobody at a keyboard. The members and
+    fetches by; this is the one asset that answers a pointer file without `objects`, made current
+    by the reconciler's plain `--write`. The members and
     their hashes are the pointer file's own; only the bundle and the source move."""
     release = held.get("release", {})
     with tempfile.TemporaryDirectory() as d:
@@ -1510,7 +1510,7 @@ def main(argv) -> int:
     if same_solids and same_sidecars:
         # A SOURCE CHANGE WITH NO MATERIALIZED BYTES IS THE RECONCILER'S WORK. Advancing the
         # source or adding a debt-only pointer file here makes the interactive path hide that source
-        # range from the runner without putting anything new in front of the user.
+        # range from the reconciler without putting anything new in front of the user.
         if args.publish_held:
             print("no unpublished bytes are held; leaving producer debt to reconciliation")
             return 0
@@ -1619,7 +1619,7 @@ def main(argv) -> int:
     # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
     # publish took — to move one member the site never reads from it. So the post-commit path
     # sends the objects that moved, keeps the bundle the pointer file already names and says so with
-    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one on the runner. A held
+    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one. A held
     # publish with no bundle to keep, or one whose objects did not all land, takes the road
     # below and cuts the bundle here, so a pointer file always names an asset that answers for it.
     prior_bundle = held.get("bundle", {})

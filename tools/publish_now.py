@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""publish_now.py — cut and move the pointer file from this machine, so the site does not wait on a runner.
+"""publish_now.py — cut and move the pointer file from this machine.
 
     tools/cad-venv/bin/python tools/publish_now.py           publish if this tree owes a cut
     tools/cad-venv/bin/python tools/publish_now.py --check    say what it would do, touch nothing
     tools/cad-venv/bin/python tools/publish_now.py --selftest # exercise the held-cut decision
 
-THE LAPTOP IS THE VISUAL PATH AND THE RUNNER IS THE RECONCILER. This process grafts an accepted
-piece payload into the enclosure and appliance payloads, then `pack.py --write --publish-held`
-uploads the bytes already standing on this machine. It never asks Bazel to stand the appliance
-or run its motion scorecard. Plain `pack.py --write` remains the reconciler: it cuts the deferred
-producer rules, carries their evidence through the normal derive, and advances the source commit.
+THIS IS THE VISUAL PATH AND PLAIN `pack.py --write` IS THE RECONCILER. This process grafts an
+accepted piece payload into the enclosure and appliance payloads, then `pack.py --write
+--publish-held` uploads the bytes already standing on this machine. It never asks Bazel to stand
+the appliance or run its motion scorecard. Plain `pack.py --write` cuts the deferred producer
+rules, carries their evidence through the normal derive, and advances the source commit.
 
 MOVING THE POINTER FILE DEPLOYS NOTHING. It is not among `render.yaml`'s buildFilter paths: the
 running container adopts a pointer file that moved and pushes the changed members to open pages.
@@ -28,12 +28,12 @@ gets cut, which is the newest state rather than the one that asked.
 
 IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
 runs; the one commit this makes is the pointer file, and the site is told to look only once main holds
-it. A publish that fails leaves the runner to do what it was always going to do.
+it. A publish that fails says so, and what it owed is still owed to the next one.
 
 A CLOUD SESSION CANNOT WRITE THE RELEASE, so it publishes nothing and says what it owes. Anthropic's
 egress proxy refuses a release-asset upload and a release API write from a session on its machines
 (`tools/cloud_session.sh` carries the measurement); the bytes such a session cut reach the site
-through the Mac or the runner, which read the same debt off main.
+through the Mac, which reads the same debt off main.
 """
 
 from __future__ import annotations
@@ -247,8 +247,9 @@ def publish() -> int:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
         if enclosure_action == "defer" and not bytes_drifted():
             # SOURCE IS NOT A CUT, and a tree whose solids are the ones the pointer file names has no
-            # bytes to publish for it; the runner reconciles the source. A solid that did move —
-            # a booklet rebound, a part recut beside an unmoved enclosure — goes up as it stands.
+            # bytes to publish for it; plain `pack.py --write` reconciles the source. A solid that
+            # did move — a booklet rebound, a part recut beside an unmoved enclosure — goes up as it
+            # stands.
             try:
                 base = json.loads(
                     (ROOT / "hardware/cad-artifacts.json").read_text()
@@ -264,7 +265,7 @@ def publish() -> int:
                   "as it stands, with the solids that did move")
         if enclosure_action == "graft":
             # WHAT IS HELD IS PUBLISHED, refreshed as far as the refresh got. A host the refresh
-            # could not touch goes up as it stands and says so; the runner's next cut replaces it.
+            # could not touch goes up as it stands and says so; the next cut replaces it.
             try:
                 refresh_enclosure_viewer()
             except Exception as exc:  # noqa: BLE001 — printed, and the publish goes on
@@ -275,7 +276,7 @@ def publish() -> int:
         print(f"  {reason}; publishing the bytes held here")
         if run([str(PY), "tools/cad-artifacts/pack.py", "--write",
                 "--publish-held"]).returncode != 0:
-            print("  held publication did not finish; the runner still reconciles this",
+            print("  held publication did not finish; the next publish still owes it",
                   file=sys.stderr)
             return 1
     else:
@@ -312,7 +313,7 @@ def publish() -> int:
     # strength of the pointer file being on main.
     if run(["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
            quiet=True).returncode != 0:
-        print(f"  the pointer file is committed and not on main; the runner reconciles this "
+        print(f"  the pointer file is committed and not on main; the next push carries it "
               f"({time.time() - started:.0f}s)", file=sys.stderr)
         return 1
     print(f"  pointer file moved and pushed ({time.time() - started:.0f}s)")

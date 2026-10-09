@@ -437,11 +437,10 @@ def artifact_global(path: str) -> bool:
     if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
                 "MODULE.bazel.lock", "tools/cad-requirements.txt"}:
         return True
-    # This publisher selects and carries already-described actions; it cannot move geometry.
-    # Other workflows are not assumed inert: image, derive and runner changes can change the
-    # machine or route an artifact action runs under, so an accumulated edit to one stays global.
+    # Workflows are not assumed inert: image, derive and runner changes can change the machine
+    # or route an artifact action runs under, so an accumulated edit to one stays global.
     if path.startswith(".github/workflows/"):
-        return path != ".github/workflows/publish.yml"
+        return True
     # Selection code decides WHICH already-described actions run; it is not an input to any
     # artifact action.  Making its own edits global forces the very full-tree build a scoping
     # correction is meant to remove.  The selftest inventory likewise describes test runners,
@@ -727,10 +726,6 @@ genrule(
          and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == []
          and not artifact_unknown("hardware/part.lint-answers", True)
          and unscoped_changes(["tools/bazel/affected.py"],
-                              ["tools/bazel/affected.py"], True) == []
-         and unscoped_changes([".github/workflows/publish.yml"], [], True) == []
-         and unscoped_changes([".github/workflows/publish.yml",
-                               "tools/bazel/affected.py"],
                               ["tools/bazel/affected.py"], True) == []
          and unscoped_changes([".github/workflows/derive.yml"], [], True)
              == [".github/workflows/derive.yml"])

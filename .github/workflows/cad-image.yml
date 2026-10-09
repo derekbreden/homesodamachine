@@ -39,7 +39,6 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  actions: write
   contents: read
   packages: write
 
@@ -96,24 +95,3 @@ jobs:
             echo "| on disk | $(docker image inspect "${{ steps.tag.outputs.image }}:latest" \
                  --format '{{.Size}}' | awk '{printf "%.0f MB", $1/1048576}') |"
           } >> "$GITHUB_STEP_SUMMARY"
-
-      # A toolchain-changing source push starts publication in parallel. That run waits for this
-      # exact image, so do not cancel its warm checkout/build just because the image is ready.
-      # Dispatch only when there is no publisher left to consume the image (for example, after
-      # the original run timed out while an unusually slow image was building).
-      - name: Publish with this image
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          main=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
-          active=$(gh run list --workflow publish.yml --branch main --limit 20 \
-            --json headSha,status \
-            --jq "[.[] | select(\
-              (.status == \"queued\" or .status == \"in_progress\" or .status == \"waiting\" or .status == \"pending\" or .status == \"requested\") and \
-              (.headSha == \"$GITHUB_SHA\" or .headSha == \"$main\")\
-            )] | length")
-          if (( active > 0 )); then
-            echo "$active publication run(s) already cover this image"
-            exit 0
-          fi
-          gh workflow run publish.yml --ref main -f all=true
