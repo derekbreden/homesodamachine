@@ -66,7 +66,7 @@ order". First-unit fabrication and performance qualification are part of that wo
 | The first cold core foamed in place around a welded carbonator | [`cold-core.md`](/hardware/assembly/cold-core.md) |
 | The whole enclosure printed as one set of quadrants that close on each other | [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) |
 | One appliance plumbed, wired, commissioned, and burned in for eight hours | [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md), [`wiring.md`](/hardware/assembly/wiring.md), [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) |
-| Measured refill and restart, strong carbonation in the first and successive cold glasses, and recorded recovery | [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), [`carbonation-plan-b.md`](/future/carbonation-plan-b.md) |
+| Measured refill and restart, strong carbonation in the first and successive cold glasses, and recorded recovery | [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), [`carbonation-plan-b.md`](/future/carbonation-plan-b.md), [`model.md`](/future/model.md) |
 | One faucet installed through a real countertop by the customer's own path | [`quickstart/`](/hardware/quickstart/) |
 
 The procedures identify the remaining physical qualifications, including jet-cap fit
