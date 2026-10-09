@@ -1,0 +1,234 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.gcode.3mf",
+    "archive_sha256": "ee2bcacb12f6018ccaf90463c2d12d16c62a806377285e5863641202922ed0cb",
+    "gcode_sha256": "9b3789e76836a06dcd75ec3ee0f88097b36249569546e969e3155d5d976a3f5e",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.08",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 4049,
+    "estimated_seconds": 62646.24609375,
+    "estimated_grams_saved_profile_density": 181.66847229003906,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5,
+    "staged_input": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-tip-grid-no-wipe-mark2/2026-10-09-industrial-faucet-complete-all008-tip-grid-no-wipe-petgf-left04-z004-v5-mark2.3mf"
+  },
+  "normal_meshes_unchanged": true,
+  "placements_unchanged": true,
+  "complete_faucet_parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "base_continuous_foot_modifier_preserved": true,
+  "model_wall_layer_heights_mm": {
+    "1901": [
+      0.079987,
+      0.079994,
+      0.079998,
+      0.08,
+      0.080002,
+      0.2
+    ],
+    "1902": [
+      0.079987,
+      0.079994,
+      0.079998,
+      0.08,
+      0.080002,
+      0.2
+    ],
+    "1903": [
+      0.08,
+      0.2
+    ],
+    "1904": [
+      0.08,
+      0.2
+    ],
+    "1905": [
+      0.08,
+      0.2
+    ]
+  },
+  "tip_overrides": {
+    "support_type": "normal(auto)",
+    "support_style": "grid",
+    "support_base_pattern": "rectilinear",
+    "support_base_pattern_spacing": "1.5",
+    "support_expansion": "2"
+  },
+  "job_overrides": {
+    "default_acceleration": {
+      "source": [
+        "8000",
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ],
+      "candidate": [
+        "2000",
+        "2000",
+        "2000",
+        "2000",
+        "2000"
+      ]
+    },
+    "wipe": {
+      "source": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "candidate": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "z_hop_types": {
+      "source": [
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift",
+        "Auto Lift"
+      ],
+      "candidate": [
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift",
+        "Normal Lift"
+      ]
+    },
+    "reduce_crossing_wall": {
+      "source": "0",
+      "candidate": "1"
+    },
+    "avoid_crossing_wall_includes_support": {
+      "source": "0",
+      "candidate": "1"
+    },
+    "max_travel_detour_distance": {
+      "source": "0",
+      "candidate": "50"
+    }
+  },
+  "retract_wipe_blocks": 0,
+  "tip_support_accelerations_mm_s2": [
+    2000.0
+  ],
+  "support_departure_witnesses": [
+    {
+      "line": 27082,
+      "position_mm": [
+        183.736,
+        190.177,
+        0.47
+      ],
+      "gcode": [
+        "G1 E-.8 F1800",
+        "M204 S10000",
+        "G1 Z.87 F60000",
+        "G1 X184.706 Y191.782 Z.87",
+        "G1 Z.47",
+        "G1 E.8 F1800",
+        "; FEATURE: Support interface",
+        "; LAYER_HEIGHT: 0.16"
+      ]
+    },
+    {
+      "line": 36329,
+      "position_mm": [
+        173.477,
+        196.477,
+        0.63
+      ],
+      "gcode": [
+        "G1 E-.8 F1800",
+        "M204 S10000",
+        "G1 Z1.03 F60000",
+        "G1 X173.477 Y196.587 Z1.03",
+        "G1 X173.987 Y196.587",
+        "G1 X173.987 Y196.757",
+        "G1 X174.78 Y196.757",
+        "G1 Z.63"
+      ]
+    },
+    {
+      "line": 36408,
+      "position_mm": [
+        190.638,
+        198.589,
+        0.63
+      ],
+      "gcode": [
+        "G1 E-.8 F1800",
+        "M204 S10000",
+        "G1 Z1.03 F60000",
+        "G1 X191.013 Y198.589 Z1.03",
+        "G1 X191.013 Y196.757",
+        "G1 X190.22 Y196.757",
+        "G1 Z.63",
+        "G1 E.8 F1800"
+      ]
+    }
+  ],
+  "complete_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        42.885856,
+        73.185856
+      ],
+      [
+        266.698144,
+        294.290144
+      ]
+    ],
+    "maximum_line_width_mm": 0.816288,
+    "bounds_padding_mm": 0.508144
+  },
+  "minimum_bed_margin_mm": 25.709856000000002,
+  "clump_probing_enabled": false,
+  "source": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-strong-support-mark2/2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.3mf",
+  "source_sha256": "df8af607d4e44016fa94a000f75f41755d14b64cd800c37a122262da3ea0f8e0",
+  "submitted": false,
+  "launch_authorized": true,
+  "physical_support_stability_evaluated": false,
+  "scope": "Native-commanded removal of retract wipes and changed support structure, not proof of the physical failure cause or successful recovery."
+}
