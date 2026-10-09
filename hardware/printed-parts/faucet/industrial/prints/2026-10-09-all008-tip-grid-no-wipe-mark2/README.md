@@ -7,13 +7,11 @@ the [identified complete faucet](../2026-10-09-all008-strong-support-mark2/READM
 The base keeps Arachne and its continuous foot modifier with six walls, 100%
 zigzag infill and 15% infill/wall overlap. The other four objects use Classic.
 
-The [repeated tip support report](../2026-10-09-all008-strong-support-mark2/physical-result/physical-result.json)
-identifies displaced material at the same tip-side support. Same-height retract
-wipes along fresh support before lifting are present in that article's native
-paths. A curled or poorly attached strand catching during this motion is the
-leading hypothesis; neither an initiating impact nor physical recovery has been
-observed. Bambu's [wipe implementation](https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/GCode.cpp)
-describes the possibility of pulling existing material during fast wiping.
+[Physical result](physical-result/physical-result.json) records the operator's
+report that the narrow starting edge of the model lifts during the first 0.08 mm
+layers above the 0.20 mm bed layer. This interpretation applies to this last
+article. The completed timelapse does not resolve the initiating lift or impact.
+The complete article is canceled; finish and support cleanup are unevaluated.
 
 | Setting | This prepared job |
 | --- | --- |
@@ -58,8 +56,7 @@ Auto. The print has no programmed insertion pause. Physical finish and support
 stability remain unevaluated.
 
 Mark2 accepted task/job `1324180997` at 2026-10-09 14:36:53 CDT
-(19:36:53 UTC) through one foreground Send. A fresh reading of both printers
-reports the matching archive RUNNING at layer 0/4049, print error0 and no HMS
-faults. Mark1's existing back-top job remains RUNNING. The native completion
-forecast is 2026-10-10 08:00:59 CDT. First-layer adhesion has not been visually
-observed. No scheduled monitor or automatic resume is requested.
+(19:36:53 UTC) through one foreground Send. The operator stopped the job. A fresh
+reading identifies the same archive in FAILED state, print error0 and no HMS
+faults. The [tip starting-band trial](../2026-10-09-tip-root024-mark2/README.md)
+records the normal-settings preparation for the next complete faucet.
