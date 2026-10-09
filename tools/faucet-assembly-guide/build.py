@@ -702,7 +702,7 @@ def sleeve_art(a):
 
 def final_art(a):
     a.label("IDENTIFIED WALL TAILS",14,20,11,BLUE)
-    for i,(name,ink) in enumerate([("SODA",BLUE),("FLAVOR",INK),("FLAVOR",INK),("DRAIN",MUTED)]):
+    for i,(name,ink) in enumerate([("SODA",BLUE),("FLAVOR",INK),("FLAVOR",INK),("OVER",MUTED)]):
         x=43+i*104
         a.line(x,42,x,214,ink,9 if i<3 else 6)
         a.rect(x-31,109,62,73,ink)
@@ -807,7 +807,7 @@ def build():
     cutrows=[
         ("Blue supply, 1/4-inch OD",figure("BLUE_CUT"),figure("BLUE_CUT")),
         ("Soda tube, 3/8-inch OD",figure("SODA_FAUCET_CUT"),figure("SODA_FAUCET_CUT")),
-        ("White DRAIN, 4 mm OD",figure("DRAIN_CUT"),figure("DRAIN_CUT")),
+        ("White OVER, 4 mm OD",figure("DRAIN_CUT"),figure("DRAIN_CUT")),
         ("Flavor A / B, black 1/4-inch OD",figure("FLAVOR_CUT")+" / "+figure("FLAVOR_CUT"),figure("BLACK_A_CUT")+" / "+figure("BLACK_B_CUT")),
         ("Flavor A / B, white 1/4-inch OD","-",figure("WHITE_A_CUT")+" / "+figure("WHITE_B_CUT")),
     ]
@@ -826,7 +826,7 @@ def build():
         a.arrow(324,-6,324,0,ORANGE)
         a.label("one square cut",238,9,12,BLUE)
         a.label("keep supplied reach",4,96,13,BLUE)
-    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are black throughout a Black faucet. A White faucet has white upper runs and black lower runs joined by two PP0408W unions. The DRAIN is one continuous 1872 mm run.",34,579,542,11.3,14.2,max_height=58)
+    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are black throughout a Black faucet. A White faucet has white upper runs and black lower runs joined by two PP0408W unions. The OVER is one continuous 1872 mm run.",34,579,542,11.3,14.2,max_height=58)
     note(c,"TOOLS AND CONSUMABLES","Tube cutter, 2.5 mm hex key, M3 heat-set tip/iron, fine soldering tip, solder, multimeter, magnifier, modular crimper and 3-prong 6P4C plug. Use the vent perimeter pusher, foam and PET braid already specified for this bench.")
     footer(c,4,FU+" | matching style parts",SITE+FU)
     end_page(c)
@@ -899,7 +899,7 @@ def build():
          "Foam joints and braid joints butt without gaps; no braid segment excludes the display cable or D. All four tails remain bare, square and accessible beyond the final sleeve.",FU)
     page(c,17,"Identify, inspect and bag","The customer receives the completed faucet, gasket, captive mount hardware, tubes and signal plug.",final_art,
          "Four identified bare wall tails. One stainless under-counter plate ships loose beside the complete faucet/umbilical.",
-         ["Thread the matching collars onto the wall tails: blue SODA, two black FLAVOR and white 4 mm DRAIN. Run each collar up the bare tail below the braid with its word visible.",
+         ["Thread the matching collars onto the wall tails: blue SODA, two black FLAVOR and white 4 mm OVER. Run each collar up the bare tail below the braid with its word visible.",
           "Inspect the complete unit: seams/lips seated; full lever motion; three beverage ends flush; D and bottom port clear; unpinched cable; page-2 continuity and page-3 powered flavor response.",
           "Coil the umbilical to an 8-12 inch loop diameter, bag it with the loose steel plate, then seal and label with the build number and FAUCET-UMBILICAL-SUBASSEMBLY."],
          "The blue supply is permanently attached below the captive washer/nut. The gasket is already fitted. The loose steel plate is in the bag. Acceptance of vent containment and mounting range follows the linked physical qualification, not this visual inspection.",FU)

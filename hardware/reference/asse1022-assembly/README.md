@@ -6,7 +6,7 @@ fittings that make it reachable from 1/4" tube on both sides.
 
 ```
 1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → PI4512F6S + PP061208W → 1/4" LLDPE
-                                                 └ clear hose → black neoFit adapters → 4 mm DRAIN → faucet/bowl
+                                                 └ clear hose → black neoFit adapters → 4 mm OVER → faucet/bowl
 ```
 
 That is the chain `hardware/assembly/internal-plumbing.md` step 2 builds, in the
@@ -23,7 +23,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 ## The vent is the pose
 
 The assembly has an orientation rather than just an envelope because the
-atmospheric vent discharges through the separate 4 mm DRAIN circuit to its open faucet outlet over the sink bowl. [ASSE drain assembly](/hardware/assembly/asse-drain.md) specifies the FWS hose, clamps and black neoFit adapters.
+atmospheric vent discharges through the separate 4 mm OVER circuit to its open faucet outlet over the sink bowl. [ASSE drain assembly](/hardware/assembly/asse-drain.md) specifies the FWS hose, clamps and black neoFit adapters.
 
 The machine lays it fore and aft in the −X lane west of the G Ganen, on the panel
 deck's own storey over the pump's casting

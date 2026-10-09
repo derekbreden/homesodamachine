@@ -220,13 +220,13 @@
         2.0
       ],
       "coordinate_reference_path": "reference/drain-the-back-face.png",
-      "coordinate_reference_sha256": "4f8859bef65b9647e9336f2f5b538268a5aa5ffb9371056a2ecb08a291a9d91a",
-      "render_sha256": "209a60602f227bf3a63cfa02b9334f847c184bea017d506c33fd4099397a885a",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "9cb3b84360abfc83310b137a616ede7af4c3a5a5cf97cd0ce4cbad0f2f5739c9",
+      "coordinate_reference_sha256": "945623ff0bbc3b2fb1c7086904b979e2fa2d18a90c78ea9a3502cef546b71fd3",
+      "render_sha256": "f402407ed6ec1560b706076431f6b6300e5617cd6db8e93874fb8118bc3ef8ce",
+      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
+      "scene_step_sha256": "c0943d4998d13857da0e936be411d744aacc2f6bb9539a1adad9e1efd36a1dba",
       "fixed_native_crop": null,
       "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "fd93a46f50f21c69730a3dd7c45b6b1c2dcb7c9bb6a3fee4ccd9452817eb1ca9",
+      "scene_mesh_sha256": "feb238c12eb857ba295e72bba5fd0e5ce8c594171074a0b9befad6b444f4e6bd",
       "registered_camera": {
         "cam": [
           0,
@@ -307,17 +307,17 @@
         2.0
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-open.png",
-      "coordinate_reference_sha256": "4786bdfddaecf186f8240e51a6c3ee8f3e4e0e42be3143b2aaa3b5854f478073",
-      "render_sha256": "e86aa45c3bb931a3385a60dc5c430631a2846fb579d8803f06ee9d7381eb7eb6",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "4edd497f96dc028cb58e429d32be65cde44f50ae11b61ded423b353dbf14aef8",
+      "coordinate_reference_sha256": "0a2b794fcf07f3733d81c0a569eb04a69e6afe196ff915ec456a07dbcec5ea70",
+      "render_sha256": "ecc02c65d1a471916d273b139d89919f5424bb45c1b36cada8dbe291d8e36af0",
+      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
+      "scene_step_sha256": "712b23719acb2021d99644b04d22bd27299b74316c65d143959c752c8db5b51e",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "d93fb4d29926850008b06f074ffefbbad2a9c04f4f1c6f6676e5038e43bd301e",
+      "scene_mesh_sha256": "ac0921d606e323971dd241c156b2edfdf6f5c149bc6d9d25bc8169cb4132a432",
       "registered_camera": {
         "cam": [
           0.7,
@@ -401,17 +401,17 @@
         2.0
       ],
       "coordinate_reference_path": "reference/drain-connect-rear-connected.png",
-      "coordinate_reference_sha256": "92f5ed26345439321685c100448877182b0b0b3cebeec1f0eb8ba2e858ae960e",
-      "render_sha256": "290c0d8a665642e7641695192f2a4d7a0c6329015f8ee807d6a7bdd30ae5c3be",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "scene_step_sha256": "1d3d30b6fb5c12d9550ee9d6ace87e2b783ed7342648fc0ff60880a9b517cf9d",
+      "coordinate_reference_sha256": "2ca2d281ce6b100a82fc5b7a21c6982518fb56a81b6a4e90f20eaaf93da14a19",
+      "render_sha256": "8b0ff6ea2d9e50ff64b64674ad886d3ea93effe84fa1197087ba133b83540bb1",
+      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
+      "scene_step_sha256": "077e79172eec535eac1c02f74d0c6f3e7bbcf002de1460c3cc51af4d582d424e",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "ee6f1c27ad2b00172a4c31a9b091f4e285057192a54be3fd477d352092fc203b",
+      "scene_mesh_sha256": "5e45ee6194195b9539dbd6529faedbe3102b74074658df3fdb806d2ecac7eb0f",
       "registered_camera": {
         "cam": [
           0.7,
@@ -470,10 +470,10 @@
         1,
         1
       ],
-      "render_sha256": "df73703f9a0fcf7f41afd616db7ce3562e9706dd44c90d818e13e24454252617",
-      "scene_step_sha256": "0fb01407ff278c1e767effb385ec397504a25f14909217e8c38c255d9d13d688",
-      "scene_mesh_sha256": "a74b37e9aabe70554eec35b02888f84ec256063c7422a6033f37bf9591e00032",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
+      "render_sha256": "b4eeb4710bcc0724849323eb619e35665a50671927eb677056770f9599ebf891",
+      "scene_step_sha256": "453ef9f622be25f4b845de39492fb9baeedb47cf7da026ba3118576a7b96df64",
+      "scene_mesh_sha256": "273fbac9ae0150d68343e41f75fa5bc40ab98c29ec8e9de9a45d6e5cc44b9a39",
+      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
       "registered_camera": {
         "cam": [
           -0.85,

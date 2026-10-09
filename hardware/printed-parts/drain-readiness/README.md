@@ -1,7 +1,7 @@
-# DRAIN print set
+# Overflow print set
 
 This set supplies the three-row rear enclosure wall, six rectangular fluid identification
-chips, six matching tube collars and a snap-in DATA plate. The black 4 mm DRAIN bulkhead receives the
+chips, six matching tube collars and a snap-in DATA plate. The black 4 mm OVER bulkhead receives the
 white drain return. The separate [faucet print set](../faucet/vent-print-readiness/README.md)
 contains the shell, counter stack, vent seals and insertion tool.
 The [assembly instructions](../../assembly/asse-drain.md) list every drain plumbing
@@ -30,9 +30,9 @@ read emitted roads and bind the native archives to their source meshes by hash.
 
 The four Mark2 plates contain the chips, collars and DATA plate. Every visible label
 has a 32 mm width, square upper corners, R2 lower corners and lettering space
-above its fitting or jack. DATA and DRAIN have the same 29.789 mm Z height
+above its fitting or jack. DATA and OVER have the same 29.789 mm Z height
 and alignment.
-DRAIN's collar has a 4.25 mm bore; TAP retains its larger supply-tube bore.
+OVER's collar has a 4.25 mm bore; TAP retains its larger supply-tube bore.
 The [rear-label layout review](reviews/label-layout.json) records all seven native
 label widths, lower corner radii and their placement in the complete appliance.
 The black [DATA plate](../enclosure/data-ring/README.md) has white lettering and
@@ -41,7 +41,7 @@ whole face is 1.68 mm deep; the jack mounts independently behind it.
 
 | Project | Parts | Filament 1 / left 0.4 mm | Filament 2 / right 0.4 mm | Native archive under `ready/` |
 | --- | --- | --- | --- | --- |
-| [White](projects/labels-white-z004-mark2.3mf) | TAP and DRAIN | White PET-GF | Black PET-GF | [Native archive](ready/labels-white-z004-mark2.gcode.3mf) |
+| [White](projects/labels-white-z004-mark2.3mf) | TAP and OVER | White PET-GF | Black PET-GF | [Native archive](ready/labels-white-z004-mark2.gcode.3mf) |
 | [Blue](projects/labels-blue-z004-mark2.3mf) | SODA | White PET-GF | Blue PET-GF | [Native archive](ready/labels-blue-z004-mark2.gcode.3mf) |
 | [Red](projects/labels-red-z004-mark2.3mf) | CO2 | White PET-GF | Red PET-GF | [Native archive](ready/labels-red-z004-mark2.gcode.3mf) |
 | [Black](projects/labels-black-z004-mark2.3mf) | Two FLAVOR chips, two collars and DATA | White PET-GF | Black PET-GF | [Native archive](ready/labels-black-z004-mark2.gcode.3mf) |
@@ -62,7 +62,7 @@ bead footprint, including the purge tower. It establishes commanded print
 geometry. Actual lettering appearance, chip fit and collar grip remain
 observations on the finished pieces.
 
-![TAP and DRAIN identification plate](reviews/labels-white.png)
+![TAP and OVER identification plate](reviews/labels-white.png)
 
 ## Rear wall
 
