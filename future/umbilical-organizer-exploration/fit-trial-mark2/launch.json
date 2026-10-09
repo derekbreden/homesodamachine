@@ -1,0 +1,169 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-09T13:56:37.385732+00:00",
+  "archive": {
+    "name": "2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf",
+    "sha256": "394bd9b9d1d6f1fccccd17a7f411095f7e91a2500ab6abab40e4c2974e192afc",
+    "gcode_sha256": "c412bfdc12c6926958c07560474feeb4a689f3457adeb2458f3cf12c4fe19d24",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "organizer-tight-q6.45-d4.00",
+      "organizer-best-q6.55-d4.10",
+      "organizer-loose-q6.65-d4.20"
+    ]
+  },
+  "printer_task_id": "1323252957",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 42,
+  "mc_remaining_time": 0,
+  "authorization": {
+    "source": "Derek in this session",
+    "text": "And then in any case, mark2 is available (with PET-GF loaded in left 0.4 mm nozzle), so please give me 3 test prints. The repo should be clear on print settings, but \"Printer 2\" has printed a lot recently and can advise. One which is your best attempt to provide the grip I requested, and then one more size up and one more size down as far as 0.10 mm increase/decrease in hole radius/diameter or something like that."
+  },
+  "send_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "after_launch_observations": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T13:59:53.615984+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1063,
+      "total_layer_num": 1535,
+      "mc_percent": 73,
+      "mc_remaining_time": 432,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 47,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 281,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T13:59:53.615944+00:00",
+      "task_id": "1323252957",
+      "job_id": "1323252957",
+      "subtask_name": "2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 42,
+      "mc_percent": 0,
+      "mc_remaining_time": 33,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 4,
+      "bed_temper": 27.0,
+      "bed_target_temper": 27.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 37,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 248,
+            "target_c": 265
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 28,
+        "target_c": 0
+      }
+    }
+  ],
+  "first_layer_observed": false,
+  "native_estimated_seconds": 2030,
+  "forecast_complete_at_central": "2026-10-09T09:30:27.385732-05:00"
+}
