@@ -1,0 +1,488 @@
+{
+  "project": "tactile-mark1-z018.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "118a13f62a1cf5cd72b219f356c346489e8946aca2c3b6732abd16871d856c64",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 4,
+  "sparse_infill_percent": 25.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "socket-tactile",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/socket-tactile.stl",
+      "stl_sha256": "ad935a68e157e51b9b39946865aaf2a7bc28ae03fc630e2b355067cd48190db7",
+      "triangles": 13518,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        7.680000305175781,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        110.0,
+        138.0,
+        22.299999237060547
+      ],
+      "plate_translation_mm": [
+        110.0,
+        138.0,
+        22.299999237060547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          86.5,
+          96.31999969482422,
+          0.0
+        ],
+        [
+          133.5,
+          179.68000030517578,
+          44.599998474121094
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "plug-tactile",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/plug-tactile.stl",
+      "stl_sha256": "9f13c7506f9be8e0b632919575017e70eac876e96160696ee68b2268de764eb1",
+      "triangles": 7476,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -26.0,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        154.0,
+        135.0,
+        15.000000000000004
+      ],
+      "plate_translation_mm": [
+        154.0,
+        135.0,
+        15.000000000000004
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          137.78022575378418,
+          109.0,
+          0.0
+        ],
+        [
+          170.21977424621582,
+          161.0,
+          30.000000000000007
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "counter-hole",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/counter-hole.stl",
+      "stl_sha256": "fa67a4ef9047f03fd26097e96a0969d8c65cab07c1c216029b08630f3a229670",
+      "triangles": 1008,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        15.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        206.0,
+        130.0,
+        15.0
+      ],
+      "plate_translation_mm": [
+        206.0,
+        130.0,
+        15.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          181.0,
+          105.00777053833008,
+          0.0
+        ],
+        [
+          231.0,
+          154.99222946166992,
+          30.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.990248214653548e-10
+    },
+    {
+      "name": "wall-coupon",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/wall-coupon.stl",
+      "stl_sha256": "3157e38da9a49eca0447ed6290f2fae3e91494c39ba3cbe06d3e7f527689b525",
+      "triangles": 688,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -31.0,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        130.0,
+        200.0,
+        34.0
+      ],
+      "plate_translation_mm": [
+        130.0,
+        200.0,
+        34.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          88.0,
+          185.0,
+          0.0
+        ],
+        [
+          172.0,
+          215.0,
+          68.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.985345469776803e-10
+    },
+    {
+      "name": "retainer",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/retainer.stl",
+      "stl_sha256": "145f68f55140aec0e149172822bae2dc20715736ea78ec55c66e25a6aed27978",
+      "triangles": 5392,
+      "rotation_x_degrees": -90.0,
+      "source_center_mm": [
+        0.0,
+        47.22999954223633,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        200.0,
+        190.0,
+        6.130001068115236
+      ],
+      "plate_translation_mm": [
+        200.0,
+        190.0,
+        6.130001068115236
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          179.5,
+          168.20000076293945,
+          0.0
+        ],
+        [
+          220.5,
+          211.79999923706055,
+          12.26000213623047
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "tube-key",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "future/umbilical-plug-and-socket-exploration/tactile-trial/parts/tube-key.stl",
+      "stl_sha256": "813781ed5ab06523989a88498ab89bb4c87b96b8bacf8fc53b15cc178f9e454c",
+      "triangles": 140,
+      "rotation_x_degrees": 90.0,
+      "source_center_mm": [
+        0.0022420883178710938,
+        -23.0,
+        -0.5999999046325684
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        1.0,
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        202.0,
+        229.0,
+        6.0
+      ],
+      "plate_translation_mm": [
+        202.0,
+        229.0,
+        6.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          185.78246784210205,
+          222.875,
+          0.0
+        ],
+        [
+          218.21753215789795,
+          235.125,
+          12.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.975593270728496e-10
+    }
+  ],
+  "project_sha256": "5c47beccb52709c319d1fed37d51fed2dd128d0543084b9c53fe3a0e8a2ac8a6",
+  "settings_preserved_byte_for_byte": false,
+  "printer_connection": "H2C",
+  "printer_name": "Mark1",
+  "z_trim_mm": 0.18,
+  "enable_support": false,
+  "settings_changes_after_refresh": {
+    "enable_support": "0",
+    "wall_loops": "4",
+    "sparse_infill_density": "25%"
+  },
+  "source_geometry_sha256": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+  "preparation_sha256": "9b49260f478018f3f43112f49dde1d3b50abc8cff5a3006b6b1fdecb06cdda64",
+  "geometry": [
+    {
+      "name": "socket-tactile",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 146,
+      "edges": 385
+    },
+    {
+      "name": "plug-tactile",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 90,
+      "edges": 270
+    },
+    {
+      "name": "counter-hole",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 4,
+      "edges": 6
+    },
+    {
+      "name": "wall-coupon",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 26,
+      "edges": 72
+    },
+    {
+      "name": "retainer",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 23,
+      "edges": 54
+    },
+    {
+      "name": "tube-key",
+      "solid_count": 1,
+      "valid": true,
+      "faces": 13,
+      "edges": 33
+    }
+  ],
+  "scope": "Unpowered tactile geometry only. Magnet pockets filled. No pressure, electrical, magnetic retention or fourth-union release qualification.",
+  "submitted": false,
+  "native": {
+    "archive": "tactile-mark1-z018.gcode.3mf",
+    "archive_sha256": "da79cb3e8a2fed2a24b69cc0fb7c86d84959fd6f2276c0effceb9b5bae4470cd",
+    "gcode_sha256": "934a5d0b2fd025bb0b222faff058cac1c6c33f7b715f40b8d64aec1d230e4473",
+    "estimated_time": "3h 58m 55s",
+    "filament_g": [
+      138.05
+    ],
+    "first_layer_z_mm": 0.2,
+    "normal_layer_height_mm": 0.24,
+    "layer_count": 283,
+    "support_features": 0,
+    "pause_commands": 0,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.16
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          86.262996,
+          96.080996
+        ],
+        [
+          231.239004,
+          235.364004
+        ]
+      ],
+      "maximum_line_width_mm": 0.698008,
+      "bounds_padding_mm": 0.44900399999999996
+    },
+    "minimum_full_bead_bed_margin_mm": 84.635996
+  }
+}

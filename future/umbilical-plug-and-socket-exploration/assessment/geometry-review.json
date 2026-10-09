@@ -1,0 +1,149 @@
+{
+  "reviewed_local_date": "2026-10-09",
+  "umbilical_source_sha256": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+  "bundle": {
+    "counter_hole_mm": 34.93,
+    "straight_foam_at_plug_pair_diameter_lower_bound_mm": 38.71454903232548,
+    "proposed_pack_axes_xz_mm": {
+      "soda": [
+        -8.075,
+        -8.075
+      ],
+      "flavor-a": [
+        -13.575,
+        6.8167972387485865
+      ],
+      "flavor-b": [
+        -2.5749999999999993,
+        6.8167972387485865
+      ],
+      "drain": [
+        -8.075,
+        6.625
+      ]
+    },
+    "bare_pack_enclosing_diameter_mm": 32.005698463352864,
+    "braid_and_cable_radial_allowance_mm": 1.3,
+    "proposed_outer_envelope_mm": 34.605698463352866,
+    "nominal_radial_hole_margin_mm": 0.16215076832356767,
+    "fan_length_mm": 65.0,
+    "foam_start_behind_plug_face_mm": 117.0,
+    "curves": {
+      "soda": {
+        "offset_mm": 0.0,
+        "minimum_centerline_radius_mm": null,
+        "manufacturer_minimum_radius_mm": 25.4
+      },
+      "flavor-a": {
+        "offset_mm": 5.64208066128274,
+        "minimum_centerline_radius_mm": 130.7009770933708,
+        "manufacturer_minimum_radius_mm": 25.4
+      },
+      "flavor-b": {
+        "offset_mm": 10.724065189489508,
+        "minimum_centerline_radius_mm": 70.04878126588794,
+        "manufacturer_minimum_radius_mm": 25.4
+      },
+      "drain": {
+        "offset_mm": 21.83832640107753,
+        "minimum_centerline_radius_mm": 36.63248019632103,
+        "manufacturer_minimum_radius_mm": 25.0
+      }
+    },
+    "scope": "Uncompressed nominal geometric candidate. The founder reports the purchased foam is quite compressible and intends compression in the boot. Neither compressed shape nor passage is predicted here. Direct packing with deliberate compression is the first tactile candidate; the fan is an alternative. This is not a finished strain-relief design."
+  },
+  "machine": {
+    "step": "hardware/manifold-layout/enclosure-assembly.step",
+    "step_sha256": "41e96d8fa67cb316d07de1da8cb7865d8bdc0e352c821b62e1eda8bb5ab34413",
+    "facts_sha256": "5c2c5f53835ac25eea2d8e1653b9df6ecd3577e2a52db26a715a37c8ef3ebc76",
+    "placements": [
+      {
+        "name": "existing_connection_field_center",
+        "wall_center_xz_mm": [
+          -59.38999999999999,
+          302.6172904687784
+        ],
+        "world_bounds_mm": [
+          -82.89000009999998,
+          383.9400001,
+          280.31729036877834,
+          -35.889999899999985,
+          471.30000020000006,
+          324.9172905687784
+        ],
+        "native_intersections": [
+          {
+            "body": "tube-drain-vent",
+            "intersection_mm3": 458.897
+          },
+          {
+            "body": "bulkhead-ring-water",
+            "intersection_mm3": 1.419
+          }
+        ]
+      },
+      {
+        "name": "raised_in_same_connection_lane",
+        "wall_center_xz_mm": [
+          -59.38999999999999,
+          326.5
+        ],
+        "world_bounds_mm": [
+          -82.89000009999998,
+          383.9400001,
+          304.19999989999997,
+          -35.889999899999985,
+          471.30000020000006,
+          348.80000010000003
+        ],
+        "native_intersections": [
+          {
+            "body": "asse1022-assembly",
+            "intersection_mm3": 6207.379
+          },
+          {
+            "body": "bulkhead-water",
+            "intersection_mm3": 1619.833
+          },
+          {
+            "body": "digiten-flow",
+            "intersection_mm3": 240.385
+          },
+          {
+            "body": "bulkhead-ring-water",
+            "intersection_mm3": 190.77
+          },
+          {
+            "body": "tube-carb-2",
+            "intersection_mm3": 556.076
+          }
+        ]
+      }
+    ],
+    "scope": "Two trial locations, not an exhaustive placement search. Existing rear wall and enclosure supports are excluded because their openings would be redesigned. Replaced umbilical fittings and signal jack are excluded. Intersections are real native solid intersections; changing routes may resolve tube collisions. This does not authorize or implement any enclosure change."
+  },
+  "magnet_rail": {
+    "rail_height_mm": 1.5,
+    "nominal_groove_height_mm": 1.6002,
+    "drawing_groove_tolerance_mm": 0.254,
+    "minimum_groove_height_mm": 1.3461999999999998,
+    "minimum_groove_minus_rail_mm": -0.15380000000000016,
+    "scope": "Supplier drawing tolerance, excluding print error and groove-position tolerance. A nominal 1.5 mm rail does not fit every permitted groove."
+  },
+  "retainer": {
+    "round_blank_diameter_mm": 44.67736548456778,
+    "original_blank_width_height_mm": [
+      41.0,
+      43.6
+    ],
+    "width_height_increase_mm": [
+      3.6773654845677797,
+      1.0773654845677783
+    ],
+    "original_outer_outline_edges": 8,
+    "round_outer_outline_edges": 1,
+    "existing_blank_stock_removed_mm3": 0.0,
+    "scope": "Simpler perimeter candidate preserving all original blank stock. No functional retainer is replaced, and surrounding clearance remains a separate design question."
+  },
+  "reviewer_sha256": "4d7c316f09c733b99755f47c65e7bae040e451049d2b13300352c8be9a8795a8"
+}
