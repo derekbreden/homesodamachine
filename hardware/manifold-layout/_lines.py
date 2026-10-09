@@ -864,7 +864,7 @@ def _fluid_28(F, solids):
     """Flavor B retains the front support and bypasses the drain fittings to the west.
 
     The return rises 7.5 mm, passes 13 mm west of the rear union's column and
-    reaches its collet on-axis. The new return corners hold R25.4.
+    reaches its collet on-axis. The rear return corners hold R25.4.
     """
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
@@ -876,8 +876,8 @@ def _fluid_28(F, solids):
         (tin[0], 302.0, climb),
         (tin[0], 340.0, climb + GATE_B_DRAIN_RETURN_RISE),
         (tin[0] - 13.0, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0] - 13.0, 398.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0], 435.0, tin[2]),
+        (tin[0] - 13.0, 408.0, climb + GATE_B_DRAIN_RETURN_RISE),
+        (tin[0], 440.0, tin[2]),
         "bulkhead-flavor-b.tube-in",
         kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,
                             3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
