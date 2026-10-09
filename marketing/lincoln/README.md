@@ -84,8 +84,7 @@ and interest signups provide discovery evidence rather than purchase commitments
 ## What installation includes
 
 The intended experience is that Derek arrives with a machine and leaves the customer
-able to use it. The [install envelope](../install-envelope.md),
-[quick start](../../hardware/quickstart/README.md) and
+able to use it. The [install envelope](../install-envelope.md) and
 [install guide](../../hardware/install-guide/README.md) provide the physical basis.
 
 Proposed standard visit: delivery, placement, faucet mounting in a prepared compatible

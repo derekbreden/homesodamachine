@@ -5582,7 +5582,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:9b6d1786028462a9ae5f947d19e6f17a6c5501ed5701bd709f1a69554ea675ac",
+  "input_fingerprint": "sha256:400f477d688ce8f9719bc528aeaff6a95329600b7aa53e02dc165c8ef782f355",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -42932,7 +42932,7 @@
         "precision": "day",
         "value": "2026-09-08"
       },
-      "description": "A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start (quickstart/), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax",
+      "description": "A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start (quickstart/, kept at the archive-quickstart tag), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,

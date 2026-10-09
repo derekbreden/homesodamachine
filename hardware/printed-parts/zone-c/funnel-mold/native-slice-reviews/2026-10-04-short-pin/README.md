@@ -6,7 +6,8 @@ editable project, G-code and settings hashes are bound in the
 [shell receipt](shells/readiness-review.json) and
 [pin receipt](pin/readiness-review.json). The committed editable projects are
 [the two mold plates](../../funnel-mold.3mf) and
-[the short pin](../../forming-mandrel.3mf).
+[the short pin](../../forming-mandrel.3mf), which stands at the
+`archive-forming-mandrel` tag.
 
 | Part | Orientation | Layers | Estimated time | PETG | Minimum deposited-path bed margin |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -53,7 +54,8 @@ entry seal is required.
 
 ![Pin first layer and native supports](pin/native-supports.png)
 
-The [complete forming-tool check](../../forming-mandrel-check.json) compares
+The [complete forming-tool check](../../forming-mandrel-check.json), at the
+`archive-forming-mandrel` tag, compares
 the entire nominal finished casting to the current native funnel and complete
 source CSG with zero solid difference in both directions. It records 72
 combined seated poses, 160 upright full-lowering poses with 0–0.19 mm offset
