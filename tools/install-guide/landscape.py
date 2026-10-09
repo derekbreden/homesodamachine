@@ -413,7 +413,7 @@ def mounting_slots():
     c.setStrokeColor(HexColor(INK))
     c.setLineWidth(.8)
     c.circle(266.5, H-350, 4.5, fill=1, stroke=1)
-    text('White DRAIN tube', 288, 345, 11, 'Semibold')
+    text('White OVER tube', 288, 345, 11, 'Semibold')
     rect(257, 370, 19, 4.5, INK)
     text('Flat display ribbon', 288, 367, 11, 'Semibold')
     label('FRONT / WIDE SLOT', 250, 397)
@@ -548,7 +548,7 @@ header('Lower. Then push back.', 'INSTALL / MOUNT THE FAUCET', 1)
 p = pic('steps/mount-drop.png', M, 125, 274, 294, crop=(9, 33, 763, 1331))
 arrow(*p(190, 660), *p(190, 963), head=11)
 arrow(*p(382, 866), *p(585, 928), head=10)
-item('1 / LOWER', 'Feed the tails through', 'Pass all four attached tubes and the display cable through the opening. The small white tube is DRAIN. Lower the faucet onto the counter.', 151)
+item('1 / LOWER', 'Feed the tails through', 'Pass all four attached tubes and the display cable through the opening. The small white tube is OVER. Lower the faucet onto the counter.', 151)
 item('2 / POSITION', 'Push the faucet back', 'Push it away from you until the rear tube bundle meets the back edge of the hole. Hold that position for the plate.', 299)
 end()
 
@@ -653,7 +653,7 @@ para('Pull off the <b>CO2 and TAP shipping caps.</b> They cover the fittings; le
 rows = [('CO2', 'Red tube from the cylinder', '#D7333C', '#FFFFFF'),
         ('SODA', 'Blue tube from the faucet', '#1670DB', '#FFFFFF'),
         ('TAP', 'Larger white tube from the filter', '#FFFFFF', INK),
-        ('DRAIN', 'Small white 4 mm tube from the faucet', '#FFFFFF', INK),
+        ('OVER', 'Small white 4 mm tube from the faucet', '#FFFFFF', INK),
         ('FLAVOR', 'Two black tubes; either port', INK, '#FFFFFF')]
 for i, (name, desc, bg, fg) in enumerate(rows):
     y = 215+i*43
@@ -667,7 +667,7 @@ header('Push home. Then tug.', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
 pic('steps/connect-rear-open.png', M, 155, 283, 183, crop=(195, 160, 1350, 880))
 caption('Push straight into the fitting, all the way to its stop.', 362)
 item('CHECK EVERY TUBE', 'Push to its stop', 'Match each tube label to its port. A fitting can grip before the tube reaches the seal. Push fully home, then tug gently.', 144)
-para('<b>Click the faucet cable into DATA.</b><br/><br/>Leave the DRAIN tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
+para('<b>Click the faucet cable into DATA.</b><br/><br/>Leave the OVER tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
 end()
 
 # Interior 19

@@ -19,16 +19,16 @@ on [Drawings](https://homesodamachine.com/drawings) and at
 
 The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
 (PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
-The faucet has four attached tubes, including the small white 4 mm DRAIN tail.
+The faucet has four attached tubes, including the small white 4 mm OVER tail.
 Numbered pages 7–8 (PDF pages 8–9) show the seated plate from below, with a shared
-rear narrow slot for both black flavor tubes, white DRAIN and the flat display ribbon.
+rear narrow slot for both black flavor tubes, white OVER and the flat display ribbon.
 The front wide slot carries the shank; the blue SODA tube connects beneath it.
 The vector slot map follows the purchased steel DXF and production line positions.
 Its washer and nut are omitted to expose both openings; the adjacent mounting scene
 shows their assembled order.
 The mounting-hole center sits at most 2 inches behind the bowl edge, with the faucet
 aimed within 10 degrees of straight into the bowl and its complete drain opening exposed
-above the bowl. DRAIN keeps its factory length and connects to its own labeled metric port.
+above the bowl. OVER keeps its factory length and connects to its own labeled metric port.
 Numbered page 3 shows every supplied kit item as a vector line drawing, with a compact
 customer-supplied checklist in the sidebar. Each item sits inside a light panel with its caption
 centered just beneath the drawing. A towel catches residual water at a loosened fitting.

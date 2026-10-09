@@ -133,9 +133,9 @@ def back_top():
     print("Back-top archive review passed", flush=True)
 
 
-def labels():
+def labels(colours=("white", "blue", "red", "black")):
     records = []
-    for colour in ("white", "blue", "red", "black"):
+    for colour in colours:
         directory = JOB / ("labels-" + colour + "-mark2")
         project = directory / ("labels-" + colour + "-z004-mark2.3mf")
         prep = json.loads((directory / "preparation.json").read_text())
@@ -194,7 +194,7 @@ def labels():
                         "full_native_bead_margin_mm": native["minimum_shared_bed_margin_mm"],
                         "extruder_offset": settings["extruder_offset"], "submitted": False})
     save(JOB / "label-archive-review.json", {"plates": records, "passed": True})
-    print("Four label archive reviews passed", flush=True)
+    print(f"{len(records)} label archive review(s) passed", flush=True)
 
 
 if __name__ == "__main__":

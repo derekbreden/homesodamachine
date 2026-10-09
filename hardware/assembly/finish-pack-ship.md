@@ -53,8 +53,8 @@ Inspect every exposed surface against the following pass criteria:
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the bore's edge against the wall's outer face shows no gap, and the receptacle's rim stands square at the bottom of the cutout.
 - The +Y connection field has three rows. The TAP, SODA and two FLAVOR PP1208E
-  bulkheads and the black 4 mm DRAIN bulkhead sit square in their labelled chips,
-  with no rotation play. DRAIN carries its white 4 mm return; TAP carries its
+  bulkheads and the black 4 mm OVER bulkhead sit square in their labelled chips,
+  with no rotation play. OVER carries its white 4 mm return; TAP carries its
   larger white supply. The faucet's separate bottom vent opening remains exposed
   and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.

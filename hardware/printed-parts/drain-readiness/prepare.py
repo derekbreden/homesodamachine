@@ -163,7 +163,7 @@ def back_top():
     slice_project(p, report)
 
 
-def labels():
+def labels(label_colours=None):
     sys.path.insert(0, str(ROOT / "hardware/printed-parts/enclosure/bulkhead-ring"))
     sys.path.insert(0, str(ROOT / "hardware/printed-parts/faucet/tube-collar"))
     import bulkhead_ring as ring
@@ -180,6 +180,8 @@ def labels():
               ("red", ["co2"], ["#FFFFFF", "#F54749"], 2, 1),
               ("black", ["flavor-a", "flavor-b", "data"], ["#FFFFFF", "#000000"], 2, 1))
     for colour, stations, colours, body_tool, letter_tool in groups:
+        if label_colours and colour not in label_colours:
+            continue
         directory = JOB / ("labels-" + colour + "-mark2")
         p = directory / ("labels-" + colour + "-z004-mark2.3mf")
         with zipfile.ZipFile(base) as z:
@@ -283,7 +285,12 @@ def labels():
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("jobs", nargs="*", choices=("back-top", "labels"))
+    ap.add_argument("--label-colour", action="append", choices=("white", "blue", "red", "black"),
+                    help="Prepare only the selected identification plate(s).")
     args = ap.parse_args()
     actions = {"back-top": back_top, "labels": labels}
     for name in args.jobs or actions:
-        actions[name]()
+        if name == "labels":
+            labels(args.label_colour)
+        else:
+            actions[name]()

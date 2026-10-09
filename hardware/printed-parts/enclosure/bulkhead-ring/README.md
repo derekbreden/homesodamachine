@@ -15,7 +15,9 @@ All six labels are [32](RING_OD) mm wide, with [2](RING_LOWER_RADIUS) mm lower-c
 | height | [30.22](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
 | volume | [1.39](RING_VOL) cm³ | [1.41](CO2_RING_VOL) cm³ |
 
-The 4 mm DRAIN chip is [32](RING_OD) × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The DRAIN word stands 0.48 mm proud, in black on white.
+The 4 mm OVER chip is [32](RING_OD) × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The OVER word stands 0.48 mm proud, in black on white.
+
+OVER identifies the ASSE overflow return. Its 17.827 mm lettering width leaves 7.086 mm of face on each side at the shared 6.5 mm font size.
 
 | | |
 |---|---|
@@ -42,7 +44,7 @@ The tube identification is [`../../faucet/tube-collar/`](../../faucet/tube-colla
 | `co2-inlet` | CO2 | ABU44 | red — the customer's regulator tether |
 | `bulkhead-flavor-a` | FLAVOR | union | black — flavour |
 | `bulkhead-flavor-b` | FLAVOR | union | black — flavour |
-| `bulkhead-drain` | DRAIN | neoFit ABU44M-E, 4 mm | white — ASSE vent discharge |
+| `bulkhead-drain` | OVER | neoFit ABU44M-E, 4 mm | white — ASSE vent discharge |
 
 A chip's colour matches its tube. Six stations share four filament colours. What a
 colour means on the rear face is stated in

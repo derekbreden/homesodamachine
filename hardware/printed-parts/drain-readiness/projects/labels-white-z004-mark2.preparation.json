@@ -1,5 +1,5 @@
 {
-  "project_sha256": "f6cb79e17fa62f7768a74b450b007164f34960dff7c814be3d071d50017a3b45",
+  "project_sha256": "cb274f83fc49044d03b368948c1f5a670dfea6c70b7def4279f4f4054d920dd3",
   "parts": [
     {
       "station": "water",
@@ -45,14 +45,14 @@
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
     "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "29a1d34d8c49f49f3ff77126a4dd6fe6982d63925403cbe50ce805eb6f90b406",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
     "hardware/printed-parts/cadlib/port_chip.py": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7",
-    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b0b4f108e4ab0746cc4555179931efc9b5f65d6516ee8caebb9fada1597285c5",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b961084e29064b2c9c9c492bbf89582f5795b01422d6f4d0cb7b2eb98eb7fa23",
     "hardware/printed-parts/enclosure/data-ring/data_ring.py": "d985727db6870a6f60eb5ae04b705e819198e719dd2f5f17d0e7525c75ab3a5a",
     "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "84eee2de875fb5ebecf4a23b56bb84fdb115cbf9d842a455a3bd43d1dfee2147",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "b13fa03ee31082d5a57f180616a541afa53ca1a4f2c44e31276cfc7d547b1670",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
-    "hardware/printed-parts/drain-readiness/prepare.py": "4784fdc3e002bdff1e37d06765eea78e26038c49f7e5c2907df10c1167692516"
+    "hardware/printed-parts/drain-readiness/prepare.py": "2ab2437a97cb1bec28442483000b82f6ee09970f5a9a70558682da03bdc93ca6"
   },
   "extruder_offset": [
     "0x0",

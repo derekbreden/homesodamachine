@@ -58,7 +58,7 @@
           "identify_id": 2902,
           "station": "water",
           "kind": "collar",
-          "model_road_count": 6906,
+          "model_road_count": 6770,
           "model_layer_count": 55,
           "last_model_z_mm": 13.04,
           "both_body_and_letter_tools_present": true
@@ -67,7 +67,7 @@
           "identify_id": 2903,
           "station": "drain",
           "kind": "chip",
-          "model_road_count": 6356,
+          "model_road_count": 6803,
           "model_layer_count": 11,
           "last_model_z_mm": 2.48,
           "both_body_and_letter_tools_present": true
@@ -76,7 +76,7 @@
           "identify_id": 2904,
           "station": "drain",
           "kind": "collar",
-          "model_road_count": 8830,
+          "model_road_count": 8926,
           "model_layer_count": 55,
           "last_model_z_mm": 13.04,
           "both_body_and_letter_tools_present": true
@@ -92,8 +92,8 @@
       "prime_tower_layer_schedules_match": true,
       "data_closing_layers": null,
       "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-white-z004-mark2.gcode.3mf",
-      "native_archive_sha256": "8ea3ea3f2085ff05f6ba8b8db74bf6496a8a612f0f6c8d51c77f2c87867b1482",
-      "gcode_sha256": "370fe0393118464494b21285f01c45389af88a30bbcc86ead07abf181870b40b",
+      "native_archive_sha256": "93066d0473c3d90ee03e1201fbbeb9ae9af60830ad7aba895a3196f6c077c9ff",
+      "gcode_sha256": "9868cb1ddf40fff93ee93a3f552186806abbe2dbe76b3f0d0300980e7797c00d",
       "zip_crc_and_gcode_md5_pass": true,
       "full_native_bead_margin_mm": 88.94500000000001,
       "extruder_offset": [
@@ -101,15 +101,9 @@
         "0.5x-0.7"
       ],
       "submitted": false,
-      "native_preview": {
-        "path": "hardware/printed-parts/drain-readiness/reviews/labels-white.png",
-        "sha256": "7f5b269ce0c3c7454d9d74c261ad649871520e86209f82af565dbcde73d9dd7c",
-        "native_archive_member": "Metadata/plate_1.png",
-        "native_archive_sha256": "8ea3ea3f2085ff05f6ba8b8db74bf6496a8a612f0f6c8d51c77f2c87867b1482"
-      },
       "editable_project": {
         "path": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
-        "sha256": "f6cb79e17fa62f7768a74b450b007164f34960dff7c814be3d071d50017a3b45"
+        "sha256": "cb274f83fc49044d03b368948c1f5a670dfea6c70b7def4279f4f4054d920dd3"
       }
     },
     {

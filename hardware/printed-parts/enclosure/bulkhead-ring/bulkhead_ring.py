@@ -111,7 +111,7 @@ STATIONS = {
     "co2": Chip("neofit", "CO2", True),
     "flavor-a": Chip("union", "FLAVOR", False),
     "flavor-b": Chip("union", "FLAVOR", False),
-    "drain": Chip("drain", "DRAIN", False),
+    "drain": Chip("drain", "OVER", False),
 }
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES. The part is one print in two filaments — a chip
 # and the word standing in its recess — so the file is that pair, each body carrying the colour of
@@ -156,7 +156,7 @@ WORD_BEAD = 0.42
 # — and the only thing that catches it is a figure carried here and read back off the solid.
 # `words_hold` is where that is read.
 WORD_CAP = 4.951
-WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952, "DRAIN": 19.671}
+WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952, "OVER": 17.827}
 # The narrowest stroke any of these words carries, taken off the built letterforms as twice a
 # glyph face's area over its perimeter.
 WORD_MIN_STROKE = 0.771
