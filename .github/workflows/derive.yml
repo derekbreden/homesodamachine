@@ -7,8 +7,8 @@
 # build at a time across the whole repo. Run here, three agents in one tree stop queueing
 # behind each other for work that informs none of their choices.
 #
-# THE FULL BUILD AND CARRY MUST BOTH BE GREEN. A partial bazel-bin contains prior-run outputs,
-# so it is useful for warming caches but is never committed as a current derivation.
+# WHAT FAILED IS HELD BACK, NOT CARRIED. A partial bazel-bin contains prior-run outputs, so the
+# carry leaves out every target that failed this run and everything that stood on it.
 
 name: derive
 

@@ -49,9 +49,9 @@ assembly's own, and `port(name)` reads one off its station's seat:
 |---|---|---|---|
 | `port("tube-in")` | `jg-pp010822e.tube_port` | [(-36.00, 0.00, 27.00)](ASSE_TUBE_IN) | −X |
 | `port("tube-out")` | `flare38-14ptc.tube_port` | [(104.00, 0.00, 27.00)](ASSE_TUBE_OUT) | +X |
-| `port("vent-tip")` | `vent-stub.tip` | [(32.00, 0.00, -2.00)](ASSE_VENT_TIP) | −Z |
+| `port("vent-tip")` | `vent-stub.tip` | [(32.00, 0.00, -0.00)](ASSE_VENT_TIP) | −Z |
 
-Overall [140.0 × 33.0 × 43.3 mm](ASSE_ENVELOPE). The vent stub's reach past the barb tip is a cut
+Overall [140.0 × 33.0 × 41.3 mm](ASSE_ENVELOPE). The vent stub's reach past the barb tip is a cut
 length, not a fixed dimension — it is trimmed at the bench, and `VENT_STUB_REACH`
 holds the overhang the enclosure's placement leaves for it: the room in the
 service bay's aft strip between the +X wall of back-top's aft edge and the chain,

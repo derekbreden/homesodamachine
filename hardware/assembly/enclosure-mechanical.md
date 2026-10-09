@@ -112,19 +112,19 @@ All seven land in `enclosure-back-top`, on the bench, before that piece goes any
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
-| Umbilical unions × 3 (PP1208E) | [-78.07 / -37.81 / -37.81](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[17.44](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
+| Umbilical unions × 3 (PP1208E) | [-78.07 / -40.71 / -40.71](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[17.44](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-78.07](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[17.44](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 66.9, z 336.2](C14_BACK) | Rounded rectangle | Rim on the inlet tunnel's pocket floor, two M3 through the ears into that floor |
-| CO2 ABU44 bulkhead | [x 2.45, z 336](CO2_BACK) | Ø[17.3](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
+| CO2 ABU44 bulkhead | [x -3.35, z 336](CO2_BACK) | Ø[17.3](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 | Umbilical-signal keystone | x −37.81, z 303.35 | 14.9 × 16.3 mm keyed receptacle | RiteAV RJ11 jack enters from inside, tang first; latch snaps over the printed catch and its face finishes flush |
 
 **The CO2 comes in at the +Y wall**, not at the front — carbonator, tap and umbilical all land on the one face the customer reaches at install. No connection is cut in the front wall: its one opening is the pump bay, and the pump cartridge's face closes that.
 
-The four PP1208E unions stand in a **rectangle** on two columns [40.26 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [49.77](C14_FLANGE_W) mm wide and stands east of them on its own storey.
+The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [49.77](C14_FLANGE_W) mm wide and stands east of them on its own storey.
 
 Install, in this order:
 
-- **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-37.81](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [+Y wall of back-top "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md), and that rule only works if the ring is where the customer expects it.
+- **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-40.71](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [+Y wall of back-top "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md), and that rule only works if the ring is where the customer expects it.
 - **The C14 inlet** — it lands from *inside*: flange against the fore face of the printed tunnel standing round the cutout, its rim bearing on the pocket floor around the bore and two M3 through the ears into that floor either side of it. Nothing on this station stands proud of the rear face; the rim face sits [8.25 mm](C14_RIM_INSET) inside it, and the C13 nose comes down the bore to reach it. Solder tabs face into the cabinet.
 - **The ABU44** — a 1/4" collet on each face, the red bulkhead ring dropped into its rim before the fitting goes in, flange bearing on that ring and the panel nut made up inside. Nothing threads onto either collet here.
 - **The RiteAV RJ11 keystone** — enter from inside, upper tang first, swing the body through the receptacle's ease and press until its latch snaps over the printed catch. Its black face and dust cover finish flush on the rear show face; its 110 IDC remains accessible inside for SIG-6.
@@ -194,7 +194,7 @@ The box closes in two slides and six screws, and everything in the service bay i
 
 3. **Six screws.** M3×10 SHCS from the ±X exteriors at all three levels. The lower pair above the handholds and the middle pair pin the two bottom pieces; the ceiling pair pins the two tops. The lower insert axes sit at Z [48.9 mm](SEAM_LOWER_Z), with their complete collars above the lifting sections. The middle axes sit at Z [152.1 mm](SEAM_MIDDLE_Z), with complete collars below the Z seam. The hooked rails retain each top vertically, and the ceiling pair locks front-top against sliding forward.
 
-   **This is what shuts the core down.** Two brackets (`enclosure._core_holds`) stand in the [3 mm](REAR_SEAM_CLEAR) band behind the core, one either side of the flavour unions' column, each with its foot [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Each clears the flavour-A union beside it by [7.36 mm](CORE_HOLD_CLEAR), so a bulkhead nut run down crooked is the one thing in the bay that fouls one. With the screws driven, the core is closed in on every face: slab under, blocks ahead, +Y wall aft, brackets over.
+   **This is what shuts the core down.** Two brackets (`enclosure._core_holds`) stand in the [3 mm](REAR_SEAM_CLEAR) band behind the core, one either side of the flavour unions' column, each with its foot [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Each clears the flavour-A union beside it by [4.46 mm](CORE_HOLD_CLEAR), so a bulkhead nut run down crooked is the one thing in the bay that fouls one. With the screws driven, the core is closed in on every face: slab under, blocks ahead, +Y wall aft, brackets over.
 
 **Factory teardown uses the enclosure slides in reverse**, and its first move needs no cart: **the ceiling pair alone frees front-top**, which draws fore off its rails with the machine standing where it is, taking the valve trays, fixed release plate, tee journals and tees with it. All six out and the back assembly rides aft off the core — the whole bay open on the cart again — or, with the core out, front-top slides fore and back-top slides aft off their own columns. Pump-cartridge service does not require this teardown; it uses the front bay.
 
@@ -287,7 +287,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [105](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [113](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

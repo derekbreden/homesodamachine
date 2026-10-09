@@ -6,7 +6,7 @@
     "PORT_DROP": "1.75",
     "PORT_SLIP": "1",
     "SOCKET_DEPTH": "6.2",
-    "SOCKET_DIA": "7.2",
+    "SOCKET_DIA": "6.9",
     "SOCKET_FLOOR": "3",
     "TRAY_AFT_STEP": "9.5",
     "TRAY_COUNT": "2",
@@ -21,9 +21,9 @@
     "TRAY_SEAT": "-5.2",
     "TRAY_SEATS": "4",
     "TRAY_T": "9.2",
-    "TRAY_VOL": "170.23",
+    "TRAY_VOL": "170.89",
     "TRAY_W": "209",
-    "TRAY_WEB": "1.273",
-    "TRAY_WEB_PCT": "303"
+    "TRAY_WEB": "1.404",
+    "TRAY_WEB_PCT": "334"
   }
 }
