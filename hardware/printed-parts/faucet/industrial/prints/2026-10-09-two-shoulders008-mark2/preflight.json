@@ -1,0 +1,145 @@
+{
+  "observed_at_utc": "2026-10-09T05:18:06.670489+00:00",
+  "printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T05:18:06.126635+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 345,
+      "total_layer_num": 1535,
+      "mc_percent": 39,
+      "mc_remaining_time": 981,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 47,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 279,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T05:18:06.615969+00:00",
+      "task_id": "1321804313",
+      "job_id": "1321804313",
+      "subtask_name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 140,
+      "total_layer_num": 140,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 43.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 47,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 46,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 39,
+        "target_c": 0
+      }
+    }
+  ],
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "78ff89dbbb4e7c87f2ea26070f779a80ed3390e7af1c67eb20a1c1a0f99c2302",
+  "gcode_sha256": "81a024b35ae854e33d4157e20b4ce70285aee676ed036b27c16afe0bbc57a495",
+  "project_sha256": "7de460328f99f141ddcf6d2d28d622e5f657128e2c69a509d835a5299d9b271e",
+  "native_check_sha256": "39a39cacbcb21fa0e14c179a7496a13a31aa98a41bfcba30b298a3a464512d60",
+  "destination_idle": true,
+  "no_unresolved_destination_fault": true,
+  "correct_material_left_nozzle_and_color": true,
+  "plate": "Textured PEI Plate",
+  "bed_clear_authorization": "Mark2 has PET-GF in left nozzle 0.4 with textured plate and bed clear. Please print me an industrial faucet with an adjustment to use thinner layers on this object only on these two faces only.",
+  "peer_accepted_at_utc": "2026-10-08T18:38:15.148901+00:00",
+  "peer_actual_acceptance_spacing_seconds": 38390.004222,
+  "minimum_spacing_seconds": 180,
+  "pass": true
+}
