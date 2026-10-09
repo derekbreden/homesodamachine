@@ -8,7 +8,7 @@
     "core": [
       211.00000000000009,
       163.68301584656257,
-      42.352046643958424
+      42.35204664395903
     ],
     "funnel": [
       179.0000002,
@@ -22,9 +22,9 @@
     ]
   },
   "volume_ml": {
-    "cavity": 792.2316320397781,
-    "core": 593.8436990906712,
-    "funnel": 219.3788127945286,
+    "cavity": 792.2316320397779,
+    "core": 593.8436975930615,
+    "funnel": 219.3788127945287,
     "rod": 0.7068583470577035
   },
   "shell_thickness_mm": 5.0,
@@ -38,7 +38,7 @@
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.63556513762114,
+      "retained_volume_ml": 242.63556739920398,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -961,7 +961,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "61530e0ae8c5e99e542d4ffa85399bf9736628df3c85ba54d20719188100742b",
+  "finished_funnel_step_sha256": "c5859365faf1902ee54d1f4c2c4323d88ecf32d1db06a530739f88f068c3ac4d",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -1066,41 +1066,6 @@
   "dry_opening_mm": 41.08517935471506,
   "dry_opening_depth_mm": 41.08517935471506,
   "dry_opening_shape": "circular conical access to straight rod guide",
-  "ramp_print_z_mm": {
-    "cavity": [
-      18.464820645284945,
-      32.66405370899494
-    ],
-    "core": [
-      28.485946291005064,
-      42.68517935471506
-    ]
-  },
-  "nominal_chamber_diameter_mm": 299.72,
-  "load_screen": {
-    "model": "silicone hydrostatic head and conservative uniform process-load screen",
-    "span_mm": 165.0,
-    "pressure_kpa": 1.0,
-    "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 53.95,
-    "head_pressure_kpa": 0.5980519350000001,
-    "pressure_force_n": 27.225,
-    "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
-    "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
-    "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
-  },
-  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified",
-  "enclosing_diameter_mm": 247.87647539831306,
-  "chamber_radial_clearance_mm": 25.921762300843483,
-  "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
-  "native_shell_sha256": {
-    "cavity.step": "49089931459e3eba18da7f737da7dcd72c86a758e204c382ba8ef615c540b027",
-    "cavity.stl": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
-    "cavity.step.mesh": "83a9033f1a0f14685ecbdb54d66a2cb6a67d607932c0546c126bde222d686b99",
-    "core.step": "b086cc4ebaecf842e5875f1a85c40ab8de11b52fc540d25c658371a4e16fe4be",
-    "core.stl": "097dfc585db89ad59b5349c7537fdb412d2c4a450256fd58954a92bc7ed3a2a6",
-    "core.step.mesh": "9efd4039b497a59ff4795c94f4e519ac63a5253f0ca0d1a82882cca564c646de"
-  },
   "postprint_breathers": {
     "diameter_mm": 1.5,
     "cavity": {
@@ -1160,5 +1125,40 @@
       "face": "flat outer dry back"
     },
     "method": "Drill through the printed skins into sparse infill after printing with a depth stop; keep dry faces and holes uncoated. CAD blind holes would receive sealed slicer walls."
+  },
+  "ramp_print_z_mm": {
+    "cavity": [
+      18.464820645284945,
+      32.66405370899494
+    ],
+    "core": [
+      28.485946291005064,
+      42.68517935471506
+    ]
+  },
+  "nominal_chamber_diameter_mm": 299.72,
+  "load_screen": {
+    "model": "silicone hydrostatic head and conservative uniform process-load screen",
+    "span_mm": 165.0,
+    "pressure_kpa": 1.0,
+    "silicone_density_assumption_kg_m3": 1130,
+    "maximum_silicone_head_mm": 53.95,
+    "head_pressure_kpa": 0.5980519350000001,
+    "pressure_force_n": 27.225,
+    "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
+    "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
+    "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
+  },
+  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified",
+  "enclosing_diameter_mm": 247.87647539831306,
+  "chamber_radial_clearance_mm": 25.921762300843483,
+  "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
+  "native_shell_sha256": {
+    "cavity.step": "eb804f03fc832b6c7664675c3e6872673ac72839852b4817e6e14d44a48c37b4",
+    "cavity.stl": "7fe68cc9c0d67f20c7d3b197997bd8caee566ac538fd5b76c3973f2b4596c765",
+    "cavity.step.mesh": "98d823e94d179a5f7edefaea2c6ea77de5f847fb101d40229870b7f02c12b32c",
+    "core.step": "b82b74883798df8389532d016ab64be45d29b74f5d0713bdbcbeb208bcae298b",
+    "core.stl": "b4624173bf9b261149f78d5581304cb172adfa31c6d363689e7a7c8190ea8250",
+    "core.step.mesh": "605c0474ddcf780ef631e59275f6760d3d09ad9700def06440cf071c05bec069"
   }
 }

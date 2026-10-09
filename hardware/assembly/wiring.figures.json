@@ -18,7 +18,7 @@
     "JST_PITCH": "2.5 mm",
     "LOGIC_V": "5 V",
     "MCU_V": "3.3 V",
-    "PLATE_D": "54.55 mm",
+    "PLATE_D": "54.45 mm",
     "PULLUP_R": "4.7 k\u03a9",
     "SIG_DISPLAY_LEN": "~400 mm",
     "SIG_ONEWIRE_LEN": "~300 mm",

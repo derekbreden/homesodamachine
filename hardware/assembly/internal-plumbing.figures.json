@@ -9,14 +9,14 @@
     "DIGITEN_LOOP": "81.2 mm",
     "DIGITEN_WEST_SET": "3 mm",
     "DISCHARGE_CHAIN_LEN": "83.4 mm",
-    "DISCHARGE_STUB_LEN": "49 mm",
+    "DISCHARGE_STUB_LEN": "48 mm",
     "FLOWREG_LOOP": "65.1 mm",
     "MANIFOLD_TEES": "6",
     "MANIFOLD_VALVES": "10",
     "PUMP_TUBE_PROJECTION": "17.53 mm",
     "PVC_BEND_R": "15.9 mm",
     "SPLIT_LOOP": "74.9 mm",
-    "SUCTION_STUB_LEN": "48 mm",
+    "SUCTION_STUB_LEN": "47 mm",
     "WR1110_LOOP": "83.2 mm"
   }
 }

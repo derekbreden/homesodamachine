@@ -11,7 +11,7 @@ The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 
 | | |
 |---|---|
-| source footprint | [70](TRAY_W) across × [70.909](TRAY_L) mm |
+| source footprint | [70](TRAY_W) across × [70.759](TRAY_L) mm |
 | case footprint | [70](CASE_W) mm square, ramp [18](RAMP_H) mm high |
 | octagonal location | [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
 | shoulder | [3](SHOULDER) mm over the boss, bored Ø[37](CAN_BORE) for the can |

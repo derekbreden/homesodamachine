@@ -447,8 +447,8 @@
         1.0
       ],
       "render_sha256": "bfa6ce7a11f64b88d31b9ef07b8b53bad98ffac3af3c085239bd2692160e0959",
-      "source_sha256": "5e3f9e7270c908a8eb9612fe05af1bd9b378990b5b6e3a709e873f52c3cef6e3",
-      "scene_step_sha256": "8c8b3b06e48f4221580fb8e4e025fee4c73d1df6803f9e12f40d0d34bc0db371",
+      "source_sha256": "52bea7929ef0113341ff6e19bf1dfd076dc64a0bbe04142124c9dde3aa215ab3",
+      "scene_step_sha256": "729b15ec825b9b60207a771edc0abb72100afda537bc64ba345875f6dd1e0e92",
       "fixed_native_crop": [
         0,
         70,
