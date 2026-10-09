@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "scope": "Seven native 32 mm face widths and lettering margins in the complete appliance. Fluid labels use two R2 lower corners; DATA and DRAIN have identical Z height and alignment; DATA has broad continuous nameplate wings. Physical appearance and fit remain observations on the prints.",
+  "scope": "Seven native 32 mm face widths and lettering margins in the complete appliance. Fluid labels use two R2 lower corners; DATA and OVER have identical Z height and alignment; DATA has broad continuous nameplate wings. Physical appearance and fit remain observations on the prints.",
   "label_width_mm": 32,
   "lower_corner_radius_mm": 2,
   "labels": [
@@ -159,8 +159,8 @@
         2.0000001,
         18.789000100000003
       ],
-      "left_letter_margin_mm": 6.164306690625001,
-      "right_letter_margin_mm": 6.164306690625002,
+      "left_letter_margin_mm": 7.086303610937501,
+      "right_letter_margin_mm": 7.086303610937501,
       "placed_bounds_mm": [
         -94.07000009999999,
         469.3,
@@ -169,7 +169,7 @@
         471.30000010000003,
         321.4062905687784
       ],
-      "source_step_sha256": "a192021057b7a53d838fea09dd3e4a4304c7e0451e81e9c696cc55eb7f9ddac3",
+      "source_step_sha256": "b20ebf7893a85d7e8f085aaa10fa9c88324292f073eaca040dd16919dfb815ad",
       "native_valid": true
     },
     {
@@ -203,10 +203,10 @@
   ],
   "input_sha256": {
     "hardware/manifold-layout/enclosure-assembly.facts.json": "55d7c8c054e089dbe4e4a434e4dc6577d46ecc905aa54e7c912de1f0c635c006",
-    "hardware/manifold-layout/enclosure-assembly.step": "d28fae3e26ff40557b3ca0e044cbf7104ed18c7038420e35a2b809a595f97f7a",
+    "hardware/manifold-layout/enclosure-assembly.step": "f6a0689a280611d12e9e6baabff6dc900ed7adc524dbe8c89121f0cc8b15ba72",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
     "hardware/printed-parts/cadlib/port_chip.py": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "29a1d34d8c49f49f3ff77126a4dd6fe6982d63925403cbe50ce805eb6f90b406",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
     "hardware/printed-parts/enclosure/data-ring/data_ring.py": "d985727db6870a6f60eb5ae04b705e819198e719dd2f5f17d0e7525c75ab3a5a",
     "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "84eee2de875fb5ebecf4a23b56bb84fdb115cbf9d842a455a3bd43d1dfee2147",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": "35a97bb06dda927344776f0e9dbe6739b2538c64cdbc11e5c6f84862b08b5f3b",
@@ -214,7 +214,7 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step": "8da7eca203143753a7c5606346182e5cbddc051fe71f2a8eda0a067dfcd76a68",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step": "85c8643b5192936ac99bf0902b834af0bc038cfda10cb3b5d6fad483f66594ee",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step": "245e0be45ae0591d239ef9cd2a6b1b6261ce75c6bb1fbed4084d40f56a8cbc56",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step": "a192021057b7a53d838fea09dd3e4a4304c7e0451e81e9c696cc55eb7f9ddac3",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step": "b20ebf7893a85d7e8f085aaa10fa9c88324292f073eaca040dd16919dfb815ad",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": "c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199"
   },
   "passed": true

@@ -33,7 +33,7 @@ what this build does differently.
 - V-A, V-B, V-K and the foam cap and lid.
 - The funnel, its cover, its drain elbow and cradle.
 - The carbonator, refrigeration loop, compressor, condenser and fan.
-- The CO2 path, the ASSE 1022, its vent and the DRAIN line.
+- The CO2 path, the ASSE 1022, its vent and the OVER line.
 - Both relays and the J5 loom, the temperature probes, the carbonator reeds and the MQ-6.
 
 ## Parts
@@ -144,7 +144,7 @@ Populate it inverted, ceiling down
 ([enclosure mechanical §1–§2, §5](enclosure-mechanical.md#2-seat-the-y-walls-seven-connection-bodies)).
 
 1. **The rear wall:** the four PP1208E bulkheads (TAP, SODA, both FLAVOR) with their chips; the
-   C14 from inside, two M3×8 into the tunnel; the RJ11 keystone. The CO2 and DRAIN openings stay
+   C14 from inside, two M3×8 into the tunnel; the RJ11 keystone. The CO2 and OVER openings stay
    empty.
 2. **The meter** in its two roof anchors, one 6" zip tie each, arrow toward SODA
    ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).
@@ -263,7 +263,7 @@ Follow [faucet and umbilical](faucet-and-umbilical.md) and the
 - **Its seals** are the TPU thimble and the counter gasket printed October 8 for this faucet's
   footprint ([prototype gaskets](/hardware/printed-parts/prototype-gaskets-2026-10-08/README.md)).
 - **The umbilical** carries the blue tube, the two flavor runs and the SIG-6 ribbon, and no
-  DRAIN:
+  OVER:
   - The blue tube takes the Siptenk stiffener into the Westbrass's lower compression port.
   - Each white flavor run joins its black run in a PP0408W union.
   - CARGEN foam goes on the blue tube only, with the braid and collars over the bundle.

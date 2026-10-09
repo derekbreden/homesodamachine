@@ -67,10 +67,10 @@ The [rear label set](../printed-parts/drain-readiness/README.md) uses 32 mm face
 The six fluid labels have rounded lower corners. The
 [DATA plate](../printed-parts/enclosure/data-ring/README.md) uses the nameplate's
 continuous face and broad horizontal wings, with a 1.68 mm depth throughout
-and an RJ11 opening. Its 29.789 mm Z height and alignment match DRAIN. The jack mounts
+and an RJ11 opening. Its 29.789 mm Z height and alignment match OVER. The jack mounts
 independently. Its [native fit record](../printed-parts/enclosure/data-ring/fit-check.json)
 measures plug approach, neighboring hardware clearance, complete wing retaining
-lands and DATA/DRAIN alignment. Printed fit, insertion force,
+lands and DATA/OVER alignment. Printed fit, insertion force,
 pullout capacity and cycle life remain unmeasured. Accepted nameplate and
 display-cover results retain their identified geometry and print scope.
 
