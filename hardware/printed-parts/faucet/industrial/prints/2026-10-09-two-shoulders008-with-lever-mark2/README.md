@@ -49,3 +49,10 @@ Mark2 accepted task/job `1322285082` at 2026-10-09 00:33:43 CDT
 reading is RUNNING at layer 0, with print error 0 and no HMS faults. Native
 completion is forecast near 06:46 CDT. Timelapse On was verified in the Send
 dialog; that option alone does not establish captured frames.
+
+The [physical result](physical-result/physical-result.json) records the user's
+beautiful 0.08 mm layers and successful removal of supports from the few thin
+supported layers. Exterior lines/defects beside each screw point remain an open
+finish issue. The [native screw-point comparison and all-fine time estimate](../2026-10-09-all008-estimate-mark2/README.md)
+locate repeated outer-wall starts and stops at the rectangular insert-host
+reinforcement boundaries.

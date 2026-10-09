@@ -1,0 +1,641 @@
+{
+  "printed_job_id": "1322285082",
+  "printed_archive_sha256": "5e017415c3edb51d3ec7d422dc0351bbc2e67a155e0ec9edf23c34fa16a724bd",
+  "printed_gcode_sha256": "5a027278f4c0544e08a0a83389c9e7fbcc7673eb08b99eb6009e5968be92c6f2",
+  "control_native_validation": {
+    "archive": ".cache/printer-control/industrial-screw-modifier-control/industrial-screw-modifier-control.gcode.3mf",
+    "archive_sha256": "1406944ee8e5be4ec42e53529669e7f8cecde6fa294a79d1c7056213e265a4ee",
+    "gcode_sha256": "588385a032320e62bd3252b159fcd26166db6d64f7e03c2e4c2e02cca5442306",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1408,
+    "estimated_seconds": 20426.46875,
+    "estimated_grams_saved_profile_density": 132.88262939453125,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "method": "Connected positive-extrusion Outer wall runs in print Z <=30 mm. Ends of open runs are inverse-transformed into the source CAD frame. Only CAD Z 0.5\u201313.9 mm and radial distance 28.7\u201329.7 mm around the cylindrical outer foot are retained. Endpoints within 0.6 mm of a reinforcement XY side, inside its remaining XY span and height, are counted. The control removes only the three modifier parts; all five normal meshes, poses, settings and shoulder-layer ranges are retained.",
+  "readings": {
+    "printed_slice": {
+      "outer_foot_wall_endpoint_count": 676,
+      "regions": [
+        {
+          "name": "Solid base insert host 1",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 184,
+          "layer_count_with_near_endpoints": 92,
+          "rounded_xy_witnesses_mm": [
+            [
+              29.0,
+              3.9
+            ],
+            [
+              29.0,
+              4.0
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.958870555598901,
+                0.5688524433301296
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.9009150060215543,
+                0.5533233006239726
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.9585732376567875,
+                0.8172390605260631
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.9015836139057334,
+                0.801968736865021
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.95924184554097,
+                1.0658844967670973
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.64
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.901286295963623,
+                1.0503553540609545
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.64
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.960876379251449,
+                1.3147887520532464
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.88
+            },
+            {
+              "cad_mm": [
+                29.019000000000005,
+                3.903886755500395,
+                1.2995184283921901
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.88
+            }
+          ]
+        },
+        {
+          "name": "Solid base insert host 2",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 184,
+          "layer_count_with_near_endpoints": 92,
+          "rounded_xy_witnesses_mm": [
+            [
+              -29.0,
+              3.9
+            ],
+            [
+              -29.0,
+              4.0
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.960802407251487,
+                0.5693700814203311
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.90284685767414,
+                0.5538409387141741
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.9576073118304946,
+                0.8169802414809624
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.8996517622531477,
+                0.8014510987748196
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.95924184554097,
+                1.0658844967670973
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.64
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.901286295963623,
+                1.0503553540609545
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.64
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.959910453425153,
+                1.3145299330081457
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.88
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.9019549038478094,
+                1.2990007903019887
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.88
+            }
+          ]
+        },
+        {
+          "name": "Solid base insert host 3",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 290,
+          "layer_count_with_near_endpoints": 144,
+          "rounded_xy_witnesses_mm": [
+            [
+              -6.1,
+              -28.1
+            ],
+            [
+              -6.0,
+              -28.1
+            ],
+            [
+              -5.3,
+              -28.8
+            ],
+            [
+              5.3,
+              -28.8
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.813262903877224,
+                0.5667277584960289
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.64
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823888087966402,
+                0.5638807489999067
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.64
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81271805930706,
+                0.6496958435914166
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.72
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823343243396252,
+                0.6468488340952803
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.72
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81313914056319,
+                0.7324051096416895
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.8
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823764324652384,
+                0.7295581001455531
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.8
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81356022181932,
+                0.8151143756919623
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.88
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.82321948008222,
+                0.8125261852409409
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.88
+            }
+          ]
+        }
+      ]
+    },
+    "same_geometry_no_modifier_control": {
+      "outer_foot_wall_endpoint_count": 4,
+      "regions": [
+        {
+          "name": "Solid base insert host 1",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 0,
+          "layer_count_with_near_endpoints": 0,
+          "rounded_xy_witnesses_mm": [],
+          "first_witnesses": []
+        },
+        {
+          "name": "Solid base insert host 2",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 0,
+          "layer_count_with_near_endpoints": 0,
+          "rounded_xy_witnesses_mm": [],
+          "first_witnesses": []
+        },
+        {
+          "name": "Solid base insert host 3",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 0,
+          "layer_count_with_near_endpoints": 0,
+          "rounded_xy_witnesses_mm": [],
+          "first_witnesses": []
+        }
+      ]
+    },
+    "all_0_08_estimate": {
+      "outer_foot_wall_endpoint_count": 905,
+      "regions": [
+        {
+          "name": "Solid base insert host 1",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 288,
+          "layer_count_with_near_endpoints": 144,
+          "rounded_xy_witnesses_mm": [
+            [
+              29.0,
+              3.9
+            ],
+            [
+              29.0,
+              4.0
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.9791549979509586,
+                0.5742876432772732
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.9221653741999045,
+                0.5590173196162311
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.979699842521136,
+                0.657255728372661
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.24
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.921744292943789,
+                0.641726585666504
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.24
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.9792787612649887,
+                0.739964994422948
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.32
+            },
+            {
+              "cad_mm": [
+                29.016999999999996,
+                3.9222891375139346,
+                0.7246946707618918
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.32
+            },
+            {
+              "cad_mm": [
+                29.010000000000005,
+                3.981755457487727,
+                0.8234507176085231
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                29.019000000000005,
+                3.924765833736673,
+                0.808180393947481
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.4
+            }
+          ]
+        },
+        {
+          "name": "Solid base insert host 2",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 288,
+          "layer_count_with_near_endpoints": 144,
+          "rounded_xy_witnesses_mm": [
+            [
+              -29.0,
+              3.9
+            ],
+            [
+              -29.0,
+              4.0
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.973359442993223,
+                0.5727347290066547
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.915403893415876,
+                0.5572055863005119
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.16
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.981631694173697,
+                0.6577733664628624
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.24
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.92367614459635,
+                0.6422442237567054
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.24
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.978312835438696,
+                0.7397061753778473
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.32
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.920357285861349,
+                0.7241770326716903
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.32
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.9846532349666055,
+                0.8242271747438394
+              ],
+              "end": "start",
+              "print_layer_z_mm": 7.4
+            },
+            {
+              "cad_mm": [
+                -29.009999999999998,
+                3.9266976853892586,
+                0.8086980320376824
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 7.4
+            }
+          ]
+        },
+        {
+          "name": "Solid base insert host 3",
+          "outer_wall_start_stop_endpoints_within_0_6_mm_of_modifier_sides": 290,
+          "layer_count_with_near_endpoints": 144,
+          "rounded_xy_witnesses_mm": [
+            [
+              -6.1,
+              -28.1
+            ],
+            [
+              -6.0,
+              -28.1
+            ],
+            [
+              -5.3,
+              -28.8
+            ],
+            [
+              5.3,
+              -28.8
+            ]
+          ],
+          "first_witnesses": [
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.813262903877224,
+                0.5667277584960289
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.64
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823888087966402,
+                0.5638807489999067
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.64
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81271805930706,
+                0.6496958435914166
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.72
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823343243396252,
+                0.6468488340952803
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.72
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81313914056319,
+                0.7324051096416895
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.8
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.823764324652384,
+                0.7295581001455531
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.8
+            },
+            {
+              "cad_mm": [
+                5.311999999999998,
+                -28.81356022181932,
+                0.8151143756919623
+              ],
+              "end": "start",
+              "print_layer_z_mm": 15.88
+            },
+            {
+              "cad_mm": [
+                5.253,
+                -28.82321948008222,
+                0.8125261852409409
+              ],
+              "end": "stop",
+              "print_layer_z_mm": 15.88
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scope": "Native outer-wall endpoints; photos supply the physical defects. This control is diagnostic and has no print authorization.",
+  "submitted": false,
+  "launch_authorized": false,
+  "all_0_08_native_archive_sha256": "a558f73a7015f33e7adf0ad33451faada6bf7eb6a46701da9ebc48bcc2f8df05",
+  "inferred_physical_cause": "The three insert-host reinforcement regions introduce repeated outer-wall starts and stops on their boundaries, consistent with the reported exterior tracks. Same-geometry control has no such boundary endpoints. This inference connects the native paths to the supplied physical photos.",
+  "all_0_08_retains_boundary_starts_and_stops": true,
+  "control_not_a_print_candidate": "Removing the modifiers is diagnostic only; it discards the specified local insert-host reinforcement."
+}
