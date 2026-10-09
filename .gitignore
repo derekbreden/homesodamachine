@@ -162,3 +162,11 @@ web/public/firmware/
 .panelcam/
 tools/panelcam-shot/PanelCamShot.app/
 tools/bambu-ax/bambu-ax
+
+# The laser welder's packaged model, written by hardware/reference/xlaserlab-sup29f-xh/package_models.py.
+output/xlaserlab-sup29f-xh/
+# Screenshots the interactability study's tools take of its own scenes (tools/shot-page.mjs).
+future/ai-interactability-study/thumbs/
+# A scan check's local cache, and the result file the Bambu CLI drops in its working directory.
+.scan-check-cache.npz
+/result.json
