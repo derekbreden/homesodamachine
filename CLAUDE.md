@@ -38,6 +38,15 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 `python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased — and never anything the Privacy section keeps out of the repo. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
 
+## What Runs Every Time
+
+"Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.
+
+- Nothing joins that path unless I asked for that specific thing: no hook, gate, scorecard row, build-stopping assertion or verification step added because it seems safer.
+- A check runs when someone asks the question it answers, not because a file changed.
+- In your own loop, check what the change touched, once. Don't re-run the machine's checks after every small edit.
+- Taking something off that path needs no defense beyond its cost.
+
 ## Privacy
 
 This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
