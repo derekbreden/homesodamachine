@@ -1690,6 +1690,18 @@ def _cad_progress(message):
         print(message, flush=True)
 
 
+def _keep_brep(shape, path):
+    """Write `shape` to `path` when the disk allows it. A sandboxed build step cannot write
+    outside its declared outputs, and the body it built is the same whether or not it is kept."""
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = path.with_name(f"{path.stem}.{os.getpid()}{path.suffix}")
+        shape.exportBrep(str(temporary))
+        temporary.replace(path)
+    except OSError:
+        pass
+
+
 def build_shell() -> cq.Workplane:
     """Complete unsplit reference body; the accessible curved joint defines its two prints."""
     cached = _native_cache_path()
@@ -1736,23 +1748,18 @@ def build_shell() -> cq.Workplane:
         part = part.cut(cutter)
         _cad_progress(f"Shell: after {name}: valid={part.isValid()}, solids={len(part.Solids())}")
         if not part.isValid():
-            cached.parent.mkdir(parents=True, exist_ok=True)
             diagnostic = cached.with_name("invalid-" + name.replace(" ", "-") + ".brep")
-            part.exportBrep(str(diagnostic))
+            _keep_brep(part, diagnostic)
             raise ValueError(f"shell cut {name!r} produced an invalid native body; "
                              f"diagnostic={diagnostic}")
     _cad_progress(f"Shell: unify faces ({time.monotonic()-started:.1f}s)")
     part = part.clean()
     if not part.isValid() or len(part.Solids()) != 1:
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        part.exportBrep(str(cached.with_name("invalid-full.brep")))
+        _keep_brep(part, cached.with_name("invalid-full.brep"))
         raise ValueError(f"shell Boolean body: valid={part.isValid()}, "
                          f"solid volumes={[s.Volume() for s in part.Solids()]}; "
                          f"diagnostic={cached.with_name('invalid-full.brep')}")
-    cached.parent.mkdir(parents=True, exist_ok=True)
-    temporary = cached.with_name(f"full.{os.getpid()}.brep")
-    part.exportBrep(str(temporary))
-    temporary.replace(cached)
+    _keep_brep(part, cached)
     _cad_progress(f"Shell: native body complete ({time.monotonic()-started:.1f}s)")
     return cq.Workplane(obj=part)
 
