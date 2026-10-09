@@ -51,7 +51,7 @@ def review(project: Path) -> dict:
     ready = json.loads(project.with_suffix(".readiness.json").read_text())
     preparation.verify_sources(report)
     row = next(row for row in report["parts"] if row["name"].endswith("shell-base"))
-    regions = report["local_solid_regions"]
+    regions = report.get("insert_review_regions", report["local_solid_regions"])
     directory = (preparation.ROOT / ready["native"]["archive"]).parent
     gcode = directory / "plate_1.gcode"
     if preparation.sha(gcode) != ready["native"]["gcode_sha256"]:
@@ -80,12 +80,15 @@ def review(project: Path) -> dict:
                        "readings": []})
     low = min(region["print_low"] for region in staged)
     high = max(region["print_high"] for region in staged)
-    roads = {}
+    roads, slabs = {}, {}
     for segment in extrusion_segments(gcode):
+        if segment["layer"] > high + 1:
+            break
         if (segment["object"] != row["identify_id"] or segment["feature"].startswith("Support")
-                or not low <= segment["a"][2] <= high + .24):
+                or not low <= segment["a"][2] <= high + 1):
             continue
         z = round(segment["a"][2], 4)
+        slabs[z] = segment["height"]
         roads.setdefault(z, []).append(LineString([segment["a"][:2], segment["b"][:2]])
                                       .buffer(segment["width"] / 2, cap_style=1, join_style=1))
     worst = {}
@@ -94,7 +97,7 @@ def review(project: Path) -> dict:
     body_low = shell.base_insert_bottom_z
     body_high = body_low + shell.base_insert_length
     for height in sorted(roads):
-        slab = .2 if height == .2 else .24
+        slab = slabs[height]
         section_z = height - slab / 2
         faces = np.flatnonzero((z_min < section_z) & (z_max > section_z))
         stock = filled_section(mesh, section_z, faces)
@@ -147,7 +150,8 @@ def review(project: Path) -> dict:
                                     "connected_component_outer_backing_mm": float(envelope_mm)})
             minimum = min((item["connected_component_outer_backing_mm"] for item in backing), default=None)
             dense_required = shell.base_pod_z_bottom <= axis_z <= shell.base_pod_z_top
-            reading = {"native_layer_top_z_mm": height, "native_section_z_mm": section_z,
+            reading = {"native_layer_top_z_mm": height, "native_layer_height_mm": slab,
+                       "native_section_z_mm": section_z,
                        "source_stock_area_mm2": float(target.area),
                        "own_width_bead_coverage_fraction": float(fraction),
                        "unfilled_stock_area_mm2": float(target.difference(beads).area),

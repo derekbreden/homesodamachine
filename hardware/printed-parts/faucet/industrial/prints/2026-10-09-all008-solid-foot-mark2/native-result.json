@@ -1,0 +1,126 @@
+{
+    "error_string": "Success.",
+    "export_time": 9500,
+    "layer_height": 0.07999999821186066,
+    "plate_index": 0,
+    "prepare_time": 721,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 111.0320053100586,
+                "Bridge": 364.1134338378906,
+                "Brim": 29.71795654296875,
+                "Custom": 297.3797607421875,
+                "Flush": 15.0,
+                "Gap infill": 842.1292724609375,
+                "Inner wall": 7804.12939453125,
+                "Internal solid infill": 2589.64111328125,
+                "Outer wall": 8071.91162109375,
+                "Overhang wall": 70.13813781738281,
+                "Sparse infill": 8488.0927734375,
+                "Support": 10792.7568359375,
+                "Support interface": 28.809066772460938,
+                "Top surface": 86.16553497314453,
+                "Travel": 10100.8642578125,
+                "Undefined": 10099.2958984375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 167.4593963623047,
+                    "total_used_g": 167.4593963623047
+                }
+            ],
+            "generate_support_material_time": 33391,
+            "id": 1,
+            "infill_time": 4028,
+            "layer_filament_change": 0,
+            "main_predication": 49774.03125,
+            "make_perimeters_time": 9714,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 113.8528060913086,
+                        "height": 226.48277282714844,
+                        "width": 59.0,
+                        "x": 53.0,
+                        "y": 111.6299819946289,
+                        "z": -0.07764548063278198
+                    },
+                    "id": 5,
+                    "name": "industrial-shell-base",
+                    "triangle_count": 422120
+                },
+                {
+                    "bbox": {
+                        "depth": 81.9704360961914,
+                        "height": 163.87892150878906,
+                        "width": 27.0,
+                        "x": 169.0,
+                        "y": 163.52052307128906,
+                        "z": -3.427302598953247
+                    },
+                    "id": 9,
+                    "name": "faucet-shell-tip",
+                    "triangle_count": 238386
+                },
+                {
+                    "bbox": {
+                        "depth": 68.0181655883789,
+                        "height": 67.54417419433594,
+                        "width": 29.79999351501465,
+                        "x": 236.60000610351563,
+                        "y": 231.9909210205078,
+                        "z": -24.497085571289063
+                    },
+                    "id": 13,
+                    "name": "industrial-display-cover",
+                    "triangle_count": 4346
+                },
+                {
+                    "bbox": {
+                        "depth": 59.0,
+                        "height": 6.200000286102295,
+                        "width": 59.0,
+                        "x": 176.0,
+                        "y": 78.5,
+                        "z": -1.1905115115951048e-07
+                    },
+                    "id": 17,
+                    "name": "industrial-above-counter-plate",
+                    "triangle_count": 15144
+                },
+                {
+                    "bbox": {
+                        "depth": 53.03470230102539,
+                        "height": 12.399999618530273,
+                        "width": 14.664939880371094,
+                        "x": 137.6675262451172,
+                        "y": 73.48265075683594,
+                        "z": -2.651363573136223e-10
+                    },
+                    "id": 21,
+                    "name": "lever-replica",
+                    "triangle_count": 5072
+                }
+            ],
+            "sliced_time": 65657,
+            "sliced_time_with_cache": 17412,
+            "total_predication": 50099.84375,
+            "triangle_count": 685068,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

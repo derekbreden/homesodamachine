@@ -151,7 +151,7 @@ def extrusion_segments(gcode: Path):
     """Read the retained native extrusion paths, including sampled G2/G3 arcs."""
     sys.path.insert(0, str(writer.ROOT / "hardware/scripts"))
     from enclosure_support_audit import _WORD, _arc_points
-    current, feature, layer = None, "", None
+    current, feature, layer, height = None, "", None, None
     x = y = z = e = width = 0.0
     absolute_xy, relative_e = True, True
     for raw in gcode.open():
@@ -167,7 +167,9 @@ def extrusion_segments(gcode: Path):
             feature = line.split(":", 1)[1].strip()
         elif line.startswith("; Z_HEIGHT:"):
             layer = float(line.split(":", 1)[1])
-            current, feature = None, ""
+            current, feature, height = None, "", None
+        elif line.startswith("; LAYER_HEIGHT:"):
+            height = float(line.split(":", 1)[1])
         elif line.startswith("; LINE_WIDTH:"):
             width = float(line.split(":", 1)[1])
         code = line.split(";", 1)[0].strip()
@@ -192,7 +194,7 @@ def extrusion_segments(gcode: Path):
                                      _arc_points((x, y), (nx, ny), words, command == "G2"))
                 for a, b in zip(points, points[1:]):
                     yield {"object": current, "feature": feature, "layer": layer,
-                           "width": width, "a": [*a, z], "b": [*b, nz]}
+                           "height": height, "width": width, "a": [*a, z], "b": [*b, nz]}
             x, y, z = nx, ny, nz
             if "E" in words:
                 e = e + words["E"] if relative_e else words["E"]

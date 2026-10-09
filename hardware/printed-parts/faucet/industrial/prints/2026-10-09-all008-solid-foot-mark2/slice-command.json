@@ -1,0 +1,14 @@
+{
+  "slicer": "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "flags": [
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0"
+  ],
+  "source_project_sha256": "f98b18e9bd2173958889d25958e780de40e0859a1e2686e13431e33ec7866145",
+  "native_archive_sha256": "e0f1144e9b76f28360328fb49733af700cdd71e66e8ab05001c2ccec1b33cd37",
+  "printer_connection": false
+}

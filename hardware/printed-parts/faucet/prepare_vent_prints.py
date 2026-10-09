@@ -173,6 +173,10 @@ def prepare(name: str, project: Path, settings_source: Path, parts: tuple,
                             title=title, z_trim=z_trim, plate_border=border)
     if solid_regions:
         report = writer.add_local_solid_regions(project, report, solid_regions)
+        if any(region["part"] == "industrial-shell-base" for region in solid_regions):
+            report["insert_review_regions"] = [
+                {**region, "applied_source_bounds_mm": region["source_bounds_mm"]}
+                for region in insert_host_regions("industrial-shell-base")]
     report.update(source_sha256=source_hashes(parts), active_nozzle=active_nozzle,
                   requested_z_trim_mm=z_trim, printer="H2C", submitted=False)
     save(project.with_suffix(".print.json"), report)
@@ -204,13 +208,26 @@ def prepare(name: str, project: Path, settings_source: Path, parts: tuple,
     return record
 
 
-def insert_regions(part: str) -> tuple[dict, ...]:
+def insert_host_regions(part: str) -> tuple[dict, ...]:
+    """Keep the three insert backing regions independent of modifier topology."""
     shell = writer.shell
     reach = shell.base_pod_radius + shell.wall_thickness_min
     return tuple({"part": part, "name": f"Solid base insert host {index}",
                   "source_bounds_mm": [[x - reach, y - reach, shell.base_pod_z_bottom - .01],
                                        [x + reach, y + reach, shell.base_pod_z_top + 2.0]]}
                  for index, (x, y) in enumerate(shell.base_pod_centers, 1))
+
+
+def insert_regions(part: str) -> tuple[dict, ...]:
+    if part == "industrial-shell-base":
+        from industrial.industrial_faucet import foot_radius, foot_top
+
+        reach = foot_radius + 1.0
+        return ({"part": part, "name": "Solid continuous industrial foot",
+                 "source_bounds_mm": [[-reach, -reach, -.01],
+                                      [reach, reach, foot_top + .01]],
+                 "clip_to_part_bounds": False},)
+    return insert_host_regions(part)
 
 
 def rigid() -> dict:

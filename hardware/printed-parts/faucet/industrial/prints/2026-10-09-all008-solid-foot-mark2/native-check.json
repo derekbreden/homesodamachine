@@ -1,0 +1,485 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.gcode.3mf",
+    "archive_sha256": "e0f1144e9b76f28360328fb49733af700cdd71e66e8ab05001c2ccec1b33cd37",
+    "gcode_sha256": "de1036fb9acfab2e6a938c027e92168bb0523b9c134b2b9a5d21e34e5ffd253a",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.08",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 2749,
+    "estimated_seconds": 50099.84375,
+    "estimated_grams_saved_profile_density": 167.4593963623047,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "geometry": [
+    {
+      "part": "industrial-shell-base",
+      "source_mesh_unchanged": true,
+      "native_vertex_rounding_maximum_mm": 3.86400000706999e-06,
+      "native_placement_rounding_maximum_mm": 3.0457198363365023e-07,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "faucet-shell-tip",
+      "source_mesh_unchanged": true,
+      "native_vertex_rounding_maximum_mm": 3.863999992859135e-06,
+      "native_placement_rounding_maximum_mm": 4.840573808451154e-08,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "industrial-display-cover",
+      "source_mesh_unchanged": true,
+      "native_vertex_rounding_maximum_mm": 5.000000058430487e-08,
+      "native_placement_rounding_maximum_mm": 1.966969875866198e-08,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "source_mesh_unchanged": true,
+      "native_vertex_rounding_maximum_mm": 1.1900000007614153e-07,
+      "native_placement_rounding_maximum_mm": 3.8418579428878274e-09,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "lever-replica",
+      "source_mesh_unchanged": true,
+      "native_vertex_rounding_maximum_mm": 9.65000001684757e-07,
+      "native_placement_rounding_maximum_mm": 7.34862837248329e-10,
+      "native_triangle_indices_identical": true
+    }
+  ],
+  "wall_layers_by_part": [
+    {
+      "part": "industrial-shell-base",
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_layer_height_mm": 0.08,
+      "wall_layers": 2743,
+      "last_wall_z_mm": 219.56
+    },
+    {
+      "part": "faucet-shell-tip",
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_layer_height_mm": 0.08,
+      "wall_layers": 1984,
+      "last_wall_z_mm": 158.76
+    },
+    {
+      "part": "industrial-display-cover",
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_layer_height_mm": 0.08,
+      "wall_layers": 230,
+      "last_wall_z_mm": 18.52
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_layer_height_mm": 0.08,
+      "wall_layers": 76,
+      "last_wall_z_mm": 6.2
+    },
+    {
+      "part": "lever-replica",
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_layer_height_mm": 0.08,
+      "wall_layers": 153,
+      "last_wall_z_mm": 12.36
+    }
+  ],
+  "outer_wall_review": {
+    "outer_foot_endpoint_count": 32,
+    "original_host_boundaries": [
+      {
+        "name": "Solid base insert host 1",
+        "boundary_endpoints": 0,
+        "native_layers_with_boundary_endpoints": 0
+      },
+      {
+        "name": "Solid base insert host 2",
+        "boundary_endpoints": 0,
+        "native_layers_with_boundary_endpoints": 0
+      },
+      {
+        "name": "Solid base insert host 3",
+        "boundary_endpoints": 0,
+        "native_layers_with_boundary_endpoints": 0
+      }
+    ],
+    "boundary_tracks_absent": true,
+    "all_foot_endpoints": [
+      {
+        "cad_mm": [
+          -4.322000000000003,
+          28.965058524396795,
+          0.5606506662930428
+        ],
+        "end": "start",
+        "print_layer_z_mm": 0.68
+      },
+      {
+        "cad_mm": [
+          -4.263000000000005,
+          28.971820005180824,
+          0.5624623996087621
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 0.68
+      },
+      {
+        "cad_mm": [
+          -4.328000000000003,
+          28.955944110704063,
+          0.6410305609374092
+        ],
+        "end": "start",
+        "print_layer_z_mm": 0.76
+      },
+      {
+        "cad_mm": [
+          -4.2690000000000055,
+          28.96560336896697,
+          0.6436187513884306
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 0.76
+      },
+      {
+        "cad_mm": [
+          -4.334000000000003,
+          28.955523029447946,
+          0.723739826987682
+        ],
+        "end": "start",
+        "print_layer_z_mm": 0.84
+      },
+      {
+        "cad_mm": [
+          -4.275000000000006,
+          28.964216361884535,
+          0.7260691983936027
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 0.84
+      },
+      {
+        "cad_mm": [
+          -4.340999999999994,
+          28.95413602236551,
+          0.8061902739928541
+        ],
+        "end": "start",
+        "print_layer_z_mm": 0.92
+      },
+      {
+        "cad_mm": [
+          -4.281000000000006,
+          28.962829354802125,
+          0.8085196453987749
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 0.92
+      },
+      {
+        "cad_mm": [
+          -4.347999999999999,
+          28.961442347719714,
+          0.8909700924039612
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.0
+      },
+      {
+        "cad_mm": [
+          -4.2890000000000015,
+          28.970135680156304,
+          0.8932994638098819
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.0
+      },
+      {
+        "cad_mm": [
+          -4.352999999999994,
+          28.952327934026982,
+          0.9713499870483133
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.08
+      },
+      {
+        "cad_mm": [
+          -4.293999999999997,
+          28.961987192289865,
+          0.9739381774993348
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.08
+      },
+      {
+        "cad_mm": [
+          -4.361000000000004,
+          28.95866833355487,
+          1.0558709864143054
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.16
+      },
+      {
+        "cad_mm": [
+          -4.302000000000007,
+          28.96832759181775,
+          1.0584591768653269
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.16
+      },
+      {
+        "cad_mm": [
+          -4.366,
+          28.95051984568843,
+          1.1365097001037583
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.24
+      },
+      {
+        "cad_mm": [
+          -4.305999999999997,
+          28.96017910395131,
+          1.1390978905547797
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.24
+      },
+      {
+        "cad_mm": [
+          -4.373000000000005,
+          28.95782617104261,
+          1.2212895185148511
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.32
+      },
+      {
+        "cad_mm": [
+          -4.313999999999993,
+          28.966519503479194,
+          1.2236188899207718
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.32
+      },
+      {
+        "cad_mm": [
+          -4.379000000000005,
+          28.95740508978646,
+          1.3039987845651382
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.4
+      },
+      {
+        "cad_mm": [
+          -4.319999999999993,
+          28.965132496396784,
+          1.3060693369259724
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.4
+      },
+      {
+        "cad_mm": [
+          -4.385000000000005,
+          28.95601808270405,
+          1.3864492315703245
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.48
+      },
+      {
+        "cad_mm": [
+          -4.325999999999993,
+          28.963745489314373,
+          1.3885197839311445
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.48
+      },
+      {
+        "cad_mm": [
+          -4.391000000000005,
+          28.955597001447906,
+          1.4691584976205974
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.56
+      },
+      {
+        "cad_mm": [
+          -4.331999999999994,
+          28.963324408058227,
+          1.4712290499814173
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.56
+      },
+      {
+        "cad_mm": [
+          -4.396000000000001,
+          28.946482587755174,
+          1.5495383922649495
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.64
+      },
+      {
+        "cad_mm": [
+          -4.337000000000003,
+          28.95517592019179,
+          1.5518677636708702
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.64
+      },
+      {
+        "cad_mm": [
+          -4.403000000000006,
+          28.953788913109353,
+          1.6343182106760423
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.72
+      },
+      {
+        "cad_mm": [
+          -4.3430000000000035,
+          28.961516319719674,
+          1.6363887630368623
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.72
+      },
+      {
+        "cad_mm": [
+          -4.4069999999999965,
+          28.943708573590353,
+          1.714439286275308
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.8
+      },
+      {
+        "cad_mm": [
+          -4.347999999999999,
+          28.953367831853235,
+          1.7170274767263294
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.8
+      },
+      {
+        "cad_mm": [
+          -4.412000000000006,
+          28.94328749233421,
+          1.7971485523255808
+        ],
+        "end": "start",
+        "print_layer_z_mm": 1.88
+      },
+      {
+        "cad_mm": [
+          -4.352999999999994,
+          28.951980824770825,
+          1.7994779237315015
+        ],
+        "end": "stop",
+        "print_layer_z_mm": 1.88
+      }
+    ],
+    "scope": "Native outer-wall starts and stops in CAD foot Z0.5\u201313.9; original screw-host boundary tolerance0.6 mm."
+  },
+  "continuous_foot_modifier": {
+    "part": "industrial-shell-base",
+    "name": "Solid continuous industrial foot",
+    "source_bounds_mm": [
+      [
+        -30.5,
+        -30.5,
+        -0.01
+      ],
+      [
+        30.5,
+        30.5,
+        14.01
+      ]
+    ],
+    "applied_source_bounds_mm": [
+      [
+        -30.5,
+        -30.5,
+        -0.01
+      ],
+      [
+        30.5,
+        30.5,
+        14.01
+      ]
+    ],
+    "modifier_part_id": "14",
+    "wall_loops": 6,
+    "sparse_infill_percent": 100,
+    "sparse_infill_pattern": "zig-zag"
+  },
+  "complete_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        47.963856,
+        73.185856
+      ],
+      [
+        266.698144,
+        295.167144
+      ]
+    ],
+    "maximum_line_width_mm": 0.816288,
+    "bounds_padding_mm": 0.508144
+  },
+  "minimum_bed_margin_mm": 24.832855999999992,
+  "probing_clump_detection": false,
+  "bare_G39_commands": 0,
+  "scope": "Native commanded geometry, exterior path continuity and layer heights; physical finish remains unmeasured.",
+  "submitted": false,
+  "pass": true,
+  "base_object_wall_generator": "arachne",
+  "other_object_wall_generator_overrides": false,
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "61d0b8caccbba855a58df53b2ade34b48564abae4c322c558daaafbe4f3fb555",
+  "insert_deposition_pass": true
+}
