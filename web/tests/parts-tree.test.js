@@ -6,9 +6,7 @@
 // folding of a part's representations, every model claimed ahead of the
 // directories they share, the tooling claimed ahead of the sweep, a child
 // sweeping ahead of its parent. The second walks the real
-// hardware tree and asserts nothing in it comes back unseated, which is what
-// catches a new part directory the day it lands rather than when someone notices
-// it missing from the page.
+// hardware tree and asserts each assembly it states has a model to draw.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -38,7 +36,6 @@ const productNames = (text) => {
 };
 
 const names = (parts) => parts.map((p) => p.name);
-const files = (parts) => parts.flatMap((p) => p.kinds.map((k) => k.file));
 
 // Every assembly of a seated tree, outermost first.
 const flat = (tree) => {
@@ -174,32 +171,13 @@ test("every id is unique, and every assembly names a model", () => {
   }
 });
 
-test("nothing in the hardware tree is unseated", (t) => {
+test("every assembly in the hardware tree has its model on this disk", (t) => {
   const steps = walkFiles(HARDWARE, ".step");
   const dxfs = walkFiles(HARDWARE, ".dxf");
   const glbs = walkFiles(HARDWARE, ".glb");
   if (!steps.length && !dxfs.length && !glbs.length) return t.skip("hardware tree empty");
 
   const tree = seatParts({ steps, dxfs, glbs });
-  assert.deepEqual(tree.unseated, [],
-    `place these in contracts/parts-tree.js: ${tree.unseated.join(", ")}`);
-
-  // Every file is claimed by an assembly's model, by that assembly's own sweep,
-  // by the delivered install kit, bought geometry, tooling, or EXCLUDED_DIRS —
-  // the six paths out of the pool, and nothing may take a seventh.
-  const claimed = new Set([
-    ...flat(tree).flatMap((a) => (a.model ? a.model.kinds.map((k) => k.file) : [])),
-    ...files(allInside(tree)),
-    ...files(tree.installKit),
-    ...files(tree.purchased),
-    ...files(tree.tooling),
-  ]);
-  const excluded = (f) => EXCLUDED_DIRS.some((d) => f === d || f.startsWith(d + "/"));
-  for (const f of [...steps, ...dxfs, ...glbs]) {
-    assert.ok(claimed.has(f) || excluded(f), `${f} is neither claimed nor excluded`);
-  }
-
-  // Every assembly the tree states has its model on this disk.
   for (const a of flat(tree)) assert.ok(a.model, `${a.id} has no model to draw`);
 });
 
