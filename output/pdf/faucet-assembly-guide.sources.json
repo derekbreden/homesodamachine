@@ -15,14 +15,17 @@
   },
   "artwork": "original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
   "source_sha256": {
-    "hardware/assembly/faucet-and-umbilical.md": "6d3b139c16488dc738d06244f9427387648876bdd29f375b33c0ca7de3e5c805",
+    "hardware/assembly/faucet-and-umbilical.md": "3a465c8ca216e88538cccab55e9f93190b9059f4a8a3496877a8ecf4eb8667aa",
     "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md": "38e3f0a0102f76b053885b5da67aa7040372ee46a44d3fd098f27b70c9dd564c",
     "hardware/printed-parts/faucet/asse-vent-seals/README.md": "2e8cfa9dd10e424291c451a14db004eacd5192085bf6c35effff9b93c86dce8c",
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "a37ad8099232a41c97db4623444ff79eba2554ae4566ca6f55954b16b84575f8",
     "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
     "hardware/reference/touch-flo-faucet/display-reference/README.md": "6e2871dac41e372b47327973a42964aa39db833b24debeaa6996825cd7f96140",
-    "hardware/wiring/ac-wiring-schedule.md": "1b4cc9adfecb32415eec655e64eb18d3517310d08ee5295c0f458e2bc44f0f9a",
-    "hardware/assembly/wiring.md": "20d96470afa088aa57bdf6e1af39c7744042459b35c1e1c1980b4ced458b5054",
+    "hardware/wiring/ac-wiring-schedule.md": "d5fb459075d486a7f54fecab2e752a9fbae6ee941fde9de0093af2412e74b62e",
+    "hardware/assembly/wiring.md": "4bb38c14f47fa419959667c024888daf4c3e7e80eeb016e7ab67a6821c6d6bf5",
+    "hardware/assembly/cable-assemblies.md": "b75fb201716838057c7964d24642cde3b87e35066a56e7b4978fe889f60575ff",
+    "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90",
+    "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8",
     "firmware/src_faucet/base_link.cpp": "cff149855e6b93f118e8e3809f444d703c91e08a5810d51f1111000c85b8e631",
     "firmware/src_faucet/README.md": "231af4a76f036e282906e901d5847176f056f3bc1c709eba64786fdf38fd8ff8",
     "firmware/src_appliance/pins.h": "dd0bf054de143538661cee491b655a84617b458cdb8c632f18c016974abb9207",
@@ -34,35 +37,59 @@
     "hardware/mechanical-qualification/README.md": "2632c62fbbed655eed5c56d7292c3f86918961699d83d971d6d6261591fd1b4d",
     "hardware/install-guide/assets/reference/drain-mount-drop.png": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12"
   },
-  "pdf_sha256": "218e063241c437ef58a7d7cecc2d6c7fd89e6032cb5f1b154383e8b1dbe009f8",
+  "pdf_sha256": "98125e353ce03bb7814fde421301c2874b7a137067037e4c2ebdecb323374ec5",
   "display": {
     "model": "ESP32-S3-Touch-LCD-1.47",
     "view": "rear PCB, USB-C at top",
     "installed_orientation": "USB-C toward dispense face; opposite end up the gooseneck",
     "left_top_four": [
       {
-        "P1": 1,
+        "wire": "C1",
         "pad": "VBUS",
-        "J3": "V5"
+        "P1": 1,
+        "RJ11": 2,
+        "IDC": "white/orange",
+        "J3_pin": 3,
+        "J3": "V5",
+        "function": "+5 V input"
       },
       {
-        "P1": 3,
+        "wire": "C2",
         "pad": "GND",
-        "J3": "GND"
+        "P1": 3,
+        "RJ11": 3,
+        "IDC": "blue",
+        "J3_pin": 4,
+        "J3": "GND",
+        "function": "0 V return"
       },
       {
-        "P1": 5,
+        "wire": "C3",
         "pad": "TXD",
+        "P1": 5,
         "GPIO": 43,
-        "J3": "IO35 RX"
+        "RJ11": 4,
+        "IDC": "white/blue",
+        "J3_pin": 2,
+        "J3": "IO35 RX",
+        "function": "GPIO43, display TX"
       },
       {
-        "P1": 7,
+        "wire": "C4",
         "pad": "RXD",
+        "P1": 7,
         "GPIO": 44,
-        "J3": "IO33 TX"
+        "RJ11": 5,
+        "IDC": "orange",
+        "J3_pin": 1,
+        "J3": "IO33 TX",
+        "function": "GPIO44, display RX"
       }
     ],
+    "wire_stock": "28 AWG all-black 4P ribbon outboard; 22 AWG all-black inboard",
+    "C1_index": "builder adds white mark to one ribbon edge at both free ends",
+    "RJ11_plug_view": "gold contacts toward viewer, nose up, cable down, latch behind",
+    "jack_view": "punchdown side up, front opening down; rear 3/4, middle 2/5, front 1/6 unused",
     "power_volts": 5,
     "logic_volts": 3.3,
     "baud": 921600
@@ -71,6 +98,9 @@
     "reviewed": "2026-10-08",
     "docs": "https://docs.waveshare.com/ESP32-S3-Touch-LCD-1.47",
     "schematic": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf",
-    "rear_layout": "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-LCD-1.47-details-inter-f60fcf8e6f1405b29f83509d1d1246e7.webp"
+    "rear_layout": "https://docs.waveshare.com/assets/images/ESP32-S3-Touch-LCD-1.47-details-inter-f60fcf8e6f1405b29f83509d1d1246e7.webp",
+    "jack": "https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack",
+    "six_contact_USOC": "https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf",
+    "jack_contact_view": "https://www.apo.nmsu.edu/mainpage/sdss/rj11basics/"
   }
 }

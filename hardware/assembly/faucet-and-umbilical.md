@@ -114,7 +114,7 @@ Start with the separate prints, bare donor, tubes and unterminated SIG-6 ribbon.
 - **Flavor unions (White faucet).** Push each white flavor tail into the top port of a PP0408W union until it bottoms on the tube stop, [16 mm](UNION_INSERTION) in, then push that flavor's black run into the bottom port the same way. The cuts hang flavor-b's union [30 mm](UNION_B_BELOW_PLATE) below the nominal under-counter plate once installed, with flavor-a's union end to end below it. Reserve straight F1/D/F2 and ribbon through the steel below a [38 mm](COUNTERTOP_MAX_THICKNESS) routing-envelope slab. Flavor-b's R30 return and the drain's R25 return begin below that plane; flavor-a and the ribbon begin their R30 return [8 mm](FLAVOR_A_STEP_DELAY) farther down. This keeps the drain clear between the two lines as it moves forward around the unions. Keep these factory positions so the lower return bends clear the hardware throughout the routing envelope. A Black faucet's flavor tubes are one length each and nothing is joined.
 - **Retained countertop hardware first.** Slide the donor washer onto the bare threaded shank, then thread the donor nut on loosely. Leave the clear gap above them that receives the countertop and the open under-counter plate at field install. From this point forward the washer and nut remain captive; they are never loose customer parts.
 - **Carbonated water (blue tube).** Insert a Siptenk 1/4" brass stiffener fully into the blue LLDPE tube end that will land in the Westbrass. Push that stiffened end into the Westbrass's upstream compression port (the supply side that takes carbonated water *in*). The Westbrass's factory ferrule + nut clamp the LLDPE around the stiffener; hand-snug + 1/4 turn with a wrench.
-- **SIG-6 plug.** Crimp one RJ11 6P4C modular plug onto the ribbon's wall end, conductor 1 on the ribbon's marked edge. The plug's own strain-relief bar closes on the ribbon's jacket, so the four IDC blades carry no tension. The ribbon is [1.3 mm](RIBBON_T) thick where the plug's slot is cut for flat cord nearer 1.9 — shim the last 15 mm with a wrap of tape or heat-shrink so the bar bottoms on something. Take a **3-prong** plug: the ribbon is 16 strands of 0.08 mm and the two-tine contact is the solid-conductor geometry.
+- **SIG-6 plug.** With the plug's gold contacts facing you, nose up, cable down and latch behind, insert the four black ribbon wires **C1-C4 left to right into positions 2-5**; positions 1 and 6 are empty. C1 is the edge you mark white at both free ends before separating the ribbon. C1/VBUS goes to pin 2, C2/GND to pin 3, C3/TXD to pin 4 and C4/RXD to pin 5. The [connector picture below](#display-wiring-sig-6) shows the plug and exact jack terminations. The plug's own strain-relief bar closes on the ribbon's jacket, so the four IDC blades carry no tension. The ribbon is [1.3 mm](RIBBON_T) thick where the plug's slot is cut for flat cord nearer 1.9 — shim the last 15 mm with a wrap of tape or heat-shrink so the bar bottoms on something. Take a **3-prong** 6P4C plug: the ribbon is 16 strands of 0.08 mm and the two-tine contact is the solid-conductor geometry.
 
 #### Display wiring (SIG-6)
 
@@ -127,12 +127,26 @@ the **left** are VBUS, GND, TXD and RXD. P1's odd pin numbers run down that side
 
 ![Rear display orientation and the four SIG-6 connections](../faucet-assembly-guide/display-wiring.svg)
 
-| Display pad | P1 pin | Function | Main board J3 |
-| --- | ---: | --- | --- |
-| VBUS | 1 | 5 V input | V5 |
-| GND | 3 | 0 V return | GND |
-| TXD | 5 | GPIO43, display transmit | IO35, main board receive |
-| RXD | 7 | GPIO44, display receive | IO33, main board transmit |
+All four ribbon wires are **black**. Add a white index mark to one edge at both
+free ends **before separating the conductors**. That is C1; count C1-C4 across
+the ribbon from it. Preserve these identities while threading the vent bungs.
+
+| Ribbon wire | Display pad / P1 pin | RJ11 plug and jack pin | Jack's printed USOC label | Main board J3 pin / net |
+| --- | --- | ---: | --- | --- |
+| C1, marked edge | VBUS / P1-1, +5 V | 2 | White/orange | 3 / V5 |
+| C2 | GND / P1-3, 0 V | 3 | Blue | 4 / GND |
+| C3 | TXD / P1-5, GPIO43 display TX | 4 | White/blue | 2 / IO35, main RX |
+| C4 | RXD / P1-7, GPIO44 display RX | 5 | Orange | 1 / IO33, main TX |
+
+![RJ11 plug gold-contact view and RiteAV USOC punchdown slots, with exact black-wire and J3 assignments](../faucet-assembly-guide/sig6-connector-wiring.svg)
+
+At the **RiteAV CAT3 USOC jack**, punch down the black 22 AWG inboard leads:
+**J3 3/V5 → jack 2 (white/orange), J3 4/GND → jack 3 (blue), J3 2/IO35 →
+jack 4 (white/blue), J3 1/IO33 → jack 5 (orange)**. Those colors identify the
+jack's printed terminal labels. Leave 1 and 6 open. Keep insulation on the
+leads for the 110 IDC termination; trim outward and refit the dust cover.
+With the main PCB's component side up and J3 at its lower edge, the silk reads
+**GND, V5, IO35, IO33** from left to right, physical pins **4, 3, 2, 1**.
 
 TX/RX use **3.3 V TTL, 921600 baud, 8N1**. Leave all other display pads open.
 With J3 and USB disconnected, solder the four leads directly at these PCB
@@ -141,12 +155,9 @@ insulated through the seals; stripping and soldering happen only at their dry
 PCB ends. Leave enough free lead for the display/cover slide and lowering motion,
 and keep it clear of the metal feet, components, retaining lips and USB socket.
 
-With the main-board end unplugged, trace the four listed nets through the actual
-plug and jack, and check for adjacent-conductor and power-to-ground shorts.
-The published procedure names the nets without assigning their modular contact
-numbers: identify and record those contacts by continuity on the build, then
-land the inboard loom to the matching J3 endpoints. A telephone or T568B color
-diagram does not define SIG-6. After the unpowered check, power through J3 and
+With the main-board end unplugged, check continuity against the four specified
+connections above, and check for adjacent-conductor and power-to-ground shorts.
+After the unpowered check, power through J3 and
 confirm boot, main-board flavor synchronization and bright-screen touch response.
 The [guide's page 3](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=3)
 shows the joint/check; page 12 shows display fitting.
@@ -155,6 +166,9 @@ Pad order and P1 numbers come from [Waveshare's rear layout](https://docs.wavesh
 and [schematic](https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf).
 GPIO direction and baud match [`base_link.cpp`](../../firmware/src_faucet/base_link.cpp)
 and [`pins.h`](../../firmware/src_appliance/pins.h).
+Physical J3 numbers include the wafer rotation in [`parts.tsx`](../pcb/pcba/parts.tsx).
+Jack labels follow the [RiteAV CAT3 USOC body legend](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack)
+and [six-contact USOC terminal colors](https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf).
 
 At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm DRAIN into its ABU44M-E socket and the three beverage tubes into their matching PP1208E sockets at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py)).
 
