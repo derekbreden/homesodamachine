@@ -22,6 +22,14 @@ and its emitted paths. The estimate is about 27 hours 1 minute and 892.4 g at
 the saved filament density. The [launch receipt](launch.json) records its one
 foreground Send and observed printer acceptance.
 
+This archive uses Normal (auto) supports with the default style across the rear
+wall. Its preparation selected normal columns for the 20 mm bed margin; the
+native removal routes establish access and do not qualify cleanup effort.
+The [physical observation](physical-result.json) records reported completion
+and the large amount of normal supports while the article cools. Support removal
+and installed fit remain unassessed. The standing preparation preference is
+[tree supports with specific exceptions](../../../enclosure/enclosure/README.md#support-removal-strategy).
+
 Recheck current geometry against the prototype fixtures with:
 
 ```sh

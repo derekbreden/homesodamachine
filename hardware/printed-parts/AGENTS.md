@@ -42,6 +42,14 @@ settles whether what somebody saw in the viewer was there.
 
 ## Supports
 
+Use tree supports by default. Derek reports that normal supports are horribly
+difficult to remove. Normal supports are a specific exception for a named feature
+that needs them, or a case with evidence that they are easier to remove. Explain
+and record the reason and scope before printing; do not generalize that exception
+to the entire part or other parts. Geometric access alone does not establish easy
+removal. A bed-footprint constraint needs a tree-support placement review, not a
+silent switch to normal supports.
+
 Prefer simple solid stock and broad flat interior walls with few face breaks.
 Set one wall plane that preserves the required hardware clearance and backing
 thickness. Add a curve, step or local recess only for a named fit, bearing,

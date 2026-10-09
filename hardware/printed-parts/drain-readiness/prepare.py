@@ -71,8 +71,8 @@ def back_top():
         members = {n: z.read(n) for n in z.namelist()}
     row = report["parts"][0]
     settings = json.loads(members[writer.SETTINGS_MEMBER])
-    settings["support_type"] = "normal(auto)"
-    settings["support_style"] = "default"
+    # Retain the production profile's tree supports. The native footprint review
+    # checks their bed margin; a failed fit does not select normal supports.
     # Complete insert hosts/root stock need the locally proven wall envelope.
     # Ordinary stock retains two walls; the roof transition retains its local six.
     settings["wall_loops"] = "2"
@@ -155,10 +155,10 @@ def back_top():
                   settings_sha256=hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest(),
                   printer="Mark2", show_support_blocked_faces=count,
                   solid_host_regions=modifiers, solid_host_region_source_sha256=sha(region_path),
-                  support_type="normal(auto)",
+                  support_type=settings["support_type"],
                   wall_loops=2, solid_host_wall_loops=10,
                   detect_narrow_internal_solid_infill="0", top_one_wall_type="not apply",
-                  support_reason="Vertical support columns keep the full model/support/brim footprint within the 20 mm bed margin.")
+                  support_reason="Shared PET-GF tree support profile; the complete model/support/brim footprint requires its native 20 mm bed-margin review.")
     save(p.with_suffix(".preparation.json"), report)
     slice_project(p, report)
 
