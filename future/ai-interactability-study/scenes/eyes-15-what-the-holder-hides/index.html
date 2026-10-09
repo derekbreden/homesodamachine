@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the holder hides</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-15-what-the-holder-hides",
+  "title": "What the holder hides: sight lines with a hand, a monitor arm, a table and rings",
+  "by": "eyes",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Derek's examples each put something between the observers and the dot. The same dome of camera positions is tested with the gun held by a hand and forearm (room-08), hung from a monitor arm (freedom-02), reached by a table-top bridge and arm (room-01), or held by rings, bungees and a gripping arm (freedom-01). Switch the holder and see which stations are lost, which stay, and where the arrangement should put its eyes.",
+  "tags": ["lens", "observer", "visibility", "line-of-sight", "holder", "monitor arm", "table", "suspension", "hand"],
+  "branchOf": ["room-01-table-opening", "freedom-02-balanced-arm", "freedom-01-ring-bungee"],
+  "combines": ["eyes-02-where-can-an-eye-stand"],
+  "transferable": ["one dome, every holder", "holder shadow beats gun shadow", "operator side as a parameter"],
+  "how": {
+    "motion": "none: an analysis view. Holder geometry and gun pose are scene edits.",
+    "load": "each holder is drawn only as far as it can hide something: hand and forearm, arm links and stage, table with bridge and arm, rings, bungees and gripping arm",
+    "reference": "the dot pinned to the seam; each viewpoint on the dome is tested against tube, gun, wire and holder",
+    "observe": "proposed fixed eyes (beside, far side, above) and one free test eye",
+    "use": "decide where cameras may stand before choosing how the gun is held; observe-only frames need the operator's arm as an occluder"
+  },
+  "software": {
+    "commands": ["nothing: this scene commands no actuator"],
+    "observes": ["whether each proposed eye has a clear line to the dot and to the seam points", "the share of the dome that sees the dot with and without the holder"],
+    "manual": ["placing and calibrating the eyes", "deciding which side of the gun the operator or the arm comes from"]
+  },
+  "notes": ["../../exchange/eyes--on--room-w2.md", "../../explorers/eyes/ideas/eyes-15-what-the-holder-hides.md", "../../explorers/eyes/ideas/eyes-02-where-can-an-eye-stand.md", "../../explorers/room/ideas/room-08-observe-only-frame.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, J = WK.JOINT, DEG = WK.deg, RIM = WK.DIM.tubeHeight;
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'top', 'joint', 'side'],
+    views: {
+      overall: { target: [0, -40, 200], dir: [-0.5, -0.78, 0.42], dist: 1250 },
+      top: { target: [-20, -40, 150], dir: [0, -0.002, 1], dist: 1000 },
+      side: { target: [0, -30, 200], dir: [0, -1, 0.05], dist: 1150 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 200 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The dome is the one from <b>eyes-02</b>: every dot on it is a place a camera could stand, green if it sees the laser dot, slate if the tube wall hides it, orange if the gun hides it, magenta if the wire guide or cable does, <b>violet if the holder does</b>. The new thing is the holder. Pick what holds the gun and the dome is redrawn: <b>a hand and forearm</b> (room-08, the observe-only frame), <b>a monitor arm</b> with a vernier stage above the shell (freedom-02), <b>the table opening</b> with its bridge, post and arm (room-01), or <b>rings, bungees and a gripping arm</b> (freedom-01).</p>' +
+        '<p><b>Try:</b> turn the operator\'s side (hand) and watch the violet band move round the dome; pick <i>Beside</i>, <i>Far side</i> or <i>Above</i> and see that the fixed eyes barely notice. Move the arm\'s side. Add the third ring. The share of the dome that sees the dot, with and without the holder, is in the I/O panel.</p>',
+      carries: '<p>Nothing here is a design of the holder: each is drawn only as far as it can hide something, at the sizes the notes give (a hand and forearm about 70 mm across; a monitor arm link and a 80 &times; 60 stage; a 30 mm table, a 16 mm bridge at x = 100, a 5 mm post and arm; 5 mm rings and bungees). <b>Amber</b> parts carry the gun, <b>slate</b> is the table, <b>green</b> the bungees. Sight lines are drawn-scene geometry, not optics.</p>',
+      software: '<p>Software could read whether a proposed eye has the dot in view only through the image itself; here the geometry stands in. The I/O panel lists the share of the dome that sees the dot with the holder and without it, and which fixed eyes survive. The result is a planning aid: it says where an observer should not be put, and which arrangement leaves the good stations alone.</p>',
+      tried: '<ul>' +
+        '<li><b>Assumed:</b> the holder is what hides the dot from cameras. <b>Found:</b> the tube wall does. The bare gun sees 42 % of the upper hemisphere; the wall blocks 55 % and the gun 3 %. A holder adds 0 to 10 points on top, depending on where its parts stand (dome radius 300 mm, illustrative geometry). <b>Leaves:</b> the dome tests the dot, not the wire tip, the puddle or a person\'s head.</li>' +
+        '<li><b>Rings (freedom-01).</b> The only piece of Derek\'s suspension that stands in the sight lines is the ring around the tip. At 15 mm behind the nozzle it costs 8.9 points of the dome and 14.5 points of seam views; at 45 mm 4.3 and 5.2; at 80 mm 2.6 and 1.4; at 130 mm 1.2 and 0.9. A third ring near the middle costs about one more point. <b>Repair:</b> put the tip ring 100 mm or more back along the barrel (freedom-01b\'s nose seat 60 to 110 mm from the dot is already there). <b>Leaves:</b> a ring that far back is a longer lever on the tip.</li>' +
+        '<li><b>Hand (room-08).</b> The forearm behind the gun (170 to 270 degrees) costs 0 to 1 point of the dome at 200 to 300 mm; coming in from the +Y side (90 to 120 degrees) it costs 6 to 10 and 6 points of the seam views. But the fixed stations are safe: for every operator side the <i>Beside</i> and <i>Far side</i> presets keep both eyes, and only one <i>Above</i> eye is lost (near 75 degrees). <b>Change:</b> the frame\'s presets work whichever hand holds the gun; the forearm removes a band of other stations, which matters only for a camera placed there. <b>Leaves:</b> a real forearm, sleeve, head and the wire feeder are bigger and move.</li>' +
+        '<li><b>Monitor arm (freedom-02).</b> The link and stage stand above the dome: 0 points at 200 to 300 mm, 0.6 to 3 points when a camera is 450 mm away and the arm is in line with it. The arm hides little; what it decides is where a camera can be <i>mounted</i>: near the arm (on the arm itself), or on posts beside it.</li>' +
+        '<li><b>Table opening (room-01).</b> 0.4 points. The slab lies at the rim plane, so nothing seen from above is under it; the bridge at x = 100 hides only what the wall already hides. The post and arm to the collar lug take out one of the two <i>Above</i> eyes. The table\'s real contribution to sight lines is a plane at rim height to stand cameras on: the far-side low pair sits 22 mm above it.</li>' +
+        '<li><b>Once the sight lines are known:</b> the good eyes stand between about 100 and 190 degrees round the tube, wherever the gun is held. The choices that move the answer are the hand\'s side and the tip ring\'s distance; the arm and the table barely do.</li></ul>',
+      unresolved: '<ul><li>The holders are schematic: the hand and forearm are two cylinders, the arm a link and a stage, the rings a torus. Real hands, fingers, sleeves and the operator\'s head are bigger and move.</li>' +
+        '<li>Thin cords are under-sampled by a 6-degree dome; the test eye shows them directly.</li>' +
+        '<li>Which side the operator stands, where a monitor arm is bolted and where a table bridge runs are choices, not facts: they are sliders.</li>' +
+        '<li>Being visible in the drawn scene is not being seen: glare, fume, the dot\'s brightness on stainless and the camera\'s own field are not modelled.</li></ul>',
+      assumptions: '<ul><li>Gun proxy from the manual\'s 253 x 143 x 34 mm envelope [manual p.17]; the rest, and the pose (roll 45, hole 30, vertical -15), illustrative [kit].</li>' +
+        '<li>Hand: a 32 mm radius cylinder along the grip, forearm 36 mm radius, 260 mm long, leaving the grip base at the chosen azimuth and 20 degrees below horizontal. Arm: link 18 mm radius, stage 80 x 60 x 70, hanger 6 mm, column 25 mm; the link runs from a column 420 mm out to a stage 90 mm above the housing back. Table: room-01\'s numbers (slab 30 mm, hole Ø160, bridge x = 100, height rim + 46). Rings: Ø44 at 45 mm behind the tip, Ø68 at the grip base, 5 mm bungees along the tangent, 2.4 mm vertical wire.</li>' +
+        '<li>Dome: 60 azimuths x 18 elevations, radius adjustable (260 mm default); sensitivity = sqrt(1 - (v.n)^2).</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  ws.setGhost(false);
+  const val = id => app.ui.get(id);
+  const st = { cells: [], stats: null, base: null, eyes: null };
+
+  // ---------------------------------------------------------------- holders (each drawn only as far as it can hide something)
+  const holderG = new THREE.Group(); app.add(holderG);
+  function clearHolder() { while (holderG.children.length) { const c = holderG.children.pop(); c.traverse(o => { if (o.geometry) o.geometry.dispose(); }); } }
+  function tagHolder() { holderG.traverse(o => { if (o.isMesh) o.userData.cat = o.userData.slab ? 'wall' : 'holder'; }); }   // the table slab hides what the wall hides: colour it as wall
+  const at = (a, b, k) => a.clone().lerp(b, k);
+  function buildHolder() {
+    clearHolder();
+    const kind = val('holder');
+    app.ui.enable('opaz', kind === 'hand'); app.ui.enable('armaz', kind === 'arm'); app.ui.enable('ringd', kind === 'rings'); app.ui.enable('ring3', kind === 'rings');
+    if (kind === 'none') return;
+    const A = n => gun.local(n).clone(), back = gun.dir([0, 0, 1]).normalize();
+    if (kind === 'hand') {
+      const gt = A('gripTop'), gb = A('gripBase'), az = val('opaz') * DEG, el = 20 * DEG;
+      const fdir = V(Math.cos(az) * Math.cos(el), Math.sin(az) * Math.cos(el), -Math.sin(el));
+      holderG.add(P.rod(at(gt, gb, 0.05), at(gt, gb, 1.0), 32, 'load'));
+      holderG.add(P.rod(gb.clone(), gb.clone().addScaledVector(fdir, 260), 36, 'load'));
+    } else if (kind === 'arm') {
+      const H = A('housingBack'), az = val('armaz') * DEG, out = V(Math.cos(az), Math.sin(az), 0);
+      const S = H.clone().add(V(0, 0, 90)), C = H.clone().addScaledVector(out, 420).add(V(0, 0, 170));
+      holderG.add(P.rod(H, S, 6, 'load'));
+      const stage = P.box(80, 60, 70, 'actuated'); stage.position.copy(S.clone().add(V(0, 0, 35))); holderG.add(stage);
+      holderG.add(P.rod(S.clone().add(V(0, 0, 35)), C, 18, 'load'));
+      holderG.add(P.rod(C, V(C.x, C.y, 0), 25, 'fixed'));
+    } else if (kind === 'table') {
+      const HOLE = 80, THICK = 30, sh = new THREE.Shape();
+      sh.moveTo(-380, -400); sh.lineTo(380, -400); sh.lineTo(380, 230); sh.lineTo(-380, 230); sh.closePath();
+      const hp = new THREE.Path(); hp.absarc(0, 0, HOLE, 0, Math.PI * 2, true); sh.holes.push(hp);
+      const g = new THREE.ExtrudeGeometry(sh, { depth: THICK, bevelEnabled: false, curveSegments: 56 }); g.translate(0, 0, RIM - THICK);
+      const m = new THREE.Mesh(g, WK.mat('fixed', { side: 'double' })); m.userData.role = 'fixed'; m.userData.slab = true; holderG.add(m);
+      const BZ = RIM + 46, lug = A('collar').clone().add(V(0, 0, 0));
+      const bridge = P.rail(V(100, -260, BZ), V(100, 110, BZ), { width: 16, height: 10, role: 'load' }); holderG.add(bridge);
+      holderG.add(P.rod(V(100, -260, RIM + 4), V(100, -260, BZ), 5, 'load')); holderG.add(P.rod(V(100, 110, RIM + 4), V(100, 110, BZ), 5, 'load'));
+      holderG.add(P.rod(V(100, lug.y, BZ + 25), V(100, lug.y, lug.z), 5, 'load')); holderG.add(P.rod(V(100, lug.y, lug.z), lug, 4, 'load'));
+    } else if (kind === 'rings') {
+      const tip = A('nozzleTip'), pTip = tip.clone().addScaledVector(back, val('ringd')), pBase = A('gripBase'), rollAx = gun.dir(WK.LOCAL_ROLL_AXIS).normalize();
+      const r1 = P.ring(22, 2.5, { axis: back, role: 'load' }); r1.position.copy(pTip); holderG.add(r1);
+      const r2 = P.ring(34, 3, { axis: rollAx, role: 'load' }); r2.position.copy(pBase); holderG.add(r2);
+      if (val('ring3')) { const r3 = P.ring(26, 2.5, { axis: back, role: 'load' }); r3.position.copy(A('barrelMid').clone().addScaledVector(back, 6)); holderG.add(r3); }
+      [-1, 1].forEach(sg => holderG.add(P.rod(pTip.clone().add(V(0, sg * 22, 0)), V(pTip.x, pTip.y + sg * 380, pTip.z + 3), 2.5, 'compliant')));
+      holderG.add(P.rod(pBase.clone().add(V(0, 0, 34)), V(pBase.x, pBase.y, 900), 1.2, 'load'));
+      const H = A('housingTop'); holderG.add(P.rod(H, H.clone().add(V(-30, 0, 220)), 10, 'load'));
+    }
+    tagHolder();
+  }
+
+  // ---------------------------------------------------------------- dome (helper layer, main view only)
+  const AZ_STEP = 6, EL0 = 2.5, EL_STEP = 5, EL_N = 18, dirs = [];
+  for (let e = 0; e < EL_N; e++) { const el = EL0 + e * EL_STEP; for (let a = 0; a < 360; a += AZ_STEP) dirs.push({ az: a, el: el, u: V(Math.cos(el * DEG) * Math.cos(a * DEG), Math.cos(el * DEG) * Math.sin(a * DEG), Math.sin(el * DEG)), w: Math.cos(el * DEG) }); }
+  const N = dirs.length;
+  const inst = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }), N);
+  inst.instanceMatrix.setUsage(THREE.DynamicDrawUsage); inst.setColorAt(0, new THREE.Color(1, 1, 1)); inst.frustumCulled = false; app.addHelper(inst);
+  const COL = { seen: WK.color(0x22c55e), wall: WK.color(0x475569), gun: WK.color(0xf97316), wire: WK.color(0xe879f9), holder: WK.color(0xa78bfa), rig: WK.color(0x64748b) };
+  const catOf = obj => { if (obj && obj.userData && obj.userData.cat === 'holder') return 'holder'; const r = obj && obj.userData && obj.userData.role; if (!r) return 'rig'; if (r === 'work') return 'wall'; if (r === 'gun') return 'gun'; if (r === 'cable' || r === 'wire') return 'wire'; return 'rig'; };
+  function ramp(t) { t = Math.max(0, Math.min(1, t)); const a = [0.16, 0.22, 0.55], b = [0.10, 0.72, 0.62], c = [0.98, 0.90, 0.25]; const m = t < 0.5 ? a.map((v, i) => v + (b[i] - v) * t * 2) : b.map((v, i) => v + (c[i] - v) * (t - 0.5) * 2); return new THREE.Color(m[0], m[1], m[2]).convertSRGBToLinear(); }
+  const X = V(1, 0, 0), Z = V(0, 0, 1);
+  const raycaster = new THREE.Raycaster(), tmpM = new THREE.Matrix4(), tmpS = new THREE.Vector3(), tmpQ = new THREE.Quaternion();
+  function viewMetrics(v) { const sr = Math.sqrt(Math.max(0, 1 - v.x * v.x)), sz = Math.sqrt(Math.max(0, 1 - v.z * v.z)); return { sr: sr, sz: sz, both: Math.min(sr, sz) }; }
+  const dotTarget = () => gun.dotWorld().add(V(-0.4, 0, 0.4));
+  function seamPoints() { const d = gun.dotWorld(), a = 8 / WK.INNER_RADIUS, R = WK.INNER_RADIUS - 0.4, zc = WK.CAP_TOP + 0.4; return [d.clone().add(V(-0.4, 0, 0.4)), V(R * Math.cos(-a), R * Math.sin(-a), zc), V(R * Math.cos(a), R * Math.sin(a), zc), d.clone().add(V(-0.4, 0, 3))]; }
+  function pass(keepCells) {
+    scene.updateMatrixWorld(true);
+    const list = WK.occluders(app), pts = seamPoints(), target = pts[0], D = val('dist');
+    let tot = 0, vis = 0, visBoth = 0, visSeam = 0, byWall = 0, byGun = 0, byWire = 0, byHolder = 0;
+    for (let i = 0; i < N; i++) {
+      const d = dirs[i], pos = target.clone().addScaledVector(d.u, D), v = target.clone().sub(pos), len = v.length(); v.multiplyScalar(1 / len);
+      raycaster.set(pos, v); raycaster.near = 0; raycaster.far = len - 1.5;
+      const hit = raycaster.intersectObjects(list, false)[0], m = viewMetrics(v);
+      let nSeam = 0;
+      for (let k = 0; k < pts.length; k++) { const w = pts[k].clone().sub(pos), l2 = w.length(); w.multiplyScalar(1 / l2); raycaster.set(pos, w); raycaster.far = l2 - 1.5; if (!raycaster.intersectObjects(list, false)[0]) nSeam++; }
+      const cell = { seen: !hit, cat: hit ? catOf(hit.object) : 'seen', m: m, seam: nSeam / pts.length };
+      if (keepCells) st.cells[i] = cell;
+      tot += d.w;
+      if (cell.seen) { vis += d.w; if (m.both >= 0.5) visBoth += d.w; if (cell.seam >= 1) visSeam += d.w; }
+      else if (cell.cat === 'wall') byWall += d.w; else if (cell.cat === 'gun') byGun += d.w; else if (cell.cat === 'holder') byHolder += d.w; else byWire += d.w;
+    }
+    return { vis: vis / tot, both: visBoth / tot, seam: visSeam / tot, wall: byWall / tot, gun: byGun / tot, wire: byWire / tot, holder: byHolder / tot };
+  }
+  function computeCells() {
+    st.stats = pass(true);
+    const vis = holderG.visible; holderG.visible = false; scene.updateMatrixWorld(true); st.base = pass(false); holderG.visible = vis; scene.updateMatrixWorld(true);
+  }
+  const MODE_TXT = { seen: 'Seen or blocked', seam: 'Seam in view (4 points)', both: 'Radial and vertical both seen (>= 0.5)' };
+  function paintDome() {
+    if (!st.cells[0]) return;
+    const mode = val('mode'), D = val('dist'), target = dotTarget(), testIdx = nearestIdx(val('taz'), val('tel'));
+    for (let i = 0; i < N; i++) {
+      const d = dirs[i], c = st.cells[i], pos = target.clone().addScaledVector(d.u, D); let col, size;
+      if (!c.seen) { col = COL[c.cat] || COL.rig; size = mode === 'seen' ? (c.cat === 'holder' ? 5 : 3.4) : 1.9; }
+      else if (mode === 'seen') { col = COL.seen; size = 5; }
+      else { col = ramp(mode === 'seam' ? c.seam : c.m.both); size = 5.2; }
+      if (i === testIdx) size = 9;
+      tmpS.set(size, size, size); tmpM.compose(pos, tmpQ.identity(), tmpS); inst.setMatrixAt(i, tmpM); inst.setColorAt(i, col);
+    }
+    inst.instanceMatrix.needsUpdate = true; if (inst.instanceColor) inst.instanceColor.needsUpdate = true; app.invalidate();
+  }
+  function nearestIdx(az, el) { let best = 0, bd = 1e9; for (let i = 0; i < N; i++) { const da = Math.abs(((dirs[i].az - az + 540) % 360) - 180), de = dirs[i].el - el, dd = da * da + de * de * 4; if (dd < bd) { bd = dd; best = i; } } return best; }
+
+  // ---------------------------------------------------------------- test eye
+  const testUnit = () => { const a = val('taz') * DEG, e = val('tel') * DEG; return V(Math.cos(e) * Math.cos(a), Math.cos(e) * Math.sin(a), Math.sin(e)); };
+  const tPos = () => dotTarget().addScaledVector(testUnit(), Math.min(val('dist'), 300));
+  const testEye = app.inset.add({ id: 'test', label: 'Test eye (proposed, illustrative)', position: tPos, target: () => gun.dotWorld(), fov: 22, near: 20, far: 1500, size: [250, 172], corner: 'br', noise: 0.2 });
+  app.cornerInset({ gun: gun });
+
+  // ---------------------------------------------------------------- fixed-eye presets
+  const eyes = [];
+  const station = { none: [], side: [{ az: 108, el: 17.5, r: 260, n: 'side A' }, { az: 252, el: 17.5, r: 260, n: 'side B' }], far: [{ az: 168, el: 5, r: 330, n: 'far L' }, { az: 192, el: 5, r: 330, n: 'far R' }], above: [{ az: 150, el: 50, r: 300, n: 'above A' }, { az: 250, el: 50, r: 300, n: 'above B' }] };
+  function clearEyes() { eyes.forEach(e => { scene.remove(e.body); scene.remove(e.line); }); eyes.length = 0; }
+  function placeEyes(kind) {
+    clearEyes();
+    (station[kind] || []).forEach(function (s) {
+      const p = dotTarget().addScaledVector(V(Math.cos(s.el * DEG) * Math.cos(s.az * DEG), Math.cos(s.el * DEG) * Math.sin(s.az * DEG), Math.sin(s.el * DEG)), s.r);
+      const body = P.camera({ role: 'sensor', size: 26 }); body.position.copy(p); body.aimAt(gun.dotWorld()); app.addHelper(body);
+      const line = P.dashed([p, gun.dotWorld()], 'compliant', { dash: 6, gap: 4 }); app.addHelper(line);
+      eyes.push({ s: s, p: p, body: body, line: line });
+    });
+    app.legend(); app.legend(legendItems()); refreshEyes();
+  }
+  function refreshEyes() {
+    scene.updateMatrixWorld(true);
+    const list = WK.occluders(app), pts = seamPoints(), target = pts[0]; let n = 0, nAll = 0; const rows = [];
+    eyes.forEach(function (e) {
+      e.body.aimAt(gun.dotWorld());
+      const v = target.clone().sub(e.p), len = v.length(); v.multiplyScalar(1 / len);
+      raycaster.set(e.p, v); raycaster.near = 0; raycaster.far = len - 1.5;
+      const hit = raycaster.intersectObjects(list, false)[0]; e.seen = !hit; e.nSeam = 0; e.by = hit ? catOf(hit.object) : null;
+      pts.forEach(function (q) { const w = q.clone().sub(e.p), l2 = w.length(); w.multiplyScalar(1 / l2); raycaster.set(e.p, w); raycaster.far = l2 - 1.5; if (!raycaster.intersectObjects(list, false)[0]) e.nSeam++; });
+      e.line.setPoints([e.p, gun.dotWorld()]); WK.setRole(e.line, e.seen ? (e.nSeam === pts.length ? 'compliant' : 'load') : 'laser');
+      if (e.seen) { n++; if (e.nSeam === pts.length) nAll++; }
+      rows.push(e.s.n + (e.seen ? ': sees the dot' : ': blocked by ' + (e.by === 'holder' ? 'the holder' : e.by === 'wall' ? 'the tube wall' : e.by === 'gun' ? 'the gun' : 'the wire')));
+    });
+    st.eyes = { n: n, nAll: nAll, total: eyes.length, rows: rows }; app.invalidate();
+  }
+  function legendItems() {
+    const base = [{ role: 'gun', label: 'Gun (proxy)' }, { role: 'work', label: 'Tube, plate' }, { role: 'laser', label: 'Dot' }];
+    if (val('holder') !== 'none') base.push({ role: 'load', label: 'Holder (drawn only as far as it hides)' });
+    if (eyes.length) base.push({ role: 'sensor', label: 'Proposed eye' });
+    if (val('mode') === 'seen') return base.concat([{ color: '#22c55e', label: 'sees the dot' }, { color: '#475569', label: 'blocked: wall or rim' }, { color: '#f97316', label: 'blocked: gun' }, { color: '#e879f9', label: 'blocked: wire or cable' }, { color: '#a78bfa', label: 'blocked: the holder' }]);
+    return base.concat([{ color: '#2a3a8c', label: MODE_TXT[val('mode')] + ': 0' }, { color: '#fae640', label: '1' }, { color: '#475569', label: 'blocked (small)' }]);
+  }
+
+  // ---------------------------------------------------------------- update chain
+  let pending = null;
+  function recompute() {
+    if (pending) return;
+    pending = setTimeout(function () { pending = null; buildHolder(); computeCells(); paintDome(); refreshEyes(); syncIO(); app.legend(); app.legend(legendItems()); }, 0);
+  }
+  const pct = x => (100 * x).toFixed(0) + ' %';
+  function syncIO() {
+    const s = st.stats, b = st.base, e = st.eyes || { n: 0, total: 0, rows: [] }, kind = val('holder');
+    const vis = app.inset.markVisibility('test', dotTarget(), {});
+    app.io.set({
+      commands: [{ name: 'Nothing is commanded in this scene', value: '-', note: 'analysis view; holder and gun pose are scene edits' }],
+      observes: [
+        { name: 'Test eye sees the dot', value: vis && vis.visible ? 'yes' : (vis && vis.inFov ? 'blocked' : 'out of view'), status: vis && vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Share of the upper hemisphere that sees the dot: this holder', value: s ? pct(s.vis) : '-', status: 'partly', note: 'solid-angle weighted' },
+        { name: '... bare gun, no holder', value: b ? pct(b.vis) : '-', status: 'partly' },
+        { name: 'Lost to the holder', value: s && b ? ((100 * (b.vis - s.vis)).toFixed(1) + ' points') : '-', status: kind === 'none' ? 'unresolved' : 'seen', note: 'points of the upper hemisphere; blocked by holder in the dome: ' + (s ? pct(s.holder) : '-') },
+        { name: 'Sees all four seam points: holder / bare', value: s && b ? pct(s.seam) + ' / ' + pct(b.seam) : '-', status: 'partly' },
+        { name: 'Fixed eyes that see the dot', value: e.total ? e.n + ' of ' + e.total : 'none placed', status: e.total ? (e.n === e.total ? 'seen' : (e.n ? 'partly' : 'blind')) : 'unresolved', note: e.rows.join('; ') },
+        { name: 'Glare, fume, the operator\'s head and sleeve', value: '-', status: 'unresolved', note: 'not modelled' },
+      ],
+      manual: ['Choose which side the operator or the arm comes from', 'Aim and calibrate each eye to the tube frame'],
+    });
+    hs.set(s ? pct(s.vis) : '-'); hb.set(b ? pct(b.vis) : '-'); hl.set(s && b ? (100 * (b.vis - s.vis)).toFixed(1) : '-', 'points');
+  }
+  const hs = { set: app.ui.readout('rs', 'Sees the dot, this holder') };
+  const hb = { set: app.ui.readout('rb', 'Sees the dot, bare gun') }, hl = { set: app.ui.readout('rl', 'Lost to the holder') };
+
+  // ---------------------------------------------------------------- controls
+  const hold = app.ui.group('What holds the gun', { help: 'Each holder is drawn only as far as it can hide something.' });
+  hold.radio({ id: 'holder', label: 'Holder', kind: 'branch', value: 'hand',
+    options: [{ value: 'none', label: 'None', help: 'The bare gun: the eyes-02 dome.' }, { value: 'hand', label: 'Hand', help: 'room-08: the operator holds the gun; hand on the grip, forearm behind.' }, { value: 'arm', label: 'Monitor arm', help: 'freedom-02: a link and a vernier stage above the shell, a hanger to the housing.' }, { value: 'table', label: 'Table opening', help: 'room-01: the table at the rim plane, a bridge at x = 100, a post and arm to the collar lug.' }, { value: 'rings', label: 'Rings', help: 'freedom-01: two rings, two bungees along the tangent, a vertical wire and a gripping arm.' }],
+    onChange: function () { recompute(); } });
+  hold.slider({ id: 'opaz', label: 'Hand: side the forearm leaves toward', min: 0, max: 355, step: 5, value: 230, unit: '°', kind: 'scene', visual: () => holderG, help: 'Azimuth round the tube axis; the gun\'s own back direction is about 230°.', onChange: function () { recompute(); } });
+  hold.slider({ id: 'armaz', label: 'Monitor arm: side the column stands', min: 0, max: 355, step: 5, value: 180, unit: '°', kind: 'scene', visual: () => holderG, onChange: function () { recompute(); } });
+  hold.slider({ id: 'ringd', label: 'Rings: tip ring behind the nozzle', min: 15, max: 160, step: 5, value: 45, unit: 'mm', kind: 'scene', visual: () => holderG, help: 'Where along the barrel the ring around the tip sits.', onChange: function () { recompute(); } });
+  hold.toggle({ id: 'ring3', label: 'Rings: add a third ring near the middle', value: false, kind: 'scene', visual: () => holderG, onChange: function () { recompute(); } });
+  const pose = app.ui.group('Gun pose (scene edits, not actuators)', { open: false });
+  const setPose = () => { gun.setDials(val('roll'), val('hole'), val('vertical')); recompute(); };
+  pose.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  pose.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  pose.slider({ id: 'vertical', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  const dome = app.ui.group('What the dome shows');
+  dome.radio({ id: 'mode', label: 'Colour by', kind: 'view', value: 'seen', options: [{ value: 'seen', label: 'Dot seen' }, { value: 'seam', label: 'Seam seen' }, { value: 'both', label: 'Radial and vertical' }], onChange: function () { paintDome(); app.legend(); app.legend(legendItems()); } });
+  dome.slider({ id: 'dist', label: 'Dome radius (distance from the dot)', min: 120, max: 450, step: 10, value: 300, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: function () { recompute(); } });
+  const test = app.ui.group('Test eye');
+  test.slider({ id: 'taz', label: 'Azimuth around the tube', min: 0, max: 355, step: 5, value: 200, unit: '°', kind: 'scene', visual: () => testEye.helper, help: '0° is the weld-station side (+X, outside the wall). 180° is across the bore.', onChange: () => { paintDome(); syncIO(); } });
+  test.slider({ id: 'tel', label: 'Elevation above the plate', min: 2.5, max: 87.5, step: 5, value: 32.5, unit: '°', kind: 'scene', visual: () => testEye.helper, onChange: () => { paintDome(); syncIO(); } });
+  const fix = app.ui.group('Fixed eyes (proposed)');
+  fix.radio({ id: 'eyes', label: 'Station', kind: 'branch', value: 'side', options: [{ value: 'none', label: 'None' }, { value: 'side', label: 'Beside', help: 'Two eyes 260 mm from the dot at 108° and 252° round the tube, 17.5° up.' }, { value: 'far', label: 'Far side, low', help: 'Two eyes across the bore at 168° and 192°, 5° up, 330 mm.' }, { value: 'above', label: 'Above', help: 'Two eyes at 150° and 250°, 50° up, 300 mm.' }], onChange: v => { placeEyes(v); syncIO(); } });
+  app.onReady(function () { buildHolder(); computeCells(); paintDome(); placeEyes(val('eyes')); syncIO(); app.legend(); app.legend(legendItems()); });
+  window.__holderStats = () => ({ holder: val('holder'), stats: st.stats, base: st.base, eyes: st.eyes });
+  window.__setHolder = (k) => { app.ui.set('holder', k); return new Promise(r => setTimeout(() => r(window.__holderStats()), 300)); };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the estimate owes</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .fb-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .fb-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .fb-card h3 { font: 600 11px system-ui, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: var(--wk-muted); margin: 0 0 4px; }
+  .fb-card svg { display: block; width: 100%; height: auto; }
+  .fb-note { font: 11.5px/1.45 system-ui, sans-serif; color: var(--wk-muted); margin: 4px 0 0; }
+  .fb-note b { color: var(--wk-text); }
+  .fb-table { width: 100%; table-layout: fixed; min-width: 720px; border-collapse: collapse; font: 11.5px/1.4 system-ui, sans-serif; color: var(--wk-text); }
+  .fb-table th { text-align: left; font-weight: 600; color: var(--wk-muted); padding: 4px 6px; border-bottom: 1px solid var(--wk-line); position: sticky; top: 0; }
+  .fb-table td { vertical-align: top; padding: 5px 6px; border-bottom: 1px solid rgba(148,163,184,.18); }
+  .fb-table td.ch { white-space: nowrap; font-weight: 600; }
+  .fb-table td.hot { background: rgba(245,158,11,.10); }
+  .fb-table .n { font: 11px ui-monospace, Menlo, monospace; color: #fbbf24; white-space: nowrap; }
+  .fb-scroll { overflow-x: auto; }
+  svg text { font: 10.5px system-ui, sans-serif; fill: #c9d3e0; } svg .g { fill: #8391a5; } svg .b { fill: #93c5fd; } svg .t { fill: #5eead4; } svg .o { fill: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-18-what-the-estimate-owes",
+  "title": "What the estimate owes the hand: seven ways of telling or holding it, and what a wrong estimate does to each",
+  "by": "eyes",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "A lens on the feedback layer of eyes-17. For a hand-held gun with an eye at the dot, each way of telling or holding the hand (an LED bar, a tone, a buzz at the grip, a spring pull, a brake, a touch stylus, or nothing) asks something different of the estimate: its size or only its sign, how fresh, how fast, and what it does when the estimate is biased, late, frozen, blind or noisy. Pick the fault and change the numbers; the table and the picture follow. Arithmetic on statics and delays, no hand model.",
+  "tags": ["lens", "feedback layer", "estimate faults", "latency budget", "hand-held", "brake", "cue", "override is data"],
+  "branchOf": ["freedom-14-hand-plus-guidance", "borrowed-19-haptic-jog"],
+  "combines": ["freedom-14-hand-plus-guidance", "eyes-01-gun-borne-eye"],
+  "transferable": ["does a wrong estimate show itself", "latency is millimetres crossed", "degrade to no layer, not the last value", "the override log as a second eye"],
+  "how": {
+    "motion": "none: this is a lens. The hand supplies the motion in eyes-17.",
+    "load": "not drawn here.",
+    "reference": "the eye's estimate of the dot against the corner; the true seam is the reference for what the gun does.",
+    "observe": "the estimate with its valid / stale / blind state, the slide scales, slips of the brake, contact of the stylus.",
+    "use": "decide what the estimate has to provide before building a cue or a wall."
+  },
+  "software": {
+    "commands": ["light bar, tone, buzz pattern", "spring anchor position (force)", "brake clamp", "nothing for the stylus (it is a switch)"],
+    "observes": ["corner minus dot from the eye, with a validity and age flag", "slide position and speed from scales", "slips: where the hand disagreed", "stylus contacts"],
+    "manual": ["the hand's own judgement and its push", "which channel to trust when they disagree"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-18-what-the-estimate-owes.md", "../../explorers/eyes/ideas/eyes-17-lit-bar-brake-wall.md", "../../explorers/freedom/ideas/freedom-14-hand-plus-guidance.md", "../../explorers/borrowed/ideas/borrowed-19-haptic-jog.md", "../../explorers/eyes/calc/feedback-budget.mjs"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k), H = WK.h;
+  const app = WK.app({
+    stage: 'custom', minWidth: 760, open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Once a gun-borne eye reports how far the dot is from the corner, there are many ways to use that number on a hand that is supplying the motion: light it, sound it, buzz it, pull with it, hold with it, or skip it and use a switch. They look like one decision (“give the operator feedback”), but each asks a different thing of the estimate, and each answers a wrong estimate in a different way. That difference is the point of the page.</p>' +
+        '<p><b>Pick a fault</b> (the estimate is biased, late, frozen, blind or noisy) <b>and read down the table</b>: what the channel needs to know, what it does to the gun when the estimate is like that, and whether the hand can tell. The picture above it is the same information as a drawing for the biased and late faults. The bottom panel is about a property only some channels have: the hand can <i>disagree</i>, and the disagreement can be logged.</p>',
+      carries: '<p>Nothing here carries the gun: this is a lens. The arrangement is in <i>eyes-17-lit-bar-brake-wall</i> (a friction arm, a two-slide stage the hand pushes, an LED bar and a brake on each slide). The spring channel is freedom-14’s; the knob-with-feel version is borrowed-19; the stylus is freedom-12.</p>',
+      software: '<p>What software would do differs by row: write a pattern to an LED bar or a haptic driver (bar, tone, buzz), move a motor’s anchor so a bungee pulls (spring), pulse a solenoid clamp (brake), or nothing (stylus). What it must <b>observe</b> also differs: a signed estimate with a validity and age flag for all but the stylus, plus, for the brake, the slide’s speed from a scale, because the rule is “moving away from the estimated seam”. The scales also see a slip.</p>',
+      tried: '<p><b>Broke:</b> “a cue can be trusted because the operator watches the dot too”. A biased cue at high trust moves the hand by trust × bias, and the hand notices only if that is bigger than its own resolution of the dot against the corner (0.1 mm here, illustrative). Below that, the cue and the eye agree and both are wrong. <b>Changed:</b> the strip shows where the hand settles; the log panel shows what it would take to learn the bias from the hand instead.</p>' +
+        '<p><b>Broke:</b> “a gentle assist is a safe assist”. A spring pull of 0.15 N/mm on a 0.3 mm bias is 30 mN and moves a relaxed hand 0.05 mm: too small to feel on a held gun and too small to veto. A gentle wrong push is an invisible one. The brake goes the other way: it does nothing until it refuses, and a refusal is unmistakable. <b>Left standing:</b> which of these the hand would rather live with is a question about Derek’s hand.</p>' +
+        '<p><b>Broke:</b> “the last value is the safest fallback”. Frozen, a bar looks live and green, a spring keeps pulling and a brake becomes a one-way valve. Every channel wants a distinct blind state, and the physical ones want to fail toward free.</p>',
+      unresolved: '<p>Every number here is illustrative, including the hand’s resolution (0.1 mm), the force a held gun lets a hand notice (0.3 N), the human delays (200 ms to a light, 150 ms to a buzz or a tone), the clamp latency (30 ms) and the hand’s speed (3 mm/s). None was measured; a phone video of the dot against the corner during a real hand-held bead would give the hand’s speed, tremor and how it steers. Whether the operator’s own eye is biased the same way the camera is (both look at a spot on a surface, eyes-13) is the question that decides whether an override log detects the eye’s bias or only the difference between two biases. Not modelled: a hand that pushes harder when it feels resistance, tone and buzz perception, and eyewear.</p>' +
+        '<p>Questions for Derek: does your hand slow down or stop when the gun resists? Which would you rather have wrong: a light you can look away from, or a wall you can feel?</p>',
+      assumptions: '<ul><li>Frame rate 30 Hz, processing 15 ms, light bar 1 ms, clamp engage 30 ms, spring servo 60 ms, human delay 200 ms (visual), 150 ms (buzz or tone): illustrative. Total delay is a sum, not a simulation.</li>' +
+        '<li>Hand: resolution 0.1 mm against the corner, stiffness 0.5 N/mm at the grip (freedom-14’s illustrative figure), speed 3 mm/s toward the wall, trust in a cue 0.7. Force a hand notices on a held gun: 0.3 N. All [unknown].</li>' +
+        '<li>LED step 0.05 mm (eyes-17), tone step 0.1 mm, buzz threshold 0.15 mm, runout rate 0.02 mm/s ([derived], calc/runout-rates.mjs).</li>' +
+        '<li>The spring channel is freedom-14’s (0.15 N/mm, cap 2 N); the brake capacity default 2 N is a solenoid’s force through a lever, less friction: unmeasured.</li>' +
+        '<li>Where the gun settles for a biased estimate is statics: a cue moves the hand by trust × bias; a spring by (its force) / (hand stiffness + spring stiffness); a brake refuses a move at the band’s edge unless pushed past its capacity. calc/feedback-budget.mjs has the same arithmetic.</li></ul>',
+    },
+  });
+  const wrap = H('div', { class: 'fb-wrap' }); app.stageEl.appendChild(wrap);
+  const cPic = H('div', { class: 'fb-card' }, H('h3', { id: 'picTitle', text: 'Where the gun settles' })), cTab = H('div', { class: 'fb-card' }, H('h3', { text: 'Read down one column: what each channel needs, and what this fault does to it' })), cLog = H('div', { class: 'fb-card' }, H('h3', { text: 'The override is data: how many pushes through the wall it takes to learn the bias' }));
+  wrap.append(cPic, cTab, cLog);
+  const pic = S('svg', { viewBox: '0 0 860 330' }); cPic.appendChild(pic);
+  const picNote = H('div', { class: 'fb-note' }); cPic.appendChild(picNote);
+  const tabWrap = H('div', { class: 'fb-scroll' }); cTab.appendChild(tabWrap);
+  const logSvg = S('svg', { viewBox: '0 0 860 200' }); cLog.appendChild(logSvg);
+  const logNote = H('div', { class: 'fb-note' }); cLog.appendChild(logNote);
+
+  // ---------------------------------------------------------------- arithmetic (the same as calc/feedback-budget.mjs)
+  const val = id => app.ui.get(id);
+  const erf = x => { const s = Math.sign(x), t = 1 / (1 + 0.3275911 * Math.abs(x)); return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); };
+  function model() {
+    const p = { b: val('b'), w: val('w'), tau: val('tau'), v: val('v'), fps: val('fps'), Lproc: val('Lproc'), Lbrake: val('Lbrake'), Lspring: 60, Lled: 1, Lvis: 200, Ltac: 150, Laud: 150, kw: val('kw'), Kh: 0.5, Fcap: 2, Fb: val('Fb'), Fdet: 0.3, delta: val('delta'), sigma: val('sigma'), ledStep: 0.05, toneStep: 0.10, buzzThr: 0.15, seamRate: 0.02, T: val('T'), N: val('N') };
+    const frame = 1000 / p.fps, sense = frame + p.Lproc;
+    const lat = { bar: sense + p.Lled + p.Lvis, tone: sense + 5 + p.Laud, buzz: sense + 20 + p.Ltac, spring: sense + p.Lspring, brake: sense + p.Lbrake, stylus: 1 + p.Lbrake };
+    const cross = k => p.v * lat[k] / 1000;
+    const springF = p.kw * Math.max(0, p.b - p.w);
+    const settle = {
+      hand: { at: 0, sp: p.delta }, bar: { at: -p.tau * p.b, sp: Math.max(p.ledStep, p.delta) / 2 }, tone: { at: -p.tau * p.b, sp: Math.max(p.toneStep, p.delta) / 2 },
+      buzz: { at: -Math.max(0, p.b - p.buzzThr), sp: p.buzzThr / 2 }, spring: { at: -Math.min(springF, p.Fcap) / (p.Kh + p.kw), sp: p.delta }, brake: { at: 0, sp: p.delta, stuck: -p.b + p.w }, stylus: { at: 0, sp: 0.02 },
+    };
+    const toggles = h => p.fps * 0.5 * (1 - erf(h / (Math.max(1e-6, p.sigma) * Math.SQRT2)));
+    return { p, frame, sense, lat, cross, springF, settle, toggles };
+  }
+  const CH = [
+    { k: 'hand', name: 'Hand alone', what: 'the thing itself', col: '#94a3b8' },
+    { k: 'bar', name: 'Light bar (LEDs on the shell)', col: '#22c55e' },
+    { k: 'tone', name: 'Tone or pulse rate', col: '#38bdf8' },
+    { k: 'buzz', name: 'Buzz at the grip', col: '#a78bfa' },
+    { k: 'spring', name: 'Spring pull (freedom-14)', col: '#f59e0b' },
+    { k: 'brake', name: 'Brake wall (eyes-17)', col: '#c084fc' },
+    { k: 'stylus', name: 'Touch stylus (freedom-12)', col: '#14b8a6' },
+  ];
+  const f2 = v => v.toFixed(2), f3 = v => v.toFixed(3), sgn = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+  const NEEDS = m => ({
+    hand: ['no estimate; the operator’s own view of the dot against the corner', 'any', 'resolution ±' + f2(m.p.delta) + ' mm (assumed)'],
+    bar: ['the signed error of each axis, plus valid / stale / blind and its age', 'a reading every ' + Math.round(m.frame) + ' ms is more than the hand can use (it corrects at a few hertz)', 'one LED per 0.05 mm; delay to the hand ' + Math.round(m.lat.bar) + ' ms, of which 200 ms is the operator’s'],
+    tone: ['the size of the error on one axis (or the worse of two), and its sign; a separate blind sound', 'as above', 'steps of 0.1 mm; delay ' + Math.round(m.lat.tone) + ' ms'],
+    buzz: ['only the side, once the error passes a threshold (0.15 mm); a separate blind pattern', 'as above', 'binary; delay ' + Math.round(m.lat.buzz) + ' ms; competes with the head’s own vibration motor [manual p.20]'],
+    spring: ['a fresh, signed error, fast enough to servo an anchor (tens of ms), and the anchor’s position', 'a stale reading is a force at the wrong place: needs an age limit', 'force = ' + f2(m.p.kw) + ' N/mm x error beyond the band, capped at 2 N; delay ' + Math.round(m.lat.spring) + ' ms'],
+    brake: ['only the sign of the error, whether it is outside the band, whether it is fresh; and the slide’s direction of motion from its own scale', 'decision in one frame; clamp engages ' + m.p.Lbrake + ' ms later', 'refuses moves away from the estimated seam outside ±' + f2(m.p.w) + ' mm; delay ' + Math.round(m.lat.brake) + ' ms'],
+    stylus: ['nothing: a contact is a switch; which contact opened gives the direction of the push', 'a millisecond', 'repeatability of the seat, 0.005 mm steel to 0.03 mm printed (freedom-12, illustrative); a hand-held wall the gun can really touch'],
+  });
+  const CELL = (m, fault) => {
+    const p = m.p, s = m.settle;
+    switch (fault) {
+      case 'biased': return {
+        hand: 'no estimate to be wrong; spread ±' + f2(p.delta) + ' mm', bar: 'the hand settles ' + sgn(s.bar.at) + ' mm from the true seam (trust ' + f2(p.tau) + ' x bias ' + f2(p.b) + '). ' + (p.tau * p.b > p.delta ? 'It can tell only by checking the dot.' : 'Below the hand’s own resolution: cue and eye agree, both wrong.'),
+        tone: 'settles ' + sgn(s.tone.at) + ' mm; steps of 0.1 mm hide small biases further', buzz: 'the hand backs off until the buzz stops: settles ' + sgn(s.buzz.at) + ' mm; the buzz says which side, not that it is wrong',
+        spring: 'pull ' + Math.round(m.springF * 1000) + ' mN moves the gun ' + sgn(s.spring.at) + ' mm; ' + (m.springF > 0.3 ? 'a push the hand can feel and veto' : 'too small to feel on a held gun: a silent bias'),
+        brake: 'a compliant hand that starts inside the band is stopped ' + f2(Math.abs(s.brake.stuck - 0)) + ' mm short of the true seam (at ' + sgn(s.brake.stuck) + '); it takes ' + f2(p.Fb) + ' N to get through, and the push is logged', stylus: 'no bias: contact is a switch; only the mounting offset of the seat, calibrated once',
+      };
+      case 'late': return {
+        hand: 'nothing to be late', bar: 'acts ' + Math.round(m.lat.bar) + ' ms after the event; the gun has moved ' + f2(m.cross('bar')) + ' mm by then at ' + p.v + ' mm/s (most of it the operator’s own reaction)',
+        tone: Math.round(m.lat.tone) + ' ms; ' + f2(m.cross('tone')) + ' mm', buzz: Math.round(m.lat.buzz) + ' ms; ' + f2(m.cross('buzz')) + ' mm', spring: Math.round(m.lat.spring) + ' ms; ' + f2(m.cross('spring')) + ' mm; a force that arrives late can drive the hand-and-gun loop into oscillation if the gain is high',
+        brake: 'the gun crosses the band’s edge by ' + f2(m.cross('brake')) + ' mm before it holds (' + Math.round(m.lat.brake) + ' ms at ' + p.v + ' mm/s): ' + (m.cross('brake') > p.w ? 'more than the band itself' : 'less than the band'), stylus: Math.round(m.lat.stylus) + ' ms; ' + f2(m.cross('stylus')) + ' mm',
+      };
+      case 'frozen': return {
+        hand: 'unaffected', bar: 'shows the last value: green if it was green, while the seam moves ' + f2(p.seamRate * p.T) + ' mm in ' + p.T + ' s; it must go dimmed or dotted after an age limit', tone: 'holds the last pitch; silence reads as “fine”', buzz: 'stays on or off at its last state',
+        spring: 'keeps pulling with the last force (' + Math.round(m.springF * 1000) + ' mN) until told to decay: a steady push toward a stale place', brake: 'a one-way valve at the frozen value: moves toward it are free, moves away are refused, for as long as it stays frozen', stylus: 'not applicable',
+      };
+      case 'blind': return {
+        hand: 'as before', bar: 'dark, with a mark: the hand alone (never the last value)', tone: 'silence is ambiguous (fine, or blind?): needs its own sound', buzz: 'silence is ambiguous too: needs its own pattern',
+        spring: 'relaxes to zero force (fail-soft)', brake: 'releases (fail-open); power off is free as well', stylus: 'still works: no light needed',
+      };
+      default: return {   // noisy
+        hand: 'unaffected', bar: 'flickers ±' + f2(p.sigma / 0.05) + ' LED (1 sigma = ' + f3(p.sigma) + ' mm / 0.05); smoothing it costs delay', tone: 'pitch jitter of ±' + f2(p.sigma / 0.10) + ' step', buzz: 'stutters at the threshold; needs hysteresis',
+        spring: 'force noise ' + f2(p.kw * p.sigma * 1000) + ' mN: unfelt', brake: 'chatters at the band edge: ' + m.toggles(0).toFixed(1) + ' toggles per second with no hysteresis, ' + m.toggles(p.sigma).toFixed(1) + ' at 1 sigma, ' + m.toggles(2 * p.sigma).toFixed(2) + ' at 2 sigma; stick-slip in a real clamp', stylus: 'contact bounce for a few milliseconds: debounce',
+      };
+    }
+  };
+
+  // ---------------------------------------------------------------- drawing
+  function drawPic(m, fault) {
+    while (pic.firstChild) pic.removeChild(pic.firstChild);
+    const p = m.p, x0 = 250, x1 = 620, rowY = k => 52 + CH.findIndex(c => c.k === k) * 38;
+    const title = { biased: 'Where the gun settles when the estimate reads high (mm from the true seam)', late: 'How far the gun goes before the channel acts (mm, at the hand’s speed)', noisy: 'Not drawn for this fault: see the table', frozen: 'Not drawn for this fault: see the table', blind: 'Not drawn for this fault: see the table' }[fault];
+    document.getElementById('picTitle').textContent = title;
+    if (fault === 'biased') {
+      const R = 0.7, X = v => (x0 + x1) / 2 + v / R * (x1 - x0) / 2;
+      pic.appendChild(S('rect', { x: X(-p.b - p.w), y: 30, width: X(-p.b + p.w) - X(-p.b - p.w), height: 290, fill: '#3b82f6', opacity: 0.16 }));
+      pic.appendChild(S('line', { x1: X(-p.b), y1: 30, x2: X(-p.b), y2: 318, stroke: '#60a5fa', 'stroke-width': 2 })); pic.appendChild(S('text', { x: X(-p.b) - 6, y: 26, class: 'b', 'text-anchor': 'end', text: 'estimated seam and band' }));
+      pic.appendChild(S('line', { x1: X(0), y1: 30, x2: X(0), y2: 318, stroke: '#14b8a6', 'stroke-width': 3 })); pic.appendChild(S('text', { x: X(0) + 6, y: 26, class: 't', 'text-anchor': 'start', text: 'true seam' }));
+      [-0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6].forEach(t => pic.appendChild(S('text', { x: X(t), y: 328, class: 'g', 'text-anchor': 'middle', text: t.toFixed(1) })));
+      CH.forEach(c => {
+        const y = rowY(c.k), s = m.settle[c.k];
+        pic.appendChild(S('text', { x: 6, y: y + 4, text: c.name }));
+        pic.appendChild(S('line', { x1: X(-R), y1: y, x2: X(R), y2: y, stroke: '#2a3341' }));
+        pic.appendChild(S('rect', { x: X(s.at - s.sp), y: y - 8, width: Math.max(2, X(s.at + s.sp) - X(s.at - s.sp)), height: 16, fill: c.col, opacity: 0.35 }));
+        pic.appendChild(S('circle', { cx: X(s.at), cy: y, r: 5, fill: c.col, stroke: '#fff', 'stroke-width': 1 }));
+        if (c.k === 'brake') { pic.appendChild(S('circle', { cx: X(s.stuck), cy: y, r: 5, fill: 'none', stroke: c.col, 'stroke-width': 2 })); pic.appendChild(S('text', { x: X(s.stuck), y: y - 12, class: 'g', 'text-anchor': 'middle', text: 'stopped here' })); pic.appendChild(S('text', { x: X(0) + 8, y: y - 12, class: 'g', text: 'pushed through (' + f2(p.Fb) + ' N)' })); }
+      });
+      picNote.innerHTML = 'Filled dot: where the gun ends up if the hand behaves as described (cues: it follows with trust ' + f2(p.tau) + '; spring: it yields; brake: it aims at the true seam). Bar: spread. The stylus and the brake (once pushed) are the only channels that leave the gun on the true seam; the brake alone <b>makes the disagreement cost something</b>.';
+    } else if (fault === 'late') {
+      const R = 1.0, X = v => x0 + v / R * (x1 - x0);
+      [0, 0.25, 0.5, 0.75, 1.0].forEach(t => { pic.appendChild(S('line', { x1: X(t), y1: 30, x2: X(t), y2: 318, stroke: '#20293a' })); pic.appendChild(S('text', { x: X(t), y: 328, class: 'g', 'text-anchor': 'middle', text: t.toFixed(2) })); });
+      pic.appendChild(S('rect', { x: X(0), y: 30, width: X(p.w) - X(0), height: 290, fill: '#3b82f6', opacity: 0.14 })); pic.appendChild(S('text', { x: X(0) + 3, y: 26, class: 'b', text: 'the band' }));
+      CH.filter(c => c.k !== 'hand').forEach(c => { const y = rowY(c.k), d = m.cross(c.k); pic.appendChild(S('text', { x: 6, y: y + 4, text: c.name })); pic.appendChild(S('rect', { x: X(0), y: y - 8, width: Math.max(2, X(Math.min(R, d)) - X(0)), height: 16, fill: c.col, opacity: 0.6 })); pic.appendChild(S('text', { x: X(Math.min(R, d)) + 6, y: y + 4, class: 'o', text: f2(d) + ' mm  (' + Math.round(m.lat[c.k]) + ' ms)' })); });
+      picNote.innerHTML = 'Distance = hand speed (' + p.v + ' mm/s) x total delay from the event to the channel acting. For the cues most of the delay is the operator (200 ms to a light, 150 ms to a tone or a buzz); for the brake and the spring it is the sensing frame and the clamp or servo. A wall that closes after the gun has crossed the band is a wall in the wrong place.';
+    } else {
+      pic.appendChild(S('text', { x: 20, y: 60, class: 'g', text: 'This fault has no single position to draw. The table below has one cell per channel.' }));
+      picNote.textContent = '';
+    }
+  }
+  function drawTable(m, fault) {
+    const need = NEEDS(m), cell = CELL(m, fault);
+    const rows = CH.map(c => '<tr><td class="ch" style="color:' + c.col + '">' + c.name + '</td><td>' + need[c.k][0] + '</td><td>' + need[c.k][1] + '</td><td>' + need[c.k][2] + '</td><td class="hot">' + cell[c.k] + '</td></tr>').join('');
+    tabWrap.innerHTML = '<table class="fb-table"><colgroup><col style="width:13%"><col style="width:22%"><col style="width:17%"><col style="width:20%"><col style="width:28%"></colgroup><tr><th>Channel</th><th>What it must know</th><th>How fast</th><th>How fine, how late</th><th>If the estimate is <b>' + fault + '</b></th></tr>' + rows + '</table>';
+  }
+  function drawLog(m) {
+    while (logSvg.firstChild) logSvg.removeChild(logSvg.firstChild);
+    const p = m.p, x0 = 60, x1 = 820, y0 = 20, y1 = 160, Nmax = 40, ymax = Math.max(0.15, p.delta * 1.1);
+    const X = n => x0 + (n - 1) / (Nmax - 1) * (x1 - x0), Y = s => y1 - s / ymax * (y1 - y0);
+    [0, 0.05, 0.1, 0.15].filter(t => t <= ymax).forEach(t => { logSvg.appendChild(S('line', { x1: x0, y1: Y(t), x2: x1, y2: Y(t), stroke: '#20293a' })); logSvg.appendChild(S('text', { x: x0 - 6, y: Y(t) + 3, class: 'g', 'text-anchor': 'end', text: t.toFixed(2) })); });
+    [1, 5, 10, 20, 30, 40].forEach(n => logSvg.appendChild(S('text', { x: X(n), y: y1 + 14, class: 'g', 'text-anchor': 'middle', text: n })));
+    logSvg.appendChild(S('text', { x: x1, y: y1 + 30, class: 'g', 'text-anchor': 'end', text: 'pushes through the wall' })); logSvg.appendChild(S('text', { x: 6, y: 14, class: 'g', text: '1-sigma of the mean disagreement (mm)' }));
+    let d = ''; for (let n = 1; n <= Nmax; n++) d += (n === 1 ? 'M' : 'L') + X(n).toFixed(1) + ' ' + Y(p.delta / Math.sqrt(n)).toFixed(1);
+    logSvg.appendChild(S('path', { d: d, fill: 'none', stroke: '#c084fc', 'stroke-width': 2 }));
+    logSvg.appendChild(S('line', { x1: x0, y1: Y(p.b / 2), x2: x1, y2: Y(p.b / 2), stroke: '#f59e0b', 'stroke-dasharray': '4 3' })); logSvg.appendChild(S('text', { x: x1 - 4, y: Y(p.b / 2) - 4, class: 'o', 'text-anchor': 'end', text: 'half the bias (' + f2(p.b / 2) + ' mm)' }));
+    logSvg.appendChild(S('line', { x1: X(p.N), y1: y0, x2: X(p.N), y2: y1, stroke: '#fff', 'stroke-dasharray': '2 3' }));
+    const nNeed = Math.ceil(Math.pow(1.96 * p.delta / Math.max(0.01, p.b), 2)), sN = p.delta / Math.sqrt(p.N);
+    logNote.innerHTML = 'Each time the hand pushes through the wall, software logs the disagreement between the hand’s target and the estimate. If the hand steers by its own eye and that eye is unbiased, the average disagreement is the estimate’s bias, known to ' + f3(sN) + ' mm after ' + p.N + ' pushes. To see a bias of ' + f2(p.b) + ' mm at 95 % with the hand seeing to ' + f2(p.delta) + ' mm takes about <b>' + nNeed + '</b> push' + (nNeed > 1 ? 'es' : '') + '. <b>What it cannot do:</b> tell the eye’s bias from the hand’s own; that needs a third, independent look (a touch, or the sectioned tube of eyes-07). And it exists only for channels that resist: a cue that is simply followed leaves no disagreement to log.';
+  }
+  function update() {
+    try { const f = val('fault'); app.ui.enable('b', f === 'biased' || f === 'frozen'); app.ui.enable('tau', f === 'biased'); app.ui.enable('T', f === 'frozen'); app.ui.enable('sigma', f === 'noisy'); app.ui.enable('v', f === 'late'); } catch (e) { /* controls not created yet */ }
+    const m = model(), fault = val('fault');
+    drawPic(m, fault); drawTable(m, fault); drawLog(m);
+    app.io.set({
+      commands: [{ name: 'Bar / tone / buzz pattern', value: 'per channel', note: 'a pattern written to an LED bar or a haptic driver' }, { name: 'Spring anchor', value: 'force = k x error', unit: '', note: 'a motor moves the far end of a bungee (freedom-14)' }, { name: 'Brake clamp', value: 'off / on per slide', note: 'off = free; power off = free' }, { name: 'Stylus', value: 'none', note: 'a switch: nothing to command' }],
+      observes: [
+        { name: 'Corner minus dot from the eye', value: 'signed, per axis', status: 'partly', note: 'with valid / stale / blind and its age: the flag matters as much as the value' },
+        { name: 'Slide speed and position (scales)', value: 'direction of motion', status: 'seen', note: 'the brake rule is “moving away”' },
+        { name: 'A slip of the brake', value: 'the hand’s disagreement', status: 'partly', note: 'only for channels that resist' },
+        { name: 'The estimate’s own bias', value: '-', status: 'blind', note: 'no channel sees it; only a third, independent look' },
+        { name: 'How much the hand trusts the cue', value: '-', status: 'unresolved', note: 'the parameter that decides how a cue’s bias becomes the gun’s' },
+        { name: 'Hand speed, resolution, stiffness', value: 'illustrative', status: 'unresolved', note: 'a phone video of a hand-held run would give them' },
+      ],
+      manual: ['the hand’s judgement and its push', 'choosing which channel to trust when they disagree'],
+    });
+  }
+  const g0 = app.ui.group('What is wrong with the estimate');
+  g0.radio({ id: 'fault', label: 'The estimate is', kind: 'branch', value: 'biased', options: [{ value: 'biased', label: 'biased' }, { value: 'late', label: 'late' }, { value: 'frozen', label: 'frozen' }, { value: 'blind', label: 'blind' }, { value: 'noisy', label: 'noisy' }], help: 'Biased: reads high by the bias. Late: the delays add. Frozen: stops updating. Blind: no estimate. Noisy: jitters.', onChange: update });
+  g0.slider({ id: 'b', label: 'Bias of the estimate', min: 0.02, max: 0.6, step: 0.01, value: 0.3, unit: 'mm', kind: 'scene', help: 'What the eye reports minus the truth. eyes-01: the loop cannot see it.', onChange: update });
+  g0.slider({ id: 'T', label: 'How long it has been frozen', min: 1, max: 60, step: 1, value: 10, unit: 's', kind: 'scene', help: 'The seam moves at most about 0.02 mm/s under a fixed gun.', onChange: update });
+  g0.slider({ id: 'sigma', label: 'Noise of the estimate (1 sigma)', min: 0.005, max: 0.15, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: update });
+  const g1 = app.ui.group('The eye and the electronics (illustrative)');
+  g1.slider({ id: 'fps', label: 'Eye frame rate', min: 10, max: 120, step: 5, value: 30, unit: 'Hz', kind: 'scene', help: 'A 100 fps global-shutter USB camera is $50 on Prime (sourcing/eyes.md).', onChange: update });
+  g1.slider({ id: 'Lproc', label: 'Processing delay', min: 1, max: 100, step: 1, value: 15, unit: 'ms', kind: 'scene', onChange: update });
+  g1.slider({ id: 'Lbrake', label: 'Clamp latency (command to holding)', min: 5, max: 150, step: 5, value: 30, unit: 'ms', kind: 'scene', help: 'A solenoid pulling a pad: unmeasured.', onChange: update });
+  g1.slider({ id: 'w', label: 'Band around the estimated seam', min: 0.02, max: 0.4, step: 0.01, value: 0.1, unit: 'mm', kind: 'actuator', help: 'Software setting.', onChange: update });
+  g1.slider({ id: 'kw', label: 'Spring stiffness (freedom-14)', min: 0.05, max: 1, step: 0.05, value: 0.15, unit: 'N/mm', kind: 'scene', onChange: update });
+  g1.slider({ id: 'Fb', label: 'Brake capacity (force to push through)', min: 0.5, max: 5, step: 0.1, value: 2, unit: 'N', kind: 'scene', onChange: update });
+  const g2 = app.ui.group('The hand (made up: [unknown] for Derek’s)');
+  g2.slider({ id: 'tau', label: 'How much the hand trusts a cue', min: 0, max: 1, step: 0.05, value: 0.7, kind: 'scene', help: '0: ignores it and steers by its own eye. 1: does what it says.', onChange: update });
+  g2.slider({ id: 'v', label: 'Hand speed toward the wall', min: 0.5, max: 10, step: 0.5, value: 3, unit: 'mm/s', kind: 'scene', onChange: update });
+  g2.slider({ id: 'delta', label: 'Hand’s own resolution of dot against corner', min: 0.02, max: 0.3, step: 0.01, value: 0.1, unit: 'mm', kind: 'scene', onChange: update });
+  g2.slider({ id: 'N', label: 'Pushes through the wall so far', min: 1, max: 40, step: 1, value: 10, kind: 'scene', onChange: update });
+  update();
+})();
+</script>
+</body>
+</html>

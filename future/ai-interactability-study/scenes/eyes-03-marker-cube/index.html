@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marker cube</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .eyes-plot { position: absolute; left: 10px; top: 46px; width: 318px; z-index: 4; background: rgba(12,16,22,.93); border: 1px solid var(--wk-line2); border-radius: 8px; padding: 6px 8px 7px; pointer-events: none; }
+  .eyes-plot h4 { font: 600 11px system-ui, sans-serif; color: var(--wk-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .eyes-plot canvas { width: 100%; height: auto; display: block; }
+  .eyes-plot .note { font: 10.5px/1.35 system-ui, sans-serif; color: var(--wk-faint); margin-top: 3px; }
+  .eyes-plot .num { font: 12px ui-monospace, "SF Mono", Menlo, monospace; color: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-03-marker-cube",
+  "title": "Marker cube: cameras see tags, not the dot",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A small cube of fiducial tags rides on the gun shell. Fixed cameras see the tags from wherever they can, not the dot. The line of sight problem moves from the canyon to the cube; the price is a lever arm from the cube to the dot. Slide the cube along the barrel and read the trade-off.",
+  "tags": ["observer", "fiducials", "pose-tracking", "lever-arm", "error-budget"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["tags on a printed shell", "visibility versus lever-arm curve", "coarse world pose to seed a fine local sensor"],
+  "how": {
+    "motion": "none: an observer only; the gun is placed by whatever moves it in other ideas.",
+    "load": "the cube is a printed part on the shell; two cameras stand on posts on the bench.",
+    "reference": "tags on the cube and on the rotator give the gun pose in the tube frame; the dot follows from a fixed offset.",
+    "observe": "two fixed cameras seeing tag faces of a cube on the gun.",
+    "use": "coarse pose in setup, dry run and welding; fine work needs a local sensor."
+  },
+  "software": {
+    "commands": ["nothing here; the pose could drive any of the actuators in other ideas"],
+    "observes": ["gun pose in the tube frame (six numbers) from tag corners", "which faces each camera sees", "an uncertainty at the dot that depends on where the cube is"],
+    "manual": ["fixing the cube and calibrating cube-to-dot (scan or eyes-07)", "aiming and calibrating the cameras to the tube frame"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-03-marker-cube.md", "../../explorers/eyes/ideas/eyes-02-where-can-an-eye-stand.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS;
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [-10, -60, 190], dir: [-0.15, 0.72, 0.68], dist: 1050 },
+      joint: { target: [58, -12, 160], dir: [-0.8, 0.26, 0.46], dist: 230 },
+      top: { target: [-30, -60, 150], dir: [0, -0.003, 1], dist: 900 },
+      side: { target: [-10, -60, 190], dir: [0.03, -1, 0.05], dist: 1100 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A cube of fiducial tags (think AprilTag or ArUco) is printed onto the shell of the gun. Two fixed cameras look at it. Software reads the tag corners and solves the gun\u2019s pose in the tube frame; the dot follows from a fixed offset that a scan of the shell (or a section view, eyes-07) gives once. Tags on the rotator turntable and the bench give the frame.</p>' +
+        '<p>This moves the line of sight problem. The camera does not need to see the dot in its canyon: it needs to see the cube, which sits on the barrel above the rim in plain view. The price is the <b>lever arm</b>: the farther the cube is from the dot, the more a tiny angular error in the tag pose becomes millimetres at the dot. The plot shows uncertainty at the dot against where the cube sits along the gun; grey squares are cube positions where the drawn cube would run into the tube.</p>',
+      carries: '<p>The printed shell carries the gun as elsewhere (not drawn as a support here). The cube is a small printed block on a stalk from the shell. Cameras stand on bench posts, which are not drawn; their exact positions are sliders. Tags on the rotator and bench (frame tags) are not drawn: they add a small error of their own that the scene does not model (illustrative floor 0.10 mm for cube-to-dot calibration is included).</p>',
+      software: '<p>Software detects the tags in each camera, gets a pose per tag, fuses faces and cameras, and reports a gun pose and an uncertainty. The uncertainty in the plot comes from a first-order pinhole model (calc/marker-error.mjs): corner noise, tag size, distance, tilt, lever arm. It is a model, not a sensor reading. The gun pose could drive whatever moves the gun; the pose alone does not know where the seam is, except through the frame tags and the assumption that the tube sits where the nest says.</p>',
+      tried: '<p><b>Expected and not found:</b> that the wall would hide a cube placed near the nozzle. The barrel climbs above the rim within a few centimetres (58° pitch in the reference pose, illustrative), so a cube 40 to 80 mm back is in plain view of cameras across the bore, at the side, even over the wall. Move the cameras round the tube and the plot stays green except on the gun\u2019s grip side (amber: one camera only).</p>' +
+        '<p><b>What does bite:</b> the cube has to fit. A 25 mm cube close behind the nozzle on the side of the barrel (clock angle -90°) runs into the rim; the scene marks those positions grey and refuses them. The rest of the trade is not drawn: heat, spatter and fume are strongest exactly where the lever arm is shortest (unresolved).</p>' +
+        '<p><b>Broke:</b> the cube on the housing (230 mm back): easy to see, about 0.5 mm at the dot with 25 mm faces and two cameras (calc/marker-error.mjs). <b>Repaired:</b> bigger faces (45 mm: 0.3 mm), nearer cameras, or use the pose only to seed a fine local sensor (eyes-01, eyes-04).</p>' +
+        '<p><b>Broke:</b> one camera only: the depth of the tag along the viewing ray is the worst axis (about 0.6 mm at 500 mm with a 25 mm tag). <b>Repaired:</b> a second camera turns one camera\u2019s depth into the other\u2019s lateral direction. The position part falls from 0.29 mm at 5° between the rays to 0.09 at 20° and 0.04 at 40° or more (calc). <b>Found:</b> the total at the dot barely changes past 20° because the lever arm term dominates; separation matters for position, not for the orientation-through-lever error. Use the separation slider.</p>' +
+        '<p><b>Left standing:</b> the tags say where the gun is, not where the seam is. The seam comes from the frame tags and the assumption that the tube is where the nest says (runout up to 0.25 mm TIR, 0.2 mm nest clearance). A tube-side observation is still needed for that.</p>',
+      unresolved: '<p>Lighting and reflections on printed tags next to a laser and a bright melt pool; tag detection with the process light on; whether cube-to-dot calibration holds when the shell is removed and refitted; how the frame tags are held rigid to the tube (the tube sits in a nest with 0.2 mm clearance and runs out by up to 0.25 mm TIR). Whether the cameras’ auto exposure survives the weld flash. The 0.15 px corner noise and 0.10 mm calibration floor are assumptions.</p>',
+      assumptions: '<ul><li>Gun proxy from the manual’s envelope [manual p.17]; barrel and housing geometry illustrative (kit).</li>' +
+        '<li>Camera: 1920 px across, adjustable field of view; corner noise 0.15 px; cube-to-dot calibration 0.10 mm [illustrative].</li>' +
+        '<li>Model (calc/marker-error.mjs): per camera lateral (sc/2) Z/f and along the ray sc Z^2/(sqrt2 a f); the cameras\u2019 information adds, so the position uncertainty depends on the angle between the rays; orientation sc Z/(a f)/max(sin tilt, 0.35), x0.7 with two faces, divided by sqrt of the camera count; combined with the lever arm and the floor in quadrature. [illustrative first-order model]</li>' +
+        '<li>A face counts as seen when the camera is inside its field of view, the line of sight to the face centre is clear in the drawn scene and the face looks toward the camera within 70°.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  gun.setLaser(false);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  shell.group.traverse(m => m.layers.set(1));
+  const lensDot = V(0, 0, -WK.CLEARANCE);
+
+  // ------------------------------------------------------------------ cube with five tagged faces (local to the gun)
+  const cube = new THREE.Group(); gun.group.add(cube);
+  const body = P.box(1, 1, 1, 'load'); cube.add(body);
+  const FACES = [{ n: [0, 1, 0], name: 'top' }, { n: [0, -1, 0], name: 'grip side' }, { n: [1, 0, 0], name: 'right' }, { n: [-1, 0, 0], name: 'left' }, { n: [0, 0, 1], name: 'back' }];
+  const tags = FACES.map(function (f) {
+    const t = P.plane(0.78, 0.78, 'locate'); t.children.forEach(c => { c.userData.occludes = false; if (c.material && c.material.opacity < 1) c.material = WK.mat('locate', { side: 'double' }); });
+    const n = V(...f.n); t.quaternion.setFromUnitVectors(V(0, 0, 1), n); t.position.copy(n).multiplyScalar(0.502); cube.add(t); return t;
+  });
+  const stalk = P.rod([0, 0, 0], [0, 1, 0], 2, 'load'); gun.group.add(stalk);
+  cube.traverse(m => { if (m.isMesh) m.userData.occludes = false; }); stalk.userData.occludes = false;
+  const cubeSelf = [cube];
+  const radiusAt = z => (z < 118 ? 15 : 20);
+  const S = { center: V(), size: 25 };
+  function cubeLocal(z, th, size) { const r = radiusAt(z) + size / 2 + 4; return V(r * Math.sin(th), r * Math.cos(th), z); }
+  function placeCube() {
+    const size = app.ui.get('csize'), z = app.ui.get('cz'), th = app.ui.get('cth') * DEG, c = cubeLocal(z, th, size);
+    cube.position.copy(c); cube.scale.set(size, size, size);
+    cube.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeRotationZ(-th));   // keep the faces aligned to the clock position
+    stalk.setEnds(V(0, 0, z), c); S.size = size;
+  }
+  const rotFace = (n, th) => V(n[0] * Math.cos(-th) - n[1] * Math.sin(-th), n[0] * Math.sin(-th) + n[1] * Math.cos(-th), n[2]);
+
+  // ------------------------------------------------------------------ cameras
+  const camPos = k => { const az = (app.ui.get('caz') + k * app.ui.get('csep') / 2) * DEG, el = app.ui.get('cel') * DEG, d = app.ui.get('cdist'); return gun.dotWorld().add(V(d * Math.cos(el) * Math.cos(az), d * Math.cos(el) * Math.sin(az), d * Math.sin(el))); };
+  const cubeWorld = () => { cube.updateWorldMatrix(true, false); return V().setFromMatrixPosition(cube.matrixWorld); };
+  const aimPoint = () => gun.local(V(0, 0, 130));   // fixed cameras look at a fixed point of the gun's neighbourhood, not at the cube
+  const tmpCam = new THREE.PerspectiveCamera(30, 250 / 170, 20, 2500); tmpCam.up.set(0, 0, 1);
+  const cams = [{ k: -1, id: 'camA', corner: 'br', label: 'Camera A (proposed)' }, { k: 1, id: 'camB', corner: 'tr', label: 'Camera B (proposed)' }];
+  cams.forEach(c => { c.api = app.inset.add({ id: c.id, label: c.label, position: () => camPos(c.k), target: aimPoint, fov: 40, near: 20, far: 2500, size: [250, 170], corner: c.corner, noise: 0.1 }); });
+
+  // ------------------------------------------------------------------ error model (first-order pinhole; illustrative)
+  const SC = 0.15, SCAL = 0.10, WPX = 1920;
+  function inv3(m) { const a = m[0][0], b = m[0][1], c = m[0][2], d = m[1][0], e = m[1][1], g = m[1][2], h = m[2][0], i = m[2][1], j = m[2][2]; const A = e * j - g * i, B = -(d * j - g * h), C = d * i - e * h, det = a * A + b * B + c * C; return [[A / det, -(b * j - c * i) / det, (b * g - c * e) / det], [B / det, (a * j - c * h) / det, -(a * g - c * d) / det], [C / det, -(a * i - b * h) / det, (a * e - b * d) / det]]; }
+  function posSigma(rays, sxy, sz) {   // information along a ray 1/sz^2, across it 1/sxy^2; rays: unit Vector3s
+    const I = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], u3 = r => [r.x, r.y, r.z];
+    rays.forEach(function (r) { const u = u3(r); for (let i = 0; i < 3; i++) for (let k = 0; k < 3; k++) I[i][k] += u[i] * u[k] / (sz * sz) + ((i === k ? 1 : 0) - u[i] * u[k]) / (sxy * sxy); });
+    const C = inv3(I); return Math.sqrt(C[0][0] + C[1][1] + C[2][2]);
+  }
+  function model(a, Z, L, rays, faces, tiltDeg, fovDeg) {
+    const nCam = rays.length, f = WPX / (2 * Math.tan(fovDeg * DEG / 2));
+    const sxy = SC / 2 * Z / f, sz = SC * Z * Z / (Math.SQRT2 * a * f);
+    const sth = SC * Z / (a * f) / Math.max(Math.sin(tiltDeg * DEG), 0.35) * (faces >= 2 ? 0.7 : 1);
+    const pos = posSigma(rays, sxy, sz), rot = sth * Math.SQRT2 / Math.sqrt(Math.max(1, nCam));
+    return { total: Math.hypot(pos, L * rot, SCAL), pos: pos, lever: L * rot };
+  }
+  // does the cube (drawn size) touch the tube wall or the plate? 26 sample points on its surface against the metal volumes
+  const RO = WK.DIM.tubeOd / 2, HT = WK.DIM.tubeHeight, RC = WK.DIM.capDiameter / 2, ZC = WK.CAP_TOP, TC = WK.DIM.capThickness;
+  function cubeCollides(cl, th, size) {
+    const gl = gun.group; gl.updateWorldMatrix(true, false);
+    const q = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeRotationZ(-th));
+    for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++) {
+      if (!i && !j && !k) continue;
+      const w = gl.localToWorld(cl.clone().add(V(i * size / 2, j * size / 2, k * size / 2).applyQuaternion(q)));
+      const r = Math.hypot(w.x, w.y);
+      if ((r >= RI - 0.2 && r <= RO + 0.2 && w.z <= HT && w.z >= 0) || (r <= RC && w.z <= ZC + 0.2 && w.z >= ZC - TC)) return true;
+    }
+    return false;
+  }
+  // faces seen by a camera at position p for a cube at (center c, orientation th) : returns {seen: n, bestTilt}
+  const rc = new THREE.Raycaster();
+  function facesSeen(p, cWorld, th, occ, faceNormalsWorld) {
+    let seen = 0, best = 0;
+    faceNormalsWorld.forEach(function (n) {
+      const fc = cWorld.clone().addScaledVector(n, S.size / 2);
+      const dir = p.clone().sub(fc), dist = dir.length(); dir.multiplyScalar(1 / dist);
+      const cosA = n.dot(dir);
+      if (cosA < Math.cos(70 * DEG)) return;
+      rc.set(p, dir.clone().negate()); rc.near = 0; rc.far = dist - 2;
+      const hit = rc.intersectObjects(occ, false)[0];
+      if (hit) return;
+      seen++; best = Math.max(best, Math.acos(Math.min(1, cosA)) / DEG);
+    });
+    return { seen: seen, tilt: best };
+  }
+  function evaluate(z, th, size, occ) {   // for a cube at axial position z (virtual): sigma at the dot and camera visibility
+    const gl = gun.group; gl.updateWorldMatrix(true, false);
+    const cl = cubeLocal(z, th, size), cW = gl.localToWorld(cl.clone());
+    const normals = FACES.map(f => { const r = rotFace(f.n, th); return gun.dir([r.x, r.y, r.z]); });
+    const dot = gun.dotWorld(), L = cW.distanceTo(dot);
+    if (cubeCollides(cl, th, size)) return { nCam: 0, L: L, sigma: null, collides: true };
+    let nCam = 0, faces = 0, tilt = 40, Zsum = 0; const rays = [];
+    cams.forEach(function (c) {
+      const p = camPos(c.k), inF = inFov(c.k, cW);
+      const fs = inF ? facesSeen(p, cW, th, occ, normals) : { seen: 0, tilt: 0 };
+      c.last = fs;
+      if (fs.seen > 0) { nCam++; faces = Math.max(faces, fs.seen); tilt = Math.max(10, Math.min(60, fs.tilt)); Zsum += p.distanceTo(cW); rays.push(cW.clone().sub(p).normalize()); }
+    });
+    if (!nCam) return { nCam: 0, L: L, sigma: null };
+    const m = model(size * 0.78, Zsum / nCam, L, rays, faces, tilt, app.ui.get('cfov'));
+    return { nCam: nCam, faces: faces, L: L, sigma: m.total, m: m };
+  }
+  function inFov(k, p) { tmpCam.position.copy(camPos(k)); tmpCam.fov = app.ui.get('cfov'); tmpCam.updateProjectionMatrix(); tmpCam.lookAt(aimPoint()); tmpCam.updateMatrixWorld(true); const ndc = p.clone().project(tmpCam); return ndc.z > -1 && ndc.z < 1 && Math.abs(ndc.x) <= 1 && Math.abs(ndc.y) <= 1; }
+
+  // ------------------------------------------------------------------ plot overlay
+  const plotEl = document.createElement('div'); plotEl.className = 'eyes-plot';
+  plotEl.innerHTML = '<h4>Uncertainty at the dot vs where the cube sits</h4><canvas width="600" height="300"></canvas><div class="note"></div>';
+  app.stageEl.appendChild(plotEl);
+  const cv = plotEl.querySelector('canvas'), ctx = cv.getContext('2d'), noteEl = plotEl.querySelector('.note');
+  function drawPlot(curZ, cur, series) {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    const X0 = 46, X1 = cv.width - 10, Y0 = 18, Y1 = cv.height - 38, zmin = 30, zmax = 250, smax = 1.0;
+    const px = z => X0 + (z - zmin) / (zmax - zmin) * (X1 - X0), py = s => Y1 - Math.min(s, smax) / smax * (Y1 - Y0);
+    ctx.strokeStyle = '#2a3341'; ctx.lineWidth = 1; ctx.fillStyle = '#98a4b6'; ctx.font = '17px system-ui';
+    [0, 0.25, 0.5, 0.75, 1.0].forEach(s => { ctx.beginPath(); ctx.moveTo(X0, py(s)); ctx.lineTo(X1, py(s)); ctx.stroke(); ctx.fillText(s.toFixed(2), 4, py(s) + 5); });
+    [50, 100, 150, 200, 250].forEach(z => { ctx.fillText(z, px(z) - 12, Y1 + 20); });
+    ctx.fillText('cube position: mm behind the nozzle tip (housing starts at 118)', X0, cv.height - 6);
+    ctx.save(); ctx.translate(14, 14); ctx.restore();
+    ctx.fillStyle = '#98a4b6'; ctx.fillText('mm at dot, 1 sigma', X0 + 4, 14);
+    series.forEach(function (s) {
+      if (s.sigma == null) { ctx.fillStyle = s.collides ? '#64748b' : '#ef4444'; ctx.fillRect(px(s.z) - 3, Y1 - 4, 6, 8); return; }
+      ctx.fillStyle = s.nCam >= 2 ? '#22c55e' : '#f59e0b'; ctx.beginPath(); ctx.arc(px(s.z), py(s.sigma), 4.5, 0, 7); ctx.fill();
+    });
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(px(curZ), Y0); ctx.lineTo(px(curZ), Y1); ctx.stroke();
+    if (cur && cur.sigma != null) { ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(px(curZ), py(cur.sigma), 7, 0, 7); ctx.fill(); }
+  }
+
+  // ------------------------------------------------------------------ update
+  let lastSeries = [];
+  function update() {
+    placeCube();
+    scene.updateMatrixWorld(true);
+    cams.forEach(c => { c.api.setFov(app.ui.get('cfov')); });
+    const occ = WK.occluders(app, {});
+    const th = app.ui.get('cth') * DEG, size = app.ui.get('csize'), z = app.ui.get('cz');
+    const series = []; for (let zz = 30; zz <= 250; zz += 10) { const e = evaluate(zz, th, size, occ); series.push({ z: zz, sigma: e.sigma, nCam: e.nCam, collides: e.collides }); }
+    const cur = evaluate(z, th, size, occ);
+    lastSeries = series; drawPlot(z, cur, series);
+    const f2 = v => v.toFixed(2);
+    noteEl.innerHTML = cur.collides ? '<span style="color:#f87171">the drawn cube would touch the tube wall or plate here: not allowed</span>' : cur.sigma == null ? '<span style="color:#f87171">no camera sees a tag face at this cube position</span>' : 'now: <span class="num">' + f2(cur.sigma) + ' mm</span> at the dot (position ' + f2(cur.m.pos) + ', lever ' + f2(cur.m.lever) + ', floor 0.10); lever arm ' + cur.L.toFixed(0) + ' mm; ' + cur.nCam + ' camera(s), up to ' + cur.faces + ' face(s). Dots: green both cameras see a tag, amber one, red none, grey the cube would touch the tube. Illustrative model.';
+    app.badge('lost', cur.collides ? 'the cube would pass through the tube wall or plate: not a valid position' : cur.sigma == null ? 'no camera sees a tag: the cube is hidden here' : (cur.nCam < 2 ? 'only one camera sees a tag: depth along its ray is the weak axis' : null), cur.sigma == null ? 'limit' : 'warn');
+    app.io.set({
+      commands: [{ name: 'Nothing is commanded here', value: '-', note: 'an observer; the pose could drive the actuators of other ideas' }],
+      observes: [
+        { name: 'Tag faces seen by camera A / B', value: (cams[0].last ? cams[0].last.seen : 0) + ' / ' + (cams[1].last ? cams[1].last.seen : 0), status: cur.nCam ? 'seen' : 'blind', note: 'drawn-scene line of sight + facing, not a detection' },
+        { name: 'Gun pose in the tube frame (6 numbers)', value: cur.sigma == null ? '-' : 'available', status: cur.sigma == null ? 'blind' : 'partly', note: 'needs the frame tags on the rotator and bench (not drawn)' },
+        { name: 'Uncertainty at the dot', value: cur.sigma == null ? '-' : f2(cur.sigma), unit: cur.sigma == null ? '' : 'mm (1 sigma)', status: cur.sigma == null ? 'blind' : 'partly', note: 'first-order model, illustrative' },
+        { name: 'The dot itself', value: '-', status: 'blind', note: 'inferred from a fixed cube-to-dot offset' },
+        { name: 'The corner and the wire tip', value: '-', status: 'blind', note: 'tags say where the gun is, not where the seam is' },
+        { name: 'Tube position in the nest (0.2 mm clearance, runout)', value: '-', status: 'unresolved', note: 'frame tags on the turntable see the nest, not the seam' },
+        { name: 'Detection under process light', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Fix the cube; calibrate cube-to-dot', 'Aim and calibrate the cameras to the tube frame'],
+    });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const g1 = app.ui.group('Cube on the shell (scene edits)');
+  g1.slider({ id: 'cz', label: 'Cube position behind the nozzle tip', min: 30, max: 250, step: 5, value: 70, unit: 'mm', kind: 'scene', visual: () => cube, help: 'Lever arm from the cube to the dot grows with this.', onChange: update });
+  g1.slider({ id: 'cth', label: 'Cube clock angle round the barrel', min: -120, max: 120, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => cube, help: '0 = top of the gun. The grip and the wire are on the bottom.', onChange: update });
+  g1.slider({ id: 'csize', label: 'Cube size', min: 15, max: 50, step: 1, value: 25, unit: 'mm', kind: 'scene', visual: () => cube, help: 'Each tag is 0.78 of a face. Bigger is more accurate but must fit beside the barrel.', onChange: update });
+  const g2 = app.ui.group('Fixed cameras (scene edits)');
+  g2.slider({ id: 'caz', label: 'Cameras: centre azimuth round the tube', min: 0, max: 355, step: 5, value: 190, unit: '°', kind: 'scene', visual: () => cams.map(c => c.api.helper), help: '0° is the weld-station side (+X); 180° is across the bore.', onChange: update });
+  g2.slider({ id: 'csep', label: 'Cameras: separation', min: 10, max: 160, step: 5, value: 70, unit: '°', kind: 'scene', visual: () => cams.map(c => c.api.helper), help: 'About 90° turns one camera’s depth axis into the other’s lateral axis.', onChange: update });
+  g2.slider({ id: 'cel', label: 'Cameras: elevation', min: 5, max: 80, step: 5, value: 35, unit: '°', kind: 'scene', visual: () => cams.map(c => c.api.helper), onChange: update });
+  g2.slider({ id: 'cdist', label: 'Cameras: distance from the dot', min: 250, max: 900, step: 10, value: 500, unit: 'mm', kind: 'scene', visual: () => cams.map(c => c.api.helper), onChange: update });
+  g2.slider({ id: 'cfov', label: 'Cameras: field of view', min: 15, max: 70, step: 1, value: 40, unit: '°', kind: 'scene', visual: () => cams.map(c => c.api.helper), help: 'Narrower gives more pixels on the tags but the cube must stay inside the field (the cameras look at a fixed point 130 mm behind the nozzle tip).', onChange: update });
+
+  app.label(() => cubeWorld(), 'tag cube', { cls: 'locate' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => camPos(-1), 'camera A', { cls: 'sensor' });
+  app.label(() => camPos(1), 'camera B', { cls: 'sensor' });
+  update();
+  window.__series = () => lastSeries;
+  window.__marker = () => { const occ = WK.occluders(app, {}); return evaluate(app.ui.get('cz'), app.ui.get('cth') * DEG, app.ui.get('csize'), occ); };
+})();
+</script>
+</body>
+</html>

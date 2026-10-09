@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Load-change budget</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .r13 { display: block; width: 100%; min-width: 820px; height: auto; }
+  .r13-read { padding: 10px 14px 16px; font-size: 12.5px; line-height: 1.5; color: #c7d3e6; max-width: 1100px; }
+  .r13-read table { border-collapse: collapse; width: 100%; margin-top: 6px; }
+  .r13-read td, .r13-read th { padding: 3px 10px 3px 0; text-align: left; vertical-align: top; border-bottom: 1px solid #263041; }
+  .r13-read th { color: #93a4bd; font-weight: 600; }
+  .r13-read b { color: #fff; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-13-load-change-budget",
+  "title": "Load-change budget: what the weld does after the last adjustment",
+  "by": "room",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "A lens for use-06 and use-02. Whatever loads change between the coach's last adjustment and the weld (wire feed starting, the gas hose stiffening, a trigger pressed on the gun) move the dot by the load change divided by the stiffness of whatever carries the gun. Put a load change and a tolerance in; see the dot shift for each kind of support, drawn from the study's own numbers and from a row you fill with a measurement.",
+  "tags": ["stiffness", "load-change", "coach-loop", "seat", "measurement", "lens"],
+  "branchOf": ["use-06-coach-loop", "use-02-swing-head"],
+  "combines": [],
+  "transferable": ["the required stiffness is load change divided by tolerance", "measure a support's stiffness with the gun's own weight and the indicator", "the dry run must carry every weld load except the beam"],
+  "how": {
+    "motion": "not an arrangement: a lens on any support",
+    "load": "each row is a different carrier of the gun; the number is stiffness at the dot for a load at the cable exit",
+    "reference": "none",
+    "observe": "nothing is observed here; the measurement that fills a row is a deflection under the gun's weight",
+    "use": "decide what a coach loop or a seat has to be stiff against, and what to measure first"
+  },
+  "software": { "commands": [], "observes": ["a deflection you type in"], "manual": ["weighing the gun", "reading the indicator at the dot with the gun hung from the support"] },
+  "notes": ["../../explorers/room/ideas/room-13-load-change-budget.md", "../../exchange/room--on--use-w2.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>use-06 sets a rule: <i>the last adjustment must come after the last thing that shifts</i>. Its loop trims the pose by knobs after the arm is locked, and the Monte-Carlo counts what the lock and the stage shift. What the weld shifts comes after all of that: the wire feed starts and its conduit pushes on the head, the gas hose stiffens, a finger pulls the trigger, the umbilical settles. No coach step can trim what appears after the last coach step.</p>' +
+        '<p>Two things decide how much it matters: <b>how big the load change is</b> (unmeasured) and <b>how stiff the thing carrying the gun is</b> (known for some supports from the study&rsquo;s own scenes, unknown for the ones people would buy). Their ratio is the dot shift. The bars show it on a log axis against a tolerance you set; nothing is scored.</p>' +
+        '<p><b>Try:</b> load change 1&nbsp;N, tolerance 0.1&nbsp;mm; read the stiffness needed under the axis; type your own arm into the last row by hanging the gun from it and reading the deflection at the dot.</p>',
+      carries:
+        '<p>Not a mechanism. Each row is a way to carry the gun: colour says where its stiffness came from (teal: this study&rsquo;s statics, blue: another explorer&rsquo;s scene, green: you), grey rows have no number and say what to measure. The stiffness is at the dot for a force at the cable exit (grip base); for a force elsewhere on the gun the lever changes.</p>',
+      software:
+        '<p>Nothing to command or observe. The measurement that fills a row is a deflection: the gun&rsquo;s own weight hung on the support and read at the dot with the indicator Derek already owns (a 0.0005&nbsp;in resolution). The <i>dry-run rule</i> that follows from the lens is a state: the coach&rsquo;s last round and the dry lap run with gas on, the wire jogged out with the feeder buttons [manual p.18], the hoses and work lead present (repo gate 9 already asks for a rehearsal with everything present) and, where a trigger path exists, the lever pulled with emission disabled.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>use-06&rsquo;s loop has no load-change term.</b> Its scene varies camera noise, knob step, hand error, arm-lock shift and stage shift; a converged loop stays converged. <i>Change:</i> a load change after the loop, divided by the support&rsquo;s stiffness. <i>Leaves:</i> the load change is unmeasured; the arm is unspecified in the scene.</li>' +
+        '<li><b>A friction arm of 0.1&nbsp;N/mm.</b> The freedom-06 scene puts a locked three-joint friction chain at 7 to 11&nbsp;mm per newton at the tip (illustrative there). At that stiffness 1&nbsp;N is 10&nbsp;mm, a hundred times the tolerance; the coach&rsquo;s fine knobs do not matter if the arm moves when a finger touches the trigger. <i>Leaves:</i> a real photo arm is not that model; hanging the gun from it settles it.</li>' +
+        '<li><b>A seat on a slender carrier.</b> use-02&rsquo;s seat holds the pose against contact scatter but the fork hangs off a post and an arm; in the statics of <code>seat-loop.mjs</code> that carrier is 8 to 41&nbsp;N/mm (T-slot down to round steel bars), so a 1&nbsp;N change moves the dot 0.02 to 0.12&nbsp;mm. <i>Change:</i> the seat carried by its own box column (room-12) at about 170 to 310&nbsp;N/mm.</li>' +
+        '<li><b>Taut lines are stiff on paper.</b> room-06&rsquo;s eight lines are 56 to 380&nbsp;N/mm if the line stiffness (EA 60&nbsp;kN) is real; creep, winch drums and guides are not in that number.</li>' +
+        '<li><b>A trigger pressed by a finger is a load change that a cable and lever can nearly remove</b> (room-14): 6&nbsp;N against the shell becomes a few tenths of a newton of residual. <i>Leaves:</i> the trigger force.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The load change itself: how much the wire conduit pushes when feeding starts, how the gas hose changes with flow, how the umbilical creeps after the last adjustment. A spring scale at the grip base with each switched on, one at a time, gives three numbers.</li>' +
+        '<li>The gun&rsquo;s mass (a kitchen scale; the mass slider defaults to 1.5&nbsp;kg, unmeasured) and the deflection under it for any support Derek might use.</li>' +
+        '<li>What tolerance the melt tolerates. The 0.1&nbsp;mm default is a slider; the wobble in the recipe is 2&nbsp;mm wide.</li>' +
+        '<li>Direction: the stiffness of a real support differs by direction; the rows give the worst direction of the model or a single number.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Seat rows: statics of a 3D beam frame, post to the fork height and a horizontal seat arm, load at the cable exit, dot 124 to 154&nbsp;mm from the seat centre; sections illustrative; rigid joints, bench and contacts. <code>explorers/room/calc/seat-loop.mjs</code>.</li>' +
+        '<li>Friction arm: freedom-06 scene, 7 to 11&nbsp;mm/N at the tip, illustrative there. Bungee suspension: <code>explorers/room/calc/suspension-stiffness.mjs</code> (0.007 to 0.2&nbsp;N/mm). Cords: <code>corner-cords.mjs</code> family, EA 60&nbsp;kN assumed.</li>' +
+        '<li>Table-plane row: the drive at 10&nbsp;N/mm is room-02&rsquo;s slider default; z, pitch and roll are held by contact, in the plane friction holds up to about 3.5&nbsp;N (0.35 times about 10&nbsp;N of foot load).</li>' +
+        '<li>Gravity is 9.81&nbsp;m/s&sup2;; the measured row uses mass times gravity divided by the deflection.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculations (seat loop, suspension stiffness)', href: '../../explorers/room/calc/' }],
+  });
+  const st = app.stageEl;
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const txt = (x, y, s, attrs) => el('text', Object.assign({ x: x, y: y, style: 'font-size:12px;fill:#c7d3e6' }, attrs || {}), document.createTextNode(s));
+  const svg = el('svg', { class: 'r13', viewBox: '0 0 1100 700', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'Dot shift by support' });
+  const read = WK.h('div', { class: 'r13-read' });
+  st.appendChild(svg); st.appendChild(read);
+  const S = { df: 1, tol: 0.1, mass: 1.5, defl: 8 };
+  const G = 9.81;
+  const HEX = { derived: WK.roleHex('locate'), scene: WK.roleHex('sensor'), you: WK.roleHex('compliant'), unknown: '#64748b' };
+  // rows: k in N/mm at the dot for a force at the cable exit; a range is [low, high]
+  const ROWS = [
+    { g: 'Arms and suspension: soft supports' },
+    { id: 'fric', label: 'Friction (photo) arm, locked', k: [0.09, 0.14], b: 'scene', note: 'freedom-06 scene: 7 to 11 mm per N at the tip (illustrative there)' },
+    { id: 'bung', label: 'Ring and bungee suspension (Derek’s example)', k: [0.007, 0.2], b: 'derived', note: 'suspension-stiffness.mjs: pendulum plus bungee pair' },
+    { id: 'gas', label: 'Gas-spring monitor arm', k: null, b: 'unknown', note: 'no stiffness known; hang the gun from it and read the dot' },
+    { id: 'you', label: 'Your support, measured: gun weight / deflection', k: 'measured', b: 'you', note: 'sliders below: mass and deflection at the dot' },
+    { g: 'A kinematic seat and what carries it' },
+    { id: 's2020', label: 'use-02 seat on a T-slot post and arm', k: [8.4, 8.4], b: 'derived', note: '119 um/N; post 320, arm 300 mm; J guessed' },
+    { id: 'sal', label: '... on round aluminium bars Ø26 / Ø14 (as drawn)', k: [14.0, 14.0], b: 'derived', note: '71 um/N; scene states no material' },
+    { id: 'sst', label: '... on round steel bars Ø26 / Ø14 (as drawn)', k: [40.7, 40.7], b: 'derived', note: '25 um/N' },
+    { id: 'box', label: 'Seat on its own 40×40×3 aluminium box column (room-12)', k: [312, 312], b: 'derived', note: '3.2 um/N; column 342 mm, arm 100 mm' },
+    { id: 'stl', label: 'Seat on its own 25×25×2.5 steel tube (room-12)', k: [172, 172], b: 'derived', note: '5.8 um/N' },
+    { g: 'Lines and the table plane' },
+    { id: 'cord', label: 'Eight taut lines (room-06)', k: [56, 380], b: 'derived', note: '56 at room scale, 194 to 380 at 0.6 to 1.0 m; EA 60 kN assumed' },
+    { id: 'tab', label: 'Gun on three feet on the table plane, drive 10 N/mm (room-02)', k: [10, 10], b: 'derived', note: 'z, pitch, roll by contact; friction holds in plane to about 3.5 N' },
+  ];
+  const X0 = 470, X1 = 1060, DMIN = 0.001, DMAX = 100;
+  const X = d => X0 + (Math.log10(Math.min(DMAX, Math.max(DMIN, d))) - Math.log10(DMIN)) / (Math.log10(DMAX) - Math.log10(DMIN)) * (X1 - X0);
+  const fmt = d => (d >= 10 ? d.toFixed(0) : d >= 1 ? d.toFixed(1) : d >= 0.1 ? d.toFixed(2) : d.toFixed(3)) + ' mm';
+  function draw() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(txt(20, 22, 'Dot shift = load change / stiffness at the dot. Load change ' + S.df.toFixed(2) + ' N, tolerance ' + S.tol.toFixed(2) + ' mm: stiffness needed to hold it is ' + (S.df / S.tol).toFixed(0) + ' N/mm.', { style: 'font-size:13.5px;fill:#fff;font-weight:600' }));
+    let y = 54;
+    // axis
+    [0.001, 0.01, 0.1, 1, 10, 100].forEach(d => {
+      svg.appendChild(el('line', { x1: X(d), y1: 40, x2: X(d), y2: 660, stroke: '#232d3b', 'stroke-width': 1 }));
+      svg.appendChild(txt(X(d), 674, (d < 1 ? d : d.toFixed(0)) + ' mm', { 'text-anchor': 'middle', style: 'font-size:11px;fill:#7d8ea8' }));
+    });
+    svg.appendChild(el('line', { x1: X(S.tol), y1: 40, x2: X(S.tol), y2: 660, stroke: '#f59e0b', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }));
+    svg.appendChild(txt(X(S.tol) + 4, 52, 'tolerance', { style: 'font-size:11px;fill:#f59e0b' }));
+    ROWS.forEach(r => {
+      if (r.g) { y += 12; svg.appendChild(txt(20, y + 8, r.g, { style: 'font-size:12.5px;fill:#dbe6ff;font-weight:600' })); y += 22; return; }
+      let klo = null, khi = null;
+      if (r.k === 'measured') { klo = khi = S.mass * G / S.defl; } else if (r.k) { klo = r.k[0]; khi = r.k[1]; }
+      svg.appendChild(txt(28, y + 13, r.label, { style: 'font-size:12px;fill:#e6edf7' }));
+      svg.appendChild(txt(28, y + 27, r.note, { style: 'font-size:10.5px;fill:#7d8ea8' }));
+      if (klo == null) {
+        svg.appendChild(el('rect', { x: X0, y: y + 6, width: X1 - X0, height: 16, rx: 3, fill: 'none', stroke: '#475569', 'stroke-dasharray': '4 4' }));
+        svg.appendChild(txt(X0 + 8, y + 18, 'no number yet: measure it', { style: 'font-size:11px;fill:#94a3b8' }));
+      } else {
+        const d1 = S.df / khi, d2 = S.df / klo, xa = X(d1), xb = Math.max(X(d2), xa + 5);
+        svg.appendChild(el('rect', { x: xa, y: y + 6, width: xb - xa, height: 16, rx: 3, fill: HEX[r.b], opacity: 0.9 }));
+        const lab = (Math.abs(d2 - d1) / d2 < 0.02 ? fmt(d2) : fmt(d1) + ' to ' + fmt(d2)) + '   (' + (klo === khi ? klo.toFixed(klo < 1 ? 2 : 1) : klo + ' to ' + khi) + ' N/mm)';
+        const tx = xb + 8 < X1 - 190 ? xb + 8 : xa - 8, anchor = xb + 8 < X1 - 190 ? 'start' : 'end';
+        svg.appendChild(txt(tx, y + 18, lab, { 'text-anchor': anchor, style: 'font-size:11px;fill:#e6edf7' }));
+      }
+      y += 38;
+    });
+    // legend
+    let lx = 20;
+    [['derived', 'this study’s statics'], ['scene', 'another explorer’s scene'], ['you', 'your measurement'], ['unknown', 'no number']].forEach(k => {
+      svg.appendChild(el('rect', { x: lx, y: 680, width: 10, height: 10, rx: 2, fill: HEX[k[0]] })); svg.appendChild(txt(lx + 15, 689, k[1], { style: 'font-size:11px;fill:#93a4bd' })); lx += 175;
+    });
+    read.innerHTML =
+      '<b>Where the load change comes from</b> (all unmeasured; one spring-scale reading each, taken at the grip base with the gun in the working pose and the cable laid as it will lie):' +
+      '<table><tr><th>source</th><th>what it is</th><th>how to read it</th></tr>' +
+      '<tr><td>Trigger, finger on the gun</td><td>the full trigger force is external on a supported gun</td><td>spring scale on the trigger with the gun clamped; room-14 turns it into a residual of a few tenths of a newton</td></tr>' +
+      '<tr><td>Wire feed starting</td><td>the conduit pushes or pulls on the wire bracket as feeding begins</td><td>scale at the bracket, jog the wire with the laser off [manual p.18]</td></tr>' +
+      '<tr><td>Gas hose flow</td><td>the 6 mm tube stiffens with pressure at 15 to 20 L/min [manual p.19]</td><td>scale at the hose fitting, flow on and off</td></tr>' +
+      '<tr><td>Umbilical settling</td><td>a slow creep after the last adjustment; the cable&rsquo;s stiffness is unmeasured</td><td>indicator on the dot over ten minutes</td></tr>' +
+      '<tr><td>Heat</td><td>shell and support grow; not a force, a drift</td><td>the flight recorder (use-08) after a real weld</td></tr></table>' +
+      '<p style="margin-top:8px"><b>The rule that follows:</b> the coach&rsquo;s last round, and the dry lap it trusts, run with every weld load present except the beam. Where that is not enough, the support has to be stiff against the difference: stiffness needed = load change / tolerance.</p>';
+    app.io.set({ commands: [], observes: [{ name: 'Deflection under the gun’s weight', value: S.defl.toFixed(2), unit: 'mm', status: 'manual', note: 'typed in from an indicator reading at the dot' }], manual: ['Weigh the gun', 'Hang it from the support and read the dot', 'Spring scale at the grip base for each load'] });
+  }
+  app.ui.slider({ id: 'df', label: 'Load change after the last adjustment', min: 0.05, max: 10, step: 0.05, value: 1, unit: 'N', kind: 'scene', help: 'Wire feed, gas hose, trigger, umbilical settling, added. Unmeasured.', onChange: v => { S.df = v; draw(); } });
+  app.ui.slider({ id: 'tol', label: 'Tolerance at the dot', min: 0.02, max: 0.5, step: 0.01, value: 0.1, unit: 'mm', kind: 'scene', help: 'How far the dot may move before the melt cares. Nobody has measured what it tolerates.', onChange: v => { S.tol = v; draw(); } });
+  app.ui.slider({ id: 'mass', label: 'Gun mass (for the measured row)', min: 0.5, max: 3, step: 0.05, value: 1.5, unit: 'kg', kind: 'scene', help: 'Unknown until weighed; with the shell.', onChange: v => { S.mass = v; draw(); } });
+  app.ui.slider({ id: 'defl', label: 'Deflection at the dot under that weight', min: 0.02, max: 30, step: 0.02, value: 8, unit: 'mm', kind: 'scene', help: 'Hang the gun from the support (or push down with its weight), read the indicator at the dot.', onChange: v => { S.defl = v; draw(); } });
+  draw();
+})();
+</script>
+</body>
+</html>

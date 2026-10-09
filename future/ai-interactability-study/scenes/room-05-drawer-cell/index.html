@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawer cell</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-05-drawer-cell",
+  "title": "Drawer cell: the rotator comes to a gun that never moves",
+  "by": "room",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A laser-safe cabinet with the gun and two cameras fixed inside. The rotator rides out on drawer slides for loading and indicating, and rolls back into a kinematic dock. Because the dock and the rotator's nest are already precision datums, what is left for a small fine stage on the gun is a fraction of a millimetre sideways and a few millimetres of plate depth. Cameras never move relative to the gun, so they are calibrated once.",
+  "tags": ["cell", "drawer", "dock", "enclosure", "fixed-gun", "interlock", "tube-swap"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["dock lowers the work past the nozzle", "gun and cameras in one rigid frame", "interlock from drawer and door state", "tolerance roll-up for the fine stage"],
+  "how": {
+    "motion": "the drawer moves the rotator between load and weld; a small stage moves the gun a few mm",
+    "load": "the cell frame carries the gun stage, the cameras and the drawer rails",
+    "reference": "three-ball kinematic dock for the rotator; the rotator's own nest for the tube",
+    "observe": "two fixed cameras inside; dock and door switches; step counts",
+    "use": "pull out, load and indicate by hand, push in, null the dot, weld, pull out"
+  },
+  "software": {
+    "commands": ["drawer position (motorised, optional)", "gun fine stage X, Y, Z", "rotator speed and direction (existing)"],
+    "observes": ["dot and seam from two fixed cameras", "dock-seated and door-closed switches", "step counts"],
+    "manual": ["loading, seating and indicating the tube with the drawer out", "tacking the plate", "one-time gun and camera alignment in the cell"]
+  },
+  "notes": ["../../explorers/room/ideas/room-05-drawer-cell.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md", "../../explorers/room/ideas/room-18-cabinet-station.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const BZ = -165, TOPZ = 560, DOCK_DROP = 26;
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'none' }, view: 'overall',
+    viewButtons: ['overall', 'joint', 'front', 'top'],
+    views: {
+      overall: { target: [0, 60, 180], dir: [0.8, 0.9, 0.55], dist: 1600 },
+      joint: { target: [30, -30, 190], dir: [0.8, 0.5, 0.4], dist: 420 },
+      front: { target: [0, 0, 200], dir: [0, 1, 0.12], dist: 1500 },
+      top: { target: [0, 60, 200], dir: [0, 0.003, 1], dist: 1300 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The cell is a box (2020-style frame with panels) that also happens to be the laser enclosure. The <b>gun does not move</b>: a printed shell on a small XYZ stage on the back wall, and two cameras fixed to the frame, all in one rigid loop. The <b>rotator rides on drawer slides</b>: pulled out, the tube is loaded and indicated by hand at a comfortable height; pushed in, it rolls up a short ramp into a three-ball dock. The ramp <i>lowers</i> the tube 26 mm while it moves, so the wall never slides under the nozzle 5 mm above the rim.</p>' +
+        '<p><b>Try:</b> slide the drawer out and in; a new tube has been loaded (it sits 0.15 mm off in X, 0.20 in Y, its plate 1.2 mm deep). Null the dot with the three purple stage sliders: the sideways range is a fraction of a millimetre, plate depth a few millimetres. Open the door and watch the interlock.</p>',
+      carries: '<p><b>Slate</b> is the cell frame. <b>Amber</b> carries: the drawer plate, the shell arm. <b>Teal</b> locates: the three dock balls (and their V seats on the drawer), and the tube\'s ID pilot in the nest. <b>Purple</b> moves: the drawer (a motor or a hand, either) and the gun stage. <b>Blue</b> cameras are fixed to the frame.</p>' +
+        '<p>Because everything the gun and cameras depend on is one frame, the camera calibration is done once: the dot sits at the same pixel in every image and the <i>seam</i> is what moves. That is the property the AI gets to exploit.</p>',
+      software: '<p>Commands: drawer, three stage axes, rotator. Observations: two fixed cameras, the dock and door switches, step counts. The interlock is a state machine, not a sensor: <b>the laser may only be enabled when the drawer is seated and the door is closed</b> (Derek\'s existing work-contact interlock still applies on top). That makes unattended dry runs and welds schedulable in a way an open bench is not.</p>',
+      tried: '<ul>' +
+        '<li><b>"A fixed gun still needs a big stage."</b> Not here: the tube axis relative to the cell is the dock repeat (0.03 to 0.05&nbsp;mm, illustrative) plus the tube\'s ID pilot clearance in the nest (0.20&nbsp;mm radial, from the rotator doc) plus indicated runout (0.25&nbsp;mm TIR radial, from the rig doc). That is about ±0.4&nbsp;mm sideways in the worst case (0.04 + 0.20 + 0.125, half of the 0.25 TIR), against ±16.8&nbsp;mm for the loose table hole in room-01 (<code>drawer-rollup.mjs</code>). Z is the big one: the plate seat depth varies by an unknown amount (±3&nbsp;mm illustrative) plus 0.30&nbsp;mm face runout. See the roll-up readout. <i>Leaves:</i> nothing corrects tube tilt; face runout stays.</li>' +
+        '<li><b>The wall slides under the nozzle.</b> The nozzle is 5&nbsp;mm above the rim at the opening pose; a tube pulled out along Y drags the rim under it within about 20&nbsp;mm of travel. <i>Repair:</i> the dock ramp lowers the drawer 26&nbsp;mm over its first 40&nbsp;mm of travel. <i>Leaves:</i> the ramp needs a defined lift and must not jolt the tube in its nest; a cam and a damped rise are one option.</li>' +
+        '<li><b>Hand access through a laser enclosure.</b> A stuck wire is snipped with the head where it stopped: the door must open with the gun still there. <i>Repair:</i> door interlock (laser cannot be enabled with the door open) and a lens-covered window for observing. <i>Leaves:</i> the operator no longer sees the weld directly.</li>' +
+        '<li><b>Rotator in a drawer.</b> The rotator weighs a few kilograms with the tube (1.4 to 2.0&nbsp;kg tube; the base is PET-GF); ball-bearing slides rated 45&nbsp;kg carry that easily but their side play is 0.5 to 1&nbsp;mm. <i>Repair:</i> the dock, not the slides, sets the position. <i>Leaves:</i> the dock must grab a drawer that arrives 1&nbsp;mm off.</li>' +
+        '<li><b>Fume and spatter</b> in a closed box; the argon flows at 15 to 20&nbsp;L/min into a small volume. <i>Leaves:</i> extraction and purge: not designed.</li></ul>',
+      unresolved: '<ul><li>Dock hardware: three balls in V grooves with a preload, or a commercial zero-point clamp, or pins; the rotator has no such feature today.</li>' +
+        '<li>Whether a motorised drawer is worth it (a hand pull is fine for a per-tube swap; a motor makes the AI loop unattended).</li>' +
+        '<li>Size: cabinet roughly 0.8 × 0.7 × 0.65&nbsp;m; where it stands relative to the bench and the laser unit.</li>' +
+        '<li>The second closure: its ports are reached through the 90&nbsp;mm service bore of the rotator, so the drawer plate needs a matching opening.</li></ul>',
+      assumptions: '<ul><li>Gun proxy at the opening pose. Cabinet, drawer travel 420&nbsp;mm, ramp 26&nbsp;mm over 40&nbsp;mm: illustrative.</li>' +
+        '<li>Dock repeat 0.04&nbsp;mm, nest clearance 0.20&nbsp;mm, runout 0.25 and 0.30&nbsp;mm TIR: the last three are from the rotator and rig docs; the dock number is illustrative.</li>' +
+        '<li>New-tube offsets and seat depth are illustrative. Camera views are drawn-scene line of sight.</li>' +
+        '<li>Stage ranges ±3&nbsp;mm X and Y and ±5&nbsp;mm Z are chosen to cover the roll-up with margin; not a requirement.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { s: 0, fx: 0, fy: 0, fz: 0, nx: 0.15, ny: -0.2, seat: -1.2, dock: [0.02, -0.03, 0.01], door: true, roll: 45, hole: 30, vert: -15, tableSee: true, bAt: 'far' };
+
+  // ---------------------------------------------------------------- cell frame, ghost panels, rails, dock
+  const posts = [[-380, -320], [380, -320], [-380, 300], [380, 300]];
+  posts.forEach(p => app.add(P.rod(V(p[0], p[1], BZ), V(p[0], p[1], TOPZ), 8, 'fixed')));
+  [[-380, -320, 380, -320], [380, -320, 380, 300], [380, 300, -380, 300], [-380, 300, -380, -320]].forEach(q => { app.add(P.rod(V(q[0], q[1], TOPZ), V(q[2], q[3], TOPZ), 5, 'fixed')); app.add(P.rod(V(q[0], q[1], BZ), V(q[2], q[3], BZ), 5, 'fixed')); });
+  const floor = P.box(780, 640, 10, 'fixed'); floor.position.set(0, -10, BZ + 5); app.add(floor);
+  const back = P.plane(760, TOPZ - BZ, 'ghost'), left = P.plane(TOPZ - BZ, 620, 'ghost'), right = P.plane(TOPZ - BZ, 620, 'ghost'), top = P.plane(760, 620, 'ghost'), door = P.plane(760, TOPZ - BZ, 'ghost');
+  back.rotation.x = Math.PI / 2; back.position.set(0, -320, (TOPZ + BZ) / 2); app.add(back);
+  [left, right].forEach((w, i) => { w.rotation.set(0, Math.PI / 2, 0); w.position.set(i ? 380 : -380, -10, (TOPZ + BZ) / 2); app.add(w); });
+  top.position.set(0, -10, TOPZ); app.add(top);
+  door.rotation.x = Math.PI / 2; door.position.set(0, 300, (TOPZ + BZ) / 2); app.add(door);
+  // drawer rails (fixed) and dock balls
+  const RAILZ = -145;
+  [-170, 170].forEach(x => app.add(P.rail(V(x, -260, RAILZ), V(x, 700, RAILZ), { width: 14, height: 8, role: 'fixed' })));
+  const balls = [[-120, -100], [120, -100], [0, 110]].map(p => { const b = P.sphere(9, 'locate'); b.position.set(p[0], p[1], -120); app.add(b); app.add(P.rod(V(p[0], p[1], BZ + 10), V(p[0], p[1], -128), 4, 'fixed')); return b; });
+  // drawer plate and V seats ride with the tube
+  const plate = P.box(380, 330, 9, 'load'); ws.group.add(plate); plate.position.set(0, 0, -90.5);
+  const seats = [[-120, -100], [120, -100], [0, 110]].map(p => { const b = P.box(24, 24, 10, 'locate'); b.position.set(p[0], p[1], -106); ws.group.add(b); return b; });
+  const slidersL = [-170, 170].map(x => { const b = P.box(16, 300, 20, 'actuated'); b.position.set(x, 0, -105); ws.group.add(b); return b; });
+  ws.tube.material = WK.mat('work', { side: 'double' });
+
+  // ---------------------------------------------------------------- gun, shell, stage on the back wall
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const lug = shell.attachPoint('housingBack', { side: 'back', role: 'locate', size: 9 });
+  gun.setLaser(true);
+  const stageBase = P.box(120, 40, 120, 'fixed'); app.add(stageBase);
+  const stageCar = P.box(90, 50, 80, 'actuated'); app.add(stageCar);
+  const arm = P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'load'); app.add(arm);
+  const proxy = {
+    dotOffset: function () { const d = gun.dotWorld().sub(ws.group.position), o = ws.offsetOf(d); o.vertical -= S.seat; o.miss = Math.hypot(o.radial, o.vertical); return o; },
+    beamDir: () => gun.beamDir(),
+  };
+  app.cornerInset({ gun: proxy });
+
+  // ---------------------------------------------------------------- cameras fixed to the frame
+  const camA = app.inset.add({ id: 'A', label: 'Camera A: frame top, sees the dot (fixed)', position: V(-150, 170, 500), target: () => gun.dotWorld(), fov: 32, near: 40, far: 1500, size: [220, 150], corner: 'br', noise: 0.25 });
+  const B_AT = { far: V(-330, 20, 168), profile: V(62, 330, 164) };   // far side of the bore (as first drawn) or in profile beside the station (eyes-16): the profile place is on the drawer's own path
+  const camB = app.inset.add({ id: 'B', label: 'Camera B: rim height, sees the nozzle tip (fixed)', position: B_AT.far, target: () => gun.local('nozzleTip'), fov: 22, near: 40, far: 1500, size: [220, 130], corner: 'bl', noise: 0.2 });
+  app.label(() => ws.group.position.clone().add(V(0, 0, 60)), 'rotator + tube on the drawer', { cls: 'actuated' });
+  app.label(balls[2], 'dock ball (x3)', { cls: 'locate' });
+  app.label(stageCar, 'gun fine stage (XYZ)', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => B_AT[S.bAt], 'camera B', { cls: 'sensor' });
+  app.label(V(-150, 170, 500), 'camera A', { cls: 'sensor' });
+  app.label(door, 'door (interlocked)', {});
+
+  // ---------------------------------------------------------------- update
+  const zOf = s => -DOCK_DROP * Math.min(1, Math.max(0, s / 40));
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+  function update() {
+    const docked = S.s < 0.5;
+    // tube frame: drawer travel along +Y, ramp lowers it, dock error only when seated, nest offset and seat depth are the tube's
+    const dk = docked ? S.dock : [0, 0, 0];
+    ws.group.position.set(dk[0] + S.nx, S.s + dk[1] + S.ny, zOf(S.s) + dk[2]);
+    ws.cap.position.z = S.seat; ws.weldCircle.position.z = WK.CAP_TOP + 0.3 + S.seat; if (ws.parts.plateTick) ws.parts.plateTick.position.z = WK.CAP_TOP + 0.25 + S.seat;
+    gun.setDials(S.roll, S.hole, S.vert); gun.group.position.x += S.fx; gun.group.position.y += S.fy; gun.group.position.z += S.fz; gun.group.updateMatrixWorld(true);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, S.seat);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+    const lw = lug.world();
+    stageBase.position.set(lw.x + 0, -286, lw.z); stageCar.position.set(lw.x + S.fx * 0, -240, lw.z);
+    stageCar.position.set(lw.x, -250, lw.z);
+    arm.setEnds(V(lw.x, -228, lw.z), lw);
+    door.visible = S.door;
+    app.badge('lock', (docked && S.door) ? null : 'laser interlock OPEN: ' + (!S.door ? 'door open' : 'drawer not seated'), (docked && S.door) ? 'ok' : 'warn');
+    const seeDot = app.inset.markVisibility('A', gun.dotWorld());
+    camB.setPose(B_AT[S.bAt], () => gun.local('nozzleTip'));
+    // the tip is a point ON the axis of a thin part: without eps it is hidden by the nozzle's own skin (this was read as 'blocked by gun' before; kit README section 5)
+    const seeTip = app.inset.markVisibility('B', gun.local('nozzleTip'), { eps: 3 });
+    const bInPath = S.bAt === 'profile';
+    app.badge('bpath', bInPath && S.s > 250 ? 'camera B stands on the drawer\'s path: the tube would reach it at y = 330' : null, 'limit');
+    const off = proxy.dotOffset();
+    app.badge('miss', docked && off.miss > 0.25 ? 'dot is ' + off.miss.toFixed(2) + ' mm from the seam' : null, off.miss > 1 ? 'limit' : 'warn');
+    setDock(docked ? 'seated' : 'out ' + S.s.toFixed(0) + ' mm'); setMiss(docked ? off.miss.toFixed(2) : '-', 'mm');
+    app.io.set({
+      commands: [
+        { name: 'Drawer position', value: S.s.toFixed(0), unit: 'mm', note: 'motorised (optional) or hand-pulled with a position switch; the ramp lowers the tube ' + Math.abs(zOf(S.s)).toFixed(0) + ' mm now' },
+        { name: 'Gun stage X, Y, Z', value: S.fx.toFixed(2) + ', ' + S.fy.toFixed(2) + ', ' + S.fz.toFixed(2), unit: 'mm', note: 'small stage on the back wall' },
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing console; needs the drawer seated' },
+      ],
+      observes: [
+        { name: 'Dot vs seam (camera A)', value: docked && seeDot.visible ? (off.radial + 0.08).toFixed(2) + ', ' + (off.vertical - 0.05).toFixed(2) : '-', unit: docked && seeDot.visible ? 'mm r, z' : '', status: docked && seeDot.visible ? 'partly' : 'blind', note: docked ? (seeDot.visible ? 'estimate with made-up bias; exact error in the corner inset' : 'camera A is blocked or looking away') : 'drawer is out: there is no dot to see at the seam' },
+        { name: 'Nozzle over the rim (camera B, ' + (S.bAt === 'far' ? 'far side of the bore' : 'in profile') + ')', value: docked && seeTip.visible ? (gun.local('nozzleTip').z - (WK.CAP_TOP + 6.35 + ws.group.position.z)).toFixed(1) : '-', unit: 'mm', status: docked && seeTip.visible ? 'seen' : 'blind', note: 'the tip needs eps 3 in the drawn-scene test; the wire tip beside it is not drawn as an occluder here' },
+        { name: 'Rim height and sideways position while the drawer rolls in', value: docked ? '-' : 'passing the frame', status: docked ? 'unresolved' : 'partly', note: 'the drawer stroke is an observing stroke: a fixed camera sees the rim go by before the dock seats it (eyes)' },
+        { name: 'Dock seated / door closed', value: (docked ? 'seated' : 'out') + ' / ' + (S.door ? 'closed' : 'open'), status: 'seen', note: 'two switches; the interlock is logic on these' },
+        { name: 'Plate depth, tube tilt', value: '-', status: 'blind', note: 'plate depth shows only as a vertical dot error; tilt is the face runout and is not corrected' },
+        { name: 'Wire tip, fume', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Pull out; load, seat and indicate the tube by hand', 'Tack the plate', 'Align gun and cameras once in the cell', 'Snip a stuck wire with the door open'],
+    });
+    // tolerance roll-up: fine-stage range needed (worst-case sum, illustrative dock)
+    const xy = 0.04 + 0.20 + 0.25 / 2, z = 3 + 0.30 / 2 + 0.04;
+    setRoll('±' + xy.toFixed(2) + ' mm X,Y; ±' + z.toFixed(1) + ' mm Z');
+  }
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setDock = app.ui.readout('dock', 'Drawer'), setMiss = app.ui.readout('miss', 'Dot to seam (exact, docked)'), setRoll = app.ui.readout('roll', 'Fine-stage range this cell needs');
+
+  // ---------------------------------------------------------------- controls
+  const act = app.ui.group('Commands (proposed actuators)', {});
+  act.slider({ id: 'drawer', label: 'Drawer: 0 = docked, 420 = out at the load station', min: 0, max: 420, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [ws.group, plate], help: 'Motorised (optional) or hand-pulled. The first 40 mm are the ramp that lowers the tube.', onChange: v => { S.s = v; update(); } });
+  act.slider({ id: 'fx', label: 'Gun stage X (radial)', min: -3, max: 3, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fx = v; update(); } });
+  act.slider({ id: 'fy', label: 'Gun stage Y (tangent)', min: -3, max: 3, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fy = v; update(); } });
+  act.slider({ id: 'fz', label: 'Gun stage Z', min: -5, max: 5, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stageCar], onChange: v => { S.fz = v; update(); } });
+  act.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  act.toggle({ id: 'door', label: 'Door closed', value: true, kind: 'state', visual: () => [door], help: 'Open it to see the interlock; the laser cannot be enabled.', onChange: v => { S.door = v; update(); } });
+  const tube = app.ui.group('What the last tube did (scene edits)', { help: 'Not hardware: where this tube sits in its nest and how deep its plate is.' });
+  tube.slider({ id: 'nx', label: 'Tube offset in the nest, X', min: -0.5, max: 0.5, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', visual: () => [ws.tube], help: 'The nest ID pilot has 0.20 mm radial clearance.', onChange: v => { S.nx = v; update(); } });
+  tube.slider({ id: 'ny', label: 'Tube offset in the nest, Y', min: -0.5, max: 0.5, step: 0.01, value: -0.2, unit: 'mm', kind: 'scene', visual: () => [ws.tube], onChange: v => { S.ny = v; update(); } });
+  tube.slider({ id: 'seat', label: 'Plate seat depth vs nominal', min: -6, max: 3, step: 0.05, value: -1.2, unit: 'mm', kind: 'scene', visual: () => [ws.cap], help: 'Unknown magnitude; illustrative.', onChange: v => { S.seat = v; update(); } });
+  tube.button({ id: 'redock', label: 'Dock again (new dock repeat error)', kind: 'scene', help: 'Draws a new random dock error of about 0.04 mm.', onClick: () => { const r = () => (Math.random() * 2 - 1) * 0.05; S.dock = [r(), r(), r() * 0.5]; update(); } });
+  tube.toggle({ id: 'runout', label: 'Show indicated runout while turning', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+  const cb = app.ui.group('Camera B station (scene edit)', { help: 'Camera B is the nozzle-height camera: it sees the tip against the rim and so gives the position along the beam that camera A cannot (eyes-13).' });
+  cb.radio({ id: 'bAt', label: 'Where camera B stands', kind: 'scene', value: 'far', options: [{ value: 'far', label: 'Far side of the bore', help: 'As first drawn: 330 mm out on the radial line behind the gun, 15.6 mm above the rim. Sees the tip.' }, { value: 'profile', label: 'In profile (on the drawer path)', help: 'Beside the station looking along the tangent, 12 mm above the rim (eyes-16). It is on the line the drawer travels along.' }], onChange: v => { S.bAt = v; update(); } });
+  const pr = app.ui.group('Print-time choices (shell angles)', { open: false });
+  pr.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.roll = v; update(); } });
+  pr.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.hole = v; update(); } });
+  pr.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.vert = v; update(); } });
+  const vw = app.ui.group('View', { open: false });
+  vw.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+})();
+</script>
+</body>
+</html>

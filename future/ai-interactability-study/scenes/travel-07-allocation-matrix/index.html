@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Allocation matrix</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-07-allocation-matrix",
+  "title": "Allocation matrix: who supplies each relative motion",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "Every arrangement is an allocation: for each relative motion at the dot, which body moves, by motor, hand, spring or gravity, and whether that changes between setup and the weld. Derek's three examples and the twelve travel arrangements as rows; blanks are motions nobody named.",
+  "tags": ["lens", "allocation", "overview", "setup vs weld", "who moves what", "park"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["the rows nobody named", "the setup / weld column pair", "a blank cell is a question, not a rejection"],
+  "how": {
+    "motion": "no motion: a table. Toggle setup or weld, filter by who supplies the motion",
+    "load": "one column names what carries the cables",
+    "reference": "one row per arrangement says what establishes position",
+    "observe": "the details panel lists what software could command and observe",
+    "use": "read across to compare allocations; open the linked scene for the mechanism"
+  },
+  "software": {
+    "commands": ["none: this is an overview, not an arrangement"],
+    "observes": ["none"],
+    "manual": ["reading it"]
+  },
+  "notes": ["../../explorers/travel/ideas/travel-07-allocation-matrix.md", "../../explorers/travel/notebook.md"],
+  "sources": ["../../sourcing/travel.md"]
+}
+</script>
+<style>
+  .am { padding: 4px 6px 12px; color: var(--wk-text); }
+  .am table { border-collapse: separate; border-spacing: 3px; width: 100%; table-layout: fixed; font-size: 11.5px; }
+  .am th { color: var(--wk-faint); font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: .05em; padding: 4px 4px; text-align: left; vertical-align: bottom; }
+  .am td.name { color: var(--wk-text); font-weight: 600; font-size: 12px; padding: 6px 8px; background: var(--wk-panel2); border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+  .am tr.sel td.name { border-color: #93c5fd; }
+  .am tr.dk td.name { border-left: 3px solid #f5a524; }
+  .am tr.sw td.name { border-left: 3px solid #14b8a6; }
+  .am td.c { padding: 5px 6px; border-radius: 6px; background: var(--wk-panel2); border: 1px solid var(--wk-line); vertical-align: top; min-height: 44px; line-height: 1.25; }
+  .am td.c b { display: block; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 1px; }
+  .am td.c.motor { border-color: #a855f7; background: rgba(168, 85, 247, .13); } .am td.c.motor b { color: #c9a0fb; }
+  .am td.c.hand { border-color: #fb923c; background: rgba(251, 146, 60, .12); } .am td.c.hand b { color: #fdba74; }
+  .am td.c.spring { border-color: #4ade80; background: rgba(74, 222, 128, .10); } .am td.c.spring b { color: #86efac; }
+  .am td.c.gravity { border-color: #94a3b8; background: rgba(148, 163, 184, .10); } .am td.c.gravity b { color: #cbd5e1; }
+  .am td.c.seat { border-color: #14b8a6; background: rgba(20, 184, 166, .12); } .am td.c.seat b { color: #5eead4; }
+  .am td.c.locked { border-color: #6b7a90; background: rgba(107, 122, 144, .16); } .am td.c.locked b { color: #b6c1d1; }
+  .am td.c.ref { border-color: #3b82f6; background: rgba(59, 130, 246, .12); } .am td.c.ref b { color: #93c5fd; }
+  .am td.c.load { border-color: #f5a524; background: rgba(245, 165, 36, .12); } .am td.c.load b { color: #fcd34d; }
+  .am td.c.free { border-style: dashed; border-color: #4ade80; } .am td.c.free b { color: #86efac; }
+  .am td.c.none { border-style: dotted; border-color: #394559; background: transparent; color: var(--wk-faint); }
+  .am td.c.dim, .am td.name.dim { opacity: .25; }
+  .am .key { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 4px 2px 10px; font-size: 11.5px; color: var(--wk-muted); }
+  .am .key span i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; border: 1px solid; }
+  .am .detail { margin-top: 12px; padding: 10px 12px; background: var(--wk-panel2); border: 1px solid var(--wk-line); border-radius: 8px; font-size: 12.5px; line-height: 1.45; }
+  .am .detail h3 { font-size: 14px; margin-bottom: 4px; }
+  .am .detail dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 3px 10px; margin: 6px 0 0; }
+  .am .detail dt { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; padding-top: 2px; }
+  .am .detail dd { margin: 0; }
+  .am .detail a { margin-right: 10px; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', open: ['proposes'],
+    sections: {
+      proposes: '<p>Each row is an arrangement. Each column is one relative motion between gun and seam. Each cell says <b>who supplies it</b> and how (motor, hand, spring, gravity, a locked or seated support, or an observation only). <b>Setup</b> and <b>weld</b> can differ: an arm that is free in setup is locked in the weld. A dotted blank is a motion the source did not name. That is a question to ask of the arrangement, not a flaw.</p>' +
+        '<p>Read down a column to see which arrangements spend which body on a motion; read across a row to see what an arrangement leaves to the hand. Two motions are special: <b>along the seam</b> is redundant (the rotator turns the seam through it), and <b>plan angle</b> can be supplied by a tangent shift of the work with a 1/r reduction.</p>',
+      carries: '<p>One column names what carries the cables. The row’s details name what carries the gun and what establishes position.</p>',
+      software: '<p>Nothing here is commanded. The details panel lists, for the selected row, what software could command and observe and what stays manual.</p>',
+      tried: '<p>The matrix was built by asking, for each of Derek’s examples, which relative motions the description did name. Blanks appeared in the gantry and suspension rows. Filling them is the work of the other scenes.</p>',
+      unresolved: '<p>Cells are one-line summaries from the idea files, not measurements. The table does not say how good an allocation is and is not a ranking. Rows from other explorers can be added the same way.</p>',
+      assumptions: '<ul><li>Derek’s example rows follow the descriptions in <code>context/examples.md</code>; where he did not say, the cell is blank on purpose.</li><li>Cell wording is mine; nothing is measured.</li></ul>',
+    },
+  });
+  const COLS = [['radial', 'Radial (into the wall)'], ['plan', 'Plan angle / tangent'], ['vertical', 'Vertical'], ['pitch', 'Pitch (hole axis)'], ['roll', 'Beam roll (grip axis)'], ['swap', 'Swap / retract'], ['park', 'Park (recess open to seat the plate)'], ['cables', 'Carries the cables']];
+  // cell = [kind, text setup, text weld]  (weld optional: same as setup)
+  const N = ['none', 'not named'];
+  const ROWS = [
+    { id: 'D1', dk: 1, name: 'Monitor arm', sum: 'Derek’s example: the gun carried and placed by a monitor-type arm. The arm carries; the question is what locates.',
+      cells: { radial: ['hand', 'arm joints, by hand', 'joints locked'], plan: ['hand', 'arm wrist, by hand', 'locked'], vertical: ['hand', 'gas spring, by hand', 'locked'], pitch: ['hand', 'wrist', 'locked'], roll: ['hand', 'wrist', 'locked'], swap: ['hand', 'swing the arm away'], cables: ['hand', 'on the arm and gun'] },
+      carries: 'the arm (spring-balanced)', ref: 'the arm’s joint friction, then the eye', soft: 'nothing commanded; could read joint encoders (T6) or trim with a work stage (T1)', link: null, idea: null },
+    { id: 'D2', dk: 1, name: 'Hole in the table + gantry', sum: 'Derek’s example: rotator on a height-adjustable shelf below an opening; a gantry at countertop height moves the gun in XY; shell fitted along the gun.',
+      cells: { radial: ['motor', 'gantry axis'], plan: ['motor', 'gantry other axis (tangent)'], vertical: ['hand', 'shelf (hand or motor)'], pitch: N.length ? ['none', 'not named (shell)'] : N, roll: ['none', 'not named (shell)'], swap: ['hand', 'through the opening'], cables: ['none', 'not named'] },
+      carries: 'gantry rails and table; shelf on four corner supports', ref: 'the table plane and the shelf', soft: 'gantry axes commanded; work Z by shelf; observation not specified', link: null, idea: null },
+    { id: 'D3', dk: 1, name: 'Suspension (rings, wire, bungees)', sum: 'Derek’s example: rings on the shell, a wire holding Z, two bungees holding one axis steady-ish.',
+      cells: { radial: ['spring', 'bungee stiffness'], plan: ['spring', 'other bungee; free to first order'], vertical: ['gravity', 'wire holds Z'], pitch: ['hand', 'ring positions choose it'], roll: ['hand', 'ring contacts choose it'], swap: ['hand', 'open a ring'], cables: ['spring', 'rings around the umbilical'] },
+      carries: 'a wire from above and bungees to anchors', ref: 'the anchors and the rings’ contact on the shell', soft: 'anchors could be driven; what the rings free or restrain is the design', link: null, idea: null },
+    { id: 'T1', name: 'T1 The tube travels', sum: 'Gun fixed and locked; XYZ under the rotator moves the work; tangent shift doubles as plan angle at 1/r.',
+      cells: { radial: ['motor', 'work X'], plan: ['motor', 'work Y at 1/r'], vertical: ['motor', 'work Z'], pitch: ['hand', 'holder', 'locked'], roll: ['hand', 'holder', 'locked'], swap: ['motor', 'shuttle to a hard stop'], cables: ['none', 'nothing moves'] },
+      carries: 'holder post; stack under the rotator', ref: 'stack trimmed against what is seen', soft: 'commands X, Y, Z, shuttle, rotator; sees the dot; plan angle by dead reckoning', link: '../travel-01-tube-travels/index.html', idea: '../../explorers/travel/ideas/travel-01-tube-travels.md' },
+    { id: 'T2', name: 'T2 Cascade', sum: 'Hand puts the gun in the neighbourhood; a motor trims per tube; a follow stage replays runout.',
+      cells: { radial: ['motor', 'hand, then motor, then follow'], plan: ['hand', 'hand'], vertical: ['motor', 'hand, then motor, then follow'], pitch: ['hand', 'hand'], roll: ['hand', 'hand'], swap: ['none', 'any'], cables: ['none', 'any'] },
+      carries: 'any: gun side or work side', ref: 'the dot as seen in a dry revolution', soft: 'trim once per tube, table replayed by angle; needs an observation of the dot', link: '../travel-02-cascade/index.html', idea: '../../explorers/travel/ideas/travel-02-cascade.md' },
+    { id: 'T3', name: 'T3 Dot-centred orientation', sum: 'Pitch and plan angle turn about the dot on arcs; beam roll can pivot anywhere on the dot–grip line.',
+      cells: { radial: ['motor', 'XYZ stage'], plan: ['motor', 'arcs about the dot'], vertical: ['motor', 'XYZ stage'], pitch: ['motor', 'arcs about the dot'], roll: ['motor', 'any pivot on the line'], swap: ['none', 'not addressed'], cables: ['none', 'not addressed'] },
+      carries: 'arcs on a post, or under the rotator (work branch)', ref: 'the arcs’ centre being the dot', soft: 'one angle per axis; no coupling to compensate', link: '../travel-03-dot-centred/index.html', idea: '../../explorers/travel/ideas/travel-03-dot-centred.md' },
+    { id: 'T4', name: 'T4 Return seat', sum: 'Gun swings up for the swap (and the end-of-bead lift-off, if the sequence has one) and returns to a three-ball kinematic seat.',
+      cells: { radial: ['seat', 'seat', 'seat'], plan: ['seat', 'seat', 'seat'], vertical: ['seat', 'seat', 'seat'], pitch: ['seat', 'seat', 'seat'], roll: ['seat', 'seat', 'seat'], swap: ['motor', 'swing (motor or hand)'], cables: ['none', 'ride the swing: open'] },
+      carries: 'post and block; hinge only while swinging', ref: 'three balls in three grooves', soft: 'commands the swing; reads contact continuity; adjusts nothing', link: '../travel-04-return-seat/index.html', idea: '../../explorers/travel/ideas/travel-04-return-seat.md' },
+    { id: 'T5', name: 'T5 Nest driver', sum: 'The rotator indexes its own tube-centring screws to a stationary driver; software nulls eccentricity before the weld.',
+      cells: { radial: ['motor', 'nest screws, ±0.2 mm'], plan: ['none', 'not touched'], vertical: ['none', 'not touched'], pitch: ['none', 'not touched'], roll: ['none', 'not touched'], swap: ['none', 'not touched'], cables: ['none', 'not touched'] },
+      carries: 'the existing ball race and nest', ref: 'the tube wall, read by a probe', soft: 'jog, revolve, driver turns, measure, repeat', link: '../travel-06-nest-driver/index.html', idea: '../../explorers/travel/ideas/travel-06-nest-driver.md' },
+    { id: 'T6', name: 'T6 Hand moves, software reads', sum: 'Hand-cranked stages with scales; software reads every position and the dot and says which wheel to turn.',
+      cells: { radial: ['hand', 'wheel + scale'], plan: ['hand', 'wheel + scale'], vertical: ['hand', 'wheel + scale'], pitch: ['hand', 'locked'], roll: ['hand', 'locked'], swap: ['hand', 'by hand'], cables: ['none', 'nothing moves'] },
+      carries: 'same as T1', ref: 'scales (blue) and the eye', soft: 'reads scales, dot; commands nothing', link: '../travel-01-tube-travels/index.html', idea: '../../explorers/travel/ideas/travel-09-hand-moves-software-reads.md' },
+    { id: 'T7', name: 'T7 Software moves, a person is the eye', sum: 'Steppers with stored per-lot offsets; Derek reads the dot and tells the AI what to trim.',
+      cells: { radial: ['motor', 'stepper, stored offset'], plan: ['motor', 'stepper'], vertical: ['motor', 'stepper'], pitch: ['hand', 'locked'], roll: ['hand', 'locked'], swap: ['hand', 'by hand'], cables: ['none', 'nothing moves'] },
+      carries: 'same as T1', ref: 'a person looking at the dot', soft: 'commands; observes nothing itself', link: null, idea: '../../explorers/travel/ideas/travel-10-software-moves-person-sees.md' },
+    { id: 'T8', name: 'T8 The cable gets its own travel', sum: 'Umbilical and conduit ride a balancer and gallows that carry their weight and follow the gun.',
+      cells: { radial: ['none', 'unchanged'], plan: ['none', 'unchanged'], vertical: ['none', 'unchanged'], pitch: ['none', 'unchanged'], roll: ['none', 'unchanged'], swap: ['none', 'unchanged'], cables: ['spring', 'constant-force balancer + gallows'] },
+      carries: 'balancer and gallows carry the cables', ref: 'none', soft: 'none; a load cell on the balancer could report cable pull', link: '../travel-08-force-path/index.html', idea: '../../explorers/travel/ideas/travel-08-cable-travel.md' },
+    { id: 'T9', name: 'T9 Ratio devices', sum: 'Put the reduction where the motion is made: reducing lever, micrometer head, soft link.',
+      cells: { radial: ['motor', 'through a reduction'], plan: ['motor', 'through a reduction'], vertical: ['motor', 'through a reduction'], pitch: ['none', 'modifier'], roll: ['none', 'modifier'], swap: ['none', 'n/a'], cables: ['none', 'n/a'] },
+      carries: 'n/a: a modifier on any stage', ref: 'the reduction ratio', soft: 'trades step size for range; adds backlash to think about', link: '../travel-05-lever-map/index.html', idea: '../../explorers/travel/ideas/travel-05-lever-map.md' },
+    { id: 'T9b', name: 'T9b Soft drive, hard lock', sum: 'A motor moves an anchor; a soft spring gears it down to the gun; a clamp locks the gun for the weld (Derek\u2019s bungees read as a gear).',
+      cells: { radial: ['spring', 'anchor through a soft spring', 'clamp locked'], plan: ['none', 'one axis drawn'], vertical: ['none', 'guide carries the weight'], pitch: ['none', 'not drawn'], roll: ['none', 'not drawn'], swap: ['hand', 'unclamp'], cables: ['spring', 'is the second spring'] },
+      carries: 'the guide, then the clamp in the weld', ref: 'anchor count, then the clamp', soft: 'commands anchor and clamp; gun position not observed', link: '../travel-05b-soft-drive-hard-lock/index.html', idea: '../../explorers/travel/ideas/travel-05b-soft-drive-hard-lock.md' },
+    { id: 'T10', name: 'T10 Rides the tube', sum: 'A non-rotating collar on the tube carries the gun, so gun-to-work position is set by the work.',
+      cells: { radial: ['gravity', 'collar rests on the wall'], plan: ['gravity', 'collar'], vertical: ['gravity', 'rim skid'], pitch: ['hand', 'shell', 'locked'], roll: ['hand', 'shell', 'locked'], swap: ['hand', 'lift the collar off'], cables: ['none', 'room hanger'] },
+      carries: 'the tube and rotator (load path through the ball race)', ref: 'the tube itself', soft: 'nothing commanded; the room only stops the collar turning', link: null, idea: '../../explorers/travel/ideas/travel-11-rides-the-tube.md' },
+    { id: 'T11', name: 'T11 The head’s own stage', sum: 'Use the head’s galvo axis (wobble width, red-light alignment) as a radial trim, if it can be offset.',
+      cells: { radial: ['motor', 'galvo offset (unknown)'], plan: ['none', 'not touched'], vertical: ['none', 'not touched'], pitch: ['none', 'not touched'], roll: ['none', 'not touched'], swap: ['none', 'not touched'], cables: ['none', 'not touched'] },
+      carries: 'nothing new', ref: 'the head’s calibration of the red dot', soft: 'via the RS232 port if it exposes an offset: unknown', link: null, idea: '../../explorers/travel/ideas/travel-12-heads-own-stage.md' },
+    { id: 'T12', name: 'T12 Print to adjust', sum: 'The AI turns an observed error into a printed shim, spacer or wedge; a printer and a hand make the adjustment.',
+      cells: { radial: ['hand', 'printed shim'], plan: ['hand', 'printed wedge'], vertical: ['hand', 'printed / peeled shim'], pitch: ['none', 'n/a'], roll: ['none', 'n/a'], swap: ['none', 'n/a'], cables: ['none', 'n/a'] },
+      carries: 'whatever the shim sits in', ref: 'the shim thickness', soft: 'computes the shim, queues a print; reads the dot afterwards', link: null, idea: '../../explorers/travel/ideas/travel-13-print-to-adjust.md' },
+    { id: 'T1b', name: 'T1b Drop tier on a seat', sum: 'travel-01 after use\u2019s exchange: Z split into a drop tier with hard stops, seated on three balls, under the fine tier; its bottom-stop switch is the shuttle interlock.',
+      cells: { radial: ['motor', 'fine X on the tier'], plan: ['motor', 'fine Y at 1/r'], vertical: ['seat', 'tier on three balls, then fine Z trim'], pitch: ['hand', 'holder', 'locked'], roll: ['hand', 'holder', 'locked'], swap: ['motor', 'tier down, then shuttle (interlocked)'], park: ['motor', 'shuttle out, tier down'], cables: ['none', 'nothing moves'] },
+      carries: 'holder post; shuttle, seat and tiers under the rotator', ref: 'shuttle stop and ball seat, then the camera trim after the last approach', soft: 'tier, shuttle, fine X Y Z, rotator; four end-stop switches; tilt only as a dry-lap error', link: '../travel-19-drop-tier-on-a-seat/index.html', idea: '../../explorers/travel/ideas/travel-01-tube-travels.md' },
+    { id: 'T13', name: 'T13 An arm holds the gun (six axes, SCARA or gantry)', sum: 'A bought arm carries the shell by a printed adaptor; the tube\u2019s rotation makes the path, so the arm is asked for one pose, held.',
+      cells: { radial: ['motor', 'joints (or a stage or a stack)'], plan: ['motor', 'joints; tangent stands in for yaw'], vertical: ['motor', 'joints or a slide'], pitch: ['motor', 'wrist (six-axis); a printed adaptor, set by hand (SCARA, gantry)'], roll: ['motor', 'wrist: free for the dot, twists the fibre'], swap: ['motor', 'retract along the beam'], park: ['motor', 'park pose'], cables: ['load', 'the joints carry the pull'] },
+      carries: 'the arm\u2019s flange and joints', ref: 'the taught pose (return repeatability), then a trim body', soft: 'joint or Cartesian commands through the maker\u2019s SDK; encoders read back; the dot not', link: '../travel-20-arm-joints-at-the-dot/index.html', idea: '../../explorers/travel/ideas/travel-20-arm-joints-at-the-dot.md' },
+    { id: 'T14', name: 'T14 Arm parks, rotator turns', sum: 'One closure state by state: the arm moves only to park, return and escape; the rotator turns only when the arm is still.',
+      cells: { radial: ['motor', 'trim body in two states'], plan: ['none', 'as T13'], vertical: ['motor', 'trim body in two states'], pitch: ['none', 'as T13'], roll: ['none', 'as T13'], swap: ['motor', 'moveL along the beam, force-limited'], park: ['motor', 'moveJ to park and back: two returns'], cables: ['load', 'ride the arm'] },
+      carries: 'as T13', ref: 'return repeatability, then the last look after the second approach', soft: 'four big moves, two trims, an optional follow table keyed by the rotator angle', link: '../travel-21-arm-parks-rotator-turns/index.html', idea: '../../explorers/travel/ideas/travel-21-arm-parks-rotator-turns.md' },
+    { id: 'T15', name: 'T15 The arm docks the gun, then floats', sum: 'The arm brings the gun to a three-ball dock, floats (gravity compensation), reads the joint angles, re-teaches the dock pose, then holds.',
+      cells: { radial: ['seat', 'three balls', 'seat'], plan: ['seat', 'three balls', 'seat'], vertical: ['seat', 'three balls', 'seat'], pitch: ['seat', 'three balls', 'seat'], roll: ['seat', 'three balls', 'seat'], swap: ['motor', 'the arm carries the gun to the next dock'], park: ['motor', 'the arm holds the gun clear'], cables: ['load', 'ride the arm; a load on the seat'] },
+      carries: 'the arm between docks; the seat once docked', ref: 'three balls; after a float the joint angles are the seat\u2019s pose', soft: 'dock, float, re-teach, hold or brake; encoders; flange force on some arms', link: '../travel-22-arm-docks-then-floats/index.html', idea: '../../explorers/travel/ideas/travel-22-arm-docks-then-floats.md' },
+  ];
+  // park: recess open for indicating, seating the plate and the swap (use-15\u2019s state columns); the cell for each older row
+  const PARK = { D1: ['hand', 'swing held by a friction window'], D2: ['hand', 'free: the hand works under the table'], D3: ['hand', 'lift the whole hanging assembly'], T1: ['motor', 'shuttle out to the loading position'], T2: ['none', 'any'], T3: ['none', 'not addressed'], T4: ['motor', 'swing up (motor or hand)'], T5: ['none', 'not touched'], T6: ['hand', 'by hand'], T7: ['hand', 'by hand'], T8: ['none', 'unchanged'], T9: ['none', 'n/a'], T9b: ['hand', 'unclamp and move the gun'], T10: ['hand', 'lift the collar off'], T11: ['none', 'not touched'], T12: ['none', 'n/a'] };
+  ROWS.forEach(r => { if (!r.cells.park) r.cells.park = PARK[r.id] || ['none', 'n/a']; });
+  const KIND_LABEL = { motor: 'motor', hand: 'hand', spring: 'spring', gravity: 'gravity', seat: 'seat', locked: 'locked', ref: 'observe', free: 'free', load: 'carries', none: '' };
+
+  const h = WK.h;
+  const root = h('div', { class: 'am' });
+  app.stageEl.appendChild(root);
+  const key = h('div', { class: 'key' });
+  [['motor', '#a855f7', 'motor (software could command)'], ['hand', '#fb923c', 'by hand'], ['spring', '#4ade80', 'spring / compliant'], ['gravity', '#94a3b8', 'gravity'], ['seat', '#14b8a6', 'seat / hard stop'], ['locked', '#6b7a90', 'locked in the weld'], ['load', '#f5a524', 'the joints or the arm carry it'], ['none', '#394559', 'blank: not named or not touched']].forEach(k => key.appendChild(h('span', {}, h('i', { style: { background: k[1] + '33', borderColor: k[1] } }), k[2])));
+  root.appendChild(key);
+  const table = h('table', {}), thead = h('thead', {}), tbody = h('tbody', {});
+  const hr = h('tr', {}, h('th', { style: { width: '17%' }, text: 'Arrangement' }));
+  COLS.forEach(c => hr.appendChild(h('th', { text: c[1] })));
+  thead.appendChild(hr); table.append(thead, tbody); root.appendChild(table);
+  const detail = h('div', { class: 'detail' }); root.appendChild(detail);
+  let selected = 'T1';
+  function draw() {
+    const phase = app.ui.get('phase'), who = app.ui.get('who'), grp = app.ui.get('grp');
+    tbody.innerHTML = '';
+    ROWS.forEach(r => {
+      if (grp === 'derek' && !r.dk) return; if (grp === 'travel' && r.dk) return;
+      const tr = h('tr', { class: (r.dk ? 'dk ' : 'sw ') + (r.id === selected ? 'sel' : '') });
+      const nm = h('td', { class: 'name', text: r.name, title: r.sum, on: { click: () => { selected = r.id; app.ui.set('row', r.id, { silent: true }); draw(); } } });
+      tr.appendChild(nm);
+      let rowMatch = who === 'all';
+      COLS.forEach(c => {
+        const cell = r.cells[c[0]] || ['none', 'not named'];
+        const kind = cell[0], txt = phase === 'weld' && cell[2] ? cell[2] : cell[1];
+        const wk = (phase === 'weld' && cell[2] && /locked|seat/.test(cell[2])) ? (/seat/.test(cell[2]) ? 'seat' : 'locked') : kind;
+        const match = who === 'all' || who === wk || (who === 'fixed' && (wk === 'seat' || wk === 'locked'));
+        if (match && who !== 'all') rowMatch = true;
+        tr.appendChild(h('td', { class: 'c ' + wk + (who !== 'all' && !match ? ' dim' : '') }, h('b', { text: KIND_LABEL[wk] }), txt));
+      });
+      if (who !== 'all' && !rowMatch) nm.classList.add('dim');
+      tbody.appendChild(tr);
+    });
+    const r = ROWS.find(x => x.id === selected) || ROWS[3];
+    detail.innerHTML = '';
+    detail.appendChild(h('h3', { text: r.name }));
+    detail.appendChild(h('div', { text: r.sum }));
+    const dl = h('dl', {});
+    [['Carries', r.carries], ['Locates', r.ref], ['Software', r.soft]].forEach(p => dl.append(h('dt', { text: p[0] }), h('dd', { text: p[1] })));
+    const links = h('dd', {}); if (r.link) links.appendChild(h('a', { href: r.link, text: 'open the scene' })); if (r.idea) links.appendChild(h('a', { href: r.idea, text: 'idea file' })); if (!r.link && !r.idea) links.textContent = 'Derek’s example: see context/examples.md';
+    dl.append(h('dt', { text: 'Open' }), links);
+    detail.appendChild(dl);
+    app.io.set({ commands: [{ name: 'Nothing is commanded here', value: '-', note: 'overview only' }], observes: [{ name: 'Selected row', value: r.id, status: 'seen', note: r.name }], manual: ['Read across a row; open the linked scene for the mechanism'] });
+  }
+  const c1 = app.ui.group('Read the matrix');
+  c1.radio({ id: 'phase', label: 'Phase', options: [{ value: 'setup', label: 'setup' }, { value: 'weld', label: 'weld' }], value: 'setup', kind: 'state', help: 'Some cells change: joints free in setup are locked in the weld.', onChange: draw });
+  c1.select({ id: 'who', label: 'Highlight cells supplied by', options: [{ value: 'all', label: 'everything' }, { value: 'motor', label: 'a motor' }, { value: 'hand', label: 'the hand' }, { value: 'spring', label: 'a spring' }, { value: 'gravity', label: 'gravity' }, { value: 'fixed', label: 'a seat or a lock' }], value: 'all', kind: 'view', onChange: draw });
+  c1.select({ id: 'grp', label: 'Rows', options: [{ value: 'all', label: 'all' }, { value: 'derek', label: 'Derek’s examples' }, { value: 'travel', label: 'travel arrangements' }], value: 'all', kind: 'view', onChange: draw });
+  c1.select({ id: 'row', label: 'Selected row', options: ROWS.map(r => ({ value: r.id, label: r.name })), value: 'T1', kind: 'view', onChange: v => { selected = v; draw(); } });
+})();
+</script>
+</body>
+</html>

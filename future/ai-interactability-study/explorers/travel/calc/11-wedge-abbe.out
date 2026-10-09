@@ -1,0 +1,29 @@
+1. A wedge under the base tilts the rotator about a line at the bench (the ridge), not about the dot. Ridge = the radial line through the tube axis to the station.
+   Seam circle points (R cos p, R sin p, H) turn about the x axis by alpha. The seam point that was at the station moves sideways by H sin(alpha):
+   alpha   sideways shift of the seam point (mm)   drop (mm)   if the station is kept at y = 0: which tube azimuth arrives, and how far the seam moved radially (mm)
+      1 deg                    4.0            0.04        azimuth 3.8 deg, radial shift -0.1
+      2 deg                    8.1            0.14        azimuth 7.5 deg, radial shift -0.5
+      5 deg                   20.2            0.88        azimuth 19.2 deg, radial shift -3.4
+     10 deg                   40.3            3.53        azimuth 41.4 deg, radial shift -15.5
+   A wedge set once and the gun placed afterwards does not care (the seam is where it is). A wedge that is changed between experiments moves the seam by 4 mm per degree,
+   so each change needs the gun (or an XYZ stage of tens of millimetres) to follow. datum-12 says the dot stays where it is: it does not, unless the pivot is at the dot (an arc, travel-03b).
+
+2. What the tilt supplies at the station. The tilt is a vector: magnitude alpha, direction fixed by the wedge (the lean). At a station whose radial direction is
+   psi from the lean, the plate normal tilts alpha cos(psi) in the radial section (the beam-versus-plate angle, the "grip-axis roll" of the reference scene) and
+   alpha sin(psi) along the tangent (the "hole-axis roll", pitch):
+   station  0 deg from the lean: in-section 10.0 deg, along the tangent 0.0 deg  (for a 10 deg wedge)
+   station 30 deg from the lean: in-section 8.7 deg, along the tangent 5.0 deg  (for a 10 deg wedge)
+   station 45 deg from the lean: in-section 7.1 deg, along the tangent 7.1 deg  (for a 10 deg wedge)
+   station 60 deg from the lean: in-section 5.0 deg, along the tangent 8.7 deg  (for a 10 deg wedge)
+   station 90 deg from the lean: in-section 0.0 deg, along the tangent 10.0 deg  (for a 10 deg wedge)
+   So one fixed wedge plus a choice of where the gun stands supplies any mix of those two rotations, not just the hole-axis roll.
+
+3. Two wedge rings stacked (a Risley pair): wedge angle a each; rotating one by delta relative to the other gives a tilt of magnitude 2a cos(delta/2) in the mean direction.
+   a = 3 deg: reachable tilt 0 to 6 deg in any direction; one ring turned 1 deg changes the tilt by at most 0.052 deg (reduction 19.1 to 1); seam moves at most 24.3 mm
+   a = 5 deg: reachable tilt 0 to 10 deg in any direction; one ring turned 1 deg changes the tilt by at most 0.087 deg (reduction 11.5 to 1); seam moves at most 40.3 mm
+   Motorised, the pair is two rotary axes with a built-in reduction and no arcs; the seam displacement (4 mm per degree of tilt) has to be followed by the gun or a stack.
+
+4. Side load on the printed ball race: sin(alpha) of the weight (rotator plus tube plus vessel, 2 to 5 kg [unknown]):
+   3 deg -> 5 percent of the weight sideways: 1.0 to 2.6 N
+   5 deg -> 9 percent of the weight sideways: 1.7 to 4.3 N
+   10 deg -> 17 percent of the weight sideways: 3.4 to 8.5 N

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tonearm follower on the rim</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-07-tonearm",
+  "title": "Tonearm follower: the tube's own rim sets the height",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "A phonograph tonearm rides a record groove with a counterweight and a hair of downforce. Here a counterbalanced arm carries the gun with a small ball foot resting on the tube rim, so the rim's wobble lifts and lowers the arm and the dot follows the seam's height without any sensor. The page shows what that follows, what it cannot, and how sensitive the foot force is to the gun's unknown weight.",
+  "tags": [
+    "follower",
+    "counterweight",
+    "no sensor",
+    "phonograph",
+    "rim reference"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "counterweight sets the follower force",
+    "arm angle as a free runout readout"
+  ],
+  "how": {
+    "motion": "nothing driven: the arm pitches about one pivot as the rim moves it",
+    "load": "gun on the arm; a counterweight leaves a few newtons on the foot",
+    "reference": "the rim under a ball foot sets the dot height; radial position is not followed",
+    "observe": "a pivot angle sensor reads rim height (free runout signal); the dot is not seen",
+    "use": "operating: the arm rides the rotating tube; setup: counterweight balanced for the gun"
+  },
+  "software": {
+    "commands": [
+      "nothing on this arrangement; rotator speed (existing)"
+    ],
+    "observes": [
+      "arm angle at the pivot (rim height at the station)"
+    ],
+    "manual": [
+      "balancing the counterweight for the gun",
+      "placing the pivot post so the foot sits on the rim and the dot on the seam",
+      "the radial position"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-07-tonearm.md"
+  ],
+  "sources": [
+    "../../sourcing/borrowed.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone();
+  const app = WK.app({
+    gun: { pose: 'opening' },
+    view: 'main',
+    views: {
+      main: { target: [150, -40, 190], dir: [0.4, -0.85, 0.35], dist: 1000 },
+      foot: { target: [63, 0, 154], dir: [0.15, -1, 0.35], dist: 140 },
+      top: { target: [130, -40, 150], dir: [0, -0.003, 1], dist: 700 },
+      side: { target: [130, 0, 190], dir: [0.03, -1, 0.05], dist: 800 },
+    },
+    viewButtons: ['main', 'foot', 'top', 'side'],
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A tonearm carries a heavy cartridge on a pivot, balanced by a counterweight so the stylus presses on the record with a couple of grams; the record’s own warp and eccentricity move the arm, and the arm needs no motor to follow them. Here the tube is the record. A counterbalanced arm pitches about one horizontal pivot beside the rotator. Its front end carries the gun and a small ball foot that rests on the tube’s top rim. As the rotating tube wobbles (face runout 0.30 mm TIR, [repo]) the foot lifts and lowers the arm, and the dot, held at a fixed distance from the foot, rises and falls with the seam.</p>' +
+        '<p>The counterweight decides how hard the foot presses; the gun’s weight is unknown, so that is the sensitive part. Turn the rotator on and raise the runout exaggeration to see the arm follow; switch to “fixed arm” to see the dot error without the follower.</p>',
+      carries: '<p>Gun → headshell bracket → arm → pivot post → bench. The counterweight behind the pivot balances the gun and arm, leaving a small downward force at the foot. Height is set by the rim under the foot (contact). The arm can move only in pitch; radial position, tangent position and the plate’s depth below the rim are not followed.</p>',
+      software: '<p>Software has nothing to move. An angle sensor at the pivot (a magnetic encoder is enough) reads the rim height at the station as a byproduct, a face-runout signal for free. The dot is not seen.</p>',
+      tried: '<p><b>Round 1: what does the foot follow?</b> Rim height, hence face runout. Not the radial runout (0.25 mm TIR [repo]): a foot on a flat rim top does not feel it. Not the plate’s depth below the rim, which the drawing does not know and which varies from tube to tube [unknown]: the recess slider adds a fixed vertical error the follower cannot correct. Change: a per-tube height trim on the foot stalk. Left standing: the follower fixes one axis of the three that matter.</p>' +
+        '<p><b>Round 2: force.</b> The foot force is the gun\u2019s moment about the pivot minus the counterweight\u2019s, over the foot distance, times g. With the defaults (1.2 kg gun, illustrative) it is about 2 N. A gun 100 g heavier than assumed adds 0.98 N at the foot; 50 g of counterweight at 150 mm moves it 0.31 N. A heavy foot scuffs the rim and drags the tube; no force and the foot leaves the rim and the gun rises to its stop. Change: the badge marks both. Left standing: the gun\u2019s mass is unknown; the umbilical\u2019s pull adds a force the counterweight does not know about.</p>' +
+        '<p><b>Round 3: friction drag.</b> The rotating rim pushes the foot along the tangent with about the foot force times a friction coefficient (illustrative 0.3): a fraction of a newton for a 1 N foot. A phonograph calls this skating and cancels it with a small side force. Not drawn.</p>' +
+        '<p><b>Round 4: contact on the weld path.</b> The foot rides the rim, not the plate, so nothing touches the joint. The rim is the tube’s end; if the plate is seated to a varying depth the dot follows the rim, not the seam. That is the recess slider.</p>',
+      unresolved: '<ul><li>The gun’s mass and where it balances.</li><li>The plate’s depth below the rim, tube to tube [unknown], which decides whether the rim is a good height reference at all.</li><li>The umbilical’s pull on the arm.</li><li>Radial position, tangent position and orientation are unaddressed: something else has to set them.</li><li>A ball foot on 316L: wear, marking and static build-up.</li></ul>',
+      assumptions: '<ul><li>Arm length, pivot height, ball radius (3 mm), counterweight mass and place, arm mass, friction coefficient: <b>illustrative</b>.</li><li>Rim height at the station = joint height (with the rig-doc face runout 0.30 mm TIR [repo], exaggerated) + 6.35 mm + the recess slider; the tube is rigid so the rim tilts with the plate.</li><li>The arm follows exactly while the foot is loaded; no arm compliance, damping or bounce.</li><li>Gun proxy from the manual envelope; opening pose illustrative.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { follow: 'follow', exag: 20, mg: 1.2, mc: 1.7, lc: 150, recess: 0, spin: false };
+  const PIV = V(300, 0, 200), FOOT0 = V(J.x + 0.8, 0, 152.4 + 3), HEAD0 = V(J.x + 0.8, 0, 200);
+  const LF = PIV.x - FOOT0.x, MA = 0.15, STOP = 0.05;
+  const arm = new THREE.Group(); arm.position.copy(PIV); app.add(arm);
+  // gun rides the arm rigidly: place it once at the reference pose (dot on the seam), then re-parent
+  gun.setDials(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical);
+  gun.group.position.sub(PIV); arm.add(gun.group);
+  gun.setLaser(true);
+  // post, bracket, foot, stalk, arm rod, counterweight
+  const post = P.rod(V(PIV.x, 0, ws.benchZ), V(PIV.x, 0, PIV.z - 10), 14, 'fixed'); app.add(post);
+  const armRod = P.rod(V(0, 0, 0), V(1, 0, 0), 5, 'load'), stalk = P.rod(V(0, 0, 0), V(1, 0, 0), 2, 'load'), bracket = P.rod(V(0, 0, 0), V(1, 0, 0), 4, 'load');
+  const foot = P.sphere(3, 'locate'), cw = P.box(50, 40, 40, 'load'), rearRod = P.rod(V(0, 0, 0), V(1, 0, 0), 5, 'load'), enc = P.cyl(12, 8, 'sensor', { axis: 'y' });
+  [armRod, stalk, bracket, foot, cw, rearRod, enc].forEach(o => app.add(o));
+  app.label(() => foot.position, 'ball foot on the rim', { cls: 'locate' });
+  app.label(() => cw.position, 'counterweight', { cls: 'load' });
+  app.label(() => enc.position, 'angle sensor at the pivot', { cls: 'sensor' });
+  app.label(() => gun.dotWorld(), 'Laser dot', { cls: 'laser' });
+  app.cornerInset({ gun: gun });
+
+  function solveTheta(zTarget) {
+    const a = FOOT0.x - PIV.x, b = FOOT0.z - PIV.z, f = th => PIV.z - a * Math.sin(th) + b * Math.cos(th);
+    let lo = -0.2, hi = 0.2;
+    for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (f(m) < zTarget) lo = m; else hi = m; }
+    return (lo + hi) / 2;
+  }
+  let theta = 0;
+  function update() {
+    const rimZ = ws.jointNow().z + 6.35 + S.recess, zFoot = rimZ + 3;
+    // moment balance about the pivot (kg times mm), divided by the foot distance, times g: newtons at the foot
+    const Ffoot = 9.81 * (S.mg * LF + MA * LF / 2 - S.mc * S.lc) / LF;
+    let th;
+    const lifted = Ffoot <= 0.02 && S.follow === 'follow';
+    if (S.follow === 'fixed') th = 0; else if (lifted) th = STOP; else th = Math.min(STOP, solveTheta(zFoot));
+    theta = th; arm.rotation.y = th; arm.updateMatrixWorld(true);
+    const w = l => arm.localToWorld(l.clone().sub(PIV));
+    const head = w(HEAD0), ft = w(FOOT0);
+    foot.position.copy(ft); stalk.setEnds(head, ft);
+    armRod.setEnds(PIV, head);
+    const rear = arm.localToWorld(V(S.lc, 0, 0));
+    rearRod.setEnds(PIV, rear); cw.position.copy(rear).add(V(20, 0, 0));
+    enc.position.copy(PIV).add(V(0, -14, 0));
+    bracket.setEnds(head, gun.local('barrelMid'));
+    gun.updateLaser();
+    const off = ws.offsetOf(gun.dotWorld()), rimTrue = rimZ;
+    app.badge('foot', S.follow === 'follow' ? (lifted ? 'FOOT OFF THE RIM: no downforce, the gun rests on its upper stop' : Ffoot > 4 ? 'foot presses ' + Ffoot.toFixed(1) + ' N: scuffs the rim, drags (illustrative threshold)' : null) : null, lifted ? 'limit' : 'warn');
+    app.io.set({
+      commands: [{ name: 'Nothing to command', value: 'passive follower', note: 'rotator speed is the only actuator, as today' }],
+      observes: [
+        { name: 'Arm angle at the pivot (rim height at the station)', value: (theta / DEG).toFixed(3), unit: '°', status: S.follow === 'follow' ? 'seen' : 'blind', note: 'a magnetic encoder is enough; it reads face runout for free' },
+        { name: 'Dot vs seam, radial (runout x' + S.exag + ')', value: off.radial.toFixed(3), unit: 'mm', status: 'blind', note: 'the follower does not touch this axis; divide by the exaggeration for the rig-doc scale; only the simulation knows' },
+        { name: 'Dot vs seam, vertical (runout x' + S.exag + ')', value: off.vertical.toFixed(3), unit: 'mm', status: 'blind', note: S.follow === 'follow' ? 'what is left is the recess variation the foot cannot know' : 'face runout is uncorrected' },
+        { name: 'Foot force (derived)', value: Ffoot.toFixed(2), unit: 'N', status: 'partly', note: 'from the balance of gun, arm and counterweight; the gun mass is unknown' },
+        { name: 'Friction drag on the foot (derived, illustrative mu 0.3)', value: (0.3 * Math.max(0, Ffoot)).toFixed(2), unit: 'N', status: 'partly' },
+        { name: 'Plate depth below the rim, umbilical pull', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Place the pivot post so the foot is on the rim and the dot on the seam', 'Balance the counterweight for the gun', 'Set radial position'],
+    });
+    app.invalidate();
+  }
+  app.onFrame(function () { if (ws.spin.on) { update(); return true; } return false; });
+
+  const ar = app.ui.group('The arm (donor: tonearm balance)', { help: 'No actuator here: a person balances it, the rim moves it.' });
+  ar.radio({ id: 'follow', label: 'Arm', kind: 'branch', value: 'follow', options: [{ value: 'follow', label: 'rides the rim' }, { value: 'fixed', label: 'locked (no follower)' }], help: 'Compare the dot’s vertical error with and without the follower.', onChange: v => { S.follow = v; update(); } });
+  ar.slider({ id: 'mg', label: 'Gun mass (unknown)', min: 0.6, max: 2.2, step: 0.05, value: 1.2, unit: 'kg', kind: 'scene', visual: () => gun.group, onChange: v => { S.mg = v; update(); } });
+  ar.slider({ id: 'mc', label: 'Counterweight mass', min: 0.2, max: 3, step: 0.05, value: 1.7, unit: 'kg', kind: 'scene', visual: () => cw, help: 'Sets the foot force with the gun’s mass and the distance below.', onChange: v => { S.mc = v; update(); } });
+  ar.slider({ id: 'lc', label: 'Counterweight distance behind the pivot', min: 60, max: 260, step: 5, value: 150, unit: 'mm', kind: 'scene', visual: () => cw, onChange: v => { S.lc = v; update(); } });
+  const tb = app.ui.group('Tube (scene edits and the existing rotator)');
+  tb.slider({ id: 'recess', label: 'Plate depth error below the rim (unknown per tube)', min: -1.5, max: 1.5, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'A fixed vertical error the follower cannot see.', onChange: v => { S.recess = v; update(); } });
+  tb.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  tb.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 40, step: 1, value: 20, unit: '×', kind: 'scene', visual: () => ws.tubeGroup, help: 'Only makes the rig-doc face and radial runout visible (0.25 / 0.30 mm TIR).', onChange: v => { S.exag = v; ws.setRunout(WK.RIG.runoutRadialTIR, WK.RIG.runoutFaceTIR, v); update(); } });
+  tb.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+  ws.setRunout(WK.RIG.runoutRadialTIR, WK.RIG.runoutFaceTIR, 20);
+  update();
+})();
+</script>
+</body>
+</html>

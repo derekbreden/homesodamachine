@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encoded balanced arm</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-03-encoded-arm",
+  "title": "Encoded balanced arm: the operator moves, software watches and coaches",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "A spring-balanced articulated arm (monitor arm, lamp arm, camera arm) carries the gun's weight; a magnetic encoder on each joint turns it into a passive measuring arm. The operator still places the gun by hand. Software moves nothing: it computes the gun pose from the joints and tells the operator where the dot is. The page shows how far the joint readings can be trusted.",
+  "tags": [
+    "observe-only",
+    "measuring arm",
+    "encoders",
+    "balanced arm",
+    "coach"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "a coach says only what its own uncertainty supports",
+    "touch-off zeroing through the interlock circuit",
+    "joint-error to dot-error propagation",
+    "recording the poses a skilled hand actually uses"
+  ],
+  "how": {
+    "motion": "nothing is driven: the operator moves the gun; the arm follows and carries its weight",
+    "load": "gun on wrist, forearm, upper arm, post, bench clamp; a spring balances the arm",
+    "reference": "joint encoders through forward kinematics, zeroed by touching the nozzle to known datums",
+    "observe": "six magnetic joint encoders; the pose is computed, the dot is inferred",
+    "use": "operator welds as today; software displays the dot error and logs the poses"
+  },
+  "software": {
+    "commands": [
+      "nothing on the arm; a calibration trial (laser off) is run by software"
+    ],
+    "observes": [
+      "six joint angles",
+      "forward-kinematics pose and dot vs seam",
+      "poses over a weld (record and replay)"
+    ],
+    "manual": [
+      "moving the gun",
+      "zeroing the encoders by touch-off",
+      "rebalancing for the gun's mass"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-03-encoded-arm.md"
+  ],
+  "sources": [
+    "../../sourcing/borrowed.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone(), AXZ = V(0, 0, 1);
+  const app = WK.app({
+    gun: { pose: 'none' },
+    view: 'main',
+    views: {
+      main: { target: [-60, -170, 210], dir: [0.55, -0.7, 0.45], dist: 1250 },
+      joint: { target: [30, -60, 200], dir: [0.7, -0.4, 0.5], dist: 520 },
+      top: { target: [-60, -160, 150], dir: [0, -0.003, 1], dist: 1100 },
+      side: { target: [-60, -160, 210], dir: [1, 0.02, 0.05], dist: 1200 },
+    },
+    viewButtons: ['main', 'joint', 'top', 'side'],
+    open: ['proposes', 'tried'],
+    links: [{ label: 'trials-19: the fixed-point calibration drawn', href: '../trials-19-fixed-point-cal/index.html' }, { label: 'borrowed-20: what would make the joints trustworthy', href: '../borrowed-20-measuring-arm-joints/index.html' }],
+    sections: {
+      proposes: '<p>Monitor arms, lamp arms and camera arms are made in huge numbers, and their whole job is to carry a load at any pose with a spring. Put a small magnetic angle sensor on each joint and the arm becomes a hand-guided measuring arm, the same idea as a portable coordinate-measuring arm. The operator holds the grip as today; the arm takes the weight and reports where the gun is.</p>' +
+        '<p>Software moves nothing here. It runs forward kinematics on the joint angles, estimates where the dot is relative to the seam, and tells the operator (a display, a tone, a haptic cue) which way to move. It can also log the poses a skilled hand actually uses, which is the missing travel specification for every other arrangement.</p>',
+      carries: '<p>Gun → wrist → forearm → upper arm → shoulder post → bench clamp; the gas spring at the shoulder (green) balances the arm. Position is established by the joint readings through the arm’s dimensions, zeroed by touching the nozzle to datums. Nothing restrains the gun except the arm’s joints and the operator’s hand.</p>',
+      software: '<p>Observe only. Six angles come in; the pose comes out; the dot estimate is drawn in the corner inset as “est.” against the exact dot. The coach line in the readout is what software could say to the operator, with the uncertainty its own numbers support; when the instruction is smaller than that it gives none. The residual error the operator is left with is not the hand’s: it is the estimate error, shown as a number only the simulation knows. Calibration by a fixed-point trial is a state the software can run with the laser off.</p>',
+      tried: '<p><b>Round 1: does it know where the dot is?</b> The dot is 300 to 700 mm of arm away from the joints. Every joint’s angle error is multiplied by its lever arm to the dot. Try the encoder bits: at 12 bits (0.088°) quantisation alone is about 0.3 mm here; at 8 bits it is several millimetres. Assumption broken: resolution is the same as accuracy. It is not: the second slider adds the linearity error a cheap magnetic angle sensor has per turn, and it dominates as soon as it exceeds a few hundredths of a degree. The AS5600 datasheet gives \u00B11\u00B0 as its system INL maximum; at 1\u00B0 this arm\u2019s dot estimate is about 15 mm off (calc/encoder_error.py), so a cheap magnetic encoder is a coarse pose logger, not a fine aligner, unless its error is mapped out.</p>' +
+        '<p><b>Round 2: the zero.</b> All six joints have an unknown zero offset after assembly. A fraction of a degree of offset per joint is millimetres at the dot. Repair drawn: <b>touch-off calibration</b>, touching the nozzle to known datums (the tube rim, the rotator) with the welder’s work-contact circuit as the contact sensor, and solving the offsets. It removes most of the offset; it cannot remove linearity error.</p>' +
+        '<p><b>Round 3: balance.</b> A spring balances one mass. A different gun mass, or a pulling umbilical, leaves a residual force the operator feels as drift. Left standing: the gun’s mass is unknown; the slider only shows the residual.</p>' +
+        '<p><b>Round 4: a coach is not a controller.</b> Following the instruction leaves the estimate error, not zero. The readout says so. Left standing: whether a human can hold 0.3 mm with a display; nobody knows.</p>' +
+        '<p><b>Round 5 (from trials, wave 3): the coach spoke to two decimals of a number that carried a millimetre.</b> At the defaults the estimate is over a millimetre off, and the old coach still printed \u201Cmove the dot 0.81 mm\u201D. It now says how far it can be trusted, computed from what software knows: the bit count, the linearity spec or the residual of a fit, the zero left after touch-off. When the instruction is smaller than that, it says so and gives none. Assumption broken: that the coach\u2019s digits mean something. The fixed-point trial (toggle) is trials-19\u2019s repair: the dot is held on one printed cross from about 40 orientations, the joints are fitted, and what repeats is removed. What it leaves is set by two things a fit cannot see: quantisation (12 bits is 0.088\u00B0 a count) and play between the encoder and the load (slider, unknown for a bought arm). It is good only inside the window it was made over. The coach line also had its two directions reversed; corrected.</p>',
+      unresolved: '<ul><li>Whether arms of this class carry a 1 to 2 kg gun with an umbilical pulling on it without creep. The best-selling gas-spring monitor arm found on Prime is rated for 4.4 to 19.8 lb (2 to 9 kg): a light gun is below its range (sourcing/borrowed.md).</li><li>The play and stiffness of a monitor-arm joint under a weld: nobody has measured them (push the wrist with the Newton meter, read the dial gauge on the far side of the joint). Joint play and link bending add error the encoders cannot see; borrowed-20 works out what construction would make them small.</li><li>Whether the coach needs the dot\u2019s position at all: to record the orientations a skilled hand uses (the missing travel specification) it needs only three angles, which a shell IMU and one yaw encoder give without any arm; the coach\u2019s millimetre instruction is the part that needs the calibrated position.</li><li>Encoder choice and mounting: bearings, magnet alignment, wiring through a joint.</li><li>Real zeroing through the interlock circuit (the manual says the laser needs a complete circuit through the gun and a clip; nobody has tried using it as a probe).</li><li>How an operator would use the coach line without looking away from the weld.</li></ul>',
+      assumptions: '<ul><li>Arm links, post height, wrist centre in the housing and joint order are <b>illustrative</b> (a six-joint arm with a spherical wrist).</li><li>Encoder error is a model: rounding to the chosen bits, a per-turn sine linearity error, and a fixed zero offset per joint. Not the specification of any part.</li><li>Gun proxy from the manual envelope; dials follow the reference scene, illustrative.</li><li>Balance uses a rated mass and 9.81 m/s² only; joint friction not modelled.</li><li>Play: a fixed angle per joint with alternating sign (0.01\u00B0 by default, unknown for any bought arm). Calibration: a straight line fitted to each joint\u2019s sine linearity error over the window, made at the opening pose; the scene knows the truth, the software would only have the camera\u2019s board readings (trials-19).</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, D = WK.DIM;
+  const S = { roll: 45, hole: 30, vert: -15, hr: 0, hz: 0, bits: 12, inl: 0.2, off: 0.3, touch: false, play: 0.01, cal: false, win: 15, L1: 260, L2: 260, mass: 1.2, rated: 1.2 };
+  const bz = ws.benchZ, BASE = V(-300, -330, bz), POST_H = 260;
+  const SH = () => V(BASE.x, BASE.y, bz + POST_H);
+  const W_LOCAL = V(0, 0, 150), DOT_LOCAL = V(0, 0, -WK.CLEARANCE);
+  const SIGN = [1, -1, 1, -1, 1, -1];
+
+  // ---------- kinematics
+  const basis = (x, y, z) => new THREE.Matrix4().makeBasis(x, y, z);
+  function armFrame(t1, t23) {
+    const c1 = Math.cos(t1), s1 = Math.sin(t1), f = V(c1 * Math.cos(t23), s1 * Math.cos(t23), Math.sin(t23)), y = V(-s1, c1, 0), z = new THREE.Vector3().crossVectors(f, y);
+    return { f: f, R: basis(f, y, z) };
+  }
+  function fk(th) {
+    const S0 = SH(), c1 = Math.cos(th[0]), s1 = Math.sin(th[0]), c2 = Math.cos(th[1]), s2 = Math.sin(th[1]);
+    const E = S0.clone().add(V(c1 * c2, s1 * c2, s2).multiplyScalar(S.L1));
+    const af = armFrame(th[0], th[1] + th[2]), Wc = E.clone().addScaledVector(af.f, S.L2);
+    const Rw = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(th[3], th[4], th[5], 'XYZ'));
+    const Rt = af.R.clone().multiply(Rw), q = new THREE.Quaternion().setFromRotationMatrix(Rt);
+    const pos = Wc.clone().sub(W_LOCAL.clone().applyQuaternion(q)), dot = pos.clone().add(DOT_LOCAL.clone().applyQuaternion(q));
+    return { S0: S0, E: E, Wc: Wc, q: q, pos: pos, dot: dot };
+  }
+  function ik(q, pos) {
+    const Wc = W_LOCAL.clone().applyQuaternion(q).add(pos), S0 = SH(), r = WK.kin.twoLinkIK(S0, Wc, S.L1, S.L2, { bend: [0, 0, 1] });
+    if (!r.ok) return { ok: false, why: 'the wrist centre is ' + r.over.toFixed(0) + ' mm ' + (r.limited === 'far' ? 'beyond the arm’s reach' : 'inside its minimum reach') };
+    const d1 = Wc.clone().sub(S0), t1 = Math.atan2(d1.y, d1.x), c1 = Math.cos(t1), s1 = Math.sin(t1);
+    const e = r.elbow.clone().sub(S0), t2 = Math.atan2(e.z, e.x * c1 + e.y * s1), fv = Wc.clone().sub(r.elbow), t23 = Math.atan2(fv.z, fv.x * c1 + fv.y * s1);
+    const af = armFrame(t1, t23), Rt = new THREE.Matrix4().makeRotationFromQuaternion(q), Rw = af.R.clone().transpose().multiply(Rt);
+    const eu = new THREE.Euler().setFromRotationMatrix(Rw, 'XYZ');
+    if (Math.abs(eu.y) > 85 * DEG) return { ok: false, why: 'the wrist pitch is near its singular pose (' + (eu.y / DEG).toFixed(0) + '°)' };
+    return { ok: true, th: [t1, t2, t23 - t2, eu.x, eu.y, eu.z], elbow: r.elbow };
+  }
+  // what an encoder set would report: quantised, with per-turn linearity error, a zero offset and play the encoder cannot see.
+  // Calibrated (a fixed-point trial, trials-19): per joint, an offset-and-gain line fitted to the linearity error over the pose
+  // window is subtracted, and the zero offset goes with it. Quantisation and play stay: a fit cannot see them.
+  let calFit = null, calAt = null;
+  function fitLine(i, th0) {
+    const n = 41, xs = [], ys = [], W = S.win * DEG;
+    for (let k = 0; k < n; k++) { const t = -W + 2 * W * k / (n - 1); xs.push(t); ys.push(S.inl * Math.sin(th0 + t + i * 1.3)); }
+    const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
+    let sxx = 0, sxy = 0; for (let k = 0; k < n; k++) { sxx += (xs[k] - mx) * (xs[k] - mx); sxy += (xs[k] - mx) * (ys[k] - my); }
+    const b = sxy / sxx; return { a: my - b * mx, b: b, th0: th0 };
+  }
+  function measured(th) {
+    const q = 360 / Math.pow(2, S.bits), out = [];
+    for (let i = 0; i < 6; i++) {
+      const d = th[i] / DEG, lin = S.inl * Math.sin(th[i] + i * 1.3), raw = d + lin - S.play * SIGN[i] * 0.5, quant = Math.round(raw / q) * q;
+      let off = S.off * SIGN[i] * (S.touch ? 0.1 : 1), corr = 0;
+      if (S.cal && calAt) { off = 0; corr = -(calFit[i].a + calFit[i].b * (th[i] - calAt[i])); }
+      out.push((quant + off + corr) * DEG);
+    }
+    return out;
+  }
+  // The fit is made at the opening pose (dials 45 / 30 / -15, no hand error) over the chosen window, and used everywhere.
+  function calibrate() {
+    const dp = WK.dialsToPose(45, 30, -15), r = ik(dp.quaternion, dp.position);
+    if (!r.ok) return;
+    calAt = r.th.slice(); calFit = calAt.map((t, i) => fitLine(i, t));
+  }
+  // how many mm at the dot one radian of each joint moves it (finite differences on the exact kinematics)
+  function sensitivities(th) {
+    const base = fk(th).dot, out = [], h = 1e-4;
+    for (let i = 0; i < 6; i++) { const t2 = th.slice(); t2[i] += h; out.push(fk(t2).dot.clone().sub(base).length() / h); }
+    return out;
+  }
+
+  // ---------- scene objects
+  const baseBox = P.box(120, 120, 14, 'fixed'); baseBox.position.set(BASE.x, BASE.y, bz + 7); app.add(baseBox);
+  app.add(P.rod(V(BASE.x, BASE.y, bz + 14), V(BASE.x, BASE.y, bz + POST_H), 14, 'fixed'));
+  const upper = P.rod(V(0, 0, 0), V(0, 0, 1), 11, 'load'), fore = P.rod(V(0, 0, 0), V(0, 0, 1), 9, 'load'), wristBlk = P.box(46, 46, 46, 'load'), bracket = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'load');
+  const hubS = P.sphere(20, 'load'), hubE = P.sphere(17, 'load');
+  const spring = P.spring(V(0, 0, 0), V(0, 0, 100), { coils: 10, radius: 9, wire: 1.6, role: 'compliant' });
+  const encS = P.cyl(15, 8, 'sensor'), encE = P.cyl(13, 8, 'sensor'), encW = P.cyl(13, 8, 'sensor');
+  [upper, fore, wristBlk, bracket, hubS, hubE, spring, encS, encE, encW].forEach(o => app.add(o));
+  const hand = P.sphere(22, 'compliant'); hand.material = WK.mat('compliant', { opacity: 0.5 }); app.add(hand);
+  const estMark = P.sphere(3.4, 'sensor'); app.add(estMark);
+  app.label(() => encS.position, 'joint encoders (blue) at shoulder, elbow, wrist', { cls: 'sensor' });
+  app.label(() => spring.position, 'balance spring', { cls: 'compliant' });
+  app.label(() => hand.position, 'operator’s hand (holds the grip)', { cls: 'compliant' });
+  app.label(() => gun.dotWorld(), 'Laser dot (true)', { cls: 'laser' });
+  app.label(() => estMark.position, 'dot as the encoders say', { cls: 'sensor' });
+  app.cornerInset({ gun: gun });
+  gun.setLaser(true);
+  const gripMidLocal = gun.anchor('gripMid');
+
+  // ---------- update
+  let last = null;
+  function update() {
+    const off = V(S.hr, 0, S.hz), dp = WK.dialsToPose(S.roll, S.hole, S.vert);
+    let q = dp.quaternion, pos = dp.position.clone().add(off), sol = ik(q, pos);
+    if (!sol.ok) {
+      if (last) { app.badge('limit', 'the arm cannot hold this pose: ' + sol.why + '. Holding the last valid pose', 'limit'); q = last.q; pos = last.pos; sol = ik(q, pos); }
+      else { app.badge('limit', sol.why, 'limit'); return; }
+    } else { app.badge('limit', null); last = { q: q.clone(), pos: pos.clone() }; }
+    gun.setTransform(pos, q);
+    const th = sol.th, tr = fk(th), me = measured(th), es = fk(me);
+    // draw arm from the TRUE pose
+    upper.setEnds(tr.S0, tr.E); fore.setEnds(tr.E, tr.Wc);
+    hubS.position.copy(tr.S0); hubE.position.copy(tr.E); wristBlk.position.copy(tr.Wc);
+    wristBlk.quaternion.copy(tr.q);
+    bracket.setEnds(tr.Wc, gun.local(V(0, 17, 150)));
+    encS.position.copy(tr.S0).add(V(0, 0, 22)); encE.position.copy(tr.E).add(V(0, 0, 20)); encW.position.copy(tr.Wc).add(V(0, 0, 28));
+    const u1 = tr.E.clone().sub(tr.S0).normalize();
+    spring.setEnds(tr.S0.clone().add(V(0, 0, -110)).add(V(-Math.sin(th[0]) * 30, Math.cos(th[0]) * 30, 0)), tr.S0.clone().addScaledVector(u1, 120).add(V(-Math.sin(th[0]) * 30, Math.cos(th[0]) * 30, 0)));
+    hand.position.copy(gun.local(gripMidLocal));
+    estMark.position.copy(es.dot);
+    gun.updateLaser();
+    // error and coach
+    const offTrue = ws.offsetOf(tr.dot), offEst = ws.offsetOf(es.dot), err = es.dot.clone().sub(tr.dot);
+    app.cornerInset.setEstimate({ radial: offEst.radial, vertical: offEst.vertical });
+    const errR = offEst.radial - offTrue.radial, errZ = offEst.vertical - offTrue.vertical, errS = offEst.along - offTrue.along;
+    const tot = err.length();
+    const dr = -offEst.radial, dz = -offEst.vertical;
+    // What the software can know about its own estimate: quantisation (the bit count), the linearity spec or the fit residual, the
+    // zero offset left after touch-off or the fit. It cannot know play it was never told about, so its stated uncertainty is a floor.
+    const sens = sensitivities(th), qc = (360 / Math.pow(2, S.bits)) * DEG;
+    let resid = 0;
+    if (S.cal && calAt) { let r2 = 0; for (let k = 0; k < 6; k++) { const raw = S.inl * Math.sin(th[k] + k * 1.3), fitv = calFit[k].a + calFit[k].b * (th[k] - calAt[k]); r2 += (sens[k] * (raw - fitv) * DEG) ** 2 / 1; } resid = Math.sqrt(r2); }
+    let s2 = 0; for (let k = 0; k < 6; k++) { const lin = S.cal ? 0 : (S.inl * DEG) / Math.SQRT2, off = S.cal ? 0 : S.off * (S.touch ? 0.1 : 1) * DEG; s2 += (sens[k] * sens[k]) * (qc * qc / 12 + lin * lin + off * off); }
+    const sigma = Math.sqrt(s2 + resid * resid), dec = sigma < 0.15 ? 2 : 1;
+    const say = (Math.abs(dr) < sigma && Math.abs(dz) < sigma) ? 'no instruction: the arm cannot tell the dot from the seam at \u00B1' + sigma.toFixed(dec) + ' mm (rms); use your eyes' :
+      'about ' + Math.abs(dr).toFixed(dec) + ' mm ' + (dr > 0 ? 'toward the wall' : 'toward the tube axis') + ' and ' + Math.abs(dz).toFixed(dec) + ' mm ' + (dz > 0 ? 'up' : 'down') + ', \u00B1' + sigma.toFixed(dec) + ' mm';
+    const F = (S.mass - S.rated) * 9.81;
+    app.badge('bal', Math.abs(F) > 2 ? 'arm out of balance: ' + F.toFixed(1) + ' N ' + (F > 0 ? 'down' : 'up') + ' at the wrist (illustrative)' : null, 'warn');
+    const deg = a => (a / DEG).toFixed(1);
+    app.io.set({
+      commands: [{ name: 'Nothing to command', value: 'observe only', note: 'the operator moves the gun; no actuator on this arrangement' }],
+      observes: [
+        { name: 'Joint angles (encoders): base, shoulder, elbow', value: deg(me[0]) + ' / ' + deg(me[1]) + ' / ' + deg(me[2]), unit: '°', status: 'seen', note: S.bits + '-bit; error model in Assumptions' },
+        { name: 'Joint angles (encoders): wrist x, y, z', value: deg(me[3]) + ' / ' + deg(me[4]) + ' / ' + deg(me[5]), unit: '°', status: 'seen' },
+        { name: 'Dot vs seam from the encoders (r, z)', value: offEst.radial.toFixed(2) + ', ' + offEst.vertical.toFixed(2), unit: 'mm', status: 'partly', note: 'forward kinematics on the readings, not the true dot' },
+        { name: 'Estimate error, total (r, z, along)', value: tot.toFixed(2) + ' (' + errR.toFixed(2) + ', ' + errZ.toFixed(2) + ', ' + errS.toFixed(2) + ')', unit: 'mm', status: 'blind', note: 'this is what the operator is left with after obeying the coach; only the simulation knows it' },
+        { name: 'Coach to the operator', value: say, status: 'seen', note: 'software moves nothing; a person does; it says only what its own numbers support' },
+        { name: 'The coach\u2019s stated uncertainty (rms)', value: sigma.toFixed(2), unit: 'mm', status: 'partly', note: 'counts quantisation and the linearity spec, or the residual of the fit; play it was not told about is not in it, so the true error can be larger' },
+        { name: 'Deflection at joints, gun mass, umbilical drag', value: '-', status: 'unresolved', note: 'not measured by encoders' },
+      ],
+      manual: ['Move the gun (operator)', 'Zero the encoders by touch-off', 'Match the spring to the gun’s mass'],
+    });
+    app.invalidate();
+  }
+
+  // ---------- controls
+  const hd = app.ui.group('Where the operator holds the gun (scene edits: this is a hand, not a motor)', { help: 'The reference scene’s three rotations and a hand error; the arm follows.' });
+  hd.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => hand, onChange: v => { S.roll = v; update(); } });
+  hd.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => hand, onChange: v => { S.hole = v; update(); } });
+  hd.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => hand, onChange: v => { S.vert = v; update(); } });
+  hd.slider({ id: 'hr', label: 'Hand error, radial', min: -4, max: 4, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => hand, help: 'How far the dot is held off the seam, into the wall (+).', onChange: v => { S.hr = v; update(); } });
+  hd.slider({ id: 'hz', label: 'Hand error, vertical', min: -4, max: 4, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => hand, onChange: v => { S.hz = v; update(); } });
+  const en = app.ui.group('Encoders (observers)', { help: 'Model of what the joint sensors get wrong.' });
+  en.slider({ id: 'bits', label: 'Encoder resolution', min: 8, max: 16, step: 1, value: 12, unit: 'bits', kind: 'scene', visual: () => [encS, encE, encW], help: '12 bits = 0.088° per count.', onChange: v => { S.bits = v; update(); } });
+  en.slider({ id: 'inl', label: 'Linearity error per turn', min: 0, max: 1, step: 0.01, value: 0.2, unit: '°', kind: 'scene', visual: () => [encS, encE, encW], help: 'Sine error over each turn; a cheap magnetic angle sensor can have tenths of a degree.', onChange: v => { S.inl = v; update(); } });
+  en.slider({ id: 'off', label: 'Zero offset per joint', min: 0, max: 1, step: 0.01, value: 0.3, unit: '°', kind: 'scene', visual: () => [encS, encE, encW], onChange: v => { S.off = v; update(); } });
+  en.slider({ id: 'play', label: 'Play the encoders cannot see (per joint)', min: 0, max: 0.1, step: 0.005, value: 0.01, unit: '\u00B0', kind: 'scene', visual: () => [encS, encE, encW], help: 'Bearing slop between the encoder and the load. A bought monitor-arm joint\u2019s value is unknown; see borrowed-20 for how it follows from clearance and span.', onChange: v => { S.play = v; update(); } });
+  en.toggle({ id: 'touch', label: 'Zeroed by touch-off at known datums', value: false, kind: 'state', visual: () => [encS, encE, encW], help: 'Removes 90 % of the offset. Cannot remove linearity error.', onChange: v => { S.touch = v; update(); } });
+  en.toggle({ id: 'cal', label: 'Calibrated by a fixed-point trial (dot on one board cross, 40 orientations)', value: false, kind: 'state', visual: () => [encS, encE, encW], help: 'Software fits a zero and a gain to every joint over the window below (trials-19). It removes the zero offset and the smooth part of the linearity error; quantisation and play stay.', onChange: v => { S.cal = v; if (v) calibrate(); update(); } });
+  en.slider({ id: 'win', label: 'Calibrated over poses within \u00B1', min: 5, max: 40, step: 1, value: 15, unit: '\u00B0', kind: 'scene', visual: () => [encS, encE, encW], help: 'The fit is good inside the window it was made over and extrapolates outside it. The touches must span what the hand will do.', onChange: v => { S.win = v; calibrate(); update(); } });
+  const ar = app.ui.group('The arm (donor product choices)');
+  ar.slider({ id: 'L1', label: 'Upper arm length', min: 180, max: 420, step: 5, value: 260, unit: 'mm', kind: 'scene', visual: () => upper, onChange: v => { S.L1 = v; update(); } });
+  ar.slider({ id: 'L2', label: 'Forearm length', min: 180, max: 420, step: 5, value: 260, unit: 'mm', kind: 'scene', visual: () => fore, onChange: v => { S.L2 = v; update(); } });
+  ar.slider({ id: 'mass', label: 'Gun mass (unknown)', min: 0.5, max: 2.5, step: 0.05, value: 1.2, unit: 'kg', kind: 'scene', visual: () => spring, onChange: v => { S.mass = v; update(); } });
+  ar.slider({ id: 'rated', label: 'Spring balanced for', min: 0.5, max: 2.5, step: 0.05, value: 1.2, unit: 'kg', kind: 'scene', visual: () => spring, onChange: v => { S.rated = v; update(); } });
+  const rg = app.ui.group('Rotator and tube');
+  rg.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  rg.toggle({ id: 'runout', label: 'Show indicated runout (rig-doc limits)', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+  rg.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+  calibrate(); update();
+})();
+</script>
+</body>
+</html>

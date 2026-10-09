@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handover shifts</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ho { display: block; width: 100%; min-width: 820px; max-width: 1400px; }
+  .ho text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #b6c2d4; }
+  .ho .dim { fill: #7d8ea8; font-size: 10.5px; }
+  .ho .hd { fill: #e7ebf1; font-weight: 600; font-size: 12px; }
+  .ho .mono { font: 10.5px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+  .ho .col { cursor: pointer; }
+  .ho .col:hover .colbg { fill: rgba(147, 197, 253, .10); }
+  .ho-say { margin-top: 8px; padding: 8px 12px; border: 1px solid #263041; border-radius: 8px; background: #10161f; color: #c7d3e6; font-size: 12.5px; line-height: 1.5; max-width: 1100px; }
+  .ho-say b { color: #fff; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-14-handover-shift",
+  "title": "Handover shifts: where the millimetres go",
+  "by": "use",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "One axis at the dot, followed through the states of one closure. Every time the gun's owner changes (hand to arm, arm to clamp, arm to bungees, arm to seat) something shifts it, and a look taken before the last handover does not see it. Four arrangements: an arm that grips and stays, travel-05b's soft drive with a hard clamp, Derek's rings and bungees once the arm lets go, and a three-ball seat for comparison. Change the stiffnesses, the shifts, the load change and whether a camera looks again after the last handover, and watch which state the error comes from.",
+  "tags": ["handover", "sequence", "suspension", "soft drive hard lock", "lock shift", "load change", "one axis", "monte-carlo"],
+  "branchOf": ["travel-05b-soft-drive-hard-lock", "freedom-01-ring-bungee"],
+  "combines": ["travel-05b-soft-drive-hard-lock", "freedom-01c-master-per-axis"],
+  "transferable": ["the last look comes after the last handover", "release an arm only at zero arm force", "a null is force noise over stiffness", "a mean shift can be learned, a scatter cannot"],
+  "how": {
+    "motion": "no mechanism is animated; the gun's position along one axis is drawn state by state, for the arrangement you pick",
+    "load": "the schematic shows which spring, arm, clamp or seat holds the gun in each state",
+    "reference": "whatever is stiffest and last: an arm, a clamp, or a three-ball seat",
+    "observe": "a camera reads dot versus seam with the noise you set; the force null in the rings case reads arm force",
+    "use": "compare where each arrangement leaks its error: at a handover, in the loop, or at the weld load"
+  },
+  "software": {
+    "commands": ["arm axis or soft-drive anchor, in the step you set", "clamp open or closed", "bungee anchors (the null before release)"],
+    "observes": ["dot versus seam by camera (noisy)", "arm force by a load cell (noisy), in the rings case"],
+    "manual": ["the hand's first placement", "choosing springs and clamps"]
+  },
+  "notes": ["../../exchange/use--on--travel-w2.md", "../../explorers/use/calc/w2_handover.mjs", "../../explorers/travel/ideas/travel-05b-soft-drive-hard-lock.md", "../../explorers/freedom/ideas/freedom-01c-master-per-axis.md", "../../explorers/use/ideas/use-14-handover-shift.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Follow one closure along <b>one axis at the dot</b> (radial is the one that matters), from the hand that places the gun to the weld. In every arrangement the gun changes owner a few times: <b>hand</b> to <b>arm</b>, arm to <b>clamp</b>, arm to <b>bungees</b>, arm to <b>seat</b>. Each change is a <b>handover</b>, and each one shifts the gun by something the last camera look could not have seen if the look came earlier. The scene draws the gun’s position after every state, the shift each handover adds, and the distribution over 2000 closures.</p>' +
+        '<p><b>A</b> an arm that grips the shell and stays (the rings only shed weight). <b>B</b> travel-05b: a soft spring drive to a neighbourhood, then a clamp. <b>C</b> Derek’s rings and bungees once the arm lets go: the bungees are then the only thing holding the gun. <b>F</b> a three-ball seat (use-02) for comparison: the arm only has to bring the gun within capture.</p>' +
+        '<p>Two toggles carry the argument. <b>Look again after the last handover</b> puts the camera after the clamp (B). <b>Dry state carries the weld loads</b> (from room-13) moves the load change inside the last look. Everything in the schematic is a one-axis stand-in; the numbers are illustrative.</p>',
+      carries:
+        '<p><b>Amber</b> is the gun. <b>Purple</b> is what software could drive (arm axis, anchor, clamp). <b>Green</b> is compliance (bungees, soft-drive springs). <b>Teal</b> is a locating seat. In each state the drawing shows which of them is engaged: an arm that has let go is drawn dashed.</p>',
+      software:
+        '<p>Software commands the arm axis or the anchor in steps of the size you set, closes the clamp, and (case C) moves the bungee anchors to null the arm force before the arm lets go. It reads the dot against the seam through a camera with the noise you set. It never sees the shift a handover adds until the next look, and it never sees the weld load change until the weld unless the dry state carries the same loads.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>A look before the last handover does not see it.</b> With the defaults, B leaves the gun inside the ±0.10 mm window in 81 % of closures if no camera looks after the clamp closes, and 95 % if it does (the loop may unlock, trim and relock). <i>Changed by:</i> the toggle. <i>Left standing:</i> each relock adds a fresh shift; a clamp whose shift is larger than the window never converges.</li>' +
+        '<li><b>A mean shift can be learned, a scatter cannot.</b> If a clamp always pushes the same way (a bias of 0.08 mm here, unmeasured), B is inside the window in 49 % of closures with no look after the clamp, 82 % with a look after, and 81 % with no look at all once the bias has been learned from logged closures and subtracted. That is the job for an AI that runs the same closure hundreds of times: measure the mean shift at every handover and remove it. <i>Left standing:</i> the scatter is what a look after the last handover is for; whether real shifts have a stable mean is not known.</li>' +
+        '<li><b>The arm alone can hold or not, depending on one division.</b> A load change of 1 N on a 5 N/mm arm is 0.19 mm at the dot; the window is 0.10. With the dry state carrying the weld loads the load change is inside the last look and only a fifth of it is left: 93 % inside. A 20 N/mm arm gets 87 %. <i>Left standing:</i> nobody has measured the load change (wire conduit, hose, trigger) nor the tolerance.</li>' +
+        '<li><b>Derek’s rings, released.</b> When an arm that has placed the gun lets go, the gun goes to wherever the bungees rest it: 0.77 mm RMS at the default spread. Nulling the arm force first (software moves the bungee anchors until the arm reads about zero) cuts the release shift to 0.11 mm, but a soft spring cannot be nulled better than force noise divided by stiffness: 0.05 N over 0.15 N/mm is 0.33 mm. Then the weld load change acts on the bungees: 1 N is 6.7 mm. <i>Repair drawn:</i> stiff bungees (3 N/mm) bring 1 N to 0.33 mm, at which point they are an arm. <i>Reading:</i> the rings can carry and can hold a neighbourhood; the last stiff element has to be something else.</li>' +
+        '<li><b>The seat has one handover, and it is the one that wipes out the hand.</b> The arm only has to bring the gun within capture (about 3 mm); six contacts then locate it to a few hundredths. <i>Left standing:</i> printed grooves, creep and the carrier stiffness (use-02, room-12).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every stiffness, friction, shift, noise and load number is <b>illustrative</b>. The load change between the dry state and the weld (wire feed conduit, gas hose, trigger, vibration) has never been measured.</li>' +
+        '<li>One axis only. A clamp or a grip also shifts the other axes and the angles; the seat sets six.</li>' +
+        '<li>The friction model is Coulomb with a dead band, no creep, no stick-slip hysteresis. Heat (a locked ring on a tube that grows 0.03 to 0.06 mm) is not in it.</li>' +
+        '<li><b>Questions for Derek:</b> what does the gun move by when the wire feed starts and the gas comes on (a spring scale at the grip base, before and after)? How far does a clamp or a magic-arm knob move something when it is tightened, measured with the indicator you own?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Defaults: hand 1.0 mm, grip shift 0.15 mm, clamp shift 0.05 mm, seat scatter 0.03 mm (1-sigma each); arm 5 N/mm, bungees 0.15 N/mm, soft-drive springs 0.10 and 0.40 N/mm, clamp 50 N/mm, seat 40 N/mm; guide friction 0.15 N, ring friction 0.05 N; load change 1 N; camera 0.05 mm; step 0.01 mm; window ±0.10 mm; six rounds at most. <b>All illustrative.</b> The soft-drive and clamp figures are travel-05b’s defaults, the arm and bungee figures freedom-01’s.</li>' +
+        '<li>Position solves the spring statics of the elements engaged in each state; friction is a dead band around the equilibrium (the gun stays if inside, lands on the edge otherwise). The loop stops when the noisy reading is inside half the window. Code and numbers: <code>explorers/use/calc/w2_handover.mjs</code>.</li>' +
+        '<li><b>Models:</b> one-axis statics with random shifts at handovers and a noisy look-and-correct loop. <b>Depicts only:</b> the arm, springs, clamp and seat as rectangles and zigzags.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl, NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const txt = (parent, x, y, s, cls, anchor) => parent.appendChild(el('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start' }, document.createTextNode(s)));
+  const svg = el('svg', { class: 'ho', viewBox: '0 0 980 570', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'One axis at the dot through the states of a closure' });
+  const say = WK.h('div', { class: 'ho-say' });
+  st.appendChild(svg); st.appendChild(say);
+
+  // ------------------------------------------------------------------ model (same as explorers/use/calc/w2_handover.mjs)
+  function mulberry(seed) { let a = seed >>> 0; return function () { a += 0x6D2B79F5; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(rng) { const u = Math.max(1e-12, rng()), v = rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  const settle = (x, xeq, band) => (Math.abs(x - xeq) <= band ? x : xeq + Math.sign(x - xeq) * band);
+  const quant = (v, q) => Math.round(v / q) * q;
+  const DEF = { sh: 1.0, sg: 0.15, sl: 0.05, ss: 0.03, ka: 5, kb: 0.15, k1: 0.10, k2: 0.40, kL: 50, kS: 40, fg: 0.15, fr: 0.05, dF: 1.0, sF: 0.05, sc: 0.05, q: 0.01, w: 0.10, n: 6, brb: 1.0, bm: 0, learn: false, after: true, match: false, nullRel: false };
+  const P = Object.assign({}, DEF);
+  function closure(arr, rng) {
+    const g = () => gauss(rng), steps = []; let x = 0; const bias = P.learn ? 0 : P.bm;
+    const push = (id, kind, label, nx, note, rounds, from) => { steps.push({ id: id, kind: kind, label: label, x: nx, dx: nx - (from == null ? x : from), note: note || '', rounds: rounds || 0 }); x = nx; };
+    const loadLeft = P.match ? 0.2 * P.dF : P.dF;
+    push('hand', 'hand', 'hand sets', P.sh * g(), 'a hand leaves the gun where it can, about a millimetre off');
+    if (arr === 'A' || arr === 'C') {
+      push('grip', 'shift', 'arm grips', x + P.sg * g() + bias, 'the shell moves in the grip as it closes' + (P.bm ? (P.learn ? ' (the mean shift is learned and removed)' : ' (mean shift ' + P.bm.toFixed(2) + ' mm)') : ''));
+      const gain = P.ka / (P.ka + P.kb); let n = 0; const x0 = x;
+      for (; n < P.n; n++) { const obs = x + P.sc * g(); if (Math.abs(obs) <= 0.5 * P.w) break; x += quant(-obs, P.q) * gain; }
+      push('trim', 'loop', 'trim by camera', x, 'the arm axis nulls what the camera reads (' + n + (n === 1 ? ' round)' : ' rounds)'), n, x0);
+      if (arr === 'A') push('weld', 'load', 'weld load', x + loadLeft / (P.ka + P.kb), 'load change divided by arm plus bungee stiffness');
+      else {
+        let rest = P.brb * g(), nn = 0;
+        if (P.nullRel) { for (; nn < P.n; nn++) { const fm = P.kb * (rest - x) + P.sF * g(); if (Math.abs(fm) <= P.sF) break; rest -= quant(fm / P.kb, P.q); } }
+        const band = P.fr / P.kb;
+        push('release', 'shift', 'arm lets go', settle(x, rest, band), P.nullRel ? 'the anchors were nulled to the arm force first (' + nn + ' rounds)' : 'the gun goes to where the bungees rest it', nn);
+        push('weld', 'load', 'weld load', x + loadLeft / P.kb, 'load change divided by bungee stiffness');
+      }
+    } else if (arr === 'B') {
+      const r = P.k1 / (P.k1 + P.k2), band = P.fg / (P.k1 + P.k2); let xs = x; const x0 = x;
+      const trim = function () { let m = 0; for (; m < P.n; m++) { const obs = x + P.sc * g(); if (Math.abs(obs) <= 0.5 * P.w) break; xs += r * quant(-obs / r, P.q); x = settle(x, xs, band); } return m; };
+      const n = trim();
+      push('trim', 'loop', 'trim by anchor', x, 'the anchor moves the gun through soft springs; friction dead band ±' + band.toFixed(2) + ' mm (' + n + ' rounds)', n, x0);
+      push('lock', 'shift', 'clamp closes', x + P.sl * g() + bias, 'the clamp moves the gun as it closes' + (P.bm ? (P.learn ? ' (the mean shift is learned and removed)' : ' (mean shift ' + P.bm.toFixed(2) + ' mm)') : ''));
+      if (P.after) { for (let c = 0; c < P.n; c++) { const obs = x + P.sc * g(); if (Math.abs(obs) <= 0.5 * P.w) break; const xb = x, m = trim(); x = x + P.sl * g() + bias; steps.push({ id: 'relock', kind: 'shift', label: 'unlock, trim, relock', x: x, dx: x - xb, note: 'a look after the clamp found it outside; one more clamp shift', rounds: m }); } }
+      push('weld', 'load', 'weld load', x + loadLeft / P.kL, 'load change divided by clamp stiffness');
+    } else {
+      push('seat', 'shift', 'seat takes it', P.ss * g(), 'six contacts locate it; the arm only had to bring it within capture, so the hand’s error is gone');
+      push('weld', 'load', 'weld load', x + loadLeft / P.kS, 'load change divided by seat stiffness');
+    }
+    return { steps: steps, final: x };
+  }
+  function batch(arr, N) {
+    const rng = mulberry(7), fin = [], per = {};
+    for (let i = 0; i < N; i++) { const c = closure(arr, rng); fin.push(c.final); c.steps.forEach(s => { (per[s.id] = per[s.id] || []).push(s.id === 'seat' ? s.x : s.dx); }); }
+    const a = fin.map(Math.abs).sort((p, q) => p - q), rms = v => Math.sqrt(v.reduce((t, u) => t + u * u, 0) / v.length);
+    return { fin: fin, inside: a.filter(v => v <= P.w).length / N, p50: a[Math.floor(N * 0.5)], p95: a[Math.floor(N * 0.95)], per: Object.keys(per).map(k => ({ id: k, rms: rms(per[k]) })) };
+  }
+
+  // ------------------------------------------------------------------ arrangements
+  const ARR = {
+    A: { label: 'A  arm grips and stays (rings shed weight)', blurb: 'The arm is the locator from the moment it grips. The bungees are in parallel: they steal a little of every arm move and add a little stiffness.' },
+    B: { label: 'B  soft drive, then a clamp (travel-05b)', blurb: 'A motor moves an anchor; a soft spring turns anchor motion into a finer gun motion; a clamp closes and the springs stop mattering.' },
+    C: { label: 'C  rings and bungees, the arm lets go (Derek)', blurb: 'An arm places the gun, then lets go so that the rings and bungees hold it. Only the bungees are left holding when the weld starts.' },
+    F: { label: 'F  three-ball seat (use-02, for comparison)', blurb: 'The arm brings the gun within capture and a kinematic seat locates it: one handover instead of a trim loop.' },
+  };
+  const S = { arr: 'B', state: 2, seed: 1508928336 };
+  const KIND_COL = { hand: '#f5a524', shift: '#f87171', loop: '#14b8a6', load: '#60a5fa' };
+  const LABEL = { hand: 'hand sets', grip: 'arm grips', trim: 'trim (loop)', lock: 'clamp closes', relock: 'unlock, trim, relock', release: 'arm lets go', seat: 'seat scatter', weld: 'weld load' };
+  const KIND_TXT = { hand: 'hand', shift: 'handover shift', loop: 'look and correct', load: 'load change' };
+
+  // symmetric log scale: linear inside +-0.05 mm, logarithmic beyond
+  const LT = 0.05, symlog = v => Math.asinh(v / LT);
+  const fmt = v => (Math.abs(v) >= 1 ? v.toFixed(2) : Math.abs(v) >= 0.1 ? v.toFixed(3) : v.toFixed(3));
+  const sgn = v => (v >= 0 ? '+' : '−') + fmt(Math.abs(v));
+
+  function render() {
+    const rng = mulberry(S.seed), cl = closure(S.arr, rng), steps = cl.steps, K = steps.length;
+    S.state = Math.max(0, Math.min(K - 1, S.state));
+    const cur = steps[S.state], prev = S.state > 0 ? steps[S.state - 1] : null;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    // controls that do not belong to this arrangement are greyed out
+    const on = { learn: P.bm > 0 && S.arr !== 'F', bm: S.arr !== 'F', after: S.arr === 'B', nullrel: S.arr === 'C', ka: S.arr === 'A' || S.arr === 'C', kb: S.arr === 'A' || S.arr === 'C', kL: S.arr === 'B', fg: S.arr === 'B', sg: S.arr === 'A' || S.arr === 'C', sl: S.arr === 'B', ss: S.arr === 'F' };
+    Object.keys(on).forEach(k => app.ui.enable(k, on[k]));
+
+    // ---------------- panel 1: the schematic
+    txt(svg, 20, 18, ARR[S.arr].label, 'hd');
+    txt(svg, 20, 33, ARR[S.arr].blurb, 'dim');
+    const PX = 60, X0 = 490, gy = 82;         // 60 px per mm, target at X0
+    const gx = X0 + Math.max(-330, Math.min(330, cur.x * PX)), off = Math.abs(cur.x * PX) > 330;
+    const g1 = el('g'); svg.appendChild(g1);
+    g1.appendChild(el('rect', { x: 20, y: 42, width: 940, height: 122, rx: 8, fill: '#0f151d', stroke: '#222c3a' }));
+    g1.appendChild(el('rect', { x: X0 - P.w * PX, y: 46, width: 2 * P.w * PX, height: 114, fill: 'rgba(20,184,166,.20)' }));
+    g1.appendChild(el('line', { x1: X0, y1: 46, x2: X0, y2: 160, stroke: '#14b8a6', 'stroke-dasharray': '4 3' }));
+    txt(svg, 20, 180, 'target: seam at 0, window ±' + P.w.toFixed(2) + ' mm (60 px per mm; the drawing stops at 5.5 mm)', 'dim');
+    g1.appendChild(el('rect', { x: 26, y: 52, width: 14, height: 102, fill: '#3a4658' })); g1.appendChild(el('rect', { x: 940, y: 52, width: 14, height: 102, fill: '#3a4658' }));
+    const zig = (x1, x2, y, col, dashed, n) => { let d = 'M' + x1 + ' ' + y; const N = n || 10, seg = (x2 - x1) / N; for (let i = 0; i < N; i++) d += ' L' + (x1 + seg * (i + 0.25)) + ' ' + (y - 9) + ' L' + (x1 + seg * (i + 0.75)) + ' ' + (y + 9); d += ' L' + x2 + ' ' + y; return el('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 2, 'stroke-dasharray': dashed ? '4 3' : null }); };
+    const gunL = gx - 46, gunR = gx + 46;
+    const engaged = id => steps.slice(0, S.state + 1).some(s => s.id === id);
+    const armIn = (S.arr === 'A' || S.arr === 'C') && engaged('grip') && !(S.arr === 'C' && engaged('release'));
+    const lockIn = S.arr === 'B' && engaged('lock');
+    const seatIn = S.arr === 'F' && engaged('seat');
+    if (S.arr === 'A' || S.arr === 'C') {
+      g1.appendChild(el('rect', { x: 40, y: gy - 9, width: Math.max(10, gunL - 40), height: 18, fill: armIn ? '#a855f7' : 'none', stroke: '#a855f7', 'stroke-dasharray': armIn ? null : '5 4', opacity: armIn ? 1 : 0.7 }));
+      g1.appendChild(el('rect', { x: gunL - 8, y: gy - 22, width: 10, height: 44, fill: armIn ? '#c084fc' : 'none', stroke: '#a855f7', 'stroke-dasharray': armIn ? null : '3 3' }));
+      txt(svg, 62, gy - 16, 'arm ' + P.ka + ' N/mm' + (armIn ? ' (gripping)' : (S.arr === 'C' && engaged('release') ? ' (let go)' : ' (not yet)')), 'dim');
+      g1.appendChild(zig(gunR, 940, gy, '#22c55e', false, 9)); txt(svg, 930, gy + 34, 'bungees ' + P.kb + ' N/mm', 'dim', 'end');
+      if (S.arr === 'C') { g1.appendChild(el('rect', { x: 210, y: gy + 44, width: 14, height: 14, fill: '#a855f7' })); txt(svg, 232, gy + 55, 'bungee anchors (nulled to the arm force before it lets go)', 'dim'); }
+    } else if (S.arr === 'B') {
+      const r = P.k1 / (P.k1 + P.k2);
+      g1.appendChild(el('rect', { x: 130, y: gy - 20, width: 34, height: 40, fill: '#a855f7' })); txt(svg, 147, gy - 26, 'anchor', 'dim', 'middle');
+      g1.appendChild(zig(164, gunL, gy, '#22c55e', false, 7)); txt(svg, 230, gy - 16, 'k1 ' + P.k1 + ' N/mm', 'dim', 'middle');
+      g1.appendChild(zig(gunR, 940, gy, '#22c55e', false, 8)); txt(svg, 740, gy - 16, 'k2 ' + P.k2 + ' N/mm', 'dim', 'middle');
+      g1.appendChild(el('rect', { x: 60, y: gy + 38, width: 860, height: 4, fill: '#3a4658' })); txt(svg, 62, gy + 56, 'guide, friction ' + P.fg + ' N: dead band ±' + (P.fg / (P.k1 + P.k2)).toFixed(2) + ' mm; ratio r = ' + r.toFixed(2), 'dim');
+      const cw = lockIn ? 64 : 40;
+      g1.appendChild(el('rect', { x: gx - cw / 2, y: gy + 28, width: cw, height: 14, fill: lockIn ? '#f87171' : '#3a4658', stroke: lockIn ? '#f87171' : '#6c788b' })); txt(svg, gx + 50, gy + 40, lockIn ? 'clamp closed ' + P.kL + ' N/mm' : 'clamp open', 'dim');
+    } else {
+      g1.appendChild(el('path', { d: 'M' + (X0 - 40) + ' ' + (gy + 56) + ' L' + X0 + ' ' + (gy + 32) + ' L' + (X0 + 40) + ' ' + (gy + 56) + ' Z', fill: seatIn ? '#14b8a6' : 'none', stroke: '#14b8a6', 'stroke-width': 2 }));
+      txt(svg, X0 + 52, gy + 50, 'three-ball seat ' + P.kS + ' N/mm (six contacts; this drawing shows one axis)', 'dim');
+      g1.appendChild(el('rect', { x: 40, y: gy - 9, width: Math.max(10, gunL - 40), height: 18, fill: 'none', stroke: '#a855f7', 'stroke-dasharray': '5 4', opacity: 0.7 })); txt(svg, 62, gy - 16, 'arm: sloppy, only has to bring it within capture', 'dim');
+    }
+    if (prev) g1.appendChild(el('rect', { x: X0 + Math.max(-330, Math.min(330, prev.x * PX)) - 46, y: gy - 26, width: 92, height: 52, rx: 6, fill: 'none', stroke: '#f5a524', 'stroke-dasharray': '3 3', opacity: 0.5 }));
+    g1.appendChild(el('rect', { x: gunL, y: gy - 26, width: 92, height: 52, rx: 6, fill: '#c98a1a', stroke: '#f5a524', 'stroke-width': 1.5 }));
+    txt(svg, gx, gy + 4, 'gun', 'hd', 'middle');
+    g1.appendChild(el('circle', { cx: gx + 30, cy: gy + 26, r: 5, fill: '#ff3b30' }));
+    if (off) txt(svg, gx, gy - 34, 'off scale: ' + sgn(cur.x) + ' mm', 'hd', 'middle');
+    txt(svg, 960, 180, 'now: ' + cur.label + '   x = ' + sgn(cur.x) + ' mm   (' + (Math.abs(cur.x) <= P.w ? 'inside' : 'outside') + ' the window)', 'mono', 'end');
+
+    // ---------------- panel 2: the trace by state
+    const TY0 = 212, TY1 = 348, TX0 = 92, TX1 = 940;
+    txt(svg, 20, 202, 'The gun’s position after each state (log scale beyond ±0.05 mm), and what moved it', 'hd');
+    const mxS = Math.max(symlog(0.3), ...steps.map(s => Math.abs(symlog(s.x))), symlog(P.w)), yc = (TY0 + TY1) / 2, ky = (TY1 - TY0) / 2 / (mxS * 1.1);
+    const Y = v => yc - symlog(v) * ky;
+    svg.appendChild(el('rect', { x: TX0, y: TY0, width: TX1 - TX0, height: TY1 - TY0, fill: '#0f151d', stroke: '#222c3a' }));
+    svg.appendChild(el('rect', { x: TX0, y: Y(P.w), width: TX1 - TX0, height: Y(-P.w) - Y(P.w), fill: 'rgba(20,184,166,.18)' }));
+    [0.1, 0.3, 1, 3, 10].forEach(v => { if (symlog(v) <= mxS * 1.1) [1, -1].forEach(sg => { svg.appendChild(el('line', { x1: TX0, y1: Y(sg * v), x2: TX1, y2: Y(sg * v), stroke: '#1d2633' })); txt(svg, TX0 - 6, Y(sg * v) + 3, (sg > 0 ? '+' : '−') + v, 'dim', 'end'); }); });
+    svg.appendChild(el('line', { x1: TX0, y1: yc, x2: TX1, y2: yc, stroke: '#3a4658' })); txt(svg, TX0 - 6, yc + 3, '0', 'dim', 'end'); txt(svg, TX0 - 6, TY0 - 4, 'mm', 'dim', 'end');
+    const cw = (TX1 - TX0) / K, cx = i => TX0 + cw * (i + 0.5);
+    steps.forEach((s, i) => {
+      const grp = el('g', { class: 'col' }); svg.appendChild(grp);
+      grp.appendChild(el('rect', { class: 'colbg', x: TX0 + cw * i, y: TY0, width: cw, height: TY1 - TY0 + 48, fill: i === S.state ? 'rgba(147,197,253,.12)' : 'transparent' }));
+      const y0 = i === 0 ? yc : Y(steps[i - 1].x), y1 = Y(s.x);
+      grp.appendChild(el('line', { x1: cx(i), y1: y0, x2: cx(i), y2: y1, stroke: KIND_COL[s.kind], 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.85 }));
+      if (i > 0) grp.appendChild(el('line', { x1: cx(i - 1) + 8, y1: Y(steps[i - 1].x), x2: cx(i) - 8, y2: y0, stroke: '#4b5a70', 'stroke-dasharray': '2 3' }));
+      grp.appendChild(el('circle', { cx: cx(i), cy: y1, r: 5.5, fill: '#0b0f14', stroke: KIND_COL[s.kind], 'stroke-width': 2 }));
+      txt(grp, cx(i) + 12, y1 + 4, sgn(s.x), 'mono');
+      txt(grp, cx(i), TY1 + 17, s.label, i === S.state ? 'hd' : '', 'middle');
+      txt(grp, cx(i), TY1 + 31, 'moves ' + sgn(s.dx) + ' mm', 'dim', 'middle');
+      txt(grp, cx(i), TY1 + 44, KIND_TXT[s.kind], 'dim', 'middle');
+      grp.addEventListener('click', () => { app.ui.set('state', i); });
+    });
+    let lx = TX0; Object.keys(KIND_COL).forEach(k => { svg.appendChild(el('rect', { x: lx, y: TY1 + 56, width: 12, height: 8, fill: KIND_COL[k] })); txt(svg, lx + 16, TY1 + 64, KIND_TXT[k], 'dim'); lx += 130; });
+    txt(svg, TX1, TY1 + 64, 'click a column, or use the State slider', 'dim', 'end');
+
+    // ---------------- panel 3: 400 closures
+    const B = batch(S.arr, 2000), HY0 = 444, HY1 = 540;
+    txt(svg, 20, 434, 'Final position over 2000 closures at these settings', 'hd');
+    const span = Math.max(4 * P.w, 2.2 * B.p95), nb = 41, bins = Array(nb).fill(0);
+    B.fin.forEach(v => { const bi = Math.floor((v / span + 0.5) * nb); if (bi >= 0 && bi < nb) bins[bi]++; });
+    const mxb = Math.max(1, ...bins), HX0 = 92, HX1 = 560, bw = (HX1 - HX0) / nb;
+    svg.appendChild(el('rect', { x: HX0, y: HY0, width: HX1 - HX0, height: HY1 - HY0, fill: '#0f151d', stroke: '#222c3a' }));
+    svg.appendChild(el('rect', { x: HX0 + ((0.5 - P.w / span) * (HX1 - HX0)), y: HY0, width: 2 * P.w / span * (HX1 - HX0), height: HY1 - HY0, fill: 'rgba(20,184,166,.20)' }));
+    bins.forEach((c, i) => { const h = c / mxb * (HY1 - HY0 - 22); svg.appendChild(el('rect', { x: HX0 + i * bw + 1, y: HY1 - h, width: bw - 2, height: h, fill: '#60a5fa' })); });
+    txt(svg, HX0, HY1 + 14, '−' + (span / 2).toFixed(2), 'dim'); txt(svg, (HX0 + HX1) / 2, HY1 + 14, '0', 'dim', 'middle'); txt(svg, HX1, HY1 + 14, '+' + (span / 2).toFixed(2) + ' mm', 'dim', 'end');
+    txt(svg, HX0 + 8, HY0 + 14, 'inside the window: ' + Math.round(100 * B.inside) + ' %    median |x| ' + fmt(B.p50) + ' mm    95th percentile ' + fmt(B.p95) + ' mm', 'mono');
+    const BX0 = 640, BX1 = 940;
+    txt(svg, BX0, 434, 'RMS move at each state (mm)', 'hd');
+    const list = B.per.filter(p => p.id !== 'hand'), mxr = Math.max(0.05, ...list.map(p => p.rms));
+    list.forEach((p, i) => { const y = HY0 + 2 + i * 22, kind = p.id === 'trim' ? 'loop' : p.id === 'weld' ? 'load' : 'shift', wbar = Math.max(2, (p.rms / mxr) * (BX1 - BX0 - 200));
+      txt(svg, BX0, y + 11, LABEL[p.id] || p.id, ''); svg.appendChild(el('rect', { x: BX0 + 130, y: y, width: wbar, height: 14, fill: KIND_COL[kind] })); txt(svg, BX0 + 134 + wbar, y + 12, fmt(p.rms), 'mono'); });
+    txt(svg, BX0, HY1 + 14, 'the trim moves what the hand left; the rest are the leaks', 'dim');
+
+    // ---------------- text
+    say.innerHTML = '<b>' + cur.label + '.</b> ' + cur.note + '. The gun is now ' + sgn(cur.x) + ' mm from the seam' + (prev ? ' (' + sgn(cur.dx) + ' mm moved in this state)' : '') + '.' +
+      (S.arr === 'B' && cur.id === 'lock' ? ' <b>Nothing has looked since.</b> ' + (P.after ? 'With “look again” on, the camera does next.' : 'Turn on “look again after the last handover” to close the loop after the clamp.') : '') +
+      (S.arr === 'C' && cur.id === 'weld' ? ' <b>Only the bungees hold the gun now.</b> A soft support cannot keep a load change of ' + P.dF + ' N inside the window unless it is very much stiffer.' : '') +
+      (S.arr === 'A' && cur.id === 'weld' ? (P.match ? ' The dry state carried the loads, so only a fifth of the change is left after the last look.' : ' The last look was a dry look: it could not see this.') : '');
+    app.badge('off', off ? 'the gun is more than 5.5 mm off the seam in this state' : null, 'warn');
+    app.badge('conv', steps.some(s => s.id === 'trim' && s.rounds >= P.n) ? 'the loop used all ' + P.n + ' rounds without settling in this closure' : null, 'warn');
+    app.io.set({
+      commands: S.arr === 'B' ? [{ name: 'Anchor', value: 'steps of ' + P.q + ' mm', note: 'gun moves r x anchor, r = ' + (P.k1 / (P.k1 + P.k2)).toFixed(2) }, { name: 'Clamp', value: lockIn ? 'closed' : 'open', unit: '' }]
+        : S.arr === 'F' ? [{ name: 'Arm swing and plunge', value: 'bring within capture', note: 'the seat, not the arm, sets the pose' }]
+        : [{ name: 'Arm axis', value: 'steps of ' + P.q + ' mm' }].concat(S.arr === 'C' ? [{ name: 'Bungee anchors', value: P.nullRel ? 'nulled to arm force' : 'not moved' }] : []),
+      observes: [
+        { name: 'Dot vs seam, one axis', value: cur.x.toFixed(3), unit: 'mm', status: 'partly', note: 'the scene shows the true value; a camera would read it with noise ' + P.sc + ' mm' },
+        { name: 'Shift at the last handover', value: cur.kind === 'shift' ? sgn(cur.dx) : '-', unit: cur.kind === 'shift' ? 'mm' : '', status: 'blind', note: 'invisible until the next look' },
+        { name: 'Weld load change', value: P.match ? 'inside the last look (80 % matched)' : P.dF + ' N', status: P.match ? 'partly' : 'blind', note: 'not observed unless the dry state carries the weld loads' },
+        { name: 'Arm force (case C)', value: S.arr === 'C' ? (P.nullRel ? 'read by a load cell' : 'not read') : '-', status: S.arr === 'C' && P.nullRel ? 'partly' : 'blind', note: 'null precision = force noise / bungee stiffness = ' + (P.sF / P.kb).toFixed(2) + ' mm' },
+      ],
+      manual: ['Placing the gun by hand in the first state', 'Choosing and tuning springs, clamp and seat'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  const a = app.ui.group('Arrangement and state');
+  a.radio({ id: 'arr', label: 'Arrangement', options: Object.keys(ARR).map(k => ({ value: k, label: ARR[k].label })), value: 'B', kind: 'branch', help: 'Four ways the gun changes hands on the way to the weld. Nothing is ranked.', onChange: v => { S.arr = v; render(); } });
+  a.slider({ id: 'state', label: 'State', min: 0, max: 5, step: 1, value: 2, kind: 'state', help: 'Step through the closure: hand, grip, trim, clamp or release, weld. Shows one state; the histogram below covers whole closures.', onChange: v => { S.state = Math.round(v); render(); } });
+  a.button({ id: 'again', label: 'New closure (re-roll the hand and the noise)', kind: 'view', onClick: () => { S.seed = (S.seed * 1664525 + 1013904223) >>> 0; render(); } });
+  const b = app.ui.group('Look and load');
+  b.toggle({ id: 'after', label: 'Look again after the last handover (B)', value: true, kind: 'state', help: 'After the clamp closes a camera reads again; if outside, the clamp opens, the anchor trims, the clamp closes again.', onChange: v => { P.after = !!v; render(); } });
+  b.toggle({ id: 'match', label: 'Dry state carries the weld loads (room-13)', value: false, kind: 'state', help: 'Gas on, wire jogged, trigger path loaded (laser off) during the last look; only 20 percent of the load change is left for the weld.', onChange: v => { P.match = !!v; render(); } });
+  b.toggle({ id: 'nullrel', label: 'Null the arm force before it lets go (C)', value: false, kind: 'state', help: 'Software moves the bungee anchors until the arm reads about zero force, then the arm opens.', onChange: v => { P.nullRel = !!v; render(); } });
+  b.slider({ id: 'dF', label: 'Load change at the weld', min: 0, max: 5, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', help: 'Wire feed conduit, gas hose, trigger, vibration. Unmeasured.', onChange: v => { P.dF = v; render(); } });
+  b.slider({ id: 'w', label: 'Window (±)', min: 0.02, max: 0.5, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'What the weld tolerates is not known.', onChange: v => { P.w = v; render(); } });
+  b.slider({ id: 'sc', label: 'Camera noise (1-sigma)', min: 0.005, max: 0.3, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'The real noise for a dot in a 6 mm recess is unknown.', onChange: v => { P.sc = v; render(); } });
+  const c = app.ui.group('Stiffness (N/mm at the dot)');
+  c.slider({ id: 'ka', label: 'Arm (A, C)', min: 0.5, max: 40, step: 0.5, value: 5, unit: 'N/mm', kind: 'scene', onChange: v => { P.ka = v; render(); } });
+  c.slider({ id: 'kb', label: 'Bungees (A, C)', min: 0.05, max: 5, step: 0.05, value: 0.15, unit: 'N/mm', kind: 'scene', help: 'Derek’s two bungees holding one axis steadyish.', onChange: v => { P.kb = v; render(); } });
+  c.slider({ id: 'kL', label: 'Clamp closed (B)', min: 2, max: 200, step: 1, value: 50, unit: 'N/mm', kind: 'scene', onChange: v => { P.kL = v; render(); } });
+  c.slider({ id: 'fg', label: 'Guide friction (B)', min: 0.01, max: 0.6, step: 0.01, value: 0.15, unit: 'N', kind: 'scene', help: 'Dead band = friction / (k1 + k2).', onChange: v => { P.fg = v; render(); } });
+  const d = app.ui.group('Shifts at the handovers (1-sigma)');
+  d.slider({ id: 'bm', label: 'Mean shift at a grip or clamp (bias)', min: 0, max: 0.3, step: 0.01, value: 0, unit: 'mm', kind: 'scene', help: 'A closing that always pushes the same way. Zero in the defaults.', onChange: v => { P.bm = v; render(); } });
+  d.toggle({ id: 'learn', label: 'The AI learns the bias over many closures and removes it', value: false, kind: 'state', help: 'Only the scatter is left. This is what hundreds of logged closures are for.', onChange: v => { P.learn = !!v; render(); } });
+  d.slider({ id: 'sh', label: 'Where the hand leaves it', min: 0.1, max: 3, step: 0.1, value: 1.0, unit: 'mm', kind: 'scene', onChange: v => { P.sh = v; render(); } });
+  d.slider({ id: 'sg', label: 'Arm grip closing', min: 0, max: 0.6, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', onChange: v => { P.sg = v; render(); } });
+  d.slider({ id: 'sl', label: 'Clamp closing', min: 0, max: 0.4, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Travel-05b: unmeasured. Larger than the window and the loop cannot converge.', onChange: v => { P.sl = v; render(); } });
+  d.slider({ id: 'ss', label: 'Seat scatter (F)', min: 0.005, max: 0.2, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'use-02: 5 microns per contact is about 25 to 30 microns at the dot.', onChange: v => { P.ss = v; render(); } });
+  d.slider({ id: 'q', label: 'Finest command step', min: 0.001, max: 0.1, step: 0.001, value: 0.01, unit: 'mm', kind: 'scene', help: 'The arm axis at the dot, or the anchor in B.', onChange: v => { P.q = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

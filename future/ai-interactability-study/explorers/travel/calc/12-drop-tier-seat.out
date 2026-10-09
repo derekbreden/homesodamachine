@@ -1,0 +1,33 @@
+Tilt from three balls: worst case one ball high by c over a span s: tilt ~ c / s (rad). Seam-circle face runout from a tilt: peak r tan(tilt), peak-to-peak twice that.
+  c (um)  span (mm)   tilt (deg)   peak at r=61.85 (um)   seam sideways at 232 mm (um)   seam sideways at 330 mm (um)
+      2       100       0.0011              1.2                      4.6                          6.6
+      2       150       0.0008              0.8                      3.1                          4.4
+      2       250       0.0005              0.5                      1.9                          2.6
+      5       100       0.0029              3.1                     11.6                         16.5
+      5       150       0.0019              2.1                      7.7                         11.0
+      5       250       0.0011              1.2                      4.6                          6.6
+     10       100       0.0057              6.2                     23.2                         33.0
+     10       150       0.0038              4.1                     15.5                         22.0
+     10       250       0.0023              2.5                      9.3                         13.2
+     20       100       0.0115             12.4                     46.4                         66.0
+     20       150       0.0076              8.2                     30.9                         44.0
+     20       250       0.0046              4.9                     18.6                         26.4
+     50       100       0.0286             30.9                    116.0                        165.0
+     50       150       0.0191             20.6                     77.3                        110.0
+     50       250       0.0115             12.4                     46.4                         66.0
+
+What tilt is acceptable? A face-runout share of 0.02 mm peak (a tenth of the 0.30 mm TIR window [repo]) allows tilt = 0.0185 degrees;
+use quotes 0.05 degree = 0.054 mm peak, 0.11 mm peak to peak: 0.054 mm peak.
+A 3-ball top seat with 10 um scatter at 150 mm span leaves 0.0038 degrees, i.e. 4.1 um peak: about 5 times inside that share. A lab jack scissor (0.3 degrees, illustrative, sourcing 6) is 0.32 mm peak.
+
+The fine axes trim a tilt's position but not the tilt: the once-per-turn vertical term stays. Peak to peak at the seam for 0.02 degree: 0.043 mm.
+
+Escape as a tier drop (the work leaves the head), beam vertical component 0.712 in the kit's opening pose [derived]:
+  10 mm along the beam = 14.0 mm of Z
+  20 mm along the beam = 28.1 mm of Z
+  30 mm along the beam = 42.1 mm of Z
+  40 mm along the beam = 56.2 mm of Z
+  at 60 mm/s the drop of 28.1 mm takes 0.47 s, and the seam has turned 3.7 mm at 8 mm/s while it happens (0.47 s x 8 mm/s = 3.7 mm).
+  the fine Z alone (12 mm of range) gives at most 8.5 mm along the beam.
+
+Swap clearance with a drop of D: the rim clears the barrel by (5.0 mm tip margin + D - fine Z high stop) before the shuttle starts. With D = 40 and Z at +6:  39 mm; without the tier and Z at +6 the barrel is 4 mm into the rim (use-13: red from Z = +2 in travel-01's own scene).

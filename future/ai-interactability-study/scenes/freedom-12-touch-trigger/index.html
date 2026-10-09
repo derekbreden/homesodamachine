@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch trigger stylus</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-12-touch-trigger",
+  "title": "Touch trigger: a stylus on a three-contact seat that says which way it was pushed",
+  "by": "freedom",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Branch of the touch-off idea (eyes-05, no scene) with the shoe of freedom-07. The stylus rests on three contacts wired as three switches: the tip lifts one, two or all three contacts depending on the direction it is pushed, so one signal tells wall from plate from rim and needs no help from the laser's own interlock. The scene shows the trigger force in every direction, which contacts open for a wall, plate, rim or corner touch, and what each way of holding the gun does to the number the touch reports: the path from stylus to encoder has a stiffness, and a soft axis reports the support, not the tube.",
+  "tags": ["touch", "kinematic seat", "trigger force", "path stiffness", "contact as constraint", "wall vs plate"],
+  "branchOf": ["eyes-05-touch-off-interlock"],
+  "combines": ["freedom-07-floating-on-work", "datum-07-touch-off"],
+  "transferable": ["three contacts give the push direction", "reading error = trigger force / stiffness", "the trigger force is the lean preload"],
+  "how": {
+    "motion": "a stage drives the stylus at the tube: fast to find, back off, slow to read",
+    "load": "the stylus rests on three contacts under a spring; the touch force is a fraction of a newton",
+    "reference": "the tube's wall, plate and rim at the moment a contact opens",
+    "observe": "three contact bits (which opened) and the stage position; nothing else",
+    "use": "dry, stopped; touch wall then plate then rim; the same stylus can lean on the wall"
+  },
+  "software": {
+    "commands": ["stage approach speed, back-off, slow approach", "which surface to touch next"],
+    "observes": ["three contact states (a resistor ladder can put them on one wire)", "stage position at trigger"],
+    "manual": ["fitting the stylus and the seat", "cleaning the seat and the tip", "coarse aim to within the search distance"]
+  },
+  "notes": ["../../exchange/freedom--on--eyes-w2.md", "../../explorers/freedom/ideas/freedom-12-touch-trigger.md", "../../explorers/eyes/ideas/eyes-05-touch-off-interlock.md", "../../explorers/freedom/ideas/freedom-07-floating-on-work.md", "../../explorers/datum/ideas/datum-07-touch-off.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 900,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>eyes-05 touches the tube with a stylus and reads a one-bit contact through the tube’s own conductivity. That leaves three things open: the bit cannot say <b>wall from plate</b>; the circuit at the gun end of the laser’s interlock is unknown; and a touch is only as good as the stiffness between the stylus and the position it is read from.</p>' +
+        '<p>Here the stylus is a <b>touch trigger</b>: the stylus body rests on three contacts (steel balls in printed sockets, or three rods on three ball pairs) under a light spring. Each contact is its own switch. Push the tip sideways and the contact nearest the push opens first; push it up along its axis and all three open together. Which contacts open is the direction, in sixty-degree sectors, and the circuit is the stylus’s own, not the tube’s. Top right: the trigger force in every direction (three lobes) and the seat as seen from above.</p>' +
+        '<p>Bottom left: the number the touch reports is the stage position when the contact opens. Whatever lies between the stage’s encoder and the tip gives way by trigger force divided by its stiffness, so on a soft axis (a bungee, a balancer, a friction arm) the reading is the support’s position, not the tube’s. Bottom right: the same stylus left in contact is a lean: the trigger force is the preload, and its drag is friction times that force.</p>',
+      carries:
+        '<p>The spring (P) presses the stylus body onto three contacts; the tube pushes the tip; the contacts carry the difference. When the tip force turns the resultant contact force out of the triangle of contacts, one contact unloads and opens. <b>Amber</b> is the stylus and its seat. <b>Purple</b> is the stage that drives it. <b>Teal</b> is the seam. The support of the gun is not drawn: it appears only as a stiffness in the bar chart.</p>',
+      software:
+        '<p><b>Commands:</b> approach speed, back-off, the order of touches. <b>Observes:</b> three contact bits (or one ADC reading over a resistor ladder) and the stage position when the pattern changes. The pattern classifies the touch: all three open = along the axis (plate or rim; the stage height tells which), one or two = sideways (wall). Not observed: the tube’s position without the stage’s own position, the tip-to-dot vector, or the plate’s own tilt.</p>',
+      tried:
+        '<p><b>Found:</b> the trigger force is direction-dependent by a factor of two (P·a/2L to P·a/L sideways, P along the axis). With P 1.5 N, a 6 mm contact circle and a 25 mm stylus: 0.18 to 0.36 N sideways, 1.5 N along the axis. A plate touch is eight times harder than a wall touch. Lower P to 0.5 N and the plate touch is 0.5 N, the wall 0.06 to 0.12 N, and the head’s own vibration begins to matter (a 5 g stylus at 1 g is 0.05 N).</p>' +
+        '<p><b>Found:</b> along the touch axis the reading is short by F/k. A 0.2 N wall touch on a 0.15 N/mm bungee axis reads 1.3 mm short; on a 200 N/mm stage it reads 1 µm short. The stage that is driven has to be the stiffest element on that axis; a soft element belongs to weight, not to location (freedom-01c).</p>' +
+        '<p><b>Found:</b> the tip tilted 32° (a stylus in place of the nozzle, as datum-07) mixes a wall push with an axial component; the pattern changes, the trigger force does not fall to the lateral value. Set the tilt and watch which contacts open.</p>' +
+        '<p><b>Left standing:</b> whether a printed seat repeats to hundredths of a millimetre (the select changes one illustrative number); whether the stylus fits beside the nozzle in a canyon 8 mm wide; the stylus registers <i>its tip</i>, and the tip-to-dot vector is the same calibration problem as ever; the plate’s own tilt is one more unknown.</p>',
+      unresolved:
+        '<p>Repeatability of the seat with steel balls in printed sockets, or three rods on three ball pairs (nothing measured). Contact resistance and oxide on the switch contacts. Spatter and debris on the tip and seat. Whether a 316L bore is marked by a steel ball at 0.2 N. Room for the stylus beside the beam and the wire. Whether the tube’s wall bends under the touch (freedom-07 assumed 0.01 mm/N; unmeasured).</p>',
+      assumptions:
+        '<ul><li>Trigger criterion from statics: contact <i>i</i> opens when F<sub>lat</sub> cos(θ − α<sub>i</sub>) ≥ a (P − F<sub>axial</sub>) / 2L, three contacts on a circle of radius a, friction ignored, seat rigid. [derived]</li>' +
+        '<li>a 6 mm, L 25 mm, P 1.5 N, tip radius 1 mm: <b>illustrative</b>. Seat repeatability 0.005 mm (steel on steel) or 0.03 mm (printed): <b>illustrative</b>, nothing measured.</li>' +
+        '<li>Path stiffnesses are order-of-magnitude values from the freedom scenes’ illustrative models: bungee 0.15 N/mm, balancer 0.02, friction arm 0.2 (10 mm per 2 N), rigid-grip arm 2.1, six lines 15, nose stage on the seat 67 (seat 100 N/mm in series with a 200 N/mm stage), lead-screw vernier 200.</li>' +
+        '<li>Friction μ 0.3 steel on stainless, unlubricated; pendulum tangent stiffness 0.034 N/mm (freedom-07): <b>illustrative</b>. Latency and speeds are datum-07’s kind of numbers, not measurements.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg, D = Math.PI / 180;
+  const S = { touch: 'wall', tau: 0, a: 6, L: 25, P: 1.5, clock: 60, seat: 'steel', v: 0.1, lat: 10, search: 5 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 780', width: '100%', role: 'img', 'aria-label': 'touch trigger stylus, three-contact seat, trigger forces and reading error' }); svg.style.display = 'block'; svg.style.minWidth = '900px';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'work', label: 'Tube and plate' }, { role: 'load', label: 'Stylus and seat' }, { role: 'actuated', label: 'Stage that drives it' }, { role: 'locate', label: 'Seam' }, { color: '#2fbf7a', label: 'contact closed' }, { color: '#ef5350', label: 'contact open' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const Ci = (cx, cy, r, fill, o) => svgel('circle', Object.assign({ cx: cx, cy: cy, r: r, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const SUP = [
+    { n: 'bungee axis, sideways (freedom-01)', k: 0.15, ax: 'lat' }, { n: 'balancer, vertical (freedom-01c)', k: 0.02, ax: 'vert' }, { n: 'stiff wire, vertical (freedom-01)', k: 200, ax: 'vert' },
+    { n: 'friction arm, pre-sliding (02)', k: 0.2, ax: 'both' }, { n: 'rigid-grip arm (01)', k: 2.1, ax: 'both' }, { n: 'six taut lines (03)', k: 15, ax: 'both' },
+    { n: 'nose stage on the cone seat (01b)', k: 67, ax: 'both' }, { n: 'lead-screw vernier (05)', k: 200, ax: 'both' }];
+  const applies = s => s.ax === 'both' || S.touch === 'corner' || (S.touch === 'wall' ? s.ax === 'lat' : s.ax === 'vert');
+  const REP = { steel: 0.005, print: 0.03 };
+  const rdF = app.ui.readout('rf', 'Trigger force: sideways min / max / axial'), rdT = app.ui.readout('rt', 'This touch: force / contacts open'), rdE = app.ui.readout('re', 'Overrun at the detect'), rdS = app.ui.readout('rs', 'Sequence: wall, plate, rim'), rdD = app.ui.readout('rd', 'Lean: drag / gun drift');
+
+  function physics() {
+    const tau = S.tau * D, a = S.a, Lm = S.L, P = S.P;
+    const al = [0, 1, 2].map(i => (S.clock + 120 * i) * D);
+    // unit surface-force components on the tip: axial (toward the body) q, lateral (e1, e2)
+    const comp = t => {
+      if (t === 'wall') return { q: Math.sin(tau), l1: -Math.cos(tau), l2: 0 };
+      if (t === 'plate') return { q: Math.cos(tau), l1: Math.sin(tau), l2: 0 };
+      if (t === 'rim') return { q: Math.cos(tau), l1: Math.sin(tau), l2: 0 };
+      return { q: Math.sin(tau) + Math.cos(tau), l1: -Math.cos(tau) + Math.sin(tau), l2: 0 };   // corner: wall and plate pushing equally
+    };
+    const c = comp(S.touch);
+    const den = al.map(A => c.q / 3 + (2 * Lm / (3 * a)) * (c.l1 * Math.cos(A) + c.l2 * Math.sin(A)));
+    let f = Infinity;
+    den.forEach(dn => { if (dn > 1e-9) f = Math.min(f, (P / 3) / dn); });
+    if (!isFinite(f)) f = NaN;
+    const N = al.map(A => P / 3 - f * (c.q / 3 + (2 * Lm / (3 * a)) * (c.l1 * Math.cos(A) + c.l2 * Math.sin(A))));
+    const open = N.map(n => n < 1e-6 + 1e-4 * P);
+    const lobe = th => { let m = -1; al.forEach(A => { m = Math.max(m, Math.cos(th - A)); }); return (P * a / (2 * Lm)) / Math.max(m, 1e-3); };
+    const Fmin = P * a / (2 * Lm), Fmax = P * a / Lm;
+    return { tau: tau, al: al, c: c, f: f, N: N, open: open, lobe: lobe, Fmin: Fmin, Fmax: Fmax, Fax: P, Fs: S.touch === 'wall' ? f : f };
+  }
+
+  function update() {
+    clear();
+    const ph = physics(), K = 6, OX = 300, OY = 322, RIM = OY - 6.35 * K, rt = 1 * K;
+    const f = ph.f;
+    // ------------------------------------------------ panel A: section with the stylus
+    g.appendChild(T(20, 26, 'Section through the seam (6 px per mm) with the stylus touching', { 'font-weight': 600 }));
+    g.appendChild(R(20, 36, 480, 350, '#171e28', { stroke: '#2a3441' }));
+    g.appendChild(R(OX, RIM, 1.65 * K * 2, 6.35 * K + 30, C('work'), { opacity: 0.95 }));
+    g.appendChild(R(OX - 260, OY, 260, 6.35 * K, C('work'), { opacity: 0.95 }));
+    g.appendChild(Ci(OX, OY, 3.5, C('locate'))); g.appendChild(T(OX + 8, OY + 16, 'seam', { fill: C('locate'), 'font-size': 11 }));
+    g.appendChild(T(OX + 30, RIM + 12, 'rim', { fill: '#94a3b8', 'font-size': 11 })); g.appendChild(T(OX - 250, OY + 24, 'endcap plate', { fill: '#0b0f14', 'font-size': 11 }));
+    // tip centre per touch
+    const tip = S.touch === 'wall' ? [OX - rt, OY - 3.5 * K] : S.touch === 'plate' ? [OX - 6 * K, OY - rt] : S.touch === 'rim' ? [OX + 1.65 * K, RIM - rt] : [OX - rt * 0.75, OY - rt * 0.75];
+    const ax = [-Math.sin(ph.tau), -Math.cos(ph.tau)];   // pixel direction toward the body (up and away from the wall when tilted)
+    const seatPt = [tip[0] + ax[0] * S.L * K, tip[1] + ax[1] * S.L * K];
+    g.appendChild(L(tip[0], tip[1], seatPt[0], seatPt[1], C('load'), 5));
+    // seat block: perpendicular to the axis, half-width a
+    const pv = [Math.cos(ph.tau), -Math.sin(ph.tau)];
+    g.appendChild(L(seatPt[0] - pv[0] * S.a * K, seatPt[1] - pv[1] * S.a * K, seatPt[0] + pv[0] * S.a * K, seatPt[1] + pv[1] * S.a * K, C('load'), 9));
+    g.appendChild(L(seatPt[0] + ax[0] * 14, seatPt[1] + ax[1] * 14, seatPt[0] + ax[0] * 62, seatPt[1] + ax[1] * 62, C('actuated'), 9));
+    g.appendChild(T(seatPt[0] + 16, seatPt[1] - 30, 'stage (drives the stylus)', { fill: C('actuated'), 'font-size': 11 }));
+    g.appendChild(Ci(tip[0], tip[1], rt, C('load'), { stroke: '#e5e7eb', 'stroke-width': 1 }));
+    g.appendChild(T(seatPt[0] + 48, seatPt[1] + 4, 'three contacts, spring P = ' + S.P.toFixed(1) + ' N', { fill: C('load'), 'font-size': 11 }));
+    g.appendChild(T(30, 372, 'stylus ' + S.L + ' mm from tip to seat, tilted ' + S.tau + '° toward the wall; tip ball 1 mm radius; drawn beside the nozzle’s plane for scale', { fill: '#94a3b8', 'font-size': 10.5 }));
+    // ------------------------------------------------ panel B: seat from above, lobing
+    const BX = 520, BY = 26; g.appendChild(T(BX, BY, 'The seat from above, and the trigger force in every direction', { 'font-weight': 600 }));
+    g.appendChild(R(BX, BY + 10, 460, 350, '#171e28', { stroke: '#2a3441' }));
+    const cx = BX + 230, cy = BY + 190, Kb = 11, SC = 300;   // px per mm; px per N for the lobing curve
+    [0.1, 0.25, 0.5].forEach(v => { g.appendChild(Ci(cx, cy, v * SC, 'none', { stroke: '#2a3441', 'stroke-width': 1 })); g.appendChild(T(cx + v * SC + 2, cy - 2, v + ' N', { fill: '#5b6879', 'font-size': 9.5 })); });
+    g.appendChild(L(cx - 170, cy, cx + 170, cy, '#2a3441', 1)); g.appendChild(L(cx, cy - 170, cx, cy + 170, '#2a3441', 1));
+    let d = ''; for (let th = 0; th <= 360; th += 2) { const r = Math.min(ph.lobe(th * D) * SC, 170), X = cx + r * Math.cos(th * D), Y = cy - r * Math.sin(th * D); d += (th === 0 ? 'M' : 'L') + X.toFixed(1) + ' ' + Y.toFixed(1); }
+    g.appendChild(svgel('path', { d: d + 'Z', fill: 'rgba(255,183,77,0.12)', stroke: C('load'), 'stroke-width': 2 }));
+    g.appendChild(T(BX + 12, BY + 48, 'orange curve: sideways trigger force by push direction; circles: the three contacts', { fill: C('load'), 'font-size': 10.5 }));
+    // triangle and contacts
+    const P3 = ph.al.map(A => [cx + S.a * Kb * Math.cos(A), cy - S.a * Kb * Math.sin(A)]);
+    g.appendChild(svgel('path', { d: 'M' + P3.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'Z', fill: 'rgba(148,163,184,0.10)', stroke: '#64748b', 'stroke-width': 1, 'stroke-dasharray': '4 3' }));
+    P3.forEach((p, i) => { g.appendChild(Ci(p[0], p[1], 9, ph.open[i] ? '#ef5350' : '#2fbf7a', { stroke: '#0b0f14', 'stroke-width': 1.5 })); g.appendChild(T(p[0] - 3.5, p[1] + 4, String(i + 1), { fill: '#0b0f14', 'font-weight': 700, 'font-size': 11 })); });
+    // tip force direction (the push on the tip, seen in the seat plane)
+    const th = Math.atan2(ph.c.l2, ph.c.l1), lat = Math.hypot(ph.c.l1, ph.c.l2);
+    if (lat > 1e-6) { const len = 40, X = cx + len * Math.cos(th), Y = cy - len * Math.sin(th); g.appendChild(L(cx, cy, X, Y, '#e5e7eb', 2.5)); g.appendChild(T(BX + 12, BY + 34, 'push on the tip (seat plane): ' + Math.round(th / D) + '\u00b0', { fill: '#e5e7eb', 'font-size': 10.5 })); }
+    g.appendChild(Ci(cx, cy, 3, '#e5e7eb'));
+    const pat = ph.open.map((o, i) => o ? i + 1 : 0).filter(Boolean), allOpen = pat.length === 3;
+    g.appendChild(T(BX + 12, BY + 336, S.touch + ' touch opens ' + (pat.length ? 'contact' + (pat.length > 1 ? 's ' : ' ') + pat.join(' + ') : 'nothing') + (allOpen ? ': along the axis' : pat.length === 2 ? ': a push between two contacts' : pat.length === 1 ? ': a push toward contact ' + pat[0] : ''), { fill: '#c8d0da', 'font-size': 11.5, 'font-weight': 600 }));
+    g.appendChild(T(BX + 12, BY + 354, 'six patterns give the direction to 60°; all three = axial.', { fill: '#94a3b8', 'font-size': 10.5 })); g.appendChild(T(BX + 12, BY + 367, 'The stage height at the trigger tells rim from plate.', { fill: '#94a3b8', 'font-size': 10.5 }));
+    // ------------------------------------------------ panel C: reading error by path stiffness
+    const CX = 20, CY = 420; g.appendChild(T(CX, CY, 'Reading short by F/k, by way of holding the gun', { 'font-weight': 600 }));
+    g.appendChild(R(CX, CY + 10, 480, 350, '#171e28', { stroke: '#2a3441' }));
+    const x0 = CX + 230, x1 = CX + 465, lg = v => (Math.log10(v) + 3) / 5;   // log axis 0.001 .. 100 mm
+    [0.001, 0.01, 0.1, 1, 10, 100].forEach(v => { const X = x0 + lg(v) * (x1 - x0); g.appendChild(L(X, CY + 30, X, CY + 300, '#2a3441', 1)); g.appendChild(T(X - 10, CY + 316, v >= 1 ? v + ' mm' : (v * 1000) + ' µm', { fill: '#5b6879', 'font-size': 9.5 })); });
+    const rep = REP[S.seat];
+    SUP.forEach((s, i) => {
+      const y = CY + 34 + i * 32, err = f / s.k, bad = err > 0.05, ok = applies(s);
+      g.appendChild(T(CX + 10, y + 10, s.n, { fill: ok ? '#c8d0da' : '#5b6879', 'font-size': 11 })); g.appendChild(T(CX + 10, y + 23, 'k = ' + s.k + ' N/mm' + (ok ? '' : ' (not on this axis)'), { fill: '#5b6879', 'font-size': 9.5 }));
+      if (!ok) return;
+      const X = x0 + Math.max(0, Math.min(1, lg(Math.max(err, 0.001)))) * (x1 - x0);
+      g.appendChild(R(x0, y + 2, X - x0, 20, bad ? '#ef5350' : '#2fbf7a', { opacity: 0.85 }));
+      const lab = (err >= 1 ? err.toFixed(1) + ' mm' : err >= 0.01 ? err.toFixed(2) + ' mm' : (err * 1000).toFixed(0) + ' \u00b5m'), inside = X > x1 - 70;
+      g.appendChild(T(inside ? X - 6 : X + 6, y + 17, lab, { fill: inside ? '#0b0f14' : '#c8d0da', 'font-size': 10.5, 'font-weight': 700, 'text-anchor': inside ? 'end' : 'start' }));
+    });
+    g.appendChild(T(CX + 10, CY + 342, 'seat repeatability ' + rep + ' mm (' + (S.seat === 'steel' ? 'steel' : 'printed') + ', illustrative). Red: over 0.05 mm.', { fill: '#94a3b8', 'font-size': 10.5 }));
+    // ------------------------------------------------ panel D: sequence and lean
+    const DX = 520, DY = 420; g.appendChild(T(DX, DY, 'The sequence, and what leaning does', { 'font-weight': 600 }));
+    g.appendChild(R(DX, DY + 10, 460, 340, '#171e28', { stroke: '#2a3441' }));
+    const ov = S.v * S.lat / 1000, tFast = S.search / 2, tBack = 1, tSlow = 1 / S.v, tOne = tFast + tBack + tSlow, tAll = 3 * tOne;
+    const drag = 0.3 * (S.touch === 'wall' ? f : ph.Fmin), drift = drag / 0.034, radCost = drift * drift / (2 * 61.85);
+    const lines = [
+      ['1  find', 'fast, 2 mm/s over ' + S.search + ' mm of uncertainty: ' + tFast.toFixed(1) + ' s.'],
+      ['2  back off', '1 mm; the seat re-closes, pattern back to all closed.'],
+      ['3  read', 'slow, ' + S.v.toFixed(2) + ' mm/s over 1 mm: ' + tSlow.toFixed(0) + ' s. Overrun at the detect: ' + S.v.toFixed(2) + ' \u00d7 ' + S.lat + ' ms = ' + (ov * 1000).toFixed(1) + ' \u00b5m.'],
+      ['4  overtravel', 'the tip then yields against the spring alone (about 0.5 N/mm), so an overrun adds ' + (0.5 * ov * 1000).toFixed(2) + ' mN, not the stage\u2019s stiffness.'],
+      ['5  the set', 'wall, plate, rim: about ' + tAll.toFixed(0) + ' s, tube stopped.'],
+      ['6  or lean', 'stay in contact at the trigger force ' + (S.touch === 'wall' ? f : ph.Fmin).toFixed(2) + ' N: a sliding ball (\u03bc 0.3) drags ' + drag.toFixed(3) + ' N; a 350 mm pendulum (0.034 N/mm) drifts ' + drift.toFixed(1) + ' mm, costing ' + radCost.toFixed(3) + ' mm radially. Freedom-07\u2019s 2 N skid drifted 18 mm.'],
+    ];
+    let yy = DY + 34;
+    lines.forEach(l => { g.appendChild(T(DX + 12, yy, l[0], { fill: C('locate'), 'font-weight': 600, 'font-size': 12 })); const words = l[1].split(' '); let ln = '', row = 0; words.forEach(w => { if ((ln + ' ' + w).length > 54) { g.appendChild(T(DX + 110, yy + row * 15, ln, { fill: '#c8d0da', 'font-size': 11.5 })); row++; ln = w; } else ln = ln ? ln + ' ' + w : w; }); g.appendChild(T(DX + 110, yy + row * 15, ln, { fill: '#c8d0da', 'font-size': 11.5 })); yy += 15 * (row + 1) + 12; });
+    g.appendChild(T(DX + 12, DY + 338, 'Seat ' + rep + ' mm + overrun ' + (ov * 1000).toFixed(1) + ' µm = ' + (Math.hypot(rep, ov) * 1000).toFixed(0) + ' µm (root sum).', { fill: '#94a3b8', 'font-size': 10.5 }));
+    // ------------------------------------------------ readouts, badges, io
+    rdF(ph.Fmin.toFixed(2) + ' / ' + ph.Fmax.toFixed(2) + ' / ' + ph.Fax.toFixed(2), 'N'); rdT(isFinite(f) ? f.toFixed(2) + ' N / ' + (pat.length ? pat.join('+') : '-') : 'no trigger', '');
+    rdE((ov * 1000).toFixed(1), 'µm'); rdS(tAll.toFixed(0), 's'); rdD(drag.toFixed(3) + ' N / ' + drift.toFixed(1) + ' mm', '');
+    app.badge('soft', isFinite(f) && SUP.some(s => applies(s) && f / s.k > 1) ? 'on a soft axis (a bungee, a balancer) this touch reads more than a millimetre short: it measures the support' : null, 'warn');
+    app.badge('axial', S.touch !== 'wall' && S.P > 1 ? 'an axial touch takes P = ' + S.P.toFixed(1) + ' N: eight times a wall touch; lower P raises false triggers from vibration' : null, 'info');
+    app.io.set({
+      commands: [{ name: 'Stage approach speed, fast then slow', value: '2 / ' + S.v.toFixed(2), unit: 'mm/s', note: 'proposed stage; datum-07’s fast-then-slow' }, { name: 'Back-off and order of touches', value: 'wall, plate, rim' }],
+      observes: [
+        { name: 'Three contact bits (open = lifted)', value: ph.open.map(o => (o ? '0' : '1')).join(' '), status: 'seen', note: 'own circuit: no need for the laser’s work-contact loop' },
+        { name: 'Push direction class', value: allOpen ? 'axial' : pat.length ? 'sideways' : '-', status: 'seen', note: 'six sectors of 60° plus axial' },
+        { name: 'Stage position at trigger', value: 'read', status: 'seen', note: 'short by F/k of the path' },
+        { name: 'Which surface (wall, plate, rim)', value: S.touch, status: 'partly', note: 'plate and rim both axial: the stage height at trigger separates them' },
+        { name: 'Tip-to-dot vector', value: '-', status: 'unresolved', note: 'the stylus registers its tip, not the dot' },
+        { name: 'Plate tilt against the rim', value: '-', status: 'unresolved' }],
+      manual: ['Fit the stylus and seat; clean them', 'Coarse aim to within the search distance', 'Choose P: sensitivity against false triggers'] });
+  }
+  const tg = app.ui.group('Touch (scene edits)', { open: true });
+  tg.radio({ id: 'touch', label: 'Surface touched', kind: 'branch', value: 'wall', options: [{ value: 'wall', label: 'wall' }, { value: 'plate', label: 'plate' }, { value: 'rim', label: 'rim' }, { value: 'corner', label: 'corner' }], help: 'Which surface pushes the tip. The corner pushes on the wall and the plate equally.', onChange: v => { S.touch = v; update(); } });
+  tg.slider({ id: 'tau', label: 'Stylus tilt toward the wall', min: 0, max: 40, step: 1, value: 0, unit: '°', kind: 'scene', help: '0 = vertical (wall push is sideways, plate push is axial). 32° = a stylus in place of the nozzle (datum-07).', onChange: v => { S.tau = v; update(); } });
+  const sg = app.ui.group('The seat (scene edits)', { open: true });
+  sg.slider({ id: 'a', label: 'Contact circle radius a', min: 3, max: 10, step: 0.5, value: 6, unit: 'mm', kind: 'scene', help: 'A wide seat is harder to tip: sideways trigger scales with a.', onChange: v => { S.a = v; update(); } });
+  sg.slider({ id: 'L', label: 'Seat to tip length L', min: 10, max: 50, step: 1, value: 25, unit: 'mm', kind: 'scene', help: 'A long stylus is more sensitive sideways: trigger scales with 1/L.', onChange: v => { S.L = v; update(); } });
+  sg.slider({ id: 'P', label: 'Spring preload P', min: 0.3, max: 3, step: 0.1, value: 1.5, unit: 'N', kind: 'scene', help: 'Sets every trigger force. Axial trigger equals P.', onChange: v => { S.P = v; update(); } });
+  sg.slider({ id: 'clock', label: 'Seat clock (contacts turned round the axis)', min: 0, max: 120, step: 5, value: 60, unit: '°', kind: 'scene', help: 'At 60° a contact faces the wall push (single opening, lowest trigger); at 0° the push falls between two contacts (highest trigger).', onChange: v => { S.clock = v; update(); } });
+  sg.radio({ id: 'seat', label: 'Seat made of', kind: 'branch', value: 'steel', options: [{ value: 'steel', label: 'steel balls, steel rods' }, { value: 'print', label: 'printed' }], help: 'Changes one illustrative number: the repeatability of the trigger point.', onChange: v => { S.seat = v; update(); } });
+  const ag = app.ui.group('Approach (software could command)', { open: true });
+  ag.slider({ id: 'v', label: 'Slow approach speed', min: 0.02, max: 2, step: 0.01, value: 0.1, unit: 'mm/s', kind: 'actuator', help: 'Overrun at the detect is speed times latency.', onChange: v => { S.v = v; update(); } });
+  ag.slider({ id: 'lat', label: 'Detect latency', min: 1, max: 100, step: 1, value: 10, unit: 'ms', kind: 'scene', help: 'Polling, debounce and the stage’s stop. Illustrative.', onChange: v => { S.lat = v; update(); } });
+  ag.slider({ id: 'search', label: 'Search distance', min: 1, max: 15, step: 0.5, value: 5, unit: 'mm', kind: 'scene', help: 'How far the tube might be from where the stylus was put by hand.', onChange: v => { S.search = v; update(); } });
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runout as a table</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-05-runout-table",
+  "title": "Runout is a known periodic disturbance: a table, not a stiffness",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The corner moves under a stationary gun once per revolution (accepted runout up to 0.25 mm radial and 0.30 mm face TIR [repo]). That error repeats, so software can learn it in one dry-run (fit an amplitude, a phase and a per-tube offset from the dot as seen by a camera) and a small vernier stage can follow the rotator angle. The scene fits the noisy dry-run and plots the residual against the tolerance.",
+  "tags": ["lens", "runout", "feed-forward", "vernier", "dry run", "precision from a model"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["fit-then-follow for a repeating error", "the vernier needs almost no speed or force", "per-tube offset is measured, not designed out"],
+  "how": {
+    "motion": "vernier X, Z (a small stage) follows the rotator angle; the rotator turns as today",
+    "load": "not modelled: the support only has to hold the mean position",
+    "reference": "the dot as seen by a camera during a dry-run, per tube",
+    "observe": "camera on the dot while the rotator turns; rotator angle from the controller",
+    "use": "one dry-run per tube, then the same table drives the weld pass"
+  },
+  "software": {
+    "commands": ["rotator turn for the dry-run (existing)", "vernier X and Z as functions of the rotator angle (proposed)"],
+    "observes": ["dot vs seam during the dry-run (camera, proposed)", "rotator turned-so-far degrees (existing serial console)"],
+    "manual": ["placing the mean position", "mounting the camera and the vernier"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-05-runout-table.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>A stationary gun sees the seam move once per revolution: the tube is not perfectly round about the turntable axis and the plate face is not perfectly square to it. The rig accepts up to 0.25 mm radial and 0.30 mm face runout (total indicator reading) at the weld circle [repo]. That error is <b>periodic and repeatable</b>. Instead of making the support stiff enough to ignore it, or following it with a contact, software can <b>learn it</b>: turn the tube once with the laser dot on, watch where the dot sits against the seam, and fit a per-revolution sine and a constant for each of radial and vertical. Then a small <b>vernier stage</b> moves the gun by the negative of that fit as the rotator angle advances.</p>' +
+        '<p>Top: radial error over one revolution; below it vertical. Grey is what a fixed gun sees; green is what is left with the vernier following the fit; the dashed line is the fit. The band is the tolerance. Vary the true runout, how noisy the camera is, how many revolutions the dry-run averages, and the error left in the fit.</p>',
+      carries:
+        '<p>Nothing here carries the gun: the arrangement only has to hold the mean position. The vernier is the only thing that moves, at a peak speed of about 0.016 mm/s and an acceleration near 0.002 mm/s² for a 0.125 mm amplitude at 8 mm/s bead travel [derived], so almost any small actuator is fast enough. Teal band: tolerance. Red marker: the bead position now.</p>',
+      software:
+        '<p><b>Commands:</b> the rotator (already software-driven) for the dry-run; the vernier as a table over rotator angle. <b>Observes:</b> the dot against the seam (a camera, proposed; the noise slider stands in for its resolution) and the rotator angle (already on the serial console). The fit is ordinary least squares on 1, cos θ, sin θ.</p>',
+      tried:
+        '<p><b>Second harmonic.</b> Real runout is not a pure once-per-revolution sine. The unmodelled twice-per-revolution part sets the floor of what feed-forward can remove; raise it to see the residual stop improving. A table (not a sine) would follow it, at the cost of more dry-run samples.</p>' +
+        '<p><b>Camera noise.</b> A noisy dot measurement makes an uncertain fit; more revolutions in the dry-run average it down like 1/√N.</p>' +
+        '<p><b>Per-tube offset.</b> Plate seat depth varies tube to tube ([unknown] how much). The constant term of the fit takes it out, but only if the vernier has the stroke: with a 0.5 mm stroke, a 0.6 mm offset saturates.</p>' +
+        '<p><b>Wear and thermal drift</b> during the weld pass are not modelled: the table is a dry-run, the weld pass is hot.</p>',
+      unresolved:
+        '<p>The real runout of a real tube on this rotator; whether the dot observed cold (red laser) has the same offset as the melt at working power [unknown]; whether the camera can resolve 0.02–0.05 mm at the dot through the tube wall geometry; a vernier that sits between the support and the shell with enough stiffness; whether the rotator’s own angle counter is good enough as the table index (it reports turned-so-far degrees).</p>',
+      assumptions:
+        '<ul><li>Runout limits 0.25 mm radial and 0.30 mm face TIR at the weld circle: the rig-doc acceptance numbers [repo]; amplitude = TIR/2 if the error is a pure sine. Real runout is [unknown].</li>' +
+        '<li>Bead travel 8 mm/s at r = 61.85 mm: 7.4°/s [derived]; the rig runs 5–15 mm/s [repo].</li>' +
+        '<li>Camera noise 0.05 mm, dry-run of 36 samples per revolution: <b>illustrative</b>. Vernier stroke ±0.5 mm: <b>illustrative</b>. Tolerance ±0.3 mm: <b>illustrative</b>.</li>' +
+        '<li>Noise is a fixed pseudo-random sequence so a scene state is repeatable; the button draws another.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { ar: 0.12, pr: 40, az: 0.14, pz: 130, h2: 0.1, cr: 0.15, cz: -0.2, sig: 0.05, revs: 2, ff: true, stroke: 0.5, tol: 0.15, pos: 100, seed: 1 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 720', width: '100%', role: 'img', 'aria-label': 'runout over one revolution with feed-forward residual' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'ghost', label: 'Fixed gun sees' }, { role: 'compliant', label: 'With the vernier following the fit' }, { role: 'locate', label: 'Tolerance band' }, { role: 'actuated', label: 'Fit / vernier command' }, { role: 'laser', label: 'Bead position' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const D = Math.PI / 180;
+  const rTrue = (th, a, ph, c, h2) => a * Math.cos((th - ph) * D) + h2 * a * Math.cos(2 * (th - ph) * D + 0.7) + c;
+  function rng(seed) { let t = seed >>> 0; return function () { t += 0x6D2B79F5; let r = Math.imul(t ^ t >>> 15, 1 | t); r ^= r + Math.imul(r ^ r >>> 7, 61 | r); return ((r ^ r >>> 14) >>> 0) / 4294967296; }; }
+  function gauss(rand) { const u = Math.max(1e-9, rand()), v = rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  // least squares fit of c + p cos + q sin to samples
+  function fit(th, y) {
+    const n = th.length; let s = [0, 0, 0, 0, 0, 0, 0, 0, 0], b = [0, 0, 0];
+    for (let i = 0; i < n; i++) { const f = [1, Math.cos(th[i] * D), Math.sin(th[i] * D)]; for (let a = 0; a < 3; a++) { b[a] += f[a] * y[i]; for (let c = 0; c < 3; c++) s[a * 3 + c] += f[a] * f[c]; } }
+    // solve 3x3 by Cramer via Gaussian elimination
+    const M = [[s[0], s[1], s[2], b[0]], [s[3], s[4], s[5], b[1]], [s[6], s[7], s[8], b[2]]];
+    for (let c = 0; c < 3; c++) { let p = c; for (let r = c + 1; r < 3; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r; [M[c], M[p]] = [M[p], M[c]]; for (let r = c + 1; r < 3; r++) { const f = M[r][c] / M[c][c]; for (let k = c; k < 4; k++) M[r][k] -= f * M[c][k]; } }
+    const x = [0, 0, 0]; for (let r = 2; r >= 0; r--) { let v = M[r][3]; for (let k = r + 1; k < 3; k++) v -= M[r][k] * x[k]; x[r] = v / M[r][r]; }
+    return { c: x[0], p: x[1], q: x[2] };
+  }
+  const evalFit = (f, th) => f.c + f.p * Math.cos(th * D) + f.q * Math.sin(th * D);
+  const ampR = app.ui.readout('ampr', 'Peak error before / after: radial'), ampZ = app.ui.readout('ampz', 'Peak error before / after: vertical'), inR = app.ui.readout('inband', 'Revolution inside the tolerance before / after'), vsp = app.ui.readout('vsp', 'Vernier command now r / z'), vv = app.ui.readout('vv', 'Vernier speed needed');
+  function update() {
+    clear();
+    const M = 36 * S.revs, th = [], er = [], ez = [];
+    const rand = rng(S.seed * 7919 + 13);
+    for (let i = 0; i < M; i++) { const t = (i % 36) * 10 + 5 * (Math.floor(i / 36) % 2); th.push(t); er.push(rTrue(t, S.ar, S.pr, S.cr, S.h2) + S.sig * gauss(rand)); ez.push(rTrue(t, S.az, S.pz, S.cz, S.h2) + S.sig * gauss(rand)); }
+    const fr = fit(th, er), fz = fit(th, ez);
+    const PX0 = 60, PX1 = 700, ymax = 0.8;
+    const panels = [{ name: 'Radial (into the wall)', y0: 50, a: S.ar, p: S.pr, c: S.cr, f: fr }, { name: 'Vertical (above the plate)', y0: 300, a: S.az, p: S.pz, c: S.cz, f: fz }];
+    const stat = [];
+    panels.forEach((P, k) => {
+      const H = 200, xa = t => PX0 + t / 360 * (PX1 - PX0), ya = v => P.y0 + H / 2 - Math.max(-ymax, Math.min(ymax, v)) / ymax * H / 2;
+      g.appendChild(T(PX0, P.y0 - 12, P.name + ' error of the dot against the seam over one revolution (mm)', { 'font-weight': 600 }));
+      g.appendChild(R(PX0, P.y0, PX1 - PX0, H, '#171e28', { stroke: '#2a3441' }));
+      g.appendChild(R(PX0, ya(S.tol), PX1 - PX0, ya(-S.tol) - ya(S.tol), C('locate'), { opacity: 0.16 })); g.appendChild(T(PX0 + 4, ya(S.tol) - 4, '±' + S.tol.toFixed(2) + ' tolerance', { fill: C('locate'), 'font-size': 11 }));
+      g.appendChild(L(PX0, ya(0), PX1, ya(0), '#3a4656', 1));
+      [-0.6, -0.3, 0.3, 0.6].forEach(v => g.appendChild(T(PX0 - 34, ya(v) + 4, (v > 0 ? '+' : '−') + Math.abs(v).toFixed(1), { fill: '#94a3b8', 'font-size': 10.5 })));
+      [0, 90, 180, 270, 360].forEach(t => g.appendChild(T(xa(t) - 8, P.y0 + H + 15, t + '°', { fill: '#94a3b8', 'font-size': 11 })));
+      const path = fn => { let d = ''; for (let t = 0; t <= 360; t += 2) d += (t === 0 ? 'M' : 'L') + xa(t).toFixed(1) + ' ' + ya(fn(t)).toFixed(1); return d; };
+      const raw = t => rTrue(t, P.a, P.p, P.c, S.h2), resid = t => raw(t) - (S.ff ? Math.max(-S.stroke, Math.min(S.stroke, evalFit(P.f, t))) : 0);
+      g.appendChild(svgel('path', { d: path(raw), fill: 'none', stroke: '#8894a6', 'stroke-width': 2 }));
+      g.appendChild(svgel('path', { d: path(t => evalFit(P.f, t)), fill: 'none', stroke: C('actuated'), 'stroke-width': 1.5, 'stroke-dasharray': '5 4' }));
+      g.appendChild(svgel('path', { d: path(resid), fill: 'none', stroke: C('compliant'), 'stroke-width': 2.4 }));
+      // scatter of the dry-run samples for the first revolution
+      for (let i = 0; i < Math.min(M, 36 * S.revs); i++) g.appendChild(svgel('circle', { cx: xa(th[i]), cy: ya(k === 0 ? er[i] : ez[i]), r: 1.8, fill: C('sensor'), opacity: 0.55 }));
+      g.appendChild(L(xa(S.pos), P.y0, xa(S.pos), P.y0 + H, C('laser'), 1.6));
+      let pkB = 0, pkA = 0, inB = 0, inA = 0, n = 0; for (let t = 0; t < 360; t += 2) { const a = Math.abs(raw(t)), b = Math.abs(resid(t)); pkB = Math.max(pkB, a); pkA = Math.max(pkA, b); if (a <= S.tol) inB++; if (b <= S.tol) inA++; n++; }
+      stat.push({ pkB: pkB, pkA: pkA, inB: inB / n, inA: inA / n, cmd: S.ff ? Math.max(-S.stroke, Math.min(S.stroke, evalFit(P.f, S.pos))) : 0, sat: Math.abs(evalFit(P.f, 0)) > S.stroke || Math.abs(P.f.c) + Math.hypot(P.f.p, P.f.q) > S.stroke, fitErr: Math.hypot(P.f.c - P.c, P.f.p - P.a * Math.cos(P.p * D), P.f.q - P.a * Math.sin(P.p * D)) });
+    });
+    g.appendChild(T(PX0, 536, 'grey = a fixed gun · blue dots = the dry-run’s noisy camera readings · dashed purple = the fit · green = what is left with the vernier following the fit', { fill: '#94a3b8', 'font-size': 11 }));
+    // dry-run summary text
+    const sy = 570; g.appendChild(T(PX0, sy, 'Dry-run: ' + S.revs + ' revolution' + (S.revs > 1 ? 's' : '') + ' × 36 samples, camera noise ' + S.sig.toFixed(3) + ' mm  →  fit error (1 sample set) radial ' + stat[0].fitErr.toFixed(3) + ' mm, vertical ' + stat[1].fitErr.toFixed(3) + ' mm', { fill: '#c8d0da' }));
+    g.appendChild(T(PX0, sy + 20, 'Expected floor from the unmodelled twice-per-revolution part: about ' + (S.h2 * Math.max(S.ar, S.az)).toFixed(3) + ' mm', { fill: '#94a3b8', 'font-size': 11.5 }));
+    // right side: numbers
+    const RX = 740; g.appendChild(T(RX, 66, 'What the vernier has to do', { 'font-weight': 600 }));
+    const amp = Math.max(S.ar, S.az), w = 7.4 * D;
+    [['peak speed', (amp * w).toFixed(3) + ' mm/s'], ['peak acceleration', (amp * w * w).toFixed(4) + ' mm/s²'], ['stroke needed (radial)', (Math.abs(fr.c) + Math.hypot(fr.p, fr.q)).toFixed(2) + ' mm'], ['stroke needed (vertical)', (Math.abs(fz.c) + Math.hypot(fz.p, fz.q)).toFixed(2) + ' mm'], ['stroke available', '±' + S.stroke.toFixed(2) + ' mm']].forEach((r, i) => { g.appendChild(T(RX, 92 + i * 22, r[0], { fill: '#94a3b8' })); g.appendChild(T(RX + 150, 92 + i * 22, r[1], { fill: '#e6edf6', 'font-weight': 600 })); });
+    g.appendChild(T(RX, 232, 'Runout and bead speed', { 'font-weight': 600 })); g.appendChild(T(RX, 254, '8 mm/s at r = 61.85 mm turns the tube', { fill: '#94a3b8', 'font-size': 11.5 })); g.appendChild(T(RX, 270, '7.4°/s: one revolution in 49 s [derived]', { fill: '#94a3b8', 'font-size': 11.5 }));
+    ampR(stat[0].pkB.toFixed(2) + ' / ' + stat[0].pkA.toFixed(2), 'mm'); ampZ(stat[1].pkB.toFixed(2) + ' / ' + stat[1].pkA.toFixed(2), 'mm');
+    inR((stat[0].inB * 100).toFixed(0) + '% / ' + (stat[0].inA * 100).toFixed(0) + '% (r);  ' + (stat[1].inB * 100).toFixed(0) + '% / ' + (stat[1].inA * 100).toFixed(0) + '% (z)');
+    vsp(stat[0].cmd.toFixed(3) + ' / ' + stat[1].cmd.toFixed(3), 'mm'); vv((amp * w).toFixed(3), 'mm/s');
+    const sat = stat[0].sat || stat[1].sat; app.badge('sat', S.ff && sat ? 'the fit needs more stroke than the vernier has: it saturates' : null, 'warn');
+    const worst = Math.max(stat[0].pkA, stat[1].pkA); app.badge('resid', S.ff && worst > S.tol ? 'residual peak ' + worst.toFixed(2) + ' mm is outside the ±' + S.tol.toFixed(2) + ' mm tolerance' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Rotator turn (existing controller, dry-run then weld)', value: '7.4', unit: '°/s', note: '8 mm/s bead travel' }, { name: 'Vernier r / z as a table over rotator angle', value: S.ff ? stat[0].cmd.toFixed(3) + ' / ' + stat[1].cmd.toFixed(3) : 'off', unit: 'mm', note: 'proposed' }],
+      observes: [
+        { name: 'Dot vs seam during the dry-run (camera, proposed)', value: 'noise ' + S.sig.toFixed(3), unit: 'mm', status: 'partly', note: 'the runout is only as well known as the dot is seen through the bore geometry' },
+        { name: 'Rotator angle', value: 'turned-so-far degrees', status: 'seen', note: 'the existing serial console reports it [repo]' },
+        { name: 'Cold dot vs hot melt', value: '-', status: 'unresolved', note: 'the red reference sits on the joint at working standoff to an unknown degree [unknown]' },
+        { name: 'Drift during the weld pass', value: '-', status: 'blind', note: 'nothing observes it here; a camera would' }],
+      manual: ['Set the mean position and the tube', 'Mount the vernier and camera'] });
+  }
+  const tg = app.ui.group('True runout of this tube (scene edits)', { open: true, help: 'Amplitude = TIR / 2 for a pure sine. The rig accepts up to 0.125 (radial) and 0.15 (face).' });
+  tg.slider({ id: 'ar', label: 'Radial runout amplitude', min: 0, max: 0.3, step: 0.005, value: 0.12, unit: 'mm', kind: 'scene', help: 'Rig-doc acceptance is 0.25 mm TIR (0.125 amplitude).', onChange: v => { S.ar = v; update(); } });
+  tg.slider({ id: 'pr', label: 'Radial phase', min: 0, max: 360, step: 5, value: 40, unit: '°', kind: 'scene', onChange: v => { S.pr = v; update(); } });
+  tg.slider({ id: 'az', label: 'Face (vertical) runout amplitude', min: 0, max: 0.3, step: 0.005, value: 0.14, unit: 'mm', kind: 'scene', help: 'Rig-doc acceptance is 0.30 mm TIR (0.15 amplitude).', onChange: v => { S.az = v; update(); } });
+  tg.slider({ id: 'pz', label: 'Face phase', min: 0, max: 360, step: 5, value: 130, unit: '°', kind: 'scene', onChange: v => { S.pz = v; update(); } });
+  tg.slider({ id: 'h2', label: 'Twice-per-revolution part (fraction)', min: 0, max: 0.5, step: 0.01, value: 0.1, kind: 'scene', help: 'What a sine fit cannot remove.', onChange: v => { S.h2 = v; update(); } });
+  tg.slider({ id: 'cr', label: 'Per-tube offset, radial', min: -0.6, max: 0.6, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', help: 'Where the mean seam sits against the mean support: differs tube to tube.', onChange: v => { S.cr = v; update(); } });
+  tg.slider({ id: 'cz', label: 'Per-tube offset, vertical (plate seat depth)', min: -0.6, max: 0.6, step: 0.01, value: -0.2, unit: 'mm', kind: 'scene', onChange: v => { S.cz = v; update(); } });
+  const sg = app.ui.group('Software and the dry-run', { open: true });
+  sg.slider({ id: 'sig', label: 'Camera noise at the dot', min: 0.005, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Stands in for the observer’s resolution: illustrative.', onChange: v => { S.sig = v; update(); } });
+  sg.slider({ id: 'revs', label: 'Revolutions averaged in the dry-run', min: 1, max: 8, step: 1, value: 2, kind: 'state', help: 'Each revolution is 49 s at 8 mm/s.', onChange: v => { S.revs = v; update(); } });
+  sg.button({ id: 'again', label: 'Run another dry-run (new noise)', kind: 'actuator', help: 'Commands the existing rotator through the dry-run again and refits.', onClick: () => { S.seed++; update(); } });
+  sg.toggle({ id: 'ff', label: 'Vernier follows the fit', value: true, kind: 'state', help: 'Off: the gun is fixed and sees the raw runout.', onChange: v => { S.ff = v; update(); } });
+  sg.slider({ id: 'stroke', label: 'Vernier stroke (each side)', min: 0.1, max: 1, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', help: 'A small flexure or stage: illustrative.', onChange: v => { S.stroke = v; update(); } });
+  sg.slider({ id: 'tol', label: 'Tolerance at the dot (illustrative)', min: 0.05, max: 0.6, step: 0.05, value: 0.15, unit: 'mm', kind: 'scene', help: 'Nobody has measured what the weld needs.', onChange: v => { S.tol = v; update(); } });
+  sg.slider({ id: 'pos', label: 'Bead position now (rotator angle)', min: 0, max: 360, step: 5, value: 100, unit: '°', kind: 'state', help: 'Where in the revolution the bead is.', onChange: v => { S.pos = v; update(); } });
+})();
+</script>
+</body>
+</html>

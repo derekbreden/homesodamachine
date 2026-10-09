@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="790" viewBox="0 0 1040 790">
+<rect width="1040" height="790" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">A. Endcap compass — elevation, section through the dot (XZ plane)</text>
+<text class="s" x="20" y="40">tube, lip, plate, ports: repo dimensions. Gun: scene proxy at grip 45 / hole 30 / vertical -15. Mechanism parts schematic.</text>
+<rect class="room" x="47.5" y="601.0" width="405.0" height="14"/>
+<text class="s" x="50.2" y="612.0">rotator turntable/base (below, not to scale) — tube turns here</text>
+<rect class="metal" x="164.3" y="511.4" width="2.2" height="76.1"/>
+<rect class="metal" x="333.5" y="511.4" width="2.2" height="76.1"/>
+<rect class="plate" x="166.7" y="520.0" width="166.6" height="8.6"/>
+<rect x="216.8" y="520.0" width="15.0" height="8.6" fill="#fcfcfa" stroke="#333" stroke-width="0.8"/>
+<rect class="buy" x="213.2" y="510.6" width="22.1" height="9.5"/>
+<rect class="buy" x="215.0" y="484.9" width="18.5" height="25.7"/>
+<rect x="218.2" y="484.9" width="12.2" height="35.1" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<rect x="268.2" y="520.0" width="15.0" height="8.6" fill="#fcfcfa" stroke="#333" stroke-width="0.8"/>
+<rect class="buy" x="264.6" y="510.6" width="22.1" height="9.5"/>
+<rect class="buy" x="266.5" y="484.9" width="18.5" height="25.7"/>
+<rect x="269.6" y="484.9" width="12.2" height="35.1" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<rect class="print" x="209.5" y="487.6" width="81.0" height="9.5"/>
+<rect class="metal" x="244.6" y="460.6" width="10.8" height="27.0"/>
+<rect class="print" x="187.9" y="457.9" width="124.2" height="16.2"/>
+<rect class="buy" x="240.6" y="456.6" width="18.9" height="18.9"/>
+<rect class="buy" x="186.0" y="474.1" width="21.6" height="35.1"/>
+<circle class="metal" cx="196.8" cy="509.2" r="10.8"/>
+<rect x="273.9" y="474.1" width="21.6" height="35.1" fill="none" stroke="#2f6b3a" stroke-dasharray="3 2"/>
+<line x1="323.7" y1="504.6" x2="231.9" y2="360.5" stroke="#1f4e9a" stroke-width="27.0" stroke-opacity="0.18"/>
+<line class="gun" x1="323.7" y1="504.6" x2="231.9" y2="360.5"/>
+<polygon class="gun" points="249.7,346.4 196.5,262.8 160.9,290.9 214.2,374.5" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="205.5,297.7 249.0,331.6"/>
+<circle cx="249.0" cy="331.6" r="4" fill="#7a3fa0"/>
+<text x="20" y="260.9">gun (projected on XZ);</text>
+<text x="20" y="273.9" class="s">its body climbs away toward -Y (see plan)</text>
+<text x="259.0" y="349.6">grip base / cable exit (toward -Y)</text>
+<polygon class="shell" points="333.7,486.6 249.7,346.4 196.5,262.8 160.9,290.9 209.9,370.5 315.7,478.6"/>
+<text x="337.7" y="460.6" fill="#1f4e9a">printed shell</text>
+<line class="beam" x1="323.7" y1="504.6" x2="333.5" y2="520.0"/>
+<line class="wire" x1="268.3" y1="408.2" x2="333.5" y2="520.0"/>
+<circle cx="333.5" cy="520.0" r="3" fill="#d22"/>
+<text x="341.5" y="536.0" fill="#d22">dot in the corner (r 61.85, 6.35 below rim)</text>
+<text x="274.3" y="422.2" class="s">wire bracket</text>
+<polyline points="295.9,457.9 304.0,436.3 309.4,425.5" fill="none" stroke="#8a6d1f" stroke-width="7" stroke-linecap="round"/>
+<text x="336.4" y="425.5">compass leg / pose block</text>
+<text x="336.4" y="437.5" class="s">(radial + height fine screws;</text>
+<text x="336.4" y="448.5" class="s">angles by printed block or arcs about the dot)</text>
+<polyline points="187.9,466.0 90.7,466.0 90.7,487.6" fill="none" stroke="#8a6d1f" stroke-width="5"/>
+<rect class="room" x="79.9" y="479.5" width="21.6" height="121.5"/>
+<rect x="88.0" y="479.5" width="5.4" height="29.7" fill="#fcfcfa" stroke="#777"/>
+<text x="9.7" y="430.9">fork arm: pin in a</text>
+<text x="9.7" y="442.9">vertical slot on a post</text>
+<text x="9.7" y="454.9">from the rotator base</text>
+<text x="9.7" y="466.9" class="s">(azimuth only)</text>
+<rect x="187.0" y="418.5" width="18" height="14" fill="#555"/>
+<line x1="196.0" y1="425.5" x2="333.5" y2="520.0" class="dim"/>
+<line x1="196.0" y1="432.5" x2="196.0" y2="457.9" stroke="#555" stroke-width="3"/>
+<text x="101.5" y="390.4">camera on the ring,</text>
+<text x="101.5" y="402.4">sees dot vs corner</text>
+<rect class="room" x="236.5" y="74.5" width="40.5" height="22"/>
+<text x="231.1" y="84.5" text-anchor="end">spring balancer (room)</text>
+<text x="231.1" y="96.5" text-anchor="end" class="s">carries all but 10–20 N</text>
+<line class="rope" x1="256.8" y1="96.5" x2="256.8" y2="182.5"/>
+<path class="cable" d="M249.0,331.6 C369.0,341.6 399.0,85.3 506.5,85.3"/>
+<rect class="room" x="506.5" y="74.5" width="54.0" height="22"/>
+<text x="566.5" y="84.5">strain relief to the room</text>
+<text x="566.5" y="96.5" class="s">soft loop, R ≥ 350 mm while emitting</text>
+<text x="566.5" y="108.5" fill="#7a3fa0">umbilical + wire conduit</text>
+<text x="47.5" y="544.3">plate outer face = fillet base (height, tilt datum)</text>
+<line class="dim" x1="175.8" y1="538.9" x2="202.8" y2="520.0"/>
+<text x="236.5" y="555.1" fill="#2f6b3a">316 hex nipples in the tapped ports (hollow: purge vents)</text>
+<line class="dim" x1="272.9" y1="544.3" x2="275.6" y2="516.0"/>
+<text x="47.5" y="568.6">seat bar turns with the plate; centre pin at the port-pair midpoint; frame ring on a bushing;</text>
+<text x="47.5" y="581.6">three stainless ball transfers roll on the plate face at r 40 (one in section, one ghosted)</text>
+<text x="47.5" y="515.4" class="s">rim</text>
+<text class="t" x="645.0" y="134.2">Plan (looking down), same instant</text>
+<circle cx="790.0" cy="330.0" r="92.1" fill="none" stroke="#333"/>
+<circle cx="790.0" cy="330.0" r="89.7" fill="#b9c2cc" fill-opacity="0.35" stroke="#333"/>
+<circle class="buy" cx="762.4" cy="330.0" r="11.9"/>
+<circle cx="762.4" cy="330.0" r="6.5" fill="#fcfcfa" stroke="#2f6b3a"/>
+<circle class="buy" cx="817.6" cy="330.0" r="11.9"/>
+<circle cx="817.6" cy="330.0" r="6.5" fill="#fcfcfa" stroke="#2f6b3a"/>
+<rect class="print" x="746.5" y="319.9" width="87.0" height="20.3" fill-opacity="0.8"/>
+<path d="M856.4,335.8 A66.7,66.7 0 1 0 807.3,394.4" fill="none" stroke="#8a6d1f" stroke-width="5" stroke-opacity="0.6"/>
+<line x1="801.6" y1="395.7" x2="829.1" y2="389.4" stroke="#8a6d1f" stroke-width="5"/>
+<text x="645.0" y="467.8" class="s">C-ring open over the barrel's descent (-5° to -75°);</text>
+<text x="645.0" y="478.8" class="s">compass leg from its end up to the shell</text>
+<circle class="buy" cx="827.3" cy="285.6" r="11.6"/>
+<circle class="buy" cx="732.9" cy="319.9" r="11.6"/>
+<circle class="buy" cx="800.1" cy="387.1" r="11.6"/>
+<polygon points="827.3,285.6 732.9,319.9 800.1,387.1" fill="none" stroke="#2f6b3a" stroke-dasharray="2 2"/>
+<circle cx="790.0" cy="330.0" r="3" fill="#333"/>
+<circle cx="879.7" cy="330.0" r="3.5" fill="#d22"/>
+<line class="dim" x1="879.7" y1="460.5" x2="879.7" y2="243.0"/>
+<text x="885.7" y="243.0" class="s">tangent (±Y)</text>
+<polyline class="gun" points="869.2,342.4 829.7,389.1 790.3,435.8"/>
+<polygon class="gun" points="789.7,455.2 732.5,522.9 694.3,530.7 751.5,463.0" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="742.2,580.9 788.9,668.6"/>
+<circle cx="788.9" cy="668.6" r="4" fill="#7a3fa0"/>
+<text x="796.9" y="672.6">grip base</text>
+<line class="wire" x1="809.7" y1="452.0" x2="879.7" y2="330.0"/>
+<line x1="723.3" y1="330.0" x2="618.9" y2="330.0" stroke="#8a6d1f" stroke-width="5"/>
+<rect class="room" x="601.5" y="318.4" width="34.8" height="23.2"/>
+<rect x="607.3" y="326.4" width="23.2" height="7.2" fill="#fcfcfa" stroke="#777"/>
+<text x="594.2" y="353.2" class="s">fork slot: long radially,</text>
+<text x="594.2" y="364.2" class="s">narrow tangentially</text>
+<path class="arrow" d="M865.4,405.4 A107.3,107.3 0 0 1 897.3,335.8"/>
+<text x="903.1" y="388.0" fill="#c05a00">plate + seat turn;</text>
+<text x="903.1" y="400.0" fill="#c05a00">frame stays</text>
+<text x="645.0" y="443.1" class="s">balls at 50°, 170°, 280° from the dot, r 40:</text>
+<text x="645.0" y="454.1" class="s">residual load must fall inside the triangle</text>
+<text class="t" x="20" y="690">What "fixed" is fixed to</text>
+<text x="30" y="708">height + tilt (3)</text><text x="230" y="708">plate outer face</text><text x="470" y="708">3 stainless ball transfers rolling</text>
+<text x="30" y="724">radial x, y (2)</text><text x="230" y="724">plate centre = port-pair midpoint</text><text x="470" y="724">hex nipples → seat bar → pin → bushing</text>
+<text x="30" y="740">azimuth (1)</text><text x="230" y="740">rotator base (loosely)</text><text x="470" y="740">fork pin in slot — the freedom that does not matter</text>
+<text x="30" y="756">weight</text><text x="230" y="756">room</text><text x="470" y="756">spring balancer; 10–20 N left on the balls</text>
+<text x="30" y="772">cable / wire / trigger forces</text><text x="230" y="772">room, or closed inside the shell</text><text x="470" y="772">strain relief + soft loop; Bowden or solenoid trigger</text>
+</svg>

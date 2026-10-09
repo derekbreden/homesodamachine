@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sectioned calibration tube</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .eyes-log { position: absolute; right: 10px; top: 10px; width: 292px; z-index: 4; background: rgba(12,16,22,.93); border: 1px solid var(--wk-line2); border-radius: 8px; padding: 7px 9px 8px; font: 11px/1.35 ui-monospace, "SF Mono", Menlo, monospace; color: var(--wk-text); pointer-events: none; }
+  .eyes-log h4 { font: 600 11px system-ui, sans-serif; color: var(--wk-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .eyes-log table { width: 100%; border-collapse: collapse; }
+  .eyes-log th { font: 500 10px system-ui, sans-serif; color: var(--wk-faint); text-align: right; padding: 1px 3px; }
+  .eyes-log td { text-align: right; padding: 1px 3px; }
+  .eyes-log td:first-child, .eyes-log th:first-child { text-align: left; }
+  .eyes-log .sum td { border-top: 1px solid var(--wk-line2); color: #fbbf24; padding-top: 3px; }
+  .eyes-log .note { font: 10.5px system-ui, sans-serif; color: var(--wk-faint); margin-top: 4px; }
+  .eyes-log .bad { color: #f87171; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-07-sectioned-tube",
+  "title": "Sectioned calibration tube: a direct view of the corner",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A tube and plate sawn in half through the station plane. A camera looking along the tangent sees the true L-section of the corner and the dot beside it, which no camera can see on an intact tube. Use it to label dry runs and to measure the bias of every inferred sensor.",
+  "tags": ["ground-truth", "calibration", "direct-view", "phantom"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["a direct view to calibrate the rest", "labelled dry-run data for an AI", "bias estimate from paired samples"],
+  "how": {
+    "motion": "none required: the gun is placed by hand, a stage or another idea's mechanism; this scene only observes.",
+    "load": "the phantom stands on the existing rotator nest; nothing new carries the gun.",
+    "reference": "the section face is the reference: corner, plate top and wall face are cut edges in one plane.",
+    "observe": "a section camera on the free side, along the tangent, a few degrees above the plate.",
+    "use": "calibration and labelling before dry runs on real tubes; not used while welding."
+  },
+  "software": {
+    "commands": ["nothing new; the gun is moved by whatever moves it in the other ideas"],
+    "observes": ["dot position against the corner in the section plane (radial, vertical)", "residual of any inferred sensor against that direct value"],
+    "manual": ["sawing and mounting the sectioned tube", "aiming the section camera", "deciding when the calibration has converged"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-07-sectioned-tube.md", "../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS, ZC = WK.CAP_TOP;
+  const RO = WK.DIM.tubeOd / 2, H = WK.DIM.tubeHeight, RC = WK.DIM.capDiameter / 2, TC = WK.DIM.capThickness;
+  const VIEWS = {
+    overall: { target: [10, 0, 170], dir: [-0.25, -0.85, 0.42], dist: 780 },
+    joint: { target: [58, 0, 154], dir: [-0.15, -0.9, 0.3], dist: 210 },
+    top: { target: [10, 0, 150], dir: [0, -0.003, 1], dist: 700 },
+    side: { target: [10, 0, 150], dir: [1, 0.05, 0.08], dist: 900 },
+  };
+  const app = WK.app({
+    workstation: { tube: false, cap: false },
+    view: 'overall', viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: VIEWS,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Take a spare 316L tube and a plate and saw them in half through the plane that contains the tube axis and the weld station. Stand the half on the rotator nest with the gun on the intact side. On the free side, a camera looks along the tangent, a few degrees above the plate. Its picture <b>is</b> the corner cross-section: plate top, wall face, and the dot in the same view, edge-on. On an intact tube nothing can see this; the wall is in the way.</p>' +
+        '<p>Use it as a ground-truth view. Move the gun to a set of offsets. For each one the section camera gives a direct dot-against-corner reading, and whatever inferred sensor is being tested (a gun-borne camera, markers, a proximity ring) gives its own. The <b>residuals</b> show the inferred sensor’s bias. Apply it, and the residual mean goes to zero; the scatter that is left is the sensor’s noise.</p>' +
+        '<p>Switch to <b>Real tube</b> and the section camera is blocked: the same experiment cannot be labelled.</p>',
+      carries: '<p>Nothing new carries the gun; the phantom stands in the existing nest (its nest fit and height are unchanged). The section camera has its own stand on the bench, which is not drawn. The half-tube is cut through the axis; the tube-axis side of the nest holds it: how it is clamped when half the wall is missing is unresolved.</p>',
+      software: '<p>Software reads the section camera’s picture, finds the plate-top edge, the wall face and the dot, and gets (radial, vertical) at the pixel scale (about 0.02 mm per pixel for this drawn camera). It writes each pair (direct, inferred) into a log. It never welds on this tube. Three or four dozen dry-run samples with different gun offsets give a bias for every inferred sensor.</p>',
+      tried: '<p><b>Broke:</b> a full-height wall on both sides. Then the tangent view is blocked by the wall for any camera; the section camera reports <i>blocked</i> in Real tube mode. <b>Repaired:</b> the half-tube.</p>' +
+        '<p><b>Broke:</b> the dot exactly on the cut plane, half of it on the cut edge. <b>Changed:</b> the gun is offset 1 mm into the intact half; the section face then lies 1 mm in front of the dot, which is invisible to a camera a few degrees above the plate.</p>' +
+        '<p><b>Broke:</b> the phantom is not the real part: half the wall is missing, so light reflecting from that half is missing, and a heat-free dry run stands in for welding. <b>Left standing:</b> whether reflections from the missing wall would change a real sensor’s bias. Calibrate on the phantom, then check on real tubes with a different truth (a section of a welded tube, after the fact).</p>' +
+        '<p><b>Broke:</b> calibration on one gun pose does not carry to another if the mapping is pose dependent. The pose variants (A, B, C) show the same procedure repeated. Repeat per pose, or use enough samples across the poses that will be used.</p>',
+      unresolved: '<p>Whether the dot is visible at grazing incidence on a bare stainless plate at all (a 0.3 mW spot on shiny metal, seen edge-on). Whether the section face glares. How much of the real corner the plate’s slip fit and tack welds change. Whether one half-tube is enough, or several with different plate seat depths (the depth varies tube to tube and nobody has measured how much). How to hold and re-seat a half-tube on the nest repeatably.</p>' +
+        '<p>Question for Derek: with a spare tube half, set the gun to your usual pose and look along the tangent with a phone from 20 cm: is the dot on the plate visible against the section?</p>',
+      assumptions: '<ul><li>Tube and plate dimensions from the fabrication sources [repo]; plate ports omitted (they lie on the section line and would show as slots).</li>' +
+        '<li>Gun proxy from the manual’s envelope [manual p.17]; pose variants are the reference scene’s rotations (illustrative).</li>' +
+        '<li>Section camera: 8° field of view at 200 mm, about 0.02 mm per pixel; the direct reading is the exact scene value plus 0.01 mm noise. [illustrative]</li>' +
+        '<li>The inferred sensor is a stand-in: exact value + a hidden bias (0.30 mm radial, -0.20 mm vertical) + noise 0.05 mm (1 sigma). These are the same numbers as the defaults of eyes-01. [illustrative]</li>' +
+        '<li>Samples use a small deterministic pseudo-random sequence.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  gun.setLaser(true);
+
+  // ------------------------------------------------------------------ phantom (half) and real (full) tubes
+  const profile = [[RO, 0], [RO, H], [RI, H], [RI, 0], [RO, 0]].map(p => new THREE.Vector2(p[0], p[1]));
+  const matWork = WK.mat('work', { side: 'double' }), matPlate = WK.mat('work', { side: 'double', shade: 0.62 });
+  function lathe(phi0, len, segs) { const g = new THREE.LatheGeometry(profile, segs, phi0, len); g.rotateX(Math.PI / 2); return g; }
+  function plateGeo(phi0, len, segs) { const g = new THREE.CylinderGeometry(RC, RC, TC, segs, 1, false, phi0, len); g.rotateX(Math.PI / 2); g.translate(0, 0, ZC - TC / 2); return g; }
+  const mk = (geo, mat, name) => { const m = new THREE.Mesh(geo, mat); m.userData.role = 'work'; m.name = name; return m; };
+  const real = new THREE.Group(); real.name = 'real tube'; real.add(mk(lathe(0, Math.PI * 2, 160), matWork, 'tube'), mk(plateGeo(0, Math.PI * 2, 96), matPlate, 'recessed endcap'));
+  const half = new THREE.Group(); half.name = 'sectioned tube';
+  let halfTube = null, halfPlate = null;
+  const sect = new THREE.Group();
+  const secMat = WK.mat('locate', { side: 'double' });
+  function rect(cx, cz, w, h) { const g = new THREE.PlaneGeometry(w, h); g.rotateX(Math.PI / 2); g.translate(cx, 0, cz); const m = new THREE.Mesh(g, secMat); m.userData.role = 'locate'; return m; }
+  sect.add(rect((RI + RO) / 2, H / 2, RO - RI, H), rect(-(RI + RO) / 2, H / 2, RO - RI, H), rect(0, ZC - TC / 2, 2 * RC, TC));
+  half.add(sect);
+  scene.add(real); scene.add(half);
+  app.add(real); app.add(half);
+  const cutEdge = new THREE.LineSegments(new THREE.BufferGeometry(), WK.lineMat('locate', { onTop: false })); cutEdge.userData.occludes = false; half.add(cutEdge);
+  function buildHalf(k) {   // k = +1: keep y >= 0; k = -1: keep y <= 0
+    if (halfTube) { half.remove(halfTube); half.remove(halfPlate); halfTube.geometry.dispose(); halfPlate.geometry.dispose(); }
+    const phi0 = k > 0 ? Math.PI / 2 : -Math.PI / 2;
+    halfTube = mk(lathe(phi0, Math.PI, 96), matWork, 'tube'); halfPlate = mk(plateGeo(phi0, Math.PI, 64), matPlate, 'recessed endcap');
+    half.add(halfTube, halfPlate);
+  }
+
+  // ------------------------------------------------------------------ pose variants; gun side decides which half is kept
+  const POSES = { A: [45, 30, -15], B: [25, 40, 0], C: [60, 20, -30] };
+  const S = { k: 1, camSide: -1 };
+  function gunOffsetVec() { return V(app.ui.get('offr'), S.k * 1.0, app.ui.get('offz')); }
+  function applyPose() {
+    const p = POSES[app.ui.get('pose')];
+    gun.setDials(p[0], p[1], p[2]);
+    gun.group.position.add(gunOffsetVec());
+    gun.group.updateMatrixWorld(true);
+  }
+  function chooseSide() {
+    const p = POSES[app.ui.get('pose')]; gun.setDials(p[0], p[1], p[2]); gun.group.updateMatrixWorld(true);
+    const back = gun.dir([0, 0, 1]); S.k = back.y >= 0 ? 1 : -1; S.camSide = -S.k;
+    buildHalf(S.k);
+    VIEWS.overall.dir = [-0.25, S.camSide * 0.85, 0.42]; VIEWS.joint.dir = [-0.15, S.camSide * 0.9, 0.3]; app.setView(app.getView(), { instant: true });
+    const pts = [V(RI, 0, 0), V(RI, 0, H), V(RO, 0, 0), V(RO, 0, H), V(-RI, 0, 0), V(-RI, 0, H), V(-RO, 0, 0), V(-RO, 0, H)];
+    cutEdge.geometry.setFromPoints([V(RI, 0, ZC), V(RI, 0, H), V(RO, 0, H), V(RO, 0, 0), V(RI, 0, 0), V(RI, 0, ZC - TC), V(-RI, 0, ZC - TC), V(-RI, 0, ZC), V(RI, 0, ZC)].flatMap((p, i, a) => i < a.length - 1 ? [p, a[i + 1]] : []));
+  }
+
+  // ------------------------------------------------------------------ section camera
+  const CAMD = 200;
+  let secCam = null;
+  function camPos() { const e = app.ui.get('cele') * DEG; return V(RI - 1.5, S.camSide * CAMD, ZC + 2.5 + CAMD * Math.tan(e)); }
+  function makeSecCam() { if (secCam) secCam.remove(); secCam = app.inset.add({ id: 'sec', label: 'Section camera' + (S.camSide > 0 ? ' from +Y: the wall is on the LEFT' : '') + ' (proposed, illustrative)', position: camPos, target: () => V(RI - 1.5, 0, ZC + 2.5), fov: 8, near: 60, far: 900, size: [300, 210], corner: 'br', noise: 0.1 }); }
+  const rc = new THREE.Raycaster();
+  // where the beam actually lands (first surface it meets), and whether the section camera can see that spot
+  function seenNow() {
+    const off = gun.dotOffset();
+    const targets = app.ui.get('mode') === 'phantom' ? [halfTube, halfPlate] : real.children.filter(c => c.isMesh);
+    targets.forEach(t => t.updateWorldMatrix(true, false));
+    const o = gun.local('nozzleTip'), d = gun.beamDir(); rc.set(o, d); rc.far = 400;
+    const h = rc.intersectObjects(targets, false)[0];
+    let spot = null, s = null, onWhat = 'no surface';
+    if (h) {
+      spot = h.point.clone();
+      if (h.object.name === 'recessed endcap') { s = Math.hypot(spot.x, spot.y) - RI; onWhat = 'plate'; } else { s = spot.z - ZC; onWhat = 'wall'; }
+    }
+    const tgt = spot ? spot.clone().addScaledVector(d, -0.3) : gun.dotWorld();
+    const vis = app.inset.markVisibility('sec', tgt, {});
+    return { off: off, vis: vis, spot: spot, s: s, on: onWhat };
+  }
+  app.cornerInset({ gun: gun });
+
+  // ------------------------------------------------------------------ calibration log
+  function rng(seed) { let a = seed >>> 0; return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  let R = rng(20260928); const HIDDEN = { r: 0.30, z: -0.20 }, SIG = 0.05, SIG_DIRECT = 0.01;
+  const gauss = () => { let u = 0; for (let i = 0; i < 6; i++) u += R(); return (u - 3) / 0.7071; };
+  const log = [], cal = { r: 0, z: 0, on: false };
+  const logEl = document.createElement('div'); logEl.className = 'eyes-log'; app.stageEl.appendChild(logEl);
+  function renderLog() {
+    const n = log.length, rows = log.slice(-5);
+    let mr = 0, mz = 0, sr = 0, sz = 0;
+    log.forEach(l => { mr += l.rr; mz += l.rz; }); if (n) { mr /= n; mz /= n; }
+    log.forEach(l => { sr += (l.rr - mr) * (l.rr - mr); sz += (l.rz - mz) * (l.rz - mz); }); const sdr = n > 1 ? Math.sqrt(sr / (n - 1)) : 0, sdz = n > 1 ? Math.sqrt(sz / (n - 1)) : 0;
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+    logEl.innerHTML = '<h4>Dry-run log: inferred minus direct (mm)</h4><table><tr><th>#</th><th>direct r</th><th>direct z</th><th>resid r</th><th>resid z</th></tr>' +
+      rows.map(l => '<tr><td>' + l.i + '</td><td>' + f(l.dr) + '</td><td>' + f(l.dz) + '</td><td>' + f(l.rr) + '</td><td>' + f(l.rz) + '</td></tr>').join('') +
+      '<tr class="sum"><td>n=' + n + '</td><td>mean</td><td></td><td>' + (n ? f(mr) : '-') + '</td><td>' + (n ? f(mz) : '-') + '</td></tr>' +
+      '<tr class="sum"><td></td><td>scatter</td><td></td><td>' + (n > 1 ? sdr.toFixed(2) : '-') + '</td><td>' + (n > 1 ? sdz.toFixed(2) : '-') + '</td></tr></table>' +
+      '<div class="note">' + (cal.on ? 'calibration applied: bias ' + f(cal.r) + ', ' + f(cal.z) + ' removed from the inferred sensor' : 'the mean residual is the inferred sensor’s bias; scatter is its noise') + '</div>';
+    return { n: n, mr: mr, mz: mz, sdr: sdr, sdz: sdz };
+  }
+  function sample() {
+    const info = seenNow();
+    if (!info.vis.visible) { app.toast('section camera cannot see the dot: no direct value, sample refused'); return false; }
+    const t = info.off, dr = t.radial + gauss() * SIG_DIRECT, dz = t.vertical + gauss() * SIG_DIRECT;
+    const ir = t.radial + HIDDEN.r + gauss() * SIG - (cal.on ? cal.r : 0), iz = t.vertical + HIDDEN.z + gauss() * SIG - (cal.on ? cal.z : 0);
+    log.push({ i: log.length + 1, dr: dr, dz: dz, rr: ir - dr, rz: iz - dz });
+    sync(); return true;
+  }
+  function tenSamples() {
+    let n = 0;
+    for (let i = 0; i < 10; i++) { app.ui.set('offr', +(R() * 6 - 3).toFixed(1), { silent: true }); app.ui.set('offz', +(R() * 6 - 3).toFixed(1), { silent: true }); sync(); if (sample()) n++; }
+    app.ui.set('offr', 1.0, { silent: true }); app.ui.set('offz', -0.8, { silent: true }); sync();
+  }
+
+  // ------------------------------------------------------------------ sync
+  function sync() {
+    applyPose(); gun.laserTargets = app.ui.get('mode') === 'phantom' ? [halfTube, halfPlate] : real.children.filter(c => c.isMesh);
+    half.visible = app.ui.get('mode') === 'phantom'; real.visible = !half.visible;
+    scene.updateMatrixWorld(true); gun.updateLaser();
+    const info = seenNow(), t = info.off, seen = info.vis.visible;
+    const st = renderLog();
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+    app.cornerInset.setEstimate(seen ? { radial: t.radial + HIDDEN.r - (cal.on ? cal.r : 0), vertical: t.vertical + HIDDEN.z - (cal.on ? cal.z : 0) } : null);
+    app.badge('mode', !seen ? 'section camera blocked: no direct view of the corner on this tube' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Nothing new', value: '-', note: 'the gun is moved by whatever moves it in the other ideas; here offsets are scene edits' }],
+      observes: [
+        { name: 'Where the beam lands on the L-profile', value: seen && info.s != null ? (info.on === 'plate' ? f(info.s) + ' (on the plate, short of the corner)' : f(info.s) + ' (on the wall, above the corner)') : '-', unit: seen && info.s != null ? 'mm' : '', status: seen ? 'seen' : 'blind', note: 'the spot on the cut edge: one number, read straight off the picture' },
+        { name: 'Dot (focus) against corner, radial (direct)', value: seen ? f(t.radial) : '-', unit: seen ? 'mm' : '', status: seen ? 'seen' : 'blind', note: 'follows from the nozzle axis in the picture plus the fixed nozzle-to-focus clearance; scene value + 0.01 mm noise' },
+        { name: 'Dot (focus) against corner, vertical (direct)', value: seen ? f(t.vertical) : '-', unit: seen ? 'mm' : '', status: seen ? 'seen' : 'blind' },
+        { name: 'Inferred sensor, bias found so far (r, z)', value: st.n ? f(st.mr) + ', ' + f(st.mz) : '-', unit: st.n ? 'mm' : '', status: st.n ? 'partly' : 'unresolved', note: 'needs about a dozen samples at 0.05 mm noise' },
+        { name: 'Inferred sensor noise (r, z)', value: st.n > 1 ? st.sdr.toFixed(2) + ', ' + st.sdz.toFixed(2) : '-', unit: st.n > 1 ? 'mm' : '', status: st.n > 1 ? 'partly' : 'unresolved' },
+        { name: 'Bias on a real tube', value: '-', status: 'unresolved', note: 'the phantom may differ: half the wall is missing' },
+        { name: 'Dot visible at grazing incidence on bare stainless', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Saw and mount the half-tube', 'Aim the section camera; focus at 200 mm', 'Decide the pose set to sample'],
+    });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const arr = app.ui.group('Arrangement');
+  arr.radio({ id: 'mode', label: 'Tube on the nest', kind: 'branch', value: 'phantom', options: [{ value: 'phantom', label: 'Sectioned' }, { value: 'real', label: 'Real tube' }], help: 'Real tube: the wall is between the section camera and the dot.', onChange: sync });
+  arr.radio({ id: 'pose', label: 'Gun pose (variant)', kind: 'branch', value: 'A', options: [{ value: 'A', label: 'A' }, { value: 'B', label: 'B' }, { value: 'C', label: 'C' }], help: 'Which half is kept follows the side the gun body lies on; the camera sits on the free side.', onChange: () => { chooseSide(); makeSecCam(); sync(); } });
+  arr.slider({ id: 'cele', label: 'Section camera elevation above the plate', min: 0, max: 14, step: 0.5, value: 2, unit: '°', kind: 'scene', visual: () => secCam && secCam.helper, help: 'Small elevation sees the section edge-on; more elevation starts to show the plate top and the wall face.', onChange: sync });
+  const off = app.ui.group('Where the gun is (scene edits: a hand or a stage puts it there)');
+  off.slider({ id: 'offr', label: 'Gun offset, radial', min: -4, max: 4, step: 0.1, value: 1.0, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: sync });
+  off.slider({ id: 'offz', label: 'Gun offset, vertical', min: -4, max: 4, step: 0.1, value: -0.8, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: sync });
+  const cl = app.ui.group('Calibration log');
+  cl.button({ id: 'take', label: 'Take one sample at this offset', kind: 'state', help: 'Direct reading from the section camera; inferred reading from the stand-in sensor.', onClick: () => sample() });
+  cl.button({ id: 'ten', label: 'Take ten samples at random offsets', kind: 'state', onClick: tenSamples });
+  cl.toggle({ id: 'apply', label: 'Apply the bias found so far to the inferred sensor', value: false, kind: 'state', help: 'Subtracts the mean residual and restarts the log: the mean residual of the next samples goes to zero, the scatter stays.', onChange: v => { const st = renderLog(); cal.on = v; cal.r = v ? st.mr : 0; cal.z = v ? st.mz : 0; log.length = 0; sync(); } });
+  cl.button({ id: 'clear', label: 'Clear the log', kind: 'state', onClick: () => { log.length = 0; cal.on = false; cal.r = cal.z = 0; app.ui.set('apply', false, { silent: true }); R = rng(20260928); sync(); } });
+
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => V(RI + 2, S.k * -0.0, ZC - 3), 'section face (the cut)', { cls: 'locate' });
+  app.label(() => camPos(), 'section camera', { cls: 'sensor' });
+
+  chooseSide(); makeSecCam(); app.legend();
+  window.__cal = () => ({ n: log.length, cal: cal, k: S.k });
+})();
+</script>
+</body>
+</html>

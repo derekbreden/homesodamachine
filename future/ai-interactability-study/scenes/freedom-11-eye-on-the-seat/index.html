@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eye on the seat</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-11-eye-on-the-seat",
+  "title": "Eye on the seat: what the gun-borne eye's trim has to absorb, and where the camera can stand",
+  "by": "freedom",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Combination of the gun-borne eye (eyes-01) and the nose seat (freedom-01b). The eye nulls radial and vertical with a small trim stage, so the support may be loose, but only in the motions it does not have to hold. A pull change on the umbilical spends the trim range at very different rates depending on whether anything holds the gun's rotation: one elastic under a rigid lug turns the beam by degrees per newton, a nose seat with a tail bridle moves the dot about a tenth of a millimetre per newton. The camera's clock-and-station map shows where the cup and collar take the view.",
+  "tags": ["observer", "trim range", "rotation", "nose seat", "sight line", "umbilical pull"],
+  "branchOf": ["eyes-01-gun-borne-eye", "freedom-01b-nose-seat"],
+  "combines": ["eyes-01-gun-borne-eye", "freedom-01b-nose-seat"],
+  "transferable": ["trim range spent per newton", "soft in one motion needs a holder for the rest", "camera map with the support as occluder"],
+  "how": {
+    "motion": "the trim stage (nose stage X, Z or the eyes-01 stage) nulls what the eye sees; tail sets tilt",
+    "load": "one elastic under a rigid lug, or the cone seat and tail bridle; umbilical pulls at the grip base",
+    "reference": "the corner in the gun-borne image; with the seat the pivot is 60 to 110 mm from the dot",
+    "observe": "gun-borne camera gives radial and vertical; nothing here sees tilt (an IMU could)",
+    "use": "read the trim range used per newton of pull change, then move the camera"
+  },
+  "software": {
+    "commands": ["trim radial and vertical (the nose stage of the seat, or the eyes-01 stage)", "tail winches A and B (tilt), set by hand in this scene"],
+    "observes": ["corner minus dot, radial and vertical (the eye)", "camera line of sight to the corner and to the line-laser spot", "seat load (proposed cell under the cup)"],
+    "manual": ["hand-set pose at the setup pull", "fitting the collar, cup and spreader", "cable route"]
+  },
+  "notes": ["../../exchange/freedom--on--eyes-w2.md", "../../explorers/freedom/ideas/freedom-11-eye-on-the-seat.md", "../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md", "../../explorers/freedom/ideas/freedom-01b-nose-seat.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script src="../../explorers/freedom/calc/ringmodel.js"></script>
+<script src="../../explorers/freedom/calc/eye-support.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, FS = FreedomStatics, MA = FS.math, ES = EyeSupport, D2R = Math.PI / 180, RI = WK.INNER_RADIUS, ZC = WK.CAP_TOP;
+  const app = WK.app({
+    gun: { pose: 'none', umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -100, 280], dir: [-0.62, 0.62, 0.42], dist: 1350 },
+      joint: { target: [40, -30, 175], dir: [-0.8, 0.5, 0.35], dist: 380 },
+      top: { target: [0, -120, 250], dir: [0, -0.004, 1], dist: 1250 },
+      side: { target: [0, -120, 280], dir: [1, 0, 0.08], dist: 1500 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The gun-borne eye (eyes-01) measures radial and vertical error in the gun’s own frame and nulls it with a small trim stage, so the support that carries the gun may be loose. This scene asks what “loose” has to mean. The support is loose in some motions only if something else holds the rest.</p>' +
+        '<p><b>Lug on one elastic</b> (eyes-01 as drawn: a rod from the housing top to a stage, the stage hung from one elastic line). Set <i>Rotation held by the stage</i> to <i>none</i>: nothing holds the gun’s orientation, it settles where its centre of mass hangs and the umbilical pull allows, and every newton of pull change turns the beam by more than a degree. Raise the rotation stiffness and the same pull change costs a fraction of the trim range.</p>' +
+        '<p><b>Nose seat and tail bridle</b> (freedom-01b): the collar seat sets the pivot 60 to 110 mm from the dot and the tail wires hold the tilt; the eye’s trim is the nose stage. The read-outs give the dot’s movement per newton of pull change, and how many newtons fill the ±6 mm trim. The <b>camera map</b> panel shows where on the barrel a camera can stand once the cup and collar are there.</p>',
+      carries:
+        '<p><b>Amber</b> carries load: the shell, the rod to the stage (lug variant) or the collar, spreader and wires (seat variant); <b>green</b> is compliant: the elastic, the yaw bungees. <b>Purple</b> is what software commands: the trim stage (or the nose stage) and, in the seat variant, the tail winches. <b>Blue</b> is the camera and the line-laser emitter. The blue arrow at the grip base is the umbilical’s pull, a scene edit; the real pull is unknown.</p>' +
+        '<p>Setup: at the <i>setup pull</i> the gun is placed by hand so that the dot is on the seam (the scene solves the stage command that does it). Changing <i>Umbilical pull now</i> is the disturbance.</p>',
+      software:
+        '<p><b>Commands:</b> trim radial and vertical, limited to ± the range slider (eyes-01 uses ±6 mm). With <i>Close the loop</i> on, each update runs a few corrections on the true radial and vertical offset (a perfect eye: no bias, no noise; that is a separate question, see eyes-01). <b>Observes:</b> the eye sees radial and vertical only; the beam’s turn, the tilt and the tangent are not seen here. An IMU on the shell (eyes-11) would see pitch and roll from gravity.</p>',
+      tried:
+        '<p><b>Found:</b> one elastic under a rigid lug holds no rotation. In this model (1.2 kg, centre of mass 178 mm behind the nozzle, both illustrative) the gun that was hand-set at the reference pose settles about 29° from it when the pivot is the elastic attachment 70 mm above the lug and the umbilical pulls 2 N. One more newton then moves the dot 1.4 to 1.8 mm radially and 3.3 to 4.2 mm vertically for elastic stiffness 0.2 to 10 N/mm, and turns the beam 1.3°: ±6 mm of trim is spent by about 1.4 N.</p>' +
+        '<p><b>Repair 1:</b> hold the rotation. With a rigid stage base (100 N·m/rad) and a 0.5 N/mm elastic the same newton moves the dot 0.5 / 1.0 mm (radial / vertical): 5.8 N fills the trim. The price: something has to hold rotation, which is a second point or a wide base.</p>' +
+        '<p><b>Repair 2:</b> the nose seat. Pivot 70 mm from the dot, tail wires 200 N/mm at a 160 mm half-width: 0.10 / 0.01 mm per newton. The trim is then almost never used, and what it corrects is mostly the setup and the runout.</p>' +
+        '<p><b>Still standing:</b> the eye’s camera and the cup compete for the same barrel. The camera map shows which station and clock angle keep the corner in view with the cup, collar and stage in place; the window is smaller than without the seat. The tilt the trim cannot remove is not seen by the eye at all.</p>',
+      unresolved:
+        '<p>The umbilical pull at the exit is unknown (weight, stiffness, direction). The elastic’s real stiffness is unknown; a single line has only T/L sideways (0.1 N/mm for 12 N over 100 mm), not the isotropic k used here. Friction in the seat and rails gives steps, not drifts: see the slip readout. Cup and collar sizes are the seat scene’s (collar radius 12 mm, cone half-angle 40°): a sleeve 15 mm in radius at stations above 100 mm needs a bigger collar.</p>',
+      assumptions:
+        '<ul><li>Gun + shell 1.2 kg, COM (0, −18, 178) local: <b>illustrative</b> ([unknown] in the study). Umbilical pull 0 to 8 N, direction between the exit axis and straight down (droop): <b>illustrative</b>.</li>' +
+        '<li>Elastic k 0.2 to 10 N/mm isotropic at the pivot; rotation stiffness 0 to 100 N·m/rad; seat 100 N/mm, tail wires 200 N/mm, yaw bungees 0.15 N/mm: <b>illustrative</b> (calc/eye-support.js).</li>' +
+        '<li>Trim ±6 mm and the correction loop (4 per second, gain 0.6) are eyes-01’s illustrative numbers. The eye here is exact; noise and bias are eyes-01’s question.</li>' +
+        '<li>Camera clock angles, stalk radius (27 to 30 mm) and the emitter position follow eyes-01. Line of sight is the drawn geometry, not optics.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  gun.setLaser(true);
+  const benchZ = ws.benchZ;
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'load', size: 9 });
+  shell.group.traverse(m => m.layers.set(1)); lug.lug.traverse(m => m.layers.set(1));   // the shell is drawn in the main view only: a real shell has a window for the eye
+
+  const S = { sup: 'lug', krotKey: 'none', k: 0.5, s: 70, pre: 3, F: 3.5, Fset: 2, droop: 0.5, auto: true, trim: [0, 0], limit: 6, camz: 85, camth: 0, slip: 3, setupKey: '', setup: null, pn: null, warm: null, dx: 160 };
+  const KROT = { none: 0, weak: 0.3, mid: 3, rigid: 100 };
+
+  // ------------------------------------------------------------------ parts: lug variant
+  const post = P.rod([0, 0, 0], [0, 0, 1], 6, 'fixed'), postFoot = P.box(70, 70, 10, 'fixed'), armBar = P.rod([0, 0, 0], [0, 0, 1], 4, 'fixed');
+  const elastic = P.elastic(V(0, 0, 0), V(0, 0, 100), { role: 'compliant', radius: 2.2, rest: 100 });
+  const block = P.box(46, 22, 46, 'fixed'), carriage = P.box(16, 22, 16, 'actuated'), lugRod = P.rod([0, 0, 0], [0, 0, 1], 2.6, 'load');
+  const lugParts = [post, postFoot, armBar, elastic, block, carriage, lugRod];
+  lugParts.forEach(o => { app.add(o); if (o !== block && o !== carriage) o.userData.occludes = false; });
+  // ------------------------------------------------------------------ parts: seat variant
+  const collar = P.sphere(12, 'load'); collar.name = 'collar'; gun.group.add(collar);
+  const cup = new THREE.Mesh(new THREE.CylinderGeometry(24, 8, 22, 40, 1, true), WK.mat('locate', { opacity: 0.5, side: 'double' })); cup.userData.role = 'locate'; cup.name = 'cone seat'; cup.geometry.rotateX(Math.PI / 2); app.add(cup);
+  const cupRim = new THREE.Mesh(new THREE.TorusGeometry(24, 1.6, 8, 40), WK.mat('locate')); cupRim.userData.role = 'locate'; cupRim.name = 'cone seat'; app.add(cupRim);
+  const stalk = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'actuated'), stage = P.box(46, 46, 22, 'actuated'), stageRail = P.rod(V(0, 0, 0), V(0, 0, 1), 7, 'fixed');
+  stalk.name = 'nose stage'; stage.name = 'nose stage'; stageRail.name = 'nose stage';
+  const spreader = P.rod(V(0, 0, 0), V(1, 0, 0), 2.6, 'load'), lugA = P.sphere(6, 'load'), lugB = P.sphere(6, 'load');
+  gun.group.add(spreader, lugA, lugB);
+  const wireA = P.rod(V(0, 0, 0), V(0, 0, 1), 0.8, 'load'), wireB = P.rod(V(0, 0, 0), V(0, 0, 1), 0.8, 'load'), winchA = P.cyl(12, 20, 'actuated', { axis: 'x' }), winchB = P.cyl(12, 20, 'actuated', { axis: 'x' });
+  const bung = [P.elastic(V(0, 0, 0), V(1, 0, 1), { role: 'compliant', radius: 1.4, rest: 200 }), P.elastic(V(0, 0, 0), V(1, 0, 1), { role: 'compliant', radius: 1.4, rest: 200 })];
+  const seatParts = [cup, cupRim, stalk, stage, stageRail, wireA, wireB, winchA, winchB].concat(bung);
+  seatParts.forEach(o => { if (o !== cup && o !== cupRim) app.add(o); });
+  [wireA, wireB].concat(bung).forEach(o => { o.userData.occludes = false; });
+  // ------------------------------------------------------------------ camera and emitter on the barrel (as eyes-01)
+  const camBody = P.camera({ role: 'sensor', size: 16 }); gun.group.add(camBody);
+  const stalkC = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load'), stalkL = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load'), emitter = P.box(9, 9, 12, 'sensor');
+  gun.group.add(stalkC, stalkL, emitter);
+  [stalkC, stalkL, emitter, camBody].forEach(o => o.traverse(m => { if (m.isMesh) m.userData.occludes = false; }));
+  const lensDot = V(0, 0, -WK.CLEARANCE), radiusAt = z => (z < 118 ? 27 : 30);
+  const camLocal = V(), emLocal = V();
+  function placeCam() {
+    const z = S.camz, th = S.camth * D2R, rr = radiusAt(z);
+    camLocal.set(rr * Math.sin(th), rr * Math.cos(th), z); camBody.position.copy(camLocal);
+    camBody.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(camLocal, lensDot, V(0, 1, 0))); stalkC.setEnds(V(0, 0, z), camLocal);
+    const thL = th + Math.PI / 2, zL = z + 6; emLocal.set(rr * Math.sin(thL), rr * Math.cos(thL), zL);
+    emitter.position.copy(emLocal); emitter.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(emLocal, lensDot, V(0, 1, 0))); stalkL.setEnds(V(0, 0, zL), emLocal);
+  }
+  const cam = app.inset.add({ id: 'cam', label: 'Gun-borne camera (proposed, illustrative)', object3D: camBody, target: () => gun.dotWorld(), fov: 32, near: 4, far: 600, size: [260, 182], corner: 'br', noise: 0.15 });
+  // ------------------------------------------------------------------ umbilical (drawn only; its pull is the slider)
+  const cableEnd = V(-60, -1250, benchZ + 60); let cableMesh = null;
+  const cableAnchor = P.groundHatch(40, 'fixed'); cableAnchor.position.set(cableEnd.x, cableEnd.y, benchZ); app.add(cableAnchor); app.add(P.rod(V(cableEnd.x, cableEnd.y, benchZ), cableEnd, 4, 'fixed'));
+  const arrPull = P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'sensor'); app.addHelper(arrPull);
+  app.cornerInset({ gun: gun });
+
+  // ------------------------------------------------------------------ physics
+  function cfgNow() { return { sup: S.sup, k: S.k, krot: KROT[S.krotKey], s: S.s, pre: S.pre, droop: S.droop, Fset: S.Fset, limit: S.limit, dx: S.dx }; }
+  function drawPose(model, x) {
+    const th = [x[3] / FS.S, x[4] / FS.S, x[5] / FS.S], Re = MA.mm(MA.expm(th), model.R0), u = [x[0], x[1], x[2]], dl = [0, 0, -16];
+    const place = l => { const p = MA.mv(Re, MA.sub(l, dl)); return V(model.dot0[0] + u[0] + p[0], model.dot0[1] + u[1] + p[1], model.dot0[2] + u[2] + p[2]); };
+    const m4 = new THREE.Matrix4().set(Re[0], Re[1], Re[2], 0, Re[3], Re[4], Re[5], 0, Re[6], Re[7], Re[8], 0, 0, 0, 0, 1);
+    return { Re: Re, place: place, gp: place([0, 0, 0]), q: new THREE.Quaternion().setFromRotationMatrix(m4) };
+  }
+  function collides(dp) {
+    for (let z = 0; z <= 253; z += 2) { const w = dp.place([0, 0, z]), r = Math.hypot(w.x, w.y); if ((r > RI - 3 && r < 63.5 + 3 && w.z < 152.4 + 3 && w.z > 0) || (r < RI && w.z > 139.7 - 3 && w.z < ZC + 3) || w.z < benchZ + 3) return true; }
+    return false;
+  }
+  function seesFrom(localPos, pt, lasPt) {
+    const w = gun.group.localToWorld(localPos.clone()), occ = WK.occluders(app);
+    const vis = WK.lineOfSight(w, pt, occ, { eps: 0.8 });
+    return { ok: vis.visible, hit: vis.hitObject };
+  }
+  function nameOf(o) { let n = o && o.name; if (!n && o && o.parent) n = o.parent.name; return n || 'the gun'; }
+
+  let last = null;
+  const f2 = v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2);
+  const setPer = app.ui.readout('per', 'Open loop: dot r / t / z per newton');
+  const setFill = app.ui.readout('fill', 'Pull change that fills the trim range');
+  const setBeam = app.ui.readout('beam', 'Beam turned from setup');
+  const setTilt = app.ui.readout('tilt0', 'Gun off the hand-set pose at setup');
+  const setTrim = app.ui.readout('trimu', 'Trim used: radial / vertical');
+  const setSlip = app.ui.readout('slipn', 'Corrections to absorb a slip step');
+  const camPanel = app.ui.panel({ id: 'cammap', title: 'Where the camera can stand (drawn line of sight)', open: true, html: '<div class="wk-note" style="font-size:11px;opacity:.8">rows: station behind the tip (mm); columns: clock angle round the barrel (0 = top). green: the corner is in view; red: something drawn is in the way; the ring marks the camera now.</div><div id="cmgrid" style="margin-top:6px"></div>' });
+  const CMROWS = [30, 50, 70, 90, 110, 130], CMCOLS = [-100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100];
+  function drawCamMap(pt) {
+    const box = camPanel.querySelector ? camPanel.querySelector('#cmgrid') : null; if (!box) return;
+    let html = '<table style="border-collapse:collapse;font-size:10px"><tr><td></td>' + CMCOLS.map(c => '<td style="text-align:center;padding:1px 2px;color:#94a3b8">' + c + '</td>').join('') + '</tr>';
+    let nOk = 0, n = 0;
+    CMROWS.forEach(z => {
+      html += '<tr><td style="color:#94a3b8;padding-right:4px;text-align:right">' + z + '</td>';
+      CMCOLS.forEach(c => {
+        const th = c * D2R, rr = radiusAt(z), lp = V(rr * Math.sin(th), rr * Math.cos(th), z), r = seesFrom(lp, pt), now = (z === S.camz && c === S.camth);
+        n++; if (r.ok) nOk++;
+        html += '<td title="' + (r.ok ? 'clear' : 'blocked by ' + nameOf(r.hit)) + '" style="width:16px;height:14px;background:' + (r.ok ? '#1f7a4d' : '#8a2f2f') + ';' + (now ? 'outline:2px solid #e5e7eb;' : '') + '"></td>';
+      });
+      html += '</tr>';
+    });
+    html += '</table><div style="margin-top:4px;font-size:11px">' + nOk + ' of ' + n + ' stations see the corner</div>';
+    box.innerHTML = html; window.__camMap = { ok: nOk, n: n };
+  }
+
+  let ready = false;
+  function update() {
+    if (!ready) return;
+    const cfg = cfgNow();
+    const key = JSON.stringify([cfg.sup, cfg.k, cfg.krot, cfg.s, cfg.pre, cfg.droop, cfg.Fset, cfg.dx]);
+    if (key !== S.setupKey) { S.setup = ES.setup(cfg); S.setupKey = key; S.trim = [0, 0]; S.warm = null; S.pn = ES.perNewton(cfg, 1); app.ui.set('trR', 0, { silent: true }); app.ui.set('trZ', 0, { silent: true }); }
+    const st = S.setup;
+    if (!st.r.ok) { app.badge('eq', 'no static equilibrium at the setup pull for this support: showing the last pose that settled', 'limit'); if (last) draw(last); return; }
+    let out;
+    if (S.auto) { out = ES.respond(cfg, S.F, st, S.trim, S.warm); S.trim = out.trim; app.ui.set('trR', +S.trim[0].toFixed(2), { silent: true }); app.ui.set('trZ', +S.trim[1].toFixed(2), { silent: true }); }
+    else { const cmd = [st.cmd0[0] + S.trim[0], st.cmd0[1], st.cmd0[2] + S.trim[1]]; const r = ES.solve(cfg, S.F, cmd, S.warm || st.r.x); out = { r: r, trim: S.trim, atLimit: false }; }
+    if (!out.r || !out.r.ok) { app.badge('eq', 'no static equilibrium at this pull: the gun swings out of the support. Showing the last pose that settled.', 'limit'); if (last) draw(last); return; }
+    app.badge('eq', null); S.warm = out.r.x;
+    last = { cfg: cfg, model: out.r.model, x: out.r.x, trim: S.trim.slice(), st: st, out: out };
+    draw(last);
+  }
+
+  function draw(L) {
+    const cfg = L.cfg, model = L.model, x = L.x, dp = drawPose(model, x);
+    gun.setTransform(dp.gp, dp.q); gun.group.updateMatrixWorld(true);
+    placeCam();
+    app.badge('collide', collides(dp) ? 'the drawn gun passes through the tube or the bench: this pose is not physical (the model has no collision)' : null, 'limit');
+    const isSeat = cfg.sup === 'seat';
+    lblTrim.show(!isSeat); lblNose.show(isSeat);
+    lugParts.forEach(o => { o.visible = !isSeat; }); seatParts.forEach(o => { o.visible = isSeat; }); collar.visible = isSeat; spreader.visible = lugA.visible = lugB.visible = isSeat;
+    const exitW = dp.place(FS.GRIP_BASE), exitDir = V(...MA.mv(dp.Re, FS.ROLL_AXIS));
+    if (!isSeat) {
+      const o = model.opts, piv = dp.place(o.arm.at), lugW = dp.place(ES.LUG), anchor = V(...model.armAnchor);
+      const post0 = piv.clone().add(V(-150, -70, 0));
+      postFoot.position.set(post0.x, post0.y, benchZ + 5); post.setEnds(V(post0.x, post0.y, benchZ + 10), V(post0.x, post0.y, piv.z + 160));
+      armBar.setEnds(V(post0.x, post0.y, piv.z + 160), V(piv.x - 10, piv.y, piv.z + 160));
+      const trimV = V(L.trim[0], 0, L.trim[1]);
+      block.position.copy(piv).sub(trimV); carriage.position.copy(piv);
+      elastic.setEnds(V(piv.x - 10, piv.y, piv.z + 160), block.position.clone().add(V(0, 0, 23)));
+      lugRod.setEnds(piv.clone(), lugW);
+      // the stretch of the pin spring is drawn as a dashed helper from the anchor to the pivot
+    } else {
+      const nz = model.noseEl, sl = [0, 0, cfg.s]; collar.position.set(0, 0, cfg.s);
+      const apex = V(...nz.a);
+      if (cup.userData.phi !== cfg.phi) { const tp = Math.tan(cfg.phi * D2R); cup.geometry.dispose(); cup.geometry = new THREE.CylinderGeometry(32 * tp, 4 * tp, 28, 40, 1, true); cup.geometry.rotateX(Math.PI / 2); cup.userData.phi = cfg.phi; cupRim.geometry.dispose(); cupRim.geometry = new THREE.TorusGeometry(32 * tp, 1.6, 8, 40); }
+      cup.position.set(apex.x, apex.y, apex.z + 18); cupRim.position.set(apex.x, apex.y, apex.z + 32);
+      const stg = V(apex.x + 150, apex.y + 90, apex.z + 70);
+      stalk.setEnds(V(apex.x, apex.y, apex.z + 10), stg); stage.position.copy(stg).add(V(0, 0, 12)); stageRail.setEnds(V(stg.x, stg.y, benchZ), stg);
+      const gb = FS.GRIP_BASE, dx = cfg.dx;
+      spreader.position.set(0, gb[1], gb[2]); spreader.quaternion.setFromUnitVectors(V(0, 1, 0), V(1, 0, 0)); spreader.scale.set(1, 2 * dx, 1);
+      lugA.position.set(dx, gb[1], gb[2]); lugB.position.set(-dx, gb[1], gb[2]);
+      const wa = model.tailEls.wires[0], wb = model.tailEls.wires[1], pa = dp.place([dx, gb[1], gb[2]]), pb = dp.place([-dx, gb[1], gb[2]]), ta = V(...wa.b.world), tb = V(...wb.b.world);
+      wireA.setEnds(pa, ta); wireB.setEnds(pb, tb); winchA.position.copy(ta).add(V(0, 0, 4)); winchB.position.copy(tb).add(V(0, 0, 4));
+      const mid = dp.place([0, gb[1], gb[2]]);
+      model.tailEls.bungees.forEach((b, i) => { bung[i].setEnds(mid, V(...b.b.world)); });
+    }
+    // umbilical (drawn) and its pull arrow
+    const c1 = WK.bezierCable(exitW, exitDir, cableEnd, V(0, 0, -1), { stiffness: 0.47 }), pts = c1.getPoints(80);
+    if (!cableMesh) { cableMesh = P.cable(pts, { radius: 5.5, role: 'cable', segments: 160 }); app.add(cableMesh); } else cableMesh.setPoints(pts);
+    const um = model.spec.elements.find(el => el.group === 'umbilical');
+    arrPull.set(exitW, V(...um.dirWorld), Math.max(6, S.F * 14));
+    // seam offsets, eye readings and badges
+    const off = gun.dotOffset(), tilt0 = L.st.beam0, beamNow = ES.beam(model, x), beamTurn = ES.angleBetween(beamNow, tilt0);
+    const lim = cfg.limit, tr = L.trim, atLim = Math.abs(tr[0]) >= lim - 1e-3 || Math.abs(tr[1]) >= lim - 1e-3;
+    app.badge('lim', atLim && S.auto && Math.max(Math.abs(off.radial), Math.abs(off.vertical)) > 0.05 ? 'trim at its limit (±' + lim + ' mm): the dot is still ' + Math.hypot(off.radial, off.vertical).toFixed(2) + ' mm off the seam' : null, 'limit');
+    app.badge('beam', beamTurn > 2 ? 'the beam has turned ' + beamTurn.toFixed(1) + '° from setup: the trim cannot see it' : null, 'warn');
+    // camera and emitter line of sight
+    const J = off.joint, corner = J.clone().add(V(-0.4, 0, 0.4)), spot = J.clone().add(V(-1.5, 0, 1.0));
+    const vc = app.inset.markVisibility('cam', corner, {});
+    const E = gun.group.localToWorld(emLocal.clone()), los = WK.lineOfSight(E, gun.dotWorld().add(V(-1.5, 0, 1.0)), WK.occluders(app), { eps: 3 });
+    app.badge('view', !vc.visible ? 'corner not visible from this camera position: blocked by ' + (vc.hitObject ? nameOf(vc.hitObject) : 'the field of view') : null, 'warn');
+    app.badge('laser', !los.visible ? 'line laser blocked by ' + nameOf(los.hitObject) : null, 'warn');
+    drawCamMap(corner);
+    // readouts
+    const pn = S.pn;
+    if (pn) { setPer([0, 1, 2].map(i => f2(pn.u[i])).join(' / '), 'mm/N'); const m = Math.max(Math.abs(pn.u[0]), Math.abs(pn.u[2]), 1e-6); setFill((lim / m).toFixed(m < 0.05 ? 0 : 1), 'N'); }
+    setBeam(beamTurn.toFixed(2), '°'); setTilt(L.st.tilt0.toFixed(1), '°'); setTrim(f2(tr[0]) + ' / ' + f2(tr[1]), 'mm of ±' + lim);
+    const nCor = Math.ceil(Math.log(0.1 / Math.max(S.slip, 0.11)) / Math.log(0.4)); setSlip(S.slip <= 0.1 ? '0' : nCor + ' (' + (nCor * 0.25).toFixed(2) + ' s, ' + (nCor * 0.25 * 8).toFixed(0) + ' mm of bead)', '');
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+    app.io.set({
+      commands: [
+        { name: isSeat ? 'Nose stage radial / vertical (the eye’s trim)' : 'Trim stage radial / vertical (eyes-01)', value: f(tr[0]) + ' / ' + f(tr[1]), unit: 'mm', note: 'proposed axes; ±' + lim + ' mm illustrative' },
+        { name: 'Line laser', value: 'on' },
+        { name: 'Tail winches A, B (seat variant)', value: isSeat ? 'hand-set (0)' : '-', note: 'tilt: nothing here closes it' }],
+      observes: [
+        { name: 'Corner in view of the gun camera', value: vc.visible ? 'yes' : 'no (' + (vc.hitObject ? nameOf(vc.hitObject) : 'outside the field') + ')', status: vc.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight' },
+        { name: 'Corner minus dot, radial / vertical (the eye)', value: f(off.radial) + ' / ' + f(off.vertical), unit: 'mm', status: vc.visible ? 'partly' : 'blind', note: 'exact scene value here; bias and noise are eyes-01’s question' },
+        { name: 'Beam tilt and gun tilt', value: beamTurn.toFixed(2), unit: '° from setup', status: 'blind', note: 'the eye does not see it; an IMU on the shell would (eyes-11)' },
+        { name: 'Tangent offset', value: f(off.along), unit: 'mm', status: 'blind', note: 'nearly free for the seam (s²/2r); not corrected' },
+        { name: 'Umbilical pull now', value: S.F.toFixed(1), unit: 'N', status: 'unresolved', note: 'a load cell in the seat or a cell dock would read its change' },
+        { name: 'Seat load (proposed cell under the cup)', value: isSeat ? 'seen' : '-', status: isSeat ? 'seen' : 'blind' }],
+      manual: ['Place the gun by hand at the setup pull', 'Fit the collar, cup, spreader and lugs', 'Route the umbilical'] });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const sg = app.ui.group('Support (branch)', { open: true });
+  sg.radio({ id: 'sup', label: 'How the gun is held', kind: 'branch', value: 'lug', options: [{ value: 'lug', label: 'Lug on one elastic (eyes-01)' }, { value: 'seat', label: 'Nose seat + tail bridle (01b)' }], help: 'The same eye and trim stage, two supports. In the seat variant the trim is the nose stage.', onChange: v => { S.sup = v; update(); } });
+  sg.radio({ id: 'krot', label: 'Rotation held by the stage (lug)', kind: 'branch', value: 'none', options: [{ value: 'none', label: 'none' }, { value: 'weak', label: '0.3' }, { value: 'mid', label: '3' }, { value: 'rigid', label: '100 N·m/rad' }], help: 'none = a ball-ended lug on one elastic: the gun turns until the centre of mass hangs. 100 = a rigid base.', onChange: v => { S.krotKey = v; update(); } });
+  sg.slider({ id: 'k', label: 'Elastic stiffness at the pivot (lug)', min: 0.2, max: 10, step: 0.1, value: 0.5, unit: 'N/mm', kind: 'scene', visual: () => elastic, help: 'Isotropic here; a single line is stiff only along itself.', onChange: v => { S.k = v; update(); } });
+  sg.slider({ id: 's', label: 'Collar station behind the nozzle (seat)', min: 40, max: 110, step: 5, value: 70, unit: 'mm', kind: 'scene', visual: () => collar, noVisual: true, help: 'Below about 60 mm the cup would sit inside the bore.', onChange: v => { S.s = v; update(); } });
+  const dg = app.ui.group('Disturbance (scene edits)', { open: true });
+  dg.slider({ id: 'F', label: 'Umbilical pull now', min: 0, max: 8, step: 0.25, value: 3.5, unit: 'N', kind: 'scene', visual: () => arrPull, help: 'The gun was placed at the setup pull (below). The difference is the disturbance.', onChange: v => { S.F = v; update(); } });
+  dg.slider({ id: 'Fset', label: 'Setup pull', min: 0, max: 6, step: 0.5, value: 2, unit: 'N', kind: 'scene', help: 'Pull when the gun was hand-set and the trim zeroed.', onChange: v => { S.Fset = v; update(); } });
+  dg.slider({ id: 'droop', label: 'Cable droop (0 along the exit, 1 straight down)', min: 0, max: 1, step: 0.1, value: 0.5, kind: 'scene', help: 'Direction of the pull.', onChange: v => { S.droop = v; update(); } });
+  dg.slider({ id: 'slip', label: 'Slip step in the support', min: 0, max: 5, step: 0.25, value: 3, unit: 'mm', kind: 'scene', noVisual: true, help: 'Friction gives steps, not drifts. How many corrections the eye’s loop needs to get back under 0.1 mm.', onChange: v => { S.slip = v; update(); } });
+  const ag = app.ui.group('Trim (software could command)', { open: true });
+  ag.toggle({ id: 'auto', label: 'Close the loop on the eye (radial, vertical)', value: true, kind: 'state', help: 'Off: set the trim by hand and read the open-loop offset.', onChange: v => { S.auto = v; update(); } });
+  ag.slider({ id: 'trR', label: 'Trim radial', min: -6, max: 6, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [carriage, stage], noVisual: true, onChange: v => { if (!S.auto) { S.trim[0] = v; update(); } } });
+  ag.slider({ id: 'trZ', label: 'Trim vertical', min: -6, max: 6, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [carriage, stage], noVisual: true, onChange: v => { if (!S.auto) { S.trim[1] = v; update(); } } });
+  ag.slider({ id: 'limit', label: 'Trim range (±)', min: 2, max: 12, step: 1, value: 6, unit: 'mm', kind: 'scene', noVisual: true, help: 'eyes-01 uses ±6 mm (illustrative).', onChange: v => { S.limit = v; update(); } });
+  const cg = app.ui.group('Camera on the barrel (scene edits)', { open: true });
+  cg.slider({ id: 'camz', label: 'Camera station behind the tip', min: 30, max: 130, step: 5, value: 85, unit: 'mm', kind: 'scene', visual: () => [camBody, stalkC], onChange: v => { S.camz = v; update(); } });
+  cg.slider({ id: 'camth', label: 'Camera clock angle', min: -100, max: 100, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => [camBody, stalkC, emitter], help: '0 = top of the gun; the line laser sits 90° further round.', onChange: v => { S.camth = v; update(); } });
+
+  app.label(() => gun.local('nozzleTip'), 'nozzle', { cls: 'gun' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(camBody, 'gun-borne camera', { cls: 'sensor' });
+  const lblTrim = app.label(() => carriage.position, 'trim stage (lug variant)', { cls: 'actuated' });
+  const lblNose = app.label(() => stage.position, 'nose stage (seat variant)', { cls: 'actuated' });
+  app.label(() => gun.local('gripBase'), 'umbilical exit', { cls: 'cable' });
+  ready = true; update();
+  app.legend();
+  window.__eyeSeat = () => ({ trim: last && last.trim, off: (function () { const o = gun.dotOffset(); return [o.radial, o.along, o.vertical]; })(), per: S.pn, map: window.__camMap });
+})();
+</script>
+</body>
+</html>

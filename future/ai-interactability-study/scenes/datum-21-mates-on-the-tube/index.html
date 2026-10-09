@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mates on the tube</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-21-mates-on-the-tube",
+  "title": "Mates on the tube: what each feature lets a part do, and what it costs",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A lens on the region 'shells, seats and interfaces formed by the work'. Pick a feature of the tube (rim, outside, bore, plate face, ports, the wall at the station) and see the part that mates it drawn on the tube, which of the six freedoms it fixes, whether it follows the tube's motion or its shape, what it costs in fit and access, and what changes when the tube is flipped for the second closure. The chart says why: a part on the whole circle follows the tube's motion and none of its shape; only a mate at the station reads the shape.",
+  "tags": ["lens", "datum", "rim", "bore", "ports", "plate face", "wall clip", "motion versus shape", "closure 2 (flipped)"],
+  "branchOf": [],
+  "combines": ["datum-03-rim-crown", "travel-14-exact-crown"],
+  "transferable": ["a mate on the whole circle follows motion, not shape", "count the freedoms a feature fixes before drawing the part", "what the flip removes and adds"],
+  "how": {
+    "motion": "nothing moves by software; the rotator turns the tube under whichever mate is drawn",
+    "load": "not addressed: each mate is shown only as a locating part, not for its load",
+    "reference": "the tube's own feature you pick: rim, outside, bore, plate face, ports or the wall at the station",
+    "observe": "the chart is exact scene geometry of the wall; no sensor is proposed here",
+    "use": "before choosing a shell, ring or post: which feature, what it fixes, what it costs"
+  },
+  "software": {
+    "commands": ["nothing: this scene is a lens", "the rotator turns the tube (existing controller)"],
+    "observes": ["nothing: the chart is scene geometry, not a sensor reading"],
+    "manual": ["the tube's real out-of-round, wall eccentricity and rim flatness must be measured (calipers, ball micrometer, feeler gauge)", "choosing which mate to build"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-21-mates-on-the-tube.md", "../../explorers/datum/calc/mate_harmonics.js", "../../exchange/datum--reply-to-travel-w3.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2, CT = WK.CAP_TOP, TH = WK.DIM.capThickness, PORT = WK.DIM.portOffset;
+  const ROD_Y = -51.0;
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'ring',
+    viewButtons: ['ring', 'station', 'top', 'overall'],
+    views: {
+      ring: { target: [-10, 10, 150], dir: [0.75, 0.5, 0.45], dist: 650 },
+      station: { target: [60, -6, 150], dir: [1, 0.35, 0.4], dist: 190 },
+      top: { target: [0, -10, 150], dir: [0, -0.004, 1], dist: 330 },
+      overall: { target: [-40, -90, 215], dir: [0.72, -0.5, 0.45], dist: 1000 },
+    },
+    sections: {
+      proposes:
+        '<p><b>Which feature of the tube can a part be mated to?</b> Pick one in <i>Feature mated</i>. The part appears on the tube; the card lists which of the six freedoms it fixes (located, weakly located, free), whether it follows the tube&rsquo;s <b>motion</b> (the tube&rsquo;s rigid offset and tilt from the rotation axis) or its <b>shape</b> (ovality, lobing, wall eccentricity), what the mate costs in fit and access, and what the flip for the second closure changes.</p>' +
+        '<p>The chart is the reason to care. A ring, a skirt or a set of fingers on the <i>whole circle</i> follows the tube&rsquo;s motion, so the runout a room-fixed gun sees is not seen; but it cannot follow the tube&rsquo;s shape, and its pads or fingers leak some of that shape into the ring&rsquo;s own centre. A roller on the bore <i>at the station</i> reads the shape too, up to the phase its lead costs. Move the wall sliders and the reference count to see which harmonics each one passes.</p>',
+      carries:
+        '<p>Each mate is drawn as a <i>locating</i> part. What carries the gun&rsquo;s weight is a separate question (a balancer, loops, an arm, the rim itself: see <code>datum-16</code>). Colours: teal locates, green is a soft pad that centres and is then locked, amber carries, blue senses, ghost is the tube&rsquo;s context.</p>',
+      software:
+        '<p>Nothing is commanded or observed here beyond the rotator turning the tube. The chart is exact geometry of an illustrative wall; the point is which measurements would matter (five tubes, eight positions each, outside diameter and wall thickness; rim flatness on a plate with a feeler gauge).</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> a crown&rsquo;s seat was drawn as if the ring sat exactly on the outside (<code>datum-03</code>), and the same for a ring on the bore. <b>What the chart shows</b> [<code>calc/mate_harmonics.js</code>]: k equal pads pass out-of-round harmonics k&minus;1 and k+1 at gain 1 into the ring&rsquo;s centre, so on an oval tube three pads add a first harmonic as large as the ovality. The wall&rsquo;s own shape (harmonics 2 to 4) stays in every rigid mate. <b>Change:</b> the seat is a choice, and the bore reference removes exactly the wall eccentricity and nothing else.</li>' +
+        '<li><b>Conflict:</b> bore fingers centre on the surface the seam is welded to. <b>What the scene shows:</b> a finger that turns with the tube passes the station; the drawn clash test fires when one reaches the beam corridor. <b>Change:</b> fingers are for seating only: centre the ring on the bore, lock the outside pads, retract the fingers. <b>Left uncertain:</b> a locked ring keeps the offset the fingers found; it is followed as a rigid part of the tube from then on.</li>' +
+        '<li><b>Conflict:</b> a roller at the station is passive, so its lead is a phase error. <b>What the numbers say:</b> a lead s costs 2 sin(n s / 2R) of harmonic n: 0.32 of ovality at 10 mm, 0.57 at 18 mm. <b>Change:</b> keep the lead short (the wire and nozzle leave 1.5 to 2 mm at 6 to 10 mm ahead in the kit proxy) or put an actuator behind it that delays the reading by s/v. <b>Left uncertain:</b> the longitudinal weld seam of a welded tube, if there is one on the bore, is a step under the roller once per revolution.</li>' +
+        '<li><b>Conflict:</b> the plate is a mate too. <b>What the scene shows:</b> the plate face fixes height and two tilts, its two ports fix the plate&rsquo;s centre and clock (one cone in a countersink, one in a slot); together they are all six, but relative to the <i>plate</i>, and the plate is only a slip fit in the bore, so the plate&rsquo;s own offset from the bore (up to 0.127 mm) is the radial term. The plate is the one feature that removes seat depth and tilt (<code>datum-22</code>).</li>' +
+        '<li><b>The flip.</b> Closure 1 has a bare tube: the bore is open below the plate and the far end is open. Closure 2 stands on the first plate: the float rod and float stand up inside, the first plate&rsquo;s ports are reachable from below through the 90 mm service bore, and the ring that served closure 1 moves to the other rim, whose outside is a fresh draw of everything above.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every amplitude is a placeholder. <b>Questions for Derek:</b> five tubes, eight positions each: outside diameter by calipers, wall thickness by ball micrometer (or calipers on the cut end); rim flatness on a plate with a feeler gauge; is there a longitudinal weld seam on the bore and can a fingernail feel it.</li>' +
+        '<li>The port centres against the plate edge (laser-cut position), the plate&rsquo;s slip gap round its edge, and the real wobble left after indicating.</li>' +
+        '<li>Whether anything can touch the finished tube&rsquo;s rim, bore or outside.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry from the repo: tube 127 mm OD, bore 123.70 mm, wall 1.65 mm, plate 4.860 in by 0.250 in recessed 0.250 in, ports &oslash;11.13 mm at &plusmn;19.05 mm with 82&deg; countersinks, Ø90 service bore, rig acceptance 0.25 mm OD TIR [repo]. Kit proxy gun and wire.</li>' +
+        '<li>Wall model: harmonics 1 to 4 with fixed phases; amplitudes <b>illustrative</b>. OD lobes are taken equal to the bore&rsquo;s (a uniform wall); the wall eccentricity is the OD centre&rsquo;s offset from the bore&rsquo;s. Equal-force pads and fingers, rigid locked ring: the model of <code>travel/calc/08</code>.</li>' +
+        '<li><b>Models:</b> the chart, the finger clash test. <b>Depicts only:</b> pads, rockers, pins, cone collars, the clip&rsquo;s hook.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(0, 0, 1);
+  ws.setGhost(true);
+  const TG = ws.tubeGroup;
+  const P = { feature: 'rim', closure: 1, w: 0.06, b1: 0.08, o2: 0.06, o3: 0.03, k: 3, s: 10 };
+
+  // ------------------------------------------------------------------ geometry helpers
+  function mk(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  function lathe(profile, phi0, dphi) { const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 96, phi0 || 0, dphi == null ? Math.PI * 2 : dphi); g.rotateX(Math.PI / 2); return g; }
+  const pol = (r, deg, z) => V(r * Math.cos(deg * DEG), r * Math.sin(deg * DEG), z);
+  function padBox(w, d, hh, r, deg, z, role, tang) { const b = P3.box(w, d, hh, role); b.position.copy(pol(r, deg, z)); b.rotation.z = deg * DEG + (tang ? Math.PI / 2 : 0); return b; }
+
+  // closure 2: first plate at the bottom, rod, float
+  const plate1 = new THREE.Group(); TG.add(plate1);
+  (function () {
+    const g = ws.cap.geometry.clone(); g.translate(0, 0, -(CT - TH) + 12.7);
+    plate1.add(mk(g, 'work', { shade: 0.62, opacity: 0.85 }));
+    plate1.add(P3.rod(V(0, ROD_Y, 12.7 - 2.54), V(0, ROD_Y, 141.24), 1.59, 'work'));
+    const fl = mk(lathe([[3, 12.7], [10, 12.7], [10, 20.7], [3, 20.7], [3, 12.7]]), 'ghost'); fl.position.set(0, ROD_Y, 0); plate1.add(fl);
+  })();
+  const rodHang = P3.rod(V(0, ROD_Y, CT - TH), V(0, ROD_Y, CT - TH - 131.08 + 2.54), 1.59, 'work'); TG.add(rodHang);
+
+  // ---- rim: ring on three pads
+  const gRim = new THREE.Group(); TG.add(gRim);
+  gRim.add(mk(lathe([[62.2, RIM + 1], [72, RIM + 1], [72, RIM + 7], [62.2, RIM + 7], [62.2, RIM + 1]]), 'locate'));
+  [30, 150, 270].forEach(a => gRim.add(padBox(9, 4, 1.4, 62.7, a, RIM + 0.3, 'compliant', true)));
+
+  // ---- outside: skirt with three rockers
+  const gOD = new THREE.Group(); TG.add(gOD);
+  gOD.add(mk(lathe([[63.9, RIM - 24], [66.4, RIM - 24], [66.4, RIM - 6], [63.9, RIM - 6], [63.9, RIM - 24]]), 'locate'));
+  [90, 210, 330].forEach(a => gOD.add(padBox(4, 8, 6, 63.7, a, RIM - 15, 'compliant', false)));
+
+  // ---- bore: three spring fingers on a ring, for seating only
+  const gBore = new THREE.Group(); TG.add(gBore);
+  gBore.add(mk(lathe([[62.6, RIM + 1], [70, RIM + 1], [70, RIM + 4], [62.6, RIM + 4], [62.6, RIM + 1]]), 'locate'));
+  const fingers = [];
+  function buildFingers() {
+    fingers.forEach(f => gBore.remove(f)); fingers.length = 0;
+    for (let i = 0; i < P.k; i++) { const a = 40 + i * 360 / P.k, f = padBox(6, 0.9, 14, 61.3, a, RIM - 3.5, 'compliant', true); gBore.add(f); fingers.push(f); f.userData.az = a; }
+  }
+
+  // ---- plate face: three feet on a spider (temporary)
+  const gFace = new THREE.Group(); TG.add(gFace);
+  [22.5, 157.5, 292.5].forEach(a => {
+    const arm = P3.box(46, 7, 4, 'load'); arm.position.copy(pol(47, a, RIM + 8)); arm.rotation.z = a * DEG; gFace.add(arm);
+    gFace.add(P3.rod(pol(52, a, RIM + 6), pol(52, a, CT + 0.2), 1.7, 'locate')); const t = P3.sphere(2.1, 'locate'); t.position.copy(pol(52, a, CT + 0.2)); gFace.add(t);
+  });
+  gFace.add(mk(lathe([[0, RIM + 6], [24, RIM + 6], [24, RIM + 10], [0, RIM + 10], [0, RIM + 6]]), 'load'));
+  gFace.add(mk(lathe([[62.2, RIM + 1], [72, RIM + 1], [72, RIM + 7], [62.2, RIM + 7], [62.2, RIM + 1]]), 'locate'));
+
+  // ---- ports: a post on the plate, located by two pins
+  const gPorts = new THREE.Group(); TG.add(gPorts);
+  [-1, 1].forEach(sg => { const x = sg * PORT; gPorts.add(P3.rod(V(x, 0, CT - TH - 3), V(x, 0, CT + 20), 3.4, 'locate')); const c = P3.cyl(5.4, 2.4, 'locate'); c.position.set(x, 0, CT + 1.2); gPorts.add(c); const th = P3.box(11, 3.4, 2.4, 'load'); th.position.set(x, 0, CT - TH - 3.2); gPorts.add(th); });
+  gPorts.add(P3.box(2 * PORT + 14, 8, 5, 'load')); gPorts.children[gPorts.children.length - 1].position.set(0, 0, CT + 22);
+  gPorts.add(P3.rod(V(0, 0, CT + 22), V(0, 0, RIM + 32), 4, 'load'));
+  const hubBall = P3.sphere(9, 'load'); hubBall.position.set(0, 0, RIM + 36); gPorts.add(hubBall);
+
+  // ---- ports from below (closure 2): pins up the service bore through the first plate's ports
+  const gBelow = new THREE.Group(); TG.add(gBelow);
+  [-1, 1].forEach(sg => { const x = sg * PORT; gBelow.add(P3.rod(V(x, 0, -28), V(x, 0, 21), 3.4, 'locate')); const c = P3.cyl(5.4, 2.4, 'locate'); c.position.set(x, 0, 6.35 - 1.2); gBelow.add(c); });
+  gBelow.add(P3.box(2 * PORT + 14, 8, 4, 'load')); gBelow.children[gBelow.children.length - 1].position.set(0, 0, -28);
+
+  // ---- wall at the station: hook with a roller on the bore, a rim wheel and an outside pad (room frame, on the gun side)
+  const gClip = new THREE.Group(); app.scene.add(gClip);
+  const clipParts = [];
+  (function () {
+    const ro = P3.cyl(2.5, 5, 'sensor'); ro.position.set(RI - 2.5, 0, RIM - 3.5); clipParts.push(ro);
+    const finger = P3.box(1.6, 5, RIM + 5 - (RIM - 3.5), 'locate'); finger.position.set(RI - 2.5 - 1.7, 0, (RIM + 5 + RIM - 3.5) / 2); clipParts.push(finger);
+    const spine = P3.box(RO + 4 - (RI - 4.2) + 3, 5, 2, 'locate'); spine.position.set(((RO + 4) + (RI - 4.2)) / 2, 0, RIM + 5); clipParts.push(spine);
+    const arm = P3.box(2, 5, 16, 'compliant'); arm.position.set(RO + 4.5, 0, RIM - 3); clipParts.push(arm);
+    const pad = P3.cyl(3, 6, 'compliant'); pad.position.set(RO + 3, 0, RIM - 5); clipParts.push(pad);
+    const wheel = P3.sphere(3, 'sensor'); wheel.position.set((RI + RO) / 2, 0, RIM + 3); clipParts.push(wheel);
+    clipParts.forEach(o => gClip.add(o));
+  })();
+
+  const groups = { rim: gRim, outside: gOD, bore: gBore, face: gFace, ports: gPorts, below: gBelow, wall: gClip };
+
+  // ------------------------------------------------------------------ what each mate is
+  // dof: L located, w weakly, . free
+  const MATES = {
+    rim: { label: 'Rim: ring on three pads', dof: 'x=. y=. z=L rx=L ry=L rz=.'.split(' '), motion: 'yes', shape: 'rim height passes at k-1, k+1', fit: 'flat contact on a 1.65 mm rim, deburred both ends [repo]; the ring rests on three pads, not a full annulus', access: 'from above; a ring at r >= 62.2 is outside the nozzle (55 mm out, 5 mm above the rim)', unknown: 'rim flatness; anything under a pad', flip: 'the same on both rims; the ring moves to the other rim and its pads settle again', locates: 'height and two tilts of the ring, hence of what rides it' },
+    outside: { label: 'Outside: skirt with three rockers', dof: 'x=L y=L z=. rx=w ry=w rz=.'.split(' '), motion: 'yes', shape: 'lobes k-1, k+1 at gain 1 (k=3: ovality); wall eccentricity passes whole', fit: 'outside diameter tolerance and out-of-round decide the pads; the nest\'s own guide has 0.4 mm of clearance; soft to centre, then lock', access: 'from outside and above; clear of the nozzle and beam', unknown: 'OD lobes; wall eccentricity (the OD centre against the bore)', flip: 'the other end\'s outside is a fresh draw; the pads settle and lock again', locates: 'the ring\'s centre; a short skirt fixes tilt only weakly' },
+    bore: { label: 'Bore: three fingers, for seating only', dof: 'x=L y=L z=. rx=. ry=. rz=.'.split(' '), motion: 'yes', shape: 'bore lobes k-1, k+1 at gain 1; removes the wall eccentricity', fit: 'thin wall (1.65 mm), fingers flex 0.5 mm; contact on the surface the seam is welded to', access: 'in the pocket where the nozzle and beam go: a finger that turns with the tube passes the station (clash test); so retract after seating', unknown: 'bore roundness; a longitudinal weld seam on the bore', flip: 'the bore is the same at both ends; closure 2 has the plate 1 floor and the rod inside, below the fingers', locates: 'the ring\'s centre on the bore, then held by the locked outside pads' },
+    face: { label: 'Plate face: three feet (temporary)', dof: 'x=. y=. z=L rx=L ry=L rz=.'.split(' '), motion: 'the plate\'s own', shape: 'not the wall', fit: 'three set screws 52 mm out on the plate face; plate diagonal is shorter than the bore, so the slip fit does not square it', access: 'inside the bore above the plate; temporary: 10 mm from the tack, lifted before the weld', unknown: 'nothing per tube: it is the plate itself; foot lengths', flip: 'plate 2 is placed the same way; the rod stands 1 mm short of its register, the feet are the depth stop', locates: 'plate depth and tilt, so seat depth and plate tilt are made, not measured' },
+    ports: { label: 'Ports: a post on two pins', dof: 'x=L y=L z=. rx=. ry=. rz=L'.split(' '), motion: 'the plate\'s own', shape: 'not the wall; the plate\'s offset from the bore (slip gap 0.127 mm) is the radial term', fit: 'cone collar in each 82 degree countersink, one pin in a slot; the NPT thread is never touched', access: 'from above in both closures; the 90 mm service bore also opens plate 1\'s ports from below', unknown: 'port centres against the plate edge (laser-cut position)', flip: 'ports of plate 1 are reachable from below; plate 2\'s from above; the rod register is not', locates: 'the plate\'s centre and clock (modulo 180 degrees); with the face, all six against the plate, not the tube' },
+    below: { label: 'Plate 1\'s ports from below (closure 2)', dof: 'x=L y=L z=. rx=. ry=. rz=L'.split(' '), motion: 'the first plate\'s own', shape: 'not the wall', fit: 'pins up the service bore through plate 1\'s ports; removable, ports are reused for elbows', access: 'closure 2 only; nothing else in the bore', unknown: 'port centres against plate 1\'s edge', flip: 'exists only after the flip: closure 1 has no plate at the bottom', locates: 'the tube\'s bottom end on the turntable axis, not its working end 146 mm above' },
+    wall: { label: 'Wall at the station: hook with a bore roller', dof: 'x=L y=. z=L rx=. ry=. rz=.'.split(' '), motion: 'yes', shape: 'yes, up to the lead: 2 sin(n s / 2R)', fit: 'roller on the bore, pad on the outside on one radial line, so the pinch is a local squeeze; rim wheel on the rim', access: 'on the arriving side, s mm ahead of the dot: 1.5 to 2 mm of gap at 6 to 10 mm in the kit proxy; heat and spatter behind', unknown: 'weld seam on the bore; preload against the cable\'s pull', flip: 'the same at both ends', locates: 'radial position of the gun at this place on the wall, and height from the rim wheel' },
+  };
+
+  // ------------------------------------------------------------------ the wall model and the chart (calc/mate_harmonics.js, fixed phases)
+  const TAU = 2 * Math.PI, N = 360;
+  const PH = [1.1, 0.7, 2.0, 0.4], PHW = 0.3, CLOCK = 20 * DEG;
+  const wallB = (th, withB1) => (withB1 ? P.b1 * Math.cos(th - PH[0]) : 0) + P.o2 * Math.cos(2 * (th - PH[1])) + P.o3 * Math.cos(3 * (th - PH[2]));
+  function padCentre(fn, k) { let cx = 0, cy = 0; for (let i = 0; i < k; i++) { const t = CLOCK + i * TAU / k, r = fn(t); cx += r * Math.cos(t); cy += r * Math.sin(t); } return [2 / k * cx, 2 / k * cy]; }
+  function series(kind) {
+    const e = new Float64Array(N), lead = P.s / RI;
+    const c = kind === 'od' ? padCentre(t => wallB(t, false), P.k) : kind === 'bore' ? padCentre(t => wallB(t, true), P.k) : [0, 0];
+    for (let j = 0; j < N; j++) {
+      const th = j / N * TAU, B = wallB(th, true);
+      e[j] = kind === 'room' ? -(P.w * Math.cos(th - PHW) + B) : (kind === 'od' || kind === 'bore') ? c[0] * Math.cos(th) + c[1] * Math.sin(th) - B : wallB(th + lead, true) - B;
+    }
+    return e;
+  }
+  function stats(e) {
+    let m = 0; for (let j = 0; j < N; j++) m += e[j]; m /= N; let ss = 0; const h = [];
+    for (let j = 0; j < N; j++) ss += (e[j] - m) * (e[j] - m);
+    for (let n = 1; n <= 4; n++) { let a = 0, b = 0; for (let j = 0; j < N; j++) { const th = j / N * TAU; a += (e[j] - m) * Math.cos(n * th); b += (e[j] - m) * Math.sin(n * th); } h.push(2 / N * Math.hypot(a, b)); }
+    return { rms: Math.sqrt(ss / N), h: h };
+  }
+  const REFS = [
+    { id: 'room', label: 'room-fixed gun, tube indicated', color: '#94a3b8', feature: null },
+    { id: 'od', label: 'ring on the outside (pads, locked)', color: '#f59e0b', feature: 'outside' },
+    { id: 'bore', label: 'ring on the bore (fingers, locked)', color: '#14b8a6', feature: 'bore' },
+    { id: 'clip', label: 'roller on the bore at the station', color: '#3b82f6', feature: 'wall' },
+  ];
+  const svgW = 330, svgH = 230, cx0 = 34, cx1 = 322, cy0 = 26, cy1 = 150;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + svgW + ' ' + svgH, width: '100%', role: 'img', 'aria-label': 'radial error at the dot by harmonic, for four references' });
+  const YMAX = 0.25;
+  const sy = v => cy1 - v / YMAX * (cy1 - cy0);
+  svg.appendChild(WK.svg('text', { x: 4, y: 10, 'font-size': 8, fill: '#9aa5b5', text: 'radial error at the dot, amplitude by harmonic of the table angle (mm); n = 1 is the tube\'s motion and offset' }));
+  [0, 0.05, 0.1, 0.15, 0.2, 0.25].forEach(v => { svg.appendChild(WK.svg('line', { x1: cx0, x2: cx1, y1: sy(v), y2: sy(v), stroke: '#6b7686', 'stroke-width': v === 0 ? 0.8 : 0.3, 'stroke-dasharray': v === 0 ? '' : '2 3' })); svg.appendChild(WK.svg('text', { x: cx0 - 3, y: sy(v) + 3, 'text-anchor': 'end', 'font-size': 8, fill: '#9aa5b5', text: v.toFixed(2) })); });
+  const barsG = WK.svg('g', {}); svg.appendChild(barsG);
+  const legendG = WK.svg('g', {}); svg.appendChild(legendG);
+  ['n = 1', 'n = 2', 'n = 3'].forEach((t, i) => svg.appendChild(WK.svg('text', { x: cx0 + (cx1 - cx0) / 3 * (i + 0.5), y: cy1 + 11, 'text-anchor': 'middle', 'font-size': 8, fill: '#9aa5b5', text: t })));
+  app.ui.panel({ id: 'chart', title: 'What each reference passes to the gun', open: true, node: svg });
+  const cardNode = document.createElement('div'); cardNode.style.cssText = 'font-size:12px;line-height:1.35';
+  app.ui.panel({ id: 'card', title: 'The mate: freedoms, fit, access, the flip', open: true, node: cardNode });
+  const rdRms = {};
+
+  function drawChart() {
+    barsG.textContent = ''; legendG.textContent = '';
+    const grp = (cx1 - cx0) / 3, bw = grp / 5.2, out = {};
+    REFS.forEach(r => { out[r.id] = stats(series(r.id)); });
+    REFS.forEach((r, ri) => out[r.id].h.slice(0, 3).forEach((v, n) => {
+      const x = cx0 + grp * n + grp * 0.1 + ri * bw * 1.15, sel = MATES[P.feature] && r.feature === P.feature;
+      barsG.appendChild(WK.svg('rect', { x: x, y: sy(Math.min(v, YMAX)), width: bw, height: Math.max(0, cy1 - sy(Math.min(v, YMAX))), fill: r.color, opacity: sel ? 1 : 0.55, stroke: sel ? '#fff' : 'none', 'stroke-width': 0.8 }));
+    }));
+    REFS.forEach((r, i) => { const y = 176 + i * 12; legendG.appendChild(WK.svg('rect', { x: 8, y: y - 7, width: 8, height: 8, fill: r.color })); legendG.appendChild(WK.svg('text', { x: 20, y: y, 'font-size': 8.5, fill: '#cbd5e1', text: r.label })); legendG.appendChild(WK.svg('text', { x: svgW - 8, y: y, 'text-anchor': 'end', 'font-size': 8.5, fill: '#cbd5e1', text: 'rms ' + out[r.id].rms.toFixed(3) + ' mm' })); });
+    REFS.forEach(r => rdRms[r.id] && rdRms[r.id](out[r.id].rms.toFixed(3) + ' mm rms'));
+    return out;
+  }
+
+  // ------------------------------------------------------------------ clash test for a finger that turns with the tube (datum-03's routine)
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load', opacity: 0.16 });
+  function insideZone(z, p) {
+    if (z.type === 'cyl') { const rad = Math.hypot(p.x, p.y); if (p.z < z.z0 || p.z > z.z1) return false; return rad < z.r0 + (z.r1 - z.r0) * (p.z - z.z0) / (z.z1 - z.z0); }
+    const q = p.clone().sub(z.center).applyQuaternion(z.quat.clone().invert()); return Math.abs(q.x) < z.half.x && Math.abs(q.y) < z.half.y && Math.abs(q.z) < z.half.z;
+  }
+  const segDist = (p, a, b) => { const ab = b.clone().sub(a), t = WK.clamp(p.clone().sub(a).dot(ab) / ab.lengthSq(), 0, 1); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+  function fingerClash() {
+    app.scene.updateMatrixWorld(true);
+    const inv = gun.group.matrix.clone().invert(), A = V(0, 0, 0), B = V(0, 0, -WK.CLEARANCE);
+    for (const f of fingers) {
+      const a = (f.userData.az + ws.spinAngle) * DEG;
+      for (let z = RIM - 9; z <= RIM + 4; z += 1) for (let dr = 0; dr <= 1.2; dr += 0.6) {
+        const p = V((61.3 + dr) * Math.cos(a), (61.3 + dr) * Math.sin(a), z), pl = p.clone().applyMatrix4(inv);
+        for (const zn of shell.zones) if (insideZone(zn, pl)) return 'nozzle and shell';
+        if (segDist(pl, A, B) < 2.5) return 'the laser beam (2.5 mm corridor)';
+      }
+    }
+    return null;
+  }
+
+  // ------------------------------------------------------------------ show/hide, card, badges
+  const CELLS = ['x', 'y', 'z', 'rx', 'ry', 'rz'];
+  function updateCard() {
+    const m = MATES[P.feature]; if (!m) return;
+    const dof = {}; m.dof.forEach(s => { const t = s.split('='); dof[t[0]] = t[1]; });
+    const cell = k => { const v = dof[k]; const bg = v === 'L' ? '#14b8a6' : v === 'w' ? '#f59e0b' : 'transparent', txt = v === 'L' ? 'fixed' : v === 'w' ? 'weak' : 'free'; return '<td style="text-align:center;padding:2px 4px;border:1px solid #3a4250;background:' + bg + ';color:' + (v === '.' ? '#94a3b8' : '#0b1220') + ';font-size:11px"><b>' + k + '</b><br>' + txt + '</td>'; };
+    cardNode.innerHTML = '<div style="margin-bottom:6px"><b>' + m.label + '</b></div><table style="border-collapse:collapse;width:100%"><tr>' + CELLS.map(cell).join('') + '</tr></table>' +
+      '<div style="margin-top:6px"><b>Locates:</b> ' + m.locates + '.</div><div><b>Follows the tube\'s motion:</b> ' + m.motion + '. <b>Its shape:</b> ' + m.shape + '.</div>' +
+      '<div><b>Fit:</b> ' + m.fit + '.</div><div><b>Access:</b> ' + m.access + '.</div><div><b>Unknown per tube:</b> ' + m.unknown + '.</div><div><b>Flip for the second closure:</b> ' + m.flip + '.</div>';
+  }
+  function update() {
+    if (!ready) return;
+    Object.keys(groups).forEach(k => { groups[k].visible = k === P.feature; });
+    plate1.visible = P.closure === 2; rodHang.visible = P.closure === 1;
+    if (P.feature === 'below' && P.closure !== 2) groups.below.visible = true;
+    gClip.rotation.z = -P.s / RI; gClip.position.set(0, 0, 0);
+    buildFingers(); groups.bore.visible = P.feature === 'bore';
+    const cl = P.feature === 'bore' ? fingerClash() : null;
+    app.badge('clash', cl ? 'a bore finger turning with the tube meets ' + cl + ' at the station: fingers seat the ring, then retract' : null, 'limit');
+    app.badge('below', P.feature === 'below' && P.closure !== 2 ? 'closure 1 has no plate at the bottom: this mate exists only after the flip' : null, 'warn');
+    app.badge('wall', P.feature === 'wall' ? 'clip drawn on the arriving side, ' + P.s + ' mm ahead of the dot (kit proxy wire and nozzle)' : null, 'info');
+    mateLabel.set(MATES[P.feature].label); updateCard(); const o = drawChart();
+    app.io.set({
+      commands: [{ name: 'Rotator turns the tube', value: ws.spin.on ? 'on' : 'off', status: 'manual', note: 'existing controller; the only motion in this scene' }],
+      observes: [
+        { name: 'Radial error at the dot (chart)', value: REFS.map(r => r.id + ' ' + o[r.id].rms.toFixed(3)).join(', '), unit: 'mm rms', status: 'blind', note: 'exact scene geometry of an illustrative wall, not a sensor reading' },
+        { name: 'Real out-of-round, wall eccentricity, rim flatness', value: '?', status: 'unresolved', note: '[unknown]: five tubes, eight positions each, and a feeler gauge on a plate' },
+      ],
+      manual: ['Choosing which feature to mate', 'Measuring the tubes before believing any bar in the chart'],
+    });
+  }
+  let ready = false;
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'feature', label: 'Feature mated', options: [
+    { value: 'rim', label: 'Rim', help: 'A ring on three pads on the rim.' },
+    { value: 'outside', label: 'Outside', help: 'A skirt with three soft rockers on the outside, then locked.' },
+    { value: 'bore', label: 'Bore', help: 'Three spring fingers inside the bore, for seating only.' },
+    { value: 'face', label: 'Plate face', help: 'Three feet on the plate face (temporary).' },
+    { value: 'ports', label: 'Ports', help: 'A post on two pins in the plate\'s ports.' },
+    { value: 'below', label: 'Ports from below', help: 'Closure 2 only: pins up the service bore through plate 1\'s ports.' },
+    { value: 'wall', label: 'Wall at the station', help: 'A hook with a roller on the bore and a pad on the outside, on the gun.' }], value: 'rim', kind: 'branch', visual: () => Object.values(groups), onChange: v => { P.feature = v; if (v === 'below' && P.closure !== 2) app.ui.set('closure', 2); update(); } });
+  app.ui.radio({ id: 'closure', label: 'Closure', options: [{ value: 1, label: 'First: bare tube', help: 'The float rod hangs from the plate; the far end of the tube is open.' }, { value: 2, label: 'Second: first plate is the base', help: 'Tube flipped: plate 1 at the bottom, the float rod and float stand up inside, its ports reachable from below.' }], value: 1, kind: 'branch', visual: () => plate1, onChange: v => { P.closure = +v; update(); } });
+  app.ui.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'Turns the tube; bore fingers pass the station once each.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  app.ui.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'The existing rotator.', onChange: v => { ws.setSpin(v); update(); } });
+  const gw = app.ui.group('The tube (scene edits, illustrative)', { open: true });
+  gw.slider({ id: 'w', label: 'Left after indicating, w (amplitude)', min: 0, max: 0.15, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'The rigid offset of the tube from the rotation axis at the working end. The rig accepts 0.25 mm TIR, i.e. up to 0.125.', onChange: v => { P.w = v; update(); } });
+  gw.slider({ id: 'b1', label: 'Wall eccentricity, b1', min: 0, max: 0.25, step: 0.005, value: 0.08, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'The outside centre against the bore centre. No mate on the outside can know it.', onChange: v => { P.b1 = v; update(); } });
+  gw.slider({ id: 'o2', label: 'Ovality, b2', min: 0, max: 0.2, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'Outside and bore taken equal (uniform wall). The OD indicator reads twice this.', onChange: v => { P.o2 = v; update(); } });
+  gw.slider({ id: 'o3', label: 'Three-lobing, b3', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { P.o3 = v; update(); } });
+  const gm = app.ui.group('The mate (scene edits)', { open: true });
+  gm.radio({ id: 'k', label: 'Pads or fingers on the circle', options: [{ value: 3, label: '3' }, { value: 4, label: '4' }, { value: 6, label: '6' }], value: 3, kind: 'branch', visual: () => [gOD, gBore], help: 'k equal pads pass harmonics k-1 and k+1 at gain 1 and reject the rest.', onChange: v => { P.k = +v; update(); } });
+  gm.slider({ id: 's', label: 'Roller lead ahead of the dot', min: 2, max: 30, step: 1, value: 10, unit: 'mm', kind: 'scene', visual: () => gClip, help: 'Arc length on the arriving side. Costs 2 sin(n s / 2R) of harmonic n.', onChange: v => { P.s = v; update(); } });
+  const gr = app.ui.group('Numbers (exact scene geometry, not sensor readings)', { open: true });
+  REFS.forEach(r => { rdRms[r.id] = gr.readout('rms-' + r.id, r.label); });
+
+  // ------------------------------------------------------------------ labels
+  const ANCH = { rim: [66, 0, RIM + 7], outside: [0, 66.4, RIM - 15], bore: [61.3 * Math.cos(40 * DEG), 61.3 * Math.sin(40 * DEG), RIM + 4], face: [52 * Math.cos(22.5 * DEG), 52 * Math.sin(22.5 * DEG), CT], ports: [0, 0, RIM + 45], below: [PORT, 0, -20] };
+  const mateLabel = app.label(() => { if (P.feature === 'wall') { const a = -P.s / RI; return V((RO + 4) * Math.cos(a), (RO + 4) * Math.sin(a), RIM + 6); } const a = ANCH[P.feature]; return V(a[0], a[1], a[2]).applyMatrix4(TG.matrix); }, 'mate', { cls: 'locate' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.onFrame(function (dt) { if (!ws.spin.on) return false; app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true }); if (P.feature === 'bore') update(); return true; });
+  ready = true; update();
+})();
+</script>
+</body>
+</html>

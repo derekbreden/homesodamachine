@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arm joints at the dot</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .t20 { font-size: 12px; line-height: 1.4; color: #c7d3e6; }
+  .t20 h4 { margin: 0 0 4px; font-size: 12.5px; color: #fff; }
+  .t20 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  .t20 th { font-weight: 500; text-align: right; color: #93a4bd; font-size: 10.5px; padding: 1px 3px; }
+  .t20 th:first-child, .t20 td:first-child { text-align: left; }
+  .t20 td { padding: 1px 3px; text-align: right; }
+  .t20 tr.tot td { border-top: 1px solid #394559; font-weight: 600; color: #fff; }
+  .t20 .bar { display: inline-block; height: 7px; border-radius: 2px; vertical-align: middle; margin-right: 3px; }
+  .t20 .need { background: #f5a524; } .t20 .free { background: #4ade80; }
+  .t20 .note { margin-top: 5px; color: #98a4b6; font-size: 11px; }
+  .t20 .need-t { color: #f5c26b; } .t20 .free-t { color: #86efac; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-20-arm-joints-at-the-dot",
+  "title": "Arm joints at the dot: what six joints, four joints or three slides put there",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "A bought arm holds the gun still while the tube turns the seam past it. The arm's job is one pose, held. This scene puts a UR-type six-axis arm, a SCARA or a three-axis gantry on the gun's printed shell and shows, joint by joint, where a small error at the joint lands at the dot: in the two directions the seam needs (radial and vertical) or along the tangent, where it costs nothing. Move the base around the tube, change where the flange grips the shell, and change who makes the last trim: the joints, a stack under the rotator, or a stage between flange and shell.",
+  "tags": [
+    "robot arm",
+    "allocation",
+    "joint space",
+    "Jacobian",
+    "SCARA",
+    "gantry",
+    "coarse-fine",
+    "new direction"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "an error along the free tangent costs nothing",
+    "the wrist's lever is the gun's length",
+    "repeatability is the return figure",
+    "coarse arm, fine stack under the work"
+  ],
+  "how": {
+    "motion": "the arm stands still while the tube turns; joints move to park, dock, escape, trim",
+    "load": "the flange carries the shell through a printed adaptor: joints carry weight and cable pull",
+    "reference": "taught pose, then a camera or touch trim; encoders read the pose, not the dot",
+    "observe": "joint encoders; flange force on some arms; a camera when it sees the dot",
+    "use": "AI commands joint or Cartesian moves by the maker's SDK; a stack or stage trims"
+  },
+  "software": {
+    "commands": [
+      "arm: joint angles (joint space) or a flange pose in a user frame (Cartesian) through the maker's SDK",
+      "the rotator (existing controller)",
+      "the trim: joint counts, a stack under the rotator, or a stage at the flange"
+    ],
+    "observes": [
+      "joint encoder counts (absolute, output side)",
+      "the flange pose computed from them (the dot only if the flange-to-dot vector is calibrated)",
+      "flange force and torque on some arms"
+    ],
+    "manual": [
+      "mounting the base and the printed adaptor",
+      "declaring the payload mass and centre of gravity",
+      "the fibre and wire routing along the arm",
+      "firing the laser"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-20-arm-joints-at-the-dot.md",
+    "../../explorers/travel/calc/15-arm-radial-line.mjs",
+    "../../exchange/travel--reply-to-use-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="arm6r.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = Math.PI / 180, A = window.ARM6R;
+  const RI = WK.INNER_RADIUS, CAPTOP = WK.CAP_TOP, RIMZ = WK.DIM.tubeHeight;
+  const BENCH_Z = -186;                      // bench top (the rotator's feet stand at -86: a 100 mm stack space, as travel-01)
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'opening' },
+    viewButtons: ['overall', 'joint', 'arm', 'top'],
+    views: {
+      overall: { target: [0, -40, 90], dir: [0.55, -0.85, 0.45], dist: 1150 },
+      joint: { target: [60, -4, 168], dir: [0.5, -0.75, 0.55], dist: 300 },
+      arm: { target: [-40, -60, 100], dir: [-0.9, -0.5, 0.45], dist: 1250 },
+      top: { target: [-40, -60, 100], dir: [0, -0.0035, 1], dist: 1000 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>The arm is asked for one pose, held.</b> The rotator turns the seam past the gun, so the arm never follows a path: it parks, comes back, trims and then holds while the tube turns. That makes the datasheet lines that matter <i>pose repeatability</i> (return to a taught pose, the number the maker measures), <i>stiffness at the flange</i> and <i>drift</i>. Speed, path accuracy and payload speed are not asked for.</p>' +
+        '<p>The scene puts the arm (or a SCARA, or a three-axis gantry) on the gun’s printed shell and reads, joint by joint, <b>where an error at that joint lands at the dot</b>. Amber arrows point along the two directions the seam needs (radial and vertical); green arrows point along the tangent, where the seam is free (turning the tube slides the seam through it). The table on the right adds them up for the error you set. Three things the reader can move: <b>where the base stands around the tube</b> (a setup edit: azimuth 0 is the radial line through the station), <b>where the flange grips the shell</b> (the wrist joints’ lever is the distance from flange to dot), and <b>who makes the last trim</b>: the arm’s own joints, a two-plate stack under the rotator, or a small stage between flange and shell.</p>' +
+        '<p>The gun stays where it is; the arm reaches it. Trim sliders move the dot relative to the seam by whichever body you chose, and the readouts show what that body can actually do: a joint moves in counts, so a 0.01 mm trim may not exist.</p>',
+      carries:
+        '<p><b>Purple</b> joints are what software could command; slate links and the pedestal are rigid structure. The <b>amber</b> shell and adaptor carry the gun to the flange, so the flange carries the gun’s weight and the umbilical’s pull. The flange-to-shell lug is teal: it locates. The stack branch draws two purple plates under the rotator instead of a slate plinth; the tip-stage branch draws a purple plate in the adaptor. Nothing is drawn for the fibre: its route along the arm and the 350 mm bend radius are open.</p>',
+      software:
+        '<p>The maker’s SDK takes joint angles or a flange pose in a user frame (streaming at 60 to 1000 Hz on the arms named in the sourcing notes) and returns the joint encoder angles, the computed flange pose and, on some arms, the flange force. It does not return the dot: the flange-to-dot vector is a constant someone measured, and its error is a lever the size of the gun. The trim buttons and sliders here command the chosen body; the dot-versus-seam readout is scene geometry, not a sensor.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Where the base stands decides less than it seems.</b> <i>Conflict:</i> with the same 0.01\u00b0 at every joint, the radial-plus-vertical error at the dot runs from 61 \u00b5m (base at azimuth 210) to 100 \u00b5m (azimuth 180) for the housing-top grip, base 300 mm out and 150 mm up, ten azimuths tried; the barrel grip runs 63 to 102, the grip from behind 76 to 142 where it reaches at all (<code>calc/15</code>). At azimuth 0 the base joint moves the dot only along the tangent and contributes nothing (0 of 68), yet 0 is not the smallest total: the wrist and elbow solution that placement needs costs more than the base saves. <i>Assumption:</i> equal error at every joint. <i>Change:</i> the base azimuth slider, and a table that is a Jacobian, so an AI can compute the map at commissioning and pick the base position. <i>Leaves:</i> real joint errors are not equal.</li>' +
+        '<li><b>The wrist has the gun\u2019s length as its lever.</b> Gripped at the housing top the flange is 209 mm from the dot; at the barrel 107 mm; from behind along the beam 309 mm. The last joints matter as much as the shoulder. From behind, the last joint\u2019s axis passes through the dot and it contributes nothing (roll about the beam is free for the dot, and twists the fibre), but the joint before it has a 309 mm lever. <i>Leaves:</i> which grip the printed shell can take.</li>' +
+        '<li><b>A SCARA on the radial line has two joints that cost nothing.</b> Base and elbow both move the dot along the tangent when the links lie along the radial line, so what is left is the vertical slide (1:1) and the quill\u2019s yaw at a 136 mm lever: 20 \u00b5m radial-plus-vertical for 0.01\u00b0 and 0.01 mm, against 68 for the six-axis arm at azimuth 0; with the base at azimuth 90 it is 58 (<code>calc/15</code>). The gantry aligned with the radial is 14 and turned 45\u00b0 is 17. These compare 0.01\u00b0 with 0.01 mm, which are different physical errors: a cobot joint good to 0.003\u00b0 and a ball screw good to 0.005 mm are the fairer pair. <i>Leaves:</i> the SCARA cannot tilt the beam; the adaptor sets the tilt by hand.</li>' +
+        '<li><b>Joint resolution is not the problem; lost motion is.</b> A 19-bit output encoder is 12 \u00b5rad per count: 0.4 to 3 \u00b5m at the dot here. A 12-bit servo (the desk-size Prime arms) is 1.5 mrad per count: 0.1 to 0.5 mm, which is the cliff the bits slider shows and the reason those arms cannot make a 0.1 mm trim by themselves. Repeatability, stiffness and drift are not on any datasheet read; the compliance readout (8000 N\u00b7m/rad per joint, illustrative) turns 1 N along the fibre into 4 to 11 µm in the needed directions and 7 to 20 µm along the tangent, by grip and class.</li>' +
+        '<li><b>Coarse arm, fine stack.</b> If the last trim is done under the work (a two-plate stack) or at the flange (a stage), the arm only has to be stable between the last look and the weld, and its taught-pose scatter only has to fit in the stack\u2019s range. The stage at the flange sits in the load path (gun weight, umbilical pull); the stack does not. <i>Leaves:</i> the arm\u2019s hold stability is unmeasured, and a stack has to carry the rotator.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Joint errors, stiffnesses, encoder bits and the load change are <b>illustrative</b> sliders; no Prime listing states them. The link lengths are the UR3e datasheet’s; the layout stands for the UR-type class (Fairino FR3, Dobot CR3A and others have the same shoulder, three parallel joints and two wrist joints with their own link lengths). SCARA link lengths (225 + 175 mm) are illustrative.</li>' +
+        '<li>Gun mass and centre of gravity are <b>[unknown]</b>. The payload curve on the maker’s datasheet drops from 3 kg at small offsets to about 2 kg at 250 mm and about 1.3 kg at 400 mm; the readout applies that reading (by eye, ±0.1 kg).</li>' +
+        '<li>The fibre (5 m, 350 mm bend radius, no twist) and the wire conduit along an arm are not drawn. Arm-to-gun and arm-to-fibre collisions are not tested; only the tube, the rotator and the bench are.</li>' +
+        '<li><b>Nothing here says an arm is stiff enough to hold a weld.</b> The compliance figure is joint stiffness turned into millimetres per newton at the dot; the real value is a measurement (push the flange with a spring scale and read the indicator).</li>' +
+        '<li><b>Questions for Derek:</b> the gun’s mass with the shell on; which of the three grips the shell can take (lug at the barrel, at the housing, behind); whether an arm and a base footprint about 130 mm across fits beside the rotator.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun: the kit’s proxy in the reference scene’s opening pose (illustrative). Dot at the nominal seam (r = 61.85 mm, 6.35 mm below the rim) <b>[repo]</b>. Radial = +X at the station, tangent = Y.</li>' +
+        '<li>Six-axis arm: UR3e link lengths (151.85, 243.55, 213.2, 131.05, 85.35, 92.1 mm) <b>[manual]</b> UR3e datasheet; joint stiffness 8000 N·m/rad, error 0.01° per joint, 19-bit encoders, 1 N load change: <b>illustrative</b>. The inverse is a numeric solve from many seeds (nearest to a typical elbow-up posture); it stops and says so when nothing reaches.</li>' +
+        '<li><b>Models:</b> rigid links with joint errors and joint compliance, the exact dot motion from the Jacobian. <b>Depicts only:</b> the links’ outline, the pedestal, the adaptor and the stack plates as blocks.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ------------------------------------------------------------------ bench, plinth or stack (fixed or actuated by branch)
+  const bench = P.box(1100, 900, 20, 'fixed'); bench.position.set(-120, -160, BENCH_Z - 10); app.add(bench);
+  (function grid() {
+    const pts = [], z = BENCH_Z + 0.2;
+    for (let x = -600; x <= 420; x += 50) pts.push(V(x, -600, z), V(x, 280, z));
+    for (let y = -600; y <= 280; y += 50) pts.push(V(-640, y, z), V(450, y, z));
+    const g = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.35 })); g.userData.role = 'fixed'; g.userData.occludes = false; app.add(g);
+  })();
+  const plinth = P.box(300, 280, 40, 'fixed'); plinth.position.set(0, 0, BENCH_Z + 20); app.add(plinth);
+  const zPlate = P.box(300, 280, 20, 'fixed'); const xPlate = P.box(300, 280, 20, 'fixed'); const spacer = P.box(220, 200, 22, 'fixed');
+  app.add(zPlate); app.add(xPlate); app.add(spacer);
+  const Z0 = BENCH_Z + 40 + 10, X0 = Z0 + 20, SP0 = X0 + 10 + 11;      // plate centres at rest
+  const stackMotors = [P.motor(34, 'actuated'), P.motor(34, 'actuated')];
+  stackMotors[0].position.set(-175, 0, X0); stackMotors[0].quaternion.setFromUnitVectors(V(0, 0, 1), V(1, 0, 0));
+  stackMotors[1].position.set(0, -160, Z0); stackMotors[1].quaternion.setFromUnitVectors(V(0, 0, 1), V(0, 1, 0));
+  stackMotors.forEach(m => app.add(m));
+  const plateLbl = [app.label(() => zPlate.position.clone().add(V(160, 40, 0)), 'Z plate', { cls: 'actuated' }), app.label(() => xPlate.position.clone().add(V(160, -40, 0)), 'X plate', { cls: 'actuated' })];
+
+  // ------------------------------------------------------------------ gun, shell, three possible flange lugs
+  gun.setLaser(false);
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.30 });
+  const LUG = {
+    top: shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 }),
+    barrel: shell.attachPoint('barrelMid', { side: 'top', role: 'locate', size: 8 }),
+    back: shell.attachPoint('housingBack', { side: 'back', role: 'locate', size: 9 }),
+  };
+  gun.group.updateMatrixWorld(true);
+  const lugNom = {}; Object.keys(LUG).forEach(k => { lugNom[k] = { p: LUG[k].world().clone(), n: gun.dir(LUG[k].normal).normalize() }; });
+  const xLocalW = gun.dir(V(1, 0, 0)).normalize();
+  const dotNom = gun.dotWorld().clone();
+  const beamDir = gun.beamDir().clone();
+  const cableDir = (gun.cableExit() || { dir: V(0, -1, 0) }).dir.clone().normalize();
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  // observer: exact seam offset in the tube's own frame (scene geometry, not a sensor)
+  const inv = new THREE.Matrix4();
+  function seamNow() { app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert(); const d = gun.dotWorld().applyMatrix4(inv); return { radial: Math.hypot(d.x, d.y) - RI, vertical: d.z - CAPTOP, along: 0, total: 0 }; }
+  app.cornerInset({ gun: { dotOffset: () => seamNow(), beamDir: () => gun.beamDir() } });
+
+  // ------------------------------------------------------------------ the arm's drawing (three classes; visibility by branch)
+  const armG = new THREE.Group(), scaraG = new THREE.Group(), gantG = new THREE.Group();
+  app.scene.add(armG); app.scene.add(scaraG); app.scene.add(gantG);
+  const linkRods = [], jointCyl = [];
+  for (let i = 0; i < 12; i++) { const r = P.rod(V(0, 0, 0), V(0, 0, 1), i < 6 ? 20 : 17, 'fixed'); linkRods.push(r); armG.add(r); }
+  const jr = [30, 30, 27, 21, 21, 21], jh = [70, 72, 60, 48, 46, 40];
+  for (let i = 0; i < 6; i++) { const c = P.cyl(jr[i], jh[i], 'actuated', { axis: 'z' }); jointCyl.push(c); armG.add(c); }
+  const pedestal = P.rod(V(0, 0, 0), V(0, 0, 1), 42, 'fixed'); app.scene.add(pedestal);
+  const basePlate = P.cyl(70, 14, 'fixed', { axis: 'z' }); app.scene.add(basePlate);
+  const adaptRod = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'load'); app.scene.add(adaptRod);
+  const flangeDisc = P.cyl(24, 6, 'actuated', { axis: 'z' }); app.scene.add(flangeDisc);
+  // SCARA drawing
+  const sc = { l1: P.rod(V(0, 0, 0), V(0, 0, 1), 24, 'fixed'), l2: P.rod(V(0, 0, 0), V(0, 0, 1), 19, 'fixed'), quill: P.rod(V(0, 0, 0), V(0, 0, 1), 11, 'fixed'), j1: P.cyl(34, 60, 'actuated', { axis: 'z' }), j2: P.cyl(28, 52, 'actuated', { axis: 'z' }), j4: P.cyl(20, 30, 'actuated', { axis: 'z' }) };
+  Object.keys(sc).forEach(k => scaraG.add(sc[k]));
+  // gantry drawing (built in a frame rotated by the azimuth)
+  const gt = { beam: P.box(20, 600, 24, 'fixed'), carr: P.box(52, 48, 40, 'actuated'), zrod: P.rod(V(0, 0, 0), V(0, 0, 1), 8, 'actuated'), railL: P.rail(V(-300, -290, 0), V(300, -290, 0), { width: 16, height: 8, role: 'fixed' }), railR: P.rail(V(-300, 290, 0), V(300, 290, 0), { width: 16, height: 8, role: 'fixed' }), sl: P.box(50, 40, 40, 'actuated'), sr: P.box(50, 40, 40, 'actuated'), postL: P.rod(V(0, 0, 0), V(0, 0, 1), 12, 'fixed'), postR: P.rod(V(0, 0, 0), V(0, 0, 1), 12, 'fixed') };
+  Object.keys(gt).forEach(k => gantG.add(gt[k]));
+  // tip stage (between flange and shell) and its label
+  const tipBody = P.box(46, 46, 20, 'fixed'), tipPlate = P.box(46, 46, 8, 'actuated'); app.scene.add(tipBody); app.scene.add(tipPlate);
+  const NEEDC = '#ff8a1f', FREEC = '#4ade80';
+  function makeArrow() {
+    const g = new THREE.Group(), mat = new THREE.MeshBasicMaterial({ color: WK.color(NEEDC), depthTest: false, transparent: true, opacity: 0.95 });
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 10), mat), head = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 14), mat);
+    g.add(shaft, head); g.renderOrder = 20; shaft.renderOrder = head.renderOrder = 20; g.userData.occludes = false; shaft.userData.occludes = false; head.userData.occludes = false; g.userData.mat = mat;
+    g.set = function (o, d, L) { const dv = d.clone().normalize(), hl = Math.min(22, L * 0.35); g.position.copy(o); g.quaternion.setFromUnitVectors(V(0, 1, 0), dv); shaft.scale.set(2.2, Math.max(L - hl, 0.01), 2.2); shaft.position.y = (L - hl) / 2; head.scale.set(6, hl, 6); head.position.y = L - hl / 2; return g; };
+    return g;
+  }
+  const arrows = []; for (let i = 0; i < 6; i++) { const a = makeArrow(); a.visible = false; app.scene.add(a); arrows.push(a); }
+  const arrowLabels = []; for (let i = 0; i < 6; i++) arrowLabels.push(app.label(() => arrows[i].userData.tip || V(0, 0, 0), 'err J' + (i + 1), { cls: 'sensor' }));
+  app.label(() => flangeDisc.position, 'flange', { cls: 'actuated' });
+  const jointLbl = []; for (let i = 0; i < 6; i++) jointLbl.push(app.label(() => jointCyl[i].position, 'J' + (i + 1), { cls: 'actuated' }));
+  app.label(() => adaptRod.userData.mid || V(0, 0, 0), 'printed adaptor', { cls: 'load' });
+
+  // ------------------------------------------------------------------ helpers
+  const ui = id => app.ui.get(id);
+  const perp = (v) => V(-v.y, v.x, 0);
+  const CURVE = [[0, 3], [150, 3], [200, 2.5], [250, 2.1], [300, 1.85], [350, 1.6], [400, 1.35], [500, 1.0]];   // UR3e payload chart read by eye (+-0.1 kg): kg against centre-of-gravity offset in mm
+  const ratedAt = d => { for (let i = 1; i < CURVE.length; i++) if (d <= CURVE[i][0]) { const a = CURVE[i - 1], b = CURVE[i]; return a[1] + (b[1] - a[1]) * (d - a[0]) / (b[0] - a[0]); } return CURVE[CURVE.length - 1][1]; };
+
+  function flangeTarget(shift) {
+    const g = ui('grip'), L = lugNom[g], adapt = ui('adapt');
+    const n = L.n, zf = n.clone().multiplyScalar(-1);
+    let xr = xLocalW.clone(); xr.addScaledVector(zf, -xr.dot(zf)).normalize();
+    const yr = new THREE.Vector3().crossVectors(zf, xr);
+    const c = Math.cos(ui('roll') * DEG), s = Math.sin(ui('roll') * DEG);
+    const xf = xr.clone().multiplyScalar(c).addScaledVector(yr, s);
+    const p = L.p.clone().addScaledVector(n, adapt).add(shift);
+    return { p: [p.x, p.y, p.z], z: [zf.x, zf.y, zf.z], x: [xf.x, xf.y, xf.z], lug: L.p.clone().add(shift), n: n };
+  }
+  const baseXYZ = () => { const psi = ui('psi') * DEG, R = ui('Rb'); return [R * Math.cos(psi), R * Math.sin(psi), BENCH_Z + ui('zb')]; };
+
+  // ------------------------------------------------------------------ the three classes: each returns { ok, axes[], draw(), flange, note }
+  // axis: { name, rot: bool, vec (dot motion per rad or per mm), om (gun rotation per rad), cnt (count in rad or mm) }
+  let qTaught = null, qCache = null, lastSix = null;
+  function solveSix(shift, warm) {
+    const b = baseXYZ(), psi = ui('psi') * DEG, base = A.baseMat(b[0], b[1], b[2], psi + Math.PI);
+    const tgt = flangeTarget(shift);
+    let r;
+    if (warm && qCache && qCache.key === b.join(',') + ui('grip') + ui('adapt') + ui('roll')) { r = A.ik(tgt, base, qCache.q, { iters: 80 }); if (r.errPos > 0.05 || r.errRot > 1e-3) r = A.ikBest(tgt, base); }
+    else r = A.ikBest(tgt, base);
+    if (!r) return { ok: false };
+    qCache = { q: r.q.slice(), key: b.join(',') + ui('grip') + ui('adapt') + ui('roll') };
+    return { ok: true, r: r, base: base, tgt: tgt, b: b };
+  }
+  function axesSix(F, dotP) {
+    const J = A.jac(F, [dotP.x, dotP.y, dotP.z]), bits = ui('bits'), cnt = 2 * Math.PI / Math.pow(2, bits), out = [];
+    for (let i = 0; i < 6; i++) out.push({ name: 'J' + (i + 1), rot: true, vec: V(J[0][i], J[1][i], J[2][i]), om: V(J[3][i], J[4][i], J[5][i]), cnt: cnt });
+    return out;
+  }
+  function drawSix(sol) {
+    const F = sol.r.F, o = i => V(F[i][3], F[i][7], F[i][11]), zA = i => V(F[i][2], F[i][6], F[i][10]), xA = i => V(F[i][0], F[i][4], F[i][8]);
+    let k = 0;
+    for (let i = 1; i <= 6; i++) {
+      const p0 = o(i - 1), mid = p0.clone().addScaledVector(zA(i - 1), A.DH[i - 1].d), p1 = o(i);
+      const r1 = linkRods[k++], r2 = linkRods[k++];
+      r1.visible = Math.abs(A.DH[i - 1].d) > 0.5; r2.visible = Math.abs(A.DH[i - 1].a) > 0.5;
+      if (r1.visible) r1.setEnds(p0, mid); if (r2.visible) r2.setEnds(mid, p1);
+    }
+    for (let i = 0; i < 6; i++) { const c = jointCyl[i]; c.position.copy(o(i)); c.quaternion.setFromUnitVectors(V(0, 0, 1), zA(i)); }
+    const fp = o(6); flangeDisc.position.copy(fp); flangeDisc.quaternion.setFromUnitVectors(V(0, 0, 1), zA(6));
+    return fp;
+  }
+  function collideSix(sol) {
+    const F = sol.r.F, pts = []; for (let i = 0; i <= 6; i++) pts.push(V(F[i][3], F[i][7], F[i][11]));
+    let hit = null;
+    for (let i = 1; i <= 6 && !hit; i++) for (let t = 0; t <= 1 && !hit; t += 0.1) { const p = pts[i - 1].clone().lerp(pts[i], t); if (Math.hypot(p.x, p.y) < 70 && p.z < RIMZ + 10 && p.z > BENCH_Z + 60) hit = 'the arm passes through the tube or rotator'; else if (p.z < BENCH_Z + 12) hit = 'the arm goes below the bench top'; }
+    // the arm's links against the gun's own axis (nozzle to housing back, and the grip): the last two joints are meant to be near it
+    const gp = [gun.local('nozzleTip'), gun.local('housingBack'), gun.local('gripBase')];
+    const dseg = (p, a, b) => { const ab = b.clone().sub(a), t = Math.max(0, Math.min(1, p.clone().sub(a).dot(ab) / ab.lengthSq())); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+    for (let i = 1; i <= 4 && !hit; i++) for (let t = 0; t <= 1 && !hit; t += 0.1) { const p = pts[i - 1].clone().lerp(pts[i], t); if (Math.min(dseg(p, gp[0], gp[1]), dseg(p, gp[1], gp[2])) < 42) hit = 'an arm link meets the gun (drawn axis, 42 mm clearance)'; }
+    return hit;
+  }
+
+  function solveScara(shift) {
+    const b = baseXYZ(), psi = ui('psi') * DEG, L1 = 225, L2 = 175, g = ui('grip'), adapt = ui('adapt');
+    const lug = lugNom[g].p.clone().add(shift), qx = lug.x, qy = lug.y;
+    const bx = b[0], by = b[1], zA = lugNom[g].p.z + adapt + 100;
+    const dx = qx - bx, dy = qy - by, d = Math.hypot(dx, dy);
+    if (d > L1 + L2 - 1 || d < Math.abs(L1 - L2) + 1) return { ok: false, over: d - (L1 + L2) };
+    const a = Math.atan2(dy, dx), c2 = (d * d - L1 * L1 - L2 * L2) / (2 * L1 * L2), t2s = [Math.acos(c2), -Math.acos(c2)];
+    let best = null;
+    t2s.forEach(t2 => { const t1 = a - Math.atan2(L2 * Math.sin(t2), L1 + L2 * Math.cos(t2)); const ex = bx + L1 * Math.cos(t1), ey = by + L1 * Math.sin(t1); const away = Math.hypot(ex, ey); if (!best || away > best.away) best = { t1: t1, t2: t2, ex: ex, ey: ey, away: away }; });
+    return { ok: true, t1: best.t1, t2: best.t2, ex: best.ex, ey: best.ey, bx: bx, by: by, qx: qx, qy: qy, zA: zA, zq: lug.z + adapt, lug: lug };
+  }
+  function axesScara(sol, dotP) {
+    const cnt = 2 * Math.PI / Math.pow(2, ui('bits'));
+    const dv = (cx, cy) => perp(V(dotP.x - cx, dotP.y - cy, 0));
+    return [
+      { name: 'J1 base', rot: true, vec: dv(sol.bx, sol.by), om: V(0, 0, 1), cnt: cnt },
+      { name: 'J2 elbow', rot: true, vec: dv(sol.ex, sol.ey), om: V(0, 0, 1), cnt: cnt },
+      { name: 'Z quill', rot: false, vec: V(0, 0, 1), om: V(0, 0, 0), cnt: ui('stepL') / 1000 },
+      { name: 'J4 yaw', rot: true, vec: dv(sol.qx, sol.qy), om: V(0, 0, 1), cnt: cnt },
+    ];
+  }
+  function drawScara(sol) {
+    sc.j1.position.set(sol.bx, sol.by, sol.zA); sc.j2.position.set(sol.ex, sol.ey, sol.zA); sc.j4.position.set(sol.qx, sol.qy, sol.zA);
+    sc.l1.setEnds(V(sol.bx, sol.by, sol.zA), V(sol.ex, sol.ey, sol.zA)); sc.l2.setEnds(V(sol.ex, sol.ey, sol.zA), V(sol.qx, sol.qy, sol.zA));
+    sc.quill.setEnds(V(sol.qx, sol.qy, sol.zA), V(sol.qx, sol.qy, sol.zq));
+    pedestal.setEnds(V(sol.bx, sol.by, BENCH_Z + 7), V(sol.bx, sol.by, sol.zA - 34)); basePlate.position.set(sol.bx, sol.by, BENCH_Z + 7);
+    return V(sol.qx, sol.qy, sol.zq);
+  }
+  function solveGant(shift) {
+    const g = ui('grip'), adapt = ui('adapt'), lug = lugNom[g].p.clone().add(shift), psi = ui('psi') * DEG;
+    const c = Math.cos(-psi), s = Math.sin(-psi), lx = lug.x * c - lug.y * s, ly = lug.x * s + lug.y * c;
+    return { ok: true, lug: lug, lx: lx, ly: ly, zq: lug.z + adapt, zc: lug.z + adapt + 90, psi: psi };
+  }
+  function axesGant(sol) {
+    const psi = sol.psi, st = ui('stepL') / 1000;
+    return [
+      { name: 'X slide', rot: false, vec: V(Math.cos(psi), Math.sin(psi), 0), om: V(0, 0, 0), cnt: st },
+      { name: 'Y slide', rot: false, vec: V(-Math.sin(psi), Math.cos(psi), 0), om: V(0, 0, 0), cnt: st },
+      { name: 'Z slide', rot: false, vec: V(0, 0, 1), om: V(0, 0, 0), cnt: st },
+    ];
+  }
+  function drawGant(sol) {
+    gantG.rotation.z = sol.psi;
+    const zc = sol.zc, zr = BENCH_Z + 8;
+    gt.beam.position.set(sol.lx - 0, 0, zc + 30); gt.carr.position.set(sol.lx, sol.ly, zc + 6);
+    gt.sl.position.set(sol.lx, -290, zr + 24); gt.sr.position.set(sol.lx, 290, zr + 24);
+    gt.railL.setEnds(V(-300, -290, zr), V(300, -290, zr)); gt.railR.setEnds(V(-300, 290, zr), V(300, 290, zr));
+    gt.postL.setEnds(V(sol.lx, -290, zr + 44), V(sol.lx, -290, zc + 30)); gt.postR.setEnds(V(sol.lx, 290, zr + 44), V(sol.lx, 290, zc + 30));
+    gt.zrod.setEnds(V(sol.lx, sol.ly, zc - 20), V(sol.lx, sol.ly, sol.zq));
+    const w = V(sol.lug.x, sol.lug.y, sol.zq); return w;
+  }
+
+  // ------------------------------------------------------------------ the update
+  const readOff = app.ui.readout('roff', 'Dot vs seam, radial / vertical (scene)'), readAch = app.ui.readout('rach', 'Trim made of asked, r / z'), readCnt = app.ui.readout('rcnt', 'Smallest step of the chosen body');
+  const readComp = app.ui.readout('rcomp', 'Load change moves the dot'), readPay = app.ui.readout('rpay', 'Gun mass vs UR3e chart');
+  const hudEl = WK.h('div', { class: 't20' }); const hud = app.stageOverlay(hudEl, { corner: 'tr', w: 250 });
+  const budgetBody = app.ui.panel({ id: 'budget', title: 'Where a joint error lands at the dot', open: true, html: '<div class="t20"></div>' }); const hudCard = budgetBody.querySelector('.t20') || budgetBody;
+  let lastCls = null;
+
+  function update() {
+    const cls = ui('cls'), trimBy = ui('trim'), grip = ui('grip');
+    ['top', 'barrel', 'back'].forEach(k => { LUG[k].lug.visible = k === grip; });
+    armG.visible = cls === 'six'; scaraG.visible = cls === 'scara'; gantG.visible = cls === 'cart';
+    pedestal.visible = basePlate.visible = cls !== 'cart';
+    if (cls !== lastCls) { lastCls = cls; ['zb'].forEach(k => app.ui.enable(k, cls === 'six')); app.ui.enable('roll', cls === 'six'); app.ui.enable('Rb', cls !== 'cart'); }
+    const tr = ui('tr'), tz = ui('tz'), er = ui('er'), ez = ui('ez'), step = ui('step') / 1000;
+    const setup = V(er, 0, ez), want = V(tr, 0, tz);
+    const showStack = trimBy === 'stack', showTip = trimBy === 'tip';
+    WK.setRole(zPlate, showStack ? 'actuated' : 'fixed'); WK.setRole(xPlate, showStack ? 'actuated' : 'fixed');
+    stackMotors.forEach(m => { m.visible = showStack; });
+    tipBody.visible = tipPlate.visible = showTip;
+    plateLbl.forEach(l => l.show && l.show(showStack)); jointLbl.forEach(l => l.show && l.show(cls === 'six'));
+
+    // 1. the taught pose (setup error included): what the arm's joints hold before the trim
+    let ok = true, hitMsg = null, achieved = V(0, 0, 0), counts = null, axes = [], flangeP = null, flangeDir = null, lugNow = null;
+    const q = v => Math.round(v / step) * step;
+    const shiftTaught = setup.clone();
+    let sixSol = null, scSol = null, gSol = null, dotForAxes = dotNom.clone().add(setup);
+    if (cls === 'six') {
+      sixSol = solveSix(shiftTaught, false);
+      if (!sixSol.ok) { ok = false; }
+      else if (trimBy === 'arm') {
+        const s2 = solveSix(shiftTaught.clone().add(want), true);
+        if (s2.ok) {
+          // quantise the joint change to counts; achieved = the flange motion those counts make
+          const cnt = 2 * Math.PI / Math.pow(2, ui('bits')), q0 = sixSol.r.q, q1 = s2.r.q, qq = q0.map((v, i) => v + Math.round((q1[i] - v) / cnt) * cnt);
+          const F1 = A.fk(qq, sixSol.base), F0 = sixSol.r.F; achieved = V(F1[6][3] - F0[6][3], F1[6][7] - F0[6][7], F1[6][11] - F0[6][11]);
+          sixSol = { ok: true, r: { q: qq, F: F1 }, base: sixSol.base, tgt: s2.tgt, b: sixSol.b };
+        }
+      }
+    } else if (cls === 'scara') {
+      scSol = solveScara(shiftTaught); if (!scSol.ok) ok = false;
+      else if (trimBy === 'arm') {
+        const s2 = solveScara(shiftTaught.clone().add(want));
+        if (s2.ok) {
+          const cnt = 2 * Math.PI / Math.pow(2, ui('bits')), t1 = scSol.t1 + Math.round((s2.t1 - scSol.t1) / cnt) * cnt, t2 = scSol.t2 + Math.round((s2.t2 - scSol.t2) / cnt) * cnt;
+          const L1 = 225, L2 = 175, qx = scSol.bx + L1 * Math.cos(t1) + L2 * Math.cos(t1 + t2), qy = scSol.by + L1 * Math.sin(t1) + L2 * Math.sin(t1 + t2), dz = q(want.z);
+          achieved = V(qx - scSol.qx, qy - scSol.qy, dz);
+          scSol = Object.assign({}, scSol, { t1: t1, t2: t2, ex: scSol.bx + L1 * Math.cos(t1), ey: scSol.by + L1 * Math.sin(t1), qx: qx, qy: qy, zq: scSol.zq + dz, lug: scSol.lug.clone().add(achieved) });
+        }
+      }
+    } else {
+      gSol = solveGant(shiftTaught);
+      if (trimBy === 'arm') {
+        const psi = gSol.psi, X = V(Math.cos(psi), Math.sin(psi), 0), Y = V(-Math.sin(psi), Math.cos(psi), 0);
+        const sx = q(want.dot(X)), sy = q(want.dot(Y));
+        achieved = X.multiplyScalar(sx).add(Y.multiplyScalar(sy)).add(V(0, 0, q(want.z)));
+        gSol = solveGant(shiftTaught.clone().add(achieved));
+      }
+    }
+    // stack / tip stage quantised moves
+    let stackMove = V(0, 0, 0), tipMove = V(0, 0, 0);
+    if (showStack) stackMove = V(q(want.x), 0, q(want.z)); if (showTip) tipMove = V(q(want.x), 0, q(want.z));
+    // the gun's actual displacement relative to nominal
+    const gunShift = setup.clone().add(trimBy === 'arm' ? achieved : (showTip ? tipMove : V(0, 0, 0)));
+    gun.setTransform(gunBase.pos.clone().add(gunShift), gunBase.quat);
+    ws.setWorkPose(V(-stackMove.x, 0, -stackMove.z), null);
+    // stack plates follow
+    zPlate.position.set(0, 0, Z0 - stackMove.z); xPlate.position.set(-stackMove.x, 0, X0 - stackMove.z); spacer.position.set(-stackMove.x, 0, SP0 - stackMove.z);
+    if (!showStack) { zPlate.position.set(0, 0, Z0); xPlate.position.set(0, 0, X0); spacer.position.set(0, 0, SP0); }
+    app.scene.updateMatrixWorld(true);
+    const dotNow = gun.dotWorld().clone();
+
+    // 2. draw
+    let msg = null;
+    if (ok && cls === 'six') { sixSol.r.F = sixSol.r.F; flangeP = drawSix(sixSol); axes = axesSix(sixSol.r.F, dotNow); msg = collideSix(sixSol); lastSix = sixSol; }
+    else if (ok && cls === 'scara') { flangeP = drawScara(scSol); axes = axesScara(scSol, dotNow); }
+    else if (ok && cls === 'cart') { flangeP = drawGant(gSol); axes = axesGant(gSol); }
+    else if (cls === 'six' && lastSix) { drawSix(lastSix); }
+    app.badge('reach', ok ? null : (cls === 'six' ? 'the arm cannot reach this grip from this base (move the base or the grip); the last reachable pose is drawn' : 'the SCARA cannot reach the shell from this base (reach 400 mm)'), 'limit');
+    app.badge('collide', msg, 'limit');
+    // flange and adaptor
+    const lugW = LUG[grip].world().clone();
+    const n = lugNom[grip].n;
+    if (cls === 'six' && ok) { adaptRod.visible = true; adaptRod.setEnds(flangeP, lugW); }
+    else if (cls === 'scara' && ok) { adaptRod.visible = true; adaptRod.setEnds(V(scSol.qx, scSol.qy, scSol.zq), lugW); flangeDisc.visible = false; }
+    else if (cls === 'cart') { adaptRod.visible = true; adaptRod.setEnds(V(gSol.lug.x, gSol.lug.y, gSol.zq), lugW); }
+    flangeDisc.visible = cls === 'six';
+    adaptRod.userData.mid = adaptRod.visible ? lugW.clone().lerp(cls === 'six' && flangeP ? flangeP : lugW.clone().add(V(0, 0, ui('adapt'))), 0.5) : null;
+    // tip stage sits on the adaptor near the lug
+    if (showTip) { const a = adaptRod.userData.mid || lugW; tipBody.position.copy(a.clone().add(V(0, 0, 0))); tipPlate.position.copy(a.clone().add(V(0, 0, -14)).add(tipMove.clone().multiplyScalar(0))); }
+    // 3. per-axis dot error and arrows
+    const errJ = ui('errJ') * DEG, errL = ui('errL');
+    const rows = axes.map(a => { const e = a.rot ? errJ : errL, d = a.vec.clone().multiplyScalar(e); return { a: a, d: d, rz: Math.hypot(d.x, d.z), t: Math.abs(d.y), one: a.vec.length() * a.cnt, yaw: a.om.z * e / DEG, tilt: a.om.y * e / DEG, roll: a.om.dot(beamDir) * e / DEG }; });
+    // radial direction at the station is +X and tangent Y; the gantry's slides are rotated: the vec already carries that
+    arrows.forEach((ar, i) => { const r = rows[i]; ar.visible = !!r && ok; arrowLabels[i].show && arrowLabels[i].show(!!r && ok); if (!r || !ok) return;
+      const L = r.d.length() * 1000 * 1.8; const dir = r.d.length() > 1e-9 ? r.d.clone().normalize() : V(1, 0, 0);
+      ar.set(dotNow, dir, Math.max(2, Math.min(220, L))); ar.userData.tip = dotNow.clone().addScaledVector(dir, Math.max(2, Math.min(220, L)) + 4);
+      ar.userData.mat.color.copy(WK.color(r.t > r.rz * 1.3 ? FREEC : NEEDC)); arrowLabels[i].set && arrowLabels[i].set('err ' + r.a.name.split(' ')[0]); });
+    const rss = f => Math.sqrt(rows.reduce((t, r) => t + f(r) ** 2, 0));
+    const Rrz = rss(r => r.rz) * 1000, Rt = rss(r => r.t) * 1000, Ryaw = rss(r => r.yaw), Rtilt = rss(r => r.tilt), Rroll = rss(r => r.roll);
+    const mx = Math.max(1, ...rows.map(r => Math.max(r.rz, r.t) * 1000));
+    let h = '<h4>Where a ' + errJ / DEG + '° (or ' + errL + ' mm) error at each axis lands at the dot</h4><table><tr><th>axis</th><th>radial + vertical (needed), µm</th><th>tangent (free), µm</th><th>one count → dot, µm</th></tr>';
+    rows.forEach(r => { h += '<tr><td>' + r.a.name + '</td><td><span class="bar need" style="width:' + Math.round(r.rz * 1000 / mx * 60) + 'px"></span>' + (r.rz * 1000).toFixed(0) + '</td><td><span class="bar free" style="width:' + Math.round(r.t * 1000 / mx * 60) + 'px"></span>' + (r.t * 1000).toFixed(0) + '</td><td>' + (r.one * 1000).toFixed(1) + '</td></tr>'; });
+    h += '<tr class="tot"><td>sum of squares</td><td class="need-t">' + Rrz.toFixed(0) + '</td><td class="free-t">' + Rt.toFixed(0) + '</td><td></td></tr></table>';
+    h += '<div class="note">Gun rotation from the same errors: plan yaw ' + Ryaw.toFixed(4) + '°, beam tilt ' + Rtilt.toFixed(4) + '°, roll about the beam ' + Rroll.toFixed(4) + '° (the fibre twists with it).</div>';
+    const NEED = { six: '6 axes for 4 needs (radial, vertical, plan angle, beam tilt) and a free roll: 2 to spare, software-set', scara: '4 axes: radial, vertical and plan angle (twice: yaw and tangent); beam tilt and roll are set by the adaptor, by hand', cart: '3 axes: radial, vertical, and the tangent, which stands in for plan angle; tilt and roll by hand' };
+    h += '<div class="note"><b>' + NEED[cls] + '.</b></div>';
+    hudCard.innerHTML = h;
+    let hc = '<h4>Error at each axis, µm at the dot</h4><table><tr><th>axis</th><th>needed (r+z)</th><th>free (tangent)</th></tr>';
+    rows.forEach(r => { hc += '<tr><td>' + r.a.name.split(' ')[0] + '</td><td><span class="bar need" style="width:' + Math.round(r.rz * 1000 / mx * 44) + 'px"></span>' + (r.rz * 1000).toFixed(0) + '</td><td><span class="bar free" style="width:' + Math.round(r.t * 1000 / mx * 44) + 'px"></span>' + (r.t * 1000).toFixed(0) + '</td></tr>'; });
+    hc += '<tr class="tot"><td>all</td><td class="need-t">' + Rrz.toFixed(0) + '</td><td class="free-t">' + Rt.toFixed(0) + '</td></tr></table>';
+    hudEl.innerHTML = hc;
+    // 4. compliance and payload readouts
+    const kj = ui('kj'), kl = ui('kl'), Fl = ui('F'); const C = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    axes.forEach(a => { const v = [a.vec.x, a.vec.y, a.vec.z], k = a.rot ? kj * 1000 : kl; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[i][j] += v[i] * v[j] / k; });   // mm per N (rot: kj N.m/rad -> N.mm/rad)
+    const fv = [cableDir.x * Fl, cableDir.y * Fl, cableDir.z * Fl], dm = [0, 1, 2].map(i => [0, 1, 2].reduce((t, j) => t + C[i][j] * fv[j], 0));
+    readComp((Math.hypot(dm[0], dm[2]) * 1000).toFixed(0) + ' / ' + (Math.abs(dm[1]) * 1000).toFixed(0), 'µm (r+z / tangent)');
+    const cogW = gun.local('collar'), cogOff = flangeP ? cogW.distanceTo(flangeP) : 0, rated = ratedAt(cogOff), mass = ui('mass');
+    readPay(mass.toFixed(1) + ' kg vs ' + rated.toFixed(1) + ' kg at ' + cogOff.toFixed(0) + ' mm', mass > rated ? 'OVER' : 'inside');
+    app.badge('pay', cls === 'six' && mass > rated + 0.05 ? 'gun mass ' + mass.toFixed(1) + ' kg is over about ' + rated.toFixed(1) + ' kg, the UR3e chart at a ' + cogOff.toFixed(0) + ' mm centre-of-gravity offset (read by eye)' : null, 'warn');
+    // 5. what the trim did
+    const off = seamNow(); readOff(off.radial.toFixed(3) + ' / ' + off.vertical.toFixed(3), 'mm');
+    const smallest = trimBy === 'arm' ? (rows.length ? Math.min(...rows.map(r => r.one)) * 1000 : 0) : ui('step');
+    readCnt(rows.length || trimBy !== 'arm' ? smallest.toFixed(1) : '-', trimBy === 'arm' ? 'µm: one count, finest axis' : 'µm: the stage step');
+    const got = trimBy === 'arm' ? achieved : (showStack ? V(stackMove.x, 0, stackMove.z) : tipMove);
+    readAch((got.x * 1000).toFixed(0) + ' of ' + (want.x * 1000).toFixed(0) + ' / ' + (got.z * 1000).toFixed(0) + ' of ' + (want.z * 1000).toFixed(0), 'µm');
+    // io panel
+    const isSix = cls === 'six';
+    app.io.set({
+      commands: [
+        { name: isSix ? 'Joint angles J1 to J6 (joint space), or a flange pose in a user frame' : (cls === 'scara' ? 'J1, J2, Z, yaw' : 'X, Y, Z slides'), value: isSix && sixSol && sixSol.r ? sixSol.r.q.map(v => (v / DEG).toFixed(0)).join(', ') : '-', unit: isSix ? '°' : '', note: 'through the maker’s SDK; streaming 60 to 1000 Hz on the arms in the sourcing notes' },
+        { name: 'Trim by', value: { arm: 'the arm’s own joints', stack: 'stack under the rotator', tip: 'stage at the flange' }[trimBy], note: 'the smallest step is the count or the stage step' },
+        { name: 'Rotator', value: 'existing controller', note: 'the arm never moves while it turns' },
+      ],
+      observes: [
+        { name: 'Joint encoders', value: (ui('bits')) + '-bit', status: 'seen', note: 'absolute; read back the joint angles exactly, not where the dot is' },
+        { name: 'Flange pose', value: '-', status: 'partly', note: 'forward kinematics of the joints; the dot only if the flange-to-dot vector is calibrated' },
+        { name: 'Flange force', value: '-', status: 'partly', note: 'on some arms (UR3e: precision ±2 N); too coarse to see a 1 N load change against 5 N/mm' },
+        { name: 'Dot vs seam', value: off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2), unit: 'mm', status: 'blind', note: 'scene geometry; a camera or a touch has to supply it' },
+        { name: 'Arm stiffness and drift', value: '-', status: 'unresolved', note: 'not on any datasheet read' },
+      ],
+      manual: ['Mount the base and the printed adaptor', 'Declare payload mass and centre of gravity', 'Route the fibre and wire conduit', 'Fire the laser'],
+    });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const g1 = app.ui.group('Arrangement (branches)', { help: 'Which machine holds the gun, where it grips, and who makes the last trim. These are comparisons, not motors.' });
+  g1.radio({ id: 'cls', label: 'What holds the gun', options: [{ value: 'six', label: '6-axis arm (UR type)' }, { value: 'scara', label: 'SCARA (x, y, z, yaw)' }, { value: 'cart', label: 'gantry (x, y, z)' }], value: 'six', kind: 'branch', visual: () => [armG, scaraG, gantG], help: 'Same gun, same pose. A SCARA is a monitor arm with motors; a gantry has no lever at all.', onChange: update });
+  g1.radio({ id: 'grip', label: 'Where the flange grips the shell', options: [{ value: 'top', label: 'housing top (209 mm from the dot)' }, { value: 'barrel', label: 'barrel (107 mm)' }, { value: 'back', label: 'from behind along the beam (309 mm)' }], value: 'top', kind: 'branch', visual: () => [LUG.top.lug, LUG.barrel.lug, LUG.back.lug], onChange: update });
+  g1.radio({ id: 'trim', label: 'Who makes the last trim', options: [{ value: 'arm', label: 'the arm’s joints' }, { value: 'stack', label: 'stack under the rotator' }, { value: 'tip', label: 'stage at the flange' }], value: 'arm', kind: 'branch', visual: () => [plinth, zPlate, xPlate, tipPlate], help: 'Stack: two purple plates under the rotator, no cable force on them. Stage: a purple plate between flange and shell, in the load path.', onChange: update });
+  const g2 = app.ui.group('Where the base stands (setup edits)', { help: 'Scene edits: where the arm is bolted. Azimuth 0 is on the radial line through the weld station, outside the tube.' });
+  g2.slider({ id: 'psi', label: 'Base azimuth around the tube', min: 0, max: 359, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => [basePlate, pedestal, gantG], help: '0 or 180: the base joint moves the dot along the tangent. 90: along the radial. For the gantry the same angle turns its X slide.', onChange: update });
+  g2.slider({ id: 'Rb', label: 'Base distance from the tube axis', min: 200, max: 520, step: 5, value: 300, unit: 'mm', kind: 'scene', visual: () => [basePlate, pedestal], onChange: update });
+  g2.slider({ id: 'zb', label: 'Pedestal height above the bench', min: 0, max: 400, step: 10, value: 150, unit: 'mm', kind: 'scene', visual: () => [pedestal, basePlate], help: 'Six-axis arm only; the SCARA and the gantry set their own height from the lug.', onChange: update });
+  g2.slider({ id: 'adapt', label: 'Printed adaptor length (flange to lug)', min: 20, max: 140, step: 5, value: 40, unit: 'mm', kind: 'scene', visual: () => adaptRod, onChange: update });
+  g2.slider({ id: 'roll', label: 'Adaptor roll about the flange axis', min: -180, max: 180, step: 15, value: 0, unit: '°', kind: 'scene', visual: () => jointCyl[5], help: 'Six-axis arm: which way the wrist faces. Changes the joint solution, not the gun.', onChange: update });
+  const g3 = app.ui.group('The trim (proposed axes)', { help: 'Actuator badge: what software would command. The gun starts off the seam by the taught-pose error below.' });
+  g3.slider({ id: 'tr', label: 'Radial trim (dot moves +X)', min: -1.0, max: 1.0, step: 0.005, value: 0, unit: 'mm', kind: 'actuator', visual: () => [flangeDisc, xPlate, tipPlate, sc.j1], onChange: update });
+  g3.slider({ id: 'tz', label: 'Vertical trim', min: -1.0, max: 1.0, step: 0.005, value: 0, unit: 'mm', kind: 'actuator', visual: () => [flangeDisc, zPlate, tipPlate, sc.j1], onChange: update });
+  g3.button({ id: 'null', label: 'Trim from a perfect look (stand-in for a camera)', kind: 'actuator', help: 'Asks the chosen body for minus the exact offset, twice. What is left is that body\u2019s own floor (counts or steps).', onClick: () => {
+    for (let k = 0; k < 2; k++) { const o = seamNow(); app.ui.set('tr', Math.max(-1, Math.min(1, +(ui('tr') - o.radial).toFixed(4)))); app.ui.set('tz', Math.max(-1, Math.min(1, +(ui('tz') - o.vertical).toFixed(4)))); }
+  } });
+  g3.slider({ id: 'step', label: 'Stack / stage step', min: 1, max: 50, step: 1, value: 5, unit: 'µm', kind: 'scene', noVisual: true, help: 'Micro-stepped lead screw or micrometer head on a stepper (illustrative).', onChange: update });
+  const g4 = app.ui.group('What the joints do wrong (illustrative, scene edits)', { help: 'Nothing here is on a datasheet: these are the sliders a measurement would set.' });
+  g4.slider({ id: 'errJ', label: 'Error at every rotary joint', min: 0.001, max: 0.05, step: 0.001, value: 0.01, unit: '°', kind: 'scene', noVisual: true, help: 'Lost motion, hysteresis, thermal drift. 0.01° is 175 µrad.', onChange: update });
+  g4.slider({ id: 'errL', label: 'Error at every slide', min: 0.001, max: 0.05, step: 0.001, value: 0.01, unit: 'mm', kind: 'scene', noVisual: true, onChange: update });
+  g4.slider({ id: 'bits', label: 'Joint encoder, output side', min: 12, max: 22, step: 1, value: 19, unit: 'bit', kind: 'scene', noVisual: true, help: '12 bit is the desk-size Prime arms (0.088° per count).', onChange: update });
+  g4.slider({ id: 'stepL', label: 'Slide step (SCARA Z, gantry)', min: 1, max: 50, step: 1, value: 5, unit: 'µm', kind: 'scene', noVisual: true, onChange: update });
+  g4.slider({ id: 'kj', label: 'Joint stiffness', min: 1000, max: 50000, step: 500, value: 8000, unit: 'N·m/rad', kind: 'scene', noVisual: true, onChange: update });
+  g4.slider({ id: 'kl', label: 'Slide stiffness', min: 5, max: 200, step: 5, value: 50, unit: 'N/mm', kind: 'scene', noVisual: true, onChange: update });
+  g4.slider({ id: 'F', label: 'Load change at the gun after the last look', min: 0, max: 5, step: 0.1, value: 1, unit: 'N', kind: 'scene', noVisual: true, help: 'Wire feed, gas, the fibre’s recoil: unmeasured. Acts along the fibre’s exit direction.', onChange: update });
+  g4.slider({ id: 'mass', label: 'Gun and shell mass', min: 0.5, max: 3.5, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', noVisual: true, help: '[unknown]: weigh it.', onChange: update });
+  g4.slider({ id: 'er', label: 'Taught-pose error, radial', min: -1, max: 1, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: update });
+  g4.slider({ id: 'ez', label: 'Taught-pose error, vertical', min: -1, max: 1, step: 0.01, value: -0.20, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: update });
+  const g5 = app.ui.group('View');
+  g5.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+  ws.setGhost(true);
+  app.legend([{ role: 'actuated', label: 'Joint / stage (software could command)' }, { role: 'fixed', label: 'Link, base, plinth' }, { role: 'load', label: 'Shell and adaptor' }, { color: NEEDC, label: 'Arrow: dot moves in a needed direction' }, { color: FREEC, label: 'Arrow: dot moves along the free tangent' }, { role: 'locate', label: 'Flange lug' }, { role: 'work', label: 'Work' }, { role: 'laser', label: 'Dot' }]);
+})();
+</script>
+</body>
+</html>

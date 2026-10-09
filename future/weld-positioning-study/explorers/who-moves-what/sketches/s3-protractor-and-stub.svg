@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="740" viewBox="0 0 1180 740" font-family="Helvetica, Arial, sans-serif">
+<rect width="1180" height="740" fill="#fcfcf8"/>
+<text x="12" y="22" font-size="15" font-weight="bold" fill="#222">S3 - Protractor + stub (side view from +X, gun room-yaw 0, grip 45; hole dials 0 / 30 / 60)</text>
+<line x1="20.0" y1="720.0" x2="800.0" y2="720.0" stroke="#222" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="406.5,634.0 533.5,634.0 533.5,481.6 406.5,481.6" stroke="#8a5a2b" fill="none" stroke-width="1.2" fill-opacity="1.0"/>
+<polygon points="408.2,494.3 531.8,494.3 531.8,487.9 408.2,487.9" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.25"/>
+<polygon points="320.0,696.0 620.0,696.0 620.0,684.0 320.0,684.0" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="335.0,720.0 355.0,720.0 355.0,696.0 335.0,696.0" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="585.0,720.0 605.0,720.0 605.0,696.0 585.0,696.0" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<polygon points="395.0,684.0 545.0,684.0 545.0,634.0 395.0,634.0" stroke="#8a5a2b" fill="none" stroke-width="0.8" fill-opacity="1.0" stroke-dasharray="3,2"/>
+<text x="550.0" y="660.0" font-size="9" fill="#8a5a2b" text-anchor="start">rotator (turntable, nest; motor/ground towers not drawn)</text>
+<polyline points="340.8,168.1 333.9,170.9 327.1,173.9 320.3,177.1 313.6,180.4 307.0,183.9 300.5,187.5 294.1,191.2 287.7,195.0 281.4,199.1 275.2,203.2 269.1,207.5 263.1,211.9 257.2,216.4 251.4,221.1 245.7,225.8 240.1,230.7 234.6,235.8 229.2,240.9 223.9,246.2 218.7,251.5 213.7,257.0 208.8,262.6 204.0,268.3 199.3,274.1 194.7,280.0 190.3,286.0 186.0,292.1 181.8,298.3 177.8,304.5 173.9,310.9 170.2,317.3 166.5,323.8 163.1,330.4 159.7,337.1 156.6,343.8 153.5,350.6 150.6,357.5 147.9,364.4 145.3,371.4 142.8,378.4 140.6,385.5 138.4,392.7 136.4,399.8 134.6,407.1 132.9,414.3 131.4,421.6 130.1,428.9 128.9,436.3 127.9,443.7 127.0,451.1 126.3,458.5 125.7,465.9 125.3,473.4 125.1,480.8 125.0,488.3 125.1,495.7 125.3,503.2 125.7,510.6 126.3,518.0" stroke="#2e7d32" fill="none" stroke-width="9" fill-opacity="1.0"/>
+<polyline points="340.8,168.1 333.9,170.9 327.1,173.9 320.3,177.1 313.6,180.4 307.0,183.9 300.5,187.5 294.1,191.2 287.7,195.0 281.4,199.1 275.2,203.2 269.1,207.5 263.1,211.9 257.2,216.4 251.4,221.1 245.7,225.8 240.1,230.7 234.6,235.8 229.2,240.9 223.9,246.2 218.7,251.5 213.7,257.0 208.8,262.6 204.0,268.3 199.3,274.1 194.7,280.0 190.3,286.0 186.0,292.1 181.8,298.3 177.8,304.5 173.9,310.9 170.2,317.3 166.5,323.8 163.1,330.4 159.7,337.1 156.6,343.8 153.5,350.6 150.6,357.5 147.9,364.4 145.3,371.4 142.8,378.4 140.6,385.5 138.4,392.7 136.4,399.8 134.6,407.1 132.9,414.3 131.4,421.6 130.1,428.9 128.9,436.3 127.9,443.7 127.0,451.1 126.3,458.5 125.7,465.9 125.3,473.4 125.1,480.8 125.0,488.3 125.1,495.7 125.3,503.2 125.7,510.6 126.3,518.0" stroke="#fcfcf8" fill="none" stroke-width="5" fill-opacity="1.0"/>
+<text x="30.0" y="528.0" font-size="10" fill="#2e7d32" text-anchor="start">arc plate, R = dot-to-stub (~345 mm, estimate),</text>
+<text x="30.0" y="542.0" font-size="10" fill="#2e7d32" text-anchor="start">centred on P; its low end reaches dot height</text>
+<line x1="455.5" y1="483.2" x2="434.7" y2="476.3" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="434.7" y1="476.3" x2="405.7" y2="466.7" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="405.7" y1="466.7" x2="368.5" y2="454.5" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="368.5" y1="454.5" x2="351.3" y2="448.8" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="351.3" y1="448.8" x2="231.6" y2="409.4" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="273.4" y1="436.4" x2="191.6" y2="485.1" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="470.0" y1="487.9" x2="125.0" y2="488.0" stroke="#555" stroke-width="0.8" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="190.8" y1="488.0" x2="125.0" y2="488.0" stroke="#2e7d32" stroke-width="5.0" stroke-opacity="0.8" stroke-linecap="butt"/>
+<circle cx="125.0" cy="488.0" r="9.0" stroke="#2e7d32" fill="#fff" stroke-width="2" fill-opacity="1.0"/>
+<text x="137.0" y="484.0" font-size="10" fill="#2e7d32" text-anchor="start">dial 0</text>
+<line x1="459.8" y1="476.6" x2="445.2" y2="460.2" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="445.2" y1="460.2" x2="424.9" y2="437.4" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="424.9" y1="437.4" x2="398.8" y2="408.2" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="398.8" y1="408.2" x2="386.8" y2="394.7" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="386.8" y1="394.7" x2="302.9" y2="300.7" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="325.5" y1="345.0" x2="230.3" y2="346.3" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.4" stroke-linecap="round"/>
+<line x1="470.0" y1="487.9" x2="171.2" y2="315.5" stroke="#555" stroke-width="0.8" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="228.2" y1="348.4" x2="171.2" y2="315.5" stroke="#2e7d32" stroke-width="5.0" stroke-opacity="0.8" stroke-linecap="butt"/>
+<circle cx="171.2" cy="315.5" r="9.0" stroke="#2e7d32" fill="#fff" stroke-width="2" fill-opacity="1.0"/>
+<text x="183.2" y="311.5" font-size="10" fill="#2e7d32" text-anchor="start">dial 30</text>
+<line x1="466.9" y1="473.0" x2="462.4" y2="451.5" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="462.4" y1="451.5" x2="456.2" y2="421.6" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="456.2" y1="421.6" x2="448.2" y2="383.3" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="448.2" y1="383.3" x2="444.5" y2="365.6" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="444.5" y1="365.6" x2="418.9" y2="242.2" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="416.3" y1="291.9" x2="333.3" y2="245.4" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.18" stroke-linecap="round"/>
+<line x1="470.0" y1="487.9" x2="297.5" y2="189.2" stroke="#555" stroke-width="0.8" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="330.4" y1="246.2" x2="297.5" y2="189.2" stroke="#2e7d32" stroke-width="5.0" stroke-opacity="0.8" stroke-linecap="butt"/>
+<circle cx="297.5" cy="189.2" r="9.0" stroke="#2e7d32" fill="#fff" stroke-width="2" fill-opacity="1.0"/>
+<text x="309.5" y="185.2" font-size="10" fill="#2e7d32" text-anchor="start">dial 60</text>
+<circle cx="470.0" cy="487.9" r="4.0" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="478.0" y="501.9" font-size="10" fill="#d00" text-anchor="start">P: dot = arc centre = on the stub axis</text>
+<text x="810.0" y="60.0" font-size="11" fill="#222" text-anchor="start" font-weight="bold">What each joint does</text>
+<text x="810.0" y="77.0" font-size="11" fill="#555" text-anchor="start"> carriage along the arc:</text>
+<text x="810.0" y="94.0" font-size="11" fill="#555" text-anchor="start">   hole-axis tilt (about the X line</text>
+<text x="810.0" y="111.0" font-size="11" fill="#555" text-anchor="start">   through P)</text>
+<text x="810.0" y="128.0" font-size="11" fill="#555" text-anchor="start"> stub bearing, axis = grip axis</text>
+<text x="810.0" y="145.0" font-size="11" fill="#555" text-anchor="start">   (dashed), pointing at P: roll</text>
+<text x="810.0" y="162.0" font-size="11" fill="#555" text-anchor="start"> neither moves the dot: both axes</text>
+<text x="810.0" y="179.0" font-size="11" fill="#555" text-anchor="start">   pass through P by construction</text>
+<text x="810.0" y="196.0" font-size="11" fill="#555" text-anchor="start"> yaw: work slides along Y (S1), or</text>
+<text x="810.0" y="213.0" font-size="11" fill="#555" text-anchor="start">   the whole arc rides a gantry Y</text>
+<text x="810.0" y="230.0" font-size="11" fill="#555" text-anchor="start"> X, Z: the work, or the arc's base</text>
+<text x="810.0" y="247.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="810.0" y="264.0" font-size="11" fill="#555" text-anchor="start">Loads: gun weight to a balancer on</text>
+<text x="810.0" y="281.0" font-size="11" fill="#555" text-anchor="start">the shell near its centre of mass;</text>
+<text x="810.0" y="298.0" font-size="11" fill="#555" text-anchor="start">stub + arc only locate. Cable forces</text>
+<text x="810.0" y="315.0" font-size="11" fill="#555" text-anchor="start">enter at the stub, next to the QBH.</text>
+<text x="810.0" y="332.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="810.0" y="349.0" font-size="11" fill="#555" text-anchor="start">At room yaw 0 the QBH stays 279.2 mm</text>
+<text x="810.0" y="366.0" font-size="11" fill="#555" text-anchor="start">from P in this plane for every hole</text>
+<text x="810.0" y="383.0" font-size="11" fill="#555" text-anchor="start">tilt (pose.js), so the arc is exact.</text>
+<text x="810.0" y="400.0" font-size="11" fill="#555" text-anchor="start">The QBH sits at (dial) degrees above</text>
+<text x="810.0" y="417.0" font-size="11" fill="#555" text-anchor="start">the -Y horizontal: dial 30 -&gt; 30 deg.</text>
+<text x="810.0" y="434.0" font-size="11" fill="#555" text-anchor="start">Ghosts: dials 0 and 60.</text>
+</svg>

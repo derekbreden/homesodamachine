@@ -1,0 +1,19 @@
+A  three asymmetric (0,115,240), one groove set
+   rotations that seat: [0]
+B  three symmetric (0,120,240), one groove set
+   rotations that seat: [0, 120, 240]
+   turn 120 deg exposes harmonics 1..4 of a tube-owned error with weights [1.73, 1.73, 0.0, 1.73]
+   turn 240 deg exposes harmonics 1..4 of a tube-owned error with weights [1.73, 1.73, 0.0, 1.73]
+C  asymmetric balls, two sets 100 deg apart
+   rotations that seat: [0, 100]
+   turn 100 deg exposes harmonics 1..4 of a tube-owned error with weights [1.53, 1.97, 1.0, 0.68]
+D  asymmetric balls, two sets 70 deg apart
+   rotations that seat: [0, 70]
+   turn  70 deg exposes harmonics 1..4 of a tube-owned error with weights [1.15, 1.88, 1.93, 1.29]
+E  asymmetric balls, three sets 40 deg apart
+   rotations that seat: [0, 40, 80]
+   turn  40 deg exposes harmonics 1..4 of a tube-owned error with weights [0.68, 1.29, 1.73, 1.97]
+   turn  80 deg exposes harmonics 1..4 of a tube-owned error with weights [1.29, 1.97, 1.73, 0.68]
+
+Work index modulo 180 (the plate has two symmetric ports): the seat orientations 0, 120, 240 of case B read as [0, 120, 60] so the ports still tell the three seatings apart
+Case A needs no index from the work for phase (the seats give it); case B does.

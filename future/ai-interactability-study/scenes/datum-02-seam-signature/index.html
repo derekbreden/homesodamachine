@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seam signature</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ss text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .ss .tm { fill: #8b98ab; } .ss .tf { fill: #64748b; } .ss .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .ss .tt { fill: #14b8a6; } .ss .ta { fill: #f5a524; } .ss .tr { fill: #ff6b5f; } .ss .tp { fill: #c084fc; } .ss .ts { fill: #60a5fa; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-02-seam-signature",
+  "title": "Seam signature: learn it by turning, replay it while welding",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "Turn the tube once with the dot on and a sensor logging where the seam is against the dot. A small model of this tube's seam (centre, tilt, seat height, ovality) is fitted and then replayed as feed-forward to a tiny fine axis while the bead is laid. Software observes in the dry rotation and commands in the weld rotation.",
+  "tags": ["datum", "runout", "learn and replay", "fine axis", "software-centred"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["dry-rotation signature", "harmonic seam model", "feed-forward through the existing rotator angle"],
+  "how": {
+    "motion": "rotator turns (existing); a proposed 2-axis fine stage in the gun shell replays the fitted seam",
+    "load": "a passive arm, rod or the hand holds the gun; what it does between the turns is a control",
+    "reference": "the seam of this tube, learned per tube from the dry rotation, indexed by table angle",
+    "observe": "any sensor reporting dot-versus-seam: camera, feeler, or indicators on nearby surfaces",
+    "use": "dry rotation after tacking (already done for the continuity check), then the weld rotation"
+  },
+  "software": {
+    "commands": ["rotator angle and speed (existing controller)", "fine stage radial and vertical position (proposed)"],
+    "observes": ["table angle from the step count (0.025 degrees per step)", "dot-versus-seam from a sensor during the dry rotation"],
+    "manual": ["coarse aim of the gun so the dot is inside the fine stage's stroke", "returning the index to the first tack before both rotations"]
+  },
+  "links": [{"label": "travel-18 signature parity", "href": "../travel-18-signature-parity/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-02-seam-signature.md", "../../exchange/datum--reply-to-travel-w3.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex, DEG = Math.PI / 180, TAU = Math.PI * 2;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The seam is a circle, but a real tube on the rotator turns it slightly off-centre and slightly tilted. Seen from a fixed dot, the corner drifts in and out, and up and down, once per revolution (plus a little at twice per revolution if the bore is oval). That drift is <b>repeatable for a given tube</b>, so it can be learned by turning the tube once and replayed against the table angle.</p>' +
+        '<p><b>Dry rotation:</b> the table turns, a sensor reports the dot against the seam at N angles, and a small harmonic model is fitted. The constant term of the fit is also the setup error: how far off the dot was to begin with. <b>Weld rotation:</b> the same angles come back from the step count, and a fine stage in the shell moves the dot by the fitted amount, so what is left is the fit error plus whatever the dry rotation could not see.</p>' +
+        '<p>The stage barely has to move: the peak speed is a few hundredths of a millimetre per second and the stroke is a few tenths of a millimetre. The hard part is not the axis; it is the sensor, and what changes between the cold dry rotation and the hot weld.</p>',
+      carries:
+        '<p>Nothing new carries the gun. A passive arm or the hand holds it in the neighbourhood; the fine stage is a small part between that hold and the gun, drawn as a purple stage in the cross-section. The seam is the reference: the signature is measured against the dot of <i>this tube</i>, so the room, the bench and the rotator drop out (see the datum-chain scene).</p>',
+      software:
+        '<p><b>Controls in this scene:</b> the table angle is an actuator (the existing rotator, whose step count is the angle reference at 0.025&deg; per step [repo]); the two fine-stage axes are proposed actuators that the replay commands; everything about the tube, the sensor and the window is an edit of the scene.</p>' +
+        '<p><b>Observed:</b> the table angle (good), the sensor&rsquo;s dot-versus-seam (as good as the sensor; pick a sensor in the branch control), nothing about the gun-side drift and nothing about the hot weld.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> a sensor error that repeats with the table angle (a feeler seated a little off, glare that turns with the tube). <b>Assumption:</b> sensor errors are random and average out. <b>What the fit does:</b> it cannot tell such a bias from the seam, so the replay <i>imprints</i> it. With a 0.05 mm angle-locked bias the residual RMS goes from 0.007 to 0.036 mm at 36 samples [calc/seam_signature.py]. <b>Repair:</b> check with a second, unlike sensor, or with a witness pass. <b>Left uncertain:</b> whether real sensors show angle-locked bias.</li>' +
+        '<li><b>Conflict:</b> the tube heats during the weld and moves; the cold dry rotation cannot see that. <b>Assumption:</b> the seam does not move once welding starts. <b>What the scene shows:</b> use the drift slider: a 0.10 mm drift over the lap leaves 0.061 mm RMS even with a good fit [calc]. <b>Repair:</b> the replay carries the repeatable part; a feeler or camera closes the loop on the rest (see the follower scene). <b>Left uncertain:</b> the size of thermal drift [unknown].</li>' +
+        '<li><b>Conflict:</b> the signature is stale if the tube is re-seated or the tacks pull the plate after the dry rotation. <b>Assumption:</b> same tube, same seat. <b>What the scene does:</b> changing any tube parameter clears the recorded signature, as a new tube would. <b>Repair:</b> record after tacking; the sequence already turns the tube once dry to prove continuity [repo], so the extra rotation may cost nothing. <b>Left uncertain:</b> whether continuity proof and recording can share a rotation.</li>' +
+        '<li><b>Conflict:</b> the replay trusts the step count as the angle. <b>Assumption:</b> no lost steps or belt slip between the two rotations. <b>Left uncertain:</b> the table has no encoder; an index mark read once per turn would check it.</li>' +
+        '<li><b>Conflict:</b> the stage runs out of stroke if the coarse aim is poor. <b>What the scene shows:</b> a red LIMIT badge and the stage stops at its limit; what is beyond it is left in the error. <b>Repair:</b> the dry rotation already reports the constant offset, so the coarse aim can be corrected by hand before the weld rotation.</li>' +
+        '</ul>' +
+        '<p><b>From travel&rsquo;s exchange (wave 3)</b> [<code>exchange/travel--on--datum-w2.md</code> section 2, <code>scenes/travel-18-signature-parity</code>]:</p><ul>' +
+        '<li><b>Conflict:</b> the replay applies the dry turn&rsquo;s constant term to a gun that has to be in the same place in the weld turn, and the scene said the hold was &ldquo;not addressed&rdquo;. <b>Assumption:</b> the gun does not move between the turns. <b>What the scene now shows</b> (<i>What holds the gun</i>): the feeder starting, the gas pressurising, the hand leaving and the fibre emitting are changes of force; the gun moves by that times the compliance of the chain to the room: 6 &micro;m/N for a 20 mm steel post at 300 mm, 44 for a 12 mm steel rod, 128 for 12 mm aluminium. One newton against the rod is 0.044 mm, twice the fit residual, the same sign every lap; a friction joint also creeps regardless of force (0.02&deg; at 250 mm is 0.087 mm). <b>Change:</b> record the dry turn in the weld&rsquo;s mechanical state (feeder jogging at weld speed, gas on, laser off): the two turns&rsquo; constants differ by exactly the parity term and the replay uses the second. It is the first thing the routine does. <b>Left uncertain:</b> what only an emitting head does (its vibration motor, heat), the real change of force, hot drift.</li>' +
+        '<li><b>Which axes.</b> With the crown there is no radial slide, so in the crown branch the replay drives <i>height only</i> (the crown&rsquo;s vertical stage); the radial 1x is what the nest screws, the seat or the head&rsquo;s own beam-centre adjustment would take, if the laser lets software command it [unknown]. A follow stage <i>under the work</i> takes the constants out of the gun&rsquo;s chain altogether (<code>travel-02</code>); a stage in the shell is in series with the hold and adds to it (20 N/mm adds 0.05 mm per newton).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Which sensor supplies the numbers. The branch control only changes illustrative noise and bias; none of the three is designed here.</li>' +
+        '<li>The fine stage is not drawn as hardware. It could be a printed flexure or a small lead-screw stage in the shell, or the head&rsquo;s own left/right beam-centre adjustment if the laser unit lets software command it at run time [unknown; manual pp. 25, 39].</li>' +
+        '<li>Vertical fine motion changes standoff slightly; nothing here checks what that does to the melt.</li>' +
+        '<li><b>Question for Derek:</b> what accuracy does the dot need against the corner for a good bead? The window slider is a placeholder; every conclusion here moves with it.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Runout acceptance limits: radial 0.25 mm TIR, face 0.30 mm TIR [repo]; the scene uses them as the default 1&times; amplitudes (half of TIR). Ovality (2&times;) 0.05 mm, waviness 0.6 of that: <b>illustrative</b>.</li>' +
+        '<li>Setup offsets (0.20 mm radial, &minus;0.15 mm vertical), sensor noise, bias, sample count, stage stroke, drift, window: all <b>illustrative</b>. The three sensor presets only set noise and bias to plausible-looking values; they are not measurements of any product.</li>' +
+        '<li>Speed: 5&ndash;15 mm/s at the bead is 0.77&ndash;2.3 rpm [repo]; 8 mm/s is 7.4&deg;/s. The time-lapse control speeds the animation only.</li>' +
+        '<li>Plan view: eccentricity is drawn exaggerated (display only). The grey dashed curve is the scene&rsquo;s hidden truth, which no sensor sees.</li>' +
+        '<li><b>Models:</b> the harmonic seam, noisy sampling, least-squares fit, replay through a limited stage, drift, the window statistics. <b>Depicts only:</b> the gun bar, the tube outline.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ------------------------------------------------------------------ model
+  const P = { ecc: 0.25, face: 0.30, oval: 0.05, offR: 0.20, offZ: -0.15, noise: 0.05, bias: 0, N: 24, drift: 0, stroke: 0.5, win: 0.30, harm: 2, exag: 150,
+    mode: 'weld', theta: 0, run: false, tl: 6, sensor: 'camera', hold: 'rod', dF: 1.0, wstate: false };
+  const HOLDS = { post: 6, rod: 44, alu: 128 };     // micrometres of gun motion per newton of change of force: 20 mm steel post 300 mm, 12 mm steel rod, 12 mm aluminium rod (travel/calc/06, handbook beam formulas)
+  const parR = () => P.dF * HOLDS[P.hold] / 1000, parZ = () => 0.5 * parR();   // what the hold does between the dry turn and the weld turn: change of force x compliance
+  const seedRef = { n: 1 };
+  const SENSORS = {
+    camera:    { noise: 0.05, bias: 0.03, label: 'Camera on the dot and corner', status: 'partly', note: 'sees the dot and the corner; blocked when gun or wire is in the way; illustrative noise' },
+    feeler:    { noise: 0.02, bias: 0.01, label: 'Feeler riding in the corner', status: 'seen', note: 'touches the corner itself; tacks add spikes; illustrative noise' },
+    indicator: { noise: 0.01, bias: 0.06, label: 'Indicators on the OD near the rim and on the plate face', status: 'partly', note: 'precise but measures neighbours of the corner (wall thickness, rim against plate); the difference acts as a bias' },
+  };
+  const eR = th => P.offR + (P.ecc / 2) * Math.cos(th - 0.7) + P.oval * Math.cos(2 * th - 2.0);
+  const eZ = th => P.offZ + (P.face / 2) * Math.cos(th - 2.2) + P.oval * 0.6 * Math.cos(2 * th - 0.4);
+  const biasR = th => P.bias * Math.cos(th - 1.0), biasZ = th => P.bias * Math.cos(th - 2.5);
+  const drift = th => P.drift * (th / TAU);
+
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+
+  // least squares with normal equations (<= 5 unknowns)
+  function lsq(A, y) {
+    const n = A[0].length, M = Array.from({ length: n }, () => new Array(n + 1).fill(0));
+    for (let r = 0; r < A.length; r++) for (let i = 0; i < n; i++) { for (let j = 0; j < n; j++) M[i][j] += A[r][i] * A[r][j]; M[i][n] += A[r][i] * y[r]; }
+    for (let i = 0; i < n; i++) {
+      let p = i; for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[p][i])) p = r;
+      if (Math.abs(M[p][i]) < 1e-12) return null;
+      [M[i], M[p]] = [M[p], M[i]];
+      for (let r = 0; r < n; r++) if (r !== i) { const f = M[r][i] / M[i][i]; for (let c = i; c <= n; c++) M[r][c] -= f * M[i][c]; }
+    }
+    return M.map((row, i) => row[n] / row[i]);
+  }
+  const row = (th, H) => { const a = [1]; for (let h = 1; h <= H; h++) a.push(Math.cos(h * th), Math.sin(h * th)); return a; };
+  const evalFit = (c, th) => { if (!c) return 0; const H = (c.length - 1) / 2; let s = 0; const a = row(th, H); for (let i = 0; i < c.length; i++) s += c[i] * a[i]; return s; };
+
+  const sig = { th: [], mr: [], mz: [], cr: null, cz: null, n: 0 };
+  function refit() {
+    const H = P.harm, n = sig.th.length;
+    if (n < 2 * H + 1) { sig.cr = sig.cz = null; return; }
+    const A = sig.th.map(t => row(t, H));
+    sig.cr = lsq(A, sig.mr); sig.cz = lsq(A, sig.mz);
+  }
+  function addSample(k) {
+    const th = TAU * k / P.N, r = rng(seedRef.n * 100003 + k * 7919);
+    sig.th.push(th);
+    sig.mr.push(eR(th) + biasR(th) + (P.wstate ? parR() : 0) + P.noise * gauss(r));
+    sig.mz.push(eZ(th) + biasZ(th) + (P.wstate ? parZ() : 0) + P.noise * gauss(r));
+    sig.k = (sig.k || []); sig.k.push(k);
+  }
+  function clearSig() { sig.th = []; sig.mr = []; sig.mz = []; sig.k = []; sig.cr = sig.cz = null; }
+  function recordFull() { clearSig(); seedRef.n++; for (let k = 0; k < P.N; k++) addSample(k); refit(); }
+
+  // stage position (replay) and what is left at a table angle
+  const clamp = (v, a) => Math.max(-a, Math.min(a, v));
+  const stageR = th => (P.mode === 'weld' && sig.cr) ? clamp(evalFit(sig.cr, th), P.stroke) : 0;
+  const stageZ = th => (P.mode === 'weld' && sig.cz) ? clamp(evalFit(sig.cz, th), P.stroke) : 0;
+  const rawFitR = th => sig.cr ? evalFit(sig.cr, th) : 0, rawFitZ = th => sig.cz ? evalFit(sig.cz, th) : 0;
+  const hotR = th => eR(th) + (P.mode === 'weld' ? drift(th) + parR() : 0), hotZ = th => eZ(th) + (P.mode === 'weld' ? drift(th) + parZ() : 0);
+  const leftR = th => hotR(th) - stageR(th), leftZ = th => hotZ(th) - stageZ(th);
+
+  function stats() {
+    const n = 360, o = { in0: 0, in1: 0, rms0: 0, rms1: 0, minSR: 1e9, maxSR: -1e9, minSZ: 1e9, maxSZ: -1e9, lim: false };
+    for (let i = 0; i < n; i++) {
+      const th = TAU * i / n;
+      const r0 = hotR(th), z0 = hotZ(th), r1 = leftR(th), z1 = leftZ(th);
+      if (Math.abs(r0) <= P.win && Math.abs(z0) <= P.win) o.in0++;
+      if (Math.abs(r1) <= P.win && Math.abs(z1) <= P.win) o.in1++;
+      o.rms0 += r0 * r0 + z0 * z0; o.rms1 += r1 * r1 + z1 * z1;
+      const sr = stageR(th), sz = stageZ(th);
+      o.minSR = Math.min(o.minSR, sr); o.maxSR = Math.max(o.maxSR, sr); o.minSZ = Math.min(o.minSZ, sz); o.maxSZ = Math.max(o.maxSZ, sz);
+      if (sig.cr && (Math.abs(rawFitR(th)) > P.stroke || Math.abs(rawFitZ(th)) > P.stroke)) o.lim = true;
+    }
+    o.in0 /= n; o.in1 /= n; o.rms0 = Math.sqrt(o.rms0 / n); o.rms1 = Math.sqrt(o.rms1 / n);
+    return o;
+  }
+
+  // ------------------------------------------------------------------ svg
+  const W = 980, H = 660;
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'ss', role: 'img', 'aria-label': 'Plan view of the eccentric seam, traces of dot-versus-seam against table angle, and the corner cross-section', style: 'display:block;margin:0 auto;width:100%;height:100%;max-height:100%', preserveAspectRatio: 'xMidYMid meet' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const path = (pts, attrs) => S('polyline', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none' }, attrs));
+
+  // trace plots
+  const PX0 = 372, PX1 = 962, PW = PX1 - PX0, YS = 98;   // px per mm on the traces
+  const px = th => PX0 + (th / TAU) * PW;
+  function drawTrace(yc, title, kind) {
+    const g = S('g'); const f = kind === 'r' ? eR : eZ, hot = kind === 'r' ? hotR : hotZ, fitf = kind === 'r' ? rawFitR : rawFitZ, stf = kind === 'r' ? stageR : stageZ, left = kind === 'r' ? leftR : leftZ;
+    const py = v => yc - Math.max(-0.66, Math.min(0.66, v)) * YS;
+    g.append(S('rect', { x: PX0, y: yc - 0.66 * YS, width: PW, height: 1.32 * YS, fill: '#10161e', stroke: '#2a3341' }));
+    g.append(S('rect', { x: PX0, y: py(P.win), width: PW, height: 2 * P.win * YS, fill: hex('locate'), opacity: 0.10 }));
+    [-0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6].forEach(v => { g.append(S('line', { x1: PX0, y1: py(v), x2: PX1, y2: py(v), stroke: v === 0 ? '#3b4658' : '#1f2733' })); g.append(T(PX0 - 5, py(v) + 3, v.toFixed(1), 'tf', 'end')); });
+    [0, 90, 180, 270, 360].forEach(a => { g.append(S('line', { x1: px(a * DEG), y1: yc - 0.66 * YS, x2: px(a * DEG), y2: yc + 0.66 * YS, stroke: '#1f2733' })); g.append(T(px(a * DEG), yc + 0.66 * YS + 12, String(a), 'tf', 'middle')); });
+    g.append(T(PX0, yc - 0.66 * YS - 6, title, 'tb'));
+    // truth (hidden) and hot truth
+    const N = 240, ptsT = [], ptsH = [], ptsF = [], ptsS = [], ptsL = [];
+    for (let i = 0; i <= N; i++) { const th = TAU * i / N; ptsT.push([px(th), py(f(th))]); ptsH.push([px(th), py(hot(th))]); ptsF.push([px(th), py(fitf(th))]); ptsL.push([px(th), py(left(th))]); }
+    g.append(path(ptsT, { stroke: '#94a3b8', 'stroke-width': 1.3, 'stroke-dasharray': '5 4', opacity: 0.85 }));
+    if (P.mode === 'weld' && P.drift > 0) g.append(path(ptsH, { stroke: hex('load'), 'stroke-width': 1.3, 'stroke-dasharray': '2 3' }));
+    if (sig.cr) g.append(path(ptsF, { stroke: hex('locate'), 'stroke-width': 1.8 }));
+    if (P.mode === 'weld' && sig.cr) g.append(path(ptsL, { stroke: hex('actuated'), 'stroke-width': 2.4 }));
+    // stroke limits
+    g.append(S('line', { x1: PX0, y1: py(P.stroke), x2: PX1, y2: py(P.stroke), stroke: hex('actuated'), 'stroke-dasharray': '1 3', opacity: 0.6 }));
+    g.append(S('line', { x1: PX0, y1: py(-P.stroke), x2: PX1, y2: py(-P.stroke), stroke: hex('actuated'), 'stroke-dasharray': '1 3', opacity: 0.6 }));
+    g.append(T(PX1 - 4, py(P.stroke) - 3, 'stage limit ±' + P.stroke.toFixed(2), 'tp', 'end'));
+    // measured samples
+    const ys = kind === 'r' ? sig.mr : sig.mz;
+    sig.th.forEach((th, i) => g.append(S('circle', { cx: px(th), cy: py(ys[i]), r: 3, fill: hex('sensor'), stroke: '#0e1218', 'stroke-width': 0.8 })));
+    // cursor
+    const th0 = ((P.theta % 360) * DEG + TAU) % TAU;
+    g.append(S('line', { x1: px(th0), y1: yc - 0.66 * YS, x2: px(th0), y2: yc + 0.66 * YS, stroke: '#f472b6', 'stroke-width': 1.3 }));
+    g.append(T(PX0 - 5, yc + 0.66 * YS + 12, 'table °', 'tf', 'end'));
+    return g;
+  }
+
+  function drawPlan() {
+    const g = S('g'), cx = 152, cy = 268, R = 96;
+    g.append(T(12, 96, 'Plan view from above', 'tb'));
+    g.append(T(12, 110, 'eccentricity exaggerated ×' + P.exag + ' (display only)', 'tf'));
+    const th = P.theta * DEG;
+    const kpx = R / 61.85, kx = -(P.ecc / 2) * P.exag * kpx * Math.cos(th - 0.7), ky = (P.ecc / 2) * P.exag * kpx * Math.sin(th - 0.7);
+    // nominal circle
+    g.append(S('circle', { cx: cx, cy: cy, r: R, fill: 'none', stroke: '#475569', 'stroke-dasharray': '4 4' }));
+    // actual seam circle (displaced by the eccentricity vector; tube outline)
+    g.append(S('circle', { cx: cx + kx, cy: cy + ky, r: R + 9, fill: '#1b222c', stroke: hex('work'), 'stroke-width': 3 }));
+    g.append(S('circle', { cx: cx + kx, cy: cy + ky, r: R, fill: '#232c38', stroke: hex('locate'), 'stroke-width': 2.2 }));
+    // index tick on the tube (rotates with the table)
+    const ia = (160 * DEG) + th;   // table index at 160 deg
+    g.append(S('line', { x1: cx + kx + Math.cos(-ia) * (R - 18), y1: cy + ky + Math.sin(-ia) * (R - 18), x2: cx + kx + Math.cos(-ia) * (R + 9), y2: cy + ky + Math.sin(-ia) * (R + 9), stroke: '#f472b6', 'stroke-width': 3 }));
+    // ports (rotate with the table)
+    [-1, 1].forEach(s => { const a = th + 0.0; const ox = 19.05 / 61.85 * R * s; g.append(S('circle', { cx: cx + kx + Math.cos(-a) * ox, cy: cy + ky + Math.sin(-a) * ox, r: 5, fill: '#0e1218', stroke: '#64748b' })); });
+    // station: dot at +X, tangent gun bar
+    g.append(S('line', { x1: cx + R + 26, y1: cy - 12, x2: cx + R + 4, y2: cy - 2, stroke: hex('gun'), 'stroke-width': 1 }));
+    g.append(S('line', { x1: cx + R, y1: cy, x2: cx + R + 4, y2: cy - 150, stroke: hex('gun'), 'stroke-width': 9, 'stroke-linecap': 'round', opacity: 0.85 }));
+    g.append(S('circle', { cx: cx + R, cy: cy, r: 4.5, fill: hex('laser'), stroke: '#0e1218' }));
+    g.append(T(cx + R - 6, cy + 20, 'dot (fixed)', 'tr', 'end'));
+    g.append(T(cx + R + 12, cy - 70, 'gun, tangent', 'tm'));
+    g.append(T(cx, cy + R + 44, 'time-lapse \u00d7' + P.tl + ' when turning (animation only)', 'tf', 'middle'));
+    g.append(T(cx, cy + R + 30, 'table angle ' + (((P.theta % 360) + 360) % 360).toFixed(1) + '°', 'tb', 'middle'));
+    return g;
+  }
+
+  function drawCross(st) {
+    const g = S('g'), cx = 118, cy = 552, K = 118;   // px per mm
+    g.append(T(12, 452, 'Corner cross-section at the dot', 'tb'));
+    g.append(T(12, 466, 'x: radial, into the wall →   y: height above the plate', 'tf'));
+    const x0 = 12, x1 = 322, y0 = 472, y1 = 652;
+    g.append(S('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: '#10161e', stroke: '#2a3341' }));
+    g.append(S('rect', { x: cx, y: y0, width: x1 - cx, height: cy - y0, fill: hex('work'), opacity: 0.30 }));      // wall (right), above the plate line
+    g.append(S('rect', { x: x0, y: cy, width: cx - x0, height: y1 - cy, fill: hex('work'), opacity: 0.42 }));       // plate (left, below)
+    g.append(S('rect', { x: cx, y: cy, width: x1 - cx, height: y1 - cy, fill: hex('work'), opacity: 0.30 }));      // wall continues below the plate line
+    g.append(S('rect', { x: cx - P.win * K, y: cy - P.win * K, width: 2 * P.win * K, height: 2 * P.win * K, rx: 3, fill: 'none', stroke: hex('locate'), 'stroke-dasharray': '4 3' }));
+    g.append(T(cx - P.win * K, cy - P.win * K - 4, 'window ±' + P.win.toFixed(2), 'tt'));
+    const pt = (r, z) => [Math.max(x0 + 6, Math.min(x1 - 6, cx + r * K)), Math.max(y0 + 6, Math.min(y1 - 6, cy - z * K))];
+    const th = ((P.theta % 360) * DEG + TAU) % TAU;
+    const a = pt(hotR(th), hotZ(th));
+    g.append(S('circle', { cx: a[0], cy: a[1], r: 6, fill: 'none', stroke: '#e2e8f0', 'stroke-width': 1.8 }));
+    if (P.mode === 'weld' && sig.cr) {
+      const b = pt(leftR(th), leftZ(th));
+      g.append(S('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: hex('actuated'), 'stroke-dasharray': '2 2' }));
+      g.append(S('circle', { cx: b[0], cy: b[1], r: 5.5, fill: hex('actuated'), stroke: '#0e1218' }));
+    }
+    g.append(S('circle', { cx: cx, cy: cy, r: 3, fill: hex('locate') }));
+    g.append(S('circle', { cx: x0 + 176, cy: y0 + 14, r: 5, fill: 'none', stroke: '#e2e8f0', 'stroke-width': 1.8 })); g.append(T(x0 + 186, y0 + 18, 'dot as-is', 'tm'));
+    g.append(S('circle', { cx: x0 + 176, cy: y0 + 30, r: 5, fill: hex('actuated') })); g.append(T(x0 + 186, y0 + 34, 'dot with replay', 'tp'));
+    g.append(S('circle', { cx: x0 + 176, cy: y0 + 46, r: 3, fill: hex('locate') })); g.append(T(x0 + 186, y0 + 50, 'corner', 'tt'));
+    return g;
+  }
+
+  function drawStats(st) {
+    const g = S('g'), x = 372, y = 452;
+    g.append(T(x, y, 'One lap, dot inside the window (radial and height together)', 'tb'));
+    const bar = (yy, label, frac, col, extra) => {
+      g.append(T(x, yy + 11, label, 'tm'));
+      g.append(S('rect', { x: x + 200, y: yy, width: 300, height: 13, rx: 3, fill: '#10161e', stroke: '#2a3341' }));
+      g.append(S('rect', { x: x + 200, y: yy, width: 300 * frac, height: 13, rx: 3, fill: col }));
+      g.append(T(x + 508, yy + 11, extra, 'tm'));
+    };
+    bar(y + 12, 'welded as-is', st.in0, hex('load'), (st.in0 * 100).toFixed(0) + '%   RMS ' + st.rms0.toFixed(2) + ' mm');
+    const have = P.mode === 'weld' && sig.cr;
+    bar(y + 34, 'with the replayed signature', have ? st.in1 : 0, hex('actuated'), have ? (st.in1 * 100).toFixed(0) + '%   RMS ' + st.rms1.toFixed(2) + ' mm' : (P.mode === 'dry' ? 'dry rotation: recording' : 'no signature yet'));
+    // stage use bars
+    g.append(T(x, y + 76, 'Fine stage (proposed actuator): position used over the lap', 'tb'));
+    const sb = (yy, label, mn, mx, cur) => {
+      g.append(T(x, yy + 11, label, 'tm'));
+      const x0 = x + 200, w = 300, mid = x0 + w / 2, sc = (w / 2) / Math.max(P.stroke, 0.05);
+      g.append(S('rect', { x: x0, y: yy, width: w, height: 13, rx: 3, fill: '#10161e', stroke: st.lim ? '#f87171' : '#2a3341' }));
+      g.append(S('line', { x1: mid, y1: yy - 2, x2: mid, y2: yy + 15, stroke: '#3b4658' }));
+      if (mx >= mn && mx > -1e8) g.append(S('rect', { x: mid + mn * sc, y: yy + 2, width: Math.max(1, (mx - mn) * sc), height: 9, rx: 2, fill: hex('actuated'), opacity: 0.45 }));
+      if (cur != null) g.append(S('rect', { x: mid + cur * sc - 2, y: yy - 1, width: 4, height: 15, fill: hex('actuated') }));
+      g.append(T(x0 + w + 8, yy + 11, '±' + P.stroke.toFixed(2) + ' limit', 'tf'));
+    };
+    const cur = ((P.theta % 360) * DEG + TAU) % TAU;
+    sb(y + 88, 'radial axis', st.minSR, st.maxSR, have ? stageR(cur) : null);
+    sb(y + 110, 'height axis', st.minSZ, st.maxSZ, have ? stageZ(cur) : null);
+    // signature info
+    const n = sig.th.length, H = P.harm;
+    const coefR = sig.cr, coefZ = sig.cz;
+    const amp = (c, h) => c ? Math.hypot(c[2 * h - 1], c[2 * h]) : 0;
+    g.append(T(x, y + 152, 'Signature: ' + n + ' samples, ' + H + ' harmonic' + (H > 1 ? 's' : '') + (sig.cr ? '' : '   (need at least ' + (2 * H + 1) + ')'), 'tb'));
+    if (coefR) {
+      g.append(T(x, y + 168, 'radial: setup offset ' + coefR[0].toFixed(2) + ', 1× ' + amp(coefR, 1).toFixed(2) + (H > 1 ? ', 2× ' + amp(coefR, 2).toFixed(2) : '') + '  mm', 'ts'));
+      g.append(T(x, y + 184, 'height: setup offset ' + coefZ[0].toFixed(2) + ', 1× ' + amp(coefZ, 1).toFixed(2) + (H > 1 ? ', 2× ' + amp(coefZ, 2).toFixed(2) : '') + '  mm', 'ts'));
+      g.append(T(x + 330, y + 168, 'scene truth: ' + P.offR.toFixed(2) + ', ' + (P.ecc / 2).toFixed(2) + ', ' + P.oval.toFixed(2), 'tf'));
+      g.append(T(x + 330, y + 184, 'scene truth: ' + P.offZ.toFixed(2) + ', ' + (P.face / 2).toFixed(2) + ', ' + (P.oval * 0.6).toFixed(2), 'tf'));
+    }
+    return g;
+  }
+
+  function legend() {
+    const g = S('g'), y = 88;
+    [['#94a3b8', 'scene truth (hidden from software)', '5 4'], [hex('sensor'), 'sensor samples (dry rotation)', null], [hex('locate'), 'fitted signature', null], [hex('actuated'), 'left after replay', null]].forEach((it, i) => {
+      const x = PX0 + [0, 215, 410, 535][i];
+      if (it[2]) g.append(S('line', { x1: x, y1: y - 3, x2: x + 18, y2: y - 3, stroke: it[0], 'stroke-width': 1.5, 'stroke-dasharray': it[2] }));
+      else if (i === 1) g.append(S('circle', { cx: x + 6, cy: y - 3, r: 3, fill: it[0] }));
+      else g.append(S('line', { x1: x, y1: y - 3, x2: x + 18, y2: y - 3, stroke: it[0], 'stroke-width': 2.4 }));
+      g.append(T(x + 22, y, it[1], 'tm'));
+    });
+    return g;
+  }
+
+  function updateIO(st) {
+    const sn = SENSORS[P.sensor], par = parR();
+    const th = ((P.theta % 360) + 360) % 360;
+    app.io.set({
+      commands: [
+        { name: 'Table angle', value: th.toFixed(1), unit: '°', note: 'existing rotator; step count is the angle (0.025° per step [repo])' },
+        { name: 'Fine stage radial', value: (P.mode === 'weld' && sig.cr ? stageR(th * DEG) : 0).toFixed(3), unit: 'mm', note: 'proposed actuator; replays the fit' },
+        { name: 'Fine stage height', value: (P.mode === 'weld' && sig.cz ? stageZ(th * DEG) : 0).toFixed(3), unit: 'mm', note: 'proposed actuator; replays the fit' },
+      ],
+      observes: [
+        { name: 'Table angle', value: th.toFixed(1), unit: '°', status: 'seen', note: 'from the step count; no encoder, so lost steps are not seen' },
+        { name: 'Dot versus seam (dry rotation)', value: sig.th.length + ' samples', status: sn.status, note: sn.note },
+        { name: 'Signature constant term', value: sig.cr ? sig.cr[0].toFixed(2) + ', ' + sig.cz[0].toFixed(2) : '-', unit: sig.cr ? 'mm r, z' : '', status: sig.cr ? 'partly' : 'unresolved', note: 'the setup error: use it to correct the coarse aim' },
+        { name: 'Hold between the two turns', value: (par * 1000).toFixed(0) + ' µm', unit: '', status: P.wstate ? 'partly' : 'blind', note: P.wstate ? 'the dry turn was taken in the weld state, so its constant already contains it; what only an emitting head does is still unseen' : 'change of force x compliance: nothing sees it unless the dry turn is repeated in the weld\'s mechanical state' },
+        { name: 'Hot drift during the weld', value: '-', status: 'blind', note: 'the cold dry rotation cannot see it' },
+        { name: 'Dot versus melt', value: '?', status: 'unresolved', note: 'not a seam-signature quantity [unknown]' },
+      ],
+      manual: ['Coarse aim of the gun so the dot is inside the stage stroke', 'What holds the gun (the friction arm, a rod or the hand) and its setting', 'Return the index to the first tack before both rotations', 'Re-record after any re-seating or extra tack'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    const st = stats();
+    gDyn.append(drawPlan(), legend(), drawTrace(200, 'Radial: dot minus seam, mm (+ = into the wall)', 'r'), drawTrace(366, 'Height: dot minus corner plane, mm (+ = above the plate)', 'z'), drawCross(st), drawStats(st));
+    // stage badges
+    const par = parR();
+    app.badge('parity', P.mode === 'weld' && !P.wstate && par > 0.02 ? 'the hold moves ' + par.toFixed(3) + ' mm between the dry turn and the weld turn (change of force x compliance): the replay starts off by it; record the dry turn in the weld\'s state' : null, 'warn');
+    app.badge('lim', P.mode === 'weld' && st.lim ? 'stage stroke ±' + P.stroke.toFixed(2) + ' mm is not enough for this signature; the stage stops at its limit' : null, 'limit');
+    app.badge('sig', P.mode === 'weld' && !sig.cr ? 'no signature yet: run a dry rotation or press Record' : (P.mode === 'weld' && sig.th.length < P.N ? 'partial signature: ' + sig.th.length + ' of ' + P.N + ' samples; the fit extrapolates' : null), 'warn');
+    updateIO(st);
+  }
+
+  // ------------------------------------------------------------------ controls
+  let lastK = -1;
+  function stepTo(newTheta) {
+    // when recording during a dry rotation, add samples passed by the table
+    const old = P.theta; P.theta = newTheta;
+    if (P.mode === 'dry') {
+      const a0 = old / 360 * P.N, a1 = newTheta / 360 * P.N;
+      if (newTheta >= old) for (let k = Math.ceil(a0 - 1e-9); k < a1 + 1e-9 && k < P.N; k++) { if (sig.k.indexOf(k) < 0) addSample(k); }
+      refit();
+    }
+  }
+  app.ui.radio({ id: 'mode', label: 'Rotation', options: [{ value: 'dry', label: 'Dry rotation: record', help: 'Laser off. The sensor logs dot versus seam as the table passes each sample angle.' }, { value: 'weld', label: 'Weld rotation: replay', help: 'The fine stage replays the fit against the table angle.' }], value: 'weld', kind: 'state',
+    onChange: v => { P.mode = v; if (v === 'dry') clearSig(); render(); } });
+  app.ui.slider({ id: 'theta', label: 'Table angle', min: 0, max: 360, step: 0.5, value: 0, unit: '°', kind: 'actuator', visual: 'the pink index tick on the tube and the cursor on the traces',
+    help: 'The existing rotator (software already commands it). In a dry rotation, passing a sample angle records a sample.', onChange: v => { stepTo(v); render(); } });
+  app.ui.toggle({ id: 'run', label: 'Turn the table', value: false, kind: 'state', noVisual: true, help: 'Runs at the 8 mm/s bead speed (7.4°/s) times the time-lapse.', onChange: v => { P.run = v; app.invalidate(); } });
+  app.ui.slider({ id: 'tl', label: 'Time-lapse', min: 1, max: 20, step: 1, value: 6, unit: '×', kind: 'view', noVisual: true, help: 'Animation speed only.', onChange: v => { P.tl = v; } });
+  app.ui.button({ id: 'record', label: 'Record a full dry rotation now', kind: 'state', onClick: () => { recordFull(); render(); } });
+  app.ui.button({ id: 'clear', label: 'Clear the signature', kind: 'state', onClick: () => { clearSig(); render(); } });
+
+  const gt = app.ui.group('The tube (scene edits: changing any clears the signature)', { open: true });
+  const tubeChanged = () => { clearSig(); render(); };
+  gt.slider({ id: 'ecc', label: 'Radial runout (TIR)', min: 0, max: 0.6, step: 0.01, value: 0.25, unit: 'mm', kind: 'scene', help: 'Rig acceptance limit is 0.25 mm [repo].', onChange: v => { P.ecc = v; tubeChanged(); } });
+  gt.slider({ id: 'face', label: 'Face runout (TIR)', min: 0, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'Rig acceptance limit is 0.30 mm [repo].', onChange: v => { P.face = v; tubeChanged(); } });
+  gt.slider({ id: 'oval', label: 'Ovality / waviness (2× per turn)', min: 0, max: 0.15, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'Illustrative. The rig doc says the tube may be slightly oval [repo].', onChange: v => { P.oval = v; tubeChanged(); } });
+  gt.slider({ id: 'offR', label: 'Setup offset, radial', min: -0.6, max: 0.6, step: 0.01, value: 0.20, unit: 'mm', kind: 'scene', help: 'Where the coarse aim left the dot against the seam. Illustrative.', onChange: v => { P.offR = v; tubeChanged(); } });
+  gt.slider({ id: 'offZ', label: 'Setup offset, height', min: -0.6, max: 0.6, step: 0.01, value: -0.15, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.offZ = v; tubeChanged(); } });
+
+  const gs = app.ui.group('Sensor and fit (scene edits)', { open: true });
+  gs.radio({ id: 'sensor', label: 'Sensor for the dry rotation', options: [{ value: 'camera', label: 'Camera', help: SENSORS.camera.label + ': illustrative noise 0.05, bias 0.03 mm' }, { value: 'feeler', label: 'Feeler', help: SENSORS.feeler.label + ': illustrative noise 0.02, bias 0.01 mm' }, { value: 'indicator', label: 'Indicators', help: SENSORS.indicator.label + ': noise 0.01, bias 0.06 mm (measures neighbours of the corner)' }], value: 'camera', kind: 'branch',
+    onChange: v => { P.sensor = v; app.ui.set('noise', SENSORS[v].noise); app.ui.set('bias', SENSORS[v].bias); } });
+  gs.slider({ id: 'noise', label: 'Sensor noise (1 sigma)', min: 0, max: 0.15, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.noise = v; clearSig(); if (P.mode === 'weld') recordFull(); render(); } });
+  gs.slider({ id: 'bias', label: 'Sensor error that repeats with table angle', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'The fit cannot tell it from the seam. Illustrative.', onChange: v => { P.bias = v; clearSig(); if (P.mode === 'weld') recordFull(); render(); } });
+  gs.slider({ id: 'N', label: 'Samples per rotation', min: 6, max: 72, step: 1, value: 24, kind: 'scene', help: 'The table can be stopped or sampled at any angle; 0.025° per step [repo].', onChange: v => { P.N = v; clearSig(); if (P.mode === 'weld') recordFull(); render(); } });
+  gs.radio({ id: 'harm', label: 'Harmonics in the fit', options: [{ value: 1, label: '1 (centre + tilt)' }, { value: 2, label: '2 (+ ovality)' }], value: 2, kind: 'branch', help: 'With 1 harmonic the 2× part is left in the error.', onChange: v => { P.harm = +v; refit(); render(); } });
+
+  const gh = app.ui.group('What holds the gun between the two turns (scene edits)', { open: true, help: 'The dry turn measures the seam with the gun where it is. When the weld starts the wire feeder pulls on its conduit, the gas hose pressurises, the hand leaves, the fibre emits: each is a change of force, and the gun moves by force times the compliance of the chain to the room (travel-18).' });
+  gh.radio({ id: 'hold', label: 'Hold, gun to room', options: [{ value: 'post', label: 'Stiff post', help: '20 mm steel, 300 mm: 6 micrometres per newton.' }, { value: 'rod', label: '12 mm steel rod', help: '44 micrometres per newton.' }, { value: 'alu', label: '12 mm aluminium rod', help: '128 micrometres per newton.' }], value: 'rod', kind: 'branch', visual: 'the left-after-replay trace: a constant offset', onChange: v => { P.hold = v; render(); } });
+  gh.slider({ id: 'dF', label: 'Change of force between the turns', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', visual: 'the left-after-replay trace: a constant offset', help: '[unknown]: the feeder, the gas, the hand, the emitting head. A friction joint also creeps (0.02° at 250 mm is 0.087 mm) whatever the force.', onChange: v => { P.dF = v; render(); } });
+  gh.toggle({ id: 'wstate', label: 'Record the dry turn in the weld\'s mechanical state', value: false, kind: 'branch', visual: 'the left-after-replay trace: the constant offset goes away', help: 'Feeder jogging at weld speed, gas on, laser off (use-10-wire-first, applied as a check). The two turns\' constants then differ by exactly the parity term and the replay uses the second.', onChange: v => { P.wstate = v; clearSig(); recordFull(); render(); } });
+
+  const gw = app.ui.group('Weld rotation (scene edits)', { open: true });
+  gw.slider({ id: 'drift', label: 'Hot drift over the lap', min: 0, max: 0.3, step: 0.01, value: 0, unit: 'mm', kind: 'scene', help: 'Movement after the dry rotation that the signature cannot know. [unknown] size.', onChange: v => { P.drift = v; render(); } });
+  gw.slider({ id: 'stroke', label: 'Fine stage stroke (each side)', min: 0.1, max: 1, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', visual: 'the stage bars and limit lines', help: 'Illustrative.', onChange: v => { P.stroke = v; render(); } });
+  gw.slider({ id: 'win', label: 'Window to hit (illustrative)', min: 0.05, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'Placeholder for the accuracy the dot needs. Unknown; drag it to see when replay matters.', onChange: v => { P.win = v; render(); } });
+  gw.slider({ id: 'exag', label: 'Plan-view exaggeration', min: 20, max: 300, step: 10, value: 150, unit: '×', kind: 'view', help: 'Display only.', onChange: v => { P.exag = v; render(); } });
+
+  // ------------------------------------------------------------------ animation
+  app.onFrame(function (dt) {
+    if (!P.run) return false;
+    let t = P.theta + 7.4 * P.tl * dt;
+    if (t >= 360) { t = 0; if (P.mode === 'dry' && sig.th.length >= P.N) { /* full rotation recorded */ } }
+    stepTo(t); render();
+    app.ui.set('theta', t, { silent: true });
+    return true;
+  });
+
+  // start with a recorded signature so the first view shows the comparison
+  recordFull();
+})();
+</script>
+</body>
+</html>

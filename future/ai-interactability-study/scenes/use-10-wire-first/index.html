@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wire first: the consumable as the probe</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-wire { display: block; width: 100%; min-width: 760px; max-width: 1500px; }
+  .use-wire text { font: 10.5px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #dbe6ff; }
+  .use-wire .lbl { fill: #98a4b6; }
+  .use-wire .hd { font-weight: 600; letter-spacing: .04em; }
+  .use-wnote { margin-top: 8px; font-size: 12.5px; color: #c7d3e6; line-height: 1.45; }
+  .use-wnote b { color: #fff; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-10-wire-first",
+  "title": "Wire first: the consumable as the probe",
+  "by": "use",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The laser dot says where the beam goes; the wire says where the filler lands, and nothing else in the study watches it. The feeder's jog button advances the wire with the laser off, so a dry run can include the wire: where does its tip land against the dot, is it on the side the seam arrives from, and what does touching metal tell a controller. Plan and section views; change the rotation direction and see the arriving side flip.",
+  "tags": ["wire", "arriving-side", "rotation-direction", "touch-continuity", "dry-run", "sketch"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["dry runs should include the wire", "rotation direction is a campaign state, not a parameter", "touch tells contact, not place"],
+  "how": {
+    "motion": "the wire jogs out and back (feeder button, laser off); the tube turns under the station",
+    "load": "the wire guide rides the gun; the conduit runs beside the umbilical",
+    "reference": "the dot on the seam; the wire tip's landing point against the dot",
+    "observe": "a camera on dot and wire tip; continuity between wire and work lead says touching, nothing more",
+    "use": "the wire part of contact and set-up, and of the dry lap"
+  },
+  "software": {
+    "commands": ["wire jog forward / back (feeder button interface, unknown how to reach)", "rotator (existing)"],
+    "observes": ["wire tip against the dot (camera)", "wire to work-lead continuity"],
+    "manual": ["placing the wire tip on the arriving side", "choosing the rotation direction", "snipping"]
+  },
+  "notes": ["../../explorers/use/ideas/use-10-wire-first.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes'],
+    sections: {
+      proposes:
+        '<p>Two views of the joint at the weld station. <b>Left, plan</b> (from above): the seam runs left to right, the plate is below it, the tube wall above it, the tube turns under the fixed dot. The wire arrives from the gun on the left along the tangent. <b>Right, section</b> across the seam: plate, wall, the beam, and the wire’s tip as a circle where it comes out of the page.</p>' +
+        '<p>Today the operator places the wire on the <i>arriving</i> side of the puddle by eye [repo]. The feeder box has a button that advances the wire and one that retracts it, with the laser off [manual p.18]. A dry run can therefore include the wire: <b>jog it out until it touches</b>, look at where it landed against the dot, and if it is on the wrong side or too far off, that is a pose or guide correction before any bead. The touch itself is one bit: a wire tip on metal closes a circuit with the work lead. It says <i>touching</i>, not <i>where</i>.</p>',
+      carries:
+        '<p>The wire guide is a straight tube on a short leg from the barrel collar, aimed at the dot in the kit proxy; the feeder conduit runs beside the umbilical and is not drawn. What carries the wire’s reaction to the plate: the wire itself is a thin, springy rod, so pushing it against the plate pushes back on the guide and the gun; a 0.030 in wire buckles long before it can push a heavy gun.</p>',
+      software:
+        '<p><b>Commands</b> (unknown how): the feeder’s advance and retract, which are buttons today [manual p.18]; nothing documents how to drive them from software. <b>Observes:</b> a camera on the dot and the wire tip, and continuity between wire and work lead. The touch-off answers whether the wire is on metal; a second contact (an insulated plate) could separate wall from plate but a slip-fit plate touches the bore [repo], so it is not drawn.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Flip the rotation direction.</b> The arriving side flips with it, and the wire is suddenly on the trailing side. The gun (or the guide) must go to the other side of the station: rotation direction is a <b>campaign-level state</b> that sets the pose, not a parameter to change per weld. The repo already sets wire lead and trail only after the direction convention is true [repo].</li>' +
+        '<li><b>Wire pushed against the wall.</b> A tip that lands on the wall side of the corner (positive radial offset here) is inside the wall’s shadow from the beam and buckles; the plate side is where it can land. The wall side is shown as a hard stop.</li>' +
+        '<li><b>Touch is one bit.</b> Continuity cannot say whether the tip is 0.2 mm or 2 mm from the corner. A camera looking across the seam, or the dot itself as a reference, has to supply the where.</li>' +
+        '<li><b>Wire retract on stop.</b> The gun’s own pullback (its settings page) draws the tip away from the puddle after the trigger is released; the dry run can show whether the retract clears the bead. Not a substitute for lifting the head.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>How far the wire tip really lands from the dot in the kit-drawn geometry is a made-up number here: the kit aims the wire at the dot by construction. Nobody has measured a real X1 Pro guide.</li>' +
+        '<li>Whether the feeder’s buttons can be reached from software at all: the manual shows a 6-pin aviation connector with power and signal lines to the feeder (p.16) and no protocol.</li>' +
+        '<li>How the wire lead or trail choice (which side of the puddle) affects the bead is a process question for coupons, not for this sketch.</li>' +
+        '<li>Question for Derek: how do you decide today that the wire is placed well, and how often is it wrong?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Wobble 2 mm wide [repo recipe], wire diameter 0.030 in = 0.76 mm [repo], wire jog buttons [manual p.18], pullback and patch settings [manual p.23].</li>' +
+        '<li>Illustrative: the landing offsets, guide pitch, contact rule (a tip reaching the plane z = 0 or the wall stops), the camera noise, the sign convention for rotation direction.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl;
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const svg = el('svg', { class: 'use-wire', viewBox: '0 0 1120 520', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'wire landing' });
+  const note = WK.h('div', { class: 'use-wnote' });
+  st.appendChild(svg); st.appendChild(note);
+
+  const S = { dir: 'a', yaw: 0, dx: -1.2, dy: -0.4, pitch: 35, feed: 0, hover: 2.0, pull: 0, seed: 0, cam: 0.1 };
+  const g = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const DEG = Math.PI / 180;
+  // frame: x along the seam (+x = the direction the tube surface moves under the dot when dir = 'a'), y radial (+ into the wall), z up. Dot at origin.
+  function wireGeom() {
+    const arrivingX = S.dir === 'a' ? -1 : +1;                     // material arrives from -x when the surface moves +x
+    const sideOk = Math.sign(S.dx) === arrivingX || S.dx === 0;
+    // the wire's line: through the tip target (dx, dy, 0), rising back toward the guide along azimuth (yaw) from the gun side
+    const gunSide = S.dir === 'a' ? -1 : -1;                        // the gun (guide) stays on the -x side in this scene: the point of the flip test
+    const az = S.yaw * DEG, cp = Math.cos(S.pitch * DEG), sp = Math.sin(S.pitch * DEG);
+    const back = [gunSide * cp * Math.cos(az), -cp * Math.sin(az) * 0 + gunSide * cp * Math.sin(az) * 0 + -cp * Math.sin(az), sp];   // unit vector from the tip back toward the guide (x mostly -, y from yaw, z up)
+    const L = 40 + 20;                                                // guide end 60 mm behind the tip (schematic)
+    const guide = [S.dx + back[0] * L, S.dy + back[1] * L, back[2] * L + S.hover];
+    // contact: feed 0..1 along the line from the guide end to the target tip; hover lifts the tip above the plate until fed further
+    return { guide: guide, back: back, arrivingX: arrivingX, sideOk: sideOk };
+  }
+  function tipAt(f, w) {   // point on the line from the guide end toward and past the landing point; contact stops it at the plate (z=0) or the wall (y=0 on the wall side)
+    const tgt = [S.dx, S.dy, 0], d = [tgt[0] - w.guide[0], tgt[1] - w.guide[1], tgt[2] - w.guide[2]];
+    const Lg = Math.hypot(...d), t = Math.min(f * 1.15, 1.15);      // f 0..1: beyond 1 the wire keeps feeding if nothing stops it
+    let p = [w.guide[0] + d[0] * t, w.guide[1] + d[1] * t, w.guide[2] + d[2] * t], contact = null;
+    if (p[2] <= 0) { const k = (0 - w.guide[2]) / d[2]; p = [w.guide[0] + d[0] * k, w.guide[1] + d[1] * k, 0]; contact = 'plate'; }
+    if (p[1] > 0) { const k = (0 - w.guide[1]) / d[1]; if (d[1] !== 0 && k >= 0 && k <= t) { p = [w.guide[0] + d[0] * k, 0, w.guide[2] + d[2] * k]; contact = 'wall'; } }
+    return { p: p, contact: contact, len: Lg * (contact ? 1 : t) };
+  }
+
+  const PL = { x0: 40, y0: 60, w: 520, h: 360, sc: 45 };   // plan panel; sc px per mm
+  const SE = { x0: 620, y0: 60, w: 470, h: 360, sc: 34 };
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const w = wireGeom(), tip = tipAt(S.feed, w), cx = PL.x0 + PL.w * 0.62, cy = PL.y0 + PL.h * 0.5, X = x => cx + x * PL.sc, Y = y => cy + y * PL.sc;
+    // ---- plan view
+    svg.appendChild(el('text', { x: PL.x0, y: 22, class: 'hd' }, document.createTextNode('PLAN (from above): the seam along x; wall above, plate below')));
+    svg.appendChild(el('rect', { x: PL.x0, y: PL.y0, width: PL.w, height: PL.h, fill: '#10151c', stroke: '#2a3341' }));
+    // wall is +y (drawn down), plate is -y (drawn up)
+    svg.appendChild(el('rect', { x: PL.x0, y: cy, width: PL.w, height: PL.y0 + PL.h - cy, fill: '#2a3444' }));
+    svg.appendChild(el('rect', { x: PL.x0, y: PL.y0, width: PL.w, height: cy - PL.y0, fill: '#1a222e' }));
+    svg.appendChild(el('text', { x: PL.x0 + 6, y: PL.y0 + PL.h - 8, class: 'lbl' }, document.createTextNode('tube wall (y > 0), below the seam line')));
+    svg.appendChild(el('text', { x: PL.x0 + 6, y: PL.y0 + 40, class: 'lbl' }, document.createTextNode('plate face (y < 0), above the seam line')));
+    svg.appendChild(el('line', { x1: PL.x0, x2: PL.x0 + PL.w, y1: cy, y2: cy, stroke: '#14b8a6', 'stroke-width': 2 }));
+    svg.appendChild(el('text', { x: PL.x0 + PL.w - 4, y: cy - 6, 'text-anchor': 'end', style: 'fill:#5eead4' }, document.createTextNode('seam (the corner)')));
+    // wobble band (2 mm across the seam, illustrative from the recipe)
+    svg.appendChild(el('rect', { x: X(-4), y: Y(-1), width: 8 * PL.sc, height: 2 * PL.sc, fill: 'rgba(255,59,48,.10)', stroke: 'rgba(255,59,48,.35)', 'stroke-dasharray': '3 3' }));
+    svg.appendChild(el('text', { x: X(4) - 2, y: Y(-1) - 4, 'text-anchor': 'end', style: 'fill:#ff8a80;font-size:9.5px' }, document.createTextNode('beam sweep, 2 mm wide (recipe)')));
+    // material motion arrow: below the seam on the wall? show along the seam
+    const mvx = S.dir === 'a' ? 1 : -1;
+    svg.appendChild(el('path', { d: 'M' + (cx - mvx * 100) + ' ' + (cy + 40) + ' L' + (cx + mvx * 100) + ' ' + (cy + 40), stroke: '#c8d0da', 'stroke-width': 2, 'marker-end': 'url(#ar)' }));
+    const defs = el('defs', {}, el('marker', { id: 'ar', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto' }, el('path', { d: 'M0 0 L10 5 L0 10 z', fill: '#c8d0da' })));
+    svg.appendChild(defs);
+    svg.appendChild(el('text', { x: cx, y: cy + 58, 'text-anchor': 'middle', class: 'lbl' }, document.createTextNode('the tube surface moves ' + (mvx > 0 ? 'right' : 'left') + ' under the dot')));
+    // arriving side band
+    const ax = w.arrivingX;
+    svg.appendChild(el('rect', { x: ax < 0 ? PL.x0 : cx, y: PL.y0 + 2, width: ax < 0 ? cx - PL.x0 : PL.x0 + PL.w - cx, height: 18, fill: 'rgba(52,211,153,.12)' }));
+    svg.appendChild(el('text', { x: ax < 0 ? PL.x0 + 6 : PL.x0 + PL.w - 6, y: PL.y0 + 15, 'text-anchor': ax < 0 ? 'start' : 'end', style: 'fill:#86efac' }, document.createTextNode('arriving side [repo]: the wire goes here')));
+    // wire line from guide end (projected) to the tip
+    const gx = X(w.guide[0]), gy = Y(w.guide[1]);
+    svg.appendChild(el('line', { x1: Math.max(PL.x0 + 2, gx), y1: gy + (Math.max(PL.x0 + 2, gx) - gx) * (Y(tip.p[1]) - gy) / (X(tip.p[0]) - gx || 1), x2: X(tip.p[0]), y2: Y(tip.p[1]), stroke: '#e6b422', 'stroke-width': 3, 'stroke-linecap': 'round' }));
+    svg.appendChild(el('circle', { cx: X(tip.p[0]), cy: Y(tip.p[1]), r: 4, fill: '#e6b422', stroke: '#0e1218' }));
+    svg.appendChild(el('text', { x: X(tip.p[0]) + 8, y: Y(tip.p[1]) + 30, style: 'fill:#fde68a' }, document.createTextNode('wire tip' + (tip.contact ? ' (touching the ' + tip.contact + ')' : ' (in the air)'))));
+    // the dot
+    svg.appendChild(el('circle', { cx: cx, cy: cy, r: 5, fill: '#ff3b30', stroke: '#fff' })); svg.appendChild(el('text', { x: cx + 9, y: cy - 30, style: 'fill:#ff8a80' }, document.createTextNode('dot')));
+    // gun body proxy on the -x side
+    svg.appendChild(el('path', { d: 'M' + (PL.x0 + 10) + ' ' + (cy - 90) + ' L' + (PL.x0 + 110) + ' ' + (cy - 60) + ' L' + (PL.x0 + 110) + ' ' + (cy - 36) + ' L' + (PL.x0 + 10) + ' ' + (cy - 66) + ' Z', fill: '#59636f', opacity: 0.65 }));
+    svg.appendChild(el('text', { x: PL.x0 + 14, y: cy - 98, class: 'lbl' }, document.createTextNode('gun (guide stays on this side)')));
+    // ---- section view
+    const sx = SE.x0 + SE.w * 0.5, sy = SE.y0 + SE.h * 0.62, SX = y => sx + y * SE.sc, SY = z => sy - z * SE.sc;
+    svg.appendChild(el('text', { x: SE.x0, y: 22, class: 'hd' }, document.createTextNode('SECTION across the seam (radial y to the right, up is z)')));
+    svg.appendChild(el('rect', { x: SE.x0, y: SE.y0, width: SE.w, height: SE.h, fill: '#10151c', stroke: '#2a3341' }));
+    svg.appendChild(el('rect', { x: SE.x0, y: sy, width: sx - SE.x0, height: SE.y0 + SE.h - sy, fill: '#2a3444' }));                  // plate (below z=0, left of the wall)
+    svg.appendChild(el('rect', { x: sx, y: SE.y0, width: SE.x0 + SE.w - sx, height: SE.h, fill: '#2a3444' }));                       // wall (y>0)
+    svg.appendChild(el('text', { x: SE.x0 + 8, y: sy + 18, class: 'lbl' }, document.createTextNode('plate')));
+    svg.appendChild(el('text', { x: sx + 8, y: SE.y0 + 18, class: 'lbl' }, document.createTextNode('tube wall')));
+    // beam from upper left (32 degrees from vertical, from the reference scene), to the dot at the corner
+    svg.appendChild(el('line', { x1: SX(-5.5), y1: SY(8.5), x2: SX(0), y2: SY(0), stroke: '#ff3b30', 'stroke-width': 2, 'stroke-dasharray': '4 3' }));
+    svg.appendChild(el('circle', { cx: SX(0), cy: SY(0), r: 4.5, fill: '#ff3b30', stroke: '#fff' }));
+    // wire cross-section: a circle 0.76 mm diameter, drawn larger (x6) so it can be seen
+    const wr = 0.38 * 6 * (SE.sc / 34) * 1.0;
+    svg.appendChild(el('circle', { cx: SX(tip.p[1]), cy: SY(tip.p[2] + 0.38), r: wr, fill: '#e6b422', stroke: '#0e1218' }));
+    svg.appendChild(el('text', { x: SX(tip.p[1]) + wr + 4, y: SY(tip.p[2] + 0.38) - 4, style: 'fill:#fde68a' }, document.createTextNode('wire tip (drawn 6x)')));
+    svg.appendChild(el('text', { x: SE.x0 + SE.w - 8, y: SE.y0 + SE.h - 8, 'text-anchor': 'end', class: 'lbl' }, document.createTextNode('offset from the dot: radial ' + tip.p[1].toFixed(2) + ' mm, height ' + tip.p[2].toFixed(2) + ' mm')));
+    // readouts
+    const ok = w.sideOk, off = Math.hypot(tip.p[0], tip.p[1]);
+    note.innerHTML = '<b>Wire tip vs dot:</b> along the seam ' + tip.p[0].toFixed(2) + ' mm, radial ' + tip.p[1].toFixed(2) + ' mm, height ' + tip.p[2].toFixed(2) + ' mm (' + off.toFixed(2) + ' mm in plan). <b>Side:</b> ' + (ok ? 'on the arriving side' : 'on the <span style="color:#fca5a5">trailing</span> side: the gun (or the guide) has to go to the other side of the station for this rotation direction') + '. <b>Touch:</b> ' + (tip.contact ? 'wire on metal (' + tip.contact + '): continuity to the work lead closes, but it cannot say where' : 'no contact yet: continuity open') + '.';
+    app.badge('side', ok ? null : 'the wire is on the trailing side for this rotation direction', ok ? 'info' : 'warn');
+    app.badge('wall', tip.contact === 'wall' ? 'wire pushed against the wall: it buckles and the tip is in the beam’s shadow' : null, 'limit');
+    const seen = [tip.p[0] + S.cam * g(), tip.p[1] + S.cam * g()];
+    app.io.set({
+      commands: [{ name: 'Wire jog', value: (S.feed * 100).toFixed(0) + ' % of the way to the plate', note: 'the feeder’s advance button today [manual p.18]; no software route documented' }, { name: 'Rotation direction', value: S.dir === 'a' ? 'surface moves +x' : 'surface moves -x', note: 'existing controller; a campaign-level choice' }],
+      observes: [{ name: 'Wire tip vs dot', value: seen[0].toFixed(2) + ', ' + seen[1].toFixed(2), unit: 'mm', status: 'partly', note: 'a camera would report this with its own noise; exact here' }, { name: 'Wire to work-lead continuity', value: tip.contact ? 'closed' : 'open', status: 'seen', note: 'touch only; not where' }, { name: 'Side of the puddle', value: ok ? 'arriving' : 'trailing', status: 'seen', note: 'follows from the offset sign and the direction' }],
+      manual: ['Placing the wire by hand on the arriving side', 'Choosing the rotation direction and the side of the gun', 'Snipping a stuck wire'],
+    });
+  }
+
+  const g0 = app.ui.group('Direction and pose');
+  g0.radio({ id: 'dir', label: 'The tube surface moves', options: [{ value: 'a', label: 'right (+x)' }, { value: 'b', label: 'left (-x)' }], value: 'a', kind: 'state', help: 'Flip it and the arriving side flips; the gun stays where it is.', onChange: v => { S.dir = v; render(); } });
+  g0.slider({ id: 'yaw', label: 'Gun turn in plan (approach angle)', min: -60, max: 60, step: 1, value: 0, unit: '°', kind: 'scene', help: 'The reference scene’s vertical dial: 0 keeps the wire along the tangent.', onChange: v => { S.yaw = v; render(); } });
+  const g1 = app.ui.group('Where the wire lands (illustrative offsets)');
+  g1.slider({ id: 'dx', label: 'Landing offset along the seam', min: -4, max: 4, step: 0.1, value: -1.2, unit: 'mm', kind: 'scene', help: 'Negative = upstream when the surface moves right.', onChange: v => { S.dx = v; render(); } });
+  g1.slider({ id: 'dy', label: 'Landing offset across the seam', min: -3, max: 3, step: 0.1, value: -0.4, unit: 'mm', kind: 'scene', help: 'Negative = on the plate side; positive would be inside the wall.', onChange: v => { S.dy = v; render(); } });
+  g1.slider({ id: 'pitch', label: 'Wire guide pitch above the plate', min: 15, max: 60, step: 1, value: 35, unit: '°', kind: 'scene', onChange: v => { S.pitch = v; render(); } });
+  g1.slider({ id: 'hover', label: 'Guide end height above the tip line', min: 0, max: 6, step: 0.5, value: 2, unit: 'mm', kind: 'scene', onChange: v => { S.hover = v; render(); } });
+  const g2 = app.ui.group('Dry test with the wire (laser off)');
+  g2.slider({ id: 'feed', label: 'Wire jog out (feeder button)', min: 0, max: 1, step: 0.01, value: 0, kind: 'actuator', help: 'Advance until the tip touches; the feeder button is a manual control today.', onChange: v => { S.feed = v; render(); } });
+  g2.slider({ id: 'cam', label: 'Camera noise on the tip estimate', min: 0.02, max: 0.5, step: 0.01, value: 0.1, unit: 'mm', kind: 'scene', onChange: v => { S.cam = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

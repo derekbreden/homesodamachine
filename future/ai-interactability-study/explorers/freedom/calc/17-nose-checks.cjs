@@ -1,0 +1,10 @@
+// Numbers behind the 'tried' entries of freedom-01b.
+const FS = require('./statics.js'), FR = require('./ringmodel.js'); const M = FS.math;
+const mk = (o) => Object.assign({ arm:{mode:'none'}, rings:[], kWire:200, umbilical:{F:2,droop:0.5}, nose:{s:70,phi:40,rc:12,k:100,preload:3,cmd:[0,0,0]}, tail:{dx:160,wireL:300,kb:0.15,pre:3,wireCmd:[0,0],yawCmd:0} }, o);
+function solve(o){ const m=FR.build(o); const r=m.solve(new Float64Array(m.n),{maxIter:250}); return {m,r}; }
+console.log('--- spreader half-width (F=2, droop .5, s=70):');
+for (const dx of [40,60,90,120,160,200]) { const {m,r}=solve(mk({tail:{dx,wireL:300,kb:0.15,pre:3,wireCmd:[0,0],yawCmd:0}})); const T=m.tailEls.wires.map(w=>m.springForce(r.x,w).T.toFixed(1)); console.log('dx',dx,'conv',r.converged,'gnorm',r.gnorm.toFixed(2),'tilt deg',(M.len([r.x[3],r.x[4],r.x[5]])/FS.S*180/Math.PI).toFixed(2),'T',T.join(',')); }
+console.log('--- seat lift-off vs pull (s=70): droop 0 = along the cable exit (up-back)');
+for (const droop of [0,0.5,1]) for (const pre of [0,3,8]) for (const F of [2,4,6]) { const {m,r}=solve(mk({umbilical:{F,droop},nose:{s:70,phi:40,rc:12,k:100,preload:pre,cmd:[0,0,0]}})); const el=m.noseEl,c=m.bodyPoint(r.x,el.local),rel=M.sub(c,el.a),rho=Math.hypot(rel[0],rel[1]); const pen=el.rc-(rel[2]*el.sinPhi-Math.hypot(rho,0.05)*el.cosPhi); console.log('droop',droop,'preload',pre,'F',F,'conv',r.converged,'penetration mm',pen.toFixed(3),'off-axis',rho.toFixed(2)); }
+console.log('--- where does the cone apex sit? (world) plate face z=',FS.CAP_TOP.toFixed(2),' rim z=152.4 bore radius',FS.INNER_RADIUS.toFixed(2));
+for (const s of [16,40,60,70,110]) { const {m}=solve(mk({nose:{s,phi:40,rc:12,k:100,preload:3,cmd:[0,0,0]}})); const c=m.bodyPoint(new Float64Array(m.n),[0,0,s]); const a=m.noseEl.a; console.log('s',s,'collar centre r',Math.hypot(c[0],c[1]).toFixed(1),'z',c[2].toFixed(1),'| apex z',a[2].toFixed(1),' above plate',(a[2]-FS.CAP_TOP).toFixed(1),'mm | collar to dot',M.len(M.sub(c,m.dot0)).toFixed(0),'mm'); }

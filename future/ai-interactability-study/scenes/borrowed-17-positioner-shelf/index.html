@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positioner shelf</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ps { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .ps h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .ps svg { width: 100%; height: auto; display: block; background: #0b0f14; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .ps text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .ps .lab { fill: #e7ebf1; }
+  .ps table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  .ps th, .ps td { border: 1px solid var(--wk-line); padding: 4px 7px; text-align: left; vertical-align: top; }
+  .ps th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; position: sticky; top: 0; }
+  .ps td.n { font-variant-numeric: tabular-nums; }
+  .ps tr.dim td { opacity: 0.45; }
+  .ps .tag { display: inline-block; font-size: 10.5px; padding: 0 5px; border: 1px solid var(--wk-line2); border-radius: 8px; color: var(--wk-muted); margin-right: 3px; }
+  .ps .yes { color: #34d399; } .ps .no { color: #f87171; } .ps .unk { color: #fbbf24; }
+  .ps .note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .ps .wrap { overflow-x: auto; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-17-positioner-shelf",
+  "title": "Positioner shelf: what bought motion hardware carries, resolves, speaks and costs",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A lens on the thin region 'bought multi-axis positioners with a software interface'. Desktop and collaborative robot arms, telescope mounts, PTZ cameras, printer and CNC gantries and their rails, sit-stand frames and drawer slides, and a laser-alignment hexapod, each with the number a listing or a maker actually states, how it is spoken to, and what a Prime listing costs and when it arrives. Two sliders (gun mass, lever) turn angular resolutions into millimetres at the dot and rated payloads into a yes, no or not stated.",
+  "tags": ["bought hardware", "robot arm", "telescope mount", "PTZ camera", "gantry", "sit-stand frame", "software interface", "lens"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["angular resolution times lever is millimetres at the dot", "a payload rating is a window on mass, not moment", "which interface each product is spoken to through"],
+  "how": {
+    "motion": "per product: rotations, translations or six degrees, each driven by software through the listed interface",
+    "load": "per product; a rating is for a centre of mass near the axis or flange, not for a gun held at a lever",
+    "reference": "each product's own encoders or step counts; the dot needs the eyes",
+    "observe": "per product",
+    "use": "read the row for what each product changes about an arrangement; nothing here is ranked"
+  },
+  "software": {
+    "commands": ["G-code (printers, CNC), SynScan over Wi-Fi (mounts), vendor SDKs (arms), UVC or network control (PTZ)"],
+    "observes": ["step counts, joint encoders, presets; never the dot"],
+    "manual": ["balancing the gun on a mount", "coupling the shell to any of them", "calibrating the pivot to the dot"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-17-positioner-shelf.md"],
+  "sources": ["../../sourcing/borrowed.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = WK.svg, H = WK.h;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 440,
+    open: ['proposes', 'unresolved'],
+    sections: {
+      proposes: '<p>Derek asked what bought hardware would actually realise each example, and to look at ordinary robot arms and other multi-axis positioners with a software interface. This page is that shelf, one row per product class, with the one or two numbers a listing or a maker really states, tagged by where they came from. It is a lens, not a ranking: a row says what the product would change about an arrangement, not that it should be used.</p>' +
+        '<p>Two sliders make the numbers mean something at the gun. <b>Gun mass</b> turns each rated payload into yes, no or not stated (a rating is for a centre of mass near the axis, so the moment at a lever is a second question, shown as N&middot;m). <b>Lever</b> turns an angular step (arcseconds of a telescope mount) into millimetres at the dot: 0.625&Prime; at 250 mm is under a micrometre, which is why angular positioners are interesting whenever the pivot can be near a balanced load.</p>',
+      carries: '<p>Nothing here carries anything by itself: each row says what the product could carry by its own rating. The arrangements that would use them are in the other scenes: a mount as freedom-09 and freedom-10 for two rotations, a gantry as room-01, a hexapod as borrowed-13, an arm as the reference the others are measured against.</p>',
+      software: '<p>Interfaces are what makes these different from parts: G-code over USB or serial for the printer and CNC rows (probe inputs and homing come with it), the SynScan protocol over Wi-Fi for the mounts (a public command set with open Python and INDI drivers, per search results), vendor SDKs or ROS for arms, presets for PTZ cameras. Which of them an AI can drive without a human is a fact about the row, and the rows that cannot say are marked.</p>',
+      tried: '<p><b>Payload ratings are not what they seem.</b> The desktop arms on Prime carry 0.25 to 0.5 kg: less than the gun. Only under a balancer that takes the weight could they do more than move a camera, and their servos step 0.088&deg; (12 bit), which is 0.4 mm at a 250 mm reach. The one collaborative arm in the set that states 3 kg and &plusmn;0.02 mm (Fairino FR3, from the maker and resellers) is a quote or an order from a maker, not a Prime listing.</p>' +
+        '<p><b>The high-volume products are the ones with no repeatability figure.</b> A printer has 2,153 ratings and a step of 0.0125 mm, a belt elasticity of 50 to 100 &micro;m per a search summary, and nothing on the carriage&rsquo;s payload. The lack of a number is the finding: what they carry and how repeatable they are has to be measured.</p>',
+      unresolved: '<ul><li>Every payload here is a rating for a load near the axis. The gun sits at a lever: 1.2 kg at 250 mm is 2.9 N&middot;m about the axis. Rated torques are not on the listings read.</li>' +
+        '<li>Repeatability of the telescope mounts (backlash, periodic error) is not on their listings; the resolution is a counts figure.</li>' +
+        '<li>Whether the mount and PTZ protocols can be spoken to without the maker&rsquo;s app is from search summaries and unchecked.</li>' +
+        '<li>Prices and delivery are one observation (2026-09-28 and 29, Derek&rsquo;s signed-in Chrome, Lincoln NE): not quotes.</li></ul>',
+      assumptions: '<ul><li>Sources are tagged in each row: <b>listing</b> (product page read on the date), <b>search</b> (a search-result summary, unchecked against the maker&rsquo;s page), <b>maker</b> (a maker or reseller page found by search), <b>derived</b>. Only Amazon Prime listings are recorded from Amazon; the two collaborative and desktop arms marked <i>maker</i> are not Amazon listings.</li>' +
+        '<li>Gun mass 1.2 kg and lever 250 mm are the scene&rsquo;s illustrative defaults; gun mass and centre of mass are <b>[unknown]</b>.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code>, wave 2 section: every Amazon row has the ASIN, price, ratings and delivery date; the maker rows have the URLs found.</p>',
+    },
+  });
+
+  const KIND = { arm: ['Arm', '#a78bfa'], mount: ['Mount (rotations)', '#34d399'], cam: ['Camera positioner', '#60a5fa'], gantry: ['Gantry, stage, slide', '#f5a524'], lift: ['Lift, slide', '#9aa7ba'], hex: ['Hexapod', '#f87171'] };
+  // step: {arcsec} angular step, or {mm} linear step; rep: repeatability at the flange/tool point in mm as a maker states it
+  const ROWS = [
+    { id: 'az', n: 'Sky-Watcher AZ-GTi alt-az GoTo mount', k: 'mount', dof: '2 rotations', pay: 5, payTag: 'listing: 11 lb', step: { arcsec: 0.625 }, stepTag: 'search: 2,073,600 counts/rev (unchecked)', rep: null, iface: 'Wi-Fi (own network), SynScan app; UDP 11880 command set with open Python and INDI drivers', ifTag: 'search', price: '$525.00', ev: '117 ratings; page shows Prime, "Only 11 left"', del: 'Tomorrow (Sep 30)', changes: 'Two motorised rotations with encoders that follow a hand slew; the gun has to be balanced on it and the pivot is not the dot. Holds unpowered? Worm gearing: unchecked.' },
+    { id: 'sa', n: 'Sky-Watcher Star Adventurer GTi head kit', k: 'mount', dof: '2 rotations (equatorial)', pay: null, payTag: 'not read', step: null, rep: null, iface: 'Wi-Fi, same maker family (unchecked)', ifTag: 'search', price: '$579.00', ev: '85 ratings, 50+ bought/mo; Prime', del: 'Tomorrow', changes: 'Same idea with the two axes meeting in the head and a counterweight bar: a ready-made balanced gimbal (borrowed-02) instead of a stabiliser.' },
+    { id: 'ptz1', n: 'NexiGo PTZ conference camera, 10x, USB', k: 'cam', dof: 'pan and tilt (an eye)', pay: null, payTag: 'carries itself', step: null, rep: null, iface: 'USB video; presets by IR remote (10); control protocol not on the listing', ifTag: 'listing', price: '$242.99', ev: '5,521 ratings; Prime', del: 'Today 5 to 10 PM', changes: 'Derek’s PTZ example: pan -170 to +170 deg and tilt -30 to +90 deg. A positioner for an eye, not for the gun. Preset repeatability unstated.' },
+    { id: 'ptz2', n: 'TONGVEO PTZ camera, 20x, HDMI and USB', k: 'cam', dof: 'pan and tilt (an eye)', pay: null, payTag: 'carries itself', step: null, rep: null, iface: '255 presets, AI tracking; control protocol not on the listing', ifTag: 'listing', price: '$299.00', ev: '359 ratings; Prime', del: 'Tomorrow', changes: 'Pan 350 deg, tilt 180 deg: reaches every side of the tube; can it be driven by software without the tracking app? Unchecked.' },
+    { id: 'e3', n: 'Creality Ender-3 V3 SE printer (Cartesian)', k: 'gantry', dof: '3 translations', pay: null, payTag: 'carriage payload not stated', step: { mm: 0.0125 }, stepTag: 'search: GT2 belt, 20T, 1/16 microstep', rep: null, iface: 'G-code (Marlin-class firmware); the printer’s own probe (CR Touch) is a touch sensor', ifTag: 'listing', price: '$219.00', ev: '2,153 ratings, 500+ bought/mo; Prime', del: 'Mon Oct 5', changes: 'XYZ with homing, probing and 250 mm of Z for the price of a stage; belts stretch (50 to 100 um per search) and the carriage carries a hotend, not a gun.' },
+    { id: 'c4', n: 'Genmitsu PROVerXL 4030 CNC router (GRBL)', k: 'gantry', dof: '3 translations', pay: null, payTag: 'spindle-mount payload not stated', step: null, rep: null, iface: 'G-code over USB (GRBL), probe input', ifTag: 'search', price: '$659.00', ev: '525 ratings; Prime', del: 'Tomorrow', changes: 'A rigid open gantry (borrowed-02’s frame) with a 52 mm-class spindle clamp; Z travel not read from the listing (unchecked).' },
+    { id: 'mg', n: 'MGN12 300 mm rail and preloaded carriage', k: 'gantry', dof: '1 translation', pay: null, payTag: 'not stated', step: null, rep: null, iface: 'none (a part)', ifTag: 'listing', price: '$20.49', ev: '615 ratings; Prime', del: 'Sun Oct 4', changes: 'The gantry’s rail for room-01 with a printed carrier; the 2020 T-slot extrusion (4 x 300 mm, $17.99, 984 ratings, 100+ bought/mo, search card) is its frame.' },
+    { id: 'mr', n: '100 mm mini linear rail, T6x1 screw, NEMA 11', k: 'gantry', dof: '1 translation', pay: null, payTag: 'not stated', step: { mm: 0.005 }, stepTag: 'derived: 1 mm per turn / 200 steps', rep: null, iface: 'stepper driver (step and direction)', ifTag: 'listing', price: '$54.80', ev: '34 ratings; Prime', del: 'Two-Day', changes: 'The leg or axis of a small hexapod or a vernier stage (freedom-05, borrowed-13); stiffness and backlash unchecked.' },
+    { id: 'ss', n: 'VIVO dual-motor sit-stand desk frame', k: 'lift', dof: '1 translation (lift)', pay: 100, payTag: 'listing: 220 lb (100 kg)', step: null, rep: null, iface: 'controller with memory presets; no position sensor read on the listing', ifTag: 'listing', price: '$199.99', ev: '1,209 ratings, 50+ bought/mo; Prime', del: 'Thu Oct 1', changes: 'Derek’s sit-stand frame: the lift for the rotator shelf (room-10). Height resolution and leg skew unstated.' },
+    { id: 'ds', n: 'FivePears 20 in ball-bearing drawer slide, pair', k: 'lift', dof: '1 translation (slide)', pay: 68, payTag: 'listing: 150 lb (68 kg)', step: null, rep: null, iface: 'none (a part)', ifTag: 'listing', price: '$19.79', ev: '157 ratings; Prime', del: 'Tomorrow', changes: 'The drawer of room-05: side play of ball-bearing slides is not stated and decides whether the rotator lands on its dock without help.' },
+    { id: 'mi', n: 'wlkata Mirobot desktop 6-axis arm (professional kit)', k: 'arm', dof: '6 rotations', pay: 0.25, payTag: 'search: 0.25 kg (0.4 kg max)', step: null, rep: 0.2, repTag: 'search: 0.2 mm', iface: 'serial commands, desktop software, ROS (unchecked)', ifTag: 'search', price: '$2,050.00', ev: '5 ratings; delivery line says Prime', del: 'Sun Oct 4', changes: 'Ordinary desktop arm: cannot carry the gun; a camera, a probe or a mirror at most.' },
+    { id: 'so', n: 'SO-ARM101 (LeRobot) follower arm kit, Hiwonder', k: 'arm', dof: '6 rotations', pay: 0.5, payTag: 'search: 0.5 kg', step: { arcsec: 0.088 * 3600 }, stepTag: 'derived: 12 bit per joint', rep: null, iface: 'Python (LeRobot), servo bus', ifTag: 'search', price: '$459.99', ev: '4 ratings, 50+ bought/mo; Prime', del: 'Fri Oct 2', changes: 'Its leader arm is borrowed-09’s hand controller; as a follower it is too small. Joint step 0.088 deg is 0.4 mm at 250 mm.' },
+    { id: 'l6', n: 'uFactory Lite 6 arm', k: 'arm', dof: '6 rotations', pay: 0.6, payTag: 'maker/reseller: 0.6 kg', step: null, rep: 0.5, repTag: 'maker/reseller: +-0.5 mm', iface: 'Python and ROS SDKs (unchecked)', ifTag: 'search', price: '$3,299 (reseller)', ev: 'not an Amazon listing', del: 'not observed', changes: 'Still under the gun’s mass.' },
+    { id: 'fr', n: 'Fairino FR3 collaborative arm', k: 'arm', dof: '6 rotations', pay: 3, payTag: 'maker/reseller: 3 kg', step: null, rep: 0.02, repTag: 'maker/reseller: +-0.02 mm', iface: 'SDKs and APIs, no licence fee (per reseller pages)', ifTag: 'search', price: '$6,799 (US reseller)', ev: 'not an Amazon listing', del: 'not observed', changes: 'The first arm here that carries the gun and states a repeatability under a tenth of a millimetre; hand guiding (freedrive) is a feature class of cobots (freedom-14, borrowed-03). Reach 622 mm.' },
+    { id: 'hx', n: 'PI H-811 miniature hexapod (laser and optics alignment)', k: 'hex', dof: '6 degrees, software pivot', pay: null, payTag: 'not read', step: null, rep: null, iface: 'controller with a software-defined centre of rotation', ifTag: 'maker', price: 'quote (not observed)', ev: 'maker page', del: 'not observed', changes: '+-17 mm and +-21 deg with the pivot as a coordinate: borrowed-13. Six mini rails and rod ends can approximate it (Prime).' },
+  ];
+  const P = { m: 1.2, lever: 250, tol: 0.15, kind: 'all' };
+  const f3 = v => (v >= 1 ? v.toFixed(2) : v >= 0.01 ? v.toFixed(3) : v >= 0.001 ? v.toFixed(4) : v.toExponential(1));
+
+  const root = H('div', { class: 'ps' });
+  app.stageEl.appendChild(root);
+  const CW = 760, CH = 300, svg = S('svg', { viewBox: '0 0 ' + CW + ' ' + CH });
+  const tableWrap = H('div', { class: 'wrap' });
+  const note = H('p', { class: 'note' });
+  root.append(H('div', null, H('h3', { text: 'Rated payload against the smallest step or repeatability a row states, in millimetres at the tool point or, for angular steps, at the dot (log axes)' }), svg, note), H('div', null, H('h3', { text: 'The shelf' }), tableWrap));
+
+  function drawPlot() {
+    svg.innerHTML = '';
+    const x0 = 60, x1 = CW - 20, y0 = CH - 34, y1 = 18;
+    const lx = v => x0 + (Math.log10(v) - Math.log10(0.1)) / (Math.log10(200) - Math.log10(0.1)) * (x1 - x0);
+    const ly = v => y1 + (Math.log10(1) - Math.log10(v)) / (Math.log10(1) - Math.log10(0.0002)) * (y0 - y1);
+    svg.append(S('rect', { x: x0, y: y1, width: x1 - x0, height: y0 - y1, fill: '#0d1218', stroke: '#2a3441' }));
+    [0.1, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100, 200].forEach(v => { svg.append(S('line', { x1: lx(v), y1: y1, x2: lx(v), y2: y0, stroke: '#1d2632' }), S('text', { x: lx(v) - 8, y: y0 + 14, text: v })); });
+    [0.0002, 0.001, 0.01, 0.1, 1].forEach(v => { svg.append(S('line', { x1: x0, y1: ly(v), x2: x1, y2: ly(v), stroke: '#1d2632' }), S('text', { x: 6, y: ly(v) + 4, text: v + ' mm' })); });
+    svg.append(S('text', { x: x0, y: CH - 6, text: 'rated payload (kg, as stated; the moment at a lever is another question)' }));
+    // gun mass and tolerance lines
+    svg.append(S('line', { x1: lx(P.m), y1: y1, x2: lx(P.m), y2: y0, stroke: '#f5a524', 'stroke-width': 2, 'stroke-dasharray': '5 3' }), S('text', { x: lx(P.m) + 4, y: y1 + 12, style: 'fill:#f5a524', text: 'gun ' + P.m.toFixed(2) + ' kg (unknown)' }));
+    svg.append(S('line', { x1: x0, y1: ly(P.tol), x2: x1, y2: ly(P.tol), stroke: '#ef4444', 'stroke-dasharray': '4 3' }), S('text', { x: x1 - 170, y: ly(P.tol) - 4, style: 'fill:#ef4444', text: 'tolerance ±' + P.tol.toFixed(2) + ' mm (illustrative)' }));
+    ROWS.forEach(r => {
+      if (P.kind !== 'all' && r.k !== P.kind) return;
+      const y = yOf(r); if (y == null || r.pay == null) return;
+      const filled = r.rep != null, col = KIND[r.k][1];
+      svg.append(S('circle', { cx: lx(r.pay), cy: ly(y), r: 6, fill: filled ? col : 'none', stroke: col, 'stroke-width': 2 }), S('text', { x: lx(r.pay) + 9, y: ly(y) + 4, class: 'lab', text: ({ az: 'AZ-GTi mount', so: 'SO-ARM101', l6: 'Lite 6', fr: 'Fairino FR3', mi: 'Mirobot' })[r.id] || r.n.slice(0, 22) }));
+    });
+    note.textContent = 'Filled: a repeatability the maker or a search summary states at the tool point. Hollow: only a step size (angular steps converted at the lever ' + P.lever + ' mm). Rows with no payload or no number are in the table only. Nothing here is measured.';
+  }
+  function yOf(r) { if (r.rep != null) return r.rep; if (r.step) return r.step.mm != null ? r.step.mm : r.step.arcsec / 206265 * P.lever; return null; }
+  function drawTable() {
+    const m = P.m, torque = m * 9.80665 * P.lever / 1000;
+    const rows = ROWS.filter(r => P.kind === 'all' || r.k === P.kind).map(r => {
+      const carry = r.pay == null ? '<span class="unk">not stated</span>' : (r.pay >= m ? '<span class="yes">rating covers ' + m.toFixed(2) + ' kg</span>' : '<span class="no">rating below ' + m.toFixed(2) + ' kg</span>');
+      const st = r.step ? (r.step.mm != null ? f3(r.step.mm) + ' mm' : f3(r.step.arcsec) + '″ → ' + f3(r.step.arcsec / 206265 * P.lever) + ' mm at ' + P.lever + ' mm') : '<span class="unk">not stated</span>';
+      const rp = r.rep != null ? '±' + r.rep + ' mm <span class="tag">' + (r.repTag || '').split(':')[0] + '</span>' : '<span class="unk">not stated</span>';
+      return '<tr class="' + (r.pay != null && r.pay < m ? 'dim' : '') + '"><td><b>' + r.n + '</b><br><span class="tag" style="border-color:' + KIND[r.k][1] + '">' + KIND[r.k][0] + '</span><span class="tag">' + r.dof + '</span></td>' +
+        '<td>' + (r.pay != null ? r.pay + ' kg' : '—') + ' <span class="tag">' + r.payTag.split(':')[0] + '</span><br>' + carry + '</td><td class="n">' + st + '</td><td class="n">' + rp + '</td><td>' + r.iface + ' <span class="tag">' + r.ifTag + '</span></td>' +
+        '<td class="n">' + r.price + '<br>' + r.ev + '<br>' + r.del + '</td><td>' + r.changes + '</td></tr>';
+    }).join('');
+    tableWrap.innerHTML = '<table><tr><th>Product class (a listing or maker page)</th><th>Rated payload</th><th>Step</th><th>Repeatability</th><th>Interface</th><th>Price, evidence, delivery (observed 2026-09-28/29)</th><th>What it changes about an idea</th></tr>' + rows + '</table><p class="note">Gun mass ' + m.toFixed(2) + ' kg at a lever of ' + P.lever + ' mm is ' + torque.toFixed(2) + ' N·m about an axis. Ratings and steps carry the source tag beside them: listing, search (an unchecked summary), maker, derived. Nothing is ranked; rows dim only when a stated payload is below the gun mass.</p>';
+    app.io.set({
+      commands: [{ name: 'Each row is spoken to through its own interface', value: 'see the table', note: 'G-code, SynScan, vendor SDK, presets' }],
+      observes: [{ name: 'What any row observes', value: 'its own encoders or step counts', status: 'partly', note: 'none of them sees the dot' }],
+      manual: ['Balance or mount the shell on any of them', 'Calibrate its pivot to the dot'],
+    });
+    app.badge('nopay', ROWS.filter(r => r.k !== 'cam' && r.pay == null).length ? ROWS.filter(r => r.k !== 'cam' && r.pay == null).length + ' rows state no payload' : null, 'info');
+  }
+  function redraw() { drawPlot(); drawTable(); }
+  const g = app.ui.group('The gun (scene edits)');
+  g.slider({ id: 'm', label: 'Gun and shell mass', min: 0.4, max: 4, step: 0.05, value: 1.2, unit: 'kg', kind: 'scene', help: 'Unknown: weigh it.', onChange: v => { P.m = v; redraw(); } });
+  g.slider({ id: 'lever', label: 'Lever from the pivot to the dot', min: 20, max: 400, step: 5, value: 250, unit: 'mm', kind: 'scene', help: 'Turns an angular step into millimetres at the dot.', onChange: v => { P.lever = v; redraw(); } });
+  g.slider({ id: 'tol', label: 'Tolerance line', min: 0.02, max: 1, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', help: 'The scene’s illustrative tolerance; nobody has measured what the weld needs.', onChange: v => { P.tol = v; redraw(); } });
+  const f = app.ui.group('Show');
+  f.radio({ id: 'kind', label: 'Product class', kind: 'view', value: 'all', options: [{ value: 'all', label: 'All' }, { value: 'arm', label: 'Arms' }, { value: 'mount', label: 'Mounts' }, { value: 'cam', label: 'Cameras' }, { value: 'gantry', label: 'Gantry parts' }, { value: 'lift', label: 'Lifts, slides' }, { value: 'hex', label: 'Hexapod' }], onChange: v => { P.kind = v; redraw(); } });
+  redraw();
+})();
+</script>
+</body>
+</html>

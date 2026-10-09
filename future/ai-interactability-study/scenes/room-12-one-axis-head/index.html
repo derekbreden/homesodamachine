@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-axis head: who clears</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-12-one-axis-head",
+  "title": "One-axis head: the gun or the tube clears the swap",
+  "by": "room",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "A branch of use-02 that keeps its three-ball seat, float and plunge but drops the swing. Either the head clears the tube swap by plunging far along its own barrel axis and retracting through a ring seat, or the tube clears by riding a carriage on the bench to a loading end (one rotator, or two on the same carriage as a branch of use-07). The seat gets its own short box column; the rail behind carries the gun only in transit.",
+  "tags": ["plunge", "kinematic-seat", "carriage", "two-stations", "load-path", "cable", "escape-motion"],
+  "branchOf": ["use-02-swing-head", "use-07-two-stations"],
+  "combines": [],
+  "transferable": ["the seat's carrier is a different structure from the mover's carrier", "the same axis is the end-of-bead lift, the seating stroke and the swap clearance", "whichever body owns the cable stays put", "a load-change slider that turns an umbilical pull into a dot shift through the carrier's stiffness"],
+  "how": {
+    "motion": "one plunge along the barrel axis; optionally a carriage that moves the rotators",
+    "load": "rail and carriage in transit; a ring seat on its own box column once seated",
+    "reference": "three ball-in-groove contacts at the collar (use-02's seat, made a ring)",
+    "observe": "plunge and carriage end-stops, seat continuity, a dot camera as in use-02 (not drawn)",
+    "use": "retract, clear (head or tube), swap away from the gun, return, seat, dry lap, weld"
+  },
+  "software": {
+    "commands": ["plunge (retract / clear / seat)", "carriage (weld / load), only when the plunge is out at least 20 mm", "rotator speed and turning (existing controller)"],
+    "observes": ["plunge and carriage end-stop switches", "seat continuity (3 contacts)", "dot seen by a camera (partly, as in use-02)", "rotator degrees"],
+    "manual": ["campaign trim by three screws", "loading and indicating the tube", "trigger", "snipping a stuck wire"]
+  },
+  "notes": ["../../explorers/room/ideas/room-12-one-axis-head.md", "../../exchange/room--on--use-w2.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, RIM = WK.DIM.tubeHeight, CAP = WK.CAP_TOP;
+  const STROKE = 150, DCAR = 520;                       // plunge stroke, carriage travel between weld and load (both illustrative)
+  // dot shift per newton of umbilical pull along the cable exit line, seat column at 342 mm above the bench: um/N (x,y,z world)
+  // from explorers/room/calc/seat-loop.mjs (statics, 3D frame, illustrative sections)
+  const CARRIER = {
+    tslot: { label: '2020 T-slot column + arm', v: [18.04, -31.16, 22.29] },
+    box:   { label: '40x40x3 aluminium box', v: [0.89, -1.85, 1.53] },
+    steel: { label: '25x25x2.5 steel tube', v: [1.63, -3.38, 2.8] },
+  };
+
+  const app = WK.app({
+    workstation: { benchSize: [1500, 900], benchCenter: [0, -200] },
+    view: 'overall',
+    viewButtons: ['overall', 'seat', 'top', 'side'],
+    views: {
+      overall: { target: [0, -170, 200], dir: [-0.5, 0.86, 0.46], dist: 2100 },
+      seat: { target: [0, -110, 250], dir: [-0.66, 0.6, 0.46], dist: 1050 },
+      top: { target: [0, -170, 150], dir: [0, -0.003, 1], dist: 1900 },
+      side: { target: [0, -170, 190], dir: [1, 0.02, 0.10], dist: 1800 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>use-02 swings the head aside so a tube can be lifted out. This branch asks who else could get out of the way, and keeps everything else of use-02: the three-ball seat, the float, the plunge along the barrel axis and the rule that software commands states, not positions.</p>' +
+        '<p><b>Head clears (tube stays).</b> The plunge is made long: about 90&nbsp;mm takes the gun out of use-02&rsquo;s illustrative swap volume and 130&nbsp;mm leaves 30&nbsp;mm to spare. The gun leaves along the barrel axis, which is also the &ldquo;lift the head straight away&rdquo; that ends every bead. The seat becomes a ring plate the barrel retracts through, on its own short box column.</p>' +
+        '<p><b>Tube clears (head stays).</b> The rotator rides a carriage on two rails on the bench to a loading end, 520&nbsp;mm away, and comes back. The head needs only the 20&nbsp;mm retract it already has, so the swap volume and the fork intrusion disappear. The <i>Stations</i> control adds a second rotator on the same carriage: one head, two seats, and the fibre never moves (a branch of use-07).</p>' +
+        '<p><b>Try:</b> drag the plunge to 100&nbsp;mm and watch the swap badge; switch <i>Stations</i> to two and drive the carriage (the interlock refuses until the plunge is out 20&nbsp;mm); move the seat plane forward and see the ring intrude the swap volume; raise the umbilical pull and read the dot shift for each column section.</p>',
+      carries:
+        '<p><b>Travelling</b> (retracting, parked, carriage moving): gun to shell to back plate, tie-rods, float spring, carriage, rail, rail mast, bench. <b>Seated</b>: gun to shell to flange balls to the seat ring to <i>its own column</i> to the bench. The rail and mast no longer set the pose; the float spring lets go. Toggle <i>Show load path</i> to see the amber path switch.</p>' +
+        '<p>The point of the branch is that two structures do two jobs: the mast is tall (about 590&nbsp;mm) and may be sloppy because it only carries the gun in transit; the seat column is short and boxed because it is the loop the dot rides on. In use-02 they are one post.</p>' +
+        '<p>Free: the carriage along its rails (between two stops); restrained at the seat: all six degrees of freedom. The umbilical hangs from a fixed hook on the mast, so the plunge changes its path a little and nothing rotates it.</p>',
+      software:
+        '<p><b>Commands</b> are one axis on the head, one optional carriage, and the existing rotator. <b>Observations</b> are cheap: two end-stops on the plunge rail, continuity through the three ball and groove pairs, carriage end-stops, and a camera as in use-02 (not drawn here). A software rule keeps the carriage still until the plunge is out 20&nbsp;mm; geometry alone would allow it with 5&nbsp;mm to spare.</p>' +
+        '<p>The <i>umbilical pull</i> slider is a scene edit, not a sensor: it turns a change of load between the dry lap and the weld (wire feed, gas hose, trigger) into a dot shift through the selected column section, from a statics model (<code>explorers/room/calc/seat-loop.mjs</code>). The corner inset shows it against the seam.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>use-02 hangs the fork off the same post as the swing arm.</b> The scene draws round bars (post &Oslash;26&nbsp;mm, seat arm &Oslash;14&nbsp;mm, material not stated). In these statics a newton of pull at the cable exit moves the dot 25&nbsp;&micro;m in steel bars of those sizes, 71&nbsp;&micro;m in aluminium ones, and 119&nbsp;&micro;m in 2020 T-slot; for 2&nbsp;N that is 0.05, 0.14 and 0.24&nbsp;mm. use-02 computes 25 to 30&nbsp;&micro;m of seat scatter, so the loop is as large as the seat in steel and 4 to 8 times larger in the others. <i>Change:</i> the seat gets its own short column; a 40&times;40&times;3 aluminium box does 3 to 7&nbsp;&micro;m per newton in the same statics (<code>seat-loop.mjs</code>). <i>Leaves:</i> joint stiffness (printed adapters, T-slot corners), bench flexure and contact compliance are not in the model; the torsion constant of the T-slot is a guess; the real pull change is unmeasured.</li>' +
+        '<li><b>A long plunge.</b> The gun proxy leaves use-02&rsquo;s swap volume at 88&nbsp;mm of plunge (nozzle 68&nbsp;mm above the rim); 130&nbsp;mm leaves 30&nbsp;mm (<code>plunge-only.mjs</code>). <i>Assumption:</i> the swap volume (radius 95&nbsp;mm, 65&nbsp;mm above the rim) is a real requirement; it is use-02&rsquo;s illustrative one. <i>Leaves:</i> how far a hand really lifts the tube before sliding it out.</li>' +
+        '<li><b>The seat plate does not move.</b> A ring at 108&nbsp;mm behind the nozzle intrudes 12&nbsp;mm into the swap volume; at 138&nbsp;mm it clears by 9 to 12&nbsp;mm. <i>Change:</i> seat plane at 138. <i>Leaves:</i> a longer lever from seat to dot (Rc 45&nbsp;mm keeps the amplification down).</li>' +
+        '<li><b>A ring, not a fork.</b> The gun retracts through the seat, so the barrel, collar, wire bracket and conduit must fit the hole; Ø50&nbsp;mm is assumed. <i>Leaves:</i> the real wire-guide and conduit envelope.</li>' +
+        '<li><b>Tube clears.</b> The rim passes under the nozzle with 5&nbsp;mm to spare at plunge 0 in the proxy; 20&nbsp;mm of plunge makes it 19. The carriage needs the head out only that far. <i>Cost:</i> a carriage, two rails, and with two stations a second nest, shoe and purge line (use-07 pays the same). <i>Leaves:</i> whether sliding a seated tube disturbs its seat (the pilot is 0.20&nbsp;mm loose).</li>' +
+        '<li><b>Cable.</b> No swing, so nothing turns the fibre about a vertical axis; the hook on the mast is fixed and the plunge moves the exit along a line 25&deg; from the run to the hook. The badge is the kit&rsquo;s Bezier stand-in and has no stiffness or twist. <i>Leaves:</i> real cable behaviour.</li>' +
+        '<li><b>A wire fused into the bead.</b> The retract stops after 4&nbsp;mm: HOLD, as in use-02; a hand snips. The plunge must stay force-limited.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Gun mass, centre of mass, umbilical pull and trigger force are unmeasured; they set preload, carrier stiffness and the motor.</li>' +
+        '<li>The mast stands 590&nbsp;mm high behind the gun where the operator&rsquo;s arm may want to be. Which side the operator stands on is not known to this study.</li>' +
+        '<li>How far and how fast the head lifts at the end of a bead today (the plunge here is 40&nbsp;mm/s by default, illustrative).</li>' +
+        '<li>Whether the carriage variant is worth a slot in the bench: the seat and the swap volume stop being coupled, but the rotator moves.</li>' +
+        '<li>The hole in the ring, the seat&rsquo;s grooves and their wear (hardened inserts are not drawn).</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun proxy, pitch, nozzle clearance and the opening pose (roll 45, hole 30, vertical &minus;15) are the kit&rsquo;s illustrative values, not measurements. Retract direction is the proxy barrel axis: 45&deg; above horizontal.</li>' +
+        '<li>Swap volume (radius 95&nbsp;mm, 65&nbsp;mm above the rim) is use-02&rsquo;s illustrative volume. Stroke 150&nbsp;mm, carriage travel 520&nbsp;mm, seat ring radius, column height 342&nbsp;mm above the bench: illustrative.</li>' +
+        '<li>Column sections: 2020 T-slot I = 0.70&nbsp;cm&#8308; recovered from an earlier calculation; box and steel tube from closed-section formulas; nothing checked against a listing. Statics only: no joints, no bench, no contacts.</li>' +
+        '<li>Cable radii 350 / 240&nbsp;mm are manufacturer values [manual p.20]; the badge checks a drawn Bezier.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculations (seat loop, plunge-only, cable)', href: '../../explorers/room/calc/' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setGhost(false);
+  const benchZ = ws.benchZ;
+
+  // ------------------------------------------------------------------ the seat pose (opening dials, illustrative)
+  const P0 = gun.group.position.clone(), Q0 = gun.group.quaternion.clone();
+  const back = gun.dir([0, 0, 1]);
+  const w0 = lp => V(lp[0], lp[1], lp[2]).applyQuaternion(Q0).add(P0);
+  const dotSeat = w0([0, 0, -WK.CLEARANCE]);
+  const cableExit0 = gun.cableExit();
+  gun.setLaser(true);
+
+  // ------------------------------------------------------------------ state
+  const S = { pc: -4, car: 0, stations: 'one', zs: 138, Rc: 45, carrier: 'box', pull: 0, wireStuck: false, interlock: true, vp: 40, pullDir: V(0, 0, 0) };
+
+  // ------------------------------------------------------------------ gun-side parts: shell, back plate, tie rods, flange, balls
+  const shell = gun.addShell({ style: 'frame', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const gg = gun.group;
+  const backPlate = P.box(38, 38, 4, 'load'); backPlate.position.set(0, 0, 256); gg.add(backPlate);
+  [-1, 1].forEach(sx => {
+    const ear = P.box(8, 10, 12, 'load'); ear.position.set(sx * 21, 0, 246); gg.add(ear);
+    gg.add(P.rod(V(sx * 25, 0, 246), V(sx * 25, 0, 324), 1.8, 'load'));
+    const nut = P.box(9, 9, 6, 'load'); nut.position.set(sx * 25, 0, 324); gg.add(nut);
+  });
+  const flange = P.cyl(1, 4, 'load'); gg.add(flange);
+  const balls = [0, 1, 2].map(() => { const b = P.sphere(3.6, 'locate'); gg.add(b); return b; });
+
+  // ------------------------------------------------------------------ the seat ring (fixed in the world) and its own column
+  const plateG = new THREE.Group(); plateG.quaternion.copy(Q0); app.add(plateG);
+  let plateMesh = null, pads = [];
+  // one column per section so the choice is visible: 2020 T-slot 20 mm, 40 mm box, 25 mm steel tube (drawn as round bars of the same width)
+  const colRad = { tslot: 10, box: 20, steel: 12.5 }, cols = {};
+  Object.keys(colRad).forEach(k => { cols[k] = P.rod(V(0, 0, 0), V(0, 0, 1), colRad[k], 'fixed'); app.add(cols[k]); });
+  let column = cols.box;
+  const foot = P.box(120, 120, 10, 'fixed'); app.add(foot);
+  const colArm = P.rod(V(0, 0, 0), V(1, 0, 0), 8, 'fixed'); app.add(colArm);
+  const plateArm = { p: V(0, 0, 0) };
+  function layoutSeat() {
+    plateG.position.copy(w0([0, 0, S.zs]));
+    const rr = S.Rc + 14, hr = 25;
+    const sh = new THREE.Shape(); sh.absarc(0, 0, rr, 0, Math.PI * 2, false);
+    const hp = new THREE.Path(); hp.absarc(0, 0, hr, 0, Math.PI * 2, true); sh.holes.push(hp);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: 6, bevelEnabled: false, curveSegments: 40 }); g.translate(0, 0, -6);
+    if (plateMesh) { plateG.remove(plateMesh); plateMesh.geometry.dispose(); }
+    plateMesh = new THREE.Mesh(g, WK.mat('fixed')); plateMesh.userData.role = 'fixed'; plateG.add(plateMesh);
+    pads.forEach(p => plateG.remove(p)); pads = [];
+    for (let i = 0; i < 3; i++) {
+      const a = Math.PI / 2 + i * 2 * Math.PI / 3;
+      const p = P.cyl(4.6, 1.6, 'locate'); p.rotation.x = Math.PI / 2; p.position.set(S.Rc * Math.cos(a), S.Rc * Math.sin(a), 0.7); plateG.add(p); pads.push(p);
+      balls[i].position.set(S.Rc * Math.cos(a), S.Rc * Math.sin(a), S.zs + 3.6);
+    }
+    flange.scale.set(S.Rc + 8, S.Rc + 8, 1); flange.position.set(0, 0, S.zs + 9);
+    // column: stands on the bench behind the rotator's footprint, short arm to the plate's lower edge
+    const lowRim = w0([0, -(S.Rc + 14) + 6, S.zs - 3]);
+    const colXY = V(lowRim.x - 68, lowRim.y - 58, 0);
+    const top = V(colXY.x, colXY.y, lowRim.z - 20);
+    Object.keys(cols).forEach(k => { cols[k].setEnds(V(colXY.x, colXY.y, benchZ + 5), top); cols[k].visible = k === S.carrier; }); column = cols[S.carrier];
+    foot.position.set(colXY.x, colXY.y, benchZ + 5);
+    colArm.setEnds(top, lowRim);
+    couplingCache = null;
+  }
+
+  // ------------------------------------------------------------------ rail, carriage, motor, spring, mast (carries in transit only)
+  const railLo = 292, railHi = 292 + STROKE + 46;
+  const rail = P.rail(V(0, 0, 0), V(0, 0, 1), { width: 15, height: 9, role: 'actuated' }); app.add(rail);
+  const carriage = P.box(36, 34, 26, 'actuated'); carriage.quaternion.copy(Q0); app.add(carriage);
+  const motor = P.motor(34, 'actuated', { length: 40 }); app.add(motor);
+  const screw = P.rod(V(0, 0, 0), V(0, 0, 1), 2.2, 'work'); app.add(screw);
+  const spring = P.spring(V(0, 0, 0), V(0, 0, 10), { coils: 7, radius: 9, wire: 1.2, role: 'compliant' }); app.add(spring);
+  const swRet = P.box(8, 8, 8, 'sensor'); swRet.quaternion.copy(Q0); app.add(swRet);
+  const swEng = P.box(8, 8, 8, 'sensor'); swEng.quaternion.copy(Q0); app.add(swEng);
+  const railEnd = w0([0, 0, railHi + 40]);
+  const mast = P.rod(V(railEnd.x, railEnd.y, benchZ + 5), V(railEnd.x, railEnd.y, railEnd.z - 10), 11, 'fixed'); app.add(mast);
+  const mastFoot = P.box(140, 140, 10, 'fixed'); mastFoot.position.set(railEnd.x, railEnd.y, benchZ + 5); app.add(mastFoot);
+  const mastArm = P.rod(V(railEnd.x, railEnd.y, railEnd.z - 10), w0([0, 0, railHi + 10]), 6, 'fixed'); app.add(mastArm);
+  rail.setEnds(w0([0, 0, railLo]), w0([0, 0, railHi]));
+  motor.position.copy(w0([0, 0, railHi + 14])); motor.quaternion.setFromUnitVectors(V(0, 0, 1), back.clone().negate());
+  swRet.position.copy(w0([16, 0, 292 + STROKE + 12])); swEng.position.copy(w0([16, 0, 304]));
+
+  // ------------------------------------------------------------------ rotator carriage and the second station
+  const RAIL_L = 1300;
+  [-95, 95].forEach(y => app.add(P.rod(V(-RAIL_L / 2 + 40, y, benchZ + 1.5), V(RAIL_L / 2 + 40, y, benchZ + 1.5), 4, 'fixed')));
+  const plate = P.box(340, 290, 4, 'actuated'); plate.position.z = benchZ + 3; app.add(plate);
+  const stB = new THREE.Group(); app.add(stB);
+  const bBody = P.box(240, 200, 62, 'fixed'); bBody.position.set(0, 0, benchZ + 31); stB.add(bBody);
+  const bTurn = P.cyl(82, 10, 'locate'); bTurn.position.set(0, 0, -6); stB.add(bTurn);
+  const bTube = P.cyl(RO, RIM, 'work'); bTube.position.set(0, 0, RIM / 2); bTube.material = WK.mat('work', { opacity: 0.45 }); bTube.userData.occludes = false; stB.add(bTube);
+  const uDir = V(-1, 0, 0);                   // carriage moves the tubes toward -X
+  const posA = () => V(-S.car, 0, 0), posB = () => V(DCAR - S.car, 0, 0);
+
+  // ------------------------------------------------------------------ swap volume (helper), load path (helper), stuck wire
+  const SWAP = { r: 95, z0: -20, z1: RIM + 25 + 40 };
+  const swapVol = P.cyl(SWAP.r, SWAP.z1 - SWAP.z0, 'ghost'); swapVol.position.set(0, 0, (SWAP.z0 + SWAP.z1) / 2); app.addHelper(swapVol);
+  const loadPath = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'load', { dash: 7, gap: 4 }); app.addHelper(loadPath);
+  const stuckWire = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'wire', { dash: 3, gap: 2 }); app.add(stuckWire);
+
+  // ------------------------------------------------------------------ geometry checks (drawn proxy vs drawn tubes and volume; not a collision analysis)
+  const SAMP = (function () {
+    const s = [];
+    const cyl = (z0, z1, r0, r1, n) => { for (let i = 0; i <= n; i++) { const t = i / n; s.push({ p: [0, 0, z0 + (z1 - z0) * t], r: r0 + (r1 - r0) * t }); } };
+    cyl(0, 23, 2.2, 5, 4); cyl(23, 54, 8.5, 8.5, 4); cyl(54, 100, 5.5, 5.5, 6); cyl(100, 118, 12, 12, 3);
+    [-17, 17].forEach(x => [-17, 17].forEach(y => [118, 185.5, 253].forEach(z => s.push({ p: [x, y, z], r: 0 }))));
+    for (let i = 0; i <= 8; i++) { const t = i / 8; s.push({ p: [0, -25 - 86 * t, 172 + 60 * t], r: 15 }); }
+    s.push({ p: [0, -118, 237], r: 6 });
+    return s;
+  })();
+  const distTubeAt = (p, cx, cy) => {
+    const rho = Math.hypot(p.x - cx, p.y - cy);
+    const inWall = rho > RI && rho < RO && p.z > 0 && p.z < RIM, inPlate = rho < RI && p.z > CAP - 6.35 && p.z < CAP;
+    const dWall = Math.hypot(Math.max(0, RI - rho, rho - RO), Math.max(0, -p.z, p.z - RIM));
+    const dPlate = Math.hypot(Math.max(0, rho - RI), Math.max(0, CAP - 6.35 - p.z, p.z - CAP));
+    return Math.min(inWall ? -1 : dWall, inPlate ? -1 : dPlate);
+  };
+  const distSwap = p => {
+    const rho = Math.hypot(p.x, p.y), dr = rho - SWAP.r, dz = Math.max(SWAP.z0 - p.z, p.z - SWAP.z1);
+    return dr < 0 && dz < 0 ? Math.max(dr, dz) : Math.hypot(Math.max(0, dr), Math.max(0, dz));
+  };
+  function clearances(car, pc) {
+    // gun samples at the given plunge, tubes at the given carriage position
+    const off = back.clone().multiplyScalar(Math.max(pc, 0));
+    let mt = Infinity, ms = Infinity;
+    const A = [-car, 0], B = [DCAR - car, 0];
+    SAMP.forEach(o => {
+      const w = w0(o.p).add(off);
+      mt = Math.min(mt, distTubeAt(w, A[0], A[1]) - o.r);
+      if (S.stations === 'two') mt = Math.min(mt, distTubeAt(w, B[0], B[1]) - o.r);
+      ms = Math.min(ms, distSwap(w) - o.r);
+    });
+    return { tube: mt, swap: ms };
+  }
+  function plateSwap() {   // the fixed ring's clearance to the swap volume (negative = intrudes)
+    let worst = Infinity; const c = plateG.position, rr = S.Rc + 14;
+    const ex = gun.dir([1, 0, 0]), ey = gun.dir([0, 1, 0]);
+    for (let i = 0; i < 48; i++) { const a = i / 48 * 2 * Math.PI; worst = Math.min(worst, distSwap(c.clone().addScaledVector(ex, rr * Math.cos(a)).addScaledVector(ey, rr * Math.sin(a)))); }
+    return worst;
+  }
+
+  // ------------------------------------------------------------------ interlocks
+  function requestPlunge(v) {
+    let want = v;
+    if (S.wireStuck && S.pc <= 0 && want > 4) {
+      want = 4;
+      app.badge('hold', 'HOLD: retract stopped at 4 mm, wire fused into the bead. A hand must snip it (turn the exception off)', 'limit');
+    } else if (!S.wireStuck) app.badge('hold', null);
+    // the head may not return to the seat while a station is still shuttling away from under it
+    S.pc = want;
+    return want;
+  }
+  function requestCar(v) {
+    const geom = clearances(v, S.pc).tube < 0, rule = S.interlock && S.pc < 20 && Math.abs(v - S.car) > 1e-6;
+    if (geom || rule) {
+      app.badge('ilk', geom ? 'carriage refused: the gun proxy would touch a tube (plunge too short)' : 'carriage refused by the interlock: plunge at least 20 mm first (the rim passes 5 mm under the nozzle at plunge 0)', geom ? 'limit' : 'warn');
+      return S.car;
+    }
+    app.badge('ilk', null); S.car = v; return v;
+  }
+
+  // ------------------------------------------------------------------ cable (kit Bezier stand-in; not a cable model)
+  let cableMesh = null, conduitMesh = null;
+  const hookPt = cableExit0.point.clone().addScaledVector(cableExit0.dir, 70 + 520).addScaledVector(gun.dir([1, 0, 0]), 70);
+  const hookMark = P.sphere(6, 'cable'); hookMark.position.copy(hookPt); app.add(hookMark);
+  const hookRod = P.rod(V(hookPt.x, hookPt.y, benchZ + 5), hookPt.clone(), 3, 'fixed'); app.add(hookRod);
+  function updateCable() {
+    const e = gun.cableExit(), start = e.point.clone().addScaledVector(e.dir, 70);
+    const curve = WK.bezierCable(start, e.dir, hookPt, e.dir, { stiffness: 0.4 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const we = gun.wireExit(), s2 = we.point.clone().addScaledVector(we.dir, 4), h2 = hookPt.clone().addScaledVector(gun.dir([1, 0, 0]), 24);
+    const c2 = WK.bezierCable(s2, we.dir, h2, we.dir, { stiffness: 0.4 });
+    if (!conduitMesh) { conduitMesh = P.cable(c2, { radius: 2.2, role: 'wire' }); app.add(conduitMesh); } else conduitMesh.setPoints(c2);
+    const r = curve.minRadius(), b = WK.cableBadge(r);
+    app.badge('cable', 'umbilical ' + b.text.replace('min bend R', 'min bend R'), b.level);
+    return r;
+  }
+
+  // ------------------------------------------------------------------ layout from the state
+  function dotShiftVec() {
+    const v = CARRIER[S.carrier].v, k = S.pull / 1000;   // um/N -> mm/N times N
+    return V(v[0] * k, v[1] * k, v[2] * k);
+  }
+  function place() {
+    const seated = S.pc <= 0;
+    const off = seated ? dotShiftVec() : V(0, 0, 0);
+    gun.group.position.copy(P0).addScaledVector(back, Math.max(S.pc, 0)).add(off);
+    gun.group.quaternion.copy(Q0);
+    ws.setWorkPose(posA(), new THREE.Quaternion());
+    stB.position.set(posB().x, posB().y, 0); stB.visible = S.stations === 'two';
+    const nPlate = S.stations === 'two' ? DCAR + 330 : 330, cx = S.stations === 'two' ? DCAR / 2 - S.car : -S.car;
+    plate.scale.set(nPlate / 340, 1, 1); plate.position.x = cx;
+    const pg = Math.max(S.pc, 0);
+    carriage.position.copy(w0([0, 0, 305 + S.pc]));
+    spring.setEnds(w0([0, 0, 258]).addScaledVector(back, pg), w0([0, 0, 305 + S.pc - 13]));
+    screw.setEnds(w0([0, 0, railHi + 8]), carriage.position);
+    gun.updateLaser();
+    stuckWire.visible = S.wireStuck;                       // the fused wire is drawn whenever the exception is on, from the guide end to the bead
+    if (stuckWire.visible) stuckWire.setPoints([gun.local('wireGuideEnd'), dotSeat]);
+    if (S.wireStuck && S.pc < 3.9) app.badge('hold', 'wire fused in the bead: a retract from here stops at 4 mm (HOLD); a hand must snip it', 'warn');
+    const gcen = gun.local([0, 0, 185.5]);
+    const pts = seated
+      ? [gcen, gun.local([0, 0, S.zs + 9]), plateG.position.clone(), colArm.position.clone(), column.position.clone(), V(column.position.x, column.position.y, benchZ)]
+      : [gcen, gun.local([0, 0, 256]), carriage.position.clone(), w0([0, 0, railHi]), mast.position.clone(), V(mast.position.x, mast.position.y, benchZ)];
+    loadPath.setPoints(pts);
+    updateCable();
+    sync();
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ observers and the software panel
+  const gunLike = {
+    dotOffset: () => {
+      const d = gun.dotWorld(), useB = S.stations === 'two' && S.car > DCAR / 2;
+      return ws.offsetOf(useB ? d.clone().add(V(-DCAR, 0, 0)) : d);
+    },
+    beamDir: () => gun.beamDir(),
+  };
+  app.cornerInset({ gun: gunLike });
+  function sync() {
+    const c = clearances(S.car, S.pc), ps = plateSwap();
+    const seated = S.pc <= 0, nzH = gun.local('nozzleTip').z - RIM;
+    setNoz(nzH.toFixed(1), 'mm');
+    setClear(c.tube < 0 ? 'touching' : c.tube.toFixed(1), c.tube < 0 ? '' : 'mm');
+    setSwapClear(c.swap >= 0 ? 'gun clear by ' + c.swap.toFixed(1) : 'gun inside by ' + (-c.swap).toFixed(1), 'mm');
+    setPlate(ps >= 0 ? 'clear by ' + ps.toFixed(1) : 'INTRUDES ' + (-ps).toFixed(1), 'mm');
+    setTime((10 / S.vp).toFixed(2) + ' s for 10 mm; ' + (STROKE / S.vp).toFixed(1) + ' s for the full stroke', '');
+    const tubeAtWeld = S.car < 5 || (S.stations === 'two' && Math.abs(S.car - DCAR) < 5);
+    let state;
+    if (seated) state = tubeAtWeld ? 'SEATED (weld state)' : 'SEATED with no tube under the head';
+    else if (S.pc >= 88 && tubeAtWeld) state = 'HEAD CLEARED (long plunge)';
+    else if (!tubeAtWeld) state = S.car >= DCAR - 5 && S.stations === 'one' ? 'TUBE AT LOADING END' : 'TUBE SHUTTLING / AWAY';
+    else state = tubeAtWeld ? 'RETRACTED ' + S.pc.toFixed(0) + ' mm' : state;
+    setState(state);
+    if (c.tube < 0) app.badge('rim', 'gun proxy would touch a tube (' + c.tube.toFixed(1) + ' mm)', 'limit');
+    else if (c.tube < 8 && !seated) app.badge('rim', 'nozzle passes the rim with ' + c.tube.toFixed(1) + ' mm to spare (proxy geometry)', 'warn');
+    else app.badge('rim', null);
+    if (tubeAtWeld && !seated) app.badge('swap', c.swap > 0 ? 'head cleared: a tube could be lifted out of the swap volume (illustrative volume)' : 'gun still inside the tube-swap volume', c.swap > 0 ? 'ok' : 'info');
+    else if (!tubeAtWeld) app.badge('swap', 'tube is away from the head: there is no swap volume above it', 'ok'); else app.badge('swap', null);
+    app.badge('plate', ps < 0 && S.pc >= 88 ? 'the fixed seat ring intrudes the swap volume by ' + (-ps).toFixed(1) + ' mm: move the seat plane back along the barrel' : null, 'warn');
+    const off = gun.dotOffset();
+    app.badge('shift', S.pull > 0 && seated ? 'pull ' + S.pull.toFixed(1) + ' N: the dot moves ' + (dotShiftVec().length() * 1000).toFixed(0) + ' µm through the ' + CARRIER[S.carrier].label : null, dotShiftVec().length() > 0.05 ? 'warn' : 'info');
+    app.io.set({
+      commands: [
+        { name: 'Plunge', value: S.pc.toFixed(0), unit: 'mm', note: 'the one axis on the head; along the barrel axis; negative = float spring compressed' },
+        { name: 'Carriage', value: S.stations === 'one' ? (S.car < 5 ? 'weld end' : 'away') : (S.car < 5 ? 'A at the head' : Math.abs(S.car - DCAR) < 5 ? 'B at the head' : 'between'), note: 'optional; moves rotator(s) on two rails; refused until plunge is out 20 mm' },
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing controller and pedal' },
+      ],
+      observes: [
+        { name: 'Retracted / engaged switches', value: (S.pc >= STROKE - 2 ? 'retracted' : S.pc <= 0 ? 'engaged' : 'between'), status: 'seen', note: 'two limit switches on the plunge rail' },
+        { name: 'Seat continuity (3 contacts)', value: seated ? 'closed' : 'open', status: 'seen', note: 'ball and groove pairs wired as a circuit: says seated, not where' },
+        { name: 'Carriage end-stops', value: S.car < 5 ? 'weld end' : S.car > DCAR - 5 ? 'load end' : 'between', status: 'seen', note: 'two switches, only when the carriage is fitted' },
+        { name: 'Dot vs seam (r, z)', value: off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2), unit: 'mm', status: 'partly', note: 'exact scene geometry, not a sensor: a camera as in use-02 would estimate it' },
+        { name: 'Umbilical pull change', value: '-', status: 'blind', note: 'nothing measures it; the slider is a scene edit' },
+        { name: 'Wire tip at the corner', value: '-', status: 'unresolved', note: 'no sensor proposed' },
+      ],
+      manual: ['Loading and indicating the tube (at the loading end in the carriage variant)', 'Campaign trim: three adjuster screws between gun and shell', 'Trigger squeeze', 'Snipping a stuck wire', 'Setting the seat column, the rail mast and the carriage rails in the first place'],
+    });
+  }
+  const setState = app.ui.readout('state', 'Head and tube state'), setNoz = app.ui.readout('noz', 'Nozzle tip above the rim'), setClear = app.ui.readout('clear', 'Nearest gun-to-tube clearance (proxy)');
+  const setSwapClear = app.ui.readout('swapc', 'Gun vs tube-swap volume'), setPlate = app.ui.readout('plate', 'Fixed seat ring vs swap volume'), setTime = app.ui.readout('tm', 'Plunge time at the set speed');
+
+  // ------------------------------------------------------------------ sequence runner (animated)
+  let seq = null;
+  function runSeq(steps, done) { if (seq) return; seq = { steps: steps.slice(), i: 0, done: done }; app.animate(true); }
+  app.onFrame(function (dt) {
+    if (!seq) return false;
+    const st = seq.steps[seq.i], cur = app.ui.get(st.id), dir = Math.sign(st.to - cur), spd = st.id === 'plunge' ? S.vp * 2.2 : 260;   // animation runs faster than the set speed
+    let nv = dir === 0 ? st.to : cur + dir * spd * Math.min(dt, 0.05);
+    if ((nv - st.to) * dir >= 0) nv = st.to;
+    app.ui.set(st.id, Math.round(nv));
+    const got = app.ui.get(st.id);
+    if (Math.abs(got - st.to) < 0.51) { seq.i++; if (seq.i >= seq.steps.length) { const d = seq.done; seq = null; if (d) d(); app.animate(false); } }
+    else if (Math.abs(got - cur) < 0.01 && Math.abs(Math.round(nv) - cur) >= 1) { seq = null; app.animate(false); app.toast('sequence stopped: an interlock refused the step'); }
+    return true;
+  });
+
+  // ------------------------------------------------------------------ controls
+  const grpA = app.ui.group('The head: one commanded axis', { help: 'Plunge along the barrel axis. 0 = the balls touch the grooves; negative = the float spring is compressed and the seat carries the gun.' });
+  grpA.slider({ id: 'plunge', label: 'Plunge (0 = balls touch the grooves)', min: -6, max: STROKE, step: 1, value: -4, unit: 'mm', kind: 'actuator', visual: () => [carriage, spring, rail],
+    onChange: v => { const g = requestPlunge(v); if (g !== v) app.ui.set('plunge', g, { silent: true }); place(); } });
+  grpA.slider({ id: 'vp', label: 'Plunge speed', min: 10, max: 80, step: 5, value: 40, unit: 'mm/s', kind: 'scene', noVisual: true, help: 'T8 screw at about 5 rev/s is 40 mm/s. The first 10 mm is the lift that ends a bead. Illustrative; how fast a hand lifts today is not measured.', onChange: v => { S.vp = v; sync(); } });
+  const grpT = app.ui.group('The tube side', { help: 'Who clears the swap: the head (long plunge) or the tube (carriage).' });
+  grpT.radio({ id: 'stations', label: 'Stations', options: [{ value: 'one', label: 'one rotator' }, { value: 'two', label: 'two on a carriage' }], value: 'one', kind: 'branch', visual: () => [plate], help: 'Two rotators share one carriage: one head, two seats, the fibre never moves (use-07 without the moving head).', onChange: v => { S.stations = v; if (v === 'two' && S.car > 0 && S.car < DCAR) { /* leave */ } place(); } });
+  grpT.slider({ id: 'carriage', label: 'Rotator carriage (0 = tube A under the head)', min: 0, max: DCAR, step: 5, value: 0, unit: 'mm', kind: 'actuator', visual: () => [plate, ws.turntable],
+    help: 'Moves the tube(s) toward -X on two rails. Refused until the plunge is out 20 mm (rule) or if the gun would touch a tube (geometry).',
+    onChange: v => { const g = requestCar(v); if (g !== v) app.ui.set('carriage', g, { silent: true }); place(); } });
+  grpT.radio({ id: 'ilk', label: 'Software rule before the carriage moves', options: [{ value: 'on', label: 'plunge >= 20 mm' }, { value: 'off', label: 'geometry only' }], value: 'on', kind: 'branch', noVisual: true, onChange: v => { S.interlock = v === 'on'; place(); } });
+  const grpQ = app.ui.group('Sequences (state buttons)');
+  grpQ.button({ id: 'go-retract', label: 'Retract 20 mm (end of bead)', kind: 'state', help: 'the lift that breaks the wire in air; with the wire fused it stops after 4 mm', onClick: () => runSeq([{ id: 'plunge', to: 20 }]) });
+  grpQ.button({ id: 'go-clear', label: 'Head clears: plunge 130 mm', kind: 'state', help: 'long plunge; the tube stays', onClick: () => runSeq([{ id: 'plunge', to: 130 }]) });
+  grpQ.button({ id: 'go-seat', label: 'Seat', kind: 'state', help: 'plunge onto the seat', onClick: () => runSeq([{ id: 'plunge', to: -4 }]) });
+  grpQ.button({ id: 'go-load', label: 'Tube to the loading end', kind: 'state', help: 'retract 20 mm, then drive the carriage out', onClick: () => runSeq([{ id: 'plunge', to: 20 }, { id: 'carriage', to: DCAR }]) });
+  grpQ.button({ id: 'go-weld', label: 'Tube back to the weld end, seat', kind: 'state', onClick: () => runSeq([{ id: 'plunge', to: 20 }, { id: 'carriage', to: 0 }, { id: 'plunge', to: -4 }]) });
+  grpQ.toggle({ id: 'stuck', label: 'Exception: wire fused in the bead', value: false, kind: 'state', help: 'On: a retract from the seat stops at 4 mm (HOLD). Off = the hand has snipped the wire.', onChange: v => { S.wireStuck = v; if (!v) app.badge('hold', null); place(); } });
+  const grpS = app.ui.group('Seat and its carrier (scene edits)', { help: 'The seat ring stays where it is; the gun retracts through it.' });
+  grpS.slider({ id: 'zs', label: 'Seat plane behind the nozzle', min: 100, max: 160, step: 2, value: 138, unit: 'mm', kind: 'scene', visual: () => [plateG, flange], help: 'Closer to the nozzle makes a shorter lever to the dot but pushes the ring into the swap volume when the head clears.', onChange: v => { S.zs = v; layoutSeat(); place(); } });
+  grpS.slider({ id: 'rc', label: 'Contact circle radius', min: 30, max: 60, step: 1, value: 45, unit: 'mm', kind: 'scene', visual: () => [plateG, flange], help: 'The hole is fixed at 25 mm radius (barrel, collar, wire bracket, conduit are assumed to fit); a wider circle keeps the balls on the ring and lowers the seat amplification.', onChange: v => { S.Rc = v; layoutSeat(); place(); } });
+  grpS.radio({ id: 'carrier', label: 'Seat column section', options: [{ value: 'tslot', label: CARRIER.tslot.label }, { value: 'box', label: CARRIER.box.label }, { value: 'steel', label: CARRIER.steel.label }], value: 'box', kind: 'branch', visual: () => [column, colArm], help: 'Changes the stiffness used by the pull slider and the drawn column. use-02\'s shared post and arm come to 25 to 119 um per newton at the dot in the same statics, depending on section (see Tried).', onChange: v => { S.carrier = v; layoutSeat(); place(); } });
+  grpS.slider({ id: 'pull', label: 'Umbilical pull change, dry lap to weld', min: 0, max: 4, step: 0.1, value: 0, unit: 'N', kind: 'scene', help: 'A load the carrier sees after the last adjustment: wire feed starting, the gas hose stiffening, a trigger pressed on the gun. Unmeasured; the slider is a made-up load, the shift is a statics result.', onChange: v => { S.pull = v; place(); } });
+  const grpV = app.ui.group('Rotator and views');
+  grpV.toggle({ id: 'spin', label: 'Rotator turning (dry lap)', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; sync(); } });
+  grpV.toggle({ id: 'loadpath', label: 'Show load path', value: true, kind: 'view', onChange: v => { loadPath.visible = v; app.invalidate(); } });
+  grpV.toggle({ id: 'swapvol', label: 'Show tube-swap volume', value: true, kind: 'view', onChange: v => { swapVol.visible = v; app.invalidate(); } });
+
+  // labels
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => carriage.position, 'carriage on rail (the one axis)', { cls: 'actuated' });
+  app.label(() => spring.position, 'float spring', { cls: 'compliant' });
+  app.label(() => plateG.position, 'seat ring: 3 balls / 3 grooves', { cls: 'locate' });
+  app.label(() => V(column.position.x, column.position.y, benchZ + 90), 'seat column (own foot)', { cls: 'fixed' });
+  app.label(() => V(mast.position.x, mast.position.y, benchZ + 300), 'rail mast (carries in transit only)', { cls: 'fixed' });
+  app.label(() => hookMark.position, 'cable hook (fixed)', { cls: 'cable' });
+  app.label(() => V(plate.position.x, plate.position.y - 150, benchZ + 4), 'rotator carriage (two rails)', { cls: 'actuated' });
+
+  layoutSeat(); place();
+})();
+</script>
+</body>
+</html>

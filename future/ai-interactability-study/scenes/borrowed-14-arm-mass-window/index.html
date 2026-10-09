@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arm mass window</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .aw { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 14px 16px; align-items: start; }
+  .aw h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .aw svg { width: 100%; height: auto; display: block; background: #0b0f14; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .aw text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .aw .lab { fill: #e7ebf1; }
+  .aw table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  .aw th, .aw td { border: 1px solid var(--wk-line); padding: 4px 8px; text-align: left; vertical-align: top; }
+  .aw th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .aw td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .aw .note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .aw .status { font: 600 13px system-ui, sans-serif; padding: 5px 10px; border: 1px solid var(--wk-line2); border-radius: 8px; margin: 6px 0; background: var(--wk-panel2); }
+  .aw .good { color: #34d399; } .aw .bad { color: #f87171; } .aw .mid { color: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-14-arm-mass-window",
+  "title": "Arm mass window: what the arm has to carry, what friction can forgive, and which bought arms bracket it",
+  "by": "borrowed",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Derek's balanced arm, with the payload counted from parts (gun, the vernier stage that freedom-02 adds, camera, the fibre's share, ballast) and the spring drawn as a real mechanism: a gas spring as in freedom-02, or the spring-and-parallelogram of an Anglepoise or microphone boom, plain or zero-length. Friction turns a mass mismatch into grams the arm forgives; a strip of rated ranges from bought arms shows which ones bracket the total.",
+  "tags": ["balanced arm", "payload window", "mismatch tolerance", "Anglepoise", "bought parts", "derek's example"],
+  "branchOf": ["freedom-02-balanced-arm"],
+  "combines": [],
+  "transferable": ["mismatch tolerance in grams = friction / (g L cos)", "zero-length spring balances at every angle", "count the location path's mass as payload", "rated windows of bought arms"],
+  "how": {
+    "motion": "by hand inside the friction window; a small shoulder motor is possible because gravity is cancelled",
+    "load": "a spring and parallelogram (or a gas spring) cancel the payload; joint friction holds the residue",
+    "reference": "not the arm: a vernier and a camera place the dot (freedom-02)",
+    "observe": "payload from a load cell in the vernier; the shoulder angle by an encoder",
+    "use": "weigh the parts, choose an arm whose rating brackets the total, trim with ballast in grams"
+  },
+  "software": {
+    "commands": ["nothing here: the arm is passive; a shoulder motor and the vernier belong to freedom-02"],
+    "observes": ["payload (a load cell in the vernier would read it)", "shoulder angle (an encoder)"],
+    "manual": ["weighing the parts", "choosing or adjusting the spring", "trimming with ballast"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-14-arm-mass-window.md", "../../explorers/freedom/ideas/freedom-02-balanced-arm.md"],
+  "sources": ["../../sourcing/borrowed.md", "../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/borrowed/calc/arm.js"></script>
+<script>
+(function () {
+  const S = WK.svg, H = WK.h, AM = ArmModel, D2R = Math.PI / 180, G = AM.G;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 440,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>freedom-02 gives the gun a gas-spring arm for the weight and a vernier and camera for the location. Two things about the arm decide whether that works, and both are about mass. <b>What is the payload?</b> It is not only the gun: it is everything on the tip, including the vernier stage that does the locating. <b>How exact must the spring match it?</b> The arm stays put while the spring and the payload differ by less than friction can hold, and in grams that is friction divided by (g &times; reach): about &plusmn;0.09 kg for the friction (0.4 N&middot;m) and reach (0.45 m) freedom-02 uses.</p>' +
+        '<p>Draw the mechanism, count the parts, and read the strip of rated ranges from bought arms (monitor arms, microphone booms, tool balancers). The same arm can be a gas spring (freedom-02&rsquo;s model), or a <b>spring and parallelogram</b> as in an Anglepoise lamp or a microphone boom: with a zero-length spring the balance is exact at every angle for one payload, and the window is set by friction alone.</p>',
+      carries: '<p>The spring carries the payload; joint friction carries what is left over, up to its limit. Beyond it the arm rises or sinks until it sticks. The tip is not stiff: freedom-02&rsquo;s pre-sliding numbers still apply, and the vernier and camera still locate the dot.</p>',
+      software: '<p>Nothing to command on the arm itself. Software can read the payload from a load cell in the vernier (the mismatch in kilograms is then a number, not a feeling) and the angle from an encoder. A small shoulder motor is possible because gravity is cancelled (freedom-02, entry 6).</p>',
+      tried: '<p><b>Round 1: the floor of monitor arms is met by the parts, not by ballast.</b> freedom-02 finds a 1.5 kg payload below the 2 kg floor and adds 0.5 kg of ballast. Counting the XZ vernier (two mini linear rails with motors), a camera and the fibre&rsquo;s share, the default total is 2.3 kg. The vernier is the ballast. With a 0.8 kg gun the total is 1.9 kg and the floor is 0.1 kg away.</p>' +
+        '<p><b>Round 2: friction forgives grams, not tenths of a kilogram.</b> At 0.4 N&middot;m and 0.45 m the arm holds a mismatch of &plusmn;0.09 kg; at 0.8 m reach &plusmn;0.05 kg; at 2 N&middot;m and 0.45 m &plusmn;0.45 kg. The fibre&rsquo;s share on the arm (0.35 kg here) changing by a quarter is 0.09 kg. Clip the fibre at a fixed place, or give it its own balancer (borrowed-11, travel-08).</p>' +
+        '<p><b>Round 3: the spring changes the window, not only its width.</b> Matched at 1.5 kg the gas spring holds &minus;19&deg; to 32&deg;, a plain coil spring (40 mm free length) &minus;20&deg; to 29&deg;, a zero-length spring the whole &minus;20&deg; to 50&deg;. A payload 0.1 kg too heavy shifts the gas window to 7&deg;&ndash;50&deg;, the plain coil to below 2&deg;, and the zero-length spring to 25&deg;&ndash;50&deg;: the mismatch tolerance is the same 0.09 kg in all three, and it is where along the travel that moves.</p>' +
+        '<p><b>Round 4: the rating is a window on mass and says nothing else.</b> A rating does not give the balance-error slope, the friction, the reach or the tip stiffness. A bought arm is a candidate for a payload bracket; the scene&rsquo;s slider values are the things to measure on it.</p>',
+      unresolved: '<ul><li>The gun&rsquo;s mass, the vernier&rsquo;s and the fibre&rsquo;s share: <b>[unknown]</b>, weigh them. Every mass here is a placeholder.</li>' +
+        '<li>Real friction (0.4 N&middot;m is freedom-02&rsquo;s illustrative number), real balance-error slope and whether a listed arm&rsquo;s spring can be tuned down to a payload near its lower rating.</li>' +
+        '<li>The tip&rsquo;s pre-sliding stiffness: this scene only counts mass and torque about the shoulder; freedom-02 has the stiffness numbers.</li>' +
+        '<li>One joint only: a real monitor or microphone arm is a parallelogram plus swivels. The swivels have no gravity torque and carry only the fibre&rsquo;s horizontal pull and the gun&rsquo;s inertia.</li></ul>',
+      assumptions: '<ul><li>Everything is <b>illustrative</b>: gun and shell 1.2 kg, vernier 0.6 kg, camera 0.15 kg, fibre share 0.35 kg (freedom-02), reach 0.45 m, friction 0.4 N&middot;m, error slope 0.15 per rad, spring geometry a = 180 mm, b = 120 mm.</li>' +
+        '<li>The coil-spring geometry is the standard one: torque = k a b cos(th) (1 &minus; l0 / l), l&sup2; = a&sup2; + b&sup2; &minus; 2 a b sin(th). A plain spring&rsquo;s free length is what breaks the exact balance; close-wound springs with initial tension and springs routed over a pulley approximate zero length.</li>' +
+        '<li>Rated ranges are read from the Amazon listings named in <code>sourcing/borrowed.md</code> (Prime, observed 2026-09-28/29); ratings, floors and the number of ratings are the listings&rsquo;, not measurements. Sales volume is Amazon&rsquo;s own label.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code> wave 2 and <code>sourcing/freedom.md</code> for the listings behind the strip.</p>',
+    },
+  });
+
+  // ---------- state
+  const P = { gun: 1.2, vern: 0.6, cam: 0.15, cable: 0.35, ballast: 0, type: 'coil0', L: 0.45, md: 2.3, taf: 0.4, eps: 0.15, l0: 0.04, th: 5, dm: 0.1 };
+  const total = () => P.gun + P.vern + P.cam + P.cable + P.ballast;
+  const opts = () => ({ type: P.type, L: P.L, md: P.md, taf: P.taf, eps: P.eps, l0: P.l0 });
+  const f1 = (v, n) => v.toFixed(n == null ? 1 : n), f2 = v => v.toFixed(2);
+  // rated ranges read from listings (kg); floor null = none stated
+  const PRODUCTS = [
+    { n: 'RØDE PSA1+ boom arm (spring damped)', lo: 0.25, hi: 1.2, note: '$112, 2,701 ratings, 1K+ bought/mo' },
+    { n: 'MAONO BA20 mic arm', lo: null, hi: 1.0, note: '$24.99, 480 ratings (title: max load 1 kg)' },
+    { n: 'InnoGear boom arm (scissor spring)', lo: null, hi: 1.5, note: '$19.99, 24,099 ratings, 2K+ bought/mo' },
+    { n: 'Tigon TW-1R tool balancer (vertical only)', lo: 0.5, hi: 1.5, note: '$39.00, 69 ratings' },
+    { n: 'Elgato Wave Mic Arm Pro (gas spring)', lo: null, hi: 3.0, note: '$179.99, 371 ratings' },
+    { n: 'Amazon Basics gas-spring monitor arm', lo: 2.0, hi: 7.0, note: '$25.49, 1.3K ratings (result card)' },
+    { n: 'HUANUO FlowLift monitor arm (gas spring)', lo: 2.0, hi: 9.0, note: '$35.99, 16,507 ratings, 4K+ bought/mo' },
+  ];
+
+  // ---------- layout
+  const root = H('div', { class: 'aw' });
+  app.stageEl.appendChild(root);
+  const VW = 640, VH = 430, SC = 0.72;
+  const svg = S('svg', { viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'side view of the balanced arm with its spring and the payload stack' });
+  const OX = 110, OY = 300;
+  const column = S('rect', { x: OX - 14, y: OY - 190, width: 28, height: 250, fill: '#556074' });
+  const benchL = S('line', { x1: 20, y1: OY + 60, x2: VW - 20, y2: OY + 60, stroke: '#4b5665', 'stroke-width': 2 });
+  const armL = S('line', { stroke: '#f5a524', 'stroke-width': 9, 'stroke-linecap': 'round' });
+  const springL = S('polyline', { fill: 'none', stroke: '#4ade80', 'stroke-width': 2 });
+  const shoulder = S('circle', { cx: OX, cy: OY, r: 8, fill: '#f5a524', stroke: '#111', 'stroke-width': 1.5 });
+  const anchorA = S('circle', { cx: OX, r: 5, fill: '#4ade80' }), anchorB = S('circle', { r: 5, fill: '#4ade80' });
+  const payG = S('g'); const rangeArc = S('path', { fill: 'none', stroke: '#14b8a6', 'stroke-width': 3, opacity: 0.8 });
+  const lab1 = S('text', { x: OX + 22, y: OY + 22, class: 'lab', text: 'shoulder (friction holds the residue)' });
+  svg.append(benchL, column, rangeArc, springL, armL, anchorA, anchorB, shoulder, payG, lab1, S('text', { x: 24, y: OY + 78, text: 'bench' }));
+  const capL = H('p', { class: 'note', text: '' });
+  const status = H('div', { class: 'status', text: '' });
+  root.appendChild(H('div', null, H('h3', { text: 'Side view: the arm, its spring, and what hangs on the tip (kg)' }), svg, status, capL));
+  const CW = 520, CH = 230, ch = S('svg', { viewBox: '0 0 ' + CW + ' ' + CH });
+  const strip = S('svg', { viewBox: '0 0 ' + CW + ' 236' });
+  const right = H('div');
+  right.append(H('h3', { text: 'Torque about the shoulder against arm angle (N·m)' }), ch, H('h3', { text: 'Rated ranges of bought arms and balancers (kg), and this payload', style: { marginTop: '12px' } }), strip);
+  const tbl = H('div'); right.append(tbl);
+  root.appendChild(right);
+
+  // ---------- drawing
+  function drawArm() {
+    const th = P.th * D2R, tipx = OX + P.L * 1000 * SC * Math.cos(th), tipy = OY - P.L * 1000 * SC * Math.sin(th);
+    armL.setAttribute('x1', OX); armL.setAttribute('y1', OY); armL.setAttribute('x2', tipx.toFixed(1)); armL.setAttribute('y2', tipy.toFixed(1));
+    // spring: from B on the arm at distance a to A at height b above the shoulder
+    const ay = OY - 1000 * 0.12 * SC * 1, a = 0.18, b = 0.12, Bx = OX + a * 1000 * SC * Math.cos(th), By = OY - a * 1000 * SC * Math.sin(th), Ay = OY - b * 1000 * SC;
+    anchorA.setAttribute('cy', Ay); anchorB.setAttribute('cx', Bx.toFixed(1)); anchorB.setAttribute('cy', By.toFixed(1));
+    const n = 9, dx = Bx - OX, dy = By - Ay, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len, nx = -uy, ny = ux; const pts = [[OX, Ay]];
+    for (let i = 1; i < 2 * n; i++) { const t = i / (2 * n), off = (i % 2 ? 1 : -1) * 6; pts.push([OX + dx * t + nx * off, Ay + dy * t + ny * off]); } pts.push([Bx, By]);
+    springL.setAttribute('points', pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '));
+    springL.setAttribute('stroke', P.type === 'gas' ? '#93c5fd' : '#4ade80');
+    // range arc of the arm angle (thMin .. thMax) at the tip radius
+    const r = P.L * 1000 * SC + 12, a0 = -20 * D2R, a1 = 50 * D2R;
+    rangeArc.setAttribute('d', 'M ' + (OX + r * Math.cos(a0)).toFixed(1) + ' ' + (OY - r * Math.sin(a0)).toFixed(1) + ' A ' + r + ' ' + r + ' 0 0 0 ' + (OX + r * Math.cos(a1)).toFixed(1) + ' ' + (OY - r * Math.sin(a1)).toFixed(1));
+    // payload stack hanging from the tip
+    payG.innerHTML = '';
+    const items = [['gun and shell', P.gun, '#4b5665'], ['XZ vernier stage', P.vern, '#a78bfa'], ['camera and bracket', P.cam, '#60a5fa'], ['fibre share', P.cable, '#9aa7ba'], ['ballast', P.ballast, '#b08d3c']].filter(x => x[1] > 0.001);
+    let y = tipy + 12; const x0 = Math.min(tipx - 20, VW - 240), w = 40;
+    payG.append(S('line', { x1: tipx, y1: tipy, x2: tipx, y2: y, stroke: '#9aa7ba', 'stroke-width': 2 }));
+    items.forEach(it => { const h = Math.max(10, it[1] * 26); payG.append(S('rect', { x: tipx - w / 2, y: y, width: w, height: h, fill: it[2], stroke: '#111', 'stroke-width': 1 }), S('text', { x: tipx + w / 2 + 6, y: y + h / 2 + 4, class: 'lab', text: it[0] + ' ' + f2(it[1]) + ' kg' })); y += h + 2; });
+    payG.append(S('text', { x: tipx - 36, y: y + 16, class: 'lab', text: 'payload ' + f2(total()) + ' kg' }));
+    lab1.setAttribute('y', OY + 24);
+  }
+  const chX = a => 44 + (a + 20) / 70 * (CW - 56);
+  function drawChart() {
+    const o = opts(), m = total(); ch.innerHTML = '';
+    const tmax = 1.3 * Math.max(P.md, m) * G * P.L, ty = v => CH - 30 - (v / tmax) * (CH - 56);
+    ch.append(S('line', { x1: 44, y1: CH - 30, x2: CW - 8, y2: CH - 30, stroke: '#394559' }), S('text', { x: 4, y: 14, text: f1(tmax, 1) + ' N·m' }), S('text', { x: 4, y: CH - 32, text: '0' }));
+    [-20, 0, 10, 20, 30, 40, 50].forEach(a => ch.append(S('text', { x: chX(a) - 8, y: CH - 14, text: a + '°' })));
+    const line = (fn, col, dash, w) => { const pts = []; for (let a = -20; a <= 50; a += 1) pts.push(chX(a).toFixed(1) + ',' + Math.max(2, Math.min(CH - 30, ty(fn(a)))).toFixed(1)); return S('polyline', { fill: 'none', stroke: col, 'stroke-width': w || 1.8, 'stroke-dasharray': dash || '', points: pts.join(' ') }); };
+    ch.append(line(a => AM.springTorque(o, a), P.type === 'gas' ? '#93c5fd' : '#4ade80'), line(a => m * G * P.L * Math.cos(a * D2R), '#f5a524'), line(a => (m + P.dm) * G * P.L * Math.cos(a * D2R), '#f5a524', '4 3', 1.2));
+    // net (scaled up: shown as a band around zero on its own scale)
+    const nsc = Math.max(1.2, Math.min(3, P.taf * 6)), ny = v => CH - 30 - (CH - 56) * 0.5 - v / nsc * (CH - 56) * 0.5 * 1;
+    // separate small plot: net torque in a strip near the bottom
+    const by0 = CH - 92;
+    ch.append(S('rect', { x: 44, y: by0 - 30, width: CW - 52, height: 60, fill: 'rgba(20,184,166,.10)', stroke: 'none' }), S('text', { x: 48, y: by0 - 34, text: 'net torque (spring minus payload), teal band = friction ±' + f2(P.taf) + ' N·m' }));
+    const nsv = v => by0 - Math.max(-30, Math.min(30, v / (P.taf * 2.2) * 30));
+    const nline = (mm, col, dash) => { const pts = []; for (let a = -20; a <= 50; a += 1) pts.push(chX(a).toFixed(1) + ',' + nsv(AM.net(o, mm, a)).toFixed(1)); return S('polyline', { fill: 'none', stroke: col, 'stroke-width': 1.6, 'stroke-dasharray': dash || '', points: pts.join(' ') }); };
+    ch.append(S('line', { x1: 44, y1: by0 - 30 * (1 / 2.2) * 1 + 0, x2: CW - 8, y2: by0 - 30 * (1 / 2.2) * 1 + 0, stroke: 'rgba(20,184,166,.7)', 'stroke-dasharray': '2 3' }), S('line', { x1: 44, y1: by0 + 30 * (1 / 2.2) * 1, x2: CW - 8, y2: by0 + 30 * (1 / 2.2) * 1, stroke: 'rgba(20,184,166,.7)', 'stroke-dasharray': '2 3' }), S('line', { x1: 44, y1: by0, x2: CW - 8, y2: by0, stroke: '#394559' }));
+    ch.append(nline(m, '#ffffff'), nline(m + P.dm, '#ffffff', '4 3'));
+    // set angle
+    ch.append(S('line', { x1: chX(P.th), y1: 4, x2: chX(P.th), y2: CH - 30, stroke: '#a78bfa', 'stroke-dasharray': '3 3' }), S('text', { x: chX(P.th) + 4, y: 14, style: 'fill:#a78bfa', text: 'set ' + f1(P.th, 0) + '°' }));
+    // window bars
+    const w0 = AM.analyse(o, m).win, w1 = AM.analyse(o, m + P.dm).win;
+    w0.forEach(w => ch.append(S('rect', { x: chX(w[0]), y: CH - 26, width: Math.max(2, chX(w[1]) - chX(w[0])), height: 5, fill: '#14b8a6' })));
+    w1.forEach(w => ch.append(S('rect', { x: chX(w[0]), y: CH - 20, width: Math.max(2, chX(w[1]) - chX(w[0])), height: 3, fill: '#14b8a6', opacity: 0.55 })));
+    ch.append(S('text', { x: 48, y: 30, style: 'fill:' + (P.type === 'gas' ? '#93c5fd' : '#4ade80'), text: 'spring' }), S('text', { x: 90, y: 30, style: 'fill:#f5a524', text: 'payload (dashed: + ' + f2(P.dm) + ' kg)' }));
+  }
+  function drawStrip() {
+    const m = total(), tol = AM.tolKg(opts(), P.th); strip.innerHTML = '';
+    const x0 = 250, x1 = CW - 10, kx = v => x0 + v / 4 * (x1 - x0), rowH = 26;
+    [0, 1, 2, 3, 4].forEach(k => { strip.append(S('line', { x1: kx(k), y1: 6, x2: kx(k), y2: 8 + PRODUCTS.length * rowH, stroke: '#2a3441' }), S('text', { x: kx(k) - 5, y: 8 + PRODUCTS.length * rowH + 14, text: k + ' kg' })); });
+    PRODUCTS.forEach((p, i) => { const y = 10 + i * rowH, inR = m >= (p.lo || 0) - 1e-9 && m <= p.hi + 1e-9;
+      strip.append(S('text', { x: 4, y: y + 12, class: 'lab', text: p.n.length > 40 ? p.n.slice(0, 39) + '…' : p.n }));
+      const lo = p.lo == null ? 0 : p.lo, hiC = Math.min(p.hi, 4); strip.append(S('rect', { x: kx(lo), y: y, width: kx(hiC) - kx(lo), height: 16, rx: 3, fill: inR ? '#14b8a6' : '#3a4453', opacity: 0.9 }));
+      if (p.hi > 4) strip.append(S('text', { x: kx(4) - 26, y: y + 12, text: '\u2192 ' + p.hi, style: 'font-size:9.5px;fill:#e7ebf1' }));
+      if (p.lo == null) strip.append(S('text', { x: kx(0) + 3, y: y + 12, text: 'no floor stated', style: 'font-size:9.5px;fill:#cbd5e1' }));
+      else strip.append(S('text', { x: kx(p.lo) + 3, y: y + 12, text: p.lo + ' – ' + p.hi, style: 'font-size:9.5px;fill:#e7ebf1' })); });
+    strip.append(S('rect', { x: kx(m - tol), y: 4, width: Math.max(2, kx(m + tol) - kx(m - tol)), height: 6 + PRODUCTS.length * rowH, fill: 'rgba(245,165,36,.20)' }), S('line', { x1: kx(m), y1: 4, x2: kx(m), y2: 10 + PRODUCTS.length * rowH, stroke: '#f5a524', 'stroke-width': 2 }));
+    strip.append(S('text', { x: Math.min(kx(m) - 30, CW - 90), y: 14 + PRODUCTS.length * rowH + 30, style: 'fill:#f5a524', text: 'payload ' + f2(m) + ' kg' }));
+    strip.setAttribute('viewBox', '0 0 ' + CW + ' ' + (18 + PRODUCTS.length * rowH + 42));
+  }
+  function drawTable() {
+    const o = opts(), m = total(), st = AM.settle(o, m, P.th), st2 = AM.settle(o, m + P.dm, P.th), tol = AM.tolKg(o, P.th), mis = P.md - m;
+    const cls = st.holds ? 'good' : 'bad', cls2 = st2.holds ? 'good' : 'bad';
+    const inList = PRODUCTS.filter(p => m >= (p.lo || 0) - 1e-9 && m <= p.hi + 1e-9).map(p => p.n.replace(/ \(.*\)/, ''));
+    const rows = [
+      ['Payload on the tip', f2(m) + ' kg', 'gun ' + f2(P.gun) + ' + vernier ' + f2(P.vern) + ' + camera ' + f2(P.cam) + ' + fibre share ' + f2(P.cable) + ' + ballast ' + f2(P.ballast)],
+      ['Spring set for', f2(P.md) + ' kg', 'mismatch ' + (mis >= 0 ? '+' : '−') + f2(Math.abs(mis)) + ' kg (spring heavier means it lifts)'],
+      ['Mismatch the friction holds at ' + f1(P.th, 0) + '°', '±' + f2(tol) + ' kg', 'friction ' + f2(P.taf) + ' N·m ÷ (g × ' + f2(P.L) + ' m × cos)'],
+      ['Arm at ' + f1(P.th, 0) + '° with this payload', '<span class="' + cls + '">' + st.state + '</span>', 'net ' + f2(st.net) + ' N·m against ±' + f2(P.taf)],
+      ['With +' + f2(P.dm) + ' kg (fibre share moves)', '<span class="' + cls2 + '">' + st2.state + '</span>', 'the change the arm has to forgive'],
+      ['Rated ranges that include this payload', inList.length + ' of ' + PRODUCTS.length, inList.length ? inList.join('; ') : 'none of the listed ranges: a heavier or lighter class is needed'],
+    ];
+    tbl.innerHTML = '<table><tr><th>Quantity</th><th>Value</th><th>Reading</th></tr>' + rows.map(x => '<tr><td>' + x[0] + '</td><td class="n">' + x[1] + '</td><td>' + x[2] + '</td></tr>').join('') + '</table><p class="note">A rated range is a window on mass only. It does not state balance error, friction, reach or tip stiffness. Ranges and counts are from the listings in sourcing/borrowed.md (Prime, 2026-09-28/29); nothing here has been ordered or weighed.</p>';
+    status.textContent = 'Arm ' + st.state + ' at ' + f1(P.th, 0) + '°; the mismatch tolerance here is ±' + f2(tol) + ' kg';
+    status.className = 'status ' + (st.holds ? 'good' : 'bad');
+    capL.textContent = (P.type === 'gas' ? 'Gas spring (freedom-02 model, error slope ' + P.eps + ' per rad).' : P.type === 'coil0' ? 'Spring and parallelogram, zero-length spring: torque = k a b cos(th), exact at every angle for one payload.' : 'Spring and parallelogram, plain spring with free length ' + f1(P.l0 * 1000, 0) + ' mm: the error grows away from the set angle.');
+    app.badge('mis', Math.abs(mis) > tol ? 'spring set ' + f2(Math.abs(mis)) + ' kg ' + (mis > 0 ? 'heavy' : 'light') + ': more than friction forgives (±' + f2(tol) + ' kg) at ' + f1(P.th, 0) + '°' : null, 'warn');
+    app.badge('floor', m < 2 && P.type === 'gas' && P.md < 2 ? 'a monitor-arm gas spring cannot be set below its 2 kg rating: not this payload' : null, 'info');
+    app.io.set({
+      commands: [{ name: 'Shoulder', value: 'passive', note: 'a small motor is possible: gravity is cancelled (freedom-02 entry 6)' }],
+      observes: [
+        { name: 'Payload', value: f2(m), unit: 'kg', status: 'partly', note: 'a load cell in the vernier would read it; here it is the sum of parts' },
+        { name: 'Arm angle', value: f1(P.th, 0), unit: '°', status: 'seen', note: 'an encoder at the shoulder' },
+        { name: 'Balance error slope', value: P.type === 'gas' ? f2(P.eps) + ' /rad' : 'from geometry', status: 'unresolved', note: 'not on any listing; measure on the arm' },
+      ],
+      manual: ['Weigh the parts', 'Choose the arm and set its spring', 'Trim with ballast in grams'],
+    });
+  }
+  function redraw() { drawArm(); drawChart(); drawStrip(); drawTable(); }
+
+  // ---------- controls
+  const g1 = app.ui.group('What hangs on the tip (scene edits)');
+  const sl = (g, id, label, min, max, step, val, unit, fn, help) => g.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'scene', help: help, onChange: v => { fn(v); redraw(); } });
+  sl(g1, 'gun', 'Gun and shell', 0.6, 2.5, 0.05, 1.2, 'kg', v => { P.gun = v; }, 'Unknown: weigh it. freedom-02 uses 1.2 to 1.5.');
+  sl(g1, 'vern', 'XZ vernier stage (two rails with motors)', 0, 1.5, 0.05, 0.6, 'kg', v => { P.vern = v; }, 'The stage that freedom-02 adds to place the dot. Two mini linear rails with NEMA 11 motors: mass not on the listing.');
+  sl(g1, 'cam', 'Camera and bracket', 0, 0.6, 0.05, 0.15, 'kg', v => { P.cam = v; });
+  sl(g1, 'cable', 'Share of the fibre carried by the arm', 0, 0.8, 0.05, 0.35, 'kg', v => { P.cable = v; }, 'freedom-02 entry 4: 0.35 kg.');
+  sl(g1, 'ballast', 'Ballast', 0, 1.5, 0.025, 0, 'kg', v => { P.ballast = v; }, 'Trim in grams; a fishing weight is 25 to 50 g.');
+  const g2 = app.ui.group('The arm and its spring');
+  g2.radio({ id: 'type', label: 'Spring', kind: 'branch', value: 'coil0', options: [
+    { value: 'gas', label: 'Gas spring (freedom-02 model)' }, { value: 'coil', label: 'Spring and parallelogram, plain spring' }, { value: 'coil0', label: 'Spring and parallelogram, zero-length spring' }],
+    onChange: v => { P.type = v; redraw(); } });
+  sl(g2, 'L', 'Reach (shoulder to tip)', 0.3, 0.9, 0.01, 0.45, 'm', v => { P.L = v; });
+  sl(g2, 'md', 'Spring set for', 0.3, 5, 0.05, 2.3, 'kg', v => { P.md = v; }, 'What the spring is adjusted to carry. A bought arm sets this with a screw or hex key within its rating.');
+  g2.button({ id: 'match', label: 'Set the spring to the payload', kind: 'scene', onClick: function () { app.ui.set('md', Math.round(total() * 20) / 20); } });
+  sl(g2, 'taf', 'Joint friction at the shoulder', 0.05, 2, 0.05, 0.4, 'N·m', v => { P.taf = v; }, 'freedom-02: 0.4 (illustrative).');
+  g2.slider({ id: 'eps', label: 'Gas spring balance error', min: 0, max: 0.5, step: 0.01, value: 0.15, unit: '/rad', kind: 'scene', noVisual: true, help: 'Only for the gas spring.', onChange: v => { P.eps = v; redraw(); } });
+  g2.slider({ id: 'l0', label: 'Plain spring free length', min: 0, max: 90, step: 1, value: 40, unit: 'mm', kind: 'scene', noVisual: true, help: 'Only for the plain spring. 0 is the zero-length spring.', onChange: v => { P.l0 = v / 1000; redraw(); } });
+  const g3 = app.ui.group('Use');
+  sl(g3, 'th', 'Arm angle (set by hand)', -20, 50, 1, 5, '°', v => { P.th = v; }, 'Inside the friction window the arm stays where it is put.');
+  sl(g3, 'dm', 'Change of payload as the arm moves', 0, 0.5, 0.01, 0.1, 'kg', v => { P.dm = v; }, 'Mostly the fibre’s share: 0.09 kg is a quarter of 0.35 kg.');
+
+  redraw();
+})();
+</script>
+</body>
+</html>

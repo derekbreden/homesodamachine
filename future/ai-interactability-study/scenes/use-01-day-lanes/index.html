@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The day, lane by lane</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-lanes { display: block; width: 100%; min-width: 760px; max-width: 1500px; }
+  .use-lanes text { font: 10.5px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #dbe6ff; }
+  .use-lanes .lbl { fill: #98a4b6; font-size: 10.5px; }
+  .use-lanes .hd { font-weight: 600; font-size: 11px; letter-spacing: .04em; }
+  .use-lanes .col { cursor: pointer; }
+  .use-lanes .col:hover .colbg { fill: rgba(147, 197, 253, .10); }
+  .use-lanes .sel { fill: none; stroke: #93c5fd; stroke-width: 1.5; stroke-dasharray: 5 3; }
+  .use-lanes .dark { fill: #0b0f14; }
+  .use-detail { margin-top: 10px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 10px 18px; font-size: 12.5px; line-height: 1.45; color: #c7d3e6; }
+  .use-detail h3 { font-size: 13.5px; margin: 0 0 3px; color: #fff; }
+  .use-detail h4 { font-size: 10.5px; margin: 8px 0 2px; color: #93a4bd; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  .use-detail p { margin: 0 0 4px; }
+  .use-detail ul { margin: 0; padding-left: 16px; }
+  .use-detail .tag { display: inline-block; padding: 0 6px; border-radius: 999px; border: 1px solid #394559; font-size: 10.5px; margin-right: 4px; color: #98a4b6; }
+  .use-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 6px; font-size: 11px; color: #98a4b6; }
+  .use-key i { display: inline-block; width: 12px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-01-day-lanes",
+  "title": "The day, lane by lane",
+  "by": "use",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "One closure of one tube as a sequence of states, drawn as lanes: what a hand does, what a hand only holds, what an eye judges or merely watches, what software commands and observes, what sets the gun's pose, and what the laser is doing. Switch the arrangement and see which states and handovers change. A lens for comparing the other scenes, not an arrangement itself; nothing here is ranked.",
+  "tags": ["lens", "day-of-use", "handover", "hand-and-eye", "sequence"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["hand and eye as resources, not defaults", "pose owner per state", "what changes between dry lap and weld"],
+  "how": {
+    "motion": "no mechanism: the columns are states, widths follow durations you can change",
+    "load": "the pose-owner lane says who or what carries the gun in each state",
+    "reference": "the pose-owner lane also says what fixes the gun's position",
+    "observe": "the software lane lists what would be commanded, observed, logged, advised or gated",
+    "use": "compare arrangements state by state; find where a hand or an eye is essential or spare"
+  },
+  "software": {
+    "commands": ["depends on the arrangement chosen"],
+    "observes": ["depends on the arrangement chosen"],
+    "manual": ["what the hand lanes show"]
+  },
+  "notes": ["../../explorers/use/ideas/use-01-day-lanes.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'assumptions'],
+    sections: {
+      proposes:
+        '<p>The <b>states</b> of one closure run left to right, each as wide as its duration: load, indicate, plate and tack, contact and set-up, dry lap, weld lap, retract, an exception (snip a stuck wire), swap, review. They follow the per-weld sequence in <code>weld-rotation-rig.md</code> [repo], with the dry lap added because the study’s goal (repeated laser-dot dry runs) needs one.</p>' +
+        '<p>The <b>lanes</b> answer: who does a thing only a person can (hand), who is merely a support (a hand holding a gun still), whose judgement is needed (eye, <i>judge</i>) and whose is spare because something else could watch (eye, <i>watch</i>), what software would do (command, observe, log, advise, gate), what fixes the gun’s pose, and what the laser is doing. Diamonds mark where the pose changes owner: those are the handovers.</p>' +
+        '<p>Pick an <b>arrangement</b>. Click a column for what changes at that state. Change the durations to yours. Nothing is totalled or ranked; the readouts show only the selected arrangement.</p>',
+      carries:
+        '<p>The <b>pose owner</b> lane is the load-and-reference answer in time: HAND (a person carries and aims), ARM (a support carries, a person or motor moved it), SEAT (a locating seat carries and fixes the pose), PARKED (out of the way). Compare it with the scenes named in each arrangement.</p>',
+      software:
+        '<p>Chips in the software lane: <b>CMD</b> a command to something that moves (existing rotator, or a proposed axis), <b>OBS</b> an observation, <b>LOG</b> a record kept, <b>ADV</b> advice given to a hand, <b>GATE</b> a check that can stop the next state. The laser is never commanded by software in any arrangement here: a hand fires it. That is a choice this lens makes visible, consistent with the rig where the pedal is a deadman that never commands the laser [repo].</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Where the time goes.</b> With illustrative durations, the laser is on for a small part of a closure and the weld lap is under a minute; indicating, plate seating and set-up dominate. So an arrangement that only improves the weld lap improves a small part of the day. <i>Leaves:</i> the real durations are Derek’s to type in.</li>' +
+        '<li><b>Hold vs judge.</b> In today’s sequence the hand is at once actuator, support and safety guard during tack, weld and retract. Separating the roles is what each arrangement does differently: a rest takes the support role; a coach takes part of the aiming; a seat takes the position.</li>' +
+        '<li><b>Dry lap is only useful if it looks like the weld.</b> Between the dry lap and the weld lap the laser, wire feed, argon flow and heat change; the pose must not. The detail card for that handover lists what could shift it.</li>' +
+        '<li><b>Presetting in parallel</b> only helps if the presetter side is not slower than the station side; the parallel lane says which. It moves hand time off the station; it does not remove it: the readout that adds the presetter\u2019s load and indicate time back shows that the hand still spends about as long per tube. Only an advisor that shortens indicating, or a seat that removes aiming, cuts hand time.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every duration except one lap (48.6 s at 8 mm/s, <span class="tag">repo</span>) is an illustrative number, and the arrangement-specific factors are assumed (see Assumptions). Question for Derek: how long does each of these states actually take on a good day, and which of them repeats?</li>' +
+        '<li>Whether the operator may leave the bench during an unattended dry lap depends on the red dot’s classification, which the manual does not state beyond 0.3 mW at 630 to 670 nm.</li>' +
+        '<li>Eye “watch” cells assume the proposed sensors work; none has been tried.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>State order and content: per-weld sequence [repo weld-rotation-rig.md, guide page 46]. Lap time: 388.61 mm at 8 mm/s = 48.6 s; 380 degrees = 51.3 s [derived].</li>' +
+        '<li><b>Illustrative</b> base durations (min): load 1.0, indicate 6.0, plate and tack 4.0, contact and set-up 3.0, dry lap 1.0, weld lap 0.9, retract 0.2, snip 1.0, swap 1.0, review 2.0.</li>' +
+        '<li><b>Assumed</b> arrangement factors on those durations: dry lap 0.8x with a locating seat, 2.5x with a coached hand aim; on-station load 0.3x and indicate 0.2x with preset cartridges; review 0.3x when records are automatic; swap 1.2x with a head to park.</li>' +
+        '<li>The hand-held column is the repo sequence; every other arrangement is a proposal in this study, drawn in the scene named on its card.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl;
+  const NS = 'http://www.w3.org/2000/svg';
+  const C = { hand: '#f5a524', eye: '#14b8a6', cmd: '#a855f7', obs: '#3b82f6', pose_hand: '#f5a524', pose_arm: '#a855f7', pose_seat: '#14b8a6', pose_none: '#3a4658', laser: '#ff3b30', grid: '#2a3341', faint: '#1b222c' };
+
+  // ------------------------------------------------------------------ the states
+  const STATES = [
+    { id: 'load', name: 'LOAD', base: 1.0, does: 'Seat the tube’s opposite end in the nest.', src: 'repo step 2' },
+    { id: 'indicate', name: 'INDICATE', base: 6.0, does: 'Bring the three adjusters to light contact and indicate the working end to 0.25 mm TIR or better.', src: 'repo step 2' },
+    { id: 'plate', name: 'PLATE + TACK', base: 4.0, does: 'Seat the end plate against the depth stop, tack it (8 tacks, opposite-side pattern), verify face TIR 0.30 mm or better.', src: 'repo step 3 and pressure-vessel.md' },
+    { id: 'contact', name: 'CONTACT + SET', base: 3.0, does: 'Scuff and engage the copper shoe; prove continuity for a revolution; set speed; return the index to the first tack; establish shielding; place the wire on the arriving side.', src: 'repo steps 4 and 5' },
+    { id: 'dry', name: 'DRY LAP', base: 1.0, does: 'Laser disabled, red dot on, the tube turns one lap at weld speed while the dot’s path is judged or measured. Today only a continuity revolution (and the commissioning rehearsal) exists; this lap is what the study adds.', src: 'repo step 4, gate 9; study goal' },
+    { id: 'weld', name: 'WELD LAP', base: 0.9, does: 'Hold the head at the qualified angle and standoff, press the pedal, and once rotation is steady hold the trigger; carry the bead about 20 degrees past the first tack.', src: 'repo step 6' },
+    { id: 'retract', name: 'RETRACT', base: 0.2, does: 'Per the coordinator’s shared context: with the trigger still held, lift the head straight away so the retract cycle breaks the wire in air; then release the trigger, then the pedal. The written sequence has only the last two words of that: release the trigger, then the pedal.', src: 'repo step 7 (release only); the lift-away is from the shared context, not from guide 46' },
+    { id: 'snip', name: 'SNIP (exception)', base: 1.0, does: 'A wire stuck in the puddle is snipped between the wire nozzle and the bead, with the head left where it stopped.', src: 'repo step 7', exception: true },
+    { id: 'swap', name: 'SWAP', base: 1.0, does: 'Lift the tube out; the second closure inverts it (first plate down, ports reached through the service bore), purge connected; PT and hydro follow off the station.', src: 'repo step 3 and 8' },
+    { id: 'review', name: 'REVIEW', base: 2.0, does: 'Record speed, direction, the degrees reported at release, and runout beside the PT and hydro result.', src: 'repo step 8' },
+  ];
+  const CHANGES = {   // what changes when entering each state (same for every arrangement) + what could move the pose
+    load: 'Nothing about the gun. The tube goes from a shelf to a nest; the working end height now depends on this tube’s length.',
+    indicate: 'The tube is turned by hand or pedal against a dial; the three screws move the tube centre. The gun is not involved, but everything downstream assumes this result.',
+    plate: 'The plate goes in and is tacked: heat and shrinkage at eight points may change the runout that was just indicated [assumed]. The laser fires in short pulses, so the pose must already be the weld pose.',
+    contact: 'The copper shoe starts to drag on the rotating tube; continuity is proven. The wire is placed (its side of the puddle depends on the rotation direction [repo]). No laser.',
+    dry: 'The tube turns at weld speed with the dot on. The wire, gas and heat are still off. To be worth anything the dry lap must carry the same cables, conduit and hoses as the weld [repo gate 9].',
+    weld: 'Laser on; wire feed on (its conduit pushes the head); argon flowing (the hose gets stiffer and pushes); heat goes into the joint; the head’s internal vibration motor is active [manual p.20]; in the hand-held case the hand’s force changes with the trigger squeeze. The dot must not move.',
+    retract: 'If the sequence has a lift-away (the shared context says so; guide 46 does not), the trigger stays held while the head lifts so the wire breaks in the air away from the puddle; a fused wire cannot be retracted. The lift would be a designed motion of a few millimetres to centimetres along the beam; how far is unmeasured.',
+    snip: 'Head stays where it stopped; the second hand or the machine holds it still while the cutters go in.',
+    swap: 'The tube is hot after the weld [assumed], purge is disconnected, and for the second closure the tube is inverted so the seam height is set by this second plate’s recess and the tube length.',
+    review: 'Off the station. Numbers written by hand or read from a record; PT and hydro decide whether the weld counts.',
+  };
+
+  // ------------------------------------------------------------------ arrangements: cell = [handDo, handHold, [eyeType, eyeLabel], [[chip, label]...], [owner, label], laser]
+  const E = (t, l) => [t, l];
+  const BASE = {
+    load: ['seat tube', '', E('judge', 'rim seated'), [], ['none', '—'], 'off'],
+    indicate: ['turn screws', '', E('judge', 'read the dial'), [], ['none', '—'], 'off'],
+    plate: ['seat plate, fire tacks', 'holds gun for 8 tacks', E('judge', 'aim each tack'), [['CMD', 'pedal turns table']], ['hand', 'HAND'], 'tack'],
+    contact: ['scuff, wire, speed', 'holds head', E('judge', 'wire on the arriving side'), [['OBS', 'degrees, meter']], ['hand', 'HAND'], 'off'],
+    dry: ['', '', E('watch', 'meter: continuity'), [['OBS', 'continuity']], ['none', 'no head aimed'], 'off'],
+    weld: ['trigger + pedal', 'holds angle and standoff', E('judge', 'puddle, wire, lap end'), [['OBS', 'degrees']], ['hand', 'HAND'], 'weld'],
+    retract: ['release trigger, then pedal', 'lifts the head away', E('judge', 'end of lap'), [['OBS', 'degrees at release']], ['hand', 'HAND'], 'weld'],
+    snip: ['cutters', 'other hand holds head', E('judge', 'nozzle to bead'), [], ['hand', 'HAND'], 'off'],
+    swap: ['lift out, purge, invert', '', E('judge', 'seat and purge'), [], ['none', '—'], 'off'],
+    review: ['record numbers, read PT', '', E('judge', 'read result'), [], ['none', '—'], 'off'],
+  };
+  const merge = (over) => { const o = {}; Object.keys(BASE).forEach(k => { o[k] = (over && over[k]) ? over[k].map((v, i) => (v === undefined ? BASE[k][i] : v)) : BASE[k].slice(); }); return o; };
+  const U = undefined;
+  const ARR = {
+    today: { label: 'Hand-held (today)', scene: null, factors: {}, cells: merge({}),
+      blurb: 'The repo sequence. The hand carries, aims and fires in every laser state; the eye judges every aim. Software today is the rotator controller and its degrees readout.' },
+    recorder: { label: 'Flight recorder', scene: null, factors: { dry: 1.0, review: 0.3 },
+      cells: merge({
+        plate: [U, U, U, [['OBS', 'log tack times'], ['CMD', 'pedal turns table']], U, U],
+        contact: [U, U, U, [['OBS', 'degrees, continuity'], ['LOG', 'setup']], U, U],
+        dry: ['', 'holds head, aiming', E('judge', 'aim by eye'), [['OBS', 'camera: dot vs seam'], ['LOG', 'trace vs degrees']], ['hand', 'HAND'], 'dot'],
+        weld: [U, U, U, [['OBS', 'camera + degrees'], ['LOG', 'trace, trigger time']], U, U],
+        retract: [U, U, U, [['LOG', 'lift, release order']], U, U],
+        review: ['read PT / hydro', '', E('judge', 'read result'), [['LOG', 'pose trace joined to result']], ['none', '—'], 'off'],
+      }),
+      blurb: 'Nothing moves and nothing is commanded. A camera, the trigger time and the rotator degrees are logged for every weld and joined to the PT and hydro result, so each hand-held weld is an experiment record. A hand-aimed dry lap becomes worth doing because it is recorded.' },
+    table: { label: 'Programmed table', scene: null, factors: { contact: 0.7, dry: 1.0 },
+      cells: merge({
+        plate: [U, U, U, [['CMD', 'index 8 tacks by degrees'], ['OBS', 'degrees']], U, U],
+        contact: [U, U, U, [['CMD', 'speed, return to first tack'], ['OBS', 'degrees, continuity']], U, U],
+        dry: ['', 'holds head, aiming', E('judge', 'aim by eye'), [['CMD', 'one lap at weld speed'], ['OBS', 'degrees']], ['hand', 'HAND'], 'dot'],
+        weld: [U, U, U, [['CMD', 'bead 380 deg, stop'], ['OBS', 'degrees']], U, U],
+        retract: [U, U, U, [['OBS', 'stop at 380 deg']], U, U],
+      }),
+      blurb: 'Software drives the tube: tack indexing, dry lap and the bead length are commanded in degrees, under the same pedal deadman. The hand still carries and aims. It changes the rule that the lap end is a judgement at the index mark [repo], which is Derek’s call.' },
+    coach: { label: 'Coach + locking arm', scene: null, factors: { dry: 2.5, swap: 1.3 },
+      cells: merge({
+        plate: ['seat plate, fire tacks', '', E('judge', 'aim by screen once'), [['OBS', 'camera: dot vs seam'], ['ADV', 'which knob, how far'], ['CMD', 'index 8 tacks']], ['arm', 'ARM (trimmed)'], 'tack'],
+        contact: ['scuff, wire, speed', '', U, [['OBS', 'degrees, continuity']], ['arm', 'ARM'], 'off'],
+        dry: ['nudge fine knobs, lock', 'holds arm while locking', E('judge', 'read the screen'), [['OBS', 'camera: dot vs seam'], ['ADV', 'knob, amount'], ['CMD', 'one lap']], ['arm', 'ARM (trimmed)'], 'dot'],
+        weld: ['trigger + pedal', '', E('judge', 'puddle, wire'), [['OBS', 'camera + degrees'], ['LOG', 'trace']], ['arm', 'ARM (locked)'], 'weld'],
+        retract: ['release, unlock, lift head', 'lifts the head away', E('judge', 'end of lap'), [['OBS', 'degrees at release']], ['hand', 'ARM → HAND'], 'weld'],
+        snip: ['cutters', '', E('judge', 'nozzle to bead'), [], ['arm', 'ARM (still)'], 'off'],
+        swap: ['unlock, swing arm clear, load', '', U, [], ['none', 'arm parked by hand'], 'off'],
+      }),
+      blurb: 'The gun rests on a friction or locking arm with hand knobs on three fine axes, each with a digital scale. A camera reads the dot against the seam and the screen says which knob and how far. The hand is the actuator, software the witness. The arm frees the hand while it holds, but the coached aim must be redone after each swap unless the arm returns to a stop.' },
+    swing: { label: 'Swing head + seat', scene: 'use-02-swing-head', factors: { dry: 0.8, review: 0.3, swap: 1.2 },
+      cells: merge({
+        load: [U, U, U, [['CMD', 'swing to park']], ['seat', 'PARKED'], U],
+        indicate: [U, U, U, [], ['seat', 'PARKED'], U],
+        plate: ['seat plate', '', E('judge', 'guard the tacks'), [['CMD', 'approach, seat'], ['CMD', 'index 8 tacks'], ['OBS', 'seat closed, end-stops']], ['seat', 'SEAT'], 'tack'],
+        contact: [U, '', U, [['OBS', 'continuity, seat closed']], ['seat', 'SEAT'], 'off'],
+        dry: ['', '', E('watch', 'camera could watch'), [['CMD', 'one lap'], ['OBS', 'camera: dot vs seam'], ['GATE', 'dot in window?']], ['seat', 'SEAT'], 'dot'],
+        weld: ['trigger + pedal', '', E('judge', 'guard: puddle, wire'), [['CMD', 'rotator (existing)'], ['OBS', 'seat closed, degrees'], ['GATE', 'may veto']], ['seat', 'SEAT'], 'weld'],
+        retract: ['release trigger, then pedal', '', E('judge', 'end of lap'), [['CMD', 'plunge retract, force-limited'], ['OBS', 'retract switch']], ['arm', 'SEAT → ARM'], 'weld'],
+        snip: ['cutters', '', E('judge', 'nozzle to bead'), [['OBS', 'retract timeout: HOLD']], ['seat', 'SEAT (head stays)'], 'off'],
+        swap: [U, U, U, [['CMD', 'swing to park']], ['arm', 'ARM → PARKED'], U],
+        review: ['read PT / hydro', '', E('judge', 'read result'), [['LOG', 'seat log, dry trace']], ['none', '—'], 'off'],
+      }),
+      blurb: 'The gun rides a swing arm and a short plunge along its barrel axis; a three-ball seat locates it. Software commands states (park, approach, seat, retract) and witnesses them with switches and seat continuity. The seat, not the arm, sets the pose. Load, indicate and snip stay with hands.' },
+    preset: { label: 'Preset cartridge + swing head', scene: 'use-03-preset-cartridge', factors: { load: 0.3, indicate: 0.2, dry: 0.8, review: 0.3, swap: 1.2 }, parallel: true,
+      cells: merge({
+        load: ['drop cartridge on register', '', E('watch', 'ID and seat read by software'), [['OBS', 'cartridge ID, seated'], ['CMD', 'swing to park']], ['seat', 'PARKED'], 'off'],
+        indicate: ['quick verify', '', E('watch', 'screen shows TIR'), [['OBS', 'indicator']], ['seat', 'PARKED'], 'off'],
+        plate: ['seat plate', '', E('judge', 'guard the tacks'), [['CMD', 'approach, seat'], ['CMD', 'index 8 tacks'], ['OBS', 'seat closed, end-stops']], ['seat', 'SEAT'], 'tack'],
+        contact: [U, '', U, [['OBS', 'continuity, seat closed']], ['seat', 'SEAT'], 'off'],
+        dry: ['', '', E('watch', 'camera could watch'), [['CMD', 'one lap'], ['OBS', 'camera: dot vs seam'], ['GATE', 'dot in window?']], ['seat', 'SEAT'], 'dot'],
+        weld: ['trigger + pedal', '', E('judge', 'guard: puddle, wire'), [['CMD', 'rotator (existing)'], ['OBS', 'seat closed, degrees'], ['GATE', 'may veto']], ['seat', 'SEAT'], 'weld'],
+        retract: ['release trigger, then pedal', '', E('judge', 'end of lap'), [['CMD', 'plunge retract, force-limited'], ['OBS', 'retract switch']], ['arm', 'SEAT → ARM'], 'weld'],
+        snip: ['cutters', '', E('judge', 'nozzle to bead'), [['OBS', 'retract timeout: HOLD']], ['seat', 'SEAT (head stays)'], 'off'],
+        swap: ['lift cartridge out, next one in', '', U, [['CMD', 'swing to park']], ['arm', 'ARM → PARKED'], U],
+        review: ['read PT / hydro', '', E('judge', 'read result'), [['LOG', 'presetter + seat + dry trace']], ['none', '—'], 'off'],
+      }),
+      blurb: 'The swing head, plus each tube arrives in a cartridge that a presetter has already height-set and indicated while the previous tube was on the station. The gun is not re-aimed between tubes. The parallel lane shows the next tube at the presetter.' },
+  };
+  const ORDER = ['today', 'recorder', 'table', 'coach', 'swing', 'preset'];
+
+  // ------------------------------------------------------------------ state
+  const dur = { load: 1.0, indicate: 6.0, plate: 4.0, contact: 3.0, dry: 1.0, weld: 0.9, retract: 0.2, snip: 1.0, swap: 1.0, review: 2.0 };
+  const S = { arr: 'today', sel: 5, waste: true, exception: true, ilabels: true };
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const svg = el('svg', { class: 'use-lanes', viewBox: '0 0 1120 640', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'Swim lanes of one closure' });
+  const key = WK.h('div', { class: 'use-key' });
+  const detail = WK.h('div', { class: 'use-detail' });
+  st.appendChild(key); st.appendChild(svg); st.appendChild(detail);
+  key.innerHTML = '<span><i style="background:#f5a524"></i>hand does something only a hand can</span><span><i style="background:repeating-linear-gradient(45deg,#f5a524 0 2px,#151b23 2px 5px)"></i>hand holds or carries (a support role)</span><span><i style="background:#14b8a6"></i>eye judges (no sensor proposed)</span><span><i style="border:1px dashed #14b8a6"></i>eye watches (something else could)</span><span><i style="background:#a855f7"></i>CMD</span><span><i style="background:#3b82f6"></i>OBS / LOG</span><span><i style="border:1px dashed #3b82f6"></i>ADV</span><span><i style="border:1px solid #e7ebf1"></i>GATE</span><span>◆ pose changes owner</span><span>! = spare use of a hand or an eye</span>';
+
+  // icons (34 x 34), drawn at the column header
+  function icon(id, x, y) {
+    const g = el('g', { transform: 'translate(' + x + ',' + y + ')', fill: 'none', stroke: '#c7d3e6', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+    const tube = () => { g.appendChild(el('path', { d: 'M9 10 L9 28 M25 10 L25 28 M9 28 Q17 32 25 28 M9 10 Q17 6 25 10' })); };
+    const dot = (c) => g.appendChild(el('circle', { cx: 23, cy: 12, r: 2.2, fill: c || '#ff3b30', stroke: 'none' }));
+    if (id === 'load') { tube(); g.appendChild(el('path', { d: 'M17 -2 L17 14 M13 10 L17 14 L21 10' })); }
+    else if (id === 'indicate') { tube(); g.appendChild(el('circle', { cx: 30, cy: 12, r: 6 })); g.appendChild(el('path', { d: 'M30 12 L33 8' })); }
+    else if (id === 'plate') { tube(); g.appendChild(el('path', { d: 'M9 15 L25 15', stroke: '#93c5fd' })); [10, 14, 18, 22].forEach(k => g.appendChild(el('circle', { cx: k, cy: 15, r: 1.2, fill: '#ff3b30', stroke: 'none' }))); }
+    else if (id === 'contact') { tube(); g.appendChild(el('rect', { x: 26, y: 16, width: 7, height: 8, fill: '#b87333', stroke: 'none' })); g.appendChild(el('path', { d: 'M4 16 q3 -4 6 0', stroke: '#fbbf24' })); }
+    else if (id === 'dry') { tube(); dot(); g.appendChild(el('path', { d: 'M5 22 A12 4 0 1 0 29 22', 'stroke-dasharray': '3 2' })); }
+    else if (id === 'weld') { tube(); dot(); g.appendChild(el('path', { d: 'M9 15 Q17 19 25 15', stroke: '#e6b422', 'stroke-width': 2.4 })); g.appendChild(el('path', { d: 'M30 4 L24 11', stroke: '#e6b422' })); }
+    else if (id === 'retract') { tube(); dot(); g.appendChild(el('path', { d: 'M27 8 L32 0 M29 0 L32 0 L32 3' })); }
+    else if (id === 'snip') { g.appendChild(el('path', { d: 'M8 26 L26 8 M8 8 L26 26' })); g.appendChild(el('circle', { cx: 8, cy: 28, r: 3 })); g.appendChild(el('circle', { cx: 8, cy: 6, r: 3 })); }
+    else if (id === 'swap') { g.appendChild(el('path', { d: 'M6 12 L28 12 M23 7 L28 12 L23 17 M28 24 L6 24 M11 19 L6 24 L11 29' })); }
+    else if (id === 'review') { g.appendChild(el('rect', { x: 8, y: 6, width: 18, height: 24, rx: 2 })); g.appendChild(el('path', { d: 'M12 13 L22 13 M12 18 L22 18 M12 23 L18 23' })); }
+    return g;
+  }
+
+  // ------------------------------------------------------------------ layout maths
+  function columns() {
+    const a = ARR[S.arr], list = STATES.filter(s => S.exception || !s.exception);
+    const raw = list.map(s => Math.max(0.08, dur[s.id] * (a.factors[s.id] == null ? 1 : a.factors[s.id])));
+    const W = 980, MIN = 92, x0 = 128;
+    let widths = raw.map(r => r), fixed = raw.map(() => false), guard = 0;
+    while (guard++ < 12) {
+      const freeSum = widths.reduce((t, w, i) => t + (fixed[i] ? 0 : raw[i]), 0), fixedW = widths.reduce((t, w, i) => t + (fixed[i] ? w : 0), 0);
+      let changed = false;
+      widths = raw.map((r, i) => (fixed[i] ? widths[i] : r / freeSum * (W - fixedW)));
+      widths.forEach((w, i) => { if (!fixed[i] && w < MIN) { fixed[i] = true; widths[i] = MIN; changed = true; } });
+      if (!changed) break;
+    }
+    let x = x0; return list.map((s, i) => { const c = { s: s, x: x, w: widths[i], minutes: raw[i] }; x += widths[i]; return c; });
+  }
+  const cellText = (parent, x, y, w, str, cls, size) => {
+    if (!str) return;
+    const max = Math.floor(w / (size === 9.5 ? 4.9 : 5.5));
+    const words = String(str).split(' '), lines = []; let cur = '';
+    words.forEach(wd => { if ((cur + ' ' + wd).trim().length > max && cur) { lines.push(cur); cur = wd; } else cur = (cur + ' ' + wd).trim(); });
+    if (cur) lines.push(cur);
+    lines.slice(0, 3).forEach((ln, i) => parent.appendChild(el('text', { x: x, y: y + i * 11, class: cls || '', 'text-anchor': 'middle', 'font-size': size || 10 }, document.createTextNode(ln))));
+  };
+
+  function render() {
+    const a = ARR[S.arr], cols = columns();
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const defs = el('defs'); defs.appendChild(el('pattern', { id: 'hatch', width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, el('rect', { width: 6, height: 6, fill: '#151b23' }), el('rect', { width: 2.6, height: 6, fill: '#f5a524' })));
+    svg.appendChild(defs);
+    const Y = { head: 30, hand: 126, hold: 174, eye: 222, sw: 270, pose: 342, las: 388, par: 426 };
+    const H = { hand: 42, hold: 42, eye: 42, sw: 66, pose: 34, las: 26, par: 44 };
+    const bottom = a.parallel ? Y.par + H.par : Y.las + H.las;
+    svg.setAttribute('viewBox', '0 0 1120 ' + (bottom + 20));
+    // lane labels + rules
+    [['hand', 'HAND: does', 'sets, turns, fires, cuts'], ['hold', 'HAND: holds', 'support role only'], ['eye', 'EYE', 'judges / watches'], ['sw', 'SOFTWARE', 'cmd, obs, log, adv, gate'], ['pose', 'POSE OWNER', 'what carries and fixes the gun'], ['las', 'LASER', 'off / dot / tack / weld']].concat(a.parallel ? [['par', 'NEXT TUBE', 'presetter, in parallel']] : []).forEach(l => {
+      svg.appendChild(el('text', { x: 4, y: Y[l[0]] + 15, class: 'hd' }, document.createTextNode(l[1])));
+      svg.appendChild(el('text', { x: 4, y: Y[l[0]] + 28, class: 'lbl' }, document.createTextNode(l[2])));
+      svg.appendChild(el('line', { x1: 0, x2: 1112, y1: Y[l[0]] - 3, y2: Y[l[0]] - 3, stroke: C.grid, 'stroke-width': 1 }));
+    });
+    // true-scale strip: the columns below are widened so text fits; this bar is the honest proportion of the day
+    {
+      const total = cols.reduce((t, c) => t + c.minutes, 0); let xs = 128;
+      svg.appendChild(el('text', { x: 4, y: 12, class: 'hd' }, document.createTextNode('TO SCALE')));
+      svg.appendChild(el('text', { x: 4, y: 24, class: 'lbl', style: 'font-size:9.5px' }, document.createTextNode('true share of time; columns below are widened to read')));
+      cols.forEach(c => {
+        const w = c.minutes / total * 980, laser = c.s.id === 'weld' || c.s.id === 'plate';
+        const r = el('rect', { x: xs, y: 4, width: Math.max(1, w - 1), height: 12, rx: 2, fill: c.s.id === 'weld' ? '#ff3b30' : (STATES.indexOf(c.s) === S.sel ? '#93c5fd' : '#3a4658') });
+        r.appendChild(el('title', {}, document.createTextNode(c.s.name + ': ' + (c.minutes >= 0.95 ? c.minutes.toFixed(1) + ' min' : Math.round(c.minutes * 60) + ' s') + ' (' + Math.round(c.minutes / total * 100) + ' % of the columns shown)')));
+        svg.appendChild(r);
+        if (w > 44) svg.appendChild(el('text', { x: xs + w / 2, y: 13.5, 'text-anchor': 'middle', style: 'font-size:8.5px;fill:#e7ebf1' }, document.createTextNode(c.s.name.split(' ')[0].toLowerCase())));
+        xs += w;
+      });
+    }
+    let prevOwner = null;
+    cols.forEach((c, i) => {
+      const cell = a.cells[c.s.id], idx = STATES.indexOf(c.s), g = el('g', { class: 'col', 'data-state': idx });
+      g.addEventListener('click', () => { S.sel = idx; app.ui.set('focus', idx, { silent: true }); render(); });
+      const inner = c.w - 6, cx = c.x + c.w / 2;
+      g.appendChild(el('rect', { class: 'colbg', x: c.x + 1, y: Y.head - 4, width: c.w - 2, height: bottom - Y.head + 8, fill: 'transparent' }));
+      g.appendChild(el('title', {}, document.createTextNode(c.s.name + ' — ' + c.s.does)));
+      g.appendChild(icon(c.s.id, cx - 17, Y.head + 2));
+      g.appendChild(el('text', { x: cx, y: Y.head + 52, 'text-anchor': 'middle', class: 'hd', 'font-size': 10 }, document.createTextNode(c.s.name.length * 6.2 > c.w ? c.s.name.split(' ')[0] : c.s.name)));
+      g.appendChild(el('text', { x: cx, y: Y.head + 65, 'text-anchor': 'middle', class: 'lbl' }, document.createTextNode((c.minutes >= 0.95 ? c.minutes.toFixed(1) + ' min' : Math.round(c.minutes * 60) + ' s') + (c.s.exception ? ' if it happens' : ''))));
+      g.appendChild(el('line', { x1: c.x, x2: c.x, y1: Y.head, y2: bottom, stroke: C.grid, 'stroke-width': 1 }));
+      // hand does
+      if (cell[0]) { g.appendChild(el('rect', { x: c.x + 3, y: Y.hand, width: inner, height: H.hand, rx: 4, fill: C.hand })); cellText(g, cx, Y.hand + 15, inner, cell[0], 'dark', 10); }
+      else g.appendChild(el('rect', { x: c.x + 3, y: Y.hand + 15, width: inner, height: 10, rx: 4, fill: 'none', stroke: C.grid, 'stroke-dasharray': '2 3' }));
+      // hand holds
+      if (cell[1]) {
+        g.appendChild(el('rect', { x: c.x + 3, y: Y.hold, width: inner, height: H.hold, rx: 4, fill: 'url(#hatch)', stroke: S.waste ? '#f87171' : C.hand, 'stroke-width': S.waste ? 1.6 : 1 }));
+        g.appendChild(el('rect', { x: c.x + 8, y: Y.hold + 6, width: inner - 10, height: H.hold - 12, rx: 3, fill: '#0e1218', opacity: 0.82 }));
+        cellText(g, cx, Y.hold + 17, inner - 10, cell[1], '', 10);
+        if (S.waste) g.appendChild(el('text', { x: c.x + c.w - 10, y: Y.hold + 14, 'font-weight': 700, fill: '#f87171', style: 'fill:#f87171;font-size:13px' }, document.createTextNode('!')));
+      } else g.appendChild(el('rect', { x: c.x + 3, y: Y.hold + 15, width: inner, height: 10, rx: 4, fill: 'none', stroke: C.grid, 'stroke-dasharray': '2 3' }));
+      // eye
+      const ey = cell[2];
+      if (ey && ey[0] === 'judge') { g.appendChild(el('rect', { x: c.x + 3, y: Y.eye, width: inner, height: H.eye, rx: 4, fill: C.eye })); cellText(g, cx, Y.eye + 15, inner, ey[1], 'dark', 10); }
+      else if (ey && ey[0] === 'watch') { g.appendChild(el('rect', { x: c.x + 3, y: Y.eye, width: inner, height: H.eye, rx: 4, fill: 'rgba(20,184,166,.10)', stroke: C.eye, 'stroke-dasharray': '4 3', 'stroke-width': S.waste ? 1.6 : 1 })); cellText(g, cx, Y.eye + 15, inner - 8, ey[1], '', 10); if (S.waste) g.appendChild(el('text', { x: c.x + c.w - 10, y: Y.eye + 14, style: 'fill:#f87171;font-size:13px;font-weight:700' }, document.createTextNode('!'))); }
+      else g.appendChild(el('rect', { x: c.x + 3, y: Y.eye + 15, width: inner, height: 10, rx: 4, fill: 'none', stroke: C.grid, 'stroke-dasharray': '2 3' }));
+      // software chips
+      const chips = cell[3];
+      chips.slice(0, 4).forEach((ch, k) => {
+        const yy = Y.sw + k * 16, kind = ch[0], style = kind === 'CMD' ? { fill: C.cmd } : kind === 'OBS' || kind === 'LOG' ? { fill: C.obs } : kind === 'ADV' ? { fill: 'rgba(59,130,246,.12)', stroke: C.obs, 'stroke-dasharray': '3 2' } : { fill: 'rgba(231,235,241,.06)', stroke: '#e7ebf1' };
+        g.appendChild(el('rect', Object.assign({ x: c.x + 3, y: yy, width: inner, height: 14, rx: 3 }, style)));
+        const label = kind + ' ' + ch[1], max = Math.floor(inner / 4.9);
+        g.appendChild(el('text', { x: c.x + 6, y: yy + 10.5, style: 'font-size:9.5px;' + (kind === 'CMD' || kind === 'OBS' || kind === 'LOG' ? 'fill:#fff' : '') }, document.createTextNode(label.length > max ? label.slice(0, max - 1) + '…' : label)));
+        g.appendChild(el('title', {}, document.createTextNode(kind + ': ' + ch[1])));
+      });
+      if (!chips.length) g.appendChild(el('rect', { x: c.x + 3, y: Y.sw + 24, width: inner, height: 10, rx: 4, fill: 'none', stroke: C.grid, 'stroke-dasharray': '2 3' }));
+      // pose owner
+      const po = cell[4], pc = po[0] === 'hand' ? C.pose_hand : po[0] === 'arm' ? C.pose_arm : po[0] === 'seat' ? C.pose_seat : C.pose_none;
+      g.appendChild(el('rect', { x: c.x + 3, y: Y.pose, width: inner, height: H.pose, rx: 4, fill: pc, opacity: po[0] === 'none' ? 0.5 : 1 }));
+      cellText(g, cx, Y.pose + 14, inner, po[1], po[0] === 'hand' ? 'dark' : '', 9.5);
+      if (prevOwner !== null && prevOwner !== po[0] && !(prevOwner === 'none' && po[0] === 'none')) {
+        g.appendChild(el('path', { d: 'M' + c.x + ' ' + (Y.pose - 12) + ' l5 5 l-5 5 l-5 -5 z', fill: '#fbbf24', stroke: '#0e1218', 'stroke-width': 1 }));
+        g.appendChild(el('title', {}, document.createTextNode('handover: pose owner ' + prevOwner.toUpperCase() + ' → ' + po[0].toUpperCase())));
+      }
+      prevOwner = po[0];
+      // laser
+      const lc = cell[5], lf = lc === 'weld' ? '#ff3b30' : lc === 'tack' ? '#ff7a6b' : 'none';
+      g.appendChild(el('rect', { x: c.x + 3, y: Y.las + 3, width: inner, height: 18, rx: 9, fill: lf, stroke: lc === 'off' ? C.grid : '#ff3b30', 'stroke-dasharray': lc === 'dot' ? '3 2' : '' }));
+      g.appendChild(el('text', { x: cx, y: Y.las + 16, 'text-anchor': 'middle', style: 'font-size:10px;' + (lc === 'weld' || lc === 'tack' ? 'fill:#fff' : '') }, document.createTextNode(lc === 'off' ? 'off' : lc === 'dot' ? 'red dot' : lc === 'tack' ? 'tack pulses' : 'laser on')));
+      svg.appendChild(g);
+    });
+    // selection frame
+    const sc = cols.find(c => STATES.indexOf(c.s) === S.sel);
+    if (sc) svg.appendChild(el('rect', { class: 'sel', x: sc.x + 1, y: Y.head - 4, width: sc.w - 2, height: bottom - Y.head + 8, rx: 5 }));
+    // parallel lane
+    if (a.parallel) {
+      const c1 = cols.find(c => c.s.id === 'plate'), c2 = cols.find(c => c.s.id === 'retract');
+      if (c1 && c2) {
+        const need = (dur.load + dur.indicate) * 1.0, win = cols.filter(c => ['plate', 'contact', 'dry', 'weld', 'retract'].includes(c.s.id)).reduce((t, c) => t + c.minutes, 0);
+        svg.appendChild(el('rect', { x: c1.x + 3, y: Y.par, width: c2.x + c2.w - c1.x - 6, height: H.par - 4, rx: 5, fill: 'rgba(245,165,36,.16)', stroke: C.hand }));
+        svg.appendChild(el('text', { x: c1.x + 10, y: Y.par + 15 }, document.createTextNode('presetter: load the next tube, ring to the gauge, screws as advised, indicate  (hand + eye; OBS + ADV)')));
+        svg.appendChild(el('text', { x: c1.x + 10, y: Y.par + 30, class: 'lbl' }, document.createTextNode('needs ' + need.toFixed(1) + ' min of presetter time; the on-station window is ' + win.toFixed(1) + ' min' + (need > win ? ': the station waits about ' + (need - win).toFixed(1) + ' min' : ': it fits'))));
+      }
+    }
+    // readouts and detail
+    const onStation = cols.filter(c => !c.s.exception || S.exception).filter(c => c.s.id !== 'review').reduce((t, c) => t + c.minutes, 0);
+    const laserOn = (cols.find(c => c.s.id === 'weld') || { minutes: 0 }).minutes + (cols.find(c => c.s.id === 'plate') ? 0.25 : 0);
+    let handMin = 0, holdMin = 0;
+    cols.forEach(c => { const cell = a.cells[c.s.id]; if (cell[0] || cell[1]) handMin += c.minutes; if (cell[1]) holdMin += c.minutes; });
+    if (a.parallel) handMin += (dur.load + dur.indicate);
+    setStation(onStation.toFixed(1), 'min'); setLaser(laserOn.toFixed(1), 'min'); setHand(handMin.toFixed(1), 'min'); setHold(holdMin.toFixed(1), 'min');
+    app.io.set({
+      commands: cols.some(c => a.cells[c.s.id][3].some(ch => ch[0] === 'CMD')) ? [{ name: 'Commands in this arrangement', value: [...new Set(cols.flatMap(c => a.cells[c.s.id][3].filter(ch => ch[0] === 'CMD').map(ch => ch[1])))].join('; '), note: 'the laser is never commanded' }] : [{ name: 'Commands in this arrangement', value: 'none new (pedal and rotator as today)' }],
+      observes: [{ name: 'Observations', value: [...new Set(cols.flatMap(c => a.cells[c.s.id][3].filter(ch => ch[0] === 'OBS' || ch[0] === 'LOG').map(ch => ch[1])))].join('; ') || 'degrees readout only', status: 'partly', note: 'proposed; see the scene named on the card' }],
+      manual: [...new Set(cols.map(c => a.cells[c.s.id][0]).filter(Boolean))],
+    });
+    renderDetail(a, cols);
+  }
+
+  function renderDetail(a, cols) {
+    const s = STATES[S.sel], cell = a.cells[s.id], prev = STATES[Math.max(0, S.sel - 1)];
+    const col = cols.find(c => c.s === s);
+    const scaleTxt = a.factors[s.id] != null && a.factors[s.id] !== 1 ? ' Assumed factor on the base duration: ' + a.factors[s.id] + '×.' : '';
+    detail.innerHTML =
+      '<div><h3>' + s.name + (col ? ' · ' + (col.minutes >= 0.95 ? col.minutes.toFixed(1) + ' min' : Math.round(col.minutes * 60) + ' s') : ' (hidden)') + '</h3><p>' + s.does + ' <span class="tag">' + s.src + '</span></p>' +
+      '<h4>What changes on entering this state' + (S.sel > 0 ? ' (from ' + prev.name.toLowerCase() + ')' : '') + '</h4><p>' + CHANGES[s.id] + '</p></div>' +
+      '<div><h3>' + a.label + '</h3><p>' + a.blurb + scaleTxt + '</p>' +
+      '<h4>In this state</h4><ul><li><b>Hand does:</b> ' + (cell[0] || 'nothing') + '</li><li><b>Hand holds:</b> ' + (cell[1] || 'nothing') + '</li><li><b>Eye:</b> ' + (cell[2] ? cell[2][0] + ', ' + cell[2][1] : 'not needed') + '</li><li><b>Software:</b> ' + (cell[3].length ? cell[3].map(ch => ch[0] + ' ' + ch[1]).join('; ') : 'nothing') + '</li><li><b>Pose owner:</b> ' + cell[4][1] + '</li></ul>' +
+      (a.scene ? '<p style="margin-top:6px">Drawn in: <a href="../' + a.scene + '/index.html">' + a.scene + '</a></p>' : '') + '</div>';
+  }
+
+  // ------------------------------------------------------------------ controls
+  const grpA = app.ui.group('Arrangement');
+  grpA.select({ id: 'arr', label: 'Arrangement', options: ORDER.map(k => ({ value: k, label: ARR[k].label })), value: 'today', kind: 'branch', help: 'Same states and lanes; only who does what changes.', onChange: v => { S.arr = v; render(); } });
+  const grpV = app.ui.group('View');
+  grpV.slider({ id: 'focus', label: 'Focus state', min: 0, max: 9, step: 1, value: 5, kind: 'view', format: v => STATES[v].name, help: 'Or click a column.', onChange: v => { S.sel = v; render(); } });
+  grpV.toggle({ id: 'waste', label: 'Mark spare uses of a hand or an eye (!)', value: true, kind: 'view', onChange: v => { S.waste = v; render(); } });
+  grpV.toggle({ id: 'exc', label: 'Include the stuck-wire exception', value: true, kind: 'state', help: 'Off = the wire always breaks in the air.', onChange: v => { S.exception = v; render(); } });
+  const grpD = app.ui.group('Your durations (minutes; illustrative until you replace them)');
+  const D = [['load', 'Load a tube', 0.5, 5, 0.1], ['indicate', 'Indicate to 0.25 mm', 1, 20, 0.5], ['plate', 'Plate and tack', 1, 15, 0.5], ['contact', 'Contact and set-up', 1, 10, 0.5], ['dry', 'Dry lap', 0.5, 5, 0.1], ['weld', 'Weld lap', 0.5, 2, 0.1], ['snip', 'Snip a stuck wire', 0.2, 5, 0.1], ['swap', 'Swap', 0.5, 5, 0.1], ['review', 'Review and record', 0.5, 8, 0.5]];
+  D.forEach(d => grpD.slider({ id: 'd-' + d[0], label: d[1], min: d[2], max: d[3], step: d[4], value: dur[d[0]], unit: 'min', kind: 'scene', help: d[0] === 'weld' ? 'One lap is 48.6 s at 8 mm/s [repo]; 380 degrees is 51 s.' : undefined, onChange: v => { dur[d[0]] = v; render(); } }));
+  const setStation = app.ui.readout('station', 'Station time, one closure (this arrangement)');
+  const setLaser = app.ui.readout('laser', 'Laser on (tacks, weld)');
+  const setHand = app.ui.readout('hand', 'Time a hand does or holds (with any presetter time)');
+  const setHold = app.ui.readout('hold', 'of which a hand only holds (support role)');
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dot and wire on one corner</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .dw text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .dw .tm { fill: #8b98ab; } .dw .tf { fill: #64748b; } .dw .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .dw .tt { fill: #14b8a6; } .dw .ta { fill: #f5a524; } .dw .tr { fill: #ff6b5f; } .dw .tp { fill: #c084fc; } .dw .ts { fill: #60a5fa; } .dw .tk { fill: #f472b6; } .dw .tg { fill: #94a3b8; } .dw .tw { fill: #f1f5f9; } .dw .tok { fill: #34d399; } .dw .ty { fill: #e6b422; }
+  .dw .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-20-dot-and-wire",
+  "title": "Dot and wire on one corner: two probes, one dry run, and the vector between them",
+  "by": "datum",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "The red dot is a probe that finds the wall in axis coordinates (trials-03); the wire tip is a probe that closes a circuit on touching (trials-14, use-10). Run both on the same corner in one dry run and their difference is the vector from the dot to the wire tip: the nearest thing to dot-versus-melt a dry run can reach, since the wire is the one piece of hardware the process puts in the puddle. The scene shows the geometry: how the wire must lean to clear the curved wall, how far the tip moves per millimetre of feed, and what a radial and a height sweep read.",
+  "tags": ["lens", "dot versus wire", "contact sense", "two probes", "wire stick-out", "dot versus melt"],
+  "branchOf": ["trials-03-dot-touch-probe"],
+  "combines": ["trials-03-dot-touch-probe", "use-10-wire-first", "datum-07-touch-off"],
+  "transferable": ["the difference of two probes on one corner is a vector between the two things they represent", "1 mm of wire feed is about 0.6 mm of tip height at 35 degrees", "a straight wire on the tangent runs into a curved wall unless it leans outward by L/2R"],
+  "how": {
+    "motion": "a radial and a height sweep of the gun (any positioner), and the feeder's advance and retract",
+    "load": "not addressed",
+    "reference": "the corner: the wall found by the dot's knee and by the wire's touch; the plate by focus and by touch",
+    "observe": "camera on the dot (knee, spot size); continuity from wire to work lead (one bit)",
+    "use": "a dry run with the laser off, before any bead, and again after the guide or the head has been touched"
+  },
+  "software": {
+    "commands": ["radial and height sweeps of the gun (positioner)", "wire advance and retract (buttons today; a protocol is unknown)"],
+    "observes": ["dot knee position and spot size (camera)", "wire contact bit (continuity, or the laser's ready lamp by camera)"],
+    "manual": ["the guide's aim: outward lean and miss", "the laser and feeder interfaces (unknown)", "safety: no defeat of any interlock"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-20-dot-and-wire.md", "../../exchange/datum--on--trials-w2.md", "../../explorers/trials/ideas/trials-14-contact-sense.md", "../../explorers/use/ideas/use-10-wire-first.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, DEG = Math.PI / 180, TAU = Math.PI * 2;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>trials-03 finds the wall by sweeping the red dot across the corner: where the dot\'s plate part vanishes from above is the wall in axis coordinates. trials-14 and use-10 propose that the <b>wire</b> be a probe as well: jog it out with the laser off until it touches, and the contact closes a circuit. The <b>wire is the weld reference</b>, not the dot: the procedure puts it on the arriving side of the puddle. The dot is only aligned to the melt by the red-light adjustment <b>[manual pp. 25, 39]</b>. So run both probes on the same corner in one dry run: the difference is the vector from the dot to the wire tip, in the corner\'s own coordinates. It is the part of the dot-versus-melt term (a floor under every datum in this study) that a dry run can reach.</p>' +
+        '<p>The scene draws the section (radial and height) and the plan (radial and tangent) at the station, magnified. The wire arrives along the tangent, rising at an elevation, and leans outward by a small angle. Two things follow that were not obvious. <b>First</b>, the wire must lean outward by about L/2R (radians) for a stick-out L to clear a wall that curves away at 61.85 mm radius, about 5 degrees for the drawn geometry; less, and the wire\'s side meets the wall before the tip reaches the dot. <b>Second</b>, the tip moves along the wire\'s line, so each millimetre of feed moves it about 0.6 mm in height at 35 degrees and only 0.05 to 0.1 mm radially: the feed length is mostly a height control.</p>' +
+        '<p>Move the sliders for the geometry and the feed, then read the two sweeps at the bottom: where the dot\'s knee and the wire\'s wall touch fall on the radial axis, where the wire\'s plate touch falls against focus on the height axis, and what the AI concludes about the tip\'s offset, beside the truth.</p>',
+      carries:
+        '<p>Nothing carries anything here; any positioner that sweeps a radial and a height axis by tenths of a millimetre. The wire is a springy 0.76 mm rod <b>[repo]</b>: it carries no positioning load and its tip deflects when it touches (a slider).</p>',
+      software:
+        '<p><b>Command:</b> radial and height sweeps of the gun; the wire advance and retract (buttons today <b>[manual p. 18]</b>; how software would drive them is <b>[unknown]</b>). <b>Observe:</b> the dot knee and spot size by camera (trials-03); one contact bit for the wire (continuity to the work lead, or the ready lamp by camera; whether the lamp responds is <b>[unknown]</b>). <b>Do not:</b> defeat or bypass any interlock; use a separate low-voltage sense if in doubt.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> a straight wire on the tangent meets the wall. <b>What the scene shows:</b> the plan and the LIMIT badge: with the outward lean below L/2R the wire\'s side is inside the wall (curved away by y squared over 2R) or under the rim before it reaches the dot. <b>Change:</b> lean outward by about 5 degrees at 35 degrees elevation for the drawn stick-out (the guide\'s aim, not an actuator). <b>Leaves:</b> the real guide\'s adjustments and the wire\'s stiffness (it bends when pushed).</li>' +
+        '<li><b>Conflict:</b> the wire touches the wall with its flank as well as its tip. <b>What the scene shows:</b> the radial sweep\'s wall touch is the tip\'s, with the wall at the tip\'s own tangent position: the wall there is y squared over 2R further out, 0.2 mm at 5 mm upstream. The AI subtracts it from the assumed geometry; its error is the error in y times y over R.</li>' +
+        '<li><b>Conflict:</b> the height reading leans on the focus. <b>What the scene shows:</b> the tip\'s plate touch is sharp (a contact), the dot\'s focus height is not (the spot-size curve is flat near focus, trials-03): the vertical part of the vector inherits the focus uncertainty. <b>Change:</b> a height sweep with dither on both, or touch the plate with a stylus in the same run (datum-07).</li>' +
+        '<li><b>Conflict:</b> the vertical part changes with every feed. <b>What the scene shows:</b> 1 mm of stick-out is about 0.6 mm of tip height at 35 degrees. Each weld ends with the wire cut or retracted <b>[repo]</b>, so the stick-out is reset, not remembered: the vector has to be re-measured (or the feed measured by the same touch) every start.</li>' +
+        '<li><b>Left standing:</b> the wire tip is where the wire is, not where the melt is: the puddle is a couple of millimetres long and the wire enters at its leading edge; the "miss" of the guide is a property of the shell and is not known; whether the laser\'s ready lamp or a spare pin can serve as the contact sense; the geometry of the real guide.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Questions for Derek:</b> with the clip on and the laser disabled, does anything (a lamp, a beep, the screen) change when the nozzle or the wire touches the tube (trials-14)? Where does the wire actually land against the dot on your unit: jog it onto a sheet of paper under the dot and photograph it (use-10)? How is the wire\'s outward lean set today?</li>' +
+        '<li>The dock coupon (datum-15) can carry this vector too: the same two probes on a known corner at every visit, so a change in the guide or the head shows as a change in the vector.</li>' +
+        '<li>Whether the mule gun (trials-06) could carry a 0.76 mm wire stub with its own contact sense, so the vector is found in its shell first.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Corner: wall radius 61.85 mm, plate 6.35 mm below the rim <b>[repo]</b>; wire ER316L 0.030 in, 0.76 mm <b>[repo]</b>; beam 32 degrees from vertical and the dot 16 mm from the nozzle: the reference scene\'s <b>[illustrative]</b> values.</li>' +
+        '<li>Wire elevation, outward lean, miss and feed, tip deflection, probe noise: sliders, <b>illustrative</b>. The wire\'s line is straight. Radial and height sweeps are ideal; the dot\'s radial position on the plate moves by height times tan 32 degrees, which the height sweep here does not include (trials-03 treats that confound).</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model
+  const R = 61.85, RW = 0.38, RIMH = 6.35;
+  const P = { eps: 35, gam: 6, feed: -3, mx: -0.30, mz: 0.20, bend: 0.10, noise: 0.03, a: 0.0 };
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  // local frame at the station: X radial (+ toward the wall), Y tangent (+ ahead), Z up from the plate face; the seam at X = 0
+  function geom() {
+    const e = P.eps * DEG, g = P.gam * DEG;
+    const d = [Math.sin(g) * Math.cos(e), Math.cos(g) * Math.cos(e), Math.sin(e)];     // wire direction, forward and up... the body arrives from behind and above
+    // the wire runs from the guide (behind, above) to the tip: it descends toward the dot; direction of travel toward the dot is d' = (sin g cos e, cos g cos e, -sin e)
+    const dt = [Math.sin(g) * Math.cos(e), Math.cos(g) * Math.cos(e), -Math.sin(e)];
+    const D = [-P.a, 0, 0];                                        // the dot on the plate, P.a short of the seam
+    const s = P.feed;                                              // signed distance of the tip from the point where the wire's line meets the plate above the dot
+    const tip = [D[0] + s * dt[0] + P.mx, D[1] + s * dt[1], D[2] + s * dt[2] + P.mz + 0];   // the line passes through D; feed s along the direction of travel; m = miss
+    // tip is s*dt from D along the direction of travel: s < 0 means upstream (behind and above), s > 0 means beyond the dot
+    return { dt: dt, D: D, tip: tip, e: e, g: g };
+  }
+  function bodyClear() {                                          // sample the wire body from the tip back to the guide (12 mm of body): is any part inside the wall or under the rim?
+    const G = geom(); let worst = 1e9, at = null;
+    for (let t = 0; t <= 14; t += 0.25) {
+      const p = [G.tip[0] - t * G.dt[0], G.tip[1] - t * G.dt[1], G.tip[2] - t * G.dt[2]];
+      if (p[2] > RIMH + RW) continue;                             // above the rim: free
+      const wall = -(p[1] * p[1]) / (2 * R);                      // the wall's inner surface at this tangent position
+      const clr = wall - RW - p[0];                               // positive: the wire is inside the bore side of the wall by this much
+      if (clr < worst) { worst = clr; at = p; }
+    }
+    return { clr: worst, at: at, G: G };
+  }
+  function minLean() {                                             // smallest outward lean (deg) that clears the wall for the rest of the geometry
+    const keep = P.gam; let out = null;
+    for (let g = 0; g <= 25; g += 0.25) { P.gam = g; if (bodyClear().clr >= 0) { out = g; break; } }
+    P.gam = keep; return out;
+  }
+  function sweeps() {
+    const G = geom(), r = rng(19), n = () => P.noise * gauss(r);
+    const tipX = G.tip[0], tipY = G.tip[1], tipZ = G.tip[2];
+    // radial sweep: gun position x such that a point at (x + rel) reaches its surface
+    const xDot = P.a;                                               // dot knee: the gun moves toward the wall by the setup error and the dot's centre reaches the seam
+    const xWire = (-(tipY * tipY) / (2 * R) - RW - tipX) - P.bend * 0.3;   // tip's wall touch: tip X + RW = wall(y_tip); reads short by a little bend
+    // height sweep: gun height h; the tip touches the plate at h = RW - tipZ (tip centre RW above the plate); the dot focus is at h = 0 by definition
+    const hWire = RW - tipZ - P.bend * 0.5, hFocus = 0;
+    // what the AI concludes: it assumes y_tip from the nominal geometry (feed, elevation, lean) with 0.5 mm of error; RW known
+    const yAssumed = tipY + 0.5;
+    const dxEst = (-(yAssumed * yAssumed) / (2 * R) - RW) - (xWire + n()) + (xDot + n());
+    const dzEst = RW - ((hWire + n() * 2) - (hFocus + n() * 3));    // the focus is the weaker reading: 3x noise on it
+    return { xDot: xDot, xWire: xWire, hWire: hWire, hFocus: hFocus, dxTrue: tipX - G.D[0], dzTrue: tipZ - G.D[2], dxEst: dxEst, dzEst: dzEst, dyTrue: tipY - G.D[1] };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 780, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'dw', role: 'img', 'aria-label': 'Section and plan of the wire and the dot at the corner, two sweeps and their readings', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  const rect = (x, y, w, h, a) => S('rect', Object.assign({ x: x, y: y, width: Math.max(0, w), height: Math.max(0, h) }, a));
+  function wrap(g, x, y, text, maxc, cls, lh) { const ws = text.split(' '); let ln = '', k = 0; ws.forEach(w => { if ((ln + ' ' + w).length > maxc) { g.append(T(x, y + k * (lh || 13), ln, cls)); k++; ln = w; } else ln = ln ? ln + ' ' + w : w; }); g.append(T(x, y + k * (lh || 13), ln, cls)); return k + 1; }
+
+  function drawSection(g, G) {
+    g.append(T(12, 22, 'Section at the station (radial, height), magnified', 'tb'));
+    g.append(rect(6, 30, 420, 250, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const K = 28, X = x => 300 + x * K, Z = z => 226 - z * K;            // px per mm; seam at X = 300 px, plate face at 226 px
+    g.append(rect(6, Z(0), X(0) - 6, 44, { fill: '#dfe6ee', opacity: 0.9 })); g.append(T(16, Z(0) + 16, 'plate', 'tf'));
+    g.append(rect(X(0), Z(RIMH), 1.65 * K, Z(0) - Z(RIMH) + 44, { fill: '#c8d0da' })); g.append(T(X(0) + 1.65 * K + 4, Z(3), 'wall', 'tf')); g.append(line(X(0) - 4, Z(RIMH), X(0) + 30, Z(RIMH), { stroke: '#94a3b8', 'stroke-dasharray': '2 3' })); g.append(T(X(0) + 34, Z(RIMH) + 3, 'rim', 'tf'));
+    // beam from upper left at 32 degrees from vertical to the dot
+    const b = 32 * DEG, dotP = [X(G.D[0]), Z(0)], top = [dotP[0] - Math.tan(b) * 190, Z(0) - 190];
+    g.append(line(top[0], top[1], dotP[0], dotP[1], { stroke: '#ff3b30', 'stroke-width': 1.5, opacity: 0.9 })); g.append(S('circle', { cx: dotP[0], cy: dotP[1], r: 3.6, fill: '#ff3b30' })); g.append(T(dotP[0] - 8, dotP[1] + 16, 'dot', 'tr', 'end'));
+    // the wire, projected on the section plane: from the tip back up and out of the tangent plane (drawn as the projection)
+    const tip = [X(G.tip[0]), Z(G.tip[2])], tb = Math.max(0, Math.min(12, (6.6 - G.tip[2]) / Math.sin(G.e))), back = [G.tip[0] - tb * G.dt[0], G.tip[2] - tb * G.dt[2]];
+    g.append(line(X(back[0]), Z(back[1]), tip[0], tip[1], { stroke: '#e6b422', 'stroke-width': 2, opacity: 0.85 }));
+    g.append(S('circle', { cx: tip[0], cy: tip[1], r: RW * K, fill: 'none', stroke: '#e6b422', 'stroke-width': 1.6 })); g.append(T(tip[0] - 10, tip[1] - 8, 'wire tip', 'ty', 'end'));
+    g.append(line(dotP[0], dotP[1] - 16, tip[0], tip[1], { stroke: '#f472b6', 'stroke-dasharray': '3 3', opacity: 0 }));
+    g.append(T(12, 272, 'projection on the section plane (the wire also runs along the tangent)', 'tf'));
+  }
+
+  function drawPlan(g, G, bc) {
+    const x0 = 444, y0 = 30, w = 406, h = 250;
+    g.append(T(x0, 22, 'Plan at the station (radial, tangent), magnified', 'tb'));
+    g.append(rect(x0, y0, w, h, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const K = 12, X = x => x0 + 250 + x * K, Y = y => y0 + 50 - y * K;   // px per mm; seam at X = x0+250, dot at Y = y0+50; +y ahead (up in the picture)
+    // wall as a parabola: X = -y^2 / 2R, material beyond it
+    const pts = []; for (let y = -15; y <= 4; y += 0.5) pts.push([X(-(y * y) / (2 * R)), Y(y)]);
+    const wallPoly = pts.concat([[x0 + w - 4, Y(4)], [x0 + w - 4, Y(-15)]]);
+    g.append(S('polygon', { points: wallPoly.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: '#c8d0da', opacity: 0.55 })); g.append(T(x0 + w - 60, y0 + 24, 'wall', 'tf'));
+    g.append(S('polyline', { points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none', stroke: '#e2e8f0', 'stroke-width': 1.4 }));
+    // dot, wire body (from the tip back to the guide), tip
+    g.append(S('circle', { cx: X(G.D[0]), cy: Y(G.D[1]), r: 4, fill: '#ff3b30' }));
+    const back = [G.tip[0] - 14 * G.dt[0], G.tip[1] - 14 * G.dt[1]];
+    g.append(line(X(back[0]), Math.min(y0 + h - 4, Y(back[1])), X(G.tip[0]), Y(G.tip[1]), { stroke: bc.clr < 0 ? '#f87171' : '#e6b422', 'stroke-width': 3, 'stroke-linecap': 'round' }));
+    g.append(S('circle', { cx: X(G.tip[0]), cy: Y(G.tip[1]), r: Math.max(2, RW * K), fill: 'none', stroke: '#e6b422', 'stroke-width': 1.6 })); g.append(T(X(G.tip[0]) - 8, Y(G.tip[1]) + 3, 'tip', 'ty', 'end'));
+    if (bc.at && bc.clr < 0.3) { g.append(S('circle', { cx: X(bc.at[0]), cy: Y(bc.at[1]), r: 6, fill: 'none', stroke: bc.clr < 0 ? '#f87171' : '#f5a524', 'stroke-width': 1.6 })); g.append(T(X(bc.at[0]) - 10, Y(bc.at[1]) - 8, 'closest to the wall: ' + bc.clr.toFixed(2) + ' mm', bc.clr < 0 ? 'tr' : 'ta', 'end')); }
+    g.append(T(x0 + 8, y0 + h - 8, 'wire arrives from below; the wall curves away as y squared over 2R', 'tf'));
+  }
+
+  function drawSweeps(g, sw) {
+    const x0 = 12, y0 = 330;
+    g.append(T(x0, y0 - 14, 'Two sweeps on one corner (gun positions, mm; the dot knee and the plate focus are the zeros)', 'tb'));
+    const strip = (yy, label, lo, hi, marks, unit) => {
+      const w = 560, X = v => x0 + 120 + (v - lo) / (hi - lo) * w;
+      g.append(T(x0, yy + 4, label, 'tg'));
+      g.append(line(x0 + 120, yy, x0 + 120 + w, yy, { stroke: '#3b4658' }));
+      for (let v = Math.ceil(lo); v <= hi; v += 1) { g.append(line(X(v), yy - 3, X(v), yy + 3, { stroke: '#475569' })); if (v % 2 === 0) g.append(T(X(v), yy + 16, String(v), 'tf', 'middle')); }
+      marks.forEach(m => { g.append(S('circle', { cx: X(m.v), cy: yy, r: 5, fill: m.c })); g.append(T(X(m.v), yy - 10 - (m.up || 0), m.t, m.cls, 'middle')); });
+      g.append(T(x0 + 120 + w + 8, yy + 4, unit, 'tf'));
+    };
+    strip(y0 + 22, 'radial sweep', -4, 2, [{ v: sw.xDot, c: '#ff3b30', t: 'dot knee', cls: 'tr' }, { v: sw.xWire, c: '#e6b422', t: 'wire tip touches the wall', cls: 'ty', up: 14 }], 'gun radial position');
+    strip(y0 + 84, 'height sweep', -2, 4, [{ v: sw.hFocus, c: '#ff3b30', t: 'dot in focus on the plate', cls: 'tr' }, { v: sw.hWire, c: '#e6b422', t: 'wire tip touches the plate', cls: 'ty' }], 'gun height');
+    const yy = y0 + 132;
+    g.append(T(x0, yy, 'What the AI concludes about the tip\'s offset from the dot', 'tb'));
+    g.append(T(x0, yy + 20, 'radial:', 'tg')); g.append(T(x0 + 60, yy + 20, sw.dxEst.toFixed(2) + ' mm  (truth ' + sw.dxTrue.toFixed(2) + ')', Math.abs(sw.dxEst - sw.dxTrue) < 0.1 ? 'tok' : 'ta'));
+    g.append(T(x0 + 300, yy + 20, 'height:', 'tg')); g.append(T(x0 + 350, yy + 20, sw.dzEst.toFixed(2) + ' mm  (truth ' + sw.dzTrue.toFixed(2) + ')', Math.abs(sw.dzEst - sw.dzTrue) < 0.15 ? 'tok' : 'ta'));
+    g.append(T(x0, yy + 40, 'tangential: ' + sw.dyTrue.toFixed(2) + ' mm (not read by either sweep; set by the feed and lean, and seen by a camera along the seam)', 'tf'));
+    const dz1 = Math.sin(P.eps * DEG), dx1 = Math.sin(P.gam * DEG) * Math.cos(P.eps * DEG);
+    g.append(T(x0, yy + 66, 'Per millimetre of feed the tip moves ' + dz1.toFixed(2) + ' mm in height, ' + dx1.toFixed(2) + ' mm radially, ' + (Math.cos(P.gam * DEG) * Math.cos(P.eps * DEG)).toFixed(2) + ' mm along the seam.', 'tw'));
+    return yy;
+  }
+
+  function updateIO(sw, bc) {
+    app.io.set({
+      commands: [
+        { name: 'Radial and height sweeps', value: '0.05 mm steps', note: 'any positioner (trials-03)' },
+        { name: 'Wire advance / retract', value: P.feed.toFixed(1) + ' mm', note: 'buttons today [manual p. 18]; software drive unknown' },
+      ],
+      observes: [
+        { name: 'Dot knee and focus', value: '0, 0', unit: 'gun mm (zeros)', status: 'seen', note: 'camera; the focus is the weaker reading' },
+        { name: 'Wire contact', value: 'wall at ' + sw.xWire.toFixed(2) + ', plate at ' + sw.hWire.toFixed(2), unit: 'gun mm', status: 'partly', note: 'one bit: continuity to the work lead; the ready lamp by camera is unchecked' },
+        { name: 'Tip offset from the dot (r, z)', value: sw.dxEst.toFixed(2) + ', ' + sw.dzEst.toFixed(2), unit: 'mm', status: 'partly', note: 'truth ' + sw.dxTrue.toFixed(2) + ', ' + sw.dzTrue.toFixed(2) },
+        { name: 'Wire body clear of the wall', value: bc.clr.toFixed(2), unit: 'mm', status: bc.clr < 0 ? 'blind' : 'partly', note: 'exact scene geometry; nothing observes it' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: 'the wire tip is not the melt [unknown]' },
+      ],
+      manual: ['The guide\'s outward lean and miss', 'The interfaces to the laser box and the feeder', 'Never defeat an interlock'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    const G = geom(), bc = bodyClear(), sw = sweeps();
+    drawSection(gDyn, G); drawPlan(gDyn, G, bc); drawSweeps(gDyn, sw);
+    const ml = bc.clr < 0 ? minLean() : null;
+    app.badge('wall', bc.clr < 0 ? 'the wire body is inside the wall or under the rim by ' + (-bc.clr).toFixed(2) + ' mm: ' + (ml == null ? 'no lean up to 25° clears it at this feed and miss' : 'lean it outward by at least ' + ml.toFixed(1) + '°') : null, 'limit');
+    updateIO(sw, bc);
+  }
+
+  // ---------------------------------------------------------------- controls
+  const gw = app.ui.group('The wire (scene edits, illustrative)', { open: true });
+  gw.slider({ id: 'feed', label: 'Feed: tip along the wire from the dot (- is upstream)', min: -8, max: 3, step: 0.1, value: -3, unit: 'mm', kind: 'actuator', visual: 'the gold tip and body', help: 'The feeder\'s advance and retract move the tip along the wire\'s line.', onChange: v => { P.feed = v; render(); } });
+  gw.slider({ id: 'eps', label: 'Wire elevation above the plate', min: 15, max: 60, step: 1, value: 35, unit: '°', kind: 'scene', help: 'The guide\'s aim: illustrative.', onChange: v => { P.eps = v; render(); } });
+  gw.slider({ id: 'gam', label: 'Outward lean toward the wall (plan)', min: 0, max: 12, step: 0.5, value: 6, unit: '°', kind: 'scene', help: 'About L/2R for a stick-out L: the wire must lean toward the wall as it arrives or its body meets the curved wall.', onChange: v => { P.gam = v; render(); } });
+  gw.slider({ id: 'mx', label: 'Guide miss, radial', min: -1, max: 1, step: 0.05, value: -0.30, unit: 'mm', kind: 'scene', help: 'How far the wire\'s line passes the dot: a property of the shell, unknown.', onChange: v => { P.mx = v; render(); } });
+  gw.slider({ id: 'mz', label: 'Guide miss, height', min: -1, max: 1, step: 0.05, value: 0.20, unit: 'mm', kind: 'scene', onChange: v => { P.mz = v; render(); } });
+  const gp = app.ui.group('The probes (scene edits)', { open: true });
+  gp.slider({ id: 'bend', label: 'Wire tip deflection on touching', min: 0, max: 0.4, step: 0.02, value: 0.10, unit: 'mm', kind: 'scene', help: 'A 0.76 mm wire bends when pushed; the touch reads short by a fraction of it.', onChange: v => { P.bend = v; render(); } });
+  gp.slider({ id: 'noise', label: 'Position noise per reading', min: 0.005, max: 0.15, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'The height reading uses the focus, three times noisier.', onChange: v => { P.noise = v; render(); } });
+  gp.slider({ id: 'a', label: 'Dot short of the seam (setup error)', min: 0, max: 1, step: 0.05, value: 0, unit: 'mm', kind: 'scene', help: 'Moves the dot and the wire together; does not change the vector.', onChange: v => { P.a = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

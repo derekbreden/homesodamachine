@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Six taut lines</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-03-cable-platform",
+  "title": "Six taut lines: the gun shell hung on measured or driven cables",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The shell hangs from six lines to an overhead frame. Gravity and the umbilical keep every line taut (a force loop, not a clamp). In sense mode the lines are draw-wire encoders on a hand-positioned gun: software moves nothing and reads pose. In drive mode each line has a winch: software commands six lengths and the shell follows, to within line stretch. The map of where every line stays taut is the design.",
+  "tags": ["cable-driven", "tension only", "force closure", "encoders", "winch", "observe first"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["cables as sensors first, actuators later", "line stretch as a pose error and how to compensate it", "slack as the failure mode"],
+  "how": {
+    "motion": "six line lengths (winches), or none (encoders only)",
+    "load": "lines in tension: gravity keeps them taut; frame carries them",
+    "reference": "line lengths from the frame; the camera closes the loop on the dot",
+    "observe": "line lengths (encoders), line tension, camera on the dot",
+    "use": "first as a pose logger while a hand positions; later winches drive"
+  },
+  "software": {
+    "commands": ["six winch lengths (drive mode)"],
+    "observes": ["six line lengths (encoders)", "line tensions (load cells or motor current)", "dot vs seam (camera, not drawn)"],
+    "manual": ["fitting lugs and lines", "routing the umbilical clear of the lines", "in sense mode: moving the gun and supporting it"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-03-cable-platform.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, FS = FreedomStatics, MA = FS.math, D2R = Math.PI / 180;
+  const LUGS = [[30, 0, 60], [-30, 0, 60], [34, 0, 170], [-34, 0, 170], [60, -118, 237], [-60, -118, 237]];
+  const DIRS = [[0.5587, 0.0742, 0.826], [-0.6707, 0.2377, 0.7026], [0.5935, 0.4186, 0.6874], [-0.5672, 0.4255, 0.7051], [0.5806, 0.5704, 0.581], [-0.2561, -0.5649, 0.7844]];
+  const ZTOP = 600, MASS = 1.2, COM = [0, -18, 178];
+  const EA = { braid: 3000, dyneema: 25000, steel: 40000 };
+
+  const app = WK.app({
+    gun: { pose: 'none', umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -60, 340], dir: [-0.62, 0.70, 0.36], dist: 1900 },
+      joint: { target: [30, -50, 220], dir: [-0.85, 0.35, 0.40], dist: 600 },
+      top: { target: [0, -60, 300], dir: [0, -0.004, 1], dist: 1500 },
+      side: { target: [0, -60, 330], dir: [1, 0, 0.08], dist: 1700 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>The gun shell carries six lugs. Six <b>lines</b> run from the lugs up and out to an overhead frame. There is no clamp anywhere: the lines only pull, so <b>gravity and the umbilical pull are what keep them taut</b>. Each line has a drum at the frame: in <b>drive</b> mode a winch (software commands six lengths and the shell follows); in <b>sense</b> mode a draw-wire encoder (a hand positions the gun, something else supports it, software reads six lengths and computes the pose).</p>' +
+        '<p>Precision comes from geometry: with lines long and taut, the stiffness along each line is EA/L, so the shell is stiff in all six directions at once, as long as none of the lines goes slack. The scene shows line tensions (a slack line is drawn grey), the dot’s compliance, the error from line stretch, and in sense mode how well six length readings pin down the dot.</p>',
+      carries:
+        '<p>Amber lines carry the weight in tension; the frame (grey) carries the lines. Purple drums are winches (drive mode) and turn blue when they are encoders (sense mode). Nothing pushes: a tension-only support needs the load itself to hold it taut, so <b>where the umbilical pulls matters</b>. Try umbilical 6 N, droop 0 (pull along the cable exit): line 6 goes slack and the dot walks 23 mm.</p>',
+      software:
+        '<p><b>Drive:</b> six lengths, computed from the commanded pose by inverse kinematics; with <i>stretch compensation</i> on, each length also removes the elastic stretch predicted from the line’s tension. <b>Sense:</b> the six lengths (with the encoder’s resolution) go through forward kinematics; the panel shows the dot uncertainty they imply and the net pull of the encoders’ own retract springs on the gun.</p>',
+      tried:
+        '<p><b>Four lines.</b> Two lines at the nozzle and two at the tail leave the shell under-constrained: every line is taut and the shell still hangs about 60 mm and 66\u00b0 from the commanded pose, wherever gravity and the umbilical settle it (switch the count to 4).</p>' +
+        '<p><b>Slack.</b> Under the illustrative gravity + 2 N umbilical the six lines carry 1.8–4.3 N each. A 6 N pull along the cable exit takes one line to zero. The layout is one that a random search found with every line positive across a small range of pulls; other layouts fail sooner. Tension-only means the workspace is bounded by slack, not by reach.</p>' +
+        '<p><b>Taut is not held.</b> With gravity alone two of the six lines carry 0.3 to 0.4 N. The layout is taut because the fibre pulls, and only inside a cone of pull directions (borrowed-16, checked here): the worst direction slackens a line at 0.13 N, 82 % of directions slacken one below 4 N, and pulls known to within ±8° of the cable exit keep it taut to 5.3 N while ±15° gives only 1.0 N. The readouts give the margin along the pull you set, the worst direction anywhere, and the cone within ±10°. A route that fixes the fibre’s direction (freedom-16) turns a fragile layout into a good one; a layout can be searched for the cone of a route (borrowed-16), and the route comes first because the manual’s bend limit leaves it little freedom.</p>' +
+        '<p><b>Stretch.</b> A thin braid (EA about 3 kN) sags 0.7 mm under load at the reference and is 8× softer at the dot than a Dyneema-class 1 mm line; commanding a length that removes the predicted stretch brings the static error to zero, but creep and hysteresis are not modelled.</p>' +
+        '<p><b>Measuring loads the thing measured.</b> Six draw-wire encoders each pull with their retract spring (2 N assumed), a net force and torque on a 1.2 kg gun. Sense mode shows it.</p>',
+      unresolved:
+        '<p>Line routing that clears the tube, the gun body and the umbilical; the shell lugs must carry the line loads and the printed shell must not flex; winch resolution and backlash on a small spool; creep of synthetic line; how the frame is built and whether it stays out of the operator’s way; the encoders’ real retract force and resolution; the real umbilical pull. Twist of the fibre when the gun rolls is unresolved (manual p. 20). In sense mode something else must carry the gun.</p>',
+      assumptions:
+        '<ul><li>Gun + shell 1.2 kg, COM at (0, −18, 178) local: <b>illustrative</b> (the gun mass is [unknown]). Umbilical pull 0–6 N, direction blended between the cable exit and straight down: <b>illustrative</b>.</li>' +
+        '<li>Lug positions and line directions: a layout chosen by a random search (calc/22-cable-layout.cjs) so all six lines stay positive; <b>illustrative</b>, not a design. Frame at 600 mm above the bench-zero.</li>' +
+        '<li>Line stiffness EA: 3 / 25 / 40 kN for a thin braid / a 1 mm synthetic line / a 1 mm steel rope: order-of-magnitude, <b>illustrative</b>, not from a data sheet.</li>' +
+        '<li>Encoder retract force 2 N per line and resolution 0.05 mm: <b>illustrative</b>.</li>' +
+        '<li>Reference pose is the kit’s opening pose; gun proxy not measured. Drawn displacement is multiplied by the exaggeration slider; readouts are true size.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun; gun.setLaser(true);
+  gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  const benchZ = ws.benchZ;
+  const ref = FS.dialsToPose(45, 30, -15), W0 = l => MA.add(ref.origin, MA.mv(ref.R, l));
+  const S = { mode: 'drive', count: 6, mat: 'dyneema', scale: 1, F: 2, droop: 0.5, comp: false, cmd: [0, 0, 0, 0, 0, 0], hand: [0, 0, 0, 0, 0, 0], sigma: 0.05, exag: 1, ellS: 120, showEll: true, showT: true };
+
+  // ---- parts
+  const lugMesh = LUGS.map(l => { const m = P.sphere(5, 'load'); m.position.set(l[0], l[1], l[2]); gun.group.add(m); return m; });
+  const lines = LUGS.map(() => P.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'load', { occludes: false }));
+  const drums = LUGS.map(() => P.cyl(11, 16, 'actuated', { axis: 'x' }));
+  const hatches = LUGS.map(() => { const h = P.groundHatch(28, 'fixed'); h.quaternion.setFromUnitVectors(V(0, 0, -1), V(0, 0, 1)); return h; });
+  lines.forEach(o => app.add(o)); drums.forEach(o => app.add(o)); hatches.forEach(o => app.add(o));
+  const frame = P.plane(1000, 800, 'ghost'); frame.position.set(0, -80, ZTOP + 18); app.add(frame);
+  const hingeDummy = null;
+  let cableMesh = null; const cableEnd = V(-60, -1250, benchZ + 60);
+  app.add(P.rod(V(cableEnd.x, cableEnd.y, benchZ), cableEnd, 4, 'fixed')); const ca = P.groundHatch(40, 'fixed'); ca.position.set(cableEnd.x, cableEnd.y, benchZ); app.add(ca);
+  const ell = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 18), WK.mat('compliant', { opacity: 0.32, side: 'double' })); ell.userData.role = 'compliant'; ell.userData.occludes = false; app.addHelper(ell);
+  const arrows = { grav: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'load'), pull: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'cable') }; Object.values(arrows).forEach(a => app.addHelper(a));
+  app.label(() => drums[0].position, 'winch / encoder', { cls: 'actuated' });
+  app.label(() => frame.position.clone().add(V(-360, 0, 0)), 'overhead frame', { cls: 'fixed' });
+  app.label(() => lugMesh[4].getWorldPosition(new THREE.Vector3()), 'lug', { cls: 'load' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const proxy = { off: { radial: 0, along: 0, vertical: 0, total: 0 }, beam: V(0, 0, -1), dotOffset() { return this.off; }, beamDir() { return this.beam; } };
+  app.cornerInset({ gun: proxy });
+
+  // ---- model
+  function layout() {
+    const idx = S.count === 4 ? [0, 1, 4, 5] : [0, 1, 2, 3, 4, 5];
+    const lugsW = LUGS.map(W0);
+    const anchors = idx.map(i => { const u = DIRS[i], s = (ZTOP - lugsW[i][2]) / u[2]; return [lugsW[i][0] + S.scale * s * u[0], lugsW[i][1] + S.scale * s * u[1], ZTOP]; });
+    return { idx: idx, anchors: anchors, lugsW: lugsW };
+  }
+  function makeModel(lay, L0s) {
+    const els = [], cabs = [];
+    lay.idx.forEach((i, j) => { const L = MA.len(MA.sub(lay.anchors[j], lay.lugsW[i])); const c = { type: 'spring', a: { local: LUGS[i] }, b: { world: lay.anchors[j] }, k: EA[S.mat] / L, L0: L0s[j], slack: true, name: 'line ' + (j + 1), group: 'lines' }; els.push(c); cabs.push(c); });
+    els.push({ type: 'gravity' });
+    const ex = MA.mv(ref.R, FS.ROLL_AXIS), pd = MA.norm(MA.add(MA.mul(ex, 1 - S.droop), [0, 0, -S.droop]));
+    els.push({ type: 'force', pt: { local: FS.GRIP_BASE }, F: MA.mul(pd, S.F), group: 'umbilical', dirWorld: pd });
+    const m = FS.makeModel({ body: { mass: MASS, com: COM, ref: ref, dotLocal: [0, 0, -16] }, nodes: [], elements: els });
+    m.cabs = cabs; m.pd = pd; return m;
+  }
+  const poseVec = a => { const x = new Float64Array(6); for (let k = 0; k < 3; k++) { x[k] = a[k]; x[3 + k] = a[3 + k] * D2R * FS.S; } return x; };
+  let cur = null, lastValid = null;
+  function recompute() {
+    const lay = layout(), xc = poseVec(S.mode === 'drive' ? S.cmd : S.hand);
+    const m0 = makeModel(lay, lay.idx.map(() => 1));
+    const geo = lay.idx.map((i, j) => MA.len(MA.sub(lay.anchors[j], m0.bodyPoint(xc, LUGS[i]))));
+    if (S.mode === 'drive') {
+      let L0 = geo.slice(), model = makeModel(lay, L0), res = model.solve(xc, { maxIter: 120 });
+      if (S.comp) for (let it = 0; it < 3; it++) { const T = model.cabs.map(c => Math.max(0, model.springForce(res.x, c).T)); L0 = geo.map((g, j) => g - T[j] / model.cabs[j].k); model = makeModel(lay, L0); res = model.solve(xc, { maxIter: 120 }); }
+      if (!res.converged) { app.badge('eq', 'no static equilibrium from the commanded pose: the shell is not held (lines slack or too few lines). Showing the last pose that settled.', 'limit'); if (lastValid) draw(lastValid, lay); ioPanel(null, lay, geo, L0, true); return; }
+      app.badge('eq', null);
+      cur = { model: model, x: res.x, xc: xc, lay: lay, geo: geo, L0: L0, mode: 'drive' }; lastValid = cur;
+      cur.dc = model.dotCompliance(res.x);
+    } else {
+      app.badge('eq', null);
+      const model = makeModel(lay, geo);      // only for geometry helpers: pose is where the hand put the gun
+      cur = { model: model, x: xc, xc: xc, lay: lay, geo: geo, L0: geo, mode: 'sense' }; lastValid = cur;
+      cur.dc = null;
+    }
+    draw(cur, lay); ioPanel(cur, lay, cur.geo, cur.L0, false);
+  }
+  function drawPose(model, x) {
+    const e = S.exag, th = [x[3] / FS.S * e, x[4] / FS.S * e, x[5] / FS.S * e], Re = MA.mm(MA.expm(th), model.R0), u = [x[0] * e, x[1] * e, x[2] * e], dl = [0, 0, -16];
+    const place = l => { const p = MA.mv(Re, MA.sub(l, dl)); return V(model.dot0[0] + u[0] + p[0], model.dot0[1] + u[1] + p[1], model.dot0[2] + u[2] + p[2]); };
+    return { Re: Re, place: place, gp: place([0, 0, 0]), q: new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().set(Re[0], Re[1], Re[2], 0, Re[3], Re[4], Re[5], 0, Re[6], Re[7], Re[8], 0, 0, 0, 0, 1)) };
+  }
+  function tensionsOf(c) { return c.mode === 'drive' ? c.model.cabs.map(cab => c.model.springForce(c.x, cab).T) : c.lay.idx.map(() => 2); }
+
+  // does the drawn gun pass through the tube wall, the endcap or the bench? (sample points along the barrel, housing and grip)
+  function collides(dp) {
+    const pts = []; for (let z = 0; z <= 253; z += 1) pts.push([0, 0, z]); for (let t = 0; t <= 1; t += 0.01) pts.push([0, -25 - 86 * t, 172 + 60 * t]);
+    for (let i = 0; i < pts.length; i++) { const w = dp.place(pts[i]), r = Math.hypot(w.x, w.y); if ((r > 61.85 - 3 && r < 63.5 + 3 && w.z < 152.4 + 3 && w.z > 0) || (r < 61.85 && w.z > 139.7 - 3 && w.z < 146.05 + 3) || w.z < ws.benchZ + 3) return true; }   // 3 mm margin stands in for the shell radius
+    return false;
+  }
+  function draw(c, lay) {
+    const model = c.model, x = c.x, dp = drawPose(model, x), e = S.exag;
+    gun.setTransform(dp.gp, dp.q);
+    app.badge('collide', collides(dp) ? 'the drawn gun passes through the tube or the bench: this pose is not physical (the model has no collision)' : null, 'limit');
+    const th = [x[3] / FS.S, x[4] / FS.S, x[5] / FS.S], Rt = MA.mm(MA.expm(th), model.R0), bd = MA.mv(Rt, [0, 0, -1]);
+    proxy.off = { radial: x[0], along: x[1], vertical: x[2], total: Math.hypot(x[0], x[1], x[2]) }; proxy.beam = V(bd[0], bd[1], bd[2]);
+    const T = tensionsOf(c);
+    LUGS.forEach((l, i) => { lugMesh[i].visible = lay.idx.indexOf(i) >= 0; lines[i].visible = drums[i].visible = hatches[i].visible = lugMesh[i].visible; });
+    lay.idx.forEach((i, j) => {
+      const a = V(...lay.anchors[j]), b = dp.place(LUGS[i]);
+      lines[i].setEnds(b, a); drums[i].position.copy(a).add(V(0, 0, 6)); hatches[i].position.copy(a).add(V(0, 0, 18));
+      WK.setRole(lines[i], T[j] < 0.05 ? 'ghost' : 'load'); WK.setRole(drums[i], S.mode === 'drive' ? 'actuated' : 'sensor');
+      lines[i].scale.x = lines[i].scale.z = S.showT ? Math.max(0.6, Math.min(2.6, 0.5 + T[j] * 0.35)) : 1;
+    });
+    // umbilical cable
+    const exitW = dp.place(FS.GRIP_BASE), exitDir = V(...MA.mv(dp.Re, FS.ROLL_AXIS));
+    const c1 = WK.bezierCable(exitW, exitDir, cableEnd, V(0, 0, -1), { stiffness: 0.47 }), pts = c1.getPoints(80);
+    if (!cableMesh) { cableMesh = P.cable(pts, { radius: 5.5, role: 'cable', segments: 160 }); app.add(cableMesh); } else cableMesh.setPoints(pts);
+    const bend = WK.cableBadge(WK.curveMinRadius(pts)); app.badge('bend', bend.text, bend.level);
+    const W = MASS * FS.G, comW = dp.place(COM), pd = model.pd || MA.norm(MA.add(MA.mul(MA.mv(ref.R, FS.ROLL_AXIS), 1 - S.droop), [0, 0, -S.droop]));
+    arrows.grav.set(comW, V(0, 0, -1), Math.max(8, W * 5)); arrows.pull.set(exitW, V(...pd), Math.max(6, S.F * 14)); arrows.pull.visible = S.F > 0.05;
+    if (c.dc && S.showEll) { const C = c.dc.C, cap = 60, r = [0, 1, 2].map(i => Math.max(0.6, Math.min(cap, Math.abs(C[i][i]) * S.ellS))); ell.visible = true; ell.scale.set(r[0], r[1], r[2]); ell.position.copy(dp.place([0, 0, -16])); } else ell.visible = false;
+    app.badge('exag', e > 1 ? 'drawn displacements ×' + e + ' (readouts are true size)' : null, 'info');
+    app.invalidate();
+  }
+  // forward kinematics from six lengths: Gauss-Newton on the pose, with the Jacobian for the uncertainty
+  function fk(lay, Lmeas, x0) {
+    const m = makeModel(lay, lay.idx.map(() => 1)), n = lay.idx.length;
+    const lens = x => lay.idx.map((i, j) => MA.len(MA.sub(lay.anchors[j], m.bodyPoint(x, LUGS[i]))));
+    let x = Float64Array.from(x0);
+    for (let it = 0; it < 30; it++) {
+      const L = lens(x), r = L.map((v, j) => v - Lmeas[j]), J = [];
+      for (let k = 0; k < 6; k++) { const xp = Float64Array.from(x); xp[k] += 1e-3; const Lp = lens(xp); J.push(Lp.map((v, j) => (v - L[j]) / 1e-3)); }
+      const A = new Float64Array(36), b = new Float64Array(6);
+      for (let a = 0; a < 6; a++) { for (let c = 0; c < 6; c++) { let s = 0; for (let j = 0; j < n; j++) s += J[a][j] * J[c][j]; A[a * 6 + c] = s + (a === c ? 1e-9 : 0); } let s2 = 0; for (let j = 0; j < n; j++) s2 += J[a][j] * r[j]; b[a] = -s2; }
+      const d = MA.solveLinear(A, b, 6); if (!d) break; let dm = 0; for (let k = 0; k < 6; k++) { x[k] += d[k]; dm = Math.max(dm, Math.abs(d[k])); } if (dm < 1e-7) break;
+    }
+    // covariance of the pose for unit length noise: (J^T J)^-1 (rank check)
+    const L = lens(x), J = []; for (let k = 0; k < 6; k++) { const xp = Float64Array.from(x); xp[k] += 1e-3; const Lp = lens(xp); J.push(Lp.map((v, j) => (v - L[j]) / 1e-3)); }
+    const A = new Float64Array(36); for (let a = 0; a < 6; a++) for (let c = 0; c < 6; c++) { let s = 0; for (let j = 0; j < n; j++) s += J[a][j] * J[c][j]; A[a * 6 + c] = s + (a === c ? 1e-9 : 0); }
+    const std = [0, 1, 2].map(k => { const e = new Float64Array(6); e[k] = 1; const s = MA.solveLinear(A, e, 6); return s ? Math.sqrt(Math.max(0, s[k])) : Infinity; });
+    return { x: x, std: std, rank: n >= 6 };
+  }
+  const RETRACT = 2;
+  const stdSet = app.ui.readout('std', 'Dot uncertainty from encoder resolution r / t / z');
+  const compSet = app.ui.readout('cr', 'Dot compliance r / t / z');
+  const errSet = app.ui.readout('err', 'Error from line stretch (dot)');
+  const tenSet = app.ui.readout('ten', 'Line tensions');
+  const margSet = app.ui.readout('marg', 'Extra pull along this direction before a line slackens');
+  const worstSet = app.ui.readout('worst', 'Slack pull, worst direction (gravity alone)');
+  const coneSet = app.ui.readout('cone', 'Slack pull within ±10° of this direction');
+  // Rigid-line statics at the reference pose (linear): which pulls at the grip base keep every line taut? (the method of borrowed-16, borrowed's w2-taut-set.cjs)
+  function tautStats(lay) {
+    if (lay.idx.length !== 6) return null;
+    const dot0 = W0([0, 0, -16]), comW = W0(COM), gripW = W0(FS.GRIP_BASE), Wt = MASS * FS.G;
+    const A = new Float64Array(36);
+    lay.idx.forEach((i, j) => { const b = MA.sub(lay.anchors[j], lay.lugsW[i]), u = MA.norm(b), m = MA.cross(MA.sub(lay.lugsW[i], dot0), u); for (let k = 0; k < 3; k++) { A[k * 6 + j] = u[k]; A[(k + 3) * 6 + j] = m[k]; } });
+    const tens = w => { const r = MA.solveLinear(A, w.map(v => -v), 6); return r ? Array.from(r) : null; };
+    const wg = [0, 0, -Wt].concat(MA.cross(MA.sub(comW, dot0), [0, 0, -Wt])), rg = MA.sub(gripW, dot0);
+    const wPull = d => d.concat(MA.cross(rg, d));
+    const tg = tens(wg); if (!tg) return null;
+    const slackPull = (t0, d) => { const t1 = tens(wg.map((v, k) => v + wPull(d)[k])); if (!t1) return 0; let f = Infinity; for (let j = 0; j < 6; j++) { const dt = t1[j] - tg[j]; if (dt < -1e-9) f = Math.min(f, t0[j] / -dt); } return f; };
+    const pd = MA.norm(MA.add(MA.mul(MA.mv(ref.R, FS.ROLL_AXIS), 1 - S.droop), [0, 0, -S.droop]));
+    // current state: gravity + F along pd; margin = extra pull along pd before the first line goes slack
+    const wNow = wg.map((v, k) => v + S.F * wPull(pd)[k]), tNow = tens(wNow); if (!tNow) return null;
+    const tp = tens(wg.map((v, k) => v + (S.F + 1) * wPull(pd)[k])); let marg = Infinity, which = -1;
+    for (let j = 0; j < 6; j++) { const dt = tp[j] - tNow[j]; if (dt < -1e-9 && tNow[j] / -dt < marg) { marg = tNow[j] / -dt; which = j; } }
+    if (tNow.some(v => v < 0)) marg = 0;
+    let worst = Infinity, n = 0, below4 = 0; const N = 1500;
+    for (let i = 0; i < N; i++) { const z = 1 - 2 * (i + 0.5) / N, r = Math.sqrt(1 - z * z), ph = i * 2.399963, d = [r * Math.cos(ph), r * Math.sin(ph), z]; const f = slackPull(tg, d); if (f < worst) worst = f; if (f < 4) below4++; n++; }
+    // narrow cone around pd
+    const a0 = Math.abs(pd[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0], eu = MA.norm(MA.cross(pd, a0)), ev = MA.cross(pd, eu); let cone = Infinity;
+    for (let i = 0; i < 200; i++) { const th = 10 * D2R * Math.sqrt((i + 0.5) / 200), ph = i * 2.399963, d = MA.norm(MA.add(MA.mul(pd, Math.cos(th)), MA.add(MA.mul(eu, Math.sin(th) * Math.cos(ph)), MA.mul(ev, Math.sin(th) * Math.sin(ph))))); const f = slackPull(tg, d); if (f < cone) cone = f; }
+    return { marg: marg, which: which, worst: worst, pct4: 100 * below4 / n, cone: cone, tmin: Math.min.apply(null, tNow) };
+  }
+  function ioPanel(c, lay, geo, L0, bad) {
+    if (bad || !c) { app.io.set({ commands: [], observes: [{ name: 'Pose', value: '-', status: 'unresolved' }] }); return; }
+    const T = tensionsOf(c), slack = T.filter(t => t < 0.05).length, x = c.x;
+    const dcs = c.dc ? [0, 1, 2].map(i => c.dc.C[i][i]) : null;
+    tenSet(T.map(t => t.toFixed(1)).join(' · '), 'N');
+    const ts = c.mode === 'drive' ? tautStats(lay) : null;
+    margSet(ts ? (isFinite(ts.marg) ? ts.marg.toFixed(1) + ' N (line ' + (ts.which + 1) + ')' : 'no line gives way') : '-', '');
+    worstSet(ts ? ts.worst.toFixed(2) + ' N; ' + ts.pct4.toFixed(0) + ' % of directions under 4 N' : '-', '');
+    coneSet(ts ? ts.cone.toFixed(2) + ' N' : '-', '');
+    app.badge('thin', ts && ts.tmin < 0.5 && ts.tmin >= 0 ? 'taut, but the smallest tension is only ' + ts.tmin.toFixed(2) + ' N: the layout holds for pulls in a narrow cone (borrowed-16)' : null, 'warn');
+    if (c.mode === 'drive') {
+      compSet(dcs.map(v => (v >= 900 ? 'free' : v.toFixed(v < 1 ? 3 : 2))).join(' / '), 'mm/N');
+      const err = [0, 1, 2].map(k => x[k] - c.xc[k]); errSet(err.map(v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2)).join(' / '), 'mm'); stdSet('-');
+    } else {
+      compSet('-'); errSet('-');
+      // encoder reading: lengths rounded to sigma, then FK
+      const Lm = c.geo.map(v => Math.round(v / S.sigma) * S.sigma), f = fk(c.lay, Lm, new Float64Array(6));
+      c.fk = f; stdSet(f.std.map(v => (S.sigma * v).toFixed(3)).join(' / '), 'mm');
+    }
+    const net = [0, 0, 0]; lay.idx.forEach((i, j) => { const b = MA.sub(lay.anchors[j], c.model.bodyPoint(x, LUGS[i])), u = MA.norm(b); for (let k = 0; k < 3; k++) net[k] += RETRACT * u[k]; });
+    const obs = [];
+    if (c.mode === 'drive') {
+      obs.push({ name: 'Line tensions (motor current or load cells)', value: T.map(t => t.toFixed(1)).join(' / '), unit: 'N', status: 'partly', note: slack ? slack + ' line(s) slack: the shell is not fully held' : (ts && ts.tmin < 0.5 ? 'taut, smallest tension ' + ts.tmin.toFixed(2) + ' N: any pull change may slacken a line' : 'all taut') });
+      obs.push({ name: 'Dot vs seam r / t / z (scene truth; a camera in practice)', value: [x[0], x[1], x[2]].map(v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2)).join(' / '), unit: 'mm', status: 'partly', note: 'exact geometry, not a sensor reading; the commanded pose was ' + c.xc.slice(0, 3).map(v => v.toFixed(1)).join(' / ') });
+      obs.push({ name: 'Gun orientation', value: MA.len([x[3], x[4], x[5]]) / FS.S / D2R > 0 ? (MA.len([x[3], x[4], x[5]]) / FS.S / D2R).toFixed(2) : '0', unit: '°', status: 'partly', note: 'follows from the six lengths when every line is taut' });
+    } else {
+      obs.push({ name: 'Six line lengths (encoders)', value: c.geo.map(v => v.toFixed(1)).join(' / '), unit: 'mm', status: 'seen', note: 'resolution ' + S.sigma.toFixed(3) + ' mm (illustrative)' });
+      obs.push({ name: 'Pose from forward kinematics: dot r / t / z', value: c.fk ? [0, 1, 2].map(k => (c.fk.x[k] >= 0 ? '+' : '−') + Math.abs(c.fk.x[k]).toFixed(2)).join(' / ') : '-', unit: 'mm', status: 'seen', note: 'from the encoders alone; uncertainty ' + (c.fk ? c.fk.std.map(v => (S.sigma * v).toFixed(2)).join(' / ') : '-') + ' mm (1 sigma of a quantisation step)' });
+      obs.push({ name: 'Net pull of the encoders’ retract springs on the gun', value: Math.hypot(...net).toFixed(1), unit: 'N', status: 'partly', note: 'measuring loads the gun: ' + net.map(v => v.toFixed(1)).join(', ') + ' N (x, y, z)' });
+    }
+    obs.push({ name: 'Twist of the fibre', value: '-', status: 'unresolved', note: 'manual p. 20 forbids twisting' });
+    if (c.dc && c.dc.free > 0) obs.push({ name: 'Free motions with no restoring force', value: String(c.dc.free), status: 'partly', note: 'lines cannot hold every direction: under-constrained' });
+    app.io.set({
+      commands: c.mode === 'drive' ? [{ name: 'Winch lengths L1…L' + lay.idx.length, value: c.L0.map(v => v.toFixed(1)).join(' / '), unit: 'mm', note: S.comp ? 'stretch compensated' : 'geometric lengths, not stretch compensated' }] : [],
+      observes: obs, manual: c.mode === 'drive' ? ['Fit lugs and lines; route the umbilical clear', 'Tube swap: the lines must clear the tube'] : ['Move the gun by hand', 'Something else carries the gun: a suspension, an arm'] });
+    app.badge('slack', slack && c.mode === 'drive' ? slack + ' line' + (slack > 1 ? 's' : '') + ' slack (drawn grey): the shell is no longer held in every direction' : null, 'warn');
+    const eT = c.mode === 'drive' ? Math.hypot(x[0] - c.xc[0], x[1] - c.xc[1], x[2] - c.xc[2]) : 0, eR = c.mode === 'drive' ? Math.hypot(x[3] - c.xc[3], x[4] - c.xc[4], x[5] - c.xc[5]) / FS.S / D2R : 0;
+    app.badge('free', c.mode === 'drive' && (eT > 3 || eR > 1) ? 'the lines do not hold the commanded pose: the shell hangs ' + eT.toFixed(0) + ' mm and ' + eR.toFixed(0) + '\u00b0 away (' + lay.idx.length + ' lines, ' + slack + ' slack)' : null, 'limit');
+  }
+
+  // ---- controls
+  const upd = () => recompute();
+  const mg = app.ui.group('Lines and frame', { open: true, help: 'Scene edits and variants.' });
+  mg.radio({ id: 'mode', label: 'Lines are', options: [{ value: 'drive', label: 'winches' }, { value: 'sense', label: 'encoders only' }], value: 'drive', kind: 'branch', visual: () => drums, help: 'Drive: software sets lengths. Sense: a hand moves the gun, software reads lengths (the gun needs another support).', onChange: v => { S.mode = v; ['cmdx', 'cmdy', 'cmdz', 'cmdrx', 'cmdry', 'cmdrz', 'comp'].forEach(id => app.ui.enable(id, v === 'drive')); ['hx', 'hy', 'hz', 'hrx', 'hry', 'hrz', 'sigma'].forEach(id => app.ui.enable(id, v === 'sense')); upd(); } });
+  mg.radio({ id: 'count', label: 'Number of lines', options: [{ value: 6, label: 'six' }, { value: 4, label: 'four' }], value: 6, kind: 'branch', visual: () => lines, help: 'Four lines cannot hold six degrees of freedom.', onChange: v => { S.count = +v; upd(); } });
+  mg.radio({ id: 'mat', label: 'Line', options: [{ value: 'braid', label: 'thin braid' }, { value: 'dyneema', label: '1 mm synthetic' }, { value: 'steel', label: '1 mm steel' }], value: 'dyneema', kind: 'scene', visual: () => lines, help: 'Illustrative EA: 3 / 25 / 40 kN. Stiffness along a line = EA / length.', onChange: v => { S.mat = v; upd(); } });
+  mg.slider({ id: 'scale', label: 'Frame spread (line angle)', min: 0.5, max: 1.4, step: 0.05, value: 1, kind: 'scene', visual: () => hatches, help: 'Scales the sideways spread of the anchors. Wider = better conditioned, more clutter over the tube.', onChange: v => { S.scale = v; upd(); } });
+  mg.slider({ id: 'F', label: 'Umbilical pull at the cable exit', min: 0, max: 8, step: 0.25, value: 2, unit: 'N', kind: 'scene', visual: () => arrows.pull, help: 'Illustrative. Too much pull and a line slacks.', onChange: v => { S.F = v; upd(); } });
+  mg.slider({ id: 'droop', label: 'Cable droop (0 along exit, 1 straight down)', min: 0, max: 1, step: 0.1, value: 0.5, kind: 'scene', help: 'Direction of the pull.', onChange: v => { S.droop = v; upd(); } });
+  const dg = app.ui.group('Drive mode: commanded pose (six winch lengths)', { open: true, help: 'Dot translation in mm and rotation about the dot in degrees, from the reference pose. Software turns them into six lengths.' });
+  ['x', 'y', 'z'].forEach((n, i) => dg.slider({ id: 'cmd' + n, label: 'Dot ' + ['radial', 'tangent', 'vertical'][i] + ' (' + n + ')', min: -10, max: 10, step: 0.25, value: 0, unit: 'mm', kind: 'actuator', visual: () => drums, onChange: v => { S.cmd[i] = v; upd(); } }));
+  ['x', 'y', 'z'].forEach((n, i) => dg.slider({ id: 'cmdr' + n, label: 'Rotate about ' + n, min: -4, max: 4, step: 0.1, value: 0, unit: '°', kind: 'actuator', visual: () => drums, onChange: v => { S.cmd[3 + i] = v; upd(); } }));
+  dg.toggle({ id: 'comp', label: 'Stretch compensation', value: false, kind: 'state', help: 'Each commanded length removes the stretch predicted from that line’s tension.', onChange: v => { S.comp = v; upd(); } });
+  const sg = app.ui.group('Sense mode: the gun is moved by hand', { open: false, help: 'The gun is held by something else. The lines only measure.' });
+  ['x', 'y', 'z'].forEach((n, i) => sg.slider({ id: 'h' + n, label: 'Hand: dot ' + n, min: -10, max: 10, step: 0.25, value: 0, unit: 'mm', kind: 'scene', onChange: v => { S.hand[i] = v; upd(); } }));
+  ['x', 'y', 'z'].forEach((n, i) => sg.slider({ id: 'hr' + n, label: 'Hand: rotate about ' + n, min: -4, max: 4, step: 0.1, value: 0, unit: '°', kind: 'scene', onChange: v => { S.hand[3 + i] = v; upd(); } }));
+  sg.slider({ id: 'sigma', label: 'Encoder resolution', min: 0.005, max: 0.5, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Illustrative. Lengths are quantised to this before forward kinematics.', onChange: v => { S.sigma = v; upd(); } });
+  const vg = app.ui.group('View', { open: false });
+  vg.slider({ id: 'exag', label: 'Drawn exaggeration of displacements', min: 1, max: 30, step: 1, value: 1, unit: '×', kind: 'view', onChange: v => { S.exag = v; if (cur) draw(cur, cur.lay); } });
+  vg.toggle({ id: 'showEll', label: 'Softness ellipsoid at the dot', value: true, kind: 'view', visual: () => ell, onChange: v => { S.showEll = v; if (cur) draw(cur, cur.lay); } });
+  vg.slider({ id: 'ellS', label: 'Ellipsoid scale', min: 5, max: 300, step: 5, value: 120, unit: '\u00d7', kind: 'view', help: 'Radius = compliance (mm per N) \u00d7 this. Drawn size only.', onChange: v => { S.ellS = v; if (cur) draw(cur, cur.lay); } });
+  vg.toggle({ id: 'showT', label: 'Line thickness shows tension', value: true, kind: 'view', onChange: v => { S.showT = v; if (cur) draw(cur, cur.lay); } });
+  ['hx', 'hy', 'hz', 'hrx', 'hry', 'hrz', 'sigma'].forEach(id => app.ui.enable(id, false));
+  app.io.set({});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corner follower</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .cf text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .cf .tm { fill: #8b98ab; } .cf .tf { fill: #64748b; } .cf .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .cf .tt { fill: #14b8a6; } .cf .ta { fill: #f5a524; } .cf .tr { fill: #ff6b5f; } .cf .tp { fill: #c084fc; } .cf .ts { fill: #60a5fa; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-04-corner-follower",
+  "title": "Corner follower: feel the seam, and the tacks announce themselves",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A small ball feeler rides in the inside corner itself, a few millimetres ahead of the dot. Its two deflections are the corner's position against the gun; the circle's own curvature is known and subtracted; two feelers at different leads also give the gun's yaw. As the tube turns, the feeler lifts over each tack and reports where the tacks are.",
+  "tags": ["datum", "contact sensing", "seam tracking", "tack finder", "look-ahead"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["curvature-corrected look-ahead", "two leads give offset and yaw", "tacks as an along-seam index"],
+  "how": {
+    "motion": "nothing moves in the follower itself; its reading can drive a fine stage or the rotator",
+    "load": "the feeler arm hangs from the gun shell; its spring force on the corner is tiny",
+    "reference": "the corner itself, at a lead ahead of the dot; the circle's curvature is a known correction",
+    "observe": "ball centre against the gun frame (r, z); tack bumps as spikes in the height reading",
+    "use": "during the dry rotation and, if the arm survives, the weld rotation"
+  },
+  "software": {
+    "commands": ["rotator angle (existing)", "fine stage or beam-centre offset driven from the reading (proposed; see the signature scene)"],
+    "observes": ["ball centre (r, z) at each lead (proposed: hall sensor or similar)", "tack positions along the seam", "gun yaw, only with two leads"],
+    "manual": ["placing the feeler arm in the corner", "the feeler's own calibration against the dot"]
+  },
+  "links": [{"label": "datum-23 wall clip: a feeler with a body", "href": "../datum-23-wall-clip/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-04-corner-follower.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex, DEG = Math.PI / 180, TAU = Math.PI * 2, RI = WK.INNER_RADIUS;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The corner is the reference, so touch it. A small ball sits in the inside corner and is held there by a light spring arm from the gun shell. A ball in a right-angle corner has its centre a ball-radius from each surface, so the ball&rsquo;s position against the gun <i>is</i> the corner&rsquo;s position against the gun (top-left). No line of sight into the pocket is needed.</p>' +
+        '<p>It rides <b>ahead</b> of the dot, where the wall is still cold, by a lead of a few millimetres. The seam is a circle, so at a lead of s the straight gun axis and the seam differ by s&sup2;/2r (0.81 mm at 10 mm): a known number, subtracted (top-right). What is left is the offset at the dot plus s times the gun&rsquo;s yaw against the seam tangent. <b>Two feelers at different leads</b> solve for both. The bottom trace shows what the tube&rsquo;s turning does to the height reading: every tack is a bump, so the follower also finds the tacks.</p>',
+      carries:
+        '<p>The feeler arm hangs from the printed shell; a light spring keeps the ball in the corner. It carries no gun load. The corner is the locating reference; the arm&rsquo;s pivot and the shell&rsquo;s own position against the gun are calibrated once against the dot.</p>',
+      software:
+        '<p><b>Observed:</b> ball centre (r, z) at each lead, from a sensor on the arm (a hall sensor and magnet, a potentiometer, or an optical encoder: not designed here). Tack angles from the height trace. Gun yaw only with two leads. <b>Commanded:</b> nothing by the follower; the estimate can feed a fine stage or the rotator. The rotator angle is the existing actuator.</p>' +
+        '<p>Numbers on the page (RMS error of the estimate) are a 4000-trial simulation of the illustrative noise; they change when you change the leads, the yaw or the noise.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> one leading feeler while the gun&rsquo;s yaw against the seam is unknown. <b>Assumption:</b> the gun is tangent. <b>What the numbers say:</b> the estimate carries s&middot;tan(yaw): 0.175 mm at a 10 mm lead and 1&deg; of yaw [calc/follower_leads.py]. <b>Change:</b> a shorter lead (0.105 mm at 6 mm) or a second lead at a different distance, which solves the yaw at 1.4&ndash;2.2 times the noise.</li>' +
+        '<li><b>Conflict:</b> the feeler is ahead of the dot, and so is the wire. <b>Assumption:</b> there is room. <b>What the scene shows:</b> the side view puts the wire leaving the dot at an elevation angle; at 30&deg; a 6 mm lead has 0.08 mm to spare, at 20&deg; a 6 mm lead has negative room. The LIMIT badge shows when the ball meets the wire corridor. <b>Change:</b> longer lead (more curvature term, more yaw error) or a steeper wire. <b>Left uncertain:</b> the real wire approach angle and guide position [unknown]; the drawn one is the kit&rsquo;s proxy.</li>' +
+        '<li><b>Conflict:</b> a symmetric pair (one leading, one trailing) would cancel yaw and curvature. <b>Assumption:</b> the trailing feeler reads a clean surface. <b>What the scene shows:</b> it rides the fresh, hot, rough bead; the branch models that as four times the noise, and the pair does not beat two leading leads. <b>Left uncertain:</b> bead roughness and heat [unknown].</li>' +
+        '<li><b>Conflict:</b> a ball in a corner reads the highest thing under it. <b>What the scene shows:</b> a tack lifts the ball, so the &ldquo;seam height&rdquo; has spikes. <b>Change:</b> use them: the spikes are the tacks, and &ldquo;20&deg; past the first tack&rdquo; can be counted from the reading. A median filter removes them from the seam estimate. <b>Left uncertain:</b> tack size and number [unknown].</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The feeler arm: how it reaches the corner past the nozzle and the wire, what it is made of near a weld, and whether it survives the last overlap where the bead passes under it.</li>' +
+        '<li>The sensor on the arm and its resolution. Not chosen.</li>' +
+        '<li>Which side of the wire the feeler lives on (the side view shows only the crudest test).</li>' +
+        '<li>A ball in a corner with a 0.13 mm plate slip gap [derived from 0.005 in, repo]: the ball may drop into it; the ball radius is far larger than the gap, so probably not, but no one has looked.</li>' +
+        '<li><b>Questions for Derek:</b> number and size of the tacks; the wire&rsquo;s elevation angle in use.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Circle radius 61.85 mm [repo][derived]. Curvature term s&sup2;/2r is exact geometry.</li>' +
+        '<li>Wire 0.030 in = 0.76 mm [repo][derived]. Wire elevation, guide length 40 mm: <b>illustrative</b> (kit proxy).</li>' +
+        '<li>Ball radius, feeler noise, gun yaw, dot offset, tack size and count, hot-bead noise multiplier: <b>illustrative</b>.</li>' +
+        '<li>Face runout amplitude 0.15 mm is half the 0.30 mm TIR limit [repo].</li>' +
+        '<li><b>Models:</b> the feeler geometry, the estimators, the noise simulation, the tack trace. <b>Depicts only:</b> the arm, the gun, the bead.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  const P = { config: 'two', s1: 6, s2: 18, yaw: 1.0, e: 0.25, noise: 0.02, rb: 1.5, wireAngle: 35, tackH: 0.35, tackW: 3, nTacks: 3, tack0: 40, theta: 0, run: false, hot: 4 };
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const curv = s => s * s / (2 * RI);
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * r()); }
+
+  // ------------------------------------------------------------------ model
+  const tackAngles = () => Array.from({ length: P.nTacks }, (_, i) => (P.tack0 + i * 360 / P.nTacks) % 360);
+  const tackBump = th => { let b = 0; const sg = (P.tackW / RI) / 2.355; tackAngles().forEach(a => { let d = ((th - a * DEG + Math.PI * 3) % TAU) - Math.PI; b += P.tackH * Math.exp(-0.5 * (d / sg) * (d / sg)); }); return b; };
+  const runZ = th => 0.15 * Math.cos(th - 2.2);
+  const tanPsi = () => Math.tan(P.yaw * DEG);
+  // radial reading (seam against the gun's straight axis) at lead x: truth
+  const yTrue = x => P.e + x * tanPsi() + curv(x);
+
+  function feelers() {
+    if (P.config === 'one') return [{ x: P.s1, sig: P.noise }];
+    if (P.config === 'two') return [{ x: P.s1, sig: P.noise }, { x: P.s2, sig: P.noise }];
+    return [{ x: P.s1, sig: P.noise }, { x: -P.s1, sig: P.noise * P.hot }];
+  }
+  function estimate(ys, fs) {
+    // ys = raw readings (curvature included) -> {e, psi}
+    if (P.config === 'one') return { e: ys[0] - curv(fs[0].x), psi: 0, solved: false };
+    if (P.config === 'two') { const a1 = ys[0] - curv(fs[0].x), a2 = ys[1] - curv(fs[1].x), sl = (a2 - a1) / (fs[1].x - fs[0].x); return { e: a1 - fs[0].x * sl, psi: Math.atan(sl) / DEG, solved: true }; }
+    const s = fs[0].x, yp = ys[0], ym = ys[1]; return { e: (yp + ym) / 2 - curv(s), psi: Math.atan((yp - ym) / (2 * s)) / DEG, solved: true };
+  }
+  let mc = null;
+  function monteCarlo() {
+    const fs = feelers(), r = rng(12345), n = 3000; let se = 0, sp = 0, be = 0;
+    for (let i = 0; i < n; i++) {
+      const ys = fs.map(f => yTrue(f.x) + f.sig * gauss(r)), est = estimate(ys, fs);
+      se += (est.e - P.e) * (est.e - P.e); be += est.e - P.e; if (est.solved) sp += (est.psi - P.yaw) * (est.psi - P.yaw);
+    }
+    const solved = P.config !== 'one';
+    return { rmsE: Math.sqrt(se / n), biasE: be / n, rmsPsi: solved ? Math.sqrt(sp / n) : null };
+  }
+  function wireClear(x) { return x * Math.tan(P.wireAngle * DEG) - 2 * P.rb - 0.38; }   // mm between ball top and the wire's underside at lead x
+
+  // ------------------------------------------------------------------ drawing
+  const W = 980, H = 690;
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'cf', role: 'img', 'aria-label': 'Ball in the corner, seam against the gun axis, side view with the wire, and the height reading with tacks', style: 'display:block;margin:0 auto;width:100%;height:100%;max-height:100%', preserveAspectRatio: 'xMidYMid meet' });
+  stage.appendChild(svg);
+  const g0 = S('g'); svg.appendChild(g0);
+  const frame = (x, y, w, h) => S('rect', { x: x, y: y, width: w, height: h, fill: '#10161e', stroke: '#2a3341' });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+
+  function panelA() {
+    const g = S('g'), x0 = 10, y0 = 84, w = 300, h = 250, K = 46;   // 46 px per mm
+    g.append(T(x0, y0 - 8, 'Ball in the corner (cross-section at the feeler)', 'tb'));
+    g.append(frame(x0, y0, w, h));
+    const th = ((P.theta % 360) * DEG + TAU) % TAU;
+    const f = feelers()[0], yr = yTrue(f.x) - curv(f.x), zr = runZ(th) + tackBump(th);
+    const gx = x0 + 150, gy = y0 + 190;   // gun-frame origin (where the corner would be with no error)
+    const cx = Math.max(x0 + 60, Math.min(x0 + w - 40, gx + yr * K * 4)), cy = Math.max(y0 + 60, Math.min(y0 + h - 40, gy - zr * K * 4));    // corner position, error scaled x4 for visibility
+    // wall (right of corner, full height) and plate (below the corner, left of the wall)
+    g.append(S('rect', { x: cx, y: y0 + 2, width: x0 + w - cx - 2, height: h - 4, fill: hex('work'), opacity: 0.30 }));
+    g.append(S('rect', { x: x0 + 2, y: cy, width: cx - x0 - 2, height: y0 + h - cy - 2, fill: hex('work'), opacity: 0.42 }));
+    // tack fillet at the corner
+    const tb = tackBump(th);
+    if (tb > 0.02) g.append(S('path', { d: 'M' + cx + ' ' + cy + ' L' + (cx - tb * K * 3.2) + ' ' + cy + ' Q' + (cx - tb * K * 0.9) + ' ' + (cy - tb * K * 0.9) + ' ' + cx + ' ' + (cy - tb * K * 3.2) + ' Z', fill: hex('wire'), opacity: 0.85 }));
+    // ball: centre a ball radius from wall and plate (riding on the tack if there is one)
+    const bx = cx - P.rb * K - tb * K * 0.9, by = cy - P.rb * K - tb * K * 0.9;
+    g.append(S('circle', { cx: bx, cy: by, r: P.rb * K, fill: hex('sensor'), opacity: 0.75, stroke: '#0e1218' }));
+    g.append(S('circle', { cx: bx, cy: by, r: 2.5, fill: '#fff' }));
+    // arm to a pivot on the shell (upper left)
+    g.append(line(bx, by, x0 + 40, y0 + 56, { stroke: hex('locate'), 'stroke-width': 4, 'stroke-linecap': 'round' }));
+    g.append(S('circle', { cx: x0 + 40, cy: y0 + 56, r: 6, fill: hex('fixed'), stroke: '#0e1218' }));
+    g.append(T(x0 + 50, y0 + 62, 'pivot on the shell', 'tf'));
+    // gun-frame reference cross
+    g.append(line(gx - 12, gy, gx + 12, gy, { stroke: '#f472b6' })); g.append(line(gx, gy - 12, gx, gy + 12, { stroke: '#f472b6' }));
+    g.append(T(gx + 6, gy + 14, 'gun frame', 'tf'));
+    g.append(T(x0 + 8, y0 + 18, 'corner: r ' + yr.toFixed(2) + ', z ' + zr.toFixed(2) + ' mm', 'tm'));
+    g.append(T(x0 + 8, y0 + 32, 'offsets drawn ×4', 'tf'));
+    if (tb > 0.02) g.append(T(cx - 6, cy + 16, 'tack lifts the ball', 'ta', 'end'));
+    return g;
+  }
+
+  function panelB(est, mcres) {
+    const g = S('g'), x0 = 330, y0 = 84, w = 630, h = 250, yc = y0 + 125, sx = 7, sy = 100;   // 7 px/mm along, 100 px/mm across
+    const X = x => x0 + 60 + (x + 45) * sx * 0.95 - 45 * sx * 0.95 + 45 * sx * 0.95;   // x = -45..+45
+    const xp = x => x0 + w / 2 + x * sx;
+    g.append(T(x0, y0 - 8, 'What the feelers read: seam against the gun’s straight axis, curvature removed', 'tb'));
+    g.append(frame(x0, y0, w, h));
+    for (let v = -1; v <= 1; v += 0.5) { g.append(line(x0, yc - v * sy, x0 + w, yc - v * sy, { stroke: v === 0 ? '#3b4658' : '#1f2733' })); g.append(T(x0 + 4, yc - v * sy - 3, v.toFixed(1), 'tf')); }
+    for (let x = -40; x <= 40; x += 10) { g.append(line(xp(x), y0, xp(x), y0 + h, { stroke: '#1f2733' })); g.append(T(xp(x), y0 + h - 4, String(x), 'tf', 'middle')); }
+    g.append(T(x0 + w - 6, y0 + h - 16, 'mm along the gun axis; + = ahead (arriving side)', 'tf', 'end'));
+    const cl = y => Math.max(y0 + 4, Math.min(y0 + h - 4, yc - y * sy));
+    // truth (curvature removed): e + x tan(psi)
+    g.append(line(xp(-45), cl(P.e - 45 * tanPsi()), xp(45), cl(P.e + 45 * tanPsi()), { stroke: '#94a3b8', 'stroke-width': 1.4, 'stroke-dasharray': '5 4' }));
+    // the dot and its true offset
+    g.append(S('circle', { cx: xp(0), cy: yc, r: 5, fill: hex('laser'), stroke: '#0e1218' })); g.append(T(xp(0) - 8, yc + 18, 'dot', 'tr', 'end'));
+    g.append(line(xp(0), yc, xp(0), cl(P.e), { stroke: '#94a3b8', 'stroke-width': 2 })); g.append(T(xp(0) + 6, (yc + cl(P.e)) / 2 + 4, 'true offset ' + P.e.toFixed(2), 'tm'));
+    // readings (one realisation)
+    const fs = feelers(), r = rng(777);
+    const ys = fs.map(f => yTrue(f.x) + f.sig * gauss(r)), es = estimate(ys, fs);
+    fs.forEach((f, i) => {
+      const yy = ys[i] - curv(f.x);
+      g.append(S('circle', { cx: xp(f.x), cy: cl(yy), r: 5, fill: hex('sensor'), stroke: '#0e1218' }));
+      g.append(T(xp(f.x), cl(yy) + 20, (f.x > 0 ? 'ahead ' : 'behind ') + Math.abs(f.x) + ' mm', 'ts', 'middle'));
+    });
+    // estimator line
+    if (es.solved) g.append(line(xp(-45), cl(es.e - 45 * Math.tan(es.psi * DEG)), xp(45), cl(es.e + 45 * Math.tan(es.psi * DEG)), { stroke: hex('locate'), 'stroke-width': 2 }));
+    else g.append(line(xp(-45), cl(es.e), xp(45), cl(es.e), { stroke: hex('locate'), 'stroke-width': 2, 'stroke-dasharray': '2 3' }));
+    g.append(S('path', { d: 'M' + (xp(0) - 8) + ' ' + cl(es.e) + 'h16M' + xp(0) + ' ' + (cl(es.e) - 8) + 'v16', stroke: hex('locate'), 'stroke-width': 2.4, fill: 'none' }));
+    g.append(T(xp(0) - 12, cl(es.e) - 10, 'estimate at the dot ' + es.e.toFixed(2), 'tt', 'end'));
+    // curvature bar (for scale)
+    const s0 = fs[0].x > 0 ? fs[0].x : P.s1;
+    g.append(T(x0 + 10, y0 + 16, 'circle’s own curvature (known, removed): ' + curv(P.s1).toFixed(2) + ' mm at ' + P.s1 + ' mm lead' + (P.config === 'two' ? ', ' + curv(P.s2).toFixed(2) + ' mm at ' + P.s2 + ' mm' : ''), 'tm'));
+    // results
+    g.append(T(x0 + 10, y0 + 34, 'estimate error (3000 trials): offset RMS ' + mcres.rmsE.toFixed(3) + ' mm, bias ' + (mcres.biasE >= 0 ? '+' : '') + mcres.biasE.toFixed(3) + ' mm' + (mcres.rmsPsi != null ? ', yaw RMS ' + mcres.rmsPsi.toFixed(2) + '°' : ', yaw not solved (assumed 0)'), mcres.rmsE > 0.1 ? 'ta' : 'tt'));
+    return g;
+  }
+
+  function panelC() {
+    const g = S('g'), x0 = 10, y0 = 380, w = 300, h = 230, k = 5.2, gx = x0 + 70, gy = y0 + h - 30;
+    g.append(T(x0, y0 - 8, 'Side view (tangent plane): feeler and wire', 'tb'));
+    g.append(frame(x0, y0, w, h));
+    g.append(S('rect', { x: x0 + 2, y: gy, width: w - 4, height: y0 + h - gy - 2, fill: hex('work'), opacity: 0.4 }));
+    g.append(S('circle', { cx: gx, cy: gy, r: 4, fill: hex('laser') })); g.append(T(gx - 6, gy + 16, 'dot', 'tr', 'end'));
+    // wire from the dot up and back over the arriving side (+x), 40 mm to the guide
+    const wa = P.wireAngle * DEG, wx = gx + 40 * Math.cos(wa) * k, wy = gy - 40 * Math.sin(wa) * k;
+    g.append(line(gx, gy, wx, wy, { stroke: hex('wire'), 'stroke-width': 2.2 })); g.append(S('circle', { cx: wx, cy: wy, r: 5, fill: hex('cable') }));
+    g.append(T(wx - 6, wy - 8, 'wire guide (40 mm from dot, kit proxy)', 'ta', 'end'));
+    let bad = null;
+    feelers().forEach(f => {
+      const bx = gx + f.x * k, by = gy - P.rb * k;
+      g.append(S('circle', { cx: bx, cy: by, r: P.rb * k, fill: hex('sensor'), opacity: 0.85, stroke: '#0e1218' }));
+      if (f.x > 0) { const c = wireClear(f.x); if (c < 0.3 && (!bad || c < bad.c)) bad = { x: f.x, c: c }; g.append(T(bx, by - P.rb * k - 5 - (f.x > P.s1 + 0.5 ? 14 : 0), c.toFixed(2) + ' mm clear', c < 0.3 ? 'tr' : 'tm', 'middle')); }
+      else { g.append(S('ellipse', { cx: bx, cy: gy - 2, rx: 14, ry: 3, fill: hex('load'), opacity: 0.7 })); g.append(T(bx, by - P.rb * k - 5, 'on the bead', 'ta', 'middle')); }
+    });
+    g.append(T(x0 + 8, y0 + 16, 'wire elevation ' + P.wireAngle + '° (illustrative)', 'tf'));
+    app.badge('wire', bad ? 'the feeler at ' + bad.x + ' mm meets the wire corridor (' + bad.c.toFixed(2) + ' mm)' : null, 'limit');
+    if (feelers().some(f => f.x < 0)) app.badge('hot', 'trailing feeler rides the fresh bead (noise ×' + P.hot + ', illustrative)', 'warn'); else app.badge('hot', null);
+    return g;
+  }
+
+  function panelD() {
+    const g = S('g'), x0 = 330, y0 = 384, w = 630, h = 150, yc = y0 + h / 2 + 12, sy = 150;
+    g.append(T(x0, y0 - 8, 'Height reading while the tube turns: every tack is a bump', 'tb'));
+    g.append(frame(x0, y0, w, h));
+    const px = th => x0 + (th / TAU) * w, py = v => Math.max(y0 + 4, Math.min(y0 + h - 4, yc - v * sy));
+    [-0.4, 0, 0.4].forEach(v => { g.append(line(x0, py(v), x0 + w, py(v), { stroke: v === 0 ? '#3b4658' : '#1f2733' })); g.append(T(x0 + 4, py(v) - 3, v.toFixed(1), 'tf')); });
+    const r = rng(99), N = 720, pts = [], vals = [];
+    for (let i = 0; i < N; i++) { const th = TAU * i / N, v = runZ(th) + tackBump(th) + P.noise * gauss(r); vals.push(v); pts.push(px(th).toFixed(1) + ',' + py(v).toFixed(1)); }
+    g.append(S('polyline', { points: pts.join(' '), fill: 'none', stroke: hex('sensor'), 'stroke-width': 1.3 }));
+    // tack finder: high-pass (subtract running median of +-30 deg), threshold
+    const win = 60, med = [];
+    for (let i = 0; i < N; i++) { const seg = []; for (let j = -win; j <= win; j++) seg.push(vals[(i + j + N) % N]); seg.sort((a, b) => a - b); med.push(seg[win]); }
+    const thr = Math.max(0.12, 5 * P.noise), found = []; let inb = false, start = 0;
+    for (let i = 0; i < N; i++) { const d = vals[i] - med[i]; if (d > thr && !inb) { inb = true; start = i; } if ((d <= thr || i === N - 1) && inb) { inb = false; found.push((start + i) / 2 * 360 / N); } }
+    found.forEach(a => { g.append(line(px(a * DEG), y0 + 6, px(a * DEG), y0 + h - 6, { stroke: hex('load'), 'stroke-dasharray': '3 3' })); g.append(T(px(a * DEG) + 3, y0 + 16, a.toFixed(0) + '°', 'ta')); });
+    const th0 = ((P.theta % 360) * DEG + TAU) % TAU;
+    g.append(line(px(th0), y0, px(th0), y0 + h, { stroke: '#f472b6', 'stroke-width': 1.3 }));
+    [0, 90, 180, 270, 360].forEach(a => g.append(T(px(a * DEG), y0 + h + 12, String(a), 'tf', 'middle')));
+    g.append(T(x0 - 4, y0 + h + 12, 'table °', 'tf', 'end'));
+    return { g: g, found: found };
+  }
+
+  let lastFound = [];
+  function render() {
+    while (g0.firstChild) g0.removeChild(g0.firstChild);
+    const mcres = monteCarlo(); mc = mcres;
+    const fs = feelers(), r = rng(777), ys = fs.map(f => yTrue(f.x) + f.sig * gauss(r)), es = estimate(ys, fs);
+    g0.append(panelA(), panelB(es, mcres), panelC());
+    const d = panelD(); g0.append(d.g); lastFound = d.found;
+    const tk = tackAngles().map(a => a.toFixed(0));
+    g0.append(T(330, 578, 'Tack finder: found ' + d.found.length + ' of ' + P.nTacks + ' tacks' + (d.found.length ? ' at ' + d.found.map(a => a.toFixed(0) + '°').join(', ') : '') + '   (scene truth: ' + tk.join('°, ') + '°)', d.found.length === P.nTacks ? 'tt' : 'ta'));
+    if (d.found.length) g0.append(T(330, 596, 'first tack + 20° = table angle ' + ((d.found[0] + 20) % 360).toFixed(0) + '°, counted from the reading, not from the operator’s eye', 'tm'));
+    g0.append(T(330, 618, 'Gun yaw against the seam tangent (scene truth): ' + P.yaw.toFixed(1) + '°. One lead cannot see it; the error it leaves is lead × tan(yaw) = ' + (P.s1 * tanPsi()).toFixed(3) + ' mm at ' + P.s1 + ' mm.', 'tm'));
+    // I/O
+    const solved = P.config !== 'one';
+    app.io.set({
+      commands: [
+        { name: 'Table angle', value: (((P.theta % 360) + 360) % 360).toFixed(1), unit: '°', note: 'existing rotator' },
+        { name: 'Fine stage / beam-centre offset', value: es.e.toFixed(2), unit: 'mm to drive', note: 'proposed: nulls the estimated offset (see the signature scene)' },
+      ],
+      observes: [
+        { name: 'Corner offset at the dot (r)', value: es.e.toFixed(2), unit: 'mm', status: 'seen', note: 'from the feeler(s); RMS error ' + mcres.rmsE.toFixed(3) + ' mm under the illustrative noise' },
+        { name: 'Corner height at the feeler (z)', value: (runZ(((P.theta % 360) * DEG + TAU) % TAU) + tackBump(((P.theta % 360) * DEG + TAU) % TAU)).toFixed(2), unit: 'mm', status: 'seen', note: 'ball centre height; tacks appear as bumps' },
+        { name: 'Gun yaw against the seam', value: solved ? es.psi.toFixed(2) : '-', unit: solved ? '°' : '', status: solved ? 'partly' : 'blind', note: solved ? 'from two leads' : 'one lead cannot separate yaw from offset' },
+        { name: 'Tack positions', value: lastFound.length + ' found', status: 'seen', note: 'from the height trace during a rotation' },
+        { name: 'Hot bead or spatter on the arm', value: '-', status: 'blind', note: 'not observed' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Place the feeler in the corner and check the spring', 'Calibrate the feeler position against the dot (once)', 'Move the arm out of the way before the last overlap'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'config', label: 'Feelers', options: [{ value: 'one', label: 'One leading', help: 'Offset only; gun yaw is assumed zero.' }, { value: 'two', label: 'Two leading', help: 'Two leads give offset and yaw.' }, { value: 'pair', label: 'Lead + trail', help: 'A symmetric pair; the trailing one rides the fresh bead.' }], value: 'two', kind: 'branch', onChange: v => { P.config = v; app.ui.enable('hot', v === 'pair'); app.ui.enable('s2', v === 'two'); render(); } });
+  app.ui.slider({ id: 'theta', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: 'the pink cursor on the height trace', help: 'The existing rotator. Turn it past a tack to see the ball lift.', onChange: v => { P.theta = v; render(); } });
+  app.ui.toggle({ id: 'run', label: 'Turn the table', value: false, kind: 'state', help: 'Runs at 8 mm/s (7.4°/s) times 6 for viewing.', onChange: v => { P.run = v; app.invalidate(); } });
+  const g1 = app.ui.group('Feeler geometry (scene edits)', { open: true });
+  g1.slider({ id: 's1', label: 'Lead of the first feeler', min: 3, max: 25, step: 1, value: 6, unit: 'mm', kind: 'scene', help: 'Along the seam, ahead of the dot. 1 mm of lead is 0.93° of arc [derived].', onChange: v => { P.s1 = v; if (P.s2 <= v + 2) app.ui.set('s2', Math.min(40, v + 3)); render(); } });
+  g1.slider({ id: 's2', label: 'Lead of the second feeler', min: 8, max: 40, step: 1, value: 18, unit: 'mm', kind: 'scene', help: 'Only used with two leading feelers.', onChange: v => { P.s2 = Math.max(v, P.s1 + 2); render(); } });
+  g1.slider({ id: 'rb', label: 'Ball radius', min: 0.5, max: 3, step: 0.1, value: 1.5, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.rb = v; render(); } });
+  g1.slider({ id: 'wire', label: 'Wire elevation angle over the seam', min: 15, max: 65, step: 1, value: 35, unit: '°', kind: 'scene', help: 'Illustrative (kit proxy). Steeper wire leaves room for a nearer feeler.', onChange: v => { P.wireAngle = v; render(); } });
+  const g2 = app.ui.group('The seam and the gun (scene edits)', { open: true });
+  g2.slider({ id: 'e', label: 'Dot offset from the seam (truth)', min: -0.6, max: 0.6, step: 0.01, value: 0.25, unit: 'mm', kind: 'scene', help: 'What the estimator is after.', onChange: v => { P.e = v; render(); } });
+  g2.slider({ id: 'yaw', label: 'Gun yaw against the seam tangent (truth)', min: -3, max: 3, step: 0.1, value: 1.0, unit: '°', kind: 'scene', help: 'Unknown in practice. Hand-set to a degree or so.', onChange: v => { P.yaw = v; render(); } });
+  g2.slider({ id: 'noise', label: 'Feeler noise (1 sigma)', min: 0, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.noise = v; render(); } });
+  g2.slider({ id: 'hot', label: 'Noise multiplier on the bead', min: 1, max: 10, step: 1, value: 4, unit: '×', kind: 'scene', help: 'Trailing feeler only. Illustrative.', onChange: v => { P.hot = v; render(); } });
+  const g3 = app.ui.group('Tacks (scene edits)', { open: false, help: 'Number, size and positions are unknown.' });
+  g3.slider({ id: 'nt', label: 'Number of tacks', min: 2, max: 6, step: 1, value: 3, kind: 'scene', onChange: v => { P.nTacks = v; render(); } });
+  g3.slider({ id: 'th', label: 'Tack height', min: 0.1, max: 0.8, step: 0.05, value: 0.35, unit: 'mm', kind: 'scene', onChange: v => { P.tackH = v; render(); } });
+  g3.slider({ id: 'tw', label: 'Tack length along the seam', min: 1, max: 8, step: 0.5, value: 3, unit: 'mm', kind: 'scene', onChange: v => { P.tackW = v; render(); } });
+  g3.slider({ id: 't0', label: 'First tack at', min: 0, max: 359, step: 1, value: 40, unit: '°', kind: 'scene', onChange: v => { P.tack0 = v; render(); } });
+
+  app.onFrame(function (dt) {
+    if (!P.run) return false;
+    P.theta = (P.theta + 7.4 * 6 * dt) % 360;
+    app.ui.set('theta', Math.round(P.theta), { silent: true }); render();
+    return true;
+  });
+})();
+</script>
+</body>
+</html>

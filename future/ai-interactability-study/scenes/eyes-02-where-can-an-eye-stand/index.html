@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where can an eye stand</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-02-where-can-an-eye-stand",
+  "title": "Where can an eye stand? A map of viewpoints on the dot",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Every point on a dome around the laser dot is tested: can a camera there see the dot over the rim, past the gun and its wire? Colour shows the blocker, or how well that view can tell radial and vertical error apart. Change the gun pose and the shadow moves. Then place fixed eyes and see who sees the dot.",
+  "tags": ["lens", "observer", "visibility", "line-of-sight", "analysis-instrument", "fixed-eyes"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["view-dome visibility map", "sensitivity-weighted viewpoint score", "kink-angle map for sweep probing", "station presets"],
+  "how": {
+    "motion": "none: an analysis view. Gun pose is a scene edit.",
+    "load": "nothing carries the gun here; the dome asks where a camera could be if it were carried elsewhere.",
+    "reference": "the dot is pinned to the seam; every viewpoint is tested against the drawn tube, gun and wire.",
+    "observe": "proposed fixed cameras (beside pair, far-side pair, look-ahead pair, crown of six) and one free test eye.",
+    "use": "decide where an observer may stand before choosing what it is; dry-run planning."
+  },
+  "software": {
+    "commands": ["nothing: this scene commands no actuator"],
+    "observes": ["whether each proposed fixed eye has an unobstructed line to the dot", "which two eyes give the widest triangulation angle"],
+    "manual": ["placing and aiming the eyes", "calibrating them to the tube frame"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-02-where-can-an-eye-stand.md", "../../explorers/eyes/ideas/eyes-02b-sensor-crown.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, J = WK.JOINT, DEG = WK.deg;
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'top', 'joint', 'side'],
+    views: {
+      overall: { target: [20, 0, 190], dir: [-0.5, -0.78, 0.42], dist: 1120 },
+      top: { target: [10, 0, 150], dir: [0, -0.002, 1], dist: 900 },
+      side: { target: [10, 0, 190], dir: [0, -1, 0.05], dist: 1000 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 190 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A dome of small spheres surrounds the laser dot. Each sphere is a place a camera could stand. A ray from that place to the dot is tested against the drawn tube, rim, gun and wire guide. <b>Green</b> sees the dot. <b>Slate</b> is blocked by the tube wall or rim, <b>orange</b> by the gun body, <b>magenta</b> by the wire guide, cable or umbilical stub.</p>' +
+        '<p>Being able to see the dot is not enough. A camera looking along the radial direction cannot see radial error at all (it is depth); a camera looking straight down cannot see height. The other modes colour each visible viewpoint by how well it separates radial error, vertical error, or both, and by how sharply a dot sweeping across the seam would appear to change direction in the image (see eyes-06).</p>' +
+        '<p>Then pick <b>Fixed eyes</b>: the beside pair stands where the dome says the best views are; the far-side pair looks across the bore at a few degrees elevation; the look-ahead pair stands 35° of arc either side of the station above the rim; the crown puts six eyes on a ring. Each shows whether it sees the dot, and the widest triangulation angle among those that do.</p>',
+      carries: '<p>Nothing carries the gun. This is an analysis instrument: the dome asks where an observer could be. Fixed eyes are drawn as blue camera bodies on nothing; their posts and mounting are not part of the question.</p>',
+      software: '<p>Software could read whether a proposed eye sees the dot only in the sense of this drawn geometry. The scene computes it from the proxy tube, gun and wire; a real system would learn it by detecting the dot in the image. What is real here is the shape of the answer: the good views are a band across the bore and a cap above it, and the gun cuts a cone out of the cap.</p>',
+      tried: '<p><b>Tried:</b> a camera outside the tube wall sees the dot. It does not: every direction with a component toward the wall is blocked at once, the dot being at the wall (slate on the +X half of the dome).</p>' +
+        '<p><b>Tried:</b> a camera high above the bore looking down. The dome is green there, but radial sensitivity stays high only up to about 60° elevation and vertical sensitivity falls to zero at the zenith. A camera straight overhead cannot see whether the dot is on the wall or the plate. Use the <i>Both</i> mode.</p>' +
+        '<p><b>Tried:</b> a low camera across the bore. The dome is green in a stripe from about 3° elevation. Radial sensitivity there is under 0.1: one image pixel is about 10 mm of radial error on the plate. Vertical sensitivity is nearly 1. Good for height on the wall, poor for the plate radius.</p>' +
+        '<p><b>Tried:</b> the gun’s shadow. It is a cone whose axis is the beam reversed. The thin nozzle and barrel cut a narrow cone; the big housing sits far away and cuts little (proxy geometry, illustrative). It is small: 2.6 % of the upper hemisphere at the opening pose, and the visible share hardly moves when the three dials sweep (42.0 % to 42.1 % over the grip-axis roll). The wall, not the gun, decides where fixed eyes can stand; the gun decides only whether one particular good direction is lost.</p>' +
+        '<p><b>Found (sweet spot):</b> among the directions that see the dot, the corner 8 mm either side and the wall above it, the ones that tell radial and vertical error apart best (both sensitivities 0.92 to 0.95) and make a sweeping dot change direction most sharply (kink 0.99) lie at about 100 to 110° round the tube from the station (either side), 17 to 23° above the dot. That is beside the tube, slightly above the rim, looking along a chord: the <i>Beside</i> preset. 159 of 1080 sampled directions pass a looser test (both sensitivities 0.6 or better and the whole seam in view): azimuth 96 to 264°, elevation 7.5 to 52.5°.</p>' +
+        '<p><b>Found (look-ahead):</b> the look-ahead pair sees all four seam points, but the wall\u2019s inner face at that station is seen almost edge-on: 0.05 of square-on at 35° of arc and 46 mm above the rim, against 0.79 for the plate (calc/look-ahead-geometry.mjs). Try the <i>Wall face-on</i> mode: the good view of the wall is across the bore. One eye per surface: a far-side eye for the wall, a near-tangent eye above the rim for the plate.</p>',
+      unresolved: '<p>Being visible in the drawn scene is not being seen. Glare on stainless, whether the 0.3 mW dot shows on the plate at all, fume and spatter, and the camera’s own field of view are not modelled here. The look-ahead pair looks down into the canyon at the wall’s inner face at a chord angle; how much of the corner actually shows there needs a real camera.</p>' +
+        '<p>The dome is computed for one dot position (the joint) and does not include the wire tip, the puddle, or the hand. It assumes the proxy gun is the right size.</p>',
+      assumptions: '<ul><li>Gun proxy follows the manual’s 253 x 143 x 34 mm envelope [manual p.17]; barrel, collar, housing, grip, wire guide, the 60° pitch and 16 mm clearance are illustrative (kit).</li>' +
+        '<li>The three rotation dials are the reference scene’s mathematical joints about the dot. They are scene edits, not actuators.</li>' +
+        '<li>The dome radius, fixed-eye positions and the 35° look-ahead are illustrative choices.</li>' +
+        '<li>Sensitivity = the fraction of a small offset that shows up perpendicular to the viewing ray: sqrt(1 - (v.n)^2) for a unit ray v and axis n. Radial n = +X (toward the wall), vertical n = +Z. [derived, pure geometry]</li>' +
+        '<li>Kink = sine of the angle between how the plate direction and the wall direction appear in the image. Zero when the camera looks within the section plane (radial-vertical plane); one for a tangential view. It scores a change of <i>direction</i> only; a change of <i>speed</i> also reveals the corner (eyes-06), so low in-plane views score zero here yet still work for the sweep. [derived]</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  ws.setGhost(false);
+
+  // ---------------------------------------------------------------- dome (helper layer, main view only)
+  const AZ_STEP = 6, EL0 = 2.5, EL_STEP = 5, EL_N = 18;
+  const dirs = [];
+  for (let e = 0; e < EL_N; e++) {
+    const el = EL0 + e * EL_STEP;
+    for (let a = 0; a < 360; a += AZ_STEP) dirs.push({ az: a, el: el, u: V(Math.cos(el * DEG) * Math.cos(a * DEG), Math.cos(el * DEG) * Math.sin(a * DEG), Math.sin(el * DEG)), w: Math.cos(el * DEG) });
+  }
+  const N = dirs.length;
+  const inst = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 8, 6), new THREE.MeshBasicMaterial({ color: 0xffffff }), N);
+  inst.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  inst.setColorAt(0, new THREE.Color(1, 1, 1));
+  inst.frustumCulled = false;
+  app.addHelper(inst);
+
+  const COL = {
+    seen: WK.color(0x22c55e), wall: WK.color(0x475569), gun: WK.color(0xf97316), wire: WK.color(0xe879f9), rig: WK.color(0x64748b),
+  };
+  const catOf = obj => { const r = obj && obj.userData && obj.userData.role; if (!r) return 'rig'; if (r === 'work') return 'wall'; if (r === 'gun') return 'gun'; if (r === 'cable' || r === 'wire') return 'wire'; return 'rig'; };
+  function ramp(t) {   // 0..1 dark blue -> teal -> yellow (linear colour space)
+    t = Math.max(0, Math.min(1, t));
+    const a = [0.16, 0.22, 0.55], b = [0.10, 0.72, 0.62], c = [0.98, 0.90, 0.25];
+    const m = t < 0.5 ? a.map((v, i) => v + (b[i] - v) * t * 2) : b.map((v, i) => v + (c[i] - v) * (t - 0.5) * 2);
+    return new THREE.Color(m[0], m[1], m[2]).convertSRGBToLinear();
+  }
+  const X = V(1, 0, 0), Z = V(0, 0, 1);
+  const st = { cells: new Array(N), stats: null };
+  const raycaster = new THREE.Raycaster(), tmpM = new THREE.Matrix4(), tmpP = new THREE.Vector3(), tmpS = new THREE.Vector3(), tmpQ = new THREE.Quaternion();
+  function viewMetrics(v) {   // v: unit vector camera -> dot
+    const sr = Math.sqrt(Math.max(0, 1 - v.x * v.x)), sz = Math.sqrt(Math.max(0, 1 - v.z * v.z));
+    const a = X.clone().addScaledVector(v, -X.dot(v)), b = Z.clone().addScaledVector(v, -Z.dot(v));
+    const la = a.length(), lb = b.length();
+    const kink = la < 1e-6 || lb < 1e-6 ? 0 : Math.sqrt(Math.max(0, 1 - Math.pow(a.dot(b) / (la * lb), 2)));
+    return { sr: sr, sz: sz, both: Math.min(sr, sz), kink: kink, plate: Math.abs(v.z), wall: Math.abs(v.x) };
+  }
+  function dotTarget() { return gun.dotWorld().add(V(-0.4, 0, 0.4)); }
+  // four things a seam-watching eye wants to see: the dot, the corner 8 mm either side of it along the seam, and the wall 3 mm above the dot
+  function seamPoints() {
+    const d = gun.dotWorld(), a = 8 / WK.INNER_RADIUS, R = WK.INNER_RADIUS - 0.4, zc = WK.CAP_TOP + 0.4;
+    return [d.clone().add(V(-0.4, 0, 0.4)), V(R * Math.cos(-a), R * Math.sin(-a), zc), V(R * Math.cos(a), R * Math.sin(a), zc), d.clone().add(V(-0.4, 0, 3))];
+  }
+  function computeCells() {
+    const t0 = performance.now();
+    scene.updateMatrixWorld(true);
+    const list = WK.occluders(app), pts = seamPoints(), target = pts[0], D = app.ui.get('dist');
+    let tot = 0, vis = 0, visBoth = 0, byWall = 0, byGun = 0, byWire = 0, visKink = 0, visSeam = 0;
+    for (let i = 0; i < N; i++) {
+      const d = dirs[i], pos = target.clone().addScaledVector(d.u, D);
+      const v = target.clone().sub(pos), len = v.length(); v.multiplyScalar(1 / len);
+      raycaster.set(pos, v); raycaster.near = 0; raycaster.far = len - 1.5;
+      const hit = raycaster.intersectObjects(list, false)[0];
+      const m = viewMetrics(v);
+      let nSeam = 0;
+      for (let k = 0; k < pts.length; k++) {
+        const w = pts[k].clone().sub(pos), l2 = w.length(); w.multiplyScalar(1 / l2);
+        raycaster.set(pos, w); raycaster.far = l2 - 1.5;
+        if (!raycaster.intersectObjects(list, false)[0]) nSeam++;
+      }
+      const cell = { seen: !hit, cat: hit ? catOf(hit.object) : 'seen', m: m, seam: nSeam / pts.length };
+      st.cells[i] = cell;
+      tot += d.w; if (cell.seen) { vis += d.w; if (m.both >= 0.5) visBoth += d.w; if (m.kink >= 0.7) visKink += d.w; if (cell.seam >= 1) visSeam += d.w; } else if (cell.cat === 'wall') byWall += d.w; else if (cell.cat === 'gun') byGun += d.w; else byWire += d.w;
+    }
+    st.stats = { vis: vis / tot, both: visBoth / tot, kink: visKink / tot, seam: visSeam / tot, wall: byWall / tot, gun: byGun / tot, wire: byWire / tot, ms: performance.now() - t0 };
+  }
+  const MODE_TXT = { seen: 'Seen or blocked', plate: 'Plate seen face-on', wall: 'Wall seen face-on', seam: 'Seam in view (4 points)', radial: 'Radial sensitivity', vertical: 'Vertical sensitivity', both: 'Both (worst of the two)', kink: 'Sweep kink' };
+  function paintDome() {
+    if (!st.cells[0]) return;
+    const mode = app.ui.get('mode'), D = app.ui.get('dist'), target = dotTarget();
+    const testIdx = nearestIdx(app.ui.get('taz'), app.ui.get('tel'));
+    for (let i = 0; i < N; i++) {
+      const d = dirs[i], c = st.cells[i], pos = target.clone().addScaledVector(d.u, D);
+      let col, size;
+      if (!c.seen) { col = COL[c.cat] || COL.rig; size = mode === 'seen' ? 3.6 : 1.9; }
+      else if (mode === 'seen') { col = COL.seen; size = 5; }
+      else { const val = mode === 'seam' ? c.seam : mode === 'plate' ? c.m.plate : mode === 'wall' ? c.m.wall : mode === 'radial' ? c.m.sr : mode === 'vertical' ? c.m.sz : mode === 'both' ? c.m.both : c.m.kink; col = ramp(val); size = 5.2; }
+      if (i === testIdx) size = 9;
+      tmpS.set(size, size, size); tmpM.compose(pos, tmpQ.identity(), tmpS); inst.setMatrixAt(i, tmpM);
+      inst.setColorAt(i, col);
+    }
+    inst.instanceMatrix.needsUpdate = true; if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+    app.invalidate();
+  }
+  function nearestIdx(az, el) {
+    let best = 0, bd = 1e9;
+    for (let i = 0; i < N; i++) { const da = Math.abs(((dirs[i].az - az + 540) % 360) - 180), de = dirs[i].el - el, dd = da * da + de * de * 4; if (dd < bd) { bd = dd; best = i; } }
+    return best;
+  }
+
+  // ---------------------------------------------------------------- labels on the dome
+  const domePt = (az, el) => () => { const D = app.ui.get('dist') || 260; return dotTarget().addScaledVector(V(Math.cos(el * DEG) * Math.cos(az * DEG), Math.cos(el * DEG) * Math.sin(az * DEG), Math.sin(el * DEG)), D); };
+  app.label(domePt(0, 40), 'wall side: blocked by the tube', { cls: 'fixed' });
+  app.label(domePt(180, 4), 'low across the bore', { cls: 'sensor' });
+  app.label(() => { const D = app.ui.get('dist') || 260; return dotTarget().addScaledVector(gun.beamDir(), -D * 0.95); }, 'gun shadow: beam reversed', { cls: 'gun' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  // ---------------------------------------------------------------- test eye (an inset with a real camera on the drawn scene)
+  const testPos = () => { const d = dirs[nearestIdx(app.ui.get('taz'), app.ui.get('tel'))]; return dotTarget().addScaledVector(d.u, app.ui.get('dist')); };
+  const testCam = { az: 200, el: 30 };
+  const testUnit = () => { const a = app.ui.get('taz') * DEG, e = app.ui.get('tel') * DEG; return V(Math.cos(e) * Math.cos(a), Math.cos(e) * Math.sin(a), Math.sin(e)); };
+  const tPos = () => dotTarget().addScaledVector(testUnit(), Math.min(app.ui.get('dist'), 300));
+  const testEye = app.inset.add({ id: 'test', label: 'Test eye (proposed, illustrative)', position: tPos, target: () => gun.dotWorld(), fov: 22, near: 20, far: 1500, size: [250, 172], corner: 'br', noise: 0.2 });
+  app.cornerInset({ gun: gun });
+
+  // ---------------------------------------------------------------- fixed-eye presets
+  const eyes = [];
+  function clearEyes() { eyes.forEach(e => { scene.remove(e.body); scene.remove(e.line); }); eyes.length = 0; }
+  const RIM = WK.DIM.tubeHeight;
+  const station = { none: [], side: [{ az: 108, el: 17.5, r: 260, n: 'side A' }, { az: 252, el: 17.5, r: 260, n: 'side B' }], far: [{ az: 168, el: 5, r: 330, n: 'far L' }, { az: 192, el: 5, r: 330, n: 'far R' }],
+    ahead: [{ ring: true, arc: -35, h: 46, r: 72, n: 'arriving side' }, { ring: true, arc: 35, h: 46, r: 72, n: 'departing side' }],
+    crown: [0, 60, 120, 180, 240, 300].map(a => ({ ring: true, az: a, h: 70, r: 190, n: 'crown ' + a })) };
+  function placeEyes(kind) {
+    clearEyes();
+    (station[kind] || []).forEach(function (s) {
+      let p;
+      if (s.ring) { const az = (s.arc != null ? s.arc : s.az) * DEG; p = V(s.r * Math.cos(az), s.r * Math.sin(az), RIM + s.h); if (s.arc != null) { const R = 63.5 + 8; p = V(R * Math.cos(az), R * Math.sin(az), RIM + s.h); } }
+      else p = dotTarget().addScaledVector(V(Math.cos(s.el * DEG) * Math.cos(s.az * DEG), Math.cos(s.el * DEG) * Math.sin(s.az * DEG), Math.sin(s.el * DEG)), s.r);
+      const body = P.camera({ role: 'sensor', size: 26 }); body.position.copy(p); body.aimAt(gun.dotWorld()); app.addHelper(body);
+      const line = P.dashed([p, gun.dotWorld()], 'compliant', { dash: 6, gap: 4 }); app.addHelper(line);
+      eyes.push({ s: s, p: p, body: body, line: line });
+    });
+    app.legend(); app.legend(legendItems());
+    refreshEyes();
+  }
+  const seenBy = [];
+  function refreshEyes() {
+    scene.updateMatrixWorld(true);
+    const list = WK.occluders(app), pts = seamPoints(), target = pts[0]; let n = 0, nAll = 0;
+    seenBy.length = 0;
+    eyes.forEach(function (e) {
+      e.body.aimAt(gun.dotWorld());
+      const v = target.clone().sub(e.p), len = v.length(); v.multiplyScalar(1 / len);
+      raycaster.set(e.p, v); raycaster.near = 0; raycaster.far = len - 1.5;
+      const hit = raycaster.intersectObjects(list, false)[0];
+      e.seen = !hit; e.v = v; e.hit = hit; e.nSeam = 0;
+      pts.forEach(function (q) { const w = q.clone().sub(e.p), l2 = w.length(); w.multiplyScalar(1 / l2); raycaster.set(e.p, w); raycaster.far = l2 - 1.5; if (!raycaster.intersectObjects(list, false)[0]) e.nSeam++; });
+      e.line.setPoints([e.p, gun.dotWorld()]); WK.setRole(e.line, e.seen ? (e.nSeam === pts.length ? 'compliant' : 'load') : 'laser');
+      if (e.seen) { n++; seenBy.push(e); if (e.nSeam === pts.length) nAll++; }
+    });
+    let best = 0, pair = null;
+    for (let i = 0; i < seenBy.length; i++) for (let j = i + 1; j < seenBy.length; j++) { const a = Math.acos(Math.max(-1, Math.min(1, seenBy[i].v.dot(seenBy[j].v)))) / DEG; if (a > best) { best = a; pair = [seenBy[i], seenBy[j]]; } }
+    st.eyes = { n: n, nAll: nAll, total: eyes.length, best: best, pair: pair };
+    app.invalidate();
+  }
+
+  // ---------------------------------------------------------------- legend (custom; added after every scene object)
+  function legendItems() {
+    const mode = app.ui.get('mode');
+    const base = [{ role: 'gun', label: 'Gun (proxy)' }, { role: 'work', label: 'Tube, plate' }, { role: 'laser', label: 'Dot' }];
+    if (eyes.length) base.push({ role: 'sensor', label: 'Proposed eye' });
+    if (mode === 'seen' || !mode) return base.concat([{ color: '#22c55e', label: 'sees the dot' }, { color: '#475569', label: 'blocked: wall or rim' }, { color: '#f97316', label: 'blocked: gun body' }, { color: '#e879f9', label: 'blocked: wire guide / cable' }]);
+    return base.concat([{ color: '#2a3a8c', label: MODE_TXT[mode] + ': 0' }, { color: '#1cb89e', label: '0.5' }, { color: '#fae640', label: '1' }, { color: '#475569', label: 'blocked (small)' }]);
+  }
+
+  // ---------------------------------------------------------------- update chain
+  let pending = null;
+  function recompute() {
+    if (pending) return;
+    pending = setTimeout(function () {
+      pending = null;
+      computeCells(); paintDome(); refreshEyes(); syncIO();
+    }, 0);
+  }
+  function syncIO() {
+    const s = st.stats, e = st.eyes || { n: 0, total: 0, best: 0 };
+    const vis = app.inset.markVisibility('test', dotTarget(), {});
+    const pct = x => (100 * x).toFixed(0) + ' %';
+    app.io.set({
+      commands: [{ name: 'Nothing is commanded in this scene', value: '-', note: 'analysis view; the gun pose dials are scene edits' }],
+      observes: [
+        { name: 'Test eye sees the dot', value: vis && vis.visible ? 'yes' : (vis && vis.inFov ? 'blocked' : 'out of view'), status: vis && vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Share of the upper hemisphere that sees the dot', value: s ? pct(s.vis) : '-', status: 'partly', note: 'solid-angle weighted; counts geometry only, not glare or dot brightness' },
+        { name: '... and tells radial from vertical error (both sens. >= 0.5)', value: s ? pct(s.both) : '-', status: 'partly', note: 'the useful part of the view' },
+        { name: 'Blocked by wall / gun / wire', value: s ? pct(s.wall) + ' / ' + pct(s.gun) + ' / ' + pct(s.wire) : '-', status: 'seen' },
+        { name: 'Fixed eyes that see the dot', value: e.total ? e.n + ' of ' + e.total : 'none placed', status: e.total ? (e.n ? 'seen' : 'blind') : 'unresolved', note: 'green line: all four seam points in view; amber line: the dot but not all of the seam; red: blocked' },
+        { name: '... of which see all four seam points', value: e.total ? e.nAll + ' of ' + e.total : '-', status: e.total ? (e.nAll ? 'partly' : 'blind') : 'unresolved' },
+        { name: 'Widest triangulation angle among them', value: e.n > 1 ? e.best.toFixed(0) + ' deg' : '-', status: e.n > 1 ? 'partly' : 'blind', note: 'two eyes on the same side of the dot give a shallow angle: depth is poor' },
+        { name: 'Dot brightness on stainless, glare, fume', value: '-', status: 'unresolved', note: 'not modelled: see unresolved' },
+      ],
+      manual: ['Aim and calibrate each eye to the tube frame', 'Decide whether the dot shows on stainless at all (question for Derek)'],
+    });
+  }
+
+  // ---------------------------------------------------------------- controls
+  const pose = app.ui.group('Gun pose (scene edits, not actuators)', { help: 'The reference scene’s three ideal rotations about the dot. The dot stays on the seam; the gun’s shadow moves.' });
+  const setPose = () => { gun.setDials(app.ui.get('roll'), app.ui.get('hole'), app.ui.get('vertical')); recompute(); };
+  pose.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  pose.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  pose.slider({ id: 'vertical', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+
+  const dome = app.ui.group('What the dome shows');
+  dome.radio({ id: 'mode', label: 'Colour by', kind: 'view', value: 'seen',
+    options: [{ value: 'seen', label: 'Dot seen' }, { value: 'seam', label: 'Seam seen' }, { value: 'plate', label: 'Plate face-on' }, { value: 'wall', label: 'Wall face-on' }, { value: 'radial', label: 'Radial' }, { value: 'vertical', label: 'Vertical' }, { value: 'both', label: 'Both' }, { value: 'kink', label: 'Kink' }],
+    help: 'Dot seen: who sees the dot. Seam seen: how many of four seam points (the dot, the corner 8 mm either side along the seam, the wall 3 mm above the dot) the view sees. Plate / Wall face-on: how squarely the view looks at that surface (1 = square on, 0 = edge-on). Radial / Vertical: how much of that error the view can tell. Both: the worse of the two. Kink: how sharply a dot sweeping across the seam changes direction in the image.',
+    onChange: function () { paintDome(); app.legend(); app.legend(legendItems()); } });
+  dome.slider({ id: 'dist', label: 'Dome radius (distance from the dot)', min: 120, max: 450, step: 10, value: 260, unit: 'mm', kind: 'scene', help: 'Illustrative. Closer views are more blocked by the gun; farther views by the rotator and bench are not modelled.', onChange: recompute });
+
+  const test = app.ui.group('Test eye');
+  test.slider({ id: 'taz', label: 'Azimuth around the tube', min: 0, max: 355, step: 5, value: 200, unit: '°', kind: 'scene', visual: () => testEye.helper, help: '0° is the weld-station side (+X, outside the wall). 180° is across the bore.', onChange: () => { paintDome(); syncIO(); } });
+  test.slider({ id: 'tel', label: 'Elevation above the plate', min: 2.5, max: 87.5, step: 5, value: 32.5, unit: '°', kind: 'scene', visual: () => testEye.helper, onChange: () => { paintDome(); syncIO(); } });
+
+  const fix = app.ui.group('Fixed eyes (proposed)');
+  fix.radio({ id: 'eyes', label: 'Station', kind: 'branch', value: 'none',
+    options: [{ value: 'none', label: 'None', help: 'Just the dome.' }, { value: 'side', label: 'Beside', help: 'Two eyes 260 mm from the dot, 108° and 252° round the tube from the station (either side, beyond the tangent), 17.5° above the dot: the best radial-and-vertical, kink and seam-in-view directions found in the dome.' }, { value: 'far', label: 'Far side', help: 'Two eyes across the bore, 5° above the dot, 330 mm away, 24° apart.' },
+      { value: 'ahead', label: 'Look-ahead', help: 'Two eyes above the rim, 35° of arc either side of the station, 46 mm above the rim, looking along the chord.' }, { value: 'crown', label: 'Crown of six', help: 'Six eyes on a ring of radius 190 mm, 70 mm above the rim, 60° apart (branch: eyes-02b).' }],
+    onChange: v => { placeEyes(v); syncIO(); } });
+
+  app.onReady(function () { computeCells(); paintDome(); placeEyes(app.ui.get('eyes')); syncIO(); app.legend(); app.legend(legendItems()); });
+  window.__domeStats = () => st.stats;
+  window.__cells = () => st.cells.map((c, i) => ({ az: dirs[i].az, el: dirs[i].el, seen: c.seen, cat: c.cat, seam: c.seam, both: c.m.both, sr: c.m.sr, sz: c.m.sz, kink: c.m.kink, plate: c.m.plate, wall: c.m.wall }));
+  window.__eyeStats = () => st.eyes && ({ n: st.eyes.n, nAll: st.eyes.nAll, total: st.eyes.total, best: st.eyes.best });
+})();
+</script>
+</body>
+</html>

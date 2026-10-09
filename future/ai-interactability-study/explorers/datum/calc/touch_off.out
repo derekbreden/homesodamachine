@@ -1,0 +1,18 @@
+time for a full touch-off (fast 2 mm/s, slow 0.1 mm/s, 4 mm search): 19 s
+
+tip          latency  v_slow   error x (bias, RMS)          error z (bias, RMS)
+stylus          5 ms  0.1 mm/s  +0.003, 0.035 mm            +0.003, 0.035 mm
+stylus          5 ms  1.0 mm/s  +0.008, 0.036 mm            +0.008, 0.035 mm
+stylus        100 ms  0.1 mm/s  +0.013, 0.037 mm            +0.013, 0.037 mm
+stylus        100 ms  1.0 mm/s  +0.102, 0.108 mm            +0.103, 0.108 mm
+wire            5 ms  0.1 mm/s  +0.004, 0.160 mm            +0.002, 0.160 mm
+wire            5 ms  1.0 mm/s  +0.009, 0.160 mm            +0.008, 0.158 mm
+wire          100 ms  0.1 mm/s  +0.012, 0.159 mm            +0.013, 0.159 mm
+wire          100 ms  1.0 mm/s  +0.101, 0.188 mm            +0.103, 0.191 mm
+nozzle          5 ms  0.1 mm/s  +0.003, 0.304 mm            +0.002, 0.302 mm
+nozzle          5 ms  1.0 mm/s  +0.007, 0.303 mm            +0.007, 0.306 mm
+nozzle        100 ms  0.1 mm/s  +0.014, 0.303 mm            +0.014, 0.302 mm
+nozzle        100 ms  1.0 mm/s  +0.102, 0.319 mm            +0.100, 0.318 mm
+
+dot 16 mm beyond the nozzle tip; 1 deg of beam-direction uncertainty moves it 0.28 mm
+one repeat touch (average of 4) reduces the random part by 2x; the late-detection bias v_slow*tau does not average

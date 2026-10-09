@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch-off</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .to text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .to .tm { fill: #8b98ab; } .to .tf { fill: #64748b; } .to .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .to .tt { fill: #14b8a6; } .to .ta { fill: #f5a524; } .to .tr { fill: #ff6b5f; } .to .tp { fill: #c084fc; } .to .ts { fill: #60a5fa; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-07-touch-off",
+  "title": "Touch-off: the stylus is already at the dot",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "In a dry run, software drives a stylus (or the wire tip, or the nozzle) into the wall and then the plate with two small axes and a one-bit contact signal, and finds this tube's corner by touch. The tip sits at the dot by construction, so touching the corner is placing the dot on it. Software moves and observes almost nothing, and that is enough.",
+  "tags": ["datum", "touch probe", "contact sensing", "dry run", "one-bit sensor", "software moves"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["fast-then-slow double touch", "stylus in place of the nozzle", "corner from two touches", "autonomous per-tube calibration"],
+  "how": {
+    "motion": "a proposed small 2-axis stage carries the gun (or a probe) into the wall, then the plate",
+    "load": "gun-side stage on whatever holds the gun, or a locked holder with the tube stack moving",
+    "reference": "the tube's own wall and plate face, found by touch each time",
+    "observe": "a one-bit contact signal and the stage position from the step count",
+    "use": "dry run before each weld, by software alone; a stylus replaces the nozzle for setup"
+  },
+  "software": {
+    "commands": ["stage X (radial) and Z (height), speed", "the touch sequence"],
+    "observes": ["contact (yes or no)", "stage position from the step count"],
+    "manual": ["swapping the stylus for the nozzle and back", "coarse aim so the tip is within a few millimetres of the corner", "cleaning the surface"]
+  },
+  "links": [{"label": "travel-15 the work comes to the stylus", "href": "../travel-15-touch-stack/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-07-touch-off.md", "../../exchange/datum--reply-to-travel-w3.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex, TAU = Math.PI * 2;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The cheapest sensor there is is a switch. If the tip of a tool is at the dot, then <b>touching the corner with that tip is placing the dot on the corner</b>. In a dry run, software drives a two-axis stage: fast toward the wall until the contact signal comes, back off, a slow second touch, then the same for the plate face. Position at the trigger, minus the tip radius, is the surface. Two touches give the corner of <i>this</i> tube: no camera, no line of sight, no model.</p>' +
+        '<p>Three tips are compared. A dedicated <b>ball stylus</b> threaded in place of the nozzle (the manual says the copper nozzle is removable, p. 20) has its ball centre at the dot by construction. The <b>wire tip</b> is already aimed at the dot and can be fed out a few millimetres. The <b>nozzle itself</b> is 16 mm short of the dot and touches on a cone, so the dot has to be extrapolated. Press Run and watch the stage position (purple), the tip (which stops at the surface) and the one-bit contact signal; the tip is a compliant stylus, so the stage may overshoot a little after contact without crushing anything.</p>',
+      carries:
+        '<p>Not addressed: the stage rides on whatever holds the gun (a crown, an arm, the hand&rsquo;s fixture). The touch force is small. The <b>wall and plate face</b> are the reference; nothing else locates anything.</p>',
+      software:
+        '<p><b>Commanded:</b> stage X and Z and their speeds, and the sequence. <b>Observed:</b> the one-bit contact and the position from the step count. That is all, and it is enough because the corner is where the tip stops. The log below the drawing is what a supervising program would record for each tube.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the contact signal arrives late. <b>Assumption:</b> detection is instant. <b>What the numbers say:</b> a late signal makes the recorded position overshoot by speed times latency: 0.10 mm at 1 mm/s and 100 ms, 0.01 mm at 0.1 mm/s [calc/touch_off.py]. <b>Change:</b> the fast-then-slow double touch: the fast touch only finds the neighbourhood.</li>' +
+        '<li><b>Conflict:</b> the nozzle as the probe. <b>Assumption:</b> the dot is where the nozzle points. <b>What the scene shows:</b> the dot is 16 mm beyond a cone-shaped nozzle [kit proxy], so 1&deg; of beam-direction uncertainty is 0.28 mm; the nozzle branch is about ten times worse than the stylus at the same repeatability. <b>Change:</b> the stylus branch.</li>' +
+        '<li><b>Conflict:</b> the wire is soft. <b>What the scene shows:</b> the 0.76 mm wire has 0.38 mm tip radius, but it bends and its tip position is uncertain (a 0.15 mm swap sigma, illustrative). <b>Left uncertain:</b> real wire stick-out repeatability.</li>' +
+        '<li><b>Conflict:</b> debris and oxide. <b>What the scene shows:</b> a bump on the plate or wall is read as the surface (the debris slider adds a random bias on one touch in ten). <b>Repair:</b> repeat and take the median; scuff and clean the surface as the sequence already does for the work contact [repo].</li>' +
+        '<li><b>Conflict:</b> the sense signal itself. <b>Assumption:</b> a contact can be read. <b>What is known:</b> the laser unit already checks a complete circuit between the work clip and the gun before it emits, and says so when conduction is lost [manual pp. 19, 32]. <b>Left uncertain:</b> whether that circuit is accessible, how it closes (nozzle, wire, or body), and its latency. A separate low-voltage sense to a spare pin would not depend on it, but is not designed here.</li>' +
+        '</ul>' +
+        '<p><b>From travel&rsquo;s exchange (wave 3)</b> [<code>exchange/travel--on--datum-w2.md</code> section 3, <code>scenes/travel-15-touch-stack</code>]:</p><ul>' +
+        '<li><b>Conflict:</b> what carries and moves the tip was left open, and the moving side is where the umbilical pulls. <b>What the scene now shows</b> (<i>What carries and moves the tip</i>): with a fine stage in the shell the touch force goes through a chain of about 94 &micro;m/N (stage 50, holder 44); with the gun and stylus locked on a holder and the tube stack doing the moving, 44 &micro;m/N, no soft stage and no cable on the moving side (<code>travel-15</code>). A touch made with the stage that then applies it is a null measurement: guide straightness, layer tilt and the stack&rsquo;s own Abbe error are in the touch and the weld alike. <b>Left uncertain:</b> the stack&rsquo;s backlash and stick-slip.</li>' +
+        '<li><b>Conflict:</b> the largest term in the first budget, 0.030 mm for the stylus, was called a swap error and folded a second assumption into it. <b>What is what:</b> 0.030 mm is my <i>assumption</i> for how well the thread and seat put a stylus back after a swap (repeatability, illustrative); a separate thing, which the first scene took to be zero, is the <i>vector between the tip and the dot</i>: the stylus is at the dot only if the red pilot sits on the nozzle axis 16 mm out, and the manual documents an alignment screen because it does not always [manual pp. 25, 39]. <b>Change:</b> the two are separate rows now, and the vector is a systematic term (0.30 mm, unknown) that better touching does not reduce. <b>Repair:</b> touch a coupon&rsquo;s corner with the stylus and sweep the dot across the same corner (<code>eyes-06</code>), both in stage units: the difference is the vector, with no camera calibration; the floor is the calibration&rsquo;s accuracy (0.05 mm here) and the dot is still not the melt. Toggle <i>Calibrated</i>.</li>' +
+        '<li><b>Also:</b> the graduated tube sets the nozzle extension, which moves the dot along the beam, so a stylus is the right length for one extension only. Nobody has fixed the extension the stylus is measured at.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The stage: nothing here says what carries the gun and moves it by a few millimetres with 0.01 mm resolution. A crown&rsquo;s vertical stage and a small radial slide could be that; see the crown scene.</li>' +
+        '<li>The stylus mount: the nozzle thread and seat are not known; the graduated tube sets nozzle extension [manual p. 17].</li>' +
+        '<li>Whether touching hurts a polished pressure-vessel surface or the corner where a fillet is to be welded; the force is a small fraction of a newton for a probe of this class, but nobody has looked.</li>' +
+        '<li>A corner, not an edge: a ball in a right-angle corner has two contacts at once; a fillet or spatter in the corner makes a third. The scene touches each surface separately.</li>' +
+        '<li><b>Questions for Derek:</b> can the copper nozzle be removed and a stylus threaded in; does the laser unit expose its conduction circuit.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Ball stylus radius 1.0 mm, wire 0.030 in [repo] = 0.76 mm (radius 0.38), nozzle cone effective radius 3 mm: <b>illustrative</b> except the wire.</li>' +
+        '<li>Contact repeatability (0.01, 0.05, 0.03 mm), tip-to-dot swap sigma (0.03, 0.15, 0.30 mm), backlash, debris, latency, speeds: <b>illustrative</b>. The 16 mm nozzle-to-dot distance is the kit proxy; 1&deg; gives 0.28 mm [derived].</li>' +
+        '<li>Coarse aim: the tip starts a few millimetres from the corner, from a hand-set position: <b>illustrative</b>. The drawing is in corner coordinates so the error can be read off directly; the software itself only knows step counts from where it started.</li>' +
+        '<li><b>Models:</b> the stage and tip kinematics with compliance, a latency timer, noisy recordings, an error budget. <b>Depicts only:</b> the holder and stage drawing.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  const TIPS = {
+    stylus: { r: 1.0, rep: 0.010, swap: 0.030, label: 'Ball stylus in place of the nozzle', tag: 'the ball centre is at the dot by construction' },
+    wire:   { r: 0.38, rep: 0.050, swap: 0.150, label: 'Wire tip fed out of the guide', tag: 'aimed at the dot; soft; tip position uncertain' },
+    nozzle: { r: 3.0, rep: 0.030, swap: 0.300, label: 'The copper nozzle itself', tag: '16 mm short of the dot; touches on a cone' },
+  };
+  const P = { tip: 'stylus', vf: 2.0, vs: 0.1, tau: 5, sx: -3.5, sz: 3.0, back: 0.02, debris: 0.05, rep: 0.010, swap: 0.030, ts: 6, mount: 'gun', force: 0.3, vec: 0.30, cal: false, calAcc: 0.05 };
+  // What carries and moves the tip, and what its compliance does to a touch: force x compliance lands in the touch as a constant. Gun side: a fine stage in the shell (20 N/mm, 50 um/N) in series with the holder (44 um/N, a 12 mm steel rod), and the umbilical pulls on the moving side; work side: the gun and stylus on a locked holder (44 um/N), the tube stack moves (travel-15).
+  const COMPL = { gun: 94, work: 44 };            // micrometres per newton
+  const vecX = () => (P.cal ? P.calAcc : P.vec) * 0.8, vecZ = () => (P.cal ? P.calAcc : P.vec) * 0.6;   // the stylus is not the dot: a vector between the tip centre and the red pilot; calibrated against the dot on a coupon it is only as good as that calibration
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * r()); }
+
+  // ------------------------------------------------------------------ state machine (stage coordinates in mm; corner at 0,0; x into the wall, z up)
+  const R = () => TIPS[P.tip].r;
+  let run = null, hist = [], runSeed = 1;
+  function startRun() {
+    runSeed++;
+    run = { phase: 'wall_fast', sx: P.sx, sz: P.sz, t: 0, timer: null, log: [], rec: {}, rnd: rng(runSeed * 7919), done: false, mark: {} };
+    hist = []; run.log.push('start: stage at (' + P.sx.toFixed(2) + ', ' + P.sz.toFixed(2) + ') mm from the corner (hand aim)');
+    app.invalidate();
+  }
+  const tipPos = () => ({ x: Math.min(run.sx, -R()), z: Math.max(run.sz, R()) });
+  const deflX = () => Math.max(0, run.sx - (-R())), deflZ = () => Math.max(0, R() - run.sz);
+  function stepRun(dt) {
+    if (!run || run.done) return false;
+    const r = run.rnd, vf = P.vf, vs = P.vs, tau = P.tau / 1000;
+    run.t += dt;
+    let contact = false;
+    const inWall = run.phase.startsWith('wall'), inPlate = run.phase.startsWith('plate');
+    if (inWall && deflX() > 0) contact = true;
+    if (inPlate && deflZ() > 0) contact = true;
+    const detected = run.timer != null && run.timer >= tau;
+    const recordAfter = (key, val, msg) => { const noisy = val + P.rep * gauss(r) + (r() * 2 - 1) * P.back + (r() < 0.1 ? r() * P.debris : 0); run.rec[key] = noisy; run.log.push(msg + ' recorded ' + noisy.toFixed(3) + ' mm'); };
+    switch (run.phase) {
+      case 'wall_fast':
+        run.sx += vf * dt; if (contact && run.timer == null) { run.timer = 0; run.log.push('contact (fast, wall) at t=' + run.t.toFixed(2) + ' s'); } if (run.timer != null) run.timer += dt;
+        if (run.timer != null && run.timer >= tau) { run.rec.xf = run.sx; run.log.push('fast touch: wall neighbourhood at x=' + run.sx.toFixed(3) + ' mm (late by v*latency)'); run.phase = 'wall_retract'; run.timer = null; run.mark.xf = run.sx; }
+        break;
+      case 'wall_retract': run.sx -= vf * dt; if (run.sx <= run.rec.xf - 0.5) { run.phase = 'wall_slow'; } break;
+      case 'wall_slow':
+        run.sx += vs * dt; if (contact && run.timer == null) { run.timer = 0; } if (run.timer != null) run.timer += dt;
+        if (run.timer != null && run.timer >= tau) { recordAfter('xs', run.sx, 'slow touch: wall'); run.phase = 'wall_back'; run.timer = null; }
+        break;
+      case 'wall_back': run.sx -= vf * dt; if (run.sx <= -R() - 1.6) run.phase = 'plate_fast'; break;
+      case 'plate_fast':
+        run.sz -= vf * dt; if (contact && run.timer == null) { run.timer = 0; run.log.push('contact (fast, plate) at t=' + run.t.toFixed(2) + ' s'); } if (run.timer != null) run.timer += dt;
+        if (run.timer != null && run.timer >= tau) { run.rec.zf = run.sz; run.log.push('fast touch: plate neighbourhood at z=' + run.sz.toFixed(3) + ' mm'); run.phase = 'plate_retract'; run.timer = null; }
+        break;
+      case 'plate_retract': run.sz += vf * dt; if (run.sz >= run.rec.zf + 0.5) run.phase = 'plate_slow'; break;
+      case 'plate_slow':
+        run.sz -= vs * dt; if (contact && run.timer == null) { run.timer = 0; } if (run.timer != null) run.timer += dt;
+        if (run.timer != null && run.timer >= tau) { recordAfter('zs', run.sz, 'slow touch: plate'); run.phase = 'plate_back'; run.timer = null; }
+        break;
+      case 'plate_back': run.sz += vf * dt; if (run.sz >= R() + 1.2) { run.phase = 'done'; }
+        break;
+    }
+    if (run.phase === 'done') {
+      const swx = P.swap * gauss(r), swz = P.swap * gauss(r);
+      const fc = P.force * COMPL[P.mount] / 1000;
+      run.est = { x: run.rec.xs + R() + swx + fc + vecX(), z: run.rec.zs - R() + swz + fc + vecZ() };   // stage position that puts the dot on the corner, with the tip-to-dot swap error
+      run.done = true; run.log.push('corner found: putting the dot there misses the true corner by (' + run.est.x.toFixed(3) + ', ' + run.est.z.toFixed(3) + ') mm');
+    }
+    hist.push({ t: run.t, sx: run.sx, sz: run.sz, c: contact ? 1 : 0, d: run.timer != null && run.timer >= 0 ? 1 : 0 });
+    return !run.done;
+  }
+
+  // ------------------------------------------------------------------ Monte Carlo of the error budget (same formulas, no animation)
+  function budget() {
+    const tip = TIPS[P.tip], r = rng(4711), n = 3000; let sx = 0, sz = 0, bx = 0;
+    const late = P.vs * P.tau / 1000, fc = P.force * COMPL[P.mount] / 1000, vx = vecX(), vz = vecZ();
+    for (let i = 0; i < n; i++) {
+      const one = () => late + fc + P.rep * gauss(r) + (r() * 2 - 1) * P.back + (r() < 0.1 ? r() * P.debris : 0) + P.swap * gauss(r);
+      const ex = one() + vx, ez = one() + vz; sx += ex * ex; sz += ez * ez; bx += ex;
+    }
+    const parts = [
+      ['late detection (slow speed x latency)', late], ['contact repeatability', P.rep], ['backlash (uniform)', P.back / Math.sqrt(3)], ['debris on 1 touch in 10', P.debris * Math.sqrt(0.1 / 3)],
+      ['tip swap and seat repeat', P.swap], ['touch force x compliance', fc],
+      [P.cal ? 'tip-to-dot, calibrated' : 'tip-to-dot vector (unknown)', Math.hypot(vx, vz)],
+    ];
+    return { rmsX: Math.sqrt(sx / n), rmsZ: Math.sqrt(sz / n), biasX: bx / n, parts: parts, time: timeEstimate() };
+  }
+  function timeEstimate() { const per = 4 / P.vf + 0.5 / P.vf + 0.6 / P.vs + 1.6 / P.vf; return 2 * per + 4 / P.vf; }
+
+  // ------------------------------------------------------------------ drawing
+  const W = 980, H = 650, K = 50, X0 = 10, Y0 = 92, PW = 600, PH = 420, VY = 64;
+  const svg = S('svg', { viewBox: '0 ' + VY + ' ' + W + ' ' + (H - VY), class: 'to', role: 'img', 'aria-label': 'Cross-section of the corner with a tool tip touching the wall and plate, the contact signal, and the error budget', style: 'display:block;margin:0 auto;width:100%;height:100%;max-height:100%', preserveAspectRatio: 'xMidYMid meet' });
+  stage.appendChild(svg);
+  svg.appendChild(S('defs', {}, S('marker', { id: 'arr', viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse' }, S('path', { d: 'M0 0L10 5L0 10z', fill: '#94a3b8' }))));
+  const g0 = S('g'); svg.appendChild(g0);
+  const px = x => X0 + (x + 9.2) * K, pz = z => Y0 + (5.4 - z) * K;
+
+  function panelA() {
+    const g = S('g'), r = R();
+    g.append(T(X0, Y0 - 8, 'Cross-section at the station: tool tip, wall (right) and plate (below)', 'tb'));
+    g.append(S('rect', { x: X0, y: Y0, width: PW, height: PH, fill: '#10161e', stroke: '#2a3341' }));
+    g.append(S('rect', { x: px(0), y: Y0, width: X0 + PW - px(0), height: PH, fill: hex('work'), opacity: 0.3 }));
+    g.append(S('rect', { x: X0, y: pz(0), width: px(0) - X0, height: Y0 + PH - pz(0), fill: hex('work'), opacity: 0.42 }));
+    g.append(S('circle', { cx: px(0), cy: pz(0), r: 3.5, fill: hex('locate') })); g.append(T(px(0) + 6, pz(0) + 14, 'true corner', 'tt'));
+    g.append(T(X0 + 8, pz(0) + 16, 'plate', 'tf')); g.append(T(px(0) + 10, Y0 + 16, 'wall', 'tf'));
+    const sx = run ? run.sx : P.sx, sz = run ? run.sz : P.sz;
+    const tx = run ? tipPos().x : Math.min(P.sx, -r), tz = run ? tipPos().z : Math.max(P.sz, r);
+    // stage (software's idea of the position) and the holder to the tip
+    g.append(S('rect', { x: px(sx) - 16, y: pz(sz) - 70, width: 32, height: 22, rx: 3, fill: hex('actuated'), opacity: 0.9 }));
+    g.append(T(px(sx), pz(sz) - 75, 'stage (x, z)', 'tp', 'middle'));
+    g.append(line(px(sx), pz(sz) - 48, px(tx), pz(tz), { stroke: hex('gun'), 'stroke-width': 8, 'stroke-linecap': 'round' }));
+    g.append(S('circle', { cx: px(tx), cy: pz(tz), r: r * K, fill: hex('sensor'), stroke: '#0e1218', opacity: 0.9 }));
+    g.append(S('circle', { cx: px(tx), cy: pz(tz), r: 2.5, fill: '#fff' }));
+    // the dot (ball centre by construction for the stylus); for the nozzle the dot is 16 mm beyond: shown as offset arrow
+    if (P.tip === 'nozzle') { g.append(line(px(tx), pz(tz), px(tx) + 8, pz(tz) + 22, { stroke: hex('laser'), 'stroke-dasharray': '3 3' })); g.append(T(px(tx) + 12, pz(tz) + 30, 'dot is 16 mm beyond (not to scale)', 'tr')); }
+    else g.append(T(px(tx) - 8, pz(tz) - r * K - 6, 'dot = tip centre', 'tr', 'end'));
+    // contact flags
+    if (run && (deflX() > 0 || deflZ() > 0)) g.append(T(px(tx) + 10, pz(tz) - 10 - r * K, run.timer != null && run.timer >= 0 ? 'CONTACT (latency ' + (run.timer * 1000).toFixed(0) + ' ms)' : 'contact', 'ta'));
+    if (run && (deflX() > 0.001 || deflZ() > 0.001)) g.append(T(px(tx) + 10, pz(tz) + r * K + 16, 'overshoot ' + Math.max(deflX(), deflZ()).toFixed(3) + ' mm (stylus flexes)', 'tf'));
+    // estimated corner
+    if (run && run.est) { g.append(S('path', { d: 'M' + (px(run.est.x) - 8) + ' ' + pz(run.est.z) + 'h16M' + px(run.est.x) + ' ' + (pz(run.est.z) - 8) + 'v16', stroke: hex('load'), 'stroke-width': 2.4, fill: 'none' })); g.append(T(px(run.est.x) + 10, pz(run.est.z) - 6, 'dot placed here: error (' + run.est.x.toFixed(3) + ', ' + run.est.z.toFixed(3) + ')', 'ta')); }
+    // scale bar
+    g.append(line(X0 + 20, Y0 + PH - 18, X0 + 20 + K, Y0 + PH - 18, { stroke: '#94a3b8', 'stroke-width': 2 })); g.append(T(X0 + 20 + K + 6, Y0 + PH - 14, '1 mm', 'tf'));
+    g.append(T(X0 + PW - 8, Y0 + PH - 6, 'phase: ' + (run ? run.phase.replace('_', ' ') : 'idle: press Run'), 'tm', 'end'));
+    return g;
+  }
+
+  function panelB(b) {
+    const g = S('g'), x0 = 640, w = 330;
+    g.append(T(x0, Y0 - 8, 'Contact signal and stage position', 'tb'));
+    const h = 130; g.append(S('rect', { x: x0, y: Y0, width: w, height: h, fill: '#10161e', stroke: '#2a3341' }));
+    if (hist.length > 1) {
+      const T1 = Math.max(hist[hist.length - 1].t, 10), tx = t => x0 + t / T1 * w;
+      g.append(S('polyline', { points: hist.map(p => tx(p.t).toFixed(1) + ',' + (Y0 + 70 - (p.sx + 4) * 8).toFixed(1)).join(' '), fill: 'none', stroke: hex('actuated'), 'stroke-width': 1.4 }));
+      g.append(S('polyline', { points: hist.map(p => tx(p.t).toFixed(1) + ',' + (Y0 + 110 - (p.sz) * 8).toFixed(1)).join(' '), fill: 'none', stroke: hex('sensor'), 'stroke-width': 1.4 }));
+      g.append(S('polyline', { points: hist.map(p => tx(p.t).toFixed(1) + ',' + (Y0 + 24 - p.c * 14).toFixed(1)).join(' '), fill: 'none', stroke: hex('load'), 'stroke-width': 1.6 }));
+      g.append(T(x0 + 4, Y0 + 12, 'contact (one bit)', 'ta')); g.append(T(x0 + 4, Y0 + 60, 'stage x', 'tp')); g.append(T(x0 + 4, Y0 + 124, 'stage z', 'ts'));
+    } else g.append(T(x0 + 10, Y0 + 60, 'press Run', 'tf'));
+    // budget
+    g.append(T(x0, 250, 'Error budget for the current tip (1 sigma, mm)', 'tb'));
+    let y = 264; const sc = 900;
+    b.parts.forEach(p => { g.append(T(x0, y + 10, p[0], 'tm')); g.append(S('rect', { x: x0 + 200, y: y + 1, width: Math.min(90, Math.max(1.5, p[1] * sc)), height: 10, rx: 2, fill: hex('load') })); g.append(T(x0 + 204 + Math.min(90, Math.max(1.5, p[1] * sc)), y + 10, p[1].toFixed(3), 'tf')); y += 18; });
+    y += 6;
+    g.append(T(x0, y + 12, 'one touch-off, RMS per axis', 'tb')); g.append(S('rect', { x: x0 + 200, y: y + 2, width: Math.min(90, b.rmsX * sc), height: 12, rx: 3, fill: b.rmsX < 0.1 ? hex('compliant') : hex('load') })); g.append(T(x0 + 204 + Math.min(90, b.rmsX * sc), y + 12, '±' + b.rmsX.toFixed(3) + ' x, ' + b.rmsZ.toFixed(3) + ' z', 'tt')); y += 22;
+    g.append(T(x0, y + 12, 'time for the sequence', 'tm')); g.append(T(x0 + 200, y + 12, b.time.toFixed(0) + ' s (fast ' + P.vf + ', slow ' + P.vs + ' mm/s)', 'tm'));
+    return g;
+  }
+
+
+  // the two ways to carry and move the tip, as blocks: purple moves, slate is locked, green is the touch force's path
+  function panelSchem() {
+    const g = S('g'), y0 = 530, work = P.mount === 'work';
+    g.append(T(X0, y0 - 6, work ? 'Carried on the work side: the tube stack moves the wall and plate into a locked stylus' : 'Carried on the gun side: a fine stage in the shell moves the gun and stylus into the corner', 'tb'));
+    const box = (x, y, w, h, role, label, dim) => { g.append(S('rect', { x: x, y: y, width: w, height: h, rx: 4, fill: hex(role), opacity: dim ? 0.45 : 0.95 })); const t = T(x + w / 2, y + h / 2 + 4, label, 'tp', 'middle'); t.style.fill = (role === 'load' || role === 'work') ? '#0b1220' : '#f1f5f9'; g.append(t); };
+    const arrow = (x1, y1, x2, y2, col) => g.append(line(x1, y1, x2, y2, { stroke: col || '#94a3b8', 'stroke-width': 2, 'marker-end': 'url(#arr)' }));
+    const yy = y0 + 8, hh = 34;
+    box(X0, yy, 90, hh, 'fixed', 'room / bench');
+    if (!work) {
+      box(X0 + 130, yy, 100, hh, 'load', 'holder (44 um/N)'); box(X0 + 270, yy, 110, hh, 'actuated', 'fine stage (50 um/N)'); box(X0 + 420, yy, 90, hh, 'gun', 'gun + stylus');
+      box(X0 + 520, yy, 80, hh, 'work', 'tube, fixed');
+      arrow(X0 + 92, yy + hh / 2, X0 + 128, yy + hh / 2); arrow(X0 + 232, yy + hh / 2, X0 + 268, yy + hh / 2); arrow(X0 + 382, yy + hh / 2, X0 + 418, yy + hh / 2); arrow(X0 + 512, yy + hh / 2, X0 + 518, yy + hh / 2);
+      g.append(T(X0 + 270, yy + hh + 16, 'umbilical, feeder conduit and hose pull on the moving side', 'tf'));
+    } else {
+      box(X0 + 130, yy, 100, hh, 'load', 'holder (44 um/N)'); box(X0 + 270, yy, 110, hh, 'gun', 'gun + stylus, locked');
+      box(X0 + 420, yy, 90, hh, 'actuated', 'stack X, Z'); box(X0 + 520, yy, 80, hh, 'work', 'rotator, tube');
+      arrow(X0 + 92, yy + hh / 2, X0 + 128, yy + hh / 2); arrow(X0 + 232, yy + hh / 2, X0 + 268, yy + hh / 2); arrow(X0 + 92, yy + hh + 14, X0 + 418, yy + hh + 14, '#22c55e'); arrow(X0 + 512, yy + hh / 2, X0 + 518, yy + hh / 2);
+      g.append(T(X0 + 270, yy + hh + 30, 'nothing soft on the gun side; no cable on the moving side', 'tf'));
+    }
+    return g;
+  }
+
+  function panelLog() {
+    const g = S('g'), x0 = 640, y0 = 478;
+    g.append(T(x0, y0 - 6, 'Log (what a supervising program records per tube)', 'tb'));
+    const lines = run ? run.log.slice(-7) : ['(no run yet)'];
+    lines.forEach((l, i) => g.append(T(x0, y0 + 12 + i * 14, l.length > 62 ? l.slice(0, 61) + '…' : l, 'tf')));
+    return g;
+  }
+
+  function render() {
+    while (g0.firstChild) g0.removeChild(g0.firstChild);
+    const b = budget();
+    g0.append(panelA(), panelB(b), panelLog(), panelSchem());
+    const tip = TIPS[P.tip];
+    app.io.set({
+      commands: [
+        { name: 'Stage X, Z', value: run ? run.sx.toFixed(2) + ', ' + run.sz.toFixed(2) : P.sx.toFixed(2) + ', ' + P.sz.toFixed(2), unit: 'mm', note: 'proposed actuators; speeds ' + P.vf + ' and ' + P.vs + ' mm/s' },
+        { name: 'Touch sequence', value: run ? run.phase.replace('_', ' ') : 'idle', note: 'fast touch, retract, slow touch; wall then plate' },
+      ],
+      observes: [
+        { name: 'Contact', value: run && (deflX() > 0 || deflZ() > 0) ? 'closed' : 'open', status: 'seen', note: P.tip === 'stylus' ? 'a probe-class switch; repeatability ' + P.rep + ' mm (illustrative)' : 'continuity through the tip; whether the laser unit exposes it is unknown [manual pp. 19, 32]' },
+        { name: 'Stage position', value: run ? run.sx.toFixed(3) + ', ' + run.sz.toFixed(3) : '-', unit: 'mm', status: 'seen', note: 'step count; backlash ' + P.back + ' mm is not seen' },
+        { name: 'Corner against the dot', value: run && run.est ? run.est.x.toFixed(3) + ', ' + run.est.z.toFixed(3) : '-', unit: 'mm', status: run && run.est ? 'partly' : 'blind', note: 'error budget ±' + b.rmsX.toFixed(3) + ' mm per axis: ' + tip.tag },
+        { name: 'Dot versus melt', value: '?', status: 'unresolved', note: 'a tip at the dot says nothing about where the beam lands [unknown]' },
+      ],
+      manual: ['Swap the stylus for the nozzle and back', 'Coarse aim within a few millimetres of the corner', 'Clean the surface first'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'tip', label: 'Tip that does the touching', options: [{ value: 'stylus', label: 'Ball stylus', help: TIPS.stylus.label + ': ' + TIPS.stylus.tag }, { value: 'wire', label: 'Wire tip', help: TIPS.wire.label + ': ' + TIPS.wire.tag }, { value: 'nozzle', label: 'Copper nozzle', help: TIPS.nozzle.label + ': ' + TIPS.nozzle.tag }], value: 'stylus', kind: 'branch',
+    onChange: v => { P.tip = v; app.ui.set('rep', TIPS[v].rep); app.ui.set('swap', TIPS[v].swap); prerun(); render(); } });
+  app.ui.button({ id: 'run', label: 'Run one touch-off', kind: 'state', onClick: () => { startRun(); } });
+  app.ui.radio({ id: 'mount', label: 'What carries and moves the tip', options: [{ value: 'gun', label: 'Gun side: a stage in the shell', help: 'As first drawn: a fine stage carries the gun and stylus into the corner. Its compliance and the umbilical are in the touch.' }, { value: 'work', label: 'Work side: the tube stack', help: 'travel-15: the gun and stylus sit on a locked holder; the stack under the rotator drives the wall and plate into the ball.' }], value: 'gun', kind: 'branch', visual: 'the block diagram under the drawing', onChange: v => { P.mount = v; prerun(); render(); } });
+  app.ui.slider({ id: 'ts', label: 'Time-lapse', min: 1, max: 30, step: 1, value: 6, unit: '×', kind: 'view', noVisual: true, help: 'Animation speed only.', onChange: v => { P.ts = v; render(); } });
+  const ga = app.ui.group('Stage and sensor (scene edits)', { open: true });
+  ga.slider({ id: 'vf', label: 'Fast approach speed', min: 0.5, max: 5, step: 0.5, value: 2, unit: 'mm/s', kind: 'actuator', visual: 'the purple stage', help: 'A proposed axis.', onChange: v => { P.vf = v; prerun(); render(); } });
+  ga.slider({ id: 'vs', label: 'Slow touch speed', min: 0.05, max: 1, step: 0.05, value: 0.1, unit: 'mm/s', kind: 'actuator', visual: 'the purple stage', help: 'A proposed axis. The slow touch sets the late-detection bias.', onChange: v => { P.vs = v; prerun(); render(); } });
+  ga.slider({ id: 'tau', label: 'Detection latency', min: 1, max: 200, step: 1, value: 5, unit: 'ms', kind: 'scene', help: 'Illustrative. A microcontroller reading a probe is a few ms; a PLC handshake could be much more.', onChange: v => { P.tau = v; prerun(); render(); } });
+  ga.slider({ id: 'rep', label: 'Contact repeatability (1 sigma)', min: 0, max: 0.1, step: 0.005, value: 0.010, unit: 'mm', kind: 'scene', help: 'Set by the tip choice; edit it.', onChange: v => { P.rep = v; prerun(); render(); } });
+  ga.slider({ id: 'swap', label: 'Tip swap and seat repeatability (1 sigma)', min: 0, max: 0.4, step: 0.005, value: 0.030, unit: 'mm', kind: 'scene', help: 'How well the thread and seat put the tip back where it was after a swap; set by the tip choice (illustrative).', onChange: v => { P.swap = v; prerun(); render(); } });
+  ga.slider({ id: 'force', label: 'Touch force', min: 0.05, max: 1, step: 0.05, value: 0.3, unit: 'N', kind: 'scene', help: 'A fraction of a newton for a probe-class tip; times the compliance of what carries the tip it lands in the touch as a constant.', onChange: v => { P.force = v; prerun(); render(); } });
+  ga.slider({ id: 'vec', label: 'Tip-to-dot vector (systematic)', min: 0, max: 0.5, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'The stylus is at the dot only if the red pilot sits on the nozzle axis 16 mm out; the manual documents an alignment screen because it does not always [pp. 25, 39]. [unknown]. Better touching does not reduce it.', onChange: v => { P.vec = v; prerun(); render(); } });
+  ga.toggle({ id: 'cal', label: 'Calibrated against the dot on a coupon', value: false, kind: 'branch', help: 'Touch a coupon corner with the stylus and sweep the dot across the same corner (eyes-06); both in stage units, so the difference is the vector. The floor is the calibration\'s own accuracy, 0.05 mm here; the dot is still not the melt.', onChange: v => { P.cal = v; prerun(); render(); } });
+  ga.slider({ id: 'back', label: 'Backlash (±)', min: 0, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', help: 'Illustrative.', onChange: v => { P.back = v; prerun(); render(); } });
+  ga.slider({ id: 'debris', label: 'Debris bump on 1 touch in 10', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'Spatter, scale, dirt. Illustrative.', onChange: v => { P.debris = v; prerun(); render(); } });
+  const gs = app.ui.group('Where the hand left the tip (scene edits)', { open: true });
+  gs.slider({ id: 'sx', label: 'Start x from the corner', min: -8, max: -1.5, step: 0.1, value: -3.5, unit: 'mm', kind: 'scene', help: 'Coarse aim.', onChange: v => { P.sx = v; prerun(); render(); } });
+  gs.slider({ id: 'sz', label: 'Start z above the plate', min: 1.5, max: 5, step: 0.1, value: 3.0, unit: 'mm', kind: 'scene', help: 'Coarse aim.', onChange: v => { P.sz = v; prerun(); render(); } });
+
+  function prerun() { startRun(); for (let i = 0; i < 20000 && !run.done; i++) stepRun(0.01); }
+  app.onFrame(function (dt) {
+    if (!run || run.done) return false;
+    const steps = Math.max(1, Math.round(P.ts * dt / 0.01));
+    for (let i = 0; i < steps && !run.done; i++) stepRun(0.01);
+    render(); return !run.done;
+  });
+  prerun(); render();
+})();
+</script>
+</body>
+</html>

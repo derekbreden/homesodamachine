@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="628" viewBox="0 0 920 628">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14" y="26" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#111">A2  The arm carries, a dock locates: toolchanger-style kinematic coupling on a bench reference</text>
+<g transform="translate(10,40)">
+<rect x="0" y="0" width="900" height="560" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Section at y = 0: the shell docks on a bench-fixed kinematic receiver</text>
+<line x1="90.0" y1="520.0" x2="890.0" y2="520.0" stroke="#6b4f2a" stroke-width="3"/>
+<polygon points="320.0,496.0 620.0,496.0 620.0,484.0 320.0,484.0" stroke="#777" fill="#e8e2d0" stroke-width="1" fill-opacity="1.0"/>
+<polygon points="330.0,520.0 340.0,520.0 340.0,496.0 330.0,496.0" stroke="#777" fill="#e8e2d0" stroke-width="1" fill-opacity="1.0"/>
+<polygon points="600.0,520.0 610.0,520.0 610.0,496.0 600.0,496.0" stroke="#777" fill="#e8e2d0" stroke-width="1" fill-opacity="1.0"/>
+<polygon points="380.0,484.0 560.0,484.0 560.0,434.0 380.0,434.0" stroke="#777" fill="#efe9d8" stroke-width="1" fill-opacity="1.0" stroke-dasharray="4,3"/>
+<text x="322.0" y="476.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#777" text-anchor="start" font-weight="normal">existing rotator (schematic)</text>
+<polygon points="531.8,434.0 533.5,434.0 533.5,281.6 531.8,281.6" stroke="#444" fill="#9aa5ad" stroke-width="1" fill-opacity="1.0"/>
+<polygon points="408.2,434.0 406.5,434.0 406.5,281.6 408.2,281.6" stroke="#444" fill="#9aa5ad" stroke-width="1" fill-opacity="1.0"/>
+<polygon points="408.3,294.3 531.7,294.3 531.7,287.9 408.3,287.9" stroke="#444" fill="#b8c2c8" stroke-width="1" fill-opacity="1.0"/>
+<circle cx="531.8" cy="287.9" r="2.2" stroke="#d62828" fill="#d62828" stroke-width="1.2"/>
+<polygon points="512.2,260.8 512.7,259.9 513.8,259.0 515.0,258.6 515.9,258.8 526.3,275.2 526.5,275.9 526.0,276.9 525.0,277.7 523.8,278.1 522.9,277.9 512.5,261.5" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="492.6,240.6 494.5,236.9 498.6,233.7 503.2,232.2 506.7,232.9 520.8,255.0 521.7,257.7 519.8,261.4 515.7,264.6 511.1,266.1 507.6,265.4 493.5,243.3" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="474.4,207.0 475.7,204.6 478.3,202.5 481.3,201.5 483.5,202.0 504.4,234.7 505.0,236.5 503.8,238.9 501.1,241.0 498.1,242.0 495.9,241.5 475.0,208.7" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="460.5,196.1 463.2,190.9 469.0,186.4 475.5,184.2 480.4,185.2 488.6,198.0 489.9,201.8 487.2,207.0 481.4,211.6 474.9,213.7 470.0,212.7 461.8,199.9" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="389.3,101.0 415.6,80.2 430.6,91.9 491.8,188.0 465.5,208.8 450.5,197.1" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="436.5,162.0 448.9,146.8 472.1,128.4 489.6,150.3 477.2,165.4 454.0,183.8" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="389.3,101.0 415.6,80.2 430.6,91.9 472.1,128.4 489.6,150.3 505.0,236.5 503.8,238.9 501.1,241.0 498.1,242.0 495.9,241.5 450.5,197.1" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.6" fill-opacity="0.12" stroke-dasharray="5,3"/>
+<line x1="496.0" y1="223.0" x2="531.8" y2="287.9" stroke="#8a5a00" stroke-width="1.4"/>
+<line x1="524.6" y1="276.6" x2="531.8" y2="287.9" stroke="#d62828" stroke-width="1.0" stroke-dasharray="3,2"/>
+<polyline points="469.3,148.4 469.6,146.8 468.9,144.2 467.5,140.8 465.6,136.7 463.2,132.1 460.7,127.3 458.1,122.5 455.7,117.8 453.6,113.4 453.6,113.4 449.3,104.4 444.9,96.4 440.4,89.2 435.8,83.1 431.1,77.8 426.4,73.6 421.6,70.3 416.8,68.1 411.9,66.8 407.1,66.5 402.2,67.3 397.4,69.1 392.6,71.8 387.8,75.6 383.1,80.3 378.5,86.0 373.9,92.7 369.5,100.3 365.1,108.8 360.9,118.2 356.8,128.5 352.9,139.6 349.1,151.5 345.5,164.1 342.1,177.5 338.9,191.5 335.9,206.3 333.1,221.6 330.5,237.5 328.1,253.9 325.9,270.7 324.0,288.0 322.4,305.7 321.0,323.7 319.8,341.9 318.9,360.4 318.2,379.0 317.8,397.7 317.7,416.5 317.7,516.5" stroke="#555" fill="none" stroke-width="3.0" fill-opacity="1.0"/>
+<line x1="531.8" y1="287.9" x2="551.8" y2="327.9" stroke="#d62828" stroke-width="0.8"/>
+<text x="553.8" y="329.9" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#d62828" text-anchor="start" font-weight="normal">dot (inside corner)</text>
+<polygon points="170.0,520.0 200.0,520.0 200.0,80.0 170.0,80.0" stroke="#333" fill="#8d99ae" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="50.0" y="70.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">bench post (or the B head)</text>
+<polygon points="200.0,140.0 300.0,140.0 300.0,115.0 200.0,115.0" stroke="#333" fill="#dee2e6" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="200.0" y="156.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">fine XYZ stage</text>
+<polygon points="290.0,115.0 370.0,115.0 370.0,100.0 290.0,100.0" stroke="#111" fill="#495057" stroke-width="1.2" fill-opacity="1.0"/>
+<circle cx="300.0" cy="94.0" r="6.0" stroke="#111" fill="#e9ecef" stroke-width="1.2"/>
+<circle cx="330.0" cy="94.0" r="6.0" stroke="#111" fill="#e9ecef" stroke-width="1.2"/>
+<circle cx="360.0" cy="94.0" r="6.0" stroke="#111" fill="#e9ecef" stroke-width="1.2"/>
+<polygon points="290.0,88.0 370.0,88.0 370.0,76.0 290.0,76.0" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.2" fill-opacity="0.4"/>
+<line x1="370.0" y1="82.0" x2="415.0" y2="110.0" stroke="#2a6f97" stroke-width="5"/>
+<text x="180.0" y="50.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">3 balls in 3 V-grooves + magnet/latch (3D-printer toolchanger dock)</text>
+<polyline points="447.4,-20.0 447.4,-0.5 453.4,5.2 441.4,16.6 453.4,27.9 441.4,39.3 453.4,50.7 441.4,62.1 453.4,73.4 441.4,84.8 447.4,90.5 447.4,110.0" stroke="#b5451b" fill="none" stroke-width="1.4" fill-opacity="1.0"/>
+<text x="459.4" y="-10.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">arm / balancer floats the weight and parks the gun</text>
+</g>
+<text x="14" y="620" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">The dock repeats the shell's pose each time it is set down; the arm only moves weight. Take it off to tack or hand-weld, put it back to the same pose.</text>
+</svg>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table opening and low gantry</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-01-table-opening",
+  "title": "Table opening, low gantry, shelf under the hole",
+  "by": "room",
+  "origin": "derek-example",
+  "status": "deep",
+  "summary": "Derek's table example as he described it: the rotator hangs on a height shelf under a hole so the rim is flush with the table, a low gantry rides on the table beside the tube, and a printed shell holds the gun. Switch the table between hole, notch and edge, drop in a badly seated tube, and null the dot with three axes.",
+  "tags": ["table", "gantry", "shelf", "hole", "edge", "notch", "rim-flush"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["table plane as the rim datum", "post-and-arm reach to a shell lug", "room-fixed camera", "null-the-dot loop"],
+  "how": {
+    "motion": "gantry X and carriage Y over the table; shelf lifts the tube (Z); rotator turns it",
+    "load": "table and its hung box carry rotator and gantry; the shell hangs on a post and arm from the carriage",
+    "reference": "table top is the rim plane; rails and dowels on the table; saddle prints set the angles",
+    "observe": "room-fixed top camera for the dot; side camera above the rim: nozzle height and the plate-wall corner",
+    "use": "drop the tube in from above, null the dot with three axes, then weld"
+  },
+  "software": {
+    "commands": ["gantry X (radial)", "carriage Y (tangent slide)", "shelf Z (tube height)", "rotator speed and direction (existing console)"],
+    "observes": ["dot vs seam from the top camera when nothing blocks it", "nozzle height over the rim and plate depth (the corner edge) from the side camera, laser off", "step counts and rotator turned-so-far"],
+    "manual": ["dropping the tube through the hole and seating it", "indicating the tube through the open face", "tacking the plate", "placing the gantry frame on the table", "printing a new saddle when a fixed angle changes"]
+  },
+  "notes": ["../../explorers/room/ideas/room-01-table-opening.md", "../../explorers/room/ideas/room-01b-edge-notch-slot.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RIM = 152.4, HOLE_R = 80, TOP = RIM, THICK = 30;
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'none' },
+    viewButtons: ['overall', 'joint', 'top', 'section'],
+    views: {
+      overall: { target: [10, -120, 190], dir: [0.7, -0.62, 0.42], dist: 900 },
+      joint: { target: [45, -30, 165], dir: [0.8, -0.5, 0.45], dist: 260 },
+      top: { target: [10, -110, 150], dir: [0, -0.003, 1], dist: 900 },
+      section: { target: [0, -60, 40], dir: [-1, -0.05, 0.08], dist: 1000 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The rotator is <b>below</b> the table on a shelf; the tube stands through a hole so its <b>rim is flush with the table top</b>. Everything the gun structure needs is now about 40 mm above its rails instead of about 270 mm. A short gantry sits on the table <i>beside</i> the tube (bridge at x&nbsp;≈&nbsp;100 mm, out of the barrel\'s way) and a post and arm reach the printed shell\'s collar lug. The two rolls and the turn in plan are fixed by the printed saddle, not driven.</p>' +
+        '<p><b>Try:</b> a new tube has been dropped in (it sits 4&nbsp;mm off in X, 3&nbsp;mm off in Y, and its plate is 2&nbsp;mm deep). Watch the corner inset, then move the three purple axes, or press <i>Run a simulated null loop</i>. Switch the table between hole, notch and edge. Move the grommet to see what the umbilical needs.</p>',
+      carries: '<p><b>Amber</b> parts carry load: the table and its hung box carry the rotator; rails, bridge, carriage, post and arm carry the shell; the shelf carries the rotator and tube. <b>Teal</b> locates: the table plane (rim height), the rail edges, and the collar lug. <b>Purple</b> moves under software: gantry X, carriage Y, shelf Z, rotator. <b>Free</b>: nothing is deliberately free; the umbilical is the loose element and it is drawn as a cable, not as a force.</p>' +
+        '<p>Only the tube\'s radial position, its height and the gun\'s slide along the tangent are adjustable. Roll, hole-axis tilt and the turn in plan come from the saddle print (sliders under <i>Print-time choices</i>: scene edits, not actuators).</p>',
+      software: '<p>The I/O panel lists what a station like this could be commanded to do and what it could see. The top camera is fixed to the room, so its calibration never changes when the gantry moves. The corner inset draws the <b>exact</b> scene error; the blue <b>est.</b> marker is what a camera-based estimate might report (illustrative bias and noise). The null loop uses only the estimate.</p>',
+      tried: '<ul>' +
+        '<li><b>"The hole shrinks the tube\'s XY."</b> Only if the hole fits. A Ø160 hole around the Ø127 tube lets the axis sit anywhere within ±16.5&nbsp;mm; that is what the tube-offset sliders show. A fitted collar would make it about ±0.2&nbsp;mm. What the hole does shrink reliably is <b>Z and height</b>: the rim is a table-plane datum and the support stands 40, not 270&nbsp;mm, above its rails (calc: <code>table-opening-numbers.mjs</code>: a bare 2020 post 270&nbsp;mm tall moves 14&nbsp;µm/N; at 40&nbsp;mm it is negligible). The pit is a simplifier, not a stiffness fix.</li>' +
+        '<li><b>A bridge over the tube hits the barrel.</b> At the opening pose the barrel leaves the nozzle 5&nbsp;mm above the rim and rises at 45°; anything wider than 20&nbsp;mm crossing over the tube at +30&nbsp;mm meets it. <i>Repair:</i> put the bridge outside the tube\'s plan (x&nbsp;≈&nbsp;100) and reach the collar lug with a post and arm. <i>Leaves:</i> a cantilevered arm about 95&nbsp;mm long.</li>' +
+        '<li><b>Y is an angle in disguise.</b> A 1&nbsp;mm tangent slide turns the approach 0.93° in plan and misses the seam radially by only 0.008&nbsp;mm. <i>Repair:</i> keep Y small, treat it as a plan-angle trim; larger changes are a new saddle print. <i>Leaves:</i> there is no driven yaw.</li>' +
+        '<li><b>The umbilical.</b> It leaves the grip base about 130&nbsp;mm above the table, pointing away and slightly up, and may not bend tighter than 350&nbsp;mm while emitting (manual). Slide the grommet in the <i>Umbilical</i> group: closer than about 800&nbsp;mm behind the tube axis the arc needed is tighter than the manual\'s limit and the badge turns amber, then red. <i>Repair:</i> a table 0.9&nbsp;m deep behind the gun, or a loop hung from above (see room-02). <i>Leaves:</i> the route drawn is an arc and a straight run, not a physical drape. <i>Leaves:</i> the cable\'s pull on the gun is a fixed-direction force that varies with position; not measured.</li>' +
+        '<li><b>Spatter and clippings into the annulus.</b> A loose hole leaves an open ring around the tube above a plastic (PET-GF) rotator. <i>Repair (untested):</i> a metal skirt or collar ring on the table and nest. <i>Leaves:</i> whether the reflected beam scorches the table top 5&nbsp;mm below the nozzle. A metal insert around the hole is the obvious first guess.</li>' +
+        '<li><b>The shelf can crash the plate into the nozzle.</b> The nozzle tip is only about 11&nbsp;mm above the plate face at the opening pose, and closer to the rim. Raising the shelf about 11&nbsp;mm past nominal makes the plate meet the nozzle; the clearance readout goes to zero and a badge turns red (<i>Nozzle / barrel clearance</i>). <i>Repair:</i> a hard stop above nominal and a limit switch on the shelf; the software should never command upward beyond the stop. <i>Leaves:</i> the stop must be set per saddle print, because it depends on the pose.</li>' +
+        '<li><b>Edge instead of hole (Derek\'s own question).</b> Works if the table ends at the tube\'s tangent, but the shelf then hangs half off the edge; the box is a cantilever and the bridge is one-sided. Switch to <i>edge</i> to see it. The notch keeps a table on both sides and lets the rotator slide in from the open side.</li></ul>',
+      unresolved: '<ul><li>How loose or fitted the hole should be. It sets whether the gantry has to cover ±16 mm or ±0.5 mm. [Derek: what does the bench allow?]</li>' +
+        '<li>Tube length and plate seat depth vary by an unknown amount; ±3 mm is illustrative. The side camera sees the plate-wall corner only from about 14&nbsp;mm above the rim and higher (eyes-16); below that the rim or the table hides it, and only the top camera sees the dot.</li>' +
+        '<li>Gun mass, centre of mass, umbilical pull: none measured. The post-and-arm is a picture, not a stiffness claim.</li>' +
+        '<li>Hand access to the rotator and the indicator under the table (open face) and where the second closure\'s ports go.</li></ul>',
+      assumptions: '<ul><li>Gun proxy, opening pose (roll 45°, hole dial 30°, vertical −15°), 16&nbsp;mm nozzle clearance: illustrative (kit).</li>' +
+        '<li>Table 30&nbsp;mm thick, hole Ø160, bridge at x&nbsp;≈&nbsp;100, rails 130&nbsp;mm long, shelf travel ±12&nbsp;mm, gantry travel ±15&nbsp;mm: illustrative.</li>' +
+        '<li>Tube axis offset (4, −3)&nbsp;mm and plate 2&nbsp;mm deep at the start: illustrative, chosen so there is something to null.</li>' +
+        '<li>Camera views are drawn-scene line of sight, not optics. Estimate bias 0.10&nbsp;mm radial, −0.06&nbsp;mm vertical and noise 0.04&nbsp;mm in the null loop are made up.</li>' +
+        '<li>Motion models: the gun translates rigidly with the carriage; the shelf moves the whole rotator and tube. Nothing stretches; the print-time sliders re-aim the arm because a new shell is printed.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const S = { gx: 0, gy: 0, dz: 0, xt: 4, yt: -3, seat: -2, roll: 45, hole: 30, vert: -15, form: 'hole', gr: 850, camAz: 200, camH: 330, camR: 220, ghost: false, tableSee: true, sideH: 30 };
+
+  // ---------------------------------------------------------------- table (three forms) + box under it
+  const tableMat = () => WK.mat('fixed', { shade: 1.0, opacity: S.tableSee ? 0.28 : undefined, side: 'double' });
+  const table = new THREE.Mesh(new THREE.BufferGeometry(), tableMat()); table.userData.role = 'fixed'; table.userData.occludes = true; table.name = 'table top';
+  app.add(table);
+  function tableGeo(form, D0) {
+    const D1 = 230, sh = new THREE.Shape();
+    if (form === 'edge') { sh.moveTo(-380, D0); sh.lineTo(380, D0); sh.lineTo(380, -70); sh.lineTo(-380, -70); sh.closePath(); }
+    else if (form === 'notch') {
+      sh.moveTo(-380, D0); sh.lineTo(380, D0); sh.lineTo(380, D1); sh.lineTo(HOLE_R, D1); sh.lineTo(HOLE_R, 0); sh.absarc(0, 0, HOLE_R, 0, Math.PI, true); sh.lineTo(-HOLE_R, D1); sh.lineTo(-380, D1); sh.closePath();
+    } else {
+      sh.moveTo(-380, D0); sh.lineTo(380, D0); sh.lineTo(380, D1); sh.lineTo(-380, D1); sh.closePath();
+      const hp = new THREE.Path(); hp.absarc(0, 0, HOLE_R, 0, Math.PI * 2, true); sh.holes.push(hp);
+    }
+    const g = new THREE.ExtrudeGeometry(sh, { depth: THICK, bevelEnabled: false, curveSegments: 56 });
+    g.translate(0, 0, TOP - THICK);
+    return g;
+  }
+  // a hole edge ring so the opening reads even on an opaque top
+  const holeRing = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(Array.from({ length: 97 }, (_, i) => V(HOLE_R * Math.cos(i / 96 * 2 * Math.PI), HOLE_R * Math.sin(i / 96 * 2 * Math.PI), TOP + 0.3))), WK.lineMat('locate', { onTop: true }));
+  holeRing.userData.role = 'locate'; holeRing.userData.occludes = false; app.add(holeRing);
+  // table-top grid marks (50 mm) for scale
+  (function () {
+    const pts = []; for (let x = -350; x <= 350; x += 50) pts.push(V(x, -400, TOP + 0.2), V(x, 230, TOP + 0.2));
+    for (let y = -400; y <= 230; y += 50) pts.push(V(-380, y, TOP + 0.2), V(380, y, TOP + 0.2));
+    const gl = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.25 })); gl.userData.role = 'fixed'; gl.userData.occludes = false; app.add(gl);
+  })();
+
+  // posts (hung from the table underside to the box floor); shelf collars ride them
+  const BASE_Z = -250, postXY = [[-175, -150], [175, -150], [-175, 150], [175, 150]];
+  const posts = postXY.map(p => { const r = P.rod(V(p[0], p[1], BASE_Z), V(p[0], p[1], TOP - THICK), 6, 'fixed'); app.add(r); return r; });
+  const boxFloor = P.box(420, 380, 10, 'fixed'); boxFloor.position.set(0, 0, BASE_Z - 5); app.add(boxFloor);
+  // shelf + collars ride with the tube (they live in the workstation group so they move with the shelf actuator)
+  const shelf = P.box(370, 320, 8, 'load'); shelf.position.set(0, 0, -90); ws.group.add(shelf);
+  const collars = postXY.map(p => { const c = P.box(26, 26, 22, 'actuated'); c.position.set(p[0], p[1], -92); ws.group.add(c); return c; });
+  // Z drive: motor at the box floor with a screw up to a collar (schematic)
+  const zMotor = P.motor(42, 'actuated'); zMotor.position.set(-175, -150, BASE_Z + 44); zMotor.rotation.x = 0; app.add(zMotor);
+  // box back walls (ghost) so the 'upside-down box' reads; open face toward +Y
+  const BOXH = TOP - THICK - BASE_Z;
+  const wallL = P.plane(BOXH, 380, 'ghost'), wallR = P.plane(BOXH, 380, 'ghost'), wallB = P.plane(420, BOXH, 'ghost');
+  [wallL, wallR].forEach((w, i) => { w.rotation.set(0, Math.PI / 2, 0); w.position.set(i ? 210 : -210, 0, (TOP - THICK + BASE_Z) / 2); app.add(w); });
+  wallB.rotation.set(Math.PI / 2, 0, 0); wallB.position.set(0, -190, (TOP - THICK + BASE_Z) / 2); app.add(wallB);
+
+  // ---------------------------------------------------------------- gantry on the table
+  const RZ = TOP + 4, XR0 = 40, XR1 = 170;                    // X-rail centre height and x extent (short: travel is +/-15)
+  const xRailN = P.rail(V(XR0, -260, RZ), V(XR1, -260, RZ), { width: 14, height: 8, role: 'fixed' });
+  const xRailS = P.rail(V(XR0, 110, RZ), V(XR1, 110, RZ), { width: 14, height: 8, role: 'fixed' });
+  [xRailN, xRailS].forEach(r => app.add(r));
+  const truckN = P.carriage([30, 30, 14], 'actuated', { rail: xRailN, t: 0.5 }), truckS = P.carriage([30, 30, 14], 'actuated', { rail: xRailS, t: 0.5 });
+  app.add(truckN); app.add(truckS);
+  const BZ = TOP + 46;
+  const bridge = P.rail(V(100, -260, BZ), V(100, 110, BZ), { width: 16, height: 10, role: 'load' }); app.add(bridge);
+  const upN = P.rod(V(100, -260, RZ + 10), V(100, -260, BZ), 5, 'load'), upS = P.rod(V(100, 110, RZ + 10), V(100, 110, BZ), 5, 'load'); app.add(upN); app.add(upS);
+  const carriage = P.carriage([30, 36, 20], 'actuated', { rail: bridge, t: 0.5 }); app.add(carriage);
+  const post = P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'load'), arm = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'load'); app.add(post); app.add(arm);
+
+  // ---------------------------------------------------------------- gun + shell + collar lug
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const lug = shell.attachPoint('collar', { side: 'right', role: 'locate', size: 9 });
+  gun.setLaser(true);
+  // the proxy handed to the corner inset: exact dot offset in the TUBE's frame, with the plate seat depth applied
+  const proxy = {
+    dotOffset: function () {
+      const d = gun.dotWorld().sub(ws.group.position), o = ws.offsetOf(d);
+      o.vertical -= S.seat; o.miss = Math.hypot(o.radial, o.vertical);
+      return o;
+    },
+    beamDir: () => gun.beamDir(),
+  };
+  app.cornerInset({ gun: proxy });
+
+  // umbilical to a table grommet: leaves the grip base along its exit direction, turns on an arc of at least the manual's
+  // 350 mm (emitting) radius, then runs straight to the grommet. If the grommet is too close for that, the best single arc
+  // through it is drawn and the badge says so. Planar route in the plane of the exit direction and the grommet. Illustrative.
+  let cable = null; const grommet = P.cyl(9, 4, 'fixed'); app.add(grommet);
+  function umbilicalPoints(P0, d0, Q, Rmin) {
+    const w = Q.clone().sub(P0), a = w.dot(d0), wp = w.clone().addScaledVector(d0, -a), b = wp.length();
+    if (b < 1e-6) return { pts: [P0, Q], R: Infinity, ok: true };
+    const n = wp.clone().multiplyScalar(1 / b), Rarc = w.lengthSq() / (2 * b), ok = Rarc >= Rmin, R = ok ? Rmin : Rarc;
+    const dQ = Math.hypot(a, b - R), delta = Math.atan2(R - b, a);
+    let phi = Math.asin(Math.min(1, R / dQ)) - delta; if (!ok) phi = 2 * Math.asin(Math.min(1, w.length() / (2 * R))) ; if (phi < 0) phi = 0;
+    const at = q => P0.clone().addScaledVector(d0, R * Math.sin(q)).addScaledVector(n, R * (1 - Math.cos(q)));
+    const pts = []; const steps = 28; for (let i = 0; i <= steps; i++) pts.push(at(phi * i / steps));
+    const T = pts[pts.length - 1];
+    for (let i = 1; i <= 6; i++) pts.push(T.clone().lerp(Q, i / 6));
+    return { pts: pts, R: R, ok: ok, Rarc: Rarc };
+  }
+  function rebuildCable() {
+    const c0 = WK.GRIP_BASE_LOCAL.clone().addScaledVector(WK.LOCAL_ROLL_AXIS, 70), start = gun.local(c0), sdir = gun.dir(WK.LOCAL_ROLL_AXIS).normalize();
+    const end = V(-40, -S.gr, TOP + 3);
+    grommet.position.set(end.x, end.y, TOP + 1);
+    const route = umbilicalPoints(start, sdir, end, WK.CABLE.minBendEmitting);
+    if (!cable) { cable = P.cable(route.pts, { radius: 4.5, role: 'cable', segments: 120 }); app.add(cable); } else cable.setPoints(route.pts);
+    const r = route.ok ? WK.CABLE.minBendEmitting : route.R, b = WK.cableBadge(r);
+    app.badge('bend', route.ok ? null : 'umbilical would need R ' + r.toFixed(0) + ' mm to reach the grommet (manual: 350 emitting); move the grommet back', route.ok ? 'ok' : (r >= WK.CABLE.minBendStored ? 'warn' : 'limit'));
+    readBend(route.ok ? '350+ (ok)' : r.toFixed(0) + ' (too tight)', 'mm');
+    return r;
+  }
+
+  // ---------------------------------------------------------------- observers (proposed, drawn-scene line of sight)
+  const camPos = V(0, 0, 0);
+  function placeCam() { camPos.set(S.camR * Math.cos(S.camAz * DEG), S.camR * Math.sin(S.camAz * DEG), S.camH); }
+  placeCam();
+  const topCam = app.inset.add({ id: 'top', label: 'Top camera, fixed to the room (proposed)', position: () => camPos, target: () => gun.dotWorld(), fov: 34, near: 30, far: 1500, size: [220, 150], corner: 'br', noise: 0.25 });
+  const sideCam = app.inset.add({ id: 'side', label: 'Table-level side camera (proposed)', position: V(-300, -20, TOP + 30), target: () => gun.local('nozzleTip'), fov: 22, near: 30, far: 1500, size: [220, 130], corner: 'bl', noise: 0.2 });
+  const lblCam = app.label(camPos, 'top camera (room)', { cls: 'sensor' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(carriage, 'carriage Y', { cls: 'actuated' });
+  app.label(() => bridge.position.clone().add(V(0, 190, 24)), 'bridge X (gantry)', { cls: 'actuated' });
+  app.label(shelf, 'shelf Z', { cls: 'actuated' });
+  app.label(() => lug.world(), 'shell lug', { cls: 'locate' });
+  app.label(V(200, 210, TOP), 'table top = rim plane', { cls: 'locate' });
+  app.label(grommet, 'umbilical grommet');
+
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+
+  // ---------------------------------------------------------------- one update for everything
+  let nullRunning = null;
+  function update() {
+    ws.group.position.set(S.xt, S.yt, S.dz);
+    ws.cap.position.z = S.seat; ws.weldCircle.position.z = WK.CAP_TOP + 0.3 + S.seat; if (ws.parts.plateTick) ws.parts.plateTick.position.z = WK.CAP_TOP + 0.25 + S.seat;
+    gun.setDials(S.roll, S.hole, S.vert); gun.group.position.x += S.gx; gun.group.position.y += S.gy;
+    gun.group.updateMatrixWorld(true);
+    const nc = nozzleClear(gun.local('nozzleTip'), gun.dir([0, 0, 1]), ws.group.position, S.seat);
+    app.badge('hit', nc.min < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : (nc.min < 2 ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(nc.min.toFixed(1), 'mm');
+    // table form
+    const tkey = S.form + '|' + Math.max(400, S.gr + 100);
+    if (table.userData.key !== tkey) { table.geometry.dispose(); table.geometry = tableGeo(S.form, -Math.max(400, S.gr + 100)); table.userData.key = tkey; holeRing.visible = S.form === 'hole'; }
+    table.material = tableMat();
+    if (S.form === 'edge') { posts.forEach((p, i) => { p.visible = i < 2; }); }
+    else posts.forEach(p => { p.visible = true; });
+    // gantry: post and arm follow the lug (the lug moves with the gun)
+    const lw = lug.world(), xb = 100 + S.gx;
+    const railS = S.form !== 'edge';
+    const y0 = -260, y1 = railS ? 110 : -60;
+    bridge.setEnds(V(xb, y0, BZ), V(xb, y1, BZ));
+    const tX = (xb - XR0) / (XR1 - XR0);
+    truckN.setT(tX); truckS.setT(tX); truckS.visible = railS; xRailS.visible = railS; upS.visible = railS;
+    upN.setEnds(V(xb, y0, RZ + 10), V(xb, y0, BZ)); upS.setEnds(V(xb, y1, RZ + 10), V(xb, y1, BZ));
+    carriage.setT((lw.y - y0) / (y1 - y0));
+    const cz = BZ + 5 + 20;
+    post.setEnds(V(xb, lw.y, cz), V(xb, lw.y, lw.z)); arm.setEnds(V(xb, lw.y, lw.z), lw);
+    // umbilical
+    rebuildCable();
+    // observers
+    const seeDot = app.inset.markVisibility('top', gun.dotWorld(), { ignore: [] });
+    sideCam.setPose(V(-300, -20, TOP + S.sideH), () => gun.local('nozzleTip'));
+    // the tip is on the axis of a thin part: eps 3 (kit README section 5). The plate-wall corner is ON the wall: test a point nudged 0.4 mm toward the camera.
+    const seeTip = app.inset.markVisibility('side', gun.local('nozzleTip'), { eps: 3 });
+    const jn = ws.jointNow().clone(), toCam = V(-300, -20, TOP + S.sideH).sub(jn).normalize();
+    const seeCorner = app.inset.markVisibility('side', jn.addScaledVector(toCam, 0.4), { eps: 0.8 });
+    placeCam();
+    const off = proxy.dotOffset();
+    const est = seeDot.visible ? { radial: off.radial + 0.10 + estNoise.r, vertical: off.vertical - 0.06 + estNoise.z } : null;
+    app.cornerInset.setEstimate(est);
+    const miss = off.miss;
+    app.badge('miss', miss > 0.3 ? 'dot is ' + miss.toFixed(2) + ' mm from the seam' : (miss > 0.08 ? 'dot within ' + miss.toFixed(2) + ' mm' : null), miss > 1.5 ? 'limit' : 'warn');
+    setRim((S.dz).toFixed(1), 'mm'); setMiss(miss.toFixed(2), 'mm');
+    const seatTxt = S.seat.toFixed(1);
+    const pax = gun.dir([0, 0, 1]), ang = Math.atan2(pax.x, -pax.y) / DEG;   // plan angle of the barrel's back direction vs the -Y tangent at the station
+    setAng(Math.abs(ang).toFixed(0) + '° off the tangent');
+    app.io.set({
+      commands: [
+        { name: 'Gantry X (radial)', value: S.gx.toFixed(2), unit: 'mm', note: 'stepper on the X trucks; 1:1 with the dot' },
+        { name: 'Carriage Y (tangent slide)', value: S.gy.toFixed(2), unit: 'mm', note: '0.93 deg of approach angle per mm' },
+        { name: 'Shelf Z (tube height)', value: S.dz.toFixed(2), unit: 'mm', note: 'screws under the shelf corners; rim ' + (S.dz >= 0 ? 'proud of' : 'below') + ' the table by ' + Math.abs(S.dz).toFixed(1) + ' mm' },
+        { name: 'Rotator speed / direction', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing ESP32 console' },
+      ],
+      observes: [
+        { name: 'Dot vs seam (top camera)', value: est ? est.radial.toFixed(2) + ', ' + est.vertical.toFixed(2) : '-', unit: est ? 'mm r,z' : '', status: seeDot.visible ? 'partly' : 'blind', note: seeDot.visible ? 'estimate with made-up bias and noise; the corner inset shows the exact scene error' : 'top camera is ' + (seeDot.inFov ? 'blocked' : 'looking elsewhere') + ' right now' },
+        { name: 'Nozzle over the rim (side camera)', value: seeTip.visible ? (gun.local('nozzleTip').z - (TOP + S.dz)).toFixed(1) : '-', unit: seeTip.visible ? 'mm' : '', status: seeTip.visible ? 'seen' : 'blind', note: 'from the silhouette against the rim; drawn-scene line of sight' },
+        { name: 'Plate depth: the corner edge below the rim (side camera)', value: seeCorner.visible ? (6.35 - S.seat).toFixed(2) : '-', unit: seeCorner.visible ? 'mm rim to plate' : '', status: seeCorner.visible ? 'partly' : 'blind', note: seeCorner.visible ? 'two edges in one frame with the laser off: a difference, not a position (eyes-16); illustrative noise about 0.03 mm; whether the corner is a clean edge on stainless is unchecked' : 'the rim or the table hides the corner from this height: raise the side camera to about 14 mm above the rim or more (Side camera height)' },
+        { name: 'Shelf and gantry position', value: 'step counts', status: 'partly', note: 'open loop with home switches; no linear scale' },
+        { name: 'Wire tip, stuck wire, umbilical pull', value: '-', status: 'unresolved', note: 'no sensor proposed' },
+      ],
+      manual: ['Drop the tube through the hole and seat it', 'Indicate the tube through the open face', 'Tack the plate', 'Register the gantry frame on the table', 'Print a new saddle when a fixed angle changes'],
+    });
+  }
+  const estNoise = { r: 0, z: 0 };
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setRim = app.ui.readout('rim', 'Rim above table'), setMiss = app.ui.readout('miss', 'Dot to seam (exact)'), readBend = app.ui.readout('bend', 'Umbilical min bend radius'), setAng = app.ui.readout('ang', 'Gun plan angle (opening pose)');
+
+  // ---------------------------------------------------------------- controls
+  const cmd = app.ui.group('Commands (proposed actuators)', { help: 'Purple parts and gear badges: axes software could drive. Ranges are illustrative.' });
+  cmd.slider({ id: 'gx', label: 'Gantry X (radial in / out)', min: -15, max: 15, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [bridge, truckN, truckS, carriage], help: 'Moves bridge, carriage and gun together; the dot moves 1:1 in radius.', onChange: v => { S.gx = v; update(); } });
+  cmd.slider({ id: 'gy', label: 'Carriage Y (tangent slide)', min: -15, max: 15, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [carriage], help: 'Slides the gun along the tangent: mostly an angle change in plan (0.93° per mm).', onChange: v => { S.gy = v; update(); } });
+  cmd.slider({ id: 'dz', label: 'Shelf Z (tube up / down)', min: -12, max: 12, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [shelf, ws.tube, ws.turntable], help: 'Lifts the rotator and tube; the rim rises above the table when positive.', onChange: v => { S.dz = v; update(); } });
+  cmd.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'Existing rotator; runout below makes the dot wander while it turns.', onChange: v => { ws.spin.on = v; update(); } });
+  cmd.button({ id: 'nullloop', label: 'Run a simulated null loop', kind: 'state', help: 'Uses only the camera ESTIMATE (biased, noisy) to step X and Z until it stops improving. Illustrative loop, not a claim about a real sensor.', onClick: runNullLoop });
+
+  const tube = app.ui.group('What the last tube did (scene edits)', { help: 'Not hardware: a new tube was dropped through the hole; where it sits is up to it.' });
+  tube.slider({ id: 'xt', label: 'Tube axis offset X in the hole', min: -16, max: 16, step: 0.1, value: 4, unit: 'mm', kind: 'scene', visual: () => [ws.tube], help: 'Ø160 hole around Ø127 tube allows about ±16.5 mm.', onChange: v => { S.xt = v; update(); } });
+  tube.slider({ id: 'yt', label: 'Tube axis offset Y in the hole', min: -16, max: 16, step: 0.1, value: -3, unit: 'mm', kind: 'scene', visual: () => [ws.tube], onChange: v => { S.yt = v; update(); } });
+  tube.slider({ id: 'seat', label: 'Plate seat depth vs nominal', min: -6, max: 3, step: 0.05, value: -2, unit: 'mm', kind: 'scene', visual: () => [ws.cap], help: 'Negative: the plate sits deeper. Tube length and seat depth vary by an unknown amount.', onChange: v => { S.seat = v; update(); } });
+  tube.toggle({ id: 'runout', label: 'Show indicated runout while turning', value: false, kind: 'scene', visual: () => ws.tubeGroup, help: '0.25 / 0.30 mm TIR limits from the rig doc, exaggerated 20x.', onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+
+  const form = app.ui.group('Table form', {});
+  form.radio({ id: 'form', label: 'Neighbours of the opening', options: [{ value: 'hole', label: 'hole', help: 'Derek\'s example: closed ring of table around the tube.' }, { value: 'notch', label: 'notch', help: 'Slot open to +Y: the rotator can slide in sideways; table both sides.' }, { value: 'edge', label: 'edge', help: 'Table ends at the tube: shelf and box are cantilevered, the bridge is one-sided.' }], value: 'hole', kind: 'branch', visual: () => [table], onChange: v => { S.form = v; update(); } });
+  form.toggle({ id: 'tsee', label: 'See-through table', value: true, kind: 'view', onChange: v => { S.tableSee = v; update(); } });
+  form.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+
+  const pr = app.ui.group('Print-time choices (saddle: not actuators)', { help: 'The shell sits in a printed saddle at these angles (the reference scene\'s dials). A change means a new print; the arm is re-aimed.', open: false });
+  pr.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.roll = v; update(); } });
+  pr.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.hole = v; update(); } });
+  pr.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: v => { S.vert = v; update(); } });
+
+  const um = app.ui.group('Umbilical', {});
+  um.slider({ id: 'gr', label: 'Grommet distance from the tube axis (−Y)', min: 300, max: 1200, step: 5, value: 850, unit: 'mm', kind: 'scene', visual: () => [grommet, cable], help: 'Where the fibre goes through the table. The manual asks 350 mm minimum bend radius while emitting.', onChange: v => { S.gr = v; update(); } });
+
+  const scg = app.ui.group('Proposed side camera (table level, room-fixed)', { open: false });
+  scg.slider({ id: 'sideh', label: 'Side camera height above the rim', min: 6, max: 70, step: 1, value: 30, unit: 'mm', kind: 'scene', visual: 'the side camera inset (bottom left)', help: 'Nozzle height over the rim is seen at any height; the plate-wall corner (plate depth) is hidden below about 14 mm.', onChange: v => { S.sideH = v; update(); } });
+  const cam = app.ui.group('Proposed top camera (room-fixed)', { open: false });
+  cam.slider({ id: 'camaz', label: 'Camera azimuth', min: 0, max: 360, step: 1, value: 200, unit: '°', kind: 'scene', visual: () => topCam.helper, onChange: v => { S.camAz = v; update(); } });
+  cam.slider({ id: 'camh', label: 'Camera height', min: 200, max: 700, step: 5, value: 330, unit: 'mm', kind: 'scene', visual: () => topCam.helper, onChange: v => { S.camH = v; update(); } });
+  cam.slider({ id: 'camr', label: 'Camera radius', min: 60, max: 450, step: 5, value: 220, unit: 'mm', kind: 'scene', visual: () => topCam.helper, onChange: v => { S.camR = v; update(); } });
+
+  function runNullLoop() {
+    if (nullRunning) { clearInterval(nullRunning); nullRunning = null; app.toast('null loop stopped'); return; }
+    let n = 0, hist = [];
+    const rnd = () => (Math.random() * 2 - 1);
+    nullRunning = setInterval(function () {
+      const off = proxy.dotOffset();
+      const seen = app.inset.markVisibility('top', gun.dotWorld());
+      if (!seen.visible) { clearInterval(nullRunning); nullRunning = null; app.toast('top camera cannot see the dot: the loop has nothing to steer by'); return; }
+      const e = { r: off.radial + 0.10 + rnd() * 0.04, z: off.vertical - 0.06 + rnd() * 0.04 };
+      n++;
+      app.ui.set('gx', +(S.gx - 0.7 * e.r).toFixed(2));        // dot too far out (radial +) -> move the gun in
+      app.ui.set('dz', +(S.dz + 0.7 * e.z).toFixed(2));         // dot above the plate (vertical +) -> lift the tube
+      if ((Math.abs(e.r) < 0.06 && Math.abs(e.z) < 0.06) || n >= 20) { clearInterval(nullRunning); nullRunning = null; app.toast('null loop finished after ' + n + ' steps: exact miss ' + proxy.dotOffset().miss.toFixed(2) + ' mm (limited by the estimate\'s bias)'); }
+    }, 300);
+  }
+})();
+</script>
+</body>
+</html>

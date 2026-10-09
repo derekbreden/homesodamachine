@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference pucks</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .rp-card { font-size: 12.5px; line-height: 1.45; color: #cfd6e2; }
+  .rp-card h4 { margin: 0 0 4px; font-size: 13px; color: #fff; }
+  .rp-card dl { margin: 6px 0 0; display: grid; grid-template-columns: 96px 1fr; gap: 3px 8px; }
+  .rp-card dt { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; padding-top: 2px; }
+  .rp-card dd { margin: 0; }
+  .rp-card .ok { color: #34d399; } .rp-card .bad { color: #f87171; } .rp-card .mid { color: #fbbf24; }
+  .rp-num { font-variant-numeric: tabular-nums; color: #fff; font-weight: 600; }
+  .rp-small { font-size: 11px; color: var(--wk-faint); font-style: italic; margin-top: 6px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-22-reference-pucks",
+  "title": "Reference pucks: the calibration set rides the same seats as the tubes",
+  "by": "trials",
+  "origin": "combination",
+  "status": "deep",
+  "summary": "The artefact ladder of trials-05 made into pucks. A board puck with a printed grid, the seam ring, the two ports and a rim-height ring; a real-steel coupon; a notch puck; a clear twin; a golden tube: each lands on the same three kinematic seats as any tube, so the eye is calibrated against the rotator's frame, not against whichever tube is loaded, and the same rim-and-ports fit runs on the board and on the next tube. The AI swaps one in after any event or on a schedule and reads what it needs from it.",
+  "tags": ["calibrating the observation", "hand-eye", "target in the nest", "reference puck", "kinematic seats", "camera pose", "golden tube", "clear twin", "coupon", "3D"],
+  "branchOf": ["trials-01-puck-swap", "trials-05-artefact-ladder"],
+  "combines": ["trials-01-puck-swap", "trials-05-artefact-ladder", "datum-19-plate-as-target", "datum-15-dock-noticing", "datum-17-yardstick-on-the-twin"],
+  "transferable": ["a printed target on the tube's own seats", "board pose transfers to any tube", "board pose makes the rim edge a depth gauge", "a coupon at the trial's own station", "a clear twin is a puck"],
+  "how": {
+    "motion": "a hand or a gripper swaps a puck (30 s illustrative); the rotator turns it; software commands the gun to the corner or parks it",
+    "load": "three ball-and-dowel seats carry the puck (trials-01); nothing here carries the gun",
+    "reference": "the seats: the board's frame is the tube's frame; the board's printed grid is the ruler (measured once)",
+    "observe": "camera A over the bore (pose, scale, distortion, the dot), camera B outside at the corner (the twin and the notch)",
+    "use": "after any event that touches the eye, each session, and between tubes of an unattended run"
+  },
+  "software": {
+    "commands": ["swap in a reference puck (by hand or gripper)", "park the gun or bring the dot to the corner", "rotate the puck", "run the rim-and-ports fit"],
+    "observes": ["camera pose against the puck frame from the board's features (1 sigma)", "how many fiducials the gun hides", "seat depth of a tube from its rim and ports with the pose known", "the dot's knee on a coupon against its stored value", "the twin's outside view of the dot"],
+    "manual": ["making and measuring the printed board once (calipers or the scanner)", "swapping a puck (a person's minute today)", "keeping the golden tube and the coupon clean"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-22-reference-pucks.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = Math.PI / 180;
+  const CAP = WK.CAP_TOP, RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, HT = WK.DIM.tubeHeight;
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    viewButtons: ['overall', 'joint', 'top', 'rack'],
+    views: {
+      overall: { target: [0, -240, 90], dir: [-0.85, -0.25, 0.5], dist: 1650 },
+      rack: { target: [0, -420, 60], dir: [0.15, -0.8, 0.55], dist: 1250 },
+    },
+    sections: {
+      proposes: '<p>The artefact ladder of trials-05, made into <b>pucks</b>. Each reference is a puck (trials-01): a printed flange with three balls under it that drops onto the same three pairs of dowels on the turntable as any tube. Because they share the seats, <b>the board\'s frame is the tube\'s frame</b> to the seat\'s repeatability (about 20 micrometres lateral, 4 vertical at 10 micrometres per landing), and a camera calibrated on the board is calibrated for the next tube.</p>' +
+        '<p>Six pucks stand in the rack. The <b>board puck</b> is a matte printed corner: a short wall ring at the real rim height, and on the plate a dense grid, the seam ring, the two ports and grey patches. It carries the same fiducials a tube\'s face carries (the rim circles and the two ports), so the same fit runs on the board and on a tube. The <b>coupon puck</b> is a real 316L corner (glare, finish) with nothing printed; the <b>notch puck</b> lets camera B see the dot at the corner for 34°; the <b>twin</b> is a clear wall over a printed plate, so B sees the dot at every azimuth; the <b>golden tube</b> is a real tube kept as the reference; the last puck is the next tube.</p>' +
+        '<p>Pick the puck on the rotator. Camera A\'s view is drawn from the scene itself. The panel reports, for this puck and this camera, what the fit can say (1 sigma, linearised, calc/reference_pucks_fit.py): the camera\'s pose, where the seam is predicted to appear, and, once a board run has fixed the pose, the seat depth of a tube. Knock the camera and see the whole picture shift while a comparison made against the wall does not.</p>',
+      carries: '<p>Three ball-and-dowel seats carry each puck on the turntable (the load path is trials-01\'s and its open turntable-stiffness question stands). The gun is not carried here: it stands at the corner as in trials-05, or is parked (the dock of trials-02) so the picture is clear.</p>',
+      tried: '<ul>' +
+        '<li><b>A target that is not in the tube\'s frame calibrates the wrong thing.</b> A board placed by hand on the rotator sits wherever the hand put it. On the seats it sits in the puck frame to about 20 micrometres (10 micrometres per landing); the calibration made on it transfers to any tube puck with that much added and nothing else (calc/swap_budget.py). Left standing: whether printed seats in a printed turntable hold that repeatability over hundreds of swaps (trials-01\'s open question).</li>' +
+        '<li><b>The board must carry what a tube carries.</b> With the rim ring and the two ports on the board the same fit runs on both. Camera pose from the board alone at a camera 300 mm up and 0.15 px of feature noise: the seam\'s image is predicted to about 10 micrometres; from a tube\'s rim and ports alone (ports as circles fitted from 8 edge points each) 25 micrometres, and its seat depth to 0.12 mm. Once the board has fixed the pose (allowing 0.05 mm and 0.005° of drift since), the seat depth of the next tube comes out at 0.05 mm, and at a camera 450 mm up 0.07 against 0.26 mm. So the board is worth most for a camera that stands far off. (Datum-19\'s 0.35 mm at 300 mm treats each port as a point; a port is an 11.1 mm circle.)</li>' +
+        '<li><b>A flat board cannot separate focal length from height, but the station does not care.</b> With the rim ring and the grid across the field a flat board puck pins a point 62 mm off the axis to 7 micrometres even with the distortion free; focal length and height trade (0.5 % and 1.5 mm) and leave that point where it is. A board tilted 10° (a wedge puck, printed) halves both. What depends on the height itself is the rim edge\'s parallax, 6 micrometres for the 1.5 mm (calc/lens_from_pucks.py). Left standing: distortion is a lens property that a comparison in a tight frame never needs.</li>' +
+        '<li><b>The board is matte and the tube is not.</b> A printed board says nothing about glare, and its features are found with the edge of a paper dot, not the edge of a bead. That is what the coupon puck (real steel, known corner) and the golden tube are for: the knee measured on the coupon against its stored value is a change detector for everything but the tube, at the trial\'s own station (the dock coupon of datum-15 sees only the gun and the camera).</li>' +
+        '<li><b>The gun hides part of the board.</b> With the gun at the corner the barrel stands in front of some of the fiducials; the panel counts them (the scene draws a line of sight, not optics). The loop parks the gun in the dock (trials-02) for a board run, which is why the two ideas belong together.</li>' +
+        '<li><b>The printed board\'s scale is the ruler.</b> A laser printer scales a page by tenths of a per cent; the grid pitch has to be measured once (calipers, or the Revopoint scanner) and stored, or its error is every later scale error. It is <b>[unknown]</b> for a printed board and cheap to measure.</li></ul>',
+      unresolved: '<ul><li>Whether a swap of these six pucks is a person\'s minute or a gripper\'s (trials-07): the schedule (each session, after a knock, between tubes) depends on it.</li>' +
+        '<li>The seat repeatability of printed seats over hundreds of landings, and how a coupon or a board is kept clean near a weld.</li>' +
+        '<li>Whether a 316L coupon looks like the 316L tube to the camera (the same bead-blasted or polished finish); glare is the one thing the board cannot supply.</li>' +
+        '<li>Which puck the AI reaches for after which event is the ledger of trials-24.</li></ul>',
+      assumptions: '<ul><li>Camera: pinhole, 1500 px focal length, 1280 x 960, straight down over the axis at the chosen height, features found to the chosen pixel noise with known correspondences (the ports give the roll modulo 180°, a mark the rest) <b>[illustrative]</b>. The scene draws camera A\'s view from the 3D scene; the numbers come from a linearised (Fisher) analysis in the page that matches <code>calc/reference_pucks_fit.py</code>.</li>' +
+        '<li>Tube, plate, rim ring, ports: <b>[repo]</b> (61.85 and 63.5 mm radii, ports 11.1 mm across at 19.05 mm, recess 6.35 mm). Rack and puck outlines, seat pattern: <b>[illustrative]</b>. Seat effect: first order, 10 micrometres per landing to 20 lateral and 4 vertical (trials-01, calc/swap_budget.py).</li>' +
+        '<li>The board, coupon, notch, twin and tubes are drawn as proxies. The twin\'s wall is drawn transparent and does not block a line of sight; its refraction (0.15 mm at 10° off the wall normal through 2.5 mm of acrylic, datum-10) is not drawn.</li></ul>'
+    }
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(false);
+  const ttMesh = ws.parts.turntableMesh;
+
+  // ------------------------------------------------------------------ the seats (trials-01): a turntable plate and three ball-and-dowel seats
+  const SR = 86, BALL_ANG = [0, 115, 240];
+  const plate = new THREE.Mesh(new THREE.LatheGeometry([[45, -34], [98, -34], [98, -10], [45, -10], [45, -34]].map(p => new THREE.Vector2(p[0], p[1])), 96).rotateX(Math.PI / 2), WK.mat('actuated', { shade: 0.5, side: 'double' }));
+  plate.userData.role = 'actuated'; ws.turntable.add(plate); ttMesh.visible = false;
+  BALL_ANG.forEach(deg => {
+    const a = deg * DEG, g = new THREE.Group(); g.position.set(SR * Math.cos(a), SR * Math.sin(a), -10); g.rotation.z = a;
+    [-3.2, 3.2].forEach(o => { const d = P.cyl(1.6, 22, 'locate', { axis: 'x' }); d.position.set(0, o, 1.6); g.add(d); });
+    const pad = P.box(30, 14, 3, 'fixed'); pad.position.set(0, 0, -1.4); g.add(pad); ws.turntable.add(g);
+  });
+
+  // ------------------------------------------------------------------ pucks: a flange with three balls and ears, plus the artefact standing on it (authored with z = 0 at the tube's bottom)
+  const lathe = (pts, seg, pStart, pLen, role, o) => {
+    const g = new THREE.LatheGeometry(pts.map(p => new THREE.Vector2(p[0], p[1])), seg || 128, pStart == null ? 0 : pStart, pLen == null ? Math.PI * 2 : pLen); g.rotateX(Math.PI / 2);
+    const m = new THREE.Mesh(g, WK.mat(role, Object.assign({ side: 'double' }, o || {}))); m.userData.role = WK.role(role); return m;
+  };
+  function makeFlange() {
+    const g = new THREE.Group();
+    g.add(lathe([[45, -5.6], [98, -5.6], [98, -1], [75, -1], [75, 20], [63.9, 20], [63.9, 0], [45, 0], [45, -5.6]], 96, 0, Math.PI * 2, 'load', { opacity: 0.88 }));
+    BALL_ANG.forEach(deg => { const a = deg * DEG, b = P.sphere(4, 'locate'); b.position.set(SR * Math.cos(a), SR * Math.sin(a), -4); g.add(b); });
+    [1, -1].forEach(sg => { const e = P.box(38, 22, 7, 'load'); e.position.set(0, sg * 106, -3); g.add(e); });
+    return g;
+  }
+  function boardTexture() {
+    const c = document.createElement('canvas'); c.width = c.height = 512; const x = c.getContext('2d');
+    x.fillStyle = '#f4f4ee'; x.fillRect(0, 0, 512, 512);
+    const s = 512 / 130;   // px per mm
+    x.save(); x.beginPath(); x.arc(256, 256, 61 * s, 0, 7); x.clip();
+    const q = 12 * s; for (let i = -6; i < 6; i++) for (let j = -6; j < 6; j++) if ((i + j) & 1) { x.fillStyle = '#20242a'; x.fillRect(256 + (i - 0.5) * q, 256 + (j - 0.5) * q, q, q); }
+    x.restore();
+    x.strokeStyle = '#e11d48'; x.lineWidth = 2.2; x.beginPath(); x.arc(256, 256, RI * s, 0, 7); x.stroke();
+    x.fillStyle = '#0f766e'; x.beginPath(); x.arc(256 + 19.05 * s, 256, 5.55 * s, 0, 7); x.arc(256 - 19.05 * s, 256, 5.55 * s, 0, 7); x.fill();
+    [0.15, 0.5, 0.85].forEach((v, i) => { x.fillStyle = 'rgb(' + Math.round(v * 255) + ',' + Math.round(v * 255) + ',' + Math.round(v * 255) + ')'; x.fillRect(200 + i * 40, 462, 36, 26); });
+    x.fillStyle = '#111'; x.fillRect(60, 470, 12 * s * 1.0, 6);
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; return t;
+  }
+  const boardTex = boardTexture();
+  function corner(role, shade) {                       // a short wall ring at the real rim height, a plate at the real recess, two ports
+    const g = new THREE.Group(), o = shade ? { shade: shade } : {};
+    const ped = P.cyl(52, CAP - 6.35, 'fixed'); ped.position.z = (CAP - 6.35) / 2; g.add(ped);
+    g.add(lathe([[RI, CAP - 6.35], [RO, CAP - 6.35], [RO, CAP + 6.35], [RI, CAP + 6.35], [RI, CAP - 6.35]], 128, 0, Math.PI * 2, role, o));
+    const pl = P.cyl(RI - 0.06, 6.35, role, { segments: 96 }); pl.position.z = CAP - 3.175; if (shade) pl.material = WK.mat(role, { shade: shade }); g.add(pl);
+    return g;
+  }
+  function artefact(kind) {
+    const g = new THREE.Group();
+    if (kind === 'board') {
+      g.add(corner('locate', 1.25));
+      const top = new THREE.Mesh(new THREE.CircleGeometry(RI - 0.2, 96), new THREE.MeshBasicMaterial({ map: boardTex })); top.position.z = CAP + 0.06; top.userData.role = 'locate'; g.add(top);
+    } else if (kind === 'coupon') {
+      g.add(corner('work', 0.85));
+      [1, -1].forEach(sg => { const p = P.cyl(5.55, 0.3, 'fixed'); p.position.set(sg * 19.05, 0, CAP + 0.1); g.add(p); });
+    } else if (kind === 'notch') {
+      const half = 17, phi0 = (half + 90) * DEG, plen = (360 - 2 * half) * DEG;
+      g.add(lathe([[RI, 0], [RO, 0], [RO, CAP], [RI, CAP], [RI, 0]], 128, 0, Math.PI * 2, 'work'));
+      g.add(lathe([[RI, CAP], [RO, CAP], [RO, HT], [RI, HT], [RI, CAP]], 128, phi0, plen, 'work'));
+      const c = new THREE.Mesh(ws.cap.geometry, ws.cap.material); g.add(c);
+    } else if (kind === 'twin') {
+      const w = lathe([[RI, 0], [RO, 0], [RO, HT], [RI, HT], [RI, 0]], 128, 0, Math.PI * 2, 'ghost', { opacity: 0.38 }); w.userData.occludes = false; g.add(w);
+      const pl = P.cyl(RI - 0.06, 6.35, 'work', { segments: 96 }); pl.material = WK.mat('work', { shade: 1.3 }); pl.position.z = CAP - 3.175; g.add(pl);
+      [1, -1].forEach(sg => { const p = P.cyl(5.55, 0.3, 'fixed'); p.position.set(sg * 19.05, 0, CAP + 0.1); g.add(p); });
+    } else {                                                // golden tube and the next tube: real tube proxies
+      g.add(lathe([[RI, 0], [RO, 0], [RO, HT], [RI, HT], [RI, 0]], 128, 0, Math.PI * 2, 'work'));
+      const pl = P.cyl(RI - 0.06, 6.35, 'work', { segments: 96 }); pl.material = WK.mat('work', { shade: 0.62 }); pl.position.z = CAP - 3.175; g.add(pl);
+      [1, -1].forEach(sg => { const p = P.cyl(5.55, 0.3, 'fixed'); p.position.set(sg * 19.05, 0, CAP + 0.1); g.add(p); });
+      if (kind === 'golden') { const band = new THREE.Mesh(new THREE.TorusGeometry(RO + 0.6, 2.2, 10, 96), WK.mat('wire')); band.position.z = HT - 14; band.userData.role = 'wire'; g.add(band); }
+    }
+    return g;
+  }
+  const KINDS = [
+    { id: 'board', name: 'board puck', rack: [-315, -300], feat: 'board' },
+    { id: 'coupon', name: 'coupon puck (316L)', rack: [-105, -300], feat: 'tube' },
+    { id: 'notch', name: 'notch puck', rack: [105, -300], feat: 'tube' },
+    { id: 'twin', name: 'clear twin', rack: [315, -300], feat: 'tube' },
+    { id: 'golden', name: 'golden tube', rack: [-105, -540], feat: 'tube' },
+    { id: 'tube', name: 'the next tube', rack: [105, -540], feat: 'tube' },
+  ];
+  const rackBase = P.box(880, 500, 86, 'fixed'); rackBase.position.set(0, -420, -43); app.add(rackBase);
+  const rackItems = {};
+  KINDS.forEach(k => {
+    const g = new THREE.Group(); g.add(makeFlange()); g.add(artefact(k.id)); g.position.set(k.rack[0], k.rack[1], 0); app.add(g); rackItems[k.id] = g;
+    app.label(V(k.rack[0], k.rack[1], 8), k.name, { cls: k.id === 'tube' ? 'work' : 'locate' });
+  });
+  const slotRing = P.ring(104, 2, { role: 'compliant' }); app.add(slotRing);
+  // the puck on the rotator: flange under the turntable group, artefact under the tube group (both rotate with it)
+  const flangeOn = makeFlange(); ws.turntable.add(flangeOn);
+  const onRot = {}; KINDS.forEach(k => { const a = artefact(k.id); a.visible = false; ws.tubeGroup.add(a); onRot[k.id] = a; });
+
+  // ------------------------------------------------------------------ cameras (proposed) and the gun
+  const ST = { puck: 'board', gun: true, spin: false, H: 300, noise: 0.15, knock: 0, drift: 0.05, rep: 10 };
+  const camPosA = () => V(0, 0, CAP + ST.H);
+  const fovA = () => 2 * Math.atan(78 / ST.H) / DEG;
+  const camA = app.inset.add({ id: 'A', label: 'Camera A over the bore (proposed)', position: camPosA(), target: V(0, 0, CAP), fov: fovA(), near: 40, far: 900, size: [250, 190], corner: 'br', up: V(0, 1, 0), noise: 0.2 });
+  const camB = app.inset.add({ id: 'B', label: 'Camera B outside, at the corner (proposed)', position: V(330, 0, CAP + 24), target: () => gun.dotWorld(), fov: 14, near: 50, far: 900, size: [210, 140], corner: 'tr', noise: 0.2 });
+  app.label(() => camPosA(), 'camera A', { cls: 'sensor' }); app.label(V(330, 0, CAP + 24), 'camera B', { cls: 'sensor' });
+  const rotLabel = app.label(V(0, 0, HT + 22), 'puck on the seats', { cls: 'locate' });
+
+  // ------------------------------------------------------------------ the fit: linearised (Fisher) pose covariance from a set of fiducials, as in calc/reference_pucks_fit.py
+  const F = 1500, U0 = 640, V0 = 480, PORT = 19.05, PR = 5.55;
+  const ring = (r, z, n, cx, cy) => { const o = []; for (let k = 0; k < n; k++) { const a = 2 * Math.PI * k / n; o.push([(cx || 0) + r * Math.cos(a), (cy || 0) + r * Math.sin(a), z]); } return o; };
+  function boardFeatures() { const p = []; for (let i = -4; i <= 4; i++) for (let j = -4; j <= 4; j++) p.push([i * 12, j * 12, 0]); return p.concat(ring(RI, 0, 24), ring(PR, 0, 8, PORT, 0), ring(PR, 0, 8, -PORT, 0), ring(RI, 6.35, 24), ring(RO, 6.35, 24)); }
+  function tubeFeatures(d) { return ring(RI, 6.35 + d, 24).concat(ring(RO, 6.35 + d, 24), ring(PR, 0, 8, PORT, 0), ring(PR, 0, 8, -PORT, 0)); }
+  function projectPts(pts, q) {                          // q = [cx, cy, cz, rx, ry, rz]
+    const c1 = Math.cos(q[3]), s1 = Math.sin(q[3]), c2 = Math.cos(q[4]), s2 = Math.sin(q[4]), c3 = Math.cos(q[5]), s3 = Math.sin(q[5]);
+    // R = Rz Ry Rx
+    const R = [[c3 * c2, c3 * s2 * s1 - s3 * c1, c3 * s2 * c1 + s3 * s1], [s3 * c2, s3 * s2 * s1 + c3 * c1, s3 * s2 * c1 - c3 * s1], [-s2, c2 * s1, c2 * c1]];
+    const out = new Array(pts.length * 2);
+    for (let i = 0; i < pts.length; i++) {
+      const X = pts[i][0] - q[0], Y = pts[i][1] - q[1], Z = pts[i][2] - q[2], a = X, b = -Y, c = -Z;
+      const x = R[0][0] * a + R[0][1] * b + R[0][2] * c, y = R[1][0] * a + R[1][1] * b + R[1][2] * c, z = R[2][0] * a + R[2][1] * b + R[2][2] * c;
+      out[2 * i] = U0 + F * x / z; out[2 * i + 1] = V0 + F * y / z;
+    }
+    return out;
+  }
+  const STEP = [1e-3, 1e-3, 1e-3, 1e-7, 1e-7, 1e-7];
+  function inverse(A) {
+    const n = A.length, M = A.map((r, i) => r.concat(Array.from({ length: n }, (_, j) => i === j ? 1 : 0)));
+    for (let i = 0; i < n; i++) { let p = i; for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[p][i])) p = r; [M[i], M[p]] = [M[p], M[i]]; const d = M[i][i]; for (let c = 0; c < 2 * n; c++) M[i][c] /= d; for (let r = 0; r < n; r++) if (r !== i) { const f = M[r][i]; if (f) for (let c = 0; c < 2 * n; c++) M[r][c] -= f * M[i][c]; } }
+    return M.map(r => r.slice(n));
+  }
+  // information matrix of a feature set for pose (6) [+ seat depth d for tube features]; pts is a function of d
+  function information(kind, mask, withD, H, d) {
+    const feats = kind === 'board' ? () => boardFeatures() : dd => tubeFeatures(dd), base = feats(d);
+    const keep = i => !mask || mask[i], n = withD ? 7 : 6, cols = [];
+    const q0 = [0, 0, H, 0, 0, 0];
+    for (let j = 0; j < n; j++) {
+      let qp = q0.slice(), qm = q0.slice(), pp = base, pm = base, h = j < 6 ? STEP[j] : 1e-3;
+      if (j < 6) { qp[j] += h; qm[j] -= h; } else { pp = feats(d + h); pm = feats(d - h); }
+      const a = projectPts(pp, qp), b = projectPts(pm, qm), col = [];
+      for (let i = 0; i < base.length; i++) if (keep(i)) { col.push((a[2 * i] - b[2 * i]) / (2 * h), (a[2 * i + 1] - b[2 * i + 1]) / (2 * h)); }
+      cols.push(col);
+    }
+    const I = Array.from({ length: n }, () => new Array(n).fill(0));
+    for (let p = 0; p < n; p++) for (let q = 0; q < n; q++) { let s = 0; const cp = cols[p], cq = cols[q]; for (let k = 0; k < cp.length; k++) s += cp[k] * cq[k]; I[p][q] = s; }
+    return I;
+  }
+  function stationSigma(C, H) {                          // image position of the seam point (61.85, 0, 0) against the pose: mm at the plate plane, 1 sigma (x, y)
+    const q0 = [0, 0, H, 0, 0, 0], pts = [[RI, 0, 0]], J = [[], []];
+    for (let j = 0; j < 6; j++) { const qp = q0.slice(), qm = q0.slice(); qp[j] += STEP[j]; qm[j] -= STEP[j]; const a = projectPts(pts, qp), b = projectPts(pts, qm); J[0].push((a[0] - b[0]) / (2 * STEP[j])); J[1].push((a[1] - b[1]) / (2 * STEP[j])); }
+    const v = [0, 1].map(r => { let s = 0; for (let p = 0; p < 6; p++) for (let q = 0; q < 6; q++) s += J[r][p] * C[p][q] * J[r][q]; return Math.sqrt(Math.max(0, s)) * H / F; });
+    return v;
+  }
+  function analyse(mask) {
+    const H = ST.H, sig = ST.noise, s2 = sig * sig, out = {};
+    const scale = I => I.map(r => r.map(v => v / s2));
+    const kind = KINDS.find(k => k.id === ST.puck).feat;
+    // the board's own pose covariance (the prior a later tube run can use): a board run with the gun parked (full mask)
+    const Ib = scale(information('board', null, false, H, 0)), Cb = inverse(Ib);
+    out.boardPose = Cb; out.boardStation = stationSigma(Cb, H);
+    if (kind === 'board') {
+      const Cm = inverse(scale(information('board', mask, false, H, 0)));
+      out.own = { station: stationSigma(Cm, H), lat: Math.sqrt(Cm[0][0]), height: Math.sqrt(Cm[2][2]), tilt: Math.sqrt(Cm[3][3]) / DEG };
+    }
+    // a tube's rim and ports (the mask applies only when a tube-type puck is on the rotator; with the board on it a parked gun is assumed)
+    const tm = kind === 'board' ? null : mask, It = scale(information('tube', tm, true, H, 0)), Ct = inverse(It);
+    out.tubeOwn = { station: stationSigma(Ct.slice(0, 6).map(r => r.slice(0, 6)), H), depth: Math.sqrt(Ct[6][6]) };
+    // with the pose from the board (allowing drift since): add the prior to the pose block
+    const dr = ST.drift, da = ST.drift / 10 * DEG, drift = [dr * dr, dr * dr, dr * dr, da * da, da * da, da * da];
+    const Cp = Cb.map((r, i) => r.map((v, j) => v + (i === j ? drift[i] : 0))), Ip = inverse(Cp), I2 = It.map(r => r.slice());
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) I2[i][j] += Ip[i][j];
+    const C2 = inverse(I2);
+    out.tubePrior = { station: stationSigma(C2.slice(0, 6).map(r => r.slice(0, 6)), H), depth: Math.sqrt(C2[6][6]) };
+    return out;
+  }
+
+  // ------------------------------------------------------------------ fiducial visibility (drawn geometry only): how many does the gun hide from camera A
+  function visibleFraction() {
+    const kind = KINDS.find(k => k.id === ST.puck).feat, feats = kind === 'board' ? boardFeatures() : tubeFeatures(0);
+    const occ = WK.occluders(app, { ignore: [] }), cam = camPosA(), mask = [];
+    let n = 0;
+    ws.tubeGroup.updateWorldMatrix(true, true);
+    feats.forEach(f => { const p = ws.tubeGroup.localToWorld(V(f[0], f[1], CAP + f[2] + 0.35)); const r = WK.lineOfSight(cam, p, occ, { eps: 0.8 }); const ok = !!(r && r.visible); mask.push(ok); if (ok) n++; });
+    return { mask: mask, n: n, total: feats.length };
+  }
+
+  // ------------------------------------------------------------------ state -> scene
+  const INFO = {
+    board: { t: 'Board puck', does: 'The eye: camera pose against the puck frame, scale (the printed pitch), lens; the exposure curve for a matte dot; the dot\'s place in the gun (the pivot trial, trials-19).', cannot: 'glare, the real finish, anything about a tube', when: 'after a knock or a refocus; each session; between tubes on a schedule' },
+    coupon: { t: 'Coupon puck (316L)', does: 'A known corner in real steel at the trial\'s own station: the dot\'s knee against its stored value is a change detector for everything but the tube (bench clamp, positioner scale, the dot in the shell, the camera).', cannot: 'which link moved when the knee shifts; a tube\'s own seat depth', when: 'each session and after any event that touches the chain' },
+    notch: { t: 'Notch puck', does: 'Camera B sees the dot against the plate edge through the window (34°): the judge\'s gain, by jogging the dot to known offsets (trials-05 rung 3).', cannot: 'a full lap; the wall to hit', when: 'when the judge is retrained' },
+    twin: { t: 'Clear twin', does: 'Ground truth through the wall at every azimuth: the hand\'s real error on a printed plate (datum-17), the judge\'s bias against angle for a printed plate.', cannot: 'glare on polished 316L, fume, a hot bead', when: 'to set the requirement; when a new judge is built' },
+    golden: { t: 'Golden tube', does: 'A real tube kept as the reference: the end-to-end dry cycle against a stored trace (use-12): everything, glare included.', cannot: 'which link moved', when: 'each morning and after long idles' },
+    tube: { t: 'The next tube', does: 'The work. Its rim and ports run the same fit as the board\'s, per frame, with the board\'s pose as a prior: seat depth to a fraction of the pose-free figure.', cannot: 'anything about the eye that a board would say on its own', when: 'every tube' },
+  };
+  const card = WK.h('div', { class: 'rp-card' });
+  const hud = app.stageOverlay('', { corner: 'tl', w: 300 });
+  app.ui.panel({ id: 'eye', title: 'What this puck tells the eye', open: true, node: card });
+
+  function apply() {
+    const k = KINDS.find(x => x.id === ST.puck);
+    ws.tube.visible = ST.puck === 'golden' || ST.puck === 'tube'; ws.cap.visible = ws.tube.visible; ws.parts.stripe.visible = false; ws.parts.plateTick.visible = false;
+    KINDS.forEach(q => { onRot[q.id].visible = q.id === ST.puck && q.id !== 'golden' && q.id !== 'tube'; rackItems[q.id].visible = q.id !== ST.puck; });
+    // golden and tube use the kit's own tube on the rotator (as trials-05); the golden band is drawn on the rotator by showing that artefact's band only
+    onRot.golden.visible = ST.puck === 'golden' || ST.puck === 'tube'; onRot.golden.children.forEach(c => { if (c.geometry && c.geometry.type === 'TorusGeometry') c.visible = ST.puck === 'golden'; else c.visible = false; });
+    slotRing.position.set(k.rack[0], k.rack[1], 4);
+    ws.setRunout(0.25, 0.30, 1);
+    gun.group.visible = ST.gun; app.invalidate();
+    camA.setPose(camPosA(), V(ST.H * Math.tan(ST.knock * DEG), 0, CAP), V(0, 1, 0)); camA.setFov(fovA());
+    const dot = gun.dotWorld(), rA = ST.gun ? app.inset.markVisibility('A', dot, { eps: 0.8 }) : { visible: false, inFov: true }, rB = ST.gun ? app.inset.markVisibility('B', dot, { eps: 0.8 }) : { visible: false, inFov: true };
+    const vis = visibleFraction(), an = analyse(vis.mask), inf = INFO[ST.puck];
+    const um = v => (v * 1000).toFixed(0) + ' µm', mm = v => v.toFixed(3) + ' mm';
+    const shift = ST.H * Math.tan(ST.knock * DEG);
+    let html = '<h4>' + inf.t + '</h4><div>' + inf.does + '</div><dl>';
+    html += '<dt>Cannot say</dt><dd>' + inf.cannot + '</dd><dt>Swapped in</dt><dd>' + inf.when + '</dd>';
+    html += '<dt>Fiducials</dt><dd><span class="rp-num">' + vis.n + '</span> of ' + vis.total + ' visible to camera A' + (ST.gun ? '; the gun at the corner hides ' + (vis.total - vis.n) + '. Park it and the loop sees all.' : ' (gun parked)') + '</dd>';
+    const mx = v => Math.max(v[0], v[1]);
+    if (ST.puck === 'board') {
+      html += '<dt>Pose from this</dt><dd>the seam\'s image predicted to <span class="rp-num">' + um(mx(an.own.station)) + '</span> (1σ); camera position ' + um(an.own.lat) + ' laterally (tilt-coupled), ' + mm(an.own.height) + ' in height, tilt ' + an.own.tilt.toFixed(3) + '°</dd>';
+      html += '<dt>Then a tube</dt><dd>seat depth from its rim and ports: pose free <span class="rp-num">' + mm(an.tubeOwn.depth) + '</span>; with this run as the prior (drift ' + ST.drift.toFixed(2) + ' mm, ' + (ST.drift / 10).toFixed(3) + '° since) <span class="rp-num ' + (an.tubePrior.depth < an.tubeOwn.depth ? 'ok' : 'mid') + '">' + mm(an.tubePrior.depth) + '</span></dd>';
+      html += '<dt>Seat effect</dt><dd>read on any tube puck this transfers with ' + ((ST.rep / 1000 + (HT + 20) * ST.rep / 1000 / (2 * SR)) * 1000).toFixed(0) + ' µm lateral and ' + (RI * ST.rep / 1000 / (2 * SR) * 1000).toFixed(0) + ' µm vertical added (10 µm per landing gives 20 and 4)</dd>';
+    } else {
+      html += '<dt>Pose, alone</dt><dd>the seam\'s image predicted to <span class="rp-num">' + um(mx(an.tubeOwn.station)) + '</span>; seat depth <span class="rp-num">' + mm(an.tubeOwn.depth) + '</span> (rim and ports, pose free)</dd>';
+      html += '<dt>Pose from the board</dt><dd>with the last board run as a prior (drift ' + ST.drift.toFixed(2) + ' mm, ' + (ST.drift / 10).toFixed(3) + '° since): station <span class="rp-num">' + um(mx(an.tubePrior.station)) + '</span>, seat depth <span class="rp-num ' + (an.tubePrior.depth < an.tubeOwn.depth ? 'ok' : 'mid') + '">' + mm(an.tubePrior.depth) + '</span></dd>';
+    }
+    const alarm = 3 * Math.max(an.boardStation[0], an.boardStation[1]) * 1000;
+    html += '<dt>Camera knock</dt><dd>' + ST.knock.toFixed(2) + '° moves the whole picture <span class="rp-num">' + shift.toFixed(2) + ' mm</span> at the plate; a comparison made against the wall does not change; the rim-and-ports check flags a shift above ' + alarm.toFixed(0) + ' µm (3σ of the station prediction): <span class="' + (shift * 1000 > alarm ? 'ok' : 'mid') + '">' + (shift * 1000 > alarm ? 'flagged' : 'below the noise') + '</span></dd>';
+    html += '</dl><div class="rp-small">Linearised fit, pixel noise ' + ST.noise.toFixed(2) + ' px, camera ' + ST.H + ' mm up, correspondences known; the picture is drawn geometry, not optics.</div>';
+    card.innerHTML = html;
+    hud.innerHTML = '<b>' + inf.t + '</b> on the seats<br>fiducials seen by A: <b>' + vis.n + ' / ' + vis.total + '</b>' + (ST.puck === 'board' ? '<br>seam image predicted to <b>' + um(mx(an.own.station)) + '</b> (1σ)<br>next tube\'s seat depth: <b>' + mm(an.tubeOwn.depth) + '</b> alone, <b>' + mm(an.tubePrior.depth) + '</b> with this pose' : '<br>seam image: <b>' + um(mx(an.tubeOwn.station)) + '</b> alone, <b>' + um(mx(an.tubePrior.station)) + '</b> with the board\'s pose<br>seat depth: <b>' + mm(an.tubeOwn.depth) + '</b> alone, <b>' + mm(an.tubePrior.depth) + '</b> with it') + '<br><span style="opacity:.7">1σ, linearised, illustrative</span>';
+    rotLabel.set(k.name + ' on the seats');
+    app.io.set({
+      commands: [
+        { name: 'Swap in a reference puck', value: k.name, note: 'proposed; by a hand or a gripper (trials-07): a person\'s minute today [illustrative]' },
+        { name: 'Gun', value: ST.gun ? 'at the corner' : 'parked in the dock', note: 'trials-02; a board run wants it parked' },
+        { name: 'Rotator', value: ST.spin ? 'turning' : 'stopped', note: 'existing controller' },
+      ],
+      observes: [
+        { name: 'Camera A: dot visible', value: !ST.gun ? 'gun parked' : (rA.visible ? 'yes' : (rA.inFov ? 'blocked' : 'out of view')), status: ST.gun ? (rA.visible ? 'seen' : 'blind') : 'partly', note: 'drawn line of sight, not a measurement' },
+        { name: 'Camera B: dot visible', value: !ST.gun ? 'gun parked' : (rB.visible ? 'yes' : (rB.inFov ? 'blocked' : 'out of view')), status: ST.gun ? (rB.visible ? 'seen' : 'blind') : 'partly', note: ST.puck === 'twin' ? 'through the clear wall, at every azimuth' : (ST.puck === 'notch' ? 'through the window, 34°' : 'the wall blocks it') },
+        { name: 'Fiducials visible to A', value: vis.n + ' / ' + vis.total, status: 'partly', note: 'the gun hides some when it stands at the corner' },
+        { name: 'Seam image predicted to', value: um(mx((ST.puck === 'board' ? an.own : an.tubePrior).station)), status: 'partly', note: 'linearised 1σ; not a measurement' },
+        { name: 'Rim-and-ports residual', value: 'every frame', status: 'seen', note: 'a knock shows as a pose change before it shows as a bad trial (datum-19)' },
+        { name: 'Glare, the real finish', value: k.feat === 'board' ? 'not on this puck' : (ST.puck === 'twin' ? 'not on this puck' : 'on this puck'), status: k.feat === 'board' || ST.puck === 'twin' ? 'blind' : 'seen', note: 'only the steel coupon and the tubes have it' },
+      ],
+      manual: ['Making and measuring the printed board once', 'Swapping a puck', 'Keeping the coupon and the golden tube clean'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  const g1 = app.ui.group('Which puck is on the seats', { help: 'The other five wait in the rack; the green ring marks the empty slot.' });
+  g1.radio({ id: 'puck', label: 'Puck on the rotator', options: KINDS.map(k => ({ value: k.id, label: k.name })), value: 'board', kind: 'state', visual: () => [ws.tubeGroup, flangeOn], help: 'The swap is a lift and a lowering onto the same seats (trials-01).', onChange: v => { ST.puck = v; apply(); } });
+  g1.toggle({ id: 'gun', label: 'Gun at the corner (off: parked in the dock)', value: true, kind: 'state', visual: () => gun.group, help: 'With the gun at the corner the dot is on the puck and the barrel hides some fiducials; parked, the loop sees all of them.', onChange: v => { ST.gun = v; apply(); } });
+  g1.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; ST.spin = v; apply(); } });
+  const g2 = app.ui.group('The camera (scene edits, illustrative)', { help: 'Camera A over the bore. Edits the drawn scene and the numbers together.' });
+  g2.slider({ id: 'H', label: 'Camera A height above the plate', min: 150, max: 450, step: 10, value: 300, unit: 'mm', kind: 'scene', visual: 'camera A and its frustum', help: 'A close camera sees fewer fiducials at a coarser angle but a finer scale; datum-19 and eyes-16 use 150 to 450.', onChange: v => { ST.H = v; apply(); } });
+  g2.slider({ id: 'noise', label: 'Feature noise (pixels)', min: 0.05, max: 0.6, step: 0.05, value: 0.15, unit: 'px', kind: 'scene', visual: 'the panel', help: 'How well an edge or a grid corner is found. 0.15 px needs a clean image of a matte target; glare on steel is worse.', onChange: v => { ST.noise = v; apply(); } });
+  g2.slider({ id: 'knock', label: 'Camera knocked by', min: 0, max: 0.5, step: 0.01, value: 0, unit: '°', kind: 'scene', visual: 'camera A and its picture', help: 'Tilts camera A about its own position: the whole picture shifts H tan(angle).', onChange: v => { ST.knock = v; apply(); } });
+  g2.slider({ id: 'drift', label: 'Drift since the last board run', min: 0, max: 0.2, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', visual: 'the panel', help: 'How far the camera may have moved since the pose was taken from the board (0.05 mm and a tenth of that in degrees).', onChange: v => { ST.drift = v; apply(); } });
+  g2.slider({ id: 'rep', label: 'Seat repeatability (per landing)', min: 0, max: 50, step: 1, value: 10, unit: 'µm', kind: 'scene', visual: () => flangeOn, help: 'trials-01: 10 micrometres per landing is 20 lateral and 4 vertical at the seam.', onChange: v => { ST.rep = v; apply(); } });
+  app.io.manual(['Making and measuring the printed board once']);
+  apply();
+})();
+</script>
+</body>
+</html>

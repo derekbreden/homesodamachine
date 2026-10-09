@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swing head: park, seat, retract</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-scatter { position: absolute; background: rgba(8, 12, 18, .88); border: 1px solid #3a4658; border-radius: 6px; z-index: 2; pointer-events: auto; overflow: hidden; }
+  .use-scatter canvas { display: block; width: 100%; }
+  .use-scatter .ttl { position: absolute; top: 0; left: 0; padding: 2px 7px; font-size: 10.5px; background: rgba(8,12,18,.85); color: #dbe6ff; border-bottom-right-radius: 6px; }
+  .use-scatter .rd { padding: 3px 7px 5px; font-size: 10.5px; line-height: 1.35; color: #c7d3e6; }
+  .use-scatter .rd b { color: #fff; font-weight: 600; }
+  .use-scatter .rd em { color: #93a4bd; font-style: normal; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-02-swing-head",
+  "title": "Swing head: the arm brings, the seat locates",
+  "by": "use",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "The gun rides a swing arm and a short plunge along its own barrel axis. Software commands two states (swing away / swing in, retract / seat); position comes from a three-ball seat the plunge drops the gun into, not from the arm. Drive the two axes, break the sequence on purpose, and re-seat 20 times to see what the seat does to the dot.",
+  "tags": ["swing", "plunge", "kinematic-seat", "sequence", "interlock", "cable", "handover"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["commanded states, geometric positions", "load handed from arm to seat by a float", "seat continuity as a witness", "retract-before-swing interlock", "cable rides where the gun moves least"],
+  "how": {
+    "motion": "swing arm about a post, plus a short plunge along the barrel axis; nothing else driven",
+    "load": "arm and rail while travelling; the fixed seat fork takes the gun once seated",
+    "reference": "three ball-in-groove contacts at the collar; fine pose set once by three screws",
+    "observe": "plunge end-stops, seat continuity, a dot camera; scatter over repeated seats",
+    "use": "unattended re-seat dry runs; tube swap with the head parked; the hand fires"
+  },
+  "software": {
+    "commands": ["swing (park side / seat side)", "plunge (retract / seat)", "rotator speed and turning (existing controller)"],
+    "observes": ["plunge end-stop switches", "seat continuity (3 contacts)", "dot seen by a camera (partly)", "rotator degrees"],
+    "manual": ["campaign trim by three screws", "loading and indicating the tube", "trigger squeeze", "snipping a stuck wire"]
+  },
+  "notes": ["../../explorers/use/ideas/use-02-swing-head.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, RIM = WK.DIM.tubeHeight, CAP = WK.CAP_TOP;
+
+  const app = WK.app({
+    workstation: { benchSize: [1000, 1300], benchCenter: [30, -380] },
+    view: 'seat',
+    viewButtons: ['overall', 'seat', 'top', 'side'],
+    views: {
+      overall: { target: [10, -230, 190], dir: [-0.55, 0.80, 0.42], dist: 1650 },
+      seat: { target: [10, -120, 265], dir: [-0.66, 0.60, 0.46], dist: 1180 },
+      top: { target: [10, -230, 150], dir: [0, -0.003, 1], dist: 1350 },
+      side: { target: [10, -230, 190], dir: [1, 0.02, 0.10], dist: 1500 },
+    },
+    open: ['proposes'],
+    sections: {
+      proposes:
+        '<p>The gun is clamped in a printed shell that carries a flange with <b>three balls</b>. A <b>swing arm</b> about a post brings the gun beside a <b>fixed fork</b> with three grooves; a <b>plunge along the barrel axis</b> then drops the balls into the grooves. From that moment the fork, not the arm, carries the gun and fixes where the dot is. A <b>float spring</b> and two tie-rods with nuts let the carriage push the gun onto the seat, lose contact with it, and pull it back off again.</p>' +
+        '<p>Software therefore commands <i>states</i> (approach, seat, retract, park). The precision is geometric. Try: swing while the plunge is seated (blocked), then switch the interlock off and see how little margin the nozzle has over the rim; raise the arm-stop slop past the capture range and watch the balls miss; run 20 seat cycles and read the scatter.</p>',
+      carries:
+        '<p><b>Travelling</b> (parked, approaching, retracting): gun to shell, tie-rods and nuts (or the spring), carriage, rail, arm, swing bearing, post, bench. <b>Seated</b>: gun to shell to flange balls to fork to seat arm to post to bench; the carriage keeps pressing through the float spring but the arm and rail no longer set the pose. Toggle <i>Show load path</i> to see the amber path switch. The cable is carried on its own hook, not on the gun.</p>' +
+        '<p>Free / restrained: the arm has slop by design (slider); the seat restrains all six degrees of freedom with six contacts; the umbilical is the one thing that can push the seated gun, and the preload must beat it.</p>',
+      software:
+        '<p><b>Commands</b> are two axes and the existing rotator. <b>Observations</b> are cheap and binary except the camera: two end-stop switches on the plunge rail, continuity through the three ball/groove pairs, and a camera that sees the dot only when the head is in. The scatter panel is what an AI would build by re-seating unattended: it is simulated here from the contact repeatability you set, so it shows <i>what the experiment would look like</i>, not a measured seat.</p>' +
+        '<p>The hand still trims the pose once per campaign (three adjuster screws between gun and shell), loads and indicates the tube, and holds the trigger.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Swing while seated.</b> The balls are still in the fork: blocked in geometry. <i>Repair:</i> plunge retracts at least 8 mm first. <i>Leaves:</i> nothing.</li>' +
+        '<li><b>Swing with the plunge just clear (8 to 20 mm).</b> In the kit proxy the nozzle skims the rim by only a few millimetres at plunge 0; each mm of plunge adds about 0.7 mm. <i>Repair:</i> software rule, retract at least 20 mm before any swing (toggle it off to see the margin). <i>Leaves:</i> the real nozzle, standoff and pitch are not measured.</li>' +
+        '<li><b>Arm stop too sloppy.</b> The arm rests where a printed stop puts it, plus slop. Beyond the capture range (3 mm here) the balls land beside the grooves: MISS. <i>Repair:</i> a chamfered fork and a stiffer stop; the seat does not need a precise arm, only an arm within capture. <i>Leaves:</i> the capture range of a real printed fork.</li>' +
+        '<li><b>Umbilical bend.</b> The manual’s 350 mm (emitting) / 240 mm (stored) minimum radii are hard to meet: the cable leaves the grip base up and back and needs about half a metre of nearly straight run. A hook on the fixed mast makes the swing bend it; a hook on the arm does not. <i>Leaves:</i> the drawn Bezier is not a cable model.</li>' +
+        '<li><b>Stuck wire.</b> If the wire is fused into the bead the retract stops after a few millimetres: HOLD. A hand snips it. The plunge force must stay below what would drag the tube; this scene only shows the state.</li>' +
+        '<li><b>Fork versus the tube-swap volume.</b> The fixed fork has to sit above the illustrative swap volume. Drawing it showed it does, by little.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Preload: what holds the seat against umbilical pull and the trigger hand (magnets, spring, plunge force)? Needed value depends on the umbilical stiffness, which nobody has measured.</li>' +
+        '<li>Seat material and wear: printed grooves under 20 to 50 N with steel balls will creep; hardened inserts are the obvious fix and are not drawn.</li>' +
+        '<li>Stiffness of the cantilevered fork and seat arm under preload is not analysed.</li>' +
+        '<li>The wire guide and the external conduit ride the gun; whether the plunge changes their aim relative to the dot at the seat is not shown.</li>' +
+        '<li>Question for Derek: which way does the rotator turn for the qualified wire approach? The fork slot, the post and the cable hook are drawn for one hand of the gun.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun proxy, pitch (60°), nozzle clearance (16 mm) and the opening pose (roll 45, hole 30, vertical −15) are the kit’s illustrative values, not measurements.</li>' +
+        '<li>Swap volume (radius 95 mm, top 217 mm), seat capture (3 mm), arm slop (1 mm), contact repeatability, trim offsets (0.35 / −0.22 mm), plunge stroke (46 mm) and the flange position are <b>illustrative</b>.</li>' +
+        '<li>Cable radii 350 / 240 mm are manufacturer values [manual p.20]; the badge is an illustrative check on a drawn Bezier.</li>' +
+        '<li>The seat model is a Maxwell coupling (three grooves at 120°, six contacts); its dot amplification is computed live from the geometry drawn. Numbers behind it: <code>explorers/use/calc/seat_amplification.mjs</code>.</li>' +
+        '<li>Only the gun proxy is tested against the tube and swap volume; the arm, rail, fork and post are not tested against anything.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculations (swing path, cable, seat)', href: '../../explorers/use/calc/' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ------------------------------------------------------------------ the seat pose (opening dials, illustrative)
+  const P0 = gun.group.position.clone(), Q0 = gun.group.quaternion.clone();
+  const ex = gun.dir([1, 0, 0]), ey = gun.dir([0, 1, 0]), back = gun.dir([0, 0, 1]);
+  const w0 = lp => V(lp[0], lp[1], lp[2]).applyQuaternion(Q0).add(P0);
+  const dotSeat = w0([0, 0, -WK.CLEARANCE]);
+  const cableExit0 = gun.cableExit();                       // world point/dir at the seat pose
+  gun.setLaser(true);
+
+  // ------------------------------------------------------------------ state
+  const rnd = (function () { let s = 20260928; return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const S = {
+    arc: 0, pc: 40, R: 362, bearing: Math.atan2(-330, 150),
+    arcMax: 170, capture: 3.0, slop: 1.0, slopNow: 0, missNow: false,
+    sigma: 8, Rc: 30, trimR: 0.35, trimZ: -0.22, u: V(0, 0, 0), hookD: 520, hookOnArm: false,
+    wireStuck: false, interlock: true, log: [], missed: 0, cycles: 0, busy: false,
+  };
+  let ZF = 116;                                            // local z of the seat flange (collar front); scene slider
+  const post = () => V(S.R * Math.cos(S.bearing), S.R * Math.sin(S.bearing), 0);
+  const Rn = () => { const p = post(); return Math.hypot(P0.x - p.x, P0.y - p.y); };
+  const arcEff = () => (S.arc <= 0.001 ? S.slopNow : S.arc);
+  const swingDirWorld = () => { const p = post(), a = w0([0, 0, ZF]); return V(a.y - p.y, -(a.x - p.x), 0).normalize(); };   // clockwise from above
+
+  // ------------------------------------------------------------------ fixed structure
+  const benchZ = ws.benchZ;
+  const zArm = w0([0, 0, 436]).z;
+  const postH = zArm + 42 - benchZ;
+  const postMesh = P.cyl(13, postH, 'fixed'); app.add(postMesh);
+  const postBase = P.cyl(42, 8, 'fixed'); app.add(postBase);
+  const seatArm = P.rod(V(0, 0, 0), V(1, 0, 0), 7, 'fixed'); app.add(seatArm);
+  const swingMotor = P.motor(42, 'actuated', { length: 48 }); app.add(swingMotor);
+
+  // ------------------------------------------------------------------ carrier assembly (rotates about the post)
+  const arm = new THREE.Group(); arm.name = 'carrier (swings about the post)'; app.add(arm);
+  arm.add(gun.group);
+  const hub = P.cyl(30, 22, 'load'); arm.add(hub);
+  const armRod = P.rod(V(0, 0, 0), V(1, 0, 0), 7, 'actuated'); arm.add(armRod);
+  const blk = P.box(34, 34, 26, 'actuated'); blk.quaternion.copy(Q0); arm.add(blk);
+  const railLo = 292, railHi = 424;
+  const rail = P.rail(V(0, 0, 0), V(0, 0, 1), { width: 15, height: 9, role: 'actuated' }); arm.add(rail);
+  const carriage = P.box(36, 34, 26, 'actuated'); carriage.quaternion.copy(Q0); arm.add(carriage);
+  const motor = P.motor(34, 'actuated', { length: 40 }); arm.add(motor);
+  const screw = P.rod(V(0, 0, 0), V(0, 0, 1), 2.2, 'work'); arm.add(screw);
+  const spring = P.spring(V(0, 0, 0), V(0, 0, 10), { coils: 7, radius: 9, wire: 1.2, role: 'compliant' }); arm.add(spring);
+  const swRet = P.box(8, 8, 8, 'sensor'); swRet.quaternion.copy(Q0); arm.add(swRet);
+  const swEng = P.box(8, 8, 8, 'sensor'); swEng.quaternion.copy(Q0); arm.add(swEng);
+  const jib = P.rod(V(0, 0, 0), V(1, 0, 0), 3, 'fixed'); arm.add(jib);
+  const hookArmMark = P.sphere(6, 'cable'); arm.add(hookArmMark);
+
+  // ------------------------------------------------------------------ gun-side parts (children of the gun)
+  const shell = gun.addShell({ style: 'frame', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const gg = gun.group;
+  const backPlate = P.box(38, 38, 4, 'load'); backPlate.position.set(0, 0, 256); gg.add(backPlate);
+  [-1, 1].forEach(sx => {
+    const ear = P.box(8, 10, 12, 'load'); ear.position.set(sx * 21, 0, 246); gg.add(ear);
+    gg.add(P.rod(V(sx * 25, 0, 246), V(sx * 25, 0, 324), 1.8, 'load'));
+    const nut = P.box(9, 9, 6, 'load'); nut.position.set(sx * 25, 0, 324); gg.add(nut);
+  });
+  const flange = P.cyl(1, 4, 'load'); flange.position.set(0, 0, ZF); gg.add(flange);
+  const balls = [0, 1, 2].map(() => { const b = P.sphere(3.6, 'locate'); gg.add(b); return b; });
+
+  // ------------------------------------------------------------------ fixed seat fork (world); slot opens along the swing direction
+  const forkG = new THREE.Group(); forkG.position.copy(w0([0, 0, ZF - 8])); forkG.quaternion.copy(Q0); app.add(forkG);
+  let forkMesh = null, pads = [], phiOpen = 0;
+  function layoutSeat() {
+    forkG.position.copy(w0([0, 0, ZF - 8])); flange.position.set(0, 0, ZF);
+    const d = swingDirWorld();
+    phiOpen = Math.atan2(d.dot(ey), d.dot(ex));
+    const rr = S.Rc + 14, slotHalf = ZF - 8 > 116 ? 22 : 17, sh = new THREE.Shape();
+    sh.moveTo(-rr, -rr); sh.lineTo(rr, -rr); sh.lineTo(rr, -slotHalf); sh.lineTo(0, -slotHalf); sh.lineTo(0, slotHalf); sh.lineTo(rr, slotHalf); sh.lineTo(rr, rr); sh.lineTo(-rr, rr); sh.lineTo(-rr, -rr);
+    if (forkMesh) { forkG.remove(forkMesh); forkMesh.geometry.dispose(); }
+    const g = new THREE.ExtrudeGeometry(sh, { depth: 4, bevelEnabled: false }); g.translate(0, 0, -4);
+    forkMesh = new THREE.Mesh(g, WK.mat('fixed')); forkMesh.userData.role = 'fixed'; forkMesh.rotation.z = phiOpen; forkG.add(forkMesh);
+    pads.forEach(p => forkG.remove(p)); pads = [];
+    for (let i = 0; i < 3; i++) {
+      const a = phiOpen + Math.PI + (i === 0 ? 0 : (i === 1 ? 1 : -1) * 2 * Math.PI / 3);
+      const p = P.cyl(4.6, 1.6, 'locate'); p.rotation.x = Math.PI / 2; p.position.set(S.Rc * Math.cos(a), S.Rc * Math.sin(a), 0.7); forkG.add(p); pads.push(p);
+      balls[i].position.set(S.Rc * Math.cos(a), S.Rc * Math.sin(a), ZF - 3.2);
+    }
+    flange.scale.set(S.Rc + 8, S.Rc + 8, 1);
+    couplingInv = null;
+  }
+
+  // ------------------------------------------------------------------ swap volume (helper), load path (helper)
+  const SWAP = { r: 95, z0: -20, z1: RIM + 25 + 40 };
+  const swapVol = P.cyl(SWAP.r, SWAP.z1 - SWAP.z0, 'ghost'); swapVol.position.set(0, 0, (SWAP.z0 + SWAP.z1) / 2); app.addHelper(swapVol);
+  const loadPath = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'load', { dash: 7, gap: 4 }); app.addHelper(loadPath);
+  const stuckWire = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'wire', { dash: 3, gap: 2 }); app.add(stuckWire);
+
+  // ------------------------------------------------------------------ geometry checks (drawn proxy vs drawn tube; not a collision analysis)
+  const SAMP = (function () {
+    const s = [];
+    const cyl = (z0, z1, r0, r1, n) => { for (let i = 0; i <= n; i++) { const t = i / n; s.push({ p: [0, 0, z0 + (z1 - z0) * t], r: r0 + (r1 - r0) * t }); } };
+    cyl(0, 23, 2.2, 5, 4); cyl(23, 54, 8.5, 8.5, 4); cyl(54, 100, 5.5, 5.5, 6); cyl(100, 118, 12, 12, 3);
+    [-17, 17].forEach(x => [-17, 17].forEach(y => [118, 185.5, 253].forEach(z => s.push({ p: [x, y, z], r: 0 }))));
+    for (let i = 0; i <= 8; i++) { const t = i / 8; s.push({ p: [0, -25 - 86 * t, 172 + 60 * t], r: 15 }); }
+    s.push({ p: [0, -118, 237], r: 6 });
+    return s;
+  })();
+  const distTube = p => {
+    const rho = Math.hypot(p.x, p.y);
+    const inWall = rho > RI && rho < RO && p.z > 0 && p.z < RIM, inPlate = rho < RI && p.z > CAP - 6.35 && p.z < CAP;
+    const dWall = Math.hypot(Math.max(0, RI - rho, rho - RO), Math.max(0, -p.z, p.z - RIM));
+    const dPlate = Math.hypot(Math.max(0, rho - RI), Math.max(0, CAP - 6.35 - p.z, p.z - CAP));
+    return Math.min(inWall ? -1 : dWall, inPlate ? -1 : dPlate);
+  };
+  const distSwap = p => {
+    const rho = Math.hypot(p.x, p.y), dr = rho - SWAP.r, dz = Math.max(SWAP.z0 - p.z, p.z - SWAP.z1);
+    return dr < 0 && dz < 0 ? Math.max(dr, dz) : Math.hypot(Math.max(0, dr), Math.max(0, dz));
+  };
+  function clearances() {
+    let mt = Infinity, ms = Infinity;
+    for (const o of SAMP) { const w = gun.local(o.p); mt = Math.min(mt, distTube(w) - o.r); ms = Math.min(ms, distSwap(w) - o.r); }
+    return { tube: mt, swap: ms };
+  }
+
+  function forkCheck() {
+    let worst = Infinity;
+    const rr = S.Rc + 14, c = Math.cos(phiOpen), sn = Math.sin(phiOpen);
+    forkG.updateMatrixWorld(true);
+    [-1, 1].forEach(sx => [-1, 1].forEach(sy => [0, -4].forEach(dz => { const x = sx * rr, y = sy * rr; worst = Math.min(worst, distSwap(forkG.localToWorld(V(x * c - y * sn, x * sn + y * c, dz)))); })));
+    const pp = post(), fw = forkG.position, toPost = V(pp.x - fw.x, pp.y - fw.y, 0).normalize(), edge = fw.clone().addScaledVector(toPost, S.Rc + 12); edge.z = fw.z - 2;
+    for (let i = 0; i <= 12; i++) { const q = edge.clone().lerp(V(pp.x, pp.y, edge.z), i / 12); worst = Math.min(worst, distSwap(q) - 7); }
+    return worst;
+  }
+
+  // ------------------------------------------------------------------ seat model: six-contact coupling, live amplification and re-seat draws
+  let couplingInv = null;
+  function inv6(A) {
+    const n = 6, M = A.map((r, i) => r.concat(Array.from({ length: n }, (_, j) => (i === j ? 1 : 0))));
+    for (let c = 0; c < n; c++) {
+      let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+      [M[c], M[p]] = [M[p], M[c]];
+      const d = M[c][c]; for (let k = 0; k < 2 * n; k++) M[c][k] /= d;
+      for (let r = 0; r < n; r++) if (r !== c) { const f = M[r][c]; for (let k = 0; k < 2 * n; k++) M[r][k] -= f * M[c][k]; }
+    }
+    return M.map(r => r.slice(n));
+  }
+  function couplingMatrix() {
+    const G = [], a = 45 * DEG;
+    for (let i = 0; i < 3; i++) {
+      const phi = phiOpen + Math.PI + (i === 0 ? 0 : (i === 1 ? 1 : -1) * 2 * Math.PI / 3);
+      const p = [S.Rc * Math.cos(phi), S.Rc * Math.sin(phi), 0], t = [-Math.sin(phi), Math.cos(phi), 0];
+      [1, -1].forEach(s => {
+        const n = [s * t[0] * Math.sin(a), s * t[1] * Math.sin(a), Math.cos(a)];
+        G.push([n[0], n[1], n[2], p[1] * n[2] - p[2] * n[1], p[2] * n[0] - p[0] * n[2], p[0] * n[1] - p[1] * n[0]]);
+      });
+    }
+    return G;
+  }
+  const rDot = () => [0, 0, -WK.CLEARANCE - (ZF - 3.2)];       // dot relative to the coupling centre, gun-local
+  function Jmat() { const r = rDot(); return [[1, 0, 0, 0, r[2], -r[1]], [0, 1, 0, -r[2], 0, r[0]], [0, 0, 1, r[1], -r[0], 0]]; }   // u = t + w x r
+  function inverse() { if (!couplingInv) couplingInv = inv6(couplingMatrix()); return couplingInv; }
+  function amplification() {   // RMS dot displacement per unit contact error (Frobenius norm of J G^-1)
+    const Gi = inverse(), J = Jmat(); let s = 0;
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 6; j++) { let v = 0; for (let k = 0; k < 6; k++) v += J[i][k] * Gi[k][j]; s += v * v; }
+    return Math.sqrt(s);
+  }
+  function drawSeat() {        // one re-seat: random contact errors -> dot displacement (world vector, mm)
+    const Gi = inverse(), J = Jmat(), d = Array.from({ length: 6 }, () => gauss() * S.sigma / 1000);
+    const x = Gi.map(r => r.reduce((a, v, k) => a + v * d[k], 0));
+    const ul = J.map(r => r.reduce((a, v, k) => a + v * x[k], 0));
+    return ex.clone().multiplyScalar(ul[0]).addScaledVector(ey, ul[1]).addScaledVector(back, ul[2]);
+  }
+  function recordSeat() {
+    S.log.push({ r: S.trimR + S.u.x, s: S.u.y, z: S.trimZ + S.u.z }); if (S.log.length > 80) S.log.shift();
+    S.cycles++;
+  }
+
+  // ------------------------------------------------------------------ interlocks: two axes, order matters
+  function requestArc(v) {
+    if (Math.abs(v - S.arc) < 1e-9) return v;
+    const geom = S.pc < 8, rule = S.interlock && S.pc < 20;
+    if (geom || rule) {
+      app.badge('ilk', geom ? 'swing refused: the seat balls are still in the fork (plunge < 8 mm)' : 'swing refused by the interlock: retract the plunge to at least 20 mm first', geom ? 'limit' : 'warn');
+      return S.arc;
+    }
+    const was = S.arc;
+    S.arc = v;
+    if (v <= 0.001 && was > 0.001) { S.slopNow = gauss() * S.slop; S.missNow = Math.abs(S.slopNow) > S.capture; }
+    app.badge('ilk', null);
+    return v;
+  }
+  function requestPlunge(v) {
+    let want = v;
+    const atSeat = S.arc <= 0.001 && !S.missNow;
+    if (want < 8 && !atSeat) {
+      want = 8;
+      app.badge('ilk', S.arc > 0.001 ? 'plunge stops at 8 mm: the head is not over the seat, the balls would land on the fork top' : 'MISS: the arm stopped ' + Math.abs(S.slopNow).toFixed(1) + ' mm off; capture is ' + S.capture.toFixed(1) + ' mm. Balls land beside the grooves', 'limit');
+    } else app.badge('ilk', null);
+    if (S.wireStuck && S.pc <= 0 && want > 4) {
+      want = 4;
+      app.badge('hold', 'HOLD: retract stopped at 4 mm, wire fused into the bead. A hand must snip it (turn the exception off)', 'limit');
+    } else if (!S.wireStuck) app.badge('hold', null);
+    const was = S.pc <= 0;
+    S.pc = want;
+    if (!was && S.pc <= 0) { S.u = drawSeat(); recordSeat(); }
+    return want;
+  }
+
+  // ------------------------------------------------------------------ cable (kit Bezier stand-in; not a cable model)
+  let cableMesh = null, conduitMesh = null;
+  const hookMast = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'fixed'); app.add(hookMast);
+  const hookMark = P.sphere(6, 'cable'); app.add(hookMark);
+  const hookLocal = () => { const e = cableExit0, s = e.point.clone().addScaledVector(e.dir, 70).addScaledVector(e.dir, S.hookD); return s; };
+  function updateCable() {
+    const e = gun.cableExit(), start = e.point.clone().addScaledVector(e.dir, 70);
+    const hw0 = hookLocal(), p = post();
+    let hook = hw0.clone();
+    if (S.hookOnArm) { const rel = V(hw0.x - p.x, hw0.y - p.y, hw0.z); hook = arm.localToWorld(rel); }
+    const curve = WK.bezierCable(start, e.dir, hook, e.dir, { stiffness: 0.4 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const we = gun.wireExit(), s2 = we.point.clone().addScaledVector(we.dir, 4), h2 = hook.clone().addScaledVector(gun.dir([1, 0, 0]), 24);
+    const c2 = WK.bezierCable(s2, we.dir, h2, we.dir, { stiffness: 0.4 });
+    if (!conduitMesh) { conduitMesh = P.cable(c2, { radius: 2.2, role: 'wire' }); app.add(conduitMesh); } else conduitMesh.setPoints(c2);
+    hookMark.position.copy(hook); hookMark.visible = true;
+    if (S.hookOnArm) { hookMast.visible = false; jib.visible = true; hookArmMark.visible = false; const rel = V(hw0.x - p.x, hw0.y - p.y, hw0.z); jib.setEnds(V(0, 0, zArm), rel); }
+    else { jib.visible = false; hookMast.visible = true; hookMast.setEnds(V(hw0.x, hw0.y, benchZ), hw0); }
+    const r = curve.minRadius(), emitting = S.arc <= 0.001;
+    const need = emitting ? WK.CABLE.minBendEmitting : WK.CABLE.minBendStored;
+    const txt = 'umbilical min bend R ' + (isFinite(r) ? Math.round(r) : '∞') + ' mm; ' + (emitting ? 'seat side, emitting possible: manual needs 350' : 'travelling, laser off: manual needs 240') + ' (illustrative check)';
+    app.badge('cable', txt, r >= need ? 'ok' : (r >= WK.CABLE.minBendStored && emitting ? 'warn' : 'limit'));
+    return r;
+  }
+
+  // ------------------------------------------------------------------ layout of everything from the state
+  const armLocal = w => { const p = post(); return V(w.x - p.x, w.y - p.y, w.z); };
+  function place() {
+    const p = post(), th = -arcEff() / Rn();
+    postMesh.position.set(p.x, p.y, benchZ + postH / 2); postBase.position.set(p.x, p.y, benchZ + 4);
+    arm.position.set(p.x, p.y, 0); arm.rotation.z = th; arm.updateMatrixWorld(true);
+    const pg = Math.max(S.pc, 0), seated = S.pc <= 0 && !S.missNow && S.arc <= 0.001;
+    const off = seated ? V(S.trimR + S.u.x, S.u.y, S.trimZ + S.u.z) : V(0, 0, 0);
+    gun.group.position.copy(armLocal(P0)).addScaledVector(back, pg).add(off);
+    gun.group.quaternion.copy(Q0);
+    const hubP = V(0, 0, zArm); hub.position.copy(hubP);
+    const blkP = armLocal(w0([0, 0, 436])); blk.position.copy(blkP);
+    armRod.setEnds(hubP, V(blkP.x, blkP.y, zArm));
+    rail.setEnds(armLocal(w0([0, 0, railLo])), armLocal(w0([0, 0, railHi])));
+    carriage.position.copy(armLocal(w0([0, 0, 305 + S.pc])));
+    spring.setEnds(armLocal(w0([0, 0, 258])).addScaledVector(back, pg).add(off), armLocal(w0([0, 0, 305 + S.pc - 13])));
+    motor.position.copy(armLocal(w0([0, 0, 428]))); motor.quaternion.setFromUnitVectors(V(0, 0, 1), back.clone().negate());
+    screw.setEnds(armLocal(w0([0, 0, 420])), carriage.position);
+    swRet.position.copy(armLocal(w0([16, 0, 345]))); swEng.position.copy(armLocal(w0([16, 0, 304])));
+    const fw = forkG.position, toPost = V(p.x - fw.x, p.y - fw.y, 0).normalize();
+    const edge = fw.clone().addScaledVector(toPost, S.Rc + 12); edge.z = fw.z - 2;
+    seatArm.setEnds(V(p.x, p.y, edge.z), edge);
+    swingMotor.position.set(p.x + 34, p.y, benchZ + 130); swingMotor.rotation.x = Math.PI; // shaft up
+    arm.updateMatrixWorld(true);
+    gun.updateLaser();
+    // stuck wire: dashed wire from the guide end to the fixed dot, only while fused and the gun has lifted
+    stuckWire.visible = S.wireStuck && (S.pc > 0 || S.arc > 0);
+    if (stuckWire.visible) stuckWire.setPoints([gun.local('wireGuideEnd'), dotSeat]);
+    // load path
+    const gcen = gun.local([0, 0, 185.5]), base = V(p.x, p.y, benchZ);
+    const pts = seated
+      ? [gcen, gun.local([0, 0, ZF]), forkG.position.clone(), edge, V(p.x, p.y, edge.z), base]
+      : [gcen, gun.local([0, 0, 256]), arm.localToWorld(carriage.position.clone()), arm.localToWorld(blk.position.clone()), arm.localToWorld(hub.position.clone()), base];
+    loadPath.setPoints(pts);
+    updateCable();
+    sync();
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ observers and the software panel
+  const obsCam = { az: 190, h: 330, r: 240 };
+  const camPos = V(obsCam.r * Math.cos(obsCam.az * DEG), obsCam.r * Math.sin(obsCam.az * DEG), obsCam.h);
+  app.inset.add({ id: 'obs', label: 'Dot camera (proposed, illustrative)', position: () => camPos, target: () => dotSeat, fov: 38, near: 30, far: 1600, size: [250, 172], corner: 'br', noise: 0.25 });
+  app.label(camPos, 'dot camera', { cls: 'sensor' });
+  const gunLike = { dotOffset: () => gun.dotOffset(), beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: gunLike });
+
+  // scatter panel (custom slot)
+  const cv = document.createElement('canvas'); cv.width = 460; cv.height = 300;
+  const rd = WK.h('div', { class: 'rd' });
+  const scat = WK.h('div', { class: 'use-scatter' }, WK.h('div', { class: 'ttl', text: 'Re-seat scatter (simulated from your settings)' }), cv, rd);
+  app.stageEl.querySelector('.wk-slots').appendChild(scat);
+  const scatSlot = app._addSlot({ corner: 'tr', w: 230, h: 214, el: scat, autoH: true });
+  function drawScatter(amp) {
+    const c = cv.getContext('2d'), W = cv.width, H = cv.height;
+    c.clearRect(0, 0, W, H);
+    let mx = 0.12; S.log.forEach(o => { mx = Math.max(mx, Math.abs(o.r), Math.abs(o.z)); });
+    const nice = [0.15, 0.3, 0.5, 1, 2, 5]; const range = nice.find(n => n >= mx * 1.15) || 5;
+    const cx = W / 2, cy = H / 2 + 6, k = (H / 2 - 24) / range;
+    c.strokeStyle = '#2b3646'; c.lineWidth = 1; c.beginPath(); c.moveTo(20, cy); c.lineTo(W - 20, cy); c.moveTo(cx, 22); c.lineTo(cx, H - 6); c.stroke();
+    c.strokeStyle = '#3b82f6'; c.setLineDash([4, 3]); c.beginPath(); c.arc(cx, cy, 0.10 * k, 0, 6.29); c.stroke(); c.setLineDash([]);
+    c.fillStyle = '#7d8ea8'; c.font = '17px sans-serif'; c.fillText('ring 0.10 mm (reference only)', 24, H - 10); c.fillText('±' + range + ' mm', W - 96, 20);
+    c.fillText('r →', W - 52, cy - 6); c.fillText('z', cx + 6, 34);
+    S.log.forEach((o, i) => { c.fillStyle = i === S.log.length - 1 ? '#ff3b30' : '#a5f3fc'; c.beginPath(); c.arc(cx + o.r * k, cy - o.z * k, i === S.log.length - 1 ? 5 : 3, 0, 6.29); c.fill(); });
+    const n = S.log.length;
+    let txt = '<em>contact error</em> <b>' + S.sigma + ' µm</b> × seat amplification <b>' + amp.toFixed(1) + '</b> at the dot<br>';
+    if (n) {
+      const mean = a => a.reduce((s, x) => s + x, 0) / a.length, sd = a => { const m = mean(a); return Math.sqrt(a.reduce((s, x) => s + (x - m) * (x - m), 0) / Math.max(1, a.length - 1)); };
+      const rr = S.log.map(o => o.r), zz = S.log.map(o => o.z);
+      txt += n + ' seats, ' + S.missed + ' missed &middot; mean r ' + mean(rr).toFixed(3) + ' z ' + mean(zz).toFixed(3) + ' mm<br>SD r ' + sd(rr).toFixed(3) + ' z ' + sd(zz).toFixed(3) + ' mm';
+    } else txt += 'no seats logged yet (' + S.missed + ' missed)';
+    rd.innerHTML = txt;
+  }
+
+  function sync() {
+    const c = clearances();
+    const fk = forkCheck();
+    setClear(c.tube < 0 ? 'touching' : c.tube.toFixed(1), c.tube < 0 ? '' : 'mm');
+    setFork(fk >= 0 ? 'clear by ' + fk.toFixed(1) : 'INTRUDES ' + (-fk).toFixed(1), 'mm');
+    app.badge('fork', fk < 0 ? 'fixed fork / seat arm intrude the swap volume by ' + (-fk).toFixed(1) + ' mm: a tube cannot be lifted out (move the seat back along the barrel)' : null, 'warn');
+    const seated = S.pc <= 0 && !S.missNow && S.arc <= 0.001;
+    const away = S.arc > 0.001, retracted = S.pc >= 39.5, engaged = S.pc <= 0;
+    let state = 'in transit';
+    if (seated) state = 'SEATED (weld state)'; else if (S.arc <= 0.001 && S.pc >= 20) state = 'APPROACH: over the seat, retracted';
+    else if (S.arc >= 100 && retracted) state = 'PARKED'; else if (away) state = 'SWINGING'; else if (S.missNow) state = 'MISSED the seat'; else state = 'PLUNGING';
+    setState(state);
+    if (c.tube < 0) app.badge('rim', 'gun proxy would touch the tube (' + c.tube.toFixed(1) + ' mm)', 'limit');
+    else if (c.tube < 8 && !seated) app.badge('rim', 'nozzle passes the rim with ' + c.tube.toFixed(1) + ' mm to spare (proxy geometry)', 'warn');
+    else app.badge('rim', null);
+    if (away) app.badge('swap', c.swap > 0 ? 'tube-swap volume clear: a tube can be lifted out (illustrative volume)' : 'gun still inside the tube-swap volume', c.swap > 0 ? 'ok' : 'info'); else app.badge('swap', null);
+    const vis = app.inset.markVisibility('obs', gun.dotWorld());
+    const off = gun.dotOffset();
+    app.cornerInset.setEstimate(vis && vis.visible && seated ? { radial: off.radial + 0.4, vertical: off.vertical - 0.3 } : null);
+    const amp = amplification();
+    drawScatter(amp);
+    app.io.set({
+      commands: [
+        { name: 'Swing', value: S.arc, unit: 'mm at the nozzle', note: 'moves the head between the seat side and the park side; not a positioning axis' },
+        { name: 'Plunge', value: S.pc, unit: 'mm', note: 'along the barrel axis; negative = float spring compressed' },
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing controller and pedal' },
+        { name: 'Sequence rule', value: 'swing needs plunge \u2265 ' + (S.interlock ? 20 : 8) + ' mm', note: S.interlock ? 'software rule on top of geometry (8 mm)' : 'geometry only: the balls must be out of the fork' },
+      ],
+      observes: [
+        { name: 'Retracted / engaged switches', value: (retracted ? 'retracted' : engaged ? 'engaged' : 'between'), status: 'seen', note: 'two limit switches on the plunge rail' },
+        { name: 'Seat continuity (3 contacts)', value: seated ? 'closed' : 'open', status: 'seen', note: 'ball-to-groove pairs wired as a circuit: says seated, not where' },
+        { name: 'Dot in camera view', value: vis ? (vis.visible ? 'yes' : vis.inFov ? 'blocked' : 'out of view') : '-', status: vis && vis.visible ? 'partly' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Dot vs seam (r, z)', value: vis && vis.visible && seated ? (off.radial + 0.4).toFixed(2) + ', ' + (off.vertical - 0.3).toFixed(2) : '-', unit: vis && vis.visible && seated ? 'mm' : '', status: vis && vis.visible && seated ? 'partly' : 'blind', note: 'estimate marker uses a made-up 0.4 / −0.3 mm bias; truth is the corner inset' },
+        { name: 'Wire tip at the corner', value: '-', status: 'unresolved', note: 'no sensor proposed' },
+        { name: 'Arm stop', value: 'rests ' + S.slopNow.toFixed(1) + ' mm off (slop \u00b1' + S.slop.toFixed(1) + ', capture ' + S.capture.toFixed(1) + ')', status: 'partly', note: 'the seat pulls the gun in if the arm is within capture' },
+        { name: 'Retract reached the stop in time', value: S.wireStuck && S.pc > 0 ? 'NO: HOLD' : '-', status: S.wireStuck ? 'seen' : 'blind', note: 'timeout on the retract switch is how a stuck wire would show' },
+      ],
+      manual: ['Loading and indicating the tube', 'Campaign trim: three adjuster screws between gun and shell', 'Trigger squeeze', 'Snipping a stuck wire', 'Setting the fork and post in the first place'],
+    });
+  }
+  const setState = app.ui.readout('state', 'Head state'), setClear = app.ui.readout('clear', 'Nearest gun-to-tube clearance (proxy)'), setFork = app.ui.readout('fork', 'Fixed fork and seat arm vs swap volume');
+
+  // ------------------------------------------------------------------ sequence runner (animated)
+  let seq = null;
+  function runSeq(steps, done) { if (seq) return; seq = { steps: steps.slice(), i: 0, done: done }; app.animate(true); }
+  app.onFrame(function (dt) {
+    if (!seq) return false;
+    const st = seq.steps[seq.i], cur = app.ui.get(st.id), dir = Math.sign(st.to - cur);
+    let nv = dir === 0 ? st.to : cur + dir * st.speed * Math.min(dt, 0.05);
+    if ((nv - st.to) * dir >= 0) nv = st.to;
+    app.ui.set(st.id, Math.round(nv));
+    const got = app.ui.get(st.id);
+    if (Math.abs(got - st.to) < 0.51) { seq.i++; if (seq.i >= seq.steps.length) { const d = seq.done; seq = null; if (d) d(); app.animate(false); } }
+    else if (Math.abs(got - cur) < 0.01 && Math.abs(Math.round(nv) - cur) >= 1) { seq = null; app.animate(false); app.toast('sequence stopped: an interlock refused the step'); }
+    return true;
+  });
+  const P_SPEED = 70, S_SPEED = 110;
+  const stepsTo = {
+    park: [{ id: 'plunge', to: 40, speed: P_SPEED }, { id: 'swing', to: 120, speed: S_SPEED }],
+    approach: [{ id: 'plunge', to: 40, speed: P_SPEED }, { id: 'swing', to: 0, speed: S_SPEED }],
+    seat: [{ id: 'plunge', to: 40, speed: P_SPEED }, { id: 'swing', to: 0, speed: S_SPEED }, { id: 'plunge', to: -4, speed: P_SPEED }],
+    retract: [{ id: 'plunge', to: 40, speed: P_SPEED }],
+  };
+
+  // ------------------------------------------------------------------ controls
+  const grpA = app.ui.group('Commanded axes (proposed actuators)', { help: 'Two axes. The swing brings the gun beside the seat; only the plunge seats it. Order matters: try them out of order.' });
+  grpA.slider({ id: 'swing', label: 'Swing away from the seat', min: 0, max: S.arcMax, step: 1, value: 0, unit: 'mm at the nozzle', kind: 'actuator', visual: () => [arm, armRod, rail],
+    help: '0 = arm at its stop over the seat. Around 100 mm the whole gun is out of the illustrative tube-swap volume.',
+    onChange: v => { const g = requestArc(v); if (g !== v) app.ui.set('swing', g, { silent: true }); place(); } });
+  grpA.slider({ id: 'plunge', label: 'Plunge (0 = balls touch the grooves)', min: -6, max: 40, step: 1, value: -4, unit: 'mm', kind: 'actuator', visual: () => [carriage, spring],
+    help: 'Positive = retracted along the barrel axis. Below 0 the carriage keeps going and the float spring compresses: the gun is now on the seat, not on the arm.',
+    onChange: v => { const g = requestPlunge(v); if (g !== v) app.ui.set('plunge', g, { silent: true }); place(); } });
+  const grpQ = app.ui.group('Sequences (state buttons)');
+  grpQ.button({ id: 'go-park', label: 'Go to PARK', kind: 'state', help: 'retract, then swing away', onClick: () => runSeq(stepsTo.park) });
+  grpQ.button({ id: 'go-approach', label: 'Go to APPROACH', kind: 'state', help: 'retract, then swing to the stop over the seat', onClick: () => runSeq(stepsTo.approach) });
+  grpQ.button({ id: 'go-seat', label: 'Go to SEATED', kind: 'state', help: 'retract, swing to the stop, plunge onto the seat (a new random re-seat)', onClick: () => runSeq(stepsTo.seat) });
+  grpQ.button({ id: 'go-retract', label: 'Retract (end of bead)', kind: 'state', help: 'with the wire fused, the retract stops after 4 mm', onClick: () => runSeq(stepsTo.retract) });
+  grpQ.toggle({ id: 'stuck', label: 'Exception: wire fused in the bead', value: false, kind: 'state', help: 'On: a retract from the seat stops at 4 mm (HOLD). Off again = the hand has snipped the wire.',
+    onChange: v => { S.wireStuck = v; if (!v) app.badge('hold', null); place(); } });
+
+  const grpE = app.ui.group('Seat experiments (scene edits, simulated)', { help: 'The scatter is simulated from these numbers. A real seat has to be measured with the indicator.' });
+  grpE.slider({ id: 'sigma', label: 'Contact repeatability (per contact)', min: 1, max: 100, step: 1, value: 8, unit: 'µm', kind: 'scene', help: 'Illustrative. Hardened balls in hardened grooves are single-digit µm; printed grooves are not.', onChange: v => { S.sigma = v; sync(); } });
+  grpE.slider({ id: 'rc', label: 'Contact circle radius', min: 15, max: 60, step: 1, value: 30, unit: 'mm', kind: 'scene', visual: () => [flange, forkG], help: 'A wider seat is less sensitive; a narrower one leaves room for the barrel.', onChange: v => { S.Rc = v; layoutSeat(); place(); } });
+  grpE.slider({ id: 'zf', label: 'Seat position along the barrel', min: 100, max: 160, step: 1, value: 116, unit: 'mm behind the nozzle tip', kind: 'scene', visual: () => [flange, forkG], help: 'Moving the seat back lifts the fixed fork out of the swap volume and lengthens the lever to the dot (see the amplification in the scatter panel).', onChange: v => { ZF = v; couplingInv = null; layoutSeat(); place(); } });
+  grpE.slider({ id: 'slop', label: 'Arm-stop slop', min: 0, max: 6, step: 0.5, value: 1, unit: 'mm', kind: 'scene', visual: () => [arm], help: 'How far from ideal the printed arm stop leaves the gun before it seats. Capture range is 3 mm (illustrative).', onChange: v => { S.slop = v; } });
+  grpE.button({ id: 'cycles', label: 'Run 20 seat cycles (fast)', kind: 'state', help: 'retract, swing off and on, plunge: 20 times, unattended',
+    onClick: () => {
+      let seated = 0, missed = 0;
+      for (let i = 0; i < 20; i++) { const sl = gauss() * S.slop; if (Math.abs(sl) > S.capture) { missed++; continue; } S.u = drawSeat(); recordSeat(); seated++; }
+      S.missed += missed;
+      app.toast(seated + ' seated, ' + missed + ' missed');
+      place();
+    } });
+  grpE.button({ id: 'clear', label: 'Clear scatter', kind: 'state', onClick: () => { S.log.length = 0; S.missed = 0; S.cycles = 0; sync(); } });
+  grpE.slider({ id: 'trimr', label: 'Systematic offset, radial (print error)', min: -1, max: 1, step: 0.01, value: 0.35, unit: 'mm', kind: 'scene', help: 'What the three adjuster screws remove once per campaign. Illustrative starting value.', onChange: v => { S.trimR = v; place(); } });
+  grpE.slider({ id: 'trimz', label: 'Systematic offset, vertical (print error)', min: -1, max: 1, step: 0.01, value: -0.22, unit: 'mm', kind: 'scene', help: 'Same, vertical.', onChange: v => { S.trimZ = v; place(); } });
+  grpE.button({ id: 'trim', label: 'Trim by the 3 screws (manual)', kind: 'state', help: 'A hand turns the adjusters by the observed mean; the systematic offset goes away, the scatter stays.',
+    onClick: () => { if (S.log.length < 3) { app.toast('run some seat cycles first'); return; } const m = S.log.reduce((a, o) => ({ r: a.r + o.r, z: a.z + o.z }), { r: 0, z: 0 }); const nr = S.trimR - m.r / S.log.length, nz = S.trimZ - m.z / S.log.length; S.log.length = 0; app.ui.set('trimr', nr); app.ui.set('trimz', nz); } });
+
+  const grpS = app.ui.group('Scene edits: structure and cable');
+  grpS.slider({ id: 'post', label: 'Post distance from the tube axis', min: 260, max: 900, step: 10, value: 362, unit: 'mm', kind: 'scene', visual: () => postMesh, help: 'Farther post = longer arm = gentler arc; the swing slider is in millimetres at the nozzle so it does not change.', onChange: v => { S.R = v; layoutSeat(); place(); } });
+  grpS.slider({ id: 'hook', label: 'Cable hook distance along the exit line', min: 250, max: 1000, step: 10, value: 520, unit: 'mm', kind: 'scene', visual: () => cableMesh, help: 'How far out the umbilical is carried before it is allowed to bend. Watch the bend badge.', onChange: v => { S.hookD = v; place(); } });
+  grpS.radio({ id: 'hookon', label: 'Cable hook is on', options: [{ value: 'mast', label: 'fixed mast' }, { value: 'arm', label: 'the swing arm' }], value: 'mast', kind: 'branch', help: 'Fixed: the swing bends the cable. On the arm: the swing moves the hook with the gun.', onChange: v => { S.hookOnArm = v === 'arm'; place(); } });
+  grpS.radio({ id: 'ilk', label: 'Software rule before any swing', options: [{ value: 'on', label: 'plunge ≥ 20 mm' }, { value: 'off', label: 'geometry only (≥ 8 mm)' }], value: 'on', kind: 'branch', help: 'Compare the rule with what geometry alone allows.', onChange: v => { S.interlock = v === 'on'; place(); } });
+  const grpV = app.ui.group('Rotator and views');
+  grpV.toggle({ id: 'spin', label: 'Rotator turning (dry lap)', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; sync(); } });
+  grpV.toggle({ id: 'loadpath', label: 'Show load path', value: true, kind: 'view', onChange: v => { loadPath.visible = v; app.invalidate(); } });
+  grpV.toggle({ id: 'swapvol', label: 'Show tube-swap volume', value: true, kind: 'view', onChange: v => { swapVol.visible = v; app.invalidate(); } });
+
+  // labels
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => arm.localToWorld(hub.position.clone()), 'swing bearing + arm', { cls: 'actuated' });
+  app.label(() => arm.localToWorld(carriage.position.clone()), 'carriage on rail (plunge)', { cls: 'actuated' });
+  app.label(() => arm.localToWorld(spring.position.clone()), 'float spring', { cls: 'compliant' });
+  app.label(() => gun.local([0, 0, ZF - 4]), 'seat: 3 balls / 3 grooves', { cls: 'locate' });
+  app.label(() => V(postMesh.position.x, postMesh.position.y, benchZ + 60), 'post (fixed)', { cls: 'fixed' });
+  app.label(() => hookMark.position, 'cable hook', { cls: 'cable' });
+  app.label(() => arm.localToWorld(swEng.position.clone()), 'end-stop switch', { cls: 'sensor' });
+
+  layoutSeat(); place();
+})();
+</script>
+</body>
+</html>

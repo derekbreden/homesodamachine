@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signature parity</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sp-svg { width: 100%; height: 100%; min-height: 660px; display: block; }
+  .sp-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .sp-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .sp-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .sp-svg .warn { fill: #f87171; font-weight: 600; }
+  .sp-svg .axis { stroke: #394559; stroke-width: 1; fill: none; }
+  .sp-svg .grid { stroke: #232c39; stroke-width: 1; }
+  .sp-svg .band { fill: rgba(52, 211, 153, .10); stroke: rgba(52, 211, 153, .55); stroke-dasharray: 4 3; }
+  .sp-svg .raw { stroke: var(--role-ghost); stroke-width: 1.5; fill: none; stroke-dasharray: 5 3; }
+  .sp-svg .res { stroke: var(--role-actuated); stroke-width: 2.4; fill: none; }
+  .sp-svg .cmd { stroke: var(--role-locate); stroke-width: 1.4; fill: none; }
+  .sp-svg .obs { fill: var(--role-sensor); }
+  .sp-svg .obsW { fill: none; stroke: var(--role-compliant); stroke-width: 1.5; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-18-signature-parity",
+  "title": "Signature parity: the dry turn must be the weld turn",
+  "by": "travel",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "A seam signature learned in a dry turn is replayed in the weld turn, but anything that moves the gun against the room between the two adds a constant the fit never saw: change of force times the compliance of the chain from gun to room. Drawn against datum-02's default tube: the replay's residual with a holder, a shell stage and a horizontal-axis backlash, which fitted terms each stage takes, and the repair of running the dry turn in the weld's mechanical state (feeder, gas, laser off) so the parity term is measured.",
+  "tags": [
+    "lens",
+    "analysis",
+    "seam signature",
+    "dry turn",
+    "parity",
+    "holder compliance",
+    "backlash",
+    "term assignment",
+    "combination of datum-02 and travel-02"
+  ],
+  "branchOf": [],
+  "combines": [
+    "datum-02-seam-signature",
+    "travel-02-cascade"
+  ],
+  "transferable": [
+    "a second dry turn measures the hold",
+    "terms go to the cheapest stage",
+    "backlash shows at every reversal"
+  ],
+  "how": {
+    "motion": "trim, nest screws once per tube, and a follow stage replaying the fit by angle",
+    "load": "not drawn: the gun-to-room chain has a compliance per newton; a shell stage adds more",
+    "reference": "this tube's own seam as learned in one or two dry turns",
+    "observe": "dot against seam in the dry turns (any sensor); nothing in the weld turn",
+    "use": "dry turn cold, dry turn with feeder and gas running (laser off), compare, fit, weld"
+  },
+  "software": {
+    "commands": [
+      "static trim (radial, vertical) per tube",
+      "follow stage table by rotator angle",
+      "the parity dry turn (feeder jog, gas on, laser off)"
+    ],
+    "observes": [
+      "dot vs seam samples in each dry turn",
+      "rotator step count as angle"
+    ],
+    "manual": [
+      "nest screws (turned by hand or by a driver, travel-06)",
+      "hand-aim to bring the dot inside the stage stroke"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-18-signature-parity.md",
+    "../../exchange/travel--on--datum-w2.md",
+    "../../explorers/travel/calc/10-signature-assign.mjs",
+    "../../explorers/datum/ideas/datum-02-seam-signature.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const DEG = Math.PI / 180, TAU = Math.PI * 2;
+  const app = WK.app({
+    stage: 'custom', minWidth: 820, workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>Datum-02&rsquo;s signature, with the hold put back in.</b> One dry turn samples the dot against the seam at each table angle; a small harmonic fit (constant, 1x, 2x) is replayed against the rotator angle in the weld turn. The plots are the error at the dot in the <i>weld</i> turn, radial and vertical. Dashed grey is the tube with nothing done; purple is what is left after the stages you switch on.</p>' +
+        '<p><b>Three things the fit does not see.</b> (1) The change of force between the dry turn and the weld turn (wire feeder and conduit, gas hose, the hand leaving, the fibre emitting) times the compliance from gun to room: a constant. (2) Backlash in a horizontal stage, at every reversal of the replay. (3) A stage in the gun&rsquo;s shell is in series with the holder. <b>Repair drawn:</b> a second dry turn in the weld&rsquo;s mechanical state (feeder jogging, gas on, laser off); the two turns differ by exactly the parity term, and the replay uses the second.</p>' +
+        '<p><b>Term assignment:</b> the constants need only a static trim, the 1x radial term can be removed at its source by the nest screws (travel-06), the 1x vertical term needs a follow stage under the work. The window slider shows where each stage starts to matter.</p>',
+      carries:
+        '<p>Not drawn as hardware. The chain from gun to room has a compliance per newton (calc/06: a 20 mm steel post 6 &micro;m/N, a 12 mm steel rod 44, a 12 mm aluminium rod 128 &micro;m/N); a stage carried in the gun&rsquo;s shell adds 1/k. Put a follow stage <b>under the work</b> and it is not in that chain, though the holder still is.</p>',
+      software:
+        '<p>Software commands the dry turns, the fit and the replay, and compares the two dry turns: their difference is the parity term, a number it can act on. It cannot see the dot during the weld turn; the drift slider stands for what nobody observes. The unknowns (change of force, drift, backlash) are sliders, not measurements.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the scene default leaves a fit residual of about 0.02 mm; a 1 N change against a 12 mm steel rod is 0.044 mm, a constant, the same every lap. <b>Assumption:</b> the gun does not move between the two turns. <b>Change:</b> the parity dry turn. <b>Left:</b> what only the emitting laser does (head vibration, heat).</li>' +
+        '<li><b>Conflict:</b> a stage in the shell in series with the holder. <b>What the scene shows:</b> a 20 N/mm stage adds 0.05 mm per newton; the requirement for a 1 N change and 0.02 mm is a chain stiffer than 50 N/mm. <b>Change:</b> put the follow stage under the work, or keep the shell stage stiff.</li>' +
+        '<li><b>Conflict:</b> backlash on the horizontal (radial) stage at every reversal of a sinusoid. <b>What the scene shows:</b> residual amplitude b/2 (0.025 mm at 0.05 mm). <b>Change:</b> a spring preload or a flexure; a vertical axis is loaded one way by weight.</li>' +
+        '<li><b>Conflict (from use, wave 2):</b> which dry turn is the weld turn, and where its angle zero comes from. <b>Assumption:</b> any dry revolution in the weld setup will do, and the table\'s degrees are known. <b>Change:</b> in guide 46\'s order the second dry turn is the revolution <i>after</i> step 5 (speed set, index returned, shielding and wire placed), not the step-4 continuity revolution; and the replay\'s zero is the index mark the guide already returns the table to (good to about 1°, 1 mm of arc), which the angle-zero slider tests: a phase error φ on a 0.125 mm first harmonic leaves 2 × 0.125 × sin(φ/2), 0.022 mm at 10° and 0.002 mm at 1°; counting three harmonics the table stays inside 0.02 mm to about 5° and inside 0.05 mm to about 13°. <b>Left:</b> nothing reads the angle in software today (a hall pulse per turn, $5.99 for five on Prime, would).</li>' +
+        '<li><b>Conflict:</b> a follow stage may not be needed. <b>What the scene shows:</b> the constants are two thirds of the uncompensated rms; against a &plusmn;0.30 mm window a static trim alone leaves the dot inside everywhere (peaks 0.18 mm). A replay earns its place below about 0.2 mm, vertical first. <b>Left:</b> the real window (unknown).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The change of force, and what the holder is, are unmeasured. A gun weighed and a pull measured at the exit would set the first; an indicator on the holder while the feeder runs would set the second.</li>' +
+        '<li>The tube&rsquo;s terms are datum-02&rsquo;s illustrative defaults. The scene has no sensor model beyond Gaussian noise per sample.</li>' +
+        '<li><b>Questions for Derek:</b> does the wire feeder push or pull on the gun&rsquo;s bracket when it runs (place a hand on the gun)? Does anything visibly shift when the gas starts?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Tube terms as datum-02 draws them: radial constant 0.20, 1x 0.13, 2x 0.05 mm; vertical &minus;0.15, 0.15, 0.03 mm (<b>illustrative</b>; phases fixed here). Sample noise, sample count, harmonics: sliders. Rig-doc limits 0.25 / 0.30 mm TIR <b>[repo]</b> are the source of the 1x amplitudes only in spirit.</li>' +
+        '<li>Holder compliance per newton: handbook beam formulas <code>calc/06</code>, force at the tip; the change of force and its split radial / vertical: <b>unknown</b>. Drift: linear over the lap, radial.</li>' +
+        '<li><b>Models:</b> Gaussian sampling, least-squares harmonic fit, a play model for backlash, a linear compliance chain. <b>Depicts only:</b> the plots.</li>' +
+        '</ul>',
+    },
+  });
+
+  const P = { N: 24, H: 2, noise: 0.03, dF: 1.0, shareR: 0.7, holder: 44, kst: 0, bl: 0.0, preload: false, drift: 0.05, win: 0.30, assign: 'all', parity: false, seed: 1, phi: 1 };
+  const TR = { off: 0.20, a1: 0.13, p1: 0.9, a2: 0.05, p2: 2.1 }, TZ = { off: -0.15, a1: 0.15, p1: 2.4, a2: 0.03, p2: 0.4 };
+  const ev = (T, th) => T.off + T.a1 * Math.cos(th - T.p1) + T.a2 * Math.cos(2 * th - T.p2);
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * r()); }
+  function fit(ang, val, H) {
+    const p = 1 + 2 * H, A = [], b = [];
+    for (let i = 0; i < p; i++) { A.push(new Array(p).fill(0)); b.push(0); }
+    ang.forEach((a, i) => { const row = [1]; for (let k = 1; k <= H; k++) row.push(Math.cos(k * a), Math.sin(k * a)); for (let r = 0; r < p; r++) { for (let c = 0; c < p; c++) A[r][c] += row[r] * row[c]; b[r] += row[r] * val[i]; } });
+    for (let i = 0; i < p; i++) A[i][i] += 1e-9;
+    for (let c = 0; c < p; c++) { let m = c; for (let r = c + 1; r < p; r++) if (Math.abs(A[r][c]) > Math.abs(A[m][c])) m = r; [A[c], A[m]] = [A[m], A[c]]; [b[c], b[m]] = [b[m], b[c]]; for (let r = c + 1; r < p; r++) { const f = A[r][c] / A[c][c]; for (let k = c; k < p; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; } }
+    const x = new Array(p).fill(0); for (let r = p - 1; r >= 0; r--) { let s = b[r]; for (let k = r + 1; k < p; k++) s -= A[r][k] * x[k]; x[r] = s / A[r][r]; }
+    return x;
+  }
+  const evalFit = (x, H, th, keep) => { let v = keep.c ? x[0] : 0; for (let k = 1; k <= H; k++) { if ((k === 1 && keep.h1) || (k === 2 && keep.h2)) v += x[2 * k - 1] * Math.cos(k * th) + x[2 * k] * Math.sin(k * th); } return v; };
+
+  function simulate() {
+    const r = rng(100 + P.seed), N = P.N, H = Math.min(P.H, N >= 8 ? 2 : 1), ang = [];
+    for (let i = 0; i < N; i++) ang.push(i * TAU / N);
+    // parity shift between the dry turn and the weld turn: change of force times chain compliance (holder + shell stage), radial and vertical shares
+    const C = P.holder / 1000 + (P.kst > 0 ? 1 / P.kst : 0);          // mm per N
+    const shift = { r: P.dF * C * P.shareR, z: P.dF * C * (1 - P.shareR) };
+    const dryR = ang.map(a => ev(TR, a) + P.noise * gauss(r)), dryZ = ang.map(a => ev(TZ, a) + P.noise * gauss(r));
+    const parR = ang.map(a => ev(TR, a) + shift.r + P.noise * gauss(r)), parZ = ang.map(a => ev(TZ, a) + shift.z + P.noise * gauss(r));
+    const useR = P.parity ? parR : dryR, useZ = P.parity ? parZ : dryZ;
+    const fr = fit(ang, useR, H), fz = fit(ang, useZ, H);
+    const keepR = { c: true, h1: false, h2: false }, keepZ = { c: true, h1: false, h2: false };
+    if (P.assign === 'all') { keepR.h1 = keepR.h2 = keepZ.h1 = keepZ.h2 = true; }
+    else if (P.assign === 'nest') { keepR.h1 = true; }                    // radial 1x removed by the nest screws (applied at 90 percent below)
+    else if (P.assign === 'nestz') { keepR.h1 = true; keepZ.h1 = true; }
+    const rows = [], nS = 360;
+    let pos = 0;
+    for (let i = 0; i <= nS; i++) {
+      const th = i * TAU / nS, tmin = th / (TAU) * 1.0;
+      const wr = ev(TR, th) + shift.r + P.drift * tmin, wz = ev(TZ, th) + shift.z;
+      const tp = th - P.phi * Math.PI / 180;                              // the replay starts from an angle zero that is off by phi
+      let cr = -evalFit(fr, H, tp, keepR), cz = -evalFit(fz, H, tp, keepZ);
+      if (P.assign === 'nest' || P.assign === 'nestz') { const h1 = evalFit(fr, H, tp, { c: false, h1: true, h2: false }); cr = -(evalFit(fr, H, tp, { c: true, h1: false, h2: false }) + 0.9 * h1); }
+      // radial stage: backlash (play model) unless preloaded; vertical is loaded one way by weight
+      let out = cr;
+      if (P.bl > 0 && !P.preload) { if (cr - pos > P.bl / 2) pos = cr - P.bl / 2; else if (cr - pos < -P.bl / 2) pos = cr + P.bl / 2; out = pos; }
+      rows.push({ deg: i, rawR: ev(TR, th), rawZ: ev(TZ, th), cmdR: cr, cmdZ: cz, resR: wr + out, resZ: wz + cz, wr: wr, wz: wz });
+    }
+    const stat = k => { let s = 0, pk = 0; rows.forEach(w => { s += w[k] * w[k]; pk = Math.max(pk, Math.abs(w[k])); }); return { rms: Math.sqrt(s / rows.length), pk: pk }; };
+    let inWin = 0; rows.forEach(w => { if (Math.abs(w.resR) <= P.win && Math.abs(w.resZ) <= P.win) inWin++; });
+    return { rows: rows, obs: { ang: ang, R: useR, Z: useZ, parR: parR, parZ: parZ, dryR: dryR, dryZ: dryZ }, sR: stat('resR'), sZ: stat('resZ'), s0R: stat('rawR'), s0Z: stat('rawZ'), inWin: inWin / rows.length, shift: shift, C: C, H: H };
+  }
+
+  const W = 960, Hh = 700;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'sp-svg', role: 'img', 'aria-label': 'error at the dot in the weld turn, radial and vertical, with parity terms' });
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'ghost', label: 'tube, nothing done' }, { role: 'actuated', label: 'left in the weld turn' }, { role: 'locate', label: 'replayed command' }, { role: 'sensor', label: 'dry-turn samples (cold)' }, { role: 'compliant', label: 'dry turn in the weld state' }]);
+  const g = WK.svg('g', {}); svg.append(g);
+  const clear = el => { while (el.firstChild) el.removeChild(el.firstChild); };
+  const T = (x, y, t, cls, a) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': a || 'start', text: t }));
+  const words = (t, x, y, max, cls) => { const ws = t.split(' '); let line = '', yy = y; ws.forEach(w => { if ((line + ' ' + w).length > max) { T(x, yy, line, cls || 'small'); yy += 13; line = w; } else line = line ? line + ' ' + w : w; }); if (line) { T(x, yy, line, cls || 'small'); yy += 13; } return yy; };
+  const NICE = [0.02, 0.05, 0.1, 0.25, 0.5, 1];
+  function panel(x0, y0, w, h, title, key, sim, sc) {
+    T(x0, y0 - 8, title, 'big');
+    g.appendChild(WK.svg('rect', { x: x0, y: y0, width: w, height: h, class: 'axis', fill: '#10151c' }));
+    const yOf = v => y0 + h / 2 - v / sc * (h / 2), xOf = d => x0 + w * d / 360;
+    if (P.win < sc) g.appendChild(WK.svg('rect', { x: x0, y: yOf(P.win), width: w, height: yOf(-P.win) - yOf(P.win), class: 'band' }));
+    for (let k = -2; k <= 2; k++) { const v = k / 2 * sc, y = yOf(v); g.appendChild(WK.svg('line', { x1: x0, x2: x0 + w, y1: y, y2: y, class: k === 0 ? 'axis' : 'grid' })); T(x0 - 5, y + 4, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2), 'small', 'end'); }
+    for (let d = 0; d <= 360; d += 90) { g.appendChild(WK.svg('line', { x1: xOf(d), x2: xOf(d), y1: y0, y2: y0 + h, class: 'grid' })); T(xOf(d), y0 + h + 14, d + '°', 'small', 'middle'); }
+    const path = (fn, cls) => { let d = ''; sim.rows.forEach((r, i) => { const v = fn(r); d += (i ? 'L' : 'M') + xOf(r.deg).toFixed(1) + ' ' + Math.max(y0 - 4, Math.min(y0 + h + 4, yOf(v))).toFixed(1); }); g.appendChild(WK.svg('path', { d: d, class: cls })); };
+    const isR = key === 'R';
+    path(r => isR ? r.rawR : r.rawZ, 'raw'); path(r => isR ? r.cmdR : r.cmdZ, 'cmd'); path(r => isR ? r.resR : r.resZ, 'res');
+    sim.obs.ang.forEach((a, i) => { const v = isR ? sim.obs.dryR[i] : sim.obs.dryZ[i]; const y = yOf(v); if (y > y0 && y < y0 + h) g.appendChild(WK.svg('circle', { cx: xOf(a / DEG), cy: y, r: 2.8, class: 'obs' })); if (P.parity) { const v2 = isR ? sim.obs.parR[i] : sim.obs.parZ[i], y2 = yOf(v2); if (y2 > y0 && y2 < y0 + h) g.appendChild(WK.svg('circle', { cx: xOf(a / DEG), cy: y2, r: 4, class: 'obsW' })); } });
+  }
+  const setA = app.ui.readout('a', 'Parity term (radial, vertical)'), setB = app.ui.readout('b', 'Left in the weld turn, rms r / z'), setC = app.ui.readout('c', 'Weld turn inside the window'), setD = app.ui.readout('d', 'Chain compliance gun to room');
+  function redraw() {
+    const sim = simulate(); clear(g);
+    const sc = k => { for (const n of NICE) if (n >= k * 1.15) return n; return 1; };
+    const scR = sc(Math.max(sim.s0R.pk, sim.sR.pk)), scZ = sc(Math.max(sim.s0Z.pk, sim.sZ.pk));
+    T(24, 26, 'Error at the dot in the weld turn (mm), one revolution', 'big');
+    T(24, 42, 'dashed: nothing done   thin teal: replayed command   purple: left over   dots: dry-turn samples', 'small');
+    panel(70, 76, 850, 160, 'radial (+ into the wall)', 'R', sim, scR);
+    panel(70, 286, 850, 160, 'vertical (+ above the plate)', 'Z', sim, scZ);
+    let y = 500;
+    T(24, y, 'What is in the residual', 'big'); y += 20;
+    const rows = [
+      ['fit residual (samples, terms not replayed)', null, 'from the fit and the assignment below'],
+      ['parity term: change of force x chain compliance', Math.hypot(sim.shift.r, sim.shift.z), P.parity ? 'measured by the second dry turn: replayed' : 'never seen by the fit: a constant every lap'],
+      ['backlash on the horizontal stage', P.bl > 0 && !P.preload ? P.bl / 2 : 0, P.preload ? 'preloaded' : 'up to b/2 at each reversal'],
+      ['hot drift over the lap, radial', P.drift, 'nothing observes it in the weld turn'],
+    ];
+    rows.forEach((r, i) => { T(24, y + i * 22, r[0], 'small'); if (r[1] != null) { g.appendChild(WK.svg('rect', { x: 330, y: y + i * 22 - 10, width: Math.min(300, r[1] / 0.15 * 300), height: 11, fill: '#f5a524', opacity: 0.9 })); T(636, y + i * 22 - 1, (r[1] * 1000).toFixed(0) + ' µm', 'small'); } else T(330, y + i * 22 - 1, 'rms ' + (Math.hypot(sim.sR.rms, sim.sZ.rms) * 1000).toFixed(0) + ' µm all in', 'small'); T(710, y + i * 22 - 1, r[2], 'small'); });
+    y += rows.length * 22 + 14;
+    y = words('Weld turn: radial rms ' + sim.sR.rms.toFixed(3) + ' mm (nothing done ' + sim.s0R.rms.toFixed(3) + '), vertical rms ' + sim.sZ.rms.toFixed(3) + ' mm (nothing done ' + sim.s0Z.rms.toFixed(3) + '). ' + (sim.inWin * 100).toFixed(0) + ' % of the lap inside the ±' + P.win.toFixed(2) + ' mm window (a placeholder).', 24, y, 130, 'big');
+    words('Requirement (calc/10): to keep the parity term under 0.02 mm for a ' + P.dF.toFixed(1) + ' N change the chain compliance must be under ' + (20 / Math.max(P.dF, 0.01)).toFixed(0) + ' µm/N; this chain is ' + (sim.C * 1000).toFixed(0) + ' µm/N.', 24, y + 4, 130);
+    setA((sim.shift.r * 1000).toFixed(0) + ', ' + (sim.shift.z * 1000).toFixed(0), 'µm'); setB(sim.sR.rms.toFixed(3) + ' / ' + sim.sZ.rms.toFixed(3), 'mm'); setC((sim.inWin * 100).toFixed(0), '%'); setD((sim.C * 1000).toFixed(0), 'µm/N');
+    app.badge('par', !P.parity && Math.hypot(sim.shift.r, sim.shift.z) > 0.02 ? 'parity term ' + (Math.hypot(sim.shift.r, sim.shift.z) * 1000).toFixed(0) + ' µm is not in the fit: run the dry turn in the weld state' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Dry turn 1 (cold)', value: P.N + ' samples', note: 'rotator turns, dot on, nothing feeding' }, { name: 'Dry turn 2 (weld state)', value: P.parity ? 'run' : 'not run', note: 'feeder jogging, gas on, laser off' }, { name: 'Follow / trim / nest', value: P.assign, note: 'which fitted terms are applied' }],
+      observes: [{ name: 'Dot vs seam per angle (dry turns)', value: P.N + ' samples, noise ' + P.noise.toFixed(3), unit: 'mm', status: 'partly', note: 'any sensor; not chosen here' }, { name: 'Parity term', value: P.parity ? (Math.hypot(sim.shift.r, sim.shift.z) * 1000).toFixed(0) + ' µm (difference of the two turns)' : 'not measured', status: P.parity ? 'seen' : 'blind', note: 'the second dry turn measures it' }, { name: 'Dot vs seam in the weld turn', value: '-', status: 'blind', note: 'nothing sees it: drift and emission effects are unobserved' }],
+      manual: ['Nest screws (1x radial) if assigned', 'Hand-aim into the stage stroke'],
+    });
+  }
+
+  const gt = app.ui.group('Dry turn and fit', { open: true });
+  gt.slider({ id: 'N', label: 'Samples per dry turn', min: 6, max: 72, step: 2, value: 24, unit: '', kind: 'scene', onChange: v => { P.N = v; redraw(); } });
+  gt.slider({ id: 'noise', label: 'Noise per sample', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'Made up.', onChange: v => { P.noise = v; redraw(); } });
+  gt.radio({ id: 'H', label: 'Harmonics fitted', options: ['1', '2'], value: '2', kind: 'scene', onChange: v => { P.H = +v; redraw(); } });
+  gt.toggle({ id: 'parity', label: 'Second dry turn in the weld state (after guide step 5); replay uses it', value: false, kind: 'state', help: 'Feeder jogging, gas on, laser off: the difference of the two turns is the parity term.', onChange: v => { P.parity = v; redraw(); } });
+  gt.slider({ id: 'phi', label: 'Angle zero of the replay is off by', min: 0, max: 30, step: 0.5, value: 1, unit: '°', kind: 'scene', help: 'A follow table keyed by angle needs a zero that survives: the controller lets the motor go ten seconds after the pedal and its degrees are a readout. The guide returns the table to an index mark by eye (about 1°); a once-per-revolution hall pulse makes the mark readable by software. The table stays inside 0.02 mm to about 5° (use\'s calc).', onChange: v => { P.phi = v; redraw(); } });
+  gt.button({ id: 'reseed', label: 'New noise draw', kind: 'scene', onClick: () => { P.seed++; redraw(); } });
+  const ga = app.ui.group('Which terms are applied, and by what', { open: true });
+  ga.radio({ id: 'assign', label: 'Assignment', options: [{ value: 'trim', label: 'static trim only (constants)' }, { value: 'nest', label: 'trim + nest screws (radial 1x)' }, { value: 'nestz', label: 'trim + nest + Z follow (vertical 1x)' }, { value: 'all', label: 'everything replayed by a follow stage' }], value: 'all', kind: 'branch', help: 'The constants need only a static trim. Nest screws take 90 percent of the radial 1x; a Z follow takes the vertical 1x.', onChange: v => { P.assign = v; redraw(); } });
+  ga.slider({ id: 'win', label: 'Window to hit (placeholder)', min: 0.05, max: 0.4, step: 0.01, value: 0.30, unit: '± mm', kind: 'view', help: 'Not a requirement. Compare with wire 0.76 mm and swing 2 mm.', onChange: v => { P.win = v; redraw(); } });
+  const gh = app.ui.group('The hold between the dry turn and the weld turn (unknown)', { open: true });
+  gh.slider({ id: 'dF', label: 'Change of force, dry to weld', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', help: 'Wire feeder starting, gas hose, the hand leaving, the fibre emitting.', onChange: v => { P.dF = v; redraw(); } });
+  gh.slider({ id: 'shareR', label: 'Share of it that is radial', min: 0, max: 1, step: 0.05, value: 0.7, unit: '', kind: 'scene', onChange: v => { P.shareR = v; redraw(); } });
+  gh.radio({ id: 'holder', label: 'Holder, gun to room', options: [{ value: '6', label: '20 mm steel post: 6 µm/N' }, { value: '44', label: '12 mm steel rod: 44' }, { value: '128', label: '12 mm aluminium: 128' }], value: '44', kind: 'scene', help: 'calc/06, force at the tip, 300 mm cantilever.', onChange: v => { P.holder = +v; redraw(); } });
+  gh.slider({ id: 'kst', label: 'Stage stiffness in the shell (0 = none)', min: 0, max: 200, step: 5, value: 0, unit: 'N/mm', kind: 'scene', help: 'A stage carried in the gun’s shell is in series with the holder.', onChange: v => { P.kst = v; redraw(); } });
+  gh.slider({ id: 'bl', label: 'Backlash, radial stage', min: 0, max: 0.1, step: 0.005, value: 0, unit: 'mm', kind: 'scene', onChange: v => { P.bl = v; redraw(); } });
+  gh.toggle({ id: 'preload', label: 'Preloaded (spring) or flexure', value: false, kind: 'scene', help: 'Removes the backlash effect.', onChange: v => { P.preload = v; redraw(); } });
+  gh.slider({ id: 'drift', label: 'Hot drift over the lap, radial', min: 0, max: 0.2, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'datum-02 round 4 uses 0.10.', onChange: v => { P.drift = v; redraw(); } });
+  redraw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yoke pivot and its stop</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ye { display: block; width: 100%; min-width: 860px; max-width: 1300px; }
+  .ye text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #b6c2d4; }
+  .ye .dim { fill: #7d8ea8; font-size: 10.5px; }
+  .ye .hd { fill: #e7ebf1; font-weight: 600; font-size: 12px; }
+  .ye .mono { font: 11px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-16-yoke-escape",
+  "title": "Yoke pivot and its stop",
+  "by": "use",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "travel-16 hangs the gun from trunnions on a yoke so the barrel stands in the radial plane over the bore, and travel-14b docks the gun on trunnion pins in V-notches with a pitch stop. That pivot has three possible jobs: set the beam angle, be the dock's pitch axis, and, if a bead must end with the head leaving a fed wire (the shared context says so; travel-16 removes the wire and with it the reason), be the escape. A radial section of the kit's proxy gun in that attitude shows what a few degrees of pivot do to the nozzle, its height over the rim and its distance from the puddle point, and what the pivot's return stop costs at the dot: travel-04's seat with the lever set by where the trunnion sits. Drawn as a section, not the 3D crown.",
+  "tags": ["escape", "yoke", "dock", "crown", "return seat", "lever", "section", "combination of travel-16 and travel-04"],
+  "branchOf": ["travel-16-radial-plane"],
+  "combines": ["travel-16-radial-plane", "travel-04-return-seat"],
+  "transferable": ["a pivot with a stop can be the escape", "the stop's lever is trunnion to dot", "0.02 degrees is 0.07 mm at 200 mm", "10 degrees lifts the tip 26 mm"],
+  "how": {
+    "motion": "the crown stays on the tube; the gun pivots about the yoke's trunnions from its working angle to an escape angle and back to a stop",
+    "load": "trunnions carry the gun; at the working angle a stop with a preload carries the pivot torque",
+    "reference": "the crown (rim and outside of the tube) and the stop at the working angle",
+    "observe": "a stop switch (angle reached); nothing sees the dot in this scene",
+    "use": "seat on the stop, weld, pivot out at the end of the bead, pivot back for the next"
+  },
+  "software": {
+    "commands": ["yoke pivot: seat on the stop, escape angle, return"],
+    "observes": ["stop switch and an end-of-travel switch", "nothing else here"],
+    "manual": ["setting the stop (the working beam angle) by hand", "clamping or unclamping the trunnion friction, if any"]
+  },
+  "notes": ["../../exchange/use--on--travel-w2.md", "../../explorers/use/calc/w2_yoke.mjs", "../../explorers/travel/ideas/travel-04-return-seat.md", "../../explorers/travel/ideas/travel-14b-crown-cartridge.md", "../../explorers/travel/ideas/travel-16-radial-plane.md", "../../explorers/use/ideas/use-16-yoke-escape.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>The pivot of a yoke has a stop, and the stop has a lever.</b> travel-16 hangs the gun from trunnions on the housing sides; travel-14b docks it on trunnion pins in V-notches with an axial stop and a pitch stop. Either way the gun can rotate about the trunnion axis and comes back to a stop that sets the beam angle. That pivot can do three jobs. It sets the working angle (a stop rather than a clamp). It is the dock\u2019s pitch axis. And if a bead has to end with the head leaving the puddle, it is the escape: a crown that rides the tube cannot be lifted by the room. Whether a lift is needed at all is not settled: the coordinator\u2019s shared context says the head leaves with the trigger held, guide 46 says only \u201crelease the trigger, then the pedal\u201d, and travel-16 and travel-04 note that with no wire at the gun the reason (breaking the wire in air) is gone.</p>' +
+        '<p>The drawing is a <b>radial section</b> at the weld station in the kit\u2019s attitude B (barrel in the radial plane, beam 30\u00b0 from vertical). Turn the pivot and read the tip\u2019s height over the rim, its distance from the puddle point (16 mm at the working angle), and the beam angle. Move the trunnion along the barrel to change the lever. The stop at the working angle is travel-04\u2019s seat: the lever that makes the pivot a generous escape (a few degrees, tens of millimetres) makes every hundredth of a degree at the stop a fraction of a millimetre at the dot. The dock of travel-14b lifts the gun <i>out</i> of its notches; pivoting about the pins is the alternative that never unseats the pins.</p>',
+      carries:
+        '<p>The <b>trunnions</b> (teal) carry the gun and fix the pivot; the yoke carries them from the ring, which the rim carries. In this section the ring is not drawn. At the working angle a <b>stop</b> (teal, at the back of the housing) takes the pivot torque with a preload; leaving it is the commanded motion.</p>',
+      software:
+        '<p>Software commands the pivot (seat on the stop, escape, return) and reads a stop switch and an end-of-travel switch. It cannot see the dot in this drawing; the dot shift at the stop is a computed number, not a reading. A hand fires the laser and holds the trigger for the whole bead (a trigger path that stays on the gun: room-14); the pivot moves the gun and the trigger with it.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>How far and how fast.</b> With the drawn gun and the trunnion 185 mm behind the nozzle, 10° of pivot takes the tip to 26 mm above the rim and to 37 mm from the puddle point (from 16), which is about 21 mm of standoff; 5° gives 7 mm. The nozzle swings 27 mm outward over the wall as it rises. <i>Assumption:</i> the trunnion axis is the housing centre and the barrel is stiff. <i>Leaves:</i> the real housing, where the trunnions can go, and what the head’s gas and cooling tolerate at 40° from vertical.</li>' +
+        '<li><b>The stop is a seat, and a long lever.</b> The trunnion is about 200 mm from the dot, so a stop repeatable to 0.02° is 0.07 mm at the dot, 0.05° is 0.18 mm and 0.1° is 0.35 mm. A stop 120 mm from the trunnion with contacts repeatable to 20 µm gives about 0.03 mm here. <i>Change:</i> the stop is a ball-and-groove seat with a preload, as in travel-04, not a clamp; a stop further from the trunnion is better. <i>Leaves:</i> the pivot’s own play and printed-part creep; the preload against the cable’s pull; whether the trunnion pins are also in the error chain (they are: they set where the gun hangs).</li>' +
+        '<li><b>The beam angle is a process parameter.</b> The pivot changes it by the same angle. It is only the escape here and comes back to the stop, but the working angle is now a number the stop sets, not a clamp position the hand sets by eye. <i>Leaves:</i> nothing measures it.</li>' +
+        '<li><b>Rotating the other way.</b> Turning the gun into the bore (the other sign) carries the tip below the rim and toward the axis: it is a plunge into the recess, not an escape, and is not offered.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Kit proxy gun and attitude (B: roll 0, hole dial 35, vertical −90), 16 mm nozzle clearance, trunnions at the housing centre (185 mm behind the tip): <b>illustrative</b>. The real gun may not allow a trunnion there.</li>' +
+        '<li>How far the head must leave, and how fast, is unmeasured. The nozzle also passes above the rim: this section shows clearance to the tube only, not to the ring, the yoke legs or the cable.</li>' +
+        '<li><b>Question for Derek:</b> at the end of a bead today, how far does the head go before the wire is free, and along which direction? Does the head lift at all?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Tube ID 123.70 mm, wall 1.65 mm, plate 0.25 in with its face 6.35 mm below the rim <b>[repo]</b>. The radial section is the plane through the tube axis and the weld station.</li>' +
+        '<li>The gun is a rigid line: nozzle, trunnion at the distance you set, the housing back end 253 mm from the nozzle <b>[manual envelope]</b>. The barrel’s clearance to the wall and plate uses the kit’s radius profile at 0 to 118 mm. Nozzle clearance to anything beyond the tube is not tested.</li>' +
+        '<li><b>Models:</b> rigid rotation about a point in the section. <b>Depicts only:</b> the crown is not drawn; the stop is drawn as a block.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl, NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const txt = (parent, x, y, s, cls, anchor) => parent.appendChild(el('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start' }, document.createTextNode(s)));
+  const svg = el('svg', { class: 'ye', viewBox: '0 0 1000 640', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'Radial section of the tube with the gun pivoting about its trunnion' });
+  st.appendChild(svg);
+  const DEG = Math.PI / 180, RI = 61.85, RO = RI + 1.65, RIM = 152.4, PLATE_TOP = 146.05, PLATE_BOT = 146.05 - 6.35;
+  const P0 = [RI, PLATE_TOP], NOZ_CLEAR = 16, GUN_LEN = 253;
+  const prof = z => (z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12);
+  const S = { th: 0, alpha: 30, L: 185, a: 120, ds: 20, need: 20 };
+
+  // section coordinates: x = radial (mm), z = height (mm). Drawing: 2 px/mm.
+  const K = 2.0, XMIN = -85, ZMAX = 385, X0 = 30, Y0 = 36;
+  const px = x => X0 + (x - XMIN) * K, py = z => Y0 + (ZMAX - z) * K;
+  const rot = (p, c, th) => { const dx = p[0] - c[0], dz = p[1] - c[1], cs = Math.cos(th), sn = Math.sin(th); return [c[0] + dx * cs - dz * sn, c[1] + dx * sn + dz * cs]; };
+  const dRect = (p, x0, x1, z0, z1) => { const dx = Math.max(x0 - p[0], 0, p[0] - x1), dz = Math.max(z0 - p[1], 0, p[1] - z1); return Math.hypot(dx, dz); };
+  function geom(th, o) {
+    o = o || S;
+    const a = o.alpha * DEG, bm = [Math.sin(a), -Math.cos(a)];           // beam direction (nozzle to dot), x right, z up
+    const N0 = [P0[0] - NOZ_CLEAR * bm[0], P0[1] - NOZ_CLEAR * bm[1]];
+    const T = [N0[0] - o.L * bm[0], N0[1] - o.L * bm[1]];
+    const Bk0 = [N0[0] - GUN_LEN * bm[0], N0[1] - GUN_LEN * bm[1]];
+    const N = rot(N0, T, th), D = rot(P0, T, th), Bk = rot(Bk0, T, th);
+    const beamNow = [D[0] - N[0], D[1] - N[1]], bl = Math.hypot(beamNow[0], beamNow[1]);
+    // barrel samples (0..118 mm behind the nozzle) against the wall, rim and plate
+    let clr = Infinity;
+    for (let s = 0; s <= 118; s += 4) {
+      const q = rot([N0[0] - s * bm[0], N0[1] - s * bm[1]], T, th);
+      const d = Math.min(dRect(q, RI, RO, 0, RIM), dRect(q, -RI, RI, PLATE_BOT, PLATE_TOP)) - prof(s);
+      if (d < clr) clr = d;
+    }
+    const puddle = Math.hypot(N[0] - P0[0], N[1] - P0[1]);
+    const angNow = Math.acos(Math.max(-1, Math.min(1, -beamNow[1] / bl))) / DEG;
+    return { N0: N0, T: T, N: N, Bk: Bk, D: D, clr: clr, puddle: puddle, tipAbove: N[1] - RIM, tipR: N[0], angNow: angNow, bm: bm };
+  }
+  function needAngle(o) { for (let t = 0; t <= 60; t += 0.05) { if (geom(t * DEG, o).puddle - NOZ_CLEAR >= o.need) return t; } return null; }
+
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const g = geom(S.th * DEG), g0 = geom(0);
+    // background frame
+    svg.appendChild(el('rect', { x: 10, y: 10, width: 640, height: 622, rx: 8, fill: '#0f151d', stroke: '#222c3a' }));
+    txt(svg, 22, 28, 'Radial section at the weld station (x radial, z up; the tube axis is at the left)', 'hd');
+    // tube wall, plate, axis
+    svg.appendChild(el('rect', { x: px(RI), y: py(RIM), width: 1.65 * K, height: (RIM - 90) * K, fill: '#94a3b8' }));
+    svg.appendChild(el('rect', { x: px(-RI), y: py(PLATE_TOP), width: 2 * RI * K, height: 6.35 * K, fill: '#cbd5e1' }));
+    svg.appendChild(el('rect', { x: px(-RO), y: py(RIM), width: 1.65 * K, height: (RIM - 90) * K, fill: '#94a3b8' }));
+    svg.appendChild(el('line', { x1: px(0), y1: py(RIM + 10), x2: px(0), y2: py(90), stroke: '#3a4658', 'stroke-dasharray': '5 4' })); txt(svg, px(0) + 4, py(100), 'tube axis', 'dim');
+    txt(svg, px(RO) + 6, py(RIM - 40), 'wall', 'dim'); txt(svg, px(-30), py(PLATE_TOP - 12), 'plate', 'dim', 'middle');
+    svg.appendChild(el('line', { x1: px(RI - 30), y1: py(RIM), x2: px(RO + 70), y2: py(RIM), stroke: '#475569', 'stroke-dasharray': '2 3' })); txt(svg, px(RO + 70), py(RIM) - 4, 'rim plane', 'dim', 'end');
+    // ghost gun at the working angle
+    const line = (p, q, w, col, dash, op) => el('line', { x1: px(p[0]), y1: py(p[1]), x2: px(q[0]), y2: py(q[1]), stroke: col, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-dasharray': dash || null, opacity: op == null ? 1 : op });
+    svg.appendChild(line(g0.N, g0.Bk, 14, '#c98a1a', '4 4', 0.35));
+    // gun now
+    const hs = [g.N[0] + (g.Bk[0] - g.N[0]) * (118 / GUN_LEN), g.N[1] + (g.Bk[1] - g.N[1]) * (118 / GUN_LEN)];
+    svg.appendChild(line(g.N, hs, 6, '#8b95a5'));
+    svg.appendChild(line(hs, g.Bk, 26, '#c98a1a'));
+    svg.appendChild(line(g.N, g.D, 1.5, '#ff3b30'));
+    svg.appendChild(el('circle', { cx: px(g.D[0]), cy: py(g.D[1]), r: 4, fill: '#ff3b30' }));
+    svg.appendChild(el('circle', { cx: px(P0[0]), cy: py(P0[1]), r: 5, fill: 'none', stroke: '#14b8a6', 'stroke-width': 1.5 })); txt(svg, px(P0[0]) + 9, py(P0[1]) + 14, 'puddle point (the seam)', 'dim');
+    // nozzle path arc
+    let d = ''; for (let t = 0; t <= Math.max(S.th, 0.001); t += 0.5) { const q = geom(t * DEG).N; d += (d ? ' L' : 'M') + px(q[0]).toFixed(1) + ' ' + py(q[1]).toFixed(1); }
+    svg.appendChild(el('path', { d: d, fill: 'none', stroke: '#f5a524', 'stroke-dasharray': '3 3' }));
+    // trunnion and stop
+    svg.appendChild(el('circle', { cx: px(g.T[0]), cy: py(g.T[1]), r: 8, fill: '#14b8a6' })); txt(svg, px(g.T[0]) + 12, py(g.T[1]) + 4, 'trunnion (yoke)', 'dim');
+    const stopAt0 = [g0.T[0] + S.a * g0.bm[0], g0.T[1] + S.a * g0.bm[1]];   // on the barrel, S.a toward the nozzle from the trunnion
+    const nrm = [g0.bm[1], -g0.bm[0]];                                       // the side the barrel rests on when it is seated
+    const sp = [stopAt0[0] + nrm[0] * (prof(Math.max(0, GUN_LEN - S.L - S.a * 0)) * 0 + 12), stopAt0[1] + nrm[1] * 12];
+    svg.appendChild(el('rect', { x: px(sp[0]) - 9, y: py(sp[1]) - 5, width: 18, height: 10, fill: '#14b8a6', transform: 'rotate(' + (-Math.atan2(g0.bm[1], g0.bm[0]) / DEG) + ' ' + px(sp[0]) + ' ' + py(sp[1]) + ')' }));
+    txt(svg, px(sp[0]) + 16, py(sp[1]) + 4, 'stop (seat) under the barrel', 'dim');
+    // readouts on the drawing
+    txt(svg, 22, 618, 'gun drawn as a rigid line: nozzle, trunnion ' + S.L + ' mm behind it, housing back end 253 mm; dashed amber: the nozzle’s path; faint gun: the working angle', 'dim');
+
+    // right column: numbers and a curve
+    const RX = 668;
+    txt(svg, RX, 30, 'Pivot ' + S.th.toFixed(1) + '° from the stop', 'hd');
+    const row = (y, k, v, warn) => { txt(svg, RX, y, k, 'dim'); txt(svg, RX + 320, y, v, warn ? 'mono' : 'mono', 'end').setAttribute('style', warn ? 'fill:#fca5a5' : ''); };
+    row(52, 'nozzle to the puddle point', g.puddle.toFixed(1) + ' mm (16.0 at the stop)');
+    row(70, 'standoff gained', (g.puddle - NOZ_CLEAR).toFixed(1) + ' mm  (needed ' + S.need + ')', g.puddle - NOZ_CLEAR < S.need - 0.05 && S.th > 0);
+    row(88, 'tip above the rim plane', g.tipAbove.toFixed(1) + ' mm');
+    row(106, 'tip radius from the axis', g.tipR.toFixed(1) + ' mm  (wall at ' + RI + ')');
+    row(124, 'beam from vertical', g.angNow.toFixed(1) + '°  (working ' + S.alpha + '°)');
+    row(142, 'barrel clearance to the tube', g.clr.toFixed(1) + ' mm', g.clr < 0);
+    const nA = needAngle(S), lever = Math.hypot(g0.T[0] - P0[0], g0.T[1] - P0[1]), dotErr = lever * (S.ds / 1000 / S.a);
+    txt(svg, RX, 176, 'What the escape and its stop cost', 'hd');
+    row(198, 'pivot needed for the standoff', nA == null ? 'not reached in 60°' : nA.toFixed(1) + '°');
+    row(216, 'trunnion to the dot (lever)', lever.toFixed(0) + ' mm');
+    row(234, 'stop at ' + S.a + ' mm, contacts ±' + S.ds + ' µm', 'angle ' + (S.ds / 1000 / S.a / DEG).toFixed(3) + '°');
+    row(252, 'dot shift from that stop', dotErr.toFixed(3) + ' mm');
+    // curve: puddle distance vs pivot for three levers
+    const CX0 = RX + 30, CY0 = 300, CW = 270, CH = 200;
+    txt(svg, RX, 292, 'Standoff gained vs pivot, three trunnion positions', 'hd');
+    svg.appendChild(el('rect', { x: CX0, y: CY0, width: CW, height: CH, fill: '#0b0f14', stroke: '#222c3a' }));
+    const mxS = 60, mxT = 30, gx = t => CX0 + t / mxT * CW, gy = s => CY0 + CH - s / mxS * CH;
+    [10, 20, 30, 40, 50].forEach(v => { svg.appendChild(el('line', { x1: CX0, y1: gy(v), x2: CX0 + CW, y2: gy(v), stroke: '#1d2633' })); txt(svg, CX0 - 6, gy(v) + 3, String(v), 'dim', 'end'); });
+    [0, 10, 20, 30].forEach(v => txt(svg, gx(v), CY0 + CH + 14, v + '°', 'dim', 'middle'));
+    svg.appendChild(el('line', { x1: CX0, y1: gy(S.need), x2: CX0 + CW, y2: gy(S.need), stroke: '#fbbf24', 'stroke-dasharray': '4 3' })); txt(svg, CX0 + CW - 4, gy(S.need) - 4, 'needed', 'dim', 'end');
+    [[110, '#93c5fd'], [S.L, '#f5a524'], [250, '#a78bfa']].forEach(([Lv, col], k) => {
+      let dd = ''; for (let t = 0; t <= mxT; t += 0.5) { const sv = geom(t * DEG, Object.assign({}, S, { L: Lv })).puddle - NOZ_CLEAR; dd += (dd ? ' L' : 'M') + gx(t).toFixed(1) + ' ' + gy(Math.min(mxS, sv)).toFixed(1); }
+      svg.appendChild(el('path', { d: dd, fill: 'none', stroke: col, 'stroke-width': Lv === S.L ? 2.4 : 1.4 }));
+      svg.appendChild(el('rect', { x: CX0 + 8, y: CY0 + 8 + k * 14, width: 14, height: 3, fill: col })); txt(svg, CX0 + 28, CY0 + 13 + k * 14, 'trunnion ' + Lv + ' mm' + (Lv === S.L ? ' (yours)' : ''), 'dim');
+    });
+    svg.appendChild(el('circle', { cx: gx(S.th), cy: gy(Math.min(mxS, g.puddle - NOZ_CLEAR)), r: 5, fill: '#fff', stroke: '#f5a524' }));
+    txt(svg, CX0 + CW / 2, CY0 + CH + 30, 'yoke pivot (deg)', 'dim', 'middle');
+    app.badge('clr', g.clr < 0 ? 'the barrel meets the tube at this pivot (drawn geometry)' : null, 'limit');
+    app.badge('esc', S.th > 0 && g.puddle - NOZ_CLEAR < S.need - 0.05 ? 'escape short: ' + (g.puddle - NOZ_CLEAR).toFixed(1) + ' mm gained, ' + S.need + ' mm needed' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Yoke pivot', value: S.th.toFixed(1), unit: '°', note: 'seat on the stop at 0; escape angle; return' }],
+      observes: [
+        { name: 'Stop switch (at 0)', value: S.th < 0.05 ? 'closed' : 'open', status: 'seen', note: 'says seated, not where' },
+        { name: 'Dot vs seam', value: '-', status: 'blind', note: 'nothing sees the dot in this drawing' },
+        { name: 'Tip clearance to the ring, yoke legs and cable', value: '-', status: 'blind', note: 'not drawn' },
+      ],
+      manual: ['Setting the working beam angle at the stop', 'Firing and holding the trigger'],
+    });
+  }
+  const a = app.ui.group('Pivot (proposed actuator)');
+  a.slider({ id: 'th', label: 'Yoke pivot from the stop', min: 0, max: 30, step: 0.1, value: 0, unit: '°', kind: 'actuator', help: 'Rotation of the gun about the trunnions, in the sense that raises the tip and swings it out over the wall.', onChange: v => { S.th = v; render(); } });
+  const b = app.ui.group('Geometry and the stop (scene edits)');
+  b.slider({ id: 'L', label: 'Trunnion behind the nozzle', min: 100, max: 250, step: 5, value: 185, unit: 'mm', kind: 'scene', help: 'Along the barrel axis. The kit’s housing centre is 185 mm behind the tip.', onChange: v => { S.L = v; render(); } });
+  b.slider({ id: 'alpha', label: 'Working beam angle from vertical', min: 10, max: 60, step: 1, value: 30, unit: '°', kind: 'scene', help: 'Attitude B in the kit is 30°. It is a process parameter; the stop sets it.', onChange: v => { S.alpha = v; render(); } });
+  b.slider({ id: 'need', label: 'Standoff to gain at the end of a bead', min: 0, max: 40, step: 1, value: 20, unit: 'mm', kind: 'scene', help: 'Unmeasured. 0 is the sequence as written (release the trigger, then the pedal).', onChange: v => { S.need = v; render(); } });
+  b.slider({ id: 'a', label: 'Stop distance from the trunnion', min: 40, max: 170, step: 5, value: 120, unit: 'mm', kind: 'scene', help: 'Along the barrel from the trunnion toward the nozzle. A stop further out turns a micron at the stop into less angle.', onChange: v => { S.a = v; render(); } });
+  b.slider({ id: 'ds', label: 'Stop contact repeatability', min: 2, max: 200, step: 1, value: 20, unit: 'µm', kind: 'scene', help: 'Hardened balls in grooves can do a few microns; printed parts, tens.', onChange: v => { S.ds = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

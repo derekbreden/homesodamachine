@@ -1,0 +1,69 @@
+A. Ring centre error / lobe amplitude, k equal-force pads, worst case over lobe phase and pad clock
+   (a lobe of harmonic n is the OD out-of-round: n = 2 is ovality, n = 3 three-lobing from roll forming or a chuck)
+   pads k \ lobe n :   n=1      n=2      n=3      n=4      n=5      n=6      n=7
+   k = 3           :   1.00     1.00     0.00     1.00     1.00     0.00     1.00
+   k = 4           :   1.00     0.00     1.00     0.00     1.00     0.00     1.00
+   k = 5           :   1.00     0.00     0.00     1.00     0.00     1.00     0.00
+   k = 6           :   1.00     0.00     0.00     0.00     1.00     0.00     1.00
+   k = 8           :   1.00     0.00     0.00     0.00     0.00     0.00     1.00
+   Rule (checked above): k equal pads pass harmonics n = k-1 and k+1 (and their multiples of k) at gain 1 and reject the rest.
+   Three pads pass ovality (n=2) at unity; four pads reject ovality and pass three-lobing (n=3); six reject n=2..4.
+   n = 1 (an OD centre offset) passes at gain 1 for every k: that is the OD-to-bore concentricity term itself.
+
+   Two rigid stops (a V, half-angle g) plus one spring pad: worst-case centre error / ovality amplitude
+   V half-angle 30 deg : n=2 gain 1.73, n=3 gain 2.00
+   V half-angle 45 deg : n=2 gain 1.41, n=3 gain 1.00
+   V half-angle 60 deg : n=2 gain 1.00, n=3 gain 2.00
+   V half-angle 80 deg : n=2 gain 5.41, n=3 gain 2.88
+   (a V-block on an oval part magnifies the ovality: the classic reason a two-point V is a poor centring device for out-of-round work)
+
+   Three rockers, each averaging two pads at +-delta (six pads): worst-case centre error / lobe amplitude
+   delta      n=1    n=2    n=3    n=4    n=5    n=6    K (x ks)
+      0 deg   1.00   1.00   0.00   1.00   1.00   0.00     3.00
+     20 deg   1.00   0.82   0.00   0.18   0.18   0.00     2.65
+     30 deg   1.00   0.58   0.00   0.58   1.00   0.00     2.25
+     45 deg   1.00   0.00   0.00   1.41   1.00   0.00     1.50
+     60 deg   1.00   1.00   0.00   1.00   1.00   0.00     0.75
+   delta 45 deg rejects n = 2 and n = 3, passes n = 4 magnified 1.41 and n = 5 at 1.0; n = 1 (a centre offset) always passes at 1.
+
+B. Radial stiffness of a ring centred on k spring pads of stiffness ks (K = k/2 * ks) and the shift under a steady sideways force
+   pad ks (N/mm)    k   K (N/mm)    shift per N (um)   at 1 N     at 3 N     at 9 N (mm)
+          1        3       1.5          666.7          0.667      2.000      6.000
+          1        6       3.0          333.3          0.333      1.000      3.000
+          5        3       7.5          133.3          0.133      0.400      1.200
+          5        6      15.0           66.7          0.067      0.200      0.600
+         20        3      30.0           33.3          0.033      0.100      0.300
+         20        6      60.0           16.7          0.017      0.050      0.150
+         40        3      60.0           16.7          0.017      0.050      0.150
+         40        6     120.0            8.3          0.008      0.025      0.075
+        100        3     150.0            6.7          0.007      0.020      0.060
+        100        6     300.0            3.3          0.003      0.010      0.030
+        300        3     450.0            2.2          0.002      0.007      0.020
+        300        6     900.0            1.1          0.001      0.003      0.010
+
+   A pad must keep its force between 2 and 20 N over an OD spread of 0.36 mm (illustrative): ks <= 50 N/mm.
+   Three such pads: K = 75 N/mm; 3 N sideways then moves the ring 0.040 mm. The ring is exactly as stiff as the pad that had to be soft enough to seat.
+   Locked (set screws or a cam after settling): K is the contact stiffness, taken here as 500 N/mm per pad (ILLUSTRATIVE): 3 N -> 0.0040 mm.
+
+   A ring with a plain radial clearance c on the OD and no pads: it rests wherever the last sideways force left it, up to c/2 either way.
+   clearance 0.10 mm -> +-0.050 mm, and a reversal of the force direction moves it 0.10 mm
+   clearance 0.20 mm -> +-0.100 mm, and a reversal of the force direction moves it 0.20 mm
+   clearance 0.40 mm -> +-0.200 mm, and a reversal of the force direction moves it 0.40 mm
+
+C. Ring turning under umbilical drag (arm 233 mm as in scenes/datum-03-rim-crown; the drag force is [unknown])
+   tether                              K_theta (N.m/rad)    ring turn at 1 N   3 N     10 N     dot slides along seam at 3 N
+   two cords, 0.2 N/mm each                     2.3          5.78 deg  17.33 deg  57.78 deg        18.71 mm
+   two cords, 1 N/mm each (scene default)      11.6          1.16 deg   3.47 deg  11.56 deg        3.74 mm
+   one tie rod, 200 N/mm                     1155.2          0.01 deg   0.03 deg   0.12 deg        0.04 mm
+   wrapped wire pair, pre-tensioned         10589.3          0.00 deg   0.00 deg   0.01 deg        0.00 mm
+   Any tether that pulls on one tab at radius r (two cords to one tab, or one rod) reacts the drag torque as a NET force on the ring: F_t = drag x arm / r = 3.07 x drag (9.2 N at the default 3 N).
+   That force goes into the ring seat, so a tab tether multiplies the sideways load the seat sees. A pre-tensioned wire pair wrapped on the ring (two equal and opposite tangential pulls) reacts a pure couple: no net force.
+   Rotation about the tube axis is the one motion that does not move the dot, so a stiff constraint there costs nothing at the seam. Only its reaction force matters.
+
+D. Vertical: ring on the rim. A full annulus rests on the three highest spots it finds; three pads rest on their own three points.
+   Rim flatness f (peak to peak over 127 mm OD; the real value is [unknown]). The ring plane passes through three rim points; at the station
+   (r = 61.85 mm) its height differs from the rim there by up to about f (rough bound). As the tube turns the tilted ring plane sweeps once per revolution:
+   f = 0.05 mm -> one-per-revolution vertical error up to ~0.05 mm at the dot; two stable seatings (a fourth high spot) differ by up to 0.05 mm
+   f = 0.10 mm -> one-per-revolution vertical error up to ~0.10 mm at the dot; two stable seatings (a fourth high spot) differ by up to 0.10 mm
+   f = 0.20 mm -> one-per-revolution vertical error up to ~0.20 mm at the dot; two stable seatings (a fourth high spot) differ by up to 0.20 mm
+   Three pads at fixed clock give one repeatable plane per tube; a full annulus gives whichever three spots the last placement found.

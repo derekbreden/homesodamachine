@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loops carry, the rim locates</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-16-loops-carry-rim-locates",
+  "title": "Loops carry, the rim locates: Derek's rings on the ceiling, the arm's base on the tube",
+  "by": "datum",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Derek's loops hang the gun from above and take most of its weight; the arm that holds the shell is the part that has to know where the corner is. Here that arm's base sits on the tube's rim (a crown) instead of on the room, so the tube's own wobble never reaches the gun. The loops stay soft and in the room. The scene shows what that split changes: the crown no longer needs a counterweight as heavy as the gun, the cable's pull becomes its main load, and a stiff vertical support fights the rim instead of relieving it.",
+  "tags": ["suspension", "rim crown", "loops", "bungee", "work-referenced base", "weight path versus location path"],
+  "branchOf": ["freedom-01-ring-bungee"],
+  "combines": ["datum-03-rim-crown"],
+  "transferable": ["carry from the room, locate from the work", "the vertical support must be a force, not a position, when its other end rides on the work", "fight force = stiffness x wobble"],
+  "how": {
+    "motion": "the rotator turns the tube and lower ring; a proposed vertical stage on the crown trims height; loops and wires do not move",
+    "load": "overhead wires and loops carry most of the gun; the rim carries the crown and what the loops leave",
+    "reference": "the rim (height), the OD (radial), a plunger on the plate face; the hanging points are in the room but carry, they do not locate",
+    "observe": "plunger reading; cell in a wire (proposed); nothing sees the dot",
+    "use": "hang the gun on its loops, seat the crown, set the boom once, trim by touch, then turn"
+  },
+  "software": {
+    "commands": ["rotator speed (existing)", "crown vertical stage (proposed)", "wire tension or balancer preload (proposed)"],
+    "observes": ["plunger: plate face against the ring", "tension in each wire (an inline cell, proposed)", "crown seated (a contact on one pad, proposed)"],
+    "manual": ["opening and closing the loops for each tube", "setting the loops' share of the weight", "seating the crown; the boom's roll, pitch and reach"]
+  },
+  "links": [{"label": "datum-23 wall clip: weight from above, location from the wall", "href": "../datum-23-wall-clip/index.html"}, {"label": "datum-22 setting ring: the plane that places the plate", "href": "../datum-22-setting-ring/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-16-loops-carry-rim-locates.md", "../../exchange/datum--on--trials-w2.md", "../../explorers/freedom/ideas/freedom-01-ring-bungee.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, J = WK.JOINT, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight;            // 152.4, rim height above the tube bottom
+  const RO = WK.DIM.tubeOd / 2;             // 63.5
+  const G = 9.81, K_VERT = { balancer: 0.02, bungee: 0.2, line: 40, wire: 200 };   // N/mm; balancer, bungee and wire as in freedom-01
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'overall',
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [70, -80, 240], dir: [0.72, -0.5, 0.42], dist: 1250 },
+      joint: { target: [40, -30, 175], dir: [0.6, -0.6, 0.5], dist: 340 },
+      top: { target: [30, -40, 150], dir: [0, -0.004, 1], dist: 900 },
+      side: { target: [30, -60, 260], dir: [1, 0, 0.05], dist: 1500 },
+    },
+    sections: {
+      proposes:
+        '<p><b>Two jobs, two references.</b> Derek\'s loops (openable rings on the barrel and the cable pair, hung from wires and held sideways by bungees) do one job well: they take the gun\'s weight from above and let the cable pull it around. The <i>arm</i> that grips the shell does the other job: it has to hold the dot on a corner that belongs to this tube. If that arm\'s base is on the room, the tube\'s wobble arrives as a motion the arm must chase. If its base is on the tube, the wobble never arrives.</p>' +
+        '<p>Here the arm is a short <b>boom on a crown</b>: two rings on the rim, the lower turning with the tube, the upper not (datum-03). The <b>loops stay in the room</b>: two wires from an overhead gallows carry a chosen share of the gun\'s weight. Choose <i>Room post</i> to put the same boom on a post on the bench instead and watch the corner move under it. Turn the rotator, or drag the table angle, and read the dot against the seam in the corner inset.</p>' +
+        '<p>What changes is what the crown has to carry. With the loops taking 85 per cent of the weight and their split set to balance it, the crown needs no counterweight. The cable\'s pull, small as it is, becomes its biggest load because it acts high above the rim. And the vertical support must be a <b>force</b> (a balancer or a long bungee): a stiff line anchored in the room and attached to a gun that rides the rim fights the rim, with a force equal to its stiffness times the face wobble.</p>',
+      carries:
+        '<p><b>Overhead wires</b> (amber, from the gallows) carry the loops\' share of the gun\'s weight through the two loops. <b>The rim</b> carries the crown, the boom, the counterweight and the rest of the gun\'s weight, all through the lower ring. <b>Locating</b> is the crown\'s: the rim sets height, the outside of the tube sets radial position, a plunger reads the plate face. The loops locate nothing: they hang from the room, and the crown moves under them by the runout. <b>Tangent</b> stays free: turning the whole upper assembly about the tube axis does not change gun-to-corner pose.</p>',
+      software:
+        '<p><b>Command:</b> the existing rotator; a proposed vertical stage on the crown; a proposed wire tension or balancer preload. <b>Observe:</b> the plunger reading; tension in each wire (an inline load cell, as in freedom-01); a contact on one crown pad. <b>Blind:</b> the dot, the melt, and the cable\'s pull unless the tension in the wires is watched. The corner inset shows exact scene geometry, not a sensor.</p>' +
+        '<p>Software use of the wires: when the crown is seated the wires\' share can be set and read. A change in the two tensions when nothing else has changed says the umbilical\'s pull changed, before the dot does.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict (from datum-03, round 3):</b> the crown alone needs a heavy counterweight. <b>Assumption:</b> the crown carries the gun. <b>What the scene shows:</b> with no loops (share 0) the crown\'s load acts about 67 mm from the axis, at the edge of what a ring on the rim supports (66 mm), and about 0.8 kg of counterweight keeps contact all round (it must act within 33 mm). With 85 per cent of the weight in the wires and their split set for the weights, the load acts 22 mm out and no counterweight is needed: the split moves the weight\'s <i>moment</i> to the loops. <b>What it leaves:</b> the cable\'s pull is not moved. At 1.5 N and an exit 0.13 m above the rim it is 0.2 N&middot;m; raise it to 6 N and the load is 88 mm off and the crown tips. The remedies are a heavier crown (1.1 kg), a festoon that keeps the pull off the gun (borrowed-11), or <i>Also for the pull</i>: software reads the two wire tensions and retunes the split. Nobody has measured the pull <b>[unknown]</b>.</li>' +
+        '<li><b>Conflict (from freedom-01, round 2):</b> a stiff wire is a position, not a force. <b>What the scene shows:</b> switch the vertical support to <i>Steel wire 200 N/mm</i>: the rim\'s face wobble (0.15 mm at the station) becomes about 30 N of force between wire and crown, several times the crown\'s weight, and the crown lifts off the rim. A balancer at 0.02 N/mm changes the force by 0.003 N. The radial and vertical supports must be forces if their far ends are in the room and their near ends ride on the work.</li>' +
+        '<li><b>Conflict:</b> the cable pull also moves the dot. <b>What the scene shows:</b> a pull of 1.5 N with the illustrative boom compliance of 0.3 mm/N moves the dot 0.45 mm radially, with either support. It is a constant, not a wobble: the radial trim slider removes it. In a real setup the trim would be set from a touch or a dot sweep (datum-07, trials-03). <b>Left standing:</b> the compliance is illustrative; freedom-01 finds 0.3 to 0.9 mm/N for a rigid grip.</li>' +
+        '<li><b>Conflict:</b> the crown follows the rim, but the plate is not the rim. <b>What the scene shows:</b> seat depth (a constant per tube) and the plate\'s tilt against the rim (a first harmonic) are left in the vertical offset. <i>Seat trim</i> compares three answers: none; the crown stage servoed to the plunger (follows both); a lift under the tube set from a touch (constant only, so the tilt stays). The last is the trials-16 combination: the tube-side stage does the slow part and the crown does the fast part.</li>' +
+        '<li><b>Left standing:</b> whether a 1.7 N residual at a printed boom is a stiff enough locator; the loops\' lateral stiffness (wire pendulum, bungees) is not in this model and would add to the pull the crown sees; the ring clash with the nozzle, beam and wire guide is checked exactly as in datum-03.</li>' +
+        '</ul>' +
+        '<p><b>Note (wave 3):</b> the crown&rsquo;s radial seat is drawn ideal in this scene (the ring exactly on the outside&rsquo;s centre). <code>datum-03</code> now draws the seat as a clearance ring, three pads or six, and shows that a ring rigid on the tube follows its motion and not its shape; the same holds here. The wall clip (<code>datum-23</code>) is the other way to carry the weight from above and locate at the wall, and the setting ring (<code>datum-22</code>) makes the plate&rsquo;s depth and tilt by construction instead of by plunger.</p>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Questions for Derek:</b> the gun\'s mass and centre of mass (every number here is a placeholder); the umbilical\'s pull at the exit in the working pose (a spring scale at the exit); whether a crown may sit on the rim of a finished tube; how the two loops open and close for each tube.</li>' +
+        '<li>Whether a balancer of the 0.5 to 1.5 kg class (freedom-02 sourcing) carries this share with the constancy assumed here.</li>' +
+        '<li>How the gun\'s weight is shared between a boom lug and two soft loops on a printed shell without over-constraining it: three supports on one body.</li>' +
+        '<li>Ball retention where the upper ring has its gap, heat near the pocket, plunger placement: unchanged from datum-03.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry: tube, plate, rim, joint <b>[repo]</b>; gun proxy 253 x 143 x 34 mm <b>[manual]</b>, sections and opening pose <b>illustrative</b> (kit).</li>' +
+        '<li>Masses: gun and shell 1.15 kg, crown assembly 0.45 kg, counterweight adjustable: <b>illustrative</b>. Cable pull, boom compliance: <b>illustrative</b>. Stiffness of the vertical supports 0.02 / 0.2 / 40 / 200 N/mm as in freedom-01 (200 for a wire, 0.2 for a long bungee, 0.02 for a balancer) plus a 40 N/mm braided line: <b>illustrative</b>.</li>' +
+        '<li>Runout: rig limits 0.25 mm radial and 0.30 mm face TIR <b>[repo]</b>; the fight force uses the real amplitude (0.15 mm) whatever the display exaggeration. The tipping check takes the cable pull in the worst direction and the ring\'s support edge at 66 mm.</li>' +
+        '<li><b>Models:</b> rigid following of the wobble, statics of weight share, cable moment and counterweight, fight force as stiffness times wobble, the exact seam offset. <b>Depicts only:</b> balls, cage, wire and bungee mechanics, the gallows.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(WK.RIG.runoutRadialTIR, WK.RIG.runoutFaceTIR, 1);
+
+  // ------------------------------------------------------------------ state
+  const P = { support: 'crown', relief: 0.85, vert: 'balancer', pull: 1.5, comp: 0.3, trimR: 0, trim: 'none', seat: 0.30, tilt: 0.10, odb: 0.08, exag: 1, mgun: 1.15, mcw: 0.30, mcrown: 0.45, tune: 'weights', speed: 8, rin: 62.2, gap: 40, hook: 520 };
+  let following = true;
+
+  // ------------------------------------------------------------------ gun, shell, non-rotating frame
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load', opacity: 0.22 });
+  const ns = new THREE.Group(); ns.name = 'non-rotating assembly'; ns.matrixAutoUpdate = false;
+  app.scene.add(ns);
+  ns.add(gun.group);
+  const gunPos0 = gun.group.position.clone();
+  const I4 = new THREE.Matrix4();
+  const zr = RIM;
+  const R_BALL = 66, Z_BALLS = zr + 8, Z_UP0 = zr + 10, Z_UP1 = zr + 16;
+
+  function mkMesh(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  function latheGeo(profile, phiStart, phiLength) {
+    const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 128, phiStart || 0, phiLength == null ? Math.PI * 2 : phiLength);
+    g.rotateX(Math.PI / 2); return g;
+  }
+  const lower = mkMesh(new THREE.BufferGeometry(), 'locate'); lower.name = 'lower ring'; ws.tubeGroup.add(lower);
+  function buildLower() {
+    const prof = [[P.rin, zr], [63.9, zr], [63.9, zr - 8], [66.2, zr - 8], [66.2, zr], [72, zr], [72, zr + 6], [P.rin, zr + 6], [P.rin, zr]];
+    lower.geometry.dispose(); lower.geometry = latheGeo(prof);
+  }
+  const AZ_GAP = -13 * DEG;
+  const upper = mkMesh(new THREE.BufferGeometry(), 'load'); upper.name = 'upper ring'; ns.add(upper);
+  function buildUpper() {
+    const g = P.gap * DEG;
+    upper.geometry.dispose();
+    upper.geometry = latheGeo([[P.rin, Z_UP0], [72, Z_UP0], [72, Z_UP1], [P.rin, Z_UP1], [P.rin, Z_UP0]], AZ_GAP + g / 2 + Math.PI / 2, Math.PI * 2 - g);
+  }
+  const balls = new THREE.Group(); ns.add(balls);
+  for (let i = 0; i < 24; i++) { const b = P3.sphere(2, 'fixed'); const a = i / 24 * Math.PI * 2; b.position.set(R_BALL * Math.cos(a), R_BALL * Math.sin(a), Z_BALLS); balls.add(b); }
+
+  // ---- boom, rail, carriage (vertical stage) and lug on the shell
+  const AZ_BOOM = -56 * DEG;
+  const R0 = V(68 * Math.cos(AZ_BOOM), 68 * Math.sin(AZ_BOOM), Z_UP1);
+  app.scene.updateMatrixWorld(true);
+  const lugRec = (function () {
+    const dirLocal = gun.group.worldToLocal(R0.clone()).sub(gun.anchor('barrelMid')).normalize();
+    return shell.attachPoint('barrelMid', { side: [dirLocal.x, dirLocal.y, dirLocal.z], role: 'locate', size: 7 });
+  })();
+  app.scene.updateMatrixWorld(true);
+  const L0 = lugRec.world();
+  const railTop = L0.clone().add(V(0, 0, 22)), railBot = L0.clone().add(V(0, 0, -22));
+  const rail = P3.rail(railTop, railBot, { width: 10, height: 6, role: 'actuated' }); ns.add(rail);
+  const carriage = P3.carriage([12, 14, 10], 'actuated', { rail: rail, t: 0.5 }); ns.add(carriage);
+  const boomRod = P3.rod(R0, railTop, 3.2, 'load'); ns.add(boomRod);
+  const rLug = Math.hypot(L0.x, L0.y);
+  // ---- counterweight (opposite the gun's centre of mass)
+  const cgGun = () => {
+    const pts = [[gun.anchor([0, 0, 60]), 0.15], [gun.anchor([0, 0, 185.5]), 0.55], [gun.anchor('gripMid'), 0.30]];
+    const c = V(0, 0, 0); pts.forEach(p => c.addScaledVector(p[0].clone().applyMatrix4(gun.group.matrix), p[1])); return c;
+  };
+  let azCw = 0;
+  (function () { const c = cgGun(); azCw = Math.atan2(-c.y, -c.x); })();
+  const cwArm = P3.rod(V(72 * Math.cos(azCw), 72 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2), V(100 * Math.cos(azCw), 100 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2), 3.5, 'load'); ns.add(cwArm);
+  const cwBox = P3.box(1, 1, 1, 'load'); cwBox.position.set(100 * Math.cos(azCw), 100 * Math.sin(azCw), (Z_UP0 + Z_UP1) / 2 - 6); ns.add(cwBox);
+  cwBox.rotation.z = azCw;
+  // ---- tether: two soft cords to posts on the rotator base
+  const AZ_TAB = 150 * DEG;
+  const tabP = V(76 * Math.cos(AZ_TAB), 76 * Math.sin(AZ_TAB), (Z_UP0 + Z_UP1) / 2);
+  const tab = P3.box(10, 10, 6, 'load'); tab.position.copy(tabP); tab.rotation.z = AZ_TAB; ns.add(tab);
+  const tng = V(-Math.sin(AZ_TAB), Math.cos(AZ_TAB), 0);
+  const postA = tabP.clone().addScaledVector(tng, 118), postB = tabP.clone().addScaledVector(tng, -118);
+  const baseTopZ = -50;
+  [postA, postB].forEach(p => app.add(P3.rod(V(p.x, p.y, baseTopZ), V(p.x, p.y, p.z), 3.5, 'fixed')));
+  const cordA = P3.elastic(tabP, postA, { role: 'compliant', radius: 1.1, rest: 118 }), cordB = P3.elastic(tabP, postB, { role: 'compliant', radius: 1.1, rest: 118 });
+  app.add(cordA); app.add(cordB);
+  // ---- depth plunger on the ring
+  const AZ_PL = -22 * DEG, R_PL = 58;
+  const plTop = V(R_PL * Math.cos(AZ_PL), R_PL * Math.sin(AZ_PL), Z_UP0 + 2);
+  const plBr = P3.rod(V(P.rin * Math.cos(AZ_PL), P.rin * Math.sin(AZ_PL), Z_UP0 + 2), plTop, 1.6, 'load'); ns.add(plBr);
+  const plRod = P3.rod(plTop, V(plTop.x, plTop.y, J.z), 1.3, 'sensor'); ns.add(plRod);
+  const plTipMark = P3.sphere(2, 'sensor'); ns.add(plTipMark);
+
+  // ---- room post branch: post on the bench, rod to the lug
+  const postRoom = P3.rod(V(105, -150, ws.benchZ), V(105, -150, L0.z), 6, 'fixed'); app.add(postRoom);
+  const roomRod = P3.rod(V(105, -150, L0.z), L0, 3.2, 'fixed'); app.add(roomRod);
+  const roomFoot = P3.groundHatch(40, 'fixed'); roomFoot.position.set(105, -150, ws.benchZ); app.add(roomFoot);
+
+  // ---- overhead gallows, two loops, two wires with a spring symbol each (the loops carry, they do not locate)
+  const GZ = 500;                                   // beam height above the tube bottom
+  const gallowsPost = P3.rod(V(360, -40, ws.benchZ), V(360, -40, GZ), 7, 'fixed'); app.add(gallowsPost);
+  const gallowsBeam = P3.rod(V(360, -40, GZ), V(20, -40, GZ), 6, 'fixed'); app.add(gallowsBeam);
+  const gfoot = P3.groundHatch(60, 'fixed'); gfoot.position.set(360, -40, ws.benchZ); app.add(gfoot);
+  const tipRing = gun.addRing('barrelMid', { role: 'load' });
+  const tailRing = gun.addRing('cablePair', { role: 'load' });
+  app.scene.updateMatrixWorld(true);
+  function ringWorld(ring) { return ring.getWorldPosition(new THREE.Vector3()); }
+  const ringPts = [ringWorld(tipRing), ringWorld(tailRing)], BY = (ringPts[0].y + ringPts[1].y) / 2;
+  const top = ringPts.map(p => V(p.x, BY, GZ));
+  gallowsPost.setEnds(V(360, BY, ws.benchZ), V(360, BY, GZ)); gfoot.position.set(360, BY, ws.benchZ);
+  gallowsBeam.setEnds(V(360, BY, GZ), V(Math.min(top[0].x, top[1].x) - 30, BY, GZ));
+  const wires = top.map(t => ({ top: t, wire: P3.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'load', { occludes: false }), spring: P3.elastic(V(0, 0, 0), V(0, 0, 60), { role: 'compliant', radius: 1.6, rest: 60 }) }));
+  wires.forEach(w => { w.spring.userData.occludes = false; app.add(w.wire); app.add(w.spring); });
+  function updateWires() {
+    const rings = [tipRing, tailRing];
+    wires.forEach((w, i) => {
+      const a = ringWorld(rings[i]), t = w.top, mid = V(t.x, t.y, t.z - 90);
+      w.wire.setEnds(a, mid); w.spring.setEnds(mid, t);
+    });
+  }
+
+  // ---- overhead hook and umbilical (hangs from the gallows beam end)
+  const HOOK = { x: 0, y: -540 };
+  const hookBase = () => V(HOOK.x, HOOK.y, ws.benchZ);
+  const hookPost = P3.rod(hookBase(), V(HOOK.x, HOOK.y, P.hook), 5, 'fixed'); app.add(hookPost);
+  const hookBall = P3.sphere(9, 'fixed'); app.add(hookBall);
+  let cableMesh = null;
+  function updateCable() {
+    hookPost.setEnds(hookBase(), V(HOOK.x, HOOK.y, P.hook)); hookBall.position.set(HOOK.x, HOOK.y, P.hook);
+    const ex = gun.cableExit();
+    const hook = V(HOOK.x, HOOK.y, P.hook), curve = WK.bezierCable(ex.point, ex.dir, hook, hook.clone().sub(ex.point).normalize(), { stiffness: 0.45 });
+    if (!cableMesh) { cableMesh = P3.cable(curve, { radius: 5.5, role: 'cable' }); cableMesh.material = WK.mat('cable', { shade: 2.6 }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const r = WK.curveMinRadius(curve), b = WK.cableBadge(r);
+    app.badge('bend', b.level === 'ok' ? null : b.text, b.level);
+  }
+
+  // ------------------------------------------------------------------ dot offset (exact scene geometry)
+  const baseDotOffset = gun.dotOffset;
+  function dzTrue(sp) { return P.seat + P.tilt * Math.cos(sp * DEG + 1.3); }
+  function trimZ(sp) { return P.trim === 'stage' ? dzTrue(sp) : (P.trim === 'lift' ? P.seat : 0); }
+  gun.dotOffset = function () {
+    const o = baseDotOffset();
+    const sp = ws.spinAngle * DEG;
+    if (P.support === 'crown' && following) {
+      o.vertical += dzTrue(ws.spinAngle) - trimZ(ws.spinAngle);
+      o.radial += P.odb * Math.cos(sp + 0.5);
+    }
+    o.radial += P.pull * P.comp - P.trimR;               // the cable's constant pull against the boom's compliance, less the trim
+    o.total = Math.hypot(o.radial, o.along, o.vertical);
+    return o;
+  };
+  app.cornerInset({ gun: gun, corner: 'tr' });
+
+  // ------------------------------------------------------------------ statics (illustrative)
+  // The crown sees a vertical force N at its centre and a moment M about the tube axis; e = M / N is where the load acts.
+  // A ring standing on the rim keeps contact all round while |e| <= R/2 and tips beyond R (R = 66 mm, the ring's support radius).
+  // The two loops share the gun's weight; their resultant sits at xl between the tip loop and the tail loop. The split is a setup
+  // choice: 'weights' tunes it to null the moment of the gun's weight, 'weights + pull' also nulls the cable's moment (software auto-null).
+  const S = {};
+  let exitH = 200, rC = 118, rTip = 90, rTail = 240;
+  function crownLoad(mcw, o) {
+    const W = P.mgun * G, f = P.relief, N = (P.mcrown + mcw) * G + (1 - f) * W;
+    const pullM = P.pull * exitH;
+    let xl = 0, Ma;
+    if (f > 0.001) {
+      const need = (W * rC - mcw * G * 100 + (P.tune === 'auto' ? pullM : 0)) / (f * W);
+      xl = clamp(need, rTip, rTail);
+      Ma = W * rC - mcw * G * 100 - f * W * xl + pullM;
+    } else Ma = W * rC - mcw * G * 100 + pullM;
+    return { N: N, Ma: Ma, e: Ma / N, xl: xl, W: W };
+  }
+  function statics() {
+    const Ke = K_VERT[P.vert], aWob = WK.RIG.runoutFaceTIR / 2, fight = Ke * aWob;
+    const c = crownLoad(P.mcw, {});
+    const seatMin = c.N - fight;
+    // smallest counterweight (kg, 0.02 steps up to 5) that brings the load within R/2 of the axis; NaN if none does
+    let need = 0;
+    if (Math.abs(crownLoad(0, {}).e) > R_BALL / 2) { need = NaN; for (let m = 0.02; m <= 5.001; m += 0.02) { if (Math.abs(crownLoad(m, {}).e) <= R_BALL / 2) { need = m; break; } } }
+    Object.assign(S, { W: c.W, Fv: (1 - P.relief) * c.W, loops: P.relief * c.W, fight: fight, N: c.N, e: c.e, xl: c.xl, seatMin: seatMin, need: need, Ke: Ke });
+    following = P.support === 'crown' ? (seatMin > 0 && Math.abs(c.e) < R_BALL) : false;
+    return S;
+  }
+  let rdW = null, rdCrown = null, rdFight = null, rdTip = null, rdCw = null, rdDot = null;
+  function updateStatics() {
+    const s = statics();
+    const ae = Math.abs(s.e), state = ae <= R_BALL / 2 ? 'contact all round' : (ae < R_BALL ? 'part of the ring unloads' : 'tips');
+    if (rdW) {
+      rdW(s.loops.toFixed(1) + ' of ' + s.W.toFixed(1) + ' N in the wires; ' + s.Fv.toFixed(1) + ' N goes through the boom');
+      rdFight('+/-' + s.fight.toFixed(3) + ' N  (' + s.Ke + ' N/mm x 0.15 mm)');
+      rdCrown(s.N.toFixed(1) + ' N down; least contact ' + s.seatMin.toFixed(1) + ' N');
+      rdTip('load acts ' + s.e.toFixed(0) + ' mm from the axis: ' + state + ' (limits 33 / 66)');
+      rdCw(isNaN(s.need) ? 'more than 5 kg' : s.need.toFixed(2) + ' kg at r = 100 mm (fitted ' + P.mcw.toFixed(2) + ')');
+    }
+    const crown = P.support === 'crown';
+    app.badge('tip', crown && ae >= R_BALL ? 'crown would tip: the load acts ' + s.e.toFixed(0) + ' mm from the axis, the ring supports to ' + R_BALL + ' mm' : null, 'limit');
+    app.badge('part', crown && ae > R_BALL / 2 && ae < R_BALL ? 'the ring would unload on one side (load ' + s.e.toFixed(0) + ' mm off the axis, contact all round needs under ' + (R_BALL / 2) + '): the crown rocks on the rim and the gun\'s pose with it' : null, 'warn');
+    app.badge('lift', crown && s.seatMin <= 0 ? 'the ' + P.vert + ' fights the rim by +/-' + s.fight.toFixed(1) + ' N against ' + s.N.toFixed(1) + ' N of crown load: the crown lifts off, so the gun stops following' : null, 'limit');
+    cwBox.scale.setScalar(Math.max(4, 40 * Math.cbrt(Math.max(P.mcw, 0.01) / 1.35)));
+    cwBox.visible = crown && P.mcw > 0.02; cwArm.visible = cwBox.visible;
+  }
+
+  // ------------------------------------------------------------------ clearance check (as datum-03)
+  function insideZone(z, p) {
+    if (z.type === 'cyl') { const rad = Math.hypot(p.x, p.y); if (p.z < z.z0 || p.z > z.z1) return false; const r = z.r0 + (z.r1 - z.r0) * (p.z - z.z0) / (z.z1 - z.z0); return rad < r; }
+    const q = p.clone().sub(z.center).applyQuaternion(z.quat.clone().invert());
+    return Math.abs(q.x) < z.half.x && Math.abs(q.y) < z.half.y && Math.abs(q.z) < z.half.z;
+  }
+  const clamp = WK.clamp;
+  const segDist = (p, a, b) => { const ab = b.clone().sub(a), t = clamp(p.clone().sub(a).dot(ab) / ab.lengthSq(), 0, 1); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+  const BEAM_A = V(0, 0, 0), BEAM_B = V(0, 0, -WK.CLEARANCE), GUIDE_A = V(0, -24.7, 87.1), GUIDE_B = V(0, -15.4, 48.2);
+  function clash() {
+    const inv = gun.group.matrix.clone().invert(), pts = [];
+    const lowerRegion = [[P.rin, zr], [P.rin, zr + 6], [72, zr + 3]];
+    for (let i = 0; i < 360; i += 3) {
+      const a = i * DEG;
+      lowerRegion.forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'turning lower ring' }));
+      const d = ((i * DEG - AZ_GAP + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+      if (Math.abs(d) > P.gap * DEG / 2) [[P.rin, Z_UP0], [P.rin, Z_UP1]].forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'upper ring' }));
+    }
+    for (let k = 0; k < pts.length; k++) {
+      const pl = pts[k].p.clone().applyMatrix4(inv);
+      for (let z = 0; z < shell.zones.length; z++) if (insideZone(shell.zones[z], pl)) return { who: pts[k].who, what: 'nozzle and shell' };
+      if (segDist(pl, BEAM_A, BEAM_B) < 2.5) return { who: pts[k].who, what: 'the laser beam (illustrative 2.5 mm corridor)' };
+      if (segDist(pl, GUIDE_A, GUIDE_B) < 3.5) return { who: pts[k].who, what: 'the wire guide' };
+    }
+    return null;
+  }
+
+  // ------------------------------------------------------------------ pose
+  const Wm = new THREE.Matrix4(), Rzm = new THREE.Matrix4();
+  function poseCore() {
+    const crownOn = P.support === 'crown', zs = (crownOn && P.trim === 'stage') ? dzTrue(ws.spinAngle) : 0;
+    Wm.copy(ws.tubeGroup.matrix).multiply(Rzm.makeRotationZ(-ws.spinAngle * DEG));
+    ns.matrix.copy(crownOn && following ? Wm : I4);
+    ns.matrixWorldNeedsUpdate = true;
+    gun.group.position.set(gunPos0.x, gunPos0.y, gunPos0.z - zs);
+    carriage.setT(0.5 + clamp(zs, -1, 1) / 44);
+    app.scene.updateMatrixWorld(true);
+    const tw = V(0, 0, 0).setFromMatrixPosition(tab.matrixWorld);
+    cordA.setEnds(tw, postA); cordB.setEnds(tw, postB);
+    const psi = AZ_PL - ws.spinAngle * DEG, zFace = J.z - P.seat;
+    const tipTube = V(R_PL * Math.cos(psi), R_PL * Math.sin(psi), zFace - ws.seam().amp * Math.cos(psi - ws.seam().beta));
+    const tipNs = ns.worldToLocal(tipTube.applyMatrix4(ws.tubeGroup.matrix));
+    plRod.setEnds(plTop, tipNs); plTipMark.position.copy(tipNs);
+    updateWires();
+    app.invalidate();
+    return zs;
+  }
+  function pose() { const zs = poseCore(); updateCable(); updateIO(zs); return zs; }
+
+  let rdLap = null;
+  function lapStats() {
+    const keep = ws.spinAngle;
+    let rMin = 1e9, rMax = -1e9, zMin = 1e9, zMax = -1e9;
+    for (let a = 0; a < 360; a += 5) {
+      ws.setSpin(a); poseCore();
+      const o = gun.dotOffset();
+      rMin = Math.min(rMin, o.radial); rMax = Math.max(rMax, o.radial); zMin = Math.min(zMin, o.vertical); zMax = Math.max(zMax, o.vertical);
+    }
+    ws.setSpin(keep); pose();
+    if (rdLap) rdLap('r ' + rMin.toFixed(2) + ' to ' + rMax.toFixed(2) + ' (p-p ' + (rMax - rMin).toFixed(2) + '); z p-p ' + (zMax - zMin).toFixed(2) + ' (mean ' + ((zMax + zMin) / 2).toFixed(2) + ')');
+    if (rdDot) rdDot('a pull of ' + P.pull.toFixed(1) + ' N x ' + P.comp.toFixed(2) + ' mm/N = ' + (P.pull * P.comp).toFixed(2) + ' mm radial; trim ' + P.trimR.toFixed(2));
+  }
+
+  function updateIO(zs) {
+    const crown = P.support === 'crown', off = gun.dotOffset();
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: P.speed, unit: 'mm/s', note: 'existing controller; 5-15 mm/s window [repo]' },
+        { name: 'Crown vertical stage (down +)', value: (crown ? zs : 0).toFixed(2), unit: 'mm', note: crown ? (P.trim === 'stage' ? 'proposed actuator; servoed to the plunger (ideal here)' : 'proposed actuator; idle in this trim mode') : 'no stage on the room post' },
+        { name: 'Wire tension / balancer preload', value: (S.loops || 0).toFixed(1), unit: 'N', note: 'proposed: how much of the gun the loops take' },
+      ],
+      observes: [
+        { name: 'Plate face against the ring (plunger)', value: crown ? dzTrue(ws.spinAngle).toFixed(2) : '-', unit: crown ? 'mm' : '', status: crown ? 'seen' : 'blind', note: 'proposed plunger at the station' },
+        { name: 'Wire tensions', value: (S.loops || 0).toFixed(1), unit: 'N total', status: 'seen', note: 'an inline cell in each wire (proposed); a change with nothing else changed is the cable pull changing' },
+        { name: 'Crown seated on the rim', value: crown ? (following ? 'yes' : 'lifted off') : '-', status: 'partly', note: 'a contact on one pad (proposed); the crown lifts off only if a stiff line fights the rim' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'nothing here observes the dot. The corner inset is exact scene geometry (r ' + off.radial.toFixed(2) + ', z ' + off.vertical.toFixed(2) + ' mm), not a sensor reading' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Open and close both loops for each tube', 'Set the loops\' share of the weight', 'Seat the crown; boom roll, pitch and reach', 'Trim the radial offset (a screw or a touch)'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  function refreshAll() { buildLower(); buildUpper(); const c = clash(); app.badge('clash', c ? 'ring clash: the ' + c.who + ' would hit ' + c.what : null, 'limit'); updateStatics(); pose(); lapStats(); }
+  function setSupport(v) {
+    P.support = v; const on = v === 'crown';
+    [upper, lower, balls, rail, carriage, boomRod, cwArm, cwBox, tab, plBr, plRod, plTipMark].forEach(o => { o.visible = on; }); cordA.visible = cordB.visible = on;
+    [postRoom, roomRod, roomFoot].forEach(o => { o.visible = !on; });
+    updateStatics(); pose(); lapStats();
+  }
+  const gb = app.ui.group('The arm\'s base', { open: true });
+  gb.radio({ id: 'support', label: 'The boom that holds the gun stands on', options: [{ value: 'room', label: 'Room post', help: 'Same boom on a post to the bench: the tube wobbles under it.' }, { value: 'crown', label: 'Rim crown', help: 'The boom rides the tube: the wobble never reaches the gun.' }], value: 'crown', kind: 'branch', visual: () => [upper, lower, boomRod, postRoom], onChange: v => setSupport(v) });
+  gb.radio({ id: 'trim', label: 'Seat depth and plate tilt: who trims', options: [{ value: 'none', label: 'Nobody', help: 'The rim cannot know seat depth or plate tilt.' }, { value: 'stage', label: 'Crown stage', help: 'Servoed to the plunger (ideal): follows constant and tilt.' }, { value: 'lift', label: 'Tube-side lift', help: 'Set once from a touch: removes the constant only; the tilt stays.' }], value: 'none', kind: 'branch', visual: () => [rail, carriage], onChange: v => { P.trim = v; pose(); lapStats(); } });
+  const gl = app.ui.group('Loops and wires (scene edits; the loops carry, they do not locate)', { open: true });
+  gl.slider({ id: 'relief', label: 'Share of the gun\'s weight in the wires', min: 0, max: 0.95, step: 0.05, value: 0.85, kind: 'scene', visual: () => wires.map(w => w.wire), format: v => (v * 100).toFixed(0) + '%', help: 'A setup adjustment: the loops\' preload. Illustrative.', onChange: v => { P.relief = v; updateStatics(); pose(); lapStats(); } });
+  gl.radio({ id: 'vert', label: 'What the vertical support is', options: [{ value: 'balancer', label: 'Balancer 0.02' }, { value: 'bungee', label: 'Bungee 0.2' }, { value: 'line', label: 'Braided line 40' }, { value: 'wire', label: 'Steel wire 200' }], value: 'balancer', kind: 'branch', visual: () => wires.map(w => w.spring), help: 'Stiffness in N/mm (freedom-01 values plus a 40 N/mm line). It is anchored in the room and attached to a gun that rides the rim.', onChange: v => { P.vert = v; updateStatics(); pose(); lapStats(); } });
+  gl.radio({ id: 'tune', label: 'How the two wires\' split is set', options: [{ value: 'weights', label: 'For the weights, at setup' }, { value: 'auto', label: 'Also for the pull (auto-null)' }], value: 'weights', kind: 'branch', noVisual: true, help: 'The split between tip and tail wire moves where the loops\' resultant acts. Software could null the boom\'s moment from the wire tensions.', onChange: v => { P.tune = v; updateStatics(); pose(); lapStats(); } });
+  const gc = app.ui.group('The cable and the boom (scene edits, illustrative)', { open: true });
+  gc.slider({ id: 'pull', label: 'Umbilical pull at the cable exit', min: 0, max: 8, step: 0.25, value: 1.5, unit: 'N', kind: 'scene', visual: () => cableMesh, help: 'Horizontal, worst direction for tipping. Nobody has measured it [unknown].', onChange: v => { P.pull = v; updateStatics(); pose(); lapStats(); } });
+  gc.slider({ id: 'comp', label: 'Boom compliance at the dot', min: 0.05, max: 1.2, step: 0.05, value: 0.3, unit: 'mm/N', kind: 'scene', visual: () => boomRod, help: 'freedom-01 finds 0.3 to 0.9 mm/N for a rigid grip.', onChange: v => { P.comp = v; pose(); lapStats(); } });
+  gc.slider({ id: 'trimR', label: 'Radial trim (a screw, or a small axis)', min: -3, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => carriage, help: 'Proposed: set from a touch or a dot sweep. Removes the constant offset the cable pull leaves.', onChange: v => { P.trimR = v; pose(); lapStats(); } });
+  gc.slider({ id: 'mcw', label: 'Counterweight on the crown', min: 0, max: 3, step: 0.05, value: 0.30, unit: 'kg', kind: 'scene', visual: () => [cwBox, cwArm], help: 'At r = 100 mm opposite the gun.', onChange: v => { P.mcw = v; updateStatics(); pose(); } });
+  gc.slider({ id: 'mgun', label: 'Gun + shell mass', min: 0.5, max: 2.5, step: 0.05, value: 1.15, unit: 'kg', kind: 'scene', visual: () => gun.group, help: 'Nobody has weighed the gun [unknown].', onChange: v => { P.mgun = v; updateStatics(); pose(); } });
+  const gt = app.ui.group('The tube and the turn (scene edits)', { open: true });
+  gt.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'The tube and the lower ring turn; the upper ring, gun and wires do not.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  gt.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'Scrub the table; the seam wobbles under the room post and with the crown.', onChange: v => { ws.setSpin(v); pose(); } });
+  gt.slider({ id: 'seat', label: 'Seat depth error', min: -0.6, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Illustrative. The rim cannot know it.', onChange: v => { P.seat = v; ws.cap.position.z = -v; pose(); lapStats(); } });
+  gt.slider({ id: 'tilt', label: 'Plate tilt against the rim plane', min: 0, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'Illustrative amplitude at the station.', onChange: v => { P.tilt = v; pose(); lapStats(); } });
+  gt.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 40, step: 1, value: 1, unit: '×', kind: 'view', visual: () => ws.tubeGroup, help: 'Display only for the picture; forces use the real amplitude.', onChange: v => { ws.setRunout(null, null, v); pose(); lapStats(); } });
+  const gr = app.ui.group('Numbers (exact scene geometry and statics, not sensor readings)', { open: true });
+  rdW = gr.readout('rw', 'Weight in the wires'); rdFight = gr.readout('rf', 'Fight force, wire against rim'); rdCrown = gr.readout('rc', 'Crown on the rim'); rdTip = gr.readout('rt', 'Where the crown\'s load acts'); rdCw = gr.readout('rcw', 'Counterweight to balance'); rdLap = gr.readout('rl', 'Dot vs seam over one lap'); rdDot = gr.readout('rd', 'Cable pull vs trim');
+
+  // ------------------------------------------------------------------ labels
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(lower.matrixWorld).add(V(-60, 40, zr + 6)), 'lower ring: on the rim, turns with the tube', { cls: 'locate' });
+  app.label(() => V(66 * Math.cos(2.4), 66 * Math.sin(2.4), Z_UP1).applyMatrix4(ns.matrix), 'upper ring: does not turn', { cls: 'load' });
+  app.label(() => tipRing.getWorldPosition(new THREE.Vector3()), 'tip loop', { cls: 'load' });
+  app.label(() => tailRing.getWorldPosition(new THREE.Vector3()), 'tail loop (cable pair)', { cls: 'load' });
+  app.label(() => wires[0].top.clone().add(V(0, 0, -20)), 'wire + balancer (room)', { cls: 'compliant' });
+  app.label(V(360, BY, GZ), 'overhead gallows (room)', { cls: 'fixed' });
+  app.label(() => carriage.getWorldPosition(new THREE.Vector3()), 'crown stage (proposed)', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  app.onFrame(function (dt) {
+    if (!ws.spin.on) return false;
+    pose();
+    app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true });
+    return true;
+  });
+
+  window.__dbg = () => ({ P: P, S: S, rC: rC, rTip: rTip, rTail: rTail, exitH: exitH, rLug: rLug });
+  window.__try = (x, y, z) => { HOOK.x = x; HOOK.y = y; P.hook = z; updateCable(); return (window.__badges || []).map(b => b.text || b); };
+  ws.cap.position.z = -P.seat;
+  app.scene.updateMatrixWorld(true);
+  const exW = gun.cableExit().point; exitH = Math.max(120, exW.z - zr);
+  { const c = cgGun(); rC = Math.hypot(c.x, c.y); const a = ringWorld(tipRing), b = ringWorld(tailRing); rTip = Math.hypot(a.x, a.y); rTail = Math.hypot(b.x, b.y); }
+  refreshAll();
+})();
+</script>
+</body>
+</html>

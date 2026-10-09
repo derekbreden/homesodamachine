@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trigger path and lockout</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .r14-chain { font-size: 12px; line-height: 1.45; color: #c7d3e6; }
+  .r14-chain table { border-collapse: collapse; width: 100%; }
+  .r14-chain td { padding: 2px 6px 2px 0; vertical-align: top; }
+  .r14-chain td.k { color: #93a4bd; white-space: nowrap; }
+  .r14-chain .led { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; background: #4b5567; }
+  .r14-chain .led.on { background: #34d399; }
+  .r14-chain .led.off { background: #f87171; }
+  .r14-chain .led.na { background: #64748b; }
+  .r14-chain .sep td { padding-top: 8px; color: #dbe6ff; font-weight: 600; }
+  .r14-chain .res { margin-top: 6px; padding: 5px 7px; border-radius: 6px; background: rgba(148,163,184,.12); }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-14-trigger-path",
+  "title": "Trigger path and lockout: a hand fires, software can only stop",
+  "by": "room",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "When the gun is carried by something other than the hand (a seat, a cell, cords, a gantry), the hand that fires is not on the gun. A cable-and-lever path from a pendant to the trigger keeps the trigger's reaction inside the shell, and a spring-loaded pin on the lever lets software stop it (energise to permit) without touching the laser's electronics or the DB25 port. The scene draws the path, the pin and the chain of permits, and shows what a finger on a supported gun does to the dot instead.",
+  "tags": ["trigger", "interlock", "veto", "cell", "gates", "hand-fires", "reaction-force"],
+  "branchOf": ["use-05-gates"],
+  "combines": ["use-05-gates", "room-05-drawer-cell"],
+  "transferable": ["the hand that fires need not hold the gun", "a trigger reaction that stays inside the shell", "software's veto as a fail-safe mechanical lockout, energise to permit", "the cell's own contacts (door, dock, seat) as the permit chain"],
+  "how": {
+    "motion": "a hand squeezes a pendant lever; a cable pulls a lever on the shell that presses the trigger",
+    "load": "sheath and wire both end on the shell, so their forces cancel except for the misalignment residual",
+    "reference": "not a positioning idea: the seat or whatever else holds the gun stays as it is",
+    "observe": "pendant switch, lever position, pin position, door, dock and seat contacts; the laser's own alarm screen (unresolved)",
+    "use": "any arrangement in which the gun is supported and a person still fires: cell, seat, cords, gantry"
+  },
+  "software": {
+    "commands": ["permit relay: energise the lockout coil (pin retracts) only while every condition holds"],
+    "observes": ["pendant lever switch", "lever travel (a second switch)", "pin position", "door, dock and seat contacts", "rotator degrees and pedal (existing)"],
+    "manual": ["the squeeze itself", "goggles, key, e-stop, work clip (the laser's own chain, not modelled here)", "clearing any hold"]
+  },
+  "notes": ["../../explorers/room/ideas/room-14-trigger-path.md", "../../exchange/room--on--use-w2.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const app = WK.app({
+    workstation: { benchSize: [1000, 900], benchCenter: [120, -200] },
+    view: 'grip',
+    viewButtons: ['overall', 'grip', 'top'],
+    views: {
+      overall: { target: [120, -140, 230], dir: [0.55, -0.55, 0.62], dist: 1250 },
+      grip: { target: [0, -140, 262], dir: [0.95, -0.42, 0.22], dist: 400 },
+      top: { target: [110, -140, 200], dir: [0, -0.003, 1], dist: 1200 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Every arrangement that carries the gun for the hand has to answer a quiet question from use-05: <i>a hand fires, always</i>. Where is that hand? On a seat the hand can still hold the grip (the seat carries the weight). In a cell, on cords or on a gantry it is not on the gun at all.</p>' +
+        '<p>This scene draws one answer. A <b>pendant lever</b> under the hand pulls a <b>cable</b>; on the shell a small <b>lever</b> turns and its pad presses the gun&rsquo;s trigger. Both ends of the cable&rsquo;s sheath and wire terminate on the shell, so the force the trigger needs goes round a loop inside the shell instead of into the arm, seat or cords. A <b>spring-loaded pin</b> stops the lever after 4&nbsp;mm of a needed 8: software energises a coil to retract the pin (permit) and de-energises it to stop the lever. The laser&rsquo;s own interlocks (key, e-stop, the work clip and its conduction path) are not touched and not modelled.</p>' +
+        '<p><b>Try:</b> squeeze the pendant with the permit off (the pin blocks at 4&nbsp;mm and the trigger is not reached); turn every permit on and squeeze; switch to a finger on the gun and lower the support stiffness to see what 6&nbsp;N does to the dot; raise the misalignment of the last wire segment to see the residual on the shell.</p>',
+      carries:
+        '<p><b>Amber</b> carries: the lever and the shell lug. <b>Purple</b> is what software could command: the coil and pin. <b>Green</b> is springy: the pendant lever and the return springs. With the cable, the force in the wire and the push of the sheath meet at the same ferrule on the shell; the net is the wire tension times the sine of the angle between the last piece of wire and the sheath (<code>readout</code>). With a finger on the trigger of a gun the hand is not gripping, the whole trigger force is external and goes into whatever supports the gun.</p>' +
+        '<p>Nothing here locates the gun; the seat, cords or arm of the arrangement do that.</p>',
+      software:
+        '<p><b>Command:</b> the permit relay only. It can withhold the lever, never move it. <b>Observe:</b> a switch under the pendant lever, a switch at the lever, the pin&rsquo;s position (a fail-safe check that it did extend), door, dock and seat contacts, the rotator&rsquo;s degrees and pedal. <b>Not observable here:</b> whether the laser thinks it is conducting (its alarm screen, unresolved), whether emission actually happened.</p>' +
+        '<p><b>Manual:</b> the squeeze, goggles, key, e-stop, clip; clearing any hold; snipping a stuck wire.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>A finger on the trigger of a supported gun is an external load.</b> The trigger force is unknown; the scene uses 6&nbsp;N (illustrative). Against a support of 8&nbsp;N/mm (use-02 as drawn in T-slot, <code>seat-loop.mjs</code>) that is 0.7&nbsp;mm at the dot; against 145&nbsp;N/mm (a box column) 0.04&nbsp;mm; against a friction arm of 0.1&nbsp;N/mm it is 60&nbsp;mm. <i>Change:</i> the cable and lever. <i>Leaves:</i> the real trigger force and travel.</li>' +
+        '<li><b>The cable is not free of force.</b> Wire and sheath cancel only where the last piece of wire is in line with the sheath; at 5&deg; and a wire tension of half the trigger force the residual is 0.26&nbsp;N (illustrative). The sheath&rsquo;s own weight and stiffness add a constant load like the umbilical&rsquo;s. <i>Leaves:</i> measure it on the real shell.</li>' +
+        '<li><b>Software&rsquo;s veto.</b> use-05 needs a place for a veto and the DB25 is documented only as &ldquo;for PLC integration&rdquo; [manual p.16]. A mechanical pin needs no protocol: the coil is energised to permit, so a dead coil, a crashed program or a cut wire leaves the lever blocked. It is a layer in front of the laser&rsquo;s own chain, not a replacement for it. <i>Leaves:</i> a pin that jams retracted permits; nothing here detects that except the pin-position switch.</li>' +
+        '<li><b>A stuck lever fires.</b> A cable that jams pulled leaves the trigger pressed with no hand. <i>Changes worth having:</i> return springs at both ends, a low-friction liner, a pendant switch that drops the permit when the pendant is released while the lever switch still reads pressed. <i>Leaves:</i> the trigger&rsquo;s actual return force; whether the laser also drops on loss of conduction [manual p.32] is not a substitute.</li>' +
+        '<li><b>Energise to permit means a coil that is on for the whole weld.</b> The open-frame push-pull solenoid found for the pin (sourcing 18) says its rod pushes out when powered and that power-on time should stay under 30&nbsp;s; a cabinet-lock solenoid at 350&nbsp;mA (12&nbsp;V) or a holding magnet is the more plausible part. <i>Leaves:</i> the coil, its duty rating, whether the pin retracts or extends when powered, and what happens when it heats: all unchecked.</li>' +
+        '<li><b>The trigger is not this proxy.</b> The kit puts the trigger on the front face of the grip; the manual lists a &ldquo;process switch&rdquo; and a &ldquo;light switch&rdquo; separately [manual p.17] and does not say whether firing needs one press or two. <i>Leaves:</i> the real switch, its travel and force.</li>' +
+        '<li><b>Where the hand ends up.</b> The pendant can sit anywhere the hand and goggles should be; that also means the hand no longer feels the gun. <i>Leaves:</i> whether Derek wants that.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Trigger travel, force and the number of switches (a mule gun or the real gun with the laser disabled and a spring scale).</li>' +
+        '<li>Whether pulling the trigger with the key out or the emission disabled does anything the study can use (red dot on? a lamp?) and what part of the gun closes the laser&rsquo;s conduction circuit: the nozzle, the wire, or both [manual pp.19, 32].</li>' +
+        '<li>Whether a remote trigger is acceptable for this laser at all; that is Derek&rsquo;s and the manufacturer&rsquo;s call. Nothing here removes goggles, guarding, extraction or the laser&rsquo;s interlocks.</li>' +
+        '<li>Pendant location relative to the person and the cell; the stuck-wire snip with the head where it stopped.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun proxy at the opening pose; the trigger anchor is the kit&rsquo;s proxy point on the grip&rsquo;s front face: illustrative.</li>' +
+        '<li>Trigger force 6&nbsp;N (adjustable), lever stroke 10&nbsp;mm with the trigger reached at 8&nbsp;mm and the pin blocking at 4&nbsp;mm, lever ratio 2:1 (pad arm 30, tail arm 60): all illustrative.</li>' +
+        '<li>Support stiffnesses: 0.1&nbsp;N/mm from the freedom-06 scene&rsquo;s friction arm (illustrative there), 8.4 and 145&nbsp;N/mm from <code>explorers/room/calc/seat-loop.mjs</code> (statics, illustrative sections).</li>' +
+        '<li>Manual facts used: emission needs a complete circuit between the work clip and the gun (p.19); loss of conduction stops the beam (p.32); DB25 and RS232 are documented without pin lists or protocol (p.16).</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'use-05 gates', href: '../use-05-gates/index.html' }],
+  });
+  const gun = app.gun, ws = app.workstation, benchZ = ws.benchZ;
+  gun.setLaser(false);
+  const gg = gun.group;
+  gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.22 });
+
+  // ------------------------------------------------------------------ state
+  const S = { squeeze: 0, door: true, dock: true, seatc: true, sw: true, pedal: true, mode: 'cable', Ft: 6, phi: 5, k: 8.4 };
+  const STROKE = 10, REACH = 8, BLOCK = 4, ARM_PAD = 30, ARM_TAIL = 60, RATIO = ARM_TAIL / ARM_PAD;
+
+  // ------------------------------------------------------------------ geometry in gun-local coordinates
+  const T = gun.anchor('trigger').clone();
+  const gripStart = V(0, -25, 172), gripEnd = V(0, -111, 232), gripDir = gripEnd.clone().sub(gripStart).normalize();
+  const f = V(0, -gripDir.z, gripDir.y), xh = V(1, 0, 0), yh = V(0, 1, 0);
+  const padRest = T.clone().addScaledVector(f, REACH);
+  const pivot = padRest.clone().addScaledVector(xh, ARM_PAD);
+  function leverPts(travel) {           // rigid lever: pad end, pivot, tail end; travel = pad travel in mm
+    const th = Math.asin(Math.min(0.99, travel / ARM_PAD));
+    const u = xh.clone().multiplyScalar(-Math.cos(th)).addScaledVector(f, -Math.sin(th));      // pivot -> pad
+    return { pad: pivot.clone().addScaledVector(u, ARM_PAD), tail: pivot.clone().addScaledVector(u, -ARM_TAIL), th: th };
+  }
+  const lever = P.rod(V(0, 0, 0), V(1, 0, 0), 3, 'load'); gg.add(lever);
+  const pad = P.sphere(5, 'load'); gg.add(pad);
+  const pivotMark = P.sphere(4.5, 'locate'); pivotMark.position.copy(pivot); gg.add(pivotMark);
+  const lug = P.box(10, 22, 16, 'load'); lug.position.copy(pivot).addScaledVector(yh, -14); gg.add(lug);      // shell lug carrying the pivot
+  const tailRest = leverPts(0).tail;
+  const ferrule = tailRest.clone().addScaledVector(f, 46);
+  const ferMark = P.cyl(4, 8, 'load'); ferMark.position.copy(ferrule); ferMark.quaternion.setFromUnitVectors(V(0, 0, 1), f); gg.add(ferMark);
+  const wireSeg = P.rod(V(0, 0, 0), V(1, 0, 0), 0.9, 'cable'); gg.add(wireSeg);
+  // solenoid + pin: the pin sits in front of the tail's path at BLOCK travel; retracted it slides out of the way along y
+  const tailBlock = leverPts(BLOCK).tail;
+  const pinTip = tailBlock.clone().addScaledVector(f, 3);
+  const solenoid = P.box(20, 30, 20, 'actuated'); solenoid.position.copy(pinTip).addScaledVector(yh, 32); gg.add(solenoid);
+  const pin = P.rod(V(0, 0, 0), V(0, 1, 0), 3.2, 'actuated'); gg.add(pin);
+  const pinSpring = P.spring(V(0, 0, 0), V(0, 1, 0), { coils: 6, radius: 4.5, wire: 0.7, role: 'compliant' }); gg.add(pinSpring);
+  function placePin(permitted) {
+    const y0 = permitted ? 26 : 0;    // extended: pin covers the tail path; retracted: pulled out 26 mm along +y
+    pin.setEnds(pinTip.clone().addScaledVector(yh, y0 - 12), pinTip.clone().addScaledVector(yh, y0 + 20));
+    pinSpring.setEnds(pinTip.clone().addScaledVector(yh, 34), pinTip.clone().addScaledVector(yh, 40));
+  }
+
+  // pendant (world) and sheath
+  const pendant = V(330, -160, benchZ + 130);
+  const pBody = P.box(70, 46, 110, 'fixed'); pBody.position.set(pendant.x, pendant.y, benchZ + 55); app.add(pBody);
+  const pStand = P.box(120, 90, 8, 'fixed'); pStand.position.set(pendant.x, pendant.y, benchZ + 4); app.add(pStand);
+  const pPivot = V(pendant.x, pendant.y + 26, benchZ + 118);
+  const pLeverG = new THREE.Group(); pLeverG.position.copy(pPivot); app.add(pLeverG);
+  const pLever = P.box(12, 90, 12, 'compliant'); pLever.position.set(0, -45, 0); pLeverG.add(pLever);
+  const ferW = gun.local(ferrule), fDirW = gun.dir(f);
+  const sheath = P.cable(new THREE.CatmullRomCurve3([ferW, ferW.clone().addScaledVector(fDirW, 60), V(ferW.x + 150, ferW.y + 30, ferW.z + 30), V(pendant.x - 60, pendant.y + 10, pendant.z + 60), V(pendant.x - 20, pendant.y + 26, pendant.z + 4)], false, 'centripetal'), { radius: 3, role: 'cable', segments: 120 });
+  app.add(sheath);
+  const forceArrow = P.arrow(V(0, 0, 0), V(1, 0, 0), 30, 'load'); app.add(forceArrow);
+  const resArrow = P.arrow(V(0, 0, 0), V(1, 0, 0), 30, 'compliant'); app.add(resArrow);
+
+  // ------------------------------------------------------------------ chain panel (custom slot)
+  const chainNode = WK.h('div', { class: 'r14-chain' });
+  const panel = app.ui.panel({ id: 'chain', title: 'Permit chain (this scene\'s logic)', node: chainNode, open: true });
+  const led = (st) => '<span class="led ' + st + '"></span>';
+
+  // ------------------------------------------------------------------ model
+  function model() {
+    const permit = S.door && S.dock && S.seatc && S.sw && S.pedal;
+    const want = S.squeeze * STROKE;                            // pad travel the hand asks for (mm)
+    const travel = S.mode === 'cable' ? (permit ? want : Math.min(want, BLOCK)) : want;   // the pin acts only on the lever
+    const reached = travel >= REACH - 1e-6;
+    return { permit: permit, want: want, travel: travel, reached: reached };
+  }
+  function place() {
+    const m = model();
+    const lv = leverPts(m.travel), fingerMode = S.mode === 'finger';
+    lever.visible = !fingerMode; wireSeg.visible = !fingerMode; pin.visible = !fingerMode; solenoid.visible = !fingerMode; pinSpring.visible = !fingerMode;
+    lever.setEnds(lv.pad, lv.tail); wireSeg.setEnds(lv.tail, ferrule);
+    pad.position.copy(fingerMode ? T.clone().addScaledVector(f, REACH - m.travel) : lv.pad);
+    WK.setRole(pad, fingerMode ? 'laser' : 'load');
+    placePin(m.permit);
+    pLeverG.rotation.x = -S.squeeze * 0.5;
+    const Tw = gun.local(T), fW = gun.dir(f).negate();
+    // residual on the shell and dot shift
+    const Ftrig = S.Ft, Twire = Ftrig / RATIO, resid = Twire * Math.sin(S.phi * DEG);
+    const ext = S.mode === 'finger' ? Ftrig : resid;
+    const shiftMm = ext / Math.max(1e-6, S.k);
+    if (S.mode === 'finger' && m.want > 0.5) { forceArrow.visible = true; forceArrow.set(Tw.clone().addScaledVector(fW.clone().negate(), 50), fW, Math.max(10, Ftrig * 5)); } else forceArrow.visible = false;
+    if (S.mode === 'cable' && m.travel > 0.5) { resArrow.visible = true; resArrow.set(gun.local(ferrule), gun.dir(xh), Math.max(5, resid * 30)); } else resArrow.visible = false;
+    setTravel(m.travel.toFixed(1) + ' of ' + REACH + ' mm needed', '');
+    setReach(S.mode === 'finger' ? (m.want >= REACH ? 'yes (finger)' : 'no') : (m.reached ? 'YES: trigger pressed' : (m.want >= REACH ? 'NO: pin blocks at ' + BLOCK + ' mm' : 'no')), '');
+    setExt(ext.toFixed(2), 'N on the shell');
+    setShift((shiftMm * 1000).toFixed(0), 'µm (' + (shiftMm).toFixed(3) + ' mm) at ' + S.k + ' N/mm');
+    app.badge('mode', S.mode === 'finger' ? 'a finger on the gun: the trigger force is external; software cannot stop it, only the laser’s own chain can' : null, 'warn');
+    app.badge('block', S.mode === 'cable' && !m.permit && m.want > BLOCK ? 'lever blocked at ' + BLOCK + ' mm: a permit is missing, the trigger is not reached' : null, 'info');
+    app.badge('fire', m.reached ? 'trigger pressed: the laser still needs its own key, e-stop, clip and conduction' : null, 'info');
+    // panel
+    chainNode.innerHTML =
+      '<table>' +
+      '<tr class="sep"><td colspan="2">Laser’s own chain [manual pp.19, 32]: not modelled</td></tr>' +
+      '<tr><td class="k">' + led('na') + 'key, e-stop, work clip, goggles</td><td>the laser decides</td></tr>' +
+      '<tr><td class="k">' + led('na') + 'conduction gun → work</td><td>emission stops when it is lost; which part of the gun closes it is unknown</td></tr>' +
+      '<tr class="sep"><td colspan="2">Permit (energise the coil to retract the pin)</td></tr>' +
+      '<tr><td class="k">' + led(S.door ? 'on' : 'off') + 'door closed</td><td>cell contact</td></tr>' +
+      '<tr><td class="k">' + led(S.dock ? 'on' : 'off') + 'tube dock seated</td><td>drawer or carriage contact</td></tr>' +
+      '<tr><td class="k">' + led(S.seatc ? 'on' : 'off') + 'gun seat closed</td><td>three-ball continuity</td></tr>' +
+      '<tr><td class="k">' + led(S.sw ? 'on' : 'off') + 'software permit</td><td>relay; software can only drop it</td></tr>' +
+      '<tr><td class="k">' + led(S.pedal ? 'on' : 'off') + 'pedal (rotator deadman)</td><td>existing; does not command the laser</td></tr>' +
+      '<tr><td class="k">' + led(m.permit ? 'on' : 'off') + '<b>coil</b></td><td>' + (m.permit ? 'energised: pin retracted' : 'de-energised: pin extended (fail safe)') + '</td></tr>' +
+      '</table>' +
+      '<div class="res">Hand: pendant squeezed ' + Math.round(S.squeeze * 100) + ' %. Pad travel ' + m.travel.toFixed(1) + ' mm. ' + (S.mode === 'cable' ? (m.reached ? 'Trigger reached.' : (m.want >= REACH ? 'Blocked.' : 'Trigger not reached.')) : 'Finger mode: no pin can act.') + '</div>';
+    app.io.set({
+      commands: [{ name: 'Permit relay', value: m.permit ? 'energised' : 'dropped', note: 'withholds the lever; never moves it; energise to permit' }],
+      observes: [
+        { name: 'Pendant lever switch', value: S.squeeze > 0.05 ? 'squeezed' : 'released', status: 'seen', note: 'hand present and asking' },
+        { name: 'Lever travel switch (at 8 mm)', value: m.reached ? 'closed' : 'open', status: 'seen', note: 'says the trigger was reached, not that the laser fired' },
+        { name: 'Pin position switch', value: m.permit ? 'retracted' : 'extended', status: 'seen', note: 'a jammed-retracted pin would show here only if it disagrees with the coil' },
+        { name: 'Door, dock, seat contacts', value: [S.door, S.dock, S.seatc].every(Boolean) ? 'all closed' : 'one open', status: 'seen' },
+        { name: 'Laser conduction / alarm 7', value: '-', status: 'unresolved', note: 'the laser knows; how to read it (screen, lamp, port) is unresolved [manual p.32]' },
+        { name: 'Emission actually happening', value: '-', status: 'blind', note: 'no sensor proposed; a light sensor on the status LED was suggested in use-08' },
+      ],
+      manual: ['The squeeze', 'Goggles, key, e-stop, work clip', 'Clearing a hold', 'Snipping a stuck wire'],
+    });
+    app.invalidate();
+  }
+  const setTravel = app.ui.readout('travel', 'Lever pad travel'), setReach = app.ui.readout('reach', 'Trigger reached'), setExt = app.ui.readout('ext', 'External force from the trigger path'), setShift = app.ui.readout('shift', 'Dot shift at the support stiffness');
+
+  // ------------------------------------------------------------------ controls
+  const grpH = app.ui.group('The hand', { help: 'A hand squeezes the pendant lever (mode: cable) or a finger presses the trigger on the gun (mode: finger).' });
+  grpH.slider({ id: 'squeeze', label: 'Squeeze', min: 0, max: 1, step: 0.01, value: 0, kind: 'state', visual: () => [pLever, lever], format: v => Math.round(v * 100) + ' %', help: 'The lever needs 8 mm of a 10 mm stroke to reach the trigger.', onChange: v => { S.squeeze = v; place(); } });
+  grpH.radio({ id: 'mode', label: 'The trigger is pressed by', options: [{ value: 'cable', label: 'pendant, cable and lever' }, { value: 'finger', label: 'a finger on the gun' }], value: 'cable', kind: 'branch', visual: () => [lever, pLever], onChange: v => { S.mode = v; place(); } });
+  const grpP = app.ui.group('Permits (each one a contact or a relay)', { help: 'Coil energised only when all five are on. Turn one off and squeeze.' });
+  grpP.toggle({ id: 'door', label: 'Door closed', value: true, kind: 'state', noVisual: true, onChange: v => { S.door = v; place(); } });
+  grpP.toggle({ id: 'dock', label: 'Tube dock seated', value: true, kind: 'state', noVisual: true, onChange: v => { S.dock = v; place(); } });
+  grpP.toggle({ id: 'seatc', label: 'Gun seat closed', value: true, kind: 'state', noVisual: true, onChange: v => { S.seatc = v; place(); } });
+  grpP.toggle({ id: 'sw', label: 'Software permit', value: true, kind: 'state', visual: () => [solenoid, pin], onChange: v => { S.sw = v; place(); } });
+  grpP.toggle({ id: 'pedal', label: 'Pedal held (rotator deadman)', value: true, kind: 'state', noVisual: true, onChange: v => { S.pedal = v; place(); } });
+  const grpN = app.ui.group('Numbers (scene edits, illustrative)');
+  grpN.slider({ id: 'ft', label: 'Trigger force', min: 1, max: 20, step: 0.5, value: 6, unit: 'N', kind: 'scene', noVisual: true, help: 'Unknown. A spring scale on the real trigger would say.', onChange: v => { S.Ft = v; place(); } });
+  grpN.slider({ id: 'phi', label: 'Last wire segment vs sheath, misalignment', min: 0, max: 30, step: 1, value: 5, unit: 'deg', kind: 'scene', noVisual: true, help: 'The residual on the shell is wire tension times the sine of this angle.', onChange: v => { S.phi = v; place(); } });
+  grpN.slider({ id: 'k', label: 'Support stiffness at the dot', min: 0.1, max: 500, step: 0.1, value: 8.4, unit: 'N/mm', kind: 'scene', noVisual: true, help: '0.1 friction arm (freedom-06, illustrative); 8.4 use-02 T-slot loop; 145 box column (statics, illustrative).', onChange: v => { S.k = v; place(); } });
+
+  app.label(() => gun.local(T), 'trigger (proxy)', { cls: 'gun' });
+  app.label(() => gun.local(pivot), 'shell lever (pivot on a lug)', { cls: 'load' });
+  app.label(() => gun.local(pinTip.clone().addScaledVector(yh, 30)), 'lockout pin + coil', { cls: 'actuated' });
+  app.label(() => gun.local(ferrule), 'wire and sheath end here', { cls: 'cable' });
+  app.label(() => pPivot.clone().add(V(0, 0, 40)), 'pendant lever (the hand)', { cls: 'compliant' });
+  place();
+})();
+</script>
+</body>
+</html>

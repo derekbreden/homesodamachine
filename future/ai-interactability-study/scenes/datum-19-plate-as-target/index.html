@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The plate as a target</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .pt text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .pt .tm { fill: #8b98ab; } .pt .tf { fill: #64748b; } .pt .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .pt .tt { fill: #14b8a6; } .pt .ta { fill: #f5a524; } .pt .tr { fill: #ff6b5f; } .pt .tp { fill: #c084fc; } .pt .ts { fill: #60a5fa; } .pt .tk { fill: #f472b6; } .pt .tg { fill: #94a3b8; } .pt .tw { fill: #f1f5f9; } .pt .tok { fill: #34d399; }
+  .pt .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-19-plate-as-target",
+  "title": "The plate as a target: the rim and the two ports calibrate the camera from every frame",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A camera over the bore sees the rim (two circles of known size) and the plate's two ports (a known distance apart, a known depth below the rim). From them software fits the camera's pose and, more weakly, the seat depth, in every frame, with no target added. Why it matters: the rim edge is the sharp feature and the corner is 6.35 mm below it, so the corner appears displaced from the rim edge by a parallax of 0.5 to 2.8 mm depending on where the camera stands. Reading the dot against the rim edge is wrong by that; the fit predicts it.",
+  "tags": ["lens", "calibrating the observation", "camera pose", "parallax", "ports", "rim", "hand-eye", "seat depth"],
+  "branchOf": [],
+  "combines": ["datum-05-fiducial-collar", "trials-03-dot-touch-probe"],
+  "transferable": ["the work is its own calibration target: rim circles and ports", "parallax of the corner below the rim edge is 6.35 x tan(angle to the axis)", "perspective gives seat depth only when the camera is near"],
+  "how": {
+    "motion": "nothing moves; the camera may be fixed or on the shell",
+    "load": "not addressed",
+    "reference": "the rim circles (r 61.85 and 63.5 mm, in the rim plane) and the two ports (19.05 mm either side of the axis, at the plate face)",
+    "observe": "a camera over the bore; the dot, the rim edge and the port centres are all in one frame",
+    "use": "in every frame during a dry lap or a weld; refit when the camera or the gun moves"
+  },
+  "software": {
+    "commands": ["nothing required"],
+    "observes": ["camera pose (position, tilt) in the tube's frame, refitted per frame", "seat depth, weakly, from the ports against the rim", "the dot's offset from the corner with the parallax removed"],
+    "manual": ["the roll about the tube axis (the ports give it modulo 180 degrees)", "a touch of the plate for seat depth, if the perspective fit is too loose"]
+  },
+  "links": [{"label": "datum-21 mates on the tube (the ports as a mate)", "href": "../datum-21-mates-on-the-tube/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-19-plate-as-target.md", "../../exchange/datum--on--trials-w2.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The wall hides the corner from outside, but from above the tube is a target that carries itself: the <b>rim</b> is two circles of known radius (61.85 and 63.5 mm) in one plane, and the <b>plate</b> has two 11.1 mm ports 38.1 mm apart on a diameter, 6.35 mm or so further down <b>[repo]</b>. In every frame a camera over the bore sees all of them. A least-squares fit of the camera\'s pose to those features gives its position and tilt in the tube\'s own frame, with no fiducial added and no reference to the room. That is hand-eye calibration from the work, repeated every frame, so a camera that drifts or is knocked is recalibrated by the next picture.</p>' +
+        '<p>Why it matters is a fact about the corner. The <b>rim edge</b> is the sharp, bright feature; the <b>corner</b> is 6.35 mm below it. From a camera at the station side the corner appears displaced from the rim edge by 6.35 times the tangent of the angle between the line of sight and the axis: <b>1.3 mm for a camera on the axis at 300 mm, 2.8 mm at 150 mm, 0.5 mm from a camera 40 mm toward the station</b>. Reading the dot against the rim edge is wrong by that much; the fit predicts it. Change the camera\'s height, offset and tilt, and the seat depth, and read the three ways of reading the dot.</p>',
+      carries:
+        '<p>Nothing here carries or moves anything. The camera can be fixed to the room or ride on the shell; the fit does not care, since it recovers the pose against the tube either way. The roll about the tube axis is taken from the ports (modulo 180 degrees) and assumed resolved; the correspondences between rim samples and their azimuths follow from it.</p>',
+      software:
+        '<p><b>Observes:</b> the dot, the rim edge and the two port centres in one frame. <b>Computes:</b> the camera\'s five pose numbers and the seat depth by Gauss-Newton on the 98 image points; the predicted parallax at the station; the dot\'s offset from the corner. <b>Cannot see:</b> the corner itself if the wall\'s foot is in shadow; the dot against the melt.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the naive reading takes the rim edge for the seam. <b>What the scene shows:</b> the error is the whole parallax, 0.5 to 2.8 mm. That is larger than everything else in the study\'s error budgets, and it is a constant of the geometry, not noise.</li>' +
+        '<li><b>Conflict:</b> a nominal-camera correction is good only as far as the camera is where it is assumed to be. <b>What the scene shows:</b> a camera 10 mm off the assumed position, or tilted 2 degrees, leaves 0.2 to 0.3 mm; 25 mm off leaves 0.5 mm. The fit removes these to about 0.05 mm at 0.15 pixel noise.</li>' +
+        '<li><b>Conflict:</b> the fit adds noise when the camera is exactly where it was assumed. <b>What the scene shows:</b> at 300 mm the depth from perspective is weak (0.35 mm one standard deviation) and enters the corner prediction by the tangent (0.2), about 0.07 mm; so a fitted reading of a perfectly placed camera is worse (0.08 mm) than the nominal one (0.04 mm). <b>Change:</b> take the seat depth from a touch (0.03 mm) or bring the camera close: at 150 mm the depth from perspective is about 0.1 mm.</li>' +
+        '<li><b>Left standing:</b> real optics: lens distortion (a calibrated one is assumed here), glare on polished 316L washing out the rim edge, fume, the gun and wire occluding parts of the rim, and the corner\'s own shadow. Sub-pixel edge fits of 0.15 pixel are an assumption, not a measurement.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether a rim edge on cut 316L tube (a burr, a deburred chamfer, a band-saw kerf) has a stable optical edge at the 0.1 pixel level. A chamfer of 0.3 mm on the inner edge moves the apparent edge as the camera moves, which the fit would read as pose.</li>' +
+        '<li>The ports as clock: they are symmetric, so the roll is known only modulo 180 degrees. The blind register hole in the plate\'s inside face is not visible from the weld side <b>[repo]</b>. A tack or a paint dot at one end of the diameter gives 360 degrees.</li>' +
+        '<li><b>Question for Derek:</b> photograph the bore from 300 mm and from 150 mm straight above with a phone: are both rim circles and both ports sharp in the picture, and does the wall\'s inner face show as a strip outside the corner?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry: rim radii 61.85 and 63.5 mm, plate 6.35 mm below the rim, ports 19.05 mm either side of the axis <b>[repo]</b>. Seat depth error is a slider: <b>[unknown]</b> spread.</li>' +
+        '<li>Pinhole camera, focal length 1500 px, 1280 x 960 px, calibrated lens: <b>illustrative</b> (an Arducam-class global-shutter camera has this order of resolution). Pixel noise is per feature point: <b>illustrative</b>.</li>' +
+        '<li>Randomness is seeded; the error numbers are rms over 24 draws. The same code is in <code>explorers/datum/calc/plate_target.js</code>.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model (same as explorers/datum/calc/plate_target.js)
+  const TAU = Math.PI * 2, DEG = Math.PI / 180;
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+const F = 1500, U0 = 640, V0 = 480, RI = 61.85, RO = 63.5, PORT = 19.05, PZ = 6.35;
+// pose p = [cx, cy, H, tx, ty, ds]; world z up, rim plane z = 0, plate outer face at z = -(6.35 + ds)
+function project(X, p) {
+  let x = X[0] - p[0], y = X[1] - p[1], z = X[2] - p[2];
+  // base: camera x = world x, camera y = -world y, camera z = -world z
+  let cxv = x, cyv = -y, czv = -z;
+  // tilts about camera y then camera x (small)
+  const cty = Math.cos(p[4]), sty = Math.sin(p[4]), ctx = Math.cos(p[3]), stx = Math.sin(p[3]);
+  let x1 = cty * cxv + sty * czv, z1 = -sty * cxv + cty * czv, y1 = cyv;
+  let y2 = ctx * y1 - stx * z1, z2 = stx * y1 + ctx * z1;
+  return [U0 + F * x1 / z2, V0 + F * y2 / z2];
+}
+function backproject(uv, p, zPlane) {                 // pixel -> point on the plane z = zPlane, for a camera with pose p
+  const xn = (uv[0] - U0) / F, yn = (uv[1] - V0) / F;
+  // ray in camera coordinates (xn, yn, 1); undo tilts, then base
+  const cty = Math.cos(p[4]), sty = Math.sin(p[4]), ctx = Math.cos(p[3]), stx = Math.sin(p[3]);
+  let x2 = xn, y2 = yn, z2 = 1;
+  let y1 = ctx * y2 + stx * z2, z1 = -stx * y2 + ctx * z2, x1 = x2;
+  let cx_ = cty * x1 - sty * z1, cz_ = sty * x1 + cty * z1, cy_ = y1;
+  // world direction: x = cx_, y = -cy_, z = -cz_
+  const d = [cx_, -cy_, -cz_], t = (zPlane - p[2]) / d[2];
+  return [p[0] + t * d[0], p[1] + t * d[1], zPlane];
+}
+function features(ds, NP) {                            // known world points (correspondences known: roll from the ports)
+  const pts = [];
+  for (let k = 0; k < NP; k++) { const a = TAU * k / NP; pts.push([RI * Math.cos(a), RI * Math.sin(a), 0]); pts.push([RO * Math.cos(a), RO * Math.sin(a), 0]); }
+  pts.push([PORT, 0, -(PZ + ds)]); pts.push([-PORT, 0, -(PZ + ds)]);
+  return pts;
+}
+function solve(obs, pts0, p0, sigmaPx, free) {         // p0 nominal; free[j] false pins parameter j (used for the seat depth)
+  free = free || [true, true, true, true, true, true];
+  let p = p0.slice(); const n = 6, NP = (pts0.length - 2);
+  const model = pp => { const pts = pts0.slice(0, NP).concat([[PORT, 0, -(PZ + pp[5])], [-PORT, 0, -(PZ + pp[5])]]); return pts.map(X => project(X, pp)); };
+  let lam = 1e-3;
+  for (let it = 0; it < 30; it++) {
+    const m = model(p), r = []; m.forEach((q, i) => { r.push(q[0] - obs[i][0], q[1] - obs[i][1]); });
+    const J = Array.from({ length: r.length }, () => new Array(n).fill(0));
+    for (let j = 0; j < n; j++) { const h = j < 3 ? 1e-3 * (j === 2 ? 100 : 1) : (j < 5 ? 1e-6 : 1e-4), pp = p.slice(), pm = p.slice(); pp[j] += h; pm[j] -= h; const a = model(pp), b = model(pm); for (let i = 0; i < a.length; i++) { J[2 * i][j] = (a[i][0] - b[i][0]) / (2 * h); J[2 * i + 1][j] = (a[i][1] - b[i][1]) / (2 * h); } }
+    const A = Array.from({ length: n }, () => new Array(n).fill(0)), g = new Array(n).fill(0);
+    for (let i = 0; i < r.length; i++) for (let a = 0; a < n; a++) { g[a] += J[i][a] * r[i]; for (let b = 0; b < n; b++) A[a][b] += J[i][a] * J[i][b]; }
+    for (let a = 0; a < n; a++) { if (!free[a]) { for (let b = 0; b < n; b++) { A[a][b] = 0; A[b][a] = 0; } A[a][a] = 1; g[a] = 0; } else A[a][a] *= 1 + lam; }
+    const dx = lsolve(A, g.map(v => -v)); if (!dx) break;
+    const pn = p.map((v, i) => v + dx[i]);
+    const mn = model(pn); let e0 = 0, e1 = 0; m.forEach((q, i) => { e0 += (q[0] - obs[i][0]) ** 2 + (q[1] - obs[i][1]) ** 2; }); mn.forEach((q, i) => { e1 += (q[0] - obs[i][0]) ** 2 + (q[1] - obs[i][1]) ** 2; });
+    if (e1 < e0) { p = pn; lam = Math.max(1e-9, lam / 3); if (Math.sqrt(dx.reduce((s, v, i) => s + (v * (i < 3 ? 1 : 1000)) ** 2, 0)) < 1e-7) break; } else lam *= 5;
+  }
+  // covariance of ds from the Jacobian at the solution (sigma^2 (J^T J)^-1)
+  const m = model(p), n2 = 2 * m.length, J = Array.from({ length: n2 }, () => new Array(n).fill(0));
+  for (let j = 0; j < n; j++) { const h = j < 3 ? 1e-3 * (j === 2 ? 100 : 1) : (j < 5 ? 1e-6 : 1e-4), pp = p.slice(), pm = p.slice(); pp[j] += h; pm[j] -= h; const a = model(pp), b = model(pm); for (let i = 0; i < a.length; i++) { J[2 * i][j] = (a[i][0] - b[i][0]) / (2 * h); J[2 * i + 1][j] = (a[i][1] - b[i][1]) / (2 * h); } }
+  const A = Array.from({ length: n }, () => new Array(n).fill(0)); for (let i = 0; i < n2; i++) for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) A[a][b] += J[i][a] * J[i][b];
+  for (let a = 0; a < n; a++) if (!free[a]) { for (let b = 0; b < n; b++) { A[a][b] = 0; A[b][a] = 0; } A[a][a] = 1; }
+  const inv = linv(A); const sd = inv ? p.map((_, i) => sigmaPx * Math.sqrt(Math.max(0, inv[i][i]))) : null;
+  return { p: p, sd: sd };
+}
+function lsolve(A, b) { const n = b.length, M = A.map((r, i) => r.concat([b[i]])); for (let i = 0; i < n; i++) { let m = i; for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[m][i])) m = r; if (Math.abs(M[m][i]) < 1e-14) return null;[M[i], M[m]] = [M[m], M[i]]; for (let r = 0; r < n; r++) if (r !== i) { const f = M[r][i] / M[i][i]; for (let c = i; c <= n; c++) M[r][c] -= f * M[i][c]; } } return M.map((r, i) => r[n] / r[i]); }
+function linv(A) { const n = A.length, M = A.map((r, i) => r.concat(Array.from({ length: n }, (_, j) => (i === j ? 1 : 0)))); for (let i = 0; i < n; i++) { let m = i; for (let r = i + 1; r < n; r++) if (Math.abs(M[r][i]) > Math.abs(M[m][i])) m = r; if (Math.abs(M[m][i]) < 1e-14) return null;[M[i], M[m]] = [M[m], M[i]]; const d = M[i][i]; for (let c = 0; c < 2 * n; c++) M[i][c] /= d; for (let r = 0; r < n; r++) if (r !== i) { const f = M[r][i]; for (let c = 0; c < 2 * n; c++) M[r][c] -= f * M[i][c]; } } return M.map(r => r.slice(n)); }
+
+function run(P, seed) {
+  const r = rng(seed), NP = 48;
+  const pTrue = [P.cx, P.cy, P.H, P.tx * DEG, P.ty * DEG, P.ds];
+  const pts = features(P.ds, NP), obs = pts.map(X => { const q = project(X, pTrue); return [q[0] + P.sigma * gauss(r), q[1] + P.sigma * gauss(r)]; });
+  const pNom = [0, 0, P.Hnom, 0, 0, 0];
+  const dsSrc = P.dsSrc || 'fit';
+  const p0 = pNom.slice(); if (dsSrc === 'touch') p0[5] = P.ds + 0.03 * gauss(r);
+  const fit = solve(obs, features(0, NP), p0, P.sigma, [true, true, true, true, true, dsSrc === 'fit']);
+  // the reading: how far inside the rim's inner edge the dot appears (image distance along the radial direction, plate-plane scale)
+  const dotW = [RI - P.a, 0, -(PZ + P.ds)];
+  const noisy = q => [q[0] + P.sigma * gauss(r), q[1] + P.sigma * gauss(r)];
+  const dotObs = noisy(project(dotW, pTrue)), edgeObs = noisy(project([RI, 0, 0], pTrue)), axisObs = project([0, 0, 0], pTrue);
+  const ux = edgeObs[0] - axisObs[0], uy = edgeObs[1] - axisObs[1], un = Math.hypot(ux, uy), ex = ux / un, ey = uy / un;
+  const Xpx = (edgeObs[0] - dotObs[0]) * ex + (edgeObs[1] - dotObs[1]) * ey;          // px, dot inside the edge
+  const par = (p, ds) => { const c = project([RI, 0, -(PZ + ds)], p), e = project([RI, 0, 0], p), a0 = project([0, 0, 0], p); const vx = e[0] - a0[0], vy = e[1] - a0[1], vn = Math.hypot(vx, vy); return ((e[0] - c[0]) * vx / vn + (e[1] - c[1]) * vy / vn); };   // px
+  const sc = (H, ds) => F / (H + PZ + ds);
+  const naive = Xpx / sc(P.Hnom, 0);                                                    // corner taken to be the rim edge
+  const nominal = (Xpx - par(pNom, 0)) / sc(P.Hnom, 0);                                 // parallax predicted for a level camera on the axis
+  const fitted = (Xpx - par(fit.p, fit.p[5])) / sc(fit.p[2], fit.p[5]);
+  const parTrue = par(pTrue, P.ds) / sc(P.H, P.ds);
+  return { fit: fit, a: P.a, naive: naive, nominal: nominal, fitted: fitted, parTrue: parTrue, dsFit: fit.p[5], dsSd: fit.sd ? fit.sd[5] : NaN, pose: fit.p, sd: fit.sd };
+}
+
+  const P = { cx: 10, cy: 0, H: 300, tx: 0, ty: 2, ds: 0.4, a: 0.20, sigma: 0.15, dsSrc: 'fit', seed: 3 };
+  let R = null;
+  function compute() {
+    const NR = 24, e = [0, 0, 0]; let last = null, sdDs = 0, dsE = 0;
+    for (let i = 0; i < NR; i++) { const q = run(Object.assign({ Hnom: P.H }, P), 100 + i + P.seed * 1000); e[0] += (q.naive - q.a) ** 2; e[1] += (q.nominal - q.a) ** 2; e[2] += (q.fitted - q.a) ** 2; dsE += (q.dsFit - P.ds) ** 2; sdDs = q.dsSd; last = q; }
+    R = { e: e.map(v => Math.sqrt(v / NR)), last: last, parTrue: last.parTrue, dsRms: Math.sqrt(dsE / NR), dsSd: sdDs };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 760, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'pt', role: 'img', 'aria-label': 'Side section with two lines of sight, the camera image with the fitted overlay, and reading errors', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  const rect = (x, y, w, h, a) => S('rect', Object.assign({ x: x, y: y, width: Math.max(0, w), height: Math.max(0, h) }, a));
+  const poly = (pts, a) => S('polyline', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none' }, a));
+  function wrap(g, x, y, text, maxc, cls, lh) { const ws = text.split(' '); let ln = '', k = 0; ws.forEach(w => { if ((ln + ' ' + w).length > maxc) { g.append(T(x, y + k * (lh || 13), ln, cls)); k++; ln = w; } else ln = ln ? ln + ' ' + w : w; }); g.append(T(x, y + k * (lh || 13), ln, cls)); return k + 1; }
+
+  function drawSide(g) {
+    g.append(T(12, 22, 'Side section at the station: two lines of sight from the same camera', 'tb'));
+    g.append(rect(6, 30, 400, 296, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const K = 8, X = x => 22 + (x - 30) * K, Z = z => 74 + (14 - z) * K;       // 8 px per mm, x 30..80 mm, z +14..-23 mm
+    const zp = -(6.35 + P.ds);
+    // wall (right of x = 61.85) and plate (below zp), ports not in this cut
+    g.append(rect(X(61.85), Z(14), 1.65 * K, Z(-23) - Z(14), { fill: '#c8d0da' })); g.append(T(X(61.85) + 22, Z(2), 'wall', 'tf'));
+    g.append(rect(X(30), Z(zp), (61.85 - 30) * K, 30, { fill: '#dfe6ee', opacity: 0.9 })); g.append(T(X(33), Z(zp) + 16, 'plate face', 'tf'));
+    g.append(line(X(30), Z(0), X(80), Z(0), { stroke: '#475569', 'stroke-dasharray': '2 4' })); g.append(T(X(31), Z(0) - 4, 'rim plane', 'tf'));
+    // rays from the camera far above: camera at (cx, H); draw from z = +14 mm level up to the top of the panel
+    const cam = [P.cx, P.H];
+    const xAt = (target, z) => cam[0] + (target[0] - cam[0]) * (cam[1] - z) / (cam[1] - target[1]);   // x on the ray at height z
+    const rimT = [61.85, 0], corT = [61.85, zp];
+    const zTop = 14, xTopRim = xAt(rimT, zTop), xTopCor = xAt(corT, zTop);
+    g.append(line(X(xTopRim), Z(zTop), X(61.85), Z(0), { stroke: '#e2e8f0', 'stroke-dasharray': '4 3' }));
+    const xRimAtPlate = xAt(rimT, zp);                        // where the rim-edge ray would meet the plate plane (inside the wall)
+    g.append(line(X(61.85), Z(0), X(xRimAtPlate), Z(zp), { stroke: '#e2e8f0', 'stroke-dasharray': '1 3', opacity: 0.7 }));
+    g.append(line(X(xTopCor), Z(zTop), X(61.85), Z(zp), { stroke: '#14b8a6', 'stroke-width': 1.5 }));
+    g.append(S('circle', { cx: X(61.85), cy: Z(zp), r: 3.4, fill: '#14b8a6' })); g.append(T(X(61.85) - 10, Z(zp) + 22, 'corner', 'tt', 'end'));
+    g.append(S('circle', { cx: X(61.85), cy: Z(0), r: 3, fill: '#e2e8f0' })); g.append(T(X(61.85) - 8, Z(0) - 8, 'rim edge', 'tw', 'end'));
+    // parallax bracket on the plate plane
+    g.append(line(X(61.85), Z(zp) - 10, X(xRimAtPlate), Z(zp) - 10, { stroke: '#f5a524', 'stroke-width': 3 })); g.append(T(X(61.85) - 6, Z(zp) - 18, 'parallax ' + R.parTrue.toFixed(2) + ' mm', 'ta hot', 'end'));
+    g.append(T(14, 46, 'up to the camera: H ' + P.H + ' mm, ' + P.cx + ' mm toward the station, tilt ' + P.ty + '°', 'ts'));
+    g.append(T(14, 318, 'dashed: the ray through the rim edge, which the wall stops; solid: the ray to the corner', 'tf'));
+  }
+
+  // image (1280 x 960 px) drawn at 0.32
+  function drawImage(g) {
+    const x0 = 424, y0 = 30, w = 426, h = 320, k = w / 1280;
+    g.append(T(x0, 22, 'What the camera sees (one frame; overlays are the fit)', 'tb'));
+    g.append(rect(x0, y0, w, h, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const pTrue = [P.cx, P.cy, P.H, P.tx * DEG, P.ty * DEG, P.ds], q = R.last, pf = q.pose;
+    const U = uv => [x0 + uv[0] * k, y0 + uv[1] * k];
+    const circ = (pp, r, z, cls) => { const pts = []; for (let i = 0; i <= 96; i++) { const a = TAU * i / 96; pts.push(U(project([r * Math.cos(a), r * Math.sin(a), z], pp))); } return pts; };
+    g.append(poly(circ(pTrue, RO, 0), { stroke: '#94a3b8', 'stroke-width': 1.2 })); g.append(poly(circ(pTrue, RI, 0), { stroke: '#e2e8f0', 'stroke-width': 1.6 }));
+    g.append(poly(circ(pTrue, RI, -(PZ + P.ds)), { stroke: '#14b8a6', 'stroke-width': 1.2 }));
+    [PORT, -PORT].forEach(px => g.append(poly((() => { const pts = []; for (let i = 0; i <= 40; i++) { const a = TAU * i / 40; pts.push(U(project([px + 5.56 * Math.cos(a), 5.56 * Math.sin(a), -(PZ + P.ds)], pTrue))); } return pts; })(), { stroke: '#f1f5f9', 'stroke-width': 1.2, fill: '#0b1017' })));
+    g.append(poly(circ(pf, RI, 0), { stroke: '#34d399', 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+    g.append(poly(circ([0, 0, P.H, 0, 0, 0], RI, 0), { stroke: '#f5a524', 'stroke-width': 1, 'stroke-dasharray': '2 4' }));
+    g.append(T(x0 + 8, y0 + 16, 'white rim edge; teal corner; green fitted rim; amber rim for a level camera on the axis', 'tf'));
+    // inset around the station, magnified
+    const ix = x0 + 8, iy = y0 + h - 118, iw = 150, ih = 110, mag = 6;
+    g.append(rect(ix, iy, iw, ih, { fill: '#0b1017', stroke: '#475569' })); g.append(T(ix + 4, iy + 12, 'station, ×' + mag + ' on the image', 'tf'));
+    const c = project([RI, 0, -(PZ + P.ds)], pTrue), cc = [ix + iw / 2 + 8, iy + ih / 2 + 6];
+    const V = uv => [cc[0] + (uv[0] - c[0]) * k * mag, cc[1] + (uv[1] - c[1]) * k * mag];
+    const rim = V(project([RI, 0, 0], pTrue)), cornerT = V(c), pn = V(project([RI, 0, -PZ], [0, 0, P.H, 0, 0, 0])), dotUV = V(project([RI - P.a, 0, -(PZ + P.ds)], pTrue));
+    const rimN = V(project([RI, 0, 0], [0, 0, P.H, 0, 0, 0])), cornerF = V(project([RI, 0, -(PZ + pf[5])], pf)), rimF = V(project([RI, 0, 0], pf));
+    [[rim, '#e2e8f0', 'rim'], [cornerT, '#14b8a6', 'corner'], [dotUV, '#ff3b30', 'dot']].forEach(([p, colr, t]) => { g.append(S('circle', { cx: p[0], cy: p[1], r: 3, fill: colr })); });
+    g.append(S('circle', { cx: pn[0], cy: pn[1], r: 4, fill: 'none', stroke: '#f5a524' })); g.append(S('circle', { cx: cornerF[0], cy: cornerF[1], r: 4, fill: 'none', stroke: '#34d399' }));
+    g.append(T(ix + 4, iy + ih - 6, 'corner: true, nominal (amber), fitted (green)', 'tf'));
+  }
+
+  function drawReads(g) {
+    const x0 = 12, y0 = 386;
+    g.append(T(x0, y0 - 14, 'Three ways of reading the dot against the seam (error in mm at the plate, rms over 24 frames)', 'tb'));
+    const rows = [['The rim edge is the seam', R.e[0], 'no parallax correction: the whole parallax is the error', '#f5a524'], ['Parallax predicted for a level camera on the axis, assumed depth', R.e[1], 'right only where the camera is', '#94a3b8'], ['Parallax from the fitted pose and depth (' + ({ fit: 'perspective', nominal: 'assumed', touch: 'touched' })[P.dsSrc] + ')', R.e[2], 'pose from the rim circles and ports in this frame', '#34d399']];
+    rows.forEach((r, i) => {
+      const yy = y0 + 8 + i * 42;
+      g.append(rect(x0 - 4, yy - 14, 850, 36, { fill: '#10161e', stroke: '#2a3341', rx: 4 })); g.append(rect(x0 - 4, yy - 14, 5, 36, { fill: r[3] }));
+      g.append(T(x0 + 8, yy + 2, r[0], 'tw')); g.append(T(x0 + 8, yy + 15, r[2], 'tf'));
+      g.append(rect(x0 + 560, yy - 6, 210, 10, { fill: '#0b1017', stroke: '#2a3341', rx: 2 })); g.append(rect(x0 + 560, yy - 6, Math.min(210, r[1] / 3.0 * 210), 10, { fill: r[3], rx: 2, opacity: 0.85 }));
+      g.append(T(x0 + 780, yy + 3, r[1].toFixed(2) + ' mm', 'tw hot'));
+    });
+    g.append(T(x0 + 560, y0 + 8 + 3 * 42 - 6, 'bars: full scale 3 mm', 'tf'));
+    const y1 = y0 + 150, q = R.last, pf = q.pose, sd = q.sd || [];
+    g.append(T(x0, y1, 'What the fit recovers in the drawn frame (truth in brackets)', 'tb'));
+    const items = [['camera x (toward the station)', pf[0].toFixed(1) + ' mm', '[' + P.cx.toFixed(1) + ']', sd[0]], ['camera height H', pf[2].toFixed(1) + ' mm', '[' + P.H + ']', sd[2]], ['tilt about the tangent', (pf[4] / DEG).toFixed(2) + '°', '[' + P.ty.toFixed(2) + ']', sd[4] ? sd[4] / DEG : null], ['seat depth error', pf[5].toFixed(2) + ' mm', '[' + P.ds.toFixed(2) + ']', sd[5]]];
+    items.forEach((it, i) => { const yy = y1 + 18 + i * 15; g.append(T(x0, yy, it[0], 'tg')); g.append(T(x0 + 210, yy, it[1], 'tw')); g.append(T(x0 + 290, yy, it[2], 'tf')); g.append(T(x0 + 350, yy, it[3] != null ? '± ' + (it[3] < 1 ? it[3].toFixed(3) : it[3].toFixed(1)) : '', 'tf')); });
+    const rx = 470;
+    const nl = wrap(g, rx, y1 + 18, 'Depth from perspective: rms error ' + R.dsRms.toFixed(2) + ' mm over the draws (predicted ' + R.dsSd.toFixed(2) + ' mm). It improves as the camera comes closer (about 0.1 mm at 150 mm, 0.35 at 300, 0.8 at 450) and enters the corner prediction only by the tangent of the line-of-sight angle, about 0.2.', 62, 'tm');
+    wrap(g, rx, y1 + 18 + nl * 13 + 8, 'Parallax = 6.35 mm x tan(angle between the line of sight and the axis at the station); the dot\'s reading is its image distance inside the rim edge less this.', 62, 'tf');
+    return q;
+  }
+
+  function updateIO() {
+    const q = R.last;
+    app.io.set({
+      commands: [{ name: 'Nothing moves', value: '-', note: 'an observer; any support' }],
+      observes: [
+        { name: 'Camera pose in the tube frame', value: 'fit per frame', status: 'seen', note: 'rim circles and ports; roll from the ports modulo 180°' },
+        { name: 'Seat depth', value: (q.dsFit).toFixed(2), unit: 'mm ± ' + R.dsSd.toFixed(2), status: 'partly', note: 'weak from far away; near-camera or a touch' },
+        { name: 'Dot minus corner (radial)', value: q.fitted.toFixed(2), unit: 'mm (truth ' + P.a.toFixed(2) + ')', status: 'partly', note: 'the parallax removed by the fit' },
+        { name: 'Corner itself', value: '-', status: 'blind', note: 'in shadow at the wall\'s foot; predicted, not seen' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['The 360° roll: a tack or a paint dot', 'A touch of the plate if the perspective depth is too loose'],
+    });
+  }
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    drawSide(gDyn); drawImage(gDyn); drawReads(gDyn);
+    app.badge('par', R.e[0] > 1 ? 'reading the dot against the rim edge is wrong by ' + R.e[0].toFixed(1) + ' mm here: the corner is 6.35 mm below it' : null, 'warn');
+    updateIO();
+  }
+
+  // ---------------------------------------------------------------- controls
+  const gc = app.ui.group('The camera (scene edits, illustrative)', { open: true });
+  gc.slider({ id: 'H', label: 'Height over the rim', min: 150, max: 450, step: 10, value: 300, unit: 'mm', kind: 'scene', help: 'Parallax and depth precision both change with it.', onChange: v => { P.H = v; compute(); render(); } });
+  gc.slider({ id: 'cx', label: 'Offset toward the station', min: -60, max: 60, step: 1, value: 10, unit: 'mm', kind: 'scene', help: 'A shell-mounted camera stands well to the station side.', onChange: v => { P.cx = v; compute(); render(); } });
+  gc.slider({ id: 'ty', label: 'Tilt about the tangent', min: -10, max: 10, step: 0.5, value: 2, unit: '°', kind: 'scene', onChange: v => { P.ty = v; compute(); render(); } });
+  gc.slider({ id: 'sigma', label: 'Pixel noise per feature point', min: 0.05, max: 0.6, step: 0.05, value: 0.15, unit: 'px', kind: 'scene', help: 'Sub-pixel edge and centroid fits; an assumption.', onChange: v => { P.sigma = v; compute(); render(); } });
+  const gt = app.ui.group('The tube and the reading (scene edits)', { open: true });
+  gt.slider({ id: 'ds', label: 'Seat depth error (plate deeper than 6.35 mm)', min: -0.6, max: 0.6, step: 0.05, value: 0.4, unit: 'mm', kind: 'scene', help: '[unknown] spread.', onChange: v => { P.ds = v; compute(); render(); } });
+  gt.radio({ id: 'dsSrc', label: 'Seat depth for the prediction comes from', options: [{ value: 'fit', label: 'Perspective fit' }, { value: 'nominal', label: 'Assumed 6.35 mm' }, { value: 'touch', label: 'A touch (0.03 mm)' }], value: 'fit', kind: 'branch', onChange: v => { P.dsSrc = v; compute(); render(); } });
+  gt.button({ id: 'again', label: 'Another set of frames', kind: 'state', onClick: () => { P.seed++; compute(); render(); } });
+  compute(); render();
+})();
+</script>
+</body>
+</html>

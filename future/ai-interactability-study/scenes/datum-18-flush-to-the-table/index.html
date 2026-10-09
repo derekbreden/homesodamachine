@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flush to the table</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ft text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .ft .tm { fill: #8b98ab; } .ft .tf { fill: #64748b; } .ft .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .ft .tt { fill: #14b8a6; } .ft .ta { fill: #f5a524; } .ft .tr { fill: #ff6b5f; } .ft .tp { fill: #c084fc; } .ft .ts { fill: #60a5fa; } .ft .tk { fill: #f472b6; } .ft .tg { fill: #94a3b8; } .ft .tw { fill: #f1f5f9; } .ft .tok { fill: #34d399; }
+  .ft .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-18-flush-to-the-table",
+  "title": "Flush to the table: the tabletop as a surface plate, the tube found by touch",
+  "by": "datum",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "In Derek's table opening the tabletop is already the rim plane, and the gantry runs at countertop height. If the tabletop is also read as a datum, the shelf under the tube stops being a positioning axis: it only has to make the rim flush with the top, which a small probe on the gantry can check to a few hundredths of a millimetre. And the tube's place in the loose hole (up to 16 mm off) is found by three touches on its wall instead of by a fitted collar. The scene shows the dot-height error over twelve tubes for three ways of setting the shelf, and the plan of the hole with the touches.",
+  "tags": ["table opening", "flush", "surface plate", "touch probe", "shelf as a servo", "tube in the hole"],
+  "branchOf": ["room-01-table-opening"],
+  "combines": ["datum-07-touch-off", "datum-01-datum-chain"],
+  "transferable": ["the tabletop is a datum plane a probe can compare the rim to", "two wall touches either side of the station give the circle's centre and so the yaw", "an actuator whose job is a null needs a sensor, not accuracy"],
+  "how": {
+    "motion": "shelf Z (proposed actuator) is servoed to a flush reading; gantry X and Y and the rotator as in room-01",
+    "load": "the table and its hung box carry the rotator; rails and bridge carry the shell; unchanged from room-01",
+    "reference": "the tabletop plane for the rim; the tube's own wall for radial and tangent, found by touch; the plate face by touch",
+    "observe": "a probe on the gantry carriage touching the tabletop, the rim, the wall and the plate (proposed); one bit and a position each",
+    "use": "at each new tube: touch the table twice, the rim once, the wall three times, the plate once; then trial or weld"
+  },
+  "software": {
+    "commands": ["shelf Z to flush", "gantry X and Y to each touch point", "probe down until contact"],
+    "observes": ["contact bit and axis position at each touch", "rim height against the tabletop (difference of two touches)", "tube centre in the gantry frame (from the wall touches)"],
+    "manual": ["dropping the tube in and seating it", "fitting the probe in place of the nozzle or on the carriage", "flattening a ring of table around the hole"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-18-flush-to-the-table.md", "../../exchange/datum--on--trials-w2.md", "../../explorers/room/ideas/room-01-table-opening.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, DEG = Math.PI / 180, TAU = Math.PI * 2;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>In Derek\'s table opening the rotator sits in a pit, the rim stands flush with the table and the gun works at countertop height (room-01). The room explorer reads the table as the rim plane. Read it also as a <b>datum</b>: a plane that a probe on the gantry can compare the rim with. Then the shelf that lifts the tube does not have to be a precise axis. It has to make the rim flush with the top, and a touch of the tabletop beside the hole and a touch of the rim give the difference to a few hundredths of a millimetre. The shelf becomes a <b>servo on a null</b>, so a cheap linear actuator will do, and the tube\'s <b>length drops out of the chain</b>, since the rim is what is set, not the tube\'s bottom.</p>' +
+        '<p>Seat depth (how far the plate sits below the rim) stays, as it did in the datum chain. A touch of the plate face at the station removes it too, and the last mode sets the dot height by that touch alone. The plan panel does the same for the tube\'s place in a loose hole: three touches on its wall at the station, a few millimetres either side, give the circle\'s centre and so the yaw, in place of a collar that centres the tube.</p>' +
+        '<p>Move the sliders for the spreads of tube length and seat depth (nobody has measured them), for the shelf\'s own accuracy, and for how flat the table is near the hole. Switch the shelf mode and read the twelve tubes.</p>',
+      carries:
+        '<p>Unchanged from room-01: the table and its hung box carry the rotator on the shelf; rails, bridge, carriage and post carry the shell. The tabletop carries nothing new; it is used as a flat surface to compare the rim against. The probe rides the gantry carriage (or replaces the nozzle in a dry run, as in datum-07).</p>',
+      software:
+        '<p><b>Command:</b> shelf Z; gantry X and Y; the probe\'s down-and-back. <b>Observe:</b> a contact bit and an axis position for each touch. From them: rim height against the table, plate depth, the wall\'s position at three stations, the circle\'s centre. <b>Blind:</b> anything the probe does not touch; the melt; the umbilical\'s pull.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict (room-01 finding 6):</b> nothing detects a plate deeper or shallower than expected until the dot is looked at. <b>What the scene shows:</b> <i>dead reckoning</i> (the shelf goes to a recipe height) leaves the tube\'s length, the shelf\'s own error and the seat depth all in the dot height; <i>flush</i> removes the first two; <i>plate touch</i> removes the third. <b>Left standing:</b> the spreads are placeholders <b>[unknown]</b>; a depth gauge and calipers on ten tubes would size them.</li>' +
+        '<li><b>Conflict:</b> the tabletop is not a surface plate. <b>Assumption:</b> it is flat where the probe touches it. <b>What the scene shows:</b> the flush mode inherits the table\'s local flatness one for one (slider). <b>Repair:</b> a machined ring or an aluminium plate set flush around the hole; or touch the table at two points on either side of the hole and use the mean.</li>' +
+        '<li><b>Conflict:</b> the hole is loose (Ø160 around a Ø127 tube: 16.5 mm each way, room-01). <b>What the scene shows:</b> an off-centre tube puts the station 15 mm from where the gun expects it, and a 1 mm offset across the gun\'s line is a 0.93 degree yaw error (the tangent arithmetic of the shared context). <b>Change:</b> three wall touches at the station: the wall\'s position at two points 15 mm either side of the centre line differs by 0.485 of the tangent offset, so 0.02 mm touch noise gives the centre to about 0.06 mm. <b>Leaves:</b> reach: a probe that can touch the wall at the station over a 15 mm span; and the wall is 6 mm below the rim, so the probe is a stylus, not a carriage sensor.</li>' +
+        '<li><b>Conflict:</b> a touch at the table beside the hole and a touch on the rim are 60 mm apart and the gantry has its own tilt and sag. <b>Left standing:</b> a differential probe (both touches in one move) would cancel most of it; not drawn.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Questions for Derek:</b> how much tube length and seat depth vary over a dozen tubes (calipers and a depth gauge); what the table is made of and how flat it is near where the hole would go; whether a 12 V linear actuator with a limit switch (the room sourcing notes) has the repeatability to reach flush within a millimetre, so the servo can finish the job.</li>' +
+        '<li>Whether the rim can be touched without harm (a fraction of a newton on a 316L edge).</li>' +
+        '<li>The probe itself: the CR Touch class, a stylus in place of the nozzle, or the wire tip (trials-14).</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Tube length spread 0.6 mm and seat-depth spread 0.4 mm (one standard deviation), shelf repeatability 0.3 mm, probe repeatability 0.03 mm, table local flatness 0.10 mm: all <b>illustrative</b>. The wobble-free seat-depth sizing in the datum-chain scene used similar placeholders.</li>' +
+        '<li>Hole Ø160 and the loose fit around the Ø127 tube: room-01 (<b>[illustrative]</b> there); wall touches at the station, 15 mm either side: illustrative.</li>' +
+        '<li>Twelve tubes drawn from those spreads with a seeded generator; press <i>Another twelve tubes</i>.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  const P = { sL: 0.6, sS: 0.4, sShelf: 0.3, sProbe: 0.03, flat: 0.10, mode: 'flush', seed: 3, ox: 9, oy: 6, tnoise: 0.02, span: 15 };
+  const RAD = 61.85;
+  const MODES = [{ id: 'dead', name: 'Dead reckoning: the shelf goes to a recipe height' }, { id: 'flush', name: 'Flush to the table: shelf servoed on two touches' }, { id: 'plate', name: 'Plate touch: dot height from one touch on the plate' }];
+  const col = { dead: '#f5a524', flush: '#14b8a6', plate: '#c084fc' };
+  let tubes = [];
+  function genTubes() {
+    const r = rng(P.seed * 7919 + 11); tubes = [];
+    for (let i = 0; i < 12; i++) {
+      const dL = P.sL * gauss(r), dS = P.sS * gauss(r);
+      const eShelf = P.sShelf * gauss(r), eFlush = Math.hypot(P.sProbe, P.flat) * gauss(r), eTouch = P.sProbe * gauss(r);
+      tubes.push({ dL: dL, dS: dS, rimDead: dL + eShelf, rimFlush: eFlush, dead: dL + eShelf + dS, flush: eFlush + dS, plate: eTouch });
+    }
+  }
+  const rmsA = a => Math.sqrt(a.reduce((s, v) => s + v * v, 0) / a.length);
+  function planSim() {
+    const r = rng(P.seed * 31 + 5), a = P.span, ys = [-a, 0, a], R = RAD;
+    const xs = ys.map(y => P.ox + Math.sqrt(R * R - (y - P.oy) * (y - P.oy)) + P.tnoise * gauss(r));
+    // solve (ox, oy) by two Newton steps from the nominal (0,0)
+    let ox = 0, oy = 0;
+    for (let it = 0; it < 6; it++) {
+      let A = [[0, 0], [0, 0]], b = [0, 0];
+      ys.forEach((y, i) => { const d = Math.sqrt(R * R - (y - oy) * (y - oy)), f = ox + d - xs[i], jx = 1, jy = (y - oy) / d; A[0][0] += jx * jx; A[0][1] += jx * jy; A[1][0] += jy * jx; A[1][1] += jy * jy; b[0] += jx * f; b[1] += jy * f; });
+      const det = A[0][0] * A[1][1] - A[0][1] * A[1][0]; if (Math.abs(det) < 1e-9) break;
+      ox -= (A[1][1] * b[0] - A[0][1] * b[1]) / det; oy -= (-A[1][0] * b[0] + A[0][0] * b[1]) / det;
+    }
+    return { xs: xs, ys: ys, ox: ox, oy: oy, dOx: ox - P.ox, dOy: oy - P.oy, yawNo: Math.asin(Math.max(-1, Math.min(1, P.oy / R))) / DEG, yawWith: Math.asin(Math.max(-1, Math.min(1, (P.oy - oy) / R))) / DEG };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 790, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'ft', role: 'img', 'aria-label': 'Table section, flush inset, batch of tubes, and plan of the hole', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  const rect = (x, y, w, h, a) => S('rect', Object.assign({ x: x, y: y, width: Math.max(0, w), height: Math.max(0, h) }, a));
+  function wrap(g, x, y, text, maxc, cls, lh) { const ws = text.split(' '); let ln = '', k = 0; ws.forEach(w => { if ((ln + ' ' + w).length > maxc) { g.append(T(x, y + k * (lh || 13), ln, cls)); k++; ln = w; } else ln = ln ? ln + ' ' + w : w; }); g.append(T(x, y + k * (lh || 13), ln, cls)); return k + 1; }
+
+  function drawSection(g) {
+    g.append(T(12, 22, 'Section through the table opening (not to scale in height)', 'tb'));
+    g.append(rect(6, 30, 470, 260, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const sc = 0.95, cx = 190, tz = 96;                       // px per mm, tube axis x, table top y
+    const X = x => cx + x * sc;
+    // table slab with hole (Ø160 => x -80..80)
+    g.append(rect(12, tz, X(-80) - 12, 26, { fill: '#8b7355' })); g.append(rect(X(80), tz, 470 - X(80) + 6, 26, { fill: '#8b7355' }));
+    g.append(T(16, tz + 40, 'tabletop (the datum plane)', 'tf'));
+    // box hung below, shelf
+    g.append(rect(X(-95), tz + 26, 4, 150, { fill: '#4b5a72' })); g.append(rect(X(91), tz + 26, 4, 150, { fill: '#4b5a72' }));
+    const shelfY = tz + 26 + 130;
+    g.append(rect(X(-92), shelfY + 20, 184 * sc, 6, { fill: '#a855f7' })); g.append(T(X(-92), shelfY + 40, 'shelf (Z is the axis)', 'tp'));
+    // tube: bottom on the nest, rim near the table top; length 152.4 mm
+    const rimY = tz - 2, tubeTop = rimY, tubeBot = rimY + 152.4 * sc;
+    g.append(rect(X(-63.5), tubeTop, 2.4, tubeBot - tubeTop, { fill: '#c8d0da' })); g.append(rect(X(61.5), tubeTop, 2.4, tubeBot - tubeTop, { fill: '#c8d0da' }));
+    g.append(rect(X(-61.85), tubeTop + 6.35 * sc, 123.7 * sc, 5, { fill: '#dfe6ee' })); g.append(rect(X(-98 * 0.72), tubeBot, 196 * 0.72 * sc, 20 * sc, { fill: '#a855f7', opacity: 0.35 }));
+    g.append(T(X(0), tubeTop + 34, 'tube on the rotator', 'tf', 'middle'));
+    // gantry rail on the table, carriage, probe
+    g.append(rect(X(100), tz - 10, 90, 10, { fill: '#6b7a90' })); g.append(T(X(100), tz - 14, 'gantry rail (on the table)', 'tf'));
+    g.append(rect(X(112), tz - 44, 24, 34, { fill: '#a855f7', opacity: 0.55 })); g.append(T(X(112), tz - 48, 'carriage + probe', 'tp'));
+    g.append(line(X(124), tz - 10, X(124), tz - 2, { stroke: '#3b82f6', 'stroke-width': 2 })); g.append(S('circle', { cx: X(124), cy: tz - 1, r: 2.4, fill: '#3b82f6' }));
+    g.append(T(X(124) + 8, tz - 3, '1: table', 'ts'));
+    g.append(line(X(63), tz - 30, X(63), tz - 3, { stroke: '#3b82f6', 'stroke-width': 1.4, 'stroke-dasharray': '3 3' })); g.append(T(X(66), tz - 30, '2: rim', 'ts'));
+    g.append(line(X(30), tz - 30, X(30), tz + 6.35 * sc + 2, { stroke: '#3b82f6', 'stroke-width': 1.4, 'stroke-dasharray': '3 3' })); g.append(T(X(4), tz - 34, '3: plate', 'ts', 'start'));
+    g.append(S('circle', { cx: X(RAD), cy: tz + 6.35 * sc, r: 3, fill: '#14b8a6' })); g.append(T(X(RAD) + 6, tz + 6.35 * sc + 14, 'seam', 'tt'));
+    g.append(T(14, 282, 'touch 1 and 2: rim minus table; 3: plate depth; wall touches: the circle', 'tf'));
+  }
+
+  function drawInset(g) {
+    const x0 = 494, y0 = 30, w = 356, h = 260;
+    g.append(T(x0, 22, 'The flush gauge, height magnified ×40', 'tb'));
+    g.append(rect(x0, y0, w, h, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const zc = y0 + 120, k = 40 * 0.9;                        // px per mm (magnified)
+    const t = tubes[0], errRim = P.mode === 'flush' ? t.rimFlush : t.rimDead;
+    g.append(rect(x0 + 10, zc, 140, 30, { fill: '#8b7355' })); g.append(T(x0 + 14, zc + 44, 'tabletop', 'tf'));
+    g.append(rect(x0 + 190, zc - errRim * k, 60, 30 + errRim * k, { fill: '#c8d0da' })); g.append(T(x0 + 194, zc - errRim * k - 6, 'tube rim', 'tf'));
+    g.append(rect(x0 + 260, zc, 86, 30, { fill: '#8b7355' }));
+    g.append(line(x0 + 6, zc, x0 + w - 6, zc, { stroke: '#14b8a6', 'stroke-dasharray': '4 3' })); g.append(T(x0 + w - 8, zc - 5, 'flush', 'tt', 'end'));
+    [-2, -1, 1, 2].forEach(v => { g.append(line(x0 + 160, zc - v * k, x0 + 184, zc - v * k, { stroke: '#475569' })); g.append(T(x0 + 156, zc - v * k + 3, (v > 0 ? '+' : '') + v + ' mm', 'tf', 'end')); });
+    const n1 = wrap(g, x0 + 12, y0 + 22, P.mode === 'dead' ? 'the shelf went to a recipe height: the rim is off by the tube\'s length and the shelf\'s error' : (P.mode === 'flush' ? 'the shelf is servoed until touches 1 and 2 agree; what is left is the table\'s flatness and the probe' : 'the rim is wherever the shelf left it; the dot height comes from the plate touch, so the rim needs no reference'), 60, 'tm');
+    g.append(T(x0 + 12, y0 + 22 + n1 * 13 + 6, 'tube 1 of the twelve: rim ' + (errRim >= 0 ? '+' : '') + errRim.toFixed(2) + ' mm from flush', 'tw'));
+    g.append(T(x0 + 12, y0 + h - 10, 'magnified so that 0.1 mm is 4 px', 'tf'));
+  }
+
+  function drawBatch(g) {
+    const x0 = 150, y0 = 340, w = 620, ymax = 2.0, kx = w / 2 / ymax;
+    g.append(T(12, y0 - 18, 'Dot-height error over twelve tubes, mm (the dot above (+) or below (-) the seam)', 'tb'));
+    const rows = MODES.map((m, i) => ({ m: m, y: y0 + 16 + i * 46 }));
+    rows.forEach(r => {
+      const on = r.m.id === P.mode;
+      g.append(rect(x0 - 138, r.y - 20, w + 150, 40, { fill: on ? col[r.m.id] : '#10161e', opacity: on ? 0.13 : 1, stroke: on ? col[r.m.id] : '#2a3341', rx: 4 }));
+      g.append(T(x0 - 132, r.y - 4, r.m.name.split(':')[0], on ? 'tw hot' : 'tg')); g.append(T(x0 - 132, r.y + 10, r.m.name.split(':')[1] || '', 'tf'));
+      const xc = x0 + w / 2;
+      g.append(line(x0, r.y + 14, x0 + w, r.y + 14, { stroke: '#3b4658' })); [-2, -1, 0, 1, 2].forEach(v => { g.append(line(xc + v * kx, r.y + 10, xc + v * kx, r.y + 18, { stroke: '#475569' })); if (r === rows[2]) g.append(T(xc + v * kx, r.y + 30, (v > 0 ? '+' : '') + v, 'tf', 'middle')); });
+      g.append(rect(xc - 0.1 * kx, r.y - 14, 0.2 * kx, 26, { fill: '#34d399', opacity: 0.07 }));
+      tubes.forEach((t, i) => { const v = Math.max(-2.1, Math.min(2.1, t[r.m.id])); g.append(S('circle', { cx: xc + v * kx, cy: r.y + 4 + ((i % 3) - 1) * 3.2, r: 3.4, fill: col[r.m.id], stroke: '#0e1218' })); });
+      const rm = rmsA(tubes.map(t => t[r.m.id]));
+      g.append(T(x0 + w + 4, r.y + 2, (rm * 1000).toFixed(0) + ' µm rms', on ? 'tw hot' : 'tm', 'start'));
+    });
+    wrap(g, 12, y0 + 16 + 3 * 46 + 10, 'The faint green band is ±0.1 mm, a reading aid, not a tolerance. Dead reckoning carries length, shelf error and seat depth; flush drops length and shelf error; plate touch drops them all.', 130, 'tf');
+  }
+
+  function drawPlan(g) {
+    const px0 = 12, py0 = 530, w = 420, h = 250, sc = 0.9, cxp = px0 + 190, cyp = py0 + 140;
+    g.append(T(px0, py0 - 12, 'Plan of the hole: the tube is where it fell (Ø160 hole, Ø127 tube)', 'tb'));
+    g.append(rect(px0, py0, w, h, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+    const X = x => cxp + x * sc, Y = y => cyp - y * sc;
+    g.append(S('circle', { cx: X(0), cy: Y(0), r: 80 * sc, fill: '#0b1017', stroke: '#8b7355', 'stroke-width': 2 })); g.append(T(X(0), Y(-86 * 1) - 2, 'hole', 'tf', 'middle'));
+    g.append(S('circle', { cx: X(P.ox), cy: Y(P.oy), r: 63.5 * sc, fill: '#1b222c', stroke: '#c8d0da', 'stroke-width': 2 }));
+    g.append(S('circle', { cx: X(P.ox), cy: Y(P.oy), r: RAD * sc, fill: 'none', stroke: '#14b8a6', 'stroke-dasharray': '3 3' }));
+    g.append(S('circle', { cx: X(P.ox), cy: Y(P.oy), r: 2.5, fill: '#c8d0da' }));
+    const ps = planSim();
+    // gun tangent line assumed at y = 0 (the gantry expects a centred tube)
+    g.append(line(X(RAD), Y(-70), X(RAD), Y(70), { stroke: '#94a3b8', 'stroke-dasharray': '2 3' })); g.append(T(X(RAD) + 4, Y(70) + 10, 'gun line as set (tube assumed centred)', 'tf'));
+    ps.ys.forEach((y, i) => { g.append(S('circle', { cx: X(ps.xs[i]), cy: Y(y), r: 3.6, fill: '#3b82f6', stroke: '#0e1218' })); });
+    g.append(S('circle', { cx: X(ps.ox), cy: Y(ps.oy), r: 3, fill: 'none', stroke: '#f5a524', 'stroke-width': 1.6 })); g.append(T(X(ps.ox) + 6, Y(ps.oy) - 6, 'centre from 3 touches', 'ta'));
+    g.append(T(px0 + 10, py0 + 18, 'tube off centre by (' + P.ox.toFixed(0) + ', ' + P.oy.toFixed(0) + ') mm', 'tw'));
+    // right column readouts
+    const rx = 452, ry = 546;
+    g.append(T(rx, ry - 16, 'What three wall touches buy', 'tb'));
+    g.append(T(rx, ry + 4, 'touches at y = -' + P.span + ', 0, +' + P.span + ' mm, noise ' + (P.tnoise * 1000).toFixed(0) + ' µm', 'tm'));
+    g.append(T(rx, ry + 30, 'Without them the gantry assumes a centred tube:', 'tg')); g.append(T(rx, ry + 46, 'radial error ' + P.ox.toFixed(1) + ' mm; yaw ' + ps.yawNo.toFixed(1) + '° (0.93° per mm)', 'tr'));
+    g.append(T(rx, ry + 78, 'With the three touches:', 'tg')); g.append(T(rx, ry + 94, 'centre found to ' + Math.hypot(ps.dOx, ps.dOy).toFixed(2) + ' mm (x ' + ps.dOx.toFixed(2) + ', y ' + ps.dOy.toFixed(2) + ')', 'tok'));
+    g.append(T(rx, ry + 110, 'yaw left ' + ps.yawWith.toFixed(2) + '°', 'tok'));
+    wrap(g, rx, ry + 140, 'Two wall points ' + (2 * P.span) + ' mm apart differ by ' + (2 * P.span / RAD).toFixed(3) + ' of the tangent offset: a lever of 0.485 at 15 mm either side, so 20 µm noise gives the offset to about 60 µm.', 52, 'tf');
+    wrap(g, rx, ry + 184, 'A fitted collar centres the tube mechanically, to its own fit; the touches find it whatever the fit.', 52, 'tf');
+    return ps;
+  }
+
+  function updateIO(ps) {
+    const rm = MODES.map(m => rmsA(tubes.map(t => t[m.id])));
+    app.io.set({
+      commands: [
+        { name: 'Shelf Z', value: P.mode === 'dead' ? 'recipe height' : 'servo to flush', note: 'proposed actuator; a cheap linear actuator suffices when Z is a null' },
+        { name: 'Probe touches', value: '2 table/rim + 1 plate + 3 wall', note: 'proposed: gantry X, Y to each point; probe down until contact' },
+        { name: 'Rotator', value: 'as room-01', note: 'existing' },
+      ],
+      observes: [
+        { name: 'Rim minus tabletop', value: P.mode === 'dead' ? '-' : (Math.hypot(P.sProbe, P.flat) * 1000).toFixed(0), unit: P.mode === 'dead' ? '' : 'µm (probe + flatness)', status: P.mode === 'dead' ? 'blind' : 'seen', note: 'two touches' },
+        { name: 'Plate depth', value: P.mode === 'plate' ? (P.sProbe * 1000).toFixed(0) : '-', unit: P.mode === 'plate' ? 'µm' : '', status: P.mode === 'plate' ? 'seen' : 'blind', note: 'one touch at the station' },
+        { name: 'Tube centre in the hole', value: Math.hypot(ps.dOx, ps.dOy).toFixed(2), unit: 'mm error', status: 'partly', note: 'three wall touches; low span sensitivity handled by the 15 mm spread' },
+        { name: 'Dot height rms, twelve tubes', value: rm.map(v => (v * 1000).toFixed(0)).join(' / '), unit: 'µm', status: 'partly', note: 'dead reckoning / flush / plate touch (scene truth against the spreads chosen)' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Dropping the tube in and seating it', 'Fitting the probe', 'Flattening a ring of table round the hole'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    drawSection(gDyn); drawInset(gDyn); drawBatch(gDyn); const ps = drawPlan(gDyn); updateIO(ps);
+    app.badge('yaw', Math.abs(ps.yawNo) > 1 ? 'an untouched tube ' + P.oy.toFixed(0) + ' mm off the gun line: yaw ' + ps.yawNo.toFixed(1) + '° from the tangent' : null, 'warn');
+  }
+
+  // ---------------------------------------------------------------- controls
+  const gm = app.ui.group('How the shelf is set', { open: true });
+  gm.radio({ id: 'mode', label: 'Shelf mode', options: MODES.map(m => ({ value: m.id, label: m.name.split(':')[0] })), value: 'flush', kind: 'branch', help: 'Dead reckoning: recipe number. Flush: servo on two touches. Plate touch: dot height from the plate.', onChange: v => { P.mode = v; render(); } });
+  const gs = app.ui.group('Spreads (scene edits, illustrative, unmeasured)', { open: true });
+  gs.slider({ id: 'sL', label: 'Tube length spread (1 sigma)', min: 0, max: 2, step: 0.05, value: 0.6, unit: 'mm', kind: 'scene', onChange: v => { P.sL = v; genTubes(); render(); } });
+  gs.slider({ id: 'sS', label: 'Seat depth spread (1 sigma)', min: 0, max: 1.5, step: 0.05, value: 0.4, unit: 'mm', kind: 'scene', onChange: v => { P.sS = v; genTubes(); render(); } });
+  gs.slider({ id: 'sShelf', label: 'Shelf repeatability', min: 0, max: 1, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'A cheap linear actuator with a limit switch; a leadscrew stepper is far better.', onChange: v => { P.sShelf = v; genTubes(); render(); } });
+  gs.slider({ id: 'sProbe', label: 'Probe repeatability', min: 0.005, max: 0.15, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: v => { P.sProbe = v; genTubes(); render(); } });
+  gs.slider({ id: 'flat', label: 'Table flatness near the hole', min: 0, max: 0.4, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'Only the flush mode inherits it.', onChange: v => { P.flat = v; genTubes(); render(); } });
+  gs.button({ id: 'again', label: 'Another twelve tubes', kind: 'state', onClick: () => { P.seed++; genTubes(); render(); } });
+  const gp = app.ui.group('The tube in the hole (scene edits)', { open: true });
+  gp.slider({ id: 'ox', label: 'Tube off centre, radial', min: -16, max: 16, step: 0.5, value: 9, unit: 'mm', kind: 'scene', help: 'The hole is loose: Ø160 around Ø127.', onChange: v => { P.ox = v; render(); } });
+  gp.slider({ id: 'oy', label: 'Tube off centre, across the gun line', min: -16, max: 16, step: 0.5, value: 6, unit: 'mm', kind: 'scene', help: '1 mm here is 0.93° of yaw.', onChange: v => { P.oy = v; render(); } });
+  gp.slider({ id: 'span', label: 'Wall touches either side of the line', min: 5, max: 25, step: 1, value: 15, unit: 'mm', kind: 'scene', help: 'The lever: the wall\'s position differs by 2 a / R of the offset.', onChange: v => { P.span = v; render(); } });
+  gp.slider({ id: 'tnoise', label: 'Wall-touch noise', min: 0.005, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', onChange: v => { P.tnoise = v; render(); } });
+  genTubes(); render();
+})();
+</script>
+</body>
+</html>

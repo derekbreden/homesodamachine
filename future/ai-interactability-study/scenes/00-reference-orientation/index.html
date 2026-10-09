@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference orientation</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "00-reference-orientation",
+  "title": "Reference: gun orientation at the joint",
+  "by": "coordinator",
+  "origin": "reference",
+  "status": "developed",
+  "summary": "The existing orientation scene rebuilt with the shared kit: three ideal rotations about the laser dot, the rotator with tube and recessed endcap, and an illustrative outside camera. It is a shared reference, not an arrangement.",
+  "tags": ["reference", "orientation", "kit-demo"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["corner inset", "line-of-sight inset", "runout wobble", "dial-to-pose maths"],
+  "how": {
+    "motion": "none: three ideal joints about the dot (sliders); tube turns on the existing rotator",
+    "load": "nothing: the gun floats, no support is proposed here",
+    "reference": "the dot is pinned to the seam by construction of the dials",
+    "observe": "an illustrative camera outside the tube, plus exact seam cross-section",
+    "use": "orientation reference and kit demo; not a welding setup"
+  },
+  "software": {
+    "commands": ["rotator speed (existing controller)"],
+    "observes": ["whether an outside camera can see the dot"],
+    "manual": ["holding and aiming the gun"]
+  }
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    open: ['proposes', 'assumptions'],
+    sections: {
+      proposes: '<p>The recognisable world every scene shares: the 5 in tube standing on the rotator, the recessed 1/4 in endcap with its two ports, the gun proxy with its wire guide, wire and umbilical stub, and the laser dot in the inside corner.</p>' +
+        '<p>Three <b>ideal</b> rotations tilt and turn the gun about the dot. They reproduce the site’s orientation scene (<code>web/public/js/weld-position</code>): the dot stays on the joint for every setting, so the sliders show <i>orientation</i> only.</p>',
+      carries: '<p>Nothing carries the gun here: it hangs in space. The dials are mathematical joints about the dot, so no support, cable weight or reaction is modelled. The tube rides the existing rotator turntable; the ground and motor towers are drawn only for scale.</p>',
+      software: '<p>Software can already command rotator speed (5–15 mm/s bead travel window, the rig controller). Everything else here is a <i>proposal to look at</i>: an outside camera whose line of sight to the dot is tested against the drawn tube and gun, and a second marker in the corner inset showing what such a sensor might report. The corner inset itself is exact scene geometry.</p>',
+      tried: '<p>Try camera azimuth around 0–30° with a low height: the tube wall blocks the view and the inset frame turns red. Some azimuths near the grip are blocked by the gun body. That is the point of the line-of-sight test: it is drawn geometry, not a measurement.</p>',
+      unresolved: '<p>Real gun geometry (scan), a real optical model, and any support that would let the gun hold these poses are not part of this scene.</p>',
+      assumptions: '<ul><li>Gun proxy follows the manual’s 253 × 143 × 34 mm envelope; housing, grip, wire guide, the 60° pitch and 16 mm nozzle clearance are illustrative.</li>' +
+        '<li>Opening pose (roll 45, hole dial 30, vertical −15) is the reference scene’s, illustrative.</li>' +
+        '<li>Rotator layout is a proxy from documented dimensions. Runout limits (0.25 mm radial, 0.30 mm face TIR) are the rig doc’s acceptance numbers; the wobble is illustrative and exaggerated.</li>' +
+        '<li>The estimate marker uses a fixed made-up offset of 0.5 mm radial / −0.35 mm vertical to show how a sensor estimate would be drawn.</li></ul>',
+    },
+    links: [{ label: 'Orientation scene notes (weld-position.md)', href: '../../../../hardware/assembly/weld-position.md' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+  const J = WK.JOINT;
+
+  // ---- dashed axes from the reference scene (helper layer: not shown in observer insets)
+  function dashedLine(color, dash, gap) {
+    const l = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineDashedMaterial({ color: WK.color(color), dashSize: dash, gapSize: gap, transparent: true, opacity: 0.85, depthTest: false }));
+    l.renderOrder = 5; l.frustumCulled = false;
+    l.set = function (a, b) { l.geometry.setFromPoints([a, b]); l.computeLineDistances(); return l; };
+    return l;
+  }
+  const rollAxis = dashedLine(0x94a3b8, 4, 3), holeAxis = dashedLine(0x22d3ee, 2, 2), vertAxis = dashedLine(0xfbbf24, 7, 3);
+  [rollAxis, holeAxis, vertAxis].forEach(l => app.addHelper(l));
+  const lblDot = app.label(() => gun.dotWorld(), 'Laser dot', { cls: 'laser' });
+  const lblGrip = app.label(() => gun.local('gripBase'), 'Grip base (cable exit)');
+  vertAxis.set(J.clone().add(new THREE.Vector3(0, 0, -24)), J.clone().add(new THREE.Vector3(0, 0, 100)));
+
+  // ---- proposed observer camera (illustrative), orbiting the tube
+  const cam = { az: 190, h: 330, r: 240 };
+  const camPos = new THREE.Vector3();
+  function placeCam() { camPos.set(cam.r * Math.cos(cam.az * WK.deg), cam.r * Math.sin(cam.az * WK.deg), cam.h); }
+  placeCam();
+  const obs = app.inset.add({ id: 'obs', label: 'Observer camera (proposed, illustrative)', position: () => camPos, target: () => gun.dotWorld(), fov: 38, near: 30, far: 1500, size: [250, 172], corner: 'br', noise: 0.25 });
+  const lblCam = app.label(camPos, 'Proposed camera', { cls: 'sensor' });
+
+  // ---- corner inset (exact) + estimate marker
+  app.cornerInset({ gun: gun });
+
+  function sync() {
+    const d = gun.dials;
+    gun.updateLaser();
+    const ax = gun.local('gripBase').sub(J).normalize();
+    rollAxis.set(J.clone().addScaledVector(ax, -18), gun.local('gripBase').addScaledVector(ax, 85));
+    const v = d.vertical * WK.deg, dir = new THREE.Vector3(Math.cos(v), Math.sin(v), 0);
+    holeAxis.set(J.clone().addScaledVector(dir, -2 * WK.INNER_RADIUS - 16), J.clone().addScaledVector(dir, 18));
+    placeCam();
+    const vis = app.inset.markVisibility('obs', gun.dotWorld());
+    const off = gun.dotOffset();
+    app.cornerInset.setEstimate(vis && vis.visible ? { radial: off.radial + 0.5, vertical: off.vertical - 0.35 } : null);
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: speedMm(), unit: 'mm/s', note: 'existing controller; 5–15 mm/s window, pedal is a deadman today' },
+        { name: 'Rotator turning', value: ws.spin.on ? 'on' : 'off' },
+      ],
+      observes: [
+        { name: 'Dot visible to outside camera', value: vis ? (vis.visible ? 'yes' : (vis.inFov ? 'blocked' : 'out of view')) : '-', status: vis && vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Dot vs seam (r, z)', value: vis && vis.visible ? (off.radial + 0.5).toFixed(2) + ', ' + (off.vertical - 0.35).toFixed(2) : '-', unit: vis && vis.visible ? 'mm' : '', status: vis && vis.visible ? 'partly' : 'blind', note: 'estimate marker uses a made-up bias; truth is in the corner inset' },
+        { name: 'Wire tip at the corner', value: '-', status: 'unresolved', note: 'no sensor proposed for this' },
+      ],
+    });
+  }
+  const speedMm = () => app.ui.get('speed');
+
+  // ---- controls
+  const rot = app.ui.group('Three ideal rotations about the dot', { help: 'Scene edits, NOT actuators: ideal joints about the dot. No motor, support or cable load is implied.' });
+  rot.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group,
+    help: 'About the line through the dot and the grip base; both stay fixed.', onChange: v => { gun.setDials(v, app.ui.get('hole'), app.ui.get('vertical')); sync(); } });
+  rot.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group,
+    help: 'About the axis through the dot and both endcap ports. The dial reads 35 at the reference mounting inclination.', onChange: v => { gun.setDials(app.ui.get('roll'), v, app.ui.get('vertical')); sync(); } });
+  rot.slider({ id: 'vertical', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group,
+    help: 'About a vertical line through the dot (turns the approach in plan).', onChange: v => { gun.setDials(app.ui.get('roll'), app.ui.get('hole'), v); sync(); } });
+
+  const rig = app.ui.group('Rotator, tube and laser');
+  rig.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'Index stripe and ticks show the rotation.', onChange: v => { ws.spin.on = v; sync(); } });
+  rig.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', visual: () => ws.turntable,
+    help: 'The existing rotator controller accepts 5–15 mm/s; degrees/s follow from the 61.85 mm weld radius.', onChange: v => { ws.spin.speedDegPerSec = v / WK.INNER_RADIUS / WK.deg; sync(); } });
+  rig.toggle({ id: 'runout', label: 'Show indicated runout (rig-doc limits)', value: false, kind: 'scene', visual: () => ws.tubeGroup,
+    help: '0.25 mm radial and 0.30 mm face TIR: illustrative wobble of the joint under a fixed gun.', onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, app.ui.get('exag')); app.ui.enable('exag', v); sync(); } });
+  rig.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 40, step: 1, value: 20, unit: '×', kind: 'scene', visual: () => ws.tubeGroup,
+    help: 'Only makes the wobble visible. Watch the dot move in the corner inset.', onChange: v => { if (app.ui.get('runout')) ws.setRunout(null, null, v); sync(); } });
+  rig.toggle({ id: 'laser', label: 'Laser dot + 2 mm sweep', value: true, kind: 'state', help: 'Beam and sweep intersect the drawn tube and endcap; orientation aid only.', onChange: v => { gun.setLaser(v); sync(); } });
+  rig.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); sync(); } });
+
+  const sen = app.ui.group('Proposed observer camera (illustrative)');
+  sen.slider({ id: 'cam-az', label: 'Camera azimuth', min: 0, max: 360, step: 1, value: 190, unit: '°', kind: 'scene', visual: () => obs.helper, help: 'Around the tube axis; 0° is the weld-station side (+X).', onChange: v => { cam.az = v; sync(); } });
+  sen.slider({ id: 'cam-h', label: 'Camera height', min: 150, max: 600, step: 5, value: 330, unit: 'mm', kind: 'scene', visual: () => obs.helper, help: 'Above the bench zero (tube bottom = 0).', onChange: v => { cam.h = v; sync(); } });
+  sen.slider({ id: 'cam-r', label: 'Camera radius', min: 120, max: 450, step: 5, value: 240, unit: 'mm', kind: 'scene', visual: () => obs.helper, help: 'Distance from the tube axis.', onChange: v => { cam.r = v; sync(); } });
+})();
+</script>
+</body>
+</html>

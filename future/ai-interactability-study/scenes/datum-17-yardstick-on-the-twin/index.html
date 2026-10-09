@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yardstick with ground truth</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .yt text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .yt .tm { fill: #8b98ab; } .yt .tf { fill: #64748b; } .yt .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .yt .tt { fill: #14b8a6; } .yt .ta { fill: #f5a524; } .yt .tr { fill: #ff6b5f; } .yt .tp { fill: #c084fc; } .yt .ts { fill: #60a5fa; } .yt .tk { fill: #f472b6; } .yt .tg { fill: #94a3b8; } .yt .tw { fill: #f1f5f9; } .yt .tok { fill: #34d399; }
+  .yt .hot { font-weight: 600; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-17-yardstick-on-the-twin",
+  "title": "Yardstick with ground truth: the hand measured on a clear twin, machines touched at rest",
+  "by": "datum",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "trials-11 scores any way of holding the gun with one camera judge, starting with Derek's hands. The judge has its own error, and an arrangement built on the judge (a map replayed from its readings) cannot be scored by it. Three sources answer three different questions: a clear twin of the corner gives the hand's true error with no judge in it (the requirement); a few touches at rest give a machine arrangement's true error; the judge is dense in time but blind to what it is built on. Change the judge's bias and see which verdicts flip.",
+  "tags": ["lens", "yardstick", "ground truth", "clear twin", "notch tube", "judge bias", "requirement from a hand"],
+  "branchOf": [],
+  "combines": ["trials-05-artefact-ladder", "datum-14-who-owns-the-wobble"],
+  "transferable": ["measure the requirement on a see-through corner so no judge is in it", "an arrangement built on a sensor cannot be scored by that sensor", "a 34 degree window is about 5 seconds of a lap"],
+  "how": {
+    "motion": "nothing new moves; the hand holds the gun for ten laps over a twin, then the arrangements run on the real tube",
+    "load": "not addressed: whatever holds the gun is what is being scored",
+    "reference": "the clear twin's outside camera and printed corner give truth; touches at rest give truth on the real tube",
+    "observe": "camera judge over the bore; outside camera on the twin; a stylus or wire touching at K azimuths (proposed)",
+    "use": "once for the hand (twin), then for each arrangement (real tube, judge plus touches), then again after any change to the judge"
+  },
+  "software": {
+    "commands": ["rotator (existing)", "the touch sequence at rest (proposed)", "the scoring script: the same for every arrangement"],
+    "observes": ["dot-to-seam from the judge, every 0.25 s", "dot-to-seam from the outside camera on the twin", "touch readings at K azimuths"],
+    "manual": ["holding the gun for ten laps", "making the twin: a see-through wall and a printed plate at the real recess", "deciding whether the hand's number is the requirement"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-17-yardstick-on-the-twin.md", "../../exchange/datum--on--trials-w2.md", "../../explorers/trials/ideas/trials-11-arrangement-yardstick.md", "../../explorers/datum/ideas/datum-10-clear-twin.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, DEG = Math.PI / 180, TAU = Math.PI * 2;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>trials-11 proposes one script and one judge that score any way of holding the gun, and starts with <b>Derek\'s hands</b>: what a competent hold delivers becomes the requirement instead of a number an agent proposed. The idea is right, and it has a circle in it. The judge is a camera over the bore that sees the dot on the plate a millimetre from the wall, not the corner. Whatever the judge gets wrong that turns with the tube (glare, tint, tack marks) reads as seam, and an arrangement <i>built on the judge</i> (a map replayed from its readings) reproduces that error and then reads as perfect.</p>' +
+        '<p>Three sources answer three questions. A <b>clear twin</b> (a see-through wall, a printed plate at the real recess) lets an outside camera see the dot at the corner all the way round: the hand is scored on it with <b>no judge in the number</b>. A <b>notch tube</b> (trials-05) does the same for a 34 degree window: about five seconds of a 49 second lap. A few <b>touches at rest</b> (a stylus or the wire) give a machine arrangement\'s true error on the real tube at K azimuths. The <b>judge</b> is dense in time, and blind to what it is built on.</p>' +
+        '<p>Set the judge\'s bias with the slider and look at the last column of the table: the point at which the judge says a replay beats the hand while the truth says the opposite, and which sources rescue the verdict.</p>',
+      carries:
+        '<p>Nothing here carries the gun; the four arrangements are error models for what each does over one lap (hand, a friction arm, a map replay, a rigid stand). What is measured is how far the dot is from the seam, radially, every 0.25 s.</p>',
+      software:
+        '<p><b>Command:</b> the rotator; a touch sequence at rest (stop at K azimuths, touch the wall, record); the scoring script. <b>Observe:</b> the judge reading every 0.25 s; on the twin, the outside camera; the K touches. <b>Blind:</b> the melt, and the hand\'s state (fatigue, dry-run versus weld attention).</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the requirement measured by the judge includes the judge\'s error. <b>Assumption (trials-11):</b> the hand\'s judge-measured error is what a good hold delivers. <b>What the scene shows:</b> with the judge as the source the hand reads high by the bias in quadrature (0.055 true, about 0.07 read at 0.04 mm bias). <b>Change:</b> measure the hand on the clear twin: the outside camera reads the corner itself. <b>Leaves:</b> the twin is a different tube with a different surface; a hand\'s tremor and drift are properties of the hand, but the way the hand tracks may depend on what it sees.</li>' +
+        '<li><b>Conflict:</b> an arrangement built on the judge cannot be scored by it. <b>What the scene shows:</b> the map replay\'s true error is the judge\'s bias, imprinted; the judge reads it at its own noise floor. Raise the bias above the hand\'s own error and the verdict flips: the judge passes a replay that truth fails. Neither a better requirement (the twin) nor more laps changes that. <b>Change:</b> score machine arrangements with K touches at rest on the real tube: they read the error at the dot itself.</li>' +
+        '<li><b>Conflict:</b> a notch tube seems enough. <b>What the scene shows:</b> a 34 degree window is 17 samples of a 196-sample lap and about one correlation time of the hand\'s drift; the hand\'s rms from it swings by tens of per cent (the band in the requirement panel). It calibrates a judge\'s gain (jog the dot to known offsets) but says little about a hold. <b>Change:</b> the clear twin; or a notch tube used for gain only.</li>' +
+        '<li><b>Left standing:</b> touching cannot score a moving hand; the twin cannot see this tube\'s surface; a dry-run hold is not a weld hold (the eye follows the puddle and the wire, not the dot). The error models are illustrative shapes, not measurements: the point of the yardstick is to measure them.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Questions for Derek:</b> would you hold the gun in a dry run for ten laps over a clear twin? How far off the seam can the dot be and still weld well (the number the whole study lacks)? Does the outside of a clear acrylic tube let you see the dot from where you stand?</li>' +
+        '<li>Whether the process itself smooths the error: the puddle is a couple of millimetres long, so errors faster than about 4 Hz may not matter, and an rms of raw samples would overstate the hand\'s tremor. A band-limited score is a hypothesis, not a result.</li>' +
+        '<li>Whether a 125 mm ID acrylic tube (the Prime listing in the sourcing notes) has the right wall and recess, or the twin must be printed with a clear wall.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Lap 49 s at 8 mm/s <b>[repo]</b>, 196 samples. Seam wobble 0.125 mm at once per turn and 0.03 mm at twice per turn (rig limits 0.25 mm TIR <b>[repo]</b>, phases illustrative).</li>' +
+        '<li>Hand: follows 85 per cent of the wobble, drift 0.045 mm rms with a 6 s memory, tremor 0.02 mm. Friction arm: follows none of the wobble, steps of 0.04 mm every 7 s. Map replay: the judge\'s bias, imprinted, plus 0.012 mm. Rigid stand: the wobble. All <b>illustrative</b>: measuring them is the yardstick.</li>' +
+        '<li>Judge: reading = (1 + gain error) x true + bias that turns with the tube (harmonics 1 and 3) + noise. Touch noise and count are sliders. A notch tube shows the dot for 34 degrees; a clear twin all round.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  // ---------------------------------------------------------------- model
+  const NS = 196, DT = 49 / NS, TH = Array.from({ length: NS }, (_, i) => TAU * i / NS);
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); }
+  const P = { bias: 0.04, gain: 0.15, noise: 0.03, K: 8, tnoise: 0.02, reqSrc: 'judge', score: 'judge', show: 'hand', seed: 5 };
+  const wob = th => 0.125 * Math.cos(th - 0.7) + 0.03 * Math.cos(2 * th - 1.9);
+  const Bf = th => P.bias * Math.cos(th - 1.1) + P.bias * 0.65 * Math.cos(3 * th + 0.4);
+  function ou(r, sigma, tau, n) { const a = Math.exp(-DT / tau), o = []; let x = sigma * gauss(r); for (let i = 0; i < n; i++) { x = a * x + sigma * Math.sqrt(1 - a * a) * gauss(r); o.push(x); } return o; }
+  const rmsOf = (a) => { const m = a.reduce((x, y) => x + y, 0) / a.length; return Math.sqrt(a.reduce((s, v) => s + (v - m) * (v - m), 0) / a.length); };
+  function truth(kind, r) {
+    const n = NS, e = new Array(n);
+    if (kind === 'hand') { const d = ou(r, 0.045, 6, n); for (let i = 0; i < n; i++) e[i] = 0.15 * wob(TH[i]) + d[i] + 0.02 * gauss(r); }
+    else if (kind === 'arm') { const d = ou(r, 0.02, 10, n); for (let i = 0; i < n; i++) e[i] = wob(TH[i]) + 0.04 * (((i * DT) % 7) / 7 - 0.5) * 2 + d[i]; }
+    else if (kind === 'replay') { for (let i = 0; i < n; i++) e[i] = -Bf(TH[i]) + 0.012 * gauss(r); }
+    else { const d = ou(r, 0.01, 10, n); for (let i = 0; i < n; i++) e[i] = wob(TH[i]) + d[i]; }
+    return e;
+  }
+  const ARR = [
+    { id: 'hand', name: 'Derek\'s hands, dry run', machine: false },
+    { id: 'arm', name: 'Friction arm (monitor-arm class)', machine: true },
+    { id: 'replay', name: 'Map replay from the judge', machine: true },
+    { id: 'rigid', name: 'Rigid stand, no correction', machine: true },
+  ];
+  let R = null;
+  function compute() {
+    const r0 = rng(P.seed * 7919 + 3);
+    R = ARR.map((a, k) => {
+      const r = rng(P.seed * 104729 + k * 31337 + 7), e = truth(a.id, r);
+      const J = e.map((v, i) => (1 + P.gain) * v + Bf(TH[i]) + P.noise * gauss(r));
+      const tk = [];                                          // K touches at rest (machines), true error + touch noise
+      for (let j = 0; j < P.K; j++) { const i = Math.round(j * NS / P.K); tk.push(e[i] + P.tnoise * gauss(r)); }
+      return { a: a, e: e, J: J, tTrue: rmsOf(e), tJudge: rmsOf(J), tTouch: a.machine ? rmsOf(tk) : NaN, tk: tk };
+    });
+    // requirement (the hand's rms) by source; band for the notch window from many draws
+    const hand = R[0], win = Math.round(34 / 360 * NS);
+    const bands = { full: [], win: [] };
+    for (let m = 0; m < 80; m++) { const rr = rng(9000 + m * 17 + P.seed), e = truth('hand', rr); bands.full.push(rmsOf(e)); const st = Math.floor(rr() * (NS - win)); bands.win.push(rmsOf(e.slice(st, st + win))); }
+    const q = (a, p) => { const b = a.slice().sort((x, y) => x - y); return b[Math.min(b.length - 1, Math.floor(p * b.length))]; };
+    R.req = { judge: hand.tJudge, twin: hand.tTrue, twinBand: [q(bands.full, 0.1), q(bands.full, 0.9)], notch: rmsOf(hand.e.slice(20, 20 + win)), notchBand: [q(bands.win, 0.1), q(bands.win, 0.9)], win: win };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const W = 860, Hh = 800, svg = S('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'yt', role: 'img', 'aria-label': 'Sections of a real tube and a clear twin, a lap trace, and a table of yardstick verdicts', style: 'display:block;margin:0 auto;width:100%;height:auto' });
+  stage.appendChild(svg);
+  const gDyn = S('g'); svg.appendChild(gDyn);
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  const rect = (x, y, w, h, a) => S('rect', Object.assign({ x: x, y: y, width: Math.max(0, w), height: Math.max(0, h) }, a));
+  const path = (pts, a) => S('polyline', Object.assign({ points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none' }, a));
+  const col = { hand: '#f472b6', arm: '#f5a524', replay: '#c084fc', rigid: '#94a3b8' };
+
+  function drawSections(g) {
+    g.append(T(12, 22, 'The same corner, two tubes', 'tb'));
+    const panel = (x0, twin) => {
+      g.append(rect(x0, 30, 200, 128, { fill: '#0f141b', stroke: '#2a3341', rx: 6 }));
+      const cx = x0 + 96, cz = 108;                          // seam point
+      g.append(rect(cx - 88, cz, 88, 22, { fill: twin ? '#dfe6ee' : '#c8d0da', opacity: 0.9 })); g.append(T(cx - 84, cz + 15, twin ? 'printed plate' : 'plate', 'tf'));
+      g.append(rect(cx, cz - 60, 8, 82, { fill: twin ? '#67e8f9' : '#c8d0da', opacity: twin ? 0.35 : 0.95, stroke: twin ? '#67e8f9' : 'none' })); g.append(T(cx + 12, cz - 44, twin ? 'clear wall' : 'steel wall', 'tf'));
+      g.append(S('circle', { cx: cx - 2, cy: cz - 1, r: 3.2, fill: '#ff3b30' })); g.append(line(cx - 46, cz - 62, cx - 2, cz - 1, { stroke: '#ff3b30', 'stroke-width': 1.3 })); g.append(T(cx - 92, cz - 48, 'dot', 'tr'));
+      g.append(rect(cx - 30, 40, 16, 10, { fill: '#3b82f6', rx: 2 })); g.append(T(cx - 12, 48, 'judge', 'ts')); g.append(line(cx - 22, 50, cx - 4, cz - 4, { stroke: '#3b82f6', 'stroke-dasharray': '2 3' }));
+      g.append(rect(cx + 44, cz - 24, 14, 10, { fill: twin ? '#34d399' : '#ef4444', rx: 2 })); g.append(line(cx + 44, cz - 19, cx + 8, cz - 4, { stroke: twin ? '#34d399' : '#ef4444', 'stroke-dasharray': '2 3' }));
+      g.append(T(x0 + 100, 148, twin ? 'outside camera sees the corner, all round' : 'outside camera: the wall hides it', twin ? 'tok' : 'tr', 'middle'));
+    };
+    panel(12, false); panel(222, true);
+  }
+
+  function drawTrace(g) {
+    const x0 = 46, y0 = 196, w = 386, h = 150, ymax = 0.3, yc = y0 + h / 2, ky = h / 2 / ymax;
+    const px = i => x0 + i / (NS - 1) * w, py = v => yc - Math.max(-ymax * 1.02, Math.min(ymax * 1.02, v)) * ky;
+    const A = R.find(x => x.a.id === P.show);
+    g.append(T(12, y0 - 10, 'One lap of ' + A.a.name + ': dot minus seam, mm', 'tb'));
+    g.append(rect(x0, y0, w, h, { fill: '#10161e', stroke: '#2a3341' }));
+    [-0.2, -0.1, 0, 0.1, 0.2].forEach(v => { g.append(line(x0, py(v), x0 + w, py(v), { stroke: v === 0 ? '#3b4658' : '#1f2733' })); g.append(T(x0 - 5, py(v) + 3, v.toFixed(1), 'tf', 'end')); });
+    [0, 90, 180, 270, 360].forEach(a => { g.append(line(x0 + a / 360 * w, y0, x0 + a / 360 * w, y0 + h, { stroke: '#1f2733' })); g.append(T(x0 + a / 360 * w, y0 + h + 12, String(a), 'tf', 'middle')); });
+    // truth visible where a twin or notch is: shade the window
+    if (P.reqSrc === 'notch') g.append(rect(x0 + 20 / NS * w, y0, R.req.win / NS * w, h, { fill: '#34d399', opacity: 0.12 }));
+    if (P.reqSrc === 'twin') g.append(rect(x0, y0, w, h, { fill: '#34d399', opacity: 0.05 }));
+    g.append(path(A.e.map((v, i) => [px(i), py(v - rmsMean(A.e))]), { stroke: '#e2e8f0', 'stroke-width': 1.4, 'stroke-dasharray': '5 4' }));
+    g.append(path(A.J.map((v, i) => [px(i), py(v - rmsMean(A.J))]), { stroke: '#60a5fa', 'stroke-width': 1.2 }));
+    if (A.a.machine) A.tk.forEach((v, j) => { const i = Math.round(j * NS / P.K); g.append(S('circle', { cx: px(i), cy: py(v - rmsMean(A.e)), r: 3.6, fill: '#fbbf24', stroke: '#0e1218' })); });
+    let lx = x0; [['#e2e8f0', 'truth (hidden; the twin or a touch shows part of it)', '5 4'], ['#60a5fa', 'judge', null]].forEach(([c, t, d]) => { g.append(line(lx, y0 + h + 30, lx + 16, y0 + h + 30, { stroke: c, 'stroke-width': 2, 'stroke-dasharray': d || '' })); g.append(T(lx + 20, y0 + h + 33, t, 'tm')); lx += 30 + t.length * 5.4; });
+    if (A.a.machine) { g.append(S('circle', { cx: lx + 6, cy: y0 + h + 30, r: 3.6, fill: '#fbbf24' })); g.append(T(lx + 14, y0 + h + 33, 'touch at rest', 'tm')); }
+  }
+  const rmsMean = a => a.reduce((x, y) => x + y, 0) / a.length;
+
+  function drawReq(g) {
+    const x = 470, y = 40, q = R.req;
+    g.append(T(x, y - 18, 'The requirement: what a good hold delivers (the hand\'s rms)', 'tb'));
+    const rowq = (yy, label, val, band, on, note) => {
+      g.append(rect(x - 6, yy - 12, 392, 30, { fill: on ? '#f472b6' : '#10161e', opacity: on ? 0.14 : 1, stroke: on ? '#f472b6' : '#2a3341', rx: 4 }));
+      g.append(T(x, yy + 2, label, on ? 'tw hot' : 'tg')); g.append(T(x + 200, yy + 2, (val * 1000).toFixed(0) + ' µm', on ? 'ta hot' : 'tw'));
+      if (band) g.append(T(x + 250, yy + 2, 'band ' + (band[0] * 1000).toFixed(0) + ' to ' + (band[1] * 1000).toFixed(0), 'tf'));
+      g.append(T(x, yy + 13, note, 'tf'));
+    };
+    rowq(y + 8, 'Judge, real tube', q.judge, null, P.reqSrc === 'judge', 'includes the judge\'s gain and bias');
+    rowq(y + 44, 'Notch tube, 34° window', q.notch, q.notchBand, P.reqSrc === 'notch', '17 samples, about 5 s: 10 to 90 % of 80 draws');
+    rowq(y + 80, 'Clear twin, full lap', q.twin, q.twinBand, P.reqSrc === 'twin', 'no judge in it; hand\'s rms over the lap');
+    g.append(T(x, y + 128, 'true rms of the hand (hidden): ' + (R[0].tTrue * 1000).toFixed(0) + ' µm', 'tk'));
+    g.append(T(x, y + 144, 'scoring source for machines: ' + (P.score === 'judge' ? 'judge only' : 'judge + ' + P.K + ' touches at rest'), 'tm'));
+  }
+
+  function drawTable(g) {
+    const x0 = 12, y0 = 420, xs = [x0, 240, 318, 396, 474, 566, 690];
+    g.append(T(x0, y0 - 14, 'The yardstick\'s verdicts (an arrangement passes if its score is at or under the requirement)', 'tb'));
+    ['arrangement', 'true rms', 'judge says', 'touches say', 'score used', 'verdict', 'against truth'].forEach((h, i) => g.append(T(xs[i] + 4, y0 + 6, h, 'tf')));
+    const req = P.reqSrc === 'judge' ? R.req.judge : (P.reqSrc === 'twin' ? R.req.twin : R.req.notch), truthReq = R[0].tTrue;
+    let flips = 0;
+    R.forEach((r, i) => {
+      const yy = y0 + 30 + i * 32, m = r.a.machine;
+      const score = m && P.score === 'touch' ? r.tTouch : r.tJudge;
+      const pass = score <= req, tpass = r.tTrue <= truthReq, flip = pass !== tpass && i > 0;
+      if (flip) flips++;
+      g.append(rect(x0 - 4, yy - 14, 850, 26, { fill: flip ? '#f87171' : '#10161e', opacity: flip ? 0.16 : 1, stroke: flip ? '#f87171' : '#2a3341', rx: 4 }));
+      g.append(rect(x0 - 4, yy - 14, 5, 26, { fill: col[r.a.id] }));
+      g.append(T(xs[0] + 6, yy + 3, r.a.name, 'tw')); g.append(T(xs[1] + 4, yy + 3, (r.tTrue * 1000).toFixed(0) + ' µm', 'tk'));
+      g.append(T(xs[2] + 4, yy + 3, (r.tJudge * 1000).toFixed(0) + ' µm', 'ts')); g.append(T(xs[3] + 4, yy + 3, m ? (r.tTouch * 1000).toFixed(0) + ' µm' : 'not at rest', m ? 'ta' : 'tf'));
+      g.append(T(xs[4] + 4, yy + 3, (score * 1000).toFixed(0) + ' µm', 'tw'));
+      g.append(T(xs[5] + 4, yy + 3, i === 0 ? 'the requirement' : (pass ? 'passes' : 'fails'), i === 0 ? 'tf' : (pass ? 'tok hot' : 'tr hot')));
+      g.append(T(xs[6] + 4, yy + 3, i === 0 ? '-' : (tpass ? 'should pass' : 'should fail') + (flip ? '  (FLIP)' : ''), flip ? 'tr hot' : 'tm'));
+    });
+    const sy = y0 + 30 + 4 * 32 + 8;
+    g.append(T(x0, sy, flips ? flips + ' verdict' + (flips > 1 ? 's' : '') + ' differ from the truth in this setting.' : 'Every verdict agrees with the truth in this setting.', flips ? 'tr hot' : 'tok hot'));
+    g.append(T(x0, sy + 16, 'Truth here means true rms against the hand\'s true rms; both hidden from software except through the sources chosen above.', 'tf'));
+    g.append(T(x0, sy + 30, 'The friction arm and the rigid stand fail the hand\'s requirement on any source; the replay is the one the judge cannot score.', 'tf'));
+    g.append(T(x0, sy + 44, 'The error models are illustrative shapes (see Assumptions): measuring them is the point of the yardstick.', 'tf'));
+    return flips;
+  }
+
+  function updateIO(flips) {
+    const A = R.find(x => x.a.id === P.show);
+    app.io.set({
+      commands: [
+        { name: 'Rotator', value: '49 s / lap', note: 'existing; 8 mm/s [repo]' },
+        { name: 'Touch sequence at rest', value: P.K + ' azimuths', note: 'proposed; machines only: a moving hand cannot be touched' },
+        { name: 'Scoring script', value: P.score === 'judge' ? 'judge' : 'judge + touch', note: 'the same for every arrangement' },
+      ],
+      observes: [
+        { name: 'Judge, dot vs seam', value: (A.tJudge * 1000).toFixed(0), unit: 'µm rms', status: 'partly', note: 'gain and bias in it; blind to what a judge-built map imprints' },
+        { name: 'Outside camera on the twin', value: P.reqSrc === 'twin' ? (R[0].tTrue * 1000).toFixed(0) : '-', unit: P.reqSrc === 'twin' ? 'µm rms (hand)' : '', status: P.reqSrc === 'twin' ? 'seen' : 'blind', note: 'a see-through corner: truth at every angle, on a different tube' },
+        { name: 'Touches at rest', value: A.a.machine ? (A.tTouch * 1000).toFixed(0) : '-', unit: A.a.machine ? 'µm rms' : '', status: A.a.machine ? 'seen' : 'blind', note: 'true error at K azimuths on the real tube' },
+        { name: 'Verdicts against truth', value: flips, unit: 'flipped', status: 'partly', note: 'known only because the scene knows the truth' },
+        { name: 'Weld quality', value: '?', status: 'unresolved', note: 'a dry-run number is not a weld result [unknown]' },
+      ],
+      manual: ['Holding the gun for ten laps over the twin', 'Making the twin', 'Deciding the requirement'],
+    });
+  }
+
+  function render() {
+    while (gDyn.firstChild) gDyn.removeChild(gDyn.firstChild);
+    drawSections(gDyn); drawTrace(gDyn); drawReq(gDyn);
+    const flips = drawTable(gDyn);
+    app.badge('flip', flips ? flips + ' verdict' + (flips > 1 ? 's' : '') + ' flipped against the truth' : null, 'warn');
+    updateIO(flips);
+  }
+
+  // ---------------------------------------------------------------- controls
+  const gj = app.ui.group('The judge (scene edits, illustrative)', { open: true });
+  gj.slider({ id: 'bias', label: 'Judge bias that turns with the tube', min: 0, max: 0.15, step: 0.005, value: 0.04, unit: 'mm', kind: 'scene', help: 'Glare, tint, tack marks. The replay imprints it; the hand\'s judged error picks it up in quadrature.', onChange: v => { P.bias = v; compute(); render(); } });
+  gj.slider({ id: 'gain', label: 'Judge gain error', min: 0, max: 0.4, step: 0.01, value: 0.15, kind: 'scene', format: v => (v * 100).toFixed(0) + ' %', help: 'The dot on a plate near a wall reads too big or small (the tan(beta) confound of trials-03).', onChange: v => { P.gain = v; compute(); render(); } });
+  gj.slider({ id: 'noise', label: 'Judge noise per reading', min: 0.005, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: v => { P.noise = v; compute(); render(); } });
+  const gs = app.ui.group('Sources of truth', { open: true });
+  gs.radio({ id: 'reqSrc', label: 'The requirement (hand) is measured by', options: [{ value: 'judge', label: 'The judge, real tube' }, { value: 'notch', label: 'A notch tube (34°)' }, { value: 'twin', label: 'A clear twin' }], value: 'judge', kind: 'branch', help: 'trials-11 uses the judge; the notch tube and the twin have an outside camera on the dot.', onChange: v => { P.reqSrc = v; render(); } });
+  gs.radio({ id: 'score', label: 'Machines are scored by', options: [{ value: 'judge', label: 'The judge only' }, { value: 'touch', label: 'The judge + touches at rest' }], value: 'judge', kind: 'branch', help: 'Touches at K azimuths read the dot\'s true error where the tool is.', onChange: v => { P.score = v; render(); } });
+  gs.slider({ id: 'K', label: 'Touch azimuths', min: 4, max: 16, step: 1, value: 8, kind: 'scene', onChange: v => { P.K = v; compute(); render(); } });
+  gs.slider({ id: 'tnoise', label: 'Touch noise', min: 0.005, max: 0.08, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', onChange: v => { P.tnoise = v; compute(); render(); } });
+  const gv = app.ui.group('View', { open: true });
+  gv.radio({ id: 'show', label: 'Lap shown', options: ARR.map(a => ({ value: a.id, label: a.name })), value: 'hand', kind: 'view', onChange: v => { P.show = v; render(); } });
+  gv.button({ id: 'again', label: 'Another draw of the laps', kind: 'state', onClick: () => { P.seed++; compute(); render(); } });
+  window.__dbg = () => ({ rows: R.map(r => ({ id: r.a.id, true: +r.tTrue.toFixed(4), judge: +r.tJudge.toFixed(4), touch: isNaN(r.tTouch) ? null : +r.tTouch.toFixed(4) })), req: { judge: +R.req.judge.toFixed(4), twin: +R.req.twin.toFixed(4), notch: +R.req.notch.toFixed(4), notchBand: R.req.notchBand.map(v => +v.toFixed(3)), twinBand: R.req.twinBand.map(v => +v.toFixed(3)) } });
+  compute(); render();
+})();
+</script>
+</body>
+</html>

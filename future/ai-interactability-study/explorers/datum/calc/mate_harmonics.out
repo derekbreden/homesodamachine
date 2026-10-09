@@ -1,0 +1,62 @@
+A. Default illustrative tube (indicated to the rig limit 0.25 TIR: w = 0.125), three pads or fingers, roller 10 mm ahead
+   w (indicated residual amplitude) 0.125, wall eccentricity b1 0.080, ovality b2 0.100, b3 0.030, b4 0.020 mm; k = 3, lead s = 10 mm
+   reference                                   rms med  rms p90   p-p med   harmonic amplitudes n=1..5 (mean over phases)
+   room-fixed gun, tube indicated to w           0.131    0.162     0.429   0.139 0.100 0.030 0.020 0.000
+   ring on the OD (k pads, then locked)          0.118    0.152     0.394   0.120 0.100 0.030 0.020 0.000
+   ring on the bore (k fingers, then locked)     0.104    0.113     0.365   0.101 0.100 0.030 0.020 0.000
+   roller on the bore, lead s                    0.028    0.028     0.101   0.013 0.032 0.014 0.013 0.000
+
+B. The same tube indicated well (0.06 TIR, w = 0.03): a rigid crown has less to win
+   w (indicated residual amplitude) 0.030, wall eccentricity b1 0.080, ovality b2 0.100, b3 0.030, b4 0.020 mm; k = 3, lead s = 10 mm
+   reference                                   rms med  rms p90   p-p med   harmonic amplitudes n=1..5 (mean over phases)
+   room-fixed gun, tube indicated to w           0.097    0.108     0.333   0.083 0.100 0.030 0.020 0.000
+   ring on the OD (k pads, then locked)          0.118    0.152     0.394   0.120 0.100 0.030 0.020 0.000
+   ring on the bore (k fingers, then locked)     0.104    0.113     0.365   0.101 0.100 0.030 0.020 0.000
+   roller on the bore, lead s                    0.028    0.028     0.101   0.013 0.032 0.014 0.013 0.000
+
+C. Four pads or fingers: they reject n=2 and pass n=3 and n=5
+   w (indicated residual amplitude) 0.125, wall eccentricity b1 0.080, ovality b2 0.100, b3 0.030, b4 0.020 mm; k = 4, lead s = 10 mm
+   reference                                   rms med  rms p90   p-p med   harmonic amplitudes n=1..5 (mean over phases)
+   room-fixed gun, tube indicated to w           0.131    0.162     0.429   0.139 0.100 0.030 0.020 0.000
+   ring on the OD (k pads, then locked)          0.096    0.107     0.331   0.083 0.100 0.030 0.020 0.000
+   ring on the bore (k fingers, then locked)     0.078    0.078     0.266   0.030 0.100 0.030 0.020 0.000
+   roller on the bore, lead s                    0.028    0.028     0.101   0.013 0.032 0.014 0.013 0.000
+
+D. Wall eccentricity larger than ovality (b1 = 0.15, b2 = 0.05): the bore reference gains what the OD ring cannot know
+   w (indicated residual amplitude) 0.125, wall eccentricity b1 0.150, ovality b2 0.050, b3 0.030, b4 0.020 mm; k = 3, lead s = 10 mm
+   reference                                   rms med  rms p90   p-p med   harmonic amplitudes n=1..5 (mean over phases)
+   room-fixed gun, tube indicated to w           0.149    0.197     0.453   0.179 0.050 0.030 0.020 0.000
+   ring on the OD (k pads, then locked)          0.121    0.154     0.372   0.156 0.050 0.030 0.020 0.000
+   ring on the bore (k fingers, then locked)     0.058    0.066     0.212   0.052 0.050 0.030 0.020 0.000
+   roller on the bore, lead s                    0.025    0.025     0.091   0.024 0.016 0.014 0.013 0.000
+
+E. A tube that is oval to the rig limit (b2 = 0.11: the OD indicator reads 0.22 TIR) and nearly concentric, well centred (w = 0.015): a 3-pad ring adds a first harmonic as big as the ovality
+   w (indicated residual amplitude) 0.015, wall eccentricity b1 0.030, ovality b2 0.110, b3 0.030, b4 0.020 mm; k = 3, lead s = 10 mm
+   reference                                   rms med  rms p90   p-p med   harmonic amplitudes n=1..5 (mean over phases)
+   room-fixed gun, tube indicated to w           0.085    0.088     0.288   0.032 0.110 0.030 0.020 0.000
+   ring on the OD (k pads, then locked)          0.114    0.134     0.394   0.114 0.110 0.030 0.020 0.000
+   ring on the bore (k fingers, then locked)     0.113    0.123     0.396   0.111 0.110 0.030 0.020 0.000
+   roller on the bore, lead s                    0.029    0.029     0.103   0.005 0.035 0.014 0.013 0.000
+
+F. Roller lead s, default tube: rms of the varying radial error (median over phases), and the fraction of the shape it leaves. The lead costs 2 sin(n s / 2R) of harmonic n.
+   s (mm)   lead angle   n=1     n=2     n=3     n=4    rms med   [gain 2 sin(n s / 2R)]
+      0       0.0 deg   0.00    0.00    0.00    0.00     0.000
+      4       3.7 deg   0.06    0.13    0.19    0.26     0.011
+      6       5.6 deg   0.10    0.19    0.29    0.39     0.017
+     10       9.3 deg   0.16    0.32    0.48    0.64     0.028
+     14      13.0 deg   0.23    0.45    0.67    0.87     0.039
+     18      16.7 deg   0.29    0.57    0.85    1.10     0.050
+     25      23.2 deg   0.40    0.79    1.14    1.45     0.068
+     40      37.1 deg   0.64    1.21    1.65    1.92     0.103
+   A lead does not have to stay: software with an actuator can delay the reading by s / v (2.1 s at 17 mm and 8 mm/s); a passive clip cannot.
+
+G. The crown's radial win over a room-fixed gun on an indicated tube = w - (what the seat passes). Median rms difference room minus OD ring, mm (positive: the crown wins)
+   rows: w (residual after indicating); columns: b2 (ovality) with k = 3 pads / k = 4 pads; b1 = 0.08, b3 = 0.03.
+   The rig accepts a tube when the OD indicator reads <= 0.25 TIR, so accepted tubes have w + ovality + ... <= about 0.125 in amplitude: the corner cells
+   (w = 0.125 with b2 = 0.11) are outside what the rig would accept and are kept only to show the trend.
+   w = 0.0125   b2 = 0.03:  -0.002 / -0.000    b2 = 0.06:  -0.009 / -0.000    b2 = 0.11:  -0.027 / -0.000
+   w = 0.0300   b2 = 0.03:   0.002 /  0.004    b2 = 0.06:  -0.006 /  0.003    b2 = 0.11:  -0.024 /  0.003
+   w = 0.0600   b2 = 0.03:   0.012 /  0.015    b2 = 0.06:   0.004 /  0.013    b2 = 0.11:  -0.016 /  0.010
+   w = 0.1250   b2 = 0.03:   0.046 /  0.048    b2 = 0.06:   0.035 /  0.045    b2 = 0.11:   0.010 /  0.037
+   b1 (wall eccentricity) is common to the room-fixed gun and to every OD ring, so it raises the floor of both and cannot cancel the crown's win;
+   what decides the radial win is w (how well the tube was indicated) against what the pads pass (ovality at k = 3, three-lobing at k = 4).
