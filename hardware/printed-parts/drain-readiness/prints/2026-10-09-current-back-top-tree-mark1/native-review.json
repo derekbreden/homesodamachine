@@ -1,0 +1,96 @@
+{
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "project": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.3mf",
+  "project_sha256": "1dc973acde1489e06b3ca943f2a7fd4eeb9a0a4c6c8fcac60612f785058316b6",
+  "source_retry_project": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+  "source_retry_project_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "settings_changes": {
+    "support_type": {
+      "from": "normal(auto)",
+      "to": "tree(auto)"
+    },
+    "tree_support_branch_diameter_angle": {
+      "from": "5",
+      "to": "0.5"
+    }
+  },
+  "all_other_project_members_byte_identical": true,
+  "mesh_and_modifier_geometry_byte_identical": true,
+  "placement_translation_change_mm": [
+    -5,
+    0,
+    0
+  ],
+  "changed_project_members": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config",
+    "Metadata/project_settings.config"
+  ],
+  "all_other_native_process_settings_retained": true,
+  "slicer_computed_fields": {
+    "filament_prime_volume": {
+      "prepared": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "automatic_support_choices_retained": true,
+  "support_style": "default",
+  "solid_host_modifier_count": 23,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "probing_clump_calls": 0,
+  "insertion_pause_count": 0,
+  "zip_crc_and_gcode_md5_pass": true,
+  "full_native_bead_footprint": {
+    "extrusion_bounds_xy_mm": [
+      [
+        21.399318,
+        52.231318
+      ],
+      [
+        302.974682,
+        267.768682
+      ]
+    ],
+    "maximum_line_width_mm": 0.757364,
+    "bounds_padding_mm": 0.47868200000000005
+  },
+  "complete_layer_bead_minimum_bed_margin_mm": 21.399318,
+  "required_bed_margin_mm": 20,
+  "additive_layer_band": {
+    "name": "additive exterior roof band",
+    "print_z_mm": [
+      0.2,
+      9.3
+    ],
+    "wall_layer_count": 38,
+    "first_wall_layer": [
+      0.44,
+      0.24
+    ],
+    "last_wall_layer": [
+      9.32,
+      0.24
+    ],
+    "wrong_height_layers": [],
+    "uncovered_intervals_mm": [],
+    "pass": true
+  },
+  "model_wall_layer_count": 822,
+  "scope": "Frozen mating geometry, reinforcement and layer schedule; support changes are limited to the recorded automatic support settings. Native bounds include every model/support/brim bead. Support contact clearance and cleanup are separate readings.",
+  "footprint_pass": true,
+  "estimated_seconds": 99177.0,
+  "estimated_filament_g": 844.4048461914062,
+  "pass": true
+}

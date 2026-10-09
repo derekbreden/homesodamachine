@@ -1,0 +1,289 @@
+{
+  "pass": true,
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "protected_show_face_count": 9,
+  "auxiliary_functional_face_count": 1,
+  "auxiliary_functional_potential_contacts": 4,
+  "support_roads_checked": 621569,
+  "support_road_max_print_z_mm": 185.72,
+  "support_road_max_width_mm": 0.62,
+  "support_road_max_height_mm": 0.240005,
+  "native_bbox_candidate_pairs": 35714,
+  "analytic_surface_lower_bound_exclusions": 0,
+  "exact_native_edge_to_face_pairs": 35714,
+  "minimum_candidate_bead_clearance_lower_bound_mm": 0.19136442642836815,
+  "potential_bead_contacts": [],
+  "method": "Every emitted support road uses its own width/height capsule. Native face bounding boxes exclude distant capsules. Exact infinite-plane/cylinder distance lower bounds may exclude a finite face only when the lower bound exceeds the bead radius; remaining candidates receive exact native edge-to-face queries. Nine current exact native exterior roof/chamfer/R6-runout/R12-corner/sidewall faces are identified by their full boundary and outward orientation. The full flat rear port plane receives a separate retained contact reading; it is not claimed support-free. Every road comes from this fresh archive.",
+  "scope": "Every fresh native support road is checked against exact protected exterior surfaces. The accessible rear-port field is read separately. This is geometric clearance, not physical cleanup or surface acceptance.",
+  "elapsed_seconds": 116.3472421169281,
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "protected_show_faces": [
+    {
+      "native_face": 0,
+      "functional_surface": "west exterior standing wall",
+      "type": "PLANE",
+      "bounds_cad_mm": [
+        -107.5,
+        200.0,
+        160.0,
+        -107.5,
+        459.3,
+        349.0
+      ],
+      "native_area_mm2": 48898.25314076638,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 1,
+      "functional_surface": "exterior rear standing R12 corner",
+      "type": "CYLINDER",
+      "bounds_cad_mm": [
+        -107.5000001,
+        459.2999999,
+        159.9999999,
+        -95.4999999,
+        471.30000010000003,
+        355.00000010002543
+      ],
+      "native_area_mm2": 3650.9091739575406,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 2,
+      "functional_surface": "retained outer R6 roof-side runout",
+      "type": "CYLINDER",
+      "bounds_cad_mm": [
+        -107.5000001,
+        199.9999999,
+        348.9999999,
+        -106.86656303807239,
+        463.14723836243,
+        351.68328168443145
+      ],
+      "native_area_mm2": 726.7544367259418,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 13,
+      "functional_surface": "complete exterior roof bed face",
+      "type": "PLANE",
+      "bounds_cad_mm": [
+        -105.20820393250229,
+        200.0,
+        355.0,
+        105.20820393249598,
+        471.3,
+        355.0
+      ],
+      "native_area_mm2": 51681.927311557985,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 14,
+      "functional_surface": "exterior additive roof-side chamfer",
+      "type": "PLANE",
+      "bounds_cad_mm": [
+        -106.86656314599362,
+        200.0,
+        351.683281573,
+        -105.2082039324,
+        466.3534230275329,
+        355.0000000000254
+      ],
+      "native_area_mm2": 982.4835793470231,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 27,
+      "functional_surface": "exterior rear standing R12 corner",
+      "type": "CYLINDER",
+      "bounds_cad_mm": [
+        95.4999999,
+        459.2999999,
+        159.9999999,
+        107.5000001,
+        471.30000010000003,
+        355.0000001
+      ],
+      "native_area_mm2": 3650.9091766721303,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 28,
+      "functional_surface": "east exterior standing wall",
+      "type": "PLANE",
+      "bounds_cad_mm": [
+        107.5,
+        200.0,
+        160.0,
+        107.5,
+        459.3,
+        349.0
+      ],
+      "native_area_mm2": 48980.45314196592,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 95,
+      "functional_surface": "exterior additive roof-side chamfer",
+      "type": "PLANE",
+      "bounds_cad_mm": [
+        105.20820393249,
+        200.0,
+        351.68328157298964,
+        106.86656314600019,
+        466.35342302751496,
+        355.0
+      ],
+      "native_area_mm2": 982.4835793469658,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    },
+    {
+      "native_face": 152,
+      "functional_surface": "retained outer R6 roof-side runout",
+      "type": "CYLINDER",
+      "bounds_cad_mm": [
+        106.86656304599,
+        199.9999999,
+        348.9999999,
+        107.5000001,
+        463.14723836243,
+        351.6832816853708
+      ],
+      "native_area_mm2": 726.7544373688612,
+      "scope": "protected exterior roof/chamfer/runout/corner/sidewall"
+    }
+  ],
+  "functional_rear_port_field": {
+    "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+    "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+    "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+    "native_faces": [
+      {
+        "native_face": 12,
+        "functional_surface": "flat rear C14/port field; separate functional contact reading",
+        "type": "PLANE",
+        "bounds_cad_mm": [
+          -95.5,
+          471.3,
+          160.0,
+          95.5,
+          471.3,
+          355.0
+        ],
+        "native_area_mm2": 25869.585962967718,
+        "scope": "functional rear-port field, outside protected roof transitions"
+      }
+    ],
+    "potential_actual_bead_contacts": [
+      {
+        "native_face": 12,
+        "protected_show_transition": false,
+        "gcode_line": 383495,
+        "z_print_mm": 10.04,
+        "feature": "Support",
+        "road_midheight_cad_mm": [
+          [
+            74.65100000000001,
+            471.6109938964844,
+            345.08000000000004
+          ],
+          [
+            74.34700000000001,
+            471.2839938964844,
+            345.08000000000004
+          ]
+        ],
+        "width_mm": 0.62,
+        "height_mm": 0.24,
+        "conservative_radius_mm": 0.33242540277189325,
+        "native_centreline_distance_lower_bound_mm": 0.2805808375499623,
+        "bead_envelope_clearance_lower_bound_mm": -0.05184456522193093,
+        "method": "exact native edge-to-face"
+      },
+      {
+        "native_face": 12,
+        "protected_show_transition": false,
+        "gcode_line": 383496,
+        "z_print_mm": 10.04,
+        "feature": "Support",
+        "road_midheight_cad_mm": [
+          [
+            74.34700000000001,
+            471.2839938964844,
+            345.08000000000004
+          ],
+          [
+            73.96700000000001,
+            471.0439938964844,
+            345.08000000000004
+          ]
+        ],
+        "width_mm": 0.62,
+        "height_mm": 0.24,
+        "conservative_radius_mm": 0.33242540277189325,
+        "native_centreline_distance_lower_bound_mm": 0.2810370113525817,
+        "bead_envelope_clearance_lower_bound_mm": -0.05138839141931156,
+        "method": "exact native edge-to-face"
+      },
+      {
+        "native_face": 12,
+        "protected_show_transition": false,
+        "gcode_line": 383500,
+        "z_print_mm": 10.04,
+        "feature": "Support",
+        "road_midheight_cad_mm": [
+          [
+            72.66,
+            471.04699389648437,
+            345.08000000000004
+          ],
+          [
+            72.213,
+            471.2979938964844,
+            345.08000000000004
+          ]
+        ],
+        "width_mm": 0.62,
+        "height_mm": 0.24,
+        "conservative_radius_mm": 0.33242540277189325,
+        "native_centreline_distance_lower_bound_mm": 0.28058800910151827,
+        "bead_envelope_clearance_lower_bound_mm": -0.05183739367037499,
+        "method": "exact native edge-to-face"
+      },
+      {
+        "native_face": 12,
+        "protected_show_transition": false,
+        "gcode_line": 383501,
+        "z_print_mm": 10.04,
+        "feature": "Support",
+        "road_midheight_cad_mm": [
+          [
+            72.213,
+            471.2979938964844,
+            345.08000000000004
+          ],
+          [
+            71.792,
+            471.66799389648435,
+            345.08000000000004
+          ]
+        ],
+        "width_mm": 0.62,
+        "height_mm": 0.24,
+        "conservative_radius_mm": 0.33242540277189325,
+        "native_centreline_distance_lower_bound_mm": 0.2805808375499623,
+        "bead_envelope_clearance_lower_bound_mm": -0.05184456522193093,
+        "method": "exact native edge-to-face"
+      }
+    ],
+    "method": "All actual fresh support roads receive the same conservative own-width/height capsule test against the full flat rear port plane. The functional C14 port reading is retained separately from the nine protected roof/chamfer/runout/corner/sidewall faces. A conservative capsule witness is a potential support contact, not a claim of physical scarring.",
+    "functional_region": "Retained C14 station X66.9 pocket and bore hood crown on the exterior rear port field. The flange pocket floor, receptacle locating faces and insertion opening keep their required stock. Support contacts are released through the exposed rear side before installing the inlet or other hardware.",
+    "physical_support_removal_verified": false,
+    "physical_finish_tested": false
+  },
+  "detailed_native_reading_sha256": "8cfe48102a604f7590005f524073ea4b334933877d535ec36f3cf75846403c93"
+}

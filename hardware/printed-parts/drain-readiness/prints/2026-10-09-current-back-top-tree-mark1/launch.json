@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "printer": "Mark1",
+  "read_alias": "H2C",
+  "authorization": {
+    "retry_quote": "Please try again. Mark1 bed is clear.",
+    "support_quote": "\"Auto\" is fine ... I've yet to see bambu's auto put a normal support in an impossible to remove place ... it's when you choose to put normal somewhere that it introduces problems. I just want to make sure you don't overcorrec there."
+  },
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "prepared_project": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.3mf",
+  "prepared_project_sha256": "1dc973acde1489e06b3ca943f2a7fd4eeb9a0a4c6c8fcac60612f785058316b6",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "compatibility_review": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/compatibility-check.json",
+  "compatibility_review_sha256": "ac6fc7045087e201b871af42bf597c82746781c6cf29bf737b46fae3f9fe839f",
+  "compatibility_checks": 50,
+  "compatibility_geometry_identical": true,
+  "native_review": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/native-review.json",
+  "native_review_sha256": "e278b3e7da3f2236a7d2ead27c8d2bb27cfb6eee04b3eb3f9e7783eb1c8efc89",
+  "support_clearance_review_sha256": "f01510c46afe759c597633b258ca75e69170447280c6c13d6cd0232ce62a9655",
+  "support_region_presence_review_sha256": "47afbb1a24d41426fd04eca8ea6973056bf075f5cfd35fa517ce5eb56de0c3eb",
+  "settings": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "tree_support_branch_angle_degrees": 45,
+    "tree_support_branch_diameter_angle_degrees": 0.5,
+    "material": "PET-GF",
+    "device_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "side": "LEFT",
+    "fixed_nozzle_mm": 0.4,
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16,
+    "probing_clump_detection": false
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "estimated_seconds": 99177.0,
+  "foreground_send_method": "Bambu Connect CUA",
+  "maximum_foreground_transactions": 1,
+  "launch_authorized": true,
+  "send_attempted": true,
+  "submitted": true,
+  "accepted": true,
+  "send_count": 1,
+  "auto_resume_authorized": false,
+  "monitor_scheduled": false,
+  "status": "Exact replacement accepted; startup in progress",
+  "replaces_rejected_task_id": "1320974719",
+  "import_attempted": true,
+  "import_count": 1,
+  "import_attempted_at_utc": "2026-10-09T22:44:01.785577+00:00",
+  "send_attempted_at_utc": "2026-10-09T22:45:54.357234+00:00",
+  "send_click_count": 1,
+  "send_click_recorded_before_input_at_utc": "2026-10-09T22:45:54.357234+00:00",
+  "send_successful": true,
+  "accepted_at_utc": "2026-10-09T22:46:10.427131+00:00",
+  "accepted_at_central": "2026-10-09T17:46:10.427131-05:00",
+  "printer_task_id": "1324612230",
+  "printer_job_id": "1324612230",
+  "accepted_archive_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "acceptance_observation": {
+    "observed_at_utc": "2026-10-09T22:46:10.427131+00:00",
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "archive": {
+      "name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+      "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+      "slots": {
+        "1": {
+          "type": "PET-CF",
+          "colour": "000000"
+        }
+      },
+      "objects": [
+        "enclosure-back-top"
+      ]
+    },
+    "reading": {
+      "task_id": "1324612230",
+      "job_id": "1324612230",
+      "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "layer_num": 1535,
+      "total_layer_num": 1535,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1
+    },
+    "accepted": true,
+    "acceptance_method": "Matching new task/job, exact reviewed archive basename and PREPARE/RUNNING after one foreground Bambu Connect Send"
+  },
+  "latest_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-09T22:46:58.921117+00:00",
+    "task_id": "1324612230",
+    "job_id": "1324612230",
+    "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 813,
+    "mc_percent": 0,
+    "mc_remaining_time": 1652,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 33,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 165,
+          "target_c": 200
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 25,
+      "target_c": 0
+    }
+  },
+  "post_start_peer_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-09T22:46:58.732360+00:00",
+    "task_id": "1324374637",
+    "job_id": "1324374637",
+    "subtask_name": "2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 122,
+    "total_layer_num": 3509,
+    "mc_percent": 14,
+    "mc_remaining_time": 664,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 48,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 36,
+      "target_c": 0
+    }
+  },
+  "estimated_finish_at_utc": "2026-10-11T02:19:07.427131+00:00",
+  "estimated_finish_at_central": "2026-10-10T21:19:07.427131-05:00",
+  "estimate_scope": "Native duration from observed acceptance; startup, actual speed and pauses may change completion time.",
+  "initial_counter_fields_scope": "PREPARE acceptance may retain previous-job layer counters until the printer resets them; no first-layer progress or adhesion is inferred.",
+  "start_notification_reported": true
+}

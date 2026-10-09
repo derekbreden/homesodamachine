@@ -1,0 +1,812 @@
+{
+  "project": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.3mf",
+  "settings_source": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+  "settings_source_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+  "settings_sha256": "9e9b3182078d6d87b43df6d912131916bfbee88d4e110b7ebf832cee0d0bffa9",
+  "source_settings_sha256": "92e1ac15813d90d9e2f289709bf1c1b4ab321698551d31e9eba344b7c5681668",
+  "settings_changes": {
+    "support_type": {
+      "from": "normal(auto)",
+      "to": "tree(auto)"
+    },
+    "tree_support_branch_diameter_angle": {
+      "from": "5",
+      "to": "0.5"
+    }
+  },
+  "printer": "Mark1",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+      "triangles": 689932,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        335.6499938964844,
+        257.5
+      ],
+      "build_transform": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.2246467991473532e-16,
+        1.2246467991473532e-16,
+        0.0,
+        -1.0,
+        157.5,
+        160.0,
+        97.50000000000001
+      ],
+      "plate_translation_mm": [
+        157.5,
+        160.0,
+        97.50000000000001
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          21.850006103999988,
+          52.5,
+          0.0
+        ],
+        [
+          293.149993896,
+          267.5,
+          195.00000000000003
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "rotation_z_degrees": 90.0
+    }
+  ],
+  "project_sha256": "1dc973acde1489e06b3ca943f2a7fd4eeb9a0a4c6c8fcac60612f785058316b6",
+  "settings_preserved_byte_for_byte": false,
+  "show_support_blocked_faces": 53543,
+  "solid_host_regions": [
+    {
+      "name": "Y seam shank and fore ligament +1/282.05",
+      "machine_bounds_mm": [
+        -107.5,
+        -98.5,
+        200.0,
+        219.8,
+        274.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -98.5,
+        200.00100000048437,
+        219.8,
+        274.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Y seam shank and fore ligament -1/291.05",
+      "machine_bounds_mm": [
+        98.5,
+        107.5,
+        200.0,
+        219.8,
+        283.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.5,
+        107.499,
+        200.00100000048437,
+        219.8,
+        283.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root -1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.0,
+        200.0,
+        471.3,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.0,
+        200.00100000048437,
+        471.2989877924844,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root +1",
+      "machine_bounds_mm": [
+        90.0,
+        107.5,
+        200.0,
+        471.3,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.0,
+        107.499,
+        200.00100000048437,
+        471.2989877924844,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 361.3/262.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        357.3,
+        365.3,
+        258.65,
+        266.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        357.3,
+        365.3,
+        258.65,
+        266.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 459.3/262.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        455.3,
+        463.3,
+        258.65,
+        266.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        455.3,
+        463.3,
+        258.65,
+        266.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 361.3/295.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        357.3,
+        365.3,
+        291.65,
+        299.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        357.3,
+        365.3,
+        291.65,
+        299.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 459.3/295.9",
+      "machine_bounds_mm": [
+        98.25,
+        107.5,
+        455.3,
+        463.3,
+        291.65,
+        299.9
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        98.25,
+        107.499,
+        455.3,
+        463.3,
+        291.65,
+        299.9
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 245.3/256.9",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        241.3,
+        249.3,
+        250.65000000000003,
+        260.90000000000003
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        241.3,
+        249.3,
+        250.65000000000003,
+        260.90000000000003
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 323.3/256.9",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        319.3,
+        327.3,
+        250.65000000000003,
+        260.90000000000003
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        319.3,
+        327.3,
+        250.65000000000003,
+        260.90000000000003
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 323.3/323.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        319.3,
+        327.3,
+        316.95,
+        327.2
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        319.3,
+        327.3,
+        316.95,
+        327.2
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 245.3/323.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        241.3,
+        249.3,
+        316.95,
+        327.2
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        241.3,
+        249.3,
+        316.95,
+        327.2
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 347.8/321.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        343.8,
+        351.8,
+        315.15,
+        325.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        343.8,
+        351.8,
+        315.15,
+        325.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 334.8/321.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        330.8,
+        338.8,
+        315.15,
+        325.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        330.8,
+        338.8,
+        315.15,
+        325.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 347.8/255.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        343.8,
+        351.8,
+        249.14999999999998,
+        259.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        343.8,
+        351.8,
+        249.14999999999998,
+        259.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 334.8/255.4",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        330.8,
+        338.8,
+        249.14999999999998,
+        259.4
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        330.8,
+        338.8,
+        249.14999999999998,
+        259.4
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 324.8/331.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        320.8,
+        328.8,
+        324.95000000000005,
+        335.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        320.8,
+        328.8,
+        324.95000000000005,
+        335.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 324.8/344.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        320.8,
+        328.8,
+        337.95000000000005,
+        348.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        320.8,
+        328.8,
+        337.95000000000005,
+        348.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 258.8/331.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        254.8,
+        262.8,
+        324.95000000000005,
+        335.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        254.8,
+        262.8,
+        324.95000000000005,
+        335.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 258.8/344.2",
+      "machine_bounds_mm": [
+        96.25,
+        107.5,
+        254.8,
+        262.8,
+        337.95000000000005,
+        348.20000000000005
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        96.25,
+        107.499,
+        254.8,
+        262.8,
+        337.95000000000005,
+        348.20000000000005
+      ]
+    },
+    {
+      "name": "Electronics host and wall root 338.8/338.044",
+      "machine_bounds_mm": [
+        92.25,
+        107.5,
+        334.80000010000003,
+        342.80000010000003,
+        327.7942287340604,
+        342.0442287340604
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        92.25,
+        107.499,
+        334.80000010000003,
+        342.80000010000003,
+        327.7942287340604,
+        342.0442287340604
+      ]
+    },
+    {
+      "name": "C14 host and wall 46.9",
+      "machine_bounds_mm": [
+        41.900000000000006,
+        51.900000000000006,
+        463.05,
+        471.3,
+        331.2105808375568,
+        341.2105808375568
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        41.900000000000006,
+        51.900000000000006,
+        463.05,
+        471.2989877924844,
+        331.2105808375568,
+        341.2105808375568
+      ]
+    },
+    {
+      "name": "C14 host and wall 86.9",
+      "machine_bounds_mm": [
+        81.9,
+        91.9,
+        463.05,
+        471.3,
+        331.2105808375568,
+        341.2105808375568
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        81.9,
+        91.9,
+        463.05,
+        471.2989877924844,
+        331.2105808375568,
+        341.2105808375568
+      ]
+    }
+  ],
+  "solid_host_region_source_sha256": "c3453fa6e8fb35f8881e977ea983477494829785899afde85d9425e580340095",
+  "support_type": "tree(auto)",
+  "solid_host_wall_loops": 10,
+  "detect_narrow_internal_solid_infill": "0",
+  "top_one_wall_type": "not apply",
+  "support_reason": "Tree (auto), Default style, with 0.5-degree trunk-diameter growth to constrain rear support bases. A 5-mm placement shift toward printer X-minus centers the complete footprint. Automatic normal sections and all saved support gaps remain permitted.",
+  "requested_z_trim_mm": 0.18,
+  "source_retry_project": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.3mf",
+  "source_retry_project_sha256": "c33e50a801395234d7c5f39957fdfacfc55e80e10f9365a747ac0627a388f8ff",
+  "geometry_and_modifier_members_byte_identical": false,
+  "placement_translation_change_mm": [
+    -5,
+    0,
+    0
+  ],
+  "mesh_and_modifier_geometry_byte_identical": true,
+  "support_style": "default",
+  "tree_support_branch_angle_degrees": 45,
+  "tree_support_branch_diameter_angle_degrees": 0.5,
+  "standard_trim_preserved": true,
+  "scope": "Exact frozen back-top model and all 23 reinforcement modifiers; automatic support type and trunk-diameter growth are the only process changes. Plate placement shifts 5 mm toward printer X-minus. Required native placement and contact reviews precede Send.",
+  "authorization": {
+    "retry_quote": "Please try again. Mark1 bed is clear.",
+    "support_quote": "\"Auto\" is fine ... I've yet to see bambu's auto put a normal support in an impossible to remove place ... it's when you choose to put normal somewhere that it introduces problems. I just want to make sure you don't overcorrec there."
+  },
+  "auto_resume_authorized": false,
+  "send_attempted": true,
+  "submitted": true,
+  "send_attempted_at_utc": "2026-10-09T22:45:54.357234+00:00",
+  "send_click_count": 1,
+  "send_click_recorded_before_input_at_utc": "2026-10-09T22:45:54.357234+00:00",
+  "status": "Exact replacement accepted; startup in progress",
+  "accepted": true,
+  "send_successful": true,
+  "send_count": 1,
+  "import_count": 1,
+  "accepted_at_utc": "2026-10-09T22:46:10.427131+00:00",
+  "accepted_at_central": "2026-10-09T17:46:10.427131-05:00",
+  "printer_task_id": "1324612230",
+  "printer_job_id": "1324612230",
+  "accepted_archive_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "acceptance_observation": {
+    "observed_at_utc": "2026-10-09T22:46:10.427131+00:00",
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "archive": {
+      "name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+      "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+      "slots": {
+        "1": {
+          "type": "PET-CF",
+          "colour": "000000"
+        }
+      },
+      "objects": [
+        "enclosure-back-top"
+      ]
+    },
+    "reading": {
+      "task_id": "1324612230",
+      "job_id": "1324612230",
+      "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "layer_num": 1535,
+      "total_layer_num": 1535,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1
+    },
+    "accepted": true,
+    "acceptance_method": "Matching new task/job, exact reviewed archive basename and PREPARE/RUNNING after one foreground Bambu Connect Send"
+  },
+  "latest_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-09T22:46:58.921117+00:00",
+    "task_id": "1324612230",
+    "job_id": "1324612230",
+    "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 813,
+    "mc_percent": 0,
+    "mc_remaining_time": 1652,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 33,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 165,
+          "target_c": 200
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 25,
+      "target_c": 0
+    }
+  },
+  "post_start_peer_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-09T22:46:58.732360+00:00",
+    "task_id": "1324374637",
+    "job_id": "1324374637",
+    "subtask_name": "2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 122,
+    "total_layer_num": 3509,
+    "mc_percent": 14,
+    "mc_remaining_time": 664,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 48,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 36,
+      "target_c": 0
+    }
+  },
+  "estimated_finish_at_utc": "2026-10-11T02:19:07.427131+00:00",
+  "estimated_finish_at_central": "2026-10-10T21:19:07.427131-05:00",
+  "estimate_scope": "Native duration from observed acceptance; startup, actual speed and pauses may change completion time.",
+  "initial_counter_fields_scope": "PREPARE acceptance may retain previous-job layer counters until the printer resets them; no first-layer progress or adhesion is inferred.",
+  "monitor_scheduled": false,
+  "start_notification_reported": true
+}

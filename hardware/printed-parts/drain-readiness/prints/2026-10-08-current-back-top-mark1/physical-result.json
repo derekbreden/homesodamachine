@@ -6,12 +6,19 @@
   "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
   "archive_sha256": "0f7e4b7da515c4954eac0a8a1707da6ba8295223329d903b2cc7789e4fae9e3d",
   "gcode_sha256": "23c40d079d1bd3c926d143272a6db1f34f23c96eddfab1922f2b1bfc17ae5def",
-  "status": "completed_pending_support_cleanup",
+  "status": "rejected_support_removal",
   "support_type": "normal(auto)",
   "support_style": "default",
   "user_observation": "The back top just finished. I need to let it cool a bit longer, but I'm already noticing we have a *ton* of normal supports here.",
   "user_preference": "Do we not have documented anywhere how horribly difficult normal supports are to remove and our preference for tree except for specific cases where we need normal supports or special cases where they are easier to remove?",
-  "support_removal_assessed": false,
+  "support_removal_assessed": true,
   "finished_fit_assessed": false,
-  "scope": "Operator-reported completion and abundance of normal supports while cooling. This article has no reported removal-effort, finished-surface or installed-fit result. The stated preference applies to future preparation; the submitted archive retains its recorded settings."
+  "scope": "Operator-reported completion and support removal judged impracticable throughout the article. Rejected for support cleanup; finished fit and surface qualification are unassessed.",
+  "user_removal_observation": "lol, lmfao, it is *every* support here ... yeah, there's no way I'm going to be able to do anything with this except throw it away",
+  "disposition": "Operator intends to discard the article.",
+  "replacement_candidate": {
+    "record": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/launch.json",
+    "printer_task_id": "1324612230",
+    "status": "Automatic-support replacement accepted; physical removal, finish and installed fit remain unassessed."
+  }
 }

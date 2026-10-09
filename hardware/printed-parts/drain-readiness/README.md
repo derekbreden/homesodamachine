@@ -100,8 +100,13 @@ pilot, pocket and tie passage before installing fittings, boards, loom or insula
 Physical release effort remains unmeasured.
 
 The [Mark1 print observation](prints/2026-10-08-current-back-top-mark1/physical-result.json)
-records completion and the reported large amount of normal supports. Removal
-effort and installed fit for that article remain unassessed.
+records rejection for impracticable removal of every normal support. Installed
+fit and finished surface qualification for that article remain unassessed.
+The [automatic-support replacement on Mark1](prints/2026-10-09-current-back-top-tree-mark1/README.md)
+uses Tree (auto), Default style, retaining Bambu's automatic support choices.
+Its complete native bead footprint has a 21.40 mm minimum bed margin; mating
+geometry and reinforcement match the reviewed back top. Physical cleanup,
+finish and installed fit remain unassessed.
 
 The [native insert-stock review](reviews/insert-stock.json) passes all 19 complete
 supplier envelopes. The separate [strict radial pore/bore diagnostic](reviews/insert-radial-backing.json)

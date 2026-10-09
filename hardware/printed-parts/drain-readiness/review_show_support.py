@@ -1,13 +1,19 @@
 """Read every native back-top support road against its exact protected show faces."""
 from pathlib import Path
-import hashlib,json,math,time,zipfile
+import argparse,hashlib,json,math,time,zipfile
 import cadquery as cq
 import numpy as np
 from OCP.BRepAdaptor import BRepAdaptor_Surface
 from review_roads import layers
 import sys
-ROOT=next(p for p in Path(__file__).resolve().parents if (p/'tools/docgen').is_dir());JOB=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'.cache/prints/2026-10-07-drain/back-top-mark2';STL=ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl';ARCHIVE=JOB/'ready/back-top-black-z004-mark2.gcode.3mf';sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();write=lambda p,d:Path(p).write_text(json.dumps(d,indent=2)+'\n')
-start=time.time();prep=json.loads((JOB/'back-top-black-z004-mark2.preparation.json').read_text());part=prep['parts'][0];rot=np.array(part['build_transform'][:9]).reshape(3,3);trans=np.array(part['build_transform'][9:12]);center=np.array(part['source_center_mm']);new=cq.importers.importStep(str(STL.with_suffix('.step'))).val();newfaces=new.Faces();protected=[];same=[]
+ROOT=next(p for p in Path(__file__).resolve().parents if (p/'tools/docgen').is_dir())
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('job',nargs='?',type=Path,default=ROOT/'.cache/prints/2026-10-07-drain/back-top-mark2')
+parser.add_argument('--archive',type=Path)
+parser.add_argument('--preparation',type=Path)
+args=parser.parse_args();JOB=args.job.resolve();ARCHIVE=args.archive or JOB/'ready/back-top-black-z004-mark2.gcode.3mf';PREP=args.preparation or JOB/'back-top-black-z004-mark2.preparation.json'
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();write=lambda p,d:Path(p).write_text(json.dumps(d,indent=2)+'\n')
+start=time.time();prep=json.loads(PREP.read_text());part=prep['parts'][0];STL=ROOT/part['source'];assert sha(STL)==part['stl_sha256'];rot=np.array(part['build_transform'][:9]).reshape(3,3);trans=np.array(part['build_transform'][9:12]);center=np.array(part['source_center_mm']);new=cq.importers.importStep(str(STL.with_suffix('.step'))).val();newfaces=new.Faces();protected=[];same=[]
 def bbox(face):
  b=face.BoundingBox();return np.array([b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax])
 for i,face in enumerate(newfaces):
