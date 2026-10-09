@@ -34,6 +34,14 @@ _root = _hw.parent
 COLOUR_ENTITY = b"COLOUR_RGB"
 _CHUNK = 1 << 20
 
+# Frozen copies a record names by hash: the plate sources a print was sliced from, and the bodies
+# a fit review was run against. Neither is a part's own STEP, and repainting one changes the bytes
+# its record binds.
+RECORD_COPIES = (
+    "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/",
+)
+
 
 def _tracked_steps() -> list:
     """Every STEP under `hardware/` this tree stands behind, repo-relative.
@@ -42,7 +50,8 @@ def _tracked_steps() -> list:
     carries, and a mesh among them is an STL — a triangle soup with no colour channel at
     all, so there is no `COLOUR_RGB` for it to be missing. The reading is of the format
     that has one."""
-    return [p for p in _solids() if p.startswith("hardware/") and p.endswith(".step")]
+    return [p for p in _solids() if p.startswith("hardware/") and p.endswith(".step")
+            and not p.startswith(RECORD_COPIES)]
 
 
 def carries_colour(path) -> bool:

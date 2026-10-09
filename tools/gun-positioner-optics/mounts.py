@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "hardware/printed-parts/fixtures/gun-positioner-observation"
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
-from _cadq_export import export_assembly, export_dxf, export_step
+from _cadq_export import export_assembly, export_dxf
+from _material_base import M_ALUMINIUM, M_PETGF_BLACK, one_body
 
 T = 6.35
 RAIL_CENTER_HEIGHT = 22.5
@@ -264,7 +265,8 @@ def build():
     printed={k:v["model"] for k,v in PARTS.items() if v["kind"]=="print"}
     metals={k:v["model"] for k,v in PARTS.items() if v["kind"]=="metal"}
     for name, shape in {**printed, **metals}.items():
-        export_step(shape, str(OUT/(name+".step")))
+        color = {"PET-GF": M_PETGF_BLACK, "aluminum": M_ALUMINIUM}[PARTS[name]["material"]]
+        export_assembly(one_body(shape, name, color), str(OUT/(name+".step")))
         if name in printed:
             cq.exporters.export(shape, str(OUT/(name+".stl")), tolerance=.03, angularTolerance=.1)
     export_assembly(assembly(), str(OUT/"camera-stage-assembly.step"))
