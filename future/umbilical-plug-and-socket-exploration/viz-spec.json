@@ -1,6 +1,6 @@
 {
  "title": "One-plug umbilical",
- "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. Foam and black/blue fabric enter a rear boot pocket; this is a material-packing study.",
+ "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. A packed insulated entry feeds curved tube guides and a straight mating nose. Compression, grip and retention require physical trials.",
  "view": {
   "az": -70,
   "el": 20
@@ -22,7 +22,7 @@
   },
   {
    "name": "Plug",
-   "caption": "Ø32.44 across, 52 long. One key clamps all four tubes; the foam and fabric jacket tuck into its rear pocket.",
+   "caption": "Ø34 rear body, 98 mm long: 15 mm fabric cuff, 45 mm curved transition and 38 mm straight nose. One blue key retains the four tubes.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-plug.step"
@@ -31,7 +31,7 @@
   },
   {
    "name": "Plugged in",
-   "caption": "The plug runs 8.2 mm into the 34 mm cup before a stub reaches its hole. The bars meet face to face.",
+   "caption": "The plug runs 7.7 mm into the 34 mm cup before a stub reaches its hole. The bars meet face to face.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-mated.step",
@@ -55,7 +55,7 @@
   },
   {
    "name": "Through the counter",
-   "caption": "The plug in the 1⅜″ countertop hole: 1.2 mm a side, 0.9 at its flats' corners. The loose foam and braid need compression during passage.",
+   "caption": "The Ø34 rigid boot in the 1⅜″ countertop hole: 0.465 mm nominal radial clearance. The loose foam and braid need compression during passage.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-counter.step",
@@ -67,7 +67,7 @@
   },
   {
    "name": "Boot materials",
-   "caption": "Cut through the soda tube: foam enters 15 mm; the fabric jacket encloses the whole bundle and enters 10 mm. Compression, mouth strength and pull-out retention are unqualified.",
+   "caption": "The cut follows the soda tube. Foam continues into the first half of its curved guide; the fabric tucks 15 mm into the cuff. A chamfered shoulder marks the seated depth, with 64 mm of boot outside the port.",
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-boot-section.step"
@@ -82,7 +82,7 @@
   {
    "name": "Plug-side plate",
    "image": "renders/print-plug-side.png",
-   "caption": "Saved geometry trial without the boot pocket: the plug upside down on its top flat and the key on end. One pause for the plug's bars."
+   "caption": "Saved coupling trial without the guided boot: the plug upside down on its top flat and the key on end. One pause for the plug's bars."
   }
  ]
 }
