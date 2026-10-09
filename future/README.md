@@ -75,10 +75,11 @@ measurements identify a shortfall. The work and machine time are tracked in
 ## What the tree is for
 
 The repository is a manufacturing system, and that is deliberate. It cuts the parts, prices
-them, names them, checks itself, and publishes what it holds, so that the fiftieth unit
-costs what the ledgers say and not what the first one taught. A generator that draws a part
-also writes its own documentation, its figures, and the card the operator builds from; a
-check that can be automated is, so that a fact cannot rot quietly.
+them, names them, and publishes what it holds, so that the fiftieth unit costs what the
+ledgers say and not what the first one taught. A generator that draws a part also writes its
+own documentation, its figures, and the card the operator builds from, so a figure in a
+document is read off the part rather than typed beside it. A check runs when someone asks
+the question it answers, not on every commit or build.
 
 The risk this creates is the obvious one. A tree that can be improved forever will be, and
 improving it feels like progress in a way that welding does not. The marks above exist to
