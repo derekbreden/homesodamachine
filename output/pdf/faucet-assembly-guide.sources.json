@@ -15,9 +15,11 @@
   },
   "artwork": "original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
   "source_sha256": {
-    "hardware/assembly/faucet-and-umbilical.md": "b66f7fe343bd9ecb9f9f0562b64c9a59247b103e96b9a1d0e35775a867127215",
-    "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md": "37607f841d75fbf5cf2a585369c6183d651fa2547429849ca4d436a78e8641b2",
+    "hardware/assembly/faucet-and-umbilical.md": "6d3b139c16488dc738d06244f9427387648876bdd29f375b33c0ca7de3e5c805",
+    "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md": "38e3f0a0102f76b053885b5da67aa7040372ee46a44d3fd098f27b70c9dd564c",
     "hardware/printed-parts/faucet/asse-vent-seals/README.md": "2e8cfa9dd10e424291c451a14db004eacd5192085bf6c35effff9b93c86dce8c",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "a37ad8099232a41c97db4623444ff79eba2554ae4566ca6f55954b16b84575f8",
+    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
     "hardware/reference/touch-flo-faucet/display-reference/README.md": "6e2871dac41e372b47327973a42964aa39db833b24debeaa6996825cd7f96140",
     "hardware/wiring/ac-wiring-schedule.md": "1b4cc9adfecb32415eec655e64eb18d3517310d08ee5295c0f458e2bc44f0f9a",
     "hardware/assembly/wiring.md": "20d96470afa088aa57bdf6e1af39c7744042459b35c1e1c1980b4ced458b5054",
@@ -32,10 +34,11 @@
     "hardware/mechanical-qualification/README.md": "2632c62fbbed655eed5c56d7292c3f86918961699d83d971d6d6261591fd1b4d",
     "hardware/install-guide/assets/reference/drain-mount-drop.png": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12"
   },
-  "pdf_sha256": "372cad2f19673a3a76e309072b1ab63eddbdf7244ca0c4bc1ae9eac88533a089",
+  "pdf_sha256": "a8da931e6f75e619dffd76eb479497f63bfe45737b58d85893ca00b3db778465",
   "display": {
     "model": "ESP32-S3-Touch-LCD-1.47",
     "view": "rear PCB, USB-C at top",
+    "installed_orientation": "USB-C toward dispense face; opposite end up the gooseneck",
     "left_top_four": [
       {
         "P1": 1,
