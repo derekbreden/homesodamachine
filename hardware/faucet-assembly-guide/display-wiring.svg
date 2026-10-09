@@ -1,129 +1,137 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1040" height="750" viewBox="0 0 520 375" role="img" aria-labelledby="title desc">
 <title id="title">Faucet display wiring, rear view with USB-C at top</title>
-<desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. Connect main board J3 V5 to VBUS; GND to GND; IO35 RX to display GPIO43 TX; IO33 TX to display GPIO44 RX. Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. In the installed faucet, USB-C points toward the dispense face; the opposite end points up the gooseneck. The inset shows this in a side section.</desc>
+<desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. All four ribbon wires are black. Add a white mark to edge C1 at both ends; count C1-C4 across the ribbon from that edge. C1 VBUS goes through RJ11 pin 2 to J3 pin 3 V5; C2 GND through RJ11 pin 3 to J3 pin 4 GND; C3 TXD through RJ11 pin 4 to J3 pin 2 IO35 RX; C4 RXD through RJ11 pin 5 to J3 pin 1 IO33 TX. Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. In the installed faucet, USB-C points toward the dispense face; the opposite end points up the gooseneck. The inset shows this in a side section.</desc>
 <rect width="520" height="375" fill="#FFFFFF"/>
 <g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">
 <text x="14" y="24" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">REAR / COMPONENT SIDE</text>
 <text x="14" y="43" font-size="11" font-weight="400" text-anchor="start" fill="#606A78">Glass faces away from you</text>
-<polygon points="347.8,20 434.2,20 447,34.4 447,220 434.2,234.4 347.8,234.4 335,220 335,34.4" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
-<ellipse cx="351.4" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
-<ellipse cx="351.4" cy="35.6" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
-<ellipse cx="430.6" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
-<ellipse cx="430.6" cy="35.6" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
-<ellipse cx="351.4" cy="216.4" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
-<ellipse cx="351.4" cy="216.4" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
-<ellipse cx="430.6" cy="216.4" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
-<ellipse cx="430.6" cy="216.4" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
-<rect x="371" y="16.8" width="40" height="38.4" fill="#E4E8EE" stroke="#A5ADB6" stroke-width="1.5"/>
-<rect x="375" y="20.8" width="32" height="23.2" fill="#F0F1F3" stroke="#A5ADB6" stroke-width="1.5"/>
-<rect x="377.4" y="46.4" width="27.2" height="4.8" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
-<text x="391" y="37.6" font-size="7.2" font-weight="600" text-anchor="middle" fill="#202337">USB-C</text>
-<rect x="341.4" y="44.8" width="12" height="18.4" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
-<rect x="428.6" y="44.8" width="12" height="18.4" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
-<rect x="370.2" y="74.4" width="41.6" height="30.4" fill="#E4E8EE" stroke="#A5ADB6" stroke-width="1.5"/>
-<text x="391" y="92" font-size="6.4" font-weight="600" text-anchor="middle" fill="#202337">microSD</text>
-<rect x="367.8" y="115.2" width="32" height="19.2" fill="#202337" stroke="#202337" stroke-width="1.5"/>
-<rect x="363.8" y="146.4" width="54.4" height="44" fill="#202337" stroke="#202337" stroke-width="1.5"/>
-<text x="391" y="164.8" font-size="7.2" font-weight="600" text-anchor="middle" fill="#FCFCFA">ESP32-S3</text>
-<text x="391" y="176.8" font-size="8" font-weight="600" text-anchor="middle" fill="#FCFCFA">R8</text>
-<rect x="380.6" y="194.4" width="22.4" height="6.4" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="371" y="218.4" width="40" height="8.8" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="109.6" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="120.8" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="132" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="142.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="190.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="369.4" y="204" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="109.6" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="120.8" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="132" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="142.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="190.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<rect x="410.2" y="204" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
-<ellipse cx="350.2" cy="80.8" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="80.8" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="82.72" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">VBUS</text>
-<ellipse cx="431.8" cy="80.8" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="80.8" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="82.72" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">VBAT</text>
-<ellipse cx="350.2" cy="92.48" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="92.48" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="94.4" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">GND</text>
-<ellipse cx="431.8" cy="92.48" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="92.48" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="94.4" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">GND</text>
-<ellipse cx="350.2" cy="104.16" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="104.16" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="106.08" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">TXD</text>
-<ellipse cx="431.8" cy="104.16" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="104.16" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="106.08" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">GND</text>
-<ellipse cx="350.2" cy="115.84" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="115.84" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="117.76" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">RXD</text>
-<ellipse cx="431.8" cy="115.84" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="115.84" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="117.76" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">3V3</text>
-<ellipse cx="350.2" cy="127.52" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="127.52" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="129.44" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">RST</text>
-<ellipse cx="431.8" cy="127.52" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="127.52" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="129.44" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">SCL</text>
-<ellipse cx="350.2" cy="139.2" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="139.2" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="141.12" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">1</text>
-<ellipse cx="431.8" cy="139.2" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="139.2" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="141.12" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">SDA</text>
-<ellipse cx="350.2" cy="150.88" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="150.88" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="152.8" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">2</text>
-<ellipse cx="431.8" cy="150.88" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="150.88" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="152.8" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">11</text>
-<ellipse cx="350.2" cy="162.56" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="162.56" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="164.48" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">3</text>
-<ellipse cx="431.8" cy="162.56" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="162.56" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="164.48" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">10</text>
-<ellipse cx="350.2" cy="174.24" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="174.24" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="176.16" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">4</text>
-<ellipse cx="431.8" cy="174.24" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="174.24" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="176.16" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">9</text>
-<ellipse cx="350.2" cy="185.92" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="185.92" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="187.84" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">5</text>
-<ellipse cx="431.8" cy="185.92" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="185.92" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="187.84" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">8</text>
-<ellipse cx="350.2" cy="197.6" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="350.2" cy="197.6" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="356.6" y="199.52" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">6</text>
-<ellipse cx="431.8" cy="197.6" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
-<ellipse cx="431.8" cy="197.6" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
-<text x="425.4" y="199.52" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">7</text>
-<text x="14" y="76" font-size="17" font-weight="700" text-anchor="start" fill="#E95A2C">+5 V to VBUS</text>
-<text x="14" y="93" font-size="10.3" font-weight="400" text-anchor="start" fill="#606A78">P1 pin 1  ·  main board J3 V5</text>
-<polyline points="257,71 282,71 350.2,80.8" fill="none" stroke="#E95A2C" stroke-width="2"/>
-<ellipse cx="350.2" cy="80.8" rx="4" ry="4" fill="none" stroke="#E95A2C" stroke-width="2"/>
-<text x="14" y="124" font-size="17" font-weight="700" text-anchor="start" fill="#606A78">0 V to GND</text>
-<text x="14" y="141" font-size="10.3" font-weight="400" text-anchor="start" fill="#606A78">P1 pin 3  ·  main board J3 GND</text>
-<polyline points="257,119 282,119 350.2,92.48" fill="none" stroke="#606A78" stroke-width="2"/>
-<ellipse cx="350.2" cy="92.48" rx="4" ry="4" fill="none" stroke="#606A78" stroke-width="2"/>
-<text x="14" y="172" font-size="17" font-weight="700" text-anchor="start" fill="#1749D1">TX to main board RX</text>
-<text x="14" y="189" font-size="10.3" font-weight="400" text-anchor="start" fill="#606A78">P1 pin 5  ·  GPIO43 to J3 IO35</text>
-<polyline points="257,167 282,167 350.2,104.16" fill="none" stroke="#1749D1" stroke-width="2"/>
-<ellipse cx="350.2" cy="104.16" rx="4" ry="4" fill="none" stroke="#1749D1" stroke-width="2"/>
-<text x="14" y="220" font-size="17" font-weight="700" text-anchor="start" fill="#7542A6">RX from main board TX</text>
-<text x="14" y="237" font-size="10.3" font-weight="400" text-anchor="start" fill="#606A78">P1 pin 7  ·  GPIO44 from J3 IO33</text>
-<polyline points="257,215 282,215 350.2,115.84" fill="none" stroke="#7542A6" stroke-width="2"/>
-<ellipse cx="350.2" cy="115.84" rx="4" ry="4" fill="none" stroke="#7542A6" stroke-width="2"/>
-<text x="391" y="252" font-size="10.5" font-weight="600" text-anchor="middle" fill="#1749D1">USB-C UP ON BENCH</text>
-<text x="14" y="252" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">Top four LEFT pads</text>
+<polygon points="357.8,20 444.2,20 457,34.4 457,220 444.2,234.4 357.8,234.4 345,220 345,34.4" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
+<ellipse cx="361.4" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
+<ellipse cx="361.4" cy="35.6" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
+<ellipse cx="440.6" cy="35.6" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
+<ellipse cx="440.6" cy="35.6" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
+<ellipse cx="361.4" cy="216.4" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
+<ellipse cx="361.4" cy="216.4" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
+<ellipse cx="440.6" cy="216.4" rx="6" ry="6" fill="#C89542" stroke="#C89542" stroke-width="1.2"/>
+<ellipse cx="440.6" cy="216.4" rx="2.8" ry="2.8" fill="#30353D" stroke="#30353D" stroke-width="1.2"/>
+<rect x="381" y="16.8" width="40" height="38.4" fill="#E4E8EE" stroke="#A5ADB6" stroke-width="1.5"/>
+<rect x="385" y="20.8" width="32" height="23.2" fill="#F0F1F3" stroke="#A5ADB6" stroke-width="1.5"/>
+<rect x="387.4" y="46.4" width="27.2" height="4.8" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
+<text x="401" y="37.6" font-size="7.2" font-weight="600" text-anchor="middle" fill="#202337">USB-C</text>
+<rect x="351.4" y="44.8" width="12" height="18.4" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
+<rect x="438.6" y="44.8" width="12" height="18.4" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
+<rect x="380.2" y="74.4" width="41.6" height="30.4" fill="#E4E8EE" stroke="#A5ADB6" stroke-width="1.5"/>
+<text x="401" y="92" font-size="6.4" font-weight="600" text-anchor="middle" fill="#202337">microSD</text>
+<rect x="377.8" y="115.2" width="32" height="19.2" fill="#202337" stroke="#202337" stroke-width="1.5"/>
+<rect x="373.8" y="146.4" width="54.4" height="44" fill="#202337" stroke="#202337" stroke-width="1.5"/>
+<text x="401" y="164.8" font-size="7.2" font-weight="600" text-anchor="middle" fill="#FCFCFA">ESP32-S3</text>
+<text x="401" y="176.8" font-size="8" font-weight="600" text-anchor="middle" fill="#FCFCFA">R8</text>
+<rect x="390.6" y="194.4" width="22.4" height="6.4" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="381" y="218.4" width="40" height="8.8" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="109.6" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="120.8" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="132" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="142.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="190.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="379.4" y="204" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="109.6" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="120.8" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="132" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="142.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="190.4" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<rect x="420.2" y="204" width="4" height="5.6" fill="#E4E8EE" stroke="#E4E8EE" stroke-width="1.5"/>
+<ellipse cx="360.2" cy="80.8" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="80.8" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="82.72" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">VBUS</text>
+<ellipse cx="441.8" cy="80.8" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="80.8" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="82.72" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">VBAT</text>
+<ellipse cx="360.2" cy="92.48" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="92.48" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="94.4" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">GND</text>
+<ellipse cx="441.8" cy="92.48" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="92.48" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="94.4" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">GND</text>
+<ellipse cx="360.2" cy="104.16" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="104.16" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="106.08" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">TXD</text>
+<ellipse cx="441.8" cy="104.16" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="104.16" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="106.08" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">GND</text>
+<ellipse cx="360.2" cy="115.84" rx="3.2" ry="3.2" fill="#EBC77D" stroke="#EBC77D" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="115.84" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="117.76" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">RXD</text>
+<ellipse cx="441.8" cy="115.84" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="115.84" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="117.76" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">3V3</text>
+<ellipse cx="360.2" cy="127.52" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="127.52" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="129.44" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">RST</text>
+<ellipse cx="441.8" cy="127.52" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="127.52" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="129.44" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">SCL</text>
+<ellipse cx="360.2" cy="139.2" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="139.2" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="141.12" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">1</text>
+<ellipse cx="441.8" cy="139.2" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="139.2" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="141.12" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">SDA</text>
+<ellipse cx="360.2" cy="150.88" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="150.88" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="152.8" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">2</text>
+<ellipse cx="441.8" cy="150.88" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="150.88" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="152.8" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">11</text>
+<ellipse cx="360.2" cy="162.56" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="162.56" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="164.48" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">3</text>
+<ellipse cx="441.8" cy="162.56" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="162.56" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="164.48" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">10</text>
+<ellipse cx="360.2" cy="174.24" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="174.24" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="176.16" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">4</text>
+<ellipse cx="441.8" cy="174.24" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="174.24" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="176.16" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">9</text>
+<ellipse cx="360.2" cy="185.92" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="185.92" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="187.84" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">5</text>
+<ellipse cx="441.8" cy="185.92" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="185.92" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="187.84" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">8</text>
+<ellipse cx="360.2" cy="197.6" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="360.2" cy="197.6" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="366.6" y="199.52" font-size="3.84" font-weight="600" text-anchor="start" fill="#DCE2EB">6</text>
+<ellipse cx="441.8" cy="197.6" rx="3.2" ry="3.2" fill="#59606B" stroke="#BEC4CC" stroke-width="0.8"/>
+<ellipse cx="441.8" cy="197.6" rx="1.6" ry="1.6" fill="#30353D" stroke="#30353D" stroke-width="0.4"/>
+<text x="435.4" y="199.52" font-size="3.84" font-weight="600" text-anchor="end" fill="#DCE2EB">7</text>
+<text x="14" y="73" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C1  VBUS</text>
+<text x="14" y="89" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-1  ·  +5 V input</text>
+<polyline points="267,230 267,129 360.2,80.8" fill="none" stroke="#272A30" stroke-width="4"/>
+<ellipse cx="360.2" cy="80.8" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
+<text x="267" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C1</text>
+<text x="14" y="116" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C2  GND</text>
+<text x="14" y="132" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-3  ·  0 V return</text>
+<polyline points="283,230 283,144 360.2,92.48" fill="none" stroke="#272A30" stroke-width="4"/>
+<ellipse cx="360.2" cy="92.48" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
+<text x="283" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C2</text>
+<text x="14" y="159" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C3  TXD</text>
+<text x="14" y="175" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-5  ·  GPIO43, display TX</text>
+<polyline points="299,230 299,159 360.2,104.16" fill="none" stroke="#272A30" stroke-width="4"/>
+<ellipse cx="360.2" cy="104.16" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
+<text x="299" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C3</text>
+<text x="14" y="202" font-size="17" font-weight="700" text-anchor="start" fill="#202337">C4  RXD</text>
+<text x="14" y="218" font-size="10.7" font-weight="400" text-anchor="start" fill="#606A78">P1-7  ·  GPIO44, display RX</text>
+<polyline points="315,230 315,174 360.2,115.84" fill="none" stroke="#272A30" stroke-width="4"/>
+<ellipse cx="360.2" cy="115.84" rx="3" ry="3" fill="#EBC77D" stroke="#272A30" stroke-width="1"/>
+<text x="315" y="248" font-size="10" font-weight="600" text-anchor="middle" fill="#202337">C4</text>
+<line x1="267" y1="211" x2="267" y2="225" stroke="#FCFCFA" stroke-width="2"/>
+<text x="14" y="235" font-size="11" font-weight="600" text-anchor="start" fill="#202337">All four wires are BLACK</text>
+<text x="14" y="252" font-size="10.2" font-weight="600" text-anchor="start" fill="#1749D1">Add a white C1 mark at both ends</text>
+<line x1="226" y1="246" x2="263" y2="222" stroke="#1749D1" stroke-width="1.2"/>
+<polygon points="263,222 261.099,225.519 259.011,222.301" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<text x="411" y="252" font-size="10.5" font-weight="600" text-anchor="middle" fill="#1749D1">USB-C AT TOP</text>
 <rect x="8" y="266" width="504" height="100" fill="#EAF0FC" stroke="#DCE2EB" stroke-width="1.5"/>
 <text x="20" y="284" font-size="11" font-weight="700" text-anchor="start" fill="#1749D1">INSTALLED: USB-C TOWARD THE DISPENSE FACE</text>
 <polygon points="180,320 240,320 245.698,320.142 251.381,320.57 257.036,321.28 262.648,322.272 268.204,323.544 273.689,325.092 279.09,326.912 284.394,328.999 289.586,331.349 294.655,333.956 299.586,336.812 304.369,339.912 308.991,343.246 313.441,346.808 301.845,360.575 298.098,357.576 294.206,354.768 290.178,352.158 286.025,349.752 281.757,347.557 277.384,345.578 272.918,343.82 268.37,342.288 263.751,340.984 259.072,339.914 254.346,339.078 249.584,338.48 244.798,338.12 240,338 180,338" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
