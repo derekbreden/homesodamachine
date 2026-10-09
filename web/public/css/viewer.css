@@ -1234,22 +1234,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* The directories parts-tree.js claims nothing from. */
-.grid-warn {
-  grid-column: 1 / -1;
-  border: 1px solid var(--err);
-  background: rgba(217, 112, 112, 0.1);
-  border-radius: 6px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  font-size: 12px;
-  color: var(--text);
-}
-.grid-warn ul { margin: 4px 0 0; padding-left: 18px; }
-.grid-warn code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11px;
-}
 
 
 /* Mermaid thumbnail in card. A topology diagram is wide and short, and a
