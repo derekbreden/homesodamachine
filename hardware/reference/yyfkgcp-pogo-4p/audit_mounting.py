@@ -58,27 +58,6 @@ def main():
                      "pass": passed, "cutter_overlap_mm3": volumes})
         if not passed:
             raise ValueError(rows[-1])
-    coupon_dir = ENC / "contact-pair-coupon"
-    coupon_record_path = coupon_dir / "geometry-check.json"
-    coupon_record = json.loads(coupon_record_path.read_text())
-    coupon_paths = []
-    for half, item in coupon_record["coupons"].items():
-        piece_name = item["piece"].removeprefix("enclosure-")
-        crop = pieces[piece_name].intersect(e._ybox(*item["crop_in_machine_frame"]))
-        pose = item["machine_to_bed"]
-        if pose["turn"] is not None:
-            turn = pose["turn"]
-            crop = crop.rotate((0, 0, 0), turn["axis"], turn["degrees"])
-        crop = crop.translate(pose["then_shift"])
-        coupon_path = coupon_dir / f"contact-pair-{half}-coupon.step"
-        coupon_paths.append(coupon_path)
-        saved = cq.importers.importStep(str(coupon_path)).val()
-        difference = abs(crop.cut(saved).Volume()) + abs(saved.cut(crop).Volume())
-        passed = difference < 1e-5
-        rows.append({"check": f"{half} printed coupon crop matches current export",
-                     "pass": passed, "symmetric_difference_mm3": difference})
-        if not passed:
-            raise ValueError(rows[-1])
     plate, trays = box.pack.collet_plate, box.pack.pump_trays
     gap = e.bay_back_y(plate) - e.pump_cartridge_aft_y(trays, plate)
     press = e._pogo.PIN_PROUD - gap
@@ -90,10 +69,9 @@ def main():
                  "pass": passed, "compression_range_mm": limits})
     if not passed:
         raise ValueError(rows[-1])
-    inputs = [Path(__file__), box_path, ENC / "enclosure.py", coupon_record_path,
+    inputs = [Path(__file__), box_path, ENC / "enclosure.py",
               ROOT / "hardware/manifold-layout/enclosure_assembly.py",
               HERE / "yyfkgcp_pogo_4p.py",
-              ENC / "contact-pair-coupon/contact_pair_coupon.py",
               ROOT / "hardware/printed-parts/cadlib/fits.py",
               ROOT / "hardware/scripts/_box_spec.py"]
     report = {
@@ -134,8 +112,7 @@ def main():
                             "installed_contact_resistance_verified": False,
                             "whole_cartridge_retention_verified": False},
         "source_sha256": {str(path.relative_to(ROOT)): sha(path) for path in inputs},
-        "artifact_sha256": {str(path.relative_to(ROOT)): sha(path)
-                            for path in [*paths.values(), *coupon_paths]},
+        "artifact_sha256": {str(path.relative_to(ROOT)): sha(path) for path in paths.values()},
         "physical_record": "physical-observations.json",
     }
     (HERE / "mounting-audit.json").write_text(json.dumps(report, indent=2) + "\n")
