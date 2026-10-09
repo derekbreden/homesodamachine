@@ -37,7 +37,8 @@ The column, top to bottom:
 AND BELOW THE PLATE, THE UMBILICAL — four tubes gathered into the pack a sleeve makes of
 them, down to the end the installer pushes into the +Y wall of back-top:
 
-    unions           a White faucet's two John Guest PP0408W, end to end at the top of the
+    organizer        one accepted PET-GF puck below the mounting workspace
+    unions           a White faucet's two John Guest PP0408W, end to end below the puck,
                      wrap, each joining a white flavor tube to its black run; a Black
                      faucet's flavor tubes run through the same places unjoined
     foam             CARGEN nitrile on the blue tube only, five 1-ft segments butted, from
@@ -99,10 +100,12 @@ sys.path.insert(0, str(_faucet_printed_dir / "faucet-display-cover"))
 # The identification the tubes carry below the counter, and the filaments it prints in — one part
 # and one colour table, shared with the chips on the +Y wall of back-top.
 sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
+sys.path.insert(0, str(_faucet_printed_dir / "umbilical-organizer"))
 sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 # The union a White faucet joins each flavor tube's white run to its black one with.
 sys.path.insert(0, str(_repo_hardware_dir / "reference" / "jg-pp0408w"))
 import tube_collar
+import umbilical_organizer
 import _y_wall_dimensions as _rear
 import jg_pp0408w
 import above_counter_plate
@@ -253,12 +256,18 @@ step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
 step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
 
 
-# WHERE THE UNIONS STAND. Flavor-b's on the plane its step lands on, which is where the wrapped
-# umbilical starts, and flavor-a's end to end below it: the stagger is one union's length.
-union_b_top_z = mount_return_start_z - step_rise    # [-67.32 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-109.1 mm](UNION_A_TOP_Z)
+# The organizer stands on the parallel bare tubes below the mounting workspace.
+# Z=0 remains the above-counter plate's top face. One puck ships per umbilical.
+organizer_top_z = -88.0
+organizer_bottom_z = organizer_top_z - umbilical_organizer.LENGTH
+organizer_stations = (organizer_top_z,)
+organizer_union_gap = 7.0
+
+# The two White-faucet unions stand end to end below the organizer.
+union_b_top_z = organizer_bottom_z - organizer_union_gap    # [-105 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-146.8 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-150.9 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-188.6 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -294,7 +303,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-193.4 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-231.1 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -309,7 +318,7 @@ blue_cut_length = 1540.0
 # the length that has features on it — the unions, the sleeve, the plane it stops on, and the four
 # tails and their collars below that — measured down from the Westbrass's compression port, the way
 # the countertop below is drawn 120 mm square rather than to a kitchen.
-umbilical_drawn = 230.0
+umbilical_drawn = 300.0
 
 # Carbonated water arrives at the OTHER port: the compression fitting on the
 # bottom of the shank, [44 mm](SODA_UMBILICAL_BELOW_COUNTER) below the countertop's top
@@ -321,7 +330,7 @@ soda_umbilical_tube_od = flavor_tube_od
 soda_umbilical_tube_r = soda_umbilical_tube_od / 2.0
 soda_umbilical_tube_z_top = -shank_length
 # All four tails share the termination plane.
-# [-280 mm](UMBILICAL_TAIL_Z) — the square-cut end, as drawn.
+# [-350 mm](UMBILICAL_TAIL_Z) — the square-cut end, as drawn.
 umbilical_tail_z = soda_umbilical_tube_z_top - umbilical_drawn
 soda_umbilical_tube_z_bottom = umbilical_tail_z
 
@@ -329,11 +338,11 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [143.4 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [181.1 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
-foam_z_bottom = umbilical_tail_z + foam_bare_at_wall   # [-205 mm](FOAM_Z_BOTTOM)
+foam_z_bottom = umbilical_tail_z + foam_bare_at_wall   # [-275 mm](FOAM_Z_BOTTOM)
 if foam_z_bottom >= foam_z_top:
     raise ValueError(
         f"the drawn umbilical stops at Z {umbilical_tail_z:g} and leaves no foam below the pack's "
@@ -616,36 +625,28 @@ def build_display_ribbon():
 
 
 def build_lower_display_ribbon():
-    """Flat mounted ribbon and its drawn continuation beside F+'s return.
+    """Mounted ribbon routed behind and outside F1 into the loose puck bore.
 
-    Below the actual steel underside it shares F+'s R30 lateral return.
-    The drawing stops at Z−50; the factory harness continues under the braid.
+    The free return starts below the maximum routing slab. Its continuation
+    ends below the puck; the harness carries on under the braid.
     """
-    from OCP.BRepAdaptor import BRepAdaptor_Curve
-    end_z = -50.0
+    end_z = organizer_bottom_z - 10.0
     plate_z = under_counter_plate_bottom_z
     mounted = faucet_shell.build_lower_signal_ribbon().val().intersect(
         cq.Solid.makeBox(200.0,200.0,400.0,cq.Vector(-100.0,-100.0,plate_z)))
-    local_end_z = end_z-plate_z
+    start_xy = (faucet_shell.signal_lower_exit_x,faucet_shell.signal_lower_exit_y)
     edges = []
-    for edge in _step_path(+1,union_foot_z).wire().val().Edges():
-        curve = BRepAdaptor_Curve(edge.wrapped)
-        lo, hi = curve.FirstParameter(),curve.LastParameter()
-        if curve.Value(hi).Z() >= local_end_z:
-            edges.append(edge)
-            continue
-        for _ in range(60):
-            mid = (lo+hi)/2.0
-            if curve.Value(mid).Z() > local_end_z:
-                lo = mid
-            else:
-                hi = mid
-        edges.append(edge.trim(curve.FirstParameter(),(lo+hi)/2.0))
-        break
+    if mount_return_lead > 1e-7:
+        edges.append(cq.Edge.makeLine(cq.Vector(*start_xy,plate_z),cq.Vector(*start_xy,mount_return_start_z)))
+    points = [cq.Vector(*p) for p in
+              ((*start_xy,mount_return_start_z),(2.275,24.5,-50.0),
+               (11.5,24.5,-57.0),(12.0,15.0,-68.0),
+               (10.0,11.5,-76.0),(*umbilical_organizer.CABLE_XY,-84.0))]
+    edges.append(cq.Edge.makeSpline(points,tangents=(cq.Vector(0,0,-1),cq.Vector(0,0,-1))))
+    edges.append(cq.Edge.makeLine(points[-1],cq.Vector(*umbilical_organizer.CABLE_XY,end_z)))
     path = cq.Workplane(obj=cq.Wire.assembleEdges(edges))
-    stub = cq.Workplane("XY").rect(cable_width,cable_lane).sweep(path,transition="round").val()
-    stub = stub.translate((faucet_shell.signal_lower_exit_x,
-                           faucet_shell.signal_lower_exit_y,plate_z))
+    stub = (cq.Workplane("XY",origin=(*start_xy,plate_z)).rect(cable_width,cable_lane)
+            .sweep(path,transition="round").val())
     joined = mounted.fuse(stub,tol=1e-5).clean()
     if not joined.isValid() or len(joined.Solids()) != 1:
         raise ValueError("the mounted ribbon and external return must form one valid solid")
@@ -748,7 +749,7 @@ sleeve_center_y = _hull_face(cable_lane).Center().y
 # plane at the wall and the installer's trim takes one of each; the top segment runs on above its
 # foam over both unions, to the plane the upper one starts on. What that leaves bare at the wall is
 # `foam_bare_at_wall`, where the installer flexes the three apart and pushes each into its own union.
-sleeve_z_top = union_b_top_z
+sleeve_z_top = organizer_top_z
 sleeve_z_bottom = foam_z_bottom
 # THE TAILS COME APART BEFORE THE COLLARS GO ON. The +Y wall of back-top does not take this
 # triangle — the installer flexes the three apart in the un-sleeved stretch and pushes each into its
@@ -1321,9 +1322,26 @@ def build_sleeve():
             return (cq.Workplane(xy_plane_z_up).workplane(offset=z_bottom)
                     .placeSketch(hull(grow)).extrude(z_top - z_bottom))
         return prism(cable_lane + sleeve_wall).cut(prism(cable_lane))
-    return (sleeve(union_hull, union_foot_z, sleeve_z_top)
+    def organizer_ring(z_bottom, z_top):
+        return (cq.Workplane("XY").workplane(offset=z_bottom)
+                .center(*umbilical_organizer.CENTRE_XY)
+                .circle(umbilical_organizer.OD/2+sleeve_wall)
+                .circle(umbilical_organizer.OD/2).extrude(z_top-z_bottom))
+    def union_wire(grow, z):
+        return (cq.Workplane(xy_plane_z_up).workplane(offset=z)
+                .placeSketch(union_hull(grow)).extrude(0.01)
+                .faces("<Z").wires().val())
+    def puck_wire(radius, z):
+        return cq.Wire.makeCircle(radius, cq.Vector(*umbilical_organizer.CENTRE_XY,z),cq.Vector(0,0,1))
+    outer = cq.Solid.makeLoft([union_wire(cable_lane+sleeve_wall,union_b_top_z),
+                              puck_wire(umbilical_organizer.OD/2+sleeve_wall,organizer_bottom_z)])
+    inner = cq.Solid.makeLoft([union_wire(cable_lane,union_b_top_z),
+                              puck_wire(umbilical_organizer.OD/2,organizer_bottom_z)])
+    return (sleeve(union_hull, union_foot_z, union_b_top_z)
             .union(sleeve(gather_hull, umbilical_z_bottom, union_foot_z))
-            .union(sleeve(bundle_hull, sleeve_z_bottom, umbilical_z_bottom)))
+            .union(sleeve(bundle_hull, sleeve_z_bottom, umbilical_z_bottom))
+            .union(cq.Workplane(obj=outer.cut(inner)))
+            .union(organizer_ring(organizer_bottom_z,organizer_top_z)))
 
 
 def build_collar(which, x, y):
@@ -1439,6 +1457,7 @@ def build_assembly():
     assy.add(under_counter_plate, name="under_counter_plate", color=steel)
     assy.add(build_foam(), name="cold_line_foam", color=foam_black)
     assy.add(build_sleeve(), name="umbilical_sleeve", color=sleeve_black)
+    assy.add(umbilical_organizer.placed(organizer_top_z),name="umbilical-organizer",color=faucet_black)
     for name, solid, color in umbilical_collars():
         assy.add(solid, name=name, color=color)
     return assy

@@ -330,6 +330,7 @@ PETGF_BLACK_PARTS = {
     "faucet-shell-base", "faucet-shell-tip", "shell-base", "shell-tip",
     "above-counter-plate", "faucet-display-cover", "faucet-display-cover-seated",
     "industrial-shell-base", "industrial-display-cover", "industrial-above-counter-plate",
+    "umbilical-organizer",
 }
 
 

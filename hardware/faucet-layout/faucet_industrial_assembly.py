@@ -40,12 +40,13 @@ def main():
     assembly = build_assembly()
     output = HERE / "faucet-industrial-assembly.step"
     export_assembly(assembly, str(output))
-    surfaces = flute_payload.surfaces((INDUSTRIAL, FAUCET / "faucet-shell"))
+    surfaces = flute_payload.surfaces((INDUSTRIAL, FAUCET / "faucet-shell", FAUCET / "umbilical-organizer"))
     aliases = {
         "shell-base": surfaces["industrial-shell-base"],
         "shell-tip": surfaces["faucet-shell-tip"],
         "above-counter-plate": surfaces["industrial-above-counter-plate"],
         "above-counter-gasket": surfaces["industrial-above-counter-gasket"],
+        "umbilical-organizer": surfaces["umbilical-organizer"],
     }
     seated = build_seated_display_cover()
     pos, nrm, idx, fac = flute_payload.creased(shell.piece_mesh(seated))

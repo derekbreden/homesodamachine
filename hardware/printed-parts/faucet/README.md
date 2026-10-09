@@ -11,6 +11,8 @@ The faucet has two styles, each in Black or White PET-GF.
 It applies to the PET-GF shell, display cover and above-counter plate.
 The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
+Both styles include one black PET-GF [umbilical organizer](umbilical-organizer/README.md)
+below the mounting workspace, with the accepted L fit.
 
 The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
@@ -51,10 +53,13 @@ show its nominal seated surface.
 | Above-counter plate | [STEP](above-counter-plate/above-counter-plate.step) · [STL](above-counter-plate/above-counter-plate.stl) | [STEP](industrial/industrial-above-counter-plate.step) · [STL](industrial/industrial-above-counter-plate.stl) |
 | Above-counter gasket, TPU | [STL](above-counter-gasket/above-counter-gasket.stl) | [STL](industrial/industrial-above-counter-gasket.stl) |
 | Vent bungs, TPU | [Upstream](asse-vent-seals/asse-vent-upstream-bung.stl) · [downstream](asse-vent-seals/asse-vent-downstream-bung.stl) | Same parts |
+| Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
 Use the matching base, cover, plate and gasket for the selected style.
 The PET-GF projects each contain the base, shared tip, cover and plate.
 The gasket is a separate TPU print.
+The organizer is a separate PET-GF print, fitted during
+[umbilical assembly](../../assembly/faucet-and-umbilical.md).
 
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
 identifies the tested physical article. Current production geometry uses the
