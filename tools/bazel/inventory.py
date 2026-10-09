@@ -94,8 +94,10 @@ def pinned_copies(files) -> set:
             continue
         if not isinstance(record, dict):
             continue
+        listed = record.get("files")
         pins = record.get("files_sha256") if manifest.endswith("/package-manifest.json") else {
-            name: entry.get("sha256") for name, entry in (record.get("files") or {}).items()
+            name: entry.get("sha256")
+            for name, entry in (listed.items() if isinstance(listed, dict) else ())
             if isinstance(entry, dict) and entry.get("source_path")}
         for name, digest in (pins or {}).items():
             rel = f"{base}/{name}"

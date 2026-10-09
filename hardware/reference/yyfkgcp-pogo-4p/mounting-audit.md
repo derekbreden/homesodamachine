@@ -17,11 +17,6 @@ printed parts and the current seat/lead cutters. Reproduce it without regenerati
 tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py
 ```
 
-Both retained contact-coupon STEP crops also match the corresponding regions of the
-current exported front-top and cap exactly in the native comparison. This preserves
-their local seat geometry as evidence inputs; it does not transfer their unsupported
-print recipe to the complete parts.
-
 ## Build stock and tools
 
 A build uses one purchased connector pair, four M1.4 × 4 × Ø2.3 inserts and four

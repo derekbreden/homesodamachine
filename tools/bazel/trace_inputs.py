@@ -283,8 +283,15 @@ def trace(gen: str, files: set, argv=()) -> dict:
 #: outside the tree, and `board-3d.py` runs `tsci` through them. An action cannot hold what
 #: it reads, so the main board is built by `bun render-board.ts` and its GLB carried by the hook.
 #: Vendoring the forks is what would let it join the graph.
+#:
+#: A CHECK IS NOT A STEP. It runs when someone asks the question it answers (CLAUDE.md, "What
+#: Runs Every Time"), so these four are run by hand and their records commit like any other file.
 ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
-             "hardware/assembly/scenes/render_scenes.py")
+             "hardware/assembly/scenes/render_scenes.py",
+             "hardware/scripts/check_faucet_geometry.py",
+             "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py",
+             "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py",
+             "hardware/printed-parts/faucet/lever-replica/check_replica.py")
 
 
 def _generators(files: set) -> list:

@@ -7,9 +7,8 @@
     tools/cad-venv/bin/python tools/checks.py --interactive
                                                      omit checks that take the CAD build lock
 
-FOUND BY GLOB, NOT BY LIST. `check_*.py` under `hardware/scripts/`, `tools/` and `tools/bazel/`
-is the whole set, so a check added tomorrow is run tomorrow. A list is a second place to
-remember, and the thing being guarded here is checks nobody remembers to run.
+A LIST, NOT A GLOB. `CHECKS` below is the whole set, and a new `check_*.py` joins it only when
+Derek asks for that check (CLAUDE.md, "What Runs Every Time").
 
 `--json` CARRIES NO CLOCK. Durations and a run time are in the terminal reading and not in the
 file, so an unchanged tree writes byte-identical bytes and `checks_now.py`, which commits it,
@@ -21,9 +20,8 @@ fixtures it builds. That passes while the same script, run against the tree, rep
 rules are right and the tree does not satisfy them. This runs the second question.
 
 IT REPORTS AND HOLDS NOTHING. Exit is non-zero when a check is red, which is a status for
-whoever asked, and no caller here treats it as permission — `derive` runs it with
-`continue-on-error` so the reconcile finishes and the red rides out with it. A check that could
-stop the tree reaching the site would be the one thing this tree does not do.
+whoever asked, and no caller here treats it as permission. A check that could stop the tree
+reaching the site would be the one thing this tree does not do.
 """
 
 from __future__ import annotations
@@ -36,7 +34,6 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DIRS = ("hardware/scripts", "tools", "tools/bazel")
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
 
 # `checks_now.py`'s reading is the visual loop, not reconciliation. This check opens every fluted
@@ -45,15 +42,37 @@ PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
 INTERACTIVE_OMITS = {"hardware/scripts/check_flutes.py"}
 
 
+CHECKS = (
+    "hardware/scripts/check_asse_drain.py",
+    "hardware/scripts/check_build_exit.py",
+    "hardware/scripts/check_copper_plug_clearance.py",
+    "hardware/scripts/check_core_and_faucet_heatsets.py",
+    "hardware/scripts/check_enclosure_mating_clearance.py",
+    "hardware/scripts/check_facts_current.py",
+    "hardware/scripts/check_faucet_geometry.py",
+    "hardware/scripts/check_finishes.py",
+    "hardware/scripts/check_flutes.py",
+    "hardware/scripts/check_ledger.py",
+    "hardware/scripts/check_payload_colours.py",
+    "hardware/scripts/check_payloads.py",
+    "hardware/scripts/check_pinmap.py",
+    "hardware/scripts/check_print_profile.py",
+    "hardware/scripts/check_purchase_evidence.py",
+    "hardware/scripts/check_show_faces.py",
+    "hardware/scripts/check_step_colours.py",
+    "hardware/scripts/check_tracked.py",
+    "tools/check_paths.py",
+    "tools/check_release_room.py",
+    "tools/check_web_tests.py",
+    "tools/bazel/check_build_file.py",
+    "tools/bazel/check_ci_targets.py",
+    "tools/bazel/check_declared_imports.py",
+    "tools/bazel/check_unbounded_reach.py",
+)
+
+
 def checks() -> list:
-    seen, out = set(), []
-    for d in DIRS:
-        for p in sorted((ROOT / d).glob("check_*.py")):
-            rel = str(p.relative_to(ROOT))
-            if rel not in seen:
-                seen.add(rel)
-                out.append(rel)
-    return out
+    return [rel for rel in CHECKS if (ROOT / rel).is_file()]
 
 
 def verdict(rows: list, red: list) -> dict:

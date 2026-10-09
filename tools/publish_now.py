@@ -237,11 +237,6 @@ def tell_the_site() -> None:
 
 def publish() -> int:
     started = time.time()
-    # Colors follow stock across every held STEP and payload, including aggregate
-    # members whose geometry has not moved. This changes presentation only.
-    if run([str(PY), "hardware/scripts/materialize_material_colors.py", "--write"]).returncode != 0:
-        print("  material colors could not be synchronized", file=sys.stderr)
-        return 1
     reason, targets = owed()
     if reason:
         enclosure_action, _piece_payloads = enclosure_release_plan(targets)
@@ -271,7 +266,10 @@ def publish() -> int:
             except Exception as exc:  # noqa: BLE001 — printed, and the publish goes on
                 print(f"  the viewer refresh stopped short: {exc}", file=sys.stderr)
                 print("  publishing the bytes held here anyway", file=sys.stderr)
-            if run([str(PY), "hardware/scripts/materialize_material_colors.py", "--write"]).returncode != 0:
+            # The graft writes the two viewer hosts, so those two take the stock colours again.
+            if run([str(PY), "hardware/scripts/materialize_material_colors.py", "--write",
+                    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+                    "hardware/manifold-layout/enclosure-assembly.step"]).returncode != 0:
                 return 1
         print(f"  {reason}; publishing the bytes held here")
         if run([str(PY), "tools/cad-artifacts/pack.py", "--write",
