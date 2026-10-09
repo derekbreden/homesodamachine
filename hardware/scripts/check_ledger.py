@@ -102,6 +102,12 @@ ASIN = re.compile(r"\bB0[A-Z0-9]{8}\b")
 ASIN_WAIVED = {
     "B0F42MT8JX": "refrigerant-loop.md donor table — the generic alternative to "
                   "the costed Frigidaire EFIC117-SS, listed as 'both verified topology'",
+    "B003NUUKL8": "lillium-cutover.md buy list — the John Guest PI0808S stem plug for "
+                  "V-A's port on the Lillium-fed build; not yet ordered",
+    "B005S4MTXO": "lillium-cutover.md buy list — John Guest PP0408W unions on Amazon; "
+                  "bom.md §9 buys the same union from FWS; not yet ordered",
+    "B0FQBYXZS2": "lillium-cutover.md buy list — #6-stud insulated fork terminals for "
+                  "the IRM-90 terminals, whose bom.md §11 row is SKU TBD; not yet ordered",
 }
 
 for token in sorted({m for text in CORPUS.values() for m in ASIN.findall(text)}):
@@ -124,7 +130,7 @@ BRANDISH = re.compile(r"\b[A-Z][A-Za-z]*[A-Z][A-Za-z0-9]*\b|\b[A-Z][a-z]{3,}\b")
 NOT_A_BRAND = {
     "Order", "Placed", "Delivered", "Arriving", "Ordered", "Acquired", "Pack",
     "Piece", "Pieces", "Pair", "Kit", "Kits", "Spool", "Roll", "Box", "Bag",
-    "Black", "White", "Green", "Blue", "Clear", "Gray", "Grey", "Maroon", "Red",
+    "Black", "White", "Green", "Blue", "Clear", "Gray", "Grey", "Maroon", "Red", "Orange",
     "Transparent", "Silicone", "Stainless", "Brass", "Copper", "Steel", "Rubber",
     "Nylon", "Plastic", "Wire", "Cable", "Tube", "Tubing", "Hose", "Sleeve",
     "Valve", "Pump", "Sensor", "Module", "Board", "Relay", "Screw", "Screws",
@@ -140,7 +146,7 @@ NOT_A_BRAND = {
     "Unshielded", "Reinforced", "Assorted", "Complete", "Replacement", "Spare",
     # Names that are not a part anyone stocks: cable/thread spec designators,
     # shipping carriers, phone OSes, and ledger status words.
-    "UL2464", "FNPT", "FedEx", "Android", "International", "Generic",
+    "UL2464", "FNPT", "GFCI", "FedEx", "Android", "International", "Generic",
     "Status", "Zero", "SPDT", "Institute",
 }
 
@@ -167,6 +173,9 @@ BRAND_WAIVED = {
             "'External / user-supplied (not shipped)'",
     "Mountain": "flavor concentrate is user-supplied, per bom.md "
                 "'External / user-supplied (not shipped)'",
+    "Lillium": "lillium-cutover.md retires the prototype's Lillium carbonator, on hand "
+               "per inventory.md; the integrated cold core replaces it, so no bom/tools "
+               "line carries it",
 }
 
 corpus_text = "\n".join(CORPUS.values())
