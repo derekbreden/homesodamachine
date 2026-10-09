@@ -12182,6 +12182,7 @@ genrule(
         "hardware/install-guide/assets/steps/mount-under-slide-clean.png",
         "hardware/install-guide/assets/steps/mount-under-tighten-clean.png",
         "hardware/install-guide/assets/steps/pour-base.png",
+        "hardware/install-guide/assets/steps/pour-glass-mask.png",
         "hardware/install-guide/assets/steps/power-ready.png",
         "hardware/install-guide/assets/steps/release-with-press.png",
         "hardware/install-guide/assets/steps/startup-gas.png",
