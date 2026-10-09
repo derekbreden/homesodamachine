@@ -165,7 +165,7 @@ def survey():
         "physical_strength_or_drop_acceptance": False,
         "source_sha256": {p: after[p] for p in sorted(used) if p in after},
         "solids": {name: {"valid": solid.isValid(), "solid_count": len(solid.Solids()),
-                          "volume_mm3": solid.Volume()} for name, solid in solids.items()},
+                          "volume_mm3": round(solid.Volume(), 1)} for name, solid in solids.items()},
         "pockets": readings,
         "pocket_count": len(readings),
         "pass": all(r["pass"] for r in readings) and all(s.isValid() for s in solids.values()),

@@ -8,7 +8,6 @@ Run after the relevant CAD outputs are regenerated, using tools/cad-venv/bin/pyt
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -96,7 +95,6 @@ def main() -> int:
     passed = front.isValid() and foam.isValid() and all(r["passed"] for r in rows.values())
     result = {
         "schema_version": 2,
-        "reading_utc": datetime.now(timezone.utc).isoformat(),
         "scope": "Both finished copper-plug STEPs against the finished front-top and foam "
                  "assembly, using production placement transforms. Other cold-core bodies, "
                  "routed tubing, print meshes and physical prints are outside this reading.",
