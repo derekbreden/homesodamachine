@@ -14,6 +14,7 @@ _HERE = (Path(__file__).resolve() if "__file__" in globals()
          else Path.cwd() / "future/umbilical-plug-and-socket-exploration/scene.py")
 sys.path.insert(0, str(_HERE.parent))
 import umbilical as u  # noqa: E402
+import boot_concept as boot  # noqa: E402
 from umbilical import ROOT, cq, cyl, box, PORTS  # noqa: E402
 
 sys.path[:0] = [str(ROOT / "hardware/printed-parts/enclosure/y-wall-of-back-top")]
@@ -40,7 +41,7 @@ C_RIBBON = cq.Color(0.62, 0.62, 0.65)
 C_COUNTER = cq.Color(0.82, 0.81, 0.78)
 
 PP0408W = import_step(u.U.STEP).val()
-SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), u.plug(), u.key(), u.wall_patch()
+SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), boot.plug(), u.key(), u.wall_patch()
 DRAIN_PROUD = 1.8                          # as drawn; see umbilical.D_PROUD_MIN
 
 
@@ -99,12 +100,10 @@ def add_plug(a, loc=cq.Location()):
         tip = u.STUB_Q if od > 5 else u.STUB_D
         a.add(tube(od, 4.32 if od > 5 else 2.5, -u.PLUG_L - BUNDLE, tip, x, z), name=f"{name}-umbilical-tube",
               color=COLOURS[name], loc=loc)
-    x, z, _ = PORTS["soda"]
-    a.add(tube(25.4, 6.35, -u.PLUG_L - BUNDLE, -u.PLUG_L, x, z), name="soda-tube-foam", color=M.M_NITRILE_BLACK,
-          loc=loc)
-    zr = sum(u.RIBBON_TOP) / 2
-    a.add(box(-u.RIBBON_W / 2, u.RIBBON_W / 2, -u.PLUG_L - BUNDLE, u.RIBBON_DROP[1] - 0.5, zr - u.RIBBON_T / 2,
-              zr + u.RIBBON_T / 2), name="display-ribbon", color=C_RIBBON, loc=loc)
+    y0 = -u.PLUG_L - BUNDLE
+    a.add(boot.foam(y0), name="soda-tube-foam", color=M.M_NITRILE_BLACK, loc=loc)
+    a.add(boot.jacket(y0), name="umbilical-fabric-jacket", color=M.M_PET_BRAID, loc=loc)
+    a.add(boot.ribbon(y0), name="display-ribbon", color=C_RIBBON, loc=loc)
 
 
 def export(name, build):
@@ -141,6 +140,21 @@ def section(a):
 
 
 export("section", section)
+
+
+def boot_section(a):
+    """Only the plug and bundle, sectioned through the soda tube's axis."""
+    keep = box(-200, -u.H, -300, 300, -200, 200)
+    tmp = cq.Assembly()
+    add_plug(tmp)
+    for child in tmp.children:
+        shape = child.obj if isinstance(child.obj, cq.Shape) else child.obj.val()
+        cut = shape.moved(child.loc).intersect(keep)
+        if cut.Volume() > 1e-6:
+            a.add(cut, name=child.name, color=child.color)
+
+
+export("boot-section", boot_section)
 COUNTER_T = 30.0
 
 
@@ -239,8 +253,8 @@ def step(name):
 f = FIG
 spec = {
     "title": "One-plug umbilical",
-    "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. Exploratory "
-            "geometry; the insulation and jacket capture are unfinished.",
+    "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. "
+            "Foam and black/blue fabric enter a rear boot pocket; this is a material-packing study.",
     "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
     "panels": [
         {"name": "Machine side",
@@ -249,7 +263,7 @@ spec = {
          "models": [{"step": step("socket"), "ghost": ["back-top-wall"]}]},
         {"name": "Plug",
          "caption": f"Ø{f['UMB_PLUG_D']} across, {f['UMB_PLUG_L']} long. One key clamps all four tubes; "
-                    "the foam on the soda tube stops at the plug.",
+                    "the foam and fabric jacket tuck into its rear pocket.",
          "models": [{"step": step("plug")}]},
         {"name": "Plugged in",
          "caption": f"The plug runs {f['UMB_CUP_LEAD']} mm into the {f['UMB_CUP_DEPTH']} mm cup before a stub "
@@ -261,13 +275,19 @@ spec = {
          "models": [{"step": step("section"), "ghost": ["back-top-wall"]}]},
         {"name": "Through the counter",
          "caption": f"The plug in the 1⅜″ countertop hole: {float(f['UMB_COUNTER_SIDE']):.1f} mm a side, "
-                    f"{float(f['UMB_COUNTER_CORNER']):.1f} at its flats' corners.",
+                    f"{float(f['UMB_COUNTER_CORNER']):.1f} at its flats' corners. "
+                    "The loose foam and braid need compression during passage.",
          "models": [{"step": step("counter"), "ghost": ["countertop*"]}]},
+        {"name": "Boot materials",
+         "caption": "Cut through the soda tube: foam enters 15 mm; the fabric jacket encloses the whole "
+                    "bundle and enters 10 mm. Compression, mouth strength and pull-out retention are unqualified.",
+         "models": [{"step": step("boot-section")}]},
         {"name": "Machine-side plate", "image": "renders/print-machine-side.png",
          "caption": "The slicer's plate: socket on its flats, retainer, wall coupon roof-down. One pause for "
                     "the socket's bars."},
         {"name": "Plug-side plate", "image": "renders/print-plug-side.png",
-         "caption": "The plug upside down on its top flat and the key on end. One pause for the plug's bars."},
+         "caption": "Saved geometry trial without the boot pocket: the plug upside down on its top flat "
+                    "and the key on end. One pause for the plug's bars."},
     ],
 }
 (_HERE.parent / "viz-spec.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1) + "\n")
