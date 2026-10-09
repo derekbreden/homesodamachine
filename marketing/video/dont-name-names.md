@@ -6,7 +6,7 @@ Notes for a future video. Captured 2026-05-22 — the initial motivation for the
 
 The initial motivation for the companion app was entirely for being able to upload custom photos to the external display.
 
-I knew that I wanted real logos in my kitchen when I toggled the button. That was absolutely a must have for the "show off to friends and family" moment. It just doesn't land nearly the same without them. It's not "real diet mtn dew" unless you're looking at the logo when you drink it. And frankly, I think it makes a difference for my own "taste" as well. I'm not sure I have a concrete evidential and well studied basis for my presumption on that, but I'm also not sure such evidence could ever exist, for something that can only ever be self reported (taste).
+I knew that I wanted real logos in my kitchen when I toggled the button. That was absolutely a must have for the "show off to guests" moment. It just doesn't land nearly the same without them. It's not "real diet mtn dew" unless you're looking at the logo when you drink it. And frankly, I think it makes a difference for my own "taste" as well. I'm not sure I have a concrete evidential and well studied basis for my presumption on that, but I'm also not sure such evidence could ever exist, for something that can only ever be self reported (taste).
 
 ## What I knew I couldn't do, and what I could
 
