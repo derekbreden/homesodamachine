@@ -5,6 +5,15 @@ all four tubes and the faucet display's contacts, and a socket snapped into back
 receives it. These are printable test parts. Nothing here is in the build, the BOM or the
 production enclosure.
 
+**Color layout:** the boot/plug body and tube key are entirely Fiberon PET-GF15
+Blue, matching the blue socket. The enclosure receiver/wall and rear union
+retainer are PET-GF Black. The machine-side color layout uses those two filaments;
+the socket remains a separate part that snaps into the black wall receiver.
+The scene reads the blue from the shared [filament catalog](../../hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py).
+Purchased hardware, tubes, cable and insulation retain their own material colors.
+The saved print projects are single-color geometry trials and do not encode this
+two-color layout.
+
 **Current assessment:** this is an exploratory mechanism, not a qualified connector.
 The [engineering review](assessment/README.md) recommends keeping the separate connections
 for shipping and using the [optional tactile trial](tactile-trial/README.md) to assess the
@@ -86,7 +95,7 @@ behind its seat.
 | [`machine-side`](print/machine-side-mark2.3mf) · [sliced](print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z [25.88](UMB_PAUSE_SOCKET): two bars into the cup floor | [2 h 39 min](UMB_TIME_SOCKET), [87](UMB_G_SOCKET) g |
 | [`plug-side`](print/plug-side-mark2.3mf) · [sliced](print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z [18.68](UMB_PAUSE_PLUG): two bars into the face | [58 min](UMB_TIME_PLUG), [28](UMB_G_PLUG) g |
 
-Both take black PET-GF on [Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the
+These saved jobs use black PET-GF on [Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the
 [shared profile](/hardware/printed-parts/petgf.3mf), [+0.04](UMB_TRIM) mm trim, supports off,
 four walls and 25 % infill. Every overhang closes on a 36-degree plane or lies over a bar, so
 neither job has supports. The socket stands on its flats with the cup on its side, the plug lies

@@ -29,8 +29,10 @@ def rgb(t):
     return cq.Color(*(c / 255.0 for c in t))
 
 
-C_PART = M.M_PETGF_BLACK
-C_WALL = cq.Color(0.30, 0.30, 0.32)
+C_BOOT = rgb(yw.chip_color("carb"))
+C_PORT = C_BOOT
+C_MACHINE = M.M_PETGF_BLACK
+C_WALL = C_MACHINE
 COLOURS = {"flavor-a": rgb(yw.port_colors["flavor"]), "flavor-b": rgb(yw.port_colors["flavor"]),
            "soda": rgb(yw.port_colors["carb"]), "drain": rgb(yw.port_colors["drain"])}
 C_SCREW = cq.Color(0.16, 0.16, 0.17)
@@ -59,8 +61,8 @@ def union_solids(shift=0.0):
 
 
 def add_socket(a, pins=u.P.PIN_PROUD):
-    a.add(SOCKET, name="umbilical-socket", color=C_PART)
-    a.add(RETAINER, name="union-retainer", color=C_PART)
+    a.add(SOCKET, name="umbilical-socket", color=C_PORT)
+    a.add(RETAINER, name="union-retainer", color=C_MACHINE)
     for name, s in union_solids().items():
         label = "jg-pp0408w" if PORTS[name][2] > 5 else "neofit-auc44m"
         a.add(s, name=f"{name}-{label}-union", color=M.M_JG_WHITE_PP if PORTS[name][2] > 5 else M.M_NEOFIT_ACETAL)
@@ -86,8 +88,8 @@ BUNDLE = 60.0
 
 
 def add_plug(a, loc=cq.Location()):
-    a.add(PLUG, name="umbilical-plug", color=C_PART, loc=loc)
-    a.add(KEY, name="tube-key", color=C_PART, loc=loc)
+    a.add(PLUG, name="umbilical-plug", color=C_BOOT, loc=loc)
+    a.add(KEY, name="tube-key", color=C_BOOT, loc=loc)
     a.add(u.P.build_female().val().moved(u.pogo_location(-1)), name="pogo-4p-female-pads", color=M.C_DOCK, loc=loc)
     for x, bar in u.bars(-1):
         a.add(bar, name=f"kj-sb443-in-plug-{'right' if x > 0 else 'left'}", color=M.M_NICKEL_PLATE, loc=loc)
@@ -237,8 +239,8 @@ def step(name):
 f = FIG
 spec = {
     "title": "One-plug umbilical",
-    "lede": "The printable socket and plug. Real John Guest PP0408W, neoFit AUC44M, YYFKGCP pogo and "
-            "K&J SB443-IN; the socket, retainer, plug, key and wall patch are new.",
+    "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. Exploratory "
+            "geometry; the insulation and jacket capture are unfinished.",
     "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
     "panels": [
         {"name": "Machine side",
