@@ -13,7 +13,7 @@ All six labels are [32](RING_OD) mm wide, with [2](RING_LOWER_RADIUS) mm lower-c
 | width | [32](RING_OD) | [32.00](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
 | height | [30.22](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
-| volume | [1.40](RING_VOL) cm³ | [1.42](CO2_RING_VOL) cm³ |
+| volume | [1.39](RING_VOL) cm³ | [1.41](CO2_RING_VOL) cm³ |
 
 The 4 mm DRAIN chip is [32](RING_OD) × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The DRAIN word stands 0.48 mm proud, in black on white.
 
@@ -59,8 +59,8 @@ face and standing [0.48](WORD_RAISE) mm proud of it, [2.48](WORD_TOP) mm off the
 [Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap, set in the band between the
 flange's edge and the top of the chip — the face the build deck and the customer's quick start are
 already set in, so a customer holding that sheet beside the machine reads one typeface and not two.
-At their nearest the letters stand [1.34](WORD_FLANGE_CLEAR) mm off a union's flange and
-[1.57](CO2_WORD_FLANGE_CLEAR) mm off the ABU44's, so the flange lands on the chip alone.
+At their nearest the letters stand [1.32](WORD_FLANGE_CLEAR) mm off a union's flange and
+[1.58](CO2_WORD_FLANGE_CLEAR) mm off the ABU44's, so the flange lands on the chip alone.
 
 The letters are loose — six solids for FLAVOR, nothing joining them. Nothing needs to: the chip
 opens as one part carrying both bodies and the lettering is assigned the second filament, so there
