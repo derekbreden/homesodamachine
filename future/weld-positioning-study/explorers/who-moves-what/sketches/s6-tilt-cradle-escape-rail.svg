@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="860" fill="#fcfcf8"/>
+<text x="12" y="22" font-size="15" font-weight="bold" fill="#222">Tilt cradle + escape rail: the whole station tilted 32.5 deg about the station tangent (schematic)</text>
+<line x1="180.0" y1="830.0" x2="860.0" y2="830.0" stroke="#222" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<text x="185.0" y="846.0" font-size="10" fill="#555" text-anchor="start">bench</text>
+<line x1="560.0" y1="830.0" x2="560.0" y2="500.0" stroke="#999" stroke-width="12.0" stroke-opacity="0.5" stroke-linecap="butt"/>
+<circle cx="560.0" cy="500.0" r="9.0" stroke="#222" fill="#fff" stroke-width="2" fill-opacity="1.0"/>
+<text x="572.0" y="518.0" font-size="10" fill="#222" text-anchor="start">trunnion axis = station tangent</text>
+<text x="572.0" y="532.0" font-size="10" fill="#222" text-anchor="start">through the dot (posts at y = +/-190)</text>
+<polygon points="375.8,555.8 457.7,427.3 459.1,428.2 377.2,556.7" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.5"/>
+<polygon points="482.9,624.1 564.8,495.5 563.4,494.6 481.5,623.2" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.5"/>
+<polygon points="452.3,438.9 556.6,505.4 560.0,500.0 455.7,433.5" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.25"/>
+<polygon points="256.6,581.9 509.7,743.1 555.9,670.5 302.9,509.4" stroke="#8a5a2b" fill="none" stroke-width="1" fill-opacity="1.0" stroke-dasharray="3,2"/>
+<text x="217.7" y="501.8" font-size="10" fill="#8a5a2b" text-anchor="start">rotator on 3 Z screws</text>
+<polygon points="194.3,558.8 569.6,797.9 577.1,786.1 201.8,547.0" stroke="#2e7d32" fill="#2e7d32" stroke-width="1.2" fill-opacity="0.3"/>
+<text x="180.3" y="580.7" font-size="10" fill="#2e7d32" text-anchor="start">cradle floor (tilts with everything on it)</text>
+<polygon points="622.0,530.0 644.0,530.0 644.0,170.0 622.0,170.0" stroke="#2e7d32" fill="#2e7d32" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="650.0" y="180.0" font-size="10" fill="#2e7d32" text-anchor="start">column = upper extension of the -Y cradle</text>
+<text x="650.0" y="194.0" font-size="10" fill="#2e7d32" text-anchor="start">side plate; rail on its face along the</text>
+<text x="650.0" y="208.0" font-size="10" fill="#2e7d32" text-anchor="start">escape direction (vertical at tau*)</text>
+<line x1="560.0" y1="500.0" x2="569.6" y2="797.9" stroke="#2e7d32" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="560.0" y1="500.0" x2="194.3" y2="558.8" stroke="#2e7d32" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="560.0" y1="500.0" x2="633.0" y2="530.0" stroke="#2e7d32" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="5,4"/>
+<line x1="596.0" y1="325.0" x2="622.0" y2="325.0" stroke="#335" stroke-width="5.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<polygon points="588.0,405.0 596.0,405.0 596.0,235.0 588.0,235.0" stroke="#8d6e00" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.9"/>
+<text x="338.0" y="250.0" font-size="10" fill="#8d6e00" text-anchor="start">vertical plate + recipe block (gun flat on it)</text>
+<line x1="660.0" y1="350.0" x2="660.0" y2="285.0" stroke="#2e7d32" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="660.0,285.0 664.0,293.0 656.0,293.0" stroke="#2e7d32" fill="#2e7d32" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="666.0" y="320.0" font-size="10" fill="#2e7d32" text-anchor="start">lift-off along the rail</text>
+<line x1="560.0" y1="486.5" x2="560.0" y2="467.1" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="560.0" y1="467.1" x2="560.0" y2="440.1" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="560.0" y1="440.1" x2="560.0" y2="405.5" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="560.0" y1="405.5" x2="560.0" y2="389.4" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="560.0" y1="389.4" x2="560.1" y2="278.0" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.3" stroke-linecap="round"/>
+<line x1="563.3" y1="332.6" x2="581.5" y2="345.7" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.3" stroke-linecap="round"/>
+<circle cx="560.0" cy="500.0" r="4.0" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="560.0" y1="500.0" x2="551.3" y2="460.9" stroke="#d00" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="551.3,460.9 557.0,467.9 549.2,469.6" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="471.3" y="452.9" font-size="10" fill="#d00" text-anchor="start">fillet bisector: 12.5 deg from vertical</text>
+<line x1="379.4" y1="330.0" x2="532.7" y2="427.7" stroke="#7b1fa2" stroke-width="4.0" stroke-opacity="0.7" stroke-linecap="butt"/>
+<line x1="532.7" y1="427.7" x2="508.9" y2="465.1" stroke="#7b1fa2" stroke-width="3.0" stroke-opacity="0.7" stroke-linecap="butt"/>
+<text x="339.4" y="316.0" font-size="10" fill="#7b1fa2" text-anchor="start">plate head from P (on the cradle)</text>
+<polyline points="343.9,578.7 345.1,581.9 346.3,585.0 347.6,588.2 348.9,591.3 350.3,594.4 351.7,597.5 353.2,600.6 354.7,603.6 356.2,606.7 357.8,609.7 359.5,612.6 361.2,615.6 362.9,618.5 364.7,621.4 366.5,624.3 368.3,627.1 370.2,630.0 372.2,632.8 374.2,635.5 376.2,638.3 378.3,641.0 380.4,643.6 382.5,646.3 384.7,648.9 386.9,651.5 389.2,654.0 391.5,656.5 393.8,659.0 396.2,661.4 398.6,663.8 401.0,666.2 403.5,668.5 406.0,670.8 408.5,673.1 411.1,675.3 413.7,677.5 416.4,679.6 419.0,681.7 421.7,683.8 424.5,685.8 427.2,687.8 430.0,689.8 432.9,691.7 435.7,693.5 438.6,695.3 441.5,697.1 444.4,698.8 447.4,700.5 450.3,702.2 453.3,703.8 456.4,705.3 459.4,706.8 462.5,708.3 465.6,709.7 468.7,711.1 471.8,712.4 475.0,713.7 478.1,714.9 481.3,716.1" stroke="#2e7d32" fill="none" stroke-width="4" fill-opacity="1.0"/>
+<text x="260.0" y="710.0" font-size="10" fill="#2e7d32" text-anchor="start">quadrant + pin: 0 ... 35 deg</text>
+<line x1="890.0" y1="830.0" x2="1440.0" y2="830.0" stroke="#222" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="1220.0,494.6 1224.4,494.6 1228.7,494.3 1233.0,493.9 1237.2,493.3 1241.4,492.6 1245.4,491.7 1249.3,490.7 1253.1,489.5 1256.7,488.2 1260.1,486.7 1263.3,485.1 1266.4,483.4 1269.1,481.6 1271.7,479.7 1273.9,477.7 1275.9,475.6 1277.6,473.4 1279.1,471.2 1280.2,469.0 1281.1,466.7 1281.6,464.3 1281.8,462.0 1281.8,459.7 1281.4,457.3 1280.7,455.0 1279.7,452.7 1278.4,450.5 1276.8,448.3 1275.0,446.2 1272.8,444.1 1270.4,442.2 1267.8,440.3 1264.9,438.5 1261.8,436.9 1258.4,435.4 1254.9,434.0 1251.2,432.7 1247.4,431.6 1243.4,430.7 1239.3,429.8 1235.1,429.2 1230.9,428.7 1226.5,428.4 1222.2,428.2 1217.8,428.2 1213.5,428.4 1209.1,428.7 1204.9,429.2 1200.7,429.8 1196.6,430.7 1192.6,431.6 1188.8,432.7 1185.1,434.0 1181.6,435.4 1178.2,436.9 1175.1,438.5 1172.2,440.3 1169.6,442.2 1167.2,444.1 1165.0,446.2 1163.2,448.3 1161.6,450.5 1160.3,452.7 1159.3,455.0 1158.6,457.3 1158.2,459.7 1158.2,462.0 1158.4,464.3 1158.9,466.7 1159.8,469.0 1160.9,471.2 1162.4,473.4 1164.1,475.6 1166.1,477.7 1168.3,479.7 1170.9,481.6 1173.6,483.4 1176.7,485.1 1179.9,486.7 1183.3,488.2 1186.9,489.5 1190.7,490.7 1194.6,491.7 1198.6,492.6 1202.8,493.3 1207.0,493.9 1211.3,494.3 1215.6,494.6 1220.0,494.6" stroke="#8a5a2b" fill="none" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="1291.8" y="451.4" font-size="10" fill="#8a5a2b" text-anchor="start">rim (tilted)</text>
+<line x1="1211.4" y1="486.5" x2="1199.1" y2="467.1" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="1199.1" y1="467.1" x2="1181.9" y2="440.1" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="1181.9" y1="440.1" x2="1159.9" y2="405.5" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="1159.9" y1="405.5" x2="1149.7" y2="389.4" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="1149.7" y1="389.4" x2="1078.9" y2="278.0" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="1093.8" y1="332.6" x2="989.2" y2="345.7" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<circle cx="1220.0" cy="500.0" r="4.0" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="1228.0" y="514.0" font-size="10" fill="#d00" text-anchor="start">dot</text>
+<polygon points="1180.0,405.0 960.0,405.0 960.0,235.0 1180.0,235.0" stroke="#8d6e00" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.25"/>
+<line x1="1070.0" y1="830.0" x2="1070.0" y2="170.0" stroke="#2e7d32" stroke-width="6.0" stroke-opacity="0.3" stroke-linecap="butt" stroke-dasharray="6,4"/>
+<text x="900.0" y="200.0" font-size="10" fill="#8d6e00" text-anchor="start">plate (behind the gun), rail/column (dashed)</text>
+<polyline points="986.5,348.7 968.7,349.3 951.0,349.9 933.2,350.5 915.5,351.1 897.7,351.8 865.1,350.5 838.8,344.2 818.9,332.8 805.4,316.4 798.3,294.9 797.6,268.4 803.3,236.8 815.4,200.2 833.9,158.5 858.7,111.8 890.0,60.0" stroke="#b23b3b" fill="none" stroke-width="3" fill-opacity="1.0"/>
+<text x="890.0" y="40.0" font-size="10" fill="#b23b3b" text-anchor="start">umbilical leaves along -Y, in the gun's plane</text>
+<text x="20.0" y="40.0" font-size="11" fill="#222" text-anchor="start" font-weight="bold">Who moves what</text>
+<text x="20.0" y="55.0" font-size="11" fill="#555" text-anchor="start"> spin: rotator (tilted, on the cradle)</text>
+<text x="20.0" y="70.0" font-size="11" fill="#555" text-anchor="start"> tilt tau: cradle about the station tangent</text>
+<text x="20.0" y="85.0" font-size="11" fill="#555" text-anchor="start">   through the dot - a PROCESS knob</text>
+<text x="20.0" y="100.0" font-size="11" fill="#555" text-anchor="start">   (gravity only; tau = 0 is today)</text>
+<text x="20.0" y="115.0" font-size="11" fill="#555" text-anchor="start"> lift-off, loading: the gun slides up a rail</text>
+<text x="20.0" y="130.0" font-size="11" fill="#555" text-anchor="start">   fixed to the work along the corner's</text>
+<text x="20.0" y="145.0" font-size="11" fill="#555" text-anchor="start">   escape direction; clears for 32/32</text>
+<text x="20.0" y="160.0" font-size="11" fill="#555" text-anchor="start">   feasible recipes; vertical at tau*</text>
+<text x="20.0" y="175.0" font-size="11" fill="#555" text-anchor="start"> tube length: 3 Z screws, corner back</text>
+<text x="20.0" y="190.0" font-size="11" fill="#555" text-anchor="start">   onto the trunnion axis</text>
+<text x="20.0" y="205.0" font-size="11" fill="#555" text-anchor="start"> roll, hole: recipe block; yaw: Y slide</text>
+<text x="20.0" y="220.0" font-size="11" fill="#555" text-anchor="start">At tau* = 32.5 deg (recipe 45/30/-15):</text>
+<text x="20.0" y="235.0" font-size="11" fill="#555" text-anchor="start"> fillet bisector 12.5 deg from vertical</text>
+<text x="20.0" y="250.0" font-size="11" fill="#555" text-anchor="start"> beam in the vertical tangent plane</text>
+<text x="20.0" y="265.0" font-size="11" fill="#555" text-anchor="start"> gun's side 11 deg from that plane</text>
+<text x="20.0" y="280.0" font-size="11" fill="#555" text-anchor="start"> fiber leaves horizontally along -Y</text>
+</svg>

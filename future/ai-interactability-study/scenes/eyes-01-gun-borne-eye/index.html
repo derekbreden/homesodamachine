@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gun-borne eye</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-01-gun-borne-eye",
+  "title": "Gun-borne eye: a camera and a line laser ride on the shell",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "A small camera and a line laser sit on the printed shell and look at the dot and the corner from a few centimetres away. The seam error is measured in the gun's own frame, so the support can be loose: a small two-axis trim stage nulls what the camera reports. Close the loop and watch a biased sensor null itself to the wrong place; pull on the umbilical and watch the trim hide a turn of the beam that the eye cannot see; add a second fan and see which of the gun's five observable numbers the lines can then read.",
+  "tags": ["observer", "gun-mounted", "structured-light", "trim-stage", "closed-loop", "support tilt", "line-laser fan", "pose observability"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["error measured in the gun frame", "loose support plus small fine trim", "line laser plus camera as a seam finder", "a loop nulls the sensor, not the truth", "one fan leaves one turn blind"],
+  "how": {
+    "motion": "a two-axis trim stage (radial, vertical) between support and shell; rotator turns the tube.",
+    "load": "printed shell to a lug; the lug to the trim stage; the stage hangs from a soft support (elastics or a swing arm with a guide rod); umbilical on the bench.",
+    "reference": "no world reference: the corner seen by the camera is the reference; the dot is fixed in the gun frame.",
+    "observe": "gun-mounted camera plus line laser: corner position relative to the dot, and (from the fan) two of the three turns.",
+    "use": "dry run with the red dot; welding view unresolved (glare, fume, spatter)."
+  },
+  "software": {
+    "commands": ["trim radial and vertical (two small axes)", "line laser on/off (one fan or two)", "rotator speed (existing)"],
+    "observes": ["corner position relative to the dot in the gun frame (radial and vertical)", "whether the corner is in view", "slopes of the plate and wall lines: the turn about the tangent and (weakly) the vertical axis", "wire tip and dot in the same image"],
+    "manual": ["placing the gun in the working neighbourhood", "calibrating the dot pixel, the profile-to-corner mapping and the fan plane (sectioned tube, eyes-07)", "cleaning the lens"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md", "../../explorers/eyes/ideas/eyes-07-sectioned-tube.md", "../../explorers/eyes/ideas/eyes-02-where-can-an-eye-stand.md", "../../exchange/freedom--on--eyes-w2.md", "../../exchange/eyes--reply-to-freedom-w3.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS, ZC = WK.CAP_TOP, X = V(1, 0, 0);
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [10, -85, 175], dir: [-0.62, 0.34, 0.56], dist: 1000 },
+      joint: { target: [58, -12, 160], dir: [-0.8, 0.26, 0.46], dist: 210 },
+      top: { target: [20, -85, 150], dir: [0, -0.0035, 1], dist: 800 },
+      side: { target: [10, -85, 150], dir: [0.03, -1, 0.05], dist: 1100 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A camera and a line laser are mounted on the printed shell that already wraps the gun. The camera looks at the dot and the inside corner from a few centimetres away. The line laser draws a thin line across the plate and up the wall; the line kinks at the corner, so the corner is easy to find in the image even on shiny stainless.</p>' +
+        '<p>The point: the camera moves with the gun, so it measures the <b>seam relative to the dot</b> directly. Nothing has to know where the gun is in the world. The support can be loose and slow. A small two-axis <b>trim stage</b> (purple) between the support and the shell removes the leftover error. Use <b>Run the loop</b> to let the software do it.</p>' +
+        '<p>Then set a <b>calibration bias</b> and run the loop again. The loop drives the <i>estimate</i> to zero, and the dot ends up wrong by the bias. The corner inset (exact scene geometry) shows the truth. The camera cannot tell you its own bias; a ground-truth view can (eyes-07).</p>' +
+        '<p><b>What “loose” has to mean.</b> A support that is soft in translation still has to hold the gun’s <i>turn</i>, or a change in the umbilical’s pull tips the beam while the eye reads zero. Pick how the stage’s tilt is held, raise the <i>umbilical pull change</i>, and close the loop: the dot stays on the seam and the inset’s beam angle does not. Then look at the panel <i>What the lines can tell about the tilt</i>: one fan leaves one turn completely blind; a second fan (a cross-hair module) or a gravity sensor closes it.</p>',
+      carries: '<p><b>Amber</b>: the printed shell carries the gun to a lug on the housing; a short rod carries the lug to the trim stage base. <b>Slate</b>: the post on the bench and what hangs from it. <b>Green</b>: the elastics that carry the stage’s weight and set its softness; their stretch is the <i>support drift</i> (a scene edit: nobody commands it). Three supports are drawn: one elastic from an overhead arm (nothing holds the tilt), two elastics to a spreader bar (a little), and a swing arm with a vertical guide rod (the tilt is held; radial softness is the arm’s swing, vertical softness the spring). The blue arrow at the umbilical exit is the pull change, a scene edit; its real size is unknown.</p>' +
+        '<p>The lug position, the 70 mm rod and every stiffness are illustrative. Where the gun’s weight really balances, and whether the umbilical pulls on the shell, are unknown. Gun poses A, B, C are set by hand at setup; only a support that holds tilt keeps them.</p>',
+      software: '<p>Software reads the corner position from the image (here: truth + a chosen bias + noise; the scene only decides whether the corner is <i>in view</i> from the drawn geometry) and commands the two trim axes with a proportional gain. The dot itself is <b>not</b> what is measured: it is fixed in the gun frame, so its pixel is a calibration constant. What varies in the image is where the corner is.</p>' +
+        '<p>The two lines also carry the turns: their slopes change with the beam’s tilt. The panel is a linearised error model (0.3 px line-fit noise, illustrative), not a measurement: which of the gun’s five observable numbers each configuration can read, and which it cannot see at all.</p>' +
+        '<p>Bandwidth is not the problem: with the 0.25 mm / 0.30 mm runout limits and 8 mm/s, the seam moves relative to a fixed gun by at most about 0.02 mm/s (calc/runout-rates.mjs). The turn-the-tube-with-runout switch shows the loop following it.</p>',
+      tried: '<p><b>Broke:</b> a camera on the housing, 150 mm or more behind the nozzle. The scene says <i>corner not visible: blocked by gun</i>. Looking almost along the beam, the camera sees the nozzle tip standing right in front of the dot and the corner beside it. The view has to be more than about 12 to 15° off the beam axis (nozzle proxy radius 2 to 5 mm at 16 mm from the dot, illustrative). <b>Repaired:</b> the barrel between 30 and about 130 mm behind the tip works at the 27 mm stalk in poses A and C; a longer stalk would move the limit back. <b>Cost:</b> a camera 60 to 110 mm from the dot is close to the spatter (unresolved).</p>' +
+        '<p><b>Broke:</b> the same camera position in another pose. In pose B the line laser is blocked at clock angles 0° and 60°, and the corner is lost at 60° and 120° for some positions (sweep the clock slider). <b>Left standing:</b> the mounting has to be chosen per pose or the pose family fixed; nothing here says which poses will be used.</p>' +
+        '<p><b>Found:</b> the camera on the barrel sees the kinked line beside the nozzle, but not the dot itself, which the nozzle hides from that side. That is fine for this measurement: the dot is fixed in the gun frame, and the corner is what varies.</p>' +
+        '<p><b>Broke:</b> closing the loop on a biased estimate. With bias 0.3 / -0.2 mm the loop drives the estimate to zero and the dot ends up wrong by minus the bias (measured in the scene: 0.27 / -0.19 after six steps). <b>Left standing:</b> the loop cannot see its own bias. That is why eyes-07 exists.</p>' +
+        '<p><b>Broke:</b> stage travel. The trim is limited to +/-6 mm (illustrative); beyond that the stage stops and a LIMIT badge shows. A loose support with a larger drift needs manual re-placement first.</p>' +
+        '<p><b>Broke (found by freedom, wave 2):</b> the support as first drawn. One elastic ran from a post at about 13° above horizontal to the stage: a line that shallow carries the gun’s weight only at several times the weight in tension, so it was a symbol of “loose”, not a load path; and one line to one lug is a ball joint, so nothing held the beam’s turn. <b>Repaired:</b> the stage now hangs from an overhead arm on vertical elastics, and the radio <i>How the stage’s tilt is held</i> compares one elastic, two spread elastics and a swing arm with a guide rod. With freedom’s statics (1.2 kg, illustrative) a newton of pull change moves the dot 1.44 mm radially and 4.22 mm vertically and turns the beam 1.3° on one elastic; 0.15 / 2.16 mm and 0.84° on two spread elastics (1.8 N·m/rad); 0.45 / 1.03 mm and 0.02° when the base holds the tilt (100 N·m/rad). The trim is spent by 1 to 6 N of pull change, and the eye reports the dot on the seam throughout. <b>Left standing:</b> the pull itself is unknown; freedom-11 draws the nose seat, which holds the tilt near the dot.</p>' +
+        '<p><b>Broke (mine):</b> the fan plane was recomputed from world +X at every pose, so it followed the gun’s rotation instead of being fixed in the gun. That is right only at the reference rotation. It is now fixed in the gun frame (through the emitter and the dot, rolled about that axis by <i>Fan roll</i>).</p>' +
+        '<p><b>Found (freedom’s question):</b> the two lines and the spot give four numbers for the five that a straight corner lets any camera observe (the sixth, a slide along the seam, changes nothing in the picture). So one fan always leaves one combination of the three turns completely blind: with the fan through the radial direction it is the turn about the radial axis; other fan rolls give a mixture. The plate line’s slope changes only 0.2° per degree of turn about the tangent (about 1 px at the far end of an 18 mm line, not 7), but the fit is precise enough to read that turn to about 0.15° (0.3 px noise); the vertical-axis turn shows only in the short wall line, about 0.8°. A gravity sensor (0.3°, illustrative) closes the radial-axis turn; a second, crossed fan closes all five to about 0.1 to 0.15°. <b>Left standing:</b> a hobby cross-hair has uncalibrated fan angles (two more unknowns), and every figure here assumes the line is found without bias.</p>',
+      unresolved: '<p>Does the corner show on stainless? Contrast of an inside corner between two shiny surfaces, reflections of the nozzle and hand in the plate, and the line laser’s double reflection in the corner are not drawn. Does the 0.3 mW dot show under the camera at all? Does the red pointer stay on while emitting, and can the camera survive the melt-pool light without a filter (unknown)? Spatter and fume on the lens. Minimum focus distance of the camera at 60 to 110 mm. Whether the interlock or the gun electronics tolerate the extra cable along the shell.</p>' +
+        '<p>The umbilical’s pull at the exit (unknown; freedom-15 lists how to measure it with a spring scale), whether the support moves when the wire feeds or the gas starts, and what holds the tilt in a real support. The fan plane and the camera are calibrated to each other only by a ground-truth view.</p>' +
+        '<p>Question for Derek: with a phone camera 10 cm from the nozzle, looking at the corner past the wire, does the corner line show? Does a green line look like a kink to your own eye from where you stand?</p>',
+      assumptions: '<ul><li>Gun proxy follows the manual’s 253 x 143 x 34 mm envelope [manual p.17]; barrel, housing, grip, wire guide, the 60° pitch and 16 mm nozzle clearance are illustrative (kit).</li>' +
+        '<li>The pose presets are variants of the reference scene’s three rotations. Choosing one re-places the support (it is a variant, not a motion).</li>' +
+        '<li>Camera: 1280 px across, field of view 15-70°. mm-per-pixel = 2 d tan(fov/2) / 1280 at the dot. [illustrative]</li>' +
+        '<li>Estimate = exact offset + bias + a fixed pseudo-noise. Only availability comes from the drawn geometry. Not a sensor model. [illustrative]</li>' +
+        '<li>Trim stage +/-6 mm, gain 0.6 per step, 4 steps per second. [illustrative]</li>' +
+        '<li>Per-newton drift and tilt of the three supports: freedom’s statics (explorers/freedom/calc/eye-support.js: 1.2 kg, centre of mass 178 mm behind the nozzle, elastic 0.5 N/mm, rotation stiffness 0 / 1.8 / 100 N·m/rad). All illustrative; the umbilical pull is [unknown]. The tilt is drawn as a turn about the tangent through the dot.</li>' +
+        '<li>Pose panel: linearised, straight corner, 0.3 px line-fit noise with 30 points per line, fan planes fixed in the gun and through the emitter and the dot, gravity sensor 0.3° on the two horizontal turns (calc/line-laser-pose.mjs). [illustrative]</li>' +
+        '<li>Umbilical drawn as a Bezier to a bench anchor, min-radius badge from the manual’s 350 mm emitting / 240 mm stored [manual p.20]; the check is illustrative.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  gun.setLaser(true);
+  const val = id => app.ui.get(id);
+  // Per newton of umbilical pull change at the grip base, for three ways of holding the stage's tilt (freedom's statics, illustrative):
+  // u = [radial, vertical] mm per N (+ radial toward the wall), tilt = deg per N of turn of the beam in section.
+  const HOLD = {
+    one:   { name: 'one elastic: nothing holds the tilt', u: [-1.44, -4.22], tilt: 1.31 },
+    two:   { name: 'two spread elastics: a little', u: [0.15, -2.16], tilt: 0.84 },
+    guide: { name: 'swing arm + guide rod: tilt held', u: [-0.45, -1.03], tilt: 0.02 },
+  };
+  const pullEff = () => { const h = HOLD[val('hold')] || HOLD.two, F = val('pull') || 0; return { r: h.u[0] * F, z: h.u[1] * F, tilt: h.tilt * F }; };
+
+  // ------------------------------------------------------------------ shell, lug, camera, emitter (all fixed to the gun)
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'load', size: 9 });
+  const camBody = P.camera({ role: 'sensor', size: 16 }); gun.group.add(camBody);
+  const stalkC = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load'), stalkL = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load');
+  gun.group.add(stalkC, stalkL);
+  const emitter = P.box(9, 9, 12, 'sensor'); gun.group.add(emitter);
+  [stalkC, stalkL, emitter, camBody].forEach(o => o.traverse(m => { if (m.isMesh) m.userData.occludes = false; }));
+  shell.group.traverse(m => m.layers.set(1)); lug.lug.traverse(m => m.layers.set(1));   // the shell is drawn in the main view only: a real shell would have a window for the eye
+  const lensDot = V(0, 0, -WK.CLEARANCE);
+  const radiusAt = z => (z < 118 ? 27 : 30);
+  const camLocal = V(), emLocal = V();
+  function placeCameraAndEmitter() {
+    const z = val('camz'), th = val('camth') * DEG, rr = radiusAt(z);
+    camLocal.set(rr * Math.sin(th), rr * Math.cos(th), z);
+    camBody.position.copy(camLocal);
+    camBody.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(camLocal, lensDot, V(0, 1, 0)));
+    stalkC.setEnds(V(0, 0, z), camLocal);
+    const thL = th + Math.PI / 2, zL = z + 6;
+    emLocal.set(rr * Math.sin(thL), rr * Math.cos(thL), zL);
+    emitter.position.copy(emLocal); emitter.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(emLocal, lensDot, V(0, 1, 0)));
+    stalkL.setEnds(V(0, 0, zL), emLocal);
+  }
+  let cam = null;
+  function makeCamInset() {   // the inset's roll follows the gun (a mounted camera rolls with it): up = the gun's own +Y
+    if (cam) cam.remove();
+    cam = app.inset.add({ id: 'cam', label: 'Gun-borne camera (proposed, illustrative)', object3D: camBody, target: () => gun.dotWorld(), fov: val('fov') || 32, near: 4, far: 600, size: [280, 196], corner: 'br', noise: 0.15, up: gun.dir([0, 1, 0]) });
+  }
+  app.cornerInset({ gun: gun });
+
+  // ------------------------------------------------------------------ pose variants + soft support (post, arms, elastics, stage)
+  const POSES = { A: [45, 30, -15], B: [25, 40, 0], C: [60, 20, -30] };
+  const support = { nomLug: V(), nomStage: V(), nomQ: new THREE.Quaternion() };
+  const post = P.rod([0, 0, 0], [0, 0, 1], 7, 'fixed'), postFoot = P.box(70, 70, 10, 'fixed'), postTop = P.sphere(7, 'fixed');
+  const arm = P.rod([0, 0, 0], [0, 0, 1], 5, 'fixed'), bar = P.rod([0, 0, 0], [0, 0, 1], 4, 'fixed'), spreader = P.rod([0, 0, 0], [0, 0, 1], 4, 'load');
+  const guideRod = P.rod([0, 0, 0], [0, 0, 1], 4.5, 'fixed'), sleeve = P.box(18, 18, 44, 'load'), sleeveArm = P.rod([0, 0, 0], [0, 0, 1], 4, 'load');
+  const elastic = P.elastic(V(0, 0, 0), V(0, 0, 100), { role: 'compliant', radius: 1.6, rest: 100 }), elastic2 = P.elastic(V(0, 0, 0), V(0, 0, 100), { role: 'compliant', radius: 1.6, rest: 100 });
+  const baseBlock = P.box(46, 22, 46, 'fixed'), railX = P.rail(V(-14, 0, 0), V(14, 0, 0), { width: 9, height: 5, role: 'actuated' }), railZ = P.rail(V(0, 0, -14), V(0, 0, 14), { width: 9, height: 5, role: 'actuated' });
+  const carriage = P.box(13, 18, 13, 'actuated'), lugRod = P.rod([0, 0, 0], [0, 0, 1], 2.6, 'load');
+  const anchor = P.groundHatch(40, 'fixed'), anchorPost = P.rod([0, 0, 0], [0, 0, 1], 4, 'fixed');
+  const pullArrow = P.arrow(V(0, 0, 0), V(1, 0, 0), 30, 'cable');
+  [post, postFoot, postTop, arm, bar, spreader, guideRod, sleeve, sleeveArm, elastic, elastic2, baseBlock, railX, railZ, carriage, lugRod, anchor, anchorPost, pullArrow].forEach(o => app.add(o));
+  let umb = null;
+  const st = { trim: V(0, 0, 0), stageLimit: 6, err: null, steps: 0, closed: false, lastTick: 0, running: 0, est: null };
+
+  const gunOffset = () => { const pd = pullEff(); return V(val('dr') + pd.r + st.trim.x, 0, val('dz') + pd.z + st.trim.z); };
+  function applyPose() {
+    const p = POSES[val('pose')];
+    gun.setDials(p[0], p[1], p[2]);
+    gun.group.position.add(gunOffset());
+    gun.group.updateMatrixWorld(true);
+    const tl = pullEff().tilt;
+    if (Math.abs(tl) > 1e-6) {   // the support has turned the gun about the tangent through the dot: the eye's radial and vertical numbers do not see this
+      const dw = gun.dotWorld(), q = new THREE.Quaternion().setFromAxisAngle(V(0, 1, 0), -tl * DEG);
+      const pos = gun.group.position.clone().sub(dw).applyQuaternion(q).add(dw), qq = q.clone().multiply(gun.group.quaternion);
+      gun.setTransform(pos, qq); gun.group.updateMatrixWorld(true);
+    }
+  }
+  function rebuildSupport() {   // called when the pose variant changes: the post and stage are re-placed (variant, not motion)
+    const p = POSES[val('pose')];
+    gun.setDials(p[0], p[1], p[2]); gun.group.updateMatrixWorld(true);
+    support.nomQ.copy(gun.group.quaternion);
+    makeCamInset();
+    support.nomLug.copy(lug.world());
+    support.nomStage.copy(support.nomLug).addScaledVector(V(0, 0, 1), 70);
+    const ex0 = gun.cableExit(); support.hook = ex0.point.clone().addScaledVector(ex0.dir, 330); support.hookDir = ex0.dir.clone();
+    anchor.position.set(support.hook.x, support.hook.y, ws.benchZ + 0.5); anchorPost.setEnds(V(support.hook.x, support.hook.y, ws.benchZ), support.hook.clone().add(V(0, 0, 14)));
+    updateAll();
+  }
+  const vis = (list, on) => list.forEach(o => { o.visible = on; });
+  let supLabel = null;
+  function updateSupport() {
+    const B0 = support.nomStage, pd = pullEff(), drift = V(val('dr') + pd.r, 0, val('dz') + pd.z), mode = val('hold');
+    const B = B0.clone().add(drift);       // stage base: moves with the drift
+    baseBlock.position.copy(B); railX.setEnds(B.clone().add(V(-16, -13, 0)), B.clone().add(V(16, -13, 0))); railZ.setEnds(B.clone().add(V(0, -13, -16)), B.clone().add(V(0, -13, 16)));
+    carriage.position.copy(B).add(V(st.trim.x, -12, st.trim.z));
+    const lugW = lug.world();
+    lugRod.setEnds(B.clone().add(V(st.trim.x, 0, st.trim.z)).add(V(0, -6, 0)), lugW);
+    const bz = ws.benchZ;
+    if (mode === 'guide') {
+      // a swing arm from a post carries a vertical guide rod; the stage base rides on it in a sleeve; a spring (elastic) carries the weight
+      const L = 140, zA = B0.z + 95, pivot = V(B0.x, B0.y - 45 - L, zA), target = V(B.x, B0.y - 45, zA), end = WK.kin.projectToLength(pivot, target, L);
+      postFoot.position.set(pivot.x, pivot.y, bz + 5); post.setEnds(V(pivot.x, pivot.y, bz + 10), pivot); postTop.position.copy(pivot);
+      arm.setEnds(pivot, end); vis([arm, postTop], true);
+      guideRod.setEnds(V(end.x, end.y, zA), V(end.x, end.y, zA - 150));
+      sleeve.position.set(end.x, end.y, B.z); sleeveArm.setEnds(V(end.x, end.y, B.z), B.clone().add(V(0, -11, 0)));
+      elastic.setEnds(V(end.x + 7, end.y, zA - 6), V(end.x + 7, end.y, B.z + 22));
+      vis([guideRod, sleeve, sleeveArm, elastic], true); vis([bar, spreader, elastic2], false);
+    } else {
+      const px = B0.x - 140, py = B0.y - 60, G = V(B0.x, B0.y, B0.z + 125);
+      postFoot.position.set(px, py, bz + 5); post.setEnds(V(px, py, bz + 10), V(px, py, G.z)); postTop.position.set(px, py, G.z);
+      arm.setEnds(V(px, py, G.z), G); vis([arm, postTop], true); vis([guideRod, sleeve, sleeveArm], false);
+      if (mode === 'two') {
+        bar.setEnds(G.clone().add(V(0, -60, 0)), G.clone().add(V(0, 60, 0))); spreader.setEnds(B.clone().add(V(0, -60, 25)), B.clone().add(V(0, 60, 25)));
+        elastic.setEnds(G.clone().add(V(0, -60, 0)), B.clone().add(V(0, -60, 25))); elastic2.setEnds(G.clone().add(V(0, 60, 0)), B.clone().add(V(0, 60, 25)));
+        vis([bar, spreader, elastic2], true);
+      } else {
+        elastic.setEnds(G, B.clone().add(V(0, 0, 23))); vis([bar, spreader, elastic2], false);
+      }
+      vis([elastic], true);
+    }
+    // umbilical: hangs from the grip base to the bench anchor
+    const ex = gun.cableExit();
+    const curve = WK.bezierCable(ex.point, ex.dir, support.hook, support.hookDir, { stiffness: 0.4 });
+    if (!umb) { umb = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(umb); } else umb.setPoints(curve);
+    const b = WK.cableBadge(WK.curveMinRadius(curve)); app.badge('bend', b.text, b.level);
+    const F = val('pull') || 0; pullArrow.visible = F > 0.05;
+    if (pullArrow.visible) pullArrow.set(ex.point, ex.dir, 8 + 14 * F);
+    if (supLabel) supLabel.set(HOLD[mode].name);
+  }
+
+  // ------------------------------------------------------------------ line laser: fan planes FIXED IN THE GUN (through the emitter and the dot), rolled about that axis
+  function makeProfile() {
+    const line = new THREE.Line(new THREE.BufferGeometry(), WK.lineMat('sensor', { onTop: true })); line.frustumCulled = false; app.addHelper(line);
+    const rods = []; for (let i = 0; i < 26; i++) { const r = P.rod([0, 0, 0], [0, 0, 1], 0.45, 'sensor', { segments: 5 }); r.userData.occludes = false; app.add(r); rods.push(r); }
+    return { line, rods };
+  }
+  const profiles = [makeProfile(), makeProfile()];
+  function emitterWorld() { gun.group.updateMatrixWorld(true); return gun.group.localToWorld(emLocal.clone()); }
+  function fanNormalLocal(k) {   // k = 0 first fan, 1 second fan (90 deg further)
+    const axE = emLocal.clone().sub(lensDot).normalize();
+    const rNomL = V(1, 0, 0).applyQuaternion(support.nomQ.clone().invert());
+    let n = emLocal.clone().sub(lensDot).cross(rNomL).normalize();
+    const roll = (val('fan') + 90 * k) * DEG;
+    return n.applyAxisAngle(axE, roll).normalize();
+  }
+  function traceFor(nw, E) {
+    if (Math.abs(nw.y) < 0.05) return null;   // fan parallel to the seam: no kink to see
+    const yAt = (x, z) => (nw.dot(E) - nw.x * x - nw.z * z) / nw.y, pts = [];
+    for (let i = 0; i <= 9; i++) { const x = RI - 18 + (i * 18.0) / 9, z = ZC + 0.2; pts.push(V(x, yAt(x, z), z)); }   // across the plate
+    [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.2].forEach(dz => { const z = ZC + dz; let y = yAt(RI, z), x = RI; for (let k = 0; k < 3; k++) { x = Math.sqrt(Math.max(1, RI * RI - y * y)) - 0.15; y = yAt(x, z); } pts.push(V(x, y, z)); });   // up the wall
+    return pts;
+  }
+  function drawProfiles(on) {
+    const E = emitterWorld(), nf = val('cross') ? 2 : 1; let blocked = false;
+    profiles.forEach((pf, k) => {
+      const pts = on && k < nf ? traceFor(fanNormalLocal(k).applyQuaternion(gun.group.quaternion), E) : null;
+      if (on && k < nf && !pts) blocked = true;
+      pf.line.visible = !!pts; pf.rods.forEach((r, i) => { r.visible = !!pts && i < pts.length - 1; if (r.visible) r.setEnds(pts[i], pts[i + 1]); });
+      if (pts) pf.line.geometry.setFromPoints(pts);
+    });
+    return blocked;
+  }
+
+  // ------------------------------------------------------------------ what the lines can tell about the pose (port of calc/line-laser-pose.mjs; linearised, illustrative)
+  const LP = (function () {
+    const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]], sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], mul = (a, s) => [a[0] * s, a[1] * s, a[2] * s];
+    const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2], cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+    const nrm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+    const mv = (M, v) => [M[0] * v[0] + M[1] * v[1] + M[2] * v[2], M[3] * v[0] + M[4] * v[1] + M[5] * v[2], M[6] * v[0] + M[7] * v[1] + M[8] * v[2]];
+    const mmul = (A, B) => { const C = new Array(9); for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) C[i * 3 + j] = A[i * 3] * B[j] + A[i * 3 + 1] * B[3 + j] + A[i * 3 + 2] * B[6 + j]; return C; };
+    const tr = M => [M[0], M[3], M[6], M[1], M[4], M[7], M[2], M[5], M[8]];
+    const wrap = a => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; };
+    function rotvec(w) { const t = Math.hypot(w[0], w[1], w[2]); let a, b; if (t < 1e-9) { a = 1; b = 0.5; } else { a = Math.sin(t) / t; b = (1 - Math.cos(t)) / (t * t); } const x = w[0], y = w[1], z = w[2]; return [1 - b * (y * y + z * z), -a * z + b * x * y, a * y + b * x * z, a * z + b * x * y, 1 - b * (x * x + z * z), -a * x + b * y * z, -a * y + b * x * z, a * x + b * y * z, 1 - b * (x * x + y * y)]; }
+    function eig(M) { const n = M.length, a = M.map(r => r.slice()), v = Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => (i === j ? 1 : 0)));
+      for (let sw = 0; sw < 80; sw++) { let off = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) off += a[i][j] * a[i][j]; if (off < 1e-26) break;
+        for (let p = 0; p < n; p++) for (let q = p + 1; q < n; q++) { if (Math.abs(a[p][q]) < 1e-32) continue; const t = 0.5 * Math.atan2(2 * a[p][q], a[q][q] - a[p][p]), c = Math.cos(t), s = Math.sin(t);
+          for (let k = 0; k < n; k++) { const x = a[k][p], y = a[k][q]; a[k][p] = c * x - s * y; a[k][q] = s * x + c * y; }
+          for (let k = 0; k < n; k++) { const x = a[p][k], y = a[q][k]; a[p][k] = c * x - s * y; a[q][k] = s * x + c * y; }
+          for (let k = 0; k < n; k++) { const x = v[k][p], y = v[k][q]; v[k][p] = c * x - s * y; v[k][q] = s * x + c * y; } } }
+      return { values: a.map((r, i) => r[i]), vectors: v }; }
+    function analyse(o) {   // o: R0 (row-major 9), camz, camth (deg), fov (deg), fanroll (deg), planes, sig (px), N, imu (deg)
+      const D = [0, 0, -16], th = o.camth * Math.PI / 180, rr = o.camz < 118 ? 27 : 30;
+      const C = [rr * Math.sin(th), rr * Math.cos(th), o.camz], E = [rr * Math.sin(th + Math.PI / 2), rr * Math.cos(th + Math.PI / 2), o.camz + 6];
+      const fwd = nrm(sub(D, C)), right = nrm(cross(fwd, [0, 1, 0])), upC = cross(right, fwd), f = 640 / Math.tan(o.fov * Math.PI / 360);
+      const proj = Pt => { const d = sub(Pt, C), z = dot(d, fwd); return [f * dot(d, right) / z, f * dot(d, upC) / z]; };
+      const axE = nrm(sub(E, D)), n0 = nrm(cross(sub(E, D), mv(tr(o.R0), [1, 0, 0])));
+      const rollAbout = (n, ang) => { const c = Math.cos(ang), s = Math.sin(ang), k = cross(axE, n); return nrm(add(add(mul(n, c), mul(k, s)), mul(axE, dot(axE, n) * (1 - c)))); };
+      const normals = [rollAbout(n0, o.fanroll * Math.PI / 180)]; if (o.planes === 2) normals.push(rollAbout(normals[0], Math.PI / 2));
+      const observe = p => {
+        const R = mmul(rotvec([p[2], p[3], p[4]]), o.R0), dotW = [p[0], 0, p[1]], fromW = w => add(D, mv(tr(R), sub(w, dotW)));
+        const A0 = fromW([0, 0, 0]), dirC = mv(tr(R), [0, 1, 0]), zG = mv(tr(R), [0, 0, 1]), xG = mv(tr(R), [1, 0, 0]), out = [], lens = [];
+        normals.forEach(nL => {
+          const s = dot(nL, sub(E, A0)) / dot(nL, dirC), Pc = add(A0, mul(dirC, s)); let dp = nrm(cross(nL, zG)), dw = nrm(cross(nL, xG));
+          if (dot(dp, xG) > 0) dp = mul(dp, -1); if (dot(dw, zG) < 0) dw = mul(dw, -1);
+          const line = (Pt, d, L) => { const a = proj(Pt), b = proj(add(Pt, mul(d, L))), t = [b[0] - a[0], b[1] - a[1]], len = Math.hypot(t[0], t[1]); return { phi: Math.atan2(t[1], t[0]), rho: (-t[1] * a[0] + t[0] * a[1]) / len, len }; };
+          const lp = line(Pc, dp, 18), lw = line(Pc, dw, 6); out.push(lp.phi, lp.rho, lw.phi, lw.rho); lens.push(lp.len, lw.len);
+        });
+        const dW = mv(R, [0, 0, -1]), O_W = add(dotW, mv(R, mul(D, -1))), hits = [];
+        if (dW[2] < -1e-9) { const lam = -O_W[2] / dW[2], Xp = add(O_W, mul(dW, lam)); if (lam > 0 && Xp[0] <= 1e-4) hits.push(lam); }
+        if (dW[0] > 1e-9) { const lam = -O_W[0] / dW[0], Xp = add(O_W, mul(dW, lam)); if (lam > 0 && Xp[2] >= -1e-4 && Xp[2] <= 6.35) hits.push(lam); }
+        const lam = hits.length ? Math.min.apply(null, hits) : 16, spot = proj([0, 0, -lam]), a0 = proj(D), a1 = proj(add(D, [0, 0, -1])), bd = nrm([a1[0] - a0[0], a1[1] - a0[1], 0]);
+        out.push((spot[0] - a0[0]) * bd[0] + (spot[1] - a0[1]) * bd[1]); return { v: out, lens: lens };
+      };
+      const steps = [0.02, 0.02, 0.05 * Math.PI / 180, 0.05 * Math.PI / 180, 0.05 * Math.PI / 180], nObs = 4 * normals.length + 1, isAng = i => i < 4 * normals.length && i % 2 === 0;
+      const cols = steps.map((h, j) => { const p1 = [0, 0, 0, 0, 0], p2 = [0, 0, 0, 0, 0]; p1[j] = h; p2[j] = -h; const a = observe(p1).v, b = observe(p2).v; return a.map((x, i) => (isAng(i) ? wrap(x - b[i]) : x - b[i]) / (2 * h)); });
+      const A = Array.from({ length: nObs }, (_, i) => cols.map(c => c[i])), lens = observe([0, 0, 0, 0, 0]).lens, sd = [];
+      normals.forEach((_, k) => { sd.push(o.sig * Math.sqrt(12 / o.N) / lens[2 * k], o.sig / Math.sqrt(o.N), o.sig * Math.sqrt(12 / o.N) / lens[2 * k + 1], o.sig / Math.sqrt(o.N)); }); sd.push(0.5);
+      const U = [1, 1, Math.PI / 180, Math.PI / 180, Math.PI / 180];
+      function run(imu) {
+        const F = Array.from({ length: 5 }, () => new Array(5).fill(0));
+        for (let i = 0; i < nObs; i++) for (let a = 0; a < 5; a++) for (let b = 0; b < 5; b++) F[a][b] += A[i][a] * U[a] * A[i][b] * U[b] / (sd[i] * sd[i]);
+        if (imu) { F[2][2] += 1 / (imu * imu); F[3][3] += 1 / (imu * imu); }
+        const e = eig(F);
+        const sig = [0, 1, 2, 3, 4].map(j => { let s = 0, bl = 0; for (let k = 0; k < 5; k++) { if (e.values[k] > 1e-6) s += e.vectors[j][k] * e.vectors[j][k] / e.values[k]; else bl += e.vectors[j][k] * e.vectors[j][k]; } return bl > 1e-3 ? Infinity : Math.sqrt(s); });
+        return sig;
+      }
+      return { lines: run(0), imu: run(o.imu) };
+    }
+    return { analyse: analyse };
+  })();
+  function R0rows() { const e = new THREE.Matrix4().makeRotationFromQuaternion(support.nomQ).elements; return [e[0], e[4], e[8], e[1], e[5], e[9], e[2], e[6], e[10]]; }
+  const paneBody = app.ui.panel({ id: 'linepanel', title: 'What the lines can tell about the tilt', open: true, html: '' });
+  paneBody.style.fontSize = '12px';
+  function updatePosePanel() {
+    const nf = val('cross') ? 2 : 1;
+    let r; try { r = LP.analyse({ R0: R0rows(), camz: val('camz'), camth: val('camth'), fov: val('fov'), fanroll: val('fan'), planes: nf, sig: 0.3, N: 30, imu: 0.3 }); } catch (e) { paneBody.textContent = 'model error: ' + e.message; return null; }
+    const fm = (v, d) => (!isFinite(v) || v > 1e3 ? '<b style="color:#f87171">blind</b>' : v.toFixed(d));
+    const rows = [['dot radial', 0, 'mm', 3], ['dot vertical', 1, 'mm', 3], ['turn about the radial axis', 2, '°', 2], ['turn about the tangent', 3, '°', 2], ['turn about the vertical axis', 4, '°', 2]];
+    paneBody.innerHTML = '<p style="margin:0 0 6px">Linearised 1-sigma of each number the picture can give, ' + nf + ' fan' + (nf > 1 ? 's' : '') + ' at roll ' + val('fan') + '°, 0.3 px line noise (illustrative). A slide along the seam is invisible to any camera.</p>' +
+      '<table style="width:100%;border-collapse:collapse"><tr style="text-align:left;opacity:.75"><th></th><th>lines + spot</th><th>+ gravity sensor 0.3°</th></tr>' +
+      rows.map(rw => '<tr style="border-top:1px solid rgba(148,163,184,.25)"><td>' + rw[0] + '</td><td>' + fm(r.lines[rw[1]], rw[3]) + ' ' + (isFinite(r.lines[rw[1]]) ? rw[2] : '') + '</td><td>' + fm(r.imu[rw[1]], rw[3]) + ' ' + (isFinite(r.imu[rw[1]]) ? rw[2] : '') + '</td></tr>').join('') + '</table>' +
+      '<p style="margin:6px 0 0;opacity:.85">The beam has actually turned <b>' + pullEff().tilt.toFixed(1) + '°</b> (pull change ' + (val('pull') || 0).toFixed(1) + ' N, ' + HOLD[val('hold')].name + '). The eye’s radial and vertical numbers are trimmed to zero regardless.</p>';
+    return r;
+  }
+
+  // ------------------------------------------------------------------ estimate, loop
+  function pseudo(n) { const s = Math.sin(n * 12.9898 + 4.1414) * 43758.5453; return s - Math.floor(s) - 0.5; }
+  function seenInfo() {
+    const off = gun.dotOffset(), J = off.joint, corner = J.clone().add(V(-0.4, 0, 0.4)), wallPt = J.clone().add(V(-0.4, 0, 3));
+    const vw = app.inset.markVisibility('cam', wallPt, {});
+    const vc = app.inset.markVisibility('cam', corner, {});
+    const E = emitterWorld(), los = WK.lineOfSight(E, gun.dotWorld().add(V(-1.5, 0, 1.0)), WK.occluders(app), { eps: 3 });
+    return { off: off, corner: vc, wall: vw, laser: los };
+  }
+  function estimate(info) {
+    if (!info.corner.visible) return null;
+    const on = val('ll'), lasOk = info.laser.visible;
+    const sigma = val('noise'), n1 = pseudo(st.steps * 2 + 1) * 2 * sigma * 1.7, n2 = pseudo(st.steps * 2 + 2) * 2 * sigma * 1.7;
+    const worse = on && lasOk ? 1 : 2.5;   // without the line the corner is a faint edge: assumed 2.5x worse [illustrative]
+    return { radial: info.off.radial + val('bias') + n1 * worse, vertical: info.off.vertical + val('biasz') + n2 * worse, worse: worse };
+  }
+  function correct() {
+    const info = seenInfo(); const e = estimate(info); st.steps++;
+    if (!e) { app.toast('corner not in view: the software cannot correct'); return; }
+    const g = 0.6;
+    let tx = st.trim.x - g * e.radial, tz = st.trim.z - g * e.vertical, lim = false;
+    const L = st.stageLimit;
+    if (Math.abs(tx) > L) { tx = Math.sign(tx) * L; lim = true; } if (Math.abs(tz) > L) { tz = Math.sign(tz) * L; lim = true; }
+    st.trim.set(tx, 0, tz); app.ui.set('tr', tx, { silent: true }); app.ui.set('tz', tz, { silent: true });
+    updateAll();
+    app.badge('stage', lim ? 'trim stage at its travel limit (+/-' + L + ' mm, illustrative): the drift is bigger than the stage can take' : null, 'limit');
+  }
+
+  // ------------------------------------------------------------------ update
+  const setDist = app.ui.readout('rd', 'Camera to dot'), setPx = app.ui.readout('rpx', 'Size of one pixel at the dot'), setRad = app.ui.readout('rrad', 'Radial error per pixel'), setVer = app.ui.readout('rver', 'Vertical error per pixel');
+  function updateAll() {
+    applyPose(); placeCameraAndEmitter(); updateSupport();
+    const fanBlocked = drawProfiles(val('ll'));
+    scene.updateMatrixWorld(true);
+    gun.updateLaser();
+    const info = seenInfo(), e = estimate(info), off = info.off;
+    st.est = e;
+    app.cornerInset.setEstimate(e ? { radial: e.radial, vertical: e.vertical } : null);
+    // pixel scale + foreshortening from the drawn geometry
+    const camW = new THREE.Vector3(); camBody.updateWorldMatrix(true, false); camW.setFromMatrixPosition(camBody.matrixWorld);
+    const dv = gun.dotWorld().sub(camW), d = dv.length(); dv.multiplyScalar(1 / d);
+    const px = 2 * d * Math.tan(val('fov') * DEG / 2) / 1280, sr = Math.sqrt(Math.max(1e-6, 1 - dv.x * dv.x)), sz = Math.sqrt(Math.max(1e-6, 1 - dv.z * dv.z));
+    setDist(d.toFixed(0), 'mm'); setPx(px.toFixed(3), 'mm'); setRad((px / sr).toFixed(3), 'mm/px'); setVer((px / sz).toFixed(3), 'mm/px');
+    app.badge('laser', val('ll') && !info.laser.visible ? 'line laser blocked by the gun body: no profile on the corner' : (val('ll') && fanBlocked ? 'a fan lies parallel to the seam at this roll: it draws no kink' : null), 'warn');
+    app.badge('view', !info.corner.visible ? 'corner not visible from this camera position' : null, 'warn');
+    const tl = pullEff().tilt;
+    app.badge('tilt', tl > 1 ? 'the beam has turned ' + tl.toFixed(1) + '° from the setup pose; the eye reads radial and vertical only, so nothing in the loop says so' : null, 'warn');
+    const pr = updatePosePanel();
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2), sg = (v, dd) => (!isFinite(v) || v > 1e3 ? 'blind' : '±' + v.toFixed(dd));
+    app.io.set({
+      commands: [
+        { name: 'Trim radial', value: f(st.trim.x), unit: 'mm', note: 'proposed axis: purple; stage +/-6 mm illustrative' },
+        { name: 'Trim vertical', value: f(st.trim.z), unit: 'mm' },
+        { name: 'Line laser', value: val('ll') ? (val('cross') ? 'on, two fans' : 'on, one fan') : 'off' },
+        { name: 'Rotator speed', value: '8', unit: 'mm/s', note: 'existing controller; 5-15 mm/s window' },
+      ],
+      observes: [
+        { name: 'Corner in view of the gun camera', value: info.corner.visible ? 'yes' : (info.corner.inFov ? 'blocked' : 'out of view'), status: info.corner.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Corner minus dot, radial (estimate)', value: e ? f(e.radial) : '-', unit: e ? 'mm' : '', status: e ? 'partly' : 'blind', note: 'truth + chosen bias + noise; the loop can see only this' },
+        { name: 'Corner minus dot, vertical (estimate)', value: e ? f(e.vertical) : '-', unit: e ? 'mm' : '', status: e ? 'partly' : 'blind' },
+        { name: 'Turn about the tangent (beam angle in section), from the line slopes', value: pr ? sg(pr.lines[3], 2) : '-', unit: pr && isFinite(pr.lines[3]) ? '°' : '', status: pr && isFinite(pr.lines[3]) ? 'partly' : 'blind', note: 'linearised model, 0.3 px; not drawn as a reading' },
+        { name: 'Turn about the radial axis', value: pr ? sg(pr.lines[2], 2) : '-', unit: pr && isFinite(pr.lines[2]) ? '°' : '', status: pr && isFinite(pr.lines[2]) ? 'partly' : 'blind', note: 'one fan cannot see one combination of the turns; gravity or a second fan can' },
+        { name: 'Turn about the vertical axis', value: pr ? sg(pr.lines[4], 2) : '-', unit: pr && isFinite(pr.lines[4]) ? '°' : '', status: pr && isFinite(pr.lines[4]) ? 'partly' : 'blind', note: 'only the short wall line carries it' },
+        { name: 'Bias of the estimate', value: '-', status: 'blind', note: 'invisible to the loop; needs a ground-truth view (eyes-07)' },
+        { name: 'Line laser reaches the corner', value: info.laser.visible ? 'yes' : 'blocked', status: info.laser.visible ? 'seen' : 'blind' },
+        { name: 'Dot pixel in the image', value: 'fixed', status: 'partly', note: 'the dot is fixed in the gun frame: a calibration constant, not the measurement' },
+        { name: 'Wire tip against the dot', value: '-', status: 'partly', note: 'visible if the wire is in view; not measured here' },
+        { name: 'Gun position in the world', value: '-', status: 'blind', note: 'this sensor does not know it, and does not need it' },
+        { name: 'Support drift itself, and the umbilical pull that causes it', value: '-', status: 'blind', note: 'only its effect on the corner is seen' },
+        { name: 'Corner contrast on stainless, fume, spatter on the lens', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Place the gun in the working neighbourhood', 'Calibrate the dot pixel, the profile-to-corner mapping and the fan planes against a ground-truth view', 'Clean the lens; change the shield'],
+    });
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const arr = app.ui.group('Arrangement');
+  arr.radio({ id: 'pose', label: 'Gun pose (variant)', kind: 'branch', value: 'A', options: [{ value: 'A', label: 'A' }, { value: 'B', label: 'B' }, { value: 'C', label: 'C' }], help: 'Three rotation settings of the reference scene, set by hand at setup. Choosing one re-places the support: it is a variant, not a motion.', onChange: () => { st.trim.set(0, 0, 0); app.ui.set('tr', 0, { silent: true }); app.ui.set('tz', 0, { silent: true }); rebuildSupport(); } });
+  arr.radio({ id: 'hold', label: 'How the stage’s tilt is held', kind: 'branch', value: 'two', options: [{ value: 'one', label: 'one elastic' }, { value: 'two', label: 'two elastics' }, { value: 'guide', label: 'arm + guide rod' }], help: 'One elastic hangs the gun like a ball joint: nothing holds the beam’s turn. Two spread elastics hold a little. A swing arm with a vertical guide rod holds it, and is soft only radially and vertically.', onChange: updateAll });
+  arr.slider({ id: 'camz', label: 'Camera position along the barrel', min: 30, max: 230, step: 5, value: 85, unit: 'mm', kind: 'scene', visual: () => [camBody, stalkC], help: 'Distance behind the nozzle tip. Illustrative; the printed shell can carry a camera anywhere.', onChange: updateAll });
+  arr.slider({ id: 'camth', label: 'Camera clock angle round the barrel', min: -120, max: 120, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => [camBody, stalkC, emitter], help: '0 = top of the gun. The line laser sits 90° further round.', onChange: updateAll });
+  arr.slider({ id: 'fov', label: 'Camera field of view', min: 15, max: 70, step: 1, value: 32, unit: '°', kind: 'scene', visual: () => camBody, onChange: v => { if (cam) cam.setFov(v); updateAll(); } });
+  arr.toggle({ id: 'll', label: 'Line laser on', value: true, kind: 'state', visual: () => emitter, help: 'Off: the corner is found from shading only (assumed 2.5x noisier, illustrative).', onChange: updateAll });
+  arr.slider({ id: 'fan', label: 'Fan roll about the emitter–dot axis', min: 0, max: 90, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => emitter, help: '0 = the fan also contains the radial direction. It decides which combination of the turns one fan cannot see.', onChange: updateAll });
+  arr.toggle({ id: 'cross', label: 'Second fan (cross-hair module)', value: false, kind: 'scene', visual: () => emitter, help: 'A crossed second fan gives four more numbers: all five observable numbers become readable.', onChange: updateAll });
+
+  const dis = app.ui.group('Disturbance and calibration (scene edits)');
+  dis.slider({ id: 'pull', label: 'Umbilical pull change at the grip base', min: 0, max: 6, step: 0.1, value: 0, unit: 'N', kind: 'scene', visual: () => [pullArrow, elastic], help: 'A step in the pull moves the dot and turns the beam by an amount that depends on how the tilt is held (freedom’s statics, illustrative). The real pull is unknown.', onChange: updateAll });
+  dis.slider({ id: 'dr', label: 'Support drift, radial', min: -4, max: 4, step: 0.1, value: 1.5, unit: 'mm', kind: 'scene', visual: () => elastic, help: 'The loose support has settled this far toward the wall (+) or away. Nobody commands it.', onChange: updateAll });
+  dis.slider({ id: 'dz', label: 'Support drift, vertical', min: -4, max: 4, step: 0.1, value: -1.2, unit: 'mm', kind: 'scene', visual: () => elastic, onChange: updateAll });
+  dis.slider({ id: 'bias', label: 'Calibration bias of the estimate, radial', min: -1, max: 1, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'What the camera reports minus the truth, when the truth is zero. The loop cannot see it.', onChange: updateAll });
+  dis.slider({ id: 'biasz', label: 'Calibration bias, vertical', min: -1, max: 1, step: 0.05, value: -0.2, unit: 'mm', kind: 'scene', onChange: updateAll });
+  dis.slider({ id: 'noise', label: 'Estimate noise (1 sigma)', min: 0, max: 0.3, step: 0.01, value: 0.03, unit: 'mm', kind: 'scene', onChange: updateAll });
+
+  const act = app.ui.group('Trim stage and loop (software could command)');
+  act.slider({ id: 'tr', label: 'Trim radial', min: -6, max: 6, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [carriage, railX], help: 'Moves the whole gun toward (+) or away from the wall.', onChange: v => { st.trim.x = v; updateAll(); } });
+  act.slider({ id: 'tz', label: 'Trim vertical', min: -6, max: 6, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [carriage, railZ], onChange: v => { st.trim.z = v; updateAll(); } });
+  act.button({ id: 'once', label: 'One correction (software reads, then trims)', kind: 'actuator', help: 'trim <- trim - 0.6 x estimate', onClick: correct });
+  act.button({ id: 'run', label: 'Run the loop (6 corrections)', kind: 'actuator', onClick: function () { let n = 0; clearInterval(st.running); st.running = setInterval(function () { correct(); if (++n >= 6) clearInterval(st.running); }, 300); } });
+  act.toggle({ id: 'closed', label: 'Keep the loop closed while the tube turns', value: false, kind: 'state', help: 'One correction every 0.25 s while the rotator runs with exaggerated runout.', onChange: v => { st.closed = v; } });
+
+  const rig = app.ui.group('Rotator and runout');
+  rig.toggle({ id: 'spin', label: 'Tube turning, runout shown x20', value: false, kind: 'state', visual: () => ws.turntable, help: 'Runout limits from the rig doc (0.25 / 0.30 mm TIR), exaggerated 20x: illustrative wobble.', onChange: v => { ws.spin.on = v; ws.spin.speedDegPerSec = 8 / RI / DEG; ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); updateAll(); } });
+
+  app.onFrame(function (dt, t) {
+    if (ws.spin.on) { updateAll(); if (st.closed && t - st.lastTick > 0.25) { st.lastTick = t; correct(); } return true; }
+    return false;
+  });
+  app.label(() => gun.local('nozzleTip'), 'nozzle', { cls: 'gun' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(camBody, 'gun-borne camera', { cls: 'sensor' });
+  app.label(emitter, 'line laser', { cls: 'sensor' });
+  app.label(carriage, '2-axis trim stage (actuators)', { cls: 'actuated' });
+  supLabel = app.label(elastic, HOLD.two.name, { cls: 'compliant' });
+  app.label(() => lug.world(), 'lug on the shell', { cls: 'load' });
+  app.label(() => gun.local('gripBase'), 'umbilical exit', { cls: 'cable' });
+
+  rebuildSupport();
+  app.legend();
+  window.__loop = () => ({ trim: [st.trim.x, st.trim.z], est: st.est, off: (function () { const o = gun.dotOffset(); return [o.radial, o.vertical]; })() });
+})();
+</script>
+</body>
+</html>

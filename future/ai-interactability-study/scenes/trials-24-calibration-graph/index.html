@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What the loop keeps calibrated</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .cg-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 12px 14px; align-items: start; }
+  @container cgstage (max-width: 900px) { .cg-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: cgstage; }
+  .cg-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .cg-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .cg-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .cg-col { display: grid; gap: 10px; align-content: start; }
+  .cg-svg { display: block; width: 100%; height: auto; }
+  .cg-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .cg-svg text.b { fill: #e7ebf1; font-weight: 600; font-size: 11.5px; } .cg-svg text.sm { font-size: 9.5px; fill: #8b97aa; }
+  .cg-svg text.red { fill: #ff8a80; } .cg-svg text.amber { fill: #fbbf24; } .cg-svg text.green { fill: #4ade80; } .cg-svg text.violet { fill: #c084fc; } .cg-svg text.head { fill: #64748b; font-weight: 600; letter-spacing: .06em; font-size: 9.5px; }
+  .cg-sum { font-size: 12.5px; color: #cfd6e2; padding: 6px 8px 2px; line-height: 1.5; }
+  .cg-sum b { color: #fff; } .cg-sum .k { color: var(--wk-faint); }
+  table.cg-tab { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .cg-tab td, .cg-tab th { padding: 4px 6px; border-bottom: 1px solid var(--wk-line); text-align: left; font-weight: 400; color: #cfd6e2; vertical-align: top; }
+  .cg-tab thead th { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .cg-tab td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .cg-chip { display: inline-block; border-radius: 10px; padding: 1px 8px; font-size: 11px; font-weight: 600; }
+  .cg-ok { background: #12301f; color: #34d399; } .cg-sus { background: #33280f; color: #fbbf24; } .cg-stale { background: #3a1414; color: #f87171; } .cg-taint { background: #2b1a3a; color: #c084fc; }
+  .cg-hi { color: #f87171; font-weight: 600; } .cg-mid { color: #fbbf24; } .cg-lo { color: #34d399; }
+  .cg-note { font-size: 11px; color: var(--wk-faint); padding: 4px 4px 0; font-style: italic; line-height: 1.35; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-24-calibration-graph",
+  "title": "What the loop keeps calibrated: a graph of what depends on what",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "An AI that runs trials for days keeps a set of calibrations, and they depend on each other: the arrangement's geometry was fitted with the camera, the dot's place in the gun was found with the arrangement, the seam on this tube with all of them. Press an event (a camera knock, a new tube, a re-seated gun) and see which calibrations go stale, which only become suspect, what the cheap check and the full trial cost, and what happens when a trial is run in the wrong order. Four arrangements from other explorers show what each one adds to the ledger.",
+  "tags": ["lens", "calibrating the observation", "dependency graph", "events", "comparator", "hand-eye", "simulation"],
+  "branchOf": [],
+  "combines": ["trials-19-fixed-point-cal", "datum-19-plate-as-target", "trials-05-artefact-ladder"],
+  "transferable": ["calibrations form a graph", "stale needs a trial, suspect a check", "run upstream first", "a comparison in one picture ignores pose", "each arrangement adds numbers and a blind spot"],
+  "how": {
+    "motion": "not a mechanism: the arrangement is whichever is chosen (gantry, cords, hexapod, encoded arm)",
+    "load": "not the subject",
+    "reference": "the reference pucks (trials-22) for the eye; the corner for the tube; the graph says what leans on what",
+    "observe": "checks (a golden dot, a coupon, the rim and ports fit) and trials (a board, a sweep pair, touches)",
+    "use": "after every event, in dependency order, by the loop itself"
+  },
+  "software": {
+    "commands": ["a check or a full trial for a chosen calibration", "which trial to run next, in dependency order", "swap in a reference puck (trials-22)"],
+    "observes": ["golden dot brightness and position", "the pose fit residual from the rim and ports (every frame)", "a coupon's knee against its stored value", "K touches against the judge", "the dock's seated contact and weigh-in"],
+    "manual": ["swapping a reference puck by hand or gripper", "the witness pass on a scrap coupon that relates the dot to the melt", "deciding whether a suspect calibration may be trusted for the next weld"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-24-calibration-graph.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A loop that runs trials for days keeps a <b>ledger of calibrations</b>, and they lean on each other. The lens has to be known before the camera\'s pose; the pose before the judge\'s scale; the judge before the arrangement\'s geometry (the board is read through it); the geometry before the dot\'s place in the gun (the pivot trial moves the arrangement); all of them before the seam on this tube. A calibration made while something upstream is wrong <b>inherits the error silently</b>.</p>' +
+        '<p>Events invalidate different pieces. A knocked camera makes the pose stale and everything read through it suspect; a new tube makes the seat and the seam stale (its surface brings its own angle-locked bias, which lives in the seam node); a re-seated gun makes only the dot stale. <b>Stale</b> needs a full trial; <b>suspect</b> needs a cheap check first (a golden dot, a coupon, the rim and ports fit that runs on every frame anyway). The panel below the graph totals both, and the worst case if every check fails.</p>' +
+        '<p>Try it. Press an event. Then press <b>Run the next trial in order</b> and watch the graph clear from upstream to downstream. Press <b>Run the chosen trial</b> on a downstream node first and see it come out purple: done on a stale eye, it will have to be done again. Choose another arrangement to see what its own numbers add: the gantry has six, the cords thirty-two, the hexapod nine, the arm twenty-eight, and each has one thing a board cannot see.</p>' +
+        '<p>The table at the right reads the same ledger from the other side: the <b>readings</b> the loop makes, and what each leans on. A reading made against something in the same picture (the seam foot, the ports) does not lean on the camera\'s pose; one made against the room leans on everything. While the pose is being redone the knee reading can keep working.</p>',
+      carries: '<p>Not the subject. The graph is about what has to be known, not what holds what.</p>',
+      tried: '<ul>' +
+        '<li><b>The eye is the truth for everything downstream.</b> The arrangement\'s geometry is fitted from where the camera saw the dot land (trials-19, eyes-13); an eye that is wrong by 1 % of scale makes the fitted gantry scale wrong by 1 % and no residual says so, because the fit has absorbed it. That is why the eye comes first in the order and why its cheap checks (the ports\' 38.1 mm spacing as a ruler, a golden dot) run before any downstream trial.</li>' +
+        '<li><b>Readings differ in what they lean on.</b> With the sliders at the right: a 1 % scale error costs 3 micrometres on the knee, 23 on a rim-edge reading, 190 on a port-to-dot reading and 620 against the room; a camera translation of 5 mm costs nothing on the knee and 0.1 mm against the rim edge (parallax, 6.35 mm of depth) and the whole 5 mm against the room; a pointing error of 0.1 degree costs nothing in any comparison in one picture and 0.5 mm against the room. Numbers from <code>calc/eye_ledger.py</code>.</li>' +
+        '<li><b>Some things have no cheap check.</b> The judge\'s angle-locked bias is seen only by touches (datum-14); the dot against the melt only by a witness pass on a scrap coupon (datum-11); an auto-exposure that creeps by a few per cent only by reading the camera\'s controls back. They carry a warning mark: the graph cannot mark them suspect until something else fails.</li>' +
+        '<li><b>An arrangement adds numbers, and one it cannot see.</b> Any arrangement fitted from a dot on a board loses the component along the beam (the nozzle slides along its own beam and the spot does not move: eyes-13, trials-19); spot size (trials-03) or a wire touch is what sees it.</li></ul>',
+      unresolved: '<ul><li>Whether a check that passes really licenses the stored calibration: each check has a threshold nobody has set, and a check at the level of the noise cannot see a drift below it.</li>' +
+        '<li>The times are guesses (a board puck swap is a person\'s minute today); the point is the order and the split between a check and a trial, not the totals.</li>' +
+        '<li>The dependency edges are one reading of the study\'s ideas; a different arrangement can add or remove edges (a hexapod\'s leg zeros do not depend on the judge if it has encoders and a home switch).</li>' +
+        '<li>How far a suspect calibration may be trusted for a dry run against a weld is Derek\'s decision.</li></ul>',
+      assumptions: '<ul><li>Every time is <b>[illustrative]</b> (trial and check seconds); the unknown counts are the source ideas\': room-06 32 numbers (eyes-13), borrowed-03 28 (trials-19), borrowed-13 pivot 3 + six leg zeros (its idea file), the gantry\'s six are mine (two scales, squareness, three for the shelf plane).</li>' +
+        '<li>Readings table: scale error acts on the image separation between the dot and what it is read against (0.3 mm residual for the knee, 6.35 tan ψ + 1 mm for the rim edge, 19.05 mm for the ports, 61.85 mm for the room); a camera translation t costs t x depth difference / H for the rim edge (6.35 mm) and t for the room; pointing costs H tan(θ) against the room only; the 0.05 mm marker is not a requirement <b>[derived, illustrative]</b>.</li>' +
+        '<li>Puck swaps, sweeps and touches follow the timings of trials-01, 18, 19 and 23 <b>[illustrative]</b>.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ the ledger
+  const ARR = {
+    gantry: { name: 'table opening + gantry (room-01, room-15)', unknown: 6, poses: 25, secPer: 6, geomLabel: 'Gantry: 2 scales, squareness, shelf plane', geomTrial: '5 × 5 grid of the dot on the board puck', geomCheck: 'home switch and dock', geomCheckS: 10,
+      invisible: 'nothing moves the dot along the beam; standoff comes from the shelf height and the spot size', by: 'lost steps, belt stretch, a binding shelf rod', src: 'room-01 / room-15' },
+    cage: { name: 'corner cords (room-06)', unknown: 32, poses: 40, secPer: 7.5, geomLabel: 'Cage: 24 anchor offsets, 8 cord zeros', geomTrial: '40 poses on the board puck, fit 32 numbers', geomCheck: 'cord tension and dock', geomCheckS: 20,
+      invisible: 'the gun\'s position along its beam (eyes-13): a board sees a spot, not the gun', by: 'cord creep, drum layering, temperature, the fibre\'s pull', src: 'room-06, eyes-13' },
+    hexapod: { name: 'hexapod with a software pivot (borrowed-13)', unknown: 9, poses: 20, secPer: 6, geomLabel: 'Hexapod: pivot (3), six leg zeros (6)', geomTrial: '20 tilts about the assumed pivot on the board puck', geomCheck: 'home and dock', geomCheckS: 15,
+      invisible: 'the pivot component along the beam, and the play of twelve ball joints', by: 'joint play, a leg re-homed, a re-seated shell', src: 'borrowed-13' },
+    arm: { name: 'encoded arm, hand-moved (borrowed-03, trials-19)', unknown: 28, poses: 40, secPer: 10, geomLabel: 'Arm: 28 zeros, linearity, links, wrist, camera shift', geomTrial: '40 orientations a hand holds, dot on one cross', geomCheck: 'return to the seat, read the zeros', geomCheckS: 10,
+      invisible: 'play beyond the encoders (0.02° is 0.3 mm at this lever) and the along-beam component', by: 'a bump, settling joints, a re-seated gun', src: 'borrowed-03, trials-19' },
+  };
+  const NODES = {
+    lens: { col: 0, y: 34, label: 'Lens', sub: 'focal length, centre, distortion', full: 240, check: 2, trial: 'tilted board puck, 12 views', chk: 'ports\' 38.1 mm as a ruler', cadence: 'weeks; after a refocus', parents: [], silent: false },
+    exp: { col: 0, y: 106, label: 'Exposure, gain, focus', sub: 'locked, read back', full: 10, check: 3, trial: 'read the camera\'s controls back; golden dot brightness', chk: 'golden dot peak against stored', cadence: 'each session; light changes', parents: [], silent: true, why: 'auto-exposure or autofocus that creeps by a few per cent is seen only by reading the controls back' },
+    pose: { col: 0, y: 178, label: 'Camera pose', sub: 'against the puck frame', full: 60, check: 1, trial: 'board puck: swap in, one frame', chk: 'rim and ports fit on every frame (datum-19)', cadence: 'every frame is a check; a knock is a trial', parents: ['lens', 'exp'], silent: false },
+    judge: { col: 0, y: 250, label: 'Judge', sub: 'threshold, scale, angle-locked bias', full: 300, check: 20, trial: 'steerable pointer knee and K touches', chk: 'golden dot and a coupon\'s knee against stored', cadence: 'each session and each new tube', parents: ['pose', 'exp'], silent: true, why: 'an angle-locked bias is seen only by touches (datum-14)' },
+    clock: { col: 0, y: 322, label: 'Clock', sub: 'latency of the chain', full: 60, check: 5, trial: 'step test, 100 steps (trials-23)', chk: 'three steps', cadence: 'each session; hourly', parents: [], silent: true, why: 'two clocks drift apart at tens of ppm' },
+    rot: { col: 1, y: 34, label: 'Rotator', sub: 'clock, index, rig map', full: 60, check: 1, trial: 'one golden lap with the index', chk: 'index pulse every turn', cadence: 'after a re-clamp or a belt change', parents: [], silent: false },
+    appr: { col: 1, y: 118, label: 'Approach', sub: 'backlash, direction, speed', full: 120, check: 40, trial: 'sweep pair at two speeds (trials-23)', chk: 'one sweep pair', cadence: 'each session; after a cable change', parents: ['judge', 'clock'], silent: false },
+    geom: { col: 1, y: 202, label: 'Arrangement', sub: '', full: 0, check: 0, trial: '', chk: '', cadence: 'each session; after a bump', parents: ['pose', 'judge', 'appr'], silent: false },
+    dot: { col: 1, y: 286, label: 'The dot in the gun', sub: 'pivot, standoff', full: 90, check: 30, trial: 'pivot trial on the board puck, ±12°', chk: 'coupon knee against stored', cadence: 'after a re-seat or a red-light change', parents: ['geom', 'judge'], silent: false },
+    seat: { col: 2, y: 118, label: 'This tube: seat', sub: 'depth, offset, lean', full: 60, check: 20, trial: 'rim and ports with the pose known, one dot probe', chk: 'second look after a swap', cadence: 'each tube', parents: ['pose', 'judge', 'geom', 'dot'], silent: false },
+    seam: { col: 2, y: 202, label: 'This tube: seam', sub: 'map and the judge\'s bias', full: 300, check: 130, trial: 'three laps and K touches', chk: 'K fresh touches after a replay', cadence: 'each tube; after a tack', parents: ['seat', 'judge', 'appr', 'rot', 'clock'], silent: false },
+    melt: { col: 2, y: 286, label: 'Dot against the melt', sub: 'not a dry-run quantity', full: 900, check: 0, trial: 'witness pass on a scrap coupon (manual)', chk: 'none', cadence: 'after a red-light change', parents: ['dot'], silent: true, why: 'only a witness pass on a coupon relates the dot to the melt (datum-11)' },
+  };
+  const ORDER = ['lens', 'exp', 'clock', 'rot', 'pose', 'judge', 'appr', 'geom', 'dot', 'seat', 'seam', 'melt'];   // a topological order
+  const EVENTS = {
+    knock: { label: 'Camera knocked', stale: ['pose'], suspect: [], note: 'the pose is stale; everything read through it is suspect' },
+    focus: { label: 'Lens refocused or zoom touched', stale: ['lens', 'exp', 'pose'], suspect: [], note: 'scale and distortion change' },
+    light: { label: 'Room light changed', stale: ['exp'], suspect: [], note: 'threshold and dot contrast change' },
+    tube: { label: 'A new tube is loaded', stale: ['seat', 'seam'], suspect: [], note: 'new seat, new surface: the angle-locked bias on this tube is part of the seam node' },
+    clamp: { label: 'Rotator re-clamped to the bench', stale: ['rot', 'seat'], suspect: ['geom'], note: 'the rig\'s error motion and the seam\'s place in axis coordinates change' },
+    reseat: { label: 'Gun re-seated in its shell, red light changed', stale: ['dot'], suspect: [], note: 'the dot moved inside the shell' },
+    lost: { label: 'Positioner lost steps or lost power', stale: ['geom'], suspect: ['appr'], note: 'zeros are gone; the dock re-homes them' },
+    cable: { label: 'Umbilical re-routed', stale: [], suspect: ['geom', 'appr'], note: 'drag changes the compliance offset' },
+    warm: { label: 'Afternoon: the bench warms 5 K', stale: [], suspect: ['exp', 'pose', 'geom'], note: 'mounts and stages move by micrometres to tenths' },
+    driver: { label: 'Driver update or frame-rate change', stale: ['clock', 'exp'], suspect: [], note: 'latency and the camera\'s settings change' },
+  };
+  const READINGS = [
+    { id: 'knee', label: 'dot against the seam foot: the knee', sep: '0 mm', leans: ['exp', 'judge', 'appr', 'clock'] },
+    { id: 'rim', label: 'dot against the rim edge', sep: '6.35 mm above the plate', leans: ['lens', 'exp', 'pose', 'judge', 'seat'] },
+    { id: 'ports', label: 'dot against the two ports', sep: '19 mm', leans: ['lens', 'exp', 'pose', 'judge'] },
+    { id: 'room', label: 'dot in the arrangement\'s frame', sep: 'the room', leans: ['lens', 'exp', 'pose', 'judge', 'geom', 'dot'] },
+    { id: 'hand', label: 'arm pose against a frame', sep: 'the room, moving', leans: ['pose', 'judge', 'clock', 'geom', 'dot'] },
+    { id: 'replay', label: 'seam map replayed', sep: 'this tube', leans: ['seam', 'rot', 'seat', 'judge'] },
+  ];
+  const state = {}; let spent = 0, log = [];
+  const st = { arr: 'gantry', ev: 'knock', runNode: 'pose', pess: false, scale: 1.0, trans: 5, point: 0.1, H: 300 };
+  const RANK = { ok: 0, suspect: 1, tainted: 2, stale: 2 };
+  function resetStates() { ORDER.forEach(id => state[id] = 'ok'); spent = 0; log = []; }
+  function children(id) { return ORDER.filter(c => NODES[c].parents.indexOf(id) >= 0); }
+  function descendants(id, seen) { seen = seen || {}; children(id).forEach(c => { if (!seen[c]) { seen[c] = true; descendants(c, seen); } }); return Object.keys(seen); }
+  function ancestors(id, seen) { seen = seen || {}; NODES[id].parents.forEach(p => { if (!seen[p]) { seen[p] = true; ancestors(p, seen); } }); return Object.keys(seen); }
+  function setWorse(id, s) { if (RANK[s] > RANK[state[id]] || (s === 'stale' && state[id] === 'tainted')) state[id] = s; }
+  function apply(evId) {
+    const e = EVENTS[evId];
+    e.stale.forEach(id => { state[id] = 'stale'; });
+    e.stale.forEach(id => descendants(id).forEach(d => { if (state[d] === 'ok') state[d] = 'suspect'; }));
+    e.suspect.forEach(id => { setWorse(id, 'suspect'); descendants(id).forEach(d => { if (state[d] === 'ok') state[d] = 'suspect'; }); });
+    log.push(e.label);
+  }
+  const nodeFull = id => id === 'geom' ? ARR[st.arr].poses * ARR[st.arr].secPer : NODES[id].full;
+  const nodeCheck = id => id === 'geom' ? ARR[st.arr].geomCheckS : NODES[id].check;
+  function run(id, wantFull) {
+    const s0 = state[id];
+    const staleUp = ancestors(id).some(a => state[a] === 'stale');
+    if (s0 === 'ok' && !wantFull) return 'already ok';
+    const full = s0 === 'stale' || s0 === 'tainted' || wantFull;
+    if (!full && st.pess) { spent += nodeCheck(id); state[id] = 'stale'; return 'the check on ' + NODES[id].label + ' failed: a full trial is needed'; }
+    spent += full ? nodeFull(id) : nodeCheck(id);
+    state[id] = staleUp ? 'tainted' : 'ok';
+    if (state[id] === 'ok') descendants(id).forEach(d => { if (state[d] === 'tainted') state[d] = 'stale'; });
+    return staleUp ? NODES[id].label + ' was run on a stale eye: it inherits the error' : NODES[id].label + ' is calibrated';
+  }
+  function nextInOrder() {
+    const stale = ORDER.filter(id => state[id] === 'stale' || state[id] === 'tainted');
+    if (stale.length) return { id: stale[0], full: true };
+    const sus = ORDER.filter(id => state[id] === 'suspect');
+    if (sus.length) return { id: sus[0], full: false };
+    return null;
+  }
+  function tally() {
+    let fullS = 0, chkS = 0, worst = 0, nF = 0, nC = 0;
+    ORDER.forEach(id => { const s = state[id]; if (s === 'stale' || s === 'tainted') { fullS += nodeFull(id); worst += nodeFull(id); nF++; } else if (s === 'suspect') { chkS += nodeCheck(id); worst += nodeFull(id); nC++; } });
+    return { fullS: fullS, chkS: chkS, worst: worst, nF: nF, nC: nC };
+  }
+  const readingState = r => r.leans.reduce((w, id) => RANK[state[id]] > RANK[w] ? state[id] : w, 'ok');
+
+  // ------------------------------------------------------------------ scaffolding
+  const W = 690, H = 400, NW = 208, NH = 54, COLX = [6, 240, 474];
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'cg-svg', role: 'img', 'aria-label': 'graph of what each calibration depends on' });
+  const sumEl = h('div', { class: 'cg-sum' });
+  const tabEl = h('table', { class: 'cg-tab' });
+  const errEl = h('table', { class: 'cg-tab' });
+  const noteA = h('div', { class: 'cg-note' });
+  const cGraph = h('div', { class: 'cg-card' }, h('h3', {}, h('span', { text: 'The ledger: what depends on what' }), h('em', { text: 'green ok · amber suspect · red stale · purple run on a stale eye · ⚠ no cheap check' })), svg, sumEl);
+  const cRead = h('div', { class: 'cg-card' }, h('h3', {}, h('span', { text: 'Readings and what they lean on' }), h('em', { text: 'the worst state among their inputs' })), tabEl);
+  const cErr = h('div', { class: 'cg-card' }, h('h3', {}, h('span', { text: 'What an eye error costs each reading' }), h('em', { text: 'mm · the sliders are eye errors' })), errEl, noteA);
+  app.stageEl.appendChild(h('div', { class: 'cg-grid' }, h('div', { class: 'cg-col' }, cGraph, cErr), h('div', { class: 'cg-col' }, cRead)));
+
+  const line = (d, a) => S('path', Object.assign({ d: d, fill: 'none' }, a));
+  const STYLE = { ok: ['#12301f', '#34d399'], suspect: ['#33280f', '#fbbf24'], stale: ['#3a1414', '#f87171'], tainted: ['#2b1a3a', '#c084fc'] };
+  const pos = id => ({ x: COLX[NODES[id].col], y: NODES[id].y });
+  const fmtS = s => s >= 90 ? (s / 60).toFixed(s % 60 === 0 ? 0 : 1) + ' min' : Math.round(s) + ' s';
+  function drawGraph() {
+    svg.textContent = '';
+    svg.append(S('rect', { x: 0, y: 0, width: W, height: H, fill: '#0f141b', rx: 6 }));
+    svg.append(S('defs', {}, S('marker', { id: 'cgarr', viewBox: '0 0 8 8', refX: 7, refY: 4, markerWidth: 7, markerHeight: 7, orient: 'auto' }, S('path', { d: 'M 0 0 L 8 4 L 0 8 z', fill: '#7f8b9e' })), S('marker', { id: 'cgarrhot', viewBox: '0 0 8 8', refX: 7, refY: 4, markerWidth: 7, markerHeight: 7, orient: 'auto' }, S('path', { d: 'M 0 0 L 8 4 L 0 8 z', fill: '#f87171' }))));
+    ['THE EYE', 'THE ARRANGEMENT, THE ROTATOR', 'THIS TUBE'].forEach((t, i) => svg.append(S('text', { x: COLX[i] + 2, y: 20, class: 'head', text: t })));
+    // edges first
+    ORDER.forEach(id => NODES[id].parents.forEach(p => {
+      const a = pos(p), b = pos(id), sameCol = NODES[p].col === NODES[id].col;
+      let d;
+      if (sameCol) { d = 'M ' + (a.x + NW / 2) + ' ' + (a.y + (b.y > a.y ? NH : 0)) + ' L ' + (b.x + NW / 2) + ' ' + (b.y + (b.y > a.y ? 0 : NH)); }
+      else { const x1 = a.x + NW, y1 = a.y + NH / 2, x2 = b.x, y2 = b.y + NH / 2, mx = (x1 + x2) / 2; d = 'M ' + x1 + ' ' + y1 + ' C ' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2; }
+      const hot = state[p] === 'stale' || state[p] === 'tainted';
+      svg.append(line(d, { stroke: hot ? '#f87171' : '#3a475c', 'stroke-width': hot ? 1.4 : 1, opacity: hot ? 0.8 : 0.7, 'marker-end': 'url(#cgarr' + (hot ? 'hot' : '') + ')' }));
+    }));
+    ORDER.forEach(id => {
+      const n = NODES[id], p = pos(id), s = state[id], col = STYLE[s], g = S('g');
+      const label = id === 'geom' ? ARR[st.arr].geomLabel.split(':')[0] : n.label, sub = id === 'geom' ? ARR[st.arr].geomLabel.split(':')[1].trim() : n.sub;
+      g.append(S('rect', { x: p.x, y: p.y, width: NW, height: NH, rx: 7, fill: col[0], stroke: col[1], 'stroke-width': s === 'ok' ? 1 : 1.8 }),
+        S('text', { x: p.x + 9, y: p.y + 18, class: 'b', text: label }), S('text', { x: p.x + 9, y: p.y + 32, class: 'sm', text: sub.length > 40 ? sub.slice(0, 38) + '…' : sub }),
+        S('text', { x: p.x + 9, y: p.y + 46, class: 'sm ' + (s === 'stale' || s === 'tainted' ? (s === 'stale' ? 'red' : 'violet') : (s === 'suspect' ? 'amber' : 'green')), text: s === 'ok' ? 'ok' : (s === 'suspect' ? 'suspect · check ' + fmtS(nodeCheck(id)) : (s === 'stale' ? 'stale · trial ' + fmtS(nodeFull(id)) : 'run on a stale eye · redo ' + fmtS(nodeFull(id)))) }));
+      if (n.silent) g.append(S('text', { x: p.x + NW - 8, y: p.y + 17, 'text-anchor': 'end', class: 'amber', text: '⚠' }));
+      svg.append(g);
+    });
+    svg.append(S('text', { x: 8, y: 392, class: 'sm', text: 'an arrow points to what leans on the calibration it leaves · ⚠ has no cheap check' }));
+  }
+  function drawSummary() {
+    const t = tally(), nx = nextInOrder(), a = ARR[st.arr];
+    let html;
+    if (!t.nF && !t.nC) html = '<b>Everything is calibrated.</b> <span class="k">Press an event.</span>';
+    else html = '<b>' + t.nF + ' stale</b> (full trials ' + fmtS(t.fullS) + ') and <b>' + t.nC + ' suspect</b> (checks ' + fmtS(t.chkS) + '): the route costs <b>' + fmtS(t.fullS + t.chkS) + '</b> if every check passes, ' + fmtS(t.worst) + ' if every check fails. <span class="k">Next in order: ' + (nx ? NODES[nx.id].label + (nx.id === 'geom' ? ' (' + a.geomTrial + ')' : ' (' + (nx.full ? NODES[nx.id].trial : NODES[nx.id].chk) + ')') : 'nothing') + '.</span>';
+    html += '<br><span class="k">Spent so far: ' + fmtS(spent) + (log.length ? ' · events: ' + log.join(', ') : '') + '</span>';
+    html += '<br><span class="k"><b>' + a.name + '</b>: ' + a.unknown + ' numbers, ' + a.poses + ' poses × ' + a.secPer + ' s. Invisible to a board: ' + a.invisible + '. Goes stale with: ' + a.by + '.</span>';
+    sumEl.innerHTML = html;
+  }
+  function drawTable() {
+    const chip = s => '<span class="cg-chip ' + (s === 'ok' ? 'cg-ok' : s === 'suspect' ? 'cg-sus' : s === 'tainted' ? 'cg-taint' : 'cg-stale') + '">' + (s === 'ok' ? 'usable' : s === 'suspect' ? 'provisional' : s === 'tainted' ? 'redo' : 'do not use') + '</span>';
+    tabEl.innerHTML = '<thead><tr><th>Reading</th><th>Apart</th><th>State</th></tr></thead><tbody>' + READINGS.map(r => '<tr><td>' + r.label + '<div class="cg-note" style="padding:2px 0 0">leans on ' + r.leans.map(id => id === 'geom' ? 'arrangement' : NODES[id].label.toLowerCase()).join(', ') + '</div></td><td>' + r.sep + '</td><td>' + chip(readingState(r)) + '</td></tr>').join('') + '</tbody>';
+  }
+  function drawErr() {
+    const tanpsi = 61.85 / st.H, cls = v => v > 0.05 ? 'cg-hi' : (v > 0.01 ? 'cg-mid' : 'cg-lo'), fmt = v => v < 0.0005 ? '0' : (v >= 1 ? v.toFixed(2) + ' mm' : (v * 1000).toFixed(0) + ' µm');
+    const s = st.scale / 100, t = st.trans, dz = 6.35, tau = 0.5 * 0.125;
+    const rows = [
+      ['the knee (0 mm apart)', s * 0.3, 0, 0, tau],
+      ['dot vs rim edge (6.35 mm up)', s * (6.35 * tanpsi + 1.0), t * dz / st.H, 0, tau],
+      ['dot vs the ports (19 mm)', s * 19.05, 0, 0, tau],
+      ['dot in the room frame', s * 61.85, t, Math.tan(st.point * DEG) * st.H, tau],
+    ];
+    errEl.innerHTML = '<thead><tr><th>reading</th><th>scale ' + st.scale.toFixed(1) + ' %</th><th>camera moved ' + st.trans.toFixed(0) + ' mm</th><th>pointing ' + st.point.toFixed(2) + '°</th><th>latency 125 ms at 0.5 mm/s</th></tr></thead><tbody>' + rows.map(r => '<tr><td>' + r[0] + '</td>' + [1, 2, 3, 4].map(i => '<td class="n ' + cls(r[i]) + '">' + fmt(r[i]) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+    noteA.textContent = 'Pointing shifts the whole picture, so it cancels in every comparison made in one picture; a scale error grows with how far apart the two things are; a camera move costs parallax only for things at different depths; time costs the same for all of them. Red above the 0.05 mm marker (not a requirement).';
+  }
+  function ioUpdate() {
+    const t = tally();
+    app.io.set({
+      commands: [
+        { name: 'Next calibration to run', value: (nextInOrder() ? NODES[nextInOrder().id].label : 'none'), note: 'dependency order: eye, arrangement, dot, tube' },
+        { name: 'Reference puck swap (trials-22)', value: t.nF || t.nC ? 'when the eye is stale or suspect' : 'idle', note: 'by a hand or a gripper: a person\'s minute today' },
+      ],
+      observes: [
+        { name: 'Rim and ports fit residual', value: 'every frame', status: 'seen', note: 'the camera pose is checked for free while anything is in view (datum-19)' },
+        { name: 'Golden dot brightness and place', value: 'each session and after any event', status: 'partly', note: 'a fixed pointer command (trials-18)' },
+        { name: 'Judge against touches', value: 'K azimuths', status: 'partly', note: 'the only sight of an angle-locked bias (datum-14)' },
+        { name: 'Dot against the melt', value: '–', status: 'unresolved', note: 'a witness pass on a scrap coupon; not a dry run' },
+        { name: 'Stale / suspect calibrations', value: t.nF + ' / ' + t.nC, status: (t.nF || t.nC) ? 'partly' : 'seen', note: 'the loop\'s own ledger' },
+      ],
+      manual: ['Swapping a reference puck', 'The witness pass', 'Deciding how far a suspect calibration may be trusted']
+    });
+  }
+  function redraw() { drawGraph(); drawSummary(); drawTable(); drawErr(); ioUpdate(); app.badge('taint', ORDER.some(id => state[id] === 'tainted') ? 'a calibration was run on a stale eye: it will have to be done again' : null, 'warn'); }
+
+  // ------------------------------------------------------------------ controls
+  const ga = app.ui.group('The arrangement (from other explorers)', { help: 'Its own numbers go into the ledger; the eye and the tube are the same.' });
+  ga.radio({ id: 'arr', label: 'Arrangement', options: [{ value: 'gantry', label: 'table + gantry' }, { value: 'cage', label: 'corner cords' }, { value: 'hexapod', label: 'hexapod' }, { value: 'arm', label: 'encoded arm' }], value: 'gantry', kind: 'branch', visual: 'the Arrangement box and the summary', help: 'room-01 / room-15 (Derek\'s table), room-06, borrowed-13, borrowed-03.', onChange: v => { st.arr = v; redraw(); } });
+  const ge = app.ui.group('What happens to the rig (scene edits)', { help: 'Pick an event and apply it; events add up.' });
+  ge.select({ id: 'ev', label: 'Event', options: Object.keys(EVENTS).map(k => ({ value: k, label: EVENTS[k].label })), value: 'knock', kind: 'scene', visual: 'none until applied', noVisual: true, help: 'What each event invalidates directly; everything downstream becomes suspect.', onChange: v => { st.ev = v; } });
+  ge.button({ id: 'apply', label: 'Apply the event', kind: 'scene', help: 'Marks the calibrations it invalidates stale and what leans on them suspect.', onClick: () => { apply(st.ev); app.toast(EVENTS[st.ev].label + ': ' + EVENTS[st.ev].note); redraw(); } });
+  const gr = app.ui.group('The loop runs trials (software commands)', { help: 'In order, or not.' });
+  gr.button({ id: 'next', label: 'Run the next trial in order', kind: 'state', help: 'The first stale calibration in dependency order gets its full trial; if none is stale, the first suspect one gets its check.', onClick: () => { const nx = nextInOrder(); if (!nx) { app.toast('Nothing to run'); return; } app.toast(run(nx.id, nx.full)); redraw(); } });
+  gr.select({ id: 'runNode', label: 'Or run this one', options: ORDER.map(id => ({ value: id, label: id === 'geom' ? 'Arrangement' : NODES[id].label })), value: 'pose', kind: 'state', noVisual: true, onChange: v => { st.runNode = v; } });
+  gr.button({ id: 'runOne', label: 'Run the chosen trial', kind: 'state', help: 'A full trial for the chosen calibration, whatever the order. If something upstream is stale it comes out purple.', onClick: () => { app.toast(run(st.runNode, true)); redraw(); } });
+  gr.toggle({ id: 'pess', label: 'Checks fail (suspect turns out stale)', value: false, kind: 'scene', noVisual: true, help: 'A pessimistic run: every cheap check finds the calibration really is stale.', onChange: v => { st.pess = v; redraw(); } });
+  gr.button({ id: 'clear', label: 'Reset the ledger', kind: 'state', onClick: () => { resetStates(); redraw(); } });
+  const gs = app.ui.group('Eye errors for the table (scene edits, illustrative)', { help: 'What each error costs each reading.' });
+  gs.slider({ id: 'scale', label: 'Scale error (focus breathing, thermal)', min: 0, max: 3, step: 0.1, value: 1.0, unit: '%', kind: 'scene', visual: 'the scale column', onChange: v => { st.scale = v; drawErr(); } });
+  gs.slider({ id: 'trans', label: 'Camera moved sideways', min: 0, max: 20, step: 1, value: 5, unit: 'mm', kind: 'scene', visual: 'the camera-moved column', onChange: v => { st.trans = v; drawErr(); } });
+  gs.slider({ id: 'point', label: 'Camera pointing changed', min: 0, max: 0.5, step: 0.01, value: 0.1, unit: '°', kind: 'scene', visual: 'the pointing column', onChange: v => { st.point = v; drawErr(); } });
+  gs.slider({ id: 'H', label: 'Camera height above the plate', min: 150, max: 450, step: 10, value: 300, unit: 'mm', kind: 'scene', visual: 'the rim-edge and pointing rows', onChange: v => { st.H = v; drawErr(); } });
+  app.io.manual(['Swapping a reference puck']);
+  resetStates(); apply('knock'); redraw();
+})();
+</script>
+</body>
+</html>

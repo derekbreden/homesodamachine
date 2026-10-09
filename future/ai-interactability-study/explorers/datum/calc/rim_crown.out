@@ -1,0 +1,38 @@
+dot [ 61.85   0.   146.05] (should be the joint [ 61.85   0.   146.05] )
+  nozzle tip             x    54.6 y    -8.6 z   157.4   horizontal radius   55.3 mm at azimuth   -8.9 deg,   5.0 mm above the rim
+  barrel mid             x    27.4 y   -40.8 z   200.2   horizontal radius   49.1 mm at azimuth  -56.1 deg,  47.8 mm above the rim
+  housing centre         x   -29.5 y  -108.1 z   289.5   horizontal radius  112.0 mm at azimuth -105.2 deg, 137.1 mm above the rim
+  grip mid               x    -6.9 y  -173.3 z   277.9   horizontal radius  173.5 mm at azimuth  -92.3 deg, 125.5 mm above the rim
+  grip base / cable exit x    -0.7 y  -233.5 z   285.6   horizontal radius  233.5 mm at azimuth  -90.2 deg, 133.2 mm above the rim
+  nozzle tip is 55.3 mm from the axis, 5.0 mm above the rim (inside a ring of inner radius > 61 mm)
+
+Gun centre of mass (mass split: barrel .15, housing .55, grip .30; illustrative)
+  cg x -14.2 y -117.6 z 272.6, horizontal radius 118.4 mm at azimuth -96.9 deg
+
+  gun+shell 0.75 kg: upper assembly 1.30 kg, combined cg 77.2 mm from the axis (ball pitch radius 66 mm: OVER the ring)
+     counterweight at r= 70 mm opposite: 1.43 kg brings the combined cg to the axis (assembly 2.73 kg)
+     counterweight at r=100 mm opposite: 1.00 kg brings the combined cg to the axis (assembly 2.30 kg)
+     total on the rim 2.45 kg: 24.1 N over 650 mm^2 rim annulus = 0.037 MPa (316L yield ~ 170-200 MPa, wall in compression) 
+
+  gun+shell 1.15 kg: upper assembly 1.70 kg, combined cg 86.8 mm from the axis (ball pitch radius 66 mm: OVER the ring)
+     counterweight at r= 70 mm opposite: 2.11 kg brings the combined cg to the axis (assembly 3.81 kg)
+     counterweight at r=100 mm opposite: 1.48 kg brings the combined cg to the axis (assembly 3.18 kg)
+     total on the rim 3.33 kg: 32.6 N over 650 mm^2 rim annulus = 0.050 MPa (316L yield ~ 170-200 MPa, wall in compression) 
+
+  gun+shell 1.65 kg: upper assembly 2.20 kg, combined cg 93.9 mm from the axis (ball pitch radius 66 mm: OVER the ring)
+     counterweight at r= 70 mm opposite: 2.95 kg brings the combined cg to the axis (assembly 5.15 kg)
+     counterweight at r=100 mm opposite: 2.07 kg brings the combined cg to the axis (assembly 4.27 kg)
+     total on the rim 4.42 kg: 43.3 N over 650 mm^2 rim annulus = 0.067 MPa (316L yield ~ 170-200 MPa, wall in compression) 
+
+Anti-rotation tether: torque about the tube axis from umbilical drag at the cable exit
+  cable exit is 234 mm from the axis
+  drag  1.0 N at the exit: 0.23 N.m; tether at r= 90 mm carries 2.6 N
+  drag  1.0 N at the exit: 0.23 N.m; tether at r=150 mm carries 1.6 N
+  drag  3.0 N at the exit: 0.70 N.m; tether at r= 90 mm carries 7.8 N
+  drag  3.0 N at the exit: 0.70 N.m; tether at r=150 mm carries 4.7 N
+  drag 10.0 N at the exit: 2.34 N.m; tether at r= 90 mm carries 25.9 N
+  drag 10.0 N at the exit: 2.34 N.m; tether at r=150 mm carries 15.6 N
+
+Bearing drag: printed ball race, illustrative friction coefficient 0.01 at pitch 66 mm carrying 30 N: 0.020 N.m
+Rotating the whole upper assembly about the tube axis moves the dot along the seam and leaves gun-to-corner pose unchanged.
+  a tether that lets the ring turn 2 deg moves the dot 2.16 mm along the seam

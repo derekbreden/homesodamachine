@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drop tier on a seat</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .t19 { font-size: 12px; line-height: 1.4; color: #c7d3e6; } .t19 h4 { margin: 0 0 4px; font-size: 12.5px; color: #fff; }
+  .t19 svg { width: 100%; height: auto; display: block; } .t19 svg text { font: 10px system-ui, sans-serif; fill: #98a4b6; }
+  .t19 .note { margin-top: 4px; color: #98a4b6; font-size: 11px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-19-drop-tier-on-a-seat",
+  "title": "Drop tier on a three-ball seat: travel-01's stack after use's exchange",
+  "by": "travel",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "travel-01 (the gun stays, the work moves) with the one change use's exchange asked for: Z is split into a drop tier with hard stops, seated on three balls at its top stop, under the fine tier. The tier does the swap clearance (drop, then shuttle: the bottom-stop switch is the interlock) and, if a bead has to end with the head leaving, the escape; the fine tier only trims. The scene draws the seat and its tilt, and shows what the tilt does to the seam circle: a once-per-turn face runout that no fine axis can trim.",
+  "tags": [
+    "work-side stages",
+    "drop tier",
+    "kinematic seat",
+    "tilt = face runout",
+    "interlock",
+    "escape",
+    "combination of travel-01 and use-13"
+  ],
+  "branchOf": [
+    "travel-01-tube-travels"
+  ],
+  "combines": [
+    "travel-01-tube-travels",
+    "use-13-work-states"
+  ],
+  "transferable": [
+    "long axes at the bottom, with hard stops",
+    "bottom-stop switch as the shuttle interlock",
+    "seat tilt = ball scatter over ball circle",
+    "fine axes trim position, not tilt"
+  ],
+  "how": {
+    "motion": "gun stays; work shuttles out, drops on a tier, trims on fine Z and X",
+    "load": "holder carries gun and cables; shuttle, seat and tiers carry rotator and tube",
+    "reference": "shuttle stop and three-ball tier seat, then a camera trim after the last approach",
+    "observe": "four end-stop switches; a camera on the dot; nothing measures nozzle-to-rim clearance",
+    "use": "hands work at the out position; the machine drops, shuttles, rises, trims, welds"
+  },
+  "software": {
+    "commands": [
+      "tier down and up to hard stops",
+      "shuttle out and in to hard stops, only with the tier down (interlock)",
+      "fine Z and X trim",
+      "rotator (existing)",
+      "escape: drop by what the head must leave"
+    ],
+    "observes": [
+      "end-stop switches: tier up (on the seat) and down, shuttle in and out",
+      "step counts of the fine axes",
+      "the dot against the seam through a camera when it sees it"
+    ],
+    "manual": [
+      "loading, indicating, seating the plate",
+      "firing the tacks and the weld",
+      "cutting a fused wire and telling the machine",
+      "the escape distance (unmeasured)"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-01-tube-travels.md",
+    "../../explorers/travel/calc/12-drop-tier-seat.mjs",
+    "../../exchange/use--on--travel-w2.md",
+    "../../scenes/use-13-work-states/index.html",
+    "../../exchange/travel--reply-to-use-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, CAPTOP = WK.CAP_TOP, RIMZ = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2;
+  const BENCH_Z = -226;                       // 40 mm lower than travel-01: the drop tier and its balls need the room (illustrative)
+  const VB = 0.712;                           // vertical component of the beam in the opening pose [derived]
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'opening' },
+    viewButtons: ['overall', 'joint', 'stack', 'seat'],
+    views: {
+      overall: { target: [0, -70, 30], dir: [-0.55, 0.62, 0.42], dist: 1650 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 200 },
+      stack: { target: [0, 20, -150], dir: [0.75, -0.85, 0.3], dist: 900 },
+      seat: { target: [0, 0, -180], dir: [0.6, -0.8, 0.25], dist: 520 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>travel-01 with one change.</b> The gun still sits in a hand-set holder, locked for the weld; the stack under the rotator still does everything else. Z is now <b>two tiers</b>: a <b>drop tier</b> (30 to 60 mm, hard stops at the bottom and at the top) and, riding on it, the short <b>fine tier</b> (Z and X, a few millimetres, micron steps). At its top stop the drop tier rests on <b>three balls in three grooves</b> (teal), held down by a preload. use’s exchange found that one Z axis was asked for three jobs (trim, swap clearance, and, if a bead must end with the head leaving, the escape); here the tier takes the last two and the fine tier keeps the first.</p>' +
+        '<p>The sequence changes with it. To swap, the tier goes to its <b>bottom stop</b>, and the switch on that stop is the <b>interlock</b> that lets the shuttle move (a hardware condition, not a rule computed from Z and the plate depth, which nothing measures). To weld, the shuttle goes in, the tier rises to the seat, the fine tier trims after the last approach. If the head must leave the puddle (unconfirmed: guide 46 says only to release the trigger, then the pedal) the tier drops by what the escape needs, and a fused wire is a <b>hold</b> state: every axis inhibited until a hand has cut it and says so.</p>' +
+        '<p>The seat is the point of the drawing. Its tilt is ball scatter over ball circle; the seam is 232 mm above the layers below the rotator and its circle has r = 61.85 mm, so a tilt of δ makes a once-per-turn vertical error of r tan δ that <b>no fine axis can trim</b> (it trims the position, not the tilt). Set the ball scatter and the ball circle and read the face runout it leaves; the drawing exaggerates the tilt (slider) and says so, the readouts stay true.</p>',
+      carries:
+        '<p><b>Amber</b> shell and <b>teal</b> holder joints carry the gun to a slate post; the two cables hang from a slate gallows. <b>Purple</b> layers carry the rotator and tube; the <b>teal</b> balls under the tier locate it; four slate columns only guide it. The stack from the bench: shuttle slab, base plate with the three balls, drop tier, fine Z, X, then the rotator. The holder never moves.</p>',
+      software:
+        '<p>Software commands the tier (to its stops), the shuttle (only with the tier down), the fine axes and the rotator. It reads four end-stop switches (tier up and down, shuttle in and out) and the fine axes’ step counts, and the dot against the seam through the cameras when they see it. It cannot read the seat’s tilt, the nozzle-to-rim clearance or a fused wire: the tilt appears only as a once-per-turn dot error in a dry lap, the clearance is what the interlock exists to make safe, and the wire is a hand telling the machine.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Z’s range is bigger than the swap margin</b> (from use). <i>Conflict:</i> the nozzle tip is 5.0 mm above the rim plane, the fine Z runs ±6 mm, the barrel meets the rim from Z = +2 mm, so a closure that ends with the fine axis high crashes on the next shuttle. <i>Assumption:</i> Z moves only to trim. <i>Change:</i> the drop tier goes down first; the rim then clears the barrel by 39 mm at Z = +6 with a 40 mm drop (<code>calc/12</code>), and the tier’s bottom-stop switch is the interlock. <i>Leaves:</i> the nozzle margin is the kit’s proxy; the real one may be larger or smaller.</li>' +
+        '<li><b>Tilt is face runout</b> (from use). <i>Conflict:</i> every return to a hard stop leaves the stack tilted by the stop’s scatter over its span; at r = 61.85 mm a tilt of 0.05° is 0.054 mm peak. <i>Answer:</i> a three-ball seat leaves ball scatter over ball circle, not the guides’ straightness: 10 µm over 150 mm is 0.004°, 4 µm peak; 0.0185° (0.02 mm peak, a tenth of the 0.30 mm TIR window) allows 48 µm over 150 mm. A scissor lab jack at 0.3° would leave 0.32 mm. <i>Leaves:</i> printed grooves and creep; the plate’s own sag under the rotator; the preload must beat the tier’s weight shift.</li>' +
+        '<li><b>The end of a bead has no owner</b> (from use). <i>Change:</i> the tier owns it: 20 mm along the beam is 28.1 mm of Z, 0.47 s at 60 mm/s, and the seam turns 3.7 mm at 8 mm/s while it happens; the fine Z alone reaches 8.5 mm along the beam. A fused wire stops it: the tier’s motor current (or a load cell) is the force limit, and the HOLD state inhibits everything. <i>Leaves:</i> whether there is a lift at all (slider 0 removes it); how a stepper tier behaves at a fused wire; the cables on a shuttling, dropping body.</li>' +
+        '<li><b>Two approaches per closure</b> (from use). The written order tacks, checks the face with a dial, then welds, so the tube goes in, out and in again; each return lands within the shuttle stop’s scatter and the seat’s tilt, and the last trim comes after the second. <i>Left standing:</i> only a dial that can stand opposite the gun removes one approach (question for Derek).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Ball scatter, ball circle, tier stroke, speeds and the nozzle margin are <b>illustrative</b>. Return error at the shuttle stop and the tier’s lower stop, printed-groove creep, the plate’s sag, and the fibre, motor lead, pedal, shoe and hose on a moving body are not drawn.</li>' +
+        '<li>A stepper tier of a few kilograms of rotator and tube: no listing read states a lift speed or a holding force; the linear stages in the sourcing notes state stroke and load only.</li>' +
+        '<li><b>Questions for Derek:</b> how do you end a bead today and how far does the head go before the wire is free; can the dial stand opposite the gun for the face check; what does the rotator, its base and a tube weigh together?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun: the kit proxy in the opening pose (illustrative). Stage ranges (shuttle 200, drop tier 40, fine Z ±6, X ±8 mm), the 40 mm added stack height and the 12 mm plate-seat range are illustrative. r = 61.85 mm, recess 6.35 mm, seam 232 mm above the rotator feet, TIR 0.25 / 0.30 mm: <b>[repo] / [derived]</b>.</li>' +
+        '<li>Beam vertical component 0.712 <b>[derived]</b> (kit proxy). Tilt drawn exaggerated by the slider; the readouts (peak face runout, seam sideways shift) are computed from the true tilt.</li>' +
+        '<li><b>Models:</b> rigid motions; tilt of the stack above the seat about the ball plane; barrel-to-rim clearance as in travel-01. <b>Depicts only:</b> the layers as plates, the columns, the balls, the cables not at all.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  const ui = id => app.ui.get(id);
+
+  // ---------------------------------------------------------------- bench, rails, hard stop, then the stack: slab, base plate with balls, drop tier, fine Z, Y, X
+  const bench = P.box(980, 820, 20, 'fixed'); bench.position.set(-40, -120, BENCH_Z - 10); app.add(bench);
+  (function grid() {
+    const pts = [], z = BENCH_Z + 0.2;
+    for (let x = -500; x <= 420; x += 50) pts.push(V(x, -520, z), V(x, 280, z));
+    for (let y = -500; y <= 280; y += 50) pts.push(V(-530, y, z), V(450, y, z));
+    const g = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.4 })); g.userData.role = 'fixed'; g.userData.occludes = false; app.add(g);
+  })();
+  [-110, 110].forEach(x => app.add(P.rail(V(x, -60, BENCH_Z + 2.5), V(x, 320, BENCH_Z + 2.5), { width: 14, height: 5, role: 'fixed' })));
+  const hardStop = P.box(240, 10, 28, 'locate'); hardStop.position.set(0, -68, BENCH_Z + 14); app.add(hardStop);
+  app.label(hardStop, 'shuttle hard stop', { cls: 'locate' });
+  const shuttleG = new THREE.Group(); app.scene.add(shuttleG);
+  const slab = P.box(340, 300, 20, 'actuated'); slab.position.set(0, 0, BENCH_Z + 15); shuttleG.add(slab);
+  const basePlate = P.box(300, 260, 16, 'fixed'); basePlate.position.set(0, 0, BENCH_Z + 33); shuttleG.add(basePlate);
+  // three balls at 120 degrees on the ball circle; four guide columns (they guide, they do not locate)
+  const BALL_Z = BENCH_Z + 41 + 5, balls = [0, 1, 2].map(i => { const b = P.sphere(6, 'locate'); shuttleG.add(b); return b; });
+  const cols = [[-125, -105], [125, -105], [-125, 105], [125, 105]].map(c => { const r = P.rod(V(c[0], c[1], BENCH_Z + 41), V(c[0], c[1], BENCH_Z + 41 + 44), 5, 'fixed'); shuttleG.add(r); return r; });
+  const lowStops = [[-138, 0], [138, 0]].map(c => { const b = P.box(24, 60, 10, 'locate'); b.userData.c = c; shuttleG.add(b); return b; });   // the tier's bottom stops and switch
+  const tierG = new THREE.Group(); shuttleG.add(tierG);           // the drop tier and everything above it (tilt and drop are applied here)
+  const tierPlate = P.box(300, 260, 14, 'actuated'); tierG.add(tierPlate);
+  const grooves = [0, 1, 2].map(i => { const g = P.box(14, 14, 8, 'locate'); tierG.add(g); return g; });
+  const moving = new THREE.Group(); tierG.add(moving);           // fine Z
+  const zPlat = P.box(300, 260, 12, 'actuated'); moving.add(zPlat);
+  const yG = new THREE.Group(); moving.add(yG); const yCar = P.box(300, 260, 12, 'actuated'); yG.add(yCar);
+  const xG = new THREE.Group(); yG.add(xG); const xCar = P.box(300, 260, 12, 'actuated'); xG.add(xCar);
+  app.scene.remove(ws.group); xG.add(ws.group);
+  // stack heights (world z of the top of each layer at rest; the rotator's feet stand at -86)
+  const Z_TIER = BENCH_Z + 41 + 10 + 7, Z_ZP = Z_TIER + 7 + 6 + 8, Z_YC = Z_ZP + 12, Z_XC = Z_YC + 12;
+  tierPlate.position.set(0, 0, Z_TIER); zPlat.position.set(0, 0, Z_ZP); yCar.position.set(0, 0, Z_YC); xCar.position.set(0, 0, Z_XC);
+  const motors = [], motorOn = (parent, pos, axisDir) => { const m = P.motor(36, 'actuated'); m.position.copy(pos); m.quaternion.setFromUnitVectors(V(0, 0, 1), axisDir); parent.add(m); motors.push(m); return m; };
+  motorOn(tierG, V(-190, 0, Z_TIER), V(1, 0, 0)); motorOn(shuttleG, V(0, 200, BENCH_Z + 13), V(0, -1, 0)); motorOn(moving, V(150, 0, Z_ZP), V(-1, 0, 0));
+  app.label(() => slab.getWorldPosition(new THREE.Vector3()).add(V(150, 60, 0)), 'shuttle (long)', { cls: 'actuated' });
+  app.label(() => tierPlate.getWorldPosition(new THREE.Vector3()).add(V(150, -70, 0)), 'drop tier (hard stops)', { cls: 'actuated' });
+  app.label(() => balls[0].getWorldPosition(new THREE.Vector3()).add(V(60, 30, 0)), 'three balls (seat)', { cls: 'locate' });
+  app.label(() => lowStops[1].getWorldPosition(new THREE.Vector3()).add(V(40, 0, 0)), 'bottom stop + switch (interlock)', { cls: 'locate' });
+  app.label(() => zPlat.getWorldPosition(new THREE.Vector3()).add(V(160, 40, 0)), 'fine Z', { cls: 'actuated' });
+  app.label(() => xCar.getWorldPosition(new THREE.Vector3()).add(V(160, -60, 0)), 'fine X (on Y)', { cls: 'actuated' });
+
+  // ---------------------------------------------------------------- gun side: shell, holder, cables (fixed once locked)
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const shell = gun.addShell({ style: 'sleeve', from: 'barrelMid', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.30 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  const post = { base: V(-150, -270, BENCH_Z), top: V(-150, -270, 330) };
+  const postBase = P.box(150, 150, 14, 'fixed'); postBase.position.set(post.base.x, post.base.y, BENCH_Z + 7); app.add(postBase);
+  app.add(P.rod(V(post.base.x, post.base.y, BENCH_Z + 14), post.top, 9, 'fixed'));
+  const arm1 = P.rod(post.top, post.top, 6, 'locate'), arm2 = P.rod(post.top, post.top, 6, 'locate'), elbow = P.sphere(9, 'locate'), shoulder = P.sphere(10, 'locate'); shoulder.position.copy(post.top);
+  [arm1, arm2, elbow, shoulder].forEach(o => app.add(o));
+  app.label(() => shoulder.position, 'holder joints (hand-set, locked)', { cls: 'locate' });
+  app.label(() => gun.local('housingBack'), 'gun in shell (fixed)', { cls: 'load' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const ex0 = gun.cableExit(), exDir = ex0.dir.clone(), hanger = ex0.point.clone().addScaledVector(exDir, 340);
+  app.add(P.rod(V(hanger.x + 30, hanger.y - 20, BENCH_Z), V(hanger.x + 30, hanger.y - 20, hanger.z + 25), 7, 'fixed')); app.add(P.rod(V(hanger.x + 30, hanger.y - 20, hanger.z + 25), V(hanger.x, hanger.y, hanger.z + 8), 5, 'fixed'));
+  let umb = null, feed = null;
+  function rebuildCables() {
+    const ex = gun.cableExit(), we = gun.wireExit();
+    const c1 = WK.bezierCable(ex.point, ex.dir, hanger, exDir, { stiffness: 0.4 }), c2 = WK.bezierCable(we.point, we.dir, hanger.clone().add(V(16, 0, 0)), exDir, { stiffness: 0.4 });
+    if (!umb) { umb = P.cable(c1, { radius: 5.5, role: 'cable' }); feed = P.cable(c2, { radius: 3, role: 'wire' }); app.add(umb); app.add(feed); } else { umb.setPoints(c1); feed.setPoints(c2); }
+    const b = WK.cableBadge(c1.minRadius()); app.badge('bend', b.level === 'ok' ? null : b.text, b.level);
+  }
+  app.label(() => hanger, 'umbilical + wire conduit hang here (static)', { cls: 'cable' });
+  const top = app.inset.add({ id: 'top', label: 'Overhead camera (proposed)', position: V(50, -10, 470), target: () => gun.dotWorld(), fov: 16, near: 30, far: 1600, size: [220, 150], corner: 'bl', noise: 0.2 });
+  app.label(V(50, -10, 470), 'overhead camera', { cls: 'sensor' });
+
+  const inv = new THREE.Matrix4();
+  function seamNow() { app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert(); const d = gun.dotWorld().applyMatrix4(inv), seat = ui('seat') || 0; return { radial: Math.hypot(d.x, d.y) - RI, vertical: d.z - (CAPTOP + seat), along: 0, total: 0 }; }
+  app.cornerInset({ gun: { dotOffset: () => seamNow(), beamDir: () => gun.beamDir() } });
+  function rimClearance() {
+    app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const prof = z => (z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12); let min = Infinity;
+    for (let z = 0; z <= 118; z += 4) { const p = gun.local([0, 0, z]).applyMatrix4(inv), d = Math.hypot(Math.hypot(p.x, p.y) - (RI + RO) / 2, p.z - RIMZ) - (RO - RI) / 2 - prof(z); if (d < min) min = d; }
+    return min;
+  }
+  const tipAboveRim = () => { app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert(); return gun.local('nozzleTip').applyMatrix4(inv).z - RIMZ; };
+  const rc = new THREE.Raycaster();
+  function dotSurface() { app.scene.updateMatrixWorld(true); const o = gun.local('nozzleTip'), dv = gun.dotWorld().sub(o).normalize(); rc.set(o, dv); const hit = rc.intersectObjects([ws.tube, ws.cap].filter(Boolean), false)[0]; return hit ? hit.point : gun.dotWorld(); }
+
+  // ---------------------------------------------------------------- the seat: tilt from three balls (worst-case pattern: one ball high, the second landing moves which one)
+  function seatTilt() {   // returns the true tilt vector (rad) about x and y of the plane through the three ball contacts, and its magnitude
+    const c = ui('ball') / 1000, s = ui('span'), R = s / Math.sqrt(3), pat = ui('land') === '1' ? [1, 0, 0] : [0, 1, 0.3];
+    const pts = [90, 210, 330].map((a, i) => [R * Math.cos(a * Math.PI / 180), R * Math.sin(a * Math.PI / 180), c * pat[i]]);
+    // plane z = g.x*x + g.y*y + z0 through three points
+    const [p0, p1, p2] = pts, ux = p1[0] - p0[0], uy = p1[1] - p0[1], uz = p1[2] - p0[2], vx = p2[0] - p0[0], vy = p2[1] - p0[1], vz = p2[2] - p0[2];
+    const nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+    const gx = -nx / nz, gy = -ny / nz; return { gx: gx, gy: gy, mag: Math.hypot(gx, gy) };
+  }
+
+  // ---------------------------------------------------------------- the trace of face runout from the tilt
+  const traceEl = WK.h('div', { class: 't19' }); const trace = app.stageOverlay(traceEl, { corner: 'tr', w: 250 });
+  function drawTrace(t) {
+    const amp = RI * Math.tan(t.mag) * 1000, win = 150;   // um; the TIR acceptance 0.30 mm is +-150 um
+    const W = 226, H = 84, pts = []; for (let i = 0; i <= 72; i++) { const a = i / 72 * 2 * Math.PI; pts.push([i / 72 * W, H / 2 - amp * Math.sin(a) / win * (H / 2 - 6)]); }
+    traceEl.innerHTML = '<h4>Seam height against table angle, from the seat’s tilt</h4><svg viewBox="0 0 ' + W + ' ' + H + '"><rect x="0" y="6" width="' + W + '" height="' + (H - 12) + '" fill="rgba(74,222,128,.10)" stroke="#4ade80" stroke-dasharray="4 3"/><line x1="0" x2="' + W + '" y1="' + H / 2 + '" y2="' + H / 2 + '" stroke="#394559"/><polyline fill="none" stroke="#f5a524" stroke-width="2" points="' + pts.map(p => p.join(',')).join(' ') + '"/><text x="4" y="16">±0.15 mm (0.30 TIR window)</text></svg><div class="note">peak ' + amp.toFixed(1) + ' µm = r tan(tilt) with tilt ' + (t.mag * 180 / Math.PI).toFixed(4) + '°; the fine axes cannot trim it</div>';
+  }
+
+  // ---------------------------------------------------------------- state
+  const readTier = app.ui.readout('rt', 'Tier position'), readShut = app.ui.readout('rs', 'Shuttle, effective'), readTip = app.ui.readout('rtip', 'Tip above the rim plane'), readTilt = app.ui.readout('rtilt', 'Seat tilt (true)'), readFace = app.ui.readout('rface', 'Face runout peak from the tilt'), readEsc = app.ui.readout('resc', 'Escape along the beam: needed / delivered');
+  function sync() {
+    const D = ui('D'), drop = Math.max(0, Math.min(D, ui('drop'))), seated = drop < 0.05, il = ui('il');
+    const shutReq = ui('shut'), tierDown = drop > D - 0.5, shutEff = il && !tierDown ? 0 : shutReq;
+    gun.setTransform(gunBase.pos.clone().add(V(ui('gx'), 0, ui('gz'))), gunBase.quat);
+    // seat: balls on the base plate, grooves under the tier plate, the tier tilts about the ball plane when seated
+    lowStops.forEach(b => b.position.set(b.userData.c[0], b.userData.c[1], Z_TIER - 7 - D - 5));
+    const s = ui('span'), R = s / Math.sqrt(3); [90, 210, 330].forEach((a, i) => { const bx = R * Math.cos(a * Math.PI / 180), by = R * Math.sin(a * Math.PI / 180); balls[i].position.set(bx, by, BALL_Z); grooves[i].position.set(bx, by, Z_TIER - 11); });
+    const t = seatTilt(), k = ui('exag'), tx = -t.gy * k, ty = t.gx * k;                        // rotation about x (from the y-gradient) and y (from the x-gradient)
+    const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(seated ? tx : 0, seated ? ty : 0, 0, 'XYZ')), pv = V(0, 0, BALL_Z);
+    tierG.quaternion.copy(q); tierG.position.copy(pv.clone().sub(pv.clone().applyQuaternion(q))).add(V(0, 0, -drop));
+    moving.position.set(0, 0, ui('z')); xG.position.set(ui('x'), 0, 0); yG.position.set(0, ui('y'), 0);
+    shuttleG.position.set(0, shutEff, 0);
+    const seat = ui('seat'); if (ws.cap) ws.cap.position.z = seat; if (ws.weldCircle) ws.weldCircle.position.z = CAPTOP + 0.3 + seat;
+    ws.setRunout(ui('tir'), ui('tir') * 1.2, 1); ws.spin.on = ui('spin');
+    const lw = lug.world(), r = WK.kin.twoLinkIK(post.top, lw, 150, 150, { bend: [0, 0, 1] }); arm1.setEnds(post.top, r.elbow); arm2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow);
+    app.badge('holder', r.ok ? null : 'holder cannot reach the lug by ' + r.over.toFixed(0) + ' mm', 'limit');
+    rebuildCables(); gun.updateLaser();
+    const clr = rimClearance(), tip = tipAboveRim(), off = seamNow();
+    const zHigh = ui('z'), fusedNow = ui('fused');
+    app.badge('rim', clr < 0 ? 'the barrel or nozzle meets the rim ring here (bare barrel, drawn geometry): a shuttle from here crashes' : null, 'limit');
+    app.badge('il', il && shutReq > 1 && !tierDown ? 'interlock: the tier is not on its bottom stop, so the shuttle stays at the work position (asked ' + shutReq.toFixed(0) + ' mm)' : null, 'info');
+    app.badge('nointl', !il && shutReq > 1 && clr < 0 ? 'no interlock: the shuttle has taken the barrel into the rim' : null, 'limit');
+    app.badge('fused', fusedNow && drop > 0.5 ? 'wire fused in the bead: this drop would drag it through the seam; nothing may move until a hand has cut it' : null, 'limit');
+    const vb = VB, need = ui('esc'), deliv = seated ? 0 : Math.max(0, drop * vb);
+    app.badge('esc', need > 0 && drop > 0.5 && deliv < need - 0.05 ? 'escape short: needs ' + need.toFixed(0) + ' mm along the beam, this drop gives ' + deliv.toFixed(1) + ' mm' : null, 'warn');
+    drawTrace(t);
+    readTier(drop < 0.05 ? 'up, on the seat' : (tierDown ? 'down, on the bottom stop' : drop.toFixed(1) + ' mm down'), ''); readShut(shutEff.toFixed(0), 'mm' + (shutEff !== shutReq ? ' (inhibited)' : '')); readTip(tip.toFixed(1), 'mm');
+    readTilt((t.mag * 180 / Math.PI).toFixed(4), '°'); readFace((RI * Math.tan(t.mag) * 1000).toFixed(1), 'µm (r tan tilt)'); readEsc(need.toFixed(0) + ' / ' + (drop > 0.5 ? deliv.toFixed(1) : '-'), 'mm');
+    const dsp = dotSurface(), vis = app.inset.markVisibility('top', dsp);
+    app.io.set({
+      commands: [
+        { name: 'Drop tier', value: drop < 0.05 ? 'up (seated)' : drop.toFixed(1) + ' mm down', note: 'hard stops at the top (three balls) and the bottom' },
+        { name: 'Shuttle', value: shutEff.toFixed(0), unit: 'mm', note: il ? 'only while the tier is on its bottom stop' : 'no interlock (branch)' },
+        { name: 'Fine Z and X', value: ui('z').toFixed(2) + ', ' + ui('x').toFixed(2), unit: 'mm', note: 'the trim, after the last approach' },
+        { name: 'Rotator', value: ui('spin') ? 'turning' : 'stopped', note: 'existing controller' },
+      ],
+      observes: [
+        { name: 'Tier up / down switches', value: drop < 0.05 ? 'up' : (tierDown ? 'down' : 'between'), status: 'seen', note: 'the down switch is the shuttle interlock' },
+        { name: 'Shuttle in / out switches', value: shutEff < 0.5 ? 'in' : (shutEff > 199 ? 'out' : 'between'), status: 'seen', note: '' },
+        { name: 'Dot visible to the overhead camera', value: vis.visible ? 'yes' : (vis.blocked ? 'blocked' : 'out of view'), status: vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight' },
+        { name: 'Seat tilt', value: (t.mag * 180 / Math.PI).toFixed(4) + '° (true)', status: 'blind', note: 'no sensor: it shows as a once-per-turn dot error in a dry lap' },
+        { name: 'Nozzle to rim clearance', value: clr.toFixed(1), unit: 'mm', status: 'blind', note: 'nothing measures it; the switch makes the shuttle safe by construction' },
+        { name: 'Wire fused in the bead', value: '-', status: 'blind', note: 'a hand tells the machine' },
+      ],
+      manual: ['Loading, indicating and seating the plate at the out position', 'Firing tacks and the weld', 'Cutting a fused wire and saying so', 'How far the head must leave at the end of a bead'],
+    });
+    app.invalidate();
+  }
+
+  // ---------------------------------------------------------------- controls
+  const g1 = app.ui.group('Stack axes (proposed actuators)', { help: 'Actuator badge: axes software would command. The tier goes to hard stops; the fine tier trims.' });
+  g1.slider({ id: 'drop', label: 'Drop tier (0 = up, on the seat)', min: 0, max: 60, step: 0.5, value: 0, unit: 'mm', kind: 'actuator', visual: () => tierPlate, help: 'Hard stops at 0 (three balls) and at the tier stroke below. Between them nothing locates it.', onChange: sync });
+  g1.slider({ id: 'shut', label: 'Shuttle (swap position)', min: 0, max: 200, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => slab, help: '0 = hard stop at the work position; 200 = the loading position. With the interlock on it only moves when the tier is on its bottom stop.', onChange: sync });
+  g1.slider({ id: 'z', label: 'Fine Z', min: -6, max: 6, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => zPlat, onChange: sync });
+  g1.slider({ id: 'x', label: 'Fine X radial', min: -8, max: 8, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => xCar, onChange: sync });
+  g1.slider({ id: 'y', label: 'Fine Y tangent (also plan angle)', min: -12, max: 12, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => yCar, onChange: sync });
+  g1.button({ id: 'escb', label: 'Escape: drop the tier by what the head must leave', kind: 'actuator', help: 'Sets the tier to escape / 0.712 (the beam’s vertical component), capped at the stroke. The rotator keeps turning.', onClick: () => { const need = ui('esc'); app.ui.set('drop', Math.min(ui('D'), Math.ceil(need / VB * 2) / 2)); } });
+  g1.button({ id: 'down', label: 'Tier to the bottom stop', kind: 'actuator', onClick: () => app.ui.set('drop', ui('D')) });
+  g1.button({ id: 'up', label: 'Tier up onto the seat', kind: 'actuator', onClick: () => app.ui.set('drop', 0) });
+  const g2 = app.ui.group('Branches and states');
+  g2.toggle({ id: 'il', label: 'Shuttle interlock: the tier’s bottom-stop switch', value: true, kind: 'state', visual: () => slab, help: 'On: no shuttle unless the tier is on its bottom stop. Off: the shuttle takes whatever Z the fine tier left (travel-01).', onChange: sync });
+  g2.toggle({ id: 'fused', label: 'A wire is fused in the bead', value: false, kind: 'state', noVisual: true, help: 'Any drop while it is set raises the hold badge until a hand has cut the wire.', onChange: sync });
+  g2.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: sync });
+  const g3 = app.ui.group('The seat and the sequence (scene edits, illustrative)', { help: 'Nothing here is measured.' });
+  g3.slider({ id: 'D', label: 'Tier stroke', min: 20, max: 60, step: 1, value: 40, unit: 'mm', kind: 'scene', visual: () => tierPlate, onChange: sync });
+  g3.slider({ id: 'ball', label: 'Ball height scatter at a landing', min: 0, max: 50, step: 1, value: 10, unit: 'µm', kind: 'scene', visual: () => balls, help: 'One ball high by this much (the worst case for tilt).', onChange: sync });
+  g3.slider({ id: 'span', label: 'Ball circle diameter (span)', min: 60, max: 260, step: 5, value: 150, unit: 'mm', kind: 'scene', visual: () => balls, onChange: sync });
+  g3.radio({ id: 'land', label: 'Landing', options: [{ value: '1', label: 'first approach' }, { value: '2', label: 'second approach' }], value: '1', kind: 'branch', noVisual: true, help: 'Each return draws the balls again: a different tilt, so the last trim comes after the second.', onChange: sync });
+  g3.slider({ id: 'exag', label: 'Tilt drawn exaggerated by', min: 1, max: 400, step: 1, value: 100, unit: '×', kind: 'view', visual: () => tierG, help: 'The drawing only. The readouts and the trace are the true tilt.', onChange: sync });
+  g3.slider({ id: 'esc', label: 'Escape needed along the beam', min: 0, max: 40, step: 1, value: 20, unit: 'mm', kind: 'scene', noVisual: true, help: '0 = the written sequence (release the trigger, then the pedal).', onChange: sync });
+  g3.slider({ id: 'gx', label: 'Gun placed by hand: x error', min: -6, max: 6, step: 0.1, value: 1.2, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: sync });
+  g3.slider({ id: 'gz', label: 'Gun placed by hand: z error', min: -8, max: 6, step: 0.1, value: -0.8, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Below about -6 mm the nozzle drops under the rim plane.', onChange: sync });
+  g3.slider({ id: 'seat', label: 'Plate seat depth in this tube', min: -2, max: 2, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.cap, onChange: sync });
+  g3.slider({ id: 'tir', label: 'Indicated runout (radial TIR)', min: 0, max: 1, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'Rig-doc acceptance is 0.25 (face 0.30); drawn at true scale.', onChange: sync });
+  g3.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+  ws.setGhost(true);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ring-and-bungee suspension</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-01-ring-bungee",
+  "title": "Ring-and-bungee suspension (Derek's original) with the forces worked out",
+  "by": "freedom",
+  "origin": "derek-example",
+  "status": "deep",
+  "summary": "Two openable loops on the gun, each hung by a wire and pulled sideways by bungees, plus an arm gripping the shell. A small statics model (illustrative numbers) shows which motions each contact leaves free, what the arm still has to carry, and how far the dot moves per newton and per arm millimetre.",
+  "tags": ["suspension", "rings", "bungee", "statics", "arm grip", "contact conditions"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["one master per axis", "loop vs seat vs rubber contact", "force-nulling with a load cell", "dot compliance readout"],
+  "how": {
+    "motion": "arm end XYZ (actuator); loops slide and swing freely; wires and bungees follow",
+    "load": "wires (Z) and bungees (X or Y) via the loops; arm carries the remainder",
+    "reference": "the arm's commanded end point; the loops only shed load",
+    "observe": "arm load cell (proposed); dot vs seam is scene truth here, a camera in practice",
+    "use": "setup: hang loops, tune wires; weld: arm holds, loops relieve"
+  },
+  "software": {
+    "commands": ["arm end X, Y, Z (three stepper or servo axes)", "vertical-support tension (winch on each wire or balancer)"],
+    "observes": ["force in the arm end (load cell or motor current)", "dot vs seam (camera, not drawn here)"],
+    "manual": ["hanging and opening the loops", "choosing where the shell is gripped", "cable routing"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-01-ring-bungee.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script src="../../explorers/freedom/calc/ringmodel.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, FS = FreedomStatics, FR = FreedomRing, MA = FS.math;
+  const D2R = Math.PI / 180;
+
+  const app = WK.app({
+    gun: { pose: 'none', umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [-10, -130, 290], dir: [-0.62, 0.70, 0.36], dist: 1120 },
+      joint: { target: [30, -60, 210], dir: [-0.85, 0.35, 0.40], dist: 640 },
+      top: { target: [0, -140, 250], dir: [0, -0.004, 1], dist: 1500 },
+      side: { target: [0, -140, 300], dir: [1, 0, 0.08], dist: 1700 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>Derek’s suspension, drawn on the reference pose. <b>Two openable loops</b> on the gun: one around the barrel near the nozzle, one around the cable pair just past the grip base. Each loop hangs from a <b>wire in Z</b> and is pulled sideways by a <b>pair of bungees</b> along X or Y. A printed <b>shell</b> carries a grip point where an <b>arm</b> takes hold.</p>' +
+        '<p>Everything is solved as a static equilibrium of one rigid body on springs (gravity, umbilical pull, wires that only pull, bungees, loop contacts, the arm). Change any support and the gun finds a new pose. The readouts say <b>which motion each contact leaves free</b> and how far the dot moves per newton of push and per millimetre of arm command.</p>' +
+        '<p>Try first: set the tip loop to <i>smooth loop</i> with grip <i>none</i> (the gun slides out: nothing stops it). Then <i>seated collar</i> (it stays, but hinges). Then grip <i>rigid</i> and compare vertical support <i>stiff wire</i> with <i>constant-force balancer</i> while dragging the arm Z command.</p>',
+      carries:
+        '<p><b>Amber</b> parts carry load: wires (weight, Z), loops. <b>Green</b> bungees are compliant: they pull along one axis and give way on the others. <b>Purple</b> is the arm: the only part software commands here. <b>Blue</b> is a proposed load cell in the arm end.</p>' +
+        '<p>A loop (or rubber-coated hook) restrains the shell <i>across</i> the loop only; it does not stop the shell sliding through or rolling. A seated collar adds one axial stop. The two loops together define a hinge line close to the reference scene’s grip axis; the gun swings freely about it unless the arm holds it.</p>',
+      software:
+        '<p><b>Commands:</b> arm end X, Y, Z. The button <i>auto-null</i> is a software loop: it reads the arm-end force and adjusts each vertical support tension until the arm carries as little as it can. <b>Observes:</b> arm-end force (a load cell or motor current); the dot against the seam (a camera, not drawn here: the corner inset is scene truth).</p>',
+      tried:
+        '<p><b>Smooth loop, no stop.</b> A loop only restrains across its axis. The barrel is inclined about 45°, so the wire’s axial component has nothing to push against: the gun slides through until the wire is slack. Repairs: a collar seat, or a rubber-coated loop whose friction holds up to a limit (illustrative 4 N; not measured).</p>' +
+        '<p><b>Stiff wire in Z.</b> A taut wire is a position, not a force. The wire and the arm both restrain Z; the stiffer one is the master and the softer carries the mismatch. Arm Z command moves the dot almost nothing. Repair: a long bungee or a constant-force balancer as the vertical support; then the arm masters Z.</p>' +
+        '<p><b>Ball-ended grip.</b> Gripping at one point leaves orientation to the soft supports: the dot moves 0.4–3× the arm command with cross-coupling. A rigid clamp on the shell makes the gain ≈ 1 wherever it grips.</p>' +
+        '<p><b>Bungees stiffer than the arm</b> become the master of their axis. <b>Base loop on the cable</b> forces a tighter cable bend; watch the bend badge.</p>',
+      unresolved:
+        '<p>Real gun mass and centre of mass; how the umbilical actually pulls; the friction of a rubber loop; whether a loop on a printed shell can be made to slide or hold on demand; how much twist the fibre tolerates when the gun rolls about its cable axis (manual p. 20: twisting forbidden); whether the loops can be opened and closed by software or stay manual. Friction, stick-slip, creep and vibration are not modelled.</p>',
+      assumptions:
+        '<ul><li>Gun + shell mass 1.2 kg, COM 18 mm below and behind the housing axis: <b>illustrative</b> (gun mass and COM are [unknown]).</li>' +
+        '<li>Umbilical pull 0–6 N, direction blended between along the cable exit and straight down: <b>illustrative</b>; a 5 m fibre cable with min bend radius 24 cm stored / 35 cm emitting [manual p. 20] is drawn only to show the bend check.</li>' +
+        '<li>Bungee 0.05 / 0.15 / 0.6 N/mm, 3 N preload per side; wire 200 N/mm; loop fit 50 N/mm; arm 5 N/mm and 100 N·m/rad when rigid: <b>illustrative</b>.</li>' +
+        '<li>Reference pose is the kit’s opening pose (roll 45, hole dial 30, vertical −15), <b>illustrative</b>. Gun geometry is the kit proxy, not measured.</li>' +
+        '<li>Drawn displacements are multiplied by the “drawn exaggeration” slider so 0.5 mm is visible; readouts are not.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(true);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.18 });
+
+  // ------------------------------------------------------------------ state
+  const S = { tipS: 40, tipContact: 'rubber', baseRing: 'sleeve', cableD: 120, third: false, bungee: 'tipY-baseX', kb: 0.15, vert: 'wire', wireL: 280, carry: 0.9,
+    fmax: 4, ctw: 0, grip: 'rigid', gripAt: 'housingTop', cmd: [0, 0, 0], F: 2, droop: 0.5, trig: 0, exag: 1, ellS: 25, showEll: true, showForces: true, wireT: null, compare: null };
+  const K_VERT = { wire: 200, bungee: 0.2, balancer: 0.02 };
+  const RING_R = { tip: 15, base: 21, third: 27 };
+
+  // ------------------------------------------------------------------ static scene parts
+  const benchZ = ws.benchZ;
+  function hatchAt(pos, outward, size) {
+    const h = P.groundHatch(size || 30, 'fixed');
+    h.quaternion.setFromUnitVectors(V(0, 0, -1), outward.clone().normalize());
+    h.position.copy(pos); app.add(h); return h;
+  }
+  // lug for the arm grip, a child of the gun
+  const lug = P.sphere(5, 'actuated'); gun.group.add(lug);
+  // counterweight marker (child of gun)
+  const cwMark = P.sphere(10, 'load'); cwMark.visible = false; gun.group.add(cwMark);
+  const flanges = [P.cyl(19, 3, 'load'), P.cyl(19, 3, 'load'), P.cyl(30, 3, 'load')]; flanges.forEach(f => { f.visible = false; gun.group.add(f); });
+  // ring visuals: tip, base, third
+  const RV = ['tip', 'base', 'third'].map((id, i) => {
+    const ring = P.ring(RING_R[id], 1.8, { role: 'load', openGap: true });
+    const wire = P.rod(V(0, 0, 0), V(0, 0, 1), 0.8, 'load', { occludes: false });
+    const elVert = P.elastic(V(0, 0, 0), V(0, 0, 100), { role: 'compliant', radius: 1.4, rest: 100 });
+    const drum = P.cyl(9, 14, 'fixed', { axis: 'x' });
+    const b1 = P.elastic(V(0, 0, 0), V(100, 0, 0), { role: 'compliant', radius: 1.2, rest: 200 }), b2 = P.elastic(V(0, 0, 0), V(-100, 0, 0), { role: 'compliant', radius: 1.2, rest: 200 });
+    [ring, wire, elVert, drum, b1, b2].forEach(o => { o.visible = false; app.add(o); });
+    [wire, elVert, b1, b2].forEach(o => { o.userData.occludes = false; });
+    return { id: id, ring: ring, wire: wire, elVert: elVert, drum: drum, b1: b1, b2: b2, hatchTop: null, hatchA: null, hatchB: null, lbl: null };
+  });
+  // arm
+  const shoulder = V(-150, -660, 250), L1 = 330, L2 = 330;
+  const armPost = P.rod(V(shoulder.x, shoulder.y, benchZ), shoulder, 14, 'fixed'), armBaseHatch = P.groundHatch(60, 'fixed'); armBaseHatch.position.set(shoulder.x, shoulder.y, benchZ); app.add(armPost); app.add(armBaseHatch);
+  const armL1 = P.rod(shoulder, shoulder, 8, 'actuated'), armL2 = P.rod(shoulder, shoulder, 6, 'actuated'), armElbow = P.sphere(11, 'fixed'), armHand = P.sphere(6, 'actuated'), armShoulderBall = P.sphere(12, 'fixed');
+  armShoulderBall.position.copy(shoulder);
+  [armL1, armL2, armElbow, armHand, armShoulderBall].forEach(o => app.add(o));
+  const armGap = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'compliant', { dash: 3, gap: 2 }); app.add(armGap);
+  // cable + hinge line + arrows + ellipsoid
+  let cableMesh = null; const cableEnd = V(-60, -1250, benchZ + 60);
+  const cableAnchor = P.groundHatch(40, 'fixed'); cableAnchor.position.set(cableEnd.x, cableEnd.y, benchZ); app.add(cableAnchor);
+  const cableDrop = P.rod(V(cableEnd.x, cableEnd.y, benchZ), cableEnd, 4, 'fixed'); app.add(cableDrop);
+  const hingeLine = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'locate', { dash: 8, gap: 5 }); app.addHelper(hingeLine);
+  const arrows = { grav: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'load'), pull: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'cable'), armF: P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'actuated') };
+  Object.values(arrows).forEach(a => { app.addHelper(a); });
+  const ell = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 18), WK.mat('compliant', { opacity: 0.32, side: 'double' })); ell.userData.role = 'compliant'; ell.userData.occludes = false; app.addHelper(ell);
+  // labels
+  const lblTip = app.label(() => RV[0].ring.position, 'tip loop', { cls: 'load' });
+  const lblBase = app.label(() => RV[1].ring.position, 'base loop', { cls: 'load' });
+  const lblGrip = app.label(() => lug.getWorldPosition(new THREE.Vector3()), 'arm grip point', { cls: 'actuated' });
+  const lblGrav = app.label(() => arrows.grav.position, 'weight', { cls: 'load' });
+  const lblPull = app.label(() => arrows.pull.position, 'umbilical pull', { cls: 'cable' });
+  const lblArmF = app.label(() => arrows.armF.position, 'arm carries', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  // ------------------------------------------------------------------ model glue
+  let cur = null;          // { model, res, x }
+  const proxy = { off: { radial: 0, along: 0, vertical: 0, total: 0 }, beam: V(0, 0, -1),
+    dotOffset() { return this.off; }, beamDir() { return this.beam; } };
+  app.cornerInset({ gun: proxy });
+
+  function buildOpts() {
+    const ax = { 'tipY-baseX': ['y', 'x'], 'tipX-baseY': ['x', 'y'], 'bothX': ['x', 'x'], 'bothY': ['y', 'y'] }[S.bungee];
+    const tip = { id: 'tip', at: 'tip', s: S.tipS, contact: S.tipContact, axis: ax[0], kb: S.kb, pre: 3 };
+    const rings = [tip];
+    if (S.baseRing === 'sleeve') rings.push({ id: 'base', at: 'base', d: 20, contact: 'loop', axis: ax[1], kb: S.kb, pre: 3 });
+    else if (S.baseRing === 'cable') rings.push({ id: 'base', at: 'base', d: S.cableD, contact: 'cable', axis: ax[1], kb: S.kb, pre: 3 });
+    if (S.third) rings.push({ id: 'third', at: 'housing', s: 185, contact: 'rubber', axis: 'y', kb: S.kb, pre: 3 });
+    const hb = FR.hingeBalance({ rings: [tip] }, S.ctw);
+    const cmd = S.cmd.slice();
+    const o = { rings: rings, mass: hb.mass, com: hb.com, kWire: K_VERT[S.vert], wireL: S.wireL, carry: S.carry, fmax: S.fmax,
+      umbilical: { F: S.F, droop: S.droop }, trigger: S.trig,
+      arm: { mode: S.grip, at: S.gripAt, cmd: cmd, k: 5, kRot: 1e5 } };
+    if (S.wireT) o.wireT = S.wireT;
+    return { opts: o, hb: hb, tip: tip };
+  }
+  const soft = () => S.vert !== 'wire';
+
+  function ringSlide(model, x, i) { const r = model.rings[i], q = model.bodyPoint(x, r._geom.local), nd = model.nodePos(x, i), ax = MA.mv(model.rotOf(x), r._geom.axis); return MA.dot(MA.sub(nd, q), ax); }
+
+  function axisName(v, model, x) {   // nearest named world axis to a rotation vector direction
+    const R = model.rotOf(x), cands = [
+      ['the barrel axis', MA.mv(R, [0, 0, 1])], ['the cable-exit (grip) axis', MA.mv(R, FS.ROLL_AXIS)], ['the two-loop hinge line', cur && cur.hinge ? cur.hinge : [0, 0, 1]],
+      ['vertical', [0, 0, 1]], ['the radial (X) axis', [1, 0, 0]], ['the tangent (Y) axis', [0, 1, 0]]];
+    let best = null, bd = -1; const n = MA.norm(v);
+    cands.forEach(c => { const d = Math.abs(MA.dot(n, MA.norm(c[1]))); if (d > bd) { bd = d; best = c[0]; } });
+    return best;
+  }
+  function describeModes(model, x, eig) {
+    const out = [];
+    for (let k = 0; k < Math.min(3, eig.values.length); k++) {
+      const lam = eig.values[k]; if (lam > 0.3) break;
+      const v = eig.vectors[k], t = [v[0], v[1], v[2]], r = [v[3] / FS.S, v[4] / FS.S, v[5] / FS.S], tl = MA.len(t), rl = MA.len(r) * FS.S, ratio = tl / (rl || 1e-9);
+      let txt;
+      if (ratio < 0.3) txt = 'turns about ' + axisName(r, model, x);
+      else if (ratio > 3) { const d = MA.norm(t); txt = 'slides the dot along (' + d.map(a => a.toFixed(1)).join(', ') + ') r,t,z'; }
+      else txt = 'dot slides and gun turns about ' + axisName(r, model, x);
+      out.push({ lam: lam, txt: txt });
+    }
+    return out;
+  }
+
+  let lastValid = null, badgeSlide = null;
+  function recompute(withGain) {
+    const B = buildOpts();
+    const model = FR.build(B.opts), res = model.solve(new Float64Array(model.n));
+    if (!res.converged) {
+      app.badge('eq', 'no static equilibrium: the gun keeps moving (typically sliding through a loop with nothing stopping it). Showing the last pose that settled.', 'limit');
+      if (lastValid) draw(lastValid.model, lastValid.x, lastValid.B, true);
+      io(model, res, B, null, true);
+      return;
+    }
+    app.badge('eq', null);
+    cur = { model: model, res: res, B: B };
+    lastValid = { model: model, x: res.x, B: B };
+    draw(model, res.x, B, false);
+    const dc = model.dotCompliance(res.x);
+    cur.dc = dc;
+    io(model, res, B, dc, false);
+    if (withGain) scheduleGain();
+  }
+
+  function drawPose(model, x) {
+    const e = S.exag, th = [x[3] / FS.S * e, x[4] / FS.S * e, x[5] / FS.S * e], Re = MA.mm(MA.expm(th), model.R0), u = [x[0] * e, x[1] * e, x[2] * e];
+    const dl = [0, 0, -16];
+    const place = local => { const p = MA.mv(Re, MA.sub(local, dl)); return V(model.dot0[0] + u[0] + p[0], model.dot0[1] + u[1] + p[1], model.dot0[2] + u[2] + p[2]); };
+    const gp = place([0, 0, 0]);
+    const m4 = new THREE.Matrix4().set(Re[0], Re[1], Re[2], 0, Re[3], Re[4], Re[5], 0, Re[6], Re[7], Re[8], 0, 0, 0, 0, 1);
+    return { Re: Re, place: place, gp: gp, q: new THREE.Quaternion().setFromRotationMatrix(m4), e: e };
+  }
+
+
+  // does the drawn gun pass through the tube wall, the endcap or the bench? (sample points along the barrel, housing and grip)
+  function collides(dp) {
+    const pts = []; for (let z = 0; z <= 253; z += 1) pts.push([0, 0, z]); for (let t = 0; t <= 1; t += 0.01) pts.push([0, -25 - 86 * t, 172 + 60 * t]);
+    for (let i = 0; i < pts.length; i++) { const w = dp.place(pts[i]), r = Math.hypot(w.x, w.y); if ((r > 61.85 - 3 && r < 63.5 + 3 && w.z < 152.4 + 3 && w.z > 0) || (r < 61.85 && w.z > 139.7 - 3 && w.z < 146.05 + 3) || w.z < ws.benchZ + 3) return true; }   // 3 mm margin stands in for the shell radius
+    return false;
+  }
+  function draw(model, x, B, stale) {
+    const e = S.exag, dp = drawPose(model, x);
+    gun.setTransform(dp.gp, dp.q);
+    app.badge('collide', collides(dp) ? 'the drawn gun passes through the tube or the bench: this pose is not physical (the model has no collision)' : null, 'limit');
+    // true (un-exaggerated) offsets for the inset
+    const th = [x[3] / FS.S, x[4] / FS.S, x[5] / FS.S], Rt = MA.mm(MA.expm(th), model.R0), bd = MA.mv(Rt, [0, 0, -1]);
+    proxy.off = { radial: x[0], along: x[1], vertical: x[2], total: Math.hypot(x[0], x[1], x[2]) }; proxy.beam = V(bd[0], bd[1], bd[2]);
+    app.invalidate();
+    // rings, wires, bungees
+    RV.forEach(v => { [v.ring, v.wire, v.elVert, v.drum, v.b1, v.b2].forEach(o => o.visible = false); [v.hatchTop, v.hatchA, v.hatchB].forEach(h => { if (h) h.visible = false; }); });
+    const wires = model.wireEls, bung = model.spec.elements.filter(el => el.group === 'bungees');
+    model.rings.forEach((r, i) => {
+      const v = RV[['tip', 'base', 'third'].indexOf(r.id)]; if (!v) return;
+      const np = model.nodePos(x, i), nodeW = V(model.nodePos(x, i)[0], model.nodePos(x, i)[1], model.nodePos(x, i)[2]);
+      // exaggerate node displacement relative to reference
+      const p0 = r._p, nd = V(p0[0] + (np[0] - p0[0]) * e, p0[1] + (np[1] - p0[1]) * e, p0[2] + (np[2] - p0[2]) * e);
+      const axl = MA.mv(dp.Re, r._geom.axis);
+      v.ring.visible = true; v.ring.position.copy(nd); v.ring.quaternion.setFromUnitVectors(V(0, 0, 1), V(axl[0], axl[1], axl[2]).normalize());
+      const w = wires[i], top = V(w.b.world[0], w.b.world[1], w.b.world[2]), attach = nd.clone().add(V(0, 0, RING_R[r.id]));
+      if (S.vert === 'wire') { v.wire.visible = true; v.wire.setEnds(attach, top); }
+      else if (S.vert === 'bungee') { v.elVert.visible = true; v.elVert.setEnds(attach, top); }
+      else { v.wire.visible = true; v.wire.setEnds(attach, top.clone().add(V(0, 0, -10))); v.drum.visible = true; v.drum.position.copy(top).add(V(0, 0, -4)); }
+      if (!v.hatchTop) { v.hatchTop = hatchAt(top, V(0, 0, 1), 30); }
+      v.hatchTop.position.copy(top); v.hatchTop.visible = true;
+      const bs = bung.filter(b => b.ringId === r.id);
+      const els = [v.b1, v.b2];
+      bs.forEach((b, j) => {
+        const a = V(b.b.world[0], b.b.world[1], b.b.world[2]);
+        els[j].visible = true; els[j].setEnds(nd, a); els[j].userData.rest = b.L0;
+        const hk = j === 0 ? 'hatchA' : 'hatchB';
+        if (!v[hk]) v[hk] = hatchAt(a, a.clone().sub(nd), 26);
+        v[hk].position.copy(a); v[hk].quaternion.setFromUnitVectors(V(0, 0, -1), a.clone().sub(nd).normalize()); v[hk].visible = true;
+      });
+    });
+    // seat flanges
+    flanges.forEach(f => f.visible = false);
+    model.rings.forEach((r, i) => {
+      if (r.contact === 'seat' || r.contact === 'rubber') {
+        const f = flanges[['tip', 'base', 'third'].indexOf(r.id)]; f.visible = r.contact === 'seat';
+        const g = r._geom.local; f.position.set(g[0], g[1], g[2] + 3); f.quaternion.setFromUnitVectors(V(0, 0, 1), V(...r._geom.axis));
+      }
+    });
+    // lug + counterweight
+    const gl = FR.LOCAL[S.gripAt]; lug.position.set(gl[0], gl[1], gl[2]); lug.visible = S.grip !== 'none';
+    if (B.hb.cwMass > 0) { cwMark.visible = true; cwMark.position.set(...B.hb.cwPos); const rr = 6 + 20 * Math.cbrt(B.hb.cwMass); cwMark.scale.setScalar(rr / 10); } else cwMark.visible = false;
+    // hinge line
+    const hA = dp.place(B.hb.line[0]), hB = dp.place(B.hb.line[1]); hingeLine.setPoints([hA.clone().addScaledVector(hB.clone().sub(hA).normalize(), -60), hB.clone().addScaledVector(hB.clone().sub(hA).normalize(), 60)]);
+    cur && (cur.hinge = MA.norm(MA.sub([hB.x, hB.y, hB.z], [hA.x, hA.y, hA.z])));
+    // arm
+    if (S.grip !== 'none' && model.armAnchor) {
+      const t = V(...model.armAnchor), r = WK.kin.twoLinkIK(shoulder, t, L1, L2, { bend: [0, 0, 1] });
+      armL1.visible = armL2.visible = armElbow.visible = armHand.visible = armGap.visible = true;
+      armL1.setEnds(shoulder, r.elbow); armL2.setEnds(r.elbow, r.end); armElbow.position.copy(r.elbow); armHand.position.copy(r.end);
+      armGap.setPoints([r.end, dp.place(gl)]);
+      app.badge('reach', r.ok ? null : 'arm out of reach by ' + r.over.toFixed(0) + ' mm; end stops at full reach', 'limit');
+    } else { armL1.visible = armL2.visible = armElbow.visible = armHand.visible = armGap.visible = false; app.badge('reach', null); }
+    // cable
+    const exitW = dp.place(FS.GRIP_BASE), exitDir = V(...MA.mv(dp.Re, FS.ROLL_AXIS)), pts = [];
+    const baseIdx = model.rings.findIndex(r => r.id === 'base');
+    const cableRing = baseIdx >= 0 && model.rings[baseIdx].contact === 'cable';
+    const c1 = WK.bezierCable(exitW, exitDir, cableRing ? V(model.nodePos(x, baseIdx)[0], model.nodePos(x, baseIdx)[1], model.nodePos(x, baseIdx)[2]) : cableEnd, cableRing ? exitDir : V(0, 0, -1), { stiffness: cableRing ? 0.45 : 0.47 });
+    c1.getPoints(80).forEach(p => pts.push(p));
+    if (cableRing) { const ringP = pts[pts.length - 1].clone(); const c2 = WK.bezierCable(ringP, exitDir, cableEnd, V(0, 0, -1), { stiffness: 0.5 }); c2.getPoints(100).slice(1).forEach(p => pts.push(p)); }
+    if (!cableMesh) { cableMesh = P.cable(pts, { radius: 5.5, role: 'cable', segments: 160 }); app.add(cableMesh); } else cableMesh.setPoints(pts);
+    const bend = WK.cableBadge(WK.curveMinRadius(pts)); app.badge('bend', bend.text, bend.level);
+    // arrows
+    const W = model.g.W, comW = dp.place(model.opts.com);
+    arrows.grav.visible = arrows.pull.visible = arrows.armF.visible = S.showForces;
+    arrows.grav.set(comW, V(0, 0, -1), Math.max(8, W * 5)); arrows.grav.position.copy(comW);
+    const um = model.spec.elements.find(el => el.group === 'umbilical');
+    arrows.pull.set(exitW, V(...um.dirWorld), Math.max(6, S.F * 14));
+    const armF = model.armEl ? model.springForce(x, model.armEl).F : [0, 0, 0], af = MA.len(armF);
+    arrows.armF.visible = S.showForces && S.grip !== 'none' && af > 0.05;
+    if (arrows.armF.visible) arrows.armF.set(dp.place(gl), V(...armF), Math.max(6, af * 5));
+    arrows.pull.visible = S.showForces && S.F > 0.05;
+    // hide labels of hidden parts by setting empty text? labels follow the objects; hide the ones for hidden rings
+    lblBase.show && lblBase.show(model.rings.some(r => r.id === 'base'));
+    lblGrip.show && lblGrip.show(S.grip !== 'none'); lblArmF.show && lblArmF.show(arrows.armF.visible); lblPull.show && lblPull.show(arrows.pull.visible); lblGrav.show && lblGrav.show(S.showForces);
+    // ellipsoid at the dot: drawn size = compliance * ellS
+    if (cur && cur.dc && S.showEll) {
+      const C = cur.dc.C, cap = 70, r = [Math.min(cap, Math.abs(C[0][0]) * S.ellS), Math.min(cap, Math.abs(C[1][1]) * S.ellS), Math.min(cap, Math.abs(C[2][2]) * S.ellS)];
+      ell.visible = true; ell.scale.set(Math.max(r[0], 0.6), Math.max(r[1], 0.6), Math.max(r[2], 0.6)); ell.position.copy(dp.place([0, 0, -16]));
+    } else ell.visible = false;
+    app.badge('exag', e > 1 ? 'drawn displacements ×' + e + ' (readouts are true size)' : null, 'info');
+  }
+
+  function fmt(v, d) { return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 2 : d); }
+  const compSet = app.ui.readout('cr', 'Dot compliance r / t / z');
+  function io(model, res, B, dc, bad) {
+    const x = res.x, W = model.g.W, arm = model.armEl ? model.springForce(x, model.armEl) : null, armF = arm ? arm.F : [0, 0, 0];
+    const th = [x[3] / FS.S, x[4] / FS.S, x[5] / FS.S], tilt = MA.len(th) / D2R;
+    const wires = model.wireEls.map(w => model.springForce(x, w).T), slack = wires.some(t => t < 0.05);
+    const slides = model.rings.map((r, i) => ({ id: r.id, s: ringSlide(model, x, i), contact: r.contact }));
+    const ts = slides[0] ? slides[0].s : 0;
+    // hinge gravity torque about the line between the ring points, at the current pose
+    const dp = drawPose(model, x); let hT = 0;
+    { const A = dp.place(B.hb.line[0]), Bp = dp.place(B.hb.line[1]), ax = Bp.clone().sub(A).normalize(), comW = dp.place(model.opts.com), rel = comW.clone().sub(A); hT = rel.clone().cross(V(0, 0, -W)).dot(ax) / 1000; }
+    const dcs = dc ? [dc.C[0][0], dc.C[1][1], dc.C[2][2]] : [NaN, NaN, NaN];
+    const fm = v => (isFinite(v) ? (v >= 900 ? 'free' : v.toFixed(v < 1 ? 2 : 1)) : '-');
+    compSet(fm(dcs[0]) + ' / ' + fm(dcs[1]) + ' / ' + fm(dcs[2]), 'mm/N');
+    const status = bad ? 'unresolved' : 'seen';
+    const cmds = [{ name: 'Arm end X / Y / Z (actuators)', value: S.cmd.map(v => fmt(v, 1)).join(' / '), unit: 'mm' }];
+    if (S.wireT) cmds.push({ name: 'Vertical-support tension (set by auto-null)', value: S.wireT.map(t => t.toFixed(1)).join(' / '), unit: 'N', note: 'winch or balancer preload the software chose' });
+    const obs = [
+      { name: 'Arm-end force (load cell, proposed)', value: arm ? MA.len(armF).toFixed(1) : '-', unit: 'N', status: arm ? status : 'blind', note: arm ? 'of the ' + W.toFixed(1) + ' N weight the arm carries ' + (armF[2] / W * 100).toFixed(0) + '%; z ' + fmt(armF[2], 1) + ' N' : 'no arm' },
+      { name: 'Dot vs seam r / t / z (scene truth; a camera in practice)', value: bad ? '-' : [x[0], x[1], x[2]].map(v => fmt(v, 2)).join(' / '), unit: 'mm', status: bad ? 'unresolved' : 'partly', note: 'the exact geometry, not a sensor reading' },
+      { name: 'Gun orientation change', value: bad ? '-' : tilt.toFixed(2), unit: '°', status: 'blind', note: 'nothing here measures it; a camera view of the gun would' },
+      { name: 'Vertical-support tensions', value: wires.map(t => t.toFixed(1)).join(' / '), unit: 'N', status: 'partly', note: slack ? 'a support is slack: it is not carrying anything' : 'inline load cell would report this' },
+      { name: 'Hinge gravity torque (about the two-loop line)', value: fmt(hT, 2), unit: 'N·m', status: 'partly', note: 'what the arm must hold about the hinge if the loops leave it free' },
+      { name: 'Twist of the fibre from rolling the gun', value: '-', status: 'unresolved', note: 'manual p. 20 forbids twisting; the cable route decides twist vs swing' },
+    ];
+    if (slides[0] && Math.abs(ts) > 1.5 && slides[0].contact !== 'cable') obs.push({ name: 'Tip loop has slid along the shell', value: fmt(ts, 1), unit: 'mm', status: 'partly', note: 'friction / stop gave way; wire share drops' });
+    if (S.compare) S.compare.forEach(c => obs.push({ name: 'Compare: ' + S.grip + ' grip at ' + c.label, value: 'dot per arm mm ' + c.gain.map(v => isFinite(v) ? v.toFixed(2) : '?').join(' / ') + ' · mm/N ' + c.comp.map(v => v >= 900 ? 'free' : v.toFixed(2)).join(' / '), status: c.ok ? 'partly' : 'unresolved', note: c.ok ? 'r / t / z; same supports, only the grip point changes' : 'no equilibrium with this grip' }));
+    if (dc) { describeModes(model, x, dc.eig).forEach((m, i) => obs.push({ name: 'Softest motion ' + (i + 1) + ' (stiffness ' + m.lam.toFixed(3) + ')', value: m.txt, status: 'partly', note: 'from the Hessian of the model; larger stiffness = harder to move' })); }
+    app.io.set({ commands: cmds, observes: obs,
+      manual: ['Hang the loops; open and close them for each tube', 'Choose the grip point on the shell', 'Route the cable so the bend badge stays green'] });
+    // stage badges
+    app.badge('slack', slack && !bad ? 'a vertical support is slack (T ≈ 0): it carries nothing in this arrangement' : null, 'info');
+    app.badge('slide', slides.some(s => s.contact !== 'cable' && Math.abs(s.s) > 6) ? 'a loop has slid more than 6 mm along the shell' : null, 'warn');
+    readoutWeight(arm ? (armF[2] / W * 100) : 100);
+  }
+  const readoutWeight = (() => { const set = app.ui.readout('armw', 'Weight the arm carries'); return v => set(v.toFixed(0), '%'); })();
+  const readoutGain = app.ui.readout('gain', 'Dot mm per arm mm (X→r, Y→t, Z→z)');
+  let gainTimer = null;
+  function scheduleGain() { if (gainTimer) clearTimeout(gainTimer); readoutGain('…'); gainTimer = setTimeout(computeGain, 140); }
+  function computeGain() {
+    if (!cur || S.grip === 'none') { readoutGain('no arm'); return; }
+    const g = [0, 1, 2].map(ax => {
+      const B = buildOpts(); const c = S.cmd.slice(); c[ax] += 1; B.opts.arm.cmd = c;
+      const m = FR.build(B.opts), r = m.solve(new Float64Array(m.n));
+      return r.converged ? (r.x[ax] - cur.res.x[ax]) : NaN;
+    });
+    readoutGain(g.map(v => isFinite(v) ? v.toFixed(2) : '?').join(' / '));
+    cur.gain = g;
+  }
+
+  // ------------------------------------------------------------------ controls
+  const upd = () => { S.wireT = null; S.compare = null; recompute(true); };
+  const sup = app.ui.group('Supports: hung by hand at setup (scene edits)', { help: 'Where the loops go and what touches what. Nothing here is moved by software.', open: true });
+  sup.slider({ id: 'tipS', label: 'Tip loop position (from nozzle)', min: 12, max: 110, step: 1, value: 40, unit: 'mm', kind: 'scene', visual: () => RV[0].ring, help: 'Along the barrel. Close to the dot = short lever for tilts.', onChange: v => { S.tipS = v; upd(); } });
+  sup.radio({ id: 'tipContact', label: 'Tip loop contact', options: [{ value: 'loop', label: 'smooth loop', help: 'Restrains across the loop only: the shell slides through and rolls freely.' }, { value: 'rubber', label: 'rubber loop', help: 'Friction holds axial pull up to a limit, then it slides.' }, { value: 'seat', label: 'seated collar', help: 'A shoulder on the shell rests on the loop: one axial stop, rotation free.' }], value: 'rubber', kind: 'branch', visual: () => RV[0].ring, onChange: v => { S.tipContact = v; app.ui.enable('fmax', v === 'rubber'); upd(); } });
+  sup.slider({ id: 'fmax', label: 'Rubber loop friction limit', min: 0.5, max: 15, step: 0.5, value: 4, unit: 'N', kind: 'scene', help: 'Illustrative. Axial force at which the shell starts to slide through.', onChange: v => { S.fmax = v; upd(); } });
+  sup.radio({ id: 'baseRing', label: 'Base loop', options: [{ value: 'sleeve', label: 'on shell tail' }, { value: 'cable', label: 'on the cable' }, { value: 'off', label: 'none' }], value: 'sleeve', kind: 'branch', visual: () => RV[1].ring, help: 'Around a shell sleeve over the cable pair (locates the gun) or around the bare cable further out (only tames the cable).', onChange: v => { S.baseRing = v; app.ui.enable('cableD', v === 'cable'); upd(); } });
+  sup.slider({ id: 'cableD', label: 'Cable loop distance past grip base', min: 40, max: 250, step: 5, value: 120, unit: 'mm', kind: 'scene', help: 'Only for a loop on the bare cable. Watch the bend badge.', onChange: v => { S.cableD = v; upd(); } });
+  sup.toggle({ id: 'third', label: 'Third loop on the housing', value: false, kind: 'scene', visual: () => RV[2].ring, help: 'Extra constraint: less range, less swing, more force to move it.', onChange: v => { S.third = v; upd(); } });
+  sup.select({ id: 'bungee', label: 'Bungee directions', options: [{ value: 'tipY-baseX', label: 'tip: tangent (Y), base: radial (X)' }, { value: 'tipX-baseY', label: 'tip: radial (X), base: tangent (Y)' }, { value: 'bothX', label: 'both radial (X)' }, { value: 'bothY', label: 'both tangent (Y)' }], value: 'tipY-baseX', kind: 'branch', help: 'Which horizontal axis each loop’s bungees hold. The other stays free (pendulum).', onChange: v => { S.bungee = v; upd(); } });
+  sup.radio({ id: 'kb', label: 'Bungee stiffness', options: [{ value: 0.05, label: 'soft' }, { value: 0.15, label: 'medium' }, { value: 0.6, label: 'firm' }], value: 0.15, kind: 'scene', help: 'Illustrative 0.05 / 0.15 / 0.6 N/mm. The arm is 5 N/mm.', onChange: v => { S.kb = +v; upd(); } });
+  sup.radio({ id: 'vert', label: 'Vertical support', options: [{ value: 'wire', label: 'stiff wire' }, { value: 'bungee', label: 'long bungee' }, { value: 'balancer', label: 'balancer' }], value: 'wire', kind: 'branch', visual: () => RV.map(v => v.wire), help: 'Wire: a position (Z is its). Long bungee or constant-force balancer: a force (the arm can own Z).', onChange: v => { S.vert = v; app.ui.enable('carry', v !== 'wire'); upd(); } });
+  sup.slider({ id: 'wireL', label: 'Wire / support length', min: 250, max: 1000, step: 10, value: 280, unit: 'mm', kind: 'scene', help: 'Longer = softer sideways (pendulum stiffness = load / length).', onChange: v => { S.wireL = v; upd(); } });
+  sup.slider({ id: 'carry', label: 'Share of weight the soft supports are set to carry', min: 0, max: 1, step: 0.05, value: 0.9, kind: 'scene', help: 'A setup adjustment. No effect with a stiff wire: a stiff wire takes whatever the arm’s compliance lets it.', format: v => (v * 100).toFixed(0) + '%', onChange: v => { S.carry = v; upd(); } });
+  sup.slider({ id: 'ctw', label: 'Counterweight balancing the hinge', min: 0, max: 1, step: 0.05, value: 0, kind: 'scene', visual: () => cwMark, help: 'Printed-shell pocket, 90 mm off the loop line. 100% puts the centre of mass on the line: gravity then exerts no torque about the hinge (and the gun weighs more).', format: v => (v * 100).toFixed(0) + '%', onChange: v => { S.ctw = v; upd(); } });
+
+  const armg = app.ui.group('Arm gripping the shell', { help: 'The purple arm is what software commands.', open: true });
+  armg.radio({ id: 'grip', label: 'Grip', options: [{ value: 'none', label: 'no arm' }, { value: 'point', label: 'ball end' }, { value: 'rigid', label: 'rigid clamp' }], value: 'rigid', kind: 'branch', visual: () => [armL1, armL2, lug], help: 'Ball end: holds one point, orientation is left to the supports. Rigid: clamps the shell.', onChange: v => { S.grip = v; upd(); } });
+  armg.select({ id: 'gripAt', label: 'Grip point on the shell', options: [{ value: 'collar', label: 'barrel, near nozzle' }, { value: 'housingTop', label: 'housing top' }, { value: 'housingBack', label: 'housing back' }, { value: 'gripMid', label: 'handle middle' }, { value: 'gripBase', label: 'handle base (cable exit)' }], value: 'housingTop', kind: 'branch', visual: () => lug, help: 'Where the shell carries an attachment. Same arm, different results.', onChange: v => { S.gripAt = v; upd(); } });
+  ['X', 'Y', 'Z'].forEach((n, i) => armg.slider({ id: 'cmd' + n, label: 'Arm end ' + n + ' command', min: -5, max: 5, step: 0.25, value: 0, unit: 'mm', kind: 'actuator', visual: () => armHand, help: (['radial', 'tangent', 'vertical'][i]) + ' motion of the arm end, mm from where it holds the reference pose.', onChange: v => { S.cmd[i] = v; recompute(true); } }));
+  armg.button({ id: 'null', label: 'Auto-null arm load (software loop on the vertical supports)', kind: 'actuator', help: 'Reads the arm-end force and adjusts each vertical support until the arm carries as little as it can.', onClick: () => {
+    if (S.grip === 'none') { app.toast('needs an arm to read the force from'); return; }
+    const B = buildOpts(); const r = FR.nullWires(B.opts, 5); S.wireT = r.T; recompute(false); scheduleGain();
+    app.toast('supports set to ' + r.T.map(t => t.toFixed(1)).join(' / ') + ' N; arm force now ' + MA.len(r.f).toFixed(1) + ' N'); } });
+  armg.button({ id: 'compare', label: 'Compare every grip point (adds rows to the I/O panel)', kind: 'scene', help: 'Same supports, same grip type; only where the shell is gripped changes.', onClick: () => {
+    if (S.grip === 'none') { app.toast('needs an arm'); return; }
+    const labels = { collar: 'barrel near nozzle', housingTop: 'housing top', housingBack: 'housing back', gripMid: 'handle middle', gripBase: 'handle base' };
+    S.compare = Object.keys(labels).map(k => {
+      const B = buildOpts(); B.opts.arm.at = k; const m = FR.build(B.opts), r = m.solve(new Float64Array(m.n));
+      if (!r.converged) return { label: labels[k], ok: false, gain: [NaN, NaN, NaN], comp: [999, 999, 999] };
+      const dcc = m.dotCompliance(r.x), gain = [0, 1, 2].map(ax => { const B2 = buildOpts(); B2.opts.arm.at = k; const c = S.cmd.slice(); c[ax] += 1; B2.opts.arm.cmd = c; const m2 = FR.build(B2.opts), r2 = m2.solve(new Float64Array(m2.n)); return r2.converged ? r2.x[ax] - r.x[ax] : NaN; });
+      return { label: labels[k], ok: true, gain: gain, comp: [dcc.C[0][0], dcc.C[1][1], dcc.C[2][2]] };
+    });
+    recompute(false); } });
+  const dist = app.ui.group('Forces that push (scene edits)', { help: 'What the umbilical and the hand do.', open: true });
+  dist.slider({ id: 'F', label: 'Umbilical pull at the cable exit', min: 0, max: 6, step: 0.25, value: 2, unit: 'N', kind: 'scene', visual: () => arrows.pull, help: 'Illustrative.', onChange: v => { S.F = v; recompute(true); } });
+  dist.slider({ id: 'droop', label: 'Cable droop (0 along exit, 1 straight down)', min: 0, max: 1, step: 0.1, value: 0.5, kind: 'scene', help: 'Direction of the pull, illustrative.', onChange: v => { S.droop = v; recompute(true); } });
+  dist.slider({ id: 'trig', label: 'Trigger press into the grip', min: 0, max: 4, step: 0.25, value: 0, unit: 'N', kind: 'scene', help: 'Only if a person or a solenoid presses the trigger; the laser could instead be started from the unit’s DB25 port.', onChange: v => { S.trig = v; recompute(true); } });
+  const view = app.ui.group('View', { open: false });
+  view.slider({ id: 'exag', label: 'Drawn exaggeration of displacements', min: 1, max: 30, step: 1, value: 1, unit: '×', kind: 'view', help: 'Multiplies drawn motion only.', onChange: v => { S.exag = v; if (cur) draw(cur.model, cur.res.x, cur.B, false); else recompute(false); } });
+  view.toggle({ id: 'showEll', label: 'Softness ellipsoid at the dot', value: true, kind: 'view', visual: () => ell, help: 'Radius = compliance (mm per N) × the scale below. A long axis is a direction that gives way; the tangent may be long harmlessly.', onChange: v => { S.showEll = v; if (cur) draw(cur.model, cur.res.x, cur.B, false); } });
+  view.slider({ id: 'ellS', label: 'Ellipsoid scale', min: 1, max: 50, step: 1, value: 25, unit: '×', kind: 'view', help: 'Drawn size only.', onChange: v => { S.ellS = v; if (cur) draw(cur.model, cur.res.x, cur.B, false); } });
+  view.toggle({ id: 'showForces', label: 'Force arrows', value: true, kind: 'view', onChange: v => { S.showForces = v; if (cur) draw(cur.model, cur.res.x, cur.B, false); } });
+  app.ui.enable('carry', false);
+  app.ui.enable('cableD', false);
+  app.io.set({});
+})();
+</script>
+</body>
+</html>

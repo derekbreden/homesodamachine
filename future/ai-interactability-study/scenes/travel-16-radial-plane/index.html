@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gun over the bore</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-16-radial-plane",
+  "title": "No wire, gun over the bore: what the missing wire frees",
+  "by": "travel",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Derek said the gun handle lies tangent so the wire is laid down correctly. If the filler is already in the corner (datum-09), or the wire guide is carried by the ring instead of the gun, that reason goes, and the proxy gun can stand in the radial plane with its barrel over the bore. Same crown, same dot: the centre of mass falls from 118 mm to 50 mm (inside the ball ring, no counterweight), the upper ring needs no gap, a yoke from the ring holds the gun by trunnions on its sides, and a weld can go either way round, which halves the orbiting version's cable wrap (3.4 m instead of 5.8 m). What does not change: the cable still leaves radially outward. Gun geometry, mass split and cable exit are the kit's proxy.",
+  "tags": [
+    "preplaced ring",
+    "no wire",
+    "attitude",
+    "crown",
+    "balance",
+    "umbilical",
+    "orbit",
+    "combination of datum-03 and datum-09"
+  ],
+  "branchOf": [],
+  "combines": [
+    "datum-03-rim-crown",
+    "datum-03b-orbiting-crown"
+  ],
+  "transferable": [
+    "gun over the bore when no wire needs the tangent",
+    "yoke on trunnions sets the beam angle",
+    "a weld that can go either way round",
+    "exit direction: wrap or twist"
+  ],
+  "how": {
+    "motion": "tube turns under a still crown, or the gun orbits; a yoke pivot sets angle",
+    "load": "the rim carries the lower ring; balls carry upper ring, yoke and gun; no counterweight",
+    "reference": "the rim and the tube's outside; the yoke's pivot and clamp set the beam angle",
+    "observe": "nothing in this scene sees the dot; the readouts are scene geometry",
+    "use": "pick the attitude, clamp the yoke, seat the crown, weld with the filler already laid"
+  },
+  "software": {
+    "commands": [
+      "ring drive angle (orbit mode, proposed)",
+      "rotator (existing, turns mode)"
+    ],
+    "observes": [
+      "ring angle from a step count",
+      "nothing else here"
+    ],
+    "manual": [
+      "yoke angle and clamp",
+      "laying the filler ring",
+      "cable routing and unwinding after each weld"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-16-radial-plane.md",
+    "../../exchange/travel--on--datum-w2.md",
+    "../../explorers/travel/calc/09-radial-plane.mjs",
+    "../../explorers/datum/ideas/datum-09-preplaced-filler-ring.md",
+    "../../explorers/datum/ideas/datum-03b-orbiting-crown.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, J = WK.JOINT, RIM = WK.DIM.tubeHeight, clamp = WK.clamp;
+  const app = WK.app({
+    workstation: { bench: true }, gun: { pose: 'opening' },
+    open: ['proposes', 'tried'],
+    view: 'overall', viewButtons: ['overall', 'joint', 'side', 'top', 'cable'],
+    views: {
+      overall: { target: [-20, -60, 240], dir: [0.75, -0.55, 0.42], dist: 1150 },
+      joint: { target: [45, -20, 172], dir: [0.55, -0.75, 0.4], dist: 240 },
+      side: { target: [0, 0, 250], dir: [0, -1, 0.05], dist: 1000 },
+      top: { target: [0, 0, 200], dir: [0, -0.004, 1], dist: 1500 },
+      cable: { target: [-100, -50, 250], dir: [0.4, -0.5, 0.75], dist: 1900 },
+    },
+    sections: {
+      proposes:
+        '<p><b>Take the wire away and the gun does not have to lie along the tangent.</b> The reference scene&rsquo;s opening pose (A) is the tangent pose: barrel and wire arrive from one side, the grip and umbilical trail off that way, and the centre of mass sits 118 mm out. If the filler is already in the corner (idea datum-09, no scene), the barrel can stand in the radial plane over the bore (B: the far end of the reference scene&rsquo;s own vertical dial) or with the grip up over the axis (B2). Switch the attitude and read the centre of mass, the ring clash test, the cable routing and the twist.</p>' +
+        '<p>The gun is held by a <b>yoke</b>: two legs from the upper ring to trunnions on the housing&rsquo;s sides. Pivoting in the yoke sets the beam angle in the radial section; a clamp holds it. The centre of mass is then near the axis, so no counterweight is needed and the upper ring need not have a gap for the barrel. Attitude A keeps datum-03&rsquo;s boom and counterweight for comparison.</p>' +
+        '<p><b>Two ways to free the gun from the wire.</b> Lay the filler first (datum-09), or keep the fed wire and carry its guide on the ring instead of the gun: choose <i>guide carried by the ring</i> in B or B2. The wire then arrives as before (from the tangent side, about 38&deg; above horizontal) while the gun stands in the radial plane; the arm is about 30 mm long here because the reference guide already sits just above the ring.</p>' +
+        '<p><b>What is not freed.</b> Yaw about the vertical still turns the beam (the numbers are in the calc). Rotation about the beam axis is free for the beam but is a twist of the fibre. The scene depicts the proxy gun only.</p>',
+      carries:
+        '<p>The rim carries the lower ring (teal), which turns with the tube. The upper ring (amber) rides on it and does not turn in <i>tube turns</i> mode; in <i>gun orbits</i> mode a proposed drive turns it round a still tube. The yoke (amber legs) or boom (attitude A) carries the gun. The overhead gallows or the track carries the umbilical.</p>',
+      software:
+        '<p>Software could drive the ring in orbit mode (step count as angle) and the rotator in turns mode, as in the datum scenes. It cannot see the dot here. The yoke angle is a hand adjustment. Twist and cable wrap are not observed by anything.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the crown&rsquo;s round 3 needs a counterweight as heavy as the gun because the centre of mass is 118 mm out against a 66 mm ball ring. <b>Assumption:</b> the barrel lies along the tangent (Derek&rsquo;s statement, for the wire). <b>What the scene shows:</b> in B the centre of mass is about 50 mm out, in B2 about 14 mm, in the kit&rsquo;s proxy; set the counterweight to zero. <b>Left:</b> the mass split is illustrative; the real gun is unweighed.</li>' +
+        '<li><b>Conflict:</b> in the orbiting crown the cable leaves the grip base radially outward and must turn 140 to 155&deg; before it can run round the tube (datum-03b: 5.6 m at a 700 mm track). <b>What the scene shows (G1 route, bend radius 350 mm):</b> B leaves radially outward too, needs a 155&deg; turn, a track radius of about 740 mm and 5.8 m for a continuous 380&deg;: no better than A. <b>What the missing wire does buy:</b> a weld that can go either way round, so each half is 190&deg; from the first tack: about 3.4 m, inside the fibre, every bend at 350 mm by construction. <b>Left:</b> the cable must be re-laid as a mirror image between halves (manual); a two-part bead has two starts and two stops; the exit is 30 to 35&deg; above horizontal in the proxy (adds a level-off bend, about 0.2 m).</li>' +
+        '<li><b>Conflict:</b> B2 hangs the cable straight up from near the axis. <b>What the scene shows:</b> with the tube turning, the drag arm falls from 234 to 38 mm; with the gun orbiting from a hook on the axis, the fibre twists 1:1 with the orbit (badge). <b>Left:</b> whether an overhead balancer takes the fibre&rsquo;s weight.</li>' +
+        '<li><b>Conflict:</b> the wire bracket is what ties the gun to the tangent, not the wire. <b>Change (branch, drawn):</b> the guide is carried by the ring; the process keeps its fed wire. <b>Left:</b> the conduit&rsquo;s drag now loads the ring instead of the gun; the wire-to-dot alignment is a hand trim on the ring; the manual lists a wire-feeding bracket that mounts on the gun, so its adaptation is unresolved.</li>' +
+        '<li><b>Conflict:</b> with the wire gone the gun is not tied to the tangent, but the beam angle in the radial section is a process parameter (heat split between wall and plate) and yaw changes it. <b>What the numbers say:</b> 15&deg; of yaw moves it from 32.5&deg; to 9.9&deg;. <b>Change:</b> the yoke sets it; yaw is not a free motion.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether a preplaced filler ring can be fused at all at the speeds and power in use is <b>not addressed</b> (datum-09, section 1 of its idea file). Nothing here depends on how; it depends only on there being no wire at the gun.</li>' +
+        '<li>The real gun&rsquo;s mass, centre of mass and cable exit direction are <b>unknown</b>; every number is the kit&rsquo;s proxy. Whether the laser head tolerates the grip-up attitude (gas, lens drawer, cooling) is unknown.</li>' +
+        '<li>The yoke is drawn schematically: trunnion pins and clamp are not designed; with the proxy housing only 34 mm wide the trunnion span is short (outriggers would widen it).</li>' +
+        '<li><b>Questions for Derek:</b> weigh the gun and find its balance point on a pencil; note the direction the umbilical leaves the grip base; is there a reason other than the wire for the gun to lie along the tangent?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Attitude A = the reference scene&rsquo;s opening pose. B = roll 0, hole dial 35, vertical &minus;90; B2 = roll 0, hole dial 95, vertical +90: both inside the reference scene&rsquo;s own dial ranges (its ends). Gun geometry, the 0.15 / 0.55 / 0.30 mass split, cable exit along the dot-to-grip-base line, 16 mm nozzle clearance: kit proxy, <b>illustrative</b>.</li>' +
+        '<li>Rings, yoke, boom, track, hook heights, masses (gun 1.15 kg, carrier 0.25, ring 0.30): illustrative, as in datum-03 and datum-03b. Fibre 5 m, bend radii 350 / 240 mm, no twisting: <b>[manual]</b> p. 20.</li>' +
+        '<li>The clash test is datum-03&rsquo;s method (sampled ring points against the shell zones, a 2.5 mm beam corridor and a wire-guide segment); in B and B2 there is no guide.</li>' +
+        '<li><b>Models:</b> statics of the centre of mass, sampled ring clearance, the cable curve and its bend radius and length, twist counting. <b>Depicts only:</b> the yoke, balls, hook, track, drive.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(0, 0, 1);
+
+  // ------------------------------------------------------------------ state
+  const POSES = { A: { roll: 45, hole: 30, vert: -15, name: 'A  barrel along the tangent (fed wire; reference opening pose)' }, B: { roll: 0, hole: 35, vert: -90, name: 'B  barrel in the radial plane, grip out over the far rim' }, B2: { roll: 0, hole: 95, vert: 90, name: 'B2 barrel in the radial plane, grip up over the axis' } };
+  const S = { pose: 'A', wire: 'none', mode: 'turns', mgun: 1.15, mcw: 1.35, rin: 62.2, gap: 40, orbit: 0, rb: 350, hT: 250, route: 'track', hook: 520, run: false };
+  const zr = RIM, R_BALL = 66, Z_UP0 = zr + 10, Z_UP1 = zr + 16;
+  const Rzm = new THREE.Matrix4();
+  const mk = (geo, role, opts) => { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; };
+  const lathe = (profile, phi0, phiLen) => { const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 128, phi0 || 0, phiLen == null ? Math.PI * 2 : phiLen); g.rotateX(Math.PI / 2); return g; };
+
+  // ------------------------------------------------------------------ gun, shell, orbiting/non-rotating frame
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load', opacity: 0.22 });
+  const ns = new THREE.Group(); ns.name = 'upper ring assembly'; ns.matrixAutoUpdate = false; app.scene.add(ns); ns.add(gun.group);
+  app.scene.updateMatrixWorld(true);
+  // lower ring (on the rim, turns with the tube) and upper ring (own frame)
+  const lower = mk(lathe([[62.2, zr], [63.9, zr], [63.9, zr - 8], [66.2, zr - 8], [66.2, zr], [72, zr], [72, zr + 6], [62.2, zr + 6], [62.2, zr]]), 'locate'); ws.tubeGroup.add(lower);
+  const upper = mk(new THREE.BufferGeometry(), 'load'); ns.add(upper);
+  const AZ_GAP = -13 * DEG;
+  function buildUpper() { const g = S.gap * DEG; upper.geometry.dispose(); upper.geometry = lathe([[S.rin, Z_UP0], [78, Z_UP0], [78, Z_UP1], [S.rin, Z_UP1], [S.rin, Z_UP0]], AZ_GAP + g / 2 + Math.PI / 2, Math.PI * 2 - g); }
+  const balls = new THREE.Group(); ns.add(balls);
+  for (let i = 0; i < 24; i++) { const b = P3.sphere(2, 'fixed'); const a = i / 24 * Math.PI * 2; b.position.set(R_BALL * Math.cos(a), R_BALL * Math.sin(a), zr + 8); balls.add(b); }
+
+  // attitude A carrier: boom from the ring to a lug on the barrel, counterweight opposite (datum-03's arrangement)
+  const AZ_BOOM = -56 * DEG, R0 = V(68 * Math.cos(AZ_BOOM), 68 * Math.sin(AZ_BOOM), Z_UP1);
+  const lugA = (function () { const dl = gun.group.worldToLocal(R0.clone()).sub(gun.anchor('barrelMid')).normalize(); return shell.attachPoint('barrelMid', { side: [dl.x, dl.y, dl.z], role: 'locate', size: 7 }); })();
+  const boomRod = P3.rod(R0, R0.clone().add(V(0, 0, 1)), 3.2, 'load'); ns.add(boomRod);
+  const cwArm = P3.rod(V(72, 0, (Z_UP0 + Z_UP1) / 2), V(100, 0, (Z_UP0 + Z_UP1) / 2), 3.5, 'load'); ns.add(cwArm);
+  const cwBox = P3.box(1, 1, 1, 'load'); ns.add(cwBox);
+  // attitude B carrier: a yoke, two legs from the ring to trunnion pins on the housing sides
+  const TRUN = [V(21, 0, 185.5), V(-21, 0, 185.5)];      // trunnion pins on the housing's sides (housing 34 mm wide in the proxy)
+  const pins = TRUN.map(t => { const p = P3.cyl(3.2, 20, 'locate', { axis: 'x' }); p.position.copy(t); gun.group.add(p); return p; });
+  const legs = [P3.rod(V(0, 0, 0), V(0, 0, 1), 3.2, 'load'), P3.rod(V(0, 0, 0), V(0, 0, 1), 3.2, 'load')]; legs.forEach(l => ns.add(l));
+  const bridge = P3.rod(V(0, 0, 0), V(0, 0, 1), 2.4, 'load'); ns.add(bridge);
+  // a wire guide carried by the ring instead of the gun (branch): the guide and wire keep the reference pose's arrival (from the -y side, about 38 degrees above horizontal)
+  const GB = gun.local('wireGuide').clone(), GE = gun.local('wireGuideEnd').clone(), DOT = V(WK.INNER_RADIUS, 0, WK.CAP_TOP);
+  const azG = Math.atan2(GB.y, GB.x), rG = Math.min(66, Math.hypot(GB.x, GB.y));
+  const wRing = V(rG * Math.cos(azG), rG * Math.sin(azG), Z_UP1);
+  const wireArm = P3.rod(wRing, GB, 2.4, 'load'); ns.add(wireArm);
+  const wireGuide = P3.rod(GB, GE, 2.5, 'cable'); ns.add(wireGuide);
+  const wireLine = P3.rod(GE, DOT, 0.48, 'wire'); wireLine.userData.occludes = false; ns.add(wireLine);
+
+  // ------------------------------------------------------------------ overhead hook, gallows, track, anchor
+  const hookBase = V(0, 0, -50);
+  const hookPost = P3.rod(hookBase, V(0, 0, S.hook), 5, 'fixed'); app.add(hookPost);
+  const hookBall = P3.sphere(9, 'fixed'); app.add(hookBall);
+  const gallows = P3.rod(V(0, 0, -50), V(0, 0, 100), 5, 'fixed'); app.add(gallows);
+  const gBall = P3.sphere(9, 'fixed'); app.add(gBall);
+  const trackRing = P3.ring(600, 4, { role: 'fixed' }); app.add(trackRing);
+  const anchorMark = P3.sphere(8, 'fixed'); app.add(anchorMark);
+  let cableMesh = null;
+
+  // ------------------------------------------------------------------ statics (illustrative masses)
+  const cgGun = () => { const pts = [[gun.anchor([0, 0, 60]), 0.15], [gun.anchor([0, 0, 185.5]), 0.55], [gun.anchor('gripMid'), 0.30]]; const c = V(0, 0, 0); pts.forEach(p => c.addScaledVector(p[0].clone().applyMatrix4(gun.group.matrix), p[1])); return c; };
+  function carrierMid() {
+    if (S.pose === 'A') { const l = lugA.local.clone().applyMatrix4(gun.group.matrix); return R0.clone().add(l).multiplyScalar(0.5); }
+    const a = TRUN[0].clone().applyMatrix4(gun.group.matrix), b = TRUN[1].clone().applyMatrix4(gun.group.matrix); return a.add(b).multiplyScalar(0.5).setZ(0);
+  }
+  function statics() {
+    const c = cgGun(), bm = carrierMid();
+    const parts = [[S.mgun, c], [0.25, V(bm.x, bm.y, 0)], [0.30, V(0, 0, 0)]];
+    let M = 0, cx = 0, cy = 0; parts.forEach(p => { M += p[0]; cx += p[0] * p[1].x; cy += p[0] * p[1].y; });
+    const azCw = Math.atan2(-cy, -cx);
+    const Mc = M + S.mcw, ccx = cx + S.mcw * 100 * Math.cos(azCw), ccy = cy + S.mcw * 100 * Math.sin(azCw);
+    return { cg: Math.hypot(ccx, ccy) / Mc, cg0: Math.hypot(cx, cy) / M, need: Math.hypot(cx, cy) / 100, azCw: azCw, gunCg: Math.hypot(c.x, c.y) };
+  }
+
+  // ------------------------------------------------------------------ ring clearance test (datum-03's method: sampled ring points against shell zones, beam corridor, wire guide)
+  function insideZone(z, p) {
+    if (z.type === 'cyl') { const rad = Math.hypot(p.x, p.y); if (p.z < z.z0 || p.z > z.z1) return false; return rad < z.r0 + (z.r1 - z.r0) * (p.z - z.z0) / (z.z1 - z.z0); }
+    const q = p.clone().sub(z.center).applyQuaternion(z.quat.clone().invert()); return Math.abs(q.x) < z.half.x && Math.abs(q.y) < z.half.y && Math.abs(q.z) < z.half.z;
+  }
+  const segDist = (p, a, b) => { const ab = b.clone().sub(a), t = clamp(p.clone().sub(a).dot(ab) / ab.lengthSq(), 0, 1); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+  const BEAM_A = V(0, 0, 0), BEAM_B = V(0, 0, -WK.CLEARANCE), GUIDE_A = V(0, -24.7, 87.1), GUIDE_B = V(0, -15.4, 48.2);
+  function clash() {
+    const inv = gun.group.matrix.clone().invert(), pts = [];
+    for (let i = 0; i < 360; i += 3) {
+      const a = i * DEG;
+      [[S.rin, zr], [S.rin, zr + 6], [72, zr + 3]].forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'turning lower ring' }));
+      const d = ((i * DEG - AZ_GAP + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+      if (Math.abs(d) > S.gap * DEG / 2) [[S.rin, Z_UP0], [S.rin, Z_UP1]].forEach(rz => pts.push({ p: V(rz[0] * Math.cos(a), rz[0] * Math.sin(a), rz[1]), who: 'upper ring' }));
+    }
+    for (let k = 0; k < pts.length; k++) {
+      const pl = pts[k].p.clone().applyMatrix4(inv);
+      for (let z = 0; z < shell.zones.length; z++) if (insideZone(shell.zones[z], pl)) return { who: pts[k].who, what: 'the nozzle and shell' };
+      if (segDist(pl, BEAM_A, BEAM_B) < 2.5) return { who: pts[k].who, what: 'the laser beam (2.5 mm corridor)' };
+      if (S.pose === 'A' && segDist(pl, GUIDE_A, GUIDE_B) < 3.5) return { who: pts[k].who, what: 'the wire guide' };
+    }
+    return null;
+  }
+
+  // ------------------------------------------------------------------ cable
+  // G1 route in plan (same construction as calc/09 section 4): from the exit an arc of radius Rb turns toward the trailing side (clockwise: the ring drive
+  // turns counterclockwise) until the heading is tangent to a circle round the tube axis; then that circle for the orbit angle. Not a cable model.
+  function routePlan(pe, he, rb) {
+    const th0 = Math.atan2(he.y, he.x), s = -1;
+    const pos = phi => { const th = th0 + s * phi; return [pe.x + rb / s * (Math.sin(th) - Math.sin(th0)), pe.y + rb / s * (Math.cos(th0) - Math.cos(th))]; };
+    let prev = null;
+    for (let phi = 0.001; phi < 2 * Math.PI; phi += 0.002) {
+      const th = th0 + s * phi, p = pos(phi), f = p[0] * Math.cos(th) + p[1] * Math.sin(th);
+      if (prev && Math.sign(f) !== Math.sign(prev.f) && prev.phi > 0.05) return { phi: phi, Rt: Math.hypot(p[0], p[1]), pos: pos, th0: th0 };
+      prev = { f: f, phi: phi };
+    }
+    return null;
+  }
+  function cableCurve() {
+    app.scene.updateMatrixWorld(true);
+    const ex = gun.cableExit();
+    if (S.mode === 'turns' || S.route === 'hook') {
+      // tube turns: the umbilical hangs from a gallows placed along its own exit direction; orbit + hook: from a fixed hook on the axis
+      let hook, hdir;
+      if (S.mode === 'orbits') { hook = V(0, 0, S.hook); hdir = V(0, 0, 1); } else { hook = ex.point.clone().addScaledVector(ex.dir, 340); hdir = ex.dir.clone(); }
+      const c = WK.bezierCable(ex.point, ex.dir, hook, hdir, { stiffness: 0.45 });
+      return { curve: c, twist: S.mode === 'orbits' ? S.orbit * Math.abs(ex.dir.z) : 0, len: null, hook: hook, Rt: null };
+    }
+    const he = ex.dir.clone().setZ(0).normalize(), ro = routePlan(ex.point, he, S.rb);
+    if (!ro) return { curve: WK.bezierCable(ex.point, ex.dir, V(0, 0, S.hook), V(0, 0, 1), { stiffness: 0.45 }), twist: 0, len: null, hook: null, Rt: null };
+    const pts = [], nA = Math.max(6, Math.ceil(ro.phi / (3 * DEG))), sm = t => t * t * (3 - 2 * t);
+    for (let i = 0; i <= nA; i++) { const q = ro.pos(ro.phi * i / nA); pts.push(V(q[0], q[1], ex.point.z + (S.hT - ex.point.z) * sm(i / nA))); }
+    const qe = ro.pos(ro.phi), aEnd = Math.atan2(qe[1], qe[0]), total = Math.max(S.orbit, 0) * DEG, nT = Math.max(0, Math.ceil(total / (3 * DEG)));
+    for (let i = 1; i <= nT; i++) { const a = aEnd - total * i / nT; pts.push(V(ro.Rt * Math.cos(a), ro.Rt * Math.sin(a), S.hT)); }
+    anchorMark.position.copy(pts[pts.length - 1]);
+    const curve = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+    let len = 0; for (let i = 1; i < pts.length; i++) len += pts[i].distanceTo(pts[i - 1]);
+    return { curve: curve, twist: 0, len: len, hook: null, Rt: ro.Rt, phi: ro.phi / DEG, pts: pts };
+  }
+  function updateCable() {
+    const orb = S.mode === 'orbits', wrap = orb && S.route === 'track', hookOn = orb && S.route === 'hook';
+    hookPost.visible = hookBall.visible = hookOn; trackRing.visible = anchorMark.visible = wrap; gallows.visible = gBall.visible = !orb;
+    hookPost.setEnds(hookBase, V(0, 0, S.hook)); hookBall.position.set(0, 0, S.hook);
+    const c = cableCurve();
+    if (c.Rt) { trackRing.scale.setScalar(c.Rt / 600); trackRing.position.set(0, 0, S.hT); }
+    if (!orb) { const h = c.hook; gallows.setEnds(V(h.x, h.y, -50), V(h.x, h.y, h.z)); gBall.position.copy(h); }
+    if (!cableMesh) { cableMesh = P3.cable(c.curve, { radius: 5.5, role: 'cable' }); cableMesh.material = WK.mat('cable', { shade: 2.6 }); app.add(cableMesh); } else cableMesh.setPoints(c.curve);
+    const r = c.pts ? Math.min(S.rb, c.Rt) : WK.curveMinRadius(c.curve), b = WK.cableBadge(r);
+    app.badge('bend', b.level === 'ok' ? null : b.text, b.level);
+    app.badge('len', c.len != null && c.len > 5000 ? 'the wrap needs ' + (c.len / 1000).toFixed(1) + ' m of cable; the fibre is 5 m [manual p. 20]' : null, 'limit');
+    const tw = c.twist;
+    app.badge('twist', tw >= 15 ? 'fibre twist accrued about ' + tw.toFixed(0) + '° (manual: twisting strictly forbidden [p. 20]; the 15° threshold is illustrative)' : null, 'limit');
+    return { c: c, r: r };
+  }
+
+  // ------------------------------------------------------------------ pose + update
+  const rdCg = app.ui.readout('cg', 'Centre of mass, upper assembly'), rdNeed = app.ui.readout('need', 'Counterweight to balance'), rdArm = app.ui.readout('arm', 'Cable exit from the axis (drag arm)');
+  const rdLen = app.ui.readout('len', 'Fibre used'), rdMin = app.ui.readout('min', 'Tightest bend'), rdTip = app.ui.readout('tip', 'Nozzle tip over the rim');
+  function poseUpdate() {
+    const pz = POSES[S.pose];
+    gun.setDials(pz.roll, pz.hole, pz.vert);
+    if (gun.wire) gun.wire.visible = S.pose === 'A';
+    const ringWire = S.pose !== 'A' && S.wire === 'ring'; wireArm.visible = wireGuide.visible = wireLine.visible = ringWire;
+    Rzm.makeRotationZ(S.mode === 'orbits' ? S.orbit * DEG : 0); ns.matrix.copy(Rzm); ns.matrixWorldNeedsUpdate = true;
+    app.scene.updateMatrixWorld(true);
+    const isA = S.pose === 'A';
+    // carriers
+    lugA.lug.visible = isA; boomRod.visible = isA; cwArm.visible = cwBox.visible = S.mcw > 0.02;
+    pins.forEach(p => { p.visible = !isA; }); legs.forEach(l => { l.visible = !isA; }); bridge.visible = !isA;
+    const st = statics();
+    if (isA) { const l = lugA.local.clone().applyMatrix4(gun.group.matrix); boomRod.setEnds(R0, l); }
+    else {
+      const ts = TRUN.map(t => t.clone().applyMatrix4(gun.group.matrix));
+      ts.forEach((t, i) => { const az = Math.atan2(t.y, t.x), rb = Math.min(67, Math.hypot(t.x, t.y) + 0.01); const base = V(rb * Math.cos(az), rb * Math.sin(az), Z_UP1); legs[i].setEnds(base, t); });
+      bridge.setEnds(ts[0], ts[1]);
+    }
+    cwArm.setEnds(V(72 * Math.cos(st.azCw), 72 * Math.sin(st.azCw), (Z_UP0 + Z_UP1) / 2), V(100 * Math.cos(st.azCw), 100 * Math.sin(st.azCw), (Z_UP0 + Z_UP1) / 2));
+    cwBox.position.set(100 * Math.cos(st.azCw), 100 * Math.sin(st.azCw), (Z_UP0 + Z_UP1) / 2 - 6); cwBox.rotation.z = st.azCw; cwBox.scale.setScalar(Math.max(4, 40 * Math.cbrt(Math.max(S.mcw, 0.01) / 1.35)));
+    const cl = clash();
+    const cab = updateCable();
+    // readouts and badges
+    const ex = gun.cableExit(), local = ns.worldToLocal(ex.point.clone()), arm = Math.hypot(local.x, local.y);
+    rdCg((st.cg).toFixed(0) + ' mm (ball ring ' + R_BALL + ')'); rdNeed(st.need.toFixed(2) + ' kg at r=100 mm'); rdArm(arm.toFixed(0) + ' mm');
+    rdLen(cab.c.len != null ? (cab.c.len / 1000).toFixed(2) + ' m of 5 m (turn ' + cab.c.phi.toFixed(0) + '\u00b0, track r ' + cab.c.Rt.toFixed(0) + ')' : 'hangs'); rdMin(isFinite(cab.r) ? cab.r.toFixed(0) + ' mm (350 min)' : 'straight');
+    const tip = gun.local('nozzleTip'); rdTip((tip.z - RIM).toFixed(1) + ' mm, r ' + Math.hypot(tip.x, tip.y).toFixed(0));
+    app.badge('tip', st.cg > R_BALL ? 'assembly would tip: centre of mass ' + st.cg.toFixed(0) + ' mm from the axis, ball ring ' + R_BALL + ' mm; needs about ' + st.need.toFixed(2) + ' kg counterweight at r=100 mm' : null, 'limit');
+    app.badge('clash', cl ? 'ring clash: the ' + cl.who + ' would hit ' + cl.what : null, 'limit');
+    const beam = gun.beamDir(), insec = Math.atan2(beam.x, -beam.z) / DEG, tang = Math.atan2(beam.y, -beam.z) / DEG;
+    app.io.set({
+      commands: [
+        { name: 'Ring drive (orbit mode)', value: S.mode === 'orbits' ? S.orbit.toFixed(0) : '-', unit: S.mode === 'orbits' ? '°' : '', note: 'proposed actuator; 7.4°/s at 8 mm/s bead speed' },
+        { name: 'Rotator (turns mode)', value: S.mode === 'turns' ? 'existing controller' : 'not used', note: '' },
+      ],
+      observes: [
+        { name: 'Beam angle, in-section / along tangent', value: insec.toFixed(1) + ' / ' + tang.toFixed(1), unit: '°', status: 'blind', note: 'set by the yoke; nothing measures it' },
+        { name: 'Fibre twist', value: S.mode === 'orbits' && S.route === 'hook' ? S.orbit.toFixed(0) + '°' : '0 (laid flat / hangs)', status: 'blind', note: 'nothing measures it' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'no sensor in this scene' },
+        { name: 'Wire', value: isA ? 'fed from a guide on the gun, arrives on the tangent side' : (S.wire === 'ring' ? 'fed from a guide on the ring, same arrival' : 'none (filler already in the corner)'), status: 'manual', note: 'datum-09 (none) or the ring-carried guide (branch)' },
+      ],
+      manual: ['Pick and clamp the yoke angle (B, B2) or the boom lug (A)', 'Lay the filler ring (datum-09)', 'Unwind the cable after each orbit (orbit mode)'],
+    });
+    app.invalidate();
+  }
+  function refresh() { buildUpper(); poseUpdate(); }
+
+  // ------------------------------------------------------------------ labels
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => ns.localToWorld(V(66 * Math.cos(2.4), 66 * Math.sin(2.4), Z_UP1)), 'upper ring', { cls: 'load' });
+  app.label(() => V(-62 * Math.cos(0.9), -62 * Math.sin(0.9), zr + 5).applyMatrix4(ws.tubeGroup.matrixWorld), 'lower ring (turns with the tube)', { cls: 'locate' });
+  app.label(() => { const m = legs[0].visible ? legs[0] : boomRod; return m.getWorldPosition(new THREE.Vector3()); }, 'yoke leg / boom', { cls: 'load' });
+  app.label(() => cwBox.getWorldPosition(new THREE.Vector3()), 'counterweight', { cls: 'load' });
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'pose', label: 'Gun attitude', options: [{ value: 'A', label: 'A tangent (fed wire)', help: 'The reference opening pose: barrel and wire along the tangent, centre of mass 118 mm out.' }, { value: 'B', label: 'B radial, grip out', help: 'Filler already in the corner: barrel in the radial plane over the bore.' }, { value: 'B2', label: 'B2 radial, grip up', help: 'Same beam, gun pitched the other way: the grip rises near the axis.' }], value: 'A', kind: 'branch', onChange: v => { S.pose = v; if (v !== 'A') app.ui.set('mcw', 0); else app.ui.set('mcw', 1.35); if (v === 'A') app.ui.set('gap', 40); else app.ui.set('gap', 0); syncEnable(); poseUpdate(); } });
+  app.ui.radio({ id: 'wire', label: 'Wire in attitudes B and B2', options: [{ value: 'none', label: 'none: filler already laid (datum-09)' }, { value: 'ring', label: 'fed wire, guide carried by the ring' }], value: 'none', kind: 'branch', help: 'The guide leaves the gun and stands on the ring at the reference pose\u2019s arrival direction, so the gun is free of it. Attitude A keeps the kit\u2019s guide on the gun.', onChange: v => { S.wire = v; poseUpdate(); } });
+  app.ui.radio({ id: 'mode', label: 'What turns', options: [{ value: 'turns', label: 'the tube turns (crown as datum-03)' }, { value: 'orbits', label: 'the gun orbits a still tube (as 03b)' }], value: 'turns', kind: 'branch', onChange: v => { S.mode = v; if (v === 'turns') { S.orbit = 0; app.ui.set('orbit', 0, { silent: true }); } syncEnable(); poseUpdate(); } });
+  app.ui.slider({ id: 'orbit', label: 'Ring drive angle', min: 0, max: 400, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => [upper], help: 'A proposed drive on the upper ring: one weld is about 380°.', onChange: v => { S.orbit = v; poseUpdate(); } });
+  app.ui.toggle({ id: 'run', label: 'Drive the ring at the bead speed', value: false, kind: 'state', noVisual: true, onChange: v => { S.run = v; app.animate(v); } });
+  app.ui.radio({ id: 'route', label: 'Cable in orbit mode', options: [{ value: 'track', label: 'trailing wrap on a flat track' }, { value: 'hook', label: 'hang from a hook on the axis' }], value: 'track', kind: 'branch', onChange: v => { S.route = v; syncEnable(); poseUpdate(); } });
+  const gm = app.ui.group('Loads and rings (illustrative)', { open: true, help: 'Nobody has weighed the gun [unknown].' });
+  gm.slider({ id: 'mgun', label: 'Gun + shell mass', min: 0.5, max: 2.5, step: 0.05, value: 1.15, unit: 'kg', kind: 'scene', visual: () => gun.group, onChange: v => { S.mgun = v; poseUpdate(); } });
+  gm.slider({ id: 'mcw', label: 'Counterweight mass', min: 0, max: 3, step: 0.05, value: 1.35, unit: 'kg', kind: 'scene', visual: () => [cwBox, cwArm], help: 'At r = 100 mm opposite the centre of mass. Not needed in B and B2.', onChange: v => { S.mcw = v; poseUpdate(); } });
+  gm.slider({ id: 'gap', label: 'Gap in the upper ring for the gun', min: 0, max: 60, step: 1, value: 40, unit: '°', kind: 'scene', visual: () => upper, help: 'A needs a gap for the barrel; B and B2 do not.', onChange: v => { S.gap = v; refresh(); } });
+  gm.slider({ id: 'rin', label: 'Ring inner radius', min: 54, max: 66, step: 0.2, value: 62.2, unit: 'mm', kind: 'scene', visual: () => [lower, upper], onChange: v => { S.rin = v; refresh(); } });
+  const gc = app.ui.group('Cable (orbit mode)', { open: true });
+  gc.slider({ id: 'rb', label: 'Bend radius used on the route', min: 240, max: 600, step: 10, value: 350, unit: 'mm', kind: 'scene', visual: () => [cableMesh], help: 'The fibre must stay above 350 mm while emitting (240 stored). A larger radius needs a larger track.', onChange: v => { S.rb = v; poseUpdate(); } });
+  gc.slider({ id: 'hT', label: 'Track height above the tube bottom', min: 150, max: 400, step: 10, value: 250, unit: 'mm', kind: 'scene', visual: () => trackRing, onChange: v => { S.hT = v; poseUpdate(); } });
+  gc.slider({ id: 'hook', label: 'Hook height (hook on the axis)', min: 250, max: 700, step: 10, value: 520, unit: 'mm', kind: 'scene', visual: () => [hookPost, hookBall], onChange: v => { S.hook = v; poseUpdate(); } });
+  function syncEnable() { const o = S.mode === 'orbits'; try { app.ui.enable('orbit', o); app.ui.enable('run', o); app.ui.enable('route', o); app.ui.enable('wire', S.pose !== 'A'); app.ui.enable('rb', o && S.route === 'track'); app.ui.enable('hT', o && S.route === 'track'); app.ui.enable('hook', o && S.route === 'hook'); } catch (e) { /* not created yet */ } }
+  syncEnable();
+  app.onFrame(dt => { if (!S.run) return false; S.orbit = Math.min(400, S.orbit + 7.4 * dt); if (S.orbit >= 400) { S.run = false; app.ui.set('run', false, { silent: true }); } app.ui.set('orbit', S.orbit, { silent: true }); poseUpdate(); return true; });
+  refresh();
+})();
+</script>
+</body>
+</html>

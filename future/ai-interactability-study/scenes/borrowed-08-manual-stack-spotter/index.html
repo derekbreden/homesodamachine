@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual stack with a spotter</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-08-manual-stack-spotter",
+  "title": "Manual stack with a spotter: hands turn the knobs, software says which",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "A cross-slide table, a lab jack and a geared photo-style head, each with a scale, carry the gun with no motors. Software reads the scales and a camera and tells a person which knob to turn by how much; turning the head changes the dot's position, so the spotter also gives the slide and jack readings that keep it on the seam. The cheapest rung of the same idea as the gimbal on a gantry.",
+  "tags": ["manual", "spotter", "scales", "cross-slide", "geared head"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["software resolves the coupling, a person supplies the motion", "instruction rounds against camera noise and bias"],
+  "how": {
+    "motion": "a person turns slide, jack and head knobs; nothing is driven",
+    "load": "gun and ballast on the head, jack on the slides, slides on a platform",
+    "reference": "scales on each axis; dot = C minus t times the roll axis; a camera trims",
+    "observe": "scale readings, a camera estimate of the dot; software moves nothing",
+    "use": "operator follows on-screen numbers, then trim instructions from the camera"
+  },
+  "software": {
+    "commands": ["nothing: display of the next instruction"],
+    "observes": ["scale readings on X, Y, Z and the head", "camera estimate of the dot vs seam"],
+    "manual": ["turning every knob", "balancing the gun on the head", "zeroing the scales at home"]
+  },
+  "notes": ["../../explorers/borrowed/ideas/borrowed-08-manual-stack-spotter.md", "../../explorers/borrowed/ideas/borrowed-02-gimbal-on-gantry.md"],
+  "sources": ["../../sourcing/borrowed.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone(), AXZ = V(0, 0, 1);
+  const app = WK.app({
+    gun: { pose: 'none' },
+    view: 'main',
+    views: {
+      main: { target: [20, -170, 150], dir: [0.55, -0.7, 0.4], dist: 1150 },
+      head: { target: [15, -150, 200], dir: [0.6, -0.6, 0.45], dist: 560 },
+      top: { target: [20, -150, 100], dir: [0, -0.003, 1], dist: 900 },
+      side: { target: [20, -150, 170], dir: [1, -0.02, 0.05], dist: 1000 },
+    },
+    viewButtons: ['main', 'head', 'top', 'side'],
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Everything in the gimbal-on-a-gantry page can be done by hand. A manual cross-slide table (radial and tangent), a lab jack (height) and a geared head (yaw and pitch) are stock products; put a digital scale on each and software can read where every axis is. What it cannot do is move. So it speaks: if you turn the head to a new pitch, the dot swings away by about 3 mm per degree, and the spotter reads the head scales and says “turn X to −3.9, Z to +1.2”, computed from the same one-line formula, <code>dot = C − t·g</code>. Then a camera says how far the dot is really off and the spotter gives a short trim.</p>' +
+        '<p>Set the head angles with the scene sliders (a person turning the head knobs), watch the dot swing when the slides stay home, then press <b>A person follows the spotter’s numbers</b> and <b>the camera trim</b>. The hand error slider is how well a person lands on a number; the camera bias is what the camera gets wrong.</p>',
+      carries: '<p>Gun and ballast → head (fork and pitch lugs) → lab jack → Y slide → X slide → platform → bench. Position: the scales and the formula, then the camera. Free: none between corrections; each axis locks with its gib screw or lock. Driven: nothing; a person turns.</p>',
+      software: '<p>Observe and instruct only. The readout shows the scale readings, the numbers to turn to, the camera’s estimate of the dot and, greyed as blind, the true error only the simulation knows. The person is the actuator, so “actuator” controls do not exist on this page.</p>',
+      tried: '<p><b>Round 1: is the hand the limit?</b> No. In a model (calc/spotter_rounds.py) a person landing within ±0.05 mm of a number on a 0.01 mm scale needs one round with a clean camera, about four with a 0.15 mm noisy one, and a 0.15 mm camera bias holds the true error near 0.15 mm whatever the hand does. Assumption broken: the person is the noisy part.</p>' +
+        '<p><b>Round 2: coupling.</b> Turning the head by one degree moves the dot 3 mm at t = 200 mm; without the formula a person chases the dot with three knobs. Change: the spotter gives all three slide readings at once. Left standing: the slide readings are wrong by whatever the head’s yaw or pitch error is (δ of 0.3° is 1 mm).</p>' +
+        '<p><b>Round 3: travel.</b> The instruction can ask for more slide travel than a cheap table has; the sliders stop at illustrative limits and a LIMIT badge says which axis. A 40 mm-class jack would not do.</p>' +
+        '<p><b>Round 4: reading the scales.</b> An LCD digital scale needs a person or a camera to read it; one with a data port lets software read it (not checked on the listed part).</p>' +
+        '<p><b>Round 5: the trim can make it worse.</b> After a good set of position numbers the true error is a few hundredths of a millimetre; a camera with 0.3 mm of bias then asks for a trim that moves the dot by the bias (press the trim button and watch the corner inset). Change: trust the camera only when its bias is smaller than the mechanical error. Left standing: nobody has measured any camera\u2019s bias on this corner.</p>',
+      unresolved: '<ul><li>Whether a geared head or a cheap lab jack holds a gun and its umbilical without creep or play.</li><li>Scale data ports and resolution on the cheap parts.</li><li>The gun’s mass and balance point; fibre twist under roll.</li><li>How a person follows numbers without looking away from the weld setup.</li></ul>',
+      assumptions: '<ul><li>Slide and jack sizes, travel limits (X ±120, Y −100 to 50, Z ±100 mm), fork and lug sizes: <b>illustrative</b>.</li><li>Gun proxy and the three-dial rotation model as the reference scene (illustrative); C on the roll line at t = 200 mm.</li><li>Hand error, scale resolution, head angle error and camera bias are sliders, not measurements of any product; the camera bias defaults to 0.3 / −0.2 mm (made up).</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, D = WK.DIM;
+  const G = { RIN: WK.INNER_RADIUS, ROUT: D.tubeOd / 2, H: D.tubeHeight, PR: D.capDiameter / 2, PZ0: WK.CAP_TOP - D.capThickness, PZ1: WK.CAP_TOP };
+  function rectD(r, z, r0, r1, z0, z1) { const dr = Math.max(r0 - r, 0, r - r1), dz = Math.max(z0 - z, 0, z - z1); return Math.sqrt(dr * dr + dz * dz); }
+  function tubeClear(x, y, z) { const r = Math.sqrt(x * x + y * y); return Math.min(rectD(r, z, G.RIN, G.ROUT, 0, G.H), rectD(r, z, 0, G.PR, G.PZ0, G.PZ1)); }
+  function segDist(p, a, b) {
+    const abx = b.x - a.x, aby = b.y - a.y, abz = b.z - a.z, apx = p.x - a.x, apy = p.y - a.y, apz = p.z - a.z;
+    const l2 = abx * abx + aby * aby + abz * abz; let t = l2 > 0 ? (apx * abx + apy * aby + apz * abz) / l2 : 0; t = Math.max(0, Math.min(1, t));
+    const dx = apx - t * abx, dy = apy - t * aby, dz = apz - t * abz; return Math.sqrt(dx * dx + dy * dy + dz * dz);
+  }
+  const s60 = Math.sin(WK.PITCH), c60 = Math.cos(WK.PITCH), axisLocal = WK.LOCAL_ROLL_AXIS.clone();
+  const a0 = V(axisLocal.x, -c60 * axisLocal.z + s60 * axisLocal.y, s60 * axisLocal.z + c60 * axisLocal.y), DOT_LOCAL = V(0, 0, -WK.CLEARANCE);
+  const GS = (function () {
+    const pts = [], rad = z => z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12;
+    for (let z = 0; z <= 118; z += 3) for (let k = 0; k < 10; k++) { const a = k / 10 * Math.PI * 2; pts.push(V(rad(z) * Math.cos(a), rad(z) * Math.sin(a), z)); }
+    function box(c, hx, hy, hz, q, step) {
+      const nx = Math.max(1, Math.round(2 * hx / step)), ny = Math.max(1, Math.round(2 * hy / step)), nz = Math.max(1, Math.round(2 * hz / step));
+      for (let i = 0; i <= nx; i++) for (let j = 0; j <= ny; j++) for (let k = 0; k <= nz; k++) {
+        if (!(i === 0 || i === nx || j === 0 || j === ny || k === 0 || k === nz)) continue;
+        const p = V(-hx + 2 * hx * i / nx, -hy + 2 * hy * j / ny, -hz + 2 * hz * k / nz); if (q) p.applyQuaternion(q); pts.push(p.add(c));
+      }
+    }
+    box(V(0, 0, 185.5), 17, 17, 67.5, null, 8);
+    const gs = V(0, -25, 172), ge = V(0, -111, 232), gl = gs.distanceTo(ge), gd = ge.clone().sub(gs).normalize();
+    box(gs.clone().add(ge).multiplyScalar(0.5), 15, (gl + 16) / 2, 14, new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), gd), 7);
+    return pts;
+  })();
+
+  const S = { v: -15, h: 30, r: 45, kx: 0, ky: 0, kz: 0, tc: 200, hand: 0.05, res: 0.01, bias: 0.3, angErr: 0, camAz: 200 };
+  const HOME = { v: -15, h: 30, r: 45 };
+  const ROLL_D = 264, Rr = 34, W = 4, XB = 105, LUG = 42, HB = 118;
+  const LIM = { x: [-120, 120], y: [-100, 50], z: [-100, 100] };
+  const bz = ws.benchZ;
+  const dial = (v, h, r) => WK.dialsToPose(r, h, v);
+  const gAxis = (v, h, r) => axisLocal.clone().applyQuaternion(dial(v, h, r).quaternion);
+  const cLocal = () => DOT_LOCAL.clone().addScaledVector(axisLocal, S.tc);
+  const cFor = (v, h) => J.clone().addScaledVector(gAxis(v, h, 0), S.tc);
+  const cHome = () => cFor(HOME.v, HOME.h);
+
+  // ---------- the stack (platform, X slide, Y slide, jack, head)
+  const C0 = cHome();
+  const platform = P.box(520, 300, 84, 'fixed'); platform.position.set(C0.x, -415 + 0, bz + 42); app.add(platform);
+  const xSlide = P.box(260, 110, 24, 'load'), ySlide = P.box(110, 200, 24, 'load'), jack = P.box(60, 60, 100, 'load');
+  const headBase = P.cyl(46, 22, 'load'), fork = [P.rod(V(0, 0, 0), V(1, 0, 0), 6, 'load'), P.rod(V(0, 0, 0), V(1, 0, 0), 6, 'load')];
+  const knobY = P.cyl(13, 14, 'locate'), knobP1 = P.cyl(13, 14, 'locate', { axis: 'x' }), knobP2 = P.cyl(13, 14, 'locate', { axis: 'x' });
+  const scX = P.box(120, 8, 8, 'sensor'), scY = P.box(8, 120, 8, 'sensor'), scZ = P.box(8, 8, 70, 'sensor');
+  const shA = P.rod(V(0, 0, 0), V(1, 0, 0), 4, 'locate'), shB = P.rod(V(0, 0, 0), V(1, 0, 0), 4, 'locate'), crA = P.rod(V(0, 0, 0), V(1, 0, 0), 3.5, 'load'), crB = P.rod(V(0, 0, 0), V(1, 0, 0), 3.5, 'load');
+  const kX = P.cyl(14, 16, 'locate', { axis: 'x' }), kYk = P.cyl(14, 16, 'locate', { axis: 'y' }), kZ = P.cyl(14, 16, 'locate');
+  [xSlide, ySlide, jack, headBase, fork[0], fork[1], knobY, knobP1, knobP2, scX, scY, scZ, shA, shB, crA, crB, kX, kYk, kZ].forEach(o => app.add(o));
+  const rollStator = P.ring(Rr + 3 * W, W, { role: 'load' }), rollRotor = P.ring(Rr + W, W, { role: 'load' });
+  app.add(rollStator); gun.group.add(rollRotor);
+  rollRotor.position.copy(DOT_LOCAL).addScaledVector(axisLocal, ROLL_D); rollRotor.quaternion.setFromUnitVectors(AXZ, axisLocal);
+  const ballast = P.box(30, 22, 30, 'load'); ballast.position.set(0, 20, 240); gun.group.add(ballast);
+  const HOOK = V(-80, -650, 560);
+  app.add(P.rod(V(HOOK.x, HOOK.y, bz), HOOK, 5, 'fixed')); const hd = P.sphere(9, 'fixed'); hd.position.copy(HOOK); app.add(hd);
+  let cableMesh = null; const stubEnd = WK.GRIP_BASE_LOCAL.clone().addScaledVector(axisLocal, 70);
+  function drawCable() {
+    const p = gun.local(stubEnd), d = gun.dir(axisLocal), curve = WK.bezierCable(p, d, HOOK, HOOK.clone().sub(p).normalize(), { stiffness: 0.42 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    return curve.minRadius();
+  }
+  const cMark = P.sphere(6, 'locate'); app.add(cMark);
+  const spread = P.sphere(10, 'compliant'); spread.material = WK.mat('compliant', { opacity: 0.35 }); spread.userData.occludes = false; app.add(spread);
+  app.label(() => spread.position, 'landing spread of a hand (drawn 100x)', { cls: 'compliant' });
+  app.label(() => cMark.position, 'head centre C', { cls: 'locate' });
+  app.label(() => xSlide.position.clone().add(V(0, 0, 18)), 'X slide (radial) with scale', { cls: 'load' });
+  app.label(() => ySlide.position.clone().add(V(0, 0, 18)), 'Y slide (tangent) with scale', { cls: 'load' });
+  app.label(() => jack.position.clone().add(V(0, 40, 0)), 'lab jack (height) with scale', { cls: 'load' });
+  app.label(() => knobY.position, 'head knobs (yaw, pitch)', { cls: 'locate' });
+  app.label(() => gun.dotWorld(), 'Laser dot', { cls: 'laser' });
+  const cam = { r: 250, h: 330 }, camPos = V(0, 0, 0);
+  function placeCam() { camPos.set(cam.r * Math.cos(S.camAz * DEG), cam.r * Math.sin(S.camAz * DEG), cam.h); }
+  placeCam();
+  app.inset.add({ id: 'obs', label: 'Outside camera (proposed, illustrative)', position: () => camPos, target: () => gun.dotWorld(), fov: 38, near: 30, far: 1500, size: [230, 158], corner: 'br', noise: 0.25 });
+  app.label(camPos, 'camera', { cls: 'sensor' });
+  app.cornerInset({ gun: gun });
+  gun.setLaser(true);
+
+  function mats(v, h) {
+    const hp = h - WK.HOLE_AXIS_OFFSET, Rz = new THREE.Matrix4().makeRotationZ(v * DEG), Rx = new THREE.Matrix4().makeRotationX(-hp * DEG);
+    return { Rz: Rz, RzRx: Rz.clone().multiply(Rx) };
+  }
+  function yoke(v, h, Cw) {
+    const M = mats(v, h), rz = p => p.clone().applyMatrix4(M.Rz).add(Cw), rzx = p => p.clone().applyMatrix4(M.RzRx).add(Cw), y = {};
+    y.baseA = rz(V(-XB, 0, -HB + 12)); y.baseB = rz(V(XB, 0, -HB + 12)); y.armA = rz(V(-XB, 0, 0)); y.armB = rz(V(XB, 0, 0));
+    y.lugA = rz(V(-LUG, 0, 0)); y.lugB = rz(V(LUG, 0, 0));
+    y.rc = rzx(a0.clone().multiplyScalar(ROLL_D - S.tc)); y.rn = a0.clone().transformDirection(M.RzRx);
+    y.stA = rzx(a0.clone().multiplyScalar(ROLL_D - S.tc).add(V(-(Rr + 3.6 * W), 0, 0))); y.stB = rzx(a0.clone().multiplyScalar(ROLL_D - S.tc).add(V(Rr + 3.6 * W, 0, 0)));
+    y.rods = [{ n: 'fork arm', a: y.baseA, b: y.armA, r: 6 }, { n: 'fork arm', a: y.baseB, b: y.armB, r: 6 }, { n: 'cradle', a: y.lugA, b: y.stA, r: 3.5 }, { n: 'cradle', a: y.lugB, b: y.stB, r: 3.5 }];
+    return y;
+  }
+  function issues(pose) {
+    const bad = new Set(), y = yoke(pose.v, pose.h, pose.C);
+    for (let i = 0; i < GS.length; i++) {
+      const p = GS[i].clone().applyQuaternion(pose.q).add(pose.pos);
+      if (tubeClear(p.x, p.y, p.z) < 1) bad.add('the gun touches the tube');
+      for (const rd of y.rods) if (segDist(p, rd.a, rd.b) < rd.r + 1.5) bad.add('the gun touches the ' + rd.n);
+    }
+    for (const rd of y.rods) for (let k = 0; k <= 12; k++) { const p = rd.a.clone().lerp(rd.b, k / 12); if (tubeClear(p.x, p.y, p.z) < rd.r) { bad.add('the ' + rd.n + ' touches the tube'); break; } }
+    return Array.from(bad);
+  }
+  let lastOk = null;
+  function update() {
+    if (!S.ready) return;
+    const home = cHome(), C = home.clone().add(V(S.kx, S.ky, S.kz)), act = { v: S.v + S.angErr, h: S.h + S.angErr, r: S.r };
+    const dp = dial(act.v, act.h, act.r);
+    let pose = { q: dp.quaternion, pos: C.clone().sub(cLocal().applyQuaternion(dp.quaternion)), v: act.v, h: act.h, r: act.r, C: C };
+    const bad = issues(pose);
+    if (bad.length && lastOk) { app.badge('limit', bad.join('; ') + '. Holding the last valid pose', 'limit'); pose = lastOk; } else { app.badge('limit', null); lastOk = pose; }
+    const Cc = pose.C;
+    gun.setTransform(pose.pos, pose.q);
+    // target readings from the formula, using the scale readings (what software sees)
+    const T = cFor(S.v, S.h).sub(home);
+    const need = { x: T.x - S.kx, y: T.y - S.ky, z: T.z - S.kz };
+    const over = [T.x < LIM.x[0] || T.x > LIM.x[1] ? 'X' : null, T.y < LIM.y[0] || T.y > LIM.y[1] ? 'Y' : null, T.z < LIM.z[0] || T.z > LIM.z[1] ? 'Z' : null].filter(Boolean);
+    app.badge('travel', over.length ? 'this orientation needs more travel than the ' + over.join(' and ') + ' axis has (illustrative limits)' : null, 'limit');
+    // stack drawing
+    xSlide.position.set(Cc.x, C0.y - 110, bz + 84 + 12);
+    ySlide.position.set(Cc.x, Cc.y - 60, bz + 84 + 24 + 12);
+    const jTop = Cc.z - HB, jBot = bz + 84 + 48, jh = Math.max(20, jTop - jBot);
+    jack.geometry.dispose(); jack.geometry = new THREE.BoxGeometry(60, 60, jh); jack.position.set(Cc.x, Cc.y, jBot + jh / 2);
+    headBase.position.set(Cc.x, Cc.y, jTop - 11); headBase.rotation.z = pose.v * DEG;
+    const y = yoke(pose.v, pose.h, Cc);
+    fork[0].setEnds(y.baseA, y.armA); fork[1].setEnds(y.baseB, y.armB);
+    knobY.position.set(Cc.x + 52 * Math.cos((pose.v + 90) * DEG), Cc.y + 52 * Math.sin((pose.v + 90) * DEG), jTop - 6);
+    const ha = V(Math.cos(pose.v * DEG), Math.sin(pose.v * DEG), 0);
+    knobP1.position.copy(y.armA).addScaledVector(ha, -18); knobP2.position.copy(y.armB).addScaledVector(ha, 18);
+    knobP1.quaternion.setFromUnitVectors(V(1, 0, 0), ha); knobP2.quaternion.setFromUnitVectors(V(1, 0, 0), ha);
+    shA.setEnds(y.armA, y.lugA); shB.setEnds(y.armB, y.lugB); crA.setEnds(y.lugA, y.stA); crB.setEnds(y.lugB, y.stB);
+    rollStator.position.copy(y.rc); rollStator.quaternion.setFromUnitVectors(AXZ, y.rn);
+    scX.position.set(Cc.x, C0.y - 110 - 55 - 8, bz + 84 + 12); scY.position.set(Cc.x + 60, Cc.y - 60, bz + 84 + 24 + 12); scZ.position.set(Cc.x + 40, Cc.y, jBot + jh / 2);
+    kX.position.set(Cc.x + 140, C0.y - 110, bz + 84 + 12); kYk.position.set(Cc.x, Cc.y - 60 - 108, bz + 84 + 36); kZ.position.set(Cc.x + 34, Cc.y, jBot + jh / 2 + 20);
+    cMark.position.copy(Cc);
+    spread.position.set(Cc.x + 140, C0.y - 110, bz + 84 + 12 + 40); spread.scale.setScalar(Math.max(0.05, S.hand * 100 / 10));
+    gun.updateLaser();
+    const minR = drawCable(), cb = WK.cableBadge(minR); app.badge('cable', cb.level === 'ok' ? null : cb.text, cb.level);
+    placeCam();
+    const vis = app.inset.markVisibility('obs', gun.dotWorld()), offs = gun.dotOffset();
+    const est = vis && vis.visible ? { radial: offs.radial + S.bias, vertical: offs.vertical - S.bias * 0.66 } : null;
+    app.cornerInset.setEstimate(est);
+    S.lastEst = est; S.lastNeed = need;
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2), r2 = v => (Math.round(v / S.res) * S.res).toFixed(2);
+    const instr = (Math.abs(need.x) < 0.03 && Math.abs(need.y) < 0.03 && Math.abs(need.z) < 0.03) ? 'slides and jack are where the head angles need them' : 'turn X to ' + r2(T.x) + ' (' + f(need.x) + '), Y to ' + r2(T.y) + ' (' + f(need.y) + '), Z to ' + r2(T.z) + ' (' + f(need.z) + ') mm';
+    const trim = est ? 'trim: X by ' + f(-est.radial) + ' mm, Z by ' + f(-est.vertical) + ' mm' : 'camera cannot see the dot: no trim';
+    const dev = Math.hypot(offs.radial, offs.vertical);
+    app.io.set({
+      commands: [{ name: 'Nothing to command', value: 'observe only', note: 'a person turns every knob' }],
+      observes: [
+        { name: 'Scale readings X, Y, Z (from home)', value: r2(S.kx) + ' / ' + r2(S.ky) + ' / ' + r2(S.kz), unit: 'mm', status: 'seen', note: 'digital scales; resolution ' + S.res + ' mm; data port unchecked' },
+        { name: 'Head readings yaw, pitch, roll', value: S.v.toFixed(1) + ' / ' + S.h.toFixed(1) + ' / ' + S.r.toFixed(1), unit: '°', status: 'seen', note: 'the angle error slider is what the head fails to report' },
+        { name: 'Spotter says (position)', value: instr, status: 'seen', note: 'from dot = C - t g' },
+        { name: 'Camera estimate of the dot (r, z)', value: est ? est.radial.toFixed(2) + ', ' + est.vertical.toFixed(2) : '-', unit: est ? 'mm' : '', status: est ? 'partly' : 'blind', note: 'made-up bias; the truth is in the corner inset' },
+        { name: 'Spotter says (trim)', value: trim, status: est ? 'seen' : 'blind' },
+        { name: 'True dot error (r, z)', value: offs.radial.toFixed(2) + ', ' + offs.vertical.toFixed(2), unit: 'mm', status: 'blind', note: 'only the simulation knows' },
+      ],
+      manual: ['Turn the head knobs to the wanted angles', 'Turn the slide and jack knobs to the numbers', 'Balance the gun on the head; lay the umbilical'],
+    });
+    app.invalidate();
+  }
+  const rnd = () => (Math.random() * 2 - 1) * S.hand, snap = v => Math.round(v / S.res) * S.res;
+  function set(id, v) { app.ui.set(id, +v.toFixed(3)); }
+
+  const hd2 = app.ui.group('Head knobs (scene edits: a person turns these)', { help: 'The geared head’s three angle readings.' });
+  hd2.slider({ id: 'yaw', label: 'Yaw reading', min: -45, max: 45, step: 0.5, value: -15, unit: '°', kind: 'scene', visual: () => [headBase, knobY], onChange: v => { S.v = v; update(); } });
+  hd2.slider({ id: 'hole', label: 'Pitch reading', min: 0, max: 60, step: 0.5, value: 30, unit: '°', kind: 'scene', visual: () => [knobP1, knobP2], onChange: v => { S.h = v; update(); } });
+  hd2.slider({ id: 'roll', label: 'Roll reading', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => [rollStator, rollRotor], onChange: v => { S.r = v; update(); } });
+  const sl = app.ui.group('Slide and jack knobs (scene edits: a person turns these)', { help: 'Scale readings from the home position.' });
+  sl.slider({ id: 'kx', label: 'X slide (radial)', min: LIM.x[0], max: LIM.x[1], step: 0.01, value: 0, unit: 'mm', kind: 'scene', visual: () => [xSlide, kX], onChange: v => { S.kx = v; update(); } });
+  sl.slider({ id: 'ky', label: 'Y slide (tangent)', min: LIM.y[0], max: LIM.y[1], step: 0.01, value: 0, unit: 'mm', kind: 'scene', visual: () => [ySlide, kYk], onChange: v => { S.ky = v; update(); } });
+  sl.slider({ id: 'kz', label: 'Lab jack (height)', min: LIM.z[0], max: LIM.z[1], step: 0.01, value: 0, unit: 'mm', kind: 'scene', visual: () => [jack, kZ], onChange: v => { S.kz = v; update(); } });
+  const sp = app.ui.group('The spotter and the person');
+  sp.button({ id: 'follow', label: 'A person follows the spotter’s numbers', kind: 'state', onClick: function () { const T = cFor(S.v, S.h).sub(cHome()); set('kx', Math.max(LIM.x[0], Math.min(LIM.x[1], snap(T.x + rnd())))); set('ky', Math.max(LIM.y[0], Math.min(LIM.y[1], snap(T.y + rnd())))); set('kz', Math.max(LIM.z[0], Math.min(LIM.z[1], snap(T.z + rnd())))); } });
+  sp.button({ id: 'trim', label: 'A person follows the camera trim', kind: 'state', onClick: function () { if (!S.lastEst) { app.toast('The camera cannot see the dot: nothing to trim'); return; } set('kx', Math.max(LIM.x[0], Math.min(LIM.x[1], snap(S.kx - S.lastEst.radial + rnd())))); set('kz', Math.max(LIM.z[0], Math.min(LIM.z[1], snap(S.kz - S.lastEst.vertical + rnd())))); } });
+  sp.slider({ id: 'hand', label: 'How well a person lands on a number', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: '± mm', kind: 'scene', visual: () => spread, onChange: v => { S.hand = v; update(); } });
+  sp.slider({ id: 'res', label: 'Scale resolution', min: 0.005, max: 0.1, step: 0.005, value: 0.01, unit: 'mm', kind: 'scene', onChange: v => { S.res = v; update(); } });
+  sp.slider({ id: 'bias', label: 'Camera bias on the radial estimate', min: 0, max: 0.6, step: 0.01, value: 0.3, unit: 'mm', kind: 'scene', onChange: v => { S.bias = v; update(); } });
+  sp.slider({ id: 'angErr', label: 'Head angle error (yaw and pitch)', min: 0, max: 0.5, step: 0.01, value: 0, unit: '°', kind: 'scene', help: 'What the head’s scale fails to report. Dot error ≈ t × angle.', onChange: v => { S.angErr = v; update(); } });
+  const rg = app.ui.group('Rotator, tube and camera');
+  rg.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  rg.toggle({ id: 'runout', label: 'Show indicated runout (rig-doc limits)', value: false, kind: 'scene', visual: () => ws.tubeGroup, onChange: v => { ws.setRunout(v ? WK.RIG.runoutRadialTIR : 0, v ? WK.RIG.runoutFaceTIR : 0, 20); update(); } });
+  rg.slider({ id: 'camAz', label: 'Camera azimuth', min: 0, max: 360, step: 1, value: 200, unit: '°', kind: 'scene', visual: 'the blue outside camera and its frustum', onChange: v => { S.camAz = v; update(); } });
+  rg.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); update(); } });
+  S.ready = true; update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tipped tube, plumb gun</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-17-tipped-tube",
+  "title": "Tipped tube, plumb gun: tilt the work 30 degrees, take the wire off the gun",
+  "by": "room",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "The rotator sits on a plate hinged at one edge and rests on a stop, so the tube can be level to load and tipped 30 degrees toward the station for the bead. With the gun in the radial plane (no wire on it, travel-16's attitude B) its barrel is then exactly plumb over the corner: the weight goes down the barrel axis, a spring balancer carries it on a vertical rail, the plunge, the seating stroke and the end-of-bead lift are one vertical axis, and the cable leaves almost straight up. The price is drawn too: a separate wire guide on the tilted frame, a shallower argon pocket, a race that is at its tip-over, and cameras that must stand higher.",
+  "tags": ["tilt", "plumb gun", "hinged cradle", "balancer", "wire guide on the work", "orientation", "cable up", "cameras"],
+  "branchOf": [],
+  "combines": ["travel-16-radial-plane", "travel-03-dot-centred", "room-12-one-axis-head", "room-02-ceiling-carries"],
+  "transferable": ["one axis: gravity, seat, escape", "tip the tube, not the gun", "wire guide carried by the work's frame", "tip away to load"],
+  "how": {
+    "motion": "tube tips about a bench hinge (hand or a small actuator); gun X and Z by axes; rotator turns the tube",
+    "load": "hinged plate and stop carry the rotator; a balancer carries the gun's weight down its own barrel axis",
+    "reference": "the stop sets the tilt; the seam is found by a nulled dot; the wire guide rides on the tilted frame",
+    "observe": "inclinometer and stop switch; cameras above and beside; balancer line load",
+    "use": "tip away, load and seat the tube, tip in, lower the gun, null the dot, weld, lift, tip away"
+  },
+  "software": {
+    "commands": ["gun X and Z (Z is the barrel axis when plumb)", "wire guide height and along-seam trim", "rotator speed and direction (existing)", "tilt: hand-set, or a linear actuator on the stop (proposed)"],
+    "observes": ["tilt from an inclinometer or the stop's switch", "camera views of the corner from stations that see it at this tilt", "balancer line load (the gun's weight)", "gun Z from a step count"],
+    "manual": ["loading, seating, indicating and tacking with the tube level", "setting the stop and the wire guide", "snipping a stuck wire"]
+  },
+  "notes": ["../../explorers/room/ideas/room-17-tipped-tube.md", "../../explorers/room/ideas/room-16-which-way-is-down.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone(), G = 9.81;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, TH = WK.DIM.tubeHeight, CAP = WK.CAP_TOP, RIMH = TH - CAP;
+  const BENCH_Z = -94, HINGE = V(165, 0, -90), COM_LOCAL = V(0, -23, 181), RACE_R = 82.5;
+  const ATT = { A: [45, 30, -15], B: [0, 35, -90], B2: [0, 95, 90] };
+  const S = { tip: true, psi: 30, att: 'B', fx: 0, fz: 0, wh: 0, mass: 1.47, seat: 0, spin: false };
+  const app = WK.app({
+    workstation: { benchZ: BENCH_Z, benchSize: [1300, 800], benchCenter: [150, 0] }, gun: { pose: 'none' }, view: 'overall',
+    viewButtons: ['overall', 'joint', 'side', 'top'],
+    views: {
+      overall: { target: [120, 0, 240], dir: [0.55, -0.95, 0.5], dist: 1500 },
+      joint: { target: [190, 0, 230], dir: [0.45, -0.9, 0.35], dist: 640 },
+      side: { target: [120, 0, 260], dir: [0, -1, 0.04], dist: 1500 },
+      top: { target: [120, 0, 200], dir: [0, -0.003, 1], dist: 1200 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The rotator stands on a <b>plate hinged at one edge</b> (a pair of door hinges on the bench) and rests on an adjustable stop. Level, it is today\'s rotator: the tube is loaded, seated, indicated and tacked exactly as now. <b>Tipped</b> 30° toward the station, the corner becomes a trough and the seam is still horizontal at the station. With the <b>wire taken off the gun</b> (a guide on a post from the tilted plate, teal and gold) the gun can stand in the radial plane, and then its barrel is exactly plumb over the corner. Everything the arrangement does follows from that:</p>' +
+        '<ul><li>the gun\'s weight goes <i>down its own barrel axis</i>: a spring balancer on a vertical rail carries it, the centre of mass is 23 mm from the axis (weight moment 0.33 N·m against 2.1 with the reference gun tipped nowhere);</li><li>the plunge, the seating stroke and the lift that ends the bead are <b>one vertical axis</b>, and it is gravity\'s;</li><li>the cable leaves the grip base 65° above horizontal: a hook above, no bench depth.</li></ul>' +
+        '<p><b>Try:</b> switch <i>Tipped</i> off and on (the tube swings about the hinge; the gun stays where it was). The tube comes to the nozzle from below and to the side, so the gun can stay at its working height while the tube tips in and away (the sweep readout: never closer than about 9&nbsp;mm). Turn the gun attitude to <i>A</i> (the reference, wire on the gun): at 30° the barrel leans 32° from plumb and the weight lever is back to 125&nbsp;mm. Raise the setup angle to 60 and watch the argon pocket, the cameras and the race margin. Lift the gun (Z) and turn the rotator: that lift is the end of the bead.</p>',
+      carries:
+        '<p><b>Amber</b> carries: the hinged plate and stop carry the rotator and tube; the mast, rail and balancer carry the gun (the balancer takes its whole weight; the arm only locates). <b>Teal</b> locates: the hinge, the stop (a switch says it is reached) and, on the tilted frame, the wire guide. <b>Purple</b> moves under software: the gun\'s X and Z, the wire guide\'s height, the rotator. <b>Blue</b> are the proposed cameras. Nothing here stretches: the arm is a rigid rod between the carriage and the shell lug; the carriage rides its rail.</p>',
+      software:
+        '<p>Commanded: gun X (across the trough) and Z (the barrel axis, gravity\'s), the rotator, the wire guide\'s height and trim; the tilt is a hand-set state with a stop switch (or a small linear actuator on the stop, proposed). Observed: the tilt (an inclinometer on the plate, a dollar-class part, or the stop\'s switch), the corner from cameras that stand where the tilted cone points (see the three insets: the far-side low camera loses the corner as the tube tips), the balancer line\'s load (the gun\'s weight, drift, a stuck wire), and the corner inset (exact scene geometry, not a sensor). The I/O panel lists what is seen, partly seen or blind at this pose.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Tipping about the tangent does not plumb the reference gun.</b> Its barrel leans 32° along the seam because the wire arrives along the tangent; at best the barrel is 32° from vertical and the weight lever falls from 148 to 125&nbsp;mm (room-16). <i>Repair:</i> take the wire off the gun (attitude B). <i>Leaves:</i> the wire\'s alignment to the beam, which the gun\'s bracket used to guarantee, is now a separate positioning job: a guide 176&nbsp;mm out on a post, held to a few tenths of a millimetre, with a height trim.</li>' +
+        '<li><b>Does tipping in sweep the rim through the barrel?</b> I expected so, and drew a sweep check to find how far to lift the gun first. With the hinge on the station side the tube\'s corner rises to the nozzle from below and to the side: the smallest clearance over the whole tip-in is at the end, about 9&nbsp;mm at 30° (readout; 5 at 45° for the reference gun). So the gun can stay at its working height and the tilt is a free parking motion. <i>Leaves:</i> a hinge on the far edge would swing the wall through the barrel (and puts the base into the bench); the real stop, hinge and a 4 to 6&nbsp;kg rotator are untested.</li>' +
+        '<li><b>The plume rises up the barrel.</b> Plumb, the nozzle sits directly over the pool (0 mm off the vertical plume line, against 11 at the reference pose). <i>Leaves:</i> the real gun\'s gas flow (15 to 20 L/min [manual]), lens drawer and nozzle in a vertical plume are unmeasured; a cross-jet may be needed. Tilting to 25° instead of 30° with attitude B leans the barrel 5° and puts the nozzle 1.4&nbsp;mm off the line.</li>' +
+        '<li><b>The argon pocket shrinks.</b> The pond the pocket can hold is 6.35&nbsp;mm at 0°, 5.5 at 30°, 4.5 at 45° (readout). <i>Leaves:</i> whether it mattered next to the nozzle\'s own flow.</li>' +
+        '<li><b>The printed race is at its tip-over.</b> The upper race is seated by gravity; tipped, the tube\'s weight across its axis is 6.9&nbsp;N and the race lifts on its uphill side at about 29° to 35° for a centre of mass 118 to 151&nbsp;mm above it (illustrative). At 30° it is on the edge and the spool\'s retaining flange (1&nbsp;mm gap) would catch it. <i>Repair:</i> magnets or springs preloading the race, a lower centre of mass, or 25° with attitude B (barrel 5° off plumb). <i>Leaves:</i> untested; the sideways load also presses the tube against the low nest adjusters and puts a once-per-turn term into the seam signature.</li>' +
+        '<li><b>Cameras: the far-side low one goes first.</b> Tipped toward the station the plate\'s far edge rises: a camera 12° up on the far side loses the corner by about 9° of tilt, one 30° up by 27°, and the overhead one keeps it to about 65° (room-16). The insets show which of the three sees it now; the overhead camera has the gun\'s grip in its way at some gun heights. <i>Leaves:</i> where the second camera for nozzle height (eyes-13) stands.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Whether the melt cares.</b> A pool in a 45° trough or on a 30° incline (the seam stays level) may weld differently from one on a floor; only a coupon says. This is the first thing to try: tilt a coupon by hand, no machine.</li>' +
+        '<li>How the real gun behaves plumb (plume against the lens drawer, gas), where its wire bracket really is (attitude B assumes it is unused), its mass and centre of mass, and its umbilical\'s pull and stiffness.</li>' +
+        '<li>The wire guide: its rigidity 176&nbsp;mm out on a post, the wire tip\'s tolerance to the pool, and how it follows the seam\'s 0.25&nbsp;mm runout. Drawn as a rigid post; not analysed.</li>' +
+        '<li>The tube swings toward the gun when it tips in (the stop and hinge carry it; the interlock is drawn as a rule, not a mechanism), and a 4 to 6&nbsp;kg tilting rotator needs a hinge and a stop that hold 0.05° (0.2&nbsp;mm at the dot from 232&nbsp;mm up; nulled by the dot loop each tube).</li>' +
+        '<li>How a hand reaches the nozzle to snip a stuck wire with the mast and balancer above it: the tube tips away, the gun lifts, the hand is free (not drawn).</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun: the kit\'s proxy; centre of mass local (0, −23, 181), 1.47&nbsp;kg: illustrative. Attitude A is the reference opening pose; B is roll 0, hole 35, vertical −90 (travel-16). The gun is placed at the working pose relative to the tipped tube and stays there when the tube goes level.</li>' +
+        '<li>Hinge at the plate\'s +X edge, plate 330 × 270 × 8&nbsp;mm, stop under the −X end: illustrative. The dot moves 128&nbsp;mm sideways and 13&nbsp;mm up between level and 30° (the hinge is at the bench, 232&nbsp;mm below the dot); the cameras and mast are placed for the working tilt.</li>' +
+        '<li>Wire guide: arrival from −Y at 38° above the plate, tip 176&nbsp;mm from its post: illustrative (the reference pose\'s arrival, as in travel-16). Cable hook 590&nbsp;mm along the exit line: illustrative; the 350&nbsp;mm bend limit is [manual].</li>' +
+        '<li>Numbers behind the readouts: <code>explorers/room/calc/orientation-family.mjs</code>. Camera views are drawn geometry, not optics.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Lens: what gravity does at the corner (room-16)', href: '../room-16-which-way-is-down/index.html' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ---------------------------------------------------------------- the tilting frame: plate on a hinge, stop under the far end (all in the work's own frame so it turns with the tube)
+  const plate = P.box(330, 270, 8, 'load'); plate.position.set(0, 0, -90); ws.work.add(plate);
+  const hingeBar = P.cyl(8, 300, 'locate', { axis: 'y' }); hingeBar.position.copy(HINGE); app.add(hingeBar);
+  const bracket = [-100, 100].map(y => { const b = P.box(40, 30, 34, 'fixed'); b.position.set(HINGE.x, y, BENCH_Z + 17); app.add(b); return b; });
+  const stopPost = P.rod(V(0, 0, 0), V(0, 0, 1), 9, 'locate'); app.add(stopPost);
+  const stopFoot = P.box(70, 60, 8, 'fixed'); app.add(stopFoot);
+  const sw = P.box(16, 16, 10, 'sensor'); app.add(sw);
+  // wire guide carried by the tilted frame (attitude B and B2: no wire on the gun). Post from the plate, a rigid guide, the wire to the dot.
+  const WPOST = V(RI, -150, -86), WTOP = V(RI, -150, 263);
+  const wPost = P.rod(WPOST, WTOP, 4.5, 'locate'); ws.work.add(wPost);
+  const wGuide = P.rod(WTOP, V(RI, -11, 154.7), 1.7, 'wire'); ws.work.add(wGuide);
+  const wLine = P.rod(V(RI, -11, 154.7), J.clone(), 0.42, 'wire'); wLine.userData.occludes = false; ws.work.add(wLine);
+  const wConduit = P.rod(WTOP, V(RI, -150 - 190, 263 + 110), 2.4, 'wire'); wConduit.userData.occludes = false; ws.work.add(wConduit);
+
+  // ---------------------------------------------------------------- the gun, its shell, the vertical rail with balancer
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const lug = shell.attachPoint('housingBack', { side: 'back', role: 'locate', size: 9 });
+  gun.setLaser(true); gun.umbilical.visible = false;
+  const qW = psi => new THREE.Quaternion().setFromAxisAngle(V(0, 1, 0), psi * DEG);
+  const Tw = (p, psi) => p.clone().sub(HINGE).applyQuaternion(qW(psi)).add(HINGE);
+  const Ti = (p, psi) => p.clone().sub(HINGE).applyQuaternion(qW(psi).invert()).add(HINGE);     // world -> the work's frame at tilt psi
+  const RAIL_LEN = 620, railBase = V(0, 0, 0);
+  const xRail = P.rail(V(0, 0, 0), V(1, 0, 0), { width: 16, role: 'fixed' }); app.add(xRail);
+  const xCar = P.box(70, 50, 22, 'actuated'); app.add(xCar);
+  const mast = P.rod(V(0, 0, 0), V(0, 0, 1), 11, 'fixed'); app.add(mast);
+  const zRail = P.rail(V(0, 0, 0), V(0, 0, 1), { width: 14, role: 'fixed' }); app.add(zRail);
+  const zCar = P.box(34, 44, 40, 'actuated'); app.add(zCar);
+  const arm = P.rod(V(0, 0, 0), V(1, 0, 0), 4.5, 'load'); app.add(arm);
+  const balancer = P.cyl(20, 44, 'compliant', { axis: 'y' }); app.add(balancer);
+  const balLine = P.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'compliant'); balLine.userData.occludes = false; app.add(balLine);
+  let cableMesh = null, hookPt = null;
+  const hook = P.sphere(9, 'fixed'); app.add(hook);
+  const gravArrow = P.arrow(V(0, 0, 0), V(0, 0, -1), 90, 'ghost'); app.addHelper(gravArrow);
+
+  // ---------------------------------------------------------------- cameras: fixed in the room, placed for the setup angle (relative to the tipped dot)
+  const CAMS = { A: { az: 30, el: 62, r: 520, corner: 'br', label: 'A overhead frame, off to +Y (fixed)' }, B: { az: 0, el: 12, r: 520, corner: 'bl', label: 'B far side, bench height (fixed)' }, C: { az: 70, el: 30, r: 520, corner: 'tr', label: 'C beside, +Y (fixed)' } };
+  const camPos = {};
+  Object.keys(CAMS).forEach(k => { const c = CAMS[k]; camPos[k] = V(0, 0, 0); c.ins = app.inset.add({ id: k, label: c.label, position: camPos[k], target: () => gun.dotWorld(), fov: 24, near: 40, far: 2200, size: [200, 130], corner: c.corner, noise: 0.2 }); });
+  app.cornerInset({ gun: gun });
+  const dirRoom = (az, el) => V(-Math.cos(az * DEG) * Math.cos(el * DEG), Math.sin(az * DEG) * Math.cos(el * DEG), Math.sin(el * DEG));
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => HINGE.clone().add(V(0, 150, 0)), 'hinge (door hinges on the bench)', { cls: 'locate' });
+  app.label(() => stopPost.position.clone().add(V(0, 0, 40)), 'stop + switch', { cls: 'locate' });
+  app.label(() => lug.world(), 'shell lug', { cls: 'locate' });
+  app.label(() => balancer.position.clone().add(V(0, 0, 26)), 'spring balancer (carries the weight)', { cls: 'compliant' });
+  app.label(() => zCar.position, 'Z carriage (barrel axis)', { cls: 'actuated' });
+  app.label(() => WTOP.clone().applyMatrix4(ws.work.matrixWorld), 'wire guide post (on the tilted frame)', { cls: 'locate' });
+  app.label(() => camPos.A, 'camera A', { cls: 'sensor' }); app.label(() => camPos.B, 'camera B', { cls: 'sensor' }); app.label(() => camPos.C, 'camera C', { cls: 'sensor' });
+  app.label(() => hookPt || V(0, 0, 0), 'hook (fixed): the cable leaves upward', { cls: 'cable' });
+
+  // ---------------------------------------------------------------- clearance of barrel and nozzle against the tube (in the work's frame), as in room-05
+  function nozzleClear(tip, back, seat) {
+    const ZP = CAP + (seat || 0), t0 = tip, b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plateC = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity; const pts = [];
+    for (let i = 0; i < 72; i++) { const a = i / 72 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, TH], [RO * c, RO * s, TH], [RI * c, RI * s, (ZP + TH) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => { const d = V(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t), dist = V(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t); if (dist < rim) rim = dist; });
+    return Math.min(plateC, rim);
+  }
+  const pondDepth = psi => { let low = 1e9; for (let k = 0; k < 360; k++) { const t = k * Math.PI / 180, p = V(RI * Math.cos(t) - RI, RI * Math.sin(t), RIMH); p.applyQuaternion(qW(psi)); low = Math.min(low, p.z); } return Math.max(0, low); };
+
+  // gun pose in the world for tube tilt psiSet at the working pose, plus the axes' offsets and an extra lift
+  function gunBase(att) {
+    const d = ATT[att], pose = WK.dialsToPose(d[0], d[1], d[2]);
+    return { pos: Tw(pose.position.clone(), S.psi), quat: qW(S.psi).multiply(pose.quaternion.clone()) };
+  }
+  function placeGun(att, lift) {
+    const b = gunBase(att); gun.setTransform(b.pos.add(V(S.fx, 0, S.fz + (lift || 0))), b.quat); gun.group.updateMatrixWorld(true);
+  }
+  // sweep: tip the tube in from level to the setup angle with the gun at lift `z` above its working pose; smallest clearance over the sweep
+  function sweepClear(z) {
+    const b = gunBase(S.att); b.pos.add(V(S.fx, 0, S.fz + z)); gun.setTransform(b.pos, b.quat); gun.group.updateMatrixWorld(true);
+    const tipW = gun.local('nozzleTip').clone(), backW = gun.dir([0, 0, 1]).clone();
+    let m = 1e9, at = 0; for (let psi = 0; psi <= S.psi + 0.01; psi += 2) { const tipT = Ti(tipW, psi), backT = backW.clone().applyQuaternion(qW(psi).invert()), c = nozzleClear(tipT, backT, S.seat); if (c < m) { m = c; at = psi; } }
+    return { m: m, at: at };
+  }
+
+  // ---------------------------------------------------------------- update
+  const RAIL_X0 = 60;
+  function update() {
+    const psiNow = S.tip ? S.psi : 0, q = qW(psiNow);
+    ws.setWorkPose(V(0, 0, 0), q, { about: HINGE });
+    ws.work.updateMatrixWorld(true);
+    // placement of the gun for the current attitude (kept at the working pose in the world)
+    placeGun(S.att, 0);
+    gun.wire.visible = S.att === 'A'; wPost.visible = wGuide.visible = wLine.visible = wConduit.visible = S.att !== 'A';
+    // wire tip trim (height above the dot): moves the guide end and the line's end
+    const tipEnd = V(RI, -11, 154.7 + S.wh), lineEnd = V(J.x, J.y, J.z + S.wh);
+    wGuide.setEnds(WTOP, tipEnd); wLine.setEnds(tipEnd, lineEnd);
+    // stop under the base's far end, hinge, switch
+    const under = Tw(V(-144, 0, -94), psiNow), lugH = under.z - BENCH_Z;
+    stopPost.setEnds(V(under.x, 0, BENCH_Z + 6), V(under.x, 0, under.z)); stopFoot.position.set(under.x, 0, BENCH_Z + 4); sw.position.set(under.x + 14, 0, Math.max(BENCH_Z + 20, under.z - 6));
+    stopPost.visible = lugH > 12; sw.visible = lugH > 12;
+    // carriers: mast on a bench slide at +X of the working dot, vertical rail, carriage at the lug's height, arm to the lug
+    const dotW = gun.dotWorld(), lw = lug.world(), D = Tw(J, S.psi);
+    const mx = lw.x + 150, zBase = BENCH_Z;
+    xRail.setEnds(V(D.x + 60, 0, zBase + 6), V(D.x + 300, 0, zBase + 6)); xCar.position.set(mx, 0, zBase + 17);
+    mast.setEnds(V(mx, 0, zBase + 28), V(mx, 0, zBase + 720));
+    zRail.setEnds(V(mx - 20, 0, zBase + 60), V(mx - 20, 0, zBase + 700)); zCar.position.set(mx - 20, 0, lw.z);
+    arm.setEnds(V(mx - 20, 0, lw.z), lw);
+    balancer.position.set(mx - 20, 0, zBase + 730); balLine.setEnds(V(mx - 20, 0, zBase + 730), V(mx - 20, 0, lw.z + 22));
+    // gravity arrow
+    gravArrow.position.set(D.x + 340, -160, D.z + 260); gravArrow.set && gravArrow.set(gravArrow.position, V(0, 0, -1), 90);
+    // cameras placed for the setup angle relative to the tipped dot
+    Object.keys(CAMS).forEach(k => { const c = CAMS[k]; camPos[k].copy(D).addScaledVector(dirRoom(c.az, c.el), c.r); c.ins.setPose(camPos[k], () => gun.dotWorld()); });
+    // umbilical: leaves the grip base along the kit's exit line to a fixed hook
+    const e = gun.cableExit(), start = e.point.clone().addScaledVector(e.dir, 60);
+    if (!hookPt) hookPt = e.point.clone().addScaledVector(e.dir, 60 + 520);
+    hook.position.copy(hookPt);
+    const curve = WK.bezierCable(start, e.dir, hookPt, e.dir, { stiffness: 0.4 });
+    if (!cableMesh) { cableMesh = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cableMesh); } else cableMesh.setPoints(curve);
+    const rMin = curve.minRadius(), cb = WK.cableBadge(rMin);
+    app.badge('cable', cb.text, cb.level);
+    // observers: the corner in each camera (a point nudged 0.4 mm toward the camera; the corner is on the wall)
+    const jn = ws.jointNow().clone(), see = {};
+    Object.keys(CAMS).forEach(k => { const to = camPos[k].clone().sub(jn).normalize(); see[k] = app.inset.markVisibility(k, jn.clone().addScaledVector(to, 0.4), { eps: 0.8 }); });
+    const off = gun.dotOffset();
+    app.badge('miss', S.tip && off.miss > 0.25 ? 'dot is ' + off.miss.toFixed(2) + ' mm from the seam: null it with X and Z' : null, off.miss > 1.5 ? 'limit' : 'warn');
+    // clearance now, and the tip-in sweep
+    const tipT = Ti(gun.local('nozzleTip'), psiNow), backT = gun.dir([0, 0, 1]).clone().applyQuaternion(q.clone().invert()), clr = nozzleClear(tipT, backT, S.seat);
+    app.badge('hit', clr < 0.3 ? 'nozzle or barrel would touch the tube (clearance ' + clr.toFixed(1) + ' mm): this pose is not physical' : (clr < 2 ? 'nozzle within ' + clr.toFixed(1) + ' mm of the tube' : null), clr < 0.3 ? 'limit' : 'warn');
+    const sw0 = sweepClear(0);                              // tip the tube in from level with the gun where it is: smallest clearance and where
+    placeGun(S.att, 0);                                     // restore after the sweep
+    // numbers
+    const back = gun.dir([0, 0, 1]).clone(), angV = Math.acos(Math.max(-1, Math.min(1, back.z))) / DEG, com = gun.local(COM_LOCAL).clone();
+    const lever = Math.hypot(com.x - dotW.x, com.y - dotW.y), moment = S.mass * G * lever / 1000;
+    const tipW = gun.local('nozzleTip'), plume = Math.hypot(tipW.x - dotW.x, tipW.y - dotW.y);
+    const hLift = [118, 151].map(h => Math.atan(RACE_R / h) / DEG);
+    const exitUp = Math.asin(e.dir.z / e.dir.length()) / DEG;
+    const cw = TH_w => TH_w;
+    setPsi(psiNow.toFixed(0), '°'); setAng(angV.toFixed(0), '° from vertical'); setLev(lever.toFixed(0) + ' mm; ' + moment.toFixed(2) + ' N·m'); setPlume(plume.toFixed(1), 'mm'); setPond(pondDepth(psiNow).toFixed(1), 'mm');
+    setSide((1.4 * G * Math.abs(Math.sin(psiNow * DEG))).toFixed(1), 'N'); setRace(hLift[1].toFixed(0) + '° to ' + hLift[0].toFixed(0) + '°', psiNow > hLift[1] ? 'lifts' : (psiNow > hLift[0] - 1 ? 'near' : 'ok')); setBal((S.mass * G).toFixed(1), 'N');
+    setSweep(sw0.m.toFixed(1) + ' mm at ' + sw0.at.toFixed(0) + '°', S.psi > 0 ? '' : ''); setExit(exitUp.toFixed(0), '°'); setClr(clr.toFixed(1), 'mm');
+    app.io.set({
+      commands: [
+        { name: 'Gun X (across the trough) and Z (up = lift)', value: S.fx.toFixed(2) + ', ' + S.fz.toFixed(2), unit: 'mm', note: 'slide on the bench and a carriage on the mast; Z is the barrel axis when the barrel is plumb' },
+        { name: 'Wire guide height at the tip', value: S.wh.toFixed(2), unit: 'mm', note: S.att === 'A' ? 'not used: the wire is on the gun' : 'a small axis on the tilted frame (proposed); the guide is a rigid post here' },
+        { name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing console' },
+        { name: 'Tilt', value: S.tip ? 'tipped ' + S.psi + '°' : 'level', note: 'hand-set state with a stop switch, or a linear actuator on the stop (proposed); the sweep readout is the rule for when it may move' },
+      ],
+      observes: [
+        { name: 'Tilt (inclinometer on the plate, or the stop switch)', value: psiNow.toFixed(1), unit: '°', status: 'seen', note: 'a dollar-class IMU reads it to about 0.1°; the switch says the stop is reached' },
+        { name: 'Camera A, overhead: the corner', value: see.A.visible ? 'seen' : (see.A.inFov ? 'blocked' : 'out of view'), status: see.A.visible ? 'partly' : 'blind', note: 'drawn-scene line of sight; the grip and housing can be in the way at some heights' },
+        { name: 'Camera B, far side at bench height: the corner', value: see.B.visible ? 'seen' : (see.B.inFov ? 'blocked' : 'out of view'), status: see.B.visible ? 'partly' : 'blind', note: 'level it sees the plate-wall corner; tipped 30° the plate\'s far edge hides it' },
+        { name: 'Camera C, beside: the corner', value: see.C.visible ? 'seen' : (see.C.inFov ? 'blocked' : 'out of view'), status: see.C.visible ? 'partly' : 'blind', note: 'comes into view as the tube tips' },
+        { name: 'Balancer line load (gun weight)', value: (S.mass * G).toFixed(1), unit: 'N', status: 'partly', note: 'a load cell on the balancer line; drift or a step says a hose, a snag or a stuck wire' },
+        { name: 'Gun Z (step count) and the seam', value: S.fz.toFixed(2), unit: 'mm', status: 'partly', note: 'open loop; the dot loop nulls it per tube' },
+        { name: 'Wire tip against the pool', value: '-', status: S.att === 'A' ? 'unresolved' : 'blind', note: 'nothing sees the wire tip here; the guide is a separate positioning problem' },
+        { name: 'Argon pocket, plume, fume', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Tip the tube away, load, seat, indicate and tack (as today)', 'Set the stop and the wire guide', 'Snip a stuck wire with the tube tipped away and the gun lifted'],
+    });
+  }
+  const setPsi = app.ui.readout('rpsi', 'Tilt of the tube now'), setAng = app.ui.readout('rang', 'Barrel angle'), setLev = app.ui.readout('rlev', 'Weight lever about the dot; moment'), setPlume = app.ui.readout('rplume', 'Nozzle tip off the vertical plume line'), setPond = app.ui.readout('rpond', 'Argon pocket depth at the station'),
+    setSide = app.ui.readout('rside', 'Tube weight across its axis (on the nest)'), setRace = app.ui.readout('rrace', 'Printed race tip-over (illustrative)'), setBal = app.ui.readout('rbal', 'Balancer line carries'), setSweep = app.ui.readout('rsweep', 'Smallest clearance while the tube tips in (gun at its working height)'), setExit = app.ui.readout('rexit', 'Cable exit above horizontal'), setClr = app.ui.readout('rclr', 'Nozzle / barrel clearance to the tube');
+
+  // ---------------------------------------------------------------- controls
+  const g0 = app.ui.group('The tilt', { help: 'Level to load, tipped for the bead. The gun stays where it is in the room.' });
+  g0.toggle({ id: 'tip', label: 'Tipped for the bead (off: level for loading)', value: true, kind: 'state', visual: () => [ws.work], help: 'A hand motion, or a linear actuator on the stop (proposed). The tube comes to the nozzle from below and to the side; the tip-in clearance readout says how close it gets (the gun stays where it is).', onChange: v => { S.tip = v; update(); } });
+  g0.slider({ id: 'psi', label: 'Setup angle of the stop', min: 0, max: 60, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => [ws.work], help: '30° with attitude B makes the barrel exactly plumb. The mast and cameras are placed for this angle.', onChange: v => { S.psi = v; hookPt = null; update(); } });
+  const g1 = app.ui.group('Commands (proposed actuators)', { help: 'Small axes on the gun\'s carrier and the wire guide; ranges illustrative.' });
+  g1.slider({ id: 'fx', label: 'Gun X (across the trough)', min: -12, max: 12, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [xCar, gun.group], help: 'Moves the mast on its bench slide: the dot moves across the corner.', onChange: v => { S.fx = v; update(); } });
+  g1.slider({ id: 'fz', label: 'Gun Z (barrel axis when plumb; up = lift)', min: -6, max: 200, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [zCar, gun.group], help: 'The carriage on the vertical rail. The balancer carries the weight; the axis only moves it. It is also the plunge, the seating stroke and the end-of-bead lift.', onChange: v => { S.fz = v; update(); } });
+  g1.slider({ id: 'wh', label: 'Wire guide height at the tip', min: -3, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [wGuide, wLine], help: 'A small axis on the tilted frame (attitudes B and B2 only).', onChange: v => { S.wh = v; update(); } });
+  g1.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  const g2 = app.ui.group('Gun on the work (branches and choices)', {});
+  g2.radio({ id: 'att', label: 'Gun attitude on the work', kind: 'branch', value: 'B', options: [{ value: 'A', label: 'A: wire on the gun (reference)', help: 'Barrel 45° in the section and 32° along the seam. At 30° tilt it is 32° from vertical.' }, { value: 'B', label: 'B: radial plane, wire on the frame', help: 'travel-16: no wire on the gun; plumb at 30° of tilt.' }, { value: 'B2', label: 'B2: radial plane, grip up', help: 'The mirror choice; plumb at 30°, grip over the station side.' }], visual: () => gun.group, onChange: v => { S.att = v; hookPt = null; update(); } });
+  g2.slider({ id: 'mass', label: 'Gun mass (illustrative)', min: 1, max: 3, step: 0.05, value: 1.47, unit: 'kg', kind: 'scene', visual: 'the moment and balancer readouts', onChange: v => { S.mass = v; update(); } });
+  const g3 = app.ui.group('View', { open: false });
+  g3.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+  app.onReady(function () { app.legend(); });
+  window.__room17 = { S: S, update: update, sweepClear: sweepClear };
+})();
+</script>
+</body>
+</html>

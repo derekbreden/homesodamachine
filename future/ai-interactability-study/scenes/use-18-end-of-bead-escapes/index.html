@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>End of the bead: the escape</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .esc-tbl { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 1.3; }
+  .esc-tbl th, .esc-tbl td { border-bottom: 1px solid #263041; padding: 3px 4px; text-align: left; vertical-align: top; }
+  .esc-tbl th { color: #93a4bd; font-weight: 600; }
+  .esc-tbl td.k { color: #93a4bd; white-space: nowrap; }
+  .esc-tbl td.sel, .esc-tbl th.sel { background: rgba(245,165,36,.10); }
+  .esc-tbl .bad { color: #fca5a5; }
+  .esc-tbl .ok { color: #86efac; }
+  .esc-tl { display: block; width: 100%; }
+  .esc-tl text { font: 10px system-ui, sans-serif; fill: #b6c2d4; }
+  .esc-tl .dim { fill: #7d8ea8; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-18-end-of-bead-escapes",
+  "title": "End of the bead: the escape, drawn four ways",
+  "by": "use",
+  "origin": "combination",
+  "status": "deep",
+  "summary": "The bead ends with the head leaving while the trigger is held and the wire breaking in the air. Four ways to make that motion, side by side on one tube: a hand, a gun-side line (a plunge along the barrel, a lift, another direction), a gun-side pivot (a yoke or a hinge), and the work dropping. Each is run through the same events: the wire fused to the bead, the feed still running, the tube still turning. What differs is the direction against the wire and the beam, where the beam goes while it is still on, what the mover must deliver, and what holds the pose afterwards.",
+  "tags": ["escape", "lift-away", "wire break", "trail-off", "end of bead", "comparison of arrangements", "lens", "closure two", "use-02", "room-12", "use-13", "use-16", "room-15"],
+  "branchOf": ["use-02-swing-head", "use-13-work-states"],
+  "combines": ["use-02-swing-head", "room-12-one-axis-head", "use-13-work-states", "use-16-yoke-escape", "room-15-one-knob-table"],
+  "transferable": ["the wire goes taut only when the guide recedes faster than the wire is fed", "along the barrel is the one direction that leaves the beam on its spot", "a mover at an angle to the wire multiplies its force into the wire and hands the rest to the guides", "a gun-side escape is the same for both closures, a work-side escape is not"],
+  "how": {
+    "motion": "one escape motion per arrangement (hand, line, pivot, work drop) while the tube keeps turning",
+    "load": "the mover and its guides; the fixed gun's holder for the work drop; the hand for the hand",
+    "reference": "the seat or stop the escape returns to; nothing during the escape itself",
+    "observe": "mover position and force; whether the wire broke; not the beam or the wire tension",
+    "use": "end of every bead: lift, break the wire in the air, release the trigger, release the pedal"
+  },
+  "software": {
+    "commands": ["escape stroke, speed and force limit (line, pivot or work drop)", "return to the seat or stop", "the rotator keeps turning until the pedal is released"],
+    "observes": ["mover end-stops and position", "mover force or motor current", "whether the stroke stalled (a fused wire)"],
+    "manual": ["the lift itself (hand arrangement)", "releasing the trigger, then the pedal", "snipping a stuck wire"]
+  },
+  "notes": ["../../explorers/use/ideas/use-18-end-of-bead-escapes.md", "../../explorers/use/calc/w3_escape.mjs", "../../exchange/use--reply-to-room-w3.md", "../../explorers/use/ideas/use-13-work-states.md", "../../explorers/use/ideas/use-16-yoke-escape.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, G = 9.81;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, RIM = WK.DIM.tubeHeight, CAP = WK.CAP_TOP;
+
+  const app = WK.app({
+    workstation: { benchSize: [1000, 1000], benchCenter: [-60, -230] },
+    gun: { wire: false, pose: 'opening' },
+    view: 'overall',
+    viewButtons: ['overall', 'station', 'top', 'side'],
+    views: {
+      overall: { target: [10, -90, 170], dir: [-0.62, 0.62, 0.48], dist: 1050 },
+      station: { target: [40, -20, 165], dir: [-0.3, 0.55, 0.78], dist: 420 },
+      top: { target: [10, -90, 150], dir: [0, -0.003, 1], dist: 900 },
+      side: { target: [40, -60, 190], dir: [1, 0.05, 0.12], dist: 950 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p><b>The end of a bead is a state with its own motion.</b> The brief describes it this way: the trigger stays held while the head lifts straight away, the wire breaks in the air, then trigger and pedal are released. The repo’s recorded practice calls it a “trail-off motion at end of bead” and snips a wire that sticks (<code>pressure-vessel.md</code> step 3). Guide 46 says only “release the trigger, then the pedal”, and the manual’s pullback and patch lengths act “after releasing the trigger” (p.23). All three are drawn here as events on one clock.</p>' +
+        '<p>Pick an <b>arrangement</b> and scrub or play the escape. The tube keeps turning at 8 mm/s, the wire is still fed at 12 mm/s and the tip is fused in the bead. The wire goes taut only when the guide leaves faster than the wire is fed, and the drawing shows what each way of leaving does to <b>the wire, the beam spot, the clearance, and the support</b>. Change the direction of the line and watch the beam: along the barrel axis the spot does not move at all.</p>',
+      carries:
+        '<p><b>Hand:</b> the hand carries the gun and makes the motion; nothing else is asked. <b>Line:</b> a rail behind the gun along the escape direction, a carriage and a motor; the rail’s mast carries the reaction. <b>Pivot:</b> a hinge line 262 mm behind the nozzle (travel-04’s lid, use-16’s yoke); the arm and the hinge carry it. <b>Work drop:</b> the whole rotator stands on a shelf that sinks into a pit in the bench (room-01, room-15, travel-19); the gun stays in its holder and the holder must resist the wire’s pull. Toggle <i>Show the parts</i> off to see only the gun and the tube.</p>' +
+        '<p>Free and restrained: the wire is the one thing joining the gun to the bead during the escape. Everything else is decided by the mover, its guides, and (afterwards) the seat or stop that restores the pose.</p>',
+      software:
+        '<p><b>Commands:</b> the stroke, its speed and its force limit (line, pivot, drop); the return; the rotator, which keeps turning until the pedal is released. <b>Observes:</b> mover position, mover force or motor current, and whether the stroke stalled. The stall is how a fused wire that the mover cannot break shows itself: HOLD, and a hand snips. <b>Cannot observe (drawn as blind):</b> the wire’s tension, where the beam is landing, whether the wire broke or stuck, and how much wire was pushed into the bead. Two cheap witnesses exist and are listed as questions: continuity between wire and work lead, and a light sensor on the weld glare.</p>' +
+        '<p><b>Manual:</b> the hand’s lift, the trigger release, the pedal release, snipping. A hand fires and releases in every arrangement.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>What breaks the wire?</b> The guide exit G rides the gun; the wire tip P is fused in the bead and rides the tube. The wire needs length |G−P| and the feeder supplies l0 + 12 mm/s × t. When the need exceeds the supply by a slack allowance (0.3 mm, illustrative) the wire is in tension and breaks at the fused tip: in the air. Below the feed speed it does not go taut, it is pushed into the bead: that is the stuck wire. <i>Result:</i> the turning tube alone recedes the guide at 5.7 mm/s along the wire, so a lift of about 7 mm/s along the barrel is already enough while the pedal is held; with the tube stopped, about 12.3 mm/s. Speed is not what decides it. <i>Leaves:</i> the slack allowance, the joint’s strength Fb and how the retract cycle really behaves are all [unknown].</li>' +
+        '<li><b>Direction against the wire.</b> The proxy wire axis is 13.5° off the barrel axis. A lift along the barrel puts 97% of the motion along the wire; straight up puts 61%, so the wire sweeps sideways across the bead and the guide takes a side load. <i>Leaves:</i> the real guide angle.</li>' +
+        '<li><b>Where the beam goes while it is still on.</b> Along the barrel axis the beam line does not move: the spot stays on the bead and only defocuses. Every other direction (a lift, a pivot, a drop) walks the spot off the seam onto the plate or up the wall. If the laser stays on until the trigger is released the spot travels tens of millimetres; if it ends when the wire breaks (the wire may be the gun-side contact of the laser’s enable circuit, manual pp.19 and 32) it travels about a millimetre. <i>Leaves:</i> which is true [unknown]; the laser’s conduction alarm.</li>' +
+        '<li><b>A mover at an angle multiplies its force into the wire.</b> Wire tension = mover force / cos(angle to the wire). A 25 N limit along the barrel gives 26 N of tension and 6 N sideways on the rail; a 30 N vertical drop gives 49 N and hands 39 N sideways to the guides and, through the wire, to the gun’s holder. <i>Change:</i> a force limit chosen between the joint’s strength and the holder’s capacity: too low and the wire stalls the stroke, too high and the wire drags the gun off its seat. <i>Leaves:</i> both numbers are unmeasured.</li>' +
+        '<li><b>A stalled stroke is a state.</b> If the mover cannot break the wire it stops; the feeder keeps pushing wire into the bead until the trigger is released; the retract cycle then breaks it only if the feeder’s pull exceeds the joint. Otherwise the wire is stuck and a hand snips it with the head where it stopped (the repo’s step). The stall is the observation.</li>' +
+        '<li><b>The work drop is not neutral.</b> It carries the vessel (1.40 kg in closure one, 2.01 kg in closure two [repo]) and everything on the stage, and drags a hose in closure two. The gun-side escapes are the same for both closures. See use-19.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Question for Derek: how do you end a bead?</b> Does the head lift before the trigger is released, how far, how fast, in which direction, and does the beam stop by itself when the wire leaves the metal? The hand row has to be filled from you (an inertial sensor on the shell and a light sensor would record it: use-08).</li>' +
+        '<li>The joint’s strength Fb, the feeder’s pull and its retract length are not known. A spring scale on a stub gives Fb.</li>' +
+        '<li>The proxy guide ends 66 mm from the dot; a real one stands much nearer. This changes the free length, not the break rule.</li>' +
+        '<li>Nothing here models heat, spatter, the crater or how the pool freezes. The bead’s end is where a crack forms (repo); this scene says nothing about its quality.</li>' +
+        '<li>Cables on a moving stage (motor lead, pedal, shoe, purge hose) are not drawn.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li><b>[repo]</b> wire feed 12 mm/s, bead travel 8 mm/s, tube and plate geometry, rotating mass 1.40 / 2.01 kg, trail-off motion, snip of a stuck wire. <b>[manual]</b> pullback and patch length after releasing the trigger (p.23); emission needs a complete clip-to-gun circuit and loss of conduction stops the beam (pp.19, 32). <b>[brief]</b> the lift-away with the trigger held and the retract cycle breaking the wire in air.</li>' +
+        '<li><b>[derived]</b> wire axis, barrel axis and their 13.5° angle from the kit proxy; every direction and stroke in the table.</li>' +
+        '<li><b>Illustrative:</b> gun mass 1.5 kg, stage payload 3 kg, slack allowance, Fb, feeder pull, force limits, speeds, accelerations, the hinge lever 262 mm, the swap volume (25 mm lift + 40 mm hand above the rim), the holder capacity 40 N, the pit and shelf.</li>' +
+        '<li><b>Models:</b> straight-line kinematics of G and P, an inextensible wire with a slack allowance, static force balance. <b>Depicts only:</b> the mover parts, the hand, the shelf and pit.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculation (escape model)', href: '../../explorers/use/calc/w3_escape.mjs' }, { label: 'Directions at the station', href: '../../explorers/use/calc/w3_dirs.mjs' }],
+  });
+  const ws = app.workstation, gun = app.gun, benchZ = ws.benchZ;
+  gun.setLaser(true);
+
+  // ------------------------------------------------------------------ geometry from the kit's own pose
+  const P0 = gun.group.position.clone(), Q0 = gun.group.quaternion.clone();
+  const w0 = lp => V(lp[0], lp[1], lp[2]).applyQuaternion(Q0).add(P0);
+  const N0 = w0([0, 0, 0]), D0 = w0([0, 0, -16]);
+  const bDir = D0.clone().sub(N0).normalize(), aBack = bDir.clone().negate();
+  const GB = [0, -24.7, 87.1], TIP = [0, 0, -16];
+  const gvl = Math.hypot(GB[1] - TIP[1], GB[2] - TIP[2]), gdir = [0, (GB[1] - TIP[1]) / gvl, (GB[2] - TIP[2]) / gvl];
+  const GE = [0, GB[1] - 40 * gdir[1], GB[2] - 40 * gdir[2]];
+  const G0 = w0(GE), wOut = G0.clone().sub(D0).normalize(), L0 = G0.distanceTo(D0);
+  const BACK = w0([0, 0, 253]);
+  const COM = w0([0, -30, 120]);
+  const ANG = (a, b) => Math.acos(Math.max(-1, Math.min(1, a.dot(b)))) / DEG;
+
+  // guide, its leg and a stub of conduit ride the gun (the kit's own wire is off; this scene draws the wire)
+  gun.group.add(P.rod(V(0, -12, 110), V(GB[0], GB[1], GB[2]), 2, 'gun'));
+  gun.group.add(P.rod(V(GB[0], GB[1], GB[2]), V(GE[0], GE[1], GE[2]), 2.5, 'cable'));
+  gun.group.add(P.rod(V(GB[0], GB[1], GB[2]), V(GB[0], GB[1] + 60 * gdir[1], GB[2] + 60 * gdir[2]), 1.8, 'wire'));
+
+  // ------------------------------------------------------------------ state
+  const SET = { hand: { v: 150, a: 3000, F: 60 }, line: { v: 40, a: 800, F: 25 }, pivot: { v: 60, a: 800, F: 25 }, drop: { v: 60, a: 800, F: 30 } };
+  const S = {
+    arr: 'line', dir: 'barrel', need: 20, R: 262, Fb: 20, Froll: 12, slack: 0.3, holder: 40, pull: 5, relDelay: 0.1, pedDelay: 0.5,
+    turning: true, enableWire: true, closure: 1, mGun: 1.5, mStage: 3.0, lift: 25, handClr: 40, tt: 0, slow: 0.25,
+  };
+  const U = 8, FEED = 12, OMEGA = U / RI;                                  // mm/s, mm/s, rad/s [repo]
+  const ARR = ['hand', 'line', 'pivot', 'drop'];
+  const NAME = { hand: 'Hand', line: 'Line (gun axis)', pivot: 'Pivot (gun)', drop: 'Work drop' };
+  const dirVec = () => S.dir === 'barrel' ? aBack.clone() : S.dir === 'wire' ? wOut.clone() : S.dir === 'vert' ? V(0, 0, 1) : V(1, 0, 0);
+  const hinge = () => N0.clone().add(V(0, -S.R, 0));
+  const vessel = () => (S.closure === 1 ? 1.40 : 2.01);
+  const TRAVEL = { hand: 250, line: 250, pivot: 274, drop: 100 };
+
+  // motion of a seat-pose world point / direction for arrangement arr at stroke s (gun side); dz = work drop
+  function motion(arr, s) {
+    if (arr === 'drop') return { pt: p => p.clone(), dir: d => d.clone(), dz: -s, q: null };
+    if (arr === 'pivot') { const q = new THREE.Quaternion().setFromAxisAngle(V(1, 0, 0), s / S.R), H = hinge(); return { pt: p => H.clone().add(p.clone().sub(H).applyQuaternion(q)), dir: d => d.clone().applyQuaternion(q), dz: 0, q: q }; }
+    const d = dirVec(); return { pt: p => p.clone().addScaledVector(d, s), dir: x => x.clone(), dz: 0, q: null };
+  }
+  function moverDir(arr, s) {
+    if (arr === 'pivot') { const q = new THREE.Quaternion().setFromAxisAngle(V(1, 0, 0), s / S.R); return V(0, 0, 1).applyQuaternion(q); }
+    if (arr === 'drop') return V(0, 0, 1);
+    return dirVec();
+  }
+  // trapezoid profile to distance D
+  function profile(D, vmax, amax) {
+    D = Math.max(D, 1e-6);
+    const ta = vmax / amax, da = 0.5 * amax * ta * ta;
+    if (2 * da >= D) { const tp = Math.sqrt(D / amax); return { T: 2 * tp, vpk: amax * tp, s: t => t <= tp ? 0.5 * amax * t * t : t <= 2 * tp ? D - 0.5 * amax * (2 * tp - t) ** 2 : D, v: t => t <= tp ? amax * t : t <= 2 * tp ? amax * (2 * tp - t) : 0 }; }
+    const tc = (D - 2 * da) / vmax, T = 2 * ta + tc;
+    return { T: T, vpk: vmax, s: t => t <= ta ? 0.5 * amax * t * t : t <= ta + tc ? da + vmax * (t - ta) : t <= T ? D - 0.5 * amax * (T - t) ** 2 : D, v: t => t <= ta ? amax * t : t <= ta + tc ? vmax : t <= T ? amax * (T - t) : 0 };
+  }
+  // beam hit on the work (work frame): plate face z = CAP inside RI, or the wall's inner face up to the rim
+  function beamHit(Nw, bw) {
+    let best = null;
+    if (bw.z < -1e-9) { const t = (CAP - Nw.z) / bw.z; if (t > 0) { const q = Nw.clone().addScaledVector(bw, t); if (Math.hypot(q.x, q.y) <= RI + 0.03) best = { t: t, q: q, part: 'plate' }; } }
+    const a = bw.x * bw.x + bw.y * bw.y;
+    if (a > 1e-12) {
+      const b2 = Nw.x * bw.x + Nw.y * bw.y, c = Nw.x * Nw.x + Nw.y * Nw.y - RI * RI, disc = b2 * b2 - a * c;
+      if (disc >= 0) { const t = (-b2 + Math.sqrt(disc)) / a; if (t > 0) { const q = Nw.clone().addScaledVector(bw, t); if (q.z >= CAP - 0.03 && q.z <= RIM && (!best || t < best.t - 1e-6)) best = { t: t, q: q, part: 'wall' }; } }
+    }
+    return best;
+  }
+  const toWork = (p, th, dz) => { const q = p.clone(); q.z -= dz; const c = Math.cos(-th), s = Math.sin(-th); return V(q.x * c - q.y * s, q.x * s + q.y * c, q.z); };
+  const dirToWork = (d, th) => { const c = Math.cos(-th), s = Math.sin(-th); return V(d.x * c - d.y * s, d.x * s + d.y * c, d.z); };
+  function spot(arr, s, th) {          // where the beam lands now, as an offset from the seam point it would have been on
+    const m = motion(arr, s), Nn = m.pt(N0), bb = m.dir(bDir), h = beamHit(toWork(Nn, th, m.dz), dirToWork(bb, th));
+    if (!h) return { off: null, part: 'over the rim', st: null, growth: null };
+    const nom = toWork(D0, th, 0);                                   // the seam point the first spot has moved to with the work
+    return { off: h.q.distanceTo(nom), part: h.part, st: h.t, growth: h.t - 16, q: h.q };
+  }
+  // stroke that gains `need` mm of standoff (distance along the beam to the first surface)
+  function needStroke(arr) {
+    if (S.need <= 0) return 0;
+    for (let s = 0; s <= TRAVEL[arr]; s += 0.25) { const r = spot(arr, s, 0); if (r.st == null) return null; if (r.growth >= S.need) return s; }
+    return null;
+  }
+  // gun samples (use-02's) against the tube and the tube-swap volume
+  const SAMP = (function () {
+    const s = [];
+    const cyl = (z0, z1, r0, r1, n) => { for (let i = 0; i <= n; i++) { const t = i / n; s.push({ p: [0, 0, z0 + (z1 - z0) * t], r: r0 + (r1 - r0) * t }); } };
+    cyl(0, 23, 2.2, 5, 4); cyl(23, 54, 8.5, 8.5, 4); cyl(54, 100, 5.5, 5.5, 6); cyl(100, 118, 12, 12, 3);
+    [-17, 17].forEach(x => [-17, 17].forEach(y => [118, 185.5, 253].forEach(z => s.push({ p: [x, y, z], r: 0 }))));
+    for (let i = 0; i <= 8; i++) { const t = i / 8; s.push({ p: [0, -25 - 86 * t, 172 + 60 * t], r: 15 }); }
+    s.push({ p: [0, -118, 237], r: 6 });
+    return s.map(o => ({ w: w0(o.p), r: o.r }));
+  })();
+  const distTube = p => {
+    const rho = Math.hypot(p.x, p.y), inWall = rho > RI && rho < RO && p.z > 0 && p.z < RIM, inPlate = rho < RI && p.z > CAP - 6.35 && p.z < CAP;
+    const dWall = Math.hypot(Math.max(0, RI - rho, rho - RO), Math.max(0, -p.z, p.z - RIM)), dPlate = Math.hypot(Math.max(0, rho - RI), Math.max(0, CAP - 6.35 - p.z, p.z - CAP));
+    return Math.min(inWall ? -1 : dWall, inPlate ? -1 : dPlate);
+  };
+  const swapTop = () => RIM + S.lift + S.handClr;
+  const distSwap = p => { const rho = Math.hypot(p.x, p.y), dr = rho - 95, dz = Math.max(-20 - p.z, p.z - swapTop()); return dr < 0 && dz < 0 ? Math.max(dr, dz) : Math.hypot(Math.max(0, dr), Math.max(0, dz)); };
+  function clearAt(arr, s) {
+    const m = motion(arr, s); let mt = Infinity, ms = Infinity;
+    for (const o of SAMP) { const q = m.pt(o.w); q.z -= m.dz; mt = Math.min(mt, distTube(q) - o.r); ms = Math.min(ms, distSwap(q) - o.r); }
+    return { tube: mt, swap: ms };
+  }
+  function swapStroke(arr) { for (let s = 0; s <= TRAVEL[arr]; s += 1) { const c = clearAt(arr, s); if (c.swap >= 0 && clearAt(arr, s + 8).swap >= 0) return s; } return null; }
+  function minRim(arr, sEnd) { let m = Infinity; for (let s = 0; s <= sEnd + 1e-6; s += Math.max(1, sEnd / 40)) m = Math.min(m, clearAt(arr, s).tube); return m; }
+
+  // ------------------------------------------------------------------ the escape, simulated (same model as calc/w3_escape.mjs)
+  function simulate(arr) {
+    const st = SET[arr], need = needStroke(arr), stroke = need == null ? Math.min(60, TRAVEL[arr]) : need;
+    const pr = profile(stroke, st.v, st.a), tRel = pr.T + S.relDelay, tPed = tRel + S.pedDelay, dt = 0.002;
+    const rows = []; let fused = true, sHold = null, stall = null, tBreak = null, sBreak = null, Tpk = 0, slackMax = 0;
+    for (let t = 0; t <= tPed + 1e-9; t += dt) {
+      const th = S.turning ? OMEGA * t : 0;
+      let s = pr.s(Math.min(t, pr.T)); if (sHold != null) s = Math.min(s, sHold);
+      const m = motion(arr, s), Gn = m.pt(G0), Pn = D0.clone().applyAxisAngle(V(0, 0, 1), th); Pn.z += m.dz;
+      const feed = t <= tRel ? FEED * t : FEED * tRel;
+      const deficit = Gn.distanceTo(Pn) - L0 - feed;
+      let tension = 0;
+      if (fused && t <= tRel) {
+        slackMax = Math.max(slackMax, -deficit);
+        if (deficit >= S.slack) {
+          const wd = Gn.clone().sub(Pn).normalize(), along = Math.max(0.05, Math.abs(wd.dot(moverDir(arr, s))));
+          const Tmax = st.F / along;
+          if (Tmax >= S.Fb) { fused = false; tBreak = t; sBreak = s; tension = S.Fb; Tpk = Math.max(Tpk, S.Fb); }
+          else if (sHold == null) { sHold = s; stall = { t: t, s: s, T: Tmax }; tension = Tmax; Tpk = Math.max(Tpk, Tmax); }
+          else tension = Tmax;
+        }
+      }
+      rows.push({ t: t, s: s, th: th, deficit: deficit, tension: tension, fused: fused });
+    }
+    let outcome, tag;
+    if (tBreak != null) { outcome = 'broke in the air at ' + (tBreak * 1000).toFixed(0) + ' ms, ' + sBreak.toFixed(1) + ' mm into the stroke'; tag = 'air'; }
+    else if (stall) { outcome = 'STALLED at ' + stall.s.toFixed(1) + ' mm: the mover reaches its limit (' + stall.T.toFixed(0) + ' N in the wire) below the joint (' + S.Fb + ' N)'; tag = 'stall'; }
+    else { outcome = 'never taut: the wire is fed into the bead as the head leaves'; tag = 'slack'; }
+    let afterRel = null;
+    if (tBreak == null) afterRel = S.Froll >= S.Fb ? 'the retract breaks it at trigger release' : 'STUCK: the retract cannot break it (' + S.Froll + ' N < ' + S.Fb + ' N): snip';
+    return { arr: arr, rows: rows, pr: pr, need: need, stroke: stroke, tRel: tRel, tPed: tPed, tBreak: tBreak, sBreak: sBreak, stall: stall, outcome: outcome, tag: tag, afterRel: afterRel, Tpk: Tpk, slackMax: slackMax, stubFed: tBreak == null ? FEED * Math.max(0, tRel - (stall ? stall.t : 0)) : 0 };
+  }
+  function analyze(arr) {
+    const sim = simulate(arr), st = SET[arr], m0 = motion(arr, 0), d0 = moverDir(arr, 0);
+    const relDir = arr === 'drop' ? V(0, 0, 1) : d0;     // direction the guide moves relative to the work
+    const angWire = ANG(relDir, wOut), angBeam = ANG(relDir, aBack);
+    const s0 = sim.stroke, sB = sim.sBreak == null ? (sim.stall ? sim.stall.s : s0) : sim.sBreak;
+    const thB = S.turning ? OMEGA * (sim.tBreak == null ? sim.tRel : sim.tBreak) : 0, thE = S.turning ? OMEGA * sim.tRel : 0;
+    const spB = spot(arr, sB, thB), spE = spot(arr, s0, thE);
+    const wd = wOut, along = Math.max(0.05, Math.abs(wd.dot(relDir)));
+    const Tlim = st.F / along, side = Tlim * Math.sqrt(Math.max(0, 1 - along * along));
+    const inert = (arr === 'drop' ? S.mStage + vessel() : S.mGun) * st.a / 1000;
+    let carry;
+    if (arr === 'hand') carry = S.mGun * G;
+    else if (arr === 'line') carry = S.mGun * (G * Math.max(0, dirVec().z) + st.a / 1000);
+    else if (arr === 'pivot') carry = S.mGun * G * Math.abs(COM.y - hinge().y) / 1000 / (S.R / 1000) + S.mGun * st.a / 1000;   // tip-equivalent force
+    else carry = (S.mStage + vessel()) * G;
+    return { arr: arr, sim: sim, angWire: angWire, angBeam: angBeam, spB: spB, spE: spE, Tlim: Tlim, side: side, inert: inert, carry: carry,
+      rim: minRim(arr, s0), swapAt: swapStroke(arr), tClear: sim.pr.T, vpk: sim.pr.vpk };
+  }
+
+  // ------------------------------------------------------------------ mechanism parts
+  const railA = P.rod(V(0, 0, 0), V(1, 0, 0), 5, 'fixed'), railM = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'fixed'), carr = P.box(30, 30, 24, 'actuated'), motL = P.motor(34, 'actuated', { length: 40 });
+  const hingeBar = P.cyl(7, 110, 'fixed', { axis: 'x' }), hingePost = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'fixed'), armRod = P.rod(V(0, 0, 0), V(1, 0, 0), 6, 'actuated'), motP = P.motor(36, 'actuated', { length: 44 });
+  const handBox = P.box(46, 40, 96, 'compliant', { opacity: 0.5 });
+  const shelf = P.box(340, 280, 10, 'actuated'), screwD = P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'work'), motD = P.motor(46, 'actuated', { length: 50 });
+  const posts = [[-1, -1], [1, -1], [-1, 1], [1, 1]].map(() => P.rod(V(0, 0, 0), V(0, 0, 1), 5, 'fixed'));
+  const pit = [P.box(1000, 350, 20, 'fixed'), P.box(1000, 350, 20, 'fixed'), P.box(310, 300, 20, 'fixed'), P.box(310, 300, 20, 'fixed')];
+  const mech = [railA, railM, carr, motL, hingeBar, hingePost, armRod, motP, handBox, shelf, screwD, motD].concat(posts, pit);
+  mech.forEach(o => app.add(o));
+  pit.forEach(o => { o.userData.occludes = false; });
+  const pathLine = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'actuated', { dash: 4, gap: 3 }); app.add(pathLine);
+  const escArrow = P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'actuated'); app.add(escArrow);
+  const wireAxis = P.dashed([D0, D0.clone().addScaledVector(wOut, 90)], 'wire', { dash: 3, gap: 3 }); app.addHelper(wireAxis);
+  const barrelAxis = P.dashed([N0, N0.clone().addScaledVector(aBack, 110)], 'laser', { dash: 3, gap: 3 }); app.addHelper(barrelAxis);
+  const swapVol = P.cyl(95, 10, 'ghost'); app.addHelper(swapVol);
+  const wireRod = P.rod(V(0, 0, 0), V(1, 0, 0), 0.55, 'wire'); app.add(wireRod);
+  const stub = P.sphere(1.8, 'wire'); stub.position.set(RI, 0, CAP); ws.tubeGroup.add(stub);
+  const beadTick = P.sphere(1.2, 'laser'); beadTick.userData.occludes = false; ws.tubeGroup.add(beadTick); beadTick.position.set(RI, 0, CAP);
+
+  let A = null, curArr = 'line';
+  function layoutMech() {
+    const arr = S.arr, d = dirVec();
+    ws.bench.visible = arr !== 'drop';
+    pit.forEach(o => { o.visible = arr === 'drop'; });
+    if (ws.grid) ws.grid.visible = arr !== 'drop';
+    const bz = benchZ - 10;
+    pit[0].position.set(0, 325, bz); pit[1].position.set(0, -325, bz); pit[2].position.set(345, 0, bz); pit[3].position.set(-345, 0, bz);
+    const isLine = arr === 'line', isPiv = arr === 'pivot', isDrop = arr === 'drop', isHand = arr === 'hand';
+    [railA, railM, carr, motL].forEach(o => { o.visible = isLine; });
+    [hingeBar, hingePost, armRod, motP].forEach(o => { o.visible = isPiv; });
+    handBox.visible = isHand;
+    [shelf, screwD, motD].concat(posts).forEach(o => { o.visible = isDrop; });
+    if (isLine) {
+      const Re = BACK.clone().addScaledVector(d, 330), Rs = BACK.clone().addScaledVector(d, -30);
+      railA.setEnds(Rs, Re);
+      const foot = V(Re.x, Re.y, benchZ + 2); railM.setEnds(foot, Re);
+      motL.position.copy(Re); motL.quaternion.setFromUnitVectors(V(0, 0, 1), d.clone().negate());
+    }
+    if (isPiv) {
+      const H = hinge(); hingeBar.position.copy(H);
+      hingePost.setEnds(V(H.x, H.y, benchZ + 2), H);
+      motP.position.copy(H).add(V(70, 0, 0)); motP.quaternion.setFromUnitVectors(V(0, 0, 1), V(-1, 0, 0));
+    }
+    if (isDrop) {
+      shelf.position.set(0, 0, benchZ - 5); ws.work.add(shelf);
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach((sg, i) => posts[i].setEnds(V(sg[0] * 165, sg[1] * 135, benchZ - 130), V(sg[0] * 165, sg[1] * 135, benchZ - 10)));
+      screwD.setEnds(V(0, 0, benchZ - 120), V(0, 0, benchZ - 10));
+      motD.position.set(0, 0, benchZ - 130); motD.rotation.x = Math.PI;
+    } else if (shelf.parent === ws.work) { ws.work.remove(shelf); app.add(shelf); }
+    barrelAxis.visible = wireAxis.visible = true;
+  }
+
+  // ------------------------------------------------------------------ place everything at time tt of the escape
+  function place(tt) {
+    const arr = S.arr, sim = A.sim, T = sim.tPed;
+    let i = Math.min(sim.rows.length - 1, Math.max(0, Math.round(tt / 0.002))); const r = sim.rows[i];
+    const m = motion(arr, r.s);
+    gun.group.position.copy(m.pt(P0)); gun.group.quaternion.copy(m.q ? m.q.clone().multiply(Q0) : Q0);
+    if (arr === 'drop') ws.setWorkPose(V(0, 0, m.dz), null); else ws.setWorkPose(V(0, 0, 0), null);
+    ws.setSpin(r.th / DEG);
+    gun.group.updateMatrixWorld(true); ws.work.updateMatrixWorld(true);
+    // mechanism follows
+    const d = dirVec();
+    if (arr === 'line') { carr.position.copy(m.pt(BACK)); carr.quaternion.setFromUnitVectors(V(0, 0, 1), d); }
+    if (arr === 'pivot') { const H = hinge(); armRod.setEnds(H, m.pt(BACK)); }
+    if (arr === 'hand') { handBox.position.copy(m.pt(w0([0, -70, 200]))); handBox.quaternion.copy(gun.group.quaternion); }
+    // wire
+    const Gw = gun.local(GE), broken = sim.tBreak != null && r.t >= sim.tBreak;
+    const Pw = D0.clone().applyAxisAngle(V(0, 0, 1), r.th); Pw.z += m.dz;
+    const gunToDot = m.dir(wOut).negate();       // direction from the guide exit toward where the tip was (gun frame)
+    let tipEnd;
+    if (!broken) tipEnd = Pw;
+    else {
+      const lenB = L0 + FEED * Math.min(r.t, sim.tRel);
+      let len = r.t <= sim.tRel ? lenB : L0 + FEED * sim.tRel - Math.min(S.pull, 30 * (r.t - sim.tRel));
+      tipEnd = Gw.clone().addScaledVector(gunToDot, Math.max(len, 1));
+    }
+    if (sim.tBreak == null && r.t > sim.tRel && S.Froll >= S.Fb) {          // retract breaks it at release: tip pulled back
+      tipEnd = Gw.clone().addScaledVector(gunToDot, Math.max(L0 - Math.min(S.pull, 30 * (r.t - sim.tRel)), 1));
+    }
+    wireRod.setEnds(Gw, tipEnd);
+    const retractBroke = sim.tBreak == null && r.t > sim.tRel && S.Froll >= S.Fb;
+    wireRod.visible = true;
+    // laser
+    const laserOn = r.t <= sim.tRel && !(S.enableWire && broken);
+    gun.setLaser(laserOn);
+    // arrows and path
+    const nz = gun.local('nozzleTip');
+    if (arr === 'drop') { escArrow.set(D0.clone().add(V(0, 0, m.dz)), V(0, 0, -1), 40); pathLine.setPoints([D0, D0.clone().add(V(0, 0, -A.sim.stroke))]); }
+    else { const md = moverDir(arr, r.s); escArrow.set(nz.clone().addScaledVector(md, 6), md, 40); const pts = []; for (let k = 0; k <= 12; k++) pts.push(motion(arr, A.sim.stroke * k / 12).pt(N0)); pathLine.setPoints(pts); }
+    swapVol.position.set(0, 0, m.dz + (-20 + swapTop()) / 2); swapVol.scale.set(1, 1, (swapTop() + 20) / 10);
+    app.invalidate();
+    return r;
+  }
+
+  // ------------------------------------------------------------------ panels: timeline and comparison
+  const tlSvg = WK.svg('svg', { class: 'esc-tl', viewBox: '0 0 330 190', role: 'img', 'aria-label': 'Timeline of the escape' });
+  const tlBody = app.ui.panel({ id: 'tl', title: 'The escape on a clock', node: tlSvg, open: true });
+  const tblNode = WK.h('div', {});
+  const tblBody = app.ui.panel({ id: 'cmp', title: 'Four escapes side by side (same settings)', node: tblNode, open: true });
+  const E = (tag, attrs, txt) => { const n = WK.svg(tag, attrs); if (txt != null) n.textContent = txt; return n; };
+  function drawTimeline() {
+    while (tlSvg.firstChild) tlSvg.removeChild(tlSvg.firstChild);
+    const sim = A.sim, X0 = 34, W = 285, T = sim.tPed, tx = t => X0 + t / T * W;
+    tlSvg.appendChild(E('rect', { x: 0, y: 0, width: 330, height: 190, fill: '#0b0f14', rx: 4 }));
+    // rows: mover speed, wire deficit, states
+    const vmax = Math.max(sim.pr.vpk, 10), sy = v => 62 - v / vmax * 50;
+    let d = ''; for (let t = 0; t <= sim.pr.T + 1e-9; t += 0.004) d += (d ? ' L' : 'M') + tx(t).toFixed(1) + ' ' + sy(sim.pr.v(t)).toFixed(1);
+    tlSvg.appendChild(E('path', { d: d, fill: 'none', stroke: '#a78bfa', 'stroke-width': 1.8 }));
+    tlSvg.appendChild(E('text', { x: 3, y: 14, class: 'dim' }, 'speed')); tlSvg.appendChild(E('text', { x: 3, y: 24, class: 'dim' }, vmax.toFixed(0) + ' mm/s'));
+    const dmax = 2, dy = v => 108 - Math.max(-dmax, Math.min(dmax, v)) / dmax * 22;
+    tlSvg.appendChild(E('line', { x1: X0, y1: dy(0), x2: X0 + W, y2: dy(0), stroke: '#2b3646' })); tlSvg.appendChild(E('line', { x1: X0, y1: dy(S.slack), x2: X0 + W, y2: dy(S.slack), stroke: '#f5a524', 'stroke-dasharray': '3 3' }));
+    tlSvg.appendChild(E('text', { x: X0 + W - 2, y: dy(S.slack) - 3, class: 'dim', 'text-anchor': 'end' }, 'taut when above ' + S.slack + ' mm'));
+    d = ''; sim.rows.forEach((r, k) => { if (k % 3) return; if (r.t > sim.tRel) return; d += (d ? ' L' : 'M') + tx(r.t).toFixed(1) + ' ' + dy(r.deficit).toFixed(1); });
+    tlSvg.appendChild(E('path', { d: d, fill: 'none', stroke: '#e6b422', 'stroke-width': 1.8 }));
+    tlSvg.appendChild(E('text', { x: 3, y: 86, class: 'dim' }, 'wire need')); tlSvg.appendChild(E('text', { x: 3, y: 96, class: 'dim' }, 'minus feed'));
+    const bar = (y, label, t0, t1, col) => { tlSvg.appendChild(E('text', { x: 3, y: y + 8, class: 'dim' }, label)); if (t1 > t0) tlSvg.appendChild(E('rect', { x: tx(t0), y: y, width: Math.max(1.5, tx(t1) - tx(t0)), height: 9, fill: col })); };
+    const laserEnd = S.enableWire && sim.tBreak != null ? sim.tBreak : sim.tRel;
+    bar(140, 'laser', 0, laserEnd, '#ff3b30'); bar(152, 'trigger', 0, sim.tRel, '#f5a524'); bar(164, 'tube', 0, T, '#94a3b8');
+    bar(176, 'wire feed', 0, sim.tRel, '#e6b422');
+    if (sim.tBreak != null) { tlSvg.appendChild(E('line', { x1: tx(sim.tBreak), y1: 4, x2: tx(sim.tBreak), y2: 132, stroke: '#22c55e' })); tlSvg.appendChild(E('text', { x: tx(sim.tBreak) + 3, y: 132, class: 'dim' }, 'wire breaks ' + (sim.tBreak * 1000).toFixed(0) + ' ms')); }
+    if (sim.stall) { tlSvg.appendChild(E('line', { x1: tx(sim.stall.t), y1: 4, x2: tx(sim.stall.t), y2: 132, stroke: '#ef4444' })); tlSvg.appendChild(E('text', { x: tx(sim.stall.t) + 3, y: 132, class: 'dim' }, 'stalls')); }
+    tlSvg.appendChild(E('line', { x1: tx(sim.tRel), y1: 4, x2: tx(sim.tRel), y2: 172, stroke: '#64748b', 'stroke-dasharray': '2 3' })); tlSvg.appendChild(E('text', { x: tx(sim.tRel) - 2, y: 12, class: 'dim', 'text-anchor': 'end' }, 'release'));
+    tlSvg.appendChild(E('text', { x: X0, y: 187, class: 'dim' }, '0')); tlSvg.appendChild(E('text', { x: X0 + W, y: 187, class: 'dim', 'text-anchor': 'end' }, T.toFixed(2) + ' s'));
+    const cur = E('line', { id: 'esc-cur', x1: tx(S.tt), y1: 2, x2: tx(S.tt), y2: 172, stroke: '#fff', 'stroke-width': 1 }); tlSvg.appendChild(cur);
+  }
+  function fmt1(v) { return v == null ? 'n/a' : v.toFixed(1); }
+  function drawTable() {
+    const rows = ARR.map(a => analyze(a));
+    const sel = S.arr;
+    const cell = (a, html, cls) => '<td class="' + (a === sel ? 'sel ' : '') + (cls || '') + '">' + html + '</td>';
+    const line = (label, f, clsf) => '<tr><td class="k">' + label + '</td>' + rows.map(r => cell(r.arr, f(r), clsf ? clsf(r) : '')).join('') + '</tr>';
+    const dirName = S.dir === 'barrel' ? 'the barrel axis' : S.dir === 'wire' ? 'the wire axis' : S.dir === 'vert' ? 'straight up' : 'radially outward';
+    let h = '<table class="esc-tbl"><tr><th></th>' + rows.map(r => '<th class="' + (r.arr === sel ? 'sel' : '') + '">' + NAME[r.arr] + '</th>').join('') + '</tr>';
+    h += line('escape direction', r => r.arr === 'pivot' ? 'arc about a hinge, starts up' : r.arr === 'drop' ? 'the work goes down' : dirName);
+    h += line('angle to the wire / beam', r => r.angWire.toFixed(0) + '° / ' + r.angBeam.toFixed(0) + '°');
+    h += line('stroke for ' + S.need + ' mm of standoff', r => r.sim.need == null ? 'never gained' : r.sim.need.toFixed(1) + ' mm' + (r.arr === 'pivot' ? ' (' + (r.sim.need / S.R / DEG).toFixed(1) + '°)' : ''), r => r.sim.need == null ? 'bad' : '');
+    h += line('time / peak speed', r => (r.sim.pr.T * 1000).toFixed(0) + ' ms / ' + r.vpk.toFixed(0) + ' mm/s');
+    h += line('the wire', r => r.sim.outcome + (r.sim.afterRel ? '; then ' + r.sim.afterRel : ''), r => r.sim.tag === 'air' ? 'ok' : 'bad');
+    h += line('beam spot off the seam: at the break / at the end', r => fmt1(r.spB.off) + ' / ' + fmt1(r.spE.off) + ' mm' + (r.spE.part && r.spE.part !== 'plate' ? ' (' + r.spE.part + ')' : ''), r => (r.spE.off != null && r.spE.off > 3) ? 'bad' : '');
+    h += line('gun to tube, closest', r => r.rim < 0 ? 'TOUCHES (' + r.rim.toFixed(0) + ')' : r.rim.toFixed(1) + ' mm', r => r.rim < 2 ? 'bad' : '');
+    h += line('stroke that also leaves the swap volume', r => r.swapAt == null ? 'not within ' + TRAVEL[r.arr] + ' mm' : r.swapAt + ' mm' + (r.arr === 'pivot' ? ' (' + (r.swapAt / S.R / DEG).toFixed(0) + '°)' : ''));
+    h += line('load carried at the start', r => r.carry.toFixed(1) + (r.arr === 'pivot' ? ' N at the tip' : ' N') + ' (' + (r.arr === 'drop' ? 'stage + ' + vessel().toFixed(2) + ' kg vessel' : 'gun ' + S.mGun + ' kg') + ')');
+    h += line('wire tension at the mover’s limit', r => r.Tlim.toFixed(0) + ' N (limit ' + SET[r.arr].F + ' N)');
+    h += line('side load on guides', r => r.side.toFixed(0) + ' N', r => r.side > SET[r.arr].F ? 'bad' : '');
+    h += line('gun holder must resist', r => r.arr === 'drop' ? Math.min(S.Fb, r.Tlim).toFixed(0) + ' N of ' + S.holder + ' N' : 'none (the mover reacts it)', r => r.arr === 'drop' && Math.min(S.Fb, r.Tlim) > S.holder ? 'bad' : '');
+    h += line('who restores the pose', r => r.arr === 'hand' ? 'the hand and its eye' : r.arr === 'line' ? 'the seat (use-02 / room-12)' : r.arr === 'pivot' ? 'the stop: a 200 mm lever' : 'the stage’s hard stop (tilt = face runout)');
+    h += line('closure two changes', r => r.arr === 'drop' ? '+0.61 kg on the stage and a hose through the bore' : 'nothing');
+    h += '</table>';
+    tblNode.innerHTML = h;
+  }
+
+  // ------------------------------------------------------------------ recompute, readouts, badges, I/O
+  const setSel = app.ui.readout('sel', 'Arrangement'), setWire = app.ui.readout('wire', 'The wire'), setSpot = app.ui.readout('spot', 'Beam spot off the seam now'), setStand = app.ui.readout('stand', 'Standoff gained now');
+  function recompute() {
+    A = analyze(S.arr); drawTimeline(); drawTable(); layoutMech(); update();
+  }
+  function update() {
+    const r = place(S.tt * A.sim.tPed);
+    const spt = spot(S.arr, r.s, r.th), sim = A.sim;
+    setSel(NAME[S.arr] + (S.arr === 'line' || S.arr === 'hand' ? ' along ' + ({ barrel: 'the barrel', wire: 'the wire', vert: 'vertical', radial: 'radial' })[S.dir] : ''));
+    setWire(sim.outcome.length > 60 ? sim.outcome.slice(0, 58) + '…' : sim.outcome);
+    setSpot(spt.off == null ? 'over the rim' : spt.off.toFixed(1) + ' mm on the ' + spt.part);
+    setStand(spt.growth == null ? 'n/a' : spt.growth.toFixed(1) + ' mm');
+    const cur = tlSvg.querySelector('#esc-cur'); if (cur) { const X0 = 34, Wd = 285; cur.setAttribute('x1', X0 + S.tt * Wd); cur.setAttribute('x2', X0 + S.tt * Wd); }
+    const c = clearAt(S.arr, r.s);
+    app.badge('rim', c.tube < 0 ? 'the gun proxy would touch the tube at this point of the escape' : null, 'limit');
+    app.badge('hold', sim.tag === 'stall' ? 'HOLD: the mover stalled on a fused wire; a hand snips it with the head where it stopped' : sim.afterRel && S.Froll < S.Fb ? 'STUCK: the retract cannot break the wire; snip it' : null, 'limit');
+    app.badge('slack', sim.tag === 'slack' ? 'the wire never goes taut in this direction: it is fed into the bead' : null, 'warn');
+    app.badge('short', sim.need == null ? 'this motion never gains ' + S.need + ' mm of standoff within its travel' : sim.need > TRAVEL[S.arr] - 1 ? 'the stroke needed is at the end of the travel' : null, 'warn');
+    if (S.arr === 'drop') { const T = Math.min(S.Fb, A.Tlim); app.badge('holder', T > S.holder ? 'the wire pulls ' + T.toFixed(0) + ' N on the gun holder, which resists ' + S.holder + ' N: the gun unseats' : null, 'limit'); } else app.badge('holder', null);
+    app.io.set({
+      commands: [
+        { name: S.arr === 'hand' ? 'Escape (by the hand)' : 'Escape stroke', value: sim.stroke.toFixed(1), unit: S.arr === 'pivot' ? 'mm at the nozzle' : 'mm', note: S.arr === 'hand' ? 'not commanded: the hand does it' : 'to gain ' + S.need + ' mm of standoff; speed ' + SET[S.arr].v + ' mm/s, force limit ' + SET[S.arr].F + ' N' },
+        { name: 'Rotator', value: S.turning ? 'turning' : 'stopped', note: 'the pedal is held through the escape; released after the trigger' },
+        { name: 'Return', value: S.arr === 'hand' ? 'by hand' : S.arr === 'drop' ? 'to the hard stop' : 'to the seat / stop', note: 'the pose the next approach starts from' },
+      ],
+      observes: [
+        { name: 'Mover position and end-stops', value: S.arr === 'hand' ? '-' : r.s.toFixed(1) + ' mm', status: S.arr === 'hand' ? 'blind' : 'seen' },
+        { name: 'Mover force or motor current', value: sim.tag === 'stall' ? 'at the limit' : 'below the limit', status: S.arr === 'hand' ? 'blind' : 'partly', note: 'a stall is how a fused wire shows itself' },
+        { name: 'Wire tension', value: '-', status: 'blind', note: 'a small load cell in the mover would read it' },
+        { name: 'Wire broke or stuck', value: '-', status: 'unresolved', note: 'continuity to the work lead could say; the laser’s own conduction alarm may already know' },
+        { name: 'Beam spot', value: '-', status: 'blind', note: 'a light sensor on the glare gives the beam’s on-time only' },
+      ],
+      manual: ['Trigger release, then pedal release', 'The hand’s lift (hand arrangement)', 'Snipping a stuck wire', 'Setting the working angle and the seat'],
+    });
+  }
+
+  // ------------------------------------------------------------------ playback
+  let playing = false;
+  app.onFrame(function (dt) {
+    if (!playing) return false;
+    const T = A.sim.tPed; let tt = S.tt + dt * S.slow / T;
+    if (tt >= 1) { tt = 1; playing = false; }
+    app.ui.set('tt', tt); return true;
+  });
+
+  // ------------------------------------------------------------------ controls
+  const gA = app.ui.group('Arrangement and clock', { help: 'Pick how the head leaves; scrub the clock or press Play.' });
+  gA.radio({ id: 'arr', label: 'How the head leaves', options: [{ value: 'hand', label: 'A hand lifts (today)' }, { value: 'line', label: 'A gun-side line (plunge, lift)' }, { value: 'pivot', label: 'A gun-side pivot (yoke, hinge)' }, { value: 'drop', label: 'The work drops (shelf, drop tier)' }], value: 'line', kind: 'branch',
+    visual: () => [gun.group], help: 'Four families already in the study: today’s hand; use-02 and room-12; travel-04 and use-16; use-13, room-15 and travel-19.',
+    onChange: v => { S.arr = v; syncMover(); recompute(); } });
+  gA.slider({ id: 'tt', label: 'Escape clock (0 = trigger held, laser on)', min: 0, max: 1, step: 0.005, value: 0, kind: 'state', visual: () => [gun.group, wireRod], help: 'Scrub from the lift starting to the pedal release. The white line on the timeline follows.', format: v => (v * (A ? A.sim.tPed : 1)).toFixed(2) + ' s', onChange: v => { S.tt = v; if (A) update(); } });
+  gA.button({ id: 'play', label: 'Play the escape (slow motion)', kind: 'state', noVisual: true, help: 'Plays the clock at the slow-motion factor below.', onClick: () => { if (S.tt >= 1) app.ui.set('tt', 0); playing = true; app.animate(true); } });
+  gA.slider({ id: 'slow', label: 'Slow motion factor', min: 0.05, max: 1, step: 0.05, value: 0.25, kind: 'view', noVisual: true, help: '1 = real time; the escape lasts a fraction of a second.', onChange: v => { S.slow = v; } });
+  gA.radio({ id: 'dir', label: 'Direction of a line or a hand lift', options: [{ value: 'barrel', label: 'along the barrel' }, { value: 'wire', label: 'along the wire' }, { value: 'vert', label: 'straight up' }, { value: 'radial', label: 'radially out' }], value: 'barrel', kind: 'branch', visual: () => [escArrow, pathLine, gun.group],
+    help: 'Applies to the hand and the line. Along the barrel the beam does not move; up sweeps the wire and the beam; radially out never tightens the wire.', onChange: v => { S.dir = v; recompute(); } });
+
+  const gM = app.ui.group('Mover (proposed actuator settings)', { help: 'The gun-side line, the pivot and the work drop each keep their own setting.' });
+  gM.slider({ id: 'v', label: 'Peak escape speed', min: 5, max: 200, step: 5, value: 40, unit: 'mm/s', kind: 'actuator', visual: () => [carr, armRod, shelf], help: 'Speed matters little for breaking the wire; it matters for how long the beam is on while the head leaves.', onChange: v => { if (S.arr !== 'hand') { SET[S.arr].v = v; recompute(); } } });
+  gM.slider({ id: 'a', label: 'Acceleration', min: 100, max: 4000, step: 50, value: 800, unit: 'mm/s²', kind: 'actuator', visual: () => [carr, armRod, shelf], help: 'Sets the inertial load; against the weight it is small unless the move is snapped.', onChange: v => { if (S.arr !== 'hand') { SET[S.arr].a = v; recompute(); } } });
+  gM.slider({ id: 'F', label: 'Force limit (along the mover’s own direction)', min: 2, max: 80, step: 1, value: 25, unit: 'N', kind: 'actuator', visual: () => [motL, motP, motD], help: 'The wire sees this divided by the cosine of the angle to the wire. It must beat the joint and stay below what the holder can resist.', onChange: v => { if (S.arr !== 'hand') { SET[S.arr].F = v; recompute(); } } });
+  const gH = app.ui.group('The hand (unmeasured; scene edits)', { help: 'Derek’s real values would replace these: an inertial sensor on the shell would record them (use-08).' });
+  gH.slider({ id: 'hv', label: 'Hand: peak lift speed', min: 20, max: 500, step: 10, value: 150, unit: 'mm/s', kind: 'scene', visual: () => [handBox], onChange: v => { SET.hand.v = v; if (S.arr === 'hand') recompute(); } });
+  gH.slider({ id: 'ha', label: 'Hand: peak acceleration', min: 200, max: 8000, step: 100, value: 3000, unit: 'mm/s²', kind: 'scene', visual: () => [handBox], onChange: v => { SET.hand.a = v; if (S.arr === 'hand') recompute(); } });
+  gH.slider({ id: 'hF', label: 'Hand: force it can pull with', min: 5, max: 150, step: 5, value: 60, unit: 'N', kind: 'scene', visual: () => [handBox], onChange: v => { SET.hand.F = v; if (S.arr === 'hand') recompute(); } });
+
+  const gW = app.ui.group('The wire and the laser (assumptions you can change)', { help: 'All unmeasured. Break the wire and see what moves.' });
+  gW.slider({ id: 'need', label: 'Standoff to gain before the beam matters', min: 0, max: 40, step: 1, value: 20, unit: 'mm', kind: 'scene', visual: () => [pathLine, escArrow], help: '0 = the sequence as the guide writes it (release the trigger, then the pedal): no escape.', onChange: v => { S.need = v; recompute(); } });
+  gW.slider({ id: 'Fb', label: 'Fused joint strength', min: 2, max: 150, step: 1, value: 20, unit: 'N', kind: 'scene', visual: () => [stub], help: 'What it takes to break the wire off a frozen bead. Unmeasured: a spring scale on a stub would say. The wire itself holds about 270 N.', onChange: v => { S.Fb = v; recompute(); } });
+  gW.slider({ id: 'Froll', label: 'Feeder’s pull at the retract', min: 2, max: 80, step: 1, value: 12, unit: 'N', kind: 'scene', noVisual: true, help: 'What the retract cycle can pull with when the trigger is released. Unmeasured.', onChange: v => { S.Froll = v; recompute(); } });
+  gW.slider({ id: 'slack', label: 'Slack allowance before the wire is taut', min: 0.05, max: 3, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', noVisual: true, help: 'Elastic stretch, roll slip and conduit slack together. Illustrative.', onChange: v => { S.slack = v; recompute(); } });
+  gW.slider({ id: 'pull', label: 'Retract (pullback) length', min: 1, max: 15, step: 0.5, value: 5, unit: 'mm', kind: 'scene', visual: () => [wireRod], help: 'Manual p.23 has a pullback length after the trigger releases. The value here is a guess.', onChange: v => { S.pull = v; update(); } });
+  gW.toggle({ id: 'turning', label: 'Tube keeps turning through the escape (pedal held)', value: true, kind: 'state', visual: () => [ws.turntable], help: 'The guide sequence releases the trigger first and the pedal second. Off: the pedal came up first; the wire then needs about 12.3 mm/s along its axis to go taut.', onChange: v => { S.turning = v; recompute(); } });
+  gW.radio({ id: 'enable', label: 'The laser ends when', options: [{ value: 'wire', label: 'the wire breaks (wire is the enable contact)' }, { value: 'release', label: 'the trigger is released' }], value: 'wire', kind: 'branch', visual: () => [gun.laser], help: 'Manual pp.19 and 32: emission needs a complete circuit clip-to-gun, and loss of conduction stops the beam. Which part of the gun closes it is not said.', onChange: v => { S.enableWire = v === 'wire'; update(); } });
+  const gS = app.ui.group('Station and stage (scene edits)');
+  gS.radio({ id: 'closure', label: 'Closure', options: [{ value: '1', label: 'one: bare end down (1.40 kg)' }, { value: '2', label: 'two: inverted on plate 1 (2.01 kg)' }], value: '1', kind: 'state', noVisual: true, help: 'Only the work drop changes: the stage carries the vessel. Gun-side escapes do not.', onChange: v => { S.closure = +v; recompute(); } });
+  gS.slider({ id: 'R', label: 'Pivot: hinge behind the nozzle', min: 120, max: 400, step: 5, value: 262, unit: 'mm', kind: 'scene', visual: () => [hingeBar, armRod], help: 'travel-04’s hinge is 262 mm from the nozzle; use-16’s trunnion 185 mm from the nozzle in another attitude.', onChange: v => { S.R = v; recompute(); } });
+  gS.slider({ id: 'holder', label: 'Gun holder’s capacity along the wire', min: 5, max: 120, step: 5, value: 40, unit: 'N', kind: 'scene', noVisual: true, help: 'What the seat and holder resist before the gun unseats; use-02 needs about 40 N of preload for a 5 N pull at a 250 mm lever.', onChange: v => { S.holder = v; recompute(); } });
+  gS.slider({ id: 'mStage', label: 'Stage payload beyond the vessel', min: 0, max: 8, step: 0.5, value: 3, unit: 'kg', kind: 'scene', noVisual: true, help: 'Turntable, nest, base and motor that ride the drop. Unmeasured.', onChange: v => { S.mStage = v; recompute(); } });
+  gS.slider({ id: 'lift', label: 'Swap volume: tube lifted clear of the nest', min: 10, max: 40, step: 1, value: 25, unit: 'mm', kind: 'scene', visual: () => [swapVol], help: 'Illustrative. With the hand allowance below it sets the top of the volume the gun must leave.', onChange: v => { S.lift = v; recompute(); } });
+  gS.slider({ id: 'handClr', label: 'Swap volume: hand allowance above that', min: 10, max: 60, step: 1, value: 40, unit: 'mm', kind: 'scene', visual: () => [swapVol], help: 'Illustrative.', onChange: v => { S.handClr = v; recompute(); } });
+  const gV = app.ui.group('View');
+  gV.toggle({ id: 'parts', label: 'Show the parts (rail, hinge, shelf, hand)', value: true, kind: 'view', onChange: v => { if (!v) mech.forEach(o => { o.visible = false; }); else layoutMech(); app.invalidate(); } });
+  gV.toggle({ id: 'axes', label: 'Show barrel and wire axes', value: true, kind: 'view', onChange: v => { wireAxis.visible = barrelAxis.visible = v; app.invalidate(); } });
+  gV.toggle({ id: 'swapvol', label: 'Show the tube-swap volume', value: true, kind: 'view', onChange: v => { swapVol.visible = v; app.invalidate(); } });
+
+  function syncMover() {
+    const st = SET[S.arr];
+    app.ui.set('v', st.v, { silent: true }); app.ui.set('a', st.a, { silent: true }); app.ui.set('F', st.F, { silent: true });
+    const hand = S.arr === 'hand';
+    ['v', 'a', 'F'].forEach(id => app.ui.enable(id, !hand)); ['hv', 'ha', 'hF'].forEach(id => app.ui.enable(id, hand));
+    app.ui.enable('dir', hand || S.arr === 'line'); app.ui.enable('R', S.arr === 'pivot');
+  }
+  syncMover();
+  const curRow = () => A.sim.rows[Math.min(A.sim.rows.length - 1, Math.max(0, Math.round(S.tt * A.sim.tPed / 0.002)))];
+  app.label(() => gun.local('nozzleTip'), 'nozzle', { cls: 'gun' });
+  app.label(() => D0.clone().add(V(0, 0, S.arr === 'drop' ? motion('drop', curRow().s).dz : 0)), 'seam and wire tip', { cls: 'wire' });
+  app.label(() => S.arr === 'line' ? carr.position.clone() : S.arr === 'pivot' ? hinge() : S.arr === 'drop' ? V(0, 0, benchZ - 5 + motion('drop', curRow().s).dz) : handBox.position.clone(), 'mover', { cls: 'actuated' });
+  recompute();
+})();
+</script>
+</body>
+</html>

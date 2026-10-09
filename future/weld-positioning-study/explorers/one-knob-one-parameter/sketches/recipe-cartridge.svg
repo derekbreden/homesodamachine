@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" width="1000" height="640" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <rect width="1000" height="640" fill="#ffffff"/>
+  <text x="14" y="24" font-size="15" font-weight="bold">Recipe cartridges — the orientation is a printed part on kinematic seats (schematic, not to scale)</text>
+
+  <!-- stand -->
+  <g stroke="#222" fill="none" stroke-width="1.3">
+    <rect x="60" y="430" width="360" height="30" fill="#eee"/>
+    <rect x="200" y="460" width="80" height="120" fill="#eee"/>
+    <line x1="40" y1="580" x2="460" y2="580" stroke-width="3"/>
+  </g>
+  <text x="440" y="450">stand plate on the gantry Z carriage (fixed)</text>
+  <!-- three V seats (dowel pairs) -->
+  <g stroke="#222" fill="#999">
+    <circle cx="95" cy="424" r="6"/><circle cx="111" cy="424" r="6"/>
+    <circle cx="232" cy="424" r="6"/><circle cx="248" cy="424" r="6"/>
+    <circle cx="369" cy="424" r="6"/><circle cx="385" cy="424" r="6"/>
+  </g>
+  <text x="60" y="478" font-size="11">3 V-seats = pairs of ground dowel pins,</text>
+  <text x="60" y="492" font-size="11">grooves radial to the centre (Maxwell)</text>
+
+  <!-- pose block -->
+  <g stroke="#222" fill="none" stroke-width="1.3">
+    <polygon points="80,405 400,405 360,250 240,190 150,260" fill="#fbeee6" stroke="#e67e22"/>
+  </g>
+  <g stroke="#222" fill="#555"><circle cx="103" cy="411" r="7"/><circle cx="240" cy="411" r="7"/><circle cx="377" cy="411" r="7"/></g>
+  <text x="470" y="495" fill="#e67e22">pose block, printed PET-GF, one per recipe:</text>
+  <text x="470" y="511" fill="#e67e22" font-size="11">its geometry is generated from (hole, roll) by the</text>
+  <text x="470" y="525" fill="#e67e22" font-size="11">same pose math as the scene; file name + commit = record</text>
+  <text x="470" y="541" fill="#555" font-size="11">3 × 1/4" G25 balls pressed in underneath</text>
+  <!-- top seat and shell -->
+  <g stroke="#222" fill="#999">
+    <circle cx="190" cy="232" r="5"/><circle cx="202" cy="224" r="5"/>
+    <circle cx="300" cy="206" r="5"/><circle cx="314" cy="210" r="5"/>
+    <circle cx="340" cy="258" r="5"/><circle cx="352" cy="262" r="5"/>
+  </g>
+  <g stroke="#222" fill="none" stroke-width="1.3">
+    <polygon points="150,200 360,150 380,190 170,240" fill="#e8e8e8"/>
+    <line x1="360" y1="150" x2="470" y2="120" stroke-width="5" stroke="#999"/>
+    <line x1="470" y1="120" x2="520" y2="108" stroke="#c0392b" stroke-width="1.5"/>
+  </g>
+  <circle cx="520" cy="108" r="4" fill="#c0392b"/>
+  <text x="530" y="104" fill="#c0392b">dot (set by couch X, Z with the camera)</text>
+  <text x="120" y="140">gun in its full-length shell; 3 balls on the shell sit in the</text>
+  <text x="120" y="155">block's top seats, one spring clamp holds them there</text>
+
+  <!-- library row -->
+  <text x="560" y="210" font-size="13" font-weight="bold">A shelf of blocks is the experiment plan</text>
+  <g stroke="#e67e22" fill="#fbeee6">
+    <rect x="560" y="225" width="80" height="50"/><rect x="650" y="225" width="80" height="50"/>
+    <rect x="740" y="225" width="80" height="50"/><rect x="830" y="225" width="80" height="50"/>
+  </g>
+  <text x="600" y="245" text-anchor="middle" font-size="11">R0 baseline</text><text x="600" y="262" text-anchor="middle" font-size="10">roll 45 hole 30</text>
+  <text x="690" y="245" text-anchor="middle" font-size="11">R1</text><text x="690" y="262" text-anchor="middle" font-size="10">roll 40</text>
+  <text x="780" y="245" text-anchor="middle" font-size="11">R2</text><text x="780" y="262" text-anchor="middle" font-size="10">roll 50</text>
+  <text x="870" y="245" text-anchor="middle" font-size="11">R3</text><text x="870" y="262" text-anchor="middle" font-size="10">work +3, travel held</text>
+  <text x="560" y="300" font-size="11">Each block's as-printed angles are measured once (inclinometer on the shell,</text>
+  <text x="560" y="315" font-size="11">camera for the beam-through-dot miss) and written on it. Its re-seat error is</text>
+  <text x="560" y="330" font-size="11">microns; its print error is fixed and known. Couch φ, X, Z and the standoff</text>
+  <text x="560" y="345" font-size="11">micrometer stay as knobs.</text>
+  <text x="560" y="390" font-size="11">Out of the station, the same shell balls let the gun go to hand work and come</text>
+  <text x="560" y="405" font-size="11">back to the identical pose — the interface is the thing that repeats.</text>
+</svg>

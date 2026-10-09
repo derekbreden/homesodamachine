@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Map and step</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-13-map-and-step",
+  "title": "Map and step: a dry-turn map holds the periodic part; a step at bead start needs a different corrector",
+  "by": "freedom",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Branch of the scan-then-weld idea (eyes-09) with the runout table (freedom-05). The seam map replayed by turned angle removes what repeats each lap. What changes between the dry turn and the bead does not repeat: the wire conduit, the gas hose and the fibre take up different forces when the bead starts, and the support answers with a step of force times its compliance. The scene sets three correctors against three disturbances: the map for the periodic seam, a force reading (a load cell in the support) for the step, and the eye at the dot for creep and whatever is left.",
+  "tags": ["lens", "feed-forward", "step disturbance", "force sensing", "support compliance", "dry turn vs bead"],
+  "branchOf": ["eyes-09-scan-then-weld"],
+  "combines": ["eyes-09-scan-then-weld", "freedom-05-runout-table"],
+  "transferable": ["one corrector per disturbance class", "a load cell makes the pull an input", "a step needs a sensor when it lands"],
+  "how": {
+    "motion": "one slow trim axis replays the map by angle, adds a term from the force reading, and follows the eye",
+    "load": "whatever holds the gun; its compliance turns a force step into a dot step",
+    "reference": "the seam map from the dry turn; the eye at the dot for what the map cannot contain",
+    "observe": "rotator angle; load cell in the support; the gun-borne eye (bias 0.10 mm here)",
+    "use": "dry turn first, then the bead; the first 30 mm of the bead is where the step lands"
+  },
+  "software": {
+    "commands": ["trim axis: map by angle + force term + eye correction"],
+    "observes": ["turned angle (exists)", "support load (proposed cell)", "corner minus dot from the eye (proposed)"],
+    "manual": ["dry turn with the same hoses and cables present", "learning the compliance table by nudging"]
+  },
+  "notes": ["../../exchange/freedom--on--eyes-w2.md", "../../explorers/freedom/ideas/freedom-13-map-and-step.md", "../../explorers/eyes/ideas/eyes-09-scan-then-weld.md", "../../explorers/freedom/ideas/freedom-05-runout-table.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 900,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>eyes-09 records the seam’s offset against turned angle in a dry turn and plays it back during the bead. That removes what repeats every lap: runout, ovality, tack bumps. It cannot contain what is different between the dry turn and the bead. At the start of the bead the wire feeder pushes the wire down its conduit, the argon starts flowing in its hose, and the fibre is asked to emit at a bend radius the manual sets at 350 mm rather than 240; each can change the pull on the grip, and the support answers with <b>force step × compliance</b>. The map has no term for it, and the map is indexed by angle, not by time.</p>' +
+        '<p>Three correctors, three disturbances. <b>The map</b> (blue) for the periodic seam. <b>A force reading</b> from a load cell in the support, times a compliance table learned by nudging the trim (green): it sees the step as it lands and moves the trim before the dot has left. <b>The eye at the dot</b> (amber): the only one that sees creep and whatever the other two miss, but it takes several corrections to remove a step, and it carries its own bias.</p>' +
+        '<p>Top: residual radial (or vertical) error at the dot along the bead. Bottom: the first 30 mm, where the step lands. The table gives rms, peak and the bead length spent outside the tolerance.</p>',
+      carries:
+        '<p>Not a support scene: the support enters only as its compliance in mm per newton at the dot. The values are from the freedom scenes’ statics (illustrative masses and stiffnesses): the gun on one elastic with nothing holding rotation, the same with a rigid base, the friction arm, and the nose seat with its tail bridle. The trim axis is one slow stage; the load cell sits in the support.</p>',
+      software:
+        '<p><b>Commands:</b> the trim axis, as the sum of three terms. <b>Observes:</b> turned angle (the rotator counts 14,400 pulses a turn [repo]); the load cell (a cell dock or an inline cell reads a change of pull in newtons); the eye’s corner minus dot, with a bias it cannot see. <b>Manual:</b> the dry turn has to be done with the same wire conduit, gas hose and fibre in place (the repo’s disabled-laser rehearsal already asks for it), and the compliance table has to be learned (borrowed-05’s nudge-and-watch).</p>',
+      tried:
+        '<p><b>Found:</b> with the gun on one elastic and nothing holding rotation, 1 N of step at the bead start is 1.4 mm radially and 4.2 mm vertically at the dot: the map’s residual (0.03 mm) is small next to it, and the eye takes about 6 mm of bead to bring it under 0.15 mm at 4 corrections a second (a 0.8 mm peak on the way). With a rigid base it is 0.45 / 1.0 mm; with the friction arm about 5 mm per newton; with the nose seat 0.10 / 0.01 mm. So how much the map matters depends on what the support does with a newton.</p>' +
+        '<p><b>Found:</b> the force term removes most of a step when the compliance is known (20 % error leaves 20 % of the step) and the load cell resolves the change (0.05 N noise is 0.07 mm on the elastic and 0.005 mm on the seat). It does nothing for creep. The eye handles creep and the leftover, and puts its own bias into the weld.</p>' +
+        '<p><b>Left standing:</b> nobody has measured whether the gun’s support sees any step when the wire feeds or the gas starts (Derek can: gun on a thread, a dial gauge on the shell, laser off, jog the wire, open the gas). The force term needs a stiff enough load cell in the support; a cell in a soft support is measuring the support. The tube may also move when it heats; only the eye sees that.</p>',
+      unresolved:
+        '<p>Size of the step at the bead start, at the end of the bead (laser off, retract) and while the feeder stutters. Whether the compliance table is the same in every pose. Creep of bungees and printed parts over a lap (a slider here). The scan and the eye share a bias only if the same sensor made both. Thermal distortion of the 6.35 mm lip is eyes-09’s, and is not modelled here.</p>',
+      assumptions:
+        '<ul><li>Runout 0.125 mm radial and 0.15 mm face amplitude (half the rig’s acceptance TIR limits) [repo, acceptance not measurement]; a second harmonic at 10 %; tack bumps 0.06 mm. Bead speed 5 to 15 mm/s [repo]; seam radius 61.85 mm; one lap 388.6 mm plus a 20° overlap.</li>' +
+        '<li>Compliance (mm per newton of pull change at the grip base, dot radial / vertical): elastic without rotation 1.44 / 4.22; rigid base 0.45 / 1.03; nose seat at 70 mm 0.10 / 0.01 (calc/30-eye-support.cjs, illustrative); friction arm about 5 / 5 (freedom-02, pre-sliding).</li>' +
+        '<li>Map residual 0.03 mm rms plus 0.05 mm scan bias; eye bias 0.10 mm and noise 0.03 mm (eyes-01’s numbers); loop gain 0.6 at 4 Hz [eyes-01]. The step is ramped over 3 mm of bead. Everything is <b>illustrative</b>.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { dF: 1.0, sup: 'lug', axis: 'r', creep: 0.2, noiseF: 0.05, cerr: 20, bias: 0.10, gain: 0.6, rate: 4, v: 8, tol: 0.15, eyeNoise: 0.03 };
+  const COMP = { lug: { r: 1.44, z: 4.22, n: 'elastic, no rotation held' }, held: { r: 0.45, z: 1.03, n: 'elastic, rigid base' }, arm: { r: 5, z: 5, n: 'friction arm (pre-sliding)' }, seat: { r: 0.10, z: 0.01, n: 'nose seat + tail bridle' } };
+  const svg = svgel('svg', { viewBox: '0 0 1000 760', width: '100%', role: 'img', 'aria-label': 'residual error along the bead for four correctors' }); svg.style.display = 'block'; svg.style.minWidth = '900px';
+  app.stageEl.appendChild(svg);
+  app.legend([{ color: '#8894a6', label: 'map only' }, { color: '#5fb0ff', label: 'map + force term' }, { color: '#ffb74d', label: 'map + eye' }, { color: '#4dd6a4', label: 'map + force term + eye' }, { color: '#ef5350', label: 'tolerance' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const rnd = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s) - 0.5; };
+  const RS = 61.85, LAP = 2 * Math.PI * RS + 21, DS = 0.5;   // bead length (mm), sample step (mm)
+  const rdA = app.ui.readout('sa', 'Step at the dot'), rdB = app.ui.readout('sb', 'Bead length to settle under tolerance (eye)'), rdC = app.ui.readout('sc', 'Force term error (compliance + cell noise)');
+
+  function simulate() {
+    const cmp = COMP[S.sup][S.axis], A = S.axis === 'r' ? 0.125 : 0.15, n = Math.floor(LAP / DS), out = { s: [], none: [], map: [], ff: [], eye: [], both: [], seam: [], step: 0 };
+    const stepTrue = S.dF * cmp;
+    const lp = (s0, w, h) => h * Math.exp(-Math.pow((s0) / w, 2));
+    let cEye = 0, cBoth = 0, lastK = -1, mapNoise = 0;
+    const kEye = Math.max(1, Math.round(S.v / S.rate / DS));   // samples between corrections
+    const gains = S.gain;
+    const ffMeas = S.dF + rnd(1) * 2 * S.noiseF, ffCorr = ffMeas * cmp * (1 - S.cerr / 100);
+    out.step = stepTrue; out.ffErr = Math.abs(stepTrue - ffCorr);
+    for (let i = 0; i < n; i++) {
+      const s = i * DS, th = s / RS, t = s / S.v;
+      const seam = A * Math.cos(th - 0.7) + 0.1 * A * Math.cos(2 * th - 1.9) + [0, 0.785, 1.571, 2.356, 3.142, 3.927, 4.712, 5.498].reduce((a, b) => a + 0.06 * Math.exp(-Math.pow((((th - b + 3 * Math.PI) % (2 * Math.PI)) - Math.PI) * RS / 4, 2)), 0);
+      const ramp = Math.min(1, s / 3);
+      const step = stepTrue * ramp, creep = S.creep * t / 60;
+      if (i % 40 === 0) mapNoise = 0.03 * rnd(i + 5) * 2.4;
+      const mapErr = mapNoise + 0.05;                     // what the map leaves: scan noise (slow) + scan bias
+      const d = mapErr + step + creep;                    // disturbance after the map, before the force term and the eye
+      const ff = ffCorr * ramp;
+      out.s.push(s); out.seam.push(seam);
+      out.none.push(seam + step + creep);
+      out.map.push(d); out.ff.push(d - ff);
+      // eye loop on map only, and on map + force term: the eye sees residual + bias + noise every kEye samples
+      if (i % kEye === 0) {
+        const nz = rnd(i * 3 + 9) * 2 * S.eyeNoise;
+        cEye += gains * ((d - cEye) + S.bias + nz);
+        const dB = d - ff; cBoth += gains * ((dB - cBoth) + S.bias + nz);
+      }
+      out.eye.push(d - cEye); out.both.push(d - ff - cBoth);
+    }
+    return out;
+  }
+  const stat = (arr, s, lim) => { let n = 0, sq = 0, pk = 0, over = 0; for (let i = 0; i < arr.length; i++) { if (s[i] > lim) break; n++; sq += arr[i] * arr[i]; pk = Math.max(pk, Math.abs(arr[i])); if (Math.abs(arr[i]) > S.tol) over += DS; } return { rms: Math.sqrt(sq / Math.max(1, n)), pk: pk, over: over }; };
+
+  function plot(x0, y0, w, h, sim, sMax, title, ymax, traces) {
+    g.appendChild(T(x0, y0 - 8, title, { 'font-weight': 600 })); g.appendChild(R(x0, y0, w, h, '#171e28', { stroke: '#2a3441' }));
+    const xa = s => x0 + s / sMax * w, ya = v => y0 + h / 2 - Math.max(-ymax, Math.min(ymax, v)) / ymax * h / 2;
+    for (let v = -ymax; v <= ymax + 1e-9; v += ymax / 2) { g.appendChild(L(x0, ya(v), x0 + w, ya(v), v === 0 ? '#3a4656' : '#222b37', 1)); g.appendChild(T(x0 - 40, ya(v) + 4, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2), { fill: '#94a3b8', 'font-size': 10.5 })); }
+    [S.tol, -S.tol].forEach(v => { if (Math.abs(v) < ymax) g.appendChild(L(x0, ya(v), x0 + w, ya(v), '#ef5350', 1, { 'stroke-dasharray': '4 3', opacity: 0.8 })); });
+    const ticks = sMax > 100 ? [0, 100, 200, 300, 400] : [0, 10, 20, 30];
+    ticks.forEach(t => { if (t <= sMax) g.appendChild(T(xa(t) - 8, y0 + h + 14, t + ' mm', { fill: '#94a3b8', 'font-size': 10.5 })); });
+    traces.forEach(tr => { let d = '', started = false; for (let i = 0; i < sim.s.length; i++) { if (sim.s[i] > sMax) break; d += (started ? 'L' : 'M') + xa(sim.s[i]).toFixed(1) + ' ' + ya(tr.a[i]).toFixed(1); started = true; } g.appendChild(svgel('path', { d: d, fill: 'none', stroke: tr.c, 'stroke-width': tr.w || 1.8, opacity: tr.o || 1 })); });
+  }
+
+  function update() {
+    clear();
+    const sim = simulate(), axisName = S.axis === 'r' ? 'radial' : 'vertical';
+    const trs = [{ a: sim.map, c: '#8894a6' }, { a: sim.ff, c: '#5fb0ff' }, { a: sim.eye, c: '#ffb74d' }, { a: sim.both, c: '#4dd6a4', w: 2.4 }];
+    const ymax = Math.max(0.4, Math.min(2, Math.ceil(sim.step * 1.1 * 5) / 5));
+    plot(60, 50, 900, 250, sim, LAP, 'Residual ' + axisName + ' error at the dot along the whole bead (mm; clipped at \u00b10.4)', 0.4, trs);
+    const ym2 = Math.max(0.4, Math.min(3, Math.ceil(sim.step * 1.05 * 2) / 2));
+    plot(60, 360, 900, 220, sim, 30, 'The first 30 mm of the bead, where the step lands (mm)', ym2, trs);
+    g.appendChild(T(60, 614, 'step at the dot: ' + sim.step.toFixed(2) + ' mm = ' + S.dF.toFixed(1) + ' N × ' + COMP[S.sup][S.axis].toFixed(2) + ' mm/N (' + COMP[S.sup].n + ')', { fill: '#c8d0da' }));
+    // table
+    const rows = [['map only', sim.map, '#8894a6'], ['map + force term', sim.ff, '#5fb0ff'], ['map + eye', sim.eye, '#ffb74d'], ['map + force term + eye', sim.both, '#4dd6a4']];
+    g.appendChild(T(60, 640, 'strategy', { fill: '#94a3b8', 'font-weight': 600 })); ['rms, first 30 mm', 'peak, first 30 mm', 'mm outside tol (first 30)', 'rms, whole lap', 'peak, whole lap'].forEach((h, i) => g.appendChild(T(290 + i * 150, 640, h, { fill: '#94a3b8', 'font-size': 10 })));
+    rows.forEach((r, i) => {
+      const a = stat(r[1], sim.s, 30), b = stat(r[1], sim.s, 1e9), y = 662 + i * 24;
+      g.appendChild(R(60, y - 10, 10, 10, r[2])); g.appendChild(T(76, y, r[0], { fill: '#c8d0da' }));
+      [a.rms.toFixed(3), a.pk.toFixed(2), a.over.toFixed(1) + ' mm', b.rms.toFixed(3), b.pk.toFixed(2)].forEach((v, j) => g.appendChild(T(290 + j * 150, y, v + (j === 2 ? '' : ' mm'), { fill: '#c8d0da' })));
+    });
+    g.appendChild(T(60, 756, 'tolerance ' + S.tol.toFixed(2) + ' mm (a slider, not a requirement); every correction here works on a perfect model of the plant except where a slider says otherwise', { fill: '#94a3b8', 'font-size': 10.5 }));
+    // settle length for the eye: first s where |eye| stays under tol
+    let settle = null; for (let i = 0; i < sim.s.length; i++) { let ok = true; for (let j = i; j < Math.min(sim.s.length, i + 40); j++) if (Math.abs(sim.eye[j]) > S.tol) { ok = false; break; } if (ok) { settle = sim.s[i]; break; } }
+    rdA(sim.step.toFixed(2), 'mm'); rdB(settle == null ? 'never' : settle.toFixed(0), settle == null ? '' : 'mm'); rdC(sim.ffErr.toFixed(2), 'mm');
+    app.badge('big', sim.step > S.tol * 5 ? 'a step of ' + sim.step.toFixed(2) + ' mm at the bead start is bigger than the whole map residual: the map cannot hold it' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Trim axis = map(angle) + force term + eye correction', value: 'sum of three', note: 'one slow stage; proposed' }],
+      observes: [
+        { name: 'Turned angle', value: 'counted', status: 'seen', note: 'rotator counts 14,400 pulses a turn [repo]' },
+        { name: 'Pull change at the support (load cell, proposed)', value: S.dF.toFixed(1), unit: 'N', status: 'partly', note: 'reads the input, not the dot; needs the compliance table' },
+        { name: 'Corner minus dot (the eye)', value: 'residual + bias ' + S.bias.toFixed(2), unit: 'mm', status: 'partly', note: 'the loop cannot see its own bias (eyes-01)' },
+        { name: 'Step size at bead start', value: '-', status: 'unresolved', note: '[unknown]: Derek can measure with a dial gauge, laser off' },
+        { name: 'Thermal distortion during the bead', value: '-', status: 'blind', note: 'not modelled; only the eye at the dot sees it (eyes-09)' }],
+      manual: ['Dry turn with the same hoses and cables present', 'Learn the compliance table by nudging'] });
+  }
+  const sg = app.ui.group('The step (scene edits)', { open: true });
+  sg.slider({ id: 'dF', label: 'Pull change at bead start', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'N', kind: 'scene', help: 'Wire feed, gas and fibre taking up a different load when the bead starts. Unknown: this is the number to measure.', onChange: v => { S.dF = v; update(); } });
+  sg.radio({ id: 'sup', label: 'Support (compliance at the dot)', kind: 'branch', value: 'lug', options: [{ value: 'lug', label: 'elastic, no rotation' }, { value: 'held', label: 'elastic, rigid base' }, { value: 'arm', label: 'friction arm' }, { value: 'seat', label: 'nose seat' }], help: 'mm per newton from the freedom statics; see assumptions.', onChange: v => { S.sup = v; update(); } });
+  sg.radio({ id: 'axis', label: 'Axis shown', kind: 'branch', value: 'r', options: [{ value: 'r', label: 'radial' }, { value: 'z', label: 'vertical' }], onChange: v => { S.axis = v; update(); } });
+  sg.slider({ id: 'creep', label: 'Creep of the support', min: 0, max: 1, step: 0.05, value: 0.2, unit: 'mm/min', kind: 'scene', help: 'Bungee and printed-part creep over the lap. Illustrative.', onChange: v => { S.creep = v; update(); } });
+  const fg = app.ui.group('Force term (a load cell in the support)', { open: true });
+  fg.slider({ id: 'noiseF', label: 'Load cell noise', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'N', kind: 'scene', onChange: v => { S.noiseF = v; update(); } });
+  fg.slider({ id: 'cerr', label: 'Error in the learned compliance', min: -50, max: 50, step: 5, value: 20, unit: '%', kind: 'scene', help: 'Learned by nudging the trim and watching the dot; a wrong table leaves that fraction of the step.', onChange: v => { S.cerr = v; update(); } });
+  const eg = app.ui.group('The eye at the dot', { open: true });
+  eg.slider({ id: 'bias', label: 'Bias of the eye', min: -0.3, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'Invisible to the loop (eyes-01).', onChange: v => { S.bias = v; update(); } });
+  eg.slider({ id: 'gain', label: 'Loop gain', min: 0.1, max: 1, step: 0.05, value: 0.6, kind: 'scene', onChange: v => { S.gain = v; update(); } });
+  eg.slider({ id: 'rate', label: 'Corrections per second', min: 1, max: 10, step: 1, value: 4, unit: 'Hz', kind: 'scene', onChange: v => { S.rate = v; update(); } });
+  const bg = app.ui.group('Bead', { open: true });
+  bg.slider({ id: 'v', label: 'Bead speed', min: 5, max: 15, step: 1, value: 8, unit: 'mm/s', kind: 'state', help: 'Rig window 5 to 15 mm/s.', onChange: v => { S.v = v; update(); } });
+  bg.slider({ id: 'tol', label: 'Tolerance', min: 0.02, max: 0.3, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', help: 'Nobody has measured what the weld needs.', onChange: v => { S.tol = v; update(); } });
+  update();
+})();
+</script>
+</body>
+</html>

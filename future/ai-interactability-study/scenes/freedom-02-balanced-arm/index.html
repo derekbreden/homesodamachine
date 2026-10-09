@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balanced arm, vernier stage</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-02-balanced-arm",
+  "title": "Monitor arm as the weight path, a vernier stage as the location path",
+  "by": "freedom",
+  "origin": "derek-example",
+  "status": "deep",
+  "summary": "A gas-spring (monitor-style) arm carries the gun and the cable; friction holds it in a window of angles where the spring and the payload nearly cancel. A small XZ vernier stage between the arm tip and the shell puts the dot on the seam. The scene shows the payload window, the friction window, how loose the arm is, what a shoulder motor would have to supply with and without the spring, and what the vernier and a camera must make up.",
+  "tags": ["monitor arm", "gravity balance", "friction hold", "vernier", "weight path vs location path"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["neutral-equilibrium support", "payload window", "friction window", "gravity balance makes small motors enough"],
+  "how": {
+    "motion": "arm angle by hand, or a shoulder motor; vernier X, Z (actuators) at the tip",
+    "load": "gas spring and arm carry gun + cable; friction holds the pose",
+    "reference": "not the arm: the camera sees the dot, the vernier corrects it",
+    "observe": "camera on the dot; shoulder encoder; vernier position",
+    "use": "arm to the neighbourhood, vernier and camera for the last millimetres"
+  },
+  "software": {
+    "commands": ["vernier X, Z", "shoulder motor angle (branch)", "brake engage (state)"],
+    "observes": ["dot vs seam (camera, not drawn: the inset is scene truth)", "shoulder angle (encoder)"],
+    "manual": ["choosing and ballasting the arm", "moving the arm by hand in hand mode", "cable clipping"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-02-balanced-arm.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/20-balanced-arm.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>A monitor-style arm is a <b>neutral-equilibrium support</b>: a gas spring cancels the payload’s torque, so any pose is nearly a resting pose and only <b>joint friction</b> keeps it there. Here it carries the gun and its cable. It is not asked to locate anything. A small <b>XZ vernier stage</b> (purple) between the arm tip and the shell moves the gun by ±10 mm, and a camera on the dot closes the loop.</p>' +
+        '<p>Left: the arm in side view (radial–vertical plane) with the seam at the right; the gun hangs below the stage. Top right: torque about the shoulder against arm angle; the shaded band is the friction window. Below: what a shoulder motor would have to supply, and the dot against the seam.</p>' +
+        '<p>Try: set the spring to 2.0 kg, the low end of a typical arm\u2019s rating (the arm rises to its stop); add 0.5 kg of ballast; then add a 2 N load change and switch the cable-on-arm option; then switch to the shoulder motor.</p>',
+      carries:
+        '<p><b>Amber</b> is what carries load: the arm and the spring hold up the gun and the cable share; the spring torque (green) opposes the payload torque (amber). The residual is held by friction only, inside the shaded window. <b>Purple</b>: the vernier and, in motor mode, the shoulder motor: what software commands. <b>Teal</b>: the seam. The camera (blue, proposed, not drawn) is what makes the dot position known.</p>',
+      software:
+        '<p><b>Commands:</b> vernier X and Z (±10 mm); in motor mode the shoulder angle; the brake (a state). <b>Observes:</b> dot against seam by camera (the inset is scene truth, not a sensor), shoulder angle by an encoder, vernier position by step count. The arm does not know where the dot is: hold error from joint pre-sliding is millimetres, so the loop closes on the camera.</p>',
+      tried:
+        '<p><b>“A monitor arm is too flexible.”</b> True as a locator, and it does not need to be one. With illustrative pre-sliding stiffness a 2 N change in cable pull moves the tip about 8–10 mm even with the brake on; the vernier stroke covers that, and the camera decides how much of it to take up. The arm’s job is the weight.</p>' +
+        '<p><b>Payload below the spring’s minimum.</b> Typical gas-spring arms are rated from about 2 kg upward. A 1.2–1.5 kg gun+shell is under it: the spring wins and the arm rises to its stop. Repairs: ballast in the shell (0.5 kg here), a lighter spring, or a spring balancer.</p>' +
+        '<p><b>Imperfect balance.</b> A real arm is exact at one angle and drifts elsewhere; the friction window is the range where it stays put. Raise the balance error or lower friction and the window shrinks or disappears.</p>' +
+        '<p><b>Cable on the arm</b> removes most of the pull from the gun but adds cable weight to the payload (more ballast) and drags the arm.</p>' +
+        '<p><b>Brake.</b> Engaging a brake (20× friction here) widens the window but does not make the arm stiff: pre-sliding deflection remains.</p>' +
+        '<p><b>The window in kilograms (from borrowed’s critique).</b> The arm stays put while the payload and the spring setting differ by less than friction ÷ (g·L·cos θ): ±91 g at 0.4 N·m and 0.45 m, ±51 g at a reach of 0.8 m, ±1.8 kg braked. A quarter of the fibre’s 0.35 kg share is 88 g, all of it. Moving the 1.2 kg gun 10 mm along the arm with the vernier changes the shoulder torque by 0.118 N·m, 29 % of the band, before the cable does anything. Everything on the tip is payload, including the vernier and the camera: with them the payload is about 2.3 kg, not 1.5, and the 0.5 kg ballast of the first repair is already there. The readouts and the “payload from parts” group show these.</p>' +
+        '<p><b>Placing and welding are different states.</b> The sequence is release, place inside the window (forgiving the mismatch above), brake, let go. The mismatch that matters is not in mass: it is the force step when the hand lets go (its own holding force, the fibre settling to the clip) and at bead start, which the vernier and the eye take up; the brake keeps the arm from creeping while they do.</p>',
+      unresolved:
+        '<p>Real gun mass and cable load; real arm friction and pre-sliding stiffness (a spring-loaded joint creeps, and friction changes with temperature and time); whether an arm rated for 2–8 kg can be tuned down; how much stage travel the coarse pose needs; whether a motor and gearbox fit a shoulder. The plane drawn is radial–vertical; the arm’s third axis (swing about the column) is not modelled.</p>',
+      assumptions:
+        '<ul><li>Arm length 450 mm, single balanced joint: <b>illustrative</b>. Spring torque exact at 5°, error slope 0.15 per rad: <b>illustrative</b>.</li>' +
+        '<li>Payload 1.5 kg (gun + shell + vernier + share of cable) by default, or 1.2 + 0.6 + 0.15 = 1.95 kg when counted from parts; gun mass is [unknown]. Cable on arm adds 0.35 kg and passes 25% of the pull: <b>illustrative</b>.</li>' +
+        '<li>Joint friction 0.4 N·m; pre-sliding stiffness 40 N·m/rad; brake 20× friction: <b>illustrative</b> (the friction of a real arm is [unknown]).</li>' +
+        '<li>Motor: 1.0 N·m available at the shoulder (a small stepper with a reduction): <b>illustrative</b>.</li>' +
+        '<li>The gun is drawn as a bar; dot offset from the tip (120 mm forward, 170 mm down) is arbitrary. The seam inset is the exact model geometry, not a sensor reading.</li></ul>',
+    },
+  });
+  const A = FreedomArm, C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { parts: false, mg: 1.2, mvern: 0.6, mcam: 0.15, m: 1.5, ballast: 0, md: 1.5, eps: 0.15, taf: 0.4, cableOnArm: false, dF: 0, brake: false, drive: 'hand', thHand: 5, thMotor: 5, motorT: 1.0, vx: 0, vz: 0 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 660', width: '100%', role: 'img', 'aria-label': 'balanced arm side view with torque plot' });
+  svg.style.maxHeight = '100%'; svg.style.display = 'block'; svg.style.minWidth = '820px';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'fixed', label: 'Base / column' }, { role: 'load', label: 'Carries load' }, { role: 'compliant', label: 'Spring / free' }, { role: 'actuated', label: 'Software commands' }, { role: 'locate', label: 'Seam' }, { role: 'laser', label: 'Dot' }, { role: 'sensor', label: 'Proposed camera (not drawn)' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const K = 0.86, SX = 130, SY = 440, BENCH = 585;     // px per mm, shoulder position, bench line
+  // ---- static art
+  svg.appendChild(R(0, 0, 1000, 640, 'none'));
+  svg.appendChild(L(20, BENCH, 620, BENCH, C('fixed'), 3)); svg.appendChild(T(24, BENCH + 18, 'bench', { fill: C('fixed') }));
+  svg.appendChild(R(SX - 42, SY - 20, 34, BENCH - SY + 20, C('fixed'), { opacity: 0.85 })); svg.appendChild(T(SX - 96, BENCH - 30, 'column', { fill: '#94a3b8' }));
+  // dynamic groups
+  const gArm = svgel('g'), gPlot = svgel('g'), gBars = svgel('g'), gSeam = svgel('g'); [gArm, gPlot, gBars, gSeam].forEach(g => svg.appendChild(g));
+  function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
+  const compR = app.ui.readout('net', 'Net torque about the shoulder'), stR = app.ui.readout('state', 'Arm state'), winR = app.ui.readout('win', 'Friction window'), microR = app.ui.readout('micro', 'Hold error (pre-sliding)'), dotR = app.ui.readout('dot', 'Dot vs seam r / z'), motR = app.ui.readout('mot', 'Shoulder motor torque to move: balanced / unbalanced'), tolR = app.ui.readout('tol', 'Mismatch forgiven: free / braked'), payR = app.ui.readout('pay', 'Payload vs spring setting'), vernR = app.ui.readout('vern', 'Vernier travel, share of band');
+
+  function update() {
+    if (S.parts) { S.m = Math.round((S.mg + S.mvern + S.mcam) * 100) / 100; app.ui.set('m', Math.min(4, S.m), { silent: true }); }
+    const theta = S.drive === 'motor' ? S.thMotor : S.thHand;
+    const p = { m: S.m, ballast: S.ballast, md: S.md, eps: S.eps, taf: S.taf, cableOnArm: S.cableOnArm, dF: S.dF, brake: S.brake, th: theta, thMin: -20, thMax: 50, th0: 5 };
+    // motor mode: the motor adds holding torque up to motorT
+    const a = A.analyse(p);
+    let thEq = a.thEq, state = a.state, holds = a.holds, micro = a.micro;
+    if (S.drive === 'motor') {
+      const need = Math.abs(a.cur.net) - a.taf; holds = need <= S.motorT;
+      if (holds) { thEq = theta; state = 'motor holds (' + Math.max(0, need).toFixed(2) + ' N·m of ' + S.motorT.toFixed(1) + ')'; micro = { mm: 0, dth: 0 }; }
+      else { state = 'motor stalls: ' + a.state; }
+    }
+    const th = thEq * Math.PI / 180, dth = micro.dth || 0, Lmm = a.p.L * 1000;
+    const tip = { x: Lmm * Math.cos(th) - Math.sin(th) * Lmm * dth, z: Lmm * Math.sin(th) + Math.cos(th) * Lmm * dth };
+    const th0 = a.p.th0 * Math.PI / 180, tip0 = { x: Lmm * Math.cos(th0), z: Lmm * Math.sin(th0) };
+    const OFF = { x: 120, z: -170 };
+    const dot = { x: tip.x + S.vx + OFF.x, z: tip.z + S.vz + OFF.z }, seam = { x: tip0.x + OFF.x, z: tip0.z + OFF.z };
+    const err = { r: dot.x - seam.x, z: dot.z - seam.z };
+    const px = (x, z) => [SX + x * K, SY - z * K];
+    // ---- arm view
+    clear(gArm);
+    const [tx, ty] = px(tip.x, tip.z);
+    // gas spring: from a point on the column (b above shoulder) to a point on the arm (a along)
+    const bpx = px(0, 95), ax = 0.22 * Lmm;
+    const apx = px(ax * Math.cos(th) , ax * Math.sin(th));
+    gArm.appendChild(L(bpx[0] - 25, bpx[1], apx[0], apx[1], C('compliant'), 5, { 'stroke-dasharray': '' }));
+    gArm.appendChild(svgel('circle', { cx: bpx[0] - 25, cy: bpx[1], r: 4, fill: C('fixed') }));
+    gArm.appendChild(T(bpx[0] - 12, bpx[1] - 10, 'gas spring', { fill: C('compliant') }));
+    gArm.appendChild(L(SX, SY, tx, ty, C('load'), 9));
+    gArm.appendChild(svgel('circle', { cx: SX, cy: SY, r: 11, fill: C('fixed'), stroke: '#141a22', 'stroke-width': 2 }));
+    gArm.appendChild(T(SX - 4, SY + 34, 'shoulder', { fill: '#94a3b8' }));
+    // stage + gun
+    const vx = S.vx * K, vz = -S.vz * K;
+    gArm.appendChild(R(tx - 22 + vx * 0, ty - 3, 44, 24, C('actuated'), { rx: 3 }));
+    gArm.appendChild(T(tx - 30, ty - 12, 'vernier XZ stage', { fill: C('actuated') }));
+    const gx = tx + vx, gy = ty + 24 + vz;
+    const dpx = px(dot.x, dot.z);
+    gArm.appendChild(L(gx, gy, dpx[0], dpx[1], C('gun'), 20, { 'stroke-opacity': 0.9 }));
+    gArm.appendChild(L(gx, gy, dpx[0], dpx[1], C('load'), 20, { 'stroke-opacity': 0.25 }));
+    gArm.appendChild(svgel('circle', { cx: dpx[0], cy: dpx[1], r: 4, fill: C('laser') }));
+    gArm.appendChild(T(dpx[0] - 40, dpx[1] + 4, 'dot', { fill: C('laser') }));
+    // ballast
+    if (S.ballast > 0) { const bx = gx - 5, by = gy - 5; gArm.appendChild(svgel('circle', { cx: bx, cy: by, r: 6 + 9 * Math.cbrt(S.ballast), fill: C('load'), 'fill-opacity': 0.8 })); gArm.appendChild(T(bx - 20, by - 22, 'ballast ' + S.ballast.toFixed(1) + ' kg', { fill: C('load') })); }
+    // tube profile at the seam
+    const [sx, sy] = px(seam.x, seam.z);
+    gArm.appendChild(R(sx, sy - 70, 6, 200, C('work'), { opacity: 0.9 })); gArm.appendChild(R(sx - 90, sy, 90, 6, C('work'), { opacity: 0.9 }));
+    gArm.appendChild(svgel('circle', { cx: sx + 3, cy: sy + 3, r: 3.5, fill: C('locate') }));
+    gArm.appendChild(T(sx - 60, sy + 150, 'seam: tube wall + endcap (not to scale)', { fill: C('locate') }));
+    // arm tip ghost at design pose
+    const [gx0, gy0] = px(tip0.x, tip0.z); gArm.appendChild(svgel('circle', { cx: gx0, cy: gy0, r: 5, fill: 'none', stroke: C('locate'), 'stroke-dasharray': '3 3' })); gArm.appendChild(T(gx0 - 78, gy0 + 4, 'design pose', { fill: C('locate'), 'font-size': 11 }));
+    // weight arrow
+    gArm.appendChild(L(gx + 6, gy + 26, gx + 6, gy + 26 + Math.min(70, a.cur.mTot * 24), C('load'), 3, { 'marker-end': '' }));
+    gArm.appendChild(T(gx + 12, gy + 60, 'weight ' + (a.cur.mTot * 9.80665).toFixed(1) + ' N', { fill: C('load') }));
+    gArm.appendChild(svgel('circle', { cx: 1, cy: 1, r: 0 }));
+
+    // ---- torque plot
+    clear(gPlot);
+    const PX0 = 655, PX1 = 975, PY0 = 40, PY1 = 250, tq = 8, xa = t => PX0 + (t + 20) / 70 * (PX1 - PX0), ya = v => (PY0 + PY1) / 2 - v / tq * (PY1 - PY0) / 2;
+    gPlot.appendChild(R(PX0, PY0, PX1 - PX0, PY1 - PY0, '#171e28', { stroke: '#2a3441' }));
+    gPlot.appendChild(T(PX0, PY0 - 12, 'Torque about the shoulder vs arm angle (N·m)', { 'font-weight': 600 }));
+    gPlot.appendChild(L(PX0, ya(0), PX1, ya(0), '#3a4656', 1));
+    const bandTop = ya(a.taf), bandBot = ya(-a.taf);
+    gPlot.appendChild(R(PX0, bandTop, PX1 - PX0, bandBot - bandTop, C('locate'), { opacity: 0.18 })); gPlot.appendChild(T(PX0 + 4, bandTop - 4, 'friction band ±' + a.taf.toFixed(2), { fill: C('locate'), 'font-size': 11 }));
+    function curve(fn, col, w, dash) { let d = ''; for (let t = -20; t <= 50; t += 1) { const v = Math.max(-tq, Math.min(tq, fn(t))); d += (t === -20 ? 'M' : 'L') + xa(t).toFixed(1) + ' ' + ya(v).toFixed(1); } gPlot.appendChild(svgel('path', { d: d, fill: 'none', stroke: col, 'stroke-width': w, 'stroke-dasharray': dash || '' })); }
+    curve(t => A.net(a.p, t).taus, C('compliant'), 2); curve(t => A.net(a.p, t).taug, C('load'), 2); curve(t => A.net(a.p, t).net, '#e6edf6', 2.4);
+    a.win.forEach(w => gPlot.appendChild(R(xa(w[0]), PY1 - 8, xa(w[1]) - xa(w[0]), 8, C('locate'), { opacity: 0.9 })));
+    gPlot.appendChild(L(xa(theta), PY0, xa(theta), PY1, C('actuated'), 1.6, { 'stroke-dasharray': '4 3' })); gPlot.appendChild(T(xa(theta) + 4, PY0 + 12, 'set ' + theta.toFixed(0) + '°', { fill: C('actuated'), 'font-size': 11 }));
+    if (Math.abs(thEq - theta) > 0.3) { gPlot.appendChild(L(xa(thEq), PY0, xa(thEq), PY1, C('laser'), 1.6)); gPlot.appendChild(T(xa(thEq) + 4, PY0 + 26, 'settles ' + thEq.toFixed(0) + '°', { fill: C('laser'), 'font-size': 11 })); }
+    [[-20, ''], [0, ''], [30, ''], [50, '']].forEach(k => gPlot.appendChild(T(xa(k[0]) - 8, PY1 + 15, k[0] + '°', { 'font-size': 11, fill: '#94a3b8' })));
+    gPlot.appendChild(T(PX0, PY1 + 30, '— spring   — payload   — net (white)   teal bar = window where it stays put', { 'font-size': 11, fill: '#94a3b8' }));
+    // ---- bars
+    clear(gBars);
+    const BX = 655, BY = 326, BW = 300, maxT = 10;
+    gBars.appendChild(T(BX, BY - 12, 'Shoulder motor torque needed to move the arm here (N·m)', { 'font-weight': 600 }));
+    const bal = a.motorBalanced, unb = a.motorUnbalanced;
+    [['no spring', unb, C('load')], ['with the balance spring', bal, C('compliant')]].forEach((b, i) => { const y = BY + i * 34; gBars.appendChild(R(BX, y, Math.min(BW, b[1] / maxT * BW), 20, b[2], { opacity: 0.9 })); gBars.appendChild(T(BX + 6, y + 15, b[0] + '  ' + b[1].toFixed(2), { fill: '#0f141b', 'font-weight': 600 })); });
+    gBars.appendChild(L(BX + S.motorT / maxT * BW, BY - 4, BX + S.motorT / maxT * BW, BY + 66, C('actuated'), 2, { 'stroke-dasharray': '4 3' })); gBars.appendChild(T(BX + Math.min(S.motorT / maxT * BW + 4, BW - 120), BY + 82, 'motor available ' + S.motorT.toFixed(1), { fill: C('actuated'), 'font-size': 11 }));
+    // ---- seam inset
+    clear(gSeam);
+    const IX = 655, IY = 452, IW = 320, IH = 190, sc = 5.2;     // px per mm, +-30 mm window
+    gSeam.appendChild(T(IX, IY - 10, 'Dot against the seam (mm; scene geometry, not a sensor)', { 'font-weight': 600 }));
+    gSeam.appendChild(R(IX, IY, IW, IH, '#171e28', { stroke: '#2a3441' }));
+    const cx0 = IX + IW * 0.62, cy0 = IY + IH * 0.5;
+    gSeam.appendChild(R(IX + 6, cy0, cx0 - IX - 6, 6.35 * sc, C('work'), { opacity: 0.9 })); gSeam.appendChild(R(cx0, cy0 - 6.35 * sc, 1.65 * sc, IH * 0.5 + 6.35 * sc - 6, C('work'), { opacity: 0.9 }));
+    gSeam.appendChild(svgel('circle', { cx: cx0, cy: cy0, r: 3.5, fill: C('locate') }));
+    const ring = 10 * sc; gSeam.appendChild(svgel('circle', { cx: cx0, cy: cy0, r: ring, fill: 'none', stroke: C('actuated'), 'stroke-dasharray': '4 3', opacity: 0.8 })); gSeam.appendChild(T(cx0 - ring - 4, cy0 - ring - 6, 'vernier reach ±10 mm', { fill: C('actuated'), 'font-size': 11, 'text-anchor': 'end' }));
+    let ex = cx0 + err.r * sc, ey = cy0 - err.z * sc, off = false; const clampv = (v, lo, hi) => { if (v < lo || v > hi) off = true; return Math.max(lo, Math.min(hi, v)); };
+    ex = clampv(ex, IX + 8, IX + IW - 8); ey = clampv(ey, IY + 8, IY + IH - 8);
+    gSeam.appendChild(L(ex - 9, ey, ex + 9, ey, C('laser'), 2)); gSeam.appendChild(L(ex, ey - 9, ex, ey + 9, C('laser'), 2));
+    gSeam.appendChild(T(IX + 8, IY + IH - 8, 'Δr ' + err.r.toFixed(1) + '   Δz ' + err.z.toFixed(1) + ' mm' + (off ? '  OFF SCALE' : ''), { fill: off ? '#ff8a80' : '#c8d0da', 'font-weight': 600 }));
+    // ---- readouts, badges, io
+    compR(a.cur.net.toFixed(2), 'N·m'); stR(state); winR(a.win.length ? a.win.map(w => w[0].toFixed(0) + '° to ' + w[1].toFixed(0) + '°').join(', ') : 'none');
+    microR(micro.mm.toFixed(1), 'mm'); dotR(err.r.toFixed(1) + ' / ' + err.z.toFixed(1), 'mm'); motR(bal.toFixed(1) + ' / ' + unb.toFixed(1), 'N·m');
+    const gL = 9.80665 * a.p.L * Math.cos(thEq * Math.PI / 180), tolFree = S.taf / gL, tolBrake = S.taf * 20 / gL;
+    tolR('±' + (tolFree * 1000).toFixed(0) + ' g / ±' + tolBrake.toFixed(2) + ' kg', '');
+    payR(a.cur.mTot.toFixed(2) + ' vs ' + S.md.toFixed(2) + ' kg', (a.cur.mTot - S.md >= 0 ? '+' : '−') + Math.abs((a.cur.mTot - S.md) * 1000).toFixed(0) + ' g');
+    const gunOnStage = S.parts ? S.mg : Math.min(S.m, 1.2), dTq = gunOnStage * 9.80665 * Math.abs(S.vx) / 1000;
+    vernR(dTq.toFixed(3) + ' N·m', (100 * dTq / a.taf).toFixed(0) + ' %');
+    const stopped = /stop|stalls/.test(state);
+    app.badge('creep', stopped ? 'the arm does not stay: ' + state + ' (residual torque ' + a.cur.net.toFixed(1) + ' N·m exceeds friction' + (S.drive === 'motor' ? ' + motor' : '') + ')' : null, 'limit');
+    app.badge('tol', Math.abs(a.cur.mTot - S.md) > tolFree && !S.brake && !stopped ? 'payload and spring differ by ' + (Math.abs(a.cur.mTot - S.md) * 1000).toFixed(0) + ' g: more than the ±' + (tolFree * 1000).toFixed(0) + ' g friction forgives at this angle' : null, 'warn');
+    const lowPay = a.cur.mTot < S.md * 0.75; app.badge('rate', lowPay ? 'payload ' + a.cur.mTot.toFixed(1) + ' kg is under the spring’s ' + S.md.toFixed(1) + ' kg setting: add ballast or use a lighter spring' : null, 'warn');
+    app.badge('reach', Math.hypot(err.r, err.z) > 10 && !stopped ? 'dot is ' + Math.hypot(err.r, err.z).toFixed(0) + ' mm from the seam: outside the vernier’s ±10 mm' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Vernier X / Z (actuators)', value: S.vx.toFixed(1) + ' / ' + S.vz.toFixed(1), unit: 'mm' }].concat(S.drive === 'motor' ? [{ name: 'Shoulder motor angle', value: S.thMotor.toFixed(1), unit: '°' }] : []).concat(S.brake ? [{ name: 'Brake', value: 'engaged' }] : []),
+      observes: [
+        { name: 'Dot vs seam (camera, proposed; scene truth here)', value: err.r.toFixed(1) + ' / ' + err.z.toFixed(1), unit: 'mm', status: 'partly', note: 'the arm cannot tell you this: pre-sliding hold error is ' + micro.mm.toFixed(0) + ' mm' },
+        { name: 'Shoulder angle (encoder, proposed)', value: thEq.toFixed(1), unit: '°', status: 'seen', note: 'says where the arm settled, not where the dot is' },
+        { name: 'Vernier position', value: S.vx.toFixed(1) + ' / ' + S.vz.toFixed(1), unit: 'mm', status: 'partly', note: 'open loop from step count unless it has a limit switch' },
+        { name: 'Payload / spring match', value: (a.cur.mTot).toFixed(1) + ' vs ' + S.md.toFixed(1), unit: 'kg', status: 'manual', note: 'set at build; the load cell in the vernier could measure the payload' },
+        { name: 'Arm friction and stiffness', value: '-', status: 'unresolved', note: 'never measured; every number here is illustrative' }],
+      manual: ['Choose or tune the spring; add ballast in the shell', 'Move the arm to the neighbourhood by hand (hand mode)', 'Clip the cable along the arm'] });
+  }
+  const g = app.ui.group('Arm and payload (scene edits)', { open: true });
+  g.slider({ id: 'm', label: 'Payload: gun + shell + stage + cable share', min: 0.6, max: 4, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', help: 'Illustrative; the gun mass is [unknown].', onChange: v => { S.m = v; update(); } });
+  g.slider({ id: 'ballast', label: 'Ballast in the shell', min: 0, max: 3, step: 0.1, value: 0, unit: 'kg', kind: 'scene', help: 'A printed pocket with steel shot: brings the payload up to the spring’s setting.', onChange: v => { S.ballast = v; update(); } });
+  g.slider({ id: 'md', label: 'Spring is set for', min: 0.5, max: 8, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', help: 'Starts matched to the payload. Off-the-shelf monitor arms are rated from about 2 kg up (see sourcing): set 2.0 and the arm rises to its stop.', onChange: v => { S.md = v; update(); } });
+  g.slider({ id: 'eps', label: 'Balance error away from the design angle', min: 0, max: 0.5, step: 0.01, value: 0.15, unit: '/rad', kind: 'scene', help: 'Fraction of the payload torque the spring is off per radian from 5°. Illustrative.', onChange: v => { S.eps = v; update(); } });
+  g.slider({ id: 'taf', label: 'Joint friction (adjustable tension)', min: 0.05, max: 1.5, step: 0.05, value: 0.4, unit: 'N·m', kind: 'scene', help: 'Illustrative. Holds the arm while the net torque stays below it.', onChange: v => { S.taf = v; update(); } });
+  g.toggle({ id: 'cableOnArm', label: 'Cable clipped along the arm', value: false, kind: 'scene', help: 'Adds cable weight to the payload and passes only a quarter of the pull to the gun.', onChange: v => { S.cableOnArm = v; update(); } });
+  g.slider({ id: 'dF', label: 'Change in cable pull at the tip', min: 0, max: 5, step: 0.25, value: 0, unit: 'N', kind: 'scene', help: 'What the umbilical does when the tube turns or the cable shifts.', onChange: v => { S.dF = v; update(); } });
+  g.toggle({ id: 'brake', label: 'Brake on the joint (state)', value: false, kind: 'state', help: 'Engaged for welding: friction ×20. Widens the window; does not stiffen the tip.', onChange: v => { S.brake = v; update(); } });
+  const pg = app.ui.group('Payload counted from parts (scene edits)', { open: false, help: 'borrowed-14: everything on the tip is payload, including the stage that does the locating.' });
+  pg.toggle({ id: 'parts', label: 'Count the payload from these parts', value: false, kind: 'scene', noVisual: true, help: 'On: the payload is the sum of the three below (and the slider above follows it). The cable share is the toggle above.', onChange: v => { S.parts = v; app.ui.enable('m', !v); ['mg', 'mvern', 'mcam'].forEach(id => app.ui.enable(id, v)); update(); } });
+  pg.slider({ id: 'mg', label: 'Gun and shell', min: 0.6, max: 2.5, step: 0.05, value: 1.2, unit: 'kg', kind: 'scene', help: 'Unknown: weigh it.', onChange: v => { S.mg = v; update(); } });
+  pg.slider({ id: 'mvern', label: 'XZ vernier stage with its motors', min: 0, max: 1.5, step: 0.05, value: 0.6, unit: 'kg', kind: 'scene', help: 'Two mini linear rails and motors: about 0.6 kg (illustrative; the listing gives no weight).', onChange: v => { S.mvern = v; update(); } });
+  pg.slider({ id: 'mcam', label: 'Camera and bracket', min: 0, max: 0.5, step: 0.01, value: 0.15, unit: 'kg', kind: 'scene', onChange: v => { S.mcam = v; update(); } });
+  const d = app.ui.group('Who moves the arm', { open: true });
+  d.radio({ id: 'drive', label: 'Arm is moved by', options: [{ value: 'hand', label: 'hand' }, { value: 'motor', label: 'shoulder motor' }], value: 'hand', kind: 'branch', help: 'A spring balance makes a small motor enough: it only has to overcome the residual and friction.', onChange: v => { S.drive = v; app.ui.enable('thHand', v === 'hand'); app.ui.enable('thMotor', v === 'motor'); app.ui.enable('motorT', v === 'motor'); update(); } });
+  d.slider({ id: 'thHand', label: 'Arm angle set by hand', min: -30, max: 50, step: 1, value: 5, unit: '°', kind: 'scene', help: 'Where you leave it. It settles where friction can hold it.', onChange: v => { S.thHand = v; update(); } });
+  d.slider({ id: 'thMotor', label: 'Shoulder motor command', min: -30, max: 50, step: 0.5, value: 5, unit: '°', kind: 'actuator', help: 'A proposed motor at the shoulder (one axis).', onChange: v => { S.thMotor = v; update(); } });
+  d.slider({ id: 'motorT', label: 'Motor torque available at the arm', min: 0.2, max: 8, step: 0.1, value: 1.0, unit: 'N·m', kind: 'scene', help: 'Illustrative: a small stepper with a 1:5 reduction. Below what the arm needs, it stalls and the arm creeps.', onChange: v => { S.motorT = v; update(); } });
+  const vg = app.ui.group('Vernier stage (software commands)', { open: true });
+  vg.slider({ id: 'vx', label: 'Vernier X (radial)', min: -10, max: 10, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', help: 'Moves the gun toward or away from the tube wall relative to the arm tip.', onChange: v => { S.vx = v; update(); } });
+  vg.slider({ id: 'vz', label: 'Vernier Z (vertical)', min: -10, max: 10, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', help: 'Raises or lowers the gun relative to the arm tip.', onChange: v => { S.vz = v; update(); } });
+  app.ui.enable('thMotor', false); app.ui.enable('motorT', false); ['mg', 'mvern', 'mcam'].forEach(id => app.ui.enable(id, false));
+})();
+</script>
+</body>
+</html>

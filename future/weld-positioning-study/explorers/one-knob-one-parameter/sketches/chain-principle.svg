@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <rect width="1000" height="700" fill="#ffffff"/>
+  <text x="14" y="24" font-size="15" font-weight="bold">Where each knob sits in the chain decides whether it changes one thing</text>
+
+  <!-- LEFT: isocentric -->
+  <text x="20" y="58" font-size="13" font-weight="bold">A. Isocentric: translations nearer ground, rotations through the dot</text>
+  <g stroke="#222" fill="none" stroke-width="1.2">
+    <rect x="30" y="80" width="170" height="30" fill="#eee"/>
+    <rect x="30" y="140" width="170" height="30" stroke="#1b6ac9"/>
+    <rect x="30" y="200" width="170" height="30" stroke="#555"/>
+    <rect x="30" y="260" width="170" height="30"/>
+    <rect x="30" y="320" width="170" height="30"/>
+    <rect x="270" y="140" width="170" height="30" stroke="#555"/>
+    <rect x="270" y="200" width="170" height="30" stroke="#1b6ac9"/>
+    <rect x="270" y="260" width="170" height="30" stroke="#1b6ac9"/>
+    <rect x="270" y="320" width="170" height="30" stroke="#27ae60"/>
+    <rect x="270" y="380" width="170" height="30"/>
+    <line x1="115" y1="110" x2="115" y2="140"/><line x1="115" y1="170" x2="115" y2="200"/>
+    <line x1="115" y1="230" x2="115" y2="260"/><line x1="115" y1="290" x2="115" y2="320"/>
+    <line x1="200" y1="95" x2="355" y2="95"/><line x1="355" y1="95" x2="355" y2="140"/>
+    <line x1="355" y1="170" x2="355" y2="200"/><line x1="355" y1="230" x2="355" y2="260"/>
+    <line x1="355" y1="290" x2="355" y2="320"/><line x1="355" y1="350" x2="355" y2="380"/>
+    <line x1="115" y1="350" x2="115" y2="450"/><line x1="355" y1="410" x2="355" y2="450"/>
+    <line x1="115" y1="450" x2="355" y2="450" stroke="#c0392b" stroke-width="2"/>
+  </g>
+  <text x="115" y="100" text-anchor="middle">baseplate (fixed)</text>
+  <text x="115" y="160" text-anchor="middle" fill="#1b6ac9">couch φ about dot's vertical</text>
+  <text x="115" y="220" text-anchor="middle" fill="#555">X slide, Y drawer</text>
+  <text x="115" y="280" text-anchor="middle">rotator (travel)</text>
+  <text x="115" y="340" text-anchor="middle">tube + corner</text>
+  <text x="355" y="160" text-anchor="middle" fill="#555">Z (moves the dot's height)</text>
+  <text x="355" y="220" text-anchor="middle" fill="#1b6ac9">hole angle about X line</text>
+  <text x="355" y="280" text-anchor="middle" fill="#1b6ac9">roll about grip axis</text>
+  <text x="355" y="340" text-anchor="middle" fill="#27ae60">standoff ∥ beam</text>
+  <text x="355" y="400" text-anchor="middle">shell + gun (beam)</text>
+  <circle cx="235" cy="450" r="5" fill="#c0392b"/>
+  <text x="235" y="472" text-anchor="middle" fill="#c0392b">the dot: work side and beam side meet here</text>
+  <text x="20" y="500" font-size="11">Turning any blue knob leaves the dot where it is, because its axis passes through the dot and nothing</text>
+  <text x="20" y="515" font-size="11">between it and the gun offsets the beam. Grey knobs move the dot itself; they sit nearer ground, so they</text>
+  <text x="20" y="530" font-size="11">carry every rotation with them. Standoff slides along the beam line, so it moves focus only.</text>
+
+  <!-- RIGHT: broken -->
+  <text x="560" y="58" font-size="13" font-weight="bold">B. A translation inside the rotations</text>
+  <g stroke="#222" fill="none" stroke-width="1.2">
+    <rect x="560" y="80" width="170" height="30" fill="#eee"/>
+    <rect x="560" y="140" width="170" height="30" stroke="#1b6ac9"/>
+    <rect x="560" y="200" width="170" height="30" stroke="#1b6ac9"/>
+    <rect x="560" y="260" width="170" height="30" stroke="#c0392b"/>
+    <rect x="560" y="320" width="170" height="30"/>
+    <line x1="645" y1="110" x2="645" y2="140"/><line x1="645" y1="170" x2="645" y2="200"/>
+    <line x1="645" y1="230" x2="645" y2="260"/><line x1="645" y1="290" x2="645" y2="320"/>
+  </g>
+  <text x="645" y="100" text-anchor="middle">stand (fixed)</text>
+  <text x="645" y="160" text-anchor="middle" fill="#1b6ac9">hole angle</text>
+  <text x="645" y="220" text-anchor="middle" fill="#1b6ac9">roll</text>
+  <text x="645" y="280" text-anchor="middle" fill="#c0392b">XY trim on the shell</text>
+  <text x="645" y="340" text-anchor="middle">gun (beam)</text>
+  <!-- small diagram: rotation centre vs beam offset -->
+  <g stroke="#222" fill="none">
+    <circle cx="840" cy="210" r="4" fill="#1b6ac9" stroke="#1b6ac9"/>
+    <line x1="840" y1="210" x2="920" y2="130" stroke="#1b6ac9" stroke-dasharray="4 3"/>
+    <line x1="855" y1="225" x2="935" y2="145" stroke="#c0392b" stroke-width="2"/>
+    <line x1="855" y1="225" x2="880" y2="300" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+    <circle cx="855" cy="225" r="3" fill="#c0392b" stroke="#c0392b"/>
+  </g>
+  <text x="760" y="195" font-size="11" fill="#1b6ac9">rotation centre</text>
+  <text x="870" y="240" font-size="11" fill="#c0392b">beam after trim</text>
+  <text x="530" y="400" font-size="11">After a trim of d on the shell, the beam no longer passes the rotation centre.</text>
+  <text x="530" y="415" font-size="11">Every later angle change θ now also moves the dot by about d·θ (in radians),</text>
+  <text x="530" y="430" font-size="11">and the operator cannot tell which of the two changes a bead responded to.</text>
+  <text x="530" y="445" font-size="11">0.5 mm trim, 10° roll → ~0.09 mm dot shift; 2 mm trim, 20° → ~0.7 mm.</text>
+
+  <!-- legend of three kinds of adjustment -->
+  <text x="20" y="585" font-size="13" font-weight="bold">Three kinds of adjustment, kept physically different</text>
+  <text x="20" y="607" font-size="11"><tspan font-weight="bold">Knob</tspan> — a weld parameter: graduated, approached from one direction, locked, written in the record (φ, X, Z, hole, roll, standoff, wire tip, wire angle).</text>
+  <text x="20" y="625" font-size="11"><tspan font-weight="bold">Calibration screw</tspan> — makes the axes meet the dot (beam through the isocentre, couch axis under it, Y offset). Set during a QA run, then painted over.</text>
+  <text x="20" y="643" font-size="11"><tspan font-weight="bold">Motion to a stop</tspan> — anything that must move to load a tube or clear a wire (standoff retract, Y drawer, park): it leaves and returns to a hard stop</text>
+  <text x="20" y="659" font-size="11">that the knob set, so moving out of the way never changes a setting.</text>
+</svg>

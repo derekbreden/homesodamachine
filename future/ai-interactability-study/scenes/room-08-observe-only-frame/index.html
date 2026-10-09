@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observe-only frame</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-08-observe-only-frame",
+  "title": "Observe-only frame: cameras on the side away from the hand, tags on the shell",
+  "by": "room",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The operator still holds and fires the gun; nothing is commanded but the rotator. A frame of extrusion stands round the bench with three cameras on kinematic mounts and fiducial tags on the barrel and the housing. The scene draws what the frame can and cannot see: which camera sees the dot, which sees the tags, how much of the corner the operator's forearm takes away depending on the side the operator stands, and what the frame records while the trigger is held. It answers eyes's reading of room-08: stations on the side away from the hand, tags on the barrel top and housing back, not the grip, and the dry dot and the bead as two separate recordings.",
+  "tags": ["observe only", "frame", "cameras", "fiducial tags", "operator arm", "recording", "hand-held"],
+  "branchOf": [],
+  "combines": ["eyes-15-what-the-holder-hides", "eyes-02-where-can-an-eye-stand"],
+  "transferable": ["cameras on the side away from the hand", "tags on the barrel, not the grip", "two recordings: the dry dot and the bead", "left- and right-hand presets"],
+  "how": {
+    "motion": "nothing moves: the operator holds the gun; the rotator turns as today",
+    "load": "the frame carries the cameras; the bench carries the rotator; the hand carries the gun",
+    "reference": "cameras are calibrated to the frame, the frame to the rotator by a tag on the nest",
+    "observe": "three cameras: the dot, the seam, tags on the shell, the forearm; rotator degrees",
+    "use": "weld by hand as today; the record is a good hand's trace; cue or replay later"
+  },
+  "software": {
+    "commands": ["rotator speed and direction (existing console)"],
+    "observes": ["the dot and the seam from the cameras that see them", "shell pose from tags on the barrel top and housing back", "the forearm as an occluder", "rotator turned-so-far degrees", "the process glow while the trigger is held (a separate recording)"],
+    "manual": ["everything else: holding, aiming, the trigger, the wire"]
+  },
+  "notes": ["../../explorers/room/ideas/room-08-observe-only-frame.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, J = WK.JOINT.clone(), RIM = WK.DIM.tubeHeight;
+  const S = { opAz: 250, hand: true, c1: 130, c2: 170, c3: 205, trig: false, lamp: false, fov: 50 };
+  const app = WK.app({
+    workstation: { benchSize: [1000, 900], benchCenter: [0, 0] }, gun: { pose: 'opening' }, view: 'overall',
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: { overall: { target: [0, -20, 230], dir: [0.7, -0.85, 0.5], dist: 1500 }, joint: { target: [40, -20, 190], dir: [0.6, -0.7, 0.45], dist: 560 }, top: { target: [0, 0, 200], dir: [0, -0.003, 1], dist: 1300 }, side: { target: [0, 0, 250], dir: [0.02, -1, 0.06], dist: 1500 } },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>The smallest change that already gives software something: <b>watch, move nothing</b>. The operator holds the gun as today. A rigid frame stands round the bench with three cameras on kinematic mounts (they can be taken off and put back where they were) and small fiducial tags on the printed shell. Software records the dot, the seam, the shell\'s pose and the rotator angle, and can say what it sees or cue the hand; the recording is the data a later arrangement teaches from.</p>' +
+        '<p><b>Try:</b> move the operator round the tube (<i>Operator side</i>) and watch which cameras keep the dot: the forearm takes cameras on the operator\'s side, so the three sit on the far side and beside. Switch the trigger on: the frame now records the process glow, not the dry dot.</p>',
+      carries:
+        '<p><b>Slate</b> is the frame and bench; <b>blue</b> are the proposed cameras (each on a kinematic mount) and <b>teal</b> the tags on the shell (barrel top, housing back). The hand and forearm are drawn as a green (compliant) cylinder: illustrative size, leaving the grip base 20° below horizontal toward the operator. Nothing carries the gun but the hand.</p>',
+      software:
+        '<p>Observed: the dot (a point source, easy to find), the seam edge, the tags (shell pose), the rotator degrees; the forearm is seen and can be masked. Commanded: nothing but the rotator\'s speed. The I/O panel lists, for the current camera places and operator side, what is seen or blind. The dry dot and the bead are two different recordings: with the trigger held the melt glows and the dot may not be visible (unknown), so the bead is recorded with a short exposure and a filter.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>"A frame camera sits above the tube."</b> Overhead cameras lose vertical sensitivity at the zenith and the operator\'s forearm is an occluder (eyes-15: 6 to 10 points of the dome from the +Y side, 0 to 1 behind the gun). <i>Repair:</i> put the cameras in the band 100° to 190° round the tube from the station (beside, far side low), on the side away from the hand, and keep a left-hand and a right-hand preset. The three defaults here are at 130°, 170° and 205°. <i>Leaves:</i> a real forearm, sleeve, head and the wire feeder are not drawn.</li>' +
+        '<li><b>Tags on a hand-held shell.</b> The hand covers the grip. A marker cube 40 to 80 mm behind the nozzle gives 0.14 to 0.21 mm at the dot with two cameras at 500 mm (eyes-03); from the housing 0.5 mm. So the dot, not the tag, is the precise thing, and the tags give the pose and the aim. <i>Leaves:</i> tag glare, and the tags sit where the umbilical and wire conduit are.</li>' +
+        '<li><b>During the bead the frame sees the process, not the dot.</b> Whether the red dot stays on with the trigger held is unknown (the manual does not say). <i>Repair:</i> two recordings, the dry dot and the bead; a melt-pool exposure with a neutral-density filter for the second. <i>Leaves:</i> whether the process light saturates a camera set for a 0.3&nbsp;mW dot.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul><li>From which side Derek stands, with which hand he holds the gun, and whether the dot stays on with the trigger held (each a photo or a minute at the machine).</li>' +
+        '<li>Would a recorded hand weld be useful as training data, and what does the operator see that no camera does (the puddle)?</li>' +
+        '<li>Camera calibration and drift; cameras\' mounting (kinematic, on the frame); the frame\'s stability against a person leaning on it.</li></ul>',
+      assumptions:
+        '<ul><li>Gun proxy at the opening pose; the forearm is a cylinder 76&nbsp;mm across and 300&nbsp;mm long, a hand block at the grip: illustrative. Camera field of view 26°, 520&nbsp;mm from the dot; stations are placed by azimuth from the tube\'s +X station.</li>' +
+        '<li>Camera views are drawn-scene line of sight (no optics, glare or fume); tag pose error figures are eyes-03\'s, illustrative.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(true);
+  // frame: four corner posts and top rails
+  const BZ = -86, TOPZ = 640;
+  [[-450, -400], [450, -400], [450, 400], [-450, 400]].forEach(p => app.add(P.rod(V(p[0], p[1], BZ), V(p[0], p[1], TOPZ), 9, 'fixed')));
+  [[-450, -400, 450, -400], [450, -400, 450, 400], [450, 400, -450, 400], [-450, 400, -450, -400]].forEach(q => app.add(P.rod(V(q[0], q[1], TOPZ), V(q[2], q[3], TOPZ), 6, 'fixed')));
+  // tags on the shell
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  const tagBarrel = shell.attachPoint('barrelMid', { side: 'top', role: 'locate', size: 9 }), tagHousing = shell.attachPoint('housingBack', { side: 'back', role: 'locate', size: 9 });
+  // the hand: a forearm cylinder leaving the grip base 20 degrees below horizontal toward the operator, a hand block on the grip
+  // roles 'ghost', 'sensor' and 'laser' never occlude in the kit, so a person is drawn as 'compliant'
+  const forearm = P.rod(V(0, 0, 0), V(0, 0, 1), 38, 'compliant'), handBox = P.box(90, 60, 36, 'compliant'); app.add(forearm); app.add(handBox);
+  // cameras
+  const CAM = [{ k: 'C1', el: 45, r: 520, corner: 'bl', label: 'C1 beside, up 45° (frame)' }, { k: 'C2', el: 22, r: 520, corner: 'br', label: 'C2 far side, up 22° (frame)' }, { k: 'C3', el: 10, r: 480, corner: 'tr', label: 'C3 far side low (frame)' }];
+  const camPos = CAM.map(() => V(0, 0, 0));
+  CAM.forEach((c, i) => { c.ins = app.inset.add({ id: c.k, label: c.label, position: camPos[i], target: () => gun.dotWorld(), fov: S.fov, near: 40, far: 2200, size: [200, 130], corner: c.corner, noise: 0.2 }); app.label(camPos[i], c.k, { cls: 'sensor' }); });
+  const kin = CAM.map(() => { const b = P.box(22, 22, 8, 'locate'); app.add(b); return b; });   // kinematic mount plates on the rails
+  app.cornerInset({ gun: gun });
+  const glow = P.sphere(6, 'laser'); glow.userData.occludes = false; app.add(glow);
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => tagBarrel.world(), 'tag: barrel top', { cls: 'locate' });
+  app.label(() => tagHousing.world(), 'tag: housing back', { cls: 'locate' });
+  app.label(forearm, 'operator\'s forearm (occluder)', { cls: 'compliant' });
+  const az = { C1: () => S.c1, C2: () => S.c2, C3: () => S.c3 };
+  function update() {
+    gun.setDials(45, 30, -15); gun.group.updateMatrixWorld(true);
+    const dot = gun.dotWorld().clone(), grip = gun.local('gripBase').clone(), gm = gun.local('gripMid').clone();
+    // hand and forearm
+    const a = S.opAz * DEG, dir = V(Math.cos(a) * Math.cos(-20 * DEG), Math.sin(a) * Math.cos(-20 * DEG), Math.sin(-20 * DEG));
+    forearm.setEnds(grip.clone().addScaledVector(dir, 20), grip.clone().addScaledVector(dir, 320)); forearm.visible = S.hand; handBox.position.copy(gm); handBox.quaternion.copy(gun.group.quaternion); handBox.visible = S.hand;
+    glow.position.copy(dot); glow.visible = S.trig; glow.scale.setScalar(1.6);
+    // cameras by azimuth from the +X station (eyes' convention), placed round the dot
+    const seesDot = [], seesTagB = [], seesTagH = [];
+    CAM.forEach((c, i) => {
+      const A = az[c.k]() * DEG; camPos[i].set(J.x + c.r * Math.cos(c.el * DEG) * Math.cos(A), J.y + c.r * Math.cos(c.el * DEG) * Math.sin(A), J.z + c.r * Math.sin(c.el * DEG)); c.ins.setPose(camPos[i], () => gun.dotWorld());
+      const rail = camPos[i].clone(); kin[i].position.set(Math.max(-445, Math.min(445, rail.x)), Math.max(-395, Math.min(395, rail.y)), Math.min(TOPZ - 4, rail.z));
+      const toC = camPos[i].clone().sub(dot).normalize();
+      const dp = dot.clone().addScaledVector(toC, 0.4);
+      c.ins.setFov(S.fov);
+      const tb = app.inset.markVisibility(c.k, tagBarrel.world(), { eps: 4, ignore: [tagBarrel.lug] }), th = app.inset.markVisibility(c.k, tagHousing.world(), { eps: 4, ignore: [tagHousing.lug] }), d = app.inset.markVisibility(c.k, dp, { eps: 0.8 });   // the dot last: the inset border shows it
+      seesDot.push(d.visible); seesTagB.push(tb.visible); seesTagH.push(th.visible);
+    });
+    const nDot = seesDot.filter(Boolean).length, nTag = seesTagB.map((v, i) => v && seesTagH[i]).filter(Boolean).length;
+    app.badge('dot', nDot < 2 ? (nDot === 0 ? 'no camera sees the dot at this operator side' : 'only one camera sees the dot: no triangulation') : null, nDot === 0 ? 'limit' : 'warn');
+    app.badge('trig', S.trig ? 'trigger held: the frame records the process glow; whether the red dot stays on is unknown' : null, 'info');
+    setDot(nDot + ' of 3'); setTag(nTag + ' of 3');
+    const st = c => c ? 'seen' : 'blind';
+    app.io.set({
+      commands: [{ name: 'Rotator speed / direction', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing ESP32 console; nothing else is commanded' }],
+      observes: [
+        { name: 'Dot in C1 / C2 / C3', value: seesDot.map(v => (v ? 'seen' : 'blind')).join(' / '), status: nDot >= 2 ? 'partly' : (nDot === 1 ? 'partly' : 'blind'), note: 'drawn-scene line of sight; the forearm and the wall are the occluders' },
+        { name: 'Tags (barrel top and housing back) in C1 / C2 / C3', value: seesTagB.map((v, i) => (v && seesTagH[i] ? 'both' : (v || seesTagH[i] ? 'one' : 'none'))).join(' / '), status: nTag >= 2 ? 'partly' : 'blind', note: 'shell pose from two cameras: 0.14 to 0.21 mm at the dot behind the nozzle (eyes-03, illustrative)' },
+        { name: 'Operator\'s forearm', value: S.hand ? 'seen as an occluder' : 'not drawn', status: 'partly', note: 'a cylinder here; a real arm, sleeve and head are not drawn' },
+        { name: 'Rotator turned-so-far', value: 'degrees', status: 'seen', note: 'from the existing console; the seam angle for the record' },
+        { name: 'Dot while the trigger is held', value: S.trig ? 'unknown' : '-', status: 'unresolved', note: 'the manual does not say whether the red dot stays on; a second recording with an ND filter reads the melt' },
+        { name: 'Trigger time, hand force, the puddle', value: '-', status: 'blind' },
+      ],
+      manual: ['Hold, aim, fire, place the wire by hand', 'Load, indicate, tack (as today)', 'Set the camera mounts and the operator preset (left or right hand)'],
+    });
+  }
+  const setDot = app.ui.readout('rdot', 'Cameras that see the dot'), setTag = app.ui.readout('rtag', 'Cameras that see both tags');
+  const g = app.ui.group('The operator (scene edits)', { help: 'Where the person stands round the tube, from +X; the gun stays at the opening pose.' });
+  g.slider({ id: 'opaz', label: 'Operator side (azimuth from the +X station)', min: 0, max: 360, step: 5, value: 250, unit: '°', kind: 'scene', visual: () => [forearm, handBox], help: '250° puts the operator behind the gun (the -Y side); 90° is the +Y side, where the forearm costs the most.', onChange: v => { S.opAz = v; update(); } });
+  g.toggle({ id: 'hand', label: 'Draw the hand and forearm (occluder)', value: true, kind: 'scene', visual: () => [forearm, handBox], onChange: v => { S.hand = v; update(); } });
+  g.toggle({ id: 'trig', label: 'Trigger held (the bead)', value: false, kind: 'state', visual: () => [glow], help: 'The frame now records the process, not the dry dot.', onChange: v => { S.trig = v; update(); } });
+  g.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; update(); } });
+  const gc = app.ui.group('The three cameras (scene edits: where they sit on the frame)', { help: 'Azimuth about the tube from +X (the station). eyes-02 found the good stations at 100 to 190°.' });
+  gc.slider({ id: 'c1', label: 'C1 azimuth (beside, up 45°)', min: 0, max: 360, step: 5, value: 130, unit: '°', kind: 'scene', visual: () => [kin[0]], onChange: v => { S.c1 = v; update(); } });
+  gc.slider({ id: 'c2', label: 'C2 azimuth (far side, up 22°)', min: 0, max: 360, step: 5, value: 170, unit: '°', kind: 'scene', visual: () => [kin[1]], onChange: v => { S.c2 = v; update(); } });
+  gc.slider({ id: 'c3', label: 'C3 azimuth (far side low, up 10°)', min: 0, max: 360, step: 5, value: 205, unit: '°', kind: 'scene', visual: () => [kin[2]], onChange: v => { S.c3 = v; update(); } });
+  gc.slider({ id: 'fov', label: 'Camera field of view', min: 20, max: 75, step: 1, value: 50, unit: '°', kind: 'scene', visual: 'the camera frusta', help: 'At 520 mm the housing-back tag is 230 mm from the dot: it needs about 50° to share a frame with it. A wider view costs pixels on the dot: 1920 px across 485 mm at 50° is 0.25 mm per pixel.', onChange: v => { S.fov = v; update(); } });
+  gc.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => ws.setGhost(v) });
+  window.__room08 = { S: S, update: update };
+})();
+</script>
+</body>
+</html>

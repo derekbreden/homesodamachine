@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sled keel</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sk { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 14px 16px; align-items: start; }
+  .sk h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .sk svg { width: 100%; height: auto; display: block; background: #0b0f14; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .sk text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .sk .lab { fill: #e7ebf1; }
+  .sk table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  .sk th, .sk td { border: 1px solid var(--wk-line); padding: 4px 8px; text-align: left; vertical-align: top; }
+  .sk th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .sk td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sk .note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .sk .good { color: #34d399; } .sk .bad { color: #f87171; } .sk .mid { color: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-15-sled-keel",
+  "title": "Sled keel: gravity as a spring you choose, a damper, and where the cable is anchored",
+  "by": "borrowed",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "A camera-stabiliser sled is freedom-08's plumb-bob gun in a product: a gimbal above the centre of mass, a bottom weight that sets how stiff gravity is, and a fluid damper. The scene rings the pendulum with a step of cable pull and shows what the keel, the damper and the point where the cable is anchored each change.",
+  "tags": ["gravity tilt", "keel", "damper", "camera stabiliser", "umbilical", "pendulum"],
+  "branchOf": ["freedom-08-gravity-tilt"],
+  "combines": ["freedom-08-gravity-tilt", "freedom-02-balanced-arm", "freedom-14-hand-plus-guidance"],
+  "transferable": ["bottom weight as a chosen gravity spring", "drop time as a way to measure the spring", "anchor the cable at the pivot", "a keel fills a carrier's payload floor"],
+  "how": {
+    "motion": "no tilt actuator: gravity restores; an optional trim mass on a screw nudges the equilibrium",
+    "load": "the gimbal pivot carries everything (gun, keel), hung from an arm or balancer",
+    "reference": "plumb: the total centre of mass hangs under the pivot",
+    "observe": "an IMU on the shell reads tilt from gravity; nothing here reads the dot",
+    "use": "a step of cable pull at bead start rings the pendulum; the trim loop takes the slow part"
+  },
+  "software": {
+    "commands": ["trim mass position on its screw (optional loop)"],
+    "observes": ["tilt from an IMU (not drawn as a sensor)", "trim mass position (step count)"],
+    "manual": ["choosing the pivot, keel mass and length", "fitting the damper", "routing the cable to the pivot"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-15-sled-keel.md", "../../explorers/freedom/ideas/freedom-08-gravity-tilt.md", "../../explorers/freedom/ideas/freedom-15-pull-ledger.md"],
+  "sources": ["../../sourcing/borrowed.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/borrowed/calc/sled.js"></script>
+<script>
+(function () {
+  const S = WK.svg, H = WK.h, SM = SledModel, D2R = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 440,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>A handheld camera stabiliser (Steadicam-style, FLYCAM, Glidecam) is a gun on a gimbal: the handle carries a three-axis bearing above the load, the camera sits on a fine-tune stage that shifts its centre of mass under the bearing, and a <b>bottom weight</b> hangs below on a post. Nothing tilts it; gravity does. freedom-08 has the plumb bob and its trim mass but no keel and no time axis. Here a pull step at the start of the bead rings the pendulum, and three things are yours to set: the <b>keel</b> (how stiff gravity is), the <b>damper</b> (a video fluid head is a rotary viscous damper with an adjustable drag) and the <b>lever of the cable</b> (where its pull acts about the pivot).</p>' +
+        '<p>Press <b>Replay the bead start</b> or change any slider: the drawn gun rotates for real (multiply the drawing with the exaggeration slider when the motion is small). The right-hand trace is the dot in millimetres against the tolerance band.</p>',
+      carries: '<p>The pivot carries the whole payload: gun, shell and keel. The arm or balancer that holds the pivot sees that total. That is useful: the keel is the mass that lifts a light gun above the payload floor of a gas-spring arm (freedom-02 needs 2 kg or more). Trim: a 100 g mass on a screw moves the equilibrium; the keel makes each millimetre of it a smaller tilt and the whole range a smaller angle.</p>',
+      software: '<p>Software has one job here: the tilt loop of freedom-08, an IMU reads the tilt and a trim mass on a screw walks to null it slowly. The scene shows how little torque that is (about 0.03 N&middot;m for 100 g and &plusmn;30 mm) beside the torque of a step of cable pull at a 145 mm lever (0.15 N&middot;m per newton). Everything faster than the loop is the pendulum and the damper, and both are passive.</p>',
+      tried: '<p><b>Round 1: freedom-08 as drawn rings.</b> With no keel (pivot at the housing top, spring 0.42 N&middot;m/rad) the period is about 1 s and the bearing damping ratio 0.03. A 1 N step at a 145 mm lever leans the gun about 20&deg; (69 mm at the dot in the small-angle formula) and the first swing goes to twice that. freedom-08 counted the lean; the ringing is extra.</p>' +
+        '<p><b>Round 2: a keel divides the lean by four, not by a hundred.</b> 0.6 kg on a 200 mm post raises the spring to 1.60 N&middot;m/rad, the payload to 1.8 kg and the lean per newton from 69 to 18 mm. To get 0.15 mm per newton out of gravity alone the cable&rsquo;s line of action must pass within 0.3 mm (no keel) or 1.2 mm (this keel) of the pivot, and no keel gets that from a route.</p>' +
+        '<p><b>Round 3: a damper turns ringing into settling.</b> Critical damping for the default is 0.47 N&middot;m&middot;s/rad. What a fluid head can supply is unmeasured (the drag is set by a knob; nothing on the listings gives it), so the scene asks for the number, and the drag test is a spring scale on the handle.</p>' +
+        '<p><b>Round 4: the cable is anchored at the pivot.</b> Put the cable&rsquo;s collar on the gimbal axis (the fibre passes through a hollow ball, straight, at its own bend radius) and the force has no lever. The lean per newton goes to zero within the drawing. What is left is the couple a fibre clamped at the exit applies when it leaves the clamp already bent: at most EI over the radius (0.14 N&middot;m for the placeholder EI 0.05 N&middot;m&sup2; at 350 mm), zero if it leaves straight. The slider is there because 0.05 N&middot;m of couple alone still moves the dot 6 mm.</p>' +
+        '<p><b>Round 5: the trim loop is a trim.</b> 100 g on &plusmn;30 mm is 0.029 N&middot;m: it cancels a change of pull of 0.2 N at 145 mm, not 1 N. It is the slow, fine part; the pendulum, the damper and the anchor point do the rest.</p>',
+      unresolved: '<ul><li>The gun&rsquo;s mass and centre of mass (thread at two points), the umbilical&rsquo;s pull and its couple at the exit, and how it changes at bead start: <b>[unknown]</b>. Everything drawn is a placeholder.</li>' +
+        '<li>A fluid head&rsquo;s damping in N&middot;m&middot;s/rad at a given drag setting: no listing states it. A spring scale on the handle at a known speed gives it.</li>' +
+        '<li>Yaw (about the vertical) has no gravity spring at all. This scene is one axis: pitch about a horizontal gimbal axis. The other horizontal axis (roll) behaves the same way with its own COM offset; yaw needs the tail bungee of freedom-01b or a motor.</li>' +
+        '<li>Whether the keel post and the operator, the tube and the fibre can share the space below the gun (the bench limit is drawn at 140 mm below the dot).</li>' +
+        '<li>Friction of a real gimbal (stick at small angles) is not modelled: the bearing term is a small viscous number.</li></ul>',
+      assumptions: '<ul><li>Everything is <b>illustrative</b>: gun and shell 1.2 kg, COM 36 mm below the pivot (freedom-08: 0.42 N&middot;m/rad at the housing top), keel 0.6 kg on a 200 mm post, pivot 202 mm from the dot, cable lever 145 mm, step 1 N, tolerance &plusmn;0.15 mm, bead 8 mm/s [repo], trim 100 g on &plusmn;30 mm at 5 mm/s.</li>' +
+        '<li>The model is one rigid rotation with sin(th) gravity and viscous damping. No friction, no flexible shell, no coupling to the other rotations. The dot shift is (pivot-to-dot) &times; angle.</li>' +
+        '<li>Product facts are from listings: FLYCAM HD-3000 sled with a 3-axis ball-bearing gimbal and micro-balance knobs (payload to 3.5 kg), and video fluid heads with stepped pan/tilt drag. Their damping values are not on the listings. Drop-time practice (2 to 3 s) is from operator documentation found by search, unchecked.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code> (FLYCAM HD-3000, fluid heads) and <code>explorers/freedom/ideas/freedom-08-gravity-tilt.md</code>, <code>freedom-15-pull-ledger.md</code>.</p>',
+    },
+  });
+
+  // ---------- layout
+  const root = H('div', { class: 'sk' });
+  app.stageEl.appendChild(root);
+  const VW = 640, VH = 500, SC = 0.9;                       // px per mm in the side view
+  const svg = S('svg', { viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'side view of the gun hung from a gimbal with a keel' });
+  const PX = 300, PY = 150;                                 // pivot
+  const bench = S('line', { x1: 20, x2: VW - 20, stroke: '#4b5665', 'stroke-width': 2 });
+  const benchLab = S('text', { x: 24, text: 'bench' });
+  const plumb = S('line', { x1: PX, y1: PY - 100, x2: PX, y2: 470, stroke: '#394559', 'stroke-dasharray': '4 4' });
+  const post = S('rect', { x: PX - 5, y: PY - 110, width: 10, height: 84, rx: 2, fill: '#556074' });
+  const carrierLab = S('text', { x: PX - 12, y: PY - 92, 'text-anchor': 'end', class: 'lab', text: 'arm or balancer holds the pivot' });
+  const carrierLab2 = S('text', { x: PX - 12, y: PY - 79, 'text-anchor': 'end', text: '' });
+  const damp = S('g');
+  damp.append(S('rect', { x: PX - 24, y: PY - 26, width: 48, height: 16, rx: 4, fill: '#5b6b86', stroke: '#8ea0bd' }), S('text', { x: PX + 30, y: PY - 14, class: 'lab', text: 'rotary damper (fluid head)' }));
+  const rot = S('g');                                       // everything that rotates with the gun
+  const gunG = S('g'), keelG = S('g'), cableG = S('g');
+  rot.append(gunG, keelG, cableG);
+  const piv = S('circle', { cx: PX, cy: PY, r: 6, fill: '#f5a524', stroke: '#111', 'stroke-width': 1.5 });
+  const pivLab = S('text', { x: PX + 10, y: PY + 4, class: 'lab', text: 'gimbal pivot' });
+  const dotG = S('g'), dotHalo = S('circle', { r: 8, fill: 'none', stroke: '#ff3b30', 'stroke-width': 1.2 }), dotC = S('circle', { r: 3.6, fill: '#ff3b30' });
+  const ghost = S('circle', { r: 4, fill: 'none', stroke: '#ffffff', 'stroke-dasharray': '2 2', opacity: 0.7 });
+  const dotLab = S('text', { class: 'lab', text: 'dot' });
+  dotG.append(dotHalo, dotC);
+  const seamG = S('g'); seamG.append(S('rect', { x: -60, y: 5, width: 60, height: 6, fill: '#7e8896' }), S('rect', { x: 0, y: -20, width: 6, height: 31, fill: '#c8d0da' }), S('text', { x: -58, y: 26, text: 'plate and wall (section)' }));
+  svg.append(bench, benchLab, plumb, seamG, post, carrierLab, carrierLab2, rot, damp, piv, pivLab, ghost, dotG, dotLab);
+  const cap = H('p', { class: 'note', text: '' });
+  const left = H('div', null, H('h3', { text: 'Side view: one rotation (pitch about the gimbal). Drawn rotation is true angle times the exaggeration.' }), svg, cap);
+  root.appendChild(left);
+  const CHW = 520, CHH = 230, chart = S('svg', { viewBox: '0 0 ' + CHW + ' ' + CHH });
+  const right = H('div');
+  right.append(H('h3', { text: 'Dot away from the seam after the cable pull steps (mm; the model, not a sensor)' }), chart);
+  const tbl = H('div'); right.append(H('h3', { text: 'What the numbers say', style: { marginTop: '12px' } }), tbl);
+  root.appendChild(right);
+  const tracePoly = S('polyline', { fill: 'none', stroke: '#f5a524', 'stroke-width': 1.8 }), curs = S('circle', { r: 3.5, fill: '#fff' });
+  const tolTop = S('line', { stroke: '#ef4444', 'stroke-dasharray': '4 3' }), tolBot = S('line', { stroke: '#ef4444', 'stroke-dasharray': '4 3' });
+  const axis0 = S('line', { x1: 40, x2: CHW - 8, stroke: '#394559' });
+  const yTop = S('text', { x: 4, y: 16 }), yBot = S('text', { x: 4, y: CHH - 22 });
+  const tolLab = S('text', { x: CHW - 190, y: 14, style: 'fill:#ef4444' });
+  chart.append(axis0, tolTop, tolBot, tracePoly, curs, yTop, yBot, tolLab, S('text', { x: 40, y: CHH - 6, text: '0 s' }), S('text', { x: CHW - 30, y: CHH - 6, text: '10 s' }), S('text', { x: 170, y: CHH - 6, text: 'step of pull at 0.5 s' }));
+
+  // ---------- state
+  const P = { M: 1.2, lc: 0.036, mk: 0.6, dk: 0.20, c: 0.02, dF: 1.0, e: 0.145, dC: 0, elldot: 0.202, trim: false, exag: 1, repeat: true };
+  let res = null, tcur = 0;
+  const TEND = 10;
+  function recompute() {
+    res = SM.simulate({ M: P.M, lc: P.lc, mk: P.mk, dk: P.dk, c: P.c, dF: P.dF, e: P.e, dC: P.dC, elldot: P.elldot, trim: P.trim }, TEND, 0.004);
+    tcur = 0; drawChart(); drawStatic(); drawTable();
+  }
+  const f1 = (v, n) => v.toFixed(n == null ? 1 : n);
+  function traceAt(t) { const i = Math.min(res.trace.length - 1, Math.max(0, Math.round(t / 0.004))); return res.trace[i]; }
+  // ---------- drawing
+  function dotRest() { const l = P.elldot * 1000 * SC; return [PX - l * Math.SQRT1_2, PY + l * Math.SQRT1_2]; }
+  function drawStatic() {
+    const dr = dotRest(), ax = [Math.SQRT1_2, -Math.SQRT1_2], nrm = [Math.SQRT1_2, Math.SQRT1_2];   // gun axis up-right, normal to the grip side
+    const benchY = dr[1] + 140 * SC;
+    bench.setAttribute('y1', benchY); bench.setAttribute('y2', benchY); benchLab.setAttribute('y', benchY + 14);
+    seamG.setAttribute('transform', 'translate(' + dr[0].toFixed(1) + ' ' + (dr[1] - 3).toFixed(1) + ')');
+    // gun body: a rounded bar along the axis from just behind the nozzle to the housing back, plus a grip block on the grip side
+    const tip = [dr[0] + ax[0] * 16 * SC, dr[1] + ax[1] * 16 * SC], back = [dr[0] + ax[0] * 300 * SC, dr[1] + ax[1] * 300 * SC];
+    const ang = Math.atan2(ax[1], ax[0]) * 180 / Math.PI, len = 284 * SC;
+    gunG.innerHTML = '';
+    gunG.append(S('rect', { x: 0, y: -9, width: len, height: 18, rx: 6, fill: '#4b5665', stroke: '#9aa7ba', transform: 'translate(' + tip[0].toFixed(1) + ' ' + tip[1].toFixed(1) + ') rotate(' + ang.toFixed(1) + ')' }));
+    const gb = [dr[0] + ax[0] * 210 * SC + nrm[0] * 30 * SC, dr[1] + ax[1] * 210 * SC + nrm[1] * 30 * SC];
+    gunG.append(S('rect', { x: -12, y: -8, width: 24, height: 78 * SC, rx: 6, fill: '#3a4453', stroke: '#9aa7ba', transform: 'translate(' + gb[0].toFixed(1) + ' ' + gb[1].toFixed(1) + ') rotate(' + (ang + 90).toFixed(1) + ')' }));
+    gunG.append(S('text', { x: tip[0] + 26, y: tip[1] - 26, class: 'lab', text: 'gun in its shell' }));
+    // COM marker
+    gunG.append(S('circle', { cx: PX, cy: PY + P.lc * 1000 * SC, r: 4, fill: '#34d399' }), S('text', { x: PX - 92, y: PY + P.lc * 1000 * SC + 4, class: 'lab', text: 'gun centre of mass' }));
+    // keel: post and mass, straight down from the pivot
+    keelG.innerHTML = '';
+    if (P.mk > 0.001 && P.dk > 0.001) {
+      const yk = PY + P.dk * 1000 * SC, rk = 5 + 9 * Math.cbrt(P.mk);
+      keelG.append(S('line', { x1: PX, y1: PY, x2: PX, y2: yk, stroke: '#9aa7ba', 'stroke-width': 4 }), S('circle', { cx: PX, cy: yk, r: rk, fill: '#b08d3c', stroke: '#111' }), S('text', { x: PX + rk + 6, y: yk + 4, class: 'lab', text: 'keel ' + f1(P.mk, 2) + ' kg at ' + f1(P.dk * 1000, 0) + ' mm' }));
+    }
+    // cable: a line of action parallel to the axis at lever e on the grip side, from the grip base outward, with the lever drawn
+    cableG.innerHTML = '';
+    const eP = P.e * 1000 * SC, p0 = [PX + nrm[0] * eP + ax[0] * 40, PY + nrm[1] * eP + ax[1] * 40], p1 = [p0[0] + ax[0] * 150, p0[1] + ax[1] * 150];
+    cableG.append(S('line', { x1: PX, y1: PY, x2: PX + nrm[0] * eP, y2: PY + nrm[1] * eP, stroke: '#7dd3fc', 'stroke-dasharray': '3 3' }));
+    cableG.append(S('line', { x1: p0[0] - ax[0] * 90, y1: p0[1] - ax[1] * 90, x2: p1[0], y2: p1[1], stroke: '#9aa7ba', 'stroke-width': 3, 'stroke-dasharray': P.e < 0.002 ? '' : '' }));
+    cableG.append(S('polygon', { points: [p1[0], p1[1], p1[0] - ax[0] * 14 - ax[1] * 6, p1[1] - ax[1] * 14 + ax[0] * 6, p1[0] - ax[0] * 14 + ax[1] * 6, p1[1] - ax[1] * 14 - ax[0] * 6].map(v => v.toFixed(1)).join(' '), fill: '#f5a524' }));
+    cableG.append(S('text', { x: p1[0] - 210, y: p1[1] - 6, class: 'lab', text: 'cable pull change ' + f1(P.dF, 1) + ' N, lever ' + f1(P.e * 1000, 0) + ' mm' }));
+    carrierLab2.textContent = 'sees ' + f1(P.M + P.mk, 2) + ' kg';
+    ghost.setAttribute('cx', dr[0]); ghost.setAttribute('cy', dr[1]);
+    dotLab.setAttribute('x', dr[0] - 60); dotLab.setAttribute('y', dr[1] + 30);
+    // bench limit
+    const ymax = benchY - 10, kmax = (ymax - PY) / SC / 1000; app.badge('keel', P.mk > 0.001 && P.dk > kmax ? 'keel post is longer than the room to the bench (' + f1(kmax * 1000, 0) + ' mm)' : null, 'limit');
+    drawMoving(0);
+  }
+  function drawMoving(t) {
+    const s = traceAt(t), dr = dotRest(), a = -s.th * P.exag * 180 / Math.PI;
+    rot.setAttribute('transform', 'rotate(' + a.toFixed(3) + ' ' + PX + ' ' + PY + ')');
+    const rr = P.exag * s.th, c = Math.cos(-rr), sn = Math.sin(-rr), vx = dr[0] - PX, vy = dr[1] - PY;
+    const dx = PX + c * vx - sn * vy, dy = PY + sn * vx + c * vy;
+    dotG.setAttribute('transform', 'translate(' + dx.toFixed(1) + ' ' + dy.toFixed(1) + ')');
+    cap.textContent = 't = ' + f1(t, 1) + ' s   dot ' + f1(s.dot, 2) + ' mm   tilt ' + f1(s.th * 180 / Math.PI, 2) + '°   drawn x' + P.exag + (P.trim ? '   trim mass at ' + f1(s.x * 1000, 1) + ' mm' : '');
+    const px = 40 + (t / TEND) * (CHW - 48); curs.setAttribute('cx', px.toFixed(1)); curs.setAttribute('cy', yOf(s.dot).toFixed(1));
+  }
+  let yMax = 1, yOf = v => 0;
+  function drawChart() {
+    let pk = 0; res.trace.forEach(r => { pk = Math.max(pk, Math.abs(r.dot)); }); yMax = Math.max(0.4, pk * 1.15);
+    const mid = CHH / 2 - 8, hh = (CHH - 50) / 2;
+    yOf = v => mid - v / yMax * hh;
+    axis0.setAttribute('y1', mid); axis0.setAttribute('y2', mid);
+    const tol = SM.DEF.tol; tolTop.setAttribute('x1', 40); tolTop.setAttribute('x2', CHW - 8); tolBot.setAttribute('x1', 40); tolBot.setAttribute('x2', CHW - 8);
+    tolTop.setAttribute('y1', yOf(tol)); tolTop.setAttribute('y2', yOf(tol)); tolBot.setAttribute('y1', yOf(-tol)); tolBot.setAttribute('y2', yOf(-tol));
+    tolLab.textContent = 'tolerance band ±' + tol + ' mm (illustrative)';
+    yTop.textContent = '+' + f1(yMax, yMax < 3 ? 2 : 0) + ' mm'; yBot.textContent = '−' + f1(yMax, yMax < 3 ? 2 : 0);
+    const pts = []; for (let i = 0; i < res.trace.length; i += 4) { const r = res.trace[i]; pts.push((40 + r.t / TEND * (CHW - 48)).toFixed(1) + ',' + yOf(r.dot).toFixed(1)); }
+    tracePoly.setAttribute('points', pts.join(' '));
+  }
+  function drawTable() {
+    const r = res, ok = r.beadOut < 1, cls = ok ? 'good' : (r.beadOut < 20 ? 'mid' : 'bad');
+    const rows = [
+      ['Gravity spring K = S g', f1(r.K, 2) + ' N·m/rad', 'freedom-08 as drawn: 0.42 (housing top). S = M lc + keel mass × length = ' + f1(r.S * 1000, 0) + ' g·m'],
+      ['Period, and drop time', f1(r.T, 2) + ' s, ' + f1(r.drop, 2) + ' s', 'a sled operator tunes drop time to 2 to 3 s (a slow pendulum); a stiff one rings faster'],
+      ['Damping ratio', f1(r.zeta, 2), 'critical damper for these masses: ' + f1(r.ccrit, 2) + ' N·m·s/rad (set now: ' + f1(P.c, 2) + ')'],
+      ['Torque of the step', f1(r.tau * 1000, 0) + ' N·mm', f1(P.dF, 1) + ' N × ' + f1(P.e * 1000, 0) + ' mm lever + couple ' + f1(P.dC * 1000, 0) + ' N·mm'],
+      ['Static lean and dot shift', f1(r.thss * 180 / Math.PI, 2) + '°, ' + f1(r.dotss, 2) + ' mm', f1(r.mmPerN, 1) + ' mm per newton of pull change at this lever'],
+      ['Largest excursion', f1(r.peak, 2) + ' mm', 'at ' + f1(Math.max(0, r.peakT - 0.5), 2) + ' s after the step' + (r.zeta < 1 ? ' (the first swing overshoots the static lean)' : ' (critically damped or over: it creeps to the static lean)')],
+      ['Bead spent outside ±0.15 mm', '<span class="' + cls + '">' + f1(r.beadOut, 0) + ' mm</span>', 'in the 9.5 s after the step at 8 mm/s [repo]'],
+      ['Cable lever for 0.15 mm per newton', f1(0.15 / Math.max(1e-9, r.mmPerN) * P.e * 1000, 2) + ' mm', 'the line of action must pass this close to the pivot (or the step be this small)'],
+      ['Trim mass authority', f1(r.trimAuth * 1000, 0) + ' N·mm', 'cancels ' + (P.e > 0 ? f1(r.trimPull, 2) + ' N of pull change at this lever' : 'anything (no lever)') + ' (100 g, ±30 mm)'],
+      ['Payload the carrier sees', f1(r.mtot, 2) + ' kg', r.mtot >= 2 ? 'at or above the 2 kg floor of the gas-spring monitor arms (freedom-02)' : (2 - r.mtot > 0 ? f1(2 - r.mtot, 2) + ' kg below that floor; a 0.5 to 1.5 kg balancer or a mic boom covers this range' : '')],
+    ];
+    tbl.innerHTML = '<table><tr><th>Quantity</th><th>Value</th><th>Reading</th></tr>' + rows.map(x => '<tr><td>' + x[0] + '</td><td class="n">' + x[1] + '</td><td>' + x[2] + '</td></tr>').join('') + '</table>';
+    app.badge('ring', r.zeta < 0.3 ? 'rings: damping ratio ' + f1(r.zeta, 2) + ', first swing ' + f1(r.peak / Math.max(0.01, Math.abs(r.dotss)), 1) + ' × the static lean' : null, 'warn');
+    app.badge('lean', r.dotss > 1 ? 'a ' + f1(P.dF, 1) + ' N step leans the dot ' + f1(r.dotss, 1) + ' mm: gravity alone is not a locator' : null, 'warn');
+    app.badge('trim', P.trim && Math.abs(r.trace[r.trace.length - 1].x) >= 0.0299 ? 'trim mass is at its end stop: the step is bigger than its authority' : null, 'limit');
+    app.io.set({
+      commands: [{ name: 'Trim mass position (screw)', value: P.trim ? f1(r.trace[r.trace.length - 1].x * 1000, 1) : 'off', unit: P.trim ? 'mm' : '', note: 'optional slow tilt loop' }],
+      observes: [
+        { name: 'Tilt (pitch)', value: f1(r.thss * 180 / Math.PI, 2), unit: '° static', status: 'partly', note: 'an IMU sees pitch and roll from gravity (eyes-11); the vertical-axis turn stays unobserved' },
+        { name: 'Dot vs seam', value: f1(r.dotss, 2), unit: 'mm (model)', status: 'blind', note: 'nothing here sees the dot; the tilt is converted with the lever' },
+        { name: 'Cable pull change', value: f1(P.dF, 1), unit: 'N', status: 'unresolved', note: 'a load cell in the carrier line would read it (freedom-13)' },
+      ],
+      manual: ['Choose pivot, keel and damper', 'Route the fibre to the pivot', 'Set the trim before the bead'],
+    });
+  }
+
+  // ---------- animation
+  app.onFrame(function (dt) {
+    if (!res) return true;
+    tcur += Math.min(dt, 0.1);
+    if (tcur > TEND) { if (P.repeat) tcur = 0; else tcur = TEND; }
+    drawMoving(tcur);
+    return true;
+  });
+
+  // ---------- controls
+  const setting = { on: false };
+  function setAll(o) { setting.on = true; Object.keys(o).forEach(k => app.ui.set(k, o[k])); setting.on = false; recompute(); }
+  const presets = {
+    p0: { M: 1.2, lc: 36, mk: 0, dk: 200, c: 0.0, dF: 1, e: 145, dC: 0 },
+    p1: { M: 1.2, lc: 36, mk: 0.6, dk: 200, c: 0.0, dF: 1, e: 145, dC: 0 },
+    p2: { M: 1.2, lc: 36, mk: 0.6, dk: 200, c: 0.47, dF: 1, e: 145, dC: 0 },
+    p3: { M: 1.2, lc: 36, mk: 0.6, dk: 200, c: 0.47, dF: 1, e: 0, dC: 0 },
+  };
+  const pre = app.ui.group('Presets (each sets the sliders below)');
+  pre.radio({ id: 'preset', label: 'Arrangement', kind: 'branch', value: 'p0', noVisual: true, options: [
+    { value: 'p0', label: 'freedom-08 as drawn: plumb bob, no keel, no damper' },
+    { value: 'p1', label: 'Add a keel (0.6 kg on a 200 mm post)' },
+    { value: 'p2', label: 'Keel and a critical damper' },
+    { value: 'p3', label: 'Keel, damper, cable anchored on the pivot' }],
+    onChange: v => { if (!setting.on && presets[v]) setAll(presets[v]); } });
+  const g1 = app.ui.group('What hangs (scene edits)');
+  const sl = (g, id, label, min, max, step, val, unit, fn, help) => g.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'scene', help: help, onChange: v => { fn(v); if (!setting.on) recompute(); } });
+  sl(g1, 'M', 'Gun and shell', 0.6, 2.5, 0.05, 1.2, 'kg', v => { P.M = v; }, 'Unknown: weigh it.');
+  sl(g1, 'lc', 'Pivot above the gun centre of mass', 5, 90, 1, 36, 'mm', v => { P.lc = v / 1000; }, 'freedom-08: 0.42 N·m/rad at the housing top means 36 mm.');
+  sl(g1, 'mk', 'Keel mass', 0, 1.5, 0.05, 0, 'kg', v => { P.mk = v; }, 'A steel or lead mass on a post below the pivot.');
+  sl(g1, 'dk', 'Keel distance below the pivot', 0, 320, 5, 200, 'mm', v => { P.dk = v / 1000; }, 'Room to the bench is about 280 mm here.');
+  sl(g1, 'elldot', 'Pivot to dot', 100, 280, 2, 202, 'mm', v => { P.elldot = v / 1000; }, 'freedom-08: 125 (collar) to 269 (housing back).');
+  const g2 = app.ui.group('The damper');
+  sl(g2, 'c', 'Rotary damping', 0, 1.5, 0.01, 0, 'N·m·s/rad', v => { P.c = v; }, 'A video fluid head is a viscous rotary damper with stepped drag; its value is not on a listing.');
+  g2.button({ id: 'crit', label: 'Set the damper to critical for these masses', kind: 'scene', onClick: function () { const d = SM.derived({ M: P.M, lc: P.lc, mk: P.mk, dk: P.dk }); app.ui.set('c', Math.round(d.ccrit * 100) / 100); } });
+  const g3 = app.ui.group('The cable at bead start');
+  sl(g3, 'dF', 'Change of pull at the grip base', 0, 4, 0.05, 1, 'N', v => { P.dF = v; }, 'freedom-15: 0.4 to 4 N of fibre recoil at 350 mm for EI 0.05 to 0.5 N·m².');
+  sl(g3, 'e', 'Lever of the pull from the pivot', 0, 200, 1, 145, 'mm', v => { P.e = v / 1000; }, '0 = the cable is anchored on the pivot.');
+  sl(g3, 'dC', 'Couple at the exit', 0, 0.3, 0.005, 0, 'N·m', v => { P.dC = v; }, 'A clamped, bent fibre pushes back with a moment (EI/R), not only a force.');
+  const g4 = app.ui.group('Software and view');
+  g4.toggle({ id: 'trim', label: 'Tilt loop: IMU and a trim mass on a screw (freedom-08)', kind: 'state', value: false, onChange: v => { P.trim = v; if (!setting.on) recompute(); } });
+  g4.button({ id: 'replay', label: 'Replay the bead start', kind: 'state', onClick: function () { tcur = 0; } });
+  g4.toggle({ id: 'repeat', label: 'Repeat the replay', kind: 'view', value: true, noVisual: true, onChange: v => { P.repeat = v; } });
+  g4.slider({ id: 'exag', label: 'Exaggerate the drawn rotation', min: 1, max: 60, step: 1, value: 1, unit: '×', kind: 'view', onChange: v => { P.exag = v; drawMoving(tcur); } });
+
+  // start from the preset 0 numbers
+  setAll(presets.p0);
+})();
+</script>
+</body>
+</html>

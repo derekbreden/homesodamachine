@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1196" height="430" viewBox="0 0 1196 430" font-family="Helvetica,Arial,sans-serif" font-size="10">
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="10" y="20" font-size="14" font-weight="bold">Film-grip carrier (borrowed-ecosystems E) with two phase states added: carry pins in the gimbal, two hard stops on the rider Z</text>
+<text x="10" y="38" font-size="11">Pins IN lock the gimbal's two non-vertical axes at the recipe attitude (the umbilical, not pendulosity, sets a free gimbal's attitude: 130–640 N·mm vs 1–2 N·mm per degree).</text>
+<text x="10" y="54" font-size="11">LAND keeps the wire tip ~10 mm back along the barrel while the undamped arm settles the rider; WELD is the recipe stop. Lift-off reverses the order.</text>
+<text x="124" y="80" font-weight="bold">park</text>
+<text x="220" y="80" font-weight="bold">lift out</text>
+<text x="316" y="80" font-weight="bold">set down</text>
+<text x="316" y="92" font-weight="bold">(LAND)</text>
+<text x="412" y="80" font-weight="bold">Z to WELD</text>
+<text x="508" y="80" font-weight="bold">pins out</text>
+<text x="604" y="80" font-weight="bold">tacks /</text>
+<text x="604" y="92" font-weight="bold">dry run</text>
+<text x="700" y="80" font-weight="bold">weld</text>
+<text x="796" y="80" font-weight="bold">stuck wire</text>
+<text x="892" y="80" font-weight="bold">Z to LAND</text>
+<text x="988" y="80" font-weight="bold">pins in,</text>
+<text x="988" y="92" font-weight="bold">lift</text>
+<text x="1084" y="80" font-weight="bold">park</text>
+<text x="10" y="132" font-weight="bold" font-size="11">gimbal pins</text>
+<rect x="120" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="124" y="130" >IN</text>
+<rect x="216" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="220" y="130" >IN</text>
+<rect x="312" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="316" y="130" >IN</text>
+<rect x="408" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="412" y="130" >IN</text>
+<rect x="504" y="108" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="508" y="130" >OUT</text>
+<rect x="600" y="108" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="604" y="130" >OUT</text>
+<rect x="696" y="108" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="700" y="130" >OUT</text>
+<rect x="792" y="108" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="796" y="130" >OUT</text>
+<rect x="888" y="108" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="892" y="130" >OUT</text>
+<rect x="984" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="988" y="130" >IN</text>
+<rect x="1080" y="108" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="1084" y="130" >IN</text>
+<text x="10" y="172" font-weight="bold" font-size="11">rider Z stop</text>
+<rect x="120" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="124" y="170" >LAND</text>
+<rect x="216" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="220" y="170" >LAND</text>
+<rect x="312" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="316" y="170" >LAND</text>
+<rect x="408" y="148" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="412" y="170" >WELD</text>
+<rect x="504" y="148" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="508" y="170" >WELD</text>
+<rect x="600" y="148" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="604" y="170" >WELD</text>
+<rect x="696" y="148" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="700" y="170" >WELD</text>
+<rect x="792" y="148" width="94" height="38" fill="#c9e7cf" stroke="#bbb"/>
+<text x="796" y="170" >WELD</text>
+<rect x="888" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="892" y="170" >LAND</text>
+<rect x="984" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="988" y="170" >LAND</text>
+<rect x="1080" y="148" width="94" height="38" fill="#f6d6a8" stroke="#bbb"/>
+<text x="1084" y="170" >LAND</text>
+<text x="10" y="212" font-weight="bold" font-size="11">who locates</text>
+<rect x="120" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="124" y="210" >cup</text>
+<rect x="216" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="220" y="210" >hand</text>
+<rect x="312" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="316" y="210" >rider wheels</text>
+<rect x="408" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="412" y="210" >rider</text>
+<rect x="504" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="508" y="210" >rider</text>
+<rect x="600" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="604" y="210" >rider</text>
+<rect x="696" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="700" y="210" >rider</text>
+<rect x="792" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="796" y="210" >rider+tether</text>
+<rect x="888" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="892" y="210" >rider</text>
+<rect x="984" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="988" y="210" >hand</text>
+<rect x="1080" y="188" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="1084" y="210" >cup</text>
+<text x="10" y="252" font-weight="bold" font-size="11">wire tip</text>
+<rect x="120" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="124" y="250" >in cup gauge</text>
+<rect x="216" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="220" y="250" >clear</text>
+<rect x="312" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="316" y="250" >~10 mm back</text>
+<rect x="408" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="412" y="250" >short 1 mm</text>
+<rect x="504" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="508" y="250" >jog to touch</text>
+<rect x="600" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="604" y="250" >in corner</text>
+<rect x="696" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="700" y="250" >feeding</text>
+<rect x="792" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="796" y="250" >stuck: snip</text>
+<rect x="888" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="892" y="250" >leaves up+in</text>
+<rect x="984" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="988" y="250" >clear</text>
+<rect x="1080" y="228" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="1084" y="250" >re-trim</text>
+<text x="10" y="292" font-weight="bold" font-size="11">arm spring</text>
+<rect x="120" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="124" y="290" >carries</text>
+<rect x="216" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="220" y="290" >carries</text>
+<rect x="312" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="316" y="290" >lands (damper)</text>
+<rect x="408" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="412" y="290" >preload</text>
+<rect x="504" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="508" y="290" >preload</text>
+<rect x="600" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="604" y="290" >preload</text>
+<rect x="696" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="700" y="290" >preload</text>
+<rect x="792" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="796" y="290" >follows ~0 N</text>
+<rect x="888" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="892" y="290" >preload</text>
+<rect x="984" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="988" y="290" >carries</text>
+<rect x="1080" y="268" width="94" height="38" fill="#fff" stroke="#bbb"/>
+<text x="1084" y="290" >carries</text>
+<text x="10" y="330" font-size="11">Tacks: with the rider seated a rim-bridge hanger hits its ±60° rim wheels when the table indexes; use the stand-hung plate head (pads inside, arm over the −X rim) and tack as fixture pulses.</text>
+<text x="10" y="346" font-size="11">Stuck wire: the tube drags gun + rider round the rim until the tether breakaway opens the pedal loop (a proposed series contact); snip, slide back, re-trim stickout at the cup.</text>
+<text x="10" y="362" font-size="11">Second person: pins (coloured rings) and the Z lever (LAND / WELD) show the state; the recipe is the arm tension count, the indexing ring ID and the WELD stop ID.</text>
+</svg>

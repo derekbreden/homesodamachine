@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<rect width="1200" height="720" fill="#ffffff"/>
+<text x="12" y="20" font-size="15" font-weight="bold">Flexure trim head — printed fine knobs with no backlash, stick-slip or lock shift (schematic)</text>
+<polyline points="281.6,595.9 335.1,512.0" stroke="#222" fill="none" stroke-width="1.8"/>
+<polyline points="283.7,597.2 337.2,513.3" stroke="#222" fill="none" stroke-width="1.8"/>
+<polyline points="216.1,447.5 330.0,520.0" stroke="#222" fill="none" stroke-width="1.8"/>
+<polyline points="211.0,455.5 324.9,528.0" stroke="#222" fill="none" stroke-width="1.8"/>
+<polyline points="335.1,512.0 337.2,513.3" stroke="#222" fill="none" stroke-width="1.8"/>
+<polygon points="322.6,494.7 322.6,471.4 322.7,469.8 323.8,468.4 325.9,467.3 328.6,466.7 331.5,466.7 334.2,467.3 336.3,468.4 337.4,469.9 337.4,493.2 337.4,499.0 337.4,500.6 336.2,502.0 334.1,503.1 331.4,503.7 328.5,503.7 325.8,503.1 323.7,501.9 322.6,500.5" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<polygon points="317.5,471.9 317.5,448.4 317.5,432.7 317.6,430.0 319.5,427.5 323.0,425.7 327.6,424.7 332.6,424.7 337.2,425.7 340.7,427.6 342.6,430.1 342.6,461.5 342.5,469.4 342.5,472.0 340.6,474.5 337.0,476.4 332.4,477.4 327.4,477.3 322.9,476.3 319.4,474.4" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<polygon points="321.9,420.6 321.9,374.0 322.0,372.3 323.2,370.7 325.5,369.5 328.5,368.8 331.7,368.8 334.7,369.5 336.9,370.7 338.2,372.3 338.1,407.3 338.1,430.6 338.1,432.3 336.9,433.9 334.6,435.1 331.6,435.7 328.4,435.7 325.4,435.1 323.1,433.8 321.9,432.2" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<polygon points="312.4,375.0 312.4,352.2 312.4,348.4 315.2,344.9 320.2,342.3 326.7,340.9 333.7,340.9 340.2,342.4 345.1,345.1 347.7,348.6 347.7,371.4 347.7,375.1 344.9,378.6 339.9,381.2 333.4,382.6 326.4,382.6 319.9,381.1 315.0,378.5" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<polygon points="300.2,339.5 300.2,290.7 300.3,217.4 300.3,168.6 350.4,163.5 360.0,190.3 359.9,214.8 359.9,263.6 359.9,336.8 359.9,361.2 309.8,366.4" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<polygon points="315.0,321.8 315.0,286.3 321.9,284.0 325.4,282.9 339.2,278.3 383.4,273.8 383.4,309.3 380.0,310.4 376.5,311.6 359.2,317.2" stroke="#666" fill="#e8e8e8" stroke-width="0.8"/>
+<circle cx="330.0" cy="520.0" r="4.0" stroke="#c0392b" fill="#c0392b" stroke-width="1.2"/>
+<text x="213.0" y="538.0" font-size="10" text-anchor="start" fill="#c0392b">dot; the seam tangent is ⟂ to this view</text>
+<text x="187.5" y="580.0" font-size="10" text-anchor="start" fill="#222">tube wall and end plate,</text>
+<text x="187.5" y="590.5" font-size="10" text-anchor="start" fill="#222">tilted τ* = 32.5° (fillet ~flat)</text>
+<polyline points="435.0,550.0 435.0,295.0" stroke="#555" fill="none" stroke-width="5"/>
+<text x="441.0" y="301.0" font-size="10" text-anchor="start" fill="#555">escape rail (vertical at τ*)</text>
+<polyline points="426.0,538.0 444.0,538.0" stroke="#555" fill="none" stroke-width="3"/>
+<text x="447.0" y="541.0" font-size="10" text-anchor="start" fill="#555">hard stop: ball in vee, gravity-seated (motion to a stop)</text>
+<polygon points="420.0,532.0 450.0,532.0 450.0,460.0 420.0,460.0" stroke="#555" fill="#eee" stroke-width="1.2"/>
+<polygon points="375.0,508.0 417.0,508.0 417.0,472.0 375.0,472.0" stroke="#27ae60" fill="#eaf7ef" stroke-width="1.2"/>
+<polyline points="381.0,508.0 381.0,472.0" stroke="#27ae60" fill="none" stroke-width="1"/>
+<polyline points="411.0,508.0 411.0,472.0" stroke="#27ae60" fill="none" stroke-width="1"/>
+<polyline points="366.0,490.0 426.0,490.0" stroke="#27ae60" fill="none" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="372.0" y="460.0" font-size="10" text-anchor="start" fill="#27ae60">A: across the corner</text>
+<text x="372.0" y="469.0" font-size="10" text-anchor="start" fill="#27ae60">parallelogram, ±1.5 mm</text>
+<polyline points="424.6,446.1 483.7,399.9" stroke="#1b6ac9" fill="none" stroke-width="3"/>
+<polyline points="330.0,520.0 424.6,446.1" stroke="#1b6ac9" fill="none" stroke-width="0.8" stroke-dasharray="4 3"/>
+<polyline points="386.3,414.0 421.5,347.8" stroke="#1b6ac9" fill="none" stroke-width="3"/>
+<polyline points="330.0,520.0 386.3,414.0" stroke="#1b6ac9" fill="none" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="381.0" y="355.0" font-size="10" text-anchor="start" fill="#1b6ac9">W: remote-centre pivot — two spring-steel</text>
+<text x="381.0" y="364.0" font-size="10" text-anchor="start" fill="#1b6ac9">leaves whose lines meet at the seam tangent</text>
+<text x="381.0" y="373.0" font-size="10" text-anchor="start" fill="#1b6ac9">through the dot (D ≈ 80 mm): work angle</text>
+<polyline points="345.0,310.0 345.0,220.0" stroke="#8e44ad" fill="none" stroke-width="4"/>
+<text x="210.0" y="212.5" font-size="10" text-anchor="start" fill="#8e44ad">S: standoff parallelogram along the beam</text>
+<text x="210.0" y="221.5" font-size="10" text-anchor="start" fill="#8e44ad">(beam lies in the view's normal plane, drawn foreshortened)</text>
+<polyline points="330.0,520.0 345.0,310.0" stroke="#c0392b" fill="none" stroke-width="1.2" stroke-dasharray="6 3"/>
+<text x="210.0" y="280.0" font-size="10" text-anchor="start" fill="#222">recipe block + shell above (coarse hole/roll)</text>
+<text x="20.0" y="40.0" font-size="11" text-anchor="start" fill="#555">Section at the station, room frame, work and gun (proxy, opening pose 45/30/−15) tilted to τ* (who-moves-what T-b1). ×1.5, rough.</text>
+<text x="740.0" y="110.0" font-size="12" text-anchor="start" fill="#333">One stage, in detail</text>
+<polyline points="760.0,470.0 1120.0,470.0" stroke="#222" fill="none" stroke-width="3"/>
+<polygon points="800.0,470.0 800.0,458.0 960.0,458.0 960.0,470.0" stroke="#222" fill="#ddd" stroke-width="1.2"/>
+<polyline points="820.0,458.0 820.0,338.0" stroke="#1b6ac9" fill="none" stroke-width="2"/>
+<polyline points="940.0,458.0 940.0,338.0" stroke="#1b6ac9" fill="none" stroke-width="2"/>
+<polygon points="800.0,338.0 960.0,338.0 960.0,310.0 800.0,310.0" stroke="#1b6ac9" fill="#eaf1fb" stroke-width="1.2"/>
+<text x="812.0" y="295.0" font-size="10" text-anchor="start" fill="#1b6ac9">moving platform (to the next stage)</text>
+<text x="826.0" y="390.0" font-size="10" text-anchor="start" fill="#1b6ac9">spring-steel leaves 0.25 × 20 × 40,</text>
+<text x="826.0" y="402.0" font-size="10" text-anchor="start" fill="#1b6ac9">clamped in PET-GF blocks</text>
+<polyline points="960.0,324.0 990.0,324.0" stroke="#222" fill="none" stroke-width="2"/>
+<polygon points="990.0,440.0 1010.0,440.0 1010.0,220.0 990.0,220.0" stroke="#e67e22" fill="#fbeee6" stroke-width="1.2"/>
+<circle cx="1000.0" cy="350.0" r="5.0" stroke="#e67e22" fill="#e67e22" stroke-width="1.2"/>
+<text x="1018.0" y="352.0" font-size="10" text-anchor="start" fill="#e67e22">notch hinge (printed)</text>
+<text x="1018.0" y="326.0" font-size="10" text-anchor="start" fill="#e67e22">short arm 26 mm</text>
+<text x="1018.0" y="220.0" font-size="10" text-anchor="start" fill="#e67e22">long arm 130 mm → 5:1</text>
+<polyline points="1010.0,225.0 1090.0,225.0" stroke="#333" fill="none" stroke-width="6"/>
+<text x="1030.0" y="208.0" font-size="10" text-anchor="start" fill="#222">micrometer head (0.01 mm)</text>
+<text x="1030.0" y="238.0" font-size="10" text-anchor="start" fill="#222">→ 2 µm per division at the stage</text>
+<polyline points="780.0,324.0 800.0,324.0" stroke="#8e44ad" fill="none" stroke-width="2" stroke-dasharray="2 2"/>
+<text x="700.0" y="350.0" font-size="10" text-anchor="start" fill="#8e44ad">steel spring: keeps platform,</text>
+<text x="700.0" y="362.0" font-size="10" text-anchor="start" fill="#8e44ad">lever and spindle in contact</text>
+<text x="20.0" y="650.0" font-size="10" text-anchor="start" fill="#444">Rules: flexures guide, steel springs preload, steel micrometers set, the carrier (not the flexures) takes the gun's weight where it can;</text>
+<text x="20.0" y="665.0" font-size="10" text-anchor="start" fill="#444">leaves run along the gun's weight at the working tilt; the dry run happens at thermal steady state just before the weld.</text>
+<text x="20.0" y="680.0" font-size="10" text-anchor="start" fill="#444">Ranges (1095 shim leaves): parallelogram ±4 mm at L 40; remote-centre pivot ±3.4° (L 40) to ±13° (L 80) at D 70. Drift of the remote centre:</text>
+<text x="20.0" y="695.0" font-size="10" text-anchor="start" fill="#444">≤ 24–42 µm at ±1°, 96–170 µm at ±2° (D 70). All estimates, flexures.py.</text>
+</svg>

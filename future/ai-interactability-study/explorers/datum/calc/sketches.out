@@ -1,0 +1,19 @@
+== datum-08 port-pin mast ==
+ports at +/-19.05 mm, hole 11.13 mm
+  gun+shell 0.60 kg, cg 118 mm out: overturning moment 0.70 N.m; two pins 38.1 mm apart resist a moment about the axis perpendicular to the pin line with +/-18 N; about the pin line itself the pins have no lever: a 30 mm base on the plate face would carry +/-23 N
+  gun+shell 1.15 kg, cg 118 mm out: overturning moment 1.34 N.m; two pins 38.1 mm apart resist a moment about the axis perpendicular to the pin line with +/-35 N; about the pin line itself the pins have no lever: a 30 mm base on the plate face would carry +/-45 N
+  gun+shell 1.65 kg, cg 118 mm out: overturning moment 1.92 N.m; two pins 38.1 mm apart resist a moment about the axis perpendicular to the pin line with +/-50 N; about the pin line itself the pins have no lever: a 30 mm base on the plate face would carry +/-64 N
+  plate slip: 0.127 mm radial [repo 0.005 in], so the plate centre is off the bore centre by up to that
+
+== datum-09 preplaced filler ring ==
+circumference 388.6 mm; wire 0.76 mm dia, 0.456 mm^2; fillet leg 1.17 mm needs 0.684 mm^2 per unit length [derived from repo]
+  a single strand that supplies it: 0.93 mm diameter (0.035 in is 0.89 mm); volume in the ring 266 mm^3
+  0.030 in wire alone is 67% of the fillet cross-section
+
+== datum-10 clear twin ==
+  view  0 deg off the wall normal: apparent lateral shift of a point behind a 2.5 mm acrylic wall 0.000 mm
+  view 10 deg off the wall normal: apparent lateral shift of a point behind a 2.5 mm acrylic wall 0.145 mm
+  view 20 deg off the wall normal: apparent lateral shift of a point behind a 2.5 mm acrylic wall 0.301 mm
+  view 30 deg off the wall normal: apparent lateral shift of a point behind a 2.5 mm acrylic wall 0.479 mm
+  view 45 deg off the wall normal: apparent lateral shift of a point behind a 2.5 mm acrylic wall 0.815 mm
+  acrylic bore 125 mm vs steel bore 123.70 mm: radial difference 0.65 mm; wall 2.5 vs 1.65 mm

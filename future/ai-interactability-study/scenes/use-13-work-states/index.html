@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tube travels, by state</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .u13 { font-size: 12px; line-height: 1.45; color: #c7d3e6; }
+  .u13 h4 { margin: 0 0 4px; font-size: 13px; color: #fff; }
+  .u13 .ln { margin: 3px 0; }
+  .u13 .k { display: inline-block; min-width: 72px; font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: #93a4bd; }
+  .u13 .hand { color: #f5c26b; }
+  .u13 .note { margin-top: 6px; color: #98a4b6; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-13-work-states",
+  "title": "The tube travels, state by state",
+  "by": "use",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "travel-01 (the gun stays, the work moves) followed through the eleven states of one closure. Read as a sequence, the Z axis has three jobs (a fine trim of a few millimetres, clearance for the shuttle, and, if a bead must end with the head leaving, the escape), and the shuttle needs two approaches per closure because the plate is tacked and checked between them. Step through the states, switch between one fine Z axis and a fine axis on top of a drop tier with hard stops, choose who escapes (the work drops, or the gun plunges back on a slide), and set how far the head must leave (0 is what the written sequence says).",
+  "tags": ["sequence", "handover", "shuttle", "Z axis", "escape", "hold state", "branch of travel-01"],
+  "branchOf": ["travel-01-tube-travels"],
+  "combines": [],
+  "transferable": ["a drop tier under the fine Z: long axes at the bottom", "a shuttle needs a Z interlock", "the last trim comes after the last approach", "a fused wire is a hold state"],
+  "how": {
+    "motion": "the gun stays fixed; the work goes out and in on a shuttle, up and down on a drop tier, and trims on a fine Z and X",
+    "load": "the fixed holder carries the gun; the shuttle and tiers carry the rotator and tube",
+    "reference": "the shuttle hard stop and the drop tier's top stop, then a camera-driven trim after the last approach",
+    "observe": "an overhead camera on the dot; end-stop switches; step counts; nothing measures nozzle-to-rim clearance",
+    "use": "hands work at the out position, 200 mm from the gun; the machine brings the tube in, trims, welds, escapes, and takes it out"
+  },
+  "software": {
+    "commands": ["shuttle in and out to hard stops", "drop tier down and up to hard stops (two-tier branch)", "fine Z and X trim", "rotator (existing)", "interlock: no shuttle unless the tip is clear of the rim"],
+    "observes": ["end-stop switches", "step counts", "dot versus seam by camera, when the line of sight is open"],
+    "manual": ["loading, indicating and plate seating at the out position", "firing the tacks and the weld", "snipping a fused wire", "the escape distance (unmeasured)"]
+  },
+  "notes": ["../../exchange/use--on--travel-w2.md", "../../explorers/use/calc/w2_t1_states.mjs", "../../explorers/travel/ideas/travel-01-tube-travels.md", "../../explorers/use/ideas/use-13-work-states.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, CAPTOP = WK.CAP_TOP, RIMZ = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2;
+  const BENCH_Z = -186;                      // bench top: the stack under the rotator is 100 mm high (illustrative)
+  const OUT = 200;                           // out position, mm along the shuttle (illustrative)
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'opening' },
+    viewButtons: ['overall', 'joint', 'side', 'stack'],
+    views: {
+      overall: { target: [0, 60, 30], dir: [-0.55, 0.62, 0.42], dist: 1750 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 220 },
+      side: { target: [40, 60, 90], dir: [1, 0.02, 0.05], dist: 1500 },
+      stack: { target: [0, 20, -110], dir: [-0.9, 0.5, 0.25], dist: 900 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>travel-01 as a day.</b> The gun sits in a printed shell on a fixed holder and never moves. Under the rotator a stack does everything else: a <b>shuttle</b> slides the whole rotator out to a loading position and back to a hard stop; a <b>Z</b> axis and a fine <b>X</b> trim what is left. Pick a state in the panel and the stack goes there. The panel on the right says who does what: what the <span style="color:#f5c26b">hand</span> does, what an eye is for, what software commands, and what the state is asking of the stack.</p>' +
+        '<p>Three things fall out of the order. <b>(1) Z has three jobs</b> with different requirements: a fine trim (a few millimetres, micron steps, stiff), clearance for the shuttle (the nozzle is only about 5 mm above the rim in this pose), and, if the bead must end with the head leaving, an escape (tens of millimetres, fast, sloppy is fine). <b>(2) There are two approaches</b> in one closure, because the plate is tacked and its face checked between them, so the position has to be found twice and the last look has to come after the second. <b>(3) A fused wire is a state</b> that stops every axis.</p>' +
+        '<p>The Z radio compares a single fine axis (±6 mm, travel-01’s range) with the same fine axis riding on a <b>drop tier</b> that goes to hard stops (“long axes at the bottom”, travel’s own stack rule). The <b>escape</b> slider is how far along the beam the head must leave at the end of a bead; 0 is what the written sequence says (release the trigger, then the pedal). The <b>who escapes</b> radio compares the work dropping (this arrangement) with the gun plunging back along its own beam on a slide (room-12\u2019s branch), which keeps Z a pure trim axis and moves the umbilical by the stroke.</p>',
+      carries:
+        '<p><b>Slate</b> is fixed to the bench: base, rails, holder post. <b>Purple</b> is what software could command: the shuttle slab, the drop tier plate, the fine plate. <b>Teal</b> marks a hard stop or the holder’s joints. The fixed holder carries the gun and (through a hanger, not drawn) the cables; the stack carries the rotator and the tube. Nothing on the gun side moves in any state.</p>',
+      software:
+        '<p>Software commands the shuttle, the Z tiers and the fine X and Z, and reads end-stop switches and step counts. It reads the dot only where a camera can see it, and nothing measures the nozzle-to-rim clearance: the interlock (no shuttle unless the tip is clear of the rim) is a rule computed from Z and the plate depth, not a reading. The I/O panel lists what is blind in the current state.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Z’s range is bigger than the swap margin.</b> <i>Conflict:</i> in the reference pose the nozzle tip is 5.0 mm above the rim plane, and the barrel behind it is nearer the rim ring than the tip is. travel-01’s fine Z runs ±6 mm; in its own scene the shuttle badge turns red from Z = +2 mm, so a closure that ends with the fine axis above +1 mm drives the barrel into the rim on the next shuttle, and only the lower 8 mm of the 12 mm range is shuttle-safe (at the drawn tube and plate seat). <i>Assumption:</i> Z moves only to trim. <i>Change drawn:</i> an interlock (no shuttle unless the barrel is clear of the rim), which forces a fine-axis move before every swap; or a drop tier that goes down first. <i>Leaves:</i> the real margin, which depends on the real nozzle extension.</li>' +
+        '<li><b>The escape has no owner.</b> <i>Conflict:</i> if a bead must end with the head leaving the puddle, the gun cannot do it here (it is locked), so the work must drop: 20 mm along the beam is 28 mm of Z, 0.47 s at 60 mm/s while the tube is still turning, and the fine axis has 12 mm of stroke in all. <i>Assumption:</i> the sequence has a lift (the coordinator’s shared context says so; guide 46 says only “release the trigger, then the pedal”). <i>Change drawn:</i> the drop tier, whose hard stops make the escape and the swap clearance one commanded motion. <i>Leaves:</i> how far the head must leave, and how fast, are unmeasured; set the slider to 0 to see the sequence as written.</li>' +
+        '<li><b>Two approaches.</b> <i>Conflict:</i> the written order is seat, tack, verify face runout, then weld. The tacks are fired with the gun at the seam; the dial reading needs the plate face, so in this drawing the tube goes out again and comes back. Each return lands within the hard stop’s repeatability (slider), so the dot is off again and the trim must follow the last one. <i>Change:</i> the dry lap and the trim come after approach 2. <i>Leaves:</i> if the dial can stand opposite the gun, one approach goes away.</li>' +
+        '<li><b>Fused wire.</b> <i>Conflict:</i> a wire that sticks in the puddle is snipped with the head where it stopped (guide 46). With the work moving and the gun locked, a shuttle or a drop before the snip would drag the wire through the bead. <i>Change:</i> a hold state: every axis inhibited until a hand has cut. <i>Leaves:</i> nothing senses the wire; a hand tells the machine.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Nozzle extension, standoff and pitch are the kit’s proxy; the 5.0 mm margin is <b>illustrative</b>. Return error at a hard stop, drop-tier repeatability, stage tilt over the range and the fine axis’ step are unmeasured.</li>' +
+        '<li>Cables on a shuttling body (motor lead, pedal, ground shoe, purge hose) are not drawn. The shoe has to ride the shuttle.</li>' +
+        '<li>Whether the end of a bead needs a lift at all, how far, and how fast. Whether a fused wire is common. <b>Questions for Derek:</b> how do you end a bead today, and how far does the head travel before the wire is free? Could the dial stand opposite the gun for the face-runout check?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun pose: the reference scene’s opening pose, kit proxy, <b>illustrative</b>. Stack height 100 mm, shuttle 200 mm, fine Z ±6, fine X ±8, drop tier 40 mm, escape 20 mm along the beam: illustrative. The beam has a vertical component of 0.712 in this pose, so 1 mm of Z drop is 0.712 mm of standoff along the beam <b>[derived]</b>.</li>' +
+        '<li>Tube 6 in, recess 6.35 mm, ID 123.70 mm <b>[repo]</b>. Sequence order (seat, tack, verify face TIR, contact, dry revolution, weld, release, snip) <b>[repo]</b> guide 46; the lift-away is from the shared context, not the guide.</li>' +
+        '<li><b>Models:</b> rigid moves, the exact seam offset from the drawn geometry, barrel-to-rim clearance as in travel-01. <b>Depicts only:</b> the stack layers as plates, the cables not at all.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(false);
+
+  // ---------------------------------------------------------------- work: a wrapper so a longer tube and a deeper plate can be drawn
+  const tubeLift = new THREE.Group(); ws.work.add(tubeLift); ws.work.remove(ws.tubeGroup); tubeLift.add(ws.tubeGroup);
+
+  // ---------------------------------------------------------------- bench, rails, hard stop (fixed) and the stack layers
+  const base = P.box(520, 640, 14, 'fixed'); base.position.set(0, 110, BENCH_Z - 7); app.add(base);
+  [-110, 110].forEach(x => app.add(P.rail(V(x, -60, BENCH_Z + 2.5), V(x, 330, BENCH_Z + 2.5), { width: 14, height: 5, role: 'fixed' })));
+  const hardStop = P.box(240, 10, 28, 'locate'); hardStop.position.set(0, -68, BENCH_Z + 14); app.add(hardStop);
+  const shuttleG = new THREE.Group(); app.scene.add(shuttleG);
+  const slab = P.box(340, 300, 20, 'actuated'); slab.position.set(0, 0, BENCH_Z + 15); shuttleG.add(slab);
+  const cols = [[-110, -100], [110, -100], [-110, 100], [110, 100]].map(c => { const r = P.rod(V(c[0], c[1], BENCH_Z + 25), V(c[0], c[1], -122), 5, 'fixed'); shuttleG.add(r); return r; });
+  const dropPlate = P.box(260, 240, 10, 'actuated'); shuttleG.add(dropPlate);
+  const finePlate = P.box(300, 280, 12, 'actuated'); shuttleG.add(finePlate);
+  const fineCols = [[-110, -90], [110, -90], [-110, 90], [110, 90]].map(c => { const r = P.rod(V(c[0], c[1], -112), V(c[0], c[1], -98), 4, 'locate'); shuttleG.add(r); return r; });
+  app.label(hardStop, 'hard stop (work position)', { cls: 'locate' });
+  app.label(() => slab.getWorldPosition(new THREE.Vector3()).add(V(150, 60, 10)), 'shuttle (long)', { cls: 'actuated' });
+  app.label(() => dropPlate.getWorldPosition(new THREE.Vector3()).add(V(140, 30, 0)), 'drop tier (two-tier branch)', { cls: 'actuated' });
+  app.label(() => finePlate.getWorldPosition(new THREE.Vector3()).add(V(160, -20, 0)), 'fine Z and X (trim)', { cls: 'actuated' });
+
+  // ---------------------------------------------------------------- gun side: fixed holder, never moves
+  const shell = gun.addShell({ style: 'sleeve', from: 'barrelMid', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.30 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  const post = { base: V(-150, -270, BENCH_Z), top: V(-150, -270, 330) };
+  const postBase = P.box(150, 150, 14, 'fixed'); postBase.position.set(post.base.x, post.base.y, BENCH_Z + 7); app.add(postBase);
+  app.add(P.rod(V(post.base.x, post.base.y, BENCH_Z + 14), post.top, 9, 'fixed'));
+  const arm1 = P.rod(post.top, post.top, 6, 'locate'), arm2 = P.rod(post.top, post.top, 6, 'locate'), elbow = P.sphere(9, 'locate'), shoulder = P.sphere(10, 'locate');
+  shoulder.position.copy(post.top); [arm1, arm2, elbow, shoulder].forEach(o => app.add(o));
+  app.scene.updateMatrixWorld(true);
+  { const r = WK.kin.twoLinkIK(post.top, lug.world(), 150, 150, { bend: [0, 0, 1] }); arm1.setEnds(post.top, r.elbow); arm2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow); }
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const backDir = gun.beamDir().clone().multiplyScalar(-1).normalize();      // straight away from the puddle, along the beam
+  const lug0 = lug.world().clone();
+  const slideRail = P.rail(lug0.clone().addScaledVector(backDir, -8), lug0.clone().addScaledVector(backDir, 46), { width: 10, height: 6, role: 'fixed' }); app.add(slideRail);
+  const slideCar = P.box(26, 26, 16, 'actuated'); app.add(slideCar);
+  function holder() { app.scene.updateMatrixWorld(true); const r = WK.kin.twoLinkIK(post.top, lug.world(), 150, 150, { bend: [0, 0, 1] }); arm1.setEnds(post.top, r.elbow); arm2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow); app.badge('holder', r.ok ? null : 'the holder cannot follow the plunge by ' + r.over.toFixed(0) + ' mm', 'limit'); slideCar.position.copy(lug.world()); }
+  app.label(() => slideCar.position, 'plunge slide (gun-escape branch)', { cls: 'actuated' });
+  app.label(() => gun.local('housingBack'), 'gun in shell (fixed while welding)', { cls: 'load' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const vb = -gun.beamDir().z;                                   // vertical component of the beam: 0.712 in this pose
+
+  // ---------------------------------------------------------------- observer and exact offset
+  const obs = app.inset.add({ id: 'top', label: 'Overhead camera (proposed)', position: V(50, -10, 470), target: () => gun.dotWorld(), fov: 16, near: 30, far: 1600, size: [220, 150], corner: 'bl', noise: 0.2 });
+  app.label(V(50, -10, 470), 'overhead camera', { cls: 'sensor' });
+  const inv = new THREE.Matrix4();
+  function seamNow() {
+    app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const d = gun.dotWorld().applyMatrix4(inv);
+    return { radial: Math.hypot(d.x, d.y) - RI, vertical: d.z - CAPTOP + (ws.cap ? -ws.cap.position.z : 0) + 0, along: 0, total: 0 };
+  }
+  // the plate may sit deeper or higher than nominal: the seam is the plate's outer face meeting the wall
+  function seamNow2() { const o = seamNow(); return o; }
+  app.cornerInset({ gun: { dotOffset: () => seamNow2(), beamDir: () => gun.beamDir() } });
+  const rc = new THREE.Raycaster();
+  function dotSurface() {
+    app.scene.updateMatrixWorld(true);
+    const o = gun.local('nozzleTip'), dvec = gun.dotWorld().sub(o).normalize();
+    rc.set(o, dvec);
+    const hit = rc.intersectObjects([ws.tube, ws.cap].filter(Boolean), false)[0];
+    return hit ? hit.point : gun.dotWorld();
+  }
+  const prof = z => (z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12);
+  function rimClearance() {
+    app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert();
+    let min = Infinity;
+    for (let z = 0; z <= 118; z += 4) { const p = gun.local([0, 0, z]).applyMatrix4(inv); const d = Math.hypot(Math.hypot(p.x, p.y) - (RI + RO) / 2, p.z - RIMZ) - (RO - RI) / 2 - prof(z); if (d < min) min = d; }
+    return min;
+  }
+  function tipAboveRim() { app.scene.updateMatrixWorld(true); inv.copy(ws.tubeGroup.matrixWorld).invert(); return gun.local('nozzleTip').applyMatrix4(inv).z - RIMZ; }
+
+  // ---------------------------------------------------------------- hand marker and panel
+  const hand = new THREE.Mesh(new THREE.SphereGeometry(11, 20, 14), new THREE.MeshBasicMaterial({ color: WK.color('#f5a524') })); hand.userData.occludes = false; hand.visible = false; app.add(hand);
+  const handLbl = app.label(() => hand.position, 'hand', { cls: 'load' });
+  const card = WK.h('div', { class: 'u13' });
+  const hud = app.stageOverlay(card, { corner: 'br', w: 340 });
+  app.legend([{ role: 'fixed', label: 'Fixed / bench' }, { role: 'actuated', label: 'Stage (software could command)' }, { role: 'locate', label: 'Hard stop / holder joint' }, { role: 'load', label: 'Shell' }, { role: 'sensor', label: 'Camera' }, { role: 'work', label: 'Work' }, { color: '#f5a524', label: 'Hand in this state' }, { role: 'laser', label: 'Laser / dot' }]);
+
+  // ---------------------------------------------------------------- the states
+  const STATES = [
+    { id: 'load', name: '0  LOAD + INDICATE (out)', out: true, hand: 'Lift the tube onto the nest, bring three screws to contact, indicate to 0.25 mm TIR (dial on a magnetic base on the bench).', eye: 'judges the dial', sw: 'holds the shuttle out and Z down; nothing else', owner: 'work is out; the gun is 200 mm away', hp: 'tube' },
+    { id: 'plate', name: '1  SEAT PLATE (out)', out: true, hand: 'Seat the plate against the depth stop.', eye: 'judges seating', sw: 'holds; could log the depth reading', owner: 'work is out', hp: 'tube' },
+    { id: 'app1', name: '2  APPROACH 1 (drop, shuttle in, rise)', hand: 'None: hands are free.', eye: 'a camera could watch the corner arrive', sw: 'drop to a stop, shuttle to the hard stop, rise to the top stop; reads the switches', owner: 'hard stops; return error is at play', roll: 0, spin: false, laser: true },
+    { id: 'tack', name: '3  TRIM + TACK', hand: 'Fires the eight tacks (trigger; pedal indexes).', eye: 'judges aim; a camera could', sw: 'trims X and Z from the camera; indexes 8 tacks by degrees', owner: 'the trim: fine axes hold the corner at the dot', trim: true, spin: false, laser: true, hp: 'trigger' },
+    { id: 'chk', name: '4  FACE-TIR CHECK (out again)', out: true, hand: 'Dial on the plate face at the weld circle (0.30 mm TIR or better).', eye: 'judges the dial', sw: 'drop, shuttle out; holds', owner: 'work is out', hp: 'tube' },
+    { id: 'app2', name: '5  APPROACH 2 (drop, shuttle in, rise)', hand: 'None.', eye: 'a camera could watch the corner arrive', sw: 'as approach 1; the hard stop lands somewhere new', owner: 'hard stops; a new return error', roll: 1, spin: false, laser: true },
+    { id: 'dry', name: '6  TRIM + DRY LAP', hand: 'None: hands are free.', eye: 'watches (a camera)', sw: 'trims after the last approach, one dry lap, logs the trace', owner: 'the trim: last look after the last shift', trim: true, spin: true, laser: true },
+    { id: 'weld', name: '7  WELD', hand: 'Pedal and trigger.', eye: 'guards: puddle, wire', sw: 'rotator (existing) only; a veto is possible, a command is not', owner: 'the fine axes hold', spin: true, laser: true, hp: 'trigger', weld: true },
+    { id: 'esc', name: '8  ESCAPE (if the sequence has one)', hand: 'Holds the trigger until the wire is free, then releases the trigger, then the pedal.', eye: 'judges the end of the lap', sw: 'drop tier (or the fine Z alone): the work leaves the head; the rotator keeps turning', owner: 'the drop tier: a return motion to a stop', spin: true, laser: true, hp: 'trigger', esc: true },
+    { id: 'hold', name: '9  HOLD (a wire fused in the bead)', hand: 'Snips the wire between the wire nozzle and the bead, with the head where it stopped.', eye: 'judges nozzle to bead', sw: 'inhibits every axis; a fused wire ties the gun to the tube', owner: 'nothing may move', spin: false, laser: false, hp: 'nozzle', esc: true },
+    { id: 'out', name: '10  DROP, SHUTTLE OUT, UNLOAD', out: true, hand: 'Lift the tube out (purge, invert for the second closure).', eye: 'looks', sw: 'drop, shuttle out; the interlock forbids a shuttle until the tip is clear', owner: 'work is out', hp: 'tube' },
+  ];
+  const q = v => Math.round(v / 0.01) * 0.01;
+  const twoMode = () => app.ui.get('zmode') === 'two';
+  const escBy = () => app.ui.get('escby');
+  function place(p) {
+    shuttleG.position.set(0, p.shut, 0);
+    const dz = p.dz + p.ret[1], zt = p.zf;
+    ws.setWorkPose(V(p.xf + p.ret[0], p.shut, dz + zt), null);
+    dropPlate.position.set(0, 0, -117 + dz); finePlate.position.set(0, 0, -92 + dz + zt);
+    const two = twoMode();
+    cols.forEach((r, i) => { const c = [[-110, -100], [110, -100], [-110, 100], [110, 100]][i]; r.setEnds(V(c[0], c[1], BENCH_Z + 25), V(c[0], c[1], -122 + dz)); r.visible = two; });
+    dropPlate.visible = two;
+    fineCols.forEach((r, i) => { const c = [[-110, -90], [110, -90], [-110, 90], [110, 90]][i]; r.setEnds(V(c[0], c[1], -112 + dz), V(c[0], c[1], -98 + dz + zt)); });
+    tubeLift.position.z = app.ui.get('len'); ws.cap.position.z = -app.ui.get('dep');
+    if (ws.weldCircle) ws.weldCircle.position.z = CAPTOP + 0.3 - app.ui.get('dep');
+    ws.spin.on = !!p.spin;
+    const gb = p.gunBack || 0;
+    gun.setTransform(gunBase.pos.clone().addScaledVector(backDir, gb), gunBase.quat);
+    slideRail.visible = slideCar.visible = escBy() === 'gun';
+    holder();
+  }
+  const roll = k => { const R = app.ui.get('ret'); return k === 0 ? [0.8 * R, -0.6 * R] : [-0.5 * R, 0.9 * R]; };
+  function trim(p) {
+    place(p); const off = seamNow2();
+    p.xf = q(p.xf + off.radial); p.zf = q(p.zf + off.vertical);
+    p.clip = Math.abs(p.xf) > 8 || Math.abs(p.zf) > 6; p.xf = Math.max(-8, Math.min(8, p.xf)); p.zf = Math.max(-6, Math.min(6, p.zf));
+    place(p);
+  }
+  // simulate the whole closure once so each state knows what the trim left behind
+  let plans = [];
+  function planAll() {
+    const two = twoMode(), D = app.ui.get('D'), E = app.ui.get('esc');
+    const p = { shut: OUT, dz: two ? -D : 0, zf: two ? 0 : -6, xf: 0, ret: [0, 0], spin: false, laser: false, clip: false };
+    let mem = { xf: 0, zf: 0 };
+    plans = [];
+    STATES.forEach((s, i) => {
+      if (s.out) { p.shut = OUT; p.dz = two ? -D : 0; p.zf = two ? p.zf : -6; p.ret = [0, 0]; if (!two) p.zf = -6; }
+      if (s.id === 'app1' || s.id === 'app2') { p.shut = 0; p.dz = 0; p.zf = mem.zf; p.xf = mem.xf; p.ret = roll(s.roll); }
+      if (s.trim) { trim(p); mem = { xf: p.xf, zf: p.zf }; }
+      if (s.weld) p.zWeld = p.dz + p.ret[1] + p.zf;
+      p.gunBack = 0;
+      if (s.esc && s.id === 'esc') { if (escBy() === 'gun') p.gunBack = app.ui.get('fused') ? Math.min(E, 4) : E; else if (two) p.dz = -Math.min(D, Math.ceil(E / vb * 10) / 10); else p.zf = -6; }
+      if (s.id === 'hold') p.gunBack = plans[7 + 1] ? plans[8].gunBack : p.gunBack;
+      plans.push(Object.assign({}, p, { ret: p.ret.slice(), spin: !!s.spin, laser: !!s.laser }));
+    });
+  }
+  let cur = 0, ready = false;
+  function show(i) {
+    if (!ready) return;
+    cur = i; const s = STATES[i], p = plans[i]; if (!p) return;
+    place(p);
+    app.ui.set('shut', p.shut, { silent: true }); app.ui.set('dz', p.dz, { silent: true }); app.ui.set('zf', p.zf, { silent: true }); app.ui.set('spin', !!p.spin, { silent: true });
+    gun.setLaser(!!p.laser); gun.updateLaser();
+    // hand marker
+    hand.visible = !!s.hp;
+    if (s.hp === 'tube') hand.position.set(-96, p.shut - 20, 205 + p.dz + p.zf);
+    else if (s.hp === 'trigger') hand.position.copy(gun.local('gripMid')).add(V(0, 0, 30));
+    else if (s.hp === 'nozzle') hand.position.copy(gun.local('nozzleTip')).add(V(-10, -30, 30));
+    if (handLbl.set) handLbl.set(s.hp === 'trigger' ? 'hand on the trigger' : s.hp === 'nozzle' ? 'hand with the cutters' : 'hand at the tube');
+    if (handLbl.show) handLbl.show(!!s.hp);
+    let swT = s.sw, ownT = s.owner;
+    if (s.id === 'esc' && escBy() === 'gun') { swT = 'the gun plunges back along its own beam, force-limited; the work does not move'; ownT = 'the plunge slide: a return motion to a stop; Z stays a pure trim axis'; }
+    card.innerHTML = '<h4>' + s.name + '</h4>' +
+      '<div class="ln hand"><span class="k">hand</span>' + s.hand + '</div>' +
+      '<div class="ln"><span class="k">eye</span>' + s.eye + '</div>' +
+      '<div class="ln"><span class="k">software</span>' + swT + '</div>' +
+      '<div class="ln"><span class="k">holds</span>' + ownT + '</div>' +
+      (p.clip ? '<div class="note">The trim ran out of range in this closure (fine Z ±6, X ±8).</div>' : '') +
+      (s.id === 'esc' && app.ui.get('esc') === 0 ? '<div class="note">Escape is set to 0: nothing moves; the written sequence releases the trigger, then the pedal.</div>' : '');
+    sync();
+  }
+  const readShut = app.ui.readout('rs', 'Shuttle'), readDz = app.ui.readout('rdz', 'Drop tier'), readZf = app.ui.readout('rzf', 'Fine Z'), readTip = app.ui.readout('rtip', 'Tip above the rim plane'), readEsc = app.ui.readout('resc', 'Escape along the beam: needed / delivered'), readN = app.ui.readout('rn', 'Approaches in this closure');
+  function sync() {
+    if (!ready) return;
+    const s = STATES[cur] || STATES[0];
+    const cur_p = { shut: app.ui.get('shut'), dz: twoMode() ? app.ui.get('dz') : 0, zf: app.ui.get('zf'), xf: (plans[cur] || { xf: 0 }).xf, ret: (plans[cur] || { ret: [0, 0] }).ret, spin: app.ui.get('spin'), gunBack: (plans[cur] || { gunBack: 0 }).gunBack || 0 };
+    place(cur_p);
+    const clr = rimClearance(), tip = tipAboveRim(), zNow = cur_p.dz + cur_p.ret[1] + cur_p.zf, need = app.ui.get('esc');
+    const wp = plans[7] ? plans[7].zWeld : null, deliv = escBy() === 'gun' ? cur_p.gunBack : (wp == null ? 0 : Math.max(0, (wp - zNow) * vb));
+    readShut(cur_p.shut.toFixed(0), 'mm'); readDz(twoMode() ? cur_p.dz.toFixed(1) : '(no tier)', twoMode() ? 'mm' : ''); readZf(cur_p.zf.toFixed(2), 'mm'); readTip(tip.toFixed(1), 'mm'); readEsc(need.toFixed(0) + ' / ' + (s.id === 'esc' || s.id === 'hold' ? deliv.toFixed(1) : '-'), 'mm');
+    readN('2 (tack and check sit between them)', '');
+    app.badge('rim', clr < 0 ? 'the barrel or nozzle meets the rim ring here (drawn geometry): a shuttle from here crashes' : null, 'limit');
+    app.badge('margin', clr >= 0 && tip < 2 && cur_p.shut > 1 ? (tip < 0 ? 'the tip is ' + (-tip).toFixed(1) + ' mm below the rim plane' : 'the tip is only ' + tip.toFixed(1) + ' mm above the rim plane') + ': a shuttle from here would hit the nozzle' : null, 'warn');
+    app.badge('esc', s.id === 'esc' && need > 0 && deliv < need - 0.05 ? (escBy() === 'gun' ? 'escape short: a wire fused in the bead stops the force-limited plunge after ' + deliv.toFixed(0) + ' mm' : 'escape short: needs ' + need.toFixed(0) + ' mm along the beam, this Z gives ' + deliv.toFixed(1) + ' mm') : null, 'limit');
+    app.badge('fused', app.ui.get('fused') && escBy() === 'work' && cur >= 8 && cur !== 9 ? 'wire fused in the bead: this move would drag it through the seam; nothing may move until a hand has cut it' : null, 'limit');
+    const dsp = dotSurface(), vis = app.inset.markVisibility('top', dsp);
+    app.io.set({
+      commands: [
+        { name: 'Shuttle', value: cur_p.shut.toFixed(0), unit: 'mm', note: 'to hard stops at 0 and ' + OUT },
+        { name: 'Drop tier', value: twoMode() ? cur_p.dz.toFixed(1) : 'not in this branch', unit: twoMode() ? 'mm' : '', note: 'return motion: stops up and down' },
+        { name: 'Fine Z', value: cur_p.zf.toFixed(2), unit: 'mm', note: 'range ±6 mm, steps of 0.01 (illustrative)' },
+        { name: 'Gun plunge', value: escBy() === 'gun' ? cur_p.gunBack.toFixed(1) : 'not in this branch', unit: escBy() === 'gun' ? 'mm' : '', note: 'along the beam, force-limited, stops after 4 mm on a fused wire' },
+        { name: 'Rotator', value: cur_p.spin ? 'turning' : 'stopped', note: 'existing controller' },
+      ],
+      observes: [
+        { name: 'End-stop switches', value: 'seen', status: 'seen', note: 'shuttle in / out, drop tier up / down' },
+        { name: 'Dot visible to the overhead camera', value: vis.visible ? 'yes' : (vis.blocked ? 'blocked' : 'out of view'), status: vis.visible ? 'seen' : 'blind', note: 'drawn-scene line of sight; the work is out in the out states' },
+        { name: 'Nozzle to rim clearance', value: clr.toFixed(1), unit: 'mm', status: 'blind', note: 'nothing measures it; the interlock is a rule computed from Z and the plate depth' },
+        { name: 'Wire fused in the bead', value: '-', status: 'blind', note: 'a hand sees it and tells the machine' },
+        { name: 'Return error at the hard stop', value: '-', status: 'blind', note: 'seen only as a dot offset after the approach, by a camera' },
+      ],
+      manual: ['Loading, indicating and seating the plate (out position)', 'Firing tacks and weld', 'Snipping a fused wire', 'How far the head must leave at the end of a bead'],
+    });
+    app.invalidate();
+  }
+
+  // ---------------------------------------------------------------- controls
+  const g1 = app.ui.group('State');
+  g1.select({ id: 'state', label: 'State of the closure', options: STATES.map((s, i) => ({ value: String(i), label: s.name })), value: '2', kind: 'state', help: 'Puts the stack where this state has it. The right panel says who does what.', onChange: v => show(+v) });
+  const g2 = app.ui.group('Axes (proposed actuators)', { help: 'Drive them by hand to see the badges; a state sets them for you.' });
+  g2.slider({ id: 'shut', label: 'Shuttle', min: 0, max: OUT, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => slab, help: '0 = hard stop at the work position; 200 = the loading position.', onChange: sync });
+  g2.slider({ id: 'dz', label: 'Drop tier', min: -60, max: 0, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => dropPlate, help: 'Two-tier branch only. Return motion: hard stops at the top and the bottom.', onChange: sync });
+  g2.slider({ id: 'zf', label: 'Fine Z', min: -6, max: 6, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => finePlate, help: 'The trim. In the one-axis branch this is also the whole of Z.', onChange: sync });
+  const g3 = app.ui.group('Branch and what is unknown', { help: 'Scene edits: nothing here is an actuator.' });
+  g3.radio({ id: 'zmode', label: 'Z axis', options: [{ value: 'one', label: 'one fine axis (travel-01)' }, { value: 'two', label: 'fine axis on a drop tier with stops' }], value: 'one', kind: 'branch', visual: () => [dropPlate, finePlate], onChange: () => { if (!ready) return; app.ui.enable('dz', twoMode()); app.ui.enable('D', twoMode()); planAll(); show(cur); } });
+  g3.radio({ id: 'escby', label: 'Who escapes at the end of a bead', options: [{ value: 'work', label: 'the work drops (travel-01)' }, { value: 'gun', label: 'the gun plunges along the beam (room-12)' }], value: 'work', kind: 'branch', visual: () => [slideCar, finePlate], help: 'If the head must leave, either the work drops (Z or a drop tier) or the gun slides back along its own beam. The gun branch keeps Z a pure trim axis and moves the umbilical by the stroke.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.slider({ id: 'D', label: 'Drop tier stroke', min: 10, max: 60, step: 1, value: 40, unit: 'mm', kind: 'scene', visual: () => dropPlate, help: 'Illustrative.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.slider({ id: 'esc', label: 'Escape needed along the beam', min: 0, max: 40, step: 1, value: 20, unit: 'mm', kind: 'scene', noVisual: true, help: '0 = the written sequence (release the trigger, then the pedal). Above 0 the shared context’s lift-away: how far is unmeasured.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.slider({ id: 'ret', label: 'Hard-stop return error', min: 0, max: 1.5, step: 0.05, value: 0.4, unit: 'mm', kind: 'scene', visual: () => hardStop, help: 'Each approach lands off by about this much (radial and vertical). Unmeasured.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.slider({ id: 'len', label: 'This tube is longer than nominal by', min: -6, max: 8, step: 0.1, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'Tube length spread is unknown. It shifts the rim and the plate together.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.slider({ id: 'dep', label: 'Plate seated deeper than nominal by', min: -2, max: 3, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Plate seat depth spread is unknown. After a trim the rim sits this much closer to the nozzle plane.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  g3.toggle({ id: 'fused', label: 'A wire is fused in the bead', value: false, kind: 'state', noVisual: true, help: 'Any axis move raises the hold badge until a hand has cut the wire.', onChange: () => { if (ready) { planAll(); show(cur); } } });
+  const g4 = app.ui.group('View');
+  g4.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: sync });
+  g4.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+  app.ui.enable('dz', false); app.ui.enable('D', false);
+  ws.setGhost(true);
+  ready = true; planAll(); show(2);
+})();
+</script>
+</body>
+</html>

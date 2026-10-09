@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="700" viewBox="0 0 1180 700">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="20.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="start" fill="#111" font-weight="bold">Countertop sled: the plane carries Z and the two tilts; the gun slides in X / Y</text>
+<text x="20.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#444" font-weight="normal">Three ball feet on a flat reference plate at rim height; a fence sets X and heading; a stop or micrometer sets Y.</text>
+<text x="40.0" y="72.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#111" font-weight="bold">PLAN</text>
+<polygon points="212.0,420.0 212.0,180.0 564.0,180.0 564.0,420.0" fill="#e8eef4" fill-opacity="1.0" stroke="#4a6378" stroke-width="1.2"/>
+<circle cx="300.0" cy="300.0" r="62.4" fill="#ffffff" stroke="#4a6378" stroke-width="1.2"/>
+<text x="220.0" y="412.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#4a6378" font-weight="normal">reference plate with tube opening (MIC-6 / granite / steel)</text>
+<circle cx="300.0" cy="300.0" r="50.8" fill="none" stroke="#333" stroke-width="1.4"/>
+<polygon points="388.7,308.2 392.5,326.8 487.9,316.9 488.6,302.9 484.8,284.3 389.4,294.2" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="344.1,294.6 348.4,315.6 406.3,364.6 428.9,352.6 424.6,331.5 366.6,282.6" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="341.8,296.8 343.0,299.3 350.7,305.9 353.0,307.4 355.9,307.6 359.0,306.5 362.0,304.3 364.2,301.4 365.4,298.0 365.5,294.9 364.3,292.3 356.6,285.8 354.3,284.3 351.4,284.1 348.3,285.1 345.3,287.3 343.1,290.3 341.8,293.6" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="326.4,277.8 326.9,279.0 346.7,295.7 347.7,296.4 349.0,296.5 350.5,296.0 351.8,295.0 352.9,293.6 353.4,292.1 353.4,290.6 352.9,289.5 333.1,272.8 332.1,272.1 330.8,272.0 329.3,272.5 328.0,273.5 327.0,274.9 326.4,276.4" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="301.2,259.3 302.1,261.1 325.2,280.7 326.8,281.7 328.9,281.9 331.1,281.2 333.2,279.6 334.8,277.5 335.7,275.1 335.7,272.9 334.8,271.1 311.7,251.5 310.1,250.5 308.0,250.3 305.8,251.1 303.7,252.6 302.1,254.7 301.2,257.1" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<circle cx="376.0" cy="268.0" r="6.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<circle cx="500.0" cy="364.0" r="6.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<circle cx="508.0" cy="268.0" r="6.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<polygon points="376.0,268.0 500.0,364.0 508.0,268.0" fill="none" fill-opacity="1.0" stroke="#222" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="373.6" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">F1</text>
+<text x="509.6" y="370.4" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">F3</text>
+<text x="512.8" y="261.6" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">F2</text>
+<line x1="372.0" y1="389.6" x2="556.0" y2="389.6" stroke="#8a2be2" stroke-width="5"/>
+<text x="540.0" y="402.4" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#8a2be2" font-weight="normal">fence on the operator side: two micrometers set X and heading</text>
+<circle cx="396.0" cy="381.6" r="4.0" fill="#8a2be2" stroke="#8a2be2" stroke-width="1.2"/>
+<circle cx="524.0" cy="381.6" r="4.0" fill="#8a2be2" stroke="#8a2be2" stroke-width="1.2"/>
+<line x1="576.0" y1="252.0" x2="540.0" y2="252.0" stroke="#8a2be2" stroke-width="1.2"/>
+<line x1="540.0" y1="252.0" x2="546.3" y2="255.0" stroke="#8a2be2" stroke-width="1.2"/>
+<line x1="540.0" y1="252.0" x2="546.3" y2="249.0" stroke="#8a2be2" stroke-width="1.2"/>
+<text x="580.0" y="240.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#8a2be2" font-weight="normal">Y stop / micrometer</text>
+<line x1="460.0" y1="316.0" x2="492.0" y2="356.0" stroke="#b35900" stroke-width="1.2"/>
+<line x1="492.0" y1="356.0" x2="490.4" y2="349.2" stroke="#b35900" stroke-width="1.2"/>
+<line x1="492.0" y1="356.0" x2="485.7" y2="353.0" stroke="#b35900" stroke-width="1.2"/>
+<text x="440.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#b35900" font-weight="normal">preload spring (toward fence + stop)</text>
+<circle cx="300.0" cy="250.5" r="3.5" fill="#d00000" stroke="#d00000" stroke-width="1.2"/>
+<circle cx="486.8" cy="300.6" r="3.5" fill="#1b5e20" stroke="#1b5e20" stroke-width="1.2"/>
+<line x1="486.8" y1="300.6" x2="567.1" y2="322.1" stroke="#1b5e20" stroke-width="3"/>
+<rect x="559.1" y="310.1" width="20.0" height="26.0" fill="#1b5e20" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="599.1" y="290.1" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">cable anchor on plate, slack loop to sled</text>
+<text x="300.0" y="436.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle" fill="#444" font-weight="bold">OPERATOR</text>
+<text x="620.0" y="72.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#111" font-weight="bold">ELEVATION (looking toward +X)</text>
+<polygon points="672.0,420.0 697.6,420.0 697.6,440.0 672.0,440.0" fill="#e8eef4" fill-opacity="1.0" stroke="#4a6378" stroke-width="1.2"/>
+<polygon points="822.4,420.0 1024.0,420.0 1024.0,440.0 822.4,440.0" fill="#e8eef4" fill-opacity="1.0" stroke="#4a6378" stroke-width="1.2"/>
+<polygon points="709.2,420.0 810.8,420.0 810.8,541.9 709.2,541.9" fill="none" fill-opacity="1.0" stroke="#333" stroke-width="1.4"/>
+<polygon points="710.5,425.1 809.5,425.1 809.5,430.2 710.5,430.2" fill="#bbb" fill-opacity="1.0" stroke="#333" stroke-width="1.2"/>
+<polygon points="848.7,309.6 849.4,327.1 853.2,341.8 948.6,329.6 947.9,312.2 944.1,297.5" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="804.1,335.8 808.4,352.4 830.9,361.8 888.9,284.9 884.6,268.2 862.0,258.9" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="801.8,355.7 803.0,358.2 805.2,360.8 808.1,363.2 811.3,364.9 814.2,365.7 816.5,365.5 817.7,364.3 825.4,354.1 825.5,352.1 824.3,349.6 822.1,346.9 819.1,344.6 816.0,342.9 813.1,342.1 810.8,342.3 809.6,343.5 801.8,353.7" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="786.4,383.7 786.9,384.8 788.0,386.0 789.3,387.1 790.7,387.9 792.1,388.3 793.1,388.2 793.7,387.6 813.4,361.4 813.4,360.5 812.9,359.4 811.9,358.2 810.5,357.1 809.1,356.3 807.7,355.9 806.7,356.0 806.1,356.6 786.4,382.8" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="761.2,413.6 762.1,415.4 763.6,417.3 765.7,418.9 767.9,420.1 770.0,420.7 771.6,420.6 772.5,419.7 795.7,389.0 795.7,387.5 794.8,385.8 793.3,383.9 791.2,382.3 789.0,381.0 786.9,380.5 785.3,380.6 784.4,381.5 761.2,412.2" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="796.6,358.0 797.9,360.8 800.4,363.7 803.6,366.4 807.2,368.3 810.5,369.2 813.0,369.0 829.2,364.8 961.0,328.8 960.1,309.2 955.9,292.7 889.2,260.0 864.0,249.5 799.1,335.6 796.6,355.7" fill="none" fill-opacity="1.0" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<text x="877.6" y="244.8" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#555" font-weight="normal">printed shell (dashed)</text>
+<line x1="836.0" y1="420.0" x2="836.0" y2="344.0" stroke="#222" stroke-width="4"/>
+<circle cx="836.0" cy="416.8" r="5.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<line x1="960.0" y1="420.0" x2="960.0" y2="320.0" stroke="#222" stroke-width="4"/>
+<circle cx="960.0" cy="416.8" r="5.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<line x1="968.0" y1="420.0" x2="968.0" y2="320.0" stroke="#222" stroke-width="4"/>
+<circle cx="968.0" cy="416.8" r="5.0" fill="#222" stroke="#222" stroke-width="1.2"/>
+<text x="836.0" y="456.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#111" font-weight="normal">ball feet on plate (Z + 2 tilts from 3 screw heights)</text>
+<circle cx="760.0" cy="425.1" r="3.5" fill="#d00000" stroke="#d00000" stroke-width="1.2"/>
+<circle cx="946.8" cy="313.4" r="3.5" fill="#1b5e20" stroke="#1b5e20" stroke-width="1.2"/>
+<line x1="946.8" y1="313.4" x2="1040.5" y2="257.4" stroke="#1b5e20" stroke-width="3"/>
+<path d="M 1040.5 257.4 Q 1136.0 156.0 1112.0 396.0" stroke="#1b5e20" stroke-width="3" fill="none"/>
+<rect x="1104.0" y="396.0" width="16.0" height="22.0" fill="#1b5e20" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1116.0" y="384.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">anchor</text>
+<line x1="856.0" y1="212.0" x2="808.0" y2="180.0" stroke="#b35900" stroke-width="1.2"/>
+<line x1="808.0" y1="180.0" x2="811.6" y2="186.0" stroke="#b35900" stroke-width="1.2"/>
+<line x1="808.0" y1="180.0" x2="814.9" y2="181.0" stroke="#b35900" stroke-width="1.2"/>
+<text x="792.0" y="180.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#b35900" font-weight="normal">lift-off: tip about the rear feet (F2-F3 line) and set back down</text>
+<text x="620.0" y="640.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Optional pusher gantry: grips the sled through a vertical pin in a bushing, so it sets X / Y</text>
+<text x="620.0" y="656.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">but carries no weight or moment. Plane = weight, height, tilt.  Gantry = in-plane position only.</text>
+</svg>

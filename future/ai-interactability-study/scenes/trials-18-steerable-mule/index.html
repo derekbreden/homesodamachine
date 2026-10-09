@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steerable mule: a dot with known offsets</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sm-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(250px, 1fr); gap: 12px; align-items: start; }
+  @container smstage (max-width: 780px) { .sm-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: smstage; }
+  .sm-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .sm-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .sm-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .sm-col { display: grid; gap: 10px; align-content: start; }
+  .sm-two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @container smstage (max-width: 560px) { .sm-two { grid-template-columns: 1fr; } }
+  .sm-svg { display: block; width: 100%; height: auto; }
+  .sm-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .sm-svg text.b { fill: #e7ebf1; font-weight: 600; } .sm-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .sm-svg text.red { fill: #ff8a80; } .sm-svg text.blue { fill: #7fb0ff; } .sm-svg text.teal { fill: #5eead4; } .sm-svg text.amber { fill: #fbbf24; } .sm-svg text.pink { fill: #f0abfc; }
+  .sm-status { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--wk-muted); padding: 4px 4px 0; }
+  .sm-status b { color: var(--wk-text); font-weight: 600; }
+  .sm-result { font-size: 12.5px; color: #cfd6e2; padding: 4px 6px; line-height: 1.45; }
+  .sm-result b { color: #fff; } .sm-result .k { color: var(--wk-faint); } .sm-result .bad { color: #f0a020; } .sm-result .good { color: #5eead4; }
+  table.sm-tab { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .sm-tab td, .sm-tab th { padding: 3px 6px; border-bottom: 1px solid var(--wk-line); text-align: right; font-weight: 400; color: #cfd6e2; }
+  .sm-tab th:first-child, .sm-tab td:first-child { text-align: left; color: var(--wk-muted); }
+  .sm-tab thead th { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .sm-tab b { color: #fff; } .sm-tab .cur td { background: rgba(94, 234, 212, .08); }
+  .sm-note { font-size: 11px; color: var(--wk-faint); padding: 2px 6px 0; font-style: italic; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-18-steerable-mule",
+  "title": "Steerable mule: a dot with known offsets",
+  "by": "trials",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "The mule (a printed stand-in for the gun) carries a small steerable red pointer. Steer the dot across the recessed corner with no positioner moving: the camera loses the plate part of the dot at the seam, which finds the seam in the pointer's own units, and every later command is a labelled offset from that seam. Compares a hobby pan/tilt 100 mm back, a fold mirror at the nose, and the gun's own swing offset if it can be commanded (borrowed-06).",
+  "tags": ["mule", "pointer", "ground truth", "dot probe", "swing offset", "calibration of the eye", "section"],
+  "branchOf": [],
+  "combines": ["trials-06-mule-gun", "trials-03-dot-touch-probe", "borrowed-06-swing-offset"],
+  "transferable": ["a steerable dot as a labelled-offset generator", "seam in pointer units from the fraction knee", "rehearse borrowed-06 before its range is known", "near pivot: fine, narrow; far pivot: coarse, wide"],
+  "how": {
+    "motion": "a servo pointer, a nose mirror or the gun's own swing offset steers the dot in the section plane; nothing else moves",
+    "load": "the mule shell sits where the gun would; whatever holds it is the arrangement under test",
+    "reference": "the corner: the seam is found by the knee of the visible fraction in the pointer's own units",
+    "observe": "camera A above the bore reads the plate part of the dot; camera B (not drawn here) reads the wall spot",
+    "use": "laser-off, all night: labels for the judge, hand-eye and drift checks, and a rehearsal of any fine-axis loop"
+  },
+  "software": {
+    "commands": ["pointer angle (pan/tilt) or mirror tilt or swing offset", "start a sweep; steer to a labelled offset", "dot on/off/blink (mule only)"],
+    "observes": ["visible fraction and centroid of the dot in camera A", "the knee: seam in pointer units", "labelled offset vs true offset (the scene knows the truth)"],
+    "manual": ["standing the shell at the corner so the seam is within the pointer's range", "mounting the pointer or mirror", "eye safety of an unattended red laser"]
+  },
+  "notes": ["../../exchange/trials--on--borrowed-w2.md", "../../explorers/trials/ideas/trials-18-steerable-mule.md", "../../explorers/borrowed/ideas/borrowed-10-gun-free-dot.md", "../../explorers/borrowed/ideas/borrowed-06-swing-offset.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, RAD = Math.PI / 180, RIM = 6.35, WT = 1.65, PT = 6.35, B0 = 32 * RAD, F0 = 16;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The mule of trials-06 stands in the shell where the gun would be. Give it a small <b>steerable pointer</b> and the dot can be moved across the recessed corner by a command, with nothing else in the station moving. The camera sees the plate part of the dot disappear at the seam, so one sweep finds the <b>seam in the pointer’s own units</b>. After that every command is a <b>labelled offset</b> from the seam: 1.0 mm short, 0.5 mm short, on the corner. That is a ground-truth generator for the judge (thousands of labelled frames overnight), a golden dot for camera drift and latency, and a rehearsal bench for any fine-axis loop (borrowed-05, borrowed-06) before the real gun’s own axis is known.</p>' +
+        '<p>Left: the corner in section, exact scene geometry. Press <b>Sweep to find the seam</b>; then <b>Steer to labelled offsets</b>. Compare the three ways to steer: a hobby pan/tilt 100 mm behind the dot (borrowed-10 as drawn), a small mirror at the nose, and the gun’s own swing offset (borrowed-06, range unknown). Their resolution, range and sensitivity to how the shell stands are different numbers.</p>',
+      carries: '<p>Not the subject: the shell of the mule is carried by whatever arrangement is under test, or simply stood on the rotator. The pointer is fixed in the shell; only its beam moves. Position is set by the corner: the seam is wherever the visible fraction falls to one half, in pointer units. Free: the tangent direction (the pointer’s out-of-plane axis is not drawn); restrained: nothing.</p>',
+      software: '<p>Command: pointer angle (or nose-mirror tilt, or swing offset), dot on/off/blink. Observe: visible fraction and centroid of the dot in camera A. The software does not know the shell’s placement error or the true seam; it finds the seam by the sweep and reports it with its uncertainty. The table shows what it concludes next to the hidden truth.</p>',
+      tried: '<ul>' +
+        '<li><b>Resolution against range.</b> A servo pan/tilt 100 mm behind the dot moves the dot about 2.1 mm per degree; a step of 0.1° is 0.2 mm, too coarse for a 0.05 mm label. The same servo turning a mirror at the nose (16 mm from the dot) moves it 0.66 mm per degree of mirror tilt (the beam turns twice the mirror), so 0.1° is 0.07 mm, but ±5° reaches only ±3.3 mm against ±10 mm. Change the steering type and read the table under the section.</li>' +
+        '<li><b>Sensitivity to how the shell stands.</b> The seam is found in pointer units, but a label in millimetres needs the height of the pivot above the plate. A far pivot barely notices 0.5 mm of shell height (0.6 % scale change); the near mirror does (3.7 %). Try the vertical placement slider and re-run the labels.</li>' +
+        '<li><b>The knee is the reference, not the dot’s centre of brightness.</b> The centre of the dot is on the seam when half of it is visible from above, whatever its size. A centroid target at the seam pixel would sit half a spot beyond the seam (borrowed-05 discussion in the exchange file, scene trials-20).</li>' +
+        '<li><b>It is not the gun’s dot.</b> A hobby diode is brighter and a different size (the real one is 0.3 mW), and nothing here relates any dot to where an infrared beam melts. Sweeping a dot that is 17 times brighter is a test of the camera chain, not of the gun.</li>' +
+        '<li><b>The real gun’s swing offset</b> (third type) would give the same interface with an unknown range and unknown slope; this scene lets you set both and shows a loop that survives a small range.</li></ul>',
+      unresolved: '<ul><li>Camera A reads the plate side of the seam foot. From straight above the station the wall spot is edge-on and the dot vanishes at the seam; from a camera over the bore (11.6° off vertical at 300 mm) the wall part shows in a strip beyond the seam foot and the software needs the seam foot\'s image position from the tube\'s rim and ports (trials-03, item 7; datum-19) <b>[unknown]</b>.</li><li>Whether a hobby pointer can be built inside the mule’s nose at all (the nozzle tapers to a 2.2 mm radius); the nose mirror is the natural way but nobody has tried it.</li>' +
+        '<li>The real dot’s size, brightness and finish response on 316L; the mule’s pointer must be dimmed or attenuated toward 0.3 mW. Eye safety of an unattended pointer is Derek’s call <b>[unknown]</b>.</li>' +
+        '<li>Hobby servo deadband and drift over hours; the scene uses a simple backlash model. A stepper or a galvo may be needed for 0.02°.</li>' +
+        '<li>Whether the gun’s red-light offset moves the spot and can be commanded (borrowed-06) <b>[unknown]</b>.</li></ul>',
+      assumptions: '<ul><li>Recess 6.35 mm, wall 1.65 mm <b>[repo]</b>. Beam 32° from vertical in the section plane, 16 mm nozzle-to-dot: the reference scene’s illustrative values <b>[illustrative]</b>. Spot 0.5 mm diameter at the plate (a made-up size, as in trials-03).</li>' +
+        '<li>Camera A sees only the part of the dot lying on the plate (the wall spot is edge-on). Fraction noise, servo step and backlash are sliders, not measurements. The out-of-plane axis is ignored; the tangent slide is free.</li>' +
+        '<li>Third steering type: parallel shift of the beam origin with a slope of 1.83 mm of dot per mm of offset (borrowed-06’s scene reading at the opening pose); range and slope are unknown for the real gun.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ model
+  const st = { from: 'plate', type: 'pan', uA: 0, uO: 0, step: 0.1, bl: 0.2, d0: 0.5, noise: 0.02, dr: -1.2, dz: 0.5, rangeO: 2, slopeO: 1.83, spd: 100 };
+  const rand = (function () { let s = 2024; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; })();
+  const gauss = () => { let a = 0; for (let i = 0; i < 6; i++) a += rand(); return (a - 3) * Math.SQRT2; };
+  function cast(r0, z0, b) {
+    const sb = Math.sin(b), cb = Math.cos(b), c = [];
+    if (z0 > 0 && cb > 1e-6) { const t = z0 / cb, r = r0 + t * sb; if (r <= 0) c.push({ kind: 'plate', r: r, z: 0, t: t }); }
+    if (r0 < 0 && sb > 1e-6) { const t = -r0 / sb, z = z0 - t * cb; if (z >= 0 && z <= RIM) c.push({ kind: 'wall', r: 0, z: z, t: t }); }
+    if (z0 > RIM && cb > 1e-6) { const t = (z0 - RIM) / cb, r = r0 + t * sb; if (r >= 0 && r <= WT) c.push({ kind: 'rim', r: r, z: RIM, t: t }); }
+    if (!c.length) return { kind: 'outside', r: null, z: null, t: null };
+    c.sort((x, y) => x.t - y.t); return c[0];
+  }
+  const eb = [-Math.sin(B0), Math.cos(B0)];
+  // pivot distance from the nominal dot for the three steering types
+  const PIV = { pan: () => st.spd, mirror: () => F0, offset: () => F0 };
+  // servo state (backlash + quantisation): the achieved command follows the requested one with lash
+  const servo = { A: 0, O: 0 };
+  function servoTo(key, cmd, step, lash) {
+    let c = step > 0 ? Math.round(cmd / step) * step : cmd;
+    const d = c - servo[key];
+    if (d > lash / 2) servo[key] = c - lash / 2; else if (d < -lash / 2) servo[key] = c + lash / 2;
+    return servo[key];
+  }
+  // the beam for a steering type at (achieved) command u; placement error (dr, dz) moves the whole shell
+  function beam(type, u) {
+    const dot0 = [st.dr, st.dz];
+    if (type === 'pan') { const L = st.spd, P = [dot0[0] + L * eb[0], dot0[1] + L * eb[1]]; return { P: P, origin: P, b: B0 + u * RAD, pivot: P }; }
+    const N = [dot0[0] - F0 * Math.sin(B0), dot0[1] + F0 * Math.cos(B0)];
+    if (type === 'mirror') return { P: N, origin: N, b: B0 + 2 * u * RAD, pivot: N };
+    const sh = st.slopeO * u * Math.cos(B0), n = [Math.cos(B0), Math.sin(B0)];   // parallel shift across the beam
+    return { P: N, origin: [N[0] + sh * n[0], N[1] + sh * n[1]], b: B0, pivot: N };
+  }
+  function evalDot(type, u) {
+    const bm = beam(type, u), b = bm.b, cb = Math.cos(b), sb = Math.sin(b), tb = sb / cb;
+    const o = { bm: bm, b: b };
+    const cen = cast(bm.origin[0], bm.origin[1], b);
+    o.center = cen; o.e = cen.kind === 'plate' ? cen.r : (cen.kind === 'wall' ? cen.z * tb : null);
+    const n = 25, plate = [], wall = [], rim = [], rays = [];
+    for (let i = 0; i < n; i++) {                               // rays across the beam width, perpendicular to it
+      const off = (i / (n - 1) - 0.5) * st.d0, r0 = bm.origin[0] + off * cb, z0 = bm.origin[1] + off * sb, hit = cast(r0, z0, b);
+      hit.r0 = r0; hit.z0 = z0; rays.push(hit); (hit.kind === 'plate' ? plate : hit.kind === 'wall' ? wall : hit.kind === 'rim' ? rim : []).push(hit);
+    }
+    o.rays = rays; o.plate = plate; o.wall = wall; o.rim = rim; o.frac = plate.length / n; o.c = plate.length ? plate.reduce((a, r) => a + r.r, 0) / plate.length : null;
+    return o;
+  }
+  const UNIT = () => st.type === 'offset' ? 'mm' : '°';
+  const uCur = () => st.type === 'offset' ? st.uO : st.uA;
+  const uKey = () => st.type === 'offset' ? 'O' : 'A';
+  const range = () => st.type === 'offset' ? st.rangeO : 8;
+  const lash = () => st.type === 'offset' ? 0 : st.bl;
+  const quant = () => st.type === 'offset' ? 0.01 : st.step;
+  // dot movement per unit of command at the nominal shell position (what the software assumes)
+  function nominalJ() {
+    const sv = [st.dr, st.dz]; st.dr = 0; st.dz = 0;
+    const e = (x) => { const o = evalDot(st.type, x); return o.e; };
+    const d = 0.05, j = (e(d) - e(-d)) / (2 * d); st.dr = sv[0]; st.dz = sv[1]; return j;
+  }
+  function trueJ() { const d = 0.05, e = x => evalDot(st.type, x).e; return (e(d) - e(-d)) / (2 * d); }
+  function reachOf(type, R) {                                    // dot positions over the command range; null where the beam clears the rim
+    let lo = 1e9, hi = -1e9, sgn = 0, cross = false, prev = null;
+    for (let i = 0; i <= 80; i++) { const e = evalDot(type, -R + 2 * R * i / 80).e; if (e == null) continue; lo = Math.min(lo, e); hi = Math.max(hi, e); if (prev != null && (prev < 0) !== (e < 0)) cross = true; prev = e; }
+    return { lo: lo === 1e9 ? null : lo, hi: hi === -1e9 ? null : hi, cross: cross };
+  }
+  function trueSeamU() {                                         // command that puts the dot centre exactly on the seam (search, no servo effects)
+    let lo = -range() * 1.5, hi = range() * 1.5;
+    const f = u => evalDot(st.type, u).e;
+    const el = f(lo), eh = f(hi);
+    if (el == null || el > 0) return null;
+    for (let i = 0; i < 70; i++) { const mid = (lo + hi) / 2, e = f(mid); if (e == null || e >= 0) hi = mid; else lo = mid; }
+    return (lo + hi) / 2;
+  }
+
+  // ------------------------------------------------------------------ section view (corner zoom)
+  const VBW = 500, VBH = 330, R0 = -26, Z0 = -9, SC = 11.2, PX0 = 8;
+  const X = r => PX0 + (r - R0) * SC, Y = z => VBH - 20 - (z - Z0) * SC;
+  const main = S('svg', { viewBox: '0 0 ' + VBW + ' ' + VBH, class: 'sm-svg', role: 'img', 'aria-label': 'section through the recessed corner with the mule nose, beam and dot' });
+  const gGrid = S('g'), gStatic = S('g'), gGun = S('g'), gBeam = S('g'), gLab = S('g');
+  main.append(S('rect', { x: 0, y: 0, width: VBW, height: VBH, fill: '#0f141b', rx: 6 }), gGrid, gStatic, gGun, gBeam, gLab);
+  for (let r = -25; r <= 5; r += 5) gGrid.append(S('line', { x1: X(r), y1: 8, x2: X(r), y2: VBH - 20, stroke: '#1e2733' }), S('text', { x: X(r), y: VBH - 6, 'text-anchor': 'middle', class: 'sm', text: r }));
+  for (let z = -5; z <= 15; z += 5) gGrid.append(S('line', { x1: PX0, y1: Y(z), x2: VBW - 6, y2: Y(z), stroke: '#1e2733' }), S('text', { x: 3, y: Y(z) + 3, class: 'sm', text: z }));
+  gGrid.append(S('text', { x: VBW - 8, y: VBH - 22, 'text-anchor': 'end', class: 'sm', text: 'r (mm), + toward the wall' }));
+  gStatic.append(S('rect', { x: X(R0), y: Y(0), width: X(0) - X(R0), height: PT * SC, fill: '#8e98a6' }),
+    S('rect', { x: X(0), y: Y(RIM), width: WT * SC, height: (RIM + 9) * SC, fill: WK.roleHex('work') }),
+    S('circle', { cx: X(0), cy: Y(0), r: 3.2, fill: WK.roleHex('locate') }), S('text', { x: X(0) + 8, y: Y(0) + 16, class: 'teal', text: 'seam' }),
+    S('text', { x: X(WT) + 6, y: Y(RIM) + 4, class: 'sm', text: 'rim' }));
+  const nose = S('polygon', { fill: '#59636f', stroke: '#8896a8', 'stroke-width': 1, 'fill-opacity': 0.92 });
+  const nose2 = S('polygon', { fill: '#59636f', stroke: '#8896a8', 'stroke-width': 1, 'fill-opacity': 0.55 });
+  gGun.append(nose2, nose);
+  const beamLine = S('line', { stroke: WK.roleHex('laser'), 'stroke-width': 1.6, 'stroke-dasharray': '5 3' });
+  const spotP = S('line', { stroke: '#ff5a4d', 'stroke-width': 5, 'stroke-linecap': 'round' }), spotW = S('line', { stroke: '#ff5a4d', 'stroke-width': 5, 'stroke-linecap': 'round' });
+  const mirror = S('line', { stroke: '#7fb0ff', 'stroke-width': 3, 'stroke-linecap': 'round' });
+  const pivotDot = S('circle', { r: 3.2, fill: '#7fb0ff', stroke: '#dbe3ee' });
+  const reachBar = S('line', { stroke: '#a855f7', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.85 });
+  const trueSeamTick = S('line', { stroke: '#f0abfc', 'stroke-width': 1, 'stroke-dasharray': '2 3' });
+  gBeam.append(beamLine, spotP, spotW, mirror, pivotDot, reachBar, trueSeamTick);
+  const reachLab = S('text', { class: 'sm', text: '' }); gLab.appendChild(reachLab);
+  const noseLab = S('text', { class: 'sm', text: 'nose of the mule (printed; the pointer or mirror sits in it)' }); gLab.appendChild(noseLab);
+
+  // overview: the whole barrel, drawn to scale, to show where each steering pivot sits
+  const OW = 500, OH = 200, OSC = 2.4;
+  const over = S('svg', { viewBox: '0 0 ' + OW + ' ' + OH, class: 'sm-svg', role: 'img', 'aria-label': 'overview of the mule barrel and the pivot for each steering type' });
+  // camera views
+  const camSvg = S('svg', { viewBox: '0 0 300 96', class: 'sm-svg', role: 'img', 'aria-label': 'camera A one-dimensional view' });
+  const recSvg = S('svg', { viewBox: '0 0 300 190', class: 'sm-svg', role: 'img', 'aria-label': 'sweep record' });
+  const status = h('div', { class: 'sm-status' });
+  const resBox = h('div', { class: 'sm-result' });
+  const tabBox = h('div');
+  const RES0 = '<span class="k">Press <b>Sweep to find the seam</b>. The software steps the pointer through its range, reads the plate part of the dot in camera A (with the noise you set) and reports the seam in pointer units.</span>';
+  resBox.innerHTML = RES0;
+  const mainCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Recessed corner in section' }), h('em', { text: 'exact scene geometry' })), main, status,
+    h('div', { class: 'sm-note', text: 'Scene geometry is exact. Camera A and the sweep record show what the proposed camera is given by the drawn model with the noise set below.' }));
+  const overCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'The mule barrel to scale' }), h('em', { text: 'where each steering pivot sits' })), over);
+  const camCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Camera A image (1-D, along r)' }), h('em', { text: 'proposed · model' })), camSvg);
+  const recCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Sweep record' }), h('em', { text: 'visible fraction against command' })), recSvg);
+  const resCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'What the software concludes' }), h('em', { text: 'from noisy readings only' })), resBox);
+  const tabCard = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'The three ways to steer, at this placement' }), h('em', { text: 'derived from the drawn geometry' })), tabBox);
+  app.stageEl.appendChild(h('div', { class: 'sm-grid' }, h('div', { class: 'sm-col' }, mainCard, overCard, tabCard), h('div', { class: 'sm-col' }, camCard, recCard, resCard)));
+
+  const setLine = (el, x1, y1, x2, y2) => { el.setAttribute('x1', x1); el.setAttribute('y1', y1); el.setAttribute('x2', x2); el.setAttribute('y2', y2); };
+  const fmt = (v, d) => v == null || !isFinite(v) ? '–' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 2 : d);
+  let sweep = null, labels = null;
+
+  function drawMain(o) {
+    const bm = o.bm, b = o.b, sb = Math.sin(b), cb = Math.cos(b), c = o.center;
+    // nose polygon drawn along the nominal barrel axis at the shell's true placement
+    const dot0 = [st.dr, st.dz], N = [dot0[0] - F0 * Math.sin(B0), dot0[1] + F0 * Math.cos(B0)];
+    const P = (L, w) => [N[0] + L * eb[0] + w * Math.cos(B0), N[1] + L * eb[1] + w * Math.sin(B0)];
+    const pl = (L0, L1, w0, w1) => [P(L0, -w0), P(L0, w0), P(L1, w1), P(L1, -w1)].map(q => X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join(' ');
+    nose.setAttribute('points', pl(0, 23, 2.2, 5)); nose2.setAttribute('points', pl(23, 54, 8.5, 8.5));
+    const end = c.r == null ? [bm.origin[0] + 60 * sb, bm.origin[1] - 60 * cb] : [c.r, c.z];
+    setLine(beamLine, X(bm.origin[0]), Y(bm.origin[1]), X(end[0]), Y(end[1]));
+    const seg = (el, pts, ax) => { if (!pts.length) { el.setAttribute('visibility', 'hidden'); return; } el.setAttribute('visibility', 'visible'); const v = pts.map(q => q[ax]), lo = Math.min.apply(null, v), hi = Math.max.apply(null, v); if (ax === 0) setLine(el, X(lo), Y(0), X(hi), Y(0)); else setLine(el, X(0), Y(lo), X(0), Y(hi)); };
+    seg(spotP, o.plate.map(q => [q.r, q.z]), 0); seg(spotW, o.wall.map(q => [q.r, q.z]), 1);
+    // steering element
+    const isM = st.type === 'mirror', isP = st.type === 'pan';
+    if (isM) { const mb = (B0 + b) / 2, nx = Math.cos(mb) * 1.0, ny = Math.sin(mb) * 1.0; mirror.setAttribute('visibility', 'visible'); setLine(mirror, X(N[0] - nx * 2.4), Y(N[1] - ny * 2.4), X(N[0] + nx * 2.4), Y(N[1] + ny * 2.4)); } else mirror.setAttribute('visibility', 'hidden');
+    pivotDot.setAttribute('visibility', isP ? 'hidden' : 'visible'); pivotDot.setAttribute('cx', X(bm.origin[0])); pivotDot.setAttribute('cy', Y(bm.origin[1]));
+    noseLab.setAttribute('x', X(-25)); noseLab.setAttribute('y', Y(11));
+    // reach of the steering (dot positions over the full command range) drawn on the plate as a purple bar
+    const rc = reachOf(st.type, range()), eLo = rc.lo, eHi = rc.hi;
+    if (eLo != null && eHi != null) { reachBar.setAttribute('visibility', 'visible'); setLine(reachBar, X(Math.max(eLo, R0 + 0.5)), Y(-7.5), X(Math.min(eHi, 5)), Y(-7.5)); reachLab.setAttribute('x', X(-25)); reachLab.setAttribute('y', Y(-7.5) + 14); reachLab.textContent = 'reach of the steering: dot from ' + fmt(eLo, 1) + ' to ' + fmt(eHi, 1) + ' mm (seam = 0)'; reachLab.style.fill = '#c084fc'; }
+    else { reachBar.setAttribute('visibility', 'hidden'); reachLab.textContent = ''; }
+    // camera A view
+    camSvg.textContent = '';
+    const x0 = 16, w = 268, rmin = -8, rmax = 4, XA = r => x0 + (r - rmin) / (rmax - rmin) * w;
+    camSvg.append(S('rect', { x: x0, y: 26, width: XA(0) - x0, height: 30, fill: '#8e98a6' }), S('rect', { x: XA(0), y: 26, width: WT / (rmax - rmin) * w, height: 30, fill: WK.roleHex('work') }), S('rect', { x: XA(WT), y: 26, width: XA(rmax) - XA(WT), height: 30, fill: '#252d39' }),
+      S('text', { x: x0 + 2, y: 21, class: 'sm', text: 'plate (from above)' }), S('text', { x: XA(0) + 1, y: 21, class: 'sm teal', text: 'seam' }), S('text', { x: XA(WT) + 3, y: 68, class: 'sm', text: 'wall top' }));
+    for (let r = -8; r <= 4; r += 2) camSvg.append(S('text', { x: XA(r), y: 78, 'text-anchor': 'middle', class: 'sm', text: r }));
+    if (o.plate.length) {
+      const rs = o.plate.map(q => q.r), lo2 = Math.min.apply(null, rs), hi2 = Math.max.apply(null, rs), wpx = Math.max(3, (hi2 - lo2) / (rmax - rmin) * w);
+      camSvg.append(S('rect', { x: XA(lo2) - 1.5, y: 32, width: wpx + 3, height: 18, rx: 4, fill: '#ff3b30', opacity: (0.35 + 0.65 * o.frac).toFixed(2) }), S('text', { x: 16, y: 92, class: 'b', text: 'centroid ' + fmt(o.c, 2) + ' mm · visible ' + Math.round(o.frac * 100) + ' %' }));
+    } else camSvg.append(S('text', { x: 16, y: 46, class: 'b red', text: o.center.kind === 'wall' ? 'dot is on the wall: invisible from above' : 'no dot on the plate' }));
+    camSvg.append(S('text', { x: 16, y: 11, class: 'b', text: 'A reports the plate part of the dot' }));
+    // status
+    const j = trueJ(), jn = nominalJ();
+    status.innerHTML = '<span>command <b>' + (st.type === 'offset' ? uCur().toFixed(2) + ' mm' : uCur().toFixed(2) + '°') + '</b></span><span>dot offset from the seam <b>' + (o.e == null ? 'off the plate' : fmt(o.e, 2) + ' mm') + '</b> (true)</span><span>visible <b>' + Math.round(o.frac * 100) + ' %</b></span><span>dot moves <b>' + Math.abs(j).toFixed(2) + ' mm per ' + (st.type === 'offset' ? 'mm' : 'degree') + '</b>' + (Math.abs(j - jn) / Math.abs(jn) > 0.005 ? ' (' + (100 * (j - jn) / jn).toFixed(1) + ' % from the shell’s nominal placement)' : '') + '</span>';
+    app.badge('reach', (eLo == null || eHi == null || eLo > 0 || eHi < 0) ? 'the seam is outside this steering’s reach at this placement' : null, 'limit');
+    app.badge('lost', o.frac === 0 ? 'dot not visible to camera A' : null, 'warn');
+    return { j: j, jn: jn };
+  }
+  function drawOver() {
+    over.textContent = '';
+    over.append(S('rect', { x: 0, y: 0, width: OW, height: OH, fill: '#0f141b', rx: 6 }));
+    // the gun's own frame: s along the barrel (positive backward, drawn to the left), w across it; the dot is the origin
+    const nrm = [Math.cos(B0), Math.sin(B0)], dot0 = [st.dr, st.dz], OX0 = 405, OY0 = 92;
+    const T = p => { const q = [p[0] - dot0[0], p[1] - dot0[1]]; const s = q[0] * eb[0] + q[1] * eb[1], w = q[0] * nrm[0] + q[1] * nrm[1]; return [OX0 - s * OSC, OY0 - w * OSC]; };
+    const poly = (pts, fill, stroke, op) => S('polygon', { points: pts.map(p => { const t = T(p); return t[0].toFixed(1) + ',' + t[1].toFixed(1); }).join(' '), fill: fill, stroke: stroke || 'none', opacity: op == null ? 1 : op });
+    over.append(poly([[-26, 0], [0, 0], [0, -PT], [-26, -PT]], '#8e98a6'), poly([[0, -PT], [WT, -PT], [WT, RIM + 26], [0, RIM + 26]], WK.roleHex('work')));
+    const B = (s, w) => { const p = [dot0[0] + s * eb[0] + w * nrm[0], dot0[1] + s * eb[1] + w * nrm[1]]; return p; };
+    over.append(poly([B(0, -5), B(0, 5), B(130, 16), B(130, -16)], '#3a4350', '#8896a8', 0.9));
+    const a = T(dot0), e = T(B(130, 0)); over.append(S('line', { x1: a[0], y1: a[1], x2: e[0], y2: e[1], stroke: WK.roleHex('laser'), 'stroke-width': 1, 'stroke-dasharray': '4 3', opacity: 0.85 }));
+    const sm = T([0, 0]); over.append(S('circle', { cx: sm[0], cy: sm[1], r: 3, fill: WK.roleHex('locate') }), S('text', { x: sm[0] + 8, y: sm[1] + 16, class: 'sm teal', text: 'true seam' }));
+    over.append(S('circle', { cx: a[0], cy: a[1], r: 2.6, fill: '#ff3b30' }), S('text', { x: a[0] + 6, y: a[1] - 16, class: 'sm red', text: 'dot at rest' }));
+    const marks = [{ L: st.spd, label: 'pan/tilt pivot, ' + st.spd + ' mm behind the dot (borrowed-10)', on: st.type === 'pan', col: '#a855f7' }, { L: F0, label: 'mirror at the nose, 16 mm (turns the beam twice the tilt)', on: st.type === 'mirror', col: '#7fb0ff' }, { L: 60, label: 'the gun\u2019s swing offset acts inside the head (borrowed-06); drawn at 60 mm', on: st.type === 'offset', col: '#4ade80' }];
+    marks.forEach((m, i) => {
+      const q = T(B(m.L, 0));
+      over.append(S('circle', { cx: q[0], cy: q[1], r: m.on ? 6 : 4, fill: m.on ? m.col : 'none', stroke: m.col, 'stroke-width': 1.6, opacity: m.on ? 1 : 0.55 }));
+      over.append(S('circle', { cx: 14, cy: 136 + i * 14, r: 4, fill: m.on ? m.col : 'none', stroke: m.col, 'stroke-width': 1.4 }), S('text', { x: 24, y: 139 + i * 14, class: m.on ? 'b' : 'sm', text: m.label }));
+    });
+    over.append(S('text', { x: 8, y: 14, class: 'b', text: 'the mule barrel in its own frame, to scale (mm)' }), S('text', { x: 8, y: OH - 6, class: 'sm', text: 'the tapered nose is 2.2 to 5 mm in radius: a servo does not fit there, a mirror might' }));
+  }
+  function drawTable(cur) {
+    const types = [{ id: 'pan', name: 'pan/tilt 100 mm back', unit: '°', step: st.step, rangeU: 8 }, { id: 'mirror', name: 'mirror at the nose', unit: '°', step: st.step, rangeU: 8 }, { id: 'offset', name: 'gun swing offset', unit: 'mm', step: 0.01, rangeU: st.rangeO }];
+    let rows = '';
+    types.forEach(t => {
+      const d = 0.05, j = (evalDot(t.id, d).e - evalDot(t.id, -d).e) / (2 * d), rr = reachOf(t.id, t.rangeU), lo = rr.lo, hi = rr.hi;
+      const per = Math.abs(j) * t.step;
+      rows += '<tr' + (t.id === st.type ? ' class="cur"' : '') + '><td>' + t.name + '</td><td>' + Math.abs(j).toFixed(2) + ' mm/' + (t.id === 'offset' ? 'mm' : '°') + '</td><td><b>' + per.toFixed(3) + '</b> mm</td><td>' + (lo == null || hi == null ? '–' : fmt(lo, 1) + ' to ' + fmt(hi, 1)) + '</td></tr>';
+    });
+    tabBox.innerHTML = '<table class="sm-tab"><thead><tr><th>steering</th><th>dot per unit</th><th>one step</th><th>reach, mm</th></tr></thead><tbody>' + rows + '</tbody></table><div class="sm-note">One step is the servo step set below (0.01 mm assumed for the gun’s own offset). Reach uses ±8° for the two servo types and the range slider for the offset.</div>';
+  }
+  function drawRecord() {
+    recSvg.textContent = '';
+    const x0 = 30, x1 = 290, y0 = 20, y1 = 150, R = range(), XU = u => x0 + (u + R) / (2 * R) * (x1 - x0), YF = f => y1 - f * (y1 - y0);
+    recSvg.append(S('rect', { x: 0, y: 0, width: 300, height: 190, fill: '#0f141b', rx: 6 }));
+    recSvg.append(S('text', { x: 8, y: 12, class: 'b', text: 'fraction (A) vs command: coarse blue, fine amber' }));
+    [0, 0.5, 1].forEach(f => recSvg.append(S('line', { x1: x0, y1: YF(f), x2: x1, y2: YF(f), stroke: f === 0.5 ? '#3a4a5e' : '#1e2733' }), S('text', { x: 4, y: YF(f) + 3, class: 'sm', text: (f * 100) + '%' })));
+    for (let u = -R; u <= R + 1e-9; u += R / 2) recSvg.append(S('text', { x: XU(u), y: 164, 'text-anchor': 'middle', class: 'sm', text: (Math.round(u * 10) / 10) + UNIT() }));
+    // ideal curve (truth, no noise), thin
+    const pts = []; for (let i = 0; i <= 200; i++) { const u = -R + 2 * R * i / 200; pts.push(XU(u).toFixed(1) + ',' + YF(evalDot(st.type, u).frac).toFixed(1)); }
+    recSvg.append(S('polyline', { points: pts.join(' '), fill: 'none', stroke: '#3b4a60', 'stroke-width': 1 }));
+    const tu = trueSeamU(); if (tu != null && Math.abs(tu) <= R) { recSvg.append(S('line', { x1: XU(tu), y1: y0, x2: XU(tu), y2: y1, stroke: '#f0abfc', 'stroke-dasharray': '2 3' }), S('text', { x: XU(tu) + 3, y: y0 + 8, class: 'sm pink', text: 'true seam' })); }
+    if (sweep) {
+      sweep.coarse.forEach(s => recSvg.append(S('circle', { cx: XU(s.u), cy: YF(s.f), r: 1.9, fill: '#7fb0ff', opacity: 0.85 })));
+      sweep.fine.forEach(s => recSvg.append(S('circle', { cx: XU(s.u), cy: YF(s.f), r: 1.6, fill: '#fbbf24', opacity: 0.9 })));
+      if (sweep.knee != null) { recSvg.append(S('line', { x1: XU(sweep.knee), y1: y0, x2: XU(sweep.knee), y2: y1, stroke: '#14b8a6', 'stroke-width': 1.4 }), S('text', { x: XU(sweep.knee) + 3, y: y1 - 4, class: 'sm teal', text: 'knee (software)' })); }
+    } else recSvg.append(S('text', { x: 150, y: 178, 'text-anchor': 'middle', class: 'sm', text: 'thin line: the ideal curve (hidden from the software)' }));
+  }
+  function render() {
+    const o = evalDot(st.type, uCur());
+    const jj = drawMain(o); drawOver(); drawTable(); drawRecord();
+    app.io.set({
+      commands: [{ name: st.type === 'offset' ? 'Swing offset' : (st.type === 'mirror' ? 'Nose mirror tilt' : 'Pointer angle'), value: uCur().toFixed(2), unit: UNIT(), note: 'the only thing that moves; the shell stays' }, { name: 'Sweep / steer to a labelled offset', value: sweep ? 'seam found' : 'not yet', note: 'software step list' }, { name: 'Dot on / off / blink', value: 'on', note: 'mule only: the real gun’s dot may not blink (unknown)' }],
+      observes: [
+        { name: 'Visible fraction in camera A', value: Math.round(o.frac * 100), unit: '%', status: 'seen', note: 'the plate part of the dot; noise set below' },
+        { name: 'Centroid (plate part)', value: o.c == null ? '–' : o.c.toFixed(2), unit: 'mm', status: 'partly', note: 'biased by the clipping near the seam' },
+        { name: 'Seam in pointer units', value: sweep && sweep.knee != null ? sweep.knee.toFixed(2) + UNIT() : '–', status: sweep && sweep.knee != null ? 'seen' : 'unresolved', note: 'from the knee of the fraction curve' },
+        { name: 'Wall spot height', value: '–', status: 'blind', note: 'edge-on to camera A; needs camera B (trials-03)' },
+        { name: 'Where the infrared would melt', value: '–', status: 'blind', note: 'nothing in a dry run says' }],
+      manual: ['Stand the shell so the seam is inside the steering’s reach', 'Mount the pointer or mirror in the nose', 'Decide whether an unattended red laser is acceptable']
+    });
+    app.invalidate && app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ the sweep and the labels
+  function readF(u, dir) {                                       // command u, approached upward (dir = 1) or downward; returns the noisy fraction
+    const ua = st.type === 'offset' ? servoTo('O', u, quant(), 0) : servoTo('A', u, quant(), lash());
+    const o = evalDot(st.type, ua);
+    return { u: u, ua: ua, f: Math.max(0, Math.min(1, o.frac + gauss() * st.noise)) };
+  }
+  function runSweep() {
+    const R = range(); servo.A = -R - 1; servo.O = -R - 1;
+    const coarse = [], nC = 41;
+    for (let i = 0; i < nC; i++) coarse.push(readF(-R + 2 * R * i / (nC - 1)));
+    let a = null, b = null;
+    for (let i = 1; i < nC; i++) if (coarse[i - 1].f >= 0.5 && coarse[i].f < 0.5) { a = coarse[i - 1].u; b = coarse[i].u; break; }
+    const fine = []; let knee = null, sigma = null;
+    if (a != null) {
+      const cs = 2 * R / (nC - 1), lo = a - cs, hi = b + cs; servo.A = lo - 1; servo.O = lo - 1;
+      for (let i = 0; i <= 30; i++) fine.push(readF(lo + (hi - lo) * i / 30));
+      const tr = fine.filter(p => p.f > 0.06 && p.f < 0.94);
+      if (tr.length >= 3) {                                        // least-squares line through the transition, knee where it crosses 50 %
+        const n = tr.length, mu = tr.reduce((x, p) => x + p.u, 0) / n, mf = tr.reduce((x, p) => x + p.f, 0) / n;
+        let sxx = 0, sxy = 0; tr.forEach(p => { sxx += (p.u - mu) * (p.u - mu); sxy += (p.u - mu) * (p.f - mf); });
+        const sl = sxy / sxx; if (sl < 0) { knee = mu + (0.5 - mf) / sl; sigma = st.noise / Math.abs(sl) / Math.sqrt(n); }
+      }
+      if (knee == null) {                                          // too coarse to have a transition point: bracket interpolation
+        for (let i = 1; i < fine.length; i++) if (fine[i - 1].f >= 0.5 && fine[i].f < 0.5) { const p = fine[i - 1], q = fine[i]; knee = p.u + (0.5 - p.f) / (q.f - p.f) * (q.u - p.u); break; }
+      }
+    }
+    sweep = { coarse: coarse, fine: fine, knee: knee, sigma: sigma, R: R };
+    labels = null; renderResult(); render();
+  }
+  function runLabels() {
+    if (!sweep || sweep.knee == null) { runSweep(); if (!sweep || sweep.knee == null) return; }
+    const jn = nominalJ(), offs = [-1.5, -1.0, -0.5, -0.25, 0], rows = [], q = quant(), up = st.from === 'plate';
+    const order = up ? offs : offs.slice().reverse();
+    servo.A = sweep.knee + (up ? -3 : 3); servo.O = sweep.knee + (up ? -3 : 3);
+    order.forEach(mm => {
+      const u = sweep.knee + mm / jn, qc = q > 0 ? Math.round(u / q) * q : u;
+      const ua = st.type === 'offset' ? servoTo('O', u, q, 0) : servoTo('A', u, q, lash());
+      const o = evalDot(st.type, ua), label = jn * (qc - sweep.knee);
+      rows.push({ want: mm, label: label, e: o.e, err: o.e == null ? null : label - o.e });
+    });
+    labels = rows.sort((x, y) => x.want - y.want); renderResult(); render();
+  }
+  function renderResult() {
+    if (!sweep) { resBox.innerHTML = RES0; return; }
+    const tu = trueSeamU(), jt = trueJ(), jn = nominalJ();
+    let html = '';
+    if (sweep.knee == null) html += '<span class="bad"><b>No knee found:</b> the fraction never crossed 50 % inside the reach. The seam is outside what this steering can cover at this placement: move the shell, or use the wider pan/tilt.</span>';
+    else {
+      const dk = tu == null ? null : sweep.knee - tu, lag = st.type === 'offset' ? 0 : lash() / 2;
+      html += 'Seam at <b>' + sweep.knee.toFixed(3) + ' ' + UNIT() + '</b> (software: coarse sweep, then fine). The true seam is at <b>' + (tu == null ? '\u2013' : tu.toFixed(3) + ' ' + UNIT()) + '</b>. The difference, <b>' + (dk == null ? '\u2013' : fmt(dk, 3) + ' ' + UNIT() + ' = ' + fmt(dk * jt, 3) + ' mm') + '</b>, is the servo\u2019s lag (' + lag.toFixed(3) + ' ' + UNIT() + ' at half the lash) plus noise' + (sweep.sigma ? ' (noise alone: about \u00B1' + (sweep.sigma * Math.abs(jn)).toFixed(3) + ' mm)' : '') + '.';
+      html += '<br><span class="k">Scale the software assumes: ' + Math.abs(jn).toFixed(2) + ' mm per ' + (st.type === 'offset' ? 'mm' : 'degree') + '; true at this placement ' + Math.abs(jt).toFixed(2) + '. The sweep approaches upward, so the lag is a constant the labels share.</span>';
+    }
+    if (labels) {
+      html += '<table class="sm-tab" style="margin-top:6px"><thead><tr><th>asked (mm)</th><th>label written</th><th>true</th><th>error</th></tr></thead><tbody>' + labels.map(r => '<tr><td>' + fmt(r.want, 2) + '</td><td>' + fmt(r.label, 3) + '</td><td>' + (r.e == null ? 'off the plate' : fmt(r.e, 3)) + '</td><td><b>' + (r.err == null ? '\u2013' : fmt(r.err, 3)) + '</b></td></tr>').join('') + '</tbody></table>';
+      html += '<span class="k">The label is what the software writes from the step it commanded (it does not need the servo to land exactly). Approached from the ' + (st.from === 'plate' ? 'plate side, as the sweep was: the lash cancels' : 'wall side: the lash is now the wrong sign and is not cancelled') + '.</span>';
+    }
+    resBox.innerHTML = html;
+  }
+  function resetRun() { sweep = null; labels = null; renderResult(); }
+  function apply() {
+    // move the servo toward the slider value (with lash) and draw
+    st.uA = servoTo('A', ctl.uA, quant(), lash()); st.uO = servoTo('O', ctl.uO, 0.01, 0);
+  }
+  const ctl = { uA: 0, uO: 0 };
+
+  // ------------------------------------------------------------------ controls
+  const gs = app.ui.group('Steering (branch)', { open: true });
+  gs.radio({ id: 'type', label: 'How the dot is steered', kind: 'branch', value: 'pan', options: [{ value: 'pan', label: 'pan/tilt 100 mm back' }, { value: 'mirror', label: 'mirror at the nose' }, { value: 'offset', label: 'gun swing offset' }], help: 'Pan/tilt: borrowed-10 as drawn. Mirror: the beam turns twice the mirror. Swing offset: borrowed-06, if it can be commanded.', onChange: v => { st.type = v; setEn(); resetRun(); apply(); render(); } });
+  const ga = app.ui.group('Commands (proposed actuators)', { open: true });
+  ga.slider({ id: 'uA', label: 'Pointer or mirror angle', min: -8, max: 8, step: 0.01, value: 0, unit: '°', kind: 'actuator', visual: 'the beam and the dot', help: 'In the section plane. The servo quantises it and has lash.', onChange: v => { ctl.uA = v; apply(); render(); } });
+  ga.slider({ id: 'uO', label: 'Swing offset', min: -3, max: 3, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: 'the beam and the dot', help: 'Only for the gun swing offset type.', onChange: v => { ctl.uO = v; apply(); render(); } });
+  ga.button({ id: 'sweep', label: 'Sweep to find the seam', kind: 'state', onClick: () => runSweep() });
+  ga.radio({ id: 'from', label: 'Labels approached from', kind: 'state', noVisual: true, value: 'plate', options: [{ value: 'plate', label: 'the plate side (as the sweep)' }, { value: 'wall', label: 'the wall side' }], help: 'One-sided approach turns the servo\u2019s lash into a constant the sweep shares; from the other side it shows up in every label.', onChange: v => { st.from = v; labels = null; renderResult(); } });
+  ga.button({ id: 'labels', label: 'Steer to labelled offsets', kind: 'state', onClick: () => runLabels() });
+  const gh = app.ui.group('The hardware (scene edits)', { open: true });
+  gh.slider({ id: 'spd', label: 'Pan/tilt pivot distance behind the dot', min: 40, max: 160, step: 5, value: 100, unit: 'mm', kind: 'scene', help: 'Longer: wider reach, coarser steps.', onChange: v => { st.spd = v; resetRun(); render(); } });
+  gh.slider({ id: 'step', label: 'Servo step', min: 0.01, max: 0.5, step: 0.01, value: 0.1, unit: '°', kind: 'scene', onChange: v => { st.step = v; resetRun(); apply(); render(); } });
+  gh.slider({ id: 'bl', label: 'Servo lash (deadband)', min: 0, max: 0.6, step: 0.02, value: 0.2, unit: '°', kind: 'scene', noVisual: true, help: 'Approach from below (a sweep) and it is a constant; reverse and it shows.', onChange: v => { st.bl = v; resetRun(); apply(); render(); } });
+  gh.slider({ id: 'rangeO', label: 'Swing offset range (unknown)', min: 0.5, max: 3, step: 0.1, value: 2, unit: '± mm', kind: 'scene', onChange: v => { st.rangeO = v; resetRun(); render(); } });
+  gh.slider({ id: 'slopeO', label: 'Swing offset slope (unknown)', min: 0.5, max: 2.5, step: 0.05, value: 1.83, unit: 'mm/mm', kind: 'scene', help: 'Dot movement per millimetre of offset; borrowed-06’s scene reads 1.83 at the opening pose.', onChange: v => { st.slopeO = v; resetRun(); render(); } });
+  const gt = app.ui.group('The shell and the eye (scene edits: hidden truth)', { open: true });
+  gt.slider({ id: 'dr', label: 'Shell placement error, radial', min: -4, max: 4, step: 0.05, value: -1.2, unit: 'mm', kind: 'scene', help: 'How far the mule stands from where its design puts the dot. The software does not know it.', onChange: v => { st.dr = v; resetRun(); render(); } });
+  gt.slider({ id: 'dz', label: 'Shell placement error, height', min: -2, max: 2, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', help: 'Changes the pivot height above the plate and so the scale.', onChange: v => { st.dz = v; resetRun(); render(); } });
+  gt.slider({ id: 'd0', label: 'Dot diameter', min: 0.2, max: 1.2, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', help: 'The real dot’s size at the plate is unknown.', onChange: v => { st.d0 = v; resetRun(); render(); } });
+  gt.slider({ id: 'noise', label: 'Fraction noise (camera)', min: 0, max: 0.15, step: 0.005, value: 0.02, kind: 'scene', noVisual: true, help: 'One standard deviation of the visible fraction.', onChange: v => { st.noise = v; resetRun(); render(); } });
+  function setEn() { try { app.ui.enable('from', true); app.ui.enable('uA', st.type !== 'offset'); app.ui.enable('uO', st.type === 'offset'); app.ui.enable('spd', st.type === 'pan'); app.ui.enable('step', st.type !== 'offset'); app.ui.enable('bl', st.type !== 'offset'); app.ui.enable('rangeO', st.type === 'offset'); app.ui.enable('slopeO', st.type === 'offset'); } catch (e) { /* controls not built yet */ } }
+  setEn(); apply(); render();
+})();
+</script>
+</body>
+</html>

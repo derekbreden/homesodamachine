@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eddy through the wall</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ed text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #cbd5e1; }
+  .ed .tm { fill: #8b98ab; } .ed .tf { fill: #64748b; } .ed .tb { font-weight: 600; fill: #e7ebf1; font-size: 12px; }
+  .ed .tt { fill: #14b8a6; } .ed .ta { fill: #f5a524; } .ed .tr { fill: #ff6b5f; } .ed .tp { fill: #c084fc; } .ed .ts { fill: #60a5fa; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-06-eddy-through-wall",
+  "title": "Eddy sensing through the wall: seat depth from outside",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The wall hides the corner from every camera, but not from a low-frequency coil. Slide a small coil up the outside of the tube: the rim is a step, and the plate seated behind the 1.65 mm wall is a bump. The distance between them is this tube's seat depth, measured with no line of sight and no contact. A toy model, drawn to show where a bench test is worth doing.",
+  "tags": ["datum", "eddy current", "through the wall", "seat depth", "no line of sight", "schematic"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["skin depth versus wall thickness", "rim edge and plate bump as a depth ruler", "sensing hidden features of the work from outside"],
+  "how": {
+    "motion": "a coil scans up the outer wall on a proposed small slide, or rides the crown's vertical stage",
+    "load": "not addressed; the coil sits 1-3 mm off the outside of the tube",
+    "reference": "the rim edge and the plate bump, both read through the wall",
+    "observe": "coil response against height: a step at the rim, a bump at the plate",
+    "use": "one scan per tube during setup; or a fixed coil on the crown watching the plate edge"
+  },
+  "software": {
+    "commands": ["coil height (a proposed scan axis or the crown stage)"],
+    "observes": ["coil response against height; rim and plate edges; seat depth from their spacing"],
+    "manual": ["placing the coil on the outside at the station azimuth", "a one-time bench calibration of the blur"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-06-eddy-through-wall.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const S = WK.svg, hex = WK.roleHex, TAU = Math.PI * 2;
+
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Nothing outside the tube can see the corner: the wall is in the way. But a coil carrying low-frequency current induces eddy currents in the steel, and how strongly the coil &ldquo;feels&rdquo; the steel depends on how much conductor is behind the wall. Slide a small coil up the <b>outside</b> of the tube at the weld station: above the rim there is nothing (zero); in the pocket there is the wall alone; over the plate there is the wall <i>plus the plate seated behind it</i> (a bump); below the plate the wall is alone again. The distance from the rim step to the top of the bump is the seat depth of <i>this</i> tube, read through the wall with no line of sight and no contact.</p>' +
+        '<p>Whether it works is a question of <b>skin depth</b>: at high frequency the current stays in the outer skin of the wall and the plate is invisible; at low frequency the field passes through the 1.65 mm wall. The right-hand plots show the skin depth of 316L and how big the plate&rsquo;s bump is at the frequency you pick. This scene is deliberately a toy: it is drawn to show <i>where a bench test would be worth doing</i>, not what a coil would read.</p>',
+      carries:
+        '<p>Nothing carries anything new: the coil is light and sits a millimetre or two off the outer wall. It could be on a small slide, or on the vertical stage of a crown (see the crown scene), or fixed at the corner&rsquo;s height and used as a presence flag for the plate.</p>',
+      software:
+        '<p><b>Commanded:</b> the coil&rsquo;s height (a proposed scan axis). <b>Observed:</b> the coil&rsquo;s response against height. Software finds the rim step and the plate bump and reports their spacing: the seat depth. Everything else (radial position, dot) is blind here.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the wall is a conductor in the way of the plate. <b>Assumption:</b> a metal wall blocks the field. <b>What the numbers say:</b> the skin depth in 316L is 2.5 mm at 30 kHz and 1.37 mm at 100 kHz [calc/eddy_skin.py]; against a 1.65 mm wall the field left at the plate is 52% at 30 kHz and 30% at 100 kHz. So the plate is visible at tens of kilohertz and fades above about a hundred; at 1 MHz it is gone. <b>Left uncertain:</b> the resistivity is a handbook value, and the wall and plate are separate parts with a 0.13 mm slip gap [derived from 0.005 in, repo].</li>' +
+        '<li><b>Conflict:</b> the plate is 6.35 mm thick and the coil is not small. <b>Assumption:</b> the rim and the plate face show up as two edges to hunt for. <b>What the calc shows:</b> with a 6 mm coil the rim&rsquo;s blurred step swamps the small plate bump, and a simple steepest-edge search is more than 2 mm off in 82% of simulated scans [calc/eddy_skin.py]. <b>Change:</b> fit a template of the whole response (rim step plus bump) instead of hunting edges: 0.13 mm RMS when the template&rsquo;s blur is 15% wrong. <b>Left uncertain:</b> the template must be calibrated on the bench.</li>' +
+        '<li><b>Conflict:</b> the fit is limited by calibration, not noise. <b>What the calc shows:</b> the seat-depth bias is &minus;0.12 mm at 15% blur error, &minus;0.30 mm at 30% and &minus;0.90 mm at 50% [calc]. <b>Change:</b> calibrate on a tube whose seat depth has been measured with a depth gauge; the blur is repeatable for one coil and one lift-off. <b>Left uncertain:</b> whether one calibration holds across tubes, wall thicknesses and temperatures.</li>' +
+        '<li><b>Conflict:</b> the weld heats the wall exactly where the coil looks. <b>Assumption:</b> the coil is used before welding. <b>Change:</b> scan once during setup, or look ahead of the pool. <b>Left uncertain:</b> heat on the coil and a temperature drift of the steel&rsquo;s resistivity, which shifts the skin depth.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether the coil signal at these frequencies and this geometry looks anything like the toy: this needs a bench test with one coil board and a scrap tube-and-plate.</li>' +
+        '<li>Wall thickness variation and OD-to-bore offset change the &ldquo;wall only&rdquo; level and can hide a small bump.</li>' +
+        '<li>Whether cold-worked 316L is slightly magnetic near the plate&rsquo;s weld and confuses the reading. <b>[unknown]</b></li>' +
+        '<li><b>Question for Derek:</b> does the collar or crown leave a clear strip of outer wall at the station azimuth.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Wall 0.065 in = 1.65 mm and plate 0.250 in = 6.35 mm [repo]. Recess nominal 6.35 mm [repo]; the true seat depth is a slider.</li>' +
+        '<li>316L resistivity 74 &mu;&Omega;&middot;cm: <b>illustrative handbook value</b>; relative permeability 1.</li>' +
+        '<li>Response = a thin-conductor formula 1 &minus; exp(&minus;2t/&delta;) per layer, smoothed by a Gaussian of width set by the coil diameter and lift-off. <b>Toy model</b>: not a field solution.</li>' +
+        '<li>Noise 0.4% of full scale, coil size, lift-off: <b>illustrative</b>.</li>' +
+        '<li><b>Models:</b> skin depth, the toy response, a 200-trial edge search. <b>Depicts only:</b> the cross-section drawing, the coil.</li>' +
+        '</ul>',
+    },
+  });
+  const stage = app.stageEl;
+
+  const P = { logf: 4.5, D: 6, g: 1.5, zc: 5, tw: 1.651, seat: 6.85, noise: 0.004, plate: true, mis: 0.15 };
+  const RHO = 74e-8, MU0 = 4e-7 * Math.PI, PLATE_T = 6.35;
+  const fHz = () => Math.pow(10, P.logf);
+  const delta = f => 1000 * Math.sqrt(RHO / (Math.PI * f * MU0));
+  const step = () => Math.exp(-2 * P.tw / delta(fHz()));
+  const T = (x, y, s, cls, anchor) => S('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: s });
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+  function rng(seed) { let a = seed >>> 0; return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * r()); }
+
+  // ------------------------------------------------------------------ toy model
+  // z is height relative to the rim (rim = 0, up positive). plate face at -seat, plate below it.
+  function profileX(zz, seat, plate, tw, f) {
+    const Wl = 1 - Math.exp(-2 * tw / delta(f));
+    if (zz > 0) return 0;
+    if (plate && zz <= -seat && zz > -seat - PLATE_T) return 1;
+    return Wl;
+  }
+  const sigKX = (D, g) => Math.hypot(0.35 * D, 0.5 * g);
+  function smoothedX(z, seat, sk, plate) {
+    const n = Math.ceil(4 * sk / 0.1); let a = 0, w = 0;
+    for (let i = -n; i <= n; i++) { const dz = i * 0.1, k = Math.exp(-0.5 * (dz / sk) * (dz / sk)); a += k * profileX(z + dz, seat, plate, P.tw, fHz()); w += k; }
+    return a / w;
+  }
+  const smoothed = z => smoothedX(z, P.seat, sigKX(P.D, P.g), P.plate);
+  function scanTrace(seed) {
+    const r = rng(seed), out = [];
+    for (let z = 10; z >= -34; z -= 0.2) out.push([z, smoothed(z) + P.noise * gauss(r)]);
+    return out;
+  }
+  // The software fits a TEMPLATE of the response (rim step + plate bump) to the scan. The template is calibrated on the bench;
+  // P.mis is how wrong its coil blur is (a fraction). Noise and template error set the accuracy.
+  const ZG0 = 16, DZG = 0.1;
+  let tplKey = '', tplMap = new Map();
+  function tpl(seat) {
+    const key = [P.logf.toFixed(2), P.tw, P.D, P.g, P.plate, P.mis].join('|');
+    if (key !== tplKey) { tplKey = key; tplMap = new Map(); }
+    const k = seat.toFixed(2);
+    let t = tplMap.get(k);
+    if (!t) { const sk = sigKX(P.D * (1 + P.mis), P.g); t = new Float32Array(620); for (let i = 0; i < 620; i++) t[i] = smoothedX(ZG0 - i * DZG, seat, sk, P.plate); tplMap.set(k, t); }
+    return t;
+  }
+  function sse(tr, seat, shift) {
+    const t = tpl(seat); let e = 0;
+    for (let i = 0; i < tr.length; i++) { const u = (ZG0 - (tr[i][0] - shift)) / DZG, i0 = Math.floor(u); if (i0 < 0 || i0 > 618) return 1e9; const f = u - i0, m = t[i0] * (1 - f) + t[i0 + 1] * f, d = tr[i][1] - m; e += d * d; }
+    return e;
+  }
+  function estimate(tr) {
+    let best = { e: 1e18, seat: 6, shift: 0 };
+    for (let seat = 3; seat <= 12.001; seat += 0.25) for (let sh = -3; sh <= 3.001; sh += 0.25) { const e = sse(tr, seat, sh); if (e < best.e) best = { e: e, seat: seat, shift: sh }; }
+    const c = best;
+    for (let seat = c.seat - 0.25; seat <= c.seat + 0.2501; seat += 0.05) for (let sh = c.shift - 0.25; sh <= c.shift + 0.2501; sh += 0.05) { const e = sse(tr, +seat.toFixed(2), sh); if (e < best.e) best = { e: e, seat: +seat.toFixed(2), shift: sh }; }
+    if (best.e > 1e17) return null;
+    return { rim: best.shift, pf: best.shift - best.seat, seat: best.seat, slope: 0 };
+  }
+  function monteCarlo() {
+    const n = 40, errs = []; let fail = 0;
+    for (let i = 0; i < n; i++) { const e = estimate(scanTrace(1000 + i)); if (!e) { fail++; continue; } const er = e.seat - P.seat; if (Math.abs(er) > 2) fail++; errs.push(er); }
+    const rms = errs.length ? Math.sqrt(errs.reduce((a, b) => a + b * b, 0) / errs.length) : NaN;
+    return { rms: rms, fail: fail / n, n: n };
+  }
+
+  // ------------------------------------------------------------------ drawing
+  const W = 980, H = 650;
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'ed', role: 'img', 'aria-label': 'Cross-section with a coil on the outside, the response against height, and skin depth against frequency', style: 'display:block;margin:0 auto;width:100%;height:100%;max-height:100%', preserveAspectRatio: 'xMidYMid meet' });
+  stage.appendChild(svg);
+  const g0 = S('g'); svg.appendChild(g0);
+  const KZ = 7, ZTOP = 10, YTOP = 92;    // px per mm; z at the top of the drawing; y at the top
+  const yz = z => YTOP + (ZTOP - z) * KZ;
+
+  function panelA(tr) {
+    const g = S('g'), xw = 130, tw = P.tw * KZ * 1.6;   // wall drawn 1.6x thicker for legibility
+    g.append(T(10, 84, 'Cross-section at the station', 'tb'));
+    g.append(S('rect', { x: 10, y: YTOP - 4, width: 250, height: (ZTOP + 34) * KZ + 8, fill: '#10161e', stroke: '#2a3341' }));
+    // wall from the rim down; plate behind it (to the right of the wall = toward the axis)
+    g.append(S('rect', { x: xw, y: yz(0), width: tw, height: yz(-34) - yz(0), fill: hex('work'), opacity: 0.85 }));
+    if (P.plate) g.append(S('rect', { x: xw + tw + 1, y: yz(-P.seat), width: 100, height: PLATE_T * KZ, fill: hex('work'), opacity: 0.55 }));
+    g.append(T(xw + tw + 8, yz(-P.seat) - 4, 'plate face', 'tm')); g.append(T(xw + tw + 8, yz(-P.seat) + 16, 'seat depth ' + P.seat.toFixed(2) + ' mm', 'tf'));
+    g.append(T(xw + tw + 10, yz(-4), 'bore', 'tf'));
+    g.append(T(xw - 6, yz(0) - 5, 'rim', 'tm', 'end'));
+    // the dot / corner
+    g.append(S('circle', { cx: xw + tw, cy: yz(-P.seat), r: 3.5, fill: hex('laser') }));
+    // coil (outside = left)
+    const cxp = xw - P.g * KZ - 12, cy = yz(P.zc), h = P.D * KZ;
+    g.append(S('rect', { x: cxp, y: cy - h / 2, width: 12, height: h, rx: 2, fill: hex('sensor'), opacity: 0.9, stroke: '#0e1218' }));
+    for (let k = 1; k < 5; k++) g.append(line(cxp, cy - h / 2 + k * h / 5, cxp + 12, cy - h / 2 + k * h / 5, { stroke: '#0e1218', 'stroke-width': 1 }));
+    g.append(T(cxp - 4, cy + 3, 'coil', 'ts', 'end'));
+    // field decay behind the wall (bars at the coil height)
+    const d = delta(fHz());
+    for (let i = 0; i < 12; i++) { const a = Math.exp(-(i * 0.8) / d) * Math.exp(-P.tw / d) * 0.9; g.append(S('rect', { x: xw + tw + i * 8, y: cy - 1.5, width: 8, height: 3, fill: hex('sensor'), opacity: Math.max(0.03, a) })); }
+    g.append(T(14, YTOP + (ZTOP + 34) * KZ - 4, 'outside', 'tf')); g.append(T(256, YTOP + (ZTOP + 34) * KZ - 4, 'inside', 'tf', 'end'));
+    // z ruler
+    for (let z = 10; z >= -30; z -= 10) { g.append(line(12, yz(z), 20, yz(z), { stroke: '#3b4658' })); g.append(T(24, yz(z) + 3, z + ' mm', 'tf')); }
+    return g;
+  }
+
+  function panelB(tr, est) {
+    const g = S('g'), x0 = 290, w = 250;
+    g.append(T(x0, 84, 'Response against coil height', 'tb'));
+    g.append(S('rect', { x: x0, y: YTOP - 4, width: w, height: (ZTOP + 34) * KZ + 8, fill: '#10161e', stroke: '#2a3341' }));
+    const sx = s => x0 + 10 + s * (w - 20);
+    [0, 0.5, 1].forEach(s => { g.append(line(sx(s), YTOP - 4, sx(s), YTOP + (ZTOP + 34) * KZ + 4, { stroke: '#1f2733' })); g.append(T(sx(s), YTOP + (ZTOP + 34) * KZ + 16, s.toFixed(1), 'tf', 'middle')); });
+    // noiseless smoothed curve, and the wall-only comparison
+    const pts = [], pts0 = [];
+    for (let z = 10; z >= -34; z -= 0.4) {
+      pts.push(sx(smoothed(z)).toFixed(1) + ',' + yz(z).toFixed(1));
+      const keep = P.plate; P.plate = false; pts0.push(sx(smoothed(z)).toFixed(1) + ',' + yz(z).toFixed(1)); P.plate = keep;
+    }
+    if (P.plate) g.append(S('polyline', { points: pts0.join(' '), fill: 'none', stroke: '#94a3b8', 'stroke-dasharray': '4 3', 'stroke-width': 1.2 }));
+    g.append(S('polyline', { points: tr.map(p => sx(p[1]).toFixed(1) + ',' + yz(p[0]).toFixed(1)).join(' '), fill: 'none', stroke: hex('sensor'), 'stroke-width': 1.1, opacity: 0.9 }));
+    g.append(S('polyline', { points: pts.join(' '), fill: 'none', stroke: hex('locate'), 'stroke-width': 2 }));
+    // coil cursor
+    g.append(line(x0, yz(P.zc), x0 + w, yz(P.zc), { stroke: '#f472b6', 'stroke-width': 1.3 }));
+    g.append(S('circle', { cx: sx(smoothed(P.zc)), cy: yz(P.zc), r: 4, fill: '#f472b6' }));
+    // edges found
+    if (est) {
+      g.append(line(x0, yz(est.rim), x0 + w, yz(est.rim), { stroke: hex('load'), 'stroke-dasharray': '3 3' })); g.append(T(x0 + w - 4, yz(est.rim) - 3, 'rim edge', 'ta', 'end'));
+      g.append(line(x0, yz(est.pf), x0 + w, yz(est.pf), { stroke: hex('load'), 'stroke-dasharray': '3 3' })); g.append(T(x0 + w - 4, yz(est.pf) - 3, 'plate face edge', 'ta', 'end'));
+    }
+    g.append(T(x0 + 4, YTOP + 10, 'noise trace and smooth curve; dashed = wall only', 'tf'));
+    return g;
+  }
+
+  function logAxis(g, x0, y0, w, h, fmin, fmax) {
+    const px = f => x0 + (Math.log10(f) - Math.log10(fmin)) / (Math.log10(fmax) - Math.log10(fmin)) * w;
+    for (let e = Math.log10(fmin); e <= Math.log10(fmax) + 1e-9; e++) { const f = Math.pow(10, e); g.append(line(px(f), y0, px(f), y0 + h, { stroke: '#1f2733' })); g.append(T(px(f), y0 + h + 12, f >= 1e6 ? '1M' : f >= 1e3 ? (f / 1e3) + 'k' : String(f), 'tf', 'middle')); }
+    return px;
+  }
+  function panelC() {
+    const g = S('g'), x0 = 580, w = 370;
+    // skin depth plot (log y)
+    g.append(T(x0, 84, 'Skin depth of 316L against frequency', 'tb'));
+    const y0 = 96, h = 150;
+    g.append(S('rect', { x: x0, y: y0, width: w, height: h, fill: '#10161e', stroke: '#2a3341' }));
+    const px = logAxis(g, x0, y0, w, h, 100, 1e6);
+    const lmin = Math.log10(0.1), lmax = Math.log10(100), py = d => y0 + h - (Math.log10(d) - lmin) / (lmax - lmin) * h;
+    [0.1, 1, 10, 100].forEach(d => { g.append(line(x0, py(d), x0 + w, py(d), { stroke: '#1f2733' })); g.append(T(x0 + 3, py(d) - 2, d + ' mm', 'tf')); });
+    const pts = []; for (let e = 2; e <= 6.001; e += 0.1) pts.push(px(Math.pow(10, e)).toFixed(1) + ',' + py(delta(Math.pow(10, e))).toFixed(1));
+    g.append(S('polyline', { points: pts.join(' '), fill: 'none', stroke: hex('sensor'), 'stroke-width': 2 }));
+    g.append(line(x0, py(P.tw), x0 + w, py(P.tw), { stroke: hex('load'), 'stroke-dasharray': '4 3' })); g.append(T(x0 + w - 4, py(P.tw) - 4, 'wall ' + P.tw.toFixed(2) + ' mm', 'ta', 'end'));
+    g.append(S('circle', { cx: px(fHz()), cy: py(delta(fHz())), r: 5, fill: '#f472b6' }));
+    g.append(T(px(fHz()), py(delta(fHz())) - 9, 'delta ' + delta(fHz()).toFixed(2) + ' mm', 'tm', 'middle'));
+    // step plot
+    g.append(T(x0, 286, 'Plate bump the wall lets through (fraction of full scale)', 'tb'));
+    const y1 = 298, h1 = 130;
+    g.append(S('rect', { x: x0, y: y1, width: w, height: h1, fill: '#10161e', stroke: '#2a3341' }));
+    const px1 = logAxis(g, x0, y1, w, h1, 100, 1e6);
+    [0, 0.5, 1].forEach(s => { const y = y1 + h1 - s * h1; g.append(line(x0, y, x0 + w, y, { stroke: '#1f2733' })); g.append(T(x0 + 3, y - 2, s.toFixed(1), 'tf')); });
+    const pts1 = []; for (let e = 2; e <= 6.001; e += 0.1) pts1.push(px1(Math.pow(10, e)).toFixed(1) + ',' + (y1 + h1 - Math.exp(-2 * P.tw / delta(Math.pow(10, e))) * h1).toFixed(1));
+    g.append(S('polyline', { points: pts1.join(' '), fill: 'none', stroke: hex('locate'), 'stroke-width': 2 }));
+    g.append(S('circle', { cx: px1(fHz()), cy: y1 + h1 - step() * h1, r: 5, fill: '#f472b6' }));
+    g.append(T(px1(fHz()), y1 + h1 - step() * h1 - 9, step().toFixed(2), 'tm', 'middle'));
+    g.append(T(x0, y1 + h1 + 30, 'frequency, Hz (log). Toy formula exp(-2 t / delta) with t the wall thickness.', 'tf'));
+    return g;
+  }
+
+  let mcCache = null, mcKey = '';
+  function render() {
+    while (g0.firstChild) g0.removeChild(g0.firstChild);
+    const tr = scanTrace(4242), est = estimate(tr);
+    const key = [P.logf.toFixed(2), P.D, P.g, P.tw, P.seat, P.noise, P.plate, P.mis].join('|');
+    if (key !== mcKey) { mcCache = monteCarlo(); mcKey = key; }
+    g0.append(panelA(tr), panelB(tr, est), panelC());
+    const st = step(), d = delta(fHz());
+    const fs = fHz() >= 1e3 ? (fHz() / 1e3).toFixed(1) + ' kHz' : fHz().toFixed(0) + ' Hz';
+    const lines = [
+      ['At ' + fs + ': skin depth ' + d.toFixed(2) + ' mm.', 'tm'],
+      ['Field left at the plate ' + (100 * Math.exp(-P.tw / d)).toFixed(0) + '%; bump ' + st.toFixed(2) + ' of full scale.', 'tm'],
+      ['One scan, template fitted: seat depth ' + (est ? est.seat.toFixed(2) : '-') + ' mm (truth ' + P.seat.toFixed(2) + ').', 'tm'],
+      ['' + mcCache.n + ' simulated scans: error RMS ' + (isFinite(mcCache.rms) ? mcCache.rms.toFixed(2) : '-') + ' mm,', mcCache.rms > 0.8 ? 'ta' : 'tt'],
+      ['failures (more than 2 mm off) ' + (mcCache.fail * 100).toFixed(0) + '%.', mcCache.rms > 0.8 ? 'ta' : 'tt'],
+    ];
+    lines.forEach((l, i) => g0.append(T(580, 500 + i * 17, l[0], l[1])));
+    g0.append(T(580, 596, 'Toy model: it shows which knobs matter (frequency against wall,', 'tf'));
+    g0.append(T(580, 610, 'coil size against 6.35 mm), not what a coil would read.', 'tf'));
+    app.badge('toy', 'toy model: a bench test decides', 'info');
+    app.badge('inv', st < 0.03 ? 'plate invisible at this frequency (bump ' + st.toFixed(3) + ' of full scale)' : null, 'limit');
+    app.io.set({
+      commands: [{ name: 'Coil height', value: P.zc.toFixed(1), unit: 'mm above the rim', note: 'proposed scan axis or the crown’s vertical stage' }],
+      observes: [
+        { name: 'Coil response at this height', value: smoothed(P.zc).toFixed(2), unit: 'of full scale', status: 'partly', note: 'toy model; illustrative noise' },
+        { name: 'Rim edge and plate edge', value: est ? est.rim.toFixed(2) + ', ' + est.pf.toFixed(2) : '-', unit: 'mm', status: est && st >= 0.03 ? 'partly' : 'blind', note: 'from one scan' },
+        { name: 'Seat depth (rim to plate face)', value: est ? est.seat.toFixed(2) : '-', unit: 'mm', status: est && st >= 0.03 ? 'partly' : 'blind', note: 'RMS ' + (isFinite(mcCache.rms) ? mcCache.rms.toFixed(2) : '-') + ' mm over ' + mcCache.n + ' simulated scans' },
+        { name: 'Radial position, dot, melt', value: '-', status: 'blind', note: 'not seen by this sensor' },
+      ],
+      manual: ['Place the coil on the outside at the station azimuth, 1-3 mm off the wall', 'Bench calibration of the edge bias (once)'],
+    });
+  }
+
+  function fmtF(v) { const f = Math.pow(10, v); return f >= 1e6 ? (f / 1e6).toFixed(1) + ' MHz' : f >= 1e3 ? (f / 1e3).toFixed(f >= 1e5 ? 0 : 1) + ' kHz' : f.toFixed(0) + ' Hz'; }
+  app.ui.slider({ id: 'logf', label: 'Coil frequency', min: 2, max: 6, step: 0.05, value: 4.5, kind: 'scene', format: fmtF, visual: 'the skin depth and bump plots', help: 'Log scale, 100 Hz to 1 MHz. Higher frequency confines the current to the outer skin of the wall.', onChange: v => { P.logf = v; render(); } });
+  app.ui.slider({ id: 'zc', label: 'Coil height above the rim', min: -30, max: 10, step: 0.2, value: 5, unit: 'mm', kind: 'actuator', visual: 'the pink cursor on the response', help: 'A proposed scan axis (small slide, or the crown’s vertical stage).', onChange: v => { P.zc = v; render(); } });
+  app.ui.button({ id: 'scan', label: 'Scan once (sweep the coil down and back)', kind: 'state', onClick: () => { sweep(); } });
+  const g1 = app.ui.group('Coil (scene edits)', { open: true });
+  g1.slider({ id: 'D', label: 'Coil diameter', min: 2, max: 20, step: 1, value: 6, unit: 'mm', kind: 'scene', help: 'Sets the blur. The plate is 6.35 mm thick.', onChange: v => { P.D = v; render(); } });
+  g1.slider({ id: 'g', label: 'Lift-off from the outer wall', min: 0.5, max: 6, step: 0.5, value: 1.5, unit: 'mm', kind: 'scene', help: 'Also blurs.', onChange: v => { P.g = v; render(); } });
+  g1.slider({ id: 'mis', label: 'Calibration error in the fitted template (coil blur)', min: 0, max: 0.6, step: 0.05, value: 0.15, kind: 'scene', help: 'The software fits a template calibrated on the bench; this is how wrong its blur is. Illustrative.', onChange: v => { P.mis = v; render(); } });
+  g1.slider({ id: 'noise', label: 'Noise (fraction of full scale)', min: 0, max: 0.03, step: 0.001, value: 0.004, kind: 'scene', help: 'Illustrative.', onChange: v => { P.noise = v; render(); } });
+  const g2 = app.ui.group('The tube (scene edits)', { open: true });
+  g2.slider({ id: 'seat', label: 'True seat depth (rim to plate face)', min: 5.5, max: 8.5, step: 0.05, value: 6.85, unit: 'mm', kind: 'scene', help: 'Nominal 6.35 [repo]; the scene starts 0.5 mm deeper.', onChange: v => { P.seat = v; render(); } });
+  g2.slider({ id: 'tw', label: 'Wall thickness', min: 1.4, max: 2.0, step: 0.01, value: 1.651, unit: 'mm', kind: 'scene', help: '0.065 in nominal [repo]; the tube&rsquo;s own variation is unknown.', onChange: v => { P.tw = v; render(); } });
+  g2.toggle({ id: 'plate', label: 'Plate seated behind the wall', value: true, kind: 'scene', help: 'Off shows the wall-only baseline.', onChange: v => { P.plate = v; render(); } });
+
+  let sweeping = null;
+  function sweep() { P.zc = 10; sweeping = { dir: -1 }; app.invalidate(); }
+  app.onFrame(function (dt) {
+    if (!sweeping) return false;
+    P.zc += sweeping.dir * 22 * dt;
+    if (P.zc <= -30) { P.zc = -30; sweeping.dir = 1; }
+    if (P.zc >= 10 && sweeping.dir > 0) { P.zc = 10; sweeping = null; }
+    app.ui.set('zc', P.zc, { silent: true }); render();
+    return !!sweeping;
+  });
+})();
+</script>
+</body>
+</html>

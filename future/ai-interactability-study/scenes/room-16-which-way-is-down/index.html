@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which way is down</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .r16 svg { display: block; width: 100%; height: auto; min-width: 900px; background: #0f141b; border-radius: 8px; }
+  .r16 text { font: 12px system-ui, sans-serif; fill: #cbd5e1; }
+  .r16 .d { fill: #93a1b5; font-size: 10.5px; }
+  .r16 .b { font-weight: 600; fill: #e7ebf1; font-size: 12.5px; }
+  .r16 .v { font-weight: 600; fill: #f1f5f9; font-size: 13px; }
+  .r16 .panel { fill: none; stroke: #2a3341; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-16-which-way-is-down",
+  "title": "Which way is down: what the direction of gravity does at the corner",
+  "by": "room",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A lens on the work's orientation. Tip the tube about the seam's tangent (0 is today's vertical tube, 90 a horizontal tube with the station at the bottom, 180 inverted) with the gun kept where it is relative to the work, and read what gravity does: to the pool, to the gun's weight lever, to the plume against the nozzle, to a pond of argon, to the cable's exit, to the rotator's race, and which directions a fixed camera can stand in to see the corner. Nothing is scored; an arrangement that uses a tilt is room-17.",
+  "tags": ["lens", "orientation", "gravity", "tilt", "work tilt", "station", "camera stations", "argon"],
+  "branchOf": [],
+  "combines": ["travel-16-radial-plane"],
+  "transferable": ["tip the work, not the gun", "tangent lean limits how plumb", "camera-station map in the room"],
+  "how": {
+    "motion": "nothing moves: a slider tips the work about the tangent; the gun keeps its pose on the work",
+    "load": "not an arrangement: reads gravity's direction in the work's frame",
+    "reference": "the seam's tangent at the station stays horizontal for any tilt",
+    "observe": "a map of where a fixed camera can stand and still see the corner",
+    "use": "decide which quantities are worth a tilted coupon before anything is built"
+  },
+  "software": { "commands": [], "observes": ["a tilt angle you type in (in room-17 an inclinometer or the stop's switch would read it)"], "manual": ["welding a coupon on a slope to see what the melt tolerates", "weighing the gun and its centre of mass"] },
+  "notes": ["../../explorers/room/ideas/room-16-which-way-is-down.md", "../../explorers/room/ideas/room-17-tipped-tube.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 900, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Today the tube stands vertical, so gravity presses the pool onto the plate, the plate is a floor, the wall is a fence, and the pocket 6.35&nbsp;mm deep is a small bucket. <b>Tip the work about the seam\'s tangent and every one of those changes</b> while the gun, kept where it is relative to the work, does not: the drawing keeps the reference gun (or, in <i>B</i>, the radial-plane gun of travel-16 with no wire on it) rigidly on the tube and rotates both. The seam\'s tangent at the station stays horizontal, so the pool never runs along the seam.</p>' +
+        '<p>Left: a section across the seam. Middle: the same from the side, along the radial direction. Right: the numbers at this tilt. Below: how each number moves over the whole range (0 is today, 90 a horizontal tube with the station at the bottom, 180 inverted), and a map of where a fixed camera could stand in the room and still see the corner.</p>' +
+        '<p><b>Try:</b> drag the tilt from 0 to 30 with the gun attitude on <i>A</i> (the reference, wire on the gun) and then on <i>B</i>. With A the barrel gets no closer than 32° to plumb and the weight lever falls by a sixth; with B it is exactly plumb at 30° and the lever falls to about 23&nbsp;mm. Then drag on to 90: the pocket stops holding argon, the cable leaves at a shallower angle, and the map of camera stations swings round with the work: the far-side low camera goes first, then the overhead one.</p>',
+      carries:
+        '<p>Not a mechanism, so the roles are used loosely: <b>teal</b> is the seam and where it locates; <b>amber</b> marks the gun\'s centre of mass and the lever of its weight about the dot; <b>grey</b> is the gun proxy and <b>light steel</b> the tube and plate. The blue fill is the depth an argon pond could reach at the station (the lowest point of the rim sets the level). The cable arrow leaves along the line from the dot through the grip base, the kit\'s exit direction.</p>',
+      software:
+        '<p>Nothing is commanded or observed here. In the arrangement that uses a tilt (room-17) the tilt is a state with a stop; a switch on the stop or an inclinometer reads it. The <i>map</i> is the part software cares about: it says in which directions a fixed camera keeps the corner in view for the chosen tilt, with the wall as the only occluder (the gun hides about 3 % more of the room\'s hemisphere, eyes-15).</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Can the gun be made plumb by tipping the work about the tangent?</b> With the reference gun (attitude A) no: the barrel leans 45° in the section and 32° out of it along the seam, because the wire arrives along the tangent. Tipping about the tangent removes the first and leaves the second: at 32.5° the barrel is 32.4° from vertical, the weight lever 125&nbsp;mm against 148, a sixth less. <i>Repair:</i> take the wire off the gun (attitude B or B2, travel-16): the barrel then lies in the section and is exactly plumb at 30°, lever 23&nbsp;mm, weight moment 0.33 against 2.1&nbsp;N·m. <i>Leaves:</i> the wire\'s alignment to the beam becomes its own job (room-17).</li>' +
+        '<li><b>Does tipping the work help the cameras?</b> The visible cone is fixed in the work\'s frame (the wall hides half of it, the rim the low angles), so tipping does not enlarge it; it turns it. <i>Finding:</i> tipped toward the station the plate\'s far edge rises: a bench-standing camera on the far side of the bore, 12° up, sees the corner today and loses it by about 9° of tilt (a camera 30° up by 27°); an overhead one keeps it to about 65°. Tipped toward the station up to 90 the cone stays wholly above the horizon (43 % of the room\'s upper hemisphere throughout); tipped away or past horizontal it closes (0 at −90 and 180). <i>Leaves:</i> which room surfaces can carry a camera is a matter of where the cone points.</li>' +
+        '<li><b>Does tipping keep the argon?</b> Argon is about 1.4 times as dense as air. The pocket holds a pond up to the lowest point of the rim: 6.35&nbsp;mm today, 5.5 at 30°, 4.5 at 45°, none at 90° where the wall is a chute. Leaning the other way loses it at once. <i>Leaves:</i> how much the pond matters next to the nozzle\'s own flow (15 to 20 L/min [manual]); unmeasured.</li>' +
+        '<li><b>Tipping is not free for the rotator.</b> Its printed race is gravity-seated. Tipped, the tube\'s weight presses across its axis (7 N at 30° for the 1.4 kg tube) and the upper race lifts on its uphill side when tan(tilt) passes the race radius over the height of the rotating centre of mass, about 29° to 35° here. <i>Leaves:</i> a preload (magnets, springs), a lower centre of mass or a smaller tilt.</li>' +
+        '<li><b>Inverting or leaning away is the worst case on every row.</b> The pool hangs, the pond is gone, the cable leaves downward and the gun\'s lever grows. It stays in the range as the limit, not as an option.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>What the melt tolerates.</b> Whether a pool in a symmetric trough (about 45°) welds differently from one on a floor (0°), and how steep a seam may slope, are process questions no drawing settles. A coupon welded on an incline, by hand, answers them for the cost of a coupon.</li>' +
+        '<li>Gun mass and centre of mass (illustrative here), the real wire bracket\'s geometry (which decides whether attitude B needs a separate wire guide), and how the real gun\'s plume and lens drawer behave when the barrel is plumb.</li>' +
+        '<li>The rotating mass\'s centre of mass over the race (the tip-over range uses an illustrative 118 to 151&nbsp;mm).</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun: the kit\'s proxy (nozzle tip origin, dot 16&nbsp;mm along the beam), 1.47&nbsp;kg with the centre of mass at local (0, −23, 181): illustrative. Attitude A is the reference opening pose (roll 45, hole dial 30, vertical −15); B is roll 0, hole 35, vertical −90; B2 is roll 0, hole 95, vertical 90 (travel-16). The gun keeps its pose relative to the tube whatever the tilt.</li>' +
+        '<li>Tube geometry [repo]: OD 127&nbsp;mm, bore 123.7, length 152.4, plate 6.35&nbsp;mm below the rim; rotating mass 1.40&nbsp;kg (first closure) [repo]; race pitch circle 165&nbsp;mm [repo]. Argon 1.78 kg/m³ against air 1.20 (ordinary gas data).</li>' +
+        '<li>Camera-visibility map: the corner at the station sees a direction if it points toward the bore and clears the far rim (needs tan(elevation) ≥ 6.35 / (123.7 cos azimuth) in the work\'s frame); the gun, the cords and the operator are not in the map. Derived; <code>explorers/room/calc/orientation-family.mjs</code> holds the rest.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'Calculation (orientation family)', href: '../../explorers/room/calc/orientation-family.mjs' }],
+  });
+
+  // ---------------------------------------------------------------- geometry
+  const DEG = Math.PI / 180, G = 9.81;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, TH = WK.DIM.tubeHeight, CAP = WK.CAP_TOP, RIMH = TH - CAP;      // 61.85, 63.5, 152.4, 146.05, 6.35
+  const J = WK.JOINT.toArray();
+  const ATT = { A: { roll: 45, hole: 30, vert: -15 }, B: { roll: 0, hole: 35, vert: -90 }, B2: { roll: 0, hole: 95, vert: 90 } };
+  const COM_LOCAL = [0, -23, 181], TUBE_M = 1.4, RACE_R = 82.5;
+  const S = { psi: 30, att: 'B', mass: 1.47 };
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], len = a => Math.hypot(a[0], a[1], a[2]), unit = a => { const l = len(a); return a.map(v => v / l); }, dotp = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const rot = (v, psi) => { const c = Math.cos(psi * DEG), s = Math.sin(psi * DEG); return [v[0] * c + v[2] * s, v[1], -v[0] * s + v[2] * c]; };     // about +Y, right-handed: the tube leans toward +X (the station goes down) for psi > 0
+  const pp = (local, a) => sub(WK.posePoint(local, a.roll, a.hole - 35, a.vert).toArray(), J);                            // gun-local -> offset from the dot, in the tube's frame
+  function pondDepth(psi) { let low = 1e9; for (let k = 0; k < 720; k++) { const t = k * Math.PI / 360; low = Math.min(low, rot([RI * Math.cos(t) - RI, RI * Math.sin(t), RIMH], psi)[2]); } return Math.max(0, low); }
+  function state(psi, att, mass) {
+    const a = ATT[att], P = l => rot(pp(l, a), psi);
+    const tip = P([0, 0, 0]), back = unit(sub(P([0, 0, 253]), tip)), com = P(COM_LOCAL), grip = P(WK.GRIP_BASE_LOCAL.toArray()), dot = P([0, 0, -16]);
+    const exit = unit(sub(grip, dot)), lever = Math.hypot(com[0], com[1]);
+    return { tip, back, com, grip, dot, exit, lever, moment: mass * G * lever / 1000, angVert: Math.acos(Math.max(-1, Math.min(1, back[2]))) / DEG,
+      toPlate: Math.cos(psi * DEG), toWall: Math.sin(psi * DEG), pond: pondDepth(psi), plume: Math.hypot(tip[0], tip[1]), cableUp: Math.asin(exit[2]) / DEG, tubeSide: TUBE_M * G * Math.abs(Math.sin(psi * DEG)) };
+  }
+  // where the corner at the station can be seen from, in the WORK's frame: toward the bore, above the plate, over the far rim
+  function visibleTube(d) {
+    if (d[2] <= 0 || d[0] >= 0) return false;
+    const h2 = d[0] * d[0] + d[1] * d[1]; return d[2] * (-2 * RI * d[0] / h2) >= RIMH;
+  }
+  const dirRoom = (az, el) => [-Math.cos(az * DEG) * Math.cos(el * DEG), Math.sin(az * DEG) * Math.cos(el * DEG), Math.sin(el * DEG)];
+  const visibleRoom = (az, el, psi) => visibleTube(rot(dirRoom(az, el), -psi));
+  function hemisphereShare(psi) { let s = 0, t = 0; for (let az = -179; az < 180; az += 3) for (let el = 1; el < 90; el += 2) { const w = Math.cos(el * DEG); t += w; if (visibleRoom(az, el, psi)) s += w; } return s / t; }
+  const STATIONS = [{ n: 'overhead frame', az: 0, el: 70 }, { n: 'far side, bench height', az: 0, el: 12 }, { n: 'beside, +Y', az: 70, el: 30 }, { n: 'beside, -Y', az: -70, el: 30 }, { n: 'in front of the mouth, low', az: 180, el: 15 }];
+
+  // ---------------------------------------------------------------- drawing
+  const box = WK.h('div', { class: 'r16' }); app.stageEl.appendChild(box);
+  const svg = WK.svg('svg', { viewBox: '0 0 1000 900', role: 'img', 'aria-label': 'tilt of the work about the tangent: section, side view, numbers, sweeps and a map of camera stations' }); box.appendChild(svg);
+  const el = (tag, attrs, parent) => { const n = WK.svg(tag, attrs); (parent || svg).appendChild(n); return n; };
+  const C = { gun: WK.roleHex('gun'), work: WK.roleHex('work'), laser: WK.roleHex('laser'), locate: WK.roleHex('locate'), load: WK.roleHex('load'), cable: '#8b95a5', sensor: WK.roleHex('sensor') };
+  const F1 = n => Math.round(n * 10) / 10;
+  function hull(pts) {
+    const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); if (p.length < 3) return p;
+    const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), lo = [], up = [];
+    p.forEach(pt => { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], pt) <= 0) lo.pop(); lo.push(pt); });
+    p.slice().reverse().forEach(pt => { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], pt) <= 0) up.pop(); up.push(pt); });
+    return lo.slice(0, -1).concat(up.slice(0, -1));
+  }
+  function arrow(g, x1, y1, x2, y2, color, w, hl) {
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 2) return; const ux = dx / L, uy = dy / L, h = hl || 9;
+    el('line', { x1: x1, y1: y1, x2: x2 - ux * h * 0.6, y2: y2 - uy * h * 0.6, stroke: color, 'stroke-width': w || 2.4 }, g);
+    el('polygon', { points: [[x2, y2], [x2 - ux * h - uy * h * 0.5, y2 - uy * h + ux * h * 0.5], [x2 - ux * h + uy * h * 0.5, y2 - uy * h - ux * h * 0.5]].map(q => q.join(',')).join(' '), fill: color }, g);
+  }
+  // gun as solids in the work's frame (kit proxy zones), rotated by psi; proj picks the two coordinates drawn
+  function gunPolys(att, psi, proj) {
+    const a = ATT[att], P = l => rot(pp(l, a), psi), out = [];
+    [[0, 23, 2.2, 5], [23, 54, 8.5, 8.5], [54, 100, 5.5, 5.5], [100, 118, 12, 12]].forEach(c => {
+      const p0 = proj(P([0, 0, c[0]])), p1 = proj(P([0, 0, c[1]])), dx = p1[0] - p0[0], dy = p1[1] - p0[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+      out.push([[p0[0] + nx * c[2], p0[1] + ny * c[2]], [p1[0] + nx * c[3], p1[1] + ny * c[3]], [p1[0] - nx * c[3], p1[1] - ny * c[3]], [p0[0] - nx * c[2], p0[1] - ny * c[2]]]);
+    });
+    const boxPts = (c, ax, hx, hy, hz) => { const pts = []; [-1, 1].forEach(s1 => [-1, 1].forEach(s2 => [-1, 1].forEach(s3 => pts.push([c[0] + ax[0][0] * s1 * hx + ax[1][0] * s2 * hy + ax[2][0] * s3 * hz, c[1] + ax[0][1] * s1 * hx + ax[1][1] * s2 * hy + ax[2][1] * s3 * hz, c[2] + ax[0][2] * s1 * hx + ax[1][2] * s2 * hy + ax[2][2] * s3 * hz]))));
+      return pts; };
+    out.push(hull(boxPts([0, 0, 185.5], [[1, 0, 0], [0, 1, 0], [0, 0, 1]], 17, 17, 67.5).map(l => proj(P(l)))));
+    const gs = [0, -25, 172], ge = [0, -111, 232], gc = [0, (gs[1] + ge[1]) / 2, (gs[2] + ge[2]) / 2], gd = unit(sub(ge, gs)), gl = len(sub(ge, gs)), gperp = unit([gd[1] * 0 - gd[2] * 0, gd[2] * 1 - 0, -gd[1] * 1]);   // grip direction x local X
+    const gp = [0, gd[2], -gd[1]];
+    out.push(hull(boxPts(gc, [[1, 0, 0], gd, unit(gp)], 15, gl / 2 + 8, 14).map(l => proj(P(l)))));
+    return out;
+  }
+
+  // -------- panel geometry
+  const SC = 0.72;
+  function tubePolys(psi) {           // (u radial from the station, w axial from the plate face) -> rotated (x', z')
+    const T = (u, w) => { const p = rot([u, 0, w], psi); return [p[0], p[2]]; };
+    return { plate: [[-2 * RI, -RIMH], [0, -RIMH], [0, 0], [-2 * RI, 0]].map(q => T(q[0], q[1])), near: [[0, -CAP], [1.65, -CAP], [1.65, RIMH], [0, RIMH]].map(q => T(q[0], q[1])), far: [[-2 * RI - 1.65, -CAP], [-2 * RI, -CAP], [-2 * RI, RIMH], [-2 * RI - 1.65, RIMH]].map(q => T(q[0], q[1])),
+      bore: [[-2 * RI, 0], [0, 0], [0, 400], [-2 * RI, 400]].map(q => T(q[0], q[1])) };
+  }
+  let clipN = 0;
+  function panelSection(x0, y0, W, Hh, st, psi) {
+    const ox = x0 + 140, oy = y0 + 292, X = x => F1(ox + x * SC), Z = z => F1(oy - z * SC), pts = q => q.map(p => X(p[0]) + ',' + Z(p[1])).join(' ');
+    el('rect', { x: x0, y: y0, width: W, height: Hh, class: 'panel', rx: 8 });
+    el('text', { x: x0 + 12, y: y0 + 20, class: 'b', text: 'Section across the seam (looking along the tangent)' });
+    const id = 'clip' + (++clipN), defs = el('defs', {}), cp = WK.svg('clipPath', { id: id }); cp.appendChild(WK.svg('rect', { x: x0 + 2, y: y0 + 30, width: W - 4, height: Hh - 34 })); defs.appendChild(cp);
+    const g = el('g', { 'clip-path': 'url(#' + id + ')' });
+    const tp = tubePolys(psi);
+    // level line and pond
+    el('line', { x1: x0, y1: Z(0), x2: x0 + W, y2: Z(0), stroke: '#334155', 'stroke-dasharray': '3 4' }, g);
+    if (st.pond > 0.05) {
+      const id2 = 'clip' + (++clipN), cp2 = WK.svg('clipPath', { id: id2 }); cp2.appendChild(WK.svg('polygon', { points: pts(tp.bore) })); defs.appendChild(cp2);
+      el('rect', { x: x0, y: Z(st.pond), width: W, height: (st.pond * SC) + 2, fill: 'rgba(96,165,250,0.35)', 'clip-path': 'url(#' + id2 + ')' }, g);
+      el('line', { x1: X(-200), y1: Z(st.pond), x2: X(60), y2: Z(st.pond), stroke: '#60a5fa', 'stroke-width': 1.2 }, g);
+    }
+    el('polygon', { points: pts(tp.plate), fill: C.work, opacity: 0.85 }, g);
+    el('polygon', { points: pts(tp.near), fill: C.work, stroke: C.work, 'stroke-width': 1.6 }, g); el('polygon', { points: pts(tp.far), fill: C.work, stroke: C.work, 'stroke-width': 1.6 }, g);
+    { const lp = rot([-RI, 0, -RIMH - 6], psi), lw = rot([2, 0, RIMH + 8], psi); el('text', { x: X(lp[0]) - 12, y: Z(lp[2]) + 12, class: 'd', text: 'plate' }, g); el('text', { x: X(lw[0]) + 4, y: Z(lw[2]) - 2, class: 'd', text: 'wall' }, g); }
+    // gun (projected onto the section plane)
+    gunPolys(S.att, psi, p => [p[0], p[2]]).forEach(q => el('polygon', { points: pts(q), fill: C.gun, stroke: '#0f141b', 'stroke-width': 0.8, opacity: 0.95 }, g));
+    // beam, dot
+    const tipP = [st.tip[0], st.tip[2]];
+    el('line', { x1: X(tipP[0]), y1: Z(tipP[1]), x2: X(0), y2: Z(0), stroke: C.laser, 'stroke-width': 1.5, 'stroke-dasharray': '3 2' }, g);
+    el('circle', { cx: X(0), cy: Z(0), r: 4, fill: C.laser }, g);
+    // plumb line through the dot, centre of mass and lever
+    el('line', { x1: X(0), y1: Z(-160), x2: X(0), y2: Z(330), stroke: '#475569', 'stroke-dasharray': '2 4' }, g);
+    el('line', { x1: X(0), y1: Z(st.com[2]), x2: X(st.com[0]), y2: Z(st.com[2]), stroke: C.load, 'stroke-width': 2.4 }, g);
+    el('circle', { cx: X(st.com[0]), cy: Z(st.com[2]), r: 5, fill: C.load, stroke: '#0f141b' }, g);
+    // cable exit
+    arrow(g, X(st.grip[0]), Z(st.grip[2]), X(st.grip[0] + st.exit[0] * 90), Z(st.grip[2] + st.exit[2] * 90), C.cable, 3);
+    el('text', { x: X(0) + 8, y: Z(0) + 16, class: 'd', text: 'dot at the corner' }, g);
+    el('text', { x: X(st.com[0]) + 8, y: Z(st.com[2]) - 6, class: 'd', text: 'centre of mass' }, g);
+    // gravity
+    arrow(g, x0 + W - 26, y0 + 46, x0 + W - 26, y0 + 98, '#e2e8f0', 3); el('text', { x: x0 + W - 52, y: y0 + 116, class: 'd', text: 'gravity' }, g);
+    el('text', { x: x0 + 12, y: y0 + Hh - 10, class: 'd', text: 'tilt ' + psi + '°: tube ' + (psi === 0 ? 'vertical' : (psi > 0 ? 'leans toward the station' : 'leans away')) + '; blue = argon pond' }, g);
+  }
+  function panelSide(x0, y0, W, Hh, st, psi) {
+    const ox = x0 + 165, oy = y0 + 292, X = y => F1(ox + y * SC), Z = z => F1(oy - z * SC), pts = q => q.map(p => X(p[0]) + ',' + Z(p[1])).join(' ');
+    el('rect', { x: x0, y: y0, width: W, height: Hh, class: 'panel', rx: 8 });
+    el('text', { x: x0 + 12, y: y0 + 20, class: 'b', text: 'Side view (looking along the radial direction)' });
+    const id = 'clip' + (++clipN), defs = el('defs', {}), cp = WK.svg('clipPath', { id: id }); cp.appendChild(WK.svg('rect', { x: x0 + 2, y: y0 + 30, width: W - 4, height: Hh - 34 })); defs.appendChild(cp);
+    const g = el('g', { 'clip-path': 'url(#' + id + ')' });
+    let zmin = 1e9, zmax = -1e9; [-CAP, RIMH].forEach(w => { for (let t = 0; t < 360; t += 5) { const z = rot([-RI + RO * Math.cos(t * DEG), 0, w], psi)[2]; zmin = Math.min(zmin, z); zmax = Math.max(zmax, z); } });
+    el('line', { x1: x0, y1: Z(0), x2: x0 + W, y2: Z(0), stroke: '#334155', 'stroke-dasharray': '3 4' }, g);
+    el('rect', { x: X(-RO), y: Z(zmax), width: 2 * RO * SC, height: (zmax - zmin) * SC, fill: C.work, opacity: 0.4, stroke: C.work, rx: 4 }, g);
+    el('text', { x: X(-RO) + 6, y: Z(zmin) - 6, class: 'd', text: 'tube (silhouette)' }, g);
+    el('line', { x1: X(-46), y1: Z(0), x2: X(46), y2: Z(0), stroke: C.locate, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    el('text', { x: X(46) + 6, y: Z(0) + 4, class: 'd', text: 'seam (horizontal)' }, g);
+    gunPolys(S.att, psi, p => [p[1], p[2]]).forEach(q => el('polygon', { points: pts(q), fill: C.gun, stroke: '#0f141b', 'stroke-width': 0.8, opacity: 0.95 }, g));
+    const tipP = [st.tip[1], st.tip[2]];
+    el('line', { x1: X(tipP[0]), y1: Z(tipP[1]), x2: X(0), y2: Z(0), stroke: C.laser, 'stroke-width': 1.5, 'stroke-dasharray': '3 2' }, g);
+    el('circle', { cx: X(0), cy: Z(0), r: 4, fill: C.laser }, g);
+    el('line', { x1: X(0), y1: Z(-160), x2: X(0), y2: Z(330), stroke: '#475569', 'stroke-dasharray': '2 4' }, g);
+    el('line', { x1: X(0), y1: Z(st.com[2]), x2: X(st.com[1]), y2: Z(st.com[2]), stroke: C.load, 'stroke-width': 2.4 }, g);
+    el('circle', { cx: X(st.com[1]), cy: Z(st.com[2]), r: 5, fill: C.load, stroke: '#0f141b' }, g);
+    arrow(g, X(st.grip[1]), Z(st.grip[2]), X(st.grip[1] + st.exit[1] * 90), Z(st.grip[2] + st.exit[2] * 90), C.cable, 3);
+    arrow(g, x0 + W - 26, y0 + 46, x0 + W - 26, y0 + 98, '#e2e8f0', 3); el('text', { x: x0 + W - 52, y: y0 + 116, class: 'd', text: 'gravity' }, g);
+    el('text', { x: x0 + 12, y: y0 + Hh - 10, class: 'd', text: 'gun attitude ' + S.att + (S.att === 'A' ? ' (wire on the gun: leans along the seam)' : ' (radial plane: no lean along the seam)') }, g);
+  }
+  function panelNumbers(x0, y0, W, Hh, st, psi) {
+    el('rect', { x: x0, y: y0, width: W, height: Hh, class: 'panel', rx: 8 });
+    el('text', { x: x0 + 12, y: y0 + 20, class: 'b', text: 'At this tilt (gun mass ' + S.mass.toFixed(2) + ' kg, illustrative)' });
+    const s0 = state(0, S.att, S.mass), hh = hemisphereShare(psi), hh0 = hemisphereShare(0);
+    const hLift = [118, 151].map(h => Math.atan(RACE_R / h) / DEG);
+    const rows = [
+      ['barrel from vertical', st.angVert.toFixed(0) + '°', 'at 0: ' + s0.angVert.toFixed(0) + '°'],
+      ['weight lever about the dot; moment', st.lever.toFixed(0) + ' mm; ' + st.moment.toFixed(2) + ' N·m', 'at 0: ' + s0.lever.toFixed(0) + ' mm; ' + s0.moment.toFixed(2) + ' N·m'],
+      ['gravity on the pool: onto plate / onto wall', st.toPlate.toFixed(2) + ' / ' + st.toWall.toFixed(2), 'at 0: 1.00 / 0.00 (a floor and a fence)'],
+      ['argon pond depth at the station', st.pond.toFixed(1) + ' mm', 'at 0: ' + pondDepth(0).toFixed(1) + ' mm'],
+      ['nozzle tip off the vertical plume line', st.plume.toFixed(1) + ' mm', 'at 0: ' + s0.plume.toFixed(1) + ' mm'],
+      ['cable exit: elevation above horizontal', st.cableUp.toFixed(0) + '°', 'at 0: ' + s0.cableUp.toFixed(0) + '°'],
+      ['tube weight across its axis (on the nest)', st.tubeSide.toFixed(1) + ' N', 'the printed race lifts at about ' + hLift[1].toFixed(0) + '° to ' + hLift[0].toFixed(0) + '°'],
+      ['share of the room\'s upper hemisphere that sees the corner', (100 * hh).toFixed(0) + ' %', 'at 0: ' + (100 * hh0).toFixed(0) + ' % (wall only; no gun)'],
+    ];
+    rows.forEach((r, i) => { const y = y0 + 44 + i * 45; el('text', { x: x0 + 12, y: y, class: 'd', text: r[0] }); el('text', { x: x0 + 12, y: y + 17, class: 'v', text: r[1] }); el('text', { x: x0 + 12, y: y + 31, class: 'd', text: r[2] }); });
+  }
+  // -------- sweeps
+  const SW0 = -90, SW1 = 180;
+  const SPARKS = [
+    { t: 'barrel from vertical (°)', f: s => s.angVert, lo: 0, hi: 135, ticks: [0, 45, 90, 135] },
+    { t: 'weight moment about the dot (N·m)', f: s => s.moment, lo: 0, hi: 3.2, ticks: [0, 1, 2, 3] },
+    { t: 'argon pond depth (mm)', f: s => s.pond, lo: 0, hi: 7, ticks: [0, 2, 4, 6] },
+    { t: 'cable exit elevation (°)', f: s => s.cableUp, lo: -45, hi: 90, ticks: [-30, 0, 30, 60, 90] },
+    { t: 'gravity: plate (blue), wall (amber)', f: s => s.toPlate, f2: s => s.toWall, lo: -1, hi: 1, ticks: [-1, 0, 1] },
+  ];
+  function panelSpark(x0, y0, W, Hh, spec, psi) {
+    el('rect', { x: x0, y: y0, width: W, height: Hh, class: 'panel', rx: 8 });
+    el('text', { x: x0 + 8, y: y0 + 16, class: 'd', text: spec.t });
+    const px0 = x0 + 30, px1 = x0 + W - 10, py0 = y0 + 28, py1 = y0 + Hh - 26, X = p => px0 + (p - SW0) / (SW1 - SW0) * (px1 - px0), Y = v => py1 - (v - spec.lo) / (spec.hi - spec.lo) * (py1 - py0);
+    spec.ticks.forEach(t => { el('line', { x1: px0, y1: Y(t), x2: px1, y2: Y(t), stroke: '#1f2937' }); el('text', { x: px0 - 4, y: Y(t) + 3, class: 'd', 'text-anchor': 'end', text: String(t) }); });
+    [-90, 0, 90, 180].forEach(p => { el('line', { x1: X(p), y1: py0, x2: X(p), y2: py1, stroke: p === 0 ? '#475569' : '#1f2937' }); el('text', { x: X(p), y: y0 + Hh - 10, class: 'd', 'text-anchor': 'middle', text: p + '°' }); });
+    const line = (f, col) => { let d = ''; for (let p = SW0; p <= SW1; p += 3) d += (p === SW0 ? 'M' : 'L') + F1(X(p)) + ',' + F1(Y(f(state(p, S.att, S.mass)))); el('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 1.8 }); };
+    line(spec.f, spec.f2 ? '#60a5fa' : '#e2e8f0'); if (spec.f2) line(spec.f2, '#f59e0b');
+    const st = state(psi, S.att, S.mass); el('line', { x1: X(psi), y1: py0, x2: X(psi), y2: py1, stroke: C.laser, 'stroke-width': 1.4 });
+    el('circle', { cx: X(psi), cy: Y(spec.f(st)), r: 4, fill: spec.f2 ? '#60a5fa' : '#e2e8f0', stroke: '#0f141b' }); if (spec.f2) el('circle', { cx: X(psi), cy: Y(spec.f2(st)), r: 4, fill: '#f59e0b', stroke: '#0f141b' });
+  }
+  // -------- camera map
+  function panelMap(x0, y0, W, Hh, psi) {
+    el('rect', { x: x0, y: y0, width: W, height: Hh, class: 'panel', rx: 8 });
+    el('text', { x: x0 + 12, y: y0 + 20, class: 'b', text: 'Where a fixed camera can stand and see the corner (room coordinates)' });
+    const mx0 = x0 + 46, my0 = y0 + 34, mw = W - 62, mh = Hh - 74;
+    const cv = document.createElement('canvas'); cv.width = 120; cv.height = 45; const cx = cv.getContext('2d');
+    for (let i = 0; i < 120; i++) for (let j = 0; j < 45; j++) { const az = -180 + (i + 0.5) * 3, el2 = 90 - (j + 0.5) * 2; cx.fillStyle = visibleRoom(az, el2, psi) ? 'rgba(52,211,153,0.55)' : 'rgba(30,41,59,0.9)'; cx.fillRect(i, j, 1, 1); }
+    el('image', { x: mx0, y: my0, width: mw, height: mh, href: cv.toDataURL(), preserveAspectRatio: 'none', style: 'image-rendering:pixelated' });
+    el('rect', { x: mx0, y: my0, width: mw, height: mh, fill: 'none', stroke: '#334155' });
+    const AX = az => mx0 + (az + 180) / 360 * mw, EY = e => my0 + (90 - e) / 90 * mh;
+    [-180, -90, 0, 90, 180].forEach(a => el('text', { x: AX(a), y: my0 + mh + 14, class: 'd', 'text-anchor': 'middle', text: a + '°' }));
+    [0, 30, 60, 90].forEach(e => el('text', { x: mx0 - 6, y: EY(e) + 3, class: 'd', 'text-anchor': 'end', text: e + '°' }));
+    el('text', { x: mx0 + mw / 2, y: my0 + mh + 30, class: 'd', 'text-anchor': 'middle', text: 'azimuth about the tube, 0 = straight across the bore from the station; +90 = the +Y side' });
+    el('text', { x: x0 + 8, y: my0 + mh / 2, class: 'd', transform: 'rotate(-90 ' + (x0 + 10) + ' ' + (my0 + mh / 2) + ')', 'text-anchor': 'middle', text: 'elevation above horizontal' });
+    STATIONS.forEach(s => { const ok = visibleRoom(s.az, s.el, psi); el('circle', { cx: AX(s.az), cy: EY(s.el), r: 6, fill: ok ? '#34d399' : '#f87171', stroke: '#0f141b', 'stroke-width': 1.5 }); el('text', { x: AX(s.az) + 9, y: EY(s.el) + 4, class: 'd', text: s.n + (ok ? '' : ' (hidden)') }); });
+  }
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const st = state(S.psi, S.att, S.mass);
+    panelSection(8, 8, 330, 410, st, S.psi); panelSide(346, 8, 330, 410, st, S.psi); panelNumbers(684, 8, 308, 410, st, S.psi);
+    SPARKS.forEach((sp, i) => panelSpark(8 + i * 202, 428, 190, 150, sp, S.psi));
+    panelMap(8, 588, 560, 290, S.psi);
+    const bx = 576, by = 588; el('rect', { x: bx, y: by, width: 416, height: 290, class: 'panel', rx: 8 });
+    [['How to read the map', 'b'], ['Green: directions from which the corner at the station', 'd'], ['is in view; the wall and the rim are the only occluders.', 'd'], ['Its shape is fixed in the work\'s frame (toward the bore,', 'd'], ['over the far rim); tilting swings it round in the room.', 'd'], ['A dot is a candidate place for a fixed camera.', 'd'], ['', 'd'],
+      ['What tipping does to it', 'b'], ['The cone is turned, not enlarged. Tipped toward the', 'd'], ['station its low far-side edge rises: a camera 12° up on the', 'd'], ['far side loses the corner by about 9° of tilt, one 30° up', 'd'], ['by 27°; overhead ones keep it to about 65°. At 90 the cone', 'd'], ['points out of the mouth: overhead sees the tube\'s outside.', 'd'], ['', 'd'],
+      ['Not in the map', 'b'], ['The gun and shell (about 3 %, eyes-15), cords, the operator\'s', 'd'], ['arm, the plume, glare on the stainless (eyes-06b).', 'd']]
+      .forEach((r, i) => { if (r[0]) el('text', { x: bx + 14, y: by + 26 + i * 17, class: r[1], text: r[0] }); });
+    // legend
+    [['work', 'tube, plate'], ['gun', 'gun (proxy)'], ['locate', 'seam'], ['load', 'centre of mass and lever'], ['laser', 'beam, dot'], ['cable', 'cable exit']].forEach((it, i) => { el('rect', { x: 14 + i * 150, y: 886, width: 10, height: 10, rx: 2, fill: C[it[0]] }); el('text', { x: 30 + i * 150, y: 895, class: 'd', text: it[1] }); });
+    app.io.set({ commands: [], observes: [
+      { name: 'Barrel from vertical', value: st.angVert.toFixed(0), unit: '°', status: 'seen', note: 'computed from the kit proxy; the real gun\'s angle is what an inclinometer on it would read' },
+      { name: 'Weight lever about the dot', value: st.lever.toFixed(0), unit: 'mm', status: 'partly', note: 'centre of mass is a proxy value; the stool in room-02 weighs the real one' },
+      { name: 'Tilt of the work', value: S.psi.toFixed(0), unit: '°', status: 'manual', note: 'room-17 reads it with an inclinometer on the tilt plate or a switch on the stop' },
+      { name: 'Argon pond, plume, glare', value: '-', status: 'unresolved', note: 'none can be seen in the drawing; a coupon and a photo decide' },
+    ], manual: ['Weld a coupon on a slope by hand: what does the melt tolerate?', 'Weigh the gun and find its centre of mass', 'Measure how far the printed race can be tipped before it lifts'] });
+  }
+  window.__room16 = { S: S, state: state, hemisphereShare: hemisphereShare, visibleRoom: visibleRoom, pondDepth: pondDepth };
+
+  // ---------------------------------------------------------------- controls
+  const g1 = app.ui.group('Tilt of the work (scene edits: a lens, not hardware)', { help: 'About the seam\'s tangent through the dot. The gun keeps its pose on the work.' });
+  g1.slider({ id: 'psi', label: 'Tilt about the tangent (0 = today, 90 = horizontal tube, station at the bottom)', min: -90, max: 180, step: 1, value: 30, unit: '°', kind: 'scene', noVisual: false, visual: 'the tube and gun rotate together in both views', onChange: v => { S.psi = v; render(); } });
+  g1.radio({ id: 'att', label: 'Gun attitude on the work', kind: 'branch', value: 'B', options: [{ value: 'A', label: 'A: wire on the gun (reference)', help: 'The opening pose: barrel 45° in the section and 32° along the seam, the wire arrives along the tangent.' }, { value: 'B', label: 'B: radial plane, grip out', help: 'travel-16: no wire on the gun, barrel in the section plane over the bore.' }, { value: 'B2', label: 'B2: radial plane, grip up', help: 'travel-16: the mirror choice, the grip above the barrel.' }], onChange: v => { S.att = v; render(); } });
+  g1.slider({ id: 'mass', label: 'Gun mass (illustrative)', min: 1, max: 3, step: 0.05, value: 1.47, unit: 'kg', kind: 'scene', visual: 'the moment row and its plot', onChange: v => { S.mass = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

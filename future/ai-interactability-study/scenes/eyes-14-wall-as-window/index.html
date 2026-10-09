@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The wall as a window</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .e14 { padding: 10px; }
+  .e14 svg { display: block; width: 100%; height: auto; background: #0f141b; border-radius: 8px; }
+  .e14 text { font: 12px system-ui, sans-serif; fill: #cbd5e1; }
+  .e14 .g { fill: #93a1b5; font-size: 11px; }
+  .e14 .b { font-weight: 600; fill: #e7ebf1; }
+  .e14 .big { font-size: 13px; font-weight: 600; fill: #e7ebf1; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-14-wall-as-window",
+  "title": "The wall as a window: the rod carries the gun's pose out of the cabinet",
+  "by": "eyes",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "room-03 puts the gun in a laser-safe cabinet on a rod through a ball in the lid. The outside end of the rod is in the clear: scales and a load cell can live there. Drawn along the rod with the lateral scale exaggerated: what step counts, two outside scales and a bend model each say about the dot, and what stays invisible. The rod's own bending, not the ball's play, is the large term for a thin rod.",
+  "tags": ["lens", "observer", "wall port", "enclosure", "rod flex", "outside sensing", "load cell"],
+  "branchOf": ["room-03-wall-port"],
+  "combines": [],
+  "transferable": ["sensors on the clean side", "moment through a pivot reads both sides", "scales see ball play"],
+  "how": {
+    "motion": "not moved here: room-03's plate, insertion and tail actuators are unchanged",
+    "load": "as room-03: ball and lid carry the gun through the rod; tail counterweight balances it",
+    "reference": "scales on the lid frame read the rod's lateral position at two stations outside; a camera inside sees the seam",
+    "observe": "two outside scales, a load cell at the tail actuators, one camera inside",
+    "use": "the camera sets the datum on a dry pass; the scales and load cell watch the gun between looks and during the bead"
+  },
+  "software": {
+    "commands": ["room-03's plate slide, rod insertion and tail actuators (not drawn)"],
+    "observes": ["rod lateral position at two stations outside the lid (scales)", "tail actuator force (load cell or motor current)", "dot against the seam (camera inside; blind when the plume is on)"],
+    "manual": ["fitting the scales to the lid frame", "measuring the rod's bending stiffness once with a direct look", "setting the ball's clearance"]
+  },
+  "notes": ["../../exchange/eyes--on--room-w2.md", "../../explorers/eyes/ideas/eyes-14-wall-as-window.md", "../../explorers/room/ideas/room-03-wall-port.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k), H = WK.h, G = 9.81, E = 69000, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', minWidth: 780, workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>room-03 puts the gun inside a laser-safe cabinet, on a rod through a ball in the lid. The outside end of the rod is in the clear air of the room. This scene draws the rod <b>along its own axis</b> (outside on the left, the gun on the right) with the sideways direction stretched so millimetres show.</p>' +
+        '<p>What can be known about where the dot is? <b>Step counts</b> know only what was commanded. <b>Two scales</b> outside the lid read the rod\'s sideways position at two stations, so they see the ball\'s play, which step counts cannot. But the rod <b>bends</b>: one bending moment, <i>F&nbsp;d</i>, passes through the ball and bends the inside segment <i>and</i> the tail. A straight line through the two scales then misses the dot. A <b>load cell at the tail actuators</b> reads that moment, so a bend model can be subtracted.</p>' +
+        '<p><b>Try:</b> thin the rod (Ø12 to 20 mm) and watch the tail droop and the dot error blow up; thicken it (Ø40 to 50 mm) and the errors fall. Move the play slider: only the scales see it. Switch on the plume: the camera goes blind and the outside reads carry on.</p>',
+      carries: '<p>As in room-03: the ball and lid carry the gun through the rod, the counterweight balances gravity about the ball, the actuators hold the tail point at its commanded place. Here the rod is a beam: <b>amber</b> is drawn with its bending exaggerated; <b>dashed</b> is where software believes it is. Scales (blue) read the rod against the lid frame; the load cell (purple) sits at the tail actuators.</p>',
+      software: '<p>Software reads two scales, one force, one camera. What each says about the dot is on the bars: <b>step counts</b> (no sensor), <b>two scales on a straight line</b>, <b>two scales plus a bend model with the load taken from the tail force</b>, and the <b>camera</b> (dot against the seam, direct, when it can see). Model errors and noise are sliders. The camera is the only reading that knows where the seam is: the scales say where the gun is in the cabinet, not where the tube is.</p>',
+      tried: '<ul><li><b>Assumed (room-03 note 4):</b> the rod is stiff; the counterweight leaves the actuators nothing to carry. <b>Found:</b> the counterweight balances the actuators, not the rod: the same moment F&nbsp;d (about 5 N&nbsp;m for 1.5 kg at 400 mm plus a 2 N cable tug) still runs through the ball and bends both sides. For an aluminium tube Ø20 × 2 mm the tail droops 3.3 mm at 800 mm and the dot ends 2.4 mm off the commanded line; Ø40 gives 0.19 mm; Ø50 0.06. <b>Leaves:</b> real rod ends, clamps and ball compliance add to it.</li>' +
+        '<li><b>Assumed:</b> outside scales give the dot by extending their line into the cabinet. <b>Found:</b> for a thin rod the line is worse than step counts, because the tail droops one way and the inside droops the same way but by a different amount (2.4 mm against 2.4 mm at Ø20, 0.26 against 0.19 at Ø40).</li>' +
+        '<li><b>Repair:</b> read the moment. The tail force gives F&nbsp;d, the beam model turns it into the bend at both stations and at the dot; at Ø20 the model estimate is 0.13 mm (0.05 of it noise), and it depends on the bending stiffness: 20 % error in EI gives 0.41 mm. One direct look with the camera at two tilts calibrates EI.</li>' +
+        '<li><b>Ball play:</b> 0.05 mm at the ball is 0.075 mm at the dot with the tail held, and only the scales see it. It is small next to the rod for anything under Ø40.</li></ul>',
+      unresolved: '<ul><li>The model is a straight cantilever with the load at the dot end; the real gun is a rigid body 270 mm long on the rod\'s end, the cable pulls at the grip, and the rod\'s ends are clamps. Tilt-dependent gravity is included; tilt of the bench and the ball\'s stick-slip are not.</li>' +
+        '<li>Scale type and mounting are unchecked: digital scales (calipers, 0.01 mm) or linear encoders are the usual parts; a reflective scale or a printed strip with a camera would read the rod directly.</li>' +
+        '<li>Whether the plume really blinds the inside camera during the bead, and whether the red dot stays on: both unknown (question for Derek).</li></ul>',
+      assumptions: '<ul><li>Rod: aluminium tube, wall 2 mm, E 69 GPa; outer diameter is a slider (Ø12 to 50). Load F = m g sin(angle) + cable pull, applied at the dot end (an upper-bound style simplification). Beam formulas: <code>calc/wall-window.mjs</code>.</li>' +
+        '<li>Gun mass 1.5 kg, cable pull 2 N, angle 45 degrees, play 0.05 mm, d 400 mm, Lt 800 mm: from room-03, illustrative. Scale noise, load-cell error, stiffness error and camera noise are sliders, not measurements.</li>' +
+        '<li>The lateral scale is exaggerated by the slider so the bend shows; the axial scale is true.</li></ul>',
+    },
+  });
+  // ---------------------------------------------------------------- state
+  const st = { d: 400, Lt: 800, OD: 20, m: 1.5, Fc: 2, phi: 45, delta: 0.05, a1: 120, a2: 400, sS: 0.01, sF: 0.1, eEI: 5, sC: 0.08, ex: 40, plume: false };
+  const val = id => app.ui.get(id);
+  const wrap = H('div', { class: 'e14' }); app.stageEl.appendChild(wrap);
+  const svg = S('svg', { viewBox: '0 0 860 480' }); wrap.appendChild(svg);
+  const barsSvg = S('svg', { viewBox: '0 0 560 190' });
+  const barCard = H('div', { style: 'margin-top:10px' }, H('div', { class: 'g', style: 'font:600 12px system-ui;color:#cbd5e1;margin:2px 0 6px 2px', text: 'Error of each estimate of the dot, against truth (mm, log scale; illustrative numbers)' }), barsSvg); wrap.appendChild(barCard);
+
+  // ---------------------------------------------------------------- beam model (see calc/wall-window.mjs)
+  function model() {
+    const OD = st.OD, I = Math.PI / 64 * (OD ** 4 - (OD - 4) ** 4), EI = E * I, d = st.d, Lt = st.Lt;
+    const F = st.m * G * Math.sin(st.phi * DEG) + st.Fc;
+    const yb = (s, F_, EI_) => { F_ = F_ == null ? F : F_; EI_ = EI_ == null ? EI : EI_; return s >= 0 ? -F_ * s * s * (3 * d - s) / (6 * EI_) : -(F_ * d / (Lt * EI_)) * (Lt * s * s / 2 + s ** 3 / 6); };
+    const tau = (yb(-Lt) + st.delta) / Lt;
+    const y = s => yb(s) + tau * s + st.delta;
+    return { EI, F, yb, tau, y };
+  }
+  function errors() {
+    const M = model(), d = st.d, s1 = -st.a1, s2 = -st.a2, yt = M.y(d);
+    const k = (d - s1) / (s2 - s1), m1 = M.y(s1), m2 = M.y(s2), e2 = m1 * (1 - k) + m2 * k, n2 = st.sS * Math.hypot(1 - k, k);
+    const est = (Fe, EIe) => M.yb(d, Fe, EIe) + (m1 - M.yb(s1, Fe, EIe)) * (1 - k) + (m2 - M.yb(s2, Fe, EIe)) * k;
+    const e3 = est(M.F, M.EI * (1 + st.eEI / 100)), dydF = (est(M.F + 0.01, M.EI) - est(M.F, M.EI)) / 0.01, n3 = Math.hypot(n2, dydF * st.sF * st.Lt / d);
+    return { M: M, yt: yt, m1: m1, m2: m2, e2: e2, e3: e3, n2: n2, n3: n3,
+      steps: Math.abs(yt), line: Math.hypot(e2 - yt, n2), model: Math.hypot(e3 - yt, n3), cam: st.plume ? null : st.sC,
+      tail: M.yb(-st.Lt), tip: M.yb(st.d), wtail: M.F * st.d / st.Lt, play: st.delta * (1 + st.d / st.Lt) };
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const X0 = 30, X1 = 790, YM = 250;
+  function draw() {
+    const R = errors(), M = R.M, d = st.d, Lt = st.Lt, k = (X1 - X0) / (Lt + d + 90), ex = st.ex;
+    const X = s => X0 + (s + Lt + 40) * k, Y = y => YM - y * ex * k;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const add = (t, a, ...c) => svg.appendChild(S(t, a, ...c));
+    // outside / inside bands
+    add('rect', { x: X0 - 10, y: 46, width: X(0) - X0 + 10, height: 380, fill: 'rgba(96,165,250,0.04)' });
+    add('rect', { x: X(0), y: 46, width: 850 - X(0), height: 380, fill: 'rgba(248,113,113,0.05)' });
+    add('text', { x: X0, y: 40, class: 'g', text: 'outside the cabinet: sensors can live here' });
+    add('text', { x: X(0) + 8, y: 40, class: 'g', text: 'inside the laser-safe cabinet: spatter, fume, plume' });
+    add('line', { x1: X(0), y1: 46, x2: X(0), y2: 426, stroke: '#6b7a90', 'stroke-width': 4 });
+    add('text', { x: X(0) - 8, y: 60, class: 'g', text: 'lid' });
+    // commanded line
+    add('line', { x1: X(-Lt), y1: YM, x2: X(d), y2: YM, stroke: '#64748b', 'stroke-dasharray': '6 5' });
+    add('text', { x: X0, y: 418, class: 'g', text: 'dashed line: the commanded line, what step counts believe' });
+    // rod
+    const pts = []; for (let i = 0; i <= 90; i++) { const s = -Lt + (Lt + d) * i / 90; pts.push(X(s).toFixed(1) + ',' + Y(M.y(s)).toFixed(1)); }
+    add('polyline', { points: pts.join(' '), fill: 'none', stroke: '#f59e0b', 'stroke-width': 5, 'stroke-linejoin': 'round' });
+    // gun body at the end
+    const gs = d - 250, gx0 = X(gs), gx1 = X(d), gy0 = Y(M.y(gs)), gy1 = Y(M.y(d));
+    const ang = Math.atan2(gy1 - gy0, gx1 - gx0) * 180 / Math.PI;
+    add('rect', { x: gx0, y: gy0 - 15, width: gx1 - gx0, height: 30, rx: 5, fill: '#475569', stroke: '#94a3b8', transform: 'rotate(' + ang.toFixed(2) + ' ' + gx0.toFixed(1) + ' ' + gy0.toFixed(1) + ')' });
+    add('text', { x: (gx0 + gx1) / 2 - 12, y: (gy0 + gy1) / 2 + 4, class: 'b', text: 'gun' });
+    // ball
+    add('circle', { cx: X(0), cy: Y(st.delta), r: 9, fill: '#14b8a6', stroke: '#0f766e', 'stroke-width': 2 });
+    add('text', { x: X(0) + 12, y: Y(st.delta) - 12, class: 'g', text: 'ball' });
+    // stations
+    [[-st.a1, 'scale 1', R.m1], [-st.a2, 'scale 2', R.m2]].forEach(a => {
+      const x = X(a[0]), y = Y(a[2]);
+      add('line', { x1: x, y1: YM - 90, x2: x, y2: YM + 90, stroke: '#3b82f6', 'stroke-width': 1, opacity: 0.5 });
+      add('rect', { x: x - 6, y: y - 12, width: 12, height: 24, fill: 'none', stroke: '#60a5fa', 'stroke-width': 2 });
+      add('circle', { cx: x, cy: y, r: 3.5, fill: '#60a5fa' });
+      add('text', { x: x - 26, y: YM + 108, class: 'g', text: a[1] });
+      add('text', { x: x - 30, y: YM + 122, class: 'g', text: a[2].toFixed(2) + ' mm' });
+    });
+    // tail actuator + load cell
+    const tx = X(-Lt), ty = Y(0);
+    add('rect', { x: tx - 12, y: ty - 26, width: 24, height: 52, fill: '#a855f7', opacity: 0.85, rx: 3 });
+    add('text', { x: tx - 6, y: ty - 34, class: 'g', text: 'tail actuators + load cell' });
+    add('text', { x: tx - 6, y: ty + 44, class: 'b', text: R.wtail.toFixed(1) + ' N' });
+    // dot markers at s = d
+    const dx = X(d);
+    add('line', { x1: dx, y1: YM - 130, x2: dx, y2: YM + 140, stroke: '#7c8799', 'stroke-dasharray': '2 4' });
+    add('circle', { cx: dx, cy: Y(R.yt), r: 6, fill: '#f87171' });
+    add('circle', { cx: dx + 18, cy: Y(0), r: 5, fill: 'none', stroke: '#94a3b8', 'stroke-width': 2 });
+    add('rect', { x: dx + 30, y: Y(R.e2) - 5, width: 10, height: 10, fill: '#f59e0b', transform: 'rotate(45 ' + (dx + 35) + ' ' + Y(R.e2) + ')' });
+    add('polygon', { points: (dx + 56) + ',' + (Y(R.e3) - 6) + ' ' + (dx + 50) + ',' + (Y(R.e3) + 5) + ' ' + (dx + 62) + ',' + (Y(R.e3) + 5), fill: '#2dd4bf' });
+    add('text', { x: dx - 6, y: YM - 138, class: 'g', text: 'at the dot' });
+    // legend of the markers
+        const leg = [['#f87171', 'truth at the dot'], ['#94a3b8', 'step counts say'], ['#f59e0b', 'scales, straight line say'], ['#2dd4bf', 'scales + bend model say']];
+    leg.forEach((a, i) => { add('circle', { cx: 30 + i * 205, cy: 466, r: 5, fill: a[0] }); add('text', { x: 40 + i * 205, y: 470, class: 'g', text: a[1] }); });
+    // camera inside
+    const cx = X(d * 0.35), cy = 80;
+    add('rect', { x: cx - 12, y: cy - 8, width: 24, height: 16, rx: 3, fill: st.plume ? '#475569' : '#3b82f6' });
+    add('polygon', { points: (cx + 12) + ',' + (cy - 6) + ' ' + (cx + 22) + ',' + (cy - 11) + ' ' + (cx + 22) + ',' + (cy + 11) + ' ' + (cx + 12) + ',' + (cy + 6), fill: st.plume ? '#475569' : '#60a5fa' });
+    add('line', { x1: cx + 22, y1: cy, x2: dx, y2: Y(R.yt), stroke: st.plume ? '#f87171' : '#60a5fa', 'stroke-dasharray': '4 4' });
+    add('text', { x: cx - 30, y: cy - 16, class: 'g', text: st.plume ? 'camera inside: blind in the plume' : 'camera inside: sees dot against seam' });
+    // numbers card
+    add('text', { x: X0, y: 70, class: 'big', text: 'sideways x' + ex + ': tail droop ' + R.tail.toFixed(2) + ' mm, flex at the dot end ' + R.tip.toFixed(2) + ' mm' });
+    add('text', { x: X0, y: 88, class: 'g', text: 'moment through the ball F d = ' + (M.F * st.d / 1000).toFixed(2) + ' N m; EI = ' + (M.EI / 1e9).toFixed(2) + ' N m2' });
+    drawBars(R);
+    io(R);
+  }
+  function drawBars(R) {
+    while (barsSvg.firstChild) barsSvg.removeChild(barsSvg.firstChild);
+    const add = (t, a, ...c) => barsSvg.appendChild(S(t, a, ...c));
+    const X0b = 150, W = 380, lo = Math.log10(0.01), hi = Math.log10(10), xs = v => X0b + (Math.log10(Math.max(v, 0.01)) - lo) / (hi - lo) * W;
+    [0.01, 0.1, 1, 10].forEach(g => { add('line', { x1: xs(g), y1: 8, x2: xs(g), y2: 170, stroke: '#20293a' }); add('text', { x: xs(g) - 8, y: 184, class: 'g', text: g + ' mm' }); });
+    const rows = [['step counts', R.steps, '#94a3b8', 'sees no play, no bend'], ['two scales, line', R.line, '#f59e0b', 'sees play, misses bend'], ['scales + bend model', R.model, '#2dd4bf', 'needs load and EI'], ['camera (direct)', R.cam, '#60a5fa', st.plume ? 'blind in the plume' : 'dot against the seam']];
+    rows.forEach((r, i) => {
+      const y = 10 + i * 40;
+      add('text', { x: 4, y: y + 10, class: i === 2 ? 'b' : '', text: r[0] });
+      if (r[1] == null) { add('text', { x: X0b + 4, y: y + 12, class: 'g', text: r[3] }); return; }
+      add('rect', { x: X0b, y: y, width: Math.max(1, xs(r[1]) - X0b), height: 14, fill: r[2], opacity: 0.9 });
+      add('text', { x: xs(r[1]) + 4, y: y + 11, class: 'g', text: r[1].toFixed(r[1] < 0.1 ? 3 : 2) });
+      add('text', { x: X0b, y: y + 27, class: 'g', text: r[3] });
+    });
+  }
+  function io(R) {
+    app.io.set({
+      commands: [{ name: "room-03's plate slide, insertion, tail pitch and yaw", value: '(not drawn)', note: 'unchanged; this scene adds readers, not movers' }],
+      observes: [
+        { name: 'Rod lateral position at two stations outside the lid', value: R.m1.toFixed(2) + ', ' + R.m2.toFixed(2), unit: 'mm', status: 'seen', note: 'scales on the lid frame; they see the ball\'s play (' + R.play.toFixed(3) + ' mm at the dot)' },
+        { name: 'Tail actuator force', value: R.wtail.toFixed(1), unit: 'N', status: 'seen', note: 'the moment through the ball divided by the tail length: it reads the load that bends the inside' },
+        { name: 'Dot position along the commanded line', value: R.yt.toFixed(2), unit: 'mm (truth)', status: 'partly', note: 'inferred from scales + bend model; error ' + R.model.toFixed(2) + ' mm' },
+        { name: 'Dot against the seam', value: st.plume ? '-' : 'camera', status: st.plume ? 'blind' : 'seen', note: 'only the camera knows where the tube is; scales say where the gun is in the cabinet' },
+        { name: 'Ball stick-slip, rod end clamp compliance', value: '-', status: 'unresolved', note: 'not modelled' },
+      ],
+      manual: ['Fit scales to the lid frame', 'Measure the rod stiffness once with a direct look at two tilts', 'Set the ball clearance'],
+    });
+    setPlay(R.play.toFixed(3), 'mm'); setTail(R.tail.toFixed(2), 'mm'); setTip(R.tip.toFixed(2), 'mm'); setW(R.wtail.toFixed(1), 'N');
+    app.badge('thin', R.steps > 0.5 ? 'the rod bends the dot ' + R.steps.toFixed(1) + ' mm off the commanded line (illustrative): step counts cannot know' : null, R.steps > 1.5 ? 'limit' : 'warn');
+  }
+  const setPlay = app.ui.readout('rp', 'Ball play at the dot (tail held)'), setTail = app.ui.readout('rt', 'Tail droop against the ball tangent'), setTip = app.ui.readout('rf', 'Flex of the inside segment at the dot end'), setW = app.ui.readout('rw', 'Tail actuator force (the moment through the ball / Lt)');
+
+  // ---------------------------------------------------------------- controls
+  const upd = key => v => { st[key] = v; if (key === 'Lt') { app.ui.enable && 0; } draw(); };
+  const g1 = app.ui.group('Rod and geometry (scene edits)', { help: 'room-03\'s numbers as defaults. Illustrative.' });
+  g1.slider({ id: 'OD', label: 'Rod outer diameter (aluminium tube, wall 2 mm)', min: 12, max: 50, step: 1, value: 20, unit: 'mm', kind: 'scene', help: 'The bending stiffness goes with the fourth power of the diameter.', onChange: upd('OD') });
+  g1.slider({ id: 'd', label: 'Ball to dot d', min: 300, max: 600, step: 10, value: 400, unit: 'mm', kind: 'scene', onChange: upd('d') });
+  g1.slider({ id: 'Lt', label: 'Ball to tail actuators Lt', min: 300, max: 950, step: 10, value: 800, unit: 'mm', kind: 'scene', onChange: upd('Lt') });
+  g1.slider({ id: 'phi', label: 'Rod angle from vertical', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', help: 'Gravity across the rod is m g sin(angle): zero when the rod is vertical.', onChange: upd('phi') });
+  const g2 = app.ui.group('Loads and play (scene edits, unknowns in the real machine)', {});
+  g2.slider({ id: 'm', label: 'Gun mass', min: 0.8, max: 2.5, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', onChange: upd('m') });
+  g2.slider({ id: 'Fc', label: 'Cable pull across the rod', min: 0, max: 6, step: 0.5, value: 2, unit: 'N', kind: 'scene', onChange: upd('Fc') });
+  g2.slider({ id: 'delta', label: 'Ball play: where the ball sits in its clearance', min: -0.2, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Only the outside scales see this. Step counts do not.', onChange: upd('delta') });
+  const g3 = app.ui.group('The readers (proposed)', { help: 'Where they stand and how noisy they are: illustrative.' });
+  g3.slider({ id: 'a1', label: 'Scale 1 outside the lid', min: 40, max: 300, step: 10, value: 120, unit: 'mm', kind: 'scene', onChange: upd('a1') });
+  g3.slider({ id: 'a2', label: 'Scale 2 outside the lid', min: 200, max: 900, step: 10, value: 400, unit: 'mm', kind: 'scene', onChange: upd('a2') });
+  g3.slider({ id: 'sS', label: 'Scale noise (1 sigma)', min: 0.002, max: 0.05, step: 0.002, value: 0.01, unit: 'mm', kind: 'scene', onChange: upd('sS') });
+  g3.slider({ id: 'sF', label: 'Load-cell noise (1 sigma)', min: 0.02, max: 0.5, step: 0.02, value: 0.1, unit: 'N', kind: 'scene', onChange: upd('sF') });
+  g3.slider({ id: 'eEI', label: 'Error in the assumed bending stiffness EI', min: 0, max: 25, step: 1, value: 5, unit: '%', kind: 'scene', help: 'One direct look at two tilts would calibrate it.', onChange: upd('eEI') });
+  g3.slider({ id: 'sC', label: 'Camera noise inside (1 sigma)', min: 0.03, max: 0.3, step: 0.01, value: 0.08, unit: 'mm', kind: 'scene', onChange: upd('sC') });
+  const g4 = app.ui.group('State and view', {});
+  g4.toggle({ id: 'plume', label: 'Bead running: the plume blinds the camera', value: false, kind: 'state', help: 'The outside readers carry on; the camera does not.', onChange: v => { st.plume = v; draw(); } });
+  g4.slider({ id: 'ex', label: 'Sideways exaggeration', min: 5, max: 200, step: 5, value: 40, unit: 'x', kind: 'view', help: 'The axial scale is true; the sideways scale is stretched.', onChange: v => { st.ex = v; draw(); } });
+  app.onReady(function () { app.legend([{ color: '#f59e0b', label: 'the rod as it really sits (sideways stretched)' }, { color: '#64748b', label: 'commanded line' }, { color: '#60a5fa', label: 'outside scale / camera' }, { color: '#a855f7', label: 'tail actuators + load cell' }, { color: '#14b8a6', label: 'ball' }]); draw(); });
+  window.__errors = () => { const R = errors(); return { steps: R.steps, line: R.line, model: R.model, tail: R.tail, tip: R.tip }; };
+})();
+</script>
+</body>
+</html>

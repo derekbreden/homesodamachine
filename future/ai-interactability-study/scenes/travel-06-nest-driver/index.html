@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nest driver</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-06-nest-driver",
+  "title": "Nest driver: the rotator turns its own tube-centring screws to a powered driver",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Top view of the existing rotator. The three M3 screws that centre the tube ride on the turntable, so the rotator can index each one to a stationary driver. A probe reads the runout, software plans the three screw turns, and the loop repeats: a work-side fine stage built from parts that already exist. Eccentricity is drawn exaggerated.",
+  "tags": [
+    "shoe state",
+    "nest screws",
+    "work-side fine stage",
+    "rotator as indexer",
+    "closed loop before the weld",
+    "top view"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "indexing a rotating part to a fixed tool",
+    "three-jaw shift rule: advance = c . u",
+    "reduce runout at its source instead of following it"
+  ],
+  "how": {
+    "motion": "turntable indexes; a driver turns the arriving screw; the tube moves about 2/3 of it",
+    "load": "the existing ball race and nest; the driver and probe stand on the bench",
+    "reference": "tube wall at the weld circle, read by a probe as the table turns",
+    "observe": "probe trace against rotation angle; table angle from the step count",
+    "use": "once per tube before the weld: measure, plan, index, turn, repeat"
+  },
+  "software": {
+    "commands": [
+      "rotator jog to an angle and one revolution for measuring (existing controller)",
+      "driver engage and turn by 1/N of a turn"
+    ],
+    "observes": [
+      "probe reading against rotation angle (eccentricity and its phase)",
+      "table angle (0.025 degree per pulse)"
+    ],
+    "manual": [
+      "loading the tube and bringing the screw tips to contact",
+      "installing the probe and driver"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-06-nest-driver.md",
+    "../../explorers/travel/calc/04-cascade.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+<style>
+  .nd-svg { width: 100%; height: 100%; min-height: 540px; display: block; }
+  .nd-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .nd-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .nd-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .nd-svg .mono { font: 11.5px ui-monospace, Menlo, monospace; fill: #cbd5e1; }
+  .nd-svg .axis { stroke: #394559; fill: none; }
+  .nd-svg .grid { stroke: #232c39; }
+  .nd-svg .trace { stroke: var(--role-work); stroke-width: 1.4; fill: none; opacity: .7; }
+  .nd-svg .now { stroke: var(--role-actuated); stroke-width: 2.4; fill: none; }
+  .nd-svg .band { fill: rgba(52, 211, 153, .10); stroke: rgba(52, 211, 153, .55); stroke-dasharray: 4 3; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'software'],
+    sections: {
+      proposes: '<p>The tube stands in a nest on the turntable. <b>Three radial M3 screws</b> bear on its outer wall, and they ride on the turntable, so today a person jogs each one to an open side and turns it with a hex key. Here the <b>rotator indexes each screw to a stationary powered driver</b> instead, and a <b>probe</b> reads the runout as the table turns. Software plans the three screw turns, executes them, measures again.</p>' +
+        '<p>Three screws at 120°: to move the tube centre by Δ each screw advances by (Δ · its direction), and with equal contacts the tube moves about <b>2/3 of one screw’s advance</b>. A quarter turn of an M3 (0.5 mm pitch) is 0.125 mm of screw and about 0.08 mm of tube. The eccentricity is drawn <b>exaggerated</b>; the green ring is the nest’s 0.20 mm radial clearance, the most this stage can move the tube.</p>',
+      carries: '<p>The existing turntable, ball race and nest carry the tube. The <b>slate</b> driver and probe stand on the bench, outside the turntable: they carry nothing. Screws and driver never touch except while a screw is at the driver.</p>',
+      software: '<p>Commands: jog the table to an angle, run one revolution for the probe, engage the driver, turn it 1/N of a turn. Observation: the probe trace (a sinusoid whose amplitude and phase are the eccentricity vector) and the table angle. The plan is three numbers, one per screw. The screw position is only <b>counted</b>: whether the tube actually moved is seen by measuring again. Slip (how much of each advance reaches the tube) is unknown, so the loop repeats.</p>',
+      tried: '<p><b>Break 1: the third screw.</b> Three contacts over-determine the tube unless the screws are balanced: a net advance jams the tube. <i>Repair:</i> the plan has zero net advance by construction (the advances sum to zero); the scene’s rule for equal contacts is c = −2/3 Σ aₖ uₖ.</p>' +
+        '<p><b>Break 2: slip and wall compliance.</b> A 0.065 in wall and printed screws will not deliver every micron. <i>Change:</i> set the slip below 1 and watch the loop still converge in a few passes.</p>' +
+        '<p><b>Break 3: range.</b> The stage cannot move the tube past the 0.20 mm pilot clearance. An initial eccentricity of 0.3 mm clips (badge). <i>Leaves standing:</i> a bigger initial error is a hand job.</p>' +
+        '<p><b>Break 4: what it cannot touch.</b> The rotator’s own bearing wobble and face runout live below the nest: this stage does not reach them.</p>' +
+        '<p><b>Break 5 (from use): the shoe.</b> <i>Conflict:</i> guide 46 indicates the tube, tacks and checks the face, and only then engages the copper shoe, which wipes the tube on one side; a shoe-off centring is not the weld state\'s centring, and the shoe\'s push over the nest\'s stiffness (2 N over 10 N/mm each is 0.13 mm) is the size of this routine\'s whole result. <i>Assumption:</i> that the push moves the tube in a way the passes would have caught. <i>Answer (kept in part):</i> the push is a force fixed in the room and the tube turns under it: its static part is a constant at the station, trimmed by X, and the fit (cosine and sine) does not see it. What can matter is the part that turns with the table, which needs unequal contacts or slack: anisotropy times push over stiffness, 0.05 mm at the defaults. The ordering rule costs nothing (the guide already engages the shoe before the dry revolution), so the toggle runs the passes with the shoe on and the weld-state TIR shows the difference. <i>Leaves:</i> whether the shoe moves the tube at all: an indicator on the tube while the shoe is engaged and disengaged says in a minute; and the rotator has no go-to-angle-and-hold (firmware that does not exist yet: the pedal stays the deadman; a hold command holds the coils, which today release ten seconds after the pedal).</p>',
+      unresolved: '<p>Which surface the probe should read (tube OD, ID, or the plate edge at the weld circle) and what sensor reads it. Whether a hex bit can engage a printed-nest M3 head reliably at 0.025° index accuracy. Whether the tube’s ovality (a second harmonic) can be reduced at all by three screws: no. The real slip. How the tube is kept from being pushed off the pilot when a screw is backed out.</p>',
+      assumptions: '<ul><li>Screws at 90°, 210°, 330° on the turntable, M3 pitch 0.5 mm, 0.20 mm ID-pilot and 0.40 mm outer-guide clearance <b>[repo]</b> (rotator README). Screw angles are illustrative.</li>' +
+        '<li>Equal contact stiffness (2/3 rule), probe noise, slip and turn resolution are illustrative. Rotator speeds 5–15 mm/s <b>[repo]</b>; times are derived from them.</li>' +
+        '<li>Runout acceptance limit 0.25 mm TIR (radial) <b>[repo]</b> drawn as a band.</li></ul>',
+    },
+  });
+  const D2R = Math.PI / 180, R_SEAM = WK.INNER_RADIUS, PITCH = 0.5, CLEAR = 0.20, RATE = 15 / R_SEAM / D2R;   // deg/s at 15 mm/s
+  const W = 1000, H = 720;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'nd-svg', role: 'img', 'aria-label': 'top view of the rotator with the tube, three nest screws, a driver and a probe, and the probe trace' });
+  app.stageEl.appendChild(svg);
+  app.legend && app.legend([{ role: 'actuated', label: 'turntable, driver (software could command)' }, { role: 'sensor', label: 'probe' }, { role: 'locate', label: 'weld circle, screws' }, { role: 'work', label: 'tube' }]);
+  const g = WK.svg('g', {}); svg.appendChild(g);
+  const T = (x, y, text, cls, anchor) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text }));
+  function lcg(seed) { let s = seed >>> 0; return () => ((s = (1664525 * s + 1013904223) >>> 0) / 4294967296); }
+  const rnd = lcg(11), gauss = () => { let u = 0, v = 0; while (u === 0) u = rnd(); while (v === 0) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+
+  // state (tube centre c in the TURNTABLE frame, mm; screw advances mm)
+  const SCREW_DEG = [90, 210, 330], U = SCREW_DEG.map(a => [Math.cos(a * D2R), Math.sin(a * D2R)]);
+  const DRIVER_DEG = 0, PROBE_DEG = 90;      // fixed in the room, angles measured from +x, counter-clockwise
+  const st = { c: [0, 0], a: [0, 0, 0], table: 0, est: null, samples: null, log: [], time: 0, clipped: false };
+  function initC() { const e = app.ui.get('e0'), b = app.ui.get('eb') * D2R; st.c = [e * Math.cos(b), e * Math.sin(b)]; st.a = [0, 0, 0]; st.est = null; st.samples = null; st.log = []; st.time = 0; st.table = 0; st.clipped = false; }
+  const norm = v => Math.hypot(v[0], v[1]);
+  const clampVec = (v, r) => { const n = norm(v); return n > r ? [v[0] * r / n, v[1] * r / n] : v; };
+  // The ground shoe wipes the tube on one side with a force fixed in the room. Its static part (F over the nest's stiffness) is a constant at the station, trimmed by X.
+  // What can matter for the centring is the part that turns with the table: contacts that are not equal make the nest's response depend on the direction of the push (first order in the
+  // anisotropy), so the shoe adds a once-per-turn term of size anisotropy x F / k. It is drawn in the turntable frame at a fixed direction (illustrative).
+  const shoeVec = () => { const s0 = app.ui.get('sF') / (1.5 * app.ui.get('kc')), a = app.ui.get('an') / 100 * s0, b = 200 * D2R; return { stat: s0, one: [a * Math.cos(b), a * Math.sin(b)], a: a }; };
+  const cWeld = () => { const v = shoeVec(); return [st.c[0] + v.one[0], st.c[1] + v.one[1]]; };      // the weld runs with the shoe engaged
+  const cSeen = () => (app.ui.get('shoeMeas') ? cWeld() : st.c);                                     // what the passes see
+  function probeAt(tableDeg) { const n = [Math.cos((PROBE_DEG - tableDeg) * D2R), Math.sin((PROBE_DEG - tableDeg) * D2R)], c = cSeen(); return c[0] * n[0] + c[1] * n[1]; }   // radial reading of the wall at the probe
+  function measure() {
+    const N = 36, xs = [], ys = [], noise = app.ui.get('pn');
+    for (let i = 0; i < N; i++) { const th = i * 360 / N; xs.push(th); ys.push(probeAt(th) + noise * gauss()); }
+    // fit y = ex cos(k) + ey sin(k) with n(theta) = (cos(P - th), sin(P - th)) => reading = c . n
+    // n(th) = (cos P cos th + sin P sin th, sin P cos th - cos P sin th): least squares for c
+    let A = [[0, 0], [0, 0]], b = [0, 0];
+    xs.forEach((th, i) => { const n = [Math.cos((PROBE_DEG - th) * D2R), Math.sin((PROBE_DEG - th) * D2R)]; A[0][0] += n[0] * n[0]; A[0][1] += n[0] * n[1]; A[1][1] += n[1] * n[1]; b[0] += n[0] * ys[i]; b[1] += n[1] * ys[i]; });
+    A[1][0] = A[0][1]; const det = A[0][0] * A[1][1] - A[0][1] * A[1][0];
+    st.est = [(b[0] * A[1][1] - b[1] * A[0][1]) / det, (A[0][0] * b[1] - A[1][0] * b[0]) / det]; st.samples = { xs: xs, ys: ys };
+    st.time += 360 / RATE;
+  }
+  const quant = v => { const n = +app.ui.get('turnres'); return Math.round(v / PITCH * n) / n * PITCH; };
+  function turnScrew(k, dA) {
+    const da = quant(dA); if (da === 0) return 0;
+    st.a[k] += da;
+    const slip = app.ui.get('slip');
+    let c2 = [st.c[0] - (2 / 3) * slip * da * U[k][0], st.c[1] - (2 / 3) * slip * da * U[k][1]];
+    const cl = clampVec(c2, CLEAR); st.clipped = st.clipped || cl[0] !== c2[0] || cl[1] !== c2[1]; st.c = cl;
+    return da;
+  }
+  function jogTo(k) { const target = ((SCREW_DEG[k] + 360) % 360); const want = ((DRIVER_DEG - SCREW_DEG[k]) % 360 + 360) % 360; const d = Math.abs(((want - st.table + 540) % 360) - 180); st.table = want; st.time += d / RATE + 2; }
+  function planAndRun() {
+    if (!st.est) measure();
+    const est = st.est.slice(), dA = U.map(u => est[0] * u[0] + est[1] * u[1]);
+    for (let k = 0; k < 3; k++) { jogTo(k); turnScrew(k, dA[k]); st.time += Math.abs(dA[k]) / PITCH * 2 + 1; }
+    st.est = null;
+  }
+  function tirNow() { return 2 * norm(cSeen()); }          // what the passes measure
+  function tirWeld() { return 2 * norm(cWeld()); }         // what the weld runs with (shoe engaged)
+  function autoRun() {
+    initC(); st.log = [{ i: 0, tir: tirNow(), t: 0 }];
+    const n = Math.round(app.ui.get('iters'));
+    for (let i = 1; i <= n; i++) { measure(); planAndRun(); measure(); st.log.push({ i: i, tir: tirNow(), t: st.time }); if (tirNow() < 0.02) break; }
+    redraw();
+  }
+
+  // ---------------------------------------------------------------- drawing
+  const CX = 250, CY = 330, K = 2.05;                       // px per mm, view centre
+  const EX = () => app.ui.get('exag');
+  function redraw() {
+    while (g.firstChild) g.removeChild(g.firstChild);
+    const exag = EX(), th = st.table, ex = st.c[0] * exag, ey = st.c[1] * exag;
+    const P = (x, y) => [CX + x * K, CY - y * K];
+    const rot = (x, y, deg) => [x * Math.cos(deg * D2R) - y * Math.sin(deg * D2R), x * Math.sin(deg * D2R) + y * Math.cos(deg * D2R)];
+    T(24, 26, 'Top view (from above): turntable turns counter-clockwise; driver and probe stand on the bench', 'big');
+    // turntable (drawn rotated by the table angle)
+    const tt = WK.svg('g', { transform: 'rotate(' + (-th) + ' ' + CX + ' ' + CY + ')' });
+    tt.appendChild(WK.svg('circle', { cx: CX, cy: CY, r: 98 * K, fill: '#1b222c', stroke: '#a855f7', 'stroke-width': 2 }));
+    tt.appendChild(WK.svg('circle', { cx: CX, cy: CY, r: 75 * K, fill: '#151b23', stroke: '#394559' }));
+    tt.appendChild(WK.svg('line', { x1: CX + 80 * K, y1: CY, x2: CX + 98 * K, y2: CY, stroke: '#14b8a6', 'stroke-width': 3 }));    // index tick at 0 deg
+    // clearance ring (0.20 mm, exaggerated) around the axis
+    tt.appendChild(WK.svg('circle', { cx: CX, cy: CY, r: CLEAR * exag * K, fill: 'rgba(52,211,153,.08)', stroke: 'rgba(52,211,153,.7)', 'stroke-dasharray': '4 3' }));
+    // tube (centre offset c * exag), wall thickness ring, seam circle
+    tt.appendChild(WK.svg('circle', { cx: CX + ex * K, cy: CY - ey * K, r: 63.5 * K, fill: 'rgba(200,208,218,.10)', stroke: '#c8d0da', 'stroke-width': 2 }));
+    tt.appendChild(WK.svg('circle', { cx: CX + ex * K, cy: CY - ey * K, r: 61.85 * K, fill: 'none', stroke: '#14b8a6', 'stroke-width': 1.3 }));
+    tt.appendChild(WK.svg('circle', { cx: CX + ex * K, cy: CY - ey * K, r: 2.5, fill: '#c8d0da' }));
+    tt.appendChild(WK.svg('path', { d: 'M' + (CX - 7) + ' ' + CY + 'H' + (CX + 7) + 'M' + CX + ' ' + (CY - 7) + 'V' + (CY + 7), stroke: '#a855f7', 'stroke-width': 1.6 }));
+    // screws
+    SCREW_DEG.forEach((a, k) => {
+      const p = [CX + 82 * Math.cos(a * D2R) * K, CY - 82 * Math.sin(a * D2R) * K];
+      tt.appendChild(WK.svg('rect', { x: p[0] - 7, y: p[1] - 7, width: 14, height: 14, fill: '#14b8a6', stroke: '#0f766e', 'stroke-width': 2, transform: 'rotate(' + (-a) + ' ' + p[0] + ' ' + p[1] + ')' }));
+      tt.appendChild(WK.svg('text', { x: p[0] + 14 * Math.cos(a * D2R), y: p[1] - 14 * Math.sin(a * D2R) + 4, class: 'small', 'text-anchor': 'middle', text: String(k + 1), transform: 'rotate(' + th + ' ' + (p[0] + 14 * Math.cos(a * D2R)) + ' ' + (p[1] - 14 * Math.sin(a * D2R)) + ')' }));
+    });
+    g.appendChild(tt);
+    // driver (purple) at DRIVER_DEG, probe (blue) at PROBE_DEG, fixed in the room
+    const dp = [CX + 120 * Math.cos(DRIVER_DEG * D2R) * K, CY - 120 * Math.sin(DRIVER_DEG * D2R) * K], pp = [CX + 106 * Math.cos(PROBE_DEG * D2R) * K, CY - 106 * Math.sin(PROBE_DEG * D2R) * K];
+    g.appendChild(WK.svg('rect', { x: dp[0] - 16, y: dp[1] - 20, width: 44, height: 40, rx: 4, fill: '#a855f7' })); g.appendChild(WK.svg('line', { x1: dp[0] - 16, y1: dp[1], x2: CX + 90 * K, y2: CY, stroke: '#a855f7', 'stroke-width': 5 }));
+    T(dp[0] - 6, dp[1] + 36, 'driver (stepper + hex bit, proposed)', 'small');
+    g.appendChild(WK.svg('rect', { x: pp[0] - 22, y: pp[1] - 30, width: 44, height: 26, rx: 4, fill: '#3b82f6' })); g.appendChild(WK.svg('line', { x1: pp[0], y1: pp[1] - 4 + 4, x2: CX, y2: CY - 63.5 * K - 0, stroke: '#3b82f6', 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }));
+    T(pp[0] + 30, pp[1] - 14, 'probe on the tube wall (proposed)', 'small');
+    T(24, 612, 'table angle ' + st.table.toFixed(1) + '°', 'small');
+    T(24, 640, 'green ring: 0.20 mm nest clearance (drawn ×' + exag + '); tube offset drawn ×' + exag, 'small');
+
+    // ---- right: probe trace
+    const X0 = 560, X1 = 970, Y0 = 112, HH = 150;
+    T(X0, 92, 'Probe reading against table angle', 'big');
+    const tirLim = 0.25, sc = 0.32;                                      // +-0.32 mm
+    g.appendChild(WK.svg('rect', { x: X0, y: Y0, width: X1 - X0, height: HH, fill: '#10151c', class: 'axis' }));
+    g.appendChild(WK.svg('rect', { x: X0, y: Y0 + HH / 2 - tirLim / 2 / sc * HH / 2, width: X1 - X0, height: tirLim / sc * HH / 2, class: 'band' }));
+    for (let k = -2; k <= 2; k++) { const y = Y0 + HH / 2 - k / 2 * HH / 2; g.appendChild(WK.svg('line', { x1: X0, x2: X1, y1: y, y2: y, class: k === 0 ? 'axis' : 'grid' })); T(X0 - 5, y + 4, ((k / 2 * sc) >= 0 ? '+' : '−') + Math.abs(k / 2 * sc).toFixed(2), 'small', 'end'); }
+    const xo = d => X0 + (X1 - X0) * d / 360;
+    let d = ''; for (let i = 0; i <= 360; i += 2) { const y = Y0 + HH / 2 - probeAt(i) / sc * HH / 2; d += (i ? 'L' : 'M') + xo(i).toFixed(1) + ' ' + y.toFixed(1); }
+    g.appendChild(WK.svg('path', { d: d, class: 'now' }));
+    if (st.samples) st.samples.xs.forEach((x, i) => g.appendChild(WK.svg('circle', { cx: xo(x), cy: Y0 + HH / 2 - st.samples.ys[i] / sc * HH / 2, r: 2.8, fill: '#3b82f6' })));
+    for (let dd = 0; dd <= 360; dd += 90) T(xo(dd), Y0 + HH + 16, dd + '°', 'small', 'middle');
+    T(X1, Y0 + 14, 'band ±' + (tirLim / 2).toFixed(3) + ' mm = the 0.25 mm TIR acceptance limit [repo]', 'small', 'end');
+    // numbers
+    const tir = tirNow(), e = norm(st.c), estT = st.est ? 'estimate c = (' + st.est[0].toFixed(3) + ', ' + st.est[1].toFixed(3) + ') mm' : 'no estimate yet: press Measure';
+    T(X0, 312, 'true tube centre in the turntable frame', 'small');
+    T(X0, 330, 'c = (' + st.c[0].toFixed(3) + ', ' + st.c[1].toFixed(3) + ') mm   |c| ' + e.toFixed(3) + ' mm   TIR ' + tir.toFixed(3) + ' mm', 'mono');
+    T(X0, 352, st.est ? 'estimate c = (' + st.est[0].toFixed(3) + ', ' + st.est[1].toFixed(3) + ') mm' : 'no estimate yet: press Measure', 'mono');
+    T(X0, 374, 'screw advances (counted), mm: ' + st.a.map(v => v.toFixed(3)).join('  '), 'mono');
+    { const v = shoeVec(); T(X0, 414, 'weld state (shoe on): TIR ' + tirWeld().toFixed(3) + ' mm', 'mono'); T(X0, 428, 'shoe: ' + (v.stat * 1000).toFixed(0) + ' µm constant (trimmed) + ' + (v.a * 1000).toFixed(0) + ' µm once per turn', 'small'); }
+    T(X0, 396, 'dry-run time at 15 mm/s: ' + st.time.toFixed(0) + ' s   slip x' + app.ui.get('slip').toFixed(2) + '   ' + Math.round(app.ui.get('iters')) + ' passes', 'mono');
+    // log
+    T(X0, 452, 'Auto-centre log (measure, plan, index, turn, measure)', 'big');
+    st.log.slice(0, 7).forEach((r, i) => T(X0, 472 + i * 18, 'pass ' + r.i + '   TIR ' + r.tir.toFixed(3) + ' mm   elapsed ' + r.t.toFixed(0) + ' s', 'mono'));
+    if (!st.log.length) T(X0, 472, 'press Run auto-centre', 'small');
+    app.badge('weldTir', tirWeld() > 0.25 ? 'the weld runs at TIR ' + tirWeld().toFixed(2) + ' mm with the shoe on: over the 0.25 mm limit' : (Math.abs(tirWeld() - tirNow()) > 0.02 ? 'the passes read TIR ' + tirNow().toFixed(3) + ' mm, the weld runs at ' + tirWeld().toFixed(3) + ' mm: the last pass was made without the shoe' : null), Math.abs(tirWeld() - tirNow()) > 0.02 || tirWeld() > 0.25 ? 'warn' : 'ok');
+    app.badge('clip', st.clipped ? 'the tube reached the 0.20 mm nest clearance: this stage cannot move it further' : null, 'warn');
+    app.badge('driver', atDriver() >= 0 ? 'screw ' + (atDriver() + 1) + ' is at the driver' : null, 'ok');
+    app.io.set({
+      commands: [
+        { name: 'Table angle', value: st.table.toFixed(1), unit: '°', note: 'existing controller, 0.025° per pulse; jog and one revolution for measuring' },
+        { name: 'Driver turn', value: '1/' + app.ui.get('turnres') + ' turn steps', status: '', note: 'stepper with a hex bit; engages only when a screw is at the driver' },
+      ],
+      observes: [
+        { name: 'Probe reading vs angle', value: st.est ? 'fitted' : 'not measured', status: st.est ? 'partly' : 'blind', note: 'noise ' + app.ui.get('pn').toFixed(3) + ' mm (made up); which surface and which sensor is open' },
+        { name: 'Screw advance', value: 'counted turns', status: 'partly', note: 'open loop: whether the tube moved is only seen by measuring again' },
+        { name: 'Rotator bearing wobble / face runout', value: '-', status: 'blind', note: 'below the nest: this stage does not see or reach it' },
+        { name: 'Tube ovality', value: '-', status: 'unresolved', note: 'a second harmonic three screws cannot remove' },
+      ],
+      manual: ['Load the tube and bring the tips to contact', 'Install probe and driver'],
+    });
+  }
+
+  // ---------------------------------------------------------------- controls
+  const sh = app.ui.group('The ground shoe (scene edits; from use\'s exchange)', { help: 'Guide 46 engages the shoe after indicating. The push is a force fixed in the room: its static part is trimmed away, its turning part is what a shoe-off pass cannot see.' });
+  sh.toggle({ id: 'shoeMeas', label: 'Run the passes with the shoe engaged', value: false, kind: 'state', help: 'Off: the guide\'s order (indicate, then engage the shoe). On: the driver runs after "engage the shoe", so the tube it centres is the tube that is welded.', onChange: redraw });
+  sh.slider({ id: 'sF', label: 'Shoe push on the tube', min: 0, max: 4, step: 0.1, value: 2, unit: 'N', kind: 'scene', help: 'Unmeasured; an indicator on the tube with the shoe engaged and disengaged says.', onChange: redraw });
+  sh.slider({ id: 'kc', label: 'Nest stiffness at one screw tip', min: 2, max: 100, step: 1, value: 10, unit: 'N/mm', kind: 'scene', help: 'Three tips: about 1.5 times this for a push in any direction (2/3 rule).', onChange: redraw });
+  sh.slider({ id: 'an', label: 'Unequal contacts (anisotropy)', min: 0, max: 100, step: 5, value: 40, unit: '%', kind: 'scene', help: 'Turns the room-fixed push into a once-per-turn error: anisotropy × push ÷ stiffness.', onChange: redraw });
+  const sit = app.ui.group('The tube in the nest (scene edits)');
+  sit.slider({ id: 'e0', label: 'Initial eccentricity', min: 0, max: 0.4, step: 0.005, value: 0.18, unit: 'mm', kind: 'scene', onChange: () => { initC(); redraw(); } });
+  sit.slider({ id: 'eb', label: 'Its direction (turntable frame)', min: 0, max: 360, step: 1, value: 35, unit: '°', kind: 'scene', onChange: () => { initC(); redraw(); } });
+  sit.slider({ id: 'slip', label: 'Slip (advance that reaches the tube)', min: 0.3, max: 1, step: 0.05, value: 0.7, unit: '×', kind: 'scene', help: 'Wall compliance and printed screws: illustrative.', onChange: redraw });
+  sit.slider({ id: 'pn', label: 'Probe noise per sample', min: 0, max: 0.03, step: 0.001, value: 0.004, unit: 'mm', kind: 'scene', onChange: redraw });
+  sit.slider({ id: 'exag', label: 'Drawing exaggeration', min: 5, max: 200, step: 5, value: 120, unit: '×', kind: 'view', onChange: redraw });
+  const cm = app.ui.group('Commands (proposed axes)', { help: 'Actuator badge: the existing rotator jog, and a new stepper driver with a hex bit.' });
+  cm.slider({ id: 'table', label: 'Jog the table', min: 0, max: 360, step: 0.5, value: 0, unit: '°', kind: 'actuator', help: 'Existing rotator. A screw reaches the driver at the angles the badge shows.', onChange: v => { st.table = v; redraw(); } });
+  cm.button({ id: 'j1', label: 'Jog screw 1 to the driver', kind: 'actuator', onClick: () => { jogTo(0); app.ui.set('table', st.table, { silent: true }); redraw(); } });
+  cm.button({ id: 'j2', label: 'Jog screw 2 to the driver', kind: 'actuator', onClick: () => { jogTo(1); app.ui.set('table', st.table, { silent: true }); redraw(); } });
+  cm.button({ id: 'j3', label: 'Jog screw 3 to the driver', kind: 'actuator', onClick: () => { jogTo(2); app.ui.set('table', st.table, { silent: true }); redraw(); } });
+  cm.select({ id: 'turnres', label: 'Driver turn resolution', options: [{ value: '4', label: '1/4 turn (0.125 mm)' }, { value: '8', label: '1/8 turn' }, { value: '16', label: '1/16 turn' }, { value: '32', label: '1/32 turn (0.016 mm)' }], value: '16', kind: 'actuator', onChange: redraw });
+  cm.button({ id: 'turnp', label: 'Turn the screw at the driver +1 step', kind: 'actuator', onClick: () => { const k = atDriver(); if (k < 0) { app.toast('No screw at the driver: jog the table'); return; } turnScrew(k, PITCH / +app.ui.get('turnres')); redraw(); } });
+  cm.button({ id: 'turnm', label: 'Turn the screw at the driver −1 step', kind: 'actuator', onClick: () => { const k = atDriver(); if (k < 0) { app.toast('No screw at the driver: jog the table'); return; } turnScrew(k, -PITCH / +app.ui.get('turnres')); redraw(); } });
+  function atDriver() { for (let k = 0; k < 3; k++) if (Math.abs(((DRIVER_DEG - SCREW_DEG[k] - st.table + 540) % 360) - 180) < 3) return k; return -1; }
+  const lp = app.ui.group('Loop');
+  lp.button({ id: 'measure', label: 'Measure (one revolution)', kind: 'actuator', onClick: () => { measure(); redraw(); } });
+  lp.button({ id: 'plan', label: 'Plan and turn the three screws', kind: 'actuator', help: 'Advance aₖ = estimate · uₖ, rounded to the turn resolution.', onClick: () => { planAndRun(); app.ui.set('table', st.table, { silent: true }); redraw(); } });
+  lp.slider({ id: 'iters', label: 'Passes in the auto loop', min: 1, max: 6, step: 1, value: 3, kind: 'scene', onChange: redraw });
+  lp.button({ id: 'auto', label: 'Run auto-centre', kind: 'actuator', onClick: () => { autoRun(); app.ui.set('table', st.table, { silent: true }); } });
+  lp.button({ id: 'reset', label: 'New tube (reset the state)', kind: 'scene', onClick: () => { initC(); app.ui.set('table', 0, { silent: true }); redraw(); } });
+  initC();
+})();
+</script>
+</body>
+</html>

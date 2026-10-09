@@ -1,0 +1,36 @@
+wall 1.651 mm
+   f          skin depth   plate 'step' = exp(-2 t/delta)   field at the plate face exp(-t/delta)
+        100 Hz    43.29 mm   0.9266                          0.963
+        300 Hz    25.00 mm   0.8763                          0.936
+       1000 Hz    13.69 mm   0.7857                          0.886
+       3000 Hz     7.90 mm   0.6585                          0.812
+      10000 Hz     4.33 mm   0.4664                          0.683
+      30000 Hz     2.50 mm   0.2669                          0.517
+     100000 Hz     1.37 mm   0.0897                          0.299
+     300000 Hz     0.79 mm   0.0153                          0.124
+    1000000 Hz     0.43 mm   0.0005                          0.022
+   10000000 Hz     0.14 mm   0.0000                          0.000
+
+skin depth equals the wall at 69 kHz
+  wall 1.50 mm: step at 30 kHz 0.301, at 100 kHz 0.112
+  wall 1.65 mm: step at 30 kHz 0.267, at 100 kHz 0.090
+  wall 1.80 mm: step at 30 kHz 0.237, at 100 kHz 0.072
+
+Monte Carlo, true seat depth 6.85 mm, noise 0.004 of full scale, coil 6 mm, lift-off 1.5 mm (illustrative)
+  30 kHz, two estimators (proper 4-sigma blur kernel):
+     max-slope edge search: RMS 3.27 mm, failures (>2 mm) 82%
+     template fit, blur calibration error 0%: RMS 0.00 mm, bias -0.00, failures 0%
+     template fit, blur calibration error 15%: RMS 0.13 mm, bias -0.12, failures 0%
+     template fit, blur calibration error 30%: RMS 0.30 mm, bias -0.30, failures 0%
+     template fit, blur calibration error 50%: RMS 0.90 mm, bias -0.90, failures 0%
+  template fit (15%% calibration error) against frequency and coil diameter:
+        3000 Hz (bump 0.659): RMS 0.13 mm, failures 0%
+       10000 Hz (bump 0.466): RMS 0.10 mm, failures 0%
+       30000 Hz (bump 0.267): RMS 0.13 mm, failures 0%
+      100000 Hz (bump 0.090): RMS 0.41 mm, failures 0%
+      300000 Hz (bump 0.015): RMS 4.09 mm, failures 100%
+     coil  2 mm at 30 kHz: RMS 0.00 mm, failures 0%
+     coil  4 mm at 30 kHz: RMS 0.00 mm, failures 0%
+     coil  6 mm at 30 kHz: RMS 0.13 mm, failures 0%
+     coil 10 mm at 30 kHz: RMS 0.90 mm, failures 0%
+     coil 16 mm at 30 kHz: RMS 0.28 mm, failures 0%

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nose seat and tail bridle</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-01b-nose-seat",
+  "title": "Seat, not loop: a ball collar in a cone at the nose, tail on a bridle",
+  "by": "freedom",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Branch of the ring-and-bungee suspension. The contact near the nozzle becomes a spherical collar resting in a cone seat (three translations fixed by gravity and preload, rotations free), so the pivot sits tens of millimetres from the dot instead of 279. The tail hangs on two wires and a bungee pair that set pitch, roll and yaw at a long lever. Solved as statics with illustrative numbers.",
+  "tags": ["suspension", "seat", "cone", "lever", "bridle", "exact constraint"],
+  "branchOf": ["freedom-01-ring-bungee"],
+  "combines": [],
+  "transferable": ["pivot near the dot, actuators far from it", "sphere-in-cone kinematic seat", "3 axes for the dot, 3 lines for orientation"],
+  "how": {
+    "motion": "nose stage XYZ (3 actuators) sets the dot; tail wires A, B and a bungee anchor set orientation",
+    "load": "cone seat carries most of the weight; tail wires carry the tail moment; bungees hold yaw",
+    "reference": "the seat: the collar centre sits at the cone axis, tens of mm from the dot",
+    "observe": "seat load (cell under the cup), wire tensions, camera on the dot",
+    "use": "dot moved by the nose stage; tilt trimmed at the tail with attenuation"
+  },
+  "software": {
+    "commands": ["nose stage X, Y, Z", "tail wire A and B lengths (pitch, roll)", "yaw bungee anchor"],
+    "observes": ["seat contact force (load cell)", "tail wire tension", "dot vs seam (camera, not drawn)"],
+    "manual": ["dropping the collar into the seat", "opening the seat for a tube swap", "spreader and lug fitting"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-01b-nose-seat.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script src="../../explorers/freedom/calc/ringmodel.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, FS = FreedomStatics, FR = FreedomRing, MA = FS.math;
+  const D2R = Math.PI / 180;
+  const app = WK.app({
+    gun: { pose: 'none', umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -100, 300], dir: [-0.62, 0.70, 0.38], dist: 1450 },
+      joint: { target: [40, -30, 190], dir: [-0.85, 0.35, 0.40], dist: 420 },
+      top: { target: [0, -120, 250], dir: [0, -0.004, 1], dist: 1250 },
+      side: { target: [0, -120, 280], dir: [1, 0, 0.08], dist: 1500 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>The contact near the nozzle is a <b>spherical collar</b> on the shell resting in a <b>cone seat</b> (a cup ring), instead of a loop. The seat fixes three translations of the collar centre by gravity and a light preload, and leaves all three rotations free. Because the collar is only tens of millimetres from the dot, a tilt of the gun moves the dot a little; the same tilt moves the tail a lot. The tail hangs on a <b>bridle</b>: two vertical wires to lugs on a spreader bar (pitch and roll) and a bungee pair (yaw).</p>' +
+        '<p>Read across: <b>three axes at the nose place the dot; three lines at the tail set orientation, and their motion is attenuated by (collar→dot) / (collar→tail) on the way to the dot.</b> Change the collar station and watch the actuator table.</p>',
+      carries:
+        '<p>The seat carries the collar’s share of the weight and preload (blue readout: seat load). Tail wires (amber) carry the tail moment. The bungee pair (green) holds yaw softly. Purple parts are what software commands. The cone lets a sideways load through only up to <i>load × cot(half-angle)</i>; beyond it the collar climbs out (watch the seat badge).</p>',
+      software:
+        '<p><b>Commands:</b> nose stage X, Y, Z (dot position); tail wires A and B (pitch and roll); yaw anchor. <b>Observes:</b> seat load (a load cell under the cup), wire tension, and a camera on the dot. The table of “dot mm per actuator mm” is what a software loop would learn by nudging each axis.</p>',
+      tried:
+        '<p><b>Two loops leave a hinge.</b> A seat plus a single tail point is two ball joints in line: the gun rolls about the seat–tail line until its centre of mass hangs below it. With the illustrative COM 35–60 mm off that line, a bridle whose lugs are 60 mm apart cannot hold it (a wire goes slack); from about 120 mm each side it can. Repair here: a wide spreader bar. Alternatives: a counterweight (scene 01), a keyed collar.</p>' +
+        '<p><b>Cone apex kink.</b> Modelling the cone as an ideal point made the solver oscillate; the model regularises the apex by 0.05 mm, which corresponds to a contact ring of finite stiffness. Not a physical finding, a modelling note.</p>' +
+        '<p><b>The seat is unilateral.</b> An upward pull (umbilical, tail) lifts the collar out unless the seat load stays above the sideways load × tan(half-angle). A preload spring pulling the collar down raises the capacity. Try umbilical 6 N with droop 0 and preload 0.</p>' +
+        '<p><b>Geometry.</b> A collar 16 mm behind the nozzle puts the cup apex about 4 mm above the plate face and inside the bore: it cannot be built there. From about 60 mm the cup sits above the rim.</p>',
+      unresolved:
+        '<p>The lever helps only if the seat is stiff at the nose and clean of friction: a printed sphere in a printed cone has contact stiffness, stick-slip and wear that are not measured. Whether a tube swap (lift the cup, open the seat) can be one motion. The spreader bar (≈ 300 mm) is large and lies over the tube. Cable twist under roll is unresolved (manual p. 20). The lug wires must clear the tube and each other.</p>',
+      assumptions:
+        '<ul><li>Gun + shell mass 1.2 kg, COM 18 mm off the barrel axis at the housing: <b>illustrative</b> ([unknown]).</li>' +
+        '<li>Seat contact stiffness 100 N/mm, collar radius 12 mm, cone half-angle 40° from the vertical: <b>illustrative</b>.</li>' +
+        '<li>Tail wires 200 N/mm, 350 mm long; bungee pair 0.15 N/mm with 3 N preload: <b>illustrative</b>.</li>' +
+        '<li>Umbilical pull 0\u201316 N and cable route as in scene 01: <b>illustrative</b> (the real pull is [unknown]); twist not modelled.</li>' +
+        '<li>Reference pose is the kit’s opening pose; the gun proxy is not measured. Drawn displacement is multiplied by the exaggeration slider; readouts are true size.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun; gun.setLaser(true);
+  gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  const benchZ = ws.benchZ;
+
+  const S = { s: 70, pre: 3, phi: 40, dx: 160, kb: 0.15, wireL: 300, cup: [0, 0, 0], pitch: 0, roll: 0, yaw: 0, F: 2, droop: 0.5, exag: 1, ellS: 60, showEll: true, showForces: true };
+
+  // parts
+  const collar = P.sphere(12, 'load'); gun.group.add(collar);
+  const cup = new THREE.Mesh(new THREE.CylinderGeometry(24, 8, 22, 40, 1, true), WK.mat('locate', { opacity: 0.5, side: 'double' })); cup.userData.role = 'locate'; cup.geometry.rotateX(Math.PI / 2); app.add(cup);
+  const cupRim = new THREE.Mesh(new THREE.TorusGeometry(24, 1.6, 8, 40), WK.mat('locate')); cupRim.userData.role = 'locate'; app.add(cupRim);
+  const stalk = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'actuated'), stage = P.box(46, 46, 22, 'actuated'), stageRail = P.rod(V(0, 0, 0), V(0, 0, 1), 7, 'fixed');
+  [stalk, stage, stageRail].forEach(o => app.add(o));
+  const spreader = P.rod(V(0, 0, 0), V(1, 0, 0), 2.6, 'load'), lugA = P.sphere(6, 'load'), lugB = P.sphere(6, 'load'), lugM = P.sphere(6, 'compliant');
+  gun.group.add(spreader, lugA, lugB, lugM);
+  const wireA = P.rod(V(0, 0, 0), V(0, 0, 1), 0.8, 'load'), wireB = P.rod(V(0, 0, 0), V(0, 0, 1), 0.8, 'load'), winchA = P.cyl(12, 20, 'actuated', { axis: 'x' }), winchB = P.cyl(12, 20, 'actuated', { axis: 'x' });
+  [wireA, wireB, winchA, winchB].forEach(o => { app.add(o); if (o.isMesh && o.geometry.type !== 'CylinderGeometry') o.userData.occludes = false; });
+  const bung = [P.elastic(V(0, 0, 0), V(1, 0, 0), { role: 'compliant', radius: 1.4, rest: 200 }), P.elastic(V(0, 0, 0), V(1, 0, 0), { role: 'compliant', radius: 1.4, rest: 200 })];
+  bung.forEach(b => { b.userData.occludes = false; app.add(b); });
+  const hatches = [null, null, null, null, null];
+  function hatchAt(i, pos, outward, size) {
+    if (!hatches[i]) { const h = P.groundHatch(size || 30, 'fixed'); app.add(h); hatches[i] = h; }
+    hatches[i].position.copy(pos); hatches[i].quaternion.setFromUnitVectors(V(0, 0, -1), outward.clone().normalize());
+  }
+  const yawStage = P.box(20, 20, 20, 'actuated'); app.add(yawStage);
+  const hingeLine = P.dashed([V(0, 0, 0), V(1, 0, 0)], 'locate', { dash: 8, gap: 5 }); app.addHelper(hingeLine);
+  let cableMesh = null; const cableEnd = V(-60, -1250, benchZ + 60);
+  const cableAnchor = P.groundHatch(40, 'fixed'); cableAnchor.position.set(cableEnd.x, cableEnd.y, benchZ); app.add(cableAnchor); app.add(P.rod(V(cableEnd.x, cableEnd.y, benchZ), cableEnd, 4, 'fixed'));
+  const arrows = { grav: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'load'), pull: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'cable'), seat: P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'sensor') };
+  Object.values(arrows).forEach(a => app.addHelper(a));
+  const ell = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 18), WK.mat('compliant', { opacity: 0.32, side: 'double' })); ell.userData.role = 'compliant'; ell.userData.occludes = false; app.addHelper(ell);
+  const lblSeat = app.label(() => cup.position, 'cone seat', { cls: 'locate' });
+  const lblCollar = app.label(() => collar.getWorldPosition(new THREE.Vector3()), 'collar', { cls: 'load' });
+  const lblStage = app.label(() => stage.position, 'nose stage XYZ', { cls: 'actuated' });
+  const lblWA = app.label(() => winchA.position, 'winch A', { cls: 'actuated' });
+  const lblWB = app.label(() => winchB.position, 'winch B', { cls: 'actuated' });
+  const lblSpread = app.label(() => lugM.getWorldPosition(new THREE.Vector3()), 'spreader bar', { cls: 'load' });
+  const lblSeatF = app.label(() => arrows.seat.position, 'seat load', { cls: 'sensor' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const proxy = { off: { radial: 0, along: 0, vertical: 0, total: 0 }, beam: V(0, 0, -1), dotOffset() { return this.off; }, beamDir() { return this.beam; } };
+  app.cornerInset({ gun: proxy });
+
+  function opts(over) {
+    const o = { arm: { mode: 'none' }, rings: [], kWire: 200, umbilical: { F: S.F, droop: S.droop },
+      nose: { s: S.s, phi: S.phi, rc: 12, k: 100, preload: S.pre, cmd: S.cup.slice() },
+      tail: { dx: S.dx, wireL: S.wireL, kb: S.kb, pre: 3, wireCmd: [S.pitch + S.roll / 2, S.pitch - S.roll / 2], yawCmd: S.yaw } };
+    return o;
+  }
+  let cur = null, lastValid = null;
+  function recompute(withGain) {
+    const o = opts(), model = FR.build(o), res = model.solve(new Float64Array(model.n), { maxIter: 200 });
+    if (!res.converged) {
+      app.badge('eq', 'no static equilibrium: the collar climbs out of the seat or the gun rolls over. Showing the last pose that settled.', 'limit');
+      if (lastValid) draw(lastValid.model, lastValid.x); ioPanel(model, res, null, true); return;
+    }
+    app.badge('eq', null);
+    cur = { model: model, res: res }; lastValid = { model: model, x: res.x };
+    cur.dc = model.dotCompliance(res.x);
+    draw(model, res.x); ioPanel(model, res, cur.dc, false);
+    if (withGain) scheduleGain();
+  }
+  function drawPose(model, x) {
+    const e = S.exag, th = [x[3] / FS.S * e, x[4] / FS.S * e, x[5] / FS.S * e], Re = MA.mm(MA.expm(th), model.R0), u = [x[0] * e, x[1] * e, x[2] * e], dl = [0, 0, -16];
+    const place = l => { const p = MA.mv(Re, MA.sub(l, dl)); return V(model.dot0[0] + u[0] + p[0], model.dot0[1] + u[1] + p[1], model.dot0[2] + u[2] + p[2]); };
+    const m4 = new THREE.Matrix4().set(Re[0], Re[1], Re[2], 0, Re[3], Re[4], Re[5], 0, Re[6], Re[7], Re[8], 0, 0, 0, 0, 1);
+    return { Re: Re, place: place, gp: place([0, 0, 0]), q: new THREE.Quaternion().setFromRotationMatrix(m4) };
+  }
+  function seatReaction(model, x) {
+    const el = model.noseEl, c = model.bodyPoint(x, el.local), rx = c[0] - el.a[0], ry = c[1] - el.a[1], h = c[2] - el.a[2], rho = Math.sqrt(rx * rx + ry * ry + 0.0025);
+    const pen = el.rc - (h * el.sinPhi - rho * el.cosPhi), pp = 0.5 * (pen + Math.sqrt(pen * pen + 4e-4)), kf = el.k * pp;
+    const N = kf * el.sinPhi, Fx = -kf * el.cosPhi * rx / rho, Fy = -kf * el.cosPhi * ry / rho;
+    return { N: N, lat: Math.hypot(Fx, Fy), cap: N * el.cosPhi / el.sinPhi, pen: pen, rho: Math.hypot(rx, ry), F: [Fx, Fy, N] };
+  }
+
+  // does the drawn gun pass through the tube wall, the endcap or the bench? (sample points along the barrel, housing and grip)
+  function collides(dp) {
+    const pts = []; for (let z = 0; z <= 253; z += 1) pts.push([0, 0, z]); for (let t = 0; t <= 1; t += 0.01) pts.push([0, -25 - 86 * t, 172 + 60 * t]);
+    for (let i = 0; i < pts.length; i++) { const w = dp.place(pts[i]), r = Math.hypot(w.x, w.y); if ((r > 61.85 - 3 && r < 63.5 + 3 && w.z < 152.4 + 3 && w.z > 0) || (r < 61.85 && w.z > 139.7 - 3 && w.z < 146.05 + 3) || w.z < ws.benchZ + 3) return true; }   // 3 mm margin stands in for the shell radius
+    return false;
+  }
+  function draw(model, x) {
+    const dp = drawPose(model, x), e = S.exag;
+    gun.setTransform(dp.gp, dp.q);
+    app.badge('collide', collides(dp) ? 'the drawn gun passes through the tube or the bench: this pose is not physical (the model has no collision)' : null, 'limit');
+    const th = [x[3] / FS.S, x[4] / FS.S, x[5] / FS.S], Rt = MA.mm(MA.expm(th), model.R0), bd = MA.mv(Rt, [0, 0, -1]);
+    proxy.off = { radial: x[0], along: x[1], vertical: x[2], total: Math.hypot(x[0], x[1], x[2]) }; proxy.beam = V(bd[0], bd[1], bd[2]);
+    // seat
+    const nz = model.noseEl, sl = [0, 0, S.s]; collar.position.set(sl[0], sl[1], sl[2]);
+    const apex = V(...nz.a), h0 = nz.h0;
+    if (cup.userData.phi !== S.phi) { const tp = Math.tan(S.phi * D2R); cup.geometry.dispose(); cup.geometry = new THREE.CylinderGeometry(32 * tp, 4 * tp, 28, 40, 1, true); cup.geometry.rotateX(Math.PI / 2); cup.userData.phi = S.phi; cupRim.geometry.dispose(); cupRim.geometry = new THREE.TorusGeometry(32 * tp, 1.6, 8, 40); }
+    cup.position.set(apex.x, apex.y, apex.z + 4 + 14); cupRim.position.set(apex.x, apex.y, apex.z + 32);
+    const stg = V(apex.x + 150, apex.y + 90, apex.z + 70);
+    stalk.setEnds(V(apex.x, apex.y, apex.z + 10), stg); stage.position.copy(stg).add(V(0, 0, 12)); stageRail.setEnds(V(stg.x, stg.y, benchZ), stg);
+    // tail
+    const gb = FS.GRIP_BASE, dx = S.dx;
+    spreader.position.set(0, gb[1], gb[2]); spreader.quaternion.setFromUnitVectors(V(0, 1, 0), V(1, 0, 0)); spreader.scale.set(1, 2 * dx, 1);
+    lugA.position.set(dx, gb[1], gb[2]); lugB.position.set(-dx, gb[1], gb[2]); lugM.position.set(0, gb[1], gb[2]);
+    const wa = model.tailEls.wires[0], wb = model.tailEls.wires[1], pa = dp.place([dx, gb[1], gb[2]]), pb = dp.place([-dx, gb[1], gb[2]]);
+    const ta = V(...wa.b.world), tb = V(...wb.b.world);
+    wireA.setEnds(pa, ta); wireB.setEnds(pb, tb); winchA.position.copy(ta).add(V(0, 0, 4)); winchB.position.copy(tb).add(V(0, 0, 4));
+    hatchAt(0, ta.clone().add(V(0, 0, 18)), V(0, 0, 1), 30); hatchAt(1, tb.clone().add(V(0, 0, 18)), V(0, 0, 1), 30);
+    const mid = dp.place([0, gb[1], gb[2]]);
+    model.tailEls.bungees.forEach((b, i) => { const a = V(...b.b.world); bung[i].setEnds(mid, a); bung[i].userData.rest = b.L0; hatchAt(2 + i, a, a.clone().sub(mid), 26); });
+    yawStage.position.copy(V(...model.tailEls.bungees[0].b.world));
+    // hinge line collar->tail
+    const hA = dp.place(sl), hB = dp.place(gb); hingeLine.setPoints([hA, hB.clone().addScaledVector(hB.clone().sub(hA).normalize(), 40)]);
+    // cable
+    const exitW = dp.place(gb), exitDir = V(...MA.mv(dp.Re, FS.ROLL_AXIS));
+    const c1 = WK.bezierCable(exitW, exitDir, cableEnd, V(0, 0, -1), { stiffness: 0.47 }), pts = c1.getPoints(80);
+    if (!cableMesh) { cableMesh = P.cable(pts, { radius: 5.5, role: 'cable', segments: 160 }); app.add(cableMesh); } else cableMesh.setPoints(pts);
+    const bend = WK.cableBadge(WK.curveMinRadius(pts)); app.badge('bend', bend.text, bend.level);
+    // arrows
+    const W = model.g.W, comW = dp.place(model.opts.com), um = model.spec.elements.find(el => el.group === 'umbilical');
+    arrows.grav.set(comW, V(0, 0, -1), Math.max(8, W * 5)); arrows.pull.set(exitW, V(...um.dirWorld), Math.max(6, S.F * 14));
+    const sr = seatReaction(model, x), cw = dp.place(sl);
+    arrows.seat.set(cw, V(...sr.F).normalize(), Math.max(6, MA.len(sr.F) * 5));
+    arrows.pull.visible = S.showForces && S.F > 0.05; arrows.grav.visible = arrows.seat.visible = S.showForces;
+    lblSeatF.show && lblSeatF.show(S.showForces);
+    if (cur && cur.dc && S.showEll) {
+      const C = cur.dc.C, cap = 60, r = [0, 1, 2].map(i => Math.max(0.6, Math.min(cap, Math.abs(C[i][i]) * S.ellS)));
+      ell.visible = true; ell.scale.set(r[0], r[1], r[2]); ell.position.copy(dp.place([0, 0, -16]));
+    } else ell.visible = false;
+    app.badge('exag', e > 1 ? 'drawn displacements ×' + e + ' (readouts are true size)' : null, 'info');
+    app.invalidate();
+  }
+  const fmt = (v, d) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 2 : d);
+  const compSet = app.ui.readout('cr', 'Dot compliance r / t / z');
+  const tiltSet = app.ui.readout('tilt', 'Gun tilt from reference');
+  const seatSet = app.ui.readout('seatN', 'Seat load: vertical / sideways (capacity)');
+  function ioPanel(model, res, dc, bad) {
+    const x = res.x, sr = bad ? null : seatReaction(model, x), Tw = model.tailEls.wires.map(w => model.springForce(x, w).T);
+    const tilt = MA.len([x[3], x[4], x[5]]) / FS.S / D2R;
+    compSet(dc ? [0, 1, 2].map(i => { const v = dc.C[i][i]; return v >= 900 ? 'free' : v.toFixed(v < 1 ? 3 : 2); }).join(' / ') : '-', 'mm/N');
+    tiltSet(bad ? '-' : tilt.toFixed(2), '°');
+    seatSet(sr ? sr.N.toFixed(1) + ' / ' + sr.lat.toFixed(1) + ' (cap ' + sr.cap.toFixed(1) + ')' : '-', 'N');
+    const cmds = [
+      { name: 'Nose stage X / Y / Z (actuators)', value: S.cup.map(v => fmt(v, 1)).join(' / '), unit: 'mm' },
+      { name: 'Tail: pitch / roll (wire winches A, B)', value: fmt(S.pitch, 1) + ' / ' + fmt(S.roll, 1), unit: 'mm at the lugs' },
+      { name: 'Tail: yaw anchor', value: fmt(S.yaw, 1), unit: 'mm' }];
+    const gainNote = cur && cur.gain ? cur.gain : null;
+    const obs = [
+      { name: 'Seat load, vertical / sideways (cell under the cup, proposed)', value: sr ? sr.N.toFixed(1) + ' / ' + sr.lat.toFixed(1) : '-', unit: 'N', status: bad ? 'unresolved' : 'seen', note: sr ? (sr.pen < 0.02 ? 'seat is unloaded: the collar has lifted' : 'sideways capacity = vertical load \u00d7 cot(half-angle) = ' + sr.cap.toFixed(1) + ' N; beyond it the collar climbs the wall') : '' },
+      { name: 'Tail wire tensions A / B (load cells on the winches)', value: Tw.map(t => t.toFixed(1)).join(' / '), unit: 'N', status: bad ? 'unresolved' : 'seen', note: Tw.some(t => t < 0.05) ? 'one wire is slack: it holds no roll in that direction' : '' },
+      { name: 'Dot vs seam r / t / z (scene truth; a camera in practice)', value: bad ? '-' : [x[0], x[1], x[2]].map(v => fmt(v, 2)).join(' / '), unit: 'mm', status: bad ? 'unresolved' : 'partly', note: 'the exact geometry, not a sensor reading' },
+      { name: 'Gun tilt', value: bad ? '-' : tilt.toFixed(2), unit: '°', status: 'blind', note: 'no sensor here; wire lengths and the seat give it indirectly' },
+      { name: 'Twist of the fibre', value: '-', status: 'unresolved', note: 'manual p. 20 forbids twisting' }];
+    if (gainNote) {
+      [['Nose stage X → dot', gainNote.cupX], ['Nose stage Y → dot', gainNote.cupY], ['Nose stage Z → dot', gainNote.cupZ], ['Tail pitch (both wires) → dot', gainNote.pitch], ['Tail roll (wires differential) → dot', gainNote.roll], ['Tail yaw anchor → dot', gainNote.yaw]]
+        .forEach(g => obs.push({ name: 'Learned: ' + g[0], value: g[1].map(v => isFinite(v) ? fmt(v, 2) : '?').join(' / '), unit: 'mm per mm (r/t/z)', status: 'partly', note: 'a software loop would learn this table by nudging each axis and watching the dot' }));
+    }
+    app.io.set({ commands: cmds, observes: obs, manual: ['Drop the collar into the seat; lift it out for a tube swap', 'Fit the spreader bar and lugs', 'Route the cable'] });
+    app.badge('seat', sr && sr.pen < 0.02 ? 'seat unloaded: the collar has lifted out of the cone' : (sr && sr.rho > 0.6 ? 'collar is climbing the cone wall (' + sr.rho.toFixed(1) + ' mm off axis): sideways load exceeds the seat’s capacity' : null), 'warn');
+    app.badge('slack', Tw.some(t => t < 0.05) && !bad ? 'a tail wire is slack (roll held by the other one only)' : null, 'info');
+  }
+  const gainSet = app.ui.readout('gaintxt', 'Learned actuator table');
+  let gainTimer = null;
+  function scheduleGain() { if (gainTimer) clearTimeout(gainTimer); gainSet('…'); gainTimer = setTimeout(computeGain, 160); }
+  function computeGain() {
+    if (!cur) return;
+    const mods = { cupX: () => S.cup[0] += 1, cupY: () => S.cup[1] += 1, cupZ: () => S.cup[2] += 1, pitch: () => S.pitch += 1, roll: () => S.roll += 1, yaw: () => S.yaw += 1 };
+    const save = JSON.stringify({ cup: S.cup, pitch: S.pitch, roll: S.roll, yaw: S.yaw }), gain = {};
+    Object.keys(mods).forEach(k => {
+      const sv = JSON.parse(save); S.cup = sv.cup.slice(); S.pitch = sv.pitch; S.roll = sv.roll; S.yaw = sv.yaw; mods[k]();
+      const m = FR.build(opts()), r = m.solve(cur.res.x, { maxIter: 250 });
+      gain[k] = r.converged ? [r.x[0] - cur.res.x[0], r.x[1] - cur.res.x[1], r.x[2] - cur.res.x[2]] : [NaN, NaN, NaN];
+    });
+    const sv = JSON.parse(save); S.cup = sv.cup; S.pitch = sv.pitch; S.roll = sv.roll; S.yaw = sv.yaw;
+    cur.gain = gain; const mag = k => Math.hypot(...gain[k]);
+    const mg = k => (isFinite(mag(k)) ? mag(k).toFixed(2) : 'no equilibrium at +1 mm');
+    gainSet('nose ' + mg('cupX') + ' | tail ' + mg('pitch') + ' (mm dot per mm)');
+    ioPanel(cur.model, cur.res, cur.dc, false);
+  }
+
+  const upd = () => recompute(true);
+  const sg = app.ui.group('Seat and tail (scene edits)', { open: true, help: 'Where the collar sits and what the tail hangs from. Hung and fitted by hand.' });
+  sg.slider({ id: 's', label: 'Collar station behind the nozzle', min: 16, max: 110, step: 2, value: 70, unit: 'mm', kind: 'scene', visual: () => collar, help: 'Short = short lever = tail motion is heavily attenuated at the dot. Below about 60 mm the cup would sit inside the bore.', onChange: v => { S.s = v; upd(); } });
+  sg.slider({ id: 'pre', label: 'Seat preload (down at the collar)', min: 0, max: 12, step: 0.5, value: 3, unit: 'N', kind: 'scene', help: 'A bungee or spring pulling the collar into the cone: raises the sideways load the seat can take.', onChange: v => { S.pre = v; upd(); } });
+  sg.slider({ id: 'phi', label: 'Cone half-angle from vertical', min: 25, max: 60, step: 1, value: 40, unit: '°', kind: 'scene', visual: () => cup, help: 'Steeper cone = more sideways capacity, less lift-off margin for tail pull; shallow = the opposite.', onChange: v => { S.phi = v; upd(); } });
+  sg.slider({ id: 'dx', label: 'Spreader half-width (lug to centre)', min: 40, max: 200, step: 10, value: 160, unit: 'mm', kind: 'scene', visual: () => [spreader, lugA, lugB], help: 'Short: the bridle cannot hold roll (a wire goes slack, then no equilibrium). Long: a big bar over the tube.', onChange: v => { S.dx = v; upd(); } });
+  sg.slider({ id: 'kb', label: 'Yaw bungee stiffness', min: 0.05, max: 1.5, step: 0.05, value: 0.15, unit: 'N/mm', kind: 'scene', visual: () => bung, help: 'Illustrative. Softer = yaw is easier to command and easier to disturb.', onChange: v => { S.kb = v; upd(); } });
+  sg.slider({ id: 'wireL', label: 'Tail wire length', min: 200, max: 700, step: 10, value: 300, unit: 'mm', kind: 'scene', visual: () => [wireA, wireB], help: 'Sets how far the winches sit above the lugs.', onChange: v => { S.wireL = v; upd(); } });
+  const ag = app.ui.group('Actuators (software commands)', { open: true, help: 'Six axes, each mostly along one motion. Positions in mm from the reference pose.' });
+  ['X', 'Y', 'Z'].forEach((n, i) => ag.slider({ id: 'cup' + n, label: 'Nose stage ' + n, min: -3, max: 3, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: () => [stage, cup], help: 'Moves the cone seat, and the collar with it: ' + ['radial', 'tangent', 'vertical'][i] + ' at the dot, about 1:1.', onChange: v => { S.cup[i] = v; recompute(true); } }));
+  ag.slider({ id: 'pitch', label: 'Tail pitch (both wires shorter)', min: -8, max: 8, step: 0.25, value: 0, unit: 'mm', kind: 'actuator', visual: () => [winchA, winchB], help: 'Lifts the tail: tilts the gun about the seat. Effect at the dot is attenuated by the lever ratio.', onChange: v => { S.pitch = v; recompute(true); } });
+  ag.slider({ id: 'roll', label: 'Tail roll (wires differential)', min: -8, max: 8, step: 0.25, value: 0, unit: 'mm', kind: 'actuator', visual: () => [winchA, winchB], help: 'Rolls the gun about the seat–tail line.', onChange: v => { S.roll = v; recompute(true); } });
+  ag.slider({ id: 'yaw', label: 'Tail yaw (bungee anchor)', min: -12, max: 12, step: 0.5, value: 0, unit: 'mm', kind: 'actuator', visual: () => [yawStage, bung[0], bung[1]], help: 'Moves one bungee anchor: turns the gun in plan about the seat. Compliant, so it also gives way under disturbance.', onChange: v => { S.yaw = v; recompute(true); } });
+  const dg = app.ui.group('Forces that push (scene edits)', { open: true });
+  dg.slider({ id: 'F', label: 'Umbilical pull at the cable exit', min: 0, max: 16, step: 0.5, value: 2, unit: 'N', kind: 'scene', visual: () => arrows.pull, help: 'Illustrative.', onChange: v => { S.F = v; recompute(true); } });
+  dg.slider({ id: 'droop', label: 'Cable droop (0 along exit, 1 straight down)', min: 0, max: 1, step: 0.1, value: 0.5, kind: 'scene', help: 'Direction of the pull. Along the exit (up and back) it pushes the collar up the cone wall.', onChange: v => { S.droop = v; recompute(true); } });
+  const vg = app.ui.group('View', { open: false });
+  vg.slider({ id: 'exag', label: 'Drawn exaggeration of displacements', min: 1, max: 30, step: 1, value: 1, unit: '×', kind: 'view', onChange: v => { S.exag = v; if (cur) draw(cur.model, cur.res.x); } });
+  vg.toggle({ id: 'showEll', label: 'Softness ellipsoid at the dot', value: true, kind: 'view', visual: () => ell, onChange: v => { S.showEll = v; if (cur) draw(cur.model, cur.res.x); } });
+  vg.slider({ id: 'ellS', label: 'Ellipsoid scale', min: 1, max: 100, step: 1, value: 60, unit: '×', kind: 'view', onChange: v => { S.ellS = v; if (cur) draw(cur.model, cur.res.x); } });
+  vg.toggle({ id: 'showForces', label: 'Force arrows', value: true, kind: 'view', onChange: v => { S.showForces = v; if (cur) draw(cur.model, cur.res.x); } });
+  app.io.set({});
+})();
+</script>
+</body>
+</html>

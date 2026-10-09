@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="820" viewBox="0 0 1240 820" font-family="Helvetica,Arial,sans-serif" font-size="11">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="12" y="22" font-size="14" font-weight="bold">Teach by hand, record, replay — the hand finds the pose, the record keeps it, a mechanism repeats it, anyone follows it</text>
+<rect x="20" y="50" width="280" height="200" rx="8" fill="#eef3fb" stroke="#666"/>
+<text x="30" y="70" font-weight="bold" font-size="12">1 TEACH (hand)</text>
+<text x="30" y="90" >gun weightless on the carrier (CG bail,</text>
+<text x="30" y="105" >carry pins OUT), dot on the corner by eye;</text>
+<text x="30" y="120" >dry lap: hand holds while the table turns;</text>
+<text x="30" y="135" >or real hand welds (tacks, coupons)</text>
+<text x="30" y="150" ></text>
+<text x="30" y="165" >the hand feels: no weight, the</text>
+<text x="30" y="180" >umbilical torque (0.1–0.6 N·m), nothing else</text>
+<rect x="320" y="50" width="300" height="200" rx="8" fill="#f3f8ee" stroke="#666"/>
+<text x="330" y="70" font-weight="bold" font-size="12">2 RECORD (every frame)</text>
+<text x="330" y="90" >shell pose in the station frame: AprilTag</text>
+<text x="330" y="105" >  plates, 2 cameras (~0.1–0.3°, ~0.1 mm)</text>
+<text x="330" y="120" >dot vs corner + standoff: joint camera</text>
+<text x="330" y="135" >  (~3 px per 0.1 mm, machine-that-learns)</text>
+<text x="330" y="150" >tilt vs gravity at 100 Hz: IMU on shell</text>
+<text x="330" y="165" >table degrees + pedal: rotator console</text>
+<text x="330" y="180" >trigger on/off: switch on the presser</text>
+<rect x="640" y="50" width="290" height="200" rx="8" fill="#fbf3e6" stroke="#666"/>
+<text x="650" y="70" font-weight="bold" font-size="12">3 RECIPE (a file + an object)</text>
+<text x="650" y="90" >mean pose over the lap and its spread</text>
+<text x="650" y="105" >  (how steady the hand was)</text>
+<text x="650" y="120" >dock numbers: X, Y dials; Z per tube</text>
+<text x="650" y="135" >printed recipe block from the angles</text>
+<text x="650" y="150" >  (teach → print overnight)</text>
+<text x="650" y="165" >timing: start after N°, stop at 380°</text>
+<text x="650" y="180" >stickout, welder set, dot image</text>
+<rect x="950" y="50" width="270" height="200" rx="8" fill="#f6e9ef" stroke="#666"/>
+<text x="960" y="70" font-weight="bold" font-size="12">4 REPLAY (three meanings)</text>
+<text x="960" y="90" >R1 stops: dial numbers + printed block;</text>
+<text x="960" y="105" >   dock the gun; camera overlay checks</text>
+<text x="960" y="120" >R2 guide: live error bars; the hand</text>
+<text x="960" y="135" >   is the actuator, weightless</text>
+<text x="960" y="150" >R3 motors: dock X/Z on steppers replay</text>
+<text x="960" y="165" >   pose + runout map; the AI refines</text>
+<text x="960" y="180" ></text>
+<line x1="300" y1="150" x2="320" y2="150" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<line x1="620" y1="150" x2="640" y2="150" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<line x1="930" y1="150" x2="950" y2="150" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<rect x="640" y="270" width="580" height="110" rx="8" fill="#eef6f6" stroke="#666"/>
+<text x="650" y="290" font-weight="bold" font-size="12">5 FOLLOW (tube change, second person)</text>
+<text x="650" y="310" >the record is in the joint frame: rim set to the flag first, so tube length drops out;</text>
+<text x="650" y="325" >a second person loads the recipe, fits the printed block, sets two dials, docks, and</text>
+<text x="650" y="340" >matches the live dot to the recorded dot image — or follows the R2 bars by hand;</text>
+<text x="650" y="355" >every dock is a camera calibration event (the docked pose is known)</text>
+<path d="M1085,250 L1085,270" stroke="#333" stroke-width="2" marker-end="url(#a)"/>
+<text x="20" y="405" font-weight="bold">Plan at the true opening pose (tube, gun and dot to scale; camera and tag placements proposed)</text>
+<circle cx="330" cy="590" r="57.15" fill="#dfeaea" stroke="#577"/>
+<circle cx="385.6641" cy="590.0" r="4" fill="#d00"/>
+<polyline points="379.1,597.7 331.0,654.7 276.0,719.9" fill="none" stroke="#335" stroke-width="14" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="318.9" y1="699.4" x2="329.3" y2="800.2" stroke="#335" stroke-width="18" stroke-opacity="0.25" stroke-linecap="round"/>
+<rect x="289.48103248952526" y="673.2868090628257" width="28" height="28" fill="#fff" stroke="#000"/><text x="294.48103248952526" y="691.2868090628257" font-size="9">tag</text>
+<text x="153.48103248952526" y="717.2868090628257" >tag plate + IMU on the shell (~50 g)</text>
+<circle cx="345.1641" cy="527.0" r="8" fill="#6a6" stroke="#333"/>
+<line x1="345.1641" y1="527.0" x2="385.6641" y2="590.0" stroke="#6a6" stroke-dasharray="4 3"/>
+<text x="357.1641" y="521.0" >joint camera on the free +Y side (machine-that-learns):</text>
+<text x="357.1641" y="535.0" >dot vs corner, standoff, wire tip; red long-pass filter</text>
+<circle cx="105.0" cy="455.0" r="8" fill="#6a6" stroke="#333"/>
+<line x1="105.0" y1="455.0" x2="303.48103248952526" y2="687.2868090628257" stroke="#6a6" stroke-dasharray="4 3"/>
+<text x="117.0" y="451.0" >pose camera, high on −X/+Y: sees the shell tag and the station tags</text>
+<rect x="177.0" y="698.0" width="18" height="18" fill="#fff" stroke="#000"/>
+<rect x="465.0" y="698.0" width="18" height="18" fill="#fff" stroke="#000"/>
+<rect x="465.0" y="482.0" width="18" height="18" fill="#fff" stroke="#000"/>
+<text x="488.0" y="711.0" >station tags (subplate / dock post)</text>
+<text x="20" y="805" >The pose is recorded relative to the station tags after the rim is set to its flag, so the record is a pose relative to the joint, not to wherever the carrier was.</text>
+<rect x="640" y="400" width="580" height="300" rx="8" fill="#fff" stroke="#666"/>
+<text x="650" y="420" font-weight="bold" font-size="12">What replay physically is, and what limits it</text>
+<text x="650" y="440" >R1  the dock's geometry reproduces the taught pose: error = dial reading + block print</text>
+<text x="650" y="455" >    (~0.1 mm / ~0.1°, estimates) + dock repeatability (tens of µm) + model error</text>
+<text x="650" y="470" >    (the scan-based kinematics that turn a pose into dial numbers)</text>
+<text x="650" y="485" >R2  a person reproduces it with live bars: error = how still a weightless, guided</text>
+<text x="650" y="500" >    hand stays (unknown; the teach record of Derek's own spread is the benchmark)</text>
+<text x="650" y="515" >R2b lock where the hand stops: holding electromagnets on each carrier joint;</text>
+<text x="650" y="530" >    lock-shift and a soft chain make this the weakest meaning</text>
+<text x="650" y="545" >R3  motors replay what R1 sets by hand, plus a per-tube runout map</text>
+<text x="650" y="560" ></text>
+<text x="650" y="575" >Recipe checks before printing: the taught pose must dock and escape</text>
+<text x="650" y="590" >(wire-escape sweep, lid/dock clearance) — the sweep scripts become the</text>
+<text x="650" y="605" >recipe validator.</text>
+<text x="650" y="620" ></text>
+<text x="650" y="635" >Biggest open problem: the pose→dial model. It needs the scanned gun and a</text>
+<text x="650" y="650" >measured dot-to-shell relation; until then R1 replays by iteration (dock,</text>
+<text x="650" y="665" >look, trim) with the record as the target image.</text>
+</svg>

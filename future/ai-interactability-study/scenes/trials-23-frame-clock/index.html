@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The frame's clock</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .fc-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px 14px; align-items: start; }
+  @container fcstage (max-width: 860px) { .fc-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: fcstage; }
+  .fc-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .fc-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .fc-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .fc-col { display: grid; gap: 10px; align-content: start; }
+  .fc-svg { display: block; width: 100%; height: auto; }
+  .fc-svg.narrow { max-width: 470px; margin: 0 auto; }
+  .fc-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .fc-svg text.b { fill: #e7ebf1; font-weight: 600; } .fc-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .fc-svg text.red { fill: #ff8a80; } .fc-svg text.blue { fill: #7fb0ff; } .fc-svg text.teal { fill: #5eead4; } .fc-svg text.amber { fill: #fbbf24; } .fc-svg text.grey { fill: #94a3b8; } .fc-svg text.pink { fill: #f0abfc; } .fc-svg text.green { fill: #4ade80; }
+  .fc-res { font-size: 12.5px; color: #cfd6e2; padding: 6px 8px 2px; line-height: 1.5; }
+  .fc-res b { color: #fff; } .fc-res .k { color: var(--wk-faint); }
+  .fc-list { margin: 4px 0 0; padding: 0 0 0 16px; font-size: 12px; color: #cfd6e2; line-height: 1.45; }
+  .fc-list li { margin: 0 0 4px; } .fc-list b { color: #fff; }
+  .fc-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 11.5px; color: #cfd6e2; }
+  @container fcstage (max-width: 560px) { .fc-opts { grid-template-columns: 1fr; } }
+  .fc-opt { border: 1px solid var(--wk-line2); border-radius: 6px; padding: 5px 7px; line-height: 1.35; }
+  .fc-opt b { color: #fff; } .fc-opt i { color: var(--wk-faint); font-style: normal; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-23-frame-clock",
+  "title": "The frame's clock: latency, sweeps in both directions, a slate",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Every comparison the trial loop makes has a clock on each side: the frame, the rotator's angle, the positioner's command. A time error only shows when something moves between the two. Sweep the dot across the seam up and down at two speeds and the seam, the chain's latency and the backlash all come out of the same four knees; a step at a random phase finds the latency to a millisecond; a frame triggered by the axis, or one that carries its own counter, has no latency to find.",
+  "tags": ["lens", "calibrating the observation", "time synchronisation", "latency", "sweep pair", "hardware trigger", "Gray code slate", "simulation"],
+  "branchOf": [],
+  "combines": ["trials-03-dot-touch-probe", "trials-18-steerable-mule", "trials-04-seam-map-replay"],
+  "transferable": ["sweep both ways at two speeds: seam, latency, lash", "step at a random phase: latency to T/sqrt(12 N)", "compare at rest; gate on the dot's speed", "let the axis trigger the exposure", "a Gray-coded counter in the frame"],
+  "how": {
+    "motion": "the positioner (or the pointer of trials-18) sweeps the dot across the seam up and down at two speeds; the rotator turns at bead speed",
+    "load": "not the subject: any positioner that steps a fraction of a millimetre",
+    "reference": "the seam itself (the mean of the two directions), a step at a random phase, or a trigger pulse from the axis",
+    "observe": "frame stamps, the rotator's status lines, the knee of each sweep",
+    "use": "every session and every hour of an unattended run"
+  },
+  "software": {
+    "commands": ["sweep the dot across the seam up and down at two speeds", "step the pointer at a random phase against the frame clock", "trigger the exposure from the axis or the rotator (if the camera has a trigger input)"],
+    "observes": ["knee position of each sweep in command units", "delay from a commanded step to the first frame that shows it", "frame count against trigger count (drops, duplicates)", "the dot's image speed (a stillness gate)"],
+    "manual": ["choosing a camera with a trigger input or device timestamps", "wiring the axis pulse to the camera", "mounting an LED slate in a wide camera's view"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-23-frame-clock.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', minWidth: 820,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Every comparison the trial loop makes has a clock on each side. A <b>frame</b> is exposed, read out, sent over USB and stamped by the host some time later. The <b>rotator</b> reports a step count over serial. The <b>positioner</b> is commanded and then moves. A time error between two of these only shows when <b>something moves between them</b>: at rest there is nothing to mismatch.</p>' +
+        '<p>Three things move fast enough to matter. <b>A sweep</b> that carries the dot across the seam at v mm/s reads the knee late by v times the latency, in the direction of travel. <b>A hand</b> that moves the arm at tens of mm/s makes the joint readings and the frame describe different poses. <b>A closed loop</b> loses phase margin. A smooth seam map does not care: it is learned and replayed at the same lag, and a change of bead speed shifts it by micrometres.</p>' +
+        '<p>What the loop can do about it, all with what is already on the bench. <b>Sweep both ways at two speeds</b>: the mean of the two directions is the seam at any speed, and the half difference is v times the latency plus half the backlash, a line in v whose slope is the latency and whose intercept is the lash; four knees give seam, latency and lash. <b>Step the pointer at a random phase</b> against the frame clock: the delay to the first frame that shows it averages the latency plus half a frame, so a hundred steps find the latency to about a millisecond at 30 frames a second. <b>Compare at rest</b>, and where a moving comparison is unavoidable gate it on the dot\'s own image speed. Or <b>remove the latency by construction</b>: let the axis (or the rotator) trigger the exposure, so the frame is taken at a known step, or put a Gray-coded counter in a wide camera\'s view so the frame carries its own number.</p>' +
+        '<p>Choose how the frames are stamped and move the latency and jitter sliders: the four curves shift, the estimates come out with their scatter, and the bars at the right show which uses of time survive which errors.</p>',
+      carries: '<p>Not the subject. A positioner that can step a fraction of a millimetre (or the steerable pointer of trials-18, which has no mass) does the sweeps; the rotator turns the tube. Nothing here carries the gun.</p>',
+      tried: '<ul>' +
+        '<li><b>Which errors are worth chasing.</b> With the defaults a fast sweep read once, in one direction, is 0.2 mm late; four sweeps cut the seam to about 10 micrometres and the latency to 26 milliseconds (one pair per speed) or 12 (five pairs). A step test gets the latency to 1 millisecond (100 steps, 30 fps: T over root 12 N). A hand at 20 mm/s with a tenth of a second of latency mismatches by 2 mm, against a fit floor of 0.03 to 0.3 mm (trials-19). A seam map learned at 8 mm/s and replayed at 12 mm/s, with 0.15 s of latency, moves by 1 to 6 micrometres. Numbers from <code>calc/frame_clock.py</code>.</li>' +
+        '<li><b>Lash and latency both flip sign with direction.</b> A sweep pair cannot tell them apart at one speed; two speeds can (intercept and slope). The unidirectional final approach of trials-02 and the labels of trials-18 carry both the same way for the same reason: approach every label from the side the sweep used, at the speed it used.</li>' +
+        '<li><b>Two clocks drift.</b> An ESP32 crystal is good to tens of parts per million against the host\'s: 50 ppm is 0.18 s an hour. If the rotator\'s angle is stamped on the rotator and the frame on the host, the offset changes during an overnight run. Stamp both on arrival at the host, or trigger the exposure from the rotator, or measure the latency again every hour (the step test is a minute).</li>' +
+        '<li><b>A stalled camera repeats a frame.</b> The loop would see a perfectly steady dot. Sensor read noise makes every real frame differ from the last, so an identical frame is a duplicate: the noise is the heartbeat.</li>' +
+        '<li><b>A slate in the frame fits a wide camera and not a close-up.</b> A bar of LEDs in the corner of a 130 mm view is fine; a 25 mm close-up of the corner has room for the dot and the wall and nothing else. For the close-up, trigger the exposure instead.</li></ul>',
+      unresolved: '<ul><li>Whether the camera has a trigger input, and how the exposure relates to the pulse, is <b>[unknown]</b> for the cameras in <code>sourcing/trials.md</code> (the listed Arducam UVC camera is not documented here as having one).</li>' +
+        '<li>How the rotator\'s ESP32 reports the angle (rate, format, buffering) is in <code>firmware/src_weld_rotator/README.md</code> at 115200 baud, but its latency has not been measured <b>[unknown]</b>. Whether the positioner (unspecified) reports position at all is open.</li>' +
+        '<li>The latency of a real chain is one measurement away: command a step of the pointer or the positioner, record when the first frame shows it, repeat at random phases.</li></ul>',
+      assumptions: '<ul><li>All latencies, jitters, lash, speeds and noise are <b>[illustrative]</b> placeholders (webcam with an arrival stamp: 25 ms command to motion, 100 ms exposure to stamp, 20 ms jitter; a UVC camera with device timestamps: 25, 40, 4). Nobody has measured the chain.</li>' +
+        '<li>Knee(d, v) = seam + d (v tau + L/2) + noise + d v (timestamp jitter); the estimator is weighted least squares for seam, tau and L/2; its scatter is the analytic covariance. The step-test scatter is T over root 12 N <b>[derived]</b>, confirmed by Monte Carlo in the calc script.</li>' +
+        '<li>Hand speeds (5 to 20 mm/s), rolling-shutter readout (16 ms), the bead speed (8 mm/s at r = 61.85 mm <b>[repo]</b>) and the 0.05 mm marker are illustrative; the marker is not a requirement.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ model
+  const PRESETS = {
+    webcam: { tauC: 25, tauF: 100, jit: 20, name: 'a webcam, stamped on arrival at the host' },
+    uvc: { tauC: 25, tauF: 40, jit: 4, name: 'a UVC camera with device timestamps' },
+    trig: { tauC: 0, tauF: 0, jit: 0.01, name: 'exposure triggered by the axis (its step counter)' },
+  };
+  const st = { preset: 'webcam', tauC: 25, tauF: 100, jit: 20, lash: 0.10, vfast: 1.0, sigK: 0.02, pairs: 1, seed: 1, vh: 20, gate: true, cnt: 127 };
+  const tauS = () => (st.tauC + st.tauF) / 1000;                 // seconds, whole chain
+  function rngf(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+  function gaussf(u) { return Math.sqrt(-2 * Math.log(1 - u())) * Math.cos(2 * Math.PI * u()); }
+  const designRows = () => { const rows = []; [st.vfast / 4, st.vfast].forEach(v => [1, -1].forEach(d => { for (let k = 0; k < st.pairs; k++) rows.push({ v: v, d: d }); })); return rows; };
+  function solve3(A, b) {
+    const M = A.map((r, i) => r.concat([b[i]]));
+    for (let i = 0; i < 3; i++) { let p = i; for (let r = i + 1; r < 3; r++) if (Math.abs(M[r][i]) > Math.abs(M[p][i])) p = r; [M[i], M[p]] = [M[p], M[i]]; const d = M[i][i] || 1e-12; for (let r = i + 1; r < 3; r++) { const f = M[r][i] / d; for (let c = i; c < 4; c++) M[r][c] -= f * M[i][c]; } }
+    const x = [0, 0, 0]; for (let i = 2; i >= 0; i--) { let s = M[i][3]; for (let c = i + 1; c < 3; c++) s -= M[i][c] * x[c]; x[i] = s / (M[i][i] || 1e-12); } return x;
+  }
+  function inv3(A) {
+    const cols = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(e => solve3(A, e));
+    return [0, 1, 2].map(r => [0, 1, 2].map(c => cols[c][r]));
+  }
+  // weighted least squares for [seam, tau, h] with knee = seam + d v tau + d h  (h = L/2);  weights 1 / (sigK^2 + (v jit)^2)
+  function fit(rows, knees) {
+    const N = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], b = [0, 0, 0];
+    rows.forEach((r, i) => { const a = [1, r.d * r.v, r.d], w = 1 / (st.sigK * st.sigK + Math.pow(r.v * st.jit / 1000, 2)); for (let p = 0; p < 3; p++) { b[p] += w * a[p] * knees[i]; for (let q = 0; q < 3; q++) N[p][q] += w * a[p] * a[q]; } });
+    return { x: solve3(N, b), cov: inv3(N) };
+  }
+  function analytic() {
+    const rows = designRows(), N = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    rows.forEach(r => { const a = [1, r.d * r.v, r.d], w = 1 / (st.sigK * st.sigK + Math.pow(r.v * st.jit / 1000, 2)); for (let p = 0; p < 3; p++) for (let q = 0; q < 3; q++) N[p][q] += w * a[p] * a[q]; });
+    const C = inv3(N); return { sdSeam: Math.sqrt(C[0][0]), sdTau: Math.sqrt(C[1][1]), sdL: 2 * Math.sqrt(C[2][2]) };
+  }
+  let sweeps = null;
+  function runSweeps() {
+    const u = rngf(1000 + st.seed * 7919), rows = designRows(), knees = rows.map(r => r.d * (r.v * tauS() + st.lash / 2) + gaussf(u) * st.sigK + r.d * r.v * gaussf(u) * st.jit / 1000);
+    const f = fit(rows, knees); sweeps = { rows: rows, knees: knees, est: f.x, cov: f.cov };
+  }
+
+  // ------------------------------------------------------------------ SVG scaffolding
+  const chainSvg = S('svg', { viewBox: '0 0 620 150', class: 'fc-svg', role: 'img', 'aria-label': 'where the time goes between a command and a stamped frame' });
+  const sweepSvg = S('svg', { viewBox: '0 0 620 236', class: 'fc-svg', role: 'img', 'aria-label': 'four sweeps across the seam' });
+  const lineSvg = S('svg', { viewBox: '0 0 620 150', class: 'fc-svg', role: 'img', 'aria-label': 'half difference against sweep speed' });
+  const barSvg = S('svg', { viewBox: '0 0 400 236', class: 'fc-svg narrow', role: 'img', 'aria-label': 'what each time error costs' });
+  const graySvg = S('svg', { viewBox: '0 0 400 128', class: 'fc-svg narrow', role: 'img', 'aria-label': 'binary and Gray-coded counter read in the middle of a change' });
+  const resEl = h('div', { class: 'fc-res' });
+  const optEl = h('div', { class: 'fc-opts' });
+  const listEl = h('ul', { class: 'fc-list' });
+  const cChain = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'Where the time goes' }), h('em', { text: 'illustrative latencies' })), chainSvg);
+  const cSweep = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'Four sweeps across the seam' }), h('em', { text: 'plate side of the seam foot visible, against the commanded position' })), sweepSvg);
+  const cLine = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'Half difference of each pair, against speed' }), h('em', { text: 'slope = latency, intercept = half the lash' })), lineSvg, resEl);
+  const cBars = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'What each time error costs' }), h('em', { text: 'log scale · 0.05 mm is a marker, not a requirement' })), barSvg);
+  const cGray = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'A counter in the frame' }), h('em', { text: 'read while it changes' })), graySvg);
+  const cOpts = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'Ways to know the frame\'s time' }), h('em', { text: 'cost · what it removes' })), optEl);
+  const cList = h('div', { class: 'fc-card' }, h('h3', {}, h('span', { text: 'What fails silently' }), h('em', { text: 'and what notices' })), listEl);
+  app.stageEl.appendChild(h('div', { class: 'fc-grid' }, h('div', { class: 'fc-col' }, cChain, cSweep, cLine), h('div', { class: 'fc-col' }, cBars, cGray, cOpts, cList)));
+
+  optEl.innerHTML =
+    '<div class="fc-opt"><b>Arrival stamp</b> (any webcam)<br><i>free; latency 100 ms and jitter 20 ms or worse.</i> Measure it with the step test each session.</div>' +
+    '<div class="fc-opt"><b>Device timestamp</b> (UVC global-shutter camera)<br><i>a USB cable; latency 40 ms, jitter a few ms.</i> Still a second clock: re-measure hourly.</div>' +
+    '<div class="fc-opt"><b>Axis-triggered exposure</b><br><i>one wire from the rotator\'s ESP32 or the axis step counter to the camera\'s trigger pin.</i> The frame is taken at a known step: no latency to find. Needs a camera with a trigger input.</div>' +
+    '<div class="fc-opt"><b>Gray-coded slate in the frame</b><br><i>eight LEDs and a shift register, driven by the rotator\'s step counter.</i> Fits a wide camera\'s view, not a 25 mm close-up.</div>';
+  listEl.innerHTML =
+    '<li><b>Auto-exposure, auto-white-balance, autofocus</b> move the threshold, the dot\'s size and the scale between frames. Lock them and read the settings back at the start of every session; a fixed dot\'s brightness (trials-18) is the check.</li>' +
+    '<li><b>Two clocks drift apart</b> at tens of ppm (0.18 s an hour at 50 ppm). Stamp everything on the host, or trigger, or re-run the step test hourly.</li>' +
+    '<li><b>A repeated frame</b> shows a steady dot. An identical frame cannot come from a sensor with read noise: the frame difference is exactly zero.</li>' +
+    '<li><b>Dropped frames</b> show as gaps in the stamps or the trigger count; the loop must not interpolate across them.</li>' +
+    '<li><b>A red dot in a compressed colour stream</b> is smeared by chroma subsampling: use a monochrome or raw stream for measurements (with a 650 nm bandpass filter).</li>';
+
+  // ------------------------------------------------------------------ drawing
+  const fmtMs = v => (v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(0) : v.toFixed(1)) + ' ms';
+  const fmtMm = v => v >= 1 ? v.toFixed(2) + ' mm' : (v >= 0.01 ? (v * 1000).toFixed(0) + ' µm' : (v * 1000).toFixed(1) + ' µm');
+  const line = (x1, y1, x2, y2, a) => S('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2 }, a));
+
+  function drawChain() {
+    chainSvg.textContent = '';
+    const x0 = 150, x1 = 600, T = 300, X = ms => x0 + ms / T * (x1 - x0);
+    chainSvg.append(S('rect', { x: 0, y: 0, width: 620, height: 150, fill: '#0f141b', rx: 6 }));
+    for (let t = 0; t <= T; t += 50) chainSvg.append(line(X(t), 24, X(t), 112, { stroke: '#1e2733' }), S('text', { x: X(t), y: 124, 'text-anchor': 'middle', class: 'sm', text: t + ' ms' }));
+    // command side
+    chainSvg.append(S('text', { x: 6, y: 42, class: 'b', text: 'command → dot moves' }), S('text', { x: 6, y: 54, class: 'sm', text: 'serial, MCU, motor start' }),
+      S('rect', { x: x0, y: 32, width: Math.max(1.5, X(st.tauC) - x0), height: 16, fill: '#a855f7', opacity: 0.85, rx: 2 }),
+      S('text', { x: X(st.tauC) + 6, y: 44, class: 'sm', text: fmtMs(st.tauC) }));
+    // image side: exposure (5 ms), readout (16 ms, rolling), transfer and driver (the rest), stamp jitter
+    const ex = Math.min(5, st.tauF), ro = Math.min(16, Math.max(0, st.tauF - ex)), tr = Math.max(0, st.tauF - ex - ro);
+    chainSvg.append(S('text', { x: 6, y: 78, class: 'b', text: 'exposure → stamp' }), S('text', { x: 6, y: 90, class: 'sm', text: 'exposure, readout, USB, driver' }));
+    let cx = x0;
+    [[ex, '#60a5fa'], [ro, '#93c5fd'], [tr, '#64748b']].forEach(seg => { const w = seg[0] / T * (x1 - x0); if (w > 0.2) chainSvg.append(S('rect', { x: cx, y: 68, width: Math.max(w, 1.5), height: 16, fill: seg[1], opacity: 0.9, rx: 2 })); cx += w; });
+    if (st.tauF < 0.5) chainSvg.append(S('rect', { x: x0, y: 68, width: 2, height: 16, fill: '#34d399' }), S('text', { x: x0 + 8, y: 80, class: 'sm green', text: 'the frame is taken at the trigger: nothing to stamp' }));
+    else chainSvg.append(S('text', { x: cx + 6, y: 80, class: 'sm', text: fmtMs(st.tauF) + ', stamp jitter ±' + fmtMs(st.jit) }));
+    const jw = st.jit / T * (x1 - x0); if (jw > 0.5) chainSvg.append(S('rect', { x: cx - jw, y: 64, width: jw * 2, height: 24, fill: 'none', stroke: '#fbbf24', 'stroke-dasharray': '2 2' }));
+    chainSvg.append(S('text', { x: 6, y: 144, class: 'b amber', text: 'whole chain tau = ' + fmtMs(st.tauC + st.tauF) + '   →   a dot moving at ' + st.vfast.toFixed(1) + ' mm/s is read ' + fmtMm(st.vfast * tauS()) + ' behind where the command says' }));
+  }
+
+  function drawSweeps() {
+    sweepSvg.textContent = '';
+    const x0 = 54, x1 = 606, y0 = 26, y1 = 176, XR = 0.9, X = c => x0 + (c + XR) / (2 * XR) * (x1 - x0), Y = f => y1 - f * (y1 - y0);
+    sweepSvg.append(S('rect', { x: 0, y: 0, width: 620, height: 236, fill: '#0f141b', rx: 6 }), S('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: '#0f141b', stroke: '#2a3341' }));
+    for (let c = -0.8; c <= 0.81; c += 0.2) sweepSvg.append(line(X(c), y1, X(c), y1 + 4, { stroke: '#64748b' }), S('text', { x: X(c), y: y1 + 15, 'text-anchor': 'middle', class: 'sm', text: c.toFixed(1) }));
+    [0, 0.5, 1].forEach(f => sweepSvg.append(line(x0 - 3, Y(f), x0, Y(f), { stroke: '#64748b' }), S('text', { x: x0 - 6, y: Y(f) + 3, 'text-anchor': 'end', class: 'sm', text: Math.round(f * 100) + ' %' })));
+    sweepSvg.append(line(x0, Y(0.5), x1, Y(0.5), { stroke: '#2a3341', 'stroke-dasharray': '3 3' }));
+    // ideal curve: fraction = clamp(0.5 - c / footprint), footprint 0.59 mm (0.5 mm dot at 32 degrees)
+    const FP = 0.59, fr = c => Math.max(0, Math.min(1, 0.5 - c / FP));
+    const curve = (shift, col, dash, op) => { const pts = []; for (let c = -XR; c <= XR + 1e-9; c += 0.01) pts.push(X(c).toFixed(1) + ',' + Y(fr(c - shift)).toFixed(1)); return S('polyline', { points: pts.join(' '), fill: 'none', stroke: col, 'stroke-width': 1.6, 'stroke-dasharray': dash, opacity: op == null ? 1 : op }); };
+    sweepSvg.append(curve(0, '#f0abfc', '2 3', 0.9), line(X(0), y0, X(0), y1, { stroke: '#f0abfc', 'stroke-dasharray': '2 3', opacity: 0.7 }));
+    const tau = tauS(), cols = { slow: '#60a5fa', fast: '#fbbf24' };
+    [[st.vfast / 4, 'slow'], [st.vfast, 'fast']].forEach(sp => [1, -1].forEach(d => {
+      const shift = d * (sp[0] * tau + st.lash / 2);
+      sweepSvg.append(curve(shift, cols[sp[1]], d > 0 ? null : '5 3'), S('circle', { cx: X(shift), cy: Y(0.5), r: 3.4, fill: cols[sp[1]] }));
+    }));
+    sweepSvg.append(S('text', { x: X(0) + 4, y: y0 + 10, class: 'sm pink', text: 'true seam' }),
+      S('text', { x: x0 + 6, y: y0 + 12, class: 'sm blue', text: '─ slow ' + (st.vfast / 4).toFixed(2) + ' mm/s: up solid, down dashed' }), S('text', { x: x0 + 6, y: y0 + 24, class: 'sm amber', text: '─ fast ' + st.vfast.toFixed(2) + ' mm/s' }));
+    // one sweep alone
+    const one = st.vfast * tau + st.lash / 2;
+    sweepSvg.append(S('text', { x: 6, y: 216, class: 'b', text: 'one fast sweep up, read alone: the knee is ' + fmtMm(one) + ' late' }),
+      S('text', { x: 6, y: 230, class: 'sm', text: 'the mean of up and down is the seam at any speed; each knee is the ideal crossing shifted by v tau + L/2 in the direction of travel' }));
+    sweepSvg.append(S('text', { x: x1, y: y1 + 29, 'text-anchor': 'end', class: 'sm', text: 'commanded position relative to the true seam (mm)' }));
+  }
+
+  function drawLine() {
+    lineSvg.textContent = '';
+    const x0 = 54, x1 = 606, y0 = 18, y1 = 108, vmax = Math.max(2.4, st.vfast * 1.2);
+    const half = st.vfast * tauS() + st.lash / 2, ymax = Math.max(0.1, Math.ceil(half * 1.4 * 20) / 20 + 0.05), X = v => x0 + v / vmax * (x1 - x0), Y = e => y1 - e / ymax * (y1 - y0);
+    lineSvg.append(S('rect', { x: 0, y: 0, width: 620, height: 150, fill: '#0f141b', rx: 6 }), S('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: '#0f141b', stroke: '#2a3341' }));
+    for (let v = 0; v <= vmax + 1e-9; v += 0.5) lineSvg.append(line(X(v), y1, X(v), y1 + 4, { stroke: '#64748b' }), S('text', { x: X(v), y: y1 + 14, 'text-anchor': 'middle', class: 'sm', text: v.toFixed(1) }));
+    for (let e = 0; e <= ymax + 1e-9; e += ymax / 4) lineSvg.append(line(x0 - 3, Y(e), x0, Y(e), { stroke: '#64748b' }), S('text', { x: x0 - 6, y: Y(e) + 3, 'text-anchor': 'end', class: 'sm', text: e.toFixed(2) }));
+    // truth line: half difference = v tau + L/2
+    lineSvg.append(line(X(0), Y(st.lash / 2), X(vmax), Y(vmax * tauS() + st.lash / 2), { stroke: '#f0abfc', 'stroke-dasharray': '3 3', 'stroke-width': 1.3 }));
+    if (sweeps) {
+      // fitted line and the half differences per speed
+      const e = sweeps.est; lineSvg.append(line(X(0), Y(e[2]), X(vmax), Y(vmax * e[1] + e[2]), { stroke: '#4ade80', 'stroke-width': 1.6 }));
+      const speeds = Array.from(new Set(sweeps.rows.map(r => r.v)));
+      speeds.forEach(v => { let up = [], dn = []; sweeps.rows.forEach((r, i) => { if (r.v === v) (r.d > 0 ? up : dn).push(sweeps.knees[i]); }); const m = a => a.reduce((s, q) => s + q, 0) / a.length; const hd = (m(up) - m(dn)) / 2; lineSvg.append(S('circle', { cx: X(v), cy: Y(hd), r: 4, fill: '#fbbf24', stroke: '#0f141b' })); });
+      const an = analytic(), tau = e[1] * 1000;
+      resEl.innerHTML = '<b>seam</b> ' + (e[0] * 1000).toFixed(0) + ' µm off the truth (±' + (an.sdSeam * 1000).toFixed(0) + ' µm) · <b>latency</b> ' + tau.toFixed(0) + ' ms (true ' + (tauS() * 1000).toFixed(0) + ', ±' + (an.sdTau * 1000).toFixed(0) + ') · <b>lash</b> ' + (2 * e[2]).toFixed(2) + ' mm (true ' + st.lash.toFixed(2) + ', ±' + an.sdL.toFixed(2) + ')<br><span class="k">' + sweeps.rows.length + ' sweeps at ' + (st.vfast / 4).toFixed(2) + ' and ' + st.vfast.toFixed(2) + ' mm/s, knee noise ' + (st.sigK * 1000).toFixed(0) + ' µm, timestamp jitter ±' + fmtMs(st.jit) + '. Press <b>Run the sweeps again</b> for another draw.</span>';
+    } else resEl.innerHTML = '<span class="k">Press <b>Run the sweeps</b>.</span>';
+    lineSvg.append(S('text', { x: 6, y: 12, class: 'sm', text: 'half difference (mm)' }), S('text', { x: x1, y: y1 + 27, 'text-anchor': 'end', class: 'sm', text: 'sweep speed (mm/s)' }),
+      S('text', { x: x0 + 8, y: y0 + 12, class: 'sm pink', text: '- - truth' }), S('text', { x: x0 + 8, y: y0 + 24, class: 'sm green', text: '─ fitted line: slope = latency, intercept = lash / 2' }), S('text', { x: x0 + 8, y: y0 + 36, class: 'sm amber', text: '● measured half differences' }));
+  }
+
+  function drawBars() {
+    barSvg.textContent = '';
+    const tau = tauS(), an = analytic(), a1 = 0.6, dw = (12 - 8) / 61.85 / DEG;
+    const rows = [
+      ['one sweep, one direction (fast)', st.vfast * tau + st.lash / 2, 'the knee is late by v tau + L/2'],
+      ['seam from the four-sweep mean', an.sdSeam, 'scatter of the estimate'],
+      ['hand vs frame, hand moving at ' + st.vh.toFixed(0) + ' mm/s', st.vh * tau, 'joint readings and frame describe different poses'],
+      [st.gate ? 'hand held still (gate: image speed < 0.3 mm/s)' : 'hand vs frame, no gate', st.gate ? 0.3 * tau : st.vh * tau, st.gate ? 'the loop waits for the dot to stop' : 'same as the row above'],
+      ['seam map learned at 8, replayed at 12 mm/s', a1 * (Math.PI / 180) * dw * tau, 'rough seat, harmonic 1; a smooth map forgives'],
+      ['tack position along the seam (angle stamp)', 8 * st.jit / 1000, 'along the seam: does not move the radial map'],
+    ];
+    const x0 = 6, x1 = 394, lo = Math.log10(0.0005), hi = Math.log10(5), X = v => x0 + (Math.log10(Math.max(v, 0.0005)) - lo) / (hi - lo) * (x1 - x0);
+    barSvg.append(S('rect', { x: 0, y: 0, width: 400, height: 236, fill: '#0f141b', rx: 6 }));
+    [0.001, 0.01, 0.1, 1].forEach(v => barSvg.append(line(X(v), 22, X(v), 202, { stroke: '#1e2733' }), S('text', { x: X(v), y: 214, 'text-anchor': 'middle', class: 'sm', text: v < 0.01 ? '1 µm' : v < 0.1 ? '10 µm' : v < 1 ? '0.1 mm' : '1 mm' })));
+    barSvg.append(line(X(0.05), 20, X(0.05), 204, { stroke: '#fbbf24', 'stroke-dasharray': '3 3' }), S('text', { x: X(0.05) + 3, y: 14, class: 'sm amber', text: '0.05 mm marker' }));
+    rows.forEach((r, i) => {
+      const y = 28 + i * 29, col = r[1] > 0.05 ? '#f87171' : (r[1] > 0.01 ? '#fbbf24' : '#34d399');
+      barSvg.append(S('text', { x: 6, y: y, class: 'sm', text: r[0] }), S('rect', { x: x0, y: y + 3, width: Math.max(2, X(r[1]) - x0), height: 10, fill: col, opacity: 0.9, rx: 2 }),
+        X(r[1]) > 318 ? S('text', { x: X(r[1]) - 5, y: y + 12, 'text-anchor': 'end', class: 'b', fill: '#0f141b', style: 'fill:#0f141b', text: fmtMm(r[1]) }) : S('text', { x: X(r[1]) + 5, y: y + 12, class: 'b', text: fmtMm(r[1]) }));
+    });
+    barSvg.append(S('text', { x: 6, y: 228, class: 'sm', text: 'red above the marker, amber above a tenth of it · rolling shutter (16 ms): 8 µm on a dot at 0.5 mm/s' }));
+  }
+
+  function drawGray() {
+    graySvg.textContent = '';
+    const n = st.cnt, m = (n + 1) & 255, gray = k => k ^ (k >> 1);
+    const bits = v => Array.from({ length: 8 }, (_, i) => (v >> (7 - i)) & 1);
+    const range = (f) => { const a = f(n), b = f(m), diff = []; for (let i = 0; i < 8; i++) if (((a >> i) & 1) !== ((b >> i) & 1)) diff.push(i); const vals = []; for (let mask = 0; mask < (1 << diff.length); mask++) { let v = a; diff.forEach((bit, j) => { if ((mask >> j) & 1) v ^= (1 << bit); }); vals.push(v); } return { diff: diff.length, vals: vals }; };
+    const decodeGray = g => { let b = 0; for (; g; g >>= 1) b ^= g; return b; };
+    const rb = range(k => k), rg = range(gray);
+    const errB = Math.max.apply(null, rb.vals.map(v => Math.abs(v - n))), errG = Math.max.apply(null, rg.vals.map(v => Math.abs(decodeGray(v) - n)));
+    graySvg.append(S('rect', { x: 0, y: 0, width: 400, height: 128, fill: '#0f141b', rx: 6 }));
+    const led = (x, y, on, col) => S('circle', { cx: x, cy: y, r: 7, fill: on ? col : '#1e2733', stroke: '#3a4658' });
+    [['binary', k => k, 34, '#f87171', errB, rb.diff], ['Gray', gray, 82, '#34d399', errG, rg.diff]].forEach(row => {
+      graySvg.append(S('text', { x: 6, y: row[2] - 10, class: 'b', text: row[0] + ': ' + n + ' → ' + m }));
+      bits(row[1](n)).forEach((b, i) => graySvg.append(led(20 + i * 20, row[2] + 6, b, row[3])));
+      bits(row[1](m)).forEach((b, i) => graySvg.append(led(220 + i * 20, row[2] + 6, b, row[3])));
+      graySvg.append(S('text', { x: 20, y: row[2] + 26, class: 'sm', text: 'before' }), S('text', { x: 220, y: row[2] + 26, class: 'sm', text: 'after' }),
+        S('text', { x: 392, y: row[2] - 10, 'text-anchor': 'end', class: row[4] > 1 ? 'b red' : 'b green', text: row[5] + ' bit' + (row[5] > 1 ? 's change' : ' changes') + ' · worst read off by ' + row[4] }));
+    });
+    graySvg.append(S('text', { x: 6, y: 122, class: 'sm', text: 'a frame exposed during the change may catch any mix of old and new bits' }));
+  }
+
+  // ------------------------------------------------------------------ update
+  function ioUpdate() {
+    const an = analytic();
+    app.io.set({
+      commands: [
+        { name: 'Sweep the dot across the seam', value: st.pairs * 4 + ' sweeps', note: 'both directions at ' + (st.vfast / 4).toFixed(2) + ' and ' + st.vfast.toFixed(2) + ' mm/s (proposed; any positioner or the pointer of trials-18)' },
+        { name: 'Step at a random phase', value: 'N ≈ 100', note: 'command a step, note the first frame that shows it (proposed)' },
+        { name: 'Exposure trigger from the axis', value: st.preset === 'trig' ? 'on' : 'off', note: 'proposed; needs a camera with a trigger input [unknown]' },
+      ],
+      observes: [
+        { name: 'Knee of each sweep', value: fmtMm(st.vfast * tauS() + st.lash / 2), unit: 'late (fast, one way)', status: 'seen', note: 'in command units; the AI reads the knee, not the truth' },
+        { name: 'Latency from four sweeps', value: (an.sdTau * 1000).toFixed(0), unit: 'ms (1 sd)', status: 'partly', note: 'improves with pairs and with the speed range; the step test is finer' },
+        { name: 'Frame stamp jitter', value: '±' + st.jit, unit: 'ms', status: 'partly', note: 'seen as scatter of the step test; removed by a trigger' },
+        { name: 'Duplicate and dropped frames', value: 'frame difference and stamp gaps', status: 'seen', note: 'an identical frame cannot come from a sensor with read noise' },
+        { name: 'Clock offset between host and ESP32', value: '–', status: 'unresolved', note: 'tens of ppm: re-measure hourly or use one clock' },
+      ],
+      manual: ['Choosing a camera with a trigger input', 'Wiring the axis pulse to the camera', 'Mounting a slate in a wide camera\'s view']
+    });
+  }
+  function redraw() { drawChain(); drawSweeps(); drawLine(); drawBars(); drawGray(); ioUpdate(); }
+
+  // ------------------------------------------------------------------ controls
+  const gp = app.ui.group('How frames are stamped and how slow the chain is (scene edits, illustrative)', { help: 'Nobody has measured any of these; the step test measures them.' });
+  gp.radio({ id: 'preset', label: 'The camera chain', options: [{ value: 'webcam', label: 'webcam, arrival stamp' }, { value: 'uvc', label: 'UVC, device timestamps' }, { value: 'trig', label: 'exposure triggered by the axis' }], value: 'webcam', kind: 'branch', visual: 'the bars in the first panel', help: 'Sets the three sliders below to a starting point. With the axis triggering the exposure the frame is taken at a known step: there is nothing to find.', onChange: v => { const p = PRESETS[v]; st.preset = v; st.tauC = p.tauC; st.tauF = p.tauF; st.jit = p.jit; ['tauC', 'tauF', 'jit'].forEach(id => app.ui.set(id, p[id], { silent: true })); runSweeps(); redraw(); } });
+  gp.slider({ id: 'tauC', label: 'Command → dot moves', min: 0, max: 100, step: 1, value: 25, unit: 'ms', kind: 'scene', visual: 'the first bar', help: 'Serial, microcontroller, motor start.', onChange: v => { st.tauC = v; runSweeps(); redraw(); } });
+  gp.slider({ id: 'tauF', label: 'Exposure → host stamp', min: 0, max: 250, step: 1, value: 100, unit: 'ms', kind: 'scene', visual: 'the second bar', help: 'Exposure, readout, USB, driver.', onChange: v => { st.tauF = v; runSweeps(); redraw(); } });
+  gp.slider({ id: 'jit', label: 'Timestamp jitter (sd)', min: 0, max: 60, step: 0.5, value: 20, unit: 'ms', kind: 'scene', visual: 'the dashed box on the second bar', onChange: v => { st.jit = v; runSweeps(); redraw(); } });
+  const gs = app.ui.group('The sweeps (software commands)', { help: 'Two speeds, both directions.' });
+  gs.slider({ id: 'vfast', label: 'Fast sweep speed', min: 0.4, max: 3, step: 0.1, value: 1.0, unit: 'mm/s', kind: 'actuator', visual: 'the four curves', help: 'The slow sweep is a quarter of it. A wider speed range separates latency from lash better.', onChange: v => { st.vfast = v; runSweeps(); redraw(); } });
+  gs.slider({ id: 'pairs', label: 'Pairs per speed', min: 1, max: 10, step: 1, value: 1, kind: 'state', visual: 'the scatter in the second chart', help: 'More pairs cost time (a sweep is tens of seconds) and cut the scatter as one over root N.', onChange: v => { st.pairs = v; runSweeps(); redraw(); } });
+  gs.button({ id: 'run', label: 'Run the sweeps again', kind: 'state', help: 'Another random draw of the knee noise and the timestamp jitter.', onClick: () => { st.seed++; runSweeps(); redraw(); } });
+  const gu = app.ui.group('The rig and the hand (scene edits, illustrative)');
+  gu.slider({ id: 'lash', label: 'Backlash of the axis (the pointer, or the positioner)', min: 0, max: 0.4, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', visual: 'the four curves', onChange: v => { st.lash = v; runSweeps(); redraw(); } });
+  gu.slider({ id: 'sigK', label: 'Noise of one knee', min: 0.005, max: 0.06, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', visual: 'the scatter in the second chart', help: 'trials-18 finds the knee to 0.02 mm with a fraction noise of 0.02.', onChange: v => { st.sigK = v; runSweeps(); redraw(); } });
+  gu.slider({ id: 'vh', label: 'Hand speed while the joints are logged', min: 1, max: 40, step: 1, value: 20, unit: 'mm/s', kind: 'scene', visual: 'the hand bars', help: 'trials-19: the fixed-point trial has a hand move the arm to each orientation.', onChange: v => { st.vh = v; redraw(); } });
+  gu.toggle({ id: 'gate', label: 'Stillness gate before a joint reading', value: true, kind: 'state', visual: 'the gated hand bar', help: 'Wait until the dot\'s image speed is under 0.3 mm/s for twice the latency.', onChange: v => { st.gate = v; redraw(); } });
+  const gv = app.ui.group('View');
+  gv.slider({ id: 'cnt', label: 'Counter value in the frame', min: 0, max: 255, step: 1, value: 127, kind: 'view', visual: 'the two rows of LEDs', help: '127 to 128 changes every bit of a binary counter and one bit of a Gray counter.', onChange: v => { st.cnt = v; drawGray(); } });
+  app.io.manual(['Choosing a camera with a trigger input']);
+  runSweeps(); redraw();
+})();
+</script>
+</body>
+</html>

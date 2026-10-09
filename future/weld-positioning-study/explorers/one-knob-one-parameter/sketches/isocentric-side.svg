@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 820" width="1080" height="820" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<rect width="1080" height="820" fill="#ffffff"/>
+<text x="12" y="20" font-size="15" font-weight="bold">Isocentric couch + gantry — side view (from +X), opening pose 45/30/−15 with −15° set by the couch Y slide</text>
+<polyline points="180.0,766.0 1020.0,766.0" stroke="#222" fill="none" stroke-width="3"/>
+<text x="720.0" y="782.0" font-size="11" text-anchor="start" fill="#222">common baseplate (the 'fixed' reference)</text>
+<polygon points="605.0,766.0 715.0,766.0 715.0,686.0 605.0,686.0" stroke="#222" fill="#eee" stroke-width="1.2"/>
+<text x="720.0" y="721.0" font-size="10" text-anchor="start" fill="#222">optional couch rotary table (original); default is the Y slide (B-Y)</text>
+<polygon points="535.0,686.0 845.0,686.0 845.0,674.0 535.0,674.0" stroke="#222" fill="none" stroke-width="1.2"/>
+<polygon points="524.0,674.0 824.0,674.0 824.0,661.0 524.0,661.0" stroke="#222" fill="#f4f4f4" stroke-width="1.2"/>
+<text x="850.0" y="666.0" font-size="10" text-anchor="start" fill="#222">X slide (radial, micrometer stop)</text>
+<polygon points="524.0,661.0 824.0,661.0 824.0,646.0 524.0,646.0" stroke="#222" fill="#f4f4f4" stroke-width="1.2"/>
+<text x="850.0" y="650.0" font-size="10" text-anchor="start" fill="#222">Y slide = yaw knob + load/unload drawer (kinematic stop)</text>
+<polygon points="524.0,622.0 824.0,622.0 824.0,610.0 524.0,610.0" stroke="#222" fill="none" stroke-width="1.2"/>
+<polygon points="534.0,646.0 564.0,646.0 564.0,622.0 534.0,622.0" stroke="#222" fill="none" stroke-width="1.2"/>
+<polygon points="794.0,646.0 824.0,646.0 824.0,622.0 794.0,622.0" stroke="#222" fill="none" stroke-width="1.2"/>
+<text x="850.0" y="610.0" font-size="10" text-anchor="start" fill="#222">existing rotator (unchanged) clamped to the drawer</text>
+<polygon points="741.0,612.0 797.0,612.0 797.0,493.0 741.0,493.0" stroke="#888" fill="none" stroke-width="1.2"/>
+<text x="818.0" y="500.0" font-size="9" text-anchor="start" fill="#666">NEMA 23</text>
+<polyline points="580.5,560.0 707.5,560.0 707.5,407.6 580.5,407.6 580.5,560.0" stroke="#222" fill="none" stroke-width="1.6"/>
+<polyline points="582.2,414.0 705.8,414.0" stroke="#222" fill="none" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="730.0" y="440.0" font-size="10" text-anchor="start" fill="#222">tube (dot on the near wall,</text>
+<text x="730.0" y="454.0" font-size="10" text-anchor="start" fill="#222">6.35 mm below the rim)</text>
+<polyline points="660.0,766.0 660.0,40.0" stroke="#1b6ac9" fill="none" stroke-width="1" stroke-dasharray="8 4"/>
+<text x="666.0" y="55.0" font-size="10" text-anchor="start" fill="#1b6ac9">couch axis (phi)</text>
+<circle cx="660.0" cy="414.0" r="55.0" stroke="#1b6ac9" fill="none" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="700.0" y="345.0" font-size="10" text-anchor="start" fill="#1b6ac9">hole-axis rotary table</text>
+<text x="700.0" y="358.0" font-size="10" text-anchor="start" fill="#1b6ac9">behind the tube at +X; axis ⟂ view through dot</text>
+<polyline points="630.0,766.0 630.0,500.0 690.0,500.0 690.0,766.0" stroke="#999" fill="none" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="360.0" y="530.0" font-size="10" text-anchor="start" fill="#777">Z stand + bracket: behind, at +X ≈ 300 (dashed)</text>
+<polyline points="660.0,414.0 400.2,264.0" stroke="#1b6ac9" fill="none" stroke-width="5"/>
+<text x="380.1" y="379.0" font-size="10" text-anchor="start" fill="#1b6ac9">gantry arm spoke (plate at x ≈ +95)</text>
+<polyline points="677.3,424.0 330.9,224.0" stroke="#c0392b" fill="none" stroke-width="1" stroke-dasharray="6 3"/>
+<text x="266.6" y="213.5" font-size="10" text-anchor="start" fill="#c0392b">grip axis = roll axis</text>
+<polygon points="400.2,264.0 403.8,257.7 407.3,251.6 410.6,245.8 413.7,240.5 416.4,235.8 418.7,231.9 420.5,228.7 421.8,226.5 422.5,225.3 422.7,225.0 422.2,225.8 421.2,227.5 419.7,230.2 417.6,233.8 415.1,238.1 412.2,243.1 409.0,248.7 405.6,254.6 402.0,260.8 398.4,267.1 394.8,273.3 391.4,279.2 388.2,284.8 385.3,289.8 382.8,294.1 380.7,297.7 379.2,300.4 378.1,302.1 377.7,302.9 377.9,302.6 378.6,301.4 379.9,299.2 381.7,296.0 384.0,292.1 386.7,287.4 389.7,282.1 393.1,276.3 396.6,270.2 400.2,264.0" stroke="#c0392b" fill="none" stroke-width="2"/>
+<text x="150.2" y="169.0" font-size="10" text-anchor="start" fill="#c0392b">roll: two hinged clamshell rings on a printed sleeve</text>
+<text x="150.2" y="182.0" font-size="10" text-anchor="start" fill="#c0392b">(R-C; a closed bearing cannot pass the gun)</text>
+<polygon points="631.4,388.9 631.8,387.9 632.7,386.6 634.0,385.2 635.5,384.0 637.0,383.1 638.2,382.7 638.9,382.8 641.8,386.1 650.6,395.9 653.5,399.2 653.7,399.8 653.3,400.8 652.3,402.1 651.0,403.5 649.5,404.7 648.1,405.6 646.9,406.1 646.2,405.9 643.2,402.7 634.5,392.8 631.5,389.6" stroke="#333" fill="#bbbbbb" stroke-width="1"/>
+<polygon points="609.0,368.8 609.7,367.0 611.3,364.8 613.5,362.5 616.1,360.4 618.5,358.9 620.5,358.2 621.8,358.4 625.7,362.8 637.5,376.0 641.5,380.4 641.8,381.5 641.0,383.3 639.5,385.5 637.2,387.8 634.7,389.9 632.2,391.4 630.2,392.1 629.0,391.9 625.0,387.5 613.2,374.3 609.3,369.9" stroke="#333" fill="#bbbbbb" stroke-width="1"/>
+<polygon points="582.0,334.4 582.5,333.3 583.5,331.8 585.0,330.3 586.6,329.0 588.2,328.0 589.5,327.5 590.3,327.6 596.2,334.2 613.7,353.9 619.6,360.4 619.8,361.1 619.3,362.2 618.3,363.7 616.8,365.2 615.2,366.5 613.6,367.5 612.3,367.9 611.5,367.8 593.9,348.2 582.2,335.1" stroke="#333" fill="#bbbbbb" stroke-width="1"/>
+<polygon points="565.6,325.2 566.6,322.7 568.9,319.6 572.0,316.3 575.6,313.3 579.1,311.2 581.9,310.2 583.7,310.4 586.0,313.0 588.2,315.6 595.1,323.2 595.5,324.7 594.5,327.2 592.3,330.4 589.1,333.6 585.5,336.6 582.0,338.7 579.2,339.7 577.5,339.5 575.2,336.9 568.3,329.2 566.0,326.7" stroke="#333" fill="#bbbbbb" stroke-width="1"/>
+<polygon points="471.4,238.7 483.4,217.9 506.7,206.2 568.0,274.8 592.5,302.3 580.5,323.1 557.2,334.8 544.9,321.1 483.6,252.4" stroke="#333" fill="#d9d9d9" stroke-width="1"/>
+<polygon points="412.0,274.8 422.6,256.4 478.1,263.9 519.8,269.6 537.6,289.5 527.0,307.9 513.1,306.0 429.8,294.7" stroke="#333" fill="#d9d9d9" stroke-width="1"/>
+<polyline points="591.6,295.1 521.7,216.8" stroke="#27ae60" fill="none" stroke-width="4"/>
+<text x="529.7" y="206.8" font-size="10" text-anchor="start" fill="#27ae60">standoff rail ∥ barrel (micrometer stop,</text>
+<text x="529.7" y="219.8" font-size="10" text-anchor="start" fill="#27ae60">gravity holds the carriage on the stop)</text>
+<polyline points="649.8,402.6 660.0,414.0" stroke="#c0392b" fill="none" stroke-width="1.5"/>
+<circle cx="660.0" cy="414.0" r="3.0" stroke="#c0392b" fill="#c0392b" stroke-width="1.2"/>
+<text x="540.0" y="422.0" font-size="11" text-anchor="start" fill="#c0392b">dot = isocenter</text>
+<polyline points="418.2,274.4 340.3,229.4 230.3,209.4 120.3,269.4 60.3,409.4 50.3,559.4" stroke="#8e44ad" fill="none" stroke-width="3"/>
+<text x="40.3" y="584.4" font-size="10" text-anchor="start" fill="#8e44ad">umbilical to cart: hung from a spring</text>
+<text x="40.3" y="597.4" font-size="10" text-anchor="start" fill="#8e44ad">balancer, ≥350 mm bend radius, clamped</text>
+<text x="40.3" y="610.4" font-size="10" text-anchor="start" fill="#8e44ad">to the roll body, not to the gun</text>
+<polyline points="415.2,289.0 540.1,369.0 600.0,374.0 651.0,409.0 660.0,414.0" stroke="#e67e22" fill="none" stroke-width="1.6"/>
+<text x="270.0" y="434.0" font-size="10" text-anchor="start" fill="#e67e22">wire guide on the roll body, tip micrometer</text>
+<text x="270.0" y="447.0" font-size="10" text-anchor="start" fill="#e67e22">stage; standoff changes do not move it</text>
+<polyline points="910.0,766.0 910.0,414.0" stroke="#555" fill="none" stroke-width="0.8"/>
+<text x="916.0" y="530.0" font-size="10" text-anchor="start" fill="#555">~352 mm dot above baseplate</text>
+<text x="20.0" y="780.0" font-size="10" text-anchor="start" fill="#555">Rough sizes: couch stack ~120 mm (4-inch rotary table 80 mm + plate + two slides). Arm spoke 300 mm to the roll bearing. Gun = the scene's illustrative proxy at roll 45°, hole 30°.</text>
+<text x="20.0" y="796.0" font-size="10" text-anchor="start" fill="#555">Colours: blue = rotations about the dot; red = beam / grip axis; green = standoff; orange = wire; purple = umbilical.</text>
+</svg>

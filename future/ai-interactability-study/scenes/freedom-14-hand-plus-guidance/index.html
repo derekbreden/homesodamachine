@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hand plus guidance</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-14-hand-plus-guidance",
+  "title": "Hand plus guidance: the hand supplies the motion, software supplies a force it can always overrule",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The hand holds the gun on a passive support as it does today; software adds a bounded force through a soft anchor (a bungee whose far end a motor moves), a centring pull toward the seam, or a wall that pushes only outside a band, or a damper that resists fast motion. Nothing is driven to a position, so the hand is never overruled. The scene shows what that costs: the most a force can move a relaxed hand is force cap divided by the hand's stiffness plus the guide's, a few millimetres at best, and a tense hand cancels it. The time traces use a made-up hand and are only there to show which band each help works in.",
+  "tags": ["hand and software", "series-elastic", "authority", "virtual wall", "damper", "force not position"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["authority = guide over hand stiffness", "a force cap keeps the hand in charge", "a damper filters tremor only"],
+  "how": {
+    "motion": "the hand moves the gun; software moves the far end of a bungee and sets a damper",
+    "load": "a passive support (balancer or arm) carries the weight; the hand and the bungee push on top",
+    "reference": "the seam as seen by the eye; the anchor stroke bounds what software can do",
+    "observe": "the eye's radial error (4 per second here); hand force by a load cell (optional)",
+    "use": "the hand welds as today; software resists or nudges inside a force cap"
+  },
+  "software": {
+    "commands": ["anchor position of the guiding bungee (force = stiffness x stretch)", "damper setting (optional)", "wall band width"],
+    "observes": ["corner minus dot (the eye, proposed)", "anchor position and, if fitted, the force in the bungee"],
+    "manual": ["the hand holding the gun and watching the dot", "fitting the anchor stage and damper"]
+  },
+  "notes": ["../../exchange/freedom--on--eyes-w2.md", "../../explorers/freedom/ideas/freedom-14-hand-plus-guidance.md", "../../explorers/freedom/ideas/freedom-01c-master-per-axis.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 900,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Today a hand holds the gun. The digest’s thin region: <b>the hand supplies the motion and software supplies resistance or guidance.</b> Every other arrangement in the study gives software a position to command, and a position command overrules the hand. Here software is given a <b>force</b> only, through a soft anchor: a bungee (or a spring) whose far end a small motor moves. The force is stiffness × stretch, so its size is bounded by the stroke and by a cap, and a hand can always push through it. That is freedom-01c’s soft element used as a force source, in parallel with the hand instead of in series with a stage.</p>' +
+        '<p>Three helps, one at a time or together. <b>Centring:</b> a pull toward the seam, proportional to the error. <b>Wall:</b> no force inside a band, a push back outside it, so the hand is free while it is good enough. <b>Damper:</b> resistance to fast motion (a dashpot or an adjustable damper on the support), a mechanical low-pass filter for tremor that leaves the slow drift to the hand and the guide. The time trace at the top is a made-up hand (drift, tremor, a delayed visual correction) against a runout of 0.125 mm; it is there to show which band each help works in, not to predict a result.</p>' +
+        '<p>Bottom left: the algebra that does not depend on the hand model. A guide that is a spring of stiffness K<sub>g</sub> moved through a stroke S, in parallel with a hand of stiffness K<sub>h</sub>, can move the gun by at most K<sub>g</sub>S / (K<sub>h</sub> + K<sub>g</sub>), and never with more than the cap.</p>',
+      carries:
+        '<p>The weight goes to a passive support (a balancer or the arm of freedom-02); the hand and the guiding bungee push on the gun on top of it. <b>Purple</b> is the motor that moves the bungee’s far end. <b>Green</b> is the bungee. <b>Amber</b> is the hand. The scene is one axis (radial) and one number for the gun’s position; the tangent is free and the vertical is the same picture again.</p>',
+      software:
+        '<p><b>Commands:</b> the anchor position (force = K<sub>g</sub> × stretch), the damper setting, the band width. <b>Observes:</b> the eye’s corner minus dot (here every 0.25 s, with 0.03 mm noise), the anchor position, and if a load cell sits in the bungee, the force. <b>Manual:</b> the hand: it holds the gun, watches the dot and pulls the trigger.</p>',
+      tried:
+        '<p><b>Found (arithmetic, no hand model):</b> a force moves a relaxed hand only a little. A bungee of 0.15 N/mm through a 20 mm stroke can apply 3 N, and against a hand that yields 2 mm per newton (K<sub>h</sub> 0.5 N/mm) that moves the gun 4.6 mm at the extreme of the stroke and 0.3 mm at 0.2 N. So the stroke the guide needs is small: 0.2 N is 1.3 mm of bungee stretch. A tense hand (3 N/mm) cuts every figure by six. The cap keeps the hand in charge; a position command through the same stroke would not.</p>' +
+        '<p><b>Found (made-up hand):</b> with drift 0.08 mm/s, tremor 0.06 mm at 10 Hz and a delayed visual correction (chosen so that the hand alone is about 0.17 mm rms; that choice is mine), centring cuts the rms error to 0.13 mm, the wall to 0.15 mm, the damper to 0.16 mm and centring with the damper to 0.13 mm, with peak guide forces of 0.1 to 0.2 N. The damper helps least because tremor is a small share of the error; it is the only help that needs no eye. The numbers move with every slider of the hand; the order does not much.</p>' +
+        '<p><b>Found:</b> a stiffer centring pull is not better. The hand already steers by eye, so a proportional guide is a second loop with its own delay (the eye\u2019s 0.25 s); asked for 2 N/mm it chatters. The wall is silent inside the band and cannot fight a hand that is already good.</p>' +
+        '<p><b>The damper is a rotary part with no number (borrowed’s critique).</b> The bought damper is a fluid head, not a dashpot at the grip: a rotary damper acts on the dot through its lever, c at the dot = c rotary ÷ lever². 0.05 N·s/mm at a 202 mm lever is 2.0 N·m·s/rad; at the nose seat’s 70 mm 0.25; and a head sized to critically damp freedom-08’s pendulum (0.13 N·m·s/rad) gives only 0.003 N·s/mm at the dot, a corner near 30 Hz, no filter at all for a 10 Hz tremor. So the design variable is the lever, and the listings give drag steps, not values: a spring scale on a fluid head’s handle at walking pace measures it. The readouts convert both ways. The scene’s help stays on the gun; the same help on a haptic knob instead is borrowed-19, a different arrangement (the hand turns a knob, the gun sits on a stage) that stays as borrowed drew it.</p>' +
+        '<p><b>Left standing:</b> the hand\u2019s stiffness, tremor, drift and correction are unmeasured, and a hand that knows the gun is pushing may stiffen. A centring pull turns any bias of the eye into a steady push (badge). Whether an operator accepts a gun that pushes back is not something a scene can show.</p>',
+      unresolved:
+        '<p>Hand stiffness at the grip in the working pose, and how it changes when the hand knows the gun is pushing (people stiffen). Tremor amplitude and drift of the hand on a rest. Whether a printed damper, an air dashpot or an adjustable (magnetorheological) damper is worth having: a hand on a passive rest may already provide it. Whether the eye’s 4 Hz is enough for a centring force (it is for a wall). The vertical axis and the tilts are not shown.</p>',
+      assumptions:
+        '<ul><li>All hand numbers are <b>illustrative</b> (nothing measured): hand stiffness 0.5 N/mm, drift 0.08 mm/s random walk, tremor 0.06 mm at 10 Hz, visual correction gain 0.2 per second with 0.2 s delay and 0.1 mm visual resolution. The defaults are chosen so that the hand alone is about 0.17 mm rms; that is my choice, to have something for the help to act on.</li>' +
+        '<li>Seam motion: 0.125 mm radial amplitude once per revolution at 8 mm/s (half the rig’s TIR limit) [repo, acceptance not measurement].</li>' +
+        '<li>Guide: bungee 0.15 N/mm, stroke 20 mm, cap 2 N. Eye: 4 corrections per second, noise 0.03 mm, no bias. Illustrative.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { lev: 202, mode: 'wall', Kh: 0.5, Kg: 0.15, stroke: 20, cap: 2, Kv: 0.4, band: 0.1, c: 0.05, drift: 0.08, tremor: 0.06, hg: 0.2, seed: 1 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 720', width: '100%', role: 'img', 'aria-label': 'hand and guidance: error trace and authority' }); svg.style.display = 'block'; svg.style.minWidth = '900px';
+  app.stageEl.appendChild(svg);
+  app.legend([{ color: '#8894a6', label: 'hand alone' }, { color: '#ffb74d', label: 'hand + help' }, { color: '#ef5350', label: 'band (wall)' }, { role: 'actuated', label: 'motor and anchor' }, { role: 'compliant', label: 'bungee' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const rnd = n => { const s = Math.sin(n * 127.1 + S.seed * 311.7) * 43758.5453; return s - Math.floor(s) - 0.5; };
+  const rdA = app.ui.readout('ra', 'Most a force can move the hand'), rdB = app.ui.readout('rb', 'Guide force at the cap / hand yields'), rdC = app.ui.readout('rc', 'rms error: hand alone / with help'), rdD = app.ui.readout('rd', 'The damper as a rotary head at the lever'), rdE = app.ui.readout('re', 'A 0.13 N·m·s/rad head gives at the dot');
+
+  function sim(mode) {
+    const dt = 0.01, N = 6000, out = { e: [], F: [] };
+    let x = 0, xh = 0, drift = 0, corr = 0, xa = 0, lastMeas = 0, F = 0;
+    const eq = []; const delayN = Math.round(0.2 / dt), buf = new Array(delayN).fill(0);
+    const c = Math.max(mode === 'damp' || mode === 'both' ? S.c : 0, 1e-4), useG = mode === 'centre' || mode === 'wall' || mode === 'both';
+    let sumSq = 0, sumF = 0, peakF = 0;
+    for (let i = 0; i < N; i++) {
+      const t = i * dt, seam = 0.125 * Math.cos(2 * Math.PI * t / 48.6) + 0.012 * Math.cos(4 * Math.PI * t / 48.6);
+      drift += S.drift * Math.sqrt(dt) * rnd(i * 3 + 1) * 3.4;
+      const tremor = S.tremor * Math.sin(2 * Math.PI * 10 * t + 1.3) * (1 + 0.3 * rnd(i));
+      const eNow = x - seam, vis = eNow + 0.1 * rnd(i * 7 + 2) * 2; buf.push(vis); const eDel = buf.shift();
+      corr += -S.hg * (Math.round(eDel * 10) / 10) * dt * 4 * 0.25;                // the hand steers by eye, delayed, at 0.1 mm visual resolution
+      xh = drift + tremor + corr;
+      if (useG && i % 25 === 0) {                                                  // the eye: every 0.25 s, noise 0.03 mm
+        lastMeas = eNow + 0.03 * rnd(i * 5 + 3) * 2;
+        let f = 0;
+        if (mode === 'centre' || mode === 'both') f = -S.Kv * lastMeas; else f = -S.Kv * Math.sign(lastMeas) * Math.max(0, Math.abs(lastMeas) - S.band);
+        f = Math.max(-S.cap, Math.min(S.cap, f));
+        // anchor position that produces force f at the present stretch, limited by the stroke
+        xa = x + f / S.Kg; xa = Math.max(x - S.stroke, Math.min(x + S.stroke, xa));
+      }
+      F = useG ? S.Kg * (xa - x) : 0; F = Math.max(-S.cap, Math.min(S.cap, F));
+      // hand spring + guide force + damper: (Kh (xh - x) + F) = c x'
+      const xdot = (S.Kh * (xh - x) + F) / c; x += Math.max(-1, Math.min(1, xdot * dt)) * 1;
+      if (c < 1e-3) x = xh + F / S.Kh;
+      out.e.push(x - seam); out.F.push(F); sumSq += (x - seam) * (x - seam); sumF += F * F; peakF = Math.max(peakF, Math.abs(F));
+    }
+    out.rms = Math.sqrt(sumSq / N); out.peakF = peakF; out.rmsF = Math.sqrt(sumF / N);
+    return out;
+  }
+
+  function update() {
+    clear();
+    const base = sim('none'), help = sim(S.mode === 'none' ? 'none' : S.mode), t0 = 60, x0 = 60, w = 900, h = 210;
+    g.appendChild(T(x0, 28, 'Error at the dot over one minute (mm): hand alone (grey) and with the chosen help (amber). Runout 0.125 mm once per revolution.', { 'font-weight': 600 }));
+    g.appendChild(R(x0, 40, w, h, '#171e28', { stroke: '#2a3441' }));
+    const ymax = 0.6, ya = v => 40 + h / 2 - Math.max(-ymax, Math.min(ymax, v)) / ymax * h / 2, xa = i => x0 + i / 6000 * w;
+    [-0.4, -0.2, 0, 0.2, 0.4].forEach(v => { g.appendChild(L(x0, ya(v), x0 + w, ya(v), v === 0 ? '#3a4656' : '#222b37', 1)); g.appendChild(T(x0 - 40, ya(v) + 4, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1), { fill: '#94a3b8', 'font-size': 10.5 })); });
+    if (S.mode === 'wall') [S.band, -S.band].forEach(v => g.appendChild(L(x0, ya(v), x0 + w, ya(v), '#ef5350', 1, { 'stroke-dasharray': '4 3' })));
+    [0, 10, 20, 30, 40, 50, 60].forEach(t => g.appendChild(T(x0 + t / 60 * w - 6, 40 + h + 14, t + ' s', { fill: '#94a3b8', 'font-size': 10.5 })));
+    const path = a => { let d = ''; for (let i = 0; i < 6000; i += 5) d += (i === 0 ? 'M' : 'L') + xa(i).toFixed(1) + ' ' + ya(a[i]).toFixed(1); return d; };
+    g.appendChild(svgel('path', { d: path(base.e), fill: 'none', stroke: '#8894a6', 'stroke-width': 1.2, opacity: 0.9 }));
+    if (S.mode !== 'none') g.appendChild(svgel('path', { d: path(help.e), fill: 'none', stroke: '#ffb74d', 'stroke-width': 1.8 }));
+    // authority diagram
+    const Ay = 300; g.appendChild(T(x0, Ay, 'What a force can do to a hand (one axis, statics)', { 'font-weight': 600 }));
+    g.appendChild(R(x0, Ay + 10, 430, 320, '#171e28', { stroke: '#2a3441' }));
+    const gx = x0 + 215, gy = Ay + 100;
+    const Fmax = Math.min(S.cap, S.Kg * S.stroke), reach = Fmax / (S.Kh + S.Kg), reach1 = 0.7 / (S.Kh + S.Kg);
+    // gun as a block, hand spring to the right, guide spring to the left with its motor
+    g.appendChild(R(gx - 20, gy - 24, 40, 48, C('gun'), { rx: 4 })); g.appendChild(T(gx - 12, gy + 5, 'gun', { fill: '#e5e7eb', 'font-size': 11 }));
+    const spring = (xa, xb, y, col, label) => { let d = 'M' + xa + ' ' + y; const n = 8, dx = (xb - xa) / (n * 2); for (let i = 0; i < n * 2; i++) d += 'L' + (xa + dx * (i + 0.5)).toFixed(1) + ' ' + (y + (i % 2 ? 9 : -9)); d += 'L' + xb + ' ' + y; g.appendChild(svgel('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 2.5 })); g.appendChild(T((xa + xb) / 2 - 40, y - 18, label, { fill: col, 'font-size': 11 })); };
+    spring(gx + 20, gx + 190, gy, C('load'), 'hand K_h ' + S.Kh.toFixed(2) + ' N/mm'); g.appendChild(R(gx + 190, gy - 30, 12, 60, C('load'), { opacity: 0.6 })); g.appendChild(T(gx + 96, gy + 50, 'hand (drifts, shakes)', { fill: C('load'), 'font-size': 11 }));
+    spring(gx - 190, gx - 20, gy, C('compliant'), 'bungee K_g ' + S.Kg.toFixed(2) + ' N/mm'); g.appendChild(R(gx - 205, gy - 30, 15, 60, C('actuated'))); g.appendChild(T(gx - 210, gy + 50, 'motor moves this end', { fill: C('actuated'), 'font-size': 11 })); g.appendChild(T(gx - 210, gy + 66, 'through ±' + S.stroke + ' mm', { fill: C('actuated'), 'font-size': 11 }));
+    g.appendChild(T(x0 + 14, Ay + 232, 'Force at the end of the stroke ' + (S.Kg * S.stroke).toFixed(2) + ' N, cap ' + S.cap.toFixed(1) + ' N: ' + Fmax.toFixed(2) + ' N', { fill: '#c8d0da', 'font-size': 12 }));
+    g.appendChild(T(x0 + 14, Ay + 252, 'It moves the gun by at most F / (K_h + K_g) = ' + reach.toFixed(2) + ' mm (0.7 N: ' + reach1.toFixed(2) + ' mm).', { fill: '#ffb74d', 'font-size': 12, 'font-weight': 600 }));
+    g.appendChild(T(x0 + 14, Ay + 272, 'A tense hand (K_h 3 N/mm) cuts that to ' + (Fmax / (3 + S.Kg)).toFixed(2) + ' mm. The hand can push through ' + Fmax.toFixed(1) + ' N.', { fill: '#94a3b8', 'font-size': 11.5 }));
+    g.appendChild(T(x0 + 14, Ay + 292, 'Corner frequency of the damper: K / (2π c) = ' + ((S.Kh + S.Kg) / (2 * Math.PI * Math.max(S.c, 1e-4))).toFixed(2) + ' Hz (tremor is 8 to 12 Hz).', { fill: '#94a3b8', 'font-size': 11.5 }));
+    // table
+    const Tx = x0 + 470; g.appendChild(T(Tx, Ay, 'This hand, this help', { 'font-weight': 600 })); g.appendChild(R(Tx, Ay + 10, 430, 320, '#171e28', { stroke: '#2a3441' }));
+    const rows = [['rms error, hand alone', base.rms.toFixed(3) + ' mm'], ['rms error, ' + ({ none: 'no help', centre: 'centring', wall: 'wall', damp: 'damper', both: 'centring + damper' }[S.mode]), help.rms.toFixed(3) + ' mm'], ['peak guide force', help.peakF.toFixed(2) + ' N (cap ' + S.cap.toFixed(1) + ')'], ['rms guide force', help.rmsF.toFixed(2) + ' N'], ['hand effort to override at the peak', help.peakF.toFixed(2) + ' N (' + (help.peakF / S.Kg).toFixed(1) + ' mm of bungee)'], ['most static error a force can remove', reach.toFixed(2) + ' mm']];
+    rows.forEach((r, i) => { g.appendChild(T(Tx + 14, Ay + 44 + i * 30, r[0], { fill: '#94a3b8' })); g.appendChild(T(Tx + 250, Ay + 44 + i * 30, r[1], { fill: '#e5e7eb', 'font-weight': 600 })); });
+    g.appendChild(T(Tx + 14, Ay + 250, 'The hand here is made up: drift, tremor and a delayed visual', { fill: '#94a3b8', 'font-size': 11.5 })); g.appendChild(T(Tx + 14, Ay + 267, 'correction. What is robust is the arithmetic on the left.', { fill: '#94a3b8', 'font-size': 11.5 }));
+    g.appendChild(T(Tx + 14, Ay + 300, 'Position command instead of force: the software could remove', { fill: '#94a3b8', 'font-size': 11.5 })); g.appendChild(T(Tx + 14, Ay + 317, 'any error inside the stroke, and the hand could not object.', { fill: '#94a3b8', 'font-size': 11.5 }));
+    const cRot = S.c * 1000 * Math.pow(S.lev / 1000, 2), cDot = 0.13 / Math.pow(S.lev / 1000, 2) / 1000;
+    rdD(cRot.toFixed(2), 'N·m·s/rad'); rdE(cDot.toFixed(4), 'N·s/mm (corner ' + ((S.Kh + S.Kg) / (2 * Math.PI * cDot)).toFixed(1) + ' Hz)');
+    rdA(reach.toFixed(2), 'mm'); rdB(Fmax.toFixed(2) + ' N / ' + (1 / S.Kh).toFixed(1) + ' mm per N', ''); rdC(base.rms.toFixed(2) + ' / ' + help.rms.toFixed(2), 'mm');
+    app.badge('eyebias', S.mode === 'centre' || S.mode === 'both' ? 'a centring pull turns the eye’s bias into a steady push on the hand' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Anchor position of the guiding bungee', value: 'force = ' + S.Kg + ' N/mm × stretch', note: 'proposed motor and stage; bounded by ±' + S.stroke + ' mm and the cap' }, { name: 'Damper setting', value: S.mode === 'damp' || S.mode === 'both' ? S.c.toFixed(2) + ' N·s/mm' : 'off' }],
+      observes: [{ name: 'Corner minus dot (the eye)', value: 'every 0.25 s', status: 'partly', note: 'noise 0.03 mm; bias would become a push' }, { name: 'Hand force / hand stiffness', value: '-', status: 'unresolved', note: '[unknown]; a load cell in the bungee reads the guide force only' }, { name: 'Whether the operator lets the gun be pushed', value: '-', status: 'manual' }],
+      manual: ['The hand holds the gun and watches the dot', 'Trigger and end-of-bead lift'] });
+  }
+  const mg = app.ui.group('Help (software could command)', { open: true });
+  mg.radio({ id: 'mode', label: 'Help', kind: 'branch', value: 'wall', options: [{ value: 'none', label: 'none' }, { value: 'centre', label: 'centring' }, { value: 'wall', label: 'wall' }, { value: 'damp', label: 'damper' }, { value: 'both', label: 'both' }], help: 'Centring: pull toward the seam. Wall: push back outside a band. Damper: resist fast motion. Both: centring plus damper.', onChange: v => { S.mode = v; update(); } });
+  mg.slider({ id: 'Kv', label: 'Guide stiffness asked for', min: 0.05, max: 2, step: 0.05, value: 0.4, unit: 'N/mm', kind: 'actuator', help: 'How hard the software pushes per mm of error, before the stroke and the cap.', onChange: v => { S.Kv = v; update(); } });
+  mg.slider({ id: 'band', label: 'Wall band', min: 0.02, max: 0.4, step: 0.01, value: 0.1, unit: 'mm', kind: 'actuator', help: 'No force inside the band.', onChange: v => { S.band = v; update(); } });
+  mg.slider({ id: 'c', label: 'Damper (as felt at the grip)', min: 0.01, max: 0.4, step: 0.01, value: 0.05, unit: 'N·s/mm', kind: 'actuator', help: 'The bought part is a rotary damper (a video fluid head): its damping at the dot is the rotary value divided by the square of the lever. See the readouts.', onChange: v => { S.c = v; update(); } });
+  mg.slider({ id: 'lev', label: 'Lever from the damper’s pivot to the dot', min: 20, max: 300, step: 1, value: 202, unit: 'mm', kind: 'scene', noVisual: true, help: 'A rotary damper acts on the dot through the lever: c at the dot = c rotary / lever². 70 mm is the nose seat, 202 mm the plumb-bob pivot of freedom-08.', onChange: v => { S.lev = v; update(); } });
+  const hg = app.ui.group('The guide (scene edits)', { open: true });
+  hg.slider({ id: 'Kg', label: 'Bungee stiffness', min: 0.05, max: 1, step: 0.05, value: 0.15, unit: 'N/mm', kind: 'scene', help: 'freedom-01: 0.05 to 0.6 illustrative.', onChange: v => { S.Kg = v; update(); } });
+  hg.slider({ id: 'stroke', label: 'Anchor stroke', min: 2, max: 30, step: 1, value: 20, unit: 'mm', kind: 'scene', onChange: v => { S.stroke = v; update(); } });
+  hg.slider({ id: 'cap', label: 'Force cap', min: 0.2, max: 5, step: 0.1, value: 2, unit: 'N', kind: 'scene', help: 'Keeps the hand in charge.', onChange: v => { S.cap = v; update(); } });
+  const hh = app.ui.group('The hand (made up)', { open: true });
+  hh.slider({ id: 'Kh', label: 'Hand stiffness at the grip', min: 0.1, max: 3, step: 0.1, value: 0.5, unit: 'N/mm', kind: 'scene', help: '[unknown]: how far the hand yields per newton.', onChange: v => { S.Kh = v; update(); } });
+  hh.slider({ id: 'drift', label: 'Drift', min: 0, max: 0.1, step: 0.005, value: 0.08, unit: 'mm/s', kind: 'scene', onChange: v => { S.drift = v; update(); } });
+  hh.slider({ id: 'tremor', label: 'Tremor at 10 Hz', min: 0, max: 0.2, step: 0.01, value: 0.06, unit: 'mm', kind: 'scene', onChange: v => { S.tremor = v; update(); } });
+  hh.slider({ id: 'hg', label: 'Visual correction gain', min: 0, max: 1, step: 0.05, value: 0.2, unit: '1/s', kind: 'scene', onChange: v => { S.hg = v; update(); } });
+  hh.slider({ id: 'seed', label: 'Random seed', min: 1, max: 9, step: 1, value: 1, kind: 'scene', noVisual: true, onChange: v => { S.seed = v; update(); } });
+  update();
+})();
+</script>
+</body>
+</html>

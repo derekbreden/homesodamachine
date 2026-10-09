@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pucks: the tube swap</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-01-puck-swap",
+  "title": "Pucks: nest and tube swap as one lift",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "The nest and its tube live together as a puck that drops onto three kinematic seats on the turntable. Swapping tubes becomes lifting one puck and lowering another; the indicating that takes minutes moves to a prep stand off the rig, and the puck carries its own identity, its rotational index and, in software, the seam map of the tube inside it.",
+  "tags": ["swap", "puck", "kinematic coupling", "reset", "identity", "index", "prep stand", "seat pattern"],
+  "branchOf": [],
+  "combines": ["datum-05-fiducial-collar"],
+  "transferable": ["kinematic seats + magnet preload", "three-contact seated certificate", "puck carries the index magnet", "off-rig prep with a second puck", "a tag ring on the flange (datum-05)", "seat pattern: symmetric, or two groove sets"],
+  "how": {
+    "motion": "a hand or a gripper lifts the puck 45 mm and carries it; the rotator only turns",
+    "load": "three ball-and-dowel seats on the turntable carry puck and tube; magnets hold it down",
+    "reference": "the seats fix position and (asymmetric spacing) rotational phase, or a work index does; a magnet gives one index pulse per turn",
+    "observe": "3-contact seated check, tag read, index pulse per turn (all proposed)",
+    "use": "every tube swap; indicating happens at the prep stand while the rig runs"
+  },
+  "software": {
+    "commands": ["rotator speed (existing)", "swap interlock", "which puck is expected"],
+    "observes": ["seat certificate: three contacts closed", "puck tag: ID and stored seam map", "index pulse: rotator zero each turn"],
+    "manual": ["indicating and adjusting the nest at the prep stand", "the lift and carry (or the gripper tool)", "tagging a new puck"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-01-puck-swap.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = Math.PI / 180;
+  const app = WK.app({
+    gun: false,
+    viewButtons: ['overall', 'coupling', 'stand', 'top'],
+    views: {
+      overall: { target: [0, -150, 30], dir: [0.38, -0.62, 0.68], dist: 1500 },
+      coupling: { target: [86, 0, -8], dir: [0.5, -0.75, 0.32], dist: 260 },
+      stand: { target: [0, -330, 30], dir: [0.3, -0.75, 0.55], dist: 560 },
+      top: { target: [0, -150, 0], dir: [0, -0.003, 1], dist: 1050 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Today the tube stands in a nest that is screwed to the turntable with three M3 screws and adjusted with three radial screws while an indicator watches the runout. A new tube means lifting the tube out and repeating that adjustment on the rig. Here the <b>nest and the tube together are a puck</b>: a printed body with a ball under each of three points, dropped onto three pairs of dowels on the turntable (a Kelvin coupling: six contacts, no redundancy, so the puck lands in exactly one place) and pulled down by magnets.</p>' +
+        '<p>The indicating moves to a <b>prep stand</b> beside the rig, done while the AI runs trials on the other puck. The swap itself is <b>a lift, a carry and a lowering</b> by hand or by a gripper.</p>' +
+        '<p>Three small additions make the puck carry the trial context. <b>Asymmetric ball spacing</b> means it seats in one rotational phase only. <b>Each ball-and-dowel pair is also a switch</b>: three closed contacts is a seated certificate before anything moves. A <b>magnet on the rim</b> passing a Hall sensor on the base gives the rotator an absolute zero once a turn (the rotator only counts turned-so-far degrees today). A <b>tag</b> holds the tube ID and, in software, its seam map (trials-04).</p>' +
+        '<p>Drive the <b>Swap sequence</b> slider: puck A lifts, goes to the stand, puck B comes from the stand and lowers. Switch the branch to the current nest to see what changes.</p>',
+      carries: '<p>The turntable carries puck and tube through three ball-and-dowel seats; the magnets only keep the balls in their seats, they do not locate. The 165 mm ball race and belt drive underneath are unchanged (drawn as the existing rotator proxy). In the swap nothing carries the puck except a hand or the gripper; the lift is 45 mm, enough to clear the seats.</p>',
+      tried: '<ul>' +
+        '<li><b>Throughput.</b> If one load supports many trials, the swap barely matters: with a 10 minute hand swap and 20 trials per load the rig is used about 80 % of the time; with a 30 second puck swap, 99 % [<i>illustrative times; explorers/trials/calc/swap_budget.py</i>]. Repair of my own claim: the puck earns its place when many <i>different</i> tubes are wanted (30 tubes cost 5 hours of indicating on the rig and 15 minutes of swapping; at the prep stand the same 5 hours happen while the rig runs) and when swap-to-swap repeatability is itself the question.</li>' +
+        '<li><b>The coupling does not fix the tube in the nest.</b> The tube still sits in a nest with 0.20 mm radial clearance at the ID pilot and 0.40 mm at the OD guide <b>[repo]</b>; the three radial screws set it. Move the tube-in-nest slider up: the puck lands exactly, but the seam still wobbles. Repair: the indicating is done once, off the rig (or replaced by the seam map that absorbs it). Not repaired: how repeatable a lift-out and re-seat of the tube in the nest is, is <b>[unknown]</b> and worth measuring first.</li>' +
+        '<li><b>Torque through the seats.</b> A wire catch could try to turn the puck. Three balls at 80 mm radius with 30 N of magnets hold about 2.4 N&middot;m before a ball leaves its groove, against about 0.06 N&middot;m per newton of tangential wire pull at the weld radius <b>[derived, illustrative preload; explorers/trials/calc/swap_budget.py]</b>.</li>' +
+        '<li><b>Tilt.</b> Coupling repeatability of 10 micrometres over the 172 mm ball circle gives a lateral seam shift of about 20 micrometres (10 from the landing itself, about 10 from the tilt acting over the seam height) and about 4 micrometres vertical at the weld circle (first order, illustrative). Drag the coupling slider up and read the I/O panel.</li>' +
+        '<li><b>Tags instead of a Hall sensor (borrowed from datum-05).</b> Switch <b>How the puck\u2019s phase and identity are read</b> to the tag ring: sixteen small tags (one red zero tag) on the flange top, read by the same fixed judge camera that watches the dot. Phase and identity then need no sensor on the rotating base and no reader at the stand; the ring is also in the judge\u2019s frame every frame, so a camera that drifts shows on it. The camera sees only the tags on its own side (the count is a drawn line of sight, not a detection). <b>What it does not give:</b> the ring is 147 mm below the seam, and datum-05\u2019s rule is that a tag\u2019s tilt error times its lever arm is the seam error, so the ring is good for angle about the axis and for the tube\u2019s name, not for where the seam is (0.3 degrees of tag tilt is 0.77 mm at that lever). <i>[illustrative; datum-05 calc/tag_lever.py numbers are its own]</i></li>' +
+        '<li><b>Printed seats.</b> A printed puck body on printed seats would wear and creep. Repair: steel dowels and balls set into the print; the plastic only positions them.</li><li><b>Phase from the seats, or from the work (datum, wave 2).</b> Asymmetric seats (0, 115, 240°) give a unique phase and forbid turning the puck; symmetric seats allow a 120° turn that separates the rig\'s part of the seam map from the tube\'s, at the price of moving phase from geometry to a camera. Two findings (calc/seat_sets.py): the plate\'s two symmetric ports read modulo 180° still tell the three symmetric seatings apart (0, 120 and 60), so a work index is enough for phase; and a 120° turn leaves harmonic 3 of a tube-owned error unchanged (weights 1.7, 1.7, 0.0 for harmonics 1 to 3), so it cannot be told from the rig\'s. A second groove set 70° over keeps the unique phase in each set and gives a turn that exposes harmonics 1 to 4 (1.2, 1.9, 1.9, 1.3): three more dowel pairs in the printed turntable. Only rotations 0 and 70° seat, checked by brute force. Try the seat pattern radio. Left standing: whether a designed turn is worth an extra lap (49 s) and a lift is decided by how large the tube-owned part of the map is, which nobody has measured.</li></ul>',
+      unresolved: '<ul><li>How repeatable the present nest is on re-seat, and how much of the observed runout is the tube, the nest or the turntable, has not been measured <b>[unknown]</b>. Ten lifts and re-seats read with the Neoteck indicator would put a number on it.</li>' +
+        '<li>Who lifts a 2 kg puck-and-tube safely without touching the gun: a swap interlock and a docked gun (trials-02) assume the answer.</li>' +
+        '<li>Whether the printed turntable can carry three seats and still sit true on its 165 mm ball race is a design question, not tested.</li>' +
+        '<li>An NFC tag next to a rotating steel tube reads only at certain angles or at the stand; where the reader lives is unresolved.</li></ul>',
+      assumptions: '<ul><li>Tube 5 in OD, 0.065 in wall, plate recessed 6.35 mm: <b>[repo]</b>. Rotating mass 1.40 / 2.01 kg: <b>[repo]</b>, and matches [derived] 316L volumes.</li>' +
+        '<li>Turntable and nest proportions are the kit proxy of the documented dimensions; the seat positions (86 mm radius, angles 0, 115, 240 deg), the puck outline and the prep stand are <b>[illustrative]</b>.</li>' +
+        '<li>Swap and indicating times are guesses: nobody has timed them <b>[unknown]</b>. The preload and repeatability values are illustrative.</li>' +
+        '<li>The rotator has no index sensor today (turned-so-far degrees only) <b>[repo]</b>; the Hall sensor is a proposal.</li></ul>'
+    }
+  });
+  const ws = app.workstation, JZ = 0, H = WK.DIM.tubeHeight;
+  const ST = { swap: 0, mode: 'puck', who: 'hand', rep: 10, nestErr: 0.3, spin: false, idx: 'hall', pattern: 'asym' };
+
+  // ---------------------------------------------------------------- the existing nest (kit's turntable mesh) vs my seats + puck
+  const ttMesh = ws.parts.turntableMesh;
+  const SR = 86;
+  // seat patterns (angles in degrees): the balls under the puck and the groove sets on the turntable. 'two': a second groove set 70 deg over
+  // gives a second phase in which the puck also seats (calc/seat_sets.py: only 0 and 70 seat).
+  const PATTERNS = {
+    asym: { balls: [0, 115, 240], sets: [[0, 115, 240]], name: 'three asymmetric seats: one phase' },
+    sym: { balls: [0, 120, 240], sets: [[0, 120, 240]], name: 'three symmetric seats: three phases, read from the work' },
+    two: { balls: [0, 115, 240], sets: [[0, 115, 240], [70, 185, 310]], name: 'two groove sets 70° apart: two phases' },
+  };
+  // turntable plate with the 90 mm service bore (spins with the turntable group)
+  const plate = new THREE.Mesh(new THREE.LatheGeometry([[45, -34], [98, -34], [98, -10], [45, -10], [45, -34]].map(p => new THREE.Vector2(p[0], p[1])), 96).rotateX(Math.PI / 2), WK.mat('actuated', { shade: 0.5, side: 'double' }));
+  plate.userData.role = 'actuated';
+  ws.turntable.add(plate);
+  const seatGroup = new THREE.Group(); ws.turntable.add(seatGroup);
+  function addSeat(deg, role) {
+    const a = deg * DEG, c = Math.cos(a), sn = Math.sin(a), g = new THREE.Group(); g.position.set(SR * c, SR * sn, -10); g.rotation.z = a;
+    [-3.2, 3.2].forEach(o => { const d = P.cyl(1.6, 22, role, { axis: 'x' }); d.position.set(0, o, 1.6); g.add(d); });
+    const pad = P.box(30, 14, 3, 'fixed'); pad.position.set(0, 0, -1.4); g.add(pad);
+    seatGroup.add(g);
+  }
+  function buildSeats() {
+    while (seatGroup.children.length) seatGroup.remove(seatGroup.children[0]);
+    PATTERNS[ST.pattern].sets.forEach((set, k) => set.forEach(a => addSeat(a, k === 0 ? 'locate' : 'compliant')));
+  }
+  // adjusters of the current nest (three radial M3 screws through the collar) shown only in the nest branch
+  const adjusters = new THREE.Group();
+  [90, 210, 330].forEach(a => { const r = a * DEG, s = P.cyl(1.6, 10, 'load', { axis: 'x' }); s.position.set(69.5 * Math.cos(r), 69.5 * Math.sin(r), 14); s.rotation.z = r; adjusters.add(s); });
+  ws.turntable.add(adjusters);
+
+  // puck body: nest collar + floor + a thin flange with ears, three balls below, index magnet, tag
+  function makePuck() {
+    const g = new THREE.Group(); g.userData.role = 'load';
+    const prof = [[45, -5.6], [98, -5.6], [98, -1], [75, -1], [75, 20], [63.9, 20], [63.9, 0], [45, 0], [45, -5.6]].map(p => new THREE.Vector2(p[0], p[1]));
+    const body = new THREE.Mesh(new THREE.LatheGeometry(prof, 96).rotateX(Math.PI / 2), WK.mat('load', { side: 'double', opacity: 0.85 })); body.userData.role = 'load'; g.add(body);
+    g.userData.balls = [0, 1, 2].map(() => { const b = P.sphere(4, 'locate'); g.add(b); return b; });
+    // ears (finger grips) at +/-Y of the flange
+    [1, -1].forEach(sg => { const e = P.box(38, 22, 7, 'load'); e.position.set(0, sg * 106, -3); g.add(e); });
+    // index magnet on the rim and NFC tag
+    const m = P.magnet(9, 'locate'); m.position.set(98 * Math.cos(-60 * DEG), 98 * Math.sin(-60 * DEG), -3); g.add(m);
+    const tag = P.box(22, 3, 14, 'sensor'); tag.position.set(-98, 0, -3.5); g.add(tag);
+    // the datum-05 alternative: a ring of sixteen small tags on the flange top (one red zero tag), read by the judge camera
+    const ring = new THREE.Group();
+    for (let k = 0; k < 16; k++) { const a = k * 22.5 * DEG, t = P.box(7, 7, 1.2, k === 0 ? 'laser' : (k % 2 ? 'work' : 'fixed')); t.position.set(87 * Math.cos(a), 87 * Math.sin(a), -0.4); t.rotation.z = a; ring.add(t); }
+    ring.visible = false; g.add(ring); g.userData.ring = ring; g.userData.mag = m; g.userData.nfc = tag;
+    placeBalls(g);
+    return g;
+  }
+  function placeBalls(g) { PATTERNS[ST.pattern].balls.forEach((deg, i) => { const a = deg * DEG; g.userData.balls[i].position.set(SR * Math.cos(a), SR * Math.sin(a), -4.0); }); }
+  const puck0 = makePuck(); ws.turntable.add(puck0);
+  const HOME_CLONE = (obj) => { const c = obj.clone(true); c.matrixAutoUpdate = true; return c; };
+
+  // hall sensor on the base at the rim
+  const hall = P.box(10, 8, 10, 'sensor'), hallPost = P.rod(V(50, -87, -50), V(50, -87, -12), 3, 'fixed');
+  hall.position.set(50, -87, -6); app.add(hall); app.add(hallPost);
+  // seat-certificate LEDs (three contacts) as small spheres on the base
+  const leds = [0, 1, 2].map(i => { const l = P.sphere(3.2, 'compliant'); l.position.set(-150 + i * 12, -132, -48); app.add(l); return l; });
+
+  // ---------------------------------------------------------------- tubes as movable units
+  const tubeT0 = ws.tubeGroup;
+  const unitClone = () => { const u = new THREE.Group(); const t = HOME_CLONE(tubeT0); t.matrixAutoUpdate = true; t.matrix.identity(); t.position.set(0, 0, 0); t.rotation.set(0, 0, 0); t.updateMatrix(); const p = makePuck(); u.add(t); u.add(p); app.add(u); return { unit: u, tube: t, puck: p }; };
+  const U1 = unitClone(), U2 = unitClone();
+  U1.tube.rotation.z = 0.6;   // so the index stripes differ visibly
+  // lift wrapper for the kit's tube (T0) and puck0 when they move as A
+  const liftZ = 45, slotIn = V(150, -330, 0), slotOut = V(-150, -330, 0), home = V(0, 0, 0);
+  // prep stand
+  const stand = P.box(470, 190, 76, 'fixed'); stand.position.set(0, -330, -86 + 38 - 10 - 0); stand.position.z = -48; app.add(stand);
+  [slotIn, slotOut].forEach(s => { const pad = P.ring(100, 1.4, { role: 'locate' }); pad.position.set(s.x, s.y, -9); app.add(pad); });
+  app.label(V(0, -330, -6), 'prep stand: nest indicated here, off the rig');
+  app.label(V(slotIn.x, slotIn.y + 30, 22), 'slot: next puck', { cls: 'locate' });
+  app.label(V(slotOut.x, slotOut.y + 30, 22), 'slot: finished puck', { cls: 'locate' });
+  const reader = P.box(26, 26, 8, 'sensor'); reader.position.set(-150, -330 + 108, -6); app.add(reader);
+  const readerLbl = app.label(reader, 'tag reader at the stand', { cls: 'sensor' });
+
+  // gripper (branch 'gantry'): one tool with two fingers around the ears; it carries A, returns empty, then carries B
+  function makeGripper() { const g = new THREE.Group(); [1, -1].forEach(sg => { const f = P.box(40, 6, 40, 'actuated'); f.position.set(0, sg * 121, 10); g.add(f); }); const bar = P.box(44, 250, 8, 'actuated'); bar.position.set(0, 0, 32); g.add(bar); const stem = P.rod(V(0, 0, 32), V(0, 0, 150), 6, 'actuated'); g.add(stem); return g; }
+  const grip = makeGripper(); app.add(grip);
+  const gripLbl = app.label(() => V(grip.position.x, grip.position.y, 165), 'gripper tool (trials-07)', { cls: 'actuated' });
+  const handLbl = app.label(() => V(grip.position.x, grip.position.y, 60), 'a hand, by the ears', { cls: 'load' });
+
+  app.label(() => V(SR, 0, -4), 'ball on dowel pair', { cls: 'locate' });
+  const setBLbl = app.label(() => V(SR * Math.cos(70 * DEG), SR * Math.sin(70 * DEG), -4), 'second groove set: a second phase', { cls: 'compliant' });
+  const hallLbl = app.label(hall, 'Hall sensor: index once per turn', { cls: 'sensor' });
+  app.label(leds[1], 'seat certificate: 3 contacts', { cls: 'compliant' });
+  const lblA = app.label(() => V(0, 0, H + 14), 'tube A on the rotator'), lblB = app.label(() => ST.swap >= 0.9995 ? V(slotOut.x, slotOut.y, H + 14) : V(slotIn.x, slotIn.y, H + 14), 'tube B on puck B');
+
+  // ---------------------------------------------------------------- swap timeline
+  // 0 - 0.42 puck A is lifted and carried to the finished slot; 0.42 - 0.55 the hand or gripper returns empty;
+  // 0.55 - 1 puck B is lifted from the stand and lowered onto the seats.
+  const lerpV = (a, b, t) => V(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t);
+  const sm = t => t * t * (3 - 2 * t), seg = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a)));
+  function carry(from, to, u) {                 // lift, carry at height, lower
+    const l1 = sm(seg(u, 0, 0.16)), c = sm(seg(u, 0.16, 0.84)), l2 = sm(seg(u, 0.84, 1));
+    const p = lerpV(from, to, c); p.z = from.z + liftZ * l1 * (1 - l2);
+    return p;
+  }
+  // the judge camera that reads the tag ring (tags borrowed from datum-05); added only in that branch
+  let judge = null;
+  function setJudge(on) {
+    if (on && !judge) judge = app.inset.add({ id: 'judge', label: 'Judge camera reading the tag ring (proposed)', position: V(0, 330, 250), target: V(0, 70, 0), fov: 36, size: [230, 158], corner: 'br' });
+    else if (!on && judge) { judge.remove(); judge = null; }
+  }
+  function tagsInView() {
+    if (!judge) return null;
+    puck0.updateWorldMatrix(true, false); let n = 0;
+    for (let j = 5; j < 21; j++) { const k = j % 16, a = k * 22.5 * DEG, p = puck0.localToWorld(V(87 * Math.cos(a), 87 * Math.sin(a), 0.7)), r = app.inset.markVisibility('judge', p); if (r && r.visible) n++; }   // the tag nearest the camera is tested last, so it sets the frame colour
+    return n;
+  }
+  function apply() {
+    const t = ST.swap, atEnd = t <= 0.0005 || t >= 0.9995;
+    const puckMode = ST.mode === 'puck';
+    ttMesh.visible = !puckMode; plate.visible = puckMode; seatGroup.visible = puckMode; adjusters.visible = !puckMode;
+    puck0.visible = puckMode && atEnd;
+    const useTags = ST.idx === 'tags' && puckMode;
+    [puck0, U1.puck, U2.puck].forEach(pk => { pk.userData.ring.visible = useTags; pk.userData.mag.visible = pk.userData.nfc.visible = !useTags; });
+    hall.visible = hallPost.visible = puckMode && !useTags; reader.visible = puckMode && !useTags;
+    hallLbl.show(puckMode && !useTags); readerLbl.show(puckMode && !useTags);
+    setJudge(useTags);
+    tubeT0.visible = atEnd;                        // A at t = 0, B at t = 1 (identical copies): T0 is "the tube on the rotator"
+    const u1 = U1.unit, u2 = U2.unit;              // u1 = B, u2 = A
+    u1.visible = t <= 0.0005 || !atEnd;
+    u2.visible = t >= 0.9995 || !atEnd;
+    const pA = t < 0.42 ? carry(home, slotOut, seg(t, 0, 0.42)) : slotOut.clone();
+    const pB = t < 0.55 ? slotIn.clone() : carry(slotIn, home, seg(t, 0.55, 1));
+    u1.position.copy(pB); u2.position.copy(pA);
+    U1.puck.visible = puckMode; U2.puck.visible = puckMode;
+    // the carrier (hand or gripper): with A, back empty, with B
+    let gp;
+    if (t < 0.42) gp = pA.clone(); else if (t < 0.55) { const u = sm(seg(t, 0.42, 0.55)); gp = lerpV(slotOut, slotIn, u); gp.z = liftZ * 0.6; } else gp = pB.clone();
+    if (atEnd) gp = V(t <= 0.5 ? 330 : 330, -330, 0);
+    grip.position.copy(gp);
+    grip.visible = ST.who === 'gantry';
+    gripLbl.show(ST.who === 'gantry'); handLbl.show(ST.who === 'hand' && !atEnd);
+    const seated = puckMode && atEnd;
+    leds.forEach(l => WK.setRole(l, seated ? 'compliant' : 'ghost'));
+    lblA.set(t >= 0.9995 ? 'tube B on the rotator' : 'tube A on the rotator'); lblA.show(atEnd);
+    lblB.set(t >= 0.9995 ? 'tube A, finished, on puck A' : 'tube B on puck B, indicated at the stand'); lblB.show(atEnd);
+    app.invalidate();
+    return { atEnd: atEnd, seated: seated, phase: phaseName(t) };
+  }
+  function phaseName(t) {
+    if (t <= 0.0005) return 'A seated on the rotator; B waiting at the stand';
+    if (t < 0.07) return 'A lifts off its seats';
+    if (t < 0.36) return 'A is carried to the finished slot';
+    if (t < 0.42) return 'A is lowered into its slot';
+    if (t < 0.55) return 'the hand or gripper goes back empty';
+    if (t < 0.64) return 'B lifts from the stand';
+    if (t < 0.95) return 'B is carried to the rotator';
+    if (t < 0.9995) return 'B lowers onto the seats';
+    return 'B seated on the rotator; A finished at the stand';
+  }
+
+  // seam shift from seating (first order): tilt = rep / ball circle diameter
+  function seatingShift() { const tilt = ST.rep / 1000 / (2 * SR); return { lateral: ST.rep / 1000 + (WK.DIM.tubeHeight + 20) * tilt, vertical: WK.INNER_RADIUS * tilt, tilt: tilt }; }
+  function ioUpdate(r) {
+    const s = seatingShift();
+    const puckMode = ST.mode === 'puck';
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: '5–15', unit: 'mm/s', note: 'existing controller' },
+        { name: 'Swap interlock', value: r.atEnd ? 'off' : 'on', note: 'proposed: no motion while a puck is lifted' },
+        { name: 'Expected puck', value: ST.swap >= 0.9995 ? 'B' : 'A', note: 'proposed: the trial log names it' },
+      ],
+      observes: [
+        { name: 'Seat certificate (3 contacts)', value: puckMode ? (r.seated ? 'closed x3' : 'open') : '–', status: puckMode ? 'seen' : 'blind', note: puckMode ? 'each ball-and-dowel pair is a switch' : 'the current nest has no seat check' },
+        ST.idx === 'tags' && puckMode ?
+          { name: 'Puck ID and phase from the tag ring', value: r.atEnd ? (tagsInView() + ' of 16 tags in view') : 'not on the rotator', status: 'partly', note: 'the judge camera reads the tags on its own side, every frame; drawn line of sight, not a detection' } :
+          { name: 'Puck tag', value: puckMode ? (ST.swap >= 0.9995 ? 'A' : (ST.swap <= 0.0005 ? 'A' : 'reading')) : '–', status: puckMode ? 'seen' : 'blind', note: 'read at the stand; stores tube ID and seam map' },
+        ST.idx === 'tags' && puckMode ?
+          { name: 'Index (zero tag passes the same image spot)', value: 'once / rev', status: 'partly', note: 'no sensor on the rotating base; blind while the zero tag is on the far side of the tube' } :
+          { name: 'Index pulse per turn', value: puckMode ? 'once / rev' : 'none today', status: puckMode ? 'seen' : 'blind', note: 'Hall sensor + rim magnet' },
+        { name: 'Phases the puck seats in', value: !puckMode ? '–' : (ST.pattern === 'asym' ? '1' : (ST.pattern === 'sym' ? '3 (0, 120, 240°)' : '2 (0° and 70°)')), status: puckMode ? 'seen' : 'blind', note: ST.pattern === 'asym' ? 'unique: the seats give the phase, no camera needed' : (ST.pattern === 'sym' ? 'the seats no longer say which: read from the work (the ports, modulo 180°: 0, 120, 60; and the first tack for the rest)' : 'the seats say which set is in use (a contact per set)') },
+        { name: 'A designed turn separates (harmonics 1, 2, 3 of the tube\'s part of the seam map)', value: !puckMode ? '–' : (ST.pattern === 'asym' ? 'no turn possible' : (ST.pattern === 'sym' ? '1.7 / 1.7 / 0.0' : '1.2 / 1.9 / 1.9')), status: puckMode ? 'partly' : 'blind', note: ST.pattern === 'asym' ? 'a re-seat in the nest by hand is the only turn (trials-04, datum-14)' : (ST.pattern === 'sym' ? 'a 120° turn leaves harmonic 3 unchanged, so it cannot be told from the rig\'s (weights 2|sin(kθ/2)|; calc/seat_sets.py)' : 'lift, turn 70°, lower into the other set: every harmonic 1 to 4 shows (1.2 / 1.9 / 1.9 / 1.3)') },
+        { name: 'Seam shift from seating', value: puckMode ? s.lateral.toFixed(1) + ' / ' + (s.vertical).toFixed(1) : '?', unit: puckMode ? 'µm lat / vert' : '', status: puckMode ? 'partly' : 'unresolved', note: puckMode ? 'first order from the coupling slider' : 'present nest re-seat repeatability is unmeasured' },
+        { name: 'Tube in nest, eccentricity', value: ST.nestErr.toFixed(2), unit: 'mm', status: 'partly', note: 'seen by the judge (trials-03/04), not by the puck' },
+      ],
+      manual: ['Indicating and adjusting the nest (puck: at the prep stand; nest: on the rig, ~10 min illustrative)', 'The lift and carry, or a gripper', r.phase]
+    });
+  }
+  function update() { ioUpdate(apply()); }
+
+  // ---------------------------------------------------------------- controls
+  const sw = app.ui.group('The swap', { help: 'Puck A leaves the rotator for the stand; puck B comes from the stand. Scrub it.' });
+  sw.slider({ id: 'swap', label: 'Swap sequence', min: 0, max: 1, step: 0.005, value: 0, kind: 'state', visual: () => [U1.unit, U2.unit, tubeT0], help: '0 A seated · 0.07 lifted · 0.42 A at the stand · 0.55 carrier returns · 1 B seated', onChange: v => { ST.swap = v; update(); } });
+  sw.radio({ id: 'mode', label: 'What is swapped', options: [{ value: 'puck', label: 'puck (nest + tube)' }, { value: 'nest', label: 'tube only (current nest)' }], value: 'puck', kind: 'branch', help: 'The current nest stays on the turntable, screwed down, with three radial adjusters that are set by indicating on the rig.', onChange: v => { ST.mode = v; update(); } });
+  sw.radio({ id: 'who', label: 'Who lifts', options: [{ value: 'hand', label: 'a hand (ears on the puck)' }, { value: 'gantry', label: 'a gripper (trials-07)' }], value: 'hand', kind: 'branch', visual: () => grip, onChange: v => { ST.who = v; update(); } });
+  sw.radio({ id: 'idx', label: 'How the puck\u2019s phase and identity are read', options: [{ value: 'hall', label: 'index magnet + Hall + NFC tag' }, { value: 'tags', label: 'tag ring read by the judge camera (datum-05)' }], value: 'hall', kind: 'branch', help: 'The tag ring needs no sensor on the rotating base and no reader at the stand; it gives angle and identity, not the seam\u2019s position (the ring is 147 mm from it).', onChange: v => { ST.idx = v; update(); } });
+  sw.radio({ id: 'pattern', label: 'Seat pattern', options: [{ value: 'asym', label: 'three asymmetric seats' }, { value: 'sym', label: 'three symmetric seats + phase from the work' }, { value: 'two', label: 'two groove sets 70° apart' }], value: 'asym', kind: 'branch', visual: () => seatGroup, help: 'Asymmetric: one phase, given by the seats. Symmetric: three phases, the seats cannot say which, so the ports (modulo 180°) and the first tack must; a 120° turn separates the rig\'s part of the seam map from the tube\'s for harmonics 1 and 2 but not 3. Two sets: the puck also seats after a 70° turn, and a phase contact per set says which.', onChange: v => { ST.pattern = v; buildSeats(); [puck0, U1.puck, U2.puck].forEach(placeBalls); setBLbl.show(v === 'two'); update(); } });
+  const rg = app.ui.group('Rotator and errors (scene edits, illustrative)');
+  rg.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'Index stripe shows the rotation; the rim magnet passes the Hall sensor once a turn.', onChange: v => { ws.spin.on = v; update(); } });
+  rg.slider({ id: 'nestErr', label: 'Tube-in-nest eccentricity (not fixed by the coupling)', min: 0, max: 1.5, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', visual: () => tubeT0, help: 'How far the tube sits off the turntable axis after indicating (or without it). Shown exaggerated 20x while spinning.', onChange: v => { ST.nestErr = v; ws.setRunout(v * 2, WK.RIG.runoutFaceTIR, 20); update(); } });
+  rg.slider({ id: 'rep', label: 'Coupling repeatability (per landing)', min: 0, max: 50, step: 1, value: 10, unit: 'µm', kind: 'scene', visual: () => seatGroup, help: 'How closely the puck lands in the same place. Made up; first-order effect on the seam is in the I/O panel.', onChange: v => { ST.rep = v; update(); } });
+  app.io.manual(['Indicating at the prep stand']);
+  ws.setRunout(0.6, WK.RIG.runoutFaceTIR, 20);
+  buildSeats(); setBLbl.show(false);
+  update();
+})();
+</script>
+</body>
+</html>

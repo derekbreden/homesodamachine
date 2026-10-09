@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haptic jog knob</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .hk { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 14px 16px; align-items: start; }
+  .hk h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .hk svg { width: 100%; height: auto; display: block; background: #0b0f14; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .hk text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .hk .lab { fill: #e7ebf1; }
+  .hk table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  .hk th, .hk td { border: 1px solid var(--wk-line); padding: 4px 8px; text-align: left; vertical-align: top; }
+  .hk th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .hk td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .hk .note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-19-haptic-jog",
+  "title": "Haptic jog knob: the hand supplies the motion, software supplies the feel",
+  "by": "borrowed",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "A brushless gimbal motor with a magnetic encoder is a knob whose feel is a program: detents every so many hundredths of a millimetre, a wall where the beam should not go, a soft pull toward where the eye says the seam is, a damper for tremor. Hobby builds (SmartKnob, SimpleFOC haptics) do this with a kit that is on Prime. Here the knob jogs a fine axis and the gun is never touched: the hand supplies the motion, software supplies resistance, and the hand can always overpower it.",
+  "tags": ["haptic", "hand supplies motion", "virtual wall", "detent", "gimbal motor", "jog", "thin region"],
+  "branchOf": [],
+  "combines": ["freedom-14-hand-plus-guidance"],
+  "transferable": ["software-defined detents, walls and damping on a bought knob", "put the guide on the handle, not on the gun", "torque limit as the physical form of hand-is-last-word"],
+  "how": {
+    "motion": "the hand turns the knob; a fine axis moves by ratio mm per turn; software renders torque",
+    "load": "the knob carries nothing but the hand's torque; a stage carries the gun",
+    "reference": "the eye's estimate of the seam (with its bias) sets the soft pull; the stage's end stops set the wall",
+    "observe": "knob angle by a magnetic encoder; the dot by the eye (not drawn)",
+    "use": "jog with feel: count detents blind, stop at a wall, filter tremor"
+  },
+  "software": {
+    "commands": ["motor torque as a function of angle and speed (detents, walls, spring, damper)", "the stage position = angle x ratio"],
+    "observes": ["knob angle (12-bit magnetic encoder)", "the eye's seam estimate"],
+    "manual": ["turning the knob", "deciding what the wall and the pull are for"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-19-haptic-jog.md", "../../explorers/borrowed/ideas/borrowed-09-hand-controller.md", "../../explorers/freedom/ideas/freedom-14-hand-plus-guidance.md"],
+  "sources": ["../../sourcing/borrowed.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = WK.svg, H = WK.h;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, minWidth: 440,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>freedom-14 puts a soft force on the gun so that the hand is helped. Every other arrangement in the study gives software a position to command. A third way is to leave the gun and the hand alone and change what the <b>handle</b> feels like. A brushless gimbal motor with a magnetic encoder, driven by field-oriented control, is a knob whose torque is a function of angle and speed: <b>detents</b> at whatever spacing you choose, <b>walls</b> (software end stops) where the beam should not go, a spring that leans toward the seam, a damper. Open-source builds (SmartKnob; SimpleFOC&rsquo;s haptic examples) do exactly this, and a hollow-shaft gimbal motor with an AS5600 encoder and a SimpleFOC driver is a $35 kit on Prime (sourcing/borrowed.md).</p>' +
+        '<p>Here the knob jogs a fine axis (the radial trim of the dot) by <i>ratio</i> millimetres per turn. Move the stage with the slider or press <b>Sweep</b> to let a hand go back and forth: the plot shows the torque the hand feels at each stage position, the drawing shows where the dot is against the seam and the wall. The gun is never touched, so it can never push: the hand supplies the motion and software supplies resistance, and the motor&rsquo;s torque limit is a physical cap the hand can always overpower.</p>',
+      carries: '<p>The knob carries nothing except the hand&rsquo;s torque. The stage that moves the gun carries the gun (any arrangement with a small radial trim: freedom-05&rsquo;s vernier, the nose stage of freedom-01b, a hexapod leg). The knob and the stage are joined by software: stage position = knob angle &times; ratio, or, in the leader-follower reading (borrowed-09), the knob follows the stage when software moves it and the hand feels the correction.</p>',
+      software: '<p>Software renders torque at kilohertz from the encoder angle: T = detent + wall + guide + damper + cogging compensation, clipped to the motor&rsquo;s limit. It commands the stage from the same angle. What it observes is the knob&rsquo;s angle and speed; the dot is the eye&rsquo;s job.</p>',
+      tried: '<p><b>Round 1: the wall is advice, not a stop.</b> The wall&rsquo;s torque is clipped at the motor&rsquo;s limit (60 mN&middot;m here, illustrative), and a hand turning a 30 mm knob can exert an order of magnitude more. A hand can push through it, which is the property freedom-14 wanted (hand is the last word). It also means a wall protects nothing: the stage&rsquo;s own end stops and software limits do.</p>' +
+        '<p><b>Round 2: the pull toward the seam carries the eye&rsquo;s bias.</b> Set the eye&rsquo;s seam estimate 0.2 mm off and the soft spring leans the hand toward the wrong place, exactly as freedom-14 entry 3 says of a centring force on the gun. The difference is that the hand feels it on the knob, can turn it off, and the gun never moved by itself.</p>' +
+        '<p><b>Round 3: detents must beat cogging.</b> Hobby gimbal motors have moderate to severe cogging (the SmartKnob project says nearly every tested off-the-shelf motor does): a periodic torque that the detents have to exceed to be felt, and that a smooth-rotation mode cannot hide. The cogging slider adds it; software can measure and cancel it in a calibration turn.</p>' +
+        '<p><b>Round 4: resolution is not the limit.</b> A 12-bit encoder is 0.088&deg; per count: 0.24 micrometre of stage per count at 1 mm per turn. The hand&rsquo;s own angular control (about a degree) is 2.8 micrometres. What the ratio trades is speed against how much a shaky hand moves the dot: 0.2 mm per turn makes a 10&deg; tremor 6 micrometres.</p>',
+      unresolved: '<ul><li>The torque a bought hollow-shaft gimbal motor can render, and its cogging, are on no listing read: <b>unchecked</b>. The scene&rsquo;s 60 mN&middot;m limit and 4 mN&middot;m cogging are placeholders.</li>' +
+        '<li>Whether the hand on a knob is a better jog than the SpaceMouse puck (borrowed-09) or the hand on the gun (freedom-14), and whether feel helps at all: nobody has tried a hand on this. It needs a printed knob and an afternoon.</li>' +
+        '<li>A hand turning a knob watches the dot on a screen with the delay of the eye (freedom-14 entry 2): the loop through the hand is still there.</li></ul>',
+      assumptions: '<ul><li>Illustrative: 12-bit encoder (AS5600 class, 0.087&deg;), ratio 1 mm/turn, detents 0.05 mm with 12 mN&middot;m, wall 0.30 mm on the wall side of the eye&rsquo;s seam estimate and a retract wall at &minus;4 mm, guide 6 mN&middot;m/mm capped at 10 mN&middot;m, damping 2 mN&middot;m&middot;s/rad, cogging 4 mN&middot;m at 84 cycles per turn (12N14P), torque limit 60 mN&middot;m.</li>' +
+        '<li>Hardware facts from Prime listings (sourcing/borrowed.md: 2804 hollow-shaft gimbal motor kit with AS5600 and SimpleFOC driver, $34.88, 16 ratings, &lsquo;50+ bought&rsquo;) and from search results on the SmartKnob and SimpleFOC projects: unchecked against their repositories.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code> (wave 1: the hollow-shaft gimbal motor kit; wave 2: the SmartKnob and SimpleFOC references).</p>',
+    },
+  });
+
+  const P = { ratio: 1.0, det: 0.05, detA: 12, wallOn: true, wallX: 0.30, wallK: 1.5, guideK: 6, guideMax: 10, bias: 0.0, damp: 2.0, cog: 4, tmax: 60, x: -1.2, sweep: false, span: 1.0, speed: 0.5 };
+  const eyeSeam = () => P.bias;            // the eye's estimate of the seam position in stage mm (true seam is at 0)
+  function torque(x, omega) {                 // mN*m, positive = pushes toward +x (the hand feels the opposite)
+    let T = 0;
+    if (P.det > 0) T += -P.detA * Math.sin(2 * Math.PI * x / P.det);
+    if (P.wallOn) { const xw = eyeSeam() + P.wallX; if (x > xw) T += -P.wallK * (x - xw) / P.ratio * 360; if (x < -4) T += -P.wallK * (x + 4) / P.ratio * 360; }
+    if (P.guideK > 0) T += Math.max(-P.guideMax, Math.min(P.guideMax, -P.guideK * (x - eyeSeam())));
+    T += -P.damp * omega;
+    if (P.cog > 0) T += P.cog * Math.sin(2 * Math.PI * 84 * (x / P.ratio));
+    return Math.max(-P.tmax, Math.min(P.tmax, T));
+  }
+  // ---------- layout
+  const root = H('div', { class: 'hk' }); app.stageEl.appendChild(root);
+  const VW = 640, VH = 400, svg = S('svg', { viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'the knob, the stage and the seam' });
+  const cx = 120, cy = 120, R = 84;
+  const knob = S('g'), ring = S('circle', { cx: cx, cy: cy, r: R, fill: '#1a2230', stroke: '#8ea0bd', 'stroke-width': 2 });
+  const ticks = S('g'), pointer = S('line', { stroke: '#f5a524', 'stroke-width': 4, 'stroke-linecap': 'round' }), hub = S('circle', { cx: cx, cy: cy, r: 12, fill: '#2a3441', stroke: '#8ea0bd' });
+  const arrowT = S('path', { fill: 'none', stroke: '#f87171', 'stroke-width': 4, 'marker-end': 'url(#ah)' });
+  const defs = S('defs'); defs.appendChild(S('marker', { id: 'ah', markerWidth: 8, markerHeight: 8, refX: 6, refY: 4, orient: 'auto' }, S('path', { d: 'M0,0 L8,4 L0,8 z', fill: '#f87171' })));
+  svg.append(defs, ring, ticks, pointer, hub, arrowT, S('text', { x: cx - 40, y: cy + R + 22, class: 'lab', text: 'knob on a gimbal motor' }), S('text', { x: cx - 60, y: cy + R + 36, text: 'encoder 12 bit, torque rendered by software' }));
+  // stage picture: horizontal axis, seam at 0, wall to the right
+  const X0 = 480, XS = 76, YS = 300;             // px per mm, y of the axis
+  const gx = mm => X0 + mm * XS;
+  const axis = S('line', { x1: gx(-5), y1: YS, x2: gx(1.4), y2: YS, stroke: '#394559' });
+  svg.append(S('rect', { x: gx(0), y: YS - 34, width: gx(1.4) - gx(0), height: 68, fill: '#3a4453' }), S('text', { x: gx(0) + 6, y: YS - 40, text: 'tube wall (+radial)' }), axis);
+  const tickG = S('g'); svg.appendChild(tickG);
+  const seamL = S('line', { x1: gx(0), y1: YS - 34, x2: gx(0), y2: YS + 34, stroke: '#14b8a6', 'stroke-width': 2 }), eyeL = S('line', { stroke: '#a78bfa', 'stroke-width': 2, 'stroke-dasharray': '4 3' });
+  const wallL = S('rect', { fill: 'rgba(239,68,68,.25)', stroke: '#ef4444' }), dotC = S('circle', { r: 7, fill: '#ff3b30', stroke: '#fff' }), tolB = S('rect', { fill: 'rgba(20,184,166,.18)' });
+  svg.append(tolB, wallL, seamL, eyeL, dotC, S('text', { x: gx(0) - 20, y: YS + 52, style: 'fill:#14b8a6', text: 'seam' }), S('text', { x: gx(-5), y: YS + 52, text: '-5 mm' }));
+  const eyeLab = S('text', { class: 'lab' }); svg.appendChild(eyeLab);
+  const cap = H('p', { class: 'note' });
+  // torque plot
+  const CW = 620, CH = 250, plot = S('svg', { viewBox: '0 0 ' + CW + ' ' + CH });
+  const tbl = H('div');
+  const left = H('div', null, H('h3', { text: 'The knob, the stage and the seam' }), svg, cap);
+  const right = H('div', null, H('h3', { text: 'Torque the motor renders against stage position (mN·m; the hand feels the opposite)' }), plot, tbl);
+  root.append(left, right);
+
+  function drawStatic() {
+    ticks.innerHTML = '';
+    const n = 24; for (let i = 0; i < n; i++) { const a = i / n * 2 * Math.PI, r0 = R - 8, r1 = R; ticks.appendChild(S('line', { x1: cx + r0 * Math.cos(a), y1: cy + r0 * Math.sin(a), x2: cx + r1 * Math.cos(a), y2: cy + r1 * Math.sin(a), stroke: '#556074' })); }
+    tickG.innerHTML = '';
+    if (P.det > 0 && P.det * XS >= 2.2) for (let m = Math.ceil(-5 / P.det); m * P.det <= 1.4; m++) tickG.appendChild(S('line', { x1: gx(m * P.det), y1: YS - 5, x2: gx(m * P.det), y2: YS + 5, stroke: '#6b7a90' }));
+    else if (P.det > 0) tickG.appendChild(S('text', { x: gx(-5), y: YS - 10, text: 'detents every ' + P.det.toFixed(3) + ' mm: too fine to draw' }));
+    const e = eyeSeam(); eyeL.setAttribute('x1', gx(e)); eyeL.setAttribute('x2', gx(e)); eyeL.setAttribute('y1', YS - 34); eyeL.setAttribute('y2', YS + 34);
+    eyeLab.setAttribute('x', gx(e) - 20); eyeLab.setAttribute('y', YS + 68); eyeLab.textContent = 'eye says the seam is here' + (Math.abs(e) > 1e-6 ? ' (bias ' + e.toFixed(2) + ' mm)' : '');
+    const xw = e + P.wallX; wallL.setAttribute('x', gx(xw)); wallL.setAttribute('y', YS - 34); wallL.setAttribute('width', Math.max(0, gx(1.4) - gx(xw))); wallL.setAttribute('height', 68); wallL.setAttribute('visibility', P.wallOn ? 'visible' : 'hidden');
+    tolB.setAttribute('x', gx(-0.15)); tolB.setAttribute('width', 0.3 * XS); tolB.setAttribute('y', YS - 34); tolB.setAttribute('height', 68);
+  }
+  function drawMoving() {
+    const x = P.x, ang = x / P.ratio * 2 * Math.PI - Math.PI / 2, a = ang;
+    pointer.setAttribute('x1', cx); pointer.setAttribute('y1', cy); pointer.setAttribute('x2', cx + (R - 4) * Math.cos(a)); pointer.setAttribute('y2', cy + (R - 4) * Math.sin(a));
+    dotC.setAttribute('cx', gx(Math.max(-5, Math.min(1.4, x)))); dotC.setAttribute('cy', YS);
+    const T = torque(x, omega), rr = R + 16, sgn = T >= 0 ? 1 : -1, span = Math.min(1.2, Math.abs(T) / 60 * 1.2);
+    // torque arrow around the knob (direction the motor pushes)
+    if (Math.abs(T) > 0.2) { const a0 = a + sgn * 0.15, a1 = a + sgn * (0.15 + span); arrowT.setAttribute('d', 'M ' + (cx + rr * Math.cos(a0)) + ' ' + (cy + rr * Math.sin(a0)) + ' A ' + rr + ' ' + rr + ' 0 0 ' + (sgn > 0 ? 1 : 0) + ' ' + (cx + rr * Math.cos(a1)) + ' ' + (cy + rr * Math.sin(a1))); arrowT.setAttribute('visibility', 'visible'); } else arrowT.setAttribute('visibility', 'hidden');
+    cap.textContent = 'stage at ' + x.toFixed(3) + ' mm from the seam (' + (x / P.ratio * 360).toFixed(0) + '° of turn); torque rendered ' + T.toFixed(1) + ' mN·m' + (Math.abs(T) >= P.tmax - 0.01 ? ' (at the motor limit)' : '');
+    const xs = plot.querySelector('.cursor'); if (xs) { const px = plotX(x); xs.setAttribute('x1', px); xs.setAttribute('x2', px); }
+  }
+  let omega = 0;
+  const plotX = x => 50 + (x - (P.x0)) / (P.span) * (CW - 60);
+  function drawPlot() {
+    P.x0 = Math.max(-5, Math.min(1.4 - P.span, P.x - P.span / 2));
+    plot.innerHTML = '';
+    const yT = t => CH / 2 - t / (P.tmax * 1.15) * (CH / 2 - 16);
+    plot.append(S('line', { x1: 50, y1: CH / 2, x2: CW - 8, y2: CH / 2, stroke: '#394559' }), S('line', { x1: 50, y1: yT(P.tmax), x2: CW - 8, y2: yT(P.tmax), stroke: '#ef4444', 'stroke-dasharray': '4 3' }), S('line', { x1: 50, y1: yT(-P.tmax), x2: CW - 8, y2: yT(-P.tmax), stroke: '#ef4444', 'stroke-dasharray': '4 3' }));
+    plot.append(S('text', { x: 2, y: yT(P.tmax) + 4, text: '+' + P.tmax + ' limit' }), S('text', { x: 2, y: yT(-P.tmax) + 4, text: '−' + P.tmax }));
+    const pts = []; const N = 1600; for (let i = 0; i <= N; i++) { const x = P.x0 + i / N * P.span; pts.push((50 + i / N * (CW - 60)).toFixed(1) + ',' + yT(torque(x, 0)).toFixed(1)); }
+    plot.appendChild(S('polyline', { fill: 'none', stroke: '#f5a524', 'stroke-width': 1.5, points: pts.join(' ') }));
+    const ee = eyeSeam(); [[0, '#14b8a6', 'seam'], [ee, '#a78bfa', 'eye'], [ee + P.wallX, '#ef4444', 'wall']].forEach(v => { if (v[0] >= P.x0 && v[0] <= P.x0 + P.span && (v[2] !== 'wall' || P.wallOn) && (v[2] !== 'eye' || Math.abs(ee) > 1e-6)) plot.append(S('line', { x1: plotX(v[0]), y1: 4, x2: plotX(v[0]), y2: CH - 18, stroke: v[1], 'stroke-dasharray': '3 3' }), S('text', { x: plotX(v[0]) + 3, y: 14, style: 'fill:' + v[1], text: v[2] })); });
+    plot.append(S('line', { class: 'cursor', x1: plotX(P.x), y1: 2, x2: plotX(P.x), y2: CH - 18, stroke: '#fff', 'stroke-width': 1.6 }));
+    for (let k = 0; k <= 4; k++) { const v = P.x0 + P.span * k / 4; plot.append(S('text', { x: plotX(v) - 14, y: CH - 4, text: v.toFixed(2) + ' mm' })); }
+  }
+  function drawTable() {
+    const cntRev = P.det > 0 ? (P.ratio / P.det) : 0, degDet = P.det > 0 ? 360 * P.det / P.ratio : 0, umCount = P.ratio / 4096 * 1000, tremor = 10 * Math.PI / 180 / (2 * Math.PI) * P.ratio * 1000;
+    const rows = [
+      ['Encoder resolution at the stage', umCount.toFixed(2) + ' µm per count', '12 bit = 4096 counts per turn = 0.088°; ratio ' + P.ratio.toFixed(2) + ' mm per turn'],
+      ['A detent every', P.det > 0 ? P.det.toFixed(3) + ' mm = ' + degDet.toFixed(1) + '°' : 'off', P.det > 0 ? cntRev.toFixed(1) + ' detents per turn; ' + Math.round(5.4 / P.det) + ' across the 5.4 mm range' : ''],
+      ['A hand tremor of 10° moves the dot', tremor.toFixed(1) + ' µm', 'ratio times angle: the ratio is the gear between a shaky hand and the dot'],
+      ['Wall', P.wallOn ? P.wallK.toFixed(1) + ' mN·m per degree from ' + (eyeSeam() + P.wallX).toFixed(2) + ' mm' : 'off', 'clipped at ' + P.tmax + ' mN·m: the hand can push through'],
+      ['Guide toward the eye’s seam', P.guideK > 0 ? P.guideK.toFixed(1) + ' mN·m/mm, capped at ' + P.guideMax + ' mN·m' : 'off', Math.abs(eyeSeam()) > 1e-6 ? 'pulls toward ' + eyeSeam().toFixed(2) + ' mm: the eye’s bias is felt as a push, on the knob' : 'the eye is unbiased here'],
+      ['Cogging of the motor', P.cog.toFixed(1) + ' mN·m', P.det > 0 ? (P.cog < P.detA ? 'below the detents: clicks are felt over it' : 'not below the detents: clicks are lost in it') : 'no detents to compare with'],
+    ];
+    tbl.innerHTML = '<table><tr><th>Quantity</th><th>Value</th><th>Reading</th></tr>' + rows.map(r => '<tr><td>' + r[0] + '</td><td class="n">' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</table><p class="note">Torque model: detent = A sin(2πx/d); wall and guide are springs on stage position; damper is cω; cogging is 84 cycles per turn; all clipped at the motor limit. Nothing here is measured; the motor’s real limit and cogging are on no listing read.</p>';
+    app.io.set({
+      commands: [{ name: 'Motor torque', value: torque(P.x, omega).toFixed(1), unit: 'mN·m', note: 'a function of angle and speed, at kilohertz' }, { name: 'Stage position', value: P.x.toFixed(3), unit: 'mm from the seam', note: 'knob angle × ratio' }],
+      observes: [{ name: 'Knob angle and speed', value: (P.x / P.ratio * 360).toFixed(0) + '°', status: 'seen', note: '12-bit magnetic encoder' }, { name: 'The dot vs the seam', value: 'the eye', status: 'partly', note: 'not drawn; its bias moves the guide' }],
+      manual: ['Turn the knob', 'Decide what the wall and the guide are for'],
+    });
+    app.badge('bias', Math.abs(eyeSeam()) > 0.05 ? 'the eye is ' + eyeSeam().toFixed(2) + ' mm off: the guide leans the hand toward the wrong place' : null, 'warn');
+    app.badge('cog', P.det > 0 && P.cog >= P.detA ? 'cogging (' + P.cog + ' mN·m) is not below the detent strength: clicks are lost' : null, 'warn');
+  }
+  function redraw() { drawStatic(); drawPlot(); drawMoving(); drawTable(); }
+  // sweep animation: a "hand" going back and forth across the seam
+  let ts = 0, xPrev = P.x;
+  app.onFrame(function (dt) {
+    if (!P.sweep) { omega = 0; return false; }
+    ts += Math.min(dt, 0.1);
+    const xn = -1.3 + 1.3 * Math.sin(2 * Math.PI * P.speed * ts / 3);   // mm; a slow to-and-fro
+    omega = ((xn - P.x) / Math.max(dt, 1e-3)) / P.ratio * 2 * Math.PI; P.x = xn; app.ui.set('x', Math.round(xn * 1000) / 1000, { silent: true });
+    drawPlot(); drawMoving(); drawTable(); return true;
+  });
+  const g1 = app.ui.group('The hand (scene edits)');
+  g1.slider({ id: 'x', label: 'Stage position from the seam (the hand turns the knob)', min: -4.5, max: 1.2, step: 0.005, value: -1.2, unit: 'mm', kind: 'scene', help: 'The dot is at the seam at 0; positive is into the wall.', onChange: v => { P.x = v; omega = 0; redraw(); } });
+  g1.toggle({ id: 'sweep', label: 'Sweep: a hand goes back and forth across the seam', kind: 'view', value: false, onChange: v => { P.sweep = v; ts = 0; if (v) app.animate(true); else { omega = 0; redraw(); } } });
+  g1.slider({ id: 'span', label: 'Plot window', min: 0.3, max: 5.4, step: 0.1, value: 1.0, unit: 'mm', kind: 'view', onChange: v => { P.span = v; redraw(); } });
+  const g2 = app.ui.group('What software renders (the program)');
+  const sl = (g, id, label, min, max, step, val, unit, key, help, extra) => g.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'actuator', help: help, onChange: v => { P[key] = v; redraw(); } });
+  sl(g2, 'ratio', 'Ratio: stage per turn of the knob', 0.2, 10, 0.1, 1.0, 'mm/turn', 'ratio', 'A T6×1 screw is 1 mm per turn.');
+  sl(g2, 'det', 'Detent spacing (0 = off)', 0, 0.5, 0.005, 0.05, 'mm', 'det', 'Counting clicks blind: 0.05 mm at 1 mm/turn is 18°.');
+  sl(g2, 'detA', 'Detent strength', 0, 50, 0.5, 12, 'mN·m', 'detA');
+  g2.toggle({ id: 'wallOn', label: 'Wall beyond the eye’s seam (software end stop)', kind: 'actuator', value: true, onChange: v => { P.wallOn = v; redraw(); } });
+  sl(g2, 'wallX', 'Wall position past the eye’s seam', 0, 1.2, 0.01, 0.30, 'mm', 'wallX');
+  sl(g2, 'wallK', 'Wall stiffness', 0.1, 6, 0.1, 1.5, 'mN·m/°', 'wallK');
+  sl(g2, 'guideK', 'Guide toward the eye’s seam (0 = off)', 0, 30, 0.5, 6, 'mN·m/mm', 'guideK', 'freedom-14’s centring, on the handle.');
+  sl(g2, 'guideMax', 'Cap on the guide', 1, 40, 0.5, 10, 'mN·m', 'guideMax');
+  g2.slider({ id: 'damp', label: 'Viscous damping', min: 0, max: 20, step: 0.5, value: 2, unit: 'mN·m·s/rad', kind: 'actuator', noVisual: true, help: 'Felt only while the knob moves (use Sweep).', onChange: v => { P.damp = v; redraw(); } });
+  const g3 = app.ui.group('The hardware and the eye (scene edits)');
+  const s3 = (id, label, min, max, step, val, unit, key, help) => g3.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'scene', help: help, onChange: v => { P[key] = v; redraw(); } });
+  s3('bias', 'The eye’s bias on the seam', -0.4, 0.4, 0.01, 0, 'mm', 'bias', 'The loop cannot see its own bias (eyes-01).');
+  s3('cog', 'Motor cogging', 0, 30, 0.5, 4, 'mN·m', 'cog', 'Unmeasured; hobby gimbal motors cog moderately to severely.');
+  s3('tmax', 'Motor torque limit', 10, 200, 1, 60, 'mN·m', 'tmax', 'Unmeasured placeholder.');
+  redraw();
+})();
+</script>
+</body>
+</html>

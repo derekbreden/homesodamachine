@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coarse stage, fine stage budget</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .r7 svg { display: block; width: 100%; height: auto; background: #0f141b; border-radius: 8px; }
+  .r7 text { font: 12.5px system-ui, sans-serif; fill: #cbd5e1; }
+  .r7 .d { fill: #93a1b5; font-size: 11.5px; }
+  .r7 .b { font-weight: 600; fill: #e7ebf1; }
+  .r7 .grid { stroke: #232d3b; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-07-coarse-fine-budget",
+  "title": "How much is left for the fine stage?",
+  "by": "room",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "Not an arrangement: a way to read the family. For each way of letting the room place the tube and the gun, it lists what still moves the corner relative to the dot (hand placement, hole clearance, dock repeat, nest fit, runout, plate depth) and draws the sideways and vertical range a fine stage would have to cover. Worst-case sum and root-sum-square are both drawn. Rows are in a fixed order and nothing is ranked; the inputs are the uncertain part.",
+  "tags": ["lens", "budget", "tolerance", "fine-stage", "coarse-stage", "comparison", "observer"],
+  "branchOf": [],
+  "combines": ["room-01-table-opening", "room-05-drawer-cell", "room-04-orbit-the-gun"],
+  "transferable": ["worst-case vs root-sum-square roll-up", "coarse stage = registration, not range"],
+  "how": {
+    "motion": "nothing moves: sliders change the inputs",
+    "load": "not applicable",
+    "reference": "each row names the datum that sets the tube-to-gun relation",
+    "observe": "not applicable",
+    "use": "read which inputs decide the fine stage's travel"
+  },
+  "software": { "commands": [], "observes": [], "manual": ["measure the inputs marked unknown (tube seat depth, hole clearance, wall thickness variation)"] },
+  "notes": ["../../explorers/room/ideas/room-07-grid-table.md", "../../explorers/room/calc/drawer-rollup.mjs", "../../explorers/room/calc/corner-cords-observer.mjs", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The framing question is how much the room shrinks the fine stage\'s job. Each row is one way the room could place the tube and the gun. The bar runs from the <b>root-sum-square</b> (dot) to the <b>worst-case sum</b> (right end) of the contributions that move the seam relative to the dot. Left: sideways (X, Y at the corner). Right: vertical (Z). The dashed vertical line is a fine-stage half-travel you choose; a row whose worst case crosses it is marked <b>over</b>. The rows are not sorted and this is not a score: it shows which inputs decide the range.</p>',
+      carries: '<p>Nothing carries or moves here. Each row lists its contributions with their source tags: <b>[repo]</b> from the rotator and rig docs (nest clearance 0.20&nbsp;mm radial; accepted runout 0.25&nbsp;mm radial and 0.30&nbsp;mm face TIR, half of each as an offset), <b>[derived]</b> arithmetic (a Ø160 hole around a Ø127 tube), and <b>[illustrative]</b> everything else, including the sliders.</p>',
+      software: '<p>Software does not appear. What matters to it: the wider the range a fine stage must cover, the more it must learn by observing the dot; the narrower, the more a camera-guided loop can be a small correction rather than a search.</p>',
+      tried: '<ul><li><b>"The coarse stage should shrink the range."</b> Mostly it shrinks <i>sideways</i> range, and only if it registers something precise: a loose hole around the tube shrinks nothing in X and Y (±16.5&nbsp;mm), a fitted collar or a kinematic dock shrinks it to a few tenths. My first idea for the grid table was that the hole pitch sets the residual range (pitch/2). <i>Broken:</i> the grid gives <i>registration</i> (repeatable placement of both the rotator and the gun frame), not range: the gun-to-tube offset is a design constant that a printed adapter carries, so the pitch drops out; what remains is dog fit plus grid accuracy.</li>' +
+        '<li><b>Vertical range does not shrink</b> in any row: the plate seat depth varies tube to tube by an unknown amount (±3&nbsp;mm illustrative). Only observing the corner (or measuring each tube) removes it. That is where the dot and the camera are needed most.</li>' +
+        '<li><b>Software-calibrated rows</b> (corner cords, wall port) have a different structure: their sideways range is not set by placement but by how well the software learned the geometry (calibration residual 0.1 to 0.4&nbsp;mm in simulation, depending on what the observer reports: a spot on the plate alone is the worst, a nozzle-height camera or a marker cube the best; eyes, wave 3). They are drawn with that residual plus the tube contributions.</li></ul>',
+      unresolved: '<ul><li>Every [illustrative] input. The three that decide most rows: tube seat depth and length variation, hole clearance or collar fit, hand-placement error of the rotator. All three are Derek\'s to measure with a caliper and a bench.</li><li>Whether root-sum-square or worst-case is the honest way to combine them: it depends on whether errors are independent and how often the tail matters.</li></ul>',
+      assumptions: '<ul><li>Half of a TIR runout is taken as an eccentricity amplitude.</li><li>Only contributions that move the corner relative to the dot are listed: tube tilt, wire tip and process effects are not.</li><li>Grid row: dog fit 0.10&nbsp;mm and grid accuracy 0.15&nbsp;mm are guesses (the Festool-style 96&nbsp;mm grid is a copied pattern; no accuracy figure was found).</li></ul>',
+    },
+  });
+  const S = { hand: 5, hole: 160, collar: 0.2, dock: 0.04, ring: 0.08, wall: 0.16, seat: 3, fine: 3, grid: 0.25, cal: 0.135, mode: 'both', obs: 'plane+nz', depthPic: false, depthNoise: 0.03 };
+  const OBS_CAL = { dot3d: [0.11, '3-D dot (no camera reports it)'], plane: [0.4, 'spot on the plate only'], 'plane+nz': [0.135, 'spot + nozzle height'], tags: [0.11, 'marker cube on the shell'] };   // mm rms, calc/corner-cords-observer.mjs (8 seeds, N 40) [illustrative]
+  const seatTerm = () => (S.depthPic ? ['plate depth read from a picture at loading', S.depthNoise, 'illustrative'] : ['plate seat depth', S.seat, 'unknown']);
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = WK.svg('svg', { viewBox: '0 0 1000 640', role: 'img', 'aria-label': 'range a fine stage would need under each arrangement' });
+  const box = document.createElement('div'); box.className = 'r7'; box.appendChild(svg); app.stageEl.appendChild(box);
+  const el = (tag, attrs, parent) => { const n = WK.svg(tag, attrs); (parent || svg).appendChild(n); return n; };
+  const colors = { rss: '#93c5fd', worst: WK.roleHex('load'), over: '#f87171', line: WK.roleHex('actuated') };
+  const rss = a => Math.sqrt(a.reduce((s, v) => s + v * v, 0)), sum = a => a.reduce((s, v) => s + v, 0);
+  function rows() {
+    const nest = 0.20, run = 0.25 / 2, face = 0.30 / 2, holeClr = Math.max(0, (S.hole - 127) / 2);
+    return [
+      { name: 'Bench: rotator hand-clamped, gun structure on the bench', src: 'room bench', xy: [['hand placement', S.hand, 'illustrative'], ['nest ID pilot clearance', nest, 'repo'], ['indicated runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+      { name: 'Table hole, loose (room-01)', src: 'table', xy: [['hole clearance (D' + S.hole + ' around D127)', holeClr, 'derived'], ['nest clearance', nest, 'repo'], ['runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+      { name: 'Table hole with a fitted collar (room-01 repair)', src: 'table', xy: [['collar centring', S.collar, 'illustrative'], ['nest clearance', nest, 'repo'], ['runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+      { name: 'Grid table with dogs (room-07 sketch)', src: 'grid', xy: [['dog fit + grid accuracy', S.grid, 'illustrative'], ['nest clearance', nest, 'repo'], ['runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+      { name: 'Drawer cell with a kinematic dock (room-05)', src: 'cell', xy: [['dock repeat', S.dock, 'illustrative'], ['nest clearance', nest, 'repo'], ['runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo'], ['dock repeat', S.dock, 'illustrative']] },
+      { name: 'Orbit with a steady ring on the OD (room-04)', src: 'orbit', xy: [['steady ring centring', S.ring, 'illustrative'], ['wall-thickness eccentricity', S.wall, 'illustrative'], ['orbit bearing runout', 0.2, 'illustrative']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+      { name: 'Software-calibrated (room-06 cords, room-03 port)', src: 'software', xy: [['calibration residual, observer: ' + OBS_CAL[S.obs][1], S.cal, 'illustrative (sim)'], ['nest clearance', nest, 'repo'], ['runout / 2', run, 'repo']], z: [seatTerm(), ['face runout / 2', face, 'repo']] },
+    ];
+  }
+  const LX0 = 40, LX1 = 470, RX0 = 530, RX1 = 960;     // sideways panel, vertical panel
+  const vmin = 0.1, vmax = 25;
+  const X = (v, x0, x1) => x0 + (Math.log(Math.max(v, vmin) / vmin) / Math.log(vmax / vmin)) * (x1 - x0);
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    try { app.ui.enable('depthnoise', S.depthPic); } catch (e) { /* control not built yet */ }
+    el('text', { x: LX0, y: 26, class: 'b', text: 'Sideways range at the corner, X and Y (+/- mm, log scale)' });
+    el('text', { x: RX0, y: 26, class: 'b', text: 'Vertical range, Z (+/- mm, log scale)' });
+    [0.1, 0.3, 1, 3, 10].forEach(v => { [[LX0, LX1], [RX0, RX1]].forEach(p => { const x = X(v, p[0], p[1]); el('line', { x1: x, y1: 36, x2: x, y2: 612, class: 'grid' }); el('text', { x: x - 6, y: 630, class: 'd', text: String(v) }); }); });
+    const fx = [X(S.fine, LX0, LX1), X(S.fine, RX0, RX1)];
+    el('line', { x1: fx[0], y1: 36, x2: fx[0], y2: 612, stroke: colors.line, 'stroke-dasharray': '5 4', 'stroke-width': 1.6 }); el('line', { x1: fx[1], y1: 36, x2: fx[1], y2: 612, stroke: colors.line, 'stroke-dasharray': '5 4', 'stroke-width': 1.6 });
+    el('text', { x: fx[0] + 4, y: 50, class: 'd', text: 'fine stage +/-' + S.fine + ' mm' });
+    const R = rows(); const h = 84;
+    R.forEach((r, i) => {
+      const y0 = 60 + i * h;
+      el('text', { x: LX0, y: y0 + 8, class: 'b', text: r.name });
+      const xy = r.xy.map(c => c[1]), z = r.z.map(c => c[1]);
+      [[xy, LX0, LX1, r.xy], [z, RX0, RX1, r.z]].forEach((p, k) => {
+        const lo = rss(p[0]), hi = sum(p[0]), xa = X(lo, p[1], p[2]), xb = X(hi, p[1], p[2]), over = hi > S.fine;
+        el('rect', { x: xa, y: y0 + 20, width: Math.max(2, xb - xa), height: 14, rx: 3, fill: over ? colors.over : colors.worst, opacity: 0.85 });
+        el('circle', { cx: xa, cy: y0 + 27, r: 5, fill: colors.rss, stroke: '#0f141b' });
+        const late = xb > p[2] - 170; el('text', { x: late ? xa - 10 : xb + 8, y: y0 + 32, 'text-anchor': late ? 'end' : 'start', text: '+/-' + lo.toFixed(2) + ' to ' + hi.toFixed(2) + (over ? '  over' : '') });
+        const list = p[3].map(c => c[0] + ' ' + c[1].toFixed(2) + ' [' + c[2].split(' ')[0] + ']').join('; ');
+        el('text', { x: p[1], y: y0 + 52, class: 'd', text: list.length > 92 ? list.slice(0, 90) + '..' : list });
+      });
+    });
+    el('text', { x: LX0, y: 636, class: 'd', text: 'dot = root-sum-square, bar end = worst-case sum. Tags: [repo] docs, [derived] arithmetic, [illustrative] chosen, [unknown] not measured.' });
+    app.io.set({ commands: [], observes: [], manual: ['Measure plate seat depth and tube length over a dozen tubes', 'Measure how loose a hole or collar would really be', 'Measure hand placement error of the clamped rotator'] });
+  }
+  const g = app.ui.group('Inputs (scene edits: numbers, not hardware)', {});
+  g.slider({ id: 'fine', label: 'Fine stage half-travel to compare against', min: 0.5, max: 20, step: 0.5, value: 3, unit: 'mm', kind: 'scene', help: 'Dashed line. A row over the line is flagged; not a verdict.', onChange: v => { S.fine = v; render(); } });
+  g.slider({ id: 'hand', label: 'Hand placement error of the clamped rotator', min: 1, max: 10, step: 0.5, value: 5, unit: 'mm', kind: 'scene', onChange: v => { S.hand = v; render(); } });
+  g.slider({ id: 'hole', label: 'Table hole diameter', min: 130, max: 200, step: 1, value: 160, unit: 'mm', kind: 'scene', help: 'Tube OD is 127 mm.', onChange: v => { S.hole = v; render(); } });
+  g.slider({ id: 'collar', label: 'Fitted collar centring', min: 0.05, max: 0.5, step: 0.01, value: 0.2, unit: 'mm', kind: 'scene', onChange: v => { S.collar = v; render(); } });
+  g.slider({ id: 'grid', label: 'Grid: dog fit + grid accuracy', min: 0.05, max: 1, step: 0.05, value: 0.25, unit: 'mm', kind: 'scene', onChange: v => { S.grid = v; render(); } });
+  g.slider({ id: 'dock', label: 'Kinematic dock repeat', min: 0.01, max: 0.15, step: 0.01, value: 0.04, unit: 'mm', kind: 'scene', onChange: v => { S.dock = v; render(); } });
+  g.slider({ id: 'ring', label: 'Steady ring centring', min: 0.02, max: 0.3, step: 0.01, value: 0.08, unit: 'mm', kind: 'scene', onChange: v => { S.ring = v; render(); } });
+  g.slider({ id: 'wall', label: 'Wall-thickness eccentricity (OD vs ID)', min: 0, max: 0.4, step: 0.01, value: 0.16, unit: 'mm', kind: 'scene', onChange: v => { S.wall = v; render(); } });
+  g.slider({ id: 'cal', label: 'Calibration residual (software rows)', min: 0.02, max: 0.5, step: 0.01, value: 0.135, unit: 'mm', kind: 'scene', help: 'Set by the observer choice below, then free to move.', onChange: v => { S.cal = v; render(); } });
+  g.radio({ id: 'obs', label: 'What the software rows see (observer)', kind: 'branch', value: 'plane+nz', options: [{ value: 'dot3d', label: '3-D dot', help: 'What the first version assumed: about 0.11 mm.' }, { value: 'plane', label: 'Spot on the plate', help: 'One camera on the spot: about 0.4 mm (median 0.22).' }, { value: 'plane+nz', label: 'Spot + nozzle height', help: 'A second camera at rim height: about 0.135 mm.' }, { value: 'tags', label: 'Marker cube', help: 'Cameras on a marker cube on the shell: about 0.11 mm and the aim.' }], onChange: v => { S.obs = v; app.ui.set('cal', OBS_CAL[v][0], { silent: true }); S.cal = OBS_CAL[v][0]; render(); } });
+  g.toggle({ id: 'depthpic', label: 'Plate depth measured per tube from a picture', value: false, kind: 'scene', help: 'Replaces the plate-seat-depth term in every row by the picture\'s error. Something (the shelf, a gun axis, a stored offset) must still apply the number.', onChange: v => { S.depthPic = v; render(); } });
+  g.slider({ id: 'depthnoise', label: 'Depth read from a picture: error', min: 0.01, max: 0.3, step: 0.01, value: 0.03, unit: 'mm', kind: 'scene', help: 'A camera across the bore sees the rim edge and the plate-wall corner in one frame (eyes-16). Illustrative.', onChange: v => { S.depthNoise = v; render(); } });
+  g.slider({ id: 'seat', label: 'Plate seat depth variation', min: 0.5, max: 6, step: 0.25, value: 3, unit: 'mm', kind: 'scene', help: 'Unknown; this is the input that sets every row\'s vertical range.', onChange: v => { S.seat = v; render(); } });
+})();
+</script>
+</body>
+</html>

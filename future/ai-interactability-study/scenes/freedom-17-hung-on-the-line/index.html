@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hung on the fibre's line</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-17-hung-on-the-line",
+  "title": "Hung on the fibre's line: a sled pivot on the roll axis, drawn in the kit's geometry",
+  "by": "freedom",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Answers the question borrowed put to the plumb-bob gun: place the pivot on the fibre's line so the cable has no lever, and let the keel and trim do the rest. The scene puts the pivot on the roll axis (the line through the dot and the grip base) at a distance you choose and hangs a keel on it, in the side view of the kit's gun. It reads the balance the keel needs, the gravity spring that results, whether the keel clears the bench and the tube, and what a tiny sideways force at the boot exit does: gravity is too weak a spring for any cable route that lets go 700 mm from the pivot.",
+  "tags": ["gravity tilt", "keel", "pivot on the line", "roll axis", "lever", "stabiliser sled", "lens on an arrangement"],
+  "branchOf": ["freedom-08-gravity-tilt"],
+  "combines": ["freedom-08-gravity-tilt", "borrowed-15-sled-keel"],
+  "transferable": ["a pivot on the pull's line: no torque", "stiffness needed = torque step / tilt", "a keel balances as well as it springs"],
+  "how": {
+    "motion": "none in the scene: a side-view balance and stiffness diagram; the trim mass and keel are set by hand",
+    "load": "the pivot carries the gun, keel and the cable's weight share; an arm or balancer carries the pivot",
+    "reference": "gravity: the plumb line through the pivot and the centre of mass, plus a bridle if one is added",
+    "observe": "tilt by an IMU (eyes-11); the trim mass by step count",
+    "use": "read where on the line the pivot can be and whether gravity could ever hold against the cable"
+  },
+  "software": {
+    "commands": ["trim mass along the shell (as freedom-08)", "nothing else in this scene"],
+    "observes": ["tilt from an IMU on the shell", "sideways force at the boot exit from a load cell in the rail cord (freedom-16)"],
+    "manual": ["choosing and printing the pivot bracket", "sizing and placing the keel", "routing the fibre"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-17-hung-on-the-line.md", "../../explorers/freedom/ideas/freedom-08-gravity-tilt.md", "../../exchange/freedom--reply-to-borrowed-w3.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script>
+(function () {
+  const FS = FreedomStatics, D2R = Math.PI / 180, G = 9.80665, svgel = WK.svg;
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>freedom-08 hangs the gun from a pivot above its centre of mass and lets gravity restore the tilt; borrowed-15 adds a keel and a damper. borrowed asked whether the pivot should go <b>on the fibre’s line</b>, so the cable has no lever about it, with the keel and trim doing the rest. The line is the roll axis: from the dot to the grip base and beyond. A force along it has no torque about any point on it, and the fibre’s straight span (freedom-16, route D) lies on it.</p>' +
+        '<p>This is the side view of the kit’s gun at roll 0 (illustrative geometry, mass 1.2 kg, centre of mass 178 mm behind the nozzle). Slide the <i>pivot along the line</i>. The <b>keel</b> hangs below it, and the scene puts it as far to the other side as the balance needs (<i>balance automatically</i>): that sideways offset is the price of a pivot that is not above the centre of mass. The right column reads what results: the gravity spring, the period, the clearance, and what a small change of sideways force at the cable’s release point does to the dot.</p>',
+      carries:
+        '<p><b>Amber</b>: the gun, the pivot and the keel carry the weight; the pivot itself is carried by an arm or balancer (not drawn). <b>Teal dashed</b>: the roll axis. <b>Blue</b>: the cable’s sideways force at its release point and the lever it acts on about the pivot. <b>Green</b>: a tail bridle, when you add one. The plumb line through the pivot is grey; the tilt is what happens when the balance is not exact or a force acts.</p>',
+      software:
+        '<p><b>Commands:</b> only the trim mass (freedom-08). <b>Observes:</b> tilt from an inertial sensor on the shell (eyes-11); the sideways force at the release point from a load cell in the rail cord (freedom-16). Nothing else in this scene is commanded or observed. <b>Manual:</b> the pivot bracket, the keel and the fibre’s route.</p>',
+      tried:
+        '<p><b>The line is not where the centre of mass is.</b> With the illustrative centre of mass, a pivot on the roll axis 150 mm from the dot has the centre of mass 74 mm <i>above</i> it (an upside-down hang) and 4 mm to the side; at 200 mm it is 49 mm above and 47 mm to the side; at the grip base (279 mm) 9 mm above and 116 mm to the side. A 0.6 kg keel 200 mm below turns the hang stable (0.14 N\u00b7m/rad at 150 mm, 0.45 at 200, 0.94 at 279) and, hung 42 to 190 mm to one side or the other, balances it. It clears the bench and the tube in this view.</p>' +
+        '<p><b>Gravity cannot hold against the cable.</b> A route that lets go 700 mm out (the S-boot of freedom-16) puts the cable\u2019s weight share (0.6 N) on a lever of about 440 mm about a pivot at 200 mm: 0.26 N\u00b7m, which the keel\u2019s offset balances. What cannot be balanced is a change: 0.03 N of sideways force at that lever is 13 N\u00b7mm; against 0.45 N\u00b7m/rad that is 1.7\u00b0, about 6 mm at the dot. To hold 0.1 mm the spring would have to be about 26 N\u00b7m/rad, sixty times what a 0.6 kg keel gives. The plumb-bob is a trim, not a locator, for every route that lets go far from the pivot.</p>' +
+        '<p><b>A fairlead at the pivot would remove the lever</b> (the fibre passes through a hollow ball: the force goes through the pivot, and a pin passes no couple), but only where the fibre is: beyond the grip base, 279 mm from the dot, where the centre of mass is 116 mm off the plumb and the dot is 279 mm from the pivot. Switch it on and slide the pivot past 279 mm: the lever is zero and the step vanishes, and the lever from pivot to dot is 279 mm or more.</p>' +
+        '<p><b>A tail bridle</b> (freedom-01b) supplies the missing rotational stiffness: 20 N\u00b7m/rad brings the same step to about 0.13 mm at 200 mm, 30 N\u00b7m/rad to 0.09. The pivot on the line is then the seat\u2019s ball moved onto the line; the axial part of the cable\u2019s force has no torque about it, a small gain for a seat that is already stiff (36 N\u00b7mm per newton at the barrel seat against zero).</p>',
+      unresolved:
+        '<p>The centre of mass and the inertia are illustrative; the real gun is unweighed. The pivot bracket: the point 200 mm along the line is in front of the grip and below the housing, about 85 mm off the barrel; whether a printed bracket can reach it from the collar without meeting the hand grip or the wire guide is not drawn. Damping, friction of the ball and the couple a clamped fibre would add are borrowed-15’s columns and are not repeated. One rotation only (pitch in the gun’s plane); roll and the vertical-axis turn are not shown.</p>',
+      assumptions:
+        '<ul><li>Kit proxy gun at roll 0, hole dial 30, vertical 0 (the gun’s plane is vertical); roll axis 279 mm from the dot to the grip base, 30° above horizontal: <b>illustrative</b>. Gun + shell 1.2 kg, centre of mass (0, −18, 178) local, inertia about its centre of mass 0.0075·M kg·m²: <b>illustrative</b> ([unknown] in the study).</li>' +
+        '<li>Keel mass 0.6 kg at 200 mm below the pivot by default (borrowed-15’s numbers). Cable: weight share 0.6 N at the release point, a change of 0.03 N; both from freedom-16 route D at EI 0.1: <b>illustrative</b>.</li>' +
+        '<li>Small-angle statics in one plane; restoring stiffness = g·Σ m·(height of the mass below the pivot); the cable’s weight share acts above the pivot and lowers it.</li></ul>',
+    },
+  });
+  // ---------------------------------------------------------------- geometry (kit port), side view: world (y, z) of the gun's plane
+  const pose = FS.dialsToPose(0, 30, 0), R = pose.R, o = pose.origin;
+  const W2 = (yl, zl) => [o[1] + R[4] * yl + R[5] * zl, o[2] + R[7] * yl + R[8] * zl];        // local (y, z) -> world (y, z)
+  const dot = W2(0, -16), grip = W2(-118, 237), com0 = W2(-18, 178);
+  const uvec = (() => { const l = Math.hypot(grip[0] - dot[0], grip[1] - dot[1]); return [(grip[0] - dot[0]) / l, (grip[1] - dot[1]) / l, l]; })();
+  const BENCH = -86, RIM = 152.4, TUBE_R = 63.5, RELEASE = 709;              // bench z, tube rim z, S-boot exit distance from the dot (freedom-16 route D)
+  const S = { q: 200, mk: 0.6, d: 200, auto: true, side: 0, fair: false, fstat: 0.6, fstep: 0.03, kb: 0, M: 1.2 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 700', width: '100%', role: 'img', 'aria-label': 'side view of the gun hung from a pivot on the roll axis with a keel' }); svg.style.display = 'block'; svg.style.minWidth = '860px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'load', label: 'Gun, pivot, keel (carry the weight)' }, { role: 'locate', label: 'Roll axis (the fibre’s line)' }, { role: 'sensor', label: 'Cable force and its lever' }, { role: 'compliant', label: 'Tail bridle' }, { role: 'fixed', label: 'Tube and bench' }, { role: 'laser', label: 'Dot' }]);
+  const C = r => WK.roleHex(r);
+  const T = (x, y, t, op) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, op || {}));
+  const L = (x1, y1, x2, y2, col, w, op) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, op || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const SC = 0.85, SX = y => 130 - y * SC, SY = z => 570 - (z + 100) * SC;      // screen from world (y, z); the tail (negative y) runs to the right
+  const P2 = (a) => [SX(a[0]), SY(a[1])];
+  const rd = { K: app.ui.readout('K', 'Gravity spring about the pivot'), T: app.ui.readout('T', 'Period of the swing'), off: app.ui.readout('off', 'Keel offset the balance needs'), lev: app.ui.readout('lev', 'Lever: pivot to the cable’s release point'), tilt: app.ui.readout('tilt', 'Tilt from the small cable step'), dotm: app.ui.readout('dotm', 'Dot moves for that step'), need: app.ui.readout('need', 'Spring needed for 0.1 mm') };
+  function model() {
+    const q = S.q, P = [dot[0] + uvec[0] * q, dot[1] + uvec[1] * q];
+    const above = P[1] - com0[1], hoff = com0[0] - P[0];                       // COM below the pivot (negative = above it), horizontal offset (y)
+    // release point of the cable: S-boot exit on the line at RELEASE mm, or the pivot itself for a fairlead
+    const fairOk = q >= uvec[2] - 0.5, fairlead = S.fair && fairOk;
+    const Rp = fairlead ? P : [dot[0] + uvec[0] * RELEASE, dot[1] + uvec[1] * RELEASE];
+    const mc = S.fstat / G;                                                    // mass equivalent of the cable's static vertical load at the release point
+    const sBal = -(S.M * (com0[0] - P[0]) + mc * (Rp[0] - P[0])) / Math.max(S.mk, 1e-6);
+    const s = S.auto ? sBal : S.side;
+    const Kp = [P[0] + s, P[1] - S.d];
+    // balance moment left over (N*mm about the pivot): weights of gun, keel, cable load; positive = tilts the tail down (toward negative y)
+    const resid = G * (S.M * (com0[0] - P[0]) + S.mk * s + mc * (Rp[0] - P[0]));         // N*mm (y in mm, mass in kg -> N*mm)
+    const Kgrav = G * (S.M * above + S.mk * S.d + mc * (P[1] - Rp[1])) / 1000 * 1;          // N*m/rad: g * sum m * height below pivot (mm -> m)
+    const Kt = Kgrav + S.kb;
+    const lever = Math.abs(Rp[0] - P[0]);                                      // horizontal lever of a vertical force at the release point (mm)
+    const dTau = S.fstep * lever;                                              // N*mm
+    const tilt = Kt > 0.005 ? dTau / (Kt * 1000) : NaN;                        // rad
+    const dotShift = tilt * q;
+    const need = dTau / (0.1 / Math.max(q, 1)) / 1000;                         // N*m/rad for 0.1 mm at the dot
+    const I = S.M * (0.0075 + Math.pow(Math.hypot(com0[0] - P[0], com0[1] - P[1]) / 1000, 2)) + S.mk * Math.pow(Math.hypot(s, S.d) / 1000, 2);
+    const period = Kt > 0.005 ? 2 * Math.PI * Math.sqrt(I / Kt) : NaN;
+    return { q, P, above, hoff, Rp, s, sBal, Kp, resid, Kgrav, Kt, lever, tilt, dotShift, need, period, fairOk, fairlead };
+  }
+  function polyPts(a) { return a.map(p => P2(p).join(',')).join(' '); }
+  function update() {
+    clear();
+    const m = model();
+    // tube and bench
+    g.appendChild(svgel('rect', { x: SX(TUBE_R), y: SY(RIM), width: 2 * TUBE_R * SC, height: (RIM - BENCH) * SC, fill: C('fixed'), 'fill-opacity': 0.25, stroke: '#4a5568' }));
+    g.appendChild(L(20, SY(BENCH), 980, SY(BENCH), '#4a5568', 2)); g.appendChild(T(24, SY(BENCH) + 16, 'bench', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(T(SX(TUBE_R) + 2, SY(RIM) - 6, 'tube (seen from the side)', { fill: '#94a3b8', 'font-size': 11 }));
+    // gun outline (local y,z -> world)
+    const barrel = [W2(-8, 0), W2(8, 0), W2(8, 118), W2(-8, 118)], housing = [W2(-17, 118), W2(17, 118), W2(17, 253), W2(-17, 253)];
+    const gs = W2(-25, 172), ge = W2(-111, 232), gd = [ge[0] - gs[0], ge[1] - gs[1]], gl = Math.hypot(gd[0], gd[1]), nn = [-gd[1] / gl * 14, gd[0] / gl * 14];
+    const gripP = [[gs[0] + nn[0], gs[1] + nn[1]], [ge[0] + nn[0], ge[1] + nn[1]], [ge[0] - nn[0], ge[1] - nn[1]], [gs[0] - nn[0], gs[1] - nn[1]]];
+    [barrel, housing, gripP].forEach(p => g.appendChild(svgel('polygon', { points: polyPts(p), fill: C('gun'), 'fill-opacity': 0.8, stroke: '#94a3b8' })));
+    // roll axis line
+    const ax0 = [dot[0] - uvec[0] * 40, dot[1] - uvec[1] * 40], ax1 = [dot[0] + uvec[0] * 760, dot[1] + uvec[1] * 760];
+    g.appendChild(L(P2(ax0)[0], P2(ax0)[1], P2(ax1)[0], P2(ax1)[1], C('locate'), 1.8, { 'stroke-dasharray': '7 5' })); { const mid = P2([dot[0] + uvec[0] * 480, dot[1] + uvec[1] * 480]); g.appendChild(T(mid[0] + 8, mid[1] - 12, 'roll axis: the line through the dot', { fill: C('locate'), 'font-size': 11.5 })); }
+    // dot, grip base, COM, pivot, plumb line
+    const dS = P2(dot), eS = P2(grip), cS = P2(com0), pS = P2(m.P);
+    g.appendChild(svgel('circle', { cx: dS[0], cy: dS[1], r: 5, fill: C('laser') })); g.appendChild(T(dS[0] - 40, dS[1] + 4, 'dot', { fill: C('laser') }));
+    g.appendChild(svgel('circle', { cx: eS[0], cy: eS[1], r: 3.5, fill: '#e6edf6' })); g.appendChild(T(eS[0] + 6, eS[1] - 6, 'grip base (279 mm)', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(L(pS[0], pS[1] - 50, pS[0], SY(BENCH), '#3a4656', 1, { 'stroke-dasharray': '3 4' })); g.appendChild(T(pS[0] + 4, SY(BENCH) - 6, 'plumb', { fill: '#94a3b8', 'font-size': 10.5 }));
+    g.appendChild(svgel('circle', { cx: cS[0], cy: cS[1], r: 6.5, fill: '#fff', stroke: '#141a22', 'stroke-width': 2 })); g.appendChild(T(cS[0] + 9, cS[1] - 8, 'centre of mass', { fill: '#e6edf6', 'font-size': 11.5 }));
+    // keel post and mass
+    const kS = P2(m.Kp);
+    g.appendChild(L(pS[0], pS[1], kS[0], kS[1], C('load'), 3)); g.appendChild(svgel('circle', { cx: kS[0], cy: kS[1], r: 9 + S.mk * 8, fill: C('load'), stroke: '#fff2cc', 'stroke-width': 1.5 })); g.appendChild(T(kS[0] + 14, kS[1] + 4, 'keel ' + S.mk.toFixed(1) + ' kg', { fill: C('load'), 'font-size': 11.5 }));
+    const kBottom = m.Kp[1] - 10 - S.mk * 8 / SC, kIn = Math.abs(m.Kp[0]) < TUBE_R + 12 && m.Kp[1] < RIM + 12;
+    g.appendChild(svgel('circle', { cx: pS[0], cy: pS[1], r: 8, fill: C('load'), stroke: '#fff2cc', 'stroke-width': 2 })); g.appendChild(T(pS[0] - 14, pS[1] - 14, 'pivot ' + m.q.toFixed(0) + ' mm from the dot', { fill: C('load'), 'font-size': 11.5, 'text-anchor': 'middle' }));
+    // release point and the cable force
+    const rS = P2(m.Rp);
+    g.appendChild(svgel('circle', { cx: rS[0], cy: rS[1], r: 5, fill: C('sensor') })); g.appendChild(T(rS[0] - 60, rS[1] - 12, m.fairlead ? 'fibre through the pivot (hollow ball)' : 'S-boot exit, 709 mm from the dot', { fill: C('sensor'), 'font-size': 11.5 }));
+    g.appendChild(L(rS[0], rS[1], rS[0], rS[1] + 46, C('sensor'), 3)); g.appendChild(svgel('polygon', { points: [rS[0] - 5, rS[1] + 44, rS[0] + 5, rS[1] + 44, rS[0], rS[1] + 55].join(' ').replace(/(\d+\.?\d*) (\d+\.?\d*)/g, '$1,$2'), fill: C('sensor') }));
+    g.appendChild(L(pS[0], rS[1] + 30, rS[0], rS[1] + 30, C('sensor'), 1.2, { 'stroke-dasharray': '4 3' })); g.appendChild(T((pS[0] + rS[0]) / 2, rS[1] + 46, 'lever ' + m.lever.toFixed(0) + ' mm', { fill: C('sensor'), 'font-size': 11.5, 'text-anchor': 'middle' }));
+    // tail bridle
+    if (S.kb > 0.01) { const t1 = P2(W2(-118, 237)); g.appendChild(L(t1[0], t1[1], t1[0], t1[1] - 120, C('compliant'), 3)); g.appendChild(T(t1[0] + 8, t1[1] - 90, 'tail bridle ' + S.kb.toFixed(0) + ' N·m/rad', { fill: C('compliant'), 'font-size': 11.5 })); }
+    // numbers under the drawing
+    const y0 = 650, ok = m.Kt > 0.005;
+    g.appendChild(T(40, y0, 'Centre of mass is ' + Math.abs(m.above).toFixed(0) + ' mm ' + (m.above >= 0 ? 'below' : 'ABOVE') + ' the pivot and ' + Math.abs(m.hoff).toFixed(0) + ' mm to the side: the keel must hang ' + Math.abs(m.sBal).toFixed(0) + ' mm to the ' + (m.sBal * (-1) > 0 ? 'tail' : 'nose') + ' side of the plumb.', { fill: '#e6edf6' }));
+    g.appendChild(T(40, y0 + 22, S.auto ? 'Keel placed by the balance.' : 'Keel placed by hand: unbalanced moment ' + (m.resid / 1000).toFixed(3) + ' N·m about the pivot would tilt the gun ' + (ok ? (m.resid / 1000 / m.Kt / D2R).toFixed(1) + '°' : 'without limit') + '.', { fill: S.auto ? '#94a3b8' : '#ff8a80' }));
+    g.appendChild(T(40, y0 + 44, ok ? 'Spring ' + m.Kt.toFixed(2) + ' N·m/rad (gravity ' + m.Kgrav.toFixed(2) + (S.kb > 0 ? ' + bridle ' + S.kb.toFixed(1) : '') + '). A ' + S.fstep.toFixed(2) + ' N change at the release point tilts it ' + (m.tilt / D2R).toFixed(2) + '°: ' + m.dotShift.toFixed(2) + ' mm at the dot.' : 'No stable hang: the centre of mass and the cable’s weight are above the pivot and the keel does not make up for it.', { fill: ok ? '#e6edf6' : '#ff8a80', 'font-weight': 600 }));
+    // right-hand plot: what changes along the line
+    const px = 705, py = 350, pw = 270, ph = 190;
+    g.appendChild(T(px, py - 14, 'Along the line: keel offset for balance and dot shift for the step', { 'font-weight': 600, 'font-size': 12 }));
+    g.appendChild(svgel('rect', { x: px, y: py, width: pw, height: ph, fill: '#171e28', stroke: '#2a3441' }));
+    const qs = []; for (let q = 30; q <= 420; q += 10) { const saved = S.q; S.q = q; qs.push(model()); S.q = saved; }
+    const xs = q => px + (q - 30) / 390 * pw, offMax = 400, shMax = 40;
+    let p1 = '', p2 = '';
+    qs.forEach((mm, i) => { const q = 30 + i * 10, yo = py + ph - Math.min(offMax, Math.abs(mm.sBal)) / offMax * ph, ysh = py + ph - Math.min(shMax, isFinite(mm.dotShift) ? Math.abs(mm.dotShift) : shMax) / shMax * ph; p1 += (i ? 'L' : 'M') + xs(q).toFixed(1) + ' ' + yo.toFixed(1); p2 += (i ? 'L' : 'M') + xs(q).toFixed(1) + ' ' + ysh.toFixed(1); });
+    g.appendChild(svgel('path', { d: p1, fill: 'none', stroke: C('load'), 'stroke-width': 2 })); g.appendChild(svgel('path', { d: p2, fill: 'none', stroke: C('sensor'), 'stroke-width': 2 }));
+    g.appendChild(L(xs(m.q), py, xs(m.q), py + ph, '#f5f5f5', 1, { 'stroke-dasharray': '3 3' }));
+    g.appendChild(T(px + 4, py + 14, 'keel offset (amber), 0 to ' + offMax + ' mm', { fill: C('load'), 'font-size': 10.5 })); g.appendChild(T(px + 4, py + 28, 'dot shift for the step (blue), 0 to ' + shMax + ' mm', { fill: C('sensor'), 'font-size': 10.5 }));
+    g.appendChild(T(px, py + ph + 15, '30 mm', { fill: '#94a3b8', 'font-size': 10.5 })); g.appendChild(T(px + pw - 40, py + ph + 15, '420 mm', { fill: '#94a3b8', 'font-size': 10.5 })); g.appendChild(T(px + pw / 2, py + ph + 15, 'pivot distance from the dot', { fill: '#94a3b8', 'font-size': 10.5, 'text-anchor': 'middle' }));
+    g.appendChild(L(xs(uvec[2]), py, xs(uvec[2]), py + ph, '#64748b', 1, { 'stroke-dasharray': '2 3' })); g.appendChild(T(xs(uvec[2]) + 3, py + ph - 6, 'grip base', { fill: '#94a3b8', 'font-size': 10 }));
+    // readouts, badges
+    rd.K(ok ? m.Kt.toFixed(2) : 'none', ok ? 'N·m/rad' : ''); rd.T(isFinite(m.period) ? m.period.toFixed(2) : '-', 's'); rd.off(Math.abs(m.sBal).toFixed(0), 'mm to the ' + (m.sBal * (-1) > 0 ? 'tail' : 'nose') + ' side'); rd.lev(m.lever.toFixed(0), 'mm'); rd.tilt(ok ? (m.tilt / D2R).toFixed(2) : '-', '°'); rd.dotm(isFinite(m.dotShift) ? m.dotShift.toFixed(2) : '-', 'mm'); rd.need(m.need.toFixed(0), 'N·m/rad');
+    app.badge('bench', m.Kp[1] - 10 - S.mk * 8 / SC < BENCH ? 'the keel reaches the bench' : null, 'limit');
+    app.badge('tube', kIn ? 'the keel is beside or inside the tube in this view' : null, 'limit');
+    app.badge('fair', S.fair && !m.fairOk ? 'a hollow ball at ' + m.q.toFixed(0) + ' mm would need the fibre to double back: it leaves the grip base at ' + uvec[2].toFixed(0) + ' mm' : null, 'warn');
+    app.badge('unstable', !ok ? 'no stable hang' : (m.above < 0 ? 'centre of mass above the pivot: only the keel makes this stable' : null), ok ? 'info' : 'limit');
+    app.badge('gravity', ok && m.dotShift > 0.15 ? 'gravity alone: ' + m.dotShift.toFixed(1) + ' mm at the dot for a ' + S.fstep.toFixed(2) + ' N change; spring needed for 0.1 mm: ' + m.need.toFixed(0) + ' N·m/rad' : null, 'warn');
+    app.io.set({ commands: [{ name: 'Trim mass along the shell (freedom-08)', value: '-', status: 'manual', note: 'not in this scene: it moves the balance by a fraction of a millimetre' }],
+      observes: [{ name: 'Tilt about the pivot', value: ok ? (m.tilt / D2R).toFixed(2) : '-', unit: '°', status: 'partly', note: 'an inertial sensor on the shell would read it; here it is the computed step response' }, { name: 'Sideways force at the release point', value: S.fstep.toFixed(2), unit: 'N (change)', status: 'partly', note: 'a load cell in the rail cord (freedom-16)' }, { name: 'Centre of mass and inertia', value: '-', status: 'unresolved', note: 'never weighed' }],
+      manual: ['Print the pivot bracket to the point on the line', 'Size and place the keel', 'Route the fibre onto the line'] });
+  }
+  const g1 = app.ui.group('Pivot and keel (scene edits)', { open: true, help: 'Where on the roll axis the gun hangs, and what hangs below it.' });
+  g1.slider({ id: 'q', label: 'Pivot along the roll axis, from the dot', min: 30, max: 420, step: 1, value: 200, unit: 'mm', kind: 'scene', help: 'The grip base is at 279 mm. The line continues beyond it along the fibre.', onChange: v => { S.q = v; update(); } });
+  g1.slider({ id: 'mk', label: 'Keel mass', min: 0.1, max: 1.5, step: 0.05, value: 0.6, unit: 'kg', kind: 'scene', help: 'borrowed-15: 0.6 kg on a 200 mm post.', onChange: v => { S.mk = v; update(); } });
+  g1.slider({ id: 'd', label: 'Keel depth below the pivot', min: 60, max: 400, step: 5, value: 200, unit: 'mm', kind: 'scene', help: 'The bench is 232 mm below the dot.', onChange: v => { S.d = v; update(); } });
+  g1.toggle({ id: 'auto', label: 'Place the keel sideways by the balance', value: true, kind: 'scene', help: 'On: the keel hangs as far to the far side as the balance needs. Off: you place it.', onChange: v => { S.auto = v; app.ui.enable('side', !v); update(); } });
+  g1.slider({ id: 'side', label: 'Keel sideways from the plumb (tail side positive)', min: -300, max: 300, step: 1, value: 0, unit: 'mm', kind: 'scene', onChange: v => { S.side = -v; update(); } });
+  const g2 = app.ui.group('The cable (from freedom-16, illustrative)', { open: true });
+  g2.toggle({ id: 'fair', label: 'Fibre passes through the pivot (a hollow ball)', value: false, kind: 'branch', help: 'Then the release point is the pivot: no lever. Only possible where the fibre is: beyond the grip base.', onChange: v => { S.fair = v; update(); } });
+  g2.slider({ id: 'fstat', label: 'Static vertical load at the release point (span weight share)', min: 0, max: 2, step: 0.05, value: 0.6, unit: 'N', kind: 'scene', help: 'Route D at EI 0.1, 2 N/m: about 0.6 N.', onChange: v => { S.fstat = v; update(); } });
+  g2.slider({ id: 'fstep', label: 'Change of that force (anchor gives, feed push across the span)', min: 0, max: 0.3, step: 0.005, value: 0.03, unit: 'N', kind: 'scene', help: 'freedom-16: an anchor that gives 5 mm changes it by 0.013 to 0.035 N.', onChange: v => { S.fstep = v; update(); } });
+  const g3 = app.ui.group('Add rotational stiffness', { open: true });
+  g3.slider({ id: 'kb', label: 'Tail bridle (freedom-01b)', min: 0, max: 40, step: 0.5, value: 0, unit: 'N·m/rad', kind: 'branch', help: 'Two tail wires and a bungee: about 20 N·m/rad for the seat of freedom-01b.', onChange: v => { S.kb = v; update(); } });
+  update();
+})();
+</script>
+</body>
+</html>

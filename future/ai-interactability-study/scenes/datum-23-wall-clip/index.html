@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wall clip</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-23-wall-clip",
+  "title": "Wall clip: the gun's nose stands on the wall at the station",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A printed hook on the gun's nose straddles the tube wall a few millimetres ahead of the dot: a steel roller on the bore, a wheel on the rim, a spring pad on the outside, all on one radial line so the wall feels only a local squeeze. The gun is carried from above by something soft (a balancer wire here) and located by the wall itself, at the station, so it follows the tube's shape as well as its motion, up to the phase its lead costs. What it cannot know: the plate below the rim, and a step on the bore.",
+  "tags": ["datum", "shell on the work", "bore roller", "local reference", "follows shape", "preload against the pull", "kinematic hook"],
+  "branchOf": ["datum-04-corner-follower", "datum-16-loops-carry-rim-locates"],
+  "combines": ["datum-04-corner-follower", "datum-16-loops-carry-rim-locates"],
+  "transferable": ["a clip that pinches one place from both sides loads the wall with a squeeze, not a bend", "weight from above, location from the wall", "a lead is a phase error a delay can remove"],
+  "how": {
+    "motion": "nothing new moves; the tube turns on the rotator and the clip rolls on the wall",
+    "load": "a balancer wire from above carries the gun's weight; the clip carries only what the wire leaves",
+    "reference": "the bore wall at the station (radial), the rim under the wheel (height); the plate is not known",
+    "observe": "clip preload contact could be sensed (not drawn); nothing observes the dot",
+    "use": "hang the gun, seat the clip on the wall ahead of the dot, press the pedal, turn the bead"
+  },
+  "software": {
+    "commands": ["rotator speed (existing controller)", "nothing else is moved by software"],
+    "observes": ["optional: a contact or hall sensor on the pad arm says the clip is seated and preloaded (proposed, not drawn)"],
+    "manual": ["hanging the gun and setting the balancer's share", "seating the clip on the wall ahead of the dot", "trimming the gun's radial offset once, so the dot is on the seam", "setting the preload above the cable's pull"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-23-wall-clip.md", "../../explorers/datum/calc/wall_clip.js", "../../explorers/datum/calc/mate_harmonics.js"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2, CT = WK.CAP_TOP;
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'station',
+    viewButtons: ['station', 'overall', 'top'],
+    views: {
+      station: { target: [58, -6, 152], dir: [1, 0.55, 0.42], dist: 210 },
+      overall: { target: [-30, -80, 200], dir: [0.72, -0.5, 0.45], dist: 1000 },
+      top: { target: [30, -30, 150], dir: [0, -0.004, 1], dist: 380 },
+    },
+    sections: {
+      proposes:
+        '<p><b>The gun stands on the wall.</b> A hook (teal) on the gun&rsquo;s nose goes over the rim a few millimetres ahead of the dot. A steel <b>roller</b> (blue) rolls on the bore just above the plate, a <b>wheel</b> (blue) rolls on the rim, and a spring-loaded <b>pad</b> (green) rolls on the outside on the same radial line, so the wall is squeezed in one place and not bent. The weight of the gun hangs from a balancer wire in the room (drawn faint): the wire carries, the wall locates. Because the roller reads the bore where the seam is welded, the tube&rsquo;s motion, its wall eccentricity and its ovality are all followed, up to the phase the lead costs; a ring on the whole circle can follow only the motion.</p>' +
+        '<p>Turn the table and watch the pink cursor on the trace; move <i>Roller lead</i> to see the phase cost; raise <i>Cable pull</i> above <i>Preload</i> and the roller lifts off the wall, the carrier stops following, and the trace jumps to the room-fixed one. The plate is not known to the clip: seat depth and plate tilt stay in the vertical numbers.</p>',
+      carries:
+        '<p><b>Balancer wire</b> (room) carries the gun&rsquo;s weight: soft, long, locates nothing (<code>datum-16</code>). <b>Rim wheel</b> carries only the share you give it. <b>Preload spring</b> in the pad arm presses the roller onto the bore. Locating: the bore wall (radial), the rim (height). Free: along the seam (the wheel and roller roll), the gun&rsquo;s yaw, roll and pitch about the clip are held by the balancer, the hand or an arm.</p>',
+      software:
+        '<p><b>Command:</b> the rotator only. <b>Observe:</b> nothing is required. A contact on the pad arm would say the clip is seated and preloaded; a hall sensor on it would read the wall&rsquo;s shape at the station as the arm swings (that would be datum-04&rsquo;s feeler with a body). The dot is not observed; the corner inset is exact scene geometry.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> a ring on the outside follows the tube&rsquo;s motion and leaks its shape. <b>What the numbers say</b> [<code>calc/mate_harmonics.js</code>]: on the default illustrative tube the radial error at the dot is 0.10 to 0.12 mm rms for a room-fixed gun or a three-pad ring and 0.03 mm for a roller 10 mm ahead. <b>Change:</b> read the bore at the station. <b>Cost:</b> the lead. The roller sees the wall 2 sin(n s / 2R) of the way wrong at harmonic n: 0.32 of the ovality at 10 mm, 0.57 at 18 mm. A passive clip cannot delay; an actuator behind it can (2.1 s at 17 mm and 8 mm/s).</li>' +
+        '<li><b>Conflict:</b> gripping a thin wall. <b>Assumption:</b> a clip has to grip from opposite sides. <b>What the numbers say</b> [<code>calc/wall_clip.js</code> B]: two opposite points ovalise a 1.65 mm wall by about 0.15 mm at 8 N; a roller and pad on one radial line load it with a squeeze: contact half-width 7 &micro;m, no net force. <b>Change:</b> pinch one place from both sides.</li>' +
+        '<li><b>Conflict:</b> the cable pulls the gun off the wall. <b>What the scene shows:</b> a pull toward the axis above the preload lifts the roller (LIMIT badge). <b>Change:</b> preload well above the pull (8 N against 3 N), the margin is shown. <b>Left uncertain:</b> the pull&rsquo;s size and direction are <b>[unknown]</b>; the balancer wire&rsquo;s own sideways stiffness adds.</li>' +
+        '<li><b>Conflict:</b> the hook sits beside the wire and nozzle. <b>What the numbers say</b> (<code>wall_clip.js</code> E, kit proxy): ahead of the dot the tightest gap is 1.4 mm at 6 mm and 2.2 mm at 10 mm, 3.6 mm at 14 mm; behind the dot there is room but the bead and its heat. <b>Left uncertain:</b> the real wire bracket and its outward lean.</li>' +
+        '<li><b>Conflict:</b> drag. A dry printed skid on the rim drags 1.25 N along the seam at 5 N of load (mu 0.25): most of the umbilical&rsquo;s margin. <b>Change:</b> a wheel (0.05 N).</li>' +
+        '<li><b>Conflict:</b> a step on the bore. If the tube is welded tube there may be a longitudinal weld seam on the inside: a bump the roller climbs once per revolution and the ring on the outside never sees. <b>What the scene shows:</b> slider <i>Weld seam bump</i>. <b>Left uncertain:</b> whether it exists and how high it is. <b>Question for Derek.</b></li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>Heat and spatter.</b> A roller on the wall 10 mm from a pool: steel only; a printed roller or wheel near the bead is not credible. Behind the dot it is worse.</li>' +
+        '<li><b>The plate.</b> The clip does not know it. Pair it with <code>datum-22</code> (the ring that sets the plate) or a plunger; on its own, seat depth and tilt remain.</li>' +
+        '<li><b>Whether a clip may touch the bore</b> of a finished tube (a steel roller on 316L, a fraction of a newton to 15 N).</li>' +
+        '<li>Yaw: a single clip fixes radial and height at one place; the gun&rsquo;s yaw about it is the holder&rsquo;s. A second wheel a few millimetres along the rim (two contact points) would fix it; not drawn.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Tube, plate, rim, wall [repo]; kit proxy gun, wire guide and pose. Clip sizes, preload, wall amplitudes, cable pull: <b>illustrative</b>. Wall amplitudes: harmonics 1 to 3 with fixed phases; outside lobes equal the bore&rsquo;s.</li>' +
+        '<li>Runout: rig limits [repo] applied as a rigid wobble of the tube (the kit&rsquo;s model, exaggerated on screen). The carrier follows the seam at the station exactly while the roller is on the wall; that is what the clip is for. The exaggeration only changes what is drawn: the corner inset, the trace and the numbers are real size (the offset is computed from the model, not from the exaggerated drawing).</li>' +
+        '<li><b>Models:</b> the harmonic passing of each reference, the preload check, drag, wire and nozzle gaps. <b>Depicts only:</b> the balancer wire (faint), the pad spring, the bracket.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setGhost(true);
+  const P = { w: 0.06, b1: 0.08, o2: 0.06, o3: 0.03, bump: 0, s: 10, preload: 8, pull: 3, rimShare: 5, rim: 'wheel', seat: 0.30, tilt: 0.10, exag: 25, k: 3, speed: 8 };
+  const TAU = 2 * Math.PI, PH = [1.1, 0.7, 2.0], PHW = 0, BUMP_AZ = 200 * DEG, CLOCK = 20 * DEG;
+  ws.setRunout(2 * P.w, 0.30, P.exag);
+
+  // ------------------------------------------------------------------ geometry
+  function mk(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  const carrier = new THREE.Group(); carrier.name = 'gun + clip (follows the wall)'; app.scene.add(carrier); carrier.add(gun.group);
+  const clipG = new THREE.Group(); clipG.name = 'clip'; carrier.add(clipG);
+  const roller = P3.cyl(2.5, 5, 'sensor'); roller.position.set(RI - 2.5, 0, RIM - 3.5);
+  const finger = P3.box(1.6, 5, 8.5, 'locate'); finger.position.set(RI - 4.3, 0, RIM + 0.75);
+  const spine = P3.box(RO + 4.6 - (RI - 5.1), 5, 2, 'locate'); spine.position.set((RO + 4.6 + RI - 5.1) / 2, 0, RIM + 5);
+  const arm = P3.box(2, 5, 16, 'compliant'); arm.position.set(RO + 4.5, 0, RIM - 3);
+  const pad = P3.cyl(3, 6, 'compliant'); pad.position.set(RO + 3, 0, RIM - 5);
+  const wheel = P3.sphere(3, 'sensor'); wheel.position.set((RI + RO) / 2, 0, RIM + 3);
+  const spring = P3.spring(V(RO + 4.5, 0, RIM + 3.5), V(RO + 4.5, 0, RIM + 9.5), { coils: 5, radius: 1.3, wire: 0.35, role: 'compliant' });
+  [roller, finger, spine, arm, pad, wheel, spring].forEach(o => clipG.add(o));
+  const collar = gun.addRing([0, 0, 14], { role: 'locate', openGap: false });
+  const bracket = P3.rod(V(0, 0, 0), V(1, 0, 0), 1.6, 'locate'); carrier.add(bracket);
+  // balancer wire from above (room): carries, locates nothing
+  const hookTop = V(-20, -30, 470);
+  const wireTop = P3.sphere(6, 'fixed'); wireTop.position.copy(hookTop); app.add(wireTop);
+  const post = P3.rod(V(-20, -30, 470), V(-20, -30, 470), 3, 'fixed'); app.add(post);
+  const balancer = P3.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'compliant'); app.add(balancer);
+
+  // ------------------------------------------------------------------ the wall model (same functions as datum-21 / calc/mate_harmonics.js)
+  const N = 360;
+  const bumpAt = th => { if (P.bump <= 0) return 0; let d = Math.abs(((th - BUMP_AZ) % TAU + TAU + Math.PI) % TAU - Math.PI); const half = 1.5 / RI; return d < half ? P.bump * 0.5 * (1 + Math.cos(Math.PI * d / half)) : 0; };
+  const wallB = (th, withB1) => (withB1 ? P.b1 * Math.cos(th - PH[0]) : 0) + P.o2 * Math.cos(2 * (th - PH[1])) + P.o3 * Math.cos(3 * (th - PH[2])) + bumpAt(th);
+  function padCentre(fn, k) { let cx = 0, cy = 0; for (let i = 0; i < k; i++) { const t = CLOCK + i * TAU / k, r = fn(t); cx += r * Math.cos(t); cy += r * Math.sin(t); } return [2 / k * cx, 2 / k * cy]; }
+  const liftedOff = () => P.pull > P.preload;
+  function errAt(kind, th) {
+    if (kind === 'room') return -(P.w * Math.cos(th - PHW) + wallB(th, true));
+    if (kind === 'od') { const c = padCentre(t => wallB(t, false), P.k); return c[0] * Math.cos(th) + c[1] * Math.sin(th) - wallB(th, true); }
+    if (liftedOff()) return errAt('room', th);
+    return wallB(th + P.s / RI, true) - wallB(th, true);
+  }
+  function series(kind) { const e = new Float64Array(N); let m = 0; for (let j = 0; j < N; j++) { e[j] = errAt(kind, j / N * TAU); m += e[j]; } m /= N; for (let j = 0; j < N; j++) e[j] -= m; return e; }
+  const rms = e => { let s = 0; for (let j = 0; j < N; j++) s += e[j] * e[j]; return Math.sqrt(s / N); };
+
+  // ------------------------------------------------------------------ dot offset: the carrier follows the seam at the station (exactly while seated); the shape and the plate remain
+  const baseDotOffset = gun.dotOffset;
+  gun.dotOffset = function () {
+    const o = baseDotOffset(), th = ws.spinAngle * DEG;     // the kit's own offset carries the exaggerated wobble; the numbers here are real size
+    o.radial = liftedOff() ? errAt('room', th) : errAt('clip', th);
+    o.vertical = P.seat + P.tilt * Math.cos(th + 1.3);
+    o.along = 0; o.total = Math.hypot(o.radial, o.along, o.vertical);
+    return o;
+  };
+  app.cornerInset({ gun: gun, corner: 'tr' });
+
+  // ------------------------------------------------------------------ nozzle, wire, clip clearance (kit proxy, world at rest)
+  app.scene.updateMatrixWorld(true);
+  const wireA = gun.local('wireGuideEnd').clone(), wireB = gun.dotWorld().clone(), nozA = gun.local('nozzleTip').clone(), nozB = gun.local('barrelMid').clone();
+  const segDist = (p, a, b) => { const ab = b.clone().sub(a), t = WK.clamp(p.clone().sub(a).dot(ab) / ab.lengthSq(), 0, 1); return p.distanceTo(a.clone().addScaledVector(ab, t)); };
+  function nozGap(p) { const ab = nozB.clone().sub(nozA), L = ab.length(), t = WK.clamp(p.clone().sub(nozA).dot(ab) / (L * L), 0, 1), d = p.distanceTo(nozA.clone().addScaledVector(ab, t)), z = t * L; return d - ((z < 23 ? 2.2 + 2.8 * z / 23 : 8.5) + 3); }
+  function clearance() {
+    const a = -P.s / RI, at = (r, z) => V(r * Math.cos(a), r * Math.sin(a), z);
+    const parts = [[at(RI - 2.5, RIM - 3.5), 2.5], [at((RI + RO) / 2, RIM + 3), 3], [at(RO + 4, RIM - 5), 4], [at((RI + RO) / 2, RIM + 1.5), 1.5]];
+    let m = 1e9; parts.forEach(pr => { m = Math.min(m, segDist(pr[0], wireA, wireB) - pr[1]); });
+    m = Math.min(m, nozGap(parts[0][0]) - 2.5);
+    return m;
+  }
+
+  // ------------------------------------------------------------------ pose each frame
+  function layout() {
+    const a = -P.s / RI;
+    clipG.rotation.z = a;
+    // bracket from the nozzle collar to the hook spine
+    const lugW = V(0, 0, 0).copy(gun.anchor([0, 0, 14])).applyMatrix4(gun.group.matrix);
+    const sp = V((RO + 4.6 + RI - 5.1) / 2, 0, RIM + 5).applyAxisAngle(V(0, 0, 1), a);
+    bracket.setEnds(lugW, sp);
+    // the carrier follows the seam at the station while the roller is on the wall and the wheel on the rim (or a skid)
+    const j = ws.jointNow(), on = !liftedOff();
+    carrier.position.set(on ? j.x - RI : 0, 0, on ? j.z - CT : 0);
+    carrier.updateMatrixWorld(true);
+    balancer.setEnds(hookTop.clone().add(V(0, 0, -6)), gun.local([0, 0, 90]));
+    post.setEnds(hookTop, hookTop.clone().add(V(0, 0, 40)));
+  }
+
+  // ------------------------------------------------------------------ trace panel
+  const svgW = 330, svgH = 178, x0 = 30, x1 = 322, y0 = 32, y1 = 142, YM = 0.3;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + svgW + ' ' + svgH, width: '100%', role: 'img', 'aria-label': 'radial error at the dot over one revolution for three references' });
+  const sx = a => x0 + (x1 - x0) * a / 360, sy = v => (y0 + y1) / 2 - v / YM * (y1 - y0) / 2;
+  svg.appendChild(WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'none', stroke: '#3a4250', 'stroke-width': 0.6 }));
+  [-0.2, -0.1, 0, 0.1, 0.2].forEach(v => { svg.appendChild(WK.svg('line', { x1: x0, x2: x1, y1: sy(v), y2: sy(v), stroke: '#6b7686', 'stroke-width': v === 0 ? 0.7 : 0.3, 'stroke-dasharray': v === 0 ? '' : '2 3' })); svg.appendChild(WK.svg('text', { x: x0 - 3, y: sy(v) + 3, 'text-anchor': 'end', 'font-size': 8, fill: '#9aa5b5', text: v.toFixed(1) })); });
+  [0, 90, 180, 270, 360].forEach(a => svg.appendChild(WK.svg('text', { x: sx(a), y: y1 + 11, 'text-anchor': 'middle', 'font-size': 8, fill: '#9aa5b5', text: a + '°' })));
+  const COL = { room: '#94a3b8', od: '#f59e0b', clip: '#3b82f6' }, paths = {};
+  ['room', 'od', 'clip'].forEach(k => { paths[k] = WK.svg('path', { fill: 'none', stroke: COL[k], 'stroke-width': k === 'clip' ? 1.8 : 1.3, opacity: k === 'clip' ? 1 : 0.85 }); svg.appendChild(paths[k]); });
+  const cursor = WK.svg('line', { y1: y0, y2: y1, stroke: '#ec4899', 'stroke-width': 1 }); svg.appendChild(cursor);
+  const legend = ['room-fixed gun, tube indicated to w', 'ring on the outside, 3 pads locked', 'roller on the bore, lead s'];
+  ['room', 'od', 'clip'].forEach((k, i) => { svg.appendChild(WK.svg('rect', { x: 4, y: 3 + i * 9, width: 7, height: 6, fill: COL[k] })); svg.appendChild(WK.svg('text', { x: 15, y: 9 + i * 9, 'font-size': 8, fill: '#cbd5e1', text: legend[i] })); });
+  svg.appendChild(WK.svg('text', { x: x1, y: y1 + 23, 'text-anchor': 'end', 'font-size': 8, fill: '#9aa5b5', text: 'table angle; radial error at the dot (mm), mean removed' }));
+  app.ui.panel({ id: 'trace', title: 'One lap of radial error at the dot', open: true, node: svg });
+  let rdRoom, rdOd, rdClip, rdMargin, rdGap, rdDrag, rdLift, rdVert;
+  function drawTrace() {
+    const S = { room: series('room'), od: series('od'), clip: series('clip') };
+    Object.keys(S).forEach(k => { let d = ''; for (let j = 0; j <= N; j += 3) d += (j ? 'L' : 'M') + sx(j).toFixed(1) + ' ' + sy(Math.max(-YM, Math.min(YM, S[k][j % N]))).toFixed(1); paths[k].setAttribute('d', d); });
+    cursor.setAttribute('x1', sx(ws.spinAngle)); cursor.setAttribute('x2', sx(ws.spinAngle));
+    rdRoom(rms(S.room).toFixed(3) + ' mm rms'); rdOd(rms(S.od).toFixed(3) + ' mm rms'); rdClip(rms(S.clip).toFixed(3) + ' mm rms' + (liftedOff() ? ' (roller lifted: as room-fixed)' : ''));
+    return S;
+  }
+
+  // ------------------------------------------------------------------ update
+  let ready = false;
+  function update() {
+    if (!ready) return;
+    ws.setRunout(2 * P.w, 0.30, P.exag); layout();
+    const lift = liftedOff(), gap = clearance(), drag = P.rim === 'wheel' ? 0.01 * P.rimShare : 0.25 * P.rimShare;
+    app.badge('lift', lift ? 'roller lifts off the wall: the pull ' + P.pull.toFixed(1) + ' N beats the preload ' + P.preload.toFixed(1) + ' N; the gun stops following' : null, 'limit');
+    app.badge('gap', gap < 0 ? 'clip touches the wire or nozzle: gap ' + gap.toFixed(1) + ' mm (kit proxy geometry)' : gap < 1.5 ? 'tight: ' + gap.toFixed(1) + ' mm from the wire or nozzle (kit proxy)' : null, gap < 0 ? 'limit' : 'warn');
+    app.badge('heat', P.s < 0 && P.s > -25 ? 'behind the dot: over the bead and its heat; a steel roller only' : null, 'warn');
+    app.badge('drag', drag > 0.75 ? 'the rim skid drags ' + drag.toFixed(2) + ' N along the seam: most of the umbilical\'s margin' : null, 'warn');
+    app.badge('exag', P.exag > 1 ? 'runout drawn ×' + P.exag + ' (the corner inset, the trace and the numbers are real size)' : null, 'info');
+    const S = drawTrace(), o = gun.dotOffset();
+    rdMargin((P.preload - P.pull >= 0 ? '+' : '') + (P.preload - P.pull).toFixed(1) + ' N'); rdGap(gap.toFixed(1) + ' mm'); rdDrag(drag.toFixed(2) + ' N along the seam (cable pull ' + P.pull.toFixed(1) + ' N)');
+    rdVert('seat ' + P.seat.toFixed(2) + ' mm, tilt ' + P.tilt.toFixed(2) + ' mm: the clip does not know the plate');
+    app.io.set({
+      commands: [{ name: 'Rotator speed', value: P.speed, unit: 'mm/s', note: 'existing controller; 5-15 mm/s [repo]' }, { name: 'Balancer share, clip, gun position', value: 'by hand', status: 'manual', note: 'nothing here is moved by software' }],
+      observes: [
+        { name: 'Clip seated and preloaded', value: lift ? 'lifted' : 'seated', status: 'unresolved', note: 'a contact or hall sensor on the pad arm would say it; none is drawn' },
+        { name: 'Wall shape at the station', value: '-', status: 'blind', note: 'the clip follows it mechanically; nothing reads it (a hall sensor on the arm would)' },
+        { name: 'Plate depth and tilt', value: '-', status: 'blind', note: 'the clip cannot know them: dz ' + o.vertical.toFixed(2) + ' mm in the corner inset' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'exact scene geometry (r ' + o.radial.toFixed(3) + ', z ' + o.vertical.toFixed(2) + ' mm), not a sensor reading' },
+      ],
+      manual: ['Hang the gun from the balancer, set its share', 'Seat the clip on the wall ahead of the dot; check the preload against the pull', 'Trim the gun\'s radial offset once so the dot is on the seam'],
+    });
+    void S;
+  }
+
+  // ------------------------------------------------------------------ controls
+  app.ui.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'The tube wobbles and the clip rolls on the wall; the gun follows.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  app.ui.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'The existing rotator. Watch the pink cursor on the trace.', onChange: v => { ws.setSpin(v); update(); } });
+  app.ui.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', noVisual: true, visual: () => ws.turntable, help: 'The existing rotator controller: 5-15 mm/s [repo].', onChange: v => { P.speed = v; ws.spin.speedDegPerSec = v / RI / DEG; update(); } });
+  const gc = app.ui.group('The clip (scene edits)', { open: true });
+  gc.slider({ id: 's', label: 'Roller lead ahead of the dot (behind if negative)', min: -20, max: 30, step: 1, value: 10, unit: 'mm', kind: 'scene', visual: () => clipG, help: 'Arc length on the wall. Costs 2 sin(n s / 2R) of harmonic n; the wire and nozzle leave 1.4 mm at 6, 2.2 at 10, 3.6 at 14.', onChange: v => { P.s = v; update(); } });
+  gc.slider({ id: 'preload', label: 'Preload of the pad spring', min: 1, max: 20, step: 0.5, value: 8, unit: 'N', kind: 'scene', visual: () => [arm, spring], help: 'Presses the roller onto the bore; the wall sees a local squeeze.', onChange: v => { P.preload = v; update(); } });
+  gc.slider({ id: 'pull', label: 'Cable pull toward the axis at the gun', min: 0, max: 10, step: 0.5, value: 3, unit: 'N', kind: 'scene', visual: () => gun.umbilical, help: '[unknown]. Above the preload the roller lifts.', onChange: v => { P.pull = v; update(); } });
+  gc.radio({ id: 'rim', label: 'Rim contact', options: [{ value: 'wheel', label: 'Wheel', help: 'Rolling: 0.01 of the load along the seam.' }, { value: 'skid', label: 'Dry printed skid', help: 'Sliding: 0.25 of the load along the seam.' }], value: 'wheel', kind: 'branch', visual: () => wheel, onChange: v => { P.rim = v; update(); } });
+  gc.slider({ id: 'rimShare', label: 'Gun weight carried by the rim contact', min: 0, max: 15, step: 0.5, value: 5, unit: 'N', kind: 'scene', noVisual: true, visual: () => wheel, help: 'The balancer carries the rest.', onChange: v => { P.rimShare = v; update(); } });
+  const gw = app.ui.group('The tube (scene edits, illustrative)', { open: true });
+  gw.slider({ id: 'w', label: 'Left after indicating, w', min: 0, max: 0.15, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'Rigid offset of the tube from the rotation axis at the working end.', onChange: v => { P.w = v; update(); } });
+  gw.slider({ id: 'b1', label: 'Wall eccentricity, b1', min: 0, max: 0.25, step: 0.005, value: 0.08, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { P.b1 = v; update(); } });
+  gw.slider({ id: 'o2', label: 'Ovality, b2', min: 0, max: 0.2, step: 0.005, value: 0.06, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { P.o2 = v; update(); } });
+  gw.slider({ id: 'o3', label: 'Three-lobing, b3', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: () => ws.tube, onChange: v => { P.o3 = v; update(); } });
+  gw.slider({ id: 'bump', label: 'Weld seam bump on the bore', min: 0, max: 0.15, step: 0.005, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.tube, help: 'A 3 mm wide step at 200°, if the tube is welded tube [unknown].', onChange: v => { P.bump = v; update(); } });
+  gw.slider({ id: 'seat', label: 'Seat depth error', min: -0.6, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'The clip cannot know it.', onChange: v => { P.seat = v; ws.cap.position.z = -v; update(); } });
+  gw.slider({ id: 'tilt', label: 'Plate tilt against the rim plane', min: 0, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Amplitude at the station.', onChange: v => { P.tilt = v; update(); } });
+  gw.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 60, step: 1, value: 25, unit: '×', kind: 'view', visual: () => ws.tubeGroup, help: 'Makes the wobble and the gun\'s following visible.', onChange: v => { P.exag = v; update(); } });
+  const gr = app.ui.group('Numbers (exact scene geometry, not sensor readings)', { open: true });
+  rdRoom = gr.readout('rmsRoom', 'Room-fixed gun'); rdOd = gr.readout('rmsOd', 'Ring on the outside'); rdClip = gr.readout('rmsClip', 'Clip on the wall'); rdMargin = gr.readout('margin', 'Preload minus pull'); rdGap = gr.readout('gap', 'Tightest gap to wire or nozzle'); rdDrag = gr.readout('drag', 'Rim drag'); rdVert = gr.readout('vert', 'Height');
+
+  // ------------------------------------------------------------------ labels
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(roller.matrixWorld), 'roller on the bore (steel)', { cls: 'sensor' });
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(wheel.matrixWorld), 'wheel on the rim', { cls: 'sensor' });
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(pad.matrixWorld), 'spring pad on the outside', { cls: 'compliant' });
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(balancer.matrixWorld).add(V(0, 0, 120)), 'balancer wire (room): carries', { cls: 'fixed' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.onFrame(function (dt) { if (!ws.spin.on) return false; app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true }); update(); return true; });
+  ws.cap.position.z = -P.seat;
+  ready = true; update();
+})();
+</script>
+</body>
+</html>

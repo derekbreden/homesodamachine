@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tool-changing gantry swaps the tubes</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .tc-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(250px, 1fr); gap: 12px; align-items: start; }
+  @container tcstage (max-width: 780px) { .tc-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: tcstage; }
+  .tc-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .tc-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .tc-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .tc-col { display: grid; gap: 10px; align-content: start; }
+  .tc-svg { display: block; width: 100%; height: auto; }
+  .tc-svg text { font: 10px system-ui, sans-serif; fill: #9aa7ba; }
+  .tc-svg text.b { fill: #e7ebf1; font-weight: 600; } .tc-svg text.sm { font-size: 8.5px; fill: #6c788b; }
+  .tc-svg text.purple { fill: #d8b4fe; } .tc-svg text.teal { fill: #5eead4; } .tc-svg text.amber { fill: #fbbf24; } .tc-svg text.red { fill: #ff8a80; } .tc-svg text.green { fill: #4ade80; }
+  .tc-steps { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 6px; }
+  .tc-chip { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--wk-line2); color: var(--wk-muted); cursor: pointer; background: var(--wk-panel); }
+  .tc-chip.on { border-color: #f472b6; color: #fff; background: rgba(244, 114, 182, .16); }
+  .tc-cap { font-size: 12.5px; color: #cfd6e2; line-height: 1.4; min-height: 2.8em; padding: 0 2px 6px; }
+  .tc-cap b { color: #fff; }
+  table.tc-tab { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .tc-tab td, .tc-tab th { padding: 3px 6px; border-bottom: 1px solid var(--wk-line); text-align: left; font-weight: 400; color: #b7c1d0; }
+  .tc-tab thead th { color: var(--wk-faint); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+  .tc-tab tr.hot td { background: rgba(244, 114, 182, .12); color: #fff; }
+  .tc-verdict { font-size: 12.5px; padding: 4px 2px 0; }
+  .tc-ok { color: var(--lvl-ok); font-weight: 600; } .tc-bad { color: var(--lvl-limit); font-weight: 600; }
+  .tc-note { font-size: 10.5px; color: var(--wk-faint); padding: 3px 2px 0; font-style: italic; line-height: 1.3; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-07-toolchange-swap",
+  "title": "A tool-changing gantry swaps the tubes",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The positioner that carries the gun also parks it in a dock, picks up a gripper, exchanges pucks between a rack and the rotator, and picks the gun up again, so the rig can run trials for hours with nobody in the room. The scene walks one exchange and checks the one thing that decides the coupling class: whether the tool coupling can hold a gun on a lever with its umbilical pulling.",
+  "tags": ["toolchanger", "gantry", "unattended", "puck rack", "zero-point", "coupling load"],
+  "branchOf": [],
+  "combines": ["trials-01-puck-swap", "trials-02-dock-reset"],
+  "transferable": ["one positioner, three tools", "puck rack with a slot register", "coupling moment check"],
+  "how": {
+    "motion": "a gantry (any positioner with reach over the bench) carries one tool at a time and changes tools at docks",
+    "load": "the tool coupling carries the gun, gripper or puck; the docks carry parked tools",
+    "reference": "each dock and the rack are kinematic seats: the gantry re-anchors on every change",
+    "observe": "coupling contacts, tag read at the rack, gripper current, dock cells",
+    "use": "overnight runs: many pucks per session with no human between them"
+  },
+  "software": {
+    "commands": ["gantry moves", "couple / release a tool", "gripper open / close", "which slot next"],
+    "observes": ["tool coupled: contacts", "puck present in gripper", "rack register: slot to puck ID", "dock cells (trials-02)"],
+    "manual": ["loading the rack", "unloading finished pucks", "anything that jams"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-07-toolchange-swap.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg;
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Overnight runs need the tube swap to stop being a person. One positioner can do more than one job: it carries the <b>gun</b> for a trial, then parks it in its <b>dock</b> (trials-02), couples to a <b>gripper</b>, lifts a puck (trials-01) off the rotator into a <b>rack slot</b>, takes the next puck out of the rack, lowers it onto the rotator, parks the gripper, and picks the gun up again. A third station could hold a calibration board or a camera tool. The AI keeps a <b>register</b>: which puck is in which slot, which has been run, which is next.</p>' +
+        '<p>Step through the exchange. The plan shows the gantry, its three tool stations, the rack and the rotator. The card on the right checks the load on the tool coupling: gun mass on a lever plus the umbilical\'s pull, against three classes of coupling. The point of that check is a fact about the idea, not a design: <b>magnets alone do not hold a gun on a lever</b> (the printer tool changers this idea borrows from carry a few hundred grams). A latch or a clamped stud is needed.</p>',
+      carries: '<p>The gantry (unspecified: rails at the bench edge and a carriage, an overhead frame, or an arm) carries one tool at a time through the coupling. Docks carry parked tools; the rack carries pucks. The umbilical, gas tube and wire feed follow the gun on an overhead hook; while the gripper is working they are parked with the gun.</p>',
+      tried: '<ul>' +
+        '<li><b>Magnets are not enough.</b> Set the coupling to magnetic Kelvin: at 1.5 kg on a 200 mm lever the tipping moment is about 3 N&middot;m against about 1.5 N&middot;m of holding. Repair drawn: a latch or a zero-point stud. Left standing: how a stud module is unlocked (pneumatic or a motor turning a cam) and how it carries an umbilical is not designed; the retail zero-point plate found (trials sourcing) lists 20 kN and 0.005 mm repeatability as seller claims, with three reviews.</li>' +
+        '<li><b>One positioner has to reach everything.</b> Rack, rotator and three docks span about 1 m on the bench; the gun\'s fine positioning and a puck-carrying stroke are different requirements. Repair: nothing chosen. It suggests a coarse gantry for the exchange and a fine stage for the corner.</li>' +
+        '<li><b>The umbilical.</b> A 5 m fibre with a 240 to 350 mm minimum bend radius <b>[manual p.20]</b> cannot be dragged across the bench by a gantry. Repair: an overhead hook that lets the gun travel under it, and docks placed so the cable never crosses the tube. Left standing: not modelled here.</li>' +
+        '<li><b>Unattended is a policy, not a hardware fact.</b> A rig that changes tools alone needs guarding and an interlock. Left standing: Derek\'s decision; this idea is about the dry-run rig with a mule (trials-06).</li></ul>',
+      unresolved: '<ul><li>Whether one positioner can be strong enough for a 2 kg puck, precise enough for the corner and cheap enough to be worth having is <b>[unknown]</b>. A separate cheap pick-and-place for pucks (a printer gantry with a gripper) is the branch that avoids the tradeoff.</li>' +
+        '<li>Gripper: parallel jaws on the puck\'s ears (drawn) or an expanding mandrel in the tube bore; grip force and safety of a 2 kg puck are <b>[unknown]</b>.</li>' +
+        '<li>Rack repeatability: a puck set in a rack slot must be findable by the gripper to a few millimetres; the slot register is software, the slot itself is a locating seat.</li></ul>',
+      assumptions: '<ul><li>Bench layout, station and slot positions, and the six-puck rack are <b>[illustrative]</b>. Puck and tube masses: rotating mass 1.40 kg (2.01 kg with a second plate) <b>[repo]</b>; the puck itself adds an <b>[illustrative]</b> 0.6 kg.</li>' +
+        '<li>Coupling capacities: magnetic Kelvin 0.5 x preload x ball radius with an illustrative 100 N and 30 mm; latch 15 N&middot;m and zero-point stud 200 N&middot;m are <b>[illustrative]</b>; the zero-point figure is not on the listing (only pull-in force and torque are).</li>' +
+        '<li>The gun mass (1.5 kg) and its centre-of-mass lever are <b>[unknown]</b>; the umbilical pull is <b>[unknown]</b>.</li></ul>'
+    }
+  });
+
+  // ---------------------------------------------------------------- positions (mm, plan: +x right, +y up)
+  const ST = { step: 0, mass: 1.5, lever: 200, pull: 1.0, h: 100, dyn: 1.5, coupling: 'magnet' };
+  const CORNER = { x: 62, y: 0 }, G = { x: 410, y: -210 }, R = { x: 410, y: 0 }, T = { x: 410, y: 210 };
+  const SLOTS = [[-520, -220], [-300, -220], [-520, 0], [-300, 0], [-520, 220], [-300, 220]];
+  const slotPos = i => ({ x: SLOTS[i][0], y: SLOTS[i][1] });
+  const STEPS = [
+    { n: 'Trial on A', pos: CORNER, tool: 'gun', puck: null, rot: 'A', slots: ['', 'B', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gun is at the corner; the rotator turns tube A; the judge records. This is the state the AI spends most of its time in.' },
+    { n: 'Park the gun', pos: G, tool: 'none', puck: null, rot: 'A', slots: ['', 'B', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gantry carries the gun to its dock; the shell drops into the kinematic seats, the cells weigh it (trials-02), the coupling releases.' },
+    { n: 'Take the gripper', pos: R, tool: 'gripper', puck: null, rot: 'A', slots: ['', 'B', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gantry couples to the gripper at its dock. Contacts confirm it is seated before anything moves.' },
+    { n: 'Lift puck A', pos: { x: 0, y: 0 }, tool: 'gripper', puck: 'A', rot: '', slots: ['', 'B', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gripper closes on the puck\'s ears and lifts it off the three seats. The rotator is empty; the seat certificate reads open.' },
+    { n: 'Rack A', pos: slotPos(0), tool: 'gripper', puck: null, rot: '', slots: ['A', 'B', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'Puck A goes into the empty rack slot; the register records "A: done, slot 1".' },
+    { n: 'Fetch B', pos: slotPos(1), tool: 'gripper', puck: 'B', rot: '', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The tag reader at the rack confirms slot 2 holds puck B; the gripper lifts it.' },
+    { n: 'Lower B', pos: { x: 0, y: 0 }, tool: 'gripper', puck: null, rot: 'B', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'B is lowered onto the three seats; the seat certificate reads closed x3.' },
+    { n: 'Park the gripper', pos: R, tool: 'none', puck: null, rot: 'B', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gripper goes back to its dock and is released.' },
+    { n: 'Take the gun', pos: G, tool: 'gun', puck: null, rot: 'B', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'The gantry picks the gun out of its dock; the seated contact opens, coordinates were anchored on the way in.' },
+    { n: 'Verify B', pos: { x: 140, y: 0 }, tool: 'gun', puck: null, rot: 'B', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'Read the puck\'s tag, check the index pulse, judge the rim: the new tube is what the register says it is.' },
+    { n: 'Trial on B', pos: CORNER, tool: 'gun', puck: null, rot: 'B', slots: ['A', '', 'C', 'D', 'E', 'F'], who: 'sw', cap: 'Same state as step 0 with a new tube. The rack has four pucks left; a human is needed to load or unload it, not for each trial.' },
+  ];
+  let cur = { x: CORNER.x, y: CORNER.y }, from = cur, to = cur, tw = 1;
+  const ease = t => t * t * (3 - 2 * t);
+  const posNow = () => { const t = ease(Math.min(1, tw)); return { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }; };
+
+  // ---------------------------------------------------------------- SVG
+  const PW = 640, PH = 384, SC = 0.5, CX = 330, CY = 190;
+  const X = x => CX + x * SC, Y = y => CY - y * SC;
+  const plan = S('svg', { viewBox: '0 0 ' + PW + ' ' + PH, class: 'tc-svg', role: 'img', 'aria-label': 'plan of the tool-changing cell' });
+  const load = S('svg', { viewBox: '0 0 300 190', class: 'tc-svg', role: 'img', 'aria-label': 'coupling load check' });
+  const stepsEl = h('div', { class: 'tc-steps' });
+  const capEl = h('div', { class: 'tc-cap' });
+  const verdict = h('div', { class: 'tc-verdict' });
+  const tab = h('table', { class: 'tc-tab' });
+  const planCard = h('div', { class: 'tc-card' }, h('h3', {}, h('span', { text: 'Cell plan' }), h('em', { text: 'illustrative layout' })), stepsEl, capEl, plan);
+  const loadCard = h('div', { class: 'tc-card' }, h('h3', {}, h('span', { text: 'Can the coupling hold the gun?' }), h('em', { text: 'static moment · illustrative' })), load, verdict,
+    h('div', { class: 'tc-note', text: 'Demand: gun weight on its lever plus the umbilical pull, times a dynamic factor for gantry acceleration. Capacity: tipping about the coupling\'s edge. Numbers are placeholders; the ranking of the classes is the point.' }));
+  const regCard = h('div', { class: 'tc-card' }, h('h3', {}, h('span', { text: 'Register the AI keeps' }), h('em', { text: 'slot → puck → status' })), tab);
+  app.stageEl.appendChild(h('div', { class: 'tc-grid' }, planCard, h('div', { class: 'tc-col' }, loadCard, regCard)));
+
+  const rect = (x, y, w, hh, a) => S('rect', Object.assign({ x: x, y: y, width: w, height: hh }, a));
+  function drawPlan() {
+    const p = posNow(), s = STEPS[ST.step];
+    plan.textContent = '';
+    plan.append(rect(0, 0, PW, PH, { fill: '#0f141b', rx: 6 }));
+    for (let x = -600; x <= 600; x += 200) plan.append(S('line', { x1: X(x), y1: 10, x2: X(x), y2: PH - 10, stroke: '#1a222d' }), S('text', { x: X(x), y: PH - 4, 'text-anchor': 'middle', class: 'sm', text: x }));
+    // gantry: rails at left/right, beam at the carriage y
+    const railX0 = X(-620), railX1 = X(620);
+    plan.append(rect(railX0 - 4, 20, 8, PH - 40, { fill: '#3a4658' }), rect(railX1 - 4, 20, 8, PH - 40, { fill: '#3a4658' }), S('text', { x: railX0 + 8, y: 30, class: 'sm', text: 'gantry rails' }));
+    plan.append(rect(railX0, Y(p.y) - 4, railX1 - railX0, 8, { fill: '#a855f7', opacity: 0.55 }));
+    // rotator, tube or puck on it
+    plan.append(rect(X(-150), Y(125), 300 * SC, 250 * SC, { fill: '#6b7a90', opacity: 0.65 }), S('circle', { cx: X(0), cy: Y(0), r: 75 * SC, fill: '#7d4ac0', opacity: 0.6 }));
+    if (s.rot) plan.append(S('circle', { cx: X(0), cy: Y(0), r: 63.5 * SC, fill: s.rot === 'B' ? '#e8d9b0' : '#c8d0da' }), S('circle', { cx: X(0), cy: Y(0), r: 98 * SC, fill: 'none', stroke: '#f5a524', 'stroke-width': 2 }), S('text', { x: X(0), y: Y(0) + 3, 'text-anchor': 'middle', class: 'b', fill: '#111', text: s.rot }));
+    else plan.append(S('text', { x: X(0), y: Y(0) + 3, 'text-anchor': 'middle', class: 'sm', text: 'seats empty' }));
+    plan.append(S('text', { x: X(-150), y: Y(125) - 4, class: 'sm', text: 'rotator' }));
+    plan.append(S('circle', { cx: X(62), cy: Y(0), r: 2.6, fill: '#ff3b30' }));
+    // rack slots
+    plan.append(rect(X(-630), Y(335), 440 * SC, 670 * SC, { fill: '#334155', opacity: 0.45, stroke: '#14b8a6' }), S('text', { x: X(-625), y: Y(335) + 12, class: 'sm teal', text: 'puck rack (6 slots)' }));
+    s.slots.forEach((id, i) => { const q = slotPos(i); plan.append(S('circle', { cx: X(q.x), cy: Y(q.y), r: 98 * SC, fill: id ? '#f5a524' : 'none', opacity: id ? 0.85 : 1, stroke: '#14b8a6', 'stroke-dasharray': id ? null : '3 3' }), S('text', { x: X(q.x), y: Y(q.y) + 4, 'text-anchor': 'middle', class: 'b', fill: id ? '#111' : '#5eead4', text: id || ('slot ' + (i + 1)) })); });
+    // tool docks
+    [[G, 'gun dock', 'gun'], [R, 'gripper dock', 'gripper'], [T, 'board / camera tool', 'aux']].forEach(d => {
+      const parked = d[2] === 'gun' ? !(s.tool === 'gun') : d[2] === 'gripper' ? !(s.tool === 'gripper') : true;
+      plan.append(rect(X(d[0].x) - 34, Y(d[0].y) - 26, 68, 52, { fill: '#334155', stroke: '#14b8a6' }), S('text', { x: X(d[0].x) - 34, y: Y(d[0].y) + 38, class: 'sm teal', text: d[1] }));
+      if (parked) plan.append(rect(X(d[0].x) - 22, Y(d[0].y) - 14, 44, 28, { fill: d[2] === 'gun' ? '#59636f' : d[2] === 'gripper' ? '#a855f7' : '#3b82f6', opacity: 0.9 }));
+    });
+    // carriage with the tool in hand
+    const cx = X(p.x), cy = Y(p.y);
+    plan.append(rect(cx - 18, cy - 14, 36, 28, { fill: '#a855f7', stroke: '#e9d5ff' }));
+    if (s.tool === 'gun') plan.append(rect(cx - 62, cy - 6, 60, 12, { fill: '#59636f', stroke: '#9aa7b8' }), S('text', { x: cx - 60, y: cy - 10, class: 'sm', text: 'gun' }));
+    if (s.tool === 'gripper') plan.append(rect(cx - 24, cy - 24, 6, 48, { fill: '#c084fc' }), rect(cx + 18, cy - 24, 6, 48, { fill: '#c084fc' }), S('text', { x: cx - 24, y: cy - 28, class: 'sm purple', text: 'gripper' }));
+    if (s.puck) plan.append(S('circle', { cx: cx, cy: cy, r: 20, fill: '#f5a524', opacity: 0.95 }), S('text', { x: cx, y: cy + 3, 'text-anchor': 'middle', class: 'b', fill: '#111', text: s.puck }));
+    // overhead hook for the umbilical
+    plan.append(S('circle', { cx: X(-60), cy: Y(300), r: 4, fill: '#4b5563' }), S('text', { x: X(-60) + 8, y: Y(300) + 3, class: 'sm', text: 'overhead hook: umbilical, gas, wire' }));
+    if (s.tool === 'gun') plan.append(S('line', { x1: cx - 62, y1: cy, x2: X(-60), y2: Y(300), stroke: '#4b5563', 'stroke-dasharray': '4 3', 'stroke-width': 2 }));
+    plan.append(S('text', { x: 8, y: 14, class: 'b', text: 'Step ' + ST.step + ': ' + s.n }));
+  }
+
+  // ---------------------------------------------------------------- coupling load
+  const CAP = { magnet: { n: 'magnetic Kelvin (printer toolchanger class)', v: 0.5 * 100 * 0.030 }, latch: { n: 'Kelvin + latch (servo cam)', v: 15 }, stud: { n: 'zero-point stud (industrial class)', v: 200 } };
+  function drawLoad() {
+    load.textContent = '';
+    const demand = (ST.mass * 9.81 * ST.lever / 1000 + ST.pull * ST.h / 1000) * ST.dyn, cap = CAP[ST.coupling].v, ratio = cap / demand;
+    const max = Math.max(demand, cap, 4) * 1.15, W = 250, sx = v => 30 + v / max * W;
+    load.append(S('text', { x: 4, y: 12, class: 'b', text: CAP[ST.coupling].n }));
+    load.append(S('text', { x: 4, y: 40, class: 'sm', text: 'demand' }), rect(30, 44, sx(demand) - 30, 20, { fill: '#f59e0b' }), S('text', { x: sx(demand) + 4, y: 58, class: 'amber', text: demand.toFixed(1) + ' N·m' }));
+    load.append(S('text', { x: 4, y: 90, class: 'sm', text: 'holds' }), rect(30, 94, Math.max(2, sx(cap) - 30), 20, { fill: ratio >= 1.5 ? '#22c55e' : (ratio >= 1 ? '#eab308' : '#ef4444') }), S('text', { x: sx(cap) + 4, y: 108, class: 'green', text: cap.toFixed(1) + ' N·m' }));
+    load.append(S('line', { x1: sx(demand), y1: 36, x2: sx(demand), y2: 122, stroke: '#f59e0b', 'stroke-dasharray': '3 3' }));
+    load.append(S('text', { x: 4, y: 146, class: 'sm', text: 'demand = (m g L + F h) × dynamic factor' }), S('text', { x: 4, y: 160, class: 'sm', text: '= (' + ST.mass.toFixed(1) + ' kg × 9.81 × ' + ST.lever + ' mm + ' + ST.pull.toFixed(1) + ' N × ' + ST.h + ' mm) × ' + ST.dyn.toFixed(1) }), S('text', { x: 4, y: 176, class: 'sm', text: 'magnet holding = ½ × preload (100 N) × ball radius (30 mm)' }));
+    verdict.innerHTML = ratio >= 1.5 ? '<span class="tc-ok">holds with margin ×' + ratio.toFixed(1) + '</span>' : ratio >= 1 ? '<span class="tc-ok">holds, thin margin ×' + ratio.toFixed(2) + '</span>' : '<span class="tc-bad">does not hold</span>: the gun would tip out of the coupling (capacity is ' + (ratio * 100).toFixed(0) + ' % of the demand).';
+    return { demand: demand, cap: cap, ratio: ratio };
+  }
+  function drawTable() {
+    const s = STEPS[ST.step], rows = [];
+    for (let i = 0; i < 6; i++) rows.push([i + 1, s.slots[i] || (s.puck && i === -1 ? '' : '—'), s.slots[i] ? (s.slots[i] === 'A' ? 'done' : s.slots[i] === 'B' ? 'waiting' : 'waiting') : 'empty']);
+    rows.push(['rotator', s.rot || '—', s.rot ? 'on seats' : 'empty']); rows.push(['gantry', s.puck || s.tool, s.puck ? 'carrying a puck' : (s.tool === 'none' ? 'no tool' : s.tool + ' coupled')]);
+    tab.innerHTML = '<thead><tr><th>Where</th><th>Puck</th><th>Status</th></tr></thead><tbody>' + rows.map((r, i) => '<tr class="' + ((r[0] === 'rotator' && s.rot) || (r[0] === 'gantry') ? 'hot' : '') + '"><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</tbody>';
+  }
+  function chips() { stepsEl.textContent = ''; STEPS.forEach((s, i) => stepsEl.appendChild(h('button', { class: 'tc-chip' + (i === ST.step ? ' on' : ''), type: 'button', on: { click: () => app.ui.set('step', i) }, text: i + ' ' + s.n }))); }
+  function redraw() {
+    drawPlan(); const c = drawLoad(); drawTable(); chips(); capEl.innerHTML = '<b>' + ST.step + ' · ' + STEPS[ST.step].n + '.</b> ' + STEPS[ST.step].cap;
+    const s = STEPS[ST.step];
+    app.io.set({
+      commands: [
+        { name: 'Gantry: go to', value: s.n, note: 'proposed; one positioner, one tool at a time' },
+        { name: 'Tool coupling', value: s.tool === 'none' ? 'released' : s.tool + ' coupled', note: 'latch or stud, not magnets alone' },
+        { name: 'Gripper', value: s.puck ? 'closed on puck ' + s.puck : 'open', note: 'proposed' },
+      ],
+      observes: [
+        { name: 'Coupling seated contacts', value: s.tool === 'none' ? '–' : 'closed x3', status: s.tool === 'none' ? 'blind' : 'seen', note: 'ball-and-dowel pairs as switches' },
+        { name: 'Puck present in gripper', value: s.puck ? 'yes (' + s.puck + ')' : 'no', status: 'seen', note: 'gripper current or a jaw switch' },
+        { name: 'Rack register', value: s.slots.map((x, i) => x || '·').join(' '), status: 'seen', note: 'tag read at the rack, software register' },
+        { name: 'Coupling margin', value: 'x' + c.ratio.toFixed(2), status: 'partly', note: 'a computed check, not a sensor; the gun mass and lever are unknown' },
+        { name: 'Umbilical while the tool changes', value: '–', status: 'unresolved', note: 'overhead hook drawn; not modelled' },
+      ],
+      manual: ['Loading and unloading the rack', 'Anything that jams'],
+    });
+  }
+  app.onFrame(function (dt) { if (tw >= 1) return false; tw = Math.min(1, tw + dt / 0.9); drawPlan(); return true; });
+  function goto(step) { from = posNow(); to = STEPS[step].pos; tw = 0; ST.step = step; redraw(); app.invalidate(); }
+
+  const g1 = app.ui.group('The exchange');
+  g1.slider({ id: 'step', label: 'Exchange step', min: 0, max: 10, step: 1, value: 0, kind: 'state', visual: 'gantry, tool and pucks in the plan', format: v => v + ' ' + STEPS[v].n, help: 'One puck exchange from a trial on A to a trial on B.', onChange: v => goto(v) });
+  const g2 = app.ui.group('Coupling load (scene edits; masses and levers are unknown)', { help: 'The check the idea stands on.' });
+  g2.radio({ id: 'coupling', label: 'Tool coupling class', options: [{ value: 'magnet', label: 'magnetic Kelvin' }, { value: 'latch', label: 'Kelvin + latch' }, { value: 'stud', label: 'zero-point stud' }], value: 'magnet', kind: 'branch', visual: 'coupling bar', onChange: v => { ST.coupling = v; redraw(); } });
+  g2.slider({ id: 'mass', label: 'Gun + shell mass', min: 0.5, max: 3, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', visual: 'demand bar', help: 'Gun mass is unknown; weigh it.', onChange: v => { ST.mass = v; redraw(); } });
+  g2.slider({ id: 'lever', label: 'Centre of gravity from the coupling', min: 50, max: 300, step: 10, value: 200, unit: 'mm', kind: 'scene', visual: 'demand bar', onChange: v => { ST.lever = v; redraw(); } });
+  g2.slider({ id: 'pull', label: 'Umbilical pull at the shell', min: 0, max: 5, step: 0.1, value: 1, unit: 'N', kind: 'scene', visual: 'demand bar', help: 'Unknown; the dock weigh-in (trials-02) would measure it.', onChange: v => { ST.pull = v; redraw(); } });
+  g2.slider({ id: 'dyn', label: 'Dynamic factor (gantry acceleration)', min: 1, max: 4, step: 0.1, value: 1.5, unit: '×', kind: 'scene', visual: 'demand bar', onChange: v => { ST.dyn = v; redraw(); } });
+  goto(0);
+})();
+</script>
+</body>
+</html>

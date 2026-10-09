@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="720" viewBox="0 0 860 720" font-family="Helvetica,Arial,sans-serif" font-size="11">
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="12" y="20" font-size="14" font-weight="bold">Lid carrier (idea A) — side view along the tangent, closed and parked</text>
+<text x="12" y="36">Proxy at Derek's opening pose (grip 45°, hole DIAL 30, vertical −15°); body lies toward −Y (foreshortened here). 1 px = 1 mm.</text>
+<line x1="10" y1="680.0" x2="850" y2="680.0" stroke="#333" stroke-width="2"/><text x="14" y="694.0">bench</text>
+<rect x="150.0" y="644.0" width="300" height="12" fill="#d9d4c7" stroke="#777"/>
+<rect x="160.0" y="656.0" width="20" height="24" fill="#d9d4c7" stroke="#777"/>
+<rect x="420.0" y="656.0" width="20" height="24" fill="#d9d4c7" stroke="#777"/>
+<rect x="225.0" y="594.05" width="150" height="50.0" fill="#ece8dc" stroke="#999" stroke-dasharray="3 2"/>
+<text x="150.0" y="600.0">rotator (turntable, nest; motor tower not drawn)</text>
+<rect x="236.5" y="441.6" width="1.65" height="152.4" fill="#8aa" stroke="#577"/>
+<rect x="361.8" y="441.6" width="1.65" height="152.4" fill="#8aa" stroke="#577"/>
+<rect x="238.2" y="448.0" width="123.7" height="6.35" fill="#9bb" stroke="#577"/>
+<text x="240.0" y="468.0">end plate, 6.35 below rim</text>
+<rect x="205.0" y="121.6" width="190" height="320" fill="none" stroke="#2a7" stroke-dasharray="6 4"/>
+<text x="209.0" y="135.6" fill="#2a7">loading column r&lt;95 to rim+320</text>
+<circle cx="500.0" cy="381.65" r="7" fill="#fff" stroke="#000" stroke-width="2"/><text x="510.0" y="385.65">hinge ∥ tangent (Y)</text>
+<text x="510.0" y="399.65">200 from axis, 298 above bench</text>
+<rect x="490.0" y="381.65" width="20" height="298.35" fill="#ccc" stroke="#777"/>
+<text x="514.0" y="650.0">post on common subplate</text>
+<polygon points="219.3,261.1 245.6,240.2 260.6,251.9 321.8,348.0 295.5,368.9 280.5,357.2" fill="#c9d6ee" stroke="#335" stroke-width="1"/>
+<polygon points="269.7,322.0 280.5,308.8 303.7,290.4 316.4,310.4 305.6,323.5 282.4,341.9" fill="#c9d6ee" stroke="#335" stroke-width="1"/>
+<line x1="354.6" y1="436.6" x2="301.1" y2="352.6" stroke="#555" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+<line x1="361.8" y1="448.0" x2="326.0" y2="383.1" stroke="#b36b00" stroke-width="1.6"/>
+<line x1="500.0" y1="381.65" x2="270.5" y2="304.5" stroke="#335" stroke-width="5" opacity="0.6"/>
+<polygon points="505.6,176.8 516.8,161.4 610.7,96.9 632.4,122.5 621.3,137.9 527.4,202.4" fill="none" stroke="#335" stroke-dasharray="4 3"/>
+<polygon points="532.1,162.8 551.6,149.4 565.1,159.7 584.3,182.3 564.8,195.7 551.3,185.4" fill="none" stroke="#335" stroke-dasharray="4 3"/>
+<line x1="440.0" y1="238.3" x2="522.1" y2="181.9" stroke="#555" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+<line x1="428.9" y1="245.9" x2="492.5" y2="207.8" stroke="#b36b00" stroke-width="1.6"/>
+<line x1="500.0" y1="381.65" x2="569.0" y2="149.6" stroke="#335" stroke-width="5" opacity="0.25"/>
+<text x="629.0" y="189.6">parked at 88° (dashed):</text><text x="629.0" y="203.6">CG past the hinge; lid rests open</text>
+<polyline points="361.8,448.0 360.7,445.6 358.6,440.7 356.6,435.7 354.8,430.7 353.2,425.6 351.7,420.4 350.5,415.2 349.4,410.0 348.5,404.7 347.8,399.4 347.2,394.1 346.9,388.7 346.8,383.4 346.8,378.0 347.0,372.7 347.4,367.4 348.0,362.1 348.8,356.8 349.7,351.5 350.9,346.3 352.2,341.1 353.7,336.0 355.4,330.9 357.3,325.9 359.3,320.9 361.5,316.0 363.9,311.2 366.4,306.5 369.1,301.9 372.0,297.4 375.0,293.0 378.2,288.7 381.5,284.5 384.9,280.4 388.5,276.5 392.3,272.6 396.2,268.9 400.2,265.4 404.3,262.0 408.5,258.7 412.9,255.6 417.3,252.6 421.9,249.8 426.5,247.2" fill="none" stroke="#b36b00" stroke-dasharray="2 2"/>
+<text x="369.8" y="470.0" fill="#b36b00">wire tip leaves the corner up and inward</text>
+<polygon points="461.0,363.65 479.0,363.65 470.0,374.65" fill="#e7c" stroke="#704"/><circle cx="470.0" cy="360.65" r="5" fill="#666"/>
+<text x="410.0" y="405.65" fill="#704">vee pair ±Y (x 170)</text>
+<polygon points="591.0,363.65 609.0,363.65 600.0,374.65" fill="#e7c" stroke="#704"/><circle cx="600.0" cy="360.65" r="5" fill="#666"/>
+<text x="612.0" y="389.65" fill="#704">rear vee + latch</text>
+<text x="12" y="708">Closed: three balls in vees behind the station + latch (CG lies outside the triangle, so the latch is load-bearing); hinge pins in tight slots.</text>
+</svg>

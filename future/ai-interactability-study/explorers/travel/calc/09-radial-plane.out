@@ -1,0 +1,48 @@
+1. Where the gun is, per attitude (kit proxy)
+
+pose                                           COM r (mm) tip r tip over rim beam in-section / along-tangent tilt (deg from vertical)  grip base r, height over rim, exit direction
+A  opening pose, barrel tangent (fed wire)           118     55.3       5.0    32.5 / 37.0                          r 234, 133, dir (-0.22, -0.84, 0.50)
+B  radial plane, over the bore (no wire)              50     53.8       7.5    30.0 / 0.0                           r 167, 154, dir (-0.82, 0.00, 0.57)
+B2 radial plane, grip up, over the axis               14     53.8       7.5    30.0 / 0.0                           r 38, 272, dir (-0.09, 0.00, 1.00)
+
+   The crown of scenes/datum-03-rim-crown balances the gun about its ball ring (radius 66 mm): A has the centre of mass 118 mm out, which is why
+   round 3 there needs a counterweight about as heavy as the gun. B has it about 50 mm out, inside the ring.
+
+2. With the pose-A roll and hole dials held, the vertical (yaw) dial changes the beam angle in the radial-vertical section:
+   vertical dial  -45 deg : in-section tilt  42.9 deg, along-tangent tilt  18.5 deg
+   vertical dial  -30 deg : in-section tilt  39.0 deg, along-tangent tilt  29.4 deg
+   vertical dial  -15 deg : in-section tilt  32.5 deg, along-tangent tilt  37.0 deg
+   vertical dial    0 deg : in-section tilt  22.8 deg, along-tangent tilt  41.8 deg
+   vertical dial   15 deg : in-section tilt   9.9 deg, along-tangent tilt  44.2 deg
+   vertical dial   30 deg : in-section tilt  -4.7 deg, along-tangent tilt  44.5 deg
+   The in-section tilt sets how much of the beam goes to the wall side and how much to the plate side. What removing the wire frees is the
+   rotation about the BEAM axis (below), not yaw about the vertical.
+
+3. Rotation about the beam axis through the dot (turns the gun about its own optical axis; the round beam does not change)
+
+   A  opening pose, barrel tangent (fed wire)    grip base moves 2.06 mm per degree of spin (lever 118 mm); fibre twist per degree of spin 0.91 deg
+   B  radial plane, over the bore (no wire)      grip base moves 2.06 mm per degree of spin (lever 118 mm); fibre twist per degree of spin 0.91 deg
+   B2 radial plane, grip up, over the axis       grip base moves 2.06 mm per degree of spin (lever 118 mm); fibre twist per degree of spin 0.91 deg
+   The wobble sweep (2 mm at 80 Hz in the recorded settings) runs along the gun's local x; spin turns it away from across-the-seam: width across the seam x cos(spin):
+   spin 5 deg -> 99.6 % of the swing width across the seam (and 0.17 mm of a 2 mm swing along it)
+   spin 10 deg -> 98.5 % of the swing width across the seam (and 0.35 mm of a 2 mm swing along it)
+   spin 20 deg -> 94.0 % of the swing width across the seam (and 0.68 mm of a 2 mm swing along it)
+   spin 30 deg -> 86.6 % of the swing width across the seam (and 1.00 mm of a 2 mm swing along it)
+   With a fed wire the wire bracket fixes the spin; with none, the wobble direction and the fibre are what limit it. Both numbers are the proxy's.
+
+4. Cable laid flat behind an orbiting gun (datum-03b geometry, G1 route, plan view only)
+   A  opening pose, barrel tangent (fed wire): exit at r = 234 mm, plan heading -15 deg from radially outward (+ = counterclockwise)
+     trailing side clockwise : turn 142 deg (arc 868 mm), then a circle of radius 718 mm.  380 deg: 5.63 m OVER 5 m   190 deg: 3.25 m
+     trailing side counter-clockwise: turn 151 deg (arc 923 mm), then a circle of radius 818 mm.  380 deg: 6.35 m OVER 5 m   190 deg: 3.64 m
+   B  radial plane, over the bore (no wire): exit at r = 167 mm, plan heading 0 deg from radially outward (+ = counterclockwise)
+     trailing side clockwise : turn 155 deg (arc 944 mm), then a circle of radius 738 mm.  380 deg: 5.84 m OVER 5 m   190 deg: 3.39 m
+     trailing side counter-clockwise: turn 155 deg (arc 944 mm), then a circle of radius 738 mm.  380 deg: 5.84 m OVER 5 m   190 deg: 3.39 m
+   So the exit direction in B is not the fix: both A and B leave the grip base radially outward, need a turn of 140 to 160 degrees before the fibre can
+   run round the tube, and need about 5.8 to 6 m for a continuous 380 degrees. What the missing wire buys is a bidirectional weld (each half 190 degrees
+   from the first tack, cable unwound between): about 3.4 m, inside the 5 m, with every bend at or above 350 mm by construction.
+   (datum-03b's scene, pose A at a fixed 700 mm track: 5.6 m and a 262 mm bend, which is consistent with the above: the track radius that satisfies the 350 mm bend is about 740 to 800 mm.)
+
+5. The nozzle tip in B sits 7.5 mm above the rim plane and 53.8 mm from the axis (bore wall at 61.85): inside the bore, as in A.
+   The barrel then runs up and toward the axis, so nothing of it crosses the rim. For a room-fixed gun (not a crown, where the gun rides with the tube) the tube can then
+   slide out either way along y, the tangent at the station, because the barrel lies in the x-z plane and the tip is 7.5 mm above the rim; in A the barrel lies along -y, so only the
+   slide away from it (+y) is free. (calc/05 and calc/07 hold for A: the horizontal shuttle clears while 16 cos(beta) > 6.35 mm, with the wire retracted; a straight lift-out needs about 144 mm.)

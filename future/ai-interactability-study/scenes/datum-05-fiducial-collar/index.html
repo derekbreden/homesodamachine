@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiducial collar</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-05-fiducial-collar",
+  "title": "Fiducial collar: the work wears its own coordinate system",
+  "by": "datum",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A printed ring on the tube carries tags. A camera on the gun shell reads them, so the tube's pose in the gun's own frame is known without any room reference, and the hidden corner is inferred from the visible tags. Nothing moves: software only observes, so it can watch a hand-held weld or check a moving arm. The lever arm from the tags to the corner sets the accuracy.",
+  "tags": ["datum", "fiducials", "camera on the gun", "observe only", "flight recorder", "lever arm"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["tags on the work", "camera on the shell", "lever-arm rule", "hand-held flight recorder"],
+  "how": {
+    "motion": "nothing moves in the sensing; the tube turns on the existing rotator, the hand or an arm moves the gun",
+    "load": "not addressed: the hand or any support holds the gun",
+    "reference": "tags on a ring seated on the work; the hidden corner is a fixed offset from them",
+    "observe": "camera on the gun shell reads the tags; the corner is inferred, not seen",
+    "use": "log or check the gun-to-seam pose during hand welds and dry runs; cue the hand"
+  },
+  "software": {
+    "commands": ["nothing required; optional cues to the hand (LEDs on the shell) or corrections to an arm"],
+    "observes": ["tags in view, their size and angle", "tube pose in the camera frame, hence dot-versus-seam (inferred)"],
+    "manual": ["seating the collar or flange on the tube", "entering the per-tube seat depth if the model uses it"]
+  },
+  "links": [{"label": "datum-21 mates on the tube (a ring on the rim that carries other things)", "href": "../datum-21-mates-on-the-tube/index.html"}],
+  "notes": ["../../explorers/datum/ideas/datum-05-fiducial-collar.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, J = WK.JOINT, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2;
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'overall',
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [10, -60, 190], dir: [0.72, -0.5, 0.42], dist: 720 },
+      joint: { target: [45, -20, 150], dir: [0.7, -0.5, 0.45], dist: 260 },
+      top: { target: [0, -40, 150], dir: [0, -0.004, 1], dist: 560 },
+      side: { target: [0, -40, 170], dir: [1, 0, 0.05], dist: 700 },
+    },
+    sections: {
+      proposes:
+        '<p>The corner is hidden: from outside, the wall blocks it. But the tube is a rigid body, so anything on the <i>outside</i> that is fixed to it can stand in. A printed ring on the tube carries square tags (the kind a camera library detects). A small camera on the gun shell looks at the ring. The tags give the tube&rsquo;s pose in the camera&rsquo;s (that is, the gun&rsquo;s) frame; the seam is a known offset from the tags; so the dot&rsquo;s position against the seam is <b>inferred</b>, in the work&rsquo;s own coordinates, with no reference to the room, the bench or the rotator. The ring turns with the tube, so a tag is nearly always in view, and runout is included because the tags move with the work.</p>' +
+        '<p>This is an <b>observe-only</b> arrangement: nothing has to move. Software can log the gun&rsquo;s pose against the seam through a whole hand-held weld (a flight recorder to learn what good hand welds look like), warn or cue the hand, or check a positioner that moves the gun.</p>',
+      carries:
+        '<p>The ring seats on the tube (rim or outer wall) and turns with it: it is the <b>locating</b> reference (teal). The camera is carried by the printed shell (amber bracket). Nothing here carries the gun; the hand, an arm or a crown does.</p>',
+      software:
+        '<p><b>Observed:</b> which tags are in view and unblocked, their pixel size and viewing angle, and from them the tube pose and the inferred dot offset, drawn as the blue &ldquo;est.&rdquo; marker in the corner inset (a model draw, not a measurement). <b>Blind:</b> the corner itself and the dot: the wall hides them. <b>Manual:</b> seating the ring; entering the seat depth if the model uses it.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> tags on the vertical outer wall of a collar. <b>Assumption:</b> a camera on the gun sees them square. <b>What the scene shows:</b> the camera is above the rim and the tags are on a vertical face, so they are seen at 70&deg; or more off-normal and are tiny (about 30 px at 8 mm, 13 px at a longer range [calc/tag_lever.py]). <b>Change:</b> put the tags on the <i>top face of a flange</i> that sits on the rim; the camera then sees them at about 30&deg; and 110 px. <b>Cost:</b> the flange is a turning ring near the nozzle and beam, so it must stay outside the beam corridor (see the crown scene).</li>' +
+        '<li><b>Conflict:</b> the collar is far from the corner. <b>Assumption:</b> a small angular error stays small. <b>What the scene shows:</b> the error at the seam is the tilt error times the distance from tag to seam: at 60 mm below the rim about 1.4 mm from one tag, against 0.14 mm for a flange 13 mm away [calc]. <b>Change:</b> collar as near the rim as the nest allows, or the flange. Move the collar-distance slider.</li>' +
+        '<li><b>Conflict:</b> the tags tell the tube pose, not the plate depth. <b>Assumption:</b> the corner is a fixed offset from the collar. <b>What the scene shows:</b> the plate&rsquo;s seat depth differs tube to tube [repo: varies; how much unknown]; the estimate misses it and the corner inset shows the gap. <b>Change:</b> enter a measured seat depth per tube (the toggle). <b>Left uncertain:</b> whether the operator&rsquo;s entry or a plunger supplies it.</li>' +
+        '<li><b>Conflict:</b> a systematic calibration error looks like real motion. <b>What the model does:</b> the systematic slider adds an error that scales with the lever arm and does not average away with more tags. <b>Left uncertain:</b> real size; a bench test against the dial indicator would give it.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Tag detection near a weld: glare, fume, reflections on the polished steel and the flange; illumination is not modelled. The kit&rsquo;s line of sight is drawn geometry only.</li>' +
+        '<li>Where the camera can live on the shell without being blocked by the wire guide or covered by fume.</li>' +
+        '<li>Ring seating and its own runout, and whether it slips as the tube turns.</li>' +
+        '<li>Nothing sees the dot: the estimate is the tags plus a model. A witness pass or a second sensor would check it.</li>' +
+        '<li><b>Questions for Derek:</b> is the OD clear from the rim down to the nest on the tubes you use; does the gun&rsquo;s wire guide leave room for a small camera.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry: tube, plate, rim [repo]; gun proxy 253 &times; 143 &times; 34 mm [manual], sections and pose <b>illustrative</b> [kit].</li>' +
+        '<li>Camera: pinhole, 1280 px across, field of view adjustable; corner noise, systematic angle, fit error, minimum detectable tag size (12 px): <b>illustrative</b>.</li>' +
+        '<li>The hand&rsquo;s offset, the seat-depth error: <b>illustrative</b>.</li>' +
+        '<li><b>Models:</b> drawn line of sight and facing, pinhole tag size, a first-order error model, one seeded draw for the estimate marker. <b>Depicts only:</b> the tags&rsquo; patterns; lighting and fume are not modelled.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(WK.RIG.runoutRadialTIR, WK.RIG.runoutFaceTIR, 1);
+
+  const P = { carrier: 'flange', below: 25, tagSize: 8, nTags: 12, fov: 60, sigC: 0.3, sysDeg: 0.3, fit: 0.10, hr: 0.8, hz: -0.6, seat: 0.30, seatKnown: false, angle: 0, win: 0.3 };
+  const clamp = WK.clamp;
+
+  // ------------------------------------------------------------------ gun, shell, hand offset
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.14 });
+  const gunPos0 = gun.group.position.clone();
+  function applyHand() { gun.group.position.set(gunPos0.x + P.hr, gunPos0.y, gunPos0.z + P.hz); app.invalidate(); }
+
+  // ------------------------------------------------------------------ carrier (turns with the tube) and tags
+  function mkMesh(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  function lathe(profile) { const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 128); g.rotateX(Math.PI / 2); return g; }
+  const carrierMesh = mkMesh(new THREE.BufferGeometry(), 'locate'); ws.tubeGroup.add(carrierMesh);
+  const tagsGroup = new THREE.Group(); ws.tubeGroup.add(tagsGroup);
+  function tagTexture(id) {
+    const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+    x.fillStyle = '#fff'; x.fillRect(0, 0, 64, 64); x.fillStyle = '#000'; x.fillRect(5, 5, 54, 54);
+    let a = (id * 2654435761) >>> 0; const rnd = () => { a = (a * 1664525 + 1013904223) >>> 0; return a / 4294967296; };
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) if (rnd() > 0.5) { x.fillStyle = '#fff'; x.fillRect(12 + i * 10, 12 + j * 10, 10, 10); }
+    const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; return t;
+  }
+  let tags = [];
+  function buildCarrier() {
+    carrierMesh.geometry.dispose();
+    const zc = RIM - P.below;
+    if (P.carrier === 'od') carrierMesh.geometry = lathe([[RO + 0.2, zc - 8], [RO + 2.6, zc - 8], [RO + 2.6, zc + 8], [RO + 0.2, zc + 8], [RO + 0.2, zc - 8]]);
+    else carrierMesh.geometry = lathe([[62.2, RIM], [63.9, RIM], [63.9, RIM - 8], [66.2, RIM - 8], [66.2, RIM], [72.5, RIM], [72.5, RIM + 6], [62.2, RIM + 6], [62.2, RIM]]);
+    tagsGroup.children.slice().forEach(c => { tagsGroup.remove(c); if (c.geometry) c.geometry.dispose(); });
+    tags = [];
+    const size = Math.min(P.tagSize, P.carrier === 'od' ? 14 : 9.5);
+    for (let k = 0; k < P.nTags; k++) {
+      const a = k / P.nTags * Math.PI * 2 + 0.2;
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size), new THREE.MeshBasicMaterial({ map: tagTexture(k + 1) }));
+      m.userData.role = 'locate'; m.userData.tag = k;
+      let pos, quat;
+      if (P.carrier === 'od') { const r = RO + 2.65; pos = V(r * Math.cos(a), r * Math.sin(a), zc); quat = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(V(-Math.sin(a), Math.cos(a), 0), V(0, 0, 1), V(Math.cos(a), Math.sin(a), 0))); }
+      else { const r = 67.4; pos = V(r * Math.cos(a), r * Math.sin(a), RIM + 6.05); quat = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(V(Math.sin(a), -Math.cos(a), 0), V(Math.cos(a), Math.sin(a), 0), V(0, 0, 1))); }
+      m.position.copy(pos); m.quaternion.copy(quat);
+      // outline: shows which tags the software uses
+      const h = size / 2, pts = [V(-h, -h, 0.05), V(h, -h, 0.05), V(h, h, 0.05), V(-h, h, 0.05)];
+      const ol = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { onTop: false })); ol.userData.role = 'fixed'; ol.userData.occludes = false; m.add(ol); m.userData.outline = ol;
+      m.userData.size = size;
+      tagsGroup.add(m); tags.push(m);
+    }
+  }
+
+  // ------------------------------------------------------------------ camera on the shell
+  const camMount = new THREE.Group(); gun.group.add(camMount);
+  const camBody = P3.camera({ role: 'sensor', size: 16 }); camMount.add(camBody);
+  const bracket = P3.rod(V(0, 0, 0), V(0, 0, 1), 1.8, 'load'); gun.group.add(bracket);
+  const obs = app.inset.add({ id: 'cam', label: 'Camera on the gun shell (proposed, illustrative)', object3D: camMount, fov: P.fov, near: 8, far: 600, size: [250, 172], corner: 'br', noise: 0.15 });
+  const aimTarget = () => P.carrier === 'od' ? V(RO + 2.6, 0, RIM - P.below) : V(67.4, 0, RIM + 6);
+  function aimCamera() {
+    app.scene.updateMatrixWorld(true);
+    const collarW = gun.local('collar'), t = aimTarget();
+    const dirW = t.clone().sub(collarW).normalize();
+    const mountW = collarW.clone().addScaledVector(dirW, 34);
+    // world orientation that looks (along -Z) from the mount at the target
+    const eye = mountW, m4 = new THREE.Matrix4().lookAt(eye, t, V(0, 0, 1));
+    const qW = new THREE.Quaternion().setFromRotationMatrix(m4);
+    const gq = new THREE.Quaternion(); gun.group.getWorldQuaternion(gq);
+    camMount.quaternion.copy(gq.invert().multiply(qW));
+    camMount.position.copy(gun.group.worldToLocal(mountW.clone()));
+    bracket.setEnds(gun.anchor('collar'), camMount.position);
+    app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ dot offset override: include the hand's offset and the plate's seat error
+  const baseDotOffset = gun.dotOffset;
+  gun.dotOffset = function () { const o = baseDotOffset(); o.vertical += P.seat; o.total = Math.hypot(o.radial, o.along, o.vertical); return o; };
+  app.cornerInset({ gun: gun, corner: 'tr' });
+
+  // ------------------------------------------------------------------ estimation model
+  let rdVisSet, rdPix, rdErr, rdLever;
+  let leverMid = V(0, 0, 0);
+  const leverLine = P3.dashed([V(0, 0, 0), V(1, 0, 1)], 'load', { dash: 3, gap: 2 }); app.addHelper(leverLine);
+  const leverLbl = app.label(() => leverMid, 'lever arm', { cls: 'load' });
+  function hash(n) { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); }
+  function gauss(seed) { const u = Math.max(1e-6, hash(seed)), v = hash(seed + 91.7); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  function analyse() {
+    app.scene.updateMatrixWorld(true);
+    const ins = app.inset.get('cam'), cam = ins.camera, camPos = cam.position.clone();
+    cam.updateMatrixWorld(true);
+    const occ = WK.occluders(app, { ignore: [tagsGroup, carrierMesh] });
+    const f = (1280 / 2) / Math.tan(P.fov * DEG / 2);
+    const used = [];
+    tags.forEach(t => {
+      const c = t.getWorldPosition(new THREE.Vector3());
+      const nrm = V(0, 0, 1).transformDirection(t.matrixWorld);
+      const toCam = camPos.clone().sub(c), d = toCam.length(); toCam.multiplyScalar(1 / d);
+      const cosA = nrm.dot(toCam), alpha = Math.acos(clamp(cosA, -1, 1)) / DEG;
+      const ndc = c.clone().project(cam), inFov = ndc.z > -1 && ndc.z < 1 && Math.abs(ndc.x) <= 0.97 && Math.abs(ndc.y) <= 0.97;
+      const los = inFov && cosA > 0.05 ? WK.lineOfSight(camPos, c, occ, { eps: 3 }) : { visible: false };
+      const px = t.userData.size * f * Math.max(cosA, 0) / d;
+      const ok = inFov && cosA > 0.05 && los.visible && px >= 12;
+      t.userData.ok = ok; t.userData.px = px; t.userData.alpha = alpha; t.userData.d = d;
+      t.userData.outline.material = WK.lineMat(ok ? 'compliant' : 'fixed', {});
+      if (ok) used.push(t);
+    });
+    // error model
+    let est = null, errMm = null, Leff = null, bestPx = 0;
+    const corner = V(RI, 0, J.z);   // nominal station corner
+    if (used.length) {
+      let wl = 0, wt = 0; let cx = 0, cy = 0, cz = 0;
+      used.forEach(t => {
+        const sl = P.sigC * t.userData.d / f, st = P.sigC / t.userData.px * (1 / Math.max(0.25, Math.sin(t.userData.alpha * DEG)));
+        wl += 1 / (sl * sl); wt += 1 / (st * st);
+        const c = t.getWorldPosition(new THREE.Vector3()); cx += c.x; cy += c.y; cz += c.z; bestPx = Math.max(bestPx, t.userData.px);
+      });
+      const n = used.length, cen = V(cx / n, cy / n, cz / n);
+      Leff = cen.distanceTo(corner);
+      const sLat = 1 / Math.sqrt(wl), sTilt = 1 / Math.sqrt(wt);
+      errMm = Math.sqrt(sLat * sLat + Math.pow(Leff * sTilt, 2) + Math.pow(Leff * P.sysDeg * DEG, 2) + P.fit * P.fit);
+      const truth = gun.dotOffset(), seed = Math.round(ws.spinAngle / 3);
+      est = { radial: truth.radial + errMm * gauss(seed) / 1.2, vertical: truth.vertical - (P.seatKnown ? 0 : P.seat) + errMm * gauss(seed + 5) / 1.2 };
+      leverMid = cen.clone().add(corner).multiplyScalar(0.5);
+      leverLine.setPoints([cen, corner]); leverLine.visible = true;
+    } else { leverLine.visible = false; }
+    leverLbl.show(!!used.length);
+    app.cornerInset.setEstimate(est);
+    const dotSeen = (function () { const r = app.inset.markVisibility('cam', gun.dotWorld(), { ignore: [] }); return r.visible; })();
+    // frame colour: green if any tag is usable
+    const ok = used.length > 0;
+    const frameEl = ins.el; frameEl.classList.remove('is-outfov'); frameEl.classList.toggle('is-visible', ok); frameEl.classList.toggle('is-blocked', !ok);
+    const stEl = frameEl.querySelector('.wk-inset-state'); if (stEl) stEl.textContent = used.length + ' tags usable; dot ' + (dotSeen ? 'visible' : 'hidden by the wall');
+    if (rdVisSet) {
+      rdVisSet(used.length + ' of ' + tags.length);
+      rdPix(used.length ? bestPx.toFixed(0) + ' px, ' + Math.min.apply(null, used.map(t => t.userData.alpha)).toFixed(0) + '° off-normal' : '-');
+      rdLever(Leff != null ? Leff.toFixed(0) + ' mm' : '-');
+      rdErr(errMm != null ? '±' + errMm.toFixed(2) + ' mm (1 sigma, illustrative)' : 'no tag in view');
+    }
+    const truth = gun.dotOffset();
+    app.badge('none', ok ? null : 'no usable tag in view: the estimate is blind', 'limit');
+    app.badge('seat', ok && !P.seatKnown && Math.abs(P.seat) > 0.05 ? 'seat depth not entered: the estimate misses ' + P.seat.toFixed(2) + ' mm of height' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Rotator speed', value: 8, unit: 'mm/s', note: 'existing controller; nothing else needs to move' }],
+      observes: [
+        { name: 'Tags in view and usable', value: used.length + ' of ' + tags.length, status: used.length ? 'seen' : 'blind', note: 'drawn line of sight and facing, at least 12 px; not lighting or fume' },
+        { name: 'Tube pose in the gun frame', value: used.length ? 'from ' + used.length + ' tag' + (used.length > 1 ? 's' : '') : '-', status: used.length ? 'partly' : 'blind', note: 'error grows with the distance from tag to corner' },
+        { name: 'Dot vs seam (r, z)', value: est ? est.radial.toFixed(2) + ', ' + est.vertical.toFixed(2) : '-', unit: est ? 'mm' : '', status: est ? 'partly' : 'blind', note: 'inferred from the tags plus a fixed offset; one model draw, not a measurement' },
+        { name: 'Dot itself visible to the camera', value: dotSeen ? 'yes' : 'no', status: dotSeen ? 'seen' : 'blind', note: 'the wall hides the corner from anything outside; drawn geometry' },
+        { name: 'Plate seat depth', value: P.seatKnown ? 'entered' : 'unknown', status: P.seatKnown ? 'manual' : 'unresolved', note: 'the tags cannot see it' },
+      ],
+      manual: ['Seat the collar or flange on the tube', 'Enter the measured seat depth per tube (optional)', 'Aim the camera once so it sees the ring'],
+    });
+    return { used: used.length };
+  }
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'carrier', label: 'Tags sit on', options: [{ value: 'od', label: 'Collar on the outer wall', help: 'Vertical face below the rim: a camera above sees the tags at a grazing angle.' }, { value: 'flange', label: 'Flange on the rim', help: 'Top face of a ring on the rim: the camera sees the tags almost square.' }], value: 'flange', kind: 'branch', visual: () => [carrierMesh, tagsGroup], onChange: v => { P.carrier = v; app.ui.enable('below', v === 'od'); buildCarrier(); aimCamera(); analyse(); } });
+  app.ui.slider({ id: 'below', label: 'Collar distance below the rim', min: 8, max: 90, step: 1, value: 25, unit: 'mm', kind: 'scene', visual: () => carrierMesh, help: 'Only for the collar. The farther from the corner, the bigger the lever arm.', onChange: v => { P.below = v; buildCarrier(); aimCamera(); analyse(); } });
+  app.ui.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'The ring and tags turn with the tube.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  app.ui.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'Existing rotator.', onChange: v => { ws.setSpin(v); analyse(); } });
+  const gcam = app.ui.group('Tags and camera (scene edits)', { open: true });
+  gcam.slider({ id: 'tagSize', label: 'Tag size', min: 3, max: 14, step: 0.5, value: 8, unit: 'mm', kind: 'scene', visual: () => tagsGroup, help: 'Limited by the carrier: 9.5 mm on the flange face, 14 mm on the collar.', onChange: v => { P.tagSize = v; buildCarrier(); analyse(); } });
+  gcam.slider({ id: 'nTags', label: 'Tags around the ring', min: 4, max: 24, step: 1, value: 12, kind: 'scene', visual: () => tagsGroup, onChange: v => { P.nTags = v; buildCarrier(); analyse(); } });
+  gcam.slider({ id: 'fov', label: 'Camera field of view', min: 30, max: 90, step: 1, value: 60, unit: '°', kind: 'scene', visual: () => obs.helper, onChange: v => { P.fov = v; obs.setFov(v); analyse(); } });
+  const ghand = app.ui.group('The hand and the plate (scene edits)', { open: true, help: 'What the estimator should find. Illustrative.' });
+  ghand.slider({ id: 'hr', label: 'Hand error, radial (+ into the wall)', min: -2, max: 2, step: 0.05, value: 0.8, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: v => { P.hr = v; applyHand(); analyse(); } });
+  ghand.slider({ id: 'hz', label: 'Hand error, height (+ up)', min: -2, max: 2, step: 0.05, value: -0.6, unit: 'mm', kind: 'scene', visual: () => gun.group, onChange: v => { P.hz = v; applyHand(); analyse(); } });
+  ghand.slider({ id: 'seat', label: 'Plate deeper than nominal', min: -0.6, max: 0.6, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: 'Illustrative. The tags cannot see it.', onChange: v => { P.seat = v; ws.cap.position.z = -v; analyse(); } });
+  ghand.toggle({ id: 'seatKnown', label: 'Seat depth entered for this tube', value: false, kind: 'state', help: 'A measured number typed in (or read by a plunger): the estimate then includes it.', onChange: v => { P.seatKnown = v; analyse(); } });
+  const gest = app.ui.group('Error model (illustrative)', { open: false });
+  gest.slider({ id: 'sigC', label: 'Tag corner noise (1 sigma)', min: 0.05, max: 1, step: 0.05, value: 0.3, unit: 'px', kind: 'scene', onChange: v => { P.sigC = v; analyse(); } });
+  gest.slider({ id: 'sysDeg', label: 'Systematic angle error (calibration)', min: 0, max: 1, step: 0.05, value: 0.3, unit: '°', kind: 'scene', help: 'Does not average away with more tags.', onChange: v => { P.sysDeg = v; analyse(); } });
+  gest.slider({ id: 'fit', label: 'Ring seating and tag placement error', min: 0, max: 0.3, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', onChange: v => { P.fit = v; analyse(); } });
+  const gnum = app.ui.group('Numbers (drawn geometry and a model, not readings)', { open: true });
+  rdVisSet = gnum.readout('vis', 'Usable tags'); rdPix = gnum.readout('pix', 'Best tag'); rdLever = gnum.readout('lev', 'Lever arm, tags to corner'); rdErr = gnum.readout('err', 'Estimated error at the corner');
+
+  // labels
+  app.label(() => carrierMesh.getWorldPosition(new THREE.Vector3()).add(V(-62, -20, P.carrier === 'od' ? RIM - P.below : RIM + 6)), 'ring with tags: turns with the tube', { cls: 'locate' });
+  app.label(() => camMount.getWorldPosition(new THREE.Vector3()), 'camera on the shell', { cls: 'sensor' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  app.onFrame(function () { if (!ws.spin.on) return false; app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true }); analyse(); return true; });
+
+  // initial
+  ws.cap.position.z = -P.seat;
+  buildCarrier(); applyHand(); aimCamera(); analyse();
+})();
+</script>
+</body>
+</html>

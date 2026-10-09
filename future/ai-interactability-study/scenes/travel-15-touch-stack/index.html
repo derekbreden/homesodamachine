@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touch-off by moving the work</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ts-hud svg { width: 100%; display: block; }
+  .ts-hud text { font: 10px system-ui, sans-serif; fill: #98a4b6; }
+  .ts-hud .big { font-size: 11px; fill: #e7ebf1; font-weight: 600; }
+  .ts-hud .axis { stroke: #394559; stroke-width: 1; fill: none; }
+  .ts-hud .grid { stroke: #232c39; stroke-width: 1; }
+  .ts-hud .truth { stroke: var(--role-ghost); stroke-width: 1.5; fill: none; }
+  .ts-hud .fit { stroke: var(--role-locate); stroke-width: 1.6; fill: none; }
+  .ts-hud .rec { fill: var(--role-sensor); }
+  .ts-hud .e0 { stroke: var(--role-ghost); stroke-width: 1.3; fill: none; }
+  .ts-hud .e1 { stroke: var(--role-compliant); stroke-width: 1.5; fill: none; }
+  .ts-hud .e2 { stroke: var(--role-actuated); stroke-width: 2; fill: none; }
+  .ts-hud .win { fill: rgba(52, 211, 153, .10); stroke: rgba(52, 211, 153, .55); stroke-dasharray: 3 3; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-15-touch-stack",
+  "title": "Touch-off, the work comes to the stylus",
+  "by": "travel",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Datum-07's touch-off with the axes it asks for taken from the tube-travels stack: a stylus stands where the nozzle was, on a locked holder that never moves; the stack under the rotator drives the wall and then the plate into it. The contact positions in stack coordinates are the corner, measured at the pose the stack will weld in, so guide error and tilt cancel. At several table angles the same touches are a seam map with no camera. The stylus is not the dot: calibrate it against the dot once, on a coupon, with the same stack as the yardstick.",
+  "tags": [
+    "touch-off",
+    "work moves",
+    "stack",
+    "null measurement",
+    "seam map by contact",
+    "stylus vs dot",
+    "combination of datum-07 and travel-01"
+  ],
+  "branchOf": [],
+  "combines": [
+    "datum-07-touch-off",
+    "travel-01-tube-travels"
+  ],
+  "transferable": [
+    "work moves into a fixed probe",
+    "a touch by the applying stage is a null",
+    "N-angle touches are a seam map",
+    "calibrate stylus to dot with one yardstick"
+  ],
+  "how": {
+    "motion": "X and Z stack under the rotator, plus its index; gun and stylus stay put",
+    "load": "a locked holder carries the gun and stylus; the stack carries rotator and tube",
+    "reference": "the tube's wall and plate face found by contact at each angle; step counts",
+    "observe": "a one-bit contact and the stack position from step counts; nothing sees the dot",
+    "use": "dry, cold, once per tube: touch at N angles, fit, replay or trim"
+  },
+  "software": {
+    "commands": [
+      "stack X and Z (fast approach, retract, slow approach)",
+      "rotator index to each angle",
+      "replay of the fitted signature while the rotator turns"
+    ],
+    "observes": [
+      "contact bit (source unresolved: the laser's work circuit, or a separate low-voltage sense)",
+      "stack position from step counts"
+    ],
+    "manual": [
+      "swapping the stylus for the nozzle and back",
+      "hand-aiming the gun so the ball starts inside the bore and above the plate",
+      "cleaning the corner before touching"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-15-touch-stack.md",
+    "../../exchange/travel--on--datum-w2.md",
+    "../../explorers/datum/ideas/datum-07-touch-off.md",
+    "../../explorers/travel/ideas/travel-01-tube-travels.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS, TAU = Math.PI * 2;
+  const app = WK.app({
+    workstation: { bench: true }, gun: { pose: 'opening' },
+    open: ['proposes', 'tried'],
+    view: 'overall', viewButtons: ['overall', 'joint', 'top', 'stack'],
+    views: {
+      joint: { target: [58, -6, 154], dir: [0.55, -0.75, 0.42], dist: 260 },
+      overall: { target: [0, -70, 60], dir: [0.6, -0.7, 0.42], dist: 1250 },
+      top: { target: [20, -60, 100], dir: [0, -0.0035, 1], dist: 800 },
+      stack: { target: [0, 0, -80], dir: [0.8, -0.7, 0.25], dist: 900 },
+    },
+    sections: {
+      proposes:
+        '<p><b>The tool stays, the work comes.</b> A ball stylus stands where the nozzle was (proposed; the manual says the copper nozzle is removable, p. 20). The gun sits on a holder that is locked and never moves. The stack under the rotator drives the wall into the ball (X, radial) and then the plate into it (Z): a fast approach, a short retract and a slow approach, contact read as one bit. The stack positions at contact <i>are</i> the corner, in stack coordinates, at the pose the stack will weld in.</p>' +
+        '<p><b>Why the work moves.</b> The stylus touch force goes into a holder that is stiff by design instead of a fine stage on the gun; there is no cable on the moving side; and because the same axes that touched then apply the result, straightness and tilt of the guides cancel (a null measurement).</p>' +
+        '<p><b>At N angles</b> the same touches are the seam signature by contact (no line of sight, no camera): press <i>Run all</i>, then turn <i>Replay</i> on and the stack follows the fit while the rotator turns. The plots show the touched corner against the truth, and the error at the dot over a lap: hand-aimed, static trim, replay. <b>The stylus is not the dot.</b> The offset between them is unknown until measured; the calibration toggle stands for one coupon corner touched by the stylus and swept by the dot, both in stack coordinates.</p>',
+      carries:
+        '<p>The <b>holder</b> (teal joints, slate post) carries the gun and stylus and is locked; contact force goes into it: force times compliance is a systematic offset in every touch (the slider). The <b>stack</b> (purple) carries the rotator and tube; the umbilical and wire conduit hang from a fixed gallows (not drawn) and never move. The wall and plate are the reference; nothing else locates anything.</p>',
+      software:
+        '<p><b>Commands:</b> stack X and Z, the rotator index, the touch sequence, the replay. <b>Observes:</b> one contact bit and step counts. <b>Blind:</b> the dot itself (a touch places the stylus, not the beam), the melt, heat. The contact bit is unresolved: the laser unit checks a work-clip circuit before it emits [manual pp. 19, 32]; whether that is readable, or a separate low-voltage sense is needed, is the same open question as in datum-07 and trials-14.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> datum-07 asks what carries and moves the tip a few millimetres at 0.01 mm. <b>Assumption:</b> the tip moves. <b>Change:</b> the tube moves; the stack of travel-01 is the two axes, with hard-stopped long axes below and short fine axes on top. <b>What it changes:</b> no soft stage on the gun side; the cable does not move. <b>Left:</b> the stack&rsquo;s own backlash and stick-slip (unmeasured).</li>' +
+        '<li><b>Conflict:</b> datum-07&rsquo;s largest term is the tip-to-dot swap error (0.030 stylus, 0.15 wire, 0.30 nozzle). <b>Assumption:</b> the dot is where the tip is by construction. <b>What the scene shows:</b> with the stylus-to-dot offset left at 0.30 mm (unknown: it depends on how the red light is aligned to the nozzle axis, manual pp. 25, 39) every touch is wrong by that vector in the same way, and the lap error floor is that vector. <b>Change:</b> touch one corner with the stylus and sweep the dot across the same corner (eyes-06), both read in stack units; the difference is the offset. <b>Left:</b> the dot-sweep is optical (a few hundredths); the dot is not the melt.</li>' +
+        '<li><b>Conflict:</b> touch force deflects the holder. <b>What the scene shows:</b> 0.3 N times 44 &micro;m/N (12 mm steel rod, 300 mm, <code>calc/06</code>) is 13 &micro;m in both axes, the same at every angle, so it lands in the constant term. <b>Left:</b> the true trigger force is unknown.</li>' +
+        '<li><b>Conflict:</b> time. <b>What the scene shows:</b> 14 s per angle at 2 and 0.1 mm/s plus indexing at 15 mm/s: N = 4 is 1.2 minutes, N = 8 2.2, N = 24 6.0 (the readouts). <b>Left:</b> whether that is acceptable for a dry, cold, once-per-tube routine.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The contact bit; the stylus thread and length (the graduated tube sets nozzle extension, which moves the dot along the beam: the stylus must be measured at the extension used for welding).</li>' +
+        '<li>Whether touching the corner (a fraction of a newton) is acceptable on a polished vessel and on a corner about to be welded; whether the plate slip gap (0.13 mm) catches a 1 mm ball.</li>' +
+        '<li>Tacks: a ball touching the wall at a tack angle reads the tack; the touch at a bump is a bump.</li>' +
+        '<li><b>Questions for Derek:</b> can the nozzle come off and what is its thread; how does the laser&rsquo;s work circuit close (nozzle, wire, or body).</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Stack ranges X and Z about &plusmn;12 mm, step and repeatability of the touch (0.010 mm), fast 2 mm/s, slow 0.1 mm/s, latency 5 ms: <b>illustrative</b>, datum-07&rsquo;s numbers. Ball radius 1.0 mm. Runout limits 0.25 and 0.30 mm TIR <b>[repo]</b> as the acceptance numbers; ovality 0.03 mm, seat depth error and the hand-aim (ball 3 mm inside the wall and 3 mm above the plate at the start): illustrative.</li>' +
+        '<li>Gun geometry and pose: kit proxy. The stylus is drawn at the dot by construction; the true dot differs from it by the offset vector you set (unknown).</li>' +
+        '<li><b>Models:</b> the exact seam geometry (kit runout, work pose, spin) with a bisection for each contact, the noise model above, a linear holder compliance, a least-squares harmonic fit (constant, 1x, 2x). <b>Depicts only:</b> the stack layers, the holder, the gallows.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ------------------------------------------------------------------ state
+  const S = { N: 8, R: 1.0, rep: 0.010, vf: 2.0, vs: 0.1, tau: 5, C: 44, force: 0.3, tir: 0.25, face: 0.30, oval: 0.03, seat: 0.5, gx: -3.0, gz: 3.0, offSigma: 0.30, calib: false, calSigma: 0.05, replay: false, turn: false, speed: 30, seed: 1, phase: 'idle' };
+  const Z0 = 20;                                   // Z stage home: rotator rides on a 20 mm block (illustrative)
+  const XR = 12;                                   // stack range +-12 mm
+  let res = null, lap = null, cur = { xs: 0, zs: 0 };
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * r()); }
+
+  // ------------------------------------------------------------------ gun on a locked holder, stylus at the dot
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const shell = gun.addShell({ style: 'sleeve', from: 'barrelMid', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.28 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  const post = { base: V(-150, -270, ws.benchZ), top: V(-150, -270, 330) };
+  const postBase = P3.box(150, 150, 14, 'fixed'); postBase.position.set(post.base.x, post.base.y, ws.benchZ + 7); app.add(postBase);
+  app.add(P3.rod(V(post.base.x, post.base.y, ws.benchZ + 14), post.top, 9, 'fixed'));
+  const arm1 = P3.rod(post.top, post.top, 6, 'fixed'), arm2 = P3.rod(post.top, post.top, 6, 'fixed'), elbow = P3.sphere(9, 'fixed'), shoulder = P3.sphere(10, 'fixed');
+  shoulder.position.copy(post.top); [arm1, arm2, elbow, shoulder].forEach(o => app.add(o));
+  const stylusRod = P3.cyl(0.9, 40, 'sensor', { axis: 'z' }); stylusRod.position.set(0, 0, -16 + 20); gun.group.add(stylusRod);
+  const ball = P3.sphere(S.R * 1.6, 'sensor'); ball.position.set(0, 0, -16); gun.group.add(ball);          // drawn 1.6x so it can be seen
+  const dotMark = P3.sphere(0.9, 'laser'); gun.group.add(dotMark);
+  let D0 = V(0, 0, 0);
+  function placeGun() {
+    gun.setTransform(gunBase.pos.clone().add(V(S.gx, 0, S.gz + Z0)), gunBase.quat);
+    app.scene.updateMatrixWorld(true);
+    D0 = gun.dotWorld().clone();
+    const lw = lug.world(), r = WK.kin.twoLinkIK(post.top, lw, 150, 150, { bend: [0, 0, 1] });
+    arm1.setEnds(post.top, r.elbow); arm2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow);
+    app.badge('holder', r.ok ? null : 'holder cannot reach the lug by ' + r.over.toFixed(0) + ' mm', 'limit');
+  }
+
+  // ------------------------------------------------------------------ stack visuals (schematic; the pose itself is ws.setWorkPose)
+  const zBlock = P3.box(280, 240, 1, 'actuated'); app.add(zBlock);
+  const xCar = P3.box(320, 270, 10, 'actuated'); app.add(xCar);
+  const fixedRails = [-100, 100].map(x => P3.rail(V(x, -130, ws.benchZ + 2), V(x, 130, ws.benchZ + 2), { width: 10, height: 4, role: 'fixed' })); fixedRails.forEach(r => app.add(r));
+  app.label(() => xCar.getWorldPosition(new THREE.Vector3()).add(V(170, 0, 0)), 'X (radial) carriage', { cls: 'actuated' });
+  app.label(() => zBlock.getWorldPosition(new THREE.Vector3()).add(V(150, 0, -10)), 'Z lift', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'stylus ball = dot (proposed)', { cls: 'sensor' });
+  app.label(() => shoulder.position, 'holder: locked, never moves', { cls: 'fixed' });
+  function setStack(xs, zs) {
+    cur.xs = xs; cur.zs = zs;
+    ws.setWorkPose(V(-xs, 0, Z0 + zs), null);
+    const top = ws.benchZ + Z0 + zs, h = Math.max(1, top - ws.benchZ - 10);
+    zBlock.scale.z = h; zBlock.position.set(0, 0, ws.benchZ + h / 2);
+    xCar.position.set(-xs, 0, top - 5);
+  }
+
+  // ------------------------------------------------------------------ the seam as the stylus sees it (exact scene geometry + ovality + seat depth)
+  function seamAt(p, spin) {
+    const o = ws.offsetOf(p);
+    const phi = o.along / RI - spin * DEG;                     // azimuth in the tube frame
+    o.radial -= S.oval * Math.cos(2 * (phi - 0.7));
+    o.vertical -= S.seat;
+    return o;
+  }
+  let bTrue = { r: 0, z: 0 }, bEst = { r: 0, z: 0 };
+  function drawBias() { const r = rng(9001 + S.seed * 13); bTrue = { r: S.offSigma * gauss(r), z: S.offSigma * gauss(r) }; const r2 = rng(777 + S.seed); bEst = S.calib ? { r: bTrue.r + S.calSigma * gauss(r2), z: bTrue.z + S.calSigma * gauss(r2) } : { r: 0, z: 0 }; }
+  function evalBall(xs, zs, spin) { ws.setSpin(spin); setStack(xs, zs); return seamAt(D0, spin); }
+  function evalDot(xs, zs, spin) { ws.setSpin(spin); setStack(xs, zs); return seamAt(D0.clone().add(V(bTrue.r, 0, bTrue.z)), spin); }
+  function root(f, lo, hi) { let a = lo, b = hi, fa = f(a), fb = f(b); if (fa >= 0) return lo; if (fb <= 0) return hi; for (let i = 0; i < 40; i++) { const m = (a + b) / 2, fm = f(m); if (fm < 0) a = m; else b = m; } return (a + b) / 2; }
+  const wallContact = (spin, zs) => root(xs => evalBall(xs, zs, spin).radial + S.R, -XR, XR);           // ball centre at radial -R: increases with xs
+  const plateContact = (spin, xs) => root(zs => -(evalBall(xs, zs, spin).vertical - S.R), -XR, XR);      // ball centre at vertical +R: vertical falls as zs rises
+
+  // ------------------------------------------------------------------ one angle: fast, retract, slow, for the wall and then the plate
+  function touchAngle(spin, rnd, x0, z0) {
+    const tau = S.tau / 1000, bias = S.force * S.C / 1000, out = { th: spin, frames: [], t: 0 };
+    let t = 0, xs = x0, zs = z0;
+    const push = (label, dur, nx, nz, contact) => { out.frames.push({ t0: t, t1: t + dur, x0: xs, z0: zs, x1: nx, z1: nz, label: label, contact: !!contact }); t += dur; xs = nx; zs = nz; };
+    // wall: hold z, advance x
+    const xw = wallContact(spin, z0), xf = xw + S.vf * tau;
+    push('wall: fast', Math.max(0, xf - xs) / S.vf, xf, zs, true); push('wall: retract', 0.5 / S.vf, xf - 0.5, zs);
+    const xs2 = xw + S.vs * tau; push('wall: slow', Math.max(0, xs2 - xs) / S.vs, xs2, zs, true);
+    const xc = xs2 + bias + S.rep * gauss(rnd);
+    push('wall: back off', 1.0 / S.vf, xs2 - 1.0, zs);
+    // plate: hold x 1 mm off the wall, raise z
+    const xh = xw - 1.0; push('to plate position', 0.3, xh, zs);
+    const zp = plateContact(spin, xh), zf = zp + S.vf * tau;
+    push('plate: fast', Math.max(0, zf - zs) / S.vf, xh, zf, true); push('plate: retract', 0.5 / S.vf, xh, zf - 0.5);
+    const zs2 = zp + S.vs * tau; push('plate: slow', Math.max(0, zs2 - zs) / S.vs, xh, zs2, true);
+    const zc = zs2 + bias + S.rep * gauss(rnd);
+    push('plate: back off', 1.0 / S.vf, xh, zs2 - 1.0); push('home', 0.5, x0, z0);
+    out.xc = xc; out.zc = zc; out.xTrue = xw; out.zTrue = zp; out.dur = t;
+    return out;
+  }
+  function fitHarm(ang, val, H) {
+    // least squares: 1, cos k, sin k for k = 1..H (small normal equations)
+    const n = ang.length, p = 1 + 2 * H, A = [], b = [];
+    for (let i = 0; i < p; i++) { A.push(new Array(p).fill(0)); b.push(0); }
+    ang.forEach((a, i) => { const row = [1]; for (let k = 1; k <= H; k++) row.push(Math.cos(k * a * DEG), Math.sin(k * a * DEG)); for (let r = 0; r < p; r++) { for (let c = 0; c < p; c++) A[r][c] += row[r] * row[c]; b[r] += row[r] * val[i]; } });
+    for (let i = 0; i < p; i++) A[i][i] += 1e-9;
+    for (let c = 0; c < p; c++) { let m = c; for (let r = c + 1; r < p; r++) if (Math.abs(A[r][c]) > Math.abs(A[m][c])) m = r; [A[c], A[m]] = [A[m], A[c]]; [b[c], b[m]] = [b[m], b[c]]; for (let r = c + 1; r < p; r++) { const f = A[r][c] / A[c][c]; for (let k = c; k < p; k++) A[r][k] -= f * A[c][k]; b[r] -= f * b[c]; } }
+    const x = new Array(p).fill(0); for (let r = p - 1; r >= 0; r--) { let s = b[r]; for (let k = r + 1; k < p; k++) s -= A[r][k] * x[k]; x[r] = s / A[r][r]; }
+    return a => { let v = x[0]; for (let k = 1; k <= H; k++) v += x[2 * k - 1] * Math.cos(k * a * DEG) + x[2 * k] * Math.sin(k * a * DEG); return v; };
+  }
+  function runAll() {
+    drawBias();
+    const rnd = rng(1234 + S.seed * 7919), angs = []; for (let k = 0; k < S.N; k++) angs.push(k * 360 / S.N);
+    const recs = [], timeline = []; let T = 0, prevSpin = 0;
+    angs.forEach(a => {
+      const dSpin = Math.abs(((a - prevSpin + 540) % 360) - 180), idx = (dSpin / 360) * TAU * RI / 15;            // index at 15 mm/s (the rotator's top bead speed; a dry index may be faster)
+      timeline.push({ t0: T, t1: T + idx, spin0: prevSpin, spin1: a, x0: 0, z0: 0, x1: 0, z1: 0, label: 'index rotator to ' + a.toFixed(0) + '°', contact: false }); T += idx;
+      const r = touchAngle(a, rnd, 0, 0); r.frames.forEach(f => timeline.push({ t0: T + f.t0, t1: T + f.t1, spin0: a, spin1: a, x0: f.x0, z0: f.z0, x1: f.x1, z1: f.z1, label: f.label + ' @' + a.toFixed(0) + '°', contact: f.contact })); T += r.dur; prevSpin = a; recs.push(r);
+    });
+    const H = S.N >= 8 ? 2 : 1;
+    const fx = fitHarm(angs, recs.map(r => r.xc), H), fz = fitHarm(angs, recs.map(r => r.zc), H);
+    res = { angs: angs, recs: recs, fx: fx, fz: fz, H: H, T: T, timeline: timeline, perAngle: recs.length ? recs[0].dur : 0, meanX: recs.reduce((s, r) => s + r.xc, 0) / recs.length, meanZ: recs.reduce((s, r) => s + r.zc, 0) / recs.length };
+    computeLap(); refresh();
+  }
+  // error at the true dot over a lap for three commands: as hand-aimed (stack at home), static trim (mean), replay (fit by angle)
+  function computeLap() {
+    if (!res) { lap = null; return; }
+    const keep = { s: ws.spinAngle, x: cur.xs, z: cur.zs }, out = { a: [], hand: [], trim: [], rep: [], truthX: [], truthZ: [] };
+    for (let a = 0; a < 360; a += 5) {
+      out.a.push(a);
+      const h = evalDot(0, 0, a); out.hand.push([h.radial, h.vertical]);
+      const cx = res.meanX + S.R - bEst.r, cz = res.meanZ + S.R + bEst.z;
+      const t = evalDot(cx, cz, a); out.trim.push([t.radial, t.vertical]);
+      const r = evalDot(res.fx(a) + S.R - bEst.r, res.fz(a) + S.R + bEst.z, a); out.rep.push([r.radial, r.vertical]);
+      out.truthX.push(wallContact(a, 0)); out.truthZ.push(plateContact(a, wallContact(a, 0) - 1.0));
+    }
+    lap = out; ws.setSpin(keep.s); setStack(keep.x, keep.z);
+  }
+
+  // ------------------------------------------------------------------ playback and replay
+  let play = null;       // { t, speed }
+  const contactBadge = () => app.badge('contact', play && play.contact ? 'CONTACT: bit = 1' : null, play && play.contact ? 'ok' : 'info');
+  function startPlay() { if (!res) runAll(); play = { t: 0, contact: false }; S.phase = 'running'; app.animate(true); }
+  function frameAt(t) {
+    const tl = res.timeline; let f = tl[tl.length - 1];
+    for (let i = 0; i < tl.length; i++) if (t <= tl[i].t1) { f = tl[i]; break; }
+    const u = f.t1 > f.t0 ? Math.max(0, Math.min(1, (t - f.t0) / (f.t1 - f.t0))) : 1;
+    return { spin: f.spin0 + (f.spin1 - f.spin0) * u, x: f.x0 + (f.x1 - f.x0) * u, z: f.z0 + (f.z1 - f.z0) * u, label: f.label, contact: f.contact && u > 0.98 };
+  }
+  app.onFrame(dt => {
+    if (play && res) {
+      play.t += dt * S.speed;
+      const f = frameAt(Math.min(play.t, res.T));
+      ws.setSpin(f.spin); setStack(f.x, f.z); play.contact = f.contact; S.phase = f.label;
+      hudTop.textContent = f.label;
+      if (play.t >= res.T) { play = null; S.phase = 'done'; contactBadge(); app.animate(false); ws.setSpin(0); setStack(0, 0); refresh(); return false; }
+      contactBadge(); refresh(true); return true;
+    }
+    if (S.turn) {
+      // replay: the rotator turns at the bead speed, the stack follows the fitted table by angle (or holds the mean when replay is off)
+      ws.setSpin(ws.spinAngle + ws.spin.speedDegPerSec * dt);
+      if (res) { const a = ws.spinAngle; if (S.replay) setStack(res.fx(a) + S.R - bEst.r, res.fz(a) + S.R + bEst.z); else setStack(res.meanX + S.R - bEst.r, res.meanZ + S.R + bEst.z); }
+      refresh(true); return true;
+    }
+    return false;
+  });
+
+  // ------------------------------------------------------------------ HUD plots
+  const hud = app.stageOverlay('', { corner: 'tl', w: 380 }); hud.classList.add('ts-hud');
+  const hudTop = document.createElement('div'); hudTop.style.cssText = 'font-size:11px;color:#98a4b6;margin-bottom:4px'; hud.appendChild(hudTop);
+  const svg = WK.svg('svg', { viewBox: '0 0 380 340', role: 'img', 'aria-label': 'touched corner against angle and error at the dot over a lap' }); hud.appendChild(svg);
+  function T(x, y, t, cls, a) { svg.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': a || 'start', text: t })); }
+  function plot(x0, y0, w, h, title, series, sc, tol) {
+    T(x0, y0 - 6, title, 'big');
+    svg.appendChild(WK.svg('rect', { x: x0, y: y0, width: w, height: h, class: 'axis', fill: '#10151c' }));
+    const yOf = v => y0 + h / 2 - v / sc * (h / 2), xOf = d => x0 + w * d / 360;
+    if (tol && tol < sc) svg.appendChild(WK.svg('rect', { x: x0, y: yOf(tol), width: w, height: yOf(-tol) - yOf(tol), class: 'win' }));
+    for (let k = -1; k <= 1; k++) { const y = yOf(k * sc / 1); svg.appendChild(WK.svg('line', { x1: x0, x2: x0 + w, y1: y, y2: y, class: k ? 'grid' : 'axis' })); if (k) T(x0 - 3, y + 3, (k > 0 ? '+' : '−') + sc.toFixed(2), '', 'end'); }
+    for (let d = 0; d <= 360; d += 90) svg.appendChild(WK.svg('line', { x1: xOf(d), x2: xOf(d), y1: y0, y2: y0 + h, class: 'grid' }));
+    series.forEach(s => {
+      if (s.dots) s.dots.forEach(p => { const y = yOf(p[1]); if (y > y0 && y < y0 + h) svg.appendChild(WK.svg('circle', { cx: xOf(p[0]), cy: y, r: 3, class: 'rec' })); });
+      if (s.pts) { let d = ''; s.pts.forEach((p, i) => { d += (i ? 'L' : 'M') + xOf(p[0]).toFixed(1) + ' ' + Math.max(y0, Math.min(y0 + h, yOf(p[1]))).toFixed(1); }); svg.appendChild(WK.svg('path', { d: d, class: s.cls })); }
+    });
+  }
+  const nice = v => { for (const n of [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 4]) if (n >= v * 1.1) return n; return 4; };
+  function drawHud() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (!res || !lap) { T(10, 20, 'press Run all to touch at ' + S.N + ' angles', 'big'); return; }
+    const mx = res.meanX, mz = res.meanZ;
+    const tX = lap.a.map((a, i) => [a, lap.truthX[i] - mx]), fX = lap.a.map(a => [a, res.fx(a) - mx]), dX = res.angs.map((a, i) => [a, res.recs[i].xc - mx]);
+    const tZ = lap.a.map((a, i) => [a, lap.truthZ[i] - mz]), fZ = lap.a.map(a => [a, res.fz(a) - mz]), dZ = res.angs.map((a, i) => [a, res.recs[i].zc - mz]);
+    const scR = nice(Math.max(...tX.map(p => Math.abs(p[1])), ...dX.map(p => Math.abs(p[1])))), scV = nice(Math.max(...tZ.map(p => Math.abs(p[1])), ...dZ.map(p => Math.abs(p[1]))));
+    plot(36, 22, 150, 74, 'wall: stack X (mm)', [{ pts: tX, cls: 'truth' }, { pts: fX, cls: 'fit' }, { dots: dX }], scR);
+    plot(226, 22, 150, 74, 'plate: stack Z (mm)', [{ pts: tZ, cls: 'truth' }, { pts: fZ, cls: 'fit' }, { dots: dZ }], scV);
+    const rm = a => Math.sqrt(a.reduce((s, v) => s + v * v, 0) / a.length);
+    const e = k => lap[k].map(p => p[k === 'x' ? 0 : 0]);
+    const rad = key => lap[key].map((p, i) => [lap.a[i], p[0]]), ver = key => lap[key].map((p, i) => [lap.a[i], p[1]]);
+    const scE = nice(Math.max(...rad('trim').map(p => Math.abs(p[1])), ...ver('trim').map(p => Math.abs(p[1])), ...rad('rep').map(p => Math.abs(p[1])), ...ver('rep').map(p => Math.abs(p[1]))));
+    plot(36, 150, 150, 74, 'radial error (mm)', [{ pts: rad('trim'), cls: 'e1' }, { pts: rad('rep'), cls: 'e2' }], scE, 0.10);
+    plot(226, 150, 150, 74, 'vertical error (mm)', [{ pts: ver('trim'), cls: 'e1' }, { pts: ver('rep'), cls: 'e2' }], scE, 0.10);
+    const rTrim = rm(lap.trim.map(p => p[0])), vTrim = rm(lap.trim.map(p => p[1])), rRep = rm(lap.rep.map(p => p[0])), vRep = rm(lap.rep.map(p => p[1]));
+    T(10, 248, 'grey: true corner   teal: fit   dots: touches', '');
+    T(10, 264, 'green: static trim (mean)   purple: replay by angle   band ±0.10 = drawing aid', '');
+    T(10, 282, 'RMS at the dot, trim: r ' + rTrim.toFixed(3) + '  z ' + vTrim.toFixed(3) + ' mm', 'big');
+    T(10, 298, 'RMS at the dot, replay: r ' + rRep.toFixed(3) + '  z ' + vRep.toFixed(3) + ' mm', 'big');
+    T(10, 316, 'floor: stylus-to-dot offset ' + Math.hypot(bTrue.r - bEst.r, bTrue.z - bEst.z).toFixed(3) + ' mm' + (S.calib ? ' (calibrated)' : ' (unknown)'), '');
+    T(10, 332, 'holder deflection at contact ' + (S.force * S.C).toFixed(1) + ' µm, same at every angle', '');
+  }
+  const rdT = app.ui.readout('rt', 'Time per angle'), rdTot = app.ui.readout('tot', 'Time for all angles'), rdRng = app.ui.readout('rng', 'Stack range used (X, Z)'), rdOff = app.ui.readout('off', 'Stylus-to-dot offset (unknown)');
+  function refresh(light) {
+    if (!light) drawHud();
+    const fs = res ? res : null;
+    rdT(fs ? fs.perAngle.toFixed(0) + ' s' : '-', ''); rdTot(fs ? (fs.T / 60).toFixed(1) + ' min' : '-', '');
+    if (fs) { const xs = fs.recs.map(r => r.xc), zs = fs.recs.map(r => r.zc); rdRng((Math.max(...xs) - Math.min(...xs)).toFixed(2) + ', ' + (Math.max(...zs) - Math.min(...zs)).toFixed(2), 'mm'); } else rdRng('-', '');
+    rdOff(Math.hypot(bTrue.r, bTrue.z).toFixed(2), 'mm true; ' + (S.calib ? 'estimate error ' + Math.hypot(bTrue.r - bEst.r, bTrue.z - bEst.z).toFixed(2) : 'not estimated'));
+    const off = ws.offsetOf(D0.clone().add(V(bTrue.r, 0, bTrue.z)));
+    app.cornerInset.setEstimate(null);
+    app.io.set({
+      commands: [
+        { name: 'Stack X (work toward the gun +) / Z (up +)', value: cur.xs.toFixed(3) + ' / ' + cur.zs.toFixed(3), unit: 'mm', note: 'proposed actuators; fast ' + S.vf + ', slow ' + S.vs + ' mm/s' },
+        { name: 'Rotator', value: ws.spinAngle.toFixed(0), unit: '°', note: 'existing controller; indexed to each angle' },
+      ],
+      observes: [
+        { name: 'Contact bit', value: play && play.contact ? '1' : '0', status: 'partly', note: 'one bit; source unresolved (laser work circuit or a separate sense)' },
+        { name: 'Stack position', value: 'from step counts', status: 'partly', note: 'open loop; a scale on each axis would confirm it' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'a touch places the stylus, not the beam; exact scene value in the inset (r ' + off.radial.toFixed(2) + ', z ' + off.vertical.toFixed(2) + ')' },
+        { name: 'Dot vs melt', value: '?', status: 'unresolved', note: '[unknown]' },
+      ],
+      manual: ['Swap the stylus for the nozzle and back (kinematic seat would help)', 'Hand-aim so the ball starts inside the bore and above the plate', 'Clean the corner before touching'],
+    });
+    app.invalidate();
+  }
+  const fake = { dotOffset: () => { const o = ws.offsetOf(D0.clone().add(V(bTrue.r, 0, bTrue.z))); const ph = o.along / RI - ws.spinAngle * DEG; o.radial -= S.oval * Math.cos(2 * (ph - 0.7)); o.vertical -= S.seat; o.total = Math.hypot(o.radial, o.along, o.vertical); return o; }, beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: fake });
+
+  // ------------------------------------------------------------------ controls
+  function reseat() { ws.setRunout(S.tir, S.face, 1); ws.cap.position.z = S.seat; if (ws.weldCircle) ws.weldCircle.position.z = WK.CAP_TOP + 0.3 + S.seat; placeGun(); }
+  function rerun() { reseat(); if (res) runAll(); else { drawBias(); refresh(); } setStack(cur.xs, cur.zs); }
+  const gq = app.ui.group('Run', { open: true, help: 'The sequence runs on the drawn stack; results update as soon as any number below changes.' });
+  gq.radio({ id: 'N', label: 'Angles touched', options: ['4', '8', '12', '24'], value: '8', kind: 'scene', help: '8 or more fits the 2x term as well.', onChange: v => { S.N = +v; if (res) runAll(); } });
+  gq.button({ id: 'runone', label: 'Play all angles (animated)', kind: 'actuator', help: 'Software indexes the rotator and drives the stack into the stylus at each angle. Playback is sped up.', onClick: () => { runAll(); startPlay(); } });
+  gq.button({ id: 'calc', label: 'Compute now (no animation)', kind: 'state', onClick: () => { runAll(); } });
+  gq.toggle({ id: 'turn', label: 'Rotator turns at bead speed (weld state)', value: false, kind: 'state', visual: () => ws.turntable, help: 'The stack then holds the mean (static trim) or follows the fit (replay).', onChange: v => { S.turn = v; app.animate(v); if (!v) { setStack(0, 0); ws.setSpin(0); refresh(); } } });
+  gq.toggle({ id: 'replay', label: 'Replay the fit while turning', value: false, kind: 'actuator', help: 'Stack X and Z follow the fitted signature by rotator angle.', onChange: v => { S.replay = v; } });
+  gq.slider({ id: 'speed', label: 'Playback speed', min: 1, max: 100, step: 1, value: 30, unit: '×', kind: 'view', noVisual: true, onChange: v => { S.speed = v; } });
+  const gp = app.ui.group('Probe and stack (proposed; illustrative)', { open: true });
+  gp.slider({ id: 'rep', label: 'Contact repeatability', min: 0.002, max: 0.05, step: 0.001, value: 0.010, unit: 'mm', kind: 'scene', onChange: v => { S.rep = v; if (res) runAll(); } });
+  gp.slider({ id: 'force', label: 'Touch force at trigger', min: 0.05, max: 1.5, step: 0.05, value: 0.3, unit: 'N', kind: 'scene', onChange: v => { S.force = v; if (res) runAll(); } });
+  gp.slider({ id: 'C', label: 'Holder compliance', min: 5, max: 200, step: 1, value: 44, unit: 'µm/N', kind: 'scene', help: 'calc/06: 44 for a 12 mm steel rod 300 mm long, 6 for a 20 mm rod, 128 for 12 mm aluminium.', onChange: v => { S.C = v; if (res) runAll(); } });
+  gp.slider({ id: 'vs', label: 'Slow approach speed', min: 0.02, max: 0.5, step: 0.01, value: 0.1, unit: 'mm/s', kind: 'actuator', help: 'Latency times speed is the late-detection bias.', onChange: v => { S.vs = v; if (res) runAll(); } });
+  gp.slider({ id: 'tau', label: 'Contact latency', min: 0, max: 100, step: 1, value: 5, unit: 'ms', kind: 'scene', onChange: v => { S.tau = v; if (res) runAll(); } });
+  gp.slider({ id: 'offSigma', label: 'Stylus-to-dot offset (unknown)', min: 0.02, max: 0.5, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'datum-07 takes 0.03 for a swapped stylus; how the red light sits on the nozzle axis is unknown (manual pp. 25, 39).', onChange: v => { S.offSigma = v; rerun(); } });
+  gp.toggle({ id: 'calib', label: 'Calibrated against the dot (coupon corner)', value: false, kind: 'state', help: 'Touch a coupon corner with the stylus, sweep the dot across it (eyes-06): both in stack units; the difference is the offset.', onChange: v => { S.calib = v; try { app.ui.enable('calSigma', v); } catch (e) { /* not created yet */ } if (res) runAll(); else drawBias(); } });
+  gp.slider({ id: 'calSigma', label: 'Calibration accuracy (optical)', min: 0.005, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', onChange: v => { S.calSigma = v; if (res) runAll(); } });
+  const gt = app.ui.group('The tube and the hand-aim (scene edits)', { open: false });
+  gt.slider({ id: 'tir', label: 'Radial runout TIR', min: 0, max: 0.6, step: 0.01, value: 0.25, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'Rig-doc acceptance limit 0.25.', onChange: v => { S.tir = v; rerun(); } });
+  gt.slider({ id: 'face', label: 'Face runout TIR', min: 0, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'Rig-doc acceptance limit 0.30.', onChange: v => { S.face = v; rerun(); } });
+  gt.slider({ id: 'oval', label: 'Ovality of the bore (2nd harmonic)', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', onChange: v => { S.oval = v; rerun(); } });
+  gt.slider({ id: 'seat', label: 'Plate seat depth error (+ higher)', min: -1, max: 1, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', visual: () => ws.cap, onChange: v => { S.seat = v; rerun(); } });
+  gt.slider({ id: 'gx', label: 'Hand-aim: dot radially (− inward)', min: -6, max: 0, step: 0.1, value: -3.0, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'The ball must start inside the bore.', onChange: v => { S.gx = v; rerun(); } });
+  gt.slider({ id: 'gz', label: 'Hand-aim: dot height above the plate', min: 1.5, max: 6, step: 0.1, value: 3.0, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'The ball must start above the plate.', onChange: v => { S.gz = v; rerun(); } });
+  gt.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+
+  app.ui.enable('calSigma', false);
+  reseat(); setStack(0, 0); drawBias(); refresh();
+  runAll();
+})();
+</script>
+</body>
+</html>

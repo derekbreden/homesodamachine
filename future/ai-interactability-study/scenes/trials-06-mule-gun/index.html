@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The mule gun</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-06-mule-gun",
+  "title": "The mule: an instrumented stand-in for the gun",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "A printed dummy in the scanned shell: the same envelope, ballast, a switchable 650 nm dot, an IMU, a switch-tipped nozzle and a dummy umbilical. It can run unattended, crash and blink its dot. Compare it with an instrumented shell on the real gun, and see the one thing an IMU cannot tell you: the turn about the vertical axis.",
+  "tags": ["mule", "dummy gun", "IMU", "instrumented shell", "unattended", "observability"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["instrumented shell", "switchable dot for lock-in detection", "IMU sees two of the three rotations", "tip switch as a contact probe"],
+  "how": {
+    "motion": "whatever positions the shell; the mule adds no motion of its own except an optional vibration motor",
+    "load": "the printed shell carries ballast to the real mass; the mount is not chosen here",
+    "reference": "the shell's lugs and the scanned outline: same as the real gun's",
+    "observe": "IMU (gravity: pitch and roll), tip switch, dot camera; yaw is blind",
+    "use": "long dry runs, crash tests, camera and lock-in development, no laser and no gun risk"
+  },
+  "software": {
+    "commands": ["dot on / off / blink (mule module)", "vibration motor (mimic)", "trigger solenoid (mimic)"],
+    "observes": ["IMU pitch and roll from gravity", "nozzle tip contact", "dot position (cameras)", "weight on the dock scale"],
+    "manual": ["scanning the gun and printing the shell", "matching mass and centre of mass", "confirming the mule's dot position against the real gun's"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-06-mule-gun.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = Math.PI / 180;
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    views: { overall: { target: [30, -30, 170], dir: [-0.6, 0.45, 0.45], dist: 620 }, joint: { target: [58, -6, 154], dir: [-0.8, 0.26, 0.46], dist: 210 } },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    sections: {
+      proposes: '<p>Most of what the AI has to learn about the rig does not need the laser: how commands move the dot, how the cable pulls, how the camera sees, how a support sways. The <b>mule</b> is a printed body in the same scanned shell as the real gun: the same envelope, ballast to the real mass and balance, a small red laser module at the real dot position, an IMU, a switch in the nozzle tip and a dummy umbilical and wire conduit of the same look and (roughly) feel.</p>' +
+        '<p>What it buys: the AI can run <b>all night</b> with no laser, no gas, no wire, no interlock and no risk to the real lens; it can crash into the rim without cost; and its dot is <b>switchable</b>, so a camera can blink it and subtract frames to find it against the glare on stainless. What it does not have: the real weight distribution (until it is matched), the real umbilical, and the real dot. So it is <i>a way to develop and rehearse</i>, followed by confirming runs with the real gun.</p>' +
+        '<p>Three branches below: the real gun in the plain shell; the <b>real gun in an instrumented shell</b> (IMU and camera on the shell, nothing in the gun); and the mule. Turn the gun with the three rotation sliders and read the IMU: it sees <b>two of the three rotations</b>. The turn about the vertical axis, which sets the tangent approach the wire needs, does not change gravity in the gun frame, so an IMU cannot see it.</p>',
+      carries: '<p>Not modelled: any support. The shell is drawn as a translucent sleeve with lugs (the kit\'s printed-shell proxy); whatever carries the gun attaches there. The mule\'s ballast (amber blocks) is placed in the housing to move the centre of gravity toward the real one, which nobody has measured yet.</p>',
+      tried: '<ul>' +
+        '<li><b>The mule\'s dot is not the real dot.</b> The real gun has its own red light and an adjustable "red light alignment" <b>[manual p.25, 39]</b>. Repair: put the module where a board pivot trial (trials-05) says the real dot is, and re-check whenever the real gun is re-aligned. Left standing: the dot\'s size, brightness and relation to the melt spot stay a real-gun question.</li>' +
+        '<li><b>The umbilical drag is not the real drag.</b> The fibre is 5 m, has a 240 to 350 mm minimum bend radius and must not be twisted <b>[manual p.20]</b>; a dummy cable will not have its stiffness. Repair: measure the real pull per pose (the dock weigh-in, trials-02) and shape the dummy to match. Left standing: the real stiffness is <b>[unknown]</b>.</li>' +
+        '<li><b>IMU yaw.</b> Try the vertical-axis slider: pitch and roll do not move. A magnetometer could give yaw, but the gun has a motor and a steel bench is near. Repair: the judge cameras see the wire approach relative to the tangent (trials-05). Left standing: an absolute yaw sensor at the gun is not solved.</li>' +
+        '<li><b>Mule vibrates less.</b> The real head has a vibration motor <b>[manual p.20]</b>, wobble 80 Hz. A small vibration motor in the mule can mimic it; whether that matters to a support is unknown.</li></ul>',
+      unresolved: '<ul><li>Mass, centre of mass and the real dot position of the X1 Pro: <b>[unknown]</b>. Weighing the gun on a scale and hanging it from two points would give the first two.</li>' +
+        '<li>What the laser box exposes over RS232 (the manual gives pins only, not a protocol) <b>[unknown]</b>: whether the real dot can be blinked is open; the mule has that ability by construction.</li>' +
+        '<li>Whether an unattended rig with a dummy laser is acceptable near a real laser: the interlock and the eye-safety of the module (0.3 to 5 mW red) are Derek\'s to decide.</li></ul>',
+      assumptions: '<ul><li>Gun proxy, shell, anchors and the reference opening pose are the kit\'s <b>[illustrative]</b>; the real gun is 253 x 143 x 34 mm <b>[manual p.17]</b>.</li>' +
+        '<li>Internal parts (module, IMU, ballast, switch) are drawn as symbols at plausible places, not from a scan.</li>' +
+        '<li>IMU readouts are computed exactly from the drawn pose: pitch = angle of the barrel axis from vertical, roll = turn about the barrel axis relative to gravity. A real IMU would add noise and drift <b>[not modelled]</b>.</li></ul>'
+    },
+  });
+  const gun = app.gun, ws = app.workstation;
+  gun.setLaser(false);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.2 });
+  shell.attachPoint('housingTop', { side: 'top', role: 'locate' }); shell.attachPoint('barrelMid', { side: 'top', role: 'locate' }); shell.attachPoint('gripMid', { side: 'back', role: 'locate' });
+
+  // ---- instrument parts, in the gun's local frame (they follow the gun)
+  const G = gun.group;
+  const imu = P.box(14, 8, 3, 'sensor'); imu.position.set(0, 21, 185); G.add(imu);
+  const imuCam = P.camera({ role: 'sensor', size: 18 }); imuCam.position.set(10, 24, 60); imuCam.quaternion.setFromEuler(new THREE.Euler(-Math.PI / 2 + 0.6, 0, 0)); G.add(imuCam);
+  const tip = P.cyl(5, 3, 'sensor', { axis: 'z' }); tip.position.set(0, 0, 0.5); G.add(tip);
+  const module_ = P.cyl(3.2, 26, 'laser', { axis: 'z' }); module_.position.set(0, 0, 46); G.add(module_);
+  const ballast = new THREE.Group();
+  [150, 185, 220].forEach(z => { const b = P.box(24, 20, 26, 'load'); b.position.set(0, -2, z); ballast.add(b); });
+  G.add(ballast);
+  const vib = P.cyl(5, 12, 'actuated', { axis: 'x' }); vib.position.set(0, 4, 130); G.add(vib);
+  const sol = P.cyl(4, 16, 'actuated', { axis: 'z' }); sol.position.set(0, -32, 176); G.add(sol);
+  const dummyCable = P.cable([V(0, -118, 237), V(0, -140, 290), V(0, -190, 340)], { radius: 6.5, role: 'compliant' }); G.add(dummyCable);
+  const parts = [imu, imuCam, tip, module_, ballast, vib, sol, dummyCable];
+
+  const lab = (obj, t, cls, local) => app.label(obj, t, { cls: cls, local: local });
+  lab(imu, 'IMU', 'sensor'); lab(tip, 'switch in the nozzle tip', 'sensor'); lab(module_, 'red module at the real dot position', 'laser');
+  lab(ballast, 'ballast to the real mass and balance', 'load'); lab(vib, 'vibration motor (mimic)', 'actuated'); lab(dummyCable, 'dummy umbilical', 'compliant'); lab(imuCam, 'camera on the shell', 'sensor');
+  lab(sol, 'trigger solenoid (mimic)', 'actuated');
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  const ST = { branch: 'mule', roll: WK.OPENING.roll, hole: WK.OPENING.holeDial, vert: WK.OPENING.vertical, explode: 0, ballast: 1.2 };
+  const gunBodyParts = [];
+  gun.body.traverse(o => { if (o.isMesh) gunBodyParts.push(o); });
+  function setGunGhost(on) { gunBodyParts.forEach(m => { if (on) { if (!m.userData._orig) m.userData._orig = m.material; m.material = WK.mat('ghost', { side: 'double', opacity: 0.22 }); } else if (m.userData._orig) m.material = m.userData._orig; }); }
+
+  function imuReadout() {
+    gun.group.updateMatrixWorld(true);
+    const q = gun.group.getWorldQuaternion(new THREE.Quaternion()), inv = q.clone().invert();
+    const gLoc = V(0, 0, -1).applyQuaternion(inv);                 // gravity direction in the gun frame
+    const beamLoc = V(0, 0, -1);                                    // beam axis, local
+    const tilt = Math.acos(Math.max(-1, Math.min(1, gLoc.dot(beamLoc)))) / DEG;   // beam angle from the direction of gravity
+    // roll about the beam axis: where "down" points in the plane perpendicular to the beam, measured from the grip side (-Y)
+    const roll = Math.atan2(gLoc.x, -gLoc.y) / DEG;
+    return { tilt: tilt, roll: roll, g: gLoc };
+  }
+  function apply() {
+    gun.setDials(ST.roll, ST.hole, ST.vert);
+    const b = ST.branch, mule = b === 'mule', inst = b === 'inst';
+    setGunGhost(mule);
+    shell.group.visible = true;
+    imu.visible = imuCam.visible = inst || mule; tip.visible = mule; module_.visible = mule; ballast.visible = mule; vib.visible = mule; sol.visible = mule; dummyCable.visible = mule;
+    if (gun.umbilical) gun.umbilical.visible = !mule; if (gun.wire) gun.wire.visible = true;
+    // explode: parts and shell slide apart along the gun's local Y
+    const e = ST.explode;
+    shell.group.position.set(0, 0, 0);
+    ballast.position.y = e * 60; module_.position.y = -e * 40; imu.position.y = 21 + e * 30; vib.position.y = 4 + e * 60; sol.position.y = -32 - e * 30; tip.position.z = 0.5 - e * 14;
+    ballast.position.z = 0;
+    // the gun body slides -Y in explode when mule (the mule replaces it): move ghost parts
+    const r = imuReadout();
+    const seen = [
+      { name: 'IMU: barrel angle from vertical (pitch)', value: (inst || mule) ? r.tilt.toFixed(1) : '–', unit: (inst || mule) ? '°' : '', status: (inst || mule) ? 'seen' : 'blind', note: 'from gravity; drawn pose, no IMU noise' },
+      { name: 'IMU: turn about the barrel axis (roll)', value: (inst || mule) ? r.roll.toFixed(1) : '–', unit: (inst || mule) ? '°' : '', status: (inst || mule) ? 'seen' : 'blind', note: 'from gravity' },
+      { name: 'IMU: turn about the vertical axis (yaw)', value: '–', status: 'blind', note: 'gravity does not change: this is the tangent alignment the wire needs' },
+      { name: 'Nozzle tip contact', value: mule ? 'open' : '–', status: mule ? 'seen' : 'blind', note: mule ? 'closes when the tip touches a surface' : 'the real copper nozzle is part of the interlock path; not used as a probe' },
+      { name: 'Dot position', value: 'by cameras', status: 'partly', note: 'trials-03 / -05' },
+    ];
+    app.io.set({
+      commands: [
+        { name: 'Dot on / off / blink', value: mule ? 'yes (module)' : '[unknown]', note: mule ? 'GPIO on the module: frame subtraction against glare' : 'the real box may or may not accept it (RS232 protocol unknown)' },
+        { name: 'Vibration motor', value: mule ? 'mimic' : 'real head only', note: 'the real head vibrates (manual p.20)' },
+        { name: 'Trigger', value: mule ? 'solenoid mimic' : 'hand only', note: 'trigger force is unknown' },
+      ],
+      observes: seen,
+      manual: ['Matching mass and balance to the real gun', 'Placing the module at the real dot position (from a board pivot trial)', 'Scanning the gun; printing the shell'],
+    });
+    app.badge('yaw', Math.abs(ST.vert - WK.OPENING.vertical) > 1 && (inst || mule) ? 'vertical-axis turn changed: IMU pitch and roll are unchanged' : null, 'info');
+    app.invalidate();
+  }
+
+  const g1 = app.ui.group('What is in the shell', { help: 'Three ways to fill the same printed shell.' });
+  g1.radio({ id: 'branch', label: 'Inside the shell', options: [{ value: 'real', label: 'real gun (plain shell)' }, { value: 'inst', label: 'real gun + instrumented shell' }, { value: 'mule', label: 'mule (dummy inside)' }], value: 'mule', kind: 'branch', visual: () => G, onChange: v => { ST.branch = v; apply(); } });
+  g1.slider({ id: 'explode', label: 'Explode the instruments', min: 0, max: 1, step: 0.02, value: 0, kind: 'view', visual: () => parts, help: 'Only separates the parts so each can be seen.', onChange: v => { ST.explode = v; apply(); } });
+  const g2 = app.ui.group('Turn the gun (scene edits: the reference scene\'s three ideal rotations about the dot)', { help: 'Watch which of these the IMU can see.' });
+  g2.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: WK.OPENING.roll, unit: '°', kind: 'scene', visual: () => G, onChange: v => { ST.roll = v; apply(); } });
+  g2.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: WK.OPENING.holeDial, unit: '°', kind: 'scene', visual: () => G, onChange: v => { ST.hole = v; apply(); } });
+  g2.slider({ id: 'vert', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: WK.OPENING.vertical, unit: '°', kind: 'scene', visual: () => G, help: 'The tangent alignment. Nothing on the shell that senses gravity can see it.', onChange: v => { ST.vert = v; apply(); } });
+  app.ui.group('Mule extras').slider({ id: 'ballast', label: 'Ballast mass (illustrative)', min: 0, max: 2.5, step: 0.1, value: 1.2, unit: 'kg', kind: 'scene', visual: () => ballast, help: 'Real gun mass and centre of mass are unknown; weigh and hang the gun first.', onChange: v => { ST.ballast = v; ballast.scale.set(1, 1, 0.5 + v / 2.4); app.io.set({}); apply(); } });
+  apply();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coach loop: software watches, a hand moves</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-panel { position: absolute; background: rgba(8, 12, 18, .88); border: 1px solid #3a4658; border-radius: 6px; z-index: 2; pointer-events: auto; overflow: hidden; color: #c7d3e6; font-size: 10.5px; line-height: 1.35; }
+  .use-panel canvas { display: block; width: 100%; }
+  .use-panel .ttl { padding: 3px 7px; font-size: 10.5px; background: rgba(8,12,18,.85); color: #dbe6ff; }
+  .use-panel .rd { padding: 3px 7px 5px; }
+  .use-panel b { color: #fff; font-weight: 600; }
+  .use-panel em { color: #93a4bd; font-style: normal; }
+  .use-say { padding: 5px 8px; font-size: 12px; color: #fff; background: rgba(59,130,246,.18); border-top: 1px solid #3b82f6; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-06-coach-loop",
+  "title": "Coach loop: software watches, a hand moves",
+  "by": "use",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The gun rests on a locking friction arm with a small two-knob fine stage between the arm and the gun; each knob carries a digital scale. A camera reads the dot against the seam and the screen tells the hand which knob to turn and how far. The hand is the actuator, software the witness. Change the camera noise, the knob step, the hand's accuracy and how much the arm lock and the stage itself shift the pose, and watch how many rounds it takes.",
+  "tags": ["coach", "friction-arm", "instrumented-manual-axis", "loop", "lock-shift", "hand-in-the-loop"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["software advises, a hand moves", "manual axis + scale = axis with a human actuator", "put the fine axes downstream of the lock", "Monte-Carlo the loop first"],
+  "how": {
+    "motion": "a hand turns two fine knobs; the arm is set coarsely by hand and locked; nothing is motor-driven",
+    "load": "friction arm to post to bench; the fine stage carries only the gun's small offset",
+    "reference": "the dot against the seam, seen by a camera; the digital scales record each knob",
+    "observe": "camera estimate (noisy), knob scales, the result after each turn",
+    "use": "per-campaign aiming and per-tube re-aiming while the arm is not returned to a stop"
+  },
+  "software": {
+    "commands": ["nothing that moves; the rotator (existing) turns the lap"],
+    "observes": ["dot vs seam from a camera", "each knob's scale", "the pose after the arm is locked"],
+    "manual": ["coarse aiming of the arm", "turning the knobs", "locking", "trigger"]
+  },
+  "notes": ["../../explorers/use/ideas/use-06-coach-loop.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const app = WK.app({
+    workstation: { benchSize: [900, 900], benchCenter: [-60, -260] },
+    view: 'seam', viewButtons: ['overall', 'seam', 'top'],
+    views: {
+      overall: { target: [0, -200, 210], dir: [-0.60, 0.72, 0.42], dist: 1250 },
+      seam: { target: [10, -100, 210], dir: [-0.62, 0.66, 0.44], dist: 760 },
+      top: { target: [0, -200, 120], dir: [0, -0.003, 1], dist: 1000 },
+    },
+    open: ['proposes'],
+    sections: {
+      proposes:
+        '<p>The gun sits in a printed shell on a <b>fine stage</b> (two hand knobs: radial and vertical, each with a digital scale) at the end of a <b>locking friction arm</b>. A person sets the arm roughly by eye and locks it; that is the working neighbourhood. From there a <b>camera</b> estimates where the dot is against the seam and the screen says <i>knob X, minus seven notches</i>. The hand turns, the arm is locked, the camera looks again. Software observes and advises; nothing moves that a hand does not move.</p>' +
+        '<p>Buttons: <b>Re-aim by hand and lock the arm</b> (a hand leaves a coarse error, and locking shifts the pose once), <b>Coach step</b> (observe, advise, the hand turns the knobs, the camera looks again), <b>Run until inside the window</b>. The panel on the right redraws a <b>Monte-Carlo of 200 loops</b> whenever you change a setting: how many rounds it takes and how often it never gets there.</p>',
+      carries:
+        '<p>The friction arm carries the gun to the post to the bench once locked; the fine stage sits between arm and gun and only moves the gun by a few millimetres. The umbilical is not drawn. Load path: gun, shell, stage, arm link, arm link, post, bench. What locks: the arm’s joints (one knob or a lever in practice); locking is what shifts the pose.</p>',
+      software:
+        '<p><b>Observes:</b> the camera estimate (drawn with the noise you set, against the exact truth in the corner inset), and each knob’s scale, so a knob position becomes a number in a log. <b>Advises:</b> the knob and the number of notches, rounded to the knob step. <b>Does not command anything that moves.</b> The rotator, which the existing controller already runs, turns the tube for the lap the camera watches.</p>' +
+        '<p>Why this arrangement exists: a manual axis with a scale is, to software, an axis whose motor is a person. The loop needs no new actuator and gives an AI a repeatable way to set and record a pose.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Lock shift, first version.</b> The first loop locked the arm every round. Any lock shift near the window then kept it from converging (a shift of 0.20 mm against a 0.10 mm window: 39 % never got there). <i>Repair:</i> put the fine knobs downstream of the lock, so the arm is locked once and the knobs trim after it. Then the arm lock shift barely matters (0.40 mm once: same rounds) and what limits the loop is the camera noise and any shift the stage itself suffers each round. <i>Leaves:</i> whether a real micrometer-type stage holds without a lock of its own; the stage-shift slider covers it. Numbers: <code>calc/coach_loop.mjs</code>.</li>' +
+        '<li><b>Camera noise against knob step.</b> With a camera noisier than the knob step, advice chases noise; averaging frames is the cure and costs time. Slide both and see the rounds change (about 2 rounds at 0.05 mm noise, 3.7 at 0.10, 4.6 with 60 % never converging at 0.20, all illustrative).</li>' +
+        '<li><b>The arm must be re-aimed after each swap</b> unless it returns to a stop; the coarse-error slider is what the hand leaves each time. This is the running cost of a supported gun without a seat (compare use-02-swing-head).</li>' +
+        '<li><b>By eye only</b> (no camera, no scales): the same loop with a much larger estimate error and no quantised advice. Shown as a branch, not as a verdict.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether a magic-arm-class friction arm can hold a gun of unknown mass without creeping between the lock and the weld [unknown]. The listed camera arms are rated for cameras.</li>' +
+        '<li>The camera’s real error at the seam: the dot sits in a 6 mm recess against a wall; a view that sees both the dot and the corner line may not exist from any convenient position (see the eyes scenes).</li>' +
+        '<li>Only the two translations are in the loop. Orientation (the three rotations) is set once by the shell adjusters and is not coached here.</li>' +
+        '<li>Question for Derek: how many minutes does aiming take now, per tube and per campaign?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>All noise numbers (camera, hand, lock shift, coarse error, eye estimate) are <b>illustrative</b> starting values.</li>' +
+        '<li>Gun proxy and opening pose: kit values, illustrative. Knob step 0.05 mm is a plausible micrometer-head or M3 x 0.5 screw fraction, not a measurement.</li>' +
+        '<li>Loop: observe (camera) → advise (rounded to the knob step) → hand executes (with its own error) → lock (random shift) → verify (camera). Rounds counted until the verify estimate is inside the window.</li>' +
+        '<li>Numbers: <code>explorers/use/calc/screw_advisor.mjs</code> uses the same idea for the tube’s three centring screws.</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(true);
+  const P0 = gun.group.position.clone();
+
+  const rnd = (function () { let s = 987654; return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const S = { mode: 'coached', cam: 0.05, res: 0.05, hand: 1.0, lockSD: 0.10, win: 0.10, arm: 1.5, eye: 0.35,
+    e: [1.1, -0.8], est: null, notches: [0, 0], locked: true, hist: [], stageLock: 0, say: 'Press "Re-aim by hand and lock the arm", then "Coach step".', mc: null, rounds: 0 };
+  const round = (v, r) => Math.round(v / r) * r;
+
+  // ------------------------------------------------------------------ structure: post, two-link arm, fine stage
+  const benchZ = ws.benchZ;
+  const post = P.rod(V(200, -420, benchZ), V(200, -420, 330), 12, 'fixed'); app.add(post);
+  const shoulder = V(200, -420, 330);
+  const l1 = P.rod(shoulder, shoulder, 8, 'fixed'), l2 = P.rod(shoulder, shoulder, 7, 'fixed'), elbow = P.sphere(11, 'fixed'), lockKnob = P.cyl(9, 8, 'load');
+  [l1, l2, elbow, lockKnob].forEach(o => app.add(o));
+  gun.addShell({ style: 'frame', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const stageBase = P.box(46, 40, 16, 'locate'), stageX = P.box(46, 40, 14, 'locate'), stageZ = P.box(30, 30, 30, 'locate'); [stageBase, stageX, stageZ].forEach(o => app.add(o));
+  const knobX = P.cyl(9, 12, 'locate', { axis: 'x' }), knobZ = P.cyl(9, 12, 'locate', { axis: 'y' }); app.add(knobX); app.add(knobZ);
+  const scaleX = P.box(22, 8, 10, 'sensor'), scaleZ = P.box(8, 22, 10, 'sensor'); app.add(scaleX); app.add(scaleZ);
+  const housing = () => gun.local([0, 22, 185.5]);
+
+  function place() {
+    const off = V(S.e[0], 0, S.e[1]);
+    gun.group.position.copy(P0).add(off);
+    gun.group.updateMatrixWorld(true);
+    const c = gun.local([0, 26, 150]);                       // stage sits on top of the housing (local +y side)
+    const armEnd = c.clone().add(V(0, 0, 44));
+    stageBase.position.copy(armEnd).add(V(0, 0, 8)); stageX.position.copy(armEnd).add(V(0, 0, 0)); stageZ.position.copy(c.clone().add(V(0, 0, 20)));
+    knobX.position.copy(armEnd).add(V(30, 0, 8)); knobZ.position.copy(armEnd).add(V(0, 30, 8));
+    scaleX.position.copy(armEnd).add(V(0, -26, 4)); scaleZ.position.copy(armEnd).add(V(-26, 0, 4));
+    const r = WK.kin.twoLinkIK(shoulder, armEnd.clone().add(V(0, 0, 14)), 210, 250, { bend: [0.3, 0.4, 1] });
+    l1.setEnds(shoulder, r.elbow); l2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow); lockKnob.position.copy(r.elbow).add(V(0, 0, 14));
+    app.badge('reach', r.ok ? null : 'arm out of reach by ' + r.over.toFixed(0) + ' mm; it stops at full reach', 'limit');
+    gun.updateLaser(); sync(); app.invalidate();
+  }
+
+  // ------------------------------------------------------------------ the loop
+  // The fine knobs sit downstream of the arm lock: the arm is aimed and locked once (a shift), then the knobs trim it.
+  const sigmaObs = () => (S.mode === 'coached' ? S.cam : S.eye);
+  const observe = () => [S.e[0] + sigmaObs() * gauss(), S.e[1] + sigmaObs() * gauss()];
+  function advise(est) {
+    if (S.mode === 'coached') return est.map(v => -Math.round(v / S.res));                 // notches
+    return est.map(v => -v / 0.05);                                                       // by eye: a continuous nudge, expressed in 0.05 mm units
+  }
+  function turn(notches) {
+    const err = () => (S.mode === 'coached' ? gauss() * S.hand : gauss() * 4);              // by eye: a hand without a scale misses by several 0.05 mm
+    S.e = S.e.map((v, i) => v + (notches[i] + err()) * (S.mode === 'coached' ? S.res : 0.05));
+    S.e = S.e.map(v => v + gauss() * S.stageLock);                                         // a lock or backlash in the fine stage itself, each round
+  }
+  const inside = v => Math.hypot(v[0], v[1]) <= S.win;
+  function push(kind) { S.hist.push({ n: S.hist.length, r: S.e[0], z: S.e[1], kind: kind }); if (S.hist.length > 40) S.hist.shift(); }
+  function aim() {
+    S.e = [gauss() * S.arm + gauss() * S.lockSD, gauss() * S.arm + gauss() * S.lockSD]; S.hist = []; S.rounds = 0; S.locked = true;
+    S.est = observe(); push('aim');
+    S.say = 'A hand aimed the arm by eye and locked it: the pose is off by (' + S.e[0].toFixed(2) + ', ' + S.e[1].toFixed(2) + ') mm in truth. The camera reads (' + S.est[0].toFixed(2) + ', ' + S.est[1].toFixed(2) + '). Coach step next.';
+    place();
+  }
+  function step() {
+    if (!S.hist.length) aim();
+    const est = observe(); S.est = est; S.notches = advise(est);
+    turn(S.notches); S.rounds++;
+    const v = observe(); S.est = v; push('turn');
+    S.say = (S.mode === 'coached' ? 'Software: knob X ' + (S.notches[0] >= 0 ? '+' : '\u2212') + Math.abs(S.notches[0]) + ', knob Z ' + (S.notches[1] >= 0 ? '+' : '\u2212') + Math.abs(S.notches[1]) + ' notches (' + S.res + ' mm each). ' : 'By eye: nudge about ' + Math.abs(S.notches[0] * 0.05).toFixed(2) + ' / ' + Math.abs(S.notches[1] * 0.05).toFixed(2) + ' mm. ') +
+      'Hand turns. Camera now reads (' + v[0].toFixed(2) + ', ' + v[1].toFixed(2) + ') mm: ' + (inside(v) ? 'inside the window.' : 'outside the window, another round.');
+    place();
+  }
+  function runUntil() { if (!S.hist.length) aim(); let g = 0; while (g++ < 12) { step(); if (inside(S.est)) break; } }
+  function monteCarlo(N) {
+    const saved = { e: S.e.slice(), rounds: S.rounds, hist: S.hist.slice(), est: S.est, say: S.say }, counts = Array(10).fill(0); let fails = 0, endErr = [];
+    for (let k = 0; k < N; k++) {
+      S.e = [gauss() * S.arm + gauss() * S.lockSD, gauss() * S.arm + gauss() * S.lockSD]; let n = 0, ok = false;
+      while (n < 9) { n++; const est = observe(); turn(advise(est)); if (inside(observe())) { ok = true; break; } }
+      counts[ok ? Math.min(n, 9) : 0]++; if (!ok) fails++; endErr.push(Math.hypot(S.e[0], S.e[1]));
+    }
+    Object.assign(S, saved); S.mc = { counts: counts, N: N, fails: fails, meanEnd: endErr.reduce((a, b) => a + b, 0) / N }; place();
+  }
+
+  // ------------------------------------------------------------------ panels
+  const cv = document.createElement('canvas'); cv.width = 460; cv.height = 250;
+  const say = WK.h('div', { class: 'use-say' }), rd = WK.h('div', { class: 'rd' });
+  const panel = WK.h('div', { class: 'use-panel' }, WK.h('div', { class: 'ttl', text: 'The loop (simulated from your settings)' }), cv, rd, say);
+  app.stageEl.querySelector('.wk-slots').appendChild(panel);
+  app._addSlot({ corner: 'tr', w: 250, h: 300, el: panel, autoH: true });
+  function draw() {
+    const c = cv.getContext('2d'), W = cv.width, H = cv.height; c.clearRect(0, 0, W, H);
+    // left: error vs step; right: histogram of rounds (Monte-Carlo)
+    const x0 = 30, x1 = 250, y0 = 14, y1 = 200, mx = Math.max(0.3, S.win * 2, ...S.hist.map(h => Math.max(Math.abs(h.r), Math.abs(h.z))));
+    const k = (y1 - y0) / 2 / mx, ym = (y0 + y1) / 2;
+    c.strokeStyle = '#2b3646'; c.beginPath(); c.moveTo(x0, ym); c.lineTo(x1, ym); c.moveTo(x0, y0); c.lineTo(x0, y1); c.stroke();
+    c.strokeStyle = '#fbbf24'; c.setLineDash([4, 3]); [S.win, -S.win].forEach(v => { c.beginPath(); c.moveTo(x0, ym - v * k); c.lineTo(x1, ym - v * k); c.stroke(); }); c.setLineDash([]);
+    c.fillStyle = '#7d8ea8'; c.font = '15px sans-serif'; c.fillText('+' + mx.toFixed(2), 0, y0 + 8); c.fillText('−' + mx.toFixed(2), 0, y1); c.fillText('mm vs step (cyan r, violet z; dashed = window)', x0, H - 8);
+    const n = S.hist.length, sx = i => x0 + (n <= 1 ? 6 : (x1 - x0 - 10) * i / (n - 1));
+    [['r', '#22d3ee'], ['z', '#a78bfa']].forEach(([key, col]) => { c.strokeStyle = col; c.lineWidth = 2; c.beginPath(); S.hist.forEach((h, i) => { const y = ym - h[key] * k; if (i === 0) c.moveTo(sx(i), y); else c.lineTo(sx(i), y); }); c.stroke(); S.hist.forEach((h, i) => { c.fillStyle = h.kind === 'lock' ? '#ff8a80' : col; c.beginPath(); c.arc(sx(i), ym - h[key] * k, h.kind === 'lock' ? 4 : 3, 0, 6.3); c.fill(); }); });
+    c.lineWidth = 1;
+    if (S.mc) { const bx = 290, bw = 15, by = 200, mxc = Math.max(1, ...S.mc.counts); c.fillStyle = '#7d8ea8'; c.fillText('rounds (x' + S.mc.N + ')', bx, 14); S.mc.counts.forEach((v, i) => { const h = v / mxc * 150; c.fillStyle = i === 0 ? '#f87171' : '#22d3ee'; c.fillRect(bx + i * (bw + 2), by - h, bw, h); c.fillStyle = '#c7d3e6'; c.fillText(i === 0 ? 'x' : String(i), bx + i * (bw + 2) + 3, by + 14); }); }
+    const cur = Math.hypot(S.e[0], S.e[1]);
+    rd.innerHTML = '<em>true error now</em> <b>' + cur.toFixed(3) + ' mm</b> (' + S.e[0].toFixed(3) + ', ' + S.e[1].toFixed(3) + ') &middot; rounds this run <b>' + S.rounds + '</b>' + (S.mc ? '<br><em>Monte-Carlo:</em> mean final error <b>' + S.mc.meanEnd.toFixed(3) + ' mm</b>, never inside the window in 9 rounds: <b>' + Math.round(S.mc.fails / S.mc.N * 100) + ' %</b> (x = failed)' : '');
+    rd.innerHTML += '<br><em>settings:</em> ' + (S.mode === 'coached' ? 'camera \u03c3 ' + S.cam + ', notch ' + S.res + ', hand \u00b1' + S.hand + ' notch' : 'eye \u03c3 ' + S.eye) + ', arm lock \u03c3 ' + S.lockSD + ', stage \u03c3 ' + S.stageLock + ', window ' + S.win + ', coarse \u03c3 ' + S.arm + ' mm';
+    say.textContent = S.say;
+  }
+
+  // ------------------------------------------------------------------ observers
+  const camPos = V(-230, -40, 330);
+  app.inset.add({ id: 'obs', label: 'Dot camera (proposed, illustrative)', position: () => camPos, target: () => V(62, 0, 146), fov: 38, near: 30, far: 1600, size: [230, 160], corner: 'bl', noise: 0.25 });
+  app.cornerInset({ gun: gun });
+  function sync() {
+    draw();
+    const vis = app.inset.markVisibility('obs', gun.dotWorld()), off = gun.dotOffset();
+    const est = S.est ? { radial: off.radial + (S.est[0] - S.e[0]), vertical: off.vertical + (S.est[1] - S.e[1]) } : null;
+    app.cornerInset.setEstimate(est && vis && vis.visible ? est : null);
+    app.io.set({
+      commands: [{ name: 'Rotator (existing)', value: ws.spin.on ? 'turning' : 'stopped', note: 'runs the lap the camera watches' }],
+      observes: [
+        { name: 'Dot vs seam (r, z)', value: S.est ? S.est[0].toFixed(2) + ', ' + S.est[1].toFixed(2) : '-', unit: S.est ? 'mm' : '', status: vis && vis.visible ? 'partly' : 'blind', note: 'noisy estimate, sigma ' + sigmaObs() + ' mm; truth is the corner inset' },
+        { name: 'Knob scales', value: S.mode === 'coached' ? 'read' : 'none', status: S.mode === 'coached' ? 'seen' : 'blind', note: 'each turn becomes a number in the log' },
+        { name: 'Pose after the arm lock', value: S.hist.length ? 'locked' : '-', status: 'partly', note: 'seen only through the camera; the arm lock shift is the unknown' },
+      ],
+      manual: ['Coarse aiming of the arm by eye', 'Turning the knobs as advised', 'Locking the arm', 'Trigger and pedal'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  function paramChanged() { monteCarlo(200); }
+  const gL = app.ui.group('The loop (hand steps, modelled)');
+  gL.button({ id: 'unlock', label: 'Re-aim by hand and lock the arm (coarse)', kind: 'state', help: 'What a hand leaves each time the arm is moved: a coarse error, then a shift when it is locked.', onClick: aim });
+  gL.button({ id: 'coach', label: 'Coach step: observe, advise, hand turns, look again', kind: 'state', onClick: step });
+  gL.button({ id: 'run', label: 'Run until inside the window', kind: 'state', onClick: runUntil });
+  gL.button({ id: 'mc', label: 'Monte-Carlo x200', kind: 'state', onClick: () => monteCarlo(200) });
+  const gS = app.ui.group('What limits it (scene edits, all illustrative)');
+  gS.radio({ id: 'mode', label: 'Aiming aid', options: [{ value: 'coached', label: 'camera + scales + advice' }, { value: 'eye', label: 'by eye only' }], value: 'coached', kind: 'branch', onChange: v => { S.mode = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'cam', label: 'Camera noise on the estimate', min: 0.005, max: 0.3, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Per axis, one standard deviation, after any averaging.', onChange: v => { S.cam = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'res', label: 'Knob step (one notch)', min: 0.01, max: 0.2, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'What one click of the fine stage moves the gun.', onChange: v => { S.res = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'hand', label: 'Hand accuracy', min: 0, max: 3, step: 0.1, value: 1.0, unit: 'notches SD', kind: 'scene', onChange: v => { S.hand = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'lockshift', label: 'Arm lock shift (once per re-aim)', min: 0, max: 0.5, step: 0.01, value: 0.10, unit: 'mm SD', kind: 'scene', help: 'How far the pose moves when the arm is locked. Unknown. Happens once: the knobs sit after it.', onChange: v => { S.lockSD = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'stagelock', label: 'Fine-stage shift (every round)', min: 0, max: 0.3, step: 0.01, value: 0, unit: 'mm SD', kind: 'scene', help: 'A lock screw or backlash in the stage itself. Zero if the knobs simply hold.', onChange: v => { S.stageLock = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'win', label: 'Window to reach', min: 0.03, max: 0.5, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'A reference only; nobody has measured what the melt tolerates.', onChange: v => { S.win = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'arm', label: 'Coarse error left by hand aiming', min: 0.5, max: 3, step: 0.1, value: 1.5, unit: 'mm SD', kind: 'scene', onChange: v => { S.arm = v; S.mc = null; paramChanged(); } });
+  gS.slider({ id: 'eye', label: 'Eye estimate error (by-eye branch)', min: 0.1, max: 0.8, step: 0.05, value: 0.35, unit: 'mm SD', kind: 'scene', onChange: v => { S.eye = v; S.mc = null; paramChanged(); } });
+  const gV = app.ui.group('View');
+  gV.toggle({ id: 'spin', label: 'Rotator turning (the lap the camera watches)', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; sync(); } });
+  gV.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); sync(); } });
+
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => stageZ.position, 'fine stage: 2 knobs + scales', { cls: 'locate' });
+  app.label(() => elbow.position, 'friction arm (locked)', { cls: 'fixed' });
+  app.label(() => scaleX.position, 'digital scale', { cls: 'sensor' });
+  monteCarlo(200);
+  place();
+})();
+</script>
+</body>
+</html>

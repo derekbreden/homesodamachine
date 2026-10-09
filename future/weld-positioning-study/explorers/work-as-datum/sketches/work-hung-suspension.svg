@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="760" viewBox="0 0 900 760">
+<rect width="900" height="760" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">D1. Work-hung suspension: Derek's tip loop hangs from the endcap, the rest from the room</text>
+<text class="s" x="20" y="40">Seen from +X (the dot's side), +Y right. Tube, plate, ports: repo; gun: scene proxy at the opening pose; hub, loops, lines: schematic.</text>
+<rect class="room" x="37.0" y="187.0" width="462.0" height="10"/>
+<text x="42.5" y="183.0" class="s">room: overhead bar (continues up to ~950 mm above the bench) — carries, never locates the dot</text>
+<rect class="metal" x="330.1" y="553.0" width="1.8" height="51.0"/>
+<rect class="metal" x="468.0" y="553.0" width="1.8" height="51.0"/>
+<rect class="plate" x="332.1" y="560.0" width="135.8" height="7.0"/>
+<rect class="buy" x="371.5" y="544.6" width="15.1" height="15.4"/>
+<rect class="buy" x="413.4" y="544.6" width="15.1" height="15.4"/>
+<rect class="print" x="369.2" y="544.6" width="61.6" height="5.5"/>
+<rect class="metal" x="396.7" y="527.0" width="6.6" height="17.6"/>
+<rect class="print" x="350.5" y="527.0" width="99.0" height="8.8"/>
+<circle class="buy" cx="400.0" cy="552.9" r="7.2"/>
+<line x1="400.0" y1="545.7" x2="400.0" y2="535.8" stroke="#8a6d1f" stroke-width="3"/>
+<circle class="buy" cx="358.2" cy="552.9" r="7.2"/>
+<line x1="358.2" y1="545.7" x2="358.2" y2="535.8" stroke="#8a6d1f" stroke-width="3"/>
+<path d="M397.8,522.6 l4.4,-3 l-4.4,-3 l4.4,-3" fill="none" stroke="#555"/>
+<text x="477.0" y="573.2">plate hanger: port seat + centre pin (x, y),</text>
+<text x="477.0" y="585.2" class="s">three stainless wheels on the plate face (height, both tilts),</text>
+<text x="477.0" y="596.2" class="s">pin spring clamps hub to plate (~25 N, internal)</text>
+<line x1="449.5" y1="522.6" x2="609.0" y2="522.6" stroke="#444" stroke-width="1.2"/>
+<rect class="room" x="609.0" y="494.0" width="10" height="66.0"/>
+<text x="504.5" y="516.0" class="s">azimuth tether (line + bungee)</text>
+<polyline points="389.0,518.2 380.2,518.2 372.9,540.5" fill="none" stroke="#8a6d1f" stroke-width="5"/>
+<line x1="390.6" y1="547.5" x2="302.0" y2="430.0" stroke="#1f4e9a" stroke-width="22.0" stroke-opacity="0.18"/>
+<line class="gun" x1="390.6" y1="547.5" x2="302.0" y2="430.0"/>
+<polygon class="gun" points="222.8,367.2 228.7,344.3 259.7,331.5 339.4,437.2 333.5,460.1 302.5,472.9" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="266.3,422.2 143.1,406.5" stroke-width="6" stroke-opacity="0.5"/>
+<line class="beam" x1="390.6" y1="547.5" x2="400.0" y2="560.0"/>
+<circle cx="400.0" cy="560.0" r="3" fill="#d22"/>
+<text x="406.0" y="574.0" fill="#d22" class="s">dot</text>
+<ellipse cx="372.9" cy="524.0" rx="17.6" ry="12.1" transform="rotate(-38 372.9 524.0)" fill="none" stroke="#8a6d1f" stroke-width="3.5"/>
+<text x="191.0" y="494.0">nose loop on the work</text>
+<text x="191.0" y="506.0" class="s">openable, V-bottom, grooved shell collar</text>
+<text x="191.0" y="517.0" class="s">46 mm from the dot; carries 49–61 %</text>
+<line class="dim" x1="295.5" y1="496.2" x2="360.9" y2="524.0"/>
+<line x1="372.9" y1="508.6" x2="392.9" y2="197.0" stroke="#777" stroke-dasharray="6 4"/>
+<text x="398.9" y="285.0" class="s">Derek's tip wire, kept as the</text>
+<text x="398.9" y="296.0" class="s">park / lift line: slack while welding</text>
+<circle cx="106.3" cy="384.5" r="12" fill="none" stroke="#8a6d1f" stroke-width="3.5"/>
+<line x1="106.3" y1="372.5" x2="106.3" y2="197.0" stroke="#444" stroke-width="1.4"/>
+<rect x="100.3" y="274.0" width="12" height="16" fill="#fff" stroke="#444"/>
+<text x="116.3" y="271.8" class="s">ratchet: per-tube pitch trim</text>
+<circle cx="82.3" cy="388.5" r="5" fill="#fff" stroke="#444"/>
+<circle cx="82.3" cy="388.5" r="1.5" fill="#444"/>
+<text x="20" y="98.0">base loop (room): Derek's wire in Z;</text>
+<text x="20" y="110.0" class="s">X held by a line (out of page, ⊙) with his</text>
+<text x="20" y="122.0" class="s">bungee as its preload; bungees alone would</text>
+<text x="20" y="134.0" class="s">let 1 N move the dot 1–1.7 mm</text>
+<circle cx="261.5" cy="349.2" r="9" fill="none" stroke="#8a6d1f" stroke-width="3"/>
+<line x1="261.5" y1="340.2" x2="261.5" y2="197.0" stroke="#444" stroke-width="1.4"/>
+<text x="273.5" y="335.2" class="s">third ring (room): roll about the nose–base line</text>
+<path class="cable" d="M143.1,406.5 C37.0,395.5 4.0,494.0 -7.0,593.0"/>
+<text x="30" y="516.0" fill="#7a3fa0" class="s">umbilical + conduit</text>
+<text x="30" y="527.0" fill="#7a3fa0" class="s">on a room saddle, R ≥ 350</text>
+<rect x="580" y="155" width="220" height="215" fill="#fff" stroke="#999"/>
+<text x="588" y="172" class="s">nose loop, in its own plane (⟂ barrel)</text>
+<circle cx="690" cy="250" r="34" fill="#f3e3b5" stroke="#8a6d1f"/>
+<circle cx="690" cy="250" r="12" fill="#d9dde3" stroke="#333"/>
+<circle cx="704" cy="270" r="3" fill="#666"/>
+<text x="662" y="254" class="s">barrel</text>
+<text x="709" y="283" class="s">wire guide</text>
+<polyline points="630,258 690,298.1 750,258" fill="none" stroke="#2f6b3a" stroke-width="4"/>
+<path d="M630,258 A62,62 0 0 1 750,258" fill="none" stroke="#2f6b3a" stroke-width="2" stroke-dasharray="5 3"/>
+<circle cx="750" cy="258" r="4" fill="#2f6b3a"/>
+<text x="588" y="330" class="s">V flanks: 2 in-plane translations, seated by</text>
+<text x="588" y="341" class="s">4.9–7 N of the nose share; groove on the</text>
+<text x="588" y="352" class="s">knife-edge ring: axial. Upper half (dashed) is</text>
+<text x="588" y="363" class="s">clearance + latch pin: captive, not clamped.</text>
+<line x1="690" y1="210" x2="690" y2="240" class="arrow"/>
+<text class="t" x="20" y="640">What "fixed" is fixed to</text>
+<text x="30" y="658" class="s">nose: height, radius, along-barrel (3)</text><text x="290" y="658" class="s">plate (face + port-pair centre)</text><text x="490" y="658" class="s">V-loop on a stalk from the plate hanger</text>
+<text x="30" y="673" class="s">pitch + yaw about the nose (2)</text><text x="290" y="673" class="s">room</text><text x="490" y="673" class="s">base loop: Z wire (ratchet) + X line/bungee</text>
+<text x="30" y="688" class="s">roll about the nose–base line (1)</text><text x="290" y="688" class="s">room</text><text x="490" y="688" class="s">third ring's Z wire</text>
+<text x="30" y="703" class="s">hub azimuth (harmless)</text><text x="290" y="703" class="s">room</text><text x="490" y="703" class="s">tether line + bungee, one-sided vs stuck-wire drag</text>
+<text x="30" y="718" class="s">weight: nose share 49–61 % / rest</text><text x="290" y="718" class="s">plate / room</text><text x="490" y="718" class="s">the plate sees ~10 N at r 48: ~0.4 N·m</text>
+<text x="30" y="733" class="s">umbilical + conduit</text><text x="290" y="733" class="s">room</text><text x="490" y="733" class="s">saddle behind the base loop</text>
+</svg>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hexapod pivot</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .hx-tab { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  .hx-tab th, .hx-tab td { border: 1px solid var(--wk-line); padding: 3px 7px; text-align: left; vertical-align: top; }
+  .hx-tab th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .hx-tab td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .hx-note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .hx-bar { height: 7px; background: #2a3441; border-radius: 3px; position: relative; min-width: 90px; }
+  .hx-bar i { position: absolute; top: 0; height: 7px; border-radius: 3px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-13-hexapod-pivot",
+  "title": "Hexapod with a software pivot: six legs, a ring near the dot, the centre of rotation set in software",
+  "by": "borrowed",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "Optics and laser alignment already use hexapods: six struts move a platform in six degrees and the centre of rotation is a number in software, not a shaft. Here a ring platform sits just above the tube rim and clamps the shell near the nozzle; the pivot is set on the dot, so tilting the gun turns it about the corner with nothing on the axis. The scene shows the strokes the legs need, whether the gun's body clears the legs, and how stiff the six struts make the dot.",
+  "tags": ["hexapod", "Stewart platform", "software pivot", "parallel kinematics", "bought positioners", "delta printer parts"],
+  "branchOf": [],
+  "combines": ["freedom-02-balanced-arm", "borrowed-14-arm-mass-window"],
+  "transferable": ["centre of rotation as a software number", "stroke needed = lever x angle: put the platform plane near the dot", "gap between leg pairs for the gun body", "fixed rods on vertical rails (hexaglide) from delta-printer parts"],
+  "how": {
+    "motion": "six leg lengths, computed from a commanded pose about a chosen pivot; software commands all six",
+    "load": "the six legs carry the gun by a clamp on the barrel; a carrier above holds the base ring",
+    "reference": "the base ring; the pivot point is defined in software at the dot",
+    "observe": "leg encoders or step counts (the dot itself needs the eyes)",
+    "use": "a coarse carrier places the ring; the hexapod trims all six freedoms about the dot"
+  },
+  "software": {
+    "commands": ["six leg lengths (or six carriage positions) from one 6-D pose about a chosen pivot"],
+    "observes": ["leg step counts or encoders; nothing here sees the dot"],
+    "manual": ["placing the base ring near the corner", "clamping the shell in the ring", "calibrating the pivot to the true dot (trials-13)"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-13-hexapod-pivot.md"],
+  "sources": ["../../sourcing/borrowed.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, D2R = Math.PI / 180;
+  const app = WK.app({
+    gun: { pose: 'opening', umbilical: true },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [30, -30, 260], dir: [-0.65, 0.65, 0.4], dist: 1300 },
+      joint: { target: [40, -20, 190], dir: [-0.8, 0.45, 0.4], dist: 420 },
+      top: { target: [30, -50, 200], dir: [0, -0.004, 1], dist: 800 },
+      side: { target: [30, -50, 220], dir: [1, 0, 0.08], dist: 900 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>A hexapod (Stewart platform) moves a platform in six degrees with six struts whose lengths software sets. Precision hexapods for optics and laser alignment let the user define the <b>centre of rotation as a coordinate</b>: tilt about a point in space with no shaft, ring or bearing there. That is the problem borrowed-01 and -04 spent their time on (axes through the dot cannot hold hardware because the dot is in a metal corner), and here it disappears into a coordinate transform.</p>' +
+        '<p>The arrangement drawn: a ring platform hovers just above the tube rim, around the barrel, and clamps the shell near the nozzle. Six legs run up to a base ring held by a carrier (an arm, a balancer, a gantry: coarse position is someone else&rsquo;s job). The gun&rsquo;s body leaves through the gap between two pairs of legs. Command a pose about the <b>dot</b> and the dot does not move; command it about the <b>platform centre</b> and it swings by lever &times; angle. Two leg types: variable-length struts (a Stewart platform), or fixed rods on six vertical rails, the way a delta 3D printer moves (a hexaglide).</p>',
+      carries:
+        '<p>The six legs carry the gun (a clamp around the barrel, 11.8 N for the illustrative 1.2 kg) and the fibre&rsquo;s pull; the base ring is held by the carrier. Every leg is axial: tension or compression along its length. The scene solves the six leg forces for gravity and the pull and shows the largest one, and it builds the 6 &times; 6 stiffness from the legs&rsquo; axial stiffness to give the dot&rsquo;s compliance in mm per newton.</p>',
+      software:
+        '<p>Software commands one 6-D pose and a pivot; inverse kinematics gives the six leg lengths (closed form: |base joint &minus; platform joint|, or the square root for fixed rods). LinuxCNC ships a generic hexapod kinematics (genhexkins) and a Python script can stream six axes of G-code to any six-axis controller. Legs read as step counts or encoders; nothing here sees the dot, so the pivot has to be calibrated to the true dot (trials-13 pivot calibration).</p>',
+      tried:
+        '<p><b>Round 1: a pivot in software does not need clearance.</b> Set the pivot to the dot and tilt 10&deg; about any axis: the dot stays on the seam (the corner inset reads the exact dot offset) and the legs move by about &plusmn;5.5 mm. Set the pivot to the platform centre and the dot swings by lever &times; angle: 3.7 mm at 10&deg; with the ring 18 mm above the rim (25 mm from the dot), 12 mm with the ring at 60 mm, 29 mm at 140 mm.</p>' +
+        '<p><b>Round 2: the stroke is the lever.</b> Rotating 10&deg; about the dot needs leg changes of about 5.5 mm with the ring 18 mm above it, 10 mm at 60 mm and 19 mm at 140 mm (the base ring kept 152 mm above the platform). A tilt about a point far from the platform is a large translation of it. Put the platform plane near the dot; the scene&rsquo;s stroke badge turns on when a leg runs out.</p>' +
+        '<p><b>Round 3: the gun&rsquo;s body has to go somewhere, and only in one direction.</b> The housing rises at 45&deg; through the leg cage. With the leg pairs clocked so a gap faces the tail, the closest leg is 34 mm from the drawn housing axis; at &plusmn;10&deg; of clock it is 29 mm, at &plusmn;20&deg; 22 mm and at &plusmn;40&deg; 2 mm (a leg pair beside the housing). Against an illustrative housing radius of 30 mm the gap has to face the tail to within about &plusmn;8&deg;. It gets worse with the ring higher: at 80 mm above the dot the closest leg is 11 mm. Whether the printed shell, the fibre and the wire feed all fit through one gap is not settled.</p>' +
+        '<p><b>Round 4: the stiffness at the dot is set by where the ring is.</b> A 1 N push at the dot moves it 0.115 mm with the ring 6 mm above the dot, 0.097 mm at 18 mm, 0.09 mm at 30 to 45 mm, 0.11 mm at 60 mm, 0.16 at 80, 0.23 at 100 and 0.45 at 140 mm (six axial springs of 20 N/mm each). The fibre&rsquo;s pull along the exit axis gives 0.06 / 0.24 / 0.07 mm/N (radial / tangent / vertical) at 18 mm. Leg stiffness scales it: at 50 N/mm the push is 0.039 mm/N, at 10 N/mm 0.19. For comparison freedom-01b&rsquo;s nose seat with its bridle is 0.10 / 0.01 mm/N and a rigid-based stage 0.45 / 1.0. The leg stiffness (screw, coupling, joints) is unmeasured.</p>' +
+        '<p><b>Round 5: fixed rods on rails.</b> Delta-printer parts (carriages, carbon rods with magnetic ball joints) build the same six degrees from six vertical axes. The rods are stiff and light, the carriages are six ordinary linear axes, and the effective leg stiffness is the rail&rsquo;s divided by the square of the rod&rsquo;s vertical component: at the same 20 N/mm the push at the dot is 0.072 mm/N against 0.097.</p>',
+      unresolved:
+        '<ul><li>Play in twelve ball joints: a rod-end bearing of the cheap kind has tens of micrometres of play each. That, and screw backlash, set the repeatability; both are unmeasured here.</li>' +
+        '<li>Whether a ring 50 mm in radius fits around the shell near the nozzle beside the wire guide, the beam and the tube rim, and whether the base ring&rsquo;s carrier can hold six legs and the umbilical at once.</li>' +
+        '<li>How the pivot is calibrated to the real dot (trials-13 does it with the dot on a board), and whether it stays put when the wire feeds and the gas starts.</li>' +
+        '<li>Range: &plusmn;30 mm and &plusmn;15&deg; are the sliders, not what a printed hexapod delivers; the industrial miniature hexapod H-811 of Physik Instrumente quotes &plusmn;17 mm and &plusmn;21&deg;.</li></ul>',
+      assumptions:
+        '<ul><li>Illustrative geometry: base ring radius 130 mm at 170 mm above the dot, platform ring radius 50 mm at 18 mm above the dot, pairs of joints 30&deg; apart, stroke &plusmn;40 mm, leg stiffness 20 N/mm, housing radius 30 mm. The kit gun (1.2 kg, centre of mass (0, &minus;18, 178)) is a proxy, not measured.</li>' +
+        '<li>Legs are ideal axial springs with ball joints at both ends (no play, no friction, no bending). The pose is commanded exactly; the model has no calibration error.</li>' +
+        '<li>Product facts: a PI H-811 hexapod is quoted at &plusmn;17 mm and &plusmn;21&deg; with the centre of rotation set in software (manufacturer pages, via search); LinuxCNC includes generic hexapod kinematics. Prices and sources are in <code>sourcing/borrowed.md</code>.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code> wave 2 (rod ends, mini linear rails, linear actuators, delta printer parts) and <code>explorers/borrowed/ideas/borrowed-13-hexapod-pivot.md</code>.</p>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  const pos0 = gun.group.position.clone(), quat0 = gun.group.quaternion.clone();
+  const J0 = gun.dotWorld().clone();
+  const N0 = gun.local('nozzleTip').clone(), axisDir = gun.dir(V(0, 0, 1)).clone().normalize();
+  const gripLocal = WK.GRIP_BASE_LOCAL.clone(), comLocal = V(0, -18, 178);
+  const S = { arm: true, legm: 0.3, pivot: 'dot', leg: 'stewart', hp: 18, hb: 170, rb: 130, rp: 50, stroke: 40, k: 20, clock: 0, F: 2, tx: 0, ty: 0, tz: 0, rx: 0, ry: 0, rz: 0, show: true };
+
+  // ---------- geometry of the rings and legs at the neutral pose
+  const BASE_ANG = [15, 105, 135, 225, 255, 345], PLAT_ANG = [45, 75, 165, 195, 285, 315];
+  let neutral = null;
+  function buildNeutral() {
+    // barrel axis crosses the platform plane z = J0.z + hp at Q
+    const zq = J0.z + S.hp; const s = (zq - N0.z) / axisDir.z; const Q = N0.clone().add(axisDir.clone().multiplyScalar(s));
+    const tail = Math.atan2(axisDir.y, axisDir.x) / D2R;                          // azimuth of the barrel toward the tail
+    const clock = tail - 60 + S.clock;                                            // put a gap (60 deg between pairs) toward the tail
+    const pj = PLAT_ANG.map(a => V(Q.x + S.rp * Math.cos((a + clock) * D2R), Q.y + S.rp * Math.sin((a + clock) * D2R), zq));
+    const bj = BASE_ANG.map(a => V(Q.x + S.rb * Math.cos((a + clock) * D2R), Q.y + S.rb * Math.sin((a + clock) * D2R), J0.z + S.hb));
+    const L0 = pj.map((p, i) => p.distanceTo(bj[i]));
+    neutral = { Q, pj, bj, L0, zq, clock };
+  }
+  // ---------- parts
+  let baseRing = null, platRing = null, ringKey = '';
+  function makeRings() { const key = S.rp + '|' + S.rb; if (key === ringKey) return; ringKey = key; [baseRing, platRing].forEach(o => { if (o) app.scene.remove(o); }); baseRing = P.ring(S.rb, 2.6, { role: 'fixed' }); platRing = P.ring(S.rp, 2.6, { role: 'actuated' }); app.add(baseRing); app.add(platRing); }
+  const collar = P.cyl(14, 22, 'locate', { axis: 'z' });
+  const carrier = P.box(300, 300, 8, 'ghost');
+  const legs = [], joints = [], rails = [], carriages = [];
+  for (let i = 0; i < 6; i++) { legs.push(P.rod(V(0, 0, 0), V(0, 0, 1), 2.6, 'actuated')); joints.push(P.sphere(3.6, 'load')); rails.push(P.rod(V(0, 0, 0), V(0, 0, 1), 1.4, 'fixed')); carriages.push(P.box(10, 10, 16, 'actuated')); }
+  const bjoints = []; for (let i = 0; i < 6; i++) bjoints.push(P.sphere(3.6, 'fixed'));
+  [collar, carrier].concat(legs, joints, rails, carriages, bjoints).forEach(o => app.add(o));
+  const armCol = P.rod(V(0, 0, 0), V(0, 0, 1), 9, 'fixed'), armBoom = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'load'), armKnee = P.sphere(9, 'load');
+  [armCol, armBoom, armKnee].forEach(o => app.add(o));
+  app.label(() => armKnee.position, 'balanced arm (freedom-02) carries the base ring', { cls: 'load' });
+  const pivotMark = P.sphere(4.5, 'laser'); app.addHelper(pivotMark);
+  const S0 = null;
+  app.label(() => carrier.position, 'carrier plate for the base ring', { cls: 'fixed' });
+  app.label(() => platRing.position, 'ring platform on the barrel', { cls: 'actuated' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => pivotMark.position, 'pivot', { cls: 'laser' });
+  const proxy = null;
+  app.cornerInset({ gun: gun });
+
+  // ---------- kinematics
+  const D2RAD = D2R;
+  const posePoint = (p, O, R, t) => p.clone().sub(O).applyQuaternion(R).add(O).add(t);
+  function legsFor(cmd) {
+    const O = cmd.pivot === 'dot' ? J0.clone() : neutral.Q.clone();
+    const R = new THREE.Quaternion().setFromEuler(new THREE.Euler(cmd.rx * D2R, cmd.ry * D2R, cmd.rz * D2R, 'XYZ')), t = V(cmd.tx, cmd.ty, cmd.tz);
+    const pj = neutral.pj.map(p => posePoint(p, O, R, t));
+    const out = { O, R, t, pj, L: [], dL: [], b: [], q: [], ok: true, worst: 0, worstI: -1 };
+    for (let i = 0; i < 6; i++) {
+      let Li, bi;
+      if (S.leg === 'stewart') { bi = neutral.bj[i].clone(); Li = pj[i].distanceTo(bi); out.dL.push(Li - neutral.L0[i]); }
+      else { // fixed rod of length L0 on a vertical rail through bj[i]
+        const h2 = Math.pow(pj[i].x - neutral.bj[i].x, 2) + Math.pow(pj[i].y - neutral.bj[i].y, 2), l2 = neutral.L0[i] * neutral.L0[i];
+        if (h2 >= l2) { out.ok = false; out.dL.push(NaN); bi = neutral.bj[i].clone(); Li = neutral.L0[i]; }
+        else { const z = pj[i].z + Math.sqrt(l2 - h2); bi = V(neutral.bj[i].x, neutral.bj[i].y, z); Li = neutral.L0[i]; out.dL.push(z - neutral.bj[i].z); }
+      }
+      out.L.push(Li); out.b.push(bi);
+      const a = Math.abs(out.dL[i]); if (isNaN(a) || a > out.worst) { out.worst = isNaN(a) ? 1e9 : a; out.worstI = i; }
+    }
+    out.ok = out.ok && out.worst <= S.stroke + 1e-9;
+    return out;
+  }
+  // 6x6 helpers
+  function inv6(A) { const n = 6, a = []; for (let i = 0; i < n; i++) { a.push([]); for (let j = 0; j < n; j++) a[i].push(A[i][j]); for (let j = 0; j < n; j++) a[i].push(i === j ? 1 : 0); }
+    for (let c = 0; c < n; c++) { let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(a[r][c]) > Math.abs(a[p][c])) p = r; if (Math.abs(a[p][c]) < 1e-12) return null; const tmp = a[c]; a[c] = a[p]; a[p] = tmp; const d = a[c][c]; for (let j = 0; j < 2 * n; j++) a[c][j] /= d; for (let r = 0; r < n; r++) if (r !== c) { const f = a[r][c]; if (f) for (let j = 0; j < 2 * n; j++) a[r][j] -= f * a[c][j]; } }
+    return a.map(r => r.slice(n)); }
+  const mulv = (M, v) => M.map(row => row.reduce((s, x, j) => s + x * v[j], 0));
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  function analyse(cur, dotW, gripW, comW) {
+    // rows of J: [u; (p - dot) x u]; for a fixed-rod leg the equivalent axial stiffness is k / uz^2
+    const Jm = [], ks = [];
+    for (let i = 0; i < 6; i++) { const u = cur.pj[i].clone().sub(cur.b[i]).normalize(), r = cur.pj[i].clone().sub(dotW), m = cross([r.x, r.y, r.z], [u.x, u.y, u.z]); Jm.push([u.x, u.y, u.z, m[0], m[1], m[2]]); ks.push(S.leg === 'stewart' ? S.k : S.k / Math.max(0.04, u.z * u.z)); }
+    const K = [[], [], [], [], [], []]; for (let a = 0; a < 6; a++) for (let b = 0; b < 6; b++) { let s = 0; for (let i = 0; i < 6; i++) s += ks[i] * Jm[i][a] * Jm[i][b]; K[a][b] = s; }
+    const C = inv6(K), Jinv = inv6(Jm);                                        // Jm rows are legs: elongations e = Jm * twist  ->  twist = Jinv * e
+    const ex = gun.dir(WK.LOCAL_ROLL_AXIS.clone()), pd = ex.clone().multiplyScalar(0.5).add(V(0, 0, -0.5)).normalize();
+    const wOf = (pt, f) => { const r = pt.clone().sub(dotW), m = cross([r.x, r.y, r.z], f); return [f[0], f[1], f[2], m[0], m[1], m[2]]; };
+    const dotDisp = w => { const t = mulv(C, w); return t.slice(0, 3); };
+    const pull = dotDisp(wOf(gripW, [pd.x, pd.y, pd.z]));                     // mm per N of pull along the exit axis (blended down)
+    const dotPush = [0, 1, 2].map(k => { const f = [0, 0, 0]; f[k] = 1; return dotDisp(wOf(dotW, f))[k]; });
+    // leg forces for gravity + the chosen pull: A f = -w, with A columns = J_i
+    const A = []; for (let a = 0; a < 6; a++) { A.push([]); for (let i = 0; i < 6; i++) A[a].push(Jm[i][a]); }
+    const Ai = inv6(A); const Wg = 1.2 * 9.80665, wg = wOf(comW, [0, 0, -Wg]), wp = wOf(gripW, [S.F * pd.x, S.F * pd.y, S.F * pd.z]);
+    const wt = wg.map((v, i) => v + wp[i]); const f = Ai ? mulv(Ai, wt.map(v => -v)) : [NaN, NaN, NaN, NaN, NaN, NaN];
+    const res = Jinv ? Jinv.map(row => Math.hypot(row[0], row[1], row[2])) : [];   // dot displacement per unit leg change, per column of e ... row layout: twist_k = sum_i Jinv[k][i] e_i
+    let rmax = 0; if (Jinv) for (let i = 0; i < 6; i++) { const col = Math.hypot(Jinv[0][i], Jinv[1][i], Jinv[2][i]); if (col > rmax) rmax = col; }
+    return { pull, dotPush, f, rmax, pd };
+  }
+  // closest leg to the housing and grip (sample points along the gun body)
+  function clearance(cur) {
+    const pts = []; for (let z = 30; z <= 253; z += 8) pts.push(gun.local(V(0, 0, z))); for (let t = 0; t <= 1; t += 0.1) pts.push(gun.local(V(0, -25 - 86 * t, 172 + 60 * t)));
+    let best = { d: 1e9, i: -1 };
+    for (let i = 0; i < 6; i++) { const a = cur.b[i], b = cur.pj[i], ab = b.clone().sub(a), L2 = ab.lengthSq(); pts.forEach((p, k) => { if (k < 4 && false) return; const t = Math.max(0, Math.min(1, p.clone().sub(a).dot(ab) / L2)); const c = a.clone().add(ab.clone().multiplyScalar(t)); const d = c.distanceTo(p); if (d < best.d) best = { d, i }; }); }
+    return best;
+  }
+
+  // ---------- pose and drawing
+  let last = null;
+  function apply(cur) {
+    const O = cur.O, R = cur.R, t = cur.t;
+    gun.setTransform(posePoint(pos0, O, R, t), R.clone().multiply(quat0));
+    for (let i = 0; i < 6; i++) {
+      legs[i].setEnds(cur.b[i], cur.pj[i]); joints[i].position.copy(cur.pj[i]); bjoints[i].position.copy(cur.b[i]);
+      if (S.leg === 'fixed') { rails[i].visible = true; carriages[i].visible = true; rails[i].setEnds(V(neutral.bj[i].x, neutral.bj[i].y, neutral.bj[i].z - S.stroke - 10), V(neutral.bj[i].x, neutral.bj[i].y, neutral.bj[i].z + S.stroke + 10)); carriages[i].position.copy(cur.b[i]); }
+      else { rails[i].visible = false; carriages[i].visible = false; }
+    }
+    // rings
+    const s = (neutral.zq - N0.z) / axisDir.z;
+    makeRings(); platRing.position.copy(posePoint(neutral.Q, O, R, t)); platRing.quaternion.copy(R);
+    baseRing.position.set(neutral.Q.x, neutral.Q.y, J0.z + S.hb);
+    collar.position.copy(posePoint(neutral.Q, O, R, t)); collar.quaternion.copy(R.clone().multiply(new THREE.Quaternion().setFromUnitVectors(V(0, 0, 1), axisDir)));
+    carrier.position.set(neutral.Q.x, neutral.Q.y, J0.z + S.hb + 12);
+    const tl = Math.hypot(axisDir.x, axisDir.y) || 1, ux = axisDir.x / tl, uy = axisDir.y / tl, colX = neutral.Q.x - ux * 300, colY = neutral.Q.y - uy * 300, topZ = J0.z + S.hb + 90;
+    armCol.setEnds(V(colX, colY, ws.benchZ), V(colX, colY, topZ)); armBoom.setEnds(V(colX, colY, topZ), V(neutral.Q.x, neutral.Q.y, J0.z + S.hb + 14)); armKnee.position.set(colX, colY, topZ);
+    [armCol, armBoom, armKnee].forEach(o => { o.visible = S.arm; });
+    pivotMark.position.copy(O.clone().add(t));
+    legs.forEach(l => l.visible = S.show);
+    app.invalidate();
+  }
+  function update() {
+    buildNeutral();
+    const req = legsFor(S), cur = req.ok ? req : (last && last.ok ? legsFor(last.cmd) : legsFor(Object.assign({}, S, { tx: 0, ty: 0, tz: 0, rx: 0, ry: 0, rz: 0 })));
+    if (req.ok) last = { ok: true, cmd: { pivot: S.pivot, tx: S.tx, ty: S.ty, tz: S.tz, rx: S.rx, ry: S.ry, rz: S.rz } };
+    apply(cur);
+    const dotW = gun.dotWorld().clone(), gripW = gun.local(gripLocal.clone()).clone(), comW = gun.local(comLocal.clone()).clone();
+    const an = analyse(cur, dotW, gripW, comW), cl = clearance(cur), off = gun.dotOffset();
+    app.badge('stroke', !req.ok ? (isNaN(req.dL[req.worstI]) ? 'leg ' + (req.worstI + 1) + ': the rod cannot reach this pose' : 'leg ' + (req.worstI + 1) + ' would need ' + Math.abs(req.dL[req.worstI]).toFixed(0) + ' mm of stroke, ' + S.stroke + ' mm available: holding the last valid pose') : null, 'limit');
+    app.badge('clear', cl.d < 30 ? 'leg ' + (cl.i + 1) + ' passes ' + cl.d.toFixed(0) + ' mm from the drawn housing (illustrative radius 30 mm): turn the leg pairs so the gap faces the tail' : null, 'warn');
+    const dotOff = Math.hypot(off.radial, off.along, off.vertical);
+    app.badge('swing', S.pivot === 'platform' && dotOff > 0.5 ? 'pivot at the platform centre: the dot is ' + dotOff.toFixed(1) + ' mm from the seam' : null, 'info');
+    const mm = v => v.toFixed(2);
+    const fmax = Math.max(...an.f.map(Math.abs)), lever = neutral.Q.distanceTo(J0);
+    table(req, cur, an, cl, off, fmax, lever);
+    app.io.set({
+      commands: [
+        { name: (S.leg === 'stewart' ? 'Leg lengths L1 to L6' : 'Carriage positions q1 to q6'), value: cur.dL.map(v => (v >= 0 ? '+' : '') + v.toFixed(1)).join(' '), unit: 'mm', note: 'from one 6-D pose about the ' + (S.pivot === 'dot' ? 'dot (software pivot)' : 'platform centre') },
+        { name: 'Pose about the pivot', value: S.tx + ', ' + S.ty + ', ' + S.tz + ' mm; ' + S.rx + ', ' + S.ry + ', ' + S.rz + '°', note: 'a coarse carrier places the base ring' },
+      ],
+      observes: [
+        { name: 'Leg step counts / encoders', value: 'six numbers', status: 'seen', note: 'position of the legs, not of the dot' },
+        { name: 'Dot vs seam', value: mm(off.radial) + ' / ' + mm(off.along) + ' / ' + mm(off.vertical) + ' mm', status: 'blind', note: 'scene geometry: exact here; a camera or a probe in practice' },
+        { name: 'Pivot vs the true dot', value: 'assumed equal', status: 'unresolved', note: 'calibrate with the dot on a board (trials-13)' },
+      ],
+      manual: ['Place the base ring near the corner', 'Clamp the shell in the ring', 'Route the fibre and the wire out of the gap'],
+    });
+  }
+  const tabHost = document.createElement('div');
+  app.ui.panel({ id: 'legtab', title: 'Legs, stiffness, clearance', open: true, node: tabHost });
+  const RANGES = [['RODE PSA1+ boom', 0.25, 1.2], ['InnoGear scissor boom', 0, 1.5], ['Tigon balancer', 0.5, 1.5], ['Elgato gas-spring mic arm', 0, 3], ['Amazon Basics monitor arm', 2, 7], ['HUANUO monitor arm', 2, 9]];
+  function table(req, cur, an, cl, off, fmax, lever) {
+    const payload = 1.2 + 6 * S.legm + 0.2, inR = RANGES.filter(r => payload >= r[1] - 1e-9 && payload <= r[2] + 1e-9).map(r => r[0]);
+    const bar = (v, mx) => { const w = Math.min(100, Math.abs(v) / mx * 50); return '<div class="hx-bar"><i style="left:' + (v >= 0 ? 50 : 50 - w) + '%;width:' + w + '%;background:' + (Math.abs(v) > mx * 0.999 ? '#ef4444' : '#a78bfa') + '"></div></div>'; };
+    const rows = req.dL.map((v, i) => '<tr><td>' + (i + 1) + '</td><td class="n">' + (isNaN(v) ? 'n/a' : (v >= 0 ? '+' : '') + v.toFixed(1) + ' mm') + '</td><td>' + (isNaN(v) ? '' : bar(v, S.stroke)) + '</td><td class="n">' + (an.f[i] !== undefined ? an.f[i].toFixed(0) + ' N' : '') + '</td></tr>').join('');
+    tabHost.innerHTML = '<table class="hx-tab"><tr><th>Leg</th><th>' + (S.leg === 'stewart' ? 'Δ length' : 'Δ carriage') + '</th><th>vs ±' + S.stroke + ' mm</th><th>Force (gravity + pull)</th></tr>' + rows + '</table>' +
+      '<table class="hx-tab" style="margin-top:8px"><tr><th>Quantity</th><th>Value</th><th>Reading</th></tr>' +
+      '<tr><td>Payload on the arm</td><td class="n">' + payload.toFixed(2) + ' kg</td><td>gun 1.2 + six leg modules at ' + S.legm.toFixed(2) + ' kg + rings 0.2 (illustrative): ' + (inR.length ? 'inside the rated range of ' + inR.join('; ') : 'inside none of the ranges read (0.25 to 9 kg listed)') + '</td></tr>' +
+      '<tr><td>Ring centre to dot</td><td class="n">' + lever.toFixed(0) + ' mm</td><td>the lever if the pivot were the platform centre</td></tr>' +
+      '<tr><td>Dot compliance, fibre pull</td><td class="n">' + an.pull.map(v => Math.abs(v).toFixed(3)).join(' / ') + ' mm/N</td><td>radial / tangent / vertical for 1 N along the exit axis (leg stiffness ' + S.k + ' N/mm). freedom-01b nose seat: 0.10 / 0.01 (radial / vertical); rigid-based stage: 0.45 / 1.0</td></tr>' +
+      '<tr><td>Dot compliance, push at the dot</td><td class="n">' + an.dotPush.map(v => v.toFixed(3)).join(' / ') + ' mm/N</td><td>a 1 N push along x / y / z at the dot</td></tr>' +
+      '<tr><td>Largest leg force</td><td class="n">' + fmax.toFixed(0) + ' N</td><td>gun weight and ' + S.F.toFixed(1) + ' N of pull; a lead screw and joint must carry it</td></tr>' +
+      '<tr><td>Dot per mm of one leg</td><td class="n">' + an.rmax.toFixed(2) + ' mm</td><td>at 0.31 µm per microstep (T6×1 screw) that is ' + (an.rmax * 0.31).toFixed(2) + ' µm at the dot, before backlash</td></tr>' +
+      '<tr><td>Closest leg to the housing</td><td class="n">' + cl.d.toFixed(0) + ' mm</td><td>leg ' + (cl.i + 1) + '; the drawn housing radius is about 30 mm (illustrative)</td></tr>' +
+      '<tr><td>Dot vs seam (exact geometry)</td><td class="n">' + off.radial.toFixed(2) + ' / ' + off.along.toFixed(2) + ' / ' + off.vertical.toFixed(2) + ' mm</td><td>radial / along / vertical; not a sensor reading</td></tr></table>' +
+      '<p class="hx-note">The legs are ideal axial springs with ball joints and no play. Compliance uses the six axial stiffnesses only: the clamp, the printed shell and the platform are taken as rigid.</p>';
+  }
+
+  // ---------- controls
+  const cmd = app.ui.group('Commanded pose (software commands all six)');
+  const act = (id, label, min, max, step, unit, key) => cmd.slider({ id: id, label: label, min: min, max: max, step: step, value: 0, unit: unit, kind: 'actuator', onChange: v => { S[key] = v; update(); } });
+  cmd.radio({ id: 'pivot', label: 'Centre of rotation', kind: 'branch', value: 'dot', options: [{ value: 'dot', label: 'the dot (a software number)' }, { value: 'platform', label: 'the platform centre (no software pivot)' }], onChange: v => { S.pivot = v; update(); } });
+  act('rx', 'Rotate about x (radial axis)', -15, 15, 0.5, '°', 'rx'); act('ry', 'Rotate about y (tangent axis)', -15, 15, 0.5, '°', 'ry'); act('rz', 'Rotate about z (vertical)', -15, 15, 0.5, '°', 'rz');
+  act('tx', 'Translate x (radial)', -30, 30, 0.5, 'mm', 'tx'); act('ty', 'Translate y (tangent)', -30, 30, 0.5, 'mm', 'ty'); act('tz', 'Translate z (vertical)', -30, 30, 0.5, 'mm', 'tz');
+  const geo = app.ui.group('Legs and rings (scene edits)');
+  const gs = (id, label, min, max, step, val, unit, key, help) => geo.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'scene', help: help, onChange: v => { S[key] = v; update(); } });
+  geo.radio({ id: 'leg', label: 'Leg type', kind: 'branch', value: 'stewart', options: [{ value: 'stewart', label: 'Variable-length struts (Stewart platform)' }, { value: 'fixed', label: 'Fixed rods on vertical rails (hexaglide, delta-printer parts)' }], onChange: v => { S.leg = v; update(); } });
+  gs('hp', 'Platform ring above the dot', 6, 150, 1, 18, 'mm', 'hp', 'Above the 6.35 mm rim. The lever if the pivot were here.');
+  gs('hb', 'Base ring above the dot', 120, 300, 5, 170, 'mm', 'hb');
+  gs('rp', 'Platform ring radius', 30, 80, 1, 50, 'mm', 'rp', 'Must clear the shell and the wire guide.');
+  gs('rb', 'Base ring radius', 80, 200, 5, 130, 'mm', 'rb');
+  gs('stroke', 'Stroke of each leg', 10, 80, 1, 40, 'mm', 'stroke', 'A 100 mm mini rail gives ±50 mm at most.');
+  gs('k', 'Leg axial stiffness', 2, 200, 1, 20, 'N/mm', 'k', 'Unmeasured: a lead-screw and coupling stack.');
+  gs('clock', 'Clock the leg pairs', -60, 60, 1, 0, '°', 'clock', '0 puts a gap between two pairs toward the gun tail.');
+  gs('F', 'Fibre pull at the grip base', 0, 8, 0.1, 2, 'N', 'F', 'freedom-15: 0.4 to 8.7 N.');
+  gs('legm', 'Mass of one leg module (rail and motor)', 0.05, 0.6, 0.01, 0.3, 'kg', 'legm', 'Illustrative: the listing states no weight. Six of them plus the gun are the arm\u2019s payload.');
+  geo.toggle({ id: 'arm', label: 'Draw the carrier as a balanced arm (freedom-02)', kind: 'view', value: true, onChange: v => { S.arm = v; update(); } });
+  geo.toggle({ id: 'show', label: 'Show the legs', kind: 'view', value: true, onChange: v => { S.show = v; update(); } });
+
+  update();
+})();
+</script>
+</body>
+</html>

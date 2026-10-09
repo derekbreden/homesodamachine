@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wall port: gun on a rod through the lid</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+    .r3 svg { display: block; width: 100%; height: auto; background: #0f141b; border-radius: 8px; }
+  .r3 text { font: 12.5px system-ui, sans-serif; fill: #cbd5e1; }
+  .r3 .t-dim { fill: #93a1b5; font-size: 11.5px; }
+  .r3 .t-big { font-size: 13.5px; font-weight: 600; fill: #e7ebf1; }
+  .r3 .panel { fill: none; stroke: #2a3341; }
+  .r3 .cab { fill: none; stroke: #6b7a90; stroke-width: 2; }
+  .r3 .cabfill { fill: rgba(107, 122, 144, .10); }
+  .r3 .bench { fill: #6b7a90; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-03-wall-port",
+  "title": "Wall port: the gun on a rod through the enclosure lid",
+  "by": "room",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "The gun lives inside a laser-safe cabinet, clamped to the end of a rod that passes through a ball in the lid. The lid is the fulcrum: a plate slide moves the whole rod (pure translation), two actuators on a long tail tilt it about the ball, and the rod slides for insertion. The scene shows the reduction, the force advantage, and what the ball's play does, in two true orthographic views of the same 3D model.",
+  "tags": ["enclosure", "pivot", "remote-center", "lever", "tail-actuators", "laser-safe cell"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["long tail: reduction, force", "plate slide plus tilt trim", "actuators outside the cell", "pivot placed on the approach line"],
+  "how": {
+    "motion": "plate slides in the lid (u, v), rod slides through the ball (s), two tail actuators tilt it about the ball",
+    "load": "the lid and ball carry the gun through the rod; the tail counterweight balances it about the ball",
+    "reference": "ball centre in the lid lies on the approach line; a hand-set wedge chooses the coarse tilt",
+    "observe": "cameras inside (dot); step counts; tail load cell and scales outside (proposed); nothing sees the ball",
+    "use": "coarse tilt by wedge at setup; three translations and two trims by command; swap tubes with the rod retracted"
+  },
+  "software": {
+    "commands": ["plate slide u, v", "rod insertion s", "tail actuators pitch and yaw", "rotator speed (existing)"],
+    "observes": ["dot position from cameras inside the cabinet", "step counts of the five axes", "load or motor current at the tail actuators (reads the rod's bending moment)", "scales or an inclinometer outside the lid (proposed): ball play and tail tilt", "door and lid interlocks"],
+    "manual": ["choosing and fitting the wedge that sets the coarse tilt", "setting the roll of the gun about the rod", "loading the tube (rod retracted)", "snipping a stuck wire with the door open"]
+  },
+  "notes": ["../../explorers/room/ideas/room-03-wall-port.md", "../../exchange/eyes--on--room-w2.md", "../../exchange/room--reply-to-eyes-w3.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const T3 = THREE, V = (x, y, z) => new T3.Vector3(x, y, z), DEG = WK.deg, G = 9.81;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The <b>lid of a laser-safe cabinet is the fulcrum</b>. The gun sits inside on the end of a rod; the rod passes through a ball in the lid and ends outside in a long <b>tail</b>. Two actuators push the tail sideways (tilt about the ball), the rod slides through the ball (insertion), and the plate that holds ball <i>and</i> actuators slides in the lid (translation). The dot, the barrel axis and the ball centre lie on one line, so the ball must sit on the approach line: a printed wedge sets that coarse tilt by hand, and the actuators do the rest.</p>' +
+        '<p>Left: elevation, looking along the horizontal direction perpendicular to the approach. Right top: plan. Right bottom: the seam corner magnified. All three are computed from the same 3D model; the tube and gun are the kit\'s proxies.</p>' +
+        '<p><b>Try:</b> drive the plate and insertion sliders (translation, no tilt) and then the tail sliders (tilt, reduced by <i>d / Lt</i>). Lengthen the tail. Switch the counterweight off and watch the tail force.</p>',
+      carries: '<p><b>Amber</b> carries: the rod and tail carry the gun about the ball, and the counterweight balances it. <b>Teal</b> locates: the ball centre (fixed in the plate) and the wedge that sets the coarse tilt. <b>Purple</b> moves under software: plate slide, insertion, and the two tail actuators. The gun (dark) is a rigid body on the rod: nothing stretches; the only lengths that change are actuator strokes.</p>' +
+        '<p>With the actuators riding on the same plate as the ball, moving the plate moves the whole rod: the dot moves 1 : 1 and the tilt does not change. Moving only the tail changes the tilt and moves the dot by ρ = d / Lt per unit: with the tail longer than the pivot-to-dot distance the actuator has a <i>reduction</i>; loads on the gun side reach the actuators <i>divided</i> by the same lever.</p>',
+      software: '<p>Everything the software would command is outside the cabinet, out of spatter and fume, and behind the interlocked lid. Everything it would observe is inside: cameras look at the dot and the seam. The cabinet\'s walls are also what makes unattended dry runs and welds safe to schedule. The I/O panel lists what is seen, blind or manual for the current pose.</p>',
+      tried: '<ul>' +
+        '<li><b>"A wall pivot amplifies error."</b> True for the ball: play at the ball reaches the dot multiplied by 1 + d/Lt if the tail is held (readout: <i>ball play</i>). It is not true for the actuators: their compliance and steps are <i>reduced</i> by d/Lt. <i>Repair:</i> put the actuators on the same plate as the ball so that ball motion and tail motion cancel to a plain translation; choose a preloaded bearing. <i>Leaves:</i> the ball\'s friction (stick-slip) and real clearance.</li>' +
+        '<li><b>The gun is not a rod.</b> The pivot has to sit on the barrel axis extended, at least 269 mm behind the dot (gun length plus nozzle clearance), so d ≥ 300 and the lever from the dot is long. <i>Repair:</i> the rod attaches at the back of the housing on the barrel axis; the grip and the umbilical exit stay inside the cabinet. <i>Leaves:</i> the shell must carry the gun\'s side loads to that back-end socket; the centre of mass is 23 mm off the axis, so gravity also twists the gun about the rod (a roll lock is needed).</li>' +
+        '<li><b>Cable pulls reach the tail, reduced.</b> A 1 N pull at the grip base in the worst direction is 0.13 to 0.27 N·m about the ball (see readout) and 0.16 to 0.34 N at a tail 800 mm out (<code>wall-port-lever.mjs</code>). <i>Leaves:</i> the pull is not measured, and a stiff conduit may add more.</li>' +
+        '<li><b>The rod is a beam, and it bends more than the ball plays (eyes, wave 3).</b> The moment F·d passes through the ball and bends the inside segment and the tail; the tail actuators hold a <i>point</i>, so the tangent at the ball tilts. For a 20 × 2&nbsp;mm aluminium tube the dot ends 2.4&nbsp;mm off the commanded line at 45° with a 2&nbsp;N cable pull, thirty times the ball\'s play (bend panel, second row). <i>Repair:</i> the rod is a choice. A 38 × 3&nbsp;mm tube (1-1/2 in, on the shelf next day) is about 15 times stiffer: 0.2&nbsp;mm; most of what is left is a constant one look calibrates away. What stays is the cable\'s pull: 0.20&nbsp;mm per newton at OD 20, 0.02 at OD 38. A load cell at the tail reads F·d/Lt, and a beam model with the rod\'s stiffness subtracts the bend. <i>Leaves:</i> the real gun is a rigid body 270&nbsp;mm long, the cable pulls at the grip, the rod ends are clamps, the ball sticks. An orientation that puts gravity along the rod (gun in the radial plane with the tube tipped 30°, <a href="../room-17-tipped-tube/index.html">room-17</a>) cuts the gravity part twelvefold in the same rod.</li>' +
+        '<li><b>Tube swap.</b> The tube lifts out through the top, straight through the volume the barrel occupies. At the opening pose the nozzle leaves that column after about 130 mm of retraction along the axis. <i>Repair:</i> a long insertion stroke for swaps (150 to 200 mm) or a hinged lid. <i>Leaves:</i> which is cheaper to build; the rod\'s guide has to hold the ball\'s plane through the stroke.</li>' +
+        '<li><b>Orientation is now a setup choice, not a command.</b> The barrel direction is fixed by where the ball sits relative to the dot; only ±1 to ±3° of trim is commanded. Derek\'s three rotations become "which wedge" plus "how far the ball is from the corner". <i>Repair (branch):</i> a tilt-and-lock ring under the plate for a few coarse settings. <i>Leaves:</i> whether one wedge per tube type is acceptable.</li>' +
+        '<li><b>Seal.</b> A ball through a laser-safe lid needs a gaiter or labyrinth that does not add friction. Not designed; unresolved.</li></ul>',
+      unresolved: '<ul><li>The rod\'s real stiffness with its end clamps, and its own weight and sag; the bend panel takes a perfect tube and the load at the dot end (an upper bound for the gravity part, a lower bound for the cable\'s lever).</li><li>Ball type and its real clearance and friction: a spherical plain bearing, a printed gimbal on four bearings, or a ball head. Sourcing notes list candidates; nothing is measured.</li>' +
+        '<li>Where the cabinet stands: 0.5 m tall, and the tail sweeps 1 m beyond the lid at 45°. Room needed above and beside the cabinet.</li>' +
+        '<li>Whether the operator can live without seeing the weld directly (camera and an OD-rated window).</li>' +
+        '<li>Gun mass, centre of mass and umbilical pull: unmeasured. Masses here are illustrative.</li></ul>',
+      assumptions: '<ul><li>Rod: aluminium tube, E 69&nbsp;GPa, wall 2&nbsp;mm up to OD 30 and 3&nbsp;mm above; the tail actuators hold the tail point; load = gun weight across the rod + cable pull, at the dot end: illustrative. The counterweight now includes the rod\'s own weight.</li><li>Gun proxy and opening pose (roll 45°, hole dial 30°, vertical −15°), 16 mm nozzle clearance: illustrative (kit). Barrel axis at that pose: 45° below horizontal, 50° azimuth in plan.</li>' +
+        '<li>Gun mass, counterweight mass and cable pull are illustrative. Centre of mass at local (0, −23, 181): proxy.</li>' +
+        '<li>Pivot-to-dot distance d (300 to 600 mm) and tail length Lt (300 to 1000 mm) are choices, not requirements.</li>' +
+        '<li>The lid is horizontal at the pivot\'s height; the rod meets it at 45° through a wedge that squares the ball to the rod (drawn schematically).</li>' +
+        '<li>Small trims only: the tail sliders are limited to ±20 mm; for these the tilt is at most about 3°.</li></ul>',
+    },
+  });
+
+  // ---------------------------------------------------------------- the 3D model (kit's proxy at the opening pose)
+  const pose0 = WK.dialsToPose(WK.OPENING.roll, WK.OPENING.holeDial, WK.OPENING.vertical);
+  const q0 = pose0.quaternion.clone();
+  const D0 = WK.JOINT.clone();
+  const u0 = V(0, 0, -1).applyQuaternion(q0).normalize();       // beam direction, nozzle -> dot
+  const hh = V(u0.x, u0.y, 0).normalize(), npv = V(-hh.y, hh.x, 0);
+  const e1 = V(0, 0, 1).cross(u0).normalize();                  // horizontal, perpendicular to the approach in plan (yaw trim)
+  const e2 = u0.clone().cross(e1).normalize();                  // in the elevation plane, perpendicular to the rod (pitch trim)
+  const S = { d: 400, Lt: 800, pu: 0, pv: 0, s: 0, ap: 0, ay: 0, mass: 1.5, pull: 2, play: 0.05, cw: true, ret: false, vis: 'both', od: 38 };
+  // The rod is an aluminium tube (E 69 GPa) [illustrative]: wall 2 mm up to OD 30, 3 mm above. The tail actuators hold the tail POINT.
+  const rodWall = od => (od <= 30 ? 2 : 3), E_AL = 69000, RHO_AL = 2.7e-6;      // N/mm^2, kg/mm^3
+  const rodI = od => Math.PI / 64 * (od ** 4 - (od - 2 * rodWall(od)) ** 4), rodMassPerMm = od => RHO_AL * Math.PI / 4 * (od ** 2 - (od - 2 * rodWall(od)) ** 2);
+
+  function model() {
+    const P0 = D0.clone().addScaledVector(u0, -S.d);
+    const shift = hh.clone().multiplyScalar(S.pu).addScaledVector(npv, S.pv);
+    const P = P0.clone().add(shift);
+    const T0 = P0.clone().addScaledVector(u0, -S.Lt).add(shift);
+    const T = T0.clone().addScaledVector(e1, S.ay).addScaledVector(e2, S.ap);
+    const uh = P.clone().sub(T).normalize();
+    const retract = S.ret ? 170 : 0;
+    const D = P.clone().addScaledVector(uh, S.d + S.s - retract);
+    const qd = new T3.Quaternion().setFromUnitVectors(u0, uh), q = qd.multiply(q0.clone());
+    const loc = p => V(p[0], p[1], p[2] + 16).applyQuaternion(q).add(D).sub(V(0, 0, 0)).clone();   // local point (nozzle-tip frame, dot at z=-16) -> world
+    return { P0, P, T, T0, uh, D, q, loc, shift, retract };
+  }
+  const worldOf = (m, p) => V(p[0], p[1], p[2] + 16).applyQuaternion(m.q).add(m.D);
+  const ELEV = p => [p.x * hh.x + p.y * hh.y, p.z], PLAN = p => [p.x, p.y];
+
+  // ---------------------------------------------------------------- drawing helpers
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = WK.svg('svg', { viewBox: '0 0 1000 1030', role: 'img', 'aria-label': 'wall-port mechanism: elevation, plan and seam corner' });
+  const box = document.createElement('div'); box.className = 'r3'; box.appendChild(svg); app.stageEl.appendChild(box);
+  const el = (tag, attrs, parent) => { const n = WK.svg(tag, attrs); (parent || svg).appendChild(n); return n; };
+  const F = (n) => (Math.round(n * 10) / 10);
+  const colors = { fixed: WK.roleHex('fixed'), load: WK.roleHex('load'), locate: WK.roleHex('locate'), actuated: WK.roleHex('actuated'), gun: WK.roleHex('gun'), work: WK.roleHex('work'), laser: WK.roleHex('laser'), sensor: WK.roleHex('sensor'), cable: '#8b95a5' };
+  function hull(pts) {
+    const p = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); if (p.length < 3) return p;
+    const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lo = [], up = [];
+    p.forEach(pt => { while (lo.length >= 2 && cross(lo[lo.length - 2], lo[lo.length - 1], pt) <= 0) lo.pop(); lo.push(pt); });
+    p.slice().reverse().forEach(pt => { while (up.length >= 2 && cross(up[up.length - 2], up[up.length - 1], pt) <= 0) up.pop(); up.push(pt); });
+    return lo.slice(0, -1).concat(up.slice(0, -1));
+  }
+  // gun solids in the local frame (kit proxy numbers): returns arrays of world 3D point lists per solid
+  const gripStart = V(0, -25, 172), gripEnd = V(0, -111, 232), gripLen = gripStart.distanceTo(gripEnd), gripDir = gripEnd.clone().sub(gripStart).normalize();
+  const gripPerp = gripDir.clone().cross(V(1, 0, 0)).normalize();
+  function gunSolids(m) {
+    const out = [];
+    const boxPts = (c, ax, hx, hy, hz) => { const pts = []; [-1, 1].forEach(a => [-1, 1].forEach(b => [-1, 1].forEach(c2 => { pts.push(c.clone().addScaledVector(ax[0], a * hx).addScaledVector(ax[1], b * hy).addScaledVector(ax[2], c2 * hz)); }))); return pts; };
+    out.push({ role: 'gun', cyl: [[0, 23, 2.2, 5], [23, 54, 8.5, 8.5], [54, 100, 5.5, 5.5], [100, 118, 12, 12]] });
+    out.push({ role: 'gun', pts: boxPts(V(0, 0, 185.5), [V(1, 0, 0), V(0, 1, 0), V(0, 0, 1)], 17, 17, 67.5).map(p => worldOf(m, p.toArray())) });
+    const gc = gripStart.clone().add(gripEnd).multiplyScalar(0.5);
+    out.push({ role: 'gun', pts: boxPts(gc, [V(1, 0, 0), gripDir, gripPerp], 15, gripLen / 2 + 8, 14).map(p => worldOf(m, p.toArray())) });
+    return out;
+  }
+  function drawGun(m, proj, tf, parent) {
+    gunSolids(m).forEach(s => {
+      if (s.cyl) s.cyl.forEach(c => {
+        const a0 = proj(worldOf(m, [0, 0, c[0]])), a1 = proj(worldOf(m, [0, 0, c[1]]));
+        const dx = a1[0] - a0[0], dy = a1[1] - a0[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+        const pts = [[a0[0] + nx * c[2], a0[1] + ny * c[2]], [a1[0] + nx * c[3], a1[1] + ny * c[3]], [a1[0] - nx * c[3], a1[1] - ny * c[3]], [a0[0] - nx * c[2], a0[1] - ny * c[2]]].map(tf);
+        el('polygon', { points: pts.map(p => p.join(',')).join(' '), fill: colors.gun, stroke: '#0f141b', 'stroke-width': 0.8 }, parent);
+      });
+      else el('polygon', { points: hull(s.pts.map(proj)).map(tf).map(p => p.join(',')).join(' '), fill: colors.gun, stroke: '#0f141b', 'stroke-width': 0.8, opacity: 0.95 }, parent);
+    });
+  }
+
+  function arrowSvg(g, x1, y1, x2, y2, color, w) {
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 2) return;
+    const ux = dx / L, uy = dy / L, hl = Math.min(9, L * 0.5);
+    el('line', { x1: x1, y1: y1, x2: x2 - ux * hl * 0.6, y2: y2 - uy * hl * 0.6, stroke: color, 'stroke-width': w || 2.5 }, g);
+    el('polygon', { points: [[x2, y2], [x2 - ux * hl - uy * hl * 0.5, y2 - uy * hl + ux * hl * 0.5], [x2 - ux * hl + uy * hl * 0.5, y2 - uy * hl - ux * hl * 0.5]].map(p => p.join(',')).join(' '), fill: color }, g);
+  }
+  // Does the gun's barrel or nozzle touch the tube? Drawn-scene check on the proxy geometry (barrel radius from the kit's proxy,
+  // nozzle tip above the plate, rim circle and the wall face). tip/back are world vectors (back = unit vector from the nozzle toward the
+  // back of the gun); tubeOff is the tube frame's translation; seat is the plate offset. Returns clearances in mm (negative = contact).
+  function nozzleClear(tip, back, tubeOff, seat) {
+    const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, ZR = WK.DIM.tubeHeight, ZP = WK.CAP_TOP + (seat || 0);
+    const t0 = tip.clone().sub(tubeOff), b = back.clone().normalize(), rad0 = Math.hypot(t0.x, t0.y);
+    const radiusAt = t => t < 23 ? 2.2 + 2.8 * t / 23 : t < 54 ? 8.5 : t < 100 ? 5.5 : 12;
+    let plate = rad0 < RI ? t0.z - ZP - 2.2 : Infinity, rim = Infinity;
+    const pts = [];
+    for (let i = 0; i < 90; i++) { const a = i / 90 * 2 * Math.PI, c = Math.cos(a), s = Math.sin(a); pts.push([RI * c, RI * s, ZR], [RO * c, RO * s, ZR], [RI * c, RI * s, (ZP + ZR) / 2], [RI * c, RI * s, ZP]); }
+    pts.forEach(p => {
+      const d = new THREE.Vector3(p[0], p[1], p[2]).sub(t0), t = Math.max(0, Math.min(118, d.dot(b))), q = t0.clone().addScaledVector(b, t);
+      const dist = new THREE.Vector3(p[0], p[1], p[2]).distanceTo(q) - radiusAt(t);
+      if (dist < rim) rim = dist;
+    });
+    return { plate: plate, rim: rim, min: Math.min(plate, rim) };
+  }
+  // ---------------------------------------------------------------- render
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const m = model();
+    // ---- derived numbers
+    const rho = S.d / S.Lt;
+    const seam = WK.seamOffset(m.D);
+    const beam = m.uh.clone();
+    const tilt = Math.acos(Math.min(1, u0.dot(beam))) / DEG;
+    const bend = (arm, Fv) => { const t = arm.clone().cross(Fv), a = t.dot(m.uh); return t.clone().addScaledVector(m.uh, -a).length(); };
+    const gripW = worldOf(m, WK.GRIP_BASE_LOCAL.toArray()), comW = worldOf(m, [0, -23, 181]);
+    let worst = 0; for (let i = 0; i < 600; i++) { const th = Math.acos(1 - 2 * ((i + 0.5) / 600)), ph = i * 2.399963; const Fv = V(Math.sin(th) * Math.cos(ph), Math.sin(th) * Math.sin(ph), Math.cos(th)); worst = Math.max(worst, bend(gripW.clone().sub(m.P), Fv)); }
+    const tailCable = S.pull * worst / S.Lt;
+    const tauG = bend(comW.clone().sub(m.P), V(0, 0, -S.mass * G));
+    const tailGravity = tauG / S.Lt;
+    const sinRod = Math.sqrt(1 - m.uh.z * m.uh.z);
+    const dEff = S.d + S.s - m.retract, tauRod = rodMassPerMm(S.od) * G * sinRod * (S.Lt * S.Lt - dEff * dEff) / 2;   // the tail is longer, so the rod's own weight helps the counterweight
+    const mcw = Math.max(0, (tauG - tauRod) / (G * S.Lt * sinRod));
+    const tailNow = S.cw ? tailCable : tailCable + tailGravity;
+    const playDot = S.play * (1 + S.d / S.Lt);
+    const off = { r: seam.radial, z: seam.vertical, miss: Math.hypot(seam.radial, seam.vertical) };
+    // rod bending (eyes-14's beam model, re-derived in calc/rod-under-tilt.mjs): the moment F d passes through the ball and bends both segments; the tail point is held
+    const Fside = S.mass * G * sinRod + S.pull, EI = E_AL * rodI(S.od), tipFlex = Fside * dEff ** 3 / (3 * EI), tiltBall = Fside * dEff * S.Lt / (3 * EI), rodErr = tipFlex + tiltBall * dEff, perN = (dEff ** 2 * (dEff + S.Lt) / (3 * EI));
+    setRod(rodErr.toFixed(2), 'mm'); setPerN(perN.toFixed(3), 'mm per N');
+    setRho(rho.toFixed(2) + ' (' + (1 / rho).toFixed(1) + ' : 1 reduction)'); setTilt(tilt.toFixed(2), '°'); setOff(off.r.toFixed(2) + ', ' + off.z.toFixed(2), 'mm r, z'); setTail(tailNow.toFixed(2), 'N'); setPlay(playDot.toFixed(3), 'mm');
+    setMcw((S.cw ? mcw : 0).toFixed(2), 'kg at Lt'); setGrav(S.cw ? '0 (balanced)' : tailGravity.toFixed(1), 'N');
+    const nc = nozzleClear(worldOf(m, [0, 0, 0]), m.uh.clone().negate(), V(0, 0, 0), 0);
+    app.badge('hit', (!S.ret && nc.min < 0.3) ? 'nozzle or barrel would touch the tube (clearance ' + nc.min.toFixed(1) + ' mm): this pose is not physical' : ((!S.ret && nc.min < 2) ? 'nozzle within ' + nc.min.toFixed(1) + ' mm of the tube' : null), nc.min < 0.3 ? 'limit' : 'warn'); setClr(S.ret ? 'retracted' : nc.min.toFixed(1), 'mm');
+    app.badge('ret', S.ret ? 'rod retracted 170 mm for a tube swap: the dot is not at the seam' : null, 'info');
+    app.badge('tilt', tilt > 3 ? 'tilt ' + tilt.toFixed(1) + '° from the wedge setting: beyond the trim a ball allows (illustrative 3°)' : null, 'warn');
+
+    const zP = m.P0.z, hP = ELEV(m.P0)[0];
+    // ============ elevation: one drawing function, used for the whole mechanism and for the zoom window ============
+    function elevation(g, sc, ox, oy, hmin, zmax, o) {
+      const Ex = h => ox + (h - hmin) * sc, Ey = z => oy + (zmax - z) * sc, tf = p => [F(Ex(p[0])), F(Ey(p[1]))];
+      const cabL = hP - 110, cabR = 140, zLid = zP;
+      el('rect', { x: Ex(-1300), y: Ey(-86), width: (1500) * sc, height: 30 * sc, class: 'bench', opacity: 0.75 }, g);
+      el('polygon', { points: [[cabL, -86], [cabL, zLid], [cabR, zLid], [cabR, -86]].map(p => tf(p).join(',')).join(' '), class: 'cabfill' }, g);
+      el('polyline', { points: [[cabL, -86], [cabL, zLid], [cabR, zLid], [cabR, -86]].map(p => tf(p).join(',')).join(' '), class: 'cab' }, g);
+      el('rect', { x: Ex(-150), y: Ey(-40), width: 300 * sc, height: 40 * sc, fill: colors.fixed, opacity: 0.8 }, g);
+      el('rect', { x: Ex(-63.5), y: Ey(152.4), width: 127 * sc, height: 152.4 * sc, fill: colors.work, opacity: 0.55, stroke: colors.work }, g);
+      el('rect', { x: Ex(-61.85), y: Ey(146.05), width: 123.7 * sc, height: 6.35 * sc + 1, fill: colors.work }, g);
+      drawGun(m, ELEV, tf, g);
+      const tip = ELEV(worldOf(m, [0, 0, 0])), dotE = ELEV(m.D);
+      el('line', { x1: Ex(tip[0]), y1: Ey(tip[1]), x2: Ex(dotE[0]), y2: Ey(dotE[1]), stroke: colors.laser, 'stroke-width': 1.4, 'stroke-dasharray': '3 2' }, g);
+      el('circle', { cx: Ex(dotE[0]), cy: Ey(dotE[1]), r: o.zoom ? 4 : 3.2, fill: colors.laser }, g);
+      const jE = ELEV(seam.joint); el('circle', { cx: Ex(jE[0]), cy: Ey(jE[1]), r: o.zoom ? 3.6 : 2.6, fill: 'none', stroke: colors.locate, 'stroke-width': 1.5 }, g);
+      const back = ELEV(worldOf(m, [0, 0, 253])), Te = ELEV(m.T), Pe = ELEV(m.P);
+      el('line', { x1: Ex(back[0]), y1: Ey(back[1]), x2: Ex(Te[0]), y2: Ey(Te[1]), stroke: colors.load, 'stroke-width': (o.zoom ? 3 : 2.2) + S.od / (o.zoom ? 5 : 8), 'stroke-linecap': 'round' }, g);
+      const nE = ELEV(m.P0.clone().add(u0)); const ux = nE[0] - ELEV(m.P0)[0], uy = nE[1] - ELEV(m.P0)[1], ul = Math.hypot(ux, uy); const px = -uy / ul, py = ux / ul;
+      const wc = ELEV(m.P), w = 95;
+      el('polygon', { points: [[wc[0] - px * w, wc[1] - py * w], [wc[0] + px * w, wc[1] + py * w], [wc[0] + px * w + ux / ul * 16, wc[1] + py * w + uy / ul * 16], [wc[0] - px * w + ux / ul * 16, wc[1] - py * w + uy / ul * 16]].map(tf).map(p => p.join(',')).join(' '), fill: colors.locate, opacity: 0.85 }, g);
+      el('circle', { cx: Ex(Pe[0]), cy: Ey(Pe[1]), r: o.zoom ? 15 : 11, fill: '#0f141b', stroke: colors.locate, 'stroke-width': 3 }, g);
+      const anchorP = ELEV(m.T0.clone().addScaledVector(e2, -90)), a2p = ELEV(m.T);
+      el('line', { x1: Ex(anchorP[0]), y1: Ey(anchorP[1]), x2: Ex(a2p[0]), y2: Ey(a2p[1]), stroke: colors.actuated, 'stroke-width': 7, 'stroke-linecap': 'round' }, g);
+      el('rect', { x: Ex(anchorP[0]) - 8, y: Ey(anchorP[1]) - 8, width: 16, height: 16, fill: colors.actuated, rx: 3 }, g);
+      el('circle', { cx: Ex(a2p[0]), cy: Ey(a2p[1]), r: 5, fill: colors.load, stroke: '#0f141b' }, g);
+      if (S.cw) { const cwp = ELEV(m.T.clone().addScaledVector(m.uh, -70)), sz = 12 + 20 * Math.cbrt(mcw); el('rect', { x: Ex(cwp[0]) - sz / 2, y: Ey(cwp[1]) - sz / 2, width: sz, height: sz, fill: colors.load, stroke: '#0f141b', rx: 3 }, g);
+        if (!o.zoom) { el('text', { x: Ex(cwp[0]) + sz / 2 + 8, y: Ey(cwp[1]) - 2, text: 'counterweight ' + mcw.toFixed(2) + ' kg' }, g); el('text', { x: Ex(cwp[0]) + sz / 2 + 8, y: Ey(cwp[1]) + 13, class: 't-dim', text: '(mass illustrative)' }, g); } }
+      {
+        const gE = ELEV(gripW), exitDir = V(0, 0, 1).clone().set(WK.LOCAL_ROLL_AXIS.x, WK.LOCAL_ROLL_AXIS.y, WK.LOCAL_ROLL_AXIS.z).applyQuaternion(m.q), gE2 = ELEV(gripW.clone().addScaledVector(exitDir, 1));
+        let ax = gE2[0] - gE[0], ay = gE2[1] - gE[1]; const al = Math.hypot(ax, ay) || 1; ax /= al; ay /= al;
+        const len = Math.min(70, 8 + S.pull * 14);
+        arrowSvg(g, Ex(gE[0]), Ey(gE[1]), Ex(gE[0]) + ax * len, Ey(gE[1]) - ay * len, colors.cable, 3);
+        if (o.zoom) el('text', { x: Ex(gE[0]) + ax * len + 6, y: Ey(gE[1]) - ay * len + 4, class: 't-dim', text: 'cable pull ' + S.pull.toFixed(1) + ' N' }, g);
+        const tt = ELEV(m.T), tl = Math.min(60, 6 + tailCable * 40);
+        arrowSvg(g, Ex(tt[0]), Ey(tt[1]), Ex(tt[0]) + (ELEV(m.T.clone().add(e2))[0] - tt[0]) * tl, Ey(tt[1]) - (ELEV(m.T.clone().add(e2))[1] - tt[1]) * tl, colors.actuated, 3);
+      }
+      const lab = (p, t, dx, dy, cls) => el('text', { x: Ex(p[0]) + dx, y: Ey(p[1]) + dy, class: cls || '', text: t }, g);
+      if (o.zoom) {
+        lab(dotE, 'dot', 10, 18); lab(Pe, 'ball centre = fulcrum', 20, 30); lab(wc, 'wedge (coarse tilt, hand-set)', -20, -30, 't-dim'); lab(ELEV(worldOf(m, [0, 0, 185])), 'gun (proxy)', 16, -20); lab([-63.5, 0], 'tube on the rotator', -60, 26, 't-dim'); lab([cabL, zLid], 'lid', -4, -8, 't-dim');
+      } else {
+        lab(Pe, 'ball', 16, 26); lab(a2p, 'tail: pitch actuator', 14, 34); lab([hP - 110, -86], 'cabinet (bench as floor)', 6, 26, 't-dim');
+        // dimension lines d and Lt, offset to one side of the rod
+        const dimLine = (a, b, label, offs) => {
+          const A = ELEV(a), B = ELEV(b), dx = B[0] - A[0], dy = B[1] - A[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L * offs / sc, ny = dx / L * offs / sc;
+          const p0 = tf([A[0] + nx, A[1] + ny]), p1 = tf([B[0] + nx, B[1] + ny]);
+          el('line', { x1: p0[0], y1: p0[1], x2: p1[0], y2: p1[1], stroke: '#93a1b5', 'stroke-width': 1 }, g);
+          [p0, p1].forEach(p => el('circle', { cx: p[0], cy: p[1], r: 2, fill: '#93a1b5' }, g));
+          el('text', { x: (p0[0] + p1[0]) / 2 + 8, y: (p0[1] + p1[1]) / 2 + 4, class: 't-dim', text: label }, g);
+        };
+        dimLine(m.P, m.D, 'd = ' + (S.d + S.s - m.retract).toFixed(0) + ' mm', -26);
+        dimLine(m.T, m.P, 'Lt = ' + S.Lt + ' mm', -26);
+      }
+    }
+    el('rect', { x: 8, y: 8, width: 572, height: 636, class: 'panel', rx: 8 });
+    el('text', { x: 20, y: 28, class: 't-big', text: 'Elevation (looking along the horizontal direction perpendicular to the approach)' });
+    const gMain = el('g', {});
+    elevation(gMain, 0.42, 22, 44, -1010, 1220, { zoom: false });
+    // zoom window (second row, left): the gun, ball and lid, larger
+    const zx = 8, zy = 660, zw = 572, zh = 340, zsc = 0.85;
+    el('rect', { x: zx, y: zy, width: zw, height: zh, class: 'panel', rx: 8 });
+    const clipId = 'zclip'; const defs = el('defs', {}); const cp = WK.svg('clipPath', { id: clipId }); cp.appendChild(WK.svg('rect', { x: zx + 2, y: zy + 30, width: zw - 4, height: zh - 36 })); defs.appendChild(cp);
+    el('text', { x: zx + 12, y: zy + 22, class: 't-big', text: 'Zoom: the gun, the ball and the lid (x' + (zsc / 0.42).toFixed(1) + ')' });
+    const gZoom = el('g', { 'clip-path': 'url(#' + clipId + ')' });
+    elevation(gZoom, zsc, zx + 14, zy + 36, hP - 190, zP + 62, { zoom: true });
+
+    // ============ rod bend panel (second row, right): the rod is a beam through the ball ============
+    {
+      const bx = 592, by = 660, bw = 400, bh = 340, gB = el('g', {});
+      el('rect', { x: bx, y: by, width: bw, height: bh, class: 'panel', rx: 8 }, gB);
+      el('text', { x: bx + 12, y: by + 22, class: 't-big', text: 'The rod bends (sideways scale stretched)' }, gB);
+      const Ib = rodI(S.od), EIb = E_AL * Ib, Fb = Fside;
+      const yb = s2 => s2 >= 0 ? -Fb * s2 * s2 * (3 * dEff - s2) / (6 * EIb) : -(Fb * dEff / (S.Lt * EIb)) * (S.Lt * s2 * s2 / 2 + s2 ** 3 / 6);
+      const tau = (yb(-S.Lt)) / S.Lt, yr = s2 => yb(s2) + tau * s2;          // real rod: tail point held at 0, so a straight line is added
+      const X0 = bx + 22, XW = bw - 44, sMin = -S.Lt, sMax = dEff, sx = t => X0 + (t - sMin) / (sMax - sMin) * XW;
+      let maxDev = 0.05; for (let k = 0; k <= 60; k++) maxDev = Math.max(maxDev, Math.abs(yr(sMin + (sMax - sMin) * k / 60)));
+      const nice = [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50], scaleBar = nice.find(v => v >= maxDev / 3) || 50;
+      const scY = 58 / maxDev, yMid = by + 100 + (yr(sMax) < 0 ? 0 : 0);           // autoscaled: the largest deviation fills about 58 px
+      const yy = d2 => yMid - d2 * scY;
+      el('line', { x1: X0, y1: yMid, x2: X0 + XW, y2: yMid, stroke: '#5b6b82', 'stroke-dasharray': '4 3' }, gB);
+      el('text', { x: X0, y: yMid - 8, class: 't-dim', text: 'commanded line' }, gB);
+      el('line', { x1: bx + bw - 26, y1: yMid, x2: bx + bw - 26, y2: yMid + scaleBar * scY, stroke: '#cbd5e1', 'stroke-width': 2 }, gB);
+      el('text', { x: bx + bw - 86, y: yMid + scaleBar * scY + 14, class: 't-dim', text: 'bar = ' + scaleBar + ' mm' }, gB);
+      let dpath = ''; for (let k = 0; k <= 60; k++) { const t = sMin + (sMax - sMin) * k / 60; dpath += (k ? 'L' : 'M') + F(sx(t)) + ',' + F(Math.max(by + 34, Math.min(by + 214, yy(yr(t))))) + ' '; }
+      el('path', { d: dpath, fill: 'none', stroke: colors.load, 'stroke-width': 4, 'stroke-linecap': 'round' }, gB);
+      [[sMin, 'tail actuators hold this point', colors.actuated], [0, 'ball', colors.locate], [sMax, 'dot end', colors.laser]].forEach(q => {
+        const x = sx(q[0]); el('circle', { cx: x, cy: Math.max(by + 34, Math.min(by + 214, yy(yr(q[0])))), r: 6, fill: q[2], stroke: '#0f141b' }, gB);
+      });
+      el('text', { x: sx(sMin), y: by + 234, class: 't-dim', text: 'tail (held here)' }, gB); el('text', { x: sx(0) - 10, y: by + 232, class: 't-dim', text: 'ball' }, gB); el('text', { x: sx(sMax) - 34, y: by + 232, class: 't-dim', text: 'gun end' }, gB);
+      const rows = [['rod ' + S.od + ' x ' + rodWall(S.od) + ' mm aluminium', 'EI ' + (EIb / 1e6).toFixed(0) + ' N m²'], ['load across the rod', Fb.toFixed(1) + ' N (gravity ' + (S.mass * G * sinRod).toFixed(1) + ' + cable ' + S.pull.toFixed(1) + ')'], ['tip flex + tilt at the ball', tipFlex.toFixed(2) + ' + ' + (tiltBall * dEff).toFixed(2) + ' mm'], ['dot off the commanded line', rodErr.toFixed(2) + ' mm'], ['ball play at the dot', playDot.toFixed(3) + ' mm']];
+      rows.forEach((r, i) => { el('text', { x: bx + 14, y: by + 254 + i * 16, class: i === 3 ? 't-big' : 't-dim', text: r[0] }, gB); el('text', { x: bx + 200, y: by + 254 + i * 16, class: i === 3 ? 't-big' : '', text: r[1] }, gB); });
+    }
+
+    // ============ plan panel ============
+    const sP = 0.33, xmin = -640, ymin = -780, Px = x => 598 + (x - xmin) * sP, Py = y => 8 + 330 - (y - ymin) * sP;
+    const tfP = p => [F(Px(p[0])), F(Py(p[1]))];
+    const gPlan = el('g', {});
+    el('rect', { x: 592, y: 8, width: 400, height: 336, class: 'panel', rx: 8 }, gPlan);
+    el('text', { x: 604, y: 28, class: 't-big', text: 'Plan (from above)' }, gPlan);
+    el('circle', { cx: Px(0), cy: Py(0), r: 63.5 * sP, fill: colors.work, opacity: 0.55 }, gPlan);
+    el('circle', { cx: Px(0), cy: Py(0), r: 61.85 * sP, fill: 'none', stroke: colors.locate, 'stroke-width': 1 }, gPlan);
+    drawGun(m, PLAN, tfP, gPlan);
+    const backP = PLAN(worldOf(m, [0, 0, 253])), TP = PLAN(m.T), PP = PLAN(m.P), dP = PLAN(m.D);
+    el('line', { x1: Px(backP[0]), y1: Py(backP[1]), x2: Px(TP[0]), y2: Py(TP[1]), stroke: colors.load, 'stroke-width': 4, 'stroke-linecap': 'round' }, gPlan);
+    el('circle', { cx: Px(PP[0]), cy: Py(PP[1]), r: 9, fill: '#0f141b', stroke: colors.locate, 'stroke-width': 3 }, gPlan);
+    el('circle', { cx: Px(dP[0]), cy: Py(dP[1]), r: 3, fill: colors.laser }, gPlan);
+    const anchorY = PLAN(m.T0.clone().addScaledVector(e1, -90)), yT = PLAN(m.T);
+    el('line', { x1: Px(anchorY[0]), y1: Py(anchorY[1]), x2: Px(yT[0]), y2: Py(yT[1]), stroke: colors.actuated, 'stroke-width': 6, 'stroke-linecap': 'round' }, gPlan);
+    el('rect', { x: Px(anchorY[0]) - 7, y: Py(anchorY[1]) - 7, width: 14, height: 14, fill: colors.actuated, rx: 3 }, gPlan);
+    el('circle', { cx: Px(yT[0]), cy: Py(yT[1]), r: 4.5, fill: colors.load, stroke: '#0f141b' }, gPlan);
+    el('text', { x: Px(yT[0]) + 12, y: Py(yT[1]) + 4, text: 'tail: yaw actuator' }, gPlan);
+    el('text', { x: Px(dP[0]) + 10, y: Py(dP[1]) + 4, text: 'dot' }, gPlan);
+    el('text', { x: Px(PP[0]) + 12, y: Py(PP[1]) - 8, text: 'ball' }, gPlan);
+    el('text', { x: Px(0) - 12, y: Py(0) - 63.5 * sP - 4, class: 't-dim', text: 'tube' }, gPlan);
+    el('text', { x: 604, y: 336, class: 't-dim', text: 'plate slides u (along the approach), v (across): ball, rod and tail move together' }, gPlan);
+
+    // ============ seam corner (magnified) ============
+    const gCorner = el('g', {});
+    const cx0 = 592, cy0 = 352, cw = 400, ch = 292, sc = 9;
+    el('rect', { x: cx0, y: cy0, width: cw, height: ch, class: 'panel', rx: 8 }, gCorner);
+    el('text', { x: cx0 + 12, y: cy0 + 20, class: 't-big', text: 'Seam corner magnified (exact scene geometry, mm)' }, gCorner);
+    const ox = cx0 + 250, oy = cy0 + 160;
+    el('rect', { x: ox - 240, y: oy, width: 240, height: 6.35 * sc, fill: '#8e98a6' }, gCorner);
+    el('rect', { x: ox, y: oy - 6.35 * sc, width: 1.65 * sc, height: 6.35 * sc * 2.4, fill: colors.work }, gCorner);
+    el('circle', { cx: ox, cy: oy, r: 4, fill: colors.locate }, gCorner);
+    for (let r = -25; r <= 12; r += 5) el('line', { x1: ox + r * sc, y1: cy0 + 34, x2: ox + r * sc, y2: cy0 + ch - 24, stroke: '#232d3b' }, gCorner);
+    for (let z = -15; z <= 12; z += 5) el('line', { x1: cx0 + 8, y1: oy - z * sc, x2: cx0 + cw - 8, y2: oy - z * sc, stroke: '#232d3b' }, gCorner);
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const dxp = clamp(ox + off.r * sc, cx0 + 14, cx0 + cw - 14), dyp = clamp(oy - off.z * sc, cy0 + 40, cy0 + ch - 30);
+    const sd = V(Math.cos(seam.angleDeg * DEG), Math.sin(seam.angleDeg * DEG), 0);
+    const bx = beam.dot(sd), bz = beam.z, bl = Math.hypot(bx, bz);
+    el('line', { x1: dxp - bx / bl * 70, y1: dyp + bz / bl * 70, x2: dxp - bx / bl * 6, y2: dyp + bz / bl * 6, stroke: colors.laser, 'stroke-dasharray': '4 3', 'stroke-width': 1.5 }, gCorner);
+    el('circle', { cx: dxp, cy: dyp, r: 4.5, fill: colors.laser, stroke: '#0f141b' }, gCorner);
+    el('text', { x: cx0 + 12, y: cy0 + ch - 10, text: 'Δr ' + off.r.toFixed(2) + '   Δz ' + off.z.toFixed(2) + ' mm   (5 mm grid; the wall is on the right)' }, gCorner);
+    el('text', { x: ox + 10, y: oy + 24, class: 't-dim', text: 'seam' }, gCorner);
+    // legend inside the drawing
+    const items = [['work', 'tube, plate'], ['gun', 'gun (proxy)'], ['load', 'carries'], ['locate', 'locates'], ['actuated', 'actuated'], ['laser', 'beam, dot'], ['fixed', 'cabinet, bench']];
+    let lx = 14; items.forEach(it => { el('rect', { x: lx, y: 1012, width: 10, height: 10, rx: 2, fill: colors[it[0]] }); el('text', { x: lx + 15, y: 1021, class: 't-dim', text: it[1] }); lx += 22 + it[1].length * 6.4; });
+    // io
+    app.io.set({
+      commands: [
+        { name: 'Plate slide u, v', value: S.pu.toFixed(1) + ', ' + S.pv.toFixed(1), unit: 'mm', note: 'pure translation of gun, rod and tail together' },
+        { name: 'Rod insertion s', value: S.s.toFixed(1), unit: 'mm', note: 'oblique axis: the dot moves 0.71 mm down per mm' },
+        { name: 'Tail pitch, yaw', value: S.ap.toFixed(1) + ', ' + S.ay.toFixed(1), unit: 'mm', note: 'dot moves ' + rho.toFixed(2) + ' mm per mm; tilt ' + tilt.toFixed(2) + '°' },
+      ],
+      observes: [
+        { name: 'Dot vs seam (camera inside the cabinet)', value: off.r.toFixed(2) + ', ' + off.z.toFixed(2), unit: 'mm r, z', status: 'partly', note: 'the corner panel is exact scene geometry; a camera estimate would carry error' },
+        { name: 'Actuator positions (step counts)', value: 'open loop', status: 'partly', note: 'tail motion is reduced by ' + (1 / rho).toFixed(1) + ':1 at the dot: fine steps' },
+        { name: 'Ball play and friction', value: '-', status: 'blind', note: 'step counts and the cameras inside do not see the ball; two scales on the lid frame outside would (eyes-14); play of ' + S.play.toFixed(2) + ' mm shows as ' + playDot.toFixed(3) + ' mm at the dot if the tail is held' },
+        { name: 'Rod bend (gravity + cable)', value: rodErr.toFixed(2), unit: 'mm at the dot', status: 'partly', note: 'not seen by step counts. A load cell or motor current at the tail actuators reads F d / Lt, and a beam model with the rod\'s EI subtracts it; outside scales or an inclinometer on the tail (eyes-11) add a check' },
+        { name: 'Tail tilt (IMU or inclinometer, proposed)', value: (tiltBall * 1000).toFixed(1), unit: 'mrad at the ball', status: 'partly', note: 'a dollar-class part outside the cabinet; reads the rod\'s tilt, not where the seam is' },
+        { name: 'Wire tip, stuck wire, fume', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Fit the wedge that sets the coarse tilt', 'Set the gun’s roll about the rod', 'Load the tube with the rod retracted', 'Snip a stuck wire with the door open (lid interlock)'],
+    });
+  }
+  const setClr = app.ui.readout('clr', 'Nozzle / barrel clearance to the tube'), setRho = app.ui.readout('rho', 'Reduction d / Lt'), setTilt = app.ui.readout('tilt', 'Tilt from the wedge setting'), setOff = app.ui.readout('off', 'Dot vs seam (exact)'), setTail = app.ui.readout('tail', 'Tail actuator force (cable pull, plus gravity if unbalanced)'), setPlay = app.ui.readout('play', 'Ball play at the dot'), setRod = app.ui.readout('rod', 'Rod bend at the dot (gravity + cable, tail held)'), setPerN = app.ui.readout('pern', 'Dot shift per newton of cable pull'), setMcw = app.ui.readout('mcw', 'Counterweight'), setGrav = app.ui.readout('grav', 'Gravity load on the tail');
+
+  // ---------------------------------------------------------------- controls
+  const act = app.ui.group('Commands (proposed actuators)', { help: 'Five axes outside the cabinet. Ranges are illustrative.' });
+  act.slider({ id: 'pu', label: 'Plate slide u (along the approach in plan)', min: -30, max: 30, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: 'the plate and the whole rod translate together', help: 'Ball, tail actuators and rod move as one: the dot moves 1:1, the tilt does not change.', onChange: v => { S.pu = v; render(); } });
+  act.slider({ id: 'pv', label: 'Plate slide v (across the approach)', min: -30, max: 30, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: 'plan view', onChange: v => { S.pv = v; render(); } });
+  act.slider({ id: 's', label: 'Rod insertion s', min: -20, max: 20, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: 'the rod slides through the ball', help: 'Moves the dot along the barrel axis (0.71 mm down and 0.70 mm across per mm).', onChange: v => { S.s = v; render(); } });
+  act.slider({ id: 'ap', label: 'Tail pitch actuator', min: -20, max: 20, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: 'the purple actuator in the elevation view', help: 'Pushes the tail in the elevation plane: tilts about the ball, the dot moves d/Lt as far.', onChange: v => { S.ap = v; render(); } });
+  act.slider({ id: 'ay', label: 'Tail yaw actuator', min: -20, max: 20, step: 0.1, value: 0, unit: 'mm', kind: 'actuator', visual: 'the purple actuator in the plan view', onChange: v => { S.ay = v; render(); } });
+  act.toggle({ id: 'ret', label: 'Retract for a tube swap', value: false, kind: 'state', help: 'Draws the rod pulled back 170 mm: the barrel leaves the column above the tube.', onChange: v => { S.ret = v; render(); } });
+  const geo = app.ui.group('Choices (scene edits, not actuators)', { help: 'Where the ball sits and how long the tail is are design choices; the scene lets you move them.' });
+  geo.slider({ id: 'd', label: 'Ball to dot distance d', min: 300, max: 550, step: 10, value: 400, unit: 'mm', kind: 'scene', visual: 'the ball moves along the approach line', help: 'At least 269 mm (gun length + nozzle clearance) so that the ball is behind the gun.', onChange: v => { S.d = v; render(); } });
+  geo.slider({ id: 'Lt', label: 'Ball to tail actuators Lt', min: 300, max: 950, step: 10, value: 800, unit: 'mm', kind: 'scene', visual: 'the tail lengthens', help: 'Longer tail = more reduction and less load at the actuators.', onChange: v => { S.Lt = v; render(); } });
+  geo.slider({ id: 'mass', label: 'Gun mass (illustrative)', min: 1, max: 3, step: 0.1, value: 1.5, unit: 'kg', kind: 'scene', onChange: v => { S.mass = v; render(); } });
+  geo.slider({ id: 'od', label: 'Rod tube outside diameter (aluminium)', min: 12, max: 50, step: 1, value: 38, unit: 'mm', kind: 'scene', visual: 'the rod through the ball; the bend panel', help: 'Wall 2 mm up to OD 30, 3 mm above. The bend at the dot goes as 1/EI: OD 20 gives about 2.4 mm, OD 38 (a 1-1/2 in tube) about 0.2 mm at the default load (eyes-14, calc/rod-under-tilt.mjs).', onChange: v => { S.od = v; render(); } });
+  geo.slider({ id: 'pull', label: 'Cable pull at the grip base (illustrative)', min: 0, max: 5, step: 0.1, value: 2, unit: 'N', kind: 'scene', onChange: v => { S.pull = v; render(); } });
+  geo.slider({ id: 'play', label: 'Ball play (illustrative)', min: 0, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', help: 'Clearance at the ball. Shown at the dot as play x (1 + d/Lt) if the tail is held still.', onChange: v => { S.play = v; render(); } });
+  geo.toggle({ id: 'cw', label: 'Counterweight fitted on the tail', value: true, kind: 'state', help: 'Off: gravity bends the rod about the ball and the actuators carry it.', onChange: v => { S.cw = v; render(); } });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-knob table</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .r15-roles { font-size: 11.5px; line-height: 1.4; color: #c7d3e6; }
+  .r15-roles table { border-collapse: collapse; width: 100%; }
+  .r15-roles th, .r15-roles td { padding: 3px 6px 3px 0; text-align: left; vertical-align: top; border-bottom: 1px solid #263041; }
+  .r15-roles th { color: #93a4bd; font-weight: 600; }
+  .r15-roles tr.on td { background: rgba(245,158,11,.14); }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "room-15-one-knob-table",
+  "title": "One-knob table: the plane carries, a rail gives radial, the table turns",
+  "by": "room",
+  "origin": "combination",
+  "status": "developed",
+  "summary": "use-06's coach and use-09's programmed table with the room doing the carrying: the gun stands on three feet on a sled that rides one radial rail in a table whose top is flush with the tube rim. The table plane gives height, pitch and roll; the rail gives the tangent and yaw; one hand knob with a scale gives radial; a shelf under the rotator gives vertical; the rotator's program does the tacks and the laps. Software advises, records and times; a hand steers one knob and (through room-14) fires.",
+  "tags": ["table-plane", "rail", "knob", "coach", "programmed-table", "hand-in-the-loop", "escape-motion"],
+  "branchOf": ["use-06-coach-loop"],
+  "combines": ["use-06-coach-loop", "room-02-ceiling-carries", "room-01-table-opening"],
+  "transferable": ["a rest that leaves the hand one degree of freedom", "the tube turns, so the gun needs no tangent axis", "the shelf drop as the end-of-bead escape when the gun cannot lift", "roles by state table for a hand-in-the-loop day"],
+  "how": {
+    "motion": "a hand turns one radial knob; the shelf sets height once per tube; the rotator program turns the tube",
+    "load": "gun weight on three feet on a sled; sled on one radial rail; rail in the table",
+    "reference": "table plane (height, pitch, roll by contact), rail (tangent, yaw), knob and scale (radial), shelf (vertical)",
+    "observe": "knob scale, rotator degrees, foot loads (optional cells), a dot camera as in room-01 (not drawn)",
+    "use": "index tacks, dry lap with the coach, weld lap, shelf drop at the end of the bead"
+  },
+  "software": {
+    "commands": ["rotator program: index to a tack, one dry lap, a 380 degree bead (existing motor)", "shelf height (optional motor; a knob otherwise)"],
+    "observes": ["radial knob scale", "rotator degrees", "foot contact or cells", "dot vs seam through a camera (estimate)"],
+    "manual": ["radial knob following the coach", "trigger (pendant and cable, room-14)", "pedal", "loading through the hole", "snipping a stuck wire"]
+  },
+  "notes": ["../../explorers/room/ideas/room-15-one-knob-table.md", "../../exchange/room--on--use-w2.md"],
+  "sources": ["../../sourcing/room.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg;
+  const TOP = 152.4, HOLE_R = 80, G = 9.81, MASS = 1.47;    // MASS: proxy, unknown
+  const app = WK.app({
+    workstation: { bench: false },
+    view: 'overall',
+    viewButtons: ['overall', 'joint', 'top'],
+    views: {
+      overall: { target: [30, -160, 190], dir: [0.7, -0.62, 0.42], dist: 1200 },
+      joint: { target: [20, -110, 215], dir: [0.8, -0.5, 0.32], dist: 520 },
+      top: { target: [20, -160, 160], dir: [0, -0.003, 1], dist: 950 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>use-06 puts the gun on a friction arm with a two-knob stage on the end, and use-09 leaves &ldquo;a plain rest&rdquo; for the hand. Here the <b>room</b> is the rest. The table top is flush with the tube rim, so it is the plane the gun stands on: three ball feet on a sled fix <b>height, pitch and roll</b> by contact. The sled rides <b>one rail</b> along the radial direction, which fixes <b>tangent and yaw</b>. One knob and a digital scale set <b>radial</b>. A shelf under the rotator sets <b>vertical</b> once per tube. Because the <b>tube turns</b>, the gun needs no tangent axis: the seam passes under a fixed dot.</p>' +
+        '<p>Software runs the rotator&rsquo;s program (index to the tacks, one dry lap, a 380&deg; bead), reads the knob and the degrees, keeps the record and, from a camera, tells the hand how far to turn the knob. The hand has one thing to steer and one to squeeze (the trigger by a pendant and cable, room-14). The <b>umbilical hangs from above</b> (a hook, drawn) so it adds weight, not drag.</p>' +
+        '<p><b>Try:</b> turn the rotator with the runout exaggerated and watch the dot leave the seam; move the radial knob to follow it (the coach line says how far); press <i>End of bead: drop the tube</i> to see the escape this arrangement has; switch the roles table by state.</p>',
+      carries:
+        '<p><b>Amber</b> carries: the shell legs and the sled. The sled&rsquo;s weight and the gun&rsquo;s go into the table through the rail. <b>Teal</b> locates: the table plane (three contacts), the rail, the knob and scale. <b>Green</b> is the hand: the radial knob. <b>Blue</b> observes: the scale.</p>' +
+        '<p>Free: nothing while the sled is clamped to the rail by the knob&rsquo;s screw; the feet stand on the sled, held there by pins or magnets against a stuck-wire pull. Restrained: all six, by plane, rail and screw. Driven by hand: radial. Driven by the machine: the rotator, and (optional) the shelf.</p>',
+      software:
+        '<p><b>Command:</b> the rotator (its existing controller with index, lap and bead programs added, use-09), the optional shelf motor. <b>Observe:</b> the knob scale, degrees, foot contact (the weigh-in of room-02 applies), a camera on the dot (as in room-01; not drawn). <b>Advise:</b> the coach line uses the scene&rsquo;s exact offset; a camera would give a noisy estimate (use-06 models that).</p>' +
+        '<p><b>Manual:</b> the knob, the pedal, the trigger, loading the tube through the hole, snipping a stuck wire.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>use-06&rsquo;s arm is soft; here the plane and a rail carry.</b> A locked friction arm is about 0.1&nbsp;N/mm at the tip in freedom-06&rsquo;s illustrative model, so 1&nbsp;N of load change moves the dot 10&nbsp;mm; a sled on a rail pressed by a screw is a few tens of N/mm if the screw and the sled behave (unmeasured; 10&nbsp;N/mm is room-02&rsquo;s illustrative slider), which turns 1&nbsp;N into 0.1&nbsp;mm or less (room-13). <i>Leaves:</i> the real screw, sled and clamp stiffness; backlash of the screw against a pull of one sign.</li>' +
+        '<li><b>The tube turns, so tangent is not needed.</b> A tangent slide of 1&nbsp;mm costs 0.008&nbsp;mm radially and turns the approach 0.93&deg; (<code>opening-pose-geometry.mjs</code>); the rail forbids it, which is what keeps the wire approach tangent. <i>Leaves:</i> a different coarse orientation means a different print of the legs (the hole-axis and vertical-axis rotations are set by the feet).</li>' +
+        '<li><b>The gun cannot lift straight away along its barrel from a sled.</b> The end of every bead lifts the head with the trigger held so the wire breaks in air [repo]. Here the escape is <b>the shelf dropping the tube</b>: 26&nbsp;mm at 60&nbsp;mm/s is 0.43&nbsp;s (button below). <i>Leaves:</i> how fast the tube must leave for the wire to break clean, and whether a rotator with its tube can drop that fast under control.</li>' +
+        '<li><b>A stuck-wire yank lifts a foot.</b> From room-02: 10&nbsp;N pulls a foot off at any balancer share. The shell must be pinned or magnetised to the sled, not only standing on it. <i>Leaves:</i> a hold-down that does not add friction against the knob.</li>' +
+        '<li><b>One hand cannot fire, turn a knob and hold a pedal without help.</b> The pedal is a foot; the trigger goes to a pendant (room-14) or the knob is turned by the other hand; the coach must say <i>when</i> as well as how far. <i>Leaves:</i> whether one person can follow 0.016&nbsp;mm/s of runout slew with a 0.5&nbsp;mm/rev screw (about 11&deg;/s of knob).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether the table top can be flush with the rim (a hole in the bench): room-01 and room-07 questions. A raised rim-height platform around the rotator is the same idea without cutting the bench.</li>' +
+        '<li>The umbilical: hook location and trolley are room-02&rsquo;s; here only a fixed hook is drawn.</li>' +
+        '<li>Gun mass, centre of mass, umbilical pull, trigger force: unmeasured (the weigh-in of room-02 measures three of them).</li>' +
+        '<li>Where the operator sits: the knob and pendant go where the hand goes.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun proxy at the opening pose (roll 45, hole 30, vertical &minus;15), mass 1.47&nbsp;kg with centre of mass at local (0, &minus;23, 181): illustrative, from room-02.</li>' +
+        '<li>Table 30&nbsp;mm thick, hole radius 80&nbsp;mm, sled travel &plusmn;10&nbsp;mm, screw 0.5&nbsp;mm/rev, scale 0.01&nbsp;mm, shelf &plusmn;12&nbsp;mm: illustrative.</li>' +
+        '<li>Runout 0.25 / 0.30&nbsp;mm TIR at the working end is the rig&rsquo;s acceptance limit [repo], shown exaggerated by the slider.</li>' +
+        '</ul>',
+    },
+    links: [{ label: 'room-02 (the stool)', href: '../room-02-ceiling-carries/index.html' }, { label: 'room-14 (trigger path)', href: '../room-14-trigger-path/index.html' }],
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setGhost(false);
+  ws.setRunout(0.25, 0.30, 20);
+
+  const S = { gx: 0, shelf: 0, angle: 0, spin: false, stance: 150, rear: 260, exag: 20, follow: false, vshelf: 60, tack: 0 };
+  const P0 = gun.group.position.clone(), Q0 = gun.group.quaternion.clone();
+  gun.setLaser(true);
+
+  // ---------------------------------------------------------------- the table (flush with the rim), hole, rails, sled, screw, knob, scale
+  const table = new THREE.Mesh(new THREE.BufferGeometry(), WK.mat('fixed', { opacity: 0.4, side: 'double' })); table.userData.role = 'fixed'; table.userData.occludes = false; app.add(table);
+  (function () {
+    const sh = new THREE.Shape(); sh.moveTo(-450, -650); sh.lineTo(450, -650); sh.lineTo(450, 230); sh.lineTo(-450, 230); sh.closePath();
+    const hp = new THREE.Path(); hp.absarc(0, 0, HOLE_R, 0, Math.PI * 2, true); sh.holes.push(hp);
+    const g = new THREE.ExtrudeGeometry(sh, { depth: 30, bevelEnabled: false, curveSegments: 56 }); g.translate(0, 0, TOP - 30); table.geometry = g;
+  })();
+  const railY = [-112, -248];
+  railY.forEach(y => app.add(P.rod(V(-300, y, TOP + 2), V(300, y, TOP + 2), 4.5, 'fixed')));
+  const sled = P.box(320, 190, 6, 'load'); app.add(sled);
+  const screw = P.rod(V(-300, -180, TOP + 8), V(330, -180, TOP + 8), 3.5, 'work'); app.add(screw);
+  const knob = P.cyl(20, 18, 'compliant', { axis: 'x' }); knob.position.set(345, -180, TOP + 8); app.add(knob);
+  const scale = P.box(160, 8, 6, 'sensor'); scale.position.set(20, -284, TOP + 4); app.add(scale);
+  const scaleMark = P.box(3, 16, 8, 'laser'); app.add(scaleMark);
+  const hookMast = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'fixed'); app.add(hookMast);
+  const hookMark = P.sphere(6, 'cable'); app.add(hookMark);
+  // shelf under the rotator (drawn as a plate that moves with the work)
+  const shelfPlate = P.box(360, 300, 8, 'actuated'); app.add(shelfPlate);
+
+  // shell, legs, feet (as in room-02)
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingBack', clearance: 3, role: 'load', opacity: 0.24 });
+  const legLugs = [[-16, -20, 150], [16, -20, 150], [0, -125, 237]].map(p => shell.attachPoint(p, { side: 'grip', role: 'load', size: 7 }));
+  const feet = [0, 1, 2].map(() => { const f = P.sphere(9, 'locate'); app.add(f); return f; });
+  const legs = [0, 1, 2].map(() => { const r = P.rod(V(0, 0, 0), V(0, 0, 1), 3, 'load'); app.add(r); return r; });
+  const footLabels = feet.map((f, i) => app.label(f, 'foot ' + 'ABC'[i], { cls: 'locate' }));
+  let cable = null;
+
+  function solve3(M, b) {
+    const det = a => a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]) - a[0][1] * (a[1][0] * a[2][2] - a[1][2] * a[2][0]) + a[0][2] * (a[1][0] * a[2][1] - a[1][1] * a[2][0]);
+    const D = det(M); if (Math.abs(D) < 1e-9) return [0, 0, 0];
+    return [0, 1, 2].map(c => det(M.map((row, i) => row.map((v, j) => (j === c ? b[i] : v)))) / D);
+  }
+
+  function update() {
+    gun.group.position.copy(P0).add(V(S.gx, 0, 0)); gun.group.quaternion.copy(Q0);
+    ws.setWorkPose(V(0, 0, S.shelf), new THREE.Quaternion());
+    ws.setSpin(S.angle);
+    ws.setRunout(0.25, 0.30, S.exag);
+    gun.updateLaser();
+    const com = gun.local([0, -23, 181]);
+    const foot = [[-17 - S.stance * 0.6 + S.gx, -100], [-17 + S.stance * 0.4 + S.gx, -100], [-17 + S.gx, -S.rear]];
+    const fz = TOP + 9 + 6;
+    feet.forEach((f, i) => { f.position.set(foot[i][0], foot[i][1], fz); const lw = legLugs[i].world(); legs[i].setEnds(lw, f.position); });
+    sled.position.set(-25 + S.gx, -190, TOP + 3 + 3);
+    screw.setEnds(V(-300, -180, TOP + 8), V(330, -180, TOP + 8));
+    scaleMark.position.set(-25 + S.gx, -284, TOP + 8);
+    shelfPlate.position.set(0, 0, -86 - 6 + S.shelf);
+    // foot loads (statics, gun alone; umbilical hangs from above and adds weight, no drag)
+    const Wc = 0.25 * 0.3 * G;                 // a short hanging drop (illustrative)
+    const grip = gun.local('gripBase');
+    const N = solve3([[1, 1, 1], foot.map(f => f[0]), foot.map(f => f[1])], [MASS * G + Wc, MASS * G * com.x + Wc * grip.x, MASS * G * com.y + Wc * grip.y]);
+    feet.forEach((f, i) => { WK.setRole(f, N[i] <= 0.05 ? 'laser' : (N[i] < 1 ? 'load' : 'locate')); footLabels[i].set('foot ' + 'ABC'[i] + ': ' + N[i].toFixed(1) + ' N'); });
+    // cable
+    const e = gun.cableExit(), start = e.point.clone().addScaledVector(e.dir, 70), hook = e.point.clone().addScaledVector(e.dir, 70 + 520).addScaledVector(gun.dir([1, 0, 0]), 70);
+    const curve = WK.bezierCable(start, e.dir, hook, e.dir, { stiffness: 0.4 });
+    if (!cable) { cable = P.cable(curve, { radius: 5.5, role: 'cable' }); app.add(cable); } else cable.setPoints(curve);
+    hookMark.position.copy(hook); hookMast.setEnds(V(hook.x, hook.y, TOP), hook);
+    const off = gun.dotOffset();
+    // coach line: the exact offset (a camera would estimate it)
+    const notch = 0.005;
+    const dRad = -off.radial, dVer = off.vertical;
+    setKnob(S.gx.toFixed(2), 'mm on the scale');
+    setNotch((dRad >= 0 ? '+' : '') + (dRad / notch).toFixed(0) + ' notches  (' + (dRad >= 0 ? '+' : '') + dRad.toFixed(3) + ' mm)', '');
+    setShelfAdv((dVer >= 0 ? 'raise ' : 'lower ') + Math.abs(dVer).toFixed(2) + ' mm', '');
+    const nozzle = gun.local('nozzleTip'), rimNow = TOP + S.shelf;
+    setNoz((nozzle.z - rimNow).toFixed(1), 'mm above the rim');
+    setLoad(N.map(v => v.toFixed(1)).join(' / '), 'N');
+    app.badge('foot', Math.min(...N) <= 0.05 ? 'a foot has no load: the three contacts no longer hold height and tilt' : null, 'limit');
+    const th = ((S.angle % 360) + 360) % 360;
+    setAng(th.toFixed(0), 'deg');
+    // roles table: highlight the row for the state
+    const active = S.mode || 'idle';
+    Array.from(rolesNode.querySelectorAll('tr[data-s]')).forEach(tr => tr.classList.toggle('on', tr.dataset.s === active));
+    app.io.set({
+      commands: [
+        { name: 'Rotator program', value: S.mode, note: 'index / lap / bead run under the pedal deadman; existing motor; never the laser' },
+        { name: 'Shelf (optional motor)', value: S.shelf.toFixed(1), unit: 'mm', note: 'a knob and scale otherwise' },
+      ],
+      observes: [
+        { name: 'Radial knob scale', value: S.gx.toFixed(2), unit: 'mm', status: 'seen', note: 'digital scale on the sled; 0.01 mm typical, unchecked' },
+        { name: 'Rotator degrees', value: th.toFixed(0), unit: 'deg', status: 'seen', note: 'the controller already reports it [repo]' },
+        { name: 'Foot loads', value: N.map(v => v.toFixed(1)).join(' / '), unit: 'N', status: 'partly', note: 'computed here; three cells under the feet would measure them (room-02 weigh-in)' },
+        { name: 'Dot vs seam (r, z)', value: off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2), unit: 'mm', status: 'partly', note: 'exact scene geometry, not a sensor: a camera would estimate it (use-06)' },
+        { name: 'Wire tip at the corner', value: '-', status: 'unresolved', note: 'no sensor proposed' },
+      ],
+      manual: ['Turn the radial knob following the coach', 'Trigger (pendant and cable, room-14) and pedal', 'Load and indicate the tube through the hole', 'Set the shelf once per tube', 'Snip a stuck wire'],
+    });
+    app.invalidate();
+  }
+  const setKnob = app.ui.readout('knobr', 'Radial knob (scale)'), setNotch = app.ui.readout('coach', 'Coach: radial, from the exact offset'), setShelfAdv = app.ui.readout('coachv', 'Coach: shelf'), setNoz = app.ui.readout('noz', 'Nozzle tip'), setLoad = app.ui.readout('loads', 'Foot loads A / B / C'), setAng = app.ui.readout('ang', 'Table angle');
+
+  // ---------------------------------------------------------------- roles by state (a table in the controls column)
+  const rolesNode = WK.h('div', { class: 'r15-roles' });
+  rolesNode.innerHTML = '<table><tr><th>state</th><th>the table and software</th><th>the hand</th></tr>' +
+    '<tr data-s="tack"><td>tack at index k</td><td>program stops at 45&deg; steps in the opposite-side order; degrees logged</td><td>fires (pendant); nothing held</td></tr>' +
+    '<tr data-s="dry lap"><td>dry lap</td><td>one lap at weld speed; camera and scale logged; coach line</td><td>radial knob, following</td></tr>' +
+    '<tr data-s="bead"><td>weld bead</td><td>380&deg; then stop; record</td><td>knob, trigger, pedal</td></tr>' +
+    '<tr data-s="escape"><td>end of bead</td><td>shelf drops the tube</td><td>releases trigger and pedal</td></tr>' +
+    '<tr data-s="idle"><td>swap</td><td>shelf down; tube out through the hole</td><td>lifts the tube; gun stays</td></tr></table>';
+  app.ui.panel({ id: 'roles', title: 'Roles by state (this arrangement)', node: rolesNode, open: true });
+
+  // ---------------------------------------------------------------- animated programs
+  let seq = null;
+  function runSeq(steps, mode, done) { if (seq) return; S.mode = mode; seq = { steps: steps.slice(), i: 0, done: done }; app.animate(true); }
+  const TACKS = [0, 180, 90, 270, 45, 225, 135, 315];
+  app.onFrame(function (dt) {
+    if (!seq) return false;
+    const st = seq.steps[seq.i], cur = app.ui.get(st.id), dir = Math.sign(st.to - cur);
+    let nv = dir === 0 ? st.to : cur + dir * st.speed * Math.min(dt, 0.05);
+    if ((nv - st.to) * dir >= 0) nv = st.to;
+    app.ui.set(st.id, nv);
+    if (Math.abs(nv - st.to) < 1e-6) { seq.i++; if (seq.i >= seq.steps.length) { const d = seq.done; seq = null; if (d) d(); app.animate(false); update(); } }
+    return true;
+  });
+
+  // ---------------------------------------------------------------- controls
+  const grpR = app.ui.group('The hand', { help: 'One radial knob (the coach line says how far) and the shelf height once per tube.' });
+  grpR.slider({ id: 'gx', label: 'Radial knob', min: -10, max: 10, step: 0.005, value: 0, unit: 'mm', kind: 'state', visual: () => [sled, knob, screw, gun.group], help: 'Moves the sled along the radial rail. One turn of the screw is 0.5 mm (illustrative); a notch is 5 um.', onChange: v => { S.gx = v; update(); } });
+  grpR.slider({ id: 'shelf', label: 'Shelf height (vertical)', min: -30, max: 12, step: 0.05, value: 0, unit: 'mm', kind: 'actuator', visual: () => [shelfPlate], help: 'Under the rotator; sets the rim relative to the table plane. Set once per tube; drops 26 mm at the end of the bead.', onChange: v => { S.shelf = v; update(); } });
+  const grpT = app.ui.group('The table (existing rotator; programs added)', { help: 'Index, dry lap and bead are run under the pedal deadman. They never command the laser.' });
+  grpT.slider({ id: 'angle', label: 'Table angle', min: 0, max: 380, step: 1, value: 0, unit: 'deg', kind: 'actuator', visual: () => [ws.turntable], onChange: v => { S.angle = v; update(); } });
+  grpT.button({ id: 'index', label: 'Index to the next tack', kind: 'state', help: 'opposite-side order 0, 180, 90, 270, 45, 225, 135, 315', onClick: () => { S.tack = (S.tack + 1) % 8; runSeq([{ id: 'angle', to: TACKS[S.tack], speed: 240 }], 'tack'); } });
+  grpT.button({ id: 'lap', label: 'Dry lap (360 degrees)', kind: 'state', onClick: () => { app.ui.set('angle', 0); runSeq([{ id: 'angle', to: 360, speed: 60 }], 'dry lap'); } });
+  grpT.button({ id: 'bead', label: 'Bead (380 degrees)', kind: 'state', onClick: () => { app.ui.set('angle', 0); runSeq([{ id: 'angle', to: 380, speed: 60 }], 'bead'); } });
+  grpT.button({ id: 'escape', label: 'End of bead: drop the tube 26 mm', kind: 'state', help: 'the shelf lowers the rotator; nothing lifts the gun', onClick: () => { const t = 26; runSeq([{ id: 'shelf', to: -26, speed: S.vshelf }], 'escape', () => { app.toast('shelf dropped ' + t + ' mm in ' + (t / S.vshelf).toFixed(2) + ' s at ' + S.vshelf + ' mm/s'); }); } });
+  grpT.button({ id: 'reset', label: 'Back to the seam', kind: 'state', onClick: () => { S.mode = 'idle'; app.ui.set('shelf', 0); app.ui.set('angle', 0); } });
+  const grpS = app.ui.group('Scene edits');
+  grpS.slider({ id: 'exag', label: 'Runout exaggeration', min: 1, max: 40, step: 1, value: 20, kind: 'scene', visual: () => [ws.tube], help: 'The rig accepts 0.25 mm radial and 0.30 mm face TIR [repo]; 1 = as accepted.', onChange: v => { S.exag = v; update(); } });
+  grpS.slider({ id: 'vshelf', label: 'Shelf drop speed', min: 10, max: 250, step: 5, value: 60, unit: 'mm/s', kind: 'scene', noVisual: true, help: 'Unmeasured. A lead screw with a stepper is tens of mm/s; a gravity drop with a brake is faster.', onChange: v => { S.vshelf = v; } });
+  grpS.slider({ id: 'stance', label: 'Stance width of the front feet', min: 30, max: 240, step: 5, value: 150, unit: 'mm', kind: 'scene', visual: () => [feet[0], feet[1], legs[0], legs[1]], onChange: v => { S.stance = v; update(); } });
+  grpS.slider({ id: 'rear', label: 'Rear foot distance from the tube axis', min: 160, max: 300, step: 5, value: 260, unit: 'mm', kind: 'scene', visual: () => [feet[2], legs[2]], onChange: v => { S.rear = v; update(); } });
+  grpS.toggle({ id: 'ghost', label: 'See-through tube', value: false, kind: 'view', onChange: v => { ws.setGhost(v); } });
+  S.mode = 'idle';
+
+  app.label(() => sled.position.clone().add(V(0, 0, 14)), 'sled on one radial rail', { cls: 'load' });
+  app.label(() => knob.position.clone().add(V(0, 0, 24)), 'radial knob (hand)', { cls: 'compliant' });
+  app.label(() => scale.position.clone().add(V(0, 0, 14)), 'digital scale', { cls: 'sensor' });
+  app.label(() => shelfPlate.position.clone().add(V(150, 0, -6)), 'shelf under the rotator', { cls: 'actuated' });
+  app.label(() => hookMark.position, 'cable hook (fixed)', { cls: 'cable' });
+  app.label(V(300, 100, TOP), 'table top = rim plane', { cls: 'locate' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const gunLike = { dotOffset: () => gun.dotOffset(), beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: gunLike });
+  update();
+})();
+</script>
+</body>
+</html>

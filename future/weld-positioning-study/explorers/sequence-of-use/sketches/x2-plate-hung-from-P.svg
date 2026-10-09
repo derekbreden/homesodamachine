@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640" font-family="Helvetica,Arial,sans-serif" font-size="11">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fbfbf8"/>
+<text x="12" y="20" font-size="14" font-weight="bold">Still gun, moving work — hanging the plate from P (repair for phases 3–6)</text>
+<text x="12" y="36">Left: plan from above, to scale (proxy gun, opening pose). Right: section through the port line, schematic. Stationary parts green; parts turning with the tube brown.</text>
+<circle cx="330" cy="330" r="139.70000000000002" fill="#e6eeee" stroke="#577"/><circle cx="330" cy="330" r="136.0678" fill="#d8e4e4" stroke="#577"/>
+<circle cx="330.0" cy="288.09" r="12.2" fill="#fff" stroke="#840"/>
+<circle cx="330.0" cy="288.09" r="6.6" fill="#b86" stroke="#840"/>
+<circle cx="330.0" cy="371.91" r="12.2" fill="#fff" stroke="#840"/>
+<circle cx="330.0" cy="371.91" r="6.6" fill="#b86" stroke="#840"/>
+<text x="338.8" y="272.8" fill="#840">port plug + collar (turns)</text>
+<circle cx="466.06780000000003" cy="330.0" r="4" fill="#d00"/><text x="474.06780000000003" y="346.0" fill="#d00">P (dot)</text>
+<polyline points="450.1,348.9 332.5,488.1 197.9,647.5" fill="none" stroke="#335" stroke-width="16" opacity="0.25" stroke-linecap="round"/>
+<line x1="302.9" y1="597.5" x2="328.4" y2="843.8" stroke="#335" stroke-width="20" opacity="0.18" stroke-linecap="round"/>
+<text x="385.0" y="594.0" fill="#335">gun (proxy plan)</text>
+<line x1="330.0" y1="288.09" x2="330.0" y2="371.91" stroke="#840" stroke-width="5"/>
+<circle cx="330" cy="330" r="7" fill="#fff" stroke="#2a6" stroke-width="2"/>
+<line x1="330" y1="330" x2="392.2" y2="267.8" stroke="#2a6" stroke-width="4" opacity="0.8"/>
+<circle cx="392.2" cy="267.8" r="17.6" fill="#bfe3c8" stroke="#2a6"/>
+<line x1="330" y1="330" x2="253.8" y2="286.0" stroke="#2a6" stroke-width="4" opacity="0.8"/>
+<circle cx="253.8" cy="286.0" r="17.6" fill="#bfe3c8" stroke="#2a6"/>
+<line x1="330" y1="330" x2="307.2" y2="415.0" stroke="#2a6" stroke-width="4" opacity="0.8"/>
+<circle cx="307.2" cy="415.0" r="17.6" fill="#bfe3c8" stroke="#2a6"/>
+<text x="66.0" y="120.99999999999997" fill="#2a6">3 ball-transfer pads, r = 40 mm, at 45°/150°/255° (stationary)</text>
+<text x="66.0" y="138.6" fill="#2a6">define the plate face plane at P height</text>
+<line x1="330" y1="330" x2="22.0" y2="330.0" stroke="#2a6" stroke-width="7" opacity="0.7"/>
+<rect x="8.0" y="316.0" width="28" height="28" fill="#cfe9d6" stroke="#2a6"/><text x="2.0" y="360.0" fill="#2a6">arm to the gun stand</text>
+<rect x="179.89999999999998" y="351.4" width="14" height="10" fill="#2a6"/><text x="125.89999999999998" y="378.4" fill="#2a6">rim flag at P + 6.35</text>
+<line x1="528.0" y1="539.0" x2="660.0" y2="539.0" stroke="#a50" stroke-width="2.5" marker-end="url(#a)"/><text x="518.0" y="557.0" fill="#a50">drawer out: +X only, after a 10 mm drop</text>
+<text x="518.0" y="571.0" fill="#a50">(or any direction after 14 mm wire retract)</text>
+<text x="87.99999999999997" y="616.0">Closest head-to-gun centre-line distance 38.8 mm (barrel), frame at rim+15. Old 180/±60° layout: 6 mm (hits the barrel).</text>
+<text x="640" y="90" font-weight="bold">Section through the port line (schematic)</text>
+<rect x="638.55" y="230.95" width="4.949999999999999" height="210" fill="#8aa" stroke="#577"/>
+<rect x="976.9923" y="230.95" width="4.949999999999999" height="210" fill="#8aa" stroke="#577"/>
+<rect x="643.0077" y="250" width="333.9846" height="19.049999999999997" fill="#b89" fill-opacity="0.5" stroke="#840"/>
+<text x="702.0" y="283.05" fill="#840">end plate (turns with tube)</text>
+<line x1="630" y1="250" x2="1041.45" y2="250" stroke="#d00" stroke-dasharray="4 3"/><text x="991.45" y="246" fill="#d00">P height</text>
+<line x1="630" y1="230.95" x2="1041.45" y2="230.95" stroke="#2a6" stroke-dasharray="4 3"/><text x="991.45" y="226.95" fill="#2a6">rim = P + 6.35 (rim flag)</text>
+<rect x="853.4350000000001" y="232" width="16" height="27.0" fill="#b86" stroke="#840"/>
+<rect x="850.4350000000001" y="220" width="22" height="7" fill="#b86" stroke="#840"/>
+<rect x="750.5649999999999" y="232" width="16" height="27.0" fill="#b86" stroke="#840"/>
+<rect x="747.5649999999999" y="220" width="22" height="7" fill="#b86" stroke="#840"/>
+<rect x="742.5" y="210" width="135.0" height="9" fill="none" stroke="#840" stroke-width="2"/>
+<line x1="810.0" y1="210" x2="810.0" y2="140" stroke="#840" stroke-width="4"/>
+<text x="732.5" y="204" fill="#840">keyhole fork on collars</text>
+<rect x="798.0" y="120" width="24" height="30" fill="#cfe9d6" stroke="#2a6"/>
+<text x="826.0" y="132" fill="#2a6">bearing housing (stationary); spring pulls</text><text x="826.0" y="146" fill="#2a6">spindle UP: plate held against pads</text>
+<line x1="918.0" y1="120" x2="918.0" y2="240" stroke="#2a6" stroke-width="3"/>
+<circle cx="918.0" cy="244" r="6" fill="#bfe3c8" stroke="#2a6"/>
+<line x1="702.0" y1="120" x2="702.0" y2="240" stroke="#2a6" stroke-width="3"/>
+<circle cx="702.0" cy="244" r="6" fill="#bfe3c8" stroke="#2a6"/>
+<line x1="702.0" y1="120" x2="918.0" y2="120" stroke="#2a6" stroke-width="3"/>
+<line x1="702.0" y1="120" x2="620" y2="120" stroke="#2a6" stroke-width="5"/><text x="630" y="114" fill="#2a6">arm (to stand, over the −X rim)</text>
+<text x="928.0" y="236" fill="#2a6">pad</text>
+<text x="620" y="370">Holds: plate Z and tilt (pads, from the stand = from P).</text>
+<text x="620" y="386">Leaves free: radial (the bore centres the plate) and spin (bearing).</text>
+<text x="620" y="402">Corner height at the station = P for any tube length; the work Z</text>
+<text x="620" y="418">only sets the lip (rim flag). Engaged phases 3–5; lifted 2 mm for the weld.</text>
+</svg>

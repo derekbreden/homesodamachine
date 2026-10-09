@@ -1,0 +1,30 @@
+radial rms residual after replay (mm), mean of 200 draws; N=3 judge revolutions, judge noise 0.03, K=8 touches at 0.02
+event      stale map  relearn N=3  owner+K touches
+lift           0.031        0.030            0.009
+reseat         0.183        0.031            0.009
+rotate         0.212        0.031            0.009
+reclamp        0.069        0.030            0.013
+tack           0.089        0.034            0.016
+newtube        0.195        0.031            0.017
+
+reference amplitudes: R [0.06, 0.03] S [0.2] W [0.06, 0.05, 0.02] B [0.03, 0.0, 0.02]
+Bias imprint (judge-only relearn floor) = rms of B alone: 0.025
+
+Touch count K vs residual for the 'newtube' policy (fit 3 harmonics), tnoise 0.02: K=4: 0.113  K=6: 0.019  K=8: 0.016  K=12: 0.013  
+
+How the estimate of harmonic k splits between rotate-in-nest laps: (e^{-ik dpsi} - 1) magnitude for dpsi = 100 deg
+  k=1: |e^(-ik*100deg) - 1| = 1.53   at 120 deg: 1.73
+  k=2: |e^(-ik*100deg) - 1| = 1.97   at 120 deg: 1.73
+  k=3: |e^(-ik*100deg) - 1| = 1.00   at 120 deg: 0.00
+  k=4: |e^(-ik*100deg) - 1| = 0.68   at 120 deg: 1.73
+
+Per-harmonic amplitude noise of a learned map: sigma_h = noise * sqrt(2 / (NB * N)), NB = 60 bins
+  judge noise 0.03, N=1: 5.5 micrometres per harmonic (1 sigma); a 3-sigma change is 16 micrometres
+  judge noise 0.03, N=3: 3.2 micrometres per harmonic (1 sigma); a 3-sigma change is 9 micrometres
+  judge noise 0.03, N=5: 2.4 micrometres per harmonic (1 sigma); a 3-sigma change is 7 micrometres
+  judge noise 0.06, N=1: 11.0 micrometres per harmonic (1 sigma); a 3-sigma change is 33 micrometres
+  judge noise 0.06, N=3: 6.3 micrometres per harmonic (1 sigma); a 3-sigma change is 19 micrometres
+  judge noise 0.06, N=5: 4.9 micrometres per harmonic (1 sigma); a 3-sigma change is 15 micrometres
+
+One revolution at 8 mm/s: 49 s. N=3 revolutions: 146 s.
+K=8 touches: table moves 45 deg (about 6 s at 7.4 deg/s), wall touch about 10 s (fast then slow), so about 128 s. Not faster; different (no judge bias).

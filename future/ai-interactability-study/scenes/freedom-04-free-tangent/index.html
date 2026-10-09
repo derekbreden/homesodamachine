@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The tangent is free</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-04-free-tangent",
+  "title": "The tangent is free, and the pivot sets the lever",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Which of the gun's six motions must be held precisely, and which may wander? For a circular seam under a rotator, sliding the dot along the tangent costs only s²/2r; a tilt costs (pivot-to-dot distance) × angle; a roll about the barrel costs the dot nothing. The scene turns an illustrative tolerance at the dot into an allowed error for each motion, for the pivot you choose.",
+  "tags": ["lens", "error budget", "tangent slide", "pivot lever", "tolerance", "principle"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["a support may be soft along the tangent", "put the pivot near the dot, the actuator far", "camera must resolve r and z finely, the tangent coarsely"],
+  "how": {
+    "motion": "none: an error-budget diagram (all controls edit the diagram)",
+    "load": "not modelled",
+    "reference": "the seam circle (r = 61.85 mm) and the dot",
+    "observe": "what a camera must resolve, by direction",
+    "use": "read before choosing where a support may be soft"
+  },
+  "software": {
+    "commands": ["none: this diagram commands nothing"],
+    "observes": ["it says which directions the dot observation must resolve finely (radial, vertical) and which coarsely (tangent)"],
+    "manual": ["choosing the pivot location on the shell"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-04-free-tangent.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>The seam is a horizontal circle of radius 61.85 mm [repo], turned by a rotator. That symmetry changes what needs to be held.</p>' +
+        '<ul><li><b>Radial</b> and <b>vertical</b> motion of the dot go straight into the seam error, 1 : 1.</li>' +
+        '<li><b>Tangent</b> motion is second order: a slide <i>s</i> along the tangent leaves the circle by s²/2r, 0.008 mm at 1 mm, 0.2 mm at 5 mm, 0.8 mm at 10 mm [derived]. A support that is soft along the tangent (a pendulum, a long bungee) costs almost nothing. What it does change is the direction of the seam under the gun: 0.93° per mm of slide.</li>' +
+        '<li><b>Tilts</b> (pitch, yaw) about a pivot at distance ℓ from the dot move the dot by ℓ × angle: 0.28 mm/° at 16 mm, 4.9 mm/° at the grip base 279 mm away [derived from the kit proxy].</li>' +
+        '<li><b>Roll about the barrel axis</b> does not move the dot (the dot is on the axis); it turns the wire approach around the beam.</li></ul>' +
+        '<p>Left: plan view of the seam and the tangent slide. Right: dot error per degree against pivot distance. Below: the allowed error of each motion for a tolerance you set (the tolerance is illustrative: nobody has measured what the weld needs).</p>',
+      carries:
+        '<p>This is a diagram, not an arrangement: nothing carries load here. Teal is the seam; red the dot; the gun is drawn as a bar; the pivot is the amber dot. Use it to decide where in an arrangement a soft element is harmless.</p>',
+      software:
+        '<p>It commands nothing. It says what an observer must resolve: the dot’s radial and vertical position to a fraction of the tolerance, its tangent position only to a few millimetres (and the tangent mismatch to a degree or so, if the wire approach needs it).</p>',
+      tried:
+        '<p><b>“A hanging gun will sway and lack precision.”</b> A pendulum sways along the tangent freely; that direction is the one that costs least. What matters is what the sway does to the other directions: a swing of a 350 mm wire by 5 mm tilts the gun 0.8°, which moves the dot (ℓ × angle) unless the pivot is near the dot. So the wire’s tangent freedom is harmless only with a short lever, which is the argument for a nose pivot (scene freedom-01b).</p>' +
+        '<p><b>Tangent alignment.</b> Derek’s note that the handle must be tangent so the wire lays down correctly means the tangent slide is not free for the wire: 5 mm of slide turns the seam 4.6° under a fixed gun. Whether that matters is a question about the wire, not the laser; it is left open. The gun can yaw with the slide to stay tangent at no radial cost.</p>',
+      unresolved:
+        '<p>The real tolerance at the dot (radial, vertical, and the plate/wall energy split it controls); the wire approach tolerance; whether the dot sits on the melt position at working standoff [unknown]; how the tilt errors of a real support are distributed. The tolerance in this scene is a slider, not a requirement.</p>',
+      assumptions:
+        '<ul><li>Seam radius 61.85 mm, joint 6.35 mm below the rim: [repo]. s²/2r and s/r: [derived].</li>' +
+        '<li>Pivot distances 16 to 279 mm along the shell: kit gun proxy (dot at 16 mm from the nozzle tip, grip base 279 mm from the dot [derived from the proxy]); not measured.</li>' +
+        '<li>Tolerance 0.3 mm default, wire approach tolerance 5° default: <b>illustrative</b>.</li>' +
+        '<li>Pitch and yaw are treated as rotations about a pivot on the barrel axis, first order (small angles).</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { tol: 0.3, ell: 76, s: 5, theta: 0.5, follow: false, wireTol: 5 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 780', width: '100%', role: 'img', 'aria-label': 'error budget by motion' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'locate', label: 'Seam / reference' }, { role: 'laser', label: 'Dot' }, { role: 'gun', label: 'Gun (bar)' }, { role: 'load', label: 'Pivot' }, { role: 'compliant', label: 'Allowed error' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g);
+  const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const RAD = 61.85, D = Math.PI / 180;
+  const rd = app.ui.readout('rad', 'Radial error from the slide');
+  const rd2 = app.ui.readout('seamturn', 'Seam turns under a fixed gun');
+  const rd3 = app.ui.readout('dotTilt', 'Dot moves for the tilt');
+
+  function fmtmm(v) { return v < 0.01 ? v.toExponential(1) : v < 10 ? v.toFixed(2) : v.toFixed(0); }
+  function update() {
+    clear();
+    // ---------------- plan view (left)
+    const PX = 235, PY = 175, K = 2.05;               // px per mm
+    g.appendChild(T(20, 26, 'Plan view: the seam circle and a tangent slide', { 'font-weight': 600 }));
+    g.appendChild(svgel('circle', { cx: PX, cy: PY, r: RAD * K, fill: '#171e28', stroke: C('work'), 'stroke-width': 3 }));
+    g.appendChild(svgel('circle', { cx: PX, cy: PY, r: RAD * K, fill: 'none', stroke: C('locate'), 'stroke-width': 1.2, 'stroke-dasharray': '5 3' }));
+    g.appendChild(T(PX - 44, PY + 4, 'tube bore', { fill: '#94a3b8' })); g.appendChild(T(PX - 44, PY + 20, 'r = 61.85 mm', { fill: '#94a3b8', 'font-size': 11 }));
+    const sx0 = PX + RAD * K, sy0 = PY;                // station (dot at s = 0)
+    // tangent line
+    g.appendChild(L(sx0, PY - 120, sx0, PY + 120, C('locate'), 1, { 'stroke-dasharray': '2 4', opacity: 0.8 }));
+    // dot slid along the tangent by s (up = +s)
+    const s = S.s, dotx = sx0, doty = PY - s * K, err = s * s / (2 * RAD);
+    // circle point at the same tangent position: seam is at radial offset err inward (toward the centre)
+    const seamx = sx0 - err * K * 12, seamy = doty;    // radial error drawn x12 so it can be seen
+    g.appendChild(svgel('circle', { cx: seamx, cy: seamy, r: 3.5, fill: C('locate') }));
+    const yawTurn = (s / RAD) / D;                    // seam direction turns by this many degrees
+    // gun as a bar along the tangent direction (fixed orientation unless follow)
+    const ang = S.follow ? yawTurn * D : 0;            // yaw about the dot to follow the seam
+    const gx = Math.sin(ang), gy = -Math.cos(ang);
+    g.appendChild(L(dotx, doty, dotx + gx * 130, doty + gy * 130, C('gun'), 14, { opacity: 0.95 }));
+    g.appendChild(T(dotx + gx * 130 - 40, doty + gy * 130 - 8, 'gun (tangent)', { fill: '#94a3b8' }));
+    // seam tangent direction: perpendicular to the radius from the centre to the seam point
+    const rx = seamx - PX, ry = seamy - PY, rl = Math.hypot(rx, ry), tdx = -ry / rl, tdy = rx / rl;   // tangent (screen)
+    g.appendChild(L(seamx - tdx * 55, seamy - tdy * 55, seamx + tdx * 55, seamy + tdy * 55, C('locate'), 3));
+    g.appendChild(T(seamx - 118, seamy + 4, 'seam tangent here', { fill: C('locate'), 'font-size': 11 }));
+    g.appendChild(svgel('circle', { cx: dotx, cy: doty, r: 5, fill: C('laser') })); g.appendChild(T(dotx + 10, doty + 16, 'dot', { fill: C('laser') }));
+    // slide arrow
+    g.appendChild(L(sx0 + 40, PY, sx0 + 40, doty, C('load'), 2.2)); g.appendChild(T(sx0 + 46, (PY + doty) / 2 + 4, 's = ' + s.toFixed(1) + ' mm', { fill: C('load') }));
+    // annotations
+    g.appendChild(T(20, 322, 'Radial error is drawn ×12 so it can be seen: ' + fmtmm(err) + ' mm', { fill: '#94a3b8', 'font-size': 11.5 }));
+    g.appendChild(T(20, 342, S.follow ? 'Gun yawed with the slide: it stays tangent; the wire approach is unchanged' : 'Gun kept in its original direction: the seam turns ' + yawTurn.toFixed(1) + '° under it', { fill: S.follow ? C('compliant') : (Math.abs(yawTurn) > S.wireTol ? '#ff8a80' : '#c8d0da'), 'font-size': 12, 'font-weight': 600 }));
+    // ---------------- lever plot (right)
+    const QX = 570, QY = 58, QW = 390, QH = 215, Lmax = 300, ymax = 5.5;
+    g.appendChild(T(QX, QY - 20, 'Dot displacement per degree of tilt vs pivot distance from the dot', { 'font-weight': 600 }));
+    g.appendChild(R(QX, QY, QW, QH, '#171e28', { stroke: '#2a3441' }));
+    const xa = l => QX + l / Lmax * QW, ya = v => QY + QH - v / ymax * QH;
+    for (let k = 0; k <= 5; k++) { g.appendChild(L(QX, ya(k), QX + QW, ya(k), '#242e3b', 1)); g.appendChild(T(QX - 26, ya(k) + 4, k + '', { fill: '#94a3b8', 'font-size': 11 })); }
+    for (let l = 0; l <= 300; l += 50) g.appendChild(T(xa(l) - 8, QY + QH + 16, l + '', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(T(QX + QW - 210, QY + QH + 32, 'pivot distance from the dot (mm)', { fill: '#94a3b8', 'font-size': 11 })); g.appendChild(T(QX - 28, QY - 4, 'mm/°', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(L(xa(0), ya(0), xa(Lmax), ya(Lmax * D), C('gun'), 2.2));
+    [[16, 'nose seat @ nozzle', 24], [56, 'seat 40 behind', 34], [86, 'seat 70', 44], [126, 'collar 110', 54], [279, 'grip base (arm at the handle)', 66]].forEach(m => {
+      g.appendChild(svgel('circle', { cx: xa(m[0]), cy: ya(m[0] * D), r: 4.5, fill: '#94a3b8' })); g.appendChild(T(xa(m[0]) + 6, ya(m[0] * D) - 8 - (m[0] > 200 ? 0 : 0), m[1] + ' ' + (m[0] * D).toFixed(2), { fill: '#94a3b8', 'font-size': 10.5, 'text-anchor': m[0] > 200 ? 'end' : 'start' }));
+    });
+    g.appendChild(L(xa(S.ell), ya(0), xa(S.ell), ya(S.ell * D), C('load'), 2, { 'stroke-dasharray': '4 3' })); g.appendChild(svgel('circle', { cx: xa(S.ell), cy: ya(S.ell * D), r: 6, fill: C('load') }));
+    g.appendChild(T(xa(S.ell) + 8, ya(S.ell * D) + 18, 'your pivot ' + S.ell + ' mm: ' + (S.ell * D).toFixed(2) + ' mm per °', { fill: C('load') }));
+    // ---------------- gun side sketch with pivot and tilt (under the plot)
+    const GX = 565, GY = 372;
+    g.appendChild(T(GX, GY - 14, 'Tilt by ' + S.theta.toFixed(2) + '° about your pivot', { 'font-weight': 600 }));
+    const totalL = 300, gs = 1.3;                        // px per mm along the gun
+    const dotPt = [GX + 20, GY + 40], tailPt = [GX + 20 + totalL * gs, GY + 40];
+    const th = S.theta * D, piv = [dotPt[0] + S.ell * gs, dotPt[1]];
+    const rot = (p) => { const dx = p[0] - piv[0], dy = p[1] - piv[1]; return [piv[0] + dx * Math.cos(th) + dy * Math.sin(th), piv[1] - dx * Math.sin(th) + dy * Math.cos(th)]; };
+    g.appendChild(L(dotPt[0], dotPt[1], tailPt[0], tailPt[1], '#3a4656', 12, { opacity: 0.6 }));
+    const d2 = rot(dotPt), t2 = rot(tailPt); g.appendChild(L(d2[0], d2[1], t2[0], t2[1], C('gun'), 12));
+    g.appendChild(svgel('circle', { cx: dotPt[0], cy: dotPt[1], r: 4, fill: 'none', stroke: C('locate') })); g.appendChild(svgel('circle', { cx: d2[0], cy: d2[1], r: 5, fill: C('laser') })); g.appendChild(svgel('circle', { cx: piv[0], cy: piv[1], r: 6, fill: C('load') }));
+    const move = Math.hypot(d2[0] - dotPt[0], d2[1] - dotPt[1]) / gs, tail = Math.hypot(t2[0] - tailPt[0], t2[1] - tailPt[1]) / gs;
+    g.appendChild(T(GX + 20, GY + 92, 'dot moves ' + fmtmm(S.ell * Math.abs(th)) + ' mm; the tail moves ' + fmtmm((totalL - S.ell) * Math.abs(th)) + ' mm (lever ' + (totalL - S.ell > 0 ? ((totalL - S.ell) / Math.max(S.ell, 1)).toFixed(1) : '0') + ':1)', { fill: '#c8d0da' }));
+    g.appendChild(T(GX + 20, GY + 108, 'drawn to scale along the gun; the tilt is the slider value, not exaggerated', { fill: '#94a3b8', 'font-size': 11 }));
+    // ---------------- allowed error table (bottom)
+    const TY = 540; g.appendChild(T(20, TY - 18, 'Allowed error of each motion for a tolerance of ±' + S.tol.toFixed(2) + ' mm at the dot (log scale, longer bar = looser)', { 'font-weight': 600 }));
+    const rows = [
+      ['radial position of the dot', S.tol, 'mm', 'critical', '1 : 1 into the seam'],
+      ['vertical position of the dot', S.tol, 'mm', 'critical', '1 : 1 into the seam'],
+      ['pitch about the pivot', S.tol / Math.max(S.ell, 1) / D, '°', 'critical through the lever', 'dot moves ℓ × angle'],
+      ['yaw about the pivot', S.tol / Math.max(S.ell, 1) / D, '°', 'critical through the lever', 'dot moves ℓ × angle'],
+      ['tangent slide of the dot', Math.sqrt(2 * RAD * S.tol), 'mm', 'nearly free', 's²/2r; the seam turns 0.93°/mm under a fixed gun'],
+      ['roll about the barrel axis', S.wireTol, '° (wire approach)', 'free for the dot', 'only the wire approach turns'],
+    ];
+    const bx = 250, bw = 280, lo = Math.log10(0.02), hi = Math.log10(30);
+    rows.forEach((r, i) => {
+      const y = TY + i * 30; g.appendChild(T(20, y + 15, r[0], {})); const v = Math.max(0.02, r[1]), w = Math.max(6, (Math.log10(v) - lo) / (hi - lo) * bw);
+      g.appendChild(R(bx, y, w, 20, r[3] === 'nearly free' || r[3] === 'free for the dot' ? C('compliant') : C('locate'), { opacity: 0.85 }));
+      g.appendChild(T(bx + w + 8, y + 15, (r[1] < 0.1 ? r[1].toFixed(3) : r[1] < 10 ? r[1].toFixed(2) : r[1].toFixed(1)) + ' ' + r[2], { fill: '#e6edf6', 'font-weight': 600 }));
+      g.appendChild(T(bx + bw + 100, y + 15, r[3] + ': ' + r[4], { fill: '#94a3b8', 'font-size': 10.5 }));
+    });
+    rd(fmtmm(err), 'mm'); rd2((s / RAD / D).toFixed(2), '°'); rd3(fmtmm(S.ell * Math.abs(th)), 'mm');
+    app.badge('wire', !S.follow && Math.abs(yawTurn) > S.wireTol ? 'the seam has turned ' + Math.abs(yawTurn).toFixed(1) + '° under the gun: beyond the ' + S.wireTol + '° wire-approach tolerance (illustrative)' : null, 'warn');
+    app.io.set({ commands: [], observes: [
+      { name: 'Radial and vertical position of the dot', value: 'to a fraction of ±' + S.tol.toFixed(2) + ' mm', status: 'unresolved', note: 'what a camera or probe must resolve; no sensor is proposed here' },
+      { name: 'Tangent position of the dot', value: 'to about ±' + Math.sqrt(2 * RAD * S.tol).toFixed(0) + ' mm', status: 'unresolved', note: 'a coarse observation is enough for the dot; the wire approach may want the yaw' },
+      { name: 'Tilt about the pivot', value: 'to ' + (S.tol / Math.max(S.ell, 1) / D).toFixed(2) + '°', status: 'unresolved', note: 'or observe the dot directly and let the tilt take care of itself' } ], manual: ['Pick the pivot location on the shell'] });
+  }
+  const sg = app.ui.group('Diagram edits (nothing here commands a machine)', { open: true });
+  sg.slider({ id: 'tol', label: 'Tolerance at the dot (illustrative)', min: 0.05, max: 1, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'Nobody has measured what the weld needs. This is a slider, not a requirement.', onChange: v => { S.tol = v; update(); } });
+  sg.slider({ id: 'ell', label: 'Pivot distance from the dot', min: 4, max: 279, step: 1, value: 76, unit: 'mm', kind: 'scene', help: '16 mm is a pivot at the nozzle; 279 mm is a pivot at the grip base (the kit proxy).', onChange: v => { S.ell = v; update(); } });
+  sg.slider({ id: 's', label: 'Slide of the dot along the tangent', min: -15, max: 15, step: 0.5, value: 5, unit: 'mm', kind: 'scene', help: 'Radial error grows as the square; the seam direction turns linearly.', onChange: v => { S.s = v; update(); } });
+  sg.toggle({ id: 'follow', label: 'Gun yaws with the slide', value: false, kind: 'state', help: 'Keeps the gun tangent to the seam at no radial cost.', onChange: v => { S.follow = v; update(); } });
+  sg.slider({ id: 'theta', label: 'Tilt about the pivot', min: -3, max: 3, step: 0.05, value: 0.5, unit: '°', kind: 'scene', help: 'Pitch or yaw. Drawn in the side sketch.', onChange: v => { S.theta = v; update(); } });
+  sg.slider({ id: 'wireTol', label: 'Wire approach tolerance (illustrative)', min: 1, max: 20, step: 1, value: 5, unit: '°', kind: 'scene', help: 'How far the seam direction may turn away from the wire approach. Unknown.', onChange: v => { S.wireTol = v; update(); } });
+})();
+</script>
+</body>
+</html>

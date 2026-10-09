@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup gauge: aim at a corner you can see</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-panel { position: absolute; background: rgba(8, 12, 18, .88); border: 1px solid #3a4658; border-radius: 6px; z-index: 2; pointer-events: auto; overflow: hidden; color: #c7d3e6; font-size: 10.5px; line-height: 1.35; }
+  .use-panel .ttl { padding: 3px 7px; font-size: 10.5px; background: rgba(8,12,18,.85); color: #dbe6ff; }
+  .use-panel .rd { padding: 4px 8px 6px; }
+  .use-panel b { color: #fff; font-weight: 600; }
+  .use-panel em { color: #93a4bd; font-style: normal; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-11-setup-gauge",
+  "title": "Setup gauge: aim at a corner you can see",
+  "by": "use",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "The gun is set on a printed gauge tube with a window cut through its wall, where the dot, the corner and a printed target line can be seen from outside, and then the real tube is swapped into the same nest. The real recess hides the dot from every outside viewpoint; the gauge does not. What the swap costs is the gauge's own error plus the register's repeatability, both sliders.",
+  "tags": ["gauge", "setup-block", "line-of-sight", "other-reference", "swap"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["set up on a stand-in you can see, weld on the real thing", "a printed target line on the plate", "error of the swap = gauge error + register repeatability"],
+  "how": {
+    "motion": "a hand (or coach) trims the gun on the gauge; the tube swap is a hand",
+    "load": "unchanged: whatever carries the gun in the other scenes; the gauge sits in the nest like a tube",
+    "reference": "the nest register carries the pose from gauge to tube; the gauge's printed line stands in for the seam",
+    "observe": "an outside camera sees the dot on the gauge, not on the real tube",
+    "use": "campaign set-up and re-set; not per tube"
+  },
+  "software": {
+    "commands": ["rotator (existing)"],
+    "observes": ["dot vs printed target line on the gauge (camera); nothing sees the dot on the real tube from outside"],
+    "manual": ["trimming the gun on the gauge", "swapping gauge and tube", "checking the gauge itself"]
+  },
+  "notes": ["../../explorers/use/ideas/use-11-setup-gauge.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, RO = WK.DIM.tubeOd / 2, H = WK.DIM.tubeHeight, CAP = WK.CAP_TOP, CAPT = WK.DIM.capThickness, CAPD = WK.DIM.capDiameter;
+  const app = WK.app({
+    workstation: { tube: false, cap: false },
+    view: 'joint2', viewButtons: ['overall', 'joint2', 'top'],
+    views: { overall: { target: [10, -95, 150], dir: [-0.62, 0.34, 0.56], dist: 1150 }, joint2: { target: [40, -20, 150], dir: [0.9, -0.15, 0.45], dist: 520 }, top: { target: [20, -60, 146], dir: [0, -0.003, 1], dist: 700 } },
+    open: ['proposes'],
+    sections: {
+      proposes:
+        '<p>The gun’s dot has to be set against a corner at the bottom of a 6 mm recess in a 124 mm bore. From outside the tube, the wall hides it from every viewpoint (turn on <b>real tube</b> and look at the camera inset). So set the pose on something that shows the same geometry openly: a <b>gauge tube</b> in the same nest, printed with the same bore, with the same plate-face height, a <b>window</b> cut through the wall around the weld station, and a <b>printed target line</b> on the plate at the seam radius. A person (or the coach loop of <code>use-06</code>) trims the gun until the dot is on the line, seen from outside. Then the real tube is swapped in and the pose is carried by the nest register.</p>' +
+        '<p>What the swap costs: the gauge’s own error (how far its line is from the real corner’s position) and the register’s repeatability, both sliders. The corner inset is exact scene geometry; the camera estimate is drawn with an illustrative bias.</p>',
+      carries:
+        '<p>Unchanged from whichever support the gun has (not drawn; the gun floats as in the reference scene). The gauge sits in the nest exactly as a tube does and is carried by the same register.</p>',
+      software:
+        '<p>With the gauge in, an outside camera can see the dot and the printed line, so software can read the offset and advise the trim; with the real tube in, nothing outside can. Software also knows which one is in the nest (a contact or the cartridge ID). It cannot see the swap error until the first dry lap on the real tube.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>The window changes the tube.</b> The gauge has no wall in the window sector; its printed line is a stand-in for the corner, not the corner. <i>Repair:</i> print the line on the plate top at the bore radius and keep the wall’s bore surface continuous outside the window; the gauge must be checked (calipers, the Revopoint scanner) against a real tube. <i>Leaves:</i> nobody has measured how far a printed line sits from a real corner.</li>' +
+        '<li><b>The register.</b> The pose is carried by the nest register; a tube and a gauge differ in how they sit in the pilot (0.20 mm radial clearance [repo]) and the screws. <i>Repair:</i> indicate the gauge like a tube (three screws). <i>Leaves:</i> the difference.</li>' +
+        '<li><b>A gauge is a per-campaign tool.</b> Per tube the swap error accumulates every time; the gauge only replaces looking into the recess for the coarse set-up.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether the dot’s position on the gauge tells what the melt will do: the red dot to melt offset is unknown [unknown].</li>' +
+        '<li>The gauge material: printed PET-GF rings change with humidity and warp; a machined aluminium ring is one obvious alternative.</li>' +
+        '<li>Question for Derek: would a see-through gauge tube in the nest be acceptable to build and check once per campaign?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Illustrative: the window sector (±50 degrees above z = 100 mm), the gauge error range, the register repeatability, the trim range and the camera bias.</li>' +
+        '<li>Tube, plate and joint geometry: [repo]. Gun proxy and opening pose: kit, illustrative. Pilot clearance 0.20 mm: [repo].</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.setLaser(true);
+  const P0 = gun.group.position.clone();
+  const rnd = (function () { let s = 1357; return () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
+  const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+  const S = { which: 'gauge', trim: [0.6, -0.5], gaugeErr: [0.10, -0.05], reg: 0.05, regVec: [0, 0], cam: 0.05, az: 30, h: 250, r: 260 };
+
+  // ---- the two things that can be in the nest (own meshes; spin with the tube group)
+  const tg = ws.tubeGroup;
+  const mat = (o) => WK.mat('work', Object.assign({ side: 'double' }, o || {}));
+  function lathe(pts, phiStart, phiLen, m) { const g = new THREE.LatheGeometry(pts.map(p => new THREE.Vector2(p[0], p[1])), 96, phiStart, phiLen).rotateX(Math.PI / 2); const me = new THREE.Mesh(g, m); me.userData.role = 'work'; return me; }
+  const plateShape = new THREE.Shape(); plateShape.absarc(0, 0, CAPD / 2, 0, Math.PI * 2, false);
+  [-WK.DIM.portOffset, WK.DIM.portOffset].forEach(x => { const h = new THREE.Path(); h.absarc(x, 0, WK.DIM.portDiameter / 2, 0, Math.PI * 2, true); plateShape.holes.push(h); });
+  function plateMesh() { const g = new THREE.ExtrudeGeometry(plateShape, { depth: CAPT, bevelEnabled: false, curveSegments: 40 }); g.translate(0, 0, CAP - CAPT); const m = new THREE.Mesh(g, mat({ shade: 0.62 })); m.userData.role = 'work'; return m; }
+  const real = new THREE.Group(); real.add(lathe([[RO, 0], [RO, H], [RI, H], [RI, 0], [RO, 0]], 0, Math.PI * 2, mat()), plateMesh()); tg.add(real);
+  const gauge = new THREE.Group();
+  const gm = WK.mat('locate', { side: 'double', opacity: 0.55 });
+  gauge.add(lathe([[RO, 0], [RO, 100], [RI, 100], [RI, 0], [RO, 0]], 0, Math.PI * 2, gm));                 // lower ring, full
+  const up = lathe([[RO, 100], [RO, H], [RI, H], [RI, 100], [RO, 100]], 0, Math.PI * 2 * (260 / 360), gm);   // upper wall: window of 100 degrees left open at the station
+  gauge.add(up); gauge.add(plateMesh());
+  // printed target line on the plate top at the seam radius, plus a cross at the station
+  const lineMat = new THREE.LineBasicMaterial({ color: WK.color(0xfacc15) });
+  const ring = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(Array.from({ length: 121 }, (_, i) => V(RI * Math.cos(i / 120 * 6.2832), RI * Math.sin(i / 120 * 6.2832), CAP + 0.3))), lineMat); ring.userData.role = 'locate'; ring.userData.occludes = false; gauge.add(ring);
+  const cross = new THREE.Line(new THREE.BufferGeometry().setFromPoints([V(RI - 5, 0, CAP + 0.4), V(RI + 5, 0, CAP + 0.4)]), lineMat); cross.userData.occludes = false; gauge.add(cross);
+  tg.add(gauge);
+  // rotate the upper wall so the gap sits around +X (phiStart is measured after rotateX; find the orientation empirically)
+  up.rotation.z = 140 * DEG;
+  function showWhich() { real.visible = S.which === 'real'; gauge.visible = S.which === 'gauge'; app.invalidate(); }
+
+  const seamView = V(RI - 1.0, 0, CAP + 1.0);   // a point just inside the corner, above the plate: what the outside camera has to see
+  // ---- observer camera outside, and the corner inset
+  const camPos = () => V(S.r * Math.cos(S.az * DEG), S.r * Math.sin(S.az * DEG), S.h);
+  app.inset.add({ id: 'obs', label: 'Outside camera (proposed, illustrative)', position: camPos, target: () => seamView, fov: 32, near: 30, far: 1600, size: [250, 172], corner: 'br', noise: 0.25 });
+  app.label(camPos, 'outside camera', { cls: 'sensor' });
+  const gunLike = { dotOffset: () => gun.dotOffset(), beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: gunLike });
+
+  const rd = WK.h('div', { class: 'rd' });
+  const panel = WK.h('div', { class: 'use-panel' }, WK.h('div', { class: 'ttl', text: 'What the swap costs (scene numbers)' }), rd);
+  app.stageEl.querySelector('.wk-slots').appendChild(panel); app._addSlot({ corner: 'tr', w: 250, h: 150, el: panel, autoH: true });
+
+  function place() {
+    const trimR = S.trim[0], trimZ = S.trim[1];
+    gun.group.position.copy(P0).add(V(trimR + (S.which === 'real' ? S.regVec[0] : 0), 0, trimZ + (S.which === 'real' ? S.regVec[1] : 0)));
+    gun.group.updateMatrixWorld(true); gun.updateLaser(); sync(); app.invalidate();
+  }
+  function sync() {
+    const off = gun.dotOffset(), onGauge = S.which === 'gauge';
+    // dot vs the printed line on the gauge = truth minus the gauge's own error; dot vs the real seam = truth
+    const vsLine = [off.radial - S.gaugeErr[0], off.vertical - S.gaugeErr[1]];
+    const vis = app.inset.markVisibility('obs', seamView, { eps: 0.3 });
+    app.cornerInset.setEstimate(vis && vis.visible ? { radial: off.radial + 0.4, vertical: off.vertical - 0.3 } : null);
+    rd.innerHTML = '<em>In the nest:</em> <b>' + (onGauge ? 'the gauge' : 'the real tube') + '</b><br>' +
+      '<em>dot vs the gauge line (what a camera would see through the window):</em> ' + (onGauge ? '<b>(' + vsLine[0].toFixed(2) + ', ' + vsLine[1].toFixed(2) + ') mm</b>' : 'not applicable') + '<br>' +
+      '<em>dot vs the real seam (truth, corner inset):</em> <b>(' + off.radial.toFixed(2) + ', ' + off.vertical.toFixed(2) + ') mm</b><br>' +
+      '<em>gauge error</em> (' + S.gaugeErr[0].toFixed(2) + ', ' + S.gaugeErr[1].toFixed(2) + ') &middot; <em>register</em> ±' + (S.reg / 2).toFixed(3) + ' mm';
+    app.io.set({
+      commands: [{ name: 'Rotator', value: ws.spin.on ? 'turning' : 'stopped', note: 'existing controller' }],
+      observes: [
+        { name: 'Dot on the gauge line', value: onGauge && vis && vis.visible ? (vsLine[0] + S.cam * gauss()).toFixed(2) + ', ' + (vsLine[1] + S.cam * gauss()).toFixed(2) : '-', unit: onGauge && vis && vis.visible ? 'mm' : '', status: onGauge && vis && vis.visible ? 'partly' : 'blind', note: 'drawn-scene line of sight; noise made up' },
+        { name: 'Dot on the real tube from outside', value: vis && vis.visible ? 'visible' : (vis && vis.inFov ? 'blocked' : 'out of view'), status: vis && vis.visible ? 'partly' : 'blind', note: 'drawn-scene geometry; the wall blocks it' },
+        { name: 'Which is in the nest', value: onGauge ? 'gauge' : 'tube', status: 'partly', note: 'a contact or an ID would report it' },
+      ],
+      manual: ['Trimming the gun on the gauge', 'Swapping gauge and tube', 'Checking the gauge against a real tube'],
+    });
+  }
+
+  const g0 = app.ui.group('What is in the nest');
+  g0.radio({ id: 'which', label: 'In the nest', options: [{ value: 'gauge', label: 'gauge tube (window + line)' }, { value: 'real', label: 'real tube' }], value: 'gauge', kind: 'state', help: 'The swap is a hand step. The pose stays; the register carries it.', onChange: v => { const prev = S.which; S.which = v; if (v === 'real' && prev !== 'real') drawReg(); showWhich(); place(); } });
+  g0.button({ id: 'reseat', label: 'Re-seat what is in the nest', kind: 'state', onClick: () => { drawReg(); place(); } });
+  const g1 = app.ui.group('Trimming the gun on the gauge (hand or coach)');
+  g1.slider({ id: 'trimr', label: 'Gun trim, radial', min: -1.5, max: 1.5, step: 0.01, value: 0.6, unit: 'mm', kind: 'scene', help: 'Move the dot onto the printed line seen through the window.', onChange: v => { S.trim[0] = v; place(); } });
+  g1.slider({ id: 'trimz', label: 'Gun trim, vertical', min: -1.5, max: 1.5, step: 0.01, value: -0.5, unit: 'mm', kind: 'scene', onChange: v => { S.trim[1] = v; place(); } });
+  g1.button({ id: 'snap', label: 'Trim until the dot sits on the gauge line', kind: 'state', help: 'What a person or the coach loop would achieve: the dot on the printed line, wherever the line really is.', onClick: () => { app.ui.set('trimr', S.gaugeErr[0]); app.ui.set('trimz', S.gaugeErr[1]); } });
+  const g2 = app.ui.group('What the swap costs (scene edits, illustrative)');
+  g2.slider({ id: 'gerr-r', label: 'Gauge line vs the real corner, radial', min: -0.4, max: 0.4, step: 0.01, value: 0.10, unit: 'mm', kind: 'scene', help: 'Printing error and warp. Unknown; the swap error follows it one to one.', onChange: v => { S.gaugeErr[0] = v; place(); } });
+  g2.slider({ id: 'gerr-z', label: 'Gauge line vs the real corner, vertical', min: -0.4, max: 0.4, step: 0.01, value: -0.05, unit: 'mm', kind: 'scene', onChange: v => { S.gaugeErr[1] = v; place(); } });
+  g2.slider({ id: 'reg', label: 'Register repeatability', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'mm', kind: 'scene', help: 'How far a re-seated nest and tube may sit from where the gauge sat.', onChange: v => { S.reg = v; drawReg(); place(); } });
+  const g3 = app.ui.group('Outside camera and view');
+  g3.slider({ id: 'az', label: 'Camera azimuth', min: -80, max: 80, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => null, help: '0 = looking straight in from the +X weld-station side.', onChange: v => { S.az = v; sync(); } });
+  g3.slider({ id: 'h', label: 'Camera height', min: 120, max: 500, step: 5, value: 250, unit: 'mm', kind: 'scene', onChange: v => { S.h = v; sync(); } });
+  g3.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: v => { ws.spin.on = v; sync(); } });
+  function drawReg() { const r = S.reg / 2 * Math.sqrt(rnd()), a = rnd() * 2 * Math.PI; S.regVec = [r * Math.cos(a), r * Math.sin(a)]; }
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => V(RI, 0, CAP), 'seam (real corner)', { cls: 'locate' });
+  showWhich(); place();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+defaults: mismatch 0.5 mm, arm 5 N/mm, float residual 1.5 N, 0.1 kg declaration error, umbilical change 1 N, preload 15 N, 40 N/mm per ball, ball circle 50 mm, flange 120 mm up, dot 200 mm from the rocking axis
+case                                             dot shift  translation  rocking   arm force N  lowest ball N  slips
+hold, taught pose 0.5 mm off                       352 um    33       319           1.0          2.4     no
+brake                                              491 um    46       445           1.8          1.5     no
+float                                              444 um    42       402           0.0          1.2     no
+float, declaration exact, friction 0.5 N           270 um    25       244           0.0          2.9     no
+float, read joints, re-teach, then hold            131 um    12       119          -0.3          4.0     no
+re-taught hold, seat near the dot (L 20, ring 80, h 60)    25 um    21         4           0.3          4.5     no
+float, seat near the dot                            50 um    42         8           0.0          3.6     no
+re-taught hold, stiff contacts (400 N/mm)           23 um     2        21           0.3          3.3     no
+hold, arm 20 N/mm, taught pose 0.5 mm off          468 um    44       424           1.6          2.0     no
+hold, arm 20 N/mm, re-taught                       101 um    10        92          -0.4          4.4     no
+
+release shift (a re-taught hold, then the arm lets go into float): 304 um
+rocking against translation compliance at the dot (mm per N): 0.160 against 0.017
+a preload that keeps the lowest ball closed at 3 N sideways at 120 mm up, 50 mm circle: N/3 >= 3 x 120 / (1.5 x 50) = 4.8 N per ball, i.e. at least 14 N of preload plus margin

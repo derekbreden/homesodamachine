@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1630" height="886" viewBox="0 0 1630 886">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14" y="26" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#111">E  Film-grip carrier: iso-elastic stabilizer arm on a C-stand, gimbal at the CG, umbilical saddle on the same stand</text>
+<g transform="translate(10,40)">
+<rect x="0" y="0" width="980" height="800" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Elevation from +X (y along the tangent, z up; floor 900 mm below the bench top)</text>
+<line x1="144.0" y1="345.0" x2="873.6" y2="345.0" stroke="#6b4f2a" stroke-width="3"/>
+<polygon points="451.2,777.0 864.0,777.0 864.0,345.0 451.2,345.0" stroke="#b08968" fill="none" stroke-width="1" fill-opacity="1.0" stroke-dasharray="6,4"/>
+<text x="456.0" y="364.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#6b4f2a" text-anchor="start" font-weight="normal">bench (VEVOR, height adjustable)</text>
+<line x1="48.0" y1="777.0" x2="878.4" y2="777.0" stroke="#555" stroke-width="2"/>
+<text x="48.0" y="771.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#555" text-anchor="start" font-weight="normal">floor</text>
+<polygon points="660.0,345.0 780.0,345.0 780.0,303.7 660.0,303.7" stroke="#777" fill="#efe9d8" stroke-width="1.2" fill-opacity="1.0" stroke-dasharray="4,3"/>
+<polygon points="689.5,303.7 750.5,303.7 750.5,230.6 689.5,230.6" stroke="#444" fill="#9aa5ad" stroke-width="1" fill-opacity="0.5"/>
+<circle cx="720.0" cy="233.6" r="1.1" stroke="#d62828" fill="#d62828" stroke-width="1.2"/>
+<polygon points="709.1,220.8 709.2,220.4 709.6,220.0 710.1,219.6 710.6,219.6 710.8,219.7 716.8,227.6 716.7,228.0 716.3,228.5 715.7,228.8 715.2,228.9 715.0,228.7" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="698.6,211.8 699.0,210.3 700.5,208.5 702.6,207.2 704.5,206.8 705.4,207.6 713.4,218.2 713.0,219.7 711.4,221.5 709.3,222.8 707.4,223.1 706.5,222.4" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="687.9,195.3 688.2,194.3 689.2,193.2 690.5,192.4 691.8,192.1 692.3,192.6 704.2,208.3 703.9,209.3 702.9,210.5 701.6,211.3 700.4,211.5 699.8,211.1" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="680.7,190.8 681.2,188.6 683.4,186.1 686.4,184.3 689.0,183.8 690.3,184.9 695.0,191.0 694.4,193.2 692.2,195.7 689.2,197.5 686.6,198.0 685.3,196.9" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="642.7,149.5 645.3,139.5 658.8,133.9 693.6,180.0 691.0,190.0 677.4,195.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="606.8,176.4 607.3,165.9 609.6,157.0 666.8,164.3 666.3,174.8 664.1,183.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="606.8,176.4 607.3,165.9 609.6,157.0 645.3,139.5 658.8,133.9 693.6,180.0 704.2,208.3 703.9,209.3 702.9,210.5 701.6,211.3 700.4,211.5" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.6" fill-opacity="0.12" stroke-dasharray="5,3"/>
+<line x1="683.6" y1="202.5" x2="720.0" y2="233.6" stroke="#8a5a00" stroke-width="1.4"/>
+<line x1="715.9" y1="228.1" x2="720.0" y2="233.6" stroke="#d62828" stroke-width="1.0" stroke-dasharray="3,2"/>
+<polygon points="698.4,267.2 741.6,267.2 741.6,227.9 698.4,227.9" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.5" fill-opacity="0.25"/>
+<text x="748.8" y="262.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2a6f97" text-anchor="start" font-weight="normal">rider on the tube (A1-S wheels + A1-G goniometer):</text>
+<text x="748.8" y="276.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2a6f97" text-anchor="start" font-weight="normal">locates 5 DOF; carries only preload</text>
+<line x1="374.4" y1="777.0" x2="374.4" y2="114.6" stroke="#495057" stroke-width="7"/>
+<line x1="374.4" y1="719.4" x2="268.8" y2="777.0" stroke="#495057" stroke-width="5"/>
+<line x1="374.4" y1="719.4" x2="451.2" y2="777.0" stroke="#495057" stroke-width="5"/>
+<text x="216.0" y="705.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">stainless C-stand (turtle base + sandbag)</text>
+<polygon points="367.7,153.0 381.1,153.0 381.1,133.8 367.7,133.8" stroke="#111" fill="#6c757d" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="374.4" y1="138.6" x2="499.2" y2="119.4" stroke="#b5451b" stroke-width="4"/>
+<line x1="374.4" y1="148.2" x2="499.2" y2="129.0" stroke="#b5451b" stroke-width="4"/>
+<line x1="499.2" y1="119.4" x2="662.3" y2="129.0" stroke="#b5451b" stroke-width="4"/>
+<line x1="499.2" y1="129.0" x2="662.3" y2="138.6" stroke="#b5451b" stroke-width="4"/>
+<circle cx="499.2" cy="124.2" r="3.8" stroke="#111" fill="#fff" stroke-width="2"/>
+<text x="432.0" y="45.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">iso-elastic stabilizer arm (Steadicam / zero-G tool-arm principle):</text>
+<text x="432.0" y="56.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">near-constant lift over its travel, bearing hinges on vertical axes</text>
+<line x1="662.3" y1="133.8" x2="662.3" y2="167.4" stroke="#b5451b" stroke-width="3"/>
+<circle cx="662.3" cy="167.4" r="4.3" stroke="#b5451b" fill="#ffd166" stroke-width="2"/>
+<text x="669.0" y="158.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">3-axis gimbal at the gun's CG (16 mm arm post)</text>
+<text x="669.0" y="174.1" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">wave 5: carry pins lock both tilt axes off the tube (E-s)</text>
+<text x="748.8" y="291.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7b2cbf" text-anchor="start" font-weight="normal">wave 5: LAND / WELD cam stops on a barrel-line slide (E-z)</text>
+<line x1="374.4" y1="114.6" x2="523.2" y2="105.0" stroke="#495057" stroke-width="4"/>
+<circle cx="374.4" cy="114.6" r="3.4" stroke="#111" fill="#adb5bd" stroke-width="1.2"/>
+<polyline points="535.0,147.8 532.8,142.7 529.9,138.0 526.5,133.6 522.5,129.8 518.0,126.4 513.2,123.7 508.1,121.6 502.7,120.2 497.2,119.5 491.6,119.5 486.1,120.2 480.7,121.6 475.6,123.7 470.8,126.4 466.3,129.8 462.3,133.6 458.9,138.0 456.0,142.7 453.8,147.8" stroke="#555" fill="none" stroke-width="5" fill-opacity="1.0"/>
+<text x="158.4" y="47.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">umbilical + conduit saddle (R&gt;=350 arc) on the stand's boom</text>
+<text x="158.4" y="59.4" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">via a grip head; moves with the stand when it parks</text>
+<polyline points="607.9,166.6 604.3,165.9 600.9,164.6 597.8,163.0 594.8,161.0 591.9,158.8 589.0,156.5 586.1,154.2 583.0,151.9 579.8,149.8 523.2,124.2" stroke="#555" fill="none" stroke-width="3" fill-opacity="1.0"/>
+<polyline points="465.6,138.6 408.0,215.4 384.0,738.6" stroke="#555" fill="none" stroke-width="3" fill-opacity="1.0"/>
+<text x="292.8" y="489.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#555" text-anchor="start" font-weight="normal">to laser unit / wire feeder on the cart</text>
+<polygon points="388.8,220.2 417.6,220.2 417.6,210.6 388.8,210.6" stroke="#111" fill="#dee2e6" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="420.5" y="218.3" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">docking cup: parks the gimbal</text>
+</g>
+<g transform="translate(1000,40)">
+<rect x="0" y="0" width="620" height="800" fill="none" stroke="#ccc"/>
+<text x="8" y="18" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333">Plan</text>
+<polygon points="190.0,470.0 570.0,470.0 570.0,40.0 190.0,40.0" stroke="#b08968" fill="none" stroke-width="1" fill-opacity="1.0" stroke-dasharray="6,4"/>
+<text x="195.0" y="47.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#6b4f2a" text-anchor="start" font-weight="normal">bench top (schematic)</text>
+<polygon points="305.0,252.5 455.0,252.5 455.0,127.5 305.0,127.5" stroke="#999" fill="none" stroke-width="1.2" fill-opacity="1.0" stroke-dasharray="4,3"/>
+<circle cx="380.0" cy="190.0" r="31.8" stroke="#444" fill="none" stroke-width="1.2"/>
+<circle cx="380.0" cy="190.0" r="30.9" stroke="#444" fill="none" stroke-width="0.8"/>
+<circle cx="380.0" cy="180.5" r="2.8" stroke="#777" fill="none" stroke-width="0.8"/>
+<circle cx="380.0" cy="199.5" r="2.8" stroke="#777" fill="none" stroke-width="0.8"/>
+<circle cx="410.9" cy="190.0" r="1.1" stroke="#d62828" fill="#d62828" stroke-width="1.2"/>
+<polygon points="401.1,200.1 401.4,199.6 406.6,193.5 407.1,193.4 407.7,193.6 408.2,194.1 408.3,194.7 408.0,195.1 402.8,201.3 402.3,201.4 401.7,201.1 401.2,200.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="391.3,207.2 392.3,205.6 399.3,197.3 401.3,196.9 403.6,197.8 405.4,199.8 405.9,202.0 404.9,203.6 397.9,211.9 395.8,212.3 393.5,211.4 391.8,209.4" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="382.2,220.1 382.8,219.1 393.3,206.7 394.6,206.5 396.1,207.1 397.2,208.3 397.5,209.8 396.9,210.8 386.5,223.1 385.1,223.4 383.6,222.8 382.5,221.6" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="375.2,223.8 376.6,221.5 380.7,216.7 383.6,216.1 386.8,217.4 389.3,220.2 390.0,223.3 388.6,225.6 384.5,230.4 381.6,231.0 378.4,229.6 375.9,226.9" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="339.6,256.5 370.2,220.2 383.4,217.6 390.9,231.6 360.3,267.9 347.1,270.5" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="363.3,247.8 374.9,245.4 383.6,245.9 389.8,305.5 378.2,307.9 369.5,307.4" stroke="#333" fill="#d9d9d9" stroke-width="1" fill-opacity="0.85"/>
+<polygon points="339.6,256.5 370.2,220.2 393.3,206.7 394.6,206.5 396.1,207.1 397.2,208.3 397.5,209.8 389.8,305.5 378.2,307.9 369.5,307.4 347.1,270.5" stroke="#2a6f97" fill="#2a6f97" stroke-width="1.6" fill-opacity="0.12" stroke-dasharray="5,3"/>
+<line x1="393.0" y1="227.9" x2="410.9" y2="190.0" stroke="#8a5a00" stroke-width="1.4"/>
+<line x1="407.3" y1="194.3" x2="410.9" y2="190.0" stroke="#d62828" stroke-width="1.0" stroke-dasharray="3,2"/>
+<line x1="350.0" y1="550.0" x2="350.0" y2="440.0" stroke="#495057" stroke-width="5"/>
+<line x1="350.0" y1="550.0" x2="254.7" y2="605.0" stroke="#495057" stroke-width="5"/>
+<line x1="350.0" y1="550.0" x2="445.3" y2="605.0" stroke="#495057" stroke-width="5"/>
+<circle cx="350.0" cy="550.0" r="7.0" stroke="#111" fill="#6c757d" stroke-width="1.2"/>
+<line x1="350.0" y1="550.0" x2="475.0" y2="385.0" stroke="#b5451b" stroke-width="6"/>
+<line x1="475.0" y1="385.0" x2="368.7" y2="250.1" stroke="#b5451b" stroke-width="6"/>
+<circle cx="475.0" cy="385.0" r="4.5" stroke="#111" fill="#fff" stroke-width="2"/>
+<circle cx="368.7" cy="250.1" r="4.5" stroke="#b5451b" fill="#ffd166" stroke-width="2"/>
+<line x1="350.0" y1="550.0" x2="220.0" y2="610.0" stroke="#b5451b" stroke-width="3" stroke-dasharray="6,4"/>
+<line x1="220.0" y1="610.0" x2="185.0" y2="450.0" stroke="#b5451b" stroke-width="3" stroke-dasharray="6,4"/>
+<circle cx="185.0" cy="450.0" r="4.5" stroke="#b5451b" fill="none" stroke-width="2"/>
+<text x="165.0" y="440.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#b5451b" text-anchor="start" font-weight="normal">parked in the docking cup</text>
+<circle cx="360.0" cy="425.0" r="5.0" stroke="#555" fill="#ced4da" stroke-width="1.2"/>
+<text x="368.0" y="425.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">saddle</text>
+<text x="360.0" y="565.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">C-stand off the bench end</text>
+<text x="195.0" y="590.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">The stand, arm and saddle locate nothing: floor reference and</text>
+<text x="195.0" y="605.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#111" text-anchor="start" font-weight="normal">flex do not enter the dot. The tube rider locates.</text>
+</g>
+<text x="14" y="860" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Carries: arm spring (2-5 kg window, tension knob) through a 3-axis gimbal at the CG, so no moment reaches the gun. Locates: the tube rider. Parks: swing into the docking cup, or roll the stand away with the saddle.</text>
+<text x="14" y="878" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#333">Corrected opening pose (grip 45, hole dial 30, vertical -15). Bench height 900 mm assumed; stand, arm geometry and saddle placement schematic.</text>
+</svg>

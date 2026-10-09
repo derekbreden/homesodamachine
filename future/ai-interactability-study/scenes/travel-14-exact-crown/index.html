@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crown seat</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .cs-svg { width: 100%; height: 100%; min-height: 640px; display: block; }
+  .cs-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .cs-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .cs-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .cs-svg .warn { fill: #f87171; font-weight: 600; }
+  .cs-svg .axis { stroke: #394559; stroke-width: 1; fill: none; }
+  .cs-svg .grid { stroke: #232c39; stroke-width: 1; }
+  .cs-svg .od { fill: #2a3444; stroke: var(--role-work); stroke-width: 1.4; }
+  .cs-svg .seam { fill: none; stroke: var(--role-locate); stroke-width: 1.3; stroke-dasharray: 5 4; }
+  .cs-svg .ring { fill: none; stroke: var(--role-load); stroke-width: 6; }
+  .cs-svg .pad { fill: var(--role-sensor); stroke: #0b1016; stroke-width: 1; }
+  .cs-svg .padL { fill: var(--role-fixed); stroke: var(--role-load); stroke-width: 1.4; }
+  .cs-svg .spring { stroke: var(--role-compliant); stroke-width: 1.6; fill: none; }
+  .cs-svg .force { stroke: #fb923c; stroke-width: 2.4; fill: none; }
+  .cs-svg .cvec { stroke: var(--role-sensor); stroke-width: 2.2; fill: none; }
+  .cs-svg .post { fill: var(--role-fixed); }
+  .cs-svg .tether { stroke: var(--role-compliant); stroke-width: 1.8; fill: none; }
+  .cs-svg .tetherS { stroke: var(--role-locate); stroke-width: 2.2; fill: none; }
+  .cs-svg .stn { stroke: var(--role-laser); stroke-width: 1.4; fill: var(--role-laser); }
+  .cs-svg .t-room { stroke: var(--role-ghost); stroke-width: 1.6; fill: none; stroke-dasharray: 5 3; }
+  .cs-svg .t-tot { stroke: var(--role-actuated); stroke-width: 2.6; fill: none; }
+  .cs-svg .t-lobe { stroke: var(--role-sensor); stroke-width: 1.4; fill: none; }
+  .cs-svg .band { fill: rgba(52, 211, 153, .10); stroke: rgba(52, 211, 153, .55); stroke-dasharray: 4 3; }
+  .cs-svg .cur { stroke: #e7ebf1; stroke-width: 1; stroke-dasharray: 2 3; }
+  .cs-svg .k1 { stroke: #7c8aa0; stroke-width: 1.6; fill: none; }
+  .cs-svg .k2 { stroke: var(--role-compliant); stroke-width: 1.8; fill: none; }
+  .cs-svg .k3 { stroke: var(--role-load); stroke-width: 1.8; fill: none; }
+  .cs-svg .k4 { stroke: var(--role-locate); stroke-width: 2.4; fill: none; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-14-exact-crown",
+  "title": "Crown seat: soft to centre, locked to hold",
+  "by": "travel",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "A repair of the seat in the rim crown. Pads that centre the ring on the outside of the tube pass its out-of-round into the gun (three pads pass ovality at gain 1); pads soft enough to seat move under the cable's sideways pull; a lock after seating makes the ring stiff. The one motion the seam does not care about, turning about the tube axis, is where a stiff tether is free, if its reaction is a couple and not a force.",
+  "tags": [
+    "crown seat",
+    "pads",
+    "lobing",
+    "soft to centre then lock",
+    "free axis",
+    "tether",
+    "branch of datum-03"
+  ],
+  "branchOf": [
+    "datum-03-rim-crown"
+  ],
+  "combines": [],
+  "transferable": [
+    "k pads pass lobe harmonics k-1 and k+1",
+    "soft to centre, lock to hold",
+    "a stiff tether on the free axis, as a couple"
+  ],
+  "how": {
+    "motion": "none in the weld; pads settle and lock at seating; the rotator turns the tube",
+    "load": "rim and pads carry ring and gun; a wire pair (branch) carries only torque",
+    "reference": "the tube's outside through pads that centre then lock; the rim through three fixed points",
+    "observe": "ring azimuth from the stiff tether; drag torque by strain gauge; nothing sees the dot",
+    "use": "seat the crown, let the pads settle, lock, hand-trim radially once, weld"
+  },
+  "software": {
+    "commands": [
+      "nothing: locking the pads is a hand action in this scene"
+    ],
+    "observes": [
+      "ring azimuth (known by the stiff tether)",
+      "drag torque from one strain-gauged wire (proposed)"
+    ],
+    "manual": [
+      "seating the crown",
+      "locking the pads after they settle",
+      "the one-time radial trim of the gun on the boom"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-14-exact-crown.md",
+    "../../exchange/travel--on--datum-w2.md",
+    "../../explorers/travel/calc/08-crown-seat.mjs",
+    "../../explorers/datum/ideas/datum-03-rim-crown.md"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const TAU = Math.PI * 2, DEG = Math.PI / 180;
+  const R_OD = 63.5, ARM = 233, RT = 76, TAB_AZ = 150 * DEG;
+  const app = WK.app({
+    stage: 'custom', minWidth: 820, workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>The crown&rsquo;s seat, drawn from above.</b> The ring (amber) sits on the outside of the tube (grey, lobing exaggerated by the display slider) and carries the gun, which follows the ring&rsquo;s centre. Whatever the pads do to the ring&rsquo;s centre is a radial error at the dot, once per revolution in the room frame. Pick a seat: a plain clearance fit, equal spring pads, rockers that average pairs of pads, or a rigid V.</p>' +
+        '<p><b>Three results to read.</b> (1) The lap plot: radial error at the dot against table angle. The dashed line is the rig-doc acceptance runout a room-fixed gun sees after indicating (0.25 mm TIR [repo]). (2) The change since setup: a sideways pull that differs between the dry setup and the weld moves the ring by change / stiffness, and stiffness is what the pads gave up to be soft enough to seat. (3) The tether panel: how far the ring turns under umbilical drag, and what force the tether puts into the seat.</p>' +
+        '<p><b>Repair drawn:</b> pads soft to centre, then <b>locked</b> (state toggle): the ring keeps the centre the soft pads found and becomes stiff. The free axis (turning about the tube axis) takes a pre-tensioned wire pair wrapped on the ring: stiff, and a couple, not a force.</p>',
+      carries:
+        '<p>Not a support proposal on its own: it is the seat of the crown in <code>datum-03-rim-crown</code>. <b>Rim</b> carries the weight (three fixed pads on the rim in the repair, not a full annulus). <b>Pads</b> locate the ring radially on the outside of the tube. <b>Tether</b> reacts only the drag torque about the tube axis, the one motion that does not move the dot.</p>',
+      software:
+        '<p>Software commands nothing in this scene; the lock is a hand action. It could observe ring azimuth (known when the tether is stiff) and, with a strain gauge on one wire of the pair, the umbilical&rsquo;s drag torque, which nobody has measured. It cannot observe the ring&rsquo;s radial float or its centre error: nothing in this arrangement sees the dot. The I/O panel lists what stays blind.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> a ring with a plain radial clearance on the outside (datum-01 uses 0.20 mm) rests wherever the last sideways force left it. <b>Assumption:</b> the clearance is a random spread. <b>What the scene shows:</b> with a steady sideways pull the ring rides the tube at the loaded point, so it follows the whole local out-of-round (one-point follower): a change of pull direction moves it by the full clearance. <b>Change:</b> pads.</li>' +
+        '<li><b>Conflict:</b> k equal spring pads pass out-of-round harmonics k&minus;1 and k+1 at gain 1. Three pads pass ovality (n=2) at unity; four reject it and pass three-lobing. <b>Change:</b> six pads, or three rockers each averaging a pair at &plusmn;45&deg;: ovality and three-lobing rejected, n=4 magnified to 1.41, n=5 at 1. A rigid V magnifies ovality (1.0 to 1.7 by V angle; 5.4 at 80&deg;). <b>Left:</b> n=1, the centre offset of the outside relative to the bore, passes every seat at gain 1 (the ring cannot know it).</li>' +
+        '<li><b>Conflict:</b> pads soft enough to take up the outside-diameter spread are exactly as stiff as the ring is. <b>What the scene shows:</b> pad rate 40 N/mm on three pads is 60 N/mm, so 1 N of change is 0.017 mm; a 1 N/mm cord-class pad moves the ring 0.67 mm per newton. <b>Change:</b> lock after seating (soft to centre, stiff to hold: <code>travel-05b</code> read as a seat). <b>Left:</b> heat: a locked ring on a tube that grows 0.03 to 0.06 mm.</li>' +
+        '<li><b>Conflict:</b> a tab tether (two cords or a rod to one tab at radius 76 mm) reacts the drag torque as a net force: 233/76 = 3.07 times the drag, into the seat. <b>Change:</b> a wire pair wrapped on the ring: pure couple, stiff (ring turn 0.00&deg; at 3 N against 3.5&deg; for 1 N/mm cords and 17&deg; for 0.2 N/mm cords). <b>Left:</b> whether the wires hold pretension over a lap.</li>' +
+        '<li><b>Conflict (from use, wave 2):</b> the lock is the last handover, and the scene’s lock toggle added stiffness and no closing shift; the hand trim on the boom came before it. <b>Assumption:</b> a lock only stiffens. <b>Change:</b> the closing-shift slider adds a constant to the error at the station when the pads lock; the badge says a look after the lock is needed (the relock loop of <code>travel-05b</code>: 81 % of closures inside a ±0.10 mm window with no look after a 0.05 mm shift, 95 % with one). <b>Left:</b> the real shift and its mean; whether a cam pushes to one side (learnable) or pinches (scatter).</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>The tube&rsquo;s real roundness, OD-to-bore concentricity and rim flatness are <b>unknown</b>; every amplitude here is a slider.</li>' +
+        '<li>The cable&rsquo;s sideways pull and drag are <b>unknown</b>; the scene takes the umbilical pull at the exit as one number and a radial share of it.</li>' +
+        '<li>Vertical is not drawn: three pads at fixed clock on the rim give one repeatable plane per tube; a full annulus rests on whichever three high spots it finds, and a fourth spot makes two stable seatings (idea file).</li>' +
+        '<li><b>Questions for Derek:</b> five tubes measured for OD out-of-round and wall thickness at eight positions (calipers or a ball micrometer): what are n=2 and n=1 in practice?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Ring, pads and tube are rigid except the pad springs (linear). Equal-force pads: ring centre c = (2/k) &Sigma; r<sub>i</sub> u<sub>i</sub> + 2F/(k k<sub>s</sub>). Rockers: c = 2/(3 cos&delta;) &Sigma; r&#772;<sub>j</sub> u<sub>j</sub>, K = 3 k<sub>s</sub> cos&sup2;&delta;. V: two rigid stops, c from the 2&times;2 contact equations, third pad only preloads. <span>[derived; <code>calc/08-crown-seat.mjs</code>]</span></li>' +
+        '<li>Outside diameter 127 mm and bore 123.70 mm <b>[repo]</b>; drag arm 233 mm and tether radius 76 mm are datum-03&rsquo;s scene numbers. Lobe amplitude, OD-to-bore offset 0.08 mm, pad rates, lock stiffness 500 N/mm per pad, wire-pair stiffness: <b>illustrative</b>.</li>' +
+        '<li>Rig-doc acceptance runout 0.25 mm TIR radial <b>[repo]</b>, drawn as a 1&times; sinusoid of amplitude 0.125 mm for a room-fixed gun on an indicated tube.</li>' +
+        '<li><b>Models:</b> linear pad statics, once-per-revolution and n-per-revolution terms in the room frame. <b>Depicts only:</b> the ring, posts and wire routing in the plan.</li>' +
+        '</ul>',
+    },
+  });
+
+  // ------------------------------------------------------------------ state
+  const P = { ls: 0.03, type: 'pads', n: 2, e: 0.10, alpha: 25, s: 0.08, alphaS: 60, k: 3, th0: 20, ks: 40, delta: 45, lock: false, F: 3, share: 0.6, dF: 1, tether: 'cords1', exag: 70, clear: 0.20, theta: 0 };
+  const KLOCK = 500;      // N/mm per pad when locked (illustrative)
+  const PRELOAD_V = 8;    // N, third pad's preload in the V branch (illustrative)
+  let playing = false;
+
+  // ------------------------------------------------------------------ model
+  const rProfile = th => P.s * Math.cos(th - P.alphaS * DEG) + P.e * Math.cos(P.n * (th - P.alpha * DEG));   // tube frame: outside radius minus nominal, mm
+  const lockedK = () => (P.type === 'rockers' ? 3 * KLOCK * Math.pow(Math.cos(P.delta * DEG), 2) : P.k / 2 * KLOCK);
+  function seat() {
+    // { c:[cx,cy] tube-frame ring centre from the profile (mm), K (N/mm) sideways stiffness, note }
+    const k = P.k;
+    if (P.type === 'clearance') return { c: [0, 0], K: 0, note: 'plain clearance ' + P.clear.toFixed(2) + ' mm: rests where the last pull left it' };
+    if (P.type === 'pads') {
+      let cx = 0, cy = 0;
+      for (let i = 0; i < k; i++) { const th = P.th0 * DEG + i * TAU / k, r = rProfile(th); cx += r * Math.cos(th); cy += r * Math.sin(th); }
+      return { c: [2 / k * cx, 2 / k * cy], K: k / 2 * P.ks, note: k + ' equal-force pads' };
+    }
+    if (P.type === 'rockers') {
+      const d = P.delta * DEG; let cx = 0, cy = 0;
+      for (let j = 0; j < 3; j++) { const th = P.th0 * DEG + j * TAU / 3, rb = (rProfile(th + d) + rProfile(th - d)) / 2; cx += rb * Math.cos(th); cy += rb * Math.sin(th); }
+      return { c: [2 / (3 * Math.cos(d)) * cx, 2 / (3 * Math.cos(d)) * cy], K: 3 * P.ks * Math.pow(Math.cos(d), 2), note: '3 rockers, 2 pads each at ±' + P.delta + '°' };
+    }
+    // V: two rigid stops at phi +- gamma (gamma 60 deg), third pad preloads
+    const g = 60 * DEG, phi = P.th0 * DEG, r1 = rProfile(phi - g), r2 = rProfile(phi + g);
+    const cb = (r1 + r2) / (2 * Math.cos(g)), cp = (r2 - r1) / (2 * Math.sin(g));
+    return { c: [cb * Math.cos(phi) - cp * Math.sin(phi), cb * Math.sin(phi) + cp * Math.cos(phi)], K: 2 * KLOCK * Math.cos(g), note: 'rigid V (2 stops at ±60°) + one preload pad' };
+  }
+  function tetherInfo(F) {
+    const tq = F * ARM;     // N.mm
+    let K, net, label;
+    switch (P.tether) {
+      case 'cords02': K = 2 * 0.2 * RT * RT; net = tq / RT; label = 'two cords, 0.2 N/mm each, to one tab'; break;
+      case 'cords1': K = 2 * 1.0 * RT * RT; net = tq / RT; label = 'two cords, 1 N/mm each, to one tab'; break;
+      case 'rod': K = 200 * RT * RT; net = tq / RT; label = 'one tangential rod, 200 N/mm, to one tab'; break;
+      default: K = 2 * (100e3 * 1.1 / 120) * RT * RT; net = 0; label = 'pre-tensioned wire pair wrapped on the ring'; break;
+    }
+    return { K: K, deg: tq / K / DEG, mmSeam: tq / K * 61.85, net: net, label: label };
+  }
+  // radial error at the station, room frame, relative to the setup state (mm), at table angle th (rad)
+  function model() {
+    const st = seat(), tet = tetherInfo(P.F);
+    const tabProj = Math.abs(Math.cos(TAB_AZ + Math.PI / 2));                       // tab tangent projected on the station's radial direction
+    const Fseat = P.F * P.share + tet.net * tabProj;                                // radial-at-station load on the seat (N)
+    const dFseat = P.dF * P.share + (P.tether === 'wire' ? 0 : P.dF * ARM / RT * tabProj);
+    let dConst = 0, lifted = false;
+    if (P.type === 'clearance') dConst = P.dF > 0.3 ? P.clear / 2 : 0;
+    else if (P.type === 'vblock') {
+      // toward the V the stops carry the load; away from the V the third pad's preload is all that holds
+      if (Fseat + dFseat > PRELOAD_V) lifted = true;
+      dConst = lifted ? (Fseat + dFseat - PRELOAD_V) / P.ks : dFseat / st.K;
+    } else dConst = dFseat / (P.lock ? lockedK() : st.K);                          // what changes between setup and weld (the setup part is trimmed by hand)
+    if (P.lock && (P.type === 'pads' || P.type === 'rockers')) dConst += P.ls;   // the lock moves the ring as it closes: after the last look (use's exchange)
+    const c = st.c, cAmp = Math.hypot(c[0], c[1]);
+    const E = th => {
+      let v;
+      if (P.type === 'clearance') v = P.F <= 0.05 ? 0 : rProfile(-th);             // side-loaded plain ring: a one-point follower of the outside at the station azimuth (tube frame angle -th)
+      else v = c[0] * Math.cos(th) - c[1] * Math.sin(th);                          // ring centre rotated into the room frame
+      return v + dConst;
+    };
+    return { st: st, tet: tet, c: c, cAmp: cAmp, E: E, dConst: dConst, Fseat: Fseat, lifted: lifted };
+  }
+  const roomE = th => 0.125 * Math.cos(th - 0.9);      // rig-doc acceptance runout, 1x sinusoid of amplitude 0.125 mm
+
+  // ------------------------------------------------------------------ drawing
+  const W = 960, H = 800;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'cs-svg', role: 'img', 'aria-label': 'plan view of the crown seat and plots of radial error and tether turn' });
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'work', label: 'tube outside (lobing exaggerated)' }, { role: 'load', label: 'ring / locked pad' }, { role: 'sensor', label: 'pad, ring-centre vector' }, { role: 'compliant', label: 'spring / cord' }, { role: 'locate', label: 'bore = seam / wire-pair tether' }, { role: 'laser', label: 'station' }]);
+  const g = WK.svg('g', {}); svg.append(g);
+  const clear = el => { while (el.firstChild) el.removeChild(el.firstChild); };
+  const T = (x, y, t, cls, a) => g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': a || 'start', text: t }));
+  const L = (x1, y1, x2, y2, cls, extra) => g.appendChild(WK.svg('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, class: cls || 'axis' }, extra || {})));
+  const words = (t, x, y, max, cls) => { const ws = t.split(' '); let line = '', yy = y; ws.forEach(w => { if ((line + ' ' + w).length > max) { T(x, yy, line, cls || 'small'); yy += 13; line = w; } else line = line ? line + ' ' + w : w; }); if (line) { T(x, yy, line, cls || 'small'); yy += 13; } return yy; };
+
+  function drawPlan(m) {
+    const cx0 = 225, cy0 = 290, S = 2.4;               // px per mm
+    const X = P.exag * S;                                 // px per mm of exaggerated deviation
+    const th = P.theta * DEG;
+    T(20, 26, 'Plan view from above (tube frame turning; deviations exaggerated)', 'big');
+    T(20, 42, 'display exaggeration x' + P.exag + ' of every deviation from a round tube on the seam centre', 'small');
+    let pts = '';
+    for (let i = 0; i <= 180; i++) {
+      const a = i / 180 * TAU, r = R_OD * S + rProfile(a) * X, wa = a + th;
+      pts += (i ? 'L' : 'M') + (cx0 + r * Math.cos(wa)).toFixed(1) + ' ' + (cy0 - r * Math.sin(wa)).toFixed(1);
+    }
+    g.appendChild(WK.svg('path', { d: pts + 'Z', class: 'od' }));
+    g.appendChild(WK.svg('circle', { cx: cx0, cy: cy0, r: 61.85 * S, class: 'seam' }));
+    T(cx0, cy0 + 61.85 * S - 6, 'bore = seam circle, centre fixed', 'small', 'middle');
+    // ring centre in the room frame: R(th) c (drawn exaggerated)
+    const c = m.c, cxr = c[0] * Math.cos(th) - c[1] * Math.sin(th), cyr = c[0] * Math.sin(th) + c[1] * Math.cos(th);
+    let ringC = [cxr * X, -cyr * X];
+    if (P.type === 'clearance') { const e = m.E(th) - m.dConst; ringC = [e * X, 0]; }
+    const ringR = R_OD * S + 24;
+    g.appendChild(WK.svg('circle', { cx: cx0 + ringC[0], cy: cy0 + ringC[1], r: ringR, class: 'ring' }));
+    const drawPad = (azTube, kind) => {
+      const a = azTube + th, r = R_OD * S + rProfile(azTube) * X, px = cx0 + r * Math.cos(a), py = cy0 - r * Math.sin(a);
+      const rx = cx0 + ringC[0] + (ringR - 3) * Math.cos(a), ry = cy0 + ringC[1] - (ringR - 3) * Math.sin(a);
+      if (kind === 'lock' || P.lock) {
+        g.appendChild(WK.svg('rect', { x: px - 5, y: py - 5, width: 10, height: 10, class: 'padL', transform: 'rotate(' + (-a / DEG) + ' ' + px + ' ' + py + ')' }));
+        L(px, py, rx, ry, 'axis', { stroke: '#f5a524', 'stroke-width': 3 });
+      } else {
+        g.appendChild(WK.svg('line', { x1: px, y1: py, x2: rx, y2: ry, class: 'spring', 'stroke-dasharray': '3 2' }));
+        g.appendChild(WK.svg('circle', { cx: px, cy: py, r: 4.5, class: 'pad' }));
+      }
+    };
+    if (P.type === 'pads') { for (let i = 0; i < P.k; i++) drawPad(P.th0 * DEG + i * TAU / P.k); }
+    else if (P.type === 'rockers') {
+      for (let j = 0; j < 3; j++) {
+        const b = P.th0 * DEG + j * TAU / 3, d = P.delta * DEG; drawPad(b - d); drawPad(b + d);
+        const a = b + th, pvx = cx0 + ringC[0] + (ringR - 3) * Math.cos(a), pvy = cy0 + ringC[1] - (ringR - 3) * Math.sin(a);
+        g.appendChild(WK.svg('circle', { cx: pvx, cy: pvy, r: 3.5, fill: '#34d399' }));
+      }
+    } else if (P.type === 'vblock') {
+      const phi = P.th0 * DEG, gm = 60 * DEG; drawPad(phi - gm, 'lock'); drawPad(phi + gm, 'lock');
+      const a = phi + Math.PI + th, r = R_OD * S + rProfile(phi + Math.PI) * X;
+      g.appendChild(WK.svg('circle', { cx: cx0 + r * Math.cos(a), cy: cy0 - r * Math.sin(a), r: 4.5, class: 'pad' }));
+    }
+    g.appendChild(WK.svg('line', { x1: cx0, y1: cy0, x2: cx0 + ringC[0], y2: cy0 + ringC[1], class: 'cvec' }));
+    g.appendChild(WK.svg('circle', { cx: cx0 + ringC[0], cy: cy0 + ringC[1], r: 3.5, fill: '#60a5fa' }));
+    g.appendChild(WK.svg('circle', { cx: cx0 + 61.85 * S, cy: cy0, r: 4, class: 'stn' }));
+    T(cx0 + 61.85 * S - 46, cy0 - 8, 'station', 'small');
+    // radial share of the umbilical pull, at the station side
+    if (P.F > 0.05) {
+      const len = 10 + 4 * P.F * P.share, xa = cx0 + ringR + 12;
+      L(xa + len, cy0, xa, cy0, 'force'); g.appendChild(WK.svg('path', { d: 'M' + xa + ' ' + cy0 + 'l8 -5 l0 10z', fill: '#fb923c' }));
+      T(xa - 4, cy0 + 18, (P.F * P.share).toFixed(1) + ' N radial pull', 'small');
+    }
+    // tether at the tab azimuth (fixed in the room)
+    const ta = TAB_AZ, tx = cx0 + (ringR + 4) * Math.cos(ta), ty = cy0 - (ringR + 4) * Math.sin(ta), tng = [-Math.sin(ta), -Math.cos(ta)];
+    if (P.tether === 'wire') {
+      [1, -1].forEach(sg => {
+        const az = ta + sg * 0.9, x = cx0 + (ringR + 4) * Math.cos(az), y = cy0 - (ringR + 4) * Math.sin(az), dir = [-Math.sin(az) * sg, -Math.cos(az) * sg];
+        L(x, y, x + dir[0] * 60, y + dir[1] * 60, 'tetherS');
+        g.appendChild(WK.svg('rect', { x: x + dir[0] * 60 - 5, y: y + dir[1] * 60 - 5, width: 10, height: 10, class: 'post' }));
+      });
+      g.appendChild(WK.svg('path', { d: 'M' + (cx0 + (ringR + 4) * Math.cos(ta - 0.9)) + ' ' + (cy0 - (ringR + 4) * Math.sin(ta - 0.9)) + ' A ' + (ringR + 4) + ' ' + (ringR + 4) + ' 0 0 0 ' + (cx0 + (ringR + 4) * Math.cos(ta + 0.9)) + ' ' + (cy0 - (ringR + 4) * Math.sin(ta + 0.9)), fill: 'none', stroke: '#14b8a6', 'stroke-width': 2.4 }));
+    } else {
+      g.appendChild(WK.svg('rect', { x: tx - 6, y: ty - 6, width: 12, height: 12, class: 'padL' }));
+      [1, -1].forEach(sg => {
+        const ex = tx + tng[0] * 66 * sg, ey = ty + tng[1] * 66 * sg;
+        L(tx, ty, ex, ey, P.tether === 'rod' ? 'tetherS' : 'tether', P.tether === 'rod' ? {} : { 'stroke-dasharray': '4 3' });
+        g.appendChild(WK.svg('rect', { x: ex - 5, y: ey - 5, width: 10, height: 10, class: 'post' }));
+      });
+    }
+    // annotations under the plan
+    let y = 500;
+    T(20, y, m.st.note, 'big'); y += 16;
+    y = words('ring centre from the tube: ' + (m.cAmp * 1000).toFixed(0) + ' µm, once per revolution in the room' + (P.type === 'clearance' ? ' (a one-point follower: the whole local out-of-round, ' + P.n + ' per revolution too)' : ''), 20, y, 80);
+    if (P.type === 'vblock') y = words('stiff toward the V, held only by the preload pad away from it (' + PRELOAD_V + ' N)', 20, y, 80);
+    else if (P.type !== 'clearance') y = words('lateral stiffness ' + m.st.K.toFixed(0) + ' N/mm soft' + (P.lock ? ', ' + lockedK().toFixed(0) + ' N/mm locked' : ''), 20, y, 80);
+    y = words('tether about the tube axis: ' + m.tet.label, 20, y, 80);
+    if (m.lifted) { T(20, y, 'the pull exceeds the V’s preload (' + PRELOAD_V + ' N): the ring lifts off the V', 'warn'); y += 14; }
+    return y;
+  }
+
+  function plotLap(m) {
+    const x0 = 570, x1 = 955, y0 = 78, h = 180, sc = Math.max(0.2, Math.ceil(Math.max(0.25, m.cAmp + Math.abs(m.dConst) + 0.02) * 10) / 10);
+    T(x0, 26, 'Radial error at the dot over one revolution (mm)', 'big');
+    T(x0, 42, '+ into the wall. dashed: room-fixed gun, tube indicated to the rig-doc limit', 'small');
+    g.appendChild(WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: h, class: 'axis', fill: '#10151c' }));
+    const yOf = v => y0 + h / 2 - v / sc * (h / 2), xOf = d => x0 + (x1 - x0) * d / 360;
+    for (let k = -2; k <= 2; k++) { const v = k / 2 * sc, y = yOf(v); L(x0, y, x1, y, k === 0 ? 'axis' : 'grid'); T(x0 - 5, y + 4, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2), 'small', 'end'); }
+    for (let d = 0; d <= 360; d += 90) { L(xOf(d), y0, xOf(d), y0 + h, 'grid'); T(xOf(d), y0 + h + 14, d + '°', 'small', 'middle'); }
+    const w = 0.30; if (w < sc) g.appendChild(WK.svg('rect', { x: x0, y: yOf(w), width: x1 - x0, height: yOf(-w) - yOf(w), class: 'band' }));
+    const path = (fn, cls) => { let d = ''; for (let i = 0; i <= 360; i += 2) { const v = fn(i * DEG); d += (i ? 'L' : 'M') + xOf(i).toFixed(1) + ' ' + Math.max(y0 - 4, Math.min(y0 + h + 4, yOf(v))).toFixed(1); } g.appendChild(WK.svg('path', { d: d, class: cls })); };
+    path(roomE, 't-room');
+    path(th => m.E(th) - m.dConst, 't-tot');
+    if (Math.abs(m.dConst) > 1e-4) path(m.E, 't-lobe');
+    const cxp = xOf(P.theta % 360); L(cxp, y0, cxp, y0 + h, 'cur');
+    let mx0 = -1e9, mn0 = 1e9; for (let i = 0; i <= 360; i += 2) { const v = m.E(i * DEG) - m.dConst; mx0 = Math.max(mx0, v); mn0 = Math.min(mn0, v); }
+    T(x1 - 4, y0 + 14, 'p-p ' + (mx0 - mn0).toFixed(3) + ' mm this seat; room-fixed 0.250', 'small', 'end');
+    words('purple: the seat’s own lap (lobing + centre offset, setup constant removed). thin blue: plus the change of pull since setup (' + m.dConst.toFixed(3) + ' mm).', x0, y0 + h + 30, 72);
+    return { pp: mx0 - mn0 };
+  }
+
+  function plotBars(m) {
+    const x0 = 570, y0 = 372;
+    T(x0, y0 - 16, 'What the seat does to the dot', 'big');
+    const rows = [
+      ['1x from lobing + centre offset', m.cAmp, '#a855f7', 'the ring cannot know the out-of-round it is centred on'],
+      ['change of pull / stiffness', Math.abs(m.dConst), '#f5a524', 'dry setup versus weld: ' + P.dF.toFixed(1) + ' N of change'],
+      ['room-fixed gun, indicated tube', 0.125, '#7c8aa0', 'rig-doc 0.25 mm TIR acceptance, half as amplitude'],
+    ];
+    const scale = 0.4, wpx = 190;
+    rows.forEach((r, i) => {
+      const y = y0 + i * 34;
+      T(x0, y + 3, r[0], 'small');
+      g.appendChild(WK.svg('rect', { x: x0 + 215, y: y - 8, width: wpx, height: 12, fill: '#141b24', stroke: '#232c39' }));
+      g.appendChild(WK.svg('rect', { x: x0 + 215, y: y - 8, width: Math.min(wpx, r[1] / scale * wpx), height: 12, fill: r[2], opacity: 0.9 }));
+      T(x0 + 221 + wpx, y + 3, (r[1] * 1000).toFixed(0) + ' µm', 'small');
+      T(x0, y + 17, r[3], 'small');
+    });
+    L(x0 + 215 + 0.3 / scale * wpx, y0 - 12, x0 + 215 + 0.3 / scale * wpx, y0 + 82, 'axis', { stroke: '#34d399', 'stroke-dasharray': '4 3' });
+    T(x0 + 215 + 0.3 / scale * wpx - 4, y0 - 16, 'window ±0.30', 'small', 'end');
+  }
+
+  function plotTether(m) {
+    const x0 = 570, x1 = 955, y0 = 530, h = 140;
+    T(x0, y0 - 20, 'Ring turning under umbilical drag (arm 233 mm)', 'big');
+    g.appendChild(WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: h, class: 'axis', fill: '#10151c' }));
+    const ymax = 30, yOf = v => y0 + h - Math.min(v, ymax) / ymax * h, xOf = f => x0 + (x1 - x0) * f / 10;
+    for (let v = 0; v <= 30; v += 10) { L(x0, yOf(v), x1, yOf(v), 'grid'); T(x0 - 5, yOf(v) + 4, v + '°', 'small', 'end'); }
+    for (let f = 0; f <= 10; f += 2) { L(xOf(f), y0, xOf(f), y0 + h, 'grid'); T(xOf(f), y0 + h + 14, f + ' N', 'small', 'middle'); }
+    const curves = [['cords02', 'k1', '0.2 N/mm cords'], ['cords1', 'k2', '1 N/mm cords (datum-03 default)'], ['rod', 'k3', 'one rod'], ['wire', 'k4', 'wire pair']];
+    curves.forEach((c, i) => {
+      const save = P.tether; P.tether = c[0]; let d = '';
+      for (let f = 0; f <= 10; f += 0.25) { const v = tetherInfo(f).deg; d += (f ? 'L' : 'M') + xOf(f).toFixed(1) + ' ' + yOf(v).toFixed(1); }
+      g.appendChild(WK.svg('path', { d: d, class: c[1] })); P.tether = save;
+      L(x0 + 10, y0 + 12 + i * 13, x0 + 30, y0 + 12 + i * 13, c[1]); T(x0 + 36, y0 + 16 + i * 13, c[2], 'small');
+    });
+    const t = m.tet;
+    g.appendChild(WK.svg('circle', { cx: xOf(P.F), cy: yOf(t.deg), r: 5, fill: '#fff', stroke: '#a855f7', 'stroke-width': 2 }));
+    const yy = words('now: ' + t.deg.toFixed(2) + '° at ' + P.F.toFixed(1) + ' N (' + t.mmSeam.toFixed(1) + ' mm of seam), net force into the seat ' + t.net.toFixed(1) + ' N', x0, y0 + h + 30, 72);
+    words('a tab tether puts ' + (ARM / RT).toFixed(2) + ' x the drag into the ring seat; a wire pair puts none (a couple)', x0, yy, 72);
+  }
+
+  const setPk1 = app.ui.readout('pk1', 'Ring centre from the tube'), setPk2 = app.ui.readout('pk2', 'Change of pull / stiffness'), setPk3 = app.ui.readout('pk3', 'Ring turn under drag'), setPk4 = app.ui.readout('pk4', 'Seat sideways stiffness');
+  function redraw() {
+    const m = model(); clear(g);
+    drawPlan(m); plotLap(m); plotBars(m); plotTether(m);
+    setPk1((m.cAmp * 1000).toFixed(0), 'µm'); setPk2((m.dConst * 1000).toFixed(0), 'µm'); setPk3(m.tet.deg.toFixed(2), '°');
+    setPk4(P.type === 'clearance' ? 'none (float)' : (P.type === 'vblock' ? 'V rigid' : ((P.lock ? lockedK() : m.st.K).toFixed(0) + ' N/mm')), '');
+    app.badge('ls', P.lock && (P.type === 'pads' || P.type === 'rockers') && P.ls > 0.02 ? 'the lock moved the ring ' + (P.ls * 1000).toFixed(0) + ' µm as it closed: the hand trim before it did not see that (one look after the lock is needed)' : null, 'warn');
+    app.badge('lift', m.lifted ? 'ring lifts off the V: the sideways pull exceeds the preload' : null, 'limit');
+    app.badge('clr', P.type === 'clearance' ? 'no pads: the ring floats up to ±' + (P.clear / 2).toFixed(2) + ' mm and rides the tube at the loaded point' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Pad lock', value: P.lock ? 'locked' : 'soft', note: 'a hand action at seating in this scene (a cam or three set screws)' }, { name: 'Rotator', value: 'existing controller', note: 'turns the tube and the lower ring' }],
+      observes: [
+        { name: 'Ring azimuth', value: m.tet.deg.toFixed(2) + '°', status: P.tether === 'wire' || P.tether === 'rod' ? 'seen' : 'partly', note: P.tether === 'wire' ? 'known by construction: the wires are stiff' : 'depends on the tether stiffness; no encoder proposed' },
+        { name: 'Umbilical drag torque', value: '-', status: P.tether === 'wire' ? 'partly' : 'blind', note: 'a strain gauge on one wire of the pair would read it (proposed); nobody has measured the drag' },
+        { name: 'Ring centre error / float', value: '-', status: 'blind', note: 'nothing sees the ring against the seam; the numbers here are scene geometry' },
+        { name: 'Dot vs seam (r, z)', value: '-', status: 'blind', note: 'no sensor in this scene' },
+      ],
+      manual: ['Seat the crown and let the pads settle', 'Lock the pads (hand)', 'Trim the gun radially on the boom once, at the weld state of pull'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  function syncEnable() { try { app.ui.enable('k', P.type === 'pads'); app.ui.enable('delta', P.type === 'rockers'); app.ui.enable('lock', P.type === 'pads' || P.type === 'rockers'); app.ui.enable('ls', P.lock && (P.type === 'pads' || P.type === 'rockers')); app.ui.enable('ks', P.type !== 'clearance'); app.ui.enable('clear', P.type === 'clearance'); } catch (e) { /* controls not created yet */ } }
+  const gt = app.ui.group('The tube (scene edits: real shape is unknown)', { open: true, help: 'Illustrative amplitudes. Bore diameter and wall are from the repo; how round any tube is nobody has measured.' });
+  gt.radio({ id: 'n', label: 'Out-of-round harmonic n', options: [{ value: '2', label: '2 (oval)' }, { value: '3', label: '3 (three-lobe)' }, { value: '4', label: '4' }, { value: '5', label: '5' }], value: '2', kind: 'scene', help: 'n lobes around the circumference.', onChange: v => { P.n = +v; redraw(); } });
+  gt.slider({ id: 'e', label: 'Lobe amplitude', min: 0, max: 0.3, step: 0.005, value: 0.10, unit: 'mm', kind: 'scene', help: 'Radial amplitude of the out-of-round of the outside, illustrative.', onChange: v => { P.e = v; redraw(); } });
+  gt.slider({ id: 'alpha', label: 'Lobe phase', min: 0, max: 180, step: 1, value: 25, unit: '°', kind: 'scene', help: 'Where the lobes sit relative to the tube frame.', onChange: v => { P.alpha = v; redraw(); } });
+  gt.slider({ id: 's', label: 'OD centre offset from the bore (n = 1)', min: 0, max: 0.2, step: 0.005, value: 0.08, unit: 'mm', kind: 'scene', help: 'Wall-thickness variation. Passes every seat at gain 1.', onChange: v => { P.s = v; redraw(); } });
+  const gs = app.ui.group('The seat (branch)', { open: true });
+  gs.radio({ id: 'type', label: 'How the ring is centred', options: [{ value: 'clearance', label: 'plain clearance' }, { value: 'pads', label: 'equal spring pads' }, { value: 'rockers', label: 'rockers (2 pads each)' }, { value: 'vblock', label: 'rigid V + spring' }], value: 'pads', kind: 'branch', help: 'Same tube, different seat.', onChange: v => { P.type = v; syncEnable(); redraw(); } });
+  gs.radio({ id: 'k', label: 'Pad count (equal pads)', options: ['3', '4', '5', '6'], value: '3', kind: 'scene', help: 'k pads pass harmonics k−1 and k+1 at gain 1.', onChange: v => { P.k = +v; redraw(); } });
+  gs.slider({ id: 'delta', label: 'Rocker half-span', min: 15, max: 60, step: 1, value: 45, unit: '°', kind: 'scene', help: '45° rejects ovality and three-lobing.', onChange: v => { P.delta = v; redraw(); } });
+  gs.slider({ id: 'th0', label: 'Pad clock on the tube', min: 0, max: 120, step: 1, value: 20, unit: '°', kind: 'scene', help: 'Where the pads sit on the tube. Re-clocking the ring turns the phase of its error.', onChange: v => { P.th0 = v; redraw(); } });
+  gs.slider({ id: 'ks', label: 'Pad spring rate', min: 1, max: 300, step: 1, value: 40, unit: 'N/mm', kind: 'scene', help: 'A pad must stay between about 2 and 20 N over a 0.36 mm spread of outside diameter: 50 N/mm at most (calc/08).', onChange: v => { P.ks = v; redraw(); } });
+  gs.slider({ id: 'clear', label: 'Clearance (plain fit)', min: 0.05, max: 0.5, step: 0.01, value: 0.20, unit: 'mm', kind: 'scene', help: 'datum-01 uses 0.20.', onChange: v => { P.clear = v; redraw(); } });
+  gs.slider({ id: 'ls', label: 'Shift as the lock closes', min: 0, max: 0.15, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'The cam or set screws move the ring as they close, after the last look. Unmeasured; a mean can be learned, a scatter needs a look after the lock.', onChange: v => { P.ls = v; redraw(); } });
+  gs.toggle({ id: 'lock', label: 'Lock the pads after settling', value: false, kind: 'state', help: 'Soft to centre, stiff to hold: the ring keeps the centre the soft pads found.', onChange: v => { P.lock = v; syncEnable(); redraw(); } });
+  const gf = app.ui.group('Forces (illustrative; nobody has measured them)', { open: true });
+  gf.slider({ id: 'F', label: 'Umbilical pull at the exit', min: 0, max: 10, step: 0.1, value: 3, unit: 'N', kind: 'scene', help: 'datum-03 uses 3 N.', onChange: v => { P.F = v; redraw(); } });
+  gf.slider({ id: 'share', label: 'Share of the pull that is radial at the station', min: 0, max: 1, step: 0.05, value: 0.6, unit: '', kind: 'scene', help: 'The pull is a vector; only the radial part moves the dot radially.', onChange: v => { P.share = v; redraw(); } });
+  gf.slider({ id: 'dF', label: 'Change of pull between setup and weld', min: 0, max: 3, step: 0.1, value: 1, unit: 'N', kind: 'scene', help: 'Wire feed starting, gas, the hand leaving the gun.', onChange: v => { P.dF = v; redraw(); } });
+  gf.radio({ id: 'tether', label: 'Tether about the tube axis', options: [{ value: 'cords02', label: 'cords 0.2' }, { value: 'cords1', label: 'cords 1' }, { value: 'rod', label: 'rod' }, { value: 'wire', label: 'wire pair' }], value: 'cords1', kind: 'branch', help: 'Turning about the tube axis does not move the dot, so a stiff tether costs nothing there; its reaction force is what matters.', onChange: v => { P.tether = v; redraw(); } });
+  const gv = app.ui.group('View');
+  gv.slider({ id: 'exag', label: 'Display exaggeration', min: 10, max: 200, step: 5, value: 70, unit: '×', kind: 'view', help: 'Scales every deviation drawn in the plan.', onChange: v => { P.exag = v; redraw(); } });
+  gv.slider({ id: 'theta', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'view', help: 'Turns the tube and lower ring. The station and the pull stay in the room.', onChange: v => { P.theta = v; redraw(); } });
+  gv.toggle({ id: 'play', label: 'Turn the rotator', value: false, kind: 'state', noVisual: true, onChange: v => { playing = v; app.animate(v); } });
+  app.onFrame(dt => { if (!playing) return false; P.theta = (P.theta + 12 * dt) % 360; app.ui.set('theta', Math.round(P.theta) % 360, { silent: true }); redraw(); return true; });
+  syncEnable();
+  redraw();
+})();
+</script>
+</body>
+</html>

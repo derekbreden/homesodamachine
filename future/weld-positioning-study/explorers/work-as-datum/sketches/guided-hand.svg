@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="755" viewBox="0 0 900 755">
+<rect width="900" height="755" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">H1. Guided hand: the work holds the dot, a fork holds two angles, the hand holds roll, preload and trigger</text>
+<text class="s" x="20" y="40">Seen from +X, +Y right. Tube, plate, ports: repo; gun: scene proxy at the opening pose; cup, hanger, fork: schematic.</text>
+<rect class="metal" x="378.9" y="528.9" width="2.9" height="81.1"/>
+<rect class="metal" x="598.2" y="528.9" width="2.9" height="81.1"/>
+<rect class="plate" x="382.0" y="540.0" width="216.0" height="11.1"/>
+<rect class="buy" x="444.7" y="515.5" width="24.0" height="24.5"/>
+<rect class="buy" x="511.4" y="515.5" width="24.0" height="24.5"/>
+<rect class="print" x="441.0" y="515.5" width="98.0" height="8.8"/>
+<rect class="print" x="411.2" y="487.5" width="157.5" height="14.0"/>
+<circle class="buy" cx="490.0" cy="528.6" r="11.4"/>
+<circle class="buy" cx="423.5" cy="528.6" r="11.4"/>
+<line x1="475.0" y1="520.1" x2="334.2" y2="333.2" stroke="#1f4e9a" stroke-width="35.0" stroke-opacity="0.18"/>
+<line class="gun" x1="475.0" y1="520.1" x2="334.2" y2="333.2"/>
+<polygon class="gun" points="208.1,233.3 217.5,196.9 266.8,176.4 393.6,344.6 384.1,381.1 334.8,401.5" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="277.2,320.8 81.3,295.8" stroke-width="7" stroke-opacity="0.5"/>
+<line class="beam" x1="475.0" y1="520.1" x2="490.0" y2="540.0"/>
+<circle cx="490.0" cy="540.0" r="3" fill="#d22"/>
+<line class="dim" x1="409.9" y1="506.6" x2="490.0" y2="540.0"/>
+<circle class="metal" cx="409.9" cy="506.6" r="7.0"/>
+<circle cx="419.5" cy="510.6" r="5.2" fill="#2f6b3a"/>
+<line x1="419.5" y1="510.6" x2="472.5" y2="473.5" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<line class="dim" x1="478.8" y1="453.7" x2="490.0" y2="540.0"/>
+<circle class="metal" cx="478.8" cy="453.7" r="7.0"/>
+<circle cx="480.2" cy="464.1" r="5.2" fill="#2f6b3a"/>
+<line x1="480.2" y1="464.1" x2="472.5" y2="473.5" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<line class="dim" x1="465.9" y1="506.6" x2="490.0" y2="540.0"/>
+<circle class="metal" cx="465.9" cy="506.6" r="7.0"/>
+<circle cx="468.8" cy="510.6" r="5.2" fill="#2f6b3a"/>
+<line x1="468.8" y1="510.6" x2="472.5" y2="473.5" stroke="#8a6d1f" stroke-width="3" stroke-opacity="0.7"/>
+<text x="542.5" y="277.5">cup on the work: three shell balls rest on</text>
+<text x="542.5" y="289.5" class="s">pads of a sphere R 50 centred on the dot (normals, dashed,</text>
+<text x="542.5" y="300.5" class="s">all pass through the dot): the dot is fixed, every rotation</text>
+<text x="542.5" y="311.5" class="s">about it is free. Pads on stalks from the plate hanger.</text>
+<text x="420.0" y="592.5">plate hanger (port seat, pin, three wheels, clamp) — as in D1</text>
+<circle cx="81.3" cy="295.8" r="6" fill="#7a3fa0"/>
+<rect x="69.3" y="277.8" width="24" height="36" fill="none" stroke="#555" stroke-width="2"/>
+<rect class="room" x="75.3" y="313.8" width="12" height="296.2"/>
+<text x="20" y="205.8">tail fork (room): grip-base ball</text>
+<text x="20" y="217.8" class="s">in a round vertical bore — sets hole and</text>
+<text x="20" y="228.8" class="s">plan angle (0.21°/mm); dot unaffected</text>
+<ellipse cx="157.1" cy="300.3" rx="26" ry="16" fill="#f1c9a5" fill-opacity="0.6" stroke="#a0683d"/>
+<text x="147.1" y="274.3">hand: grip + trigger;</text>
+<text x="147.1" y="286.3" class="s">holds roll about the grip axis, presses 7–15 N into the cup</text>
+<line x1="490.0" y1="540.0" x2="81.3" y2="295.8" stroke="#c05a00" stroke-dasharray="8 4"/>
+<text x="227.5" y="470.0" fill="#c05a00" class="s">grip axis (dot → cable exit): the one freedom left to the hand</text>
+<rect x="309.6" y="235.4" width="14" height="10" fill="#333"/>
+<text x="326.6" y="242.4" class="s">IMU logs roll; LED: all three balls seated</text>
+<text class="t" x="20" y="640">What each part sets</text>
+<text x="30" y="658" class="s">dot: 3 translations</text><text x="230" y="658" class="s">work (plate face + port-pair centre)</text><text x="470" y="658" class="s">cup centred on the dot</text>
+<text x="30" y="673" class="s">hole angle + plan angle</text><text x="230" y="673" class="s">room (or rotator frame)</text><text x="470" y="673" class="s">tail ball in a round bore</text>
+<text x="30" y="688" class="s">roll about the grip axis</text><text x="230" y="688" class="s">the hand</text><text x="470" y="688" class="s">pointer / IMU; beam turns 0.42° per 1° of roll</text>
+<text x="30" y="703" class="s">weight</text><text x="230" y="703" class="s">cup (nose share) + balancer</text><text x="470" y="703" class="s">the hand carries none of it</text>
+<text x="30" y="718" class="s">travel along the seam</text><text x="230" y="718" class="s">the rotator</text><text x="470" y="718" class="s">pedal</text>
+<text x="30" y="733" class="s">trigger</text><text x="230" y="733" class="s">the hand</text><text x="470" y="733" class="s">squeeze is internal to the hand</text>
+</svg>

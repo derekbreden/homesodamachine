@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="760" viewBox="0 0 1520 760" font-family="Helvetica, Arial, sans-serif">
+<rect width="1520" height="760" fill="#fcfcf8"/>
+<text x="12" y="22" font-size="15" font-weight="bold" fill="#222">Wave 2 - lid carrier, re-allocated (side view from -Y; X right; hole dial 30)</text>
+<line x1="20.0" y1="720.0" x2="820.0" y2="720.0" stroke="#222" stroke-width="2.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<text x="24.0" y="736.0" font-size="10" fill="#555" text-anchor="start">bench / common subplate</text>
+<polygon points="230.0,696.0 530.0,696.0 530.0,684.0 230.0,684.0" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.15"/>
+<line x1="250.0" y1="720.0" x2="250.0" y2="696.0" stroke="#2e7d32" stroke-width="4.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<circle cx="250.0" cy="710.0" r="7.0" stroke="#2e7d32" fill="#fff" stroke-width="1.5" fill-opacity="1.0"/>
+<line x1="510.0" y1="720.0" x2="510.0" y2="696.0" stroke="#2e7d32" stroke-width="4.0" stroke-opacity="1.0" stroke-linecap="butt"/>
+<circle cx="510.0" cy="710.0" r="7.0" stroke="#2e7d32" fill="#fff" stroke-width="1.5" fill-opacity="1.0"/>
+<line x1="250.0" y1="710.0" x2="510.0" y2="710.0" stroke="#2e7d32" stroke-width="1.2" stroke-opacity="1.0" stroke-linecap="butt" stroke-dasharray="4,3"/>
+<text x="80.0" y="680.0" font-size="10" fill="#2e7d32" text-anchor="start">3 fine screws, ball/cone-vee-flat,</text>
+<text x="80.0" y="693.0" font-size="10" fill="#2e7d32" text-anchor="start">one GT2 loop: one knob = pure Z</text>
+<text x="80.0" y="706.0" font-size="10" fill="#2e7d32" text-anchor="start">(per tube, set in phase 2)</text>
+<polygon points="305.0,684.0 455.0,684.0 455.0,634.0 305.0,634.0" stroke="#8a5a2b" fill="none" stroke-width="0.8" fill-opacity="1.0" stroke-dasharray="3,2"/>
+<polygon points="316.5,634.0 318.2,634.0 318.2,481.6 316.5,481.6" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.5"/>
+<polygon points="441.8,634.0 443.5,634.0 443.5,481.6 441.8,481.6" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.5"/>
+<polygon points="318.2,494.3 441.8,494.3 441.8,487.9 318.2,487.9" stroke="#8a5a2b" fill="#8a5a2b" stroke-width="1.2" fill-opacity="0.25"/>
+<line x1="50.0" y1="431.6" x2="380.0" y2="431.6" stroke="#7b1fa2" stroke-width="5.0" stroke-opacity="0.7" stroke-linecap="butt"/>
+<line x1="380.0" y1="431.6" x2="380.0" y2="485.9" stroke="#7b1fa2" stroke-width="3.0" stroke-opacity="0.7" stroke-linecap="butt"/>
+<line x1="50.0" y1="720.0" x2="50.0" y2="431.6" stroke="#7b1fa2" stroke-width="5.0" stroke-opacity="0.4" stroke-linecap="butt"/>
+<text x="50.0" y="419.6" font-size="10" fill="#7b1fa2" text-anchor="start">their H2 swivel hanger (-X side now free of lid structure)</text>
+<line x1="580.0" y1="720.0" x2="580.0" y2="421.6" stroke="#999" stroke-width="14.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<circle cx="580.0" cy="421.6" r="7.0" stroke="#222" fill="#fff" stroke-width="2" fill-opacity="1.0"/>
+<text x="520.0" y="381.6" font-size="10" fill="#222" text-anchor="start">hinge || Y (theirs: x 200, rim+60), pins in slots</text>
+<line x1="680.0" y1="426.6" x2="580.0" y2="461.6" stroke="#999" stroke-width="4.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<line x1="434.6" y1="476.6" x2="424.2" y2="460.2" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="424.2" y1="460.2" x2="409.7" y2="437.4" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="409.7" y1="437.4" x2="391.1" y2="408.2" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="391.1" y1="408.2" x2="382.5" y2="394.7" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="382.5" y1="394.7" x2="322.7" y2="300.7" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="354.6" y1="345.0" x2="377.1" y2="346.3" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.35" stroke-linecap="round"/>
+<line x1="500.6" y1="288.0" x2="514.9" y2="274.8" stroke="#3a6ea5" stroke-width="11.0" stroke-opacity="0.1" stroke-linecap="round"/>
+<line x1="514.9" y1="274.8" x2="534.9" y2="256.6" stroke="#3a6ea5" stroke-width="16.6" stroke-opacity="0.1" stroke-linecap="round"/>
+<line x1="534.9" y1="256.6" x2="560.4" y2="233.2" stroke="#3a6ea5" stroke-width="12.8" stroke-opacity="0.1" stroke-linecap="round"/>
+<line x1="560.4" y1="233.2" x2="572.2" y2="222.4" stroke="#3a6ea5" stroke-width="23.0" stroke-opacity="0.1" stroke-linecap="round"/>
+<line x1="572.2" y1="222.4" x2="654.4" y2="147.2" stroke="#3a6ea5" stroke-width="34.0" stroke-opacity="0.1" stroke-linecap="round"/>
+<line x1="616.3" y1="186.4" x2="618.9" y2="208.7" stroke="#3a6ea5" stroke-width="38.0" stroke-opacity="0.1" stroke-linecap="round"/>
+<text x="664.4" y="117.2" font-size="10" fill="#3a6ea5" text-anchor="start">parked at 80 deg (their over-centre)</text>
+<circle cx="441.8" cy="487.9" r="4.0" stroke="#d00" fill="#d00" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="580.0" y1="421.6" x2="362.7" y2="360.7" stroke="#335" stroke-width="6.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<line x1="580.0" y1="421.6" x2="680.0" y2="405.6" stroke="#335" stroke-width="6.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<line x1="550.0" y1="386.6" x2="550.0" y2="405.6" stroke="#335" stroke-width="5.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<text x="440.0" y="371.6" font-size="10" fill="#335" text-anchor="start">lid arm to front pair</text>
+<polygon points="348.7,368.7 376.7,368.7 376.7,352.7 348.7,352.7" stroke="#8d6e00" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.9"/>
+<polygon points="330.7,386.7 358.7,386.7 358.7,370.7 330.7,370.7" stroke="#8d6e00" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.9"/>
+<polygon points="312.7,404.7 340.7,404.7 340.7,388.7 312.7,388.7" stroke="#8d6e00" fill="#ffd54f" stroke-width="1.2" fill-opacity="0.9"/>
+<text x="387.7" y="330.7" font-size="10" fill="#8d6e00" text-anchor="start">stack on the lid, outermost first:</text>
+<text x="387.7" y="344.7" font-size="10" fill="#8d6e00" text-anchor="start">1. X slide (radial, per recipe)</text>
+<text x="387.7" y="357.7" font-size="10" fill="#8d6e00" text-anchor="start">2. Y slide = yaw, 1.08 mm/deg</text>
+<text x="387.7" y="370.7" font-size="10" fill="#8d6e00" text-anchor="start">3. recipe block (roll, hole)</text>
+<polygon points="539.0,405.6 550.0,416.6 561.0,405.6 561.0,421.6 539.0,421.6" stroke="#704" fill="#e7c" stroke-width="1.2" fill-opacity="1.0"/>
+<circle cx="550.0" cy="408.6" r="5.0" stroke="#222" fill="#666" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="550.0" y1="421.6" x2="550.0" y2="720.0" stroke="#999" stroke-width="4.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<text x="520.0" y="433.6" font-size="10" fill="#704" text-anchor="start">front pair y=+/-110, outside base</text>
+<polygon points="669.0,405.6 680.0,416.6 691.0,405.6 691.0,421.6 669.0,421.6" stroke="#704" fill="#e7c" stroke-width="1.2" fill-opacity="1.0"/>
+<circle cx="680.0" cy="408.6" r="5.0" stroke="#222" fill="#666" stroke-width="1.2" fill-opacity="1.0"/>
+<line x1="680.0" y1="421.6" x2="680.0" y2="426.6" stroke="#999" stroke-width="4.0" stroke-opacity="0.6" stroke-linecap="butt"/>
+<text x="650.0" y="433.6" font-size="10" fill="#704" text-anchor="start">rear ball (tail)</text>
+<line x1="680.0" y1="441.6" x2="680.0" y2="419.6" stroke="#704" stroke-width="1.4" stroke-opacity="1.0" stroke-linecap="butt"/>
+<polygon points="680.0,419.6 684.0,427.6 676.0,427.6" stroke="#704" fill="#704" stroke-width="1.2" fill-opacity="1.0"/>
+<text x="690.0" y="445.6" font-size="10" fill="#704" text-anchor="start">latch at the rear ball: &gt;= 40 N</text>
+<text x="1250.0" y="50.0" font-size="11" fill="#222" text-anchor="start" font-weight="bold">Who owns each freedom, by phase</text>
+<text x="1250.0" y="66.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="1250.0" y="82.0" font-size="11" fill="#555" text-anchor="start">load, indicate, plate, invert:</text>
+<text x="1250.0" y="98.0" font-size="11" fill="#555" text-anchor="start">  hinge (lid parked); per-tube Z set</text>
+<text x="1250.0" y="114.0" font-size="11" fill="#555" text-anchor="start">  on the work's 3 screws in phase 2</text>
+<text x="1250.0" y="130.0" font-size="11" fill="#555" text-anchor="start">tacks: lid seated + H2 (or hand)</text>
+<text x="1250.0" y="146.0" font-size="11" fill="#555" text-anchor="start">dry run, weld, stuck wire:</text>
+<text x="1250.0" y="162.0" font-size="11" fill="#555" text-anchor="start">  seat + latch (location), rotator (spin)</text>
+<text x="1250.0" y="178.0" font-size="11" fill="#555" text-anchor="start">  X, yaw (Y slide), recipe block: locked</text>
+<text x="1250.0" y="194.0" font-size="11" fill="#555" text-anchor="start">gun away: hinge</text>
+<text x="1250.0" y="210.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="1250.0" y="226.0" font-size="11" fill="#555" text-anchor="start">Per recipe: block, X, Y(yaw) on the lid</text>
+<text x="1250.0" y="242.0" font-size="11" fill="#555" text-anchor="start">Per tube:   work Z (rim back to nominal)</text>
+<text x="1250.0" y="258.0" font-size="11" fill="#555" text-anchor="start">Per snip:   stickout (their K3)</text>
+<text x="1250.0" y="274.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="1250.0" y="290.0" font-size="11" fill="#555" text-anchor="start">Checked with their proxy + hinge at the</text>
+<text x="1250.0" y="306.0" font-size="11" fill="#555" text-anchor="start">true opening pose (hole dial 30):</text>
+<text x="1250.0" y="322.0" font-size="11" fill="#555" text-anchor="start"> every feasible recipe pose escapes</text>
+<text x="1250.0" y="338.0" font-size="11" fill="#555" text-anchor="start">   (grip 30-60, hole dial 15-45, yaw</text>
+<text x="1250.0" y="354.0" font-size="11" fill="#555" text-anchor="start">   -30..+5 by rotation); yaw by Y slide</text>
+<text x="1250.0" y="370.0" font-size="11" fill="#555" text-anchor="start">   escapes -25..+5, near miss at -30</text>
+<text x="1250.0" y="386.0" font-size="11" fill="#555" text-anchor="start"> tube +/-3.2 mm escapes if Z is taken</text>
+<text x="1250.0" y="402.0" font-size="11" fill="#555" text-anchor="start">   by the work or the lid; untaken +3.2</text>
+<text x="1250.0" y="418.0" font-size="11" fill="#555" text-anchor="start">   puts the wire into the plate</text>
+<text x="1250.0" y="434.0" font-size="11" fill="#555" text-anchor="start"></text>
+<text x="1250.0" y="450.0" font-size="11" fill="#555" text-anchor="start">Seat behind the station, all posts on</text>
+<text x="1250.0" y="466.0" font-size="11" fill="#555" text-anchor="start">the subplate outside the rotator base:</text>
+<text x="1250.0" y="482.0" font-size="11" fill="#555" text-anchor="start">front pair x=170, rear ball x=300.</text>
+<text x="1250.0" y="498.0" font-size="11" fill="#555" text-anchor="start">CG at (-30, -108) is 200 mm outside</text>
+<text x="1250.0" y="514.0" font-size="11" fill="#555" text-anchor="start">the front pair: latch at the rear ball</text>
+<text x="1250.0" y="530.0" font-size="11" fill="#555" text-anchor="start">&gt;= 33 N, + 7 N for a 5 N cable tug</text>
+<text x="1250.0" y="546.0" font-size="11" fill="#555" text-anchor="start">(lid+gun 2.2 kg, their estimate);</text>
+<text x="1250.0" y="562.0" font-size="11" fill="#555" text-anchor="start">their 60 N latch gives ~1.5x.</text>
+</svg>

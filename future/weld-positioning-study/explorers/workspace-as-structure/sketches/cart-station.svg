@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1060" viewBox="0 0 1240 1060">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="20.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="start" fill="#111" font-weight="bold">Cart station: the welding cart carries the whole cable system and the weld module</text>
+<text x="20.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#444" font-weight="normal">Weldpro 3-tier cart (40.5 x 18.2 x 30.7 in, trays 20.9 x 13 in) [listing]. Tray heights, unit placement and cylinder size are assumptions. mm, to scale.</text>
+<text x="60.0" y="72.0" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" fill="#111" font-weight="bold">SIDE ELEVATION from the operator's side (front of cart at left)</text>
+<line x1="38.8" y1="834.0" x2="746.0" y2="834.0" stroke="#999" stroke-width="1"/>
+<polygon points="101.2,766.4 538.0,766.4 538.0,772.6 101.2,772.6" fill="#ccc" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<text x="103.8" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#555" font-weight="normal">bottom tray (33.1 x 13.8 in)</text>
+<polygon points="70.0,449.2 346.1,449.2 346.1,455.4 70.0,455.4" fill="#ccc" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<text x="72.6" y="464.8" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#555" font-weight="normal">upper tray (20.9 x 13 in)</text>
+<polygon points="70.0,584.4 346.1,584.4 346.1,590.6 70.0,590.6" fill="none" fill-opacity="1.0" stroke="#555" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="257.2" y="576.6" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#555" font-weight="normal">middle tray removed</text>
+<line x1="70.0" y1="802.8" x2="70.0" y2="449.2" stroke="#555" stroke-width="3"/>
+<line x1="346.1" y1="802.8" x2="346.1" y2="449.2" stroke="#555" stroke-width="3"/>
+<line x1="605.1" y1="802.8" x2="605.1" y2="449.2" stroke="#555" stroke-width="3"/>
+<circle cx="90.8" cy="808.0" r="26.0" fill="none" stroke="#555" stroke-width="2"/>
+<circle cx="579.6" cy="808.0" r="26.0" fill="none" stroke="#555" stroke-width="2"/>
+<polygon points="434.0,792.4 527.6,792.4 527.6,184.0 506.8,142.4 454.8,142.4 434.0,184.0" fill="#eef3e8" fill-opacity="1.0" stroke="#6a8a4a" stroke-width="1.2"/>
+<text x="436.6" y="210.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a8a4a" font-weight="normal">argon cylinder (height depends on size)</text>
+<polygon points="111.6,766.4 356.0,766.4 356.0,592.2 111.6,592.2" fill="#e9e1f5" fill-opacity="1.0" stroke="#6a4c93" stroke-width="1.2"/>
+<text x="122.0" y="678.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a4c93" font-weight="normal">X1 Pro unit 470 x 205 x 335, 21 kg (bottom tray)</text>
+<text x="122.0" y="693.6" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a4c93" font-weight="normal">up to 2.5 kW dissipated: bottom tray, exhaust aimed away</text>
+<polygon points="241.6,443.0 335.2,443.0 335.2,339.0 241.6,339.0" fill="#f1ecf8" fill-opacity="1.0" stroke="#6a4c93" stroke-width="1.2"/>
+<text x="244.2" y="349.4" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a4c93" font-weight="normal">wire feeder on the</text>
+<text x="244.2" y="359.8" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a4c93" font-weight="normal">module, under the tail</text>
+<polygon points="80.4,447.6 340.4,447.6 340.4,443.0 80.4,443.0" fill="#f6c7cf" fill-opacity="1.0" stroke="#b00020" stroke-width="1.2"/>
+<text x="80.4" y="477.8" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#b00020" font-weight="normal">weld module plate on 3 hard feet (the loop lives here)</text>
+<polygon points="70.0,430.5 226.0,430.5 226.0,424.2 70.0,424.2" fill="#ddd" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<polygon points="109.0,424.2 187.0,424.2 187.0,398.2 109.0,398.2" fill="#ddd" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<polygon points="115.0,398.2 181.0,398.2 181.0,319.0 115.0,319.0" fill="none" fill-opacity="1.0" stroke="#333" stroke-width="1.4"/>
+<path d="M 465.2 262.0 C 402.8 366.0 158.4 522.0 148.0 443.0" stroke="#6a8a4a" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+<text x="161.0" y="501.2" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#6a8a4a" font-weight="normal">purge up through a tray hole into the Ø90 passage</text>
+<polygon points="205.6,247.2 206.1,258.6 208.6,268.1 270.6,260.3 270.1,248.9 267.6,239.3" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="176.7,264.2 179.5,275.1 194.1,281.1 231.8,231.2 229.0,220.3 214.3,214.3" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="175.2,277.2 176.0,278.8 177.4,280.5 179.3,282.1 181.3,283.2 183.3,283.7 184.7,283.6 185.5,282.8 190.5,276.1 190.6,274.8 189.8,273.2 188.3,271.5 186.4,270.0 184.4,268.9 182.5,268.3 181.0,268.5 180.2,269.2 175.2,275.9" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="165.2,295.4 165.5,296.1 166.2,296.9 167.0,297.6 168.0,298.1 168.9,298.4 169.5,298.3 169.9,298.0 182.7,280.9 182.7,280.3 182.4,279.6 181.7,278.8 180.8,278.1 179.9,277.6 179.0,277.4 178.4,277.4 178.0,277.8 165.2,294.8" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="148.8,314.9 149.3,316.0 150.4,317.2 151.7,318.3 153.2,319.1 154.5,319.5 155.5,319.4 156.1,318.8 171.2,298.8 171.2,297.9 170.6,296.7 169.6,295.5 168.3,294.5 166.8,293.7 165.5,293.3 164.4,293.4 163.9,293.9 148.8,313.9" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<circle cx="148.0" cy="322.3" r="3.0" fill="#d00000" stroke="#d00000" stroke-width="1.2"/>
+<circle cx="269.4" cy="249.7" r="3.5" fill="#1b5e20" stroke="#1b5e20" stroke-width="1.2"/>
+<line x1="269.4" y1="249.7" x2="304.2" y2="228.9" stroke="#1b5e20" stroke-width="3"/>
+<path d="M 304.2 228.9 L 312.9 224.1 L 321.8 219.7 L 330.9 215.8 L 340.2 212.3 L 349.7 209.4 L 359.3 207.1 L 369.0 205.2 L 378.7 203.9 L 388.6 203.1 L 398.4 202.8 L 408.3 203.1 L 418.1 203.9 L 427.9 205.2 L 437.6 207.1 L 447.2 209.5 L 456.6 212.4 L 465.9 215.8 L 475.0 219.7 L 483.9 224.1 L 492.6 228.9 L 501.0 234.3 L 509.1 240.1 L 517.0 246.3 L 524.5 252.9 L 531.6 259.9 L 538.4 267.3 L 544.8 275.1 L 550.8 283.2 L 556.4 291.6 L 561.5 300.3 L 566.3 309.3 L 570.5 318.5 L 574.3 327.9 L 577.6 337.6 L 580.4 347.3 L 582.7 357.3 L 584.5 367.3 L 585.8 377.4 L 586.5 387.6 L 586.8 397.8" stroke="#1b5e20" stroke-width="3" fill="none"/>
+<line x1="586.8" y1="397.8" x2="586.8" y2="542.8" stroke="#1b5e20" stroke-width="3"/>
+<text x="415.2" y="335.4" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">fixed-shape umbilical + wire conduit: one bend, R 375,</text>
+<text x="415.2" y="348.4" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">on a printed saddle carried by a mast at the rear</text>
+<line x1="599.8" y1="470.0" x2="599.8" y2="93.7" stroke="#1f4e9c" stroke-width="5"/>
+<text x="605.0" y="98.9" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1f4e9c" font-weight="normal">mast</text>
+<path d="M 586.8 542.8 C 586.8 740.4 222.8 740.4 222.8 584.4" stroke="#1b5e20" stroke-width="2" fill="none" stroke-dasharray="6,4"/>
+<text x="228.0" y="779.4" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">excess ~3 m stored on the cart side panel as an S of R &gt;= 350 turns (no net twist), then to the unit</text>
+<text x="142.8" y="301.5" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="end" fill="#d00000" font-weight="normal">dot ~1.0 m above floor</text>
+<text x="331.8" y="130.1" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">cable apex ~1214 mm above floor</text>
+<text x="740.0" y="72.0" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start" fill="#111" font-weight="bold">PLAN (operator at the bottom)</text>
+<polygon points="760.0,153.8 1192.2,153.8 1192.2,347.8 760.0,347.8" fill="#f4f4f4" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<polygon points="760.0,181.5 983.0,181.5 983.0,320.1 760.0,320.1" fill="#e4e4e4" fill-opacity="1.0" stroke="#555" stroke-width="1.2"/>
+<circle cx="1091.8" cy="250.8" r="37.8" fill="#eef3e8" stroke="#6a8a4a" stroke-width="1.2"/>
+<circle cx="823.0" cy="250.8" r="26.7" fill="none" stroke="#333" stroke-width="1.2"/>
+<polygon points="768.4,187.8 978.4,187.8 978.4,313.8 768.4,313.8" fill="none" fill-opacity="1.0" stroke="#b00020" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="869.5,255.1 871.5,264.9 921.6,259.7 922.0,252.3 920.0,242.6 870.0,247.8" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="846.1,247.9 848.4,259.0 878.8,284.7 890.7,278.4 888.4,267.3 858.0,241.6" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="845.0,249.1 845.6,250.5 849.6,253.9 850.8,254.7 852.3,254.8 854.0,254.2 855.5,253.1 856.7,251.5 857.4,249.8 857.4,248.1 856.7,246.8 852.7,243.4 851.5,242.6 850.0,242.4 848.3,243.0 846.8,244.1 845.6,245.7 845.0,247.5" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="836.9,239.2 837.1,239.8 847.5,248.5 848.0,248.9 848.7,248.9 849.5,248.7 850.2,248.2 850.7,247.4 851.0,246.6 851.1,245.9 850.8,245.3 840.4,236.5 839.9,236.2 839.2,236.1 838.4,236.4 837.7,236.9 837.2,237.6 836.9,238.4" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<polygon points="823.6,229.4 824.1,230.4 836.3,240.7 837.1,241.2 838.2,241.3 839.3,240.9 840.4,240.1 841.3,239.0 841.7,237.7 841.7,236.6 841.3,235.6 829.1,225.4 828.3,224.8 827.2,224.7 826.0,225.1 825.0,225.9 824.1,227.0 823.7,228.3" fill="#f3d9a8" fill-opacity="0.9" stroke="#7a4b00" stroke-width="1.0"/>
+<circle cx="823.0" cy="224.8" r="3.0" fill="#d00000" stroke="#d00000" stroke-width="1.2"/>
+<line x1="921.1" y1="251.1" x2="1177.4" y2="319.8" stroke="#1b5e20" stroke-width="3"/>
+<circle cx="1177.4" cy="319.8" r="4.0" fill="#1b5e20" stroke="#1b5e20" stroke-width="1.2"/>
+<text x="995.2" y="339.0" font-family="Helvetica, Arial, sans-serif" font-size="9" text-anchor="start" fill="#1b5e20" font-weight="normal">drop point ~840-910 mm from the dot</text>
+<text x="760.0" y="368.4" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="start" fill="#444" font-weight="bold">OPERATOR (long side)</text>
+<text x="740.0" y="380.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Loop: gun support + rotator on the module plate only; the cart's trays and</text>
+<text x="752.0" y="395.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">casters carry, never locate.</text>
+<text x="740.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Cable: unit -&gt; S store -&gt; mast saddle -&gt; one R 375 bend -&gt; clamp on the module</text>
+<text x="752.0" y="429.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">-&gt; grip. Same shape every tube.</text>
+<text x="740.0" y="448.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Feeder on the module plate under the gun tail: conduit short and in a fixed</text>
+<text x="752.0" y="463.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">shape; purge and gun gas from the cart own cylinder.</text>
+<text x="740.0" y="482.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Loading from above: gun parks by a hinge through its cable exit (the cable</text>
+<text x="752.0" y="497.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">only bends in its own plane).</text>
+<text x="740.0" y="516.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">Rolls to the window fan or a laser-safe corner; the whole station moves as one</text>
+<text x="752.0" y="531.0" font-family="Helvetica, Arial, sans-serif" font-size="10" text-anchor="start" fill="#111" font-weight="normal">piece.</text>
+</svg>

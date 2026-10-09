@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide star at the knee: half a dot</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .gk-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px 14px; align-items: start; }
+  @container gkstage (max-width: 860px) { .gk-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: gkstage; }
+  .gk-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .gk-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .gk-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .gk-col { display: grid; gap: 10px; align-content: start; }
+  .gk-svg { display: block; width: 100%; height: auto; }
+  .gk-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .gk-svg text.b { fill: #e7ebf1; font-weight: 600; } .gk-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .gk-svg text.red { fill: #ff8a80; } .gk-svg text.blue { fill: #7fb0ff; } .gk-svg text.teal { fill: #5eead4; } .gk-svg text.amber { fill: #fbbf24; } .gk-svg text.grey { fill: #94a3b8; }
+  .gk-status { font: 600 13px system-ui, sans-serif; padding: 5px 10px; border: 1px solid var(--wk-line2); border-radius: 8px; margin: 6px 0; background: var(--wk-panel2); color: #cfd6e2; }
+  .gk-status.good { color: #34d399; } .gk-status.bad { color: #f87171; } .gk-status.mid { color: #fbbf24; }
+  .gk-note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; line-height: 1.4; }
+  .gk-note b { color: #e7ebf1; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-20-guide-at-the-knee",
+  "title": "Guide star at the knee: half a dot",
+  "by": "trials",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Borrowed-05 guides the dot's centroid to the seam pixel. At the seam the wall hides the part of the dot that lies on it, so the centroid never reaches the seam and the loop parks half a spot into the wall or hunts at the edge. Guiding on the visible fraction, with the 50 % point as the target, puts the dot's centre on the seam whatever its size. One axis, one camera, the loop drawn frame by frame.",
+  "tags": ["lens", "guide loop", "closed loop", "visible fraction", "knee", "calibration", "simulation"],
+  "branchOf": ["borrowed-05-guide-star"],
+  "combines": ["trials-03-dot-touch-probe"],
+  "transferable": ["centroid slope 1, 1/2, 0 across the seam", "guide on the visible fraction, target 50 %", "calibrate on the plate side, not across", "approach by centroid, close on the fraction"],
+  "how": {
+    "motion": "one trim axis across the seam (any arrangement's radial trim); nudged to calibrate, then stepped by a loop",
+    "load": "not a mechanism: the axis is whatever the arrangement provides",
+    "reference": "the seam, as the edge that hides half the dot; the 50 % point of the fraction",
+    "observe": "camera A reads centroid and integrated intensity of the plate part of the dot",
+    "use": "dry run, red dot only; calibrate on the plate side, then guide"
+  },
+  "software": {
+    "commands": ["axis steps (nudge, then loop)", "calibrate here", "guide with centroid or fraction"],
+    "observes": ["centroid of the plate part of the dot", "fraction of the dot's full brightness that is visible", "star lost"],
+    "manual": ["placing the camera so the plate side of the corner is in view", "having a trim axis at all"]
+  },
+  "notes": ["../../exchange/trials--on--borrowed-w2.md", "../../explorers/trials/ideas/trials-20-guide-at-the-knee.md", "../../explorers/borrowed/ideas/borrowed-05-guide-star.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, RAD = Math.PI / 180, WT = 1.65;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>An autoguider needs a star that stays a star. The dot at the seam does not: the wall covers the part that lies on it, so from above only the plate part is seen. As the dot crosses the seam its <b>centroid</b> moves at full speed on the plate, at <b>half</b> speed while the dot straddles the seam, and then the dot is gone. Its <b>visible fraction</b> falls smoothly from 100 % to 0 % across one dot-width, and it is 50 % exactly when the dot’s centre is on the seam.</p>' +
+        '<p>Press <b>Guide</b> with <b>centroid to the seam pixel</b> (borrowed-05 as drawn): the loop can never reach its target, because a target of zero needs a dot of zero width; watch it park beyond the seam or hunt at the edge of visibility. Then choose <b>fraction to 50 %</b>. Try <b>Calibrate here</b> from the plate side and again with the dot straddling the seam.</p>',
+      carries: '<p>Not a mechanism. The axis is whatever the arrangement offers across the seam: the trim of borrowed-01, a gantry axis of borrowed-02, the pointer of trials-18, the gun’s own swing offset of borrowed-06. The seam itself is the reference: its edge hides the dot.</p>',
+      software: '<p>Nudge and watch (borrowed-05) gives the centroid slope where it is calibrated. The guide steps the axis by the error divided by that slope, or, in the fraction scheme, by the error in fraction times the dot width, because the fraction changes by one over the width per millimetre across the transition. Far from the seam, where the fraction is saturated at 100 %, the centroid does the approaching.</p>',
+      tried: '<ul>' +
+        '<li><b>A centroid target at the seam pixel is unreachable.</b> The plate part of a dot of width w has its centroid at (x − w/2)/2 when the centre is at x past the seam; it reaches the seam pixel only when nothing is visible. With a 0.5 mm dot at 32° (w = 0.59 mm) the loop is trying to sit half a spot, 0.29 mm, into the wall. A target of −w/4 (0.15 mm short of the seam pixel) is the centre on the seam, but it needs w, which changes with height.</li>' +
+        '<li><b>The fraction does not need w.</b> Half visible is centre on the seam for any dot size. It needs the dot’s full brightness on the plate at the same standoff, measured once on the plate side.</li>' +
+        '<li><b>Calibrating across the seam measures the wrong plant.</b> A nudge started with the dot straddling the seam sees a centroid slope of 0.5 to 0.7 (or loses the star): the guide then over-corrects by up to two times on the plate side. Move to the plate side (a millimetre short) and calibrate there.</li>' +
+        '<li><b>Left standing:</b> the real dot is not a bar (a round Gaussian spot with tails), the edge is a wall seen at a small angle, not a sharp line, and both the seam and the dot brightness depend on the surface. The fraction curve is drawn ideal here; the real one has soft ends.</li></ul>',
+      unresolved: '<ul><li>Camera A reads the plate side of the seam foot. From straight above the station the wall spot is edge-on and the dot vanishes at the seam; from a camera over the bore (11.6° off vertical at 300 mm) the wall part shows in a strip beyond the seam foot and the software needs the seam foot\'s image position from the tube\'s rim and ports (trials-03, item 7; datum-19) <b>[unknown]</b>.</li><li>What the real dot looks like at the corner (size, brightness, tails) <b>[unknown]</b>; the fraction is only as clean as the intensity model behind it.</li>' +
+        '<li>Whether a camera can see the plate part of the dot right up to the seam without the wall’s own shadow or reflection confusing it (eyes and trials-03).</li>' +
+        '<li>The wall side: camera B sees the wall spot, so a two-camera version could hold the same 50 % point from both sides.</li></ul>',
+      assumptions: '<ul><li>Dot diameter 0.5 mm, footprint w = d / cos 32° = 0.59 mm along r (the reference scene’s 32°), a sharp-edged bar: <b>[illustrative]</b>. Camera centroid noise 0.025 mm (0.6 px at 24 px/mm, as borrowed-05), fraction noise 0.02, axis step 0.02 mm, drift 0.3 mm/min toward the wall: illustrative.</li>' +
+        '<li>Loop: every 0.5 s, gain 0.6, sub-step commands dropped, star lost → back off 0.1 mm toward the plate. The centroid loop uses the calibrated slope if there is one, otherwise 1.</li></ul>'
+    }
+  });
+
+  // ------------------------------------------------------------------ model
+  const st = { scheme: 'centroid', d: 0.5, sigC: 0.025, sigF: 0.02, gain: 0.6, speed: 2, drift: 0.3, step: 0.02 };
+  const wid = () => st.d / Math.cos(32 * RAD);
+  function vis(x) {                                             // dot centre at x (mm past the seam); plate is x < 0
+    const w = wid(), lo = x - w / 2, hi = Math.min(x + w / 2, 0);
+    if (hi <= lo + 1e-9) return { c: null, f: 0 };
+    return { c: (lo + hi) / 2, f: (hi - lo) / w };
+  }
+  const rnd = (function () { let s = 987654321; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; })();
+  const gauss = () => { let a = 0; for (let i = 0; i < 6; i++) a += rnd(); return (a - 3) * Math.SQRT2; };
+  const sim = { t: 0, x0: -1.0, steps: 0, guide: false, hist: [], slope: null, calNote: 'not calibrated', calOk: null, lostCount: 0, phase: '', acc: 0, calQ: null, calWait: 0, mode: 'idle', rec: [] };
+  const pos = () => sim.x0 + sim.steps * st.step + st.drift / 60 * sim.t;   // true dot centre (mm past the seam)
+  function measure(n) {                                          // averaged reading of the plate part
+    const x = pos(), v = vis(x); if (v.c == null) return { c: null, f: 0, lost: true };
+    let c = 0, f = 0; for (let i = 0; i < n; i++) { c += v.c + gauss() * st.sigC; f += v.f + gauss() * st.sigF; }
+    return { c: c / n, f: Math.max(0, Math.min(1, f / n)), lost: false };
+  }
+
+  // ------------------------------------------------------------------ calibration: nudge the axis, watch the centroid
+  function startCalibration() {
+    sim.mode = 'calibrating'; sim.guide = false; app.ui.set('guide', false, { silent: true });
+    const base = sim.steps; sim.rec = [];
+    sim.calQ = [{ mv: 0, rec: 0 }, { mv: 8, rec: 1 }, { mv: 8, rec: 2 }, { mv: 8, rec: 3 }, { mv: -24, rec: -1, finish: true }];
+    sim.calWait = 0; sim.calNote = 'calibrating: nudging the axis toward the wall'; sim.calBase = base;
+  }
+  function stepCal(dt) {
+    if (sim.calWait > 0) { sim.calWait -= dt; return; }
+    const it = sim.calQ.shift(); if (!it) { sim.mode = 'idle'; return; }
+    sim.steps += it.mv;
+    if (it.rec >= 0) { const m = measure(6); sim.rec[it.rec] = m; if (m.lost && sim.calOk == null) { sim.calOk = false; sim.calNote = 'calibration failed: the star was lost while nudging (the dot went onto the wall)'; sim.calQ = [{ mv: sim.calBase - sim.steps, rec: -1, finish: true }]; sim.slope = null; } }
+    if (it.finish) {
+      const r = sim.rec;
+      if (sim.calOk === false) { /* already noted */ }
+      else if (r[0] && r[3] && r[0].c != null && r[3].c != null) {
+        sim.slope = (r[3].c - r[0].c) / (24 * st.step); sim.calOk = true;
+        sim.calNote = 'calibrated at x = ' + (sim.x0 + sim.calBase * st.step + st.drift / 60 * sim.t).toFixed(2) + ' mm: centroid slope ' + sim.slope.toFixed(2) + ' (a dot fully on the plate gives 1.00)';
+      } else { sim.slope = null; sim.calOk = false; sim.calNote = 'calibration failed: the star was lost while nudging'; }
+      sim.calQ = []; sim.mode = 'idle'; sim.calDone = sim.t;
+    }
+    sim.calWait = 0.3;
+  }
+
+  // ------------------------------------------------------------------ the guide loop
+  function guideTick() {
+    const slope = sim.slope || 1;
+    const w = wid(); let n = 0;
+    if (st.scheme === 'centroid') {
+      const m = measure(3);
+      if (m.lost) { n = -5; sim.phase = 'star lost: backing off toward the plate'; sim.lostCount++; }
+      else { const e = 0 - m.c; n = Math.round(st.gain * e / (slope * st.step)); if (Math.abs(st.gain * e / (slope * st.step)) < 0.6) n = 0; sim.phase = 'centroid to the seam pixel'; }
+    } else {
+      const m = measure(3);
+      if (m.lost) { n = -5; sim.phase = 'star lost: backing off toward the plate'; sim.lostCount++; }
+      else if (m.f > 0.97) { const ct = -0.4 * w, e = ct - m.c; n = Math.round(st.gain * e / (slope * st.step)); if (Math.abs(st.gain * e / (slope * st.step)) < 0.6) n = 0; sim.phase = 'approach: centroid toward ' + ct.toFixed(2) + ' mm (inside the transition)'; }
+      else { const dx = st.gain * (m.f - 0.5) * w; n = Math.round(dx / st.step); if (Math.abs(dx / st.step) < 0.6) n = 0; sim.phase = 'fraction to 50 %'; }
+    }
+    sim.steps += n; app.ui.set('axis', Math.max(-3, Math.min(1.5, pos())), { silent: true });
+  }
+
+  // ------------------------------------------------------------------ drawing
+  const CW = 800, CH = 200, SC = 140, XC = 480;               // x mm -> px: seam at 480
+  const PX = x => XC + x * SC;
+  const cam = S('svg', { viewBox: '0 0 ' + CW + ' ' + CH, class: 'gk-svg', role: 'img', 'aria-label': 'simulated camera above the corner' });
+  const clip = S('clipPath', { id: 'gkClip' }, S('rect', { x: 0, y: 0, width: XC, height: CH }));
+  cam.appendChild(S('defs', {}, clip));
+  const gPlate = S('rect', { x: 0, y: 56, width: XC, height: 96, fill: '#7e8896' }), gWall = S('rect', { x: XC, y: 56, width: WT * SC, height: 96, fill: '#c8d0da' }), gOut = S('rect', { x: XC + WT * SC, y: 56, width: Math.max(1, CW - XC - WT * SC), height: 96, fill: '#20272f' });
+  const seamLine = S('line', { x1: XC, y1: 52, x2: XC, y2: 156, stroke: '#14b8a6', 'stroke-width': 1.4 });
+  const ghost = S('ellipse', { cy: 104, fill: 'none', stroke: '#ff8a80', 'stroke-dasharray': '4 3', 'stroke-width': 1 });
+  const dotPlate = S('ellipse', { cy: 104, fill: '#ff3b30', 'clip-path': 'url(#gkClip)' });
+  const tgtA = S('g', { stroke: '#14b8a6', 'stroke-width': 1.2, fill: 'none' }, S('line', { x1: XC - 14, y1: 104, x2: XC - 5, y2: 104 }), S('line', { x1: XC + 5, y1: 104, x2: XC + 14, y2: 104 }), S('circle', { cx: XC, cy: 104, r: 5 }));
+  const tgtC = S('g'), cenMark = S('line', { y1: 60, y2: 148, stroke: '#ffffff', 'stroke-width': 1.2 });
+  const txt1 = S('text', { x: 8, y: 16, class: 'b', text: 'Simulated camera above the corner: the plate part of the dot is red' });
+  const txt2 = S('text', { x: 8, y: CH - 8, class: 'sm', text: '' });
+  cam.append(gPlate, gWall, gOut, seamLine, ghost, dotPlate, cenMark, tgtA, tgtC, txt1, txt2, S('text', { x: 8, y: 50, class: 'sm', text: 'plate' }), S('text', { x: XC + 3, y: 50, class: 'sm teal', text: 'seam' }), S('text', { x: XC + 4, y: 168, class: 'sm', text: 'wall top' }));
+  const status = h('div', { class: 'gk-status', text: 'idle' });
+  const note = h('div', { class: 'gk-note' });
+  // signal chart
+  const SW = 520, SH = 230, TW = 800, sig = S('svg', { viewBox: '0 0 ' + SW + ' ' + SH, class: 'gk-svg', role: 'img', 'aria-label': 'what the camera reports against the dot position' });
+  // trace chart
+  const trc = S('svg', { viewBox: '0 0 ' + TW + ' ' + SH, class: 'gk-svg', role: 'img', 'aria-label': 'dot position against time' });
+  const mkc = (t, e, svg, extra) => h('div', { class: 'gk-card' }, h('h3', {}, h('span', { text: t }), h('em', { text: e })), svg, extra || '');
+  const readout = h('div', { class: 'gk-note' });
+  app.stageEl.appendChild(h('div', { class: 'gk-grid' },
+    h('div', { class: 'gk-col' }, mkc('Camera view', 'simulated: truth plus noise', cam, status), mkc('Where the dot has been', 'true position, last 60 s (not observable)', trc)),
+    h('div', { class: 'gk-col' }, mkc('What the camera reports', 'ideal curves; the loop sees them with noise', sig, note), h('div', { class: 'gk-card' }, h('h3', {}, h('span', { text: 'Result' })), readout))));
+  const fmt = (v, d) => v == null || !isFinite(v) ? '–' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d == null ? 2 : d);
+
+  function drawCam() {
+    const x = pos(), w = wid(), v = vis(x);
+    const rx = w / 2 * SC, ry = st.d / 2 * SC;
+    dotPlate.setAttribute('cx', PX(x)); dotPlate.setAttribute('rx', rx); dotPlate.setAttribute('ry', ry);
+    dotPlate.setAttribute('opacity', v.f > 0 ? 1 : 0);
+    ghost.setAttribute('cx', PX(x)); ghost.setAttribute('rx', rx); ghost.setAttribute('ry', ry); ghost.setAttribute('opacity', x + w / 2 > 0 ? 0.9 : 0);
+    if (v.c != null) { cenMark.setAttribute('x1', PX(v.c)); cenMark.setAttribute('x2', PX(v.c)); cenMark.setAttribute('opacity', 1); } else cenMark.setAttribute('opacity', 0);
+    // the fraction target marker: the dot centre on the seam (half visible)
+    tgtC.textContent = ''; tgtC.append(S('circle', { cx: XC, cy: 104, r: 9, fill: 'none', stroke: '#fbbf24', 'stroke-dasharray': '3 2' }), S('text', { x: XC - 44, y: 132, class: 'sm amber', text: '50 %: centre on the seam' }));
+    tgtC.setAttribute('visibility', st.scheme === 'fraction' ? 'visible' : 'hidden'); tgtA.setAttribute('visibility', st.scheme === 'centroid' ? 'visible' : 'hidden');
+    txt2.textContent = 'dot centre ' + fmt(x, 3) + ' mm past the seam · centroid ' + (v.c == null ? 'star lost' : fmt(v.c, 3) + ' mm') + ' · visible ' + Math.round(v.f * 100) + ' %';
+    const sc = sim.mode === 'calibrating' ? 'mid' : sim.guide ? (sim.slope != null || st.scheme === 'fraction' ? 'good' : 'bad') : '';
+    status.textContent = sim.mode === 'calibrating' ? sim.calNote : sim.guide ? sim.phase + ' · ' + (sim.slope != null ? 'slope ' + sim.slope.toFixed(2) : 'no calibration: slope 1 assumed') : sim.calNote;
+    status.className = 'gk-status ' + sc;
+    note.innerHTML = 'Centroid slope: <b>1</b> while the dot is wholly on the plate (x below ' + fmt(-w / 2, 2) + ' mm), <b>½</b> while it straddles the seam, <b>0</b> once it has gone (x above +' + (w / 2).toFixed(2) + ' mm). The fraction falls from 100 to 0 % over one dot width (' + w.toFixed(2) + ' mm) and is 50 % at x = 0.';
+  }
+  function drawSignal() {
+    sig.textContent = '';
+    const x0 = 36, x1 = 500, xmin = -1.6, xmax = 0.9, w = wid(), XS = x => x0 + (x - xmin) / (xmax - xmin) * (x1 - x0);
+    const yTop = 26, yBot = 200, YC = c => yBot - (c - (-1.6)) / (1.6 + 0.15) * (yBot - yTop), YF = f => yBot - f * (yBot - yTop);
+    sig.append(S('rect', { x: 0, y: 0, width: SW, height: SH, fill: '#0f141b', rx: 6 }));
+    for (let x = -1.5; x <= 0.85; x += 0.5) sig.append(S('line', { x1: XS(x), y1: yTop, x2: XS(x), y2: yBot, stroke: '#1e2733' }), S('text', { x: XS(x), y: 214, 'text-anchor': 'middle', class: 'sm', text: x.toFixed(1) }));
+    sig.append(S('text', { x: SW - 8, y: 226, 'text-anchor': 'end', class: 'sm', text: 'dot centre x, mm past the seam (plate is negative)' }));
+    sig.append(S('line', { x1: XS(0), y1: yTop, x2: XS(0), y2: yBot, stroke: '#14b8a6', 'stroke-dasharray': '3 3' }), S('text', { x: XS(0) + 4, y: yTop + 8, class: 'sm teal', text: 'seam' }));
+    // fraction (amber, right axis 0..1) and centroid (blue, left axis)
+    const pc = [], pf = [];
+    for (let i = 0; i <= 250; i++) { const x = xmin + (xmax - xmin) * i / 250, v = vis(x); pf.push(XS(x).toFixed(1) + ',' + YF(v.f).toFixed(1)); if (v.c != null) pc.push(XS(x).toFixed(1) + ',' + YC(v.c).toFixed(1)); }
+    sig.append(S('polyline', { points: pf.join(' '), fill: 'none', stroke: '#fbbf24', 'stroke-width': 1.8 }), S('polyline', { points: pc.join(' '), fill: 'none', stroke: '#7fb0ff', 'stroke-width': 1.8 }));
+    // the two targets
+    sig.append(S('line', { x1: x0, y1: YC(0), x2: x1, y2: YC(0), stroke: '#14b8a6', 'stroke-dasharray': '2 3' }), S('text', { x: x0 + 4, y: YC(0) - 4, class: 'sm teal', text: 'centroid target = the seam pixel (0): the blue curve never gets there' }));
+    sig.append(S('line', { x1: x0, y1: YF(0.5), x2: x1, y2: YF(0.5), stroke: '#fbbf24', 'stroke-dasharray': '2 3', opacity: 0.6 }), S('text', { x: x1, y: YF(0.5) - 4, 'text-anchor': 'end', class: 'sm amber', text: 'fraction target 50 %' }));
+    sig.append(S('text', { x: 8, y: 14, class: 'b blue', text: 'centroid of the visible part (mm)' }), S('text', { x: SW - 8, y: 14, 'text-anchor': 'end', class: 'b amber', text: 'visible fraction (0 to 1)' }));
+    const x = pos(), v = vis(x);
+    sig.append(S('line', { x1: XS(x), y1: yTop, x2: XS(x), y2: yBot, stroke: '#fff', 'stroke-width': 1, opacity: 0.7 }));
+    if (v.c != null) sig.append(S('circle', { cx: XS(x), cy: YC(v.c), r: 4, fill: '#7fb0ff', stroke: '#fff' }));
+    sig.append(S('circle', { cx: XS(x), cy: YF(v.f), r: 4, fill: '#fbbf24', stroke: '#fff' }));
+    sig.append(S('text', { x: XS(-w / 2) , y: yBot + 0, class: 'sm', text: '' }));
+    // slope labels
+    sig.append(S('text', { x: XS(-1.2), y: YC(-1.2) - 8, class: 'sm blue', text: 'slope 1' }), S('text', { x: XS(-w / 4) - 40, y: YC(-w / 4) - 10, class: 'sm blue', text: 'slope ½' }));
+  }
+  function drawTrace() {
+    trc.textContent = '';
+    const x0 = 40, x1 = 780, yTop = 22, yBot = 196, T = 60, t1 = sim.t, ymin = -1.6, ymax = 0.7, XT = t => x0 + (t - (t1 - T)) / T * (x1 - x0), YX = x => yBot - (x - ymin) / (ymax - ymin) * (yBot - yTop);
+    trc.append(S('rect', { x: 0, y: 0, width: TW, height: SH, fill: '#0f141b', rx: 6 }));
+    for (let x = -1.5; x <= 0.6; x += 0.5) trc.append(S('line', { x1: x0, y1: YX(x), x2: x1, y2: YX(x), stroke: '#1e2733' }), S('text', { x: 4, y: YX(x) + 3, class: 'sm', text: x.toFixed(1) }));
+    trc.append(S('rect', { x: x0, y: YX(0.05), width: x1 - x0, height: YX(-0.05) - YX(0.05), fill: '#14b8a6', opacity: 0.18 }), S('line', { x1: x0, y1: YX(0), x2: x1, y2: YX(0), stroke: '#14b8a6' }), S('text', { x: x1, y: YX(0) - 4, 'text-anchor': 'end', class: 'sm teal', text: 'seam ±0.05 mm' }));
+    const w = wid(); trc.append(S('line', { x1: x0, y1: YX(w / 2), x2: x1, y2: YX(w / 2), stroke: '#ff8a80', 'stroke-dasharray': '2 3', opacity: 0.6 }), S('text', { x: x0 + 4, y: YX(w / 2) - 3, class: 'sm red', text: 'dot completely gone from the plate (+w/2)' }));
+    const pts = sim.hist.filter(p => t1 - p.t <= T).map(p => XT(p.t).toFixed(1) + ',' + Math.max(yTop, Math.min(yBot, YX(p.x))).toFixed(1));
+    if (pts.length > 1) trc.append(S('polyline', { points: pts.join(' '), fill: 'none', stroke: '#e7ebf1', 'stroke-width': 1.5 }));
+    trc.append(S('text', { x: 8, y: 14, class: 'b', text: 'dot centre position (mm past the seam) against time' }), S('text', { x: x1, y: 214, 'text-anchor': 'end', class: 'sm', text: '60 s window' }));
+    const rec = sim.hist.filter(p => t1 - p.t <= 30);
+    if (rec.length > 8) {
+      const m = rec.reduce((a, p) => a + p.x, 0) / rec.length, rms = Math.sqrt(rec.reduce((a, p) => a + p.x * p.x, 0) / rec.length), lost = rec.filter(p => p.lost).length / rec.length;
+      readout.innerHTML = 'Last 30 s: dot centre on average <b>' + fmt(m, 3) + ' mm</b> from the seam, rms <b>' + rms.toFixed(3) + ' mm</b>' + (lost > 0.02 ? ', out of sight <b>' + Math.round(lost * 100) + ' %</b> of the time' : '') + '. ' + (st.scheme === 'centroid' ? 'The centroid target sits half a dot into the wall.' : 'The fraction target is the centre on the seam.');
+    } else readout.innerHTML = 'Press <b>Guide</b> and watch.';
+  }
+  function io() {
+    const m = measure(1), x = pos();
+    app.io.set({
+      commands: [{ name: 'Axis position', value: sim.steps, unit: 'steps (' + st.step + ' mm each)', note: 'nudge or guide' }, { name: 'Mode', value: sim.mode === 'calibrating' ? 'calibrating' : sim.guide ? 'guiding (' + st.scheme + ')' : 'idle' }],
+      observes: [
+        { name: 'Centroid of the plate part', value: m.c == null ? 'star lost' : m.c.toFixed(3), unit: m.c == null ? '' : 'mm', status: m.c == null ? 'blind' : 'seen', note: 'noise ' + st.sigC + ' mm' },
+        { name: 'Visible fraction', value: Math.round(m.f * 100), unit: '%', status: 'seen', note: 'integrated intensity against the full-plate value' },
+        { name: 'Centroid slope from the nudges', value: sim.slope == null ? 'none' : sim.slope.toFixed(2), status: sim.slope == null ? 'unresolved' : 'seen' },
+        { name: 'True dot position', value: 'in the trace only', status: 'blind', note: 'no sensor reads this' }],
+      manual: ['Mount the camera to see the plate side of the corner', 'Provide the trim axis']
+    });
+  }
+
+  let ioTick = 0;
+  app.onFrame(function (dt) {
+    dt = Math.min(dt, 0.1) * st.speed;
+    let n = Math.max(1, Math.ceil(dt / 0.05)), hh = dt / n;
+    for (let i = 0; i < n; i++) {
+      sim.t += hh;
+      if (sim.mode === 'calibrating') stepCal(hh);
+      if (sim.guide && sim.mode === 'idle') { sim.acc += hh; if (sim.acc >= 0.5) { sim.acc = 0; guideTick(); } }
+      sim.hstep = (sim.hstep || 0) + hh; if (sim.hstep >= 0.1) { sim.hstep = 0; const x = pos(); sim.hist.push({ t: sim.t, x: x, lost: vis(x).c == null }); if (sim.hist.length > 900) sim.hist.shift(); }
+    }
+    drawCam(); drawSignal(); drawTrace(); if ((ioTick++ % 6) === 0) io();
+    return true;
+  });
+
+  // ------------------------------------------------------------------ controls
+  const gs = app.ui.group('Software (proposed actions)', { open: true });
+  gs.radio({ id: 'scheme', label: 'What the loop guides on', kind: 'branch', value: 'centroid', options: [{ value: 'centroid', label: 'centroid to the seam pixel (borrowed-05)' }, { value: 'fraction', label: 'fraction to 50 % (trials-03 knee)' }], help: 'The fraction scheme approaches with the centroid, then closes on the visible fraction.', onChange: v => { st.scheme = v; sim.lostCount = 0; } });
+  gs.button({ id: 'cal', label: 'Calibrate here: nudge and watch', kind: 'state', onClick: () => startCalibration() });
+  gs.toggle({ id: 'guide', label: 'Guide', value: false, kind: 'state', help: 'Runs every 0.5 simulated seconds.', onChange: v => { if (sim.mode === 'idle') sim.guide = v; else { sim.guide = false; } } });
+  gs.slider({ id: 'gain', label: 'Guide gain (software setting)', min: 0.2, max: 1.2, step: 0.05, value: 0.6, kind: 'state', help: 'Fraction of the computed correction sent each tick. Above 1 the loop overshoots even with a perfect model.', onChange: v => { st.gain = v; } });
+  const ga = app.ui.group('The trim axis (proposed actuator)', { open: true });
+  ga.slider({ id: 'axis', label: 'Dot position across the seam', min: -3, max: 1.5, step: 0.01, value: -1.0, unit: 'mm', kind: 'actuator', visual: 'the dot in the camera view', help: 'Drag it to see the signals; the loop moves it when guiding. Negative: on the plate. Positive: on the wall.', onChange: v => { if (sim.mode === 'idle' && !sim.guide) { sim.x0 = v; sim.steps = 0; sim.t0 = sim.t; } } });
+  ga.button({ id: 'reset', label: 'Reset time and history', kind: 'state', onClick: () => { sim.hist = []; sim.t = 0; sim.steps = 0; sim.guide = false; sim.mode = 'idle'; sim.calNote = 'not calibrated'; sim.slope = null; sim.calOk = null; app.ui.set('guide', false, { silent: true }); sim.x0 = app.ui.get('axis'); } });
+  const gt = app.ui.group('Hidden truth (scene edits)', { open: true });
+  gt.slider({ id: 'd', label: 'Dot diameter', min: 0.2, max: 1.2, step: 0.05, value: 0.5, unit: 'mm', kind: 'scene', help: 'The real dot’s size at the plate is unknown. The footprint is 1/cos 32° longer along r.', onChange: v => { st.d = v; } });
+  gt.slider({ id: 'sigC', label: 'Centroid noise', min: 0, max: 0.15, step: 0.005, value: 0.025, unit: 'mm', kind: 'scene', onChange: v => { st.sigC = v; } });
+  gt.slider({ id: 'sigF', label: 'Fraction noise', min: 0, max: 0.15, step: 0.005, value: 0.02, kind: 'scene', onChange: v => { st.sigF = v; } });
+  gt.slider({ id: 'drift', label: 'Slow drift toward the wall', min: 0, max: 1.5, step: 0.05, value: 0.3, unit: 'mm/min', kind: 'scene', onChange: v => { st.drift = v; } });
+  const gv = app.ui.group('View');
+  gv.slider({ id: 'speed', label: 'Simulation speed', min: 1, max: 6, step: 1, value: 2, unit: '×', kind: 'view', noVisual: true, onChange: v => { st.speed = v; } });
+  sim.x0 = -1.0;
+})();
+</script>
+</body>
+</html>

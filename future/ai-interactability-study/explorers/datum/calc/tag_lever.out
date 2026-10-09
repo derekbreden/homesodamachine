@@ -1,0 +1,14 @@
+focal length 1109 px at 60 deg over 1280 px
+
+OD collar (tags on the vertical wall, seen from above) versus rim flange (tags on the top face)
+  OD collar 25 mm below rim, camera 100 mm above, 30 mm out      tag  8 mm at  96 mm, 72 deg off-normal:   29 px wide; lateral 0.026 mm, tilt 0.63 deg; lever 23.0 mm -> seam error 0.300 mm (one tag)
+  OD collar 60 mm below rim                                      tag  8 mm at 140 mm, 78 deg off-normal:   13 px wide; lateral 0.038 mm, tilt 1.33 deg; lever 57.8 mm -> seam error 1.384 mm (one tag)
+  rim flange top face, camera 70 mm above                        tag  8 mm at  70 mm, 30 deg off-normal:  110 px wide; lateral 0.019 mm, tilt 0.31 deg; lever 13.0 mm -> seam error 0.141 mm (one tag)
+  rim flange top face, camera 70 mm above, 4 mm tags             tag  4 mm at  70 mm, 30 deg off-normal:   55 px wide; lateral 0.019 mm, tilt 0.63 deg; lever 13.0 mm -> seam error 0.187 mm (one tag)
+
+lever-arm rule at a fixed good tag (8 mm, 100 mm, 30 deg off-normal): error at the seam versus distance from tag to seam
+   L =  5 mm: 0.114 mm   (systematic 0.3 deg alone gives 0.026 mm)
+   L = 10 mm: 0.140 mm   (systematic 0.3 deg alone gives 0.052 mm)
+   L = 20 mm: 0.215 mm   (systematic 0.3 deg alone gives 0.105 mm)
+   L = 40 mm: 0.390 mm   (systematic 0.3 deg alone gives 0.209 mm)
+   L = 80 mm: 0.759 mm   (systematic 0.3 deg alone gives 0.419 mm)

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two stations, one head</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .use-two { display: block; width: 100%; min-width: 760px; max-width: 1500px; }
+  .use-two text { font: 10.5px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #dbe6ff; }
+  .use-two .lbl { fill: #98a4b6; }
+  .use-two .hd { font-weight: 600; letter-spacing: .04em; }
+  .use-note { margin-top: 8px; font-size: 12.5px; color: #c7d3e6; line-height: 1.45; }
+  .use-note b { color: #fff; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-07-two-stations",
+  "title": "Two stations, one head",
+  "by": "use",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "Two rotators side by side and one head that translates between them on a rail, so loading one tube can overlap the laser states of the other. The plan view shows what the fibre's minimum bend radius does to a cable that has to follow the head; the schedule shows what actually overlaps, and that the person, not the head, is the bottleneck.",
+  "tags": ["two-stations", "cable-trolley", "bend-radius", "schedule", "hands-free-windows", "ping-pong"],
+  "branchOf": ["use-02-swing-head"],
+  "combines": [],
+  "transferable": ["half-speed cable trolley", "plan-view bend check is conservative", "overlap only helps in the hands-free windows"],
+  "how": {
+    "motion": "the head translates along a rail between two seats; the tubes turn on their own rotators",
+    "load": "rail and carriage carry the head between stations; each station's seat carries it while there",
+    "reference": "one seat per station, identical pose relative to each tube",
+    "observe": "seat contact, carriage end-stops; the schedule uses none",
+    "use": "alternate two tubes so a hand prepares one while the other is in a hands-free state"
+  },
+  "software": {
+    "commands": ["carriage along the rail (proposed)", "each rotator (existing)"],
+    "observes": ["carriage position, seat contact at each station"],
+    "manual": ["everything the hand lanes show in use-01-day-lanes"]
+  },
+  "notes": ["../../explorers/use/ideas/use-07-two-stations.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p><b>Left, plan view</b> from above: two tubes on two rotators, the head on a rail behind them, and the umbilical from the grip to a hook on a second rail. The head translates (it does not rotate), so the gun keeps the same pose relative to whichever tube it is at. Drag the <b>head position</b>: at the ends it sits at a seat. The cable’s bend is checked live against the manual’s 350 mm (emitting) and 240 mm (stored) [manual p.20], in plan view, which is conservative because a cable that also climbs has a larger true radius.</p>' +
+        '<p><b>Right, schedule</b>: tasks of N tubes on one or two stations. The person is needed for preparation, for the weld and for the swap; the head is needed for the dry lap, the weld and the retract. A dry lap can run without a person if you say so. Change the durations and the number of stations.</p>',
+      carries:
+        '<p>The rail and carriage carry the head between stations; the seat at each station carries it while it is there (as in use-02-swing-head). The cable hook is carried by a trolley on its own rail: fixed at the middle, riding at half the head’s displacement (a festoon trolley), or riding with the head. The umbilical itself is carried by its hook; the head must not carry it.</p>',
+      software:
+        '<p>One new axis (the carriage) and its two end-stops; each rotator keeps its existing controller. Software could sequence the head between stations while a hand works at the other, and log each seat. The schedule is a picture of what that sequencing can and cannot overlap, not a plan.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Cable geometry.</b> The fibre leaves the grip base along the dot-to-grip line and needs a nearly straight run of about half a metre. A hook fixed midway between stations at a moderate distance gives a small miss at the seats but a large bend in the middle if the rail is close; a half-speed trolley halves the sideways miss; riding with the head removes it. <i>Leaves:</i> the drawn curve is a Bezier stand-in with no stiffness, weight or twist.</li>' +
+        '<li><b>Does a second station double the day?</b> No. The person is at hand for preparation, weld and swap; the head-only, hands-free windows are the dry lap and whatever cooling and PT take. With the illustrative durations the second station recovers roughly the dry lap. Presetting (use-03-preset-cartridge) moves preparation off the station but not off the person. <i>Leaves:</i> the real durations.</li>' +
+        '<li><b>Two stations need two of everything that is tube-specific</b> (nest, ground shoe, purge routing) and a head that reaches both with the same pose. The rail along the row of tubes keeps the tangent approach; a swing about a post would rotate the gun between stations.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Whether the head can be made to reach both seats without the operator’s access to either being blocked by the rail and cable.</li>' +
+        '<li>Whether the argon purge and work-lead routing for two stations fit in the space between them.</li>' +
+        '<li>Whether dry laps may run without a person: see use-05-gates.</li>' +
+        '<li>Question for Derek: how many tubes in a session, and how long is PT and cool-down before a tube is handled?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Gun position in plan: the kit proxy at the opening pose (illustrative). Cable exit direction and stub: the kit’s. Radii 350 / 240 mm: manual p.20.</li>' +
+        '<li>Illustrative: station spacing, rail distances, trolley behaviour, all durations, greedy scheduling (the next task that can start earliest goes first).</li>' +
+        '<li>Not modelled: purge and work-lead cables, the operator’s reach, cool-down.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl;
+  const el = (tag, attrs, ...kids) => WK.svg(tag, attrs, ...kids.filter(Boolean));
+  const svg = el('svg', { class: 'use-two', viewBox: '0 0 1120 640', preserveAspectRatio: 'xMinYMin meet', role: 'img', 'aria-label': 'Two stations' });
+  const note = WK.h('div', { class: 'use-note' });
+  st.appendChild(svg); st.appendChild(note);
+
+  const S = { s: 520, rail: 700, cart: 500, stiff: 0.4, mode: 'half', u: 0, K: 2, N: 4, prep: 14, dry: 1, weld: 1.1, swap: 1.0, unatt: false, burst: 0 };
+  // gun proxy in plan, relative to its tube centre (opening pose, kit): nozzle, housing back, grip base; cable exit direction in plan
+  const G = { nozzle: [54.6, -8.6], back: [-60.1, -144.3], grip: [-0.7, -233.5], dir: [-0.224, -0.837] };
+  const EXIT = 70, GRAIL = -330;
+  const PX = 0.36, OX = 280, OY = 78;      // plan scale and origin (mm -> px): x' = OX + x*PX, y' = OY + (-y)*PX (y up in mm is up on screen)
+  const X = x => OX + x * PX, Y = y => OY - y * PX;
+
+  function bezier(a, da, b, db, k, n) {
+    const d = Math.hypot(b[0] - a[0], b[1] - a[1]), kk = Math.max(15, k * d), pts = [];
+    const c1 = [a[0] + da[0] * kk, a[1] + da[1] * kk], c2 = [b[0] - db[0] * kk, b[1] - db[1] * kk];
+    for (let i = 0; i <= n; i++) { const t = i / n, u = 1 - t; pts.push([u * u * u * a[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * b[0], u * u * u * a[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * b[1]]); }
+    return pts;
+  }
+  function minR(pts) {
+    let m = Infinity, at = null;
+    for (let i = 1; i < pts.length - 1; i++) {
+      const a = pts[i - 1], b = pts[i], c = pts[i + 1], ab = [b[0] - a[0], b[1] - a[1]], bc = [c[0] - b[0], c[1] - b[1]], ca = [c[0] - a[0], c[1] - a[1]];
+      const cr = Math.abs(ab[0] * bc[1] - ab[1] * bc[0]); if (cr < 1e-9) continue;
+      const R = Math.hypot(...ab) * Math.hypot(...bc) * Math.hypot(...ca) / (2 * cr);
+      if (R < m) { m = R; at = b; }
+    }
+    return { r: m, at: at };
+  }
+  const gx = u => -S.s / 2 + u * S.s;               // head x (the gun's tube-centre x)
+  function trolleyX(u, mode) { mode = mode || S.mode; const x = gx(u); return mode === 'mid' ? 0 : mode === 'half' ? x / 2 : x + G.grip[0] + G.dir[0] * EXIT; }
+  function cableAt(u, mode) {
+    const x = gx(u), a = [x + G.grip[0] + G.dir[0] * EXIT, G.grip[1] + G.dir[1] * EXIT], hook = [trolleyX(u, mode), -S.rail];
+    const len = Math.hypot(G.dir[0], G.dir[1]), da = [G.dir[0] / len, G.dir[1] / len];
+    const pts = bezier(a, da, hook, [0, -1], S.stiff, 100), m1 = minR(pts);
+    const anchor = [0, -S.rail - S.cart], pts2 = bezier(hook, [0, -1], anchor, [0, -1], S.stiff, 100), m2 = minR(pts2);
+    const m = m1.r <= m2.r ? m1 : m2;
+    return { pts: pts, pts2: pts2, m: m, m1: m1, m2: m2, a: a, hook: hook, anchor: anchor };
+  }
+
+  // ------------------------------------------------------------------ schedule
+  function schedule() {
+    const tasks = [];
+    for (let i = 0; i < S.N; i++) {
+      const k = i % S.K;
+      tasks.push({ tube: i, st: k, name: 'prep', dur: S.prep, human: true, head: false, prev: null });
+      tasks.push({ tube: i, st: k, name: 'dry', dur: S.dry, human: !S.unatt, head: true, prev: 'prep' });
+      tasks.push({ tube: i, st: k, name: 'weld', dur: S.weld, human: true, head: true, prev: 'dry' });
+      tasks.push({ tube: i, st: k, name: 'swap', dur: S.swap, human: true, head: false, prev: 'weld' });
+    }
+    const free = { human: 0, head: 0, st: Array(S.K).fill(0) }, done = new Map(), out = [];
+    let left = tasks.slice();
+    while (left.length) {
+      let best = null;
+      left.forEach(t => {
+        if (t.prev && !done.has(t.tube + t.prev)) return;
+        const pe = t.prev ? done.get(t.tube + t.prev) : 0;
+        let s = Math.max(pe, free.st[t.st]); if (t.human) s = Math.max(s, free.human); if (t.head) s = Math.max(s, free.head);
+        if (!best || s < best.s - 1e-9 || (Math.abs(s - best.s) < 1e-9 && t.tube < best.t.tube)) best = { t: t, s: s };
+      });
+      const t = best.t, e = best.s + t.dur;
+      if (t.human) free.human = e; if (t.head) free.head = e; free.st[t.st] = t.name === 'swap' ? e : e;
+      done.set(t.tube + t.name, e); out.push({ tube: t.tube, st: t.st, name: t.name, s: best.s, e: e, human: t.human, head: t.head });
+      left = left.filter(x => x !== t);
+    }
+    return out;
+  }
+
+  const COL = ['#f59e0b', '#22d3ee', '#a78bfa', '#4ade80', '#f472b6', '#fb923c'];
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    // ------------------------------------------------ plan view
+    svg.appendChild(el('text', { x: 4, y: 14, class: 'hd' }, document.createTextNode('PLAN VIEW (from above): mm, tubes at the front, cart behind')));
+    const cx = [-S.s / 2, S.s / 2];
+    for (let k = 0; k < S.K; k++) {
+      const xc = S.K === 1 ? 0 : cx[k];
+      svg.appendChild(el('rect', { x: X(xc - 150), y: Y(125), width: 300 * PX, height: 250 * PX, rx: 4, fill: '#1b222c', stroke: '#394559' }));
+      svg.appendChild(el('circle', { cx: X(xc), cy: Y(0), r: 63.5 * PX, fill: '#c8d0da', stroke: '#e7ebf1' }));
+      svg.appendChild(el('circle', { cx: X(xc), cy: Y(0), r: 61.85 * PX, fill: '#9aa4b2' }));
+      svg.appendChild(el('text', { x: X(xc), y: Y(0) + 4, 'text-anchor': 'middle', style: 'fill:#0e1218;font-weight:700' }, document.createTextNode(S.K === 1 ? 'A' : 'AB'[k])));
+      svg.appendChild(el('circle', { cx: X(xc + 61.85), cy: Y(0), r: 3.5, fill: '#ff3b30' }));     // the seat dot
+    }
+    // rails
+    svg.appendChild(el('line', { x1: X(-S.s / 2 - 200), x2: X(S.s / 2 + 200), y1: Y(GRAIL), y2: Y(GRAIL), stroke: '#a855f7', 'stroke-width': 3 }));
+    svg.appendChild(el('text', { x: X(-S.s / 2 - 200), y: Y(GRAIL) - 6, class: 'lbl', style: 'fill:#c084fc' }, document.createTextNode('head rail (carriage)')));
+    svg.appendChild(el('line', { x1: X(-S.s / 2 - 200), x2: X(S.s / 2 + 200), y1: Y(-S.rail), y2: Y(-S.rail), stroke: '#6b7a90', 'stroke-width': 3, 'stroke-dasharray': '8 4' }));
+    svg.appendChild(el('text', { x: X(-S.s / 2 - 200), y: Y(-S.rail) + 14, class: 'lbl' }, document.createTextNode('cable rail: hook / trolley ' + S.rail + ' mm behind the tube axis')));
+    // gun at the head position
+    const x = gx(S.u), poly = [G.nozzle, G.back, G.grip].map(p => [X(x + p[0]), Y(p[1])]);
+    svg.appendChild(el('polyline', { points: poly.map(p => p.join(',')).join(' '), fill: 'none', stroke: '#8b95a5', 'stroke-width': 9, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    svg.appendChild(el('line', { x1: X(x + G.back[0]), y1: Y(G.back[1]), x2: X(x + G.back[0]), y2: Y(GRAIL), stroke: '#a855f7', 'stroke-width': 5 }));
+    svg.appendChild(el('rect', { x: X(x + G.back[0]) - 12, y: Y(GRAIL) - 9, width: 24, height: 18, rx: 3, fill: '#a855f7' }));
+    svg.appendChild(el('circle', { cx: X(x + G.nozzle[0]), cy: Y(G.nozzle[1]), r: 4, fill: '#ff3b30', stroke: '#fff' }));
+    // cable
+    const cab = cableAt(S.u), atSeat = S.u <= 0.001 || S.u >= 0.999, need = atSeat ? 350 : 240, bad = cab.m.r < need;
+    svg.appendChild(el('polyline', { points: cab.pts.map(p => X(p[0]) + ',' + Y(p[1])).join(' '), fill: 'none', stroke: bad ? '#f87171' : '#e7ebf1', 'stroke-width': 3.2 }));
+    svg.appendChild(el('polyline', { points: cab.pts2.map(p => X(p[0]) + ',' + Y(p[1])).join(' '), fill: 'none', stroke: cab.m2.r < need ? '#f87171' : '#c7d3e6', 'stroke-width': 3.2, 'stroke-dasharray': '2 0' }));
+    svg.appendChild(el('rect', { x: X(cab.anchor[0]) - 14, y: Y(cab.anchor[1]) - 8, width: 28, height: 16, rx: 3, fill: '#30343b', stroke: '#6b7a90' }));
+    svg.appendChild(el('text', { x: X(cab.anchor[0]) + 20, y: Y(cab.anchor[1]) + 4, class: 'lbl' }, document.createTextNode('laser unit / cart (fixed)')));
+    svg.appendChild(el('circle', { cx: X(cab.hook[0]), cy: Y(cab.hook[1]), r: 6, fill: '#6b7a90', stroke: '#fff' }));
+    svg.appendChild(el('text', { x: X(cab.hook[0]) + 10, y: Y(cab.hook[1]) + 4, class: 'lbl' }, document.createTextNode(S.mode === 'mid' ? 'hook (fixed, midway)' : S.mode === 'half' ? 'trolley (half of the head’s move)' : 'hook rides with the head')));
+    if (cab.m.at && isFinite(cab.m.r)) { const r = Math.min(cab.m.r, 1500); svg.appendChild(el('circle', { cx: X(cab.m.at[0]) , cy: Y(cab.m.at[1]) , r: 0, fill: 'none' })); svg.appendChild(el('text', { x: X(cab.m.at[0]) + 10, y: Y(cab.m.at[1]), style: 'fill:' + (bad ? '#fca5a5' : '#86efac') }, document.createTextNode('tightest bend R ' + Math.round(cab.m.r) + ' mm'))); }
+    svg.appendChild(el('text', { x: 4, y: 578, class: 'lbl' }, document.createTextNode('head at ' + (S.u <= 0.001 ? 'seat A' : S.u >= 0.999 ? 'seat B' : 'travelling') + ': ' + (atSeat ? 'emitting is possible here, so 350 mm applies' : 'laser off in transit, 240 mm applies') + '; plan view (conservative)')));
+    // min-radius over the whole travel (small plot)
+    const px0 = 4, py0 = 618, N = 40; let worst = Infinity;
+    const rr = []; for (let i = 0; i <= N; i++) { const u = i / N, c = cableAt(u), req = (i === 0 || i === N) ? 350 : 240; rr.push(c.m.r); worst = Math.min(worst, c.m.r - req); }
+    const overall = 'over the whole travel the tightest cable bend is ' + Math.round(Math.min(...rr)) + ' mm: ' + (worst >= 0 ? 'meets 350 at the seats and 240 in between' : 'falls short by ' + Math.round(-worst) + ' mm somewhere') + ' (illustrative, plan view)';
+    svg.appendChild(el('rect', { x: 4, y: 586, width: 560, height: 24, rx: 12, fill: worst >= 0 ? 'rgba(52,211,153,.12)' : 'rgba(248,113,113,.14)', stroke: worst >= 0 ? '#34d399' : '#f87171' }));
+    svg.appendChild(el('text', { x: 16, y: 602, style: 'fill:' + (worst >= 0 ? '#86efac' : '#fca5a5') + ';font-weight:600' }, document.createTextNode(overall)));
+    // ------------------------------------------------ tightest bend over the travel, all three hooks
+    { const qx0 = 620, qy0 = 330, qw = 480, qh = 190, Rmax = 900, qx = u => qx0 + 60 + (qw - 60) * u, qy = r => qy0 + qh - Math.min(r, Rmax) / Rmax * qh;
+      svg.appendChild(el('text', { x: qx0, y: qy0 - 12, class: 'hd' }, document.createTextNode('TIGHTEST CABLE BEND OVER THE HEAD\u2019S TRAVEL (mm)')));
+      svg.appendChild(el('rect', { x: qx0 + 60, y: qy0, width: qw - 60, height: qh, fill: '#10151c', stroke: '#2a3341' }));
+      [[240, '#fbbf24'], [350, '#f87171']].forEach(l => { svg.appendChild(el('line', { x1: qx0 + 60, x2: qx0 + qw, y1: qy(l[0]), y2: qy(l[0]), stroke: l[1], 'stroke-dasharray': '5 4' })); svg.appendChild(el('text', { x: qx0 + 4, y: qy(l[0]) + 3, class: 'lbl', style: 'fill:' + l[1] }, document.createTextNode(l[0] + (l[0] === 350 ? ' emitting' : ' stored')))); });
+      [['mid', 'fixed midway', '#94a3b8'], ['half', 'half-speed trolley', '#22d3ee'], ['head', 'rides with the head', '#a78bfa']].forEach((m, i) => {
+        const pts = []; for (let k = 0; k <= 40; k++) { const u = k / 40; pts.push(qx(u).toFixed(1) + ',' + qy(cableAt(u, m[0]).m.r).toFixed(1)); }
+        svg.appendChild(el('polyline', { points: pts.join(' '), fill: 'none', stroke: m[2], 'stroke-width': m[0] === S.mode ? 3 : 1.4, opacity: m[0] === S.mode ? 1 : 0.6 }));
+        svg.appendChild(el('text', { x: qx0 + 70, y: qy0 + 14 + i * 13, style: 'fill:' + m[2] }, document.createTextNode(m[1])));
+      });
+      svg.appendChild(el('line', { x1: qx(S.u), x2: qx(S.u), y1: qy0, y2: qy0 + qh, stroke: '#ff3b30' }));
+      ['A seat', 'B seat'].forEach((t, i) => svg.appendChild(el('text', { x: qx(i), y: qy0 + qh + 13, 'text-anchor': i ? 'end' : 'start', class: 'lbl' }, document.createTextNode(t))));
+      svg.appendChild(el('text', { x: qx0 + 60, y: qy0 + qh + 27, class: 'lbl' }, document.createTextNode('the requirement is 350 at the two seat positions (emitting possible) and 240 in between; capped at 900 for the plot')));
+    }
+    // ------------------------------------------------ schedule
+    const sch = schedule(), T = Math.max(...sch.map(t => t.e)), gx0 = 620, gw = 480, gy0 = 40;
+    svg.appendChild(el('text', { x: gx0, y: 14, class: 'hd' }, document.createTextNode('SCHEDULE: ' + S.N + ' tubes, ' + S.K + ' station' + (S.K > 1 ? 's' : '') + ' (minutes; colour = tube)')));
+    const lanes = [['PERSON', t => t.human], ['HEAD', t => t.head], ['STATION A', t => t.st === 0], ['STATION B', t => t.st === 1]].slice(0, S.K === 1 ? 3 : 4), kx = m => gx0 + 90 + (gw - 90) * m / T;
+    lanes.forEach((l, i) => {
+      const y = gy0 + i * 52;
+      svg.appendChild(el('text', { x: gx0, y: y + 22, class: 'hd', style: 'font-size:10px' }, document.createTextNode(l[0])));
+      svg.appendChild(el('rect', { x: gx0 + 90, y: y + 4, width: gw - 90, height: 34, fill: '#10151c', stroke: '#2a3341' }));
+      sch.filter(t => l[1](t)).forEach(t => {
+        const w = Math.max(1, kx(t.e) - kx(t.s) - 1);
+        const r = el('rect', { x: kx(t.s), y: y + 6, width: w, height: 30, rx: 2, fill: COL[t.tube % COL.length], opacity: t.name === 'dry' && !t.human ? 0.45 : 0.9 });
+        r.appendChild(el('title', {}, document.createTextNode('tube ' + (t.tube + 1) + ' ' + t.name + ': ' + t.s.toFixed(1) + ' to ' + t.e.toFixed(1) + ' min' + (t.human ? ' (person)' : ' (person free)') + (t.head ? ' (head)' : ''))));
+        svg.appendChild(r);
+        if (w > 30) svg.appendChild(el('text', { x: kx(t.s) + w / 2, y: y + 25, 'text-anchor': 'middle', style: 'fill:#0e1218;font-size:9.5px;font-weight:600' }, document.createTextNode(t.name)));
+      });
+    });
+    const ay = gy0 + lanes.length * 52 + 6;
+    for (let m = 0; m <= T; m += T > 60 ? 10 : 5) { svg.appendChild(el('line', { x1: kx(m), x2: kx(m), y1: gy0 + 4, y2: ay - 4, stroke: '#1b222c' })); svg.appendChild(el('text', { x: kx(m), y: ay + 10, 'text-anchor': 'middle', class: 'lbl' }, document.createTextNode(m + ''))); }
+    // the person's free windows during another tube's dry lap
+    const hum = sch.filter(t => t.human).sort((a, b) => a.s - b.s); let idle = 0; for (let i = 1; i < hum.length; i++) idle += Math.max(0, hum[i].s - hum[i - 1].e);
+    note.innerHTML = '<b>What overlaps:</b> preparation needs the person, so one person can prepare only one tube at a time. The hands-free windows are the dry lap' + (S.unatt ? ' (allowed to run alone here)' : ' (a person is required here, so nothing overlaps)') + '; the person’s idle time in this schedule is ' + idle.toFixed(1) + ' min. Total ' + T.toFixed(1) + ' min for ' + S.N + ' tubes is only a picture of this schedule, not a comparison.';
+    app.io.set({
+      commands: [{ name: 'Head carriage', value: (S.u * 100).toFixed(0) + ' % of the travel', note: 'the one new axis; seat contact says arrived' }, { name: 'Rotators', value: 'existing controllers, pedal deadman' }],
+      observes: [{ name: 'Carriage end-stops / seat contact', value: atSeat ? 'at a seat' : 'between', status: 'seen' }, { name: 'Cable bend', value: Math.round(cab.m.r) + ' mm', status: 'unresolved', note: 'a drawn Bezier, not measured' }],
+      manual: ['Loading, indicating, plate, contact set-up at each station', 'Trigger, snipping', 'Routing purge and work-lead for two stations'],
+    });
+  }
+
+  const g0 = app.ui.group('Head and cable');
+  g0.slider({ id: 'u', label: 'Head position (A seat to B seat)', min: 0, max: 1, step: 0.01, value: 0, kind: 'actuator', help: 'A carriage on a rail; the seat at each end fixes the pose.', onChange: v => { S.u = v; render(); } });
+  g0.slider({ id: 'spacing', label: 'Distance between tube axes', min: 300, max: 900, step: 10, value: 520, unit: 'mm', kind: 'scene', onChange: v => { S.s = v; render(); } });
+  g0.slider({ id: 'rail', label: 'Cable rail distance behind the tubes', min: 400, max: 1100, step: 10, value: 700, unit: 'mm', kind: 'scene', help: 'The fibre needs a long, almost straight run from the grip.', onChange: v => { S.rail = v; render(); } });
+  g0.radio({ id: 'mode', label: 'Cable hook', options: [{ value: 'mid', label: 'fixed midway' }, { value: 'half', label: 'half-speed trolley' }, { value: 'head', label: 'rides with the head' }], value: 'half', kind: 'branch', onChange: v => { S.mode = v; render(); } });
+  g0.slider({ id: 'cart', label: 'Fixed end of the cable beyond the rail', min: 300, max: 900, step: 10, value: 500, unit: 'mm', kind: 'scene', help: 'The laser unit and its cart; the trolley-to-cart run bends too.', onChange: v => { S.cart = v; render(); } });
+  g0.slider({ id: 'stiff', label: 'Cable stiffness (Bezier)', min: 0.2, max: 0.8, step: 0.05, value: 0.4, kind: 'scene', help: 'kit stand-in; 0.2 limp, 0.8 stiff', onChange: v => { S.stiff = v; render(); } });
+  const g1 = app.ui.group('The schedule (illustrative durations, minutes)');
+  g1.radio({ id: 'K', label: 'Stations', options: [{ value: 1, label: 'one' }, { value: 2, label: 'two' }], value: 2, kind: 'branch', onChange: v => { S.K = +v; render(); } });
+  g1.slider({ id: 'N', label: 'Tubes in the session', min: 2, max: 6, step: 1, value: 4, kind: 'scene', onChange: v => { S.N = v; render(); } });
+  g1.slider({ id: 'prep', label: 'Preparation at a station (load, indicate, plate, contact)', min: 4, max: 24, step: 1, value: 14, unit: 'min', kind: 'scene', help: 'Same sum as the lane scene: 1 + 6 + 4 + 3.', onChange: v => { S.prep = v; render(); } });
+  g1.slider({ id: 'dry', label: 'Dry lap', min: 0.5, max: 4, step: 0.1, value: 1, unit: 'min', kind: 'scene', onChange: v => { S.dry = v; render(); } });
+  g1.slider({ id: 'weld', label: 'Weld lap and retract', min: 0.5, max: 3, step: 0.1, value: 1.1, unit: 'min', kind: 'scene', onChange: v => { S.weld = v; render(); } });
+  g1.slider({ id: 'swap', label: 'Swap out and record', min: 0.5, max: 4, step: 0.1, value: 1, unit: 'min', kind: 'scene', onChange: v => { S.swap = v; render(); } });
+  g1.toggle({ id: 'unatt', label: 'The dry lap may run without a person', value: false, kind: 'state', help: 'A policy question: see use-05-gates.', onChange: v => { S.unatt = v; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>

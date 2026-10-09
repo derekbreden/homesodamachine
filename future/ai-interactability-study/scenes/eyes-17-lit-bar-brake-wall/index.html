@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lit bar and brake wall</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-17-lit-bar-brake-wall",
+  "title": "Lit bar and brake wall: the hand supplies the motion, the eye tells it and holds it",
+  "by": "eyes",
+  "origin": "combination",
+  "status": "deep",
+  "summary": "The coach loop's friction arm and fine stage, but the hand pushes the gun through the stage instead of turning knobs. The gun-borne eye of eyes-01 measures the dot against the corner; software shows the result on an eight-LED bar on the shell and can clamp a brake on each slide so that motion away from the estimated seam is resisted and motion toward it is free. A brake cannot push the gun, only refuse to let it go; a hand that pushes hard enough slips it, and the slip is a reading of where the hand disagrees with the eye. Choose what goes wrong with the estimate (biased, frozen, blind) and watch what each layer does to the hand.",
+  "tags": ["hand-held", "feedback layer", "virtual wall", "brake", "cue", "light bar", "operator view", "estimate faults", "coach loop"],
+  "branchOf": ["use-06-coach-loop"],
+  "combines": ["use-06-coach-loop", "eyes-01-gun-borne-eye"],
+  "transferable": ["a passive one-way wall", "the override is data", "a cue goes dark when blind", "the operator's line of sight"],
+  "how": {
+    "motion": "the hand pushes the gun along two slides (radial, vertical); nothing is driven; software can clamp each slide.",
+    "load": "gun and shell on the slide carriages; carriages on rails; rails on a locked friction arm; a constant-force spring carries the weight on the vertical slide.",
+    "reference": "the corner in the gun-borne image; the slide scales give position and velocity; the arm is locked once per closure.",
+    "observe": "gun-borne eye (corner minus dot), two linear scales, the brake state, slips; the cue is what the operator sees.",
+    "use": "attended dry run and bead: the hand steers by eye, the layer tells it and refuses moves away from the seam."
+  },
+  "software": {
+    "commands": ["brake clamp on each slide (off = free; power off = free)", "band: how far from the estimated seam motion stays free", "light bar pattern (radial bar, vertical bar, live / stale / blind)"],
+    "observes": ["corner minus dot, radial and vertical, and whether it is valid, stale or blind", "slide positions and velocity from the scales", "slips: the position advances while the brake is clamped, the hand's disagreement with the estimate"],
+    "manual": ["pushing the gun", "locking the arm and placing the neighbourhood", "the trigger", "deciding whether to trust the bar or the wall"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-17-lit-bar-brake-wall.md", "../../explorers/eyes/ideas/eyes-18-what-the-estimate-owes.md", "../../explorers/use/ideas/use-06-coach-loop.md", "../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md", "../../explorers/freedom/ideas/freedom-14-hand-plus-guidance.md", "../../explorers/borrowed/ideas/borrowed-19-haptic-jog.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS, ZC = WK.CAP_TOP;
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'stage', 'joint', 'top'],
+    views: {
+      overall: { target: [-20, -120, 240], dir: [-0.5, 0.62, 0.42], dist: 720 },
+      stage: { target: [-30, -95, 300], dir: [-0.45, 0.7, 0.35], dist: 330 },
+      joint: { target: [58, -12, 160], dir: [-0.8, 0.26, 0.46], dist: 230 },
+      top: { target: [20, -85, 150], dir: [0, -0.0035, 1], dist: 800 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>This is the coach loop (use-06) with the knobs taken away. A friction arm, locked once, carries a small <b>two-slide stage</b>; the gun rides on it and <b>the hand pushes the gun</b> along the radial and the vertical slide. The gun-borne eye of eyes-01 measures how far the dot is from the corner in the gun’s own frame. Software then has two ways to speak to the hand, and neither moves the gun. The scene opens with the dot where a biased eye says the seam is and the hand pushing toward the true seam: the wall refuses it.</p>' +
+        '<p><b>A lit bar.</b> Two eight-LED sticks on the shell show radial and vertical error: the lit LED moves away from the middle as the error grows, green inside the band, amber outside. It sits on the shell so the operator’s eyes, which are already on the dot, see it without looking away; the <i>operator’s view</i> inset shows what is actually visible from where they stand.</p>' +
+        '<p><b>A brake wall.</b> Each slide has a small clamp (a solenoid pulling a printed pad onto the rail). Inside the band around the estimated seam the slide is free. Outside it, moves <i>away</i> from the seam are refused and moves <i>toward</i> it stay free: a one-way wall. A brake can only hold, never push, so a wrong estimate can stop a good move but cannot throw the gun off the seam. Push harder than the clamp holds and it slips: the scene logs where the hand disagreed with the eye.</p>' +
+        '<p>Then break the estimate: <b>biased</b> (the wall sits in the wrong place and the hand has to push through it), <b>frozen</b> (the bar keeps showing the last value; a frozen wall is a one-way valve), or <b>blind</b> (the corner is hidden: the bar goes dark and the brakes let go). The corner inset shows the truth. Try the two buttons under <i>The hand</i>: one sends the hand to where the estimate says the seam is (the bar centres), the other to the true seam; with a biased estimate and the brake on, the second is refused once the gun is inside the band, and the strip panel shows why.</p>',
+      carries: '<p><b>Amber</b>: the shell carries the gun to a lug; the lug rod carries it to the stage carriages; the carriages ride slate rails on a base plate at the end of the friction arm (locked, slate). A green constant-force spring carries the gun’s weight on the vertical slide so the hand pushes friction, not weight. <b>Purple</b>: the two brake pads, the only things software commands that touch the hand’s path; a pad glows purple when armed (the estimate is at or beyond the band’s edge), turns red while the hand pushes it through, and ghosts when free. <b>Blue</b>: the camera, the line-laser emitter, the linear scales beside each rail and the two LED sticks. The green sphere is the hand.</p>' +
+        '<p>Stage travel ±6 mm (illustrative). The arm is locked at a setup offset that leaves the dot 1.2 mm radially and −0.9 mm vertically from the seam; the hand and the layer work inside the stage. The umbilical’s pull, the gun’s mass and the slides’ friction are unknown.</p>',
+      software: '<p>Every frame (about 30 ms) software reads the eye (corner minus dot, radial and vertical, with a valid / stale / blind flag), the two scales (position and speed), and decides three things: what the bar shows; whether each brake is clamped; and whether a slip has happened. The brake rule on each axis is one line: <i>clamp if the hand is moving away from the estimated seam and the estimate is already at the band’s edge.</i> It needs the estimate’s <b>sign and size</b> and the slide’s <b>direction of motion</b>; it does not need the arm, the gun’s pose or any kinematics.</p>' +
+        '<p>Two safety rules are drawn in the state logic: a <b>blind</b> or missing estimate releases the brakes and darkens the bar, and <b>power off is free</b>. Neither is enforced by anything the eye can see, which is why the scene shows them: the layer must degrade to no layer, never to the last value.</p>',
+      tried: '<p><b>Broke:</b> the wall sits where the estimate says. With a bias of 0.3 mm the wall stands 0.3 mm from the true seam; the hand that steers by eye stops short and must push through (raise <i>Hand push force</i> above the clamp’s capacity). <b>Repaired only partly:</b> a slip is logged as the hand’s disagreement with the estimate: for a hand aiming at the true seam it reads the bias directly. <b>Left standing:</b> whether a hand aims at the true seam, or at where the eye through a shield sees it; that is the number the log cannot separate from the eye’s bias (a touch or a sectioned tube can, eyes-07, freedom-12).</p>' +
+        '<p><b>Broke:</b> a frozen estimate. The bar looks live and green while the dot drifts; the wall, if the frozen value was outside the band, refuses motion away forever. <b>Repaired:</b> the software should mark a stale reading: the bar dims to alternate LEDs, and after a timeout the brakes release. <b>Left standing:</b> nothing in the picture the hand sees distinguishes stale from live except the dimming; a real timeout value is unknown.</p>' +
+        '<p><b>Broke:</b> the camera cannot see the corner from the chosen mounting or the hand’s tilt (pose B, camera at the top). The estimate is gone: bar dark, brakes released. <b>Changed:</b> the layer is only as available as the eye’s view; sweep the camera clock and pose to see the holes.</p>' +
+        '<p><b>Broke:</b> the operator cannot see the bar. From the gun’s own side of the tube the wall hides the dot; from across the bore the bar may be behind the barrel. The <i>Operator’s view</i> inset and the readout give the angle between the bar and the dot as the operator sees them (a small angle keeps both in one glance) and whether the bar is in line of sight at all. <b>Left standing:</b> which side Derek stands, the eyewear he wears (does it pass green and amber?) and the process glow; the bar’s brightness against the bead is unmeasured.</p>' +
+        '<p><b>Broke:</b> a brake that engages late. At the hand speed the wall is crossed by speed × latency before it holds (calc/feedback-budget.mjs; the lens eyes-18 has the numbers). <b>Left standing:</b> no clamp latency or stiction is on any listing read.</p>',
+      unresolved: '<p>What a printed pad on a rail holds, how fast a 5 N solenoid clamps it, and how much it steps on release (stiction): all unmeasured, and a release step is a jump the hand feels. Whether a hand tolerates a wall that arrives without warning. Whether the eye sees the corner from the hand-held poses at all (eyes-01’s open questions: glare, fume, spatter). The eye’s bias is the wall’s bias. Weight: the constant-force spring must match the gun and the umbilical’s pull, or the brake holds an imbalance. The tilt of the beam is neither seen nor held by this layer (eyes-01).</p>' +
+        '<p>Questions for Derek: which side do you stand on and which hand holds the gun; do you wear eyewear that passes a green or amber LED near the nozzle; would you accept a wall you can always push through at about 2 N?</p>',
+      assumptions: '<ul><li>Gun proxy from the manual’s envelope; camera, emitter and the eight-LED sticks are illustrative (kit); LED step 0.05 mm per LED.</li>' +
+        '<li>Stage travel ±6 mm; setup offset 1.2 / −0.9 mm; clamp capacity 0.5 to 5 N, default 2 N (a 5 N solenoid through a lever, less friction: unmeasured); band 0.10 mm. All illustrative.</li>' +
+        '<li>The hand is a slider: <i>where the hand puts the dot</i> and <i>how hard it pushes</i>. No hand model, no dynamics, no latency: this scene is statics with memory (the gun stays where it is until the hand target changes). Timing is in the lens eyes-18.</li>' +
+        '<li>The eye’s estimate here is the exact offset plus a chosen bias (vertical −0.67 of radial, as eyes-01); noise is not drawn.</li>' +
+        '<li>Operator eye 330 mm from the tube axis at the chosen azimuth, 250 mm above the rim, 30° field of view: illustrative; line of sight is the drawn geometry, not optics.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, scene = app.scene;
+  gun.setLaser(true);
+  const val = id => app.ui.get(id);
+  const ARM = { r: 1.2, z: -0.9 };   // where the locked arm leaves the dot (mm from the seam): illustrative
+  const START = { r: -0.3, z: 0.2 }, PUSH = { r: 0.4, z: 0.2 };   // the scene opens with the dot where a biased eye says the seam is, and the hand pushing toward the true seam
+
+  // ------------------------------------------------------------------ shell, lug, camera, emitter, LED sticks (all fixed to the gun)
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load' });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'load', size: 9 });
+  const camBody = P.camera({ role: 'sensor', size: 16 }); gun.group.add(camBody);
+  const stalkC = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load'), stalkL = P.rod([0, 0, 0], [0, 1, 0], 1.6, 'load'), emitter = P.box(9, 9, 12, 'sensor');
+  gun.group.add(stalkC, stalkL, emitter);
+  [stalkC, stalkL, emitter, camBody].forEach(o => o.traverse(m => { if (m.isMesh) m.userData.occludes = false; }));
+  shell.group.traverse(m => m.layers.set(1)); lug.lug.traverse(m => m.layers.set(1));
+  const lensDot = V(0, 0, -WK.CLEARANCE), radiusAt = z => (z < 118 ? 27 : 30), camLocal = V(), emLocal = V();
+  function placeCameraAndEmitter() {
+    const z = val('camz'), th = val('camth') * DEG, rr = radiusAt(z);
+    camLocal.set(rr * Math.sin(th), rr * Math.cos(th), z); camBody.position.copy(camLocal);
+    camBody.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(camLocal, lensDot, V(0, 1, 0))); stalkC.setEnds(V(0, 0, z), camLocal);
+    const thL = th + Math.PI / 2, zL = z + 6; emLocal.set(rr * Math.sin(thL), rr * Math.cos(thL), zL);
+    emitter.position.copy(emLocal); emitter.quaternion.setFromRotationMatrix(new THREE.Matrix4().lookAt(emLocal, lensDot, V(0, 1, 0))); stalkL.setEnds(V(0, 0, zL), emLocal);
+  }
+  let cam = null;
+  function makeCamInset() { if (cam) cam.remove(); cam = app.inset.add({ id: 'cam', label: 'Gun-borne camera (proposed, illustrative)', object3D: camBody, target: () => gun.dotWorld(), fov: 32, near: 4, far: 600, size: [200, 140], corner: 'br', noise: 0.15, up: gun.dir([0, 1, 0]) }); }
+  app.cornerInset({ gun: gun });
+  // two 8-LED sticks along the barrel (radial and vertical error); each LED has its own basic material so the colours can change
+  const LEDN = 8, bars = { r: [], z: [] };
+  ['r', 'z'].forEach(k => { for (let i = 0; i < LEDN; i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(7.4, 6.4, 3.2), new THREE.MeshBasicMaterial({ color: WK.color(0x334155) })); m.userData.role = 'sensor'; m.userData.occludes = false; gun.group.add(m); bars[k].push(m); } });
+  const barMid = V();   // the bar's centre in gun-local coordinates
+  function placeBars() {
+    const z0 = val('barz'), th0 = val('barth') * DEG, rB = 20;
+    ['r', 'z'].forEach((k, kk) => { const th = th0 + (kk ? 1 : -1) * 0.26, n = V(Math.sin(th), Math.cos(th), 0), ax = V(0, 0, 1), yv = new THREE.Vector3().crossVectors(n, ax);
+      bars[k].forEach((m, i) => { m.position.set(rB * n.x, rB * n.y, z0 + (i - (LEDN - 1) / 2) * 8.2); m.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(ax, yv, n)); }); });
+    barMid.set(rB * Math.sin(th0), rB * Math.cos(th0), z0);
+  }
+
+  // ------------------------------------------------------------------ friction arm (locked), stage, brakes, scales, spring
+  const POSES = { A: [45, 30, -15], B: [25, 40, 0], C: [60, 20, -30] };
+  const S = { nomLug: V(), pos: { r: START.r, z: START.z }, frozen: null, events: [], lastSlip: null, brakeR: false, brakeZ: false, blockedR: false, blockedZ: false, opPos: V() };
+  const post = P.rod([0, 0, 0], [0, 0, 1], 9, 'fixed'), postFoot = P.box(80, 80, 10, 'fixed');
+  const j1 = P.sphere(11, 'fixed'), j2 = P.sphere(10, 'fixed'), j3 = P.sphere(9, 'fixed'), link1 = P.rod([0, 0, 0], [0, 0, 1], 6, 'fixed'), link2 = P.rod([0, 0, 0], [0, 0, 1], 5.5, 'fixed');
+  const plate = P.box(14, 66, 92, 'fixed');                        // base plate at the arm's end, carries the vertical rail
+  const railZ = P.rail(V(0, 0, -40), V(0, 0, 40), { width: 9, height: 5, role: 'fixed' }), carZ = P.box(20, 16, 30, 'load');
+  const armY = P.rod([0, 0, 0], [0, 1, 0], 4, 'load');            // from the vertical carriage out to the radial rail
+  const railX = P.rail(V(-22, 0, 0), V(22, 0, 0), { width: 9, height: 5, role: 'fixed' }), carX = P.box(24, 14, 16, 'load');
+  const lugRod = P.rod([0, 0, 0], [0, 0, 1], 2.6, 'load');
+  const padZ = P.box(8, 22, 14, 'ghost'), padX = P.box(16, 22, 8, 'ghost');   // brake pads: purple when clamped, ghost when free
+  const scaleZ = P.box(3, 4, 84, 'sensor'), scaleX = P.box(48, 4, 3, 'sensor');
+  const spring = P.spring(V(0, 0, 0), V(0, 0, 60), { coils: 8, radius: 5, wire: 1.2, role: 'compliant' });
+  const hand = P.sphere(30, 'compliant'); hand.material = WK.mat('compliant', { opacity: 0.55 });
+  const pushArrow = P.arrow(V(0, 0, 0), V(1, 0, 0), 30, 'compliant');
+  [post, postFoot, j1, j2, j3, link1, link2, plate, railZ, carZ, armY, railX, carX, lugRod, padZ, padX, scaleZ, scaleX, spring, hand, pushArrow].forEach(o => app.add(o));
+  function rebuildSupport() {
+    const p = POSES[val('pose')]; gun.setDials(p[0], p[1], p[2]); gun.group.updateMatrixWorld(true);
+    makeCamInset(); S.nomLug.copy(lug.world());
+    S.stage = S.nomLug.clone().add(V(ARM.r, -14, 62 + ARM.z));   // where the radial carriage sits at zero stage travel (the lug is at nomLug + ARM then)
+    updateAll();
+  }
+  const travel = () => ({ r: Math.max(-6, Math.min(6, S.pos.r - ARM.r)), z: Math.max(-6, Math.min(6, S.pos.z - ARM.z)) });
+  function updateStage() {
+    const t = travel(), C = S.stage.clone().add(V(t.r, 0, t.z)), C0 = S.stage;
+    // arm: post -> shoulder -> elbow -> wrist ball at the base plate (all fixed, locked)
+    const wrist = C0.clone().add(V(-6, -50, -8)), elbow = wrist.clone().add(V(-60, -30, 44)), shoulder = V(elbow.x - 55, elbow.y - 40, ws.benchZ + 30);
+    postFoot.position.set(shoulder.x, shoulder.y, ws.benchZ + 5); post.setEnds(V(shoulder.x, shoulder.y, ws.benchZ + 10), shoulder);
+    j1.position.copy(shoulder); j2.position.copy(elbow); j3.position.copy(wrist); link1.setEnds(shoulder, elbow); link2.setEnds(elbow, wrist);
+    plate.position.copy(C0).add(V(-6, -50, 0)); plate.position.z = C0.z - 8;
+    railZ.setEnds(V(C0.x - 3, C0.y - 43, C0.z - 45), V(C0.x - 3, C0.y - 43, C0.z + 35));
+    carZ.position.set(C0.x - 3, C0.y - 43, C0.z + t.z);
+    armY.setEnds(V(C0.x - 3, C0.y - 43, C0.z + t.z), V(C.x, C.y + 6, C.z));
+    railX.setEnds(V(C0.x - 24, C0.y - 8, C0.z + t.z - 12), V(C0.x + 24, C0.y - 8, C0.z + t.z - 12));
+    carX.position.set(C.x, C.y - 8, C.z - 12);
+    const lugW = lug.world(); lugRod.setEnds(V(C.x, C.y - 8, C.z - 4), lugW);
+    padZ.position.set(C0.x - 3, C0.y - 43 + 0, C0.z + t.z + 16); padX.position.set(C.x, C.y - 8, C.z - 22);
+    scaleZ.position.set(C0.x + 6, C0.y - 43, C0.z - 5); scaleX.position.set(C0.x, C0.y - 8, C0.z + t.z - 22);
+    spring.setEnds(V(C0.x - 3, C0.y - 43, C0.z + 44), V(C0.x - 3, C0.y - 43, C0.z + t.z + 14));
+    WK.setRole(padZ, S.slipZ ? 'laser' : S.brakeZ ? 'actuated' : 'ghost'); WK.setRole(padX, S.slipR ? 'laser' : S.brakeR ? 'actuated' : 'ghost');   // red: the hand is pushing through, the pad slips
+    hand.position.copy(gun.local('gripMid'));
+  }
+
+  // ------------------------------------------------------------------ operator: eye position and inset
+  let opInset = null;
+  function opPosition() { const az = val('opaz') * DEG, R = 330; return V(R * Math.cos(az), R * Math.sin(az), ZC + 250); }
+  function makeOpInset() { if (opInset) opInset.remove(); opInset = app.inset.add({ id: 'op', label: 'Operator’s view (proposed, illustrative)', position: () => opPosition(), target: () => gun.dotWorld().add(V(0, 0, 8)), fov: 30, near: 20, far: 1500, size: [210, 150], corner: 'tr', noise: 0 }); }
+  const opMark = P.sphere(9, 'compliant'); opMark.material = WK.mat('compliant', { opacity: 0.6 }); app.addHelper(opMark); app.add(opMark);
+
+  // ------------------------------------------------------------------ the eye's estimate, the layer's rules
+  const bz = b => -0.67 * b;
+  function seenInfo() {
+    const off = gun.dotOffset(), J = off.joint, corner = J.clone().add(V(-0.4, 0, 0.4));
+    const vc = app.inset.markVisibility('cam', corner, {});
+    const E = gun.group.localToWorld(emLocal.clone()), los = WK.lineOfSight(E, gun.dotWorld().add(V(-1.5, 0, 1.0)), WK.occluders(app), { eps: 3 });
+    return { corner: vc, laser: los };
+  }
+  function liveEstimate(pos, info) {   // what the eye reports for a dot at pos (exact + chosen bias)
+    const f = val('fault'), b = f === 'biased' ? val('bias') : 0;
+    return { r: pos.r + b, z: pos.z + bz(b) };
+  }
+  function estimateState(info) {   // { state: 'live' | 'stale' | 'blind', r, z }
+    if (val('fault') === 'dropout' || !info.corner.visible || !info.laser.visible) return { state: 'blind' };
+    if (val('fault') === 'frozen') { if (!S.frozen) S.frozen = liveEstimate(S.pos); return { state: 'stale', r: S.frozen.r, z: S.frozen.z }; }
+    S.frozen = null; const e = liveEstimate(S.pos); return { state: 'live', r: e.r, z: e.z };
+  }
+  function brakeRule() {   // the hand has changed its target: where does the gun end up? (statics with memory)
+    const layer = val('layer'), brakeOn = (layer === 'brake' || layer === 'both') && val('power'), w = val('band'), cap = val('cap'), F = val('force');
+    const tgt = { r: val('hr'), z: val('hz') }, out = { r: tgt.r, z: tgt.z }, info = seenInfo(), est = estimateState(info);
+    S.blockedR = S.blockedZ = false; S.slipR = S.slipZ = false; let slip = null;
+    if (brakeOn && est.state !== 'blind') {
+      ['r', 'z'].forEach(k => {
+        const d = tgt[k] - S.pos[k]; if (Math.abs(d) < 1e-9) return;
+        const e = est[k], live = est.state === 'live', away = d * e > 0;
+        let free;
+        if (live) free = away ? Math.max(0, w - Math.abs(e)) : Math.abs(e) + w;         // estimate slides 1:1 with the gun
+        else free = away ? (Math.abs(e) >= w ? 0 : Infinity) : Infinity;                  // stale: the estimate does not move with the gun
+        if (Math.abs(d) > free) {
+          if (F >= cap) { const eAtTarget = live ? (tgt[k] + (k === 'r' ? (val('fault') === 'biased' ? val('bias') : 0) : bz(val('fault') === 'biased' ? val('bias') : 0))) : e; slip = slip || {}; slip[k] = eAtTarget; if (k === 'r') S.slipR = true; else S.slipZ = true; }
+          else { out[k] = S.pos[k] + Math.sign(d) * free; if (k === 'r') S.blockedR = true; else S.blockedZ = true; }
+        }
+      });
+    }
+    if (slip) { S.lastSlip = { r: slip.r, z: slip.z, F: F, t: Date.now() }; if (!S.slipping) { S.events.push({ r: slip.r, z: slip.z, F: F }); if (S.events.length > 8) S.events.shift(); } S.slipping = true; } else S.slipping = false;   // one event per push through the wall, not one per frame
+    // stage travel limit
+    const lim = 6; let limited = false;
+    ['r', 'z'].forEach(k => { const a = k === 'r' ? ARM.r : ARM.z; if (out[k] - a > lim) { out[k] = a + lim; limited = true; } if (out[k] - a < -lim) { out[k] = a - lim; limited = true; } });
+    app.badge('travel', limited ? 'stage at its travel limit (±6 mm, illustrative): the arm has to be re-placed' : null, 'limit');
+    S.pos.r = out.r; S.pos.z = out.z;
+  }
+
+  // ------------------------------------------------------------------ light bar
+  const COL = { off: 0x1e293b, dim: 0x475569, green: 0x22c55e, amber: 0xf59e0b, red: 0xef4444, blind: 0x6d28d9 };
+  const dimHex = c => { const r = ((c >> 16) & 255) * 0.42, g = ((c >> 8) & 255) * 0.42, b = (c & 255) * 0.42; return (Math.round(r) << 16) | (Math.round(g) << 8) | Math.round(b); };
+  function paintBar(list, e, est) {
+    const step = 0.05, w = val('band');
+    list.forEach((m, i) => {
+      let c = COL.off;
+      if (est.state === 'blind') c = (i % 4 === 0) ? COL.blind : COL.off;                    // dark, with a single violet mark: no estimate
+      else {
+        const pos = (i - (LEDN - 1) / 2) * step, lit = Math.abs(pos - e) <= step * 0.75 || (Math.abs(e) > step * (LEDN / 2 - 0.5) && ((e > 0 && i === LEDN - 1) || (e < 0 && i === 0)));
+        if (lit) c = Math.abs(e) < w ? COL.green : (Math.abs(e) > step * 3.6 ? COL.red : COL.amber);
+        else if (Math.abs(e) < w && Math.abs(i - (LEDN - 1) / 2) < 0.6) c = 0x14532d;
+        if (est.state === 'stale') c = (c === COL.off) ? (i % 2 === 0 ? 0x2b3648 : COL.off) : dimHex(c);   // stale: the last value, dimmed, on a dotted bar
+      }
+      m.material.color.setHex(0xffffff); m.material.color.copy(WK.color(c));
+    });
+  }
+
+  // ------------------------------------------------------------------ update
+  const setAng = app.ui.readout('rang', 'Bar vs dot, as the operator sees them'), setOpv = app.ui.readout('ropv', 'Bar in the operator’s line of sight'), setDotv = app.ui.readout('rdotv', 'Dot in the operator’s line of sight');
+  let logPanel = null;
+  function brakeLayerOn() { const l = val('layer'); return (l === 'brake' || l === 'both') && val('power'); }
+  function drawStrip(est) {
+    while (strip.firstChild) strip.removeChild(strip.firstChild);
+    const T = (a, tt) => WK.svg('text', Object.assign({ fill: '#c9d3e0', 'font-size': 8.5, 'font-family': 'system-ui', text: tt }, a)), Ln = a => WK.svg('line', a), Rc = a => WK.svg('rect', a);
+    const rows = [['r', 'radial (+ toward the wall)', 28], ['z', 'vertical (+ up)', 80]], R = 0.7, X = v => 150 + v / R * 130, w = val('band');
+    const layer = val('layer'), brakeOn = (layer === 'brake' || layer === 'both') && val('power') && est.state !== 'blind';
+    rows.forEach(([k, name, y]) => {
+      strip.appendChild(T({ x: 4, y: y - 17 }, name));
+      strip.appendChild(Ln({ x1: X(-R), y1: y, x2: X(R), y2: y, stroke: '#3b4658', 'stroke-width': 1 }));
+      [-0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6].forEach(t => { strip.appendChild(Ln({ x1: X(t), y1: y - 3, x2: X(t), y2: y + 3, stroke: '#3b4658' })); strip.appendChild(T({ x: X(t), y: y + 13, 'text-anchor': 'middle', fill: '#8391a5', 'font-size': 7.5 }, t.toFixed(1))); });
+      // the estimated seam in dot-offset coordinates: where the dot would have to be for the eye to read zero
+      let seamEst = null;
+      if (est.state === 'live') seamEst = S.pos[k] - est[k]; else if (est.state === 'stale') seamEst = S.pos[k] - est[k];
+      strip.appendChild(Rc({ x: X(0) - 1.5, y: y - 12, width: 3, height: 24, fill: '#14b8a6' }));
+      if (seamEst !== null) {
+        strip.appendChild(Rc({ x: X(seamEst - w), y: y - 8, width: Math.max(1, X(seamEst + w) - X(seamEst - w)), height: 16, fill: '#3b82f6', opacity: 0.25 }));
+        strip.appendChild(Ln({ x1: X(seamEst), y1: y - 12, x2: X(seamEst), y2: y + 12, stroke: '#60a5fa', 'stroke-width': 2 }));
+        if (brakeOn) {   // outside the band only moves toward the estimated seam are free: both outer sides are one-way
+          [[X(-R), X(Math.max(-R, seamEst - w))], [X(Math.min(R, seamEst + w)), X(R)]].forEach(([x0, x1]) => { if (x1 > x0) strip.appendChild(Rc({ x: x0, y: y - 8, width: x1 - x0, height: 16, fill: '#a855f7', opacity: 0.2 })); });
+        }
+      }
+      const tg = k === 'r' ? val('hr') : val('hz');
+      strip.appendChild(WK.svg('circle', { cx: X(Math.max(-R, Math.min(R, tg))), cy: y - 20 + 7, r: 3, fill: '#22c55e' }));
+      strip.appendChild(WK.svg('circle', { cx: X(Math.max(-R, Math.min(R, S.pos[k]))), cy: y, r: 4.5, fill: '#ef4444', stroke: '#fff', 'stroke-width': 1 }));
+    });
+    strip.appendChild(T({ x: 4, y: 106, 'font-size': 7.5 }, 'teal: true seam · blue: estimated seam and band · red: dot · green: hand’s target')); strip.appendChild(T({ x: 4, y: 116, 'font-size': 7.5 }, brakeLayerOn() ? 'purple: outside the band, only moves toward the estimated seam are free' : 'brake wall not active'));
+  }
+  function updateAll(recompute) {
+    try { const bl = (val('layer') === 'brake' || val('layer') === 'both'); app.ui.enable('bias', val('fault') === 'biased'); app.ui.enable('force', bl); app.ui.enable('cap', bl); app.ui.enable('power', bl); app.ui.enable('band', true); } catch (e) { /* controls not created yet */ }
+    gun.setDials.apply(gun, POSES[val('pose')]);
+    gun.group.position.add(V(S.pos.r, 0, S.pos.z));   // the dial pose puts the dot on the seam; the dot's true offset is S.pos (the arm leaves it at ARM, the stage travel is pos - ARM)
+    gun.group.updateMatrixWorld(true);
+    placeCameraAndEmitter(); placeBars(); scene.updateMatrixWorld(true);
+    const info = seenInfo(), est = estimateState(info);
+    // brakes clamp when the layer is on, powered, the estimate is valid and the estimate is at the band's edge
+    const layer = val('layer'), brakeOn = (layer === 'brake' || layer === 'both') && val('power') && est.state !== 'blind';
+    const wEdge = val('band') - 1e-6; S.brakeR = brakeOn && Math.abs(est.r) >= wEdge; S.brakeZ = brakeOn && Math.abs(est.z) >= wEdge;   // armed: the estimate is at or beyond the band's edge; a move toward the seam releases the pad
+    updateStage(); gun.updateLaser(); scene.updateMatrixWorld(true);
+    app.cornerInset.setEstimate(est.state === 'blind' ? null : { radial: est.r, vertical: est.z });
+    drawStrip(est);
+    const barOn = val('layer') === 'bar' || val('layer') === 'both';
+    if (barOn) { paintBar(bars.r, est.r || 0, est); paintBar(bars.z, est.z || 0, est); } else { [bars.r, bars.z].forEach(l => l.forEach(m => { m.material.color.copy(WK.color(COL.off)); })); }
+    // hand push arrow
+    const tgt = { r: val('hr'), z: val('hz') }, d = V(tgt.r - S.pos.r, 0, tgt.z - S.pos.z);
+    pushArrow.visible = d.length() > 0.01 && val('force') > 0.05; if (pushArrow.visible) pushArrow.set(gun.local('gripMid').add(V(0, 0, 30)), d.normalize(), 10 + 10 * val('force'));
+    // operator's eye
+    S.opPos.copy(opPosition()); opMark.position.copy(S.opPos);
+    const barW = gun.group.localToWorld(barMid.clone()), dotW = gun.dotWorld(), op = S.opPos;
+    const barSeen = app.inset.markVisibility('op', barW.clone().add(gun.dir([barMid.x, barMid.y, 0]).normalize().multiplyScalar(3)), { eps: 1.5 });
+    const dotSeen = app.inset.markVisibility('op', dotW.clone().add(V(-0.6, 0, 0.6)), {});
+    const v1 = dotW.clone().sub(op).normalize(), v2 = barW.clone().sub(op).normalize(), ang = Math.acos(Math.max(-1, Math.min(1, v1.dot(v2)))) / DEG;
+    window.__vis = { bar: barSeen.visible, barFov: barSeen.inFov, dot: dotSeen.visible, ang: ang };
+    setAng(ang.toFixed(1), '°'); setOpv(barSeen.visible ? 'yes' : (barSeen.inFov ? 'blocked' : 'out of view')); setDotv(dotSeen.visible ? 'yes' : (dotSeen.inFov ? 'blocked' : 'out of view'));
+    app.badge('blind', est.state === 'blind' ? 'the eye cannot see the corner (or the fault is set to dropout): bar dark, brakes released' : null, 'warn');
+    app.badge('stale', est.state === 'stale' ? 'stale estimate: the bar shows the last value (dimmed) while the dot is free to drift' : null, 'warn');
+    app.badge('opv', barOn && !barSeen.visible ? 'from here the operator cannot see the bar' : null, 'warn');
+    app.badge('slip', (S.slipR || S.slipZ) ? 'the hand pushes through the wall: the pad slips (' + val('force').toFixed(1) + ' N against a capacity of ' + val('cap').toFixed(1) + ' N) and the push is logged' : null, 'warn');
+    app.badge('brk', (S.brakeR || S.brakeZ) ? 'brake armed on ' + (S.brakeR && S.brakeZ ? 'both slides' : S.brakeR ? 'the radial slide' : 'the vertical slide') + ': moves away from the estimated seam are refused, moves toward it release the pad' : null, 'info');
+    const f = v => (v >= 0 ? '+' : '') + v.toFixed(2), sl = S.lastSlip;
+    if (logPanel) logPanel.innerHTML = '<p style="margin:0 0 6px">The hand is where it says (illustrative): the log is the layer’s own record of pushes that slipped the brake, the hand’s <b>disagreement with the estimate</b> at the target.</p>' + (S.events.length ? '<table style="width:100%;border-collapse:collapse"><tr style="text-align:left;opacity:.75"><th>#</th><th>radial</th><th>vertical</th><th>push</th></tr>' + S.events.map((ev, i) => '<tr style="border-top:1px solid rgba(148,163,184,.25)"><td>' + (i + 1) + '</td><td>' + (ev.r === undefined ? '-' : f(ev.r) + ' mm') + '</td><td>' + (ev.z === undefined ? '-' : f(ev.z) + ' mm') + '</td><td>' + ev.F.toFixed(1) + ' N</td></tr>').join('') + '</table>' + (S.events.filter(e => e.r !== undefined).length >= 2 ? '<p style="margin:6px 0 0;opacity:.9">Mean radial disagreement ' + f(S.events.filter(e => e.r !== undefined).reduce((a, e) => a + e.r, 0) / S.events.filter(e => e.r !== undefined).length) + ' mm. If the hand aims at the true seam, the eye is biased by that much; if the hand aims at what it sees through a shield, the log cannot tell.</p>' : '') : '<p style="margin:0;opacity:.85">No pushes have slipped the brake yet. Turn the layer to a brake, set a bias, move the hand’s target past the wall and raise the push force above the clamp capacity.</p>');
+    app.io.set({
+      commands: [
+        { name: 'Brake, radial slide', value: S.brakeR ? 'armed (refuses away)' : 'free', note: 'off = free; power off = free; released while the hand moves toward the seam' },
+        { name: 'Brake, vertical slide', value: S.brakeZ ? 'armed (refuses away)' : 'free' },
+        { name: 'Band around the estimated seam', value: val('band').toFixed(2), unit: 'mm', note: 'software setting' },
+        { name: 'Light bar', value: barOn ? (est.state === 'blind' ? 'dark (blind)' : est.state === 'stale' ? 'dimmed (stale)' : 'live') : 'off' },
+      ],
+      observes: [
+        { name: 'Corner minus dot, radial / vertical (the eye)', value: est.state === 'blind' ? '-' : f(est.r) + ' / ' + f(est.z), unit: est.state === 'blind' ? '' : 'mm', status: est.state === 'live' ? 'partly' : est.state === 'stale' ? 'partly' : 'blind', note: est.state === 'stale' ? 'last value: not updating' : 'truth + chosen bias; the loop cannot see its own bias' },
+        { name: 'Slide positions and speed (scales)', value: f(travel().r) + ' / ' + f(travel().z), unit: 'mm', status: 'seen', note: 'proposed linear scales, 0.01 mm class; direction of motion decides which way is away' },
+        { name: 'A slip of a clamped slide', value: sl ? 'last: ' + f(sl.r === undefined ? 0 : sl.r) + ' / ' + f(sl.z === undefined ? 0 : sl.z) + ' mm at ' + sl.F.toFixed(1) + ' N' : 'none yet', status: 'partly', note: 'the position advances while the brake is clamped: the hand’s disagreement with the estimate' },
+        { name: 'How hard the hand pushes', value: '-', status: 'blind', note: 'only visible when it slips the brake (or with a load cell in the lug rod)' },
+        { name: 'Bias of the estimate', value: '-', status: 'blind', note: 'the log reads the hand’s disagreement, not the bias itself' },
+        { name: 'Tilt of the beam', value: '-', status: 'blind', note: 'not seen and not held by this layer (eyes-01)' },
+        { name: 'Whether the operator sees the bar, and through what eyewear', value: barSeen.visible ? 'in line of sight' : 'no', status: barSeen.visible ? 'partly' : 'blind', note: 'drawn line of sight only' },
+      ],
+      manual: ['Push the gun', 'Lock the friction arm; place the neighbourhood', 'The trigger', 'Decide whether to trust the bar and the wall'],
+    });
+    app.invalidate();
+  }
+
+  const settle = () => { brakeRule(); updateAll(); };   // the hand is always pushing toward its target with its force: after any change the gun goes where the rule lets it
+  // ------------------------------------------------------------------ controls
+  const lay = app.ui.group('Feedback layer (what software could command)');
+  lay.radio({ id: 'layer', label: 'Layer', kind: 'branch', value: 'both', options: [{ value: 'none', label: 'none' }, { value: 'bar', label: 'light bar' }, { value: 'brake', label: 'brake wall' }, { value: 'both', label: 'both' }], help: 'None: the hand alone. Bar: the estimate shown on the shell. Brake: motion away from the estimated seam is refused. Both.', onChange: settle });
+  lay.toggle({ id: 'power', label: 'Brakes powered', value: true, kind: 'state', visual: () => [padX, padZ], help: 'Off: the pads are released (fail-open). A brake that needs power to hold is the safe way round: losing power frees the gun.', onChange: settle });
+  lay.slider({ id: 'band', label: 'Band around the estimated seam', min: 0.02, max: 0.4, step: 0.01, value: 0.1, unit: 'mm', kind: 'actuator', help: 'Software setting: motion inside this band is free in both directions.', onChange: settle });
+  const hg = app.ui.group('The hand (scene edits: illustrative, no hand model)');
+  hg.slider({ id: 'hr', label: 'Where the hand puts the dot: radial from the true seam', min: -3, max: 3, step: 0.05, value: PUSH.r, unit: 'mm', kind: 'scene', visual: () => [pushArrow, carX], help: '+ is toward the wall. The stage moves the gun to it unless a brake refuses.', onChange: settle });
+  hg.slider({ id: 'hz', label: 'Where the hand puts the dot: vertical from the true seam', min: -3, max: 3, step: 0.05, value: PUSH.z, unit: 'mm', kind: 'scene', visual: () => [pushArrow, carZ], onChange: settle });
+  hg.slider({ id: 'force', label: 'Hand push force', min: 0, max: 5, step: 0.1, value: 1, unit: 'N', kind: 'scene', visual: () => pushArrow, help: 'A light push is about 1 N. Above the clamp capacity the pad slips.', onChange: settle });
+  hg.slider({ id: 'cap', label: 'Clamp capacity', min: 0.5, max: 5, step: 0.1, value: 2, unit: 'N', kind: 'scene', visual: () => [padX, padZ], help: 'What the pad holds before it slips: a solenoid’s force through a lever, less friction. Unmeasured.', onChange: settle });
+  const flt = app.ui.group('The estimate (scene edits: what could be wrong)');
+  flt.radio({ id: 'fault', label: 'The eye’s estimate is', kind: 'branch', value: 'biased', options: [{ value: 'good', label: 'good' }, { value: 'biased', label: 'biased' }, { value: 'frozen', label: 'frozen' }, { value: 'dropout', label: 'dropout' }], help: 'Biased: reads high by the bias below. Frozen: stops updating at the current value. Dropout: no estimate.', onChange: () => { S.frozen = null; settle(); } });
+  flt.slider({ id: 'bias', label: 'Bias (radial; vertical is -0.67 of it)', min: -0.6, max: 0.6, step: 0.05, value: 0.3, unit: 'mm', kind: 'scene', help: 'What the eye reports minus the truth. The wall and the bar both inherit it.', onChange: settle });
+  const arr = app.ui.group('Arrangement (scene edits)');
+  arr.radio({ id: 'pose', label: 'Gun pose (variant)', kind: 'branch', value: 'A', options: [{ value: 'A', label: 'A' }, { value: 'B', label: 'B' }, { value: 'C', label: 'C' }], help: 'Three rotation settings of the reference scene. Choosing one re-places the support and the arm.', onChange: () => { S.pos.r = START.r; S.pos.z = START.z; app.ui.set('hr', PUSH.r, { silent: true }); app.ui.set('hz', PUSH.z, { silent: true }); S.blockedR = S.blockedZ = false; S.frozen = null; rebuildSupport(); brakeRule(); updateAll(); } });
+  arr.slider({ id: 'camz', label: 'Camera position along the barrel', min: 30, max: 230, step: 5, value: 85, unit: 'mm', kind: 'scene', visual: () => [camBody, stalkC], help: 'Where the eye stands decides when the layer goes blind (eyes-01, eyes-02).', onChange: settle });
+  arr.slider({ id: 'camth', label: 'Camera clock angle round the barrel', min: -120, max: 120, step: 5, value: 0, unit: '°', kind: 'scene', visual: () => [camBody, stalkC, emitter], onChange: settle });
+  arr.slider({ id: 'barz', label: 'Light bar position along the barrel', min: 60, max: 230, step: 5, value: 80, unit: 'mm', kind: 'scene', visual: () => bars.r.concat(bars.z), help: 'Behind the camera; the closer to the nozzle, the smaller the angle between the bar and the dot.', onChange: () => updateAll() });
+  arr.slider({ id: 'barth', label: 'Light bar clock angle round the barrel', min: -150, max: 150, step: 5, value: 45, unit: '°', kind: 'scene', visual: () => bars.r.concat(bars.z), help: '0 = top of the gun. The bar faces outward there.', onChange: () => updateAll() });
+  arr.slider({ id: 'opaz', label: 'Operator stands at (round the tube)', min: 0, max: 360, step: 5, value: 165, unit: '°', kind: 'scene', visual: () => opMark, help: '0 = on the gun’s side of the tube, 180 = across the bore. The operator looks at the dot from 250 mm above the rim.', onChange: () => updateAll() });
+  hg.button({ id: 'goest', label: 'Hand goes to where the estimate says the seam is', kind: 'scene', help: 'Sets the hand’s target so that the eye’s reading is zero (the bar centres).', onClick: () => { const b = val('fault') === 'biased' ? val('bias') : 0; app.ui.set('hr', Math.max(-3, Math.min(3, -b))); app.ui.set('hz', Math.max(-3, Math.min(3, -bz(b)))); } });
+  hg.button({ id: 'gotrue', label: 'Hand goes to the true seam', kind: 'scene', help: 'Sets the hand’s target to zero offset from the true seam.', onClick: () => { app.ui.set('hr', 0); app.ui.set('hz', 0); } });
+  const strip = WK.svg('svg', { viewBox: '0 0 300 122', width: '100%' });
+  const stripPanel = app.ui.panel({ id: 'strip', title: 'The wall at the scale of the error (mm)', open: true, node: strip });
+  logPanel = app.ui.panel({ id: 'log', title: 'Pushes that slipped the brake', open: true, html: '' });
+  logPanel.style.fontSize = '12px';
+  app.ui.button({ id: 'clearlog', label: 'Clear the log', kind: 'state', onClick: () => { S.events = []; S.lastSlip = null; updateAll(); } });
+
+  app.label(camBody, 'gun-borne eye', { cls: 'sensor' });
+  app.label(() => gun.group.localToWorld(barMid.clone()), 'light bars (radial, vertical)', { cls: 'sensor' });
+  app.label(padX, 'brake pad (radial slide)', { cls: 'actuated' });
+  app.label(padZ, 'brake pad (vertical slide)', { cls: 'actuated' });
+  app.label(hand, 'hand pushes the gun', { cls: 'compliant' });
+  app.label(post, 'friction arm, locked', { cls: 'fixed' });
+  app.label(spring, 'constant-force spring (weight)', { cls: 'compliant' });
+  app.label(scaleX, 'linear scales', { cls: 'sensor' });
+  app.label(plate, 'stage base on the arm', { cls: 'fixed' });
+  app.label(carZ, 'vertical carriage', { cls: 'load' });
+  app.label(carX, 'radial carriage', { cls: 'load' });
+  app.label(opMark, 'operator’s eyes', { cls: 'compliant' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  const baseReset = app.ui.reset; app.ui.reset = function () { S.pos.r = START.r; S.pos.z = START.z; S.frozen = null; S.events = []; S.slipping = false; S.lastSlip = null; baseReset(); };
+  makeOpInset(); rebuildSupport(); brakeRule(); updateAll();
+  app.legend();
+  window.__S = S; window.__app = app; window.__bars = bars;
+})();
+</script>
+</body>
+</html>

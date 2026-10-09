@@ -1,0 +1,4 @@
+// Umbilical pull (along the cable exit, droop 0) at which the collar starts to climb out of the cone, by seat preload. Illustrative numbers.
+const FS = require('./statics.js'), FR = require('./ringmodel.js'); const M = FS.math;
+function off(F, pre, phi) { const m=FR.build({ arm:{mode:'none'}, rings:[], kWire:200, umbilical:{F,droop:0}, nose:{s:70,phi,rc:12,k:100,preload:pre,cmd:[0,0,0]}, tail:{dx:160,wireL:300,kb:0.15,pre:3,wireCmd:[0,0],yawCmd:0} }); const r=m.solve(new Float64Array(m.n),{maxIter:250}); const el=m.noseEl,c=m.bodyPoint(r.x,el.local),rel=M.sub(c,el.a); return Math.hypot(rel[0],rel[1]); }
+for (const phi of [30, 40, 55]) for (const pre of [0, 3, 6, 12]) { let lo = 0, hi = 30; for (let i = 0; i < 12; i++) { const mid = (lo+hi)/2; if (off(mid, pre, phi) > 1) hi = mid; else lo = mid; } console.log('half-angle', phi, 'preload', pre, 'N -> collar climbs out at pull about', hi.toFixed(1), 'N'); }

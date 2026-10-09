@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Derek's examples as days</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ex { min-width: 820px; max-width: 1400px; color: #c7d3e6; font: 12px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .ex .tabs { display: flex; gap: 3px; margin: 0 0 8px; flex-wrap: wrap; }
+  .ex .tab { flex: 1 1 0; min-width: 72px; padding: 6px 4px; text-align: center; border: 1px solid #263041; border-radius: 6px; background: #10161f; color: #98a4b6; cursor: pointer; font-size: 11px; letter-spacing: .03em; }
+  .ex .tab:hover { border-color: #3b4a61; }
+  .ex .tab.on { background: #1b2a44; border-color: #60a5fa; color: #fff; }
+  .ex .tab small { display: block; font-size: 9.5px; color: #6c788b; }
+  .ex .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .ex .colb { border: 1px solid #222c3a; border-radius: 8px; background: #0f151d; padding: 8px 8px 6px; min-width: 0; }
+  .ex h3 { margin: 0 0 1px; font-size: 13px; color: #fff; }
+  .ex .sub { font-size: 10.5px; color: #7d8ea8; margin-bottom: 4px; }
+  .ex svg { display: block; width: 100%; height: auto; }
+  .ex svg text { font: 10px system-ui, sans-serif; fill: #b6c2d4; }
+  .ex .cap { margin-top: 4px; font-size: 11.5px; min-height: 128px; }
+  .ex .cap .ln { margin: 2px 0; }
+  .ex .cap .k { display: inline-block; min-width: 62px; font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: #93a4bd; }
+  .ex .chip { display: inline-block; padding: 0 6px; border-radius: 999px; font-size: 10px; margin-right: 4px; border: 1px solid #394559; color: #b6c2d4; }
+  .ex .chip.do { background: #4a3410; border-color: #f5a524; color: #ffd48a; }
+  .ex .chip.hold { background: repeating-linear-gradient(45deg, #4a3410 0 3px, #151b23 3px 6px); border-color: #f5a524; color: #ffd48a; }
+  .ex .chip.none { color: #6c788b; }
+  .ex .chip.judge { border-color: #14b8a6; color: #7fe3d5; }
+  .ex .chip.watch { border-style: dashed; border-color: #3b82f6; color: #93c5fd; }
+  .ex .ho { color: #f9a8a8; }
+  .ex .sum { margin-top: 12px; border: 1px solid #222c3a; border-radius: 8px; background: #0f151d; padding: 10px 12px; }
+  .ex .sum h3 { margin-bottom: 6px; }
+  .ex .row { display: grid; grid-template-columns: 190px 1fr; gap: 8px; align-items: center; margin: 4px 0; }
+  .ex .bar { display: flex; height: 20px; border-radius: 4px; overflow: hidden; background: #151b23; min-width: 0; }
+  .ex .bar span { display: block; height: 100%; font-size: 10px; line-height: 20px; text-align: center; color: #0b0f14; overflow: hidden; white-space: nowrap; }
+  .ex .b-tube { background: #8a6a2c; color: #fff !important; }
+  .ex .b-hold { background: repeating-linear-gradient(45deg, #f5a524 0 3px, #151b23 3px 6px); color: #fff !important; }
+  .ex .b-do { background: #f5a524; }
+  .ex .b-free { background: #14b8a6; }
+  .ex table.mx { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 10px; }
+  .ex table.mx td, .ex table.mx th { border: 1px solid #1d2633; padding: 2px 3px; text-align: center; }
+  .ex table.mx th { color: #7d8ea8; font-weight: 500; }
+  .ex table.mx td.rl { text-align: left; color: #b6c2d4; white-space: nowrap; }
+  .ex table.mx td.c { cursor: pointer; }
+  .ex table.mx td.sel { outline: 1.5px solid #60a5fa; outline-offset: -1.5px; }
+  .ex .key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0 0; font-size: 10.5px; color: #98a4b6; }
+  .ex .key i { display: inline-block; width: 12px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .ex .note { margin-top: 8px; color: #98a4b6; font-size: 11.5px; max-width: 1100px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "use-15-examples-as-days",
+  "title": "Derek's examples as days",
+  "by": "use",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "Derek's three examples (rings and bungees on an arm, a monitor arm, the table opening) followed through eleven states of one closure, side by side. For each state the scene draws where the gun is and who holds it, what a hand does, what an eye is for, and what software commands. The summary compares minutes with a hand at the tube, a hand holding the gun, a hand only firing or cutting, and hands free. All three examples take the hand off the gun; none of them touches the states where the hand works on the tube, which is most of the day at illustrative durations.",
+  "tags": ["derek examples", "suspension", "monitor arm", "table opening", "sequence", "handover", "hand and eye", "lens"],
+  "branchOf": ["freedom-01-ring-bungee", "freedom-02-balanced-arm", "room-01-table-opening"],
+  "combines": [],
+  "transferable": ["parking the gun is a state", "hand at the tube is not hand on the gun", "a hand that fires is not a hand that holds", "the arm keeps today's bring and lift-away"],
+  "how": {
+    "motion": "no mechanism is animated; each panel is a schematic elevation redrawn per state",
+    "load": "each caption names who carries the gun in that state: arm, wires, friction, brake, gantry, shelf",
+    "reference": "the pose-owner line: what fixes the gun's position in that state",
+    "observe": "the eye line: a person judging, or a camera that could watch",
+    "use": "compare the three examples state by state; change the durations to yours"
+  },
+  "software": {
+    "commands": ["depends on the example: arm axes, vernier, brake, shelf, gantry, rotator"],
+    "observes": ["depends on the example: camera, arm force, encoder, end-stops"],
+    "manual": ["what the hand lines show"]
+  },
+  "notes": ["../../exchange/use--on--travel-w2.md", "../../explorers/use/notebook.md", "../../explorers/freedom/ideas/freedom-01-ring-bungee.md", "../../explorers/freedom/ideas/freedom-02-balanced-arm.md", "../../explorers/room/ideas/room-01-table-opening.md", "../../explorers/use/ideas/use-15-examples-as-days.md"],
+  "sources": ["../../sourcing/use.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false, open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>Derek’s examples are usually drawn as positions. Here each is followed through the <b>states of one closure</b>, so the questions become: where is the gun while the tube is loaded, who holds it in each state, where is the hand, what is the eye for, and what changes hands. Pick a state (buttons, or the State control) and the three panels redraw: <b>rings and bungees with an arm</b> (freedom-01), <b>the monitor arm</b> with a vernier and a brake (freedom-02), and <b>the table opening</b> with a shelf and a gantry (room-01). The captions say who carries the gun, what the hand and the eye do, and what software commands; a red ◆ marks a handover of the gun’s pose from one owner to another.</p>' +
+        '<p>Below, a bar for each arrangement sums the day at your durations: time with a hand at the <b>tube</b> (loading, indicating, seating the plate, swapping), a hand <b>holding</b> the gun (a support role), a hand that only <b>fires or cuts</b> (only a hand does this), and <b>hands free</b>. The hand-held row is the written sequence for reference. The examples differ mostly in the gun states; the tube states are the same in all of them.</p>',
+      carries:
+        '<p>Amber is the gun in its printed shell. Purple is what software could drive (arm, vernier, shelf, gantry). Green is compliance (bungees, the friction window of an arm). Teal marks a hand or eye position marker. The caption’s <b>pose owner</b> line is the carrying answer in time.</p>',
+      software:
+        '<p>The captions list what software would command and observe in each state for that example. Software never fires the laser in any panel: a hand does (a pendant or trigger path where the hand is not on the gun). A camera that “could watch” is a proposal, not a sensor whose view has been checked.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Parking is a state, and it costs each example something different.</b> The tube is loaded, indicated and the plate seated with the recess open, so the gun has to be out of the way for three states and again for the swap. In the table opening it is free: the hand works under the table and the gun waits above it. On the monitor arm it is a swing of the arm by hand, held by friction. In the suspension the gun hangs in its rings over the neighbourhood, so the arm has to lift the whole hanging assembly, and the wires and bungees are in the hand’s reach at the tube.</li>' +
+        '<li><b>The handovers are not where the drawings put the effort.</b> The table opening has almost none between the machine parts. The monitor arm has three: the hand lets go (a friction window holds it, then a brake), the brake gives back to the hand for the lift-away, and the hand parks it. The suspension has one that matters, when the arm lowers the gun into the rings and the wires go taut and take the weight; letting the arm go there would leave the bungees holding (see use-14).</li>' +
+        '<li><b>Hanging and opening the loops.</b> freedom-01 has the loops opened for each tube. Followed through the states, nothing needs that: the arm lifts the whole hanging assembly for the plate and the swap, so the loops stay closed on the shell. The loop around the umbilical and its connectors can only go on open, so it is opened once, at fitting. Opening and closing them per tube would add two hand-on-gun states to every closure. <i>Left standing:</i> whether an arm can lift a hanging assembly with wires and stretched bungees attached, and how far the tip loop then hangs from the rim.</li>' +
+        '<li><b>The monitor arm keeps today’s two big hand actions</b> (bring the head to the recess, lift it away at the end) and takes only the hold, which is the part a hand does worst. That is its least disruptive property, and its cost: the neighbourhood is forgotten each time, so every closure starts from a hand-brought pose.</li>' +
+        '<li><b>None of the three touches the hand’s day at the tube.</b> With the illustrative durations the tube states (load, indicate, plate, swap) are about 11 minutes of a closure of about 16; the gun states are the rest. A supported gun changes a few minutes; a cartridge, a driver or a puck (use-03, travel-06, trials-01) changes the eleven.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li>Every duration is <b>illustrative</b> except the lap (48.6 s at 8 mm/s). Derek’s real ones would replace them.</li>' +
+        '<li>The panels are schematic elevations, not the scenes: geometry, clearances and stiffness are in freedom-01, freedom-02 and room-01, not here. Positions are drawn to a common scale of about 0.3 px per mm only to keep the recess and the gun readable.</li>' +
+        '<li>ESCAPE follows the coordinator’s shared context (the head leaves with the trigger held); guide 46 says only “release the trigger, then the pedal”. The toggle removes it.</li>' +
+        '<li>Where a person stands in the suspension, whether an arm can lift a hanging assembly with wires and bungees attached, and whether an eye can see into a table box are not settled here. <b>Questions for Derek:</b> which of the eleven states takes the most minutes on a real day, and in which does your hand feel like a support rather than a skill?</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>States and order follow the written sequence <b>[repo]</b> (load, indicate, seat and tack the plate, contact and set, dry revolution, weld, release, snip) with BRING and TRIM added for the gun and the study’s dry lap. Durations (min): load 1, indicate 6, plate 3, bring 1, trim 0.5, tack 1, dry lap 1, weld 0.9, escape 0.2, snip 1, swap 1: illustrative.</li>' +
+        '<li>Each example is the arrangement as its own scene draws it: suspension with a rigid arm grip and the rings shedding weight (freedom-01); a gas-spring arm with vernier and brake (freedom-02); shelf and gantry, the shelf dropping the tube at the escape (room-01; the 26 mm at 60 mm/s is room-15’s figure, unmeasured).</li>' +
+        '<li>Cell wording is mine and one line long; it can mislead where an arrangement has branches.</li>' +
+        '</ul>',
+    },
+  });
+  const st = app.stageEl;
+
+  // ------------------------------------------------------------------ states
+  const ST = ['LOAD', 'INDICATE', 'PLATE', 'BRING', 'TRIM', 'TACK', 'DRY LAP', 'WELD', 'ESCAPE', 'SNIP', 'SWAP'];
+  const STSUB = ['tube in nest', 'dial, screws', 'seat plate', 'gun to the seam', 'fine placement', '8 tacks', 'laser off', 'bead', 'head leaves', 'stuck wire', 'tube out'];
+  const D0 = [1, 6, 3, 1, 0.5, 1, 1, 0.9, 0.2, 1, 1];
+  const dur = D0.slice();
+  const S = { i: 3, snip: false, lift: true };
+
+  // cell: own = [kind, text], h = where the hand is ('tube' | 'gun' | 'pendant' | 'none'), hold (carries the gun), do (something only a hand does), hT, eye = ['judge'|'watch'|'none', text], sw
+  const C = (own, h, hold, dflt, hT, eye, sw) => ({ own: own, h: h, hold: hold, do: dflt, hT: hT, eye: eye, sw: sw });
+  const EXS = {
+    today: { name: 'Hand-held (today)', cells: [
+      C(['hand', 'no gun'], 'tube', 0, 1, 'lift the tube onto the nest', ['judge', 'rim seated'], ''),
+      C(['hand', 'no gun'], 'tube', 0, 1, 'screws to contact, read the dial', ['judge', 'the dial'], ''),
+      C(['hand', 'no gun'], 'tube', 0, 1, 'seat the plate on the depth stop', ['judge', 'seating'], ''),
+      C(['hand', 'HAND'], 'gun', 1, 0, 'holds the head at the seam', ['judge', 'aim by eye'], ''),
+      C(['hand', 'HAND'], 'gun', 1, 0, 'aims by eye while holding', ['judge', 'aim by eye'], ''),
+      C(['hand', 'HAND'], 'gun', 1, 1, 'holds and fires the tacks', ['judge', 'each tack'], 'pedal indexes the table'),
+      C(['none', '—'], 'none', 0, 0, 'a continuity revolution only', ['watch', 'the meter'], 'degrees'),
+      C(['hand', 'HAND'], 'gun', 1, 1, 'holds angle and standoff, fires', ['judge', 'puddle, wire'], 'degrees'),
+      C(['hand', 'HAND'], 'gun', 1, 1, 'lifts the head, then releases', ['judge', 'end of the lap'], ''),
+      C(['hand', 'HAND'], 'gun', 1, 1, 'holds the head, cuts the wire', ['judge', 'nozzle to bead'], ''),
+      C(['none', '—'], 'tube', 0, 1, 'lifts the tube out', ['none', ''], '')] },
+    susp: { name: 'Rings, bungees and an arm', sub: 'Derek’s suspension with a rigid grip: freedom-01', scene: 'freedom-01-ring-bungee', cells: [
+      C(['arm', 'ARM lifts the hanging gun clear'], 'tube', 0, 1, 'loads the tube; wires and bungees hang above it', ['judge', 'clearance of the hanging gear'], 'CMD arm up; wires go slack'),
+      C(['arm', 'ARM (lifted)'], 'tube', 0, 1, 'screws and dial; the gear hangs overhead', ['judge', 'the dial'], ''),
+      C(['arm', 'ARM (lifted)'], 'tube', 0, 1, 'seats the plate: the recess is open', ['judge', 'seating'], ''),
+      C(['wires', 'ARM lowers it; the wires go taut and take the weight'], 'none', 0, 0, 'hands free', ['watch', 'a camera could see it arrive'], 'CMD arm to the neighbourhood; OBS arm force'),
+      C(['arm', 'ARM, fine'], 'none', 0, 0, 'hands free', ['watch', 'camera: dot vs seam'], 'CMD arm XYZ from the camera; null the arm force with the bungee anchors'),
+      C(['arm', 'ARM (rigid grip); rings shed weight'], 'gun', 0, 1, 'fires the tacks (pendant or trigger path)', ['judge', 'aim of each tack'], 'CMD index 8 tacks'),
+      C(['arm', 'ARM'], 'none', 0, 0, 'hands free', ['watch', 'camera'], 'CMD one lap; OBS camera'),
+      C(['arm', 'ARM'], 'gun', 0, 1, 'pedal and trigger', ['judge', 'puddle, wire'], 'rotator only; a veto is possible'),
+      C(['arm', 'ARM retracts along the beam; bungees stretch'], 'gun', 0, 1, 'holds the trigger until free, releases', ['judge', 'end of the lap'], 'CMD arm retract, force-limited'),
+      C(['arm', 'ARM holds still'], 'gun', 0, 1, 'cuts the wire between nozzle and bead', ['judge', 'nozzle to bead'], 'HOLD: arm inhibited'),
+      C(['arm', 'ARM lifts the hanging gun clear'], 'tube', 0, 1, 'lifts the tube out, next in', ['none', ''], 'CMD arm up')] },
+    arm: { name: 'Monitor arm', sub: 'gas spring, vernier, brake: freedom-02', scene: 'freedom-02-balanced-arm', cells: [
+      C(['friction', 'ARM parked by hand, held by friction'], 'tube', 0, 1, 'loads the tube; the arm is out of the way', ['judge', 'rim seated'], ''),
+      C(['friction', 'ARM parked'], 'tube', 0, 1, 'screws and dial', ['judge', 'the dial'], ''),
+      C(['friction', 'ARM parked'], 'tube', 0, 1, 'seats the plate: the recess is open', ['judge', 'seating'], ''),
+      C(['hand', 'HAND brings it, lets go: friction holds'], 'gun', 1, 0, 'brings the head to within about 10 mm, lets go', ['judge', 'own eye at the recess'], 'OBS shoulder angle; drift seen only by a camera'),
+      C(['vernier', 'BRAKE closes, then VERNIER trims'], 'none', 0, 0, 'hands free', ['watch', 'camera: dot vs seam'], 'CMD brake, then vernier XZ from the camera'),
+      C(['vernier', 'BRAKE on; VERNIER holds the trim'], 'gun', 0, 1, 'a finger on the trigger, not gripping', ['judge', 'aim of each tack'], 'CMD index 8 tacks'),
+      C(['vernier', 'BRAKE on; VERNIER'], 'none', 0, 0, 'hands free', ['watch', 'camera'], 'CMD one lap; OBS camera'),
+      C(['vernier', 'BRAKE on; VERNIER'], 'gun', 0, 1, 'pedal and trigger', ['judge', 'puddle, wire'], 'rotator only; a veto is possible'),
+      C(['hand', 'BRAKE off; HAND lifts the balanced arm'], 'gun', 1, 1, 'lifts the head, holds the trigger, releases', ['judge', 'end of the lap'], 'CMD brake release'),
+      C(['hand', 'HAND holds the head'], 'gun', 1, 1, 'holds the head; the other hand cuts', ['judge', 'nozzle to bead'], ''),
+      C(['friction', 'ARM parked by hand'], 'tube', 0, 1, 'parks the arm, swaps the tube', ['none', ''], '')] },
+    table: { name: 'Table opening', sub: 'shelf under a hole, gantry on the table: room-01', scene: 'room-01-table-opening', cells: [
+      C(['shelf', 'SHELF down; the gun waits above the table'], 'tube', 0, 1, 'loads through the side opening, at low height', ['judge', 'looks into a box'], 'CMD shelf down, gantry home'),
+      C(['shelf', 'SHELF down'], 'tube', 0, 1, 'reaches in: screws, dial on the rim', ['judge', 'the dial'], ''),
+      C(['shelf', 'SHELF down'], 'tube', 0, 1, 'seats the plate; the gun is nowhere near', ['judge', 'seating'], ''),
+      C(['gantry', 'SHELF up to a hard stop; GANTRY brings the gun'], 'none', 0, 0, 'hands free', ['watch', 'camera above the table'], 'CMD shelf, gantry; OBS end-stops'),
+      C(['gantry', 'GANTRY X and SHELF Z trim'], 'none', 0, 0, 'hands free', ['watch', 'camera: dot vs seam'], 'CMD gantry and shelf from the camera'),
+      C(['gantry', 'GANTRY and SHELF, stiff and motorised'], 'pendant', 0, 1, 'fires the tacks from a pendant', ['judge', 'aim of each tack'], 'CMD index 8 tacks'),
+      C(['gantry', 'GANTRY and SHELF'], 'none', 0, 0, 'hands free', ['watch', 'camera'], 'CMD one lap; OBS camera'),
+      C(['gantry', 'GANTRY and SHELF'], 'pendant', 0, 1, 'pedal and pendant trigger', ['judge', 'puddle, wire'], 'rotator only; a veto is possible'),
+      C(['shelf', 'SHELF drops the tube (26 mm, 0.43 s at 60 mm/s: room-15’s figure)'], 'pendant', 0, 1, 'holds the trigger until free, releases', ['judge', 'end of the lap'], 'CMD shelf drop'),
+      C(['gantry', 'GANTRY holds still'], 'gun', 0, 1, 'reaches over the table and cuts the wire', ['judge', 'nozzle to bead'], 'HOLD: gantry and shelf inhibited'),
+      C(['shelf', 'SHELF down'], 'tube', 0, 1, 'lifts the tube out through the side opening', ['none', ''], 'CMD shelf down')] },
+  };
+  const ORDER = ['susp', 'arm', 'table'];
+  // owner colours: hand amber, arm/vernier/gantry/shelf purple, friction/wires green, none grey
+  const KIND = { hand: '#f5a524', arm: '#a855f7', vernier: '#a855f7', gantry: '#a855f7', shelf: '#a855f7', friction: '#22c55e', wires: '#22c55e', none: '#3a4658' };
+
+  // ------------------------------------------------------------------ geometry helpers (panel coordinates, 300 x 224)
+  const CX = 170, RIM = 100, SEAM = [CX + 16, RIM + 9], NOZ = [SEAM[0] - 10, SEAM[1] - 12];
+  const UX = -0.5, UY = -0.866, GL = 62;
+  const f1 = v => v.toFixed(1);
+  function ik2(bx, by, tx, ty, L1, L2, up) {
+    const dx = tx - bx, dy = ty - by; let d = Math.hypot(dx, dy); d = Math.min(d, L1 + L2 - 0.5); d = Math.max(d, Math.abs(L1 - L2) + 0.5);
+    const a = Math.atan2(dy, dx), A = Math.acos(Math.max(-1, Math.min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)))), ang = a + (up ? -A : A);
+    return [bx + L1 * Math.cos(ang), by + L1 * Math.sin(ang)];
+  }
+  const along = (n, t) => [n[0] + UX * GL * t, n[1] + UY * GL * t];
+  function tubeSVG(rimY) {
+    const l = CX - 20, r = CX + 20, b = rimY + 50;
+    return '<g><rect x="' + l + '" y="' + rimY + '" width="4" height="50" fill="#94a3b8"/><rect x="' + (r - 4) + '" y="' + rimY + '" width="4" height="50" fill="#94a3b8"/>' +
+      '<rect x="' + (l + 4) + '" y="' + (rimY + 9) + '" width="32" height="3" fill="#cbd5e1"/><rect x="' + (l - 2) + '" y="' + (b - 4) + '" width="44" height="4" fill="#3a4658"/>' +
+      '<rect x="' + (l + 4) + '" y="' + (rimY + 12) + '" width="32" height="34" fill="rgba(148,163,184,.10)"/></g>';
+  }
+  function gunSVG(n) {
+    const a = along(n, 0), b = along(n, 0.36), c = along(n, 1.0), grip = along(n, 0.62), gripEnd = [grip[0] - 8, grip[1] + 22];
+    const line = (p, q, w, col) => '<line x1="' + f1(p[0]) + '" y1="' + f1(p[1]) + '" x2="' + f1(q[0]) + '" y2="' + f1(q[1]) + '" stroke="' + col + '" stroke-width="' + w + '" stroke-linecap="round"/>';
+    return '<g>' + line(a, b, 4, '#8b95a5') + line(b, c, 13, '#c98a1a') + line(grip, gripEnd, 8, '#b07818') +
+      '<path d="M' + f1(c[0]) + ' ' + f1(c[1]) + ' C ' + f1(c[0] - 26) + ' ' + f1(c[1] - 22) + ' ' + f1(c[0] - 6) + ' -6 ' + f1(c[0] - 40) + ' -20" fill="none" stroke="#5b6472" stroke-width="3"/>' +
+      '<line x1="' + f1(n[0]) + '" y1="' + f1(n[1]) + '" x2="' + f1(n[0] + 10) + '" y2="' + f1(n[1] + 12) + '" stroke="#ff3b30" stroke-width="1"/><circle cx="' + f1(n[0] + 10) + '" cy="' + f1(n[1] + 12) + '" r="2.4" fill="#ff3b30"/></g>';
+  }
+  const handSVG = (x, y, role) => '<g><circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="8.5" fill="' + (role === 'hold' ? 'url(#hh)' : '#f5a524') + '" stroke="#f5a524"/><text x="' + f1(x) + '" y="' + f1(y + 3.5) + '" text-anchor="middle" style="fill:#0b0f14;font-weight:700;font-size:10px">H</text></g>';
+  const camSVG = (x, y, toX, toY) => '<g><line x1="' + x + '" y1="' + (y + 6) + '" x2="' + f1(toX) + '" y2="' + f1(toY) + '" stroke="#3b82f6" stroke-dasharray="3 3"/><rect x="' + (x - 8) + '" y="' + (y - 5) + '" width="16" height="10" rx="2" fill="#3b82f6"/><rect x="' + (x - 3) + '" y="' + (y + 4) + '" width="6" height="4" fill="#93c5fd"/></g>';
+  const eyeSVG = (x, y) => '<g fill="none" stroke="#14b8a6" stroke-width="1.5"><ellipse cx="' + x + '" cy="' + y + '" rx="9" ry="5"/><circle cx="' + x + '" cy="' + y + '" r="2.4" fill="#14b8a6"/></g>';
+  const lockSVG = (x, y, closed) => '<g><rect x="' + (x - 5) + '" y="' + (y - 2) + '" width="10" height="8" rx="1.5" fill="' + (closed ? '#f87171' : '#22c55e') + '"/><path d="M' + (x - 3) + ' ' + (y - 2) + ' v-3 a3 3 0 0 1 6 0 v' + (closed ? 3 : 0.5) + '" fill="none" stroke="' + (closed ? '#f87171' : '#22c55e') + '" stroke-width="1.5" transform="' + (closed ? '' : 'translate(2 -3) rotate(25 ' + x + ' ' + y + ')') + '"/></g>';
+  const zig = (x1, y1, x2, y2, col, n) => { const N = n || 8; let d = 'M' + f1(x1) + ' ' + f1(y1); const dx = (x2 - x1) / N, dy = (y2 - y1) / N, L = Math.hypot(dx, dy) || 1, nx = -dy / L * 4, ny = dx / L * 4; for (let k = 0; k < N; k++) d += ' L' + f1(x1 + dx * (k + 0.25) + nx) + ' ' + f1(y1 + dy * (k + 0.25) + ny) + ' L' + f1(x1 + dx * (k + 0.75) - nx) + ' ' + f1(y1 + dy * (k + 0.75) - ny); d += ' L' + f1(x2) + ' ' + f1(y2); return '<path d="' + d + '" fill="none" stroke="' + col + '" stroke-width="1.6"/>'; };
+  const defs = '<defs><pattern id="hh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#151b23"/><rect width="2.2" height="5" fill="#f5a524"/></pattern></defs>';
+  const ground = y => '<rect x="0" y="' + y + '" width="300" height="3" fill="#2a3341"/>';
+
+  // gun nozzle by state (panel coordinates) for the suspension and the arm
+  const PARK = [110, 84], BRINGP = [183, 90], ESC = [NOZ[0] - 17, NOZ[1] - 21];
+  const nozzleFor = (ex, i) => {
+    if (ex === 'table') return [PARK[0] + 0, RIM - 6];
+    return i <= 2 ? PARK : i === 3 ? BRINGP : i <= 7 ? NOZ : i <= 9 ? (S.lift ? ESC : NOZ) : PARK;
+  };
+  const tableNoz = i => (i <= 2 || i === 10 ? [84, 92] : i === 3 ? [183, 91] : i <= 7 ? NOZ : i === 8 ? NOZ : NOZ);
+
+  function draw(ex, i) {
+    const cell = EXS[ex].cells[i], handRole = cell.hold ? 'hold' : 'do';
+    let g = defs + ground(190);
+    if (ex === 'susp') {
+      const n = nozzleFor('susp', i), lifted = i <= 2 || i === 10, taut = i >= 3 && i <= 9;
+      g += '<rect x="10" y="6" width="280" height="4" fill="#3a4658"/>';
+      g += tubeSVG(RIM);
+      g += gunSVG(n);
+      const c1 = along(n, 0.3), c2 = along(n, 0.86), an = [132, 10];
+      // wire: straight when taut, a slack curve when the arm carries the gun
+      g += taut ? '<line x1="' + an[0] + '" y1="10" x2="' + f1(c1[0]) + '" y2="' + f1(c1[1]) + '" stroke="#9aa8bd" stroke-width="1.4"/>'
+                : '<path d="M' + an[0] + ' 10 Q ' + (an[0] + 20) + ' ' + f1((10 + c1[1]) / 2 + 26) + ' ' + f1(c1[0]) + ' ' + f1(c1[1]) + '" fill="none" stroke="#9aa8bd" stroke-dasharray="3 2"/>';
+      g += '<ellipse cx="' + f1(c1[0]) + '" cy="' + f1(c1[1]) + '" rx="9" ry="3.6" transform="rotate(-30 ' + f1(c1[0]) + ' ' + f1(c1[1]) + ')" fill="none" stroke="#22c55e" stroke-width="2"/>';
+      g += '<ellipse cx="' + f1(c2[0]) + '" cy="' + f1(c2[1]) + '" rx="9" ry="3.6" transform="rotate(-30 ' + f1(c2[0]) + ' ' + f1(c2[1]) + ')" fill="none" stroke="#22c55e" stroke-width="2"/>';
+      g += zig(292, 60, c2[0], c2[1], '#22c55e', 10);
+      g += '<rect x="288" y="40" width="6" height="40" fill="#3a4658"/>';
+      const gp = along(n, 0.6), sh = [12, 120], el = ik2(sh[0], sh[1], gp[0], gp[1], 78, 96, true);
+      g += '<polyline points="' + sh.join(',') + ' ' + f1(el[0]) + ',' + f1(el[1]) + ' ' + f1(gp[0]) + ',' + f1(gp[1]) + '" fill="none" stroke="#a855f7" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>';
+      g += '<circle cx="' + f1(gp[0]) + '" cy="' + f1(gp[1]) + '" r="5" fill="#c084fc"/><rect x="4" y="112" width="14" height="60" fill="#3a4658"/>';
+      g += lockSVG(el[0], el[1] - 10, i >= 5 && i <= 9);
+      g += '<text x="150" y="20" style="font-size:9.5px" text-anchor="middle">wire (Z)</text><text x="256" y="52" style="font-size:9.5px" text-anchor="middle">bungee</text>';
+      if (cell.h === 'tube') g += handSVG(CX - 62, RIM + 22, handRole) + '<text x="' + (CX - 62) + '" y="' + (RIM + 42) + '" text-anchor="middle">at the tube</text>';
+      else if (cell.h === 'gun') g += handSVG(...along(n, 0.7).map((v, k) => v + (k ? 4 : -16)), handRole);
+    } else if (ex === 'arm') {
+      const n = nozzleFor('arm', i), tp = along(n, 0.78), sh = [26, 140], el = ik2(sh[0], sh[1], tp[0], tp[1], 96, 100, true);
+      g += '<rect x="10" y="150" width="30" height="40" fill="#3a4658"/><rect x="20" y="132" width="12" height="20" fill="#3a4658"/>';
+      g += tubeSVG(RIM);
+      g += gunSVG(n);
+      // gas spring beside the lower link
+      const gs = [sh[0] + (el[0] - sh[0]) * 0.15, sh[1] + (el[1] - sh[1]) * 0.15 + 8], ge = [sh[0] + (el[0] - sh[0]) * 0.6, sh[1] + (el[1] - sh[1]) * 0.6 + 8];
+      g += '<line x1="' + f1(gs[0]) + '" y1="' + f1(gs[1]) + '" x2="' + f1(ge[0]) + '" y2="' + f1(ge[1]) + '" stroke="#22c55e" stroke-width="3" stroke-dasharray="7 2"/>';
+      g += '<polyline points="' + sh.join(',') + ' ' + f1(el[0]) + ',' + f1(el[1]) + ' ' + f1(tp[0]) + ',' + f1(tp[1]) + '" fill="none" stroke="#7c86a0" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>';
+      g += '<rect x="' + f1(tp[0] - 7) + '" y="' + f1(tp[1] - 5) + '" width="14" height="10" fill="#a855f7"/>';
+      g += lockSVG(el[0], el[1] - 10, i >= 4 && i <= 7);
+      g += '<text x="' + f1(tp[0] + 12) + '" y="' + f1(tp[1] - 8) + '" style="font-size:9.5px">vernier</text><text x="' + f1(gs[0] + 4) + '" y="' + f1(gs[1] + 26) + '" style="font-size:9.5px">gas spring</text>';
+      if (cell.h === 'tube') g += handSVG(CX - 62, RIM + 22, handRole) + '<text x="' + (CX - 62) + '" y="' + (RIM + 42) + '" text-anchor="middle">at the tube</text>';
+      else if (cell.h === 'gun') g += handSVG(...along(n, 0.75).map((v, k) => v + (k ? 6 : -18)), handRole);
+    } else {
+      // table opening: shelf up (rim flush) or down; gantry bridge over everything
+      const down = i <= 2 || i === 10, drop = i === 8 ? 8 : down ? 44 : 0, rimY2 = RIM + drop, n = tableNoz(i);
+      g += '<rect x="6" y="100" width="134" height="8" fill="#3a4658"/><rect x="200" y="100" width="94" height="8" fill="#3a4658"/>';
+      g += '<rect x="40" y="108" width="4" height="72" fill="#3a4658"/><rect x="40" y="214" width="4" height="8" fill="#3a4658"/><rect x="272" y="108" width="4" height="114" fill="#3a4658"/><rect x="40" y="220" width="236" height="3" fill="#3a4658"/>';
+      g += '<text x="24" y="200" style="font-size:9px" text-anchor="middle">opening</text>';
+      g += tubeSVG(rimY2);
+      g += '<rect x="110" y="' + (rimY2 + 50) + '" width="120" height="5" fill="#a855f7"/><rect x="130" y="' + (rimY2 + 55) + '" width="80" height="14" fill="#a855f7" opacity=".55"/>';
+      g += '<text x="236" y="' + (rimY2 + 66) + '" style="font-size:9.5px">shelf</text>';
+      g += gunSVG(n);
+      const carr = along(n, 0.45);
+      g += '<rect x="26" y="78" width="252" height="6" fill="#a855f7"/><rect x="' + f1(carr[0] - 9) + '" y="74" width="18" height="14" fill="#c084fc"/><line x1="' + f1(carr[0]) + '" y1="88" x2="' + f1(carr[0]) + '" y2="' + f1(carr[1]) + '" stroke="#c084fc" stroke-width="3"/>';
+      g += '<rect x="20" y="78" width="6" height="22" fill="#3a4658"/><rect x="278" y="78" width="6" height="22" fill="#3a4658"/><text x="150" y="70" style="font-size:9.5px" text-anchor="middle">gantry</text>';
+      if (cell.h === 'tube') g += handSVG(60, 190, handRole) + '<path d="M70 190 H' + (CX - 24) + '" stroke="#f5a524" stroke-dasharray="3 3"/>';
+      else if (cell.h === 'pendant') g += handSVG(262, 60, handRole) + '<text x="262" y="46" text-anchor="middle">pendant</text>';
+      else if (cell.h === 'gun') g += handSVG(n[0] - 26, n[1] - 8, handRole);
+    }
+    // eye or camera
+    const dotAt = [ex === 'table' ? tableNoz(i)[0] + 10 : nozzleFor(ex, i)[0] + 10, ex === 'table' ? tableNoz(i)[1] + 12 : nozzleFor(ex, i)[1] + 12];
+    if (cell.eye[0] === 'watch') g += camSVG(236, ex === 'table' ? 26 : 34, dotAt[0], dotAt[1]);
+    else if (cell.eye[0] === 'judge') g += eyeSVG(252, 30);
+    return '<svg viewBox="0 0 300 224" role="img" aria-label="' + EXS[ex].name + ', state ' + ST[i] + '">' + g + '</svg>';
+  }
+
+  // ------------------------------------------------------------------ DOM
+  const root = WK.h('div', { class: 'ex' });
+  st.appendChild(root);
+  const tabs = WK.h('div', { class: 'tabs' }); root.appendChild(tabs);
+  const cols = WK.h('div', { class: 'cols' }); root.appendChild(cols);
+  const sum = WK.h('div', { class: 'sum' }); root.appendChild(sum);
+  const key = WK.h('div', { class: 'key' }); root.appendChild(key);
+  root.appendChild(WK.h('div', { class: 'note', html: 'Amber H: a hand (hatched: carrying the gun). Teal eye: a person judging. Blue camera: an eye software could use, with a dashed line to the dot. Red padlock: locked; green: open. Purple: driven; green zigzag: compliance.' }));
+  key.innerHTML = '<span><i style="background:#8a6a2c"></i>hand at the tube</span><span><i style="background:repeating-linear-gradient(45deg,#f5a524 0 3px,#151b23 3px 6px)"></i>hand holds the gun (a support role)</span><span><i style="background:#f5a524"></i>hand only fires or cuts</span><span><i style="background:#14b8a6"></i>hands free</span>';
+  const colEls = ORDER.map(k => { const c = WK.h('div', { class: 'colb' }); cols.appendChild(c); return c; });
+
+  function ownKind(ex, i) { return EXS[ex].cells[i].own[0]; }
+  function visible(i) { return S.snip || i !== 9; }
+  function seg(ex) {
+    let tube = 0, hold = 0, fire = 0, free = 0;
+    EXS[ex].cells.forEach((c, i) => {
+      if (!visible(i)) return;
+      const d = dur[i], cc = (i === 8 && !S.lift) ? EXS[ex].cells[7] : c;
+      if (cc.h === 'tube') tube += d; else if (cc.hold) hold += d; else if (cc.do) fire += d; else free += d;
+    });
+    return { tube: tube, hold: hold, fire: fire, free: free, total: tube + hold + fire + free };
+  }
+  function render() {
+    const i = S.i;
+    tabs.innerHTML = '';
+    ST.forEach((n, k) => { if (!visible(k)) return; const t = WK.h('div', { class: 'tab' + (k === i ? ' on' : ''), html: n + '<small>' + STSUB[k] + '</small>' }); t.addEventListener('click', () => app.ui.set('state', String(k))); tabs.appendChild(t); });
+    ORDER.forEach((ex, c) => {
+      const cell = EXS[ex].cells[i], escOff = i === 8 && !S.lift, hc = escOff ? EXS[ex].cells[7] : cell;
+      const handChip = '<span class="chip ' + (hc.hold ? 'hold' : hc.h === 'none' ? 'none' : 'do') + '">' + (hc.hold ? 'holds' : hc.h === 'none' ? 'free' : hc.h === 'tube' ? 'works' : 'fires / cuts') + '</span>' + (escOff ? 'releases the trigger, then the pedal' : cell.hT);
+      const eyeChip = '<span class="chip ' + (cell.eye[0] === 'none' ? 'none' : cell.eye[0]) + '">' + (cell.eye[0] === 'judge' ? 'judges' : cell.eye[0] === 'watch' ? 'could watch' : 'spare') + '</span>' + cell.eye[1];
+      const prevK = i > 0 ? EXS[ex].cells[i - 1].own[0] : cell.own[0], ho = !escOff && i > 0 && cell.own[0] !== prevK;
+      colEls[c].innerHTML = '<h3>' + EXS[ex].name + '</h3><div class="sub">' + EXS[ex].sub + ' &middot; <a href="../' + EXS[ex].scene + '/index.html" style="color:#93c5fd">its scene</a></div>' + draw(ex, i) +
+        '<div class="cap"><div class="ln"><span class="k">holds</span><span class="chip" style="border-color:' + KIND[cell.own[0]] + '">' + cell.own[0] + '</span>' + (escOff ? 'nothing moves: the sequence as written' : cell.own[1]) + '</div>' +
+        (ho ? '<div class="ln ho">◆ handover: the pose changes owner here, from ' + prevK + ' to ' + cell.own[0] + '</div>' : '') +
+        '<div class="ln"><span class="k">hand</span>' + handChip + '</div><div class="ln"><span class="k">eye</span>' + eyeChip + '</div>' +
+        '<div class="ln"><span class="k">software</span>' + (cell.sw || '—') + '</div></div>';
+    });
+    // summary bars
+    let h = '<h3>The closure at these durations (minutes)</h3>';
+    ['today'].concat(ORDER).forEach(ex => {
+      const s = seg(ex), pc = v => (v / s.total * 100).toFixed(1) + '%', lab = v => (v >= 0.9 ? v.toFixed(1) : '');
+      h += '<div class="row"><div>' + EXS[ex].name + '<br><span style="color:#7d8ea8;font-size:10.5px">' + s.total.toFixed(1) + ' min &middot; a hand holds the gun for ' + s.hold.toFixed(1) + '</span></div><div class="bar" title="hand at the tube / holding / firing / free">' +
+        '<span class="b-tube" style="width:' + pc(s.tube) + '">' + lab(s.tube) + '</span><span class="b-hold" style="width:' + pc(s.hold) + '">' + lab(s.hold) + '</span><span class="b-do" style="width:' + pc(s.fire) + '">' + lab(s.fire) + '</span><span class="b-free" style="width:' + pc(s.free) + '">' + lab(s.free) + '</span></div></div>';
+    });
+    h += '<table class="mx"><tr><th></th>' + ST.map((n, k) => visible(k) ? '<th>' + n + '</th>' : '').join('') + '</tr>';
+    ORDER.forEach(ex => { h += '<tr><td class="rl">' + EXS[ex].name + ': who holds the gun</td>' + ST.map((n, k) => { if (!visible(k)) return ''; const o = EXS[ex].cells[k].own; const lab = o[0] === 'none' ? '' : o[0]; return '<td class="c' + (k === i ? ' sel' : '') + '" data-k="' + k + '" style="background:' + KIND[o[0]] + '33;color:#dbe6ff">' + lab + '</td>'; }).join('') + '</tr>'; });
+    h += '</table>';
+    const tb = seg('susp').tube, tot2 = seg('susp').total;
+    h += '<div class="note" style="margin-top:6px">A hand is at the tube for <b>' + tb.toFixed(1) + ' of ' + tot2.toFixed(1) + ' minutes</b> in every row, examples included. The rows differ only in the hatched, amber and teal blocks, which are the states where the gun matters.</div>';
+    sum.innerHTML = h;
+    sum.querySelectorAll('td.c').forEach(td => td.addEventListener('click', () => app.ui.set('state', td.getAttribute('data-k'))));
+    const t0 = seg('susp'), tot = t0.tube;
+    app.io.set({
+      commands: [{ name: 'Depends on the example', value: 'see each caption', note: 'arm axes, vernier, brake, shelf, gantry, rotator' }],
+      observes: [{ name: 'Dot vs seam', value: 'camera in the watch states', status: 'partly', note: 'a proposal; the view in the recess is unchecked' }, { name: 'Who holds the gun', value: 'end-stops, arm force, encoder', status: 'partly', note: 'as each example proposes' }],
+      manual: ['Tube states: load, indicate, seat the plate, swap: ' + tot.toFixed(1) + ' min at these durations, in all three', 'Firing and cutting: a hand in every example'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  const a = app.ui.group('State');
+  a.select({ id: 'state', label: 'State of the closure', options: ST.map((n, k) => ({ value: String(k), label: k + '  ' + n + ' (' + STSUB[k] + ')' })), value: '3', kind: 'state', onChange: v => { S.i = +v; render(); } });
+  a.toggle({ id: 'lift', label: 'The bead ends with a lift-away', value: true, kind: 'state', help: 'The coordinator’s shared context says the head leaves with the trigger held; guide 46 says release the trigger, then the pedal. Off: nothing moves in ESCAPE.', onChange: v => { S.lift = !!v; render(); } });
+  a.toggle({ id: 'snip', label: 'Include the stuck-wire snip', value: false, kind: 'state', onChange: v => { S.snip = !!v; if (!S.snip && S.i === 9) { S.i = 8; } render(); } });
+  const b = app.ui.group('Durations (minutes, illustrative)');
+  [['load', 0, 'Load the tube', 1], ['indicate', 1, 'Indicate', 6], ['plate', 2, 'Seat the plate', 3], ['bring', 3, 'Bring the gun', 1], ['trim', 4, 'Trim', 0.5], ['tack', 5, 'Tack', 1], ['swap', 10, 'Swap', 1]].forEach(([id, idx, label, v]) => {
+    b.slider({ id: 'd_' + id, label: label, min: 0.1, max: 12, step: 0.1, value: v, unit: 'min', kind: 'scene', help: 'Derek’s real number replaces this.', onChange: val => { dur[idx] = val; render(); } });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

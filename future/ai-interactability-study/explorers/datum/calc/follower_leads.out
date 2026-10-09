@@ -1,0 +1,32 @@
+curvature term s^2/2r of the circle (known, subtracted):
+   lead  3 mm (2.8 deg of arc): 0.073 mm
+   lead  6 mm (5.6 deg of arc): 0.291 mm
+   lead 10 mm (9.3 deg of arc): 0.808 mm
+   lead 15 mm (13.9 deg of arc): 1.819 mm
+   lead 20 mm (18.5 deg of arc): 3.234 mm
+   lead 30 mm (27.8 deg of arc): 7.276 mm
+   lead 40 mm (37.1 deg of arc): 12.935 mm
+
+one feeler, yaw assumed 0 while the gun is really yawed by 1 deg; sigma 0.02 mm
+   lead  3 mm: bias +0.053 mm (= s tan psi = 0.052), RMS 0.056 mm
+   lead  6 mm: bias +0.105 mm (= s tan psi = 0.105), RMS 0.107 mm
+   lead 10 mm: bias +0.175 mm (= s tan psi = 0.175), RMS 0.176 mm
+   lead 15 mm: bias +0.262 mm (= s tan psi = 0.262), RMS 0.263 mm
+   lead 20 mm: bias +0.349 mm (= s tan psi = 0.349), RMS 0.350 mm
+
+two leading feelers, yaw solved, sigma 0.02 mm, e=0.2, psi=1 deg
+   s1= 5 s2=10: e error RMS 0.044 mm (amplification 2.20), yaw error RMS 0.32 deg
+   s1= 6 s2=15: e error RMS 0.036 mm (amplification 1.81), yaw error RMS 0.18 deg
+   s1= 8 s2=20: e error RMS 0.035 mm (amplification 1.77), yaw error RMS 0.13 deg
+   s1= 8 s2=30: e error RMS 0.028 mm (amplification 1.40), yaw error RMS 0.07 deg
+   s1=10 s2=40: e error RMS 0.028 mm (amplification 1.38), yaw error RMS 0.05 deg
+
+leading + trailing pair (trailing rides the fresh bead: sigma x4), s=8
+   e error RMS 0.041 mm, yaw error RMS 0.30 deg
+   (if the bead were as clean as the seam: e error RMS 0.014 mm, yaw 0.10 deg)
+
+side clearance of a feeler ball under the wire: wire leaves the dot at elevation a; ball radius 1.5 mm, wire radius 0.38 mm [repo: 0.030 in wire]
+   elevation 20 deg:  lead  3 mm -> -2.29 mm clear  lead  6 mm -> -1.20 mm clear  lead 10 mm ->  0.26 mm clear  lead 15 mm ->  2.08 mm clear
+   elevation 30 deg:  lead  3 mm -> -1.65 mm clear  lead  6 mm ->  0.08 mm clear  lead 10 mm ->  2.39 mm clear  lead 15 mm ->  5.28 mm clear
+   elevation 40 deg:  lead  3 mm -> -0.86 mm clear  lead  6 mm ->  1.65 mm clear  lead 10 mm ->  5.01 mm clear  lead 15 mm ->  9.21 mm clear
+   elevation 60 deg:  lead  3 mm ->  1.82 mm clear  lead  6 mm ->  7.01 mm clear  lead 10 mm -> 13.94 mm clear  lead 15 mm -> 22.60 mm clear

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+<rect width="900" height="700" fill="#fcfcfa"/>
+<style>
+ text{font-family:Helvetica,Arial,sans-serif;font-size:11px;fill:#222}
+ .t{font-size:13px;font-weight:bold}
+ .s{font-size:9.5px;fill:#555}
+ .metal{fill:#d9dde3;stroke:#333;stroke-width:1}
+ .plate{fill:#b9c2cc;stroke:#333;stroke-width:1}
+ .print{fill:#f3e3b5;stroke:#8a6d1f;stroke-width:1}
+ .buy{fill:#cfe8d4;stroke:#2f6b3a;stroke-width:1}
+ .gun{fill:none;stroke:#1f4e9a;stroke-width:1.6}
+ .shell{fill:none;stroke:#1f4e9a;stroke-width:1;stroke-dasharray:5 3}
+ .beam{stroke:#d22;stroke-width:1.6}
+ .wire{stroke:#666;stroke-width:1.2}
+ .cable{fill:none;stroke:#7a3fa0;stroke-width:2.2}
+ .rope{stroke:#444;stroke-width:1;stroke-dasharray:2 2}
+ .dim{stroke:#999;stroke-width:0.8;stroke-dasharray:3 3;fill:none}
+ .arrow{stroke:#c05a00;stroke-width:1.4;fill:none;marker-end:url(#ah)}
+ .room{fill:#eee;stroke:#777;stroke-width:1}
+</style>
+<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="#c05a00"/></marker></defs>
+<text class="t" x="20" y="24">B. Between centres — elevation (XZ section through the dot), schematic</text>
+<text class="s" x="20" y="40">rotator and mast on one sub-plate; tailstock live centre forces the plate centre onto a fixed line; gun rigid on the mast.</text>
+<rect class="room" x="134.5" y="647.2" width="408.0" height="16"/>
+<text x="136.2" y="659.2" class="s">bench (only holds the sub-plate up)</text>
+<rect class="metal" x="160.0" y="637.0" width="340.0" height="10.2"/>
+<text x="466.0" y="639.0">steel / aluminium sub-plate (the datum)</text>
+<rect class="print" x="202.5" y="606.4" width="255.0" height="30.6"/>
+<text x="205.9" y="622.4" class="s">rotator base (PET-GF, bolted through its 4 clamp holes), ball race, turntable</text>
+<rect class="print" x="266.2" y="574.1" width="127.5" height="32.3"/>
+<text x="270.5" y="588.1" class="s">nest (lower centre: ID pilot + OD guide)</text>
+<rect class="metal" x="276.0" y="444.6" width="1.4" height="129.5"/>
+<rect class="metal" x="382.6" y="444.6" width="1.4" height="129.5"/>
+<rect class="plate" x="277.5" y="450.0" width="104.9" height="5.4"/>
+<rect class="buy" x="308.0" y="428.8" width="11.6" height="21.2"/>
+<rect class="buy" x="340.4" y="428.8" width="11.6" height="21.2"/>
+<rect class="print" x="304.5" y="429.6" width="51.0" height="6.0"/>
+<polygon class="buy" points="330.0,429.6 323.2,417.7 313.0,416.0 313.0,386.2 347.0,386.2 347.0,416.0 336.8,417.7"/>
+<rect class="metal" x="323.2" y="343.8" width="13.6" height="42.5"/>
+<text x="228.0" y="402.4">live centre (MT2)</text>
+<text x="228.0" y="414.4" class="s">spring quill, 30–50 N down</text>
+<rect class="metal" x="168.5" y="84.5" width="25.5" height="552.5"/>
+<text x="147.2" y="76.0">mast (steel or 4040)</text>
+<polyline points="194.0,322.5 279.0,322.5 279.0,343.8 323.2,343.8" fill="none" stroke="#555" stroke-width="7"/>
+<text x="20" y="301.2">tailstock C-arm</text>
+<text x="20" y="313.2" class="s">enters over the far rim; rises</text>
+<text x="20" y="324.2" class="s">on the side away from the grip</text>
+<line class="dim" x1="330.0" y1="580.9" x2="330.0" y2="335.2"/>
+<text x="333.4" y="535.0" class="s">spin axis = line from nest centre to live-centre point</text>
+<line class="gun" x1="376.4" y1="440.3" x2="318.6" y2="349.5" stroke-width="3"/>
+<polygon class="gun" points="329.8,340.7 296.3,288.1 273.9,305.7 307.4,358.4" fill="#1f4e9a" fill-opacity="0.08"/>
+<polyline class="gun" points="302.0,310.0 329.4,331.4"/>
+<line class="beam" x1="376.4" y1="440.3" x2="382.6" y2="450.0"/>
+<circle cx="382.6" cy="450.0" r="3" fill="#d22"/>
+<rect class="buy" x="194.0" y="110.0" width="10.2" height="102.0"/>
+<text x="206.8" y="105.8">Z-slide (MGN12): B1 locked to the quill reading,</text>
+<text x="206.8" y="117.8" class="s">B2 free on a two-ball rocker riding the plate face</text>
+<polyline points="204.2,169.5 313.0,169.5 330.0,227.3" fill="none" stroke="#8a6d1f" stroke-width="7"/>
+<text x="321.5" y="161.0">rigid arm + pose adjustments to the shell</text>
+<path class="cable" d="M329.4,331.4 C389.4,251.4 279.0,50.5 181.2,82.8"/>
+<text x="457.5" y="76.0" fill="#7a3fa0">cables relieved to the mast top —</text>
+<text x="457.5" y="89.0" fill="#7a3fa0">the gun never moves in a session</text>
+<rect x="351.2" y="431.3" width="22.1" height="6.8" fill="none" stroke="#2f6b3a" stroke-dasharray="3 2"/>
+<text x="389.5" y="484.0" class="s">B2 rocker: two balls on the plate face at r 42, ±35° off the dot (ghosted)</text>
+<text x="390.6" y="464.0" fill="#d22">dot</text>
+</svg>

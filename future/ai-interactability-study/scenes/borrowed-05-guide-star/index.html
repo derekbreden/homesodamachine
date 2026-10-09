@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide star: calibrate by nudging</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .gs { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 14px 16px; align-items: start; }
+  @media (max-width: 1100px) { .gs { grid-template-columns: minmax(0, 1fr); } }
+  .gs h3 { font-size: 13px; color: var(--wk-muted); font-weight: 600; margin: 0 0 4px; }
+  .gs svg { width: 100%; height: auto; display: block; background: #0b0f14; border: 1px solid var(--wk-line); border-radius: 8px; }
+  .gs text { font: 11px system-ui, sans-serif; fill: #9aa7ba; }
+  .gs table { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  .gs th, .gs td { border: 1px solid var(--wk-line); padding: 4px 8px; text-align: left; }
+  .gs th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .gs .note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .gs .status { font: 600 13px system-ui, sans-serif; padding: 5px 10px; border: 1px solid var(--wk-line2); border-radius: 8px; margin: 6px 0; background: var(--wk-panel2); }
+  .gs .good { color: #34d399; } .gs .bad { color: #f87171; } .gs .mid { color: #fbbf24; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-05-guide-star",
+  "title": "Guide star: calibrate the trim axes by nudging and watching the dot",
+  "by": "borrowed",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Astrophotography autoguiding brings up an unknown mount by nudging each axis, watching the star in a small camera, solving the pixel-to-axis matrix and the backlash, then guiding. The dot plays the star. The camera looks down the bore, so the wall hides the part of the dot that lies on it: guide on the centroid and the loop parks half a spot into the wall; guide on the visible fraction and it stops on the seam. A simulation of the method with two trim axes and one camera; nothing here is a physical measurement.",
+  "tags": ["lens", "method", "calibration", "closed loop", "simulation", "astronomy"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "nudge-and-watch calibration",
+    "backlash from a reversal",
+    "wall thickness as the scale bar",
+    "guide loop against drift and runout",
+    "guide on the visible fraction, target 50 %, when a wall hides half the star",
+    "calibrate on the side where the star is whole"
+  ],
+  "how": {
+    "motion": "two trim axes (across the seam, along it) are nudged in steps, then driven by a guide loop",
+    "load": "not a mechanism; the trims are whatever the arrangement provides",
+    "reference": "the seam edge in the image; the 1.65 mm wall top in the image as scale",
+    "observe": "one camera above the bore: centroid and visible fraction of the plate part of the dot, with noise",
+    "use": "AI calibrates once per setup on the plate side, then guides; a person mounts the camera and axes"
+  },
+  "software": {
+    "commands": [
+      "nudge axis A (across the seam) or B (along it) by n steps",
+      "guide step commands from the 2x2 matrix"
+    ],
+    "observes": [
+      "centroid and visible fraction of the dot's plate part, per frame",
+      "the seam edge and the wall-top width in pixels, for direction and scale"
+    ],
+    "manual": [
+      "mounting the camera above the bore, roughly square to the corner",
+      "the two axes existing at all"
+    ]
+  },
+  "notes": [
+    "../../explorers/borrowed/ideas/borrowed-05-guide-star.md",
+    "../../exchange/borrowed--reply-to-trials-w3.md"
+  ],
+  "sources": [
+    "../../sourcing/borrowed.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = WK.svg, H = WK.h;
+  const app = WK.app({
+    stage: 'custom', workstation: false, gun: false,
+    open: ['proposes', 'tried'],
+    links: [{ label: 'trials-20: the same loop at the knee, drawn frame by frame', href: '../trials-20-guide-at-the-knee/index.html' }, { label: 'trials-03: the dot as a probe', href: '../trials-03-dot-touch-probe/index.html' }],
+    sections: {
+      proposes: '<p>An autoguider does not know how its telescope mount is built. It nudges the mount east and west, north and south, watches how far the star moves in its camera, and solves a 2 × 2 matrix from mount steps to camera pixels. It also learns the backlash from a reversal. Then it guides: measure the star, multiply the error by the inverse matrix, send steps. Drift and periodic error are corrected the same way.</p>' +
+        '<p>Here the dot is the star, the seam is the target, and any two trim axes can be the mount. The camera looks <b>down the bore</b>: it sees the plate, the top of the wall and the part of the dot that lies on the plate. The part on the wall face is edge-on from above, so <b>the wall hides the dot as it crosses the seam</b>. Press <b>Calibrate</b> (the dot starts short of the seam, where it is whole), then <b>Guide</b>. Guide on the centroid, as an autoguider does, and watch the loop park half a dot into the wall and hunt at the edge of visibility. Switch the guide to the <b>visible fraction</b> with a 50 % target and it stops on the seam. Start the dot near the seam and calibrate, and the nudges run through the knee and the matrix comes out wrong.</p>',
+      carries: '<p>Nothing carries anything here: this is a control method. It can sit on any arrangement that offers two small motions and can see the dot: the trim stage of borrowed-01, the swing offset of borrowed-06, a gantry axis of borrowed-02. The camera looks straight down the bore in this drawing; a camera from the far rim would see the wall face and the wall part of the dot at a grazing angle, and would change what is hidden (trials-03).</p>',
+      software: '<p>The whole page is what the software does: nudge, measure, solve, guide. The right-hand panels show what it learned beside the hidden truth. The truth is a simulation variable; in a real setup only the centroid, the visible fraction and the edge pixels exist. A camera above the bore sees where the beam meets the plate, not the dot’s height (eyes-13): the two trim axes here are across the seam and along it; a height trim would move the spot only through the beam’s slope.</p>',
+      tried: '<p><b>Round 1: guide before calibrating.</b> With the camera rolled 27° from the axes, a loop that assumes alignment corrects a mix of both errors: it converges slowly and rings, and at roll near 90° it runs away. Assumption broken: axes and camera are aligned. Change: calibrate first.</p>' +
+        '<p><b>Round 2: backlash.</b> The first steps after a reversal move nothing, and a reversal in calibration measures how many. In this simulation the effect is small at the defaults and appears when the backlash is large: at 12 steps of 0.05 mm with runout on, RMS is 0.043 mm without compensation and 0.018 mm with it (calc/guide_star_sim.py). Change: measure it during calibration and add it when the direction flips (toggle). Left standing: real backlash is not a clean dead zone.</p>' +
+        '<p><b>Round 3: scale.</b> Pixels are not millimetres. The wall’s 1.65 mm top in the image gives the scale. Left standing: the wall is one to a few pixels wide at a workable field of view, so the scale is only good to about one pixel over 1.65 mm.</p>' +
+        '<p><b>Round 4: disturbance.</b> Slow drift and the tube’s runout (period 48.6 s at 8 mm/s, [repo]) are slower than the loop and are rejected; vibration and the gun’s 80 Hz swing are not.</p>' +
+        '<p><b>Round 5 (from trials, wave 3): half a dot is not a star.</b> The first version drew the dot as a whole circle wherever it was, including inside the wall, from a view no camera can take. Seen from above, the wall covers the part of the dot that lies on it. The centroid of what remains moves at slope 1 while the dot is whole, ½ while it straddles the seam and 0 once it has gone. A centroid loop aimed at the seam edge therefore never reaches it: it parks the dot about half a footprint (0.26 mm for a 0.59 mm footprint) into the wall and hunts at the edge of visibility, out of sight a tenth to a fifth of the guide ticks (trials-20 finds 6 to 11 per cent, this scene 21 per cent with its own noise draw; see the line under the chart). A calibration that starts near the seam measures the wrong slope (the nudges run through the knee). Repairs, both in this scene: calibrate on the plate side (the dot starts 0.9 mm short), and guide on the <b>visible fraction</b> with a 50 % target, because half of the dot is visible exactly when its centre is on the seam, whatever its size. Assumptions broken: the dot is a star, visible everywhere near the target, with a centroid that moves linearly. Left standing: a real dot has soft tails and the wall at a small angle is not a sharp edge; the fraction needs the dot’s full brightness measured once on the plate side.</p>',
+      unresolved: '<ul><li>What the camera sees of the real dot: it sits in a 6.35 mm deep corner; line of sight and fume are not modelled (see the eyes and datum work).</li><li>Whether the image can show the seam edge and the dot well enough for a centroid or a fraction at all: a webcam above the bore and the gun’s red light alone would say.</li><li>The two axes themselves: this page assumes they exist. Whether the trims sit on a rotating part (then the camera-to-axis angle changes with rotation).</li><li>The camera’s own view angle: from above, the seam foot and the rim’s inner edge coincide only if the camera looks square down the bore; off the axis they separate by 6.35 mm times the tangent of the angle.</li><li>A guide target defined by the knee of a sweep (trials-03, trials-18) instead of by a pixel: accepted, not drawn here.</li></ul>',
+      assumptions: '<ul><li>All values are <b>illustrative</b>: 24 px per mm, 0.02 and 0.03 mm per step, 4 and 6 steps of backlash, centroid noise 0.6 px, fraction noise 0.02, drift 0.3 mm/min, a 65° camera roll, end stops at ±6 mm.</li><li>The dot’s footprint is an ellipse 0.5 mm across the seam line and 0.5 / cos 32° = 0.59 mm along the radial direction (the beam is 32° off the plate normal; the value is trials-03’s, illustrative). The wall face is a sharp vertical edge, edge-on to the camera, so it hides everything on it.</li><li>Runout amplitude is the rig-doc TIR limits halved (0.25 and 0.30 mm TIR [repo]); the face runout reaches the top camera only through the beam’s slope (0.15 mm × tan 32° = 0.09 mm across the seam). Period 48.6 s from 8 mm/s at r = 61.85 mm [derived].</li><li>The software finds the seam edge line in the image exactly; the dot brightness on the plate side is constant. The plant is a linear stepper with a symmetric backlash dead zone; no friction, resonance or latency. The camera is a pinhole with constant scale and no distortion.</li></ul>',
+    },
+  });
+
+  const CW = 480, CH = 360, U0 = CW / 2, W0 = CH / 2, BETA = 32 * Math.PI / 180;
+  const root = H('div', { class: 'gs' });
+  app.stageEl.appendChild(root);
+  // camera panel: a view from above the bore. World X = across the seam (+ into the wall), Y = along the seam.
+  const cam = S('svg', { viewBox: '0 0 ' + CW + ' ' + CH, role: 'img', 'aria-label': 'simulated guide camera above the bore' });
+  const world = S('g'); cam.appendChild(world);
+  const defs = S('defs'); cam.appendChild(defs);
+  const clip = S('clipPath', { id: 'plateOnly' }, S('rect', { x: -60, y: -60, width: 60, height: 120 })); defs.appendChild(clip);
+  const plate = S('rect', { fill: '#7e8896', x: -60, y: -60, width: 60, height: 120 }), wall = S('rect', { fill: '#c8d0da', x: 0, y: -60, width: 1.65, height: 120 }), outside = S('rect', { fill: '#1d232c', x: 1.65, y: -60, width: 60, height: 120 });
+  world.append(plate, wall, outside);
+  const seamLine = S('line', { x1: 0, y1: -60, x2: 0, y2: 60, stroke: '#14b8a6', 'stroke-width': 0.05 });
+  const trail = S('polyline', { fill: 'none', stroke: 'rgba(255,90,79,.35)', 'stroke-width': 0.04 });
+  const ghost = S('ellipse', { fill: 'none', stroke: 'rgba(255,255,255,.45)', 'stroke-width': 0.03, 'stroke-dasharray': '0.08 0.06' });
+  const dotEl = S('ellipse', { fill: '#ff3b30', stroke: 'none', 'clip-path': 'url(#plateOnly)' });
+  world.append(seamLine, trail, ghost, dotEl);
+  const camLab = S('text', { x: 8, y: 16, text: 'Camera above the bore: plate, wall top, dot (plate part)' });
+  const capA = S('text', { x: 8, y: 30, text: 'dashed: the whole dot (not seen)' });
+  const scaleBar = S('g'); cam.append(camLab, capA, scaleBar);
+  const errTxt = S('text', { x: 8, y: CH - 8, text: '' }); cam.appendChild(errTxt);
+  const status = H('div', { class: 'status', text: 'idle' });
+  root.appendChild(H('div', null, H('h3', { text: 'Camera view (simulated: everything drawn is truth plus noise)' }), cam, status,
+    H('p', { class: 'note', text: 'The corner is drawn in the world frame, so it tilts with the hidden camera roll. The teal line is the seam edge the software finds in the image; guiding brings the dot to it. The dot is red only where it lies on the plate.' })));
+  // chart + tables
+  const CHW = 480, CHH = 190, chart = S('svg', { viewBox: '0 0 ' + CHW + ' ' + CHH });
+  const right = H('div');
+  right.append(H('h3', { text: 'True dot position vs time (simulation truth; not observable)' }), chart);
+  const tbl = H('div'); right.append(H('h3', { text: 'What the software learned vs the hidden truth', style: { marginTop: '12px' } }), tbl);
+  root.appendChild(right);
+  const YR = 1.0, yv = e => CHH / 2 - e * (CHH / 2 - 14) / YR;   // +-1 mm
+  chart.append(S('line', { x1: 30, y1: CHH / 2, x2: CHW - 6, y2: CHH / 2, stroke: '#394559' }), S('line', { x1: 30, y1: yv(0.3), x2: CHW - 6, y2: yv(0.3), stroke: '#5b2d33', 'stroke-dasharray': '4 3' }),
+    S('text', { x: 4, y: 16, text: '+1 mm' }), S('text', { x: 4, y: CHH - 6, text: '−1' }), S('text', { x: CHW - 72, y: 14, text: '60 s window' }), S('text', { x: CHW - 190, y: yv(0.3) - 3, text: 'dashed: dot fully on the wall (unseen)', style: 'fill:#b55' }));
+  const lineX = S('polyline', { fill: 'none', stroke: '#f5a524', 'stroke-width': 1.6 }), lineZ = S('polyline', { fill: 'none', stroke: '#4ade80', 'stroke-width': 1.6 });
+  chart.append(lineX, lineZ, S('text', { x: 40, y: CHH - 6, text: 'across the seam (+ = into the wall)', style: 'fill:#f5a524' }), S('text', { x: 240, y: CHH - 6, text: 'along the seam', style: 'fill:#4ade80' }));
+  const rms = H('p', { class: 'note' }); right.appendChild(rms);
+
+  // ---------- simulation state
+  const T = { phi: 65, s: 24, kA: 0.02, kB: 0.03, blA: 4, blB: 6, sigma: 0.6, sigF: 0.02, drift: 0.3, run: false, gain: 0.6, speed: 2, comp: true, dia: 0.5, x0: -0.9, scheme: 'centroid' };
+  const N = { s: 24, k: 0.02 };                      // naive assumption: axes aligned with the image, 0.02 mm/step, 24 px/mm
+  const axes = { A: { cmd: 0, pos: 0, dir: 0 }, B: { cmd: 0, pos: 0, dir: 0 } };
+  const sim = { t: 0, mode: 'idle', hist: [], trailPts: [], queue: [], wait: 0, rec: {}, guide: false, tickAcc: 0, wallPx: null, calibNote: '', ticks: 0, lost: 0, calFail: false };
+  let Mhat = { A: [N.s * N.k, 0], B: [0, -N.s * N.k] }, blHat = { A: 0, B: 0 }, calibrated = false, sHat = N.s;
+  const rnd = (function () { let x = 12345; return function () { x = (x * 1664525 + 1013904223) % 4294967296; return x / 4294967296; }; })();
+  const gauss = () => { let u = 0; for (let i = 0; i < 6; i++) u += rnd(); return (u - 3) / 0.7071; };
+  const footR = () => T.dia / 2 / Math.cos(BETA), footT = () => T.dia / 2;   // half-widths across (radial) and along the seam, mm
+  function backlash(a, bl) { const d = a.cmd - a.pos; if (d > bl / 2) a.pos = a.cmd - bl / 2; else if (d < -bl / 2) a.pos = a.cmd + bl / 2; }
+  const TRAVEL = 6;   // mm each way, illustrative end stops
+  function move(axis, n) { const a = axes[axis], k = axis === 'A' ? T.kA : T.kB, lim = Math.round(TRAVEL / k); a.cmd += n; if (Math.abs(a.cmd) > lim) { a.cmd = Math.sign(a.cmd) * lim; sim.stop = axis; sim.stopT = sim.t; } backlash(a, axis === 'A' ? T.blA : T.blB); }
+  function runout(t) { if (!T.run) return 0; const w = 2 * Math.PI / 48.6; return 0.125 * Math.sin(w * t) + 0.15 * Math.tan(BETA) * Math.sin(w * t + 1.05); }
+  function truePos(t) { const d = T.drift / 60 * t; return { X: T.x0 + axes.A.pos * T.kA + d * 0.8 + runout(t), Y: axes.B.pos * T.kB + d * 0.6 }; }
+  function toPx(X, Y) { const c = Math.cos(T.phi * Math.PI / 180), s = Math.sin(T.phi * Math.PI / 180); return [U0 + T.s * (c * X - s * Y), W0 - T.s * (s * X + c * Y)]; }
+  const nHat = () => [Math.cos(T.phi * Math.PI / 180), -Math.sin(T.phi * Math.PI / 180)];   // image direction of "into the wall": the software reads it from the seam edge
+  // the part of the elliptical footprint lying on the plate (x' < 0): its centroid across the seam and its fraction of the whole
+  function visPart(X) {
+    const ar = footR(), at = footT(), lo = X - ar, hi = Math.min(X + ar, 0);
+    if (hi <= lo + 1e-9) return null;
+    const n = 48, dx = (hi - lo) / n; let A = 0, M = 0;
+    for (let i = 0; i < n; i++) { const xm = lo + (i + 0.5) * dx, u = (xm - X) / ar, ch = 2 * at * Math.sqrt(Math.max(0, 1 - u * u)); A += ch * dx; M += xm * ch * dx; }
+    return { c: M / A, f: Math.min(1, A / (Math.PI * ar * at)) };
+  }
+  function measure(n) {
+    const p = truePos(sim.t), vp = visPart(p.X);
+    if (!vp || vp.f < 0.02) return null;
+    const px = toPx(vp.c, p.Y); let u = 0, w = 0, f = 0;
+    for (let i = 0; i < n; i++) { u += px[0] + gauss() * T.sigma; w += px[1] + gauss() * T.sigma; f += vp.f + gauss() * T.sigF; }
+    return { u: u / n, w: w / n, f: Math.min(1, Math.max(0, f / n)) };
+  }
+
+  // ---------- calibration script (nudge and watch): on the plate side, unless the dot starts near the seam
+  const n8 = 8;
+  function script(axis) {
+    const a = [{ mv: axis, n: n8 }, { mv: axis, n: n8 }, { rec: 'p0' }, { mv: axis, n: n8 }, { rec: 'p1' }, { mv: axis, n: n8 }, { rec: 'p2' }, { mv: axis, n: n8 }, { rec: 'p3' }];
+    for (let i = 0; i < 5; i++) a.push({ mv: axis, n: -n8 });
+    a.push({ rec: 'q5' });
+    return a.map(x => Object.assign({ axis: axis }, x));
+  }
+  function startCalibration() {
+    sim.mode = 'calibrating'; sim.guide = false; app.ui.set('guide', false, { silent: true });
+    sim.queue = script('A').concat([{ analyse: 'A' }], script('B'), [{ analyse: 'B' }, { done: true }]); sim.wait = 0; sim.rec = {}; sim.calibNote = 'calibrating: nudging A'; sim.calFail = false;
+    calibrated = false;
+  }
+  function analyse(axis) {
+    const p0 = sim.rec[axis + 'p0'], p3 = sim.rec[axis + 'p3'], q5 = sim.rec[axis + 'q5'];
+    if (!p0 || !p3 || !q5) { sim.calFail = true; return; }   // the dot went out of sight while nudging
+    const v = [(p3.u - p0.u) / (3 * n8), (p3.w - p0.w) / (3 * n8)], vm = Math.hypot(v[0], v[1]) || 1e-9;
+    const eff = Math.hypot(q5.u - p3.u, q5.w - p3.w) / vm;   // steps actually travelled on the way back
+    Mhat[axis] = v; blHat[axis] = Math.max(0, 5 * n8 - eff);
+  }
+  function endCalibration() {
+    sim.mode = 'idle';
+    if (sim.calFail) { calibrated = false; sim.calibNote = 'calibration failed: the dot left the view while nudging'; return; }
+    calibrated = true; sim.calibNote = 'calibrated';
+    const wallPx = 1.65 * T.s + gauss() * 0.5; sHat = wallPx / 1.65; sim.wallPx = wallPx;   // scale from the wall-top width in the image
+  }
+  function stepQueue(dt) {
+    if (sim.wait > 0) { sim.wait -= dt; return; }
+    const it = sim.queue.shift(); if (!it) return;
+    if (it.mv) { move(it.mv, it.n); sim.wait = 0.32; sim.calibNote = 'calibrating: nudging ' + it.mv + (it.n > 0 ? ' +' : ' −') + Math.abs(it.n) + ' steps'; }
+    else if (it.rec) { sim.rec[it.axis + it.rec] = measure(6); sim.wait = 0.05; }
+    else if (it.analyse) analyse(it.analyse);
+    else if (it.done) endCalibration();
+  }
+  // ---------- guide: the error is measured across the seam only; both axes are used through the calibrated matrix
+  function guideTick() {
+    sim.ticks++;
+    const m = measure(3), nh = nHat();
+    let vx = 0, vy = 0;   // wanted image motion, px
+    if (!m) { sim.lost++; vx = -0.1 * sHat * nh[0]; vy = -0.1 * sHat * nh[1]; }   // star lost: back off 0.1 mm toward the plate
+    else {
+      const dist = (m.u - U0) * nh[0] + (m.w - W0) * nh[1];   // px of the centroid past the seam edge (+ = into the wall)
+      let want;   // px to move toward the wall (+) or the plate (-)
+      if (T.scheme === 'centroid' || m.f > 0.97) want = (T.scheme === 'centroid' ? 0 : -0.4 * 2 * footR() * sHat) - dist;
+      else want = (m.f - 0.5) * (Math.PI * footR() / 2) * sHat;   // fraction slope at 50 % is 2 / (pi a) per mm
+      vx = want * nh[0]; vy = want * nh[1];
+    }
+    const a = Mhat.A, b = Mhat.B, det = a[0] * b[1] - b[0] * a[1];
+    if (Math.abs(det) < 1e-6) return;
+    let dA = (b[1] * vx - b[0] * vy) / det, dB = (-a[1] * vx + a[0] * vy) / det;
+    dA *= T.gain; dB *= T.gain;
+    [['A', dA], ['B', dB]].forEach(function (pr) {
+      let n = Math.round(pr[1]); if (Math.abs(pr[1]) < 0.6) n = 0;     // dead band: sub-step commands are not sent
+      if (n === 0) return;
+      const ax = axes[pr[0]], d = Math.sign(n);
+      if (T.comp && calibrated && ax.dir !== 0 && d !== ax.dir) n += d * Math.round(blHat[pr[0]]);
+      ax.dir = d; move(pr[0], n);
+    });
+  }
+
+  // ---------- drawing
+  function drawWorld() {
+    world.setAttribute('transform', 'translate(' + U0 + ' ' + W0 + ') scale(' + T.s + ' ' + (-T.s) + ') rotate(' + T.phi + ')');
+    scaleBar.innerHTML = '';
+    scaleBar.append(S('line', { x1: CW - 20 - T.s, y1: CH - 22, x2: CW - 20, y2: CH - 22, stroke: '#e7ebf1', 'stroke-width': 2 }), S('text', { x: CW - 20, y: CH - 28, 'text-anchor': 'end', text: '1 mm (truth)' }));
+    const ar = footR(), at = footT();
+    [ghost, dotEl].forEach(e => { e.setAttribute('rx', ar); e.setAttribute('ry', at); });
+  }
+  function frame() {
+    const p = truePos(sim.t);
+    [ghost, dotEl].forEach(e => { e.setAttribute('cx', p.X); e.setAttribute('cy', p.Y); });
+    const tr = sim.trailPts; tr.push(p.X.toFixed(3) + ',' + p.Y.toFixed(3)); if (tr.length > 120) tr.shift(); trail.setAttribute('points', tr.join(' '));
+    const vp = visPart(p.X);
+    errTxt.textContent = 'dot centre ' + (p.X >= 0 ? '+' : '−') + Math.abs(p.X).toFixed(3) + ' mm past the seam; visible ' + (vp ? (vp.f * 100).toFixed(0) : '0') + ' %';
+  }
+  function drawChart() {
+    const h = sim.hist, t1 = sim.t, pts = k => h.filter(x => t1 - x.t <= 60).map(x => (30 + (x.t - (t1 - 60)) / 60 * (CHW - 36)).toFixed(1) + ',' + Math.max(4, Math.min(CHH - 4, yv(x[k]))).toFixed(1)).join(' ');
+    lineX.setAttribute('points', pts('X')); lineZ.setAttribute('points', pts('Z'));
+    const rec = h.filter(x => t1 - x.t <= 30);
+    if (rec.length > 5) {
+      const mean = rec.reduce((a, b) => a + b.X, 0) / rec.length, rx = Math.sqrt(rec.reduce((a, b) => a + b.X * b.X, 0) / rec.length);
+      rms.textContent = 'Last 30 s, dot centre across the seam: mean ' + (mean >= 0 ? '+' : '−') + Math.abs(mean).toFixed(3) + ' mm, RMS ' + rx.toFixed(3) + ' mm; out of sight ' + (sim.ticks ? (100 * sim.lost / sim.ticks).toFixed(0) : '0') + ' % of guide ticks. Its footprint is ' + (2 * footR()).toFixed(2) + ' mm across.';
+    }
+  }
+  function drawTable() {
+    const deg = v => v.toFixed(1) + '°', f2 = v => v.toFixed(2);
+    const est = calibrated ? { phiA: Math.atan2(-Mhat.A[1], Mhat.A[0]) * 180 / Math.PI, phiB: Math.atan2(Mhat.B[0] * -1, -Mhat.B[1]) * 180 / Math.PI, a: Math.hypot(Mhat.A[0], Mhat.A[1]), b: Math.hypot(Mhat.B[0], Mhat.B[1]) } : null;
+    const trueA = T.s * T.kA, trueB = T.s * T.kB;
+    const row = (n, e, t) => '<tr><td>' + n + '</td><td>' + e + '</td><td>' + t + '</td></tr>';
+    tbl.innerHTML = '<table><tr><th>Quantity</th><th>Software’s estimate</th><th>Hidden truth</th></tr>' +
+      row('Camera roll vs axis A', est ? deg(est.phiA) : (sim.calFail ? 'failed' : 'not yet (assumes 0°)'), deg(T.phi)) +
+      row('Camera roll vs axis B', est ? deg(est.phiB) : (sim.calFail ? 'failed' : 'not yet (assumes 0°)'), deg(T.phi)) +
+      row('Axis A (across), px per step', est ? f2(est.a) : f2(N.s * N.k) + ' (assumed)', f2(trueA)) +
+      row('Axis B (along), px per step', est ? f2(est.b) : f2(N.s * N.k) + ' (assumed)', f2(trueB)) +
+      row('Backlash A / B, steps', calibrated ? blHat.A.toFixed(1) + ' / ' + blHat.B.toFixed(1) : 'not yet', T.blA + ' / ' + T.blB) +
+      row('Scale, px per mm (from the wall top)', calibrated ? sHat.toFixed(1) : 'not yet', T.s) + '</table>' +
+      '<p class="note">Axis A’s slope is measured from a centroid that moves at slope 1 only while the dot is whole: start near the seam and the nudges cross the knee, the slope comes out low (the step size looks smaller than it is) and a guide gain of 0.6 becomes about 1.1.</p>';
+  }
+  function statusLine() {
+    const sc = T.scheme === 'centroid' ? 'centroid to the seam edge' : 'visible fraction, 50 %';
+    let txt = sim.mode === 'calibrating' ? sim.calibNote : sim.guide ? (calibrated ? 'guiding on the ' + sc + ' with the calibrated matrix' : 'guiding on the ' + sc + ' with the naive matrix (assumes the camera is aligned with the axes)') : (calibrated ? 'calibrated; not guiding' : (sim.calFail ? sim.calibNote : 'idle; not calibrated'));
+    status.textContent = txt; status.className = 'status ' + (sim.guide ? (calibrated ? 'good' : 'bad') : (sim.mode === 'calibrating' ? 'mid' : (sim.calFail ? 'bad' : '')));
+  }
+
+  // ---------- frame loop (kit onFrame; custom stage has no renderer)
+  let accH = 0;
+  app.onFrame(function (dt) {
+    dt = Math.min(dt, 0.1) * T.speed;
+    let n = Math.max(1, Math.ceil(dt / 0.05)), h = dt / n;
+    for (let i = 0; i < n; i++) {
+      sim.t += h;
+      if (sim.mode === 'calibrating') stepQueue(h);
+      if (sim.guide && sim.mode === 'idle') { sim.tickAcc += h; if (sim.tickAcc >= 0.5) { sim.tickAcc = 0; guideTick(); } }
+      accH += h; if (accH >= 0.1) { accH = 0; const p = truePos(sim.t); sim.hist.push({ t: sim.t, X: p.X, Z: p.Y }); if (sim.hist.length > 700) sim.hist.shift(); }
+    }
+    frame(); drawChart(); statusLine();
+    app.badge('stop', sim.stop && sim.t - sim.stopT < 3 ? 'axis ' + sim.stop + ' is at its end stop (±' + TRAVEL + ' mm, illustrative)' : null, 'limit');
+    const px = truePos(sim.t).X, vp = visPart(px);
+    app.badge('gone', vp ? null : 'the dot is wholly on the wall: from above there is nothing to see', 'warn');
+    ioUpdate();
+    return true;
+  });
+  let ioTick = 0;
+  function ioUpdate() {
+    if ((ioTick++ % 6) !== 0) return;
+    const m = measure(1), a = calibrated;
+    app.io.set({
+      commands: [
+        { name: 'Axis A (across the seam) commanded position', value: axes.A.cmd, unit: 'steps' }, { name: 'Axis B (along the seam) commanded position', value: axes.B.cmd, unit: 'steps' },
+        { name: 'Mode', value: sim.mode === 'calibrating' ? 'calibrating' : sim.guide ? 'guiding (' + (T.scheme === 'centroid' ? 'centroid' : 'fraction') + ')' : 'idle', note: 'nudge, measure, solve, guide' },
+      ],
+      observes: [
+        { name: 'Centroid of the plate part of the dot (u, w)', value: m ? m.u.toFixed(1) + ', ' + m.w.toFixed(1) : 'none: out of sight', unit: m ? 'px' : '', status: m ? 'seen' : 'blind', note: 'simulated: truth plus centroid noise; the wall part of the dot is edge-on and hidden' },
+        { name: 'Visible fraction of the dot', value: m ? (m.f * 100).toFixed(0) : '0', unit: '%', status: m ? 'seen' : 'blind', note: 'needs the dot’s full brightness measured once on the plate side' },
+        { name: 'Matrix from the nudges', value: a ? 'A (' + Mhat.A.map(x => x.toFixed(2)).join(', ') + ')  B (' + Mhat.B.map(x => x.toFixed(2)).join(', ') + ') px/step' : 'not yet', status: a ? 'seen' : 'unresolved' },
+        { name: 'Backlash from the reversal', value: a ? blHat.A.toFixed(1) + ' / ' + blHat.B.toFixed(1) : 'not yet', unit: a ? 'steps' : '', status: a ? 'seen' : 'unresolved' },
+        { name: 'Scale from the wall-top width', value: a ? sHat.toFixed(1) : 'not yet', unit: a ? 'px/mm' : '', status: a ? 'partly' : 'unresolved', note: 'the wall top is only a few pixels wide' },
+        { name: 'Dot centre vs the seam', value: 'in the chart only', status: 'blind', note: 'no sensor reads this; the centroid is not the centre once the wall hides part of the dot' },
+      ],
+      manual: ['Mount the camera above the bore, roughly square to the corner', 'Provide two small axes', 'Set the dot on the plate side before calibrating'],
+    });
+  }
+
+  // ---------- controls
+  const act = app.ui.group('Software (proposed actions)');
+  act.button({ id: 'cal', label: 'Calibrate: nudge each axis and watch the dot', kind: 'state', onClick: function () { startCalibration(); } });
+  act.radio({ id: 'scheme', label: 'What the guide steers to', kind: 'branch', value: 'centroid', options: [{ value: 'centroid', label: 'centroid on the seam edge' }, { value: 'fraction', label: 'visible fraction, 50 %' }], help: 'Centroid: the autoguider’s way; the wall hides half the dot at the seam, so the loop cannot reach it. Fraction: half the dot is visible exactly when its centre is on the seam.', onChange: v => { T.scheme = v; } });
+  act.toggle({ id: 'guide', label: 'Guide (measure, invert, step)', value: false, kind: 'state', help: 'Runs every 0.5 simulated seconds. Before calibrating it uses the naive matrix.', onChange: v => { if (sim.mode === 'idle') sim.guide = v; else { sim.guide = false; } } });
+  act.toggle({ id: 'comp', label: 'Backlash compensation in the guide', value: true, kind: 'state', onChange: v => { T.comp = v; } });
+  act.slider({ id: 'gain', label: 'Guide gain (software setting)', min: 0.2, max: 1, step: 0.05, value: 0.6, kind: 'scene', help: 'Fraction of the computed correction sent each tick.', onChange: v => { T.gain = v; } });
+  act.button({ id: 'reset', label: 'Reset positions and history', kind: 'state', onClick: function () { axes.A.cmd = axes.A.pos = axes.B.cmd = axes.B.pos = 0; axes.A.dir = axes.B.dir = 0; sim.t = 0; sim.hist = []; sim.trailPts = []; sim.queue = []; sim.mode = 'idle'; sim.guide = false; sim.ticks = 0; sim.lost = 0; sim.calFail = false; app.ui.set('guide', false, { silent: true }); calibrated = false; Mhat = { A: [N.s * N.k, 0], B: [0, -N.s * N.k] }; blHat = { A: 0, B: 0 }; sHat = N.s; drawTable(); } });
+  act.slider({ id: 'speed', label: 'Simulation speed', min: 1, max: 6, step: 1, value: 2, unit: '×', kind: 'view', noVisual: true, onChange: v => { T.speed = v; } });
+  const truth = app.ui.group('Hidden truth (scene edits: the software does not know these)');
+  const sl = (id, label, min, max, step, val, unit, key, help, after) => truth.slider({ id: id, label: label, min: min, max: max, step: step, value: val, unit: unit, kind: 'scene', help: help, onChange: v => { T[key] = v; drawWorld(); drawTable(); if (after) after(); } });
+  sl('x0', 'Where the dot starts (across the seam)', -1.5, 0.3, 0.05, -0.9, 'mm', 'x0', 'Negative: short of the seam, on the plate. Near 0 the calibration nudges run through the knee. Takes effect on Reset.', () => { if (!sim.guide && sim.mode === 'idle') { axes.A.cmd = axes.A.pos = axes.B.cmd = axes.B.pos = 0; sim.hist = []; sim.trailPts = []; } });
+  sl('dia', 'Dot diameter on the surface', 0.2, 1.2, 0.05, 0.5, 'mm', 'dia', 'Its footprint across the seam is this over cos 32°.');
+  sl('phi', 'Camera roll relative to the axes', -90, 90, 1, 65, '°', 'phi', 'The naive guide assumes 0.');
+  sl('scale', 'Pixel scale', 10, 40, 1, 24, 'px/mm', 's');
+  sl('kA', 'Axis A step size', 0.005, 0.05, 0.005, 0.02, 'mm', 'kA');
+  sl('kB', 'Axis B step size', 0.005, 0.05, 0.005, 0.03, 'mm', 'kB');
+  sl('blA', 'Backlash A', 0, 12, 1, 4, 'steps', 'blA');
+  sl('blB', 'Backlash B', 0, 12, 1, 6, 'steps', 'blB');
+  sl('sigma', 'Centroid noise', 0, 3, 0.1, 0.6, 'px', 'sigma');
+  sl('sigF', 'Fraction noise', 0, 0.1, 0.005, 0.02, '', 'sigF');
+  sl('drift', 'Slow drift', 0, 1, 0.05, 0.3, 'mm/min', 'drift');
+  truth.toggle({ id: 'run', label: 'Tube turning: indicated runout (rig-doc limits)', value: false, kind: 'scene', onChange: v => { T.run = v; } });
+
+  drawWorld(); drawTable();
+  setInterval(function () { drawTable(); }, 700);
+})();
+</script>
+</body>
+</html>

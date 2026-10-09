@@ -1,0 +1,27 @@
+micrometres rms on the last replay revolution, DC re-found, jitter 0.02 mm, drift 0.01 mm/rev, 200 draws; e1 = 0.6, e2 = 0.1 (map_learning.py model)
+
+A. Judge-only map, N learning revolutions, judge noise 0.03 mm.  TRUE = against the simulation seam; READ = against the judge itself
+   bias b1 (mm)     N=1 true/read   N=3 true/read   N=5 true/read   N=8 true/read
+    0.00              31.1 /  31.1     18.2 /  18.2     14.1 /  14.1     11.6 /  11.6
+    0.03              40.2 /  31.1     31.4 /  18.2     29.1 /  14.1     28.0 /  11.6
+    0.06              59.7 /  31.1     54.3 /  18.2     53.0 /  14.1     52.4 /  11.6
+    0.10              90.6 /  31.1     87.2 /  18.2     86.3 /  14.1     86.0 /  11.6
+
+B. Where the number can be computed: TRUE, READ and CHECK (K = 8 touches at fresh azimuths, touch noise 0.02) for the judge-only map, b1 = 0.06, N = 3
+   true 54.3   read 18.2   check 56.0
+   (the READ score says the map is at the judge noise floor; the CHECK score sees what the READ score cannot)
+
+C. Three ways to build the map, N = 3, judge noise 0.03, touch noise 0.02, K = 8 or 16.  TRUE rms / CHECK rms.  hf = amplitude of harmonics 4, 5, 6 the touches cannot see
+   hf     b1     judge only        K=8 touches       judge + touch-corrected low harmonics   K=16 touches
+   0.00   0.03    31.4 /  34.7      17.3 /  25.1      24.5 /  29.3                           13.0 /  23.4
+   0.00   0.06    54.3 /  56.0      17.3 /  25.1      24.5 /  29.3                           13.0 /  23.4
+   0.02   0.03    31.4 /  34.7      35.5 /  46.9      30.5 /  35.0                           28.1 /  33.9
+   0.02   0.06    54.3 /  56.0      35.5 /  46.9      30.5 /  35.0                           28.1 /  33.9
+   0.05   0.03    31.4 /  34.7      80.2 / 102.7      54.1 /  57.1                           62.9 /  65.7
+   0.05   0.06    54.3 /  56.0      80.2 / 102.7      54.1 /  57.1                           62.9 /  65.7
+
+D. Touch noise against the bias it is meant to bound (touch map, K = 8, b1 = 0.03, hf = 0.02): TRUE rms
+   touch noise 0.005  -> true rms  31.9 um   (judge-only at the same bias and hf: 31.4)
+   touch noise 0.020  -> true rms  35.5 um   (judge-only at the same bias and hf: 31.4)
+   touch noise 0.040  -> true rms  45.4 um   (judge-only at the same bias and hf: 31.4)
+   touch noise 0.080  -> true rms  73.1 um   (judge-only at the same bias and hf: 31.4)

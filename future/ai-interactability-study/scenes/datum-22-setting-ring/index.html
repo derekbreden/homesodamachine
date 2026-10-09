@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setting ring</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "datum-22-setting-ring",
+  "title": "Setting ring: the surface that sets the plate is the surface the gun rides",
+  "by": "datum",
+  "origin": "combination",
+  "status": "deep",
+  "summary": "A ring sits on the rim and stays on for the whole closure. While the plate is tacked, a plug drops into the ring and carries the plate by its two ports; three feet on the plug set the plate's depth and square it to the ring's plane. Lift the plug out, set the upper ring on the same ledge, and the gun rides the plane that placed the plate: seat depth and plate tilt are made by the part, not measured. The tube is flipped for the second closure and the ring goes on the other rim.",
+  "tags": ["datum", "ring on the rim", "setting plug", "plate ports", "seat by construction", "closure 2 (flipped)", "kinematic seats"],
+  "branchOf": ["datum-03-rim-crown"],
+  "combines": ["datum-03-rim-crown", "travel-14-exact-crown"],
+  "transferable": ["the part that places the work is the part that references the tool", "hang a plate by its own ports and feet", "a seat check as three switch bits"],
+  "how": {
+    "motion": "hand-set ring, plug and pins; the rotator indexes to the tack angles, then turns the bead",
+    "load": "rim carries the ring; ring carries the plug; plug hangs the plate by its ports until tacked",
+    "reference": "rim and outside (ring), ring ledge (plug), the plate's own ports and face (two pins, three feet)",
+    "observe": "three foot switches and a flange switch (proposed): plate seated, plug down; nothing after",
+    "use": "each closure: seat the ring, hang the plate, tack, lift the plug, weld from the crown"
+  },
+  "software": {
+    "commands": ["rotator: index to each tack angle, then the bead speed (existing controller)", "nothing else is moved by software"],
+    "observes": ["three foot switches: the plate is against all three feet (proposed)", "a flange switch: the plug is down on the ring, so the plate is at its recess (proposed)"],
+    "manual": ["seating the ring and locking its pads", "hanging the plate on the plug and hand-tightening the pins", "the eight tacks", "lifting the plug out and setting the upper ring and gun on", "an indicator on the plate face before and after the tacks (the bench test that sizes the tack term)"]
+  },
+  "notes": ["../../explorers/datum/ideas/datum-22-setting-ring.md", "../../explorers/datum/ideas/datum-03-rim-crown.md", "../../exchange/datum--reply-to-travel-w3.md"],
+  "sources": ["../../sourcing/datum.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  'use strict';
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P3 = WK.prim, DEG = WK.deg, RI = WK.INNER_RADIUS;
+  const RIM = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2, CT = WK.CAP_TOP, TH = WK.DIM.capThickness, PORT = WK.DIM.portOffset;
+  const ZL = RIM + 7;                 // ring ledge: the plane the plug sits on and the upper ring's balls run on
+  const FOOT0 = ZL - CT;              // nominal foot length, ledge to plate face (13.35 mm)
+  const RF = 52;                      // feet radius
+  const AZF = [22.5, 157.5, 292.5];   // feet azimuths, tube frame: at least 22.5 deg from every tack angle (multiples of 45)
+  const TACKS = [0, 180, 90, 270, 45, 225, 135, 315];   // [repo] opposite-side-bisecting order
+  const ROD_X = 0, ROD_Y = -51.0;     // float rod on the plate's -Y axis [repo] (2.007 in)
+
+  const app = WK.app({
+    open: ['proposes', 'tried'],
+    view: 'ring',
+    viewButtons: ['ring', 'detail', 'top', 'overall'],
+    views: {
+      ring: { target: [-95, 62, 150], dir: [0.75, 0.45, 0.5], dist: 600 },
+      top: { target: [0, -10, 150], dir: [0, -0.004, 1], dist: 330 },
+      detail: { target: [0, 0, 148], dir: [0.55, 0.62, 0.62], dist: 250 },
+      overall: { target: [-40, -90, 215], dir: [0.72, -0.5, 0.45], dist: 1000 },
+    },
+    sections: {
+      proposes:
+        '<p><b>The ring that sets the plate.</b> Today the recess is set with a spacer or depth-stop on the rim, and nothing afterwards knows where the plate ended up. Here the teal ring sits on the rim and stays for the whole closure. For the tacks a <b>plug</b> (amber) drops into it: two pins hang the plate by its own ports, three feet on the plug set its depth and square it to the ring&rsquo;s ledge. After the eighth tack the plug lifts out and the upper ring (amber, on balls) and the gun take its place on the same ledge. The plane that placed the plate is the plane the gun rides, so seat depth, plate tilt and the rim&rsquo;s own flatness are made by the ring instead of being measured.</p>' +
+        '<p>Step through <i>Seat the ring</i>, <i>Hang the plate</i>, <i>Tack</i>, <i>Lift the plug</i>, <i>Weld</i>. The picture is drawn see-through; <i>Plate tilt drawn</i> exaggerates only the tilt of the plate on the screen (the numbers are true). Switch <i>Seating</i> to <i>As today</i> to see the same crown on a plate placed by hand, and <i>Closure</i> to flip the tube: the first plate becomes the base, the float rod stands up from it, and the ring goes on the other rim.</p>',
+      carries:
+        '<p><b>Rim</b> (three pads under the ring) carries the ring: it fixes the ring&rsquo;s height and tilt. <b>Outside</b> (three rockers, softly centring then locked, after <code>travel-14</code>) fixes it radially. <b>Ring ledge</b> carries the plug and later the upper ring&rsquo;s balls: one plane serves both. <b>Plug</b> carries the plate by two pins with cone collars in the ports&rsquo; countersinks and a T-head under the plate; the three feet are the depth stop; the plate&rsquo;s weight (0.6 kg) hangs on the plug, and nothing but the slip fit touches the wall.</p>' +
+        '<p>The plug&rsquo;s seat on the plate is exact: pin 1 in its port (cone in chamfer) fixes two translations, pin 2 in a slot fixes the turn about the axis, three feet fix height and two tilts. Nothing is free but what the slip fit leaves, and the slip fit no longer decides the tilt.</p>',
+      software:
+        '<p><b>Command:</b> only the rotator, which indexes to the eight tack angles (multiples of 45&deg;) and later turns the bead. <b>Observe:</b> three foot switches say the plate is against all three feet, and a flange switch says the plug is down on the ring, so the plate is at its recess; a plate jammed high by a burr shows as a foot open or a flange proud, before anything is welded. Nothing observes the tacks&rsquo; effect, the plate after the plug lifts, or the dot; that is the indicator test in <i>Unresolved</i>.</p>',
+      tried:
+        '<ul>' +
+        '<li><b>Conflict:</b> the recess is set by a spacer on the rim and nothing checks it. <b>Assumption:</b> the slip fit squares the plate. <b>What the numbers say</b> [<code>calc/plate_seat.js</code>]: the plate&rsquo;s diagonal (123.607 mm) is shorter than the bore (123.698 mm), so it can lie at any tilt without touching the wall on both sides; the rig&rsquo;s own acceptance (0.30 mm face TIR) is a tilt of 0.139&deg;, an amplitude of 0.15 mm at the weld circle that a rim-carried gun cannot see. <b>Change:</b> the plate is placed by a part that shares the gun&rsquo;s plane.</li>' +
+        '<li><b>Conflict:</b> a threaded post in the ports. <b>Assumption:</b> the 1/4 NPT taps are a good handle. <b>What breaks:</b> stainless on stainless taper threads gall, and the ports are reused for the elbows. <b>Change:</b> pins in the drilled pilot with a cone collar in the 82&deg; countersink the repo already cuts on both faces, and a quarter-turn T-head under the plate; the thread is never touched. <b>Left uncertain:</b> the port centres against the plate edge (laser-cut position) are <b>[unknown]</b>; the T-heads must clear the float rod and float in the second closure (drawn).</li>' +
+        '<li><b>Conflict:</b> the plug&rsquo;s arms turn with the tube and pass the nozzle. <b>What the scene shows:</b> arms at 22.5&deg;, 157.5&deg; and 292.5&deg; are 22.5&deg; (24 mm of arc) from every tack angle, so none stands at the station while a tack is made; spacing 135&deg;/135&deg;/90&deg; keeps the feet triangle around the plate&rsquo;s centre. <b>Left uncertain:</b> wire and nozzle clearance to the arms is the kit&rsquo;s proxy pose.</li>' +
+        '<li><b>Conflict:</b> tacks move the plate. <b>Assumption:</b> a tacked plate stays where it was put. <b>What the numbers say:</b> each tack locks the plate edge at its own height; the eight together leave a constant (the mean lift) and a first harmonic about half the spread between tacks (<code>plate_seat.js</code> D). A steady lift is a seat-depth shift, one number per tube; only the spread tilts. <b>Change:</b> feet and pins clamp the plate while the tacks cool, so the tack pull is locked in as stress, and what comes back when the plug lifts is a fraction (0.3 here) of what a free plate would have moved. <b>Left uncertain:</b> the size of the tack lift and of that recovery; nobody has measured either.</li>' +
+        '<li><b>Conflict:</b> a plate jammed part-way down by a burr. <b>What the scene shows:</b> the flange stands proud of the ledge and a foot switch stays open (slider <i>Plate jammed high</i>); today nothing detects it (<code>room</code> finding 6). <b>Change:</b> push the plug until the flange seats. <b>Left uncertain:</b> how much force a jammed plate needs.</li>' +
+        '<li><b>The flip.</b> Flipped, the ring goes on the other rim: its pads settle and lock again (a fresh draw of the outside), and the plate hangs from the same plug. The float rod stands up from the first plate and stops 1 mm short of the top plate&rsquo;s register [repo]; the plug is the depth stop, so the rod cannot hold the plate proud. <b>Left uncertain:</b> the register must meet the rod, and the plug turns freely in the ring until that is found by hand; nothing here helps.</li>' +
+        '<li><b>Left standing:</b> the radial position. The ring centres on the outside, so wall thickness (the outside&rsquo;s offset from the bore) and the ring&rsquo;s own lobing seat are still there (<code>datum-21</code>). The plug centres the plate on the ring, so the slip gap round the plate is even only if the ring is centred on the bore.</li>' +
+        '</ul>',
+      unresolved:
+        '<ul>' +
+        '<li><b>How the plate is held at its recess today, before the plug.</b> The rig doc says a spacer or depth-stop on the rim; what keeps the plate there while it is tacked is not recorded. <b>Question for Derek.</b></li>' +
+        '<li><b>The tack term.</b> Put the indicator on the plate face at three azimuths before and after the eight tacks on a plate you weld today; the mean and the spread decide whether the clamp matters.</li>' +
+        '<li><b>Plate depth and tilt as found,</b> ten plates, depth gauge from the rim: the spread the ring removes.</li>' +
+        '<li>Ball retention and the gap in the upper ring (as in <code>datum-03</code>); heat near the ring at the corner; whether a printed ring, steel feet and set screws survive a tack at 10 mm.</li>' +
+        '<li>Clocking the top plate&rsquo;s register to the rod in the second closure.</li>' +
+        '</ul>',
+      assumptions:
+        '<ul>' +
+        '<li>Geometry from the repo: tube 127 mm OD, bore 123.70 mm, plate 4.860 in by 0.250 in, recess 0.250 in, ports &oslash;11.13 mm at &plusmn;19.05 mm on one axis with 82&deg; countersinks on both faces, blind register at 51 mm on the perpendicular axis, float rod 131.08 mm [repo: <code>pressure-vessel.md</code>, <code>endcap_circular_dxf.py</code>]. Ring, plug, feet at 52 mm, arm angles, pin and T-head sizes: <b>illustrative</b>.</li>' +
+        '<li>Plate as found (depth 0.30 mm, tilt 0.12&deg;), foot tolerance (&plusmn;0.02 mm, set screws), tack lift mean 0.05 mm with spread 0.02 mm and recovery 0.3: <b>illustrative</b>; the tack term is <b>[unknown]</b>.</li>' +
+        '<li><b>Models:</b> the plate as a rigid plane (depth and two tilts), the plane through three feet, superposition of eight tack lifts, the lap of dot height above the plate face. <b>Depicts only:</b> ring pads and rockers, pin threads and T-heads, the upper ring&rsquo;s balls, the counterweight and tether (shown as ghosts: as in <code>datum-03</code>).</li>' +
+        '</ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  ws.setRunout(0, 0, 1);
+  ws.setGhost(true);
+  const TG = ws.tubeGroup;
+
+  // ------------------------------------------------------------------ state
+  const P = { step: 'seat', seating: 'ring', closure: 1, d0: 0.30, a0: 0.12, ph0: 1.3, jam: 0, ft: 0.02, tl: 0.05, ts: 0.02, hold: true, rec: 0.3, ntack: 0, exag: 12, speed: 8 };
+  const FOOT_ERR = [0.6, -0.8, 0.3];
+  const TACK_Z = [0.7, -0.9, 0.2, 1.0, -0.4, 0.5, -1.1, 0.1];   // fixed pseudo-random shape of the tack lifts (unit spread)
+
+  // ------------------------------------------------------------------ helpers
+  function mk(geo, role, opts) { const m = new THREE.Mesh(geo, WK.mat(role, Object.assign({ side: 'double' }, opts || {}))); m.userData.role = WK.role(role); return m; }
+  function lathe(profile, phi0, dphi) { const g = new THREE.LatheGeometry(profile.map(p => new THREE.Vector2(p[0], p[1])), 96, phi0 || 0, dphi == null ? Math.PI * 2 : dphi); g.rotateX(Math.PI / 2); return g; }
+  function boxAt(w, d, hh, x, y, z, role, rz, opts) { const b = P3.box(w, d, hh, role, opts); b.position.set(x, y, z); if (rz) b.rotation.z = rz; return b; }
+  const pol = (r, deg, z) => V(r * Math.cos(deg * DEG), r * Math.sin(deg * DEG), z);
+
+  // ------------------------------------------------------------------ plate (own copy so it can hang, tilt and carry the rod)
+  ws.cap.visible = false;
+  const plate = new THREE.Group(); plate.name = 'end plate (moves with its plane)'; plate.matrixAutoUpdate = false; TG.add(plate);
+  const plateMesh = mk(ws.cap.geometry.clone(), 'work', { shade: 0.62, opacity: 0.85 }); plate.add(plateMesh);
+  const rodHang = P3.rod(V(ROD_X, ROD_Y, CT - TH), V(ROD_X, ROD_Y, CT - TH - 131.08 + 2.54), 1.59, 'work'); plate.add(rodHang);   // closure 1: the rod hangs from the plate (base in its register)
+  // pins with cone collars and T-heads are children of the plug (built below, after the plug group exists)
+  // closure 2: the first plate at the bottom, the rod standing from it, the float
+  const plate1 = new THREE.Group(); plate1.name = 'first plate (closure 2)'; TG.add(plate1);
+  (function () {
+    const g = ws.cap.geometry.clone(); g.translate(0, 0, -(CT - TH) + 12.7);   // inner face at 12.7 above the tube bottom: recessed 6.35
+    plate1.add(mk(g, 'work', { shade: 0.62, opacity: 0.85 }));
+    plate1.add(P3.rod(V(ROD_X, ROD_Y, 12.7 - 2.54), V(ROD_X, ROD_Y, 141.24), 1.59, 'work'));
+    const fl = mk(lathe([[3, 12.7], [10, 12.7], [10, 20.7], [3, 20.7], [3, 12.7]]), 'ghost'); fl.position.set(ROD_X, ROD_Y, 0); plate1.add(fl);
+  })();
+
+  // ------------------------------------------------------------------ lower ring: three rim pads, three OD rockers, ledge
+  const ring = new THREE.Group(); ring.name = 'setting ring (lower ring)'; TG.add(ring);
+  ring.add(mk(lathe([[62.2, RIM + 1], [63.9, RIM + 1], [63.9, RIM - 8], [66.2, RIM - 8], [66.2, RIM + 1], [72, RIM + 1], [72, ZL], [62.2, ZL], [62.2, RIM + 1]]), 'locate'));
+  [30, 150, 270].forEach(a => { const b = P3.box(9, 4, 1.4, 'compliant'); b.position.copy(pol(62.7, a, RIM + 0.3)); b.rotation.z = a * DEG + Math.PI / 2; ring.add(b); });    // rim pads
+  [90, 210, 330].forEach(a => { const b = P3.box(4, 8, 5, 'compliant'); b.position.copy(pol(63.7, a, RIM - 3.5)); b.rotation.z = a * DEG; ring.add(b); });   // OD rockers (soft, then locked)
+  const ledgePads = [60, 180, 300].map(a => { const b = P3.box(10, 6, 0.5, 'load'); b.position.copy(pol(66.5, a, ZL + 0.2)); b.rotation.z = a * DEG + Math.PI / 2; ring.add(b); return b; });
+  const flangeSw = P3.box(6, 4, 3, 'sensor'); flangeSw.position.copy(pol(69.5, 60, ZL + 1.5)); flangeSw.rotation.z = 60 * DEG + Math.PI / 2; ring.add(flangeSw);
+
+  // ------------------------------------------------------------------ plug: hub, three arms, three feet with switches, knob
+  const plug = new THREE.Group(); plug.name = 'setting plug (temporary)'; TG.add(plug);
+  plug.add(mk(lathe([[0, 3.2], [26, 3.2], [26, 8], [0, 8], [0, 3.2]]), 'load'));                       // hub disc (local z 0 = ledge)
+  AZF.forEach(function (a) {
+    const arm = P3.box(46.5, 8, 4.4, 'load'); arm.position.copy(pol(48.3, a, 2.2)); arm.rotation.z = a * DEG; plug.add(arm);
+    const flange = P3.box(8, 12, 1.2, 'load'); flange.position.copy(pol(69.5, a, 0.6)); flange.rotation.z = a * DEG; plug.add(flange);
+    const sw = P3.box(5, 3.5, 2, 'sensor'); sw.position.copy(pol(RF + 8, a, 5.4)); sw.rotation.z = a * DEG; plug.add(sw);
+  });
+  const feet = AZF.map(function (a) { const r = P3.rod(V(0, 0, 0), V(0, 0, -1), 1.7, 'locate'); plug.add(r); const t = P3.sphere(2.1, 'locate'); plug.add(t); return { rod: r, tip: t, az: a }; });
+  // pins hang from the hub: a cone collar seats in each port's countersink, a T-head under the plate takes its weight (local z = 0 is the ledge)
+  const pin = [], collar = [], thead = [];
+  [-1, 1].forEach(function (sgn, i) {
+    const x = sgn * PORT;
+    pin[i] = P3.rod(V(x, 0, 6), V(x, 0, CT - TH - 3 - ZL), 3.6, 'load'); plug.add(pin[i]);
+    collar[i] = P3.cyl(5.4, 2.4, 'locate'); collar[i].position.set(x, 0, CT + 1.2 - ZL); plug.add(collar[i]);
+    thead[i] = P3.box(11, 3.4, 2.4, 'load'); thead[i].position.set(x, 0, CT - TH - 3.2 - ZL); plug.add(thead[i]);
+  });
+  const knob = P3.sphere(5.5, 'load'); knob.position.set(0, 0, 13.5); plug.add(knob);
+  plug.add(P3.rod(V(0, 0, 8), V(0, 0, 13), 2.5, 'load'));
+
+  // ------------------------------------------------------------------ tacks (drawn on the plate's edge, in the tube frame)
+  const tackMarks = TACKS.map(function (a) { const s = P3.sphere(1.7, 'laser'); s.position.copy(pol(RI - 0.6, a, CT + 0.3)); TG.add(s); return s; });
+
+  // ------------------------------------------------------------------ crown after the plug: upper ring, balls, boom (ghosts for what datum-03 already draws)
+  const ns = new THREE.Group(); ns.name = 'non-rotating assembly'; app.scene.add(ns); ns.add(gun.group);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'housingTop', clearance: 3, role: 'load', opacity: 0.2 });
+  const Z_BALLS = ZL + 2.2, Z_UP0 = ZL + 4, Z_UP1 = ZL + 10, AZ_GAP = -13 * DEG, GAP = 40 * DEG, AZ_BOOM = -56 * DEG;
+  const upper = mk(lathe([[62.2, Z_UP0], [72, Z_UP0], [72, Z_UP1], [62.2, Z_UP1], [62.2, Z_UP0]], AZ_GAP + GAP / 2 + Math.PI / 2, Math.PI * 2 - GAP), 'load'); ns.add(upper);
+  const balls = new THREE.Group(); ns.add(balls);
+  for (let i = 0; i < 24; i++) { const b = P3.sphere(1.8, 'fixed'); const a = i / 24 * Math.PI * 2; b.position.set(66 * Math.cos(a), 66 * Math.sin(a), Z_BALLS); balls.add(b); }
+  app.scene.updateMatrixWorld(true);
+  const R0 = V(68 * Math.cos(AZ_BOOM), 68 * Math.sin(AZ_BOOM), Z_UP1);
+  const lug = (function () { const dl = gun.group.worldToLocal(R0.clone()).sub(gun.anchor('barrelMid')).normalize(); return shell.attachPoint('barrelMid', { side: [dl.x, dl.y, dl.z], role: 'locate', size: 7 }); })();
+  app.scene.updateMatrixWorld(true);
+  const boom = P3.rod(R0, lug.world(), 3.2, 'load'); ns.add(boom);
+  // ghosts: counterweight and tether as in datum-03 (not modelled here)
+  const cwBox = P3.box(38, 38, 38, 'ghost'); cwBox.position.set(96, 30, ZL + 2); ns.add(cwBox);
+  const crownParts = [upper, balls, boom, cwBox, lug.lug];
+
+  // ------------------------------------------------------------------ plate plane bookkeeping (positive depth = plate deeper = dot higher above the plate face)
+  function feetPlane() {
+    // plane z = c0 + gx x + gy y through the three foot points; z is depth error (mm), feet at (RF, AZF[i]) with length error ft * FOOT_ERR[i]
+    const pts = AZF.map((a, i) => [RF * Math.cos(a * DEG), RF * Math.sin(a * DEG), P.ft * FOOT_ERR[i]]);
+    const [p0, p1, p2] = pts, u = [p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]], v = [p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2]];
+    const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+    const gx = -n[0] / n[2], gy = -n[1] / n[2], c0 = p0[2] - gx * p0[0] - gy * p0[1];
+    return { c0: c0, gx: gx, gy: gy };
+  }
+  function foundPlane() { const s = Math.tan(P.a0 * DEG); return { c0: P.d0 - P.jam, gx: s * Math.cos(P.ph0), gy: s * Math.sin(P.ph0) }; }
+  function tackEffect(k) {                    // constant and first harmonic from the first k tacks (partial sums of the final plane fit)
+    let c = 0, gx = 0, gy = 0;
+    for (let i = 0; i < k; i++) {
+      const u = P.tl + P.ts * TACK_Z[i], a = TACKS[i] * DEG;
+      c += u / 8; gx += 2 / 8 * u * Math.cos(a) / RI; gy += 2 / 8 * u * Math.sin(a) / RI;
+    }
+    return { c0: c, gx: gx, gy: gy };
+  }
+  const add = (a, b, f) => ({ c0: a.c0 + (f == null ? 1 : f) * b.c0, gx: a.gx + (f == null ? 1 : f) * b.gx, gy: a.gy + (f == null ? 1 : f) * b.gy });
+  // the plate plane for a seating method, step and tack count. ring: feet plane, then the tack effect (free if the feet do not hold, a fraction rec if they do, after the plug lifts)
+  function planeFor(seating, step, k) {
+    const found = foundPlane();
+    const stepIdx = ['seat', 'press', 'tack', 'lift', 'weld'].indexOf(step);
+    if (seating === 'today') return add(found, tackEffect(stepIdx >= 3 ? 8 : (stepIdx === 2 ? k : 0)));
+    if (stepIdx === 0) return found;
+    const fp = feetPlane();
+    if (stepIdx === 1) return fp;
+    if (stepIdx === 2) return P.hold ? fp : add(fp, tackEffect(k));
+    return P.hold ? add(fp, tackEffect(8), P.rec) : add(fp, tackEffect(8));
+  }
+  const planeAt = (pl, thDeg) => pl.c0 + RI * (pl.gx * Math.cos(thDeg * DEG) + pl.gy * Math.sin(thDeg * DEG));   // depth error at the weld circle, tube azimuth th
+  function lap(pl) { let lo = 1e9, hi = -1e9, ss = 0, n = 0, m = 0; for (let a = 0; a < 360; a += 5) { m += planeAt(pl, a); n++; } m /= n; for (let a = 0; a < 360; a += 5) { const v = planeAt(pl, a) - m; lo = Math.min(lo, v); hi = Math.max(hi, v); ss += v * v; } return { pp: hi - lo, mean: m, rms: Math.sqrt(ss / n) }; }
+
+  // ------------------------------------------------------------------ dot offset: the gun rides the ring plane, so the dot's height above the plate face follows the plate plane (weld step)
+  const baseDotOffset = gun.dotOffset;
+  gun.dotOffset = function () {
+    const o = baseDotOffset();
+    const pl = planeFor(P.seating, P.step, P.ntack);
+    o.vertical += planeAt(pl, ws.spinAngle);
+    o.total = Math.hypot(o.radial, o.along, o.vertical);
+    return o;
+  };
+  app.cornerInset({ gun: gun, corner: 'tr' });
+
+  // ------------------------------------------------------------------ drawing
+  const M4 = new THREE.Matrix4(), Q = new THREE.Quaternion();
+  function setPlatePlane(pl) {
+    const E = P.exag, n = V(-pl.gx * E, -pl.gy * E, 1).normalize();
+    // depth error is positive-deeper, so the plate's z offset is -c0; the plane passes through (0, 0, CT - c0)
+    Q.setFromUnitVectors(V(0, 0, 1), n);
+    M4.makeRotationFromQuaternion(Q);
+    const piv = V(0, 0, CT), off = V(0, 0, -pl.c0);
+    const T = new THREE.Matrix4().makeTranslation(piv.x, piv.y, piv.z), Ti = new THREE.Matrix4().makeTranslation(-piv.x, -piv.y, -piv.z), To = new THREE.Matrix4().makeTranslation(off.x, off.y, off.z);
+    plate.matrix.copy(To).multiply(T).multiply(M4).multiply(Ti); plate.matrixWorldNeedsUpdate = true;
+    return n;
+  }
+  function planeZ(pl, x, y) { return CT - (pl.c0 + pl.gx * x * P.exag + pl.gy * y * P.exag) ; }   // plate face height (drawn) at a tube-frame point
+  const hoverH = 70;
+  function layout() {
+    const stepIdx = ['seat', 'press', 'tack', 'lift', 'weld'].indexOf(P.step), ringMode = P.seating === 'ring';
+    const pl = planeFor(P.seating, P.step, P.ntack);
+    setPlatePlane(pl);
+    // closure: plate 1 and its rod when flipped; the rod hangs from this plate when it is the first plate of closure 1
+    plate1.visible = P.closure === 2; rodHang.visible = P.closure === 1;
+    // plug: set aside beside the tube before it is dropped in and after it lifts; down on the ledge while pressing and tacking
+    const plugDown = ringMode && (stepIdx === 1 || stepIdx === 2);
+    plug.visible = ringMode && stepIdx <= 3;
+    if (plugDown) plug.position.set(0, 0, ZL); else plug.position.set(-150, 110, ZL + 4);
+    // pins: the collars sit in the port countersinks and the T-heads under the plate follow its (drawn) plane while it hangs
+    pin.forEach(function (p, i) { const x = (i ? 1 : -1) * PORT, zt = (plugDown ? planeZ(pl, x, 0) - TH - 3.2 : CT - TH - 3.2) - ZL; p.setEnds(V(x, 0, 6), V(x, 0, zt + 1.2)); thead[i].position.set(x, 0, zt); collar[i].position.set(x, 0, (plugDown ? planeZ(pl, x, 0) : CT) + 1.2 - ZL); });
+    // feet: from the arm underside down to the plate face at their own azimuth
+    feet.forEach(function (f, i) {
+      const x = RF * Math.cos(f.az * DEG), y = RF * Math.sin(f.az * DEG), zt = plugDown ? planeZ(pl, x, y) - ZL : -FOOT0 - P.ft * FOOT_ERR[i];
+      f.rod.setEnds(V(x, y, 0.6), V(x, y, plugDown ? zt : -FOOT0 - P.ft * FOOT_ERR[i] + 0)); f.tip.position.set(x, y, plugDown ? zt : -FOOT0 - P.ft * FOOT_ERR[i]);
+    });
+    // tacks
+    const nt = stepIdx >= 3 ? 8 : (stepIdx === 2 ? P.ntack : 0);
+    tackMarks.forEach((t, i) => { t.visible = i < nt; });
+    // crown parts after the plug
+    const crown = stepIdx === 4;
+    crownParts.forEach(o => { o.visible = crown; });
+    gun.group.visible = stepIdx === 2 || stepIdx === 4;   // the hand-held gun tacks; the crown gun welds; the other steps do not need it
+    shell.group.visible = gun.group.visible;
+    return pl;
+  }
+
+  // ------------------------------------------------------------------ readouts and traces
+  let rdSeat, rdTir, rdFeet, rdFlange, rdTack, rdRecov, rdToday, rdRing;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgW = 330, svgH = 172, x0 = 30, x1 = 322, y0 = 30, y1 = 138, YM = 0.5;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + svgW + ' ' + svgH, width: '100%', role: 'img', 'aria-label': 'dot height above the plate face over one revolution, as today and with the ring' });
+  const sx = a => x0 + (x1 - x0) * a / 360, sy = v => (y0 + y1) / 2 - v / YM * (y1 - y0) / 2;
+  svg.appendChild(WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'none', stroke: 'var(--wk-line, #3a4250)', 'stroke-width': 0.6 }));
+  [-0.4, -0.2, 0, 0.2, 0.4].forEach(v => { svg.appendChild(WK.svg('line', { x1: x0, x2: x1, y1: sy(v), y2: sy(v), stroke: '#6b7686', 'stroke-width': v === 0 ? 0.7 : 0.3, 'stroke-dasharray': v === 0 ? '' : '2 3' })); svg.appendChild(WK.svg('text', { x: x0 - 3, y: sy(v) + 3, 'text-anchor': 'end', 'font-size': 8, fill: '#9aa5b5', text: v.toFixed(1) })); });
+  [0, 90, 180, 270, 360].forEach(a => svg.appendChild(WK.svg('text', { x: sx(a), y: y1 + 12, 'text-anchor': 'middle', 'font-size': 8, fill: '#9aa5b5', text: a + '°' })));
+  const pathToday = WK.svg('path', { fill: 'none', stroke: '#f59e0b', 'stroke-width': 1.6 }), pathRing = WK.svg('path', { fill: 'none', stroke: '#14b8a6', 'stroke-width': 1.6 }), cursor = WK.svg('line', { y1: y0, y2: y1, stroke: '#ec4899', 'stroke-width': 1 });
+  svg.append(pathToday, pathRing, cursor);
+  svg.appendChild(WK.svg('text', { x: x0, y: 10, 'font-size': 8.5, fill: '#f59e0b', text: 'as today: plate placed by hand, crown on the rim' }));
+  svg.appendChild(WK.svg('text', { x: x0, y: 22, 'font-size': 8.5, fill: '#14b8a6', text: 'setting ring and plug' }));
+  svg.appendChild(WK.svg('text', { x: 4, y: y0 - 4, 'font-size': 8, fill: '#9aa5b5', text: 'mm' }));
+  svg.appendChild(WK.svg('text', { x: x1, y: y1 + 24, 'text-anchor': 'end', 'font-size': 8, fill: '#9aa5b5', text: 'table angle; dot height above the plate face, constant removed' }));
+  app.ui.panel({ id: 'lap', title: 'One lap, after the eighth tack', open: true, node: svg });
+  function drawLap() {
+    const cur = { today: planeFor('today', 'weld', 8), ring: planeFor('ring', 'weld', 8) };
+    ['today', 'ring'].forEach(function (k) {
+      const l = lap(cur[k]); let d = '';
+      for (let a = 0; a <= 360; a += 4) d += (a ? 'L' : 'M') + sx(a).toFixed(1) + ' ' + sy(planeAt(cur[k], a % 360) - l.mean).toFixed(1);
+      (k === 'today' ? pathToday : pathRing).setAttribute('d', d);
+    });
+    cursor.setAttribute('x1', sx(ws.spinAngle)); cursor.setAttribute('x2', sx(ws.spinAngle));
+    const a = lap(cur.today), b = lap(cur.ring);
+    rdToday(a.pp.toFixed(3) + ' mm (constant ' + a.mean.toFixed(2) + ')'); rdRing(b.pp.toFixed(3) + ' mm (constant ' + b.mean.toFixed(2) + ')');
+  }
+
+  let ready = false;
+  function update() {
+    if (!ready) return;
+    const pl = layout(), stepIdx = ['seat', 'press', 'tack', 'lift', 'weld'].indexOf(P.step), ringMode = P.seating === 'ring';
+    const fpl = feetPlane(), ex = P.jam;
+    // switches: a foot is closed when the plate plane touches it. Jammed high: the plate cannot reach the feet by ex, so the flange stays proud and the feet nearest the jam stay open.
+    const proud = ringMode && stepIdx >= 1 && stepIdx <= 2 && ex > 0.01;
+    const feetOn = AZF.map((a, i) => (ringMode && stepIdx >= 1 && stepIdx <= 2) ? (!proud || i === 1) : null);
+    const stateTxt = !ringMode ? 'no feet: nothing checks' : stepIdx === 0 ? 'plug not in yet' : stepIdx >= 3 ? 'plug lifted' : (proud ? 'flange ' + ex.toFixed(2) + ' proud; feet ' + feetOn.map(v => v ? 'on' : 'OPEN').join('/') : 'flange seated; feet on/on/on');
+    rdFlange(stateTxt); rdFeet('plate plane through the feet: depth ' + fpl.c0.toFixed(3) + ' mm, tilt ' + (Math.hypot(fpl.gx, fpl.gy) / DEG).toFixed(4) + '° (amplitude at the weld circle ' + (RI * Math.hypot(fpl.gx, fpl.gy)).toFixed(3) + ' mm)');
+    const fnd = foundPlane(); rdSeat(fnd.c0.toFixed(2) + ' mm deep, ' + P.a0.toFixed(2) + '° tilt');
+    rdTir((2 * RI * Math.hypot(fnd.gx, fnd.gy)).toFixed(2) + ' mm (rig limit 0.30)');
+    rdFeet('depth ' + fpl.c0.toFixed(3) + ' mm, tilt ' + (Math.hypot(fpl.gx, fpl.gy) / DEG).toFixed(3) + '°');
+    rdFlange(stateTxt);
+    const te = tackEffect(8); rdTack('constant ' + te.c0.toFixed(3) + ', 1st harmonic ' + (RI * Math.hypot(te.gx, te.gy)).toFixed(3) + ' mm');
+    rdRecov(P.hold ? (P.rec * 100).toFixed(0) + ' % after the lift' : 'all of it stays');
+    app.badge('jam', proud ? 'plate jammed high by ' + ex.toFixed(2) + ' mm: the flange is proud and a foot is open, so nothing is welded until it seats' : null, 'warn');
+    app.badge('exag', P.exag > 1 ? 'plate tilt drawn ×' + P.exag + ' (the numbers are true)' : null, 'info');
+    app.badge('today', !ringMode ? 'As today: no ring feet, no plug; the plate is where the hand and the spacer left it' : null, 'info');
+    const o = gun.dotOffset(); void o;
+    drawLap();
+    app.io.set({
+      commands: [
+        { name: 'Rotator (index to a tack angle, then the bead)', value: P.speed, unit: 'mm/s', note: 'existing controller; the eight tack angles are multiples of 45° [repo]' },
+        { name: 'Ring, plug, pins, upper ring', value: 'by hand', status: 'manual', note: 'nothing here is moved by software' },
+      ],
+      observes: [
+        { name: 'Flange seated on the ring ledge', value: !ringMode ? '-' : (stepIdx >= 1 && stepIdx <= 2 ? (proud ? 'proud' : 'seated') : 'plug out'), status: ringMode && stepIdx >= 1 && stepIdx <= 2 ? 'seen' : 'blind', note: 'proposed microswitch on one ledge pad: the plate is at its recess and the rod is not holding it proud' },
+        { name: 'Feet against the plate (three bits)', value: !ringMode ? '-' : (stepIdx >= 1 && stepIdx <= 2 ? feetOn.map(v => v ? '1' : '0').join('') : '-'), status: ringMode && stepIdx >= 1 && stepIdx <= 2 ? 'seen' : 'blind', note: 'proposed: three switches or a hall sensor and magnet per foot' },
+        { name: 'Ring seated on the rim', value: '-', status: 'unresolved', note: 'a contact on one rim pad would say it; none is drawn' },
+        { name: 'Tack lift and the plate after the plug lifts', value: '-', status: 'blind', note: 'nothing measures it; an indicator on the plate face before and after the eight tacks does (Derek\'s bench test)' },
+        { name: 'Dot against the seam', value: '-', status: 'blind', note: 'the corner inset is exact scene geometry (Δz ' + gun.dotOffset().vertical.toFixed(3) + ' mm), not a sensor reading' },
+      ],
+      manual: ['Seat the ring on the rim: pads settle, then lock', 'Hang the plate on the plug, hand-tighten the two pins, drop the plug in', 'Tack at the eight angles; lift the plug; set the upper ring and gun on', 'Second closure: the ring goes on the other rim; the plug is the depth stop, the rod stays 1 mm short'],
+    });
+  }
+
+  // ------------------------------------------------------------------ controls
+  app.ui.radio({ id: 'step', label: 'Step in the closure', options: [
+    { value: 'seat', label: '1 Seat the ring', help: 'Ring on the rim, pads settled and locked. The plate is where the hand and the spacer left it: depth and tilt as found.' },
+    { value: 'press', label: '2 Hang the plate', help: 'The plug drops into the ring: two pins take the plate by its ports, three feet set depth and square it to the ledge.' },
+    { value: 'tack', label: '3 Tack', help: 'Eight tacks in the repo\'s order. The feet clamp the plate while they cool.' },
+    { value: 'lift', label: '4 Lift the plug', help: 'Pins and feet come out. What comes back is the tack pull\'s recovery.' },
+    { value: 'weld', label: '5 Weld', help: 'The upper ring and gun sit on the ledge that placed the plate; the rotator turns the bead.' }], value: 'seat', kind: 'state',
+    onChange: v => { P.step = v; const nt = v === 'tack' ? (P.ntack > 0 && P.ntack < 8 ? P.ntack : 4) : (v === 'lift' || v === 'weld' ? 8 : 0); P.ntack = nt; app.ui.set('ntack', nt, { silent: true }); app.ui.enable('ntack', v === 'tack'); update(); } });
+  app.ui.radio({ id: 'seating', label: 'Seating', options: [{ value: 'ring', label: 'Ring + plug', help: 'The proposal: feet and pins place the plate from the ring.' }, { value: 'today', label: 'As today', help: 'The crown on the rim, the plate wherever the hand and spacer left it, then tacked free.' }], value: 'ring', kind: 'branch', visual: () => [plug], onChange: v => { P.seating = v; update(); } });
+  app.ui.radio({ id: 'closure', label: 'Closure', options: [{ value: 1, label: 'First: bare tube', help: 'The plate hangs with the float rod pointing down from its inside face; the tube\'s far end is open.' }, { value: 2, label: 'Second: first plate is the base', help: 'Tube flipped: the first plate is at the bottom, the float rod stands up from it, the ring goes on the other rim. Its ports are reachable through the 90 mm service bore.' }], value: 1, kind: 'branch', visual: () => plate1, onChange: v => { P.closure = +v; update(); } });
+  app.ui.slider({ id: 'ntack', label: 'Tacks placed', min: 0, max: 8, step: 1, value: 0, kind: 'state', visual: () => tackMarks, help: 'Only in step 3. Tack order 0, 180, 90, 270, 45, 225, 135, 315 degrees [repo].', onChange: v => { P.ntack = v; update(); } });
+  app.ui.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, help: 'The tube, ring, plug and plate turn together; the upper ring and gun do not.', onChange: v => { ws.spin.on = v; app.invalidate(); } });
+  app.ui.slider({ id: 'angle', label: 'Table angle', min: 0, max: 359, step: 1, value: 0, unit: '°', kind: 'actuator', visual: () => ws.turntable, help: 'The existing rotator. Watch the pink cursor on the lap trace.', onChange: v => { ws.setSpin(v); update(); } });
+  app.ui.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', noVisual: true, visual: () => ws.turntable, help: 'The existing rotator controller: 5-15 mm/s [repo].', onChange: v => { P.speed = v; ws.spin.speedDegPerSec = v / RI / DEG; update(); } });
+  const gp = app.ui.group('The plate as found (scene edits)', { open: true, help: 'Illustrative. Nobody has measured how the plates sit.' });
+  gp.slider({ id: 'd0', label: 'Depth error (deeper than 6.35 mm)', min: -0.6, max: 0.8, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', visual: () => plate, onChange: v => { P.d0 = v; update(); } });
+  gp.slider({ id: 'a0', label: 'Tilt against the rim plane', min: 0, max: 0.5, step: 0.01, value: 0.12, unit: '°', kind: 'scene', visual: () => plate, help: 'The slip fit does not square the plate at any tilt (calc/plate_seat.js). 0.139° is the rig\'s 0.30 mm face TIR.', onChange: v => { P.a0 = v; update(); } });
+  gp.slider({ id: 'jam', label: 'Plate jammed high by a burr', min: 0, max: 1.0, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => plate, help: 'With the plug the flange stays proud and a foot opens; today nothing notices.', onChange: v => { P.jam = v; update(); } });
+  const gr = app.ui.group('The ring, plug and tacks (scene edits)', { open: true });
+  gr.slider({ id: 'ft', label: 'Foot length tolerance', min: 0, max: 0.15, step: 0.005, value: 0.02, unit: '±mm', kind: 'scene', visual: () => feet.map(f => f.rod), help: 'M3 set screws set with a depth gauge: 0.02. Printed feet: 0.10. Three feet make a plane, so this becomes the plate\'s tilt (calc/plate_seat.js C).', onChange: v => { P.ft = v; update(); } });
+  gr.slider({ id: 'tl', label: 'Tack lift, mean', min: 0, max: 0.2, step: 0.005, value: 0.05, unit: 'mm', kind: 'scene', noVisual: true, visual: () => tackMarks, help: 'Illustrative and [unknown]: how far a tack pulls the plate edge up.', onChange: v => { P.tl = v; update(); } });
+  gr.slider({ id: 'ts', label: 'Tack lift, spread between tacks', min: 0, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', noVisual: true, visual: () => tackMarks, help: 'A steady lift is a constant; only the spread tilts the plate.', onChange: v => { P.ts = v; update(); } });
+  gr.toggle({ id: 'hold', label: 'Feet and pins clamp while the tacks cool', value: true, kind: 'branch', visual: () => [plug], help: 'On: the tack pull is locked in as stress and part of it returns when the plug lifts. Off: the plate moves freely as it is tacked.', onChange: v => { P.hold = v; update(); } });
+  gr.slider({ id: 'rec', label: 'Recovery after the lift (clamped)', min: 0, max: 1, step: 0.05, value: 0.3, kind: 'scene', noVisual: true, help: 'Fraction of the free tack movement that comes back. [unknown]', onChange: v => { P.rec = v; update(); } });
+  gr.slider({ id: 'exag', label: 'Plate tilt drawn', min: 1, max: 40, step: 1, value: 12, unit: '×', kind: 'view', visual: () => plate, help: 'Only the drawn tilt of the plate; every number is true size.', onChange: v => { P.exag = v; update(); } });
+  const gn = app.ui.group('Numbers (exact scene geometry, not sensor readings)', { open: true });
+  rdSeat = gn.readout('found', 'Plate as found'); rdTir = gn.readout('tir', 'Its face TIR at the weld circle'); rdFeet = gn.readout('fplane', 'Plate on the three feet'); rdFlange = gn.readout('flange', 'Switches (proposed)');
+  rdTack = gn.readout('tackr', 'Eight tacks, if free'); rdRecov = gn.readout('recov', 'Tack pull that comes back'); rdToday = gn.readout('lapToday', 'Lap p-p, as today'); rdRing = gn.readout('lapRing', 'Lap p-p, ring and plug');
+
+  // ------------------------------------------------------------------ labels
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(ring.matrixWorld).add(V(-58, 40, RIM + 6)), 'ring: on the rim, stays for the closure', { cls: 'locate' });
+  app.label(() => plug.visible ? V(0, 0, 0).setFromMatrixPosition(knob.matrixWorld) : null, 'plug: hangs the plate, sets its depth', { cls: 'load' });
+  app.label(() => plug.visible ? V(0, 0, 0).setFromMatrixPosition(collar[1].matrixWorld) : null, 'pin: cone in the port countersink', { cls: 'locate' });
+  app.label(() => plug.visible ? V(0, 0, 0).setFromMatrixPosition(feet[0].tip.matrixWorld) : null, 'foot (set screw): depth stop', { cls: 'locate' });
+  app.label(() => V(0, 0, 0).setFromMatrixPosition(tackMarks[1].matrixWorld), 'tacks', { cls: 'laser' });
+  app.label(() => P.step === 'weld' ? V(0, 0, 0).setFromMatrixPosition(upper.matrixWorld).add(V(-20, 60, 14)) : null, 'upper ring + gun: on the same ledge', { cls: 'load' });
+  app.label(() => P.closure === 2 ? V(0, 0, 0).setFromMatrixPosition(plate1.matrixWorld).add(V(ROD_X, ROD_Y, 60)) : null, 'float rod stands from plate 1', { cls: 'work' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  app.onFrame(function (dt) { if (!ws.spin.on) return false; app.ui.set('angle', Math.round(ws.spinAngle) % 360, { silent: true }); drawLap(); return true; });
+  ready = true; update();
+})();
+</script>
+</body>
+</html>

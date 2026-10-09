@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The tube travels</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-01-tube-travels",
+  "title": "The tube travels: the gun stays, the work moves",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "The gun sits in a hand-set holder that is locked for the weld and never moves; a stack of stages under the rotator moves the tube. Sliding the work along the tangent turns the plan angle at 1/r; radial and vertical trims null the rest. The umbilical and wire conduit stay still.",
+  "tags": [
+    "work-side stages",
+    "allocation",
+    "gun fixed",
+    "shuttle",
+    "Abbe"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "tangent shift = plan angle at 1/r",
+    "long hard-stopped shuttle + short fine stack",
+    "hand-crank + scales branch (software reads, person turns)",
+    "stack order and Abbe height"
+  ],
+  "how": {
+    "motion": "work stack under the rotator: shuttle, Z, X, Y; motors, or hand wheels with scales",
+    "load": "holder post to bench carries gun and cables; stack carries rotator and tube",
+    "reference": "holder hand-set once and locked; the stack nulls the seam against what is seen",
+    "observe": "outside and overhead cameras on the dot; stage step counts or scales",
+    "use": "setup neighbourhood by hand, per-tube trim by stage, swap by shuttle"
+  },
+  "software": {
+    "commands": [
+      "stage X, Y, Z (motor, about 0.02 mm steps, illustrative)",
+      "shuttle in / out to a hard stop",
+      "rotator speed and turning (existing controller)",
+      "couple X to Y so the dot stays on the seam"
+    ],
+    "observes": [
+      "dot against the seam from the cameras when the line of sight is open",
+      "stage positions from step counts (open loop) or from scales (hand branch)"
+    ],
+    "manual": [
+      "hand-setting and locking the gun holder",
+      "nozzle extension on the graduated tube",
+      "retracting the wire before a shuttle",
+      "sliding the tube on and off the nest"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-01-tube-travels.md",
+    "../../explorers/travel/calc/02-work-side-translation.mjs",
+    "../../explorers/travel/calc/03-abbe-and-stack.mjs",
+    "../../explorers/travel/calc/05-shuttle-clearance.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, J = WK.JOINT, DEG = WK.deg;
+  const RI = WK.INNER_RADIUS, CAPTOP = WK.CAP_TOP, RIMZ = WK.DIM.tubeHeight, RO = WK.DIM.tubeOd / 2;
+  const BENCH_Z = -186;                       // bench top: lowers the rotator's world position by the stage stack height (illustrative 100 mm)
+
+  const app = WK.app({
+    workstation: { bench: false }, gun: { pose: 'opening' },
+    viewButtons: ['overall', 'joint', 'top', 'stack'],
+    views: {
+      overall: { target: [0, -70, 30], dir: [-0.55, 0.62, 0.42], dist: 1650 },
+      joint: { target: [58, -6, 154], dir: [-0.80, 0.26, 0.46], dist: 200 },
+      top: { target: [20, -60, 100], dir: [0, -0.0035, 1], dist: 900 },
+      stack: { target: [0, 20, -110], dir: [0.75, -0.85, 0.3], dist: 1000 },
+    },
+    open: ['proposes', 'software'],
+    sections: {
+      proposes: '<p>The gun is fixed. It sits in a printed shell on a hand-set holder that is <b>locked for the weld</b>, so the umbilical and the wire conduit never move. Everything that has to change between tubes is done to the <b>work</b> by a small stack of stages under the rotator: a long <b>shuttle</b> to a hard stop (tube swap), then <b>Z</b>, <b>X</b> (radial) and <b>Y</b> (tangent).</p>' +
+        '<p>The seam is a circle that the rotator turns through the station, so sliding the tube along the tangent hardly leaves the seam. It only turns the seam’s direction relative to the gun by about 0.93° per mm: <b>the tangent stage is a plan-angle stage with a 1/r reduction</b>. Try Y with X uncoupled, then couple them.</p>',
+      carries: '<p><b>Amber</b> shell and <b>teal</b> holder joints carry the gun to a slate post on the bench; the two cables hang from a slate gallows. <b>Purple</b> layers carry the rotator and tube. Nothing on the gun side is driven. Holder joints are free in setup and locked in operating.</p>' +
+        '<p>The stack order is fixed here (bottom to top: shuttle, Z, X on Y, then the rotator). The seam is high above every layer, so a layer’s tilt error becomes a sideways error at the dot (the tilt slider shows it).</p>',
+      software: '<p>Software commands the stage axes and the rotator, and reads the dot against the seam through the cameras when the line of sight is open. The Trim button uses only what the cameras report (with the noise you set), rounded to the stage step: it moves X and Z. <b>Plan angle is not observed</b> by anything drawn here; it follows the Y command. In the hand branch the same stage is cranked by a person and read by scales: software observes and moves nothing.</p>',
+      tried: '<p><b>Break 1: swap.</b> The reference pose puts the nozzle tip 5 mm above the rim and inside the bore: the tube can be lifted only about 55 mm before its rim meets the barrel, so it cannot be lifted out, and a lift-and-slide needs the gun raised. <i>Repair:</i> shuttle the whole rotator out under the fixed gun with no lift (Shuttle slider). It clears while the tip stays above the rim plane; drop the gun by hand (−6 mm) and the badge turns red. It still needs the wire retracted and a hard stop that returns to the same place.</p>' +
+        '<p><b>Break 2: Abbe.</b> Moving the work does not remove the lever problem: the seam is 232 mm above the rotator feet. A 0.05° tilt of a layer is 0.2 mm at the dot. <i>Change:</i> only the change of tilt over the travel actually used counts, so the fine layers are short; the long shuttle relies on a hard stop, not on straightness.</p>' +
+        '<p><b>Break 3: Y alone.</b> A tangent move leaves a small radial error (0.8 mm at 10 mm). <i>Repair:</i> couple X to Y in software.</p>' +
+        '<p><b>Break 4 (from use, wave 2): one Z axis is asked for three jobs.</b> <i>Conflict:</i> Z trims, clears the shuttle and, if a bead must end with the head leaving, escapes; its ±6 mm is bigger than the 8 mm of Z that are shuttle-safe (drop the gun −6 mm by hand, or raise Z above +1: the rim badge turns red), a lift of 20 mm along the beam is 28 mm of Z, and every return to a hard stop tilts the stack (0.05° is 0.054 mm of face runout at r = 61.85 mm). <i>Assumption:</i> Z exists only to trim. <i>Change:</i> a drop tier with hard stops under the fine tier, seated on three balls, its bottom-stop switch the shuttle interlock: <code>travel-19-drop-tier-on-a-seat</code> (a branch; this scene stays as drawn). <i>Leaves:</i> whether a lift is needed at all (guide 46 says only to release the trigger, then the pedal); two approaches per closure unless the dial can stand opposite the gun; a fused wire is a hold state.</p>',
+      unresolved: '<p><b>Biggest open problems:</b> the hard stop that makes the shuttle return to the same place, and the tilt it leaves, are not designed (travel-19 draws a seat); nothing measures the nozzle-to-rim clearance; whether the head has to leave the puddle at the end of a bead is unconfirmed; the gun\'s mass and the umbilical\'s pull are unmeasured. The holder is a schematic: how a locked holder resists umbilical pull, and how stiff it must be, is <b>unknown</b> (gun mass and cable force unmeasured). Whether the rotator’s ball race and printed base tolerate the stack’s load path, and whether the ground shoe, pedal lead and purge hose can follow a moving rotator, is not shown. Roll about the grip axis and pitch about the hole axis are set by hand: no stage here changes them (see the dot-centred scene).</p>',
+      assumptions: '<ul><li>Gun pose = the reference scene’s opening pose; gun geometry is the kit proxy (illustrative).</li>' +
+        '<li>Stage ranges (shuttle 200, Z ±6, X ±8, Y ±12 mm), layer thicknesses (100 mm stack) and the hand-set error defaults are illustrative.</li>' +
+        '<li>Seam r = 61.85 mm, recess 6.35 mm, seam 232 mm above the rotator feet: <b>[repo] / [derived]</b>. Runout limits 0.25 / 0.30 mm TIR are the rig doc’s acceptance numbers; the wobble drawn is illustrative.</li>' +
+        '<li>Estimate noise and the marker in the corner inset are made up to show how a sensor estimate would be used. Line of sight is drawn geometry, not optics.</li>' +
+        '<li>Collision test: the bare barrel (no shell) against the rim ring; the shell, the wire and the beam are not solids in the test.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  // ---------------------------------------------------------------- bench + stage stack (all explanatory geometry)
+  const bench = P.box(980, 820, 20, 'fixed'); bench.position.set(-40, -120, BENCH_Z - 10); app.add(bench);
+  (function grid() {
+    const pts = [], z = BENCH_Z + 0.2;
+    for (let x = -500; x <= 420; x += 50) pts.push(V(x, -520, z), V(x, 280, z));
+    for (let y = -500; y <= 280; y += 50) pts.push(V(-530, y, z), V(450, y, z));
+    const g = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), WK.lineMat('fixed', { opacity: 0.4 })); g.userData.role = 'fixed'; g.userData.occludes = false; app.add(g);
+  })();
+  // shuttle rails on the bench (fixed)
+  [-110, 110].forEach(x => app.add(P.rail(V(x, -60, BENCH_Z + 2.5), V(x, 320, BENCH_Z + 2.5), { width: 14, height: 5, role: 'fixed' })));
+  const hardStop = P.box(240, 10, 28, 'locate'); hardStop.position.set(0, -68, BENCH_Z + 14); app.add(hardStop);
+  app.label(hardStop, 'hard stop (work position)', { cls: 'locate' });
+
+  const shuttleG = new THREE.Group();   // moves with the shuttle (y)
+  const shutSlab = P.box(340, 300, 20, 'actuated'); shutSlab.position.set(0, 0, BENCH_Z + 10 + 5); shuttleG.add(shutSlab);
+  const zBody = P.box(260, 260, 20, 'fixed'); zBody.position.set(0, 0, BENCH_Z + 25 + 10); shuttleG.add(zBody);
+  const moving = new THREE.Group(); shuttleG.add(moving);            // lift + tilt of the Z platform
+  const zPlat = P.box(320, 280, 18, 'actuated'); zPlat.position.set(0, 0, -141 + 9 - 0); moving.add(zPlat);
+  const yG = new THREE.Group(); moving.add(yG);
+  const yCar = P.box(320, 280, 18, 'actuated'); yCar.position.set(0, 0, -123 + 9); yG.add(yCar);
+  const xG = new THREE.Group(); yG.add(xG);
+  const xCar = P.box(320, 280, 19, 'actuated'); xCar.position.set(0, 0, -105 + 9.5); xG.add(xCar);
+  // rails riding on the layers
+  [-110, 110].forEach(x => zPlat.add(Object.assign(P.rail(V(x, -120, 9 + 2.5), V(x, 120, 9 + 2.5), { width: 12, height: 5, role: 'fixed' }), {})));
+  [-110, 110].forEach(y => yCar.add(P.rail(V(-120, y, 9 + 2.5), V(120, y, 9 + 2.5), { width: 12, height: 5, role: 'fixed' })));
+  app.scene.add(shuttleG);
+  app.scene.remove(ws.group); xG.add(ws.group);
+  // ws.group keeps its own world layout: the rotator feet already stand at z = -86 (top of the X layer)
+
+  // motors (proposed actuators) and hand wheels + scales (branch)
+  const motors = new THREE.Group(), hand = new THREE.Group();
+  function motorOn(parent, pos, axisDir, role) { const m = P.motor(42, role || 'actuated'); m.position.copy(pos); m.quaternion.setFromUnitVectors(V(0, 0, 1), axisDir); parent.add(m); return m; }
+  motorOn(motors, V(-190, 0, -96), V(1, 0, 0));                 // X motor (rides the Y carriage): pushes -x side
+  yG.add(motors);
+  // separate motors for the other layers so each rides the right parent
+  const mY = new THREE.Group(), mZ = new THREE.Group(), mS = new THREE.Group();
+  motorOn(mY, V(0, -175, -114), V(0, 1, 0)); moving.add(mY);
+  motorOn(mZ, V(-150, 0, -150), V(1, 0, 0)); shuttleG.add(mZ);
+  motorOn(mS, V(0, 385, BENCH_Z + 13), V(0, -1, 0)); app.scene.add(mS);
+  const wheelX = P.cyl(20, 8, 'locate', { axis: 'x' }); wheelX.position.set(-206, 0, -96); hand.add(wheelX); yG.add(hand);
+  const hand2 = new THREE.Group(), wheelY = P.cyl(20, 8, 'locate', { axis: 'y' }); wheelY.position.set(0, -170, -114); hand2.add(wheelY); moving.add(hand2);
+  const hand3 = new THREE.Group(), wheelZ = P.cyl(20, 8, 'locate', { axis: 'x' }); wheelZ.position.set(-142, 0, -150); hand3.add(wheelZ); shuttleG.add(hand3);
+  const scaleBoxes = [];   // digital scales (blue): read by software in the hand branch
+  function scale(parent, p, size) { const b = P.box(size[0], size[1], size[2], 'sensor'); b.position.copy(p); parent.add(b); scaleBoxes.push(b); return b; }
+  scale(xG, V(0, 138, -96), [200, 8, 8]); scale(moving, V(150, 0, -114), [8, 200, 8]); scale(shuttleG, V(140, 0, -150), [8, 8, 40]);
+  app.label(() => yG.localToWorld(V(-190, 0, -96)), 'stage motor (proposed)', { cls: 'actuated' });
+  app.label(() => shutSlab.getWorldPosition(new THREE.Vector3()).add(V(150, 60, 0)), 'shuttle (long)', { cls: 'actuated' });
+  app.label(() => zPlat.getWorldPosition(new THREE.Vector3()).add(V(160, 60, 0)), 'Z lift', { cls: 'actuated' });
+  app.label(() => yCar.getWorldPosition(new THREE.Vector3()).add(V(160, 0, 0)), 'Y tangent', { cls: 'actuated' });
+  app.label(() => xCar.getWorldPosition(new THREE.Vector3()).add(V(160, -60, 0)), 'X radial', { cls: 'actuated' });
+
+  // ---------------------------------------------------------------- gun side: shell, holder, cables (all fixed once locked)
+  const gunBase = { pos: gun.group.position.clone(), quat: gun.group.quaternion.clone() };
+  const shell = gun.addShell({ style: 'sleeve', from: 'barrelMid', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.30 });
+  const lug = shell.attachPoint('housingTop', { side: 'top', role: 'locate', size: 9 });
+  const post = { base: V(-150, -270, BENCH_Z), top: V(-150, -270, 330) };
+  const postBase = P.box(150, 150, 14, 'fixed'); postBase.position.set(post.base.x, post.base.y, BENCH_Z + 7); app.add(postBase);
+  app.add(P.rod(V(post.base.x, post.base.y, BENCH_Z + 14), post.top, 9, 'fixed'));
+  const arm1 = P.rod(post.top, post.top, 6, 'locate'), arm2 = P.rod(post.top, post.top, 6, 'locate');
+  const elbow = P.sphere(9, 'locate'), shoulder = P.sphere(10, 'locate'); shoulder.position.copy(post.top);
+  [arm1, arm2, elbow, shoulder].forEach(o => app.add(o));
+  app.label(() => shoulder.position, 'holder joints (hand-set, locked in operation)', { cls: 'locate' });
+  app.label(() => gun.local('housingBack'), 'gun in shell (fixed)', { cls: 'load' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+
+  // gallows: the cables hang from a fixed hanger placed along the cable's own exit direction (so the drawn cable is not forced into a hairpin)
+  const ex0 = gun.cableExit(), exDir = ex0.dir.clone();
+  const hanger = ex0.point.clone().addScaledVector(exDir, 340);
+  app.add(P.rod(V(hanger.x + 30, hanger.y - 20, BENCH_Z), V(hanger.x + 30, hanger.y - 20, hanger.z + 25), 7, 'fixed')); app.add(P.rod(V(hanger.x + 30, hanger.y - 20, hanger.z + 25), V(hanger.x, hanger.y, hanger.z + 8), 5, 'fixed'));
+  let umb = null, feed = null;
+  function rebuildCables() {
+    const ex = gun.cableExit(), we = gun.wireExit();
+    const c1 = WK.bezierCable(ex.point, ex.dir, hanger, exDir, { stiffness: 0.4 });
+    const c2 = WK.bezierCable(we.point, we.dir, hanger.clone().add(V(16, 0, 0)), exDir, { stiffness: 0.4 });
+    if (!umb) { umb = P.cable(c1, { radius: 5.5, role: 'cable' }); feed = P.cable(c2, { radius: 3, role: 'wire' }); app.add(umb); app.add(feed); } else { umb.setPoints(c1); feed.setPoints(c2); }
+    const b = WK.cableBadge(c1.minRadius());
+    app.badge('bend', b.level === 'ok' ? null : b.text, b.level);
+  }
+  app.label(() => hanger, 'umbilical + wire conduit hang here (static)', { cls: 'cable' });
+
+  // ---------------------------------------------------------------- observers (illustrative, drawn-scene line of sight)
+  const obs = app.inset.add({ id: 'obs', label: 'Outside camera (proposed)', position: V(-250, -45, 340), target: () => gun.dotWorld(), fov: 32, near: 30, far: 1600, size: [220, 150], corner: 'br', noise: 0.2 });
+  const top = app.inset.add({ id: 'top', label: 'Overhead camera (proposed)', position: V(50, -10, 470), target: () => gun.dotWorld(), fov: 16, near: 30, far: 1600, size: [220, 150], corner: 'bl', noise: 0.2 });
+  app.label(V(-250, -45, 340), 'outside camera', { cls: 'sensor' });
+  app.label(V(50, -10, 470), 'overhead camera', { cls: 'sensor' });
+
+  // exact seam offset of the dot in the tube's own frame (includes stage moves, tilt, shuttle, spin and runout: scene geometry)
+  const inv = new THREE.Matrix4();
+  function seamNow() {
+    app.scene.updateMatrixWorld(true);
+    inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const d = gun.dotWorld().applyMatrix4(inv), seat = app.ui.get('seat') || 0;
+    return { radial: Math.hypot(d.x, d.y) - RI, vertical: d.z - (CAPTOP + seat), along: 0, total: 0 };
+  }
+  const fake = { dotOffset: () => seamNow(), beamDir: () => gun.beamDir() };
+  app.cornerInset({ gun: fake });
+
+  // what a camera actually sees is where the red beam lands on the work, not the focal point (which may sit inside the wall)
+  const rc = new THREE.Raycaster();
+  function dotSurface() {
+    app.scene.updateMatrixWorld(true);
+    const o = gun.local('nozzleTip'), dvec = gun.dotWorld().sub(o).normalize();
+    rc.set(o, dvec);
+    const hit = rc.intersectObjects([ws.tube, ws.cap].filter(Boolean), false)[0];
+    return hit ? hit.point : gun.dotWorld();
+  }
+  // clearance of the bare barrel to the rim ring (drawn geometry). negative = collision
+  function rimClearance() {
+    app.scene.updateMatrixWorld(true);
+    inv.copy(ws.tubeGroup.matrixWorld).invert();
+    const prof = z => (z < 23 ? 2.2 + 2.8 * z / 23 : z < 54 ? 8.5 : z < 100 ? 5.5 : 12);
+    let min = Infinity;
+    for (let z = 0; z <= 118; z += 4) {
+      const p = gun.local([0, 0, z]).applyMatrix4(inv);
+      const d = Math.hypot(Math.hypot(p.x, p.y) - (RI + RO) / 2, p.z - RIMZ) - (RO - RI) / 2 - prof(z);
+      if (d < min) min = d;
+    }
+    return min;
+  }
+
+  // ---------------------------------------------------------------- pseudo sensor noise (stable per state, so the marker does not flicker)
+  function noise(seedA, seedB) { const s = Math.sin(seedA * 12.9898 + seedB * 78.233) * 43758.5453; return (s - Math.floor(s)) * 2 - 1; }
+
+  // ---------------------------------------------------------------- the update
+  const ui = id => app.ui.get(id);
+  const readX = app.ui.readout('rx', 'X applied (radial)'), readPsi = app.ui.readout('rpsi', 'Plan angle from Y'), readDr = app.ui.readout('rdr', 'Radial error if Y moved alone'), readAbbe = app.ui.readout('rabbe', 'Seam shift from tilt');
+  let trimTick = 0;
+  function sync() {
+    const shut = ui('shut'), sy = ui('y'), sz = ui('z'), coupled = ui('couple');
+    const sx = coupled ? (RI - Math.sqrt(Math.max(0, RI * RI - sy * sy))) + ui('x') : ui('x');
+    const tilt = ui('tilt') || 0, hm = ui('drive') === 'hand';
+    // gun: hand-set error (setup) then locked
+    gun.setTransform(gunBase.pos.clone().add(V(ui('gx'), ui('gy'), ui('gz'))), gunBase.quat);
+    // stack
+    shuttleG.position.set(0, shut, 0); shutSlab.position.set(0, 0, BENCH_Z + 15);
+    const q = new THREE.Quaternion().setFromAxisAngle(V(0, 1, 0), tilt * DEG), pv = V(0, 0, -141);
+    moving.quaternion.copy(q); moving.position.copy(pv.clone().add(V(0, 0, sz)).sub(pv.clone().applyQuaternion(q)));
+    yG.position.set(0, sy, 0); xG.position.set(sx, 0, 0);
+    motors.visible = mY.visible = mZ.visible = mS.visible = !hm; hand.visible = hand2.visible = hand3.visible = hm; scaleBoxes.forEach(b => (b.visible = hm));
+    // seat depth variation: the plate sits higher (+) or deeper (-) in this tube
+    const seat = ui('seat');
+    if (ws.cap) ws.cap.position.z = seat; if (ws.weldCircle) ws.weldCircle.position.z = CAPTOP + 0.3 + seat;
+    ws.setRunout(ui('tir'), ui('tir') * 1.2, 1);
+    ws.spin.on = ui('spin');
+    // holder: rigid two-link arm from the post to the lug (never stretched)
+    const lw = lug.world(), r = WK.kin.twoLinkIK(post.top, lw, 150, 150, { bend: [0, 0, 1] });
+    arm1.setEnds(post.top, r.elbow); arm2.setEnds(r.elbow, r.end); elbow.position.copy(r.elbow);
+    app.badge('holder', r.ok ? null : 'holder cannot reach the lug (setup edit too large) by ' + r.over.toFixed(0) + ' mm', 'limit');
+    rebuildCables();
+    gun.updateLaser();
+    // readouts, observers, io
+    const off = seamNow(), phi = Math.atan2(-sy, RI - sx) / DEG;
+    const dsp = dotSurface(), vis1 = app.inset.markVisibility('obs', dsp), vis2 = app.inset.markVisibility('top', dsp);
+    const seen = vis1.visible || vis2.visible;
+    const sig = ui('noise'), near = Math.abs(off.radial) < 10 && Math.abs(off.vertical) < 10, est = seen && near ? { radial: off.radial + sig * noise(off.radial + trimTick, sx), vertical: off.vertical + sig * noise(off.vertical, sz + trimTick) } : null;
+    app.cornerInset.setEstimate(est);
+    const uncoupledDr = Math.sqrt(RI * RI + sy * sy) - RI;
+    readX(sx.toFixed(3), 'mm'); readPsi(phi.toFixed(2), '°'); readDr(uncoupledDr.toFixed(3), 'mm');
+    readAbbe(((146.05 - (-141 + sz)) * Math.tan(tilt * DEG)).toFixed(2), 'mm');
+    const clr = rimClearance();
+    app.badge('rim', clr < 0 ? 'nozzle/barrel hits the rim ring here (bare barrel, drawn geometry): the tube cannot be moved this way' : null, 'limit');
+    app.badge('shut', shut > 1 ? 'work shuttled out: seam is ' + shut.toFixed(0) + ' mm from the dot (load position)' : null, 'info');
+    const stepNote = 'step ' + ui('step').toFixed(3) + ' mm (illustrative)';
+    app.io.set({
+      commands: hm ? [{ name: 'Nothing: stages are cranked by a person', value: '-', note: 'software tells the person which wheel to turn' }] : [
+        { name: 'Stage X (radial)', value: sx.toFixed(2), unit: 'mm', note: stepNote },
+        { name: 'Stage Y (tangent)', value: sy.toFixed(2), unit: 'mm', note: 'also the plan angle, ' + phi.toFixed(2) + '°' },
+        { name: 'Stage Z', value: sz.toFixed(2), unit: 'mm', note: stepNote },
+        { name: 'Shuttle', value: shut.toFixed(0), unit: 'mm', note: 'to a hard stop at 0' },
+        { name: 'Rotator', value: ui('spin') ? 'turning' : 'stopped', note: 'existing controller' },
+      ],
+      observes: [
+        { name: hm ? 'Stage positions from scales' : 'Stage positions from step counts', value: hm ? 'read' : 'counted', status: hm ? 'seen' : 'partly', note: hm ? 'glass/magnetic scales, resolution per scale' : 'open loop: nothing confirms the carriage moved' },
+        { name: 'Dot visible to a camera', value: seen ? 'yes' : (vis1.blocked || vis2.blocked ? 'blocked' : 'out of view'), status: seen ? 'seen' : 'blind', note: 'drawn-scene line of sight, not a measurement' },
+        { name: 'Dot vs seam (r, z)', value: est ? est.radial.toFixed(2) + ', ' + est.vertical.toFixed(2) : '-', unit: est ? 'mm' : '', status: est ? 'partly' : 'blind', note: 'estimate carries the noise you set; truth is in the corner inset' },
+        { name: 'Plan angle to the seam tangent', value: phi.toFixed(2), unit: '°', status: 'partly', note: 'dead reckoning from the Y command; no sensor drawn for it' },
+        { name: 'Gun holder pose / drift', value: '-', status: 'blind', note: 'nothing measures the holder once locked' },
+        { name: 'Layer tilt (Abbe)', value: '-', status: 'blind', note: 'no tilt sensor; seen only as a dot shift' },
+        { name: 'Nozzle to rim clearance', value: clr.toFixed(1), unit: 'mm', status: 'blind', note: 'drawn geometry only; no sensor proposed' },
+      ],
+      manual: ['Hand-set the holder in setup, then lock it', 'Retract the wire before any shuttle', 'Slide the tube on and off the nest'],
+    });
+  }
+
+  // ---------------------------------------------------------------- controls
+  const st = app.ui.group('Work stack (proposed axes)', { help: 'Actuator badge: axes software would command. In the hand branch the same axes are cranked by a person.' });
+  st.slider({ id: 'y', label: 'Y tangent (also plan angle)', min: -12, max: 12, step: 0.05, value: 3, unit: 'mm', kind: 'actuator', visual: () => yCar, help: 'Slides the tube along the tangent. About 0.93° of plan angle per mm. Alone it leaves a small radial error.', onChange: sync });
+  st.toggle({ id: 'couple', label: 'Couple X to Y (keep the dot on the seam)', value: false, kind: 'actuator', visual: () => xCar, help: 'Software adds the small radial move r - sqrt(r^2 - y^2) whenever Y moves.', onChange: sync });
+  st.slider({ id: 'x', label: 'X radial trim', min: -8, max: 8, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => xCar, help: '+ moves the plate toward the dot (radial error goes down).', onChange: sync });
+  st.slider({ id: 'z', label: 'Z lift', min: -6, max: 6, step: 0.01, value: 0, unit: 'mm', kind: 'actuator', visual: () => zPlat, help: '+ raises the plate toward the dot.', onChange: sync });
+  st.slider({ id: 'shut', label: 'Shuttle (swap position)', min: 0, max: 200, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => shutSlab, help: 'Slides the whole rotator out under the fixed gun to a load position. 0 = hard stop at the work position.', onChange: sync });
+  st.button({ id: 'trim', label: 'Trim from the camera estimate', kind: 'actuator', help: 'Moves X and Z by minus the estimate, rounded to the step. Needs a camera that can see the dot.', onClick: () => {
+    trimTick++; const off = seamNow(), sg = ui('noise'), stp = ui('step');
+    const dsp = dotSurface(), vis = app.inset.markVisibility('obs', dsp).visible || app.inset.markVisibility('top', dsp).visible;
+    if (!vis) { app.toast('No camera sees the dot: nothing to trim from'); return; }
+    if (ui('drive') === 'hand') { const ex = off.radial + sg * noise(off.radial + trimTick, 1), ez = off.vertical + sg * noise(off.vertical, trimTick); app.toast('Software tells the person: X wheel ' + (ex >= 0 ? '+' : '') + ex.toFixed(2) + ' mm, Z wheel ' + (ez >= 0 ? '+' : '') + ez.toFixed(2) + ' mm'); return; }
+    const ex = off.radial + sg * noise(off.radial + trimTick, 1), ez = off.vertical + sg * noise(off.vertical, trimTick);
+    const q = v => Math.round(v / stp) * stp;
+    app.ui.set('x', Math.max(-8, Math.min(8, +(ui('x') + q(ex)).toFixed(3)))); app.ui.set('z', Math.max(-6, Math.min(6, +(ui('z') + q(ez)).toFixed(3))));
+  } });
+  st.slider({ id: 'step', label: 'Stage step (motor, proposed)', min: 0.005, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', help: 'The smallest move the trim can command. Illustrative.', onChange: sync });
+  st.select({ id: 'drive', label: 'Who turns the screws', options: [{ value: 'motor', label: 'motors (software commands)' }, { value: 'hand', label: 'hand wheels + scales (software reads)' }], value: 'motor', kind: 'branch', onChange: sync });
+
+  const su = app.ui.group('Setup by hand and tube-to-tube variation', { help: 'Scene edits: what the setup left behind. Holder edits need the holder unlocked.' });
+  su.toggle({ id: 'locked', label: 'Holder locked (operating)', value: false, kind: 'state', visual: () => shoulder, help: 'Unlocked = setup: the gun can be nudged by hand. Locked = the gun cannot move.', onChange: v => { ['gx', 'gy', 'gz'].forEach(k => app.ui.enable(k, !v)); WK.setRole(shoulder, v ? 'fixed' : 'locate'); WK.setRole(elbow, v ? 'fixed' : 'locate'); app.badge('locked', v ? 'holder locked (operating): hand-set edits are disabled' : null, 'ok'); sync(); } });
+  su.slider({ id: 'gx', label: 'Gun placed by hand: x error', min: -6, max: 6, step: 0.1, value: 1.2, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Illustrative hand-set error. + moves the gun toward the wall side.', onChange: sync });
+  su.slider({ id: 'gy', label: 'Gun placed by hand: y error', min: -6, max: 6, step: 0.1, value: 0, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Along the tangent. To first order this costs plan angle, not seam position.', onChange: sync });
+  su.slider({ id: 'gz', label: 'Gun placed by hand: z error', min: -8, max: 6, step: 0.1, value: -0.8, unit: 'mm', kind: 'scene', visual: () => gun.group, help: 'Below about -6 mm the nozzle drops under the rim plane and the shuttle collides.', onChange: sync });
+  su.slider({ id: 'seat', label: 'Plate seat depth in this tube', min: -2, max: 2, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.cap, help: '+ plate sits higher than nominal. Tube-to-tube variation is unknown; +-2 mm is illustrative.', onChange: sync });
+  su.slider({ id: 'tir', label: 'Indicated runout (radial TIR)', min: 0, max: 1, step: 0.05, value: 0, unit: 'mm', kind: 'scene', visual: () => ws.tubeGroup, help: 'Rig-doc acceptance limit is 0.25 (face 0.30). Drawn at true scale: turn the rotator and watch the corner inset.', onChange: sync });
+  su.slider({ id: 'tilt', label: 'Z layer tilt error (Abbe)', min: -1, max: 1, step: 0.01, value: 0, unit: '°', kind: 'scene', visual: () => moving, help: 'Illustrative. Tilts everything above the Z platform about a horizontal line: the seam, 232 mm up, moves sideways.', onChange: sync });
+  su.slider({ id: 'noise', label: 'Camera estimate noise', min: 0, max: 0.2, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', help: 'Made-up. Drives the estimate marker and what Trim uses.', onChange: sync });
+  const rg = app.ui.group('Rotator and view');
+  rg.toggle({ id: 'spin', label: 'Rotator turning', value: false, kind: 'state', visual: () => ws.turntable, onChange: sync });
+  rg.toggle({ id: 'ghost', label: 'See-through tube', value: true, kind: 'view', onChange: v => { ws.setGhost(v); app.invalidate(); } });
+})();
+</script>
+</body>
+</html>

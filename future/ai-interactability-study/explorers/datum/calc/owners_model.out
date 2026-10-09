@@ -1,0 +1,16 @@
+radial rms residual after replay (mm), 400 draws; N=3 judge laps (noise 0.03), K=8 touches (noise 0.02)
+event     stale   relearn   owner+touch   cost relearn s   cost owner s
+lift       0.027    0.026        0.020            146             49
+reseat     0.185    0.026        0.023            146            113
+rotate     0.206    0.026        0.028            146            113
+reclamp    0.069    0.026        0.017            146            177
+tack       0.087    0.035        0.017            146            177
+newtube    0.193    0.026        0.017            146            177
+bias alone (rms mean): 0.025
+
+judge-minus-touch check at K=8, judge noise 0.03, N=3, true bias about 25 um rms (mean of 300 draws):
+  touch noise 0.005: gap 29 um, noise alone 18 um, excess 22 um (true 25)
+  touch noise 0.01: gap 30 um, noise alone 20 um, excess 22 um (true 25)
+  touch noise 0.02: gap 34 um, noise alone 26 um, excess 21 um (true 25)
+  touch noise 0.04: gap 47 um, noise alone 44 um, excess 17 um (true 25)
+piece amplitudes k=1..3: R 0.060, 0.030, 0.000 | S 0.200, 0.000, 0.000 | W 0.058, 0.048, 0.019 | B 0.030, 0.000, 0.019

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taut cone</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .tc-map { width: 100%; height: auto; display: block; border: 1px solid var(--wk-line); border-radius: 8px; background: #0b0f14; }
+  .tc-note { font-size: 12px; color: var(--wk-muted); margin: 6px 0 0; }
+  .tc-leg { display: flex; gap: 8px; align-items: center; font-size: 11.5px; color: var(--wk-muted); margin-top: 4px; }
+  .tc-leg span { display: inline-block; width: 26px; height: 9px; border-radius: 2px; }
+  .tc-tab { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  .tc-tab th, .tc-tab td { border: 1px solid var(--wk-line); padding: 3px 7px; text-align: left; }
+  .tc-tab th { background: var(--wk-panel2); color: var(--wk-muted); font-weight: 600; }
+  .tc-tab td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "borrowed-16-taut-cone",
+  "title": "Taut cone: which pulls keep six lines from above taut, and what a bought preload changes",
+  "by": "borrowed",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "freedom-03's six lines from above are held taut by gravity, so they stay taut only for pulls inside a cone of directions. The scene draws that cone for the shipped layout, for a layout searched for robustness with the same clearance rule, and for a layout searched with a constant downward pull (a spring balancer under the bench). It shows how little the fibre's pull has to change direction to slacken a line.",
+  "tags": ["cable-driven", "slack", "wrench-feasible", "preload", "spring balancer", "umbilical direction"],
+  "branchOf": ["freedom-03-cable-platform"],
+  "combines": [],
+  "transferable": ["taut set as a map over pull directions", "design the layout for the pull cone of a designed cable route", "a constant-force balancer as a preload source", "opposing lines make a fully constrained cable robot"],
+  "how": {
+    "motion": "not moving here: the reference pose only; winches (freedom-03 drive) or encoders (sense) are the same lines",
+    "load": "six lines from lugs on the shell up to an overhead frame, tension only; gravity closes the force loop",
+    "reference": "line lengths from the frame",
+    "observe": "six line tensions (load cells or motor current) would say which line is near slack",
+    "use": "read the slack pull for the fibre's real direction and pick the layout and preload for it"
+  },
+  "software": {
+    "commands": ["nothing here (freedom-03 has the winches)"],
+    "observes": ["six line tensions (proposed load cells), the margin to slack in the current pull direction"],
+    "manual": ["laying the fibre so its pull stays inside the taut cone", "fitting a balancer under the bench for the preload layout"]
+  },
+  "notes": ["../../exchange/borrowed--on--freedom-w2.md", "../../explorers/borrowed/ideas/borrowed-16-taut-cone.md", "../../explorers/freedom/ideas/freedom-03-cable-platform.md"],
+  "sources": ["../../sourcing/borrowed.md", "../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, D2R = Math.PI / 180;
+  const LUGS = [[30, 0, 60], [-30, 0, 60], [34, 0, 170], [-34, 0, 170], [60, -118, 237], [-60, -118, 237]];
+  const COM = [0, -18, 178], MASS = 1.2, G = 9.80665, ZTOP = 600;
+  // line directions from each lug, world frame, unit vectors; layouts found by random search (explorers/borrowed/calc/w2-robust-layout.cjs)
+  const LAYOUTS = {
+    A: { name: 'freedom-03 as shipped', dirs: [[0.5587, 0.0742, 0.826], [-0.6707, 0.2377, 0.7026], [0.5935, 0.4186, 0.6874], [-0.5672, 0.4255, 0.7051], [0.5806, 0.5704, 0.581], [-0.2561, -0.5649, 0.7844]], P: 0 },
+    B: { name: 'searched for robustness, gravity only', dirs: [[0.6749, 0.4403, 0.5921], [-0.591, 0.5443, 0.5953], [0.6175, -0.2716, 0.7382], [-0.6681, -0.4807, 0.5679], [0.5872, -0.0998, 0.8033], [-0.8128, 0.1545, 0.5617]], P: 0 },
+    C: { name: 'searched for robustness with a 10 N downward preload', dirs: [[0.5386, -0.4627, 0.7042], [-0.7178, -0.1704, 0.6751], [0.7757, 0.2936, 0.5586], [-0.1458, -0.8095, 0.5687], [0.0852, 0.5341, 0.8411], [-0.646, 0.4454, 0.6199]], P: 10 },
+  };
+  const S = { layout: 'A', Fp: 3, az: -102, el: 30, Pre: 0, expl: 1 };
+
+  const app = WK.app({
+    gun: { pose: 'opening', umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -60, 340], dir: [-0.62, 0.70, 0.36], dist: 1900 },
+      joint: { target: [30, -50, 220], dir: [-0.85, 0.35, 0.40], dist: 600 },
+      top: { target: [0, -60, 300], dir: [0, -0.004, 1], dist: 1500 },
+      side: { target: [0, -60, 330], dir: [1, 0, 0.08], dist: 1700 },
+    },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes:
+        '<p>freedom-03 hangs the shell from six lines to an overhead frame and lets gravity keep them taut. A line can only pull, and with six lines for six freedoms the tensions are fixed by the load: there is exactly one set of tensions, and it is positive only when the load (gravity plus whatever the fibre pulls) lies inside a cone. The scene draws that cone as a <b>map of pull directions</b>: for each direction of the fibre&rsquo;s pull at the grip base, how many newtons before the first line goes slack.</p>' +
+        '<p>Three layouts, one clearance rule (a line stays 32 mm off the barrel and housing): the layout freedom-03 shipped (searched to be taut for three particular pulls), one searched for the largest <i>worst-direction</i> slack pull with gravity alone, and one searched with a constant downward pull at the grip base (a spring balancer under the bench is a bought constant force). Set the pull&rsquo;s direction and size and watch the lines.</p>',
+      carries:
+        '<p>The lines carry the weight in tension (amber; a slack line turns ghost-grey). Nothing pushes: the six tensions come from the load alone, t = &minus;A<sup>&minus;1;</sup> w. The map does not depend on line stiffness. The frame is drawn as a plane 600 mm above the bench, as in freedom-03.</p>',
+      software:
+        '<p>Six tension readings (motor current or load cells) tell software how close a line is to slack: the smallest tension over the pull it expects. The fibre&rsquo;s direction is a routing choice (borrowed-11, travel-08), so a route can be checked against the map before the frame is built.</p>',
+      tried:
+        '<p><b>Round 1: with gravity alone, two lines carry 0.3 N.</b> In the shipped layout the six tensions from gravity are 3.6, 3.8, 2.8, 0.3, 0.4 and 4.8 N. The scene&rsquo;s 2 N of fibre pull along the exit axis lifts the two weak lines to 2.4 and 1.8 N; set the pull to 0 and they read 0.1 and 0.2 N with the panel still saying &lsquo;all taut&rsquo;. freedom-03&rsquo;s picture (&lsquo;gravity keeps them taut&rsquo;) is true only because the fibre pulls.</p>' +
+        '<p><b>Round 2: in the shipped layout the worst direction slackens a line at 0.13 N.</b> Over the whole sphere of pull directions (6000 sampled), 58 % of directions slacken a line below 1 N, 82 % below 4 N and 96 % below 8.7 N (the top of freedom-15&rsquo;s recoil range at the 240 mm stored radius). Along the exit axis it holds to 5.5 to 6.8 N, which is the number freedom-03 reports. The worst case is a sphere-wide number: within &plusmn;15&deg; of the drawn exit direction (droop 0.5) the shipped layout holds to 4.2 N, within &plusmn;30&deg; 1.6 N and within &plusmn;45&deg; 0.39 N. It is a good layout for a fibre whose direction is known and a fragile one for a fibre whose direction is not.</p>' +
+        '<p><b>Round 3: a robustness search changes the worst case by a factor of twenty.</b> With the same lugs and clearance rule, choosing directions for the largest worst-direction slack pull finds 2.6 N with gravity alone (no direction below 2 N; 55 % of directions below 4 N). It is a search result over 16 million random tries, not an optimum, and the map changes with the shell&rsquo;s centre of mass. It also loses where the shipped layout is tuned: within &plusmn;15&deg; of the drawn direction it holds 3.0 N against the shipped layout&rsquo;s 4.2 N, and it wins at &plusmn;30&deg; (2.7 N against 1.6 N) and beyond. The search buys robustness to an unknown direction, not more margin at a known one.</p>' +
+        '<p><b>Round 4: a downward preload only helps a layout made for it.</b> A constant 10 N pull down at the grip base takes the shipped layout to two slack lines (&minus;0.9 and &minus;1.3 N). With a layout searched for it the worst-direction slack pull is 4.8 N, no direction below 4 N, at the price of line tensions up to 8.9 N with no fibre pull at all. Above 8.7 N (76 % of directions still below it) the fibre can still win.</p>' +
+        '<p><b>Round 5: real cable robots close the loop from below.</b> Hangprinter-class machines pull the effector from lines on both sides so that no gravity is needed; six lines from above are the minimum, and their taut set is a cone. What the scene leaves out: the balancer&rsquo;s line has to reach the grip base past the tube and the bench, and its friction and stroke are unchecked.</p>',
+      unresolved:
+        '<ul><li>The fibre&rsquo;s pull direction and size at the working pose, and how they change at bead start: <b>[unknown]</b> (freedom-15). The map is what makes that measurement useful: one number and one direction against a known cone.</li>' +
+        '<li>The shell&rsquo;s centre of mass and mass (thread at two points, kitchen scale): the whole cone depends on them.</li>' +
+        '<li>Whether six lines fit around the tube, the operator and the fibre, and whether the preload line clears them.</li>' +
+        '<li>This is the reference pose and rigid lines. A pose change moves the cone; line stretch changes tensions in proportion to stiffness (freedom-03 has the stiffness numbers).</li></ul>',
+      assumptions:
+        '<ul><li>Everything is <b>illustrative</b>: shell and gun 1.2 kg, centre of mass (0, &minus;18, 178) local, the six lug positions and the clearance rule are freedom-03&rsquo;s; the frame at 600 mm above the bench; the grip base is the pull point; the preload acts straight down at the grip base.</li>' +
+        '<li>The three layouts&rsquo; directions are in this file and in <code>explorers/borrowed/calc/w2-robust-layout.json</code>; the search is <code>w2-robust-layout.cjs</code>, verified on 6000 directions in <code>w2-verify-layouts.cjs</code>. A layout&rsquo;s numbers are for this pose only.</li>' +
+        '<li>Tensions are rigid-line statics at the reference pose (no stretch, no friction, no pulley). Slack pull is the pull along a direction, on top of gravity and the preload, at which the first tension reaches zero.</li></ul>',
+      sources: '<p>See <code>sourcing/borrowed.md</code> (spring balancers, cable-robot references) and freedom-03 in <code>explorers/freedom/ideas/</code>.</p>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+  gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+
+  // ---------- geometry from the kit gun (world, mm)
+  const W = l => { const p = gun.local(V(l[0], l[1], l[2])); return [p.x, p.y, p.z]; };
+  const dotW = (() => { const d = gun.dotWorld(); return [d.x, d.y, d.z]; })();
+  const lugsW = LUGS.map(W), comW = W(COM), gripW = (() => { const p = gun.local(WK.GRIP_BASE_LOCAL.clone()); return [p.x, p.y, p.z]; })();
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const rg = sub(gripW, dotW), Wt = MASS * G;
+  const wg = [0, 0, -Wt].concat(cross(sub(comW, dotW), [0, 0, -Wt]));
+  const wrenchOf = d => d.concat(cross(rg, d));
+  function inv6(A) { const n = 6, a = []; for (let i = 0; i < n; i++) { a.push([]); for (let j = 0; j < n; j++) a[i].push(A[i][j]); for (let j = 0; j < n; j++) a[i].push(i === j ? 1 : 0); }
+    for (let c = 0; c < n; c++) { let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(a[r][c]) > Math.abs(a[p][c])) p = r; if (Math.abs(a[p][c]) < 1e-12) return null; const tmp = a[c]; a[c] = a[p]; a[p] = tmp; const d = a[c][c]; for (let j = 0; j < 2 * n; j++) a[c][j] /= d; for (let r = 0; r < n; r++) if (r !== c) { const f = a[r][c]; if (f) for (let j = 0; j < 2 * n; j++) a[r][j] -= f * a[c][j]; } }
+    return a.map(r => r.slice(n)); }
+  const mulv = (M, v) => M.map(row => row.reduce((s, x, j) => s + x * v[j], 0));
+  function layoutModel(key) {
+    const L = LAYOUTS[key], us = L.dirs; const A = [[], [], [], [], [], []];
+    for (let i = 0; i < 6; i++) { const u = us[i], r = sub(lugsW[i], dotW), m = cross(r, u); for (let k = 0; k < 3; k++) { A[k][i] = u[k]; A[k + 3][i] = m[k]; } }
+    const Ai = inv6(A); return { key, us, Ai, A };
+  }
+  const MODELS = { A: layoutModel('A'), B: layoutModel('B'), C: layoutModel('C') };
+  const tensions = (m, w) => mulv(m.Ai, w).map(v => -v);
+  const pullDir = (az, el) => [Math.cos(el * D2R) * Math.cos(az * D2R), Math.cos(el * D2R) * Math.sin(az * D2R), Math.sin(el * D2R)];
+  function baseW(Pre) { return wg.map((v, i) => v + wrenchOf([0, 0, -Pre])[i]); }
+  function slackPull(m, Pre, d) { const tg = tensions(m, baseW(Pre)); if (tg.some(v => v < 0)) return { f: 0, line: tg.indexOf(Math.min(...tg)) }; const t1 = tensions(m, baseW(Pre).map((v, j) => v + wrenchOf(d)[j])); let f = Infinity, ln = -1; for (let j = 0; j < 6; j++) { const dt = t1[j] - tg[j]; if (dt < -1e-9) { const c = tg[j] / -dt; if (c < f) { f = c; ln = j; } } } return { f, line: ln, tg }; }
+  // sphere sample (for the worst direction and percentages) and the map grid
+  const NS = 2400, SPH = []; for (let i = 0; i < NS; i++) { const z = 1 - 2 * (i + 0.5) / NS, r = Math.sqrt(1 - z * z), ph = i * 2.399963; SPH.push([r * Math.cos(ph), r * Math.sin(ph), z]); }
+  let stats = null;
+  function computeStats() {
+    const m = MODELS[S.layout], res = SPH.map(d => slackPull(m, S.Pre, d)); let w = { f: Infinity }; const fs = [];
+    res.forEach((r, i) => { fs.push(r.f); if (r.f < w.f) w = { f: r.f, d: SPH[i], line: r.line }; });
+    const frac = L => Math.round(100 * fs.filter(x => x < L).length / NS);
+    stats = { worst: w, b1: frac(1), b2: frac(2), b4: frac(4), b87: frac(8.7), tg: tensions(m, baseW(S.Pre)) };
+    drawMap();
+  }
+
+  // ---------- 3D parts
+  const lines = LUGS.map(() => P.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'load', { occludes: false })); lines.forEach(o => app.add(o));
+  const anchorsM = LUGS.map(() => { const m = P.sphere(6, 'fixed'); return m; }); anchorsM.forEach(o => app.add(o));
+  const frame = P.plane(1000, 800, 'ghost'); frame.position.set(0, -80, ZTOP + 18); app.add(frame);
+  const lugMesh = LUGS.map(l => { const m = P.sphere(5, 'load'); m.position.set(l[0], l[1], l[2]); gun.group.add(m); return m; });
+  const arrows = { pull: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'cable'), pre: P.arrow(V(0, 0, 0), V(0, 0, -1), 40, 'actuated') }; Object.values(arrows).forEach(a => app.addHelper(a));
+  app.label(() => frame.position.clone().add(V(-360, 0, 0)), 'overhead frame', { cls: 'fixed' });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => V(gripW[0], gripW[1], gripW[2]), 'grip base: pull point', { cls: 'cable' });
+
+  function redraw() {
+    const m = MODELS[S.layout]; const d = pullDir(S.az, S.el); const wtot = baseW(S.Pre).map((v, j) => v + wrenchOf(d.map(x => x * S.Fp))[j]);
+    const t = tensions(m, wtot), tg = tensions(m, baseW(S.Pre)), sp = slackPull(m, S.Pre, d);
+    for (let i = 0; i < 6; i++) { const u = m.us[i], s = (ZTOP - lugsW[i][2]) / u[2], a = [lugsW[i][0] + s * u[0], lugsW[i][1] + s * u[1], ZTOP];
+      lines[i].setEnds(V(...lugsW[i]), V(...a)); anchorsM[i].position.set(a[0], a[1], a[2] + 4);
+      WK.setRole(lines[i], t[i] < 0.02 ? 'ghost' : (t[i] < 1 ? 'compliant' : 'load'));
+      lines[i].scale.x = lines[i].scale.z = Math.max(0.5, Math.min(2.8, 0.5 + Math.max(0, t[i]) * 0.3)); }
+    arrows.pull.set(V(...gripW), V(d[0], d[1], d[2]), Math.max(6, S.Fp * 14)); arrows.pull.visible = S.Fp > 0.05;
+    arrows.pre.set(V(...gripW), V(0, 0, -1), Math.max(6, S.Pre * 6)); arrows.pre.visible = S.Pre > 0.05;
+    const slack = t.map((v, i) => v < 0.02 ? i + 1 : 0).filter(x => x);
+    app.badge('slack', slack.length ? 'line' + (slack.length > 1 ? 's ' : ' ') + slack.join(', ') + ' slack at this pull: the shell is not held (six unknown tensions, one of them negative)' : null, 'limit');
+    const minT = Math.min(...t);
+    app.badge('near', !slack.length && minT < 1 ? 'the weakest line carries ' + minT.toFixed(2) + ' N: one more newton in this direction slackens it' : null, 'warn');
+    app.io.set({
+      commands: [{ name: 'Line lengths L1 to L6', value: 'held', note: 'freedom-03 drives them; nothing moves in this scene' }],
+      observes: [
+        { name: 'Line tensions (motor current or load cells)', value: t.map(v => v.toFixed(1)).join(' / '), unit: 'N', status: 'partly', note: 'the smallest one is the margin to slack; gravity alone gives ' + tg.map(v => v.toFixed(1)).join(' / ') },
+        { name: 'Slack pull in this direction', value: sp.f > 999 ? 'none' : sp.f.toFixed(2), unit: 'N', status: 'partly', note: 'the pull at which line ' + (sp.line + 1) + ' reaches zero, computed from geometry' },
+        { name: 'Fibre pull direction and size', value: S.Fp.toFixed(1) + ' N', status: 'unresolved', note: 'not measured: freedom-15 says 0.4 to 8.7 N of recoil for the placeholder EI' },
+      ],
+      manual: ['Route the fibre so its pull stays in the cone', 'Hang the preload balancer (layout C)'],
+    });
+    readTab(m, t, tg, sp);
+    app.invalidate(); drawMap();
+  }
+
+  // ---------- panel: map of slack pull over pull direction
+  const cv = document.createElement('canvas'); cv.width = 360; cv.height = 180; cv.className = 'tc-map';
+  const info = document.createElement('div');
+  const panel = app.ui.panel({ id: 'map', title: 'Slack pull by direction of the fibre pull (N)', open: true, node: (function () { const d = document.createElement('div'); d.append(cv, info); return d; })() });
+  function heat(f) { const x = Math.log10(Math.max(0.05, f) / 0.05) / Math.log10(12 / 0.05); const c = Math.max(0, Math.min(1, x)); const r = Math.round(200 * (1 - c) + 30 * c), g = Math.round(40 + 170 * c), b = Math.round(60 + 20 * c); return [r, g, b]; }
+  let grid = null;
+  function computeGrid() {
+    const m = MODELS[S.layout]; const g = []; for (let j = 0; j < 90; j++) { const row = []; for (let i = 0; i < 180; i++) { const az = -180 + (i + 0.5) * 2, el = 90 - (j + 0.5) * 2; row.push(slackPull(m, S.Pre, pullDir(az, el)).f); } g.push(row); } grid = g;
+  }
+  function drawMap() {
+    if (!grid || grid.key !== S.layout + '|' + S.Pre) { computeGrid(); grid.key = S.layout + '|' + S.Pre; }
+    const c = cv.getContext('2d'), img = c.createImageData(360, 180);
+    for (let j = 0; j < 90; j++) for (let i = 0; i < 180; i++) { const f = grid[j][i], col = f < S.Fp ? [239, 68, 68] : heat(f), dim = f < S.Fp ? 1 : 1; for (let yy = 0; yy < 2; yy++) for (let xx = 0; xx < 2; xx++) { const p = ((j * 2 + yy) * 360 + (i * 2 + xx)) * 4; img.data[p] = col[0] * dim; img.data[p + 1] = col[1] * dim; img.data[p + 2] = col[2] * dim; img.data[p + 3] = 255; } }
+    c.putImageData(img, 0, 0);
+    // grid lines and the current direction
+    c.strokeStyle = 'rgba(255,255,255,.25)'; c.lineWidth = 1; [-90, 0, 90].forEach(a => { const x = (a + 180) * 1; c.beginPath(); c.moveTo(x, 0); c.lineTo(x, 180); c.stroke(); }); [0].forEach(e => { const y = 90 - e; c.beginPath(); c.moveTo(0, y); c.lineTo(360, y); c.stroke(); });
+    const cx = ((S.az + 540) % 360), cy = 90 - S.el; c.strokeStyle = '#fff'; c.lineWidth = 2; c.beginPath(); c.arc(cx, cy, 5, 0, 6.283); c.stroke(); c.beginPath(); c.moveTo(cx - 9, cy); c.lineTo(cx + 9, cy); c.moveTo(cx, cy - 9); c.lineTo(cx, cy + 9); c.stroke();
+    // exit axis marker
+    const ex = exitDirAE(); const ex2 = ((ex.az + 540) % 360), ey = 90 - ex.el; c.fillStyle = '#7dd3fc'; c.beginPath(); c.arc(ex2, ey, 3.5, 0, 6.283); c.fill();
+    // worst direction marker
+    if (stats && stats.worst.d) { const w = aeOf(stats.worst.d); c.fillStyle = '#111'; c.strokeStyle = '#fbbf24'; c.lineWidth = 2; const wx = ((w.az + 540) % 360), wy = 90 - w.el; c.beginPath(); c.rect(wx - 4, wy - 4, 8, 8); c.fill(); c.stroke(); }
+    if (stats) info.innerHTML = '<div class="tc-leg"><span style="background:rgb(200,40,60)"></span>0.05 N <span style="background:rgb(120,120,70)"></span>0.8 N <span style="background:rgb(30,210,80)"></span>12 N &nbsp; red = slackens a line at the pull set now (' + S.Fp.toFixed(1) + ' N)</div><p class="tc-note">Azimuth −180° to 180° across, elevation 90° to −90° down. White cross: the pull now. Blue dot: the cable exit axis blended with straight down as in freedom-03 (droop 0.5). Amber square: this layout’s worst direction (' + stats.worst.f.toFixed(2) + ' N). Directions slackening a line below 1 / 2 / 4 / 8.7 N: ' + stats.b1 + ' / ' + stats.b2 + ' / ' + stats.b4 + ' / ' + stats.b87 + ' % of the sphere.</p>';
+  }
+  function aeOf(d) { return { az: Math.atan2(d[1], d[0]) / D2R, el: Math.asin(Math.max(-1, Math.min(1, d[2]))) / D2R }; }
+  function exitDirAE() { const e = gun.dir(WK.LOCAL_ROLL_AXIS.clone()); const bl = [0.5 * e.x, 0.5 * e.y, 0.5 * e.z - 0.5], nn = Math.hypot(bl[0], bl[1], bl[2]); return aeOf(bl.map(v => v / nn)); }
+
+  // ---------- readout table
+  const tabHost = document.createElement('div');
+  app.ui.panel({ id: 'tab', title: 'Line tensions now', open: true, node: tabHost });
+  function readTab(m, t, tg, sp) {
+    tabHost.innerHTML = '<table class="tc-tab"><tr><th>Line</th><th>Gravity + preload</th><th>With this pull</th></tr>' + t.map((v, i) => '<tr><td>' + (i + 1) + '</td><td class="n">' + tg[i].toFixed(2) + ' N</td><td class="n" style="color:' + (v < 0.02 ? '#f87171' : v < 1 ? '#fbbf24' : '#e7ebf1') + '">' + v.toFixed(2) + ' N' + (v < 0.02 ? ' (slack)' : '') + '</td></tr>').join('') + '</table><p class="tc-note">Slack pull in this direction: ' + (sp.f > 999 ? 'none' : sp.f.toFixed(2) + ' N') + '. Layout: ' + LAYOUTS[S.layout].name + '.</p>';
+  }
+
+  // ---------- controls
+  const g1 = app.ui.group('Layout and preload');
+  g1.radio({ id: 'layout', label: 'Line directions', kind: 'branch', value: 'A', options: [{ value: 'A', label: 'freedom-03 as shipped' }, { value: 'B', label: 'Searched: worst-direction slack pull, gravity only' }, { value: 'C', label: 'Searched with a 10 N downward preload' }],
+    onChange: v => { S.layout = v; if (v === 'C' && S.Pre === 0) app.ui.set('Pre', 10); if (v !== 'C' && S.Pre === 10 && LAYOUTS[v].P === 0) { /* leave the preload as the user set it */ } computeStats(); redraw(); } });
+  g1.slider({ id: 'Pre', label: 'Constant downward pull at the grip base (a balancer)', min: 0, max: 20, step: 0.5, value: 0, unit: 'N', kind: 'scene', help: 'A spring balancer under the bench gives a near-constant force: 0.5 to 1.5 kg models are 5 to 15 N.', onChange: v => { S.Pre = v; computeStats(); redraw(); } });
+  const g2 = app.ui.group('The fibre’s pull at the grip base (scene edits)');
+  g2.slider({ id: 'Fp', label: 'Size of the pull', min: 0, max: 12, step: 0.1, value: 3, unit: 'N', kind: 'scene', help: 'freedom-15: 0.4 to 8.7 N for EI 0.05 to 0.5 N·m² (placeholder).', onChange: v => { S.Fp = v; redraw(); } });
+  g2.slider({ id: 'az', label: 'Direction: azimuth (about +Z from +X)', min: -180, max: 180, step: 1, value: -102, unit: '°', kind: 'scene', onChange: v => { S.az = v; redraw(); } });
+  g2.slider({ id: 'el', label: 'Direction: elevation above horizontal', min: -90, max: 90, step: 1, value: 30, unit: '°', kind: 'scene', onChange: v => { S.el = v; redraw(); } });
+  g2.button({ id: 'exit', label: 'Point the pull along the cable exit (as freedom-03)', kind: 'scene', onClick: function () { const e = exitDirAE(); app.ui.set('az', Math.round(e.az)); app.ui.set('el', Math.round(e.el)); } });
+  g2.button({ id: 'worst', label: 'Point the pull at this layout’s worst direction', kind: 'scene', onClick: function () { if (stats && stats.worst.d) { const w = aeOf(stats.worst.d); app.ui.set('az', Math.round(w.az)); app.ui.set('el', Math.round(w.el)); } } });
+  const g3 = app.ui.group('Lines');
+  g3.toggle({ id: 'frame', label: 'Show the overhead frame plane', kind: 'view', value: true, onChange: v => { frame.visible = v; app.invalidate(); } });
+
+  computeStats(); redraw();
+  // start with the pull along the exit axis so the default agrees with freedom-03's scene
+  (function () { const e = exitDirAE(); app.ui.set('az', Math.round(e.az)); app.ui.set('el', Math.round(e.el)); app.ui.set('Fp', 2); })();
+})();
+</script>
+</body>
+</html>

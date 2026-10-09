@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock and release</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-06-lock-and-release",
+  "title": "Lock and release: a friction-locked articulated arm changes its constraints by state",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "rough",
+  "summary": "A photo-style 'magic arm' or indicator-stand chain has every joint free while a hand (or a vernier) places the gun, and every joint clamped by one actuated lock to weld. The scene shows the torque each joint carries against what its clamp can hold, how far the tip gives in a locked chain, and why hanging the chain from above (gravity along the links) changes the answer. Rough: a 2D chain with illustrative friction.",
+  "tags": ["lockable arm", "state change", "friction clamp", "torque at each joint", "hang from above"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["free while placing, locked while welding", "gravity along the links instead of across them", "a locked friction chain holds weight but is not a locator"],
+  "how": {
+    "motion": "none while locked; hand or vernier while released; one lock actuator",
+    "load": "each joint's clamp friction carries its share of the torque",
+    "reference": "not the arm: observed joint angles say where it is, a camera says where the dot is",
+    "observe": "joint encoders (angle), camera on the dot",
+    "use": "release, place, lock, weld, release, swap"
+  },
+  "software": {
+    "commands": ["lock / release (one actuator, solenoid or pneumatic)", "optional vernier at the tip"],
+    "observes": ["joint angles (encoders)", "dot vs seam (camera, not drawn)"],
+    "manual": ["placing the gun while released", "choosing the mount and link lengths"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-06-lock-and-release.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>A chain of ball or hinge joints with a single central lock: photographers’ “magic arms”, indicator stands and machinists’ flex arms work this way. <b>Released</b>, every joint is free, so a hand can place the gun anywhere the chain reaches. <b>Locked</b>, every joint is clamped by friction. The constraint set changes by state; that is the whole idea. What the scene asks is what a clamped joint can hold, and where.</p>' +
+        '<p>The chain is drawn in side view with three joints. Each joint carries the torque of everything beyond it (gun, cable pull, its own links). The bars compare that with what the clamp can hold: a joint whose bar passes the line slips. Below the bars: how far the tip gives when locked. Switch the mount to <b>overhead</b> and gravity acts along the links.</p>',
+      carries:
+        '<p>Amber: the clamp friction carries each joint’s torque. The lock is the only actuator (purple): one solenoid or air cylinder pulling a central cable, which is a proposal. The gun’s weight goes down the chain to the base joint, which always carries the most when the chain reaches out sideways.</p>',
+      software:
+        '<p><b>Commands:</b> lock and release; a vernier at the tip if wanted. <b>Observes:</b> joint angles by small magnetic encoders (tells the chain’s shape, not the pre-slip give); the dot by camera. In released mode software does nothing to the pose: the hand or a vernier does.</p>',
+      tried:
+        '<p><b>“Locked means stiff.”</b> A friction joint holds a torque up to its capacity, but inside that capacity it still turns a little (pre-sliding). With the illustrative stiffness a locked 3-joint chain gives several mm per newton at the tip. It carries weight; it does not locate.</p>' +
+        '<p><b>The base joint is the weak one.</b> The payload’s lever is longest about the base. Fold the chain compactly, or shorten the first link, and its torque falls; a stronger lock at the base than at the tip is a design choice.</p>' +
+        '<p><b>Hang it from above.</b> With the chain mounted overhead and straight down, the load acts along the links: joint torques fall to the cable pull’s share and the tip gives far less. The cost: the chain now hangs in the workspace above the tube, and the umbilical’s route has to clear it.</p>' +
+        '<p><b>A chain is the wrong shape for a load that is almost all vertical (from borrowed’s critique).</b> At the defaults the locked three-joint chain gives 176 mm at the tip under the gun’s own weight (7.1 mm/N horizontally, 11.1 vertically; 20 N·m/rad of pre-sliding per joint, illustrative). A monitor arm is a SCARA: its two swivels carry no gravity torque, and the one joint that does is the shoulder. The lock then belongs on the one axis where the load acts, and a locking gas spring holds any height rigidly under load and releases by a pin (a lockable gas spring on Prime, 135 N, “rigidly lock in both directions”: sourcing/borrowed.md), which is also the spring that carries the weight through the release. The overhead mount above is the same idea by geometry instead of by part.</p>' +
+        '<p><b>Releasing under load.</b> The moment the lock releases the gun’s weight is uncarried: a hand or a vernier must already hold it. A gas spring or balancer (scene freedom-02) carries the weight through the release.</p>',
+      unresolved:
+        '<p>Real clamp torque and pre-sliding stiffness of a photographic arm or indicator stand; whether one lock can hold 1.2 kg and a cable pull at 400–600 mm reach; whether an actuated lock is available or must be built (a cable through the joints pulled by a motor and lever); how the unlock/lock sequence avoids a drop of the gun; fatigue and creep of a locked friction joint over a weld cycle. This scene is 2D and rough.</p>',
+      assumptions:
+        '<ul><li>Three joints, four links of 130 mm, 60 g each: <b>illustrative</b>. Payload 1.2 kg gun + shell: <b>illustrative</b> (the gun mass is [unknown]).</li>' +
+        '<li>Joint torque capacity = friction × ball radius × clamp force with μ 0.3 and radius 12 mm: <b>illustrative</b>. Released: 5% of that. Pre-sliding stiffness 20 N·m/rad: <b>illustrative</b>.</li>' +
+        '<li>Static, planar (side view); the chain’s out-of-plane behaviour is not modelled. Cable pull applied at the tip.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const S = { mount: 'side', th: [-20, 50, 40], m: 1.2, F: 1000, kj: 20, locked: true, pull: 0, vx: 0, vz: 0 };
+  const svg = svgel('svg', { viewBox: '0 0 1000 700', width: '100%', role: 'img', 'aria-label': 'articulated arm with lock, joint torque bars' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'fixed', label: 'Base / ceiling' }, { role: 'load', label: 'Carries load (clamps)' }, { role: 'actuated', label: 'Lock actuator' }, { role: 'gun', label: 'Gun' }, { role: 'laser', label: 'Dot' }, { role: 'locate', label: 'Seam' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const D = Math.PI / 180, G = 9.80665, LEN = 0.13, LM = 0.06, RB = 0.02, MU = 0.3;
+  const tipR = app.ui.readout('tipd', 'Tip gives under weight, locked'), pushR = app.ui.readout('tipk', 'Tip compliance to a push (horiz / vert)'), stR = app.ui.readout('state', 'Chain state');
+  function analyse() {
+    const base = S.mount === 'side' ? { x: 0.0, z: 0.0, a: 10 } : { x: 0.0, z: 0.0, a: -90 };
+    const pts = [[base.x, base.z]]; let a = base.a; const dirs = [];
+    for (let i = 0; i < 4; i++) { if (i > 0) a += S.th[i - 1]; dirs.push(a); const p = pts[i]; pts.push([p[0] + LEN * Math.cos(a * D), p[1] + LEN * Math.sin(a * D)]); }
+    // joints are at pts[1], pts[2], pts[3]; plus the base joint at pts[0] (fixed), so torques at pts[0..3]: 4 joints? use pts[0..2] as three clamps: base, elbow, wrist
+    const joints = [pts[0], pts[1], pts[2], pts[3]];    // four clamp points: base pivot + three joints
+    const tip = pts[4], W = S.m * G, wl = LM * G, out = [];
+    const pull = [S.pull * Math.cos(-30 * D) * 0, -S.pull];     // pull straight down for the diagram
+    joints.forEach((j, i) => {
+      let tq = 0; const F = [pull[0], -W + pull[1]];
+      const r = [tip[0] - j[0], tip[1] - j[1]]; tq += r[0] * F[1] - r[1] * F[0];
+      for (let k = i; k < 4; k++) { const mid = [(pts[k][0] + pts[k + 1][0]) / 2, (pts[k][1] + pts[k + 1][1]) / 2]; tq += (mid[0] - j[0]) * (-wl); }
+      out.push({ tq: tq, r: r, cap: (S.locked ? 1 : 0.05) * MU * RB * S.F });
+    });
+    let dx = 0, dz = 0, slipped = false; out.forEach(o => { const dth = o.tq / S.kj * (Math.abs(o.tq) <= o.cap ? 1 : 0); if (Math.abs(o.tq) > o.cap) slipped = true; dx += dth * -o.r[1]; dz += dth * o.r[0]; });
+    // tip compliance to a unit push: sum over joints of (lever perpendicular)^2 / kj
+    let ch = 0, cv = 0; out.forEach(o => { ch += (o.r[1] * o.r[1]) / S.kj; cv += (o.r[0] * o.r[0]) / S.kj; });
+    return { pts: pts, tip: tip, joints: joints, out: out, dx: dx, dz: dz, slipped: slipped, ch: ch * 1000, cv: cv * 1000, base: base };
+  }
+  function update() {
+    clear();
+    const A = analyse(), K = 600;    // px per m
+    const OX = S.mount === 'side' ? 120 : 380, OY = S.mount === 'side' ? 420 : 90;
+    const P = p => [OX + p[0] * K, OY - p[1] * K];
+    // mount art
+    if (S.mount === 'side') { g.appendChild(R(OX - 60, OY - 40, 44, 200, C('fixed'), { opacity: 0.85 })); g.appendChild(T(OX - 84, OY + 190, 'column', { fill: '#94a3b8' })); g.appendChild(L(20, OY + 160, 640, OY + 160, C('fixed'), 3)); }
+    else { g.appendChild(R(OX - 90, OY - 30, 180, 16, C('fixed'), { opacity: 0.9 })); g.appendChild(T(OX + 96, OY - 16, 'overhead beam', { fill: '#94a3b8' })); }
+    // links
+    for (let i = 0; i < 4; i++) { const a = P(A.pts[i]), b = P(A.pts[i + 1]); g.appendChild(L(a[0], a[1], b[0], b[1], C('load'), 9, { opacity: 0.9 })); }
+    A.joints.forEach((j, i) => { const p = P(j); const o = A.out[i]; g.appendChild(svgel('circle', { cx: p[0], cy: p[1], r: 10, fill: S.locked ? C('load') : '#1b232e', stroke: S.locked ? '#fff2cc' : C('load'), 'stroke-width': 2 })); g.appendChild(T(p[0] + 12, p[1] - 12, 'J' + i, { fill: '#94a3b8', 'font-size': 11 })); });
+    // lock actuator: a cable through the chain
+    g.appendChild(svgel('path', { d: A.joints.map((j, i) => (i ? 'L' : 'M') + P(j)[0].toFixed(1) + ' ' + P(j)[1].toFixed(1)).join(' '), fill: 'none', stroke: C('actuated'), 'stroke-width': 1.6, 'stroke-dasharray': S.locked ? '' : '3 4' }));
+    const b0 = P(A.joints[0]); g.appendChild(R(b0[0] - 16, b0[1] + (S.mount === 'side' ? 14 : -60), 32, 22, C('actuated'), { rx: 3 })); g.appendChild(T(b0[0] + 22, b0[1] + (S.mount === 'side' ? 30 : -44), 'lock actuator (cable pull)', { fill: C('actuated') }));
+    // tip, gun, seam
+    const tp = P(A.tip), dot = [tp[0] + 60 + S.vx * 0.6 + A.dx * K, tp[1] + 90 - S.vz * 0.6 - A.dz * K];
+    g.appendChild(L(tp[0], tp[1], dot[0], dot[1], C('gun'), 16, { opacity: 0.95 })); g.appendChild(svgel('circle', { cx: dot[0], cy: dot[1], r: 4.5, fill: C('laser') }));
+    g.appendChild(T(dot[0] + 10, dot[1] + 16, 'dot', { fill: C('laser') })); g.appendChild(T(tp[0] + 8, tp[1] - 10, 'tip', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(L(tp[0], tp[1] + 10, tp[0], tp[1] + 10 + Math.min(90, S.m * 30), C('load'), 3)); g.appendChild(T(tp[0] + 6, tp[1] + 60, (S.m * G).toFixed(1) + ' N', { fill: C('load'), 'font-size': 11 }));
+    // seam mark (reference for the drawn tip position without give)
+    const dot0 = [tp[0] + 60 + S.vx * 0.6, tp[1] + 90 - S.vz * 0.6]; g.appendChild(svgel('circle', { cx: dot0[0], cy: dot0[1], r: 6, fill: 'none', stroke: C('locate'), 'stroke-dasharray': '3 3' })); g.appendChild(T(dot0[0] + 10, dot0[1] - 8, 'where it would be with no give', { fill: C('locate'), 'font-size': 10.5 }));
+    // torque bars
+    const BX = 700, BY = 70; g.appendChild(T(BX, BY - 22, 'Torque at each joint vs what its clamp holds (N·m)', { 'font-weight': 600 }));
+    const maxT = 6.5, bw = 250;
+    A.out.forEach((o, i) => {
+      const y = BY + i * 44, val = Math.abs(o.tq), w = Math.min(bw, val / maxT * bw), cx = o.cap / maxT * bw, over = val > o.cap;
+      g.appendChild(T(BX, y + 4, i === 0 ? 'J0 base' : 'J' + i, { fill: '#94a3b8', 'font-size': 11 })); g.appendChild(R(BX + 46, y - 10, w, 20, over ? '#f87171' : C('load'), { opacity: 0.9 }));
+      g.appendChild(L(BX + 46 + Math.min(bw, cx), y - 16, BX + 46 + Math.min(bw, cx), y + 16, C('actuated'), 2.4)); g.appendChild(T(BX + 46 + Math.min(bw, cx) + 4, y - 18, 'holds ' + o.cap.toFixed(2), { fill: C('actuated'), 'font-size': 10.5 }));
+      g.appendChild(T(BX + 52, y + 4, val.toFixed(2) + (over ? '  SLIPS' : ''), { fill: '#0f141b', 'font-weight': 700 }));
+    });
+    g.appendChild(T(BX, BY + 200, 'Mount: ' + (S.mount === 'side' ? 'side (reaches out)' : 'overhead (hangs down)'), { fill: '#94a3b8', 'font-size': 11.5 }));
+    // tip give text
+    const gm = Math.hypot(A.dx, A.dz) * 1000;
+    g.appendChild(T(BX, BY + 235, 'Tip give, locked: ' + (A.slipped ? 'a joint slips' : gm.toFixed(1) + ' mm'), { fill: A.slipped ? '#ff8a80' : '#e6edf6', 'font-weight': 600 }));
+    g.appendChild(T(BX, BY + 255, 'Push at the tip: ' + A.ch.toFixed(1) + ' mm/N horiz, ' + A.cv.toFixed(1) + ' mm/N vert', { fill: '#94a3b8', 'font-size': 11.5 }));
+    tipR(A.slipped ? 'slips' : gm.toFixed(1), A.slipped ? '' : 'mm'); pushR(A.ch.toFixed(1) + ' / ' + A.cv.toFixed(1), 'mm/N'); stR(S.locked ? (A.slipped ? 'LOCKED but a joint slips' : 'locked') : 'released: needs a hand or a stage to hold it');
+    app.badge('slip', S.locked && A.slipped ? 'a clamped joint slips: the chain sags until it finds a shape it can hold' : null, 'limit');
+    app.badge('rel', !S.locked ? 'released: nothing carries the gun; a hand, a balancer or the vernier must' : null, 'warn');
+    app.io.set({ commands: [{ name: 'Lock', value: S.locked ? 'engaged' : 'released', note: 'one actuator: a solenoid or air cylinder on a central cable (proposed)' }, { name: 'Vernier X / Z (optional)', value: S.vx.toFixed(0) + ' / ' + S.vz.toFixed(0), unit: 'mm' }],
+      observes: [
+        { name: 'Joint angles (encoders, proposed)', value: S.th.map(v => v.toFixed(0)).join(' / '), unit: '°', status: 'seen', note: 'gives the chain’s shape; not the give inside a clamp' },
+        { name: 'Dot vs seam (camera, proposed)', value: (A.dx * 1000).toFixed(1) + ' / ' + (A.dz * 1000).toFixed(1), unit: 'mm from no-give', status: 'partly', note: 'the arm cannot know this from its own angles' },
+        { name: 'Which joint is nearest slipping', value: 'J' + A.out.reduce((b, o, i) => (Math.abs(o.tq) / o.cap > Math.abs(A.out[b].tq) / A.out[b].cap ? i : b), 0), status: 'partly', note: 'from joint torque estimates; no torque sensor is proposed' },
+        { name: 'Real clamp torque and stiffness', value: '-', status: 'unresolved', note: 'never measured' }],
+      manual: ['Place the gun by hand while released', 'Choose the mount and link lengths'] });
+  }
+  const mg = app.ui.group('Chain (scene edits)', { open: true });
+  mg.radio({ id: 'mount', label: 'Mount', options: [{ value: 'side', label: 'side (reaches out)' }, { value: 'above', label: 'overhead (hangs)' }], value: 'side', kind: 'branch', help: 'Gravity across the links or along them.', onChange: v => { S.mount = v; if (v === 'above') { S.th = [10, -15, 10]; } else { S.th = [-20, 50, 40]; } ['th1', 'th2', 'th3'].forEach((id, i) => app.ui.set(id, S.th[i], { silent: true })); update(); } });
+  ['J1 elbow', 'J2', 'J3 wrist'].forEach((n, i) => mg.slider({ id: 'th' + (i + 1), label: 'Joint angle ' + n, min: -70, max: 70, step: 1, value: S.th[i], unit: '°', kind: 'scene', help: 'Where the hand leaves it while released.', onChange: v => { S.th[i] = v; update(); } }));
+  mg.slider({ id: 'm', label: 'Gun + shell weight', min: 0.5, max: 3, step: 0.1, value: 1.2, unit: 'kg', kind: 'scene', help: 'Illustrative; the gun mass is [unknown].', onChange: v => { S.m = v; update(); } });
+  mg.slider({ id: 'F', label: 'Clamp force per joint', min: 100, max: 1500, step: 25, value: 1000, unit: 'N', kind: 'scene', help: 'Sets what each joint can hold: torque = 0.3 × 20 mm × force. Illustrative.', onChange: v => { S.F = v; update(); } });
+  mg.slider({ id: 'kj', label: 'Pre-sliding stiffness per joint', min: 5, max: 200, step: 1, value: 20, unit: 'N·m/rad', kind: 'scene', help: 'How much a clamped joint still turns per unit torque. Illustrative.', onChange: v => { S.kj = v; update(); } });
+  mg.slider({ id: 'pull', label: 'Cable pull at the tip (down)', min: 0, max: 6, step: 0.25, value: 0, unit: 'N', kind: 'scene', help: 'The umbilical, straight down in this diagram.', onChange: v => { S.pull = v; update(); } });
+  const ag = app.ui.group('State and vernier (software commands)', { open: true });
+  ag.toggle({ id: 'locked', label: 'Lock engaged', value: true, kind: 'actuator', visual: () => [], help: 'One actuator clamps every joint. Released: the joints hold 5% of their locked torque.', onChange: v => { S.locked = v; update(); } });
+  ag.slider({ id: 'vx', label: 'Vernier X at the tip', min: -10, max: 10, step: 0.5, value: 0, unit: 'mm', kind: 'actuator', help: 'Fine placement while the chain is locked.', onChange: v => { S.vx = v; update(); } });
+  ag.slider({ id: 'vz', label: 'Vernier Z at the tip', min: -10, max: 10, step: 0.5, value: 0, unit: 'mm', kind: 'actuator', onChange: v => { S.vz = v; update(); } });
+})();
+</script>
+</body>
+</html>

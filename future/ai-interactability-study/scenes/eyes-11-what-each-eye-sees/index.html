@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What each eye sees</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .ob { position: absolute; left: 10px; top: 46px; z-index: 6; background: rgba(12,16,22,.94); border: 1px solid var(--wk-line2); border-radius: 8px; padding: 6px 8px 8px; font: 11px/1.3 system-ui, sans-serif; color: var(--wk-text); pointer-events: auto; max-width: 96%; }
+  .ob h4 { font: 600 11px system-ui, sans-serif; color: var(--wk-muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 4px; }
+  .ob table { border-collapse: collapse; }
+  .ob th { font: 500 10px system-ui, sans-serif; color: var(--wk-faint); padding: 1px 5px; text-align: center; white-space: nowrap; }
+  .ob td { padding: 2px 5px; text-align: center; border-top: 1px solid #1f2733; }
+  .ob td.nm { text-align: left; white-space: nowrap; color: var(--wk-text); }
+  .ob tr.off td { opacity: .32; }
+  .ob .d { color: #14b8a6; } .ob .i { color: #f5a524; } .ob .p { color: #fcd34d; } .ob .b { color: #f87171; }
+  .ob tr.un td { border-top: 2px solid var(--wk-line2); font-weight: 600; }
+  .ob .g { font-size: 15px; line-height: 1; }
+  .ob .key { color: var(--wk-faint); margin-top: 4px; font-size: 10.5px; max-width: 470px; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-11-what-each-eye-sees",
+  "title": "What each eye sees: which of the six gun coordinates each sensor can tell",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "The gun in the tube frame has six coordinates: three positions at the dot and the reference scene's three rotations. Switch sensors on and off and see which coordinates are seen directly, only inferred through a chain of assumptions, or not at all. The vertical-axis turn is the one gravity cannot see; the along-seam position is the one the rotator already gives.",
+  "tags": ["lens", "observability", "direct-vs-inferred", "sensor-fusion", "overview"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["direct / inferred / blind bookkeeping", "complementary sensors: IMU + camera", "rotator count observes one coordinate"],
+  "how": {
+    "motion": "none: an overview of observers; the gun dials are scene edits.",
+    "load": "not addressed: this scene is about what can be known, not what holds the gun.",
+    "reference": "the tube frame: the seam circle and the rotator index.",
+    "observe": "nine proposed or existing sensors, each mapped onto the six coordinates.",
+    "use": "choose a sensor set by what it leaves unobserved, then look for what covers the gap."
+  },
+  "software": {
+    "commands": ["nothing: overview"],
+    "observes": ["for each of six coordinates: direct, inferred/partial or blind under the chosen sensor set"],
+    "manual": ["everything the chosen set leaves red"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-11-what-each-eye-sees.md", "../../explorers/eyes/ideas/eyes-11b-umbilical-eyes.md", "../../explorers/eyes/ideas/eyes-01-gun-borne-eye.md", "../../explorers/eyes/ideas/eyes-03-marker-cube.md", "../../explorers/eyes/ideas/eyes-04-proximity-skin.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, J = WK.JOINT, DEG = WK.deg;
+  const app = WK.app({
+    view: 'overall', viewButtons: ['overall', 'joint', 'top'],
+    views: { overall: { target: [120, 100, 150], dir: [-0.62, 0.34, 0.56], dist: 1000 }, joint: { target: [40, -40, 175], dir: [-0.7, 0.35, 0.5], dist: 520 }, top: { target: [20, -95, 146], dir: [0, -0.0035, 1], dist: 760 } },
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The gun’s pose against the seam has six coordinates. Three are positions of the dot: <b>r</b> radial (toward the wall), <b>s</b> along the seam, <b>z</b> vertical. Three are the reference scene’s rotations about the dot: <b>grip-axis roll</b> (tips the beam between plate and wall), <b>hole-axis roll</b> (tilts the whole gun and lifts the grip) and the <b>vertical-axis turn</b> (turns the gun in plan, so the wire approach stays on the tangent).</p>' +
+        '<p>Each of the nine sensors in the table sees some of them <b>directly</b> (teal, in its own frame against the seam), <b>inferred</b> (amber: through a chain of calibrated transforms and assumed tube position) or <b>partly</b> (light amber: only under conditions), or not at all (blank). The bottom row is the union for the sensors you have switched on. The three arrows and three dashed axes on the gun take the same colours.</p>' +
+        '<p>The scene opens with three sensors on: the rotator count (it already observes along-seam position), the gun-borne camera (radial and vertical directly; the turn partly, if the corner is visible over a stretch) and the IMU pair (the two tilts against gravity, inferred). Switch them off one at a time and watch which coordinates go red; the turn is the last to be covered.</p>',
+      carries: '<p>Not addressed. This scene asks what can be known, not what holds the gun.</p>',
+      software: '<p>The table is a bookkeeping device. Real sensors differ in accuracy by orders of magnitude within one cell; the cells say <i>whether</i> the coordinate is reachable and <i>how directly</i>, not how well. Accuracy is in the other scenes (calc/marker-error.mjs, calc/proximity-model.mjs, calc/dot-probe.mjs).</p>',
+      tried: '<p><b>Expected:</b> that some coordinate would be unreachable by any of the nine. <b>Found:</b> the vertical-axis turn has no direct source apart from a camera that sees the corner over a stretch (gun-borne) or tags (inferred). Gravity cannot see it, the corner-tracking pads do not, touch does not.</p>' +
+        '<p><b>Found:</b> along-seam position s is the least demanding: the rotator already counts degrees (0.025° per step, weld-rotation-rig.md). It matters for where tacks and the start are, not for where the seam is: on a circle a small offset along the seam moves the joint radially by only s^2/2r (0.008 mm at 1 mm).</p>' +
+        '<p><b>Found:</b> the section view is direct for r, z and the beam tilt in section, but only on the sectioned tube; it observes nothing of a real tube.</p>' +
+        '<p><b>Left standing:</b> “direct” never means accurate. The table cannot say whether a direct reading is better than an inferred one.</p>',
+      unresolved: '<p>Cell entries are my reading of each sensor’s geometry, not measurements; several are conditional (the corner must be visible, the dot must show on stainless, the cube must be in view). The hole-axis roll and grip-axis roll are only separable from gravity readings if the turn is known; the IMU row treats them as a pair that mixes with the turn, marked inferred for that reason.</p>',
+      assumptions: '<ul><li>Coordinates and rotations follow the reference scene (weld-position.md) [repo].</li><li>The rotator resolution 0.025 degrees per step (0.027 mm at the bead) [repo weld-rotation-rig.md].</li><li>Cell entries are illustrative judgements from geometry; each is explained on hover (title) and in the idea files.</li><li>“Direct”: measured by the sensor in its own frame against the seam. “Inferred”: computed through calibrated transforms or assumed tube position. “Partly”: only under stated conditions or for one component.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun;
+
+  const DOFS = [['r', 'radial'], ['s', 'along seam'], ['z', 'vertical'], ['roll', 'grip-axis roll'], ['hole', 'hole-axis roll'], ['yaw', 'vertical-axis turn']];
+  const SENS = [
+    { id: 'rot', name: 'Rotator step count (exists)', on: true, c: { s: ['d', 'degrees turned since the index mark: 14,400 pulses per turn, 0.027 mm at the bead'] } },
+    { id: 'gcam', name: 'Gun-borne camera + line laser', on: true, c: { r: ['d', 'corner minus dot in the gun frame, from the line kink'], z: ['d', 'same, vertical'], s: ['p', 'tacks and start marks passing, when visible'], roll: ['p', 'slope of the plate and wall lines: with one fan, two of the three combinations of the turns are readable (about 0.15° and 0.8°, 0.3 px, illustrative) and one is blind; a crossed second fan or gravity closes it (calc/line-laser-pose.mjs, the pose panel of eyes-01)'], hole: ['p', 'same lines: the grip-axis and hole-axis rolls are not separable from the vertical-axis turn in the picture alone; which combination is blind depends on the fan’s roll'], yaw: ['p', 'the wall line’s slope, weakly (about 0.8°); the corner line over about 10 mm if it is in view'] } },
+    { id: 'tags', name: 'Marker cube + 2 fixed cameras', on: false, c: { r: ['i', 'pose in the world, then assumed tube position and dot offset'], s: ['i', 'same chain'], z: ['i', 'same chain'], roll: ['i', 'orientation is the best-measured part, but referenced through the chain'], hole: ['i', 'same'], yaw: ['i', 'same'] } },
+    { id: 'imu', name: 'IMU on gun + IMU on rotator base', on: true, c: { roll: ['i', 'tilt against gravity, differential to the base; mixes with the turn'], hole: ['i', 'same'] } },
+    { id: 'prox', name: 'Proximity skin (pads / coils)', on: false, c: { r: ['i', 'distance to metal through a calibrated model'], z: ['i', 'same'], roll: ['p', 'two pad stations give the tilt in section'] } },
+    { id: 'sect', name: 'Section view (sectioned tube only)', on: false, c: { r: ['d', 'edge-on view of the cut corner'], z: ['d', 'same'], roll: ['d', 'nozzle axis and beam in the same picture'] } },
+    { id: 'touch', name: 'Touch-off (interlock loop or 3 V loop)', on: false, c: { r: ['p', 'at contact points only'], s: ['p', 'at contact points only'], z: ['p', 'at contact points only'] } },
+    { id: 'far', name: 'Far-side low camera (fixed)', on: false, c: { z: ['d', 'vertical is seen at full scale from across the bore'], s: ['d', 'along the seam is lateral in the image'], r: ['p', 'radial is compressed about 11x at 5 deg'], yaw: ['p', 'barrel direction seen from across'] } },
+    { id: 'probe', name: 'Dot as probe (sweep or bounce)', on: false, c: { r: ['d', 'the corner in actuator units, from the break or the spot pair'], roll: ['p', 'bounce height per mm of offset gives the tilt: cot(beta)'] } },
+  ];
+  const GLY = { d: '●', i: '◐', p: '◑', b: '○' }, CLS = { d: 'd', i: 'i', p: 'p', b: 'b' };
+  const ob = document.createElement('div'); ob.className = 'ob'; app.stageEl.appendChild(ob);
+
+  // axes and arrows on the gun, coloured by coverage
+  const dot0 = () => gun.dotWorld();
+  const arrows = { r: P.arrow(J, V(1, 0, 0), 46, 'laser'), s: P.arrow(J, V(0, 1, 0), 46, 'laser'), z: P.arrow(J, V(0, 0, 1), 46, 'laser') };
+  Object.values(arrows).forEach(a => app.addHelper(a));
+  const axes = { roll: P.dashed([V(0, 0, 0), V(0, 0, 1)], 'laser', { dash: 5, gap: 3 }), hole: P.dashed([V(0, 0, 0), V(0, 0, 1)], 'laser', { dash: 3, gap: 3 }), yaw: P.dashed([V(0, 0, 0), V(0, 0, 1)], 'laser', { dash: 8, gap: 3 }) };
+  Object.values(axes).forEach(a => app.addHelper(a));
+  const labs = {};
+  DOFS.forEach(d => { labs[d[0]] = app.label(() => posOf(d[0]), d[1], { cls: 'laser' }); });
+  function posOf(k) {
+    const j = J.clone();
+    if (k === 'r') return j.add(V(50, 0, 0)); if (k === 's') return j.add(V(0, 50, 0)); if (k === 'z') return j.add(V(0, 0, 50));
+    if (k === 'roll') return gun.local('gripBase').clone().sub(j).multiplyScalar(0.55).add(j);
+    if (k === 'hole') return j.add(V(-70, -14, 0));
+    return j.add(V(0, 0, 105));
+  }
+  function updateAxes() {
+    const d = gun.dials, v = d.vertical * DEG, dir = V(Math.cos(v), Math.sin(v), 0);
+    const ax = gun.local('gripBase').sub(J).normalize();
+    axes.roll.setPoints([J.clone().addScaledVector(ax, -18), gun.local('gripBase').addScaledVector(ax, 60)]);
+    axes.hole.setPoints([J.clone().addScaledVector(dir, -2 * WK.INNER_RADIUS - 14), J.clone().addScaledVector(dir, 18)]);
+    axes.yaw.setPoints([J.clone().add(V(0, 0, -24)), J.clone().add(V(0, 0, 100))]);
+  }
+  const roleFor = best => (best === 'd' ? 'locate' : best === 'b' ? 'laser' : 'load');
+  function bestOf(k) {
+    let best = 'b'; const rank = { d: 3, i: 2, p: 1, b: 0 };
+    SENS.forEach(s => { if (s.on && s.c[k] && rank[s.c[k][0]] > rank[best]) best = s.c[k][0]; });
+    return best;
+  }
+  function render() {
+    let html = '<h4>Sensors x coordinates (illustrative bookkeeping)</h4><table><tr><th></th>' + DOFS.map(d => '<th>' + d[1].replace(' ', '<br>') + '</th>').join('') + '</tr>';
+    SENS.forEach(s => { html += '<tr class="' + (s.on ? '' : 'off') + '"><td class="nm">' + s.name + '</td>' + DOFS.map(d => { const c = s.c[d[0]]; return c ? '<td title="' + WK.esc(c[1]) + '"><span class="g ' + CLS[c[0]] + '">' + GLY[c[0]] + '</span></td>' : '<td></td>'; }).join('') + '</tr>'; });
+    html += '<tr class="un"><td class="nm">Best available with the sensors on</td>' + DOFS.map(d => { const b = bestOf(d[0]); return '<td><span class="g ' + CLS[b] + '">' + GLY[b] + '</span></td>'; }).join('') + '</tr></table>';
+    html += '<div class="key"><span class="d">●</span> direct in its own frame &nbsp; <span class="i">◐</span> inferred through a chain &nbsp; <span class="p">◑</span> partly, under conditions &nbsp; <span class="b">○</span> nothing. Hover a cell for the reason. Accuracy is not in this table.</div>';
+    ob.innerHTML = html;
+    DOFS.forEach(d => { const b = bestOf(d[0]), role = roleFor(b); if (arrows[d[0]]) { WK.setRole(arrows[d[0]], role); } if (axes[d[0]]) WK.setRole(axes[d[0]], role); });
+    const miss = DOFS.filter(d => bestOf(d[0]) === 'b').map(d => d[1]), weak = DOFS.filter(d => { const b = bestOf(d[0]); return b === 'i' || b === 'p'; }).map(d => d[1]);
+    app.badge('gap', miss.length ? 'not observed by any sensor on: ' + miss.join(', ') : null, miss.length ? 'warn' : 'ok');
+    app.io.set({
+      commands: [{ name: 'Nothing is commanded here', value: '-', note: 'overview of observers' }],
+      observes: DOFS.map(d => { const b = bestOf(d[0]); return { name: d[1], value: b === 'd' ? 'direct' : b === 'i' ? 'inferred' : b === 'p' ? 'partly' : '-', status: b === 'd' ? 'seen' : (b === 'i' || b === 'p') ? 'partly' : 'blind', note: SENS.filter(s => s.on && s.c[d[0]]).map(s => s.name.split(' (')[0]).join(', ') }; }),
+      manual: miss.concat(weak).length ? ['Whatever the chosen sensors leave blind or only inferred: ' + miss.concat(weak).join(', ')] : ['Nothing left unobserved (accuracy not assessed)'],
+    });
+    app.invalidate();
+  }
+
+  const g0 = app.ui.group('Sensors present (scene edits: which observers are on the arrangement)');
+  SENS.forEach(s => g0.toggle({ id: 'sn-' + s.id, label: s.name, value: s.on, kind: 'scene', onChange: v => { s.on = v; render(); } }));
+  const g1 = app.ui.group('Gun pose (scene edits: the reference scene’s ideal rotations)', { open: false });
+  const setPose = () => { gun.setDials(app.ui.get('roll'), app.ui.get('hole'), app.ui.get('vertical')); updateAxes(); render(); };
+  g1.slider({ id: 'roll', label: 'Grip-axis roll', min: 0, max: 80, step: 1, value: 45, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  g1.slider({ id: 'hole', label: 'Hole-axis roll (dial)', min: -25, max: 95, step: 1, value: 30, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  g1.slider({ id: 'vertical', label: 'Vertical-axis turn', min: -90, max: 90, step: 1, value: -15, unit: '°', kind: 'scene', visual: () => gun.group, onChange: setPose });
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  const LEG = [{ role: 'locate', label: 'a source sees it directly' }, { role: 'load', label: 'inferred or partial only' }, { role: 'laser', label: 'nothing switched on sees it' }, { role: 'gun', label: 'Gun (proxy)' }, { role: 'work', label: 'Tube, plate' }];
+  app.onReady(function () { app.legend(); app.legend(LEG); });
+  updateAxes(); render();
+})();
+</script>
+</body>
+</html>

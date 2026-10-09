@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seam map and replay</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .sm-grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(230px, 1fr); gap: 12px; align-items: start; }
+  @container smstage (max-width: 760px) { .sm-grid { grid-template-columns: 1fr; } }
+  .wk-stage-custom { container-type: inline-size; container-name: smstage; }
+  .sm-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .sm-card h3 { font-size: 12px; color: var(--wk-muted); font-weight: 600; margin: 0 0 3px; display: flex; justify-content: space-between; gap: 8px; }
+  .sm-card h3 em { font-style: normal; color: var(--wk-faint); font-weight: 400; }
+  .sm-col { display: grid; gap: 10px; align-content: start; }
+  .sm-svg { display: block; width: 100%; height: auto; }
+  .sm-svg text { font: 10.5px system-ui, sans-serif; fill: #9aa7ba; }
+  .sm-svg text.b { fill: #e7ebf1; font-weight: 600; } .sm-svg text.sm { font-size: 9px; fill: #6c788b; }
+  .sm-svg text.blue { fill: #7fb0ff; } .sm-svg text.green { fill: #4ade80; } .sm-svg text.amber { fill: #fbbf24; } .sm-svg text.grey { fill: #94a3b8; } .sm-svg text.pink { fill: #f0abfc; }
+  table.sm-tab { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .sm-tab td, .sm-tab th { padding: 3px 6px; border-bottom: 1px solid var(--wk-line); text-align: right; font-weight: 400; color: #cfd6e2; }
+  .sm-tab th:first-child, .sm-tab td:first-child { text-align: left; color: var(--wk-muted); }
+  .sm-tab thead th { color: var(--wk-faint); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .sm-tab b { color: #fff; }
+  .sm-note { font-size: 11px; color: var(--wk-faint); padding: 4px 4px 0; font-style: italic; line-height: 1.35; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "trials-04-seam-map-replay",
+  "title": "Seam map and angle-keyed replay",
+  "by": "trials",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Revolution one records where the seam actually is at every rotator angle. Later revolutions replay that map on a small follower keyed to the rotator angle. See what the map can remove, what it cannot (noise, drift, jitter, the follower's lag) and which axes a follower under the tube can or cannot follow.",
+  "tags": ["lens", "seam map", "feed-forward", "follower axis", "runout", "trial", "learning", "judge bias", "touch check"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["angle-indexed map keyed to the rotator", "follower under the tube", "lead compensation", "only r and z matter"],
+  "how": {
+    "motion": "a small follower (r and z, in the section plane) replays a learned map; rotator turns at bead speed",
+    "load": "the follower carries the gun-side or tube-side mass (not designed here)",
+    "reference": "rotator angle (0.025° steps) is the clock; the judge camera builds the map",
+    "observe": "dot-to-seam offset from the judge camera at every angle",
+    "use": "learn in a dry run, replay in later dry runs (and maybe the weld)"
+  },
+  "software": {
+    "commands": ["rotator speed (existing)", "follower r and z, keyed to angle", "learn / replay", "touch the corner at K azimuths (proposed)"],
+    "observes": ["dot-to-seam radial offset per angle", "dot size or ruler for the height offset (weaker)", "map quality across revolutions", "judge minus touch at K azimuths (the judge's own bias)"],
+    "manual": ["rough seating of the tube", "checking that the map is still valid after a re-seat", "reaching the touch azimuths without disturbing the seat"]
+  },
+  "notes": ["../../explorers/trials/ideas/trials-04-seam-map-replay.md"],
+  "sources": ["../../sourcing/trials.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const h = WK.h, S = WK.svg, DEG = Math.PI / 180, R = 61.85;
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>The tube does not spin true. Whatever the rotator and the seating do, the seam passes the stationary dot in a pattern that repeats every revolution: a wobble in radius (eccentricity, ovality) and a wobble in height (the plate face is not square to the axis). That repeating part is <b>learnable</b>. In the first revolution or two the gun holds still, the judge camera records the dot-to-seam offset at each rotator angle, and the software keeps the average per angle: a <b>seam map</b>.</p>' +
+        '<p>Later revolutions replay the map on a small <b>follower</b> that moves the dot (or the tube) in the two directions that matter, radial and vertical, keyed to the rotator angle. The rotator angle is the master clock, and the follower can lead its own lag. What is left is what the map cannot know: judge noise, jitter that does not repeat, slow drift.</p>' +
+        '<p>Two consequences worth looking at. The wobble to be followed is slow (tens of micrometres per second), so the follower is a small, slow axis. And if the follower can take out a millimetre of eccentricity, tube seating stops needing indicator-grade adjustment.</p>',
+      carries: '<p>Not designed here. The follower could ride on the gun side (a small r and z stage between the positioner and the shell) or under the tube (the rotator on a stage). Under the tube, the section-plane radial direction is one horizontal axis (toward the gun) and the vertical is a small lift; the tangential axis is free because the dot only slides along the seam (0.008 mm per mm of slide).</p>',
+      tried: '<ul>' +
+        '<li><b>Drift.</b> Anything that creeps (a compliant support, cable relaxation, thermal) is not in the map, so the residual grows revolution by revolution. Repair: re-find the seam with the dot probe at the start of each replay block, or keep the map short-lived. Not repaired: what drift rate is real is <b>[unknown]</b>. Raise "Drift" and watch the amber residual walk.</li>' +
+        '<li><b>Follower lag.</b> A follower with a first-order lag lags the map by tau seconds, which at 8 mm/s is a phase error of the wobble. Repair: advance the replay by tau (lead compensation), which needs tau known; the software can measure it by commanding a step. What it leaves: any lag mismatch. Try tau = 3 s with and without lead.</li>' +
+        '<li><b>Tube-side follower and height.</b> A tube-side X slide follows the radial wobble but not the height wobble; the vertical residual stays until a lift joins it. Switch the placement and watch the height strip.</li>' +
+        '<li><b>Maps do not survive a re-seat.</b> Lifting the tube out and back changes the phase and size of the wobble. Repair in the puck idea (trials-01): a kinematic seat plus a tag that carries the map. Left standing: how repeatable a real re-seat is <b>[unknown]</b>.</li><li><b>The judge\'s own bias is replayed as seam (datum, wave 2).</b> In the rig the map is scored by the judge, and anything the judge gets wrong that repeats with table angle (glare, tint, tack marks, plate grain) is learned as seam and replayed. Numbers (calc/map_bias_touch.py; judge noise 0.03 mm, N = 3): with no bias the replay leaves 18 micrometres rms; with a 0.03 mm bias (harmonics 1 and 3, 25 micrometres rms) the truth is 31 while the judge reads 18; at 0.06 mm the truth is 54 and the judge still reads 18. More laps do not help (N = 8: 28 against 12). Assumption behind the first version of this scene: the score is against the seam the simulation knows. Change: the table now has two rows, the true error and what the judge reads (frame noise averaged out), and a bias slider. Left standing: whether the camera judge has such a bias at all is <b>[unknown]</b>.</li>' +
+        '<li><b>A second opinion from touches.</b> K touches at rest (a stylus or the wire, datum-07) read the corner at the tool with no camera in the reading. Built from 8 touches (harmonics 1 to 3, touch noise 0.02 mm) the map leaves 17 micrometres when the seam has nothing above harmonic 3 and 35 when it has 0.02 mm in each of harmonics 4 to 6 (the touches cannot see them and 8 azimuths alias 5 and 6 onto 3 and 2); the judge-only map leaves 31 at a 0.03 mm bias and 54 at 0.06. The hybrid (the judge\'s shape, its harmonics 1 to 3 replaced by the touches\') leaves about 30 in both cases. So touches beat the judge only when its bias is larger than the content they cannot reach; the check (judge minus touch at fresh azimuths) reads 56 for a truth of 54 at a 0.06 mm bias and is the number that can see the bias at all. Try the map source radio.</li>' +
+        '<li><b>The follower under the tube is not the only thing that has to reach.</b> It is sized for the tube\'s wobble. A gun on a passive support wanders under the cable\'s pull by pull times compliance: 0.9 mm at 1.5 N on a stiff boom (0.6 mm/N), 60 mm on bungees and wires alone (40 mm/N, freedom-01). Set the support to soft: the stroke row goes red and a LIMIT badge says the follower cannot reach; a crown or another support stiff on radial and vertical is what leaves the follower the slow part only (datum-16). Left standing: the compliance figures are from other scenes and every pull is <b>[unknown]</b>.</li></ul>',
+      unresolved: '<ul><li>Whether the wire feed, gas shield and weld pool tolerate a dot that follows the seam (rather than a seam that moves under a fixed dot) is a welding question this dry-run scene cannot answer <b>[unknown]</b>.</li>' +
+        '<li>How much of the real dot-vs-seam error the judge can measure in height is open; the scene gives height a noisier judge (3x, illustrative).</li>' +
+        '<li>The size of the real wobble beyond the accepted 0.25 mm TIR radial / 0.30 mm face limits, and how much of it repeats revolution to revolution, has never been measured with the dot <b>[unknown]</b>.</li><li>Whether the camera judge has an angle-locked bias, and how large: one bench test would say. Indicate a tube at the rim, turn it 100 degrees in its nest, indicate again; the part that stays put in table angle is rig and seat, the part that turned is the tube (datum-14).</li>' +
+        '<li>How the stylus or the wire reaches K chosen azimuths without disturbing the seat, and whether a wire or nozzle touch (about ten times noisier than a stylus) is good enough for the check.</li></ul>',
+      assumptions: '<ul><li>Bead speed 5–15 mm/s at the 61.85 mm weld radius: 26–78 s per revolution <b>[repo]</b>. Accepted runout ≤ 0.25 mm TIR radial and ≤ 0.30 mm TIR face <b>[repo]</b>; the defaults use half of those as amplitudes <b>[derived]</b>.</li>' +
+        '<li>Harmonics, phases, noise, drift, jitter and follower lag are <b>illustrative</b>. Jitter is a sum of slow sinusoids, not a physical model.</li>' +
+        '<li>The judge is assumed to give the dot-to-seam offset at every angle with Gaussian noise; how (camera A on the dot and wall edge) is the trials-03 scene.</li>' +
+        '<li>Map = per-2° mean of the learn revolutions with the mean removed; the follower starts each replay at the dot on the seam. Replay error = seam − follower position.</li><li>Judge bias b(θ) = b1 cos(θ − 55°) + 0.67 b1 cos(3θ − 51°), radial only; seam content above harmonic 3 is harmonics 4, 5, 6 at the chosen amplitude each; touches read the true corner plus Gaussian noise at K azimuths (evenly spaced from 7°) in the first learning revolution; touch maps are least-squares fits of harmonics 1 to 3; 16 s per touch. All <b>[illustrative]</b>. Static offset = pull x compliance (0.6 or 40 mm/N, from datum-16 and freedom-01 <b>[illustrative]</b>); the dot knee\'s capture range of about 0.5 mm is datum\'s figure.</li></ul>'
+    }
+  });
+
+  const st = { e1: 0.6, ph1: 40, e2: 0.10, a1: 0.15, noise: 0.03, zf: 3, drift: 0.01, jit: 0.02, N: 2, tau: 0.5, lead: true, replay: true, where: 'gun', speed: 8, play: 0.0,
+    bias: 0.03, hf: 0.02, src: 'judge', K: 8, tn: 0.02, support: 'stiff', pull: 1.5, avail: 3.0 };
+  const REVS_REPLAY = 6;
+
+  // deterministic pseudo-noise
+  function rng(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+  function gauss(u) { return Math.sqrt(-2 * Math.log(1 - u())) * Math.cos(2 * Math.PI * u()); }
+
+  // least squares for the harmonics 1..kmax (plus a constant) from samples at angles a (radians)
+  function harmFit(angles, vals, kmax) {
+    const n = 1 + 2 * kmax, A = Array.from({ length: n }, () => new Array(n).fill(0)), b = new Array(n).fill(0);
+    angles.forEach((a, i) => { const row = [1]; for (let k = 1; k <= kmax; k++) row.push(Math.cos(k * a), Math.sin(k * a)); for (let r = 0; r < n; r++) { b[r] += row[r] * vals[i]; for (let c = 0; c < n; c++) A[r][c] += row[r] * row[c]; } });
+    for (let i = 0; i < n; i++) { let q = i; for (let r = i + 1; r < n; r++) if (Math.abs(A[r][i]) > Math.abs(A[q][i])) q = r; [A[i], A[q]] = [A[q], A[i]]; [b[i], b[q]] = [b[q], b[i]]; const d = A[i][i] || 1e-12; for (let r = i + 1; r < n; r++) { const f = A[r][i] / d; for (let c = i; c < n; c++) A[r][c] -= f * A[i][c]; b[r] -= f * b[i]; } }
+    const x = new Array(n).fill(0); for (let i = n - 1; i >= 0; i--) { let v = b[i]; for (let c = i + 1; c < n; c++) v -= A[i][c] * x[c]; x[i] = v / (A[i][i] || 1e-12); }
+    return x;
+  }
+  const harmEval = (x, a) => { let v = x[0]; for (let k = 1; 2 * k < x.length; k++) v += x[2 * k - 1] * Math.cos(k * a) + x[2 * k] * Math.sin(k * a); return v; };
+
+  let D = null;   // simulation result
+  function simulate() {
+    const step = 2, per = 360 / step, N = st.N, total = N + REVS_REPLAY;
+    const omega = st.speed / R / DEG;   // deg/s
+    const dt = step / omega;
+    const u = rng(7), un = rng(11), ut = rng(23);
+    // smooth jitter: three slow sinusoids in time with random phases (not repeating with the revolution)
+    const jp = [0, 1, 2, 3, 4, 5].map(() => u() * 2 * Math.PI);
+    const jit = (t, k) => st.jit * (0.6 * Math.sin(t / 37 + jp[k]) + 0.4 * Math.sin(t / 91 + jp[k + 1]) + 0.3 * Math.sin(t / 13 + jp[k + 2]));
+    // seam content above harmonic 3 (tack marks, edge dross): a touch fit of harmonics 1 to 3 cannot see it
+    const hfR = th => st.hf * (Math.cos(4 * th * DEG + 0.3) + Math.cos(5 * th * DEG + 2.1) + Math.cos(6 * th * DEG + 4.0));
+    // what the judge gets wrong that repeats with table angle: harmonics 1 and 3, radial only
+    const biasR = th => st.bias * (Math.cos((th - 55) * DEG) + 0.67 * Math.cos(3 * th * DEG - 0.9));
+    const trueR = (th, rev, t) => st.e1 * Math.cos((th - st.ph1) * DEG) + st.e2 * Math.cos(2 * th * DEG - 1.1) + 0.3 * st.e2 * Math.cos(3 * th * DEG + 0.4) + hfR(th) + st.drift * (rev + th / 360) + jit(t, 0);
+    const trueZ = (th, rev, t) => st.a1 * Math.cos((th - 110) * DEG) + 0.25 * st.a1 * Math.cos(2 * th * DEG + 2.0) + 0.5 * st.drift * (rev + th / 360) + 0.7 * jit(t, 3);
+    const n = total * per, t = new Float32Array(n), th = new Float32Array(n), sr = new Float32Array(n), sz = new Float32Array(n), bs = new Float32Array(n);
+    for (let k = 0; k < n; k++) { const rev = Math.floor(k / per), a = (k % per) * step; th[k] = a; t[k] = k * dt; sr[k] = trueR(a, rev, t[k]); sz[k] = trueZ(a, rev, t[k]); bs[k] = biasR(a); }
+    // learn: per-bin mean of noisy judge readings over the first N revolutions (the judge reads seam + its own bias), DC removed
+    const mapJ = new Float32Array(per), mapZ = new Float32Array(per);
+    for (let b = 0; b < per; b++) { let ar = 0, az = 0; for (let r = 0; r < N; r++) { const k = r * per + b; ar += sr[k] + bs[k] + gauss(un) * st.noise; az += sz[k] + gauss(un) * st.noise * st.zf; } mapJ[b] = ar / N; mapZ[b] = az / N; }
+    const mz = mapZ.reduce((a, v) => a + v, 0) / per; for (let b = 0; b < per; b++) mapZ[b] -= mz;
+    // touches: K azimuths, taken at rest during the first learning revolution, reading the corner at the tool (no camera in the reading)
+    const K = Math.max(8, Math.round(st.K)), tang = [], tval = [];
+    for (let j = 0; j < K; j++) { const a = (j * 360 / K + 7) % 360, b = Math.round(a / step) % per; tang.push(a * DEG); tval.push(sr[b] + gauss(ut) * st.tn); }
+    const tfit = harmFit(tang, tval, 3);
+    const binAng = b => b * step * DEG;
+    const mapT = new Float32Array(per); for (let b = 0; b < per; b++) mapT[b] = harmEval(tfit, binAng(b));
+    let mapR = new Float32Array(per);
+    if (st.src === 'judge') mapR.set(mapJ);
+    else if (st.src === 'touch') mapR.set(mapT);
+    else { const jfit = harmFit(Array.from({ length: per }, (_, b) => binAng(b)), Array.from(mapJ), 3); for (let b = 0; b < per; b++) mapR[b] = mapJ[b] - harmEval(jfit, binAng(b)) + mapT[b]; }
+    const mr = mapR.reduce((a, v) => a + v, 0) / per; for (let b = 0; b < per; b++) mapR[b] -= mr;
+    // does the follower cover r and z?
+    const followR = true, followZ = st.where !== 'tubeX';
+    const lag = Math.max(1e-3, st.tau), alpha = 1 - Math.exp(-dt / lag);
+    const yr = new Float32Array(n), yz = new Float32Array(n), er = new Float32Array(n), ez = new Float32Array(n), nr = new Float32Array(n), nz = new Float32Array(n), ea = new Float32Array(n);
+    let py = 0, pz = 0;
+    const leadBins = st.lead ? Math.round(st.tau * omega / step) : 0;
+    for (let k = 0; k < n; k++) {
+      const rev = Math.floor(k / per), b = k % per;
+      const active = st.replay && rev >= N;
+      let cr = 0, cz = 0;
+      if (active) { const bb = (b + leadBins) % per; cr = followR ? mapR[bb] : 0; cz = followZ ? mapZ[bb] : 0; }
+      // follower: first-order lag toward the command (starts from the seam-centred zero)
+      py += (cr - py) * alpha; pz += (cz - pz) * alpha;
+      yr[k] = py; yz[k] = pz;
+      // dot-to-seam error: follower position minus seam displacement (dot starts on the seam nominal)
+      er[k] = py - sr[k]; ez[k] = pz - sz[k];
+      ea[k] = py - (sr[k] + bs[k]);          // what the judge reports, frame noise averaged out: dot minus the seam AS IT READS IT
+      nr[k] = -sr[k]; nz[k] = -sz[k];
+    }
+    // statistics over the last replay revolution
+    const k0 = (total - 1) * per, k1 = total * per;
+    const pp = (a, s, e) => { let lo = 1e9, hi = -1e9; for (let k = s; k < e; k++) { lo = Math.min(lo, a[k]); hi = Math.max(hi, a[k]); } return hi - lo; };
+    const rmsDC = (a, s, e) => { let m = 0; for (let k = s; k < e; k++) m += a[k]; m /= (e - s); let q = 0; for (let k = s; k < e; k++) q += (a[k] - m) * (a[k] - m); return Math.sqrt(q / (e - s)); };
+    // follower speed and stroke
+    let vmax = 0, lo = 1e9, hi = -1e9, lz = 1e9, hz = -1e9, vz = 0;
+    for (let k = k0 + 1; k < k1; k++) { vmax = Math.max(vmax, Math.abs(yr[k] - yr[k - 1]) / dt); vz = Math.max(vz, Math.abs(yz[k] - yz[k - 1]) / dt); lo = Math.min(lo, yr[k]); hi = Math.max(hi, yr[k]); lz = Math.min(lz, yz[k]); hz = Math.max(hz, yz[k]); }
+    // the check the rig CAN compute after a replay: K fresh azimuths touched, error read at the tool (touch noise), DC removed
+    const ck = []; const ut2 = rng(41);
+    for (let j = 0; j < K; j++) { const b = Math.round(((j + 0.5) * 360 / K) / step) % per; ck.push(er[k0 + b] + gauss(ut2) * st.tn); }
+    const cm = ck.reduce((a, v) => a + v, 0) / K, chk = Math.sqrt(ck.reduce((a, v) => a + (v - cm) * (v - cm), 0) / K);
+    D = { step: step, per: per, n: n, total: total, N: N, dt: dt, omega: omega, t: t, th: th, sr: sr, sz: sz, mapR: mapR, mapJ: mapJ, mapZ: mapZ, yr: yr, yz: yz, er: er, ez: ez, nr: nr, nz: nz, ea: ea, K: K,
+      stats: { ppNoR: pp(nr, k0, k1), ppNoZ: pp(nz, k0, k1), ppR: pp(er, k0, k1), ppZ: pp(ez, k0, k1), vR: vmax, vZ: vz, strokeR: hi - lo, strokeZ: hz - lz, revS: 360 / omega } };
+    D.stats.rmsR = rmsDC(er, k0, k1); D.stats.rmsZ = rmsDC(ez, k0, k1); D.stats.rmsNoR = rmsDC(nr, k0, k1); D.stats.rmsNoZ = rmsDC(nz, k0, k1);
+    D.stats.rmsRead = rmsDC(ea, k0, k1); D.stats.chk = chk;
+    // the gun's static offset under the cable's pull (a passive support): pull x compliance; it adds to the travel the follower needs
+    D.stats.s0 = st.pull * (st.support === 'stiff' ? 0.6 : 40);
+    D.stats.need = D.stats.strokeR / 2 + Math.abs(D.stats.s0);
+  }
+
+  // ------------------------------------------------------------------ drawing
+  const W1 = 620, H1 = 176;
+  const svgR = S('svg', { viewBox: '0 0 ' + W1 + ' ' + H1, class: 'sm-svg', role: 'img', 'aria-label': 'radial dot-to-seam error over the trial' });
+  const svgZ = S('svg', { viewBox: '0 0 ' + W1 + ' ' + H1, class: 'sm-svg', role: 'img', 'aria-label': 'vertical dot-to-seam error over the trial' });
+  const polar = S('svg', { viewBox: '0 0 280 280', class: 'sm-svg', role: 'img', 'aria-label': 'seam wobble drawn around the tube, exaggerated' });
+  const tab = h('table', { class: 'sm-tab' });
+  const noteEl = h('div', { class: 'sm-note' });
+  const cardR = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Radial dot-to-seam error at the station, over the whole trial' }), h('em', { text: 'the judge sees this; scene model' })), svgR);
+  const cardZ = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Height dot-to-seam error (plate face wobble)' }), h('em', { text: 'the judge sees this less well' })), svgZ);
+  const cardP = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'The seam seen from above (wobble exaggerated)' }), h('em', { id: 'kx', text: '' })), polar);
+  const cardT = h('div', { class: 'sm-card' }, h('h3', {}, h('span', { text: 'Last replay revolution' }), h('em', { text: 'scene model, illustrative inputs' })), tab, noteEl);
+  app.stageEl.appendChild(h('div', { class: 'sm-grid' }, h('div', { class: 'sm-col' }, cardR, cardZ), h('div', { class: 'sm-col' }, cardP, cardT)));
+
+  const polyline = (pts, col, wd, dash, op) => S('polyline', { points: pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' '), fill: 'none', stroke: col, 'stroke-width': wd || 1.4, 'stroke-dasharray': dash || null, opacity: op == null ? 1 : op, 'stroke-linejoin': 'round' });
+
+  function strip(svg, key, label, ymax) {
+    svg.textContent = '';
+    const x0 = 44, x1 = W1 - 10, y0 = 24, y1 = H1 - 30, X = k => x0 + k / (D.n - 1) * (x1 - x0), Y = v => (y0 + y1) / 2 - v / ymax * (y1 - y0) / 2;
+    svg.append(S('rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: '#0f141b', stroke: '#2a3341' }));
+    // learning shading and replay marker
+    const kLearn = D.N * D.per;
+    svg.append(S('rect', { x: x0, y: y0, width: X(kLearn) - x0, height: y1 - y0, fill: '#fbbf24', opacity: 0.07 }), S('line', { x1: X(kLearn), y1: y0, x2: X(kLearn), y2: y1, stroke: '#fbbf24', 'stroke-dasharray': '4 3', opacity: 0.8 }));
+    svg.append(S('text', { x: x0 + 4, y: y0 + 11, class: 'sm amber', text: 'learn: gun still' }), S('text', { x: Math.min(X(kLearn) + 4, x1 - 130), y: y0 + 11, class: 'sm green', text: st.replay ? 'replay: follower runs the map' : 'replay off' }));
+    for (let r = 0; r <= D.total; r++) { const kx = Math.min(D.n - 1, r * D.per); svg.append(S('line', { x1: X(kx), y1: y1, x2: X(kx), y2: y1 + 3, stroke: '#64748b' }), S('text', { x: X(kx), y: y1 + 13, 'text-anchor': 'middle', class: 'sm', text: r })); }
+    svg.append(S('text', { x: x1, y: y1 + 25, 'text-anchor': 'end', class: 'sm', text: 'revolutions (one revolution = ' + D.stats.revS.toFixed(0) + ' s at ' + st.speed + ' mm/s)' }));
+    for (let v = -ymax; v <= ymax + 1e-9; v += ymax / 2) svg.append(S('line', { x1: x0 - 3, y1: Y(v), x2: x0, y2: Y(v), stroke: '#64748b' }), S('text', { x: x0 - 6, y: Y(v) + 3, 'text-anchor': 'end', class: 'sm', text: v.toFixed(2) }));
+    svg.append(S('line', { x1: x0, y1: Y(0), x2: x1, y2: Y(0), stroke: '#2a3341' }), S('text', { x: 4, y: 12, class: 'b', text: label }));
+    const kk = []; for (let k = 0; k < D.n; k += 2) kk.push(k);
+    const sel = key === 'r' ? { no: D.nr, er: D.er, y: D.yr, rd: D.ea } : { no: D.nz, er: D.ez, y: D.yz, rd: null };
+    svg.append(polyline(kk.map(k => [X(k), Y(sel.no[k])]), '#94a3b8', 1.1, '3 2', 0.75));
+    svg.append(polyline(kk.map(k => [X(k), Y(sel.y[k])]), '#4ade80', 1.1, null, 0.85));
+    if (sel.rd) svg.append(polyline(kk.map(k => [X(k), Y(sel.rd[k])]), '#2dd4bf', 0.9, null, 0.8));
+    svg.append(polyline(kk.map(k => [X(k), Y(sel.er[k])]), '#fbbf24', 1.6));
+    // playhead
+    const kp = Math.round(Math.max(0, Math.min(1, st.play / D.total)) * (D.n - 1));
+    svg.append(S('line', { x1: X(kp), y1: y0, x2: X(kp), y2: y1, stroke: '#a855f7', 'stroke-width': 1.5 }));
+    // legend
+    svg.append(S('text', { x: x1 - 4, y: y1 - 4, 'text-anchor': 'end', class: 'sm grey', text: '- - no map   ─ follower   ─ true error with map (amber; the rig cannot see it)' + (key === 'r' ? '   ─ what the judge reads (teal)' : '') }));
+    return kp;
+  }
+
+  function drawPolar(kp) {
+    polar.textContent = '';
+    const cx = 140, cy = 140, Rp = 96;
+    const amp = Math.max(0.05, Math.abs(st.e1) + Math.abs(st.e2) + Math.abs(st.drift * D.total) + st.jit * 1.5), K = 26 / amp;
+    document.getElementById('kx').textContent = 'wobble drawn x' + Math.round(K * 10) / 10 + ' (px per mm)';
+    polar.append(S('circle', { cx: cx, cy: cy, r: Rp, fill: 'none', stroke: '#3a475c', 'stroke-dasharray': '3 3' }), S('circle', { cx: cx, cy: cy, r: Rp - 22, fill: 'none', stroke: '#252e3b' }));
+    // true seam (first revolution, no drift/jitter shown: repeating part) and the learned map
+    const rev0 = [], mp = [];
+    for (let b = 0; b <= D.per; b++) {
+      const a = (b % D.per) * D.step, kk = b % D.per;
+      const s = st.e1 * Math.cos((a - st.ph1) * DEG) + st.e2 * Math.cos(2 * a * DEG - 1.1) + 0.3 * st.e2 * Math.cos(3 * a * DEG + 0.4);
+      rev0.push([cx + (Rp + K * s) * Math.cos(-a * DEG), cy + (Rp + K * s) * Math.sin(-a * DEG)]);
+      mp.push([cx + (Rp + K * D.mapR[kk]) * Math.cos(-a * DEG), cy + (Rp + K * D.mapR[kk]) * Math.sin(-a * DEG)]);
+    }
+    polar.append(polyline(rev0, '#60a5fa', 1.8), polyline(mp, '#4ade80', 1.3, '2 2'));
+    // station marker at +X and the dot
+    polar.append(S('line', { x1: cx + Rp + 34, y1: cy, x2: cx + Rp + 4, y2: cy, stroke: '#ff3b30', 'stroke-width': 1.5 }), S('circle', { cx: cx + Rp, cy: cy, r: 3.2, fill: '#ff3b30' }), S('text', { x: cx + Rp - 2, y: cy - 10, 'text-anchor': 'end', class: 'sm', text: 'station: dot' }));
+    // rotating index at the current playhead
+    const kpp = Math.min(D.n - 1, kp), a = D.th[kpp];
+    polar.append(S('line', { x1: cx, y1: cy, x2: cx + (Rp - 22) * Math.cos(-a * DEG), y2: cy + (Rp - 22) * Math.sin(-a * DEG), stroke: '#a855f7', 'stroke-width': 1.5 }));
+    const pr = cx + (Rp + K * (st.e1 * Math.cos((a - st.ph1) * DEG) + st.e2 * Math.cos(2 * a * DEG - 1.1))) * Math.cos(-a * DEG);
+    polar.append(S('circle', { cx: cx + (Rp + K * (st.e1 * Math.cos((a - st.ph1) * DEG) + st.e2 * Math.cos(2 * a * DEG - 1.1) + 0.3 * st.e2 * Math.cos(3 * a * DEG + 0.4))) * Math.cos(-a * DEG), cy: cy + (Rp + K * (st.e1 * Math.cos((a - st.ph1) * DEG) + st.e2 * Math.cos(2 * a * DEG - 1.1) + 0.3 * st.e2 * Math.cos(3 * a * DEG + 0.4))) * Math.sin(-a * DEG), r: 3.5, fill: '#a855f7' }));
+    polar.append(S('text', { x: 10, y: 14, class: 'b', text: 'tube from above, rotator angle ' + a.toFixed(0) + '°' }), S('text', { x: 10, y: 268, class: 'sm blue', text: 'blue: seam locus (repeating part)' }), S('text', { x: 10, y: 279, class: 'sm green', text: 'green dashed: learned map' }));
+  }
+
+  function drawTable() {
+    const s = D.stats, mm = v => v.toFixed(3), um = v => (v * 1000).toFixed(0);
+    const lim = s.need > st.avail;
+    tab.innerHTML = '<thead><tr><th></th><th>radial</th><th>height</th></tr></thead><tbody>' +
+      '<tr><td>error p-p, no map</td><td>' + mm(s.ppNoR) + ' mm</td><td>' + mm(s.ppNoZ) + ' mm</td></tr>' +
+      '<tr><td>error p-p, with map (true)</td><td><b>' + mm(s.ppR) + ' mm</b></td><td><b>' + mm(s.ppZ) + ' mm</b></td></tr>' +
+      '<tr><td>error rms, no map → map (true)</td><td>' + mm(s.rmsNoR) + ' → <b>' + mm(s.rmsR) + '</b></td><td>' + mm(s.rmsNoZ) + ' → <b>' + mm(s.rmsZ) + '</b></td></tr>' +
+      '<tr><td>rms the judge reads (frame noise averaged out)</td><td><b>' + mm(s.rmsRead) + '</b></td><td>(no bias drawn)</td></tr>' +
+      '<tr><td>rms the ' + D.K + ' touches read</td><td><b>' + mm(s.chk) + '</b></td><td>–</td></tr>' +
+      '<tr><td>follower stroke</td><td>' + mm(s.strokeR) + ' mm</td><td>' + (st.where === 'tubeX' ? '(none)' : mm(s.strokeZ) + ' mm') + '</td></tr>' +
+      '<tr><td>follower peak speed</td><td>' + s.vR.toFixed(3) + ' mm/s</td><td>' + (st.where === 'tubeX' ? '(none)' : s.vZ.toFixed(3) + ' mm/s') + '</td></tr>' +
+      '<tr><td>gun\'s static offset from the cable</td><td' + (lim ? ' style="color:#f87171"' : '') + '><b>' + s.s0.toFixed(2) + ' mm</b> (needs ' + s.need.toFixed(2) + ' of ±' + st.avail.toFixed(1) + ')</td><td>–</td></tr></tbody>';
+    const parts = [];
+    if (!st.replay) parts.push('Replay is off: the amber error is the raw wobble.');
+    else if (st.where === 'tubeX') parts.push('The tube-side X slide follows the radial wobble only: the height error is unchanged.');
+    if (st.replay && st.bias > 0.005 && st.src === 'judge') parts.push('The map was learned through the judge, so its bias is replayed as seam: the judge reads ' + um(s.rmsRead) + ' micrometres, the truth is ' + um(s.rmsR) + '.');
+    parts.push('Follower peak speed is tens of micrometres per second. Its speed is set by the wobble and the revolution time, not by the map.');
+    noteEl.textContent = parts.join(' ');
+    app.badge('need', lim ? 'the cable\'s static offset (' + s.s0.toFixed(1) + ' mm) plus the wobble needs ' + s.need.toFixed(1) + ' mm of follower travel: more than the ±' + st.avail.toFixed(1) + ' mm available' : null, 'limit');
+    app.badge('acq', Math.abs(s.s0) > 0.5 ? 'the gun is ' + Math.abs(s.s0).toFixed(1) + ' mm off before the trial (cable pull x support compliance): outside the dot knee\'s capture range of about 0.5 mm, so the seam is found by a sweep first (trials-03) and the offset trimmed' : null, 'info');
+  }
+
+  function ioUpdate() {
+    const s = D.stats;
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: st.speed, unit: 'mm/s', note: 'existing controller, 5–15 mm/s' },
+        { name: 'Follower radial position', value: st.replay ? 'map replay' : 'idle', note: 'proposed axis, keyed to rotator angle' },
+        { name: 'Follower height position', value: st.replay && st.where !== 'tubeX' ? 'map replay' : 'none', note: st.where === 'tubeX' ? 'tube-side X slide has no height axis' : 'proposed axis' },
+        { name: 'Learn / replay', value: st.replay ? 'replay after ' + st.N + ' rev' : 'learn only', note: 'software state' },
+        { name: 'Touches at ' + D.K + ' azimuths (stylus or wire)', value: st.src === 'judge' ? 'check only' : 'builds the map', note: 'proposed; the rotator parks at each azimuth (about 16 s each, illustrative)' },
+      ],
+      observes: [
+        { name: 'Dot-to-seam radial offset per angle', value: '±' + st.noise.toFixed(2), unit: 'mm noise', status: 'seen', note: 'judge camera at the station' },
+        { name: 'Dot-to-seam height offset per angle', value: '±' + (st.noise * st.zf).toFixed(2), unit: 'mm noise', status: 'partly', note: 'dot size / ruler; weaker than radial' },
+        { name: 'Residual after replay (p-p)', value: s.ppR.toFixed(3), unit: 'mm', status: 'seen', note: 'radial, last revolution' },
+        { name: 'Judge minus touch at ' + D.K + ' azimuths', value: (D.stats.chk * 1000).toFixed(0), unit: 'µm rms', status: 'partly', note: 'the only number that can see the judge\'s own bias; touch noise ' + (st.tn * 1000).toFixed(0) + ' µm; sees harmonics up to ' + Math.floor(D.K / 2 - 0.01) + ' cleanly, aliases the rest' },
+        { name: 'Drift', value: '–', status: 'unresolved', note: 'the map does not know it; re-find the seam with the dot probe' },
+        { name: 'Map validity after a re-seat', value: '–', status: 'unresolved', note: 'the wobble changes when the tube is lifted out and back' },
+      ],
+      manual: ['Rough seating of the tube', 'Deciding when a map is too old']
+    });
+  }
+
+  function redraw() {
+    simulate();
+    const kp = strip(svgR, 'r', 'radial (mm), + toward the wall', Math.max(0.4, Math.ceil((st.e1 + st.e2 + st.drift * D.total + 0.1) * 5) / 5));
+    strip(svgZ, 'z', 'height (mm), + above the plate face', Math.max(0.2, Math.ceil((st.a1 * 1.3 + st.drift * D.total * 0.5 + 0.1) * 10) / 10));
+    drawPolar(kp); drawTable(); ioUpdate();
+  }
+
+  // ------------------------------------------------------------------ controls
+  const gw = app.ui.group('The tube this time (scene edits, illustrative)', { help: 'How this tube happens to wobble. The software does not know these numbers.' });
+  gw.slider({ id: 'e1', label: 'Eccentricity (radial, 1×)', min: 0, max: 2, step: 0.05, value: 0.6, unit: 'mm', kind: 'scene', visual: 'blue locus in the top view', help: 'Rig-doc acceptance is 0.25 mm TIR (0.125 amplitude). Drag it up to what a rough seating might give.', onChange: v => { st.e1 = v; redraw(); } });
+  gw.slider({ id: 'e2', label: 'Ovality (radial, 2×)', min: 0, max: 0.4, step: 0.01, value: 0.1, unit: 'mm', kind: 'scene', visual: 'blue locus in the top view', onChange: v => { st.e2 = v; redraw(); } });
+  gw.slider({ id: 'a1', label: 'Plate-face wobble (height)', min: 0, max: 0.6, step: 0.01, value: 0.15, unit: 'mm', kind: 'scene', visual: 'height strip', help: 'Acceptance is 0.30 mm TIR face at the weld circle.', onChange: v => { st.a1 = v; redraw(); } });
+  gw.slider({ id: 'drift', label: 'Drift', min: 0, max: 0.06, step: 0.005, value: 0.01, unit: 'mm/rev', kind: 'scene', visual: 'amber residual', help: 'Slow creep the map does not contain.', onChange: v => { st.drift = v; redraw(); } });
+  gw.slider({ id: 'jit', label: 'Non-repeating jitter', min: 0, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', visual: 'amber residual', onChange: v => { st.jit = v; redraw(); } });
+  const gj = app.ui.group('The judge and the follower (proposed)', { help: 'What the software would use to learn and replay.' });
+  gj.slider({ id: 'noise', label: 'Judge noise (radial)', min: 0, max: 0.15, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: 'amber residual', help: 'Per-angle noise of the dot-to-seam reading. Made up; height is 3× worse.', onChange: v => { st.noise = v; redraw(); } });
+  gj.slider({ id: 'N', label: 'Learning revolutions', min: 1, max: 8, step: 1, value: 2, kind: 'state', visual: 'learning shade', help: 'More revolutions average the noise down (1/√N) but cost time before the first replay.', onChange: v => { st.N = v; redraw(); } });
+  gj.toggle({ id: 'replay', label: 'Replay the map on the follower', value: true, kind: 'state', visual: 'green follower trace', onChange: v => { st.replay = v; redraw(); } });
+  gj.slider({ id: 'tau', label: 'Follower lag (time constant)', min: 0.05, max: 3, step: 0.05, value: 0.5, unit: 's', kind: 'actuator', visual: 'green follower trace', help: 'How slowly the proposed follower answers a command. A property of the actuator.', onChange: v => { st.tau = v; redraw(); } });
+  gj.toggle({ id: 'lead', label: 'Lead compensation (advance the replay by the lag)', value: true, kind: 'state', visual: 'amber residual', onChange: v => { st.lead = v; redraw(); } });
+  gj.radio({ id: 'where', label: 'Where the follower sits', options: [{ value: 'gun', label: 'gun side (r + z)' }, { value: 'tubeX', label: 'under the tube: X slide only' }, { value: 'tubeXZ', label: 'under the tube: X slide + lift' }], value: 'gun', kind: 'branch', help: 'Under the tube only the direction toward the gun (r) and the vertical count; the third axis just slides the dot along the seam.', onChange: v => { st.where = v; redraw(); } });
+  gj.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', visual: 'strip time axis', help: 'Existing rotator controller window.', onChange: v => { st.speed = v; redraw(); } });
+  const gb = app.ui.group('The judge\'s own error and a second opinion', { help: 'A judge error that repeats with table angle turns with the tube and is learned as seam. Touches at a few azimuths read the corner at the tool, with no camera in the reading.' });
+  gb.slider({ id: 'bias', label: 'Judge bias that repeats with table angle (harmonics 1 and 3)', min: 0, max: 0.12, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', visual: 'teal line against amber', help: 'Glare, tint, tack marks, plate grain: anything the camera gets wrong that turns with the tube. Nobody has measured it. The judge cannot see it; only the touches can.', onChange: v => { st.bias = v; redraw(); } });
+  gb.slider({ id: 'hf', label: 'Seam content above harmonic 3 (tack marks, edge dross)', min: 0, max: 0.06, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', visual: 'blue locus in the top view', help: 'Learned by the judge; invisible to a touch fit of harmonics 1 to 3, and aliased into it by too few touches.', onChange: v => { st.hf = v; redraw(); } });
+  gb.radio({ id: 'src', label: 'The map is built from', options: [{ value: 'judge', label: 'the judge' }, { value: 'touch', label: 'K touches' }, { value: 'both', label: 'judge, low harmonics from touches' }], value: 'judge', kind: 'branch', visual: 'green dashed map in the top view', help: 'The judge alone: dense but carries its bias. Touches alone: no camera bias, but only harmonics 1 to 3. Both: the judge\'s shape with its low harmonics replaced by the touches\'.', onChange: v => { st.src = v; redraw(); } });
+  gb.slider({ id: 'K', label: 'Touches (azimuths)', min: 8, max: 24, step: 1, value: 8, kind: 'state', visual: 'touch check row in the table', help: 'A touch at each azimuth means stopping the rotator and touching the corner (16 s each, illustrative). 8 azimuths see harmonics 1 to 3 cleanly; 5 and 6 alias onto 3 and 2.', onChange: v => { st.K = v; redraw(); } });
+  gb.slider({ id: 'tn', label: 'Touch noise', min: 0.005, max: 0.08, step: 0.005, value: 0.02, unit: 'mm', kind: 'scene', visual: 'touch check row in the table', help: 'A stylus is about 0.005 to 0.02 mm; the wire or the nozzle about ten times worse (datum-07).', onChange: v => { st.tn = v; redraw(); } });
+  const gs = app.ui.group('What holds the gun (scene edits, illustrative)', { help: 'A follower under the tube chases the tube\'s wobble. The gun\'s own wander under the cable\'s pull is not in that budget.' });
+  gs.radio({ id: 'support', label: 'The passive support is', options: [{ value: 'stiff', label: 'stiff on radial and vertical (boom on a crown, 0.6 mm/N)' }, { value: 'soft', label: 'soft (bungees and wires only, 40 mm/N)' }], value: 'stiff', kind: 'branch', visual: 'gun offset row in the table', help: 'Compliance from freedom-01 and datum-16: 0.3 to 0.9 mm/N for a rigid grip on a post; about 40 mm/N with bungees and wires only.', onChange: v => { st.support = v; redraw(); } });
+  gs.slider({ id: 'pull', label: 'Umbilical pull on the gun', min: 0, max: 6, step: 0.1, value: 1.5, unit: 'N', kind: 'scene', visual: 'gun offset row in the table', help: 'Unknown per pose (freedom-15); 1.5 N is datum-16\'s working figure.', onChange: v => { st.pull = v; redraw(); } });
+  gs.slider({ id: 'avail', label: 'Follower travel available (±)', min: 0.5, max: 6, step: 0.5, value: 3, unit: 'mm', kind: 'actuator', visual: 'follower stroke row in the table', help: 'A design choice for the proposed follower: its stroke either side of neutral.', onChange: v => { st.avail = v; redraw(); } });
+  const gv = app.ui.group('View');
+  gv.slider({ id: 'play', label: 'Playhead', min: 0, max: 8, step: 0.05, value: 0, unit: 'rev', kind: 'view', help: 'Scrub the trial; the top view shows where the tube is.', onChange: v => { st.play = v; redraw(); } });
+  app.io.manual(['Rough seating of the tube']);
+  redraw();
+})();
+</script>
+</body>
+</html>

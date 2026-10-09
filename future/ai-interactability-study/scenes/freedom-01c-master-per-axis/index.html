@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One master per axis</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-01c-master-per-axis",
+  "title": "One master per axis: what happens when two supports push on the same direction",
+  "by": "freedom",
+  "origin": "branch",
+  "status": "developed",
+  "summary": "One axis of the gun, drawn as a point on a line held by springs: a bungee, a stiff wire or stop, an arm, a motor-driven anchor. A stiff element is a position source, a soft one a force source. Switch the elements on and off, move their rest positions and push on the point: the scene reports where it sits, which element carries what, and the locked-in force that appears when two stiff elements disagree.",
+  "tags": ["lens", "exact constraint", "series-elastic", "preload and stop", "over-constraint", "stiffness bank"],
+  "branchOf": ["freedom-01-ring-bungee"],
+  "combines": [],
+  "transferable": ["a stiff element sets position, a soft one sets force", "two stiff things on one axis: the mismatch decides the force", "a preloaded stop gives position without backlash"],
+  "how": {
+    "motion": "arm position, stop position and motor anchor are the commanded elements; the point follows the balance of springs",
+    "load": "each spring carries a share in proportion to its stiffness",
+    "reference": "whichever element is stiffest on the axis",
+    "observe": "load cells on the elements: force by element, and the sum",
+    "use": "read before deciding which supports are allowed on the same axis"
+  },
+  "software": {
+    "commands": ["arm position", "stop position (screw)", "motor anchor position (series-elastic)"],
+    "observes": ["force in each element (load cells or motor current)", "position of the point (camera or encoder)"],
+    "manual": ["which elements are fitted", "their preloads"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-01c-master-per-axis.md", "../../explorers/freedom/ideas/freedom-01-ring-bungee.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const app = WK.app({
+    stage: 'custom',
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>Take one axis of the gun (radial, tangent, or vertical) and the point at the dot that has to sit somewhere on it. Every support that touches that axis is a spring from the point to a wall: a bungee (soft), a stiff wire or a hard stop (very stiff), the arm (stiff), a bungee whose far end a motor moves (soft, and adjustable). The point sits where the forces balance. <b>Two facts fall out.</b> A stiff element is a <b>position source</b>: put one on the axis and the point goes where it says. A soft element is a <b>force source</b>: it adds a nearly constant push and leaves position to the others. And when two <b>stiff</b> elements disagree about where the point should be, the softer of the two carries the difference: a locked-in force = k₁k₂/(k₁+k₂) × the mismatch.</p>' +
+        '<p>Pick a preset, then edit stiffness, rest position and the push. The bars show each element’s share of the load; the number at the top is the force nobody asked for.</p>',
+      carries:
+        '<p>Amber springs carry load; the purple ones are the elements software could move (arm, screw stop, motor anchor); the green one is a soft support. The block is the dot’s point on this axis. Force arrows on each spring: length is proportional to force, direction is the push it applies to the point.</p>',
+      software:
+        '<p><b>Commands:</b> arm position, stop position (a screw), motor anchor. <b>Observes:</b> a load cell in each element gives its force: the sum is the net push, the internal part is the locked-in force. Forces tell you about the arrangement even when the position is known only coarsely.</p>',
+      tried:
+        '<p><b>Two stiff things.</b> A 200 N/mm wire against a 5 N/mm arm with 1 mm of disagreement locks in 4.9 N; the arm command barely moves the point (gain 0.02 in this axis). Make the wire a long bungee (0.2 N/mm) and the same command moves the point 0.91 mm.</p>' +
+        '<p><b>A stop is only as good as its preload.</b> Bungee against a screw stop with 5 N of preload holds to 0.02 mm/N until a push of 5 N unloads it; beyond that the axis is the bungee, 6.7 mm/N. Unilateral elements are drawn: a stop that is not touching carries nothing.</p>' +
+        '<p><b>Series-elastic.</b> Moving the anchor of a 0.15 N/mm bungee 0.01 mm changes the force by 1.5 mN: fine force control, no position authority.</p>',
+      unresolved:
+        '<p>This is a 1D idealisation: real supports act at different points and along different directions, so they couple axes (see freedom-01 and 01b for the full statics). Friction, creep of soft elements, and backlash are not modelled. All stiffnesses are illustrative.</p>',
+      assumptions:
+        '<ul><li>Linear springs; stop and bungee are one-sided (they only push or pull one way): <b>modelling choice</b>.</li>' +
+        '<li>Bungee 0.15 N/mm, arm 5 N/mm, stiff wire 200 N/mm, stop 50 N/mm, balancer 0.02 N/mm: <b>illustrative</b> (the same as freedom-01’s defaults).</li>' +
+        '<li>Positions are mm along the axis from where the point would sit with no load.</li></ul>',
+    },
+  });
+  const C = r => WK.roleHex(r), svgel = WK.svg;
+  const ORDER = ['b', 'p', 's', 'a', 'm', 'w'];
+  const NAMES = { b: ['bungee pair (soft)', 'compliant'], p: ['preload bungee (one side)', 'compliant'], s: ['hard stop (screw)', 'actuated'], a: ['arm', 'actuated'], m: ['motor-moved bungee', 'actuated'], w: ['stiff wire / balancer', 'load'] };
+  const base = () => ({ b: { on: 0, k: 0.15, x: 0 }, p: { on: 0, k: 0.15, x: 0 }, s: { on: 0, k: 50, x: 0 }, a: { on: 0, k: 5, x: 0 }, m: { on: 0, k: 0.15, x: 0 }, w: { on: 0, k: 200, x: 0 } });
+  const mk = (over, P0) => { const e = base(); Object.keys(over).forEach(k => Object.assign(e[k], over[k])); return { el: e, P0: P0 == null ? 3 : P0 }; };
+  const PRESETS = {
+    bungee: Object.assign({ name: 'bungee alone' }, mk({ b: { on: 1 } })),
+    stop: Object.assign({ name: 'preload bungee + hard stop' }, mk({ p: { on: 1 }, s: { on: 1 } }, 5)),
+    sea: Object.assign({ name: 'series-elastic (motor anchor)' }, mk({ m: { on: 1, x: 2 } })),
+    two: Object.assign({ name: 'stiff wire + arm (two masters)' }, mk({ b: { on: 1 }, a: { on: 1, x: 1 }, w: { on: 1 } })),
+    soft: Object.assign({ name: 'balancer + arm (arm is the master)' }, mk({ a: { on: 1, x: 1 }, w: { on: 1, k: 0.02 } })),
+    arm: Object.assign({ name: 'arm + bungees' }, mk({ b: { on: 1 }, a: { on: 1 } })),
+  };
+  const S = { preset: 'two', F: 0, P0: 3, el: null };
+  const svg = svgel('svg', { viewBox: '0 0 1000 700', width: '100%', role: 'img', 'aria-label': 'springs on one axis' }); svg.style.display = 'block'; svg.style.minWidth = '820px'; svg.style.maxHeight = '100%';
+  app.stageEl.appendChild(svg);
+  app.legend([{ role: 'load', label: 'Carries load' }, { role: 'actuated', label: 'Software can move' }, { role: 'compliant', label: 'Soft support' }, { role: 'laser', label: 'The point (dot)' }, { role: 'fixed', label: 'Walls' }]);
+  const T = (x, y, t, o) => svgel('text', Object.assign({ x: x, y: y, fill: '#c8d0da', 'font-size': 12.5, 'font-family': 'system-ui, sans-serif', text: t }, o || {}));
+  const L = (x1, y1, x2, y2, col, w, o) => svgel('line', Object.assign({ x1: x1, y1: y1, x2: x2, y2: y2, stroke: col, 'stroke-width': w || 1.5, 'stroke-linecap': 'round' }, o || {}));
+  const R = (x, y, w, h, fill, o) => svgel('rect', Object.assign({ x: x, y: y, width: w, height: h, fill: fill }, o || {}));
+  const g = svgel('g'); svg.appendChild(g); const clear = () => { while (g.firstChild) g.removeChild(g.firstChild); };
+  const rd = app.ui.readout('pos', 'Point sits at'), rd2 = app.ui.readout('int', 'Locked-in force'), rd3 = app.ui.readout('kt', 'Axis stiffness'), rd4 = app.ui.readout('own', 'Master of the axis');
+  // Element laws (force on the point, + toward +x):
+  //  b  pair of rope-like bungees with the S.P0 preload either side: net = Tr - Tl, Tl = max(0, P0 + k x), Tr = max(0, P0 - k x)
+  //  p  one bungee pulling toward -x with tension P0 + k x (rope: never negative)
+  //  s  one-sided stop at xs: pushes +x only while x < xs
+  //  a  bilateral spring to the commanded position
+  //  m  bilateral spring to the motor anchor
+  //  w  bilateral stiff element to its rest position
+  function forces(x) {
+    const e = S.el, f = {}, P0 = S.P0;
+    f.b = e.b.on ? Math.max(0, P0 - e.b.k * x) - Math.max(0, P0 + e.b.k * x) : 0;
+    f.p = e.p.on ? -Math.max(0, P0 + e.p.k * x) : 0;
+    f.s = e.s.on ? Math.max(0, e.s.k * (e.s.x - x)) : 0;
+    f.a = e.a.on ? e.a.k * (e.a.x - x) : 0;
+    f.m = e.m.on ? e.m.k * (e.m.x - x) : 0;
+    f.w = e.w.on ? e.w.k * (e.w.x - x) : 0;
+    return f;
+  }
+  const total = x => { const f = forces(x); return f.b + f.p + f.s + f.a + f.m + f.w + S.F; };
+  function solve() {
+    let lo = -300, hi = 300;
+    for (let i = 0; i < 90; i++) { const mid = (lo + hi) / 2; if (total(mid) > 0) lo = mid; else hi = mid; }
+    const x = (lo + hi) / 2, dx = 1e-4, k = -(total(x + dx) - total(x - dx)) / (2 * dx);
+    return { x: x, f: forces(x), k: Math.max(k, 0) };
+  }
+  function update() {
+    clear();
+    const r = solve(), e = S.el, act = ORDER.filter(k => e[k].on);
+    // master = the stiffest element that is actually pushing (a stop that is not touching does not count)
+    let master = null, kmax = -1; act.forEach(k => { if (k === 's' && r.f.s <= 0) return; const kk = e[k].k; if (kk > kmax) { kmax = kk; master = k; } });
+    const pos = act.map(k => r.f[k]).filter(v => v > 1e-6).reduce((a, b) => a + b, 0), neg = act.map(k => r.f[k]).filter(v => v < -1e-6).reduce((a, b) => a + b, 0);
+    const internal = Math.max(0, Math.min(pos, -neg) - Math.abs(S.F) * 0);
+    g.appendChild(T(20, 30, 'One axis of the dot, seen from the side: the point is held by whatever is switched on', { 'font-weight': 600 }));
+    const cy = 100, unit = 32, cx0 = 440;
+    g.appendChild(L(80, cy + 40, 800, cy + 40, '#3a4656', 1)); [-6, -4, -2, 0, 2, 4, 6].forEach(v => { const x = cx0 + v * unit; g.appendChild(L(x, cy + 36, x, cy + 44, '#3a4656', 1)); g.appendChild(T(x - 8, cy + 58, (v > 0 ? '+' : '') + v, { fill: '#94a3b8', 'font-size': 11 })); });
+    g.appendChild(T(700, cy + 76, 'mm along the axis', { fill: '#94a3b8', 'font-size': 11 }));
+    const px = cx0 + Math.max(-6.5, Math.min(6.5, r.x)) * unit;
+    ORDER.forEach((k, i) => {
+      const y = 200 + i * 60, on = !!e[k].on, col = C(NAMES[k][1]);
+      g.appendChild(R(40, y - 16, 14, 32, C('fixed'), { opacity: on ? 0.9 : 0.3 })); g.appendChild(T(64, y - 20, NAMES[k][0] + (on ? '' : ' (off)') + (on ? '   k ' + (e[k].k >= 10 ? e[k].k.toFixed(0) : e[k].k >= 1 ? e[k].k.toFixed(1) : e[k].k.toFixed(2)) + ' N/mm' : ''), { fill: on ? col : '#5b6676', 'font-size': 11.5 }));
+      if (!on) return;
+      if (k === 'a' || k === 's' || k === 'm' || k === 'w') { const rest = cx0 + e[k].x * unit; g.appendChild(svgel('circle', { cx: rest, cy: y, r: 5, fill: 'none', stroke: col, 'stroke-width': 2 })); g.appendChild(T(rest - 12, y + 22, k === 'a' ? 'command' : k === 's' ? 'stop face' : k === 'm' ? 'anchor' : 'rest', { fill: col, 'font-size': 10 })); }
+      let d = 'M54 ' + y; const n = 14, x0 = 60, x1 = px - 8;
+      for (let j = 0; j <= n; j++) d += ' L' + (x0 + (x1 - x0) * j / n).toFixed(1) + ' ' + (y + (j === 0 || j === n ? 0 : (j % 2 ? -7 : 7)));
+      g.appendChild(svgel('path', { d: d + ' L' + px.toFixed(1) + ' ' + y, fill: 'none', stroke: col, 'stroke-width': 2.2, opacity: (k === 's' && r.f.s <= 0) ? 0.3 : 1 }));
+      const f = r.f[k]; g.appendChild(L(px, y - 14, px + Math.max(-90, Math.min(90, f * 6)), y - 14, '#ffd166', 3)); g.appendChild(T(px + 100, y - 10, (f >= 0 ? '+' : '−') + Math.abs(f).toFixed(2) + ' N', { fill: '#ffd166', 'font-size': 11.5 }));
+      if (k === 's' && r.f.s <= 0) g.appendChild(T(px + 100, y + 6, 'not touching: carries nothing', { fill: '#94a3b8', 'font-size': 10.5 }));
+    });
+    g.appendChild(svgel('circle', { cx: px, cy: cy, r: 12, fill: C('laser') })); g.appendChild(T(px - 50, cy - 22, 'the point: ' + r.x.toFixed(3) + ' mm', { fill: C('laser'), 'font-weight': 600 }));
+    if (Math.abs(S.F) > 0.01) { g.appendChild(L(px + 14, cy, px + 14 + Math.max(-110, Math.min(110, S.F * 26)), cy, '#f87171', 4)); g.appendChild(T(px + 20, cy - 12, 'push ' + S.F.toFixed(1) + ' N', { fill: '#f87171' })); }
+    const RX = 740, kt = r.k, ind = master ? NAMES[master][0] : 'none';
+    g.appendChild(T(RX, 210, 'Stiffness by element (log)', { 'font-weight': 600, 'font-size': 12 }));
+    ORDER.forEach((k, i) => { const y = 226 + i * 22, kk = e[k].on ? e[k].k : 0, w = kk > 0 ? Math.max(4, (Math.log10(kk) + 2) / 4.5 * 170) : 0; g.appendChild(T(RX, y + 11, NAMES[k][0].split(' ')[0], { fill: '#94a3b8', 'font-size': 10.5 })); if (w) g.appendChild(R(RX + 60, y, w, 14, C(NAMES[k][1]), { opacity: 0.85 })); });
+    g.appendChild(T(RX, 380, 'Axis stiffness ' + kt.toFixed(2) + ' N/mm', { fill: '#e6edf6', 'font-weight': 600 })); g.appendChild(T(RX, 400, '1 N push moves the point ' + (1 / Math.max(kt, 1e-9)).toFixed(3) + ' mm', { fill: '#94a3b8', 'font-size': 11.5 }));
+    g.appendChild(T(RX, 430, 'Locked-in force ' + internal.toFixed(2) + ' N', { fill: internal > 1 ? '#ff8a80' : '#e6edf6', 'font-weight': 600 })); g.appendChild(T(RX, 448, 'opposing forces nobody asked for', { fill: '#94a3b8', 'font-size': 11 }));
+    g.appendChild(T(RX, 480, 'Master: ' + ind, { fill: C('locate'), 'font-weight': 600 }));
+    if (e.a.on) { const x0 = solve().x, sv = e.a.x; e.a.x = sv + 1; const x1 = solve().x; e.a.x = sv; g.appendChild(T(RX, 510, '1 mm arm command moves the point ' + (x1 - x0).toFixed(2) + ' mm', { fill: Math.abs(x1 - x0) < 0.3 ? '#ff8a80' : '#e6edf6', 'font-weight': 600, 'font-size': 12 })); }
+    ORDER.forEach(k => { app.ui.enable('k_' + k, !!e[k].on); if (['a', 's', 'm', 'w'].indexOf(k) >= 0) app.ui.enable('x_' + k, !!e[k].on); });
+    rd(r.x.toFixed(3), 'mm'); rd2(internal.toFixed(2), 'N'); rd3(kt.toFixed(2), 'N/mm'); rd4(ind);
+    const stiff = act.filter(k => e[k].k >= 5 && !(k === 's' && r.f.s <= 0)); app.badge('two', stiff.length >= 2 && internal > 1 ? 'two stiff elements disagree: ' + internal.toFixed(1) + ' N locked in' : null, 'warn');
+    app.io.set({ commands: [{ name: 'Arm position', value: e.a.on ? e.a.x.toFixed(2) : 'off', unit: e.a.on ? 'mm' : '' }, { name: 'Stop position (screw)', value: e.s.on ? e.s.x.toFixed(2) : 'off', unit: e.s.on ? 'mm' : '' }, { name: 'Motor anchor', value: e.m.on ? e.m.x.toFixed(2) : 'off', unit: e.m.on ? 'mm' : '' }],
+      observes: act.map(k => ({ name: 'Force in ' + NAMES[k][0] + ' (load cell)', value: r.f[k].toFixed(2), unit: 'N', status: 'seen', note: k === 's' && r.f.s <= 0 ? 'not touching' : '' })).concat([{ name: 'Position of the point (camera or encoder)', value: r.x.toFixed(3), unit: 'mm', status: 'partly', note: 'scene truth here' }]), manual: ['Which elements are fitted', 'Their preloads'] });
+  }
+  function loadPreset(p) {
+    S.preset = p; S.el = JSON.parse(JSON.stringify(PRESETS[p].el)); S.P0 = PRESETS[p].P0;
+    ORDER.forEach(k => { app.ui.set('on_' + k, !!S.el[k].on, { silent: true }); app.ui.set('k_' + k, Math.log10(S.el[k].k), { silent: true }); if (app.ui.get('x_' + k) != null) app.ui.set('x_' + k, S.el[k].x, { silent: true }); });
+    app.ui.set('P0', S.P0, { silent: true }); update();
+  }
+  S.el = JSON.parse(JSON.stringify(PRESETS.two.el)); S.P0 = PRESETS.two.P0;
+  const pg = app.ui.group('Arrangement and the push', { open: true });
+  pg.radio({ id: 'preset', label: 'Arrangement', options: Object.keys(PRESETS).map(k => ({ value: k, label: PRESETS[k].name })), value: 'two', kind: 'branch', help: 'Each preset sets which elements are on and their stiffness; then edit below.', onChange: v => loadPreset(v) });
+  pg.slider({ id: 'F', label: 'Push on the point (cable, trigger)', min: -6, max: 6, step: 0.1, value: 0, unit: 'N', kind: 'scene', help: 'A disturbance along the axis.', onChange: v => { S.F = v; update(); } });
+  pg.slider({ id: 'P0', label: 'Bungee preload (each side / one side)', min: 0, max: 10, step: 0.5, value: 3, unit: 'N', kind: 'scene', help: 'Tension in the bungee at the rest position.', onChange: v => { S.P0 = v; update(); } });
+  const eg = app.ui.group('Elements', { open: true, help: 'Switch on, set stiffness (scene edits); the purple positions are what software could command.' });
+  const LBL = { b: 'Bungee pair', p: 'Preload bungee', s: 'Hard stop', a: 'Arm', m: 'Motor bungee', w: 'Stiff wire / balancer' };
+  const KR = { b: [0.02, 1], p: [0.02, 1], s: [5, 200], a: [1, 20], m: [0.02, 1], w: [0.01, 300] };
+  ORDER.forEach(k => {
+    eg.toggle({ id: 'on_' + k, label: LBL[k] + ' on', value: !!S.el[k].on, kind: 'scene', onChange: v => { S.el[k].on = v ? 1 : 0; update(); } });
+    eg.slider({ id: 'k_' + k, label: LBL[k] + ' stiffness (log scale)', min: Math.log10(KR[k][0]), max: Math.log10(KR[k][1]), step: 0.02, value: Math.log10(S.el[k].k), unit: 'N/mm', format: v => { const kk = Math.pow(10, v); return (kk >= 10 ? kk.toFixed(0) : kk >= 1 ? kk.toFixed(1) : kk.toFixed(2)); }, kind: 'scene', onChange: v => { S.el[k].k = Math.pow(10, v); update(); } });
+    if (k === 'a' || k === 's' || k === 'm' || k === 'w') eg.slider({ id: 'x_' + k, label: LBL[k] + (k === 'a' ? ' command' : k === 's' ? ' position' : k === 'm' ? ' anchor position' : ' rest position'), min: -5, max: 5, step: 0.05, value: S.el[k].x, unit: 'mm', kind: k === 'w' ? 'scene' : 'actuator', help: k === 'w' ? 'Where the wire would leave the point on its own; set by hand at setup.' : 'A proposed actuator moves this.', onChange: v => { S.el[k].x = v; update(); } });
+  });
+})();
+</script>
+</body>
+</html>

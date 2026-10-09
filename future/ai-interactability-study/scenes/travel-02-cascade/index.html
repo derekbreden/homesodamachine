@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cascade of stages</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "travel-02-cascade",
+  "title": "Cascade: hand, then motor, then follow",
+  "by": "travel",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "One error at the dot, three stages sized by what the stage above leaves: the hand puts the gun in the neighbourhood, a motor stage trims the per-tube offset, a tiny follow stage replays one revolution of runout. Plots show the radial and vertical error at the dot against rotation angle, with what software could and could not see.",
+  "tags": [
+    "lens",
+    "cascade",
+    "runout follow",
+    "range and resolution",
+    "observation closes the loop"
+  ],
+  "branchOf": [],
+  "combines": [],
+  "transferable": [
+    "range/resolution ladder",
+    "feed-forward table from a dry revolution",
+    "stale commands when nothing observes",
+    "nest screws as a stage (see travel-06)"
+  ],
+  "how": {
+    "motion": "three stages: hand (setup), motor (per tube), follow (per revolution, +-0.5 mm, micron steps)",
+    "load": "not drawn: any stage could sit on the gun side or the work side",
+    "reference": "the dot against the seam, as far as a camera or probe can see it",
+    "observe": "one dry revolution sampled every 10 degrees, with noise you set",
+    "use": "dry run measures, weld replays; new tube starts again"
+  },
+  "software": {
+    "commands": [
+      "motor trim (radial, vertical), one command per tube",
+      "follow table (harmonics of the revolution) at a few steps per second",
+      "rotator speed (existing controller)"
+    ],
+    "observes": [
+      "dot-to-seam samples around one dry revolution",
+      "rotation angle from the rotator's own step count"
+    ],
+    "manual": [
+      "hand-set neighbourhood",
+      "tube swap",
+      "any drift during the weld: nothing here observes it"
+    ]
+  },
+  "notes": [
+    "../../explorers/travel/ideas/travel-02-cascade.md",
+    "../../explorers/travel/calc/04-cascade.mjs"
+  ],
+  "sources": [
+    "../../sourcing/travel.md"
+  ]
+}
+</script>
+<style>
+  .cas-svg { width: 100%; height: 100%; min-height: 520px; display: block; }
+  .cas-svg text { font: 12px system-ui, sans-serif; fill: #98a4b6; }
+  .cas-svg .big { font-size: 13px; fill: #e7ebf1; font-weight: 600; }
+  .cas-svg .small { font-size: 10.5px; fill: #6c788b; }
+  .cas-svg .axis { stroke: #394559; stroke-width: 1; fill: none; }
+  .cas-svg .grid { stroke: #232c39; stroke-width: 1; }
+  .cas-svg .band { fill: rgba(52, 211, 153, .10); stroke: rgba(52, 211, 153, .55); stroke-dasharray: 4 3; }
+  .cas-svg .raw { stroke: var(--role-ghost); stroke-width: 1.6; fill: none; opacity: .75; }
+  .cas-svg .l1 { stroke: var(--role-actuated); stroke-width: 1.6; fill: none; stroke-dasharray: 5 3; }
+  .cas-svg .res { stroke: var(--role-actuated); stroke-width: 2.6; fill: none; }
+  .cas-svg .cmd { stroke: var(--role-locate); stroke-width: 1.4; fill: none; }
+  .cas-svg .cmdthick { stroke: var(--role-locate); stroke-width: 2.4; fill: none; }
+  .cas-svg .obs { fill: var(--role-sensor); opacity: .85; }
+  .cas-svg .cursor { stroke: #e7ebf1; stroke-width: 1; stroke-dasharray: 2 3; }
+  .cas-svg .box { fill: #1b222c; stroke: #394559; }
+  .cas-svg .box.on { stroke: var(--role-actuated); }
+  .cas-svg .box.off { opacity: .55; }
+  .cas-svg .limit { fill: #f87171; }
+</style>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const R = WK.INNER_RADIUS;
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'software'],
+    sections: {
+      proposes: '<p>Three stages, each sized by what the one above it leaves. <b>Hand</b> gets the gun (or the work) into a neighbourhood. A <b>motor stage</b> trims the per-tube offset once. A <b>follow stage</b> replays the revolution’s runout: at most 0.5 mm of range, micron steps, and hardly any speed (the fastest the runout moves is about 30 microns a second at the top bead speed).</p>' +
+        '<p>The plots are the error <i>at the dot</i>. Grey is what the hand left. Dashed purple is after the motor trim. Solid purple is what is left after the follow stage. Blue dots are the only thing software knows: noisy samples from one dry revolution. Which body carries each stage (gun side or work side) is left open on purpose: see the tube-travels scene for one allocation.</p>',
+      carries: '<p>Nothing is drawn as carrying anything: this scene is about <b>range and resolution</b>. Use it with any arrangement that has a coarse stage, a fine stage and a rotator.</p>',
+      software: '<p>The dry revolution gives 36 noisy samples of the dot against the seam. The motor trim is the mean, rounded to the stage step. The follow table is a least-squares fit of the first harmonics of what is left, quantised to the follow step, delayed by the latency you set, and clipped to the follow range (a red mark shows clipping). <b>With no observation, the stages can only apply the last tube’s commands</b>: switch observation off and press New tube.</p>',
+      tried: '<p><b>Break 1: latency.</b> A two-second delay at 8 mm/s is 15° of runout phase, which leaves a quarter of the runout amplitude (try 2 s). <i>Repair:</i> replay a table learned in the dry run, indexed by rotation angle, not a live loop.</p>' +
+        '<p><b>Break 2: steps.</b> A follow step of 0.02 mm leaves about a fifth of the runout. <i>Change:</i> the follow stage wants micron-class steps; a micrometer head or a printed flexure driven through a reduction is one way (see the ratio-devices idea).</p>' +
+        '<p><b>Break 3: range.</b> A follow range of ±0.10 mm clips a 0.25 mm TIR runout on the tube (red marks). <i>Change:</i> raise the range, or reduce the runout at its source (nest screws, travel-06).</p>' +
+        '<p><b>Break 4: the hand.</b> If the hand leaves more than the motor range (±5 mm), nothing below it can recover; the ladder shows the clip.</p>',
+      unresolved: '<p>Drift during the weld (heat, cable pull, holder creep) is not observed and not followed. Whether the runout measured on a dry revolution repeats during the weld is <b>unknown</b>. What sensor gives dot-to-seam at micron scale, through fume and glare, is not decided here. The two sensor-free ideas (stale commands, hand-cranked scales) are compared, not solved.</p>',
+      assumptions: '<ul><li>Runout limits 0.25 mm radial and 0.30 mm face TIR: the rig doc’s acceptance numbers <b>[repo]</b>. Their phases, the 0.03 mm ovality and 0.01 mm bearing wobble, the hand error (1.7 / −0.9 mm), drift (0.05 mm/min), stage steps, ranges, noise and latency are <b>illustrative</b>.</li>' +
+        '<li>Bead speed 5–15 mm/s and seam radius 61.85 mm <b>[repo]</b>; degrees per second follow from them. One revolution takes 26–78 s.</li>' +
+        '<li>The tolerance band is a drawing aid you can move, not a requirement.</li>' +
+        '<li>The face runout is drawn as vertical error at the station; radial error is the eccentricity of the seam circle. First-order maths, same as the kit’s runout.</li></ul>',
+    },
+  });
+
+  // ---------------------------------------------------------------- model (same equations as explorers/travel/calc/04-cascade.mjs)
+  function lcg(seed) { let s = seed >>> 0; return () => ((s = (1664525 * s + 1013904223) >>> 0) / 4294967296); }
+  function gauss(rnd) { let u = 0, v = 0; while (u === 0) u = rnd(); while (v === 0) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+  const q = (v, step) => (step > 0 ? Math.round(v / step) * step : v);
+  const clamp = (v, r) => Math.max(-r, Math.min(r, v));
+  const N = 361;
+
+  // a "tube": its own hand error, phases and a random seed for observation noise
+  const TUBE0 = { e0r: 1.7, e0z: -0.9, b1: 0.6, b2: 2.1, bz: 1.05, seed: 7, k: 1 };
+  let tube = Object.assign({}, TUBE0), prevTube = Object.assign({}, TUBE0), trial = 0;
+
+  function truth(tb, P) {
+    const rawR = [], rawZ = [];
+    for (let i = 0; i < N; i++) {
+      const th = i * Math.PI / 180, tmin = (th / (P.speed / R)) / 60;
+      rawR.push(tb.e0r * P.handScale + P.tirR / 2 * Math.cos(th - tb.b1) + P.ovality * Math.cos(2 * th - tb.b2) + P.bearing * Math.sin(7 * th + 0.4) + P.drift * tmin);
+      rawZ.push(tb.e0z * P.handScale + P.tirF / 2 * Math.cos(th - tb.bz) + P.bearing * Math.sin(5 * th + 1.3));
+    }
+    return { rawR, rawZ };
+  }
+  function observe(tr, P, seed) {
+    const rnd = lcg(seed), out = { r: [], z: [] };
+    for (let i = 0; i < N; i++) { out.r.push(tr.rawR[i] + P.obsNoise * gauss(rnd)); out.z.push(tr.rawZ[i] + P.obsNoise * gauss(rnd)); }
+    return out;
+  }
+  function fit(obs, H) {
+    const m = mean(obs.slice(0, N - 1)), coef = [];
+    for (let h = 1; h <= H; h++) {
+      let a = 0, b = 0;
+      for (let i = 0; i < N - 1; i++) { const th = i * Math.PI / 180; a += (obs[i] - m) * Math.cos(h * th); b += (obs[i] - m) * Math.sin(h * th); }
+      coef.push([2 * a / (N - 1), 2 * b / (N - 1)]);
+    }
+    return coef;
+  }
+  const evalFit = (c, th) => c.reduce((s, ab, k) => s + ab[0] * Math.cos((k + 1) * th) + ab[1] * Math.sin((k + 1) * th), 0);
+  // commands computed from a tube's observed samples (what the software would send)
+  function commandsFrom(tb, P) {
+    const tr = truth(tb, P), ob = observe(tr, P, tb.seed + 101 * (tb.k || 1));
+    const c1r = -q(mean(ob.r.slice(0, N - 1)), P.step1), c1z = -q(mean(ob.z.slice(0, N - 1)), P.step1);
+    const u1r = clamp(c1r, P.range1), u1z = clamp(c1z, P.range1);
+    const afterR = ob.r.map(v => v + u1r), afterZ = ob.z.map(v => v + u1z);
+    return { u1r, u1z, cR: fit(afterR, P.harm), cZ: fit(afterZ, P.harm), obs: ob, sat1: Math.abs(c1r) > P.range1 || Math.abs(c1z) > P.range1 };
+  }
+  function simulate(P) {
+    const tr = truth(tube, P);
+    const use = P.observe ? commandsFrom(tube, P) : commandsFrom(prevTube, P);     // no observation: the last tube's commands
+    const omega = P.speed / R, lag = omega * P.latency;
+    const rows = []; let satR = false, satZ = false;
+    for (let i = 0; i < N; i++) {
+      const th = i * Math.PI / 180;
+      const a1r = tr.rawR[i] + (P.l1 ? use.u1r : 0), a1z = tr.rawZ[i] + (P.l1 ? use.u1z : 0);
+      let u2r = 0, u2z = 0;
+      if (P.l2 && P.phase === 'weld') {
+        const rr = -evalFit(use.cR, th - lag), rz = -evalFit(use.cZ, th - lag);
+        u2r = q(clamp(rr, P.range2), P.step2); u2z = q(clamp(rz, P.range2), P.step2);
+        if (Math.abs(rr) > P.range2) satR = true; if (Math.abs(rz) > P.range2) satZ = true;
+      }
+      rows.push({ deg: i, rawR: tr.rawR[i], rawZ: tr.rawZ[i], a1R: a1r, a1Z: a1z, resR: a1r + u2r, resZ: a1z + u2z, u2r, u2z });
+    }
+    const peak = k => Math.max.apply(null, rows.map(r => Math.abs(r[k])));
+    return { rows, use, satR, satZ, sat1: use.sat1 && P.l1, peaks: { rawR: peak('rawR'), rawZ: peak('rawZ'), a1R: peak('a1R'), a1Z: peak('a1Z'), resR: peak('resR'), resZ: peak('resZ') },
+      obsSamples: (P.observe ? use.obs : observe(tr, P, tube.seed + 5)), maxRate2: P.tirR / 2 * omega, omega };
+  }
+
+  // ---------------------------------------------------------------- drawing: small multiples, one row per stage, one column per direction
+  const W = 1000, H = 780;
+  const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'cas-svg', role: 'img', 'aria-label': 'error at the dot against rotation angle, after the hand, after the motor trim, after the follow stage' });
+  app.stageEl.appendChild(svg);
+  app.legend && app.legend([{ role: 'ghost', label: 'error entering the stage' }, { role: 'actuated', label: 'error leaving the stage' }, { role: 'sensor', label: 'what software sampled' }, { role: 'locate', label: 'follow-stage command' }]);
+  const gAll = WK.svg('g', {});
+  svg.append(gAll);
+  let cursorDeg = 0, playing = false;
+
+  const COLS = [{ key: 'R', x0: 205, x1: 590, title: 'radial error at the dot (+ into the wall)' }, { key: 'Z', x0: 625, x1: 990, title: 'vertical error at the dot (+ above the plate)' }];
+  const ROWS = [{ y0: 84, h: 112 }, { y0: 236, h: 112 }, { y0: 388, h: 112 }, { y0: 540, h: 96 }];
+  const NICE = [0.02, 0.05, 0.1, 0.25, 0.5, 1, 2, 4];
+  function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
+  function T(g, x, y, text, cls, anchor) { g.appendChild(WK.svg('text', { x: x, y: y, class: cls || '', 'text-anchor': anchor || 'start', text: text })); }
+  function panel(g, col, row, series, opts, sc, P, sim, cid) {
+    const x0 = col.x0, x1 = col.x1, y0 = row.y0, h = row.h, xOf = deg => x0 + (x1 - x0) * deg / 360;
+    const defs = WK.svg('defs', {}); defs.appendChild(WK.svg('clipPath', { id: cid }, WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: h }))); g.appendChild(defs);
+    g.appendChild(WK.svg('rect', { x: x0, y: y0, width: x1 - x0, height: h, class: 'axis', fill: opts.off ? '#0e1218' : '#10151c' }));
+    const tol = app.ui.get('tol');
+    if (tol < sc) { const by = y0 + h / 2 - tol / sc * (h / 2), bh = 2 * tol / sc * (h / 2); g.appendChild(WK.svg('rect', { x: x0, y: by, width: x1 - x0, height: bh, class: 'band' })); }
+    for (let k = -2; k <= 2; k++) {
+      const y = y0 + h / 2 - k / 2 * (h / 2);
+      g.appendChild(WK.svg('line', { x1: x0, x2: x1, y1: y, y2: y, class: k === 0 ? 'axis' : 'grid' }));
+      const val = k / 2 * sc; T(g, x0 - 5, y + 4, (val > 0 ? '+' : val < 0 ? '−' : '') + Math.abs(val).toFixed(sc < 0.1 ? 3 : 2), 'small', 'end');
+    }
+    for (let d = 0; d <= 360; d += 90) g.appendChild(WK.svg('line', { x1: xOf(d), x2: xOf(d), y1: y0, y2: y0 + h, class: 'grid' }));
+    const pathOf = (pts, cls) => {
+      let d = ''; pts.forEach((v, i) => { const y = y0 + h / 2 - (v / sc) * (h / 2); d += (i ? 'L' : 'M') + xOf(i).toFixed(1) + ' ' + Math.max(y0 - 6, Math.min(y0 + h + 6, y)).toFixed(1); });
+      const p = WK.svg('path', { d: d, class: cls, 'clip-path': 'url(#' + cid + ')' }); g.appendChild(p);
+    };
+    if (opts.prev) pathOf(opts.prev, 'raw');
+    if (opts.cmd) pathOf(opts.cmd, 'cmd');
+    pathOf(series, opts.off ? 'raw' : (opts.kind === 'cmd' ? 'cmdthick' : 'res'));
+    if (opts.samples) opts.samples.forEach(sm => { const y = y0 + h / 2 - (sm[1] / sc) * (h / 2); if (y > y0 && y < y0 + h) g.appendChild(WK.svg('circle', { cx: xOf(sm[0]), cy: y, r: 2.8, class: 'obs' })); });
+    const cx = xOf(cursorDeg); g.appendChild(WK.svg('line', { x1: cx, x2: cx, y1: y0, y2: y0 + h, class: 'cursor' }));
+    const vv = series[Math.round(cursorDeg)]; if (vv != null && !opts.off) { const vy = y0 + h / 2 - (vv / sc) * (h / 2); g.appendChild(WK.svg('circle', { cx: cx, cy: Math.max(y0, Math.min(y0 + h, vy)), r: 4, fill: '#fff', stroke: opts.kind === 'cmd' ? '#14b8a6' : '#a855f7', 'stroke-width': 2 })); }
+    const pk = Math.max.apply(null, series.map(Math.abs));
+    T(g, x1 - 5, y0 + 13, 'peak ' + pk.toFixed(pk < 0.1 ? 3 : 2) + ' mm' + (opts.flag ? '   ' + opts.flag : ''), opts.flag ? 'small limit' : 'small', 'end');
+  }
+  function drawAll(sim, P) {
+    const g = gAll; clear(g);
+    const sc = app.ui.get('scale') === 'auto' ? null : +app.ui.get('scale');
+    const pick = (a) => { if (sc) return sc; const pk = Math.max.apply(null, a.map(Math.abs)) * 1.12; for (const n of NICE) if (n >= pk) return n; return 4; };
+    const rows = sim.rows, samp = (key, add) => { const out = []; if (P.observe) for (let i = 0; i < N - 1; i += 10) out.push([i, (key === 'R' ? sim.obsSamples.r[i] : sim.obsSamples.z[i]) + add]); return out; };
+    COLS.forEach((col, ci) => {
+      T(g, col.x0, 68, col.title, 'big');
+      const K = col.key, raw = rows.map(r => K === 'R' ? r.rawR : r.rawZ), a1 = rows.map(r => K === 'R' ? r.a1R : r.a1Z), res = rows.map(r => K === 'R' ? r.resR : r.resZ), cmd = rows.map(r => K === 'R' ? r.u2r : r.u2z);
+      const u1 = P.l1 ? (K === 'R' ? sim.use.u1r : sim.use.u1z) : 0;
+      panel(g, col, ROWS[0], raw, { samples: P.phase === 'dry' ? samp(K, 0) : null }, pick(raw), P, sim, 'c0' + K);
+      panel(g, col, ROWS[1], a1, { prev: raw, off: !P.l1, samples: P.phase === 'dry' ? samp(K, u1) : null, flag: sim.sat1 && P.l1 ? 'CLIPPED' : '' }, pick(a1), P, sim, 'c1' + K);
+      const fOn = P.l2 && P.phase === 'weld';
+      panel(g, col, ROWS[2], res, { prev: a1, off: !fOn, flag: fOn && (K === 'R' ? sim.satR : sim.satZ) ? 'CLIPPED' : '' }, pick(res), P, sim, 'c2' + K);
+      panel(g, col, ROWS[3], fOn ? cmd : cmd.map(() => 0), { off: !fOn, kind: 'cmd', flag: '' }, sc ? sc : (P.range2 <= 0.1 ? 0.1 : P.range2 <= 0.25 ? 0.25 : P.range2 <= 0.5 ? 0.5 : 1), P, sim, 'c3' + K);
+      for (let d = 0; d <= 360; d += 90) { const xx = col.x0 + (col.x1 - col.x0) * d / 360; T(g, xx, 654, d + '°', 'small', 'middle'); T(g, xx, 667, (d / (P.speed / R / WK.deg)).toFixed(0) + ' s', 'small', 'middle'); }
+    });
+    const p = sim.peaks;
+    const info = [
+      ['1  Hand (setup)', 'range: the room, step about 1 mm', 'leaves peak r ' + p.rawR.toFixed(2) + ' / z ' + p.rawZ.toFixed(2) + ' mm', true],
+      ['2  Motor trim (per tube)', 'range ±' + 5 + ' mm, step ' + P.step1.toFixed(3) + ' mm', P.l1 ? 'leaves peak r ' + p.a1R.toFixed(2) + ' / z ' + p.a1Z.toFixed(2) + ' mm' : 'off', P.l1],
+      ['3  Follow (per turn)', 'range ±' + P.range2.toFixed(2) + ', step ' + P.step2.toFixed(3) + ', lag ' + P.latency.toFixed(1) + ' s', P.l2 && P.phase === 'weld' ? 'leaves peak r ' + p.resR.toFixed(3) + ' / z ' + p.resZ.toFixed(3) + ' mm' : (P.phase === 'dry' ? 'dry run: not acting' : 'off'), P.l2 && P.phase === 'weld'],
+      ['Follow stage position', 'the commanded table, replayed by rotation angle', 'about ' + (sim.maxRate2 * 1000).toFixed(0) + ' µm/s at most', P.l2 && P.phase === 'weld'],
+    ];
+    info.forEach((r, i) => {
+      const y = ROWS[i].y0;
+      g.appendChild(WK.svg('rect', { x: 14, y: y, width: 150, height: ROWS[i].h, rx: 8, class: 'box ' + (r[3] ? 'on' : 'off') }));
+      T(g, 24, y + 24, r[0], 'big');
+      const words = (t, x, yy, max) => { const ws = t.split(' '); let line = '', yv = yy; ws.forEach(w => { if ((line + ' ' + w).length > max) { T(g, x, yv, line, 'small'); yv += 14; line = w; } else line = line ? line + ' ' + w : w; }); if (line) T(g, x, yv, line, 'small'); return yv; };
+      words(r[1], 24, y + 46, 24); words(r[2], 24, y + 92, 24);
+    });
+    T(g, 205, 24, 'rotation angle / time at ' + P.speed + ' mm/s: one revolution shown; the weld carries about 20° further', 'small');
+    T(g, 205, 40, 'green band = tolerance drawing aid (' + '±' + app.ui.get('tol').toFixed(2) + ' mm), shown only where it fits the row’s scale', 'small');
+  }
+  const P0 = () => ({
+    speed: app.ui.get('speed'), tirR: app.ui.get('tirR'), tirF: app.ui.get('tirF'), ovality: app.ui.get('oval'), bearing: app.ui.get('bear'), drift: app.ui.get('drift'), handScale: app.ui.get('hand'),
+    obsNoise: app.ui.get('noise'), observe: app.ui.get('observe'), l1: app.ui.get('l1'), l2: app.ui.get('l2'), step1: app.ui.get('step1'), step2: app.ui.get('step2'), range1: 5, range2: app.ui.get('range2'),
+    harm: +app.ui.get('harm'), latency: app.ui.get('lat'), phase: app.ui.get('phase'),
+  });
+  const setPk1 = app.ui.readout('pk1', 'Radial peak after all stages'), setPk2 = app.ui.readout('pk2', 'Vertical peak after all stages'), setRate = app.ui.readout('rate', 'Fastest runout rate'), setT = app.ui.readout('rt', 'One revolution');
+  function redraw() {
+    const P = P0(), sim = simulate(P);
+    drawAll(sim, P);
+    setPk1(sim.peaks.resR.toFixed(3), 'mm'); setPk2(sim.peaks.resZ.toFixed(3), 'mm'); setRate((sim.maxRate2 * 1000).toFixed(0), 'µm/s'); setT((2 * Math.PI * R / P.speed).toFixed(0), 's');
+    const cr = sim.rows[Math.round(cursorDeg)] || sim.rows[0];
+    app.io.set({
+      commands: [
+        { name: 'Rotator speed', value: P.speed, unit: 'mm/s', note: 'existing controller, 5–15 mm/s window' },
+        { name: 'Motor trim (radial, vertical)', value: P.l1 ? sim.use.u1r.toFixed(3) + ', ' + sim.use.u1z.toFixed(3) : 'off', unit: P.l1 ? 'mm' : '', note: P.observe ? 'from this tube’s dry-run samples' : 'STALE: the last tube’s command (nothing observes this one)' },
+        { name: 'Follow stage now (radial, vertical)', value: P.l2 && P.phase === 'weld' ? (cr.u2r).toFixed(3) + ', ' + (cr.u2z).toFixed(3) : 'off', unit: P.l2 && P.phase === 'weld' ? 'mm' : '', note: 'replayed table indexed by rotation angle; step ' + P.step2.toFixed(3) + ' mm' },
+      ],
+      observes: [
+        { name: 'Dot vs seam, radial and vertical', value: P.observe ? '36 samples/rev' : 'none', unit: '', status: P.observe ? 'partly' : 'blind', note: P.observe ? 'noise ' + P.obsNoise.toFixed(3) + ' mm (made up); a sensor for this is not chosen' : 'the sensor is switched off in this branch' },
+        { name: 'Rotation angle', value: cursorDeg.toFixed(0), unit: '°', status: 'seen', note: 'rotator step count, 0.025° per pulse' },
+        { name: 'Follow stage position', value: 'from step count', status: 'partly', note: 'open loop; a small scale could confirm it' },
+        { name: 'Drift during the weld', value: '-', status: 'blind', note: 'nothing observes it while welding' },
+        { name: 'Repeat of the dry-run runout in the weld', value: '-', status: 'unresolved', note: 'not known whether it repeats' },
+      ],
+      manual: ['Hand-set the neighbourhood', 'Swap the tube; press New tube in the scene to see a different one'],
+    });
+    app.badge('sat1', sim.sat1 ? 'motor trim clipped: the hand left more than ±5 mm' : null, 'limit');
+    app.badge('sat2', (sim.satR || sim.satZ) ? 'follow range clipped: raise the range or cut the runout at its source' : null, 'warn');
+    app.badge('stale', (!P.observe && P.l1) ? 'no observation: stages apply the last tube’s commands' : null, 'info');
+  }
+
+  // ---------------------------------------------------------------- controls
+  const sit = app.ui.group('The situation (scene edits)', { help: 'What the hand and the tube leave behind. Illustrative except the two acceptance limits.' });
+  sit.slider({ id: 'hand', label: 'Hand-set error, times', min: 0, max: 4, step: 0.1, value: 1, unit: '×', kind: 'scene', help: 'Scales the hand-set neighbourhood error (1.7 mm radial, −0.9 mm vertical at 1×).', onChange: redraw });
+  sit.slider({ id: 'tirR', label: 'Radial runout (TIR)', min: 0, max: 0.6, step: 0.01, value: 0.25, unit: 'mm', kind: 'scene', help: 'Rig-doc acceptance limit: 0.25.', onChange: redraw });
+  sit.slider({ id: 'tirF', label: 'Face runout (TIR)', min: 0, max: 0.6, step: 0.01, value: 0.30, unit: 'mm', kind: 'scene', help: 'Rig-doc acceptance limit: 0.30.', onChange: redraw });
+  sit.slider({ id: 'oval', label: 'Ovality (2nd harmonic)', min: 0, max: 0.1, step: 0.005, value: 0.03, unit: 'mm', kind: 'scene', help: 'A shape the first harmonic cannot follow.', onChange: redraw });
+  sit.slider({ id: 'bear', label: 'Bearing wobble (fast)', min: 0, max: 0.05, step: 0.005, value: 0.01, unit: 'mm', kind: 'scene', help: 'High-order, not followed.', onChange: redraw });
+  sit.slider({ id: 'drift', label: 'Drift during the weld', min: 0, max: 0.3, step: 0.01, value: 0.05, unit: 'mm/min', kind: 'scene', help: 'Radial drift no stage follows.', onChange: redraw });
+  sit.button({ id: 'newtube', label: 'New tube (different hand error and runout phase)', kind: 'scene', onClick: () => {
+    prevTube = Object.assign({}, tube); trial++;
+    const r = lcg(trial * 97 + 13);
+    tube = { e0r: (r() * 2 - 1) * 2.4, e0z: (r() * 2 - 1) * 1.6, b1: r() * 6.28, b2: r() * 6.28, bz: r() * 6.28, seed: 7 + trial * 31, k: trial + 1 };
+    redraw();
+  } });
+  const stg = app.ui.group('Stages (proposed)', { help: 'Actuators software could command. Ranges and steps are illustrative.' });
+  stg.toggle({ id: 'l1', label: 'Motor trim on', value: true, kind: 'actuator', onChange: redraw });
+  stg.slider({ id: 'step1', label: 'Motor step', min: 0.005, max: 0.1, step: 0.005, value: 0.02, unit: 'mm', kind: 'actuator', help: 'Smallest trim the motor stage can make.', onChange: redraw });
+  stg.toggle({ id: 'l2', label: 'Follow stage on', value: true, kind: 'actuator', onChange: redraw });
+  stg.slider({ id: 'step2', label: 'Follow step', min: 0.001, max: 0.05, step: 0.001, value: 0.005, unit: 'mm', kind: 'actuator', onChange: redraw });
+  stg.slider({ id: 'range2', label: 'Follow range (±)', min: 0.05, max: 1, step: 0.05, value: 0.5, unit: 'mm', kind: 'actuator', onChange: redraw });
+  stg.select({ id: 'harm', label: 'Follow table harmonics', options: [{ value: '1', label: '1 (eccentricity only)' }, { value: '2', label: '1–2 (adds ovality)' }, { value: '3', label: '1–3' }], value: '1', kind: 'actuator', onChange: redraw });
+  stg.slider({ id: 'lat', label: 'Latency of the follow', min: 0, max: 3, step: 0.1, value: 0, unit: 's', kind: 'actuator', help: 'Time between the table entry and the stage arriving.', onChange: redraw });
+  stg.slider({ id: 'speed', label: 'Bead travel speed', min: 5, max: 15, step: 0.5, value: 8, unit: 'mm/s', kind: 'actuator', help: 'Existing rotator controller. Changes time per revolution and the fastest runout rate.', onChange: redraw });
+  const sen = app.ui.group('Observation and phase');
+  sen.toggle({ id: 'observe', label: 'Software can see the dot', value: true, kind: 'branch', help: 'Off: the stages can only apply the last tube’s commands.', onChange: redraw });
+  sen.slider({ id: 'noise', label: 'Estimate noise per sample', min: 0, max: 0.1, step: 0.005, value: 0.01, unit: 'mm', kind: 'scene', help: 'Made up.', onChange: redraw });
+  sen.radio({ id: 'phase', label: 'Phase', options: [{ value: 'dry', label: 'Dry run: measure' }, { value: 'weld', label: 'Weld: follow replays' }], value: 'weld', kind: 'state', help: 'Dry run shows the blue samples the software took; weld shows the follow stage acting.', onChange: redraw });
+  const vw = app.ui.group('View');
+  vw.select({ id: 'scale', label: 'Vertical scale (± mm)', options: ['auto', '0.05', '0.1', '0.25', '0.5', '1', '2', '4'], value: 'auto', kind: 'view', help: 'Auto: every row uses its own scale, so what each stage leaves is readable. A fixed scale compares the rows honestly.', onChange: redraw });
+  vw.slider({ id: 'tol', label: 'Tolerance band (drawing aid)', min: 0.02, max: 0.5, step: 0.01, value: 0.10, unit: '± mm', kind: 'view', help: 'Not a requirement. Green band on the plots.', onChange: redraw });
+  vw.toggle({ id: 'play', label: 'Turn the rotator (cursor)', value: false, kind: 'state', help: 'Moves a cursor round one revolution at the chosen bead speed (sped up 4×).', onChange: v => { playing = v; app.animate(v); } });
+  app.onFrame(dt => { if (!playing) return false; cursorDeg = (cursorDeg + 4 * (app.ui.get('speed') / R / WK.deg) * dt) % 360; redraw(); return true; });
+})();
+</script>
+</body>
+</html>

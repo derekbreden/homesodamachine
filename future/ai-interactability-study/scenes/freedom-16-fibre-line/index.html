@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where the fibre lets go</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<script type="application/json" id="scene-meta">
+{
+  "id": "freedom-16-fibre-line",
+  "title": "Where the fibre lets go of the gun: a boot takes the bend, a straight span leaves on the line through the dot",
+  "by": "freedom",
+  "origin": "swarm",
+  "status": "deep",
+  "summary": "Starts from the cable instead of the support. The fibre (with the wire conduit bundled beside it) leaves the grip base along the grip's rake, may not be twisted and bends no tighter than 350 mm while emitting. Four routes: a designed arc to a clip; a straight span along the rake; the same after a printed boot that turns the fibre parallel to the roll axis; and an S-shaped boot that lands it on the roll axis, the line through the dot. For each: the force and couple the gun keeps, how far the pull's line misses the dot, what roll does (twist or swing), and what a far anchor that gives, a wire-feed push or a roll change does to the torque about the dot.",
+  "tags": ["umbilical", "wire conduit", "boot", "line of action", "roll", "twist", "elastica", "ledger"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["wrench = where the shell lets go", "a force along the line has no torque", "twist rate = roll / distance to a hold", "clamp-clamp routes are delicate"],
+  "how": {
+    "motion": "roll motor about the grip axis; the pulley end of the rail can be aimed by two small axes",
+    "load": "shell carries the boot; a rail and post carry the collar; the gun's own support is not drawn",
+    "reference": "the roll axis: the line from the dot to the grip base; the rail is aimed along it",
+    "observe": "rail tension by a load cell, collar turn by an encoder, the dot by the eye (not drawn)",
+    "use": "read the wrench and its steps for a route before choosing the support that has to take them"
+  },
+  "software": {
+    "commands": ["roll about the grip axis (motor)", "aim of the pulley end of the rail, two axes (a pulley's weight only)"],
+    "observes": ["tension in the rail cord (load cell)", "collar turn (magnetic encoder): the twist between gun and gallows", "start of wire feed from the laser unit's status (timing of the push)", "the dot vs the seam (the eye, not drawn)"],
+    "manual": ["printing and fitting the boot; threading the fibre and the conduit", "clamping the fibre in a cable sock at the collar", "laying the fibre beyond the collar (min radius 350 mm)", "hanging the rail and its post"]
+  },
+  "notes": ["../../explorers/freedom/ideas/freedom-16-fibre-line.md", "../../explorers/freedom/ideas/freedom-15-pull-ledger.md", "../../exchange/freedom--reply-to-borrowed-w3.md", "../../explorers/freedom/notebook.md"],
+  "sources": ["../../sourcing/freedom.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/vendor/OrbitControls.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script src="../../explorers/freedom/calc/statics.js"></script>
+<script src="../../explorers/freedom/calc/cable-rod.js"></script>
+<script src="../../explorers/freedom/calc/fibre-line.js"></script>
+<script>
+(function () {
+  const V = (x, y, z) => new THREE.Vector3(x, y, z), P = WK.prim, FL = FibreLine, D2R = Math.PI / 180;
+  const A3 = a => V(a[0], a[1], a[2]);
+  const REF = { roll: 45, holeDial: 30, vertical: -15 };
+  const app = WK.app({
+    gun: { pose: REF, umbilical: false },
+    viewButtons: ['overall', 'joint', 'top', 'side'],
+    views: {
+      overall: { target: [0, -600, 420], dir: [0.95, 0.30, 0.22], dist: 2500 },
+      joint: { target: [20, -200, 250], dir: [-0.85, 0.35, 0.40], dist: 750 },
+      top: { target: [0, -600, 300], dir: [0, -0.004, 1], dist: 2300 },
+      side: { target: [0, -600, 420], dir: [1, 0, 0.05], dist: 2500 },
+    },
+    open: ['proposes', 'carries'],
+    sections: {
+      proposes:
+        '<p>Every other scene in this study has one force it cannot get rid of: the cable’s pull at the grip base. This one starts from the cable. The fibre leaves the grip base along the grip’s rake, may not be twisted, and may not bend tighter than 350 mm while emitting; the wire conduit runs beside it (23 mm off, bundled with it here) and separates to the wire guide. <b>Where does the fibre let go of the last rigid part of the shell, and what does it do to the gun there?</b> That point, not the far end, is where its wrench enters the gun.</p>' +
+        '<p>Four routes (the first radio). <b>A</b>: the fibre leaves along the rake and follows one designed arc to a clip on a post. <b>B</b>: a straight span along the rake to a swivel collar riding a rail. <b>C</b>: a printed boot on the shell turns the fibre parallel to the roll axis (it lands 48 mm off that line), then the span and collar. <b>D</b>: an S-shaped boot lands the fibre on the roll axis itself, the dashed teal line from the dot through the grip base. A force along that line has no torque about the dot, and a roll about it is a roll about the fibre’s own axis: pure twist.</p>' +
+        '<p>The gun’s support is not drawn. The readouts turn the wrench into a dot shift with a plain support you choose (a translational and a rotational stiffness at a pivot), so the same cable can be tried against a stiff and a soft holder. The wrench, the lever and the roll numbers do not depend on the support.</p>',
+      carries:
+        '<p><b>Amber</b> (translucent): the shell and the boot, which carry the fibre’s bend inside the gun: the bend’s recoil is then a load between fibre and boot, not on the aim. <b>Slate</b>: the post, the rail and the clip. <b>Green</b>: the collar and trolley, free to slide along the rail and to turn. <b>Purple</b>: what software could command (the roll motor; two small axes that aim the pulley end of the rail). <b>Gold</b>: the wire conduit, bundled 23 mm off the fibre. <b>Blue arrow</b>: the force the cable puts on the gun where it lets go; <b>red segment</b>: how far the line of that force passes from the dot; <b>teal dashes</b>: the roll axis.</p>',
+      software:
+        '<p><b>Commands:</b> the roll motor and, if the pulley end of the rail is on two small axes, its aim. <b>Observes:</b> a load cell in the rail cord reads the tension along the line; an encoder on the collar reads how far the fibre has turned relative to the gallows (twist, or its absence); the laser unit’s status says when the wire feed starts, which is the timing of the push; the dot is the eye’s (not drawn). Nothing here sees the fibre’s torsion stiffness or its hysteresis. <b>Manual:</b> printing and fitting the boot, threading the fibre and conduit, clamping the fibre in a cable sock at the collar, laying the fibre beyond the collar.</p>',
+      tried:
+        '<p><b>A clamp at each end is delicate.</b> With the clip exactly where the arc ends (route A, R 500 mm, turning down) the fibre is stress-free apart from a couple EI/R of 0.22 N·m and its weight: 1.0 N on the gun (fibre and conduit EI 0.11 N·m², illustrative). Move the clip 10 mm off the arc or turn it 5° and the force is 2.4 to 2.8 N and the tightest bend falls under 350 mm; 20 mm of extra fibre makes it 5.6 N, because a clamped fibre with any slack is post-buckled at about 4π²EI/L². A rail with a sliding collar has no such trap: a pulley end 20 mm off the line changes the force by 0.05 N.</p>' +
+        '<p><b>A boot puts the bend inside the shell, and moves the release point away from the dot.</b> In the boot the fibre is held at 350 mm and its recoil is a load between fibre and boot, not on the aim; the gun keeps the span\u2019s weight share (0.7 N) and a small couple. The price is a release point 460 to 710 mm from the dot instead of 279 mm, and a static torque of 0.3 to 0.4 N·m from the span\u2019s weight that the support must hold. It does not make a sideways step worse: 5 mm of anchor movement changes the torque about the dot by 9, 11 and 14 N·mm in routes B, C and D against 14 for the exact clip. Where the routes differ is the tolerance above and the forces along the line, next.</p>' +
+        '<p><b>Forces along the line are free; forces across it are not.</b> The wire-feed push (0.5 N along the conduit, 23 mm off the fibre) changes the torque about the dot by 71 N·mm in routes A and B, 26 in C and 11.5 in D, where the line goes through the dot. The force part of every step still moves the dot through the support\u2019s translational stiffness, whatever the route (0.5 N on the arm preset is 1 mm): the line only removes the torque. A support with a stiff rotation (the arm preset, the nose seat) turns every route\u2019s step into a fraction of a millimetre; one with weak rotation (one elastic, gravity only) turns them into millimetres. The route matters most where the support is softest in rotation.</p>' +
+        '<p><b>Roll.</b> In the kit the exit tangent is about 30° off the roll axis, so 10° of roll is 8.6° of twist and 5° of swing of the exit direction. The torque change about the dot is about 90 N·mm for the clip, 120 for the straight span along the rake, 15 for the arc boot and none for the S-boot with a swivel collar: the roll axis is then the fibre\u2019s own axis. The twist does not vanish, it is spread over the fibre between the gun and the first place that holds its rotation: a swivel turns 25° per metre (a clip 0.4 m out) into 2° per metre (the laser end, about 4.6 m). See freedom-18.</p>' +
+        '<p><b>The wire\u2019s approach to the dot.</b> The guide is fixed to the shell and points at the dot, so the wire arrives on the side it was built to as long as the gun is placed right; a roll about the roll axis leaves the wire\u2019s tip at the dot and turns its arrival direction with the gun. What the conduit can spoil is the guide\u2019s bracket (a 2 mm rod in the kit proxy): the conduit needs its own clamp on the shell tail, with the last 150 mm to the guide a slack service loop, so its push at feed start never reaches the bracket. The scene shows the conduit bundled 23 mm off the fibre and its push as an event; the clamp and the loop are not drawn.</p>' +
+        '<p><b>Tension is not what keeps the span straight.</b> With a fibre EI of 0.1 N·m² a 400 mm span sags 2.4 mm with no tension (0.5 mm at EI 0.5, 12.7 mm at 0.02). A dead weight on the rail adds a constant force along the line and, through the span\u2019s weight share, a static torque; its only job is to make the axial force a number you chose. Default: none.</p>',
+      unresolved:
+        '<p>The fibre’s bending stiffness EI, weight per metre, torsion stiffness GJ and its tension limit are not known; the sliders are guesses. Whether the real fibre leaves the grip base along the grip’s rake, along the roll axis or somewhere between is not known (the kit draws the stub leaving along the rake and bending toward the axis; the exit-angle slider is the difference). How the rail is held and aimed as the gun is placed is not solved: the roll axis moves with the gun’s other two rotations, and the pulley end has to follow to a few millimetres at 0.75 m. The boot is drawn as a tube on the shell; printing, clearance to the hand grip and the extra mass at the tail (a static torque, shown) are open. The conduit is bundled with the fibre here; its own push, friction and route are the ledger’s unmeasured rows. The gas hose is not drawn. The elastica is planar; the out-of-plane part of gravity and contact with the bench are not modelled.</p>',
+      assumptions:
+        '<ul><li>Gun and geometry are the kit’s proxy at its opening pose: roll axis 279 mm from the dot to the grip base, 30° above horizontal, exit tangent 30.2° off it (the grip’s rake): <b>illustrative</b>. Gun mass and centre of mass are not used here.</li>' +
+        '<li>Fibre EI 0.1 N·m², weight 2 N/m, torsion GJ 0.8 EI; conduit EI 0.01 N·m², 0.5 N/m; bundled so their stiffnesses and weights add: <b>illustrative</b> (fibre and conduit are [unknown]).</li>' +
+        '<li>Rod model: planar, inextensible, second-order discretisation (calc/cable-rod.js), checked against the circular arc (couple EI/R) and a moment balance. Rail routes: the collar slides on a rail and a constant force pulls it along the rail; the span is clamped at the boot exit and pinned at the collar.</li>' +
+        '<li>Support presets are round numbers consistent with freedom-01b and freedom-11: arm 0.5 N/mm at a pivot 200 mm from the dot with 100 N·m/rad; seat 10 N/mm, 20 N·m/rad at 70 mm; elastic 0.5 N/mm and 0.42 N·m/rad (gravity) at 140 mm.</li>' +
+        '<li>Event sizes (anchor gives 5 mm, feed push 0.5 N, roll +10°) are round numbers, not measurements.</li></ul>',
+    },
+  });
+  const ws = app.workstation, gun = app.gun, benchZ = ws.benchZ;
+  gun.setLaser(true);
+  const shell = gun.addShell({ style: 'sleeve', from: 'nozzleTip', to: 'gripBase', clearance: 3, role: 'load', opacity: 0.16 });
+  if (gun.wire) gun.wire.children.forEach(c => { if (c.name === 'external wire-feed conduit') c.visible = false; });
+
+  // ---------------------------------------------------------------- state
+  const S = { route: 'D', alpha: 30.2, roll: 45, EIf: 0.1, wf: 2, EIc: 0.01, wc: 0.5,
+    R: 500, psi: 60, turn: -1, errPos: 0, errAng: 0, slack: 0,
+    Rb: 350, Ls: 400, F: 0, Lp: 350, aimV: 0, aimS: 0,
+    dFar: 5, push: 0.5, dRoll: 10, ev: 'push', sup: 'arm', fric: 3, boot: false };
+  const farEnd = V(-200, -2700, benchZ + 70), feeder = V(-330, -1450, benchZ + 60);
+
+  // ---------------------------------------------------------------- parts
+  const fibre = P.cable([V(0, 0, 0), V(0, 0, 10), V(0, 0, 20)], { radius: 6.5, role: 'cable', segments: 220 }); app.add(fibre);
+  const down = P.cable([V(0, 0, 0), V(0, 0, 10), V(0, 0, 20)], { radius: 6.5, role: 'cable', segments: 160 }); app.add(down);
+  const conduit = P.cable([V(0, 0, 0), V(0, 0, 10), V(0, 0, 20)], { radius: 1.7, role: 'wire', segments: 220 }); app.add(conduit); conduit.userData.occludes = false;
+  const conduitDown = P.cable([V(0, 0, 0), V(0, 0, 10), V(0, 0, 20)], { radius: 1.7, role: 'wire', segments: 120 }); app.add(conduitDown); conduitDown.userData.occludes = false;
+  const bootMesh = P.cable([V(0, 0, 0), V(0, 0, 10), V(0, 0, 20)], { radius: 12, role: 'load', segments: 120 }); bootMesh.material = WK.mat('load', { opacity: 0.42, side: 'double' }); bootMesh.userData.occludes = false; app.add(bootMesh);
+  const feederBox = P.box(70, 50, 40, 'fixed'); feederBox.position.set(feeder.x, feeder.y, benchZ + 20); app.add(feederBox);
+  const farHatch = P.groundHatch(50, 'fixed'); farHatch.position.set(farEnd.x, farEnd.y, benchZ); app.add(farHatch);
+  const axisLine = P.dashed([V(0, 0, 0), V(0, 0, 1)], 'locate', { dash: 8, gap: 6 }); app.add(axisLine);
+  const forceLine = P.dashed([V(0, 0, 0), V(0, 0, 1)], 'sensor', { dash: 4, gap: 4 }); app.add(forceLine);
+  const leverSeg = P.rod(V(0, 0, 0), V(0, 0, 1), 1.2, 'laser', { occludes: false }); app.add(leverSeg);
+  const arrF = P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'sensor'); app.addHelper(arrF);
+  const arrT = P.arrow(V(0, 0, 0), V(0, 0, 1), 40, 'wire'); app.addHelper(arrT);
+  // A: clip on a post
+  const clipBody = P.box(30, 30, 30, 'fixed'), clipPost = P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'fixed'), clipHatch = P.groundHatch(60, 'fixed');
+  [clipBody, clipPost, clipHatch].forEach(o => app.add(o));
+  // B-D: rail, collar, pulley, weight, aim actuators, posts
+  const rail = P.rod(V(0, 0, 0), V(0, 0, 1), 4, 'fixed'), collar = P.sphere(11, 'compliant'), collarRing = P.ring(15, 3, { role: 'compliant' }), trolley = P.box(34, 20, 14, 'compliant'), hanger = P.rod(V(0, 0, 0), V(0, 0, 1), 2, 'compliant');
+  const pulley = P.cyl(22, 10, 'fixed', { axis: 'y' }), cord = P.rod(V(0, 0, 0), V(0, 0, 1), 0.9, 'load', { occludes: false }), weight = P.cyl(14, 60, 'load', { axis: 'z' }), aim = P.box(60, 40, 44, 'actuated');
+  const posts = [P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'fixed'), P.rod(V(0, 0, 0), V(0, 0, 1), 6, 'fixed')], hatches = [P.groundHatch(60, 'fixed'), P.groundHatch(60, 'fixed')];
+  const railParts = [rail, collar, collarRing, trolley, hanger, pulley, cord, weight, aim].concat(posts, hatches);
+  railParts.forEach(o => app.add(o)); [rail, hanger, cord, collarRing, collar].forEach(o => { o.userData.occludes = false; });
+  const clipParts = [clipBody, clipPost, clipHatch];
+
+  // ---------------------------------------------------------------- readouts (created in the order they are shown)
+  const rdF = app.ui.readout('rdF', 'Force on the gun where the cable lets go');
+  const rdLine = app.ui.readout('rdLine', 'Its line misses the dot by');
+  const rdM = app.ui.readout('rdM', 'Couple at the release point');
+  const rdT = app.ui.readout('rdT', 'Torque about the dot (static, set once)');
+  const rdRel = app.ui.readout('rdRel', 'Release point from the dot');
+  const rdR = app.ui.readout('rdR', 'Tightest bend on the route');
+  const rdBoot = app.ui.readout('rdBoot', 'Boot: length, mass, its own torque');
+  const rdEv = app.ui.readout('rdEv', 'Chosen event: change at the dot');
+  const rdRoll = app.ui.readout('rdRoll', 'Roll: twist and swing of the exit tangent');
+  const proxy = { off: { radial: 0, along: 0, vertical: 0, total: 0, joint: WK.JOINT }, dotOffset() { return this.off; }, beamDir() { return gun.beamDir(); } };
+  app.cornerInset({ gun: proxy });
+  const evPanel = app.ui.panel({ id: 'evtab', title: 'What each event does at the release point (chosen route)', open: true, html: '<div class="fl-tab"></div>' });
+  const chPanel = app.ui.panel({ id: 'evchart', title: 'Change of torque about the dot, all four routes (N·mm)', open: true, html: '<div class="fl-chart"></div>' });
+  const styleEl = document.createElement('style');
+  styleEl.textContent = '.fl-tab{max-width:100%;overflow-x:auto}.fl-chart{max-width:100%;overflow-x:auto}.fl-tab table{border-collapse:collapse;width:100%;font-size:11.5px}.fl-tab td,.fl-tab th{word-break:break-word}.fl-tab td,.fl-tab th{padding:3px 5px;border-bottom:1px solid #2a3441;text-align:right}.fl-tab th:first-child,.fl-tab td:first-child{text-align:left}.fl-tab th{color:#94a3b8;font-weight:600}.fl-note{font-size:11px;color:#94a3b8;margin-top:6px;line-height:1.35}';
+  document.head.appendChild(styleEl);
+
+  // ---------------------------------------------------------------- physics
+  const RC = { A: 'A clip', B: 'B rail, no boot', C: 'C rail, arc boot', D: 'D rail, S-boot' };
+  const RCOL = { A: '#f59e0b', B: '#94a3b8', C: '#5fae7c', D: '#60a5fa' };
+  const dialsNow = () => ({ roll: S.roll, holeDial: REF.holeDial, vertical: REF.vertical });
+  const bundle = () => ({ EI: S.EIf + S.EIc, w: S.wf + S.wc });
+  function routeFor(key, over) {
+    const b = bundle(), o = Object.assign({ dials: dialsNow(), alpha: S.alpha, EI: b.EI, w: b.w, N: 70 }, over || {});
+    if (key === 'A') return FL.routeClip(Object.assign({ R: S.R, psi: S.psi, turn: S.turn, errPos: S.errPos, errAng: S.errAng, slack: S.slack, N: 80 }, o));
+    const kind = key === 'B' ? 'none' : (key === 'C' ? 'arc' : 'S');
+    return FL.routeTether(Object.assign({ boot: kind, Rb: S.Rb, Ls: S.Ls, F: S.F, Lp: S.Lp, aimV: S.aimV, aimS: S.aimS, dialsRef: REF, N: 60 }, o));
+  }
+  const N3 = v => Math.hypot(v[0], v[1], v[2]), sub3 = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+  const supNow = () => FL.SUPPORTS[S.sup];
+  // the three events for a route: returns {dF, dT (N*mm vectors), note}
+  function eventsFor(key, fr) {
+    const out = {}, r0 = routeFor(key, { dFar: 0 });
+    if (!r0.ok) return null;
+    const w0 = r0.list || [r0.wrench], s0 = FL.sumWrenches(fr.D, w0);
+    const r1 = routeFor(key, { dFar: S.dFar });
+    if (r1.ok) { const s1 = FL.sumWrenches(fr.D, r1.list || [r1.wrench]); out.anchor = { dF: sub3(s1.F, s0.F), dT: sub3(s1.T, s0.T) }; }
+    const at = r0.exitAt.map((v, i) => v + fr.X[i] * 23), dFp = r0.exitDir.map(v => v * S.push);
+    out.push = { dF: dFp, dT: FL.torqueAbout(fr.D, { at: at, F: dFp, M: [0, 0, 0] }) };
+    // roll
+    const dR = S.dRoll, ts = FL.twistSwing(S.alpha, dR);
+    if (key === 'A') {
+      const L = r0.length, rw = FL.rollWrenchClamped(S.alpha, dR, L, S.EIf, 0.8 * S.EIf), lever = N3(sub3(fr.E, fr.D)) * 0.9;
+      out.roll = { dF: [rw.forceLat, 0, 0], dT: [Math.hypot(rw.torqueTwist, rw.momentBend, rw.forceLat * lever), 0, 0], twist: ts.twistDeg, swing: ts.swingDeg, twistTorque: rw.torqueTwist, bend: rw.momentBend };
+    } else {
+      const d2 = { roll: S.roll + dR, holeDial: REF.holeDial, vertical: REF.vertical }, r2 = routeFor(key, { dials: d2, dFar: 0 });
+      if (r2.ok) { const s2 = FL.sumWrenches(fr.D, r2.list || [r2.wrench]); out.roll = { dF: sub3(s2.F, s0.F), dT: sub3(s2.T, s0.T), twist: ts.twistDeg, swing: ts.swingDeg, twistTorque: S.fric, bend: 0 }; }
+    }
+    return out;
+  }
+  const fmt = (v, d) => (Math.abs(v) >= 1000 ? v.toFixed(0) : v.toFixed(d == null ? 1 : d));
+
+  // ---------------------------------------------------------------- drawing
+  function setCable(mesh, pts, minRadiusTag) { mesh.setPoints(pts.map(A3)); return mesh; }
+  const offsetPts = (pts, X, e) => pts.map(p => [p[0] + X[0] * e, p[1] + X[1] * e, p[2] + X[2] * e]);
+  let last = null, tabTimer = null;
+  function recompute() {
+    const dials = dialsNow(); gun.setDials(dials.roll, dials.holeDial, dials.vertical);
+    const fr = FL.frame(dials, S.alpha), key = S.route, r = routeFor(key, {});
+    const bad = !r.ok;
+    if (bad) { app.badge('eq', 'no equilibrium for this route (' + (r.reason || '') + ')', 'limit'); if (!last) return; } else app.badge('eq', null);
+    const R = bad ? last.r : r; if (!bad) last = { r: r, fr: fr };
+    const isA = key === 'A', X = fr.X, e = 23;
+    // fibre + boot + span drawing
+    let fibrePts, endPt, endDir, releasePt;
+    if (isA) { fibrePts = R.curve; endPt = R.clip; endDir = R.clipDir; releasePt = fr.E; }
+    else { fibrePts = R.bootWorld.concat(R.span.slice(1)); endPt = R.collar; const n = R.span.length, a = R.span[n - 2], b = R.span[n - 1]; endDir = norm3([b[0] - a[0], b[1] - a[1], b[2] - a[2]]); releasePt = R.exitAt; }
+    setCable(fibre, fibrePts); setCable(conduit, offsetPts(fibrePts, X, e));
+    // boot
+    const showBoot = !isA && R.hasBoot && R.bootWorld.length > 2;
+    bootMesh.visible = showBoot; if (showBoot) bootMesh.setPoints(R.bootWorld.map(A3));
+    // downstream fibre and conduit
+    const dc = WK.bezierCable(endPt, endDir, farEnd, [0, -1, 0], { stiffness: 'auto' }), dpts = dc.getPoints(90);
+    down.setPoints(dpts);
+    const cc = WK.bezierCable(A3(endPt).add(A3(X).multiplyScalar(e)), endDir, feeder.clone().setZ(benchZ + 42), [1, 0, 0], { stiffness: 'auto' });
+    conduitDown.setPoints(cc.getPoints(90));
+    const dMin = dc.minRadius();
+    // clip / rail parts
+    clipParts.forEach(o => { o.visible = isA; }); railParts.forEach(o => { o.visible = !isA; });
+    if (isA) {
+      const c = A3(R.clip); clipBody.position.copy(c); clipBody.quaternion.setFromUnitVectors(V(0, 0, 1), V(0, 0, 1));
+      const top = c.clone(); const foot = V(c.x, c.y, benchZ); clipPost.setEnds(foot, top); clipHatch.position.set(c.x, c.y, benchZ);
+    } else {
+      const B = A3(R.exitAt), C = A3(R.collar), Pp = A3(R.pulley), dirR = Pp.clone().sub(B).normalize(), up = V(0, 0, 1);
+      const off = up.clone().addScaledVector(dirR, -up.dot(dirR)).normalize().multiplyScalar(48);     // the rail runs 48 mm above the fibre line, the collar hangs from it
+      const r0 = B.clone().add(off), r1 = Pp.clone().add(off);
+      rail.setEnds(r0, r1);
+      trolley.position.copy(C).add(off); trolley.quaternion.setFromUnitVectors(V(0, 0, 1), dirR);
+      hanger.setEnds(C.clone().add(off), C); collar.position.copy(C); collarRing.position.copy(C); collarRing.quaternion.setFromUnitVectors(V(0, 0, 1), dirR);
+      pulley.position.copy(r1).add(dirR.clone().multiplyScalar(18)); pulley.quaternion.setFromUnitVectors(V(0, 1, 0), V(0, 1, 0));
+      aim.position.copy(r1).add(dirR.clone().multiplyScalar(60)).add(V(0, 0, 40));
+      const hasW = S.F > 0.05; cord.visible = weight.visible = hasW;
+      if (hasW) { const pp = pulley.position.clone(), wp = pp.clone().add(V(0, 0, -(120 + S.F * 25))); cord.setEnds(pp.clone().add(V(0, 0, -6)), wp.clone().add(V(0, 0, 30))); weight.position.copy(wp); }
+      posts[0].setEnds(V(B.x + dirR.x * 130, B.y + dirR.y * 130, benchZ), r0.clone().add(dirR.clone().multiplyScalar(130))); hatches[0].position.set(B.x + dirR.x * 130, B.y + dirR.y * 130, benchZ);
+      posts[1].setEnds(V(r1.x, r1.y, benchZ), r1); hatches[1].position.set(r1.x, r1.y, benchZ);
+    }
+    // roll axis, force line, lever, arrows
+    const u = A3(fr.u), Dd = A3(fr.D);
+    axisLine.setPoints([Dd.clone().addScaledVector(u, -60), Dd.clone().addScaledVector(u, 1350)]);
+    const wr = R.wrench, Fv = A3(wr.F), Fn = N3(wr.F), at = A3(wr.at);
+    const dir = Fn > 1e-6 ? Fv.clone().normalize() : u.clone();
+    // for B-D the line we care about is the TENSION line: the rail force along the rail direction through the release point
+    let lineDir = dir, lineAt = at, lineF = Fn;
+    if (!isA) { lineDir = V(R.h[0] * R.rail[0] + 0 * R.rail[1], 0, 0); const h = R.h, e2 = R.e2; lineDir = V(h[0] * R.rail[0] + e2[0] * R.rail[1], h[1] * R.rail[0] + e2[1] * R.rail[1], h[2] * R.rail[0] + e2[2] * R.rail[1]).normalize(); }
+    forceLine.setPoints([lineAt.clone().addScaledVector(lineDir, -420), lineAt.clone().addScaledVector(lineDir, 520)]);
+    const q = lineAt.clone().addScaledVector(lineDir, Dd.clone().sub(lineAt).dot(lineDir)), lever = q.distanceTo(Dd);
+    leverSeg.setEnds(Dd, q); leverSeg.visible = lever > 0.5;
+    const scaleN = 26; arrF.set(at, dir, Math.max(14, Fn * scaleN)); arrF.visible = Fn > 0.02;
+    arrT.set(A3(fr.E), A3(fr.t), 70); arrT.visible = true;
+    // numbers
+    const T = FL.sumWrenches(fr.D, R.list || [wr]).T, Tn = N3(T), Mn = N3(wr.M) / 1000;
+    const relD = N3(sub3(R.exitAt, fr.D));
+    rdF(fmt(Fn, 2), 'N'); rdLine(fmt(FL.lineOffset(fr.D, lineAt.toArray(), isA ? wr.F : [lineDir.x, lineDir.y, lineDir.z]), 0), 'mm' + (isA ? ' (net force)' : ' (the rail’s tension line)'));
+    rdM(fmt(Mn, 3), 'N·m'); rdT(fmt(Tn, 0), 'N·mm'); rdRel(fmt(relD, 0), 'mm');
+    const routeMin = isA ? Math.min(R.minR, dMin) : Math.min((R.hasBoot ? R.boot.R : 1e9), R.minR, dMin);
+    rdR(routeMin > 1e5 ? 'straight' : fmt(routeMin, 0), routeMin > 1e5 ? '' : 'mm');
+    const bd = WK.cableBadge(routeMin); app.badge('bend', routeMin > 1e5 ? null : bd.text, bd.level);
+    // boot mass and torque
+    if (showBoot) { const m = 0.09 * R.boot.length / 1000, mid = A3(R.bootWorld[Math.floor(R.bootWorld.length / 2)]), tq = mid.clone().sub(Dd).cross(V(0, 0, -m * FL.G)).length(); rdBoot(R.boot.length.toFixed(0) + ' mm, ' + (m * 1000).toFixed(0) + ' g, ' + tq.toFixed(0), 'N·mm'); }
+    else rdBoot('none', '');
+    // the chosen event at the dot, and the tables (debounced)
+    const ev = eventsFor(key, fr);
+    last.ev = ev; last.fr = fr;
+    const ts = FL.twistSwing(S.alpha, S.dRoll);
+    rdRoll(ts.twistDeg.toFixed(1) + '° twist, ' + ts.swingDeg.toFixed(1) + '° swing', 'per ' + S.dRoll + '° of roll');
+    const sel = ev && ev[S.ev] ? ev[S.ev] : null;
+    if (sel) { const sh = FL.supportShift(supNow(), fr, sel.dF, sel.dT); rdEv(fmt(sh.total, sh.total < 0.1 ? 3 : 2) + ' mm, beam turns ' + fmt(sh.turnDeg, 3) + '°', ''); setProxy(sh); }
+    app.badge('lever', !isA && S.route === 'B' ? 'the tension line passes ' + fmt(lever, 0) + ' mm from the dot: a straight span along the rake is not on the roll axis' : null, 'warn');
+    app.badge('clipbench', isA && Math.min.apply(null, R.curve.map(p => p[2])) < benchZ + 20 ? 'the drawn fibre reaches the bench' : null, 'warn');
+    if (isA && S.turn > 0) app.badge('loop', 'an arc up to a gallows means a big loop back down beyond the clip: watch the downstream bend', 'info'); else app.badge('loop', null);
+    ioPanel(R, fr, Fn, lever, ts);
+    if (typeof endLabel !== 'undefined' && endLabel.set) endLabel.set(isA ? 'clip on a post' : 'swivel collar on a rail');
+    clearTimeout(tabTimer); tabTimer = setTimeout(tables, 60);
+    app.invalidate();
+  }
+  function setProxy(sh) {
+    // corner inset: the computed dot shift, split into the seam's radial / tangent / vertical (world x, y, z at the +X station); the beam is the gun's own
+    proxy.off = { radial: sh.dot[0], along: sh.dot[1], vertical: sh.dot[2], total: sh.total, joint: WK.JOINT };
+  }
+  function norm3(v) { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; }
+
+  // ---------------------------------------------------------------- tables and chart
+  const TXT = (a, str) => WK.svg('text', Object.assign({}, a, { text: str }));
+  function tables() {
+    if (!last || !last.fr) return;
+    const fr = last.fr, key = S.route, sup = supNow();
+    // table for the chosen route
+    const ev = last.ev; let html = '<table><tr><th>event</th><th>change of force</th><th>change of torque about the dot</th><th>dot moves</th><th>beam turns</th></tr>';
+    const names = { anchor: 'far anchor gives ' + S.dFar + ' mm', push: 'wire-feed push ' + S.push + ' N', roll: 'roll +' + S.dRoll + '°' };
+    ['anchor', 'push', 'roll'].forEach(k => { const x = ev && ev[k]; if (!x) { html += '<tr><td>' + names[k] + '</td><td colspan="4">no equilibrium</td></tr>'; return; } const sh = FL.supportShift(sup, fr, x.dF, x.dT); html += '<tr><td>' + names[k] + '</td><td>' + N3(x.dF).toFixed(3) + ' N</td><td>' + N3(x.dT).toFixed(1) + ' N·mm</td><td>' + (sh.total < 0.1 ? sh.total.toFixed(3) : sh.total.toFixed(2)) + ' mm</td><td>' + sh.turnDeg.toFixed(3) + '°</td></tr>'; });
+    html += '</table><div class="fl-note">Support: ' + sup.label + '. Torque changes are magnitudes; for roll on route A they are the root-sum-square of twist torque, bend moment and lateral force times lever (signs not tracked). On D a roll only turns the swivel: the span does not change.</div>';
+    evPanel.querySelector('.fl-tab').innerHTML = html;
+    // chart: torque change per event for all four routes
+    const rows = { anchor: [], push: [], roll: [] };
+    ['A', 'B', 'C', 'D'].forEach(k => { const e2 = eventsFor(k, fr); ['anchor', 'push', 'roll'].forEach(n => rows[n].push(e2 && e2[n] ? N3(e2[n].dT) : NaN)); });
+    const mx = Math.max(10, ...['anchor', 'push', 'roll'].map(n => Math.max(...rows[n].filter(isFinite)))) * 1.1, W = 420, H = 190, x0 = 46, y0 = 14, gw = (W - x0 - 10) / 3;
+    const svg = WK.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%' });
+    ['anchor', 'push', 'roll'].forEach((n, gi) => {
+      rows[n].forEach((v, k) => { const bh = isFinite(v) ? (v / mx) * (H - y0 - 40) : 0, x = x0 + gi * gw + 8 + k * ((gw - 14) / 4), bw = (gw - 14) / 4 - 3; svg.appendChild(WK.svg('rect', { x: x, y: H - 26 - bh, width: bw, height: Math.max(1, bh), fill: RCOL['ABCD'[k]], opacity: 'ABCD'[k] === key ? 1 : 0.55, rx: 1.5 })); svg.appendChild(WK.svg('text', { x: x + bw / 2, y: H - 29 - bh, 'font-size': 9, fill: '#c8d0da', 'text-anchor': 'middle', 'font-family': 'system-ui,sans-serif', text: isFinite(v) ? (v < 10 ? v.toFixed(1) : v.toFixed(0)) : '-' })); svg.appendChild(WK.svg('text', { x: x + bw / 2, y: H - 15, 'font-size': 9, 'font-weight': 700, fill: RCOL['ABCD'[k]], 'text-anchor': 'middle', 'font-family': 'system-ui,sans-serif', text: 'ABCD'[k] })); });
+      svg.appendChild(TXT({ x: x0 + gi * gw + gw / 2 - 4, y: H - 2, 'font-size': 10, fill: '#94a3b8', 'text-anchor': 'middle', 'font-family': 'system-ui,sans-serif' }, n === 'anchor' ? 'anchor gives ' + S.dFar + ' mm' : (n === 'push' ? 'feed push ' + S.push + ' N' : 'roll +' + S.dRoll + '°')));
+    });
+    svg.appendChild(WK.svg('line', { x1: x0, y1: H - 26, x2: W - 6, y2: H - 26, stroke: '#3a4656' })); svg.appendChild(TXT({ x: 4, y: y0 + 4, 'font-size': 9, fill: '#94a3b8', 'font-family': 'system-ui,sans-serif' }, mx.toFixed(0) + ' N·mm'));
+    const holder = chPanel.querySelector('.fl-chart'); holder.innerHTML = ''; holder.appendChild(svg);
+    const cap = document.createElement('div'); cap.className = 'fl-note'; cap.textContent = 'A clip on a post, B straight span along the rake, C arc boot (48 mm off the axis), D S-boot on the axis. Same fibre, same events; the chosen route is solid. A torque change is what the support has to absorb.'; holder.appendChild(cap);
+  }
+
+  // ---------------------------------------------------------------- I/O
+  function ioPanel(R, fr, Fn, lever, ts) {
+    const isA = S.route === 'A';
+    app.io.set({
+      commands: [{ name: 'Roll about the grip axis (dial)', value: S.roll.toFixed(0), unit: '°', note: 'motor; the fibre turns with it' }].concat(isA ? [] : [{ name: 'Pulley end of the rail: aim in plane / sideways', value: S.aimV.toFixed(0) + ' / ' + S.aimS.toFixed(0), unit: 'mm', note: 'two small axes carrying only a pulley' }]),
+      observes: [
+        { name: isA ? 'Tension in the fibre at the clip' : 'Tension in the rail cord (load cell)', value: isA ? '-' : (S.F).toFixed(2), unit: isA ? '' : 'N', status: isA ? 'blind' : 'seen', note: isA ? 'a clamp reads nothing; a cell in the clip post could' : 'the rail’s constant force plus friction' },
+        { name: 'Collar turn relative to the gallows (encoder)', value: isA ? '-' : ts.twistDeg.toFixed(1), unit: isA ? '' : '° per ' + S.dRoll + '° roll', status: isA ? 'blind' : 'seen', note: 'the twist the fibre would otherwise hold' },
+        { name: 'Start of wire feed', value: 'from the laser unit’s status', status: 'partly', note: 'timing of the push; its size is not measured' },
+        { name: 'Dot vs seam', value: 'the eye (not drawn)', status: 'partly', note: 'this scene’s corner inset shows the computed shift of the chosen event, not a sensor reading' },
+        { name: 'Fibre EI, weight, GJ, tension limit', value: '-', status: 'unresolved', note: 'never measured' },
+      ],
+      manual: ['Print and fit the boot; thread fibre and conduit', 'Clamp the fibre in a cable sock at the collar', 'Lay the fibre beyond the collar at 350 mm or more', 'Hang the rail and its post; aim it along the roll axis'] });
+  }
+
+  // ---------------------------------------------------------------- controls
+  const rerun = () => recompute();
+  const g1 = app.ui.group('Arrangement', { open: true, help: 'Where the fibre lets go of the shell, and what holds it beyond.' });
+  g1.radio({ id: 'route', label: 'Route', options: [{ value: 'A', label: 'A clip' }, { value: 'B', label: 'B rail, no boot' }, { value: 'C', label: 'C arc boot' }, { value: 'D', label: 'D S-boot' }], value: 'D', kind: 'branch', visual: () => [fibre, bootMesh], help: 'A: leaves along the rake, one designed arc to a clip. B: straight span along the rake to a swivel collar on a rail. C: a boot turns the fibre parallel to the roll axis (48 mm off it). D: an S-boot lands it on the roll axis.', onChange: v => { S.route = v; ['R', 'psi', 'turn', 'errPos', 'errAng', 'slack'].forEach(i => app.ui.enable(i, v === 'A')); ['Rb', 'Ls', 'F', 'Lp', 'aimV', 'aimS'].forEach(i => app.ui.enable(i, v !== 'A')); app.ui.enable('Rb', v === 'C' || v === 'D'); rerun(); } });
+  g1.slider({ id: 'alpha', label: 'Exit direction of the fibre, off the roll axis', min: 0, max: 45, step: 0.2, value: 30.2, unit: '°', kind: 'scene', visual: () => arrT, help: 'The kit’s stub leaves along the grip’s rake, 30.2° off the roll axis. Unknown for the real gun.', onChange: v => { S.alpha = v; rerun(); } });
+  g1.slider({ id: 'roll', label: 'Roll about the grip axis (dial)', min: 15, max: 75, step: 1, value: 45, unit: '°', kind: 'actuator', visual: () => gun.group, help: 'The reference scene’s grip-axis roll, a motor in the automated vision. The rail’s pulley end stays where it was aimed at 45°.', onChange: v => { S.roll = v; rerun(); } });
+  g1.radio({ id: 'sup', label: 'Gun’s support (for the dot shift)', options: [{ value: 'arm', label: 'arm, rotation held' }, { value: 'seat', label: 'nose seat + bridle' }, { value: 'elastic', label: 'one elastic, gravity only' }], value: 'arm', kind: 'branch', noVisual: true, help: 'A plain support: translational stiffness and a rotational stiffness about a pivot. See the assumptions.', onChange: v => { S.sup = v; rerun(); } });
+  g1.radio({ id: 'ev', label: 'Event shown in the corner inset', options: [{ value: 'anchor', label: 'anchor gives' }, { value: 'push', label: 'feed push' }, { value: 'roll', label: 'roll' }], value: 'push', kind: 'view', noVisual: true, onChange: v => { S.ev = v; rerun(); } });
+  const g2 = app.ui.group('Fibre and conduit (unknown: illustrative)', { open: false, help: 'Bundled: stiffnesses and weights add.' });
+  g2.slider({ id: 'EIf', label: 'Fibre bending stiffness EI', min: 0.02, max: 0.6, step: 0.01, value: 0.1, unit: 'N·m²', kind: 'scene', noVisual: true, help: 'Not measured. 0.05 to 0.5 is the study’s range.', onChange: v => { S.EIf = v; rerun(); } });
+  g2.slider({ id: 'wf', label: 'Fibre weight per metre', min: 0.5, max: 4, step: 0.1, value: 2, unit: 'N/m', kind: 'scene', noVisual: true, help: 'Not measured: weigh a metre.', onChange: v => { S.wf = v; rerun(); } });
+  g2.slider({ id: 'EIc', label: 'Conduit bending stiffness', min: 0, max: 0.05, step: 0.005, value: 0.01, unit: 'N·m²', kind: 'scene', noVisual: true, onChange: v => { S.EIc = v; rerun(); } });
+  g2.slider({ id: 'wc', label: 'Conduit weight per metre', min: 0, max: 1.5, step: 0.1, value: 0.5, unit: 'N/m', kind: 'scene', noVisual: true, onChange: v => { S.wc = v; rerun(); } });
+  const g3 = app.ui.group('Route A: the clip', { open: false, help: 'A circular arc that leaves along the exit tangent and ends in a clip that holds the fibre in the arc’s own direction. The two error sliders say how wrong the clip is set.' });
+  g3.radio({ id: 'turn', label: 'The arc turns', options: [{ value: -1, label: 'down, to a low post' }, { value: 1, label: 'up, to a gallows' }], value: -1, kind: 'scene', visual: () => fibre, onChange: v => { S.turn = +v; rerun(); } });
+  g3.slider({ id: 'R', label: 'Route radius', min: 350, max: 900, step: 10, value: 500, unit: 'mm', kind: 'scene', visual: () => fibre, help: 'The manual asks for at least 350 mm while emitting.', onChange: v => { S.R = v; rerun(); } });
+  g3.slider({ id: 'psi', label: 'Angle the arc turns through', min: 20, max: 100, step: 1, value: 60, unit: '°', kind: 'scene', visual: () => fibre, onChange: v => { S.psi = v; rerun(); } });
+  g3.slider({ id: 'errPos', label: 'Clip set off the arc’s end (normal to it)', min: -30, max: 30, step: 1, value: 0, unit: 'mm', kind: 'scene', visual: () => clipBody, onChange: v => { S.errPos = v; rerun(); } });
+  g3.slider({ id: 'errAng', label: 'Clip turned off the arc’s direction', min: -15, max: 15, step: 0.5, value: 0, unit: '°', kind: 'scene', visual: () => clipBody, onChange: v => { S.errAng = v; rerun(); } });
+  g3.slider({ id: 'slack', label: 'Extra fibre between gun and clip', min: 0, max: 60, step: 1, value: 0, unit: 'mm', kind: 'scene', visual: () => fibre, help: 'Slack in a clamp-clamp route makes it buckle: the force goes up, not down.', onChange: v => { S.slack = v; rerun(); } });
+  const g4 = app.ui.group('Routes B, C, D: boot, span and rail', { open: true, help: 'A straight span from the boot exit to a swivel collar that rides a rail aimed along the span.' });
+  g4.slider({ id: 'Rb', label: 'Boot bend radius', min: 350, max: 700, step: 10, value: 350, unit: 'mm', kind: 'scene', visual: () => bootMesh, help: 'A printed boot holds the fibre at this radius; the manual asks for 350 mm or more.', onChange: v => { S.Rb = v; rerun(); } });
+  g4.slider({ id: 'Ls', label: 'Span from boot exit to collar', min: 150, max: 800, step: 10, value: 400, unit: 'mm', kind: 'scene', visual: () => [fibre, collar], onChange: v => { S.Ls = v; rerun(); } });
+  g4.slider({ id: 'F', label: 'Constant force pulling the collar along the rail', min: 0, max: 5, step: 0.1, value: 0, unit: 'N', kind: 'scene', visual: () => weight, help: 'A dead weight over a pulley. With zero the collar just slides.', onChange: v => { S.F = v; rerun(); } });
+  g4.slider({ id: 'Lp', label: 'Rail beyond the collar', min: 100, max: 800, step: 10, value: 350, unit: 'mm', kind: 'scene', visual: () => rail, onChange: v => { S.Lp = v; rerun(); } });
+  g4.slider({ id: 'aimV', label: 'Aim of the pulley end, in the vertical plane', min: -50, max: 50, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => aim, help: 'Two small axes carrying a pulley. Zero puts the rail on the line the boot exit points along.', onChange: v => { S.aimV = v; rerun(); } });
+  g4.slider({ id: 'aimS', label: 'Aim of the pulley end, sideways', min: -50, max: 50, step: 1, value: 0, unit: 'mm', kind: 'actuator', visual: () => aim, onChange: v => { S.aimS = v; rerun(); } });
+  const g5 = app.ui.group('Events (round numbers)', { open: false });
+  g5.slider({ id: 'dFar', label: 'The far anchor gives (clip post or rail head)', min: 0, max: 15, step: 0.5, value: 5, unit: 'mm', kind: 'scene', noVisual: true, onChange: v => { S.dFar = v; rerun(); } });
+  g5.slider({ id: 'push', label: 'Wire-feed push along the conduit', min: 0, max: 2, step: 0.05, value: 0.5, unit: 'N', kind: 'scene', noVisual: true, help: 'Not measured. Jog the wire with a dial gauge on the shell.', onChange: v => { S.push = v; rerun(); } });
+  g5.slider({ id: 'dRoll', label: 'Roll change', min: 2, max: 30, step: 1, value: 10, unit: '°', kind: 'scene', noVisual: true, onChange: v => { S.dRoll = v; rerun(); } });
+  g5.slider({ id: 'fric', label: 'Swivel collar friction torque', min: 0, max: 30, step: 0.5, value: 3, unit: 'N·mm', kind: 'scene', noVisual: true, help: 'What a ball-bearing swivel leaves between the fibre and the gallows.', onChange: v => { S.fric = v; rerun(); } });
+  ['R', 'psi', 'turn', 'errPos', 'errAng', 'slack'].forEach(i => app.ui.enable(i, false));
+
+  // labels
+  app.label(() => gun.dotWorld(), 'dot', { cls: 'laser' });
+  app.label(() => { const fr = last && last.fr; return fr ? A3(fr.D).addScaledVector(A3(fr.u), 1250) : V(0, 0, 0); }, 'roll axis: the line through the dot', { cls: 'locate' });
+  app.label(() => last && S.route !== 'A' && last.r.hasBoot ? A3(last.r.bootWorld[Math.floor(last.r.bootWorld.length * 0.55)]) : V(0, 0, -9999), 'printed boot on the shell', { cls: 'load' });
+  const endLabel = app.label(() => last ? (S.route === 'A' ? A3(last.r.clip) : A3(last.r.collar)) : V(0, 0, 0), 'swivel collar on a rail', { cls: 'compliant' });
+  app.label(() => arrF.position.clone().addScaledVector(V(0, 0, 1), 26), 'force on the gun', { cls: 'sensor' });
+  app.label(() => feeder.clone().setZ(benchZ + 60), 'wire feeder box', { cls: 'fixed' });
+  recompute();
+})();
+</script>
+</body>
+</html>

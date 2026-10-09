@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proximity skin</title>
+<link rel="stylesheet" href="../../kit/weldkit.css">
+<style>
+  .px-wrap { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr); gap: 12px; align-items: start; }
+  @media (max-width: 900px) { .px-wrap { grid-template-columns: 1fr; } }
+  .px-card { background: var(--wk-bg); border: 1px solid var(--wk-line); border-radius: 8px; padding: 6px 8px 8px; }
+  .px-card h3 { font: 600 11px system-ui, sans-serif; text-transform: uppercase; letter-spacing: .07em; color: var(--wk-muted); margin: 0 0 4px; }
+  .px-card svg, .px-card canvas { display: block; width: 100%; height: auto; }
+  .px-note { font: 11px/1.35 system-ui, sans-serif; color: var(--wk-faint); margin-top: 4px; }
+  .px-num { font: 12px ui-monospace, "SF Mono", Menlo, monospace; color: var(--wk-text); }
+  svg text { font: 10.5px system-ui, sans-serif; fill: #c9d3e0; }
+  svg .lbl-s { fill: #93c5fd; } svg .lbl-r { fill: #fca5a5; } svg .lbl-g { fill: #9aa4b2; }
+</style>
+<script type="application/json" id="scene-meta">
+{
+  "id": "eyes-04-proximity-skin",
+  "title": "Proximity skin: pads or coils around the nozzle, no light at all",
+  "by": "eyes",
+  "origin": "swarm",
+  "status": "developed",
+  "summary": "Capacitive pads or eddy-current coils on the printed shell measure their distance to the metal of the plate and the wall. Glare, fume, the rim and the gun's shadow do not matter. Move the gun and watch the readings, the solved offset, and the map of where this sensor is good, poor or blind.",
+  "tags": ["observer", "no-light", "capacitive", "eddy-current", "section-view", "error-map"],
+  "branchOf": [],
+  "combines": [],
+  "transferable": ["metal distance without line of sight", "error map over the offset plane", "model mismatch becomes bias", "copper nozzle and wire as confounders"],
+  "how": {
+    "motion": "none: the gun is placed by whatever moves it in other ideas; here two scene sliders move it.",
+    "load": "sensors ride on the printed shell; wiring follows the umbilical; nothing new carries the gun.",
+    "reference": "the metal itself: plate top and wall face are the reference; the dot is inferred from a fixed offset.",
+    "observe": "four pads or coils (two faces, two axial stations) read distance to the plate and the wall.",
+    "use": "any time the gun is near the tube: dry run or welding; blind beyond its range."
+  },
+  "software": {
+    "commands": ["nothing here (a measurement); the reading could drive the trim stage of eyes-01"],
+    "observes": ["four raw readings (fF or ppm)", "solved radial and vertical offset of the dot from a calibrated model", "whether the gun is inside the sensing envelope"],
+    "manual": ["calibrating the model against a ground-truth view (eyes-07)", "mounting the pads on the shell", "setting the range/gain"]
+  },
+  "notes": ["../../explorers/eyes/ideas/eyes-04-proximity-skin.md", "../../explorers/eyes/ideas/eyes-07-sectioned-tube.md", "../../exchange/freedom--on--eyes-w2.md", "../../exchange/eyes--reply-to-freedom-w3.md"],
+  "sources": ["../../sourcing/eyes.md"]
+}
+</script>
+</head>
+<body>
+<script src="../../kit/vendor/three.min.js"></script>
+<script src="../../kit/weldkit.js"></script>
+<script>
+(function () {
+  const S = (tag, a, ...k) => WK.svg(tag, a, ...k), H = WK.h, DEG = Math.PI / 180;
+  const app = WK.app({
+    stage: 'custom', open: ['proposes', 'tried'],
+    sections: {
+      proposes: '<p>Four small pads (or coils) sit on the printed shell around the nozzle, two facing the wall side and two facing the plate side, at two distances back from the dot. Each reports how close the nearest metal is. From four numbers the software solves two: how far the dot is from the corner, radially and vertically. There is no camera, so glare on stainless, fume, the rim and the gun’s own shadow do not matter.</p>' +
+        '<p>What it gives up: the sensor never sees the dot. The dot is inferred from a fixed offset between the pads and the beam (calibrated once). And it only works near metal: beyond a few tens of millimetres the readings stop changing. The map on the right shows the region where the solved offset is good.</p>' +
+        '<p>Use the disturbance controls to see how a slightly wrong sensor model turns into a bias: the map changes and the solved position slides off the truth.</p>',
+      carries: '<p>Nothing new carries the gun. The pads sit on the printed shell (amber outline) that already wraps the nozzle and barrel. The sensor electronics (a capacitance-to-digital or inductance-to-digital chip and a small board) sit on the shell; two wires join the umbilical. Whether the shell can wrap the copper nozzle without disturbing the laser’s own work-contact circuit is unresolved.</p>',
+      software: '<p>Software reads the four raw values and solves two unknowns from a calibrated model. The solve is a few Gauss-Newton steps. The reading rate can be hundreds per second (FDC1004: 100/200/400 S/s [TI product page]); the seam moves at most about 0.02 mm/s relative to a fixed gun (calc/runout-rates.mjs), so most of that is averaging headroom.</p>',
+      tried: '<p><b>Broke:</b> pads far from the dot. At 60 mm back the plate and wall are 30 to 50 mm away, and the capacitive resolution is worse than half a millimetre (calc/proximity-model.mjs: 0.9 mm at 30 mm gap with 0.5 fF noise). <b>Changed:</b> the pad-distance slider; closer is better but hotter and more exposed to spatter (unresolved).</p>' +
+        '<p><b>Broke:</b> one gain wrong by a few percent. The solved dot slides by tenths of a millimetre and the error map turns red. <b>Left standing:</b> the sensor cannot detect its own model error; calibration against a ground-truth view (eyes-07) is the only fix I have.</p>' +
+        '<p><b>Found (freedom, wave 2):</b> which pad reads what. At the 40° facet with the dot on the corner the front wall pad gets 83 % of its reading from the wall and 17 % from the plate; the front plate pad 95 % plate, 5 % wall; the rear pads 81 / 19 and 85 / 15 (calc/pad-selectivity.mjs; the bars show it live). At 0° it is 64 % and 59 %; 60° makes them pure but the pads look so far sideways that the readings shrink. If the wall pair were replaced by a contact, the plate pair alone would have no radial information at all (noise-only 1-sigma of r 3.6 to 13 mm against 0.2 to 1 mm for z at the scene’s pads), not a fold: a contact gives the wall’s radial position once, at the instant it triggers, so it can calibrate the wall pads but cannot replace them as a signal. Span (gain) can be calibrated in situ by nudging the trim stage a known amount and reading the pad, but with the drawn 6 mm pads and 0.5 fF noise a 5 % gain error is 0.24 mm, which is a single solve’s own noise: it needs a 3 to 6 mm nudge and about 16 repeats to reach a 2.5 to 5 % estimate. An offset is worse than a gain: 1.5 fF on the front wall pad (three times the chip’s noise) moves the solve 1.06 mm, and a nudge cannot see it; a zero from free space (the retract lift at the end of the bead) or from a contact can. <b>Left standing:</b> the roller of freedom-07 or the stylus of freedom-12 and the pads want the same 5 to 8 mm beside the nozzle.</p>' +
+        '<p><b>Broke:</b> a conductor near the front pad (wire guide, wire, hand, umbilical clip). <b>Left standing:</b> nothing in the four numbers says it is there.</p>' +
+        '<p><b>Broke:</b> temperature drift. At a 5 mm coil and 8 mm gap, 50 ppm equals 0.017 mm; at 12 mm, 0.07 mm. Slow, so a per-pass zero (measure at a known pose before every bead) would remove most of it; not drawn.</p>' +
+        '<p><b>Broke:</b> the eddy-current model in the scene assumes a perfect conductor and one turn. 316L is a weaker conductor but at 5 MHz the skin depth is about 0.19 mm (calc), thin against 1.65 mm and 6.35 mm, so it behaves as a thick target. The real coil, the copper nozzle next to it and the shell are not modelled.</p>',
+      unresolved: '<p>Everything about the real geometry: where a pad can physically go in the canyon (the nozzle tip is about 8 mm from the wall and 7 mm above the rim in the reference pose); how the copper nozzle, the wire guide and the umbilical shift the readings; electrical noise from the 2.5 kW laser supply and stepper drivers next to a femtofarad measurement; spatter on the pads; whether the laser’s work-contact check is affected by extra conductors on the shell. Whether the wall and plate can be told apart when the gun is over the rim edge.</p>' +
+        '<p>Question for Derek: is the copper nozzle removable and what does the work-contact circuit actually connect to at the gun end?</p>',
+      assumptions: '<ul><li>Geometry in the section plane: plate top at z = 0 for r &lt; 0; wall inner face at r = 0 up to the rim at z = 6.35; wall thickness 1.65 [repo]. The gun’s beam tilt (32° from vertical in the reference pose) and 16 mm nozzle clearance are illustrative (kit).</li>' +
+        '<li>Capacitive model: pad area = size squared x 0.94 plus fringe: C = eps0 A / (d + 1 mm), times a facing factor cos squared. Noise 0.5 fF (FDC1004 resolution, TI product page) times the noise multiplier.</li>' +
+        '<li>Eddy model: one-turn loop over a perfect conductor by the image method with complete elliptic integrals; noise assumed 1 ppm of L (illustrative; not checked against the LDC1612 datasheet noise plots). LDC1612: 28-bit, 2 channels [TI product page].</li>' +
+        '<li>Wall counts only up to the rim; the plate only for r &lt; 0, both with a soft edge. This is a schematic response, not an electromagnetic simulation.</li>' +
+        '<li>Pad positions (two stations, two faces, on the shell surface) and facet angles are illustrative.</li></ul>',
+    },
+  });
+  app.legend([{ role: 'work', label: 'Plate and wall (metal)' }, { role: 'gun', label: 'Gun nozzle and barrel (proxy)' }, { role: 'load', label: 'Printed shell' }, { role: 'sensor', label: 'Pad or coil' }, { role: 'laser', label: 'Dot and beam' }]);
+  const stage = app.stageEl;
+  const wrap = H('div', { class: 'px-wrap' }); stage.appendChild(wrap);
+  const cardMain = H('div', { class: 'px-card' }, H('h3', { text: 'Section through the seam (r toward the wall, z up)' }));
+  const right = H('div', null);
+  const cardMap = H('div', { class: 'px-card' }, H('h3', { text: 'Where is the solved offset good? (gun offset plane)' }));
+  const cardBars = H('div', { class: 'px-card', style: { marginTop: '10px' } }, H('h3', { text: 'The four raw readings' }));
+  right.append(cardMap, cardBars); wrap.append(cardMain, right);
+
+  // ---------------------------------------------------------------- physics (illustrative models)
+  const eps0 = 8.854e-12, mu0 = 4e-7 * Math.PI;
+  function ellipKE(k) { let a = 1, b = Math.sqrt(1 - k * k), c = k, s = 0.5 * c * c, pow = 1, n = 0; while (Math.abs(c) > 1e-13 && n < 30) { const an = (a + b) / 2, bn = Math.sqrt(a * b); c = (a - b) / 2; a = an; b = bn; pow *= 2; s += pow / 2 * c * c; n++; } const K = Math.PI / (2 * a); return { K: K, E: K * (1 - s) }; }
+  const selfL = a => mu0 * a * 1e-3 * (Math.log(8 * a / 0.1) - 2);
+  function mutual(a, sep) { const A = a * 1e-3, s = sep * 1e-3, k = Math.sqrt(4 * A * A / (4 * A * A + s * s)); const e = ellipKE(k); return mu0 * A * ((2 / k - k) * e.K - (2 / k) * e.E); }
+  function respCap(d, size) { return eps0 * (size * size * 0.94 * 1e-6) / ((d + 1) * 1e-3) * 1e15; }   // fF
+  function respEddy(d, size) { const a = size / 2; return mutual(a, 2 * d) / selfL(a) * 1e6; }            // ppm
+  const RIM = 6.35, WALL = 1.65;
+  const st = { seed: 1, geo: null };
+  const P = () => ({ type: app.ui.get('type'), size: app.ui.get('size'), L1: app.ui.get('L1'), beta: app.ui.get('beta') * DEG, phi: app.ui.get('phi') * DEG });
+  const shellR = L => Math.max(5.2, Math.min(11.5, 5.2 + (L - 16) * (11.5 - 5.2) / 23));   // shell radius behind the dot (kit proxy: nozzle cone 5.2, barrel 11.5)
+  function geometry(g, p) {   // pad poses for a gun whose dot is at g = (r, z); pads look along the beam axis turned by +-phi
+    const b = { x: Math.sin(p.beta), y: -Math.cos(p.beta) }, n = { x: Math.cos(p.beta), y: Math.sin(p.beta) };   // beam dir (to the dot) and its perpendicular toward the wall side
+    const mW = { x: Math.sin(p.beta + p.phi), y: -Math.cos(p.beta + p.phi) }, mP = { x: Math.sin(p.beta - p.phi), y: -Math.cos(p.beta - p.phi) };
+    const pads = [];
+    [[p.L1, 'front'], [p.L1 + 26, 'rear']].forEach(function (st_) {
+      const L = st_[0], w = shellR(L) + 0.8, c = { x: g.r - L * b.x, y: g.z - L * b.y };
+      pads.push({ id: st_[1] + ' wall face', pos: { x: c.x + w * n.x, y: c.y + w * n.y }, m: mW, station: st_[1], face: 'wall' });
+      pads.push({ id: st_[1] + ' plate face', pos: { x: c.x - w * n.x, y: c.y - w * n.y }, m: mP, station: st_[1], face: 'plate' });
+    });
+    return { b: b, n: n, pads: pads, tip: { x: g.r - 16 * b.x, y: g.z - 16 * b.y } };
+  }
+  // nearest points on the finite metal: plate top (r <= 0) and wall face (0 <= z <= rim)
+  const qPlate = pos => ({ x: Math.min(0, pos.x), y: 0 }), qWall = pos => ({ x: 0, y: Math.max(0, Math.min(RIM, pos.y)) });
+  function term(pad, q, R, size) {
+    const dx = q.x - pad.pos.x, dy = q.y - pad.pos.y, d = Math.max(0.5, Math.hypot(dx, dy));
+    const f = Math.pow(Math.max(0, (pad.m.x * dx + pad.m.y * dy) / d), 2);
+    return { d: d, f: f, v: R(d, size) * f };
+  }
+  function response(pad, p) {
+    const R = p.type === 'cap' ? respCap : respEddy;
+    return term(pad, qPlate(pad.pos), R, p.size).v + term(pad, qWall(pad.pos), R, p.size).v;
+  }
+  function collides(g, p) {   // does the shell touch the rim corner (0, rim) or the plate / wall? axis-distance test against the shell radius
+    const geo = geometry(g, p), b = geo.b;
+    for (const c of [{ x: 0, y: RIM }, { x: 0, y: 0 }]) {
+      const vx = c.x - g.r, vy = c.y - g.z, s = -(vx * b.x + vy * b.y), perp = Math.abs(vx * b.y - vy * b.x);
+      if (s > 16 && s < 91 && perp < shellR(s) + 3.0) return true;
+    }
+    // tip
+    if (geo.tip.y < 0.5 && geo.tip.x < 1) return true;
+    return false;
+  }
+  function readings(g, p, pert) {
+    const geo = geometry(g, p);
+    return geo.pads.map(function (pad, i) {
+      let v = response(pad, p);
+      if (pert) {
+        if (pad.face === 'wall') v *= 1 + pert.gain / 100;
+        if (i === 0) v *= 1 + pert.conf / 100;         // conductor near the front wall-side pad
+        v += pert.drift;                                // common drift, in the reading's own unit
+      }
+      return v;
+    });
+  }
+  function solve(y, p, x0) {   // Gauss-Newton on (r, z) with the nominal model
+    let x = { r: x0 ? x0.r : 0, z: x0 ? x0.z : 0 };
+    for (let it = 0; it < 12; it++) {
+      const y0 = readings({ r: x.r, z: x.z }, p), h = 0.02;
+      const yr = readings({ r: x.r + h, z: x.z }, p), yz = readings({ r: x.r, z: x.z + h }, p);
+      const J = y0.map((_, i) => [(yr[i] - y0[i]) / h, (yz[i] - y0[i]) / h]);
+      const res = y.map((v, i) => v - y0[i]);
+      let a = 0, b = 0, c = 0, d1 = 0, d2 = 0;
+      J.forEach((row, i) => { a += row[0] * row[0]; b += row[0] * row[1]; c += row[1] * row[1]; d1 += row[0] * res[i]; d2 += row[1] * res[i]; });
+      const det = a * c - b * b;
+      if (Math.abs(det) < 1e-18) return { ok: false, r: x.r, z: x.z, cond: Infinity };
+      const dr = (c * d1 - b * d2) / det, dz = (a * d2 - b * d1) / det;
+      x.r = Math.max(-30, Math.min(30, x.r + dr)); x.z = Math.max(-30, Math.min(30, x.z + dz));
+      if (Math.abs(dr) + Math.abs(dz) < 1e-5) break;
+    }
+    return { ok: true, r: x.r, z: x.z };
+  }
+  function sigma(g, p) {   // noise-only 1-sigma of the solved (r, z) from the Jacobian
+    const y0 = readings(g, p), h = 0.02, yr = readings({ r: g.r + h, z: g.z }, p), yz = readings({ r: g.r, z: g.z + h }, p);
+    let a = 0, b = 0, c = 0;
+    y0.forEach((_, i) => { const jr = (yr[i] - y0[i]) / h, jz = (yz[i] - y0[i]) / h; a += jr * jr; b += jr * jz; c += jz * jz; });
+    const det = a * c - b * b; if (det < 1e-18) return { r: Infinity, z: Infinity };
+    const sn = (p.type === 'cap' ? 0.5 : 1.0) * app.ui.get('noise');
+    return { r: sn * Math.sqrt(c / det), z: sn * Math.sqrt(a / det) };
+  }
+  const gauss = k => { const s = Math.sin(k * 127.1 + 311.7) * 43758.5453, t = Math.sin(k * 269.5 + 183.3) * 43758.5453; const u = (s - Math.floor(s)) || 1e-6, v = t - Math.floor(t); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+
+  // ---------------------------------------------------------------- drawing: section
+  const VB = { r0: -30, r1: 12, z0: -9, z1: 40, k: 13 };
+  const W = (VB.r1 - VB.r0) * VB.k, HH = (VB.z1 - VB.z0) * VB.k;
+  const X = r => (r - VB.r0) * VB.k, Y = z => (VB.z1 - z) * VB.k;
+  const svg = S('svg', { viewBox: '0 0 ' + W + ' ' + HH, role: 'img', 'aria-label': 'section through the seam with the gun and the sensor pads' });
+  cardMain.appendChild(svg);
+  const gGrid = S('g'), gMetal = S('g'), gGun = S('g'), gPads = S('g'), gLines = S('g'), gDot = S('g'), gTxt = S('g');
+  svg.append(gGrid, gMetal, gLines, gGun, gPads, gDot, gTxt);
+  for (let r = -30; r <= 10; r += 5) { gGrid.appendChild(S('line', { x1: X(r), y1: 0, x2: X(r), y2: HH, stroke: '#232c3a', 'stroke-width': 1 })); gGrid.appendChild(S('text', { x: X(r) + 2, y: HH - 3, text: r, class: 'lbl-g' })); }
+  for (let z = -5; z <= 40; z += 5) { gGrid.appendChild(S('line', { x1: 0, y1: Y(z), x2: W, y2: Y(z), stroke: '#232c3a', 'stroke-width': 1 })); gGrid.appendChild(S('text', { x: 2, y: Y(z) - 2, text: z, class: 'lbl-g' })); }
+  const cWork = WK.roleHex('work'), cGun = WK.roleHex('gun'), cLoad = WK.roleHex('load'), cSensor = WK.roleHex('sensor'), cLaser = WK.roleHex('laser');
+  gMetal.append(
+    S('rect', { x: 0, y: Y(0), width: X(0), height: 6.35 * VB.k, fill: cWork, opacity: 0.9 }),
+    S('rect', { x: X(0), y: Y(RIM), width: WALL * VB.k, height: (RIM + 9) * VB.k, fill: cWork, opacity: 0.9 }),
+    S('text', { x: X(-28), y: Y(-3), text: 'plate 6.35 (metal)', class: 'lbl-g', fill: '#111' }),
+    S('text', { x: X(2.2), y: Y(RIM) - 4, text: 'rim', class: 'lbl-g' }),
+    S('text', { x: X(2.2), y: Y(0.4), text: 'wall 1.65', class: 'lbl-g' }));
+  const gunBody = S('polygon', { fill: cGun, opacity: 0.95 }), shell = S('polygon', { fill: 'none', stroke: cLoad, 'stroke-width': 2, 'stroke-dasharray': '5 3' });
+  gGun.append(gunBody, shell);
+  const beam = S('line', { stroke: cLaser, 'stroke-width': 2 }), dotC = S('circle', { r: 5, fill: cLaser }), dotX = S('path', { stroke: cLaser, 'stroke-width': 1.5, fill: 'none' });
+  const estX = S('path', { stroke: cSensor, 'stroke-width': 2, fill: 'none' }), estT = S('text', { class: 'lbl-s', text: 'solved' });
+  gDot.append(beam, dotC, dotX, estX, estT);
+  const padEls = [];
+  for (let i = 0; i < 4; i++) { const rect = S('rect', { width: 24, height: 9, fill: cSensor, rx: 1.5 }), line1 = S('line', { stroke: cSensor, 'stroke-width': 1, 'stroke-dasharray': '3 3', opacity: 0.8 }), line2 = S('line', { stroke: cSensor, 'stroke-width': 1, 'stroke-dasharray': '3 3', opacity: 0.8 }), t1 = S('text', { class: 'lbl-s' }), t2 = S('text', { class: 'lbl-s' }), lab = S('text', { class: 'lbl-s' }); gPads.appendChild(rect); gLines.append(line1, line2); gTxt.append(t1, t2, lab); padEls.push({ rect: rect, l1: line1, l2: line2, t1: t1, t2: t2, lab: lab }); }
+  const dimTxt = S('text', { x: 10, y: 16, class: 'lbl-r', text: '' });
+  gTxt.append(dimTxt);
+
+  // ---------------------------------------------------------------- drawing: map + bars
+  const cv = H('canvas', { width: 330, height: 330 }); cardMap.appendChild(cv);
+  const mapNote = H('div', { class: 'px-note' }); cardMap.appendChild(mapNote);
+  const barsSvg = S('svg', { viewBox: '0 0 300 124' }); cardBars.appendChild(barsSvg);
+  const barsNote = H('div', { class: 'px-note' }); cardBars.appendChild(barsNote);
+  const MR = 8;   // map half-range mm
+  function drawMap(p, g, pert) {
+    const ctx = cv.getContext('2d'), N = 41, cs = cv.width / N;
+    const cx = c => (c + MR) / (2 * MR) * cv.width, cy = z => (MR - z) / (2 * MR) * cv.height;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    let good = 0;
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      const r = -MR + (i + 0.5) / N * 2 * MR, z = MR - (j + 0.5) / N * 2 * MR, gg = { r: r, z: z };
+      if (collides(gg, p)) { ctx.fillStyle = '#334155'; ctx.fillRect(i * cs, j * cs, cs + 0.6, cs + 0.6); continue; }
+      const y = readings(gg, p, pert), est = solve(y, p, { r: r, z: z });
+      const s = sigma(gg, p), bias = Math.hypot(est.r - r, est.z - z), tot = Math.hypot(bias, s.r, s.z);
+      let col;
+      if (!isFinite(tot)) col = '#3b1d1d'; else if (tot < 0.05) col = '#16a34a'; else if (tot < 0.1) col = '#65a30d'; else if (tot < 0.3) col = '#ca8a04'; else if (tot < 1) col = '#c2410c'; else col = '#7f1d1d';
+      if (tot < 0.1) good++;
+      ctx.fillStyle = col; ctx.fillRect(i * cs, j * cs, cs + 0.6, cs + 0.6);
+    }
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx(0), 0); ctx.lineTo(cx(0), cv.height); ctx.moveTo(0, cy(0)); ctx.lineTo(cv.width, cy(0)); ctx.stroke();
+    ctx.fillStyle = '#e5e7eb'; ctx.font = '11px system-ui'; ctx.fillText('offset r (mm) → toward wall', 6, cv.height - 6); ctx.fillText('z ↑', 6, 14);
+    ctx.fillText('0 = dot on the corner', cx(0) + 4, cy(0) - 4);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx(g.r), cy(g.z), 6, 0, 7); ctx.stroke(); ctx.beginPath(); ctx.moveTo(cx(g.r) - 10, cy(g.z)); ctx.lineTo(cx(g.r) + 10, cy(g.z)); ctx.moveTo(cx(g.r), cy(g.z) - 10); ctx.lineTo(cx(g.r), cy(g.z) + 10); ctx.stroke();
+    return good / (N * N);
+  }
+  function drawBars(y, p, sh) {
+    while (barsSvg.firstChild) barsSvg.removeChild(barsSvg.firstChild);
+    const unit = p.type === 'cap' ? 'fF' : 'ppm', mx = Math.max(...y, 1e-9), log = p.type === 'eddy';
+    const f = v => log ? Math.log10(Math.max(v, 1)) / Math.log10(Math.max(mx, 10)) : v / mx;
+    y.forEach(function (v, i) {
+      const x0 = 8 + i * 72, h = Math.max(1, 70 * f(v));
+      barsSvg.appendChild(S('rect', { x: x0, y: 82 - h, width: 52, height: h, fill: cSensor, opacity: 0.85, rx: 2 }));
+      barsSvg.appendChild(S('text', { x: x0 + 26, y: 78 - h, 'text-anchor': 'middle', text: v.toFixed(v > 100 ? 0 : 1) }));
+      barsSvg.appendChild(S('text', { x: x0 + 26, y: 96, 'text-anchor': 'middle', text: ['front wall', 'front plate', 'rear wall', 'rear plate'][i] }));
+      if (sh) barsSvg.appendChild(S('text', { x: x0 + 26, y: 109, 'text-anchor': 'middle', class: 'lbl-g', text: Math.round(100 * sh[i]) + '% plate' }));
+    });
+    barsSvg.appendChild(S('text', { x: 296, y: 12, 'text-anchor': 'end', class: 'lbl-g', text: unit + (log ? ' (log scale)' : '') }));
+  }
+
+  // ---------------------------------------------------------------- update
+  function update() {
+    const p = P(), g = { r: app.ui.get('gr'), z: app.ui.get('gz') };
+    const pert = { gain: app.ui.get('gain'), conf: app.ui.get('conf'), drift: app.ui.get('drift') * (p.type === 'cap' ? 1 : 30) };
+    const geo = geometry(g, p);
+    // gun drawing
+    const b = geo.b, n = geo.n, back = L => ({ x: g.r - L * b.x, y: g.z - L * b.y });
+    const tip = back(16), a1 = back(16 + 8), a2 = back(16 + 75);
+    const poly = [[tip.x + 2.2 * n.x, tip.y + 2.2 * n.y], [a1.x + 5 * n.x, a1.y + 5 * n.y], [a2.x + 8.5 * n.x, a2.y + 8.5 * n.y], [a2.x - 8.5 * n.x, a2.y - 8.5 * n.y], [a1.x - 5 * n.x, a1.y - 5 * n.y], [tip.x - 2.2 * n.x, tip.y - 2.2 * n.y]];
+    gunBody.setAttribute('points', poly.map(q => X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join(' '));
+    const sp = [[tip.x + 5.2 * n.x, tip.y + 5.2 * n.y], [a1.x + 8 * n.x, a1.y + 8 * n.y], [a2.x + 11.5 * n.x, a2.y + 11.5 * n.y], [a2.x - 11.5 * n.x, a2.y - 11.5 * n.y], [a1.x - 8 * n.x, a1.y - 8 * n.y], [tip.x - 5.2 * n.x, tip.y - 5.2 * n.y]];
+    shell.setAttribute('points', sp.map(q => X(q[0]).toFixed(1) + ',' + Y(q[1]).toFixed(1)).join(' '));
+    beam.setAttribute('x1', X(tip.x)); beam.setAttribute('y1', Y(tip.y)); beam.setAttribute('x2', X(g.r)); beam.setAttribute('y2', Y(g.z));
+    dotC.setAttribute('cx', X(g.r)); dotC.setAttribute('cy', Y(g.z));
+    dotX.setAttribute('d', 'M' + (X(g.r) - 9) + ' ' + Y(g.z) + 'H' + (X(g.r) + 9) + 'M' + X(g.r) + ' ' + (Y(g.z) - 9) + 'V' + (Y(g.z) + 9));
+    // pads and distance lines
+    let minD = Infinity;
+    geo.pads.forEach(function (pad, i) {
+      const e = padEls[i], cxp = X(pad.pos.x), cyp = Y(pad.pos.y), ang = Math.atan2(-pad.m.y, pad.m.x) / DEG;
+      e.rect.setAttribute('x', -12); e.rect.setAttribute('y', -4.5); e.rect.setAttribute('transform', 'translate(' + cxp + ' ' + cyp + ') rotate(' + (-ang + 90 - 90) + ')');
+      e.rect.setAttribute('transform', 'translate(' + cxp + ' ' + cyp + ') rotate(' + (-Math.atan2(pad.m.y, pad.m.x) / DEG + 90) + ')');
+      const qp = qPlate(pad.pos), qw = qWall(pad.pos), dP = Math.hypot(qp.x - pad.pos.x, qp.y - pad.pos.y), dW = Math.hypot(qw.x - pad.pos.x, qw.y - pad.pos.y);
+      minD = Math.min(minD, dP, dW);
+      const tp = term(pad, qp, () => 1, 1), tw = term(pad, qw, () => 1, 1), showP = tp.f > 0.02, showW = tw.f > 0.02;
+      e.l1.style.display = showP ? '' : 'none'; e.t1.style.display = showP ? '' : 'none';
+      e.l2.style.display = showW ? '' : 'none'; e.t2.style.display = showW ? '' : 'none';
+      if (showP) { e.l1.setAttribute('x1', cxp); e.l1.setAttribute('y1', cyp); e.l1.setAttribute('x2', X(qp.x)); e.l1.setAttribute('y2', Y(qp.y)); e.t1.setAttribute('x', (cxp + X(qp.x)) / 2 + 4); e.t1.setAttribute('y', (cyp + Y(qp.y)) / 2); e.t1.textContent = dP.toFixed(1); }
+      if (showW) { e.l2.setAttribute('x1', cxp); e.l2.setAttribute('y1', cyp); e.l2.setAttribute('x2', X(qw.x)); e.l2.setAttribute('y2', Y(qw.y)); e.t2.setAttribute('x', (cxp + X(qw.x)) / 2 + 4); e.t2.setAttribute('y', (cyp + Y(qw.y)) / 2 - 4); e.t2.textContent = dW.toFixed(1); }
+      e.lab.setAttribute('x', cxp + (pad.face === 'wall' ? 14 : -74)); e.lab.setAttribute('y', cyp + (pad.face === 'wall' ? -8 : 14)); e.lab.textContent = pad.station + ' ' + pad.face;
+    });
+    // readings, solve, map
+    const yTrue = readings(g, p, pert);
+    const noise = p.type === 'cap' ? 0.5 : 1.0, nm = app.ui.get('noise');
+    const yMeas = yTrue.map((v, i) => v + (app.ui.get('sample') ? gauss(st.seed * 4 + i) * noise * nm : 0));
+    const est = solve(yMeas, p, { r: 0, z: 0 });
+    const good = drawMap(p, g, pert), sg = sigma(g, p);
+    const shares = geo.pads.map(function (pad) { const R = p.type === 'cap' ? respCap : respEddy, tp = term(pad, qPlate(pad.pos), R, p.size).v, tw = term(pad, qWall(pad.pos), R, p.size).v; return tp / Math.max(1e-12, tp + tw); });
+    drawBars(yMeas, p, shares);
+    estX.setAttribute('d', 'M' + (X(est.r) - 8) + ' ' + (Y(est.z) - 8) + 'l16 16M' + (X(est.r) - 8) + ' ' + (Y(est.z) + 8) + 'l16 -16');
+    estT.setAttribute('x', X(est.r) + 10); estT.setAttribute('y', Y(est.z) + 16);
+    const errR = est.r - g.r, errZ = est.z - g.z, err = Math.hypot(errR, errZ);
+    const inside = Math.abs(g.r) < MR && Math.abs(g.z) < MR;
+    dimTxt.textContent = 'true offset (' + g.r.toFixed(2) + ', ' + g.z.toFixed(2) + ')   solved (' + est.r.toFixed(2) + ', ' + est.z.toFixed(2) + ')   error ' + err.toFixed(2) + ' mm';
+    mapNote.textContent = 'green under 0.05 mm, yellow-green 0.1, amber 0.3, orange 1, dark red worse (noise + bias with the current disturbances); slate grey: the drawn shell would touch the rim or plate. ' + (100 * good).toFixed(0) + ' % of the plotted +/-' + MR + ' mm is better than 0.1 mm. White cross: where the gun is.';
+    barsNote.textContent = 'Under each bar: how much of that pad’s reading comes from the plate (the rest is the wall). No pad reads only one surface; the leak is why a gain error on the wall pads moves the vertical answer too. Noise-only 1-sigma of the solve here: r ' + (isFinite(sg.r) ? sg.r.toFixed(3) : 'n/a') + ', z ' + (isFinite(sg.z) ? sg.z.toFixed(3) : 'n/a') + ' mm.';
+    app.badge('metal', collides(g, p) ? 'the drawn shell would touch the rim or plate at this offset' : (minD < 2 ? 'a pad is within 2 mm of metal: too close' : null), 'limit');
+    app.badge('bias', err > 0.15 ? 'the disturbances bias the solved offset by ' + err.toFixed(2) + ' mm; the sensor cannot see this itself' : null, 'warn');
+    const f2 = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+    app.io.set({
+      commands: [{ name: 'Nothing is commanded here', value: '-', note: 'a measurement; the solved offset could drive a trim stage (eyes-01)' }],
+      observes: [
+        { name: 'Four raw readings', value: yMeas.map(v => v.toFixed(v > 100 ? 0 : 1)).join(' / '), unit: p.type === 'cap' ? 'fF' : 'ppm', status: 'seen' },
+        { name: 'Dot offset from the corner, radial (solved)', value: f2(est.r), unit: 'mm', status: err < 0.15 ? 'partly' : 'partly', note: 'model solve; error against the truth is shown on the drawing' },
+        { name: 'Dot offset from the corner, vertical (solved)', value: f2(est.z), unit: 'mm', status: 'partly' },
+        { name: 'The dot itself', value: '-', status: 'blind', note: 'no light: the dot is inferred from a fixed offset between pads and beam' },
+        { name: 'Model error, drift, nearby conductors', value: '-', status: 'blind', note: 'nothing in the four numbers reveals them' },
+        { name: 'Outside the sensing envelope', value: inside ? 'inside' : 'outside plotted range', status: inside ? 'seen' : 'blind' },
+        { name: 'Copper nozzle, wire guide, umbilical, spatter, EMI from the laser supply', value: '-', status: 'unresolved' },
+      ],
+      manual: ['Calibrate the sensor model against a ground-truth view', 'Mount the pads; set gain and range', 'Zero the drift before each pass'],
+    });
+  }
+  const ui = app.ui;
+  const g1 = ui.group('Sensor');
+  g1.radio({ id: 'type', label: 'Sensing principle', kind: 'branch', value: 'cap', options: [{ value: 'cap', label: 'Capacitive pads' }, { value: 'eddy', label: 'Eddy-current coils' }], help: 'Capacitive: measures pad-to-metal capacitance. Eddy-current: measures the inductance drop of a coil near metal.', onChange: update });
+  g1.slider({ id: 'size', label: 'Pad side / coil diameter', min: 3, max: 14, step: 0.5, value: 8, unit: 'mm', kind: 'scene', help: 'Bigger sees further and gains signal, but must fit beside the nozzle.', onChange: update });
+  g1.slider({ id: 'L1', label: 'Front pads: distance back from the dot', min: 17, max: 70, step: 1, value: 17, unit: 'mm', kind: 'scene', help: 'The rear pads sit 26 mm further back. The nozzle tip is 16 mm from the dot. Closer is more sensitive, hotter and more exposed to spatter.', onChange: update });
+  g1.slider({ id: 'beta', label: 'Beam tilt from vertical toward the wall', min: 10, max: 50, step: 1, value: 32, unit: '°', kind: 'scene', help: 'The reference pose has 32° in section (illustrative).', onChange: update });
+  g1.slider({ id: 'phi', label: 'Pad facet angle from the beam axis', min: 0, max: 80, step: 1, value: 40, unit: '°', kind: 'scene', help: 'Which way each pad looks. At 0 every pad looks along the beam and sees plate and wall together: the solve is ill-conditioned. Around 40° the wall pads read the wall and the plate pads read the plate.', onChange: update });
+  g1.slider({ id: 'noise', label: 'Noise multiplier', min: 0.2, max: 5, step: 0.1, value: 1, unit: 'x', kind: 'scene', help: 'Times the chip noise (0.5 fF, or 1 ppm assumed).', onChange: update });
+  g1.toggle({ id: 'sample', label: 'Show one noisy reading', value: false, kind: 'state', onChange: update });
+  g1.button({ id: 'resample', label: 'Draw new noise', kind: 'state', onClick: () => { st.seed++; update(); } });
+  const g2 = ui.group('Where the gun is (scene edits: nothing is commanded)');
+  g2.slider({ id: 'gr', label: 'Dot offset from the corner, radial', min: -8, max: 8, step: 0.1, value: 2.0, unit: 'mm', kind: 'scene', onChange: update });
+  g2.slider({ id: 'gz', label: 'Dot offset from the corner, vertical', min: -8, max: 8, step: 0.1, value: -1.5, unit: 'mm', kind: 'scene', onChange: update });
+  const g3 = ui.group('Disturbances (nobody tells the solver)');
+  g3.slider({ id: 'gain', label: 'Gain error of the wall-facing pads', min: 0, max: 15, step: 0.5, value: 0, unit: '%', kind: 'scene', help: 'The solver assumes the calibrated gain; the pads actually read this much high.', onChange: update });
+  g3.slider({ id: 'conf', label: 'Conductor near the front wall-facing pad', min: 0, max: 40, step: 1, value: 0, unit: '% of its reading', kind: 'scene', help: 'A wire guide, hand or clip that adds to that pad’s reading.', onChange: update });
+  g3.slider({ id: 'drift', label: 'Drift (temperature, electronics)', min: 0, max: 5, step: 0.1, value: 0, unit: 'fF (x30 ppm if eddy)', kind: 'scene', help: 'Added equally to every reading.', onChange: update });
+  update();
+})();
+</script>
+</body>
+</html>
