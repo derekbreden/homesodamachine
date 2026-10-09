@@ -1,0 +1,176 @@
+{
+  "printer": "Mark2",
+  "authorization": {
+    "start_quote": "The bed is clear and Mark 2 is ready for your next attempt, whatever you want to try here.",
+    "complete_faucet_quote": "That should say at the end, new complete faucet. Faucet. F-A-U-C-E-T."
+  },
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-strong-support-mark2/2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+  "archive_sha256": "636f8658af0ad0f2f44fe7e5224cb3417208fd11b75ebd3875681999f5265e1e",
+  "gcode_sha256": "be1c3357bee96c84710d7d74a9c1d64b892ac69981a04983b87d387fe309bac5",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-strong-support-mark2/2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.3mf",
+  "prepared_project_sha256": "df8af607d4e44016fa94a000f75f41755d14b64cd800c37a122262da3ea0f8e0",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "maximum_foreground_transactions": 1,
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-strong-support-mark2/2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ],
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_attempted": true,
+  "accepted": true,
+  "submitted": true,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "native_estimated_seconds": 44247.09765625,
+  "parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "status": "Accepted; startup in progress",
+  "send_attempted_at_utc": "2026-10-09T18:12:55.462947+00:00",
+  "send_successful": true,
+  "send_count": 1,
+  "accepted_at_utc": "2026-10-09T18:13:31.257724+00:00",
+  "accepted_at_central": "2026-10-09T13:13:31.257724-05:00",
+  "printer_task_id": "1323967341",
+  "printer_job_id": "1323967341",
+  "accepted_archive_name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "start_notification_reported": true,
+  "forecast_complete_at_utc": "2026-10-10T06:30:58.355380+00:00",
+  "forecast_complete_at_central": "2026-10-10T01:30:58.355380-05:00",
+  "acceptance_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-09T18:13:31.257724+00:00",
+    "archive": {
+      "name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+      "sha256": "636f8658af0ad0f2f44fe7e5224cb3417208fd11b75ebd3875681999f5265e1e",
+      "gcode_sha256": "be1c3357bee96c84710d7d74a9c1d64b892ac69981a04983b87d387fe309bac5",
+      "slots": {
+        "1": {
+          "type": "PET-CF",
+          "colour": "161616"
+        }
+      },
+      "objects": [
+        "industrial-shell-base",
+        "faucet-shell-tip",
+        "industrial-display-cover",
+        "industrial-above-counter-plate",
+        "lever-replica"
+      ]
+    },
+    "printer_task_id": "1323967341",
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 2749,
+    "mc_remaining_time": 0
+  },
+  "latest_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-09T18:14:11.205579+00:00",
+    "task_id": "1323967341",
+    "job_id": "1323967341",
+    "subtask_name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 3825,
+    "mc_percent": 0,
+    "mc_remaining_time": 737,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "extruders": {
+      "0": {
+        "actual_c": 43,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 173,
+        "target_c": 200
+      }
+    },
+    "bed_actual_c": 43.0,
+    "bed_target_c": 43.0,
+    "chamber": {
+      "actual_c": 33,
+      "target_c": 0
+    }
+  },
+  "post_start_peer_observation": {
+    "printer": "H2C",
+    "observed_at": "2026-10-09T18:14:11.405849+00:00",
+    "task_id": "1320974719",
+    "job_id": "1320974719",
+    "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1452,
+    "total_layer_num": 1535,
+    "mc_percent": 90,
+    "mc_remaining_time": 157,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "extruders": {
+      "0": {
+        "actual_c": 49,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 279,
+        "target_c": 280
+      }
+    },
+    "bed_actual_c": 80.0,
+    "bed_target_c": 80.0,
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  },
+  "first_layer_observed": false
+}

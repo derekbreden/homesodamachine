@@ -36,7 +36,9 @@ Nozzle Offset Calibration Auto.
 and [launch](launch.json) bind the approved archive and printer observations.
 
 Mark2 accepted task/job `1323545051` at 2026-10-09 10:40:27 CDT
-(15:40:27 UTC) through one foreground Send. A fresh post-start
-reading reports the exact archive RUNNING at layer 0/2749, print error 0 and no HMS
-faults. Native completion is forecast near 2026-10-10 00:35 CDT. Timelapse On was
-verified in the Send dialog; captured frames have not been checked.
+(15:40:27 UTC) through one foreground Send. The article failed after support
+breakdown near the tip. [Physical evidence](physical-result/physical-result.json)
+binds the user report, six photographs and the matching timelapse. The clip shows
+irregular tip-side extrusion and a displaced tangled fragment while the larger
+objects remain at their bed locations; it does not capture the instant of impact.
+Physical exterior finish and cleanup of this complete article are unevaluated.

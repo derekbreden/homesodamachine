@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-09",
+  "recorded_at_utc": "2026-10-09T18:06:14.463088+00:00",
+  "printer": "Mark2",
+  "printer_job_id": "1323545051",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.gcode.3mf",
+  "native_archive_sha256": "e0f1144e9b76f28360328fb49733af700cdd71e66e8ab05001c2ccec1b33cd37",
+  "gcode_sha256": "de1036fb9acfab2e6a938c027e92168bb0523b9c134b2b9a5d21e34e5ffd253a",
+  "authority": "Direct user inspection, six supplied photographs, and read-only download of the matching five-part plate timelapse",
+  "support_failure_quote": "Basically, the printer knocked over its own support as it was printing these super thin layered supports.",
+  "observations": {
+    "user_report": "One support was knocked over and the resulting loose extrusion spoiled the complete print.",
+    "photos": "Tip ring remains seated on the plate, with disrupted material around its extension. Base, lever and counter plate retain their bed locations.",
+    "timelapse": "Tip-side irregular extrusion is visible in later frames. A detached tangled fragment appears in frame 77 and remains on the plate through frame 88. The tip ring and larger objects remain in place.",
+    "limit": "The sampled timelapse does not show the instant of nozzle impact or establish whether collision, curling or weak support preceded displacement."
+  },
+  "timelapse": {
+    "filename": "video_2026-10-09_23-56-43.mp4",
+    "sha256": "65513ff5a279f90319138bc2a704a91ac377317bac3ce5fb8e6df1ca2a7a672d",
+    "frame_count": 89,
+    "frame_rate": 24,
+    "association": "Latest Mark2 clip at the failed-job observation, with the same five-object layout and photographed failure locations. Printer filename clock is offset; filename time alone is not used for attribution.",
+    "evidence_file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/timelapse-failure-detail.png",
+    "frame_indices_are_zero_based": true,
+    "exact_failure_layer_established": false
+  },
+  "photos": [
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-1.jpg",
+      "sha256": "374e66694b357696b72bd35cf80a88d2f356fd45568a05103633f3a08b457612",
+      "metadata_removed": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-2.jpg",
+      "sha256": "30ec74235cc7e7ca4019a4a4864feaff8cc23a50686530d023c6ea123cc65299",
+      "metadata_removed": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-3.jpg",
+      "sha256": "62ca51aa437597c208a774bcaa14568d7928b4e2a57dd92fc99eac825ba37ef4",
+      "metadata_removed": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-4.jpg",
+      "sha256": "95143adc0131698a25590446e3ff09a1a4e607d06a03598097aed38ad3365724",
+      "metadata_removed": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-5.jpg",
+      "sha256": "f2cbf24a8b81f1e30b5e2fc0b409d71ca13c3b82b1d022dd88387814770c8250",
+      "metadata_removed": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/physical-result/photo-6.jpg",
+      "sha256": "40430fccf5bd7eab80fbdde6ab7ff8b4c96f4b70d739f3974c14a07ac273e6d7",
+      "metadata_removed": true
+    }
+  ],
+  "failed_support_settings": {
+    "type": "tree(auto)",
+    "style": "default",
+    "wall_count": "Auto (-1)",
+    "branch_diameter_mm": 2,
+    "support_speed_mm_s": 150,
+    "support_interface_speed_mm_s": 80,
+    "independent_support_layer_height": true,
+    "native_early_body_height_mm": 0.08,
+    "support_top_z_gap_mm": 0.45,
+    "support_bottom_z_gap_mm": 0.3,
+    "support_xy_gap_mm": 0.4
+  },
+  "printer_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-09T17:56:06.143854+00:00",
+    "task_id": "1323545051",
+    "job_id": "1323545051",
+    "subtask_name": "2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.gcode.3mf",
+    "gcode_state": "FAILED",
+    "layer_num": 0,
+    "total_layer_num": 2749,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "extruders": {
+      "0": {
+        "actual_c": 45,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 67,
+        "target_c": 0
+      }
+    },
+    "bed_actual_c": 58.0,
+    "bed_target_c": 0.0,
+    "chamber": {
+      "actual_c": 36,
+      "target_c": 0
+    }
+  },
+  "scope": "Support stability failure on the complete all-0.08 mm plate. Completion, exterior track correction and support removal of this article are not physically accepted."
+}

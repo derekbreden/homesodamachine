@@ -1,0 +1,113 @@
+{
+  "observed_at_utc": "2026-10-09T18:12:11.710156+00:00",
+  "fresh_readings": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-09T18:12:11.710156+00:00",
+      "task_id": "1323545051",
+      "job_id": "1323545051",
+      "subtask_name": "2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 2749,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "extruders": {
+        "0": {
+          "actual_c": 43,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 41,
+          "target_c": 0
+        }
+      },
+      "bed_actual_c": 44.0,
+      "bed_target_c": 0.0,
+      "chamber": {
+        "actual_c": 35,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-09T18:12:11.710239+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1451,
+      "total_layer_num": 1535,
+      "mc_percent": 90,
+      "mc_remaining_time": 159,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "extruders": {
+        "0": {
+          "actual_c": 50,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      },
+      "bed_actual_c": 80.0,
+      "bed_target_c": 80.0,
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    }
+  ],
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-strong-support-mark2/2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
+  "native_archive_sha256": "636f8658af0ad0f2f44fe7e5224cb3417208fd11b75ebd3875681999f5265e1e",
+  "gcode_sha256": "be1c3357bee96c84710d7d74a9c1d64b892ac69981a04983b87d387fe309bac5",
+  "project_sha256": "df8af607d4e44016fa94a000f75f41755d14b64cd800c37a122262da3ea0f8e0",
+  "native_check_sha256": "6ea638d11b092191eb8f4b50cc14f20e502e5407f86ba05583a3c1283dfac06a",
+  "destination_idle": true,
+  "no_unresolved_destination_fault": true,
+  "correct_material_left_nozzle_and_color": true,
+  "fixed_nozzle_diameter_mm": 0.4,
+  "fixed_nozzle_loading_authority": "User reports PET-GF in left 0.4 mm hotend; no subsequent left-nozzle change reported. External slot254 freshly matches black PET-CF/GFT01.",
+  "plate": "Textured PEI Plate",
+  "bed_clear_authorization": "The bed is clear and Mark 2 is ready for your next attempt, whatever you want to try here.",
+  "destination_previous_task_id": "1323545051",
+  "peer_accepted_at_utc": "2026-10-08T18:38:15.148901+00:00",
+  "peer_task_id": "1320974719",
+  "peer_actual_acceptance_spacing_seconds": 84880.314046,
+  "minimum_spacing_seconds": 180,
+  "pass": true
+}

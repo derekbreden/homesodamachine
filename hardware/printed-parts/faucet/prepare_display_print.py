@@ -158,16 +158,18 @@ def extrusion_segments(gcode: Path):
         line = raw.strip()
         start = re.match(r"; start printing object, unique label id: (\d+)", line)
         if start:
-            current, feature = int(start.group(1)), ""
+            current = int(start.group(1))
         elif line.startswith("; stop printing object"):
             current = None
         elif line.startswith("; OBJECT_ID:"):
-            current, feature = int(line.split(":", 1)[1]), ""
+            current = int(line.split(":", 1)[1])
         elif line.startswith("; FEATURE:"):
             feature = line.split(":", 1)[1].strip()
         elif line.startswith("; Z_HEIGHT:"):
             layer = float(line.split(":", 1)[1])
-            current, feature, height = None, "", None
+            # Native G-code repeats feature labels only when the kind changes,
+            # including across independently spaced support layers and objects.
+            current, height = None, None
         elif line.startswith("; LAYER_HEIGHT:"):
             height = float(line.split(":", 1)[1])
         elif line.startswith("; LINE_WIDTH:"):
