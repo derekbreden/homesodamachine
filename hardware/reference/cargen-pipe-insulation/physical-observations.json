@@ -1,0 +1,18 @@
+{
+  "reported_date": "2026-10-09",
+  "part": "Purchased CARGEN pipe insulation, nominal 1/4-inch ID and 3/8-inch wall",
+  "evidence_kind": "founder physical observation",
+  "observations": [
+    {
+      "property": "compressibility",
+      "report": "the foam is quite compressible",
+      "reported_by": "Derek",
+      "scope": "Qualitative observation of the purchased foam. No numerical compression or force is reported."
+    }
+  ],
+  "design_intent": "The umbilical boot can deliberately compress the purchased insulating foam.",
+  "evidence_limits": [
+    "Compressed bundle shape, passage through the counter hole and boot capture are untested.",
+    "Compression force, recovery, retained thermal performance and long-term grip are unmeasured."
+  ]
+}
