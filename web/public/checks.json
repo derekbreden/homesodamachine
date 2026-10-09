@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ instruction names a purchased brand the ledger no longer carries: Orange (hardware/assembly/cable-assemblies.md:119, hardware/assembly/faucet-and-umbilical.md:136, hardware/assembly/weld-rotation-rig.md:221 +1 more)",
-      "status": "red"
+      "note": "✓ every part the instructions name is carried by bom.md or tools.md.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -32,71 +32,15 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
-      "status": "red"
+      "note": "step colours: 493/493 carry the colour of what they are made of",
+      "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "14 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 7515 tracked, 1215 fetched solids, 61 tags, 40 site routes",
+      "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_ledger.py": [
-      "instructions: 18 files (18 procedures + 0 cards + cover) | ledger brands: 606 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 7 instruction(s) out of step with the ledger:",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B003NUUKL8 (hardware/assembly/lillium-cutover.md:59)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B005S4MTXO (hardware/assembly/lillium-cutover.md:61)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B076Q7QVNM (hardware/assembly/internal-plumbing.md:45)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B0FQBYXZS2 (hardware/assembly/lillium-cutover.md:63)",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: GFCI (hardware/assembly/electronics-bay.md:48, hardware/assembly/firmware-and-commissioning.md:52, hardware/assembly/lillium-cutover.md:280 +1 more)",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: Orange (hardware/assembly/cable-assemblies.md:119, hardware/assembly/faucet-and-umbilical.md:136, hardware/assembly/weld-rotation-rig.md:221 +1 more)"
-    ],
-    "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/fixtures/gun-positioner/step/vee-seat-keeper.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/x-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/x-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/y-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/y-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-base-web.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-bearing-back.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-crossbar.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-head-adapter.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-side.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step",
-      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-lens-shim-0.2.step",
-      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.04.step",
-      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.02.step",
-      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-stop-arm.step",
-      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/foam-cap-gasket.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-cap-gasket.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.step",
-      "    hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step",
-      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
-    ],
-    "tools/check_paths.py": [
-      "hardware/concerns.md:97 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
-      "  hardware/ledger/purchases.md:571 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
-      "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:55 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/README.md:15 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:50 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-design.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:58 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md:9 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/../../forming-mandrel.3mf is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md:56 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md:49 — `archive-before-delete` is named as a tag; no such tag",
-      "  marketing/lincoln/README.md:88 — marketing/lincoln/../../hardware/quickstart/README.md is held nowhere, and no tag is named for it",
-      "  marketing/target-market.md:7 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
-      "  marketing/target-market.md:44 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
-      "  marketing/target-market.md:396 — marketing/unboxing-and-quickstart.md is held nowhere, and no tag is named for it",
-      "14 reference(s) name a path nothing holds."
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
