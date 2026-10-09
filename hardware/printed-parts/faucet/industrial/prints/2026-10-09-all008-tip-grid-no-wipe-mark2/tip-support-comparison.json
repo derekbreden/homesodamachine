@@ -1,0 +1,45 @@
+{
+  "method": "Native deposited support centerlines buffered by half commanded width; all slabs intersecting each chosen print Z. Counts describe commanded XY connection, not physical bonding.",
+  "sections": [
+    {
+      "style": "Strong tree",
+      "print_z_mm": 1.0,
+      "support_xy_area_mm2": 116.86501196046494,
+      "support_components_above_1mm2": 1,
+      "support_component_areas_mm2": [
+        116.86501196046494
+      ]
+    },
+    {
+      "style": "Strong tree",
+      "print_z_mm": 6.5,
+      "support_xy_area_mm2": 42.721211556544446,
+      "support_components_above_1mm2": 1,
+      "support_component_areas_mm2": [
+        42.721211556544446
+      ]
+    },
+    {
+      "style": "Tip normal grid",
+      "print_z_mm": 1.0,
+      "support_xy_area_mm2": 305.37425684444736,
+      "support_components_above_1mm2": 3,
+      "support_component_areas_mm2": [
+        273.2575291543056,
+        16.45191148867648,
+        15.664816201465243
+      ]
+    },
+    {
+      "style": "Tip normal grid",
+      "print_z_mm": 6.5,
+      "support_xy_area_mm2": 137.74581556831436,
+      "support_components_above_1mm2": 3,
+      "support_component_areas_mm2": [
+        112.00439785691098,
+        12.870712732432514,
+        12.870704978970844
+      ]
+    }
+  ]
+}

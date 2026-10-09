@@ -65,8 +65,12 @@ the three screw-side exterior surfaces and support-contact finish before recordi
 physical acceptance.
 
 Mark2 accepted task/job `1323967341` at 2026-10-09 13:13:31 CDT
-(18:13:31 UTC) through one foreground Send. A fresh post-start
-reading reports the matching archive RUNNING at layer 0/3825, print error0
-and no HMS faults. Native completion is forecast near 2026-10-10 01:30 CDT.
-Timelapse On was verified in the Send dialog. Physical first-layer adhesion has
-not been observed.
+(18:13:31 UTC) through one foreground Send. The matching archive reports the
+canceled job idle, with print error0 and no HMS faults, in the 19:32 UTC reading.
+Derek [reports displaced material at the same tip-side support](physical-result/physical-result.json)
+and confirms the job stopped and bed cleared for a retry. The disruption's
+initiating contact and height, recovery and complete article outcome are unobserved. The native paths
+contain same-height support wipes before the 0.4 mm lift, including the retained
+fine support regions. A curled strand catching during that motion is a working
+hypothesis. The [tip grid and no-wipe plate](../2026-10-09-all008-tip-grid-no-wipe-mark2/README.md)
+targets this mechanism. Timelapse On was verified in the Send dialog.

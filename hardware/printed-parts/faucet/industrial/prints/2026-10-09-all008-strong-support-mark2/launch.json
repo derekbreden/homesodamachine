@@ -39,7 +39,7 @@
     "industrial-above-counter-plate",
     "lever-replica"
   ],
-  "status": "Accepted; startup in progress",
+  "status": "Canceled by operator after reported tip support disruption",
   "send_attempted_at_utc": "2026-10-09T18:12:55.462947+00:00",
   "send_successful": true,
   "send_count": 1,
@@ -84,18 +84,18 @@
   },
   "latest_observation": {
     "printer": "Mark2",
-    "observed_at": "2026-10-09T18:14:11.205579+00:00",
+    "observed_at": "2026-10-09T19:32:28.678804+00:00",
     "task_id": "1323967341",
     "job_id": "1323967341",
     "subtask_name": "2026-10-09-industrial-faucet-complete-all008-strong-support-petgf-left04-z004-v4-mark2.gcode.3mf",
-    "gcode_state": "RUNNING",
+    "gcode_state": "FAILED",
     "layer_num": 0,
     "total_layer_num": 3825,
     "mc_percent": 0,
-    "mc_remaining_time": 737,
+    "mc_remaining_time": 0,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 13,
+    "stg_cur": -1,
     "external_spools": [
       {
         "id": "254",
@@ -112,18 +112,18 @@
     ],
     "extruders": {
       "0": {
-        "actual_c": 43,
+        "actual_c": 47,
         "target_c": 0
       },
       "1": {
-        "actual_c": 173,
-        "target_c": 200
+        "actual_c": 85,
+        "target_c": 0
       }
     },
-    "bed_actual_c": 43.0,
-    "bed_target_c": 43.0,
+    "bed_actual_c": 61.0,
+    "bed_target_c": 0.0,
     "chamber": {
-      "actual_c": 33,
+      "actual_c": 34,
       "target_c": 0
     }
   },
@@ -172,5 +172,6 @@
       "target_c": 0
     }
   },
-  "first_layer_observed": false
+  "first_layer_observed": false,
+  "cancellation_quote": "Job stopped and bed is clear and ready for your next attempt."
 }
