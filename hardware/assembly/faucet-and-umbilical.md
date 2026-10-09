@@ -1,5 +1,8 @@
 # Faucet and Umbilical
 
+[Illustrated faucet assembly guide](../faucet-assembly-guide/README.md):
+18 Letter bench pages, with the [rear display wiring on page 2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=2).
+
 The production procedure for the above-counter fixture stack and the 4-tube umbilical that connects it to the +Y wall of back-top — the visible half of the appliance from the user's perspective. The faucet and the umbilical ship as **one permanently-attached unit**: the retained donor washer and nut are factory-preloaded on the bare shank before the carbonated-water LLDPE tube is clamped into the Westbrass's upstream compression port, and that tube is never separated again. The two flavor LLDPE tubes route through the faucet-shell's pill slot up into the printed gooseneck's dispense channel where they terminate at the printed tip — black end to end on a Black faucet; on a White faucet white through the faucet, each joined to its black run in the umbilical by a John Guest union inside the braid's top. The customer (or their installer) drills the 1-3/8" countertop hole, drops the complete faucet+umbilical through it from above and pushes it back until the rear tube bundle reaches the hole's wall — the faucet seats itself, nothing is measured, and the gasket still covers the hole behind by [5.132 mm](GASKET_COVER) there — **slides the under-counter plate laterally into the captive mount stack from below** so the shank and tubes enter through the plate's open-edge channels and seat in their terminal pockets, then hand-tightens the same retained nut. At the far end, the three beverage tube tails push into the PP1208E bulkheads and the 4 mm DRAIN tail enters its ABU44M-E bulkhead on the appliance's +Y wall of back-top and the signal ribbon's plug clicks into the keystone jack beside them.
 
 This bench runs in parallel with the main appliance chain. Its inputs are upstream of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) and its output ships in the carton alongside the finished enclosure produced by [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md). Design intent for the user-facing surface lives in [`/hardware/README.md`](/hardware/README.md) "User-facing surfaces"; the gooseneck carries one 3/8" soda faucet tube and two 1/4" flavor tubes out over the glass — see [`/hardware/printed-parts/faucet/faucet-shell/`](/hardware/printed-parts/faucet/faucet-shell/) and that part's [`MATERIAL.md`](/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md).
@@ -112,6 +115,43 @@ Start with the separate prints, bare donor, tubes and unterminated SIG-6 ribbon.
 - **Retained countertop hardware first.** Slide the donor washer onto the bare threaded shank, then thread the donor nut on loosely. Leave the clear gap above them that receives the countertop and the open under-counter plate at field install. From this point forward the washer and nut remain captive; they are never loose customer parts.
 - **Carbonated water (blue tube).** Insert a Siptenk 1/4" brass stiffener fully into the blue LLDPE tube end that will land in the Westbrass. Push that stiffened end into the Westbrass's upstream compression port (the supply side that takes carbonated water *in*). The Westbrass's factory ferrule + nut clamp the LLDPE around the stiffener; hand-snug + 1/4 turn with a wrench.
 - **SIG-6 plug.** Crimp one RJ11 6P4C modular plug onto the ribbon's wall end, conductor 1 on the ribbon's marked edge. The plug's own strain-relief bar closes on the ribbon's jacket, so the four IDC blades carry no tension. The ribbon is [1.3 mm](RIBBON_T) thick where the plug's slot is cut for flat cord nearer 1.9 — shim the last 15 mm with a wrap of tape or heat-shrink so the bar bottoms on something. Take a **3-prong** plug: the ribbon is 16 strands of 0.08 mm and the two-tine contact is the solid-conductor geometry.
+
+#### Display wiring (SIG-6)
+
+The display is the **Waveshare ESP32-S3-Touch-LCD-1.47**. Look directly at its
+rear PCB, glass facing away, with **USB-C at the top**. The top four pads down
+the **left** are VBUS, GND, TXD and RXD. P1's odd pin numbers run down that side.
+
+![Rear display orientation and the four SIG-6 connections](../faucet-assembly-guide/display-wiring.svg)
+
+| Display pad | P1 pin | Function | Main board J3 |
+| --- | ---: | --- | --- |
+| VBUS | 1 | 5 V input | V5 |
+| GND | 3 | 0 V return | GND |
+| TXD | 5 | GPIO43, display transmit | IO35, main board receive |
+| RXD | 7 | GPIO44, display receive | IO33, main board transmit |
+
+TX/RX use **3.3 V TTL, 921600 baud, 8N1**. Leave all other display pads open.
+With J3 and USB disconnected, solder the four leads directly at these PCB
+pads **after both vent bungs are seated**. The conductors remain continuously
+insulated through the seals; stripping and soldering happen only at their dry
+PCB ends. Leave enough free lead for the display/cover slide and lowering motion,
+and keep it clear of the metal feet, components, retaining lips and USB socket.
+
+With the main-board end unplugged, trace the four listed nets through the actual
+plug and jack, and check for adjacent-conductor and power-to-ground shorts.
+The published procedure names the nets without assigning their modular contact
+numbers: identify and record those contacts by continuity on the build, then
+land the inboard loom to the matching J3 endpoints. A telephone or T568B color
+diagram does not define SIG-6. After the unpowered check, power through J3 and
+confirm boot, main-board flavor synchronization and bright-screen touch response.
+The [guide's page 3](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=3)
+shows the joint/check; page 12 shows display fitting.
+
+Pad order and P1 numbers come from [Waveshare's rear layout](https://docs.waveshare.com/ESP32-S3-Touch-LCD-1.47)
+and [schematic](https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf).
+GPIO direction and baud match [`base_link.cpp`](../../firmware/src_faucet/base_link.cpp)
+and [`pins.h`](../../firmware/src_appliance/pins.h).
 
 At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm DRAIN into its ABU44M-E socket and the three beverage tubes into their matching PP1208E sockets at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py)).
 

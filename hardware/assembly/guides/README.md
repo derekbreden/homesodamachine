@@ -7,6 +7,7 @@ sequence of actions, and a visible check before the next operation.
 
 | Guide | Work it covers |
 |---|---|
+| [Faucet assembly](../../faucet-assembly-guide/README.md) | Faucet, rear display pin map on page 2, vent bungs, mount stack and umbilical |
 | [Drilling and cutting](../../drill-and-cut-guide/README.md) | Endcap preparation and registers, rod and tube stock, tiny inlet jet, plumbing and harness cuts, finishing |
 | [Molds](../../mold-guide/README.md) | Silicone funnel tooling and casting, foam caps, cold-core body pour and demolding |
 | [Refrigeration](../../refrigeration-guide/README.md) | Coil and probes, donor circuit, opening and joining, leak and vacuum work, charge and commissioning |
