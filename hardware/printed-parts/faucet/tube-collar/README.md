@@ -15,7 +15,7 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
 | wall | [2.66](COLLAR_WALL) mm, with [1.66](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [3.02](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
+| volume | [2.98](COLLAR_VOL) cm³ + [0.20](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 

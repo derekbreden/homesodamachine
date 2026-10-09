@@ -39,9 +39,9 @@
   "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
   "source_sha256": {
     "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "1856481c1189e2c8608c74d2944091d0178f6700224e67100d9ee17cd15bbbb3",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "ade2ee1a9a695d638c1da1bc5b5126fde12e2a7dc1ee5abf0ec8dcb9a8162d65",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "a3bfa08030793952b0706e5d306992571a994fb61ce68400c868de81d874f718",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "1d42315f3372ea20287b866eee01f4e19ce3c73301a7c898950dc89b6ee24d55",
-    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "0c5f27c43295713b4adc9ca305e2664ae3bf02c887ad2eb2aa7433fa06fefc44",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "2418a64173e70901898e98c472ddff83e79a3e4c58bda8953d8d8b9f370b6a72",
     "hardware/printed-parts/cadlib/fits.py": "bcf3906a2d94407f45f6cfdb9d0f3b73e1f1d3d985eddab8c8889b768e3c325b"
   },
   "production_function_ast_sha256": {
@@ -51,9 +51,9 @@
     "valve_tray.build_port_channel": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e"
   },
   "artifacts": {
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "94174038f13fb65e1095463dd448822af0c66fc4d309e6f3e188250e9b4657cd",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "2c95f10398608cc69631af8d977c25ecbb2828b4e3c3e23d247d231c33f5ad07",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "2291d458310b2e576e335b408aadd84c1b51817c5ee23d43e1cd118fa4a60cdd"
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "a9671d57568f8270a184ad50211305f427b28417686da6feb2878e0accb9e2ff",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "080eb787775d2653b34cb728323dc8432df2d86a6babdc319fb471eb02cd120f",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "a1d71875e2ca89e9f2f1b012fe3945f60f034703d5dafec670a2078f45f9e033"
   },
   "mesh_watertight": true,
   "mesh_bodies": 1,
