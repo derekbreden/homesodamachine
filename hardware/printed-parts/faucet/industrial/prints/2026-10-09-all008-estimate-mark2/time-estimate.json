@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "purpose": "Offline native time estimate for all five rigid printed faucet parts at 0.08 mm normal layers.",
+  "printer_profile": "Mark2 PET-GF / PET-CF left external 254; fixed left hardened standard-flow 0.4 mm; Textured PEI",
+  "source_prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf",
+  "source_prepared_project_sha256": "047fe6067d1f5943f294c084304a3ef1c5ad628fcbe4afa854c1627683759aa2",
+  "source_parts": [
+    {
+      "name": "industrial-shell-base",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+      "identify_id": 1901,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        82.5,
+        168.556384304572,
+        113.1637442257887
+      ]
+    },
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+      "identify_id": 1902,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.08715574274765824,
+        -0.9961946980917455,
+        0.0,
+        0.9961946980917455,
+        -0.08715574274765824,
+        182.5,
+        204.50574200337525,
+        78.51215555159426
+      ]
+    },
+    {
+      "name": "industrial-display-cover",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "stl_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+      "identify_id": 1903,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        251.5,
+        266.0000040196697,
+        9.275001205834679
+      ]
+    },
+    {
+      "name": "industrial-above-counter-plate",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+      "identify_id": 1904,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        205.5,
+        108.0,
+        3.100000023841858
+      ]
+    },
+    {
+      "name": "lever-replica",
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "identify_id": 1905,
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        145.0,
+        100.0,
+        6.199999809265137
+      ]
+    }
+  ],
+  "prepared_estimate_project_sha256": "d202cb832f9be748f5d1b5407075b003b7fd43d60dd9265c4cc14b404311493a",
+  "prepared_estimate_project_storage": "Private local print cache",
+  "settings_delta": {
+    "layer_height": {
+      "source": "0.24",
+      "estimate": "0.08"
+    }
+  },
+  "removed_project_member": "Metadata/layer_config_ranges.xml",
+  "first_bed_layer_height_mm": 0.2,
+  "normal_layer_height_mm": 0.08,
+  "geometry_and_placement_members_preserved_byte_for_byte": true,
+  "reinforcement_modifiers": "Three original six-wall, 100% zigzag insert-host regions retained for timing comparison.",
+  "other_process_settings_retained": true,
+  "native": {
+    "archive": ".cache/printer-control/industrial-all008-estimate/2026-10-09-industrial-faucet-complete-all008-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "a558f73a7015f33e7adf0ad33451faada6bf7eb6a46701da9ebc48bcc2f8df05",
+    "gcode_sha256": "69e26d1977637b16f3d4225b83339cf371fd50d14988b106101a6f8b1164b264",
+    "native_settings_normalizations": {
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ],
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.08",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 2747,
+    "estimated_seconds": 48529.33984375,
+    "estimated_grams_saved_profile_density": 153.3233642578125,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5,
+    "archive_storage": "Private local print cache; this is a time estimate, not a submitted job."
+  },
+  "wall_layers_by_part": [
+    {
+      "part": "industrial-shell-base",
+      "identify_id": 1901,
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_height_mm": 0.08,
+      "wall_layers": 2745,
+      "last_wall_z_mm": 219.72
+    },
+    {
+      "part": "faucet-shell-tip",
+      "identify_id": 1902,
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_height_mm": 0.08,
+      "wall_layers": 1983,
+      "last_wall_z_mm": 158.76
+    },
+    {
+      "part": "industrial-display-cover",
+      "identify_id": 1903,
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_height_mm": 0.08,
+      "wall_layers": 230,
+      "last_wall_z_mm": 18.52
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "identify_id": 1904,
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_height_mm": 0.08,
+      "wall_layers": 76,
+      "last_wall_z_mm": 6.2
+    },
+    {
+      "part": "lever-replica",
+      "identify_id": 1905,
+      "first_bed_layer_mm": 0.2,
+      "remaining_wall_height_mm": 0.08,
+      "wall_layers": 153,
+      "last_wall_z_mm": 12.36
+    }
+  ],
+  "source_shoulder_band_estimated_seconds": 22384.240234375,
+  "additional_estimated_seconds": 26145.099609375,
+  "launch_authorized": false,
+  "submitted": false,
+  "full_fine_physical_result": null,
+  "exterior_screw_host_finish": "Modifier-boundary starts and stops remain in this estimate slice; see native-screw-track-assessment.json.",
+  "slicer_argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/industrial-all008-estimate",
+    "--export-3mf",
+    "2026-10-09-industrial-faucet-complete-all008-petgf-left04-z004-mark2.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/industrial-all008-estimate/2026-10-09-industrial-faucet-complete-all008-petgf-left04-z004-mark2.3mf"
+  ],
+  "duration_request_quote": "Please tell me how long an entirely 0.08 layer print of the complete faucet would take."
+}

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-09",
+  "recorded_at_utc": "2026-10-09T14:50:47.392991+00:00",
+  "printer": "Mark2",
+  "printer_job_id": "1322285082",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "5e017415c3edb51d3ec7d422dc0351bbc2e67a155e0ec9edf23c34fa16a724bd",
+  "gcode_sha256": "5a027278f4c0544e08a0a83389c9e7fbcc7673eb08b99eb6009e5968be92c6f2",
+  "authority": "Direct user inspection and two supplied photographs",
+  "defect_quote": "Something was wrong with that slice. I see this lines/defects on the outside of the base next to each screw point.",
+  "finish_and_cleanup_quote": "The 0.08 layers are beautiful, and the supports removed from the few thin layers that were supported, which is unusual and good.",
+  "observations": {
+    "fine_layer_surface_finish": "Reported beautiful in the two base shoulder bands.",
+    "fine_supported_layer_cleanup": "Supports removed from the few thin layers that were supported.",
+    "exterior_screw_point_surface": "Lines/defects beside each screw point; open finish issue."
+  },
+  "fine_layer_scope": {
+    "part": "industrial-shell-base",
+    "normal_fine_layer_height_mm": 0.08,
+    "base_fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "scope": "These two fine bands and their few supported thin layers on the identified PET-GF base. An all-0.08 faucet has only an offline time estimate."
+  },
+  "photos": [
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/photo-1.jpg",
+      "sha256": "6d4b290ca438c793ba57613b61ebd86b5fd90b1ad01434f0d27b318606556dfe"
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/photo-2.jpg",
+      "sha256": "a174410a4fd08adc380dc5f70d48278f7a2b5cdea2f170c3b5c88e264efcb41c"
+    }
+  ],
+  "native_diagnosis_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-estimate-mark2/native-screw-track-assessment.json",
+  "scope": "Physical surface finish and support removal only; no load-capacity or endurance measurement."
+}
