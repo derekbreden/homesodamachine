@@ -126,15 +126,12 @@ rails narrow away from the spans. The carriage's arms follow the belt's swept
 path with 2 mm of clearance across the whole 8 mm tension travel and land on
 the rail tops through four slotted M3 × 10 screws. Two side walls with 3 mm
 pads clamp the 57.3 mm frame; the face pilot in the skin, not the pads, takes
-the belt tension. Two M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws come
-up through the arms into the rear pair of the motor's 47.14 mm flange square
-and hold it down. Their heads sit flush in the arms' underside and they reach
-[4.0](WR_MOTOR_MOUNT_REACH) mm into a [4.5](WR_MOTOR_MOUNT_TAPPED) mm tapped
-hole. Each verified [9.8](WR_MOTOR_MOUNT_HEAD) mm head sits in a
-[10.2](WR_MOTOR_MOUNT_CSK) mm 90-degree recess. The front pair of flange holes
-stays open: the belt's swept path crosses it at full tension.
-The fixture selftest intersects a belt proxy at both ends of the tension
-travel with every stationary part and requires 1.5 mm of clearance.
+the belt tension. Two M5 × [20](WR_MOTOR_MOUNT_SCREW) countersunk screws come
+up through the arms and the rear pair of the motor's 47.14 mm flange square
+into M5 square nuts in its open corner channels, and hold it down. Their heads
+sit flush in the arms' underside. Each verified [9.8](WR_MOTOR_MOUNT_HEAD) mm
+head sits in a [10.2](WR_MOTOR_MOUNT_CSK) mm 90-degree recess. The front pair
+of flange holes stays open: the belt's swept path crosses it at full tension.
 
 The 90T pulley is integral to the turntable. Its 5 mm angular pitch and 2.15 mm
 groove depth match the HTD-5M belt; the printed groove is a clearance
@@ -161,8 +158,8 @@ yield instead of using the fixture as a rigid puller.
   for the pedal input's external pull-up.
 - 6 × ruthex M5 × 9.5 inserts and 6 × M5 × 10 SHCS: four
   motor-tower-to-base and two ground-tower-to-base.
-- 2 × M5 × [12](WR_MOTOR_MOUNT_SCREW) countersunk screws into the motor's own
-  tapped flange holes. No inserts: the thread is the motor's.
+- 2 × M5 × [20](WR_MOTOR_MOUNT_SCREW) countersunk screws through the motor's
+  own flange holes, each into an M5 square nut in the motor's corner channel.
 - 31 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
   4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws,
@@ -171,7 +168,7 @@ yield instead of using the fixture as a rigid puller.
   1 × M3 × 8 ground-shoe side-clamp screw into its printed-arm insert.
 - Three hex drivers cover the whole fixture: **2.5 mm** for every M3, **4 mm**
   for the six M5 × 10 SHCS, and **3 mm** for the two M5 ×
-  [12](WR_MOTOR_MOUNT_SCREW) countersunk motor screws, which are DIN 7991 and
+  [20](WR_MOTOR_MOUNT_SCREW) countersunk motor screws, which are DIN 7991 and
   do not share the SHCS socket. The nest retainers are the one station a
   1/4-inch hex bit body does not reach: its Ø[6.2](WR_NEST_RETAINER_ACCESS) mm
   well is narrower than the 6.35 mm bit stock, so those three take a
@@ -282,12 +279,11 @@ ring.
    blocks about 25 mm tall, so the pulley hangs clear of the bench by the
    [13.85](WR_PULLEY_HANG) mm it projects below the arms. Lower the
    23HS30-2804S face-down: the pulley passes the Ø38.6 hole and the Ø38.1
-   pilot seats in the skin. Drive two M5 × [12](WR_MOTOR_MOUNT_SCREW)
-   countersunk screws up through the arms into the rear flange holes and pull
-   them down evenly. Confirm both [9.8](WR_MOTOR_MOUNT_HEAD) mm heads sit flush
-   inside their [10.2](WR_MOTOR_MOUNT_CSK) mm recesses; the screws stop
-   [0.5](WR_MOTOR_MOUNT_MARGIN) mm short of the tapped holes' bottom, so seat
-   them by the heads, not by feel for a bottom.
+   pilot seats in the skin. Pass two M5 × [20](WR_MOTOR_MOUNT_SCREW)
+   countersunk screws up through the arms and the rear flange holes, drop an
+   M5 square nut into the motor's open corner channel over each, and pull them
+   down evenly. Confirm both [9.8](WR_MOTOR_MOUNT_HEAD) mm heads sit flush
+   inside their [10.2](WR_MOTOR_MOUNT_CSK) mm recesses.
    Slide one pad down each Y side and advance the four M3 × 8 side screws
    evenly until the frame cannot rock.
 9. Hang the belt on the 90T pulley and hold the free bight open. Lower the

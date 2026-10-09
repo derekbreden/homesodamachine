@@ -410,8 +410,7 @@ attachment boss, y [-82.5 to -72.5](LANE_Y) — [10 mm](LANE_W) wide, on
 y = [-77.5](LANE_MID_Y). Every ±Y boss stands hard against its wall and reaches
 [8 mm](BOSS_D) in from its outer face, so the lane is exactly what they leave, and
 it runs clear from one corner round to the other at every height above the floor
-slab. `foam_shell.py` measures both claims at every build and fails on either: the
-lane holding material, or a station's bore not going through.
+slab. `foam_shell.py` fails the build on a station whose bore does not go through.
 
 Approaching a ±X wall the corner rounds' inner arcs — concentric one wall inboard
 of the exterior ones — bulge into the lane's outboard edge and pinch it to about a

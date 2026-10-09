@@ -61,12 +61,12 @@ to catalogue head and length. Nothing in a picture is a dimension.
 
 ## The motor screw
 
-The fixture README and `NAMES.md` both name two **M5 × 12** countersunk screws threading into
-the motor's own tapped flange holes. `_rotator_interface.py` states the 23HS30-2804S's four
-flange holes as **Ø5.2 mm** clearance. `ledger/purchases.md` records the M5 × 12 measured short,
-retired to spare stock, and replaced by **M5 × 20 through an M5 square nut** in the motor's
-corner channel: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. Page 24 gives that route and
-says the nut's seat in the channel is recorded from the catalogue, not from the bench.
+The fixture README and `NAMES.md` both name two **M5 × 20** countersunk screws that rise through
+the carriage arms and the 23HS30-2804S's rear flange holes into **M5 square nuts** in the motor's
+open corner channels. `_rotator_interface.py` states the motor's four flange holes as **Ø5.2 mm**
+clearance, and `ledger/purchases.md` records the stack: 8 mm arm, 5 mm flange ear, 4 mm nut,
+3 mm proud. Page 24 gives that route and says the nut's seat in the channel is recorded from the
+catalogue, not from the bench.
 
 ## Rebuilding it
 

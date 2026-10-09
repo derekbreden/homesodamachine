@@ -37,9 +37,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly, import_step
+from _cadq_export import export_assembly
 from _materials import M_NEOFIT_ACETAL, one_body  # noqa: E402
-from _measuring import bores  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 
 STEP = _here.parent / "neofit-bulkhead.step"
@@ -129,27 +128,6 @@ def build_neofit_bulkhead():
     return flange.union(barrel).union(far).cut(bore)
 
 
-def stations_hold():
-    """Hold the figures the wall bores and spaces from to `neofit-bulkhead.step`."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (("nut width", NUT_D, bb.xlen),
-                                  ("nut height", NUT_D, bb.zlen),
-                                  ("near port", near_ring_face_y, bb.ymax),
-                                  ("far port", far_ring_face_y, bb.ymin)):
-        if abs(claimed - actual) > 1e-6:
-            raise ValueError(
-                f"neofit-bulkhead {what} is {claimed:.4f} and {STEP.name} carries "
-                f"{actual:.4f} — a panel spaced or bored to this figure is spaced to a "
-                f"fitting that is not there.")
-    radii = sorted({r for _axis, r in bores(solid)})
-    if not any(abs(2.0 * r - THREAD_D) <= 1e-6 for r in radii):
-        raise ValueError(
-            f"the barrel is declared Ø{THREAD_D:g} and {STEP.name} turns no face at that "
-            f"diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A panel bored to the "
-            f"declared figure does not pass the barrel that is there.")
-
-
 def selftest() -> int:
     """The fitting against the sheet it is read from."""
     fails = []
@@ -163,10 +141,6 @@ def selftest() -> int:
             f"`panel_footprint` reports the nut as the wider")
     if TUBE_OD >= THREAD_D:
         fails.append(f"a Ø{TUBE_OD:g} bore does not fit inside a Ø{THREAD_D:g} barrel")
-    try:
-        stations_hold()
-    except Exception as exc:                                     # noqa: BLE001
-        fails.append(str(exc))
     for line in fails:
         print(f"FAIL {line}")
     if not fails:

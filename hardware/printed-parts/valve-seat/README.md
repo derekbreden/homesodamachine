@@ -28,8 +28,7 @@ The plinth's height places that face on the installed valve's bearing plane.
 | valve port | ⌀[15.2](PORT_DIA) mm, with [1.000 mm](PORT_CLEARANCE) radial channel clearance |
 
 The port channel follows the valve's Y axis. A placed plinth turns with the valve.
-`port_clearance()` reads the actual gap, and `fouled_volume()` checks the plinth
-against the complete seated valve.
+`port_clearance()` reads the actual gap.
 
 The [printed fit selection](../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 sets **V69 / 6.90 mm** as the default socket. **V70 / 7.00 mm** is an explicitly

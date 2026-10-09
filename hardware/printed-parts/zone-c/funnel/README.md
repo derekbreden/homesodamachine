@@ -65,7 +65,6 @@ curves remain beneath Z349. The display-side roof landing is 3 mm wide.
 Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
-The silicone funnel retains its complete 455.18 mL nominal capacity.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
 and their integration checks.
 

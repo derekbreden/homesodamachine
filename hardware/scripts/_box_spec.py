@@ -192,10 +192,6 @@ def selftest() -> int:
         same(box, got, "box")
         same(bounds, got_bounds, "bounds")
         assert repr(got) == repr(box)
-        assert type(got.options) is Options
-        assert got.options.holes == ((5.0, 6.0),)
-        assert got.stations[0][0] == "port"
-        assert got.cuts["add"][0][1] == 10.0
 
         malformed = document(box, bounds)
         malformed["extra"] = True

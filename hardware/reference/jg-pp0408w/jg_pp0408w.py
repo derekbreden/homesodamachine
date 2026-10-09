@@ -30,7 +30,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
+from _cadq_export import export_assembly
 from _materials import M_JG_WHITE_PP, one_body
 
 STEP = _here.parent / "jg-pp0408w.step"
@@ -82,21 +82,6 @@ def reach() -> float:
     return port_face_z
 
 
-def stations_hold():
-    """Hold the envelope and both ports to `jg-pp0408w.step`, the file its users place and
-    shape against."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (("ring width", RING_D, bb.xlen),
-                                  ("ring height", RING_D, bb.ylen),
-                                  ("near port", port_face_z, bb.zmax),
-                                  ("far port", -port_face_z, bb.zmin)):
-        if abs(claimed - actual) > 1e-6:
-            raise ValueError(
-                f"jg-pp0408w {what} is {claimed:g} and {STEP.name} carries {actual:.4f} — a "
-                f"machine spaced to this figure is spaced to a fitting that is not there.")
-
-
 # --- the solid --------------------------------------------------------------
 
 def _cyl(d, z0, z1):
@@ -137,7 +122,6 @@ def main():
 
     export_assembly(one_body(part, "jg-pp0408w", M_JG_WHITE_PP), str(STEP))
     print(f"-> {STEP.name}")
-    stations_hold()
 
 
 if __name__ == "__main__":

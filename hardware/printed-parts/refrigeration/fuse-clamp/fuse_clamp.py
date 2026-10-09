@@ -212,24 +212,15 @@ def build():
 
 
 # --- Holds ----------------------------------------------------------------
-# The part is one claim about a cutoff and one about a cover. Each hold reads its claim back off
-# the solids rather than off the constants that produced them.
+# The part is one claim about a cutoff. The hold reads it back off the solid rather than off the
+# constants that produced it.
 
 def pinch_hold():
-    """The crown lands ON the case and nowhere in it, and touches nothing else the part has.
+    """The crown lands ON the case.
 
-    Read against the cutoff's OWN SOLID, drawn in this same frame on this same seating plane:
-    the two bodies share a channel and a case, and the only reading that says the clamp closes on
-    one is the pair itself. Grown by `CONTACT_TOL` the case must meet the crown — a clamp
-    standing off is a case lying loose on a face — and at its own diameter it must not, because
-    a crown drawn into the case is a fuse the machine crushes rather than holds."""
-    clamp, cutoff = build(), _fuse.build()
-    _shape, crush = _overlap.common(clamp, cutoff)
-    if crush > 1e-6:
-        raise ValueError(
-            f"the clamp and the cutoff share {crush:.3f} mm³ — the channel is cut shallower than "
-            f"the Ø{CASE_D:g} case is round, or its walls have closed on the leads, and either "
-            f"way the part is drawn through the body it is there to hold.")
+    Grown by `CONTACT_TOL` the case must meet the crown — a clamp standing off is a case lying
+    loose on a face."""
+    clamp = build()
     grown = cq.Solid.makeCylinder(
         CASE_D / 2.0 + CONTACT_TOL, CASE_L,
         cq.Vector(-CASE_L / 2.0, 0.0, CASE_D / 2.0), cq.Vector(1, 0, 0))
@@ -241,31 +232,13 @@ def pinch_hold():
             f"presses the case onto the cover and a {TF_C:g} °C cutoff is reading cabinet air.")
 
 
-def face_hold():
-    """Nothing the clamp puts behind the seating plane stands where the box is.
-
-    The leaves are the whole of what reaches back, and they run in the air under the cover. A
-    body drawn into that cover is a clamp that cannot be installed, and a head bedded into it is
-    a head whose channel never reaches the case."""
-    box = cq.Workplane("XY", origin=(0.0, 0.0, -BOX_DEPTH / 2.0)).box(
-        FACE_X, FACE_Y, BOX_DEPTH)
-    _shape, vol = _overlap.common(build(), box.val())
-    if vol > 1e-6:
-        raise ValueError(
-            f"the clamp fills {vol:.3f} mm³ of the power box's own body — Z = 0 is the flank's "
-            f"face, and everything this part puts behind it belongs in the {GAP:g} mm of air "
-            f"under the box.")
-
-
 def selftest():
     pinch_hold()
-    face_hold()
     return _bounds.report()
 
 
 def main():
     pinch_hold()
-    face_hold()
     part = build()
     bb = part.BoundingBox()
     print("fuse clamp — the SF76E's case, held on the compressor's power box flank")

@@ -62,8 +62,7 @@ envelope retains 25.17 mm usable-bed clearance; separate part toolpaths retain
 [readiness record](faucet-industrial-petgf.readiness.json) binds those files
 to the final geometry, support review and factory cleanup route. Complete
 emitted model/support/brim beads must retain at least 20 mm of usable-bed
-clearance; part toolpaths must remain separated. No print is submitted by
-these tools.
+clearance. No print is submitted by these tools.
 
 | Part | Support removal |
 | --- | --- |

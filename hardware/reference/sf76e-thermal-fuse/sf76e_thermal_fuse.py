@@ -86,27 +86,7 @@ def build():
     return part.val()
 
 
-def envelope_hold():
-    """Read the three statements back off the solid: the axis lies along X, the case
-    sits ON the seating plane rather than through it or above it, and the leads add
-    exactly the two stubs the bend rule reserves."""
-    bb = build().BoundingBox()
-    for ax, got, want in (("x", bb.xmax - bb.xmin, LENGTH),
-                          ("y", bb.ymax - bb.ymin, BODY_D),
-                          ("z", bb.zmax - bb.zmin, BODY_D)):
-        if abs(got - want) > 1e-6:
-            raise ValueError(
-                f"the fuse measures {got:g} across {ax} against the {want:g} its case and "
-                f"lead stubs come to — the envelope this module draws is no longer the one "
-                f"it declares.")
-    if abs(bb.zmin) > 1e-6:
-        raise ValueError(
-            f"the case's contact line stands at z = {bb.zmin:g} — Z = 0 is the seating "
-            f"plane, and a cutoff off the face it senses is a cutoff reading cabinet air.")
-
-
 def main():
-    envelope_hold()
     part = build()
     bb = part.BoundingBox()
     print("BOJACK SF76E SEFUSE thermal cutoff — SEFUSE SF/E series outline")

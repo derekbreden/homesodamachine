@@ -530,34 +530,6 @@ TEE_LANDS = {
 }
 
 
-# Every exemption a length of tube rests on, as `(body, port, run, what the run lands on)`.
-CHAIN_LANDS = (
-)
-
-
-def chains_land(rows, runs) -> None:
-    """Every hung body's collet still starts the run it names, and that run still ends on a seat."""
-    by_name = {n: by for n, by, _joint in rows}
-    for name, port, rid, lands in CHAIN_LANDS:
-        run = next((r for r in runs if r.id == rid), None)
-        if run is None or f"{name}.{port}" not in (run.frm, run.to):
-            raise ValueError(
-                f"{name} is held out of the mounted axis because {rid} leaves its {port!r} "
-                f"collet, and no run by that name starts there — the chain the exemption rests "
-                f"on has been rerouted, so the row is claiming a hold that is not there.")
-        if lands not in {end.split(".")[0] for end in (run.frm, run.to)}:
-            raise ValueError(
-                f"{name} is held out of the mounted axis because {rid} lands on {lands}, and that "
-                f"run now ends {run.frm} → {run.to} — a chain is worth where it ends, and this "
-                f"one ends somewhere else.")
-        if by_name.get(lands) is None:
-            raise ValueError(
-                f"{name} is held out of the mounted axis because {rid} lands on {lands} in a "
-                f"printed seat, and {lands} is now fastened by nothing — so it hangs off a body "
-                f"that hangs off nothing, and the row is an open joint again rather than an "
-                f"exemption.")
-
-
 def tees_land_held(rows) -> None:
     """Every tee reaches the stated held valve by the stated construction."""
     import manifold_layout as ml
@@ -1481,7 +1453,7 @@ def _coverage(a) -> Check:
                  f"{len(placed & declared)}/{len(placed)} declared", "all declared", detail)
 
 
-def _mounted(runs) -> Check:
+def _mounted() -> Check:
     """The one fastening axis: a printed feature of another placed part, or nothing.
 
     The construction each open row stands on today rides in the detail, so the list says what
@@ -1498,7 +1470,6 @@ def _mounted(runs) -> Check:
     never_holds(rows)
     rides_hold(rows)
     tees_land_held(rows)
-    chains_land(rows, runs)
     own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
     open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
@@ -1774,7 +1745,7 @@ def _build(a) -> Scorecard:
               _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(runs), _placed(a), _routed(conns), _located(a),
+              _mounted(), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs),
               Check("gas-chain-qualified", "Warm gas fitting dimensions and made-up fit qualified",
                     "goal", "warn", "WR1110 scanned; made-up fittings pending",

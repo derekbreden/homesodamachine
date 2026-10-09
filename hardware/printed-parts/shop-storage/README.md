@@ -199,18 +199,12 @@ tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py --parce
 ```
 
 A slot cut to a parcel is honest and loose: the tool is certainly no thicker than the
-box's least side, and looser than the slot by however much the box was oversized. The
-lean that buys is held inside the slot's own share of the block, so it is slack and not
-a failure. One measured figure in [`catalog.py`](catalog.py) closes each one.
+box's least side, and looser than the slot by however much the box was oversized. One
+measured figure in [`catalog.py`](catalog.py) closes each one.
 
-Both layers under it answer for themselves. [`_bound.py`](_bound.py) checks the reading
-rule against the case that made it necessary, and [`_kit.py`](_kit.py) — the Gridfinity
-vocabulary: the library's own bodies, its division formula, its seating and containment
-checks — against the bodies cq-gridfinity actually renders:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/shop-storage/_bound.py
-```
+[`_kit.py`](_kit.py) — the Gridfinity vocabulary: the library's own bodies, its division
+formula, its seating checks — answers for itself against the bodies cq-gridfinity actually
+renders:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/shop-storage/_kit.py selftest

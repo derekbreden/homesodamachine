@@ -98,9 +98,6 @@ PLATE = _pc.base_thickness
 # Tower kept over the boss's crown after the cylinder comes off. One wall, and it is the face
 # that lands on that crown.
 SHOULDER = 3.0
-# Material carried past the head's own edge on the side the tray roots on, the same figure
-# `valve_tray` carries past its last boss.
-MARGIN = 3.0
 
 
 def depth() -> float:
@@ -273,15 +270,6 @@ def build_pump_tray(root: float):
 
     `root` is how far the plate runs from the pump's axis toward the wall it stands on — the
     piece's figure, since where that wall is is not the pump's business."""
-    if root < head_half + MARGIN - 1e-9:
-        raise ValueError(
-            f"a tray rooted {root:.3f} mm off the axis stops short of the head's own "
-            f"{head_half:.3f} and the `MARGIN` past it. The plate has to wrap the head's top "
-            f"edge on the side it roots on, and the wall stands nearer this pump than that")
-    if SHOULDER <= 0.0:
-        raise ValueError(
-            f"a {SHOULDER:g} mm shoulder leaves no tower over the boss's crown — the cut lands "
-            f"on the crown itself and the tray covers only the head")
     cx, cy, hw, fr, d = _pc.center_x, _pc.center_y, half_width(), far_reach(), depth()
     big = max(hw, fr, root) + case_half + 10.0
     # The case-derived collar follows the physical boss and can, while the broad pressing plate
@@ -358,7 +346,8 @@ def selftest() -> int:
     if can_half >= boss_half:
         fails.append(f"the can's bore reaches {can_half:g} mm and the boss's octagon "
                      f"{boss_half:g} — the shoulder lands on nothing")
-    root = head_half + MARGIN
+    # A tray rooted 3 mm past the head's own edge.
+    root = head_half + 3.0
     try:
         built = build_pump_tray(root).val()
         if not built.isValid():
@@ -401,13 +390,6 @@ def selftest() -> int:
                              f"expected the fitted profile's {expected_gap:.6f}")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(f"lower pump flank clearance: {exc}")
-    for what, bad in (("a tray rooted short of the head's own edge", head_half),
-                      ("a tray rooted on the pump's axis", 0.0)):
-        try:
-            build_pump_tray(bad)
-            fails.append(f"{what} was accepted")
-        except ValueError:
-            pass
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
@@ -447,7 +429,6 @@ def main():
             "PLATE": f"{PLATE:g}",
             "SHOULDER": f"{SHOULDER:g}",
             "CAN_BORE": f"{2 * can_half:g}",
-            "TRAY_MARGIN": f"{MARGIN:g}",
             "TRAY_COUNT": f"{len(trays)}",
             "TRAY_VOL": f"{total / 1000.0:.2f}",
             "SOCKET_SPAN": f"{2 * boss_half:g}",

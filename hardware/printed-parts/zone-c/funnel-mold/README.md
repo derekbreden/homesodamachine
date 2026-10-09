@@ -10,8 +10,8 @@ drain stub over its full 5.015 mm insertion depth; the funnel lifts off for clea
 The clamping flanges are **211 × 163.683 mm**, with 16 mm margin around the
 179 × 131.683 mm silicone brim. The cavity has a flat 164.85 × 117.533 mm base and a **63.4° corbel**
 supporting its flange. The core has a flat dry back and one **41.085 mm
-circular tapered access hole** leading to the straight rod guide. Both bodies
-retain at least 5 mm ramp backing and 5 mm flange thickness. The core's 0.30 mm brim-finishing pocket retains
+circular tapered access hole** leading to the straight rod guide. Both flanges
+are 5 mm thick. The core's 0.30 mm brim-finishing pocket retains
 4.70 mm backing. Eight 5 mm holes take M4 × 20 bolts, 9 mm OD washers and nuts;
 Eight shallow pockets give side access to the cavity bolt heads. Their short
 ceilings receive removable Snug support; the corbel and core access taper

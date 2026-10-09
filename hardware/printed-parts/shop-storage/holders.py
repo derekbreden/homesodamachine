@@ -347,13 +347,10 @@ def build(holder):
 
     elif holder.shape == "comb":
         mouths = [H.slot_mouth_for(env) for env in holder.takes]
-        shape, centers = H.comb(holder.x_u, holder.y_u, holder.height_u, mouths, **opts)
-        for index, (env, mouth) in enumerate(zip(holder.takes, mouths)):
-            gaps = [abs(centers[index] - other) for other in centers if other != centers[index]]
-            neighbour = min(gaps) if gaps else H.comb_slot(
-                holder.y_u, holder.height_u, mouth)[3]
+        shape = H.comb(holder.x_u, holder.y_u, holder.height_u, mouths, **opts)
+        for env, mouth in zip(holder.takes, mouths):
             H.assert_comb_takes(holder.name, env, holder.y_u, holder.height_u,
-                                mouth, neighbour, **opts)
+                                mouth, **opts)
 
     elif holder.shape == "index":
         shape, placed = H.index(holder.x_u, holder.y_u, holder.height_u, opts["rows"])
@@ -451,9 +448,7 @@ def parcels():
 
     A comb sizes each slot to the thinnest side of its tool's parcel, which is honest —
     the tool is certainly no thicker than that — and loose by however much the box was
-    oversized. A loose tool leans; `assert_comb_takes` holds the lean inside the slot's
-    own share of the block, so nothing here is unsafe. It is just slack, and one measured
-    figure per line closes it.
+    oversized. One measured figure per line closes that slack.
     """
     print("Slots cut to a parcel. One caliper reading each closes the slack:\n")
     print(f"{'holder':<13}{'tool':<46}{'mouth':>6}{'known':>9}   source")

@@ -647,8 +647,8 @@ pierced**, so every mullion and both jambs run into one plate of full section
 [4 mm](VENT_TRANSOM_H) tall. Nothing bridges and nothing grows out of a tower. What is left is
 [4](VENT_SEGMENTS) slot segments of [24.5 mm](VENT_SEGMENT) apiece, and the four of them plus the
 three transoms close exactly on the band — `vent_transoms` divides the band rather than listing
-stations, and asserts that closure, so the layout stays symmetric about its own mid-height
-whichever of the three figures moves.
+stations, so the layout stays symmetric about its own mid-height whichever of the three figures
+moves.
 
 **The groove runs through a transom unbroken.** Only the piercing stops. The field is struck on
 the flank's whole plan, so a transom is invisible off-normal and the reeding reads continuous down

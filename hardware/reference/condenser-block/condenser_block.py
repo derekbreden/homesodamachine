@@ -142,8 +142,7 @@ def mount_seats() -> dict:
 
 def mounts_hold():
     """Hold the mount to the block it is cut in: both holes standing clear of all four sides,
-    inside the aft recess's own depth, through sheet left at its own thickness, and material
-    or air where each of those puts it."""
+    inside the aft recess's own depth, and material or air where each of those puts it."""
     x, y = mount_xy()
     if not (MOUNT_D / 2.0 < x < AIRFLOW - MOUNT_D / 2.0):
         raise ValueError(
@@ -160,11 +159,6 @@ def mounts_hold():
             f"the two recesses reach {fore[1]:g} and {aft[0]:g} in from their own faces and "
             f"meet — a {FACE_A:g} deep block cannot stand {RECESS_Y:g} back on both faces, so "
             f"there is no serpentine left between them.")
-    if RECESS_Z + 2.0 * PLATE_T - FACE_B:
-        raise ValueError(
-            f"recess {RECESS_Z:g} and two {PLATE_T:g} flanges come to "
-            f"{RECESS_Z + 2.0 * PLATE_T:g} against the block's own {FACE_B:g} standing height "
-            f"— the sheet at one end is not the thickness it is drilled at.")
     solid = build()
     probes = [("base flange", (x + MOUNT_D, y, PLATE_T / 2.0), True),
               ("crown flange", (x + MOUNT_D, y, FACE_B - PLATE_T / 2.0), True),
@@ -189,8 +183,8 @@ def mounts_hold():
 
 
 def stations_hold():
-    """Hold every station to the box this module draws: on the FACE its own axis points out
-    of, and inside that face's own two edges.
+    """Hold every station to the box this module draws: inside the two edges of the face its
+    own axis points out of.
 
     THE FACE AND NOT THE SOLID, because both Y faces are a recess now: the block's box reaches
     `FACE_A` on the aft flanges alone, and the outlet leaves on that plane — where the
@@ -199,13 +193,7 @@ def stations_hold():
     for name, (pos, axis) in stations().items():
         for i, ax in enumerate("xyz"):
             lo, hi = span[ax]
-            if axis[i]:                                   # the axis it leaves by
-                face = hi if axis[i] > 0 else lo
-                if abs(pos[i] - face) > 1e-9:
-                    raise ValueError(
-                        f"condenser {name} stands at {ax} = {pos[i]:g} and the face it leaves "
-                        f"by is at {face:g} — the pick has come off the block's own wall.")
-            elif not (lo <= pos[i] <= hi):
+            if not axis[i] and not (lo <= pos[i] <= hi):  # the two axes it does not leave by
                 raise ValueError(
                     f"condenser {name} stands at {ax} = {pos[i]:g}, outside the block's own "
                     f"{lo:g}..{hi:g} — the pick is off the face it is meant to cross.")

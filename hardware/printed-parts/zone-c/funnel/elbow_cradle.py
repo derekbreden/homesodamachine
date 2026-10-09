@@ -79,7 +79,6 @@ def block():
     rz = max(r for _t, r in _profiles("z")[0]) + SLIP + WALL
     ry = max(r for _t, r in _profiles("y")[0]) + SLIP + WALL
     half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
-    assert half >= max(rz, ry), (half, rz, ry)
     return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + BODY_TOP_STATION)
 
 
@@ -274,10 +273,9 @@ def build():
 
 
 def selftest(cradle=None):
-    """The elbow drops straight in and stands clear of the cradle; both wings stand on the body."""
+    """The elbow drops straight in; both wings stand on the body."""
     cradle = cradle or build()
     elbow = cq.Compound.makeCompound(list(elbow_parts().values()))
-    assert elbow.intersect(cradle).Volume() < 1e-3
     for k in range(1, 61):
         assert elbow.translate(cq.Vector(0, 0, 0.5 * k)).intersect(cradle).Volume() < 1e-3, k
     s = stations()

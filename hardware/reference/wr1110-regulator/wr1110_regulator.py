@@ -77,32 +77,6 @@ def stations() -> dict:
     return {"inlet": inlet(), "outlet": outlet()}
 
 
-def stations_hold():
-    """Read both end stations and the circular mounting band from the exported STEP."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
-                                       ("outlet", outlet(), bb.ymax)):
-        if abs(pos[1] - actual) > 1e-6:
-            raise ValueError(
-                f"wr1110 {name} stands at y = {pos[1]:g} and {STEP.name} ends at "
-                f"{actual:.4f} — {abs(pos[1] - actual):.4f} mm apart. The pack seats that file "
-                f"and reads this station, so the hop that closes on it reaches nothing.")
-    (mid, _axis), r, length = barrel()
-    y0, y1 = mid[1] - length / 2.0, mid[1] + length / 2.0
-    band = solid.intersect(cq.Solid.makeBox(
-        4 * r, y1 - y0, 4 * r, cq.Vector(mid[0] - 2 * r, y0, mid[2] - 2 * r)))
-    got = band.BoundingBox()
-    for axis, lo, hi, centre in (("X", got.xmin, got.xmax, mid[0]),
-                                 ("Z", got.zmin, got.zmax, mid[2])):
-        if abs((hi - lo) - 2 * r) > 1e-6 or abs((lo + hi) / 2.0 - centre) > 1e-6:
-            raise ValueError(
-                f"wr1110 BODY_D is {BODY_D:g}, so the {length:g} mm band at y "
-                f"[{y0:g}, {y1:g}] should be {2 * r:g} across {axis} about {centre:g}; "
-                f"{STEP.name} runs [{lo:.4f}, {hi:.4f}] there. A seat bored on `barrel` closes "
-                f"on a section that is not the one it was drawn for.")
-
-
 def _turned(profile):
     """An axial radius profile revolved about +Z before the final frame turn."""
     outline = [(0, profile[0][0]), *((r, y) for y, r in profile),

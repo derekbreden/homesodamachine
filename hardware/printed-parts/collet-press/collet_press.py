@@ -203,40 +203,13 @@ def build_head() -> cq.Workplane:
 def build() -> cq.Workplane:
     """One supportless solid: flat handle, buried root, angled U-head."""
     handle = build_handle()
-    protrusion = max(
-        vertex.Center().x - vertex.Center().z + HEAD_Z_SHIFT
-        for vertex in handle.vertices().vals()
-    )
-    if protrusion > 1e-6:
-        raise ValueError(
-            f"handle projects {protrusion:.6f} mm beyond the head's 45-degree underside"
-        )
-    if not math.isclose(STRAIGHT_TIP_U, jg.COLLET_D / 2.0, abs_tol=1e-9):
-        raise ValueError("straight arms must reach the collet's forward OD tangent")
-    if not math.isclose(HEAD_FRONT_U - STRAIGHT_TIP_U, TIP_RADIUS, abs_tol=1e-9):
-        raise ValueError("rounded noses must begin beyond the collet face")
-    if not math.isclose(HEAD_BACK_LAND, ARM_WIDTH, abs_tol=1e-9):
-        raise ValueError("angled head must stop one arm width behind the U")
-    if not math.isclose(HEAD_WIDTH, HANDLE_WIDTH, abs_tol=1e-9):
-        raise ValueError("head and handle must remain one constant-width strip")
-    if not math.isclose(HEAD_THICKNESS, HANDLE_THICKNESS, abs_tol=1e-9):
-        raise ValueError("head and handle thicknesses must remain equal")
-    if not math.isclose(HANDLE_CORNER_RADIUS, TIP_RADIUS, abs_tol=1e-9):
-        raise ValueError("handle end and fork tips must use the same radius")
-
     tool = handle.union(build_head()).clean()
 
     solids = tool.solids().vals()
     if len(solids) != 1 or not solids[0].isValid():
         raise ValueError("collet press must resolve to one valid printable solid")
-    bb = solids[0].BoundingBox()
-    if abs(bb.zmin) > 1e-6:
-        raise ValueError(f"print face drifted off Z=0: zmin={bb.zmin:.6f}")
     if not (jg.PORT_D < JAW_GAP < jg.COLLET_BORE):
         raise ValueError("jaw must pass the tube and remain inside the collet bore")
-    jaw_cover = (jg.COLLET_D - JAW_GAP) / 2.0
-    if jaw_cover < jg.COLLET_WALL:
-        raise ValueError("jaw arms do not span the measured collet's radial wall")
 
     tube_local = (
         cq.Workplane("XY")

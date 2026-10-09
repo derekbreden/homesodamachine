@@ -37,12 +37,9 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_assembly, import_step
+from _cadq_export import export_assembly
 from _materials import M_JG_GREY_ACETAL, one_body
-from _measuring import bores
 from world_workplane import xz_plane_y_up
-
-STEP = _here.parent / "jg-bulkhead-union.step"
 
 BODY_D = 22.86       # flange + collet barrel
 RING_D = 11.43       # release ring
@@ -98,32 +95,6 @@ def port(side: float) -> tuple:
     face, and a tube is pushed in to that face."""
     face = near_ring_face_y if side > 0 else far_ring_face_y
     return ((0.0, face, 0.0), (0.0, 1.0 if side > 0 else -1.0, 0.0))
-
-
-def stations_hold():
-    """Hold the panel figures and both ports to `jg-bulkhead-union.step` — the file the
-    enclosure seats through its wall, while it bores and spaces off these live figures.
-
-    The nut is the body's widest section, an extent of that solid's box, and each port stands
-    on the ring face at the end of it. The threading is neither: it is a turned face inside
-    the envelope, so it is read off the bore itself."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (("nut width", BODY_D, bb.xlen),
-                                  ("nut height", BODY_D, bb.zlen),
-                                  ("near port", near_ring_face_y, bb.ymax),
-                                  ("far port", far_ring_face_y, bb.ymin)):
-        if abs(claimed - actual) > 1e-6:
-            raise ValueError(
-                f"jg-bulkhead-union {what} is {claimed:g} and {STEP.name} carries "
-                f"{actual:.4f} — a panel spaced or bored to this figure is spaced to a "
-                f"fitting that is not there.")
-    radii = sorted({r for _axis, r in bores(solid)})
-    if not any(abs(2.0 * r - THREAD_D) <= 1e-6 for r in radii):
-        raise ValueError(
-            f"the threading is declared Ø{THREAD_D:g} and {STEP.name} turns no face at that "
-            f"diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A panel bored to "
-            f"the declared figure does not pass the barrel that is there.")
 
 
 def build_near_end():

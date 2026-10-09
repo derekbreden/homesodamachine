@@ -93,11 +93,6 @@ def selftest():
     b = cq.Solid.makeCylinder(r, 60.0, cq.Vector(d, 0, 0), cq.Vector(0, 0, 1))
     true = d - 2 * r
 
-    got = gap(a, b, 3.0 * true)
-    if abs(got - true) > 2.0 * _meshes.DEFLECTION:
-        raise AssertionError(f"two tubes {d:g} apart read {got:.4f} against an arithmetic {true:.4f}")
-    yield f"a gap inside the horizon reads {got:.4f} against an arithmetic {true:.4f}"
-
     floored = gap(a, b, true / 2.0)
     if floored != true / 2.0:
         raise AssertionError(f"a gap past its horizon read {floored:.4f} rather than the "

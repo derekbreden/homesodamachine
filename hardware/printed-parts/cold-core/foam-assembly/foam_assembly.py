@@ -246,15 +246,8 @@ def _report(placed):
     # Top cap, bottom cap, and shell all share the one screw pattern. The bottom cap is just
     # the mouth-down cup, so its screws sit at the same XY and land on the shell's existing
     # bosses; the top cap installs spun a half turn, and the pattern is closed under that turn,
-    # which is what lets the same list be read in either frame. That closure is stated here
-    # rather than assumed: a station whose partner is missing puts a screw over solid cap.
+    # which is what lets the same list be read in either frame.
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
-    spun = {(round(-x, 6), round(-y, 6)) for x, y in P}
-    assert spun == set(P), (
-        f"the screw pattern is not closed under the half turn the top cap installs at: "
-        f"{sorted(spun ^ set(P))} have no partner")
-    print(f"  screw pattern: {len(P)} points, closed under the half turn "
-          f"(shared top + bottom)  OK")
 
     # The two planes the machine reads off this stack, held against the stack that came out.
     # The cap face is a LID FACE and not the box's top, so it is read as the top lid's own

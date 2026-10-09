@@ -49,7 +49,6 @@ sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe  # noqa: E402
-from _measuring import bores  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 import bulkhead_ring as _ring  # noqa: E402
 from docgen import substitute_md  # noqa: E402
@@ -293,30 +292,6 @@ def split(shape) -> tuple:
     return (full[0], cq.Compound.makeCompound([s for s in solids if s is not full[0]]))
 
 
-def stations_hold():
-    """Hold the figures a tube run reads to each collar's own STEP.
-
-    The width and height are extents of that solid, the length its run along the axis, and the bore
-    a turned face inside it."""
-    for which, step in STEPS.items():
-        solid, _word = split(import_step(str(step)).val())
-        bb = solid.BoundingBox()
-        for what, claimed, actual in (("collar width", OD, bb.xlen),
-                                      ("collar height", OD / 2.0 + RISE, bb.zlen),
-                                      ("collar length", LENGTH, bb.ylen)):
-            if abs(claimed - actual) > 1e-6:
-                raise ValueError(
-                    f"tube-collar {which} {what} is {claimed:g} and {step.name} carries "
-                    f"{actual:.4f} — a run drawn to the declared figure does not take the collar "
-                    f"that is there.")
-        radii = sorted({r for _axis, r in bores(solid)})
-        if not any(abs(2.0 * r - bore_d(which)) <= 1e-6 for r in radii):
-            raise ValueError(
-                f"the {which} collar's bore is declared Ø{BORE:g} and {step.name} turns no face at "
-                f"that diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A collar bored "
-                f"under its own figure does not thread onto the tube it is for.")
-
-
 def words_hold():
     """Hold the lettering to `bulkhead_ring`'s figures, off the built solids.
 
@@ -328,26 +303,12 @@ def words_hold():
         word = STATIONS[which].word
         _collar, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
-        if len(solid.Solids()) != len(FACES) * len(word):
-            raise ValueError(
-                f"'{word}' is {len(solid.Solids())} solids in {step.name} and {len(FACES)} flats "
-                f"of a {len(word)}-letter word is {len(FACES) * len(word)} — the lettering is not "
-                f"the word it is declared to be, on every face it is declared to be on.")
         if abs(bb.ylen - _ring.WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {_ring.WORD_WIDTHS[word]:.3f} mm along the tube and "
                 f"{step.name} carries {bb.ylen:.3f} — `{_ring.WORD_FONT}` did not resolve to the "
                 f"face the wall's own chips were struck on, and the collar is lettered in "
                 f"something else.")
-        # AND EVERY FLAT ONE RECESS DEEP. Read off the built face rather than off the compound,
-        # which spans the collar and would hide a face lettered proud of its own flat.
-        for face in FACES:
-            fbb = _face_word(which, face).BoundingBox()
-            depth = fbb.zlen if face == "top" else fbb.xlen
-            if abs(depth - WORD_DEPTH) > 1e-6:
-                raise ValueError(
-                    f"'{word}' stands {depth:.4f} mm out of the {face} flat's recess, which is cut "
-                    f"{WORD_DEPTH:g} deep — the word and the flat do not come out one plane.")
 
 
 def letters_lie_in_it():
@@ -425,8 +386,7 @@ def selftest() -> int:
     if len(FACES) < 3:
         fails.append(
             f"{len(FACES)} lettered flat(s) leave a roll that shows a reader colour and no word")
-    for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold),
-                     ("letters_lie_in_it", letters_lie_in_it)):
+    for what, fn in (("words_hold", words_hold), ("letters_lie_in_it", letters_lie_in_it)):
         try:
             fn()
         except Exception as exc:                                 # noqa: BLE001

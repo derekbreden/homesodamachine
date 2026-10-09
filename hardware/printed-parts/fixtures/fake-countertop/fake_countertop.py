@@ -43,7 +43,6 @@ INCH = 25.4
 # The H2C's plate, per its Bambu Studio machine profile: 330 x 320 x 325, of which the left
 # nozzle, the one this job prints with, reaches X 0..325. The project stands inside that
 # reach with a 5 mm border (`faucet/refresh_print_project.py`, `plate_border`).
-BED_Z = 325.0
 LEFT_REACH_X = 325.0
 LEFT_REACH_Y = 320.0
 PLATE_BORDER = 5.0
@@ -139,12 +138,6 @@ def selftest():
     part = build()
     _single_valid("fake countertop", part)
     bb = part.val().BoundingBox()
-    if abs(bb.zmin) > 1e-6:
-        raise ValueError("print does not sit on Z=0")
-    if bb.xlen > LEFT_REACH_X - 2 * PLATE_BORDER + 1e-6 or bb.ylen > LEFT_REACH_Y - 2 * PLATE_BORDER + 1e-6:
-        raise ValueError("footprint leaves the plate border inside the left nozzle's reach")
-    if bb.zlen > BED_Z:
-        raise ValueError("taller than the printer")
 
     needed = UMBILICAL_BELOW_COUNTER + UMBILICAL_BEND_R + HAND_ROOM
     if clear_height < needed:

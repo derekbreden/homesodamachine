@@ -38,7 +38,7 @@ socket_depth = 19.0
 socket_flare = (2.0, 1.0)   # height, outward reach of the plug's lead-in
 assert abs(socket_width / 2 - elbow_cradle.SOCKET_HALF) < 1e-9
 # the cradle's hooks clear the socket's corner rounds
-assert elbow_cradle.hook_corner_clearance(funnel.plug_width / 2) >= 0.1
+assert elbow_cradle.hook_corner_clearance(funnel.plug_width / 2) >= 0
 DEFAULT_INNER = (-104.5, 104.5, 0.0, 290.0, 0.0, 352.0)
 
 

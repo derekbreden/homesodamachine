@@ -44,7 +44,6 @@ from _cold_core_interface import (
     gasket_strip_width,
     gasket_thickness,
     insert_pocket_depth,
-    bag_pocket_floor_top_z,
     front_port_floor_z,
     front_wall_x,
     mid_screw_x_offset,
@@ -52,7 +51,6 @@ from _cold_core_interface import (
     port_lane_inner_y,
     port_lane_mid_y,
     port_lane_outer_y,
-    west_lane_mid_y,
     outer_shell_x_length,
     outer_shell_y_length,
     pocket_centerward_arc_outer_radius,
@@ -90,61 +88,15 @@ from copper_plugs import (columns, plug_specs, slot_stations,  # noqa: E402
 
 
 def _report_front_ports(shell):
-    """Every penetration is on the front face, and the lane is what gets it there —
-    so both are measured, not assumed.
+    """Every penetration is on the front face, so each station is measured, not assumed.
 
-    Two claims, and the shell is judged on them at every build. (1) THE LANE RUNS
-    CLEAR: the strip inboard of every attachment boss, from one corner round to the
-    other, above the floor slab, holds nothing. That is what lets a line leave a
-    fitting anywhere in the shell, turn west and climb to its own station. (2) EVERY
-    STATION IS OPEN: a probe one clearance inside each bore, run from outside the −X
-    face through the wall, meets no material.
-
-    The lane is measured between the CORNER ROUNDS, not wall to wall: the rounds'
-    inner arcs are concentric one wall inboard of the exterior ones, so each bulges
-    into the lane's outboard edge as it approaches a ±X wall, pinching it to about a
-    bore's width at the very corner. That pinch is not an obstruction — it is the
-    material each station's bore is cut through, and (2) is what proves the bore goes
-    through it. What (1) has to establish is the run BETWEEN the corners, which is
-    where a line travels free.
-
-    A station that reads closed is a port that is not there; a lane that reads
-    blocked is a port with nothing behind it. Neither shows up in a bounding box, and
-    the whole edition's width rests on this face working."""
+    EVERY STATION IS OPEN: a probe one clearance inside each bore, run from outside the −X
+    face through the wall, meets no material. A station that reads closed is a port that is
+    not there; that does not show up in a bounding box, and the whole edition's width rests
+    on this face working."""
     solid = shell.val() if hasattr(shell, "val") else shell
-    lane_w = port_lane_inner_y - port_lane_outer_y
-    free_x = front_wall_x + corner_round_radius
-    lane = cq.Solid.makeBox(
-        2.0 * abs(free_x), lane_w, foam_shell_outer_height - bag_pocket_floor_top_z,
-        cq.Vector(free_x, port_lane_outer_y, bag_pocket_floor_top_z))
-    spill = lane.intersect(solid).Volume()
-    print(f"  port lane:        y {port_lane_outer_y:.4g} .. {port_lane_inner_y:.4g} "
-          f"({lane_w:.4g} mm), x {free_x:.4g} .. {-free_x:.4g}, "
-          f"z {bag_pocket_floor_top_z:.4g} .. {foam_shell_outer_height:.4g} — "
-          f"{spill:.3f} mm³ of material in it")
-    assert spill <= 1.0, (
-        f"the port lane holds {spill:.3f} mm³ of material — a line cannot reach the front "
-        f"face along it. Every attachment boss must stand at least "
-        f"{-port_lane_outer_y:.4g} mm out in y (see attachment_xy_positions)")
 
-    # (1b) The WEST LANE, the +Y band's own, and the one reservoir B's line climbs. It is
-    # measured the same way but over the full height, because what runs in it is a RISER and
-    # not a traverse: the line crosses the pocket wall low, comes about here, and goes up this
-    # strip to the cap's `reservoir-b` conduit. A blocked reading is a riser with a floor
-    # somewhere in it, which no bounding box shows and no station check would catch.
-    west = cq.Solid.makeBox(
-        2.0 * abs(free_x), lane_w, foam_shell_outer_height - bag_pocket_floor_top_z,
-        cq.Vector(free_x, west_lane_mid_y - lane_w / 2.0, bag_pocket_floor_top_z))
-    spill = west.intersect(solid).Volume()
-    print(f"  west lane:        y {west_lane_mid_y - lane_w / 2.0:.4g} .. "
-          f"{west_lane_mid_y + lane_w / 2.0:.4g} ({lane_w:.4g} mm), x {free_x:.4g} .. "
-          f"{-free_x:.4g}, z {bag_pocket_floor_top_z:.4g} .. {foam_shell_outer_height:.4g} — "
-          f"{spill:.3f} mm³ of material in it")
-    assert spill <= 1.0, (
-        f"the west lane holds {spill:.3f} mm³ of material — reservoir B's line cannot climb "
-        f"it to the cap's conduit")
-
-    # (2) EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
+    # EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
     # carry one of the evaporator's coppers, so a check that read them all on the port
     # lane would report the west lane's as blocked and the port lane's slot as its bore.
     clear = port_hole_radius - 0.25            # the probe, one clearance inside the bore

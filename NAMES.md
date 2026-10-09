@@ -21,8 +21,8 @@ the entry says: `faucet shell` is the name, and `the shell` is correct inside
 **Every screw seat in the machine is a COUNTERBORE.** A counterbore is flat-bottomed and takes a
 cylindrical head; a countersink is a 90° cone and takes a wedging flat head. They are different
 features and the words do not trade — a flat-bottomed pocket is never "countersunk" because its
-head ends up below the face. The one countersunk fastener in this tree is the pair of M5 × 12 that
-hold the weld rotator's motor, which is bench tooling and ships in nothing.
+head ends up below the face. The one countersunk fastener in this tree is the pair of M5 × 20 into
+M5 square nuts that hold the weld rotator's motor, which is bench tooling and ships in nothing.
 
 **`soda` in a part name means soda water** — carbonated and unflavored, not the flavored drink the
 brand name means.

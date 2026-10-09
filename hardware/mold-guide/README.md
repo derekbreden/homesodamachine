@@ -71,8 +71,8 @@ mold stock. A flat cavity base and steep 63.4° corbel support the flange;
 the core has a flat back with a tapered circular rod-access opening.
 Print with six walls, six top/bottom layers and 15% gyroid. Drill the dry-side
 infill breathers in the mold procedure after printing, leaving them bare.
-The core's brim-finishing pocket has 4.7 mm backing; ramp backing is at least
-5 mm. The lower socket has at least a 5 mm floor. The flanges are 211 × 163.683 mm,
+The core's brim-finishing pocket has 4.7 mm backing. The lower socket has at
+least a 5 mm floor. The flanges are 211 × 163.683 mm,
 with 16 mm of margin around the funnel brim. The diagrams omit the thin
 rod-seat clearance at full-mold scale; named dimensions and the finished
 reference govern.

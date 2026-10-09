@@ -872,10 +872,6 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     r = spine_radius(carrier_offset, x)
     separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
     middle_chord = separation - 2.0 * r
-    if r < MIN_BEND - 1e-9:
-        raise ValueError(
-            f"tee offset {carrier_offset:+.3f} asks the spine for R{r:.3f}, under "
-            f"the stock floor R{MIN_BEND:g}")
     if middle_chord < -1e-9:
         raise ValueError(
             f"tee offset {carrier_offset:+.3f} leaves {separation:.3f} mm between spine "

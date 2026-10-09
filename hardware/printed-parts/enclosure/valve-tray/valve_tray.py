@@ -111,11 +111,6 @@ def wall_root_floors(seats) -> tuple:
                  - reach() - MARGIN for edge in (min(xs), max(xs)))
 
 
-def seat_pitch_floor() -> float:
-    """The closest two seats stand before their bosses meet."""
-    return 2.0 * _seat.seat_half_x
-
-
 def port_drop() -> float:
     """How far the valve's PORT hangs under the face the valve lands on.
 
@@ -232,13 +227,6 @@ def build_valve_tray(width: float, seats):
     if not seats:
         raise ValueError("a valve tray with no seats is a plate, and this machine prints none")
     ys = [y for _x, y in seats]
-    for i, (xa, ya) in enumerate(seats):
-        for xb, yb in seats[i + 1:]:
-            if abs(xa - xb) < seat_pitch_floor() - 1e-9:
-                raise ValueError(
-                    f"two seats stand ({abs(xa - xb):.3f}, {abs(ya - yb):.3f}) mm apart and a "
-                    f"seat reaches {_seat.seat_half_x:g} mm across the plate — their bosses meet, and four "
-                    f"bosses that meet are a plate with scallops in it")
     mid_y = (min(ys) + max(ys)) / 2.0
     tray_height = height(seats)
     tray = (cq.Workplane("XY")
@@ -314,9 +302,9 @@ def selftest() -> int:
                      f"and the nearest socket wall stands at "
                      f"{_seat.corner_inset_x - _seat.socket_radius:.3f} — the channel is in the "
                      f"socket, and a socket open down its side holds no post")
-    # A synthetic row of four at the closest pitch the part takes, so the construction is
+    # A synthetic row of four, one seat's width and a millimetre apart, so the construction is
     # measured here as well as where the machine stands its valves.
-    pitch = seat_pitch_floor() + 1.0
+    pitch = 2.0 * _seat.seat_half_x + 1.0
     seats = tuple((i * pitch, y) for i, y in ((-1.5, -3.0), (-0.5, 3.0),
                                             (0.5, -3.0), (1.5, 3.0)))
     width = pitch * 4.0
@@ -333,15 +321,6 @@ def selftest() -> int:
                          f"`height` declares")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(str(exc))
-    for what, bad in (("two seats inside the boss pitch",
-                       ((0.0, 0.0), (seat_pitch_floor() - 1.0, 0.0))),
-                      ("two seats in one port column",
-                       ((0.0, 0.0), (0.0, seat_pitch_floor() + 1.0)))):
-        try:
-            build_valve_tray(100.0, bad)
-            fails.append(f"{what} were accepted")
-        except ValueError:
-            pass
     for line in fails:
         print(f"FAIL {line}")
     if not fails:

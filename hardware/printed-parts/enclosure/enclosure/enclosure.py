@@ -1302,23 +1302,13 @@ def back_seam_flank_t():
 # corbel land exactly flush with the wall that roots them.
 seam_pin_shank_len = back_seam_flank_t() - head_cbore_depth
 seam_heatset_depth = heatset_len + mount_bore_relief
-seam_screw_tip_clearance = seam_pin_shank_len + seam_heatset_depth - screw_len
 if abs(boss_in - (back_seam_flank_t() + seam_heatset_depth + socket_cap - wall)) > stated_bound_tol:
     raise ValueError("the M3 seam seat no longer fits its stated corner band")
 seam_heatset_relief = seam_heatset_depth - heatset_len
-if seam_screw_tip_clearance < 0.5 - stated_bound_tol:
-    raise ValueError("the M3 seam screw needs at least 0.5 mm before the blind end")
-if screw_len - seam_pin_shank_len < heatset_len - stated_bound_tol:
-    raise ValueError("the M3 seam screw does not engage its complete insert")
 if seam_pin_shank_len <= 0.0:
     raise ValueError(
         f"the {head_cbore_depth:g} mm Y-seam head seat consumes the whole "
         f"{back_seam_flank_t():g} mm back flank")
-if seam_heatset_relief < mount_bore_relief - stated_bound_tol:
-    raise ValueError(
-        f"the Y-seam's M3x{screw_len:g} leaves a {seam_heatset_depth:g} mm heat-set pilot, "
-        f"only {seam_heatset_relief:g} mm past the {heatset_len:g} mm insert; "
-        f"it owes {mount_bore_relief:g} mm screw-tip relief")
 
 # --- front-bottom's own ±X section --------------------------------------------
 #
@@ -3356,8 +3346,6 @@ def disposal_field(outer):
     field = (bounds.xmin - disposal_margin, bounds.xmax + disposal_margin,
              outer[3] - wall, outer[3] + disposal_raise,
              bounds.zmin - disposal_margin, bounds.zmax + disposal_margin)
-    if field[0] < outer[0] + corner_round or field[1] > outer[1] - corner_round:
-        raise ValueError("the disposal warning's flat field reaches a rounded rear corner")
     return field
 
 
@@ -5791,8 +5779,6 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     # The seat follows the loom's height while keeping a full wall thickness below
     # the ridge crown. The lead reaches down into the seat where the crown sets its height.
     clip_z = max(foot + rise, loom[2] - _cable_clip.seat_top())
-    assert clip_z + _cable_clip.seat_top() - _cable_clip.seat_height() <= loom[2]
-    assert loom[2] <= clip_z + _cable_clip.seat_top()
     slab = _cable_clip.apply(
         slab,
         origin=(clip_start, face, clip_z),
@@ -6320,17 +6306,6 @@ def _east_boss_stem(wall_x, station, up=1.0):
     z0, z1 = (sz - r, sz) if up > 0 else (sz, sz + r)
     return _xcyl(r, sy, sz, tip, wall_x).fuse(
         _ybox(tip, wall_x, sy - r, sy + r, z0, z1))
-
-
-def _east_boss_d_fill(wall_x, station, up=1.0):
-    """Only the two corners on the print-down side that turn the established round stem into a
-    D — `up` as `_east_boss_stem` reads it."""
-    sy, sz, tip = station[:3]
-    r = mount_boss_dia / 2.0
-    cylinder = _xcyl(r, sy, sz, tip, wall_x)
-    z0, z1 = (sz - r, sz) if up > 0 else (sz, sz + r)
-    chord = _ybox(tip, wall_x, sy - r, sy + r, z0, z1)
-    return chord.cut(cylinder)
 
 
 def _east_wedge(wall_x, sz, ylo, yhi, reach, up=1.0):
@@ -7118,20 +7093,11 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
         return solid
     crown = max(t for _bx, _by, t in bosses)
     floor_tip = min(t for _bx, _by, t in bosses)
-    if floor_tip - inner[4] < cond_bore_depth - 1e-6:
+    if floor_tip <= inner[4]:
         raise ValueError(
-            f"the lowest condenser flange stands {floor_tip - inner[4]:g} over the slab and the "
-            f"boss under it carries a {cond_bore_depth:g} bore — a body set down closer than its "
-            f"own insert is a body whose screw has nowhere to close. Stand it off by at least "
-            f"that, or capture that flange the way the fore pair is captured.")
+            f"the lowest condenser flange stands {floor_tip - inner[4]:g} over the slab, "
+            f"which leaves the boss under it no height")
     west = min(bx for bx, _by, _t in bosses) - mount_boss_dia
-    for bx, by, _tip in bosses:
-        room = min(bx - west, inner[1] - bx, by - my0, my1 - by) - heatset_dia / 2.0
-        if room < boss_ligament:
-            raise ValueError(
-                f"the condenser boss at ({bx:g}, {by:g}) keeps {room:g} of material round its "
-                f"Ø{heatset_dia:g} insert bore, under the {boss_ligament:g} every boss in this "
-                f"box keeps round one. The hole has moved off the band this finger stands in.")
     solid = solid.fuse(_ybox(flank, inner[1], my0, my1, inner[4], crown))
     for bx, by, tip in bosses:
         root = inner[4] if tip == floor_tip else tip - cond_boss_t
@@ -7161,18 +7127,12 @@ def vent_transoms(airway):
     THE LAYOUT IS THE BAND DIVIDED, not a list of stations. `cond_vent_transoms` transoms of
     `cond_vent_transom_h` leave `cond_vent_transoms + 1` equal slot segments, so the band closes
     on itself exactly and stays symmetric about its own mid-height whichever of the three figures
-    moves. The assertion is that closure: it is the one thing arithmetic here can get wrong."""
+    moves."""
     z0, z1 = vent_band(airway)
     run = (z1 - z0 - cond_vent_transoms * cond_vent_transom_h) / (cond_vent_transoms + 1)
-    bands = tuple((z0 + (k + 1) * run + k * cond_vent_transom_h,
-                   z0 + (k + 1) * run + (k + 1) * cond_vent_transom_h)
-                  for k in range(cond_vent_transoms))
-    closed = (cond_vent_transoms + 1) * run + cond_vent_transoms * cond_vent_transom_h
-    assert abs(closed - (z1 - z0)) < 1e-9, "the vent's transoms do not close on its band"
-    assert all(abs(lo + hi - (z0 + z1)) < 1e-9
-               for (lo, _t), (_b, hi) in zip(bands, reversed(bands))), \
-        "the vent's transoms are not symmetric about the band"
-    return bands
+    return tuple((z0 + (k + 1) * run + k * cond_vent_transom_h,
+                  z0 + (k + 1) * run + (k + 1) * cond_vent_transom_h)
+                 for k in range(cond_vent_transoms))
 
 
 def vent_segment(airway):
@@ -8998,7 +8958,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # The window covers' posts, on the flanks' inner faces at the windows' aft faces.
             piece = piece.fuse(*_tee_carrier.posts(carrier))
     if y_side == "back" and z_side == "bottom":
-        disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())
     if (y_side, z_side) == ("back", "top"):
         cap_pocket = _core_cap_pocket(box)

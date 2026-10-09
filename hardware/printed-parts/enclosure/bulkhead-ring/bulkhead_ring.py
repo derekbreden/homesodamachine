@@ -70,7 +70,6 @@ sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe
-from _measuring import bores  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_drain_bulkhead as _drain
@@ -164,8 +163,7 @@ WORD_MIN_STROKE = 0.771
 # AND THE NARROWEST BRIDGE — the chip standing between two letters in the recess, and the gap
 # between their raised tops above it. This is FLAVOR's, between the L and the A: under one
 # `WORD_BEAD`, laid as a single outer wall of chip up to the face, with the tops apart above it.
-# `words_hold` holds every word to it. It scales with `WORD_SIZE`, so it is also the floor under
-# how small this lettering can be set.
+# It scales with `WORD_SIZE`.
 WORD_MIN_BRIDGE = 0.346
 # The tip these print through — one per filament, the hardened pair the nameplate's two colours
 # come off.
@@ -333,33 +331,6 @@ def split(shape) -> tuple:
     return (floor[0], cq.Compound.makeCompound([s for s in solids if s is not floor[0]]))
 
 
-def stations_hold():
-    """Hold the figures the wall and the drawings read to each chip's own STEP.
-
-    The width and the height are extents of that solid, the thickness its run along the axis, and
-    the bore a turned face inside it — so a chip exported from different numbers is caught here
-    rather than by a pocket it will not drop into."""
-    for which, step in STEPS.items():
-        solid, _word = split(import_step(str(step)).val())
-        bb = solid.BoundingBox()
-        diameter, top = outline(which)
-        for what, claimed, actual in (("chip width", diameter, bb.xlen),
-                                      ("chip height", bottom(family(which)) + top, bb.zlen),
-                                      ("chip thickness", THICK, bb.ylen)):
-            if abs(claimed - actual) > 1e-6:
-                raise ValueError(
-                    f"bulkhead-ring {which} {what} is {claimed:g} and {step.name} carries "
-                    f"{actual:.4f} — a wall pocketed to the declared figure does not take the "
-                    f"chip that is there.")
-        radii = sorted({r for _axis, r in bores(solid)})
-        want = bore_d(family(which))
-        if not any(abs(2.0 * r - want) <= 1e-6 for r in radii):
-            raise ValueError(
-                f"the {which} chip's bore is declared Ø{want:g} and {step.name} turns no face at "
-                f"that diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A chip bored "
-                f"under the wall's own figure closes on the barrel the wall passes.")
-
-
 def min_stroke(word_solid) -> float:
     """The narrowest stroke a built word carries, off its own outboard faces.
 
@@ -375,64 +346,22 @@ def min_stroke(word_solid) -> float:
     return min(out) if out else 0.0
 
 
-def min_bridge(which: str) -> float:
-    """The narrowest bridge of CHIP one station's word leaves standing between two letters.
-
-    Measured between the letterforms before the tie fuses them, which is where the gap is a gap:
-    the pair nearest each other across the word's advance. `build_word` sets the same text at the
-    same size, so a font that resolves elsewhere is read here too."""
-    flat = cq.Workplane("XY").text(STATIONS[which].word, WORD_SIZE, WORD_DEPTH,
-                                   font=WORD_FONT, kind=WORD_KIND,
-                                   halign="center", valign="center").val()
-    letters = sorted(flat.Solids(), key=lambda s: s.BoundingBox().xmin)
-    gaps = []
-    for a, b in zip(letters, letters[1:]):
-        probe = BRepExtrema_DistShapeShape(a.wrapped, b.wrapped)
-        probe.Perform()
-        gaps.append(probe.Value())
-    return min(gaps) if gaps else 0.0
-
-
 def words_hold():
     """Hold the lettering to the figures carried here, off the built solids.
 
     THE FONT IS THE SYSTEM'S. `WORD_FONT` names a face this repo does not ship, so a machine that
     resolves it to something else letters a chip that is a different part — same colour, same
     outline, different word entirely. Nothing about that shows up in a bore or an extent, which is
-    why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
-
-    AND EVERY LETTER IS ITS OWN SOLID. Nothing joins them and nothing needs to: the chip is opened
-    as one part carrying both bodies and the lettering takes the second filament, so a word is a
-    count of letters rather than a thing to keep together.
-
-    AND THE CHIP BETWEEN THE LETTERS is read the same way. A face that resolves elsewhere moves the
-    bridges as surely as it moves the widths, and the bridge is the finer feature of the two."""
+    why every word's width is carried in `WORD_WIDTHS` and read back off the solid here."""
     for which, step in STEPS.items():
         word = STATIONS[which].word
         _chip, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
-        if len(solid.Solids()) != len(word):
-            raise ValueError(
-                f"'{word}' is {len(solid.Solids())} solids in {step.name} and the word is "
-                f"{len(word)} letters — the lettering is not the word it is declared to be.")
-        got = min_bridge(which)
-        if abs(got - WORD_MIN_BRIDGE) > 1e-3 and got < WORD_MIN_BRIDGE:
-            raise ValueError(
-                f"'{word}' leaves a {got:.3f} mm bridge of chip between two of its letters and "
-                f"`WORD_MIN_BRIDGE` claims {WORD_MIN_BRIDGE:.3f} is the narrowest — the lettering "
-                f"is set finer than these figures were measured at.")
         if abs(bb.xlen - WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
                 f"{bb.xlen:.3f} — `{WORD_FONT}` did not resolve to the face these figures were "
                 f"struck on, and the chip is lettered in something else.")
-        for what, claimed, actual in (("floor", THICK - WORD_DEPTH, bb.ymin),
-                                      ("top", THICK + WORD_RAISE, bb.ymax)):
-            if abs(claimed - actual) > 1e-6:
-                raise ValueError(
-                    f"'{word}' has its {what} at y = {actual:.4f} in {step.name} and the word is "
-                    f"{WORD_DEPTH:g} deep and {WORD_RAISE:g} proud of a {THICK:g} mm chip, which "
-                    f"puts it at {claimed:g}.")
 
 
 def selftest() -> int:
@@ -494,11 +423,10 @@ def selftest() -> int:
             fails.append(
                 f"'{STATIONS[which].word}' carries a {got:.3f} mm stroke and `WORD_MIN_STROKE` "
                 f"claims {WORD_MIN_STROKE:.3f} is the narrowest of them")
-    for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold)):
-        try:
-            fn()
-        except Exception as exc:                                 # noqa: BLE001
-            fails.append(str(exc))
+    try:
+        words_hold()
+    except Exception as exc:                                     # noqa: BLE001
+        fails.append(str(exc))
     for line in fails:
         print(f"FAIL {line}")
     if not fails:

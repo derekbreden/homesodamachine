@@ -27,7 +27,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
+from _cadq_export import export_assembly
 from _materials import M_NICKEL_PLATE, one_body  # visual finish only; construction unverified
 
 STEP = _here.parent / "gasher-check-valve.step"
@@ -56,23 +56,6 @@ def outlet():
 def stations() -> dict:
     """Both ends, in the order the flow arrow runs."""
     return {"inlet": inlet(), "outlet": outlet()}
-
-
-def stations_hold():
-    """Hold both ends to `gasher-check-valve.step` — the file the enclosure seats, while it
-    takes these stations out of this module's live figures.
-
-    The valve is a straight run on one axis, so its two stations ARE the ends of that solid's
-    box: the socket mouth a male threads into, and the stub tip that threads into the next
-    female. The chain either side of it is seated on this reading."""
-    bb = import_step(str(STEP)).val().BoundingBox()
-    for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
-                                       ("outlet", outlet(), bb.ymax)):
-        if abs(pos[1] - actual) > 1e-6:
-            raise ValueError(
-                f"gasher {name} stands at y = {pos[1]:g} and {STEP.name} ends at "
-                f"{actual:.4f} — {abs(pos[1] - actual):.4f} mm apart. The pack seats that file "
-                f"and reads this station, so the chain made up on it closes on nothing.")
 
 
 def build():

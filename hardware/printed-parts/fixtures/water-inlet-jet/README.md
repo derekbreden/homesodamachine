@@ -83,8 +83,8 @@ It is a drilling fixture and does not enter the laser welding setup.
 Remove the rod from the fixture for each bandsaw cutoff. Before the next
 hole, clear chips from the floor, reseat the stock and realign the drill.
 Stop using a handling blank when less than
-[40 mm](JET_FIXTURE_MIN_BLANK) remains; the rod must project at least
-10 mm above the jaws, and the actual chuck clearance can require more.
+[40 mm](JET_FIXTURE_MIN_BLANK) remains; the actual chuck clearance can
+require more.
 Keep the short remainder for other coupons.
 
 ## Generate and check
@@ -97,8 +97,8 @@ tools/cad-venv/bin/python hardware/printed-parts/fixtures/water-inlet-jet/water_
 ```
 
 The checks establish valid individual solids, print orientation, open-jaw
-clearance, candidate rod contact before the faces bottom out, clamp-pad
-layout allowances and a drill path clear of the plastic. They do not model
+clearance, candidate rod contact before the faces bottom out and a drill
+path clear of the plastic. They do not model
 the real C-clamp frames, friction, clamp force, print tolerance or the WEN
 chuck. The nominal rod diameter is shared with the candidate jet CAD; the
 fixture is not an input to enclosure or cold-core geometry.

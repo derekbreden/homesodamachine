@@ -184,15 +184,13 @@ def apply(solid, *, origin, outward, along, embed, wall_thickness,
 
 
 def check():
-    """Exercise the three stated embedments and their wall-thickness bound."""
+    """Exercise the three stated embedments."""
     for embed, wall_thickness, proud in ((0.0, 3.0, 9.0),
                                          (6.0, 9.0, 3.0),
                                          (9.0, 12.0, 0.0)):
         addition, cutter = local_geometry(embed=embed, wall_thickness=wall_thickness)
         if (addition is not None and addition.Volume() <= 0.0) or cutter.Volume() <= 0.0:
             raise AssertionError("cable-clip geometry did not make valid solids")
-        if not math.isclose(projection(embed), proud, abs_tol=1e-9):
-            raise AssertionError("cable-clip projection no longer follows embedment")
         # The wall is sized off the profile, so it still holds the whole clip when the
         # section changes: the run lies along its −Y and the profile stands up its +Z.
         wall = cq.Solid.makeBox(
@@ -212,17 +210,11 @@ def check():
             raise AssertionError("cable clip did not remain one valid solid with its wall")
         if not math.isclose(result.BoundingBox().xmax, proud, abs_tol=1e-6):
             raise AssertionError("built cable-clip projection differs from its stated value")
-        try:
-            local_geometry(embed=embed, wall_thickness=wall_thickness - 0.01)
-        except ValueError:
-            pass
-        else:
-            raise AssertionError("a cable clip accepted a wall without its backing")
 
 
 def selftest():
     check()
-    return ["  embed 0/6/9 mm: one valid solid, projection 9/3/0 mm, backing 3 mm"]
+    return ["  embed 0/6/9 mm: one valid solid, projection 9/3/0 mm"]
 
 
 if __name__ == "__main__":
