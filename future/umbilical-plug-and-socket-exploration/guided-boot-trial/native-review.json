@@ -1,0 +1,266 @@
+{
+  "native_archive_sha256": "87778eea61d688998820ee700868f897b10a431d072d4e564f1165c3db84735b",
+  "review_source_sha256": "a97e3eef0b0e3eab76d3bff70fd8cd2b5a85736789e75629ed999c48faf1323a",
+  "gcode_sha256": "d46ff7c4166726022aa109175ebca15d5d03ec00969e74f23070a7ef8f4a2bcb",
+  "source_meshes_bound_by_print_record": true,
+  "project_settings_match_except_native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "first_layer_and_chamfer_bead_overlap": [
+    {
+      "from_z_mm": 0.2,
+      "to_z_mm": 0.44,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8918302860237118
+    },
+    {
+      "from_z_mm": 0.44,
+      "to_z_mm": 0.68,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8807311457706338
+    },
+    {
+      "from_z_mm": 0.68,
+      "to_z_mm": 0.92,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8790125190378643
+    },
+    {
+      "from_z_mm": 0.92,
+      "to_z_mm": 1.16,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8778519794186876
+    },
+    {
+      "from_z_mm": 1.16,
+      "to_z_mm": 1.4,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8773258628617611
+    },
+    {
+      "from_z_mm": 1.4,
+      "to_z_mm": 1.64,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.8732243165005473
+    },
+    {
+      "from_z_mm": 1.64,
+      "to_z_mm": 1.88,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9588672008047602
+    },
+    {
+      "from_z_mm": 33.8,
+      "to_z_mm": 34.04,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9997394700434971
+    },
+    {
+      "from_z_mm": 34.04,
+      "to_z_mm": 34.28,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9996909132100864
+    },
+    {
+      "from_z_mm": 34.28,
+      "to_z_mm": 34.52,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9721949650426371
+    },
+    {
+      "from_z_mm": 34.52,
+      "to_z_mm": 34.76,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9304630035198805
+    },
+    {
+      "from_z_mm": 34.76,
+      "to_z_mm": 35.0,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.933582159798824
+    },
+    {
+      "from_z_mm": 35.0,
+      "to_z_mm": 35.24,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9296969217224542
+    },
+    {
+      "from_z_mm": 35.24,
+      "to_z_mm": 35.48,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9296098125027358
+    },
+    {
+      "from_z_mm": 35.48,
+      "to_z_mm": 35.72,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9285618903299633
+    },
+    {
+      "from_z_mm": 35.72,
+      "to_z_mm": 35.96,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9285879020444117
+    },
+    {
+      "from_z_mm": 35.96,
+      "to_z_mm": 36.2,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9293968098154325
+    },
+    {
+      "from_z_mm": 36.2,
+      "to_z_mm": 36.44,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9295478889000718
+    },
+    {
+      "from_z_mm": 36.44,
+      "to_z_mm": 36.68,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9278514667459566
+    },
+    {
+      "from_z_mm": 36.68,
+      "to_z_mm": 36.92,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9277393021798881
+    },
+    {
+      "from_z_mm": 36.92,
+      "to_z_mm": 37.16,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9265910929429031
+    },
+    {
+      "from_z_mm": 37.16,
+      "to_z_mm": 37.4,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9273643018703901
+    },
+    {
+      "from_z_mm": 37.4,
+      "to_z_mm": 37.64,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9265484567736257
+    },
+    {
+      "from_z_mm": 37.64,
+      "to_z_mm": 37.88,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9218064335087373
+    },
+    {
+      "from_z_mm": 37.88,
+      "to_z_mm": 38.12,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9253893190766386
+    },
+    {
+      "from_z_mm": 38.12,
+      "to_z_mm": 38.36,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9098813725902066
+    },
+    {
+      "from_z_mm": 38.36,
+      "to_z_mm": 38.6,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9801234543677951
+    }
+  ],
+  "shoulder_wall_counts": [
+    {
+      "z_mm": 34.52,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 34.76,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 35.0,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 35.24,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 35.48,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 35.72,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 35.96,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 36.2,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 36.44,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 36.68,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 36.92,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 37.16,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 37.4,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 37.64,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 37.88,
+      "wall_count": 6
+    },
+    {
+      "z_mm": 38.12,
+      "wall_count": 6
+    }
+  ],
+  "all_supports_below_curved_guides_and_shoulder": true,
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 13.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 13.92
+  },
+  "physical_support_removal_tested": false,
+  "scope": "Prepared tactile job only; no physical print, tube feed, compression, grip or connector qualification.",
+  "submitted": false
+}

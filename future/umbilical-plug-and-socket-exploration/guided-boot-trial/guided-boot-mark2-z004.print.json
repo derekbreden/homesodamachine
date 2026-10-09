@@ -1,0 +1,243 @@
+{
+  "project": "guided-boot-mark2-z004.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "28b49f75d0c00e20d0f2175bb6a19b2bdfd92345dba9c13069d18e879b5076c2",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 6,
+  "sparse_infill_percent": 25,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "guided-boot-tactile",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "future/umbilical-plug-and-socket-exploration/guided-boot-trial/parts/guided-boot-tactile.stl",
+      "stl_sha256": "755e910bed5fb0c9f8051ddaa4ae66fc2d9985003b413ebd49965212f44e6215",
+      "triangles": 47468,
+      "rotation_x_degrees": -90,
+      "source_center_mm": [
+        0.0,
+        -49.0,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        137.5,
+        160.0,
+        49.0
+      ],
+      "plate_translation_mm": [
+        137.5,
+        160.0,
+        49.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          120.5,
+          143.0,
+          0.0
+        ],
+        [
+          154.5,
+          177.0,
+          98.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "guided-tube-key",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "future/umbilical-plug-and-socket-exploration/guided-boot-trial/parts/guided-tube-key.stl",
+      "stl_sha256": "c2f724c37174f32116f4483f19df14382b73edec3d966f3650621d2efbe63e30",
+      "triangles": 140,
+      "rotation_x_degrees": 90,
+      "source_center_mm": [
+        0.0022420883178710938,
+        -23.0,
+        -0.5625
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        1.0,
+        0.0,
+        -1.0,
+        6.123233995736766e-17,
+        187.5,
+        175.0,
+        6.0
+      ],
+      "plate_translation_mm": [
+        187.5,
+        175.0,
+        6.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          171.28246784210205,
+          169.23750019073486,
+          0.0
+        ],
+        [
+          203.71753215789795,
+          180.76249980926514,
+          12.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.931646202521733e-10
+    }
+  ],
+  "project_sha256": "e08a83a6d51f24fc95f34848bcd0f60b56de505b71e1d97044ef2c0fc7985c07",
+  "settings_preserved_byte_for_byte": false,
+  "printer_connection": "Mark2",
+  "printer_name": "Mark2",
+  "z_trim_mm": 0.04,
+  "intended_material": "Fiberon PET-GF15 Blue; left 0.4 mm nozzle",
+  "enable_support": true,
+  "settings_changes_after_refresh": {
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "6",
+    "sparse_infill_density": "25%",
+    "infill_wall_overlap": "15%",
+    "is_infill_first": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "filament_colour": [
+      "#69B4F7"
+    ],
+    "enable_support": "1",
+    "enable_arc_fitting": "0",
+    "elefant_foot_compensation": "0"
+  },
+  "source_sha256": {
+    "umbilical.py": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+    "boot_concept.py": "0980228ede1824a91ae81837981e33d8f79f27c9bdda92c0440a7fa0d41bd479",
+    "assessment/prepare_guided_boot_trial.py": "fa6363de3501073b62042c81b34290d1b872808fd6f100c5d26648ade0fb22a7"
+  },
+  "scope": "Unpowered, unpressurized tactile boot and key. Filled magnet pockets. No magnetic, fluid-sealing, electrical, pressure or lifetime qualification.",
+  "submitted": false,
+  "native": {
+    "archive": "guided-boot-mark2-z004.gcode.3mf",
+    "archive_sha256": "87778eea61d688998820ee700868f897b10a431d072d4e564f1165c3db84735b",
+    "gcode_sha256": "d46ff7c4166726022aa109175ebca15d5d03ec00969e74f23070a7ef8f4a2bcb",
+    "estimated_time": "2h 22m 4s",
+    "filament_g": [
+      63.54
+    ],
+    "layer_count": 409,
+    "first_layer_z_mm": 0.2,
+    "normal_layer_height_mm": 0.24,
+    "pause_commands": 0,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          111.715588,
+          142.730588
+        ],
+        [
+          203.986412,
+          181.032412
+        ]
+      ],
+      "maximum_line_width_mm": 0.758824,
+      "bounds_padding_mm": 0.47941200000000006
+    },
+    "minimum_full_bead_bed_margin_mm": 111.715588
+  },
+  "native_support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 13.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 13.92
+  }
+}

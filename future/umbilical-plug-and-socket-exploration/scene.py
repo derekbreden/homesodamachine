@@ -1,7 +1,8 @@
 """Scene STEPs for the umbilical plug and socket, with their viewer payloads, into `out/` (ignored):
 the socket in a patch of back-top, the plug on its tubes, the two plugged in, a section through the
 right-hand column, and the plug in the countertop hole. Prints the clearance check, fills the
-README's figures and writes viz-spec.json. The parts themselves are umbilical.py's.
+README's figures and writes viz-spec.json. The guided boot is boot_concept.py's;
+the socket and saved coupling prints are umbilical.py's.
 
     tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/scene.py
 """
@@ -41,8 +42,8 @@ C_RIBBON = cq.Color(0.62, 0.62, 0.65)
 C_COUNTER = cq.Color(0.82, 0.81, 0.78)
 
 PP0408W = import_step(u.U.STEP).val()
-SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), boot.plug(), u.key(), u.wall_patch()
-DRAIN_PROUD = 1.8                          # as drawn; see umbilical.D_PROUD_MIN
+SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), boot.plug(), boot.key(), u.wall_patch()
+DRAIN_PROUD = boot.DRAIN_PROUD             # as drawn; see umbilical.D_PROUD_MIN
 
 
 def tube(od, idd, y0, y1, x, z):
@@ -97,10 +98,9 @@ def add_plug(a, loc=cq.Location()):
     for tag, s in u.pogo_hardware(-1):
         a.add(s, name=f"pogo-{tag}-plug", color=M.M_BRASS if tag.startswith("insert") else C_SCREW, loc=loc)
     for name, (x, z, od) in PORTS.items():
-        tip = u.STUB_Q if od > 5 else u.STUB_D
-        a.add(tube(od, 4.32 if od > 5 else 2.5, -u.PLUG_L - BUNDLE, tip, x, z), name=f"{name}-umbilical-tube",
+        a.add(boot.tube(name, boot.ENTRY - BUNDLE), name=f"{name}-umbilical-tube",
               color=COLOURS[name], loc=loc)
-    y0 = -u.PLUG_L - BUNDLE
+    y0 = boot.ENTRY - BUNDLE
     a.add(boot.foam(y0), name="soda-tube-foam", color=M.M_NITRILE_BLACK, loc=loc)
     a.add(boot.jacket(y0), name="umbilical-fabric-jacket", color=M.M_PET_BRAID, loc=loc)
     a.add(boot.ribbon(y0), name="display-ribbon", color=C_RIBBON, loc=loc)
@@ -143,8 +143,8 @@ export("section", section)
 
 
 def boot_section(a):
-    """Only the plug and bundle, sectioned through the soda tube's axis."""
-    keep = box(-200, -u.H, -300, 300, -200, 200)
+    """Only the plug and bundle; section follows the curved soda tube's axis."""
+    keep = boot.section_keep()
     tmp = cq.Assembly()
     add_plug(tmp)
     for child in tmp.children:
@@ -179,8 +179,8 @@ cup_wall = SOCKET.intersect(box(-60, 60, u.FACE - 1, -0.5, -60, 60))
 checks["plug_in_cup"] = gap(PLUG, cup_wall)
 tx, tz, xf = u.profile_corners(u.PLUG_R, u.PLUG_F)
 plug_reach = math.hypot(xf, u.PLUG_F)
-checks["countertop_side"] = u.COUNTER_HOLE / 2 - u.PLUG_R
-checks["countertop_corner"] = u.COUNTER_HOLE / 2 - plug_reach
+checks["countertop_side"] = u.COUNTER_HOLE / 2 - boot.BODY_R
+checks["countertop_nose_corner"] = u.COUNTER_HOLE / 2 - plug_reach
 unions = union_solids()
 checks["union_to_socket"] = min(gap(s, SOCKET) for s in unions.values())
 checks["union_to_union"] = min(gap(unions[a], unions[b]) for i, a in enumerate(unions) for b in list(unions)[i + 1:])
@@ -196,9 +196,9 @@ checks["pogo_pin_compression"] = u.P.PIN_PROUD - MATED_PINS
 checks["pogo_to_socket"] = gap(male, SOCKET)
 checks["pogo_to_plug"] = gap(female, PLUG)
 checks["hook_overlap"] = (u.BODY_R + 1.6) - (u.BODY_R + u.HOLE_CLR)
-checks["stub_q_short_of_stop"] = u.COLLET_Q + u.U.INSERTION - u.STUB_Q
-checks["key_bite"] = u.KEY_BITE
-checks["cup_lead_before_stubs"] = u.CUP_DEPTH - u.STUB_Q
+checks["stub_q_short_of_stop"] = u.COLLET_Q + u.U.INSERTION - boot.STUB_Q
+checks["key_bite"] = boot.KEY_BITE
+checks["cup_lead_before_stubs"] = u.CUP_DEPTH - boot.STUB_Q
 for k, v in checks.items():
     print(f"  {k:28s} {v:7.3f}")
 
@@ -211,16 +211,16 @@ def f2(v):
 FIG = {
     "UMB_PLUG_D": f2(2 * u.PLUG_R),
     "UMB_PLUG_H": f2(2 * u.PLUG_F),
-    "UMB_PLUG_L": f"{u.PLUG_L:g}",
+    "UMB_PLUG_L": f"{boot.PLUG_L:g}",
+    "UMB_BOOT_D": f"{2*boot.BODY_R:g}",
     "UMB_COUNTER_SIDE": f2(checks["countertop_side"]),
-    "UMB_COUNTER_CORNER": f2(checks["countertop_corner"]),
     "UMB_PITCH": f2(u.PITCH),
     "UMB_UNION_GAP": f2(u.PITCH - u.U.RING_D),
     "UMB_CUP_DEPTH": f"{u.CUP_DEPTH:g}",
     "UMB_CUP_CLR": f2(u.CUP_CLR),
     "UMB_CUP_LEAD": f"{checks['cup_lead_before_stubs']:.1f}",
-    "UMB_STUB_Q": f"{u.STUB_Q:.1f}",
-    "UMB_STUB_D": f"{u.STUB_D:.1f}",
+    "UMB_STUB_Q": f"{boot.STUB_Q:.1f}",
+    "UMB_STUB_D": f"{boot.STUB_D:.1f}",
     "UMB_RELEASE": f"{u.RELEASE:g}",
     "UMB_NOSE_AIR": f"{u.NOSE_AIR:g}",
     "UMB_FLOAT": f2(u.NOSE_AIR + u.U.COLLET_TRAVEL),
@@ -234,7 +234,7 @@ FIG = {
     "UMB_SOCKET_DEPTH": f"{u.REAR + u.RETAINER_T - u.WALL_IN:.0f}",
     "UMB_WEB": f"{u.WEB:g}",
     "UMB_MAG_X": f"{u.MAG_X:.1f}",
-    "UMB_KEY_BITE": f"{u.KEY_BITE:g}",
+    "UMB_KEY_BITE": f"{boot.KEY_BITE:g}",
     "UMB_POGO_GAP": f"{2 * u.POGO_RECESS:.3f}",
     "UMB_CLR_UNION": f2(checks["union_to_union"]),
     "UMB_CLR_SCREW": f2(checks["screw_tip_to_union_cavity"]),
@@ -254,7 +254,8 @@ f = FIG
 spec = {
     "title": "One-plug umbilical",
     "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. "
-            "Foam and black/blue fabric enter a rear boot pocket; this is a material-packing study.",
+            "A packed insulated entry feeds curved tube guides and a straight mating nose. "
+            "Compression, grip and retention require physical trials.",
     "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
     "panels": [
         {"name": "Machine side",
@@ -262,8 +263,9 @@ spec = {
                     f"{f['UMB_LEDGE']} mm side ledge, held from inside by two snap leaves.",
          "models": [{"step": step("socket"), "ghost": ["back-top-wall"]}]},
         {"name": "Plug",
-         "caption": f"Ø{f['UMB_PLUG_D']} across, {f['UMB_PLUG_L']} long. One key clamps all four tubes; "
-                    "the foam and fabric jacket tuck into its rear pocket.",
+         "caption": f"Ø{f['UMB_BOOT_D']} rear body, {f['UMB_PLUG_L']} mm long: "
+                    "15 mm fabric cuff, 45 mm curved transition and 38 mm straight nose. "
+                    "One blue key retains the four tubes.",
          "models": [{"step": step("plug")}]},
         {"name": "Plugged in",
          "caption": f"The plug runs {f['UMB_CUP_LEAD']} mm into the {f['UMB_CUP_DEPTH']} mm cup before a stub "
@@ -274,19 +276,20 @@ spec = {
                     f"until its collet lands on the floor's back face and lets go. Side shows the cut.",
          "models": [{"step": step("section"), "ghost": ["back-top-wall"]}]},
         {"name": "Through the counter",
-         "caption": f"The plug in the 1⅜″ countertop hole: {float(f['UMB_COUNTER_SIDE']):.1f} mm a side, "
-                    f"{float(f['UMB_COUNTER_CORNER']):.1f} at its flats' corners. "
+         "caption": f"The Ø{f['UMB_BOOT_D']} rigid boot in the 1⅜″ countertop hole: "
+                    f"{checks['countertop_side']:.3f} mm nominal radial clearance. "
                     "The loose foam and braid need compression during passage.",
          "models": [{"step": step("counter"), "ghost": ["countertop*"]}]},
         {"name": "Boot materials",
-         "caption": "Cut through the soda tube: foam enters 15 mm; the fabric jacket encloses the whole "
-                    "bundle and enters 10 mm. Compression, mouth strength and pull-out retention are unqualified.",
+         "caption": "The cut follows the soda tube. Foam continues into the first half of its curved guide; "
+                    "the fabric tucks 15 mm into the cuff. A chamfered shoulder marks the seated depth, "
+                    "with 64 mm of boot outside the port.",
          "models": [{"step": step("boot-section")}]},
         {"name": "Machine-side plate", "image": "renders/print-machine-side.png",
          "caption": "The slicer's plate: socket on its flats, retainer, wall coupon roof-down. One pause for "
                     "the socket's bars."},
         {"name": "Plug-side plate", "image": "renders/print-plug-side.png",
-         "caption": "Saved geometry trial without the boot pocket: the plug upside down on its top flat "
+         "caption": "Saved coupling trial without the guided boot: the plug upside down on its top flat "
                     "and the key on end. One pause for the plug's bars."},
     ],
 }

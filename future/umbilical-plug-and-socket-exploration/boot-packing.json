@@ -1,52 +1,165 @@
 {
   "reviewed_local_date": "2026-10-09",
-  "scope": "Native geometry of a material-packing study. Foam is clipped to the available volume, not a prediction of deformation. Fabric is an envelope. No physical fit, insertion force, insulation performance, strain relief, wall strength or retention is established. Saved print projects omit this pocket.",
+  "scope": "Native geometry of the guided PET-GF boot. Foam and fabric describe intended compressed envelopes, not deformation predictions. No physical feed force, insulation performance, strain relief, wall strength or retention is established. Saved coupling print projects omit this boot.",
   "source_sha256": {
     "umbilical.py": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
-    "boot_concept.py": "2da935a96edc1efea8c4028d8a570de2118133d60c370c1650ab4b83849bf5c3",
-    "scene.py": "47b6038b4eb61ad1190935ac9d56a65c43227e5c30fbea2f503d443c7c87a490"
+    "boot_concept.py": "0980228ede1824a91ae81837981e33d8f79f27c9bdda92c0440a7fa0d41bd479",
+    "scene.py": "62d388f12e9a79447f014556eb29a38593f81381694abd4cf58084101d942f10",
+    "assessment/review_guided_boot.py": "5ea53f3809c758cbf60b43e047ae214b466b8f89adc24a9ba79653017f8a633b"
   },
   "valid_solids": {
     "plug": true,
+    "key": true,
     "foam": true,
     "fabric": true,
-    "ribbon": true
+    "ribbon": true,
+    "flavor-a": true,
+    "flavor-b": true,
+    "soda": true,
+    "drain": true
   },
   "solid_count": {
     "plug": 1,
+    "key": 1,
     "foam": 1,
     "fabric": 1,
     "ribbon": 1
   },
   "dimensions_mm": {
-    "foam_tuck": 15.0,
-    "fabric_tuck": 10.0,
-    "mouth_wall_allowance": 1.0,
-    "assumed_compressed_fabric_wall": 0.35,
-    "foam_space_at_soda_outer_diagonal_corner": 0.27500000000000124,
-    "purchased_nominal_foam_wall": 9.525
+    "boot_length": 98.0,
+    "rigid_max_diameter": 34.0,
+    "counter_hole": 34.93,
+    "counter_nominal_radial_clearance": 0.46499999999999986,
+    "cuff_length": 15.0,
+    "tube_transition_length": 45.0,
+    "straight_nose_length": 38.0,
+    "key_window_length": 12.0,
+    "port_insertion": 34,
+    "boot_outside_port": 64.0,
+    "shoulder_to_socket_mouth_at_face_stop": 0.3,
+    "shoulder_chamfer_length": 4.0,
+    "mouth_wall": 3.1,
+    "fabric_tuck": 15.0,
+    "assumed_compressed_fabric_wall": 0.5,
+    "foam_inside_axial_span": 37.5,
+    "foam_wall_at_entry": 5.0249999999999995,
+    "foam_wall_at_end_perpendicular_to_path": 3.4750000000000005,
+    "foam_cavity_clearance": 0.15,
+    "purchased_nominal_foam_wall": 9.525,
+    "quarter_tube_projection": 26.3,
+    "provisional_drain_projection": 24.1,
+    "nominal_key_bite": 0.15
   },
-  "material_inside_pocket_mm3": {
-    "foam": 3738.654739302245,
-    "fabric": 329.8361401240038
+  "tube_positions_xz_mm": {
+    "packed_entry": {
+      "flavor-a": [
+        -6.0,
+        7.8
+      ],
+      "flavor-b": [
+        6.0,
+        7.8
+      ],
+      "soda": [
+        0.0,
+        -3.5
+      ],
+      "drain": [
+        10.7,
+        2.8
+      ]
+    },
+    "straight_outlet": {
+      "flavor-a": [
+        -8.075,
+        8.075
+      ],
+      "flavor-b": [
+        8.075,
+        8.075
+      ],
+      "soda": [
+        -8.075,
+        -8.075
+      ],
+      "drain": [
+        8.075,
+        -8.075
+      ]
+    }
+  },
+  "minimum_centerline_bend_radius_mm": {
+    "internal": {
+      "flavor-a": 167.9418258331091,
+      "flavor-b": 167.9418258331091,
+      "soda": 39.30602716687107,
+      "drain": 33.106290439402144
+    },
+    "external_illustrative_packing": {
+      "flavor-a": 44.41549819146143,
+      "flavor-b": 44.41549819146143,
+      "soda": null,
+      "drain": 36.951108183185106
+    }
+  },
+  "manufacturer_bend_limits": {
+    "source": "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf",
+    "quarter_inch_minimum_mm": 25.4,
+    "four_mm_minimum_mm": 25.0,
+    "scope": "neoFlo published tube limits. Modeled curves exceed them; actual fed tubing remains unobserved."
+  },
+  "native_corridor_gap_mm": {
+    "foam_to_other_tube_channels": {
+      "flavor-a": 1.0191392303940312,
+      "flavor-b": 1.0191392604502594,
+      "drain": 1.8169239317288683
+    },
+    "tube_channel_pairs": {
+      "flavor-a/flavor-b": 5.150000010191656,
+      "flavor-a/soda": 5.944139239822827,
+      "flavor-a/drain": 11.757441042895897,
+      "flavor-b/soda": 5.944139239822846,
+      "flavor-b/drain": 1.1872153296714927,
+      "soda/drain": 6.7419239478706405
+    }
+  },
+  "material_inside_boot_mm3": {
+    "foam": 5974.6821520983585,
+    "fabric": 637.3506096010306
   },
   "intersection_mm3": {
     "foam_with_plug": 0.0,
     "fabric_with_plug": 0.0,
-    "fabric_with_foam": 0.0,
-    "foam_with_ribbon": 0.0,
-    "fabric_with_ribbon": 0.0,
-    "foam_with_tubes": {
+    "foam_with_fabric": 0.0,
+    "ribbon_with_plug": 0.0,
+    "ribbon_with_foam": 0.0,
+    "ribbon_with_fabric": 0.0,
+    "key_with_plug": 0.0,
+    "tube_with_plug": {
       "flavor-a": 0.0,
       "flavor-b": 0.0,
       "soda": 0.0,
       "drain": 0.0
     },
-    "fabric_with_tubes": {
+    "tube_with_foam": {
       "flavor-a": 0.0,
       "flavor-b": 0.0,
       "soda": 0.0,
       "drain": 0.0
+    },
+    "tube_with_fabric": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    },
+    "tube_pairs": {
+      "flavor-a/flavor-b": 0.0,
+      "flavor-a/soda": 0.0,
+      "flavor-a/drain": 0.0,
+      "flavor-b/soda": 0.0,
+      "flavor-b/drain": 0.0,
+      "soda/drain": 0.0
     }
   }
 }

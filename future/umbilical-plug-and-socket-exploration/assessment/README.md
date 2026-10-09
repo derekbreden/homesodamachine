@@ -4,7 +4,8 @@ Reviewed 2026-10-09. **Recommendation: keep the separate connections for shippin
 give the unified connector one optional tactile trial before buying its missing hardware.**
 The concept is credible, but the present model does not establish a reliable finished
 connector. Its useful next result is whether the guided plug and real bundle are pleasant
-enough to justify further development. [Prepared tactile trial](../tactile-trial/README.md).
+enough to justify further development. Prepared articles cover the
+[coupling](../tactile-trial/README.md) and [guided boot](../guided-boot-trial/README.md).
 
 The operating requirement is shutdown and depressurization before unplugging. This design
 uses ordinary open unions; removing the plug leaves their ports open. A shutdown/depressurization
@@ -51,26 +52,27 @@ the assembly feels seated. A tube key must preserve all four projections while t
 resist insertion. The machine-side tubes need enough compliance for the unions' release travel.
 Drawing clearance between solids does not establish those behaviors.
 
-There is a concrete seating correction to make. The current 1/4-inch stubs are deliberately
-0.5 mm short of their modeled tube stops. [John Guest's instructions](https://www.johnguest.com/sites/default/files/files/how-to-connect-jg-od-fittings.pdf)
+The guided boot uses a nominal 26.3 mm quarter-inch projection to reach the modeled
+fitting stops. [John Guest's instructions](https://www.johnguest.com/sites/default/files/files/how-to-connect-jg-od-fittings.pdf)
 require clean, square tube ends, insertion to the stop, a security check and installed pressure
 testing; grip can occur before sealing. A functional revision needs full insertion on every
-line across its actual dimensional variation, not a convincing plastic-to-plastic stop alone.
-The modeled 1/4-inch full-stop projection is nominally 26.3 mm, rather than 25.8 mm. Changing
-the cut length alone does not qualify the four-line tolerance stack.
+line across its actual dimensional variation. Nominal projections do not qualify the four-line
+tolerance stack. The saved coupling tactile article has different, illustrative projections.
 
 The missing 4 mm union leaves its insertion depth, collet diameter, projection and release stroke
 unconfirmed. Those values determine whether its retainer boss locates it properly and whether
 the same release plate operates it. The [current neoFit listing](https://www.freshwatersystems.com/products/neofit-acetal-black-union-connector-4mm-5-32-tube-x-4mm-5-32-tube)
 does not supply that complete release geometry. Dimensions from John Guest's different 4 mm
-part are provisional reference values. In the illustrative scene the drain collar is 1.8 mm
-proud; that scene's stub is actually 1.3 mm short of the assumed stop. It is not an assembly
-specification. No additional founder measurement is requested without the part.
+part are provisional reference values. The guided scene uses a 1.8 mm-proud drain collar
+and a nominal 24.1 mm projection to its assumed stop. It is not an assembly specification.
+No additional founder measurement is requested without the part.
 
-The key's nominal 0.5 mm intrusion into each tube deserves attention: the modeled 1/4-inch
-wall is about 1.02 mm and the drain wall is 0.75 mm. Tube ovality, creep, scoring and axial slip
-are possible consequences. The printed key provides no separate jacket capture. A finished
-boot needs a deliberate path for braid and cable loads, alongside preserved tube grip.
+The guided boot's key targets 0.15 mm intrusion into each tube after it bears on its guide.
+The modeled quarter-inch wall is about 1.02 mm and the drain wall is 0.75 mm. The final
+Ø6.65/4.20 mm guides use the accepted organizer L diameters, but its 10 mm physical result
+does not establish friction or retention through this boot's longer curved path. Feed force,
+tube ovality, scoring, creep and axial slip require handling evidence. The fabric cuff targets
+frictional retention; there is no separately qualified jacket or cable strain relief.
 
 Orientation currently relies on a 1/4-inch stub failing to enter the drain's 4.3 mm hole,
 plus the intended magnet/pogo orientation. The plastic profiles themselves are symmetric.
@@ -103,43 +105,46 @@ together. A nominal steel pull number cannot establish that margin.
 
 ## Foam compression belongs in the boot design
 
-![Nominal bundle cross sections](bundle-study.png)
-
-At its nominal uncompressed 25.4 mm diameter, soda foam directly behind the current plug
-bore with straight tubes needs at least **38.71 mm** across the foam and diagonal flavor
-tube, before braid or cable. The hole is **34.93 mm**. This is a rigid-outline calculation,
-not a conclusion that the real bundle cannot pass.
-
 The founder [reports that the purchased foam is quite compressible](../../../hardware/reference/cargen-pipe-insulation/physical-observations.json)
-and intends the boot to compress it. That is relevant physical evidence. Deliberate compression
-may allow a simpler direct transition with insulation against the plug. The first tactile
-candidate is therefore direct packing and compression. A clamp or sleeve would ultimately
-need to hold that compressed shape and the jacket securely without deforming the tubes or
-pinching the cable. The [boot packing study](../README.md#plug-side) shows foam and braid
-tucked into a plain rear pocket. With the straight square tube layout it leaves only
-0.275 mm of foam space at the soda tube's outer diagonal corner, even with a 1 mm model
-mouth wall and assumed 0.35 mm braid thickness. That is a visible packing constraint,
-not evidence that such compression or wall stock is appropriate. The study provides no
-qualified braid retention or cable strain relief; the saved tactile article has no pocket.
+and intends the boot to compress it. The [guided boot](../README.md#plug-side) uses a round
+Ø34 mm rear body and arranges the entry tubes around the insulated soda line. The two flavors
+sit above it; the drain stays to its right and below the flavor tube. No tube crosses another.
+The braid surrounds the tubes, foam and ribbon and tucks 15 mm into a tapered cuff.
 
-A candidate rearranges the other three tubes along one side of the soda foam. It has a
-32.01 mm bare enclosing circle. With the existing modeling allowance of 1.3 mm radially
-for braid/cable, its nominal envelope is **34.61 mm**, leaving **0.16 mm** radial clearance.
-This is an alternative arrangement to handle physically; modest foam compression can add
-clearance. Braid thickness, cable position and foam deformation remain real-bundle questions.
+Inside the boot, a 45 mm quintic transition gradually guides each tube to its final square
+formation, with parallel tangents and zero curvature at both ends. The 38 mm straight nose
+has guide bores on both sides of the 12 mm tube-key opening. Foam follows the soda tube
+through the cuff and halfway through the transition. Its intended insulation wall is 5.025 mm
+at entry and 3.475 mm at its end, against a purchased nominal 9.525 mm wall. These require
+roughly 47% and 64% radial wall compression. The shaped foam is an intended envelope,
+not a clipped solid or a material deformation prediction.
 
-The candidate keeps the soda line straight and fans the other tubes over **65 mm** behind
-the 52 mm plug before the foam begins. Its smooth nominal paths have minimum centerline
-bend radii of 130.7 mm and 70.0 mm for the flavors and 36.6 mm for the drain, above the
-[neoFlo sheet's](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
-25.4 mm imperial and 25 mm 4 mm-tube values. These numbers describe proposed paths, not
-the curves an unconstrained bundle will take.
+The [native record](../boot-packing.json) binds the geometry and checks the actual solids for
+intersections, including the ribbon. Internal minimum centerline bend radii are approximately
+168 mm for each flavor, 39 mm for soda and 33 mm for the drain. These nominal paths exceed
+[neoFlo's published minima](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
+of 25.4 mm for quarter-inch tubing and 25 mm for 4 mm tubing. The real fed tubes have not
+been observed in this boot. The modeled packing transition outside the cuff is illustrative;
+the user's actual bundle can take a different shape.
 
-In this alternative, foam beginning 117 mm behind the plug face increases exposed soda tubing relative to the
-current 75 mm tail. Final insulation coverage and the boot's mechanical capture remain design
-work. There is no finished molded or printed strain-relief enclosure around this proposed fan.
-The tactile procedure compares direct compressed packing with this alternative, using a
-removable braid attachment solely to explore size and handling. It does not assume a fan is needed.
+The boot is 98 mm long, with 34 mm inserted in the existing port and 64 mm remaining outside.
+A 4 mm chamfered shoulder marks the insertion depth. At the mating-face stop the shoulder
+is 0.3 mm clear of the socket mouth, avoiding a competing stop. The maximum rigid Ø34 mm
+section leaves 0.465 mm nominal radial clearance through the existing Ø34.93 mm counter hole.
+The loose foam/braid envelope still requires compression while passing through that hole.
+
+A tactile boot print should answer whether the 98 mm body is comfortable, each real tube can
+be fed without kinking, and the foam and braid can be tucked without damaging the cable.
+It must also show whether the straight outlet positions and tube projections survive the
+bundle being bent and handled. The visible shoulder should align with full mating-face seating.
+The owned quarter-inch tubes, foam, braid and cable are sufficient for that limited trial;
+missing drain tubing, magnets and the exact union limit its coverage. The saved coupling
+trial omits this guided boot and cannot answer its compression or feed questions.
+
+Foam recovery, heat gain through the exposed final soda run, braid pull-out force and long-term
+tube grip remain unqualified. Those limits do not require a purchase or founder measurement
+before handling a prototype. An acceptable tactile result would justify a functional revision
+with exact hardware; it would not establish sealing, magnetic retention or lifetime.
 
 ## Machine placement of the 81 mm inward reach
 
@@ -161,8 +166,9 @@ unchanged by this exploration.
 
 ## Simplest geometry
 
-The main guided profile earns its shape from the counter hole, flat print bearing and sloped
-receiver roofs. The flange, two snap leaves, union-retaining plate and tube key have named jobs.
+The round rear boot has one outer perimeter edge per cross section. Its nose and socket
+profile earn their shape from the counter hole, mating guidance and sloped receiver roofs.
+The flange, two snap leaves, union-retaining plate and tube key have named jobs.
 These are a sensible starting structure, with no decorative geometry needed.
 
 The retainer prints on its face and does not need the socket's sloped roof profile. A plain
@@ -178,8 +184,9 @@ or the fewest-edge design that meets every requirement.
 
 ## Decision after handling it
 
-The [tactile trial](../tactile-trial/README.md) can answer whether the grip, cup guidance,
-snap frame and real bundle transition are worth pursuing with no missing-hardware purchase.
+The [coupling trial](../tactile-trial/README.md) and [guided boot trial](../guided-boot-trial/README.md)
+can answer whether the grip, cup guidance, snap frame and real bundle transition are worth
+pursuing with no missing-hardware purchase.
 It intentionally does not reproduce magnetic retention or qualify complete four-line operation.
 
 If the size or transition is awkward, keeping the separate connectors is a justified product
@@ -201,8 +208,9 @@ Run only when revisiting the questions answered here:
 
 ```sh
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/geometry_review.py
-tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/draw_bundle.py
+tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/review_guided_boot.py
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/prepare_tactile_trial.py
+tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/prepare_guided_boot_trial.py
 ```
 
 The placement record binds the current native machine and source hashes. The tactile print
