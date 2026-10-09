@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="724" viewBox="0 0 520 362" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="750" viewBox="0 0 520 375" role="img" aria-labelledby="title desc">
 <title id="title">Faucet display wiring, rear view with USB-C at top</title>
 <desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are VBUS, GND, TXD, RXD: P1 pins 1, 3, 5, 7. Connect main board J3 V5 to VBUS; GND to GND; IO35 RX to display GPIO43 TX; IO33 TX to display GPIO44 RX. Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. In the installed faucet, USB-C points toward the dispense face; the opposite end points up the gooseneck. The inset shows this in a side section.</desc>
-<rect width="520" height="362" fill="#FFFFFF"/>
+<rect width="520" height="375" fill="#FFFFFF"/>
 <g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">
 <text x="14" y="24" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">REAR / COMPONENT SIDE</text>
 <text x="14" y="43" font-size="11" font-weight="400" text-anchor="start" fill="#606A78">Glass faces away from you</text>
@@ -124,10 +124,10 @@
 <ellipse cx="350.2" cy="115.84" rx="4" ry="4" fill="none" stroke="#7542A6" stroke-width="2"/>
 <text x="391" y="252" font-size="10.5" font-weight="600" text-anchor="middle" fill="#1749D1">USB-C UP ON BENCH</text>
 <text x="14" y="252" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">Top four LEFT pads</text>
-<rect x="8" y="266" width="504" height="87" fill="#EAF0FC" stroke="#DCE2EB" stroke-width="1.5"/>
+<rect x="8" y="266" width="504" height="100" fill="#EAF0FC" stroke="#DCE2EB" stroke-width="1.5"/>
 <text x="20" y="284" font-size="11" font-weight="700" text-anchor="start" fill="#1749D1">INSTALLED: USB-C TOWARD THE DISPENSE FACE</text>
-<polygon points="180,321 270,321 296,313 316,296 326,289 342,289 330,310 308,329 272,340 180,340" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
-<line x1="180" y1="321" x2="180" y2="340" stroke="#1749D1" stroke-width="3"/>
+<polygon points="180,320 240,320 245.698,320.142 251.381,320.57 257.036,321.28 262.648,322.272 268.204,323.544 273.689,325.092 279.09,326.912 284.394,328.999 289.586,331.349 294.655,333.956 299.586,336.812 304.369,339.912 308.991,343.246 313.441,346.808 301.845,360.575 298.098,357.576 294.206,354.768 290.178,352.158 286.025,349.752 281.757,347.557 277.384,345.578 272.918,343.82 268.37,342.288 263.751,340.984 259.072,339.914 254.346,339.078 249.584,338.48 244.798,338.12 240,338 180,338" fill="#E4E8EE" stroke="#202337" stroke-width="1.5"/>
+<line x1="180" y1="320" x2="180" y2="338" stroke="#1749D1" stroke-width="3"/>
 <rect x="186" y="299" width="90" height="4" fill="#B7DAF1" stroke="#1749D1" stroke-width="1.5"/>
 <rect x="186" y="303" width="90" height="12" fill="#30353D" stroke="#30353D" stroke-width="1.5"/>
 <rect x="178" y="307" width="14" height="8" fill="#C89542" stroke="#202337" stroke-width="1.5"/>
@@ -139,8 +139,10 @@
 <text x="24" y="339" font-size="11" font-weight="600" text-anchor="start" fill="#1749D1">dispense face</text>
 <line x1="135" y1="334" x2="177" y2="331" stroke="#1749D1" stroke-width="1.5"/>
 <polygon points="177,331 172.794,333.704 172.452,328.922" fill="#1749D1" stroke="none" stroke-width="1.5"/>
-<text x="378" y="311" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">gooseneck</text>
-<line x1="370" y1="315" x2="330" y2="303" stroke="#1749D1" stroke-width="1.5"/>
-<polygon points="330,303 334.892,301.965 333.514,306.557" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<text x="378" y="324" font-size="12" font-weight="600" text-anchor="start" fill="#1749D1">gooseneck</text>
+<text x="378" y="342" font-size="9" font-weight="400" text-anchor="start" fill="#606A78">toward faucet base</text>
+<line x1="370" y1="328" x2="309" y2="350" stroke="#1749D1" stroke-width="1.5"/>
+<polygon points="309,350 312.314,346.256 313.941,350.766" fill="#1749D1" stroke="none" stroke-width="1.5"/>
+<text x="24" y="360" font-size="8.5" font-weight="400" text-anchor="start" fill="#606A78">Side section; tip shown level</text>
 </g>
 </svg>

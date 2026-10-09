@@ -150,13 +150,15 @@ def board(a, x, y, scale=1, connected=False):
 
 def installed_orientation_art(a, y=0):
     """Side section: USB at the outlet, opposite end up the gooseneck."""
-    a.rect(8,y,504,87,ICE,RULE)
+    a.rect(8,y,504,100,ICE,RULE)
     a.label("INSTALLED: USB-C TOWARD THE DISPENSE FACE",20,y+18,11,BLUE,font="PlexBold")
-    # Straight dispense tip at left, rising gooseneck at right.
-    a.shape([(180,y+55),(270,y+55),(296,y+47),(316,y+30),
-             (326,y+23),(342,y+23),(330,y+44),(308,y+63),
-             (272,y+74),(180,y+74)],STEEL)
-    a.line(180,y+55,180,y+74,BLUE,3)
+    # Level tip at left; the neck curls beneath the display toward the stem.
+    # Both outlines follow the same circular bend, with a square section cut.
+    angles = [i*.7/14 for i in range(15)]
+    outer = [(240+114*math.sin(t),y+168-114*math.cos(t)) for t in angles]
+    inner = [(240+96*math.sin(t),y+168-96*math.cos(t)) for t in reversed(angles)]
+    a.shape([(180,y+54),*outer,*inner,(180,y+72)],STEEL)
+    a.line(180,y+54,180,y+72,BLUE,3)
     # Glass, PCB and USB socket all have their outlet end at left.
     a.rect(186,y+33,90,4,"#B7DAF1",BLUE)
     a.rect(186,y+37,90,12,PCB,PCB)
@@ -167,8 +169,10 @@ def installed_orientation_art(a, y=0):
     a.arrow(112,y+43,177,y+45,ORANGE,1.8,5)
     a.label("dispense face",24,y+73,11,BLUE)
     a.arrow(135,y+68,177,y+65,BLUE,1.5,5)
-    a.label("gooseneck",378,y+45,12,BLUE)
-    a.arrow(370,y+49,330,y+37,BLUE,1.5,5)
+    a.label("gooseneck",378,y+58,12,BLUE)
+    a.label("toward faucet base",378,y+76,9,MUTED,font="Plex")
+    a.arrow(370,y+62,309,y+84,BLUE,1.5,5)
+    a.label("Side section; tip shown level",24,y+94,8.5,MUTED,font="Plex")
 
 
 def wiring_art(a):
@@ -195,7 +199,7 @@ def write_wiring_svg():
     a=SvgArt()
     wiring_art(a)
     (GUIDE / "display-wiring.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="724" viewBox="0 0 520 362" '
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="750" viewBox="0 0 520 375" '
         'role="img" aria-labelledby="title desc">\n'
         '<title id="title">Faucet display wiring, rear view with USB-C at top</title>\n'
         '<desc id="desc">Waveshare ESP32-S3-Touch-LCD-1.47. The top four left pads are '
@@ -204,7 +208,7 @@ def write_wiring_svg():
         'Signal levels are 3.3 V TTL; power is 5 V. This is a rear view, not mirrored. '
         'In the installed faucet, USB-C points toward the dispense face; the opposite end '
         'points up the gooseneck. The inset shows this in a side section.</desc>\n'
-        '<rect width="520" height="362" fill="#FFFFFF"/>\n'
+        '<rect width="520" height="375" fill="#FFFFFF"/>\n'
         '<g font-family="IBM Plex Sans, Arial, sans-serif" stroke-linejoin="round" stroke-linecap="round">\n'
         + "\n".join(a.parts) + '\n</g>\n</svg>\n')
 
@@ -469,8 +473,8 @@ def solder_art(a):
 def display_art(a):
     installed_orientation_art(a)
     for i,(x,label) in enumerate([(12,"1  DISPLAY INTO COVER"),(185,"2  SLIDE FROM OUTLET"),(359,"3  LOWER TO SEAT")]):
-        a.rect(x,101,155,192,PAPER,RULE)
-        a.label(label,x+77,122,8.8,BLUE,align="center")
+        a.rect(x,114,155,179,PAPER,RULE)
+        a.label(label,x+77,135,8.8,BLUE,align="center")
         a.shape([(x+28,240),(x+130,240),(x+130,261),(x+28,261)],STEEL)
         for xx in [x+39,x+112]:
             a.rect(xx,229,9,11,STEEL)
@@ -626,10 +630,10 @@ def cover(c):
 
 def wiring_page(c):
     start(c,2,"The display wiring","Waveshare ESP32-S3-Touch-LCD-1.47. Hold the loose module with its back toward you and USB-C up.")
-    panel(c,32,151,548,365)
+    panel(c,32,151,548,378)
     with Art(c,44,157) as a:
         wiring_art(a)
-    y=529
+    y=542
     for x,label in [(37,"DISPLAY PAD"),(205,"FUNCTION"),(408,"MAIN BOARD J3")]:
         text(c,label,x,y,9.8,"PlexBold",BLUE)
     rows=[("VBUS / P1-1","+5 V power","V5"),
@@ -637,11 +641,11 @@ def wiring_page(c):
           ("TXD / P1-5","GPIO43, display TX","IO35, main RX"),
           ("RXD / P1-7","GPIO44, display RX","IO33, main TX")]
     for i,row in enumerate(rows):
-        yy=551+i*27
+        yy=564+i*27
         box(c,32,yy-18,548,25,ICE if i%2==0 else PAPER)
         for x,value in zip([37,205,408],row):
             text(c,value,x,yy,11.5,"PlexSemi")
-    paragraph(c,"Count P1 from the USB end: odd numbers left, even numbers right. This rear view is not mirrored.",35,646,537,10.6,13.2,max_height=28)
+    paragraph(c,"Count P1 from the USB end: odd numbers left, even numbers right. This rear view is not mirrored.",35,659,537,10.6,13.2,max_height=18)
     note(c,"POWER AND SERIAL ARE DIFFERENT","VBUS takes 5 V. TX/RX are 3.3 V TTL at 921600 baud, 8N1. Leave VBAT, 3V3, RST and all other GPIO pads open. Disconnect J3 and USB while making the joints.")
     footer(c,2,"Waveshare P1 schematic + rear layout | faucet base_link.cpp | appliance pins.h",SCHEMATIC)
     end_page(c)

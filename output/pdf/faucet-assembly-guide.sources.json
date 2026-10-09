@@ -34,7 +34,7 @@
     "hardware/mechanical-qualification/README.md": "2632c62fbbed655eed5c56d7292c3f86918961699d83d971d6d6261591fd1b4d",
     "hardware/install-guide/assets/reference/drain-mount-drop.png": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12"
   },
-  "pdf_sha256": "a8da931e6f75e619dffd76eb479497f63bfe45737b58d85893ca00b3db778465",
+  "pdf_sha256": "218e063241c437ef58a7d7cecc2d6c7fd89e6032cb5f1b154383e8b1dbe009f8",
   "display": {
     "model": "ESP32-S3-Touch-LCD-1.47",
     "view": "rear PCB, USB-C at top",
