@@ -1,6 +1,6 @@
 # Industrial faucet with fine shoulder layers
 
-This complete PET-GF plate contains the industrial shell base, shared shell tip,
+This four-part PET-GF housing plate contains the industrial shell base, shared shell tip,
 industrial display cover and industrial above-counter plate. The base retains its
 −15° X print rotation. Only the base receives 0.08 mm layers in the two bands
 crossing the selected annular shoulders; normal layers are 0.24 mm and the bed
@@ -36,8 +36,12 @@ These are commanded-path readings; surface finish remains a physical observation
 [Launch](launch.json) and [preflight](preflight.json) bind the single authorized
 foreground transaction and its acceptance to the native archive.
 
-Mark2 accepted task/job `1322263030` at 2026-10-09 00:18:36 CDT
-(05:18:36 UTC) through one foreground Send. Native completion is forecast near
-06:20 CDT. The acceptance was observed in PREPARE with print error 0 and no HMS
-faults. Timelapse On was verified in the Send dialog; capture is not established
-by that option alone.
+Status: canceled by the user before leveling. The cancellation observation is at
+layer 0 with print error `0300400C` (the bundled HMS catalog's task-canceled code)
+and no HMS faults. The initial acceptance receipt retains task/job `1322263030`
+and the single foreground Send at 2026-10-09 00:18:36 CDT (05:18:36 UTC).
+Timelapse On was verified in that Send dialog; capture is not established by that
+option alone. No repeat Send of this archive is authorized.
+
+The [complete five-part plate](../2026-10-09-two-shoulders008-with-lever-mark2/README.md)
+includes the accepted lever geometry.
