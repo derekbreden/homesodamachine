@@ -1,0 +1,73 @@
+{
+  "feature_type_times": {
+    "Custom": 1067.7928466796875,
+    "Flush": 15.0,
+    "Inner wall": 11310.3203125,
+    "Outer wall": 914.7048950195312,
+    "Overhang wall": 135.17315673828125,
+    "Travel": 301.3664855957031,
+    "Undefined": 292.7546691894531
+  },
+  "filament_change_times": 0,
+  "filaments": [
+    {
+      "filament_id": "GFB02",
+      "id": 1,
+      "main_used_g": 42.187808990478516,
+      "total_used_g": 42.187808990478516
+    }
+  ],
+  "generate_support_material_time": 73,
+  "id": 1,
+  "infill_time": 7,
+  "layer_filament_change": 0,
+  "main_predication": 12652.166015625,
+  "make_perimeters_time": 1028,
+  "obj_cached_cnt": 0,
+  "objects": [
+    {
+      "bbox": {
+        "depth": 35.995967864990234,
+        "height": 28.0,
+        "width": 36.000003814697266,
+        "x": 140.4499969482422,
+        "y": 131.0034942626953,
+        "z": 0.0
+      },
+      "id": 5,
+      "name": "ASA Aero float 1",
+      "triangle_count": 3360
+    },
+    {
+      "bbox": {
+        "depth": 35.995967864990234,
+        "height": 28.0,
+        "width": 35.999996185302734,
+        "x": 178.5500030517578,
+        "y": 131.0034942626953,
+        "z": 0.0
+      },
+      "id": 9,
+      "name": "ASA Aero float 2",
+      "triangle_count": 3360
+    },
+    {
+      "bbox": {
+        "depth": 35.995975494384766,
+        "height": 28.0,
+        "width": 36.0,
+        "x": 159.5,
+        "y": 163.99905395507812,
+        "z": 0.0
+      },
+      "id": 13,
+      "name": "ASA Aero float 3",
+      "triangle_count": 3360
+    }
+  ],
+  "sliced_time": 4683,
+  "sliced_time_with_cache": 3415,
+  "total_predication": 13741.34765625,
+  "triangle_count": 10080,
+  "warning_message": ""
+}

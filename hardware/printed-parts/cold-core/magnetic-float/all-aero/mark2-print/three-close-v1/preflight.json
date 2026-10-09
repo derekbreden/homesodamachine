@@ -1,0 +1,155 @@
+{
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "archive_sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+  "gcode_sha256": "047a630e8fbe64e0c9f7b5a31fab7b019592308bb32b78c46b1cefcce03c52a5",
+  "project": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.3mf",
+  "project_sha256": "8d192662daa771666a103ae2935cc730de23f311fe0e4c15c51eaef5c922b4f5",
+  "native_review_sha256": "b92abb5415a3181640b873a2810398e9fa823cb03cf9341843a11a72d3bb2569",
+  "pause_forecast_sha256": "c45f2f08e4cd22f3a9836f1dad3f84c5df8ba2c713e1067ca697c145c047554d",
+  "checked_utc": "2026-10-09T00:44:33.683026+00:00",
+  "both_printer_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T00:43:26.847229+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 97,
+      "total_layer_num": 1535,
+      "mc_percent": 22,
+      "mc_remaining_time": 1263,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 52,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T00:43:26.406283+00:00",
+      "task_id": "1321640808",
+      "job_id": "1321640808",
+      "subtask_name": "2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 10,
+      "total_layer_num": 10,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 28.0,
+      "bed_target_temper": 0.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 37,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 28,
+        "target_c": 0
+      }
+    }
+  ],
+  "operator_bed_clear_authorization": "Okay great, we have plenty of time then, start the print whenever you're ready.",
+  "peer_launch_record": "hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/launch.json",
+  "peer_accepted_at_utc": "2026-10-08T18:38:15.148901+00:00",
+  "seconds_since_peer_acceptance": 21978.534125,
+  "shared_circuit_minimum_spacing_seconds": 180,
+  "matching_white_right_external_ASA_Aero_and_standard_hardened04": true,
+  "ui_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "probing_clump_detection": false
+  },
+  "faults_clear": true,
+  "launch_authorized": true,
+  "send_attempted": true
+}

@@ -1,0 +1,213 @@
+{
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "archive_sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+  "gcode_sha256": "047a630e8fbe64e0c9f7b5a31fab7b019592308bb32b78c46b1cefcce03c52a5",
+  "project": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.3mf",
+  "project_sha256": "8d192662daa771666a103ae2935cc730de23f311fe0e4c15c51eaef5c922b4f5",
+  "native_review_sha256": "b92abb5415a3181640b873a2810398e9fa823cb03cf9341843a11a72d3bb2569",
+  "pause_forecast_sha256": "c45f2f08e4cd22f3a9836f1dad3f84c5df8ba2c713e1067ca697c145c047554d",
+  "status": "Accepted",
+  "authorization_quotes": [
+    "Okay great, we have plenty of time then, start the print whenever you're ready.",
+    "And after starting the print, tell me when I will need to be there for the magnet.",
+    "(magnets)"
+  ],
+  "send_attempted": true,
+  "send_attempted_at_utc": "2026-10-09T00:44:33.683026+00:00",
+  "accepted_at_utc": "2026-10-09T00:45:03.925326+00:00",
+  "foreground_send_method": "tools/bambu_print.py --attempts 1 through Bambu Connect",
+  "send_count": 1,
+  "ui_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "probing_clump_detection": false
+  },
+  "automatic_start": false,
+  "monitor_scheduled": false,
+  "send_successful": true,
+  "accepted_at_central": "2026-10-08T19:45:03.925326-05:00",
+  "printer_task_id": "1321804313",
+  "printer_job_id": "1321804313",
+  "accepted_archive_name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "start_notification_reported": true,
+  "start_notification_reported_at_utc": "2026-10-09T00:46:44.193566+00:00",
+  "accepted_time_scope": "First matching new-job acceptance recorded by the foreground sender.",
+  "insertion_pause_reported": false,
+  "pause_monitor_scheduled": false,
+  "automatic_resume_authorized": false,
+  "acceptance_observation": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-09T00:45:03.925326+00:00",
+    "archive": {
+      "name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+      "sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+      "gcode_sha256": "047a630e8fbe64e0c9f7b5a31fab7b019592308bb32b78c46b1cefcce03c52a5",
+      "slots": {
+        "2": {
+          "type": "ASA-AERO",
+          "colour": "FFFFFF"
+        }
+      },
+      "objects": [
+        "ASA Aero float 1",
+        "ASA Aero float 2",
+        "ASA Aero float 3"
+      ]
+    },
+    "printer_task_id": "1321804313",
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 10,
+    "total_layer_num": 140,
+    "mc_remaining_time": 0
+  },
+  "post_acceptance_both_printer_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-09T00:45:17.223230+00:00",
+      "task_id": "1320974719",
+      "job_id": "1320974719",
+      "subtask_name": "2026-10-08-current-back-top-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 97,
+      "total_layer_num": 1535,
+      "mc_percent": 22,
+      "mc_remaining_time": 1261,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": "enable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 52,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 35,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-09T00:45:17.700384+00:00",
+      "task_id": "1321804313",
+      "job_id": "1321804313",
+      "subtask_name": "2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 140,
+      "mc_percent": 0,
+      "mc_remaining_time": 229,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 13,
+      "bed_temper": 28.0,
+      "bed_target_temper": 28.0,
+      "timelapse": "disable",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 190,
+            "target_c": 190
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          },
+          "temperature": {
+            "actual_c": 34,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 28,
+        "target_c": 0
+      }
+    }
+  ],
+  "magnet_insertion_forecast": {
+    "approximate_elapsed_from_accepted_start_minutes": 136,
+    "expected_pause_at_central": "2026-10-08T22:01:03.925326-05:00",
+    "approximate_two_method_clock_window_central": [
+      "2026-10-08T22:00:03.925326-05:00",
+      "2026-10-08T22:01:03.925326-05:00"
+    ],
+    "recommended_arrival_central": "2026-10-08T21:55:00-05:00",
+    "magnet_quantity": 3,
+    "magnet_model": "K&J RC62",
+    "scope": "Forecast only; no insertion pause has been observed. Physical startup and printing can shift the actual pause."
+  },
+  "timelapse_option_selected": "On",
+  "startup_timelapse_telemetry": "disable",
+  "timelapse_capture_scope": "On verified in the Send dialog. Startup telemetry is not evidence of recorded capture."
+}
