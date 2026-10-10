@@ -1,6 +1,7 @@
 {
-  "source_sha256": "8d68682c9511b6332d746488eae952ced871b427dea484e4e27eaa520b12fa37",
-  "scope": "Inserted tube/TPU packing, thick guard, separate same-scale references",
+  "source_sha256": "8f3eb23772e4ecdbce5e087b680f6108b65c57a1ce06ebfc178fd1e8e20b1d20",
+  "shared_source_sha256": "8d68682c9511b6332d746488eae952ced871b427dea484e4e27eaa520b12fa37",
+  "scope": "Triangular large-tube packing, smaller tube added against two; separate size references",
   "units": "mm",
   "tube_axis": "Y",
   "roles": {
@@ -18,38 +19,39 @@
   },
   "tube_centers_xz_and_od": {
     "flavor-a": [
-      -3.5999999999999996,
-      3.5999999999999996,
+      -4.283187,
+      2.472899,
       6.35
     ],
     "flavor-b": [
-      3.5999999999999996,
-      3.5999999999999996,
+      2.916813,
+      2.472899,
       6.35
     ],
     "soda": [
-      -3.5999999999999996,
-      -3.5999999999999996,
+      -0.683187,
+      -3.762484,
       6.35
     ],
     "drain": [
-      2.2782257350842126,
-      -2.2782257350842126,
+      5.300767,
+      -3.060399,
       4.0
     ]
   },
   "neighboring_tube_gaps": {
     "flavor-a/flavor-b": 0.85,
     "flavor-a/soda": 0.85,
+    "flavor-b/soda": 0.85,
     "flavor-b/drain": 0.85,
     "soda/drain": 0.85
   },
   "exposed_tpu_skin": 0.85,
-  "drain_center_inward_shift_per_axis": 1.321774,
   "tpu_bounds_xz": [
-    15.25,
-    15.25
+    16.458954,
+    14.285383
   ],
+  "tpu_enclosing_circle_diameter": 17.941597,
   "tpu_length": 12,
   "tube_and_tpu_tip_recess": 2,
   "guard_od": 34,
@@ -58,8 +60,6 @@
   "guard_length": 16,
   "counter_hole_diameter": 34.93,
   "reference_counter_patch_thickness": 2,
-  "pogo_reference": "YYFKGCP screw-ear pair; unattached, male pins extended",
-  "magnet_reference": "Two K&J SB443-IN; 6.35 x 6.35 x 4.7625, side grooves",
   "bodies": 11,
   "all_bodies_valid_and_single_solid": true,
   "core_guard_overlap_mm3": 0
