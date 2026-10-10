@@ -1,0 +1,151 @@
+{
+  "native_archive_sha256": "026adc4c3f62753b5ca5a8d64c43739ef0aff2d790686cc7739bd1f1a4d88827",
+  "gcode_sha256": "5a28aec5d7713283e3b4aba2432ceba416577a6ac8de3fac9637a787126f87ac",
+  "original_host_boundaries": [
+    {
+      "name": "Solid base insert host 1",
+      "boundary_endpoints": 0,
+      "native_layers_with_boundary_endpoints": 0
+    },
+    {
+      "name": "Solid base insert host 2",
+      "boundary_endpoints": 0,
+      "native_layers_with_boundary_endpoints": 0
+    },
+    {
+      "name": "Solid base insert host 3",
+      "boundary_endpoints": 0,
+      "native_layers_with_boundary_endpoints": 0
+    }
+  ],
+  "boundary_tracks_absent": true,
+  "all_foot_endpoints": [
+    {
+      "cad_mm": [
+        -6.7180000000000035,
+        28.481798293310177,
+        0.6796277609377199
+      ],
+      "end": "start",
+      "print_layer_z_mm": 0.92
+    },
+    {
+      "cad_mm": [
+        -6.659000000000006,
+        28.495321254878206,
+        0.6832512275691585
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 0.92
+    },
+    {
+      "cad_mm": [
+        -6.623000000000005,
+        28.504683195199007,
+        0.9342260352161134
+      ],
+      "end": "start",
+      "print_layer_z_mm": 1.16
+    },
+    {
+      "cad_mm": [
+        -6.564999999999998,
+        28.51917208259333,
+        0.9381083208926526
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 1.16
+    },
+    {
+      "cad_mm": [
+        -6.528999999999996,
+        28.52756809708783,
+        1.188824309494521
+      ],
+      "end": "start",
+      "print_layer_z_mm": 1.4
+    },
+    {
+      "cad_mm": [
+        -6.471000000000004,
+        28.540125132829594,
+        1.1921889570808588
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 1.4
+    },
+    {
+      "cad_mm": [
+        -6.4410000000000025,
+        28.539827814887484,
+        1.4405755742767923
+      ],
+      "end": "start",
+      "print_layer_z_mm": 1.64
+    },
+    {
+      "cad_mm": [
+        -6.382999999999996,
+        28.55335077645554,
+        1.4441990409082308
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 1.64
+    },
+    {
+      "cad_mm": [
+        -6.372,
+        28.558849013471164,
+        1.6941385723747686
+      ],
+      "end": "start",
+      "print_layer_z_mm": 1.88
+    },
+    {
+      "cad_mm": [
+        -6.313999999999993,
+        28.57237197503922,
+        1.6977620390062071
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 1.88
+    },
+    {
+      "cad_mm": [
+        15.337000000000003,
+        24.92867212250811,
+        11.405485787891166
+      ],
+      "end": "start",
+      "print_layer_z_mm": 12.2
+    },
+    {
+      "cad_mm": [
+        15.387,
+        24.89583064441429,
+        11.396685940357685
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 12.2
+    },
+    {
+      "cad_mm": [
+        15.725999999999999,
+        24.676268163904556,
+        11.586320634315342
+      ],
+      "end": "start",
+      "print_layer_z_mm": 12.44
+    },
+    {
+      "cad_mm": [
+        15.775999999999996,
+        24.643426685810738,
+        11.57752078678186
+      ],
+      "end": "stop",
+      "print_layer_z_mm": 12.44
+    }
+  ],
+  "scope": "Native outer-wall starts/stops in CAD foot Z0.5\u201313.9, radius28.7\u201329.7; original host side tolerance0.6 mm. Physical finish unevaluated."
+}

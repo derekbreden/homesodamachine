@@ -1,16 +1,16 @@
 {
   "schema": 1,
-  "recorded_at_utc": "2026-10-10T03:33:45.948084+00:00",
-  "status": "Selected complete variable-layer faucet recipe",
-  "authority": "Derek selects the earlier successful complete faucet and accepts variable layer height as the shipping compromise",
-  "authorization_quote": "In any case, let\u2019s go with the earlier successful print of the complete faucet. I was so impressed with how clean the 0.08 layered areas on that one looked I wanted to see if we could do the whole thing, and I think the answer at this point is it will take further iteration and research to be able to do that, and the variable layer height will be our compromise we are okay shipping.",
-  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf",
-  "prepared_project_sha256": "047fe6067d1f5943f294c084304a3ef1c5ad628fcbe4afa854c1627683759aa2",
-  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
-  "native_archive_sha256": "5e017415c3edb51d3ec7d422dc0351bbc2e67a155e0ec9edf23c34fa16a724bd",
-  "gcode_sha256": "5a027278f4c0544e08a0a83389c9e7fbcc7673eb08b99eb6009e5968be92c6f2",
-  "prior_printer_job_id": "1322285082",
-  "prior_accepted_at_utc": "2026-10-09T05:33:43.021899+00:00",
+  "recorded_at_utc": "2026-10-10T04:08:10.214458+00:00",
+  "status": "Queued complete variable-layer faucet; physical trial pending",
+  "authorization_quotes": [
+    "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
+    "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?"
+  ],
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "2ba72e33f8d808e678cb90d20874e4236c7b9c90ac942d3eabd083f8e199a1e3",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "026adc4c3f62753b5ca5a8d64c43739ef0aff2d790686cc7739bd1f1a4d88827",
+  "gcode_sha256": "5a28aec5d7713283e3b4aba2432ceba416577a6ac8de3fac9637a787126f87ac",
   "parts": [
     {
       "name": "industrial-shell-base",
@@ -46,7 +46,7 @@
   "process": {
     "first_bed_layer_height_mm": 0.2,
     "default_model_layer_height_mm": 0.24,
-    "fine_model_layer_height_mm": 0.08,
+    "fine_model_layer_height_mm": 0.12,
     "fine_object": "industrial-shell-base",
     "fine_bands_print_z_mm": [
       [
@@ -73,22 +73,32 @@
     "bed_temperature_c": 80,
     "wall_loops": 2,
     "infill": "15% grid",
-    "reinforcement": "Three local six-wall solid base insert-host modifiers",
-    "supports": "Tree (auto), saved style and automatic sections",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
     "probing_clump_detection": false
   },
-  "native_estimated_seconds": 22384.240234375,
-  "native_estimate": "6 h 13 min 4 s, plus operator pauses if any",
-  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/native-check.json",
-  "native_check_sha256": "78803535ec7aec190b0ce305e7ae6003c5831b3e33b58ea2cc3edea94252dbac",
-  "minimum_full_bead_bed_margin_mm": 25.153235999999993,
-  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json",
-  "accepted_physical_scope": "Reported beautiful finish in the two base 0.08 mm bands and successful removal of their few thin-layer supports; complete variable-layer recipe selected by Derek.",
-  "known_exterior_issue": "Lines/defects beside the three base screw points remain documented on this exact archive. Experimental continuous-foot/Arachne settings are not merged into it.",
+  "native_estimated_seconds": 20815.755859375,
+  "native_estimate": "5 h 46 min 56 s",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/native-check.json",
+  "native_check_sha256": "35d761de5e12d0413c15c699da1bb43920475b19f2c7fe4ebad3846a5b25cfec",
+  "minimum_full_bead_bed_margin_mm": 25.120914999999968,
+  "screw_point_boundary_tracks_absent_in_native_paths": true,
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "3ab7544fb1c1cbfbc3284c37ed1122c3f47d792b17957551566fe78e6815da1d",
+  "physical_reference": {
+    "record": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json",
+    "task_id": "1322285082",
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "5e017415c3edb51d3ec7d422dc0351bbc2e67a155e0ec9edf23c34fa16a724bd",
+    "accepted_scope": "Beautiful 0.08 mm shoulder finish and removal of their few thin-layer supports on the identified complete print",
+    "exterior_screw_point_lines": "Observed on this physical reference article"
+  },
+  "current_physical_finish_evaluated": false,
   "all_fine_trials": {
     "status": "Further iteration and research deferred",
     "latest_failure": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json"
   },
+  "launch_plan": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/launch-plan.json",
   "new_print_submitted": false,
-  "scope": "Recipe selection and reported finish/cleanup acceptance; no structural strength, endurance or complete product qualification claim."
+  "scope": "Queued process selection and native path review; 0.12 mm finish and corrected exterior require physical observation. Load capacity and endurance unmeasured."
 }

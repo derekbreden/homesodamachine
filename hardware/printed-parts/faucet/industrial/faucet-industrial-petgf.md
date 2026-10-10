@@ -1,20 +1,24 @@
 # Industrial faucet PET-GF print project
 
-The [selected complete Mark2 print](prints/2026-10-09-two-shoulders008-with-lever-mark2/README.md)
+The [selected queued Mark2 print](prints/2026-10-09-shoulders012-solid-foot-mark2/README.md)
 contains all five rigid parts, including the accepted side-down lever replica.
-It uses 0.20 mm first bed layers and 0.24 mm layers above them, with 0.08 mm
+It uses 0.20 mm first bed layers and 0.24 mm layers above them, with 0.12 mm
 layers on the base only at print Z13.40–29.00 and Z55.16–68.12 mm. Those bands
 cover the two selected annular shoulder faces. Its native estimate is
-**6 h 13 min 4 s**. Mark2's +0.04 mm requested trim emits +0.02 mm on Textured PEI.
+**5 h 46 min 56 s**. Mark2's +0.04 mm requested trim emits +0.02 mm on Textured PEI.
 
 The [selection record](selected-print.json) binds the exact prepared project,
-native archive, five source meshes and earlier successful complete print.
-The [physical result](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
-records beautiful finish in those fine bands and successful removal of their
-few thin-layer supports. Exterior lines beside the three screw points remain a
-documented finish issue on this exact archive. It retains the three local
-six-wall solid insert-host modifiers; experimental continuous-foot and Arachne
-settings are not part of the selected archive.
+native archive, five source meshes and the complete physical reference.
+The queued base uses one continuous six-wall solid foot and Arachne wall widths;
+its native paths have zero repeated starts/stops at the three screw-host
+boundaries and pass the three insert backing reviews. The global support and
+motion settings match the successful variable-layer reference. This exact
+archive is queued after Mark2's organizer plate and has not been sent.
+
+The [physical reference](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
+records beautiful 0.08 mm shoulder finish and successful removal of its few
+thin-layer supports, with exterior lines beside the three screw points.
+The queued 0.12 mm finish and corrected exterior require physical observation.
 
 Variable layer height is Derek's accepted shipping compromise. Further
 whole-faucet 0.08 mm iteration and research are deferred. The

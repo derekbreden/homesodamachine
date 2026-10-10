@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T04:08:10.214458+00:00",
+  "printer": "Mark2",
+  "status": "Queued next; organizer plate occupies Mark2",
+  "authorization_quotes": [
+    "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
+    "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?"
+  ],
+  "authorization_scope": "Prepare and queue the complete corrected faucet as Mark2 next job",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "026adc4c3f62753b5ca5a8d64c43739ef0aff2d790686cc7739bd1f1a4d88827",
+  "gcode_sha256": "5a28aec5d7713283e3b4aba2432ceba416577a6ac8de3fac9637a787126f87ac",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "2ba72e33f8d808e678cb90d20874e4236c7b9c90ac942d3eabd083f8e199a1e3",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/native-check.json",
+  "native_check_sha256": "35d761de5e12d0413c15c699da1bb43920475b19f2c7fe4ebad3846a5b25cfec",
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "3ab7544fb1c1cbfbc3284c37ed1122c3f47d792b17957551566fe78e6815da1d",
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.12,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "native_estimated_seconds": 20815.755859375,
+  "native_estimate": "5 h 46 min 56 s",
+  "native_estimated_grams_saved_profile_density": 152.23721313476562,
+  "queued_after": {
+    "task_id": "1325126748",
+    "job_id": "1325126748",
+    "archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00"
+  },
+  "latest_printer_observations": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-10T04:05:49.891303+00:00",
+      "task_id": "1324612230",
+      "job_id": "1324612230",
+      "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 46,
+      "total_layer_num": 813,
+      "mc_percent": 19,
+      "mc_remaining_time": 1337,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 52,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-10T04:05:49.648083+00:00",
+      "task_id": "1325126748",
+      "job_id": "1325126748",
+      "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 34,
+      "total_layer_num": 42,
+      "mc_percent": 74,
+      "mc_remaining_time": 8,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 48,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 37,
+        "target_c": 0
+      }
+    }
+  ],
+  "start_now": false,
+  "ready_to_launch": false,
+  "waiting_for": "Organizer print completion and physical removal of its plate contents",
+  "launch_method": "One foreground tools/bambu_print.py transaction with --attempts 1; current UI display names Mark1/Mark2, connection target Mark2",
+  "required_ui_display_names": [
+    "Mark1",
+    "Mark2"
+  ],
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "pre_start_requirements": [
+    "Freshly read both printers; destination ready and idle without an unresolved fault",
+    "Verify exact prepared archive, G-code, source and review hashes",
+    "At least 180 seconds after the peer most recent accepted start or resume",
+    "Read all current launch receipts; no previous attempted or ambiguous transaction"
+  ],
+  "send_attempted": false,
+  "accepted": false,
+  "submitted": false,
+  "send_count": 0,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "automatic_start": false
+}

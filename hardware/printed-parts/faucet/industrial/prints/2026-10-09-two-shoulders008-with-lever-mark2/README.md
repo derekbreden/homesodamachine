@@ -1,9 +1,10 @@
 # Complete industrial faucet with fine shoulder layers
 
-This is the [selected complete printing recipe](../../selected-print.json).
+This is the complete physical reference for the
+[queued 0.12 mm shoulder recipe](../2026-10-09-shoulders012-solid-foot-mark2/README.md).
 Derek accepts variable layer height as the shipping compromise. Further
-whole-faucet 0.08 mm iteration and research are deferred; the known screw-point
-surface issue remains recorded below.
+whole-faucet 0.08 mm iteration and research are deferred; this reference's
+screw-point surface issue remains recorded below.
 
 This single PET-GF plate contains all five rigid printed parts: industrial shell
 base, shared shell tip, industrial display cover, industrial above-counter plate
