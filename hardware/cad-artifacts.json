@@ -16,10 +16,13 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "hardware/faucet-layout/faucet_assembly.py",
       "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/2026-10-10-faucet-scarf-swatches-v1-petgf-left04-z004-mark2.print.json",
       "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/preparation.json",
       "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/prepare.py",
-      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/study-plan.json"
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/review.py",
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/study-plan.json",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -2568,9 +2571,9 @@
     "hardware/install-guide/art/flavor-2.png": "5bbe3d357c9659030c5c84ba3fad4f30526ec5c40d909b9688e8f93ee8e28095",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.step": "1e4ed9c8ebea605ef20e10455824795c1b795d3e9458aea1ced41d55cb52d1e1",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot/float-aero.stl": "a7ca570ba0339c69866fc63a57f12220c8c90f68b19825e759b29dff41547d17",
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "ffeb76caad602bdd2fb08a432620ef4a095453b38fa93d99b254af7339103643",
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "9c09a5c8f9ed0b0df8e6ab28ec084746f568b58c6045dcf68c866ac54a5af37b",
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "163731f37118a7e1e48d14ab56d6cb1b5d20960954ef1f7e0359bec4b32260b4",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "35bc367f30a242a2fceeade530ce394bb4992dbb6275c0d1d09686269f855a88",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "2917557d3f785dd0cbcc0e5712792e33124dfe6a64901e1faf7815402bc959f7",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "60cdcab60dd2b07f9a1e9aecd997dee84333fa4e539ce4ad06b22f3a3cf6c821",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "504024a53a906e126cb5d0a09d90b9138443d59bc81c48ee4b8c4ea7c01bdccb",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd",
@@ -2977,9 +2980,9 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": 1791352325,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1791352325,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1791352325,
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1791675582,
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": 1791675582,
-    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": 1791675582,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1791676780,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": 1791676780,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": 1791676780,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1791257167,
