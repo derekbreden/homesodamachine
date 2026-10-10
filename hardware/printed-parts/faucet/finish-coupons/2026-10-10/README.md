@@ -85,3 +85,9 @@ Generate with `tools/cad-venv/bin/python prepare.py`; use the saved slice comman
 then `python3 finish.py`. Preparation, native review, exact archive hashes and
 the one foreground launch receipt are recorded beside this file. No automatic
 resume or scheduled monitoring is authorized.
+
+Mark2 accepted this exact plate as task **1327799013** at **6:45:52 pm CDT
+October 10, 2026**. The native duration projects completion at **2:13:55 am CDT
+October 11**. [Launch receipt](launch.json) records the archive, options and
+fresh readings of both printers. These are start and forecast records; no
+physical coupon result is recorded yet.
