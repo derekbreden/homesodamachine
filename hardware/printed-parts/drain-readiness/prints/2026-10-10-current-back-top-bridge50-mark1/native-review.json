@@ -1,0 +1,90 @@
+{
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "ddae669e9cf3b3a154821f11190af675d83eb1d8b65b1ab46fc3ed7827e3740e",
+  "gcode_sha256": "e886ac1030dec3edc1f2ff3cdb1ddd85527c01478e0cc894cbde13a1f70f1b17",
+  "project": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.3mf",
+  "project_sha256": "f0a32edbab06109c379271e8892a26537e308546be6e78b6ebcf6799c41b0a22",
+  "source_retry_project": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.3mf",
+  "source_retry_project_sha256": "1dc973acde1489e06b3ca943f2a7fd4eeb9a0a4c6c8fcac60612f785058316b6",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "settings_changes": {
+    "max_bridge_length": {
+      "from": "0",
+      "to": "50"
+    }
+  },
+  "all_other_project_members_byte_identical": true,
+  "mesh_and_modifier_geometry_byte_identical": true,
+  "placement_translation_change_mm": [
+    0,
+    0,
+    0
+  ],
+  "changed_project_members": [
+    "Metadata/project_settings.config"
+  ],
+  "all_other_native_process_settings_retained": true,
+  "slicer_computed_fields": {
+    "filament_prime_volume": {
+      "prepared": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "automatic_support_choices_retained": true,
+  "support_style": "default",
+  "solid_host_modifier_count": 23,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "probing_clump_calls": 0,
+  "insertion_pause_count": 0,
+  "zip_crc_and_gcode_md5_pass": true,
+  "full_native_bead_footprint": {
+    "extrusion_bounds_xy_mm": [
+      [
+        21.399318,
+        52.231318
+      ],
+      [
+        302.953682,
+        267.768682
+      ]
+    ],
+    "maximum_line_width_mm": 0.757364,
+    "bounds_padding_mm": 0.47868200000000005
+  },
+  "complete_layer_bead_minimum_bed_margin_mm": 21.399318,
+  "required_bed_margin_mm": 20,
+  "additive_layer_band": {
+    "name": "additive exterior roof band",
+    "print_z_mm": [
+      0.2,
+      9.3
+    ],
+    "wall_layer_count": 38,
+    "first_wall_layer": [
+      0.44,
+      0.24
+    ],
+    "last_wall_layer": [
+      9.32,
+      0.24
+    ],
+    "wrong_height_layers": [],
+    "uncovered_intervals_mm": [],
+    "pass": true
+  },
+  "model_wall_layer_count": 822,
+  "scope": "Frozen mating geometry, reinforcement and layer schedule; support changes are limited to the recorded automatic support settings. Native bounds include every model/support/brim bead. Support contact clearance and cleanup are separate readings.",
+  "footprint_pass": true,
+  "native_result": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/native-result.json",
+  "estimated_seconds": 98584.1875,
+  "estimated_grams_saved_profile_density": 841.8988037109375
+}

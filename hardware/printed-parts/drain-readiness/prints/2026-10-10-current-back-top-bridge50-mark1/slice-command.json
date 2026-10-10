@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    ".cache/printer-control/back-top-max-bridge/candidate50/native",
+    "--export-slicedata",
+    ".cache/printer-control/back-top-max-bridge/candidate50/slice-cache",
+    "--export-3mf",
+    "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+    ".cache/printer-control/back-top-max-bridge/candidate50/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.3mf"
+  ],
+  "printer_connection": false,
+  "cwd": ".cache/printer-control/back-top-max-bridge/candidate50/native"
+}
