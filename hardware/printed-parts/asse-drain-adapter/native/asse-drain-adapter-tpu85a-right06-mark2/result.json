@@ -1,36 +1,36 @@
 {
     "error_string": "Success.",
-    "export_time": 2153,
+    "export_time": 2669,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 35,
+    "prepare_time": 94,
     "return_code": 0,
     "sliced_plates": [
         {
             "feature_type_times": {
-                "Custom": 344.59344482421875,
+                "Custom": 344.5940856933594,
                 "Flush": 15.0,
-                "Inner wall": 1079.3983154296875,
-                "Outer wall": 653.3873901367188,
-                "Top surface": 6.96225643157959,
-                "Travel": 49.24037551879883,
-                "Undefined": 40.712406158447266
+                "Inner wall": 1427.383056640625,
+                "Outer wall": 688.9507446289063,
+                "Top surface": 11.476765632629395,
+                "Travel": 52.41484069824219,
+                "Undefined": 43.886871337890625
             },
             "filament_change_times": 0,
             "filaments": [
                 {
                     "filament_id": "GFU04",
                     "id": 1,
-                    "main_used_g": 3.0406744480133057,
-                    "total_used_g": 3.0406744480133057
+                    "main_used_g": 3.635251522064209,
+                    "total_used_g": 3.635251522064209
                 }
             ],
-            "generate_support_material_time": 24,
+            "generate_support_material_time": 36,
             "id": 1,
-            "infill_time": 17,
+            "infill_time": 29,
             "layer_filament_change": 0,
-            "main_predication": 1773.989013671875,
-            "make_perimeters_time": 147,
+            "main_predication": 2165.229736328125,
+            "make_perimeters_time": 235,
             "obj_cached_cnt": 0,
             "objects": [
                 {
@@ -44,13 +44,13 @@
                     },
                     "id": 5,
                     "name": "asse-drain-adapter",
-                    "triangle_count": 9480
+                    "triangle_count": 9006
                 }
             ],
-            "sliced_time": 530,
-            "sliced_time_with_cache": 323,
-            "total_predication": 2140.054443359375,
-            "triangle_count": 9480,
+            "sliced_time": 768,
+            "sliced_time_with_cache": 431,
+            "total_predication": 2531.2958984375,
+            "triangle_count": 9006,
             "warning_message": ""
         }
     ],

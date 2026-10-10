@@ -16,11 +16,13 @@ water tightness and complete fault discharge have no physical acceptance.
 | Tube socket | Ø[3.80](TUBE_BORE) mm × [14](TUBE_DEPTH) mm insertion |
 | Bore transition | Smooth taper, [60](TAPER_ANGLE)° above the print bed |
 | Overall length | [28.79](LENGTH) mm |
-| Large / small outside diameter | Ø[14](BARB_OD) / Ø[10](TUBE_OD) mm |
-| Minimum relaxed wall under a tie | [2.60](GROOVE_WALL) mm |
+| Large / small outside diameter | Ø[14](BARB_OD) / Ø[11.7](TUBE_OD) mm |
+| Minimum relaxed radial wall at each end | [3.45](MIN_WALL) mm, including ties and socket mouths |
 | Zip-tie lands | 2.8 mm flat width, 0.5 mm recess, 1 mm sloping shoulders |
-| Solid CAD volume | [2.516](VOLUME) cm³ |
+| Solid CAD volume | [3.009](VOLUME) cm³ |
 
+Both outside diameters derive from one `MIN_WALL` parameter. The plain socket
+walls are 3.95 mm thick; the tie recesses and mouth lead-ins retain 3.45 mm.
 The large bore tapers smoothly into the 3.80 mm tube bore. There is no
 internal shelf. A 14 mm insertion mark places the tube across its tie land
 and grips the full small socket. The barb tip ends above the reducer when
@@ -61,7 +63,7 @@ and contour compensation at zero for the first fit. The [Mark2 print project](as
 and [reviewed native slice](native/asse-drain-adapter-tpu85a-right06-mark2/asse-drain-adapter-tpu85a-right06-mark2.gcode.3mf)
 use the right 0.6 mm nozzle, 225°C nozzle / 35°C bed, and the saved +0.04 mm
 TPU Z trim. [Native review](native-review.json) binds the source mesh, settings,
-full bead envelope and support result. The native estimate is about 36 minutes
+full bead envelope and support result. The native estimate is about 42 minutes
 and contains no supports. This fit-trial job has not been sent to a printer.
 
 1. Put two loose four-inch / 2.54 mm-wide ties around their respective lands.
@@ -90,7 +92,7 @@ This connection design does not establish those properties.
 The [assembly clearance record](../../manifold-layout/drain-clearance-check.json)
 measures this sleeve and return against the identified saved installed scene,
 including the conservative foam envelope. Its route has two R25 bends and
-110.23 mm of tube outside the sleeve. The nominal minimum gaps are 1.44 mm
+110.23 mm of tube outside the sleeve. The nominal minimum gaps are 1.17 mm
 at the sleeve and 1.22 mm at the white return. Other assembly members and
 their viewer surfaces are retained. The prior whole-machine facts and
 scorecard remain evidence of their identified source build; this local
