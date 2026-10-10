@@ -620,7 +620,7 @@ def build_display_ribbon():
     ]
     joined=parts[0].fuse(*parts[1:],tol=1e-5)
     if not joined.isValid() or len(joined.Solids())!=1:
-        raise ValueError("the joined ribbon and four peeled conductors must form one continuous envelope")
+        raise ValueError("the complete flat ribbon must form one continuous envelope")
     return cq.Workplane(obj=joined)
 
 

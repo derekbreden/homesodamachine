@@ -373,13 +373,13 @@ gn_bend1_z_mid = (
 
 
 # SPLIT — the shell prints in two pieces at the internal
-# [50°](SPLIT_JUNCTION_ROT) datum. The tip's female socket reaches 20 mm
-# upstream around the curve; the base's male land is 18 mm long. The
+# [70°](SPLIT_JUNCTION_ROT) datum. The base has the 20 mm female socket;
+# the tip carries the 18 mm male land. The
 # mating surfaces follow the arc and the tip swings shut about its axis.
 # Fit: the plug's outer surface sits slip/2 inside the socket's cavity
 # surface, all the way around the cross-section.
 
-split_junction_rot = _paths.JOINT_ANGLE  # [50°](SPLIT_JUNCTION_ROT)
+split_junction_rot = _paths.JOINT_ANGLE  # [70°](SPLIT_JUNCTION_ROT)
 
 # Per-side overlap depth (mm of arc), socket wall (mm), and diametral
 # slip (mm), mapped onto `shrink`s (inward offsets of the outer
@@ -462,8 +462,8 @@ _path_p5 = (  # end of tip
 # SPLIT mating-plane geometry in world coords. The plane is
 # perpendicular to the gooseneck tangent at the junction.
 split_normal = (0.0, -_tan_at_junction[0], _tan_at_junction[1])
-split_junction_y = soda_faucet_tube_y - _path_junction[0]  # [-16.77 mm](SPLIT_JUNCTION_Y)
-split_junction_z = zone5_z_top + _path_junction[1]  # [208.4 mm](SPLIT_JUNCTION_Z)
+split_junction_y = soda_faucet_tube_y - _path_junction[0]  # [-38.37 mm](SPLIT_JUNCTION_Y)
+split_junction_z = zone5_z_top + _path_junction[1]  # [220.9 mm](SPLIT_JUNCTION_Z)
 
 # PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
 # [15°](PRINT_TILT), keeping the long straight neck close to vertical.
@@ -480,7 +480,7 @@ max_print_overhang_rad = max(
     split_junction_rot - print_base_build_rot,
     print_tip_build_rot - split_junction_rot,
     _path_total_rot - print_tip_build_rot,
-)  # [45°](MAX_PRINT_OVERHANG)
+)  # [55°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
@@ -678,12 +678,12 @@ def build_lower_signal_ribbon() -> cq.Workplane:
 def build_lower_signal_lane() -> cq.Workplane:
     """Flat rear cable passage and one open tube/cable transition.
 
-    The centre polygon joins the tube bores to the cable capsule. All its
-    vertices lie inside those passages; their convex interior removes thin
-    trapped fins while preserving the outer wall of the lower shroud.
+    Tangent hulls around the complete rounded clearances join the mounting
+    channel to the neck. The opening has no thin stock between adjoining
+    tube and cable passages.
     """
     lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, -6.2)
-    z0, z1 = zone3_z_bottom-0.5, _paths.LOWER_END_Z+0.2
+    z0, z1 = _paths.LOWER_START_Z, _paths.LOWER_END_Z
     count = math.ceil((z1-z0)/0.4)
     wires = []
     cable_half = (signal_lane_width-signal_lane_depth)/2.0
@@ -692,19 +692,26 @@ def build_lower_signal_lane() -> cq.Workplane:
         left = _paths.lower_point(z,"flavor",-1)
         right = _paths.lower_point(z,"flavor",1)
         ribbon = _paths.lower_point(z,"ribbon")
-        # A short entry relief opens the centre edges into the donor cavity.
-        # Its vertices remain inside the tube bores and return to their
-        # nominal positions before the tube bundle starts bending.
-        entry_relief = 0.20 * max(0.0, (_paths.LOWER_START_Z-z)
-                                 / (_paths.LOWER_START_Z-z0))
-        points = [(0.0,soda_faucet_tube_y-entry_relief),
-                  (right[0]+entry_relief,right[1]),
-                  (ribbon[0]+cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
-                  (ribbon[0]-cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
-                  (left[0]-entry_relief,left[1])]
-        wires.append(cq.Workplane("XY").workplane(offset=z)
-                     .polyline(points).close().val())
-    opening = cq.Solid.makeLoft(wires,ruled=True)
+        sketch = cq.Sketch().arc(
+            (0.0, soda_faucet_tube_y), soda_faucet_hole_diameter/2.0, 0.0, 360.0)
+        for point in (left, right):
+            sketch = sketch.arc(point[:2], flavor_tube_hole_dia/2.0, 0.0, 360.0)
+        drain = _paths.lower_point(z, "drain")
+        sketch = sketch.arc(drain[:2], _faucet_interface.drain_tube_hole_dia/2.0,
+                            0.0, 360.0)
+        for x in (ribbon[0]-cable_half, ribbon[0]+cable_half):
+            sketch = sketch.arc((x, ribbon[1]), signal_lane_depth/2.0, 0.0, 360.0)
+        wires.append(sketch.hull().clean()._faces.Faces()[0].outerWire()
+                     .translate((0.0, 0.0, z)))
+    transition = cq.Solid.makeLoft(wires, ruled=False)
+    # Exact straight lands meet the donor and neck profiles. Extending a
+    # spline loft through these constant runs can introduce tiny ripples at
+    # coincident bore faces, so their circular/planar boundaries stay analytic.
+    bottom = zone3_z_bottom-0.5
+    lower = cq.Solid.extrudeLinear(
+        wires[0].translate((0.0, 0.0, bottom-z0)), [], cq.Vector(0, 0, z0-bottom))
+    upper = cq.Solid.extrudeLinear(wires[-1], [], cq.Vector(0, 0, 0.2))
+    opening = lower.fuse(transition, upper, tol=1e-6).clean()
     joined = lane.val().fuse(opening,tol=1e-6).clean()
     if not joined.isValid() or len(joined.Solids()) != 1:
         raise ValueError("the common lower bundle opening must be one valid native solid")
@@ -887,20 +894,6 @@ def _ribbon_constant_arc(s0,s1,n,width,clearance):
     return cq.Solid.sweep(section,[],wire,makeSolid=True,isFrenet=False)
 
 
-def _ribbon_peeled_wires():
-    import vent_seals
-    a=_paths.JOINT_ANGLE+_paths.SPREAD_END_S/_paths.WATER_RADIUS
-    b=_paths.JOINT_ANGLE+_paths.CONVERGE_START_S/_paths.WATER_RADIUS
-    result=[]
-    for x in vent_seals.WIRE_X:
-        points=[cq.Vector(*_paths.arc_point(t,x,vent_seals.WIRE_N)) for t in (a,(a+b)/2,b)]
-        edge=cq.Edge.makeThreePointArc(*points)
-        plane=cq.Plane(origin=points[0],xDir=(1,0,0),normal=(0,-math.sin(a),math.cos(a)))
-        result.append(cq.Workplane(plane).circle(signal_ribbon_max_depth/2).sweep(
-            cq.Workplane(obj=cq.Wire.assembleEdges([edge]))).val())
-    return result
-
-
 def _ribbon_span_solids(clearance=False,bottom_z=38.8):
     end_angle=_path_total_rot-math.asin(
         (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
@@ -909,13 +902,8 @@ def _ribbon_span_solids(clearance=False,bottom_z=38.8):
     parts=[_ribbon_straight(bottom_z,_paths.LOWER_START_Z,clearance),
            _ribbon_transition(_ribbon_lower_frame,_paths.LOWER_START_Z,_paths.LOWER_END_Z,clearance),
            _ribbon_straight(_paths.LOWER_END_Z,_paths.ARC_START_Z,clearance),
-           _ribbon_constant_arc(arc_start_s,0,_paths.TIGHT_RIBBON_N,signal_ribbon_max_width,clearance),
-           _ribbon_transition(_ribbon_arc_frame,0,_paths.SPREAD_END_S,clearance)]
-    if clearance:
-        parts.append(_ribbon_constant_arc(_paths.SPREAD_END_S,_paths.CONVERGE_START_S,
-                                          _paths.SEAL_RIBBON_N,7.9,True))
-    else:
-        parts.extend(_ribbon_peeled_wires())
+           _ribbon_constant_arc(arc_start_s,_paths.CONVERGE_START_S,
+                                _paths.TIGHT_RIBBON_N,signal_ribbon_max_width,clearance)]
     parts.extend([
         _ribbon_transition(_ribbon_arc_frame,_paths.CONVERGE_START_S,
                            _paths.CONVERGE_START_S+_paths.RIBBON_CONVERGE_LENGTH,clearance),
@@ -1017,16 +1005,22 @@ def _tube_shell_outer_sketch() -> cq.Sketch:
     return cq.Sketch().push([(0.0, tube_shell_center_y)]).circle(tube_shell_outer_r)
 
 
-def _tube_shell_inner_sketch(*, include_signal=True):
-    sketch=cq.Sketch().circle(soda_faucet_hole_diameter/2)
-    for x,n,r in _tube_bore_caps[:2]:
-        sketch=sketch.reset().push([(x,n)]).circle(r,mode="a")
-        if abs(x)>1e-9:
-            sketch=sketch.reset().push([(-x,n)]).circle(r,mode="a")
+def _tube_shell_inner_sketch(*, include_signal=True, station=0.0):
+    """One smooth bundle opening, with the flavors in a shared capsule.
+
+    Tangent hull faces remove the thin dividers between tube and ribbon
+    clearances. The complete rounded profiles, rather than their centres,
+    define this opening; no bore-intersection cusp is retained as stock.
+    """
+    x, n, _, ribbon_n, _ = _paths.positions(station)
+    sketch = cq.Sketch().arc((0.0,0.0),soda_faucet_hole_diameter/2,0.0,360.0)
+    for xx in (-x,x):
+        sketch = sketch.arc((xx,n),flavor_tube_hole_dia/2,0.0,360.0)
     if include_signal:
-        sketch=sketch.reset().push([(0,_paths.TIGHT_RIBBON_N)]).slot(
-            signal_lane_width-signal_lane_depth,signal_lane_depth,mode="a")
-    return sketch.clean()
+        half_span = (signal_lane_width-signal_lane_depth)/2
+        for xx in (-half_span,half_span):
+            sketch = sketch.arc((xx,ribbon_n),signal_lane_depth/2,0.0,360.0)
+    return sketch.hull().clean()
 
 
 def _sweep_along_gooseneck(sketch: cq.Sketch) -> cq.Workplane:
@@ -1051,51 +1045,55 @@ def build_zone6_outer() -> cq.Workplane:
 
 @functools.lru_cache(maxsize=None)
 def build_zone6_inner_cut():
-    water=_sweep_along_gooseneck(cq.Sketch().circle(soda_faucet_hole_diameter/2))
-    return water.union(build_flavor_transition_inner_cut())
+    """Lower flavor return into the smooth shared gooseneck opening."""
+    return build_flavor_transition_inner_cut().intersect(_lower_neck_halfspace())
 
 
-def _bundle_centre_loft(s0, s1, *, include_drain):
-    """Join the tube centres inside their close-fitting passage envelope."""
+def _lower_neck_halfspace():
+    return cq.Workplane(obj=cq.Solid.makeBox(
+        400.0,400.0,500.0,cq.Vector(-200.0,-200.0,zone5_z_top+0.5-500.0)))
+
+
+def _ribbon_end_station():
+    end_angle = _path_total_rot-math.asin(
+        (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
+    return (end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
+
+
+def _bundle_opening_loft(s0, s1, *, include_signal):
+    """Smooth opening around the complete tube and optional ribbon profiles."""
     count = max(2, math.ceil((s1 - s0) / 2.0))
     wires = []
     for i in range(count + 1):
         station = s0 + (s1 - s0) * i / count
-        x, n, drain_n, _, _ = _paths.positions(station)
-        points = [(0.0, 0.0), (x, n)]
-        if include_drain:
-            points.append((0.0, drain_n))
-        points.append((-x, n))
         origin, xdir, tangent = _paths.station_plane(station)
         plane = cq.Plane(origin=origin, xDir=xdir, normal=tangent)
-        wires.append(cq.Workplane(plane).polyline(points).close().wire().val())
+        section = _tube_shell_inner_sketch(include_signal=include_signal,station=station)
+        wires.append(section._faces.Faces()[0].outerWire().transformShape(plane.rG))
     return cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=False))
 
 
 @functools.lru_cache(maxsize=None)
 def build_beverage_interstice_cut():
-    """Continuous common centre, without isolated webs between tube bores."""
+    """Smooth flavor capsule and soda opening beyond the display-ribbon exit."""
     end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
-    transition = _bundle_centre_loft(0.0, end, include_drain=False)
-    profile = cq.Sketch().polygon([
-        (0.0, 0.0), (_paths.FACE_FLAVOR_X, _paths.FACE_FLAVOR_N),
-        (-_paths.FACE_FLAVOR_X, _paths.FACE_FLAVOR_N)])
-    outlet = _sweep_along_gooseneck(profile).intersect(
-        _station_halfspace(end, 0.0, 1))
-    return transition.union(outlet, clean=False, tol=1e-6)
+    profile = _tube_shell_inner_sketch(include_signal=False,station=end)
+    return _sweep_along_gooseneck(profile).intersect(
+        _station_halfspace(_ribbon_end_station()-0.5, 0.0, 1))
 
 
 def build_upstream_interstice_cut():
-    """Common centre through the four-tube bundle to the drain's open end."""
-    profile=cq.Sketch().polygon([(0,0),(_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N),
-                                (0,_paths.TIGHT_DRAIN_N),
-                                (-_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N)])
+    """Open the ribbon lane into the shared smooth bundle passage."""
+    end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
+    ribbon_end_s = _ribbon_end_station()
+    profile = _tube_shell_inner_sketch()
     lower = _sweep_along_gooseneck(profile).intersect(
-        _station_halfspace(0.0, 0.0, -1))
-    upper = _bundle_centre_loft(
-        0.0, _paths.DRAIN_CUT_S + _paths.DRIP_END_CLEARANCE_MM,
-        include_drain=True)
-    return lower.union(upper, clean=False, tol=1e-6)
+        _station_halfspace(_paths.CONVERGE_START_S, 0.0, -1))
+    upper = _bundle_opening_loft(_paths.CONVERGE_START_S,end,include_signal=True)
+    outlet = (_sweep_along_gooseneck(_tube_shell_inner_sketch(station=end))
+              .intersect(_station_halfspace(end,0.0,1))
+              .intersect(_station_halfspace(ribbon_end_s,0.0,-1)))
+    return lower.union(upper, clean=False, tol=1e-6).union(outlet, clean=False, tol=1e-6)
 
 
 def drain_return_point(angle=None):
@@ -1116,7 +1114,8 @@ def build_drain_neck(diameter=None,bottom_z=-6.2,*,cutter=False):
 
 
 def build_signal_neck_inner_cut():
-    return _ribbon_envelope(True)
+    """Lower flat ribbon return into the shared smooth neck opening."""
+    return _ribbon_envelope(True).intersect(_lower_neck_halfspace())
 
 
 def build_signal_neck_ribbon():
@@ -1761,16 +1760,12 @@ def build_shell() -> cq.Workplane:
         ("donor upper bores", build_zone3_inner_cut),
         ("drain mouth clearance", build_drain_terminal_relief),
         ("underside fault outlet", build_vent_outlet),
-        ("lower common bundle opening", build_lower_signal_lane),
-        ("upstream passage centre", build_upstream_interstice_cut),
-        ("beverage passage centre", build_beverage_interstice_cut),
-        ("soda and flavor passages", build_zone6_inner_cut),
-        ("ribbon passage", build_signal_neck_inner_cut),
         ("lever motion", build_lever_clearance),
         ("display pocket", _display_cavity),
         ("display retention", build_display_retention_grooves),
-        ("lower soda passage", build_lower_soda_inner_cut),
-        ("drain passage", lambda: build_drain_neck(cutter=True)),
+        ("lower common bundle opening", build_lower_signal_lane),
+        ("shared smooth upper passage", build_upstream_interstice_cut),
+        ("smooth beverage outlets", build_beverage_interstice_cut),
     )
     part = outer.val()
     for name, builder in cutters:
@@ -1784,8 +1779,8 @@ def build_shell() -> cq.Workplane:
             _keep_brep(part, diagnostic)
             raise ValueError(f"shell cut {name!r} produced an invalid native body; "
                              f"diagnostic={diagnostic}")
-    _cad_progress(f"Shell: unify faces ({time.monotonic()-started:.1f}s)")
-    part = part.clean()
+    # Keep the exact spline/straight transition boundaries from the native
+    # cuts. Same-domain face merging is unnecessary for the printed surface.
     if not part.isValid() or len(part.Solids()) != 1:
         _keep_brep(part, cached.with_name("invalid-full.brep"))
         raise ValueError(f"shell Boolean body: valid={part.isValid()}, "
@@ -1797,34 +1792,27 @@ def build_shell() -> cq.Workplane:
 
 
 def build_shell_base(full_shell=None):
-    """Base carries the arc-guided male plug, ending at the internal joint."""
+    """Base carries the open female socket at the midpoint of the bend."""
     full=full_shell if full_shell is not None else build_shell()
-    origin,_,tangent=_paths.station_plane(-2.0)
-    below=_split_plane_halfspace(origin,tangent,-1)
-    outer_band=_build_bend_overlap(_tube_shell_outer_sketch(),side="socket")
-    plug_core=_build_bend_overlap(_tube_shell_outer_shrunk_sketch(split_plug_shrink),side="socket")
-    # Eighteen millimetres of male land; two millimetres of axial relief at its end.
-    base=full.intersect(below).cut(outer_band.cut(plug_core)).clean()
-    # Apply the local mouth relief to the lower print after the shared neck
-    # has been split. Preserve its native tapered boundary after this cut.
-    base=base.val().cut(build_flavor_entry_relief().val())
+    below=_split_plane_halfspace(
+        (0.0,split_junction_y,split_junction_z),split_normal,-1)
+    socket=_build_bend_overlap(
+        _tube_shell_outer_shrunk_sketch(split_socket_shrink),side="socket")
+    base=full.intersect(below, clean=False).cut(socket, clean=False)
+    base=base.val()
     if not base.isValid() or len(base.Solids()) != 1:
         raise ValueError("The relieved faucet base must be one valid solid")
     return cq.Workplane(obj=base)
 
 
 def build_shell_tip(full_shell=None):
-    """Tip carries continuous tube passages, the female socket and display pocket."""
+    """Tip carries the arc-guided male plug, smooth passages and display pocket."""
     full=full_shell if full_shell is not None else build_shell()
     above=_split_plane_halfspace((0,split_junction_y,split_junction_z),split_normal,1)
-    # A short shared-volume overlap joins the two toroidal bodies positively.
-    socket_outer=_round_cavity_segment(-split_socket_overlap_len,0.25,tube_shell_outer_r)
-    socket_inner=_round_cavity_segment(-split_socket_overlap_len-0.01,0.26,
-                                      tube_shell_outer_r-split_socket_shrink)
-    socket=socket_outer.cut(socket_inner)
-    # Keep the valid torus/plane boundary parameters from the native Boolean;
-    # same-domain face unification corrupts that curved socket boundary.
-    joined=full.val().intersect(above.val()).fuse(socket.val(),tol=1e-6)
+    plug_outer=_build_bend_overlap(
+        _tube_shell_outer_shrunk_sketch(split_plug_shrink),side="plug")
+    plug=full.val().intersect(plug_outer.val(),tol=1e-6)
+    joined=full.val().intersect(above.val()).fuse(plug,tol=1e-6)
     # Heal microscopic Boolean seam faces below the 0.005 mm print-mesh
     # deflection, so the close-fitting passages survive STEP round-tripping.
     from OCP.ShapeFix import ShapeFix_FixSmallFace

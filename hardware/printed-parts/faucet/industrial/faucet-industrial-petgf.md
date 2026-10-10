@@ -1,12 +1,11 @@
 # Industrial faucet PET-GF print project
 
-The [selected held Mark2 print](prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md)
+The [selected Mark2 print](prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/README.md)
 contains all five rigid parts, including the accepted side-down lever replica.
 It uses 0.20 mm first bed layers and 0.24 mm layers above them, with 0.12 mm
 layers on the base only at print Z13.40–29.00 and Z55.16–68.12 mm. Those bands
 cover the two selected annular shoulder faces. Mark2's +0.04 mm requested
-trim emits +0.02 mm on Textured PEI. Its native estimate is
-**5 h 54 min 52 s**.
+trim emits +0.02 mm on Textured PEI. Its native estimate is recorded in the selected job.
 
 The [selection record](selected-print.json) binds the prepared project,
 native archive, five source meshes and the complete physical reference.
@@ -16,9 +15,12 @@ screw-host boundaries and all three insert backing regions. Global support
 and motion settings match the successful variable-layer reference.
 The Industrial cover has 0.50 mm longer wings and matching arch headroom,
 with its retaining-lip datum preserved. The shared tip has an unsealed
-Ø4 mm overflow drip hole and plain 2 mm routing walls. It needs no drain
-bung or insertion tool. The print is held at Derek's request; no import or
-Send has occurred.
+Ø4 mm overflow drip hole, smooth tangent passage walls around the tubes and
+flat ribbon, and 3 mm of local clearance beyond the drain mouth. The curved
+joint is at 70°, with a female base and male tip; the tip prints at −105°.
+The flavor pair shares a smooth capsule without a central divider or cusp. No intermediate guide
+discs, drain bung or insertion tool is fitted. The selected launch receipt
+records submission and acceptance separately.
 
 The [physical reference](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
 records beautiful 0.08 mm shoulder finish and successful removal of its few
@@ -33,7 +35,7 @@ records tip and wing disruption without establishing its initiating cause.
 Physical finish and support cleanup do not establish load capacity or endurance.
 
 The retained four-part 0.24 mm sealed-cavity project and its preparation
-workflow are described below. Its exact native archive is not the held
+workflow are described below. Its exact native archive is not the
 current five-part faucet and does not contain its new tip or extended cover.
 
 [`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains the

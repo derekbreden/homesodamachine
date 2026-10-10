@@ -1,56 +1,83 @@
 {
-  "schema": 2,
-  "geometry": "Continuous close-fitting tube and conductor passages through the shared upper bend and tip",
+  "schema": 3,
+  "geometry": "Original 70 degree curved joint and smooth shared tube/ribbon opening with a plain unsealed drain termination and warning hole",
   "user_quotes": [
     "We need the \"tight conformance\" carried through everywhere we can.",
     "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip."
   ],
-  "purpose": "Carry the base passage conformance through the tip, without transverse guide discs or a large round drain cavity; retain a visible unsealed fault drip.",
-  "tube_paths_preserved": true,
-  "tube_od_mm": 4.0,
-  "tube_id_mm": 2.5,
-  "passage_diameters_mm": {
-    "soda": 10.224999999999998,
-    "flavor": 7.25,
-    "drain": 4.9
-  },
-  "continuous_centre_opening": "Tube-centre triangle/quadrilateral follows the actual paths to remove isolated webs between bores; its smooth loft uses at most 2 mm arc-station pitch.",
+  "purpose": "Printable smooth passages, accessible automatic supports and an unsealed visible fault drip.",
+  "joint_angle_deg": 70.0,
+  "base_joint": "female socket",
+  "tip_joint": "male plug",
+  "socket_overlap_mm": 20.0,
+  "plug_overlap_mm": 18.0,
+  "diametral_slip_mm": 0.3,
+  "joint_reference_commit": "a17baa69e^",
+  "joint_and_male_female_assignment_match_reference": true,
+  "shared_bundle_opening": "Analytic tangent hull of complete circular tube clearances and rounded ribbon lane. The flavor pair shares one smooth capsule; no separate-bore divider or cusp is stock.",
+  "ribbon_width_mm": 4.1,
+  "ribbon_depth_mm": 1.3,
+  "peeled_or_separated_wire_runs": 0,
   "intermediate_guide_discs": 0,
   "large_round_neck_cavity": false,
+  "drain_tube_od_mm": 4.0,
+  "drain_tube_id_mm": 2.5,
   "drain_end_clearance_mm": 3.0,
-  "tube_end_world_mm": [
+  "drain_end_world_mm": [
     0.0,
-    -50.08208935742565,
-    231.70415702091412
+    -50.211550299116254,
+    230.91470159812158
   ],
-  "drain_mouth_is_open_at_sampled_0_10_1_0_2_9_mm_depths": true,
+  "drain_end_angle_deg": 80.68709001137978,
+  "drip_hole_angle_deg": 75.72139663878282,
   "drip_hole_diameter_mm": 4.0,
-  "hole_station_mm": 32.23268603395182,
+  "drain_mouth_clear_at_sampled_0_10_1_0_2_9_mm_depths": true,
   "hole_to_common_passage_connection_volume_mm3": 1.0289151487628228,
   "hole_intersection_with_nominal_soda_od_mm3": 0.0,
-  "hole_to_bore_area_ratio": 2.5600000000000005,
-  "nominal_tube_surface_sample_count": 1608,
+  "picked_ledge_and_outlet_cusp_points_in_stock": false,
+  "picked_points_world_mm": [
+    [
+      1.705,
+      -9.601,
+      213.456
+    ],
+    [
+      -0.045,
+      -140.97,
+      186.24
+    ]
+  ],
+  "nominal_tube_surface_sample_count": 2580,
   "nominal_tube_surface_samples_clear": true,
-  "cad_seam_healing_tolerance_mm": 0.001,
-  "step_roundtrip_valid_single_solid": true,
-  "valid_single_solid": true,
-  "base_stl_sha256": "ec3cecce69b122cda5b2a38441d9b730e25288ee3bcba0f46cb5f7543fe805f1",
-  "base_geometry_preserved_by_disjoint_construction": true,
-  "preservation_method": "Added close-fitting stock and common-centre cuts start at upper tip station zero; the base ends before station zero. Outer neck, female socket, display retention and dispense-face constructions are unchanged. Existing nominal tubing paths are unchanged.",
+  "lower_tube_and_ribbon_surface_sample_count": 4320,
+  "lower_tube_and_ribbon_surface_samples_clear": true,
+  "lower_opening": "Smooth tangent hull around full water, flavor, drain and ribbon clearance profiles from the donor cavity into the neck, without centre-polygon skins or separate overlapping bore cuts.",
+  "joint_plug_wall_radial_lower_bound_mm": 2.209987078000001,
+  "socket_wall_mm": 2.0,
+  "nominal_joint_solid_overlap_volume_mm3": 0.0,
+  "valid_single_solid_parts": true,
+  "step_roundtrip_valid_single_solid_parts": true,
   "drain_bungs_per_faucet": 0,
   "drain_insertion_tool_required": false,
-  "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "cbdca743d8af0fb8dcf4167b88ce29c8ccb28c19fd38627017f3f02fa4ca0ed9",
-    "hardware/printed-parts/faucet/faucet_paths.py": "4418891d9d57b74709509cc8f152588ffec2178bc3db14c07ae84e1c90c3a88c"
+  "source_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b0e041857b8c9800a30e4ba70f341f6a9ebb59355f558a166c00ea4fb40dd2d7",
+    "hardware/printed-parts/faucet/faucet_paths.py": "7d81983ad3920e973f729febaad77a713a55a6706f6dae53c74f94ada010b0b2",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5"
   },
-  "artifacts": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "31232bee6942acf8e5c62901b191f1d53d7b3e1c3c890969d4e002a64f46c44d",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "203a9fc196cd05e102097b85a22a89a69632da433833fd1100d824d68c3a071d",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "c94998e7c33e36c6a22a51682fd0f1e312b08697a4b5ca8a325e75a9a52dfd77"
+  "artifact_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "d7e0a9f4615d449991f9217a5070a762159b9ea51b1fbfd7c386e92901bf3c89",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "8fc1b1ab541b3e884ded4f12295eb7d491d46179d163f471b0aeeab5bb40e735",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "4ad1764695f7d990f77e917127f9f20934755a2ed5ebbe10e204b4a5c5512644",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "d902415657a45dc000db9b65058e1391c10d7e286de68c2f9ee04e5f09d89b8a",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "98850b85ad28b3a5d9949a223918263e87aecf0454b72ee876a54f07c5624c78",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9fbb7dc70b81f53867f3daf79f3c2a511b9e3cc45351b8cf3581e8a255acd49c",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "c50a83bb0ab0a7ff6cb262bc464818fdbd3a49ef642ee620791432df3d4dfd09"
   },
   "physical_discharge_observed": false,
   "physical_support_cleanup_observed": false,
   "complete_fault_vent_capacity_qualified": false,
-  "scope": "Nominal geometry and sampled clearances. Native slice review is separate. Actual tube threading, cleanup, drip behavior, retention strength and lifetime require physical observation.",
+  "scope": "Analytic geometry and sampled tube clearance. Native roads and automatic support placement receive their separate review. No physical cleanup, fit, strength, lifetime or fault discharge result is inferred.",
   "pass": true
 }

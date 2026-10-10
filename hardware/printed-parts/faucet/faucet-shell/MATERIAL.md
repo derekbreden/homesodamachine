@@ -1,9 +1,11 @@
 # Faucet shell material and printing
 
 The shell base, shell tip, display cover and above-counter plate use PET-GF.
-The Sculpted faucet uses black Polymaker Fiberon PET-GF15 on the
-Bambu H2C with its left 0.4 mm diamond PCD hotend. The print project uses
-[0.24 mm](PRINT_LAYER) layers with the saved PET-GF material settings.
+Use the selected style's reviewed printer, left 0.4 mm nozzle and saved
+Polymaker Fiberon PET-GF15 material settings. Ordinary model layers are
+[0.24 mm](PRINT_LAYER) above the 0.20 mm first bed layer. The
+[complete Industrial recipe](../industrial/faucet-industrial-petgf.md) uses
+0.12 mm on its two selected base shoulder bands.
 
 Rigid structural walls, fastener seats, display supports and insert
 backing use a [2 mm](WALL_MIN) minimum at the checked sections. The round gooseneck
@@ -16,14 +18,14 @@ reported for the identified complete covers in the [physical trial](../../fixtur
 The current 27 mm neck and matching cover require their own fit reading;
 the [acceptance record](../faucet-display-cover/physical-acceptance.json) preserves
 the scope of the accepted article. Repeated cycling and resistance to permanent
-spreading remain physical readings. The 2 mm TPU countertop gasket and two
-[85A TPU vent bungs](../asse-vent-seals/README.md) are compressible sealing components.
+spreading remain physical readings. The 2 mm TPU countertop gasket and
+[donor-port thimble](../tpu-o-ring/README.md) have their own material recipes.
 
-The base and tip use build rotations of −15° and −95° about the CAD X axis.
+The base and tip use build rotations of −15° and −105° about the CAD X axis.
 The tip's build direction is at the angular midpoint of its gooseneck sweep,
 with the joint end toward the bed and the crown raised. Their print heights are
-[220.1 mm](BASE_PRINT_HEIGHT) and [158.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks reach
-[45°](MAX_PRINT_OVERHANG) of overhang. Those angles do not describe every face
+[245.3 mm](BASE_PRINT_HEIGHT) and [137.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks reach
+[55°](MAX_PRINT_OVERHANG) of overhang. Those angles do not describe every face
 of the lower body or the hidden curved plug.
 
 The separate cover prints bezel up at −50° about the CAD X axis. Its lower
@@ -41,18 +43,21 @@ without reducing them. The geometry audit measures the serialized base STL
 against points on its analytic outer loft.
 
 The drinking flow remains inside the existing LLDPE tubes and donor metal
-body. Fault discharge enters the PET-GF chamber between the two TPU bungs and
-leaves through its open underside outlet. The chamber is isolated from the
-display and dry passages. It requires printed-surface cleanup and a liquid
-containment check; the native CAD and toolpaths do not establish that seal.
+body. The white drain ends square inside the smooth shared passage, with
+3 mm of mouth clearance and an unsealed Ø4 mm underside warning hole. No
+drain bung or sealed chamber is fitted. Incidental escape into the housing
+during a major fault is accepted; the complete faucet requires replacement
+after that event. Physical threading, cleanup and fault discharge remain
+unmeasured.
 
 The [print readiness record](../vent-print-readiness/README.md) links the exact
-editable projects and native print archives for the rigid pieces, bungs,
-countertop gasket and perimeter insertion tool.
+editable projects and native print archives for the selected rigid set.
+The countertop gasket and donor thimble are separate TPU prints.
 
 Use the drying and handling procedure recorded in the
 [print log](print-log.md) and [tool ledger](/hardware/ledger/tools.md).
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/.cache/printer-control/faucet-conformal-tip/update-doc-values.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

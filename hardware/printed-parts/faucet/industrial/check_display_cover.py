@@ -80,6 +80,21 @@ def run(out):
     source = source.replace('radial_stock >= 1.0-DISTANCE_TOLERANCE', 'radial_stock >= f.wall_thickness_min-DISTANCE_TOLERANCE')
     source = source.replace('required_radial_stock_mm=1.0', 'required_radial_stock_mm=f.wall_thickness_min')
     source = source.replace('complete curved-side separation', 'complete separation from the planar exterior flanks')
+    # If a numerical crop of the revised close-fitting passage seams fails,
+    # retain the complete valid obstacle rather than dropping its stock.
+    crop = """    full = full.intersect(obstacle_clip, tol=crop_boolean_tolerance)
+    if not full.isValid() or volume(full) <= VOLUME_TOLERANCE:
+        raise RuntimeError("display motion: invalid or empty conservative obstacle crop")"""
+    assert source.count(crop) == 1
+    source = source.replace(crop, """    complete_stock = full
+    cropped_stock = full.intersect(obstacle_clip, tol=crop_boolean_tolerance)
+    full = (cropped_stock if cropped_stock.isValid() and volume(cropped_stock) > VOLUME_TOLERANCE
+            else complete_stock)
+    if not full.isValid() or volume(full) <= VOLUME_TOLERANCE:
+        raise RuntimeError("display motion: invalid or empty complete obstacle")
+    reading.add("solid:display-motion-obstacle", True,
+                uses_complete_stock=full is complete_stock,
+                method="A valid conservative crop or the complete unchanged source obstacle; no stock is omitted on crop failure")""")
     tree = ast.parse(source)
 
     class Stations(ast.NodeTransformer):

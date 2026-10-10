@@ -1,7 +1,7 @@
 """Consumer faucet tube layout, in millimetres.
 
 The arc station is measured on the water centreline after the internal
-50-degree joint datum. X is lateral; N is outward from the water tube.
+70-degree joint datum. X is lateral; N is outward from the water tube.
 All transitions have zero first and second offset derivatives at their ends.
 This module deliberately has no CAD imports so qualification can read it.
 """
@@ -27,7 +27,7 @@ TOTAL_ANGLE = math.radians(140.0)
 TIP_LENGTH = 25.0
 WATER_RADIUS = (WATER_Y - OUTLET_Y - TIP_LENGTH * math.sin(TOTAL_ANGLE)) / (1 - math.cos(TOTAL_ANGLE))
 ARC_START_Z = OUTLET_Z - WATER_RADIUS * math.sin(TOTAL_ANGLE) - TIP_LENGTH * math.cos(TOTAL_ANGLE)
-JOINT_ANGLE = math.radians(50.0)
+JOINT_ANGLE = math.radians(70.0)
 SHELL_CENTER_N = 4.027512922
 SHELL_RADIUS = 13.5
 CAVITY_RADIUS = 11.5
@@ -56,8 +56,11 @@ GLAND_MID_SHIFT_S = GLAND_BODY_MID_Z*WATER_RADIUS/(WATER_RADIUS+SHELL_CENTER_N)
 _floor_radius = WATER_RADIUS+SHELL_CENTER_N-CAVITY_RADIUS
 WET_START_S = UPSTREAM_GLAND_S+GLAND_MID_SHIFT_S+WATER_RADIUS*math.asin((GLAND_LENGTH-GLAND_BODY_MID_Z)/_floor_radius)
 WET_END_S = DOWNSTREAM_GLAND_S+GLAND_MID_SHIFT_S+WATER_RADIUS*math.asin(-GLAND_BODY_MID_Z/_floor_radius)
-DRAIN_CUT_S = WET_START_S + 1.0
-CONVERGE_START_S = DOWNSTREAM_GLAND_S + GLAND_LENGTH
+# The plain drain mouth and warning hole keep their absolute position on
+# the bend. They are independent of the assembly joint and require no seals.
+DRAIN_END_ANGLE = math.radians(80.68709001137978)
+DRAIN_CUT_S = (DRAIN_END_ANGLE - JOINT_ANGLE) * WATER_RADIUS
+CONVERGE_START_S = DRAIN_CUT_S + 3.0
 CONVERGE_LENGTH = 24.0
 RIBBON_CONVERGE_LENGTH = 8.0
 PORT_START_S = WET_START_S
@@ -70,7 +73,8 @@ DRIP_GUIDE_WALL_THICKNESS = 2.0
 DRIP_HOLE_DIAMETER = 4.0
 DRIP_FLOOR_ENTRY_S = (DRIP_POCKET_ENTRY_S
     + WATER_RADIUS*math.asin(DRIP_GUIDE_WALL_THICKNESS/_floor_radius))
-DRIP_HOLE_S = DRIP_FLOOR_ENTRY_S
+DRIP_HOLE_ANGLE = math.radians(75.72139663878282)
+DRIP_HOLE_S = (DRIP_HOLE_ANGLE - JOINT_ANGLE) * WATER_RADIUS
 DRIP_END_CLEARANCE_MM = 3.0
 
 
@@ -106,22 +110,15 @@ def lower_point(z, kind, sign=1):
 
 def positions(s):
     """F lateral/normal, D normal, cable normal and maximum cable width."""
-    a0 = math.atan2(TIGHT_FLAVOR_X, TIGHT_FLAVOR_N)
-    a1 = math.atan2(SEAL_FLAVOR_X, SEAL_FLAVOR_N)
-    a2 = math.atan2(FACE_FLAVOR_X, FACE_FLAVOR_N)
-    if s < SPREAD_END_S:
-        u = ease(s/SPREAD_END_S)
-        r, a = _rf + SEAL_WEB*u, a0 + (a1-a0)*u
-        return (r*math.sin(a), r*math.cos(a),
-                TIGHT_DRAIN_N + SEAL_WEB*u,
-                TIGHT_RIBBON_N+(SEAL_RIBBON_N-TIGHT_RIBBON_N)*u,
-                4.1+(7.9-4.1)*u)
+    # Four tubes share the upstream opening. Beyond the drain's open end,
+    # the two flavors return smoothly to the proven tangent dispense pair.
     u = ease((s-CONVERGE_START_S)/CONVERGE_LENGTH)
-    r, a = _seal_rf-SEAL_WEB*u, a1+(a2-a1)*u
+    a0 = math.atan2(TIGHT_FLAVOR_X, TIGHT_FLAVOR_N)
+    a1 = math.atan2(FACE_FLAVOR_X, FACE_FLAVOR_N)
+    angle = a0 + (a1-a0)*u
     cable_u = ease((s-CONVERGE_START_S)/RIBBON_CONVERGE_LENGTH)
-    return (r*math.sin(a), r*math.cos(a), SEAL_DRAIN_N,
-            SEAL_RIBBON_N+(FACE_RIBBON_N-SEAL_RIBBON_N)*cable_u,
-            7.9+(4.1-7.9)*cable_u)
+    return (_rf*math.sin(angle), _rf*math.cos(angle), TIGHT_DRAIN_N,
+            TIGHT_RIBBON_N+(FACE_RIBBON_N-TIGHT_RIBBON_N)*cable_u, 4.1)
 
 
 def arc_point(angle, x=0.0, n=0.0):
@@ -183,17 +180,15 @@ def path_wire(kind, bottom_z=-6.2, sign=1, *, end_s=None):
     nn = TIGHT_FLAVOR_N if kind == "flavor" else TIGHT_DRAIN_N if kind == "drain" else TIGHT_RIBBON_N
     line(lower(LOWER_END_Z), (nx, ty, ARC_START_Z))
     constant_arc(0, JOINT_ANGLE, nx, nn)
-    spline(lambda s: tube_arc_point(s,kind,sign), 0, SPREAD_END_S)
     end_s = DRAIN_CUT_S if kind == "drain" and end_s is None else end_s
     if end_s is not None:
-        p = positions(SPREAD_END_S)
-        constant_arc(JOINT_ANGLE+SPREAD_END_S/WATER_RADIUS, JOINT_ANGLE+end_s/WATER_RADIUS,
-                     sign*p[0] if kind == "flavor" else 0.0,
-                     p[1] if kind == "flavor" else p[2] if kind == "drain" else p[3])
+        if end_s <= CONVERGE_START_S:
+            constant_arc(JOINT_ANGLE, JOINT_ANGLE+end_s/WATER_RADIUS, nx, nn)
+        else:
+            constant_arc(JOINT_ANGLE, JOINT_ANGLE+CONVERGE_START_S/WATER_RADIUS, nx, nn)
+            spline(lambda s: tube_arc_point(s,kind,sign), CONVERGE_START_S, end_s)
     else:
-        p = positions(SPREAD_END_S)
-        constant_arc(JOINT_ANGLE+SPREAD_END_S/WATER_RADIUS, JOINT_ANGLE+CONVERGE_START_S/WATER_RADIUS,
-                     sign*p[0] if kind == "flavor" else 0.0, p[1] if kind == "flavor" else p[3])
+        constant_arc(JOINT_ANGLE, JOINT_ANGLE+CONVERGE_START_S/WATER_RADIUS, nx, nn)
         spline(lambda s: tube_arc_point(s,kind,sign), CONVERGE_START_S, CONVERGE_START_S+CONVERGE_LENGTH)
         p = positions(CONVERGE_START_S+CONVERGE_LENGTH)
         nx, nn = (sign*p[0],p[1]) if kind == "flavor" else (0.0,p[3])
