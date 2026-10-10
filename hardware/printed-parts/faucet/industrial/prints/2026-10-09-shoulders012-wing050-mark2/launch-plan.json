@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T04:40:13.704089+00:00",
+  "printer": "Mark2",
+  "status": "Superseded before import or Send; Derek hold retained",
+  "authorization_quotes": [
+    "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
+    "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
+    "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
+    "The mark two bed is clear and ready for you. Start whenever you're ready."
+  ],
+  "authorization_scope": "Update cover wings to 0.50 mm and start this complete five-part corrected faucet on Mark2",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "2220dd27236f570a05b326e3933654572f31079178bd006ade82d879eae425f5",
+  "gcode_sha256": "10bd92eb2d8569270bc33abe6ec40b906e8497ad298707795f7728bfbd5dc5bb",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "636aaa95d41b59c1aaa8ae05b993296b803ae1a84b9b1882f0c74e2089675929",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/native-check.json",
+  "native_check_sha256": "e1a42d26932fc61d0934cddc7a9615b413a1b025374b88518210e36e6df7f40f",
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "e144bfae5546da293f941aae0d45feac4bad90e93c059bd272358909210df4e1",
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.12,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "native_estimated_seconds": 20836.560546875,
+  "native_estimate": "5 h 47 min 17 s",
+  "native_estimated_grams_saved_profile_density": 152.53443908691406,
+  "queued_after": {
+    "task_id": "1325126748",
+    "job_id": "1325126748",
+    "archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00"
+  },
+  "start_now": false,
+  "ready_to_launch": false,
+  "waiting_for": "Derek separate go-ahead after hold",
+  "launch_method": "One foreground tools/bambu_print.py transaction with --attempts 1; current UI display names Mark1/Mark2, connection target Mark2",
+  "required_ui_display_names": [
+    "Mark1",
+    "Mark2"
+  ],
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "pre_start_requirements": [
+    "Freshly read both printers; destination ready and idle without an unresolved fault",
+    "Verify exact prepared archive, G-code, source and review hashes",
+    "At least 180 seconds after the peer most recent accepted start or resume",
+    "Read all current launch receipts; no previous attempted or ambiguous transaction"
+  ],
+  "send_attempted": false,
+  "accepted": false,
+  "submitted": false,
+  "send_count": 0,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "automatic_start": false,
+  "display_cover_trial": {
+    "wing_extension_mm": 0.5,
+    "arch_clearance_local_n_mm": 0.5,
+    "retaining_lips_unchanged": true,
+    "prior_source_stl_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "source_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+    "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "physical_fit_evaluated": false,
+    "geometry_check_sha256": "852dcb6ff2d60401607fa11540f33617c7c55f37470b7ed7920937b696293d82",
+    "geometry_check_passed": true,
+    "bezel_to_lip_extension_mm": 0.5
+  },
+  "send_click_count": 0,
+  "hold_authorization_quote": "Apologies, pause on that print",
+  "held_at_utc": "2026-10-10T04:40:46.359358+00:00",
+  "superseded_by": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/launch-plan.json"
+}

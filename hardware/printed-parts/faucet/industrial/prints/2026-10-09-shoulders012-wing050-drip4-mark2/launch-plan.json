@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T05:09:37.514152+00:00",
+  "printer": "Mark2",
+  "status": "Held at Derek request before import or Send",
+  "authorization_quotes": [
+    "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
+    "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
+    "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
+    "The mark two bed is clear and ready for you. Start whenever you're ready.",
+    "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip."
+  ],
+  "authorization_scope": "Prepare the simplified unsealed drip-hole faucet; start remains held",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "f6c087784d1a70f3dee5a5c9107856077fb5419f5175a9f784fb9025f8c32133",
+  "gcode_sha256": "ffb1d02776944b546d3775cd8fa0f045d71941e8292eef71221a0988f10947d1",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "a229655e89acbb9155473b199e44e97ef7c3eeeaf7c7c34121b5dd20adbb5cbe",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/native-check.json",
+  "native_check_sha256": "6b07d5202a00b1a7a51bb1cfb9b1cd20f1c50bd6678a37d4f9e6687462998495",
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "c6c061fcf30de56b966b0173d2cfe08831e1229ed8f6b5c2cc75587647cc289f",
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.12,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "native_estimated_seconds": 21291.767578125,
+  "native_estimate": "5 h 54 min 52 s",
+  "native_estimated_grams_saved_profile_density": 155.51239013671875,
+  "queued_after": {
+    "task_id": "1325126748",
+    "job_id": "1325126748",
+    "archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00"
+  },
+  "start_now": false,
+  "ready_to_launch": false,
+  "waiting_for": "Derek's separate go-ahead after his hold",
+  "launch_method": "One foreground tools/bambu_print.py transaction with --attempts 1; current UI display names Mark1/Mark2, connection target Mark2",
+  "required_ui_display_names": [
+    "Mark1",
+    "Mark2"
+  ],
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "pre_start_requirements": [
+    "Freshly read both printers; destination ready and idle without an unresolved fault",
+    "Verify exact prepared archive, G-code, source and review hashes",
+    "At least 180 seconds after the peer most recent accepted start or resume",
+    "Read all current launch receipts; no previous attempted or ambiguous transaction"
+  ],
+  "send_attempted": false,
+  "accepted": false,
+  "submitted": false,
+  "send_count": 0,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "automatic_start": false,
+  "display_cover_trial": {
+    "wing_extension_mm": 0.5,
+    "arch_clearance_local_n_mm": 0.5,
+    "retaining_lips_unchanged": true,
+    "prior_source_stl_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "source_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+    "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "physical_fit_evaluated": false,
+    "geometry_check_sha256": "d5df413fa6a1bc8af5cfc3ae075f25e481b30af1dfca9d7f1cd8913c5083a188",
+    "geometry_check_passed": true,
+    "bezel_to_lip_extension_mm": 0.5
+  },
+  "send_click_count": 0,
+  "hold_authorization_quote": "Apologies, pause on that print",
+  "held_at_utc": "2026-10-10T04:40:46.359358+00:00",
+  "drain_trial": {
+    "hole_diameter_mm": 4.0,
+    "tube_id_mm": 2.5,
+    "gaskets_required": false,
+    "insertion_tool_required": false,
+    "guide_wall_thickness_mm": 2.0,
+    "prior_source_stl_sha256": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+    "source_stl_sha256": "d3f8d3a96faba20fa58e9cbf4b5b4c09c7c6cfc37f7469cb336fd344aae66bd4",
+    "geometry_check": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
+    "physical_discharge_observed": false,
+    "geometry_check_sha256": "233c782fba6a9b2ecc8947141e1bf1e1b83c0cdd38408ca9165f6bf69b7e1fb8",
+    "geometry_check_passed": true
+  },
+  "hold_quote": "Apologies, pause on that print"
+}

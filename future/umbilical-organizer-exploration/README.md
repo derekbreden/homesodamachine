@@ -1,16 +1,17 @@
 # Umbilical tube organizer fit trial
 
-The **L / rightmost / loose** sample is the accepted
-[production umbilical organizer](../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
-for its three Ø6.65 mm beverage bores, in Ø32 × 10 mm PET-GF. Its Ø4.20 mm drain
-bore tests a bit too tight on the received 4 mm drain tube, so the production
-drain bore is Ø4.30 mm; [`drain-fit-mark2/`](drain-fit-mark2/README.md) holds
-that puck's next print. The
+The [production umbilical organizer](../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
+is Ø32 × 10 mm PET-GF, with Ø6.65 mm beverage bores selected from A and
+Ø4.40 mm drain bore selected from B in the
+[three-increment Mark2 comparison](diameter-increments-mark2/physical-result.json).
+The loose Ø5.00 mm signal passage is retained. The
 [physical acceptance record](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-binds both reports to the original Mark2 job. This folder retains the trial
-articles and their preparation sources; `organizer.py` represents the middle
-trial article. Current product geometry and placement are defined under
-`hardware/printed-parts/faucet/umbilical-organizer/` and `hardware/faucet-layout/`.
+binds the selections to the printed samples and preserves the original L result.
+This folder retains those frozen trial articles and preparations; `organizer.py`
+represents the middle original trial article. Current product geometry and
+placement are defined under `hardware/printed-parts/faucet/umbilical-organizer/`
+and `hardware/faucet-layout/`. The separate Ø4.30 mm drain-fit archive is an
+unsubmitted trial, outside the production selection.
 
 One floating round puck is intended to keep the soda, two flavor and drain tubes
 in formation below the faucet mounting workspace. The target is deliberate

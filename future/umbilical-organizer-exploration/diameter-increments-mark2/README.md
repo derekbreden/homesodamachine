@@ -1,7 +1,7 @@
 # Three organizer bore increments — Mark2
 
 This plate contains three production-size PET-GF organizers. A is byte-identical
-to the saved production STL, including the drain bore's 0.10 mm diameter increase
+to the production STL captured for this print, including the drain bore's 0.10 mm diameter increase
 from the accepted L article. B adds 0.10 mm to every saved hole diameter; C adds
 0.20 mm. The signal passage receives the same increments as the four tube bores.
 Stock, bore axes, chamfers and upright orientation remain the saved geometry.
@@ -17,11 +17,14 @@ X205.5 mm, all at Y160 mm; adjacent stock edges are 11 mm apart.
 | B — centre | +0.10 mm | 6.75 mm | 4.40 mm | 5.10 mm |
 | C — right | +0.20 mm | 6.85 mm | 4.50 mm | 5.20 mm |
 
-The [production organizer](../../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
-retains its saved dimensions. Its [physical record](../../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-accepts the original L article's quarter-inch sliding fit and reports its 4.20 mm
-drain bore as a bit tight on the received 4 mm tube. Fit for these three articles
-requires physical inspection; no acceptance is inferred from CAD or slicing.
+The [reported fit comparison](physical-result.json) selects A for the three
+quarter-inch bores and B for the 4 mm drain bore. The
+[production organizer](../../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
+combines Ø6.65 mm beverage bores with Ø4.40 mm drain bore and retains its
+Ø5.00 mm signal passage. The combined article is unprinted. These are
+feature-level fit results, without quantified force or endurance readings.
+The [physical acceptance record](../../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
+preserves the original L result and binds the current selections to A and B.
 
 The saved single-puck [preparation](../drain-fit-mark2/README.md) supplies the
 settings unchanged: Mark2's fixed left hardened standard-flow 0.4 mm nozzle,

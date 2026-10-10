@@ -2,7 +2,13 @@
 
 Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible.
 
-The Multiplex 19-0897 vent discharges through a separate white [4](DRAIN_OD) mm OD LLDPE tube. Its square-cut end is inside the gooseneck's round chamber. A separate bottom-center opening discharges over the sink bowl; two retained 85A bungs contain the chamber. The beverage face retains two symmetric flavor outlets above its soda outlet.
+The Multiplex 19-0897 vent discharges through a separate white
+[4](DRAIN_OD) mm OD / [2.5](DRAIN_ID) mm ID LLDPE tube. Its square-cut end is
+inside the faucet tip's unsealed pocket. A round Ø4 mm underside opening
+provides a visible major-fault drip over the sink bowl. Plain printed guide
+walls carry the continuous beverage tubes and insulated conductors; no
+additional drain gasket or bung is fitted. Incidental escape into the faucet
+housing is accepted during that fault.
 
 ## Parts
 
@@ -25,15 +31,27 @@ The black bulkhead matches the existing rear fittings. Its 4 mm socket distingui
 2. Insert the ATBC44-E stem into the elbow to its marked full insertion depth. Point its free socket aft and insert the ARD4M4-E stem. Mark and fully insert the internal [4](DRAIN_OD) mm return into the reducer and bulkhead. Form two tangent R[25](DRAIN_BEND_R) half-turns in the rear space: the first turns aft to fore while rising east, and the second turns fore to aft while rising west. Finish with the two R[25](DRAIN_BEND_R) arcs of the S bend into the middle rear row. Keep the white tube clear of the foam cap, pump, DATA jack and flavor returns. The flavor-B return rises [7.5](FLAVOR_B_RETURN_RISE) mm and passes 13 mm west of its rear-union column around the black adapters; its front support and both rear collets retain their positions. Its rear return bends hold R25.4. No fitting can pull the hose tight or collapse its bore.
 3. Make up the OVER bulkhead through its white rectangular chip. The 6 mm panel stack fits its [8.1](DRAIN_PANEL_BARREL) mm bare barrel. Tighten only enough to hold the chip and fitting without distorting the printed wall; maximum nut torque from the neoFit sheet is 1.1 ft lb.
 4. Feed the white 4 mm tube between the two flavors through the counter stack and shell base. Its R25-or-larger bends pass forward of the two flavor unions and gather against the cold-line foam under the common sleeve. Put the 4.25 mm bore OVER collar on the bare tail.
-5. With the tip separate, follow [vent seal assembly](/hardware/printed-parts/faucet/asse-vent-seals/README.md). Pre-thread the upstream bung, then the distal bung, onto the three beverage tubes and four peeled, continuously insulated conductors. Keep D out of the tip while seating the distal bung. Feed D through the preloaded upstream bung and set its square cut a nominal 8.0 ± 0.2 mm beyond that bung's flange front. Advance the precut D tube and upstream bung together at that mark, seating the bung with the curved perimeter pusher. Rotate the tip socket over the base plug while feeding tube slack. Trim only the three beverage outlets flush at their symmetric face.
-6. Leave all four appliance-end tails free. Connect white 4 mm OVER to OVER and the larger white supply to TAP. Place the nominal 1-3/8-inch mounting-hole center no more than 50.8 mm behind the bowl edge and aim the fixed faucet within 10° of straight into the bowl. Confirm the complete separate bottom opening is over the bowl, exposed and unobstructed. [Native vent evidence](/hardware/printed-parts/faucet/vent-qualification/README.md) records the installation envelope.
+5. With the tip separate, feed the continuous S/F1/F2 tubes and four
+   continuously insulated display conductors through its printed guides.
+   Advance D through the upstream guide so its square-cut end projects into
+   the open pocket, clear of the wall and other tubes. The downstream guide
+   has no D passage. Close the curved shell joint while feeding tube slack.
+   Trim only the three beverage outlets flush at their symmetric face.
+6. Leave all four appliance-end tails free. Connect white 4 mm OVER to OVER
+   and the larger white supply to TAP. Aim the fixed faucet into the bowl and
+   confirm the complete Ø4 mm underside hole is over the bowl, exposed and
+   unobstructed.
 
 
-## Engineering qualification
 
-The CAD establishes routing, bend radii, separate outlets and mounting clearance. It does not establish vent capacity. The smaller bore and rise can add backpressure; a wet line can also retain a water column. Release requires manufacturer confirmation or a fixture-based fault-discharge qualification of the complete installed route. Measure upstream pressure, vent flow and vent backpressure through dry, water-filled and partially obstructed runs at the specified supply limits, then show that the device's required backflow protection and discharge are preserved. Applicable approval and installation limits must supply the acceptance values before this test is treated as qualification.
+## Evidence scope
 
-Printed fit, support removal, tube feeding and repeatable assembly remain physical checks on the next print. Existing mechanical acceptance records retain their original scope in [mechanical qualification](/hardware/mechanical-qualification/README.md).
+The [current geometry reading](/hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json)
+checks an open pocket-to-hole connection, nominal tube clearance and the
+retained joint/dispense face. The Ø4 mm hole has 2.56 times the nominal area
+of the Ø2.5 mm tube bore. That is a geometric comparison, not a flow rating.
+Physical drip behavior and the complete rising vent route's capacity are
+unmeasured. The separate beverage flow remains inside the tubes and donor.
 
 ## Sources
 [value](NAME) texts are updated by:
