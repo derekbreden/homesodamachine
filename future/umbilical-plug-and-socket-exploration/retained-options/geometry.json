@@ -1,0 +1,574 @@
+{
+  "scope": "Native interface options with retained selected hardware; cropped boot; no print or pressure qualification.",
+  "source_sha256": "0a7a7374208f134e8c4ffddc370c989df1d5b57bb272f74ced84dd67ff4eb395",
+  "sources": {
+    "future/umbilical-plug-and-socket-exploration/retained-options/retained_options.py": "0a7a7374208f134e8c4ffddc370c989df1d5b57bb272f74ced84dd67ff4eb395",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "67801a3ac7e5985151797f50c2f0bb774b6c9cf4b511ec6adcab958bd4a5a0c1"
+  },
+  "options": {
+    "thicker-guard": {
+      "native_bodies": {
+        "plug-magnet-endstop-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-screw-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-insert-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "plug-magnet-endstop--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-screw--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-insert--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "plug-interface": {
+          "valid": true,
+          "solids": 1
+        },
+        "tube-key": {
+          "valid": true,
+          "solids": 1
+        },
+        "socket-carrier": {
+          "valid": true,
+          "solids": 1
+        },
+        "supported-elastomer-puck": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-pad-half": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-2": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-3": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-spring-half": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-2": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-3": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw--15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert--15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw--15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert--15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw-15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert-15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw-15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert-15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "rear-retainer": {
+          "valid": true,
+          "solids": 1
+        },
+        "rear-tube-key": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-a-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-a-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-b-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-b-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "soda-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "soda-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "drain-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "drain-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "enclosure-context": {
+          "valid": true,
+          "solids": 1
+        }
+      },
+      "unintended_overlap_mm3": {},
+      "pogo_head_access_before_magnets_mm3": {
+        "0,-10.22": 0.0,
+        "0,10.22": 0.0
+      },
+      "tube_pitch_mm": [
+        13.1,
+        7.2
+      ],
+      "main_guard_wall_mm": 3.5,
+      "magnet_corner_stock_mm": 2.2941763236464734,
+      "nominal_radial_counter_clearance_mm": 0.46499999999999986,
+      "ear_relief_outer_stock_mm": null,
+      "cap_counterbore_outer_stock_mm": 1.2443870703501485,
+      "guide_bore_web_between_large_tubes_mm": 0.5499999999999998,
+      "inserted_bore_diameter_mm": [
+        6.35,
+        4.0
+      ],
+      "unloaded_seal_interference": "unspecified",
+      "drawing_common_magnet_groove_interval_mm": [
+        1.8542,
+        2.6924
+      ],
+      "printed_rail_depth_interval_mm": [
+        1.95,
+        2.55
+      ],
+      "roles": {
+        "plug-magnet-endstop-1": "cap",
+        "cap-screw-1": "cap",
+        "cap-insert-1": "plug",
+        "plug-magnet-endstop--1": "cap",
+        "cap-screw--1": "cap",
+        "cap-insert--1": "plug",
+        "plug-interface": "plug",
+        "tube-key": "plug",
+        "socket-carrier": "machine",
+        "supported-elastomer-puck": "machine",
+        "pogo-pad-half": "plug",
+        "pogo-screw-plug-0": "plug",
+        "pogo-insert-plug-0": "plug",
+        "pogo-screw-plug-1": "plug",
+        "pogo-insert-plug-1": "plug",
+        "SB443-plug-0": "plug",
+        "SB443-plug-1": "plug",
+        "insulated-lead-plug-0": "plug",
+        "insulated-lead-plug-1": "plug",
+        "insulated-lead-plug-2": "plug",
+        "insulated-lead-plug-3": "plug",
+        "pogo-spring-half": "machine",
+        "pogo-screw-machine-0": "machine",
+        "pogo-insert-machine-0": "machine",
+        "pogo-screw-machine-1": "machine",
+        "pogo-insert-machine-1": "machine",
+        "SB443-machine-0": "machine",
+        "SB443-machine-1": "machine",
+        "insulated-lead-machine-0": "machine",
+        "insulated-lead-machine-1": "machine",
+        "insulated-lead-machine-2": "machine",
+        "insulated-lead-machine-3": "machine",
+        "retainer-screw--15.0--8.0": "machine",
+        "retainer-insert--15.0--8.0": "machine",
+        "retainer-screw--15.0-8.0": "machine",
+        "retainer-insert--15.0-8.0": "machine",
+        "retainer-screw-15.0--8.0": "machine",
+        "retainer-insert-15.0--8.0": "machine",
+        "retainer-screw-15.0-8.0": "machine",
+        "retainer-insert-15.0-8.0": "machine",
+        "rear-retainer": "machine",
+        "rear-tube-key": "machine",
+        "flavor-a-umbilical-tube": "plug",
+        "flavor-a-machine-tube": "machine",
+        "flavor-b-umbilical-tube": "plug",
+        "flavor-b-machine-tube": "machine",
+        "soda-umbilical-tube": "plug",
+        "soda-machine-tube": "machine",
+        "drain-umbilical-tube": "plug",
+        "drain-machine-tube": "machine",
+        "enclosure-context": "machine"
+      }
+    },
+    "closer-tubes": {
+      "native_bodies": {
+        "plug-magnet-endstop--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-screw--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "cap-insert--1": {
+          "valid": true,
+          "solids": 1
+        },
+        "plug-interface": {
+          "valid": true,
+          "solids": 1
+        },
+        "tube-key": {
+          "valid": true,
+          "solids": 1
+        },
+        "socket-carrier": {
+          "valid": true,
+          "solids": 1
+        },
+        "supported-elastomer-puck": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-pad-half": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-2": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-plug-3": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-spring-half": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-screw-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "pogo-insert-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "SB443-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-0": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-1": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-2": {
+          "valid": true,
+          "solids": 1
+        },
+        "insulated-lead-machine-3": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw--15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert--15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw--15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert--15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw-15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert-15.0--8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-screw-15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "retainer-insert-15.0-8.0": {
+          "valid": true,
+          "solids": 1
+        },
+        "rear-retainer": {
+          "valid": true,
+          "solids": 1
+        },
+        "rear-tube-key": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-a-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-a-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-b-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "flavor-b-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "soda-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "soda-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "drain-umbilical-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "drain-machine-tube": {
+          "valid": true,
+          "solids": 1
+        },
+        "enclosure-context": {
+          "valid": true,
+          "solids": 1
+        }
+      },
+      "unintended_overlap_mm3": {},
+      "pogo_head_access_before_magnets_mm3": {
+        "-10.22,-7.25": 0.0,
+        "10.22,-7.25": 0.0
+      },
+      "tube_pitch_mm": [
+        8.15,
+        8.15
+      ],
+      "main_guard_wall_mm": 3.0,
+      "magnet_corner_stock_mm": 1.670575679432707,
+      "nominal_radial_counter_clearance_mm": 0.46499999999999986,
+      "ear_relief_outer_stock_mm": 1.719600964055454,
+      "cap_counterbore_outer_stock_mm": 0.75,
+      "guide_bore_web_between_large_tubes_mm": 1.5,
+      "inserted_bore_diameter_mm": [
+        6.35,
+        4.0
+      ],
+      "unloaded_seal_interference": "unspecified",
+      "drawing_common_magnet_groove_interval_mm": [
+        1.8542,
+        2.6924
+      ],
+      "printed_rail_depth_interval_mm": [
+        1.95,
+        2.55
+      ],
+      "roles": {
+        "plug-magnet-endstop--1": "cap",
+        "cap-screw--1": "cap",
+        "cap-insert--1": "plug",
+        "plug-interface": "plug",
+        "tube-key": "plug",
+        "socket-carrier": "machine",
+        "supported-elastomer-puck": "machine",
+        "pogo-pad-half": "plug",
+        "pogo-screw-plug-0": "plug",
+        "pogo-insert-plug-0": "plug",
+        "pogo-screw-plug-1": "plug",
+        "pogo-insert-plug-1": "plug",
+        "SB443-plug-0": "plug",
+        "SB443-plug-1": "plug",
+        "insulated-lead-plug-0": "plug",
+        "insulated-lead-plug-1": "plug",
+        "insulated-lead-plug-2": "plug",
+        "insulated-lead-plug-3": "plug",
+        "pogo-spring-half": "machine",
+        "pogo-screw-machine-0": "machine",
+        "pogo-insert-machine-0": "machine",
+        "pogo-screw-machine-1": "machine",
+        "pogo-insert-machine-1": "machine",
+        "SB443-machine-0": "machine",
+        "SB443-machine-1": "machine",
+        "insulated-lead-machine-0": "machine",
+        "insulated-lead-machine-1": "machine",
+        "insulated-lead-machine-2": "machine",
+        "insulated-lead-machine-3": "machine",
+        "retainer-screw--15.0--8.0": "machine",
+        "retainer-insert--15.0--8.0": "machine",
+        "retainer-screw--15.0-8.0": "machine",
+        "retainer-insert--15.0-8.0": "machine",
+        "retainer-screw-15.0--8.0": "machine",
+        "retainer-insert-15.0--8.0": "machine",
+        "retainer-screw-15.0-8.0": "machine",
+        "retainer-insert-15.0-8.0": "machine",
+        "rear-retainer": "machine",
+        "rear-tube-key": "machine",
+        "flavor-a-umbilical-tube": "plug",
+        "flavor-a-machine-tube": "machine",
+        "flavor-b-umbilical-tube": "plug",
+        "flavor-b-machine-tube": "machine",
+        "soda-umbilical-tube": "plug",
+        "soda-machine-tube": "machine",
+        "drain-umbilical-tube": "plug",
+        "drain-machine-tube": "machine",
+        "enclosure-context": "machine"
+      }
+    }
+  }
+}
