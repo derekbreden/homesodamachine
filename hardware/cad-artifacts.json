@@ -16,10 +16,10 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.print.json",
-      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.readiness.json",
-      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/first-second-layer-review.json",
-      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/outer-wall-review.json"
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.print.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/preparation.json",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/prepare.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -386,6 +386,8 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step",
+      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
@@ -2568,7 +2570,9 @@
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "17c02d9c138b74c041956ed86470d864dfb1b7d44d7f85f6174373a2eba47771",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "b45f4777c3fb1cc4fbe5be76a5dbb85bb87d83f69c7265e9cc1dde8ce5e71def",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "37ee55d518f2ee6c1fc4a77d05a3f06093252e5dcb52cb9bdb6f9c88a76aa772",
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "504024a53a906e126cb5d0a09d90b9138443d59bc81c48ee4b8c4ea7c01bdccb"
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "504024a53a906e126cb5d0a09d90b9138443d59bc81c48ee4b8c4ea7c01bdccb",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c0b3fee0aabe719722d3a90a3ada4467bd75088940713b8abfa7e2d32bb74ee0",
@@ -2942,6 +2946,8 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": 1791617840,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": 1791619488,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1791619488,
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": 1791675122,
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": 1791675122,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": 1791385546,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": 1791385546,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": 1791385546,
