@@ -5,6 +5,11 @@ The two parts are the 98 mm guided boot and its matching tube key. The boot has 
 magnet pockets and needs no magnets or pauses. This is an unpowered, unpressurized
 handling trial. Nothing has been submitted to a printer.
 
+This saved article has exposed tube tips. It assesses tube feeding, grip, foam packing
+and fabric tuck; it does not assess protected handling or complete connector usability.
+The [integral guard candidate](../assessment/protection.md) has separate native geometry
+and a matching wider socket. It is not included in this project or qualified by its slice.
+
 | File | Purpose |
 | --- | --- |
 | [Editable project](guided-boot-mark2-z004.3mf) | Two centered blue parts, saved settings and placement |
