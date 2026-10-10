@@ -1,4 +1,8 @@
-"""Accepted PET-GF umbilical organizer, in its upright print frame.
+"""PET-GF umbilical organizer, in its upright print frame.
+
+The three quarter-inch bores are the accepted L sample's. The received 4 mm
+drain tube tests a bit tight in that sample's drain bore, so the drain bore is
+0.10 mm larger in diameter than the L sample's.
 
 The print origin is the centre of the round stock; Z=0 is the bottom face.
 Tube-axis XY values below use the faucet assembly's coordinates. Placement
@@ -19,9 +23,11 @@ from _materials import C_FAUCET_BLACK
 OD = 32.0
 LENGTH = 10.0
 TUBE_BORE = 6.55 + 0.10
-DRAIN_BORE = 4.10 + 0.10
+# The received 4 mm drain tube tests a bit tight in the L sample's Ø4.20 bore.
+DRAIN_BORE = 4.20 + 0.10
 CABLE_BORE = 5.0
 ENTRY = 0.40
+CABLE_ENTRY = 0.20
 OUTSIDE_EASE = 0.60
 CENTRE_XY = (-0.9124999999999996, 10.510023117569354)
 CABLE_XY = (5.45, 11.50)
@@ -35,13 +41,13 @@ BORES = (
 
 
 def build_organizer():
-    """The accepted L sample: one puck, four smooth tube bores, loose cable."""
+    """One puck, four smooth tube bores, loose cable."""
     body = cq.Workplane("XY").circle(OD / 2).extrude(LENGTH)
     body = body.edges("%Circle").chamfer(OUTSIDE_EASE)
     for name, xy, diameter in BORES:
         x, y = xy[0] - CENTRE_XY[0], xy[1] - CENTRE_XY[1]
         r = diameter / 2
-        entry = 0.20 if name == "SIG" else ENTRY
+        entry = CABLE_ENTRY if name == "SIG" else ENTRY
         bore = cq.Solid.makeCylinder(r, LENGTH + 2, cq.Vector(x, y, -1))
         bottom = cq.Solid.makeCone(r + entry, r, entry, cq.Vector(x, y, 0))
         top = cq.Solid.makeCone(r, r + entry, entry, cq.Vector(x, y, LENGTH-entry))
@@ -63,7 +69,20 @@ def main():
     export_assembly(assembly, str(step))
     import flute_payload
     flute_payload.cut(step, stl, preserve_print_triangles=True)
-    print(f"-> {step.name}, {stl.name}, {step.name}.mesh")
+    sys.path.insert(0, str(HARDWARE.parent / "tools"))
+    from docgen import substitute_md
+    substitute_md(HERE / "README.md", variables={
+        "ORGANIZER_OD": f"{OD:g} mm",
+        "ORGANIZER_LENGTH": f"{LENGTH:g} mm",
+        "ORGANIZER_TUBE_BORE": f"{TUBE_BORE:.2f} mm",
+        "ORGANIZER_DRAIN_BORE": f"{DRAIN_BORE:.2f} mm",
+        "ORGANIZER_CABLE_BORE": f"{CABLE_BORE:g} mm",
+        "ORGANIZER_ENTRY": f"{ENTRY:g} mm",
+        "ORGANIZER_CONTACT": f"{LENGTH - 2 * ENTRY:g} mm",
+        "ORGANIZER_CABLE_ENTRY": f"{CABLE_ENTRY:g} mm",
+        "ORGANIZER_RIM_EASE": f"{OUTSIDE_EASE:g} mm",
+    })
+    print(f"-> {step.name}, {stl.name}, {step.name}.mesh, README.md")
 
 
 if __name__ == "__main__":

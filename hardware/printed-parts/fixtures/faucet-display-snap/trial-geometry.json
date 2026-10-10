@@ -12,7 +12,7 @@
     "wing_inward_preload_at_lip_bottom_mm": 1.513157894736842
   },
   "retained_geometry": {
-    "complete_head_end_s_mm": 51.19842617271788,
+    "complete_head_end_s_mm": 51.198426172717895,
     "neck_cut_s_mm": 71.19842617271789,
     "minimum_neck_stub_mm": 20.0,
     "missing_head_material_mm3": 0.0
@@ -30,18 +30,18 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "599a891ff272070bbde590253a1bd32d05d599b035382573221fb72e7f837092",
+      "sha256": "31edb5f4b6186870b57dbdfd33030eb52c76a782c90c066c49b3993716762bd3",
       "source_rotation_x_degrees": -95.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 17595.634082648314,
-      "triangles": 132902,
+      "volume_mm3": 17595.62989486535,
+      "triangles": 134804,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
           -13.5,
           -30.16667366027832,
-          1.000000082740371e-07
+          1.0000002959031917e-07
         ],
         [
           13.5,
@@ -52,18 +52,18 @@
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "bdbf30bb6584c188cdfd086b5bd4ee869cd3189da995d512ea273968682840c6",
+      "sha256": "84a7e335a3a5795fe4d5ee16b0300628cc7e99d5f8d5580a2fbbbc01e990a66f",
       "source_rotation_x_degrees": -50.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 3803.4641634210147,
-      "triangles": 31684,
+      "volume_mm3": 3803.4641859806143,
+      "triangles": 31464,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
           -14.173393249511719,
           -25.62833023071289,
-          1.0542376571720524e-07
+          1.2773261914844625e-07
         ],
         [
           14.173393249511719,

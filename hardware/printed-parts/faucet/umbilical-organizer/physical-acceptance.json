@@ -1,10 +1,20 @@
 {
   "schema": 1,
   "part": "umbilical-organizer",
-  "status": "accepted for current product sliding fit",
+  "status": "quarter-inch bores accepted for current product sliding fit; drain bore a bit too tight on the received 4 mm tube",
   "authority": "Derek's direct observation of the printed L sample",
   "observed_date": "2026-10-09",
   "observation": "The \"L\" or \"furthest right\" or \"0.10 diameter extra\" or however you want me to refer to it, that loosest one, is pretty close to perfect, or at least good enough for now, please ensure that is documented and we have some of this organizers in our /3d views and in our BOM and everywhere they need to be to truly be part of our product (this is entirely orthogonal to the umbilical plug/port stuff which is still in the design phase)",
+  "drain_tube_observation": {
+    "authority": "Derek's direct observation of the printed L sample with the received 4 mm drain tube",
+    "observed_date": "2026-10-09",
+    "observation": "The 4 mm tube just arrived. The hole in the cable organizer for it is testing a bit too tight, please update the model to 0.10 mm more diameter and indicate why for our next print. Ensure all things are updated and the next print of that is ready with that change.",
+    "tube": "white 4 mm OD LLDPE drain tube (BOM: neoFlo LLDPE4M-WHITE)",
+    "finding": "The L article's 4.20 mm drain bore is a bit too tight on the received 4 mm tube.",
+    "production_drain_bore_diameter_mm": 4.30,
+    "next_print": "future/umbilical-organizer-exploration/drain-fit-mark2/README.md",
+    "production_drain_bore_physical_fit": null
+  },
   "selected_sample": "L / rightmost / loose",
   "printer": "Mark2",
   "printer_task_id": "1323252957",
@@ -24,8 +34,8 @@
     "tube_entrance_chamfer_mm": 0.4,
     "outside_chamfer_mm": 0.6
   },
-  "physical_fit": "accepted as good enough for current use",
-  "scope": "The identified PET-GF L article printed upright on Mark2. The report does not separately enumerate tubes tested, give a numerical push/pull force, or establish assembled mounting access, wear, creep or lifetime.",
+  "physical_fit": "quarter-inch bores accepted as good enough for current use; drain bore a bit too tight",
+  "scope": "The identified PET-GF L article printed upright on Mark2. The first report preceded the 4 mm drain tube's arrival, so its accepted fit covers the three quarter-inch bores; drain_tube_observation is the drain bore's result. Neither report gives a numerical push/pull force or establishes assembled mounting access, wear, creep or lifetime.",
   "quantified_sliding_force": null,
   "quantified_endurance": null,
   "full_installation_acceptance": null

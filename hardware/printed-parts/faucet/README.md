@@ -12,7 +12,8 @@ It applies to the PET-GF shell, display cover and above-counter plate.
 The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
 Both styles include one black PET-GF [umbilical organizer](umbilical-organizer/README.md)
-below the mounting workspace, with the accepted L fit.
+below the mounting workspace, with the accepted L fit's beverage bores and a
+drain bore 0.10 mm larger than L's.
 
 The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
