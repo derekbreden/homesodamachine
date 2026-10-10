@@ -1,22 +1,23 @@
 # Industrial faucet print log
 
-## Complete 0.12 mm shoulder faucet — queued 2026-10-09, Mark2
+## Complete 0.12 mm shoulder faucet — held 2026-10-09, Mark2
 
-- [Complete five-part plate](prints/2026-10-09-shoulders012-solid-foot-mark2/README.md),
-  including the side-down lever, queued after organizer task/job `1325126748`.
-  No import or Send attempted. Native estimate: 5 h 46 min 56 s.
-- A 0.20 mm first bed layer and normal 0.24 mm model layers; the base alone
-  uses 0.12 mm at print Z13.40–29.00 and Z55.16–68.12 mm. Native wall paths
-  continuously cover both selected shoulder faces at that height.
-- One continuous six-wall solid foot with base Arachne preserves insert
-  reinforcement. Native wall endpoints are absent at all three screw-host
-  boundaries; insert host/cap coverage is at least 98.52% and connected outer
-  backing is at least 2.10 mm. The global support and motion settings match
-  the successful variable-layer reference. Full bead bed margin: 25.12 mm.
-- Black PET-GF, fixed left hardened standard-flow 0.4 mm, Textured PEI,
-  Mark2 +0.04 mm requested/+0.02 mm emitted trim. Planned Timelapse On;
-  probing clump detection disabled. Physical 0.12 mm finish and corrected
-  exterior remain unassessed.
+- [Complete five-part plate](prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md),
+  including the side-down lever, corrected continuous six-wall solid foot,
+  base Arachne and 15% infill/wall overlap.
+- 0.20 mm first bed layers and normal 0.24 mm layers; the base alone uses
+  0.12 mm at print Z13.40–29.00 and Z55.16–68.12 mm.
+- Industrial cover wings extend 0.50 mm with matching arch headroom;
+  retaining-lip datum and engagement are preserved. Physical seating is
+  unassessed. The shared tip uses an unsealed pocket and a round Ø4 mm
+  underside drip hole with no drain bungs or insertion tool.
+- Derek requested: "Apologies, pause on that print". No import or Send was
+  attempted for the held candidate. Its launch plan retains the hold and
+  needs a separate go-ahead before fresh printer gates and one Send.
+- Native and physical scope are recorded in the selection and exact job
+  records. Beautiful 0.08 mm finish remains accepted only on its identified
+  earlier complete article; 0.12 mm finish, corrected exterior and new drip
+  behavior require observation.
 
 ## Complete variable-layer recipe — selected 2026-10-09
 

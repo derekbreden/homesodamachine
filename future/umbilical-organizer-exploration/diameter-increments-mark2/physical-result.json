@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "observation": "Tested these. A is best for the 1/4\" tube holes and B is best for the 4 mm tube holes. Make sure our geometry is updated and everything reflects this. Thanks.",
+  "observed_date": "2026-10-09",
+  "printer_task_id": "1325126748",
+  "archive": "future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "86a2889d8a6aa2a179035cac64e70d31255424abad8801663b06bece3d17dbfe",
+  "gcode_sha256": "f76dc5f1a533b9cf362af48e6048068c539fccb635d0fff2f9a7b5a71c9311fb",
+  "selected_features": [
+    {
+      "sample": "A",
+      "accepted_scope": "Three quarter-inch beverage bores",
+      "native_identify_id": 1901,
+      "printed_stl": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-A-q6.65-d4.30-s5.00.stl",
+      "printed_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+      "quarter_inch_bore_diameter_mm": 6.65,
+      "drain_bore_diameter_mm": 4.3
+    },
+    {
+      "sample": "B",
+      "accepted_scope": "4 mm drain bore",
+      "native_identify_id": 1902,
+      "printed_stl": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-B-q6.75-d4.40-s5.10.stl",
+      "printed_stl_sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+      "quarter_inch_bore_diameter_mm": 6.75,
+      "drain_bore_diameter_mm": 4.4
+    }
+  ],
+  "production_record": "hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json",
+  "production_geometry": {
+    "od_mm": 32.0,
+    "length_mm": 10.0,
+    "quarter_inch_bore_diameter_mm": 6.65,
+    "drain_bore_diameter_mm": 4.4,
+    "signal_bore_diameter_mm": 5.0,
+    "tube_entrance_chamfer_mm": 0.4,
+    "outside_chamfer_mm": 0.6
+  },
+  "scope": "Feature-level physical fit selection: quarter-inch bores from A, drain bore from B. The combined product puck is unprinted. Signal clearance is retained without a new acceptance claim. Quantified force, endurance and complete installation remain unmeasured."
+}

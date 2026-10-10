@@ -1,11 +1,11 @@
 {
   "passed": true,
   "geometry_source_sha256": {
-    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "53a2c703699b0ff325f2d41e28fd71a0218056727a223aa15728c8e26541d97d",
+    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "b6aff9f744154424ebe4f298d44cc060250b76db64156200229518cb5874e5b1",
     "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
-    "hardware/faucet-layout/faucet_assembly.py": "3371ecaaa6b4057019f777f17b43e4fabc42a3336146704139de478458c3c01f",
-    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "7a4d2c23fca1d427790f1a44792af2190f93b8e732bb39e9ab17aa46e4dfb9ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "f1636fb6f3797a72ac511e97c9f2ccacc1e3b06488ea42824531d55ff8b43bbc",
+    "hardware/faucet-layout/faucet_assembly.py": "1590e580e2820d9770ea63212bfb827599dc5d83b8aa7c0c3419a8f5e985c8fa",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "d767bafd089832572bf633e47cde6f1073e1d699d36d976647d7d3b7805e8fcb",
     "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
@@ -13,10 +13,10 @@
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
   },
   "saved_geometry_sha256": {
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "f03f41d6d520031c2fc528e7bf6e4ccf8e16ca09e5f6246e5a9c1caabb857943",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "3df28b22e8053d5a7ffa053ba9417f41ad6509f5b453152cdd388521f0416952",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3"
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "f5edee6d2e2f9aed7c328388742f6b2f6800d6b5c5cee7f91fed5d16e6039121"
   },
   "checks": {
     "provenance:saved-cover-current-builder": {
@@ -24,29 +24,38 @@
       "method": "both complete material differences between the saved production STEP and current relaxed-cover builder",
       "passed": true
     },
+    "fit:industrial-wing-extension": {
+      "bezel_to_lip_extension_mm": 0.5,
+      "dispense_arch_clearance_translation_local_n_mm": 0.5,
+      "retaining_lip_symmetric_difference_mm3": 0.0,
+      "translated_bezel_symmetric_difference_mm3": 0.0,
+      "method": "Exact lip material equality and translated complete bezel equality against the zero-extension builder; the neck-opening cutter moves by the same local N increment.",
+      "scope": "Industrial-only seating trial. Printed fit remains unmeasured.",
+      "passed": true
+    },
     "solid:cover-seated": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 4413.572264662758,
+      "volume_mm3": 4493.5315613411785,
       "passed": true
     },
     "clearance:seated-display": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.1,
+      "gap_mm": 0.49,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:seated-glass": {
       "overlap_mm3": 0.0,
-      "gap_mm": 1.3786316,
+      "gap_mm": 1.5002083,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:seated-ribbon": {
       "overlap_mm3": 0.0,
-      "gap_mm": 3.1335667,
+      "gap_mm": 3.1460537,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -75,47 +84,47 @@
     "solid:cover-relaxed": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 4405.617152321255,
+      "volume_mm3": 4485.846920284285,
       "passed": true
     },
     "clearance:relaxed-display": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.1,
+      "gap_mm": 0.49,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:relaxed-glass": {
       "overlap_mm3": 0.0,
-      "gap_mm": 1.3786316,
+      "gap_mm": 1.5002083,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:relaxed-ribbon": {
       "overlap_mm3": 0.0,
-      "gap_mm": 2.488599,
+      "gap_mm": 2.4773951,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:relaxed-soda-tube": {
       "overlap_mm3": 0.0,
-      "gap_mm": 6.6053817,
+      "gap_mm": 6.6131512,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:relaxed-flavor-a": {
       "overlap_mm3": 0.0,
-      "gap_mm": 4.2788833,
+      "gap_mm": 4.2796011,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:relaxed-flavor-b": {
       "overlap_mm3": 0.0,
-      "gap_mm": 4.2788833,
+      "gap_mm": 4.2796011,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -496,7 +505,7 @@
               "side": -1,
               "required_outward_clearance_mm": 0.0,
               "required_outward_clearance_from_nominal_seat_mm": 0.0,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4936164,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4832114,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
@@ -504,7 +513,7 @@
               "side": 1,
               "required_outward_clearance_mm": 0.0,
               "required_outward_clearance_from_nominal_seat_mm": 0.0,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4936164,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4832114,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -519,17 +528,17 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4863405,
               "remaining_body_interference_mm3": 0.0,
-              "remaining_relaxed_body_interference_mm3": 0.0
+              "remaining_relaxed_body_interference_mm3": 4.3e-06
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.0031378,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0031378,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0031291,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0031291,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4863405,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -544,17 +553,17 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4769531,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4769531,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -569,17 +578,17 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4769531,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4967542,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4769531,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -594,17 +603,17 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.0094135,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0094135,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4747893,
+              "required_outward_clearance_mm": 0.0093874,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0093874,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4925988,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.0062757,
-              "required_outward_clearance_from_nominal_seat_mm": 0.0062757,
-              "total_outward_clearance_from_relaxed_print_mm": 1.4747893,
+              "required_outward_clearance_mm": 0.0062583,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0062583,
+              "total_outward_clearance_from_relaxed_print_mm": 1.4894697,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -619,18 +628,18 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 1.041766,
-              "required_outward_clearance_from_nominal_seat_mm": 1.041766,
-              "total_outward_clearance_from_relaxed_print_mm": 2.3376979,
-              "remaining_body_interference_mm3": 2.3e-06,
+              "required_outward_clearance_mm": 1.0420029,
+              "required_outward_clearance_from_nominal_seat_mm": 1.0420029,
+              "total_outward_clearance_from_relaxed_print_mm": 2.3374661,
+              "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 1.041766,
-              "required_outward_clearance_from_nominal_seat_mm": 1.041766,
-              "total_outward_clearance_from_relaxed_print_mm": 2.3376979,
-              "remaining_body_interference_mm3": 2.3e-06,
+              "required_outward_clearance_mm": 1.0420029,
+              "required_outward_clearance_from_nominal_seat_mm": 1.0420029,
+              "total_outward_clearance_from_relaxed_print_mm": 2.3374661,
+              "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
           ]
@@ -644,17 +653,17 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.9193899,
-              "required_outward_clearance_from_nominal_seat_mm": 0.9193899,
-              "total_outward_clearance_from_relaxed_print_mm": 2.3910413,
+              "required_outward_clearance_mm": 0.9199666,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9199666,
+              "total_outward_clearance_from_relaxed_print_mm": 2.3844031,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.9193899,
-              "required_outward_clearance_from_nominal_seat_mm": 0.9193899,
-              "total_outward_clearance_from_relaxed_print_mm": 2.3910413,
+              "required_outward_clearance_mm": 0.9199666,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9199666,
+              "total_outward_clearance_from_relaxed_print_mm": 2.3844031,
               "remaining_body_interference_mm3": 0.0,
               "remaining_relaxed_body_interference_mm3": 0.0
             }
@@ -669,19 +678,19 @@
           "sides": [
             {
               "side": -1,
-              "required_outward_clearance_mm": 0.4298854,
-              "required_outward_clearance_from_nominal_seat_mm": 0.4298854,
-              "total_outward_clearance_from_relaxed_print_mm": 1.9203639,
+              "required_outward_clearance_mm": 0.431821,
+              "required_outward_clearance_from_nominal_seat_mm": 0.431821,
+              "total_outward_clearance_from_relaxed_print_mm": 1.9119033,
               "remaining_body_interference_mm3": 0.0,
-              "remaining_relaxed_body_interference_mm3": 1.6e-06
+              "remaining_relaxed_body_interference_mm3": 7.9e-06
             },
             {
               "side": 1,
-              "required_outward_clearance_mm": 0.4298854,
-              "required_outward_clearance_from_nominal_seat_mm": 0.4298854,
-              "total_outward_clearance_from_relaxed_print_mm": 1.9203639,
+              "required_outward_clearance_mm": 0.431821,
+              "required_outward_clearance_from_nominal_seat_mm": 0.431821,
+              "total_outward_clearance_from_relaxed_print_mm": 1.9119033,
               "remaining_body_interference_mm3": 0.0,
-              "remaining_relaxed_body_interference_mm3": 1.6e-06
+              "remaining_relaxed_body_interference_mm3": 7.9e-06
             }
           ]
         },
@@ -711,20 +720,20 @@
           ]
         }
       ],
-      "peak_required_outward_clearance_per_side_mm": 1.041766,
-      "peak_total_outward_clearance_from_relaxed_print_per_side_mm": 2.3910413,
-      "outward_search_budget_mm": 3.2131579,
+      "peak_required_outward_clearance_per_side_mm": 1.0420029,
+      "peak_total_outward_clearance_from_relaxed_print_per_side_mm": 2.3844031,
+      "outward_search_budget_mm": 3.2042373,
       "clearance_search_resolution_mm": 0.005,
       "obstacle_crop_display_frame_xyz_mm": {
         "minimum": [
-          -18.213158,
+          -18.2042374,
           -0.1000001,
           3.1999999
         ],
         "maximum": [
-          18.213158,
+          18.2042374,
           49.8500001,
-          31.4500001
+          31.9500001
         ]
       },
       "obstacle_crop_method": "exact conservative bounds of both complete covers, expanded by the full independent outward search budget in X, all normal lifts in N, and 0.1 mm on every face; also contains the inward seating probes",
@@ -1249,19 +1258,19 @@
       "sides": [
         {
           "side": -1,
-          "unopened_interference_mm3": 114.8706922,
+          "unopened_interference_mm3": 114.4395651,
           "required_outward_clearance_from_relaxed_print_mm": 1.6171875,
           "outward_opening_with_lateral_allowance_mm": 1.8671875,
           "remaining_interference_mm3": 0.0,
-          "minimum_complete_stroke_gap_mm": 0.2449048
+          "minimum_complete_stroke_gap_mm": 0.2456228
         },
         {
           "side": 1,
-          "unopened_interference_mm3": 114.8697024,
+          "unopened_interference_mm3": 114.4385752,
           "required_outward_clearance_from_relaxed_print_mm": 1.6171875,
           "outward_opening_with_lateral_allowance_mm": 1.8671875,
           "remaining_interference_mm3": 0.0,
-          "minimum_complete_stroke_gap_mm": 0.2449048
+          "minimum_complete_stroke_gap_mm": 0.2456228
         }
       ],
       "method": "exact complete downward projection of every upward device face within the cover band, after verifying all reference surfaces are parallel vertical extrusions; independent actual free-wing translation and exact common/distance",
@@ -1287,7 +1296,7 @@
         ],
         "n": [
           12.6999999,
-          31.4500001
+          31.9500001
         ],
         "x": [
           -15.0000001,
@@ -1302,7 +1311,7 @@
         },
         {
           "part": "shell_tip",
-          "relevant_volume_mm3": 176.488664,
+          "relevant_volume_mm3": 176.4886641,
           "outside_cylinder_mm3": 0.0
         },
         {
@@ -1335,7 +1344,7 @@
         {
           "part": "relaxed_cover",
           "overlap_mm3": 0.0,
-          "minimum_cylinder_gap_mm": 0.5665175
+          "minimum_cylinder_gap_mm": 0.5727927
         },
         {
           "part": "display",
@@ -1560,7 +1569,7 @@
           "hardware_rear_s_mm": 45.1060254,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.8289231,
+              49.5542206,
               49.75
             ]
           ],
@@ -1572,7 +1581,7 @@
           "hardware_rear_s_mm": 45.1060254,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              47.8289231,
               49.75
             ]
           ],
@@ -1850,10 +1859,6 @@
             [
               47.24,
               48.6935265
-            ],
-            [
-              49.3850725,
-              49.75
             ]
           ],
           "present": true
@@ -1864,7 +1869,7 @@
           "hardware_rear_s_mm": 45.9720508,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              49.3850725,
               49.75
             ]
           ],
@@ -2142,10 +2147,6 @@
             [
               47.24,
               47.4740898
-            ],
-            [
-              48.1196265,
-              49.75
             ]
           ],
           "present": true
@@ -2156,7 +2157,7 @@
           "hardware_rear_s_mm": 40.742254,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              48.1196265,
               49.75
             ]
           ],
@@ -2434,10 +2435,6 @@
             [
               47.24,
               47.8738504
-            ],
-            [
-              48.4650915,
-              49.75
             ]
           ],
           "present": true
@@ -2448,7 +2445,7 @@
           "hardware_rear_s_mm": 46.715,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              48.4650915,
               49.75
             ]
           ],
@@ -2702,10 +2699,6 @@
             [
               47.24,
               49.1537723
-            ],
-            [
-              49.7027423,
-              49.75
             ]
           ],
           "present": true
@@ -2720,7 +2713,7 @@
               47.2969661
             ],
             [
-              47.8905102,
+              49.7027423,
               49.75
             ]
           ],
@@ -2732,7 +2725,7 @@
           "hardware_rear_s_mm": 46.715,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              47.8905102,
               49.75
             ]
           ],
@@ -2950,10 +2943,6 @@
             [
               47.24,
               47.8738504
-            ],
-            [
-              48.4650915,
-              49.75
             ]
           ],
           "present": true
@@ -2964,7 +2953,7 @@
           "hardware_rear_s_mm": 46.715,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              48.4650915,
               49.75
             ]
           ],
@@ -3120,7 +3109,7 @@
           "hardware_rear_s_mm": 6.154909,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              48.1196265,
               49.75
             ]
           ],
@@ -3326,10 +3315,6 @@
             [
               47.24,
               48.6935265
-            ],
-            [
-              49.3850725,
-              49.75
             ]
           ],
           "present": true
@@ -3340,7 +3325,7 @@
           "hardware_rear_s_mm": 45.9720508,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              49.3850725,
               49.75
             ]
           ],
@@ -3568,7 +3553,7 @@
           "hardware_rear_s_mm": 45.1060254,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.8289231,
+              49.5542206,
               49.75
             ]
           ],
@@ -3580,7 +3565,7 @@
           "hardware_rear_s_mm": 45.1060254,
           "printed_rear_barrier_s_intervals_mm": [
             [
-              47.75,
+              47.8289231,
               49.75
             ]
           ],
@@ -3964,7 +3949,7 @@
       "passed": true
     },
     "wall:industrial-flanks": {
-      "minimum_sampled_normal_stock_mm": 1.2452184,
+      "minimum_sampled_normal_stock_mm": 1.2455354,
       "required_mm": 1.2,
       "samples": [
         {
@@ -3972,42 +3957,42 @@
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2688711
+          "normal_stock_mm": 1.3044065
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2528213
+          "normal_stock_mm": 1.2721618
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4388094
+          "normal_stock_mm": 1.3642644
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4684883
+          "normal_stock_mm": 1.3874875
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8408329
+          "normal_stock_mm": 1.6990783
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.6751319
+          "normal_stock_mm": 2.4392662
         },
         {
           "shape": "seated",
@@ -4042,42 +4027,42 @@
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2688711
+          "normal_stock_mm": 1.3044065
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2528213
+          "normal_stock_mm": 1.2721618
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4388094
+          "normal_stock_mm": 1.3642644
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4684883
+          "normal_stock_mm": 1.3874875
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8408329
+          "normal_stock_mm": 1.6990783
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.6751319
+          "normal_stock_mm": 2.4392662
         },
         {
           "shape": "seated",
@@ -4154,28 +4139,28 @@
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4224,28 +4209,28 @@
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4294,28 +4279,28 @@
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4364,28 +4349,28 @@
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4434,28 +4419,28 @@
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4504,28 +4489,28 @@
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4574,28 +4559,28 @@
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -4644,70 +4629,70 @@
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.5247854
+          "normal_stock_mm": 1.4362395
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.6174657
+          "normal_stock_mm": 1.513225
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.4422567
+          "normal_stock_mm": 2.2384074
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.5165845
+          "normal_stock_mm": 2.3052858
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.3163469
+          "normal_stock_mm": 3.0304132
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 4.8535586
+          "normal_stock_mm": 4.4312866
         },
         {
           "shape": "seated",
@@ -4742,42 +4727,42 @@
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.6361913
+          "normal_stock_mm": 1.5296863
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.7448733
+          "normal_stock_mm": 1.6224648
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.6692567
+          "normal_stock_mm": 2.4444101
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.7509442
+          "normal_stock_mm": 2.5183261
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.6242953
+          "normal_stock_mm": 3.3128676
         },
         {
           "shape": "seated",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 10.1,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 4.8372183
         },
         {
           "shape": "seated",
@@ -4812,42 +4797,42 @@
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2688711
+          "normal_stock_mm": 1.3044065
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2528213
+          "normal_stock_mm": 1.2721618
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4388094
+          "normal_stock_mm": 1.3642644
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4684883
+          "normal_stock_mm": 1.3874875
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8408329
+          "normal_stock_mm": 1.6990783
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.6751319
+          "normal_stock_mm": 2.4392662
         },
         {
           "shape": "seated",
@@ -4882,42 +4867,42 @@
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2688711
+          "normal_stock_mm": 1.3044065
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2528213
+          "normal_stock_mm": 1.2721618
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4388094
+          "normal_stock_mm": 1.3642644
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4684883
+          "normal_stock_mm": 1.3874875
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8408329
+          "normal_stock_mm": 1.6990783
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.6751319
+          "normal_stock_mm": 2.4392662
         },
         {
           "shape": "seated",
@@ -4994,28 +4979,28 @@
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5064,28 +5049,28 @@
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5134,28 +5119,28 @@
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5204,28 +5189,28 @@
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5274,28 +5259,28 @@
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5344,28 +5329,28 @@
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5414,28 +5399,28 @@
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
@@ -5484,70 +5469,70 @@
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6339713
+          "normal_stock_mm": 1.6164384
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8169856
+          "normal_stock_mm": 1.7910959
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 1.9992823
+          "normal_stock_mm": 1.9650685
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9965753
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.5247854
+          "normal_stock_mm": 1.4362395
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.6174657
+          "normal_stock_mm": 1.513225
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.4422567
+          "normal_stock_mm": 2.2384074
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.5165845
+          "normal_stock_mm": 2.3052858
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.3163469
+          "normal_stock_mm": 3.0304132
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 4.8535586
+          "normal_stock_mm": 4.4312866
         },
         {
           "shape": "seated",
@@ -5582,42 +5567,42 @@
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.6361913
+          "normal_stock_mm": 1.5296863
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.7448733
+          "normal_stock_mm": 1.6224648
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.6692567
+          "normal_stock_mm": 2.4444101
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.7509442
+          "normal_stock_mm": 2.5183261
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.6242953
+          "normal_stock_mm": 3.3128676
         },
         {
           "shape": "seated",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 10.1,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 4.8372183
         },
         {
           "shape": "seated",
@@ -5652,42 +5637,42 @@
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.258693
+          "normal_stock_mm": 1.2904622
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2462558
+          "normal_stock_mm": 1.2619762
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4552127
+          "normal_stock_mm": 1.3749609
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4869605
+          "normal_stock_mm": 1.399904
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8848359
+          "normal_stock_mm": 1.7322153
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 0.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.7885219
+          "normal_stock_mm": 2.5278771
         },
         {
           "shape": "relaxed",
@@ -5722,42 +5707,42 @@
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.258693
+          "normal_stock_mm": 1.2904622
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2462558
+          "normal_stock_mm": 1.2619762
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4552127
+          "normal_stock_mm": 1.3749609
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4869605
+          "normal_stock_mm": 1.399904
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8848359
+          "normal_stock_mm": 1.7322153
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 1.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.7885219
+          "normal_stock_mm": 2.5278771
         },
         {
           "shape": "relaxed",
@@ -5792,63 +5777,63 @@
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 2.1,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -5862,63 +5847,63 @@
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 5.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -5932,413 +5917,413 @@
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 10.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5863102
+          "normal_stock_mm": 2.5791818
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.5901603
+          "normal_stock_mm": 2.5908533
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 15.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5863102
+          "normal_stock_mm": 2.5791818
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.5901603
+          "normal_stock_mm": 2.5908533
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 25.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5790479
+          "normal_stock_mm": 2.5722993
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.6049885
+          "normal_stock_mm": 2.6052812
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 35.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 40.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 47.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -6352,42 +6337,42 @@
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.5458176
+          "normal_stock_mm": 1.4511077
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.6444662
+          "normal_stock_mm": 1.5329927
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.5297029
+          "normal_stock_mm": 2.3069836
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.6104256
+          "normal_stock_mm": 2.3790029
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.4909247
+          "normal_stock_mm": 3.1687401
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 48.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 4.7497691
         },
         {
           "shape": "relaxed",
@@ -6422,35 +6407,35 @@
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.6641524
+          "normal_stock_mm": 1.5502927
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.7798772
+          "normal_stock_mm": 1.6488065
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.7759923
+          "normal_stock_mm": 2.528601
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.8652737
+          "normal_stock_mm": 2.608617
         },
         {
           "shape": "relaxed",
           "side": -1,
           "s_mm": 49.65,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.8348494
+          "normal_stock_mm": 3.4799506
         },
         {
           "shape": "relaxed",
@@ -6492,42 +6477,42 @@
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.258693
+          "normal_stock_mm": 1.2904622
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2462558
+          "normal_stock_mm": 1.2619762
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4552127
+          "normal_stock_mm": 1.3749609
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4869605
+          "normal_stock_mm": 1.399904
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8848359
+          "normal_stock_mm": 1.7322153
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 0.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.7885219
+          "normal_stock_mm": 2.5278771
         },
         {
           "shape": "relaxed",
@@ -6562,42 +6547,42 @@
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.258693
+          "normal_stock_mm": 1.2904622
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2462558
+          "normal_stock_mm": 1.2619762
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.4552127
+          "normal_stock_mm": 1.3749609
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.4869605
+          "normal_stock_mm": 1.399904
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.8848359
+          "normal_stock_mm": 1.7322153
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 1.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 2.7885219
+          "normal_stock_mm": 2.5278771
         },
         {
           "shape": "relaxed",
@@ -6632,63 +6617,63 @@
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 2.1,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -6702,63 +6687,63 @@
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 5.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -6772,413 +6757,413 @@
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 10.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5863102
+          "normal_stock_mm": 2.5791818
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.5901603
+          "normal_stock_mm": 2.5908533
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 15.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5863102
+          "normal_stock_mm": 2.5791818
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.5901603
+          "normal_stock_mm": 2.5908533
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 25.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 2.5790479
+          "normal_stock_mm": 2.5722994
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 2.6049885
+          "normal_stock_mm": 2.6052812
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 35.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 4.6669753
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 40.0,
           "n_mm": 21.0,
-          "normal_stock_mm": 4.65
+          "normal_stock_mm": 4.6624154
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 1.2452184
+          "normal_stock_mm": 1.2455354
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 1.2530469
+          "normal_stock_mm": 1.2527552
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 15.45,
-          "normal_stock_mm": 1.6379541
+          "normal_stock_mm": 1.6200012
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 18.0,
-          "normal_stock_mm": 1.8214146
+          "normal_stock_mm": 1.7950437
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 47.0,
           "n_mm": 20.54,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 1.9693997
         },
         {
           "shape": "relaxed",
@@ -7192,42 +7177,42 @@
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.5458176
+          "normal_stock_mm": 1.4511077
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.6444662
+          "normal_stock_mm": 1.5329927
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.5297029
+          "normal_stock_mm": 2.3069836
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.6104256
+          "normal_stock_mm": 2.3790029
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.4909247
+          "normal_stock_mm": 3.1687401
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 48.0,
           "n_mm": 10.1,
-          "normal_stock_mm": 5.0001
+          "normal_stock_mm": 4.7497691
         },
         {
           "shape": "relaxed",
@@ -7262,35 +7247,35 @@
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 3.31,
-          "normal_stock_mm": 1.6641524
+          "normal_stock_mm": 1.5502927
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 3.75,
-          "normal_stock_mm": 1.7798772
+          "normal_stock_mm": 1.6488065
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 6.29,
-          "normal_stock_mm": 2.7759923
+          "normal_stock_mm": 2.528601
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 6.46,
-          "normal_stock_mm": 2.8652737
+          "normal_stock_mm": 2.608617
         },
         {
           "shape": "relaxed",
           "side": 1,
           "s_mm": 49.65,
           "n_mm": 8.0,
-          "normal_stock_mm": 3.8348494
+          "normal_stock_mm": 3.4799506
         },
         {
           "shape": "relaxed",
@@ -7374,11 +7359,11 @@
       "passed": true
     },
     "mesh:industrial-cover": {
-      "triangles": 4346,
+      "triangles": 4372,
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+      "sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
       "tolerance_mm": 0.005,
       "tolerance_is_relative": false,
       "angular_tolerance_rad": 0.05,
@@ -7394,13 +7379,14 @@
     "rear_wall": 2.0,
     "front_wall": 2.0,
     "n_bottom": 3.3,
-    "n_top": 21.85,
-    "bezel_n_bottom": 20.55
+    "wing_extension_mm": 0.5,
+    "n_top": 22.35,
+    "bezel_n_bottom": 21.05
   },
   "reference_artifact_sha256": {
     "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "7949357b25ac9289a72c8cb67c18046dc4c2eee750b78d0cb6de012c15f330f3"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "f5edee6d2e2f9aed7c328388742f6b2f6800d6b5c5cee7f91fed5d16e6039121"
   },
-  "validation_script_sha256": "53a2c703699b0ff325f2d41e28fd71a0218056727a223aa15728c8e26541d97d",
+  "validation_script_sha256": "b6aff9f744154424ebe4f298d44cc060250b76db64156200229518cb5874e5b1",
   "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial."
 }

@@ -2,7 +2,7 @@
   "schema": 1,
   "recorded_at_utc": "2026-10-10T04:08:10.214458+00:00",
   "printer": "Mark2",
-  "status": "Queued next; organizer plate occupies Mark2",
+  "status": "Superseded before import or Send",
   "authorization_quotes": [
     "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
     "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?"
@@ -223,5 +223,6 @@
   "send_count": 0,
   "auto_resume_authorized": false,
   "scheduled_monitor_requested": false,
-  "automatic_start": false
+  "automatic_start": false,
+  "superseded_by": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/launch-plan.json"
 }

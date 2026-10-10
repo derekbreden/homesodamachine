@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "observed_date": "2026-10-09",
+  "part": "industrial-display-cover",
+  "authority": "Derek's direct test-fit observation",
+  "article_identity": "Operator-held Industrial display cover; exact printed job not specified",
+  "observation": "The problem is it is just not quite fully seating. To explain what I mean, you see the arch of the dispense face? that is \"holding up\" our arch on the bottom of the display cover, and it is holding it up too high.",
+  "reported_possible_cause": "The operator is unsure whether drain geometry changes affected seating.",
+  "current_trial": {
+    "wing_extension_mm": 0.5,
+    "arch_clearance_local_n_mm": 0.5,
+    "retaining_lip_floor_and_engagement_unchanged": true,
+    "cover_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+    "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "geometry_check_sha256": "d5df413fa6a1bc8af5cfc3ae075f25e481b30af1dfca9d7f1cd8913c5083a188",
+    "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf",
+    "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.gcode.3mf",
+    "native_archive_sha256": "f6c087784d1a70f3dee5a5c9107856077fb5419f5175a9f784fb9025f8c32133",
+    "physical_fit_evaluated": false
+  },
+  "authorization_quotes": [
+    "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
+    "The mark two bed is clear and ready for you. Start whenever you're ready."
+  ],
+  "scope": "Nominal seating trial within the complete set. CAD readings do not establish printed seating, insertion force or retention life."
+}

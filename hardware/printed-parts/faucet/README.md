@@ -5,36 +5,34 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Queued complete variable-layer print](industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Held complete variable-layer print](industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
 The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
 Both styles include one black PET-GF [umbilical organizer](umbilical-organizer/README.md)
-below the mounting workspace, with the accepted L fit's beverage bores and a
-drain bore 0.10 mm larger than L's.
+below the mounting workspace, with A's accepted Ø6.65 mm beverage bores and
+B's accepted Ø4.40 mm drain bore. The loose Ø5.00 mm signal passage is retained.
 
 The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
 plate. It also times the accepted printed lever separately.
 
-## Consumer vent arrangement
+## Overflow drip indicator
 
-Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible.
+The white 4 mm OD / 2.5 mm ID drain tube ends square inside an unsealed
+pocket in the tip. A round Ø4 mm underside hole opens at the pocket's
+upstream low corner, over the bowl. Two plain 2 mm printed guide walls carry
+the continuous beverage tubes and insulated conductors. The drain needs no
+additional gasket, bung or insertion tool. Its opening is separate from the
+three beverage outlets.
 
-The white 4 mm drain tube runs between the two flavor tubes, above the soda
-tube. It ends square inside the circular chamber in the tip. Water flows around
-the continuous drink tubes and leaves a separate bottom opening over the sink.
-Two retained TPU bungs isolate that chamber from the dry passages and display.
-The drink face retains its symmetric three-tube arrangement.
-
-The [print readiness record](vent-print-readiness/README.md) carries both current
-rigid projects, the two vent bungs, each style's countertop gasket and the factory
-insertion tool, with native slice evidence. The [seal procedure](asse-vent-seals/README.md)
-defines factory threading and seating. The consumer receives an assembled faucet.
-The [vent evidence](vent-qualification/README.md) records the installation envelope,
-conditional flow assessment and remaining physical qualification.
+The intended result is a visible drip indicating a major fault. Incidental
+liquid escape into the housing is accepted for that event; the faucet is not
+a sealed drain connection. [Drain geometry evidence](vent-qualification/README.md)
+records the actual tube clearance and hole-to-pocket connection. Physical
+drip behavior and complete fault-vent capacity are unmeasured.
 
 ## Parts
 
@@ -53,7 +51,6 @@ show its nominal seated surface.
 | Display cover | [STEP](faucet-display-cover/faucet-display-cover.step) · [STL](faucet-display-cover/faucet-display-cover.stl) | [STEP](industrial/industrial-display-cover.step) · [STL](industrial/industrial-display-cover.stl) |
 | Above-counter plate | [STEP](above-counter-plate/above-counter-plate.step) · [STL](above-counter-plate/above-counter-plate.stl) | [STEP](industrial/industrial-above-counter-plate.step) · [STL](industrial/industrial-above-counter-plate.stl) |
 | Above-counter gasket, TPU | [STL](above-counter-gasket/above-counter-gasket.stl) | [STL](industrial/industrial-above-counter-gasket.stl) |
-| Vent bungs, TPU | [Upstream](asse-vent-seals/asse-vent-upstream-bung.stl) · [downstream](asse-vent-seals/asse-vent-downstream-bung.stl) | Same parts |
 | Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
 Use the matching base, cover, plate and gasket for the selected style.
@@ -92,7 +89,8 @@ wing geometry, loading and seating. Their reproducible readers are
 [`check_geometry.py`](industrial/check_geometry.py) and
 [`check_display_cover.py`](industrial/check_display_cover.py).
 
-The [centered-vent native report](faucet-shell/centered-vent-check.json) checks the
-shared production solids, tube routes, mounting stack, display and cable.
-The [saved-tip qualification](vent-qualification/port-native-check.json) checks
-the seal-seat walls, open floor escape and complete outlet placement over the bowl.
+The [simple drip geometry reading](vent-qualification/simple-drip-check.json)
+binds the current shared tip, verifies its open connection and nominal tube
+clearance, and locates the change away from the joint and dispense face.
+The retained centered-vent and sealed-port records apply to their exact
+sealed-cavity source and artifact hashes.
