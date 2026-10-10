@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "recorded_at_utc": "2026-10-10T08:06:04.559074+00:00",
-  "status": "Accepted PREPARE on Mark2",
+  "status": "Physically accepted complete faucet for shipping",
   "authorization_quotes": [
     "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
     "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
@@ -99,14 +99,14 @@
     "accepted_scope": "Beautiful 0.08 mm shoulder finish and removal of their few thin-layer supports on the identified complete print",
     "exterior_screw_point_lines": "Observed on this physical reference article"
   },
-  "current_physical_finish_evaluated": false,
+  "current_physical_finish_evaluated": true,
   "all_fine_trials": {
-    "status": "Further iteration and research deferred",
+    "status": "Investigated with separate coupons; shipping recipe retains variable layer height",
     "latest_failure": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json"
   },
   "launch_plan": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/launch-plan.json",
   "new_print_submitted": true,
-  "scope": "Native commanded geometry, layers and reinforcement. Physical 0.12 mm finish, corrected exterior, extended-cover seating, support cleanup and new drip behavior require observation.",
+  "scope": "Shipping and overall appearance acceptance for this exact complete print and recipe. Fine-layer lifting and the visible seam remain accepted finish observations. Cover seating force, fault-drip discharge, loading, strength and endurance are not independently measured.",
   "display_cover_trial": {
     "wing_extension_mm": 0.5,
     "arch_clearance_local_n_mm": 0.5,
@@ -156,5 +156,9 @@
   "start_notification_count": 1,
   "auto_resume_authorized": false,
   "scheduled_monitor_requested": false,
-  "initial_layer_count_not_used_as_progress": true
+  "initial_layer_count_not_used_as_progress": true,
+  "physical_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
+  "shipping_accepted": true,
+  "shipping_accepted_reported_date": "2026-10-10",
+  "shipping_tag": "faucet-industrial-shipping-2026-10-10"
 }
