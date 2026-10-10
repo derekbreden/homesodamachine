@@ -18,6 +18,9 @@ LOWER_BUNDLE_X = 2.275
 LOWER_Y = 18.925
 LOWER_DRAIN_Y = 18.525
 LOWER_RIBBON_Y = 21.4875
+# Caliper observation: reference/bntechgo-signal-ribbon/physical-observations.json.
+RIBBON_WIDTH = 4.6
+RIBBON_DEPTH = 1.18
 LOWER_START_Z = 40.0
 LOWER_END_Z = 67.5
 LOWER_FLAVOR_FLARE = 0.10
@@ -118,7 +121,7 @@ def positions(s):
     angle = a0 + (a1-a0)*u
     cable_u = ease((s-CONVERGE_START_S)/RIBBON_CONVERGE_LENGTH)
     return (_rf*math.sin(angle), _rf*math.cos(angle), TIGHT_DRAIN_N,
-            TIGHT_RIBBON_N+(FACE_RIBBON_N-TIGHT_RIBBON_N)*cable_u, 4.1)
+            TIGHT_RIBBON_N+(FACE_RIBBON_N-TIGHT_RIBBON_N)*cable_u, RIBBON_WIDTH)
 
 
 def arc_point(angle, x=0.0, n=0.0):

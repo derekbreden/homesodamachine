@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": {
-    "ORGANIZER_CABLE_BORE": "5 mm",
     "ORGANIZER_CABLE_ENTRY": "0.2 mm",
+    "ORGANIZER_CABLE_SLOT": "5.4 \u00d7 1.8 mm",
     "ORGANIZER_CONTACT": "9.2 mm",
     "ORGANIZER_DRAIN_BORE": "4.40 mm",
     "ORGANIZER_ENTRY": "0.4 mm",

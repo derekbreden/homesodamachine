@@ -1,0 +1,9 @@
+{
+  "part": "BNTECHGO 28 AWG four-conductor silicone signal ribbon, SIG-6",
+  "observed_date": "2026-10-10",
+  "authority": "Derek's direct caliper measurement of the received ribbon",
+  "observation": "Oh, the slot for the ribbon can be a very thin slot instead of a hole, so the ribbon can be flat through the organizer. I'm measuring 4.6 mm x 1.18 mm on the ribbon itself with my calipers.",
+  "width_mm": 4.6,
+  "depth_mm": 1.18,
+  "scope": "One measured ribbon section. This observation supplies the flat CAD envelope and organizer slot sizing; it does not establish manufacturing tolerance or a printed slot fit."
+}

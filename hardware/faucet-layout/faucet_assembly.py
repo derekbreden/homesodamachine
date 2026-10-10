@@ -156,7 +156,7 @@ soda_faucet_tube_z_top = plateau_z + soda_faucet_tube_above_plateau  # [79 mm](S
 # Flavor tubes — Ø 1/4" — pass behind the Westbrass, on either side of D.
 # The lower row shares the purchased plate's rear channel with D and ribbon;
 # the shared paths return it to the centered neck and symmetric drink face.
-# Below the mounting plate, flavor-b steps out past the unions.
+# The upper organizer follows the mounting row; union returns begin below it.
 # [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
 flavor_tube_od = 1.0 / 4.0 * 25.4
 flavor_tube_r = flavor_tube_od / 2.0
@@ -224,12 +224,11 @@ union_gap = union_length - 2.0 * union.INSERTION
 union_air = 2.0
 union_pass = union_ring_r + flavor_tube_r + union_air
 
-# Both flavors return from the mounting row to their union axes in two
-# tangent R30 arcs below the plate. The staggered unions clear each other
-# and the neighboring flavor tube.
+# Both flavors follow the mounting row through the organizer, then return
+# to their staggered union axes in tangent R30 arcs below the puck.
 step_bend_radius = 30.0
 step_x = union_pass - 2.0 * flavor_tube_x_offset
-flavor_a_step_lead = mount_return_lead + 8.0
+flavor_a_step_lead = mount_return_lead
 flavor_b_step_lead = mount_return_lead
 
 
@@ -249,11 +248,11 @@ def flavor_mount_x(x_sign):
 
 
 def step_theta(x_sign):
-    return math.acos(1.0-abs(union_x(x_sign)-flavor_mount_x(x_sign))/(2.0*step_bend_radius))
+    return math.acos(1.0-abs(union_x(x_sign)-organizer_flavor_x(x_sign))/(2.0*step_bend_radius))
 
 
-step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
-step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
+def organizer_flavor_x(x_sign):
+    return umbilical_organizer.axis("F1" if x_sign > 0 else "F2")[0]
 
 
 # The organizer stands on the parallel bare tubes below the mounting workspace.
@@ -262,12 +261,15 @@ organizer_top_z = -88.0
 organizer_bottom_z = organizer_top_z - umbilical_organizer.LENGTH
 organizer_stations = (organizer_top_z,)
 organizer_union_gap = 7.0
+organizer_return_start_z = organizer_bottom_z - 3.0
+step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
+step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
 
-# The two White-faucet unions stand end to end below the organizer.
-union_b_top_z = organizer_bottom_z - organizer_union_gap    # [-105 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-146.8 mm](UNION_A_TOP_Z)
+# The two White-faucet unions stand end to end below the completed returns.
+union_b_top_z = organizer_return_start_z - step_rise - organizer_union_gap    # [-128.1 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-169.9 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-188.6 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-211.7 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -303,7 +305,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-231.1 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-254.2 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -338,7 +340,7 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [181.1 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [204.2 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
@@ -519,18 +521,27 @@ def _faucet_flavor_path(x_sign=1):
 
 
 def _step_path(x_sign, bottom_z):
-    """A flavor tube's centreline below the plate, down to `bottom_z` on its line at the unions: in
-    `splay_path_plane`, relative to its mounting X and the plate's underside."""
+    """Mounting row to organizer, then R30 return below it to the union.
+
+    In `splay_path_plane`, relative to the mounting X and plate underside.
+    """
     path = cq.Workplane(splay_path_plane).moveTo(0.0, 0.0)
     lead = flavor_a_step_lead if x_sign > 0 else flavor_b_step_lead
     if lead:
         path = path.lineTo(0.0, -lead)
-    out = union_x(x_sign)-flavor_mount_x(x_sign)
-    theta = step_theta(x_sign)
     foot_x = 0.0
-    if out:
+    for destination_x, start_z in ((organizer_flavor_x(x_sign), mount_return_start_z),
+                                   (union_x(x_sign), organizer_return_start_z)):
+        local_z = start_z - under_counter_plate_bottom_z
+        # The organizer's straight section separates these two returns.
+        if abs(local_z + lead) > 1e-7:
+            path = path.lineTo(foot_x, local_z)
+        out = destination_x - flavor_mount_x(x_sign) - foot_x
+        if abs(out) < 1e-7:
+            continue
+        theta = math.acos(1.0 - abs(out)/(2.0*step_bend_radius))
         a1_mid, a1_end, a1_tan = _arc_from_tangent(
-            (0.0, -lead), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
+            (foot_x, local_z), (0.0, -1.0), step_bend_radius, theta, ccw=(out > 0))
         a2_mid, a2_end, _a2_tan = _arc_from_tangent(
             a1_end, a1_tan, step_bend_radius, theta, ccw=(out < 0))
         path = path.threePointArc(a1_mid, a1_end).threePointArc(a2_mid, a2_end)
@@ -596,19 +607,15 @@ flavor_tube_z_top = soda_faucet_tube_z_top
 # The lane the SIG-6 ribbon rides in, between the tube pack and the braid's inner face. The braid
 # stands off every tube in the pack by it.
 #
-# One 28 AWG silicone conductor's OD, which is the ribbon's own thickness — four conductors lie
-# side by side and none stands over another. BNTECHGO states the section 1.2 x 4 mm +/- 0.1 for
-# B07PNPHWMG (`ledger/bom.md` §9), so the lane is that 1.2 and the ribbon is 4 wide across it.
-# Vendor figure, not a caliper: the spool is on the shelf and a measurement across it still refines
-# this to the tolerance's own width.
+# Four 28 AWG silicone conductors lie side by side. The received ribbon's
+# measured 4.6 × 1.18 mm section is recorded beside its reference hardware.
 cable_lane = faucet_shell.signal_ribbon_max_depth
-# The ribbon across its four conductors, off the same BNTECHGO figure.
 cable_width = faucet_shell.signal_ribbon_max_width
 sleeve_wall = 1.0
 
 
 def build_display_ribbon():
-    """The SIG-6 cable's maximum stated 4.1 × 1.3 mm envelope through the faucet.
+    """The SIG-6 cable's measured flat envelope through the faucet.
 
     The lower handoff passes through the mounting stack; the upper end reaches the
     factory fan-out beside the PCB, 0.30 mm below its measured underside.
@@ -625,7 +632,7 @@ def build_display_ribbon():
 
 
 def build_lower_display_ribbon():
-    """Mounted ribbon routed behind and outside F1 into the loose puck bore.
+    """Mounted ribbon follows the rear of D into the loose organizer bore.
 
     The free return starts below the maximum routing slab. Its continuation
     ends below the puck; the harness carries on under the braid.
@@ -639,9 +646,8 @@ def build_lower_display_ribbon():
     if mount_return_lead > 1e-7:
         edges.append(cq.Edge.makeLine(cq.Vector(*start_xy,plate_z),cq.Vector(*start_xy,mount_return_start_z)))
     points = [cq.Vector(*p) for p in
-              ((*start_xy,mount_return_start_z),(2.275,24.5,-50.0),
-               (11.5,24.5,-57.0),(12.0,15.0,-68.0),
-               (10.0,11.5,-76.0),(*umbilical_organizer.CABLE_XY,-84.0))]
+              ((*start_xy,mount_return_start_z),
+               (*umbilical_organizer.CABLE_XY,organizer_top_z + 12.0))]
     edges.append(cq.Edge.makeSpline(points,tangents=(cq.Vector(0,0,-1),cq.Vector(0,0,-1))))
     edges.append(cq.Edge.makeLine(points[-1],cq.Vector(*umbilical_organizer.CABLE_XY,end_z)))
     path = cq.Workplane(obj=cq.Wire.assembleEdges(edges))
@@ -739,8 +745,8 @@ def union_girth() -> float:
     return max(w.Length() for w in face.Wires())
 
 
-# [2.0270 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
-# a collar's flag is turned away from. Ø[33.08 mm](SLEEVE_BORE) is what the braid opens to over it
+# [2.0275 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
+# a collar's flag is turned away from. Ø[32.84 mm](SLEEVE_BORE) is what the braid opens to over it
 # — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
 # assembly draws it at).
 sleeve_center_y = _hull_face(cable_lane).Center().y
@@ -822,7 +828,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [0.3428 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [0.1681 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)
@@ -907,6 +913,7 @@ def _drain_lower_path():
     current = (drain_tail_x,drain_tail_y,umbilical_tail_z)
     for x, y, top_z in ((drain_tail_x,drain_pack_y,drain_splay_top_z),
                         (drain_tail_x,drain_bypass_y,union_foot_z),
+                        (*umbilical_organizer.axis("D"),organizer_return_start_z),
                         (_fi.drain_tube_x,_fi.drain_tube_y,mount_return_start_z)):
         dx, dy = x-current[0], y-current[1]
         offset = math.hypot(dx,dy)

@@ -313,8 +313,8 @@ zone5_wall = split_socket_wall + split_slip / 2.0 + split_plug_wall
 signal_lane_width = 5.0
 signal_lane_depth = 1.8
 signal_lane_center_n = 11.55
-signal_ribbon_max_width = 4.1
-signal_ribbon_max_depth = 1.3
+signal_ribbon_max_width = _paths.RIBBON_WIDTH
+signal_ribbon_max_depth = _paths.RIBBON_DEPTH
 _tube_soda_bore_r = soda_faucet_hole_diameter / 2.0
 _tube_pill_bore_r = pill_width_y / 2.0
 _tube_pill_cap_x = (pill_length_x - pill_width_y) / 2.0
@@ -671,7 +671,7 @@ def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
 
 
 def build_lower_signal_ribbon() -> cq.Workplane:
-    """Maximum stated 4.1×1.3 mm ribbon envelope through the complete mount stack."""
+    """Measured flat ribbon envelope through the complete mount stack."""
     return _lower_signal_solid(signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
 
 
@@ -859,7 +859,7 @@ def build_flavor_entry_relief():
 def _ribbon_section(point, tangent, width, clearance):
     plane=cq.Plane(origin=point,xDir=(1,0,0),normal=tangent)
     wp=cq.Workplane(plane)
-    return (wp.slot2D(width+0.9,signal_lane_depth) if clearance
+    return (wp.slot2D(signal_lane_width,signal_lane_depth) if clearance
             else wp.rect(width,signal_ribbon_max_depth)).val()
 
 

@@ -13,8 +13,12 @@ Neither supplies an unmeasured load capacity or endurance result.
 The [umbilical organizer's feature-level fit selection](../printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
 is the Ø32 × 10 mm PET-GF puck with A's Ø6.65 mm beverage bores and B's
 Ø4.40 mm drain bore from the identified three-increment Mark2 job. Derek
-reports those as the best respective fits. The Ø5.00 mm signal passage is
-retained. The combined production puck is unprinted; quantified sliding force,
+reports those as the best respective fits. The rear passages follow the mounting
+plate's F1–D–F2 row, with a flat
+5.4 × 1.8 mm signal slot behind D for the
+[measured ribbon](../reference/bntechgo-signal-ribbon/physical-observations.json).
+The round-bore profiles retain the trial dimensions and contact length. The
+mounting-row puck and flat slot are unprinted; quantified sliding force,
 endurance and the complete installed mounting sequence are unmeasured.
 
 The [direct ASSE drain sleeve](../printed-parts/asse-drain-adapter/README.md)

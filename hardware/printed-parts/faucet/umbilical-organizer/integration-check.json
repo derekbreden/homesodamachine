@@ -1,55 +1,163 @@
 {
-  "scope": "Manual CAD and accepted-article binding for the upper organizer; no physical mounting-access or endurance claim.",
-  "product_source_sha256": "9934424245b664cfe36c3e383cfb635b092b29a86e1a78f1997ea29ff8d89fde",
-  "faucet_source_sha256": "1590e580e2820d9770ea63212bfb827599dc5d83b8aa7c0c3419a8f5e985c8fa",
-  "production_stl_sha256": "37ee55d518f2ee6c1fc4a77d05a3f06093252e5dcb52cb9bdb6f9c88a76aa772",
-  "production_difference_from_accepted_article": "Three \u00d86.65 mm beverage bores from A; \u00d84.40 mm drain bore from B; \u00d85.00 mm signal passage retained.",
+  "scope": "Manual geometry and fit-profile binding for the mounting-row organizer; no physical installation or endurance claim.",
+  "product_source_sha256": "1c78eb0db8cc8fbe14189295d5edde2abbce13ba4607eddb54c5fbe457ec7361",
+  "faucet_source_sha256": "d899de960687b2b1c6f26a9f7f2a7fbff73b730682b841de2d62a97c92362101",
+  "production_stl_sha256": "163731f37118a7e1e48d14ab56d6cb1b5d20960954ef1f7e0359bec4b32260b4",
   "valid_single_solid": true,
-  "faces": 20,
-  "edges": 42,
-  "geometry_volume_mm3": 6602.946817638081,
+  "stl_watertight": true,
+  "stl_winding_consistent": true,
+  "faces": 29,
+  "edges": 63,
+  "geometry_volume_mm3": 6709.163581853024,
   "quantity_per_umbilical": 1,
   "installed_top_z_mm": -88.0,
   "installed_bottom_z_mm": -98.0,
   "nominal_plate_gap_mm": 50.476,
   "maximum_slab_plate_gap_mm": 42.476,
-  "upper_union_gap_mm": 7.0,
+  "return_start_z_mm": -101.0,
+  "return_gap_below_organizer_mm": 3.0,
+  "upper_union_top_z_mm": -128.12273279154698,
+  "upper_union_gap_below_organizer_mm": 30.12273279154698,
+  "upper_union_gap_below_completed_flavor_return_mm": 7.0,
+  "mounting_alignment": [
+    {
+      "passage": "S",
+      "mount_xy_mm": [
+        0,
+        0
+      ],
+      "organizer_xy_mm": [
+        0.0,
+        0.0
+      ],
+      "delta_xy_mm": [
+        0.0,
+        0.0
+      ],
+      "offset_mm": 0.0
+    },
+    {
+      "passage": "F1",
+      "mount_xy_mm": [
+        7.725,
+        18.925
+      ],
+      "organizer_xy_mm": [
+        8.924999999999999,
+        18.925
+      ],
+      "delta_xy_mm": [
+        1.1999999999999993,
+        0.0
+      ],
+      "offset_mm": 1.1999999999999993
+    },
+    {
+      "passage": "F2",
+      "mount_xy_mm": [
+        -3.1750000000000003,
+        18.925
+      ],
+      "organizer_xy_mm": [
+        -4.375,
+        18.925
+      ],
+      "delta_xy_mm": [
+        -1.1999999999999997,
+        0.0
+      ],
+      "offset_mm": 1.1999999999999997
+    },
+    {
+      "passage": "D",
+      "mount_xy_mm": [
+        2.275,
+        18.525
+      ],
+      "organizer_xy_mm": [
+        2.275,
+        17.325
+      ],
+      "delta_xy_mm": [
+        0.0,
+        -1.1999999999999993
+      ],
+      "offset_mm": 1.1999999999999993
+    },
+    {
+      "passage": "SIG",
+      "mount_xy_mm": [
+        2.275,
+        21.4875
+      ],
+      "organizer_xy_mm": [
+        2.275,
+        21.4875
+      ],
+      "delta_xy_mm": [
+        0.0,
+        0.0
+      ],
+      "offset_mm": 0.0
+    }
+  ],
   "passages": [
     {
       "passage": "S",
       "shape_valid": true,
       "tube_length_through_puck_mm": 10.0,
-      "puck_intersection_volume_mm3": 0.0
+      "puck_intersection_volume_mm3": 0.0,
+      "cross_section_xy_mm": [
+        6.35,
+        6.35
+      ]
     },
     {
       "passage": "F1",
       "shape_valid": true,
       "tube_length_through_puck_mm": 10.0,
-      "puck_intersection_volume_mm3": 0.0
+      "puck_intersection_volume_mm3": 0.0,
+      "cross_section_xy_mm": [
+        6.3500000000000005,
+        6.350000000000001
+      ]
     },
     {
       "passage": "F2",
       "shape_valid": true,
       "tube_length_through_puck_mm": 10.0,
-      "puck_intersection_volume_mm3": 0.0
+      "puck_intersection_volume_mm3": 0.0,
+      "cross_section_xy_mm": [
+        6.35,
+        6.350000000000001
+      ]
     },
     {
       "passage": "D",
       "shape_valid": true,
       "tube_length_through_puck_mm": 10.0,
-      "puck_intersection_volume_mm3": 0.0
+      "puck_intersection_volume_mm3": 0.0,
+      "cross_section_xy_mm": [
+        4.0,
+        4.0
+      ]
     },
     {
       "passage": "SIG",
       "shape_valid": true,
       "tube_length_through_puck_mm": 10.0,
-      "puck_intersection_volume_mm3": 0.0
+      "puck_intersection_volume_mm3": 0.0,
+      "cross_section_xy_mm": [
+        4.600000000000006,
+        1.1799999999999997
+      ]
     }
   ],
-  "cable_check_z_range_mm": [
-    -98.0,
-    -37.524
-  ],
+  "minimum_round_bore_web_mm": 1.3147733880589918,
+  "minimum_round_bore_entrance_web_mm": 0.5147733880589918,
+  "drain_to_ribbon_slot_web_mm": 1.0625000000000013,
+  "drain_to_ribbon_slot_entrance_web_mm": 0.4625000000000013,
+  "minimum_round_bore_outer_wall_mm": 1.9371132555777857,
   "cable_to_tube_intersection_volume_mm3": {
     "S": 0.0,
     "F1": 0.0,
@@ -57,30 +165,47 @@
     "D": 0.0
   },
   "braid_shape_valid": true,
-  "braid_to_puck_intersection_volume_mm3": 0.0,
+  "braid_intersection_volume_mm3": {
+    "S": 0.0,
+    "F1": 0.0,
+    "F2": 0.0,
+    "D": 0.0,
+    "SIG": 0.0,
+    "puck": 0.0
+  },
+  "upper_tube_intersection_volume_mm3": {
+    "S-F1": 0.0,
+    "S-F2": 0.0,
+    "S-D": 0.0,
+    "F1-F2": 0.0,
+    "F1-D": 0.0,
+    "F2-D": 0.0
+  },
+  "union_to_neighbor_tube_intersection_volume_mm3": {
+    "F1 union-S": 0.0,
+    "F1 union-F2": 0.0,
+    "F1 union-D": 0.0,
+    "F2 union-S": 0.0,
+    "F2 union-F1": 0.0,
+    "F2 union-D": 0.0
+  },
+  "mounting_plate_intersection_volume_mm3": {
+    "F1": 0.0,
+    "F2": 0.0,
+    "D": 0.0,
+    "SIG": 0.0
+  },
   "nominal_braided_od_at_puck_mm": 34.0,
   "counter_hole_mm": 34.93,
-  "foam_top_z_mm": -231.06221850068601,
-  "blue_bare_at_faucet_mm": 181.06221850068601,
-  "evidence_limits": [
-    "Retained donor washer, nut and compression fitting are not modeled.",
-    "Ribbon continuation below the puck is partial.",
-    "Braid is a nominal continuous envelope; weave and folds are not modeled.",
-    "Feature-level physical fit selection: quarter-inch bores from A, drain bore from B. The combined product puck is unprinted. Signal clearance is retained without a new acceptance claim. Quantified force, endurance and complete installation remain unmeasured."
+  "foam_top_z_mm": -254.184951292233,
+  "blue_bare_at_faucet_mm": 204.184951292233,
+  "ribbon_measured_section_mm": [
+    4.6,
+    1.18
   ],
-  "viewer_hosts": [
-    {
-      "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "3e991a21148468e2fb489d847ba38b55a7404b55f7953728cae83dee89f71529",
-      "organizer_mesh_name": "umbilical-organizer",
-      "organizer_triangles": 5904
-    },
-    {
-      "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "3841eceb26767eb4cc1adfdd3f3f55fbfde81c2dc15e09acfe0737b27379cff4",
-      "organizer_mesh_name": "umbilical-organizer",
-      "organizer_triangles": 5904
-    }
+  "ribbon_slot_mm": [
+    5.4,
+    1.8
   ],
   "feature_fit_evidence": [
     {
@@ -102,22 +227,25 @@
       "drain_bore_diameter_mm": 4.4
     }
   ],
-  "prior_clearance_binding": {
-    "product_source_sha256": "c20b856c75128697eb1bba3fb584d93c8e786c2a194a0fd62f0a27a4652dd252",
-    "faucet_source_sha256": "f18735146fe54340bcc85c5eada554fff0a1331f5841f5f41fdf4002fae9fdf6",
-    "production_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
-    "production_difference_from_accepted_article": "drain bore 4.30 mm against the L article's 4.20 mm; the received 4 mm drain tube tests a bit too tight in 4.20"
-  },
-  "clearance_preservation": {
-    "method": "The complete selected organizer solid is contained in the prior production solid; only the accepted drain bore and entrance cones expand. Its axes and exterior stock are identical. The current viewer hosts retain the below-counter tube, ribbon, braid and organizer station. Their above-counter neck uses a 70 degree female-base/male-tip joint and one smooth shared tube/ribbon passage. Prior zero-overlap passage and braid readings retain their unchanged lower-hardware scope.",
-    "new_material_outside_prior_solid_mm3": 0,
-    "analytic_cylinder_diameters_mm": [
-      4.4,
-      5.0,
-      6.65,
-      6.65,
-      6.65,
-      32.0
-    ]
-  }
+  "evidence_limits": [
+    "The mounting-row organizer and ribbon slot are unprinted.",
+    "The retained donor washer, nut and compression fitting are absent from the CAD reference.",
+    "The complete ribbon continuation below the puck is not modeled.",
+    "Braid is a nominal envelope; its weave, folds and physical passage are unmeasured.",
+    "Feature-level physical fit selection: round beverage bore dimensions from A and round drain bore dimensions from B, with the same tube chamfers, contact length, PET-GF and upright orientation. The mounting-row organizer layout and flat signal slot are unprinted. Quantified force, endurance and complete installation remain unmeasured."
+  ],
+  "viewer_hosts": [
+    {
+      "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "sha256": "911ad9971b2d7d3b4c5fbb8a59b7bb9118f8a88bfebbd0d30fd79d347116a791",
+      "organizer_mesh_name": "umbilical-organizer",
+      "organizer_triangles": 6344
+    },
+    {
+      "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
+      "sha256": "7dd5b22edc99d95658a0925e8f5e5691987dbe4c15eed30ebf8ee84ab5d39232",
+      "organizer_mesh_name": "umbilical-organizer",
+      "organizer_triangles": 6344
+    }
+  ]
 }

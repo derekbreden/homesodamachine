@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 3,
   "part": "umbilical-organizer",
   "status": "A beverage-bore fit and B drain-bore fit selected for production",
   "authority": "Derek's direct fit comparison of printed A/B/C samples",
@@ -37,15 +37,38 @@
     "length_mm": 10.0,
     "quarter_inch_bore_diameter_mm": 6.65,
     "drain_bore_diameter_mm": 4.4,
-    "signal_bore_diameter_mm": 5.0,
     "tube_entrance_chamfer_mm": 0.4,
-    "outside_chamfer_mm": 0.6
+    "outside_chamfer_mm": 0.6,
+    "signal_slot_length_mm": 5.4,
+    "signal_slot_depth_mm": 1.8,
+    "cable_entrance_chamfer_mm": 0.2,
+    "faucet_axes_xy_mm": {
+      "S": [
+        0.0,
+        0.0
+      ],
+      "F1": [
+        8.924999999999999,
+        18.925
+      ],
+      "F2": [
+        -4.375,
+        18.925
+      ],
+      "D": [
+        2.275,
+        17.325
+      ],
+      "SIG": [
+        2.275,
+        21.4875
+      ]
+    }
   },
   "production_stl": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
-  "production_stl_sha256": "37ee55d518f2ee6c1fc4a77d05a3f06093252e5dcb52cb9bdb6f9c88a76aa772",
+  "production_stl_sha256": "163731f37118a7e1e48d14ab56d6cb1b5d20960954ef1f7e0359bec4b32260b4",
   "combined_production_article_printed": false,
-  "signal_bore_fit_evaluated": false,
-  "scope": "Feature-level physical fit selection: quarter-inch bores from A, drain bore from B. The combined product puck is unprinted. Signal clearance is retained without a new acceptance claim. Quantified force, endurance and complete installation remain unmeasured.",
+  "scope": "Feature-level physical fit selection: round beverage bore dimensions from A and round drain bore dimensions from B, with the same tube chamfers, contact length, PET-GF and upright orientation. The mounting-row organizer layout and flat signal slot are unprinted. Quantified force, endurance and complete installation remain unmeasured.",
   "quantified_sliding_force": null,
   "quantified_endurance": null,
   "full_installation_acceptance": null,
@@ -92,5 +115,7 @@
       "quantified_endurance": null,
       "full_installation_acceptance": null
     }
-  ]
+  ],
+  "signal_slot_fit_evaluated": false,
+  "ribbon_dimension_evidence": "hardware/reference/bntechgo-signal-ribbon/physical-observations.json"
 }

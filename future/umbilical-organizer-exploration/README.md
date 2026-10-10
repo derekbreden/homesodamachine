@@ -4,7 +4,8 @@ The [production umbilical organizer](../../hardware/printed-parts/faucet/umbilic
 is Ø32 × 10 mm PET-GF, with Ø6.65 mm beverage bores selected from A and
 Ø4.40 mm drain bore selected from B in the
 [three-increment Mark2 comparison](diameter-increments-mark2/physical-result.json).
-The loose Ø5.00 mm signal passage is retained. The
+Its rear passages follow the mounting row and its 5.4 × 1.8 mm signal slot
+holds the measured 4.6 × 1.18 mm ribbon flat. The
 [physical acceptance record](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
 binds the selections to the printed samples and preserves the original L result.
 This folder retains those frozen trial articles and preparations; `organizer.py`
