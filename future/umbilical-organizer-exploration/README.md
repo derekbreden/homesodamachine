@@ -1,12 +1,15 @@
 # Umbilical tube organizer fit trial
 
 The **L / rightmost / loose** sample is the accepted
-[production umbilical organizer](../../hardware/printed-parts/faucet/umbilical-organizer/README.md):
-Ø32 × 10 mm PET-GF, three Ø6.65 mm beverage bores and one Ø4.20 mm drain bore.
-Its [physical acceptance record](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-binds the reported fit to the original Mark2 job. This folder retains the three
-trial articles and their preparation source; `organizer.py` represents the
-middle trial article. Current product geometry and placement are defined under
+[production umbilical organizer](../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
+for its three Ø6.65 mm beverage bores, in Ø32 × 10 mm PET-GF. Its Ø4.20 mm drain
+bore tests a bit too tight on the received 4 mm drain tube, so the production
+drain bore is Ø4.30 mm; [`drain-fit-mark2/`](drain-fit-mark2/README.md) holds
+that puck's next print. The
+[physical acceptance record](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
+binds both reports to the original Mark2 job. This folder retains the trial
+articles and their preparation sources; `organizer.py` represents the middle
+trial article. Current product geometry and placement are defined under
 `hardware/printed-parts/faucet/umbilical-organizer/` and `hardware/faucet-layout/`.
 
 One floating round puck is intended to keep the soda, two flavor and drain tubes

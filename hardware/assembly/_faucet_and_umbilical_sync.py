@@ -94,6 +94,8 @@ def main():
         "ORGANIZER_PLATE_GAP": f"{faucet.under_counter_plate_bottom_z-faucet.organizer_top_z:.4g} mm",
         "ORGANIZER_TOP_Z": f"{faucet.organizer_top_z:g} mm",
         "ORGANIZER_LENGTH": f"{faucet.umbilical_organizer.LENGTH:g} mm",
+        "ORGANIZER_TUBE_BORE": f"{faucet.umbilical_organizer.TUBE_BORE:.2f} mm",
+        "ORGANIZER_DRAIN_BORE": f"{faucet.umbilical_organizer.DRAIN_BORE:.2f} mm",
         # The braid over the pack — §3. It is bought by what it opens to.
         # The umbilical ribbon's own section, which is what the 6P4C plug closes on — §2.
         "RIBBON_T": f"{faucet.cable_lane:.4g} mm",

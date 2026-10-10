@@ -1,14 +1,15 @@
 {
   "scope": "Manual CAD and accepted-article binding for the upper organizer; no physical mounting-access or endurance claim.",
-  "product_source_sha256": "6b9fe7c2867257d7a9e24e99d07b9f52ec8c1382cc27b04d400f644334380800",
+  "product_source_sha256": "c20b856c75128697eb1bba3fb584d93c8e786c2a194a0fd62f0a27a4652dd252",
   "faucet_source_sha256": "f18735146fe54340bcc85c5eada554fff0a1331f5841f5f41fdf4002fae9fdf6",
   "accepted_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
-  "production_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
-  "production_stl_identical_to_accepted_article": true,
+  "production_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+  "production_stl_identical_to_accepted_article": false,
+  "production_difference_from_accepted_article": "drain bore 4.30 mm against the L article's 4.20 mm; the received 4 mm drain tube tests a bit too tight in 4.20",
   "valid_single_solid": true,
   "faces": 20,
   "edges": 42,
-  "geometry_volume_mm3": 6616.556197013433,
+  "geometry_volume_mm3": 6609.830047142099,
   "quantity_per_umbilical": 1,
   "installed_top_z_mm": -88.0,
   "installed_bottom_z_mm": -98.0,
@@ -67,18 +68,18 @@
     "Retained donor washer, nut and compression fitting are not modeled.",
     "Ribbon continuation below the puck is partial.",
     "Braid is a nominal continuous envelope; weave and folds are not modeled.",
-    "Only the user-reported selected printed fit is physically accepted."
+    "Physical evidence is the L article's two reports: its quarter-inch bores accepted, its 4.20 mm drain bore a bit too tight on the received 4 mm tube. The production 4.30 mm drain bore is unprinted."
   ],
   "viewer_hosts": [
     {
       "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "cbf3a1072b40a4d1d870b77cbe4447e41164a9121babd876d625414d5cce5ef1",
+      "sha256": "d49d8dd83269f918deaa7d134e84dfc4decf53fa520b8b0f6bc850fce5917a0e",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     },
     {
       "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "c0596529e239a9cdce802ad00d14a5f86d3df500fc41405a345af4a29fbe039e",
+      "sha256": "1c4530a9b9111f564cf58a4b47e4b43ed53b2ab5252fb005412b7a5dc9d91099",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     }

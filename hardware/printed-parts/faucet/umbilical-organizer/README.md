@@ -6,24 +6,26 @@ be deliberately adjusted while holding the puck in the other hand. The signal
 ribbon passes through a separate loose passage. The puck threads over free
 tube and cable ends during factory assembly and sits inside the upper braid.
 
-The selected fit is the **L / rightmost / loose** article from the
+The quarter-inch bores are the **L / rightmost / loose** article's from the
 [three-sample Mark2 print](../../../../future/umbilical-organizer-exploration/fit-trial-mark2/README.md).
 Derek accepted it as “pretty close to perfect, or at least good enough for now.”
-The [physical acceptance record](physical-acceptance.json) binds that report to
+The received 4 mm drain tube tests a bit too tight in that article's Ø4.20 mm
+drain bore, so the drain bore is 0.10 mm larger in diameter. The
+[physical acceptance record](physical-acceptance.json) binds both reports to
 the exact printed mesh, native archive and settings. It establishes the reported
-fit; installed mounting access, quantified sliding force and endurance are not
-separately reported.
+fits; installed mounting access, quantified sliding force and endurance are not
+separately reported. The Ø[4.30 mm](ORGANIZER_DRAIN_BORE) drain bore is unprinted.
 
 | Feature | Dimension |
 |---|---|
-| Round stock | Ø32 × 10 mm |
-| Soda and both flavor bores | Ø6.65 mm |
-| Drain bore | Ø4.20 mm |
-| Loose signal passage | Ø5 mm |
-| Tube entrance chamfers, both ends | 0.4 mm × 45° |
-| Smooth tube contact length | 9.2 mm |
-| Cable entrance chamfers, both ends | 0.2 mm × 45° |
-| Outer rim chamfers | 0.6 mm × 45° |
+| Round stock | Ø[32 mm](ORGANIZER_OD) × [10 mm](ORGANIZER_LENGTH) |
+| Soda and both flavor bores | Ø[6.65 mm](ORGANIZER_TUBE_BORE) |
+| Drain bore | Ø[4.30 mm](ORGANIZER_DRAIN_BORE) |
+| Loose signal passage | Ø[5 mm](ORGANIZER_CABLE_BORE) |
+| Tube entrance chamfers, both ends | [0.4 mm](ORGANIZER_ENTRY) × 45° |
+| Smooth tube contact length | [9.2 mm](ORGANIZER_CONTACT) |
+| Cable entrance chamfers, both ends | [0.2 mm](ORGANIZER_CABLE_ENTRY) × 45° |
+| Outer rim chamfers | [0.6 mm](ORGANIZER_RIM_EASE) × 45° |
 
 The body is one cylinder with five straight passages and entrance/rim chamfers.
 It has no teeth, fasteners, liner, opening seam or identification embossing.
@@ -64,7 +66,14 @@ That trim is specific to Mark2. The physical material is PET-GF; its saved
 printer metadata reports PET-CF/GFT01.
 
 The [accepted native job and bead review](../../../../future/umbilical-organizer-exploration/fit-trial-mark2/README.md)
-retain all three original samples. Production STEP/STL/viewer payloads are
-generated from the selected L dimensions. The production STL is byte-identical
-to the accepted trial's loose STL. Regenerate manually with
+retain all three original samples. Production STEP/STL/viewer payloads differ
+from the L article only in the drain bore. The
+[next print](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+is the production puck alone on Mark2, at the L job's settings and bed position:
+about 15 minutes and 4.1 g, not yet submitted. Its print mesh is byte-identical
+to the production STL. Regenerate manually with
 `tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`

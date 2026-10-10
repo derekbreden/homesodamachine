@@ -11,11 +11,14 @@ An accepted fit establishes that fit; a geometric clearance establishes that cle
 Neither supplies an unmeasured load capacity or endurance result.
 
 The [umbilical organizer's accepted L fit](../printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-is the Ø32 × 10 mm PET-GF puck with Ø6.65 mm beverage bores and Ø4.20 mm drain
-bore. Derek accepted the identified Mark2 article as good enough for current use.
-It is a production umbilical part. This records its reported fit; quantified
-sliding force, endurance and the complete installed mounting sequence are not
-separately reported.
+is the Ø32 × 10 mm PET-GF puck with Ø6.65 mm beverage bores. Derek accepted the
+identified Mark2 article as good enough for current use. Its Ø4.20 mm drain bore
+tests a bit too tight on the received 4 mm drain tube, so the production drain
+bore is Ø4.30 mm; that bore is unprinted, with its
+[next print](../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+prepared. It is a production umbilical part. This records its reported fits;
+quantified sliding force, endurance and the complete installed mounting sequence
+are not separately reported.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize

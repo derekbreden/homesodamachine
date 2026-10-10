@@ -51,7 +51,7 @@ ROOT = %r
 GEN = %r
 OUT = %r
 ARGV = %r
-read, wrote, scanned = set(), set(), set()
+read, wrote, scanned, pieced = set(), set(), set(), set()
 
 def _under(path):
     try:
@@ -79,6 +79,11 @@ WRITE_MACHINERY = ("_sweep_orphan_temps", "_matches_existing_target")
 # for the `*.step.mesh` a graft lands in; the solid and payload of every piece kept are opened,
 # and read, in their own right. The rest of the folder — its README, its print log, the records
 # filed beside the part — is nothing a piece is cut from.
+#
+# BUT THE MESH BESIDE THE SOLID IS NEVER OPENED, and it is what makes the solid a piece: the
+# finder only asks whether it stands there. An action without it finds no piece, and grafts
+# nothing, or dies on the name it expected. So a finder's folder is kept apart, and read below
+# for the `.stl` beside each `.step` it holds.
 PIECE_FINDERS = ("pieces", "payloads")
 
 def _on_stack(names, module):
@@ -151,9 +156,11 @@ def _hook(event, args):
         except ValueError:
             by = ""
         if not (by.startswith("<frozen importlib") or "/importlib/" in by) \
-                and not _by_write_machinery() \
-                and not _on_stack(PIECE_FINDERS, "flute_payload.py"):
-            _keep(scanned, args[0])
+                and not _by_write_machinery():
+            if _on_stack(PIECE_FINDERS, "flute_payload.py"):
+                _keep(pieced, args[0])
+            else:
+                _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
     elif event == "exec" and args:
@@ -192,6 +199,7 @@ finally:
     with open(OUT, "w") as fh:
         json.dump({"reads": sorted(read), "writes": sorted(wrote),
                    "rewritten": sorted(back), "scanned": sorted(scanned),
+                   "pieced": sorted(pieced),
                    "raised": raised}, fh)
 '''
 
@@ -285,6 +293,12 @@ def trace(gen: str, files: set, argv=()) -> dict:
     here = set(seen.get("scanned", ()))
     if here:
         out["reads"] |= {f for f in files if os.path.dirname(f) in here}
+    # A PIECE FINDER'S FOLDER IS READ FOR THE MESH BESIDE EACH SOLID, the one file it asks
+    # after without opening (`PIECE_FINDERS` in the runner).
+    pieced = set(seen.get("pieced", ()))
+    if pieced:
+        out["reads"] |= {f for f in files if f.endswith(".stl")
+                         and os.path.dirname(f) in pieced and f[:-4] + ".step" in files}
     answer = {k: sorted(v) for k, v in out.items()}
     if seen.get("raised"):
         answer["raised"] = seen["raised"]

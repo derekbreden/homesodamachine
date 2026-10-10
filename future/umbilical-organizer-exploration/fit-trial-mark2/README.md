@@ -1,9 +1,12 @@
 # Three PET-GF organizer fit samples — Mark2
 
-The **rightmost / L / loose** sample is the accepted production fit. The
+The **rightmost / L / loose** sample is the accepted production fit for the
+quarter-inch bores. Its Ø4.20 mm drain bore tests a bit too tight on the received
+4 mm drain tube; the [next print](../drain-fit-mark2/README.md) carries the
+production Ø4.30 mm drain bore. The
 [product part](../../../hardware/printed-parts/faucet/umbilical-organizer/README.md)
 and its [physical acceptance record](../../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-identify the selected article and the scope of the reported result.
+identify the selected article and the scope of the reported results.
 
 The plate contains three Ø32 × 10 mm pucks with smooth vertical passages. The
 middle sample is the baseline for this fit comparison.
