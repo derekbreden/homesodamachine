@@ -16,10 +16,18 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
       "hardware/printed-parts/faucet/industrial/check_display_cover.py",
+      "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-conformal-tip-petgf-left04-z004-mark2.insert-beads.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-conformal-tip-petgf-left04-z004-mark2.print.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-conformal-tip-petgf-left04-z004-mark2.readiness.json",
       "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/first-second-layer-review.json",
-      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/preparation.json"
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/insert-beads.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/native-check.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/native-result.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/outer-wall-review.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/preparation.json",
+      "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-conformal-tip-mark2/tip-tube-support-reading.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1402,8 +1410,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "09d61648bb4cf503b544e571988e208ef01b4eeffadfaf9a8220d379a2eeb4d3",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "2d0d2b3cc53438adcbfb1b612ea3c598fab4ae57d0ff77e680e5971ef70beb52",
+    "hardware/manifold-layout/enclosure-assembly.step": "58387083561e1f0d28d9356110580d504d588ce94ae36124a00c21e4f68dc772",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "bdb73e84bf29bf21cbdfc11390d4871bafe3e555470c7634c4e12769cad1854a",
     "hardware/manifold-layout/manifold-layout.step": "06e8bef1d584a13c8a3213a517d23addbf421607a5139bebcaaf428c166e62d0",
     "hardware/manifold-layout/manifold-layout.step.mesh": "32c4d001b1b2a8f0f26a86009793b6702c18b347f15071959f1db09339849eb6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "9b13c80835f4d278eb8173c3da49885f159376a6df6a074f62ea66d30df73b06",
@@ -2654,8 +2662,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1791611789,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1791611789,
+    "hardware/manifold-layout/enclosure-assembly.step": 1791613176,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1791613176,
     "hardware/manifold-layout/manifold-layout.step": 1791014456,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1791014456,
     "hardware/pcb/pcba/out/pcba.bom.csv": 1789491300,
