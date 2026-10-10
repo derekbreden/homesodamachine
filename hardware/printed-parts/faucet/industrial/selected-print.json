@@ -1,31 +1,34 @@
 {
   "schema": 1,
-  "recorded_at_utc": "2026-10-10T05:09:37.515000+00:00",
-  "status": "Held at Derek request before import or Send",
+  "recorded_at_utc": "2026-10-10T08:06:04.559074+00:00",
+  "status": "Ready for one authorized foreground launch",
   "authorization_quotes": [
     "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
     "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
     "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
     "The mark two bed is clear and ready for you. Start whenever you're ready.",
-    "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip."
+    "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip.",
+    "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip.",
+    "We need the \"tight conformance\" carried through everywhere we can.",
+    "I think that's all that remains, please start that print on Mark 2 when you're ready."
   ],
-  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf",
-  "prepared_project_sha256": "a229655e89acbb9155473b199e44e97ef7c3eeeaf7c7c34121b5dd20adbb5cbe",
-  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.gcode.3mf",
-  "native_archive_sha256": "f6c087784d1a70f3dee5a5c9107856077fb5419f5175a9f784fb9025f8c32133",
-  "gcode_sha256": "ffb1d02776944b546d3775cd8fa0f045d71941e8292eef71221a0988f10947d1",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
   "parts": [
     {
       "name": "industrial-shell-base",
       "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+      "stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
       "rotation_x_degrees": -14.999999999999998
     },
     {
       "name": "faucet-shell-tip",
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "d3f8d3a96faba20fa58e9cbf4b5b4c09c7c6cfc37f7469cb336fd344aae66bd4",
-      "rotation_x_degrees": -95.0
+      "stl_sha256": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
+      "rotation_x_degrees": -105.0
     },
     {
       "name": "industrial-display-cover",
@@ -80,14 +83,14 @@
     "supports": "Tree (auto), saved Default style and automatic sections",
     "probing_clump_detection": false
   },
-  "native_estimated_seconds": 21291.767578125,
-  "native_estimate": "5 h 54 min 52 s",
-  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/native-check.json",
-  "native_check_sha256": "6b07d5202a00b1a7a51bb1cfb9b1cd20f1c50bd6678a37d4f9e6687462998495",
-  "minimum_full_bead_bed_margin_mm": 24.82991499999997,
+  "native_estimated_seconds": 21233.013671875,
+  "native_estimate": "5 h 53 min 53 s",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/native-check.json",
+  "native_check_sha256": "27452a45999fff647cb49c9b52eeece1fae44b09898e75fecec1a920bd003466",
+  "minimum_full_bead_bed_margin_mm": 24.850836500000014,
   "screw_point_boundary_tracks_absent_in_native_paths": true,
-  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/insert-beads.json",
-  "insert_deposition_review_sha256": "c6c061fcf30de56b966b0173d2cfe08831e1229ed8f6b5c2cc75587647cc289f",
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "acffca94f6747c4f5f26ee2dff258b18e364e9579c4d65e2a91b013c740be3f8",
   "physical_reference": {
     "record": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json",
     "task_id": "1322285082",
@@ -101,7 +104,7 @@
     "status": "Further iteration and research deferred",
     "latest_failure": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json"
   },
-  "launch_plan": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/launch-plan.json",
+  "launch_plan": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/launch-plan.json",
   "new_print_submitted": false,
   "scope": "Native commanded geometry, layers and reinforcement. Physical 0.12 mm finish, corrected exterior, extended-cover seating, support cleanup and new drip behavior require observation.",
   "display_cover_trial": {
@@ -112,29 +115,25 @@
     "source_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
     "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
     "physical_fit_evaluated": false,
-    "geometry_check_sha256": "d5df413fa6a1bc8af5cfc3ae075f25e481b30af1dfca9d7f1cd8913c5083a188",
+    "geometry_check_sha256": "77c05c94b8ee4f88279bdf5b8d6aabecf0365e563596bd0adbc4ba4a9cd0167c",
     "geometry_check_passed": true,
     "bezel_to_lip_extension_mm": 0.5
   },
   "send_attempted": false,
-  "hold_authorization_quote": "Apologies, pause on that print",
-  "held_at_utc": "2026-10-10T04:40:46.360394+00:00",
   "accepted": false,
   "drain_trial": {
     "hole_diameter_mm": 4.0,
     "tube_id_mm": 2.5,
     "gaskets_required": false,
     "insertion_tool_required": false,
-    "guide_wall_thickness_mm": 2.0,
-    "prior_source_stl_sha256": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
-    "source_stl_sha256": "d3f8d3a96faba20fa58e9cbf4b5b4c09c7c6cfc37f7469cb336fd344aae66bd4",
+    "intermediate_guide_discs": 0,
+    "smooth_shared_bundle_passage": true,
     "geometry_check": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
     "physical_discharge_observed": false,
-    "geometry_check_sha256": "233c782fba6a9b2ecc8947141e1bf1e1b83c0cdd38408ca9165f6bf69b7e1fb8",
+    "geometry_check_sha256": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
     "geometry_check_passed": true
   },
-  "start_now": false,
-  "ready_to_launch": false,
-  "waiting_for": "Derek's separate go-ahead after his hold",
-  "hold_quote": "Apologies, pause on that print"
+  "start_now": true,
+  "ready_to_launch": true,
+  "launch_authorized": true
 }

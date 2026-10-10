@@ -1,0 +1,26 @@
+{
+  "artifact_sha256": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
+  "face_center_cad_mm": [
+    -0.049977292764181835,
+    1.2583329965678605,
+    57.5
+  ],
+  "face_area_mm2": 135.4694461110873,
+  "pick_inward_stock_intervals_mm": [
+    [
+      0.0,
+      10.0
+    ]
+  ],
+  "complete_face_prism_depth_mm": 2.0,
+  "outside_material_volume_mm3": 7.262149607408103,
+  "method": "Exact inward chord at the lint pick. Also subtract the saved solid from the complete finite face extruded2 mm inward. The inner tube boundary varies with height; the full prism contains7.262 mm3 of passage void. The pick has full backing, while the prism is not a minimum stock claim for every edge of the roof.",
+  "purpose": "Neck shoulder over the open lever entry; automatic supports withdraw through the open entry or donor bore before assembly.",
+  "scope": "Native stock and geometric withdrawal opening. Physical support cleanup remains unmeasured.",
+  "pass": true,
+  "pick_cad_mm": [
+    0.0,
+    3.111,
+    57.5
+  ]
+}

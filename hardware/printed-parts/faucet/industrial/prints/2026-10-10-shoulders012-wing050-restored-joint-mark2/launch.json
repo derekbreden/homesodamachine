@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T08:11:48.353398+00:00",
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+  "prepared_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "status": "Prepared for one authorized foreground transaction",
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "submitted": false,
+  "send_count": 0,
+  "send_click_count": 0,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false
+}

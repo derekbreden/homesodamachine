@@ -9,6 +9,6 @@ click: x=0.000 y=-22.300 z=3.200
 click: x=22.500 y=-2.000 z=3.200
 click: x=-22.500 y=-2.000 z=3.200
 
-[sliver] This is a finite patch of the rear lever-clearance plane, joined along its outer side to the base body. Its 1.389 mm face width is not a wall thickness: the exact inward +Y chord at this pick has 2.834 mm of stock before the tube opening. It bounds the handle clearance below the neck shoulder. The native chord and the removed neighbouring nonfunctional thin strip are recorded in ../vent-qualification/simple-drip-check.json. Physical support cleanup remains unmeasured.
+[ceiling] This is the neck shoulder over the open lever entry at Z57.5. In the base's -15 degree pose it needs the saved automatic supports. The lint pick has at least10 mm of inward stock in the saved STEP; the inner tube boundary varies with height, so this is not a claim of constant thickness across every roof edge. The finite roof and chord are recorded in ../vent-qualification/neck-roof-reading.json. The support branches leave through the open lever entry or bottom donor bore before hardware installation. Physical release and contact finish remain unmeasured.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
-click: x=-6.156 y=10.460 z=47.922
+click: x=0.000 y=3.111 z=57.500

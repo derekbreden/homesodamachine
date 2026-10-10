@@ -746,14 +746,14 @@
     "source_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
     "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
     "physical_fit_evaluated": false,
-    "geometry_check_sha256": "77c05c94b8ee4f88279bdf5b8d6aabecf0365e563596bd0adbc4ba4a9cd0167c",
+    "geometry_check_sha256": "d5df413fa6a1bc8af5cfc3ae075f25e481b30af1dfca9d7f1cd8913c5083a188",
     "geometry_check_passed": true,
     "bezel_to_lip_extension_mm": 0.5
   },
   "cover_authorization_quote": "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
   "start_authorization_quote": "I think that's all that remains, please start that print on Mark 2 when you're ready.",
   "recorded_at_utc": "2026-10-10T08:02:28.998530+00:00",
-  "status": "Ready for one authorized foreground launch",
+  "status": "Restored complete faucet authorized; awaiting native review",
   "drain_trial": {
     "hole_diameter_mm": 4.0,
     "tube_id_mm": 2.5,
@@ -762,9 +762,7 @@
     "intermediate_guide_discs": 0,
     "smooth_shared_bundle_passage": true,
     "geometry_check": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
-    "physical_discharge_observed": false,
-    "geometry_check_sha256": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
-    "geometry_check_passed": true
+    "physical_discharge_observed": false
   },
   "drain_authorization_quote": "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip.",
   "reinforcement_modifier_absolute_geometry_preserved": true,
@@ -793,17 +791,5 @@
     "reference_commit": "a17baa69e^"
   },
   "geometry_authorization_quote": "We need the \"tight conformance\" carried through everywhere we can.",
-  "three_other_meshes_and_placements_preserved": true,
-  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
-  "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
-  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
-  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/native-check.json",
-  "native_check_sha256": "27452a45999fff647cb49c9b52eeece1fae44b09898e75fecec1a920bd003466",
-  "native_estimated_seconds": 21233.013671875,
-  "native_estimate": "5 h 53 min 53 s",
-  "deposition_input": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/deposition-input.json",
-  "deposition_input_sha256": "3617f8d4c9cb7c74add25abeb7d9b768480a8acab4c6dc8cfc34388241b36b1d",
-  "start_now": true,
-  "ready_to_launch": true,
-  "launch_authorized": true
+  "three_other_meshes_and_placements_preserved": true
 }
