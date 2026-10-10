@@ -2,7 +2,7 @@
   "schema": 1,
   "recorded_at_utc": "2026-10-10T23:43:13.859066+00:00",
   "printer": "Mark2",
-  "status": "Reviewed comparison plate; one foreground start authorized",
+  "status": "Accepted PREPARE on Mark2",
   "authorization_quotes": [
     "In any case, your call, mark2 bed is free, do some research and take your time and start a print please. Thanks.",
     "(i.e. don't put huge spacing between your tests such that they are close to the edge when they need not be)"
@@ -258,9 +258,9 @@
   "launch_command": "tools/cad-venv/bin/python tools/bambu_print.py hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf Mark2 --attempts 1",
   "maximum_foreground_transactions": 1,
   "maximum_send_clicks": 1,
-  "import_attempted": false,
-  "send_attempted": false,
-  "accepted": false,
+  "import_attempted": true,
+  "send_attempted": true,
+  "accepted": true,
   "auto_resume_authorized": false,
   "scheduled_monitor_requested": false,
   "pre_start_requirements": [
@@ -268,5 +268,24 @@
     "Verify exact project, archive, G-code, source and review hashes",
     "At least 180 seconds after the peer most recent accepted start or resume",
     "Read current public and private receipts; no prior or ambiguous transaction"
-  ]
+  ],
+  "transaction_started_at_utc": "2026-10-10T23:45:13.097461+00:00",
+  "foreground_transaction_count": 1,
+  "submitted": true,
+  "new_print_submitted": true,
+  "send_click_count": 1,
+  "task_id": "1327799013",
+  "job_id": "1327799013",
+  "printer_task_id": "1327799013",
+  "accepted_archive_name": "2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "accepted_at_utc": "2026-10-10T23:45:52.279374+00:00",
+  "accepted_at_central": "2026-10-10T18:45:52.279374-05:00",
+  "forecast_finish_utc": "2026-10-11T07:13:55.097733+00:00",
+  "forecast_finish_central": "2026-10-11T02:13:55.097733-05:00",
+  "acceptance_time_basis": "Matching fresh printer reading recorded by foreground sender after the one Send click",
+  "options_verified": "Dialog: Mark2; external spools mapped; Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto, Nozzle Offset Calibration Auto",
+  "start_reported": true,
+  "start_notification_count": 1,
+  "initial_layer_count_not_used_as_progress": true
 }

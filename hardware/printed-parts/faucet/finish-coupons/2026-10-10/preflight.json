@@ -1,49 +1,18 @@
 {
-  "schema": 1,
-  "printer": "Mark2",
-  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
-  "archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
-  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
-  "import_attempted": true,
-  "send_attempted": true,
-  "accepted": true,
-  "status": "Accepted PREPARE on Mark2",
-  "maximum_foreground_transactions": 1,
-  "maximum_send_clicks": 1,
-  "transaction_started_at_utc": "2026-10-10T23:45:13.097461+00:00",
-  "foreground_transaction_count": 1,
-  "submitted": true,
-  "new_print_submitted": true,
-  "send_click_count": 1,
-  "task_id": "1327799013",
-  "job_id": "1327799013",
-  "printer_task_id": "1327799013",
-  "accepted_archive_name": "2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
-  "accepted_state": "PREPARE",
-  "accepted_at_utc": "2026-10-10T23:45:52.279374+00:00",
-  "accepted_at_central": "2026-10-10T18:45:52.279374-05:00",
-  "forecast_finish_utc": "2026-10-11T07:13:55.097733+00:00",
-  "forecast_finish_central": "2026-10-11T02:13:55.097733-05:00",
-  "acceptance_time_basis": "Matching fresh printer reading recorded by foreground sender after the one Send click",
-  "options_verified": "Dialog: Mark2; external spools mapped; Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto, Nozzle Offset Calibration Auto",
-  "auto_resume_authorized": false,
-  "scheduled_monitor_requested": false,
-  "start_reported": true,
-  "start_notification_count": 1,
-  "initial_layer_count_not_used_as_progress": true,
-  "post_send_fresh_both_readings": [
+  "recorded_at_utc": "2026-10-10T23:45:13.097461+00:00",
+  "fresh_printer_readings": [
     {
       "printer": "Mark1",
       "read_alias": "H2C",
-      "observed_at_utc": "2026-10-10T23:46:17.791378+00:00",
+      "observed_at_utc": "2026-10-10T23:44:31.090600+00:00",
       "task_id": "1325371485",
       "job_id": "1325371485",
       "subtask_name": "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
       "gcode_state": "RUNNING",
-      "layer_num": 466,
+      "layer_num": 464,
       "total_layer_num": 813,
       "mc_percent": 64,
-      "mc_remaining_time": 582,
+      "mc_remaining_time": 584,
       "print_error": 0,
       "hms": [],
       "stg_cur": 0,
@@ -98,20 +67,20 @@
     {
       "printer": "Mark2",
       "read_alias": "Mark2",
-      "observed_at_utc": "2026-10-10T23:46:17.851282+00:00",
-      "task_id": "1327799013",
-      "job_id": "1327799013",
-      "subtask_name": "2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
-      "gcode_state": "RUNNING",
-      "layer_num": 0,
-      "total_layer_num": 393,
-      "mc_percent": 0,
-      "mc_remaining_time": 448,
+      "observed_at_utc": "2026-10-10T23:44:31.000324+00:00",
+      "task_id": "1325534650",
+      "job_id": "1325534650",
+      "subtask_name": "2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 1251,
+      "total_layer_num": 1251,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
       "print_error": 0,
       "hms": [],
-      "stg_cur": 13,
+      "stg_cur": -1,
       "bed_temper": 24.0,
-      "bed_target_temper": 24.0,
+      "bed_target_temper": 0.0,
       "timelapse": null,
       "external_spools": [
         {
@@ -148,8 +117,8 @@
             "diameter": 0.4
           },
           "temperature": {
-            "actual_c": 131,
-            "target_c": 200
+            "actual_c": 26,
+            "target_c": 0
           }
         }
       ],
@@ -159,5 +128,22 @@
       }
     }
   ],
-  "native_estimated_seconds": 26882.818359375
+  "exact_project_archive_gcode_source_and_review_hashes_match": true,
+  "destination_ready": true,
+  "destination_faults_absent": true,
+  "left_hardened_standard_flow_0_4_nozzle_verified": true,
+  "correct_left_external_PET_GF_mapping": true,
+  "bed_clear_authority": "Direct user request: mark2 bed is free",
+  "shared_circuit_spacing": {
+    "peer": "Mark1",
+    "peer_task_id": "1325371485",
+    "peer_archive_name": "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+    "most_recent_recorded_peer_acceptance_utc": "2026-10-10T06:36:57.529465+00:00",
+    "elapsed_seconds": 61695.567996,
+    "required_seconds": 180,
+    "matching_peer_job_running": true,
+    "separate_resume_authorization_or_receipt_present": false
+  },
+  "additional_send_authorized": false,
+  "maximum_foreground_transactions": 1
 }
