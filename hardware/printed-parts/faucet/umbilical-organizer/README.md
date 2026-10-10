@@ -14,7 +14,8 @@ drain bore, so the drain bore is 0.10 mm larger in diameter. The
 [physical acceptance record](physical-acceptance.json) binds both reports to
 the exact printed mesh, native archive and settings. It establishes the reported
 fits; installed mounting access, quantified sliding force and endurance are not
-separately reported. The Ø[4.30 mm](ORGANIZER_DRAIN_BORE) drain bore is unprinted.
+separately reported. Physical fit of the Ø[4.30 mm](ORGANIZER_DRAIN_BORE) drain
+bore is unassessed.
 
 | Feature | Dimension |
 |---|---|
@@ -68,10 +69,15 @@ printer metadata reports PET-CF/GFT01.
 The [accepted native job and bead review](../../../../future/umbilical-organizer-exploration/fit-trial-mark2/README.md)
 retain all three original samples. Production STEP/STL/viewer payloads differ
 from the L article only in the drain bore. The
-[next print](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
-is the production puck alone on Mark2, at the L job's settings and bed position:
-about 15 minutes and 4.1 g, not yet submitted. Its print mesh is byte-identical
-to the production STL. Regenerate manually with
+[current three-puck plate](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
+contains the saved production organizer and two diameter increments. From the
+front of Mark2, left to right: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
+bores; B has Ø6.75/4.40/5.10 mm; C has Ø6.85/4.50/5.20 mm. A's mesh is
+byte-identical to the production STL. The stock, bore axes and chamfers are
+retained for all three. The native estimate is 33 min 49 s and 12.28 g.
+The saved single-puck [drain-fit preparation](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+is an unsubmitted separate archive at the same process settings.
+Regenerate the production geometry manually with
 `tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`.
 
 ## Sources

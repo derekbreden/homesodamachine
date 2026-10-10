@@ -1,0 +1,513 @@
+{
+  "project": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.3mf",
+  "settings_source": "future/umbilical-organizer-exploration/drain-fit-mark2/2026-10-09-organizer-d430-petgf-left04-z004-mark2.3mf",
+  "settings_source_sha256": "c14552b13504d1c254584d57f2e7f3e19a0bba09a384e304183243770b220693",
+  "settings_sha256": "5ce8867064402438c2299797d712d5c02274d9f298ec8f1ba0b3ee631d2bda6c",
+  "source_settings_sha256": "5ce8867064402438c2299797d712d5c02274d9f298ec8f1ba0b3ee631d2bda6c",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "organizer-A-q6.65-d4.30-s5.00",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-A-q6.65-d4.30-s5.00.stl",
+      "stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+      "triangles": 5904,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0035805702209472656,
+        0.0,
+        5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        119.5,
+        160.0,
+        5.0
+      ],
+      "plate_translation_mm": [
+        119.5,
+        160.0,
+        5.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          103.50358057022095,
+          144.0017900466919,
+          0.0
+        ],
+        [
+          135.49641942977905,
+          175.9982099533081,
+          10.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.99755792304768e-10
+    },
+    {
+      "name": "organizer-B-q6.75-d4.40-s5.10",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-B-q6.75-d4.40-s5.10.stl",
+      "stl_sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+      "triangles": 5904,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0035805702209472656,
+        0.0,
+        5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        5.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        5.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          146.50358057022095,
+          144.0017900466919,
+          0.0
+        ],
+        [
+          178.49641942977905,
+          175.9982099533081,
+          10.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.996337787943617e-10
+    },
+    {
+      "name": "organizer-C-q6.85-d4.50-s5.20",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-C-q6.85-d4.50-s5.20.stl",
+      "stl_sha256": "ab589c6fc7ebac37d8081b2aba553a25909b14acb6146ee042a8ac141e768b3c",
+      "triangles": 5904,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0035805702209472656,
+        0.0,
+        5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        205.5,
+        160.0,
+        5.0
+      ],
+      "plate_translation_mm": [
+        205.5,
+        160.0,
+        5.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          189.50358057022095,
+          144.0017900466919,
+          0.0
+        ],
+        [
+          221.49641942977905,
+          175.9982099533081,
+          10.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995115432393504e-10
+    }
+  ],
+  "project_sha256": "2e423cbbc13d4a9e8f911e06dfcb868d658a5e4362f98ef7937323361ff9589c",
+  "settings_preserved_byte_for_byte": true,
+  "samples": [
+    {
+      "label": "A",
+      "diameter_increment_from_saved_mm": 0.0,
+      "quarter_inch_bore_diameter_mm": 6.65,
+      "drain_bore_diameter_mm": 4.3,
+      "signal_bore_diameter_mm": 5.0,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.3
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.0
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        -43.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-A-q6.65-d4.30-s5.00.stl",
+      "sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+      "identical_to_saved_production_stl": true
+    },
+    {
+      "label": "B",
+      "diameter_increment_from_saved_mm": 0.1,
+      "quarter_inch_bore_diameter_mm": 6.75,
+      "drain_bore_diameter_mm": 4.4,
+      "signal_bore_diameter_mm": 5.1,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.4
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.1
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        0.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-B-q6.75-d4.40-s5.10.stl",
+      "sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+      "identical_to_saved_production_stl": false
+    },
+    {
+      "label": "C",
+      "diameter_increment_from_saved_mm": 0.2,
+      "quarter_inch_bore_diameter_mm": 6.85,
+      "drain_bore_diameter_mm": 4.5,
+      "signal_bore_diameter_mm": 5.2,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.5
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.2
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        43.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-C-q6.85-d4.50-s5.20.stl",
+      "sha256": "ab589c6fc7ebac37d8081b2aba553a25909b14acb6146ee042a8ac141e768b3c",
+      "identical_to_saved_production_stl": false
+    }
+  ],
+  "printer_connection": "Mark2",
+  "material": "physical PET-GF",
+  "slot": 254,
+  "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+  "requested_z_trim_mm": 0.04,
+  "probing_clump_detection": false,
+  "production_source_sha256": "c20b856c75128697eb1bba3fb584d93c8e786c2a194a0fd62f0a27a4652dd252",
+  "production_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+  "preparation_source_sha256": "6262486f0b2386b71600853302a395b4fb7614a3064d6af5856a8505759e5729",
+  "submitted": false,
+  "native": {
+    "archive": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "86a2889d8a6aa2a179035cac64e70d31255424abad8801663b06bece3d17dbfe",
+    "gcode_sha256": "f76dc5f1a533b9cf362af48e6048068c539fccb635d0fff2f9a7b5a71c9311fb",
+    "mesh_binding": [
+      {
+        "name": "organizer-A-q6.65-d4.30-s5.00",
+        "source_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+        "member": "3D/Objects/object_1.model",
+        "source_mesh_matches": true,
+        "vertex_count": 2944,
+        "triangle_count": 5904,
+        "max_coordinate_serialization_delta_mm": 5.251159667096772e-07
+      },
+      {
+        "name": "organizer-B-q6.75-d4.40-s5.10",
+        "source_sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+        "member": "3D/Objects/object_2.model",
+        "source_mesh_matches": true,
+        "vertex_count": 2944,
+        "triangle_count": 5904,
+        "max_coordinate_serialization_delta_mm": 5.251159667096772e-07
+      },
+      {
+        "name": "organizer-C-q6.85-d4.50-s5.20",
+        "source_sha256": "ab589c6fc7ebac37d8081b2aba553a25909b14acb6146ee042a8ac141e768b3c",
+        "member": "3D/Objects/object_3.model",
+        "source_mesh_matches": true,
+        "vertex_count": 2944,
+        "triangle_count": 5904,
+        "max_coordinate_serialization_delta_mm": 5.251159667096772e-07
+      }
+    ],
+    "estimated_time": "33m 49s",
+    "filament_g": [
+      12.28
+    ],
+    "first_layer_z_mm": 0.2,
+    "normal_layer_mm": 0.24,
+    "last_layer_z_mm": 10.04,
+    "layer_count": 42,
+    "supports": 0,
+    "pauses": 0,
+    "bare_G39_commands": 0,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          103.290858,
+          143.78885799999998
+        ],
+        [
+          221.709142,
+          176.21114200000002
+        ]
+      ],
+      "maximum_line_width_mm": 0.646284,
+      "bounds_padding_mm": 0.423142
+    },
+    "minimum_full_bead_bed_margin_mm": 103.29085799999999,
+    "objects": [
+      {
+        "identify_id": "1901",
+        "name": "organizer-A-q6.65-d4.30-s5.00",
+        "skipped": "false"
+      },
+      {
+        "identify_id": "1902",
+        "name": "organizer-B-q6.75-d4.40-s5.10",
+        "skipped": "false"
+      },
+      {
+        "identify_id": "1903",
+        "name": "organizer-C-q6.85-d4.50-s5.20",
+        "skipped": "false"
+      }
+    ],
+    "filaments": [
+      {
+        "id": "1",
+        "tray_info_idx": "GFT01",
+        "type": "PET-CF",
+        "color": "#161616",
+        "used_m": "3.96",
+        "used_g": "12.28",
+        "group_id": "0",
+        "nozzle_diameter": "0.40",
+        "volume_type": "Standard",
+        "used_for_object": "true",
+        "used_for_support": "false",
+        "total_load_time": "15.00",
+        "total_unload_time": "0.00"
+      }
+    ]
+  }
+}

@@ -1,5 +1,49 @@
 # Industrial faucet print log
 
+## Complete variable-layer recipe — selected 2026-10-09
+
+- Derek selects the earlier successful complete five-part print: base, shared
+  tip, industrial display cover, counter plate and side-down lever. The
+  [selection record](selected-print.json) binds the frozen archive and source
+  hashes for Mark2 task/job `1322285082`.
+- 0.20 mm first bed layer, 0.24 mm normal layers, and 0.08 mm on the base in
+  print Z13.40–29.00 and Z55.16–68.12 mm only. Native estimate: 6 h 13 min 4 s.
+- The [reported physical result](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
+  accepts beautiful fine-band finish and removal of their few thin-layer
+  supports. Lines/defects beside the screw points remain documented on this
+  exact article. No further complete faucet is submitted by this selection.
+- Variable layer height is the accepted shipping compromise; further
+  whole-faucet 0.08 mm iteration and research are deferred. Selection does not
+  establish structural strength, endurance or complete product qualification.
+
+## Tip starting-band complete faucet — failed 2026-10-09, Mark2
+
+- Exact accepted task/job `1324374637`,
+  `2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf`.
+  Archive SHA-256: `3dfb53e7a76e024790d88a4fbcfee1696c2c9e5a76e51989a1040cfeeb798c01`.
+  The [physical record and five photographs](prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json)
+  retain the exact G-code hash, original acceptance and process.
+- Complete five-part black PET-GF plate, fixed left hardened 0.4 mm nozzle,
+  Textured PEI, Mark2 +0.04 mm requested/+0.02 mm emitted trim. A 0.20 mm first
+  bed layer is followed by 0.08 mm model layers except for the tip's eight
+  0.24 mm starting layers through Z2.12, returning to 0.08 mm at Z2.20.
+  Saved temperatures, speeds, tree supports and normal motion settings are
+  retained. Base reinforcement is the continuous six-wall solid foot with
+  Arachne and 15% infill/wall overlap.
+- Derek reports failure of the tip and wing after they gained more height,
+  noting their small XY footprint relative to Z. Tip photos show localized
+  ragged/raised bands and loose strands. The rectangular display-cover wing
+  region shows an uneven/separated edge and loose extrusion above standing
+  supports. Loose debris is visible on the plate; the still photos do not
+  establish whether a piece tipped, shifted or contacted the nozzle.
+- Possible print-head dragging, potentially worsened by layer lifting, is
+  the operator's hypothesis. The initiating event and failure height are
+  unmeasured. No timelapse causal diagnosis is made for this article.
+- A fresh matching-job reading at 2026-10-10 03:25:28 UTC reports `FAILED`,
+  layer 0, print error 0 and no HMS entries. The terminal layer counter is
+  not the photographed failure height; telemetry does not assess physical
+  finish or identify the initiating event.
+
 ## Black PET-GF — 2026-09-18, Mark2
 
 - Complete Industrial shell base, shared shell tip, Industrial display cover

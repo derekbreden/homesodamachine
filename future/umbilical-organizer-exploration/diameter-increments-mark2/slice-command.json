@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/organizer-diameter-increments-mark2",
+  "--export-3mf",
+  "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.3mf"
+]

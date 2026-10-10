@@ -1,0 +1,381 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "authorization_quotes": [
+    "So what we have now, and then tenth millimeter increase on all holes, and then another tenth millimeter increase on all holes.",
+    "Mark two bed is clear. Go ahead and start it whenever you're ready."
+  ],
+  "archive": "future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "86a2889d8a6aa2a179035cac64e70d31255424abad8801663b06bece3d17dbfe",
+  "gcode_sha256": "f76dc5f1a533b9cf362af48e6048068c539fccb635d0fff2f9a7b5a71c9311fb",
+  "project": "future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "2e423cbbc13d4a9e8f911e06dfcb868d658a5e4362f98ef7937323361ff9589c",
+  "samples": [
+    {
+      "label": "A",
+      "diameter_increment_from_saved_mm": 0.0,
+      "quarter_inch_bore_diameter_mm": 6.65,
+      "drain_bore_diameter_mm": 4.3,
+      "signal_bore_diameter_mm": 5.0,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.65
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.3
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.0
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        -43.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-A-q6.65-d4.30-s5.00.stl",
+      "sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+      "identical_to_saved_production_stl": true
+    },
+    {
+      "label": "B",
+      "diameter_increment_from_saved_mm": 0.1,
+      "quarter_inch_bore_diameter_mm": 6.75,
+      "drain_bore_diameter_mm": 4.4,
+      "signal_bore_diameter_mm": 5.1,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.75
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.4
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.1
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        0.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-B-q6.75-d4.40-s5.10.stl",
+      "sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+      "identical_to_saved_production_stl": false
+    },
+    {
+      "label": "C",
+      "diameter_increment_from_saved_mm": 0.2,
+      "quarter_inch_bore_diameter_mm": 6.85,
+      "drain_bore_diameter_mm": 4.5,
+      "signal_bore_diameter_mm": 5.2,
+      "bores": [
+        {
+          "name": "S",
+          "axis_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "F1",
+          "axis_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "F2",
+          "axis_xy_mm": [
+            -7.2749999999999995,
+            18.925
+          ],
+          "diameter_mm": 6.85
+        },
+        {
+          "name": "D",
+          "axis_xy_mm": [
+            0.0,
+            8.9
+          ],
+          "diameter_mm": 4.5
+        },
+        {
+          "name": "SIG",
+          "axis_xy_mm": [
+            5.45,
+            11.5
+          ],
+          "diameter_mm": 5.2
+        }
+      ],
+      "length_mm": 10.0,
+      "od_mm": 32.0,
+      "bed_offset_xy_mm": [
+        43.0,
+        0.0
+      ],
+      "native_faces": 20,
+      "native_edges": 42,
+      "valid_single_solid": true,
+      "source": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-C-q6.85-d4.50-s5.20.stl",
+      "sha256": "ab589c6fc7ebac37d8081b2aba553a25909b14acb6146ee042a8ac141e768b3c",
+      "identical_to_saved_production_stl": false
+    }
+  ],
+  "material": "PET-GF",
+  "printer_material_label": "PET-CF/GFT01",
+  "external_slot": 254,
+  "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+  "plate": "Textured PEI",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "native_estimate": "33 min 49 s",
+  "native_estimated_seconds": 2029,
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "launch_method": "tools/bambu_print.py foreground sender with private runtime display aliases Mark1/Mark2; connection target Mark2 unchanged",
+  "launcher": "tools/cad-venv/bin/python .cache/printer-control/send-organizer-increments.py <archive> Mark2 --attempts 1",
+  "launch_authorized": true,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "send_attempted": true,
+  "send_click_count": 1,
+  "accepted": true,
+  "submitted": true,
+  "status": "Accepted exact three-organizer archive after one foreground import and one Send; startup underway",
+  "send_attempted_at_utc": "2026-10-10T03:37:17.602200+00:00",
+  "foreground_launcher_invocations": 1,
+  "send_click_recorded_before_input_at_utc": "2026-10-10T03:37:29.067931+00:00",
+  "send_successful": true,
+  "send_count": 1,
+  "import_count": 1,
+  "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00",
+  "accepted_at_central": "2026-10-09T22:37:36.079198-05:00",
+  "printer_task_id": "1325126748",
+  "printer_job_id": "1325126748",
+  "accepted_archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "acceptance_observation": {
+    "observed_at_utc": "2026-10-10T03:37:36.079198+00:00",
+    "reading": {
+      "task_id": "1325126748",
+      "job_id": "1325126748",
+      "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "layer_num": 0,
+      "total_layer_num": 3509,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1
+    }
+  },
+  "latest_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-10T03:38:12.825501+00:00",
+    "task_id": "1325126748",
+    "job_id": "1325126748",
+    "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 42,
+    "mc_percent": 0,
+    "mc_remaining_time": 33,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 43.0,
+    "bed_target_temper": 43.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "ASA-AERO",
+        "tray_info_idx": "GFB02",
+        "tray_color": "FFFFFFFF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 43,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 192,
+          "target_c": 200
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 33,
+      "target_c": 0
+    }
+  },
+  "post_start_peer_observation": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-10T03:38:12.418701+00:00",
+    "task_id": "1324612230",
+    "job_id": "1324612230",
+    "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 46,
+    "total_layer_num": 813,
+    "mc_percent": 17,
+    "mc_remaining_time": 1364,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "timelapse": null,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "fixed_extruders": [
+      {
+        "id": 0,
+        "mounted_nozzle": {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 53,
+          "target_c": 0
+        }
+      },
+      {
+        "id": 1,
+        "mounted_nozzle": {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        "temperature": {
+          "actual_c": 280,
+          "target_c": 280
+        }
+      }
+    ],
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  },
+  "forecast_complete_at_utc": "2026-10-10T04:11:25.079198+00:00",
+  "forecast_complete_at_central": "2026-10-09T23:11:25.079198-05:00",
+  "first_layer_visually_observed": false,
+  "start_notification_reported": true
+}

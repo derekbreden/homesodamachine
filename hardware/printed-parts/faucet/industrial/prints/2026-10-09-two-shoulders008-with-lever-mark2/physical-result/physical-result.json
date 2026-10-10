@@ -28,7 +28,7 @@
         68.12
       ]
     ],
-    "scope": "These two fine bands and their few supported thin layers on the identified PET-GF base. An all-0.08 faucet has only an offline time estimate."
+    "scope": "These two fine bands and their few supported thin layers on the identified PET-GF base; no whole-faucet all-0.08 finish or cleanup acceptance."
   },
   "photos": [
     {
@@ -41,5 +41,6 @@
     }
   ],
   "native_diagnosis_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-estimate-mark2/native-screw-track-assessment.json",
-  "scope": "Physical surface finish and support removal only; no load-capacity or endurance measurement."
+  "scope": "Physical surface finish and support removal only; no load-capacity or endurance measurement.",
+  "selected_recipe_reference": "hardware/printed-parts/faucet/industrial/selected-print.json"
 }
