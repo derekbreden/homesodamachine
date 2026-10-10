@@ -24,7 +24,7 @@ A board and a USB-C cable. Nothing else is required, and nothing is hand-wired.
 Off-board connectors (J1–J9, J11, J13) can stay empty. The console reads them either way,
 and reads *empty* correctly — a floating input and an unlit divider are the expected result.
 
-The one connector worth populating is **J13**: a Kamoer KPHM400 on the `AM2`/`AM1` pair
+The one connector worth populating is **J13**: a Kamoer KPHM600 on the `AM2`/`AM1` pair
 (pump A) or the `BM2`/`BM1` pair (pump B) turns the two DRV8870s into an audible test,
 which is what `pump` below is for. Both pins of a pair go to the same motor and either
 polarity is a pass — the head is bidirectional, so which way it turns carries no verdict.
@@ -139,7 +139,7 @@ GND plane, so `IN1` high drives and `IN1` low coasts, one direction only; polari
 connector sets which way the head turns and either way is a pass. A brownout reset stops
 the motor: the pin reverts to an input, which the DRV8870's own input pull-down coasts.
 `ISEN` sits on GND with no sense resistor, so the chip's current limit never trips and the
-motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
+motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM600.
 
 ## The J9 link
 

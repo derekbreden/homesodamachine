@@ -186,7 +186,7 @@ C_DOCK = cq.Color(0.09, 0.09, 0.10)
 # lacquered coil pack stacked on top of it, which is its own body and its own material.
 C_VALVE = cq.Color(0.93, 0.93, 0.91)
 C_COIL = cq.Color(0.20, 0.20, 0.23)
-# The Kamoer KPHM400's three, READ OFF THE PUMP ON THE BENCH rather than named — the photo set
+# The Kamoer pump's three, READ OFF THE PUMP ON THE BENCH rather than named — the photo set
 # at `off-the-shelf-parts/kamoer-kphm400/raw-images/` is what says which is which: a black
 # moulded head, a WHITE moulded rotor housing under it (the bracket the mounting holes go
 # through), and a bare steel motor can behind that.
