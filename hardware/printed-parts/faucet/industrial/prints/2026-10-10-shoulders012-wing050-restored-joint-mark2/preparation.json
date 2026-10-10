@@ -8,8 +8,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "9fbb7dc70b81f53867f3daf79f3c2a511b9e3cc45351b8cf3581e8a255acd49c",
-      "triangles": 148484,
+      "stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+      "triangles": 148446,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.0,
@@ -458,7 +458,7 @@
   },
   "schema": 1,
   "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
-  "project_sha256": "30c288e4ea55c011cdc0e8d7f92d73852cef8a55b2d417033daec2649d9d8c49",
+  "project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
   "printer": "Mark2",
   "process": "0.24mm PET-GF faucet; 0.12 mm base shoulder ranges",
   "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf",
@@ -718,7 +718,7 @@
   "accepted": false,
   "physical_finish_evaluated": false,
   "source_sha256": {
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9fbb7dc70b81f53867f3daf79f3c2a511b9e3cc45351b8cf3581e8a255acd49c",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
@@ -727,9 +727,9 @@
     "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.3mf": "f98b18e9bd2173958889d25958e780de40e0859a1e2686e13431e33ec7866145",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.3mf": "2ba72e33f8d808e678cb90d20874e4236c7b9c90ac942d3eabd083f8e199a1e3",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.3mf": "636aaa95d41b59c1aaa8ae05b993296b803ae1a84b9b1882f0c74e2089675929",
-    "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json": "3b659c672b208ec3c5ebd282999c70e9710ce29169a169398d9df1ac708aa12b",
+    "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf": "a229655e89acbb9155473b199e44e97ef7c3eeeaf7c7c34121b5dd20adbb5cbe",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b0e041857b8c9800a30e4ba70f341f6a9ebb59355f558a166c00ea4fb40dd2d7",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b4bd58e0ab474fae08cf6d133f029fe9524fad639c3ba64e0bc3f1123a3f8268",
     "hardware/printed-parts/faucet/faucet_paths.py": "7d81983ad3920e973f729febaad77a713a55a6706f6dae53c74f94ada010b0b2",
     "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5"
   },
@@ -752,7 +752,7 @@
   },
   "cover_authorization_quote": "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
   "start_authorization_quote": "I think that's all that remains, please start that print on Mark 2 when you're ready.",
-  "recorded_at_utc": "2026-10-10T07:33:44.713968+00:00",
+  "recorded_at_utc": "2026-10-10T08:02:28.998530+00:00",
   "status": "Restored complete faucet authorized; awaiting native review",
   "drain_trial": {
     "hole_diameter_mm": 4.0,
@@ -775,7 +775,7 @@
     {
       "part": "industrial-shell-base",
       "previous_source_sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
-      "source_sha256": "9fbb7dc70b81f53867f3daf79f3c2a511b9e3cc45351b8cf3581e8a255acd49c"
+      "source_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f"
     },
     {
       "part": "faucet-shell-tip",
