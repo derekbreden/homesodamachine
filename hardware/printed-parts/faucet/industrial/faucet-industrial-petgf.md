@@ -1,12 +1,26 @@
 # Industrial faucet PET-GF print project
 
-The [complete Mark2 0.08 mm print](prints/2026-10-09-all008-solid-foot-mark2/README.md)
+The [selected complete Mark2 print](prints/2026-10-09-two-shoulders008-with-lever-mark2/README.md)
 contains all five rigid parts, including the accepted side-down lever replica.
-Its single continuous six-wall solid foot removes the native wall starts/stops
-beside the three screw hosts. The base uses Arachne wall widths with 15% infill/wall
-overlap; all three native insert-backing reviews pass. This plate retains the
-0.20 mm first bed layer and Mark2's +0.04 mm requested trim. Its source meshes and
-placements match the identified complete fine-shoulder plate.
+It uses 0.20 mm first bed layers and 0.24 mm layers above them, with 0.08 mm
+layers on the base only at print Z13.40–29.00 and Z55.16–68.12 mm. Those bands
+cover the two selected annular shoulder faces. Its native estimate is
+**6 h 13 min 4 s**. Mark2's +0.04 mm requested trim emits +0.02 mm on Textured PEI.
+
+The [selection record](selected-print.json) binds the exact prepared project,
+native archive, five source meshes and earlier successful complete print.
+The [physical result](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
+records beautiful finish in those fine bands and successful removal of their
+few thin-layer supports. Exterior lines beside the three screw points remain a
+documented finish issue on this exact archive. It retains the three local
+six-wall solid insert-host modifiers; experimental continuous-foot and Arachne
+settings are not part of the selected archive.
+
+Variable layer height is Derek's accepted shipping compromise. Further
+whole-faucet 0.08 mm iteration and research are deferred. The
+[tip starting-band result](prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json)
+records tip and wing disruption without establishing its initiating cause.
+Physical finish and support cleanup do not establish load capacity or endurance.
 
 The four-part 0.24 mm project and preparation workflow are described below.
 

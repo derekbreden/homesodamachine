@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T03:33:45.948084+00:00",
+  "status": "Selected complete variable-layer faucet recipe",
+  "authority": "Derek selects the earlier successful complete faucet and accepts variable layer height as the shipping compromise",
+  "authorization_quote": "In any case, let\u2019s go with the earlier successful print of the complete faucet. I was so impressed with how clean the 0.08 layered areas on that one looked I wanted to see if we could do the whole thing, and I think the answer at this point is it will take further iteration and research to be able to do that, and the variable layer height will be our compromise we are okay shipping.",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "047fe6067d1f5943f294c084304a3ef1c5ad628fcbe4afa854c1627683759aa2",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "5e017415c3edb51d3ec7d422dc0351bbc2e67a155e0ec9edf23c34fa16a724bd",
+  "gcode_sha256": "5a027278f4c0544e08a0a83389c9e7fbcc7673eb08b99eb6009e5968be92c6f2",
+  "prior_printer_job_id": "1322285082",
+  "prior_accepted_at_utc": "2026-10-09T05:33:43.021899+00:00",
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "b14640fc39ac7285897051b46cfd87c48de5335aac14de820c11fc2ce49418ce",
+      "rotation_x_degrees": -14.999999999999998
+    },
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "9e5b2b636e85adb343717801a544d66c4bf22529a649acdb18ebc37e013a432b",
+      "rotation_x_degrees": -95.0
+    },
+    {
+      "name": "industrial-display-cover",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "stl_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+      "rotation_x_degrees": -50.0
+    },
+    {
+      "name": "industrial-above-counter-plate",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+      "rotation_x_degrees": 0.0
+    },
+    {
+      "name": "lever-replica",
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "rotation_x_degrees": 0.0
+    }
+  ],
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.08,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "Three local six-wall solid base insert-host modifiers",
+    "supports": "Tree (auto), saved style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "native_estimated_seconds": 22384.240234375,
+  "native_estimate": "6 h 13 min 4 s, plus operator pauses if any",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/native-check.json",
+  "native_check_sha256": "78803535ec7aec190b0ce305e7ae6003c5831b3e33b58ea2cc3edea94252dbac",
+  "minimum_full_bead_bed_margin_mm": 25.153235999999993,
+  "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json",
+  "accepted_physical_scope": "Reported beautiful finish in the two base 0.08 mm bands and successful removal of their few thin-layer supports; complete variable-layer recipe selected by Derek.",
+  "known_exterior_issue": "Lines/defects beside the three base screw points remain documented on this exact archive. Experimental continuous-foot/Arachne settings are not merged into it.",
+  "all_fine_trials": {
+    "status": "Further iteration and research deferred",
+    "latest_failure": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json"
+  },
+  "new_print_submitted": false,
+  "scope": "Recipe selection and reported finish/cleanup acceptance; no structural strength, endurance or complete product qualification claim."
+}

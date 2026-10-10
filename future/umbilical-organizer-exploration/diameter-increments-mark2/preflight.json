@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "observed_at_utc": "2026-10-10T03:37:17.602200+00:00",
+  "printer": "Mark2",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-10T03:36:43.124322+00:00",
+      "task_id": "1324612230",
+      "job_id": "1324612230",
+      "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 46,
+      "total_layer_num": 813,
+      "mc_percent": 17,
+      "mc_remaining_time": 1366,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 53,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-10T03:36:42.601738+00:00",
+      "task_id": "1324374637",
+      "job_id": "1324374637",
+      "subtask_name": "2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 3509,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 43.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 43,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 41,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    }
+  ],
+  "bed_clear_authorization": "Mark two bed is clear. Go ahead and start it whenever you're ready.",
+  "peer_last_known_accepted_start_at_utc": "2026-10-09T22:46:10.427131+00:00",
+  "peer_task_id": "1324612230",
+  "spacing_seconds_at_preflight": 17467.175069,
+  "minimum_spacing_seconds": 180,
+  "archive": "future/umbilical-organizer-exploration/diameter-increments-mark2/2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "86a2889d8a6aa2a179035cac64e70d31255424abad8801663b06bece3d17dbfe",
+  "gcode_sha256": "f76dc5f1a533b9cf362af48e6048068c539fccb635d0fff2f9a7b5a71c9311fb",
+  "reviewed_object_count": 3,
+  "source_A_identical_to_saved": true,
+  "probing_clump_detection": false,
+  "pass": true,
+  "scope": "Printer readiness, mappings, reviewed archive and circuit spacing; no visual adhesion or physical fit claim."
+}
