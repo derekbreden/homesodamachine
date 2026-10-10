@@ -1,0 +1,25 @@
+[thin] The separate tube bores and flat signal slot follow the mounting row. The straight drain-to-slot web is 1.0625 mm and the closest round-bore web is 1.3148 mm; their entrance chamfers reduce those figures locally to 0.4625 and 0.5148 mm. The narrow entrance regions are short tapers into the full 10 mm puck, rather than freestanding retaining walls. The four round bores retain the selected diameters, 0.4 mm entrance chamfers and 9.2 mm contact length. This geometry supplies spacing and hand adjustment; the unprinted layout has no load-capacity or endurance acceptance.
+alternatives: Greater flavor spread or a farther-forward drain thickens the webs but increases the displacement from the mounting slots; a round cable hole needs a larger rear offset to retain a separate drain wall. Smaller entrance chamfers increase local stock but shorten the tube lead-in or ribbon threading relief. A joined opening removes the web but does not preserve four separate round tube passages.
+file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
+click: x=0.013 y=9.346 z=9.917
+click: x=0.013 y=10.093 z=9.800
+click: x=0.013 y=9.346 z=0.083
+click: x=0.013 y=10.093 z=0.200
+
+[thin] The outer stock around the three beverage bores is at least 1.9371 mm through the straight contact region. The 0.6 mm rim ease and 0.4 mm tube entrances reduce it at the upper and lower edges. Those tapers ease feeding the bare tube ends and expanding the braid over the puck. The round stock is centered on the beverage-bore circumcentre, so all three receive the same nominal exterior backing. The nominal braided envelope is 34 mm inside the 34.93 mm installation hole; physical braid passage and the unprinted layout remain unmeasured.
+alternatives: Increasing the puck diameter adds backing but consumes the 0.465 mm nominal radial braid clearance. Moving the bores inward changes the relationship to the mounting slots and tube-to-tube webs. Reducing the rim or tube-entry chamfers adds stock at the edges but reduces their feeding relief; it does not increase the straight-bore backing.
+file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
+click: x=-9.534 y=12.277 z=9.850
+click: x=-8.644 y=11.091 z=9.600
+click: x=-9.534 y=12.277 z=0.150
+click: x=-8.644 y=11.091 z=0.400
+click: x=-3.201 y=-15.211 z=9.850
+click: x=-2.914 y=-13.756 z=9.600
+click: x=-3.201 y=-15.211 z=0.150
+click: x=-2.914 y=-13.756 z=0.400
+click: x=9.483 y=12.316 z=9.850
+click: x=8.593 y=11.128 z=9.600
+click: x=9.483 y=12.316 z=0.150
+click: x=8.593 y=11.128 z=0.400
+click: x=-2.978 y=-13.743 z=3.851
+click: x=-3.352 y=-15.640 z=3.851
