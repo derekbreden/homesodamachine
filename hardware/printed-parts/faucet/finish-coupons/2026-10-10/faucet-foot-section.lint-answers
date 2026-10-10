@@ -1,0 +1,36 @@
+[thin] These locations retain the exact accepted Industrial foot's cavity boundaries, registration sockets, local edge intersections and three-millimetre exterior shell. The smallest readings lie at the source shoulder at CAD Z14; this coupon adds no fins or intermediate discs. Preserving those surfaces is necessary for this replication plate to compare cooling on the geometry with the reported supported-edge lifting. This entry accepts the geometry for an experiment; it does not qualify sub-millimetre material for production strength.
+alternatives: Thickening or blending these locations would change contact geometry, local heat capacity and the lifting replication. A simplified solid foot would omit the original cavity and support pattern. Those are separate geometry candidates after this controlled comparison.
+file: hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step
+click: x=-8.341 y=30.968 z=13.831
+click: x=-8.813 y=30.817 z=13.872
+click: x=8.341 y=30.968 z=13.831
+click: x=8.813 y=30.817 z=13.872
+click: x=11.387 y=14.422 z=18.035
+click: x=11.350 y=14.596 z=18.535
+click: x=-6.858 y=31.404 z=13.714
+click: x=0.018 y=-16.959 z=14.663
+click: x=0.040 y=-14.833 z=14.094
+click: x=-18.421 y=-1.328 z=8.820
+click: x=-15.943 y=-1.094 z=8.758
+click: x=18.412 y=-1.017 z=10.392
+click: x=15.929 y=-0.809 z=10.336
+click: x=29.385 y=-2.355 z=8.712
+click: x=26.588 y=-2.119 z=8.648
+click: x=26.585 y=-2.053 z=9.011
+click: x=29.382 y=-2.290 z=9.074
+click: x=-29.382 y=-2.380 z=8.726
+click: x=-26.586 y=-2.143 z=8.663
+click: x=-26.582 y=-2.088 z=9.020
+click: x=-29.379 y=-2.324 z=9.083
+click: x=0.008 y=-11.778 z=25.498
+click: x=-0.022 y=-14.674 z=26.273
+click: x=-0.030 y=-12.822 z=33.182
+click: x=-0.045 y=-9.926 z=32.406
+
+[ledge] These are the accepted foot's tilted rear shoulder and three screw-pilot terminations. They retain the source geometry in its minus-fifteen-degree pose and Bambu automatic tree support decisions. The bottom donor opening and plate sockets remain accessible before assembly. Reproducing these supported contact surfaces is the purpose of the cooling specimens; coupon release and lifting are physically unevaluated.
+alternatives: Bevels or through-openings would remove the supported contact being investigated and change the pilot geometry. Blocking support would change the accepted process. Neither change isolates the cooling comparison.
+file: hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step
+click: x=-0.273 y=32.307 z=13.472
+click: x=-0.128 y=-18.760 z=21.410
+click: x=23.018 y=0.267 z=16.312
+click: x=-21.982 y=0.267 z=16.312

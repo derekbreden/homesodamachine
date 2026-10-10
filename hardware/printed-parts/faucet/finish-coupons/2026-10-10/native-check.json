@@ -1,0 +1,364 @@
+{
+  "schema": 1,
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
+  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "21257b4497df0ef155e6ef96870c6f36cb15279709dfc9a61c0d71e4a4192bd3",
+  "geometry": [
+    {
+      "name": "A foot current cooling",
+      "native_vertex_rounding_maximum_mm": 1.95715333006774e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374"
+    },
+    {
+      "name": "B foot half cooling",
+      "native_vertex_rounding_maximum_mm": 1.95715333006774e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374"
+    },
+    {
+      "name": "C foot stronger cooling",
+      "native_vertex_rounding_maximum_mm": 1.95715333006774e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374"
+    },
+    {
+      "name": "D neck regular seam",
+      "native_vertex_rounding_maximum_mm": 1.0033569424194866e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757"
+    },
+    {
+      "name": "E neck scarf 10mm",
+      "native_vertex_rounding_maximum_mm": 1.0033569424194866e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757"
+    },
+    {
+      "name": "F neck scarf 20mm",
+      "native_vertex_rounding_maximum_mm": 1.0033569424194866e-06,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757"
+    }
+  ],
+  "native_settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "layer_band_checks": [
+    {
+      "name": "A foot current cooling",
+      "print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "wall_layer_count": 130,
+      "first_wall_layer": [
+        13.52,
+        0.120001
+      ],
+      "last_wall_layer": [
+        29.0,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "B foot half cooling",
+      "print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "wall_layer_count": 130,
+      "first_wall_layer": [
+        13.52,
+        0.120001
+      ],
+      "last_wall_layer": [
+        29.0,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "C foot stronger cooling",
+      "print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "wall_layer_count": 130,
+      "first_wall_layer": [
+        13.52,
+        0.120001
+      ],
+      "last_wall_layer": [
+        29.0,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "D neck regular seam",
+      "print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "wall_layer_count": 240,
+      "first_wall_layer": [
+        16.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        35.24,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "E neck scarf 10mm",
+      "print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "wall_layer_count": 240,
+      "first_wall_layer": [
+        16.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        35.24,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "F neck scarf 20mm",
+      "print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "wall_layer_count": 240,
+      "first_wall_layer": [
+        16.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        35.24,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "complete_model_support_brim_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        61.439394,
+        103.000394
+      ],
+      [
+        263.758606,
+        228.333606
+      ]
+    ],
+    "maximum_line_width_mm": 0.767212,
+    "bounds_padding_mm": 0.483606
+  },
+  "minimum_full_bead_bed_margin_mm": 61.241394000000014,
+  "first_second_layer_overlap": [
+    {
+      "id": "A",
+      "second_wall_segments": 39,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9997276601030681,
+      "total_second_wall_footprint_overlap_fraction": 0.9998358860247802
+    },
+    {
+      "id": "B",
+      "second_wall_segments": 39,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9997287348251931,
+      "total_second_wall_footprint_overlap_fraction": 0.9998359923159873
+    },
+    {
+      "id": "C",
+      "second_wall_segments": 39,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9997287348251931,
+      "total_second_wall_footprint_overlap_fraction": 0.9998359923159873
+    },
+    {
+      "id": "D",
+      "second_wall_segments": 329,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4849252079170891,
+      "total_second_wall_footprint_overlap_fraction": 0.8168791477368933
+    },
+    {
+      "id": "E",
+      "second_wall_segments": 372,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4849252079170911,
+      "total_second_wall_footprint_overlap_fraction": 0.8168791403660468
+    },
+    {
+      "id": "F",
+      "second_wall_segments": 381,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4849252079170911,
+      "total_second_wall_footprint_overlap_fraction": 0.8168745028778037
+    }
+  ],
+  "support_deposition_segment_counts": {
+    "1903": 131019,
+    "1902": 131009,
+    "1901": 131009
+  },
+  "fine_outer_wall_scarf_Z_ramp_segments": {
+    "1906": 5988,
+    "1905": 3713,
+    "1904": 0
+  },
+  "scarf_witnesses": {
+    "1906": [
+      [
+        16.12,
+        16.048,
+        16.049
+      ],
+      [
+        16.12,
+        16.049,
+        16.051
+      ],
+      [
+        16.12,
+        16.051,
+        16.051
+      ],
+      [
+        16.12,
+        16.051,
+        16.052
+      ],
+      [
+        16.12,
+        16.052,
+        16.053
+      ],
+      [
+        16.12,
+        16.053,
+        16.054
+      ],
+      [
+        16.12,
+        16.054,
+        16.056
+      ],
+      [
+        16.12,
+        16.056,
+        16.057
+      ],
+      [
+        16.12,
+        16.057,
+        16.059
+      ],
+      [
+        16.12,
+        16.059,
+        16.059
+      ]
+    ],
+    "1905": [
+      [
+        16.12,
+        16.048,
+        16.051
+      ],
+      [
+        16.12,
+        16.051,
+        16.053
+      ],
+      [
+        16.12,
+        16.053,
+        16.055
+      ],
+      [
+        16.12,
+        16.055,
+        16.056
+      ],
+      [
+        16.12,
+        16.056,
+        16.059
+      ],
+      [
+        16.12,
+        16.059,
+        16.06
+      ],
+      [
+        16.12,
+        16.06,
+        16.064
+      ],
+      [
+        16.12,
+        16.064,
+        16.065
+      ],
+      [
+        16.12,
+        16.065,
+        16.07
+      ],
+      [
+        16.12,
+        16.07,
+        16.07
+      ]
+    ],
+    "1904": []
+  },
+  "requested_Z_trim_mm": 0.04,
+  "emitted_Z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "probing_clump_detection": false,
+  "native_estimated_seconds": 26882.818359375,
+  "native_estimated_grams_saved_profile_density": 169.59397888183594,
+  "scope": "Commanded geometry, layer heights, bead footprints and scarf ramps; physical lifting, seam quality, adhesion and support release remain unevaluated.",
+  "pass": true
+}
