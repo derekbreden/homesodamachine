@@ -5,7 +5,8 @@ in the [manufacturer's metric tubing table](https://assets.freshwatersystems.com
 The lower donor transition, upper bend and tip have one smooth shared opening
 around the tubes and flat insulated ribbon. Analytic tangent walls join the complete rounded
 clearance profiles; the flavor pair shares a capsule without a divider or
-outlet cusp. The 70° curved joint has a female base and male tip.
+outlet cusp. The rear donor arch clearance joins the common opening; the
+lever entry remains open up to the neck shoulder. The 70° curved joint has a female base and male tip.
 The drain ends square with 3 mm of local clearance beyond its mouth. A round
 Ø4 mm underside hole opens into the common passage clearance over the bowl.
 No transverse guide discs, large round neck cavity, bung, gasket or insertion

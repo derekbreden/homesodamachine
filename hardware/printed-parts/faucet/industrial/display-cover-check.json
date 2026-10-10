@@ -1,11 +1,11 @@
 {
   "passed": true,
   "geometry_source_sha256": {
-    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "b6aff9f744154424ebe4f298d44cc060250b76db64156200229518cb5874e5b1",
+    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
     "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
-    "hardware/faucet-layout/faucet_assembly.py": "1590e580e2820d9770ea63212bfb827599dc5d83b8aa7c0c3419a8f5e985c8fa",
+    "hardware/faucet-layout/faucet_assembly.py": "3855ac2629d461d9b45cf1d6b17c4768ecaaa90ffe45516827172ed5f18673f6",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "d767bafd089832572bf633e47cde6f1073e1d699d36d976647d7d3b7805e8fcb",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b4bd58e0ab474fae08cf6d133f029fe9524fad639c3ba64e0bc3f1123a3f8268",
     "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
@@ -15,8 +15,8 @@
   "saved_geometry_sha256": {
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "3df28b22e8053d5a7ffa053ba9417f41ad6509f5b453152cdd388521f0416952",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "f5edee6d2e2f9aed7c328388742f6b2f6800d6b5c5cee7f91fed5d16e6039121"
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
   },
   "checks": {
     "provenance:saved-cover-current-builder": {
@@ -127,6 +127,11 @@
       "gap_mm": 4.2796011,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "solid:display-motion-obstacle": {
+      "uses_complete_stock": false,
+      "method": "A valid conservative crop or the complete unchanged source obstacle; no stock is omitted on crop failure",
       "passed": true
     },
     "wall:cover-lip--1": {
@@ -333,7 +338,7 @@
       "passed": true
     },
     "bearing:display-lip-flat-lands-+1": {
-      "minimum_sampled_flat_common_width_mm": 0.8619991,
+      "minimum_sampled_flat_common_width_mm": 0.8619992,
       "required_flat_common_width_mm": 0.75,
       "lip_top_planar_area_mm2": 71.6901815,
       "lip_bottom_planar_area_mm2": 65.4520371,
@@ -382,7 +387,7 @@
         {
           "s_mm": 38.01241,
           "floor_flat_common_width_mm": 0.972776,
-          "retaining_flat_common_width_mm": 0.8619991
+          "retaining_flat_common_width_mm": 0.8619992
         }
       ],
       "method": "exact line intervals on actual planar lip and groove faces at nine S stations per side; upper lip translated to the groove ceiling before comparing its flat overlap",
@@ -484,7 +489,7 @@
     "retention:display-snaps": {
       "outward_capture_probe_mm": 0.58,
       "nominal_roof_allowance_mm": 0.48,
-      "interference_on_outward_lift_mm3": 5.0262806,
+      "interference_on_outward_lift_mm3": 5.0262807,
       "actual_shoulder_capture_mm3": 4.9958883,
       "groove_root_camming_contact_mm3": 0.0303924,
       "contact_outside_actual_lips_mm3": 0.0,
@@ -621,7 +626,7 @@
         },
         {
           "normal_lift_mm": 1.0,
-          "unflexed_body_interference_mm3": 27.4487464,
+          "unflexed_body_interference_mm3": 27.4487465,
           "contact_outside_actual_lips_mm3": 0.0,
           "contact_outside_lower_skirts_mm3": 0.0,
           "deepest_contact_outside_lips_mm": 0.0,
@@ -762,7 +767,7 @@
     "clearance:snap-travel-ribbon-neck": {
       "maximum_sampled_overlap_mm3": 0.0,
       "maximum_overlap_pose": null,
-      "minimum_sampled_gap_lower_bound_mm": 3.3098093,
+      "minimum_sampled_gap_lower_bound_mm": 0.2874659,
       "required_gap_mm": 0.1,
       "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
       "passed": true
@@ -1311,7 +1316,7 @@
         },
         {
           "part": "shell_tip",
-          "relevant_volume_mm3": 176.4886641,
+          "relevant_volume_mm3": 176.4886639,
           "outside_cylinder_mm3": 0.0
         },
         {
@@ -7384,9 +7389,37 @@
     "bezel_n_bottom": 21.05
   },
   "reference_artifact_sha256": {
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "912d892d985bb044ef8f4012c477e74f857bdf4a74b80da561278913c320b37b",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "f5edee6d2e2f9aed7c328388742f6b2f6800d6b5c5cee7f91fed5d16e6039121"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
   },
-  "validation_script_sha256": "b6aff9f744154424ebe4f298d44cc060250b76db64156200229518cb5874e5b1",
-  "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial."
+  "validation_script_sha256": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
+  "scope": "Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.",
+  "retained_measurement_scope": {
+    "source_geometry_sha256": {
+      "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "3df28b22e8053d5a7ffa053ba9417f41ad6509f5b453152cdd388521f0416952",
+      "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "d7e0a9f4615d449991f9217a5070a762159b9ea51b1fbfd7c386e92901bf3c89",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e"
+    },
+    "source_builder_sha256": {
+      "hardware/printed-parts/faucet/industrial/check_display_cover.py": "343e215a43b70ed9ab22d7404889600d3f86f52148ffa853adb5b0bcab50561d",
+      "hardware/scripts/check_faucet_geometry.py": "b13f3b811e87e0500389c59c9ce1bd35bb53727e369d88533fec2cc2d440be4b",
+      "hardware/faucet-layout/faucet_assembly.py": "3855ac2629d461d9b45cf1d6b17c4768ecaaa90ffe45516827172ed5f18673f6",
+      "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b0e041857b8c9800a30e4ba70f341f6a9ebb59355f558a166c00ea4fb40dd2d7",
+      "hardware/printed-parts/faucet/_faucet_interface.py": "18d2d0aebdb958efaebe23f0894a154af86f7d6e3ceb50029b9b24dfaaca193f",
+      "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+      "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+      "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
+    },
+    "current_lower_stock_reading": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
+    "unchanged_complete_tip_native_DATA": true,
+    "changed_executable_builders": [
+      "build_lever_front_clearance",
+      "build_zone3_inner_cut"
+    ],
+    "changed_stock_cad_z_max_mm": 57.5,
+    "scope": "The 45 cover measurements and complete display obstacle remain unchanged. The only executable corrections open donor/lever clearances below CAD Z57.5; the complete tip native STEP DATA and all cover geometry are unchanged."
+  }
 }

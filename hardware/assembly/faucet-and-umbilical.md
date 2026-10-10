@@ -232,6 +232,5 @@ A bagged sub-assembly that is:
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/.cache/printer-control/update-organizer-docs-and-viewers.py`
 - `/hardware/assembly/_faucet_and_umbilical_sync.py`
 - `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
