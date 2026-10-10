@@ -1,0 +1,123 @@
+{
+  "project": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf",
+  "project_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+  "settings_sha256": "ddb0eac93741d12cf70e4ff3cfeb045d87b1cb4d7d6040e1c0a211e6c780eb88",
+  "slicer": "BambuStudio 02.08.02.61",
+  "layer_height_mm": 0.23999999463558197,
+  "wall_loops": 4,
+  "sparse_infill_density_percent": 100.0,
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured TPU 85A part mass.",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 2140.054443359375,
+      "saved_profile_filament_estimate_g": 3.0406744480133057,
+      "slicer_warning": ""
+    }
+  ],
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "asse-drain-adapter",
+      "inputs": {
+        "gcode": "support-labels-asse-drain-adapter.gcode",
+        "gcode_sha256": "9055baf1c1dfb71a6f27b6dc88037541cae34f0e150a024b9c4aa62988a8164f",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
+        "model_sha256": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b",
+        "profile": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf",
+        "profile_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+        "plate_gcode_sha256": "d837d55374a245e4ef3b20896e2b807d82e3bba14298a46587fdfda5d6714be8",
+        "object_label": 1901,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -177.5,
+          -160.0,
+          -0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -177.5,
+          -160.0,
+          -0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.18",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.35",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "30",
+        "support_top_z_distance": "0.18",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            170.22401370794438,
+            152.72520403770125
+          ],
+          [
+            184.774861714316,
+            167.27997896183385
+          ]
+        ],
+        "maximum_line_width_mm": 0.975644,
+        "bounds_padding_mm": 0.587822
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 145.22401370794438,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          170.22401370794438,
+          152.72520403770125
+        ],
+        [
+          184.774861714316,
+          167.27997896183385
+        ]
+      ],
+      "maximum_line_width_mm": 0.975644,
+      "bounds_padding_mm": 0.587822
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 145.22401370794438,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  }
+}

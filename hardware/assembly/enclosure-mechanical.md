@@ -208,7 +208,7 @@ The bay itself rides open. The pump cartridge goes in at [`internal-plumbing.md`
 
 Fit the black neoFit ABU44M-E through the middle-row 15.3 mm opening and its white rectangular OVER chip while back-top is accessible. Its M15 × 1.5 barrel takes the 6 mm wall/chip stack; the flange seats outside and its panel nut clamps inside. The text band stands only above the flange.
 
-With the box closed, confirm access to both 4 mm collets. Assemble the clear vent hose, black adapter stack and internal white 4 mm tube per [ASSE drain assembly](/hardware/assembly/asse-drain.md). Keep the hose relaxed, the tube bends at least R25, and the port clear for the faucet umbilical. The west flank is a continuous wall.
+With the box closed, confirm access to both 4 mm collets. Assemble the direct TPU vent sleeve, its two ties and internal white 4 mm tube per [ASSE drain assembly](/hardware/assembly/asse-drain.md). Leave the initial tube lead unloaded, keep bends at least R25, and the port clear for the faucet umbilical. The west flank is a continuous wall.
 
 ### 8. Let the display into the facet, and clear the funnel opening
 

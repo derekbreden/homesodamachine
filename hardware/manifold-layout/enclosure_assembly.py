@@ -3622,7 +3622,7 @@ def build_asse(deck):
     tap-water one stands directly over — `bulkhead_mouth_y` in Y, and the panel deck's own storey
     in Z, the storey the row's other unions cross the wall on.
 
-    The flexible vent hose reaches its drain adapters; the split and regulator take station off the chain's outlet."""
+    The TPU vent sleeve connects directly to its 4 mm return; the split and regulator take station off the chain's outlet."""
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
@@ -3716,10 +3716,11 @@ def asse_sections(asse_carry) -> tuple:
 
 
 # Where the two ties close the anchor's mouth. The barrel is the only section a tie may cinch on
-# — the JG acetal nut and the PP reducer would take a collet out of round — and its vent stub
+# — the JG acetal nut and the PP reducer would take a collet out of round — and its vent
 # stands out of the middle of it, so `multiplex_asse1022.BARREL_LENGTH` offers exactly two bands.
-# One each side of the fall, struck on the stub's OD and not on the barb's.
+# One on each side of the vent, sharing the available brass barrel length.
 ASSE_TIE_VENT_CLEAR = 1.5
+ASSE_TIE_NECK_ALLOWANCE_D = 9.53  # Clear-band allocation around the vent axis.
 
 
 def asse_ties(asse_carry) -> tuple:
@@ -3727,11 +3728,11 @@ def asse_ties(asse_carry) -> tuple:
 
     BOTH ARE ON THE BRASS. The barrel is the one section a tie may close on: the JG acetal nut
     and the PP reducer go out of round under one, and the nut is the part whose clock means
-    nothing anyway. Its vent stub stands out of the middle of it, so the barrel's own length
+    nothing anyway. Its vent stands out of the middle of it, so the barrel's own length
     offers exactly these two bands and no others."""
     _fwd, barrel, _aft = asse_sections(asse_carry)
     vent = asse_carry(_asse.port("vent-tip"))[0]
-    edge = _asse.VENT_STUB_OD / 2.0 + ASSE_TIE_VENT_CLEAR
+    edge = ASSE_TIE_NECK_ALLOWANCE_D / 2.0 + ASSE_TIE_VENT_CLEAR
     return ((barrel[0] + (vent[1] - edge)) / 2.0, ((vent[1] + edge) + barrel[1]) / 2.0)
 
 
@@ -4347,8 +4348,7 @@ def build_pack() -> cq.Assembly:
                                  drain_carry(_drain_bulkhead.port(-1))[0])
     for name, solid in drain_members.items():
         a.add(solid, name=name, color=_routing.color("drain-white")
-              if name.startswith("tube-") else cq.Color(0.85, 0.92, 0.96, 0.55)
-              if name.startswith("hose-") else M_NEOFIT_ACETAL)
+              if name.startswith("tube-") else _drain.adapter.M_TPU_BLACK)
     row = SEATS["asse1022-assembly"]
     SEATS["asse1022-assembly"] = row._replace(members=row.members + _drain.ADAPTER_NAMES)
     outlet = drain_carry(_drain_bulkhead.port(1))[0]

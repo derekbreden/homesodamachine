@@ -15,20 +15,17 @@ housing is accepted during that fault.
 | Part | Specification and source | Quantity |
 | --- | --- | --- |
 | OVER bulkhead | Black neoFit ABU44M-E, [4](DRAIN_OD) mm tube, M[15](DRAIN_THREAD_D) × [1.5](DRAIN_THREAD_PITCH) panel barrel, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | 1 |
-| Vent hose adapter | Black neoFit ATBC44-E, 1/4-inch hose barb × 1/4-inch stem, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-barb-connector-1-4-stem-x-1-4-barb) | 1 |
-| Elbow | Black neoFit AEU44-E, 1/4-inch tube × 1/4-inch tube, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-union-elbow-1-4-tube-x-1-4-tube) | 1 |
-| Metric reducer | Black neoFit ARD4M4-E, 4 mm tube × 1/4-inch stem, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem) | 1 |
+| Direct vent sleeve | [Printed TPU 85A adapter](/hardware/printed-parts/asse-drain-adapter/README.md), 6.10 mm barb socket / 3.80 mm tube socket, 14 mm tube insertion; unprinted fit candidate | 1 |
+| Sleeve ties | Existing 4-inch nylon ties, 2.54 mm wide; one on each inserted part in its own recessed land | 2 |
 | Drain tube | White neoFlo LLDPE4M-WHITE, [FWS](https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing). The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf) specifies [4](DRAIN_OD) mm OD, [2.5](DRAIN_ID) mm ID, [0.75](DRAIN_WALL) mm wall and R[25](DRAIN_BEND_R) minimum bend radius; W denotes white. | Appliance return and one continuous umbilical/faucet run |
-| Vent hose | Clear neoPure PVCA-0406-FT-C, 1/4-inch ID × 3/8-inch OD PVC, [FWS](https://www.freshwatersystems.com/products/clear-flexible-pvc-tubing-1-4-id-x-3-8-od), fully covering each barb on the straight downward vent connection | 1 cut-to-fit hose |
-| Hose clamps | Basics WC-316SS-04, SAE #4, 316 stainless, 1/4–5/8-inch range, [FWS](https://www.freshwatersystems.com/products/stainless-steel-hose-clamp-316-sae-4-1-4-5-8); one over each hose barb | 2 |
 | Identification | White rectangular OVER ring with black lettering; white OVER collar bored 4.25 mm | 1 each |
 
 The black bulkhead matches the existing rear fittings. Its 4 mm socket distinguishes the white drain from the white 1/4-inch TAP supply by size. The faucet tube remains one continuous piece inside the sleeve and shell.
 
 ## Assembly
 
-1. Seat the ASSE chain in its keyed cradle with the vent facing down. Fit the straight clear hose downward onto the upward-facing ATBC44-E barb. Fully cover both barbs and clamp each end. Confirm an open, unkinked bore and retain access to release both connections.
-2. Insert the ATBC44-E stem into the elbow to its marked full insertion depth. Point its free socket aft and insert the ARD4M4-E stem. Mark and fully insert the internal [4](DRAIN_OD) mm return into the reducer and bulkhead. Form two tangent R[25](DRAIN_BEND_R) half-turns in the rear space: the first turns aft to fore while rising east, and the second turns fore to aft while rising west. Finish with the two R[25](DRAIN_BEND_R) arcs of the S bend into the middle rear row. Keep the white tube clear of the foam cap, pump, DATA jack and flavor returns. The flavor-B return rises [7.5](FLAVOR_B_RETURN_RISE) mm and passes 13 mm west of its rear-union column around the black adapters; its front support and both rear collets retain their positions. Its rear return bends hold R25.4. No fitting can pull the hose tight or collapse its bore.
+1. Seat the ASSE chain in its keyed cradle with the vent facing down. Fit the [TPU sleeve](/hardware/printed-parts/asse-drain-adapter/README.md) over the whole vent barb, with its large mouth just below the body. Square-cut the internal 4 mm tube, mark 14 mm, and insert it into the small socket until that mark meets the sleeve mouth. Snug one four-inch tie in each recessed land by hand, keeping the tube round and the bore open. The sleeve's two joints remain accessible for service.
+2. Leave a 3 mm straight tube lead below the sleeve, then form the two tangent R[25](DRAIN_BEND_R) bends in the vent/bulkhead's vertical plane. The first turns from down through aft to a rising lead; the second returns that rising lead to the aft-facing OVER socket. Mark and fully insert the bulkhead end. The [current clearance record](/hardware/manifold-layout/drain-clearance-check.json) supplies the modeled route and installed neighbors. Leave the initial lead unloaded and keep tie heads toward the open service bay. Keep the white tube clear of the foam cap, pump, DATA jack and flavor returns.
 3. Make up the OVER bulkhead through its white rectangular chip. The 6 mm panel stack fits its [8.1](DRAIN_PANEL_BARREL) mm bare barrel. Tighten only enough to hold the chip and fitting without distorting the printed wall; maximum nut torque from the neoFit sheet is 1.1 ft lb.
 4. Feed the white 4 mm tube between the two flavors through the counter stack and shell base. Its R25-or-larger bends pass forward of the two flavor unions and gather against the cold-line foam under the common sleeve. Put the 4.25 mm bore OVER collar on the bare tail.
 5. With the tip separate, feed the continuous S/F1/F2 tubes and four
@@ -50,8 +47,9 @@ The [current geometry reading](/hardware/printed-parts/faucet/vent-qualification
 checks an open pocket-to-hole connection, nominal tube clearance and the
 retained joint/dispense face. The Ø4 mm hole has 2.56 times the nominal area
 of the Ø2.5 mm tube bore. That is a geometric comparison, not a flow rating.
-Physical drip behavior and the complete rising vent route's capacity are
-unmeasured. The separate beverage flow remains inside the tubes and donor.
+The direct sleeve is an unprinted fit candidate; socket seating, zip-tie
+retention and water tightness have no acceptance record. Physical drip behavior
+and the complete rising vent route's capacity are unmeasured. The separate beverage flow remains inside the tubes and donor.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -297,14 +297,11 @@ MOUNTS = (
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
     # square to the axis and the brass barrel is trapped between two of them. What the V beds on
     # is that barrel's own two flats, which is the one section on the run whose clock the vent is
-    # machined into — so keying it holds the connected vent hose upright. Two zip ties through the
+    # machined into — so keying it holds the connected vent sleeve upright. Two zip ties through the
     # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
     ("bulkhead-drain", "enclosure-back-top", "bulkhead"),
-    ("hose-drain-vent", "asse1022-assembly", "hose"),
-    ("drain-barb-adapter", "hose-drain-vent", "hose"),
-    ("drain-elbow", "drain-barb-adapter", "push-fit"),
-    ("drain-stem-reducer", "drain-elbow", "push-fit"),
+    ("asse-drain-adapter", "asse1022-assembly", "sleeve"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
     # (`enclosure._west_cradle`), and its can bottoms in a well cut back to the wall. The sensor
     # board carries no mounting hole, so a slot is the only way it is ever held — the same bargain
@@ -667,11 +664,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("bulkhead-water", "bulkhead-ring-water"),
     ("bulkhead-carb", "bulkhead-ring-carb"),
     ("bulkhead-drain", "bulkhead-ring-drain"),
-    ("asse1022-assembly", "drain-barb-adapter"),
-    ("asse1022-assembly", "hose-drain-vent"),
-    ("drain-barb-adapter", "hose-drain-vent"),
-    ("drain-barb-adapter", "drain-elbow"),
-    ("drain-elbow", "drain-stem-reducer"),
+    ("asse1022-assembly", "asse-drain-adapter"),
+    ("asse-drain-adapter", "tube-drain-vent"),
     ("co2-inlet", "bulkhead-ring-co2"),
     # The RJ11 body snaps through the pocket and against the two catches printed in back-top.
     # Its host overlap is the capture working, not two unrelated bodies closing on each other.
@@ -1071,17 +1065,6 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("funnel-drain-stub", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
-    hose_pair = frozenset(("hose-drain-vent", "drain-barb-adapter"))
-    if any(frozenset((hit.a, hit.b)) == hose_pair for hit in bad):
-        try:
-            reading = _drain.hose_barb_contact(
-                bodies["hose-drain-vent"], bodies["drain-barb-adapter"])
-            a.vent_hose_contact_reading = reading
-            if reading["pass"]:
-                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != hose_pair]
-        except Exception as exc:
-            unanswered.append(("hose-drain-vent", "drain-barb-adapter",
-                               "inserted barb contact: " + str(exc).splitlines()[0]))
     cover_pair = frozenset(("funnel-cover", "funnel"))
     if any(frozenset((hit.a, hit.b)) == cover_pair for hit in bad):
         try:

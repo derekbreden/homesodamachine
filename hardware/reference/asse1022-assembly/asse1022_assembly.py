@@ -7,7 +7,7 @@ reachable from 1/4" tube on both sides — the chain
 in the order it builds them:
 
     1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
-                                                     └ vent hose ↓ black adapters → 4 mm DRAIN → faucet bowl
+                                                     └ TPU sleeve ↓ 4 mm OVER → faucet bowl
 
 The outlet leaves at 1/4" OD — the flare38-14ptc turns the ASSE's 3/8" male flare
 straight onto 1/4" LLDPE, so no 3/8" tubing runs on toward the pump; the 1/4" line
@@ -21,8 +21,8 @@ A station is its module, its seat and its hue. The seat carries the fitting's me
 the ports that fitting's module declares ([`_seating.py`](/hardware/scripts/_seating.py)).
 This assembly's own terminals are its stations' ports, named.
 
-The vent hose covers the barb and continues from its tip to the black neoFit
-adapters, the 4 mm DRAIN bulkhead and the separate faucet outlet over the bowl
+The TPU sleeve covers the barb and connects directly to the 4 mm OVER return,
+bulkhead and the separate faucet outlet over the bowl
 ([`asse-drain.md`](/hardware/assembly/asse-drain.md)).
 
 Frame: the ASSE 1022's own — +X = flow, inlet upstream at its X = 0, the vent
@@ -34,7 +34,6 @@ Run:
 
 import sys
 from pathlib import Path
-from types import SimpleNamespace
 
 import cadquery as cq
 
@@ -64,13 +63,7 @@ import multiplex_asse1022 as bfp
 # what tells the GAGIRA coupling from the barrel it swallows is the step between their hexes,
 # which is what tells them apart on the bench.
 from _materials import (M_BRASS, M_JG_BLACK_PP, M_JG_GREY_ACETAL,  # noqa: E402
-                        M_PVC_CLEAR, M_STAINLESS)
-
-# The neoPure PVCA-0406-FT-C hose's seated end covers the complete vent barb.
-# Its continuation is authored in manifold-layout/_drain.py. The seated-end
-# bore follows the barb envelope; the free hose retains its 1/4-inch ID.
-VENT_STUB_OD = 9.53  # Occupied envelope, rounded up from nominal 3/8-inch OD PVC.
-VENT_STUB_REACH = 0.0           # flexible continuation starts at the vent barb's tip
+                        M_STAINLESS)
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
@@ -84,31 +77,6 @@ COUPLING_X = BARREL_UPSTREAM - coupling.LENGTH
 PTC_X = COUPLING_X + coupling.SMALL_SOCKET_DEPTH - ptc.LENGTH
 # The swivel nut is drawn up over the flare, its face on the downstream shoulder.
 OUTLET_X = BARREL_DOWNSTREAM
-
-
-def vent_stub():
-    """The clear-PVC telltale stub, slipped over the vent barb and running down
-    past its tip. Bored at the barb Ø, so the two share a surface and no metal."""
-    top = bfp.BODY_UNDERSIDE_Z              # the body's underside, where the hose stops
-    length = top + VENT_STUB_REACH
-    stub = cq.Solid.makeCylinder(
-        VENT_STUB_OD / 2.0, length,
-        cq.Vector(bfp.VENT_X, 0.0, top), cq.Vector(0, 0, -1))
-    bore = cq.Solid.makeCylinder(
-        bfp.VENT_D / 2.0, length,
-        cq.Vector(bfp.VENT_X, 0.0, top), cq.Vector(0, 0, -1))
-    return stub.cut(bore)
-
-
-def _stub_tip():
-    """The stub's open end: (position, outward axis). It weeps to atmosphere — the drip
-    continues through the flexible hose to the drain adapters."""
-    return (bfp.VENT_X, 0.0, -VENT_STUB_REACH), (0.0, 0.0, -1.0)
-
-
-# The stub is drawn here rather than imported, in the chain's own frame, bored onto the
-# ASSE's vent barb. It answers `build` and a port the way the reference modules do.
-_stub = SimpleNamespace(build=vent_stub, tip=_stub_tip)
 
 
 def _along(x) -> Seat:
@@ -132,7 +100,6 @@ STATIONS = {
     "gagira-coupling":    (coupling, _along(COUPLING_X), M_STAINLESS),
     "multiplex-asse1022": (bfp,      Seat(),             M_BRASS),
     "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   M_JG_GREY_ACETAL),
-    "vent-stub":          (_stub,    Seat(),             M_PVC_CLEAR),
 }
 
 # This assembly's boundary: the two mouths the cabinet plumbs to, and the one it catches
@@ -140,7 +107,7 @@ STATIONS = {
 TERMINALS = {
     "tube-in":  ("jg-pp010822e", "tube_port"),
     "tube-out": ("flare38-14ptc", "tube_port"),
-    "vent-tip": ("vent-stub", "tip"),
+    "vent-tip": ("multiplex-asse1022", "vent"),
 }
 
 
