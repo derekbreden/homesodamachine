@@ -1,0 +1,142 @@
+{
+  "observed_at_utc": "2026-10-10T06:36:28.594572+00:00",
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "ddae669e9cf3b3a154821f11190af675d83eb1d8b65b1ab46fc3ed7827e3740e",
+  "both_printers": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-10T06:35:01.287618+00:00",
+      "task_id": "1324612230",
+      "job_id": "1324612230",
+      "subtask_name": "2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 813,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 34.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 39,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 35,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 30,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-10T06:35:01.244597+00:00",
+      "task_id": "1325126748",
+      "job_id": "1325126748",
+      "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 42,
+      "total_layer_num": 42,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 33,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 28,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 26,
+        "target_c": 0
+      }
+    }
+  ],
+  "peer_last_accepted_start_utc": "2026-10-10T03:37:36.079198+00:00",
+  "seconds_since_peer_accepted_start": 10512.083444,
+  "required_spacing_seconds": 180,
+  "destination_ready": true,
+  "frozen_hashes_match": true,
+  "bed_clear_authority": "Mark 1 bed is clear now as well.",
+  "automatic_resume_authorized": false,
+  "pass": true,
+  "stage": "Fresh reads before completing foreground transaction after pre-import name lookup correction"
+}

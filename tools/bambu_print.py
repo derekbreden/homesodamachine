@@ -29,6 +29,7 @@ import bambu_printer
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / ".cache/printer-control"
 PRINTERS = ("H2C", "Mark2")
+DISPLAY_NAMES = {"H2C": "Mark1", "Mark2": "Mark2"}
 BUSY = {"PREPARE", "RUNNING", "PAUSE"}
 OPTIONS = {"Timelapse": "On", "Auto bed leveling": "On",
            "Flow dynamic calibration": "Auto", "Nozzle Offset Calibration": "Auto"}
@@ -316,7 +317,7 @@ def set_options(ui):
 
 
 def verify_dialog(nodes, printer, details):
-    if not has_dialog(nodes) or len(matching(nodes, printer + " chevron_down")) != 1:
+    if not has_dialog(nodes) or len(matching(nodes, DISPLAY_NAMES[printer] + " chevron_down")) != 1:
         raise PrintError("The send dialog does not identify the requested printer")
     tiles = [n for n in nodes if n["role"] == "AXGroup" and n["label"].startswith("Ext ")]
     if len(tiles) != len(details["slots"]) or matching(nodes, "? ?", "AXGroup"):
@@ -340,13 +341,14 @@ def verify_dialog(nodes, printer, details):
 def prepare_dialog(ui, path, printer, details):
     close_dialog(ui)
     ui.click("Devices", "AXLink")
+    display_name = DISPLAY_NAMES[printer]
     def device_links(ns):
         return [node for node in ns if node["role"] == "AXLink"
-                and (node["label"] == printer or node["label"].startswith(printer + " "))]
+                and (node["label"] == display_name or node["label"].startswith(display_name + " "))]
     nodes = ui.wait(lambda ns: len(device_links(ns)) == 1)
     # The card includes live temperatures that can change after the snapshot.
     # Resolve its unique printer-name prefix in the input process at click time.
-    ui.click(printer, "AXLink", prefix=True)
+    ui.click(display_name, "AXLink", prefix=True)
     ui.wait(lambda ns: matching(ns, "Printing Progress", "AXStaticText"))
     ui.click("Print", "AXLink")
     ui.wait(lambda ns: matching(ns, "Import Gcode 3MF", "AXButton"))
@@ -360,14 +362,14 @@ def prepare_dialog(ui, path, printer, details):
     log(f"Imported {path.name}: {', '.join(details['objects'])}")
     ui.click("Print")
     nodes = ui.settled_dialog()
-    selectors = [node for node in nodes if node["label"] in [name + " chevron_down" for name in PRINTERS]]
+    selectors = [node for node in nodes if node["label"] in [name + " chevron_down" for name in DISPLAY_NAMES.values()]]
     if len(selectors) != 1:
         raise PrintError("The send dialog has no unique printer selector")
     selector = selectors[0]
-    if selector["label"] != printer + " chevron_down":
+    if selector["label"] != display_name + " chevron_down":
         ui.call("click_offsets", label=selector["label"], role=selector["role"],
                 offsets=[[70, 32], [81, 91 + 36 * PRINTERS.index(printer)]])
-        nodes = ui.wait(lambda ns: matching(ns, printer + " chevron_down"))
+        nodes = ui.wait(lambda ns: matching(ns, display_name + " chevron_down"))
         nodes = ui.settled_dialog()
     # Mark2 maps its external spools automatically. H2C's left AMS can leave
     # the external tile unresolved; the saved machine has one AMS above it.

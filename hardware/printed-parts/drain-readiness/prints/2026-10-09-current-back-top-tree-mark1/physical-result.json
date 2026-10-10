@@ -1,0 +1,14 @@
+{
+  "printer": "Mark1",
+  "task_id": "1324612230",
+  "archive": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/2026-10-09-current-back-top-tree-base05-centered-black-z018-mark1.gcode.3mf",
+  "archive_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "gcode_sha256": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+  "operator_quote": "I'm stopping Mark 1 because I just noticed you printed supports in the zip tie cavities. Those are also impossible to remove.",
+  "disposition": "Operator stopped; rejected for inaccessible support in zip-tie cavities",
+  "physical_cleanup_accepted": false,
+  "installed_fit_assessed": false,
+  "replacement_launch_plan": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/launch-plan.json",
+  "resolution_reading": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/tie-cavity-support-review.json",
+  "resolution_scope": "Replacement native paths are clear in the recorded cavity inspections; actual replacement cleanup is pending."
+}
