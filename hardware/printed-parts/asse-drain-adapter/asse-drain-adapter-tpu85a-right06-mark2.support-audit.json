@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf",
-  "project_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+  "project_sha256": "56d108b34ad04287361876a8af40cfe06de20e777ac08dccd40ec439330cd4ed",
   "settings_sha256": "ddb0eac93741d12cf70e4ff3cfeb045d87b1cb4d7d6040e1c0a211e6c780eb88",
   "slicer": "BambuStudio 02.08.02.61",
   "layer_height_mm": 0.23999999463558197,
@@ -9,12 +9,12 @@
   "saved_profile_filament_density_g_cm3": [
     1.22
   ],
-  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured TPU 85A part mass.",
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
   "plates": [
     {
       "plate": 1,
-      "estimated_total_seconds": 2140.054443359375,
-      "saved_profile_filament_estimate_g": 3.0406744480133057,
+      "estimated_total_seconds": 2531.2958984375,
+      "saved_profile_filament_estimate_g": 3.635251522064209,
       "slicer_warning": ""
     }
   ],
@@ -24,12 +24,12 @@
       "piece": "asse-drain-adapter",
       "inputs": {
         "gcode": "support-labels-asse-drain-adapter.gcode",
-        "gcode_sha256": "9055baf1c1dfb71a6f27b6dc88037541cae34f0e150a024b9c4aa62988a8164f",
+        "gcode_sha256": "6270161631bb3e9fffc929ab73f6855b6dfd25123e6d8002fe88655e033ac994",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
-        "model_sha256": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b",
+        "model_sha256": "760ca7653c1899bd90c6c3e0d2e985aff999a8e0066ad7e104fc2218d995ba34",
         "profile": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf",
-        "profile_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
-        "plate_gcode_sha256": "d837d55374a245e4ef3b20896e2b807d82e3bba14298a46587fdfda5d6714be8",
+        "profile_sha256": "56d108b34ad04287361876a8af40cfe06de20e777ac08dccd40ec439330cd4ed",
+        "plate_gcode_sha256": "d49b74c41176d8306e4b135c6eb1d95877696d64dd63cb6e38a136ac3240d433",
         "object_label": 1901,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -87,36 +87,36 @@
       "toolpaths": {
         "extrusion_bounds_xy_mm": [
           [
-            170.22401370794438,
-            152.72520403770125
+            170.23028170337798,
+            152.72851125895212
           ],
           [
-            184.774861714316,
-            167.27997896183385
+            184.76993234519037,
+            167.27184693199106
           ]
         ],
-        "maximum_line_width_mm": 0.975644,
-        "bounds_padding_mm": 0.587822
+        "maximum_line_width_mm": 0.96526,
+        "bounds_padding_mm": 0.58263
       }
     }
   ],
   "fit": {
-    "minimum_shared_bed_margin_mm": 145.22401370794438,
+    "minimum_shared_bed_margin_mm": 145.23006765480963,
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
-          170.22401370794438,
-          152.72520403770125
+          170.23028170337798,
+          152.72851125895212
         ],
         [
-          184.774861714316,
-          167.27997896183385
+          184.76993234519037,
+          167.27184693199106
         ]
       ],
-      "maximum_line_width_mm": 0.975644,
-      "bounds_padding_mm": 0.587822
+      "maximum_line_width_mm": 0.96526,
+      "bounds_padding_mm": 0.58263
     },
-    "complete_layer_bead_minimum_bed_margin_mm": 145.22401370794438,
+    "complete_layer_bead_minimum_bed_margin_mm": 145.23006765480963,
     "minimum_toolpath_separation_mm": null,
     "pairwise_toolpath_separations": []
   }
