@@ -17,20 +17,30 @@ The [guided boot trial](guided-boot-trial/README.md) is blue; neither encodes th
 machine-side two-color layout.
 
 **Current assessment:** this is an exploratory mechanism, not a qualified connector.
-The [engineering review](assessment/README.md) recommends keeping the separate connections
-for shipping and using the [coupling tactile trial](tactile-trial/README.md) and
-[guided boot trial](guided-boot-trial/README.md) to assess the plastic fit and actual bundle
-before purchasing the missing magnets or 4 mm union. Both have filled magnet pockets
-and no pauses. The original functional print projects below
-remain provisional: magnet fit, complete seating, bundle transition and retention require
-correction or evidence.
+The [engineering review](assessment/README.md) keeps the separate connections for shipping.
+The [tube-protection candidate](assessment/protection.md) adds four integral Ø34 mm
+open fences, with no extra part, moving mechanism or wet joint. Rounded wings leave
+0.519 mm nominal clearance ahead of the tubes against a broad flat surface, while
+narrow corners can enter the gaps. The proposed socket is 2.4 mm wider; the complete
+rigid approach envelope is 126.3 mm before braid or hand clearance. This candidate
+is CAD only and is not in the saved print projects.
+The [coupling tactile trial](tactile-trial/README.md) and
+[guided boot trial](guided-boot-trial/README.md) assess their stated plastic-fit and bundle
+questions; both have filled magnet pockets, no guard and no pauses. Missing magnets
+or a 4 mm union need not be purchased for those limited questions. The original
+functional print projects below remain provisional: magnet fit, complete seating,
+tube-end protection, bundle transition and retention require correction or evidence.
 
 ![Machine side, plug, plugged in, release section, counter passage and boot materials](renders/one-plug-umbilical.png)
 
-[`one-plug-umbilical.html`](one-plug-umbilical.html) includes the assembly and boot cutaway
-to turn in 3D, with both saved print plates.
+[`one-plug-umbilical.html`](one-plug-umbilical.html) includes the assembly, boot cutaway
+and three guarded-candidate panels to turn in 3D, with both saved print plates.
 
 ## Machine side
+
+The dimensions below describe the saved unguarded coupling. The open-guard candidate
+has a matching wider socket/receiver and is documented in the
+[protection review](assessment/protection.md).
 
 **The socket sits flush in back-top.** Its [47.0](UMB_FACE_W) × [44.6](UMB_FACE_H) mm face fills
 a stepped hole: the face's own section for [3](UMB_FLANGE_T) mm, then the body's, so a
