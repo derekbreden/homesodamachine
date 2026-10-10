@@ -10,26 +10,33 @@ Order of operations is part of the contract: publish first, lint second. The
 first shape that builds goes to the site so Derek sees it immediately; the lint
 is the agent's follow-through while Derek is already looking — never a gate
 between an edit and the first look, never wired into the build path. Justify or
-fix what it flags; a finding with a reason is a finding answered.
+fix what it flags. A justification is a reason AND the alternatives: the
+thicker or larger constructions that would do the same job, and why each is
+worse. Thinness is a spectrum — larger is preferred and every thin feature is
+a compromise — so `thin` and `ledge` are a ranking of where the piece is
+thinnest and smallest, and an answer never takes a place off it.
 
     tools/cad-venv/bin/python hardware/scripts/geometry_lint.py \
         hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl
 
     geometry_lint.py <piece>.stl [<piece2>.stl …] [--top N] [--all] [--classes a,b]
 
-A finding that is intentional gets its reason recorded in
-`<piece>.lint-answers` beside the STL — one entry per feature family: a
-`[class] reason` line, then pick lines whose points anchor it (one `click:`
-per instance). AN ANSWER EXPLAINS THE FACE IT NAMES AND NOTHING ELSE: a
-finding reports as answered when its own pick point IS an anchor point of an
-entry of its class, to the three decimals the pick text carries. It is hidden
-then unless `--all` shows it with its reason. Nothing near an anchor inherits
-that anchor's prose, so a face that moves, or a new face beside an explained
-one, comes back open — which is the whole use of the file. Answering a moved
-feature means re-anchoring its entry on the face it now has.
+A finding's answer is recorded in `<piece>.lint-answers` beside the STL — one
+entry per feature family: a `[class] reason` line, an `alternatives:` line,
+then pick lines whose points anchor it (one `click:` per instance). AN ANSWER
+EXPLAINS THE FACE IT NAMES AND NOTHING ELSE: a finding reports as answered
+when its own pick point IS an anchor point of an entry of its class, to the
+three decimals the pick text carries. A face-class finding is hidden then
+unless `--all` shows it with its answer; a `thin` or `ledge` finding keeps
+its place in the ranking with the answer printed beside it, and an entry that
+names no alternatives prints `alternatives: none recorded`. Nothing near an
+anchor inherits that anchor's prose, so a face that moves, or a new face
+beside an explained one, comes back open — which is the whole use of the
+file. Answering a moved feature means re-anchoring its entry on the face it
+now has.
 
-    [sliver] Wago cluster-well ceiling tab — retention ledge; prints as a
-    one-sided bridge on the H2C with our settings and filament.
+    [sliver] <why this face has to be what it is>
+    alternatives: <each thicker or larger construction considered, and why it is worse>
     file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
     click: x=94.200 y=357.088 z=334.300
 
@@ -46,6 +53,13 @@ points, it does not gate:
            column, or by support that leaves through a stated lane (say which).
   slope    a 45° underside that slopes along its adjacent wall instead of
            rising off it — a Y slope on an X wall.
+  thin     material between opposite-facing surfaces at any orientation — a
+           fin between touching bores, a skin beside a cut, a knife edge or a
+           ridge — ranked thinnest first out to 3 mm across, with no line
+           inside that reach where thin becomes fine.
+  ledge    a flat face within 30° of facing the bed in the print's pose,
+           bounded by edges sharper than 25° and smaller than a ceiling —
+           ranked smallest first.
 
 A `.step` argument is answered from the `.stl` beside it."""
 
@@ -57,6 +71,8 @@ from pathlib import Path
 import numpy as np
 import scipy.sparse as sp
 import trimesh
+from scipy.spatial import cKDTree
+from trimesh.triangles import closest_point
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pick_read import points as pick_points  # noqa: E402
@@ -79,12 +95,33 @@ _CEILING_AREA = 20.0
 _CEILING_OFF_BED = 0.5
 #: `slope` considers 45-ish undersides at least this big (mm²).
 _SLOPE_AREA = 15.0
+#: `thin` looks this far across the material. It is how far the lint reads, not a pass line:
+#: everything inside it is ranked.
+_THIN_REACH = 3.0
+#: `thin` samples the surface about this far apart.
+_THIN_SPACING = 0.7
+#: Facets whose normals are at least 120° apart face each other across material, so a knife
+#: edge sharper than 60° reads as thin toward its tip.
+_THIN_OPPOSITE = -0.5
+#: `thin` bins sample normals over this many directions to search each cone apart.
+_THIN_DIRECTIONS = 32
+#: `thin` samples this close, in one thickness band, are one place.
+_THIN_LINK = 1.5
+#: `thin` places a band or less apart whose cores come this close are pieces of one place.
+_THIN_GATHER = 2.5
+#: `thin` reads thickness in bands that double from here: under 0.05, 0.05–0.1, 0.1–0.2 … mm.
+_THIN_BAND0 = 0.05
+#: `ledge` reads faces within 30° of facing the bed — the support threshold angle the print
+#: profiles carry.
+_LEDGE_FACING = float(np.cos(np.radians(30.0)))
 #: An anchor answers the point it names. `pick_text.fnum` writes three decimals, so a point
 #: written out and read back moves by at most half a thousandth on each axis; this is that
 #: round trip and nothing else. It is not a radius, and there is no flag to widen it.
 _ANSWER_TOL = 0.002
 
-_CLASSES = ("step", "sliver", "ceiling", "slope")
+_CLASSES = ("step", "sliver", "ceiling", "slope", "thin", "ledge")
+#: The classes that rank: an answer is printed beside the finding and never hides it.
+_RANKED = ("thin", "ledge")
 #: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
@@ -97,10 +134,28 @@ PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-cap": -1.0, "funnel-mold
             "display-cover-retention-reach-075": -1.0}
 
 
+#: Degrees about the box's X a piece leans on the bed, after `PRINT_UP`'s flip. The faucet bases
+#: bed on their foot with the -Y edge lifted by `faucet_shell.print_base_build_rot`, which
+#: refresh_print_project.py and prepare_vent_prints.py apply as a negative turn about X; these
+#: entries mirror it. `ledge` reads it.
+PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0}
+
+
 def print_up_of(stl):
     """The build sign for the piece an STL names, +1 unless `PRINT_UP` says otherwise."""
     path = Path(stl)
     return PRINT_UP.get(f"{path.parent.name}/{path.stem}", PRINT_UP.get(path.stem, 1.0))
+
+
+def print_pose_of(stl):
+    """The rotation from the box's frame into the print's: `PRINT_UP`'s flip, then the lean
+    `PRINT_TILT_X` gives. Findings still report in the box's frame."""
+    path = Path(stl)
+    lean = np.radians(PRINT_TILT_X.get(f"{path.parent.name}/{path.stem}",
+                                       PRINT_TILT_X.get(path.stem, 0.0)))
+    s = print_up_of(stl)
+    c, sn = np.cos(lean), np.sin(lean)
+    return np.array([[1.0, 0.0, 0.0], [0.0, c, -sn], [0.0, sn, c]]) @ np.diag([1.0, s, s])
 
 
 def _basis(n):
@@ -394,19 +449,59 @@ def _holds(uv, c):
     return bool(((s >= -1e-9).all(axis=1) | (s <= 1e-9).all(axis=1)).any())
 
 
-def _banded(c, group, neighbours, allowed=1):
+class _Boxes:
+    """The planes' boxes, asked which could touch a given box without reading every plane.
+
+    Boxes are kept in tiers by size, each with a tree of its centres searched out to the
+    tier's own largest box, so a chord a tenth of a millimetre long is looked for a tenth of a
+    millimetre away; the few boxes past the last tier are read directly.
+    """
+
+    TIERS = (0.5, 2.0, 8.0, 32.0)
+
+    def __init__(self, neighbours):
+        _, _, lo, hi = neighbours
+        self.mid, self.half = (lo + hi) / 2.0, np.linalg.norm(hi - lo, axis=1) / 2.0
+        self.tiers, low = [], 0.0
+        for top in self.TIERS:
+            members = np.flatnonzero((self.half > low) & (self.half <= top)
+                                     if low else self.half <= top)
+            if len(members):
+                self.tiers.append((top, members, cKDTree(self.mid[members])))
+            low = top
+        self.big = np.flatnonzero(self.half > low)
+
+    def near(self, lo, hi, pad):
+        """Planes whose boxes could reach within `pad` of the box (`lo`, `hi`)."""
+        mid, half = (lo + hi) / 2.0, float(np.linalg.norm(hi - lo)) / 2.0
+        found = [members[tree.query_ball_point(mid, half + top + pad)]
+                 for top, members, tree in self.tiers]
+        far = np.linalg.norm(self.mid[self.big] - mid, axis=1) <= half + self.half[self.big] + pad
+        return np.concatenate(found + [self.big[far]]).astype(np.int64)
+
+
+def _banded(c, group, neighbours, allowed=1, split_ok=False, among=None):
     """True when same-facing planes passing close by `c`'s centre touch its
     box — the signature of a chord band (tessellation of a curve), whether or
     not its edges pair up (T-junction tessellation hides them from
     `band_degrees`). Same-facing means within 25°: a small round's chords fold
     8° or more, while no authored neighbour runs that close to parallel.
     `allowed` is how many matches are legitimate — the plane itself, plus its
-    step partner when testing a pair.
+    step partner when testing a pair. `split_ok` stops counting the planes
+    coplanar with `c` — one flat face whose facets rounded to neighbouring
+    normals — so only a fold of 2° or more makes a band. `among` limits the
+    reading to those planes (`_Boxes.near`), when every other could not touch.
     """
     ns, os_, lo, hi = neighbours
+    if among is not None:
+        ns, os_, lo, hi = ns[among], os_[among], lo[among], hi[among]
     centre = c.thru()
     near = (ns @ group.n > 0.9063) & (np.abs(ns @ centre - os_) < 0.6)
     near &= (lo <= c.hi + 0.05).all(axis=1) & (hi >= c.lo - 0.05).all(axis=1)
+    if split_ok:
+        same = ((ns @ group.n > np.cos(np.radians(2.0)))
+                & (np.abs(ns @ centre - os_) < 2 * _OFFSET_MM))
+        return int((near & ~same).sum()) > allowed - 1
     return int(near.sum()) > allowed
 
 
@@ -576,6 +671,361 @@ def find_slopes(planes, boundary, level, s=1.0):
     return found
 
 
+def surface_samples(mesh, spacing=_THIN_SPACING):
+    """Points covering every facet about `spacing` apart: (points, facet of each, the area each
+    stands for).
+
+    Laid in columns along each facet's longest edge, then up each column, so a long chord of a
+    curved surface is covered end to end and not only where it is wide. A sliver gets columns
+    for its area, as long as that leaves one every three spacings of its length: its neighbours
+    in the same fan cover the strip it runs along, and the search reaches past its gaps. A
+    needle under a micron high gets no samples: the STL's single-precision corners leave its
+    normal pointing anywhere.
+    """
+    tri = mesh.triangles
+    edge = np.linalg.norm(tri - np.roll(tri, -1, axis=1), axis=2)  # edge i runs vertex i → i+1
+    first = edge.argmax(axis=1)
+    rows = np.flatnonzero(2.0 * mesh.area_faces > 1e-3 * edge.max(axis=1))
+    first = first[rows]
+    a = tri[rows, first]
+    b = tri[rows, (first + 1) % 3]
+    c = tri[rows, (first + 2) % 3]
+    base = edge[rows, first]
+    along = (b - a) / np.maximum(base, 1e-12)[:, None]
+    foot = np.einsum("ij,ij->i", c - a, along)       # where the apex stands over the base
+    rise = c - a - foot[:, None] * along
+    height = np.linalg.norm(rise, axis=1)
+    up = rise / np.maximum(height, 1e-12)[:, None]
+
+    area = mesh.area_faces[rows]
+    cols = np.maximum(1, np.rint(np.maximum(np.minimum(base / spacing, area / spacing ** 2),
+                                            base / (3.0 * spacing)))).astype(np.int64)
+    col_of = np.repeat(np.arange(len(rows)), cols)  # each column's facet, by position in `rows`
+    k = np.arange(len(col_of)) - np.repeat(np.cumsum(cols) - cols, cols)
+    u = (k + 0.5) * base[col_of] / cols[col_of]
+    ft, bs = foot[col_of], base[col_of]
+    frac = np.where(u <= ft, u / np.maximum(ft, 1e-12), (bs - u) / np.maximum(bs - ft, 1e-12))
+    h = np.clip(frac, 0.0, 1.0) * height[col_of]     # the facet's height at u
+    per = np.maximum(1, np.rint(h / spacing)).astype(np.int64)
+    col = np.repeat(np.arange(len(col_of)), per)
+    j = np.arange(len(col)) - np.repeat(np.cumsum(per) - per, per)
+    v = (j + 0.5) * h[col] / per[col]
+    at = col_of[col]
+    pts = a[at] + u[col, None] * along[at] + v[:, None] * up[at]
+    share = area / np.bincount(at, minlength=len(rows))
+    return pts, rows[at], share[at]
+
+
+def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
+    """Per sample, how far across the material its surface is from an opposite-facing facet,
+    and the point on that facet it measures to — inf and nan past `reach`.
+
+    Closest approach, not a ray: a ray must land on the one facet straight across, and on a
+    finely tessellated far wall the samples nearest a point are seldom that facet's. A candidate
+    counts when its facet faces back at least 120° from the sample's and each surface lies
+    behind the other — material between them, not air, which is what tells a 0.3 mm wall from a
+    0.3 mm slot. The distance is to the facet itself, so a large facet sampled `_THIN_SPACING`
+    apart still measures to the point straight across.
+
+    Candidates are searched per direction: the samples are binned by normal over
+    `_THIN_DIRECTIONS` directions, and a sample looks only among samples whose normals lie in the
+    cone that can face back 120° from its bin — so its own surface and the walls square to it
+    never crowd the nearest few, and every facet inside the cone competes on distance alone. A
+    sample whose nearest few are all air — the far side of a slot in front of it — searches
+    again from half the reach inside the material, where any wall behind it sits closer than the
+    slot. Only candidates that can still beat the nearest sample-to-sample reading are measured
+    to their facets.
+
+    The readings are surest at the thin end. A knife edge reads as thin as the sample nearest its
+    edge, and a far wall all of whose samples stand past the search is missed, which happens
+    toward the thick end of the reach.
+    """
+    n = mesh.face_normals[facet]
+    thick = np.full(len(pts), np.inf)
+    meet = np.full((len(pts), 3), np.nan)
+    dirs = _directions(_THIN_DIRECTIONS)
+    home = np.argmax(n @ dirs.T, axis=1)
+    # the widest a bin runs from its direction, so its cone holds every candidate of every member
+    spread = float(np.arccos(np.clip((n * dirs[home]).sum(axis=1), -1.0, 1.0)).max())
+    cone = np.cos(min(np.pi, np.arccos(-_THIN_OPPOSITE) + spread))
+    for d in range(len(dirs)):
+        mine = np.flatnonzero(home == d)
+        cand = np.flatnonzero(n @ dirs[d] < -cone)
+        if not len(mine) or not len(cand):
+            continue
+        tree = cKDTree(pts[cand], balanced_tree=False, compact_nodes=False)
+        _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet)
+    far = thick > reach
+    thick[far], meet[far] = np.inf, np.nan
+    return thick, meet
+
+
+def _directions(count):
+    """`count` directions spread evenly over the sphere."""
+    i = np.arange(count) + 0.5
+    polar = np.arccos(1.0 - 2.0 * i / count)
+    turn = np.pi * (1.0 + 5.0 ** 0.5) * i
+    return np.column_stack([np.cos(turn) * np.sin(polar), np.sin(turn) * np.sin(polar),
+                            np.cos(polar)])
+
+
+def _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet):
+    """`material_thickness` for the samples `mine`, against the candidates `tree` holds: from
+    the sample itself, then from half the reach inside for those whose nearest were all air."""
+    todo = mine
+    for inset, k in ((0.0, 16), (reach / 2.0, 64)):
+        k = min(k, len(cand))
+        # past the reach by the most a sliver's samples stand off its nearest point
+        bound = float(np.hypot(reach, inset)) + 1.5 * _THIN_SPACING
+        step = max(1, 400000 // k)
+        again = []
+        for lo in range(0, len(todo), step):
+            sel = todo[lo:lo + step]
+            # every core: the lint holds the build lock, so nothing else is running
+            dist, nb = tree.query(pts[sel] - inset * n[sel], k=k, distance_upper_bound=bound,
+                                  workers=-1)
+            dist, nb = dist.reshape(len(sel), k), nb.reshape(len(sel), k)
+            row, col = np.nonzero(np.isfinite(dist))
+            other = cand[nb[row, col]]
+            ni, nj = n[sel[row]], n[other]
+            p = pts[sel[row]]
+            v = p - pts[other]
+            coarse = ((np.einsum("ij,ij->i", ni, nj) < _THIN_OPPOSITE)
+                      & (np.einsum("ij,ij->i", v, ni) >= -_THIN_SPACING)
+                      & (np.einsum("ij,ij->i", v, nj) <= _THIN_SPACING))
+            apart = np.linalg.norm(v, axis=1)
+            nearest = np.full(len(sel), np.inf)
+            np.minimum.at(nearest, row[coarse], apart[coarse])
+            keep = coarse & (apart <= nearest[row] + _THIN_SPACING)
+            row, other, p, ni = row[keep], other[keep], p[keep], ni[keep]
+            q = closest_point(mesh.triangles[facet[other]], p)
+            gap = p - q
+            across = ((np.einsum("ij,ij->i", gap, ni) >= -1e-9)
+                      & (np.einsum("ij,ij->i", gap, n[other]) <= 1e-9))
+            row, q = row[across], q[across]
+            length = np.linalg.norm(gap[across], axis=1)
+            if len(row):
+                order = np.lexsort((length, row))
+                first = order[np.r_[True, row[order][1:] != row[order][:-1]]]
+                thick[sel[row[first]]] = length[first]
+                meet[sel[row[first]]] = q[first]
+            # nothing across yet, and the k nearest ran out inside the bound
+            full = np.isfinite(dist[:, -1])
+            again.append(sel[~np.isfinite(thick[sel]) & full])
+        todo = np.concatenate(again)
+        if not len(todo):
+            break
+
+
+def thin_places(pts, thick, link=_THIN_LINK, gather=_THIN_GATHER):
+    """Where the material is thin, one entry per place, thinnest first: (the sample where it is
+    thinnest, the samples of the place, the band edge the place reaches up to, its pieces).
+
+    Thickness is read in bands that double from `_THIN_BAND0`. Samples within `link` of each
+    other in one band are one region. A region that touches no thinner band is a place, and the
+    regions one band thicker that touch it are its surroundings, counted with it. A fin between
+    touching bores is one place along the line where they meet, not the whole wall it thickens
+    into, and a wall's own thinnest stretch is a place of its own.
+    """
+    thin = np.flatnonzero(np.isfinite(thick))
+    if not len(thin):
+        return []
+    t = thick[thin]
+    band = np.where(t < _THIN_BAND0, 0,
+                    np.floor(np.log2(np.maximum(t, _THIN_BAND0) / _THIN_BAND0)).astype(np.int64)
+                    + 1)
+    pairs = cKDTree(pts[thin]).query_pairs(link, output_type="ndarray")
+    a, b = pairs[:, 0], pairs[:, 1]
+    same = band[a] == band[b]
+    graph = sp.coo_matrix((np.ones(int(same.sum())), (a[same], b[same])),
+                          shape=(len(thin), len(thin)))
+    count, region = sp.csgraph.connected_components(graph, directed=False)
+    level = np.zeros(count, np.int64)
+    level[region] = band
+    ra, rb = region[a[~same]], region[b[~same]]
+    thicker = np.where(level[ra] > level[rb], ra, rb)
+    thinner = np.where(level[ra] > level[rb], rb, ra)
+    surrounded = np.zeros(count, bool)
+    surrounded[thicker] = True                        # touches a thinner band
+    least = np.full(count, np.inf)
+    np.minimum.at(least, region, t)
+    # each surrounding region joins the thinnest place one band below it that it touches
+    step = (level[thicker] == level[thinner] + 1) & ~surrounded[thinner]
+    out, into = thicker[step], thinner[step]
+    joins = {}
+    if len(out):
+        order = np.lexsort((least[into], out))
+        first = order[np.r_[True, out[order][1:] != out[order][:-1]]]
+        joins = dict(zip(out[first].tolist(), into[first].tolist()))
+    by_place = {}
+    for out, into in joins.items():
+        by_place.setdefault(into, []).append(out)
+    order = np.argsort(region, kind="stable")
+    starts = np.searchsorted(region[order], np.arange(count + 1))
+    roots = np.flatnonzero(~surrounded)
+    owns = [order[starts[r]:starts[r + 1]] for r in roots]
+
+    # one feature in pieces — a fin broken where its bores cut through each other — is one
+    # place: roots a band or less apart whose own samples come within `gather` are gathered
+    lo = np.array([pts[thin[o]].min(axis=0) for o in owns])
+    hi = np.array([pts[thin[o]].max(axis=0) for o in owns])
+    lv = level[roots]
+    near = []
+    for i in range(0, len(roots), 512):              # boxes within reach, a block of rows at a time
+        gap = np.maximum(lo[i:i + 512, None, :] - hi[None, :, :],
+                         lo[None, :, :] - hi[i:i + 512, None, :]).max(axis=2)
+        a_, b_ = np.nonzero((gap <= gather) & (np.abs(lv[i:i + 512, None] - lv[None, :]) <= 1))
+        near.extend((int(x + i), int(y)) for x, y in zip(a_, b_) if x + i < y)
+    parent = np.arange(len(roots))
+
+    def top(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+    for i, j in near:
+        if top(i) == top(j):
+            continue
+        d, _ = cKDTree(pts[thin[owns[i]]]).query(pts[thin[owns[j]]], k=1,
+                                                distance_upper_bound=gather)
+        if np.isfinite(d).any():
+            parent[top(j)] = top(i)
+    families = {}
+    for i in range(len(roots)):
+        families.setdefault(top(i), []).append(i)
+
+    places = []
+    for group in families.values():
+        own = np.concatenate([owns[i] for i in group])
+        rims = [o for i in group for o in by_place.get(roots[i], [])]
+        members = np.concatenate([own] + [order[starts[o]:starts[o + 1]] for o in rims])
+        at = own[np.argmin(t[own])]
+        upto = min(_THIN_REACH, _THIN_BAND0 * 2.0 ** (max(level[roots[i]] for i in group)
+                                                      + (1 if rims else 0)))
+        places.append((int(thin[at]), thin[members], upto, len(group)))
+    places.sort(key=lambda place: thick[place[0]])
+    return places
+
+
+def find_thin(mesh):
+    """Material between opposite-facing surfaces, thinnest place first."""
+    pts, facet, share = surface_samples(mesh)
+    thick, meet = material_thickness(mesh, pts, facet)
+    found = []
+    for at, members, upto, pieces in thin_places(pts, thick):
+        span = pts[members].max(axis=0) - pts[members].min(axis=0)
+        pick = [click(_vec(*pts[at]))]
+        if thick[at] >= 0.0005:                       # the far side, unless it prints as this one
+            pick.append(click(_vec(*meet[at])))
+        found.append({
+            "class": "thin", "score": -float(thick[at]),
+            "line": (f"{thick[at]:.3f} mm of material at its thinnest"
+                     f" · {share[members].sum():.1f} mm² of surface under {upto:g} mm"
+                     f" · spans {span[0]:.1f} × {span[1]:.1f} × {span[2]:.1f} mm"
+                     + (f" · in {pieces} pieces" if pieces > 1 else "")),
+            "pick": pick,
+        })
+    return found
+
+
+def _facets_touching(vids):
+    """Which facets share a vertex, as a sparse facet × facet matrix."""
+    count = len(vids)
+    rows = np.repeat(np.arange(count), 3)
+    incidence = sp.csr_matrix((np.ones(count * 3), (rows, vids.ravel())),
+                              shape=(count, int(vids.max()) + 1))
+    return (incidence @ incidence.T).tocsr()
+
+
+def _gently_folded(mesh, touching):
+    """Per facet: whether a facet sharing one of its vertices folds 2–25° from it — a chord of a
+    curved surface, the way `_banded` reads one, found for every facet at once."""
+    pairs = touching.tocoo()
+    a, b = pairs.row, pairs.col
+    cos = np.einsum("ij,ij->i", mesh.face_normals[a], mesh.face_normals[b])
+    gentle = (cos > 0.9063) & (cos < np.cos(np.radians(2.0)))
+    out = np.zeros(touching.shape[0], bool)
+    out[a[gentle]] = True
+    return out
+
+
+def _whole_face(p, every, neighbours):
+    """Island `p` with the coplanar islands it touches — one flat face whose facets rounded to
+    neighbouring normals or offsets, so `group_planes` split it — grown until nothing more
+    joins."""
+    ns, os_, lo, hi = neighbours
+    near = np.flatnonzero((ns @ p.n > np.cos(np.radians(2.0)))
+                          & (np.abs(ns @ p.thru() - os_) < 2 * _OFFSET_MM))
+    face = p
+    while True:
+        touch = near[(lo[near] <= face.hi + 0.05).all(axis=1)
+                     & (hi[near] >= face.lo - 0.05).all(axis=1)]
+        facets = np.unique(np.concatenate([face.f] + [every[k].f for k in touch]))
+        if len(facets) == len(face.f):
+            return face                               # nothing more touches it
+        grown = Plane(p.n, p.o, facets, p.mesh, p.vids, p.bands)
+        joined = next(i for i in grown.components() if np.isin(p.f[0], i.f))
+        if len(joined.f) == len(face.f):
+            return face                               # what touched its box is not joined to it
+        face = joined
+
+
+def find_ledges(planes, mesh, pose):
+    """Flat faces within 30° of facing the bed, bounded by edges sharper than 25° and smaller
+    than a ceiling, smallest first.
+
+    `pose` turns the box's frame into the print's (`print_pose_of`); the bed is the lowest point
+    of the piece in that pose. Every coordinate reported stays in the box's frame.
+    """
+    q_min = float((mesh.vertices @ pose.T)[:, 2].min())
+    centers = mesh.triangles_center
+    neighbours = _neighbour_arrays(planes)
+    boxes = _Boxes(neighbours)
+    every = [p for group in planes.values() for p in group]
+    touching = _facets_touching(every[0].vids) if every else None
+    chord = _gently_folded(mesh, touching) if every else None
+    islands = []
+    for group in planes.values():
+        facing = float((pose @ group[0].n)[2])
+        if facing > -_LEDGE_FACING:
+            continue
+        for whole in group:
+            if whole.soft_frac() > 0.75:
+                continue  # chords of a curved surface, not authored planes
+            islands += [(p, whole, facing) for p in whole.components()
+                        if p.soft_frac() <= 0.75 and not chord[p.f].any()]
+    seen = set()
+    found = []
+    for p, whole, facing in islands:
+        if _banded(p, whole, neighbours, split_ok=True, among=boxes.near(p.lo, p.hi, 0.05)):
+            continue  # a patch of a curved or warped surface
+        p = _whole_face(p, every, neighbours)
+        if int(p.f.min()) in seen:
+            continue  # a face already read through another of its islands
+        seen.add(int(p.f.min()))
+        if p.area >= _CEILING_AREA:
+            continue  # a ceiling's to read
+        up = float((p.verts @ pose.T)[:, 2].min()) - q_min
+        if up < _CEILING_OFF_BED:
+            continue  # on the bed
+        w = p.uv_hi - p.uv_lo
+        if p.area / max(float(w.max()), 1e-9) < 0.01:
+            continue  # narrower than the 0.01 mm `vertex_ids` rounds to — a facet sliver
+        outside = np.setdiff1d(touching[p.f].indices, p.f)
+        if (mesh.face_normals[outside] @ p.n > 0.9063).any():
+            continue  # it runs on into a curve: a ledge is bounded by edges sharper than 25°
+        c = centers[p.f]
+        at = c[np.argmin(np.linalg.norm(c - p.center(), axis=1))]
+        found.append({
+            "class": "ledge", "score": -p.area,
+            "line": (f"{p.area:.2f} mm² flat face"
+                     f" {np.degrees(np.arccos(min(1.0, -facing))):.0f}° off facing"
+                     f" the bed · {w.max():.1f} × {w.min():.1f} mm · {up:.1f} mm up"),
+            "pick": [plane_face(_vec(*p.n), _vec(*at)), click(_vec(*at))],
+        })
+    return found
+
+
 def parse_answers(text):
     """Entries from answers text: (class, reason, anchor points).
 
@@ -591,7 +1041,9 @@ def parse_answers(text):
         cls, _, rest = lines[0].lstrip("[").partition("]")
         reason, picks = [rest.strip()], []
         for line in lines[1:]:
-            if line.startswith(("file:", "solid:")) or "x=" in line:
+            if line.lower().startswith("alternatives:"):
+                reason.append(line)
+            elif line.startswith(("file:", "solid:")) or "x=" in line:
                 picks.append(line)
             elif not picks:
                 reason.append(line)
@@ -627,16 +1079,41 @@ def split_answered(found, entries):
     return open_, answered
 
 
+def answered_in_place(found, entries):
+    """`split_answered` for a ranked class: every finding stays, in rank order, and an answered
+    one carries its answer under "answer"."""
+    open_, answered = split_answered(found, entries)
+    for r, why in answered:
+        r["answer"] = why
+    return sorted(open_ + [r for r, _ in answered], key=lambda r: -r["score"])
+
+
+def split_alternatives(why):
+    """An answer's reason, and the alternatives it records ("" when it names none)."""
+    parts = re.split(r"(?i)\balternatives:\s*", why, maxsplit=1)
+    return parts[0].strip(), (parts[1].strip() if len(parts) > 1 else "")
+
+
+def _print_answer(why, lead):
+    reason, alternatives = split_alternatives(why)
+    print(f"{lead}{reason}")
+    print(f"    alternatives: {alternatives or 'none recorded'}")
+
+
 def lint(stl, classes=_CLASSES):
     """Every finding for the piece at `stl`, most severe first within each class."""
     mesh = trimesh.load(stl, process=False)
     s = print_up_of(stl)
     q_min = float((s * mesh.vertices[:, 2]).min())     # the bed, in print height
-    planes, boundary, level = plane_map(mesh)
+    planes = boundary = level = None
+    if any(name != "thin" for name in classes):        # `thin` reads facets, not planes
+        planes, boundary, level = plane_map(mesh)
     finders = {"step": lambda: find_steps(planes),
                "sliver": lambda: find_slivers(planes, q_min, s),
                "ceiling": lambda: find_ceilings(planes, mesh, q_min, s),
-               "slope": lambda: find_slopes(planes, boundary, level, s)}
+               "slope": lambda: find_slopes(planes, boundary, level, s),
+               "thin": lambda: find_thin(mesh),
+               "ledge": lambda: find_ledges(planes, mesh, print_pose_of(stl))}
     found = {}
     for name in classes:
         try:
@@ -656,6 +1133,9 @@ def report(stl, top, show_all, classes):
                if answers_path.exists() else [])
     opens, answered = {}, []
     for name in classes:
+        if name in _RANKED:
+            opens[name] = answered_in_place(found[name], entries)
+            continue
         opens[name], hit = split_answered(found[name], entries)
         answered += hit
     total = sum(len(v) for v in opens.values())
@@ -673,9 +1153,11 @@ def report(stl, top, show_all, classes):
             print(f"    {file_line(step)}")
             for line in r["pick"]:
                 print(f"    {line}")
+            if "answer" in r:
+                _print_answer(r["answer"], "    answered: ")
     if show_all:
         for r, why in answered:
-            print(f"\n  [{r['class']} · answered] {why}")
+            _print_answer(why, f"\n  [{r['class']} · answered] ")
             print(f"    {r['line']}")
             for line in r["pick"]:
                 print(f"    {line}")
@@ -793,7 +1275,52 @@ def _selftest():
     got = find_slopes(planes, boundary, level, s=-1.0)
     assert len(got) == 1 and "no level foot" in got[0]["line"], got
 
-    print("selftest: all four classes find their defect and only theirs, both ways up")
+    # thin: a 0.3 mm plate — two faces looking away from each other across material — is found
+    # at its thickness; the same faces looking at each other are a 0.3 mm slot of air and are
+    # not; a 5 mm slab is past the reach
+    def plate(z0, z1, x0=0.0):
+        return [[(x0, 0, z1), (x0 + 10, 0, z1), (x0 + 10, 10, z1), (x0, 10, z1)],   # up
+                [(x0, 0, z0), (x0, 10, z0), (x0 + 10, 10, z0), (x0 + 10, 0, z0)]]   # down
+    got = find_thin(sheet(plate(0.0, 0.3)))
+    assert len(got) == 1 and got[0]["line"].startswith("0.300 mm"), got
+    slot = [[(0, 0, 0), (10, 0, 0), (10, 10, 0), (0, 10, 0)],
+            [(0, 0, 0.3), (0, 10, 0.3), (10, 10, 0.3), (10, 0, 0.3)]]
+    assert find_thin(sheet(slot)) == [], "a slot of air read as material"
+    assert find_thin(sheet(plate(0.0, 5.0))) == [], "a 5 mm slab read as thin"
+    # ranked thinnest first, and an answer keeps the place on the ranking beside its reason
+    got = sorted(find_thin(sheet(plate(0.0, 1.0) + plate(0.0, 0.05, x0=20.0))),
+                 key=lambda r: -r["score"])
+    assert [r["line"][:9] for r in got] == ["0.050 mm ", "1.000 mm "], got
+    # the same plate broken by a 2 mm gap is one place in two pieces
+    two = find_thin(sheet(plate(0.0, 0.05) + plate(0.0, 0.05, x0=12.0)))
+    assert len(two) == 1 and two[0]["line"].endswith("in 2 pieces"), two
+    at = dict(pick_points("\n".join(got[0]["pick"])))["click"]
+    ranked = answered_in_place(got, parse_answers(
+        f"[thin] a reason\nclick: x={at[0]:.3f} y={at[1]:.3f} z={at[2]:.3f}\n"))
+    assert len(ranked) == 2 and ranked[0]["answer"] == "a reason", ranked
+    assert split_alternatives(ranked[0]["answer"]) == ("a reason", ""), ranked
+    assert split_alternatives("why\nalternatives: thicker, but it hits the plate") == (
+        "why", "thicker, but it hits the plate")
+
+    # ledge: a 1 mm² print-down square 10 mm up is found; a 25 mm² one on the same plane is a
+    # ceiling's, and a 1 mm² one on the bed is not a ledge
+    tiny = [(5, 5, 10), (5, 6, 10), (6, 6, 10), (6, 5, 10)]
+    big = [(20, 20, 10), (20, 25, 10), (25, 25, 10), (25, 20, 10)]
+    bed = [(30, 30, 0), (30, 31, 0), (31, 31, 0), (31, 30, 0)]
+    m = sheet([tiny, big, bed])
+    got = find_ledges(planes_of(m), m, np.eye(3))
+    assert len(got) == 1 and got[0]["line"].startswith("1.00 mm² flat face 0° off"), got
+    # a faucet base leans 15° on the bed: the flat square reads 15° off; a square sloped 40°
+    # toward +Y in the box comes round to 25° and is a ledge; one sloped 40° toward -Y goes on
+    # to 55°, past the 30° the profiles support from
+    rise = float(np.tan(np.radians(40)))
+    toward = [(5, 15, 10), (5, 16, 10 + rise), (6, 16, 10 + rise), (6, 15, 10)]
+    away = [(5, 25, 10 + rise), (5, 26, 10), (6, 26, 10), (6, 25, 10 + rise)]
+    m = sheet([tiny, toward, away, bed])
+    got = find_ledges(planes_of(m), m, print_pose_of(Path("industrial-shell-base.stl")))
+    assert sorted(r["line"].split("flat face ")[1][:3] for r in got) == ["15°", "25°"], got
+
+    print("selftest: every class finds its defect and only its own; the face classes both ways up")
 
 
 def main(argv=None):
