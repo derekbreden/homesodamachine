@@ -14,7 +14,7 @@
       "neighbors": [
         {
           "name": "enclosure-back-top",
-          "gap_mm": 1.4401434,
+          "gap_mm": 1.1718153,
           "overlap_mm3": 0
         }
       ],
@@ -74,13 +74,9 @@
     "hardware/manifold-layout/_lines.py": "87e89188eb77e425049ee9513a29cfec8e3967c24f81712b080d0be5be9e7f81",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "b1c2812ef82c5c2f3b999a9c8f70f629e82afce609b9cf93c70efbf2a95532d0"
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "6e3e624ca10c1f81d2e487d27a16facc8cfb12ea4567dbac6bd8788148eddded"
   },
   "passed": true,
-  "serialized_input_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "09d61648bb4cf503b544e571988e208ef01b4eeffadfaf9a8220d379a2eeb4d3",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b0f721d6dd62939f1507e305cf7a0a8d84bb8cdfec9d9d40403f5fab867a51a0"
-  },
   "placement_fact_bounds_mm": [
     -90.5000001069748,
     182.29999989999996,
@@ -136,5 +132,26 @@
       ],
       "scope": "Nominal centreline. Tube cut length adds the marked bulkhead insertion."
     }
+  },
+  "serialized_input_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step": "58387083561e1f0d28d9356110580d504d588ce94ae36124a00c21e4f68dc772",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b0f721d6dd62939f1507e305cf7a0a8d84bb8cdfec9d9d40403f5fab867a51a0"
+  },
+  "wall_materialization": {
+    "scope": "Only the TPU sleeve is replaced. Other B-reps, colors and viewer triangles are retained from the identified saved scene. Wall minima are relaxed radial dimensions, not installed elastomer mechanics or physical acceptance.",
+    "basis_sha256": {
+      "hardware/manifold-layout/enclosure-assembly.step": "09d61648bb4cf503b544e571988e208ef01b4eeffadfaf9a8220d379a2eeb4d3",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "2d0d2b3cc53438adcbfb1b612ea3c598fab4ae57d0ff77e680e5971ef70beb52",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "bedba00dd47fb81bb92b7cdf9198608c3f6c406640e8ef9496cf238a595b87fc",
+      "hardware/manifold-layout/drain-clearance-check.json": "fc4e35744fa1742c636f08ae28bf614f6b9ece257842cd80665ba46753b62fb9"
+    },
+    "replaced_members": [
+      "asse-drain-adapter"
+    ],
+    "retained_body_count": 222,
+    "retained_viewer_mesh_count": 366,
+    "minimum_relaxed_radial_wall_mm": 3.45,
+    "barb_outside_diameter_mm": 14.0,
+    "tube_outside_diameter_mm": 11.7
   }
 }

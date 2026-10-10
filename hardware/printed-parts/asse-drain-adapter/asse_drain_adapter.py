@@ -29,12 +29,15 @@ TAPER_ANGLE = 60.0  # Degrees above the print bed.
 REDUCER_LENGTH = (BARB_BORE - TUBE_BORE) / 2 * math.tan(math.radians(TAPER_ANGLE))
 TUBE_START = BARB_DEPTH + REDUCER_LENGTH
 LENGTH = TUBE_START + TUBE_DEPTH
-BARB_OD = 14.0
-TUBE_OD = 10.0
+MIN_WALL = 3.45  # Shared relaxed radial minimum at both ties and socket mouths.
+GROOVE_DEPTH = .50
+BARB_OD = BARB_BORE + 2 * (MIN_WALL + GROOVE_DEPTH)
+TUBE_OD = TUBE_BORE + 2 * (MIN_WALL + GROOVE_DEPTH)
 OUTER_REDUCER_START = TUBE_START - (BARB_OD - TUBE_OD) / 2 * math.tan(math.radians(TAPER_ANGLE))
 ENTRY = .40
 ENTRY_HEIGHT = ENTRY * math.tan(math.radians(TAPER_ANGLE))
-GROOVE_DEPTH = .50
+MOUTH_BEVEL = GROOVE_DEPTH - ENTRY
+MOUTH_BEVEL_HEIGHT = 2 * MOUTH_BEVEL  # 63.4 degrees above the bed.
 GROOVE_FLAT = 2.80  # Existing 0.1-inch / 2.54 mm-wide four-inch ties.
 GROOVE_RAMP = 1.0  # At most .5 mm radial growth / mm build rise.
 BARB_TIE_Z = 5.5
@@ -61,8 +64,9 @@ def build(*, installed=False):
     tube_od = math.sqrt(TUBE_OD**2 + tube_d**2 - TUBE_BORE**2)
     rb, rt = barb_od / 2, tube_od / 2
     outer = _revolve([
-        (0, 0), (rb - .4, 0), (rb, .8), (rb, OUTER_REDUCER_START),
-        (rt, TUBE_START), (rt, LENGTH - .4), (rt - .2, LENGTH), (0, LENGTH),
+        (0, 0), (rb - MOUTH_BEVEL, 0), (rb, MOUTH_BEVEL_HEIGHT),
+        (rb, OUTER_REDUCER_START), (rt, TUBE_START),
+        (rt, LENGTH - MOUTH_BEVEL_HEIGHT), (rt - MOUTH_BEVEL, LENGTH), (0, LENGTH),
     ])
     bore = _revolve([
         (0, -.1), (barb_d / 2 + ENTRY, -.1),
@@ -111,7 +115,7 @@ def main():
         "TUBE_BORE": f"{TUBE_BORE:.2f}", "TUBE_DEPTH": f"{TUBE_DEPTH:g}",
         "TAPER_ANGLE": f"{TAPER_ANGLE:g}", "LENGTH": f"{LENGTH:.2f}",
         "BARB_OD": f"{BARB_OD:g}", "TUBE_OD": f"{TUBE_OD:g}",
-        "GROOVE_WALL": f"{(TUBE_OD - TUBE_BORE) / 2 - GROOVE_DEPTH:.2f}",
+        "MIN_WALL": f"{MIN_WALL:.2f}",
         "VOLUME": f"{shape.Volume()/1000:.3f}",
     })
     print(f"-> {step.name}, {stl.name}, {step.name}.mesh; {shape.Volume()/1000:.3f} cm3")

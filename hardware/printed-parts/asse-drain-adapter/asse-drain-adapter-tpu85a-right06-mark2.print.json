@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
-      "stl_sha256": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b",
-      "triangles": 9480,
+      "stl_sha256": "760ca7653c1899bd90c6c3e0d2e985aff999a8e0066ad7e104fc2218d995ba34",
+      "triangles": 9006,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -110,15 +110,15 @@
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.997253721938932e-10
+      "embedded_vertex_error_mm": 4.993896407512466e-10
     }
   ],
-  "project_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+  "project_sha256": "56d108b34ad04287361876a8af40cfe06de20e777ac08dccd40ec439330cd4ed",
   "settings_preserved_byte_for_byte": false,
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
     "hardware/printed-parts/faucet/refresh_print_project.py": "1e35507fe56b4eee0f432d6ff4f7da26e94d897fae83bd51a7c985d10334b340",
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b"
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "760ca7653c1899bd90c6c3e0d2e985aff999a8e0066ad7e104fc2218d995ba34"
   },
   "active_nozzle": 1,
   "requested_z_trim_mm": 0.04,

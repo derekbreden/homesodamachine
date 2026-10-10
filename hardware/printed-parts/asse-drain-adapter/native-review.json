@@ -2,13 +2,13 @@
   "status": "Native fit-trial slice reviewed; unsubmitted",
   "printer": "Mark2",
   "project": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf",
-  "project_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+  "project_sha256": "56d108b34ad04287361876a8af40cfe06de20e777ac08dccd40ec439330cd4ed",
   "native": "hardware/printed-parts/asse-drain-adapter/native/asse-drain-adapter-tpu85a-right06-mark2/asse-drain-adapter-tpu85a-right06-mark2.gcode.3mf",
-  "native_sha256": "e8f925c8ed9d2b2094db2813be9390e522ba8205c15db419637c8b4af6295743",
-  "gcode_sha256": "d837d55374a245e4ef3b20896e2b807d82e3bba14298a46587fdfda5d6714be8",
+  "native_sha256": "ef5577baf9137bf8bbdd88e4d7d75ad157e995692f0d6e60f0608363530d3376",
+  "gcode_sha256": "d49b74c41176d8306e4b135c6eb1d95877696d64dd63cb6e38a136ac3240d433",
   "source_stl": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
-  "source_stl_sha256": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b",
-  "geometry_source_sha256": "b1c2812ef82c5c2f3b999a9c8f70f629e82afce609b9cf93c70efbf2a95532d0",
+  "source_stl_sha256": "760ca7653c1899bd90c6c3e0d2e985aff999a8e0066ad7e104fc2218d995ba34",
+  "geometry_source_sha256": "6e3e624ca10c1f81d2e487d27a16facc8cfb12ea4567dbac6bd8788148eddded",
   "settings_basis": "hardware/printed-parts/gaskets.3mf",
   "settings_basis_sha256": "07b85189418db5d95e986983650d9d454c2cd42c56fdf178edec691683fa0513",
   "settings": {
@@ -140,50 +140,50 @@
   "objects": 1,
   "supports_emitted": false,
   "fit": {
-    "minimum_shared_bed_margin_mm": 145.22401370794438,
+    "minimum_shared_bed_margin_mm": 145.23006765480963,
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
-          170.22401370794438,
-          152.72520403770125
+          170.23028170337798,
+          152.72851125895212
         ],
         [
-          184.774861714316,
-          167.27997896183385
+          184.76993234519037,
+          167.27184693199106
         ]
       ],
-      "maximum_line_width_mm": 0.975644,
-      "bounds_padding_mm": 0.587822
+      "maximum_line_width_mm": 0.96526,
+      "bounds_padding_mm": 0.58263
     },
-    "complete_layer_bead_minimum_bed_margin_mm": 145.22401370794438,
+    "complete_layer_bead_minimum_bed_margin_mm": 145.23006765480963,
     "minimum_toolpath_separation_mm": null,
     "pairwise_toolpath_separations": []
   },
   "slice_metadata": {
     "feature_type_times": {
-      "Custom": 344.59344482421875,
+      "Custom": 344.5940856933594,
       "Flush": 15.0,
-      "Inner wall": 1079.3983154296875,
-      "Outer wall": 653.3873901367188,
-      "Top surface": 6.96225643157959,
-      "Travel": 49.24037551879883,
-      "Undefined": 40.712406158447266
+      "Inner wall": 1427.383056640625,
+      "Outer wall": 688.9507446289062,
+      "Top surface": 11.476765632629395,
+      "Travel": 52.41484069824219,
+      "Undefined": 43.886871337890625
     },
     "filament_change_times": 0,
     "filaments": [
       {
         "filament_id": "GFU04",
         "id": 1,
-        "main_used_g": 3.0406744480133057,
-        "total_used_g": 3.0406744480133057
+        "main_used_g": 3.635251522064209,
+        "total_used_g": 3.635251522064209
       }
     ],
-    "generate_support_material_time": 24,
+    "generate_support_material_time": 36,
     "id": 1,
-    "infill_time": 17,
+    "infill_time": 29,
     "layer_filament_change": 0,
-    "main_predication": 1773.989013671875,
-    "make_perimeters_time": 147,
+    "main_predication": 2165.229736328125,
+    "make_perimeters_time": 235,
     "obj_cached_cnt": 0,
     "objects": [
       {
@@ -197,28 +197,16 @@
         },
         "id": 5,
         "name": "asse-drain-adapter",
-        "triangle_count": 9480
+        "triangle_count": 9006
       }
     ],
-    "sliced_time": 530,
-    "sliced_time_with_cache": 323,
-    "total_predication": 2140.054443359375,
-    "triangle_count": 9480,
+    "sliced_time": 768,
+    "sliced_time_with_cache": 431,
+    "total_predication": 2531.2958984375,
+    "triangle_count": 9006,
     "warning_message": ""
   },
   "submitted": false,
   "physical_print_evaluated": false,
-  "evidence_limit": "Slice and geometric review only; fit, leakage, retained tie tension and fault flow are unmeasured.",
-  "support_audit": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.support-audit.json",
-  "support_audit_sha256": "98a703ceb1bdbf912cee3332c7a4ca56a13924adfed7dc4fbf117da4a71ff6ac",
-  "supports_summary": {
-    "support_bodies": 0,
-    "interface_islands": 0,
-    "bed_rooted_bodies": 0,
-    "model_rooted_bodies": 0,
-    "shortest_build_up_mm": null,
-    "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 0,
-    "shortest_labelled_build_up_mm": null
-  }
+  "evidence_limit": "Slice and geometric review only; fit, leakage, retained tie tension and fault flow are unmeasured."
 }
