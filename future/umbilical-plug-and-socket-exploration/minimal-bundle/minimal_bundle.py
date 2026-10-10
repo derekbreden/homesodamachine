@@ -33,16 +33,16 @@ TPU = u.cq.Color(.35, .65, .5)
 COUNTER = u.cq.Color(.72, .72, .72)
 
 
-def tpu_profile():
+def tpu_profile(ports=PORTS):
     """Offset each tube by GAP, fill the enclosed interstice, then remove bores."""
     disks = [u.cyl(od + 2*GAP, 2, 14, x, z)
-             for x, z, od, _ in PORTS.values()]
+             for x, z, od, _ in ports.values()]
     merged = disks[0].fuse(*disks[1:]).clean()
     front = next(face for face in merged.Faces()
                  if abs(face.Center().y - 2) < 1e-7 and
                  abs(face.normalAt().y) > .999)
     shape = u.cq.Solid.extrudeLinear(front.outerWire(), [], u._v(0, 12, 0))
-    for x, z, od, _ in PORTS.values():
+    for x, z, od, _ in ports.values():
         shape = shape.cut(u.cyl(od, 1.9, 14.1, x, z))
     return shape.clean()
 
@@ -58,16 +58,16 @@ def magnet(x, z):
     return shape.clean()
 
 
-def scene():
+def scene(ports=PORTS):
     rows = []
     def add(name, shape, color, role):
         rows.append((name, shape, color, role))
-    for name, (x, z, od, tube_id) in PORTS.items():
+    for name, (x, z, od, tube_id) in ports.items():
         tube = u.cyl(od, 2, 14, x, z).cut(u.cyl(tube_id, 1.9, 14.1, x, z))
         color_key = 'carb' if name == 'soda' else 'drain' if name == 'drain' else 'flavor'
         color = u.cq.Color(*(v/255 for v in yw.port_colors[color_key]))
         add(name, tube.clean(), color, 'bundle')
-    add('tpu-profile', tpu_profile(), TPU, 'bundle')
+    add('tpu-profile', tpu_profile(ports), TPU, 'bundle')
     add('blue-plug-guard', u.cyl(34, 0, 16).cut(u.cyl(22, -.1, 16.1)), BLUE, 'bundle')
     counter = u.box(24, 70, 0, 2, -23, 23).cut(u.cyl(34.93, -.1, 2.1, 47, 0))
     add('counter-hole-reference', counter.clean(), COUNTER, 'reference')
