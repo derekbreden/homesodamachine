@@ -1,0 +1,377 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+    "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1251,
+    "estimated_seconds": 21233.013671875,
+    "estimated_grams_saved_profile_density": 161.5475616455078,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "geometry": [
+    {
+      "part": "industrial-shell-base",
+      "source_mesh_unchanged": false,
+      "prepared_geometry_matches_current_production_source": true,
+      "native_vertex_rounding_maximum_mm": 4.2759999985264585e-06,
+      "native_placement_rounding_maximum_mm": 3.608876539828998e-07,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "faucet-shell-tip",
+      "source_mesh_unchanged": false,
+      "prepared_geometry_matches_current_production_source": true,
+      "native_vertex_rounding_maximum_mm": 3.853999999137159e-06,
+      "native_placement_rounding_maximum_mm": 3.9310936017500353e-07,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "industrial-display-cover",
+      "source_mesh_unchanged": true,
+      "prepared_geometry_matches_current_production_source": true,
+      "native_vertex_rounding_maximum_mm": 5.000000058430487e-08,
+      "native_placement_rounding_maximum_mm": 1.0864778232644312e-07,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "source_mesh_unchanged": true,
+      "prepared_geometry_matches_current_production_source": true,
+      "native_vertex_rounding_maximum_mm": 1.1900000007614153e-07,
+      "native_placement_rounding_maximum_mm": 3.8418579428878274e-09,
+      "native_triangle_indices_identical": true
+    },
+    {
+      "part": "lever-replica",
+      "source_mesh_unchanged": true,
+      "prepared_geometry_matches_current_production_source": true,
+      "native_vertex_rounding_maximum_mm": 9.65000001684757e-07,
+      "native_placement_rounding_maximum_mm": 7.34862837248329e-10,
+      "native_triangle_indices_identical": true
+    }
+  ],
+  "selected_face_wall_layer_checks": [
+    {
+      "name": "shoulder_CAD_Z14.0",
+      "print_z_mm": [
+        13.87164833714327,
+        28.793285229095687
+      ],
+      "wall_layer_count": 126,
+      "first_wall_layer": [
+        13.88,
+        0.12
+      ],
+      "last_wall_layer": [
+        28.88,
+        0.119999
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "shoulder_CAD_Z57.5",
+      "print_z_mm": [
+        55.46308929809068,
+        67.83949056838945
+      ],
+      "wall_layer_count": 105,
+      "first_wall_layer": [
+        55.52,
+        0.12
+      ],
+      "last_wall_layer": [
+        67.88,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "wall_layer_runs": [
+    {
+      "part": "industrial-shell-base",
+      "identify_id": 1901,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 13.4,
+          "layer_count": 55
+        },
+        {
+          "height_mm": 0.12,
+          "bottom_z_mm": 13.4,
+          "last_z_mm": 29.0,
+          "layer_count": 130
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 29.0,
+          "last_z_mm": 55.16,
+          "layer_count": 109
+        },
+        {
+          "height_mm": 0.12,
+          "bottom_z_mm": 55.16,
+          "last_z_mm": 68.12,
+          "layer_count": 108
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 68.12,
+          "last_z_mm": 245.0,
+          "layer_count": 737
+        }
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "identify_id": 1902,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 137.72,
+          "layer_count": 573
+        }
+      ]
+    },
+    {
+      "part": "industrial-display-cover",
+      "identify_id": 1903,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 19.16,
+          "layer_count": 79
+        }
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "identify_id": 1904,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 6.2,
+          "layer_count": 25
+        }
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "identify_id": 1905,
+      "runs": [
+        {
+          "height_mm": 0.2,
+          "bottom_z_mm": 0.0,
+          "last_z_mm": 0.2,
+          "layer_count": 1
+        },
+        {
+          "height_mm": 0.24,
+          "bottom_z_mm": 0.2,
+          "last_z_mm": 12.44,
+          "layer_count": 51
+        }
+      ]
+    }
+  ],
+  "complete_model_support_brim_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        48.40283650000001,
+        73.1958365
+      ],
+      [
+        266.6881635,
+        295.1491635
+      ]
+    ],
+    "maximum_line_width_mm": 0.796327,
+    "bounds_padding_mm": 0.4981635
+  },
+  "minimum_bed_margin_mm": 24.850836500000014,
+  "selected_face_support_midpoint_reading": [
+    {
+      "cad_z_mm": 14.0,
+      "total_base_support_midpoints": 174404,
+      "midpoints_within_0_85_mm_normal_band": 1924,
+      "midpoints_within_0_85_mm_of_face_projected_region": 0,
+      "midpoints_projected_inside_face_inset_0_4_mm": 0,
+      "near_face_witnesses_cad_mm": [],
+      "inside_face_witnesses_cad_mm": []
+    },
+    {
+      "cad_z_mm": 57.5,
+      "total_base_support_midpoints": 174404,
+      "midpoints_within_0_85_mm_normal_band": 409,
+      "midpoints_within_0_85_mm_of_face_projected_region": 7,
+      "midpoints_projected_inside_face_inset_0_4_mm": 0,
+      "near_face_witnesses_cad_mm": [
+        [
+          -6.102999999999994,
+          1.0044817525098795,
+          56.67600522475305
+        ],
+        [
+          6.052499999999995,
+          0.9566684241085488,
+          56.66319368202047
+        ],
+        [
+          6.102999999999994,
+          1.4752219338547414,
+          56.9263728178385
+        ],
+        [
+          -6.102999999999994,
+          1.4752219338547414,
+          56.9263728178385
+        ],
+        [
+          -6.102999999999994,
+          1.134584421116811,
+          56.959332413037835
+        ],
+        [
+          6.058499999999995,
+          0.8974496307628232,
+          56.89579233746516
+        ],
+        [
+          6.102999999999994,
+          1.105606646328111,
+          56.95156784168475
+        ]
+      ],
+      "inside_face_witnesses_cad_mm": []
+    }
+  ],
+  "probing_clump_detection": false,
+  "bare_G39_commands": 0,
+  "base_wall_generator": "arachne",
+  "single_six_wall_solid_foot_modifier": true,
+  "screw_point_boundary_tracks_absent": true,
+  "insert_deposition_review_pass": true,
+  "scope": "Native commanded geometry, layers and reinforcement. Physical 0.12 mm finish, corrected exterior, extended-cover seating, support cleanup and new drip behavior require observation.",
+  "pass": true,
+  "first_second_layer_commanded_bead_overlap": {
+    "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+    "layers_z_mm": [
+      0.2,
+      0.44
+    ],
+    "support_extrusion_segments_in_reviewed_layers": 7367,
+    "method": "Emitted extrusion centerlines buffered by half the emitted line width; every second-layer wall segment compared with the complete first-layer footprint carrying that object label, including its labelled brim and support roads. Native arcs sampled with the repository G-code reader.",
+    "scope": "Sliced first/second-layer contact, not a physical adhesion or grip result.",
+    "objects": [
+      {
+        "identify_id": 1901,
+        "second_layer_wall_segments": 41,
+        "segments_without_first_layer_bead_overlap": 0,
+        "minimum_segment_footprint_overlap_fraction": 0.9995925160362457,
+        "second_wall_total_footprint_overlap_fraction": 0.999720072923975
+      },
+      {
+        "identify_id": 1902,
+        "second_layer_wall_segments": 7,
+        "segments_without_first_layer_bead_overlap": 0,
+        "minimum_segment_footprint_overlap_fraction": 0.7068286379208294,
+        "second_wall_total_footprint_overlap_fraction": 0.9117970618505941
+      },
+      {
+        "identify_id": 1903,
+        "second_layer_wall_segments": 78,
+        "segments_without_first_layer_bead_overlap": 0,
+        "minimum_segment_footprint_overlap_fraction": 0.220854927948604,
+        "second_wall_total_footprint_overlap_fraction": 0.7062459257857187
+      },
+      {
+        "identify_id": 1904,
+        "second_layer_wall_segments": 874,
+        "segments_without_first_layer_bead_overlap": 0,
+        "minimum_segment_footprint_overlap_fraction": 0.6404800066417795,
+        "second_wall_total_footprint_overlap_fraction": 0.8214843058386143
+      },
+      {
+        "identify_id": 1905,
+        "second_layer_wall_segments": 173,
+        "segments_without_first_layer_bead_overlap": 0,
+        "minimum_segment_footprint_overlap_fraction": 0.573101034820474,
+        "second_wall_total_footprint_overlap_fraction": 0.8131787566501688
+      }
+    ]
+  },
+  "display_cover_geometry_check": {
+    "path": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "sha256": "77c05c94b8ee4f88279bdf5b8d6aabecf0365e563596bd0adbc4ba4a9cd0167c",
+    "wing_extension_mm": 0.5,
+    "passed": true
+  },
+  "drip_geometry_check": {
+    "path": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
+    "sha256": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
+    "passed": true
+  }
+}

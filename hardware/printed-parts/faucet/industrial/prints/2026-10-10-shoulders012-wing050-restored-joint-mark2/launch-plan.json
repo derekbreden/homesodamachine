@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T08:06:04.558227+00:00",
+  "printer": "Mark2",
+  "status": "Ready for one authorized foreground launch",
+  "authorization_quotes": [
+    "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
+    "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
+    "You know what, let's make that 0.50 mm instead of 0.25 mm, thanks",
+    "The mark two bed is clear and ready for you. Start whenever you're ready.",
+    "It just needs to have a hole, and not such a large one, so that if we get water up there we get the drip.",
+    "We need the \"tight conformance\" carried through everywhere we can.",
+    "I think that's all that remains, please start that print on Mark 2 when you're ready."
+  ],
+  "authorization_scope": "Start this exact five-part faucet with the restored 70 degree joint and smooth shared passages on Mark2",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "native_check": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/native-check.json",
+  "native_check_sha256": "27452a45999fff647cb49c9b52eeece1fae44b09898e75fecec1a920bd003466",
+  "insert_deposition_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/insert-beads.json",
+  "insert_deposition_review_sha256": "acffca94f6747c4f5f26ee2dff258b18e364e9579c4d65e2a91b013c740be3f8",
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.12,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "parts": [
+    "industrial-shell-base",
+    "faucet-shell-tip",
+    "industrial-display-cover",
+    "industrial-above-counter-plate",
+    "lever-replica"
+  ],
+  "native_estimated_seconds": 21233.013671875,
+  "native_estimate": "5 h 53 min 53 s",
+  "native_estimated_grams_saved_profile_density": 161.5475616455078,
+  "queued_after": {
+    "task_id": "1325126748",
+    "job_id": "1325126748",
+    "archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+    "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00"
+  },
+  "start_now": true,
+  "ready_to_launch": true,
+  "launch_method": "One foreground tools/bambu_print.py transaction with --attempts 1; current UI display names Mark1/Mark2, connection target Mark2",
+  "required_ui_display_names": [
+    "Mark1",
+    "Mark2"
+  ],
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "pre_start_requirements": [
+    "Freshly read both printers; destination ready and idle without an unresolved fault",
+    "Verify exact prepared archive, G-code, source and review hashes",
+    "At least 180 seconds after the peer most recent accepted start or resume",
+    "Read all current launch receipts; no previous attempted or ambiguous transaction"
+  ],
+  "send_attempted": false,
+  "accepted": false,
+  "submitted": false,
+  "send_count": 0,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "automatic_start": false,
+  "display_cover_trial": {
+    "wing_extension_mm": 0.5,
+    "arch_clearance_local_n_mm": 0.5,
+    "retaining_lips_unchanged": true,
+    "prior_source_stl_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
+    "source_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+    "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "physical_fit_evaluated": false,
+    "geometry_check_sha256": "77c05c94b8ee4f88279bdf5b8d6aabecf0365e563596bd0adbc4ba4a9cd0167c",
+    "geometry_check_passed": true,
+    "bezel_to_lip_extension_mm": 0.5
+  },
+  "send_click_count": 0,
+  "drain_trial": {
+    "hole_diameter_mm": 4.0,
+    "tube_id_mm": 2.5,
+    "gaskets_required": false,
+    "insertion_tool_required": false,
+    "intermediate_guide_discs": 0,
+    "smooth_shared_bundle_passage": true,
+    "geometry_check": "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json",
+    "physical_discharge_observed": false,
+    "geometry_check_sha256": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
+    "geometry_check_passed": true
+  },
+  "launch_authorized": true,
+  "launch_command": "tools/cad-venv/bin/python tools/bambu_print.py hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf Mark2 --attempts 1",
+  "post_publication_lint": {
+    "parts": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "industrial-shell-base"
+    ],
+    "findings_justified_in_part_lint_answers": true,
+    "neck_roof_reading": "hardware/printed-parts/faucet/vent-qualification/neck-roof-reading.json",
+    "neck_roof_reading_sha256": "4fd476f56f4496f45923fc2892ba9c1850b2e1103fdc1b90490f1b6b3db2b722"
+  }
+}

@@ -12,10 +12,10 @@
     "retaining_lip_floor_and_engagement_unchanged": true,
     "cover_stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
     "geometry_check": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
-    "geometry_check_sha256": "d5df413fa6a1bc8af5cfc3ae075f25e481b30af1dfca9d7f1cd8913c5083a188",
-    "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf",
-    "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.gcode.3mf",
-    "native_archive_sha256": "f6c087784d1a70f3dee5a5c9107856077fb5419f5175a9f784fb9025f8c32133",
+    "geometry_check_sha256": "77c05c94b8ee4f88279bdf5b8d6aabecf0365e563596bd0adbc4ba4a9cd0167c",
+    "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+    "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+    "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
     "physical_fit_evaluated": false
   },
   "authorization_quotes": [
