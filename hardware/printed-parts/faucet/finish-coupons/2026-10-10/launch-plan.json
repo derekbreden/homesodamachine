@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-10T23:43:13.859066+00:00",
+  "printer": "Mark2",
+  "status": "Reviewed comparison plate; one foreground start authorized",
+  "authorization_quotes": [
+    "In any case, your call, mark2 bed is free, do some research and take your time and start a print please. Thanks.",
+    "(i.e. don't put huge spacing between your tests such that they are close to the edge when they need not be)"
+  ],
+  "authorization_scope": "Start this six-specimen cooling and scarf comparison on Mark2; no shipping recipe change",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
+  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "21257b4497df0ef155e6ef96870c6f36cb15279709dfc9a61c0d71e4a4192bd3",
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/native-check.json",
+  "native_check_sha256": "a5d5ba0f718a38bb127c70de2fee5a26fd2a6dd3be82f354cf55a36d30bf54fd",
+  "cooling_command_review": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/cooling-command-review.json",
+  "cooling_command_review_sha256": "4c2ebf41ce8c20586b29bea28b2370ab04543e5c9434f516a3cf06aab0deb2b3",
+  "geometry_source_hashes": {
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.stl": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757"
+  },
+  "coupon_generator_sha256": "d940e1ea020fe7e42707a9b131db0cdcae982300776d36639a49d31cf383a0e6",
+  "cooling_finisher_sha256": "3e5defe1dacd4e9f475e45fa07150cd954f4dbdce3b6d25a29b987cc32a250be",
+  "process": {
+    "material": "Black Polymaker PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "first_bed_layer_height_mm": 0.2,
+    "normal_layer_height_mm": 0.24,
+    "fine_layer_bands": [
+      {
+        "specimens": "A/B/C",
+        "height_mm": 0.12,
+        "print_z_mm": [
+          13.4,
+          29
+        ]
+      },
+      {
+        "specimens": "D/E/F",
+        "height_mm": 0.08,
+        "print_z_mm": [
+          16.04,
+          35.24
+        ]
+      }
+    ],
+    "temperatures_c": {
+      "nozzle_first": 265,
+      "nozzle_other": 280,
+      "bed": 80
+    },
+    "supports": "Tree(auto), Default; saved 0.45 mm top gap and two interfaces",
+    "probing_clump_detection": false,
+    "minimum_full_bead_edge_clearance_mm": 61.241394000000014
+  },
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A foot current cooling",
+      "kind": "foot",
+      "identify_id": 1901,
+      "object_id": "2",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "reference",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          65.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          124.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "B",
+      "name": "B foot half cooling",
+      "kind": "foot",
+      "identify_id": 1902,
+      "object_id": "4",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "half",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          133.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          192.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "C",
+      "name": "C foot stronger cooling",
+      "kind": "foot",
+      "identify_id": 1903,
+      "object_id": "6",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "stronger",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          201.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          260.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "D",
+      "name": "D neck regular seam",
+      "kind": "neck",
+      "identify_id": 1904,
+      "object_id": "8",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          113.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          139.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back"
+      }
+    },
+    {
+      "id": "E",
+      "name": "E neck scarf 10mm",
+      "kind": "neck",
+      "identify_id": 1905,
+      "object_id": "10",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 10,
+      "plate_bounds_mm": [
+        [
+          149.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          175.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "10"
+      }
+    },
+    {
+      "id": "F",
+      "name": "F neck scarf 20mm",
+      "kind": "neck",
+      "identify_id": 1906,
+      "object_id": "12",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 20,
+      "plate_bounds_mm": [
+        [
+          185.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          211.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "20"
+      }
+    }
+  ],
+  "native_estimated_seconds": 26882.818359375,
+  "native_estimated_grams_saved_profile_density": 169.59397888183594,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "launch_command": "tools/cad-venv/bin/python tools/bambu_print.py hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf Mark2 --attempts 1",
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "pre_start_requirements": [
+    "Freshly read both printers; Mark2 ready without unresolved fault",
+    "Verify exact project, archive, G-code, source and review hashes",
+    "At least 180 seconds after the peer most recent accepted start or resume",
+    "Read current public and private receipts; no prior or ambiguous transaction"
+  ]
+}

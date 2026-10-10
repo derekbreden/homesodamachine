@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
+  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "status": "Reviewed; not submitted",
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1
+}

@@ -1,0 +1,601 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "settings_source_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "source_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 40.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A foot current cooling",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
+      "stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+      "triangles": 7506,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.683271408081055,
+        16.899499893188477
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        94.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_translation_mm": [
+        94.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          65.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          124.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "B foot half cooling",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
+      "stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+      "triangles": 7506,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.683271408081055,
+        16.899499893188477
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_translation_mm": [
+        162.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          133.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          192.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "C foot stronger cooling",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
+      "stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+      "triangles": 7506,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.683271408081055,
+        16.899499893188477
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        230.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_translation_mm": [
+        230.5,
+        137.0,
+        16.899499893188477
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          201.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          260.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "D neck regular seam",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.stl",
+      "stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757",
+      "triangles": 1680,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0005788803100585938,
+        38.37465000152588,
+        19.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        126.5,
+        209.0,
+        19.0
+      ],
+      "plate_translation_mm": [
+        126.5,
+        209.0,
+        19.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          113.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          139.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995115432393504e-10
+    },
+    {
+      "name": "E neck scarf 10mm",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.stl",
+      "stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757",
+      "triangles": 1680,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0005788803100585938,
+        38.37465000152588,
+        19.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        209.0,
+        19.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        209.0,
+        19.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          175.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995115432393504e-10
+    },
+    {
+      "name": "F neck scarf 20mm",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.stl",
+      "stl_sha256": "796f03263593387da4c78d93907d98132de9447956d7336a3971bd8149d34757",
+      "triangles": 1680,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0005788803100585938,
+        38.37465000152588,
+        19.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        198.5,
+        209.0,
+        19.0
+      ],
+      "plate_translation_mm": [
+        198.5,
+        209.0,
+        19.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          185.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          211.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995115432393504e-10
+    }
+  ],
+  "project_sha256": "21257b4497df0ef155e6ef96870c6f36cb15279709dfc9a61c0d71e4a4192bd3",
+  "settings_preserved_byte_for_byte": true,
+  "source_step": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+  "source_step_sha256": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",
+  "source_stl": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+  "source_stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+  "shipping_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "shipping_reference_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "shipping_reference_task": "1325534650",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A foot current cooling",
+      "kind": "foot",
+      "identify_id": 1901,
+      "object_id": "2",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "reference",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          65.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          124.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "B",
+      "name": "B foot half cooling",
+      "kind": "foot",
+      "identify_id": 1902,
+      "object_id": "4",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "half",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          133.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          192.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "C",
+      "name": "C foot stronger cooling",
+      "kind": "foot",
+      "identify_id": 1903,
+      "object_id": "6",
+      "layer_band_print_z_mm": [
+        13.4,
+        29.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "cooling": "stronger",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          201.0,
+          103.8219165802002,
+          0.0
+        ],
+        [
+          260.0,
+          170.1780834197998,
+          33.79899978637695
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "D",
+      "name": "D neck regular seam",
+      "kind": "neck",
+      "identify_id": 1904,
+      "object_id": "8",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 0,
+      "plate_bounds_mm": [
+        [
+          113.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          139.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back"
+      }
+    },
+    {
+      "id": "E",
+      "name": "E neck scarf 10mm",
+      "kind": "neck",
+      "identify_id": 1905,
+      "object_id": "10",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 10,
+      "plate_bounds_mm": [
+        [
+          149.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          175.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "10"
+      }
+    },
+    {
+      "id": "F",
+      "name": "F neck scarf 20mm",
+      "kind": "neck",
+      "identify_id": 1906,
+      "object_id": "12",
+      "layer_band_print_z_mm": [
+        16.04,
+        35.24
+      ],
+      "fine_layer_height_mm": 0.08,
+      "cooling": "native",
+      "scarf_length_mm": 20,
+      "plate_bounds_mm": [
+        [
+          185.00057888031006,
+          189.93288135528564,
+          0.0
+        ],
+        [
+          211.99942111968994,
+          228.06711864471436,
+          38.0
+        ]
+      ],
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "20"
+      }
+    }
+  ],
+  "parent_pose": {
+    "rotation_x_degrees": -14.999999999999998,
+    "lift_mm": 7.635161830524362
+  },
+  "section_cuts": {
+    "foot_max_print_z_mm": 33.799,
+    "neck_parent_print_z_mm": [
+      82.0,
+      120.0
+    ]
+  },
+  "supports": "Tree(auto), Default; parent gaps, interfaces and speeds",
+  "native_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "submitted": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
+  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
+  "native_source_archive_sha256": "056d8702eb37c0f6a8713bc0eebb1baed95afeb3842b233ba47b0c6b561ae068"
+}
