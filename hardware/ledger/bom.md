@@ -142,7 +142,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--> |
-| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.63 <!--@printed--> |
+| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.104 | $2.60 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
@@ -150,9 +150,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.241 | $6.02 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.20** | **[$165.86](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.19** | **[$165.84](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.39.
+By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.36.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -324,19 +324,19 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 |---|---:|
 | 1. Controllers + electronics | [$175.03](BOM_SEC1) |
 | 2. Carbonator (plan A, 316L) | [$197.07](BOM_SEC2) |
-| 3. Water inlet | [$205.80](BOM_SEC3) |
+| 3. Water inlet | [$200.22](BOM_SEC3) |
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.86](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.84](BOM_SEC7) |
 | 8. Flavor subsystem | [$229.61](BOM_SEC8) |
 | 9. Dispensing | [$71.99](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$40.74](BOM_SEC11) |
+| 11. Wiring | [$40.78](BOM_SEC11) |
 | 12. Level sensing | [$35.66](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.02](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,429.88](BOM_GRAND)** |
+| **Total** | **[$1,424.32](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
