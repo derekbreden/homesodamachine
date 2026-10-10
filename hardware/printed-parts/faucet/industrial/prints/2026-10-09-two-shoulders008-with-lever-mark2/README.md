@@ -1,5 +1,10 @@
 # Complete industrial faucet with fine shoulder layers
 
+This is the [selected complete printing recipe](../../selected-print.json).
+Derek accepts variable layer height as the shipping compromise. Further
+whole-faucet 0.08 mm iteration and research are deferred; the known screw-point
+surface issue remains recorded below.
+
 This single PET-GF plate contains all five rigid printed parts: industrial shell
 base, shared shell tip, industrial display cover, industrial above-counter plate
 and the accepted lever replica. The lever's side-down STL matches the geometry

@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-09",
+  "recorded_at_utc": "2026-10-10T03:33:45.948084+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1324374637",
+  "printer_job_id": "1324374637",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+  "native_archive_sha256": "3dfb53e7a76e024790d88a4fbcfee1696c2c9e5a76e51989a1040cfeeb798c01",
+  "gcode_sha256": "36ad69605334d181ac6de74675fe66ac4f7a409634177304286a7f2e30ca1563",
+  "accepted_at_utc": "2026-10-09T20:57:34.534460+00:00",
+  "status": "Operator-reported failed complete faucet; matching printer job is FAILED",
+  "authority": "Direct user report and five supplied photographs",
+  "operator_failure_quote": "Print failed. Note what you can in the log. The commonality I see between the two failed pieces here, the tip and the wing, is they don\u2019t take up much XY relative to the Z they take, and these failures happened after they took more Z. It looks like they fell over or shifted, so could be the print head dragging. Dragging could be exasperated by layer lifting.",
+  "process": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.08,
+    "tip_starting_band_mm": {
+      "layer_height": 0.24,
+      "last_print_z": 2.12,
+      "first_fine_print_z": 2.2
+    },
+    "settings_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/preparation.json",
+    "normal_settings_preserved": true
+  },
+  "photo_observations": [
+    {
+      "photos": [
+        1
+      ],
+      "observation": "Whole plate includes a substantially built base, upright tip, rectangular display cover on supports, counter plate and side-down lever. Loose extruded debris is visible."
+    },
+    {
+      "photos": [
+        2,
+        4
+      ],
+      "part": "faucet-shell-tip",
+      "observation": "Localized ragged or raised bands and loose strands are visible on the tip; nearby flattened loose debris is visible."
+    },
+    {
+      "photos": [
+        3,
+        5
+      ],
+      "part": "industrial-display-cover wing region",
+      "operator_label": "wing",
+      "observation": "An uneven or separated line and loose strands are visible along the thin cover edge above the standing supports."
+    }
+  ],
+  "operator_hypotheses": [
+    {
+      "hypothesis": "The tip and wing have little XY footprint relative to their height and failed after growing farther in Z.",
+      "status": "Operator interpretation; initiating failure height unmeasured."
+    },
+    {
+      "hypothesis": "Pieces shifted or tipped due to print-head dragging.",
+      "status": "Possible; nozzle contact and movement not established by these still photographs."
+    },
+    {
+      "hypothesis": "Layer lifting increased the chance of dragging.",
+      "status": "Possible; causal sequence not established."
+    }
+  ],
+  "latest_printer_observation": {
+    "printer": "Mark2",
+    "read_alias": "Mark2",
+    "observed_at_utc": "2026-10-10T03:25:28.913835+00:00",
+    "task_id": "1324374637",
+    "job_id": "1324374637",
+    "subtask_name": "2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf",
+    "gcode_state": "FAILED",
+    "layer_num": 0,
+    "total_layer_num": 3509,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  },
+  "telemetry_scope": "FAILED at layer 0 is a terminal printer reading, not the physical failure height. Error 0 and empty HMS do not assess the photographed failure or identify its initiating event.",
+  "photos": [
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/photo-1.jpg",
+      "sha256": "4a41e6aff3357419a0929914ed1e266850c1136a9ff5d522ccc4535f37a3845e"
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/photo-2.jpg",
+      "sha256": "404eb68aee921317855461f792db741c6f8a1eb83b73f838b913f94aff2dfd00"
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/photo-3.jpg",
+      "sha256": "590664d3eb906d85390d2a921febd333aabaffac7e781a9b1951d82fc1d86111"
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/photo-4.jpg",
+      "sha256": "a85559f585ad1fae843e92a0e33fec9f4e10e2f3dbcffc45882e49f5422a953b"
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/photo-5.jpg",
+      "sha256": "8d3fbbd3a536125398c59b316d37991e1a24e74c7cc9b79254315844f23f3eb6"
+    }
+  ],
+  "disposition": "Further whole-faucet 0.08 mm iteration and research deferred; selected complete variable-layer recipe is hardware/printed-parts/faucet/industrial/selected-print.json.",
+  "scope": "Operator-reported print failure and visible surface disruption only. No confirmed collision, tip-over, adhesion mechanism, structural strength or service-life result."
+}
