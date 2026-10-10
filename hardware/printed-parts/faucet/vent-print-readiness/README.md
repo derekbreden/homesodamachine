@@ -1,16 +1,18 @@
 # Faucet print artifacts
 
-The [held complete Industrial selection](../industrial/selected-print.json)
+The [complete Industrial selection](../industrial/selected-print.json)
 contains the base, shared tip, display cover, counter plate and side-down
 lever. It uses 0.20 mm first bed layers, 0.24 mm normal layers and 0.12 mm
 on the two selected base shoulder bands. The base has one continuous
 six-wall solid foot with Arachne and 15% infill/wall overlap. The cover's
-wings extend 0.50 mm; the shared tip carries the unsealed Ø4 mm overflow
+wings extend 0.50 mm. The shared tip has a smooth common tube/ribbon passage,
+a 70° male plug mating with the base socket, and an unsealed Ø4 mm overflow
 drip hole. The [current geometry reading](../vent-qualification/simple-drip-check.json)
 and each job's native checks describe their specific scope.
 
-The print is held at Derek's request. No import or Send is authorized until
-he gives a separate go-ahead. Current preparation does not launch a printer.
+The selected job is authorized for Mark2. Its launch receipt records the one
+foreground transaction and exact acceptance separately; preparation tools
+do not launch a printer.
 The separate above-counter gasket and donor thimble have their own TPU
 recipes. The current faucet needs no drain bungs or perimeter insertion tool.
 

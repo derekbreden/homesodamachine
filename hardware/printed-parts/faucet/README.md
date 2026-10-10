@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Held complete variable-layer print](industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Complete variable-layer print](industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -21,17 +21,18 @@ plate. It also times the accepted printed lever separately.
 
 ## Overflow drip indicator
 
-The white 4 mm OD / 2.5 mm ID drain tube ends square inside an unsealed
-pocket in the tip. A round Ø4 mm underside hole opens at the pocket's
-upstream low corner, over the bowl. Two plain 2 mm printed guide walls carry
-the continuous beverage tubes and insulated conductors. The drain needs no
-additional gasket, bung or insertion tool. Its opening is separate from the
-three beverage outlets.
+The upper bend and tip have smooth tangent walls around the tube and flat
+ribbon clearances. The flavors share a capsule without a central divider
+or outlet cusp. The curved joint is at 70°, with a female base and male tip. The white 4 mm OD / 2.5 mm ID drain
+tube ends square with 3 mm of local mouth clearance. A round Ø4 mm underside
+hole opens from the common passage clearance over the bowl. The drink tubes
+continue to their separate dispense outlets. No drain gasket, bung or insertion
+tool is required.
 
 The intended result is a visible drip indicating a major fault. Incidental
 liquid escape into the housing is accepted for that event; the faucet is not
 a sealed drain connection. [Drain geometry evidence](vent-qualification/README.md)
-records the actual tube clearance and hole-to-pocket connection. Physical
+records the actual tube clearance and hole-to-passage connection. Physical
 drip behavior and complete fault-vent capacity are unmeasured.
 
 ## Parts
@@ -90,7 +91,7 @@ wing geometry, loading and seating. Their reproducible readers are
 [`check_display_cover.py`](industrial/check_display_cover.py).
 
 The [simple drip geometry reading](vent-qualification/simple-drip-check.json)
-binds the current shared tip, verifies its open connection and nominal tube
-clearance, and locates the change away from the joint and dispense face.
+binds both bases and the shared tip, verifies the joint and nominal tube
+clearance, and records the absent material at the two picked defects.
 The retained centered-vent and sealed-port records apply to their exact
 sealed-cavity source and artifact hashes.
