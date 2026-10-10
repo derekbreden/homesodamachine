@@ -65,20 +65,12 @@ def build_lever_opening():
 
 def lower_cavities():
     return {
-        # Cut the cable corridor through simple stock before adjoining bore faces.
-        "signal": shell.build_signal_transition_inner_cut(),
         "donor-cylinder": shell.build_zone1_inner_cut(),
         "mount-sockets": shell.build_base_pod_holes(),
         "donor-body": shell.build_zone2_inner_cut(),
         "donor-arches": shell.build_zone3_inner_cut(),
         "lever": build_lever_opening(),
         "lower-signal": shell.build_lower_signal_lane(),
-        "water": shell.build_lower_soda_inner_cut(),
-        "flavor": shell.build_flavor_transition_inner_cut(),
-        "flavor-entry": shell.build_flavor_entry_relief(),
-        "drain": shell.build_drain_neck(cutter=True),
-        "neck": shell._tube_shell_inner_section(
-            neck_join_z, neck_join_overlap + 0.1),
     }
 
 

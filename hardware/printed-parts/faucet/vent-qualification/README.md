@@ -2,8 +2,10 @@
 
 The white drain is neoFlo LLDPE4M-WHITE: 4 mm OD and 2.5 mm ID, as specified
 in the [manufacturer's metric tubing table](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf).
-The upper bend and tip follow the individual tube and conductor paths
-continuously. Their common centre opening joins the close-fitting bores.
+The lower donor transition, upper bend and tip have one smooth shared opening
+around the tubes and flat insulated ribbon. Analytic tangent walls join the complete rounded
+clearance profiles; the flavor pair shares a capsule without a divider or
+outlet cusp. The 70° curved joint has a female base and male tip.
 The drain ends square with 3 mm of local clearance beyond its mouth. A round
 Ø4 mm underside hole opens into the common passage clearance over the bowl.
 No transverse guide discs, large round neck cavity, bung, gasket or insertion
@@ -16,9 +18,10 @@ replacement after it. The faucet drain is not a sealed tube connection.
 The [geometry reading](simple-drip-check.json) binds the current STEP, STL,
 viewer payload and source. It records a valid single solid, nominal tube-surface
 samples, local drain-mouth clearance and the hole's connection to the passage
-without intersecting the nominal soda tube. The base print remains unchanged;
-the outer neck, curved joint, display retention and beverage outlets retain
-their construction. The Ø4 mm hole has 2.56 times the tube-bore area; area
+without intersecting the nominal soda tube. It identifies both regenerated
+base styles and the shared tip, the curved joint and its minimum stock, and
+the absent material at the two picked defects. The display retention and
+symmetric beverage outlet locations are retained. The Ø4 mm hole has 2.56 times the tube-bore area; area
 alone does not establish discharge flow. Physical threading, support cleanup,
 drip direction and complete fault-vent performance are unmeasured.
 

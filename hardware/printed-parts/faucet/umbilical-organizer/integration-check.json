@@ -71,13 +71,13 @@
   "viewer_hosts": [
     {
       "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "38bac5bc48dd661b2b5893d4c4b1bf45f6074a50dbd51c83bff88865569068fd",
+      "sha256": "ea323c105c440116f14f01a3c59ed254ee7eada53b179e2c3adac3ef9d9b7276",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     },
     {
       "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "a87522e987f1ea3cfde559ee85b9bdf238eec5bb2c031275fe3e80729364f961",
+      "sha256": "8111bd7bdc26107532baa5ef7b0715ea1e21de0d93c7cdd799a3de9e365f1bad",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     }
@@ -109,7 +109,7 @@
     "production_difference_from_accepted_article": "drain bore 4.30 mm against the L article's 4.20 mm; the received 4 mm drain tube tests a bit too tight in 4.20"
   },
   "clearance_preservation": {
-    "method": "The complete selected organizer solid is contained in the prior production solid; only the drain bore and entrance cones expand. Its axes and exterior stock are identical. The current viewer hosts retain the unchanged below-counter tubes, ribbon, braid and organizer station; their revised above-counter tip has continuous close-fitting passages. Prior zero-overlap passage and braid readings retain that unchanged lower-hardware scope.",
+    "method": "The complete selected organizer solid is contained in the prior production solid; only the accepted drain bore and entrance cones expand. Its axes and exterior stock are identical. The current viewer hosts retain the below-counter tube, ribbon, braid and organizer station. Their above-counter neck uses a 70 degree female-base/male-tip joint and one smooth shared tube/ribbon passage. Prior zero-overlap passage and braid readings retain their unchanged lower-hardware scope.",
     "new_material_outside_prior_solid_mm3": 0,
     "analytic_cylinder_diameters_mm": [
       4.4,

@@ -10,9 +10,9 @@ existing stainless under-counter plate.
 ## Printed pieces and seams
 
 The shell base carries the oval foot, lever opening and lower gooseneck. The
-shell tip carries the upper gooseneck and display pocket. Their internal joint datum is at [50°](SPLIT_JUNCTION_ROT) around the arc.
-The base has the 18 mm male plug; the tip has the 20 mm female socket.
-The visible outer seam is about 34° around the arch, at the socket entrance. The separate display cover has a perimeter
+shell tip carries the upper gooseneck and display pocket. Their joint datum is at [70°](SPLIT_JUNCTION_ROT) around the arc.
+The base has the 20 mm female socket; the tip has the 18 mm male plug.
+The visible outer seam follows that joint plane. The separate display cover has a perimeter
 seam around the display pocket. The above-counter plate meets the shell at
 its foot; the matching TPU gasket sits under that plate.
 
@@ -49,8 +49,8 @@ heads on the completed faucet.
    the soda tube through the lower neck and push it into the thimble until
    it bottoms on the cap. The installed tube retains the lever's working
    position by blocking its aft disengagement motion.
-6. Feed S, F1, F2 and the four continuously insulated display conductors
-   through the tip's continuous close-fitting passages. Feed D to its square-cut
+6. Feed S, F1, F2 and the flat, continuously insulated display ribbon
+   through the tip's smooth shared passage. Feed D to its square-cut
    terminal datum, leaving the 3 mm mouth clearance empty. Keep its bore clear
    of other tubes. Clear the Ø4 mm underside hole and confirm it opens into
    the common passage. Confirm the soda tube remains seated in its donor port,
@@ -88,23 +88,24 @@ engagement; the blind pilot provides tip relief.
 ## Gooseneck closure
 
 The tubes and close-fit curved lap retain the neck. Rotate the tip's curved
-socket over the base plug about the arc centre until the seam seats. The
+plug into the base socket about the arc centre until the seam seats. The
 socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
 18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
 neck has no screw opening or external bridge.
 
 The female socket, display pocket and beverage outlets provide tube-feeding
-access. Continuous close-fitting passages carry the tubes and insulated
-conductors through the upper bend and tip. The three drink tubes continue to
+access. One smooth opening carries the tubes and flat insulated ribbon through the
+upper bend and tip. Tangent walls surround their rounded clearance profiles;
+the flavors share a capsule without a central divider or outlet cusp. The three drink tubes continue to
 their symmetric dispense outlets. D ends square with 3 mm of empty terminal
 clearance. The round Ø4 mm underside hole opens into the common passage over
 the bowl. Incidental escape into the housing during a major fault is accepted.
 No drain bung, gasket or insertion tool is fitted. Native support cleanup and
 physical tube threading require observation on this geometry.
 
-Peel the ribbon web from the unterminated display end where its four separate
-conductors follow their printed channels. Keep every jacket continuous; no
-solder joint belongs inside the neck.
+Keep the ribbon flat through the neck and its curved joint. Separate only
+the free display-end conductors for their PCB terminations. Keep every jacket
+continuous; no solder joint belongs inside the neck.
 
 Route all tubes and conductors through both pieces before closing the lap. Confirm the seam is fully seated and the outlets remain in position
 through normal lever operation and handling.
@@ -125,7 +126,7 @@ shows the rear PCB with USB-C up: the first four left pads are **VBUS, GND,
 TXD (GPIO43), RXD (GPIO44)**, P1 pins **1, 3, 5, 7**. Connect them to main-board
 J3 **V5, GND, IO35 (RX), IO33 (TX)** respectively. Make the dry-end joints
 with power removed after the four continuously insulated conductors pass
-through the printed tip guides. [SIG-6 wiring and checks](../../../assembly/faucet-and-umbilical.md#display-wiring-sig-6)
+through the shared printed tip passage. [SIG-6 wiring and checks](../../../assembly/faucet-and-umbilical.md#display-wiring-sig-6)
 give the full endpoint map and plug/jack continuity procedure.
 
 1. Route SIG-6 from the neck into the open space below the PCB, toward its
@@ -191,7 +192,7 @@ records the purchased geometry.
 Follow [faucet and umbilical assembly](/hardware/assembly/faucet-and-umbilical.md)
 for the derived tube cuts, gasket, captive washer/nut, blue tube connection
 and cable. Square-cut the three beverage outlets flush with the printed tip. The white
-4 mm drain ends inside the chamber and its exterior opening remains bare.
+4 mm drain ends in the common passage and its exterior opening remains bare.
 
 For the nominal 1-3/8-inch mounting hole, its center must be no more than
 50.8 mm (2 inches) behind the bowl edge. Aim the faucet directly into the bowl,
@@ -224,5 +225,6 @@ and resistance to handling loads.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/.cache/printer-control/faucet-conformal-tip/update-doc-values.py`
 - `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

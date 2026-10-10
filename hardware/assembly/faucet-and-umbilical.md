@@ -80,10 +80,10 @@ Full spec and part rationale: [`/hardware/assembly/cable-assemblies.md`](/hardwa
 
 Cut **1× blue carbonated-water at [1540](BLUE_CUT) mm**, the flavor pair in the faucet's finish, and **1× 3/8" soda faucet tube at [330](SODA_FAUCET_CUT) mm** from the finish's own 3/8" stock. Use the Mudder cutter for square ends without burrs.
 
-- **Black faucet: 2× black flavor at [1964](FLAVOR_CUT) mm.**
-- **White faucet: white flavor-a at [534](WHITE_A_CUT) mm and flavor-b at [492](WHITE_B_CUT) mm, black flavor-a at [1421](BLACK_A_CUT) mm and flavor-b at [1463](BLACK_B_CUT) mm.** Each white run reaches from the printed tip to its union's tube stop and each black run from the other stop to the tail, with [9.8 mm](UNION_GAP) of union between the two ends, so the tails land where a Black faucet's do. Flavor-b's union stands one union length above flavor-a's (step 2), so its white run is the shorter and its black run the longer.
+- **Black faucet: 2× black flavor at [1963](FLAVOR_CUT) mm.**
+- **White faucet: white flavor-a at [534](WHITE_A_CUT) mm and flavor-b at [492](WHITE_B_CUT) mm, black flavor-a at [1420](BLACK_A_CUT) mm and flavor-b at [1462](BLACK_B_CUT) mm.** Each white run reaches from the printed tip to its union's tube stop and each black run from the other stop to the tail, with [9.8 mm](UNION_GAP) of union between the two ends, so the tails land where a Black faucet's do. Flavor-b's union stands one union length above flavor-a's (step 2), so its white run is the shorter and its black run the longer.
 
-The flavor pair follows [370.5](FAUCET_FLAVOR_RUN) mm of centreline above the shell foot, then passes through the plate, gasket and countertop and down past the unions' stations into the pack. The blue tube starts at the donor shank's lower compression port. The factory cut difference of [424](CUT_DIFFERENCE) mm comes from those complete CAD routes, including both lower return steps, the gathers and the splayed tails. The resulting tails land within [1.25](TAIL_OFFSET) mm of one plane before trimming the outlets flush. These lengths preserve the blue tube's installed reach.
+The flavor pair follows [370.4](FAUCET_FLAVOR_RUN) mm of centreline above the shell foot, then passes through the plate, gasket and countertop and down past the unions' stations into the pack. The blue tube starts at the donor shank's lower compression port. The factory cut difference of [423](CUT_DIFFERENCE) mm comes from those complete CAD routes, including both lower return steps, the gathers and the splayed tails. The resulting tails land within [0.34](TAIL_OFFSET) mm of one plane before trimming the outlets flush. These lengths preserve the blue tube's installed reach.
 
 The design length sums a measured half and an assumed half:
 
@@ -97,7 +97,7 @@ The design length sums a measured half and an assumed half:
 | **Below-counter subtotal** | **1200** | |
 | Countertop slab | 30 | 3 cm stone; routing allowance extends to 38 mm, with donor clamp engagement assessed separately |
 | TPU gasket + above-counter plate | [6](PLATE_GASKET) | CAD |
-| Gooseneck centreline, shell foot → printed tip | [370.5](FAUCET_FLAVOR_RUN) | CAD |
+| Gooseneck centreline, shell foot → printed tip | [370.4](FAUCET_FLAVOR_RUN) | CAD |
 | **Flavor tube, nominal installed** | **[1606](FLAVOR_NOMINAL)** | |
 | **Blue tube, nominal installed** | **[1186](BLUE_NOMINAL)** | CAD: compression port below the countertop underside |
 
@@ -109,7 +109,7 @@ Cut one continuous white neoFlo LLDPE4M-WHITE 4 mm drain run to [1872](DRAIN_CUT
 
 ### 2. Assemble the faucet; preload the mount hardware
 
-Start with the separate prints, bare donor, tubes and unterminated SIG-6 ribbon. Complete the base, neck and display steps in [`faucet shell assembly`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md): seat the donor with the soda tube absent, lower the lever aft of its working position and slide it forward around the valve cylinder, then install the fresh TPU thimble and soda tube. The installed soda tube blocks the lever's aft disengagement. Feed the continuous drink tubes and insulated display conductors through the tip's continuous close-fitting passages. Set the square-cut D end at its terminal datum with the 3 mm mouth clearance empty and the tube bore clear. Close the curved joint and plate, then connect and enclose the display. Set only the three beverage outlets flush with their symmetric face and verify lever travel and flavor flow. Leave the donor washer and nut off and the ribbon's wall end unterminated until the gasket is fitted. Drinking flow stays inside the LLDPE tubes and donor valve; fault discharge enters the common passage clearance and its Ø4 mm bottom hole.
+Start with the separate prints, bare donor, tubes and unterminated SIG-6 ribbon. Complete the base, neck and display steps in [`faucet shell assembly`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md): seat the donor with the soda tube absent, lower the lever aft of its working position and slide it forward around the valve cylinder, then install the fresh TPU thimble and soda tube. The installed soda tube blocks the lever's aft disengagement. Feed the continuous drink tubes and flat insulated ribbon through the tip's smooth shared passage. Set the square-cut D end at its terminal datum with the 3 mm mouth clearance empty and the tube bore clear. Close the curved joint and plate, then connect and enclose the display. Set only the three beverage outlets flush with their symmetric face and verify lever travel and flavor flow. Leave the donor washer and nut off and the ribbon's wall end unterminated until the gasket is fitted. Drinking flow stays inside the LLDPE tubes and donor valve; fault discharge enters the common passage clearance and its Ø4 mm bottom hole.
 
 - **Above-counter gasket.** Thread both flavor tails, the 4 mm drain tail and the ribbon's unterminated wall end through the gasket's matching passage, then pass the still-bare shank through its centre hole. Slide the gasket up until it sits flat against the above-counter plate. It stays there permanently.
 - **Umbilical organizer.** Thread the unjoined flavor tails and drain through their corresponding bores, the unterminated signal ribbon through the loose Ø5 mm passage, and the bare blue tube through the soda bore. Hold the puck and adjust each tube with the other hand. Its upper face is [50.48 mm](ORGANIZER_PLATE_GAP) below the nominal steel plate at faucet Z=[-88 mm](ORGANIZER_TOP_Z), with [10 mm](ORGANIZER_LENGTH) of thickness. Keep it below the washer/nut working area, with straight parallel tube sections through it. The puck floats with the bundle and stays inside the top braid. The beverage bores are the [accepted L fit](../printed-parts/faucet/umbilical-organizer/physical-acceptance.json). The drain bore is 0.10 mm larger than L's, because the received 4 mm drain tube tests a bit too tight in L's Ø4.20 mm bore.
@@ -153,7 +153,7 @@ With the main PCB's component side up and J3 at its lower edge, the silk reads
 TX/RX use **3.3 V TTL, 921600 baud, 8N1**. Leave all other display pads open.
 With J3 and USB disconnected, solder the four leads directly at these PCB
 pads **after the conductors are routed through the tip**. The conductors remain continuously
-insulated through the seals; stripping and soldering happen only at their dry
+insulated through the neck; stripping and soldering happen only at their dry
 PCB ends. Leave enough free lead for the display/cover slide and lowering motion,
 and keep it clear of the metal feet, components, retaining lips and USB socket.
 
@@ -220,7 +220,7 @@ Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUB
 A bagged sub-assembly that is:
 
 - One above-counter fixture stack with the four umbilical tubes installed
-- The umbilical is **permanently attached** to the faucet assembly — the blue carbonated-water tube is connected at the Westbrass's lower upstream compression port; a separate 3/8" soda faucet tube leaves the top port through the gooseneck; the two flavor tubes and the white 4 mm D between them pass through the mounting slot, with the flat SIG-6 ribbon behind them. The separate D ends inside the unsealed pocket and drains through its round Ø4 mm underside hole. Below the counter, the four umbilical tubes share one sleeve with foam on the cold blue tube only and the fitted SIG-6 ribbon alongside.
+- The umbilical is **permanently attached** to the faucet assembly — the blue carbonated-water tube is connected at the Westbrass's lower upstream compression port; a separate 3/8" soda faucet tube leaves the top port through the gooseneck; the two flavor tubes and the white 4 mm D between them pass through the mounting slot, with the flat SIG-6 ribbon behind them. The separate D ends inside the common passage and drains through its round Ø4 mm underside hole. Below the counter, the four umbilical tubes share one sleeve with foam on the cold blue tube only and the fitted SIG-6 ribbon alongside.
 - Three tubes terminated bare and square-cut at the +Y wall of back-top, ready for push-into-PP1208E at install
 - One printed collar on each tail, below the sleeve's end — `SODA` on the blue, `FLAVOR` on each black and `OVER` on the white 4 mm run, each matched to its socket.
 - On a White faucet, each flavor tube white from the printed tip to its PP0408W union inside the braid's top and black from there to the wall; the soda faucet tube white
