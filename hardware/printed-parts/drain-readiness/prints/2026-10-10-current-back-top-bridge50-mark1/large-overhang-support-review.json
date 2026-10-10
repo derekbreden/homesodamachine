@@ -1,0 +1,5280 @@
+{
+  "baseline_gcode_sha256": "1593627b223df86aec7a56f67f30c6f009a192a0434290daaaaa0fb806fd5454",
+  "gcode_sha256": "e886ac1030dec3edc1f2ff3cdb1ddd85527c01478e0cc894cbde13a1f70f1b17",
+  "cached_exact_stl_targets_sha256": "f33d48775ed977645ad143ea9289a7e17496dadbe4d2045979270cd46e29bff1",
+  "max_bridge_length_mm": 50,
+  "new_to_baseline_xy_translation_mm": [
+    5,
+    0
+  ],
+  "large_connected_overhang_slabs": 8,
+  "failed_large_regions": [],
+  "readings": [
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        189.73422482419585,
+        144.065,
+        191.3627491172382,
+        145.8042523915676
+      ],
+      "size_xy_mm": [
+        1.6285242930423465,
+        1.7392523915675895
+      ],
+      "baseline_contact_area_mm2": 2.3330399163529254,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        189.553,
+        149.525,
+        191.624,
+        152.175
+      ],
+      "size_xy_mm": [
+        2.070999999999998,
+        2.6500000000000057
+      ],
+      "baseline_contact_area_mm2": 3.558826298251721,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        189.37282142579343,
+        163.86677401557378,
+        190.84513240155277,
+        165.34358632087373
+      ],
+      "size_xy_mm": [
+        1.472310975759342,
+        1.4768123052999442
+      ],
+      "baseline_contact_area_mm2": 1.6759354277315373,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        190.103,
+        145.783,
+        191.828,
+        147.508
+      ],
+      "size_xy_mm": [
+        1.7249999999999943,
+        1.7250000000000227
+      ],
+      "baseline_contact_area_mm2": 1.9183473049815407,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        190.385,
+        153.023,
+        192.143,
+        154.781
+      ],
+      "size_xy_mm": [
+        1.7580000000000098,
+        1.7580000000000098
+      ],
+      "baseline_contact_area_mm2": 1.970616638246865,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        189.48300002620164,
+        155.95100002620163,
+        192.23699997379836,
+        158.70599997379836
+      ],
+      "size_xy_mm": [
+        2.753999947596725,
+        2.7549999475967297
+      ],
+      "baseline_contact_area_mm2": 3.5489922320719414,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        190.138,
+        160.56,
+        192.161,
+        162.583
+      ],
+      "size_xy_mm": [
+        2.022999999999996,
+        2.022999999999996
+      ],
+      "baseline_contact_area_mm2": 2.3903552235591734,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.48,
+      "region": 0,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        189.591,
+        166.878,
+        191.888,
+        169.175
+      ],
+      "size_xy_mm": [
+        2.296999999999997,
+        2.2970000000000255
+      ],
+      "baseline_contact_area_mm2": 2.8243490815802494,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.72,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        189.252594,
+        144.065,
+        191.752594,
+        169.235
+      ],
+      "size_xy_mm": [
+        2.5,
+        25.170000000000016
+      ],
+      "baseline_contact_area_mm2": 59.20553666130898,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 5.96,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        189.252594,
+        144.065,
+        191.752594,
+        169.235
+      ],
+      "size_xy_mm": [
+        2.5,
+        25.170000000000016
+      ],
+      "baseline_contact_area_mm2": 59.99234804412857,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        154.752594,
+        187.658,
+        157.252594,
+        190.711
+      ],
+      "size_xy_mm": [
+        2.5,
+        3.0530000000000257
+      ],
+      "baseline_contact_area_mm2": 3.6553474106466863,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        155.285,
+        201.095,
+        157.252594,
+        203.481
+      ],
+      "size_xy_mm": [
+        1.9675939999999912,
+        2.3859999999999957
+      ],
+      "baseline_contact_area_mm2": 2.627900269588785,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        154.874,
+        196.47,
+        157.252594,
+        199.358
+      ],
+      "size_xy_mm": [
+        2.3785939999999925,
+        2.8880000000000052
+      ],
+      "baseline_contact_area_mm2": 3.3104833336967157,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        155.555,
+        192.564,
+        157.252594,
+        195.27599969299112
+      ],
+      "size_xy_mm": [
+        1.697593999999981,
+        2.711999692991128
+      ],
+      "baseline_contact_area_mm2": 3.3365293146479664,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        154.806,
+        181.75,
+        156.5035120261599,
+        182.805
+      ],
+      "size_xy_mm": [
+        1.6975120261598988,
+        1.0550000000000068
+      ],
+      "baseline_contact_area_mm2": 1.246930089858537,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.16,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        154.82999999999998,
+        184.248,
+        156.901,
+        186.895
+      ],
+      "size_xy_mm": [
+        2.0710000000000264,
+        2.64700000000002
+      ],
+      "baseline_contact_area_mm2": 3.555141157793897,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.4,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        154.752594,
+        181.75,
+        157.252594,
+        203.549999
+      ],
+      "size_xy_mm": [
+        2.5,
+        21.799999000000014
+      ],
+      "baseline_contact_area_mm2": 51.572294368547404,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 7.64,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        154.752594,
+        181.75,
+        157.252594,
+        203.549999
+      ],
+      "size_xy_mm": [
+        2.5,
+        21.799999000000014
+      ],
+      "baseline_contact_area_mm2": 51.25732872128058,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        218.431,
+        67.103989,
+        220.655518,
+        70.423752
+      ],
+      "size_xy_mm": [
+        2.224517999999989,
+        3.3197629999999947
+      ],
+      "baseline_contact_area_mm2": 4.4786701356572625,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        214.97299999999998,
+        67.103989,
+        218.26999963428608,
+        70.423752
+      ],
+      "size_xy_mm": [
+        3.296999634286095,
+        3.3197629999999947
+      ],
+      "baseline_contact_area_mm2": 6.450519141232463,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        212.0119682506016,
+        67.103989,
+        214.40200000000002,
+        70.221
+      ],
+      "size_xy_mm": [
+        2.3900317493984176,
+        3.117011000000005
+      ],
+      "baseline_contact_area_mm2": 4.519465545566432,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        206.8050001585287,
+        67.103989,
+        208.5889998414713,
+        68.85199984147131
+      ],
+      "size_xy_mm": [
+        1.7839996829425786,
+        1.748010841471313
+      ],
+      "baseline_contact_area_mm2": 2.005712415250312,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        198.274,
+        67.103989,
+        200.23317776464594,
+        68.316
+      ],
+      "size_xy_mm": [
+        1.9591777646459434,
+        1.212011000000004
+      ],
+      "baseline_contact_area_mm2": 1.5097475225168897,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        193.177,
+        67.103989,
+        195.094,
+        68.88
+      ],
+      "size_xy_mm": [
+        1.9170000000000016,
+        1.776010999999997
+      ],
+      "baseline_contact_area_mm2": 2.1566866684769335,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        190.681,
+        67.103989,
+        192.483,
+        68.354
+      ],
+      "size_xy_mm": [
+        1.8019999999999925,
+        1.2500110000000006
+      ],
+      "baseline_contact_area_mm2": 1.5342725869739073,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        191.406,
+        68.90673051043856,
+        194.51299978341078,
+        70.423752
+      ],
+      "size_xy_mm": [
+        3.106999783410771,
+        1.5170214895614293
+      ],
+      "baseline_contact_area_mm2": 3.7626652569513204,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 9,
+      "bounds_xy_mm": [
+        195.70000038663258,
+        67.8340003866326,
+        198.948,
+        70.423752
+      ],
+      "size_xy_mm": [
+        3.2479996133674263,
+        2.5897516133673975
+      ],
+      "baseline_contact_area_mm2": 4.818629600747702,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 10,
+      "bounds_xy_mm": [
+        200.1256810911637,
+        68.98300008670853,
+        203.5619998548713,
+        70.423752
+      ],
+      "size_xy_mm": [
+        3.4363187637075896,
+        1.4407519132914643
+      ],
+      "baseline_contact_area_mm2": 3.4949399950849114,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 11,
+      "bounds_xy_mm": [
+        204.44000033009456,
+        68.12500033009458,
+        207.681,
+        70.423752
+      ],
+      "size_xy_mm": [
+        3.240999669905449,
+        2.298751669905414
+      ],
+      "baseline_contact_area_mm2": 4.556929530140576,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 12,
+      "bounds_xy_mm": [
+        207.98499999999999,
+        68.884,
+        209.79500000000002,
+        70.423752
+      ],
+      "size_xy_mm": [
+        1.8100000000000307,
+        1.539751999999993
+      ],
+      "baseline_contact_area_mm2": 1.8762211122922394,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 13,
+      "bounds_xy_mm": [
+        209.90900047595593,
+        67.26600047595593,
+        212.31001069036193,
+        70.423752
+      ],
+      "size_xy_mm": [
+        2.401010214406,
+        3.157751524044059
+      ],
+      "baseline_contact_area_mm2": 4.602451519209881,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 8.84,
+      "region": 0,
+      "contact_component": 14,
+      "bounds_xy_mm": [
+        200.78800024686444,
+        67.17200024686443,
+        202.43999975313557,
+        68.82499975313556
+      ],
+      "size_xy_mm": [
+        1.6519995062711246,
+        1.6529995062711293
+      ],
+      "baseline_contact_area_mm2": 1.8035135355287948,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 9.08,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        190.064514,
+        66.965425,
+        220.655518,
+        70.400658
+      ],
+      "size_xy_mm": [
+        30.591003999999998,
+        3.435233000000011
+      ],
+      "baseline_contact_area_mm2": 101.06217388460696,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 9.32,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        190.064514,
+        66.826861,
+        220.655518,
+        70.377564
+      ],
+      "size_xy_mm": [
+        30.591003999999998,
+        3.550703000000013
+      ],
+      "baseline_contact_area_mm2": 103.42982473533273,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 9.8,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        196.410004,
+        103.990002,
+        198.910004,
+        128.59
+      ],
+      "size_xy_mm": [
+        2.5,
+        24.599998
+      ],
+      "baseline_contact_area_mm2": 58.015328464324185,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 9.8,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        242.809998,
+        103.990002,
+        245.309998,
+        128.59
+      ],
+      "size_xy_mm": [
+        2.5,
+        24.599998
+      ],
+      "baseline_contact_area_mm2": 58.10351220102004,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 10.04,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        196.410004,
+        103.990002,
+        198.910004,
+        128.59
+      ],
+      "size_xy_mm": [
+        2.5,
+        24.599998
+      ],
+      "baseline_contact_area_mm2": 58.30532437159333,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 10.04,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        242.809998,
+        103.990002,
+        245.309998,
+        128.59
+      ],
+      "size_xy_mm": [
+        2.5,
+        24.599998
+      ],
+      "baseline_contact_area_mm2": 58.37009145527667,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 11.72,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        230.925,
+        214.826,
+        232.635,
+        216.325001
+      ],
+      "size_xy_mm": [
+        1.7099999999999795,
+        1.4990009999999927
+      ],
+      "baseline_contact_area_mm2": 1.7723233176354958,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 11.72,
+      "region": 5,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        233.092000025947,
+        213.970000025947,
+        235.853999974053,
+        216.325001
+      ],
+      "size_xy_mm": [
+        2.7619999481060233,
+        2.3550009740529845
+      ],
+      "baseline_contact_area_mm2": 3.2365038098587924,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 11.72,
+      "region": 5,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        236.793919694884,
+        213.825001,
+        239.61278105419765,
+        216.325001
+      ],
+      "size_xy_mm": [
+        2.818861359313644,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 4.422044106211716,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 11.72,
+      "region": 5,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        227.27800949521216,
+        213.825001,
+        228.77198809096663,
+        215.101
+      ],
+      "size_xy_mm": [
+        1.49397859575447,
+        1.275999000000013
+      ],
+      "baseline_contact_area_mm2": 1.5939899692614123,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 11.96,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        227.177612,
+        213.825001,
+        239.827606,
+        216.325001
+      ],
+      "size_xy_mm": [
+        12.649993999999992,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 29.448275079968425,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 12.2,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        227.177612,
+        213.825001,
+        239.827606,
+        216.325001
+      ],
+      "size_xy_mm": [
+        12.649993999999992,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 30.254107912359387,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 15.8,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        91.125,
+        175.645,
+        103.774994,
+        178.145
+      ],
+      "size_xy_mm": [
+        12.649994000000007,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 29.84150348301608,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 16.04,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        91.125,
+        175.645,
+        103.774994,
+        178.145
+      ],
+      "size_xy_mm": [
+        12.649994000000007,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 29.574533340806994,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        289.899994,
+        216.139,
+        291.254,
+        219.42707631766706
+      ],
+      "size_xy_mm": [
+        1.3540060000000267,
+        3.2880763176670484
+      ],
+      "baseline_contact_area_mm2": 2.398994518936141,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        289.899994,
+        221.63130683815254,
+        291.0999999655037,
+        223.6730690350067
+      ],
+      "size_xy_mm": [
+        1.200005965503692,
+        2.0417621968541653
+      ],
+      "baseline_contact_area_mm2": 1.5103803916375345,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        289.899994,
+        233.72021222134143,
+        290.6319998536093,
+        235.2449998536093
+      ],
+      "size_xy_mm": [
+        0.7320058536092802,
+        1.5247876322678735
+      ],
+      "baseline_contact_area_mm2": 0.7614605470245134,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        289.899994,
+        235.23172028922943,
+        290.7739999345911,
+        238.30799992964867
+      ],
+      "size_xy_mm": [
+        0.8740059345910822,
+        3.0762796404192443
+      ],
+      "baseline_contact_area_mm2": 1.7984752038934995,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        291.50600006440885,
+        236.05685167953604,
+        295.34,
+        238.401563
+      ],
+      "size_xy_mm": [
+        3.833999935591123,
+        2.344711320463972
+      ],
+      "baseline_contact_area_mm2": 5.7664173086538595,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.7515494322434,
+        236.01989598845591,
+        298.13934,
+        238.401563
+      ],
+      "size_xy_mm": [
+        1.3877905677566105,
+        2.3816670115440957
+      ],
+      "baseline_contact_area_mm2": 2.620792184821392,
+      "new_contact_area_mm2": 2.168724337939575,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.7430001280034,
+        233.80000012800343,
+        298.149994,
+        235.65999987199658
+      ],
+      "size_xy_mm": [
+        1.4069938719965762,
+        1.8599997439931428
+      ],
+      "baseline_contact_area_mm2": 1.7451855253737263,
+      "new_contact_area_mm2": 0.799992947314802,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        295.689,
+        229.724,
+        298.1344850612604,
+        232.209
+      ],
+      "size_xy_mm": [
+        2.445485061260399,
+        2.4850000000000136
+      ],
+      "baseline_contact_area_mm2": 3.1142456237153633,
+      "new_contact_area_mm2": 1.4837654322327514,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.88000017224135,
+        227.89200017224135,
+        298.149994,
+        229.64999982775865
+      ],
+      "size_xy_mm": [
+        1.2699938277586398,
+        1.7579996555172954
+      ],
+      "baseline_contact_area_mm2": 1.5475091951004272,
+      "new_contact_area_mm2": 0.6137129674901377,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 9,
+      "bounds_xy_mm": [
+        296.4170001480991,
+        219.8750001480991,
+        298.1489093920136,
+        223.61499994167252
+      ],
+      "size_xy_mm": [
+        1.7319092439145152,
+        3.7399997935734177
+      ],
+      "baseline_contact_area_mm2": 4.2603484864905,
+      "new_contact_area_mm2": 2.2722146297916828,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 10,
+      "bounds_xy_mm": [
+        296.943,
+        215.867,
+        298.1384348022782,
+        217.577
+      ],
+      "size_xy_mm": [
+        1.1954348022782142,
+        1.710000000000008
+      ],
+      "baseline_contact_area_mm2": 1.4342189031950845,
+      "new_contact_area_mm2": 0.13281682217956978,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 11,
+      "bounds_xy_mm": [
+        290.612,
+        220.114,
+        293.42,
+        222.922
+      ],
+      "size_xy_mm": [
+        2.8079999999999927,
+        2.8079999999999927
+      ],
+      "baseline_contact_area_mm2": 3.63373178759756,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 12,
+      "bounds_xy_mm": [
+        290.381,
+        223.8762569396786,
+        294.2599107356334,
+        226.06564778314598
+      ],
+      "size_xy_mm": [
+        3.87891073563344,
+        2.189390843467379
+      ],
+      "baseline_contact_area_mm2": 5.1479114172256,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 13,
+      "bounds_xy_mm": [
+        290.507,
+        229.075,
+        292.384,
+        230.952
+      ],
+      "size_xy_mm": [
+        1.8770000000000095,
+        1.8770000000000095
+      ],
+      "baseline_contact_area_mm2": 2.159103021839927,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 14,
+      "bounds_xy_mm": [
+        291.1277657012123,
+        231.55737025413399,
+        293.451,
+        235.041
+      ],
+      "size_xy_mm": [
+        2.3232342987877246,
+        3.4836297458660113
+      ],
+      "baseline_contact_area_mm2": 4.515751939471918,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 15,
+      "bounds_xy_mm": [
+        292.64900017387396,
+        217.61800017387398,
+        294.40399982612604,
+        219.37199982612603
+      ],
+      "size_xy_mm": [
+        1.7549996522520814,
+        1.7539996522520482
+      ],
+      "baseline_contact_area_mm2": 1.9650732331231051,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 16,
+      "bounds_xy_mm": [
+        292.079,
+        225.764,
+        294.962,
+        227.757
+      ],
+      "size_xy_mm": [
+        2.8829999999999814,
+        1.992999999999995
+      ],
+      "baseline_contact_area_mm2": 3.872637737796676,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 17,
+      "bounds_xy_mm": [
+        292.33600002942035,
+        229.39400002942034,
+        294.9989999705797,
+        232.05599997057968
+      ],
+      "size_xy_mm": [
+        2.6629999411593417,
+        2.661999941159337
+      ],
+      "baseline_contact_area_mm2": 3.4032716738299422,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 18,
+      "bounds_xy_mm": [
+        294.175,
+        216.121,
+        297.238,
+        219.184
+      ],
+      "size_xy_mm": [
+        3.062999999999988,
+        3.062999999999988
+      ],
+      "baseline_contact_area_mm2": 4.037631181011306,
+      "new_contact_area_mm2": 0.017002686519312166,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 19,
+      "bounds_xy_mm": [
+        293.547,
+        220.027,
+        296.408,
+        222.888
+      ],
+      "size_xy_mm": [
+        2.86099999999999,
+        2.8610000000000184
+      ],
+      "baseline_contact_area_mm2": 3.717679504660045,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 20,
+      "bounds_xy_mm": [
+        294.7506341077083,
+        227.91932959710846,
+        296.90970019562195,
+        229.64900136418268
+      ],
+      "size_xy_mm": [
+        2.1590660879136294,
+        1.7296717670742225
+      ],
+      "baseline_contact_area_mm2": 2.823058770773773,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 21,
+      "bounds_xy_mm": [
+        294.5127622894943,
+        232.71090180408487,
+        296.35406562461714,
+        234.542999982346
+      ],
+      "size_xy_mm": [
+        1.8413033351228592,
+        1.832098178261134
+      ],
+      "baseline_contact_area_mm2": 2.5322030052046958,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 22,
+      "bounds_xy_mm": [
+        294.875,
+        234.954,
+        296.537,
+        236.616
+      ],
+      "size_xy_mm": [
+        1.6619999999999777,
+        1.6620000000000061
+      ],
+      "baseline_contact_area_mm2": 1.8185603960204535,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 27.32,
+      "region": 5,
+      "contact_component": 23,
+      "bounds_xy_mm": [
+        295.681,
+        223.672,
+        298.125,
+        226.116
+      ],
+      "size_xy_mm": [
+        2.444000000000017,
+        2.444000000000017
+      ],
+      "baseline_contact_area_mm2": 3.0571852024893404,
+      "new_contact_area_mm2": 0.811007217827143,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.56,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        289.899994,
+        216.084,
+        298.149994,
+        238.256859
+      ],
+      "size_xy_mm": [
+        8.25,
+        22.17285899999999
+      ],
+      "baseline_contact_area_mm2": 178.22775149832324,
+      "new_contact_area_mm2": 19.230934715162366,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 27.8,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        289.899994,
+        216.084,
+        298.149994,
+        237.718
+      ],
+      "size_xy_mm": [
+        8.25,
+        21.633999999999986
+      ],
+      "baseline_contact_area_mm2": 174.98703122617042,
+      "new_contact_area_mm2": 19.606036647265643,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        172.360016,
+        78.223,
+        173.66409781594894,
+        79.011608
+      ],
+      "size_xy_mm": [
+        1.3040818159489334,
+        0.7886079999999964
+      ],
+      "baseline_contact_area_mm2": 0.8003186330831984,
+      "new_contact_area_mm2": 0.18516752184526114,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        176.20874375447264,
+        78.29800002248302,
+        177.71399997751698,
+        79.011608
+      ],
+      "size_xy_mm": [
+        1.5052562230443414,
+        0.7136079775169719
+      ],
+      "baseline_contact_area_mm2": 0.7338644609063509,
+      "new_contact_area_mm2": 0.4286720364809141,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        179.23143240507108,
+        78.639,
+        180.35872541365202,
+        79.011608
+      ],
+      "size_xy_mm": [
+        1.1272930085809492,
+        0.3726079999999996
+      ],
+      "baseline_contact_area_mm2": 0.28453252123061107,
+      "new_contact_area_mm2": 0.0020756192837993598,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        180.7424324050711,
+        78.42999999999999,
+        182.116,
+        79.011608
+      ],
+      "size_xy_mm": [
+        1.3735675949289146,
+        0.5816080000000028
+      ],
+      "baseline_contact_area_mm2": 0.5462287322728091,
+      "new_contact_area_mm2": 0.480736770722567,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        182.46240216137645,
+        77.967,
+        184.09,
+        79.011608
+      ],
+      "size_xy_mm": [
+        1.627597838623558,
+        1.0446079999999967
+      ],
+      "baseline_contact_area_mm2": 1.2147219764977966,
+      "new_contact_area_mm2": 0.3845073053976271,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.0,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        185.147,
+        78.223,
+        185.860016,
+        79.011608
+      ],
+      "size_xy_mm": [
+        0.7130160000000103,
+        0.7886079999999964
+      ],
+      "baseline_contact_area_mm2": 0.484914374269674,
+      "new_contact_area_mm2": 0.48430477948453543,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        172.360016,
+        77.975283,
+        185.860016,
+        81.93
+      ],
+      "size_xy_mm": [
+        13.5,
+        3.9547170000000023
+      ],
+      "baseline_contact_area_mm2": 28.836896448639052,
+      "new_contact_area_mm2": 22.66193594363164,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        185.21608147920975,
+        78.24508147920976,
+        185.860016,
+        79.39291852079025
+      ],
+      "size_xy_mm": [
+        0.6439345207902534,
+        1.1478370415804875
+      ],
+      "baseline_contact_area_mm2": 0.5782502681597679,
+      "new_contact_area_mm2": 0.5781243146932626,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 6,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        284.899994,
+        214.611798,
+        286.09602767884206,
+        215.868759
+      ],
+      "size_xy_mm": [
+        1.1960336788420705,
+        1.2569610000000182
+      ],
+      "baseline_contact_area_mm2": 1.4330338950059205,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 6,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        286.544,
+        214.611798,
+        289.399994,
+        215.868759
+      ],
+      "size_xy_mm": [
+        2.8559940000000097,
+        1.2569610000000182
+      ],
+      "baseline_contact_area_mm2": 3.2312219523320937,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 7,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        284.899994,
+        237.931244,
+        285.843,
+        239.188205
+      ],
+      "size_xy_mm": [
+        0.9430060000000253,
+        1.2569610000000182
+      ],
+      "baseline_contact_area_mm2": 0.8512737846707583,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.24,
+      "region": 7,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        286.98199999999997,
+        237.931244,
+        289.399994,
+        239.188205
+      ],
+      "size_xy_mm": [
+        2.4179940000000215,
+        1.2569610000000182
+      ],
+      "baseline_contact_area_mm2": 2.652548336002202,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        172.360016,
+        79.03600028282094,
+        185.860016,
+        81.93
+      ],
+      "size_xy_mm": [
+        13.5,
+        2.893999717179071
+      ],
+      "baseline_contact_area_mm2": 33.051223345440256,
+      "new_contact_area_mm2": 27.92328945241697,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        284.899994,
+        214.71700018122394,
+        289.561,
+        239.34866981671615
+      ],
+      "size_xy_mm": [
+        4.661005999999986,
+        24.631669635492216
+      ],
+      "baseline_contact_area_mm2": 105.00615510486318,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.21112148823227,
+        169.55810222564628,
+        298.142584,
+        171.86588430491724
+      ],
+      "size_xy_mm": [
+        1.9314625117677338,
+        2.3077820792709645
+      ],
+      "baseline_contact_area_mm2": 3.504318424940237,
+      "new_contact_area_mm2": 2.0136614787154063,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.936,
+        167.429,
+        298.149994,
+        169.116
+      ],
+      "size_xy_mm": [
+        1.2139940000000138,
+        1.6870000000000118
+      ],
+      "baseline_contact_area_mm2": 1.4529621255142557,
+      "new_contact_area_mm2": 1.0504078069550866,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.225,
+        155.02899852044166,
+        298.149994,
+        166.8
+      ],
+      "size_xy_mm": [
+        1.9249939999999697,
+        11.77100147955835
+      ],
+      "baseline_contact_area_mm2": 12.984181485133819,
+      "new_contact_area_mm2": 5.845954484271547,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        297.18054414030695,
+        150.878092299834,
+        298.149994,
+        153.0675235310307
+      ],
+      "size_xy_mm": [
+        0.969449859693043,
+        2.189431231196693
+      ],
+      "baseline_contact_area_mm2": 1.7203941752402554,
+      "new_contact_area_mm2": 1.1412798493294263,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.956,
+        149.257,
+        298.142748,
+        150.963
+      ],
+      "size_xy_mm": [
+        1.186747999999966,
+        1.7059999999999889
+      ],
+      "baseline_contact_area_mm2": 1.4248022984428688,
+      "new_contact_area_mm2": 1.1544298579506065,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        296.273000060856,
+        145.06911601951762,
+        298.149994,
+        148.623999939144
+      ],
+      "size_xy_mm": [
+        1.876993939143972,
+        3.554883919626377
+      ],
+      "baseline_contact_area_mm2": 3.6725327301287765,
+      "new_contact_area_mm2": 1.4201971819366535,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.48,
+      "region": 0,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.618,
+        141.984,
+        298.149994,
+        143.746
+      ],
+      "size_xy_mm": [
+        1.5319939999999974,
+        1.7620000000000005
+      ],
+      "baseline_contact_area_mm2": 1.8368107966672154,
+      "new_contact_area_mm2": 1.05306928032364,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        172.360016,
+        80.251,
+        185.860016,
+        81.93
+      ],
+      "size_xy_mm": [
+        13.5,
+        1.679000000000002
+      ],
+      "baseline_contact_area_mm2": 17.18110574572385,
+      "new_contact_area_mm2": 11.952721426152952,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        284.899994,
+        215.603,
+        289.399994,
+        238.197
+      ],
+      "size_xy_mm": [
+        4.5,
+        22.593999999999994
+      ],
+      "baseline_contact_area_mm2": 98.52952193822608,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 6,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        142.169,
+        298.149994,
+        171.70797
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.538969999999978
+      ],
+      "baseline_contact_area_mm2": 41.449675313590696,
+      "new_contact_area_mm2": 25.52393967288524,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        132.225,
+        298.1439533747053,
+        134.358
+      ],
+      "size_xy_mm": [
+        1.4939593747052982,
+        2.1330000000000098
+      ],
+      "baseline_contact_area_mm2": 2.0920817510670915,
+      "new_contact_area_mm2": 1.0907065549731882,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        296.649994,
+        127.751,
+        298.149994,
+        131.5230259973413
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.772025997341302
+      ],
+      "baseline_contact_area_mm2": 3.5668521301482765,
+      "new_contact_area_mm2": 2.127034051108707,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.689,
+        123.62900009008516,
+        298.149994,
+        126.70100000000001
+      ],
+      "size_xy_mm": [
+        1.460993999999971,
+        3.071999909914851
+      ],
+      "baseline_contact_area_mm2": 3.31161913734103,
+      "new_contact_area_mm2": 2.6882269012623046,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.8150001194559,
+        120.54200011945588,
+        298.149994,
+        122.42699988054413
+      ],
+      "size_xy_mm": [
+        1.3349938805441184,
+        1.8849997610882525
+      ],
+      "baseline_contact_area_mm2": 1.6668087527563025,
+      "new_contact_area_mm2": 0.8762934973904596,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.649994,
+        118.69300009861844,
+        298.145291,
+        120.65499990138156
+      ],
+      "size_xy_mm": [
+        1.4952969999999937,
+        1.961999802763117
+      ],
+      "baseline_contact_area_mm2": 2.0016161712831826,
+      "new_contact_area_mm2": 1.05893093609311,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.668,
+        114.52900009677191,
+        298.149994,
+        117.575
+      ],
+      "size_xy_mm": [
+        1.481993999999986,
+        3.0459999032280933
+      ],
+      "baseline_contact_area_mm2": 3.36296340086872,
+      "new_contact_area_mm2": 1.6890534663222798,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.649994,
+        109.62,
+        298.149994,
+        113.36371774335069
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.743717743350686
+      ],
+      "baseline_contact_area_mm2": 3.543401453653767,
+      "new_contact_area_mm2": 1.6657915243713042,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        296.649994,
+        106.73,
+        298.14421095821035,
+        108.495
+      ],
+      "size_xy_mm": [
+        1.4942169582103588,
+        1.7650000000000006
+      ],
+      "baseline_contact_area_mm2": 1.8362045918034011,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 7,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.7377740155738,
+        104.8450766614212,
+        298.149994,
+        106.81859993309583
+      ],
+      "size_xy_mm": [
+        1.4122199844262013,
+        1.9735232716746225
+      ],
+      "baseline_contact_area_mm2": 2.222874920007587,
+      "new_contact_area_mm2": 0.8722330413572951,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        94.963,
+        298.149994,
+        97.1642
+      ],
+      "size_xy_mm": [
+        1.5,
+        2.2012
+      ],
+      "baseline_contact_area_mm2": 2.854955320204296,
+      "new_contact_area_mm2": 2.064054496405777,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        296.649994,
+        81.67785393892208,
+        298.149994,
+        93.88154276894541
+      ],
+      "size_xy_mm": [
+        1.5,
+        12.203688830023324
+      ],
+      "baseline_contact_area_mm2": 14.671285529469282,
+      "new_contact_area_mm2": 7.630154883754957,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.723,
+        76.878,
+        298.14689805175493,
+        79.903
+      ],
+      "size_xy_mm": [
+        1.423898051754918,
+        3.0250000000000057
+      ],
+      "baseline_contact_area_mm2": 3.1328903029410258,
+      "new_contact_area_mm2": 2.700825498374975,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.7002948193504,
+        72.35434786992286,
+        298.149994,
+        75.7268251186236
+      ],
+      "size_xy_mm": [
+        1.4496991806495885,
+        3.372477248700733
+      ],
+      "baseline_contact_area_mm2": 3.382407728255584,
+      "new_contact_area_mm2": 1.9679488774631544,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.649994,
+        69.58783159400065,
+        298.149994,
+        71.28677856794366
+      ],
+      "size_xy_mm": [
+        1.5,
+        1.6989469739430092
+      ],
+      "baseline_contact_area_mm2": 2.1331137140171244,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 29.72,
+      "region": 8,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.649994,
+        67.381,
+        298.1461614723499,
+        69.476
+      ],
+      "size_xy_mm": [
+        1.4961674723498959,
+        2.094999999999999
+      ],
+      "baseline_contact_area_mm2": 2.0315992124586613,
+      "new_contact_area_mm2": 1.1000720166688667,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 6,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        141.913,
+        298.149994,
+        171.33
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.417
+      ],
+      "baseline_contact_area_mm2": 40.45794233162532,
+      "new_contact_area_mm2": 26.424061710637694,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 7,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        104.66199999999999,
+        298.149994,
+        133.553
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.891000000000005
+      ],
+      "baseline_contact_area_mm2": 39.52649608777467,
+      "new_contact_area_mm2": 25.61507520151463,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 29.96,
+      "region": 8,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.652,
+        298.149994,
+        96.959754
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.307754000000003
+      ],
+      "baseline_contact_area_mm2": 40.523134156867,
+      "new_contact_area_mm2": 27.371672040462066,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.2,
+      "region": 6,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        105.105,
+        298.149994,
+        133.662
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.557000000000002
+      ],
+      "baseline_contact_area_mm2": 39.79471869150271,
+      "new_contact_area_mm2": 25.274913806360797,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.2,
+      "region": 7,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.55799999999999,
+        298.149994,
+        96.302
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.744000000000014
+      ],
+      "baseline_contact_area_mm2": 40.405288874750426,
+      "new_contact_area_mm2": 26.516557020616652,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        224.860016,
+        77.154,
+        226.07354444865712,
+        78.963006
+      ],
+      "size_xy_mm": [
+        1.2135284486571152,
+        1.8090059999999966
+      ],
+      "baseline_contact_area_mm2": 1.4960253520364928,
+      "new_contact_area_mm2": 1.038566860217404,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        227.7794813422028,
+        77.154,
+        230.235,
+        78.963006
+      ],
+      "size_xy_mm": [
+        2.4555186577971995,
+        1.8090059999999966
+      ],
+      "baseline_contact_area_mm2": 2.4419510141077363,
+      "new_contact_area_mm2": 1.2252267506459864,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        230.3702242253186,
+        77.41,
+        232.55150377096956,
+        78.963006
+      ],
+      "size_xy_mm": [
+        2.181279545650966,
+        1.5530059999999963
+      ],
+      "baseline_contact_area_mm2": 2.946987177304947,
+      "new_contact_area_mm2": 2.540038783171439,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        232.35593898673167,
+        77.268,
+        234.655,
+        78.963006
+      ],
+      "size_xy_mm": [
+        2.2990610132683287,
+        1.6950059999999922
+      ],
+      "baseline_contact_area_mm2": 2.252550411215928,
+      "new_contact_area_mm2": 1.2010095398015936,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        234.9617618270167,
+        77.41,
+        237.1095434626776,
+        78.963006
+      ],
+      "size_xy_mm": [
+        2.1477816356609196,
+        1.5530059999999963
+      ],
+      "baseline_contact_area_mm2": 2.924608806359882,
+      "new_contact_area_mm2": 2.5820160250998,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.68,
+      "region": 1,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        236.99100005316092,
+        77.32291544177632,
+        238.360016,
+        78.963006
+      ],
+      "size_xy_mm": [
+        1.3690159468390846,
+        1.640090558223676
+      ],
+      "baseline_contact_area_mm2": 1.3211671828006688,
+      "new_contact_area_mm2": 0.965313719507572,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        224.860016,
+        79.52706693416148,
+        225.62244708010695,
+        80.290073
+      ],
+      "size_xy_mm": [
+        0.7624310801069498,
+        0.7630060658385247
+      ],
+      "baseline_contact_area_mm2": 0.2908697694527104,
+      "new_contact_area_mm2": 0.16878041962569942,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        228.03509640563604,
+        79.63,
+        230.15603259492894,
+        80.290073
+      ],
+      "size_xy_mm": [
+        2.1209361892929053,
+        0.6600730000000112
+      ],
+      "baseline_contact_area_mm2": 1.000506314746895,
+      "new_contact_area_mm2": 0.018638871844132435,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        230.4900266850346,
+        79.8524033452566,
+        233.17903259492894,
+        80.290073
+      ],
+      "size_xy_mm": [
+        2.689005909894348,
+        0.43766965474340225
+      ],
+      "baseline_contact_area_mm2": 0.8274232424433479,
+      "new_contact_area_mm2": 0.14027264827378286,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        226.041,
+        77.41,
+        237.9979989605057,
+        80.290073
+      ],
+      "size_xy_mm": [
+        11.9569989605057,
+        2.88007300000001
+      ],
+      "baseline_contact_area_mm2": 17.534585091532893,
+      "new_contact_area_mm2": 15.141062341398149,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 30.92,
+      "region": 1,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        237.34254022241353,
+        77.41051224879276,
+        238.360016,
+        78.83733957087061
+      ],
+      "size_xy_mm": [
+        1.0174757775864691,
+        1.4268273220778553
+      ],
+      "baseline_contact_area_mm2": 1.208444407614232,
+      "new_contact_area_mm2": 0.8757198214254786,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 31.16,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        224.860016,
+        78.222,
+        238.360016,
+        81.93
+      ],
+      "size_xy_mm": [
+        13.5,
+        3.7080000000000126
+      ],
+      "baseline_contact_area_mm2": 42.27853494879442,
+      "new_contact_area_mm2": 32.329937133944284,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 31.4,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        224.860016,
+        79.455,
+        238.360016,
+        81.93
+      ],
+      "size_xy_mm": [
+        13.5,
+        2.4750000000000085
+      ],
+      "baseline_contact_area_mm2": 26.965363816607002,
+      "new_contact_area_mm2": 18.22928955236226,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        194.032,
+        60.15675313374709,
+        197.261,
+        61.5
+      ],
+      "size_xy_mm": [
+        3.228999999999985,
+        1.3432468662529118
+      ],
+      "baseline_contact_area_mm2": 3.4599147298712327,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        201.42228362330962,
+        60.08,
+        203.488,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.065716376690375,
+        1.4200000000000017
+      ],
+      "baseline_contact_area_mm2": 1.8256519757306713,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        205.9384607830246,
+        59.647,
+        208.454,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.5155392169754123,
+        1.8530000000000015
+      ],
+      "baseline_contact_area_mm2": 2.514383452699136,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        210.50029148411457,
+        60.092000079137144,
+        212.54299992086285,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.042708436748285,
+        1.4079999208628564
+      ],
+      "baseline_contact_area_mm2": 1.8050235203800442,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        214.412,
+        59.53,
+        217.12800000000001,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.716000000000008,
+        1.9699999999999989
+      ],
+      "baseline_contact_area_mm2": 3.656441499096553,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        217.4670001896729,
+        59.484000189672884,
+        219.998,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.5309998103271028,
+        2.0159998103271164
+      ],
+      "baseline_contact_area_mm2": 3.524068368382737,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        190.76600020075114,
+        59.00300020075113,
+        193.2439997856787,
+        61.437999785678706
+      ],
+      "size_xy_mm": [
+        2.4779995849275736,
+        2.4349995849275743
+      ],
+      "baseline_contact_area_mm2": 3.9070253951262894,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.36,
+      "region": 1,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        199.058,
+        59.765,
+        200.781,
+        61.488
+      ],
+      "size_xy_mm": [
+        1.7230000000000132,
+        1.722999999999999
+      ],
+      "baseline_contact_area_mm2": 1.9151794666018391,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.6,
+      "region": 6,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        190.064514,
+        59.0,
+        220.655518,
+        61.5
+      ],
+      "size_xy_mm": [
+        30.591003999999998,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 72.90103978348299,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 32.84,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        190.064514,
+        59.0,
+        220.655518,
+        61.5
+      ],
+      "size_xy_mm": [
+        30.591003999999998,
+        2.5
+      ],
+      "baseline_contact_area_mm2": 73.06358929016204,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 38.6,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        30.850006,
+        56.75,
+        53.041519,
+        61.5
+      ],
+      "size_xy_mm": [
+        22.191513,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 102.86222321987997,
+      "new_contact_area_mm2": 80.40143436035233,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.6,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        30.850006,
+        258.5,
+        53.041519,
+        263.25
+      ],
+      "size_xy_mm": [
+        22.191513,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 102.65241524169465,
+      "new_contact_area_mm2": 80.56921066545961,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.84,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        30.850006,
+        56.75,
+        53.041519,
+        61.5
+      ],
+      "size_xy_mm": [
+        22.191513,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 102.42927816776421,
+      "new_contact_area_mm2": 80.66655096473525,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 38.84,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        30.850006,
+        258.5,
+        53.041519,
+        263.25
+      ],
+      "size_xy_mm": [
+        22.191513,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 103.03154723485498,
+      "new_contact_area_mm2": 81.15657206549916,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        69.23600009654474,
+        134.14999990345527,
+        71.20799990345526
+      ],
+      "size_xy_mm": [
+        1.7899839034552656,
+        1.9719998069105173
+      ],
+      "baseline_contact_area_mm2": 2.211862298322649,
+      "new_contact_area_mm2": 0.9193690279805492,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        132.360016,
+        73.34592380829406,
+        134.25299996369168,
+        75.84399996369169
+      ],
+      "size_xy_mm": [
+        1.8929839636916768,
+        2.4980761553976265
+      ],
+      "baseline_contact_area_mm2": 2.5668528690875743,
+      "new_contact_area_mm2": 1.6450320363245348,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        134.62300005197656,
+        74.7292777246017,
+        139.37396159492894,
+        77.150002
+      ],
+      "size_xy_mm": [
+        4.750961542952382,
+        2.4207242753982996
+      ],
+      "baseline_contact_area_mm2": 7.18017989836499,
+      "new_contact_area_mm2": 1.6524654014903861,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        140.391,
+        75.937,
+        141.860016,
+        77.150002
+      ],
+      "size_xy_mm": [
+        1.4690160000000105,
+        1.213002000000003
+      ],
+      "baseline_contact_area_mm2": 1.3707216560124718,
+      "new_contact_area_mm2": 1.3401463073052835,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        135.84,
+        67.150002,
+        138.16400000000002,
+        70.688
+      ],
+      "size_xy_mm": [
+        2.3240000000000123,
+        3.5379980000000018
+      ],
+      "baseline_contact_area_mm2": 5.0677812394522785,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        134.838,
+        70.384,
+        136.821,
+        72.367
+      ],
+      "size_xy_mm": [
+        1.983000000000004,
+        1.983000000000004
+      ],
+      "baseline_contact_area_mm2": 2.3269984559648615,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        133.146,
+        71.714,
+        135.294,
+        73.86200000000001
+      ],
+      "size_xy_mm": [
+        2.1480000000000246,
+        2.1480000000000103
+      ],
+      "baseline_contact_area_mm2": 2.5883451222914307,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        139.816,
+        69.318,
+        141.574,
+        71.07600000000001
+      ],
+      "size_xy_mm": [
+        1.7580000000000098,
+        1.7580000000000098
+      ],
+      "baseline_contact_area_mm2": 1.9706166382468537,
+      "new_contact_area_mm2": 0.5776157859136472,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        139.1223324359713,
+        70.8029491389461,
+        140.72000582236257,
+        72.93700041812374
+      ],
+      "size_xy_mm": [
+        1.5976733863912784,
+        2.1340512791776405
+      ],
+      "baseline_contact_area_mm2": 2.6463674403804593,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 39.08,
+      "region": 1,
+      "contact_component": 9,
+      "bounds_xy_mm": [
+        138.108,
+        73.654,
+        139.916,
+        75.462
+      ],
+      "size_xy_mm": [
+        1.8079999999999927,
+        1.808000000000007
+      ],
+      "baseline_contact_area_mm2": 2.049812597739737,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 39.32,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        67.150002,
+        141.860016,
+        77.150002
+      ],
+      "size_xy_mm": [
+        9.5,
+        10.0
+      ],
+      "baseline_contact_area_mm2": 76.29736389114109,
+      "new_contact_area_mm2": 19.234329957690704,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 39.56,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        67.150002,
+        141.860016,
+        77.150002
+      ],
+      "size_xy_mm": [
+        9.5,
+        10.0
+      ],
+      "baseline_contact_area_mm2": 75.98159616510931,
+      "new_contact_area_mm2": 19.872362761480193,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 48.68,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        68.1470000141079,
+        87.8798490015036,
+        70.150002
+      ],
+      "size_xy_mm": [
+        8.9698450015036,
+        2.003001985892098
+      ],
+      "baseline_contact_area_mm2": 9.718841876308504,
+      "new_contact_area_mm2": 5.295260913001963,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 48.68,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        82.410004,
+        58.75,
+        83.62317445661522,
+        60.002848279579666
+      ],
+      "size_xy_mm": [
+        1.2131704566152166,
+        1.2528482795796663
+      ],
+      "baseline_contact_area_mm2": 1.3347007540890399,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 48.68,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        82.410004,
+        61.63700011145495,
+        84.06699988854506,
+        63.54999988854505
+      ],
+      "size_xy_mm": [
+        1.6569958885450546,
+        1.9129997770901
+      ],
+      "baseline_contact_area_mm2": 2.0531442228858405,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 48.68,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        82.410004,
+        63.447,
+        84.26899981935784,
+        66.19999981935784
+      ],
+      "size_xy_mm": [
+        1.858995819357844,
+        2.7529998193578393
+      ],
+      "baseline_contact_area_mm2": 3.7086178879237077,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 48.92,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        58.75,
+        87.04196159492894,
+        70.150002
+      ],
+      "size_xy_mm": [
+        8.131957594928934,
+        11.400002
+      ],
+      "baseline_contact_area_mm2": 31.53433591160481,
+      "new_contact_area_mm2": 1.556116283649649,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 49.16,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        58.75,
+        87.76269195329466,
+        70.150002
+      ],
+      "size_xy_mm": [
+        8.852687953294662,
+        11.400002
+      ],
+      "baseline_contact_area_mm2": 30.3741382338748,
+      "new_contact_area_mm2": 2.6653140196201064,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        28.069000024264252,
+        58.81200002426425,
+        30.88699997573575,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.8179999514714993,
+        2.6879999757357496
+      ],
+      "baseline_contact_area_mm2": 3.5916628705992317,
+      "new_contact_area_mm2": 2.162770489161349,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        31.72733264036199,
+        60.536314316689065,
+        33.65096393320848,
+        61.5
+      ],
+      "size_xy_mm": [
+        1.9236312928464905,
+        0.9636856833109348
+      ],
+      "baseline_contact_area_mm2": 1.512085607908967,
+      "new_contact_area_mm2": 0.8806081233609503,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        33.235,
+        59.445,
+        36.66551720965096,
+        61.5
+      ],
+      "size_xy_mm": [
+        3.430517209650958,
+        2.0549999999999997
+      ],
+      "baseline_contact_area_mm2": 3.7690791290126002,
+      "new_contact_area_mm2": 2.226916346182154,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        33.812999999999995,
+        57.001,
+        37.008184,
+        60.298
+      ],
+      "size_xy_mm": [
+        3.1951840000000047,
+        3.297000000000004
+      ],
+      "baseline_contact_area_mm2": 4.267359040143179,
+      "new_contact_area_mm2": 2.4803606400063085,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        26.850006,
+        56.75,
+        28.567405793488966,
+        58.35313736734827
+      ],
+      "size_xy_mm": [
+        1.7173997934889655,
+        1.6031373673482676
+      ],
+      "baseline_contact_area_mm2": 2.2492905486290002,
+      "new_contact_area_mm2": 1.6099218689275752,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        29.299000000000003,
+        57.021,
+        32.074,
+        59.796
+      ],
+      "size_xy_mm": [
+        2.774999999999995,
+        2.7749999999999986
+      ],
+      "baseline_contact_area_mm2": 3.5814624543323124,
+      "new_contact_area_mm2": 2.422471839178441,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        34.24786754958083,
+        258.5,
+        37.008184,
+        261.319
+      ],
+      "size_xy_mm": [
+        2.760316450419168,
+        2.819000000000017
+      ],
+      "baseline_contact_area_mm2": 3.8070388213851447,
+      "new_contact_area_mm2": 2.3968176402132597,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        26.850006,
+        258.5,
+        28.421999999999997,
+        260.138
+      ],
+      "size_xy_mm": [
+        1.5719939999999966,
+        1.6379999999999768
+      ],
+      "baseline_contact_area_mm2": 1.819450503184624,
+      "new_contact_area_mm2": 0.9801242684903427,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        31.110000000000003,
+        261.7928675984472,
+        32.99129290384285,
+        263.25
+      ],
+      "size_xy_mm": [
+        1.8812929038428443,
+        1.4571324015528262
+      ],
+      "baseline_contact_area_mm2": 2.2262594951185037,
+      "new_contact_area_mm2": 1.1568055569459683,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        30.598000000000003,
+        259.292,
+        32.687000000000005,
+        261.38100000000003
+      ],
+      "size_xy_mm": [
+        2.089000000000002,
+        2.0890000000000555
+      ],
+      "baseline_contact_area_mm2": 2.494893890089848,
+      "new_contact_area_mm2": 2.0440903773640016,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        27.367,
+        260.594,
+        29.369,
+        262.596
+      ],
+      "size_xy_mm": [
+        2.001999999999999,
+        2.0020000000000095
+      ],
+      "baseline_contact_area_mm2": 2.3570929205721556,
+      "new_contact_area_mm2": 1.0850352610187926,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.44,
+      "region": 2,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        33.405,
+        260.588,
+        35.555,
+        262.738
+      ],
+      "size_xy_mm": [
+        2.1499999999999986,
+        2.1499999999999773
+      ],
+      "baseline_contact_area_mm2": 2.5915129606710816,
+      "new_contact_area_mm2": 1.2837424728479974,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.68,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        26.850006,
+        56.75,
+        36.86962,
+        61.5
+      ],
+      "size_xy_mm": [
+        10.019613999999997,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 46.10682746283547,
+      "new_contact_area_mm2": 44.904427515682286,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.68,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        26.850006,
+        258.5,
+        36.86962,
+        263.25
+      ],
+      "size_xy_mm": [
+        10.019613999999997,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 46.01241566176933,
+      "new_contact_area_mm2": 44.872184135949894,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.92,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        26.850006,
+        56.75,
+        36.731056,
+        61.5
+      ],
+      "size_xy_mm": [
+        9.881050000000002,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 45.45686095757674,
+      "new_contact_area_mm2": 44.53148875493853,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 54.92,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        26.850006,
+        258.5,
+        36.731056,
+        263.25
+      ],
+      "size_xy_mm": [
+        9.881050000000002,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 45.39301226855792,
+      "new_contact_area_mm2": 44.49924990423144,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.12,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        74.67003001671767,
+        133.5562764184752,
+        75.865462
+      ],
+      "size_xy_mm": [
+        1.196260418475191,
+        1.1954319832823188
+      ],
+      "baseline_contact_area_mm2": 0.7150239822899671,
+      "new_contact_area_mm2": 0.7150239822899671,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.12,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        134.03354378440636,
+        74.255,
+        138.0893751262625,
+        75.865462
+      ],
+      "size_xy_mm": [
+        4.055831341856134,
+        1.6104619999999983
+      ],
+      "baseline_contact_area_mm2": 4.566089839544931,
+      "new_contact_area_mm2": 2.958957266381171,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.12,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        138.36660042685688,
+        74.255,
+        141.860016,
+        75.865462
+      ],
+      "size_xy_mm": [
+        3.4934155731431247,
+        1.6104619999999983
+      ],
+      "baseline_contact_area_mm2": 4.498379882382333,
+      "new_contact_area_mm2": 3.410721831761669,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.36,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        74.290102,
+        141.860016,
+        77.150002
+      ],
+      "size_xy_mm": [
+        9.5,
+        2.859899999999996
+      ],
+      "baseline_contact_area_mm2": 17.599797468100153,
+      "new_contact_area_mm2": 13.223550587668734,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 56.6,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        132.360016,
+        74.771422,
+        141.860016,
+        77.150002
+      ],
+      "size_xy_mm": [
+        9.5,
+        2.3785799999999995
+      ],
+      "baseline_contact_area_mm2": 14.656085597950758,
+      "new_contact_area_mm2": 11.954487828260106,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 59.96,
+      "region": 5,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        291.800018,
+        112.389999,
+        294.790009,
+        126.189999
+      ],
+      "size_xy_mm": [
+        2.989990999999975,
+        13.799999999999997
+      ],
+      "baseline_contact_area_mm2": 39.783799967167646,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 60.2,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        291.800018,
+        112.389999,
+        294.790009,
+        126.189999
+      ],
+      "size_xy_mm": [
+        2.989990999999975,
+        13.799999999999997
+      ],
+      "baseline_contact_area_mm2": 39.85215681124839,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 62.36,
+      "region": 4,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        286.890015,
+        112.314999,
+        291.300018,
+        126.264999
+      ],
+      "size_xy_mm": [
+        4.410003000000017,
+        13.950000000000003
+      ],
+      "baseline_contact_area_mm2": 59.20122758612914,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 62.6,
+      "region": 4,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        286.890015,
+        112.314999,
+        291.300018,
+        126.264999
+      ],
+      "size_xy_mm": [
+        4.410003000000017,
+        13.950000000000003
+      ],
+      "baseline_contact_area_mm2": 58.85911465580564,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.40300009745823,
+        132.29265106047663,
+        298.147291,
+        134.555101
+      ],
+      "size_xy_mm": [
+        2.7442909025417634,
+        2.2624499395233784
+      ],
+      "baseline_contact_area_mm2": 4.624900627140869,
+      "new_contact_area_mm2": 2.280471682715647,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        295.381,
+        128.174,
+        298.147659,
+        130.943
+      ],
+      "size_xy_mm": [
+        2.766659000000004,
+        2.7690000000000055
+      ],
+      "baseline_contact_area_mm2": 3.5719313879600247,
+      "new_contact_area_mm2": 0.44893394864899655,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.517,
+        126.288,
+        298.1490055408643,
+        128.24099999999999
+      ],
+      "size_xy_mm": [
+        1.632005540864327,
+        1.9529999999999887
+      ],
+      "baseline_contact_area_mm2": 2.0503802122678,
+      "new_contact_area_mm2": 1.7134121260966588,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        295.414,
+        122.163,
+        298.147162,
+        125.03
+      ],
+      "size_xy_mm": [
+        2.733161999999993,
+        2.8670000000000044
+      ],
+      "baseline_contact_area_mm2": 3.6663756977729194,
+      "new_contact_area_mm2": 0.07046414699378924,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.344,
+        120.071,
+        298.149994,
+        122.126
+      ],
+      "size_xy_mm": [
+        1.8059939999999983,
+        2.055000000000007
+      ],
+      "baseline_contact_area_mm2": 2.284378116624949,
+      "new_contact_area_mm2": 1.174644712324255,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        295.43200002668925,
+        116.13700002668924,
+        298.147146,
+        118.87599997331077
+      ],
+      "size_xy_mm": [
+        2.7151459733107686,
+        2.738999946621533
+      ],
+      "baseline_contact_area_mm2": 3.522094979844174,
+      "new_contact_area_mm2": 1.1603266068729232,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.4110000947559,
+        114.09400009475587,
+        298.149994,
+        116.07299990524413
+      ],
+      "size_xy_mm": [
+        1.738993905244115,
+        1.9789998104882613
+      ],
+      "baseline_contact_area_mm2": 2.17101616990655,
+      "new_contact_area_mm2": 0.045997780054578774,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        295.4500000242072,
+        110.11000002420721,
+        298.148338,
+        112.93099997579279
+      ],
+      "size_xy_mm": [
+        2.6983379757928105,
+        2.820999951585577
+      ],
+      "baseline_contact_area_mm2": 3.600850144182216,
+      "new_contact_area_mm2": 1.2754379817769614,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.98140884306497,
+        107.73485241956153,
+        298.1471311127282,
+        109.53030920856334
+      ],
+      "size_xy_mm": [
+        1.1657222696632061,
+        1.795456789001804
+      ],
+      "baseline_contact_area_mm2": 1.7105430173729081,
+      "new_contact_area_mm2": 0.15320480336053327,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 0,
+      "contact_component": 9,
+      "bounds_xy_mm": [
+        295.997,
+        104.613,
+        297.975,
+        106.59100000000001
+      ],
+      "size_xy_mm": [
+        1.9780000000000086,
+        1.9780000000000086
+      ],
+      "baseline_contact_area_mm2": 2.319078860015557,
+      "new_contact_area_mm2": 0.7778785265398754,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        94.92200014896456,
+        298.149994,
+        97.1951
+      ],
+      "size_xy_mm": [
+        1.5,
+        2.2730998510354397
+      ],
+      "baseline_contact_area_mm2": 2.9509595013357526,
+      "new_contact_area_mm2": 2.93904988950822,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        297.1720682502309,
+        92.98287861118547,
+        298.148085,
+        94.8007955831288
+      ],
+      "size_xy_mm": [
+        0.9760167497690873,
+        1.8179169719433332
+      ],
+      "baseline_contact_area_mm2": 1.4251225732819304,
+      "new_contact_area_mm2": 0.39448952321304737,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.653,
+        88.876,
+        298.149994,
+        91.928
+      ],
+      "size_xy_mm": [
+        1.4969939999999724,
+        3.0519999999999925
+      ],
+      "baseline_contact_area_mm2": 3.361468482854057,
+      "new_contact_area_mm2": 2.511365550190617,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.649994,
+        80.81279730708088,
+        298.149994,
+        87.91063959145808
+      ],
+      "size_xy_mm": [
+        1.5,
+        7.097842284377194
+      ],
+      "baseline_contact_area_mm2": 7.535392107417151,
+      "new_contact_area_mm2": 3.4929937426756856,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        297.092,
+        76.998,
+        298.149994,
+        80.35895359492892
+      ],
+      "size_xy_mm": [
+        1.0579940000000079,
+        3.3609535949289153
+      ],
+      "baseline_contact_area_mm2": 2.1059186497134097,
+      "new_contact_area_mm2": 2.056590832220841,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.649994,
+        72.68204162485696,
+        298.149994,
+        75.75802285884558
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.075981233988614
+      ],
+      "baseline_contact_area_mm2": 3.219486799173009,
+      "new_contact_area_mm2": 2.1583493571723285,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        297.34,
+        69.69,
+        298.149994,
+        71.2673850732957
+      ],
+      "size_xy_mm": [
+        0.8099940000000174,
+        1.5773850732957015
+      ],
+      "baseline_contact_area_mm2": 0.8779819518264204,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 62.84,
+      "region": 1,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        296.649994,
+        67.479,
+        298.149883,
+        69.54897672725302
+      ],
+      "size_xy_mm": [
+        1.499888999999996,
+        2.069976727253021
+      ],
+      "baseline_contact_area_mm2": 1.9443198590548292,
+      "new_contact_area_mm2": 1.2264721497238924,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.08,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.290009,
+        104.50700068573373,
+        298.149994,
+        134.361391
+      ],
+      "size_xy_mm": [
+        2.8599849999999947,
+        29.85439031426627
+      ],
+      "baseline_contact_area_mm2": 81.63519779234005,
+      "new_contact_area_mm2": 26.609990416762713,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.08,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.64699999999999,
+        298.149994,
+        97.001391
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.354391000000007
+      ],
+      "baseline_contact_area_mm2": 40.51936259636116,
+      "new_contact_area_mm2": 27.38707696333847,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.32,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.290009,
+        104.76299999999999,
+        298.149994,
+        134.07299971717907
+      ],
+      "size_xy_mm": [
+        2.8599849999999947,
+        29.309999717179082
+      ],
+      "baseline_contact_area_mm2": 79.61993067561463,
+      "new_contact_area_mm2": 24.649743121615494,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 63.32,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.40299999999999,
+        298.149994,
+        96.45699889185506
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.053998891855073
+      ],
+      "baseline_contact_area_mm2": 40.52480189796161,
+      "new_contact_area_mm2": 26.444683890138705,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.6,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        67.13700009388003,
+        80.07799990611997,
+        69.051218933693
+      ],
+      "size_xy_mm": [
+        1.1679959061199696,
+        1.9142188398129605
+      ],
+      "baseline_contact_area_mm2": 1.440301469608264,
+      "new_contact_area_mm2": 0.051698419421918024,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.6,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        81.61749840507107,
+        67.13700017834284,
+        84.61099982165716,
+        69.339542
+      ],
+      "size_xy_mm": [
+        2.993501416586085,
+        2.2025418216571495
+      ],
+      "baseline_contact_area_mm2": 3.1328780737489272,
+      "new_contact_area_mm2": 0.8194962196884342,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.6,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        85.00200005279224,
+        67.49700005279225,
+        88.18,
+        69.339542
+      ],
+      "size_xy_mm": [
+        3.1779999472077662,
+        1.8425419472077493
+      ],
+      "baseline_contact_area_mm2": 4.0097780517401125,
+      "new_contact_area_mm2": 2.7082757699541555,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 68.6,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        80.875,
+        67.393,
+        82.438,
+        68.79697079755769
+      ],
+      "size_xy_mm": [
+        1.5630000000000024,
+        1.4039707975576903
+      ],
+      "baseline_contact_area_mm2": 1.7266315468024933,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 68.84,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        67.393,
+        88.292,
+        70.150002
+      ],
+      "size_xy_mm": [
+        9.381996000000001,
+        2.757002
+      ],
+      "baseline_contact_area_mm2": 17.743646177947934,
+      "new_contact_area_mm2": 9.022795602075616,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 69.08,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        78.910004,
+        68.206,
+        88.410004,
+        70.150002
+      ],
+      "size_xy_mm": [
+        9.5,
+        1.9440019999999976
+      ],
+      "baseline_contact_area_mm2": 14.968323235378937,
+      "new_contact_area_mm2": 10.159604611517445,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 73.4,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        83.646,
+        59.835365818085236,
+        84.910004,
+        61.38113077968359
+      ],
+      "size_xy_mm": [
+        1.264004,
+        1.5457649615983513
+      ],
+      "baseline_contact_area_mm2": 1.6172120825172793,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 73.4,
+      "region": 2,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        82.449,
+        56.0,
+        84.910004,
+        58.94799971489135
+      ],
+      "size_xy_mm": [
+        2.4610040000000026,
+        2.9479997148913526
+      ],
+      "baseline_contact_area_mm2": 4.854627379945363,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 73.4,
+      "region": 2,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        82.410004,
+        58.50655165185731,
+        83.67437107066223,
+        60.08271771420348
+      ],
+      "size_xy_mm": [
+        1.2643670706622316,
+        1.576166062346175
+      ],
+      "baseline_contact_area_mm2": 1.6637867829311321,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 73.4,
+      "region": 2,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        82.410004,
+        60.528999999999996,
+        83.664,
+        61.5
+      ],
+      "size_xy_mm": [
+        1.2539960000000008,
+        0.9710000000000036
+      ],
+      "baseline_contact_area_mm2": 1.0015069141088568,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 73.64,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        82.410004,
+        56.0,
+        84.910004,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.5,
+        5.5
+      ],
+      "baseline_contact_area_mm2": 12.276921070383315,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 73.88,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        82.410004,
+        56.0,
+        84.910004,
+        61.5
+      ],
+      "size_xy_mm": [
+        2.5,
+        5.5
+      ],
+      "baseline_contact_area_mm2": 13.116001499375415,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        104.100006,
+        70.00700013597343,
+        105.91799986402657,
+        71.84499986402656
+      ],
+      "size_xy_mm": [
+        1.817993864026576,
+        1.8379997280531342
+      ],
+      "baseline_contact_area_mm2": 2.094722476626982,
+      "new_contact_area_mm2": 1.3593353608850682,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        104.100006,
+        75.19500049910717,
+        113.600006,
+        81.93
+      ],
+      "size_xy_mm": [
+        9.5,
+        6.73499950089284
+      ],
+      "baseline_contact_area_mm2": 33.08979193155627,
+      "new_contact_area_mm2": 9.414126692522103,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        110.96427592883892,
+        69.358,
+        113.600006,
+        72.779
+      ],
+      "size_xy_mm": [
+        2.6357300711610776,
+        3.4209999999999923
+      ],
+      "baseline_contact_area_mm2": 5.351082514307605,
+      "new_contact_area_mm2": 2.005737612724088,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        107.5822768180245,
+        65.83300002035375,
+        110.09199997964625,
+        68.80799997964625
+      ],
+      "size_xy_mm": [
+        2.50972316162175,
+        2.9749999592925036
+      ],
+      "baseline_contact_area_mm2": 3.4832202836776904,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        104.56,
+        69.848,
+        110.096,
+        74.388
+      ],
+      "size_xy_mm": [
+        5.536000000000001,
+        4.540000000000006
+      ],
+      "baseline_contact_area_mm2": 8.429746792613031,
+      "new_contact_area_mm2": 1.7804428383160595,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        107.99400019412067,
+        74.75588031592652,
+        113.08599970904912,
+        78.04999970904912
+      ],
+      "size_xy_mm": [
+        5.091999514928446,
+        3.2941193931225996
+      ],
+      "baseline_contact_area_mm2": 8.209893048953369,
+      "new_contact_area_mm2": 2.773569020112579,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.24,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        107.704,
+        62.823,
+        110.081,
+        65.2
+      ],
+      "size_xy_mm": [
+        2.3770000000000095,
+        2.3770000000000024
+      ],
+      "baseline_contact_area_mm2": 2.9510626167688634,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 77.48,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        104.100006,
+        61.839,
+        113.600006,
+        81.93
+      ],
+      "size_xy_mm": [
+        9.5,
+        20.091000000000008
+      ],
+      "baseline_contact_area_mm2": 123.53444810105503,
+      "new_contact_area_mm2": 45.023321289335286,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 77.72,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        104.100006,
+        62.0,
+        113.600006,
+        81.93
+      ],
+      "size_xy_mm": [
+        9.5,
+        19.930000000000007
+      ],
+      "baseline_contact_area_mm2": 120.66063604712312,
+      "new_contact_area_mm2": 45.23905397100653,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        132.41700009153314,
+        298.14520345341646,
+        134.514305
+      ],
+      "size_xy_mm": [
+        1.4952094534164644,
+        2.0973049084668673
+      ],
+      "baseline_contact_area_mm2": 2.6858356115729882,
+      "new_contact_area_mm2": 1.7437386396664385,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        296.649994,
+        127.76400000000001,
+        298.149994,
+        131.48499983708825
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.720999837088243
+      ],
+      "baseline_contact_area_mm2": 3.5946015487719842,
+      "new_contact_area_mm2": 1.661362210714823,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.649994,
+        123.62300009453578,
+        298.149994,
+        126.66999983708823
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.046999742552444
+      ],
+      "baseline_contact_area_mm2": 3.3852078059655155,
+      "new_contact_area_mm2": 1.3497201012465188,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.816,
+        120.542,
+        298.149994,
+        122.385
+      ],
+      "size_xy_mm": [
+        1.3339940000000183,
+        1.8430000000000035
+      ],
+      "baseline_contact_area_mm2": 1.6550081546522633,
+      "new_contact_area_mm2": 1.2129196785525358,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.649994,
+        118.725,
+        298.146365,
+        120.61500000000001
+      ],
+      "size_xy_mm": [
+        1.4963710000000106,
+        1.8900000000000148
+      ],
+      "baseline_contact_area_mm2": 1.9528383285816375,
+      "new_contact_area_mm2": 0.30904524204767836,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.649994,
+        114.50399999999999,
+        298.149994,
+        117.517
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.0130000000000052
+      ],
+      "baseline_contact_area_mm2": 3.450054733866562,
+      "new_contact_area_mm2": 1.3122369800812528,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.905,
+        111.565,
+        298.14752260424734,
+        113.302
+      ],
+      "size_xy_mm": [
+        1.2425226042473696,
+        1.737000000000009
+      ],
+      "baseline_contact_area_mm2": 1.5039253016134733,
+      "new_contact_area_mm2": 0.6271466909406217,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        296.8195578419016,
+        109.61055784190157,
+        298.149994,
+        111.36196849878941
+      ],
+      "size_xy_mm": [
+        1.3304361580983937,
+        1.7514106568878418
+      ],
+      "baseline_contact_area_mm2": 1.9041639788935114,
+      "new_contact_area_mm2": 1.0746761105372769,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 2,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.649994,
+        105.033,
+        298.149994,
+        108.44200000000001
+      ],
+      "size_xy_mm": [
+        1.5,
+        3.409000000000006
+      ],
+      "baseline_contact_area_mm2": 3.9320118304194547,
+      "new_contact_area_mm2": 1.2196812593706374,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        94.90800011669576,
+        298.149994,
+        97.154304
+      ],
+      "size_xy_mm": [
+        1.5,
+        2.246303883304236
+      ],
+      "baseline_contact_area_mm2": 3.0313177113065395,
+      "new_contact_area_mm2": 2.0648205740005805,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        296.7044555768023,
+        90.48233518891705,
+        298.149994,
+        93.85543789005142
+      ],
+      "size_xy_mm": [
+        1.4455384231977177,
+        3.3731027011343713
+      ],
+      "baseline_contact_area_mm2": 3.38292838626626,
+      "new_contact_area_mm2": 1.4613231663007626,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        296.649994,
+        87.70426763668787,
+        298.14444682246364,
+        89.4239939705088
+      ],
+      "size_xy_mm": [
+        1.4944528224636429,
+        1.7197263338209297
+      ],
+      "baseline_contact_area_mm2": 2.200550743619953,
+      "new_contact_area_mm2": 1.4376557427271277,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        296.971,
+        85.943,
+        298.1485048250593,
+        87.86365111448222
+      ],
+      "size_xy_mm": [
+        1.1775048250593159,
+        1.9206511144822258
+      ],
+      "baseline_contact_area_mm2": 1.45025015223187,
+      "new_contact_area_mm2": 0.5833373102258183,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        296.681,
+        82.631,
+        298.14672564164397,
+        84.73384983946144
+      ],
+      "size_xy_mm": [
+        1.465725641643985,
+        2.1028498394614417
+      ],
+      "baseline_contact_area_mm2": 1.893918697953099,
+      "new_contact_area_mm2": 1.1111870913359443,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        296.956,
+        76.861,
+        298.14452710871194,
+        78.71965494174336
+      ],
+      "size_xy_mm": [
+        1.1885271087119236,
+        1.858654941743353
+      ],
+      "baseline_contact_area_mm2": 1.4626708675619748,
+      "new_contact_area_mm2": 0.21522503647245392,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        296.7,
+        72.072,
+        298.149994,
+        75.71238943678016
+      ],
+      "size_xy_mm": [
+        1.4499940000000038,
+        3.640389436780154
+      ],
+      "baseline_contact_area_mm2": 3.288270409308417,
+      "new_contact_area_mm2": 2.2066495774322563,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        296.649994,
+        69.53589040280343,
+        298.149994,
+        71.24786488170488
+      ],
+      "size_xy_mm": [
+        1.5,
+        1.7119744789014533
+      ],
+      "baseline_contact_area_mm2": 2.1278422115342144,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        296.649994,
+        67.37800007699394,
+        298.1468415513341,
+        69.45099992300607
+      ],
+      "size_xy_mm": [
+        1.496847551334099,
+        2.0729998460121237
+      ],
+      "baseline_contact_area_mm2": 2.028306224314666,
+      "new_contact_area_mm2": 1.100739230769196,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 96.92,
+      "region": 3,
+      "contact_component": 9,
+      "bounds_xy_mm": [
+        296.649994,
+        78.72832283429503,
+        298.0748575929225,
+        80.36439338105255
+      ],
+      "size_xy_mm": [
+        1.4248635929225202,
+        1.636070546757523
+      ],
+      "baseline_contact_area_mm2": 1.9445059635875819,
+      "new_contact_area_mm2": 1.4367322798026214,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.16,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        104.722,
+        298.149994,
+        133.553
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.831000000000003
+      ],
+      "baseline_contact_area_mm2": 39.476896465725474,
+      "new_contact_area_mm2": 25.551096594992256,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.16,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.64699999999999,
+        298.149994,
+        96.946308
+      ],
+      "size_xy_mm": [
+        1.5,
+        29.29930800000001
+      ],
+      "baseline_contact_area_mm2": 40.10507838319446,
+      "new_contact_area_mm2": 26.858277040885756,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.290009,
+        244.273735,
+        298.149994,
+        245.5613559648514
+      ],
+      "size_xy_mm": [
+        2.8599849999999947,
+        1.2876209648514134
+      ],
+      "baseline_contact_area_mm2": 3.2880417752470077,
+      "new_contact_area_mm2": 3.274475676874384,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.7243448440124,
+        144.13830030084782,
+        297.12227512348557,
+        144.666264
+      ],
+      "size_xy_mm": [
+        1.3979302794731439,
+        0.5279636991521954
+      ],
+      "baseline_contact_area_mm2": 0.5053105848757953,
+      "new_contact_area_mm2": 0.08668965067406384,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        105.105,
+        298.149994,
+        133.603
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.498000000000005
+      ],
+      "baseline_contact_area_mm2": 39.76796782077476,
+      "new_contact_area_mm2": 25.231845755067244,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.4,
+      "region": 3,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        296.649994,
+        67.617,
+        298.149994,
+        96.24300000000001
+      ],
+      "size_xy_mm": [
+        1.5,
+        28.626000000000005
+      ],
+      "baseline_contact_area_mm2": 39.9385820375621,
+      "new_contact_area_mm2": 26.01273745237276,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.64,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.290009,
+        143.95700002514465,
+        298.149994,
+        245.20199991348417
+      ],
+      "size_xy_mm": [
+        2.8599849999999947,
+        101.24499988833952
+      ],
+      "baseline_contact_area_mm2": 275.95151562976315,
+      "new_contact_area_mm2": 266.6770545516158,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 97.88,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        295.290009,
+        144.213,
+        298.149994,
+        244.727
+      ],
+      "size_xy_mm": [
+        2.8599849999999947,
+        100.51400000000001
+      ],
+      "baseline_contact_area_mm2": 276.4204337137413,
+      "new_contact_area_mm2": 266.317323242448,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        146.47200037421862,
+        66.90299999999999,
+        150.464,
+        69.5
+      ],
+      "size_xy_mm": [
+        3.991999625781375,
+        2.5970000000000084
+      ],
+      "baseline_contact_area_mm2": 5.956342250250367,
+      "new_contact_area_mm2": 1.3358116256838821,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        152.334,
+        66.44115495296369,
+        155.32,
+        69.5
+      ],
+      "size_xy_mm": [
+        2.98599999999999,
+        3.058845047036314
+      ],
+      "baseline_contact_area_mm2": 6.033846442848864,
+      "new_contact_area_mm2": 2.23300356249187,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        153.53101850658473,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "size_xy_mm": [
+        6.118975493415263,
+        7.5
+      ],
+      "baseline_contact_area_mm2": 33.17989288632566,
+      "new_contact_area_mm2": 7.031071227055874,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 3,
+      "bounds_xy_mm": [
+        146.413,
+        62.0,
+        149.02,
+        64.466
+      ],
+      "size_xy_mm": [
+        2.6069999999999993,
+        2.465999999999994
+      ],
+      "baseline_contact_area_mm2": 4.219384653697606,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 4,
+      "bounds_xy_mm": [
+        141.649994,
+        62.0,
+        143.70699995308507,
+        65.46699953140408
+      ],
+      "size_xy_mm": [
+        2.0570059530850813,
+        3.4669995314040847
+      ],
+      "baseline_contact_area_mm2": 4.869918573452013,
+      "new_contact_area_mm2": 2.936509369866524,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 5,
+      "bounds_xy_mm": [
+        148.72899999999998,
+        64.631,
+        150.787,
+        66.68900000000001
+      ],
+      "size_xy_mm": [
+        2.058000000000021,
+        2.058000000000007
+      ],
+      "baseline_contact_area_mm2": 2.4457923952042186,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 6,
+      "bounds_xy_mm": [
+        144.4,
+        64.835,
+        147.177,
+        67.61200000000001
+      ],
+      "size_xy_mm": [
+        2.776999999999987,
+        2.7770000000000152
+      ],
+      "baseline_contact_area_mm2": 3.5846302927119953,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 7,
+      "bounds_xy_mm": [
+        142.96200002551026,
+        66.41900002551027,
+        145.73799997448972,
+        69.19599997448972
+      ],
+      "size_xy_mm": [
+        2.775999948979461,
+        2.7769999489794515
+      ],
+      "baseline_contact_area_mm2": 3.583838452640169,
+      "new_contact_area_mm2": 1.408411102860296,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.4,
+      "region": 0,
+      "contact_component": 8,
+      "bounds_xy_mm": [
+        149.525,
+        62.405,
+        152.355,
+        65.235
+      ],
+      "size_xy_mm": [
+        2.829999999999984,
+        2.8299999999999983
+      ],
+      "baseline_contact_area_mm2": 3.668578009774446,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 139.64,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        141.649994,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "size_xy_mm": [
+        18.0,
+        7.5
+      ],
+      "baseline_contact_area_mm2": 133.3451058600545,
+      "new_contact_area_mm2": 28.733521268561255,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 139.88,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        141.649994,
+        62.0,
+        159.649994,
+        69.5
+      ],
+      "size_xy_mm": [
+        18.0,
+        7.5
+      ],
+      "baseline_contact_area_mm2": 133.01027112949657,
+      "new_contact_area_mm2": 27.610045685850107,
+      "exceeds_bridge_limit": false,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 168.44,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        153.48,
+        67.295,
+        156.149994,
+        69.5
+      ],
+      "size_xy_mm": [
+        2.6699940000000026,
+        2.2049999999999983
+      ],
+      "baseline_contact_area_mm2": 3.9733465322025183,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 168.44,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        145.546,
+        66.5,
+        151.972,
+        69.5
+      ],
+      "size_xy_mm": [
+        6.426000000000016,
+        3.0
+      ],
+      "baseline_contact_area_mm2": 15.913812478708005,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 168.68,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        145.149994,
+        66.5,
+        156.149994,
+        69.5
+      ],
+      "size_xy_mm": [
+        11.0,
+        3.0
+      ],
+      "baseline_contact_area_mm2": 32.39837706110215,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 168.92,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        145.149994,
+        66.5,
+        156.149994,
+        69.5
+      ],
+      "size_xy_mm": [
+        11.0,
+        3.0
+      ],
+      "baseline_contact_area_mm2": 31.385432460424227,
+      "new_contact_area_mm2": 0.0,
+      "exceeds_bridge_limit": false,
+      "support_present": false
+    },
+    {
+      "z_print_mm": 185.48,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        50.650009,
+        56.589,
+        144.649994,
+        61.5
+      ],
+      "size_xy_mm": [
+        93.999985,
+        4.911000000000001
+      ],
+      "baseline_contact_area_mm2": 447.0816687363365,
+      "new_contact_area_mm2": 440.41903650831114,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.48,
+      "region": 0,
+      "contact_component": 1,
+      "bounds_xy_mm": [
+        156.649994,
+        56.589,
+        283.067,
+        61.5
+      ],
+      "size_xy_mm": [
+        126.41700600000001,
+        4.911000000000001
+      ],
+      "baseline_contact_area_mm2": 600.1502475113783,
+      "new_contact_area_mm2": 590.3014872252497,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.48,
+      "region": 0,
+      "contact_component": 2,
+      "bounds_xy_mm": [
+        50.650009,
+        258.5,
+        283.067,
+        263.411
+      ],
+      "size_xy_mm": [
+        232.416991,
+        4.911000000000001
+      ],
+      "baseline_contact_area_mm2": 1103.5034031045668,
+      "new_contact_area_mm2": 1087.6715675843413,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 0,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        50.650009,
+        56.75,
+        144.649994,
+        61.5
+      ],
+      "size_xy_mm": [
+        93.999985,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 436.513628091185,
+      "new_contact_area_mm2": 431.34756661716926,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 1,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        156.649994,
+        56.75,
+        282.649994,
+        61.5
+      ],
+      "size_xy_mm": [
+        126.0,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 585.0455150825944,
+      "new_contact_area_mm2": 578.0006709492153,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    },
+    {
+      "z_print_mm": 185.72,
+      "region": 2,
+      "contact_component": 0,
+      "bounds_xy_mm": [
+        50.650009,
+        258.5,
+        282.649994,
+        263.25
+      ],
+      "size_xy_mm": [
+        231.99998499999998,
+        4.75
+      ],
+      "baseline_contact_area_mm2": 1079.1349848518437,
+      "new_contact_area_mm2": 1065.128462972022,
+      "exceeds_bridge_limit": true,
+      "support_present": true
+    }
+  ],
+  "method": "In the unchanged closed-STL frame, each connected original support-contact footprint beneath the overhang stock, with a bounding-box dimension at least 50 mm and area at least 0.1 mm\u00b2, must retain emitted interface-envelope contact. Native interface bead envelopes are expanded by half the saved 0.5 mm spacing. Small bridge surfaces intentionally exempted by the 50 mm control have no interface-presence requirement.",
+  "scope": "Presence of automatic interface beneath the larger unchanged overhang targets; not complete contact coverage, stiffness, physical cleanup or print outcome.",
+  "pass": true
+}

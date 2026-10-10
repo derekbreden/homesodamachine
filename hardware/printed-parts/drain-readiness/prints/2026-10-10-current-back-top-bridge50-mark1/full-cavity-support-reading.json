@@ -1,0 +1,157 @@
+{
+  "gcode_sha256": "e886ac1030dec3edc1f2ff3cdb1ddd85527c01478e0cc894cbde13a1f70f1b17",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "cavities": {
+    "flow-meter anchor 1 (y 370.8)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        7.35,
+        12.0
+      ]
+    },
+    "flow-meter anchor 2 (y 417.2)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        7.35,
+        12.0
+      ]
+    },
+    "ceiling tube anchor (run along X, y 270.6)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        13.32,
+        16.57
+      ]
+    },
+    "ceiling tube anchor (run along X, y 406.7)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        9.46,
+        12.71
+      ]
+    },
+    "flavour-line anchor, west flank (y 282.0)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 439,
+      "near_print_z": [
+        76.28,
+        77.72
+      ],
+      "cavity_print_z": [
+        78.1,
+        90.75
+      ]
+    },
+    "WR1110 regulator cradle, ceiling (y 363.7)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        3.2,
+        12.0
+      ]
+    },
+    "gas check cradle, ceiling (y 329.2)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 0,
+      "model_print_z": null,
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        4.89,
+        12.0
+      ]
+    },
+    "west-flank anchor (seat 8.4, y 256.8)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 11,
+      "model_print_z": [
+        72.68,
+        72.68
+      ],
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        47.59,
+        74.39
+      ]
+    },
+    "water-split anchor, west flank (y 310.3)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 170,
+      "model_print_z": [
+        40.28,
+        59.96
+      ],
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        39.99,
+        59.99
+      ]
+    },
+    "ASSE anchor shared tie channel (west flank)": {
+      "support_roads_inside": 0,
+      "support_print_z": null,
+      "support_features": {},
+      "model_roads_inside_check": 1387,
+      "model_print_z": [
+        2.36,
+        11.96
+      ],
+      "support_roads_within_2mm": 0,
+      "near_print_z": null,
+      "cavity_print_z": [
+        2.0,
+        33.33
+      ]
+    }
+  },
+  "support_feature_names": [
+    "Support",
+    "Support interface"
+  ],
+  "support_roads_are_linear": true,
+  "method": "Native straight support/interface/transition road centrelines, with samples at no more than 0.20 mm along each road, in the declared CAD cavity boxes and ASSE polygon. XY and bead-centre Z boundaries use a 0.05 mm inset. The separate 23 exact floor-window reading includes own width/height envelopes.",
+  "scope": "Centrelines within these declared inspection regions; not proof of empty whole volumes or physical cleanup.",
+  "pass": true
+}

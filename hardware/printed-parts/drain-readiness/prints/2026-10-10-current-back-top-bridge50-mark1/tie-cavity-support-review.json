@@ -1,0 +1,645 @@
+{
+  "source_step_sha256": "9d016e3e82963d4a84be1c5aae2d1823ea6024392a38e2a1dfbdd083fbcd47d9",
+  "source_stl_sha256": "9df1aae2e01e2328535161d80e6afe3f9581e2195a028abb99b2f38407ac11e2",
+  "source_preparation_sha256": "187d30865efb7499425f8d80d832a66faa84788934c9fc8dfd63705c25ed16ab",
+  "scope": "Exact narrow planar cavity-floor selectors: six 3.5 mm ceiling-anchor channels, one 3.5 mm west-wall channel and sixteen 2 mm side-wall channels. The 3.25 mm cavity-depth window is an inspection volume, not a reinforcement or support modifier.",
+  "baseline_archive_sha256": "c218a0284ebb1650aa0679fa227bde9553a6e905dff78e6c3e9e8ee17dea52c3",
+  "candidate_archive_sha256": "ddae669e9cf3b3a154821f11190af675d83eb1d8b65b1ab46fc3ed7827e3740e",
+  "gcode_sha256": {
+    "baseline": "3c9465756d1f598611ab4fe54d3383f14059705544e8cff45b70a7d2b97aa799",
+    "candidate": "e886ac1030dec3edc1f2ff3cdb1ddd85527c01478e0cc894cbde13a1f70f1b17"
+  },
+  "all_support_road_counts": {
+    "baseline": 621569,
+    "candidate": 579816
+  },
+  "targets": [
+    {
+      "native_face": 144,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        255.06,
+        280.61058083755,
+        -98.5,
+        258.56,
+        280.61058083755
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        76.91000610351563,
+        55.5,
+        71.13941916245,
+        80.41000610351563,
+        61.5,
+        74.38941916245
+      ],
+      "baseline_support_roads": 334,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 153.16616805593767,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 461,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        294.45,
+        254.7,
+        -95.2,
+        296.45,
+        254.7
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        116.30000610351561,
+        55.5,
+        97.05000000000003,
+        118.30000610351561,
+        64.8,
+        100.30000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 463,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        308.55,
+        254.7,
+        -95.2,
+        310.55,
+        254.7
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        130.40000610351564,
+        55.5,
+        97.05000000000003,
+        132.40000610351564,
+        64.8,
+        100.30000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 464,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        314.4,
+        254.6,
+        -95.2,
+        316.4,
+        254.6
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        136.2500061035156,
+        55.5,
+        97.14999999999999,
+        138.2500061035156,
+        64.8,
+        100.40000000000002
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 466,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        321.1,
+        254.6,
+        -95.2,
+        323.1,
+        254.6
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        142.95000610351565,
+        55.5,
+        97.14999999999999,
+        144.95000610351565,
+        64.8,
+        100.40000000000002
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 467,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        330.65,
+        254.6,
+        -95.2,
+        332.65,
+        254.6
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        152.5000061035156,
+        55.5,
+        97.14999999999999,
+        154.5000061035156,
+        64.8,
+        100.40000000000002
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 469,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        -104.5,
+        337.35,
+        254.6,
+        -95.2,
+        339.35,
+        254.6
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        159.20000610351565,
+        55.5,
+        97.14999999999999,
+        161.20000610351565,
+        64.8,
+        100.40000000000002
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 518,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        356.66,
+        312.45,
+        104.5,
+        358.66,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        178.51000610351565,
+        255.2,
+        39.300000000000026,
+        180.51000610351565,
+        264.5,
+        42.550000000000026
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 520,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        363.36,
+        312.45,
+        104.5,
+        365.36,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        185.21000610351564,
+        255.2,
+        39.300000000000026,
+        187.21000610351564,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 521,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        372.91,
+        312.45,
+        104.5,
+        374.91,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        194.76000610351565,
+        255.2,
+        39.30000000000003,
+        196.76000610351565,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 523,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        379.61,
+        312.45,
+        104.5,
+        381.61,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        201.46000610351564,
+        255.2,
+        39.30000000000003,
+        203.46000610351564,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 524,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        389.16,
+        312.45,
+        104.5,
+        391.16,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        211.01000610351565,
+        255.2,
+        39.30000000000003,
+        213.01000610351565,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 526,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        395.86,
+        312.45,
+        104.5,
+        397.86,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        217.71000610351564,
+        255.2,
+        39.30000000000003,
+        219.71000610351564,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 527,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        405.41,
+        312.45,
+        104.5,
+        407.41,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        227.26000610351565,
+        255.2,
+        39.30000000000003,
+        229.26000610351565,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 529,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        412.11,
+        312.45,
+        104.5,
+        414.11,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        233.96000610351564,
+        255.2,
+        39.30000000000003,
+        235.96000610351564,
+        264.5,
+        42.55000000000003
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 530,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        421.66,
+        312.45,
+        104.5,
+        423.66,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        243.51000610351565,
+        255.2,
+        39.30000000000003,
+        245.51000610351565,
+        264.5,
+        42.55000000000004
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 532,
+      "kind": "side-wall tie channel",
+      "floor_cad_bounds_mm": [
+        95.2,
+        428.36,
+        312.45,
+        104.5,
+        430.36,
+        312.45
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 2.0,
+      "print_cavity_bounds_mm": [
+        250.21000610351564,
+        255.2,
+        39.30000000000004,
+        252.21000610351564,
+        264.5,
+        42.55000000000004
+      ],
+      "baseline_support_roads": 0,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 0.0,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 645,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        15.145000003487,
+        264.275,
+        338.425,
+        18.645000003487,
+        276.925,
+        338.425
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.4999999999999982,
+      "print_cavity_bounds_mm": [
+        86.12500610351562,
+        175.145000003487,
+        13.324999999999989,
+        98.77500610351564,
+        178.64500000348698,
+        16.57499999999999
+      ],
+      "baseline_support_roads": 523,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 253.00090459255165,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 655,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        21.75,
+        327.4026,
+        346.86058083755,
+        43.55,
+        330.9026,
+        346.86058083755
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        149.25260610351563,
+        181.75,
+        4.889419162450011,
+        152.75260610351563,
+        203.55,
+        8.139419162450011
+      ],
+      "baseline_support_roads": 1134,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 543.6700173857067,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 659,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        -56.01,
+        369.06,
+        344.4,
+        -31.41,
+        372.56,
+        344.4
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        190.91000610351563,
+        103.99000000000001,
+        7.350000000000037,
+        194.41000610351563,
+        128.59,
+        10.600000000000037
+      ],
+      "baseline_support_roads": 1282,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 600.0663642661241,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 667,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        -15.935,
+        361.9026,
+        348.54558083755,
+        9.235000000000001,
+        365.4026,
+        348.54558083755
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        183.75260610351563,
+        144.065,
+        3.2044191624500087,
+        187.25260610351563,
+        169.235,
+        6.454419162450009
+      ],
+      "baseline_support_roads": 1431,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 642.9317237707984,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 672,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        -56.01,
+        415.46,
+        344.4,
+        -31.41,
+        418.96,
+        344.4
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        237.3100061035156,
+        103.99000000000001,
+        7.350000000000051,
+        240.8100061035156,
+        128.59,
+        10.600000000000051
+      ],
+      "baseline_support_roads": 1315,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 630.2572625685287,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    },
+    {
+      "native_face": 677,
+      "kind": "ceiling tie channel",
+      "floor_cad_bounds_mm": [
+        53.325000003487,
+        400.3276,
+        342.28558083755,
+        56.825000003487,
+        412.9776,
+        342.28558083755
+      ],
+      "cavity_depth_window_mm": 3.25,
+      "short_xy_span_mm": 3.5,
+      "print_cavity_bounds_mm": [
+        222.17760610351564,
+        213.325000003487,
+        9.464419162450014,
+        234.82760610351562,
+        216.825000003487,
+        12.714419162450014
+      ],
+      "baseline_support_roads": 601,
+      "candidate_support_roads": 0,
+      "baseline_overlap_mm2": 295.65761395835807,
+      "candidate_overlap_mm2": 0.0,
+      "candidate_witnesses": []
+    }
+  ],
+  "target_count": 23,
+  "baseline_cavity_crossings": 6620,
+  "candidate_cavity_crossings": 0,
+  "method": "Every emitted support, support-transition and support-interface road is tested with its own width/height envelope against the transformed exact flat tie-floor inspection windows. Region edges inset only 0.02 mm to exclude tangential numerical contacts. Both slices have the identical frozen model and modifiers.",
+  "pass": true,
+  "physical_cleanup_verified": false
+}

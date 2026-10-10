@@ -52,7 +52,7 @@
   "send_count": 1,
   "auto_resume_authorized": false,
   "monitor_scheduled": false,
-  "status": "Exact replacement accepted; startup in progress",
+  "status": "Operator stopped for inaccessible zip-tie support; replacement prepared",
   "replaces_rejected_task_id": "1320974719",
   "import_attempted": true,
   "import_count": 1,
@@ -231,5 +231,10 @@
   "estimated_finish_at_central": "2026-10-10T21:19:07.427131-05:00",
   "estimate_scope": "Native duration from observed acceptance; startup, actual speed and pauses may change completion time.",
   "initial_counter_fields_scope": "PREPARE acceptance may retain previous-job layer counters until the printer resets them; no first-layer progress or adhesion is inferred.",
-  "start_notification_reported": true
+  "start_notification_reported": true,
+  "ready_to_launch": false,
+  "start_now": false,
+  "replacement_launch_plan": "hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/launch-plan.json",
+  "relaunch_authorized": false,
+  "physical_result": "hardware/printed-parts/drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json"
 }
