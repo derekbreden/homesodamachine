@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-10",
+  "recorded_at_utc": "2026-10-10T23:23:36.705812+00:00",
+  "status": "Founder accepts the identified complete Industrial faucet for shipping",
+  "authority": "Direct user inspection and shipping acceptance",
+  "acceptance_quote": "Alright, the faucet looks good. Please commit it and git tag it. I am okay shipping this.",
+  "printer": "Mark2",
+  "printer_task_id": "1325534650",
+  "accepted_print_at_utc": "2026-10-10T08:13:52.954602+00:00",
+  "prepared_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+      "rotation_x_degrees": -14.999999999999998
+    },
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
+      "rotation_x_degrees": -105.0
+    },
+    {
+      "name": "industrial-display-cover",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "stl_sha256": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+      "rotation_x_degrees": -50.0
+    },
+    {
+      "name": "industrial-above-counter-plate",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+      "rotation_x_degrees": 0.0
+    },
+    {
+      "name": "lever-replica",
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "rotation_x_degrees": 0.0
+    }
+  ],
+  "recipe": {
+    "first_bed_layer_height_mm": 0.2,
+    "default_model_layer_height_mm": 0.24,
+    "fine_model_layer_height_mm": 0.12,
+    "fine_object": "industrial-shell-base",
+    "fine_bands_print_z_mm": [
+      [
+        13.4,
+        29.0
+      ],
+      [
+        55.16,
+        68.12
+      ]
+    ],
+    "printer": "Mark2",
+    "material": "PET-GF",
+    "printer_material_label": "PET-CF/GFT01",
+    "external_slot": 254,
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "nozzle_temperature_c": [
+      265,
+      280
+    ],
+    "bed_temperature_c": 80,
+    "wall_loops": 2,
+    "infill": "15% grid",
+    "reinforcement": "One continuous six-wall 100% zig-zag foot modifier; base Arachne; 15% infill/wall overlap",
+    "supports": "Tree (auto), saved Default style and automatic sections",
+    "probing_clump_detection": false
+  },
+  "source_commit": "a60c04aec1a31244b0411224624ef7928147bf30",
+  "tag": "faucet-industrial-shipping-2026-10-10",
+  "observations": {
+    "overall_complete_faucet": "Looks good; accepted for shipping.",
+    "layer_finish": "User reports beautiful 0.08 mm finish high up and good 0.12 mm finish across the recent faucet articles. The identified accepted print uses 0.12 mm fine bands.",
+    "supported_base": "User reports lifting where fine layers were printed on supports.",
+    "normal_layers": "User reports lifting with 0.24 mm as well, with better recovery and less visible final disruption.",
+    "seam": "Noticeable to the founder; other in-person viewers have not mentioned it."
+  },
+  "observation_quotes": [
+    "0.08 looks beautiful on high layers but is worthless at the base or on top of supports (we even have some lifting on our 0.08 layers at the base of the faucet, specifically where they were printed on supports)",
+    "0.12 looks pretty damn good, but not as good as 0.08, and has the exact same with lifting on low layers or when on supports (same lifting at the base of our faucet here)",
+    "Frankly the 0.24 layers have the same problem with lifting, but they recover better and the end result is less noticeable",
+    "The seam is very noticeable to me, but no one I have shown any faucet to in person has mentioned it, and so upon reflection, it doesn't seem that bad."
+  ],
+  "scope": "Shipping and overall appearance acceptance for this exact complete print and recipe. Fine-layer lifting and the visible seam remain accepted finish observations. Cover seating force, fault-drip discharge, loading, strength and endurance are not independently measured.",
+  "further_work": "Separate representative coupon experiments investigate lifting and seam appearance without changing the shipping recipe."
+}

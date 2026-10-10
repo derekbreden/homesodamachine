@@ -26,11 +26,12 @@ The [drain clearance record](../manifold-layout/drain-clearance-check.json)
 supplies nominal placement evidence for the expanded sleeve and two R25 bends.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
-The current [Industrial complete faucet selection](../printed-parts/faucet/industrial/selected-print.json)
-is held before import or Send. Its cover-wing trial adds 0.50 mm and its
-shared tip uses a round Ø4 mm unsealed fault-drip opening, with nominal
-clearance evidence in the [tip reading](../printed-parts/faucet/vent-qualification/simple-drip-check.json).
-Those changes have no reported physical seating or discharge acceptance.
+The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
+is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
+The cover wings include 0.50 mm additional reach; the shared tip has a round
+Ø4 mm unsealed fault-drip opening and the 70° curved joint.
+Fine-layer lifting on supported base surfaces and the visible seam remain
+recorded finish observations. Cover seating force and physical fault discharge are unmeasured.
 
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
@@ -74,7 +75,7 @@ linked here are the authority for each observation, including their print bindin
 | [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The broad PET-GF walls provide accepted give, spring, fit and retention. | Retention force and cycle life are unmeasured. A differently proportioned flexure needs its own result. |
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. | Operating force and endurance are unmeasured. |
-| [Industrial faucet fine-layer bands](../printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json) | Beautiful 0.08 mm layers and successful removal of their few thin-layer supports on the identified Mark2 PET-GF base. Variable layer height is the accepted shipping compromise. The [queued complete recipe](../printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/README.md) uses 0.24 mm normally, 0.12 mm in the two base shoulder bands, and continuous reinforced-foot paths without the screw-region wall breaks. | Exterior screw-point lines remain documented on the 0.08 mm reference article; the queued 0.12 mm finish and corrected exterior are unprinted. The [tip starting-band article](../printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json) has reported tip and wing failure with visible localized disruption; nozzle contact, shifting and layer lifting remain hypotheses. Further whole-faucet 0.08 mm iteration and research are deferred. Strength and endurance are unmeasured. |
+| [Complete Industrial faucet](../printed-parts/faucet/industrial/physical-acceptance.json) | Identified complete Mark2 print accepted for shipping and overall appearance. The recipe uses 0.24 mm normally, 0.12 mm in the two base shoulder bands, a continuous reinforced foot, the 70° joint, smooth passages and 0.50 mm longer cover wings. The [0.08 mm reference](../printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json) retains its beautiful shoulder finish and thin-support removal acceptance. | Lifting on supported base surfaces and a visible seam are recorded. The [all-fine trial](../printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json) has tip and wing disruption; initiating contact, shifting and lifting remain hypotheses. Separate coupons investigate the finish. Fault discharge, load capacity and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. | These results belong to the identified articles and recipes. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 
 ## Rear identification and DATA frame
