@@ -2,7 +2,7 @@
 
 This four-part project is bound to the two-bung sealed-cavity tip identified in
 its native records. The [current shared tip](vent-qualification/README.md) uses
-an unsealed Ø4 mm drip opening and plain guide walls. A matching native slice
+an unsealed Ø4 mm drip opening and continuous close-fitting passages. A matching native slice
 is required before printing that current geometry; the retained archive below
 does not contain it.
 

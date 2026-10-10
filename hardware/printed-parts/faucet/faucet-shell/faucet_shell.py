@@ -1055,32 +1055,47 @@ def build_zone6_inner_cut():
     return water.union(build_flavor_transition_inner_cut())
 
 
-def build_beverage_interstice_cut():
-    """Open the trapped centre between three overlapping outlet guide bores.
+def _bundle_centre_loft(s0, s1, *, include_drain):
+    """Join the tube centres inside their close-fitting passage envelope."""
+    count = max(2, math.ceil((s1 - s0) / 2.0))
+    wires = []
+    for i in range(count + 1):
+        station = s0 + (s1 - s0) * i / count
+        x, n, drain_n, _, _ = _paths.positions(station)
+        points = [(0.0, 0.0), (x, n)]
+        if include_drain:
+            points.append((0.0, drain_n))
+        points.append((-x, n))
+        origin, xdir, tangent = _paths.station_plane(station)
+        plane = cq.Plane(origin=origin, xDir=xdir, normal=tangent)
+        wires.append(cq.Workplane(plane).polyline(points).close().wire().val())
+    return cq.Workplane(obj=cq.Solid.makeLoft(wires, ruled=False))
 
-    The three tube-centre triangle stays within their combined passage and
-    removes disconnected submillimetre plastic islands. It starts beyond the
-    distal gland; no seal seat or gland web is cut.
-    """
-    import vent_seals
-    profile=cq.Sketch().polygon([(0,0),(_paths.FACE_FLAVOR_X,_paths.FACE_FLAVOR_N),
-                                (-_paths.FACE_FLAVOR_X,_paths.FACE_FLAVOR_N)])
-    return _sweep_along_gooseneck(profile).intersect(
-        _gland_halfspace(_paths.DOWNSTREAM_GLAND_S,vent_seals.GLAND_LENGTH,1))
+
+@functools.lru_cache(maxsize=None)
+def build_beverage_interstice_cut():
+    """Continuous common centre, without isolated webs between tube bores."""
+    end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
+    transition = _bundle_centre_loft(0.0, end, include_drain=False)
+    profile = cq.Sketch().polygon([
+        (0.0, 0.0), (_paths.FACE_FLAVOR_X, _paths.FACE_FLAVOR_N),
+        (-_paths.FACE_FLAVOR_X, _paths.FACE_FLAVOR_N)])
+    outlet = _sweep_along_gooseneck(profile).intersect(
+        _station_halfspace(end, 0.0, 1))
+    return transition.union(outlet, clean=False, tol=1e-6)
 
 
 def build_upstream_interstice_cut():
-    """Remove unprintable centre needles in the tangent four-tube bundle."""
+    """Common centre through the four-tube bundle to the drain's open end."""
     profile=cq.Sketch().polygon([(0,0),(_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N),
                                 (0,_paths.TIGHT_DRAIN_N),
                                 (-_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N)])
-    upper_profile=cq.Sketch().polygon([(0,0),(_paths.SEAL_FLAVOR_X,_paths.SEAL_FLAVOR_N),
-                                     (0,_paths.SEAL_DRAIN_N),
-                                     (-_paths.SEAL_FLAVOR_X,_paths.SEAL_FLAVOR_N)])
-    upper=(_sweep_along_gooseneck(upper_profile)
-           .intersect(_drip_guide_halfspace(_paths.DRIP_POCKET_ENTRY_S,0,1))
-           .intersect(_drip_guide_halfspace(_paths.DRAIN_CUT_S,1,-1)))
-    return _sweep_along_gooseneck(profile).union(upper)
+    lower = _sweep_along_gooseneck(profile).intersect(
+        _station_halfspace(0.0, 0.0, -1))
+    upper = _bundle_centre_loft(
+        0.0, _paths.DRAIN_CUT_S + _paths.DRIP_END_CLEARANCE_MM,
+        include_drain=True)
+    return lower.union(upper, clean=False, tol=1e-6)
 
 
 def drain_return_point(angle=None):
@@ -1137,7 +1152,10 @@ def _gland_halfspace(s,z,sign):
 
 @functools.lru_cache(maxsize=None)
 def build_vent_cavity():
-    """Open tube pocket between two flat, unsealed routing walls."""
+    """Retained round-pocket geometry for the archived insertion-tool reader.
+
+    This cavity is not subtracted from the current faucet shell.
+    """
     rounded=_round_cavity_segment(-0.01,_paths.CONVERGE_START_S+_paths.CONVERGE_LENGTH)
     us,ds=_paths.DRIP_POCKET_ENTRY_S,_paths.DRIP_POCKET_EXIT_S
     thickness=_paths.DRIP_GUIDE_WALL_THICKNESS
@@ -1148,23 +1166,38 @@ def build_vent_cavity():
     return dry_in.union(pocket).union(dry_out)
 
 
-def _drip_guide_halfspace(station,offset,sign):
+def _station_halfspace(station,offset,sign):
     origin,_,tangent=_paths.station_plane(station,center_n=tube_shell_center_y)
     origin=tuple(p+offset*t for p,t in zip(origin,tangent))
     return _split_plane_halfspace(origin,tangent,sign)
 
 
+def _drip_guide_halfspace(station,offset,sign):
+    return _station_halfspace(station,offset,sign)
+
+
+def build_drain_terminal_relief():
+    """Local open space beyond the square-cut drain mouth."""
+    end = _paths.tube_arc_point(_paths.DRAIN_CUT_S, "drain")
+    _, xdir, tangent = _paths.station_plane(_paths.DRAIN_CUT_S)
+    plane = cq.Plane(origin=end, xDir=xdir, normal=tangent)
+    return (cq.Workplane(plane).workplane(offset=-0.25)
+            .circle(_faucet_interface.drain_tube_hole_dia / 2.0)
+            .extrude(_paths.DRIP_END_CLEARANCE_MM + 0.25))
+
+
 @functools.lru_cache(maxsize=None)
 def build_vent_outlet():
-    """A round underside drip hole crossing the pocket's upstream low corner."""
+    """Round underside hole opening into the common tube-passage clearance."""
     station=_paths.DRIP_HOLE_S
     angle=split_junction_rot+station/gn_bend1_r
     origin=_paths.station_point(station,n=tube_shell_center_y)
     plane=cq.Plane(origin=origin,xDir=(1,0,0),
                    normal=(0,-math.cos(angle),-math.sin(angle)))
-    return (cq.Workplane(plane).workplane(offset=_paths.CAVITY_RADIUS-_paths.DRIP_GUIDE_WALL_THICKNESS)
+    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - 0.15
+    return (cq.Workplane(plane).workplane(offset=inner_offset)
             .circle(_paths.DRIP_HOLE_DIAMETER/2)
-            .extrude(tube_shell_outer_r+_paths.DRIP_GUIDE_WALL_THICKNESS))
+            .extrude(tube_shell_outer_r + wall_thickness_min))
 
 
 def _tube_shell_outer_shrunk_sketch(shrink: float) -> cq.Sketch:
@@ -1726,12 +1759,12 @@ def build_shell() -> cq.Workplane:
         ("mounting screws", build_base_pod_holes),
         ("donor shoulder", build_zone2_inner_cut),
         ("donor upper bores", build_zone3_inner_cut),
-        ("unsealed drain pocket and tube guides", build_vent_cavity),
+        ("drain mouth clearance", build_drain_terminal_relief),
         ("underside fault outlet", build_vent_outlet),
         ("lower common bundle opening", build_lower_signal_lane),
-        ("soda and flavor passages", build_zone6_inner_cut),
-        ("beverage passage centre", build_beverage_interstice_cut),
         ("upstream passage centre", build_upstream_interstice_cut),
+        ("beverage passage centre", build_beverage_interstice_cut),
+        ("soda and flavor passages", build_zone6_inner_cut),
         ("ribbon passage", build_signal_neck_inner_cut),
         ("lever motion", build_lever_clearance),
         ("display pocket", _display_cavity),
@@ -1744,7 +1777,7 @@ def build_shell() -> cq.Workplane:
         _cad_progress(f"Shell: construct {name} ({time.monotonic()-started:.1f}s)")
         cutter = builder().val()
         _cad_progress(f"Shell: cut {name} ({time.monotonic()-started:.1f}s)")
-        part = part.cut(cutter)
+        part = part.cut(cutter, tol=1e-5)
         _cad_progress(f"Shell: after {name}: valid={part.isValid()}, solids={len(part.Solids())}")
         if not part.isValid():
             diagnostic = cached.with_name("invalid-" + name.replace(" ", "-") + ".brep")
@@ -1781,7 +1814,7 @@ def build_shell_base(full_shell=None):
 
 
 def build_shell_tip(full_shell=None):
-    """Tip carries the female socket, unsealed drain pocket and display pocket."""
+    """Tip carries continuous tube passages, the female socket and display pocket."""
     full=full_shell if full_shell is not None else build_shell()
     above=_split_plane_halfspace((0,split_junction_y,split_junction_z),split_normal,1)
     # A short shared-volume overlap joins the two toroidal bodies positively.
@@ -1792,6 +1825,15 @@ def build_shell_tip(full_shell=None):
     # Keep the valid torus/plane boundary parameters from the native Boolean;
     # same-domain face unification corrupts that curved socket boundary.
     joined=full.val().intersect(above.val()).fuse(socket.val(),tol=1e-6)
+    # Heal microscopic Boolean seam faces below the 0.005 mm print-mesh
+    # deflection, so the close-fitting passages survive STEP round-tripping.
+    from OCP.ShapeFix import ShapeFix_FixSmallFace
+    healer = ShapeFix_FixSmallFace()
+    healer.Init(joined.wrapped)
+    healer.SetPrecision(0.001)
+    healer.SetMaxTolerance(0.001)
+    healer.Perform()
+    joined = cq.Shape.cast(healer.FixShape())
     return cq.Workplane(obj=joined)
 
 
@@ -1837,6 +1879,20 @@ def piece_mesh(solid) -> trimesh.Trimesh:
             tris.append((offset+a-1, offset+b-1, offset+c-1))
     mesh = trimesh.Trimesh(vertices=points, faces=tris, process=True)
     mesh.merge_vertices()
+    # Boolean tangencies can tessellate microscopic internal sheets twice,
+    # with opposite normals. Cancel only those exact opposing triangle pairs;
+    # they enclose no stock and have no printable surface.
+    import numpy as np
+    _, inverse, counts = np.unique(
+        np.sort(mesh.faces, axis=1), axis=0, return_inverse=True, return_counts=True)
+    keep = np.ones(len(mesh.faces), dtype=bool)
+    for group in np.flatnonzero(counts == 2):
+        faces = np.flatnonzero(inverse == group)
+        if (max(mesh.area_faces[faces]) < 1e-5 and
+                np.dot(*mesh.face_normals[faces]) < -0.999999):
+            keep[faces] = False
+    mesh.update_faces(keep)
+    mesh.remove_unreferenced_vertices()
     return mesh
 
 

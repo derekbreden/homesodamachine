@@ -50,11 +50,10 @@ heads on the completed faucet.
    it bottoms on the cap. The installed tube retains the lever's working
    position by blocking its aft disengagement motion.
 6. Feed S, F1, F2 and the four continuously insulated display conductors
-   through the tip's plain printed guide walls. Feed D through the upstream
-   guide and stop its square-cut end inside the open drain pocket; the
-   downstream guide has no D passage. Keep the tube bore clear of the wall
-   and other tubes. Clear the Ø4 mm underside hole and confirm it opens into
-   the pocket. Confirm the soda tube remains seated in its donor port,
+   through the tip's continuous close-fitting passages. Feed D to its square-cut
+   terminal datum, leaving the 3 mm mouth clearance empty. Keep its bore clear
+   of other tubes. Clear the Ø4 mm underside hole and confirm it opens into
+   the common passage. Confirm the soda tube remains seated in its donor port,
    then close the curved lap.
 7. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
@@ -94,14 +93,14 @@ socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
 18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
 neck has no screw opening or external bridge.
 
-The female socket and display pocket provide factory tube-feeding and support
-cleanup access. Two plain 2 mm printed walls guide the beverage tubes and
-insulated conductors through the unsealed drain pocket. The three drink tubes
-continue to their symmetric dispense outlets. D ends square inside the pocket;
-its round Ø4 mm bottom hole crosses the upstream low corner. This opening
-provides a visible major-fault drip over the bowl. Incidental escape into the
-housing during that fault is accepted. No drain bung, gasket or insertion tool
-is fitted.
+The female socket, display pocket and beverage outlets provide tube-feeding
+access. Continuous close-fitting passages carry the tubes and insulated
+conductors through the upper bend and tip. The three drink tubes continue to
+their symmetric dispense outlets. D ends square with 3 mm of empty terminal
+clearance. The round Ø4 mm underside hole opens into the common passage over
+the bowl. Incidental escape into the housing during a major fault is accepted.
+No drain bung, gasket or insertion tool is fitted. Native support cleanup and
+physical tube threading require observation on this geometry.
 
 Peel the ribbon web from the unterminated display end where its four separate
 conductors follow their printed channels. Keep every jacket continuous; no
