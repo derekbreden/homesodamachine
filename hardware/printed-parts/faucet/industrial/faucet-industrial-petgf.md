@@ -25,11 +25,13 @@ records submission and acceptance separately.
 The [physical reference](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
 records beautiful 0.08 mm shoulder finish and successful removal of its few
 thin-layer supports, with exterior lines beside the three screw points.
-The 0.12 mm finish, corrected exterior, extended-cover seating and new drip
-behavior require physical observation on the complete candidate.
+The [identified complete print](physical-acceptance.json) is accepted by Derek
+for shipping and overall appearance. Its supported base surfaces retain reported
+lifting; the seam remains visible to the founder. Cover seating force and fault-drip
+discharge are unmeasured.
 
-Variable layer height is Derek's accepted shipping compromise. Further
-whole-faucet 0.08 mm iteration and research are deferred. The
+Variable layer height is Derek's accepted shipping compromise. Separate representative
+coupons investigate lifting and seam appearance. The
 [tip starting-band result](prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json)
 records tip and wing disruption without establishing its initiating cause.
 Physical finish and support cleanup do not establish load capacity or endurance.

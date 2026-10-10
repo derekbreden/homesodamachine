@@ -1,5 +1,9 @@
 # Complete Industrial faucet — Mark2
 
+This exact complete Mark2 print is [accepted for shipping](../../physical-acceptance.json)
+by Derek. The shipping snapshot is tagged `faucet-industrial-shipping-2026-10-10`.
+Reported lifting on supported base surfaces and the visible seam remain finish observations.
+
 All five rigid parts are included: corrected base, shared tip, Industrial cover,
 counter plate and side-down lever. The native estimate is **5 h 53 min 53 s**
 and 161.55 g at the saved density.
