@@ -6,6 +6,11 @@ receives it. The guided boot combines a packed insulated entry, gradual tube pat
 straight mating nose. Saved prints cover the separate coupling trial.
 Nothing here is in the build, the BOM or the production enclosure.
 
+The [minimal tube bundle](minimal-bundle/README.md) shows equal 0.85 mm
+neighboring tube gaps, a matching conforming TPU skin, the inward-positioned
+4 mm drain tube and a 6 mm thick blue protective wall. The selected pogo pair,
+grooved block magnets and countertop hole are separate size references.
+
 **Color layout:** the boot/plug body and tube key are entirely Fiberon PET-GF15
 Blue, matching the blue socket. The enclosure receiver/wall and rear union
 retainer are PET-GF Black. The machine-side color layout uses those two filaments;

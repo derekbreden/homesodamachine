@@ -1,0 +1,66 @@
+{
+  "source_sha256": "ea66cbc04f439fd0d2c1f386644a148113c0d7d5ff11b250c0ebb1f52b75bc63",
+  "scope": "Inserted tube/TPU packing, thick guard, separate same-scale references",
+  "units": "mm",
+  "tube_axis": "Y",
+  "roles": {
+    "flavor-a": "bundle",
+    "flavor-b": "bundle",
+    "soda": "bundle",
+    "drain": "bundle",
+    "tpu-profile": "bundle",
+    "blue-plug-guard": "bundle",
+    "counter-hole-reference": "reference",
+    "pogo-female": "reference",
+    "pogo-male": "reference",
+    "sb443-in-left": "reference",
+    "sb443-in-right": "reference"
+  },
+  "tube_centers_xz_and_od": {
+    "flavor-a": [
+      -3.5999999999999996,
+      3.5999999999999996,
+      6.35
+    ],
+    "flavor-b": [
+      3.5999999999999996,
+      3.5999999999999996,
+      6.35
+    ],
+    "soda": [
+      -3.5999999999999996,
+      -3.5999999999999996,
+      6.35
+    ],
+    "drain": [
+      2.2782257350842126,
+      -2.2782257350842126,
+      4.0
+    ]
+  },
+  "neighboring_tube_gaps": {
+    "flavor-a/flavor-b": 0.85,
+    "flavor-a/soda": 0.85,
+    "flavor-b/drain": 0.85,
+    "soda/drain": 0.85
+  },
+  "exposed_tpu_skin": 0.85,
+  "drain_center_inward_shift_per_axis": 1.321774,
+  "tpu_bounds_xz": [
+    15.25,
+    15.25
+  ],
+  "tpu_length": 12,
+  "tube_and_tpu_tip_recess": 2,
+  "guard_od": 34,
+  "guard_id": 22,
+  "guard_wall": 6,
+  "guard_length": 16,
+  "counter_hole_diameter": 34.93,
+  "reference_counter_patch_thickness": 2,
+  "pogo_reference": "YYFKGCP screw-ear pair; unattached, male pins extended",
+  "magnet_reference": "Two K&J SB443-IN; 6.35 x 6.35 x 4.7625, side grooves",
+  "bodies": 11,
+  "all_bodies_valid_and_single_solid": true,
+  "core_guard_overlap_mm3": 0
+}
