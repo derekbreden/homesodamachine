@@ -9,7 +9,6 @@ for path in (ROOT / "tools", ROOT / "hardware/manifold-layout",
     sys.path.insert(0, str(path))
 
 import _drain
-import _lines
 import neofit_drain_bulkhead as bulkhead
 from docgen import substitute_md
 
@@ -23,7 +22,6 @@ def main():
         "DRAIN_THREAD_D": f"{bulkhead.THREAD_D:g}",
         "DRAIN_THREAD_PITCH": f"{bulkhead.THREAD_PITCH:g}",
         "DRAIN_PANEL_BARREL": f"{bulkhead.PANEL_THREAD:g}",
-        "FLAVOR_B_RETURN_RISE": f"{_lines.GATE_B_DRAIN_RETURN_RISE:g}",
     })
     print("-> asse-drain.md")
 

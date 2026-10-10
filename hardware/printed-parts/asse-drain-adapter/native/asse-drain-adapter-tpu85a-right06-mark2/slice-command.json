@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/asse-drain-adapter/native/asse-drain-adapter-tpu85a-right06-mark2",
+    "--export-3mf",
+    "asse-drain-adapter-tpu85a-right06-mark2.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter-tpu85a-right06-mark2.3mf"
+  ],
+  "printer_connection": false
+}

@@ -40,7 +40,7 @@ INLET_LENGTH = 13.0         # 3/8" NPT male engagement
 FLARE_THREAD_D = 15.88      # 3/8" SAE 45° flare thread major Ø (5/8"-18 UNF)
 FLARE_LENGTH = 14.0         # male flare nose + thread
 BARREL_LENGTH = TOTAL_LENGTH - INLET_LENGTH - FLARE_LENGTH
-VENT_D = 8.0                # atmospheric-vent barb Ø
+VENT_D = 8.0                # Unmeasured occupied barb envelope; not a sealing-fit diameter.
 VENT_DROP = 10.5            # the two together are the barb's length from its tip
 VENT_INTO_BODY = 5.0
 
