@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "reviewed_local_date": "2026-10-09",
+  "status": "geometric protection candidate; not a print or functional qualification",
+  "sources_sha256": {
+    "future/umbilical-plug-and-socket-exploration/assessment/protection_candidate.py": "496fa0237c3c8ad2d33ffcf3df5e970703b0762e7a1ab94d47bded07de2f8c65",
+    "future/umbilical-plug-and-socket-exploration/umbilical.py": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+    "future/umbilical-plug-and-socket-exploration/boot_concept.py": "0980228ede1824a91ae81837981e33d8f79f27c9bdda92c0440a7fa0d41bd479",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": "25261c2422d20e1fe597e7486981efc6b2ab1eb0e63f5633f46bf0db194d7a11",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44"
+  },
+  "parameters_mm": {
+    "counter_hole_diameter": 34.93,
+    "guard_outer_diameter": 34.0,
+    "guard_inner_diameter": 28.8,
+    "nominal_annulus_radial_stock": 2.6,
+    "union_ring_clearance": 0.25,
+    "socket_clearance": 0.25,
+    "guard_tip_axial_relief": 1.0,
+    "guard_projection": 28.3,
+    "quarter_tube_projection": 26.3,
+    "drain_tube_projection": 24.1,
+    "tip_lead_over_quarter_tubes": 2.0,
+    "root_collar_length": 6.0,
+    "root_lead_length": 4.0,
+    "root_maximum_radial_growth_per_axial_mm": 0.5,
+    "outer_wing_edge_radius": 0.5,
+    "socket_body_radius": 22.2,
+    "socket_flange_radius": 24.7,
+    "counter_radial_clearance": 0.46499999999999986
+  },
+  "closed_shell_bounds_mm": {
+    "present_layout_without_wall_or_clearance": 37.93954903232549,
+    "three_quarter_rings_optimally_repacked_without_wall_or_clearance": 32.5359781295267,
+    "three_quarter_rings_with_1_mm_wall_0_25_mm_clearance": 35.0359781295267,
+    "scope": "First bound is for present coplanar axes. Second/third bound use three equal non-overlapping disks; the fourth union and fluid/electrical geometry add requirements. No claim about all staggered connector architectures.",
+    "ring_band_length": 12.08,
+    "between_ring_waist_length": 12.16,
+    "ring_in_waist_nominal_axial_slack": 0.08000000000000007,
+    "independent_union_float": 1.8349999999999973
+  },
+  "removable_cap_bound_mm": {
+    "diameter_for_stub_envelope_plus_1_5_wall_0_25_clearance": 32.68954903232549,
+    "scope": "A removable cap covers bare stubs only; attachment to the \u00d834 boot and protection during coupling need separate design."
+  },
+  "lateral_protection": {
+    "sampled_lateral_normals": 36000,
+    "minimum_planar_obstacle_lead_mm": 0.5189660929025468,
+    "minimum_at_normal_degrees": 44.99999999999999,
+    "guard_radial_diameter_mm": 34.00000000000001,
+    "method": "Native cage tessellation projected to X/Z; convex-hull support compared with exact circular tube support. Broad planar lateral obstacles only.",
+    "scope": "Nominal rigid-body geometry. Open corner slots admit narrow protrusions. This does not rate impact, stiffness, fatigue, print variation or permanent tube alignment."
+  },
+  "sharp_cusp_upper_bound_lateral_protection": {
+    "sampled_lateral_normals": 36000,
+    "minimum_planar_obstacle_lead_mm": 1.1048021038704992,
+    "minimum_at_normal_degrees": 44.99999999999999,
+    "guard_radial_diameter_mm": 34.00000000000001,
+    "method": "Native cage tessellation projected to X/Z; convex-hull support compared with exact circular tube support. Broad planar lateral obstacles only.",
+    "scope": "Nominal rigid-body geometry. Open corner slots admit narrow protrusions. This does not rate impact, stiffness, fatigue, print variation or permanent tube alignment."
+  },
+  "native_solids": {
+    "fence_count_before_joining_boot": 4,
+    "guard_valid": true,
+    "protected_plug_solid_count": 1,
+    "protected_plug_valid": true,
+    "modified_socket_solid_count": 1,
+    "modified_socket_valid": true,
+    "matching_receiver_wall_solid_count": 1,
+    "matching_receiver_wall_valid": true,
+    "added_printed_volume_mm3": 3739.7807457325757,
+    "new_separate_parts": 0,
+    "new_moving_parts": 0,
+    "new_wetted_joints": 0
+  },
+  "roots": [
+    {
+      "fence_index": 0,
+      "existing_boot_common_volume_mm3": 28.468767624873227,
+      "collar_common_volume_mm3": 113.09742530595712
+    },
+    {
+      "fence_index": 1,
+      "existing_boot_common_volume_mm3": 97.99304548714403,
+      "collar_common_volume_mm3": 65.55700043875609
+    },
+    {
+      "fence_index": 2,
+      "existing_boot_common_volume_mm3": 40.28075509990272,
+      "collar_common_volume_mm3": 123.26929414522688
+    },
+    {
+      "fence_index": 3,
+      "existing_boot_common_volume_mm3": 84.21198351145279,
+      "collar_common_volume_mm3": 57.3542101286051
+    }
+  ],
+  "intersections_mm3": {
+    "mated_protected_plug_socket": 0.0,
+    "socket_receiver_wall": 0.0,
+    "addition_key": 0.0,
+    "addition_fluid_guides": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    },
+    "addition_tubes": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    },
+    "addition_hardware": {
+      "insert-top": 0.0,
+      "screw-top": 0.0,
+      "insert-bottom": 0.0,
+      "screw-bottom": 0.0,
+      "magnet-0": 0.0,
+      "magnet-1": 0.0,
+      "pogo": 0.0
+    },
+    "addition_unions": {
+      "flavor-a": {
+        "mated": 0.0,
+        "forward_1_835_mm": 0.0
+      },
+      "flavor-b": {
+        "mated": 0.0,
+        "forward_1_835_mm": 0.0
+      },
+      "soda": {
+        "mated": 0.0,
+        "forward_1_835_mm": 0.0
+      },
+      "drain": {
+        "mated": 0.0,
+        "forward_1_835_mm": 0.0
+      }
+    },
+    "release_plate_bearing_stock_removed": {
+      "flavor-a": 0.0,
+      "flavor-b": 0.0,
+      "soda": 0.0,
+      "drain": 0.0
+    },
+    "rigid_plug_outside_counter_bore": 0.0,
+    "insertion_steps": {
+      "-62.3": 0.0,
+      "-34": 0.0,
+      "-26.3": 0.0,
+      "-13.04": 0.0,
+      "-9.8": 0.0,
+      "-2": 0.0,
+      "0": 0.0
+    }
+  },
+  "cup_mm": {
+    "radius": 17.25,
+    "top_flat_z": 17.25,
+    "top_bridge_length": 11.209729520035268,
+    "top_outer_stock": 5.050000000000001,
+    "snap_clearance_slot_inner_x": 18.8,
+    "cup_to_snap_clearance_slot_stock_at_x_axis": 1.5500000000000007,
+    "scope": "Roof angle, snap leaf thickness and deflection gap inherited from the socket. Socket/receiver widened 2.4 mm in total to preserve 1.55 mm cup-to-slit stock. Top bridge and fence/support orientation are not print qualified."
+  },
+  "confined_space_mm": {
+    "boot_body_length": 98.0,
+    "inserted_body_length": 34,
+    "seated_body_outside_wall": 64.0,
+    "bare_tube_initial_approach_stroke": 60.3,
+    "guard_initial_approach_stroke": 62.3,
+    "bare_tube_rigid_axial_approach_envelope": 124.3,
+    "guard_rigid_axial_approach_envelope": 126.3,
+    "scope": "Rigid axial approach only; excludes bundle bend, hands and installation obstructions."
+  },
+  "limits": [
+    "The open cage shields broad plane contact; narrow objects can enter its corner windows and insertion face.",
+    "Guard and receiver remain exploratory. The saved trial is the unguarded boot; no new print has been sliced or launched.",
+    "The 4 mm union envelope and release geometry remain provisional; its clearance cuts require the selected part's actual envelope.",
+    "The longer guard adds 2 mm approach stroke; it does not shorten the 98 mm boot or establish acceptable confined-space UX.",
+    "Socket/frame outer width is 2.4 mm greater than the saved baseline; the matching coupon is modeled but integration and printing are unqualified.",
+    "The rounded 1 mm outer tip feature has only about 0.52 mm nominal broad-plane lead; actual extrusion, stiffness and handling must establish whether that margin is useful."
+  ],
+  "union_sweep_argument": "Every cage sector is cut outside the maximum full-ring cylinders along its complete positive-Y length; axial translation and independent union float therefore cannot bring a ring into the cage at these fixed axes. This conservative sweep also excludes thicker collets only if the actual selected parts remain within the ring envelope."
+}

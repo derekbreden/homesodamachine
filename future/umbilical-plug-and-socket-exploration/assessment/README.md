@@ -1,11 +1,14 @@
 # Umbilical connector engineering assessment
 
 Reviewed 2026-10-09. **Recommendation: keep the separate connections for shipping and
-give the unified connector one optional tactile trial before buying its missing hardware.**
-The concept is credible, but the present model does not establish a reliable finished
-connector. Its useful next result is whether the guided plug and real bundle are pleasant
-enough to justify further development. Prepared articles cover the
-[coupling](../tactile-trial/README.md) and [guided boot](../guided-boot-trial/README.md).
+assess protection and confined-space use before buying this connector's missing hardware.**
+The [tube-protection review](protection.md) gives a bounded geometric candidate: four
+integral open fences which pass the counter hole and clear the existing unions. Its
+rounded edges leave only 0.519 mm nominal clearance ahead of the tubes against a broad
+flat surface; narrow corners can still reach them. It is a prototype candidate, not
+established durable protection. The saved [coupling](../tactile-trial/README.md) and
+[guided boot](../guided-boot-trial/README.md) prints omit that protection and only assess
+their stated plastic-fit and bundle-packing questions.
 
 The operating requirement is shutdown and depressurization before unplugging. This design
 uses ordinary open unions; removing the plug leaves their ports open. A shutdown/depressurization
@@ -17,7 +20,11 @@ The intended benefit is one obvious, correctly oriented connection for four flui
 the display, with comfortable insertion, an unmistakable fully connected state, and intentional
 removal. It must retain that state when the umbilical hangs, bends or is handled. The boot must
 hold the tube projections, protect the cable and transfer bundle loads without damaging tubes.
-The complete machine end must pass through the existing 34.93 mm countertop hole.
+The exposed tube ends must remain straight and usable after ordinary confined-space
+handling. The complete assembled, protected machine end must pass through the existing
+34.93 mm countertop hole; a larger guard attached after passage is outside the accepted
+installation requirements. The current guarded candidate needs 126.3 mm of straight
+rigid approach room before braid bending or hand clearance.
 
 The main benefit belongs to installation and machine removal. The current
 [user operations](../../../hardware/README.md#user-facing-surfaces) do not require unplugging
@@ -166,6 +173,14 @@ unchanged by this exploration.
 
 ## Simplest geometry
 
+The [protection review](protection.md) rules out a fixed closed shell around the current
+unions within the counter hole. Its open-cage candidate uses one annulus, four fitting
+keepouts and rounded contact wings, with no extra separate part, motion mechanism or
+wet joint. The keepouts earn their shape from mating clearance; the rounding removes
+fragile mathematical points. This is a simple nearby candidate, not a proof of globally
+minimum geometry or complete protection. Its socket is 2.4 mm wider and needs matching
+receiver geometry; production back-top remains unchanged.
+
 The round rear boot has one outer perimeter edge per cross section. Its nose and socket
 profile earn their shape from the counter hole, mating guidance and sloped receiver roofs.
 The flange, two snap leaves, union-retaining plate and tube key have named jobs.
@@ -183,6 +198,12 @@ would make this harder to manufacture and use. The current design cannot yet be 
 or the fewest-edge design that meets every requirement.
 
 ## Decision after handling it
+
+The guarded candidate is CAD only. Its printed contact envelope and stiffness need
+assessment before the connector can claim protected handling. The saved unguarded
+boot can answer packing questions but cannot qualify tube-end protection. The
+[bounded next-evidence procedure](protection.md#useful-next-evidence) defines what a
+guarded handling screen would decide using owned materials and three quarter-inch unions.
 
 The [coupling trial](../tactile-trial/README.md) and [guided boot trial](../guided-boot-trial/README.md)
 can answer whether the grip, cup guidance, snap frame and real bundle transition are worth

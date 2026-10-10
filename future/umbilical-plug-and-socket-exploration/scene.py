@@ -17,6 +17,8 @@ sys.path.insert(0, str(_HERE.parent))
 import umbilical as u  # noqa: E402
 import boot_concept as boot  # noqa: E402
 from umbilical import ROOT, cq, cyl, box, PORTS  # noqa: E402
+sys.path.insert(0, str(_HERE.parent / "assessment"))
+import protection_candidate as protection  # noqa: E402
 
 sys.path[:0] = [str(ROOT / "hardware/printed-parts/enclosure/y-wall-of-back-top")]
 from _cadq_export import export_assembly, import_step  # noqa: E402
@@ -43,6 +45,9 @@ C_COUNTER = cq.Color(0.82, 0.81, 0.78)
 
 PP0408W = import_step(u.U.STEP).val()
 SOCKET, RETAINER, PLUG, KEY, PATCH = u.socket(), u.retainer(), boot.plug(), boot.key(), u.wall_patch()
+GUARDED_PLUG = protection.guarded_plug()
+GUARDED_SOCKET = protection.guarded_socket()
+GUARDED_PATCH = protection.guarded_receiver_wall()
 DRAIN_PROUD = boot.DRAIN_PROUD             # as drawn; see umbilical.D_PROUD_MIN
 
 
@@ -62,8 +67,8 @@ def union_solids(shift=0.0):
     return out
 
 
-def add_socket(a, pins=u.P.PIN_PROUD):
-    a.add(SOCKET, name="umbilical-socket", color=C_PORT)
+def add_socket(a, pins=u.P.PIN_PROUD, body=None):
+    a.add(SOCKET if body is None else body, name="umbilical-socket", color=C_PORT)
     a.add(RETAINER, name="union-retainer", color=C_MACHINE)
     for name, s in union_solids().items():
         label = "jg-pp0408w" if PORTS[name][2] > 5 else "neofit-auc44m"
@@ -89,8 +94,8 @@ def add_socket(a, pins=u.P.PIN_PROUD):
 BUNDLE = 60.0
 
 
-def add_plug(a, loc=cq.Location()):
-    a.add(PLUG, name="umbilical-plug", color=C_BOOT, loc=loc)
+def add_plug(a, loc=cq.Location(), body=None):
+    a.add(PLUG if body is None else body, name="umbilical-plug", color=C_BOOT, loc=loc)
     a.add(KEY, name="tube-key", color=C_BOOT, loc=loc)
     a.add(u.P.build_female().val().moved(u.pogo_location(-1)), name="pogo-4p-female-pads", color=M.C_DOCK, loc=loc)
     for x, bar in u.bars(-1):
@@ -125,6 +130,17 @@ def mated(a):
 
 export("mated", mated)
 
+export("guarded-plug", lambda a: add_plug(a, body=GUARDED_PLUG))
+
+
+def guarded_mated(a):
+    a.add(GUARDED_PATCH, name="back-top-wall", color=C_WALL)
+    add_socket(a, MATED_PINS, body=GUARDED_SOCKET)
+    add_plug(a, body=GUARDED_PLUG)
+
+
+export("guarded-mated", guarded_mated)
+
 
 def section(a):
     """Everything plugged in, cut on the right-hand column's axes: FLAVOR-B over DRAIN, the cut facing +X."""
@@ -158,14 +174,15 @@ export("boot-section", boot_section)
 COUNTER_T = 30.0
 
 
-def counter(a):
+def counter(a, body=None):
     slab = (cq.Workplane("XY").box(120, 120, COUNTER_T, centered=(True, True, False)).translate((0, 0, -COUNTER_T))
             .faces(">Z").workplane().hole(u.COUNTER_HOLE).val())
     a.add(slab, name="countertop-1-3-8in-hole", color=C_COUNTER)
-    add_plug(a, cq.Location(cq.Vector(0, 0, -COUNTER_T - 14.0), cq.Vector(1, 0, 0), -90))
+    add_plug(a, cq.Location(cq.Vector(0, 0, -COUNTER_T - 14.0), cq.Vector(1, 0, 0), -90), body=body)
 
 
 export("counter", counter)
+export("guarded-counter", lambda a: counter(a, body=GUARDED_PLUG))
 
 # --- checks ---------------------------------------------------------------------------------------
 checks = {}
@@ -255,7 +272,8 @@ spec = {
     "title": "One-plug umbilical",
     "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. "
             "A packed insulated entry feeds curved tube guides and a straight mating nose. "
-            "Compression, grip and retention require physical trials.",
+            "The integral open-guard candidate fits the counter envelope; rounded wings leave "
+            "0.519 mm nominal clearance to a broad flat wall. Physical protection and grip are unqualified.",
     "view": {"az": -70, "el": 20}, "frame": "each", "sync": True,
     "panels": [
         {"name": "Machine side",
@@ -285,6 +303,20 @@ spec = {
                     "the fabric tucks 15 mm into the cuff. A chamfered shoulder marks the seated depth, "
                     "with 64 mm of boot outside the port.",
          "models": [{"step": step("boot-section")}]},
+        {"name": "Guarded candidate",
+         "caption": "Four integral open fences clear the unions and fit Ø34 mm. R0.5 edges leave "
+                    "0.519 mm nominal clearance ahead of the tubes against a broad flat surface. "
+                    "Narrow corners can enter the gaps; this is CAD only.",
+         "models": [{"step": step("guarded-plug")}]},
+        {"name": "Guarded mating",
+         "caption": "The matching socket is 2.4 mm wider with four guard channels. No extra part, "
+                    "moving mechanism or wet joint. The current rigid approach envelope is 126.3 mm; "
+                    "printability, stiffness and handling remain unqualified.",
+         "models": [{"step": step("guarded-mated"), "ghost": ["back-top-wall", "umbilical-socket"]}]},
+        {"name": "Guard through counter",
+         "caption": "The complete guarded rigid boot remains Ø34 mm in the Ø34.93 mm hole. "
+                    "Its fences extend 2 mm beyond the longest tube. Foam/braid passage still needs handling.",
+         "models": [{"step": step("guarded-counter"), "ghost": ["countertop*"]}]},
         {"name": "Machine-side plate", "image": "renders/print-machine-side.png",
          "caption": "The slicer's plate: socket on its flats, retainer, wall coupon roof-down. One pause for "
                     "the socket's bars."},

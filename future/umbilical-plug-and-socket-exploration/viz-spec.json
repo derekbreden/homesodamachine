@@ -1,6 +1,6 @@
 {
  "title": "One-plug umbilical",
- "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. A packed insulated entry feeds curved tube guides and a straight mating nose. Compression, grip and retention require physical trials.",
+ "lede": "Blue Fiberon PET-GF15 plug and socket in a black enclosure receiver. A packed insulated entry feeds curved tube guides and a straight mating nose. The integral open-guard candidate fits the counter envelope; rounded wings leave 0.519 mm nominal clearance to a broad flat wall. Physical protection and grip are unqualified.",
  "view": {
   "az": -70,
   "el": 20
@@ -71,6 +71,40 @@
    "models": [
     {
      "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-boot-section.step"
+    }
+   ]
+  },
+  {
+   "name": "Guarded candidate",
+   "caption": "Four integral open fences clear the unions and fit Ø34 mm. R0.5 edges leave 0.519 mm nominal clearance ahead of the tubes against a broad flat surface. Narrow corners can enter the gaps; this is CAD only.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-guarded-plug.step"
+    }
+   ]
+  },
+  {
+   "name": "Guarded mating",
+   "caption": "The matching socket is 2.4 mm wider with four guard channels. No extra part, moving mechanism or wet joint. The current rigid approach envelope is 126.3 mm; printability, stiffness and handling remain unqualified.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-guarded-mated.step",
+     "ghost": [
+      "back-top-wall",
+      "umbilical-socket"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Guard through counter",
+   "caption": "The complete guarded rigid boot remains Ø34 mm in the Ø34.93 mm hole. Its fences extend 2 mm beyond the longest tube. Foam/braid passage still needs handling.",
+   "models": [
+    {
+     "step": "future/umbilical-plug-and-socket-exploration/out/umbilical-guarded-counter.step",
+     "ghost": [
+      "countertop*"
+     ]
     }
    ]
   },
