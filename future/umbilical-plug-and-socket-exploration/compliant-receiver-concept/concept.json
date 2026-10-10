@@ -1,0 +1,139 @@
+{
+  "status": "visual concept; no selected seal interference, material or magnetic force",
+  "source_sha256": "786b49b26d5ddeb313b001b73ab259fc960cc1b3f980ce6556c8340c5b666830",
+  "sources_sha256": {
+    "future/umbilical-plug-and-socket-exploration/umbilical.py": "c580ce770480ca86b6cefd203e7c2471632a63c3b5575348f6127054c8507f09",
+    "future/umbilical-plug-and-socket-exploration/boot_concept.py": "0980228ede1824a91ae81837981e33d8f79f27c9bdda92c0440a7fa0d41bd479",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44"
+  },
+  "parameters_mm": {
+    "plug_diameter": 34.0,
+    "guard_inner_diameter": 31.0,
+    "guard_projection": 16.0,
+    "male_tube_projection": 14.0,
+    "tube_pitch_x": 9.5,
+    "tube_pitch_z": 12.5,
+    "puck_diameter": 25.0,
+    "puck_thickness": 18.0,
+    "seal_land_length": 3,
+    "puck_front": 6.0,
+    "puck_back": 24.0,
+    "tip_gap": 2.0
+  },
+  "native_bodies": {
+    "umbilical-plug": {
+      "valid": true,
+      "solids": 1
+    },
+    "tube-key": {
+      "valid": true,
+      "solids": 1
+    },
+    "pogo-4p-female-pads": {
+      "valid": true,
+      "solids": 1
+    },
+    "magnet-plug-illustrative": {
+      "valid": true,
+      "solids": 1
+    },
+    "umbilical-socket": {
+      "valid": true,
+      "solids": 1
+    },
+    "compliant-four-passage-puck": {
+      "valid": true,
+      "solids": 1
+    },
+    "rear-tube-retainer": {
+      "valid": true,
+      "solids": 1
+    },
+    "back-top-wall": {
+      "valid": true,
+      "solids": 1
+    },
+    "pogo-4p-male-spring-pins": {
+      "valid": true,
+      "solids": 1
+    },
+    "magnet-socket-illustrative": {
+      "valid": true,
+      "solids": 1
+    },
+    "flavor-a-umbilical-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "flavor-a-machine-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "flavor-b-umbilical-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "flavor-b-machine-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "soda-umbilical-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "soda-machine-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "drain-umbilical-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "drain-machine-tube": {
+      "valid": true,
+      "solids": 1
+    },
+    "soda-tube-foam": {
+      "valid": true,
+      "solids": 1
+    },
+    "umbilical-fabric-jacket": {
+      "valid": true,
+      "solids": 1
+    },
+    "display-ribbon": {
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "roles": {
+    "umbilical-plug": "plug",
+    "tube-key": "plug",
+    "pogo-4p-female-pads": "plug",
+    "magnet-plug-illustrative": "plug",
+    "umbilical-socket": "machine",
+    "compliant-four-passage-puck": "machine",
+    "rear-tube-retainer": "machine",
+    "back-top-wall": "machine",
+    "pogo-4p-male-spring-pins": "machine",
+    "magnet-socket-illustrative": "machine",
+    "flavor-a-umbilical-tube": "plug",
+    "flavor-a-machine-tube": "machine",
+    "flavor-b-umbilical-tube": "plug",
+    "flavor-b-machine-tube": "machine",
+    "soda-umbilical-tube": "plug",
+    "soda-machine-tube": "machine",
+    "drain-umbilical-tube": "plug",
+    "drain-machine-tube": "machine",
+    "soda-tube-foam": "plug",
+    "umbilical-fabric-jacket": "plug",
+    "display-ribbon": "plug"
+  },
+  "limits": [
+    "Bores are drawn in the inserted shape; unloaded interference is unspecified.",
+    "Annular magnets are illustrative placeholders without selected hardware or a force rating.",
+    "Tube grip, rear retention, snap-in receiver, electrical mounting/routing and sealing are unqualified.",
+    "Soft foam, fabric and TPU depict intended envelopes, not deformation simulations.",
+    "No printable project, pressure test, print or production change is included."
+  ]
+}
