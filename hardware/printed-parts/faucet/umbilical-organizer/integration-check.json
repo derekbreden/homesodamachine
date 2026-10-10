@@ -247,5 +247,12 @@
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     }
-  ]
+  ],
+  "measured_ribbon_to_faucet_stock_intersection_volume_mm3": {
+    "shell_base": 0.0,
+    "shell_tip": 0.0,
+    "above_counter_plate": 0.0,
+    "above_counter_gasket": 0.0,
+    "faucet-display-cover-seated": 0.0
+  }
 }
