@@ -6,22 +6,20 @@ be deliberately adjusted while holding the puck in the other hand. The signal
 ribbon passes through a separate loose passage. The puck threads over free
 tube and cable ends during factory assembly and sits inside the upper braid.
 
-The quarter-inch bores are the **L / rightmost / loose** article's from the
-[three-sample Mark2 print](../../../../future/umbilical-organizer-exploration/fit-trial-mark2/README.md).
-Derek accepted it as “pretty close to perfect, or at least good enough for now.”
-The received 4 mm drain tube tests a bit too tight in that article's Ø4.20 mm
-drain bore, so the drain bore is 0.10 mm larger in diameter. The
-[physical acceptance record](physical-acceptance.json) binds both reports to
-the exact printed mesh, native archive and settings. It establishes the reported
-fits; installed mounting access, quantified sliding force and endurance are not
-separately reported. Physical fit of the Ø[4.30 mm](ORGANIZER_DRAIN_BORE) drain
-bore is unassessed.
+The [three-increment Mark2 fit comparison](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
+selects A's Ø6.65 mm bores for the three quarter-inch tubes and B's Ø4.40 mm
+bore for the received 4 mm drain tube. The loose Ø5.00 mm signal passage is
+retained. The [physical acceptance record](physical-acceptance.json) binds
+these feature-level selections to the exact printed samples, job and settings.
+The combined production puck is unprinted; the selected bore fits have physical
+evidence. Quantified sliding force, endurance and complete installed mounting
+access are unmeasured.
 
 | Feature | Dimension |
 |---|---|
 | Round stock | Ø[32 mm](ORGANIZER_OD) × [10 mm](ORGANIZER_LENGTH) |
 | Soda and both flavor bores | Ø[6.65 mm](ORGANIZER_TUBE_BORE) |
-| Drain bore | Ø[4.30 mm](ORGANIZER_DRAIN_BORE) |
+| Drain bore | Ø[4.40 mm](ORGANIZER_DRAIN_BORE) |
 | Loose signal passage | Ø[5 mm](ORGANIZER_CABLE_BORE) |
 | Tube entrance chamfers, both ends | [0.4 mm](ORGANIZER_ENTRY) × 45° |
 | Smooth tube contact length | [9.2 mm](ORGANIZER_CONTACT) |
@@ -66,20 +64,17 @@ is included in its native textured-plate `G29.1 Z0.02` after `G29.1 Z0`.
 That trim is specific to Mark2. The physical material is PET-GF; its saved
 printer metadata reports PET-CF/GFT01.
 
-The [accepted native job and bead review](../../../../future/umbilical-organizer-exploration/fit-trial-mark2/README.md)
-retain all three original samples. Production STEP/STL/viewer payloads differ
-from the L article only in the drain bore. The
-[current three-puck plate](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
-contains the saved production organizer and two diameter increments. From the
-front of Mark2, left to right: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
-bores; B has Ø6.75/4.40/5.10 mm; C has Ø6.85/4.50/5.20 mm. A's mesh is
-byte-identical to the production STL. The stock, bore axes and chamfers are
-retained for all three. The native estimate is 33 min 49 s and 12.28 g.
-The saved single-puck [drain-fit preparation](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
-is an unsubmitted separate archive at the same process settings.
+The [A/B/C native job and bead review](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/README.md)
+retain the three printed samples: A has Ø6.65/4.30/5.00 mm quarter-inch/drain/signal
+bores, B Ø6.75/4.40/5.10 mm and C Ø6.85/4.50/5.20 mm. Production combines
+A's beverage bores with B's drain bore and retains the Ø5.00 mm signal passage.
+Its stock, bore axes, chamfers and upright orientation are the trial's.
+The separate frozen [Ø4.30 mm drain-fit archive](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
+is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry manually with
 `tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/.cache/printer-control/update-organizer-docs-and-viewers.py`
 - `/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`

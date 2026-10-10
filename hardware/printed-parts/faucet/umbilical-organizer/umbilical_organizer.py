@@ -1,8 +1,7 @@
 """PET-GF umbilical organizer, in its upright print frame.
 
-The three quarter-inch bores are the accepted L sample's. The received 4 mm
-drain tube tests a bit tight in that sample's drain bore, so the drain bore is
-0.10 mm larger in diameter than the L sample's.
+The three quarter-inch bores use the tested A sample's fit. The 4 mm drain
+bore uses the tested B sample's fit from the three-increment Mark2 plate.
 
 The print origin is the centre of the round stock; Z=0 is the bottom face.
 Tube-axis XY values below use the faucet assembly's coordinates. Placement
@@ -22,9 +21,8 @@ from _materials import C_FAUCET_BLACK
 
 OD = 32.0
 LENGTH = 10.0
-TUBE_BORE = 6.55 + 0.10
-# The received 4 mm drain tube tests a bit tight in the L sample's Ø4.20 bore.
-DRAIN_BORE = 4.20 + 0.10
+TUBE_BORE = 6.65
+DRAIN_BORE = 4.40
 CABLE_BORE = 5.0
 ENTRY = 0.40
 CABLE_ENTRY = 0.20

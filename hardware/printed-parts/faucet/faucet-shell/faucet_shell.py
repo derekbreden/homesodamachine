@@ -1074,7 +1074,13 @@ def build_upstream_interstice_cut():
     profile=cq.Sketch().polygon([(0,0),(_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N),
                                 (0,_paths.TIGHT_DRAIN_N),
                                 (-_paths.TIGHT_FLAVOR_X,_paths.TIGHT_FLAVOR_N)])
-    return _sweep_along_gooseneck(profile)
+    upper_profile=cq.Sketch().polygon([(0,0),(_paths.SEAL_FLAVOR_X,_paths.SEAL_FLAVOR_N),
+                                     (0,_paths.SEAL_DRAIN_N),
+                                     (-_paths.SEAL_FLAVOR_X,_paths.SEAL_FLAVOR_N)])
+    upper=(_sweep_along_gooseneck(upper_profile)
+           .intersect(_drip_guide_halfspace(_paths.DRIP_POCKET_ENTRY_S,0,1))
+           .intersect(_drip_guide_halfspace(_paths.DRAIN_CUT_S,1,-1)))
+    return _sweep_along_gooseneck(profile).union(upper)
 
 
 def drain_return_point(angle=None):
@@ -1131,41 +1137,34 @@ def _gland_halfspace(s,z,sign):
 
 @functools.lru_cache(maxsize=None)
 def build_vent_cavity():
-    import vent_seals
+    """Open tube pocket between two flat, unsealed routing walls."""
     rounded=_round_cavity_segment(-0.01,_paths.CONVERGE_START_S+_paths.CONVERGE_LENGTH)
-    us,ds=_paths.UPSTREAM_GLAND_S,_paths.DOWNSTREAM_GLAND_S
-    length=vent_seals.GLAND_LENGTH
-    # Clip the shared round cavity to the actual planar retainer faces;
-    # arc-station truncation alone would cut into the sealing seats.
-    dry_in=rounded.intersect(_gland_halfspace(us,0,-1))
-    wet=rounded.intersect(_gland_halfspace(us,length,1)).intersect(_gland_halfspace(ds,0,-1))
-    dry_out=rounded.intersect(_gland_halfspace(ds,length,1))
-    result=dry_in.union(wet).union(dry_out)
-    for station in (us,ds):
-        result=result.union(_gland_world(vent_seals.build_gland_cutter(upstream=station == us),station))
-    return result
+    us,ds=_paths.DRIP_POCKET_ENTRY_S,_paths.DRIP_POCKET_EXIT_S
+    thickness=_paths.DRIP_GUIDE_WALL_THICKNESS
+    dry_in=rounded.intersect(_drip_guide_halfspace(us,0,-1))
+    pocket=(rounded.intersect(_drip_guide_halfspace(us,thickness,1))
+                   .intersect(_drip_guide_halfspace(ds,0,-1)))
+    dry_out=rounded.intersect(_drip_guide_halfspace(ds,thickness,1))
+    return dry_in.union(pocket).union(dry_out)
+
+
+def _drip_guide_halfspace(station,offset,sign):
+    origin,_,tangent=_paths.station_plane(station,center_n=tube_shell_center_y)
+    origin=tuple(p+offset*t for p,t in zip(origin,tangent))
+    return _split_plane_halfspace(origin,tangent,sign)
 
 
 @functools.lru_cache(maxsize=None)
 def build_vent_outlet():
-    """Bottom-centred rounded opening, with side flare and protected seal faces."""
-    import vent_seals
-    station=_paths.PORT_START_S+_paths.PORT_LENGTH_S/2
+    """A round underside drip hole crossing the pocket's upstream low corner."""
+    station=_paths.DRIP_HOLE_S
     angle=split_junction_rot+station/gn_bend1_r
     origin=_paths.station_point(station,n=tube_shell_center_y)
-    # The local long axis follows the arc chord; the extrusion points down.
     plane=cq.Plane(origin=origin,xDir=(1,0,0),
                    normal=(0,-math.cos(angle),-math.sin(angle)))
-    floor_radius=gn_bend1_r+tube_shell_center_y-_paths.CAVITY_RADIUS
-    length=2*floor_radius*math.sin(_paths.PORT_LENGTH_S/(2*gn_bend1_r))
-    sections=[]
-    for depth,width in ((6,_paths.PORT_WIDTH),(8,_paths.PORT_WIDTH),
-                        (14,_paths.PORT_WIDTH+2),(30,_paths.PORT_WIDTH+2)):
-        wire=_display_outline_wire(width,length,_paths.PORT_CORNER_R,depth,center_s=0)
-        sections.append(wire.transformShape(plane.rG))
-    outlet=cq.Workplane(obj=cq.Solid.makeLoft(sections,ruled=True))
-    return (outlet.intersect(_gland_halfspace(_paths.UPSTREAM_GLAND_S,vent_seals.GLAND_LENGTH,1))
-                  .intersect(_gland_halfspace(_paths.DOWNSTREAM_GLAND_S,vent_seals.KEEPER_LENGTH,-1)))
+    return (cq.Workplane(plane).workplane(offset=_paths.CAVITY_RADIUS-_paths.DRIP_GUIDE_WALL_THICKNESS)
+            .circle(_paths.DRIP_HOLE_DIAMETER/2)
+            .extrude(tube_shell_outer_r+_paths.DRIP_GUIDE_WALL_THICKNESS))
 
 
 def _tube_shell_outer_shrunk_sketch(shrink: float) -> cq.Sketch:
@@ -1727,7 +1726,7 @@ def build_shell() -> cq.Workplane:
         ("mounting screws", build_base_pod_holes),
         ("donor shoulder", build_zone2_inner_cut),
         ("donor upper bores", build_zone3_inner_cut),
-        ("vent chamber and glands", build_vent_cavity),
+        ("unsealed drain pocket and tube guides", build_vent_cavity),
         ("underside fault outlet", build_vent_outlet),
         ("lower common bundle opening", build_lower_signal_lane),
         ("soda and flavor passages", build_zone6_inner_cut),
@@ -1782,7 +1781,7 @@ def build_shell_base(full_shell=None):
 
 
 def build_shell_tip(full_shell=None):
-    """Tip carries the wide female socket, accessible seals and wet cavity."""
+    """Tip carries the female socket, unsealed drain pocket and display pocket."""
     full=full_shell if full_shell is not None else build_shell()
     above=_split_plane_halfspace((0,split_junction_y,split_junction_z),split_normal,1)
     # A short shared-volume overlap joins the two toroidal bodies positively.

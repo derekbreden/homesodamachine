@@ -3,7 +3,7 @@
 [Faucet styles](../README.md) names the Sculpted and Industrial pieces.
 
 The PET-GF shell encloses the harvested Westbrass, the
-[printed lever](../lever-replica/README.md), four LLDPE tubes, two vent seals and Waveshare display. Factory assembly supplies a complete
+[printed lever](../lever-replica/README.md), four LLDPE tubes and Waveshare display. Factory assembly supplies a complete
 faucet and umbilical. Customer installation uses the captive donor nut and the
 existing stainless under-counter plate.
 
@@ -49,17 +49,13 @@ heads on the completed faucet.
    the soda tube through the lower neck and push it into the thimble until
    it bottoms on the cap. The installed tube retains the lever's working
    position by blocking its aft disengagement motion.
-6. Assemble the four-tube bundle and continuous insulated signal conductors
-   through the two vent bungs using [vent seal assembly](../asse-vent-seals/README.md).
-   Pre-thread the upstream bung, then the distal bung, onto the free ends of
-   S, F1, F2 and the four unterminated display wires. Keep D out of the tip
-   while seating the distal bung with the curved perimeter pusher. Feed D
-   through the preloaded upstream bung. Before seating, set its square cut a
-   nominal 8.0 ± 0.2 mm beyond the bung's flange front and mark the position.
-   Refit the perimeter pusher and advance D and the bung together. D ends square
-   inside the round chamber. The drink tubes continue
-   through both bungs and the three final face passages. Confirm the soda tube
-   remains seated in its donor port, then close the curved lap.
+6. Feed S, F1, F2 and the four continuously insulated display conductors
+   through the tip's plain printed guide walls. Feed D through the upstream
+   guide and stop its square-cut end inside the open drain pocket; the
+   downstream guide has no D passage. Keep the tube bore clear of the wall
+   and other tubes. Clear the Ø4 mm underside hole and confirm it opens into
+   the pocket. Confirm the soda tube remains seated in its donor port,
+   then close the curved lap.
 7. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
    sockets; the donor and shell foot seat on the plate. Keep the ribbon flat
@@ -98,19 +94,18 @@ socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
 18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
 neck has no screw opening or external bridge.
 
-The female socket presents the full 23 mm opening for factory seal insertion.
-The wet chamber and both retained bungs are wholly in the tip; the lap is dry.
-The upstream bundle is S with D centered above it and F1/F2 beside D. It spreads
-locally at the bungs to leave 0.8 mm nominal elastomer webs, then the flavor
-paths converge gently to the unchanged symmetric drink face.
+The female socket and display pocket provide factory tube-feeding and support
+cleanup access. Two plain 2 mm printed walls guide the beverage tubes and
+insulated conductors through the unsealed drain pocket. The three drink tubes
+continue to their symmetric dispense outlets. D ends square inside the pocket;
+its round Ø4 mm bottom hole crosses the upstream low corner. This opening
+provides a visible major-fault drip over the bowl. Incidental escape into the
+housing during that fault is accepted. No drain bung, gasket or insertion tool
+is fitted.
 
-The separate bottom-center opening spans the wet chamber across the crown.
-Water flows around the drink tubes into that opening. D ends with a square cut
-across its natural path, above the separate bottom opening; no internal divider is fitted.
-The two single-piece 85A bungs seal each tube and each of the four continuously
-insulated conductors. They have captured flanges and rigid backstops.
-Peel the cable web from its unterminated display end before threading; no wet-zone
-solder joints, adhesive or slit through the bungs are used.
+Peel the ribbon web from the unterminated display end where its four separate
+conductors follow their printed channels. Keep every jacket continuous; no
+solder joint belongs inside the neck.
 
 Route all tubes and conductors through both pieces before closing the lap. Confirm the seam is fully seated and the outlets remain in position
 through normal lever operation and handling.
@@ -131,7 +126,7 @@ shows the rear PCB with USB-C up: the first four left pads are **VBUS, GND,
 TXD (GPIO43), RXD (GPIO44)**, P1 pins **1, 3, 5, 7**. Connect them to main-board
 J3 **V5, GND, IO35 (RX), IO33 (TX)** respectively. Make the dry-end joints
 with power removed after the four continuously insulated conductors pass
-through both seated bungs. [SIG-6 wiring and checks](../../../assembly/faucet-and-umbilical.md#display-wiring-sig-6)
+through the printed tip guides. [SIG-6 wiring and checks](../../../assembly/faucet-and-umbilical.md#display-wiring-sig-6)
 give the full endpoint map and plug/jack continuity procedure.
 
 1. Route SIG-6 from the neck into the open space below the PCB, toward its
@@ -223,7 +218,7 @@ before a countertop compatibility range is published.
 `hardware/scripts/check_faucet_geometry.py` records validity, interference,
 assembly motion and measured sections in `centered-vent-check.json`.
 [Vent qualification](../vent-qualification/README.md) separates the native
-port/seat evidence from conditional hydraulic calculations and device qualification. These checks
+current drip-hole geometry from physical discharge behavior and complete device qualification. These checks
 cover nominal geometry. The fit print must establish actual slip, insert
 seating, full lever travel, tube routing, display/cable fit, support removal
 and resistance to handling loads.

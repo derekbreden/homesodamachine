@@ -1,24 +1,30 @@
 # Industrial faucet PET-GF print project
 
-The [selected queued Mark2 print](prints/2026-10-09-shoulders012-solid-foot-mark2/README.md)
+The [selected held Mark2 print](prints/2026-10-09-shoulders012-wing050-drip4-mark2/README.md)
 contains all five rigid parts, including the accepted side-down lever replica.
 It uses 0.20 mm first bed layers and 0.24 mm layers above them, with 0.12 mm
 layers on the base only at print Z13.40–29.00 and Z55.16–68.12 mm. Those bands
-cover the two selected annular shoulder faces. Its native estimate is
-**5 h 46 min 56 s**. Mark2's +0.04 mm requested trim emits +0.02 mm on Textured PEI.
+cover the two selected annular shoulder faces. Mark2's +0.04 mm requested
+trim emits +0.02 mm on Textured PEI. Its native estimate is
+**5 h 54 min 52 s**.
 
-The [selection record](selected-print.json) binds the exact prepared project,
+The [selection record](selected-print.json) binds the prepared project,
 native archive, five source meshes and the complete physical reference.
-The queued base uses one continuous six-wall solid foot and Arachne wall widths;
-its native paths have zero repeated starts/stops at the three screw-host
-boundaries and pass the three insert backing reviews. The global support and
-motion settings match the successful variable-layer reference. This exact
-archive is queued after Mark2's organizer plate and has not been sent.
+The base uses one continuous six-wall solid foot and Arachne wall widths;
+its native paths are reviewed for repeated starts/stops at the three
+screw-host boundaries and all three insert backing regions. Global support
+and motion settings match the successful variable-layer reference.
+The Industrial cover has 0.50 mm longer wings and matching arch headroom,
+with its retaining-lip datum preserved. The shared tip has an unsealed
+Ø4 mm overflow drip hole and plain 2 mm routing walls. It needs no drain
+bung or insertion tool. The print is held at Derek's request; no import or
+Send has occurred.
 
 The [physical reference](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
 records beautiful 0.08 mm shoulder finish and successful removal of its few
 thin-layer supports, with exterior lines beside the three screw points.
-The queued 0.12 mm finish and corrected exterior require physical observation.
+The 0.12 mm finish, corrected exterior, extended-cover seating and new drip
+behavior require physical observation on the complete candidate.
 
 Variable layer height is Derek's accepted shipping compromise. Further
 whole-faucet 0.08 mm iteration and research are deferred. The
@@ -26,7 +32,9 @@ whole-faucet 0.08 mm iteration and research are deferred. The
 records tip and wing disruption without establishing its initiating cause.
 Physical finish and support cleanup do not establish load capacity or endurance.
 
-The four-part 0.24 mm project and preparation workflow are described below.
+The retained four-part 0.24 mm sealed-cavity project and its preparation
+workflow are described below. Its exact native archive is not the held
+current five-part faucet and does not contain its new tip or extended cover.
 
 [`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains the
 Industrial shell base, display cover and counter plate with the shared faucet
@@ -96,7 +104,7 @@ clearance. No print is submitted by these tools.
 | Part | Support removal |
 | --- | --- |
 | Base | Cut sacrificial stock into small fragments; remove through the counter-end, common rear tube opening, donor bay and lever opening. Clear the insert pilots and pedestal sockets while retaining their seating faces; the flat ribbon must pass freely behind the F1-D-F2 bundle. |
-| Shared tip | Release through the open joint, 12 × 22 mm bottom port and display pocket. Clear both gland grooves, seats and lips, then all dry tube/wire guides before fitting bungs. |
+| Retained sealed-cavity tip | Its saved support review uses the joint, large bottom port and display pocket. That review belongs to the exact archived geometry; the current small-hole tip needs its own native support reading. |
 | Cover | Remove supports through the open underside before fitting the display; retain snap wings and lip-bearing faces. |
 | Plate | Remove the three screw-counterbore bodies through their screw-head openings while retaining the seats. |
 

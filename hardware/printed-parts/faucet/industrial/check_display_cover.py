@@ -4,6 +4,7 @@ Run with tools/cad-venv/bin/python. The report lives beside the cover source;
 transient meshes and phase readings use a temporary directory.
 """
 from pathlib import Path
+from dataclasses import replace
 import ast
 import inspect
 import json
@@ -37,6 +38,27 @@ def run(out):
              method='both complete material differences between the saved production STEP and current relaxed-cover builder')
     origin, along, normal = f._tip_frame()
     frame = cq.Location(cq.Plane(origin=origin, xDir=(1, 0, 0), normal=normal))
+    dimensions = industrial.DIMENSIONS
+    reference = replace(dimensions, wing_extension_mm=0.0)
+    shift = normal.multiply(dimensions.wing_extension_mm).toTuple()
+    old_seated = industrial.build_seated_display_cover(reference).val()
+    old_lips = industrial.build_display_cover_lips(reference).val()
+    lips = industrial.build_display_cover_lips().val()
+    lip_delta = check.outside_material_volume(lips, old_lips) + check.outside_material_volume(old_lips, lips)
+    upper = cq.Solid.makeBox(100.0, 150.0, 50.0, cq.Vector(-50.0, -50.0, dimensions.bezel_n_bottom))
+    bezel = seated.moved(frame.inverse).intersect(upper)
+    old_bezel = old_seated.translate(shift).moved(frame.inverse).intersect(upper)
+    bezel_delta = check.outside_material_volume(bezel, old_bezel) + check.outside_material_volume(old_bezel, bezel)
+    read.add('fit:industrial-wing-extension',
+             abs(dimensions.bezel_n_bottom - reference.bezel_n_bottom - 0.50) <= check.DISTANCE_TOLERANCE
+             and abs(dimensions.n_top - reference.n_top - 0.50) <= check.DISTANCE_TOLERANCE
+             and lip_delta <= check.VOLUME_TOLERANCE and bezel_delta <= check.VOLUME_TOLERANCE,
+             bezel_to_lip_extension_mm=dimensions.wing_extension_mm,
+             dispense_arch_clearance_translation_local_n_mm=dimensions.wing_extension_mm,
+             retaining_lip_symmetric_difference_mm3=check.clean_number(lip_delta),
+             translated_bezel_symmetric_difference_mm3=check.clean_number(bezel_delta),
+             method='Exact lip material equality and translated complete bezel equality against the zero-extension builder; the neck-opening cutter moves by the same local N increment.',
+             scope='Industrial-only seating trial. Printed fit remains unmeasured.')
     parts = {name: cq.importers.importStep(str(check.SHELL / f'faucet-shell-{key}.step')).val() for name, key in [('shell_base', 'base'), ('shell_tip', 'tip')]}
     parts['display_cover'] = seated
     body = assembly.build_display_body().val()
@@ -110,7 +132,7 @@ def run(out):
     read.add('mesh:industrial-cover', loaded.is_watertight and loaded.is_winding_consistent and (len(loaded.split()) == 1), triangles=len(loaded.faces), watertight=loaded.is_watertight, consistent_winding=loaded.is_winding_consistent, bodies=len(loaded.split()), sha256=check.digest(saved_stl), tolerance_mm=0.005, tolerance_is_relative=False, angular_tolerance_rad=0.05, scope='actual saved production STL bytes')
     assert before == check.hashes(source_paths), 'Source changed during readings'
     assert artifact_before == check.hashes(artifact_paths), 'Production artifacts changed during readings'
-    report = {'passed': all((row['passed'] for row in read.rows.values())), 'geometry_source_sha256': before, 'saved_geometry_sha256': artifact_before, 'checks': read.rows, 'dimensions': vars(industrial.DIMENSIONS), 'reference_artifact_sha256': {str(check.SHELL / f'faucet-shell-{name}.step'): check.digest(check.SHELL / f'faucet-shell-{name}.step') for name in ('base', 'tip')}, 'validation_script_sha256': check.digest(Path(__file__)), 'scope': 'Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.'}
+    report = {'passed': all((row['passed'] for row in read.rows.values())), 'geometry_source_sha256': before, 'saved_geometry_sha256': artifact_before, 'checks': read.rows, 'dimensions': {**vars(industrial.DIMENSIONS), 'n_top': dimensions.n_top, 'bezel_n_bottom': dimensions.bezel_n_bottom}, 'reference_artifact_sha256': {str(check.SHELL / f'faucet-shell-{name}.step'): check.digest(check.SHELL / f'faucet-shell-{name}.step') for name in ('base', 'tip')}, 'validation_script_sha256': check.digest(Path(__file__)), 'scope': 'Saved production Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.'}
     (OUT / 'display-cover-check.json').write_text(json.dumps(report, indent=2) + '\n')
     if report['passed']:
         target = ROOT / 'hardware/printed-parts/faucet/industrial/display-cover-check.json'

@@ -1,15 +1,13 @@
 {
   "scope": "Manual CAD and accepted-article binding for the upper organizer; no physical mounting-access or endurance claim.",
-  "product_source_sha256": "c20b856c75128697eb1bba3fb584d93c8e786c2a194a0fd62f0a27a4652dd252",
-  "faucet_source_sha256": "f18735146fe54340bcc85c5eada554fff0a1331f5841f5f41fdf4002fae9fdf6",
-  "accepted_stl_sha256": "3648cce3dba29230a426b8c663d05b0fcd3669ec4437a95c431be092f08eb115",
-  "production_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
-  "production_stl_identical_to_accepted_article": false,
-  "production_difference_from_accepted_article": "drain bore 4.30 mm against the L article's 4.20 mm; the received 4 mm drain tube tests a bit too tight in 4.20",
+  "product_source_sha256": "9934424245b664cfe36c3e383cfb635b092b29a86e1a78f1997ea29ff8d89fde",
+  "faucet_source_sha256": "1590e580e2820d9770ea63212bfb827599dc5d83b8aa7c0c3419a8f5e985c8fa",
+  "production_stl_sha256": "37ee55d518f2ee6c1fc4a77d05a3f06093252e5dcb52cb9bdb6f9c88a76aa772",
+  "production_difference_from_accepted_article": "Three \u00d86.65 mm beverage bores from A; \u00d84.40 mm drain bore from B; \u00d85.00 mm signal passage retained.",
   "valid_single_solid": true,
   "faces": 20,
   "edges": 42,
-  "geometry_volume_mm3": 6609.830047142099,
+  "geometry_volume_mm3": 6602.946817638081,
   "quantity_per_umbilical": 1,
   "installed_top_z_mm": -88.0,
   "installed_bottom_z_mm": -98.0,
@@ -68,20 +66,58 @@
     "Retained donor washer, nut and compression fitting are not modeled.",
     "Ribbon continuation below the puck is partial.",
     "Braid is a nominal continuous envelope; weave and folds are not modeled.",
-    "Physical evidence is the L article's two reports: its quarter-inch bores accepted, its 4.20 mm drain bore a bit too tight on the received 4 mm tube. The production 4.30 mm drain bore is unprinted."
+    "Feature-level physical fit selection: quarter-inch bores from A, drain bore from B. The combined product puck is unprinted. Signal clearance is retained without a new acceptance claim. Quantified force, endurance and complete installation remain unmeasured."
   ],
   "viewer_hosts": [
     {
       "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "d49d8dd83269f918deaa7d134e84dfc4decf53fa520b8b0f6bc850fce5917a0e",
+      "sha256": "090b5c5e7ddc32809792ef2cc05d8362753413ea383a2e6585d9b499e456fef1",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     },
     {
       "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "1c4530a9b9111f564cf58a4b47e4b43ed53b2ab5252fb005412b7a5dc9d91099",
+      "sha256": "d1ab65026563cd974d588b280d782d52ec0c7580408896419ddb9608ed0d14f9",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 5904
     }
-  ]
+  ],
+  "feature_fit_evidence": [
+    {
+      "sample": "A",
+      "accepted_scope": "Three quarter-inch beverage bores",
+      "native_identify_id": 1901,
+      "printed_stl": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-A-q6.65-d4.30-s5.00.stl",
+      "printed_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+      "quarter_inch_bore_diameter_mm": 6.65,
+      "drain_bore_diameter_mm": 4.3
+    },
+    {
+      "sample": "B",
+      "accepted_scope": "4 mm drain bore",
+      "native_identify_id": 1902,
+      "printed_stl": "future/umbilical-organizer-exploration/diameter-increments-mark2/parts/organizer-B-q6.75-d4.40-s5.10.stl",
+      "printed_stl_sha256": "c6639d8ff2693a65bdce6fe7ed76e362e462854d2f425457199b0a51d3377125",
+      "quarter_inch_bore_diameter_mm": 6.75,
+      "drain_bore_diameter_mm": 4.4
+    }
+  ],
+  "prior_clearance_binding": {
+    "product_source_sha256": "c20b856c75128697eb1bba3fb584d93c8e786c2a194a0fd62f0a27a4652dd252",
+    "faucet_source_sha256": "f18735146fe54340bcc85c5eada554fff0a1331f5841f5f41fdf4002fae9fdf6",
+    "production_stl_sha256": "2afb5ff2d1bc305ccb7c79664b1d0607c477487d8b2860e2d78cda060688bbf7",
+    "production_difference_from_accepted_article": "drain bore 4.30 mm against the L article's 4.20 mm; the received 4 mm drain tube tests a bit too tight in 4.20"
+  },
+  "clearance_preservation": {
+    "method": "The complete new organizer solid is contained in the prior production solid; only the drain cylinder and its entrance cones expand. All axes and external stock are identical. The current assembly retains its below-counter tubes, ribbon, braid and organizer station; only the above-counter tip and omitted vent bungs change. Prior zero-overlap passage and braid readings retain that unchanged lower hardware scope.",
+    "new_material_outside_prior_solid_mm3": 0,
+    "analytic_cylinder_diameters_mm": [
+      4.4,
+      5.0,
+      6.65,
+      6.65,
+      6.65,
+      32.0
+    ]
+  }
 }

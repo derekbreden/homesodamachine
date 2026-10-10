@@ -1439,8 +1439,6 @@ def build_assembly():
                  color=black_lldpe)
     assy.add(soda_umbilical_tube, name="soda_umbilical_tube", color=spool("carb"))
     assy.add(build_drain_tube(), name="drain_tube", color=spool("drain"))
-    assy.add(build_vent_seal(True),name="vent_upstream_bung",color=tpu_black)
-    assy.add(build_vent_seal(False),name="vent_downstream_bung",color=tpu_black)
     assy.add(lever, name="lever", color=donor_black)
     assy.add(above_counter_plate, name="above_counter_plate", color=faucet_black)
     assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)

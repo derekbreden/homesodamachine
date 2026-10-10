@@ -1,0 +1,47 @@
+{
+  "gcode_sha256": "ffb1d02776944b546d3775cd8fa0f045d71941e8292eef71221a0988f10947d1",
+  "layers_z_mm": [
+    0.2,
+    0.44
+  ],
+  "support_extrusion_segments_in_reviewed_layers": 6255,
+  "method": "Emitted extrusion centerlines buffered by half the emitted line width; every second-layer wall segment compared with the complete first-layer footprint carrying that object label, including its labelled brim and support roads. Native arcs sampled with the repository G-code reader.",
+  "scope": "Sliced first/second-layer contact, not a physical adhesion or grip result.",
+  "objects": [
+    {
+      "identify_id": 1901,
+      "second_layer_wall_segments": 41,
+      "segments_without_first_layer_bead_overlap": 0,
+      "minimum_segment_footprint_overlap_fraction": 0.9986514339392311,
+      "second_wall_total_footprint_overlap_fraction": 0.9996665807917106
+    },
+    {
+      "identify_id": 1902,
+      "second_layer_wall_segments": 9,
+      "segments_without_first_layer_bead_overlap": 0,
+      "minimum_segment_footprint_overlap_fraction": 0.8261609032511145,
+      "second_wall_total_footprint_overlap_fraction": 0.9755627070584784
+    },
+    {
+      "identify_id": 1903,
+      "second_layer_wall_segments": 78,
+      "segments_without_first_layer_bead_overlap": 0,
+      "minimum_segment_footprint_overlap_fraction": 0.220854927948604,
+      "second_wall_total_footprint_overlap_fraction": 0.7062459257857187
+    },
+    {
+      "identify_id": 1904,
+      "second_layer_wall_segments": 874,
+      "segments_without_first_layer_bead_overlap": 0,
+      "minimum_segment_footprint_overlap_fraction": 0.6404800066417795,
+      "second_wall_total_footprint_overlap_fraction": 0.8214843058386143
+    },
+    {
+      "identify_id": 1905,
+      "second_layer_wall_segments": 173,
+      "segments_without_first_layer_bead_overlap": 0,
+      "minimum_segment_footprint_overlap_fraction": 0.573101034820474,
+      "second_wall_total_footprint_overlap_fraction": 0.8131787566501688
+    }
+  ]
+}

@@ -33,8 +33,17 @@ class CoverDimensions:
     rear_wall: float = shell.wall_thickness_min
     front_wall: float = shell.dispense_face_thickness
     n_bottom: float = shell.display_cover_bottom_n
-    n_top: float = shell.display_cover_top_n
-    bezel_n_bottom: float = shell.display_face_n + display_cover_over_face
+    # Extra bezel-to-lip reach gives the dispense arch seating clearance;
+    # the lip floor, groove engagement and bezel thickness retain their datums.
+    wing_extension_mm: float = 0.50
+
+    @property
+    def n_top(self) -> float:
+        return shell.display_cover_top_n + self.wing_extension_mm
+
+    @property
+    def bezel_n_bottom(self) -> float:
+        return shell.display_face_n + display_cover_over_face + self.wing_extension_mm
 
 
 DIMENSIONS = CoverDimensions()
@@ -91,8 +100,11 @@ def build_display_cover_lips(dimensions: CoverDimensions = DIMENSIONS) -> cq.Wor
 
 def build_seated_display_cover(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
     """Nominal seated reference with planar sides and a filled rear wall."""
+    _, _, normal = shell._tip_frame()
+    arch_clearance = shell.build_display_neck_clearance().translate(
+        normal.multiply(dimensions.wing_extension_mm).toTuple())
     skin = (build_plate_outer(dimensions).cut(build_plate_inner_cut(dimensions))
-            .cut(shell.build_display_neck_clearance()))
+            .cut(arch_clearance))
     return skin.union(build_display_cover_lips(dimensions))
 
 

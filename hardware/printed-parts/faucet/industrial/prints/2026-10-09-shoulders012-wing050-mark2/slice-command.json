@@ -1,0 +1,22 @@
+{
+  "program": "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "argv": [
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    ".cache/printer-control/industrial-shoulders012-wing050",
+    "--export-3mf",
+    "2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.gcode.3mf",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.3mf"
+  ],
+  "printer_connection": false,
+  "native_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/native-result.json",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}
