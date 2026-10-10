@@ -1,0 +1,18 @@
+[
+  {
+    "path": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step",
+    "url": "https://homesodamachine.com/steps/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step?v=7a2283681513",
+    "status": 200,
+    "sha256": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
+    "live_sha256": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
+    "matches": true
+  },
+  {
+    "path": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step",
+    "url": "https://homesodamachine.com/steps/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step?v=26daad25466e",
+    "status": 200,
+    "sha256": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd",
+    "live_sha256": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd",
+    "matches": true
+  }
+]
