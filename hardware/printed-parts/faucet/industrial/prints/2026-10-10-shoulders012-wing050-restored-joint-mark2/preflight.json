@@ -1,18 +1,18 @@
 {
-  "recorded_at_utc": "2026-10-10T08:11:48.353398+00:00",
+  "recorded_at_utc": "2026-10-10T08:13:24.567704+00:00",
   "fresh_printer_readings": [
     {
       "printer": "Mark1",
       "read_alias": "H2C",
-      "observed_at_utc": "2026-10-10T08:10:09.159740+00:00",
+      "observed_at_utc": "2026-10-10T08:12:26.422050+00:00",
       "task_id": "1325371485",
       "job_id": "1325371485",
       "subtask_name": "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
       "gcode_state": "RUNNING",
-      "layer_num": 10,
+      "layer_num": 11,
       "total_layer_num": 813,
       "mc_percent": 5,
-      "mc_remaining_time": 1557,
+      "mc_remaining_time": 1554,
       "print_error": 0,
       "hms": [],
       "stg_cur": 0,
@@ -60,14 +60,14 @@
         }
       ],
       "chamber": {
-        "actual_c": 34,
+        "actual_c": 35,
         "target_c": 0
       }
     },
     {
       "printer": "Mark2",
       "read_alias": "Mark2",
-      "observed_at_utc": "2026-10-10T08:10:09.490539+00:00",
+      "observed_at_utc": "2026-10-10T08:12:26.492633+00:00",
       "task_id": "1325126748",
       "job_id": "1325126748",
       "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
@@ -130,7 +130,7 @@
   ],
   "peer_latest_accepted_start_utc": "2026-10-10T06:36:57.529465+00:00",
   "peer_task_id": "1325371485",
-  "seconds_since_peer_acceptance": 5591.961074,
+  "seconds_since_peer_acceptance": 5787.038239,
   "required_seconds": 180,
   "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
   "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
@@ -156,7 +156,16 @@
     "hardware/printed-parts/faucet/faucet_paths.py": "7d81983ad3920e973f729febaad77a713a55a6706f6dae53c74f94ada010b0b2",
     "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5"
   },
-  "send_attempted": false,
-  "accepted": false,
-  "pass": true
+  "send_attempted": true,
+  "accepted": true,
+  "pass": true,
+  "import_attempted": true,
+  "transaction_started_at_utc": "2026-10-10T08:13:24.567704+00:00",
+  "status": "One authorized foreground transaction in progress",
+  "start_now": false,
+  "ready_to_launch": false,
+  "accepted_at_utc": "2026-10-10T08:13:52.954602+00:00",
+  "accepted_task_id": "1325534650",
+  "accepted_archive_name": "2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "PREPARE"
 }
