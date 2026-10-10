@@ -1,0 +1,65 @@
+{
+    "error_string": "Success.",
+    "export_time": 2153,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 35,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Custom": 344.59344482421875,
+                "Flush": 15.0,
+                "Inner wall": 1079.3983154296875,
+                "Outer wall": 653.3873901367188,
+                "Top surface": 6.96225643157959,
+                "Travel": 49.24037551879883,
+                "Undefined": 40.712406158447266
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFU04",
+                    "id": 1,
+                    "main_used_g": 3.0406744480133057,
+                    "total_used_g": 3.0406744480133057
+                }
+            ],
+            "generate_support_material_time": 24,
+            "id": 1,
+            "infill_time": 17,
+            "layer_filament_change": 0,
+            "main_predication": 1773.989013671875,
+            "make_perimeters_time": 147,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 13.997227668762207,
+                        "height": 28.791858673095703,
+                        "width": 14.0,
+                        "x": 170.5,
+                        "y": 153.0013885498047,
+                        "z": 4.5214854083042155e-10
+                    },
+                    "id": 5,
+                    "name": "asse-drain-adapter",
+                    "triangle_count": 9480
+                }
+            ],
+            "sliced_time": 530,
+            "sliced_time_with_cache": 323,
+            "total_predication": 2140.054443359375,
+            "triangle_count": 9480,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 100.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.6 nozzle",
+        "Bambu Lab H2D 0.6 nozzle",
+        "Bambu Lab H2D Pro 0.6 nozzle",
+        "Bambu Lab A2L 0.6 nozzle"
+    ],
+    "wall_loops": 4
+}

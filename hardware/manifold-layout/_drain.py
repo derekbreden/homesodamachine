@@ -1,123 +1,68 @@
-"""The ASSE vent's black neoFit adapters and continuous white 4 mm return.
+"""Direct TPU ASSE sleeve and the white 4 mm return in one vertical plane.
 
-ATBC44-E (1/4-inch hose barb / stem), AEU44-E elbow, ARD4M4-E reducer.
-Manufacturer envelopes, in millimetres, from the FWS dimensional sheets:
-https://assets.freshwatersystems.com/image/upload/lzis3sgj4zd7j4k9ptf4.pdf
-https://assets.freshwatersystems.com/image/upload/xerc4zwgwguls1fvyxde.pdf
-https://assets.freshwatersystems.com/image/upload/ogt8i8sqv3vd0r25jd0r.pdf
-The stem seating allowance is 15 mm; verify the marked insertion on the supplied fittings.
+The 4 mm LLDPE follows two tangent reverse-curvature R25 arcs, starting
+downward and finishing aft on the OVER bulkhead's axis. The short straight
+lead keeps the first bend outside the sleeve's tube socket.
 """
 import math
+from pathlib import Path
+import sys
+
 import cadquery as cq
 
-PVC_OD = 9.525
-PVC_ID = 6.35
-BARB_GAP = 1.2
-WHITE_FORE_LOOP_Y = 410.0
-WHITE_REAR_S_Y = 418.0
-WHITE_EAST_UP = (.8, 0, .6)
-WHITE_WEST_UP = (-.96, 0, .28)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]
+                       / "printed-parts/asse-drain-adapter"))
+import asse_drain_adapter as adapter
 
-ADAPTER_NAMES = ("drain-barb-adapter", "drain-elbow", "drain-stem-reducer")
+ADAPTER_NAMES = ("asse-drain-adapter",)
 OD = 4.0
 ID = 2.5
 MIN_R = 25.0
-STEM_INSERTION = 15.0
-BARB_LENGTH = .709 * 25.4
-BARB_OVERALL = 1.535 * 25.4
-ELBOW_D = .610 * 25.4
-ELBOW_BODY_D = .665 * 25.4
-ELBOW_REACH = 1.134 * 25.4 - ELBOW_D / 2
-REDUCER_D = .520 * 25.4
-REDUCER_OVERALL = 1.445 * 25.4
-REDUCER_BODY = .579 * 25.4
+STRAIGHT_EXIT = 3.0
 
 
-def hose_barb_contact(hose, barb):
-    """Nominal hose expansion restricted to the inserted 1/4-inch barb.
-
-    The purchased barb's 6.858 mm envelope expands the 6.35 mm hose bore.
-    This checks the modeled contact region, not sealing force or retention.
-    """
-    hb = hose.BoundingBox()
-    bb = barb.BoundingBox()
-    center = cq.Vector((bb.xmin + bb.xmax) / 2, (bb.ymin + bb.ymax) / 2, hb.zmin)
-    mask = (cq.Solid.makeCylinder(.270 * 25.4 / 2 + 1e-6, BARB_LENGTH, center)
-            .cut(cq.Solid.makeCylinder(PVC_ID / 2 - 1e-6, BARB_LENGTH, center)))
-    common = hose.intersect(barb)
-    outside = common.cut(mask)
-    contact = sum(s.Volume() for s in common.Solids())
-    excess = sum(s.Volume() for s in outside.Solids())
-    return {"nominal_hose_expansion_contact_mm3": contact,
-            "outside_inserted_barb_mm3": excess,
-            "sets_valid": common.isValid() and outside.isValid(),
-            "pass": common.isValid() and outside.isValid() and contact > 0
-                    and abs(excess) <= 1e-5}
-
-def _adapters(root):
-    """The seated black barb, elbow and reducer, with the white-tube mouth."""
-    x, y, z = root.toTuple()
-    def cylinder(d, point, axis, length):
-        return cq.Solid.makeCylinder(d / 2, length, cq.Vector(*point), cq.Vector(*axis))
-    stem_length = .709 * 25.4
-    barb = (cylinder(.270 * 25.4, (x, y, z), (0, 0, 1), BARB_LENGTH)
-            .fuse(cylinder(.465 * 25.4, (x, y, z - 2.97), (0, 0, 1), 2.97))
-            .fuse(cylinder(6.35, (x, y, z - 2.97 - stem_length), (0, 0, 1), stem_length))
-            .cut(cylinder(ID, (x, y, z - BARB_OVERALL), (0, 0, 1), 2 * BARB_OVERALL)))
-    elbow_face_z = z - 2.97 - stem_length + STEM_INSERTION
-    elbow_z = elbow_face_z - ELBOW_REACH
-    elbow_face_y = y + ELBOW_REACH
-    elbow = (cylinder(ELBOW_BODY_D, (x, y, elbow_z), (0, 0, 1), ELBOW_REACH)
-             .fuse(cylinder(ELBOW_BODY_D, (x, elbow_face_y, elbow_z), (0, -1, 0), ELBOW_REACH))
-             .fuse(cq.Workplane("XY").sphere(ELBOW_BODY_D / 2).val().translate((x, y, elbow_z)))
-             .cut(cylinder(6.35, (x, y, elbow_z - 3.175), (0, 0, 1), ELBOW_REACH + 3.175))
-             .cut(cylinder(6.35, (x, elbow_face_y, elbow_z), (0, -1, 0), ELBOW_REACH + 3.175)).clean())
-    reducer_y = elbow_face_y + REDUCER_OVERALL - STEM_INSERTION
-    reducer = (cylinder(REDUCER_D, (x, reducer_y, elbow_z), (0, -1, 0), REDUCER_BODY)
-               .fuse(cylinder(6.35, (x, reducer_y - REDUCER_BODY, elbow_z),
-                              (0, -1, 0), REDUCER_OVERALL - REDUCER_BODY))
-               .cut(cylinder(ID, (x, reducer_y, elbow_z), (0, -1, 0), REDUCER_OVERALL)))
-    return barb, elbow, reducer, cq.Vector(x, reducer_y, elbow_z)
+def route(vent_tip, drain_mouth):
+    """Exact outside centreline, plus the 14 mm engaged sleeve-end segment."""
+    source = cq.Vector(*adapter.tube_mouth(vent_tip))
+    target = cq.Vector(*drain_mouth)
+    if abs(target.x - source.x) > 1e-5:
+        raise ValueError("The ASSE vent and OVER bulkhead must share their X column")
+    start = source - cq.Vector(0, 0, STRAIGHT_EXIT)
+    radius = MIN_R
+    rise = target.z - start.z
+    theta = math.acos((1 - rise / radius) / 2)
+    aft_reach = radius * (1 + 2 * math.sin(theta))
+    end = cq.Vector(start.x, start.y + aft_reach, target.z)
+    if target.y <= end.y:
+        raise ValueError("The OVER return needs a straight lead after its R25 bends")
+    first_angle = math.pi / 2 + theta
+    first_end = cq.Vector(start.x, start.y + radius * (1 + math.sin(theta)),
+                          start.z - radius * math.cos(theta))
+    first_mid = cq.Vector(start.x, start.y + radius * (1 - math.cos(first_angle / 2)),
+                          start.z - radius * math.sin(first_angle / 2))
+    second_mid = first_end + cq.Vector(
+        0, radius * (math.sin(theta) - math.sin(theta / 2)),
+        radius * (math.cos(theta / 2) - math.cos(theta)))
+    inserted_end = source + cq.Vector(0, 0, adapter.TUBE_DEPTH)
+    edges = [cq.Edge.makeLine(inserted_end, start),
+             cq.Edge.makeThreePointArc(start, first_mid, first_end),
+             cq.Edge.makeThreePointArc(first_end, second_mid, end),
+             cq.Edge.makeLine(end, target)]
+    return source, cq.Wire.assembleEdges(edges), {
+        "outside_length_mm": STRAIGHT_EXIT + radius * (math.pi / 2 + 2 * theta)
+                             + target.y - end.y,
+        "sleeve_insertion_mm": adapter.TUBE_DEPTH,
+        "initial_straight_mm": STRAIGHT_EXIT,
+        "bulkhead_straight_mm": target.y - end.y,
+        "bend_radii_mm": [radius, radius],
+        "bend_angles_deg": [math.degrees(first_angle), math.degrees(theta)],
+        "scope": "Nominal centreline. Tube cut length adds the marked bulkhead insertion.",
+    }
 
 
 def bodies(vent_tip, drain_mouth):
-    """Straight clear hose, aft-facing fittings and a four-bend R25 rear return."""
-    vent = cq.Vector(*vent_tip)
-    target = cq.Vector(*drain_mouth)
-    root = vent - cq.Vector(0, 0, BARB_LENGTH + BARB_GAP)
-    hose = (cq.Workplane(cq.Plane(origin=vent, xDir=(1, 0, 0), normal=(0, 0, -1)))
-            .circle(PVC_OD / 2).circle(PVC_ID / 2)
-            .sweep(cq.Edge.makeLine(vent, root)).val())
-    barb, elbow, reducer, source = _adapters(root)
-    radius = MIN_R
-    aft = cq.Vector(0, 1, 0)
-    fore = -aft
-    east_up = cq.Vector(*WHITE_EAST_UP)
-    west_up = cq.Vector(*WHITE_WEST_UP)
-    p1 = source + east_up.multiply(2 * radius)
-    m1 = source + aft.multiply(radius) + east_up.multiply(radius)
-    p2 = cq.Vector(p1.x, WHITE_FORE_LOOP_Y, p1.z)
-    p3 = p2 + west_up.multiply(2 * radius)
-    m3 = p2 + fore.multiply(radius) + west_up.multiply(radius)
-    p4 = cq.Vector(p3.x, WHITE_REAR_S_Y, p3.z)
-    if p1.y <= p2.y or p4.y <= p3.y:
-        raise ValueError("Drain return requires straight leads between the rear bends")
-    edges = [cq.Edge.makeThreePointArc(source, m1, p1),
-             cq.Edge.makeLine(p1, p2), cq.Edge.makeThreePointArc(p2, m3, p3),
-             cq.Edge.makeLine(p3, p4)]
-    offset = cq.Vector(target.x - p4.x, 0, target.z - p4.z)
-    theta = math.acos(1 - offset.Length / (2 * radius))
-    side = offset.normalized()
-    run = 2 * radius * math.sin(theta)
-    end = p4 + aft.multiply(run) + offset
-    half = p4 + aft.multiply(radius * math.sin(theta)) + offset.multiply(.5)
-    first_mid = p4 + aft.multiply(radius * math.sin(theta / 2)) + side.multiply(radius * (1 - math.cos(theta / 2)))
-    second_mid = end - cq.Vector(0, radius * math.sin(theta / 2), 0) - side.multiply(radius * (1 - math.cos(theta / 2)))
-    if target.y <= end.y:
-        raise ValueError("Drain return requires a straight rearward lead")
-    edges.extend([cq.Edge.makeThreePointArc(p4, first_mid, half),
-                  cq.Edge.makeThreePointArc(half, second_mid, end), cq.Edge.makeLine(end, target)])
-    tube = (cq.Workplane(cq.Plane(origin=source, xDir=(0, 0, 1), normal=aft))
-            .circle(OD / 2).circle(ID / 2)
-            .sweep(cq.Wire.assembleEdges(edges), transition="round").val())
-    return dict(zip(ADAPTER_NAMES, (barb, elbow, reducer))) | {"hose-drain-vent": hose, "tube-drain-vent": tube}
+    source, wire, _ = route(vent_tip, drain_mouth)
+    tube = (cq.Workplane(cq.Plane(origin=source + cq.Vector(0, 0, adapter.TUBE_DEPTH),
+                                 xDir=(1, 0, 0), normal=(0, 0, -1)))
+            .circle(OD / 2).circle(ID / 2).sweep(wire, transition="round").val())
+    return {"asse-drain-adapter": adapter.placed(vent_tip), "tube-drain-vent": tube}

@@ -71,6 +71,7 @@ def measure(*, cabinet_clear_height_mm: float = 755.7,
                     FAUCET / "faucet-shell" / "faucet_shell.py",
                     REPO / "hardware" / "faucet-layout" / "faucet_assembly.py",
                     REPO / "hardware" / "manifold-layout" / "_drain.py", facts_path,
+                    REPO / "hardware" / "printed-parts" / "asse-drain-adapter" / "asse_drain_adapter.py",
                     REPO / "hardware" / "reference" / "neofit-drain-bulkhead" / "neofit_drain_bulkhead.py",
                     REPO / "marketing" / "install-envelope.md"]
     source_bindings = {str(p.relative_to(REPO)): _sha(p) for p in source_paths}
@@ -84,11 +85,10 @@ def measure(*, cabinet_clear_height_mm: float = 755.7,
     # mouth; X/Z center is unchanged by its assembly carry.
     mouth = ((bounds[0] + bounds[3]) / 2, bounds[1], (bounds[2] + bounds[5]) / 2)
     members = internal.bodies(vent, mouth)
-    hose_area = math.pi * (internal.PVC_OD ** 2 - internal.PVC_ID ** 2) / 4
     tube_area = math.pi * (internal.OD ** 2 - internal.ID ** 2) / 4
-    pvc_length = members["hose-drain-vent"].Volume() / hose_area
+    pvc_length = 0.0  # Direct TPU sleeve: no separate vent hose.
     internal_length = members["tube-drain-vent"].Volume() / tube_area
-    self_common = members["hose-drain-vent"].intersect(members["tube-drain-vent"])
+    self_common = members["asse-drain-adapter"].intersect(members["tube-drain-vent"])
     self_overlap = sum(s.Volume() for s in self_common.Solids())
     wire = assembly.drain_path()
     upper = paths.path_wire("drain", bottom_z=assembly.under_counter_plate_bottom_z)
@@ -113,15 +113,15 @@ def measure(*, cabinet_clear_height_mm: float = 755.7,
         "internal_small_tube_centerline_mm": internal_length,
         "total_small_tube_centerline_mm": external_length + internal_length,
         "PVC_centerline_mm": pvc_length,
-        "native_internal_tube_solids_valid": all(members[name].isValid() for name in ("hose-drain-vent", "tube-drain-vent")),
-        "native_internal_PVC_white_return_clearance": {
-            "gap_mm": members["hose-drain-vent"].distance(members["tube-drain-vent"]),
+        "native_internal_tube_solids_valid": all(members[name].isValid() for name in ("asse-drain-adapter", "tube-drain-vent")),
+        "native_internal_sleeve_tube_interface": {
+            "gap_mm": members["asse-drain-adapter"].distance(members["tube-drain-vent"]),
             "overlap_mm3": self_overlap,
             "boolean_valid": self_common.isValid(),
             "passed": self_common.isValid() and self_overlap <= 1e-5,
-            "scope": "These two unconnected native members only; the complete appliance audit supplies all installed neighbors.",
+            "scope": "Nominal connected sleeve/tube interface, with sockets expanded to the stock envelope. No seal pressure or retention claim. The complete appliance audit supplies unconnected neighbors.",
         },
-        "internal_length_method": "Annular swept-solid volume divided by the nominal annular section area; native routing at saved enclosure device/socket coordinates.",
+        "internal_length_method": "Annular swept-solid volume divided by the nominal annular section area; includes the 14 mm sleeve insertion. The bulkhead insertion is not modeled.",
         "ASSE_vent_tip_enclosure_world_mm": vent,
         "bulkhead_inboard_mouth_enclosure_world_mm": mouth,
         "bulkhead_mouth_derivation": "Coaxial Y reference; min-Y end of placed bulkhead bbox, at its X/Z center. The 32.4 mm reference overall length and 22 mm flange envelope define this body.",
@@ -136,13 +136,13 @@ def measure(*, cabinet_clear_height_mm: float = 755.7,
             "D_cut_above_cabinet_floor_mm": drain_cut_z,
             "vent_to_D_cut_rise_mm": rise,
         },
-        "flow_model_scope": "Small-bore length excludes adapter/bulkhead internal bores and their minor losses. K=5 is an unmeasured fitting/bend sensitivity. PVC friction is uncredited in the K=0 higher-flow sizing envelope; its water volume is reported.",
-        "fluid_volume_scope": "Nominal unobstructed bore applied to modeled endpoint lengths. Socket/barb insertion interiors and overlaps are not modeled. These volumes are not measured installed hold-up or tube cut lengths.",
+        "flow_model_scope": "Small-bore length excludes adapter/bulkhead internal bores and their minor losses. K=5 is an unmeasured fitting/bend sensitivity. The direct sleeve has no PVC segment; sleeve and bulkhead minor losses remain unmeasured.",
+        "fluid_volume_scope": "Nominal unobstructed bore applied to modeled endpoint lengths. The sleeve-end tube insertion is included; the sleeve chamber and bulkhead insertion volume are excluded. These volumes are not measured installed hold-up or tube cut lengths.",
     }
     if appliance_step is not None:
         evidence["completed_appliance_geometry"] = _appliance_proof(appliance_step, appliance_clearance_report)
-        if not evidence["native_internal_PVC_white_return_clearance"]["passed"]:
-            raise ValueError("Internal PVC/white-return collision contradicts the completed appliance audit")
+        if not evidence["native_internal_sleeve_tube_interface"]["passed"]:
+            raise ValueError("Sleeve/tube overlap contradicts the nominal installed interface")
     dimensions = {
         "keeper_length_mm": seals.KEEPER_LENGTH,
         "flange_groove_length_mm": seals.GROOVE_LENGTH,

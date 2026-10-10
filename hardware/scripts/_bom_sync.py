@@ -113,7 +113,7 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
-four_inch_ties_per_build = 22
+four_inch_ties_per_build = 24
 six_inch_ties_per_build = 7
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall

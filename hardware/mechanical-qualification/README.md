@@ -17,6 +17,15 @@ reports those as the best respective fits. The Ø5.00 mm signal passage is
 retained. The combined production puck is unprinted; quantified sliding force,
 endurance and the complete installed mounting sequence are unmeasured.
 
+The [direct ASSE drain sleeve](../printed-parts/asse-drain-adapter/README.md)
+is an unprinted TPU 85A fit candidate with separate barb/tube sockets and two
+zip ties. Its 6.10 mm barb socket uses the manufacturer's 1/4-inch hose size;
+the reference's 8 mm occupied cylinder is not a measured sealing diameter.
+The 3.80 mm tube socket is independent of the organizer's PET-GF sliding fit.
+The [drain clearance record](../manifold-layout/drain-clearance-check.json)
+supplies nominal placement evidence for the expanded sleeve and two R25 bends.
+Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
+
 The current [Industrial complete faucet selection](../printed-parts/faucet/industrial/selected-print.json)
 is held before import or Send. Its cover-wing trial adds 0.50 mm and its
 shared tip uses a round Ø4 mm unsealed fault-drip opening, with nominal

@@ -1,0 +1,126 @@
+{
+  "project": "asse-drain-adapter-tpu85a-right06-mark2.3mf",
+  "settings_source": ".cache/asse-drain-adapter/tpu85a-seed.3mf",
+  "settings_source_sha256": "c9d6f1b31d2c048bda5ea6e850a7615116ddab78efcf5fe43466a2cdcfb88d08",
+  "settings_sha256": "ddb0eac93741d12cf70e4ff3cfeb045d87b1cb4d7d6040e1c0a211e6c780eb88",
+  "source_settings_sha256": "fd81f1219418b64a623dd8704fd0f45b9e9dd685355aedb4d2fd5c2add00ade2",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "5499421b3710406f697894fb6f68e9f7c8f9f38beb638a368d1bb09624ca98d7",
+      "to_sha256": "915a8b39a88148a6629caaa0d947cba7b635738f962d2221fad43b449342b56d",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 nozzle",
+      "to": "Bambu Lab H2C 0.6 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "ASSE drain sleeve TPU85A solid 0.24mm right0.6 Mark2",
+  "filament": [
+    "Bambu TPU 85A @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.6,
+    0.6
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.62,
+    "inner_wall_line_width": 0.62,
+    "sparse_infill_line_width": 0.62,
+    "internal_solid_infill_line_width": 0.62,
+    "top_surface_line_width": 0.62,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 4,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "asse-drain-adapter",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
+      "stl_sha256": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b",
+      "triangles": 9480,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        14.395929336547852
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        177.5,
+        160.0,
+        14.395929336547852
+      ],
+      "plate_translation_mm": [
+        177.5,
+        160.0,
+        14.395929336547852
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          170.5,
+          153.0013837814331,
+          0.0
+        ],
+        [
+          184.5,
+          166.9986162185669,
+          28.791858673095703
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.997253721938932e-10
+    }
+  ],
+  "project_sha256": "baa24d77e312473f68029e906e2f3925e309e55154e15bbea2a5f38dc660ce8c",
+  "settings_preserved_byte_for_byte": false,
+  "source_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "1e35507fe56b4eee0f432d6ff4f7da26e94d897fae83bd51a7c985d10334b340",
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "720a28e79541f1649779f0ef8b189f284c36cb921d906ae823c9835c5c07896b"
+  },
+  "active_nozzle": 1,
+  "requested_z_trim_mm": 0.04,
+  "submitted": false
+}

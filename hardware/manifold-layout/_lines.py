@@ -153,7 +153,7 @@ STATIONS = {
                         "tube-port": (_dis.tube_port, _dis.TUBE_D)},
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
-                          "vent-tip": (lambda: _asse.port("vent-tip"), _asse.VENT_STUB_OD)},
+                          "vent-tip": (lambda: _asse.port("vent-tip"), _asse.bfp.VENT_D)},
     "vk-solenoid": {"inlet": (_beduan.inlet, _split.TUBE_D),
                     "outlet": (_beduan.outlet, _split.TUBE_D)},
     "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
@@ -857,7 +857,7 @@ def _gate_climb_under_cruise(F) -> float:
 
 
 def _fluid_28(F, solids):
-    """Flavor B retains the front support and bypasses the drain fittings to the west.
+    """Flavor B retains the front support and follows its raised west return.
 
     The return rises 7.5 mm, passes 13 mm west of the rear union's column and
     reaches its collet on-axis. The rear return corners hold R25.4.
@@ -878,7 +878,7 @@ def _fluid_28(F, solids):
         kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,
                             3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
         note="flavor B: V-J-O → rear union, through the front support and "
-             "a raised west return around the ASSE drain adapters")
+             "a raised west return above the ASSE drain")
 
 
 def _fluid_18(F, solids):

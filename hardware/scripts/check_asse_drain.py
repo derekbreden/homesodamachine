@@ -11,14 +11,10 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "hardware/manifold-layout/drain-clearance-check.json"
-NAMES = ("drain-barb-adapter", "drain-elbow", "drain-stem-reducer",
-         "hose-drain-vent", "tube-drain-vent", "tube-fluid-18", "tube-fluid-28")
+NAMES = ("asse-drain-adapter", "tube-drain-vent", "tube-fluid-18", "tube-fluid-28")
 CONNECTED = {frozenset(pair) for pair in (
-    ("hose-drain-vent", "asse1022-assembly"),
-    ("hose-drain-vent", "drain-barb-adapter"),
-    ("drain-barb-adapter", "drain-elbow"),
-    ("drain-elbow", "drain-stem-reducer"),
-    ("drain-stem-reducer", "tube-drain-vent"),
+    ("asse-drain-adapter", "asse1022-assembly"),
+    ("asse-drain-adapter", "tube-drain-vent"),
     ("tube-drain-vent", "bulkhead-drain"),
     ("tube-fluid-18", "valve-v-g"), ("tube-fluid-18", "bulkhead-flavor-a"),
     ("tube-fluid-28", "valve-v-j"), ("tube-fluid-28", "bulkhead-flavor-b"))}
@@ -28,23 +24,32 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def write(placed, output=OUTPUT):
+def write(placed, output=OUTPUT, *, names=NAMES):
     from OCP.BRepAdaptor import BRepAdaptor_Surface
+    from OCP.BRepBndLib import BRepBndLib
+    from OCP.Bnd import Bnd_Box
     shapes = {name: value[0] if isinstance(value, tuple) else value
               for name, value in placed.items()}
+    # Conservative bounds reject distant pairs; exact B-rep distance and
+    # intersection assess every remaining pair. Compute these once per body.
+    bounds = {}
+    for name, shape in shapes.items():
+        box = Bnd_Box()
+        BRepBndLib.Add_s(shape.wrapped, box, False)
+        bounds[name] = box.Get()
     checks = {}
-    for name in NAMES:
+    for name in names:
         body = shapes[name]
-        bb = body.BoundingBox()
+        bb = bounds[name]
         required_gap = 1.0 if name == "tube-drain-vent" else 0.0
         row = {"valid": body.isValid(), "solids": len(body.Solids()),
                "minimum_unconnected_gap_mm": required_gap, "neighbors": []}
         for other, obstacle in shapes.items():
             if other == name or frozenset((name, other)) in CONNECTED:
                 continue
-            ob = obstacle.BoundingBox()
-            if any(getattr(bb, k + "max") + 1 < getattr(ob, k + "min")
-                   or getattr(ob, k + "max") + 1 < getattr(bb, k + "min") for k in "xyz"):
+            ob = bounds[other]
+            if any(bb[i + 3] + 1 < ob[i] or ob[i + 3] + 1 < bb[i]
+                   for i in range(3)):
                 continue
             # The scanned pump is a union of overlapping occupied envelopes.
             # Distribute the Boolean over those native solids.
@@ -61,13 +66,12 @@ def write(placed, output=OUTPUT):
                                  for n in row["neighbors"]))
         checks[name] = row
     radii = {}
-    for name in ("hose-drain-vent", "tube-drain-vent"):
+    for name in set(names) & {"tube-drain-vent"}:
         values = sorted({round(BRepAdaptor_Surface(face.wrapped).Torus().MajorRadius(), 7)
                          for face in shapes[name].Faces() if face.geomType() == "TORUS"})
         radii[name] = {"centerline_radii_mm": values,
-                       "passed": ((bool(values) and min(values) >= 25 - 1e-6)
-                                  or (name == "hose-drain-vent" and not values))}
-    for name in ("tube-fluid-18", "tube-fluid-28"):
+                       "passed": bool(values) and min(values) >= 25 - 1e-6}
+    for name in set(names) & {"tube-fluid-18", "tube-fluid-28"}:
         surfaces = [BRepAdaptor_Surface(face.wrapped).Torus()
                     for face in shapes[name].Faces() if face.geomType() == "TORUS"]
         values = sorted({round(surface.MajorRadius(), 7) for surface in surfaces
@@ -79,10 +83,11 @@ def write(placed, output=OUTPUT):
                ROOT / "hardware/manifold-layout/enclosure_assembly.py",
                ROOT / "hardware/manifold-layout/_lines.py",
                ROOT / "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
-               ROOT / "hardware/reference/asse1022-assembly/asse1022_assembly.py"]
-    result = {"scope": "Nominal exact B-rep clearance of the dedicated ASSE drain and its two rerouted flavor returns against the complete installed assembly population, including cold-core bodies. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. Hardware tolerances, clamps, actual hose bending and vent performance require physical qualification.",
+               ROOT / "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+               ROOT / "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py"]
+    result = {"scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
               "conservative_cold_core_envelope_included": "foam-assembly" in shapes,
-              "installed_body_count": len(shapes), "checks": checks, "bend_radii": radii,
+              "installed_body_count": len(shapes), "checked_members": list(names), "checks": checks, "bend_radii": radii,
               "source_sha256": {str(p.relative_to(ROOT)): sha(p) for p in sources},
               "passed": all(c["passed"] for c in checks.values()) and all(c["passed"] for c in radii.values())}
     output.write_text(json.dumps(result, indent=2) + "\n")

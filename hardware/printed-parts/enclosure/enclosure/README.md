@@ -996,7 +996,7 @@ segments, vertical to the bed, are free. Back-top's upper corner blocks grow dir
 the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
 them through the ceiling tongue.
 
-The −X flank is a continuous 9 mm wall in the rear service bay. The ASSE vent reaches its black adapters through a clear flexible hose, then a white 4 mm LLDPE return runs to the middle-row OVER bulkhead. [ASSE drain assembly](/hardware/assembly/asse-drain.md) gives the tube and fitting sequence.
+The −X flank is a continuous 9 mm wall in the rear service bay. The ASSE vent connects through a printed TPU sleeve directly to the white 4 mm LLDPE return, which follows two R25 bends to the middle-row OVER bulkhead. [ASSE drain assembly](/hardware/assembly/asse-drain.md) gives the tube and fitting sequence.
 
 The **ASSE anchor** looks print-down on its top. Outside the zip ties'
 span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,

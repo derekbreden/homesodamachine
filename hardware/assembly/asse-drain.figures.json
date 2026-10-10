@@ -6,7 +6,6 @@
     "DRAIN_PANEL_BARREL": "8.1",
     "DRAIN_THREAD_D": "15",
     "DRAIN_THREAD_PITCH": "1.5",
-    "DRAIN_WALL": "0.75",
-    "FLAVOR_B_RETURN_RISE": "7.5"
+    "DRAIN_WALL": "0.75"
   }
 }
