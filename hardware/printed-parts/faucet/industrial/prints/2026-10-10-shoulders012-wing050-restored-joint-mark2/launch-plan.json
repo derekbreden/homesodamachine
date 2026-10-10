@@ -2,7 +2,7 @@
   "schema": 1,
   "recorded_at_utc": "2026-10-10T08:06:04.558227+00:00",
   "printer": "Mark2",
-  "status": "Ready for one authorized foreground launch",
+  "status": "Accepted PREPARE on Mark2",
   "authorization_quotes": [
     "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
     "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
@@ -72,8 +72,8 @@
     "archive_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
     "accepted_at_utc": "2026-10-10T03:37:36.079198+00:00"
   },
-  "start_now": true,
-  "ready_to_launch": true,
+  "start_now": false,
+  "ready_to_launch": false,
   "launch_method": "One foreground tools/bambu_print.py transaction with --attempts 1; current UI display names Mark1/Mark2, connection target Mark2",
   "required_ui_display_names": [
     "Mark1",
@@ -93,10 +93,10 @@
     "At least 180 seconds after the peer most recent accepted start or resume",
     "Read all current launch receipts; no previous attempted or ambiguous transaction"
   ],
-  "send_attempted": false,
-  "accepted": false,
-  "submitted": false,
-  "send_count": 0,
+  "send_attempted": true,
+  "accepted": true,
+  "submitted": true,
+  "send_count": 1,
   "auto_resume_authorized": false,
   "scheduled_monitor_requested": false,
   "automatic_start": false,
@@ -112,7 +112,7 @@
     "geometry_check_passed": true,
     "bezel_to_lip_extension_mm": 0.5
   },
-  "send_click_count": 0,
+  "send_click_count": 1,
   "drain_trial": {
     "hole_diameter_mm": 4.0,
     "tube_id_mm": 2.5,
@@ -136,5 +136,22 @@
     "findings_justified_in_part_lint_answers": true,
     "neck_roof_reading": "hardware/printed-parts/faucet/vent-qualification/neck-roof-reading.json",
     "neck_roof_reading_sha256": "4fd476f56f4496f45923fc2892ba9c1850b2e1103fdc1b90490f1b6b3db2b722"
-  }
+  },
+  "import_attempted": true,
+  "transaction_started_at_utc": "2026-10-10T08:13:24.567704+00:00",
+  "new_print_submitted": true,
+  "foreground_transaction_count": 1,
+  "task_id": "1325534650",
+  "job_id": "1325534650",
+  "printer_task_id": "1325534650",
+  "accepted_at_utc": "2026-10-10T08:13:52.954602+00:00",
+  "accepted_at_central": "2026-10-10T03:13:52.954602-05:00",
+  "accepted_archive_name": "2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_state": "PREPARE",
+  "acceptance_time_basis": "Matching fresh read-only printer acceptance, recorded by the foreground sender after Send",
+  "forecast_finish_utc": "2026-10-10T14:07:45.968274+00:00",
+  "forecast_finish_central": "2026-10-10T09:07:45.968274-05:00",
+  "start_reported": true,
+  "start_notification_count": 1,
+  "initial_layer_count_not_used_as_progress": true
 }

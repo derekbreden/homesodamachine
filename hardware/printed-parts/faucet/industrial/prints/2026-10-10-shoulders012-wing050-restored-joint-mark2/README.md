@@ -25,7 +25,10 @@ nozzle offset calibration are Auto. Probing clump detection remains disabled.
 
 The [native check](native-check.json), [insert review](insert-beads.json),
 [first/second-layer reading](first-second-layer-review.json),
-[preparation](preparation.json) and [launch receipt](launch-plan.json)
+[preparation](preparation.json) and [launch receipt](launch.json)
 bind the exact archived source and toolpaths. All model/support/brim beads
 retain 24.85 mm of bed clearance. These readings
 do not establish physical adhesion, cleanup, cover seating, finish or lifetime.
+
+Mark2 accepted task 1325534650 at 03:13:53 CDT on October 10, 2026. The native
+finish forecast is 09:08 CDT that morning. Timelapse and leveling are enabled.
