@@ -3,26 +3,30 @@
 What the machine should do, worked from physics and written down before the test that checks
 it. A result inside its band confirms the model; a result outside names the assumption to
 change. [`tools/model/model.py`](/tools/model/model.py) computes every figure here from the
-inputs below and from the constants the firmware, the faucet CAD and the pressure-vessel and
-acceptance procedures use. It runs when someone asks, never on a commit or in the build.
+inputs below and from the constants the firmware, the faucet and enclosure CAD and the
+pressure-vessel and acceptance procedures use. It runs when someone asks, never on a commit or
+in the build.
 
-The dispense side comes first because the prototype under the sink pours today. The appliance
-shares its Westbrass valve, its pour firmware and everything that happens in the glass, so each
-quantity below ends with what carries over.
+The dispense side comes first. The [Lillium-fed build](/hardware/assembly/lillium-cutover.md)
+pours through the appliance's own flavor side, meter, umbilical, faucet and firmware, with the
+Lillium where the cold core will stand, so what it measures is the appliance's except for the
+carbonator. Each quantity below ends with what carries over.
 
-## The prototype as it stands
+## The build
 
 The [Lillium](https://liliumfaucet.com/products/under-sink-carbonated-soda-maker-sparkling-water-dispenser-with-3-way-faucet)
-under-sink carbonator ([inventory](/hardware/ledger/inventory.md)) chills and carbonates the
-water, fed CO2 from a 5 lb cylinder through the TAPRITE E-T742 regulator. A 1/4" LLDPE line runs
-from its soda outlet through the DIGITEN meter (FL-S402BZJ,
-[B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH), bought twice in February) to the matte-black
-Westbrass Touch-Flo, whose lever opens a spring poppet. Two Kamoer KPHM400-SW3B25 pumps on L298N
-bridges, fed from a 12 V 2 A adapter, draw each flavor from its Platypus bag through a Beduan
-valve and up a 1/8" silicone tube on the gooseneck ([plumbing](/docs/plumbing.md)). The ESP32
-runs the pour that [`machine_policy::pourCycleTiming`](/firmware/lib/machine_policy/pour_policy.h)
-holds: it counts meter pulses in [50 ms](IN_SAMPLE) windows and bursts the pump on a duty set by
-that count and the channel's ratio setting.
+chills and carbonates the water, fed CO2 from a 5 lb cylinder through the TAPRITE E-T742
+regulator. Blue 1/4" LLDPE carries it to the enclosure's TAP bulkhead, across the deck to the
+DIGITEN meter (FL-S402BZJ, [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH)), out the SODA
+bulkhead and up the umbilical's blue tube into the Westbrass valve inside the white faucet. The
+lever opens its spring poppet, and a 3/8" tube carries the water up the printed gooseneck to the
+tip. Two Kamoer KPHM600-SW3B17 pumps in the pump cartridge draw each flavor from its reservoir
+in the foam shell and push it up the umbilical's flavor runs to the same tip; the two meet in
+the glass. The main board drives each pump through a DRV8870 bridge from the Mean Well
+IRM-90-12ST, and runs the pour in
+[`machine_policy::pourCycleTiming`](/firmware/lib/machine_policy/pour_policy.h): it counts meter
+pulses in [50 ms](IN_SAMPLE) windows and bursts the pump on a duty set by that count and the
+channel's ratio setting.
 
 | Input | Value the model uses | Where it comes from, and how to read it |
 |---|---|---|
@@ -31,11 +35,13 @@ that count and the channel's ratio setting.
 | Tap water | [12–19 °C](IN_TAP) | Probe the kitchen cold tap after 30 s of running. |
 | Room | [19–24 °C](IN_ROOM) | Probe the air beside the faucet. |
 | The can's fridge | [2–5 °C](IN_FRIDGE) | Probe a glass of water that spent the night in it. |
-| Soda line | [1.0–2.5 m](IN_LINE) of 1/4" LLDPE, bore [4.24 mm](IN_BORE) | Tape-measure the Lillium outlet to the faucet. The bore is the [scanned sample](/hardware/reference/lldpe-tubes/README.md). |
-| Water standing in line, meter and faucet | [41 mL (32–50)](WARM) | The line's bore volume, [3–8 mL](A_METER_ML) in the meter and [6–15 mL](A_FAUCET_ML) in the faucet. |
+| Lillium to the TAP bulkhead | [0.6–1.8 m](IN_CABINET) of 1/4" LLDPE, bore [4.24 mm](IN_BORE), the Lillium's own tube out of its bath included | Tape-measure. The bore is the [scanned sample](/hardware/reference/lldpe-tubes/README.md). |
+| TAP to the meter | [0.2–0.6 m](IN_DECK) | Cut on the parts ([cutover](/hardware/assembly/lillium-cutover.md) §3); measure it. |
+| Meter to SODA, umbilical, gooseneck | [23 mm](IN_CARB2) of `carb-2`, the [1.54 m](IN_BLUE) blue tube, [330 mm](IN_SODA_TUBE) of 3/8" tube at [6.28 mm](IN_BORE_38) | The [assembly facts](/hardware/manifold-layout/enclosure-assembly.facts.json) and the [faucet assembly](/hardware/faucet-layout/faucet_assembly.py). |
+| Water standing ahead of the tip | [66 mL (58–73)](WARM) | Those runs, [3–8 mL](A_METER_ML) in the meter and [3–8 mL](A_VALVE_ML) in the Westbrass body. |
 | Drinking glass | [200–350 g](IN_GLASS) | Weigh one of the matching glasses. |
-| Ratio setting | [1:20](IN_RATIO) | The app or the config display. |
-| Pump | [420 mL/min at 12 V and 0.8 A](IN_PUMP) | [Kamoer manual](/hardware/off-the-shelf-parts/kamoer-kphm400/datasheet/KPHM400-product-manual.pdf): B25 tube, water, no outlet pressure. |
+| Ratio setting | [1:20](IN_RATIO) | The machine display, or `ratio` on the console. |
+| Pump | [600 mL/min at 12 V and 0.8 A](IN_PUMP) | KPHM600-SW3B17, [BOM](/hardware/ledger/bom.md) §8. |
 | Meter | [35–39](IN_METER) pulses a second per L/min | The listing gives 38; one buyer's calibration found 36. |
 | Atmosphere | [0.958 atm at 358 m](IN_ATM) | Lincoln. |
 | Glass of soda | [355 mL](IN_GLASS_ML) | Twelve ounces, as [acceptance](/hardware/assembly/acceptance-and-burn-in.md) pours. |
@@ -68,18 +74,18 @@ a further [10–30 %](A_GLASS_LOSS) into a glass and on to a bottle [15 s](TRANS
 |---|---|
 | Equilibrium at the regulator and the Lillium's temperature | [8.1 volumes (7.3–9.0)](CO2_EQ) |
 | A refill as it lands | [3.8 volumes (3.0–4.8)](CO2_FRESH) |
-| The carbonator after a night | [6.0 volumes (4.5–7.5)](CO2_IDLE) |
-| **First glass of the morning, in the glass** | [4.2 volumes (3.1–5.5)](CO2_G1) |
+| The carbonator after a night | [5.9 volumes (4.5–7.6)](CO2_IDLE) |
+| **First glass of the morning, in the glass** | [4.1 volumes (3.1–5.5)](CO2_G1) |
 | **Fourth glass of a one-a-minute run, in the glass** | [3.1 volumes (2.4–3.9)](CO2_G4) |
 | Sixth draw, a bottle filled at the tip | [3.6 volumes (2.8–4.5)](CO2_G6_TIP) |
 
-The model expects the first glass of the day to hold [33 % (14–61)](CO2_MORE) more CO2 than the
+The model expects the first glass of the day to hold [32 % (14–60)](CO2_MORE) more CO2 than the
 fourth. Lillium's own claim, more than 6.7 g/L or 3.4 volumes in the first cup, sits inside the
 first-glass band.
 
-**Carries over:** everything after the carbonator. The appliance pours through the same
-Westbrass poppet into the same glass, so the tip and glass losses measured here are its losses.
-Its carbonator holds the [43.5 psi](APPLIANCE_FEED) feed, whose equilibrium is in
+**Carries over:** everything after the carbonator. The appliance pours through this valve, tube
+and tip into the same glass, so the tip and glass losses measured here are its losses. Its
+carbonator holds the [43.5 psi](APPLIANCE_FEED) feed, whose equilibrium is in
 [pressure vessel](/hardware/assembly/pressure-vessel.md), and its refill transfer is its own
 jet's.
 
@@ -91,93 +97,94 @@ is tap water that has lost [0–50 %](A_PRECOOL) of its difference from the bath
 The carbonator is taken as well mixed, [0.8–1.2 L](A_CARBONATOR) (Lillium sells 1 L per draw),
 pulled back toward the bath at [20–60 W/K](A_BATH).
 
-The first glass of a session also carries the water that stood in the line, meter and faucet at
-room temperature and the heat of the [100–300 g](A_BRASS) of brass it flows through. Between
-glasses that standing water warms back toward the room with a [3–15-minute](A_REWARM) time
-constant. A room-temperature glass gives the drink part of its own heat; [10 s](READ_S) after
-the pour the drink holds [35–70 %](A_SHARE) of what it would take at equilibrium.
+The first glass of a session also carries the water that stood ahead of the tip at room
+temperature, and the heat of the [40–150 g](A_BRASS) of brass in the Westbrass body and its
+tube stiffener. Between glasses that standing water warms back toward the room with a
+[3–15-minute](A_REWARM) time constant. A room-temperature glass gives the drink part of its own
+heat; [10 s](READ_S) after the pour the drink holds [35–70 %](A_SHARE) of what it would take at
+equilibrium.
 
 Plain water, each glass a matching room-temperature glass, read [10 s](READ_S) after the lever
 closes:
 
 | Glass | Prediction |
 |---|---|
-| 1, first of the morning | [6.8 °C (5.2–8.3)](T_G1); the stream before the glass, [5.7 °C (4.1–7.3)](T_STREAM_G1) |
-| 2, [1 minute](RUN_GAP) on | [6.3 °C (4.7–7.8)](T_G2) |
-| 3, [1 minute](RUN_GAP) on | [6.8 °C (5.0–8.4)](T_G3) |
-| 4, [1 minute](RUN_GAP) on | [7.1 °C (5.3–8.8)](T_G4) |
-| 5, [10 minutes](RUN_GAP5) later | [6.2 °C (4.5–7.7)](T_G5) |
-| A can from the fridge, the same glass, the same reading | [4.8 °C (3.6–5.9)](T_CAN) |
-| Flavor at the predicted ratio adds | [0.5 °C (0.4–0.6)](T_SYRUP) |
+| 1, first of the morning | [7.6 °C (6.1–9.1)](T_G1); the stream before the glass, [6.6 °C (5.0–8.1)](T_STREAM_G1) |
+| 2, [1 minute](RUN_GAP) on | [6.6 °C (5.0–8.1)](T_G2) |
+| 3, [1 minute](RUN_GAP) on | [7.0 °C (5.2–8.5)](T_G3) |
+| 4, [1 minute](RUN_GAP) on | [7.2 °C (5.4–8.9)](T_G4) |
+| 5, [10 minutes](RUN_GAP5) later | [6.8 °C (5.1–8.3)](T_G5) |
+| A can from the fridge, the same glass, the same reading | [4.8 °C (3.5–5.9)](T_CAN) |
+| Flavor at the predicted ratio adds | [0.8 °C (0.7–1.0)](T_SYRUP) |
 
 The model expects the first glass warmer than the second, the third and fourth climbing as
 refills dilute the carbonator, and the can colder than every glass unless the Lillium's water
 sits near 0 °C. [Acceptance](/hardware/assembly/acceptance-and-burn-in.md) asks for
 ≤ [6 °C](T_TARGET) in the glass.
 
-**Carries over:** the appliance's umbilical and faucet tube hold [32 mL](APPLIANCE_WARM) that
-stands at cabinet temperature, and its water crosses the same brass valve body. Its first glass
-carries the same warm term unless the design removes it.
+**Carries over:** the appliance's water stands in its `carb-1` run from the core, the meter,
+the umbilical and the gooseneck tube, [47 mL (44–50)](APPLIANCE_WARM), and crosses the same
+brass. Its first glass carries the same warm term unless the design removes it.
 
 ## 3. Syrup ratio
 
 The firmware sets the pump's on and off times from the meter's count per window, clamped at
 [6](IN_FULL_PULSES): [200 ms on, 300 ms off](SHAPE_TIMES) at that count and the default ratio.
-That is the pump running [40 %](SHAPE_DUTY) of the time, [168 mL/min](SHAPE_SYRUP) from a
-[420 mL/min](PUMP_NOMINAL) pump, a twentieth of the [3.1–3.4 L/min](SHAPE_FLOW) that count of
-pulses means. The shape gives 1:20 when the pump moves its datasheet rate while it runs.
+That is the pump running [40 %](SHAPE_DUTY) of the time against the [3.1–3.4 L/min](SHAPE_FLOW)
+that count of pulses means, so the shape gives 1:20 for a pump that moves
+[407 mL/min](SHAPE_PUMP) while it runs. The KPHM600 is rated [600 mL/min](PUMP_NOMINAL), and
+three things set what it delivers:
 
-Three things in the prototype keep it from that:
-
-- **The pump runs slow.** A brushed motor's speed follows its voltage less the armature's own
-  drop. The L298N's bipolar bridge drops [1.5–2.8 V](A_BRIDGE) at the pump's current, so the
-  motor sees [9.9 V (9.4–10.4)](MOTOR_V) of the adapter's 12, and the head turns at
-  [75 % (67–81)](SPEED) of the datasheet's speed.
+- **The pump's speed.** A brushed motor's speed follows its voltage less the armature's own
+  drop. The DRV8870's switches, J13, the contact pair and the leads take
+  [0.5–1.0 V](A_DRIVE) at the pump's current, so the motor sees
+  [11.3 V (11.0–11.5)](MOTOR_V) and the head turns at [91 % (88–94)](SPEED) of its rated
+  speed.
 - **Each burst loses its spin-up**, assumed [10–40 ms](A_BURST) of every on-time.
 - **The count is truncated.** Each cycle is timed from the integer average of the last cycle's
   windows, so a flow between counts gets the lower count's duty. Above the clamp the duty stays
-  at [40 %](SHAPE_DUTY) while the water keeps rising.
+  at [40 %](SHAPE_DUTY) while the water keeps rising. At full lever this build's flow sits right
+  at the clamp, so whether a cycle counts one below it or reaches it moves the dose by [25 %](SHAPE_STEP).
 
-Back pressure is the faucet's rise and the 1/8" tube's friction, a few kPa against a head built
-for far more; the model allows up to [3 %](A_SLIP) of slip. Diet concentrate at cabinet
-temperature is close to water's viscosity and does not slow the head at these speeds; sugared
-concentrate in the appliance's chilled reservoirs is where viscosity would enter. A refractometer
-reads dissolved solids by mass, so the drink reads the concentrate's °Brix times the
-concentrate's mass share of the drink.
+Back pressure is the rise to the tip and the friction of the umbilical's flavor runs, a few kPa
+against a head built for far more; the model allows up to [3 %](A_SLIP) of slip. Diet
+concentrate in reservoirs at cabinet temperature is close to water's viscosity and does not
+slow the head at these speeds; sugared concentrate in the appliance's chilled reservoirs is
+where viscosity would enter. A refractometer reads dissolved solids by mass, so the drink reads
+the concentrate's °Brix times the concentrate's mass share of the drink.
 
 | What is measured | Prediction |
 |---|---|
-| Meter count per window at full lever | [6.7 (5.9–7.8)](PULSES) |
-| Prime: the pump running continuously into a cup | [307 mL/min (271–348)](PUMP_ON) |
-| Motor terminals during Prime | [9.9 V (9.4–10.4)](MOTOR_V) |
-| **Full-lever glass, water to concentrate by volume** | [1:33 (28–40)](RATIO_FULL) |
-| The same by mass, from the bag | [1:32 (27–39)](MASS_RATIO) |
-| Drink °Brix as a share of the concentrate's | [3.0 % (2.5–3.6)](BRIX_SHARE); a true [1:20](LABEL) reads [4.9 %](BRIX_LABEL) |
-| Lever half open | [1:40 (32–53)](RATIO_HALF) |
+| Meter count per window at full lever | [6.0 (5.4–6.8)](PULSES) |
+| Prime: the pump running continuously into a cup | [537 mL/min (491–584)](PUMP_ON) |
+| `flow 6` for [20 s](FLOW_S) into a cup, lever closed | [62.5 mL (55.9–69.3)](FLOW_6) |
+| `flow 5` for [20 s](FLOW_S) | [49.2 mL (43.6–55.0)](FLOW_5) |
+| `flow 3` for [20 s](FLOW_S) | [25.8 mL (21.8–29.9)](FLOW_3) |
+| **Full-lever glass, water to concentrate by volume** | [1:19 (16–22)](RATIO_FULL) |
+| Drink °Brix as a share of the concentrate's | [5.2 % (4.5–6.0)](BRIX_SHARE); a true [1:20](LABEL) reads [4.9 %](BRIX_LABEL) |
+| Lever half open | [1:25 (19–35)](RATIO_HALF) |
 
-The model expects the prototype to pour well short of the label, and weaker still when the
-lever is eased.
+The model expects a full-lever glass near the label and a gentle one well short of it.
 
-**Carries over:** the appliance runs this same shape on KPHM600 pumps rated 600 mL/min, through
-the main board's DRV8870 bridges, which drop far less than an L298N. At the same setting it
-moves more concentrate than the prototype does. The shape has no input for the pump's real rate;
-the prime test measures it.
+**Carries over:** this is the appliance's flavor side, so its ratio follows the same physics.
+Its lower feed pours less water, which moves the count per window, and the model puts its
+full-lever glass at [1:20 (17–24)](APPLIANCE_RATIO).
 
 ## 4. Seconds to fill a 12 oz glass
 
 The carbonator's pressure, less the [0.7–1.0 m](A_RISE) rise to the faucet tip, drives the
-water through the line's friction and the losses of the Lillium's outlet path
-([2–15](A_K_LILLIUM) velocity heads of the 1/4" tube), the meter ([5–25](A_K_METER)) and the
-Westbrass ([8–30](A_K_FAUCET): the poppet seat, its turns, and the bubbles that form past the
-seat).
+water through the friction of each run above and the losses of the Lillium's outlet path and
+the two bulkhead unions ([3–17](A_K_OUTLET) velocity heads of the 1/4" tube), the meter
+([5–25](A_K_METER)) and the faucet ([8–30](A_K_FAUCET): the tube stiffener, the poppet seat,
+the body's turns, and the bubbles that form past the seat).
 
 | What is measured | Prediction |
 |---|---|
-| Flow, lever fully open | [3.6 L/min (3.2–4.2)](FLOW) |
-| **12 oz** | [5.9 s (5.1–6.7)](FILL) |
+| Flow, lever fully open | [3.2 L/min (2.9–3.7)](FLOW) |
+| **12 oz** | [6.6 s (5.8–7.3)](FILL) |
 
-**Carries over:** at the appliance's [43.5 psi](APPLIANCE_FEED) feed, the same losses and its
-[1.54 m](APPLIANCE_LINE) umbilical fill the glass in [7.7 s (6.7–8.5)](APPLIANCE_FILL).
+**Carries over:** at the appliance's [43.5 psi](APPLIANCE_FEED) feed, through its own runs and
+the same losses, the glass fills in [7.9 s (7.0–8.8)](APPLIANCE_FILL).
 
 ## The tests
 
@@ -198,67 +205,62 @@ thermometer reads 60–580 °F, too warm for a cold drink.
 
 ### Test 1: the ratio
 
-**What it decides.** Whether the pour shape keeps its fixed assumptions, the datasheet pump and
-the meter's nominal pulses, or takes each pump's measured rate and a fractional pulse average.
-The same code pours in the appliance. Acceptance step 6's [±5 %](ACC_TOL) on the
-[262.5 mL](ACC_TOTAL) total cannot see the ratio: 1:20 and 1:10 differ by
-[12.5 mL](ACC_GAP). The bag's mass and the refractometer can.
+**What it decides.** Whether the pour shape can keep a fixed pump rate and its truncated pulse
+average, or needs each pump's measured rate and an unrounded average. The same code and pumps
+pour in the appliance. Acceptance step 6's [±5 %](ACC_TOL) on the [262.5 mL](ACC_TOTAL) total
+cannot see the ratio: 1:20 and 1:10 differ by [12.5 mL](ACC_GAP). The cups and the
+refractometer can.
 
-**Setup.** The prototype as it stands, controller on. The flavor under test's Platypus bag on the
-Smart Weigh on the cabinet floor, its tube slack. The multimeter on DC volts across that pump's
-L298N output terminals. A cup, the phone's stopwatch, four glasses.
+**Setup.** The Lillium-fed build pouring, reservoirs primed. The Smart Weigh, a cup, the phone's
+stopwatch, four glasses, the refractometer. The main board's console on USB for step 3, while
+it can be reached.
 
 **Procedure and readings.**
 
-1. Read the flavor's ratio setting, and the label on its pump: KPHM400 or KPHM600.
-2. Hold Prime, from the app or the config display, for 10 s by the stopwatch, with the tared cup
-   under that flavor's tube at the tip. Read the multimeter while it runs. Weigh the cup. Three
-   times.
-3. Read the bag's mass, lift it off and set it back down, and read it again; three readings say
-   how much placement moves it. Set it aside.
+1. Read the flavor's ratio setting.
+2. Lever closed, hold Prime on the machine display for 10 s by the stopwatch with the tared cup
+   under the tip; weigh it. Three times.
+3. On the console, lever closed, the tared cup under the tip: `flow 6 20`, `flow 5 20` and
+   `flow 3 20`, weighing the cup after each. The firmware runs its pour against each count with
+   no water moving.
 4. Pour four glasses with the lever fully open, timing each from lever open to close. Weigh each
    glass empty and full.
-5. Set the bag back as before and read its mass three times again.
-6. With the refractometer, zeroed on tap water: a drop of neat concentrate from the prime cup,
-   then each glass after it has gone flat and warmed past 10 °C, inside the instrument's
-   temperature compensation. Then one glass poured with the lever half open, read the same way.
+5. With the refractometer, zeroed on tap water: a drop of neat concentrate, then each glass
+   after it has gone flat and warmed past 10 °C, inside the instrument's temperature
+   compensation. Then one glass poured with the lever half open, read the same way.
 
-Concentrate is the bag's loss; water is the glasses' total less it. Stop if the bag collapses
-flat around its outlet or the zip-tied joint at the bag weeps
-([plumbing](/docs/plumbing.md)).
+Stop if a reservoir runs low enough for its pump to draw air.
 
 **What would break the model.**
 
-- Prime outside [271–348 mL/min](PUMP_ON_BAND): the pump speed is wrong. A motor reading inside
-  [9.4–10.4 V](MOTOR_V_BAND) points at the motor's own drop or this pump's spread; outside it,
-  at the bridge or the adapter.
-- Prime inside its band but the bag richer than [1:27](MASS_RICH): the meter counts fewer
-  pulses per litre than the model takes, or the bursts lose less than it assumes. The serial
-  console's `CYCLE START` lines show the count per window.
-- Leaner than [1:39](MASS_LEAN): more spin-up loss, or more flow than the fill test predicts.
-- °Brix share disagreeing with the bag: the refractometer's reading below 1 °Brix. A 1:20 mix
-  made by mass on the scale checks it.
+- Prime outside [491–584 mL/min](PUMP_ON_BAND): the pump's speed or its spread.
+- Prime inside its band but the `flow` cups outside theirs: the spin-up each burst loses.
+- The cups inside but the glasses' °Brix share above [6.0 %](BRIX_RICH) or below
+  [4.5 %](BRIX_LEAN): the meter's count per window, which the console's pour line shows in the
+  first cycle's on and off times, or the full-lever flow, which step 4's times and weights give.
+- °Brix share disagreeing with what the cups and the flow imply: the refractometer's reading
+  below 1 °Brix. A 1:20 mix made by mass on the scale checks it.
 
 ### Test 2: the morning run
 
-**What it decides.** Whether the first glass's warm line and brass, which the appliance's
-umbilical and valve share, need a design answer before the appliance can match the can; whether
-a run of glasses holds its carbonation, which sets how much transfer the appliance's jet owes
-(Plan B's fading and successive-glass rows); whether the poppet seat loses enough CO2 to need a
-gentler path ([concerns](/hardware/concerns.md), "Carbonated water through the faucet valve");
-and what fill time the appliance's lower feed will give.
+**What it decides.** Whether the first glass's warm water and brass, which the appliance shares,
+need a design answer before the appliance can match the can; whether a run of glasses holds its
+carbonation, which sets how much transfer the appliance's jet owes (Plan B's fading and
+successive-glass rows); whether the poppet seat loses enough CO2 to need a gentler path
+([concerns](/hardware/concerns.md), "Carbonated water through the faucet valve"); and what fill
+time the appliance's lower feed will give.
 
 **Setup, the evening before.**
 
-- Read the regulator, the Lillium's display, the room, the tap, the fridge and the soda line's
-  length; weigh a glass; pin them in the model.
+- Read the regulator, the Lillium's display, the room, the tap, the fridge, and the two runs
+  ahead of the meter; weigh a glass; pin them in the model.
 - Check the thermometer in stirred ice water: it should read 0.0 °C; note any offset.
 - Six matching glasses at room temperature, each weighed empty, with a tape mark at the level
   [355 mL](IN_GLASS_ML) of water reaches.
 - Four sample bottles: each weighed empty with its carbonation cap, then filled to overflowing,
   capped and weighed; the difference is its volume. Emptied and dried.
-- Unplug the controller's 12 V adapter. The Beduan valves are normally closed, so the faucet
-  pours plain Lillium water and no syrup moves.
+- Unplug the machine's cord. Its valves are normally closed, so the faucet pours plain Lillium
+  water and no concentrate moves.
 - No pour for the [10 h](IDLE) before the first glass.
 
 **Procedure and readings.** One stopwatch runs from the first glass.
@@ -289,12 +291,13 @@ Lillium or its fittings.
 **What would break the model.**
 
 - Glass 1 colder than predicted while the rest agree: less warm water or brass than assumed;
-  measure the line and look for insulation on the faucet.
+  measure the runs.
 - Glass 2 well below glass 1 and flat through glass 4: the carbonator does not mix, and refills
   sit on top. Glasses climbing faster than predicted: a smaller carbonator, a weaker bath, or no
   precooling.
-- Fill slower than [6.7 s](FILL_SLOW): larger losses than assumed. The SENCTRL on a push-fit tee
-  at the faucet inlet, read while pouring, splits the line and meter from the Westbrass.
+- Fill slower than [7.3 s](FILL_SLOW): larger losses than assumed. The SENCTRL on a push-fit tee
+  at the SODA bulkhead, read while pouring, splits the runs ahead of it from the umbilical and
+  faucet.
 - The first and fourth glasses alike: refill transfer is higher, or still-water absorption
   faster, than assumed. The tip bottle far above the fourth glass: the glass loses more than
   assumed, and the can's pour has to match the faucet's for a fair comparison. Every sample low:
@@ -302,10 +305,9 @@ Lillium or its fittings.
 
 ### What to run first
 
-Test 1, today. Apart from the refractometer for its last step it needs only what is owned: the
-scale, a cup, the multimeter and the phone. It checks the prediction furthest from the label,
-and the answer feeds the firmware the appliance will run. Test 2 needs the thermometer and the
-carbonation kit.
+Test 1, as soon as the Lillium-fed build pours. Its prime and console steps need only the scale
+and a cup, and the answer feeds the firmware the appliance will run; the refractometer finishes
+it. Test 2 needs the thermometer and the carbonation kit.
 
 ## Not modelled yet
 

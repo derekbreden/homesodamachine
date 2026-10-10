@@ -1,6 +1,6 @@
 # Kamoer KPHM400-SW3B25 Peristaltic Pump — Geometry Description
 
-Geometry of the Kamoer KPHM400-SW3B25 peristaltic pump: every mounting surface, clearance zone, and interface needed to model the part or design a tray/cartridge that holds it.
+Geometry of the Kamoer KPHM400-SW3B25 peristaltic pump: every mounting surface, clearance zone, and interface needed to model the part or design a tray/cartridge that holds it. The machine's pump is the KPHM600-SW3B17 ([BOM](/hardware/ledger/bom.md) §8), whose 50 mm bracket pattern and boss the BOM takes as common to the KPHM series; its BPT tube is 6.4 mm ID × 9.6 mm OD.
 
 ## Overall Form
 
@@ -30,7 +30,7 @@ Viewed from the front (tube connector face), the pump head is nearly square with
   - Tube-casing pitch: 59.75mm centre to centre, approximately 60mm and symmetric about the head's own axis
   - Each built-in tube casing is 12.75mm across; the holder uses a 13.0mm opening for 0.125mm clearance per side
   - Widest span across the pair: 72.50mm outer edge to outer edge. THIS IS THE PART'S WIDEST DIMENSION — wider than the 62.61mm head and wider than the 68.6mm bracket — and it is what any holder brought on over the casings has to pass
-  - Tubing fit: the barbs are not what the machine lands on. 1/4" OD LLDPE goes **into the BPT tube itself**, straight into the bore the barb would otherwise fill, and the tube is zip-tied down onto the LLDPE. At this tube's 4.8 mm ID the LLDPE's 6.35 mm OD is an interference fit and the zip tie only backs it up. No silicone adapter
+  - Tubing fit: the barbs are not what the machine lands on. 1/4" OD LLDPE goes **into the BPT tube itself**, straight into the bore the barb would otherwise fill, and the tube is zip-tied down onto the LLDPE. In the machine's KPHM600 the tube is 6.4 mm ID, so the LLDPE's 6.35 mm OD enters with clearance and the zip tie is what holds the joint; this KPHM400's 4.8 mm tube grips it. No silicone adapter
 
 ### Section 2: Pump Head Body (Y = 0 to ~48mm)
 - Black plastic housing containing the peristaltic roller mechanism

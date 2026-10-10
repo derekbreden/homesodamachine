@@ -20,7 +20,7 @@ static const int PIN_BUZZ             = 13;  // R5 -> Q1 -> U8
 // high drives the bridge one way, low coasts it. PWM on IN1 is fast-decay, and
 // an IN1 parked as an input coasts the head on the driver's own pull-down —
 // which is what makes a brownout reset safe. ISEN is grounded with no sense
-// resistor, so the chip's limit never trips; a Kamoer KPHM400 draws ~0.8 A.
+// resistor, so the chip's limit never trips; a Kamoer KPHM600 draws ~0.8 A.
 static const int PUMP_PWM_HZ   = 20000;  // above hearing — every sound in the room is mechanical
 static const int PUMP_PWM_BITS = 8;      // ledcWrite(255) is a true 100%: the core maps it to full-on
 

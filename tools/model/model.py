@@ -1,4 +1,5 @@
-"""The model: what the prototype under the sink should pour, written down before it is measured.
+"""The model: what the Lillium-fed build under the sink should pour, written down before it is
+measured.
 
 Run:
     tools/cad-venv/bin/python tools/model/model.py
@@ -36,8 +37,8 @@ sys.path.insert(0, str(ROOT / "hardware" / "assembly"))
 
 from docgen import load_module, substitute_md  # noqa: E402
 
-# The integrated carbonator's CO2 solubility, air build-up and feed live in the pressure-vessel
-# driver; the glass, the 1:20 label and the 6 °C target in the acceptance driver.
+# The appliance's CO2 solubility, air build-up and feed live in the pressure-vessel driver; the
+# glass, the 1:20 label and the 6 °C target in the acceptance driver.
 import _pressure_vessel_sync as pv  # noqa: E402
 import _acceptance_and_burn_in_sync as ab  # noqa: E402
 
@@ -67,8 +68,7 @@ def _constexprs(path):
             re.finditer(r"constexpr\s+\w+\s+(\w+)\s*=\s*(\d+)\s*;", path.read_text())}
 
 
-# The pour the prototype runs. `pour_policy` is the prototype's loop made pure (e6732fe1f), and
-# `src_prototype` carries the same shape, sample window and cooldown.
+# The pour the main board runs (`src_appliance`), and the ratio it defaults to.
 POUR = _constexprs(ROOT / "firmware" / "lib" / "machine_policy" / "pour_policy.h")
 RATIO_DEFAULT = _constexprs(ROOT / "firmware" / "lib" / "proto_link" / "proto_msg.h")["FLAVOR_RATIO_DEFAULT"]
 
@@ -83,26 +83,33 @@ def ml_per_m(bore_mm):
     return math.pi * bore_mm ** 2 / 4          # mm² of bore is mL per metre
 
 
-# The appliance's soda path to the tip: its blue 1/4" umbilical and the 3/8" faucet tube.
+# The soda path past the meter, as the CAD lays it: `carb-2` from the meter to the SODA
+# bulkhead, the blue umbilical to the Westbrass, and the 3/8" tube from the valve to the tip.
+# In the appliance `carb-1` brings the water from the cold core to the meter; in the
+# Lillium-fed build a run cut on the parts brings it from the TAP bulkhead.
+_RUNS = {r["id"]: r for r in json.loads(
+    (ROOT / "hardware" / "manifold-layout" / "enclosure-assembly.facts.json").read_text())["runs"]}
+CARB1_M = _RUNS["carb-1"]["length"] / 1000
+CARB2_M = _RUNS["carb-2"]["length"] / 1000
 FAUCET = load_module("_model_faucet", ROOT / "hardware" / "faucet-layout" / "faucet_assembly.py")
-APPLIANCE_WARM_ML = (FAUCET.blue_cut_length / 1000 * ml_per_m(BORE_14_MM)
-                     + FAUCET.soda_faucet_cut_length / 1000 * ml_per_m(BORE_38_MM))
+BLUE_M = FAUCET.blue_cut_length / 1000
+SODA_TUBE_M = FAUCET.soda_faucet_cut_length / 1000
 
-
-# Kamoer KPHM400-SW3B25 (hardware/off-the-shelf-parts/kamoer-kphm400/datasheet): 420 mL/min of
-# water at 12 V and 0.8 A through its 4.8 x 8.0 mm BPT tube, with no outlet pressure, at 20 °C.
-PUMP_ML_MIN = 420.0
+# Kamoer KPHM600-SW3B17 ([BOM](hardware/ledger/bom.md) §8): 600 mL/min at 12 V and 0.8 A on
+# its 6.4 x 9.6 mm BPT tube.
+PUMP_ML_MIN = 600.0
 PUMP_RATED_V = 12.0
 PUMP_RATED_A = 0.8
 
 # The tests' timing, which the glass-heat and pour-loss ranges below are taken at: a glass's
 # temperature is read 10 s after the lever closes, and a sample leaves its glass for its
-# bottle at 15 s.
+# bottle at 15 s. A simulated pour on the console runs for FLOW_TEST_S.
 READ_S = 10
 TRANSFER_S = 15
+FLOW_TEST_S = 20
 
-# What is known about the prototype as it stands, as a range when it is not measured. A range is
-# this page's assumption until the sink says otherwise; `--set` pins one.
+# What is known about the build, as a range when it is not measured. A range is this page's
+# assumption until the sink says otherwise; `--set` pins one.
 INPUTS = {
     # The TAPRITE E-T742's low-side gauge. Lillium's manual asks 0.45-0.55 MPa of CO2 at its
     # inlet, its product page 65-80 psi; the setting under the sink is not recorded.
@@ -113,12 +120,14 @@ INPUTS = {
     "tap_c": (12.0, 19.0),                 # city water reaching the Lillium in October
     "room_c": (19.0, 24.0),                # the cabinet, the counter and the glasses
     "fridge_c": (2.0, 5.0),                # where the reference can waits
-    # The soda line: 1/4" LLDPE from the Lillium's outlet, the DIGITEN, the Westbrass.
-    "line_m": (1.0, 2.5),
+    # The soda path ahead of the meter: the Lillium's own tube out of its bath and the blue
+    # 1/4" LLDPE to the TAP bulkhead, then the run across the deck to the meter.
+    "cabinet_m": (0.6, 1.8),
+    "deck_m": (0.2, 0.6),
     "meter_ml": (3.0, 8.0),
-    "faucet_ml": (6.0, 15.0),
-    "faucet_brass_g": (100.0, 300.0),      # brass the first glass cools on its way out
-    "rewarm_min": (3.0, 15.0),             # standing line and faucet back toward the room
+    "valve_ml": (3.0, 8.0),                # the Westbrass body's passage, poppet to tube
+    "valve_brass_g": (40.0, 150.0),        # brass the first glass cools on its way out
+    "rewarm_min": (3.0, 15.0),             # standing line and valve back toward the room
     "glass_g": (200.0, 350.0),             # one of the matching drinking glasses
     "glass_share": (0.35, 0.70),           # of the glass's heat the drink holds at READ_S
     # The Lillium's carbonator. Lillium sells 1 L per draw and 6-8 L an hour at 3-5 °C.
@@ -137,17 +146,19 @@ INPUTS = {
     "tip_loss": (0.03, 0.20),              # CO2 lost from the carbonator to a bottle filled at the tip
     "glass_loss": (0.10, 0.30),            # further, into a glass and on to a bottle at TRANSFER_S
     # Hydraulics, in velocity heads of the 1/4" tube.
-    "rise_m": (0.7, 1.0),                  # Lillium outlet to faucet tip
-    "k_lillium": (2.0, 15.0),
+    "rise_m": (0.7, 1.0),                  # carbonator outlet to faucet tip
+    "k_outlet": (3.0, 17.0),               # the Lillium's outlet path and the two bulkhead unions
     "k_meter": (5.0, 25.0),
-    "k_faucet": (8.0, 30.0),               # poppet, body, gooseneck, and bubbles past the seat
+    "k_faucet": (8.0, 30.0),               # stiffener, poppet, body, and bubbles past the seat
     # The flavor side. The DIGITEN listing (B07QRXLRTH) gives F = 38 Q, Hz per L/min; one
     # buyer's calibration found 36.
     "ratio_setting": (RATIO_DEFAULT, RATIO_DEFAULT),
     "meter_hz_per_lpm": (35.0, 39.0),
-    "pump_spread": (0.90, 1.10),           # this pump against the datasheet's 420
-    "supply_v": (11.8, 12.3),              # the 12 V 2 A adapter under load
-    "bridge_drop_v": (1.5, 2.8),           # L298N, source plus sink, near 0.8 A
+    "pump_spread": (0.90, 1.10),           # this pump against its rated 600
+    "supply_v": (11.8, 12.2),              # the IRM-90-12ST under the board's load
+    # The DRV8870's high and low switches (565 mOhm together, typical, more when warm) and
+    # J13, the contact pair and the pump leads, at 0.8 A.
+    "drive_drop_v": (0.5, 1.0),
     "motor_ir_v": (2.5, 5.0),              # armature drop at 0.8 A
     "burst_loss_ms": (10.0, 40.0),         # spin-up a burst does not pump, less its coast
     "slip": (0.0, 0.03),                   # tube leak-back against the outlet's few kPa
@@ -159,6 +170,9 @@ LOG_UNIFORM = {"absorb_h"}
 # glasses; draw 6 fills a sample bottle at the tip 20 s after the fifth glass.
 RUN_GAPS_S = (None, 60, 60, 60, 600, 20)
 IDLE_H = 10.0
+
+# The console's simulated pours, `flow <n> FLOW_TEST_S`, each against a cup at the tip.
+FLOW_TEST_COUNTS = (6, 5, 3)
 
 
 # ── Physics ──────────────────────────────────────────────────────────────────────────────────
@@ -208,18 +222,23 @@ def reading_volumes(final_psi, t_c, liquid_g, bottle_ml, snifts=(), gauge_ml=3.0
     return (dissolved + gas + vented) * CO2_L_PER_MOL / (liquid_g / 1000)
 
 
-def full_lever_lpm(s):
-    """Carbonator pressure, less the rise, spent on tube friction and the fittings' heads."""
-    dp = s["regulator_psi"] * KPA_PER_PSI * 1000 - 1000 * 9.81 * s["rise_m"]
-    d = BORE_14_MM / 1000
-    k = s["k_lillium"] + s["k_meter"] + s["k_faucet"]
-    mu = water_viscosity_pa_s(s["carbonator_c"])
-    v = 3.0
+def full_lever_lpm(gauge_psi, rise_m, runs, k, t_c):
+    """The carbonator's pressure, less the rise, spent on each run's friction and on `k`
+    velocity heads of the 1/4" tube. `runs` is (metres, bore mm) pairs."""
+    dp = gauge_psi * KPA_PER_PSI * 1000 - 1000 * 9.81 * rise_m
+    d14 = BORE_14_MM / 1000
+    mu = water_viscosity_pa_s(t_c)
+    v = 3.0                                       # in the 1/4" tube
     for _ in range(60):
-        re_ = 1000 * v * d / mu
-        f = 64 / re_ if re_ < 2300 else (-1.8 * math.log10(6.9 / re_)) ** -2
-        v = 0.5 * v + 0.5 * math.sqrt(2 * dp / (1000 * (f * s["line_m"] / d + k)))
-    return v * math.pi * d * d / 4 * 60000
+        heads = k
+        for length, bore in runs:
+            d = bore / 1000
+            vr = v * (d14 / d) ** 2
+            re_ = 1000 * vr * d / mu
+            f = 64 / re_ if re_ < 2300 else (-1.8 * math.log10(6.9 / re_)) ** -2
+            heads += f * length / d * (vr / v) ** 2
+        v = 0.5 * v + 0.5 * math.sqrt(2 * dp / (1000 * heads))
+    return v * math.pi * d14 * d14 / 4 * 60000
 
 
 def cycle_timing(pulses, ratio):
@@ -238,17 +257,11 @@ def cycle_timing(pulses, ratio):
     return max(on, POUR["kPourOnMinMs"]), min(off, POUR["kPourOffMaxMs"])
 
 
-def pour_concentrate_ml(lpm, hz_per_lpm, ratio, water_ml, pump_ml_min, loss_ms, phase):
-    """Concentrate one pour delivers: the meter's windows, `machine_policy::Pour`'s phases and
-    its integer average, and a pump that loses `loss_ms` of every burst to spinning up."""
+def pour_concentrate_ml(per_window, ratio, pump_ml_min, loss_ms):
+    """Concentrate one pour delivers: `per_window(t)` meter pulses in the window ending at t,
+    `machine_policy::Pour`'s phases and its integer average, and a pump that loses `loss_ms`
+    of every burst to spinning up."""
     window = POUR["kFlowSampleMs"]
-    per_ms = hz_per_lpm * lpm / 1000.0
-    open_ms = water_ml * 60.0 / lpm
-
-    def count(t):
-        a, b = max(0.0, min(t - window, open_ms)), max(0.0, min(t, open_ms))
-        return math.floor(per_ms * b + phase) - math.floor(per_ms * a + phase)
-
     state, opened, last = "idle", False, 0
     on = off = start = total = readings = 0
     saw_zero = False
@@ -257,7 +270,7 @@ def pour_concentrate_ml(lpm, hz_per_lpm, ratio, water_ml, pump_ml_min, loss_ms, 
     while True:
         t = next_sample if phase_end is None else min(next_sample, phase_end)
         if t == next_sample:
-            last = count(t)
+            last = per_window(t)
             next_sample += window
             if state in ("on", "off"):
                 total, readings = total + last, readings + 1
@@ -294,6 +307,25 @@ def pour_concentrate_ml(lpm, hz_per_lpm, ratio, water_ml, pump_ml_min, loss_ms, 
             break
 
 
+def poured(lpm, hz_per_lpm, phase):
+    """A meter under one glass's steady flow: its count in the window ending at t, the lever
+    closing when the glass holds GLASS_ML."""
+    window = POUR["kFlowSampleMs"]
+    per_ms = hz_per_lpm * lpm / 1000.0
+    open_ms = GLASS_ML * 60.0 / lpm
+
+    def per_window(t):
+        a, b = max(0.0, min(t - window, open_ms)), max(0.0, min(t, open_ms))
+        return math.floor(per_ms * b + phase) - math.floor(per_ms * a + phase)
+
+    return per_window
+
+
+def simulated(n, seconds):
+    """`flow <n> <seconds>` on the console: the meter reads n until the time is up."""
+    return lambda t: n if t < seconds * 1000 else 0
+
+
 def drawn(tank, fresh, share):
     """A glass drawn from a well-mixed carbonator, then refilled with `share` of its volume at
     `fresh`: what the glass gets, and what the carbonator holds after. The Lillium's pump
@@ -324,14 +356,17 @@ def run(s):
     o["co2_more"] = o["co2_g1"] / o["co2_g4"] - 1
 
     # Temperature: the same run, each glass a room-temperature one read READ_S after the pour.
+    ahead_m = s["cabinet_m"] + s["deck_m"] + CARB2_M + BLUE_M
+    beyond = SODA_TUBE_M * ml_per_m(BORE_38_MM) + s["meter_ml"] + s["valve_ml"]
+    warm_ml = ahead_m * ml_per_m(BORE_14_MM) + beyond
+    o["warm_ml"] = warm_ml
+    o["appliance_warm_ml"] = (CARB1_M + CARB2_M + BLUE_M) * ml_per_m(BORE_14_MM) + beyond
     bath, room = s["carbonator_c"], s["room_c"]
     refill = s["tap_c"] - s["precool"] * (s["tap_c"] - bath)
     tau_s = C_WATER * 1000 * s["carbonator_l"] / s["bath_w_per_k"]
-    warm_ml = s["line_m"] * ml_per_m(BORE_14_MM) + s["meter_ml"] + s["faucet_ml"]
-    brass = s["faucet_brass_g"] * C_BRASS
+    brass = s["valve_brass_g"] * C_BRASS
     glass = s["glass_g"] * C_GLASS
     water = GLASS_ML * C_WATER
-    o["warm_ml"] = warm_ml
     tank, line_t, brass_t = bath, room, room
     for i, gap in enumerate(RUN_GAPS_S[:5], 1):
         if gap:
@@ -346,25 +381,32 @@ def run(s):
         o[f"t_g{i}"] = stream + s["glass_share"] * glass * (room - stream) / (water + glass)
     o["t_can"] = s["fridge_c"] + s["glass_share"] * glass * (room - s["fridge_c"]) / (water + glass)
 
-    # The pour: full lever, then a lever half open. The appliance drives the same faucet and
-    # fittings from its WR1105 feed down its 1/4" umbilical.
-    lpm = full_lever_lpm(s)
+    # The pour, lever fully open. The appliance pours from its own feed through the same meter,
+    # umbilical and valve, with `carb-1` where the Lillium's runs are.
+    k = s["k_outlet"] + s["k_meter"] + s["k_faucet"]
+    lpm = full_lever_lpm(s["regulator_psi"], s["rise_m"],
+                         [(ahead_m, BORE_14_MM), (SODA_TUBE_M, BORE_38_MM)], k, s["carbonator_c"])
     o["lpm"], o["fill_s"] = lpm, GLASS_ML / lpm * 60 / 1000
-    appliance = dict(s, regulator_psi=pv.secondary_regulator_pressure_psi,
-                     line_m=FAUCET.blue_cut_length / 1000)
-    o["appliance_fill_s"] = GLASS_ML / full_lever_lpm(appliance) * 60 / 1000
+    appliance = full_lever_lpm(pv.secondary_regulator_pressure_psi, s["rise_m"],
+                               [(CARB1_M + CARB2_M + BLUE_M, BORE_14_MM), (SODA_TUBE_M, BORE_38_MM)],
+                               k, s["carbonator_c"])
+    o["appliance_fill_s"] = GLASS_ML / appliance * 60 / 1000
     o["pulses"] = s["meter_hz_per_lpm"] * lpm * POUR["kFlowSampleMs"] / 1000
-    motor_v = s["supply_v"] - s["bridge_drop_v"]
+
+    # The concentrate: the KPHM600 through the main board's bridge, timed by the firmware.
+    motor_v = s["supply_v"] - s["drive_drop_v"]
     speed = (motor_v - s["motor_ir_v"]) / (PUMP_RATED_V - s["motor_ir_v"])
     pump = PUMP_ML_MIN * s["pump_spread"] * speed * (1 - s["slip"])
     o["motor_v"], o["pump_ml_min"], o["speed"] = motor_v, pump, speed
-    for key, flow in (("full", lpm), ("half", lpm / 2)):
-        conc = pour_concentrate_ml(flow, s["meter_hz_per_lpm"], s["ratio_setting"], GLASS_ML,
-                                   pump, s["burst_loss_ms"], s["phase"])
+    for key, flow in (("full", lpm), ("half", lpm / 2), ("appliance", appliance)):
+        conc = pour_concentrate_ml(poured(flow, s["meter_hz_per_lpm"], s["phase"]),
+                                   s["ratio_setting"], pump, s["burst_loss_ms"])
         o[f"ratio_{key}"] = GLASS_ML / conc
+    for n in FLOW_TEST_COUNTS:
+        o[f"flow_{n}"] = pour_concentrate_ml(simulated(n, FLOW_TEST_S), s["ratio_setting"],
+                                             pump, s["burst_loss_ms"])
     syrup_g = s["syrup_density"] * GLASS_ML / o["ratio_full"]
     o["brix_share"] = syrup_g / (syrup_g + GLASS_ML)
-    o["mass_ratio"] = GLASS_ML / syrup_g
     o["t_syrup"] = (room - o["stream_g2"]) / (o["ratio_full"] + 1)
     return o
 
@@ -415,33 +457,42 @@ def figures(results, pinned):
 
     density = sum(INPUTS["syrup_density"]) / 2
     label_share = density / (density + LABEL_RATIO)
-    # The shape's own design point: full-flow windows at the default ratio, the datasheet pump,
+    # The shape's own design point: full-flow windows at the default ratio, a 420 mL/min pump,
     # and the flow that count of pulses a window means across the meter's constant.
     shape_on, shape_off = cycle_timing(POUR["kFlowFullPulses"], RATIO_DEFAULT)
     shape_duty = shape_on / (shape_on + shape_off)
     full_hz = POUR["kFlowFullPulses"] * 1000 / POUR["kFlowSampleMs"]
     shape_flow = (full_hz / INPUTS["meter_hz_per_lpm"][1], full_hz / INPUTS["meter_hz_per_lpm"][0])
+    shape_pump = sum(shape_flow) / 2 * 1000 / LABEL_RATIO / shape_duty
+    below_on, below_off = cycle_timing(POUR["kFlowFullPulses"] - 1, RATIO_DEFAULT)
+    shape_step = shape_duty / (below_on / (below_on + below_off)) - 1
     carbonator_c = pinned.get("carbonator_c", sum(INPUTS["carbonator_c"]) / 2)
     starts = [sum(g or 0 for g in RUN_GAPS_S[:i + 1]) for i in range(len(RUN_GAPS_S))]
     acceptance_ratio_gap = ab.metered_water_ml / 10 - ab.metered_flavor_ml
+    flows = {f"FLOW_{n}": pred(f"flow_{n}", one, " mL") for n in FLOW_TEST_COUNTS}
     return {
         "IN_REGULATOR": span("regulator_psi", whole, " psi", read=True),
         "IN_CARBONATOR": span("carbonator_c", one, " °C", read=True),
         "IN_TAP": span("tap_c", whole, " °C", read=True),
         "IN_ROOM": span("room_c", whole, " °C", read=True),
         "IN_FRIDGE": span("fridge_c", whole, " °C", read=True),
-        "IN_LINE": span("line_m", one, " m", read=True),
+        "IN_CABINET": span("cabinet_m", one, " m", read=True),
+        "IN_DECK": span("deck_m", one, " m", read=True),
         "IN_GLASS": span("glass_g", whole, " g", read=True),
         "IN_RATIO": span("ratio_setting", whole, read=True).join(("1:", "")),
         "IN_METER": span("meter_hz_per_lpm", whole, read=True),
         "IN_ATM": f"{ATM:.3f} atm at {ELEVATION_M} m",
         "IN_BORE": f"{BORE_14_MM:.2f} mm",
+        "IN_BORE_38": f"{BORE_38_MM:.2f} mm",
+        "IN_CARB2": f"{CARB2_M * 1000:.0f} mm",
+        "IN_BLUE": f"{BLUE_M:.2f} m",
+        "IN_SODA_TUBE": f"{SODA_TUBE_M * 1000:.0f} mm",
         "IN_GLASS_ML": f"{GLASS_ML:.0f} mL",
         "IN_PUMP": f"{PUMP_ML_MIN:.0f} mL/min at {PUMP_RATED_V:g} V and {PUMP_RATED_A:g} A",
         "IN_SAMPLE": f"{POUR['kFlowSampleMs']} ms",
         "IN_FULL_PULSES": f"{POUR['kFlowFullPulses']}",
         "A_METER_ML": span("meter_ml", whole, " mL"),
-        "A_FAUCET_ML": span("faucet_ml", whole, " mL"),
+        "A_VALVE_ML": span("valve_ml", whole, " mL"),
         "A_AIR": span("air_share", pct, " %"),
         "A_AIR_PSI": f"{pv.headspace_air_atm(carbonator_c) * ATM * PSI_PER_ATM:.0f} psi",
         "A_FRESH": span("fresh_share", pct, " %"),
@@ -451,14 +502,14 @@ def figures(results, pinned):
         "A_CARBONATOR": span("carbonator_l", one, " L"),
         "A_BATH": span("bath_w_per_k", whole, " W/K"),
         "A_PRECOOL": span("precool", pct, " %"),
-        "A_BRASS": span("faucet_brass_g", whole, " g"),
+        "A_BRASS": span("valve_brass_g", whole, " g"),
         "A_REWARM": span("rewarm_min", whole, "-minute"),
         "A_SHARE": span("glass_share", pct, " %"),
         "A_RISE": span("rise_m", one, " m"),
-        "A_K_LILLIUM": span("k_lillium", whole),
+        "A_K_OUTLET": span("k_outlet", whole),
         "A_K_METER": span("k_meter", whole),
         "A_K_FAUCET": span("k_faucet", whole),
-        "A_BRIDGE": span("bridge_drop_v", one, " V"),
+        "A_DRIVE": span("drive_drop_v", one, " V"),
         "A_BURST": span("burst_loss_ms", whole, " ms"),
         "A_SLIP": f"{100 * INPUTS['slip'][1]:.0f} %",
         "READ_S": f"{READ_S} s",
@@ -471,10 +522,12 @@ def figures(results, pinned):
         "RUN_T4": f"{starts[3]} s",
         "RUN_T5": f"{starts[4]} s",
         "RUN_TIP": f"{RUN_GAPS_S[5]} s",
+        "FLOW_S": f"{FLOW_TEST_S} s",
         "SHAPE_TIMES": f"{shape_on} ms on, {shape_off} ms off",
         "SHAPE_DUTY": f"{100 * shape_duty:.0f} %",
-        "SHAPE_SYRUP": f"{shape_duty * PUMP_ML_MIN:.0f} mL/min",
         "SHAPE_FLOW": f"{shape_flow[0]:.1f}–{shape_flow[1]:.1f} L/min",
+        "SHAPE_PUMP": f"{shape_pump:.0f} mL/min",
+        "SHAPE_STEP": f"{100 * shape_step:.0f} %",
         "PUMP_NOMINAL": f"{PUMP_ML_MIN:.0f} mL/min",
         "ACC_TOL": f"±{ab.ratio_volume_tol_pct:g} %",
         "ACC_TOTAL": f"{ab.metered_total_ml:g} mL",
@@ -501,21 +554,20 @@ def figures(results, pinned):
         "FILL_SLOW": edge("fill_s", one, " s", 1),
         "PULSES": pred("pulses", one),
         "MOTOR_V": pred("motor_v", one, " V"),
-        "MOTOR_V_BAND": edge("motor_v", one, " V"),
         "SPEED": pred("speed", pct, " %"),
         "PUMP_ON": pred("pump_ml_min", whole, " mL/min"),
         "PUMP_ON_BAND": edge("pump_ml_min", whole, " mL/min"),
+        **flows,
         "RATIO_FULL": pred("ratio_full", whole).join(("1:", "")),
         "RATIO_HALF": pred("ratio_half", whole).join(("1:", "")),
+        "APPLIANCE_RATIO": pred("ratio_appliance", whole).join(("1:", "")),
         "BRIX_SHARE": pred("brix_share", pct1, " %"),
+        "BRIX_RICH": edge("brix_share", pct1, " %", 1),
+        "BRIX_LEAN": edge("brix_share", pct1, " %", -1),
         "BRIX_LABEL": f"{100 * label_share:.1f} %",
-        "MASS_RATIO": pred("mass_ratio", whole).join(("1:", "")),
-        "MASS_RICH": edge("mass_ratio", whole, which=-1).join(("1:", "")),
-        "MASS_LEAN": edge("mass_ratio", whole, which=1).join(("1:", "")),
         "LABEL": f"1:{LABEL_RATIO:g}",
-        "APPLIANCE_WARM": f"{APPLIANCE_WARM_ML:.0f} mL",
+        "APPLIANCE_WARM": pred("appliance_warm_ml", whole, " mL"),
         "APPLIANCE_FEED": f"{pv.secondary_regulator_pressure_psi:.4g} psi",
-        "APPLIANCE_LINE": f"{FAUCET.blue_cut_length / 1000:.2f} m",
         "APPLIANCE_FILL": pred("appliance_fill_s", one, " s"),
     }
 
