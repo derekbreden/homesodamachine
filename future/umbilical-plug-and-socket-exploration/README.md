@@ -24,6 +24,14 @@ open fences, with no extra part, moving mechanism or wet joint. Rounded wings le
 narrow corners can enter the gaps. The proposed socket is 2.4 mm wider; the complete
 rigid approach envelope is 126.3 mm before braid or hand clearance. This candidate
 is CAD only and is not in the saved print projects.
+The [retained-hardware interface options](retained-options/README.md) use the
+selected screw-ear contacts and grooved block magnets in a Ø34 mm protected
+plug. The recommended layout has a 3.5 mm main sleeve wall and central wiring;
+the tighter tube layout needs local ear reliefs and thinner end-stop details.
+Native parts include screw/insert seats, magnet rails, channel end stops,
+an indexed receiver nose and an accessible rear-loaded seal puck. Seal
+interference, installed force, complete boot integration and enclosure mounting
+remain unqualified. No printer job is prepared for these interface studies.
 The [compliant receiver visual concept](compliant-receiver-concept/README.md) places
 the four actual LLDPE male tube ends in a tighter formation inside an integral
 protective sleeve. One supported TPU or cast-silicone puck provides four separate
