@@ -822,7 +822,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [1.246 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [0.3428 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)
