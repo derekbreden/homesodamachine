@@ -16,10 +16,10 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.print.json",
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py",
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/preparation.json",
-      "hardware/printed-parts/faucet/finish-coupons/2026-10-10/prepare.py"
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/2026-10-10-faucet-scarf-swatches-v1-petgf-left04-z004-mark2.print.json",
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/preparation.json",
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/prepare.py",
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/study-plan.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -388,6 +388,7 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step",
       "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step",
+      "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
@@ -2572,7 +2573,8 @@
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "163731f37118a7e1e48d14ab56d6cb1b5d20960954ef1f7e0359bec4b32260b4",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "504024a53a906e126cb5d0a09d90b9138443d59bc81c48ee4b8c4ea7c01bdccb",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
-    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd"
+    "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c0b3fee0aabe719722d3a90a3ada4467bd75088940713b8abfa7e2d32bb74ee0",
@@ -2948,6 +2950,7 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1791619488,
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": 1791675122,
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": 1791675122,
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step": 1791676743,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": 1791385546,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": 1791385546,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": 1791385546,
