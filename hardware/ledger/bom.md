@@ -154,7 +154,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel frame | 1 | PET-GF | 0.241 | $6.02 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.103 | $1.16 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.20** | **[$165.87](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.20** | **[$165.86](BOM_SEC7)** |
 
 By material: PETG ≈ 1.03 kg / $11.48 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.17 kg / $154.39.
 
@@ -332,7 +332,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$128.94](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.87](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.86](BOM_SEC7) |
 | 8. Flavor subsystem | [$229.61](BOM_SEC8) |
 | 9. Dispensing | [$71.99](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -340,7 +340,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$35.66](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.02](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,429.89](BOM_GRAND)** |
+| **Total** | **[$1,429.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
