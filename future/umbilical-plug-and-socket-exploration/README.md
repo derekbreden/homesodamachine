@@ -24,6 +24,12 @@ open fences, with no extra part, moving mechanism or wet joint. Rounded wings le
 narrow corners can enter the gaps. The proposed socket is 2.4 mm wider; the complete
 rigid approach envelope is 126.3 mm before braid or hand clearance. This candidate
 is CAD only and is not in the saved print projects.
+The [compliant receiver visual concept](compliant-receiver-concept/README.md) places
+the four actual LLDPE male tube ends in a tighter formation inside an integral
+protective sleeve. One supported TPU or cast-silicone puck provides four separate
+sealing passages; magnets retain the bodies axially. Its dimensions, seal lands
+and annular magnets are illustrative, with no selected interference or qualified
+pressure/retention result. It is separate from the union-based print projects.
 The [coupling tactile trial](tactile-trial/README.md) and
 [guided boot trial](guided-boot-trial/README.md) assess their stated plastic-fit and bundle
 questions; both have filled magnet pockets, no guard and no pauses. Missing magnets
