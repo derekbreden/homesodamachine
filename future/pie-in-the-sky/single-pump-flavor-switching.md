@@ -31,7 +31,7 @@ At a nominal 4.3 mm bore, **~30 mL of standing syrup**. A 12 oz pour at 1:20 dra
 | Flush — tap water forward, out the tip | ~45 | the sink, carrying the film |
 | Prime — new syrup forward, water expelled ahead of it | 30 | line ends full of new flavor; the interface is lost |
 
-A parked KPHM400 head passes flow both ways ([`fluid-topology.md`](/hardware/topology/fluid-topology.md)), and the manifold already runs tap pressure across an idle pump in its clean-fill modes. Tap pressure at the gooseneck gate moves the flush in about a second. The reverse and the prime — 60 mL — are pump work.
+A parked KPHM600 head passes flow both ways ([`fluid-topology.md`](/hardware/topology/fluid-topology.md)), and the manifold already runs tap pressure across an idle pump in its clean-fill modes. Tap pressure at the gooseneck gate moves the flush in about a second. The reverse and the prime — 60 mL — are pump work.
 
 ## Film
 
@@ -41,7 +41,7 @@ Both ends of that range assume a syrup viscosity near 10 cP and surface tension 
 
 ## Pump
 
-Sixty millilitres of pump work in ten seconds is **~360 mL/min**, three to four times a KPHM400.
+Sixty millilitres of pump work in ten seconds is **~360 mL/min**, under the 380–600 mL/min Kamoer rates the KPHM600 head for and under what [the model](/future/model.md) predicts one moves on the main board.
 
 **Dispense duty.** At 360–500 mL/min, 17 mL over a pour lands near 14–19% duty; each 50 ms injection is 0.3–0.4 mL, forty-odd of them into a 355 mL glass, above the `kPourOnMinMs` floor in [`/firmware/lib/machine_policy/pour_policy.h`](/firmware/lib/machine_policy/pour_policy.h). A 1:6 bag-in-box ratio lands near 40–55%.
 
@@ -84,7 +84,7 @@ The line takes a water flush on every switch. Reverting to the household default
 
 1. **Are the manifold solenoids bidirectional?** Direct-acting passes reverse flow; pilot-operated does not.
 2. **The 1/4" LLDPE bore is not recorded anywhere in the repo.** Every volume here assumes 4.3 mm, and scales as its square. Measure the neoFlo spool.
-3. **KPHM400 delivered flow is unspecified.** The 3–4× figure is relative to an assumed 100 mL/min. Measure the pumps.
+3. **KPHM600 delivered flow is unmeasured.** The 360 mL/min above sits against its rating and the model's prediction, not a reading. Measure the pumps.
 4. **What does 30 mL of aerated syrup do inside the reservoir?** The vented cap passes the air. Foam riding the magnet float reaches the reed column in [`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md).
 5. **Does a capacitive electrode read through PET-GF15 at the tip**, with condensation on the gooseneck and a hand on the LCD?
 6. **Syrup viscosity and surface tension.** The film range and the flush volume rest on assumed values.

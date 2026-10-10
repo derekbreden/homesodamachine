@@ -357,7 +357,7 @@ export const decoupling: DecouplingRule[] = [
 // audit.ts checks the routed width against this). Each such trace carries an explicit `thickness`
 // below so the router lays it wide instead of the 0.2mm floor it gives every logic line. The power
 // RAILS need no entry: V12/V5/GND are poured planes picked up at the barrel. What does:
-//   pump motors (U11/U12.OUT → J13) — ~0.8A peak (Kamoer KPHM400-SW). Routed 0.4mm, want ≥0.3mm
+//   pump motors (U11/U12.OUT → J13) — ~0.8A peak (Kamoer KPHM600-SW). Routed 0.4mm, want ≥0.3mm
 //     (IPC-2221 rule of thumb for ~0.8A at ~10°C rise on 1oz; more on inner 0.5oz — kept short).
 //   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the TBD62083 DMOS array, so ≤0.5A/channel.
 //     Routed 0.3mm, want ≥0.25mm.
@@ -433,13 +433,13 @@ export default () => (
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="W" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="W" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
-        pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
+        pump (Kamoer KPHM600-SW, 12V brushed DC, 0.8A at full speed per its rating — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM decoupling per chip.
         DRIVE: the dosing pumps run ONE direction (dispense), so this is single-direction fast-decay
         drive: IN2 tied to GND, only IN1 PWM'd from the ESP. That halves the IN bus to one trace per
-        pump and frees IO16/IO18. The head seals nothing at rest — a parked KPHM400 passes flow both
+        pump and frees IO16/IO18. The head seals nothing at rest — a parked KPHM600 passes flow both
         ways, and the manifold's NC solenoids hold every line (fluid-topology.md) — so direction buys
         operations, not sealing: reverse fill and suck-back at the gooseneck are what IN2->IO16/IO18 is for. */}
     {U11El}
