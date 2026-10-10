@@ -1,0 +1,162 @@
+{
+  "recorded_at_utc": "2026-10-10T08:11:48.353398+00:00",
+  "fresh_printer_readings": [
+    {
+      "printer": "Mark1",
+      "read_alias": "H2C",
+      "observed_at_utc": "2026-10-10T08:10:09.159740+00:00",
+      "task_id": "1325371485",
+      "job_id": "1325371485",
+      "subtask_name": "2026-10-10-current-back-top-tree-bridge50-black-z018-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 10,
+      "total_layer_num": 813,
+      "mc_percent": 5,
+      "mc_remaining_time": 1557,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 53,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 279,
+            "target_c": 280
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "Mark2",
+      "read_alias": "Mark2",
+      "observed_at_utc": "2026-10-10T08:10:09.490539+00:00",
+      "task_id": "1325126748",
+      "job_id": "1325126748",
+      "subtask_name": "2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 42,
+      "total_layer_num": 42,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 24.0,
+      "bed_target_temper": 0.0,
+      "timelapse": null,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "ASA-AERO",
+          "tray_info_idx": "GFB02",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "fixed_extruders": [
+        {
+          "id": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 32,
+            "target_c": 0
+          }
+        },
+        {
+          "id": 1,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4
+          },
+          "temperature": {
+            "actual_c": 26,
+            "target_c": 0
+          }
+        }
+      ],
+      "chamber": {
+        "actual_c": 25,
+        "target_c": 0
+      }
+    }
+  ],
+  "peer_latest_accepted_start_utc": "2026-10-10T06:36:57.529465+00:00",
+  "peer_task_id": "1325371485",
+  "seconds_since_peer_acceptance": 5591.961074,
+  "required_seconds": 180,
+  "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+  "prepared_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "source_hashes_verified": true,
+  "destination_ready": true,
+  "live_faucet_payloads_verified": true,
+  "input_slots_verified": true,
+  "source_sha256": {
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "fad81ca41e07067c104fff7041a7c3f1b09f8ffda3e1174250541238614cef91",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "55dc25b007cd3b4fa2001094f72b2ccd39f287787f443f81b273629c2f43ccb4",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/2026-10-09-industrial-faucet-complete-lever-shoulders008-petgf-left04-z004-mark2.3mf": "047fe6067d1f5943f294c084304a3ef1c5ad628fcbe4afa854c1627683759aa2",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/2026-10-09-industrial-faucet-complete-all008-solid-foot-petgf-left04-z004-v3-mark2.3mf": "f98b18e9bd2173958889d25958e780de40e0859a1e2686e13431e33ec7866145",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/2026-10-09-industrial-faucet-complete-shoulders012-solid-foot-petgf-left04-z004-mark2.3mf": "2ba72e33f8d808e678cb90d20874e4236c7b9c90ac942d3eabd083f8e199a1e3",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-petgf-left04-z004-mark2.3mf": "636aaa95d41b59c1aaa8ae05b993296b803ae1a84b9b1882f0c74e2089675929",
+    "hardware/printed-parts/faucet/vent-qualification/simple-drip-check.json": "8fb2e2fe681da911b1ab2aee6d104082252737554c178a6879b5fe60db3880a5",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-wing050-drip4-mark2/2026-10-09-industrial-faucet-complete-shoulders012-wing050-drip4-petgf-left04-z004-mark2.3mf": "a229655e89acbb9155473b199e44e97ef7c3eeeaf7c7c34121b5dd20adbb5cbe",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b4bd58e0ab474fae08cf6d133f029fe9524fad639c3ba64e0bc3f1123a3f8268",
+    "hardware/printed-parts/faucet/faucet_paths.py": "7d81983ad3920e973f729febaad77a713a55a6706f6dae53c74f94ada010b0b2",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5"
+  },
+  "send_attempted": false,
+  "accepted": false,
+  "pass": true
+}

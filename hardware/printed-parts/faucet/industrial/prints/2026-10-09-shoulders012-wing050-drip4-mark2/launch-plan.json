@@ -2,7 +2,7 @@
   "schema": 1,
   "recorded_at_utc": "2026-10-10T05:09:37.514152+00:00",
   "printer": "Mark2",
-  "status": "Held at Derek request before import or Send",
+  "status": "Superseded before import or Send; Derek hold retained",
   "authorization_quotes": [
     "I suppose that's what we need to queue up next, another faucet print with those defects fixed.",
     "And just to keep us on our toes, I'd like to try 0.12 layers instead of 0.08 layers for those variable thinner layer areas. That is the next size increment, right, 0.08 to 0.12?",
@@ -127,5 +127,6 @@
     "geometry_check_sha256": "233c782fba6a9b2ecc8947141e1bf1e1b83c0cdd38408ca9165f6bf69b7e1fb8",
     "geometry_check_passed": true
   },
-  "hold_quote": "Apologies, pause on that print"
+  "hold_quote": "Apologies, pause on that print",
+  "superseded_by": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/launch-plan.json"
 }
