@@ -76,8 +76,8 @@ the actual aft/down/forward seating path. Check that path on the physical
 donor and shell before closing the base. The measured assembled pose and
 operating contact motion are not yet established in CAD.
 
-The central lever opening is open above the handle up to the rounded front
-of the neck cap. The arched clearance farther aft leaves room for the rear
+The central lever entry stays open up to the neck shoulder at Z57.5.
+Above that shoulder it follows the rounded front of the neck cap. The arched clearance farther aft leaves room for the rear
 arm to rise when the front is pressed. Confirm this motion with the printed lever before
 closing the faucet base.
 
@@ -93,8 +93,9 @@ socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
 18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
 neck has no screw opening or external bridge.
 
-The female socket, display pocket and beverage outlets provide tube-feeding
-access. One smooth opening carries the tubes and flat insulated ribbon through the
+The donor arch clearance joins the shared tube opening behind the lever,
+without an independent internal divider. The female socket, display pocket
+and beverage outlets provide tube-feeding access. One smooth opening carries the tubes and flat insulated ribbon through the
 upper bend and tip. Tangent walls surround their rounded clearance profiles;
 the flavors share a capsule without a central divider or outlet cusp. The three drink tubes continue to
 their symmetric dispense outlets. D ends square with 3 mm of empty terminal

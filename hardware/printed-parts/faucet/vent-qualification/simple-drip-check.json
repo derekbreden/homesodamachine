@@ -55,29 +55,75 @@
   "joint_plug_wall_radial_lower_bound_mm": 2.209987078000001,
   "socket_wall_mm": 2.0,
   "nominal_joint_solid_overlap_volume_mm3": 0.0,
+  "joint_overlap_method": "Exact intersection inside the complete overlap of both part bounding boxes, expanded by 0.001 mm; every possible common material point is included.",
   "valid_single_solid_parts": true,
   "step_roundtrip_valid_single_solid_parts": true,
   "drain_bungs_per_faucet": 0,
   "drain_insertion_tool_required": false,
   "source_sha256": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b0e041857b8c9800a30e4ba70f341f6a9ebb59355f558a166c00ea4fb40dd2d7",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "b4bd58e0ab474fae08cf6d133f029fe9524fad639c3ba64e0bc3f1123a3f8268",
     "hardware/printed-parts/faucet/faucet_paths.py": "7d81983ad3920e973f729febaad77a713a55a6706f6dae53c74f94ada010b0b2",
     "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "d7e0a9f4615d449991f9217a5070a762159b9ea51b1fbfd7c386e92901bf3c89",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "8fc1b1ab541b3e884ded4f12295eb7d491d46179d163f471b0aeeab5bb40e735",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "4ad1764695f7d990f77e917127f9f20934755a2ed5ebbe10e204b4a5c5512644",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "e0a16c464b9a12cb7a64bcff53df4877cb130cf9b4ded2a4e8a2f8bd559569a6",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "b3b5ca93abfa932bc3b05b79724a669a0e52ea5a204a6e1f2a4be90dcfaac13c",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "f7ac2c9e85b32099653bb25c7bdacbfa31fc5f2b8208156bff6621a311c800a9",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "c70c60575e452d5b30503140f519ee221a8a3fe9ba50f3c6a8be37d774ed231e",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "65c83d76930e89bb752d1e9fc11ab62b956be91a12c8d9bf8c8a6362a0a6f738",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "d902415657a45dc000db9b65058e1391c10d7e286de68c2f9ee04e5f09d89b8a",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "98850b85ad28b3a5d9949a223918263e87aecf0454b72ee876a54f07c5624c78",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "9fbb7dc70b81f53867f3daf79f3c2a511b9e3cc45351b8cf3581e8a255acd49c",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "c50a83bb0ab0a7ff6cb262bc464818fdbd3a49ef642ee620791432df3d4dfd09"
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "c8eee1a6026e370dc0dbbcf4f5122171da03c8e31698651cac71068f523bd34a"
   },
   "physical_discharge_observed": false,
   "physical_support_cleanup_observed": false,
   "complete_fault_vent_capacity_qualified": false,
   "scope": "Analytic geometry and sampled tube clearance. Native roads and automatic support placement receive their separate review. No physical cleanup, fit, strength, lifetime or fault discharge result is inferred.",
-  "pass": true
+  "pass": true,
+  "lower_printable_stock_reading": {
+    "changed_executable_builders": [
+      "build_lever_front_clearance",
+      "build_zone3_inner_cut"
+    ],
+    "change_bound_cad_z_mm": [
+      39.0,
+      57.5
+    ],
+    "donor_arch_profile_and_outer_stock_retained": true,
+    "mirror_divider_clearance_readings": [
+      {
+        "part": "faucet-shell-base",
+        "confirmed_divider_points_removed": 6,
+        "valid_single_solid": true
+      },
+      {
+        "part": "industrial-shell-base",
+        "confirmed_divider_points_removed": 6,
+        "valid_single_solid": true
+      }
+    ],
+    "lever_clearance_face_backing": [
+      {
+        "point": [
+          -6.156,
+          10.46,
+          47.922
+        ],
+        "solid_spans_mm": [
+          [
+            0.0,
+            2.8341647767252702
+          ],
+          [
+            10.35683809714599,
+            16.78899975823127
+          ]
+        ]
+      }
+    ],
+    "nonfunctional_neck_shoulder_strips_removed": true,
+    "complete_tip_native_step_DATA_identical": true,
+    "pass_": true
+  }
 }

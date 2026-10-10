@@ -786,7 +786,7 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
 
 def build_zone3_inner_cut() -> cq.Workplane:
-    """Two arch bores at ±X mirroring the Westbrass arches with bore_clearance."""
+    """Donor arch clearance joined to the tube opening behind the lever."""
     bore_y_oversize = westbrass_bore_diameter / 2.0 + 2.0
 
     def bore(x_bottom: float, x_height: float) -> cq.Workplane:
@@ -806,6 +806,17 @@ def build_zone3_inner_cut() -> cq.Workplane:
     bores = bore(+shell_arch_bore_inner_x, +bore_thickness).union(
         bore(-shell_arch_bore_outer_x, +bore_thickness)
     )
+    # Keep the donor's arch roof while opening the rear central span into the
+    # tube passage. The lever corridor ahead of fill_y_min remains unchanged.
+    # No independent divider stands between the arch clearance and the tubes.
+    rear_window = cq.Solid.makeBox(
+        2.0 * shell_arch_bore_inner_x,
+        bore_y_oversize - fill_y_min,
+        shell_arch_bore_z_peak - zone3_z_bottom,
+        cq.Vector(-shell_arch_bore_inner_x, fill_y_min, zone3_z_bottom))
+    rear_join = bore(-shell_arch_bore_inner_x, 2.0 * shell_arch_bore_inner_x).intersect(
+        cq.Workplane(obj=rear_window))
+    bores = bores.union(rear_join)
     return bores.intersect(westbrass_bore_cyl(zone3_z_bottom, shell_arch_bore_z_peak - zone3_z_bottom))
 
 
@@ -1621,7 +1632,14 @@ def build_lever_front_clearance() -> cq.Workplane:
     cap = cq.Solid.makeCylinder(
         shell_outer_r, zone5_z_top - lever_rest_top_z,
         cq.Vector(0.0, zone45_front_y + shell_outer_r, lever_rest_top_z))
-    return cq.Workplane(obj=opening.cut(cap))
+    # The straight lower entry stays open up to the neck shoulder. Leaving a
+    # rounded cap below that shoulder creates a thin strip against the water
+    # bore; the lever has no bearing or retention surface in this upper span.
+    lower_entry = cq.Solid.makeBox(
+        2.0 * lever_clearance_x_half, fill_y_min - lever_insertion_front_y,
+        zone5_z_bottom - lever_rest_top_z,
+        cq.Vector(-lever_clearance_x_half, lever_insertion_front_y, lever_rest_top_z))
+    return cq.Workplane(obj=opening.cut(cap).fuse(lower_entry))
 
 
 def build_lever_clearance() -> cq.Workplane:

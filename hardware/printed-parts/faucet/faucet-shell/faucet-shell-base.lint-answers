@@ -8,3 +8,7 @@ file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
 click: x=0.000 y=-22.300 z=3.200
 click: x=22.500 y=-2.000 z=3.200
 click: x=-22.500 y=-2.000 z=3.200
+
+[sliver] This is a finite patch of the rear lever-clearance plane, joined along its outer side to the base body. Its 1.389 mm face width is not a wall thickness: the exact inward +Y chord at this pick has 2.834 mm of stock before the tube opening. It bounds the handle clearance below the neck shoulder. The native chord and the removed neighbouring nonfunctional thin strip are recorded in ../vent-qualification/simple-drip-check.json. Physical support cleanup remains unmeasured.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
+click: x=-6.156 y=10.460 z=47.922
