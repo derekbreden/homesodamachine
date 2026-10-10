@@ -10,6 +10,9 @@ The [minimal tube bundle](minimal-bundle/README.md) shows equal 0.85 mm
 neighboring tube gaps, a matching conforming TPU skin, the inward-positioned
 4 mm drain tube and a 6 mm thick blue protective wall. The selected pogo pair,
 grooved block magnets and countertop hole are separate size references.
+The [triangular tube bundle](triangle-bundle/README.md) packs the three large
+tubes on an equilateral triangle, then adds the 4 mm tube against two of them,
+using the same 0.85 mm neighboring gaps and exposed TPU skin.
 
 **Color layout:** the boot/plug body and tube key are entirely Fiberon PET-GF15
 Blue, matching the blue socket. The enclosure receiver/wall and rear union
