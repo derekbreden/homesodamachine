@@ -2065,8 +2065,8 @@
       ]
     },
     "overlap_report_threshold_mm3": 1e-06,
-    "manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
-    "source_stl_sha256": {
+    "review_input_sha256": "435ff562b5b1ac974445c6e5883bc89fc1e40fb30a1d431a05ab09b03a649023",
+    "reviewed_source_stl_sha256": {
       "P": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
       "Q24": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2",
       "Q48": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474",
@@ -2121,6 +2121,502 @@
       "FH": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810",
       "FC": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad"
     },
-    "review_input_sha256": "435ff562b5b1ac974445c6e5883bc89fc1e40fb30a1d431a05ab09b03a649023"
+    "reviewed_manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+    "source_stl_sha256": {
+      "P": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "Q24": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2",
+      "Q48": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474",
+      "Q72": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e",
+      "H": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340",
+      "S05R": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98",
+      "S05": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d",
+      "S15R": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7",
+      "S15": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1",
+      "S25R": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a",
+      "S25": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d",
+      "S35R": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a",
+      "S35": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f",
+      "S45R": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316",
+      "S45": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb",
+      "R30": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f",
+      "R45": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d",
+      "R60": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
+      "A08": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71",
+      "A12": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e",
+      "A24": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
+      "N08D": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab",
+      "N08K": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887",
+      "N08": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "N12D": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25",
+      "N12K": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05",
+      "N12": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "N24D": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e",
+      "N24K": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3",
+      "N24": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR00D": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb",
+      "NR00K": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3",
+      "NR00": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR05D": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5",
+      "NR05K": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac",
+      "NR05": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR15D": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10",
+      "NR15K": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2",
+      "NR15": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS00D": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d",
+      "NS00K": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84",
+      "NS00": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS10D": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79",
+      "NS10K": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422",
+      "NS10": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS20D": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7",
+      "NS20K": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90",
+      "NS20": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "GR": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
+      "G": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
+      "R6": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f",
+      "FH": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810",
+      "FC": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad"
+    },
+    "manifest_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
+    "lower_dock_delta_scope": "Prior whole neck-holder, keeper and H storage routes retain their reviewed geometry; the changed lower-dock stock is below all holder paths and separate from the H root seats. G/GR whole-module -X handling is reviewed here against the rooted candidate."
+  },
+  "lower_gr_storage_dock": {
+    "schema": 1,
+    "basis_manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+    "scope": "Exact specified reference-only lower dock candidate, with all other bodies loaded. Sampled rigid intersections; no continuous sweep or physical fit/release/stability qualification.",
+    "gr_socket_cut_manufacturing_bounds_mm": [
+      [
+        -49.15,
+        -2.15,
+        -0.1
+      ],
+      [
+        -45.85,
+        2.15,
+        2.3
+      ]
+    ],
+    "gr_socket_world_z_mm": [
+      6.05,
+      9.35
+    ],
+    "nominal_top_air_mm": 0.27,
+    "nominal_y_air_each_side_mm": 0.15,
+    "gr_bottom_open": true,
+    "geometry": [
+      {
+        "id": "P",
+        "valid_one_solid": true
+      },
+      {
+        "id": "GR",
+        "valid_one_solid": true
+      }
+    ],
+    "samples": [
+      {
+        "outboard_world_x_displacement_mm": 0,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -0.25,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -1,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -2.5,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -3,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -5,
+        "bounding_candidates": 2,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -10,
+        "bounding_candidates": 0,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -15,
+        "bounding_candidates": 0,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -25,
+        "bounding_candidates": 0,
+        "overlaps": []
+      },
+      {
+        "outboard_world_x_displacement_mm": -40,
+        "bounding_candidates": 0,
+        "overlaps": []
+      }
+    ],
+    "manifest_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
+    "generator_sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162",
+    "source_stl_sha256": {
+      "P": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "Q24": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2",
+      "Q48": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474",
+      "Q72": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e",
+      "H": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340",
+      "S05R": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98",
+      "S05": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d",
+      "S15R": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7",
+      "S15": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1",
+      "S25R": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a",
+      "S25": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d",
+      "S35R": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a",
+      "S35": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f",
+      "S45R": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316",
+      "S45": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb",
+      "R30": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f",
+      "R45": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d",
+      "R60": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
+      "A08": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71",
+      "A12": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e",
+      "A24": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
+      "N08D": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab",
+      "N08K": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887",
+      "N08": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "N12D": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25",
+      "N12K": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05",
+      "N12": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "N24D": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e",
+      "N24K": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3",
+      "N24": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR00D": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb",
+      "NR00K": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3",
+      "NR00": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR05D": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5",
+      "NR05K": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac",
+      "NR05": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NR15D": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10",
+      "NR15K": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2",
+      "NR15": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS00D": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d",
+      "NS00K": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84",
+      "NS00": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS10D": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79",
+      "NS10K": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422",
+      "NS10": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "NS20D": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7",
+      "NS20K": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90",
+      "NS20": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "GR": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
+      "G": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
+      "R6": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f",
+      "FH": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810",
+      "FC": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad"
+    },
+    "exported_delta_parked_contacts": [
+      {
+        "parts": [
+          "P",
+          "Q24"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "Q48"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "Q72"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "H"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S05R"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S05"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S15R"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S15"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S25R"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S25"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S35R"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S35"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S45R"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "S45"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "R30"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "R45"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "R60"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "GR"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "G"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "R6"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "P",
+          "FH"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "H",
+          "GR"
+        ],
+        "rigid_overlap_mm3": 0.0
+      },
+      {
+        "parts": [
+          "GR",
+          "G"
+        ],
+        "rigid_overlap_mm3": 0.0
+      }
+    ],
+    "unchanged_leaf_source_count": 51,
+    "changed_stock_world_bounds_mm": [
+      [
+        -80.3,
+        -2.15,
+        6.05
+      ],
+      [
+        -77.9,
+        2.15,
+        10.85
+      ]
+    ],
+    "prior_path_reuse_scope": "Prior whole neck-holder, keeper and H storage routes retain their reviewed geometry; the changed lower-dock stock is below all holder paths and separate from the H root seats. G/GR whole-module -X handling is reviewed here against the rooted candidate.",
+    "unchanged_path_reuse": {
+      "schema": 1,
+      "basis_manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+      "changed_stock_world_bounds_mm": [
+        [
+          -80.3,
+          -2.15,
+          6.05
+        ],
+        [
+          -77.9,
+          2.15,
+          10.85
+        ]
+      ],
+      "previous_review": ".cache/pour-compositions/final-storage-withdrawal-review.json",
+      "scope": "Reuse only of prior sampled foot-unit/H storage-removal positions: all foot units and their nonnegative-Z paths are above changed stock, and H has no stock in the delta reverse-swept through0..4mm world+Z. Prior whole53-body audits are not claimed to have been rerun. G/GR uses the separate new dock review. No continuous general sweep or physical handling qualification.",
+      "foot_unit_bounds": [
+        {
+          "unit_id": "N08",
+          "parked_body_minimum_world_z_mm": 21.40516906590357,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 10.555169065903572
+        },
+        {
+          "unit_id": "N12",
+          "parked_body_minimum_world_z_mm": 30.90516906590357,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 20.05516906590357
+        },
+        {
+          "unit_id": "N24",
+          "parked_body_minimum_world_z_mm": 40.40516906590357,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 29.55516906590357
+        },
+        {
+          "unit_id": "NR00",
+          "parked_body_minimum_world_z_mm": 49.90516906590357,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 39.05516906590357
+        },
+        {
+          "unit_id": "NR05",
+          "parked_body_minimum_world_z_mm": 59.40516906590357,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 48.55516906590357
+        },
+        {
+          "unit_id": "NR15",
+          "parked_body_minimum_world_z_mm": 68.90516906590358,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 58.05516906590358
+        },
+        {
+          "unit_id": "NS00",
+          "parked_body_minimum_world_z_mm": 78.40516906590358,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 67.55516906590358
+        },
+        {
+          "unit_id": "NS10",
+          "parked_body_minimum_world_z_mm": 87.90516906590358,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 77.05516906590358
+        },
+        {
+          "unit_id": "NS20",
+          "parked_body_minimum_world_z_mm": 97.40516906590358,
+          "all_named_foot_paths_have_nonnegative_world_z_translation": true,
+          "minimum_separation_above_changed_stock_window_mm": 86.55516906590358
+        }
+      ],
+      "h_reverse_swept_changed_window_z_mm": [
+        2.05,
+        10.85
+      ],
+      "h_stock_intersection_with_reverse_window_mm3": 0.0,
+      "h_source_stl_sha256": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340",
+      "qualified_for_bounded_reuse": true,
+      "review_input_sha256": "7aec0d94186f0942cd04bc9cc9fd06157e18e2939d5f2cebdfb92d092d9047e6",
+      "current_manifest_sha256": "6bf47091033ff4006af3602ca122cc5952b48614632c0df33488eb1a609e51a9"
+    },
+    "reviewed_key_world_bounds_mm": [
+      [
+        -80,
+        -2,
+        6.2
+      ],
+      [
+        -77.9,
+        2,
+        9.2
+      ]
+    ],
+    "p_key_world_bounds_mm": [
+      [
+        -80,
+        -2,
+        6.2
+      ],
+      [
+        -77.9,
+        2,
+        9.08
+      ]
+    ],
+    "cap_grid_scope": {
+      "basis_manifest_sha256": "6bf47091033ff4006af3602ca122cc5952b48614632c0df33488eb1a609e51a9",
+      "source_p_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "CAD_cap_z_mm": 9.08,
+      "model_grid_mm": {
+        "first": 0.2,
+        "body": 0.24
+      },
+      "added_stock_mm3": 0.0,
+      "removed_stock_mm3": 0.9599999999999935,
+      "scope": "Exact P solid is a subset of the reviewed rooted-key candidate; only .96 mm3 at its key cap is removed. Parked and sampled handling zeros are retained by that subset reading. Other52 leaf source geometries are unchanged; native cap and air are read separately."
+    }
   }
 }

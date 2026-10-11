@@ -46,8 +46,8 @@
           13.2500001
         ]
       ],
-      "stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
-      "step_sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea",
+      "stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "step_sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a",
       "assembly": {
         "rotation_xyz_degrees": [
           0.0,
@@ -365,6 +365,24 @@
         "minimum_locator_air_mm": 0.2015646773,
         "locator_air_scope": "Measured minimum in exact source passage; not uniform per-face air",
         "scope": "Reference-only rear-face adapter, not a snap stiffness specimen"
+      },
+      "grip_column_lower_dock": {
+        "key_world_bounds_mm": [
+          [
+            -80,
+            -2,
+            6.2
+          ],
+          [
+            -77.9,
+            2,
+            9.08
+          ]
+        ],
+        "construction": "Solid key rooted directly on the basin; GR storage socket opens downward through its footer",
+        "nominal_top_air_mm": 0.27,
+        "nominal_y_air_each_side_mm": 0.15,
+        "removal": "Complete G/GR module slides world -X; source grip and wing receivers retain their full span"
       }
     },
     {
@@ -5232,8 +5250,8 @@
           14.38
         ]
       ],
-      "stl_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
-      "step_sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090",
+      "stl_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
+      "step_sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5",
       "assembly": {
         "rotation_xyz_degrees": [
           -0.0,
@@ -5256,8 +5274,31 @@
       "roof_stock_mm": 12,
       "retaining_air_mm": 0.45,
       "supported_back_air_mm": 0.25,
-      "geometry_adaptation": "Solid storage footers; lower static key socket. Full production wing slots and span retained.",
-      "complete_module_removal": "Slide G/GR together world -X10mm clear of the horizontal lower key and open upper H cup; set aside. Hand-support H while its left bearing is absent."
+      "geometry_adaptation": "Solid storage footers; downward-open lower static key socket over a basin-rooted key. Full production wing slots and span retained.",
+      "complete_module_removal": "Slide G/GR together world -X10mm clear of the horizontal lower key and open upper H cup; set aside. Hand-support H while its left bearing is absent.",
+      "lower_storage_socket": {
+        "manufacturing_cut_bounds_mm": [
+          [
+            -49.15,
+            -2.15,
+            -0.1
+          ],
+          [
+            -45.85,
+            2.15,
+            2.3
+          ]
+        ],
+        "world_z_mm": [
+          6.05,
+          9.35
+        ],
+        "nominal_top_air_mm": 0.27,
+        "nominal_y_air_each_side_mm": 0.15,
+        "open_direction": "World -Z through lower footer",
+        "manufacturing_bridge_span_y_mm": 4.3,
+        "manufacturing_bridge_stock_z_mm": 1.2
+      }
     },
     {
       "id": "G",
@@ -6188,8 +6229,8 @@
           13.2500001
         ]
       ],
-      "stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
-      "step_sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea",
+      "stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "step_sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a",
       "assembly": {
         "rotation_xyz_degrees": [
           0.0,
@@ -6507,6 +6548,24 @@
         "minimum_locator_air_mm": 0.2015646773,
         "locator_air_scope": "Measured minimum in exact source passage; not uniform per-face air",
         "scope": "Reference-only rear-face adapter, not a snap stiffness specimen"
+      },
+      "grip_column_lower_dock": {
+        "key_world_bounds_mm": [
+          [
+            -80,
+            -2,
+            6.2
+          ],
+          [
+            -77.9,
+            2,
+            9.08
+          ]
+        ],
+        "construction": "Solid key rooted directly on the basin; GR storage socket opens downward through its footer",
+        "nominal_top_air_mm": 0.27,
+        "nominal_y_air_each_side_mm": 0.15,
+        "removal": "Complete G/GR module slides world -X; source grip and wing receivers retain their full span"
       }
     },
     {
@@ -11374,8 +11433,8 @@
           14.38
         ]
       ],
-      "stl_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
-      "step_sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090",
+      "stl_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
+      "step_sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5",
       "assembly": {
         "rotation_xyz_degrees": [
           -0.0,
@@ -11398,8 +11457,31 @@
       "roof_stock_mm": 12,
       "retaining_air_mm": 0.45,
       "supported_back_air_mm": 0.25,
-      "geometry_adaptation": "Solid storage footers; lower static key socket. Full production wing slots and span retained.",
-      "complete_module_removal": "Slide G/GR together world -X10mm clear of the horizontal lower key and open upper H cup; set aside. Hand-support H while its left bearing is absent."
+      "geometry_adaptation": "Solid storage footers; downward-open lower static key socket over a basin-rooted key. Full production wing slots and span retained.",
+      "complete_module_removal": "Slide G/GR together world -X10mm clear of the horizontal lower key and open upper H cup; set aside. Hand-support H while its left bearing is absent.",
+      "lower_storage_socket": {
+        "manufacturing_cut_bounds_mm": [
+          [
+            -49.15,
+            -2.15,
+            -0.1
+          ],
+          [
+            -45.85,
+            2.15,
+            2.3
+          ]
+        ],
+        "world_z_mm": [
+          6.05,
+          9.35
+        ],
+        "nominal_top_air_mm": 0.27,
+        "nominal_y_air_each_side_mm": 0.15,
+        "open_direction": "World -Z through lower footer",
+        "manufacturing_bridge_span_y_mm": 4.3,
+        "manufacturing_bridge_stock_z_mm": 1.2
+      }
     },
     {
       "id": "G",
@@ -12311,8 +12393,8 @@
       "id": "PIP-BASE",
       "stl": "hardware/printed-parts/calibration/soda-studies/print-assemblies/pip-base.stl",
       "step": "hardware/printed-parts/calibration/soda-studies/print-assemblies/pip-base.step",
-      "stl_sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3",
-      "step_sha256": "5b6c41d29619635a5a9c8042192222ce5a6f1772a002fae5dda9099984ac1a29",
+      "stl_sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5",
+      "step_sha256": "eded432cf138c2cd80b05f991b79474a5258628c637768a3688301187453e6c8",
       "frame": "Shared manufacturing XYZ; all four members start on bed",
       "members": [
         {
@@ -12446,13 +12528,13 @@
     ],
     [
       87.0000001,
-      73.50000010000198,
+      73.50000010000308,
       127.29370748615776
     ]
   ],
   "overall_dimensions_mm": [
     179.38000010000002,
-    147.00000020000198,
+    147.00000020000306,
     127.29370758615775
   ],
   "frame": "Manufacturing XY bed and Z up. PIP assembly retains shared XYZ; other leaves bed-normalized independently.",

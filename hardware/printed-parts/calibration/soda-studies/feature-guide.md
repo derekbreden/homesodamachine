@@ -77,8 +77,9 @@ With the basin upright:
    front with handles forward. Seat R30/R45/R60 on their peg pairs as shown in
    the assembled model; R45 is the rear window beneath the fin platform.
 3. Seat R6 on its two right-side pegs and slide GR's lower footer onto P's
-   left horizontal key toward world +X. Lower H vertically so its two root
-   keys enter P, its right key enters
+   rooted left storage key toward world +X. The lower pocket is open downward,
+   with 0.15 mm nominal Y air per side and 0.27 mm nominal top air. Lower H
+   vertically so its two root keys enter P, its right key enters
    R6's open interior top socket, and its upper cup receives GR's solid top
    footer. Keep the source round surfaces and grip slots exposed.
 4. Seat A08/A12/A24 on H's three fin docks in the order shown in the assembled
@@ -111,7 +112,7 @@ step:
 | NS20 | Lift 3 mm locally, pull 10 mm radially outward, lift another 3 mm vertically (world +Z), then continue outward to 50 mm total. |
 
 Hand-support H while the grip module's left bearing is absent. Return G/GR
-along world +X so P's lower horizontal key and H's open upper cup seat. These
+along world +X so P's rooted left storage key and H's open upper cup seat. These
 routes have sampled nominal CAD clearance; printed release force, stability
 and lifetime are unrecorded.
 
@@ -285,7 +286,11 @@ establishes support removal and assembled fit for its identified coupons and
 strip. This vertical side receiver has new storage footers and its own print
 recipe; its physical assembly and repeated-flexing behavior are unrecorded.
 The complete G/GR module also slides out of the sculpture without removing G
-from its receiver, using P's horizontal seat and H's outboard-open cup.
+from its receiver, using P's rooted left key, GR's open-bottom pocket and H's
+outboard-open cup. The rooted key's native cap is Z 9.08 mm. At the lower socket's
+center Y 0, sampled commanded top air is 0.42 mm on the first bed layer and about
+0.27 mm over root layers Z 0.44–2.12 mm. These readings describe the prepared
+print paths; physical fit is unprinted.
 
 ## Source rounds, complete snap and details
 
