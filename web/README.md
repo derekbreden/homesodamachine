@@ -4,6 +4,12 @@ The Node web server for **homesodamachine.com** + the browser-rendered viewer at
 
 The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hardware/) at the repo root — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
 
+## Website style reference
+
+The [website style guide](https://homesodamachine.com/style-guide) is a small working example page for agents and contributors. Read it when adding or changing a web surface. It shows text and color roles, links, buttons, search, selected material rows, tabs and an expandable cost panel, with usage notes, copyable markup and production source links.
+
+[`lib/style-guide.js`](/web/lib/style-guide.js) uses the shared shell, the exported cost and landing-button CSS, and [`public/css/materials.css`](/web/public/css/materials.css) directly. [`public/css/style-guide.css`](/web/public/css/style-guide.css) supplies documentation layout; [`public/style-guide.js`](/web/public/style-guide.js) supplies local demonstrations and reads displayed font sizes and colors from the browser. Match an existing pattern by its role and importance. Add examples when another reusable pattern needs a reference; correct existing pages where a specific problem is identified.
+
 ## Running it
 
 ```bash
@@ -72,6 +78,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content, plus document publication gates. |
 | [`lib/document-reader.js`](/web/lib/document-reader.js) | `/vendor/pdfjs/<version>/*` | Document reader HTML and the installed PDF.js assets. `/read/*` renders one page at a time through `public/document-reader.js`, with page links, history, selectable text and zoom. `/docs/*?raw=1` supplies range-capable PDF bytes; `?download=1` supplies an attachment. HTML navigations to saved `/docs/*` links redirect to the reader. |
 | [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: FCM enable, live-reload debug. |
+| [`lib/style-guide.js`](/web/lib/style-guide.js) | `/style-guide` | Production-style examples, usage notes, markup and source links. Sample material names and quantities come from the catalog. |
 | [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |
 | [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
 | [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
@@ -91,6 +98,7 @@ Served flat via `express.static(public/)`.
 | [`public/cost.js`](/web/public/cost.js) | `/cost` | Cost overview navigation and sales scenario controls. Three accordion cards show per-unit cost, investment recovery and the 5/10/20 forecast in that order, with headline totals visible while collapsed. Jump links and direct section links reveal the relevant card; recovery controls update its summary. `cost-recovery.js` shares recovery math and the SVG chart with the server. `batch-forecast.js` selects the 5/10/20 plan, defaults to Parts category, and filters suppliers and stock-covered parts. Compact purchase lists scroll; each item expands for source, lots and stock evidence. The overview, category grouping and all three batch disclosures work without JavaScript. |
 | [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Notification + live-reload debug toggles. |
+| [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`../tools/build_brand_assets.py`](../tools/build_brand_assets.py). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
 | [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |

@@ -2,6 +2,70 @@
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 
+export const SIGNUP_BUTTON_CSS = `
+.signup-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.signup-btn {
+  position: relative;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  background: var(--action);
+  color: var(--on-action);
+  /* 1px, transparent — the input spends the same on its border, and stacked
+     the two pills stand at one height. */
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.05s;
+}
+@media (min-width: 520px) {
+  /* The label does not wrap, so the button must not be squeezed under it. */
+  .signup-btn { width: auto; min-width: 7rem; flex-shrink: 0; }
+}
+.signup-btn:hover:not(:disabled) { background: var(--action-hover); }
+.signup-btn:active { transform: scale(0.97); }
+.signup-btn:disabled { cursor: default; }
+.signup-btn .label {
+  display: inline-block;
+  transition: opacity 0.15s;
+}
+.signup-btn.loading .label { opacity: 0; }
+.signup-btn.done { background: var(--ok); color: var(--brand-navy); }
+.signup-btn .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid rgba(16, 49, 156, 0.25);
+  border-top-color: var(--on-action);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.15s;
+  animation: signup-spin 0.7s linear infinite;
+  pointer-events: none;
+}
+.signup-btn.loading .spinner { opacity: 1; }
+@keyframes signup-spin { to { transform: rotate(360deg); } }
+.signup-btn .check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.signup-btn.done .label { opacity: 0; }
+.signup-btn.done .check { opacity: 1; }
+`;
+
 const PAGE_STYLES = `
 main { background: var(--brand-blue); }
 main {
@@ -92,67 +156,7 @@ input[type="email"]:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-.signup-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
-.signup-btn {
-  position: relative;
-  width: 100%;
-  padding: 0.75rem 1.25rem;
-  font: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  background: var(--action);
-  color: var(--on-action);
-  /* 1px, transparent — the input spends the same on its border, and stacked
-     the two pills stand at one height. */
-  border: 1px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s, transform 0.05s;
-}
-@media (min-width: 520px) {
-  /* The label does not wrap, so the button must not be squeezed under it. */
-  .signup-btn { width: auto; min-width: 7rem; flex-shrink: 0; }
-}
-.signup-btn:hover:not(:disabled) { background: var(--action-hover); }
-.signup-btn:active { transform: scale(0.97); }
-.signup-btn:disabled { cursor: default; }
-.signup-btn .label {
-  display: inline-block;
-  transition: opacity 0.15s;
-}
-.signup-btn.loading .label { opacity: 0; }
-.signup-btn.done { background: var(--ok); color: var(--brand-navy); }
-.signup-btn .spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  border: 2px solid rgba(16, 49, 156, 0.25);
-  border-top-color: var(--on-action);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.15s;
-  animation: signup-spin 0.7s linear infinite;
-  pointer-events: none;
-}
-.signup-btn.loading .spinner { opacity: 1; }
-@keyframes signup-spin { to { transform: rotate(360deg); } }
-.signup-btn .check {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
-.signup-btn.done .label { opacity: 0; }
-.signup-btn.done .check { opacity: 1; }
+${SIGNUP_BUTTON_CSS}
 .status {
   min-height: 1.5rem;
   margin-top: 1rem;

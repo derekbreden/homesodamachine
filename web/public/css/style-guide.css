@@ -1,0 +1,41 @@
+/* Layout and documentation chrome; the examples use their production classes. */
+.guide { max-width: 1100px; }
+.guide header { max-width: 70ch; margin-bottom: 2rem; }
+.guide header > p { margin: .75rem 0; }
+.guide a { color: var(--accent); }
+.guide-contents { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1.25rem; }
+.guide-section { margin-top: 3rem; scroll-margin-top: 5rem; }
+.guide-example { border-top: 1px solid var(--border); padding: 1.5rem 0; min-width: 0; }
+.guide-example > h3 { margin: 0 0 .5rem; font-size: 1.125rem; }
+.guide-usage { max-width: 70ch; margin: 0 0 1.25rem; }
+.guide-preview { padding: 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); min-width: 0; }
+.guide-sources { margin: 1rem 0 .5rem; font-size: .875rem; color: var(--text-2); overflow-wrap: anywhere; }
+.guide-sources a + a::before { content: " · "; }
+.guide-code { margin-top: .75rem; }
+.guide-code > summary { cursor: pointer; font-size: .875rem; }
+.guide-code pre { padding: 1rem; background: var(--surface); border-radius: 8px; overflow-x: auto; font: .8125rem/1.6 ui-monospace, monospace; tab-size: 2; }
+.guide-code .material-actions { margin-top: .75rem; }
+.guide-code [role=status] { font-size: .875rem; }
+.guide-role { display: grid; grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.25rem; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.guide-role:last-child { border-bottom: 0; }
+.guide-role-label { font-size: .875rem; font-weight: 600; }
+.guide-role-sample { min-width: 0; overflow-wrap: anywhere; }
+.guide-role-sample > * { margin: 0; }
+.guide-role-sample .bom-quantity { display: inline; padding: 0; text-align: left; }
+.guide-role-note { color: var(--text-2); font-size: .875rem; }
+.guide-measure { display: block; margin-top: .25rem; font: .75rem/1.5 ui-monospace, monospace; color: var(--text-2); }
+.guide-palette { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+.guide-palette > div { min-width: 0; }
+.guide-swatch { display: block; height: 2.75rem; background: var(--swatch); border: 1px solid var(--border); border-radius: 6px; margin-bottom: .5rem; }
+.guide-palette dt { font: .8125rem/1.6 ui-monospace, monospace; overflow-wrap: anywhere; }
+.guide-palette dd { margin: .25rem 0 0; color: var(--text-2); font-size: .875rem; }
+.guide-buttons { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.guide-buttons .material-actions { display: contents; }
+.guide-preview .bom-tree { margin: 0; }
+.guide-preview .cost-panel { margin: 0; }
+.guide [hidden] { display: none; }
+@media (max-width: 700px) {
+  .guide-role { grid-template-columns: 1fr; gap: .5rem; }
+  .guide-preview { padding: 1rem .75rem; }
+  .guide-palette { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
