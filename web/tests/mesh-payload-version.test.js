@@ -1,10 +1,9 @@
-// The mesh payload's version, held across the three files that state it.
+// The mesh payload's version, held across the two files that state it.
 //
 // A payload is written by hardware/scripts/_mesh_payload.py and read by
 // web/public/js/viewer/step.js, which are different languages in different trees
-// with no import between them. Each states the versions it can take, and
-// hardware/scripts/check_payloads.py states the one a committed payload has to
-// carry. Nothing else makes them agree.
+// with no import between them. Each states the versions it can take.
+// Nothing else makes them agree.
 //
 // WHAT DISAGREEMENT COSTS IS SILENCE. `decodeMeshPayload` answers a version it
 // does not know with `null`, `fetchMeshes` reads that as no payload, and
@@ -49,15 +48,4 @@ test("the page decodes every version the writer stamps", () => {
   // version nothing writes; narrower is a payload the page turns away.
   assert.deepEqual([...pageReads].sort(), [...decodable].sort(),
     "step.js's MESH_PAYLOAD_VERSIONS and _mesh_payload.DECODABLE state different sets");
-});
-
-test("the payload gate holds the version the writer stamps", () => {
-  const py = read("hardware/scripts/_mesh_payload.py");
-  const gate = read("hardware/scripts/check_payloads.py");
-
-  const written = numbers(py, /^VERSION = (\d+)/m, "_mesh_payload.VERSION");
-  const held = numbers(gate, /^PAYLOAD_VERSION = (\d+)/m, "check_payloads.PAYLOAD_VERSION");
-
-  assert.deepEqual(held, written,
-    `check_payloads holds ${held[0]} and _mesh_payload writes ${written[0]}`);
 });

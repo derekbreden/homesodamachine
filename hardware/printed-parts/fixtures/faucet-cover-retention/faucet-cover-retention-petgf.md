@@ -26,27 +26,12 @@ STLs are used for the intended PET-GF color.
 ## Preparation
 
 The CAD generator writes assembly-frame STLs and `trial-geometry.json`.
-`prepare_print_project.py` checks that report's source and mesh hashes, copies
+[`prepare_print_project.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py) (in Git at `9884d0e7f4`) checks that report's source and mesh hashes, copies
 the successful Sculpted project's complete PET-GF settings, and calls the
 shared faucet 3MF writer with the six named parts and their explicit poses.
 The production Sculpted and Industrial projects and reports remain unchanged.
 
-To prepare the editable project:
-
-```sh
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 tools/cad-venv/bin/python \
-  hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py
-```
-
-To produce the native printer archive and audit it, use a new output directory:
-
-```sh
-OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 tools/cad-venv/bin/python \
-  hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py \
-  --slice-output .cache/prints/2026-09-18-faucet-cover-retention-mark2
-```
-
-This performs one local Bambu Studio slice with automatic rearrangement and
+Its `--slice-output <dir>` run performs one local Bambu Studio slice with automatic rearrangement and
 reorientation disabled. It exports `ready/faucet-cover-retention-mark2.gcode.3mf`
 and the same emitted G-code used for the support audit. The staged input uses
 the successful Mark2 job's external-spool metadata. The native validator checks

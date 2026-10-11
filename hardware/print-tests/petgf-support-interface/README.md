@@ -84,10 +84,4 @@ That implementation rounds the top gap into whole model layers: the baseline
 [Bambu default-style selection](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/SupportParameters.hpp#L143),
 [Bambu gap rounding](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/TreeSupportCommon.hpp#L280).
 
-Audit the sliced file with:
-
-```sh
-python3 hardware/print-tests/petgf-support-interface/audit_gcode.py \
-  --gcode .cache/prints/2026-09-15-support-interface-mark2/petgf-support-interface-mark2.gcode.3mf \
-  --regions hardware/print-tests/petgf-support-interface/regions.json
-```
+[`audit_gcode.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-support-interface/audit_gcode.py), in Git at `9884d0e7f4`, audits the sliced file against `regions.json`.

@@ -14,7 +14,7 @@
 # which collapses these in a compare view and leaves them out of the language bar.
 #
 # What is NOT here is as deliberate. A scorecard sidecar is twelve hundred lines and its
-# gate rows are worth reading; ios/AppIcon.svg and tools/anim_frames/*.svg are small and
+# gate rows are worth reading; ios/AppIcon.svg is small and
 # hand-shaped. They diff.
 
 # STEP IS ASCII, and a solid is hundreds of kilobytes of it. Three are in the index — the elbow,

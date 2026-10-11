@@ -66,10 +66,8 @@ new experiments receive new identifiers rather than replacing A–F.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/check_geometry.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py
 ```
 
-The first command restores the retained outputs. The second verifies their
-integrity and the saved records. The third verifies and names the existing
+The command restores the retained outputs. In Git at `9884d0e7f4`, [`check_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/check_geometry.py) verifies their
+integrity and the saved records, and [`prepare_print_project.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py) verifies and names the existing
 3MF for a reprint; it does not rebuild the project or invoke a slicer.

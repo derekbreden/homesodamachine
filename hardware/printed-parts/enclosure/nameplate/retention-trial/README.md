@@ -32,5 +32,5 @@ supports broke cleanly everywhere and left no strings. This observation applies
 to the artwork-down nameplate; the face-up trial has its own support contacts.
 
 `nameplate_retention_trial.py` generates the cover and receiver with a private interface
-instance; it does not alter the production interface. `prepare_print.py` replaces only
+instance; it does not alter the production interface. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/retention-trial/prepare_print.py) (in Git at `9884d0e7f4`) replaces only
 the meshes and names in the accepted two-colour project and adds the precision layer.

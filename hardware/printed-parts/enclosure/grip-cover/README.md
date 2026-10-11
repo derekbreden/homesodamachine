@@ -110,10 +110,11 @@ production cover, its accepted layer schedule, +0.18 mm Z trim, and submitted jo
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/check_geometry.py
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/prepare_print.py
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/verify_print.py
 ```
+
+[`check_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/check_geometry.py) is in Git at `9884d0e7f4`.
 
 After materializing the production bottoms, refresh the full machine's named
 bottom solids and covers with:
