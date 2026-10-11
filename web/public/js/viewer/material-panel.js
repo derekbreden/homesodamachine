@@ -87,6 +87,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         const open = el("button", "", "Open 3D"); open.type = "button";
         open.addEventListener("click", async () => {
           if (state.currentCadWrapper) {
+            if (matchMedia("(max-width: 700px)").matches) {
+              workspace.classList.remove("materials-open");
+              workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "false");
+            }
             const { drillTo } = await import("./step-nav.js"); drillTo(model.file);
           } else openMaterial(current.id);
         }); actions.prepend(open);
