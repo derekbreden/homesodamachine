@@ -64,7 +64,7 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/calibration/soda-studies/parts/p-basin-and-captive-rails.stl",
-      "stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
       "triangles": 236264,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
@@ -557,7 +557,7 @@
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
       "source": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.stl",
-      "stl_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
+      "stl_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
       "triangles": 124,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
@@ -1063,7 +1063,7 @@
       "layer_range_object_index": 11
     }
   ],
-  "project_sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372",
+  "project_sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800",
   "settings_preserved_byte_for_byte": false,
   "print_assemblies": [
     {
@@ -1075,7 +1075,7 @@
           "id": "P",
           "part_id": "1",
           "source": "hardware/printed-parts/calibration/soda-studies/parts/p-basin-and-captive-rails.stl",
-          "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+          "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
           "member_transform_mm": [
             [
               1.0,
@@ -1201,7 +1201,7 @@
         }
       ],
       "source": "hardware/printed-parts/calibration/soda-studies/print-assemblies/pip-base.stl",
-      "source_stl_sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3",
+      "source_stl_sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5",
       "build_transform": [
         1.0,
         0.0,
@@ -1224,7 +1224,7 @@
       "placement_scope": "One shared object; separate named normal parts; one bed transform preserves member XYZ gaps"
     }
   ],
-  "manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+  "manifest_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
   "preparation_source_sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003",
   "requested_layer_height_mm": 0.24,
   "first_layer_height_mm": 0.2,
@@ -1241,7 +1241,7 @@
       "name": "P basin and captive rails",
       "kind": "carrier",
       "source": "hardware/printed-parts/calibration/soda-studies/parts/p-basin-and-captive-rails.stl",
-      "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
       "identify_id": 1901,
       "object_id": "2",
       "rotation_x_degrees": 0.0,
@@ -2442,7 +2442,7 @@
       "name": "GR grip receiver bridge",
       "kind": "grip_receiver",
       "source": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.stl",
-      "source_stl_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
+      "source_stl_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
       "identify_id": 1903,
       "object_id": "6",
       "rotation_x_degrees": 0.0,
@@ -2910,8 +2910,8 @@
   "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
   "native": {
     "archive": ".cache/prints/soda-studies/kit-01/the-pour-kit-01-petgf-left04-z004-mark2.gcode.3mf",
-    "archive_sha256": "b0b0e824efbed8bdc27826df6c1d38b504a2468f8a0a72dcc382565d8d24d117",
-    "gcode_sha256": "ae62d88efe03dc9ca6f607fa653b78da37e96a013d350a3122a72bc34da0c500",
+    "archive_sha256": "f62e32eb0e4475143304c35996ae252effe8e1475e5c27560b648c1b0bdca594",
+    "gcode_sha256": "b341a756eb56f0c5c87b217236319aec1b05fb25d276170f1a5ea1b8dd060407",
     "layer_count": 108,
     "first_layer_z_mm": 0.2,
     "emitted_deposition_heights_mm": [
@@ -3286,7 +3286,7 @@
           0.4
         ],
         "deposition_height_scope": "Strand heights include native bridge thickness; shared object Z steps describe the nominal layer schedule.",
-        "outer_wall_depositing_moves": 984,
+        "outer_wall_depositing_moves": 1000,
         "outer_wall_depositing_moves_with_z": 0,
         "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
       },
@@ -3803,9 +3803,9 @@
         "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
       }
     ],
-    "estimated_time": "4h 3m 53s",
+    "estimated_time": "4h 3m 41s",
     "saved_profile_filament_estimate_g": [
-      135.34
+      135.33
     ],
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
@@ -3826,7 +3826,7 @@
       0.0,
       0.02
     ],
-    "support_feature_count": 423,
+    "support_feature_count": 421,
     "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
     "reviewer_sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003",
     "sliced_locally": true,
@@ -3842,7 +3842,7 @@
           "text": "BATCH / DATE",
           "view_axis": "z",
           "outward_sign": 1,
-          "clipped_depositing_segment_count": 406,
+          "clipped_depositing_segment_count": 407,
           "depositing_layer_z_mm": [
             6.44,
             6.68
@@ -3853,7 +3853,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 247.017
+          "retained_centerline_length_mm": 247.015
         },
         {
           "id": "P",
@@ -3871,7 +3871,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 200.171
+          "retained_centerline_length_mm": 200.17
         },
         {
           "id": "P",
@@ -3889,7 +3889,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 131.673
+          "retained_centerline_length_mm": 131.674
         },
         {
           "id": "P",
@@ -3926,7 +3926,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 98.453
+          "retained_centerline_length_mm": 98.452
         },
         {
           "id": "P",
@@ -4000,7 +4000,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 43.353
+          "retained_centerline_length_mm": 43.354
         },
         {
           "id": "Q48",
@@ -4019,7 +4019,7 @@
           "model_features": [
             "Outer wall"
           ],
-          "retained_centerline_length_mm": 49.809
+          "retained_centerline_length_mm": 49.81
         },
         {
           "id": "Q72",
@@ -4209,7 +4209,7 @@
           "id": "P",
           "text": "POUR V2",
           "view_axis": "-z",
-          "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+          "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
           "CAD_section_z_mm": 0.1,
           "nominal_recess_mm": 0.48,
           "CAD_recessed_channel_area_mm2": 21.78139,
@@ -4217,7 +4217,7 @@
           "layers": [
             {
               "model_nozzle_z_mm": 0.2,
-              "depositing_segment_count": 281,
+              "depositing_segment_count": 279,
               "commanded_strand_widths_mm": [
                 0.104074,
                 0.115267,
@@ -4241,12 +4241,12 @@
                 0.50073,
                 0.5914
               ],
-              "commanded_footprint_in_CAD_channel_mm2": 0.04067,
-              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.998133
+              "commanded_footprint_in_CAD_channel_mm2": 0.04077,
+              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.998128
             },
             {
               "model_nozzle_z_mm": 0.44,
-              "depositing_segment_count": 346,
+              "depositing_segment_count": 345,
               "commanded_strand_widths_mm": [
                 0.110194,
                 0.114648,
@@ -4300,7 +4300,7 @@
           "id": "P",
           "text": "MASTER 2026-10-11",
           "view_axis": "-z",
-          "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+          "source_stl_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
           "CAD_section_z_mm": 0.1,
           "nominal_recess_mm": 0.48,
           "CAD_recessed_channel_area_mm2": 46.86008,
@@ -4357,12 +4357,12 @@
                 0.5,
                 0.50073
               ],
-              "commanded_footprint_in_CAD_channel_mm2": 0.09559,
-              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.99796
+              "commanded_footprint_in_CAD_channel_mm2": 0.09565,
+              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.997959
             },
             {
               "model_nozzle_z_mm": 0.44,
-              "depositing_segment_count": 656,
+              "depositing_segment_count": 655,
               "commanded_strand_widths_mm": [
                 0.10507,
                 0.110223,
@@ -4409,8 +4409,8 @@
                 0.521178,
                 0.527184
               ],
-              "commanded_footprint_in_CAD_channel_mm2": 0.20693,
-              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.995584
+              "commanded_footprint_in_CAD_channel_mm2": 0.20696,
+              "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.995583
             }
           ]
         }
@@ -4564,6 +4564,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                143.0,
                 188.208,
                 200.0
               ]
@@ -4604,6 +4605,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                142.683,
                 188.208,
                 200.0
               ]
@@ -4644,6 +4646,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                142.383,
                 188.208,
                 200.0
               ]
@@ -4670,8 +4673,8 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Floating vertical shell",
                 "Sparse infill",
+                "Floating vertical shell",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -4683,6 +4686,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                142.017,
                 188.208,
                 200.0
               ]
@@ -4720,6 +4724,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                141.55,
                 188.208,
                 200.0
               ]
@@ -4756,6 +4761,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                141.017,
                 188.208,
                 200.0
               ]
@@ -4792,6 +4798,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                140.4,
                 188.208,
                 200.0
               ]
@@ -4833,6 +4840,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                139.717,
                 188.208,
                 200.0
               ]
@@ -4863,6 +4871,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
+                "Internal solid infill",
                 "Top surface",
                 "Internal solid infill",
                 "Inner wall",
@@ -4878,6 +4887,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                138.967,
                 188.208,
                 200.0
               ]
@@ -4927,6 +4937,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                138.133,
                 188.208,
                 200.0
               ]
@@ -4976,6 +4987,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                137.233,
                 188.208,
                 200.0
               ]
@@ -5027,6 +5039,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                136.267,
                 188.208,
                 200.0
               ]
@@ -5080,6 +5093,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                135.233,
                 188.208,
                 200.0
               ]
@@ -5133,6 +5147,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                134.133,
                 188.208,
                 200.0
               ]
@@ -5182,6 +5197,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                132.967,
                 188.208,
                 200.0
               ]
@@ -5315,6 +5331,7 @@
                 129.662,
                 129.664,
                 130.416,
+                131.75,
                 133.126,
                 133.127,
                 134.515,
@@ -5332,7 +5349,6 @@
                 174.189,
                 188.208,
                 197.682,
-                199.318,
                 200.0
               ]
             },
@@ -5392,6 +5408,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                130.467,
                 188.208,
                 200.0
               ]
@@ -5452,6 +5469,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                129.117,
                 188.208,
                 200.0
               ]
@@ -5519,6 +5537,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                127.717,
                 188.208,
                 200.0
               ]
@@ -5588,6 +5607,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                126.267,
                 188.208,
                 200.0
               ]
@@ -5649,6 +5669,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                124.767,
                 188.208,
                 200.0
               ]
@@ -5712,6 +5733,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                123.217,
                 188.208,
                 200.0
               ]
@@ -5772,6 +5794,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                121.633,
                 188.208,
                 200.0
               ]
@@ -5802,6 +5825,9 @@
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
+                "Top surface",
+                "Gap infill",
+                "Internal solid infill",
                 "Gap infill",
                 "Internal solid infill",
                 "Gap infill",
@@ -5809,17 +5835,10 @@
                 "Gap infill",
                 "Internal solid infill",
                 "Top surface",
-                "Gap infill",
-                "Internal solid infill",
-                "Gap infill",
-                "Internal solid infill",
-                "Sparse infill",
-                "Top surface",
                 "Sparse infill",
                 "Top surface",
                 "Gap infill",
                 "Sparse infill",
-                "Internal solid infill",
                 "Top surface",
                 "Gap infill",
                 "Sparse infill",
@@ -5827,11 +5846,16 @@
                 "Gap infill",
                 "Sparse infill",
                 "Internal solid infill",
+                "Sparse infill",
+                "Internal solid infill",
+                "Gap infill",
+                "Internal solid infill",
+                "Gap infill",
+                "Internal solid infill",
                 "Gap infill",
                 "Top surface",
                 "Gap infill",
                 "Internal solid infill",
-                "Gap infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
@@ -5853,6 +5877,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                119.983,
                 188.208,
                 200.0
               ]
@@ -5959,6 +5984,7 @@
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
+                "Internal solid infill",
                 "Top surface",
                 "Gap infill",
                 "Internal solid infill",
@@ -5976,6 +6002,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                118.3,
                 188.208,
                 200.0
               ]
@@ -6040,7 +6067,6 @@
                 "Sparse infill",
                 "Floating vertical shell",
                 "Sparse infill",
-                "Floating vertical shell",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
@@ -6101,6 +6127,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                116.583,
                 188.208,
                 200.0
               ]
@@ -6114,32 +6141,12 @@
               "depositing_feature_sequence": [
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
                 "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
                 "Sparse infill",
-                "Inner wall",
-                "Outer wall",
-                "Internal solid infill",
-                "Sparse infill",
-                "Inner wall",
-                "Outer wall",
-                "Internal solid infill",
-                "Sparse infill",
-                "Inner wall",
-                "Outer wall",
-                "Internal solid infill",
-                "Sparse infill",
-                "Inner wall",
-                "Outer wall",
-                "Internal solid infill",
-                "Sparse infill",
-                "Inner wall",
-                "Outer wall",
-                "Sparse infill",
-                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -6155,14 +6162,34 @@
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
+                "Sparse infill",
+                "Inner wall",
+                "Outer wall",
+                "Sparse infill",
+                "Internal solid infill",
+                "Inner wall",
+                "Outer wall",
+                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
                 "Sparse infill",
+                "Internal solid infill",
+                "Inner wall",
+                "Outer wall",
+                "Sparse infill",
+                "Inner wall",
+                "Outer wall",
+                "Sparse infill",
+                "Internal solid infill",
+                "Inner wall",
+                "Outer wall",
+                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Inner wall",
@@ -6259,30 +6286,35 @@
                 98.329,
                 104.305,
                 104.307,
-                107.414,
+                104.941,
                 107.415,
                 111.049,
+                114.833,
                 114.834,
                 120.56,
                 120.561,
+                121.286,
                 121.287,
+                121.839,
                 124.503,
-                124.637,
                 124.638,
+                138.768,
                 138.769,
+                139.547,
                 139.548,
                 142.996,
-                143.139,
                 143.141,
+                158.256,
                 158.257,
+                159.088,
                 159.089,
                 162.769,
-                162.922,
                 162.923,
+                179.024,
                 179.025,
+                179.909,
                 179.91,
                 183.822,
-                183.984,
                 183.986,
                 188.208,
                 200.0
@@ -6369,7 +6401,7 @@
                 "Bridge",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
+                "Sparse infill",
                 "Inner wall",
                 "Outer wall",
                 "Bridge",
@@ -6427,31 +6459,18 @@
                 104.941,
                 107.415,
                 111.049,
-                114.834,
-                120.56,
-                120.561,
+                113.05,
                 121.286,
                 121.287,
-                121.839,
-                124.503,
                 124.638,
-                138.768,
-                138.769,
                 139.547,
                 139.548,
-                142.996,
                 143.141,
-                158.256,
-                158.257,
                 159.088,
                 159.089,
-                162.769,
                 162.923,
-                179.024,
-                179.025,
                 179.909,
                 179.91,
-                183.822,
                 183.986,
                 188.208,
                 200.0
@@ -6534,7 +6553,7 @@
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
+                "Sparse infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
@@ -6592,6 +6611,7 @@
                 104.941,
                 107.415,
                 111.049,
+                111.233,
                 114.834,
                 120.56,
                 120.561,
@@ -6689,7 +6709,7 @@
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
+                "Sparse infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
@@ -6723,6 +6743,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                109.4,
                 188.208,
                 200.0
               ]
@@ -6793,13 +6814,8 @@
                 "Outer wall",
                 "Internal solid infill",
                 "Inner wall",
-                "Overhang wall",
-                "Inner wall",
                 "Outer wall",
-                "Overhang wall",
-                "Outer wall",
-                "Bridge",
-                "Internal solid infill",
+                "Sparse infill",
                 "Inner wall",
                 "Outer wall",
                 "Internal solid infill",
@@ -6833,37 +6849,8 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
-                10.0,
-                14.917,
-                15.212,
-                15.424,
-                15.858,
-                21.43,
-                22.555,
-                22.87,
-                30.794,
-                31.162,
-                40.313,
-                40.733,
-                51.111,
-                51.585,
-                63.19,
-                63.716,
-                76.549,
-                77.128,
-                91.188,
-                91.82,
-                107.106,
-                107.791,
-                124.305,
-                125.043,
-                142.784,
-                143.575,
-                153.148,
-                172.719,
-                173.588,
+                107.533,
                 188.208,
-                194.387,
                 200.0
               ]
             },
@@ -6934,7 +6921,7 @@
                 "Gap infill",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
+                "Floating vertical shell",
                 "Outer wall",
                 "Top surface",
                 "Gap infill",
@@ -6968,6 +6955,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                105.65,
                 188.208,
                 200.0
               ]
@@ -7019,6 +7007,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                103.733,
                 188.208,
                 200.0
               ]
@@ -7039,7 +7028,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7070,6 +7059,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                101.8,
                 188.208,
                 200.0
               ]
@@ -7090,7 +7080,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7121,6 +7111,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                99.883,
                 188.208,
                 200.0
               ]
@@ -7141,7 +7132,9 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Sparse infill",
+                "Top surface",
+                "Gap infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7172,6 +7165,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                98.033,
                 188.208,
                 200.0
               ]
@@ -7192,7 +7186,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7245,6 +7239,7 @@
                 76.165,
                 90.255,
                 90.769,
+                96.417,
                 106.096,
                 106.653,
                 123.216,
@@ -7275,7 +7270,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Sparse infill",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7295,8 +7290,8 @@
                 "Outer wall",
                 "Overhang wall",
                 "Outer wall",
-                "Bridge",
                 "Sparse infill",
+                "Bridge",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7313,36 +7308,22 @@
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
                 10.0,
-                14.29,
                 15.212,
                 15.424,
                 22.093,
                 22.347,
                 30.253,
                 30.551,
-                35.0,
                 39.694,
                 40.034,
-                45.106,
                 50.414,
                 50.798,
-                56.491,
                 62.414,
                 62.842,
-                69.157,
                 75.695,
-                77.392,
-                83.103,
-                90.255,
-                98.329,
-                106.096,
-                114.834,
-                123.216,
-                132.62,
-                133.427,
-                141.617,
-                161.297,
-                182.258,
+                76.165,
+                89.157,
+                91.437,
                 188.208,
                 200.0
               ]
@@ -7364,7 +7345,7 @@
                 "Sparse infill",
                 "Inner wall",
                 "Outer wall",
-                "Floating vertical shell",
+                "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
                 "Sparse infill",
@@ -7419,6 +7400,7 @@
                 76.165,
                 90.255,
                 90.769,
+                94.5,
                 106.096,
                 106.653,
                 123.216,
@@ -7483,6 +7465,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                94.2,
                 188.208,
                 200.0
               ]
@@ -7542,6 +7525,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                94.117,
                 188.208,
                 200.0
               ]
@@ -7596,6 +7580,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                94.117,
                 188.208,
                 200.0
               ]
@@ -7613,13 +7598,10 @@
                 "Outer wall",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
                 "Sparse infill",
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
-                "Top surface",
-                "Gap infill",
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
@@ -7651,6 +7633,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                94.133,
                 188.208,
                 200.0
               ]
@@ -7703,6 +7686,7 @@
               ],
               "first_wall_precedes_first_infill": true,
               "commanded_wall_feed_rates_mm_s": [
+                94.167,
                 188.208,
                 200.0
               ]
@@ -7720,7 +7704,6 @@
                 "Outer wall",
                 "Inner wall",
                 "Outer wall",
-                "Internal solid infill",
                 "Sparse infill",
                 "Internal solid infill",
                 "Inner wall",
@@ -7760,11 +7743,11 @@
                 "Internal solid infill",
                 "Inner wall",
                 "Outer wall",
-                "Top surface",
-                "Gap infill",
-                "Internal solid infill",
                 "Gap infill",
                 "Sparse infill",
+                "Gap infill",
+                "Internal solid infill",
+                "Top surface",
                 "Gap infill",
                 "Outer wall"
               ],

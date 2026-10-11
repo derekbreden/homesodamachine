@@ -2,8 +2,8 @@
   "schema": 1,
   "name": "The Pour",
   "archive": "print-kit.zip",
-  "bytes": 63549217,
-  "sha256": "c8de6103369a470c209cbc9294b5e2b6027581f422b0a2e94eb97bcaeefa9680",
+  "bytes": 63610420,
+  "sha256": "d6a65c8c6887e81e984469512adc2a28a3509c891502226d2d029d2fb9c57167",
   "files": [
     {
       "path": "README.md",
@@ -13,33 +13,33 @@
     },
     {
       "path": "feature-guide.md",
-      "bytes": 23329,
-      "sha256": "f66438bf5c56798e048a7d7adb7f560f6ddc75f9420895cdf660c1160bbf5d20",
-      "source_sha256": "d1bb4b2a598d3e5f9282fa539c60ee827f7241a93d48198c9507c4533999380f"
+      "bytes": 23730,
+      "sha256": "50dbee1cb0ce86b1fd350c56d1014bc2eb1d42a69b39fc534c7d14e4d30266b3",
+      "source_sha256": "ff561294576359d4e42664f6f12555e2783718825273b4e3105a060b35487b7b"
     },
     {
       "path": "manifest.json",
-      "bytes": 351913,
-      "sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
-      "source_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f"
+      "bytes": 354187,
+      "sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804",
+      "source_sha256": "e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804"
     },
     {
       "path": "print-preparation.json",
-      "bytes": 3250378,
-      "sha256": "5c1c9d122bccc74cc567a36c9c088522fc511d590f295ad6ce27f93deb5d5cc0",
-      "source_sha256": "5c1c9d122bccc74cc567a36c9c088522fc511d590f295ad6ce27f93deb5d5cc0"
+      "bytes": 3249962,
+      "sha256": "5a60a458c7562d2fcb48915978ce5a9e3f8d8bbf000152fc3a6ee13acac5a2b6",
+      "source_sha256": "5a60a458c7562d2fcb48915978ce5a9e3f8d8bbf000152fc3a6ee13acac5a2b6"
     },
     {
       "path": "assembly-review.json",
-      "bytes": 49052,
-      "sha256": "8ad12411084a4887d2d00aee9b4259e01f3d1c35de2072278a96a64bdc0a8ff8",
-      "source_sha256": "8ad12411084a4887d2d00aee9b4259e01f3d1c35de2072278a96a64bdc0a8ff8"
+      "bytes": 68273,
+      "sha256": "57e410190b5b82ca39678e352e24d8d44f76d6a8050145700d5e1b02ef94ed8b",
+      "source_sha256": "57e410190b5b82ca39678e352e24d8d44f76d6a8050145700d5e1b02ef94ed8b"
     },
     {
       "path": "lettering-review.json",
-      "bytes": 50952,
-      "sha256": "0e20a6a03fe0756831ca339e4825754c3306a1e722a986fe01e14ad1a39225ff",
-      "source_sha256": "0e20a6a03fe0756831ca339e4825754c3306a1e722a986fe01e14ad1a39225ff"
+      "bytes": 50951,
+      "sha256": "b2e8a98ad265ee68d5233f6f09de2ee5a45734b4036f156afd23c20090c87188",
+      "source_sha256": "b2e8a98ad265ee68d5233f6f09de2ee5a45734b4036f156afd23c20090c87188"
     },
     {
       "path": "reference-card.csv",
@@ -55,9 +55,9 @@
     },
     {
       "path": "reference.py",
-      "bytes": 45815,
-      "sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6",
-      "source_sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6"
+      "bytes": 46593,
+      "sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162",
+      "source_sha256": "ab50e15961b0c24f5e2d7323599758c9d83adddafbd36621603f53b19935e162"
     },
     {
       "path": "source_features.py",
@@ -127,21 +127,21 @@
     },
     {
       "path": "the-pour.step",
-      "bytes": 39095099,
-      "sha256": "61b633a2718d015adc2f05ef1639e4aaf6e4448a3fad9249b1ca9f8b266c8388",
-      "source_sha256": "61b633a2718d015adc2f05ef1639e4aaf6e4448a3fad9249b1ca9f8b266c8388"
+      "bytes": 39071983,
+      "sha256": "f2cb2abc59f849b20c008799d9d2600578b18bb68ba2f5dbb290784f41304a2e",
+      "source_sha256": "f2cb2abc59f849b20c008799d9d2600578b18bb68ba2f5dbb290784f41304a2e"
     },
     {
       "path": "parts/p-basin-and-captive-rails.stl",
       "bytes": 11813284,
-      "sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
-      "source_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1"
+      "sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419",
+      "source_sha256": "17b9cc6488fff706a749dcecb30d2ad64462b4971371773e4b475d6de5bb9419"
     },
     {
       "path": "parts/p-basin-and-captive-rails.step",
-      "bytes": 6555428,
-      "sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea",
-      "source_sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea"
+      "bytes": 6555510,
+      "sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a",
+      "source_sha256": "6d0026841ef178e0becd33e8c5a81e4e54676ec1cff90ae5b7de67695495bf5a"
     },
     {
       "path": "parts/q24-captive-ripple-shutter.stl",
@@ -710,14 +710,14 @@
     {
       "path": "parts/gr-grip-receiver-bridge.stl",
       "bytes": 6284,
-      "sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
-      "source_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53"
+      "sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f",
+      "source_sha256": "7fb92a634bffbc90cf42210f41caa371a826c8e5dfce3813f7b546d0038aea2f"
     },
     {
       "path": "parts/gr-grip-receiver-bridge.step",
-      "bytes": 117129,
-      "sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090",
-      "source_sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090"
+      "bytes": 117147,
+      "sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5",
+      "source_sha256": "fb8b8ae00c1358c0f4e413dab5af394528fb7afcbc23ff79245e3dbaa6ec65c5"
     },
     {
       "path": "parts/g-complete-grip-insert.stl",
@@ -770,14 +770,14 @@
     {
       "path": "print-assemblies/pip-base.stl",
       "bytes": 13148984,
-      "sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3",
-      "source_sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3"
+      "sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5",
+      "source_sha256": "da827b78a0e1c6a24bfee3e43a5ea0524128a3d4881cf9c6ef4658fdcb3ca4c5"
     },
     {
       "path": "print-assemblies/pip-base.step",
-      "bytes": 7484774,
-      "sha256": "5b6c41d29619635a5a9c8042192222ce5a6f1772a002fae5dda9099984ac1a29",
-      "source_sha256": "5b6c41d29619635a5a9c8042192222ce5a6f1772a002fae5dda9099984ac1a29"
+      "bytes": 7471055,
+      "sha256": "eded432cf138c2cd80b05f991b79474a5258628c637768a3688301187453e6c8",
+      "source_sha256": "eded432cf138c2cd80b05f991b79474a5258628c637768a3688301187453e6c8"
     },
     {
       "path": "prints/the-pour-cover-petgf-left04-z004-mark2.3mf",
@@ -841,15 +841,15 @@
     },
     {
       "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
-      "bytes": 5296901,
-      "sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372",
-      "source_sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372"
+      "bytes": 5297083,
+      "sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800",
+      "source_sha256": "3e7b83374397ffd22d1e6c1447f7c17c42fd1ea33497f6e252a0d8a215307800"
     },
     {
       "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.print.json",
-      "bytes": 331122,
-      "sha256": "22af52aae81c454f7b5b572b432f857647cef178c1508573277300f34c267024",
-      "source_sha256": "22af52aae81c454f7b5b572b432f857647cef178c1508573277300f34c267024"
+      "bytes": 330678,
+      "sha256": "03146157e1f27a092d790eb88129b021f87b94a917d3a3d3c3d0a927c2e15334",
+      "source_sha256": "03146157e1f27a092d790eb88129b021f87b94a917d3a3d3c3d0a927c2e15334"
     },
     {
       "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.3mf",
@@ -859,9 +859,9 @@
     },
     {
       "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.print.json",
-      "bytes": 1532189,
-      "sha256": "e59014c7dd4e2d71d514f562a5786b1afca9628762f92d6d6b3359246baa6a9b",
-      "source_sha256": "e59014c7dd4e2d71d514f562a5786b1afca9628762f92d6d6b3359246baa6a9b"
+      "bytes": 1532233,
+      "sha256": "dc510f0d9f21298dc4e4c64cc688a7776dd32f4664a8223ada632db35785d5f5",
+      "source_sha256": "dc510f0d9f21298dc4e4c64cc688a7776dd32f4664a8223ada632db35785d5f5"
     },
     {
       "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.3mf",
@@ -871,9 +871,9 @@
     },
     {
       "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.print.json",
-      "bytes": 55681,
-      "sha256": "52cd099349ce64860757f15244a34ade267e7f63f76427bc5baa50fd6c1db89f",
-      "source_sha256": "52cd099349ce64860757f15244a34ade267e7f63f76427bc5baa50fd6c1db89f"
+      "bytes": 55725,
+      "sha256": "2d657e9abfdc4348010e0d6747d153054d65e31b56af1fa14447005450aa8842",
+      "source_sha256": "2d657e9abfdc4348010e0d6747d153054d65e31b56af1fa14447005450aa8842"
     },
     {
       "path": "prints/the-pour-r6-petgf-left04-z004-mark2.3mf",
