@@ -1,0 +1,560 @@
+{
+  "schema": 1,
+  "native": {
+    "archive": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "70a2e1073984d631dfcab424a84a8f59e4c0f99d8205426b17917f32fe6eba5b",
+    "gcode_sha256": "ffb0d8a6dd7c29668bec8c3a37690f737881c2377438f45dfe071fdddafd1130",
+    "native_settings_normalizations": {
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ],
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 76,
+    "estimated_seconds": 3447.939697265625,
+    "estimated_grams_saved_profile_density": 29.949304580688477,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 7
+  },
+  "geometry": [
+    {
+      "id": "A",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "B",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "C",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "D",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "E",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "F",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    },
+    {
+      "id": "G",
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "native_vertex_error_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true
+    }
+  ],
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "02e5c2ab04f64d9619282a89a744cd0d41b5a45da94c2b7ad91524e3a4d9926f",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "inherited_profile_process_identical": true,
+  "only_object_process_override": "seam_gap",
+  "control_has_no_process_override": true,
+  "seam_position": "aligned",
+  "scarf_enabled": false,
+  "fine_layer_bands": false,
+  "minimum_full_bead_bed_margin_mm": 104.415794,
+  "full_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        114.791794,
+        104.468794
+      ],
+      [
+        210.208206,
+        215.584206
+      ]
+    ],
+    "maximum_line_width_mm": 0.636412,
+    "bounds_padding_mm": 0.41820599999999997
+  },
+  "support_deposition_segments": 0,
+  "probing_clump_detection": false,
+  "gcode_postprocessed": false,
+  "ordinary_seam_readings": [
+    {
+      "id": "A",
+      "control": false,
+      "seam_gap_percent": 0,
+      "expected_path_gap_mm": 0.0,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760641,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4418384999917,
+          "gap_mm": 0.0,
+          "start_mm": [
+            130.283,
+            133.249,
+            4.04
+          ],
+          "end_mm": [
+            130.283,
+            133.249,
+            4.04
+          ],
+          "length_mm": 84.99339085893727
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4406550000085,
+          "gap_mm": 0.0,
+          "start_mm": [
+            130.636,
+            134.739,
+            9.8
+          ],
+          "end_mm": [
+            130.636,
+            134.739,
+            9.8
+          ],
+          "length_mm": 84.99302867844423
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4361054999954,
+          "gap_mm": 0.0,
+          "start_mm": [
+            131.011,
+            136.344,
+            16.04
+          ],
+          "end_mm": [
+            131.011,
+            136.344,
+            16.04
+          ],
+          "length_mm": 84.99370267238469
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "control": false,
+      "seam_gap_percent": 20,
+      "expected_path_gap_mm": 0.08,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760653,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4418435000134,
+          "gap_mm": 0.08062257748299678,
+          "start_mm": [
+            164.283,
+            133.249,
+            4.04
+          ],
+          "end_mm": [
+            164.363,
+            133.239,
+            4.04
+          ],
+          "length_mm": 84.91276830248853
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4406629999921,
+          "gap_mm": 0.08041144197190886,
+          "start_mm": [
+            164.636,
+            134.739,
+            9.8
+          ],
+          "end_mm": [
+            164.715,
+            134.724,
+            9.8
+          ],
+          "length_mm": 84.91261724058434
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4360895000118,
+          "gap_mm": 0.07962411694957865,
+          "start_mm": [
+            165.011,
+            136.344,
+            16.04
+          ],
+          "end_mm": [
+            165.089,
+            136.328,
+            16.04
+          ],
+          "length_mm": 84.91407866941573
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "control": false,
+      "seam_gap_percent": 10,
+      "expected_path_gap_mm": 0.04,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760653,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4421239999992,
+          "gap_mm": 0.04031128874151249,
+          "start_mm": [
+            198.283,
+            133.249,
+            4.04
+          ],
+          "end_mm": [
+            198.323,
+            133.244,
+            4.04
+          ],
+          "length_mm": 84.95309514185885
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4412995000112,
+          "gap_mm": 0.04079215610873639,
+          "start_mm": [
+            198.636,
+            134.739,
+            9.8
+          ],
+          "end_mm": [
+            198.676,
+            134.731,
+            9.8
+          ],
+          "length_mm": 84.95227885893932
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4357739999905,
+          "gap_mm": 0.039812058474800384,
+          "start_mm": [
+            199.011,
+            136.344,
+            16.04
+          ],
+          "end_mm": [
+            199.05,
+            136.336,
+            16.04
+          ],
+          "length_mm": 84.95385267944404
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "control": false,
+      "seam_gap_percent": 25,
+      "expected_path_gap_mm": 0.1,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760641,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4417909999993,
+          "gap_mm": 0.10084145972765707,
+          "start_mm": [
+            130.283,
+            172.249,
+            4.04
+          ],
+          "end_mm": [
+            130.383,
+            172.236,
+            4.04
+          ],
+          "length_mm": 84.8925511818131
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4405989999977,
+          "gap_mm": 0.10080674580604099,
+          "start_mm": [
+            130.636,
+            173.739,
+            9.8
+          ],
+          "end_mm": [
+            130.735,
+            173.72,
+            9.8
+          ],
+          "length_mm": 84.89222209918557
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4360714999984,
+          "gap_mm": 0.09904039579889058,
+          "start_mm": [
+            131.011,
+            175.344,
+            16.04
+          ],
+          "end_mm": [
+            131.108,
+            175.324,
+            16.04
+          ],
+          "length_mm": 84.8946627346177
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "control": true,
+      "seam_gap_percent": 15,
+      "expected_path_gap_mm": 0.06,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760653,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4417885000075,
+          "gap_mm": 0.06053098380168601,
+          "start_mm": [
+            164.283,
+            172.249,
+            4.04
+          ],
+          "end_mm": [
+            164.343,
+            172.241,
+            4.04
+          ],
+          "length_mm": 84.93286231629081
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4407269999956,
+          "gap_mm": 0.06001666435249138,
+          "start_mm": [
+            164.636,
+            173.739,
+            9.8
+          ],
+          "end_mm": [
+            164.695,
+            173.728,
+            9.8
+          ],
+          "length_mm": 84.9330124452748
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.436079500012,
+          "gap_mm": 0.059228371579836354,
+          "start_mm": [
+            165.011,
+            175.344,
+            16.04
+          ],
+          "end_mm": [
+            165.069,
+            175.332,
+            16.04
+          ],
+          "length_mm": 84.93447466815812
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "control": false,
+      "seam_gap_percent": 5,
+      "expected_path_gap_mm": 0.02,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760653,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4421765000134,
+          "gap_mm": 0.020099751242250084,
+          "start_mm": [
+            198.283,
+            172.249,
+            4.04
+          ],
+          "end_mm": [
+            198.303,
+            172.247,
+            4.04
+          ],
+          "length_mm": 84.97331373817362
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4413635000074,
+          "gap_mm": 0.020396078054379343,
+          "start_mm": [
+            198.636,
+            173.739,
+            9.8
+          ],
+          "end_mm": [
+            198.656,
+            173.735,
+            9.8
+          ],
+          "length_mm": 84.9726739346186
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4357640000126,
+          "gap_mm": 0.01941648783895102,
+          "start_mm": [
+            199.011,
+            175.344,
+            16.04
+          ],
+          "end_mm": [
+            199.03,
+            175.34,
+            16.04
+          ],
+          "length_mm": 84.97424865774428
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "control": false,
+      "seam_gap_percent": 30,
+      "expected_path_gap_mm": 0.12,
+      "wall_layers": 76,
+      "first_height_mm": 0.2,
+      "remaining_wall_height_mm": 0.24,
+      "scarf_ramp_segments": 0,
+      "second_wall_segments": 349,
+      "second_segments_without_bed_overlap": 0,
+      "minimum_second_segment_overlap_fraction": 0.4888862917760653,
+      "gap_witnesses": [
+        {
+          "nominal_z_mm": 4.04,
+          "projected_enclosed_area_mm2": 574.4412479999864,
+          "gap_mm": 0.12093386622448106,
+          "start_mm": [
+            164.283,
+            211.249,
+            4.04
+          ],
+          "end_mm": [
+            164.403,
+            211.234,
+            4.04
+          ],
+          "length_mm": 84.87241127701783
+        },
+        {
+          "nominal_z_mm": 9.8,
+          "projected_enclosed_area_mm2": 574.4407974999922,
+          "gap_mm": 0.12022063050907128,
+          "start_mm": [
+            164.636,
+            212.739,
+            9.8
+          ],
+          "end_mm": [
+            164.754,
+            212.716,
+            9.8
+          ],
+          "length_mm": 84.87283265969494
+        },
+        {
+          "nominal_z_mm": 16.04,
+          "projected_enclosed_area_mm2": 574.4354850000036,
+          "gap_mm": 0.1194361754243569,
+          "start_mm": [
+            165.011,
+            214.344,
+            16.04
+          ],
+          "end_mm": [
+            165.128,
+            214.32,
+            16.04
+          ],
+          "length_mm": 84.8742179225117
+        }
+      ]
+    }
+  ],
+  "analysis_script_sha256": "e4c0b92c5ea6b30c994f38f409bcf38f33975add55d4536264c3779afbfecf74",
+  "scope": "Native settings, source geometry, plate footprint, bed contact and commanded endpoint gaps. Physical flatness and full-faucet transfer remain unassessed.",
+  "pass_check": true
+}
