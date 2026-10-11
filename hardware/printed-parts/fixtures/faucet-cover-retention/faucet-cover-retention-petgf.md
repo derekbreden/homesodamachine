@@ -51,9 +51,8 @@ to emit +0.02 mm after the initial reset.
 The native six-cover plate estimates **1 h 38 min 22 s and 35.52 g** using
 the saved density. It has 77 layers and no slicer warnings. The audited
 toolpaths retain at least 45.85 mm of shared-bed border and 34.91 mm between
-parts. The printer archive is
-`.cache/prints/2026-09-18-faucet-cover-retention-mark2/ready/faucet-cover-retention-mark2.gcode.3mf`;
-its SHA256 is `4ac5802ae1a4ee1c6f22f5048af6fd668cf114938616f39500505daf723ae251`.
+parts. The printer archive's SHA256 is
+`4ac5802ae1a4ee1c6f22f5048af6fd668cf114938616f39500505daf723ae251`.
 
 `faucet-cover-retention-petgf.print.json` records each trial's identity, parameters,
 STL digest, exact bed transform and embedded-mesh agreement. The native archive

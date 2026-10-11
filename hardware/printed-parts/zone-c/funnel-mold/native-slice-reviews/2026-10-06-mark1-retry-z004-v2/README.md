@@ -73,9 +73,7 @@ pockets. The core has no supports and is retained for review only.
 | Cavity, submitted | 404 | 17 h 24 min 27 s | 356.56 g |
 | Core, review only | 176 | 11 h 35 min 11 s | 233.23 g |
 
-The single-plate cavity archive is retained privately at
-`.cache/funnel-retry-mark1-z004-20261006/ready/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf`.
-Its SHA-256 is
+The single-plate cavity archive's SHA-256 is
 `4f0c0be666595f73d7e31042cd877da61e8503554f25cd143734bf1a86b8bfb1`;
 its native G-code SHA-256 is
 `a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba`.

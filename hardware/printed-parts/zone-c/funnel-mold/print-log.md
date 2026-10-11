@@ -183,8 +183,6 @@ Sliced file SHA-256:
 `796882c94d37bb7ba944b379d85366a163733cc72a22f4431045fbbf71a9fb45`.
 Plate 1 G-code SHA-256:
 `d982e579eed499cfb3c6a8396e7e79f9313840c727d71ca9e5bf2405c19f6d10`.
-The exact slice is retained at
-`.cache/prints/2026-09-18-funnel-next/full-cavity/funnel-mold-04-standard-flow088-z018.gcode.3mf`.
 
 Bambu Connect submitted the cavity to **H2C**,
 using **AMS A2 PETG Translucent** (reported 72% remaining before submission).
@@ -242,8 +240,6 @@ The same raised band, nozzle dragging, fuzz and blobs remained. Photos
 He reports solid bed adhesion and no visible lifting after pulling the print
 apart; he has not ruled lifting out. The bed is clean and H2C is ready for
 the next authorized trial.
-The exact submitted slice is retained at
-`.cache/prints/2026-09-17-funnel-flow094-h2c/funnel-mold-04-standard-flow094-z018.gcode.3mf`.
 
 ## 0.4 mm Standard nozzle, stopped at layer 374 — 2026-09-17
 
