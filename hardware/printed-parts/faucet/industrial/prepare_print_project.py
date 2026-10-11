@@ -29,6 +29,7 @@ ACCEPTANCE = HERE / "physical-acceptance.json"
 ACCEPTED = json.loads(ACCEPTANCE.read_text())
 RECIPE = writer.ROOT / ACCEPTED["prepared_project"]
 PROFILE = RECIPE
+FINISH = HERE / "finish-selection.json"
 GASKET = HERE / "industrial-above-counter-gasket.stl"
 # Separate spaces for each part's brim and automatically generated supports.
 PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 86.0), (43.0, -52.0), (-17.5, -60.0))
@@ -103,17 +104,18 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
     """Record what this offline preparation actually checked."""
     result = {
         "project_title": TITLE,
-        "status": ("baseline offline slice and support audit passed; scarf/lift choices pending"
-                   if reading is not None else "complete current project prepared; native review and scarf/lift choices pending"),
+        "status": ("selected finish offline slice and support audit passed"
+                   if reading is not None else "complete current project prepared with selected finish; native review pending"),
         "preparation_only": True,
         "launch_authorized": False,
-        "finish_choices_pending": ["seam/scarf selection", "coarse model layers above supports"],
+        "finish_choices_pending": [],
+        "finish_selection": relative(FINISH),
         "project": relative(project),
         "project_sha256": report["project_sha256"],
         "settings_sha256": report["settings_sha256"],
         "print_report_sha256": writer.digest(project.with_suffix(".print.json").read_bytes()),
         "profile_source": report["profile_source"],
-        "all_profile_members_preserved_byte_for_byte": True,
+        "all_profile_members_preserved_byte_for_byte": report["all_profile_members_preserved_byte_for_byte"],
         "source_stls": {part["source"]: part["stl_sha256"] for part in report["parts"]},
         "mesh_and_placement": {
             "closed_oriented_single_body_meshes": True,
@@ -145,8 +147,13 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
     return result
 
 
-def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
+def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
+            printer: str | None = None, filament_colour: str | None = None) -> dict:
     settings_from, output = settings_from.resolve(), output.resolve()
+    finish = json.loads(FINISH.read_text())
+    printer = printer or finish["default_printer"]
+    trim = {"Mark1": .18, "Mark2": .04}[printer]
+    filament_colour = filament_colour or finish["default_filament_colour"]
     if output == settings_from or output == RECIPE.resolve() or output in {path.resolve() for path in PROTECTED_SCULPTED}:
         raise ValueError("The Industrial output must not replace its settings source or the Sculpted project")
     if output.suffix.lower() != ".3mf":
@@ -158,7 +165,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
     preserved = profile_members(settings_from)
     parts = industrial_parts()
     report = writer.refresh(settings_from, output, parts=parts,
-                            offsets=PART_OFFSETS, title=TITLE, plate_border=40.0)
+                            offsets=PART_OFFSETS, title=TITLE, plate_border=40.0,
+                            z_trim=trim)
     # One perimeter-spanning region retains the accepted reinforcement without
     # splitting the outside wall at the three screw hosts.
     regions = tuple({"part": r["part"], "name": r["name"],
@@ -179,11 +187,33 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
                     writer.metadata(obj, key, setting.get("value"))
         members["Metadata/model_settings.config"] = writer.xml(config)
         members["Metadata/layer_config_ranges.xml"] = recipe.read("Metadata/layer_config_ranges.xml")
+        settings = json.loads(members[writer.SETTINGS_MEMBER])
+        original_colour = settings["filament_colour"]
+        settings["filament_colour"] = [filament_colour]
+        members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
+        for obj in config.findall("object"):
+            for key, value in finish["seam_object_overrides"].items():
+                writer.metadata(obj, key, value)
+        ranges = ET.fromstring(members["Metadata/layer_config_ranges.xml"])
+        for entry, band in zip(ranges.find("object").findall("range"),
+                               finish["base_fine_bands_print_z_mm"], strict=True):
+            entry.set("min_z", f"{band[0]:.4f}")
+            entry.set("max_z", f"{band[1]:.4f}")
+        members["Metadata/model_settings.config"] = writer.xml(config)
+        members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges)
     writer.archive_write(output, members)
     if report["plate_count"] != 1 or len(report["parts"]) != 5:
         raise ValueError("The complete Industrial project needs five rigid parts on one plate")
-    if profile_members(output) != preserved:
-        raise ValueError("The complete PET-GF profile was not preserved")
+    actual_profile = profile_members(output)
+    before_settings = json.loads(preserved[writer.SETTINGS_MEMBER])
+    after_settings = json.loads(actual_profile[writer.SETTINGS_MEMBER])
+    changed_settings = {k for k in set(before_settings) | set(after_settings)
+                        if before_settings.get(k) != after_settings.get(k)}
+    if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour"}:
+        raise ValueError("Unexpected change to the complete PET-GF profile")
+    if any(actual_profile.get(n) != data for n, data in preserved.items()
+           if n != writer.SETTINGS_MEMBER):
+        raise ValueError("The PET-GF filament profile was not preserved")
     if protected_hashes() != before:
         raise ValueError("A Sculpted project artifact changed during Industrial preparation")
     for row in report["parts"]:
@@ -193,8 +223,10 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
         "project_title": TITLE,
         "profile_source": relative(settings_from),
         "project_sha256": writer.digest(output.read_bytes()),
-        "all_profile_members_preserved_byte_for_byte": True,
-        "profile_member_sha256": {name: writer.digest(data) for name, data in preserved.items()},
+        "settings_sha256": writer.digest(actual_profile[writer.SETTINGS_MEMBER]),
+        "native_settings_sha256": writer.digest(actual_profile[writer.SETTINGS_MEMBER]),
+        "all_profile_members_preserved_byte_for_byte": actual_profile == preserved,
+        "profile_member_sha256": {name: writer.digest(data) for name, data in actual_profile.items()},
         "sculpted_artifacts_unchanged": before,
         "shared_tip_source": relative(parts[1][1]),
         "gasket_included": False,
@@ -203,9 +235,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
         "accepted_recipe_sha256": ACCEPTED["prepared_project_sha256"],
         "accepted_geometry_tag": ACCEPTED["tag"],
         "active_nozzle": 0,
-        "printer": "Mark2",
-        "requested_z_trim_mm": (ACCEPTED["recipe"]["requested_z_trim_mm"]
-                                if settings_from == RECIPE.resolve() else None),
+        "printer": printer,
+        "requested_z_trim_mm": trim,
         "selected_faces": shoulder_readings(report, recipe_report),
         "insert_review_regions": recipe_report["insert_review_regions"],
         "review_host_regions": recipe_report["review_host_regions"],
@@ -213,12 +244,18 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
         "launch_authorized": False,
         "submitted": False,
         "send_attempted": False,
-        "finish_choices_pending": ["seam/scarf selection", "coarse model layers above supports"],
-        "provisional_finish": "Accepted 0.12 mm base shoulder bands and regular seam; final choices remain pending",
+        "finish_choices_pending": [],
+        "finish_selection": relative(FINISH),
+        "selected_finish": finish,
+        "provisional_finish": "SB scarf slope gap 10%; E eight coarse lip layers before 0.12 mm; full-print confirmation pending",
     })
+    if original_colour != [filament_colour]:
+        report["settings_changes"]["filament_colour"] = {"from": original_colour, "to": [filament_colour]}
+    for face, band in zip(report["selected_faces"], finish["base_fine_bands_print_z_mm"], strict=True):
+        face["fine_band_print_z_mm"] = band
     from prepare_vent_prints import source_hashes
     report["source_sha256"] = source_hashes(parts)
-    for path in (Path(__file__), RECIPE, ACCEPTANCE):
+    for path in (Path(__file__), RECIPE, ACCEPTANCE, FINISH):
         report["source_sha256"][relative(path)] = writer.digest(path.read_bytes())
     output.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
     write_readiness(output, report)
@@ -229,6 +266,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=PROJECT)
     parser.add_argument("--settings-from", type=Path, default=PROFILE)
+    parser.add_argument("--printer", choices=("Mark1", "Mark2"),
+                        help="Apply this printer's standard Z trim; default is the selected finish recipe's printer.")
+    parser.add_argument("--filament-colour", help="Spool colour reported by the destination printer, as #RRGGBB.")
     parser.add_argument("--slice-output", type=Path,
                         help="Optional empty directory for an offline Bambu Studio slice; no printer connection.")
     parser.add_argument("--slicer", type=Path,
@@ -238,7 +278,7 @@ def main() -> None:
     if directory and directory.exists() and any(directory.iterdir()):
         parser.error("--slice-output must be empty so the audit cannot consume an earlier slice")
     project = args.project.resolve()
-    report = refresh(args.settings_from, project)
+    report = refresh(args.settings_from, project, args.printer, args.filament_colour)
     print(f"{project}: five rigid parts on one plate; exact PET-GF settings {report['settings_sha256']}", flush=True)
     for row in report["parts"]:
         print(f"  {row['name']}: Rx {row['rotation_x_degrees']:g} degrees; {row['triangles']} triangles", flush=True)

@@ -1,0 +1,2070 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
+    "archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
+    "gcode_sha256": "317f3ceeedf45fa70ca04de8e8c7fadb3ed8de6982ab4ab7b9bf9820f5d84239",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.16
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1244,
+    "estimated_seconds": 21065.4296875,
+    "estimated_grams_saved_profile_density": 160.71649169921875,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "geometry": [
+    {
+      "part": "industrial-shell-base",
+      "source_stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "native_mesh_error_mm": 4.2761230503174374e-06,
+      "native_placement_error_mm": 3.608876539828998e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "faucet-shell-tip",
+      "source_stl_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "native_mesh_error_mm": 3.854443363593418e-06,
+      "native_placement_error_mm": 3.9310936017500353e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "industrial-display-cover",
+      "source_stl_sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+      "native_mesh_error_mm": 5.000001124244591e-08,
+      "native_placement_error_mm": 1.0864781074815255e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "source_stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+      "native_mesh_error_mm": 1.1924652110195666e-07,
+      "native_placement_error_mm": 3.8418579428878274e-09,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "lever-replica",
+      "source_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "native_mesh_error_mm": 9.646621244030484e-07,
+      "native_placement_error_mm": 7.34862837248329e-10,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    }
+  ],
+  "wall_layers": [
+    {
+      "part": "industrial-shell-base",
+      "layer_count": 1126,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 209,
+      "last_wall_layer": [
+        245.0,
+        0.240005
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "layer_count": 575,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        137.72,
+        0.240005
+      ]
+    },
+    {
+      "part": "industrial-display-cover",
+      "layer_count": 80,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        19.16,
+        0.24
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "layer_count": 26,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        6.2,
+        0.24
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "layer_count": 52,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        12.44,
+        0.24
+      ]
+    }
+  ],
+  "selected_scarf": {
+    "seam_position": "back",
+    "override_filament_scarf_seam_setting": "1",
+    "seam_slope_conditional": "1",
+    "scarf_angle_threshold": "155",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_steps": "10",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_min_length": "10",
+    "seam_slope_start_height": "10%",
+    "seam_slope_type": "external",
+    "seam_gap": "15%",
+    "seam_slope_gap": "10%"
+  },
+  "scarf_emitted_ramps": [
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.119995,
+      "ramp_segments": 75,
+      "minimum_ramp_start_above_previous_layer_mm": 0.011994999999998868
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.119999,
+      "ramp_segments": 893,
+      "minimum_ramp_start_above_previous_layer_mm": 0.011998999999995874
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.12,
+      "ramp_segments": 2911,
+      "minimum_ramp_start_above_previous_layer_mm": 0.01199999999999335
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.120001,
+      "ramp_segments": 809,
+      "minimum_ramp_start_above_previous_layer_mm": 0.01200099999999793
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.120003,
+      "ramp_segments": 280,
+      "minimum_ramp_start_above_previous_layer_mm": 0.01200299999999288
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.23999,
+      "ramp_segments": 2800,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023989999999997735
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.239998,
+      "ramp_segments": 3054,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023997999999991748
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.24,
+      "ramp_segments": 2384,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023999999999997357
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.240001,
+      "ramp_segments": 147,
+      "minimum_ramp_start_above_previous_layer_mm": 0.024000999999998385
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.240002,
+      "ramp_segments": 337,
+      "minimum_ramp_start_above_previous_layer_mm": 0.02400199999999586
+    },
+    {
+      "object_id": 1901,
+      "nominal_layer_height_mm": 0.240005,
+      "ramp_segments": 6101,
+      "minimum_ramp_start_above_previous_layer_mm": 0.024004999999988286
+    },
+    {
+      "object_id": 1902,
+      "nominal_layer_height_mm": 0.23999,
+      "ramp_segments": 75,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023989999999997735
+    },
+    {
+      "object_id": 1902,
+      "nominal_layer_height_mm": 0.239998,
+      "ramp_segments": 2010,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023997999999991748
+    },
+    {
+      "object_id": 1902,
+      "nominal_layer_height_mm": 0.24,
+      "ramp_segments": 1640,
+      "minimum_ramp_start_above_previous_layer_mm": 0.0239999999999867
+    },
+    {
+      "object_id": 1902,
+      "nominal_layer_height_mm": 0.240002,
+      "ramp_segments": 332,
+      "minimum_ramp_start_above_previous_layer_mm": 0.02400199999999586
+    },
+    {
+      "object_id": 1902,
+      "nominal_layer_height_mm": 0.240005,
+      "ramp_segments": 789,
+      "minimum_ramp_start_above_previous_layer_mm": 0.024004999999988286
+    },
+    {
+      "object_id": 1903,
+      "nominal_layer_height_mm": 0.24,
+      "ramp_segments": 519,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023999999999997357
+    },
+    {
+      "object_id": 1903,
+      "nominal_layer_height_mm": 0.240001,
+      "ramp_segments": 96,
+      "minimum_ramp_start_above_previous_layer_mm": 0.024000999999998385
+    },
+    {
+      "object_id": 1904,
+      "nominal_layer_height_mm": 0.24,
+      "ramp_segments": 973,
+      "minimum_ramp_start_above_previous_layer_mm": 0.023999999999999577
+    },
+    {
+      "object_id": 1905,
+      "nominal_layer_height_mm": 0.24,
+      "ramp_segments": 214,
+      "minimum_ramp_start_above_previous_layer_mm": 0.02399999999999991
+    }
+  ],
+  "coarse_start": {
+    "lip_reference_z_mm": 15.32,
+    "coarse_nozzle_z_mm": [
+      15.32,
+      15.56,
+      15.8,
+      16.04,
+      16.28,
+      16.52,
+      16.76,
+      17.0
+    ],
+    "count": 8,
+    "first_fine_model_layer": [
+      17.12,
+      0.120001
+    ]
+  },
+  "shoulder_band_checks": [
+    {
+      "name": "shoulder_CAD_Z14.0",
+      "print_z_mm": [
+        17.0,
+        28.793276836907097
+      ],
+      "wall_layer_count": 99,
+      "first_wall_layer": [
+        17.12,
+        0.120001
+      ],
+      "last_wall_layer": [
+        28.88,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "shoulder_CAD_Z57.5",
+      "print_z_mm": [
+        55.46313145649684,
+        67.83949033899097
+      ],
+      "wall_layer_count": 105,
+      "first_wall_layer": [
+        55.52,
+        0.12
+      ],
+      "last_wall_layer": [
+        67.88,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "first_second_layer_overlap": {
+    "layers_z_mm": [
+      0.2,
+      0.44
+    ],
+    "objects": [
+      {
+        "part": "industrial-shell-base",
+        "second_wall_segments": 56,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.9993864734220028,
+        "total_second_wall_overlap_fraction": 0.9997072339479521
+      },
+      {
+        "part": "faucet-shell-tip",
+        "second_wall_segments": 7,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.7071408501317128,
+        "total_second_wall_overlap_fraction": 0.9119037250675972
+      },
+      {
+        "part": "industrial-display-cover",
+        "second_wall_segments": 87,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.2223505413844461,
+        "total_second_wall_overlap_fraction": 0.70627067624285
+      },
+      {
+        "part": "industrial-above-counter-plate",
+        "second_wall_segments": 907,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.6403782137199981,
+        "total_second_wall_overlap_fraction": 0.8214733027543036
+      },
+      {
+        "part": "lever-replica",
+        "second_wall_segments": 217,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.5736228334268186,
+        "total_second_wall_overlap_fraction": 0.8131871252361521
+      }
+    ],
+    "method": "Commanded bead footprints at emitted width; labelled first-layer model/support/brim carries each object's second-layer walls",
+    "scope": "Native contact footprints; physical adhesion is not measured"
+  },
+  "screw_point_contours": {
+    "original_screw_host_boundaries": [
+      {
+        "name": "Solid base insert host 1",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 0,
+        "witnesses": []
+      },
+      {
+        "name": "Solid base insert host 2",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 0,
+        "witnesses": []
+      },
+      {
+        "name": "Solid base insert host 3",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 0,
+        "witnesses": []
+      }
+    ],
+    "all_outer_foot_endpoints": [
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.297770206946467,
+          0.6746471212744751
+        ],
+        "end": "start",
+        "print_z_mm": 0.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 59.59884492777565,
+        "closure_gap_mm": 9.77222415829682,
+        "projected_area_mm2": 48.47491450000234,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.304234369788382,
+          0.9248454717861279
+        ],
+        "end": "start",
+        "print_z_mm": 1.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 67.39203604358063,
+        "closure_gap_mm": 9.77083670931,
+        "projected_area_mm2": 73.72363850000056,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.482,
+          27.321307432599568,
+          0.6171414552850365
+        ],
+        "end": "stop",
+        "print_z_mm": 1.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 67.39203604358063,
+        "closure_gap_mm": 9.77083670931,
+        "projected_area_mm2": 73.72363850000056,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.299107422714854,
+          1.1719379937565577
+        ],
+        "end": "start",
+        "print_z_mm": 1.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 74.26669386990116,
+        "closure_gap_mm": 9.77002077786941,
+        "projected_area_mm2": 102.3743900000045,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.491,
+          27.32004418883116,
+          0.8652692534358835
+        ],
+        "end": "stop",
+        "print_z_mm": 1.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 74.26669386990116,
+        "closure_gap_mm": 9.77002077786941,
+        "projected_area_mm2": 102.3743900000045,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9180000000000064,
+          29.303639733904184,
+          1.421618706178009
+        ],
+        "end": "start",
+        "print_z_mm": 1.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 80.34625661378976,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 133.74254699999074,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.483000000000004,
+          27.32071279671535,
+          1.1139146896769176
+        ],
+        "end": "stop",
+        "print_z_mm": 1.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 80.34625661378976,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 133.74254699999074,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.298512786830635,
+          1.6687112281484389
+        ],
+        "end": "start",
+        "print_z_mm": 1.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 85.95659041727754,
+        "closure_gap_mm": 9.769083119720094,
+        "projected_area_mm2": 167.62733250000565,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489000000000004,
+          27.3146199238155,
+          1.3607483926022326
+        ],
+        "end": "stop",
+        "print_z_mm": 1.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 85.95659041727754,
+        "closure_gap_mm": 9.769083119720094,
+        "projected_area_mm2": 167.62733250000565,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.29821546888852,
+          1.9170978453443723
+        ],
+        "end": "start",
+        "print_z_mm": 2.12,
+        "complete_contour_seam": false,
+        "run_length_mm": 91.44372327970974,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 192.56705750000492,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489999999999995,
+          27.317220383352264,
+          1.6099114669334966
+        ],
+        "end": "stop",
+        "print_z_mm": 2.12,
+        "complete_contour_seam": false,
+        "run_length_mm": 91.44372327970974,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 192.56705750000492,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.296952225120144,
+          2.1652256434952193
+        ],
+        "end": "start",
+        "print_z_mm": 2.36,
+        "complete_contour_seam": false,
+        "run_length_mm": 97.0993332120035,
+        "closure_gap_mm": 9.768878850717725,
+        "projected_area_mm2": 214.83405700000003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489000000000004,
+          27.3140252879313,
+          1.8575216269941137
+        ],
+        "end": "stop",
+        "print_z_mm": 2.36,
+        "complete_contour_seam": false,
+        "run_length_mm": 97.0993332120035,
+        "closure_gap_mm": 9.768878850717725,
+        "projected_area_mm2": 214.83405700000003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.29665490717803,
+          2.4136122606911385
+        ],
+        "end": "start",
+        "print_z_mm": 2.6,
+        "complete_contour_seam": false,
+        "run_length_mm": 102.82112088839077,
+        "closure_gap_mm": 9.769041764676816,
+        "projected_area_mm2": 237.75906049999867,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489999999999995,
+          27.317591673294338,
+          2.10694352037045
+        ],
+        "end": "stop",
+        "print_z_mm": 2.6,
+        "complete_contour_seam": false,
+        "run_length_mm": 102.82112088839077,
+        "closure_gap_mm": 9.769041764676816,
+        "projected_area_mm2": 237.75906049999867,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9260000000000019,
+          29.296357589235924,
+          2.661998877887072
+        ],
+        "end": "start",
+        "print_z_mm": 2.84,
+        "complete_contour_seam": false,
+        "run_length_mm": 108.64632594974307,
+        "closure_gap_mm": 9.76924562082456,
+        "projected_area_mm2": 261.8240270000033,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489999999999995,
+          27.31632842952596,
+          2.355071318521297
+        ],
+        "end": "stop",
+        "print_z_mm": 2.84,
+        "complete_contour_seam": false,
+        "run_length_mm": 108.64632594974307,
+        "closure_gap_mm": 9.76924562082456,
+        "projected_area_mm2": 261.8240270000033,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9249999999999972,
+          29.297026197120104,
+          2.9106443141281204
+        ],
+        "end": "start",
+        "print_z_mm": 3.08,
+        "complete_contour_seam": false,
+        "run_length_mm": 114.53097657018047,
+        "closure_gap_mm": 9.769287486812946,
+        "projected_area_mm2": 287.265549000007,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.488,
+          27.312167408278704,
+          2.6024226595368276
+        ],
+        "end": "stop",
+        "print_z_mm": 3.08,
+        "complete_contour_seam": false,
+        "run_length_mm": 114.53097657018047,
+        "closure_gap_mm": 9.769287486812946,
+        "projected_area_mm2": 287.265549000007,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.921999999999997,
+          29.304456285788312,
+          3.161101483684874
+        ],
+        "end": "start",
+        "print_z_mm": 3.32,
+        "complete_contour_seam": false,
+        "run_length_mm": 120.25652540038963,
+        "closure_gap_mm": 9.77181564500682,
+        "projected_area_mm2": 314.0025259999984,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.488,
+          27.321529348599476,
+          2.8533974671837825
+        ],
+        "end": "stop",
+        "print_z_mm": 3.32,
+        "complete_contour_seam": false,
+        "run_length_mm": 120.25652540038963,
+        "closure_gap_mm": 9.77181564500682,
+        "projected_area_mm2": 314.0025259999984,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9249999999999972,
+          29.296431561235913,
+          3.4074175485199873
+        ],
+        "end": "start",
+        "print_z_mm": 3.56,
+        "complete_contour_seam": false,
+        "run_length_mm": 125.80488989445382,
+        "closure_gap_mm": 9.768674679811998,
+        "projected_area_mm2": 342.2603009999875,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.488,
+          27.314470549873363,
+          3.099972351064011
+        ],
+        "end": "stop",
+        "print_z_mm": 3.56,
+        "complete_contour_seam": false,
+        "run_length_mm": 125.80488989445382,
+        "closure_gap_mm": 9.768674679811998,
+        "projected_area_mm2": 342.2603009999875,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9240000000000066,
+          29.296134243293793,
+          3.655804165715935
+        ],
+        "end": "start",
+        "print_z_mm": 3.8,
+        "complete_contour_seam": false,
+        "run_length_mm": 131.18817164049307,
+        "closure_gap_mm": 9.770388938010594,
+        "projected_area_mm2": 371.53035000000637,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.489999999999995,
+          27.319968786888985,
+          3.349911882530563
+        ],
+        "end": "stop",
+        "print_z_mm": 3.8,
+        "complete_contour_seam": false,
+        "run_length_mm": 131.18817164049307,
+        "closure_gap_mm": 9.770388938010594,
+        "projected_area_mm2": 371.53035000000637,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9230000000000018,
+          29.3045302577883,
+          3.906520154317789
+        ],
+        "end": "start",
+        "print_z_mm": 4.04,
+        "complete_contour_seam": false,
+        "run_length_mm": 136.44963596244,
+        "closure_gap_mm": 9.770105935966102,
+        "projected_area_mm2": 402.01132199999756,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486000000000004,
+          27.315807765641722,
+          3.5972632235460935
+        ],
+        "end": "stop",
+        "print_z_mm": 4.04,
+        "complete_contour_seam": false,
+        "run_length_mm": 136.44963596244,
+        "closure_gap_mm": 9.770105935966102,
+        "projected_area_mm2": 402.01132199999756,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9230000000000018,
+          29.305198865672487,
+          4.155165590558823
+        ],
+        "end": "start",
+        "print_z_mm": 4.28,
+        "complete_contour_seam": false,
+        "run_length_mm": 141.55677467557294,
+        "closure_gap_mm": 9.77108474019133,
+        "projected_area_mm2": 433.5237554999949,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486999999999995,
+          27.31647637352591,
+          3.8459086597871277
+        ],
+        "end": "stop",
+        "print_z_mm": 4.28,
+        "complete_contour_seam": false,
+        "run_length_mm": 141.55677467557294,
+        "closure_gap_mm": 9.77108474019133,
+        "projected_area_mm2": 433.5237554999949,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9240000000000066,
+          29.305867473556667,
+          4.403811026799872
+        ],
+        "end": "start",
+        "print_z_mm": 4.52,
+        "complete_contour_seam": false,
+        "run_length_mm": 145.75235277687398,
+        "closure_gap_mm": 9.770880001310008,
+        "projected_area_mm2": 465.44793400000617,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.488,
+          27.318110907236388,
+          4.094812915073277
+        ],
+        "end": "stop",
+        "print_z_mm": 4.52,
+        "complete_contour_seam": false,
+        "run_length_mm": 145.75235277687398,
+        "closure_gap_mm": 9.770880001310008,
+        "projected_area_mm2": 465.44793400000617,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9230000000000018,
+          29.306536081440846,
+          4.65245646304092
+        ],
+        "end": "start",
+        "print_z_mm": 4.76,
+        "complete_contour_seam": false,
+        "run_length_mm": 149.44372891099593,
+        "closure_gap_mm": 9.770310793419014,
+        "projected_area_mm2": 496.1269420000035,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486000000000004,
+          27.316847663467975,
+          4.34294071322411
+        ],
+        "end": "stop",
+        "print_z_mm": 4.76,
+        "complete_contour_seam": false,
+        "run_length_mm": 149.44372891099593,
+        "closure_gap_mm": 9.770310793419014,
+        "projected_area_mm2": 496.1269420000035,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.921999999999997,
+          29.30527283767244,
+          4.900584261191753
+        ],
+        "end": "start",
+        "print_z_mm": 5.0,
+        "complete_contour_seam": false,
+        "run_length_mm": 153.13073994117622,
+        "closure_gap_mm": 9.771245263527055,
+        "projected_area_mm2": 525.772945499999,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486999999999995,
+          27.32041404883104,
+          4.59236260660046
+        ],
+        "end": "stop",
+        "print_z_mm": 5.0,
+        "complete_contour_seam": false,
+        "run_length_mm": 153.13073994117622,
+        "closure_gap_mm": 9.771245263527055,
+        "projected_area_mm2": 525.772945499999,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9210000000000065,
+          29.305941445556627,
+          5.149229697432787
+        ],
+        "end": "start",
+        "print_z_mm": 5.24,
+        "complete_contour_seam": false,
+        "run_length_mm": 156.78583657516526,
+        "closure_gap_mm": 9.771449687738249,
+        "projected_area_mm2": 554.4206550000017,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486000000000004,
+          27.320116730888934,
+          4.840749223796394
+        ],
+        "end": "stop",
+        "print_z_mm": 5.24,
+        "complete_contour_seam": false,
+        "run_length_mm": 156.78583657516526,
+        "closure_gap_mm": 9.771449687738249,
+        "projected_area_mm2": 554.4206550000017,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9210000000000065,
+          29.305644127614542,
+          5.397616314628735
+        ],
+        "end": "start",
+        "print_z_mm": 5.48,
+        "complete_contour_seam": false,
+        "run_length_mm": 160.44565451642177,
+        "closure_gap_mm": 9.770266373032003,
+        "projected_area_mm2": 582.3617514999873,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.485,
+          27.320785338773113,
+          5.089394660037442
+        ],
+        "end": "stop",
+        "print_z_mm": 5.48,
+        "complete_contour_seam": false,
+        "run_length_mm": 160.44565451642177,
+        "closure_gap_mm": 9.770266373032003,
+        "projected_area_mm2": 582.3617514999873,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9200000000000017,
+          29.30534680967243,
+          5.646002931824668
+        ],
+        "end": "start",
+        "print_z_mm": 5.72,
+        "complete_contour_seam": false,
+        "run_length_mm": 164.108048008356,
+        "closure_gap_mm": 9.770632579316446,
+        "projected_area_mm2": 609.6948379999867,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.485,
+          27.323385798309886,
+          5.338557734368678
+        ],
+        "end": "stop",
+        "print_z_mm": 5.72,
+        "complete_contour_seam": false,
+        "run_length_mm": 164.108048008356,
+        "closure_gap_mm": 9.770632579316446,
+        "projected_area_mm2": 609.6948379999867,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9189999999999969,
+          29.30601541755661,
+          5.8946483680657025
+        ],
+        "end": "start",
+        "print_z_mm": 5.96,
+        "complete_contour_seam": false,
+        "run_length_mm": 167.75579818177872,
+        "closure_gap_mm": 9.770675360485585,
+        "projected_area_mm2": 636.5644465000014,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.483000000000004,
+          27.31922477706263,
+          5.585909075384208
+        ],
+        "end": "stop",
+        "print_z_mm": 5.96,
+        "complete_contour_seam": false,
+        "run_length_mm": 167.75579818177872,
+        "closure_gap_mm": 9.770675360485585,
+        "projected_area_mm2": 636.5644465000014,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9210000000000065,
+          29.29799069300421,
+          6.140964432900816
+        ],
+        "end": "start",
+        "print_z_mm": 6.2,
+        "complete_contour_seam": false,
+        "run_length_mm": 171.42074648068686,
+        "closure_gap_mm": 9.770388938010594,
+        "projected_area_mm2": 662.9818510000082,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486999999999995,
+          27.321825236599395,
+          5.835072149715458
+        ],
+        "end": "stop",
+        "print_z_mm": 6.2,
+        "complete_contour_seam": false,
+        "run_length_mm": 171.42074648068686,
+        "closure_gap_mm": 9.770388938010594,
+        "projected_area_mm2": 662.9818510000082,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9189999999999969,
+          29.30638670749868,
+          6.391680421502684
+        ],
+        "end": "start",
+        "print_z_mm": 6.44,
+        "complete_contour_seam": false,
+        "run_length_mm": 175.09085031563512,
+        "closure_gap_mm": 9.770105935966097,
+        "projected_area_mm2": 689.0117494999977,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.482,
+          27.31766421535214,
+          6.082423490730989
+        ],
+        "end": "stop",
+        "print_z_mm": 6.44,
+        "complete_contour_seam": false,
+        "run_length_mm": 175.09085031563512,
+        "closure_gap_mm": 9.770105935966097,
+        "projected_area_mm2": 689.0117494999977,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.30705531538286,
+          6.6403258577437185
+        ],
+        "end": "start",
+        "print_z_mm": 6.68,
+        "complete_contour_seam": false,
+        "run_length_mm": 178.7664150537897,
+        "closure_gap_mm": 9.770105935966097,
+        "projected_area_mm2": 714.834243500004,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480000000000004,
+          27.318332823236318,
+          6.331068926972037
+        ],
+        "end": "stop",
+        "print_z_mm": 6.68,
+        "complete_contour_seam": false,
+        "run_length_mm": 178.7664150537897,
+        "closure_gap_mm": 9.770105935966097,
+        "projected_area_mm2": 714.834243500004,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9159999999999968,
+          29.306757997440783,
+          6.888712474939666
+        ],
+        "end": "start",
+        "print_z_mm": 6.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 182.46519117779488,
+        "closure_gap_mm": 9.771084740191345,
+        "projected_area_mm2": 740.2081075000106,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480000000000004,
+          27.318035505294205,
+          6.579455544167956
+        ],
+        "end": "stop",
+        "print_z_mm": 6.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 182.46519117779488,
+        "closure_gap_mm": 9.771084740191345,
+        "projected_area_mm2": 740.2081075000106,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9200000000000017,
+          29.297767347062056,
+          7.134769720729679
+        ],
+        "end": "start",
+        "print_z_mm": 7.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 186.19682728347814,
+        "closure_gap_mm": 9.770388938010608,
+        "projected_area_mm2": 765.5533284999938,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.486000000000004,
+          27.32160189065724,
+          6.828877437544293
+        ],
+        "end": "stop",
+        "print_z_mm": 7.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 186.19682728347814,
+        "closure_gap_mm": 9.770388938010608,
+        "projected_area_mm2": 765.5533284999938,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9189999999999969,
+          29.298435954946264,
+          7.383415156970713
+        ],
+        "end": "start",
+        "print_z_mm": 7.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 190.56173571154778,
+        "closure_gap_mm": 9.769449575078436,
+        "projected_area_mm2": 786.0414980000023,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.483000000000004,
+          27.317440869409985,
+          7.0762287785598375
+        ],
+        "end": "stop",
+        "print_z_mm": 7.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 190.56173571154778,
+        "closure_gap_mm": 9.769449575078436,
+        "projected_area_mm2": 786.0414980000023,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9140000000000015,
+          29.306831969440736,
+          7.6341311455725815
+        ],
+        "end": "start",
+        "print_z_mm": 7.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 195.89670504478704,
+        "closure_gap_mm": 9.770470817724181,
+        "projected_area_mm2": 799.9640865000156,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.477999999999994,
+          27.321007254773043,
+          7.325650671936188
+        ],
+        "end": "stop",
+        "print_z_mm": 7.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 195.89670504478704,
+        "closure_gap_mm": 9.770470817724181,
+        "projected_area_mm2": 799.9640865000156,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9189999999999969,
+          29.297841319062037,
+          7.880188391362594
+        ],
+        "end": "start",
+        "print_z_mm": 7.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 201.97920202454253,
+        "closure_gap_mm": 9.769449575078431,
+        "projected_area_mm2": 810.923426000003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.483000000000004,
+          27.316846233525787,
+          7.573002012951704
+        ],
+        "end": "stop",
+        "print_z_mm": 7.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 201.97920202454253,
+        "closure_gap_mm": 9.769449575078431,
+        "projected_area_mm2": 810.923426000003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9180000000000064,
+          29.298509926946224,
+          8.128833827603628
+        ],
+        "end": "start",
+        "print_z_mm": 8.12,
+        "complete_contour_seam": false,
+        "run_length_mm": 208.73503973564476,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 820.3769235,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.482,
+          27.317514841409967,
+          7.821647449192753
+        ],
+        "end": "stop",
+        "print_z_mm": 8.12,
+        "complete_contour_seam": false,
+        "run_length_mm": 208.73503973564476,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 820.3769235,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9129999999999967,
+          29.30111038648299,
+          8.377996901934893
+        ],
+        "end": "start",
+        "print_z_mm": 8.36,
+        "complete_contour_seam": false,
+        "run_length_mm": 216.2455858977295,
+        "closure_gap_mm": 9.76965362743225,
+        "projected_area_mm2": 829.2150124999971,
+        "minimum_width_mm": 0.419984
+      },
+      {
+        "cad_mm": [
+          -10.477000000000004,
+          27.319149375120446,
+          8.070551704478888
+        ],
+        "end": "stop",
+        "print_z_mm": 8.36,
+        "complete_contour_seam": false,
+        "run_length_mm": 216.2455858977295,
+        "closure_gap_mm": 9.76965362743225,
+        "projected_area_mm2": 829.2150124999971,
+        "minimum_width_mm": 0.419984
+      },
+      {
+        "cad_mm": [
+          -0.9180000000000064,
+          29.297915291062026,
+          8.62560706199551
+        ],
+        "end": "start",
+        "print_z_mm": 8.6,
+        "complete_contour_seam": false,
+        "run_length_mm": 224.65208599723778,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 838.0822104999993,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.482,
+          27.31788613135204,
+          8.31867950262972
+        ],
+        "end": "stop",
+        "print_z_mm": 8.6,
+        "complete_contour_seam": false,
+        "run_length_mm": 224.65208599723778,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 838.0822104999993,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9210000000000065,
+          29.299549824772505,
+          8.874511317281659
+        ],
+        "end": "start",
+        "print_z_mm": 8.84,
+        "complete_contour_seam": false,
+        "run_length_mm": 234.30276281529183,
+        "closure_gap_mm": 9.769857777879874,
+        "projected_area_mm2": 848.0644410000118,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.485,
+          27.316622887583662,
+          8.566807300780567
+        ],
+        "end": "stop",
+        "print_z_mm": 8.84,
+        "complete_contour_seam": false,
+        "run_length_mm": 234.30276281529183,
+        "closure_gap_mm": 9.769857777879874,
+        "projected_area_mm2": 848.0644410000118,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.909000000000006,
+          29.306979913440685,
+          9.124968486838412
+        ],
+        "end": "start",
+        "print_z_mm": 9.08,
+        "complete_contour_seam": false,
+        "run_length_mm": 245.76870619000624,
+        "closure_gap_mm": 9.771245263527055,
+        "projected_area_mm2": 860.170685500003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.474000000000004,
+          27.322121124599285,
+          8.81674683224712
+        ],
+        "end": "stop",
+        "print_z_mm": 9.08,
+        "complete_contour_seam": false,
+        "run_length_mm": 245.76870619000624,
+        "closure_gap_mm": 9.771245263527055,
+        "projected_area_mm2": 860.170685500003,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9099999999999966,
+          29.301852966367164,
+          9.372061008808842
+        ],
+        "end": "start",
+        "print_z_mm": 9.32,
+        "complete_contour_seam": false,
+        "run_length_mm": 261.30657021113325,
+        "closure_gap_mm": 9.770224613590008,
+        "projected_area_mm2": 876.3568710000154,
+        "minimum_width_mm": 0.419984
+      },
+      {
+        "cad_mm": [
+          -10.474999999999994,
+          27.32182380665718,
+          9.065133449443039
+        ],
+        "end": "stop",
+        "print_z_mm": 9.32,
+        "complete_contour_seam": false,
+        "run_length_mm": 261.30657021113325,
+        "closure_gap_mm": 9.770224613590008,
+        "projected_area_mm2": 876.3568710000154,
+        "minimum_width_mm": 0.419984
+      },
+      {
+        "cad_mm": [
+          -0.9069999999999965,
+          29.306385277556494,
+          9.62174172123028
+        ],
+        "end": "start",
+        "print_z_mm": 9.56,
+        "complete_contour_seam": false,
+        "run_length_mm": 226.37607187515943,
+        "closure_gap_mm": 9.77104093738226,
+        "projected_area_mm2": 1019.6891975000108,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.471999999999994,
+          27.322492414541358,
+          9.313778885684087
+        ],
+        "end": "stop",
+        "print_z_mm": 9.56,
+        "complete_contour_seam": false,
+        "run_length_mm": 226.37607187515943,
+        "closure_gap_mm": 9.77104093738226,
+        "projected_area_mm2": 1019.6891975000108,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.29836055300408,
+          9.868057786065407
+        ],
+        "end": "start",
+        "print_z_mm": 9.8,
+        "complete_contour_seam": false,
+        "run_length_mm": 230.92924964836874,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 1046.6620614999915,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.318331393294102,
+          9.561130226699618
+        ],
+        "end": "stop",
+        "print_z_mm": 9.8,
+        "complete_contour_seam": false,
+        "run_length_mm": 230.92924964836874,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 1046.6620614999915,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.298063235061974,
+          10.11644440326134
+        ],
+        "end": "start",
+        "print_z_mm": 10.04,
+        "complete_contour_seam": false,
+        "run_length_mm": 235.68912471211502,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 1073.758504999987,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.31803407535199,
+          9.809516843895551
+        ],
+        "end": "stop",
+        "print_z_mm": 10.04,
+        "complete_contour_seam": false,
+        "run_length_mm": 235.68912471211502,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 1073.758504999987,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9050000000000011,
+          29.306459249556482,
+          10.367160391863194
+        ],
+        "end": "start",
+        "print_z_mm": 10.28,
+        "complete_contour_seam": false,
+        "run_length_mm": 240.63974310158244,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 1101.496383999995,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.469999999999999,
+          27.32353231236764,
+          10.059456375362117
+        ],
+        "end": "stop",
+        "print_z_mm": 10.28,
+        "complete_contour_seam": false,
+        "run_length_mm": 240.63974310158244,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 1101.496383999995,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9039999999999964,
+          29.306161931614362,
+          10.615547009059142
+        ],
+        "end": "start",
+        "print_z_mm": 10.52,
+        "complete_contour_seam": false,
+        "run_length_mm": 245.8866492258888,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 1129.9547630000015,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.468999999999994,
+          27.323234994425526,
+          10.30784299255805
+        ],
+        "end": "stop",
+        "print_z_mm": 10.52,
+        "complete_contour_seam": false,
+        "run_length_mm": 245.8866492258888,
+        "closure_gap_mm": 9.770836709310005,
+        "projected_area_mm2": 1129.9547630000015,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9030000000000058,
+          29.305864613672256,
+          10.863933626255076
+        ],
+        "end": "start",
+        "print_z_mm": 10.76,
+        "complete_contour_seam": false,
+        "run_length_mm": 251.46493826617737,
+        "closure_gap_mm": 9.771611535463318,
+        "projected_area_mm2": 1159.1122925000095,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.468999999999994,
+          27.323903602309706,
+          10.5564884287991
+        ],
+        "end": "stop",
+        "print_z_mm": 10.76,
+        "complete_contour_seam": false,
+        "run_length_mm": 251.46493826617737,
+        "closure_gap_mm": 9.771611535463318,
+        "projected_area_mm2": 1159.1122925000095,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9159999999999968,
+          29.298805814946114,
+          11.110508510135304
+        ],
+        "end": "start",
+        "print_z_mm": 11.0,
+        "complete_contour_seam": false,
+        "run_length_mm": 257.49967194104556,
+        "closure_gap_mm": 9.769245620824574,
+        "projected_area_mm2": 1189.3555665000004,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480000000000004,
+          27.318776655236157,
+          10.803580950769515
+        ],
+        "end": "stop",
+        "print_z_mm": 11.0,
+        "complete_contour_seam": false,
+        "run_length_mm": 257.49967194104556,
+        "closure_gap_mm": 9.769245620824574,
+        "projected_area_mm2": 1189.3555665000004,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9159999999999968,
+          29.29850849700403,
+          11.358895127331238
+        ],
+        "end": "start",
+        "print_z_mm": 11.24,
+        "complete_contour_seam": false,
+        "run_length_mm": 264.1698890527517,
+        "closure_gap_mm": 9.770185515127139,
+        "projected_area_mm2": 1220.9778769999957,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.482,
+          27.323308966425486,
+          11.053261663190952
+        ],
+        "end": "stop",
+        "print_z_mm": 11.24,
+        "complete_contour_seam": false,
+        "run_length_mm": 264.1698890527517,
+        "closure_gap_mm": 9.770185515127139,
+        "projected_area_mm2": 1220.9778769999957,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9009999999999962,
+          29.305938585672244,
+          11.609352296887991
+        ],
+        "end": "start",
+        "print_z_mm": 11.48,
+        "complete_contour_seam": false,
+        "run_length_mm": 271.8580412950266,
+        "closure_gap_mm": 9.77140752399572,
+        "projected_area_mm2": 1254.1129695000022,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.466999999999999,
+          27.32494350013596,
+          11.302165918477115
+        ],
+        "end": "stop",
+        "print_z_mm": 11.48,
+        "complete_contour_seam": false,
+        "run_length_mm": 271.8580412950266,
+        "closure_gap_mm": 9.77140752399572,
+        "projected_area_mm2": 1254.1129695000022,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9159999999999968,
+          29.298879786946102,
+          11.85592718076822
+        ],
+        "end": "start",
+        "print_z_mm": 11.72,
+        "complete_contour_seam": false,
+        "run_length_mm": 281.3942992078678,
+        "closure_gap_mm": 9.769245620824574,
+        "projected_area_mm2": 1289.652319000012,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480000000000004,
+          27.318850627236145,
+          11.54899962140243
+        ],
+        "end": "stop",
+        "print_z_mm": 11.72,
+        "complete_contour_seam": false,
+        "run_length_mm": 281.3942992078678,
+        "closure_gap_mm": 9.769245620824574,
+        "projected_area_mm2": 1289.652319000012,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9159999999999968,
+          29.29858246900399,
+          12.104313797964153
+        ],
+        "end": "start",
+        "print_z_mm": 11.96,
+        "complete_contour_seam": false,
+        "run_length_mm": 294.76282938513697,
+        "closure_gap_mm": 9.770224613590003,
+        "projected_area_mm2": 1328.7837715000019,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.318553309294032,
+          11.797386238598378
+        ],
+        "end": "stop",
+        "print_z_mm": 11.96,
+        "complete_contour_seam": false,
+        "run_length_mm": 294.76282938513697,
+        "closure_gap_mm": 9.770224613590003,
+        "projected_area_mm2": 1328.7837715000019,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.299251076888176,
+          12.352959234205187
+        ],
+        "end": "start",
+        "print_z_mm": 12.2,
+        "complete_contour_seam": false,
+        "run_length_mm": 188.54367977254452,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 2365.791744499996,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.31825599135192,
+          12.045772855794311
+        ],
+        "end": "stop",
+        "print_z_mm": 12.2,
+        "complete_contour_seam": false,
+        "run_length_mm": 188.54367977254452,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 2365.791744499996,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.8990000000000009,
+          29.30474931390382,
+          12.602898765671753
+        ],
+        "end": "start",
+        "print_z_mm": 12.44,
+        "complete_contour_seam": false,
+        "run_length_mm": 189.52959050453126,
+        "closure_gap_mm": 9.77002077786941,
+        "projected_area_mm2": 2410.933948000001,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.463999999999999,
+          27.325686080020134,
+          12.296230025351065
+        ],
+        "end": "stop",
+        "print_z_mm": 12.44,
+        "complete_contour_seam": false,
+        "run_length_mm": 189.52959050453126,
+        "closure_gap_mm": 9.77002077786941,
+        "projected_area_mm2": 2410.933948000001,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.298656441003978,
+          12.849732468597068
+        ],
+        "end": "start",
+        "print_z_mm": 12.68,
+        "complete_contour_seam": false,
+        "run_length_mm": 190.84265975563832,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 2451.857980500001,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.318627281293992,
+          12.542804909231293
+        ],
+        "end": "stop",
+        "print_z_mm": 12.68,
+        "complete_contour_seam": false,
+        "run_length_mm": 190.84265975563832,
+        "closure_gap_mm": 9.769245620824565,
+        "projected_area_mm2": 2451.857980500001,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.9170000000000016,
+          29.299325048888157,
+          13.098377904838117
+        ],
+        "end": "start",
+        "print_z_mm": 12.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 192.5587926232593,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 2488.3436460000075,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.480999999999995,
+          27.318329963351907,
+          12.791191526427227
+        ],
+        "end": "stop",
+        "print_z_mm": 12.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 192.5587926232593,
+        "closure_gap_mm": 9.769449575078417,
+        "projected_area_mm2": 2488.3436460000075,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.8970000000000056,
+          29.30482328590378,
+          13.348317436304669
+        ],
+        "end": "start",
+        "print_z_mm": 13.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 194.54418433381315,
+        "closure_gap_mm": 9.770999795312644,
+        "projected_area_mm2": 2521.760033499989,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.462999999999994,
+          27.325760052020122,
+          13.04164869598398
+        ],
+        "end": "stop",
+        "print_z_mm": 13.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 194.54418433381315,
+        "closure_gap_mm": 9.770999795312644,
+        "projected_area_mm2": 2521.760033499989,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -0.8960000000000008,
+          29.304525967961673,
+          13.596704053500588
+        ],
+        "end": "start",
+        "print_z_mm": 13.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 196.8125629823112,
+        "closure_gap_mm": 9.7707960781095,
+        "projected_area_mm2": 2552.804661999994,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -10.462000000000003,
+          27.326428659904302,
+          13.290294132225029
+        ],
+        "end": "stop",
+        "print_z_mm": 13.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 196.8125629823112,
+        "closure_gap_mm": 9.7707960781095,
+        "projected_area_mm2": 2552.804661999994,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          -9.825000000000003,
+          27.561519925634613,
+          13.850219213621898
+        ],
+        "end": "stop",
+        "print_z_mm": 13.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 202.25682736978075,
+        "closure_gap_mm": 9.682822419109005,
+        "projected_area_mm2": 2599.9023964999974,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          18.572999999999993,
+          22.670100701124106,
+          13.80674542739419
+        ],
+        "end": "start",
+        "print_z_mm": 15.32,
+        "complete_contour_seam": false,
+        "run_length_mm": 287.6821769801279,
+        "closure_gap_mm": 9.748415512276848,
+        "projected_area_mm2": 1630.1509849999957,
+        "minimum_width_mm": 0.419994
+      }
+    ],
+    "repeated_reinforcement_boundary_tracks_absent": true,
+    "method": "Connected positive-extrusion Outer/Overhang runs; CAD Z0.5\u201313.9 and R28.7\u201329.7; host sides within0.6 mm. Full-contour seams have XY closure gap <= one width (the vertical scarf ramp is projected), length >100 mm and projected area >1500 mm\u00b2.",
+    "scope": "Emitted endpoints at the reported screw-point defect sites; physical finish remains unmeasured"
+  },
+  "support_summary": {
+    "industrial-shell-base": {
+      "support_bodies": 6,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 5,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 2,
+      "explicit_interface_islands": 10,
+      "shortest_labelled_build_up_mm": 0.27
+    },
+    "faucet-shell-tip": {
+      "support_bodies": 47,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 46,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 46,
+      "explicit_interface_islands": 1,
+      "shortest_labelled_build_up_mm": 13.92
+    },
+    "industrial-display-cover": {
+      "support_bodies": 6,
+      "interface_islands": null,
+      "bed_rooted_bodies": 5,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 4,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 0.0
+    },
+    "industrial-above-counter-plate": {
+      "support_bodies": 3,
+      "interface_islands": null,
+      "bed_rooted_bodies": 3,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "lever-replica": {
+      "support_bodies": 1,
+      "interface_islands": 4,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 6.48,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "shortest_labelled_build_up_mm": 6.48
+    }
+  },
+  "plate_fit": {
+    "minimum_shared_bed_margin_mm": 44.917798000000005,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          49.668517,
+          73.200517
+        ],
+        [
+          266.683483,
+          275.14448300000004
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 44.85551699999996,
+    "minimum_toolpath_separation_mm": 14.217617999999987,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "industrial-shell-base",
+          "faucet-shell-tip"
+        ],
+        "separation_mm": 26.854911000000016
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 121.43804934880059
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 35.628314999999986
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 60.40739400000001
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 40.03351700000002
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 81.413332459405
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "lever-replica"
+        ],
+        "separation_mm": 14.217617999999987
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 45.648741
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 117.80677324721599
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 18.83122400000002
+      }
+    ]
+  },
+  "insert_deposition_pass": true,
+  "lower_support_review": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.lower-supports.json",
+  "probing_clump_detection": false,
+  "bare_G39_commands": 0,
+  "support_blockers": 0,
+  "supports": "Tree(auto), saved Default; native automatic decisions retained",
+  "preparation_only": false,
+  "launch_authorized": true,
+  "submitted": false,
+  "finish_choices_pending": [],
+  "scope": "Native geometry, layer recipe, accessible-support locations and nominal insert stock; physical finish, release, fit, strength and lifetime require the identified physical article.",
+  "pass": true
+}

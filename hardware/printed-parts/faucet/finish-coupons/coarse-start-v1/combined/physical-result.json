@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "recorded_date": "2026-10-11",
+  "source": "Derek operator report and attached specimen-label crops",
+  "task_id": "1328441515",
+  "coupon_preparation": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/preparation.json",
+  "coupon_preparation_sha256": "8c88a822e4f5dede5c12efc785eb07936381c2cbf8b557a993dfebf76a90a746",
+  "selected_lift_specimen": "E",
+  "selected_seam_specimen": "SB",
+  "lift_observations": "The first four coarse layers still look ugly. In the eight-layer case, the next four layers show recovery.",
+  "seam_observations": "Differences between scarf swatches are difficult to distinguish; the stronger defects seen on some full faucets are not replicated to the same extent.",
+  "physical_measurements": false,
+  "full_faucet_outcome_evaluated": false,
+  "selected_scope": "Try E and SB on one complete current faucet.",
+  "selection_quotes": [
+    "Let's try it in the full print along with the eight layers that I think are necessary for the lifting prevention.",
+    "So yeah, these are the picks. Both beds are clean. Let's get a new faucet started on one of the fronters now, please. Thanks."
+  ],
+  "label_images": [
+    "physical-result/SB-label.jpg",
+    "physical-result/E-label.jpg"
+  ],
+  "full_surface_photographs_provided": false,
+  "additional_coarse_layer_count": 8,
+  "scarf_slope_gap_percent_of_nozzle": 10,
+  "support_gap_limit": "Native grid rounding gave 0.60 mm for the fine control and 0.48 mm for the coarse cases at the coupon witness; all coarse-count cases shared that gap.",
+  "remaining": "Verify underside continuity, retained dimensions, seam finish and support cleanup on the complete faucet."
+}

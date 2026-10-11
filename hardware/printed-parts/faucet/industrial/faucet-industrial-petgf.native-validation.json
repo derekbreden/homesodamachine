@@ -1,7 +1,7 @@
 {
-  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.gcode.3mf",
-  "archive_sha256": "f04d68205169ab2f8e04f67c45e14b6c49d209a62d91ed3986575d091a478844",
-  "gcode_sha256": "27a0b8252e3f77d402273f5d9fbcd28d33f3acfb9818a07c565be0dd0eb6bc16",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/2026-10-11-industrial-faucet-complete-scarf10-lift8-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "8c45334e855e2be3f69e313d37be6525c2e3462cf202b025cbc8a072bbdd57d9",
+  "gcode_sha256": "317f3ceeedf45fa70ca04de8e8c7fadb3ed8de6982ab4ab7b9bf9820f5d84239",
   "native_settings_normalizations": {
     "filament_map_2": [
       null,
@@ -27,13 +27,13 @@
   },
   "actual_z_trim_commands_mm": [
     0.0,
-    0.02
+    0.16
   ],
   "active_nozzle": 0,
   "nozzle_diameter_mm": 0.4,
-  "layers": 1259,
-  "estimated_seconds": 21241.884765625,
-  "estimated_grams_saved_profile_density": 161.89999389648438,
+  "layers": 1244,
+  "estimated_seconds": 21065.4296875,
+  "estimated_grams_saved_profile_density": 160.71649169921875,
   "slicer_return_code": 0,
   "slicer_warning": "",
   "objects": 5

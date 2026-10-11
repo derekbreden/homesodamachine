@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Awaiting physical print and operator results",
+  "status": "Operator selected combined SB for a complete-print trial; seam flatness remains unmeasured",
   "specimens": [
     {
       "id": "A",
@@ -60,5 +60,9 @@
     }
   ],
   "physical_winner": null,
-  "shipping_recipe_changed": false
+  "shipping_recipe_changed": false,
+  "operator_selected_combined_specimen": "SB",
+  "operator_selected_scarf_slope_gap_percent": 10,
+  "physical_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
+  "selected_scope": "Complete faucet trial; no measured flatness winner"
 }

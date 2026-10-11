@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "selected_date": "2026-10-11",
+  "selection_basis": "Derek selected SB and E from the completed combined plate for a full-faucet trial.",
+  "coupon_preparation": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/preparation.json",
+  "coupon_preparation_sha256": "8c88a822e4f5dede5c12efc785eb07936381c2cbf8b557a993dfebf76a90a746",
+  "coupon_task_id": "1328441515",
+  "seam_specimen": "SB",
+  "seam_object_overrides": {
+    "seam_position": "back",
+    "override_filament_scarf_seam_setting": "1",
+    "seam_slope_conditional": "1",
+    "scarf_angle_threshold": "155",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_steps": "10",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_min_length": "10",
+    "seam_slope_start_height": "10%",
+    "seam_slope_type": "external",
+    "seam_gap": "15%",
+    "seam_slope_gap": "10%"
+  },
+  "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
+  "lift_specimen": "E",
+  "additional_coarse_model_layers": 8,
+  "coarse_layer_height_mm": 0.24,
+  "last_starting_lip_first_coarse_nozzle_z_mm": 15.32,
+  "first_fine_nozzle_z_mm": 17.12,
+  "base_fine_bands_print_z_mm": [
+    [
+      17.0,
+      29.0
+    ],
+    [
+      55.16,
+      68.12
+    ]
+  ],
+  "fine_layer_height_mm": 0.12,
+  "first_bed_layer_height_mm": 0.2,
+  "scope": "Provisional coupon choices for complete-print confirmation; no full-faucet separation prevention or seam-flatness acceptance.",
+  "physical_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
+  "default_printer": "Mark1",
+  "default_filament_colour": "#000000"
+}

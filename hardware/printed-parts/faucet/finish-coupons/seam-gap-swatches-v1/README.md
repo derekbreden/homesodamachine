@@ -44,7 +44,8 @@ neck comparison, matching the prior D/E/F comparison. Smart scarf at 155°,
 Judge coarse and fine seam bands separately under raking light and by touch.
 Prefer a flat seam with no open gap or adjacent wall damage, then confirm the
 candidate on a complete faucet. A coupon result does not change the shipping
-recipe. [Results](results.json) contain no measured winner.
+recipe. [Results](results.json) record the provisional scarf-10% choice; differences
+between scarf swatches were difficult to distinguish, and no measured winner is established.
 
 This separate plate is prepared only: **3 h 42 min 57 s**, **85.7 mm** minimum
 full-bead edge clearance. The [combined plate](../coarse-start-v1/combined/README.md)

@@ -23,7 +23,7 @@ Derek reports that the first supported model layer falls away, including at
 0.24 mm, and expects later coarse layers to recover the remaining underside.
 First-layer loss is recorded separately from underside continuity, dimensions,
 edge gaps and disturbance of the fine face. One coarse layer is expected to
-fail; no treatment has a physical result yet.
+fail; the [combined-plate result](combined/physical-result.json) records Derek's selected eight-layer case and observed recovery.
 
 Global settings are inherited byte-for-byte from the shipping faucet project:
 PET-GF, fixed left hardened standard-flow 0.4 mm, external left 254, Textured PEI,
