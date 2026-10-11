@@ -2,68 +2,410 @@
   "schema": 1,
   "name": "The Pour",
   "archive": "print-kit.zip",
-  "bytes": 42984567,
-  "sha256": "046fa70d0aca03cbb41bdf0f6b67a814086f156761d013bcc3894306b5ca8a89",
+  "bytes": 63549217,
+  "sha256": "c8de6103369a470c209cbc9294b5e2b6027581f422b0a2e94eb97bcaeefa9680",
   "files": [
     {
       "path": "README.md",
-      "bytes": 5079,
-      "sha256": "c5f5019774d70813675c4903e72590881c58b13d9bcdd0494b906c8d29d5a6e1",
-      "source_sha256": "35df298f989e554e6335413664db3b56e98b76087dd4ee4e6fd5dc3ee5c4e95a"
+      "bytes": 6056,
+      "sha256": "8a3b74c99ec543636f2191c30b0518a2e7b72f1e1a8666f274a70ee65bf5c281",
+      "source_sha256": "a8d9acdb1411b60917f989a80aee9a793044e2950be9e32b5d7a71850df5ed66"
     },
     {
       "path": "feature-guide.md",
-      "bytes": 11079,
-      "sha256": "a94bb38899ebcfae6680cd9bfaa8e4e86a17316a594b782c00a8d2774502ec46",
-      "source_sha256": "4c79ee9d8c8401fe6bb57afe2502b72f91c2e7ee7a577a9b769a4d188cb167e9"
+      "bytes": 23329,
+      "sha256": "f66438bf5c56798e048a7d7adb7f560f6ddc75f9420895cdf660c1160bbf5d20",
+      "source_sha256": "d1bb4b2a598d3e5f9282fa539c60ee827f7241a93d48198c9507c4533999380f"
     },
     {
       "path": "manifest.json",
-      "bytes": 153982,
-      "sha256": "a13aac20bd1dce129762b6c5c760943c5f2e89d664fb5447caf1435246b2b7e0",
-      "source_sha256": "a13aac20bd1dce129762b6c5c760943c5f2e89d664fb5447caf1435246b2b7e0"
+      "bytes": 351913,
+      "sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+      "source_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f"
     },
     {
       "path": "print-preparation.json",
-      "bytes": 190693,
-      "sha256": "4460a25bcdd1302f464a08f45a7db896506a9628cc61019d50487711c85b6007",
-      "source_sha256": "4460a25bcdd1302f464a08f45a7db896506a9628cc61019d50487711c85b6007"
+      "bytes": 3250378,
+      "sha256": "5c1c9d122bccc74cc567a36c9c088522fc511d590f295ad6ce27f93deb5d5cc0",
+      "source_sha256": "5c1c9d122bccc74cc567a36c9c088522fc511d590f295ad6ce27f93deb5d5cc0"
+    },
+    {
+      "path": "assembly-review.json",
+      "bytes": 49052,
+      "sha256": "8ad12411084a4887d2d00aee9b4259e01f3d1c35de2072278a96a64bdc0a8ff8",
+      "source_sha256": "8ad12411084a4887d2d00aee9b4259e01f3d1c35de2072278a96a64bdc0a8ff8"
+    },
+    {
+      "path": "lettering-review.json",
+      "bytes": 50952,
+      "sha256": "0e20a6a03fe0756831ca339e4825754c3306a1e722a986fe01e14ad1a39225ff",
+      "source_sha256": "0e20a6a03fe0756831ca339e4825754c3306a1e722a986fe01e14ad1a39225ff"
+    },
+    {
+      "path": "reference-card.csv",
+      "bytes": 228,
+      "sha256": "74ca851912bdf75c4fd312cf4df446f86a9238a61de61f6eb1d73dc96d8a3b2b",
+      "source_sha256": "74ca851912bdf75c4fd312cf4df446f86a9238a61de61f6eb1d73dc96d8a3b2b"
     },
     {
       "path": "the-pour.step.png",
-      "bytes": 726739,
-      "sha256": "e25c7d28a92168d125dbec3289d2f98ee029d953e80070349b302e700423d98d",
-      "source_sha256": "e25c7d28a92168d125dbec3289d2f98ee029d953e80070349b302e700423d98d"
+      "bytes": 764214,
+      "sha256": "f74a7958ef986e81609f9a06ebac948df290be54626d1d50458e1e4f8e9c0743",
+      "source_sha256": "f74a7958ef986e81609f9a06ebac948df290be54626d1d50458e1e4f8e9c0743"
+    },
+    {
+      "path": "reference.py",
+      "bytes": 45815,
+      "sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6",
+      "source_sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6"
+    },
+    {
+      "path": "source_features.py",
+      "bytes": 25282,
+      "sha256": "77e1ce93250a376494e07bf55bd85503a25499a09b4418e2eceb2690b6c88176",
+      "source_sha256": "77e1ce93250a376494e07bf55bd85503a25499a09b4418e2eceb2690b6c88176"
+    },
+    {
+      "path": "mount_geometry.py",
+      "bytes": 3363,
+      "sha256": "12d325e330617d9ed9518e3080fdb85eb829d4ec9d22ec1f59b2c0052a2536ed",
+      "source_sha256": "12d325e330617d9ed9518e3080fdb85eb829d4ec9d22ec1f59b2c0052a2536ed"
+    },
+    {
+      "path": "prepare_prints.py",
+      "bytes": 95363,
+      "sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003",
+      "source_sha256": "357667c94cc7073265ca99df11281853d1226b647d5ca869b55e52b0af926003"
+    },
+    {
+      "path": "viewer_payload.py",
+      "bytes": 1921,
+      "sha256": "dbe95667e95fcc82aa395266186a3733318729b15c26a48c07c4cd7ae4591fa1",
+      "source_sha256": "dbe95667e95fcc82aa395266186a3733318729b15c26a48c07c4cd7ae4591fa1"
+    },
+    {
+      "path": "package_kit.py",
+      "bytes": 3835,
+      "sha256": "a91041fb1864394622aa8003576abddd80dd5f58bf8cbabc227de332ac18c62d",
+      "source_sha256": "a91041fb1864394622aa8003576abddd80dd5f58bf8cbabc227de332ac18c62d"
+    },
+    {
+      "path": "inputs/faucet-neck-swatch.step.gz",
+      "bytes": 12455,
+      "sha256": "93ed4f08c00398d9f6f192ff73d3eb941b00fe20d9f0f49c58496967a9717b30",
+      "source_sha256": "93ed4f08c00398d9f6f192ff73d3eb941b00fe20d9f0f49c58496967a9717b30"
+    },
+    {
+      "path": "inputs/faucet-neck-swatch.stl.gz",
+      "bytes": 21808,
+      "sha256": "accce0b6c8e29a514a27e8d031cc3a6a4cdda45dfa959eba9df4670a4a2d5d19",
+      "source_sha256": "accce0b6c8e29a514a27e8d031cc3a6a4cdda45dfa959eba9df4670a4a2d5d19"
+    },
+    {
+      "path": "inputs/source-features/sources.json",
+      "bytes": 6991,
+      "sha256": "93780f18760a4090fd9c5e453e8c9550ad73b161ecb17b664247b9cbf03b4267",
+      "source_sha256": "93780f18760a4090fd9c5e453e8c9550ad73b161ecb17b664247b9cbf03b4267"
+    },
+    {
+      "path": "inputs/source-features/faucet-shell-tip.step.gz",
+      "bytes": 426072,
+      "sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68",
+      "source_sha256": "9a4819094d6367810eb1f9c73e1107d3b083f2827fa89302ca6f1bc1cb8f5e68"
+    },
+    {
+      "path": "inputs/source-features/industrial-display-cover.step.gz",
+      "bytes": 62122,
+      "sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955",
+      "source_sha256": "55f392618be47e188f5734a1758ac81eaa0c1d8cf5070c141e16d49e9e019955"
+    },
+    {
+      "path": "inputs/source-features/industrial-display-cover.stl.gz",
+      "bytes": 94229,
+      "sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528",
+      "source_sha256": "247165feab9562ee136177a59c40616b3387f2be4a83ea36876180e67aa9c528"
+    },
+    {
+      "path": "the-pour.step",
+      "bytes": 39095099,
+      "sha256": "61b633a2718d015adc2f05ef1639e4aaf6e4448a3fad9249b1ca9f8b266c8388",
+      "source_sha256": "61b633a2718d015adc2f05ef1639e4aaf6e4448a3fad9249b1ca9f8b266c8388"
+    },
+    {
+      "path": "parts/p-basin-and-captive-rails.stl",
+      "bytes": 11813284,
+      "sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "source_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1"
+    },
+    {
+      "path": "parts/p-basin-and-captive-rails.step",
+      "bytes": 6555428,
+      "sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea",
+      "source_sha256": "912db42b1d9ed3d30e616980eea75c1d2e2e780543c76515d9a228b78df157ea"
+    },
+    {
+      "path": "parts/q24-captive-ripple-shutter.stl",
+      "bytes": 276884,
+      "sha256": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2",
+      "source_sha256": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2"
+    },
+    {
+      "path": "parts/q24-captive-ripple-shutter.step",
+      "bytes": 264014,
+      "sha256": "28347c3f91a5990cbc8f621b96e26672761b853eb60bedd66decfc40799b551b",
+      "source_sha256": "28347c3f91a5990cbc8f621b96e26672761b853eb60bedd66decfc40799b551b"
+    },
+    {
+      "path": "parts/q48-captive-ripple-shutter.stl",
+      "bytes": 769384,
+      "sha256": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474",
+      "source_sha256": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474"
+    },
+    {
+      "path": "parts/q48-captive-ripple-shutter.step",
+      "bytes": 338431,
+      "sha256": "03f11a1382320543ae336750874694c119b1479d69c98a8f4657600b0687e400",
+      "source_sha256": "03f11a1382320543ae336750874694c119b1479d69c98a8f4657600b0687e400"
+    },
+    {
+      "path": "parts/q72-captive-ripple-shutter.stl",
+      "bytes": 289684,
+      "sha256": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e",
+      "source_sha256": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e"
+    },
+    {
+      "path": "parts/q72-captive-ripple-shutter.step",
+      "bytes": 257187,
+      "sha256": "7c62f7a0c0cf4776369edd8c20fd0f68070970b34fd805522f76e9abdcd5816c",
+      "source_sha256": "7c62f7a0c0cf4776369edd8c20fd0f68070970b34fd805522f76e9abdcd5816c"
+    },
+    {
+      "path": "parts/h-fluted-helix-and-keyed-fin-docks.stl",
+      "bytes": 3484284,
+      "sha256": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340",
+      "source_sha256": "e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340"
+    },
+    {
+      "path": "parts/h-fluted-helix-and-keyed-fin-docks.step",
+      "bytes": 6166645,
+      "sha256": "28875b358e658294adcaa17b68048437d544e347439e7e778942dcc83d4efafc",
+      "source_sha256": "28875b358e658294adcaa17b68048437d544e347439e7e778942dcc83d4efafc"
+    },
+    {
+      "path": "parts/s05r-sliding-receiver.stl",
+      "bytes": 1133184,
+      "sha256": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98",
+      "source_sha256": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98"
+    },
+    {
+      "path": "parts/s05r-sliding-receiver.step",
+      "bytes": 465479,
+      "sha256": "5baa74084c683b704032d986826f3cc8ce2ae14a8b8824e585a9d0f016c43775",
+      "source_sha256": "5baa74084c683b704032d986826f3cc8ce2ae14a8b8824e585a9d0f016c43775"
+    },
+    {
+      "path": "parts/s05-sliding-tongue.stl",
+      "bytes": 1112784,
+      "sha256": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d",
+      "source_sha256": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d"
+    },
+    {
+      "path": "parts/s05-sliding-tongue.step",
+      "bytes": 470328,
+      "sha256": "8034829a80c6e3f706825712153ae69dfd67e11ad8f065611ad607076d36ccb4",
+      "source_sha256": "8034829a80c6e3f706825712153ae69dfd67e11ad8f065611ad607076d36ccb4"
+    },
+    {
+      "path": "parts/s15r-sliding-receiver.stl",
+      "bytes": 813584,
+      "sha256": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7",
+      "source_sha256": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7"
+    },
+    {
+      "path": "parts/s15r-sliding-receiver.step",
+      "bytes": 382821,
+      "sha256": "8ec13468ed118daeb1db1d7c5e6385526320c266833e892c6a04eb4ab28adab1",
+      "source_sha256": "8ec13468ed118daeb1db1d7c5e6385526320c266833e892c6a04eb4ab28adab1"
+    },
+    {
+      "path": "parts/s15-sliding-tongue.stl",
+      "bytes": 789384,
+      "sha256": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1",
+      "source_sha256": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1"
+    },
+    {
+      "path": "parts/s15-sliding-tongue.step",
+      "bytes": 387413,
+      "sha256": "6e65240cb0d51f39a18d1dedc71786eb95f4937db40a55e0f23287d2f32037c7",
+      "source_sha256": "6e65240cb0d51f39a18d1dedc71786eb95f4937db40a55e0f23287d2f32037c7"
+    },
+    {
+      "path": "parts/s25r-sliding-receiver.stl",
+      "bytes": 1013384,
+      "sha256": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a",
+      "source_sha256": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a"
+    },
+    {
+      "path": "parts/s25r-sliding-receiver.step",
+      "bytes": 559709,
+      "sha256": "cdd7373dd77c18e1eab047b28b952386dca4735135cdfde6018164ac229774ef",
+      "source_sha256": "cdd7373dd77c18e1eab047b28b952386dca4735135cdfde6018164ac229774ef"
+    },
+    {
+      "path": "parts/s25-sliding-tongue.stl",
+      "bytes": 985684,
+      "sha256": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d",
+      "source_sha256": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d"
+    },
+    {
+      "path": "parts/s25-sliding-tongue.step",
+      "bytes": 467457,
+      "sha256": "c91bb53aa8bb6838a51f939c135b5e3ddc35567ccf05a55b553fc1602aa0050f",
+      "source_sha256": "c91bb53aa8bb6838a51f939c135b5e3ddc35567ccf05a55b553fc1602aa0050f"
+    },
+    {
+      "path": "parts/s35r-sliding-receiver.stl",
+      "bytes": 1317684,
+      "sha256": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a",
+      "source_sha256": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a"
+    },
+    {
+      "path": "parts/s35r-sliding-receiver.step",
+      "bytes": 505170,
+      "sha256": "e3d17a57418ba4d2acccb30e57824b3171efe961940d334993aa19b3f1a07d0d",
+      "source_sha256": "e3d17a57418ba4d2acccb30e57824b3171efe961940d334993aa19b3f1a07d0d"
+    },
+    {
+      "path": "parts/s35-sliding-tongue.stl",
+      "bytes": 1292284,
+      "sha256": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f",
+      "source_sha256": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f"
+    },
+    {
+      "path": "parts/s35-sliding-tongue.step",
+      "bytes": 510348,
+      "sha256": "4b5967096e75f3bc511a6a1f5046ecc09c84c92f33f622794c4fcff000120f48",
+      "source_sha256": "4b5967096e75f3bc511a6a1f5046ecc09c84c92f33f622794c4fcff000120f48"
+    },
+    {
+      "path": "parts/s45r-sliding-receiver.stl",
+      "bytes": 792384,
+      "sha256": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316",
+      "source_sha256": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316"
+    },
+    {
+      "path": "parts/s45r-sliding-receiver.step",
+      "bytes": 400740,
+      "sha256": "b00ba58da0b08c15e05036cbc285e9d3315f0d283a50c42c81810ddd88d84cea",
+      "source_sha256": "b00ba58da0b08c15e05036cbc285e9d3315f0d283a50c42c81810ddd88d84cea"
+    },
+    {
+      "path": "parts/s45-sliding-tongue.stl",
+      "bytes": 767784,
+      "sha256": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb",
+      "source_sha256": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb"
+    },
+    {
+      "path": "parts/s45-sliding-tongue.step",
+      "bytes": 405243,
+      "sha256": "b3314093b430f6c06d7bc67e86e58519a203046e88148a364bbee3e150e9115c",
+      "source_sha256": "b3314093b430f6c06d7bc67e86e58519a203046e88148a364bbee3e150e9115c"
+    },
+    {
+      "path": "parts/r30-support-ceiling.stl",
+      "bytes": 1271184,
+      "sha256": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f",
+      "source_sha256": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f"
+    },
+    {
+      "path": "parts/r30-support-ceiling.step",
+      "bytes": 503076,
+      "sha256": "8a4604b0372140a4917255c977a61c587ec315750ce4984c7234b5094c80f5da",
+      "source_sha256": "8a4604b0372140a4917255c977a61c587ec315750ce4984c7234b5094c80f5da"
+    },
+    {
+      "path": "parts/r45-support-ceiling.stl",
+      "bytes": 700184,
+      "sha256": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d",
+      "source_sha256": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d"
+    },
+    {
+      "path": "parts/r45-support-ceiling.step",
+      "bytes": 393208,
+      "sha256": "4cacab06b1022381549d254b9d070576679c12007f331dafde474741a15a9000",
+      "source_sha256": "4cacab06b1022381549d254b9d070576679c12007f331dafde474741a15a9000"
+    },
+    {
+      "path": "parts/r60-support-ceiling.stl",
+      "bytes": 1252584,
+      "sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
+      "source_sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f"
+    },
+    {
+      "path": "parts/r60-support-ceiling.step",
+      "bytes": 485787,
+      "sha256": "30afb2f8262d793daf2a1c6f17ab1e4b116be63e56ed67de5268e484c267f71c",
+      "source_sha256": "30afb2f8262d793daf2a1c6f17ab1e4b116be63e56ed67de5268e484c267f71c"
     },
     {
       "path": "parts/a08-angle-and-curve-blade.stl",
-      "bytes": 4960284,
-      "sha256": "ab695e029f1f72298afc19da35b76b0c945e407d9fe988b9d8eac0e81268dd43",
-      "source_sha256": "ab695e029f1f72298afc19da35b76b0c945e407d9fe988b9d8eac0e81268dd43"
+      "bytes": 5406384,
+      "sha256": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71",
+      "source_sha256": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71"
+    },
+    {
+      "path": "parts/a08-angle-and-curve-blade.step",
+      "bytes": 1935519,
+      "sha256": "62df70a184df552c6e52d3fec8339791a05de9b11e5d3b30c300551759eff3cd",
+      "source_sha256": "62df70a184df552c6e52d3fec8339791a05de9b11e5d3b30c300551759eff3cd"
     },
     {
       "path": "parts/a12-angle-and-curve-blade.stl",
-      "bytes": 4100784,
-      "sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835",
-      "source_sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835"
+      "bytes": 4598884,
+      "sha256": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e",
+      "source_sha256": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e"
+    },
+    {
+      "path": "parts/a12-angle-and-curve-blade.step",
+      "bytes": 1819928,
+      "sha256": "f15dd6930cd0c8c6dc56f04db2be66d27a774f06db3cfcb277d373ac0ded8e9d",
+      "source_sha256": "f15dd6930cd0c8c6dc56f04db2be66d27a774f06db3cfcb277d373ac0ded8e9d"
     },
     {
       "path": "parts/a24-angle-and-curve-blade.stl",
-      "bytes": 4086184,
-      "sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6",
-      "source_sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6"
+      "bytes": 4576584,
+      "sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25",
+      "source_sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25"
     },
     {
-      "path": "parts/g-complete-grip-insert.stl",
-      "bytes": 936084,
-      "sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
-      "source_sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e"
+      "path": "parts/a24-angle-and-curve-blade.step",
+      "bytes": 1841514,
+      "sha256": "742716d6c580942c58465b2af382e605e553cd321c890f3f3017fecbd3f1aa7f",
+      "source_sha256": "742716d6c580942c58465b2af382e605e553cd321c890f3f3017fecbd3f1aa7f"
     },
     {
-      "path": "parts/gr-grip-receiver-bridge.stl",
-      "bytes": 91884,
-      "sha256": "e105300d6c95922fec206cacb4a7db4e049ff07b714277dc071e4b70d8c608bf",
-      "source_sha256": "e105300d6c95922fec206cacb4a7db4e049ff07b714277dc071e4b70d8c608bf"
+      "path": "parts/n08d-neck-cut-face-foot.stl",
+      "bytes": 1361784,
+      "sha256": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab",
+      "source_sha256": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab"
+    },
+    {
+      "path": "parts/n08d-neck-cut-face-foot.step",
+      "bytes": 651577,
+      "sha256": "63fc4aaf2c78eaee7e6ba260a54c32a918e00656a4b4111175c922ce47b47eb5",
+      "source_sha256": "63fc4aaf2c78eaee7e6ba260a54c32a918e00656a4b4111175c922ce47b47eb5"
+    },
+    {
+      "path": "parts/n08k-neck-t-slot-keeper.stl",
+      "bytes": 1108684,
+      "sha256": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887",
+      "source_sha256": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887"
+    },
+    {
+      "path": "parts/n08k-neck-t-slot-keeper.step",
+      "bytes": 416459,
+      "sha256": "d5cac0374fe4dff9b3b376014e26dd30d23d3b0c0bb457091ed6260193b5691b",
+      "source_sha256": "d5cac0374fe4dff9b3b376014e26dd30d23d3b0c0bb457091ed6260193b5691b"
     },
     {
       "path": "parts/n08-faucet-neck.stl",
@@ -72,16 +414,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/n08d-neck-storage-shoe.stl",
-      "bytes": 1142584,
-      "sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d",
-      "source_sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d"
+      "path": "parts/n08-faucet-neck.step",
+      "bytes": 55684,
+      "sha256": "efb5abc293482c7b3385c0c45feef2bbd367ea5d2de32c533a7eb46e65642da9",
+      "source_sha256": "efb5abc293482c7b3385c0c45feef2bbd367ea5d2de32c533a7eb46e65642da9"
     },
     {
-      "path": "parts/n08k-neck-keeper-bar.stl",
-      "bytes": 1182984,
-      "sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed",
-      "source_sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed"
+      "path": "parts/n12d-neck-cut-face-foot.stl",
+      "bytes": 553784,
+      "sha256": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25",
+      "source_sha256": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25"
+    },
+    {
+      "path": "parts/n12d-neck-cut-face-foot.step",
+      "bytes": 475303,
+      "sha256": "7387651ce9ae1b097fd983c5f3913fd83abd6591fe8def842902e16e4d483704",
+      "source_sha256": "7387651ce9ae1b097fd983c5f3913fd83abd6591fe8def842902e16e4d483704"
+    },
+    {
+      "path": "parts/n12k-neck-t-slot-keeper.stl",
+      "bytes": 299884,
+      "sha256": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05",
+      "source_sha256": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05"
+    },
+    {
+      "path": "parts/n12k-neck-t-slot-keeper.step",
+      "bytes": 252766,
+      "sha256": "a350de18a4663deb27b549d8e1792dfaa97c08171a2b2a17f9707124bf6ff4e6",
+      "source_sha256": "a350de18a4663deb27b549d8e1792dfaa97c08171a2b2a17f9707124bf6ff4e6"
     },
     {
       "path": "parts/n12-faucet-neck.stl",
@@ -90,16 +450,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/n12d-neck-storage-shoe.stl",
-      "bytes": 314984,
-      "sha256": "c64126227627d553ab66124fea13734cb61ae62cc955356647223f32bfcae5f5",
-      "source_sha256": "c64126227627d553ab66124fea13734cb61ae62cc955356647223f32bfcae5f5"
+      "path": "parts/n12-faucet-neck.step",
+      "bytes": 55684,
+      "sha256": "344c5ac3f684aab0d1a7f6f55d94e0f6e9b6c0ad77d4be8c92917c488d3a1e6c",
+      "source_sha256": "344c5ac3f684aab0d1a7f6f55d94e0f6e9b6c0ad77d4be8c92917c488d3a1e6c"
     },
     {
-      "path": "parts/n12k-neck-keeper-bar.stl",
-      "bytes": 365784,
-      "sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d",
-      "source_sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d"
+      "path": "parts/n24d-neck-cut-face-foot.stl",
+      "bytes": 539184,
+      "sha256": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e",
+      "source_sha256": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e"
+    },
+    {
+      "path": "parts/n24d-neck-cut-face-foot.step",
+      "bytes": 491819,
+      "sha256": "8c116022ccd127f9e8d92e6b72096a07e6e112b0edcb9c0dc720cea6f24a5a79",
+      "source_sha256": "8c116022ccd127f9e8d92e6b72096a07e6e112b0edcb9c0dc720cea6f24a5a79"
+    },
+    {
+      "path": "parts/n24k-neck-t-slot-keeper.stl",
+      "bytes": 276384,
+      "sha256": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3",
+      "source_sha256": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3"
+    },
+    {
+      "path": "parts/n24k-neck-t-slot-keeper.step",
+      "bytes": 269151,
+      "sha256": "b3f73fc788f87f7b5a5dab5713fac4635ab1ccbad190edef3e2b3952f0cfcdc9",
+      "source_sha256": "b3f73fc788f87f7b5a5dab5713fac4635ab1ccbad190edef3e2b3952f0cfcdc9"
     },
     {
       "path": "parts/n24-faucet-neck.stl",
@@ -108,16 +486,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/n24d-neck-storage-shoe.stl",
-      "bytes": 302484,
-      "sha256": "7028344f7a35ba686e1749cf4e88dbc1d9393c6428fcdc2d79270c71d4856bb8",
-      "source_sha256": "7028344f7a35ba686e1749cf4e88dbc1d9393c6428fcdc2d79270c71d4856bb8"
+      "path": "parts/n24-faucet-neck.step",
+      "bytes": 55684,
+      "sha256": "4227d19653d708600a41c5de0f4ca3645abe56f7239dd8908df38d035fbb7b94",
+      "source_sha256": "4227d19653d708600a41c5de0f4ca3645abe56f7239dd8908df38d035fbb7b94"
     },
     {
-      "path": "parts/n24k-neck-keeper-bar.stl",
-      "bytes": 347684,
-      "sha256": "4d5c3c93c6ced719e0fc48637f650984c6e64d61e08a64694659320bb6188c7a",
-      "source_sha256": "4d5c3c93c6ced719e0fc48637f650984c6e64d61e08a64694659320bb6188c7a"
+      "path": "parts/nr00d-neck-cut-face-foot.stl",
+      "bytes": 1205984,
+      "sha256": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb",
+      "source_sha256": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb"
+    },
+    {
+      "path": "parts/nr00d-neck-cut-face-foot.step",
+      "bytes": 698909,
+      "sha256": "9a36b678dbe76d25a63b4861c79adb787fcabfa5d14ec03b4758e16f75874d0b",
+      "source_sha256": "9a36b678dbe76d25a63b4861c79adb787fcabfa5d14ec03b4758e16f75874d0b"
+    },
+    {
+      "path": "parts/nr00k-neck-t-slot-keeper.stl",
+      "bytes": 949684,
+      "sha256": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3",
+      "source_sha256": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3"
+    },
+    {
+      "path": "parts/nr00k-neck-t-slot-keeper.step",
+      "bytes": 474102,
+      "sha256": "44a6ead9ac7495e83cf6c8d4bd0dfd4ea6584b1dc403c0a9b19ea4f62a436d8d",
+      "source_sha256": "44a6ead9ac7495e83cf6c8d4bd0dfd4ea6584b1dc403c0a9b19ea4f62a436d8d"
     },
     {
       "path": "parts/nr00-faucet-neck.stl",
@@ -126,16 +522,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/nr00d-neck-storage-shoe.stl",
-      "bytes": 926284,
-      "sha256": "0693f22081c52ab6702bd14b3a8846ee353ed49c035def2576da9f652501f6f1",
-      "source_sha256": "0693f22081c52ab6702bd14b3a8846ee353ed49c035def2576da9f652501f6f1"
+      "path": "parts/nr00-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "dd60b8fd231334463f2dcd01e52e78b988be5bd5e4e3972af5cd22f0079d85c5",
+      "source_sha256": "dd60b8fd231334463f2dcd01e52e78b988be5bd5e4e3972af5cd22f0079d85c5"
     },
     {
-      "path": "parts/nr00k-neck-keeper-bar.stl",
-      "bytes": 979784,
-      "sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c",
-      "source_sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c"
+      "path": "parts/nr05d-neck-cut-face-foot.stl",
+      "bytes": 1146184,
+      "sha256": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5",
+      "source_sha256": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5"
+    },
+    {
+      "path": "parts/nr05d-neck-cut-face-foot.step",
+      "bytes": 691877,
+      "sha256": "f5340dfb1ea80191e34df23ded06403306ecc7442a209e5a48a89c2454cec3c4",
+      "source_sha256": "f5340dfb1ea80191e34df23ded06403306ecc7442a209e5a48a89c2454cec3c4"
+    },
+    {
+      "path": "parts/nr05k-neck-t-slot-keeper.stl",
+      "bytes": 887684,
+      "sha256": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac",
+      "source_sha256": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac"
+    },
+    {
+      "path": "parts/nr05k-neck-t-slot-keeper.step",
+      "bytes": 466679,
+      "sha256": "a6d50fde9399b5c14befbffcb46636171f39012cf5275499e280ab639b10d584",
+      "source_sha256": "a6d50fde9399b5c14befbffcb46636171f39012cf5275499e280ab639b10d584"
     },
     {
       "path": "parts/nr05-faucet-neck.stl",
@@ -144,16 +558,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/nr05d-neck-storage-shoe.stl",
-      "bytes": 892284,
-      "sha256": "689f22f6d2a281948cebe6a5ed7f9ded82b7a39577e5456f625c7d36537735f2",
-      "source_sha256": "689f22f6d2a281948cebe6a5ed7f9ded82b7a39577e5456f625c7d36537735f2"
+      "path": "parts/nr05-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "9762ab3c752b886b850ef3d7be9ddcbf3a255d12c615d2fb46d689deb104c72b",
+      "source_sha256": "9762ab3c752b886b850ef3d7be9ddcbf3a255d12c615d2fb46d689deb104c72b"
     },
     {
-      "path": "parts/nr05k-neck-keeper-bar.stl",
-      "bytes": 944784,
-      "sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a",
-      "source_sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a"
+      "path": "parts/nr15d-neck-cut-face-foot.stl",
+      "bytes": 825184,
+      "sha256": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10",
+      "source_sha256": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10"
+    },
+    {
+      "path": "parts/nr15d-neck-cut-face-foot.step",
+      "bytes": 606732,
+      "sha256": "8ccb8bf1a23410697c301734c3abf1325ba02b3b0745b03b72debd904b38e0df",
+      "source_sha256": "8ccb8bf1a23410697c301734c3abf1325ba02b3b0745b03b72debd904b38e0df"
+    },
+    {
+      "path": "parts/nr15k-neck-t-slot-keeper.stl",
+      "bytes": 567784,
+      "sha256": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2",
+      "source_sha256": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2"
+    },
+    {
+      "path": "parts/nr15k-neck-t-slot-keeper.step",
+      "bytes": 382736,
+      "sha256": "e1db6346bad786fbf1146a1a86468790fea967d5d58eec0560c6bf75795f99cc",
+      "source_sha256": "e1db6346bad786fbf1146a1a86468790fea967d5d58eec0560c6bf75795f99cc"
     },
     {
       "path": "parts/nr15-faucet-neck.stl",
@@ -162,16 +594,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/nr15d-neck-storage-shoe.stl",
-      "bytes": 576384,
-      "sha256": "a4fdd03b3fccf991125cbd5caca7d41b712d349dc10a99c2153f1ac1b1f26498",
-      "source_sha256": "a4fdd03b3fccf991125cbd5caca7d41b712d349dc10a99c2153f1ac1b1f26498"
+      "path": "parts/nr15-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "7c26e180c10d59021bddcdd1fe7fe55d46e4ba28603df2388197c52b0f2c8aae",
+      "source_sha256": "7c26e180c10d59021bddcdd1fe7fe55d46e4ba28603df2388197c52b0f2c8aae"
     },
     {
-      "path": "parts/nr15k-neck-keeper-bar.stl",
-      "bytes": 624984,
-      "sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9",
-      "source_sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9"
+      "path": "parts/ns00d-neck-cut-face-foot.stl",
+      "bytes": 1501884,
+      "sha256": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d",
+      "source_sha256": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d"
+    },
+    {
+      "path": "parts/ns00d-neck-cut-face-foot.step",
+      "bytes": 738170,
+      "sha256": "137720d00849459034c09e323372b3933f435d94328ffcb8360ee11f1d33c9f1",
+      "source_sha256": "137720d00849459034c09e323372b3933f435d94328ffcb8360ee11f1d33c9f1"
+    },
+    {
+      "path": "parts/ns00k-neck-t-slot-keeper.stl",
+      "bytes": 1246884,
+      "sha256": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84",
+      "source_sha256": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84"
+    },
+    {
+      "path": "parts/ns00k-neck-t-slot-keeper.step",
+      "bytes": 513217,
+      "sha256": "b4c587f2da86e179ef45db0c7dd9b829a50cb6643570cd5c87d2b1e5442096ba",
+      "source_sha256": "b4c587f2da86e179ef45db0c7dd9b829a50cb6643570cd5c87d2b1e5442096ba"
     },
     {
       "path": "parts/ns00-faucet-neck.stl",
@@ -180,16 +630,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/ns00d-neck-storage-shoe.stl",
-      "bytes": 1193784,
-      "sha256": "6a30a5f34fb09c28987a3af743e05a0f9bf295b14fc578b7f74b20df4e14130e",
-      "source_sha256": "6a30a5f34fb09c28987a3af743e05a0f9bf295b14fc578b7f74b20df4e14130e"
+      "path": "parts/ns00-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "29d03cc51c8ebdfbf9750c7f9e9ebd30e3c1857bc9545a4e596f00ff64e378d7",
+      "source_sha256": "29d03cc51c8ebdfbf9750c7f9e9ebd30e3c1857bc9545a4e596f00ff64e378d7"
     },
     {
-      "path": "parts/ns00k-neck-keeper-bar.stl",
-      "bytes": 1244984,
-      "sha256": "cbd0f82502efaab8cb4067786ebd7e1fd5e2f288ef3ed272e6662e57817e8bcc",
-      "source_sha256": "cbd0f82502efaab8cb4067786ebd7e1fd5e2f288ef3ed272e6662e57817e8bcc"
+      "path": "parts/ns10d-neck-cut-face-foot.stl",
+      "bytes": 1183784,
+      "sha256": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79",
+      "source_sha256": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79"
+    },
+    {
+      "path": "parts/ns10d-neck-cut-face-foot.step",
+      "bytes": 652704,
+      "sha256": "45d175ae92325225f6a98ccb3b9665f6607bde34b191dca0d570af1ecb944f34",
+      "source_sha256": "45d175ae92325225f6a98ccb3b9665f6607bde34b191dca0d570af1ecb944f34"
+    },
+    {
+      "path": "parts/ns10k-neck-t-slot-keeper.stl",
+      "bytes": 926084,
+      "sha256": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422",
+      "source_sha256": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422"
+    },
+    {
+      "path": "parts/ns10k-neck-t-slot-keeper.step",
+      "bytes": 428944,
+      "sha256": "c6be273cc7873b23d425d08e386eddf6422642baeb6ee178ee8cfbd11b938701",
+      "source_sha256": "c6be273cc7873b23d425d08e386eddf6422642baeb6ee178ee8cfbd11b938701"
     },
     {
       "path": "parts/ns10-faucet-neck.stl",
@@ -198,16 +666,34 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/ns10d-neck-storage-shoe.stl",
-      "bytes": 873784,
-      "sha256": "dfa2e85c06e9c1d89fa8b883d1a44b7c3834dd70582b4985c0f25d21e88909dd",
-      "source_sha256": "dfa2e85c06e9c1d89fa8b883d1a44b7c3834dd70582b4985c0f25d21e88909dd"
+      "path": "parts/ns10-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "fcf24ae043f2b9272f66c508d8ab132cde740c3b902c06f632f1e6476d1bbe3a",
+      "source_sha256": "fcf24ae043f2b9272f66c508d8ab132cde740c3b902c06f632f1e6476d1bbe3a"
     },
     {
-      "path": "parts/ns10k-neck-keeper-bar.stl",
-      "bytes": 924584,
-      "sha256": "76e9e01321afdb071c83032d805549b90c27ec60c0c6f9a1596065b3a064e05d",
-      "source_sha256": "76e9e01321afdb071c83032d805549b90c27ec60c0c6f9a1596065b3a064e05d"
+      "path": "parts/ns20d-neck-cut-face-foot.stl",
+      "bytes": 1376284,
+      "sha256": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7",
+      "source_sha256": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7"
+    },
+    {
+      "path": "parts/ns20d-neck-cut-face-foot.step",
+      "bytes": 734555,
+      "sha256": "2969c09bd8d2dbd5916725850af68396913e81920e3ace76ac79a806ba137828",
+      "source_sha256": "2969c09bd8d2dbd5916725850af68396913e81920e3ace76ac79a806ba137828"
+    },
+    {
+      "path": "parts/ns20k-neck-t-slot-keeper.stl",
+      "bytes": 1120884,
+      "sha256": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90",
+      "source_sha256": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90"
+    },
+    {
+      "path": "parts/ns20k-neck-t-slot-keeper.step",
+      "bytes": 509288,
+      "sha256": "00310a5dc55d20c9991c2ec62cbca75b9ac8e575db208a4a809769fddcb9ad28",
+      "source_sha256": "00310a5dc55d20c9991c2ec62cbca75b9ac8e575db208a4a809769fddcb9ad28"
     },
     {
       "path": "parts/ns20-faucet-neck.stl",
@@ -216,388 +702,190 @@
       "source_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c"
     },
     {
-      "path": "parts/ns20d-neck-storage-shoe.stl",
-      "bytes": 1097684,
-      "sha256": "9b525d62ffc6939fb3a574b43a187cf0b1b266c6f973887b411188ae549b53fc",
-      "source_sha256": "9b525d62ffc6939fb3a574b43a187cf0b1b266c6f973887b411188ae549b53fc"
+      "path": "parts/ns20-faucet-neck.step",
+      "bytes": 55687,
+      "sha256": "f50f553057ce2b30dd39372b21382c8d8441eabd542b3e808515d2d2e8a5608d",
+      "source_sha256": "f50f553057ce2b30dd39372b21382c8d8441eabd542b3e808515d2d2e8a5608d"
     },
     {
-      "path": "parts/ns20k-neck-keeper-bar.stl",
-      "bytes": 1143584,
-      "sha256": "fa8c1688a46f70330dce510ef4c8659ab24309b09691ee340b0984aede9e8e3e",
-      "source_sha256": "fa8c1688a46f70330dce510ef4c8659ab24309b09691ee340b0984aede9e8e3e"
+      "path": "parts/gr-grip-receiver-bridge.stl",
+      "bytes": 6284,
+      "sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53",
+      "source_sha256": "0a35a05a4188c7db160e30ec97d9b82035d9d9f4bbb2b9467c7732ce45745d53"
     },
     {
-      "path": "parts/p-cascade-carrier.stl",
-      "bytes": 12892984,
-      "sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f",
-      "source_sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f"
+      "path": "parts/gr-grip-receiver-bridge.step",
+      "bytes": 117129,
+      "sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090",
+      "source_sha256": "e98bcf9d1343b47c29b0e331a485c75e00d327f322f99a981e2883ad22bdd090"
     },
     {
-      "path": "parts/r30-support-ceiling.stl",
-      "bytes": 1285884,
-      "sha256": "eb9f10a5e467c7f996eba950ffa3d0dae41ff605061447d554fa1b117b585ba0",
-      "source_sha256": "eb9f10a5e467c7f996eba950ffa3d0dae41ff605061447d554fa1b117b585ba0"
-    },
-    {
-      "path": "parts/r45-support-ceiling.stl",
-      "bytes": 715084,
-      "sha256": "ef28ba0b8941338bc9d4c1410ee649265b362ba81a9a6a24dbd0d4f689e92e87",
-      "source_sha256": "ef28ba0b8941338bc9d4c1410ee649265b362ba81a9a6a24dbd0d4f689e92e87"
-    },
-    {
-      "path": "parts/r60-support-ceiling.stl",
-      "bytes": 1239084,
-      "sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
-      "source_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd"
-    },
-    {
-      "path": "parts/s15-sliding-tongue.stl",
-      "bytes": 786684,
-      "sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f",
-      "source_sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f"
-    },
-    {
-      "path": "parts/s15r-sliding-receiver.stl",
-      "bytes": 790684,
-      "sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181",
-      "source_sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181"
-    },
-    {
-      "path": "parts/s25-sliding-tongue.stl",
-      "bytes": 1010584,
-      "sha256": "5e4408ec60ee59c70b8732f8052806738735b74a35a916ed78bbea95a5092827",
-      "source_sha256": "5e4408ec60ee59c70b8732f8052806738735b74a35a916ed78bbea95a5092827"
-    },
-    {
-      "path": "parts/s25r-sliding-receiver.stl",
-      "bytes": 1004884,
-      "sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b",
-      "source_sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b"
-    },
-    {
-      "path": "parts/s35-sliding-tongue.stl",
-      "bytes": 1296584,
-      "sha256": "7e9c0332e1231182968b6bb748d391c0ac536063af0b70c10fe0833ff659a351",
-      "source_sha256": "7e9c0332e1231182968b6bb748d391c0ac536063af0b70c10fe0833ff659a351"
-    },
-    {
-      "path": "parts/s35r-sliding-receiver.stl",
-      "bytes": 1264784,
-      "sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d",
-      "source_sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d"
-    },
-    {
-      "path": "parts/s45-sliding-tongue.stl",
-      "bytes": 771984,
-      "sha256": "fb143695e4d4b55eb8766ff1ceea0c8ec89f8846787414148d454847de049737",
-      "source_sha256": "fb143695e4d4b55eb8766ff1ceea0c8ec89f8846787414148d454847de049737"
-    },
-    {
-      "path": "parts/s45r-sliding-receiver.stl",
-      "bytes": 776184,
-      "sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf",
-      "source_sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf"
-    },
-    {
-      "path": "parts/a08-angle-and-curve-blade.step",
-      "bytes": 1987505,
-      "sha256": "0b43ce2ae388a2e793cb70363f52723e338e94987101b4661576b497cbc90abc",
-      "source_sha256": "0b43ce2ae388a2e793cb70363f52723e338e94987101b4661576b497cbc90abc"
-    },
-    {
-      "path": "parts/a12-angle-and-curve-blade.step",
-      "bytes": 1827948,
-      "sha256": "f8121322c1e5a91746608ac6133136337daf8335365b666546dabe6ef0b6d711",
-      "source_sha256": "f8121322c1e5a91746608ac6133136337daf8335365b666546dabe6ef0b6d711"
-    },
-    {
-      "path": "parts/a24-angle-and-curve-blade.step",
-      "bytes": 1843494,
-      "sha256": "6d5ae3cdf69d82ab3d31c0ec5921b28d5e4b1c617e52e2f1309143baadc67bc0",
-      "source_sha256": "6d5ae3cdf69d82ab3d31c0ec5921b28d5e4b1c617e52e2f1309143baadc67bc0"
+      "path": "parts/g-complete-grip-insert.stl",
+      "bytes": 936084,
+      "sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
+      "source_sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e"
     },
     {
       "path": "parts/g-complete-grip-insert.step",
       "bytes": 95205,
-      "sha256": "c8f5090dd7be842d7e72db38b925d36411a4e0159b31b829700bc02fdc39a218",
-      "source_sha256": "c8f5090dd7be842d7e72db38b925d36411a4e0159b31b829700bc02fdc39a218"
+      "sha256": "6e76ce448f055e678bea2bef49515502fdab605ea348b129fab3c37319641802",
+      "source_sha256": "6e76ce448f055e678bea2bef49515502fdab605ea348b129fab3c37319641802"
     },
     {
-      "path": "parts/gr-grip-receiver-bridge.step",
-      "bytes": 143582,
-      "sha256": "cd8291eff9a796a8237a1a1785b77e9502d53879b8ac91e673b5c48692cd1a7a",
-      "source_sha256": "cd8291eff9a796a8237a1a1785b77e9502d53879b8ac91e673b5c48692cd1a7a"
+      "path": "parts/r6-expanding-round-structural-buttress.stl",
+      "bytes": 801984,
+      "sha256": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f",
+      "source_sha256": "ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f"
     },
     {
-      "path": "parts/n08-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "651cca24316c19d74515e405a31492669cd494f1be1386d017885f2598d6d408",
-      "source_sha256": "651cca24316c19d74515e405a31492669cd494f1be1386d017885f2598d6d408"
+      "path": "parts/r6-expanding-round-structural-buttress.step",
+      "bytes": 96366,
+      "sha256": "3ad39e4125e4fd07b3fadb6cfeee325f95e4078a94a0c26ba3f059a831d00f58",
+      "source_sha256": "3ad39e4125e4fd07b3fadb6cfeee325f95e4078a94a0c26ba3f059a831d00f58"
     },
     {
-      "path": "parts/n08d-neck-storage-shoe.step",
-      "bytes": 472412,
-      "sha256": "01a491836bc72b37d9ba9f1f228f7530642627799c423d1a5ca2e16ccfb1f9ad",
-      "source_sha256": "01a491836bc72b37d9ba9f1f228f7530642627799c423d1a5ca2e16ccfb1f9ad"
+      "path": "parts/fh-complete-rigid-groove-host.stl",
+      "bytes": 3374084,
+      "sha256": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810",
+      "source_sha256": "5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810"
     },
     {
-      "path": "parts/n08k-neck-keeper-bar.step",
-      "bytes": 427299,
-      "sha256": "05be4171c9b1f619bb0234c4e08f0aa9104d3f09f97aa7504389ead1440c0384",
-      "source_sha256": "05be4171c9b1f619bb0234c4e08f0aa9104d3f09f97aa7504389ead1440c0384"
+      "path": "parts/fh-complete-rigid-groove-host.step",
+      "bytes": 605879,
+      "sha256": "6348c2464907f51f34532be14e66ec0918a5ee633d501e577c11a65239538163",
+      "source_sha256": "6348c2464907f51f34532be14e66ec0918a5ee633d501e577c11a65239538163"
     },
     {
-      "path": "parts/n12-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "116188b9cdc3f42569bacbb5572ad184e139e0fd26852062f3367da5fdacaf11",
-      "source_sha256": "116188b9cdc3f42569bacbb5572ad184e139e0fd26852062f3367da5fdacaf11"
+      "path": "parts/fc-complete-relaxed-industrial-cover.stl",
+      "bytes": 218684,
+      "sha256": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad",
+      "source_sha256": "b45824721860bfc1eb836214acf1dca3d8acd8bb1b833e0bbfcb3b89251698ad"
     },
     {
-      "path": "parts/n12d-neck-storage-shoe.step",
-      "bytes": 320192,
-      "sha256": "63006c4b6a291c8062f467abe8a9d62025323aff520b6c2dcc1a0a8a03e3c286",
-      "source_sha256": "63006c4b6a291c8062f467abe8a9d62025323aff520b6c2dcc1a0a8a03e3c286"
+      "path": "parts/fc-complete-relaxed-industrial-cover.step",
+      "bytes": 308738,
+      "sha256": "28d35c7deacb88fc61292456032d13d972fd298e7a4fb48f9c7951575b34b570",
+      "source_sha256": "28d35c7deacb88fc61292456032d13d972fd298e7a4fb48f9c7951575b34b570"
     },
     {
-      "path": "parts/n12k-neck-keeper-bar.step",
-      "bytes": 274908,
-      "sha256": "35e82b6ca79dcfde0a0aa8db14944ff9b91aa48dc19206c53629ce56b36a6a77",
-      "source_sha256": "35e82b6ca79dcfde0a0aa8db14944ff9b91aa48dc19206c53629ce56b36a6a77"
+      "path": "print-assemblies/pip-base.stl",
+      "bytes": 13148984,
+      "sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3",
+      "source_sha256": "16708c68465f649a47a7742f82c5b434874a5205eb9cb3479636a5a607afa4b3"
     },
     {
-      "path": "parts/n24-faucet-neck.step",
-      "bytes": 55684,
-      "sha256": "45b428dc70d75a001109c4871069537482f2535b10f88df4139ca1425a8af85d",
-      "source_sha256": "45b428dc70d75a001109c4871069537482f2535b10f88df4139ca1425a8af85d"
+      "path": "print-assemblies/pip-base.step",
+      "bytes": 7484774,
+      "sha256": "5b6c41d29619635a5a9c8042192222ce5a6f1772a002fae5dda9099984ac1a29",
+      "source_sha256": "5b6c41d29619635a5a9c8042192222ce5a6f1772a002fae5dda9099984ac1a29"
     },
     {
-      "path": "parts/n24d-neck-storage-shoe.step",
-      "bytes": 335113,
-      "sha256": "d8be9f8a7a7b6f956b9b52f4723fecdbb19e3bb195dd6930dd3edabda49ef6f7",
-      "source_sha256": "d8be9f8a7a7b6f956b9b52f4723fecdbb19e3bb195dd6930dd3edabda49ef6f7"
+      "path": "prints/the-pour-cover-petgf-left04-z004-mark2.3mf",
+      "bytes": 77142,
+      "sha256": "532b16550d95d76976a1dd343d968e306ee2b94bf59feeeb9c23be54cefa324f",
+      "source_sha256": "532b16550d95d76976a1dd343d968e306ee2b94bf59feeeb9c23be54cefa324f"
     },
     {
-      "path": "parts/n24k-neck-keeper-bar.step",
-      "bytes": 289820,
-      "sha256": "b1f984e8548191ead062124706f06e97d5cd49ead38d5f0dc22bc4a1ce4a1087",
-      "source_sha256": "b1f984e8548191ead062124706f06e97d5cd49ead38d5f0dc22bc4a1ce4a1087"
-    },
-    {
-      "path": "parts/nr00-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "631074f9d83284bab796ec1ad6b3cea30bd16cdeb528220e2a474b64755414c9",
-      "source_sha256": "631074f9d83284bab796ec1ad6b3cea30bd16cdeb528220e2a474b64755414c9"
-    },
-    {
-      "path": "parts/nr00d-neck-storage-shoe.step",
-      "bytes": 522650,
-      "sha256": "3b4da098fca75d145aa6ddba6ad357059cdcdb6b94a2aa68658a7a868bbdd863",
-      "source_sha256": "3b4da098fca75d145aa6ddba6ad357059cdcdb6b94a2aa68658a7a868bbdd863"
-    },
-    {
-      "path": "parts/nr00k-neck-keeper-bar.step",
-      "bytes": 477305,
-      "sha256": "547ac5833ebaf56ce69b585a7606be35f5dcebd8cb90ee98a588be02825ce263",
-      "source_sha256": "547ac5833ebaf56ce69b585a7606be35f5dcebd8cb90ee98a588be02825ce263"
-    },
-    {
-      "path": "parts/nr05-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "fbe3855ce42509e8c59803a1d52111ec75718bbba97034727b41adcc24f4c336",
-      "source_sha256": "fbe3855ce42509e8c59803a1d52111ec75718bbba97034727b41adcc24f4c336"
-    },
-    {
-      "path": "parts/nr05d-neck-storage-shoe.step",
-      "bytes": 522906,
-      "sha256": "774c914d42f3732d704d3e6e871e0fa6a7b87158325f37bb6597d0c86fccf750",
-      "source_sha256": "774c914d42f3732d704d3e6e871e0fa6a7b87158325f37bb6597d0c86fccf750"
-    },
-    {
-      "path": "parts/nr05k-neck-keeper-bar.step",
-      "bytes": 477574,
-      "sha256": "bcf7a11d79479871096716d6f3d7072845e56802b08bae070ea8fc26d5affb7c",
-      "source_sha256": "bcf7a11d79479871096716d6f3d7072845e56802b08bae070ea8fc26d5affb7c"
-    },
-    {
-      "path": "parts/nr15-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "f00fa9562a487006d1f2d46d6b1527370c57e3014fc233af2ffe9895a6fceec3",
-      "source_sha256": "f00fa9562a487006d1f2d46d6b1527370c57e3014fc233af2ffe9895a6fceec3"
-    },
-    {
-      "path": "parts/nr15d-neck-storage-shoe.step",
-      "bytes": 447411,
-      "sha256": "6ca5a8e464fbfa949ecffccb529b5b0e0029302dfbadb94b7811255ab4d96fd5",
-      "source_sha256": "6ca5a8e464fbfa949ecffccb529b5b0e0029302dfbadb94b7811255ab4d96fd5"
-    },
-    {
-      "path": "parts/nr15k-neck-keeper-bar.step",
-      "bytes": 402134,
-      "sha256": "3ee863999067b7cc8ec61bff213fdf70da6c0ff9e0df3a512875cbe744743306",
-      "source_sha256": "3ee863999067b7cc8ec61bff213fdf70da6c0ff9e0df3a512875cbe744743306"
-    },
-    {
-      "path": "parts/ns00-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "8daa2470af4d0d7429eb0554d7698529b9d3df9feb377a62eb1954f7bb62c2dc",
-      "source_sha256": "8daa2470af4d0d7429eb0554d7698529b9d3df9feb377a62eb1954f7bb62c2dc"
-    },
-    {
-      "path": "parts/ns00d-neck-storage-shoe.step",
-      "bytes": 586491,
-      "sha256": "0b392e96b81b95b0cfa529a3d3027f69c457c461675dece18594c51a23ef4a60",
-      "source_sha256": "0b392e96b81b95b0cfa529a3d3027f69c457c461675dece18594c51a23ef4a60"
-    },
-    {
-      "path": "parts/ns00k-neck-keeper-bar.step",
-      "bytes": 539791,
-      "sha256": "f879a83aab667496bda97828151f86f44d328cdfbb6653f36e3c929a3d6e482e",
-      "source_sha256": "f879a83aab667496bda97828151f86f44d328cdfbb6653f36e3c929a3d6e482e"
-    },
-    {
-      "path": "parts/ns10-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "4ed65427408597ae042394f4e8e708c12828763f12cfe148462e2f553ee5a70d",
-      "source_sha256": "4ed65427408597ae042394f4e8e708c12828763f12cfe148462e2f553ee5a70d"
-    },
-    {
-      "path": "parts/ns10d-neck-storage-shoe.step",
-      "bytes": 509707,
-      "sha256": "a44814c964541e085babe6a1c1e3397a92be5a6d957fbe51dd6219df947ae558",
-      "source_sha256": "a44814c964541e085babe6a1c1e3397a92be5a6d957fbe51dd6219df947ae558"
-    },
-    {
-      "path": "parts/ns10k-neck-keeper-bar.step",
-      "bytes": 464126,
-      "sha256": "0ae6e3a37398396fef3ea120ca4c052233f7d18c7a3fc4f087a7eb7506dabb04",
-      "source_sha256": "0ae6e3a37398396fef3ea120ca4c052233f7d18c7a3fc4f087a7eb7506dabb04"
-    },
-    {
-      "path": "parts/ns20-faucet-neck.step",
-      "bytes": 55687,
-      "sha256": "8f9f2c0facf04ff293cecbff1574f354ef1e657dbf1c04faac150fe24cb48158",
-      "source_sha256": "8f9f2c0facf04ff293cecbff1574f354ef1e657dbf1c04faac150fe24cb48158"
-    },
-    {
-      "path": "parts/ns20d-neck-storage-shoe.step",
-      "bytes": 589320,
-      "sha256": "f9217e9d94ae21e6564fd26cad386ade2fa312d0e3b1b1151898314ab29576e9",
-      "source_sha256": "f9217e9d94ae21e6564fd26cad386ade2fa312d0e3b1b1151898314ab29576e9"
-    },
-    {
-      "path": "parts/ns20k-neck-keeper-bar.step",
-      "bytes": 542273,
-      "sha256": "14b8ad1d8995ff19baff393336ca8136817a46a30b16ce5cf6c6069ad7ce905c",
-      "source_sha256": "14b8ad1d8995ff19baff393336ca8136817a46a30b16ce5cf6c6069ad7ce905c"
-    },
-    {
-      "path": "parts/p-cascade-carrier.step",
-      "bytes": 6241210,
-      "sha256": "509dddb1c3f7062c2678326cad2688e937a256067f0f8372b500ab7cbd9902fd",
-      "source_sha256": "509dddb1c3f7062c2678326cad2688e937a256067f0f8372b500ab7cbd9902fd"
-    },
-    {
-      "path": "parts/r30-support-ceiling.step",
-      "bytes": 526498,
-      "sha256": "a07a4ea223f526828d17477e61f25450d3a506dd112ca35293c1b32603ce83c9",
-      "source_sha256": "a07a4ea223f526828d17477e61f25450d3a506dd112ca35293c1b32603ce83c9"
-    },
-    {
-      "path": "parts/r45-support-ceiling.step",
-      "bytes": 411797,
-      "sha256": "c65ce27474ed8ad738e15de207b93523f4d97f7d99119d8d7bfc09c369ae78e1",
-      "source_sha256": "c65ce27474ed8ad738e15de207b93523f4d97f7d99119d8d7bfc09c369ae78e1"
-    },
-    {
-      "path": "parts/r60-support-ceiling.step",
-      "bytes": 519794,
-      "sha256": "e617dd6f87aba6deba1704c5163df26c9fdcc3ad75c1d6c017e05375793e323a",
-      "source_sha256": "e617dd6f87aba6deba1704c5163df26c9fdcc3ad75c1d6c017e05375793e323a"
-    },
-    {
-      "path": "parts/s15-sliding-tongue.step",
-      "bytes": 390220,
-      "sha256": "1775854f99fa1af1035f9ad99a0db2d7b5b5d599419509038f6fb91ec58566f7",
-      "source_sha256": "1775854f99fa1af1035f9ad99a0db2d7b5b5d599419509038f6fb91ec58566f7"
-    },
-    {
-      "path": "parts/s15r-sliding-receiver.step",
-      "bytes": 384730,
-      "sha256": "233d4a414b324c5a6f1f330b753df8bfa34820efeec9da04194be77168d30d94",
-      "source_sha256": "233d4a414b324c5a6f1f330b753df8bfa34820efeec9da04194be77168d30d94"
-    },
-    {
-      "path": "parts/s25-sliding-tongue.step",
-      "bytes": 469663,
-      "sha256": "25d558f45eaf7006a1762e66e9c8c952607a349c18088d2180b9f7cd43646534",
-      "source_sha256": "25d558f45eaf7006a1762e66e9c8c952607a349c18088d2180b9f7cd43646534"
-    },
-    {
-      "path": "parts/s25r-sliding-receiver.step",
-      "bytes": 466187,
-      "sha256": "7a453488d3d5f91daddd81d083be18249511ec9d50e2aa8f386e6554aef1606e",
-      "source_sha256": "7a453488d3d5f91daddd81d083be18249511ec9d50e2aa8f386e6554aef1606e"
-    },
-    {
-      "path": "parts/s35-sliding-tongue.step",
-      "bytes": 520504,
-      "sha256": "4e7b2db9b20ef5603f28ab28e70258fd3c0b973af31748ae8aa5480a79337266",
-      "source_sha256": "4e7b2db9b20ef5603f28ab28e70258fd3c0b973af31748ae8aa5480a79337266"
-    },
-    {
-      "path": "parts/s35r-sliding-receiver.step",
-      "bytes": 517754,
-      "sha256": "c7c3e6d3159a3379cca6396b0f125a881c2a1e6583a5d0caa75859edc310cac7",
-      "source_sha256": "c7c3e6d3159a3379cca6396b0f125a881c2a1e6583a5d0caa75859edc310cac7"
-    },
-    {
-      "path": "parts/s45-sliding-tongue.step",
-      "bytes": 404545,
-      "sha256": "f5fec963d143c494a1db6a62fd0327faedb4e9fbb50af1fdcda3d42207535ece",
-      "source_sha256": "f5fec963d143c494a1db6a62fd0327faedb4e9fbb50af1fdcda3d42207535ece"
-    },
-    {
-      "path": "parts/s45r-sliding-receiver.step",
-      "bytes": 399359,
-      "sha256": "cc16e276e780d0e84a30aabd739dfd782a446fb2c68dc7afb794b59d8990b50e",
-      "source_sha256": "cc16e276e780d0e84a30aabd739dfd782a446fb2c68dc7afb794b59d8990b50e"
-    },
-    {
-      "path": "the-pour.step",
-      "bytes": 27013842,
-      "sha256": "3fd847e9985d947875dc3f6661c0aa39fb20d9d6b9d5f53c38e763fa94690d33",
-      "source_sha256": "3fd847e9985d947875dc3f6661c0aa39fb20d9d6b9d5f53c38e763fa94690d33"
+      "path": "prints/the-pour-cover-petgf-left04-z004-mark2.print.json",
+      "bytes": 129757,
+      "sha256": "77c73e189f6b7bbaa5958706b599c134ccf5bf81c0a2d5918074c1074b0ea668",
+      "source_sha256": "77c73e189f6b7bbaa5958706b599c134ccf5bf81c0a2d5918074c1074b0ea668"
     },
     {
       "path": "prints/the-pour-finish-008-petgf-left04-z004-mark2.3mf",
-      "bytes": 1519827,
-      "sha256": "e84adca58c3387952b190199116571b304755a6cfa6ddc49992271bed49f8b56",
-      "source_sha256": "e84adca58c3387952b190199116571b304755a6cfa6ddc49992271bed49f8b56"
+      "bytes": 1633552,
+      "sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f",
+      "source_sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f"
+    },
+    {
+      "path": "prints/the-pour-finish-008-petgf-left04-z004-mark2.print.json",
+      "bytes": 52939,
+      "sha256": "5f2a562c928cd2f163e536fe4435f8abb1463ad652ffe40a23827c36690cfe10",
+      "source_sha256": "5f2a562c928cd2f163e536fe4435f8abb1463ad652ffe40a23827c36690cfe10"
     },
     {
       "path": "prints/the-pour-finish-012-petgf-left04-z004-mark2.3mf",
-      "bytes": 1065904,
-      "sha256": "6edc34742d4bccdcca2e30bdbf74d7bd304ee166688f43d13158798e0da3d8ff",
-      "source_sha256": "6edc34742d4bccdcca2e30bdbf74d7bd304ee166688f43d13158798e0da3d8ff"
+      "bytes": 1207127,
+      "sha256": "8f826d33dd3667a7e5247fc97dc5960e3882f7fda3555a31eaec57442ff39468",
+      "source_sha256": "8f826d33dd3667a7e5247fc97dc5960e3882f7fda3555a31eaec57442ff39468"
+    },
+    {
+      "path": "prints/the-pour-finish-012-petgf-left04-z004-mark2.print.json",
+      "bytes": 39461,
+      "sha256": "65507a23421060cac080602bc090524cc3f8c7d01e50c154b379c2f789cb8216",
+      "source_sha256": "65507a23421060cac080602bc090524cc3f8c7d01e50c154b379c2f789cb8216"
     },
     {
       "path": "prints/the-pour-finish-024-petgf-left04-z004-mark2.3mf",
-      "bytes": 1061975,
-      "sha256": "baf0472dcd6bfc58fd93840552f77ba8921ee9826a6f3af2df3630c01a31989e",
-      "source_sha256": "baf0472dcd6bfc58fd93840552f77ba8921ee9826a6f3af2df3630c01a31989e"
+      "bytes": 1201622,
+      "sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55",
+      "source_sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55"
+    },
+    {
+      "path": "prints/the-pour-finish-024-petgf-left04-z004-mark2.print.json",
+      "bytes": 29738,
+      "sha256": "1f19be1770f02400c52b354cb583e115feec891f17942b94b9a623c9136dfd98",
+      "source_sha256": "1f19be1770f02400c52b354cb583e115feec891f17942b94b9a623c9136dfd98"
+    },
+    {
+      "path": "prints/the-pour-host-petgf-left04-z004-mark2.3mf",
+      "bytes": 1003693,
+      "sha256": "56225972cfe9e9b2e3372f08998dae3a8d18d20e3df3d89ffbe9d31ba6a02a3e",
+      "source_sha256": "56225972cfe9e9b2e3372f08998dae3a8d18d20e3df3d89ffbe9d31ba6a02a3e"
+    },
+    {
+      "path": "prints/the-pour-host-petgf-left04-z004-mark2.print.json",
+      "bytes": 411321,
+      "sha256": "99f653404e75e7ff76c1455d530c770ec117d22067c3af5b3289576c424e10e4",
+      "source_sha256": "99f653404e75e7ff76c1455d530c770ec117d22067c3af5b3289576c424e10e4"
     },
     {
       "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
-      "bytes": 5599659,
-      "sha256": "9ffc4eea89cebc4a8544d42f106aa189796bc2dcff30f516edee37b010b2b9b7",
-      "source_sha256": "9ffc4eea89cebc4a8544d42f106aa189796bc2dcff30f516edee37b010b2b9b7"
+      "bytes": 5296901,
+      "sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372",
+      "source_sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372"
+    },
+    {
+      "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.print.json",
+      "bytes": 331122,
+      "sha256": "22af52aae81c454f7b5b572b432f857647cef178c1508573277300f34c267024",
+      "source_sha256": "22af52aae81c454f7b5b572b432f857647cef178c1508573277300f34c267024"
     },
     {
       "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.3mf",
-      "bytes": 3225596,
-      "sha256": "ddfc041356fd47889ec5e8fef4555c616a490a8e96c0e926895fd78e6f7252cf",
-      "source_sha256": "ddfc041356fd47889ec5e8fef4555c616a490a8e96c0e926895fd78e6f7252cf"
+      "bytes": 3578103,
+      "sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921",
+      "source_sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921"
+    },
+    {
+      "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.print.json",
+      "bytes": 1532189,
+      "sha256": "e59014c7dd4e2d71d514f562a5786b1afca9628762f92d6d6b3359246baa6a9b",
+      "source_sha256": "e59014c7dd4e2d71d514f562a5786b1afca9628762f92d6d6b3359246baa6a9b"
+    },
+    {
+      "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.3mf",
+      "bytes": 2164594,
+      "sha256": "720f127f5e6fe17c9ce832354adcae954ca972a28f27785e1f7179198b6df20e",
+      "source_sha256": "720f127f5e6fe17c9ce832354adcae954ca972a28f27785e1f7179198b6df20e"
+    },
+    {
+      "path": "prints/the-pour-kit-03-petgf-left04-z004-mark2.print.json",
+      "bytes": 55681,
+      "sha256": "52cd099349ce64860757f15244a34ade267e7f63f76427bc5baa50fd6c1db89f",
+      "source_sha256": "52cd099349ce64860757f15244a34ade267e7f63f76427bc5baa50fd6c1db89f"
+    },
+    {
+      "path": "prints/the-pour-r6-petgf-left04-z004-mark2.3mf",
+      "bytes": 223642,
+      "sha256": "d1c52a0f14d4dff0541cf0bcca55a07f751dbab388df90633dd821eaaada1215",
+      "source_sha256": "d1c52a0f14d4dff0541cf0bcca55a07f751dbab388df90633dd821eaaada1215"
+    },
+    {
+      "path": "prints/the-pour-r6-petgf-left04-z004-mark2.print.json",
+      "bytes": 165782,
+      "sha256": "7fcb9e2cbb7e370b0c09b1f1a3e0409938995253ea0822c62030333dd3d7f74a",
+      "source_sha256": "7fcb9e2cbb7e370b0c09b1f1a3e0409938995253ea0822c62030333dd3d7f74a"
     },
     {
       "path": "prints/the-pour-seam-petgf-left04-z004-mark2.3mf",
@@ -606,76 +894,46 @@
       "source_sha256": "8475c0255ad42f3f6332be09277d752e360489135b19762bc28298e95fb769a8"
     },
     {
-      "path": "prints/the-pour-support-030-petgf-left04-z004-mark2.3mf",
-      "bytes": 330293,
-      "sha256": "309cd59f269cfbdfe43a505e3d60cce927354836800f11323fb04a43eefc45e3",
-      "source_sha256": "309cd59f269cfbdfe43a505e3d60cce927354836800f11323fb04a43eefc45e3"
-    },
-    {
-      "path": "prints/the-pour-support-045-petgf-left04-z004-mark2.3mf",
-      "bytes": 185668,
-      "sha256": "39a914910f576fce6c30365674bc567bdd133b197e5fc59fb213afb8b81f8f8a",
-      "source_sha256": "39a914910f576fce6c30365674bc567bdd133b197e5fc59fb213afb8b81f8f8a"
-    },
-    {
-      "path": "prints/the-pour-support-060-petgf-left04-z004-mark2.3mf",
-      "bytes": 319550,
-      "sha256": "312155ce2e59de81fe2f85fcd1806c5fcad7c1b3fd23fc5bfe13210321ac9e93",
-      "source_sha256": "312155ce2e59de81fe2f85fcd1806c5fcad7c1b3fd23fc5bfe13210321ac9e93"
-    },
-    {
-      "path": "prints/the-pour-finish-008-petgf-left04-z004-mark2.print.json",
-      "bytes": 12393,
-      "sha256": "f55f0b7d2d2531ce83f0ebb78547bc52f8fdec46ae28c7d4bfddd13f80cbf003",
-      "source_sha256": "f55f0b7d2d2531ce83f0ebb78547bc52f8fdec46ae28c7d4bfddd13f80cbf003"
-    },
-    {
-      "path": "prints/the-pour-finish-012-petgf-left04-z004-mark2.print.json",
-      "bytes": 9635,
-      "sha256": "b8edf5df2d5cf540eee92864a7fa04967d2911be0bec42a2f038ab732522f9b3",
-      "source_sha256": "b8edf5df2d5cf540eee92864a7fa04967d2911be0bec42a2f038ab732522f9b3"
-    },
-    {
-      "path": "prints/the-pour-finish-024-petgf-left04-z004-mark2.print.json",
-      "bytes": 9628,
-      "sha256": "209c547a421df01a77337baf95cc5baeacc3371a9edce54a448dc0ec76ae7168",
-      "source_sha256": "209c547a421df01a77337baf95cc5baeacc3371a9edce54a448dc0ec76ae7168"
-    },
-    {
-      "path": "prints/the-pour-kit-01-petgf-left04-z004-mark2.print.json",
-      "bytes": 34979,
-      "sha256": "c7bcb3527cf51baba8a12b0eb1d5af8a9449b77df4f798e056ddefb6314648d6",
-      "source_sha256": "c7bcb3527cf51baba8a12b0eb1d5af8a9449b77df4f798e056ddefb6314648d6"
-    },
-    {
-      "path": "prints/the-pour-kit-02-petgf-left04-z004-mark2.print.json",
-      "bytes": 46561,
-      "sha256": "cb62bd9c5717267543aefbfa6950cadab785e57ed42a32f6d38612578925895b",
-      "source_sha256": "cb62bd9c5717267543aefbfa6950cadab785e57ed42a32f6d38612578925895b"
-    },
-    {
       "path": "prints/the-pour-seam-petgf-left04-z004-mark2.print.json",
-      "bytes": 23797,
-      "sha256": "3216930bb900d302d72ebb819fca996c41974b36f6d47ada535b2b6a17c2c092",
-      "source_sha256": "3216930bb900d302d72ebb819fca996c41974b36f6d47ada535b2b6a17c2c092"
+      "bytes": 40554,
+      "sha256": "34525929fff182513a9a234fa3d8c4a60dae8ac812ac73f3d7b6f1c55b53ac09",
+      "source_sha256": "34525929fff182513a9a234fa3d8c4a60dae8ac812ac73f3d7b6f1c55b53ac09"
+    },
+    {
+      "path": "prints/the-pour-support-030-petgf-left04-z004-mark2.3mf",
+      "bytes": 325296,
+      "sha256": "e0058d39a6cddd81d9c4a1fed70f5cd109a2f0f3f8ab2d6cd78137501436d9a1",
+      "source_sha256": "e0058d39a6cddd81d9c4a1fed70f5cd109a2f0f3f8ab2d6cd78137501436d9a1"
     },
     {
       "path": "prints/the-pour-support-030-petgf-left04-z004-mark2.print.json",
-      "bytes": 9442,
-      "sha256": "f3c7f193b1e802592fd90041de4143302d42e9ce0c6dfb7b5ecb97a529571141",
-      "source_sha256": "f3c7f193b1e802592fd90041de4143302d42e9ce0c6dfb7b5ecb97a529571141"
+      "bytes": 12843,
+      "sha256": "f3ccb5f6aa2ee2f5c8416eedaca170ed28cbd96d97e29c2f9918985b6d1377e9",
+      "source_sha256": "f3ccb5f6aa2ee2f5c8416eedaca170ed28cbd96d97e29c2f9918985b6d1377e9"
+    },
+    {
+      "path": "prints/the-pour-support-045-petgf-left04-z004-mark2.3mf",
+      "bytes": 179920,
+      "sha256": "bb97517ac6443477ab74b5d52618a68dc53ef631380fc61b697a58b6955dd27f",
+      "source_sha256": "bb97517ac6443477ab74b5d52618a68dc53ef631380fc61b697a58b6955dd27f"
     },
     {
       "path": "prints/the-pour-support-045-petgf-left04-z004-mark2.print.json",
-      "bytes": 9423,
-      "sha256": "af4bbea0ca380709ac55e8a25a0752a6f250e3b87cf15dff233c3219afa4687f",
-      "source_sha256": "af4bbea0ca380709ac55e8a25a0752a6f250e3b87cf15dff233c3219afa4687f"
+      "bytes": 12849,
+      "sha256": "43ffd87016adb5a3987d7938a8af458cbde7563771a77099d289566803d295b6",
+      "source_sha256": "43ffd87016adb5a3987d7938a8af458cbde7563771a77099d289566803d295b6"
+    },
+    {
+      "path": "prints/the-pour-support-060-petgf-left04-z004-mark2.3mf",
+      "bytes": 321372,
+      "sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f",
+      "source_sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f"
     },
     {
       "path": "prints/the-pour-support-060-petgf-left04-z004-mark2.print.json",
-      "bytes": 9388,
-      "sha256": "3e4f469cbc1295d78dd315973a4ee55942771508a69c1126098e4e5dc4f344df",
-      "source_sha256": "3e4f469cbc1295d78dd315973a4ee55942771508a69c1126098e4e5dc4f344df"
+      "bytes": 12813,
+      "sha256": "6c2755d8820e72d73b015cee1d38bad71774bd55211ff99327dcfd8ddefe6765",
+      "source_sha256": "6c2755d8820e72d73b015cee1d38bad71774bd55211ff99327dcfd8ddefe6765"
     }
   ]
 }

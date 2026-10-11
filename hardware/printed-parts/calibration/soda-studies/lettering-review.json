@@ -1,0 +1,2127 @@
+{
+  "schema": 2,
+  "title": "The Pour lettering",
+  "version": "POUR V2",
+  "master_date": "2026-10-11",
+  "manifest_sha256": "cd138895adb160e5e2949ac601d3660fd48791966c6b6a6b564c24acfea2143f",
+  "generator_sha256": "6b6a7599b5e6bb85f52ba0f608aaa58b3a9ebc68492d6842dd98c97e71de48d6",
+  "status": "All 69 raised marking windows and both underside identities are recognizable in the reviewed native commanded envelopes; physical legibility is unrecorded",
+  "reviewed_counts": {
+    "raised_windows": 69,
+    "recessed_identities": 2,
+    "source_parts": 38,
+    "native_projects": 13
+  },
+  "font": {
+    "essential": "Arial bold 4.0 mm; title 4.3 mm",
+    "side_angle_numerals": "Arial bold 3.6 mm",
+    "raised_relief_mm": 0.48
+  },
+  "method": {
+    "horizontal": "Actual STL glyph sections above the backing face compared with positive native model roads buffered by half each road's emitted width; supports and backing-face deposition excluded",
+    "side": "Actual STL glyph sections beyond the plain X face compared with projected native strand widths and nominal deposition-height slabs. Native single-precision height-comment noise is snapped to 0.00001 mm for adjacent-slab union. Rotated values are read along their facet tangent",
+    "recessed": "Actual P STL glyph voids below the first nozzle plane compared with positive native strand-width footprints on both open recess layers, viewed from the physical underside",
+    "coverage": "Fraction of source glyph area covered by the union of commanded envelopes. Component fractions follow glyph source components in reading order; spaces are excluded",
+    "manual": "Every exact ID, number, decimal point, axis convention and version/date string was inspected in the buffered overlays. Recognition, rather than outline perfection, is the criterion"
+  },
+  "limits": [
+    "Commanded envelopes and nominal slabs are toolpath interpretation, not measured deposited dimensions or physical legibility",
+    "Small 4-diagonal notches and rounded corners remain recognizable in essential values; narrow side-angle details also show stair steps and some open strokes",
+    "Fine side-angle numerals retain number recognition; complete stroke connectivity is not claimed for those detail markings",
+    "Native archives and inspection images are local preparation evidence. Exact archive/G-code hashes identify that evidence independently of the editable projects",
+    "No printer submission, physical contrast, support cleanup or handling result is claimed"
+  ],
+  "sources": {
+    "A08": {
+      "stl": "parts/a08-angle-and-curve-blade.stl",
+      "stl_sha256": "c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71"
+    },
+    "A12": {
+      "stl": "parts/a12-angle-and-curve-blade.stl",
+      "stl_sha256": "e94d78869c93659155b727ddbe0d423c32a88928bc7a003ea2b50c794e29a86e"
+    },
+    "A24": {
+      "stl": "parts/a24-angle-and-curve-blade.stl",
+      "stl_sha256": "d698fc797366d5fba330c9e6f62c08baf3b0d593f919a78a4e28e9d52efc5e25"
+    },
+    "P": {
+      "stl": "parts/p-basin-and-captive-rails.stl",
+      "stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1"
+    },
+    "Q24": {
+      "stl": "parts/q24-captive-ripple-shutter.stl",
+      "stl_sha256": "466a00aa8c5c1a08d779a1231d55ffa53f0dddd62fe817f1eefc2bed9f2c5de2"
+    },
+    "Q48": {
+      "stl": "parts/q48-captive-ripple-shutter.stl",
+      "stl_sha256": "c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474"
+    },
+    "Q72": {
+      "stl": "parts/q72-captive-ripple-shutter.stl",
+      "stl_sha256": "da746b8a14947ab178f46cbfcf00fa79aced84cb39775141078629cf81a3d68e"
+    },
+    "S25R": {
+      "stl": "parts/s25r-sliding-receiver.stl",
+      "stl_sha256": "dcbcf5a777f326538357167a50c7809b23f2fc96e48b915d40b2713294a7a20a"
+    },
+    "S05R": {
+      "stl": "parts/s05r-sliding-receiver.stl",
+      "stl_sha256": "65852271f06733c94b13833ad675786041ee6017844017b807307ff51d5f4f98"
+    },
+    "S15R": {
+      "stl": "parts/s15r-sliding-receiver.stl",
+      "stl_sha256": "7dfb2d397d9375808854755b13bee9344d0f56f74a65f4d66363d8c315d0e0c7"
+    },
+    "S35R": {
+      "stl": "parts/s35r-sliding-receiver.stl",
+      "stl_sha256": "6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a"
+    },
+    "S45R": {
+      "stl": "parts/s45r-sliding-receiver.stl",
+      "stl_sha256": "0c17d0de405bf1a1b51c35ca7c89dbb83fe352d7735a49cdcad8c5d56d617316"
+    },
+    "N08D": {
+      "stl": "parts/n08d-neck-cut-face-foot.stl",
+      "stl_sha256": "a5d71f706c5cef8d40987b3b80c9bd56bf4ef7f4bbfec2834b8139aaa8600eab"
+    },
+    "N08K": {
+      "stl": "parts/n08k-neck-t-slot-keeper.stl",
+      "stl_sha256": "4c72c44149622119ab4b29156a04b8cbe816c6d4174dd9fa119576be74acc887"
+    },
+    "N12K": {
+      "stl": "parts/n12k-neck-t-slot-keeper.stl",
+      "stl_sha256": "b9c9f83e0642e5dca570396193a14699c1756b66cf37c8e0f4622ded83503b05"
+    },
+    "N24K": {
+      "stl": "parts/n24k-neck-t-slot-keeper.stl",
+      "stl_sha256": "768098a9994a10d1d35d79d63eb76d7ec1db28a259a7094cd59dbc5570f940c3"
+    },
+    "N12D": {
+      "stl": "parts/n12d-neck-cut-face-foot.stl",
+      "stl_sha256": "51726f3eb8727e98f025560c0e1b9473be5939e83780491d04b1cb372e634f25"
+    },
+    "N24D": {
+      "stl": "parts/n24d-neck-cut-face-foot.stl",
+      "stl_sha256": "628cae44a7b52a9a3a9e86cb287567d18477fabb32730bcd4b4a2e5acdd3322e"
+    },
+    "NR00D": {
+      "stl": "parts/nr00d-neck-cut-face-foot.stl",
+      "stl_sha256": "cd154ecde619c7fbb77c1f603e52d499e6ad4734e32cb5e3b3354ab4e25f29bb"
+    },
+    "NR05D": {
+      "stl": "parts/nr05d-neck-cut-face-foot.stl",
+      "stl_sha256": "1f18b047c47578dfffa7b7626d6438c5a72d8482d47b8d6daf6f2d84bb003fd5"
+    },
+    "NR15D": {
+      "stl": "parts/nr15d-neck-cut-face-foot.stl",
+      "stl_sha256": "6d2488ec439273ac62e103e9256ee39447f557ab4d3f3159ef48e3f0a2faef10"
+    },
+    "NS00D": {
+      "stl": "parts/ns00d-neck-cut-face-foot.stl",
+      "stl_sha256": "1534d72b224b0e50d253217ea1a6959e439c94257c743c63c331df15d7cc166d"
+    },
+    "NR00K": {
+      "stl": "parts/nr00k-neck-t-slot-keeper.stl",
+      "stl_sha256": "31cf153c5bc0db379af69297af4b30da3f06036734ff651b4f98816d74c814e3"
+    },
+    "NR05K": {
+      "stl": "parts/nr05k-neck-t-slot-keeper.stl",
+      "stl_sha256": "be3aefdd196703086bebaa3fded4831bbb375a3f187a2470e89718e7fe9c23ac"
+    },
+    "NR15K": {
+      "stl": "parts/nr15k-neck-t-slot-keeper.stl",
+      "stl_sha256": "0a293a8077059c430d62d1e574ab9a9f24493425bc75c75f6d325bbb01e689e2"
+    },
+    "NS00K": {
+      "stl": "parts/ns00k-neck-t-slot-keeper.stl",
+      "stl_sha256": "c86e1e5990f9ba3bf5763aa89ee0164a7954756db65d221d6829eb05be6bbf84"
+    },
+    "NS10K": {
+      "stl": "parts/ns10k-neck-t-slot-keeper.stl",
+      "stl_sha256": "b35e505e40f2f6889b8c270b4344573e7f3424139d095e65367930d666da6422"
+    },
+    "NS10D": {
+      "stl": "parts/ns10d-neck-cut-face-foot.stl",
+      "stl_sha256": "f9e8af977d131000360108f3666f53584e6623beed8596023c732669849c5e79"
+    },
+    "NS20D": {
+      "stl": "parts/ns20d-neck-cut-face-foot.stl",
+      "stl_sha256": "3a75276da82f3d9f26a4bf7cdefc319809ef8da20e7b22a77343e645f8e8ffc7"
+    },
+    "S05": {
+      "stl": "parts/s05-sliding-tongue.stl",
+      "stl_sha256": "fd35d90247ac2b3c6b265678665ef97d0505ff0a80eec152fa6579a28d7cf16d"
+    },
+    "S15": {
+      "stl": "parts/s15-sliding-tongue.stl",
+      "stl_sha256": "aad0f23242baf70d69d8b77646f28a7e2ec07d32d61bdf3d7dd7f917ae96b6e1"
+    },
+    "S25": {
+      "stl": "parts/s25-sliding-tongue.stl",
+      "stl_sha256": "e8ace62c6fc4066c8fe6003823d8ab34334cb79524247c26b8ba9b1217946e2d"
+    },
+    "S35": {
+      "stl": "parts/s35-sliding-tongue.stl",
+      "stl_sha256": "1bbb07c62439abfd0720c242788e974fd1e742e4e1a09eb35128563c0272bc5f"
+    },
+    "S45": {
+      "stl": "parts/s45-sliding-tongue.stl",
+      "stl_sha256": "f5cbd3224db90d759ef5dfac5f38391185b3a5f81fd78d9978f6f14ef3d582eb"
+    },
+    "NS20K": {
+      "stl": "parts/ns20k-neck-t-slot-keeper.stl",
+      "stl_sha256": "274da0ee08425d9d78c83738215a4f181d168bebec3878a7ecc89b26405bdf90"
+    },
+    "R30": {
+      "stl": "parts/r30-support-ceiling.stl",
+      "stl_sha256": "ca23ca16c44576134fdcd8306aae1245ea18d6bd15cbe330f2fa21356b5f143f"
+    },
+    "R45": {
+      "stl": "parts/r45-support-ceiling.stl",
+      "stl_sha256": "b9c30924abd104732ede43b526cf6a55eb692048a3eb3c41082470a56571110d"
+    },
+    "R60": {
+      "stl": "parts/r60-support-ceiling.stl",
+      "stl_sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f"
+    }
+  },
+  "native_slices": [
+    {
+      "group": "cover",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-cover-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "532b16550d95d76976a1dd343d968e306ee2b94bf59feeeb9c23be54cefa324f",
+      "archive": ".cache/prints/soda-studies/cover/the-pour-cover-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "86db7469c1aca4f157e45dfffe8282bf53369786b4f28133489a7a1742dde617",
+      "gcode_sha256": "062865f454ca0ca8bf0452586a8a52515f56611915758d2c7a25e670f6b1f0e1"
+    },
+    {
+      "group": "finish-008",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-finish-008-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f",
+      "archive": ".cache/prints/soda-studies/finish-008/the-pour-finish-008-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "23326d56afd1d12796d496eacc641a683989aa9809542cb804c3cad968d4a32c",
+      "gcode_sha256": "1d74d194a3422e0c7dc38eddfd284183e8f1f074b1ad9a7c6d1e1a7756e8f233"
+    },
+    {
+      "group": "finish-012",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-finish-012-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "8f826d33dd3667a7e5247fc97dc5960e3882f7fda3555a31eaec57442ff39468",
+      "archive": ".cache/prints/soda-studies/finish-012/the-pour-finish-012-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "fb0187639dcad268899db8fd9c96c9b7a5954da52cc372bf39b85edc6a53702a",
+      "gcode_sha256": "534d0eb6591ebc2dcbd0f33bc051a00524516d289a66e4abffc5ae89cd4fb802"
+    },
+    {
+      "group": "finish-024",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-finish-024-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "fddafbed72d84b93ba3e64aa30acbeafb369851789a5040edef10bb11a1ccf55",
+      "archive": ".cache/prints/soda-studies/finish-024/the-pour-finish-024-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "81d1aaaa7ec35361152615be467d8448328ba95091e3244212f7c0cc2c31a374",
+      "gcode_sha256": "4314ca2f80e8f3dcc3b8302e718d8cddc3ddd4f08eef955712e0272200509351"
+    },
+    {
+      "group": "host",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-host-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "56225972cfe9e9b2e3372f08998dae3a8d18d20e3df3d89ffbe9d31ba6a02a3e",
+      "archive": ".cache/prints/soda-studies/host/the-pour-host-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "bf0d3b951d09c74ae18db7a9320c209434fb6008d7c1aa94997c0af8d09e0ec7",
+      "gcode_sha256": "5db491aadf57de69422e5cc376cf25c9939e637a0c97ad64c8c331e70500e21f"
+    },
+    {
+      "group": "kit-01",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372",
+      "archive": ".cache/prints/soda-studies/kit-01/the-pour-kit-01-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "b0b0e824efbed8bdc27826df6c1d38b504a2468f8a0a72dcc382565d8d24d117",
+      "gcode_sha256": "ae62d88efe03dc9ca6f607fa653b78da37e96a013d350a3122a72bc34da0c500"
+    },
+    {
+      "group": "kit-02",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-kit-02-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "b42d01c6109b65da8c77fea1d8d7343c53189cc2f50a5b4a0a12fc88e48d9921",
+      "archive": ".cache/prints/soda-studies/kit-02/the-pour-kit-02-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "045dc5a30c0c1a9556e5cf63b9313fe865d4253f7b71ad4ff31ba84349b4f957",
+      "gcode_sha256": "0381f9a2725e1d0531b2bcb20acf7d2fac8cc3595f859bc0d69f0b5bf76e5cbd"
+    },
+    {
+      "group": "kit-03",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-kit-03-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "720f127f5e6fe17c9ce832354adcae954ca972a28f27785e1f7179198b6df20e",
+      "archive": ".cache/prints/soda-studies/kit-03/the-pour-kit-03-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "4a309d652520b48d4c3bc7f7b4fbc9945b4c7a05f5211a0510427fa283cfd357",
+      "gcode_sha256": "278da54488a075a1e5fd774d135473a3b88c4cb588ec2f5348e1b0234a4fd51a"
+    },
+    {
+      "group": "r6",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-r6-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "d1c52a0f14d4dff0541cf0bcca55a07f751dbab388df90633dd821eaaada1215",
+      "archive": ".cache/prints/soda-studies/r6/the-pour-r6-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "12e0f99ed6a4857184acef3a0fe687b7d7af0eb5a6e5bfa06d431cf03ee43d0c",
+      "gcode_sha256": "769beaf876f9c707075b688f3d33a6348c85283b4f04b1be898035d2df3b7ef5"
+    },
+    {
+      "group": "seam",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-seam-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "8475c0255ad42f3f6332be09277d752e360489135b19762bc28298e95fb769a8",
+      "archive": ".cache/prints/soda-studies/seam/the-pour-seam-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "db97472bd9b125c187afb12433d4ce33ae3abd50e1e6ea8f7580c13d6882af8e",
+      "gcode_sha256": "bb9bcb81f811b5847aaf2e40c84800fb30c3345d04a53dee115c4cdbd02da03f"
+    },
+    {
+      "group": "support-030",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-support-030-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "e0058d39a6cddd81d9c4a1fed70f5cd109a2f0f3f8ab2d6cd78137501436d9a1",
+      "archive": ".cache/prints/soda-studies/support-030/the-pour-support-030-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "c90eab25f71b49bf17ef1ddee95ac4a73efd92c3216cfbd707182f7cc2b0b7e0",
+      "gcode_sha256": "3cba13d6693647bd5af1751f870f51938c90a0a4224bd04e12df2fcc30b5726d"
+    },
+    {
+      "group": "support-045",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-support-045-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "bb97517ac6443477ab74b5d52618a68dc53ef631380fc61b697a58b6955dd27f",
+      "archive": ".cache/prints/soda-studies/support-045/the-pour-support-045-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "d58d1227877a97492f1e0fc302aecf423be4c53f009e82a2c32a53e9483b6a3b",
+      "gcode_sha256": "6eb924586e6420b0abb96a4edc542c9c46d0aae0bba2ed671429ac09e72021d4"
+    },
+    {
+      "group": "support-060",
+      "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-support-060-petgf-left04-z004-mark2.3mf",
+      "project_sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f",
+      "archive": ".cache/prints/soda-studies/support-060/the-pour-support-060-petgf-left04-z004-mark2.gcode.3mf",
+      "archive_sha256": "267679a650af8e874e89a39a68e21362b18f178648d3a386670d0e53fdd6bd10",
+      "gcode_sha256": "4798f85d03503836be5f7c44ef58f9c68c0c8c9972ca67a13e1c805686542cbc"
+    }
+  ],
+  "raised_labels": [
+    {
+      "id": "A08",
+      "text": "A08",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9653,
+      "source_component_coverage": [
+        0.9515,
+        0.9718,
+        0.9738
+      ],
+      "model_nozzle_z_mm": [
+        46.6,
+        46.68,
+        46.76,
+        46.84,
+        46.92,
+        47.0,
+        47.08,
+        47.16,
+        47.24,
+        47.32,
+        47.4,
+        47.48,
+        47.56,
+        47.64,
+        47.72,
+        47.8,
+        47.88,
+        47.96,
+        48.04,
+        48.12,
+        48.2,
+        48.28,
+        48.36,
+        48.44,
+        48.52,
+        48.6,
+        48.68,
+        48.76,
+        48.84,
+        48.92,
+        49.0,
+        49.48,
+        49.56,
+        49.64,
+        49.72,
+        49.8,
+        49.88,
+        49.96,
+        50.04,
+        50.12,
+        50.2,
+        50.28,
+        50.36,
+        50.44,
+        50.52,
+        50.6,
+        50.68,
+        50.76,
+        50.84,
+        50.92,
+        51.0,
+        51.08,
+        51.16,
+        51.24,
+        51.72,
+        51.8,
+        51.88,
+        51.96,
+        52.04,
+        52.12,
+        52.2,
+        52.28,
+        52.36,
+        52.44,
+        52.52,
+        52.6,
+        52.68,
+        52.76,
+        52.84,
+        52.92,
+        53.0,
+        53.08,
+        53.16,
+        53.24,
+        53.32,
+        53.4,
+        53.48
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "X",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9667,
+      "source_component_coverage": [
+        0.9667
+      ],
+      "model_nozzle_z_mm": [
+        15.08,
+        15.16,
+        15.24,
+        15.32,
+        15.4,
+        15.48
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "0",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9768,
+      "source_component_coverage": [
+        0.9768
+      ],
+      "model_nozzle_z_mm": [
+        4.36,
+        4.44,
+        4.52,
+        4.6,
+        4.68,
+        4.76,
+        4.84,
+        4.92,
+        5.0,
+        5.08,
+        5.16,
+        5.24,
+        5.32,
+        5.4,
+        5.48,
+        5.56,
+        5.64,
+        5.72,
+        5.8,
+        5.88,
+        5.96,
+        6.04,
+        6.12,
+        6.2,
+        6.28,
+        6.36,
+        6.44,
+        6.52,
+        6.6,
+        6.68,
+        6.76,
+        6.84
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "15",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9255,
+      "source_component_coverage": [
+        0.9142,
+        0.9325
+      ],
+      "model_nozzle_z_mm": [
+        5.0,
+        5.08,
+        5.16,
+        5.24,
+        5.32,
+        5.4,
+        5.48,
+        5.56,
+        5.64,
+        5.72,
+        5.8,
+        5.88,
+        5.96,
+        6.04,
+        6.12,
+        6.2,
+        6.28,
+        6.36,
+        6.44,
+        6.52,
+        6.6,
+        6.68,
+        6.76,
+        6.84,
+        6.92,
+        7.0,
+        7.08,
+        7.16,
+        7.24,
+        7.32,
+        7.4,
+        7.48,
+        7.56,
+        7.64,
+        7.72,
+        7.8,
+        7.88
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "30",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9319,
+      "source_component_coverage": [
+        0.8881,
+        0.9687
+      ],
+      "model_nozzle_z_mm": [
+        6.76,
+        6.84,
+        6.92,
+        7.0,
+        7.08,
+        7.16,
+        7.24,
+        7.32,
+        7.4,
+        7.48,
+        7.56,
+        7.64,
+        7.72,
+        7.8,
+        7.88,
+        7.96,
+        8.04,
+        8.12,
+        8.2,
+        8.28,
+        8.36,
+        8.44,
+        8.52,
+        8.6,
+        8.68,
+        8.76,
+        8.84,
+        8.92,
+        9.0,
+        9.08,
+        9.16,
+        9.24,
+        9.32,
+        9.4,
+        9.48,
+        9.56,
+        9.64,
+        9.72,
+        9.8,
+        9.88,
+        9.96,
+        10.04,
+        10.12
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "45",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8448,
+      "source_component_coverage": [
+        0.7574,
+        0.9277
+      ],
+      "model_nozzle_z_mm": [
+        10.2,
+        10.28,
+        10.36,
+        10.44,
+        10.52,
+        10.6,
+        10.68,
+        10.76,
+        10.84,
+        10.92,
+        11.0,
+        11.08,
+        11.16,
+        11.24,
+        11.32,
+        11.4,
+        11.48,
+        11.56,
+        11.64,
+        11.72,
+        11.8,
+        11.88,
+        11.96,
+        12.04,
+        12.12,
+        12.2,
+        12.28,
+        12.36,
+        12.44,
+        12.52,
+        12.6,
+        12.68,
+        12.76,
+        12.84,
+        12.92,
+        13.0,
+        13.08,
+        13.16,
+        13.24,
+        13.32,
+        13.4,
+        13.48,
+        13.56,
+        13.64,
+        13.72
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "60",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9383,
+      "source_component_coverage": [
+        0.917,
+        0.9602
+      ],
+      "model_nozzle_z_mm": [
+        14.36,
+        14.44,
+        14.52,
+        14.6,
+        14.68,
+        14.76,
+        14.84,
+        14.92,
+        15.0,
+        15.08,
+        15.16,
+        15.24,
+        15.32,
+        15.4,
+        15.48,
+        15.56,
+        15.64,
+        15.72,
+        15.8,
+        15.88,
+        15.96,
+        16.04,
+        16.12,
+        16.2,
+        16.28,
+        16.36,
+        16.44,
+        16.52,
+        16.6,
+        16.68,
+        16.76,
+        16.84,
+        16.92,
+        17.0,
+        17.08,
+        17.16,
+        17.24,
+        17.32,
+        17.4,
+        17.48,
+        17.56,
+        17.64,
+        17.72,
+        17.8,
+        17.88,
+        17.96,
+        18.04
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "75",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9059,
+      "source_component_coverage": [
+        0.933,
+        0.8871
+      ],
+      "model_nozzle_z_mm": [
+        19.72,
+        19.8,
+        19.88,
+        19.96,
+        20.04,
+        20.12,
+        20.2,
+        20.28,
+        20.36,
+        20.44,
+        20.52,
+        20.6,
+        20.68,
+        20.76,
+        20.84,
+        20.92,
+        21.0,
+        21.08,
+        21.16,
+        21.24,
+        21.32,
+        21.4,
+        21.48,
+        21.56,
+        21.64,
+        21.72,
+        21.8,
+        21.88,
+        21.96,
+        22.04,
+        22.12,
+        22.2,
+        22.28,
+        22.36,
+        22.44,
+        22.52,
+        22.6,
+        22.68,
+        22.76,
+        22.84,
+        22.92,
+        23.0,
+        23.08,
+        23.16,
+        23.24
+      ]
+    },
+    {
+      "id": "A08",
+      "text": "90",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8796,
+      "source_component_coverage": [
+        0.8399,
+        0.9202
+      ],
+      "model_nozzle_z_mm": [
+        25.0,
+        25.08,
+        25.16,
+        25.24,
+        25.32,
+        25.4,
+        25.48,
+        25.56,
+        25.64,
+        25.88,
+        25.96,
+        26.04,
+        26.12,
+        26.2,
+        26.28,
+        26.36,
+        26.44,
+        26.52,
+        26.6,
+        27.0,
+        27.08,
+        27.16,
+        27.24,
+        27.32,
+        27.4,
+        27.48,
+        27.56,
+        27.64,
+        27.72,
+        27.96,
+        28.04,
+        28.12,
+        28.2,
+        28.28,
+        28.36,
+        28.44,
+        28.52,
+        28.6
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "A12",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9609,
+      "source_component_coverage": [
+        0.9454,
+        0.9913,
+        0.96
+      ],
+      "model_nozzle_z_mm": [
+        46.64,
+        46.76,
+        46.88,
+        47.0,
+        47.12,
+        47.24,
+        47.36,
+        47.48,
+        47.6,
+        47.72,
+        47.84,
+        47.96,
+        48.08,
+        48.2,
+        48.32,
+        48.44,
+        48.56,
+        48.68,
+        48.8,
+        48.92,
+        49.04,
+        49.64,
+        49.76,
+        49.88,
+        50.0,
+        50.12,
+        50.24,
+        50.36,
+        50.48,
+        50.6,
+        50.72,
+        50.84,
+        51.8,
+        51.92,
+        52.04,
+        52.16,
+        52.28,
+        52.4,
+        52.52,
+        52.64,
+        52.76,
+        52.88,
+        53.0,
+        53.12,
+        53.24,
+        53.36,
+        53.48
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "X",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9671,
+      "source_component_coverage": [
+        0.9671
+      ],
+      "model_nozzle_z_mm": [
+        15.2,
+        15.32,
+        15.44
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "0",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9783,
+      "source_component_coverage": [
+        0.9783
+      ],
+      "model_nozzle_z_mm": [
+        4.4,
+        4.52,
+        4.64,
+        4.76,
+        4.88,
+        5.0,
+        5.12,
+        5.24,
+        5.36,
+        5.48,
+        5.6,
+        5.72,
+        5.84,
+        5.96,
+        6.08,
+        6.2,
+        6.32,
+        6.44,
+        6.56,
+        6.68,
+        6.8,
+        6.92
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "15",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9377,
+      "source_component_coverage": [
+        0.9196,
+        0.9491
+      ],
+      "model_nozzle_z_mm": [
+        5.0,
+        5.12,
+        5.24,
+        5.36,
+        5.48,
+        5.6,
+        5.72,
+        5.84,
+        5.96,
+        6.08,
+        6.2,
+        6.32,
+        6.44,
+        6.56,
+        6.68,
+        6.8,
+        6.92,
+        7.04,
+        7.16,
+        7.28,
+        7.4,
+        7.52,
+        7.64,
+        7.76,
+        7.88
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "30",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9174,
+      "source_component_coverage": [
+        0.8709,
+        0.9565
+      ],
+      "model_nozzle_z_mm": [
+        6.8,
+        6.92,
+        7.04,
+        7.16,
+        7.28,
+        7.4,
+        7.52,
+        7.64,
+        7.76,
+        7.88,
+        8.0,
+        8.12,
+        8.24,
+        8.36,
+        8.48,
+        8.6,
+        8.72,
+        8.84,
+        8.96,
+        9.08,
+        9.2,
+        9.32,
+        9.44,
+        9.56,
+        9.68,
+        9.8,
+        9.92,
+        10.04,
+        10.16
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "45",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8305,
+      "source_component_coverage": [
+        0.7548,
+        0.9022
+      ],
+      "model_nozzle_z_mm": [
+        10.28,
+        10.4,
+        10.52,
+        10.64,
+        10.76,
+        10.88,
+        11.0,
+        11.12,
+        11.24,
+        11.36,
+        11.48,
+        11.6,
+        11.72,
+        11.84,
+        11.96,
+        12.08,
+        12.2,
+        12.32,
+        12.44,
+        12.56,
+        12.68,
+        12.8,
+        12.92,
+        13.04,
+        13.16,
+        13.28,
+        13.4,
+        13.52,
+        13.64,
+        13.76
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "60",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9245,
+      "source_component_coverage": [
+        0.8926,
+        0.9572
+      ],
+      "model_nozzle_z_mm": [
+        14.48,
+        14.6,
+        14.72,
+        14.84,
+        14.96,
+        15.08,
+        15.2,
+        15.32,
+        15.44,
+        15.56,
+        15.68,
+        15.8,
+        15.92,
+        16.04,
+        16.16,
+        16.28,
+        16.4,
+        16.52,
+        16.64,
+        16.76,
+        16.88,
+        17.0,
+        17.12,
+        17.24,
+        17.36,
+        17.48,
+        17.6,
+        17.72,
+        17.84,
+        17.96,
+        18.08
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "75",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8663,
+      "source_component_coverage": [
+        0.9027,
+        0.8409
+      ],
+      "model_nozzle_z_mm": [
+        19.76,
+        19.88,
+        20.0,
+        20.12,
+        20.24,
+        20.36,
+        20.48,
+        20.6,
+        20.72,
+        20.84,
+        20.96,
+        21.08,
+        21.2,
+        21.32,
+        21.44,
+        21.56,
+        21.68,
+        21.8,
+        21.92,
+        22.04,
+        22.16,
+        22.28,
+        22.4,
+        22.52,
+        22.64,
+        22.76,
+        22.88,
+        23.0,
+        23.12,
+        23.24
+      ]
+    },
+    {
+      "id": "A12",
+      "text": "90",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8615,
+      "source_component_coverage": [
+        0.8212,
+        0.9028
+      ],
+      "model_nozzle_z_mm": [
+        25.04,
+        25.16,
+        25.28,
+        25.4,
+        25.52,
+        25.64,
+        25.88,
+        26.0,
+        26.12,
+        26.24,
+        26.36,
+        26.48,
+        26.6,
+        27.08,
+        27.2,
+        27.32,
+        27.44,
+        27.56,
+        27.68,
+        27.92,
+        28.04,
+        28.16,
+        28.28,
+        28.4,
+        28.52,
+        28.64
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "A24",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9182,
+      "source_component_coverage": [
+        0.9008,
+        0.9443,
+        0.9131
+      ],
+      "model_nozzle_z_mm": [
+        46.76,
+        47.0,
+        47.24,
+        47.48,
+        47.72,
+        47.96,
+        48.2,
+        48.44,
+        48.68,
+        48.92,
+        49.64,
+        49.88,
+        50.12,
+        50.36,
+        50.6,
+        50.84,
+        51.08,
+        51.32,
+        51.8,
+        52.04,
+        52.28,
+        52.52,
+        52.76,
+        53.0,
+        53.24,
+        53.48
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "X",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9663,
+      "source_component_coverage": [
+        0.9663
+      ],
+      "model_nozzle_z_mm": [
+        15.32,
+        15.56
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "0",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9686,
+      "source_component_coverage": [
+        0.9686
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76,
+        5.0,
+        5.24,
+        5.48,
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "15",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8551,
+      "source_component_coverage": [
+        0.8579,
+        0.8533
+      ],
+      "model_nozzle_z_mm": [
+        5.24,
+        5.48,
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "30",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8871,
+      "source_component_coverage": [
+        0.8536,
+        0.9153
+      ],
+      "model_nozzle_z_mm": [
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88,
+        8.12,
+        8.36,
+        8.6,
+        8.84,
+        9.08,
+        9.32,
+        9.56,
+        9.8,
+        10.04
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "45",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.7814,
+      "source_component_coverage": [
+        0.7165,
+        0.8429
+      ],
+      "model_nozzle_z_mm": [
+        10.28,
+        10.52,
+        10.76,
+        11.0,
+        11.24,
+        11.48,
+        11.72,
+        11.96,
+        12.2,
+        12.44,
+        12.68,
+        12.92,
+        13.16,
+        13.4,
+        13.64
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "60",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8704,
+      "source_component_coverage": [
+        0.8435,
+        0.898
+      ],
+      "model_nozzle_z_mm": [
+        14.6,
+        14.84,
+        15.08,
+        15.32,
+        15.56,
+        15.8,
+        16.04,
+        16.28,
+        16.52,
+        16.76,
+        17.0,
+        17.24,
+        17.48,
+        17.72,
+        17.96
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "75",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.884,
+      "source_component_coverage": [
+        0.8745,
+        0.8906
+      ],
+      "model_nozzle_z_mm": [
+        19.88,
+        20.12,
+        20.36,
+        20.6,
+        20.84,
+        21.08,
+        21.32,
+        21.56,
+        21.8,
+        22.04,
+        22.28,
+        22.52,
+        22.76,
+        23.0,
+        23.24
+      ]
+    },
+    {
+      "id": "A24",
+      "text": "90",
+      "view_axis": "x",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.8421,
+      "source_component_coverage": [
+        0.7733,
+        0.9128
+      ],
+      "model_nozzle_z_mm": [
+        25.16,
+        25.4,
+        25.64,
+        26.12,
+        26.36,
+        26.6,
+        27.08,
+        27.32,
+        27.56,
+        27.8,
+        28.04,
+        28.28,
+        28.52
+      ]
+    },
+    {
+      "id": "P",
+      "text": "BATCH / DATE",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9855,
+      "source_component_coverage": [
+        0.9923,
+        0.9864,
+        0.9811,
+        0.9847,
+        0.9829,
+        0.9704,
+        0.9906,
+        0.9867,
+        0.981,
+        0.9837
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "THE POUR",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9874,
+      "source_component_coverage": [
+        0.9833,
+        0.9856,
+        0.9857,
+        0.9903,
+        0.9938,
+        0.9882,
+        0.9839
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "X / SIDE",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9813,
+      "source_component_coverage": [
+        0.9661,
+        0.9706,
+        0.9865,
+        0.9813,
+        0.9907,
+        0.9833
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": ".25 MOVE",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.982,
+      "source_component_coverage": [
+        0.8982,
+        0.9789,
+        0.9808,
+        0.9798,
+        0.993,
+        0.9815,
+        0.9837
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "Z TOP",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9878,
+      "source_component_coverage": [
+        0.9861,
+        0.981,
+        0.9928,
+        0.9882
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "Y .35/SIDE",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.98,
+      "source_component_coverage": [
+        0.9723,
+        0.8982,
+        0.969,
+        0.9804,
+        0.9702,
+        0.9868,
+        0.98,
+        0.9909,
+        0.9836
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "4.40",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9417,
+      "source_component_coverage": [
+        0.9153,
+        0.8968,
+        0.9156,
+        0.9924
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "P",
+      "text": "6.65",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9735,
+      "source_component_coverage": [
+        0.9738,
+        0.8968,
+        0.9739,
+        0.9803
+      ],
+      "model_nozzle_z_mm": [
+        6.44,
+        6.68
+      ]
+    },
+    {
+      "id": "Q24",
+      "text": ".24",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9456,
+      "source_component_coverage": [
+        0.8969,
+        0.9801,
+        0.9153
+      ],
+      "model_nozzle_z_mm": [
+        11.0,
+        11.24
+      ]
+    },
+    {
+      "id": "Q48",
+      "text": ".48",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9536,
+      "source_component_coverage": [
+        0.8969,
+        0.9155,
+        0.9911
+      ],
+      "model_nozzle_z_mm": [
+        11.24,
+        11.48
+      ]
+    },
+    {
+      "id": "Q72",
+      "text": ".72",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9741,
+      "source_component_coverage": [
+        0.8967,
+        0.9766,
+        0.98
+      ],
+      "model_nozzle_z_mm": [
+        11.48,
+        11.72
+      ]
+    },
+    {
+      "id": "S25R",
+      "text": "0.25",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9799,
+      "source_component_coverage": [
+        0.9903,
+        0.8968,
+        0.9781,
+        0.9786
+      ],
+      "model_nozzle_z_mm": [
+        10.52
+      ]
+    },
+    {
+      "id": "S05R",
+      "text": "0.05",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9839,
+      "source_component_coverage": [
+        0.9903,
+        0.8968,
+        0.9902,
+        0.9786
+      ],
+      "model_nozzle_z_mm": [
+        10.52
+      ]
+    },
+    {
+      "id": "S15R",
+      "text": "0.15",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.979,
+      "source_component_coverage": [
+        0.9903,
+        0.8968,
+        0.9729,
+        0.9786
+      ],
+      "model_nozzle_z_mm": [
+        10.52
+      ]
+    },
+    {
+      "id": "S35R",
+      "text": "0.35",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9758,
+      "source_component_coverage": [
+        0.9903,
+        0.8967,
+        0.9638,
+        0.9786
+      ],
+      "model_nozzle_z_mm": [
+        10.52
+      ]
+    },
+    {
+      "id": "S45R",
+      "text": "0.45",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9609,
+      "source_component_coverage": [
+        0.9903,
+        0.8968,
+        0.9157,
+        0.9786
+      ],
+      "model_nozzle_z_mm": [
+        10.52
+      ]
+    },
+    {
+      "id": "N08D",
+      "text": "N08",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9868,
+      "source_component_coverage": [
+        0.9825,
+        0.9909,
+        0.9881
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "N08K",
+      "text": "N08",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9886,
+      "source_component_coverage": [
+        0.9826,
+        0.9943,
+        0.9908
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "N12K",
+      "text": "N12",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9795,
+      "source_component_coverage": [
+        0.9826,
+        0.9728,
+        0.9795
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "N24K",
+      "text": "N24",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9625,
+      "source_component_coverage": [
+        0.9826,
+        0.9793,
+        0.9159
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "N12D",
+      "text": "N12",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.979,
+      "source_component_coverage": [
+        0.9824,
+        0.973,
+        0.978
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "N24D",
+      "text": "N24",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.962,
+      "source_component_coverage": [
+        0.9824,
+        0.9778,
+        0.9158
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NR00D",
+      "text": "NR00",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9863,
+      "source_component_coverage": [
+        0.9826,
+        0.9828,
+        0.9915,
+        0.9905
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NR05D",
+      "text": "NR05",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9837,
+      "source_component_coverage": [
+        0.9826,
+        0.9827,
+        0.9915,
+        0.9782
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NR15D",
+      "text": "NR15",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.98,
+      "source_component_coverage": [
+        0.9824,
+        0.9826,
+        0.9719,
+        0.9782
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NS00D",
+      "text": "NS00",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9864,
+      "source_component_coverage": [
+        0.9825,
+        0.9828,
+        0.9915,
+        0.9906
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NR00K",
+      "text": "NR00",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9875,
+      "source_component_coverage": [
+        0.9828,
+        0.9822,
+        0.9941,
+        0.994
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NR05K",
+      "text": "NR05",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9848,
+      "source_component_coverage": [
+        0.9828,
+        0.9822,
+        0.9941,
+        0.9812
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NR15K",
+      "text": "NR15",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9809,
+      "source_component_coverage": [
+        0.9827,
+        0.9821,
+        0.9734,
+        0.9812
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NS00K",
+      "text": "NS00",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9888,
+      "source_component_coverage": [
+        0.9828,
+        0.9863,
+        0.9941,
+        0.9941
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NS10K",
+      "text": "NS10",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9851,
+      "source_component_coverage": [
+        0.9828,
+        0.9863,
+        0.9727,
+        0.9941
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NS10D",
+      "text": "NS10",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9831,
+      "source_component_coverage": [
+        0.9825,
+        0.9828,
+        0.972,
+        0.9906
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "NS20D",
+      "text": "NS20",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9835,
+      "source_component_coverage": [
+        0.9824,
+        0.983,
+        0.9778,
+        0.9908
+      ],
+      "model_nozzle_z_mm": [
+        5.96
+      ]
+    },
+    {
+      "id": "S05",
+      "text": "0.05",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9872,
+      "source_component_coverage": [
+        0.994,
+        0.8967,
+        0.9945,
+        0.981
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "S15",
+      "text": "0.15",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9811,
+      "source_component_coverage": [
+        0.9939,
+        0.8983,
+        0.9727,
+        0.9809
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "S25",
+      "text": "0.25",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9822,
+      "source_component_coverage": [
+        0.9938,
+        0.8984,
+        0.9791,
+        0.9809
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "S35",
+      "text": "0.35",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9798,
+      "source_component_coverage": [
+        0.9939,
+        0.8982,
+        0.9706,
+        0.9809
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "S45",
+      "text": "0.45",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9628,
+      "source_component_coverage": [
+        0.9939,
+        0.8983,
+        0.9155,
+        0.9809
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "NS20K",
+      "text": "NS20",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9855,
+      "source_component_coverage": [
+        0.9827,
+        0.9863,
+        0.9793,
+        0.994
+      ],
+      "model_nozzle_z_mm": [
+        4.52,
+        4.76
+      ]
+    },
+    {
+      "id": "R30",
+      "text": "R30",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9821,
+      "source_component_coverage": [
+        0.9824,
+        0.9692,
+        0.9926
+      ],
+      "model_nozzle_z_mm": [
+        23.24,
+        23.48
+      ]
+    },
+    {
+      "id": "R45",
+      "text": "R45",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.9631,
+      "source_component_coverage": [
+        0.9824,
+        0.9157,
+        0.9811
+      ],
+      "model_nozzle_z_mm": [
+        23.24,
+        23.48
+      ]
+    },
+    {
+      "id": "R60",
+      "text": "R60",
+      "view_axis": "z",
+      "recognizable_in_manual_commanded_envelope_review": true,
+      "commanded_glyph_coverage_fraction": 0.982,
+      "source_component_coverage": [
+        0.9824,
+        0.9713,
+        0.9926
+      ],
+      "model_nozzle_z_mm": [
+        23.24,
+        23.48
+      ]
+    }
+  ],
+  "recessed_identities": [
+    {
+      "id": "P",
+      "text": "POUR V2",
+      "view_axis": "-z",
+      "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "recognizable_in_manual_commanded_void_review": true,
+      "CAD_section_z_mm": 0.1,
+      "nominal_recess_mm": 0.48,
+      "layers": [
+        {
+          "model_nozzle_z_mm": 0.2,
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.998133
+        },
+        {
+          "model_nozzle_z_mm": 0.44,
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.994506
+        }
+      ]
+    },
+    {
+      "id": "P",
+      "text": "MASTER 2026-10-11",
+      "view_axis": "-z",
+      "source_stl_sha256": "9665f6e3ea6d55efed7bbb483cf5e2b2c7a4031cef0bb4b9c2d46b759f9720e1",
+      "recognizable_in_manual_commanded_void_review": true,
+      "CAD_section_z_mm": 0.1,
+      "nominal_recess_mm": 0.48,
+      "layers": [
+        {
+          "model_nozzle_z_mm": 0.2,
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.99796
+        },
+        {
+          "model_nozzle_z_mm": 0.44,
+          "CAD_channel_area_clear_of_commanded_footprints_fraction": 0.995584
+        }
+      ]
+    }
+  ]
+}

@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
-      "stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
-      "triangles": 24780,
+      "stl_sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
+      "triangles": 25050,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -110,13 +110,14 @@
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000000413701855e-10
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "layer_range_object_index": 1
     }
   ],
-  "project_sha256": "312155ce2e59de81fe2f85fcd1806c5fcad7c1b3fd23fc5bfe13210321ac9e93",
+  "project_sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f",
   "settings_preserved_byte_for_byte": false,
-  "manifest_sha256": "fcc54dcdfdf8618330a93863bae7bbf461492ca95f108c4376ec7be74c1fb928",
-  "preparation_source_sha256": "3ddf0ebe982d84e38b6e6d7109785f7d5c692cd30ddae267779b8849c097c1e0",
+  "manifest_sha256": "706c472bbf40228e4c87a373b2ee7ee8052d0d3a820f6ade199f68b7e1103fa3",
+  "preparation_source_sha256": "65d147209db8ca7044117e2f10136c9e7a3b2296ff34567c81eaedbb609ab078",
   "requested_layer_height_mm": 0.24,
   "first_layer_height_mm": 0.2,
   "changes_after_profile_refresh": {
@@ -133,12 +134,13 @@
       "name": "R60 support ceiling",
       "kind": "support",
       "source": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
-      "source_stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
+      "source_stl_sha256": "236a360e3f65fb9dcabbc32dda8969223fb504efcc4f4b358a142688dad5f56f",
       "identify_id": 1901,
       "object_id": "2",
       "rotation_x_degrees": 0.0,
       "requested_layer_height_mm": 0.24,
       "object_overrides": {},
+      "effective_supports_enabled": true,
       "plate_bounds_mm": [
         [
           147.5,
@@ -151,6 +153,7 @@
           23.479999542236328
         ]
       ],
+      "layer_range_object_index": 1,
       "plate_offset_mm": [
         0.0,
         0.0
@@ -166,12 +169,34 @@
           15,
           9
         ]
+      ],
+      "label_windows": [
+        {
+          "text": "R60",
+          "font": "Arial",
+          "font_kind": "bold",
+          "font_size_mm": 4.0,
+          "nominal_raise_mm": 0.48,
+          "surface_z_mm": 23,
+          "bounds_mm": [
+            [
+              -3.3759766625000003,
+              8.1298827125,
+              22.9999999
+            ],
+            [
+              3.4716797875,
+              11.0537110375,
+              23.4800001
+            ]
+          ]
+        }
       ]
     }
   ],
   "printer_name": "Mark2",
   "requested_z_trim_mm": 0.04,
-  "support_policy": "Saved Tree(auto)/Default; automatic normal sections retained.",
+  "support_policy": "Saved Tree(auto)/Default for support-enabled objects, including automatic normal sections. Explicit source or separate captive-group recipes can disable support locally.",
   "support_top_z_distance_mm": 0.6,
   "support_bottom_z_distance_mm": 0.3,
   "preparation_only": true,
@@ -180,9 +205,9 @@
   "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
   "native": {
     "archive": ".cache/prints/soda-studies/support-060/the-pour-support-060-petgf-left04-z004-mark2.gcode.3mf",
-    "archive_sha256": "925fe330fc30f410094aa3e71fc7efa9e655de294c1ef47f17afb44490200a82",
-    "gcode_sha256": "356d6ba16850f6037f23d72b7be1671de94fcc97a7cf780128f9d381a3f230fc",
-    "layer_count": 96,
+    "archive_sha256": "267679a650af8e874e89a39a68e21362b18f178648d3a386670d0e53fdd6bd10",
+    "gcode_sha256": "4798f85d03503836be5f7c44ef58f9c68c0c8c9972ca67a13e1c805686542cbc",
+    "layer_count": 98,
     "first_layer_z_mm": 0.2,
     "emitted_deposition_heights_mm": [
       0.2,
@@ -197,47 +222,149 @@
       {
         "id": "R60",
         "identify_id": 1901,
-        "model_layer_count": 96,
+        "model_layer_count": 98,
+        "model_layer_nozzle_z_mm": [
+          0.2,
+          0.44,
+          0.68,
+          0.92,
+          1.16,
+          1.4,
+          1.64,
+          1.88,
+          2.12,
+          2.36,
+          2.6,
+          2.84,
+          3.08,
+          3.32,
+          3.56,
+          3.8,
+          4.04,
+          4.28,
+          4.52,
+          4.76,
+          5.0,
+          5.24,
+          5.48,
+          5.72,
+          5.96,
+          6.2,
+          6.44,
+          6.68,
+          6.92,
+          7.16,
+          7.4,
+          7.64,
+          7.88,
+          8.12,
+          8.36,
+          8.6,
+          8.84,
+          9.08,
+          9.32,
+          9.56,
+          9.8,
+          10.04,
+          10.28,
+          10.52,
+          10.76,
+          11.0,
+          11.24,
+          11.48,
+          11.72,
+          11.96,
+          12.2,
+          12.44,
+          12.68,
+          12.92,
+          13.16,
+          13.4,
+          13.64,
+          13.88,
+          14.12,
+          14.36,
+          14.6,
+          14.84,
+          15.08,
+          15.32,
+          15.56,
+          15.8,
+          16.04,
+          16.28,
+          16.52,
+          16.76,
+          17.0,
+          17.24,
+          17.48,
+          17.72,
+          17.96,
+          18.2,
+          18.44,
+          18.68,
+          18.92,
+          19.16,
+          19.4,
+          19.64,
+          19.88,
+          20.12,
+          20.36,
+          20.6,
+          20.84,
+          21.08,
+          21.32,
+          21.56,
+          21.8,
+          22.04,
+          22.28,
+          22.52,
+          22.76,
+          23.0,
+          23.24,
+          23.48
+        ],
+        "first_attributed_model_nozzle_z_mm": 0.2,
         "model_layer_steps_mm": [
           0.24
         ],
+        "model_layer_schedule_scope": "Complete native object model deposition.",
         "model_deposition_heights_mm": [
           0.2,
           0.24,
           0.4
         ],
-        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
-        "outer_wall_depositing_moves": 2864,
+        "deposition_height_scope": "Strand heights include native bridge thickness; shared object Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 2492,
         "outer_wall_depositing_moves_with_z": 0,
         "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
       }
     ],
-    "estimated_time": "23m 39s",
+    "estimated_time": "23m 30s",
     "saved_profile_filament_estimate_g": [
-      6.47
+      6.48
     ],
     "complete_layer_bead_bounds": {
       "extrusion_bounds_xy_mm": [
         [
-          144.337408,
-          144.603408
+          144.335329,
+          144.601329
         ],
         [
-          180.459592,
-          173.22059199999998
+          180.461671,
+          173.222671
         ]
       ],
-      "maximum_line_width_mm": 0.661184,
-      "bounds_padding_mm": 0.430592
+      "maximum_line_width_mm": 0.665342,
+      "bounds_padding_mm": 0.43267100000000003
     },
-    "minimum_full_bead_bed_margin_mm": 144.337408,
+    "minimum_full_bead_bed_margin_mm": 144.335329,
     "emitted_z_trim_mm": [
       0.0,
       0.02
     ],
     "support_feature_count": 74,
     "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
-    "reviewer_sha256": "c2434292acc8077b003feb87cf285c147f1b27e3b9521ba2b6d4cad4275dacac",
+    "reviewer_sha256": "65d147209db8ca7044117e2f10136c9e7a3b2296ff34567c81eaedbb609ab078",
     "sliced_locally": true,
     "submitted": false,
     "ceiling_support_reading": {
@@ -339,6 +466,32 @@
         15.8,
         16.04,
         16.28
+      ]
+    },
+    "lettering_reading": {
+      "scope": "Positive native model centerlines in CAD marking windows. XY labels exclude nominal slabs touching the body face; side labels exclude centerlines inside the plain side face. Path retention does not establish physical legibility.",
+      "label_window_count": 1,
+      "windows_with_deposition": 1,
+      "plot": ".cache/prints/soda-studies/support-060/native-lettering.png",
+      "labels": [
+        {
+          "id": "R60",
+          "text": "R60",
+          "view_axis": "z",
+          "outward_sign": 1,
+          "clipped_depositing_segment_count": 293,
+          "depositing_layer_z_mm": [
+            23.24,
+            23.48
+          ],
+          "commanded_strand_widths_mm": [
+            0.37946
+          ],
+          "model_features": [
+            "Outer wall"
+          ],
+          "retained_centerline_length_mm": 82.968
+        }
       ]
     }
   }

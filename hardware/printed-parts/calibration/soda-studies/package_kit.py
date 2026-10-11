@@ -33,14 +33,25 @@ def portable_markdown(source, data, members):
 
 def main():
     manifest = json.loads((HERE / "manifest.json").read_text())
+    preparation = json.loads((HERE / "print-preparation.json").read_text())
     sources = [HERE / name for name in (
         "README.md", "feature-guide.md", "manifest.json", "print-preparation.json",
-        "the-pour.step.png")]
-    sources += sorted(HERE.rglob("*.stl"))
-    sources += sorted(HERE.rglob("*.step"))
-    sources += sorted((HERE / "prints").glob("*.3mf"))
-    sources = [p for p in sources if not p.name.endswith(".gcode.3mf")]
-    sources += sorted((HERE / "prints").glob("*.print.json"))
+        "assembly-review.json", "lettering-review.json", "reference-card.csv",
+        "the-pour.step.png", "reference.py", "source_features.py", "mount_geometry.py",
+        "prepare_prints.py", "viewer_payload.py", "package_kit.py",
+        "inputs/faucet-neck-swatch.step.gz", "inputs/faucet-neck-swatch.stl.gz",
+        "inputs/source-features/sources.json",
+        "inputs/source-features/faucet-shell-tip.step.gz",
+        "inputs/source-features/industrial-display-cover.step.gz",
+        "inputs/source-features/industrial-display-cover.stl.gz")]
+    sources.append(HERE / manifest["assembly"])
+    for part in manifest["parts"]:
+        sources.extend((ROOT / part["stl"], ROOT / part["step"]))
+    for assembly in manifest.get("print_assemblies", []):
+        sources.extend((ROOT / assembly["stl"], ROOT / assembly["step"]))
+    for project in preparation["projects"]:
+        path = ROOT / project["project"]
+        sources.extend((path, path.with_suffix(".print.json")))
     members = {p.resolve() for p in sources}
     files = []
     destination = HERE / "print-kit.zip"
