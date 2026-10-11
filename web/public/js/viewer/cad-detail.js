@@ -153,14 +153,14 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   const wrapper = document.createElement("div");
   wrapper.className = "cad-wrapper";
   const workspace = document.createElement("div");
-  workspace.className = "cad-workspace materials-open";
+  workspace.className = "cad-workspace";
   workspace.append(wrapper);
   const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
   const materialsToggle = document.createElement("button");
   materialsToggle.className = "materials-toggle";
   materialsToggle.type = "button";
   materialsToggle.textContent = "Materials";
-  materialsToggle.setAttribute("aria-expanded", "true");
+  materialsToggle.setAttribute("aria-expanded", "false");
   materialsToggle.addEventListener("click", () => {
     const open = workspace.classList.toggle("materials-open");
     materialsToggle.setAttribute("aria-expanded", String(open));
