@@ -28,25 +28,28 @@ TUBE_BORE = 6.65
 DRAIN_BORE = 4.40
 CABLE_SLOT_LENGTH = 5.4
 CABLE_SLOT_DEPTH = 1.8
+MIN_MATERIAL = 1.50
 ENTRY = 0.40
 CABLE_ENTRY = 0.20
-OUTSIDE_EASE = 0.60
-# The mounting row is F1-D-F2 with SIG behind D. Small offsets leave
-# separate bore walls and entrance chamfers while guiding the mounting row.
-FLAVOR_SPREAD = 1.20
-DRAIN_FORWARD = 1.20
+OUTSIDE_EASE = 0.20
+# The mounting row is F1-D-F2 with SIG behind D. Lateral flavor spread
+# and small forward offsets leave at least MIN_MATERIAL at both faces,
+# including the entrance and rim chamfers, inside the 32 mm stock.
+FLAVOR_SPREAD = 2.40
+FLAVOR_FORWARD = 1.80
+DRAIN_FORWARD = 2.30
 CABLE_XY = (interface.bundle_mount_x, faucet_paths.LOWER_RIBBON_Y)
 # Circumcentre of the three beverage bores, in the faucet frame.
 _flavor_x = interface.flavor_tube_x_offset + FLAVOR_SPREAD
-_flavor_y = interface.flavor_tube_depth
+_flavor_y = interface.flavor_tube_depth - FLAVOR_FORWARD
 CENTRE_XY = (interface.bundle_mount_x,
              (_flavor_x**2 + _flavor_y**2 - interface.bundle_mount_x**2) / (2 * _flavor_y))
 BORES = (
     ("S", (0.0, 0.0), TUBE_BORE),
     ("F1", (interface.bundle_mount_x + interface.flavor_tube_x_offset + FLAVOR_SPREAD,
-            interface.flavor_tube_depth), TUBE_BORE),
+            _flavor_y), TUBE_BORE),
     ("F2", (interface.bundle_mount_x - interface.flavor_tube_x_offset - FLAVOR_SPREAD,
-            interface.flavor_tube_depth), TUBE_BORE),
+            _flavor_y), TUBE_BORE),
     ("D", (interface.drain_tube_x, interface.drain_tube_y - DRAIN_FORWARD), DRAIN_BORE),
     ("SIG", CABLE_XY, CABLE_SLOT_LENGTH),
 )
@@ -108,6 +111,10 @@ def main():
         "ORGANIZER_CONTACT": f"{LENGTH - 2 * ENTRY:g} mm",
         "ORGANIZER_CABLE_ENTRY": f"{CABLE_ENTRY:g} mm",
         "ORGANIZER_RIM_EASE": f"{OUTSIDE_EASE:g} mm",
+        "ORGANIZER_MIN_MATERIAL": f"{MIN_MATERIAL:g} mm",
+        "ORGANIZER_FLAVOR_SPREAD": f"{FLAVOR_SPREAD:g} mm",
+        "ORGANIZER_FLAVOR_FORWARD": f"{FLAVOR_FORWARD:g} mm",
+        "ORGANIZER_DRAIN_FORWARD": f"{DRAIN_FORWARD:g} mm",
     })
     print(f"-> {step.name}, {stl.name}, {step.name}.mesh, README.md")
 

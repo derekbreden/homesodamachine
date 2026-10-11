@@ -18,6 +18,9 @@ plate's F1–D–F2 row, with a flat
 5.4 × 1.8 mm signal slot behind D for the
 [measured ribbon](../reference/bntechgo-signal-ribbon/physical-observations.json).
 The round-bore profiles retain the trial dimensions and contact length. The
+minimum material requirement is 1.5 mm between passages and to the exterior,
+including both chamfered faces; the [manual geometry record](../printed-parts/faucet/umbilical-organizer/integration-check.json)
+contains every pair and exterior-wall measurement. The
 mounting-row puck and flat slot are unprinted; quantified sliding force,
 endurance and the complete installed mounting sequence are unmeasured.
 

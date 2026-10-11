@@ -97,6 +97,10 @@ def main():
         "ORGANIZER_TUBE_BORE": f"{faucet.umbilical_organizer.TUBE_BORE:.2f} mm",
         "ORGANIZER_DRAIN_BORE": f"{faucet.umbilical_organizer.DRAIN_BORE:.2f} mm",
         "ORGANIZER_CABLE_SLOT": f"{faucet.umbilical_organizer.CABLE_SLOT_LENGTH:g} × {faucet.umbilical_organizer.CABLE_SLOT_DEPTH:g} mm",
+        "ORGANIZER_MIN_MATERIAL": f"{faucet.umbilical_organizer.MIN_MATERIAL:g} mm",
+        "ORGANIZER_FLAVOR_SPREAD": f"{faucet.umbilical_organizer.FLAVOR_SPREAD:g} mm",
+        "ORGANIZER_FLAVOR_FORWARD": f"{faucet.umbilical_organizer.FLAVOR_FORWARD:g} mm",
+        "ORGANIZER_DRAIN_FORWARD": f"{faucet.umbilical_organizer.DRAIN_FORWARD:g} mm",
         # The braid over the pack — §3. It is bought by what it opens to.
         # The umbilical ribbon's own section, which is what the 6P4C plug closes on — §2.
         "RIBBON_T": f"{faucet.cable_lane:.4g} mm",
