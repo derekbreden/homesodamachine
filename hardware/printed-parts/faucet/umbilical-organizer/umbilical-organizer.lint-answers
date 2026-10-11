@@ -1,7 +1,15 @@
 [thin] The mounting-row organizer has a 1.5 mm minimum material requirement including both chamfered faces. The straight drain-to-slot web is 2.1625 mm and the closest round-bore web is 2.3764 mm; their entrance chamfers leave 1.5625 and 1.5764 mm respectively at both faces. The round beverage bores retain the selected 6.65 mm diameter, the drain retains 4.40 mm, and their 0.4 mm entrance chamfers and 9.2 mm contact length match the selected fit profiles. Physical sliding-force, load-capacity and endurance acceptance for this unprinted layout are unmeasured.
 alternatives: More lateral flavor spread thickens the internal webs but needs more exterior stock or more forward placement to retain the 32 mm body. More drain-to-ribbon Y separation increases displacement from the plate's rear channel. Smaller tube entrances add face material but alter the selected contact profile. A joined opening removes independent tube guidance. The current layout meets the requested geometric minimum with the mounting axes retained through the plate.
 file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
+click: x=0.013 y=8.530 z=9.917
+click: x=0.013 y=10.377 z=9.800
 
 [thin] The three beverage bores have equal exterior backing of 2.2140 mm through their straight sections and 1.6140 mm at both flat faces after the 0.2 mm rim chamfer and 0.4 mm bore entrances. The round stock is centered on the beverage-bore circumcentre. Every passage-to-exterior distance meets the 1.5 mm material requirement. The nominal braid envelope is 34 mm inside the 34.93 mm countertop opening; the braid's weave, folds and physical passage are unmeasured.
 alternatives: Larger round stock adds backing but consumes the 0.465 mm nominal radial braid clearance. Bringing the beverage holes closer to the center needs more Y displacement from the mounting row or reduces the internal webs. A smaller rim chamfer adds face stock with less feeding relief. The 0.2 mm rim chamfer and the selected bore profiles retain the requested minimum within the existing round installation envelope.
 file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
+click: x=-10.549 y=9.379 z=9.932
+click: x=-11.963 y=10.615 z=9.800
+click: x=10.571 y=9.355 z=9.932
+click: x=11.950 y=10.634 z=9.800
+click: x=-3.123 y=-13.766 z=9.932
+click: x=-3.487 y=-15.613 z=9.800
