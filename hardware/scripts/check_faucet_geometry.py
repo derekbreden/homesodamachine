@@ -56,7 +56,6 @@ def source_paths() -> tuple[Path, ...]:
             ROOT / "hardware/printed-parts/cadlib/world_workplane.py",
             ROOT / "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
             ROOT / "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
-            ROOT / "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
             ROOT / "hardware/reference/jg-pp0408w/jg_pp0408w.py",
             ROOT / "hardware/reference/jg-pp0408w/jg-pp0408w.step",
             ROOT / "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step")
@@ -2168,44 +2167,16 @@ def saved_retention_reading(output: Path, *, sampled_seating=False) -> int:
     return 0 if passed else 1
 
 
-def stock_plate_reading(reading, f, assembly):
-    """Bind purchased steel and bound its complete sideways installation motion."""
+def counter_plate_reading(reading, f, assembly):
+    """Bound the centered steel plate's complete sideways installation motion."""
     import cadquery as cq
-    import ezdxf
-
-    reference_path = ROOT / "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json"
-    reference = json.loads(reference_path.read_text())
-    digits = reference["coordinate_rounding_digits"]
-    document = ezdxf.readfile(assembly.under_counter_dxf)
-    signature = []
-    for entity in document.modelspace():
-        kind = entity.dxftype()
-        if kind == "LINE":
-            values = (*entity.dxf.start, *entity.dxf.end)
-        elif kind == "ARC":
-            values = (*entity.dxf.center, entity.dxf.radius,
-                      entity.dxf.start_angle % 360.0, entity.dxf.end_angle % 360.0)
-        else:
-            raise ValueError(f"Unrecognized purchased steel profile entity: {kind}")
-        signature.append([kind, *(round(float(value), digits) for value in values)])
-    signature.sort()
-    reading.add("stock:under-counter-profile",
-                document.units == reference["dxf_insunits"]
-                and signature == reference["normalized_entity_signature"],
-                stock_order=reference["stock_order"],
-                stock_reference_commit=reference["reference_commit"],
-                stock_reference_dxf_sha256=reference["reference_dxf_sha256"],
-                current_dxf_sha256=digest(assembly.under_counter_dxf),
-                profile_entities=len(signature), comparison_rounding_digits=digits,
-                method="All native DXF line endpoints and arc centers/radii/angles match the fixed purchased profile; normalized entity order and full-turn angles.")
-
     installed_plate = shape(assembly.build_under_counter_plate())
     steel_thickness = installed_plate.BoundingBox().zlen
     low = assembly.countertop_top_z - assembly.countertop_max_thickness - steel_thickness
     high = assembly.countertop_top_z - assembly.countertop_min_thickness
     height = high-low
     # This complete vertical extrusion is the union of every installed plate
-    # position in the routing-envelope slab range, with the purchased profile.
+    # position in the routing-envelope slab range, with the production profile.
     plate = (cq.importers.importDXF(str(assembly.under_counter_dxf))
              .wires().toPending().extrude(height)
              .rotate((0,0,0),(0,0,1),90.0).translate((0,0,low)).val())
@@ -2255,7 +2226,7 @@ def stock_plate_reading(reading, f, assembly):
             "passed": unbounded <= VOLUME_TOLERANCE and overlap <= VOLUME_TOLERANCE
                       and start_overlap <= VOLUME_TOLERANCE and gap >= 0.1-DISTANCE_TOLERANCE,
         }
-    reading.add("motion:stock-under-counter-plate-slide",
+    reading.add("motion:under-counter-plate-slide",
                 plate.isValid() and len(plate.Solids()) == 1
                 and nominal_outside <= VOLUME_TOLERANCE
                 and all(row["passed"] for row in records.values()),
@@ -2266,8 +2237,8 @@ def stock_plate_reading(reading, f, assembly):
                 complete_plate_depth_envelope_z_mm=[clean_number(low),clean_number(high)],
                 installed_nominal_plate_outside_depth_envelope_mm3=clean_number(nominal_outside),
                 required_cad_gap_mm=0.1, members=records,
-                method="The purchased DXF profile is extruded through the union of all steel positions for the 19–38 mm routing envelope. Native member intersections through that complete depth range are contained in circular or rectangular bounds. Exact continuous +X sweeps of those bounds clear this conservative steel envelope for the entire 60 mm installation travel at every intermediate slab thickness.",
-                scope="Tube/cable clearance and plate slide within the routing envelope. This does not establish maximum clampable countertop thickness or donor thread engagement. Physical tolerances, cut-edge finish, hand access and installation force require the purchased plate and completed faucet.")
+                method="The production DXF profile is extruded through the union of all steel positions for the 19–38 mm routing envelope. Native member intersections through that complete depth range are contained in circular or rectangular bounds. Exact continuous +X sweeps of those bounds clear this conservative steel envelope for the entire 60 mm installation travel at every intermediate slab thickness.",
+                scope="Tube/cable clearance and plate slide within the routing envelope. This does not establish maximum clampable countertop thickness or donor thread engagement. Physical tolerances, cut-edge finish, hand access and installation force require the cut plate and completed faucet.")
 
 
 def drain_reading(reading, f, assembly, parts):
@@ -2347,7 +2318,7 @@ def main() -> int:
     lower_outer_mesh_reading(reading, f)
     tube_radius_reading(reading, f, assembly)
     drain_reading(reading, f, assembly, parts)
-    stock_plate_reading(reading, f, assembly)
+    counter_plate_reading(reading, f, assembly)
     base, tip, plate = parts["shell_base"], parts["shell_tip"], parts["above_counter_plate"]
     for name in ("shell_base", "shell_tip", "above_counter_plate", "display_cover"):
         clearance_reading(reading, f"clearance:donor-{name}", parts[name], assembly.load_westbrass())

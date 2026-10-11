@@ -279,11 +279,11 @@ def projected(mapper, point, cam, target, span, size=(1600, 1500)):
 def mounting_slots():
     """Show the seated steel opening and line envelopes, looking up from below.
 
-    Read the purchased DXF and the production mounting coordinates directly.
+    Read the production DXF and its centered mounting coordinates directly.
     The washer/nut are omitted in this section so both slots remain visible.
     """
     plate_dir = ROOT/'hardware/cut-parts/faucet/under-counter-plate'
-    sources = [plate_dir/'under-counter-plate.dxf', plate_dir/'stock-profile.json',
+    sources = [plate_dir/'under-counter-plate.dxf', plate_dir/'under_counter_plate.py',
                ROOT/'hardware/printed-parts/faucet/faucet_paths.py',
                ROOT/'hardware/faucet-layout/faucet_assembly.py',
                ROOT/'hardware/printed-parts/faucet/faucet-shell/faucet_shell.py']
@@ -303,17 +303,15 @@ def mounting_slots():
                                    'LOWER_BUNDLE_X', 'LOWER_Y',
                                    'LOWER_DRAIN_Y', 'LOWER_RIBBON_Y'))
     shank = literals(sources[3], ('shank_od',))['shank_od']
-    cable = literals(sources[4], ('signal_ribbon_max_width', 'signal_ribbon_max_depth'))
-    stock = json.loads(sources[1].read_text())
+    cable = literals(sources[2], ('RIBBON_WIDTH', 'RIBBON_DEPTH'))
     drawing = ezdxf.readfile(sources[0])
     if drawing.header.get('$INSUNITS') != 4:
         raise ValueError('The mounting-slot diagram requires a millimetre DXF')
-    segments, signature = [], []
+    segments = []
     for entity in drawing.modelspace():
         if entity.dxftype() == 'LINE':
             start, finish = entity.dxf.start, entity.dxf.end
             segments.append([(start.x, start.y), (finish.x, finish.y)])
-            signature.append(['LINE', *start, *finish])
         elif entity.dxftype() == 'ARC':
             center, radius = entity.dxf.center, entity.dxf.radius
             start, finish = entity.dxf.start_angle, entity.dxf.end_angle
@@ -322,13 +320,8 @@ def mounting_slots():
             segments.append([(center.x+radius*math.cos(math.radians(start+sweep*i/count)),
                               center.y+radius*math.sin(math.radians(start+sweep*i/count)))
                              for i in range(count+1)])
-            signature.append(['ARC', *center, radius, start % 360, finish % 360])
         else:
             raise ValueError(f'Unsupported steel-outline entity: {entity.dxftype()}')
-    normalized = sorted([[row[0], *[round(float(v), 10) for v in row[1:]]]
-                         for row in signature])
-    if normalized != stock['normalized_entity_signature']:
-        raise ValueError('Mounting diagram DXF disagrees with the purchased steel profile')
     outline = segments.pop(0)
     while segments:
         match = next(((i, reverse) for i, points in enumerate(segments)
@@ -377,16 +370,16 @@ def mounting_slots():
         disc(point, coords['FLAVOR_OD'], '#202337')
     disc(drain, coords['DRAIN_OD'], '#FFFFFF')
     px, py = at(*ribbon)
-    cable_w = cable['signal_ribbon_max_width']*scale
-    cable_h = cable['signal_ribbon_max_depth']*scale
+    cable_w = cable['RIBBON_WIDTH']*scale
+    cable_h = cable['RIBBON_DEPTH']*scale
     rect(px-cable_w/2, py-cable_h/2, cable_w, cable_h, '#202337')
     ends = [(x+sx*coords['FLAVOR_OD']/2, y+sy*coords['FLAVOR_OD']/2)
             for x, y in flavors for sx in (-1, 1) for sy in (-1, 1)]
     ends += [(drain[0]+sx*coords['DRAIN_OD']/2,
               drain[1]+sy*coords['DRAIN_OD']/2)
              for sx in (-1, 1) for sy in (-1, 1)]
-    ends += [(ribbon[0]+sx*cable['signal_ribbon_max_width']/2,
-              ribbon[1]+sy*cable['signal_ribbon_max_depth']/2)
+    ends += [(ribbon[0]+sx*cable['RIBBON_WIDTH']/2,
+              ribbon[1]+sy*cable['RIBBON_DEPTH']/2)
              for sx in (-1, 1) for sy in (-1, 1)]
     points = [at(*point) for point in ends]
     left, top = min(p[0] for p in points)-3, min(p[1] for p in points)-3
@@ -423,11 +416,11 @@ def mounting_slots():
         reading_pdf_page=page_no, numbered_interior=page_no-1,
         source_sha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                        for path in sources},
-        purchased_profile_matches=True, view='Looking up; world +Y at page top, world +X at page left',
+        profile="Centered production under-counter plate", view='Looking up; world +Y at page top, world +X at page left',
         rear_slot={'flavor_centers_mm': flavors, 'flavor_od_mm': coords['FLAVOR_OD'],
                    'drain_center_mm': drain, 'drain_od_mm': coords['DRAIN_OD'],
                    'ribbon_center_mm': ribbon, 'ribbon_envelope_mm':
-                   [cable['signal_ribbon_max_width'], cable['signal_ribbon_max_depth']]},
+                   [cable['RIBBON_WIDTH'], cable['RIBBON_DEPTH']]},
         front_slot={'shank_center_mm': [0, 0], 'shank_od_mm': shank,
                     'blue_soda_attachment': 'Below the plate at the shank bottom'},
         omitted_for_visibility=['retained washer', 'retained nut']))

@@ -24,6 +24,13 @@ contains every pair and exterior-wall measurement. The
 mounting-row puck and flat slot are unprinted; quantified sliding force,
 endurance and the complete installed mounting sequence are unmeasured.
 
+The lower faucet passages, organizer, TPU gasket, rigid above-counter plate
+and steel under-counter plate share X=0 for soda, drain and ribbon, with
+symmetric flavor positions. The [centered mounting review](../cut-parts/faucet/under-counter-plate/centered-layout-check.json)
+records the full sideways slide through the 19–38 mm routing envelope.
+This centered set is unprinted and its matching steel plate is unqualified;
+identified earlier faucet prints retain only their recorded acceptance scope.
+
 The [direct ASSE drain sleeve](../printed-parts/asse-drain-adapter/README.md)
 is an unprinted TPU 85A fit candidate with separate barb/tube sockets and two
 zip ties. Its 6.10 mm barb socket uses the manufacturer's 1/4-inch hose size;

@@ -13,13 +13,13 @@ Washer and nut then clamp the plate flat against the countertop.
 See `../../../assembly/faucet-and-umbilical.md` for the full install
 motion.
 
-STOCK INTERFACE
-===============
-The profile is the 0.060-inch 316 stainless plate in SendCutSend order
-S4177511. Its shank pocket is 12.6 mm; its rear terminal pocket is
-13.4 by 7.05 mm, centered at DXF (18.925, 0). The printed counter stack
-and tube/ribbon routing fit these fixed steel openings. The disc and
-channel mouths use the purchased profile's dimensions.
+MOUNTING INTERFACE
+==================
+The 0.060-inch 316 stainless plate shares the printed counter stack's
+centered rear row. Its shank pocket is 12.6 mm; its rear terminal pocket
+is 18.15 by 7.25 mm, centered at DXF (18.925, 0). The two flavor centers
+are world X = +/-5.45 mm; the drain and flat ribbon are on world X = 0.
+Both open channels admit these complete sections during the sideways slide.
 
 CHANNEL DIRECTION
 =================
@@ -68,19 +68,21 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_md, substitute_py_comments
 from _cadq_export import export_dxf
+import _faucet_interface as interface
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Fixed purchased steel interface; printed parts and routing fit this profile.
+# Shared centered mounting interface for both faucet styles.
 
 shank_cx = 0.0
 shank_cy = 0.0
 # [12.6 mm](SHANK_HOLE_D) shank pocket — the threaded shank passes
 # through all three counter-stack parts.
-shank_diameter = 12.6
+shank_diameter = interface.shank_hole_diameter
 shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
@@ -90,23 +92,22 @@ shank_radius = shank_diameter / 2.0
 # at world +Y relative to the Westbrass axis); this DXF Y is the lateral
 # (world X) axis. Channels open in DXF -Y (lateral).
 # [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of the steel pocket from the shank.
-pill_cx = 18.925
+pill_cx = interface.flavor_tube_depth
 pill_cy = 0.0
-# [13.4 mm](PILL_L) steel pocket long axis in DXF Y (= world-lateral X).
-pill_long_y = 13.4
-# [7.05 mm](PILL_W) steel pocket short axis in DXF X (= world-depth Y).
-pill_short_x = 7.05
-pill_half_long = pill_long_y / 2.0       # [6.7 mm](PILL_HALF_LONG)
-pill_half_short = pill_short_x / 2.0     # [3.525 mm](PILL_HALF_SHORT)
-pill_cap_radius = pill_half_short        # [3.525 mm](PILL_CAP_R)
-pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PILL_TOP_CAP_CY)
-pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
-pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
-pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
+# [18.15 mm](PILL_L) steel pocket long axis in DXF Y (= world-lateral X).
+pill_long_y = interface.bundle_slot_length_x
+# [7.25 mm](PILL_W) steel pocket short axis in DXF X (= world-depth Y).
+pill_short_x = interface.pill_width_y
+pill_half_long = pill_long_y / 2.0       # [9.075 mm](PILL_HALF_LONG)
+pill_half_short = pill_short_x / 2.0     # [3.625 mm](PILL_HALF_SHORT)
+pill_cap_radius = pill_half_short        # [3.625 mm](PILL_CAP_R)
+pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [5.45 mm](PILL_TOP_CAP_CY)
+pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-5.45 mm](PILL_BOT_CAP_CY)
+pill_left_x = pill_cx - pill_half_short     # [15.3 mm](PILL_LEFT_X)
+pill_right_x = pill_cx + pill_half_short    # [22.55 mm](PILL_RIGHT_X)
 
-# Fixed purchased circular outline in the DXF frame. These dimensions retain
-# the stock drawing's centre and diameter independently of printed passages.
-# [54.45 mm](PLATE_D) disc centered at DXF ([3.225 mm](DISC_CX), 0).
+# Circular bearing outline spans the countertop opening and both channels.
+# [54.55 mm](PLATE_D) disc centered at DXF ([3.275 mm](DISC_CX), 0).
 bore_front_x = -16.0   # [-16 mm](BORE_FRONT_X)
 disc_reach_margin = 8.0
 disc_cx = (pill_right_x + bore_front_x) / 2.0
@@ -160,7 +161,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.225 mm](DISC_CX), [27.23 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.275 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
@@ -169,13 +170,13 @@ def make_dxf():
     shank_left_wall_top = (shank_left_wall_x, shank_cy)                # ([-6.3 mm](SHANK_LEFT_WALL_X), 0)
     shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
-    # edge (Y = pill_bot_cap_cy = [-3.175 mm](PILL_BOT_CAP_CY)) to the rim,
-    # width [7.05 mm](PILL_W) in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    # edge (Y = pill_bot_cap_cy = [-5.45 mm](PILL_BOT_CAP_CY)) to the rim,
+    # width [7.25 mm](PILL_W) in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-5.45 mm](PILL_BOT_CAP_CY))
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-5.45 mm](PILL_BOT_CAP_CY))
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [5.45 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [5.45 mm](PILL_TOP_CAP_CY))
 
     disc_center = (disc_cx, disc_cy)
 

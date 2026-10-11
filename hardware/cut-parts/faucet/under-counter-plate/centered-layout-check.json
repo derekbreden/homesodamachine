@@ -1,0 +1,191 @@
+{
+  "scope": "Manual centered mounting-layout and full plate-slide review. This does not qualify clamp capacity, installation force or printed fit.",
+  "coordinate_frame": "World X lateral, Y rearward and Z up; steel DXF (x,y) maps to world (-y,x).",
+  "mounting_axes_xy_mm": {
+    "S": [
+      0.0,
+      0.0
+    ],
+    "F1": [
+      5.45,
+      18.925
+    ],
+    "F2": [
+      -5.45,
+      18.925
+    ],
+    "D": [
+      0.0,
+      18.525
+    ],
+    "SIG": [
+      0.0,
+      21.4875
+    ]
+  },
+  "organizer_axes_xy_mm": {
+    "S": [
+      0.0,
+      0.0
+    ],
+    "F1": [
+      7.85,
+      17.125
+    ],
+    "F2": [
+      -7.85,
+      17.125
+    ],
+    "D": [
+      0.0,
+      16.224999999999998
+    ],
+    "SIG": [
+      0.0,
+      21.4875
+    ]
+  },
+  "organizer_center_xy_mm": [
+    0.0,
+    10.361697080291972
+  ],
+  "production_plate": {
+    "material": "316 stainless steel",
+    "thickness_mm": 1.524,
+    "outline_diameter_mm": 54.55,
+    "outline_center_world_xy_mm": [
+      0,
+      3.2750000000000004
+    ],
+    "shank_pocket_mm": 12.6,
+    "rear_terminal_pocket_mm": [
+      18.15,
+      7.25
+    ],
+    "rear_center_world_xy_mm": [
+      0,
+      18.925
+    ],
+    "channel_mouth_round_mm": 1.5
+  },
+  "readings": {
+    "motion:under-counter-plate-slide": {
+      "relative_plate_motion_xyz_mm": [
+        [
+          -60.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "complete_steel_thickness_mm": 1.524,
+      "countertop_thickness_range_mm": [
+        19.0,
+        38.0
+      ],
+      "complete_plate_depth_envelope_z_mm": [
+        -45.524,
+        -25.0
+      ],
+      "installed_nominal_plate_outside_depth_envelope_mm3": 0.0,
+      "required_cad_gap_mm": 0.1,
+      "members": {
+        "donor_shank": {
+          "native_member_section_valid": true,
+          "native_member_outside_bound_mm3": 0.0,
+          "section_center_xy_mm": [
+            0.0,
+            0.0
+          ],
+          "section_bounds_mm": [
+            11.0,
+            11.0
+          ],
+          "continuous_sweep_steel_overlap_mm3": 0.0,
+          "minimum_continuous_sweep_gap_mm": 0.8,
+          "starting_position_steel_overlap_mm3": 0.0,
+          "passed": true
+        },
+        "flavor_a": {
+          "native_member_section_valid": true,
+          "native_member_outside_bound_mm3": 0.0,
+          "section_center_xy_mm": [
+            5.45,
+            18.925
+          ],
+          "section_bounds_mm": [
+            6.35,
+            6.35
+          ],
+          "continuous_sweep_steel_overlap_mm3": 0.0,
+          "minimum_continuous_sweep_gap_mm": 0.45,
+          "starting_position_steel_overlap_mm3": 0.0,
+          "passed": true
+        },
+        "flavor_b": {
+          "native_member_section_valid": true,
+          "native_member_outside_bound_mm3": 0.0,
+          "section_center_xy_mm": [
+            -5.45,
+            18.925
+          ],
+          "section_bounds_mm": [
+            6.35,
+            6.35
+          ],
+          "continuous_sweep_steel_overlap_mm3": 0.0,
+          "minimum_continuous_sweep_gap_mm": 0.45,
+          "starting_position_steel_overlap_mm3": 0.0,
+          "passed": true
+        },
+        "drain": {
+          "native_member_section_valid": true,
+          "native_member_outside_bound_mm3": 0.0,
+          "section_center_xy_mm": [
+            0.0,
+            18.525
+          ],
+          "section_bounds_mm": [
+            4.0,
+            4.0
+          ],
+          "continuous_sweep_steel_overlap_mm3": 0.0,
+          "minimum_continuous_sweep_gap_mm": 1.225,
+          "starting_position_steel_overlap_mm3": 0.0,
+          "passed": true
+        },
+        "ribbon": {
+          "native_member_section_valid": true,
+          "native_member_outside_bound_mm3": 0.0,
+          "section_center_xy_mm": [
+            0.0,
+            21.4875
+          ],
+          "section_bounds_mm": [
+            4.6,
+            1.18
+          ],
+          "continuous_sweep_steel_overlap_mm3": 0.0,
+          "minimum_continuous_sweep_gap_mm": 0.4725,
+          "starting_position_steel_overlap_mm3": 0.0,
+          "passed": true
+        }
+      },
+      "method": "The production DXF profile is extruded through the union of all steel positions for the 19\u201338 mm routing envelope. Native member intersections through that complete depth range are contained in circular or rectangular bounds. Exact continuous +X sweeps of those bounds clear this conservative steel envelope for the entire 60 mm installation travel at every intermediate slab thickness.",
+      "scope": "Tube/cable clearance and plate slide within the routing envelope. This does not establish maximum clampable countertop thickness or donor thread engagement. Physical tolerances, cut-edge finish, hand access and installation force require the cut plate and completed faucet.",
+      "passed": true
+    }
+  },
+  "source_sha256": {
+    "hardware/scripts/check_faucet_geometry.py": "849ac6051df29486ffdc4885ecd7bb1dd7afa79d85bb8f2a9455a59dce17435e",
+    "hardware/printed-parts/faucet/faucet_paths.py": "6f716f7d3f5e4dd237d82adc69cecc0225d7500c14f87b7a89d8613269c62c27",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
+    "hardware/faucet-layout/faucet_assembly.py": "ebc1ef1c0a35f3dd66bfa6c37826ddb27bf146396188bee1d73fa3da3e2aa4e7",
+    "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": "6bf1410e83c47411e930a301fad40412326fa1f4c6b76bbc007cbba5fc4af59c",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "bea8748387226744a3d4d99e6ad979e9c4546b03000a7ac25ff5096cc7cfcace"
+  }
+}

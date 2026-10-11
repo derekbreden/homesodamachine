@@ -18,6 +18,11 @@ There is no machine on the market that gives a home user this experience — tur
 
 See `marketing/target-market.md` for details.
 
+## Purchases
+
+Derek makes all purchases. Agents make recommendations and may prepare carts
+for his review; they do not place orders or complete payments.
+
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.

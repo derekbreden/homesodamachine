@@ -45,7 +45,8 @@ at Z=−88 mm and bottom at Z=−98 mm. That puts its top 50.476 mm below the
 steel plate for the illustrated 30 mm slab, or 42.476 mm below the plate for a
 38 mm slab. These are modeled gaps, not a reported washer/nut access result.
 The rear passages follow the plate's F1–D–F2 row, with the flat ribbon behind D.
-The soda bore stays on the shank axis. Relative to the mounting row, each flavor
+The soda bore stays on the shank axis. Soda, drain, ribbon and the round stock
+share X=0; the flavors are equally spaced on either side. Relative to the mounting row, each flavor
 bore is [2.4 mm](ORGANIZER_FLAVOR_SPREAD) farther outward along X and
 [1.8 mm](ORGANIZER_FLAVOR_FORWARD) forward along Y; D is
 [2.3 mm](ORGANIZER_DRAIN_FORWARD) forward. The signal slot is directly under its
@@ -58,8 +59,8 @@ The minimum material requirement is [1.5 mm](ORGANIZER_MIN_MATERIAL), measured
 edge to edge between every passage and from each passage to the outside,
 including both entrance chamfers and the outer rim chamfers. At the flat faces,
 the drain-to-ribbon web is 1.5625 mm, either flavor-to-drain web is 1.5764 mm,
-and each beverage bore has 1.6140 mm to the outside. Those figures increase
-through the straight portion to 2.1625, 2.3764 and 2.2140 mm respectively.
+and each beverage bore has 1.7133 mm to the outside. Those figures increase
+through the straight portion to 2.1625, 2.3764 and 2.3133 mm respectively.
 The [manual integration check](integration-check.json) records every passage
 pair and exterior wall. These are geometric thicknesses; physical load capacity
 and endurance are unmeasured.

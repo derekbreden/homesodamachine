@@ -51,8 +51,8 @@ drain_tube_x = bundle_mount_x
 drain_tube_y = _paths.LOWER_DRAIN_Y
 drain_tube_hole_dia = drain_tube_od + flavor_tube_hole_clearance
 
-# The rounded printed passage surrounds the rear bundle. The purchased
-# steel plate admits its positive-X side through an open mounting channel.
+# The centered rear passage surrounds both flavors, the drain and ribbon.
+# The steel plate opens toward +X for the complete bundle's sideways slide.
 bundle_slot_left_x = bundle_mount_x - pill_length_x / 2.0
 bundle_slot_right_x = bundle_mount_x + pill_length_x / 2.0
 bundle_slot_length_x = bundle_slot_right_x - bundle_slot_left_x
