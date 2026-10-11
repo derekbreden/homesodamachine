@@ -5,42 +5,42 @@
 .material-search label { display: grid; gap: 9px; font-size: 15px; font-weight: 600; }
 .material-search input { box-sizing: border-box; width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 9px; padding: 13px 15px; font: inherit; background: var(--surface); color: var(--text); }
 .material-search input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-.material-search-status { margin: 8px 0; font-size: 12px; color: var(--text-3); }
+.material-search-status { margin: 8px 0; font-size: 0.75rem; color: var(--text-3); }
 .material-search-status:empty { display: none; }
 .material-search-results { max-height: 390px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); touch-action: pan-y; }
 .material-search-results a { display: grid; gap: 4px; padding: 13px 15px; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--text); overflow-wrap: anywhere; }
 .material-search-results a:hover, .material-search-results a:focus-visible { background: var(--bg); }
-.material-search-results strong { font-size: 13px; font-weight: 600; }
-.material-search-results span { color: var(--text-3); font-size: 11px; }
+.material-search-results strong { font-size: 0.82rem; font-weight: 600; }
+.material-search-results span { color: var(--text-2); font-size: 0.72rem; }
 .material-catalog-status { grid-column: 1 / -1; color: var(--text-3); }
 .cad-workspace { display: flex; position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; }
 .cad-workspace > .cad-wrapper { flex: 1; width: auto; min-width: 0; }
 .material-panel { box-sizing: border-box; flex: 0 0 370px; width: 370px; min-width: 0; height: 100%; background: var(--surface); color: var(--text); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding-top: 52px; touch-action: pan-y; }
 .cad-workspace:not(.materials-open) > .material-panel { display: none; }
 .material-panel > .material-search { width: auto; padding: 0 16px 12px; flex-shrink: 0; }
-.material-panel .material-search label { font-size: 11px; }
-.material-panel .material-search input { font-size: 12px; padding: 10px; background: var(--bg); }
-.material-panel .material-search-results { position: absolute; top: 62px; left: 16px; right: 16px; max-height: min(45vh, 360px); z-index: 40; box-shadow: 0 8px 30px #0004; }
+.material-panel .material-search label { font-size: 0.8rem; }
+.material-panel .material-search input { font-size: 0.8rem; padding: 10px; background: var(--bg); }
+.material-panel .material-search-results { position: absolute; top: 100%; left: 16px; right: 16px; max-height: min(45vh, 360px); z-index: 40; box-shadow: 0 8px 30px #0004; }
 .material-panel-scroll { overflow-y: auto; overscroll-behavior: contain; flex: 1; min-height: 0; touch-action: pan-y; padding-bottom: 30px; }
 .material-head-host, .material-tabs-host { flex-shrink: 0; }
 .material-panel-head { padding: 12px 16px 14px; }
 .material-panel h2 { font-size: 20px; line-height: 1.25; margin: 7px 0 12px; overflow-wrap: anywhere; }
 .material-panel h3 { margin: 22px 0 10px; font-size: 13px; }
-.material-eyebrow { font: 10px/1.5 ui-monospace, monospace; color: var(--text-3); text-transform: uppercase; letter-spacing: .05em; }
-.material-context { display: block; text-align: left; padding: 0; margin-bottom: 12px; border: 0; background: transparent; color: var(--accent); cursor: pointer; font: inherit; font-size: 11px; }
-.material-meta { display: block; color: var(--text-3); font-size: 11px; line-height: 1.5; margin: 5px 0; }
+.material-eyebrow { font: 0.72rem/1.5 ui-monospace, monospace; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; }
+.material-context { display: block; text-align: left; padding: 0; margin-bottom: 12px; border: 0; background: transparent; color: var(--accent); cursor: pointer; font: inherit; font-size: 0.82rem; }
+.material-meta { display: block; color: var(--text-2); font-size: 0.72rem; line-height: 1.5; margin: 5px 0; }
 .material-actions { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
-.material-actions button, .bom-tools button { border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); padding: 6px 9px; font: inherit; font-size: 11px; cursor: pointer; }
-.material-link { color: var(--accent); text-decoration: none; font-size: 12px; display: inline-block; line-height: 1.6; }
+.material-actions button, .bom-tools button { border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); padding: 6px 9px; font: inherit; font-size: 0.8rem; cursor: pointer; }
+.material-link { color: var(--accent); text-decoration: none; font-size: 0.82rem; display: inline-block; line-height: 1.6; }
 .material-link:hover { text-decoration: underline; }
 .material-tabs { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.material-tabs button { flex: 1; min-height: 43px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-3); font: inherit; font-size: 12px; cursor: pointer; }
+.material-tabs button { flex: 1; min-height: 43px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-2); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-tabs button[aria-selected=true] { border-bottom-color: var(--accent); color: var(--text); background: var(--bg); }
 .material-tab-content { padding: 0 16px; }
-.material-scope, .material-empty, .material-selection-note { color: var(--text-3); font-size: 11px; line-height: 1.65; margin: 14px 0; }
+.material-scope, .material-empty, .material-selection-note { color: var(--text-3); font-size: 0.75rem; line-height: 1.65; margin: 14px 0; }
 .material-selection-note:empty { display: none; }
 .bom-tools { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 9px; }
-.bom-tools > span { font-size: 9px; color: var(--text-3); margin-left: auto; }
+.bom-tools > span { font-size: 0.75rem; color: var(--text-3); margin-left: auto; }
 .bom-tree { margin: 0 -10px; }
 .bom-row { display: flex; align-items: center; gap: 4px; min-height: 50px; border-bottom: 1px solid var(--border); padding-left: calc(min(var(--depth), 5) * 12px); }
 .bom-row.selected { background: color-mix(in srgb, var(--accent) 12%, transparent); border-radius: 5px; }
@@ -48,18 +48,19 @@
 .bom-disclosure:disabled { color: var(--text-3); cursor: default; }
 .bom-select { flex: 1; min-width: 0; display: grid; gap: 3px; padding: 8px 2px; text-align: left; border: 0; background: transparent; font: inherit; color: var(--text); cursor: pointer; }
 .bom-select:hover .bom-description { color: var(--accent); }
-.bom-description { font-size: 11px; line-height: 1.45; }
-.bom-number { color: var(--text-3); font: 9px/1.3 ui-monospace, monospace; }
-.bom-quantity { flex: 0 0 46px; font-size: 10px; text-align: right; padding: 0 7px 0 0; color: var(--text-3); }
-.material-source { display: inline-block; margin-top: 14px; color: var(--text-3); font-size: 10px; }
+/* Text roles share the cost page's label, value, metadata and note scale. */
+.bom-description { font-size: 0.82rem; line-height: 1.45; }
+.bom-number { color: var(--text-2); font: 0.72rem/1.3 ui-monospace, monospace; }
+.bom-quantity { flex: 0 0 3.5rem; font-size: 0.8rem; text-align: right; padding: 0 7px 0 0; color: var(--text); font-variant-numeric: tabular-nums; }
+.material-source { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 0.75rem; }
 .material-used { padding: 15px 0; border-bottom: 1px solid var(--border); }
-.material-path { font-size: 10px; line-height: 1.7; color: var(--text-3); margin: 6px 0 0; overflow-wrap: anywhere; }
+.material-path { font-size: 0.72rem; line-height: 1.7; color: var(--text-2); margin: 6px 0 0; overflow-wrap: anywhere; }
 .material-document { display: grid; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--border); color: var(--text); text-decoration: none; }
 .material-document:hover strong { color: var(--accent); }
-.material-document strong { font-size: 12px; font-weight: 500; }
-.material-document span { color: var(--text-3); font-size: 10px; }
+.material-document strong { font-size: 0.82rem; font-weight: 500; }
+.material-document span { color: var(--text-2); font-size: 0.72rem; }
 .material-related { display: grid; padding: 9px 0; border-bottom: 1px solid var(--border); }
-.materials-toggle { position: absolute; top: 12px; right: 58px; z-index: 42; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); font: inherit; font-size: 11px; cursor: pointer; }
+.materials-toggle { position: absolute; top: 12px; right: 58px; z-index: 42; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .cv-card:has(.cad-workspace) > .cv-close { z-index: 43; }
 .material-record-workspace { width: 100%; height: 100%; display: flex; justify-content: center; overflow: hidden; background: var(--bg); }
 .material-record-workspace > .material-panel { width: min(100%, 740px); flex-basis: 740px; border: 0; padding-top: 64px; }
@@ -73,7 +74,6 @@
   .material-panel > .material-search { padding-bottom: 5px; }
   .material-panel .material-search label { gap: 5px; }
   .material-panel .material-search input { padding: 8px 10px; }
-  .material-panel .material-search-results { top: 52px; }
   .material-record-workspace > .material-panel { flex-basis: 100%; width: 100%; }
   .materials-toggle { right: 53px; top: 14px; }
 }
