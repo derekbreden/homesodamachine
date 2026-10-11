@@ -904,8 +904,7 @@ def _write_payload_beside(target_path, source=None):
     #
     # LEFT FOR ITS OWN CUTTER, WHICH IS `//:flute-payload` and takes the `.stl` as its input. A
     # payload of older descent still draws flutes; this writer's would draw none, and a stale
-    # surface is nearer the part than a surface the part does not have. `check_flutes` reads
-    # the distance either way.
+    # surface is nearer the part than a surface the part does not have.
     if target.with_suffix(".stl").is_file():
         return
     mesh = target.with_name(target.name + ".mesh")
