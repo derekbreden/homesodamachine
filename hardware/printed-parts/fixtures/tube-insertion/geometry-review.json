@@ -1,7 +1,7 @@
 {
-  "schema": 1,
-  "scope": "Manual dimensional and B-rep fit review of the requested tube-insertion tool",
-  "source_sha256": "6ae6b176e90e2fd07caeb04a713c553ccd9758dd0907fe1a9f8a0f864225acc2",
+  "schema": 2,
+  "scope": "Manual dimensional and B-rep fit review of twin screw-clamp fixture; schematic factory envelopes are not measured manufacturer CAD",
+  "source_sha256": "5882aacba77227766e73a3cbed410e1b3e8a96408a4b3908a2fe33e722afd003",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
@@ -13,68 +13,45 @@
       "solid_count": 1,
       "bbox": {
         "min_mm": [
-          -12.0,
-          -36.0,
+          -28.0,
+          -100.0,
           0.0
         ],
         "max_mm": [
-          196.0,
-          198.0,
-          49.0
+          244.5,
+          134.0,
+          54.0
         ],
         "size_mm": [
-          208.0,
+          272.5,
           234.0,
-          49.0
+          54.0
         ]
       },
-      "volume_mm3": 439655.6407656966
+      "volume_mm3": 665500.6105807713
     },
     {
-      "part": "ram",
+      "part": "carrier",
       "valid_brep": true,
       "solid_count": 1,
       "bbox": {
         "min_mm": [
           -38.5,
-          -32.0,
+          -50.0,
           0.0
         ],
         "max_mm": [
-          52.0,
-          32.0,
-          28.0
+          124.0,
+          50.0,
+          10.0
         ],
         "size_mm": [
-          90.5,
-          64.0,
-          28.0
+          162.5,
+          100.0,
+          10.0
         ]
       },
-      "volume_mm3": 62120.0
-    },
-    {
-      "part": "press-lever",
-      "valid_brep": true,
-      "solid_count": 1,
-      "bbox": {
-        "min_mm": [
-          -12.000000000000002,
-          -42.0,
-          0.0
-        ],
-        "max_mm": [
-          12.000000000000002,
-          132.0,
-          8.0
-        ],
-        "size_mm": [
-          24.000000000000004,
-          174.0,
-          8.0
-        ]
-      },
-      "volume_mm3": 30818.118858582748
+      "volume_mm3": 87191.85022915751
     },
     {
       "part": "lower-jaw",
@@ -83,21 +60,21 @@
       "bbox": {
         "min_mm": [
           0.0,
-          -38.5,
+          -50.0,
           0.0
         ],
         "max_mm": [
           38.5,
-          38.5,
-          11.0
+          50.0,
+          15.0
         ],
         "size_mm": [
           38.5,
-          77.0,
-          11.0
+          100.0,
+          15.0
         ]
       },
-      "volume_mm3": 20295.91242918774
+      "volume_mm3": 41952.480913681684
     },
     {
       "part": "upper-jaw",
@@ -106,21 +83,21 @@
       "bbox": {
         "min_mm": [
           0.0,
-          -38.5,
-          -5.329070518200751e-15
+          -50.0,
+          -6.917397473272781e-15
         ],
         "max_mm": [
           38.5,
-          38.5,
-          11.000000000000005
+          50.0,
+          15.000000000000007
         ],
         "size_mm": [
           38.5,
-          77.0,
-          11.00000000000001
+          100.0,
+          15.000000000000014
         ]
       },
-      "volume_mm3": 20295.91242918774
+      "volume_mm3": 43767.406073645565
     },
     {
       "part": "liner",
@@ -176,11 +153,11 @@
     ],
     "increment_mm": 0.5,
     "states": 41,
-    "pairwise_bounds_reviews": 7790,
-    "brep_intersection_queries": 1948,
+    "pairwise_bounds_reviews": 21648,
+    "brep_intersection_queries": 2460,
     "unintended_intersections": [],
     "tube_length_mm": 330.0,
-    "included": "All rigid parts, donor, 330 mm tube, liners, thimble, three screws, four nuts and three washers",
+    "included": "All printed rigid parts, reference donor, full tube, liners, thimble, four screws, four nuts, two washers, and schematic factory clamps",
     "intentional_interference": [
       {
         "parts": [
@@ -198,13 +175,59 @@
       },
       {
         "parts": [
-          "sealing-thimble",
-          "touch-flo-donor"
+          "touch-flo-donor",
+          "tpu-sealing-thimble"
         ],
-        "reason": "Nominal expanded TPU overlaps the port before elastic compression; no deformation solution"
+        "reason": "Expanded TPU overlaps nominal port before elastic compression; no deformation solution"
       }
     ]
   },
+  "factory_bearing_review": [
+    {
+      "station": "C1",
+      "role": "fixed",
+      "contact_center_mm": [
+        -26.0,
+        -23.25,
+        30.0
+      ],
+      "pad_envelope_diameter_mm": 30.0,
+      "missing_backing_mm3_in_0p1mm_slab": 0.0
+    },
+    {
+      "station": "C1",
+      "role": "moving",
+      "contact_center_mm": [
+        96.5,
+        -23.25,
+        30.0
+      ],
+      "pad_envelope_diameter_mm": 30.0,
+      "missing_backing_mm3_in_0p1mm_slab": 0.0
+    },
+    {
+      "station": "C2",
+      "role": "fixed",
+      "contact_center_mm": [
+        -26.0,
+        40.75,
+        30.0
+      ],
+      "pad_envelope_diameter_mm": 30.0,
+      "missing_backing_mm3_in_0p1mm_slab": 0.0
+    },
+    {
+      "station": "C2",
+      "role": "moving",
+      "contact_center_mm": [
+        96.5,
+        40.75,
+        30.0
+      ],
+      "pad_envelope_diameter_mm": 30.0,
+      "missing_backing_mm3_in_0p1mm_slab": 0.0
+    }
+  ],
   "location_and_grip": {
     "tube_axis_yz_mm": [
       8.75,
@@ -212,38 +235,57 @@
     ],
     "donor_round_base_tangent_floor_z_mm": 14.25,
     "donor_flat_clocking_pad_z_mm": 21.5,
-    "lower_jaw_supported_shelf_z_mm": 19.0,
-    "guide_bearing_span_mm": 52.0,
-    "guide_lateral_gap_each_mm": 0.2,
+    "lower_jaw_shelf_z_mm": 15.0,
+    "guide_bearing_span_mm": 124.0,
+    "guide_lateral_gap_each_mm": 0.1,
+    "carrier_foot_final_x_range_mm": [
+      96.5,
+      220.5
+    ],
+    "carrier_foot_initial_x_range_mm": [
+      116.5,
+      240.5
+    ],
+    "nominal_guide_only_lip_play_final_mm": 0.19274193548387097,
+    "nominal_guide_only_lip_play_initial_mm": 0.225,
+    "guide_play_scope": "Geometric free play with lower jaw metal-coupled without slip; not an interfering sleeve's measured working alignment allowance",
     "grip_bore_mm": 9.25,
     "tube_od_mm": 9.525,
-    "nominal_diameter_reduction_percent": 2.887139107611547,
     "liner_grip_length_mm": 28.0,
     "jaw_pocket_front_end_wall_mm": 3.35,
     "jaw_pocket_rear_end_wall_mm": 6.85,
-    "jaw_pocket_backing_mm": 3.0,
+    "jaw_pocket_backing_mm": 7.0,
     "liner_minimum_backing_mm": 3.375,
     "liner_end_contact_area_mm2": 126.39968482215292,
-    "liner_print_pose": "Tube axis vertical; thick premolded half-round block, no bending or wrapping",
+    "carrier_countersink_retained_shelf_mm": 4.65,
+    "carrier_nut_floor_mm": 9.0,
+    "carrier_screw_tip_z_mm": 28.2,
+    "carrier_screw_tip_relief_mm": 1.8000000000000007,
+    "carrier_countersink_radial_stock_mm": 4.9,
+    "carrier_nut_z_range_mm": [
+      24.0,
+      28.0
+    ],
+    "liner_print_pose": "Tube axis vertical; thick preformed half-round block; no bending or wrapping",
     "clamp_front_final_x_mm": 58.0,
     "arch_axial_clearance_mm": 12.0,
-    "bare_tube_to_rigid_jaw_radial_clearance_mm": 0.6375000000000002,
-    "tube_to_ram_open_slot_each_side_mm": 2.2375,
-    "bolt_head_to_stop_vertical_clearance_mm": 1.0,
-    "jaw_bottom_to_guide_top_clearance_mm": 1.0
+    "factory_pad_to_shank_slot_near_clearance_mm": 2.3500000000000014
   },
   "setup": {
-    "bore_depth": "Measure actual annular floor depth D in the bare donor with the existing caliper; source records at least 20 mm",
+    "bore_depth": "Measure actual bare donor annular floor depth D with existing caliper; source records at least 20 mm",
     "lip_witness_from_tube_end_mm": "D - 2.1",
     "jaw_front_witness_from_tube_end_mm": "D + 16.9",
-    "initial_manual_engagement_for_depth_over_20_mm": "D - 20, with the T handle, before the collar fits the ram at the rear start stop",
-    "stop_scope": "Geometric overtravel limit; sleeve cap compression, grip, full seating and leak tightness require physical assembly observations"
+    "initial_manual_engagement_for_depth_over_20_mm": "D - 20 with T handle before carrier reaches rear stop",
+    "stop_scope": "Geometric overtravel limit; no force holding, seating or leak-tightness rating",
+    "factory_clamp_check": "On ordinary unloaded setup, both actual pads remain fully backed at stations and each spindle covers the full20mm stroke without manual sliding-jaw repositioning",
+    "lever_check": "Attached faucet lever stays down at unpressed rest, untouched through the full ordinary unloaded movement; no measured rigid pose is inferred"
   },
   "evidence_limits": [
-    "Print and physical grip unqualified; no load capacity or lifetime is established",
-    "The accepted faucet lever has no measured assembled rigid pose; its down unpressed rest position is the user's operating authority",
-    "The fixture leaves the original front side open and locates only the donor's metal base and lower column; it does not model a fabricated faucet-lever pose",
-    "B-rep travel samples do not establish fit after printing or continuous contact mechanics",
-    "The sleeve is fitted to the tube first, with tube end on sleeve cap; the sleeved tube enters the bare donor"
+    "Insertion force, as-printed strength, grip, sliding fit and lifetime are unmeasured",
+    "PET-GF15 manufacturer mechanical coupons were annealed120C16h; no published number is an as-printed allowable",
+    "Manufacturer600lb clamp force does not rate the printed fixture, donor, tube or grip",
+    "No assembled faucet lever pose is invented; a low narrow forward shelf and rearward full-width guides preserve front access",
+    "Factory pads, rail, spindle and handles use schematic envelopes, requiring ordinary actual-tool setup",
+    "The sleeve is fitted to tube first, with tube end on cap; the sleeved tube enters the bare donor"
   ]
 }

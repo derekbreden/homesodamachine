@@ -57,20 +57,20 @@
   "plate_count": 1,
   "parts": [
     {
-      "name": "C press lever",
+      "name": "B guided carrier",
       "plate": 1,
       "object_id": "2",
       "part_id": "1",
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
-      "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-press-lever-print.stl",
-      "stl_sha256": "a6071e2fa03b7ebb998ade4acad0c0483e4443c955345f8167adc34ca2069dfc",
-      "triangles": 1508,
+      "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier-print.stl",
+      "stl_sha256": "774508d21a6a5c2bd4bf011a3580208d02cc9507df3b1582be7ebe3efc3eb060",
+      "triangles": 4252,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
+        42.75,
         0.0,
-        44.998817443847656,
-        4.0
+        5.0
       ],
       "build_transform": [
         1.0,
@@ -82,14 +82,14 @@
         0.0,
         -0.0,
         1.0,
-        87.875,
-        160.0,
-        4.0
+        162.5,
+        218.0,
+        5.0
       ],
       "plate_translation_mm": [
-        87.875,
-        160.0,
-        4.0
+        162.5,
+        218.0,
+        5.0
       ],
       "plate_origin_mm": [
         0.0,
@@ -98,19 +98,19 @@
       ],
       "plate_bounds_mm": [
         [
-          75.875,
-          73.00118255615234,
+          81.25,
+          168.0,
           0.0
         ],
         [
-          99.875,
-          246.99881744384766,
-          8.0
+          243.75,
+          268.0,
+          10.0
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.931646202521733e-10
+      "embedded_vertex_error_mm": 5.000018177270249e-10
     },
     {
       "name": "D lower jaw",
@@ -120,13 +120,13 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl",
-      "stl_sha256": "36f0cb5f1e95a83b60e095e38c37f423ba9ec74a44d484ab7e47029e6b92460e",
-      "triangles": 1956,
+      "stl_sha256": "68cdf5482609b2618272730416df8ff87310b4d3b1e2bb2e4773d8a867d18093",
+      "triangles": 4596,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         19.25,
         0.0,
-        5.5
+        7.5
       ],
       "build_transform": [
         1.0,
@@ -138,14 +138,14 @@
         0.0,
         -0.0,
         1.0,
-        128.875,
-        205.0,
-        5.5
+        102.5,
+        106.0,
+        7.5
       ],
       "plate_translation_mm": [
-        128.875,
-        205.0,
-        5.5
+        102.5,
+        106.0,
+        7.5
       ],
       "plate_origin_mm": [
         0.0,
@@ -154,14 +154,14 @@
       ],
       "plate_bounds_mm": [
         [
-          109.625,
-          166.5,
+          83.25,
+          56.0,
           0.0
         ],
         [
-          148.125,
-          243.5,
-          11.0
+          121.75,
+          156.0,
+          15.0
         ]
       ],
       "watertight": true,
@@ -176,13 +176,13 @@
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl",
-      "stl_sha256": "398a4936188ab327e93a3b422114d307ed6c6dd6382191a2d61352e8c7392991",
-      "triangles": 1956,
+      "stl_sha256": "f0382002e237b6db719ebcd43c837396dea3b5cf662ea4c1992e11ed5ec30bc9",
+      "triangles": 1988,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         19.25,
         0.0,
-        5.499999999999997
+        7.499999999999997
       ],
       "build_transform": [
         1.0,
@@ -194,14 +194,14 @@
         0.0,
         -0.0,
         1.0,
-        128.875,
-        115.0,
-        5.500000000000003
+        162.5,
+        106.0,
+        7.500000000000003
       ],
       "plate_translation_mm": [
-        128.875,
-        115.0,
-        5.500000000000003
+        162.5,
+        106.0,
+        7.500000000000003
       ],
       "plate_origin_mm": [
         0.0,
@@ -210,14 +210,14 @@
       ],
       "plate_bounds_mm": [
         [
-          109.625,
-          76.5,
+          143.25,
+          56.0,
           0.0
         ],
         [
-          148.125,
-          153.5,
-          11.000000000000005
+          181.75,
+          156.0,
+          15.000000000000005
         ]
       ],
       "watertight": true,
@@ -225,68 +225,12 @@
       "embedded_vertex_error_mm": 4.999982650133461e-10
     },
     {
-      "name": "B guided ram",
+      "name": "G sleeve support puck",
       "plate": 1,
       "object_id": "8",
       "part_id": "7",
       "member": "3D/Objects/object_4.model",
       "identify_id": 1904,
-      "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-ram-print.stl",
-      "stl_sha256": "6cb0ed09ab4e9f771e46496523d1c5498f972bbea3a26c65a47277d230bce2d1",
-      "triangles": 56,
-      "rotation_x_degrees": 0.0,
-      "source_center_mm": [
-        6.75,
-        0.0,
-        14.0
-      ],
-      "build_transform": [
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        -0.0,
-        1.0,
-        203.875,
-        209.0,
-        14.0
-      ],
-      "plate_translation_mm": [
-        203.875,
-        209.0,
-        14.0
-      ],
-      "plate_origin_mm": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "plate_bounds_mm": [
-        [
-          158.625,
-          177.0,
-          0.0
-        ],
-        [
-          249.125,
-          241.0,
-          28.0
-        ]
-      ],
-      "watertight": true,
-      "body_count": 1,
-      "embedded_vertex_error_mm": 0.0
-    },
-    {
-      "name": "G sleeve support puck",
-      "plate": 1,
-      "object_id": "10",
-      "part_id": "9",
-      "member": "3D/Objects/object_5.model",
-      "identify_id": 1905,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-cap-support-puck-print.stl",
       "stl_sha256": "db66c62fa1eac4a0c6452c7e08c5ff69442bfee0c09d7ae9aa7e1689c320b2c5",
       "triangles": 1280,
@@ -306,12 +250,12 @@
         0.0,
         -0.0,
         1.0,
-        186.875,
+        227.5,
         120.0,
         4.0
       ],
       "plate_translation_mm": [
-        186.875,
+        227.5,
         120.0,
         4.0
       ],
@@ -322,12 +266,12 @@
       ],
       "plate_bounds_mm": [
         [
-          159.875,
+          200.5,
           93.0,
           0.0
         ],
         [
-          213.875,
+          254.5,
           147.0,
           8.0
         ]
@@ -337,7 +281,7 @@
       "embedded_vertex_error_mm": 4.885252202768697e-10
     }
   ],
-  "project_sha256": "b41e33920a89b49c611483dec8e4ef0910882f69fe975fbb0956c832c37259e9",
+  "project_sha256": "ef5a0647c51006fe677f0d03de7b2b6b892f6a12622b3750d13b89289a195b5a",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,

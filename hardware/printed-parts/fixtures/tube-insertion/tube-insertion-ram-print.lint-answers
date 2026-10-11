@@ -1,5 +1,0 @@
-[thin] Both picks measure along the exterior step at X0 where the 11 mm high jaw-support shelf meets the fork's inner edges at Y±7. The paired opposite-normal faces are coplanar. Every point along each reported 0.360/0.376 mm chord lies on the analytic solid's exterior boundary, rather than through a thin wall. The continuous stock is an 11 mm high shelf, a 6 mm foot and two 25 mm wide driving fingers; the square shelf top supports the jaw at its required tube-axis height.
-alternatives: Extending the 11 mm shelf into the central fork slot replaces the 6 mm floor and reduces the open feed-lane clearance by 5 mm without thickening an existing narrow ligament. Filling the central slot to the fork height blocks the tube. Keeping the square stock preserves the flat jaw support and open tube passage.
-file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-ram.step
-click: x=0.000 y=-6.645 z=10.940
-click: x=0.000 y=6.794 z=10.685

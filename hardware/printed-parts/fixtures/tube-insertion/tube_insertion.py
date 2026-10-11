@@ -1,4 +1,4 @@
-"""Horizontal tube-insertion T handle and guided bench press.
+"""Horizontal tube-insertion T handle and twin steel screw-clamp fixture.
 
 Fixture frame: X is the insertion axis, positive from the donor toward the
 free tube. Y is lateral. Z is up from the printed base. The workpiece moves
@@ -81,17 +81,17 @@ SLEEVE_CAP_H = _sleeve["cap_thickness"]
 SLEEVE_CAP_HOLE = _sleeve["cap_hole_diameter"]
 SLEEVE_LENGTH = _sleeve["cap_thickness"] + _sleeve["cylinder_length"]
 
-BASE_X0, BASE_X1 = -12.0, 196.0
-BASE_Y0, BASE_Y1 = -36.0, 198.0
+BASE_X0, BASE_X1 = -28.0, 244.5
+BASE_Y0, BASE_Y1 = -100.0, 134.0
 BASE_H = 8.0
 TUBE_Z = 30.0
 TUBE_Y = DONOR_PORT_Y
 DONOR_AXIS_Z = TUBE_Z
 SHANK_SLOT_D = DONOR_SHANK_OD + 0.8
 DONOR_NEST_R = DONOR_BODY_OD / 2 + 0.35
-THRUST_WALL_X0, THRUST_WALL_X1 = -12.0, 0.0
-THRUST_WALL_Y_HALF = 19.0
-THRUST_WALL_Z1 = TUBE_Z + 19.0
+THRUST_WALL_X0, THRUST_WALL_X1 = -26.0, 0.0
+THRUST_WALL_Y_HALF = 60.0
+THRUST_WALL_Z1 = 54.0
 NEST_LENGTH = 12.0
 CLOCKING_PAD_X0, CLOCKING_PAD_X1 = 20.0, 26.0
 CLOCKING_PAD_HALF_WIDTH = 8.0
@@ -104,10 +104,10 @@ LINER_START_X = LINER_X0
 LINER_WIDTH = 20.0
 LINER_H = 8.0
 GRIP_BORE_D = 9.25
-JAW_HALF_H = 11.0
+JAW_HALF_H = 15.0
 JAW_CORE_WIDTH = 32.0
-JAW_HANDLE_WIDTH = 77.0
-JAW_HANDLE_START_X = 13.5
+JAW_HANDLE_WIDTH = 100.0
+JAW_HANDLE_START_X = 8.0
 JAW_BACK_H = JAW_HALF_H - LINER_H
 JAW_LINER_AXIAL_CLEARANCE = 0.3
 JAW_LINER_SIDE_CLEARANCE = 0.25
@@ -121,50 +121,49 @@ M5_HEAD_D = 9.0
 M5_HEAD_H = 5.0
 M5_CS_HEAD_D = 10.2
 M5_CS_HEAD_H = (M5_CS_HEAD_D - M5_CLEARANCE_D) / 2
+M5_CS_OWNED_HEAD_D = 9.8
+M5_CS_HEAD_RECESS = (M5_CS_HEAD_D - M5_CS_OWNED_HEAD_D) / 2
 M5_NUT_WIDTH = 8.3
 M5_NUT_H = 4.2
+COUPLING_BOLT_X = 31.0
+COUPLING_BOLT_Y = 40.0
+COUPLING_TOE_R = 10.0
+COUPLING_NUT_Z0 = -6.0
+COUPLING_KEY_X0, COUPLING_KEY_X1 = 26.0, 34.0
+COUPLING_KEY_Y = 12.0
+COUPLING_KEY_W = 6.0
+COUPLING_KEY_H = 3.0
+COUPLING_KEY_CLEARANCE = 0.1
 
-RAM_FINAL_X = CLAMP_BACK_X
-RAM_LENGTH = 26.0
-RAM_FOOT_LENGTH = 52.0
-RAM_BACK_X = RAM_FINAL_X + RAM_LENGTH
-RAM_HALF_WIDTH = 32.0
-RAM_FOOT_H = 6.0
-RAM_BOTTOM_Z = BASE_H
-RAM_GROOVE_HALF = 7.0
-RAM_FORK_HALF_WIDTH = 32.0
-RAM_TOP_Z = TUBE_Z + 6.0
-RAM_SHELF_LENGTH = JAW_LENGTH
-RAM_SHELF_HALF_WIDTH = JAW_CORE_WIDTH / 2
-RAM_SHELF_H = TUBE_Z - JAW_HALF_H - RAM_BOTTOM_Z
-RAIL_LATERAL_GAP = 0.2
+CARRIER_FINAL_X = CLAMP_BACK_X
+CARRIER_LENGTH = 124.0
+CARRIER_HALF_WIDTH = JAW_HANDLE_WIDTH / 2
+CARRIER_FOOT_H = 6.0
+CARRIER_BOTTOM_Z = BASE_H
+CARRIER_JAW_LOCAL_X = CLAMP_FINAL_X - CARRIER_FINAL_X
+CARRIER_SHELF_H = TUBE_Z - JAW_HALF_H - CARRIER_BOTTOM_Z
+RAIL_LATERAL_GAP = 0.1
 RAIL_WIDTH = 8.0
-RAIL_HEIGHT = 10.0
-RAIL_X0 = RAM_FINAL_X - 2.0
-RAIL_X1 = RAM_FINAL_X + RAM_FOOT_LENGTH + 24.0
-STOP_X0 = RAM_FINAL_X - 4.0
-STOP_X1 = RAM_FINAL_X
-STOP_Z1 = BASE_H + 5.0
-STOP_INNER_HALF_WIDTH = RAM_SHELF_HALF_WIDTH + 1.5
+RAIL_HEIGHT = CARRIER_FOOT_H
+RAIL_X0 = CARRIER_FINAL_X - 2.0
+RAIL_X1 = CARRIER_FINAL_X + CARRIER_LENGTH + 22.0
+STOP_X0 = CARRIER_FINAL_X - 4.0
+STOP_X1 = CARRIER_FINAL_X
+STOP_Z1 = BASE_H + CARRIER_FOOT_H
+STOP_INNER_HALF_WIDTH = 16.5
+STOP_OUTER_HALF_WIDTH = 21.0
 PRESS_TRAVEL = 20.0
-REAR_STOP_X0 = RAM_FINAL_X + RAM_FOOT_LENGTH + PRESS_TRAVEL
+REAR_STOP_X0 = CARRIER_FINAL_X + CARRIER_LENGTH + PRESS_TRAVEL
 REAR_STOP_X1 = REAR_STOP_X0 + 4.0
-PRESS_SHORT_ARM = 30.0
-PRESS_HAND_ARM = 120.0
-PRESS_LEVER_WIDTH = 24.0
-PRESS_LEVER_H = 8.0
-PRESS_CAM_R = PRESS_LEVER_WIDTH / 2
-PRESS_STEM_JOIN_Y = -22.0
-PRESS_STEM_JOIN_HALF_WIDTH = 4.0
-PRESS_LEVER_Z0 = TUBE_Z - PRESS_LEVER_H / 2
-PRESS_PIVOT_X = RAM_BACK_X + PRESS_CAM_R
-PRESS_CAM_FINAL_Y = TUBE_Y + 20.0
-PRESS_PIVOT_Y = PRESS_CAM_FINAL_Y + PRESS_SHORT_ARM
-PRESS_PIVOT_Z = TUBE_Z
-PRESS_PIVOT_PLATFORM = 32.0
-PRESS_PIVOT_HOLE_D = 5.6
-PIVOT_COUNTERBORE_D = 9.2
-PIVOT_COUNTERBORE_H = 5.4
+SCREW_OFFSET_Y = 32.0
+FACTORY_CLAMP_CAPACITY = 152.4
+FACTORY_CLAMP_THROAT = 63.5
+# These are ordinary setup envelopes, not manufacturer measured pad/profile CAD.
+FACTORY_PAD_ENVELOPE_D = 30.0
+FACTORY_PAD_SCHEMATIC_H = 4.0
+FACTORY_HANDLE_ENVELOPE_D = 30.0
+FACTORY_CLAMP_URL = "https://www.amazon.com/dp/B000FA0BL8"
+FACTORY_CLAMP_MODEL = "BESSEY GSCC2.506"
 PUCK_SIZE = 54.0
 PUCK_H = 8.0
 PUCK_CAP_RECESS_D = 11.2
@@ -200,17 +199,19 @@ def countersink_from_below(shape, x, y, z0, shank_d=M5_CLEARANCE_D):
 
 
 def build_base():
-    """A: bed-flat base, annular thrust wall, open donor saddle and ram guides."""
+    """A: bed-flat base with short steel-backed reaction block and low guides."""
     base = block(BASE_X0, BASE_X1, BASE_Y0, BASE_Y1, 0, BASE_H)
     thrust = block(THRUST_WALL_X0, THRUST_WALL_X1,
                    -THRUST_WALL_Y_HALF, THRUST_WALL_Y_HALF,
-                   BASE_H, THRUST_WALL_Z1)
+                   0, THRUST_WALL_Z1)
     shank_slot = cylinder_x(THRUST_WALL_X0 - 1, THRUST_WALL_X1 + 1, 0,
                            DONOR_AXIS_Z, SHANK_SLOT_D / 2)
     shank_open = block(THRUST_WALL_X0 - 1, THRUST_WALL_X1 + 1,
                        -SHANK_SLOT_D / 2, SHANK_SLOT_D / 2,
                        DONOR_AXIS_Z, THRUST_WALL_Z1 + 1)
     thrust = thrust.cut(shank_slot.union(shank_open))
+    # Factory fixed jaws back this broad block at the same height as the load.
+    # The base carries location, yaw-guide reactions and bench hold-down loads.
     # A bottom-open semicircular support only locates the robust cylindrical
     # metal base; the flat annular rear face carries the axial insertion load.
     nest = block(0, NEST_LENGTH, -19, 19, BASE_H, DONOR_AXIS_Z)
@@ -224,64 +225,57 @@ def build_base():
                             -CLOCKING_PAD_HALF_WIDTH, CLOCKING_PAD_HALF_WIDTH,
                             BASE_H, CLOCKING_PAD_Z1))
     for side in (-1, 1):
-        y_inner = TUBE_Y + side * (RAM_HALF_WIDTH + RAIL_LATERAL_GAP)
+        y_inner = TUBE_Y + side * (CARRIER_HALF_WIDTH + RAIL_LATERAL_GAP)
         ya, yb = sorted((y_inner, y_inner + side * RAIL_WIDTH))
         base = base.union(block(RAIL_X0, RAIL_X1, ya, yb, BASE_H, BASE_H + RAIL_HEIGHT))
     for side in (-1, 1):
         ya, yb = sorted((TUBE_Y + side * STOP_INNER_HALF_WIDTH,
-                         TUBE_Y + side * RAM_HALF_WIDTH))
+                         TUBE_Y + side * STOP_OUTER_HALF_WIDTH))
         base = base.union(block(STOP_X0, STOP_X1, ya, yb, BASE_H, STOP_Z1))
         base = base.union(block(REAR_STOP_X0, REAR_STOP_X1, ya, yb, BASE_H, STOP_Z1))
-    pedestal = block(PRESS_PIVOT_X - PRESS_PIVOT_PLATFORM / 2,
-                     PRESS_PIVOT_X + PRESS_PIVOT_PLATFORM / 2,
-                     PRESS_PIVOT_Y - PRESS_PIVOT_PLATFORM / 2,
-                     PRESS_PIVOT_Y + PRESS_PIVOT_PLATFORM / 2,
-                     BASE_H, PRESS_LEVER_Z0 - 0.3)
-    base = base.union(pedestal)
-    base = base.cut(vertical_hole(PRESS_PIVOT_X, PRESS_PIVOT_Y, -1,
-                                  PRESS_LEVER_Z0 + 1, PRESS_PIVOT_HOLE_D))
-    base = base.cut(vertical_hole(PRESS_PIVOT_X, PRESS_PIVOT_Y, -0.1,
-                                  PIVOT_COUNTERBORE_H, PIVOT_COUNTERBORE_D))
+    # Small station marks are outside the full circular bearing envelopes.
+    for side in (-1, 1):
+        y = TUBE_Y + side * (SCREW_OFFSET_Y + FACTORY_PAD_ENVELOPE_D / 2 + 1.5)
+        base = base.cut(block(THRUST_WALL_X0 - 0.1, THRUST_WALL_X0 + 0.3,
+                              y - 0.4, y + 0.4, TUBE_Z - 3, TUBE_Z + 3))
     # Optional existing clamps/bolts may use these two open mounting holes.
-    for x, y in ((12.0, 112.0), (170.0, 170.0)):
+    for x, y in ((12.0, 112.0), (170.0, 112.0)):
         base = base.cut(vertical_hole(x, y, -1, BASE_H + 1, 6.0))
     return base
 
 
-def build_ram():
-    """B: one-piece ram; open top and both ends pass the entire free tube."""
-    foot = block(0, RAM_FOOT_LENGTH, -RAM_HALF_WIDTH, RAM_HALF_WIDTH, 0, RAM_FOOT_H)
-    fork_h = RAM_TOP_Z - RAM_BOTTOM_Z
+def build_carrier():
+    """B: long low guide carrier, with a full jaw shelf and two locating keys."""
+    carrier = block(0, CARRIER_LENGTH, -CARRIER_HALF_WIDTH, CARRIER_HALF_WIDTH,
+                    0, CARRIER_FOOT_H)
+    carrier = carrier.union(block(CARRIER_JAW_LOCAL_X, CARRIER_JAW_LOCAL_X + JAW_LENGTH,
+                                   -JAW_CORE_WIDTH / 2, JAW_CORE_WIDTH / 2,
+                                   0, CARRIER_SHELF_H))
     for side in (-1, 1):
-        y0, y1 = sorted((side * RAM_GROOVE_HALF, side * RAM_FORK_HALF_WIDTH))
-        foot = foot.union(block(0, RAM_LENGTH, y0, y1, RAM_FOOT_H, fork_h))
-    # The complete lower jaw rests at the tube's nominal height; the broad
-    # central shelf is open above and leaves both protruding jaw bolt heads clear.
-    foot = foot.union(block(-RAM_SHELF_LENGTH, 0,
-                            -RAM_SHELF_HALF_WIDTH, RAM_SHELF_HALF_WIDTH,
-                            0, RAM_SHELF_H))
-    return foot
+        y = side * COUPLING_BOLT_Y
+        # Round-ended toes provide broad countersunk screw seats beside the
+        # narrow full-length shelf. Actual attached-lever clearance is checked
+        # in ordinary unloaded setup, without inventing an assembled pose.
+        x = CARRIER_JAW_LOCAL_X + COUPLING_BOLT_X
+        toe = cq.Workplane("XY", origin=(x, y, 0)).circle(COUPLING_TOE_R).extrude(CARRIER_SHELF_H)
+        toe = toe.union(block(x, 0, y - COUPLING_TOE_R, y + COUPLING_TOE_R, 0, CARRIER_SHELF_H))
+        carrier = carrier.union(toe)
+        carrier = carrier.cut(vertical_hole(x, y, -1, CARRIER_SHELF_H + COUPLING_KEY_H + 1,
+                                            M5_CLEARANCE_D))
+        carrier = countersink_from_below(carrier, x, y, 0)
+        key_y = side * COUPLING_KEY_Y
+        carrier = carrier.union(block(CARRIER_JAW_LOCAL_X + COUPLING_KEY_X0,
+                                      CARRIER_JAW_LOCAL_X + COUPLING_KEY_X1,
+                                      key_y - COUPLING_KEY_W / 2, key_y + COUPLING_KEY_W / 2,
+                                      CARRIER_SHELF_H, CARRIER_SHELF_H + COUPLING_KEY_H))
+    # Jaw-closure bolt heads remain installed when fitting the carrier.
+    for y in (-CLAMP_BOLT_Y, CLAMP_BOLT_Y):
+        carrier = carrier.cut(vertical_hole(CARRIER_JAW_LOCAL_X + CLAMP_BOLT_X, y,
+                                            -1, CARRIER_SHELF_H + 1, M5_HEAD_D + 1.4))
+    return carrier
 
 
-def build_press_lever():
-    """C: a 4:1 seesaw press lever, printed flat in its bending plane."""
-    bar = block(-PRESS_LEVER_WIDTH / 2, PRESS_LEVER_WIDTH / 2,
-                0, PRESS_HAND_ARM, 0, PRESS_LEVER_H)
-    # The short stem narrows into the circular nose to clear the guided ram
-    # at the start of its sweep. The cam disk itself backs the stem's tip.
-    stem = (cq.Workplane("XY")
-            .polyline([(-PRESS_LEVER_WIDTH / 2, 0), (PRESS_LEVER_WIDTH / 2, 0),
-                       (PRESS_STEM_JOIN_HALF_WIDTH, PRESS_STEM_JOIN_Y),
-                       (-PRESS_STEM_JOIN_HALF_WIDTH, PRESS_STEM_JOIN_Y)])
-            .close().extrude(PRESS_LEVER_H))
-    bar = bar.union(stem)
-    for y in (-PRESS_SHORT_ARM, PRESS_HAND_ARM):
-        end = cq.Workplane("XY", origin=(0, y, 0)).circle(PRESS_LEVER_WIDTH / 2).extrude(PRESS_LEVER_H)
-        bar = bar.union(end)
-    return bar.cut(vertical_hole(0, 0, -1, PRESS_LEVER_H + 1, PRESS_PIVOT_HOLE_D))
-
-
-def build_lower_jaw():
+def build_lower_jaw(with_coupling=True):
     """D: lower T-handle jaw. Hard mating faces limit squeeze to GRIP_BORE_D."""
     jaw = block(0, JAW_LENGTH, -JAW_CORE_WIDTH / 2, JAW_CORE_WIDTH / 2,
                 -JAW_HALF_H, 0)
@@ -298,12 +292,34 @@ def build_lower_jaw():
     jaw = jaw.cut(cylinder_x(-1, JAW_LENGTH + 1, 0, 0, JAW_TUBE_CLEARANCE_D / 2))
     for y in (-CLAMP_BOLT_Y, CLAMP_BOLT_Y):
         jaw = jaw.cut(vertical_hole(CLAMP_BOLT_X, y, -JAW_HALF_H - 1, 1, M5_CLEARANCE_D))
+    # Metal coupling removes a free yaw joint between collar and guide carrier.
+    if with_coupling:
+        for side in (-1, 1):
+            y = side * COUPLING_BOLT_Y
+            key_y = side * COUPLING_KEY_Y
+            jaw = jaw.cut(block(COUPLING_KEY_X0 - COUPLING_KEY_CLEARANCE,
+                                 COUPLING_KEY_X1 + COUPLING_KEY_CLEARANCE,
+                                 key_y - COUPLING_KEY_W / 2 - COUPLING_KEY_CLEARANCE,
+                                 key_y + COUPLING_KEY_W / 2 + COUPLING_KEY_CLEARANCE,
+                                 -JAW_HALF_H - 1, -JAW_HALF_H + COUPLING_KEY_H + COUPLING_KEY_CLEARANCE))
+            jaw = jaw.cut(vertical_hole(COUPLING_BOLT_X, y, -JAW_HALF_H - 1,
+                                        1, M5_CLEARANCE_D))
+            ya, yb = sorted((y - side * M5_NUT_WIDTH / 2, side * (JAW_HANDLE_WIDTH / 2 + 1)))
+            jaw = jaw.cut(block(COUPLING_BOLT_X - M5_NUT_WIDTH / 2,
+                                 COUPLING_BOLT_X + M5_NUT_WIDTH / 2,
+                                 ya, yb, COUPLING_NUT_Z0, COUPLING_NUT_Z0 + M5_NUT_H))
+    # The marks lie outside the Ø30 rear bearing disks; both halves present
+    # one contiguous flat plane across their seam within each disk.
+    for side in (-1, 1):
+        y = side * (SCREW_OFFSET_Y + FACTORY_PAD_ENVELOPE_D / 2 + 1.5)
+        jaw = jaw.cut(block(JAW_LENGTH - 0.3, JAW_LENGTH + 1,
+                             y - 0.4, y + 0.4, -3, 0.1))
     return jaw
 
 
 def build_upper_jaw():
     """E: upper jaw, with flat outside nut/washer faces and upward open print pocket."""
-    return build_lower_jaw().mirror("XY")
+    return build_lower_jaw(with_coupling=False).mirror("XY")
 
 
 def build_liner():
@@ -324,8 +340,7 @@ def build_parts(print_frame=False):
     """Named printable parts; print_frame=True puts each specified bed face at Z=0."""
     parts = {
         "base": build_base(),
-        "ram": build_ram(),
-        "press-lever": build_press_lever(),
+        "carrier": build_carrier(),
         "lower-jaw": build_lower_jaw(),
         "upper-jaw": build_upper_jaw(),
         "liner": build_liner(),
@@ -338,11 +353,6 @@ def build_parts(print_frame=False):
         # The footprint is a solid end face, not the thin wall of a sleeve.
         parts["liner"] = parts["liner"].rotate((0, 0, 0), (0, 1, 0), -90).translate((LINER_H, 0, 0))
     return parts
-
-
-def press_angle(stroke):
-    """Angle above final position for 0..20mm travel; slide stays translational."""
-    return math.degrees(math.asin(stroke / PRESS_SHORT_ARM))
 
 
 def donor_shape():
@@ -374,6 +384,15 @@ def bolt_shape(x, y, head_z, length=50.0):
     return head.union(vertical_hole(x, y, head_z, head_z + length, 5.0))
 
 
+def countersunk_bolt_shape(x, y, top_z, length=20.0):
+    """Owned DIN7991 M5 screw; top_z is its flat underside/print-bed face."""
+    head_h = (9.8 - 5.0) / 2
+    head = cq.Solid.makeCone(9.8 / 2, 5.0 / 2, head_h,
+                             cq.Vector(x, y, top_z), cq.Vector(0, 0, 1))
+    return cq.Workplane("XY").add(head).union(vertical_hole(x, y, top_z + head_h,
+                                                           top_z + length, 5.0))
+
+
 def square_nut_shape(x, y, z0):
     return block(x - 4, x + 4, y - 4, y + 4, z0, z0 + 4).cut(vertical_hole(x, y, z0 - 1, z0 + 5, 5.0))
 
@@ -382,7 +401,50 @@ def washer_shape(x, y, z0):
     return vertical_hole(x, y, z0, z0 + 1.5, 25.0).cut(vertical_hole(x, y, z0 - 1, z0 + 3, 5.5))
 
 
-def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True, depth=DONOR_PORT_DEPTH_MIN):
+def clamp_stations(stroke=0.0):
+    """Factory-pad contact centres; these are fixture stations, not tool CAD."""
+    return [{"name": label, "side": side,
+             "fixed_center_mm": [THRUST_WALL_X0, TUBE_Y + side * SCREW_OFFSET_Y, TUBE_Z],
+             "moving_center_mm": [CLAMP_BACK_X + stroke, TUBE_Y + side * SCREW_OFFSET_Y, TUBE_Z]}
+            for side, label in ((-1, "C1"), (1, "C2"))]
+
+
+def build_clamp_reference(side, stroke=0.0):
+    """Schematic GSCC2.506 steel loop with wood handle; no manufacturer fit CAD.
+
+    Capacity and throat are manufacturer dimensions. Pad, rail, jaw, spindle
+    and handle solids are illustrations/envelopes, not measured reference parts.
+    No printed part captures their proprietary outlines.
+    """
+    if side not in (-1, 1):
+        raise ValueError("clamp side must be -1 or +1")
+    y = TUBE_Y + side * SCREW_OFFSET_Y
+    rail_y = y + side * FACTORY_CLAMP_THROAT
+    x_fixed = THRUST_WALL_X0
+    x_moving = CLAMP_BACK_X + stroke
+    assy = cq.Assembly(name="C1" if side < 0 else "C2")
+    pad_r = FACTORY_PAD_ENVELOPE_D / 2
+    assy.add(cylinder_x(x_fixed - FACTORY_PAD_SCHEMATIC_H, x_fixed, y, TUBE_Z, pad_r),
+             name="fixed-pad-envelope", color=COLOR_STEEL)
+    assy.add(cylinder_x(x_moving, x_moving + FACTORY_PAD_SCHEMATIC_H, y, TUBE_Z, pad_r),
+             name="moving-pad-envelope", color=COLOR_STEEL)
+    ya, yb = sorted((y, rail_y))
+    assy.add(block(x_fixed - 16, x_fixed - 4, ya - 4, yb + 4, TUBE_Z - 6, TUBE_Z + 6),
+             name="fixed-jaw-schematic", color=COLOR_STEEL)
+    assy.add(block(x_moving + 32, x_moving + 44, ya - 4, yb + 4, TUBE_Z - 6, TUBE_Z + 6),
+             name="sliding-jaw-schematic", color=COLOR_STEEL)
+    assy.add(block(x_fixed - 16, 212, rail_y - 4, rail_y + 4, TUBE_Z - 6, TUBE_Z + 6),
+             name="rail-schematic", color=COLOR_STEEL)
+    assy.add(cylinder_x(x_moving + 4, x_moving + 47, y, TUBE_Z, 4),
+             name="spindle-schematic", color=COLOR_STEEL)
+    assy.add(cylinder_x(x_moving + 47, x_moving + 98, y, TUBE_Z,
+                         FACTORY_HANDLE_ENVELOPE_D / 2), name="wood-handle-envelope",
+             color=cq.Color(0.61, 0.39, 0.18))
+    return assy
+
+
+def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True,
+                   depth=DONOR_PORT_DEPTH_MIN, include_clamps=True):
     """Placed named components; stroke20 starts at the lip, stroke0 is stop contact.
 
     Accepted faucet lever local geometry has no measured assembled transform.
@@ -393,11 +455,8 @@ def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True, de
     parts = build_parts()
     assy = cq.Assembly(name="tube-insertion-press")
     assy.add(parts["base"], name="base", color=COLOR_RIGID)
-    ram = parts["ram"].translate((RAM_FINAL_X + stroke, TUBE_Y, RAM_BOTTOM_Z))
-    assy.add(ram, name="ram", color=COLOR_RIGID)
-    lever = parts["press-lever"].rotate((0, 0, 0), (0, 0, 1), press_angle(stroke)).translate(
-        (PRESS_PIVOT_X, PRESS_PIVOT_Y, PRESS_LEVER_Z0))
-    assy.add(lever, name="press-lever", color=COLOR_RIGID)
+    carrier = parts["carrier"].translate((CARRIER_FINAL_X + stroke, TUBE_Y, CARRIER_BOTTOM_Z))
+    assy.add(carrier, name="carrier", color=COLOR_RIGID)
     jaw_place = (CLAMP_FINAL_X + stroke, TUBE_Y, TUBE_Z)
     assy.add(parts["lower-jaw"].translate(jaw_place), name="lower-jaw", color=COLOR_RIGID)
     assy.add(parts["upper-jaw"].translate(jaw_place), name="upper-jaw", color=COLOR_RIGID)
@@ -411,13 +470,6 @@ def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True, de
         assy.add(tube_shape(depth, stroke), name="lldpe-tube", color=COLOR_TUBE)
         assy.add(sleeve_on_tube_shape(depth, stroke), name="tpu-sealing-thimble", color=COLOR_SLEEVE)
     if include_hardware:
-        pivot_head_z = PIVOT_COUNTERBORE_H
-        assy.add(bolt_shape(PRESS_PIVOT_X, PRESS_PIVOT_Y, pivot_head_z), name="pivot-m5x50", color=COLOR_STEEL)
-        pivot_washer_z = PRESS_LEVER_Z0 + PRESS_LEVER_H + 0.2
-        assy.add(washer_shape(PRESS_PIVOT_X, PRESS_PIVOT_Y, pivot_washer_z), name="pivot-washer", color=COLOR_STEEL)
-        for i in range(2):
-            assy.add(square_nut_shape(PRESS_PIVOT_X, PRESS_PIVOT_Y, pivot_washer_z + 1.5 + i * 4),
-                     name=f"pivot-nut-{i + 1}", color=COLOR_STEEL)
         for side, label in ((-1, "front"), (1, "rear")):
             bx, by = CLAMP_FINAL_X + stroke + CLAMP_BOLT_X, TUBE_Y + side * CLAMP_BOLT_Y
             hz = TUBE_Z - JAW_HALF_H
@@ -425,6 +477,14 @@ def build_assembly(stroke=0.0, include_workpiece=True, include_hardware=True, de
             wz = TUBE_Z + JAW_HALF_H
             assy.add(washer_shape(bx, by, wz), name=f"clamp-{label}-washer", color=COLOR_STEEL)
             assy.add(square_nut_shape(bx, by, wz + 1.5), name=f"clamp-{label}-nut", color=COLOR_STEEL)
+            cx, cy = CLAMP_FINAL_X + stroke + COUPLING_BOLT_X, TUBE_Y + side * COUPLING_BOLT_Y
+            assy.add(countersunk_bolt_shape(cx, cy, CARRIER_BOTTOM_Z + M5_CS_HEAD_RECESS),
+                     name=f"carrier-{label}-m5x20", color=COLOR_STEEL)
+            assy.add(square_nut_shape(cx, cy, TUBE_Z + COUPLING_NUT_Z0),
+                     name=f"carrier-{label}-nut", color=COLOR_STEEL)
+    if include_clamps:
+        for side, label in ((-1, "C1"), (1, "C2")):
+            assy.add(build_clamp_reference(side, stroke), name=label)
     return assy
 
 
@@ -436,7 +496,7 @@ def _bbox(shape):
 
 def part_manifest(parts=None):
     parts = parts or build_parts(print_frame=True)
-    letters = {"base": "A", "ram": "B", "press-lever": "C", "lower-jaw": "D",
+    letters = {"base": "A", "carrier": "B", "lower-jaw": "D",
                "upper-jaw": "E", "liner": "F", "cap-support-puck": "G"}
     return {"schema": 1, "frame": "X insertion axis from donor toward free tube; Z up from bed",
             "parts": [{"name": name, "letter": letters[name], "quantity": 2 if name == "liner" else 1,
@@ -445,17 +505,29 @@ def part_manifest(parts=None):
                        "step": f"tube-insertion-{name}.step",
                        "print_rotation_x_degrees": 0, "print_stl_is_pretransformed": True,
                        "bbox": _bbox(shape),
-                       "support_strategy": ("Flat bed face and open features up; short underside pivot-head pocket permits accessible automatic support"
-                                            if name == "base" else
+                       "support_strategy": (
                                             "Solid end face on bed; tube axis vertical; repeated XY semicircle; automatic brim retained"
                                             if name == "liner" else
-                                            "Flat bed face and open features up; no CAD ceilings or undercuts")}
+                                            "Flat bed face; native automatic Tree review for functional side-loading nut pockets"
+                                            if name == "lower-jaw" else
+                                            "Flat bed face with open functional holes and pockets; retain native automatic Tree decisions")}
                       for name, shape in parts.items()],
             "hardware": [
-                {"name": "M5 x 50 socket-head screw", "quantity": 3, "role": "two jaw bolts and press-lever pivot", "owned": True},
-                {"name": "M5 x 0.8 square nut, 8 x 4 mm", "quantity": 4, "role": "two jaw closure nuts and two jammed pivot nuts", "owned": True},
-                {"name": "M5 fender washer, OD 25 mm", "quantity": 3, "role": "two jaw load spreaders and pivot thrust washer", "owned": True},
-            ]}
+                {"name": "BESSEY GSCC2.506 6-inch screw clamp", "letter": "C", "quantity": 2,
+                 "role": "C1 and C2 complete metal screw and reaction loops", "owned": False,
+                 "prime_url": FACTORY_CLAMP_URL, "reference_model_scope": "Schematic only; ordinary setup checks actual contact feet and full 20 mm screw travel"},
+                {"name": "M5 x 50 socket-head screw", "quantity": 2, "role": "two jaw closure bolts", "owned": True},
+                {"name": "M5 x 20 DIN7991 countersunk screw", "quantity": 2, "role": "two lower-jaw to carrier coupling bolts", "owned": True},
+                {"name": "M5 x 0.8 square nut, 8 x 4 mm", "quantity": 4, "role": "two jaw closure nuts and two carrier coupling nuts", "owned": True},
+                {"name": "M5 fender washer, OD 25 mm", "quantity": 2, "role": "two jaw closure load spreaders", "owned": True},
+                {"name": "Owned 4-inch steel C-clamp", "quantity": 2, "role": "hold base stationary at bench edge for two-hand operation", "owned": True},
+            ],
+            "factory_clamp_setup": {"stations": clamp_stations(PRESS_TRAVEL),
+                                    "pad_envelope_diameter_mm": FACTORY_PAD_ENVELOPE_D,
+                                    "initial_opening_mm": CLAMP_BACK_X + PRESS_TRAVEL - THRUST_WALL_X0,
+                                    "final_opening_mm": CLAMP_BACK_X - THRUST_WALL_X0,
+                                    "rated_capacity_mm": FACTORY_CLAMP_CAPACITY,
+                                    "scope": "Opening dimension and adaptable flat bearing stations; schematic tool solids are not measured manufacturer CAD"}}
 
 
 def main():

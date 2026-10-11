@@ -8,7 +8,7 @@ sequence of actions, and a visible check before the next operation.
 | Guide | Work it covers |
 |---|---|
 | [Faucet assembly](../../faucet-assembly-guide/README.md) | Sleeve-first tube insertion, attached faucet lever, rear display pin map on page 2, mount stack and umbilical |
-| [Tube insertion tool](../../tube-insertion-guide/README.md) | T-handle grip, sleeve-fitting puck, horizontal lever press, donor setup and tube insertion |
+| [Tube insertion tool](../../tube-insertion-guide/README.md) | T-handle grip, sleeve-fitting puck, horizontal dual screw-clamp press, donor setup and tube insertion |
 | [Drilling and cutting](../../drill-and-cut-guide/README.md) | Endcap preparation and registers, rod and tube stock, tiny inlet jet, plumbing and harness cuts, finishing |
 | [Molds](../../mold-guide/README.md) | Silicone funnel tooling and casting, foam caps, cold-core body pour and demolding |
 | [Refrigeration](../../refrigeration-guide/README.md) | Coil and probes, donor circuit, opening and joining, leak and vacuum work, charge and commissioning |

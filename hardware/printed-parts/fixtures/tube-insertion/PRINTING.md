@@ -1,7 +1,9 @@
 # Tube insertion tool prints
 
-The complete tool is eight printed pieces: six PET-GF pieces and two identical
-TPU 85A grip liners. The [assembly and use guide](../../../tube-insertion-guide/tube-insertion-guide.pdf)
+The tool uses seven printed pieces: five PET-GF pieces and two identical
+TPU 85A grip liners. Two complete BESSEY GSCC2.506 screw clamps supply its
+actuation and metal reaction frames. The
+[assembly and use guide](../../../tube-insertion-guide/tube-insertion-guide.pdf)
 identifies each piece and shows the sleeve-first faucet sequence.
 
 The liners are solid blocks with their half-round gripping channels already
@@ -15,7 +17,7 @@ every layer. The print is 28 mm tall, with an 8 × 20 mm end footprint and
 | Plate | Pieces | Project | Prepared slice |
 | --- | --- | --- | --- |
 | Mark1 / H2C, rigid base | A base | [Base project](ready/tube-insertion-rigid-base-h2c.3mf) | [Base G-code archive](ready/tube-insertion-rigid-base-h2c.gcode.3mf) |
-| Mark1 / H2C, rigid parts | B ram, C press lever, D lower jaw, E upper jaw, G cap-support puck | [Rigid parts project](ready/tube-insertion-rigid-parts-h2c.3mf) | [Rigid parts G-code archive](ready/tube-insertion-rigid-parts-h2c.gcode.3mf) |
+| Mark1 / H2C, rigid parts | B guided carrier, D lower jaw, E upper jaw, G cap-support puck | [Rigid parts project](ready/tube-insertion-rigid-parts-h2c.3mf) | [Rigid parts G-code archive](ready/tube-insertion-rigid-parts-h2c.gcode.3mf) |
 | Mark2, soft grip | F liner × 2 | [TPU project](ready/tube-insertion-tpu-85a-mark2.3mf) | [TPU G-code archive](ready/tube-insertion-tpu-85a-mark2.gcode.3mf) |
 
 Projects retain the part poses and bed positions in [print-layout.json](print-layout.json).
@@ -29,22 +31,29 @@ emitted Z trim. The archives are prepared offline; no print has been submitted.
 
 | Plate | Estimated time | Estimated filament | Layers | Minimum bead margin |
 | --- | ---: | ---: | ---: | ---: |
-| Rigid base | 8 h 03 min | 548.5 g | 204 | 42.77 mm |
-| Rigid parts | 3 h 33 min | 192.0 g | 117 | 72.80 mm |
+| Rigid base | 11 h 55 min | 829.2 g | 225 | 26.02 mm |
+| Rigid parts | 4 h 19 min | 241.6 g | 63 | 46.21 mm |
 | TPU liners | 1 h 06 min | 8.8 g | 155 | 128.39 mm |
 
 These are Bambu Studio 02.08.02.61 estimates using the saved material densities.
 The margins include emitted model, support and brim beads. All three archives
 have matching embedded G-code digests and the intended nozzle and Z-trim mapping.
 
-The native first and second layers retain overlapping perimeter beads. The
-TPU channel remains an open semicircle through its upright layers, with solid
-backing and no support. The rigid-parts plate generates no support. The base
-generates one bed-rooted support inside its bottom-accessible pivot screw-head
-recess; its interface spans Z=4.76–5.00 mm below the 5.4 mm recess ceiling. The
-[support reading](ready/tube-insertion-rigid-base-h2c.support-audit.json) records
-its location and retained automatic Tree/default settings. Remove that support
-before installing the pivot screw; physical removal effort is unmeasured.
+The native first and second layers retain overlapping perimeter beads,
+including the carrier's broad countersunk mounting toes. The TPU channel
+remains an open semicircle through its upright layers, with solid backing
+and no support. The base generates
+[no support](ready/tube-insertion-rigid-base-h2c.support-audit.json).
+
+The rigid-parts plate generates
+[four bed-rooted support bodies](ready/tube-insertion-rigid-parts-h2c.support-audit.json),
+all in lower jaw D. Two occupy its underside locator-key pockets, with
+interfaces at print Z=2.12-2.60 mm beneath the 3.1 mm pocket roofs. Two occupy
+the side-entry carrier nut pockets, with interfaces at Z=12.44-12.68 mm
+beneath the 13.2 mm roofs. Automatic Tree/default settings remain enabled.
+Remove these supports through the underside pockets and lateral nut entries
+before joining D to B or installing the nuts. Native deposition and access
+are reviewed; physical removal effort is unmeasured.
 
 ## Material and machine mapping
 

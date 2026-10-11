@@ -64,13 +64,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base-print.stl",
-      "stl_sha256": "7e1b343e721e7d30ef82cb9c3a2774e7154f8e654f75218faac4db7a245bd1bc",
-      "triangles": 3328,
+      "stl_sha256": "56cb2992d1cb4cb99e2392daae3de425ebd8c67c0a0fd35b0328aba3b5488991",
+      "triangles": 2076,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
-        92.0,
-        81.0,
-        24.5
+        108.25,
+        17.0,
+        27.0
       ],
       "build_transform": [
         1.0,
@@ -84,12 +84,12 @@
         1.0,
         162.5,
         160.0,
-        24.5
+        27.0
       ],
       "plate_translation_mm": [
         162.5,
         160.0,
-        24.5
+        27.0
       ],
       "plate_origin_mm": [
         0.0,
@@ -98,22 +98,22 @@
       ],
       "plate_bounds_mm": [
         [
-          58.5,
+          26.25,
           43.0,
           0.0
         ],
         [
-          266.5,
+          298.75,
           277.0,
-          49.0
+          54.0
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.999947122996673e-10
+      "embedded_vertex_error_mm": 4.973159661858517e-10
     }
   ],
-  "project_sha256": "38e852bfac9234c5fb721e4e7279f6cc913edb7d3f7ab530d79dadcabafd6cf6",
+  "project_sha256": "259d5d99428a71fb85ca0c04838ca71f492b699d1196eb901dfe67041e020589",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; no printer submission",
   "printer_submission": false,

@@ -1,0 +1,216 @@
+{
+  "coordinate_frame": null,
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "684cc61cdcc50a8ae7460f65a627c03c69718e64cfb4f200e06d778876e52c88",
+    "model": null,
+    "model_sha256": null,
+    "profile": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-parts-h2c.3mf",
+    "profile_sha256": "ef5a0647c51006fe677f0d03de7b2b6b892f6a12622b3750d13b89289a195b5a",
+    "source_stls": {
+      "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier-print.stl": "774508d21a6a5c2bd4bf011a3580208d02cc9507df3b1582be7ebe3efc3eb060",
+      "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "68cdf5482609b2618272730416df8ff87310b4d3b1e2bb2e4773d8a867d18093",
+      "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "f0382002e237b6db719ebcd43c837396dea3b5cf662ea4c1992e11ed5ec30bc9",
+      "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-cap-support-puck-print.stl": "db66c62fa1eac4a0c6452c7e08c5ff69442bfee0c09d7ae9aa7e1689c320b2c5"
+    }
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_xy_mm": [
+        109.6,
+        91.6,
+        116.8,
+        96.4
+      ],
+      "build_up_mm": 1.92,
+      "first_z_mm": 2.12,
+      "id": "interface-1",
+      "last_z_mm": 2.6,
+      "tree": "tree-2",
+      "owner": "D lower jaw",
+      "feature": "underside locator-key pocket",
+      "bbox_part_xyz_mm": [
+        26.349999999999994,
+        -14.400000000000006,
+        2.12,
+        33.55,
+        -9.599999999999994,
+        2.6
+      ]
+    },
+    {
+      "bbox_xy_mm": [
+        109.6,
+        115.6,
+        116.8,
+        120.4
+      ],
+      "build_up_mm": 1.92,
+      "first_z_mm": 2.12,
+      "id": "interface-2",
+      "last_z_mm": 2.6,
+      "tree": "tree-3",
+      "owner": "D lower jaw",
+      "feature": "underside locator-key pocket",
+      "bbox_part_xyz_mm": [
+        26.349999999999994,
+        9.599999999999994,
+        2.12,
+        33.55,
+        14.400000000000006,
+        2.6
+      ]
+    },
+    {
+      "bbox_xy_mm": [
+        110.8,
+        56.4,
+        117.6,
+        69.6
+      ],
+      "build_up_mm": 12.24,
+      "first_z_mm": 12.44,
+      "id": "interface-3",
+      "last_z_mm": 12.68,
+      "tree": "tree-1",
+      "owner": "D lower jaw",
+      "feature": "side-entry carrier square-nut pocket",
+      "bbox_part_xyz_mm": [
+        27.549999999999997,
+        -49.6,
+        12.44,
+        34.349999999999994,
+        -36.400000000000006,
+        12.68
+      ]
+    },
+    {
+      "bbox_xy_mm": [
+        110.8,
+        142.4,
+        117.6,
+        156.0
+      ],
+      "build_up_mm": 12.24,
+      "first_z_mm": 12.44,
+      "id": "interface-4",
+      "last_z_mm": 12.68,
+      "tree": "tree-4",
+      "owner": "D lower jaw",
+      "feature": "side-entry carrier square-nut pocket",
+      "bbox_part_xyz_mm": [
+        27.549999999999997,
+        36.400000000000006,
+        12.44,
+        34.349999999999994,
+        50.0,
+        12.68
+      ]
+    }
+  ],
+  "piece": "tube-insertion-rigid-parts",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 4,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "interface_islands": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 1.92,
+    "shortest_labelled_build_up_mm": 1.92,
+    "support_bodies": 4
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_xy_mm": [
+        108.4,
+        46.8,
+        118.8,
+        69.6
+      ],
+      "first_interface_z_mm": 12.44,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-3"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 12.24,
+      "top_z_mm": 12.68
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_xy_mm": [
+        109.6,
+        91.2,
+        116.8,
+        96.8
+      ],
+      "first_interface_z_mm": 2.12,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 2.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_xy_mm": [
+        109.6,
+        115.2,
+        116.8,
+        120.8
+      ],
+      "first_interface_z_mm": 2.12,
+      "id": "tree-3",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 2.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_xy_mm": [
+        109.6,
+        142.4,
+        120.0,
+        165.2
+      ],
+      "first_interface_z_mm": 12.44,
+      "id": "tree-4",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-4"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 12.24,
+      "top_z_mm": 12.68
+    }
+  ],
+  "scope": "Manual native slice reading in bed coordinates for the complete rigid-parts plate; not physical support-removal evidence",
+  "removal_access": "Two underside key pockets and two lateral square-nut entries in lower jaw D, before coupling D to B; automatic Tree/default retained",
+  "physical_removal_effort": "unmeasured"
+}

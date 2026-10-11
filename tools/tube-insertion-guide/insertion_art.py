@@ -2,7 +2,8 @@
 
 Printed shapes come from the fixture's own CadQuery module. The thimble and
 faucet-lever identification views use the existing accepted source models.
-Fasteners are catalogue-size proxies, poised along their insertion axes.
+The complete factory clamps are nominal catalogue-form illustrations, not
+measured manufacturer profiles. Stock fasteners are size proxies.
 
     tools/cad-venv/bin/python tools/tube-insertion-guide/insertion_art.py
     tools/cad-venv/bin/python tools/tube-insertion-guide/insertion_art.py --list
@@ -107,7 +108,7 @@ def _parts(print_frame=False):
 @lru_cache(maxsize=16)
 def _placed(stroke=0.0, workpiece=False, hardware=False):
     return jig.build_assembly(stroke=stroke, include_workpiece=workpiece,
-                              include_hardware=hardware)
+                              include_hardware=hardware, include_clamps=False)
 
 
 def _parts_scene(names, accents=(), *, stroke=0.0, workpiece=False, hardware=False,
@@ -129,22 +130,71 @@ def _parts_scene(names, accents=(), *, stroke=0.0, workpiece=False, hardware=Fal
     return a
 
 
-def _whole(stroke=0.0, accents=(), *, workpiece=True):
+def _add_clamps(assembly, stroke=0.0, *, accents=(), pad_backoff=0.0,
+                contact_color=None):
+    """Keep both complete factory schematics, including their steel returns."""
+    for side, label in ((-1, "C1"), (1, "C2")):
+        source = jig.build_clamp_reference(side, stroke)
+        for item in source.children:
+            name = f"{label}-{item.name}"
+            shape = item.obj
+            if pad_backoff and item.name in ("moving-pad-envelope",
+                                             "spindle-schematic", "wood-handle-envelope"):
+                shape = shape.translate((pad_backoff, 0, 0))
+            color = M_ACCENT if item.name in accents else item.color
+            if contact_color and item.name in ("fixed-pad-envelope", "moving-pad-envelope"):
+                color = contact_color
+            _add(assembly, shape, name, color, loc=item.loc)
+
+
+GRIP_NAMES = ("carrier", "lower-jaw", "upper-jaw", "lower-liner", "upper-liner",
+              "clamp-front-m5x50", "clamp-rear-m5x50", "clamp-front-washer",
+              "clamp-rear-washer", "clamp-front-nut", "clamp-rear-nut",
+              "carrier-front-m5x20", "carrier-rear-m5x20",
+              "carrier-front-nut", "carrier-rear-nut")
+
+
+def _whole(stroke=0.0, accents=(), *, workpiece=True, clamps=True,
+           tube_length=330.0, clamp_accents=(), pad_backoff=0.0):
     source = _placed(stroke, workpiece, True)
     names = [name for name, item in source.objects.items() if item.obj is not None]
-    return _parts_scene(names, accents, stroke=stroke, workpiece=workpiece,
-                        hardware=True)
+    a = _parts_scene(names, accents, stroke=stroke, workpiece=workpiece, hardware=True)
+    if workpiece:
+        a.objects["lldpe-tube"].obj = jig.tube_shape(stroke=stroke, length=tube_length)
+    if clamps:
+        _add_clamps(a, stroke, accents=clamp_accents, pad_backoff=pad_backoff)
+    return a
+
+
+def _arrow_left(x, y, z, length=24.0):
+    """A blue direction annotation; arrow length does not encode force."""
+    return (cq.Workplane("XY", origin=(x, y, z))
+            .polyline(((0, 0), (8, 5), (8, 2), (length, 2),
+                       (length, -2), (8, -2), (8, -5))).close().extrude(0.4))
+
+
+def _label(assembly, value, x, y, z, size=10):
+    letters = cq.Workplane("XY", origin=(x, y, z)).text(
+        value, size, 0.3, font="Helvetica", halign="center", valign="center",
+        combine=False)
+    _add(assembly, letters, f"label-{value}", M_GAUGE)
 
 
 def s_hero():
     return _whole(stroke=jig.PRESS_TRAVEL)
 
 
-def s_levers():
-    a = _scene("levers")
-    _add(a, _parts(True)["press-lever"], "press-lever", M_ACCENT)
-    accepted = lever_replica.build(printed=True).translate((55, 32, 12))
-    _add(a, accepted, "accepted-faucet-lever", M_PETGF_BLACK)
+def s_load_path():
+    a = _whole(stroke=10, clamps=False, accents=("lower-jaw", "upper-jaw"))
+    _add_clamps(a, 10, contact_color=M_GAUGE)
+    tube_bb = a.objects["lldpe-tube"].obj.val().BoundingBox()
+    _add(a, jig.block(jig.DONOR_PORT_X, tube_bb.xmax, jig.TUBE_Y - 0.22,
+                       jig.TUBE_Y + 0.22, 59, 59.25), "tube-axis-reference", M_GAUGE)
+    for station in jig.clamp_stations(10):
+        x, y, _ = station["moving_center_mm"]
+        _add(a, _arrow_left(x + 15, y, 58), f"{station['name']}-advance", M_GAUGE)
+        side = station["side"]
+        _label(a, station["name"], 30, y + side * (jig.FACTORY_CLAMP_THROAT + 12), 42)
     return a
 
 
@@ -188,60 +238,66 @@ def s_plate_liners():
 
 def s_hardware():
     a = _scene("hardware")
-    for i in range(3):
-        _add(a, jig.bolt_shape(i * 16, 0, 5, 50), f"M5x50-{i+1}", M_STAINLESS)
-        _add(a, jig.washer_shape(i * 30, 30, 0), f"washer-{i+1}", M_STAINLESS)
+    _add_clamps(a)
+    for i in range(2):
+        _add(a, jig.bolt_shape(-3 + i * 23, -4, 5, 50), f"M5x50-{i+1}", M_STAINLESS)
+        _add(a, jig.countersunk_bolt_shape(48 + i * 20, -4, 0, 20),
+             f"M5x20-countersunk-{i+1}", M_STAINLESS)
+        _add(a, jig.washer_shape(12 + i * 33, 28, 0), f"washer-{i+1}", M_STAINLESS)
     for i in range(4):
-        _add(a, jig.square_nut_shape(i * 16, 55, 0), f"square-nut-{i+1}", M_BRASS)
+        _add(a, jig.square_nut_shape(-4 + i * 18, 52, 0), f"square-nut-{i+1}", M_BRASS)
     return a
 
 
 def s_clean_base():
-    return s_plate_base()
+    a = s_plate_base()
+    for station in jig.clamp_stations():
+        x, y, z = station["fixed_center_mm"]
+        dot = jig.cylinder_x(x - 0.25, x - 0.02, y, z, 1.8)
+        _add(a, dot, f"{station['name']}-fixed-centre-ink", M_GAUGE)
+    return a
 
 
-def s_ram():
-    return _parts_scene(("base", "ram"), ("ram",), offsets={"ram": (0, 0, 24)})
+def s_carrier_joint():
+    return _parts_scene(("carrier", "lower-jaw", "lower-liner",
+                         "carrier-front-m5x20", "carrier-rear-m5x20",
+                         "carrier-front-nut", "carrier-rear-nut"),
+                        ("carrier-front-m5x20", "carrier-rear-m5x20"), hardware=True,
+                        offsets={"lower-jaw": (0, 0, 28), "lower-liner": (0, 0, 28),
+                                 "carrier-front-m5x20": (0, 0, -16),
+                                 "carrier-rear-m5x20": (0, 0, -16),
+                                 "carrier-front-nut": (0, -16, 28),
+                                 "carrier-rear-nut": (0, 16, 28)})
 
 
-def s_lever():
-    return _parts_scene(("base", "ram", "press-lever", "pivot-m5x50"),
-                        ("press-lever", "pivot-m5x50"), hardware=True,
-                        offsets={"press-lever": (0, 0, 18), "pivot-m5x50": (0, 0, -16)})
-
-
-def s_pivot_nuts():
-    return _parts_scene(("base", "ram", "press-lever", "pivot-m5x50", "pivot-washer",
-                         "pivot-nut-1", "pivot-nut-2"),
-                        ("pivot-washer",), hardware=True,
-                        offsets={"pivot-washer": (0, 0, 12),
-                                 "pivot-nut-1": (0, 0, 24), "pivot-nut-2": (0, 0, 30)})
+def s_carrier():
+    offsets = {name: (0, 0, 34) for name in GRIP_NAMES}
+    return _parts_scene(("base",) + GRIP_NAMES, ("carrier",), hardware=True,
+                        offsets=offsets)
 
 
 def s_liners():
     a = _scene("liners")
-    _add(a, jig.build_lower_jaw().translate((0, -42, 11)), "D-lower-jaw")
-    _add(a, jig.build_upper_jaw().rotate((0, 0, 0), (1, 0, 0), 180)
-         .translate((0, 42, 11)), "E-upper-jaw")
+    _add(a, _parts(True)["lower-jaw"].translate((0, -62, 0)), "D-lower-jaw")
+    _add(a, _parts(True)["upper-jaw"].translate((0, 62, 0)), "E-upper-jaw")
     x = jig.LINER_START_X
-    for n, y in enumerate((-42, 42)):
-        _add(a, jig.build_liner().translate((x, y, 17)), f"F-liner-{n+1}", M_ACCENT)
+    for n, y in enumerate((-62, 62)):
+        _add(a, jig.build_liner().translate((x, y, jig.JAW_HALF_H - jig.LINER_H + 18)),
+             f"F-liner-{n+1}", M_ACCENT)
     return a
 
 
 def s_jaws():
-    return _parts_scene(("lower-jaw", "upper-jaw", "lower-liner", "upper-liner",
-                         "clamp-front-m5x50", "clamp-rear-m5x50", "clamp-front-washer",
-                         "clamp-rear-washer", "clamp-front-nut", "clamp-rear-nut"),
+    return _parts_scene(GRIP_NAMES,
                         ("upper-jaw", "clamp-front-m5x50", "clamp-rear-m5x50"),
                         hardware=True,
-                        offsets={"upper-jaw": (0, 0, 18), "upper-liner": (0, 0, 18),
-                                 "clamp-front-m5x50": (0, 0, -16),
-                                 "clamp-rear-m5x50": (0, 0, -16),
-                                 "clamp-front-washer": (0, 0, 35),
-                                 "clamp-rear-washer": (0, 0, 35),
-                                 "clamp-front-nut": (0, 0, 43),
-                                 "clamp-rear-nut": (0, 0, 43)})
+                        offsets={"upper-jaw": (0, 0, 28), "upper-liner": (0, 0, 28),
+                                 "clamp-front-m5x50": (0, 0, -18),
+                                 "clamp-rear-m5x50": (0, 0, -18),
+                                 "clamp-front-washer": (0, 0, 40),
+                                 "clamp-rear-washer": (0, 0, 40),
+                                 "clamp-front-nut": (0, 0, 49),
+                                 "clamp-rear-nut": (0, 0, 49)})
 
 
 def s_puck():
@@ -252,16 +308,23 @@ def s_puck():
     return a
 
 
-def s_empty_press():
-    return _parts_scene(("base", "ram", "press-lever", "pivot-m5x50",
-                         "pivot-washer", "pivot-nut-1", "pivot-nut-2"),
-                        stroke=jig.PRESS_TRAVEL, hardware=True)
+def s_preset_travel():
+    a = _whole(stroke=jig.PRESS_TRAVEL, workpiece=False,
+               clamp_accents=("spindle-schematic", "wood-handle-envelope"))
+    for station in jig.clamp_stations(jig.PRESS_TRAVEL):
+        x, y, _ = station["moving_center_mm"]
+        _add(a, _arrow_left(x - jig.PRESS_TRAVEL, y, 57, jig.PRESS_TRAVEL),
+             f"{station['name']}-travel-direction", M_GAUGE)
+    return a
 
 
-def s_secure_base():
-    a = s_empty_press()
-    _add(a, jig.block(0, 64, 62, 116, jig.BASE_H + 0.02, jig.BASE_H + 0.35),
-         "palm-area-reference", M_GAUGE)
+def s_handles_clear():
+    a = _whole(stroke=jig.PRESS_TRAVEL,
+               clamp_accents=("wood-handle-envelope",))
+    for n, (x, y) in enumerate(((12.0, 112.0), (170.0, 112.0))):
+        ring = (cq.Workplane("XY", origin=(x, y, jig.BASE_H + 0.05))
+                .circle(7).circle(3).extrude(0.3))
+        _add(a, ring, f"mounting-location-{n+1}", M_GAUGE)
     return a
 
 
@@ -283,7 +346,9 @@ def s_depth():
 def s_marks():
     a = _scene("marks")
     _add(a, _tube(58), "tube", M_LLDPE)
-    for n, z in enumerate((17.9, 36.9)):
+    witness = jig.DONOR_PORT_DEPTH_MIN - jig.SLEEVE_CAP_H
+    grip_mark = witness + jig.CLAMP_FINAL_X - jig.DONOR_PORT_X
+    for n, z in enumerate((witness, grip_mark)):
         mark = (cq.Workplane("XY", origin=(0, 0, z))
                 .circle(tpu_o_ring.lldpe_od / 2 + 0.15)
                 .circle(tpu_o_ring.lldpe_od / 2).extrude(0.6))
@@ -298,11 +363,9 @@ def s_sleeve_fit():
     _add(a, tpu_o_ring.build_o_ring().translate((0, 0, cap_z)), "thimble", M_ACCENT)
     tube_end = cap_z + jig.SLEEVE_CAP_H + 5
     _add(a, _tube(130).translate((0, 0, tube_end)), "tube", M_LLDPE)
-    # Turn the whole source clamp from X-axis to Z-axis for sleeve fitting.
+    # The grip and its bolted carrier stay together during sleeve fitting.
     clamp = _placed(0.0, False, True)
-    for name in ("lower-jaw", "upper-jaw", "lower-liner", "upper-liner",
-                 "clamp-front-m5x50", "clamp-rear-m5x50", "clamp-front-washer",
-                 "clamp-rear-washer", "clamp-front-nut", "clamp-rear-nut"):
+    for name in GRIP_NAMES:
         obj = clamp.objects[name].obj.translate((-jig.CLAMP_FINAL_X, -jig.TUBE_Y, -jig.TUBE_Z))
         obj = obj.rotate((0, 0, 0), (0, 1, 0), -90).translate((0, 0, 65))
         _add(a, obj, name, M_BRASS if "nut" in name else clamp.objects[name].color)
@@ -310,22 +373,23 @@ def s_sleeve_fit():
 
 
 def s_grip_mark():
-    names = ("lower-jaw", "upper-jaw", "lower-liner", "upper-liner",
-             "clamp-front-m5x50", "clamp-rear-m5x50", "clamp-front-washer",
-             "clamp-rear-washer", "clamp-front-nut", "clamp-rear-nut",
-             "lldpe-tube", "tpu-sealing-thimble")
+    names = GRIP_NAMES + ("lldpe-tube", "tpu-sealing-thimble")
     a = _parts_scene(names, workpiece=True, hardware=True)
     # Picture a short tube so the datum joint stays large and readable.
-    a.objects["lldpe-tube"].obj = jig.tube_shape(length=112)
+    a.objects["lldpe-tube"].obj = jig.tube_shape(length=220)
     for n, x in enumerate((jig.DONOR_PORT_X, jig.CLAMP_FINAL_X)):
         mark = jig.cylinder_x(x, x + 0.7, jig.TUBE_Y, jig.TUBE_Z, jig.TUBE_OD / 2 + 0.15).cut(
             jig.cylinder_x(x - 1, x + 2, jig.TUBE_Y, jig.TUBE_Z, jig.TUBE_OD / 2))
         _add(a, mark, f"tube-mark-{n+1}", M_GAUGE)
+    for station in jig.clamp_stations():
+        x, y, z = station["moving_center_mm"]
+        _add(a, jig.cylinder_x(x + 0.02, x + 0.25, y, z, 1.8),
+             f"{station['name']}-moving-centre-ink", M_GAUGE)
     return a
 
 
 def s_donor_in():
-    a = s_empty_press()
+    a = _parts_scene(("base",))
     _add(a, jig.donor_shape().translate((0, 0, 24)), "donor", M_ACCENT)
     return a
 
@@ -335,15 +399,22 @@ def s_engage():
 
 
 def s_press():
-    return _whole(stroke=8, accents=("press-lever",))
+    return _whole(stroke=8,
+                   clamp_accents=("spindle-schematic", "wood-handle-envelope",
+                                  "moving-pad-envelope"))
 
 
 def s_release():
-    a = _whole(stroke=0, accents=("upper-jaw",))
-    a.objects["upper-jaw"].obj = a.objects["upper-jaw"].obj.translate((0, 0, 18))
-    a.objects["upper-liner"].obj = a.objects["upper-liner"].obj.translate((0, 0, 18))
+    a = _whole(stroke=0, accents=("upper-jaw",), pad_backoff=6)
+    a.objects["upper-jaw"].obj = a.objects["upper-jaw"].obj.translate((0, 0, 28))
+    a.objects["upper-liner"].obj = a.objects["upper-liner"].obj.translate((0, 0, 28))
     for name in ("clamp-front-nut", "clamp-rear-nut", "clamp-front-washer", "clamp-rear-washer"):
-        a.objects[name].obj = a.objects[name].obj.translate((0, 0, 36))
+        a.objects[name].obj = a.objects[name].obj.translate((0, 0, 49))
+    # Both complete clamps have been unloaded and lifted away before E opens.
+    for name, item in a.objects.items():
+        if name.startswith(("C1-", "C2-")):
+            side = -1 if name.startswith("C1-") else 1
+            item.obj = item.obj.translate((0, side * 12, 40))
     return a
 
 
@@ -355,31 +426,28 @@ def s_workpiece():
 
 
 SCENES = {
-    "hero": Scene(s_hero, cam=(0.35, -0.9, 1.15), size="2400x1700"),
-    "levers": Scene(s_levers, cam=(0.3, -0.7, 1.2), size="2200x1700"),
+    "hero": Scene(s_hero, cam=(0.25, -0.85, 1.15), size="2400x1700"),
+    "load-path": Scene(s_load_path, cam=(0, 0, 1), up=(0, 1, 0), size="2400x1650"),
     "faucet-lever": Scene(s_faucet_lever, cam=(0.65, -0.9, 0.7), size="1900x1300"),
     "plate-rigid": Scene(s_plate_rigid, cam=(0.4, -0.75, 1.2), size="2200x1800"),
     "plate-liners": Scene(s_plate_liners, cam=(-0.9, -1, 0.6), size="1900x1500"),
-    "hardware": Scene(s_hardware, cam=(0.5, -0.8, 1), size="1900x1500"),
-    "clean-base": Scene(s_clean_base, cam=(0.4, -0.8, 0.9), size="2200x1700"),
-    "ram": Scene(s_ram, cam=(0.7, -0.95, 0.65), size="2200x1600"),
-    "lever": Scene(s_lever, cam=(0.65, -0.9, 0.75), size="2200x1700"),
-    "pivot-nuts": Scene(s_pivot_nuts, cam=(0.8, -0.9, 0.6),
-                        target=(jig.PRESS_PIVOT_X, jig.PRESS_PIVOT_Y, 28), span=57,
-                        size="1800x1800"),
+    "hardware": Scene(s_hardware, cam=(0.3, -0.8, 1.2), size="2200x1700"),
+    "clean-base": Scene(s_clean_base, cam=(-0.7, -0.85, 0.9), size="2200x1700"),
+    "carrier-joint": Scene(s_carrier_joint, cam=(0.6, -0.9, 0.7), size="2200x1800"),
+    "carrier": Scene(s_carrier, cam=(0.45, -0.85, 0.9), size="2200x1700"),
     "liners": Scene(s_liners, cam=(0.55, -0.8, 0.8), size="1900x1600"),
-    "jaws": Scene(s_jaws, cam=(0.65, -0.9, 0.7), span=75, size="1900x1800"),
+    "jaws": Scene(s_jaws, cam=(0.65, -0.9, 0.7), size="2200x1800"),
     "puck": Scene(s_puck, cam=(0.6, -0.8, 0.9), span=42, size="1800x1600"),
-    "secure-base": Scene(s_secure_base, cam=(0.4, -0.95, 1.1), size="2200x1700"),
+    "preset-travel": Scene(s_preset_travel, cam=(0.25, -0.85, 1.2), size="2200x1700"),
+    "handles-clear": Scene(s_handles_clear, cam=(0.15, -0.8, 1.35), size="2200x1700"),
     "depth": Scene(s_depth, cam=(-1, 0.2, 0.35), target=(0, 8.75, 32),
                     span=24, size="1800x1400"),
     "marks": Scene(s_marks, cam=(0.5, -0.9, 0.3), size="1600x1900"),
-    "sleeve-fit": Scene(s_sleeve_fit, cam=(0.55, -0.9, 0.6), size="1900x1900"),
+    "sleeve-fit": Scene(s_sleeve_fit, cam=(-0.65, -0.85, 0.45), size="1900x1900"),
     "grip-mark": Scene(s_grip_mark, cam=(0.55, -0.9, 0.55), size="2200x1500"),
     "donor-in": Scene(s_donor_in, cam=(0.4, -0.95, 0.85), size="2200x1700"),
     "engage": Scene(s_engage, cam=(0.3, -0.9, 1), size="2200x1600"),
-    "press": Scene(s_press, cam=(0.2, -0.95, 1), target=(94, 66, 30),
-                    span=133, size="2200x1600"),
+    "press": Scene(s_press, cam=(0.2, -0.8, 1.15), size="2200x1700"),
     "release": Scene(s_release, cam=(0.35, -0.9, 1), size="2200x1600"),
     "workpiece": Scene(s_workpiece, cam=(0.4, -1, 0.65), size="2100x1300"),
     "sleeved-tube": Scene(s_sleeved_tube, cam=(0.35, -1, 0.28), size="1500x1800"),
@@ -425,6 +493,10 @@ def main(argv):
     if unknown:
         raise SystemExit(f"unknown scenes: {', '.join(unknown)}")
     render(names)
+    if set(names) == set(SCENES):
+        for stale in ART.glob("*.png"):
+            if stale.stem not in SCENES:
+                stale.unlink()
     return 0
 
 

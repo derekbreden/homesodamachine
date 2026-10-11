@@ -1,143 +1,142 @@
-# Tube-insertion T handle and bench press
+# Tube insertion tooling
 
-The split T handle grips the 3/8-inch LLDPE tube while its TPU sealing thimble
-is fitted evenly onto the tube end. The horizontal bench press then inserts
-that sleeved tube into the bare Touch-Flo water port. The accepted faucet
-lever is attached throughout this operation, down at its unpressed rest.
+A split T handle grips the 3/8-inch LLDPE tube with two thick, preformed 85A
+TPU liners. A cap-support puck assists fitting the sealing thimble to the
+tube. The assembled T handle and guided carrier are used together for
+sleeve fitting. For donor insertion, two complete factory screw clamps
+supply the axial force and reaction.
+The donor is supported on its metal base with its faucet lever attached,
+down and unpressed.
 
-The [assembly guide](/hardware/tube-insertion-guide/) shows printing, fixture
-assembly, bore-depth setup, sleeve fitting, donor insertion and removal.
+Use the [illustrated assembly guide](../../../tube-insertion-guide/README.md)
+for the assembly sequence and the [print instructions](PRINTING.md) for
+prepared native projects. [parts.json](parts.json) gives all quantities,
+hardware and actual print bounding boxes. The
+[load basis](load-basis.md) records the sections, unequal-input scenarios,
+manufacturer references and limits of the analysis.
 
-## Printed parts
+## Parts and hardware
 
-| Guide letter | Part | Quantity | Material | Print envelope, mm |
+| Label | Part | Quantity | Material | Print bounding box, mm |
 | --- | --- | ---: | --- | --- |
-| A | [Base, cradle and guides](tube-insertion-base-print.stl) | 1 | PET-GF15 | 208 × 234 × 49 |
-| B | [Guided ram with jaw shelf](tube-insertion-ram-print.stl) | 1 | PET-GF15 | 90.5 × 64 × 28 |
-| C | [Bench-press lever](tube-insertion-press-lever-print.stl) | 1 | PET-GF15 | 24 × 174 × 8 |
-| D | [Lower T-handle jaw](tube-insertion-lower-jaw-print.stl) | 1 | PET-GF15 | 38.5 × 77 × 11 |
-| E | [Upper T-handle jaw](tube-insertion-upper-jaw-print.stl) | 1 | PET-GF15 | 38.5 × 77 × 11 |
-| F | [Preformed half-round grip liner](tube-insertion-liner-print.stl) | 2 | TPU 85A | 8 × 20 × 28 |
-| G | [Sleeve-cap support puck](tube-insertion-cap-support-puck-print.stl) | 1 | PET-GF15 | 54 × 54 × 8 |
+| A | Base, donor reaction block and guides | 1 | PET-GF15 | 272.5×234×54 |
+| B | Guided carrier and narrow jaw shelf | 1 | PET-GF15 | 162.5×100×10 |
+| C1 / C2 | BESSEY GSCC2.506 factory screw clamps | 2 | Factory metal tool | Purchased tool |
+| D | Lower T-handle jaw | 1 | PET-GF15 | 38.5×100×15 |
+| E | Upper T-handle jaw | 1 | PET-GF15 | 38.5×100×15 |
+| F | Preformed half-round grip liner | 2 | TPU 85A | 8×20×28 |
+| G | Sealing-thimble cap-support puck | 1 | PET-GF15 | 54×54×8 |
 
-Every `-print.stl` already has its intended bed face at Z=0. Both rigid jaws
-print with their liner pockets open upward. The TPU liners print with the
-tube axis vertical, so the grip semicircle is an XY perimeter in each layer.
-Each liner is a solid block with a 3.375 mm minimum backing; it is printed
-to shape and placed directly into its jaw pocket. It is not bent or wrapped.
+The two [GSCC2.506 clamps](https://www.amazon.com/dp/B000FA0BL8) provide
+independent screw inputs. The owned hardware is two M5×50 socket-head
+closure screws, two M5×20 DIN7991 countersunk carrier screws, four 8×4 mm
+M5 square nuts and two Ø25 mm fender washers. The countersunk screws use
+a 3 mm hex key; the socket-head screws use a 4 mm hex key. Two owned 4-inch
+steel C-clamps hold the base at a bench edge so both hands can operate the
+factory screw handles. No printed thread or insert carries the press load.
 
-The base's 49 mm height is its rigid annular thrust wall. Its donor saddle,
-shank slot, clocking pad and ram guides are open above. The short underside
-pivot-head recess is accessible for removal of automatically generated
-support. Retain the native slicer's saved automatic tree-support decisions.
+Each rigid half has a 7 mm backing under its liner pocket. Rigid mating
+faces set the Ø9.25 mm closed grip bore, limiting squeeze against the
+Ø9.525 tube. The 28 mm liners are preformed blocks; print them upright
+with the tube axis vertical. Their solid 8×20 mm end footprint and 3.375 mm
+minimum backing support that orientation without bending or wrapping a
+strip. The axial retention walls are 3.35 mm at the front and 6.85 mm at the
+rear.
 
-The native print projects are:
+## Fixture setup and motion
 
-- [Base on H2C](ready/tube-insertion-rigid-base-h2c.3mf)
-- [Rigid tool parts on H2C](ready/tube-insertion-rigid-parts-h2c.3mf)
-- [Two solid TPU 85A liners on Mark2](ready/tube-insertion-tpu-85a-mark2.3mf)
+The insertion axis is X; the workpiece moves toward −X. Tube axis is Y8.75,
+Z30. Factory screw stations are 32 mm either side of the tube at the same
+height. Their feet bear against the two contiguous 30 mm high rear collar
+faces; the fixed jaws back the 26 mm thick donor reaction block immediately
+behind its matching flat stations. Only the donor's metal base annulus
+carries intended axial reaction. Its threaded shank passes through an open
+slot, and a tangent saddle floor plus a flat lower-column pad locate the
+body and clocking.
 
-The [printing record](PRINTING.md) links process settings, machine mapping,
-plate placement and the per-project preparation and slice reports. The current
-[part manifest](parts.json) contains STEP names, quantities, materials and
-print bounds.
+The factory-clamp drawings are schematic. Capacity and throat come from
+BESSEY; pad, frame, handle and spindle outlines are envelopes for the
+assembly illustrations. During ordinary unloaded setup, verify that the
+actual factory feet remain fully backed, the attached faucet lever stays
+down at unpressed rest and untouched, and each spindle covers the complete
+20 mm travel without repositioning its sliding jaw. Keep the clamp rails
+outward and handles clear of the tube and bench. The reference model does
+not invent the faucet lever's measured installed pose.
 
-## Hardware and load path
+The full-width carrier foot begins at X96.5 and has a 124 mm guide bearing
+span with 0.1 mm nominal side gaps. A narrow 38.5 mm shelf supports the
+lower jaw at Z15. Locating keys and two metal carrier screws couple the
+lower jaw to the carrier without a free yaw joint. The carrier's complete
+print length is 162.5 mm; the bearing span is 124 mm. To release the
+workpiece, unload and remove both factory clamps, release the two closure
+screws, and remove upper jaw E and its liner. Lift the donor and tube out
+of the lower liner and open donor nest while carrier B and lower jaw D
+remain bolted together.
 
-The [acquired fixture stock](/hardware/ledger/purchases.md) supplies three
-M5 × 50 mm socket-head screws, four M5 square nuts and three Ø25 mm M5 fender
-washers. Two screws close the T handle. The third is the press-lever pivot;
-two jammed nuts retain its washer with the lever free to swing. No heat-set
-insert or printed thread carries the press load.
-
-The 30 mm short arm and 120 mm hand arm provide a nominal 4:1 leverage ratio.
-The circular nose drives a guided ram; the two ram fingers bear symmetrically
-on the rear of the T handle. Its full-length shelf supports the lower jaw at
-the tube's height. The 52 mm guide span and 0.2 mm nominal side clearances
-control the ram's lateral position and yaw. The free 330 mm tube passes
-through the open top and continues beyond the fixture.
-
-The donor's metal base annulus bears against the thrust wall. A tangent
-floor supports the cylindrical base at the tube-axis height, and a flat pad
-under the lower rectangular column locates its clocking. The threaded
-shank extends freely through the open slot. The fixture does not bear on
-the arches, plunger or attached faucet lever.
-
-The grip liners have 28 mm contact length and a nominal Ø9.25 mm bore when
-the rigid jaw mating faces close. This is a 0.1375 mm radial interference
-against the Ø9.525 mm tube. Rigid closure stops limit squeeze, and the
-3.35 mm front and 6.85 mm rear pocket end walls retain the liner under axial
-load, with 3 mm of rigid backing below the pocket. The bare tube has
-0.6375 mm radial clearance to the rigid jaw end openings.
-
-The opposite hand holds the clear fixed palm area on the base while the
-press lever moves. Existing bench clamps or bolts can secure the fixture
-using its two mounting holes when useful. Keep the base stationary during
-the operation.
+With both hands, advance one screw by one very small step, then immediately
+take up the opposite pad gap before another advance. The common guided
+collar supports limited alternation; the forces need not be equal. The
+[one-station analysis](load-basis.md) accounts for complete unequal input.
+Stop at the first of the seating witness or geometric travel limit.
+Unload and recheck the setup if they disagree, the grip slips or the
+carrier binds.
 
 ## Seating setup
 
-The donor reference records a water-port depth of at least 20 mm. Set up
-the actual donor using its caliper-measured annular floor depth **D**:
+Measure the actual bare donor's annular seating-floor depth D with the
+existing caliper, avoiding the central flow hole and plunger. The donor
+reference records at least 20 mm.
 
-- Mark the tube **D − 2.1 mm** from its square-cut end for the final port-lip
+- Mark the tube D−2.1 mm from its square-cut end for the final port-lip
   witness.
-- Mark it **D + 16.9 mm** from that end for the T handle's front face.
+- Mark it D+16.9 mm from that end for the collar's front face.
 
-Fit the thimble to the tube first, using the T handle and cap-support puck
-while walking its wall evenly around the tube. The tube end must contact
-the thimble's cap before the sleeved tube enters the donor. Fit the T handle
-at its front-face witness after this sleeve-fitting operation.
+Fit the sealing thimble to the tube first, using the assembled B/D/E
+T handle and carrier together out of the guides. Use the cap-support puck
+while walking the TPU wall evenly around the tube; the square-cut end must
+contact the cap before the sleeved tube enters the donor. Put the collar
+front at its witness after sleeve fitting, with B and D still coupled.
+Return the assembled unit to the guides for pressing. The donor port
+remains bare until the sleeved tube enters it.
 
-The press has 20 mm travel between its rear start stops and front seating
-stops. For D greater than 20 mm, begin **D − 20 mm** of insertion with the
-T handle so the collar fits onto the ram at its rear stop. The front stop
-places the jaw front 19 mm beyond the port lip, with 12 mm clearance to
-the donor's arch peak. Stop travel and the port-lip witness should agree.
-If they do not, check the sleeve, grip, marks and alignment before continuing.
+The carrier has 20 mm travel between its start and seating stops. For D
+larger than 20 mm, begin D−20 mm of insertion with the T handle so the
+carrier can reach its rear stop. At the front stop, the collar front is
+19 mm beyond the port lip and 12 mm behind the donor's arch peak. The
+port-lip witness and stop should agree. Cap compression and printing
+tolerances mean the stop is a geometric overtravel limit; it does not
+independently establish full seating, leak tightness or a force rating.
 
-Cap compression and printing tolerances mean the stop is a geometric
-overtravel limit. It does not independently establish full seating,
-leak tightness or a load rating. The accepted sealing thimble's
-[physical seating record](../../faucet/tpu-o-ring/print-log.md) retains its
-original scope.
+## Evidence and regeneration
 
-## Geometry and physical scope
+The [manual geometry review](geometry-review.json) covers all six printed
+variants, the donor reference, 330 mm tube, liners, sealing thimble, four
+screws, four nuts, two washers and the schematic factory clamp envelopes.
+It samples 0–20 mm travel at 0.5 mm increments. All six print variants are
+valid single analytic solids. The 41 sampled poses have no unintended
+B-rep intersections; designed TPU interference is recorded separately.
+All four nominal Ø30 contact disks have uninterrupted solid backing.
 
-The [manual geometry review](geometry-review.json) covers all seven part
-variants, the actual donor reference, a 330 mm tube, the sleeve and every
-screw, washer and nut. It samples the full 0–20 mm stroke at 0.5 mm
-increments. All parts are valid single analytic solids; the 41 poses have
-no unintended B-rep intersections. Designed TPU grip and port interference
-are identified separately.
+Physical grip, printed sliding fit, complete insertion, strength and
+lifetime remain unqualified. Factory clamp force does not rate the
+printed tool or workpiece. The accepted sealing thimble's
+[seating record](../../faucet/tpu-o-ring/print-log.md) and accepted faucet
+lever's [physical record](../../faucet/lever-replica/physical-acceptance.json)
+retain their identified scope.
 
-The [accepted faucet lever](../../faucet/lever-replica/physical-acceptance.json)
-has physical fit and functional evidence, with no measured assembled rigid
-pose. The working assembly therefore shows the donor and its open front
-side without inventing a lever placement. The user's attached, down,
-unpressed lever is the assembly authority.
-
-This fixture is a prepared print design. Physical grip, printed sliding
-fit, complete insertion, load capacity and lifetime are unqualified. The
-ordinary assembly operation checks that the collar holds without slipping
-or permanently marking/flattening the tube, the sleeve remains even, and
-the tube reaches its seating witness.
-
-## Source and manual regeneration
-
-[`tube_insertion.py`](tube_insertion.py) provides `build_parts`, the individual
-part builders and `build_assembly(stroke=0..20)` for assembly figures. Importing
-the builders writes no files. `parts.json`, the STEP files and print STLs are
-generated explicitly:
+[`tube_insertion.py`](tube_insertion.py) supplies `build_parts`, the
+individual builders, `build_assembly(stroke=0..20)`, `clamp_stations` and
+the separately scoped `build_clamp_reference` schematic. Importing builders
+writes no files. Generate CAD explicitly:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py
 ```
 
-The optional question-specific dimensional review runs separately:
+The question-specific review remains separate:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/review_geometry.py
 ```
 
-Neither command is added to a build, hook, watcher or print-launch path.
+Neither operation is added to a build, hook, watcher or print-launch path.
