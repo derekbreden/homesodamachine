@@ -10,7 +10,7 @@ photo estimates.
 
 ## Files
 
-[Download the complete model package](reference-models.zip). It contains:
+[Download the complete model package](https://github.com/derekbreden/homesodamachine/blob/12237bdb12/hardware/reference/xlaserlab-sup29f-xh/reference-models.zip). It contains:
 
 | File | Use |
 | --- | --- |
