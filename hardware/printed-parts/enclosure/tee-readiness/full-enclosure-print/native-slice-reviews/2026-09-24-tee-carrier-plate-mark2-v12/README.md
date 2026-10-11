@@ -6,12 +6,12 @@ records the observed startup/printing state; [completion](completion.json) confi
 **Physical result rejected:** Derek reports
 “That turned out worse. Exploded basically.” [Physical result](physical-result.json).
 Deposited edges retreat inward, leaving subsequent perimeter paths in air. The intact interior
-recovers outward as the curve becomes steeper. [Photos and detailed observation](../../../../tee-carrier/physical-observations/2026-09-24-v12/README.md)
+recovers outward as the curve becomes steeper. Photos and detailed observation (`hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/README.md`, in git at aab7f24fec)
 record that failure sequence. Part cooling off is rejected for this carrier at these settings;
 the cause of the deformation remains unconfirmed. This configuration is not a recommendation
 for other rounds.
 
-The [completed v11 surface](../../../../tee-carrier/physical-observations/2026-09-24-v11/README.md)
+The completed v11 surface (`hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/README.md`, in git at aab7f24fec)
 has a clean upper curve and localized lower-curve curling around layers 20–30. The fan-off
 trial addresses the hypothesis that forced cooling contributes to differential contraction
 of that thin, expanding curve. Its markedly worse result rejects fan removal as the remedy

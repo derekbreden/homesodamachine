@@ -26,7 +26,7 @@ V-K follows the core-mounted suction chain. Remaining cap, rear-shell and route
 changes belong to the coordinated complete assembly build.
 
 The [baseline manifest](fit-correction-baseline.json) authenticates a compact
-[native archive](fit-correction-baseline.zip), including the failed scorecard and
+native archive (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/fit-correction-baseline.zip`, in git at aab7f24fec), including the failed scorecard and
 the initial interference/alternative-placement readings. That archive contains
 historical regression inputs and is not production print geometry. Its native
 coil shapes match the completed assembly exactly; the coil entry-box failures

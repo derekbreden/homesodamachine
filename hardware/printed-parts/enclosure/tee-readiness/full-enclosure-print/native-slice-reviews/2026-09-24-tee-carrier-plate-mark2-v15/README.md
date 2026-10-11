@@ -23,7 +23,7 @@ top-surface wall reduction remains. Native estimate: **2 h 39 m 50 s**, **54.60 
 
 ![Scoped six-wall toolpaths](wall-comparison.png)
 
-Derek provisionally considers the [v14 lower curve](../2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json)
+Derek provisionally considers the v14 lower curve (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json`, in git at aab7f24fec)
 good enough: no observed spaghetti failure, with a slightly concave surface. That physical
 print combines six walls and infill first. **Six walls alone remains physically untested.**
 For other parts, the same wall-count override can be confined to each complete print-bottom
