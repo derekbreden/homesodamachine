@@ -1204,7 +1204,9 @@ def build_vent_outlet():
     origin=_paths.station_point(station,n=tube_shell_center_y)
     plane=cq.Plane(origin=origin,xDir=(1,0,0),
                    normal=(0,-math.cos(angle),-math.sin(angle)))
-    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - 0.15
+    # Reach inside the curved soda-clearance wall across the complete 4 mm
+    # hole. A shallow flat start leaves thin crescents beside that curvature.
+    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - 0.6
     return (cq.Workplane(plane).workplane(offset=inner_offset)
             .circle(_paths.DRIP_HOLE_DIAMETER/2)
             .extrude(tube_shell_outer_r + wall_thickness_min))
