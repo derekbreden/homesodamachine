@@ -52,24 +52,41 @@ cylindrical wall extrudes upward via Arachne thin-wall.
 
 ## Material
 
-**Bambu TPU 90A**
+**Bambu TPU 85A**, using the
+[accepted Touch-Flo / LLDPE fit project](tpu-o-ring-85A-6mm.3mf).
+The [2026-05-30 physical fit record](print-log.md#v3--85a-seats-successfully-2026-05-30-settings-per-tpu-o-ring-85a-6mm3mf)
+establishes successful tube-plus-sleeve seating in the metal donor. It supplies
+no quantified sealing-pressure, insertion-force or lifetime result.
 
 ## Assembly
 
-The thimble seats **cap-down** into that port first — drop it in
-with the closed cap pointing toward the valve chamber below. The
-[0.22 mm](WESTBRASS_SQUEEZE) radial compression at the outer face engages
-the port wall as it's pushed down. Total height [15.6 mm](TOTAL_H);
-port depth ≥ [20 mm](PORT_DEPTH_MIN).
+Fit the thimble to the **tube first, outside the donor**. Stretch and slide
+its open mouth evenly around the square-cut 3/8-inch LLDPE tube end until
+the end **bottoms on the cap's top face**. Work around the circumference so
+the wall stays straight, without a rolled edge or a scrunched section. The
+[tube insertion tool](../../fixtures/tube-insertion/README.md) can hold the
+tube while fitting the sleeve.
 
-Then the LLDPE tube pushes **down through the open top** from above
-until its square-cut bottom end **bottoms out on the cap's top face**.
-Once seated, water flows: valve chamber → cap hole → LLDPE inner bore
-→ up through the gooseneck → dispense tip.
+Attach the printed lever to the bare Touch-Flo before inserting the sleeved
+tube. Keep the lever **down at rest, not pressed**. Align the tube and sleeve
+with the empty metal top port and push them in together, **cap first**.
+The [0.22 mm](WESTBRASS_SQUEEZE) nominal radial compression at the outer
+face engages the port wall. Total sleeve height is [15.6 mm](TOTAL_H);
+nominal port depth is ≥ [20 mm](PORT_DEPTH_MIN).
 
-For service: pull the LLDPE up and out, then pluck the thimble out
-of the port with a pick or needle-nose. The thimble is consumable;
-replace on re-assembly.
+The [operator observation](../lever-replica/assembly-observations.json)
+establishes that TPU slides against metal far more easily than against LLDPE.
+An empty sleeve placed in the donor first scrunches beneath the entering
+tube. Keep it on the tube throughout port insertion. Once seated, water
+flows: valve chamber → cap hole → LLDPE inner bore → dispense tip.
+
+Complete the donor-to-shell motion in
+[shell assembly](../faucet-shell/ASSEMBLY.md): flip the attached lever up,
+insert the donor, then let the shell-guided lever snap down to unpressed rest.
+
+For service, remove the tube and thimble from the donor. Recover any sleeve
+left in the port without scratching the metal bore. The thimble is consumable;
+replace on re-assembly and fit its replacement to the tube outside the donor.
 
 ## Regenerate
 

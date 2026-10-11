@@ -39,28 +39,41 @@ heads on the completed faucet.
    of supports and stringing. Dry-fit the printed pieces before heat setting.
 2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
    pilots, with their mouths at Z = [3.2 mm](BASE_INSERT_Z). Let them cool without disturbing their alignment.
-3. With the donor's own lever removed and set aside, soda tube removed and
-   base plate separate, seat the donor from below with its lever interface facing the front opening.
-   Keep the shell tip separate for access to the soda tube's top-port entry.
-4. Position the printed lever, in the faucet's finish, aft of its working position, lower it onto
-   the valve, then slide it forward so it wraps and lightly snaps around the
-   valve's metal cylinder. Keep the soda tube out throughout this motion.
-5. Fit the fresh TPU thimble cap-down into the donor's top water port. Feed
-   the soda tube through the lower neck and push it into the thimble until
-   it bottoms on the cap. The installed tube retains the lever's working
-   position by blocking its aft disengagement motion.
-6. Feed S, F1, F2 and the flat, continuously insulated display ribbon
+3. Keep the donor outside the shell, with its own lever removed and set aside,
+   soda tube absent and base plate separate. Position the printed lever, in
+   the faucet's finish, aft of its working position, lower it onto the valve,
+   then slide it forward so it wraps and lightly snaps around the valve's
+   metal cylinder. Leave the attached lever **down at rest, not pressed**.
+4. Outside the donor, stretch and slide a fresh TPU thimble evenly onto the
+   square-cut 3/8-inch soda tube end through the thimble's open mouth. Work
+   around the entire circumference until the tube end bottoms on the cap;
+   the sleeve wall must be straight and evenly seated around the tube.
+   [Tube insertion tools](../../fixtures/tube-insertion/README.md) grip the
+   tube for this operation and for the donor insertion. Keep the donor's
+   top port empty until the sleeved tube is ready.
+5. With the attached lever down at rest, align the sleeved tube with the
+   bare donor's top port and push the tube and sleeve into the metal together,
+   cap first. The sleeve slides against the metal; putting an empty sleeve
+   in the port first scrunches it beneath the entering tube. The installed
+   tube retains the lever by blocking its aft disengagement motion.
+6. Flip the attached lever up for insertion into the shell. Feed the soda
+   tube through the lower neck, then insert the donor from the open foot,
+   with the handle toward the front opening. As the donor advances, the shell
+   pushes the lever forward. Once fully seated, the shell prevents the lever
+   from reaching that flipped-up position; let it snap down to its unpressed
+   rest position. Keep the tip separate and preserve the tube's port seat.
+7. Feed S, F1, F2 and the flat, continuously insulated display ribbon
    through the tip's smooth shared passage. Feed D to its square-cut
    terminal datum, leaving the 3 mm mouth clearance empty. Keep its bore clear
    of other tubes. Clear the Ø4 mm underside hole and confirm it opens into
    the common passage. Confirm the soda tube remains seated in its donor port,
    then close the curved lap.
-7. Thread the tube tails and ribbon through the plate's matching openings and
+8. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
    sockets; the donor and shell foot seat on the plate. Keep the ribbon flat
    behind the flavor/drain bundle through the base, plate and gasket. The
    rear bundle eases into the centered neck arrangement inside the shell.
-8. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
+9. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
    progressively so the plate closes evenly. Verify the lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
    before adding the gasket.
@@ -70,11 +83,17 @@ but the lever remains easy to remove. Pressing it without the tube can slide
 it aft off the metal cylinder. Remove the soda tube before removing the lever;
 the tube blocks that disengagement path while installed.
 
+The [operator assembly record](../lever-replica/assembly-observations.json)
+records the attachment order, sleeve-on-tube sequence and shell-guided lever
+motion. These are observed assembly facts; the record adds no force or lifetime
+measurement to the lever's accepted fit and operation.
+
 The assembly model's fixed-axis rotation and straight insertion corridor are
-nominal clearance approximations. They do not establish a pin hinge or verify
-the actual aft/down/forward seating path. Check that path on the physical
-donor and shell before closing the base. The measured assembled pose and
-operating contact motion are not yet established in CAD.
+nominal clearance approximations. The physical assembly follows the observed
+aft/down/forward attachment and flipped-up shell insertion above. The model
+does not establish a pin hinge or reproduce that complete contact path. The
+measured assembled pose and operating contact motion are not yet established
+in CAD.
 
 The central lever entry stays open up to the neck shoulder at Z57.5.
 Above that shoulder it follows the rounded front of the neck cap. The arched clearance farther aft leaves room for the rear

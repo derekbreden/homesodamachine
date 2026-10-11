@@ -1,0 +1,62 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-rigid-base-h2c.3mf",
+  "project_sha256": "38e852bfac9234c5fb721e4e7279f6cc913edb7d3f7ab530d79dadcabafd6cf6",
+  "archive": "tube-insertion-rigid-base-h2c.gcode.3mf",
+  "archive_sha256": "b55854b65ed71eea030ad3f7752946568139c7422248b5ae711b6c3f5da17e50",
+  "gcode_sha256": "4844273db60b0f66f4032cfa9dbe5440d0ea77410b6df31017199f9f024f4cd8",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base-print.stl": "7e1b343e721e7d30ef82cb9c3a2774e7154f8e654f75218faac4db7a245bd1bc"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Support",
+    "Support interface",
+    "Top surface"
+  ],
+  "support_generated": true,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        58.272398,
+        42.772398
+      ],
+      [
+        266.72760200000005,
+        277.22760200000005
+      ]
+    ],
+    "maximum_line_width_mm": 0.675204,
+    "bounds_padding_mm": 0.43760200000000005
+  },
+  "bead_margin_mm": [
+    58.272398,
+    42.772398,
+    58.27239799999995,
+    42.77239799999995
+  ],
+  "layers": 204,
+  "estimated_seconds": 28986.443359375,
+  "estimated_filament_g": 548.5039672851562,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  }
+}
