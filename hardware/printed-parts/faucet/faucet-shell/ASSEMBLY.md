@@ -172,23 +172,22 @@ pill opening and continue to the same tip. The prints carry and protect the
 tubes; they do not form the pressurized fluid path.
 
 The signal ribbon stays flat behind the flavor/drain bundle through the lower
-faucet and counter stack. The drain stays between the flavors. The hidden
-lower bundle sits toward the open side of the steel's rear channel and eases
-back to the centered gooseneck arrangement above the donor. Route the ribbon
-before either connector is fitted.
+faucet and counter stack. The drain stays between the flavors. Soda, drain and
+ribbon share X=0; the flavor pair is symmetric about that centerline. Route the
+ribbon before either connector is fitted.
 
-Reserve the straight rear bundle through the steel below a 38 mm routing-envelope slab.
-Flavor-b's R30 return and the drain's R25 return begin below that plane.
-Flavor-a and the ribbon begin their R30 return 8 mm farther down. The drain
-bends forward between the flavors before gathering into the braid.
+Reserve the straight rear bundle through the steel below a 38 mm routing-envelope
+slab. R30 flavor returns and an R25 drain return connect the mounting row to the
+organizer below the nut/washer working area. The flat ribbon remains straight.
 
-The fixed stainless profile is the purchased SendCutSend S4177511 plate:
-Ø[54.45 mm](STEEL_PLATE_D), Ø[12.6 mm](STEEL_SHANK_HOLE_D) shank pocket and
-[13.4 mm](STEEL_PILL_L) × [7.05 mm](STEEL_PILL_W) rear pocket. Both channels open toward
-the same side. Slide the plate around the shank and the entire rear bundle
-from that side before tightening the captive washer and nut.
-[Stock profile](../../../cut-parts/faucet/under-counter-plate/stock-profile.json)
-records the purchased geometry.
+The stainless plate has a Ø[54.55 mm](STEEL_PLATE_D) bearing outline, a
+Ø[12.6 mm](STEEL_SHANK_HOLE_D) shank pocket and an
+[18.15 mm](STEEL_PILL_L) × [7.25 mm](STEEL_PILL_W) rear pocket. Both channels open toward
+the same side. Slide the plate around the shank and the entire centered rear
+bundle from that side before tightening the captive washer and nut.
+[Plate drawing and specification](../../../cut-parts/faucet/under-counter-plate/README.md)
+define the matching cut. The [stock record](../../../cut-parts/faucet/under-counter-plate/stock-profile.json)
+identifies the separately archived purchased S4177511 plates.
 
 Follow [faucet and umbilical assembly](/hardware/assembly/faucet-and-umbilical.md)
 for the derived tube cuts, gasket, captive washer/nut, blue tube connection

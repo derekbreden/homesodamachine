@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Purchased 0.060-inch 316 stainless plate profile; the finished faucet and wiring fit this fixed cut.",
+  "scope": "Purchased 0.060-inch 316 stainless plate profile. This record and its archived drawing identify the received S4177511 stock.",
   "stock_order": "S4177511",
   "purchase_record": "hardware/ledger/purchases.md#purchase:pur-bf8d135df8f84025b5e36f07d38b311c",
   "reference_commit": "c44a6ffdf",
@@ -139,5 +139,6 @@
     ],
     "outside_diameter": 54.45
   },
-  "world_transform": "DXF (x,y) becomes world (-y,x); both open channels face world +X."
+  "world_transform": "DXF (x,y) becomes world (-y,x); both open channels face world +X.",
+  "archived_dxf": "hardware/cut-parts/faucet/under-counter-plate/S4177511-purchased.dxf"
 }

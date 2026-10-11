@@ -34,13 +34,14 @@ face; each pedestal has clearance above its tip.
 
 The flavor pair and 4 mm drain pass through a [18.15 mm](PLATE_PILL_L) ×
 [7.25 mm](PLATE_PILL_W) pill slot centered at
-(+[2.275 mm](PLATE_FLAVOR_X),+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
+([0 mm](PLATE_FLAVOR_X),+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
 The connected signal-cable branch is a 5.0 × 1.8 mm capsule centered at
-(+[2.275 mm](PLATE_RIBBON_X),+[21.4875 mm](PLATE_RIBBON_Y)), with its long axis along X.
+([0 mm](PLATE_RIBBON_X),+[21.4875 mm](PLATE_RIBBON_Y)), with its long axis along X.
 The ribbon stays flat behind the flavor/drain row through the counter stack.
-The rear bundle sits toward the open side of the fixed SendCutSend S4177511
-steel channel. The printed passage connects broadly around the tubes and
-ribbon so no thin fin separates their lower openings.
+The rear bundle is centered on X=0, with the drain between the flavors and
+the flat ribbon behind it. The matching steel plate admits the complete row
+through its open rear channel. The printed passage connects broadly around
+the tubes and ribbon.
 
 Route both flavor tubes, the drain and the signal ribbon before closing this
 factory joint.

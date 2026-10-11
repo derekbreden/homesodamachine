@@ -109,7 +109,7 @@ westbrass_bore_y = 0.0
 # [18.15 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
 flavor_pill_center = (_faucet_interface.bundle_slot_center_x, +flavor_tube_depth)
 
-# [11.28 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
+# [13.18 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
 # cutout in zones 1-4, on the Westbrass-bore +Y wall at the cutout's X corners.
 flavor_pill_y_minus_edge = min(
     +flavor_tube_depth - pill_width_y / 2.0,
@@ -139,8 +139,8 @@ _westbrass_bore_farthest_from_shell_center = (
 _pill_farthest_from_shell_center = (
     math.hypot(abs(_faucet_interface.bundle_mount_x)+flavor_tube_x_offset,
                flavor_tube_depth - shell_center_y) + pill_width_y / 2.0
-)  # = [21.17 mm](PILL_FARTHEST)
-# [25.37 mm](SHELL_OUTER_R) outer-cylinder radius.
+)  # = [20.29 mm](PILL_FARTHEST)
+# [24.49 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + show_wall
@@ -233,12 +233,12 @@ lever_clearance_x_half = lever_x_half + lever_fit_clearance
 lever_clearance_y_back = lever_rest_back_y + lever_fit_clearance + lever_sweep_allowance
 lever_rest_top_z = zone2_z_top + 13.0
 
-shell_rect_y_half = shell_outer_r  # [25.37 mm](SHELL_OUTER_R)
+shell_rect_y_half = shell_outer_r  # [24.49 mm](SHELL_OUTER_R)
 shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [28.54 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-22.19 mm](SHELL_RECT_Y_MIN) (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [27.67 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-21.32 mm](SHELL_RECT_Y_MIN) (toward user)
 
 # ZONE 3 — arch wraps (two wings at ±X)
 #
@@ -486,7 +486,7 @@ max_print_overhang_rad = max(
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [32.65 mm](BACK_ARCH_DY) (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [31.78 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -517,7 +517,7 @@ zone45_front_y = min(
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[54.55 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=[54.41 mm](ZONE45_Z_BOT_FRONT).
 zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
@@ -1856,6 +1856,7 @@ piece_mesh_angle = 0.05
 
 def piece_mesh(solid) -> trimesh.Trimesh:
     """Absolute-tolerance print mesh, on a copy without cached triangulation."""
+    import numpy as np
     from OCP.BRep import BRep_Tool
     from OCP.BRepMesh import BRepMesh_IncrementalMesh
     from OCP.TopAbs import TopAbs_REVERSED
@@ -1883,12 +1884,15 @@ def piece_mesh(solid) -> trimesh.Trimesh:
             if face.wrapped.Orientation() == TopAbs_REVERSED:
                 b, c = c, b
             tris.append((offset+a-1, offset+b-1, offset+c-1))
-    mesh = trimesh.Trimesh(vertices=points, faces=tris, process=True)
+    # Binary STL stores float32 vertices. Weld in that same precision so
+    # sub-micron Boolean slivers cannot collapse into duplicate STL sheets.
+    mesh = trimesh.Trimesh(vertices=np.asarray(points, dtype=np.float32),
+                           faces=tris, process=True)
     mesh.merge_vertices()
+    mesh.update_faces(mesh.area_faces > 0.0)
     # Boolean tangencies can tessellate microscopic internal sheets twice,
     # with opposite normals. Cancel only those exact opposing triangle pairs;
     # they enclose no stock and have no printable surface.
-    import numpy as np
     _, inverse, counts = np.unique(
         np.sort(mesh.faces, axis=1), axis=0, return_inverse=True, return_counts=True)
     keep = np.ones(len(mesh.faces), dtype=bool)
