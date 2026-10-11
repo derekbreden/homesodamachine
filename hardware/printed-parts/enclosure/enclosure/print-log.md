@@ -450,7 +450,7 @@ print in 0.08 mm layers. The support audit reads 4 bed-rooted trees and 9 contac
 `bulkhead-rings-tap-flavor-black-white-z004-mark2-v1.gcode.3mf` reported `RUNNING` on Mark2 at
 2026-09-23T23:00:17Z: the TAP chip in white with its word in black, both FLAVOR chips in black
 with their words in white, face up in 0.20 mm layers, black on the left hotend and white on the
-right ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/mark2-launch.json)).
+right (launch (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/mark2-launch.json`, in git at aab7f24fec)).
 
 ## 2026-09-23 — front-top v12 cancelled on H2C
 
@@ -469,7 +469,7 @@ through the whole of every roof curve, from print z 187.0 to 195.0, and 0.24 mm 
 
 The v1 rings, face up in 0.20 mm layers, turned out badly in Derek's reading. v2 prints the
 same three chips in 0.08 mm layers throughout, 25 of them, and reported `RUNNING` on Mark2 at
-2026-09-24T00:35:45Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/mark2-launch.json)).
+2026-09-24T00:35:45Z (launch (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/mark2-launch.json`, in git at aab7f24fec)).
 
 ## 2026-09-24 — face-down bulkhead rings v3 on Mark2
 
@@ -478,13 +478,13 @@ The same TAP and two FLAVOR chips print with their lettered faces against the be
 at 0.08 mm. The requested Mark2 trim is +0.04 mm (+0.02 mm emitted on Textured PEI). Mark2
 reported `RUNNING` at 2026-09-24T02:01:44Z, task 1277448913, with black on external 254 and
 white on external 255, no printer error
-([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/mark2-launch.json)).
+(launch (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/mark2-launch.json`, in git at aab7f24fec)).
 
 ## 2026-09-24 — bulkhead rings v4 on Mark2
 
 The 0.08 mm face-down v3 was stopped on Derek's word. v4 prints the three chips face down on
 the nameplate's own PET-GF settings (0.20 mm first layer, 0.24 mm after), and reported `RUNNING`
-on Mark2 at 2026-09-24T02:55:11Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/mark2-launch.json)).
+on Mark2 at 2026-09-24T02:55:11Z (launch (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/mark2-launch.json`, in git at aab7f24fec)).
 
 ## Tee carrier — Mark2, 2026-09-24 UTC
 
@@ -496,7 +496,7 @@ The 189 emitted model layers are 0.08 mm from print Z 0 to 6.08, 0.24 mm from 6.
 and 0.08 mm from 14.96 to 21.04. The exposed R6 rounds occupy Z 0–6 and 15.054–21.054.
 The first layer is 0.08 mm. Two short bed-rooted support slivers lie under the aft rounds.
 
-[Slice and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v10/manifest.json).
+Slice and launch record (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v10/manifest.json`, in git at aab7f24fec).
 
 ## Tee carrier without supports — Mark2, 2026-09-24 UTC
 
@@ -511,9 +511,9 @@ The first approximately 20 layers are clean; lifting around layers 20–30 cause
 and 3–6 disturbed layers, then recovery within the 0.08 mm band as the curve steepens.
 The cause remains unconfirmed. Unsupported visible 0.08 mm rounds remain his direction,
 including enclosure back-top, with their thermal performance under evaluation.
-[Physical observation and photos](../tee-carrier/physical-observations/2026-09-24-v11/README.md).
+Physical observation and photos (`hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/README.md`, in git at aab7f24fec).
 
-[Slice comparison and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json).
+Slice comparison and launch record (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json`, in git at aab7f24fec).
 
 ## Tee carrier with part cooling off — Mark2, 2026-09-24 UTC
 
@@ -581,7 +581,7 @@ assembled fit are not assessed. Native estimate: 2 h 40 m 16 s, 54.60 g. Timelap
 leveling On; flow and nozzle-offset calibration Auto. A fresh import with a 20-second
 settling wait was accepted on the first send attempt.
 
-[Slice, wall paths and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/README.md).
+Slice, wall paths and launch record (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/README.md`, in git at aab7f24fec).
 
 ## Pump cartridge and cap with unsupported grip rounds — Mark2, 2026-09-24 UTC
 

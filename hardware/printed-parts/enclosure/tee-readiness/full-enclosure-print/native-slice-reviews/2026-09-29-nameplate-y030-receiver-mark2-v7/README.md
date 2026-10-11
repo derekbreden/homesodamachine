@@ -16,7 +16,7 @@ bevel leaves 0.98 mm at the mouth.
 two Y slot roofs and their entry bevels, with zero additions. It verifies the
 same nameplate STL, fixed seating floor and all six pure-axis motion boundaries.
 This is a local test of thickness pinching. The
-[preceding physical result](../2026-09-29-nameplate-tip025-receiver-mark2-v6/physical-result.json)
+preceding physical result (`hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/physical-result.json`, in git at aab7f24fec)
 shows bowing when engaged and flatness when disengaged, without establishing
 which wing surfaces interfere. Z-end contact remains a possible cause.
 

@@ -54,7 +54,7 @@ remain paused.
 ## Native checks and bindings
 
 The project changes only the Z-trim expressions and printer preset name in
-the [prepared v1 project](../2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf).
+the prepared v1 project (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf`, in git at aab7f24fec).
 All geometry, placement and other settings are byte-identical to that input.
 The [preparation review](preparation-review.json) and
 [physical recipe binding](physical-recipe-binding.json) preserve the scope of
