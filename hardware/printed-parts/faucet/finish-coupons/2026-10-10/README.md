@@ -93,12 +93,14 @@ fresh readings of both printers. The [physical observations](physical-result/phy
 record the founder's October 11 report of the affected region on all three foot
 specimens. The first model layer above the supports falls away and is reported
 to have no connection to the model layers above. This is model-layer separation;
-the ease of removal includes loss of model material. A successful supported
-underside must retain that layer attached to the subsequent model layers while
-allowing support removal.
+the ease of removal includes loss of model material. The [coarse-start study](../coarse-start-v1/README.md) scores first-layer loss
+separately from recovery of the remaining underside after subsequent heavy layers.
 
 The photos show an opening under the front curved lips above the support
 interface, widest through the middle in the close-up. The amount beyond programmed
 support clearance, the strand positions during deposition and the cause of the
 missing connection are unmeasured. No cooling winner or final surface ranking is
-recorded. D/E/F scarf results remain pending.
+recorded. Derek reports a groove on D and a ridge on E/F at both 0.08 and
+0.24 mm, with E/F visually indistinguishable. The
+[seam-gap screen](../seam-gap-swatches-v1/README.md) tests local perimeter closure
+and scarf overlap; no quantitative seam height or shipping-setting change is established.

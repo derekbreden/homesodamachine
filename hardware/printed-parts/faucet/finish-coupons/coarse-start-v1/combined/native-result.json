@@ -1,0 +1,309 @@
+{
+    "error_string": "Success.",
+    "export_time": 3158,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 79,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 278.0972900390625,
+                "Bridge": 480.40167236328125,
+                "Brim": 66.47733306884766,
+                "Custom": 304.4087219238281,
+                "Flush": 15.0,
+                "Gap infill": 13.822632789611816,
+                "Inner wall": 5063.2080078125,
+                "Internal solid infill": 1059.307373046875,
+                "Outer wall": 3736.13916015625,
+                "Overhang wall": 518.1388549804688,
+                "Sparse infill": 5867.10400390625,
+                "Support": 2001.0560302734375,
+                "Support interface": 161.2490234375,
+                "Support transition": 344.0707092285156,
+                "Top surface": 178.45440673828125,
+                "Travel": 4421.369140625,
+                "Undefined": 4412.65478515625
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 125.88126373291016,
+                    "total_used_g": 125.88126373291016
+                }
+            ],
+            "generate_support_material_time": 933,
+            "id": 1,
+            "infill_time": 1119,
+            "layer_filament_change": 0,
+            "main_predication": 24163.255859375,
+            "make_perimeters_time": 2119,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 66.0,
+                        "y": 128.0005340576172,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "A lip current 0.12 band",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 66.0,
+                        "y": 56.00053405761719,
+                        "z": 0.0
+                    },
+                    "id": 9,
+                    "name": "B lip 1 coarse layer",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 66.0,
+                        "y": 200.0005340576172,
+                        "z": 0.0
+                    },
+                    "id": 13,
+                    "name": "C lip 2 coarse layers",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 108.0,
+                        "y": 92.00053405761719,
+                        "z": 0.0
+                    },
+                    "id": 17,
+                    "name": "D lip 4 coarse layers",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 108.0,
+                        "y": 164.0005340576172,
+                        "z": 0.0
+                    },
+                    "id": 21,
+                    "name": "E lip 8 coarse layers",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 144.5,
+                        "y": 86.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 25,
+                    "name": "SA regular gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 178.5,
+                        "y": 86.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 29,
+                    "name": "SB scarf gap 10%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 212.5,
+                        "y": 86.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 33,
+                    "name": "SC regular gap 5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 246.5,
+                        "y": 86.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 37,
+                    "name": "SD scarf gap 25%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 144.5,
+                        "y": 124.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 41,
+                    "name": "SE scarf gap 0%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 178.5,
+                        "y": 124.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 45,
+                    "name": "SF regular gap 0%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 212.5,
+                        "y": 124.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 49,
+                    "name": "SG scarf gap 5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 246.5,
+                        "y": 124.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 53,
+                    "name": "SH scarf gap 20%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 144.5,
+                        "y": 162.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 57,
+                    "name": "SI scarf gap 30%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 178.5,
+                        "y": 162.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 61,
+                    "name": "SJ scarf gap 2.5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 212.5,
+                        "y": 162.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 65,
+                    "name": "SK regular gap 10%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 246.5,
+                        "y": 162.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 69,
+                    "name": "SL scarf gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 144.5,
+                        "y": 200.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 73,
+                    "name": "SM regular gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 246.5,
+                        "y": 200.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 77,
+                    "name": "SN scarf gap 0%",
+                    "triangle_count": 1644
+                }
+            ],
+            "sliced_time": 10609,
+            "sliced_time_with_cache": 5782,
+            "total_predication": 24488.951171875,
+            "triangle_count": 32186,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "status": "Awaiting physical print and operator results",
+  "specimens": [
+    {
+      "id": "A",
+      "result": null
+    },
+    {
+      "id": "B",
+      "result": null
+    },
+    {
+      "id": "C",
+      "result": null
+    },
+    {
+      "id": "D",
+      "result": null
+    },
+    {
+      "id": "E",
+      "result": null
+    },
+    {
+      "id": "SA",
+      "result": null
+    },
+    {
+      "id": "SB",
+      "result": null
+    },
+    {
+      "id": "SC",
+      "result": null
+    },
+    {
+      "id": "SD",
+      "result": null
+    },
+    {
+      "id": "SE",
+      "result": null
+    },
+    {
+      "id": "SF",
+      "result": null
+    },
+    {
+      "id": "SG",
+      "result": null
+    },
+    {
+      "id": "SH",
+      "result": null
+    },
+    {
+      "id": "SI",
+      "result": null
+    },
+    {
+      "id": "SJ",
+      "result": null
+    },
+    {
+      "id": "SK",
+      "result": null
+    },
+    {
+      "id": "SL",
+      "result": null
+    },
+    {
+      "id": "SM",
+      "result": null
+    },
+    {
+      "id": "SN",
+      "result": null
+    }
+  ],
+  "physical_winner": null,
+  "shipping_recipe_changed": false
+}

@@ -1,0 +1,565 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/2026-10-11-faucet-lip-coarse-start-v1-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "settings_source_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "source_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 40.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A lip current 0.12 band",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        162.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          153.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          171.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "B lip 1 coarse layer",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        120.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        120.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          111.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          129.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "C lip 2 coarse layers",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        204.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        204.5,
+        121.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          195.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          213.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "D lip 4 coarse layers",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        141.5,
+        199.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        141.5,
+        199.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          167.00053215026855,
+          0.0
+        ],
+        [
+          150.5,
+          230.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "E lip 8 coarse layers",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        183.5,
+        199.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        183.5,
+        199.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          174.5,
+          167.00053215026855,
+          0.0
+        ],
+        [
+          192.5,
+          230.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    }
+  ],
+  "project_sha256": "5dfd4b401d6c098d2223ff51c8f152062d17c1d1adbdd1989d33c223e8ac87db",
+  "settings_preserved_byte_for_byte": true,
+  "source_step": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step",
+  "source_step_sha256": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
+  "source_stl": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
+  "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+  "source_study": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/preparation.json",
+  "source_geometry_pointer_commit": "5a9863696",
+  "full_faucet_geometry_tag": "faucet-industrial-shipping-2026-10-10",
+  "full_faucet_stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+  "full_faucet_step_sha256": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",
+  "source_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
+  "shipping_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "shipping_reference_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "parent_pose": {
+    "rotation_x_degrees": -14.999999999999998,
+    "lift_mm": 7.635161830524362
+  },
+  "section_cuts": {
+    "parent_print_frame_box_mm": [
+      [
+        0,
+        -40,
+        -0.001
+      ],
+      [
+        18,
+        60,
+        25
+      ]
+    ],
+    "original_front_ABC_volume_fraction": 0.21122461295379327,
+    "unchanged_bed_contact": true,
+    "scaled": false,
+    "added_stock": false
+  },
+  "supports": "Tree(auto), Default; inherited automatic support decisions, gaps, interfaces and speeds",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A lip current 0.12 band",
+      "kind": "lip",
+      "requested_coarse_layers": null,
+      "fine_band": [
+        13.4,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1901,
+      "object_id": "2",
+      "plate_bounds_mm": [
+        [
+          153.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          171.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        13.4,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "B",
+      "name": "B lip 1 coarse layer",
+      "kind": "lip",
+      "requested_coarse_layers": 1,
+      "fine_band": [
+        15.32,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1902,
+      "object_id": "4",
+      "plate_bounds_mm": [
+        [
+          111.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          129.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        15.32,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "C",
+      "name": "C lip 2 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 2,
+      "fine_band": [
+        15.56,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1903,
+      "object_id": "6",
+      "plate_bounds_mm": [
+        [
+          195.5,
+          89.00053215026855,
+          0.0
+        ],
+        [
+          213.5,
+          152.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        15.56,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "D",
+      "name": "D lip 4 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 4,
+      "fine_band": [
+        16.04,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1904,
+      "object_id": "8",
+      "plate_bounds_mm": [
+        [
+          132.5,
+          167.00053215026855,
+          0.0
+        ],
+        [
+          150.5,
+          230.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        16.04,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "E",
+      "name": "E lip 8 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 8,
+      "fine_band": [
+        17.0,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1905,
+      "object_id": "10",
+      "plate_bounds_mm": [
+        [
+          174.5,
+          167.00053215026855,
+          0.0
+        ],
+        [
+          192.5,
+          230.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        17.0,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    }
+  ],
+  "native_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "start_now": false,
+  "submitted": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/2026-10-11-faucet-lip-coarse-start-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "2aea5eb3b55ffe97d9ed3d2e622f836c61152aeb680f0db4c01c5fe318eaa83c",
+  "gcode_sha256": "36fb7af1fdead373ee75bc2410c7f3b9d2f92ca29b9649ac68250c251d8ca493",
+  "native_estimated_seconds": 11417.521484375,
+  "native_estimated_grams_saved_profile_density": 63.21312713623047,
+  "minimum_full_bead_bed_margin_mm": 87.349804,
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/native-check.json",
+  "native_check_sha256": "63ecbd1e8ccda1931bffe5eb5d4cb51ea76a087ccc6fd7de8342f0c426d1841e"
+}
