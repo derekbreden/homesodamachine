@@ -19,7 +19,7 @@ the measured relative error has the opposite sign. Do not extrapolate beyond
 the coupon. A photograph perpendicular to the surface can document the reading.
 
 `registration.py` builds the two-colour reference. `prepare_print.py` packages
-it with the saved PET-GF profiles. `verify_print.py` checks all 60 emitted
+it with the saved PET-GF profiles. [`verify_print.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/calibration/dual-nozzle-registration/verify_print.py) (in Git at `9884d0e7f4`) checks all 60 emitted
 candidate displacements across both rows and both raised layers. It also checks
 the native checksum, source hashes, filament mapping, layer planes and no support.
 The plate uses 0.20 mm first, 0.28 mm second, then 0.24 mm layers, with the normal

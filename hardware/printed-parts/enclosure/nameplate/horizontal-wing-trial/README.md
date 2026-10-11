@@ -63,7 +63,7 @@ print is on hold in [accepted-fit-integration](../../enclosure/accepted-fit-inte
 
 `horizontal_wing_trial.py` generates the STEP/STL/viewer triplets and
 `geometry-check.json`. `verify_insertion.py` checks 101 positions of an ideal
-circular bend in the central cross-section. `verify_pair.py` checks exported
+circular bend in the central cross-section. [`verify_pair.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_pair.py) checks exported
 solids at all six pure-axis travel limits and just beyond each, then verifies
 the emitted artwork, wing layers, supports and native coordinate correction.
 The bend model does not establish insertion force, fatigue or corner motion.
@@ -77,7 +77,7 @@ against the wing slots and their entry bevels; support removal remains a bench t
 Both objects use a 0.20 mm first layer, a 0.28 mm second layer, then 0.24 mm layers.
 Their shared schedule permits the prime tower and preserves complete raised-artwork
 layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap apply.
-`prepare_receiver.py` and `verify_receiver.py` create and check the receiver-only
+`prepare_receiver.py` and [`verify_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_receiver.py) create and check the receiver-only
 comparison on Mark2. It uses 0.20 mm followed by 0.24 mm layers, shared tree
 supports and the existing flat nameplate. Its
 [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md)

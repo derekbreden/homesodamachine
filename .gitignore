@@ -69,8 +69,7 @@ tools/cad-venv
 # is none — and on the enclosure the payload is where the show surface is, the solid beside it a
 # smooth prism (hardware/printed-parts/enclosure/enclosure/flute_skin.py), so that parse draws a
 # box with no flutes on it. A deploy is served the payloads the bundle carries
-# (tools/cad-artifacts/pack.py); hardware/scripts/check_payloads.py names one absent or older
-# than the solid it stands for.
+# (tools/cad-artifacts/pack.py).
 *.step.mesh
 
 # The solids arrive in a release asset. hardware/cad-artifacts.lock.json names that asset and

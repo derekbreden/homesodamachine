@@ -69,8 +69,8 @@ cover's physical acceptance does not qualify this mechanism.
 `face_up_trial.py` generates the geometry and checks a continuous print-down
 exit beneath each wing pocket through the complete fixture, including its
 standing cheeks. Publish with `tools/publish_now.py`, then lint the receiver.
-`verify_insertion.py` records the entry envelope. `prepare_receiver.py` creates
-the immutable H2C receiver-only slice; `verify_receiver.py` checks source hashes,
+[`verify_insertion.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/display-cover/face-up-trial/verify_insertion.py) records the entry envelope. [`prepare_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_receiver.py) creates
+the immutable H2C receiver-only slice; [`verify_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/display-cover/face-up-trial/verify_receiver.py) checks source hashes,
 layer planes, profile settings and support connectivity, including unlabeled
 support bodies. The native slice has one bed-rooted support body and no
 model-rooted bodies. Straight exit access is geometrically clear; actual tree
