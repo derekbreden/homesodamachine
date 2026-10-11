@@ -63,6 +63,12 @@ wall before choosing the boundary.
 
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
+Enclosure parts and their receiver coupons use the shared `petgf.3mf` tree supports and their
+production print orientation. The flat-wing nameplate prints without supports, with its back
+and both horizontal wings directly on the bed. Ordinary enclosure walls, webs and joint ends
+use the nominal 3 mm wall section. Remove cut remnants and tapered tips that leave thin fins.
+Apply thinner-section exceptions only to the specific flexure, cover or other feature that
+requires them.
 
 Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
 print-down show rounds use an additive chamfer tangent to their retained taper,
