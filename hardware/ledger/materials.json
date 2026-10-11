@@ -4216,423 +4216,23 @@
         }
       ],
       "bom": {
-        "scope": "The print reference sculpture, its captive basin mechanisms and removable specimens. Geometry and prepared native projects describe unprinted parts; the feature guide states each comparison and its scope.",
+        "scope": "One assembled Service Section: complete faucet, working enclosure joints and drawer, source interfaces and captive reference flags. Geometry and prepared native projects describe unprinted parts; the feature guide states each comparison and its scope.",
         "source": "printed-parts/calibration/soda-studies/manifest.json",
         "items": [
           {
-            "material": "HSM-000181",
+            "material": "HSM-000234",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "P basin and captive rails"
+              "FB"
             ]
           },
           {
-            "material": "HSM-000225",
+            "material": "HSM-000235",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "Q24 captive ripple shutter"
-            ]
-          },
-          {
-            "material": "HSM-000226",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "Q48 captive ripple shutter"
-            ]
-          },
-          {
-            "material": "HSM-000227",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "Q72 captive ripple shutter"
-            ]
-          },
-          {
-            "material": "HSM-000228",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "H fluted helix and keyed fin docks"
-            ]
-          },
-          {
-            "material": "HSM-000229",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S05R sliding receiver"
-            ]
-          },
-          {
-            "material": "HSM-000230",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S05 sliding tongue"
-            ]
-          },
-          {
-            "material": "HSM-000182",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S15R sliding receiver"
-            ]
-          },
-          {
-            "material": "HSM-000183",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S15 sliding tongue"
-            ]
-          },
-          {
-            "material": "HSM-000184",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S25R sliding receiver"
-            ]
-          },
-          {
-            "material": "HSM-000185",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S25 sliding tongue"
-            ]
-          },
-          {
-            "material": "HSM-000186",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S35R sliding receiver"
-            ]
-          },
-          {
-            "material": "HSM-000187",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S35 sliding tongue"
-            ]
-          },
-          {
-            "material": "HSM-000188",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S45R sliding receiver"
-            ]
-          },
-          {
-            "material": "HSM-000189",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "S45 sliding tongue"
-            ]
-          },
-          {
-            "material": "HSM-000190",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "R30 support ceiling"
-            ]
-          },
-          {
-            "material": "HSM-000191",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "R45 support ceiling"
-            ]
-          },
-          {
-            "material": "HSM-000192",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "R60 support ceiling"
-            ]
-          },
-          {
-            "material": "HSM-000193",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "A08 angle and curve blade"
-            ]
-          },
-          {
-            "material": "HSM-000194",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "A12 angle and curve blade"
-            ]
-          },
-          {
-            "material": "HSM-000195",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "A24 angle and curve blade"
-            ]
-          },
-          {
-            "material": "HSM-000196",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N08D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000197",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N08K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000198",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N08 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000208",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000209",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000210",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N12 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000220",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000221",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000222",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "N24 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000199",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR00D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000200",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR00K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000201",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR00 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000202",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR05D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000203",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR05K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000204",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR05 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000205",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR15D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000206",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR15K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000207",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NR15 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000211",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS00D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000212",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS00K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000213",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS00 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000214",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS10D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000215",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS10K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000216",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS10 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000217",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS20D neck cut-face foot"
-            ]
-          },
-          {
-            "material": "HSM-000218",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS20K neck T-slot keeper"
-            ]
-          },
-          {
-            "material": "HSM-000219",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "NS20 faucet neck"
-            ]
-          },
-          {
-            "material": "HSM-000223",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "GR grip receiver bridge"
-            ]
-          },
-          {
-            "material": "HSM-000224",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "G complete grip insert"
-            ]
-          },
-          {
-            "material": "HSM-000231",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "R6 expanding round structural buttress"
-            ]
-          },
-          {
-            "material": "HSM-000232",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "FH complete rigid groove host"
+              "FT"
             ]
           },
           {
@@ -4640,7 +4240,317 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "FC complete relaxed Industrial cover"
+              "FC"
+            ]
+          },
+          {
+            "material": "HSM-000236",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FPD"
+            ]
+          },
+          {
+            "material": "HSM-000237",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FG"
+            ]
+          },
+          {
+            "material": "HSM-000238",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FL"
+            ]
+          },
+          {
+            "material": "HSM-000239",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FS"
+            ]
+          },
+          {
+            "material": "HSM-000240",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "FO"
+            ]
+          },
+          {
+            "material": "HSM-000241",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "TC-body",
+              "TC-word"
+            ]
+          },
+          {
+            "material": "HSM-000242",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "front-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000243",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "front-top"
+            ]
+          },
+          {
+            "material": "HSM-000244",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "back-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000245",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "back-top"
+            ]
+          },
+          {
+            "material": "HSM-000246",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pump_drawer"
+            ]
+          },
+          {
+            "material": "HSM-000247",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pump_cap"
+            ]
+          },
+          {
+            "material": "HSM-000248",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "moving_tee_carrier"
+            ]
+          },
+          {
+            "material": "HSM-000249",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "vertical_window_cover"
+            ]
+          },
+          {
+            "material": "HSM-000250",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "removable_plumbing_lid"
+            ]
+          },
+          {
+            "material": "HSM-000251",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_water_flange"
+            ]
+          },
+          {
+            "material": "HSM-000252",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_water_nut"
+            ]
+          },
+          {
+            "material": "HSM-000253",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_co2_flange"
+            ]
+          },
+          {
+            "material": "HSM-000254",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_co2_nut"
+            ]
+          },
+          {
+            "material": "HSM-000255",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_drain_flange"
+            ]
+          },
+          {
+            "material": "HSM-000256",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nominal_drain_nut"
+            ]
+          },
+          {
+            "material": "HSM-000225",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q24"
+            ]
+          },
+          {
+            "material": "HSM-000226",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q48"
+            ]
+          },
+          {
+            "material": "HSM-000227",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "Q72"
+            ]
+          },
+          {
+            "material": "HSM-000257",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display_cover"
+            ]
+          },
+          {
+            "material": "HSM-000258",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display_gasket_90A"
+            ]
+          },
+          {
+            "material": "HSM-000259",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display_nominal_backer"
+            ]
+          },
+          {
+            "material": "HSM-000260",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "handhold_grip"
+            ]
+          },
+          {
+            "material": "HSM-000190",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R30"
+            ]
+          },
+          {
+            "material": "HSM-000191",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R45"
+            ]
+          },
+          {
+            "material": "HSM-000192",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R60"
+            ]
+          },
+          {
+            "material": "HSM-000261",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nameplate_black",
+              "nameplate_white"
+            ]
+          },
+          {
+            "material": "HSM-000262",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "DATA_body",
+              "DATA_word"
+            ]
+          },
+          {
+            "material": "HSM-000263",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "port_water_body",
+              "port_water_word"
+            ]
+          },
+          {
+            "material": "HSM-000264",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "port_co2_body",
+              "port_co2_word"
+            ]
+          },
+          {
+            "material": "HSM-000265",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "port_drain_body",
+              "port_drain_word"
+            ]
+          },
+          {
+            "material": "HSM-000201",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR00"
+            ]
+          },
+          {
+            "material": "HSM-000204",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR05"
             ]
           }
         ]
@@ -4657,186 +4567,15 @@
       ]
     },
     {
-      "id": "HSM-000181",
-      "description": "The Pour · P basin and captive rails",
-      "kind": "manufactured",
-      "aliases": [
-        "P"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/p-basin-and-captive-rails.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000182",
-      "description": "The Pour · S15R sliding receiver",
-      "kind": "manufactured",
-      "aliases": [
-        "S15R"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000183",
-      "description": "The Pour · S15 sliding tongue",
-      "kind": "manufactured",
-      "aliases": [
-        "S15"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000184",
-      "description": "The Pour · S25R sliding receiver",
-      "kind": "manufactured",
-      "aliases": [
-        "S25R"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000185",
-      "description": "The Pour · S25 sliding tongue",
-      "kind": "manufactured",
-      "aliases": [
-        "S25"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000186",
-      "description": "The Pour · S35R sliding receiver",
-      "kind": "manufactured",
-      "aliases": [
-        "S35R"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000187",
-      "description": "The Pour · S35 sliding tongue",
-      "kind": "manufactured",
-      "aliases": [
-        "S35"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000188",
-      "description": "The Pour · S45R sliding receiver",
-      "kind": "manufactured",
-      "aliases": [
-        "S45R"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000189",
-      "description": "The Pour · S45 sliding tongue",
-      "kind": "manufactured",
-      "aliases": [
-        "S45"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-000190",
-      "description": "The Pour · R30 support ceiling",
+      "description": "The Pour · R30",
       "kind": "manufactured",
       "aliases": [
         "R30"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/r30-support-ceiling.step"
+          "file": "printed-parts/calibration/soda-studies/parts/R30.step"
         }
       ],
       "documents": [
@@ -4848,14 +4587,14 @@
     },
     {
       "id": "HSM-000191",
-      "description": "The Pour · R45 support ceiling",
+      "description": "The Pour · R45",
       "kind": "manufactured",
       "aliases": [
         "R45"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step"
+          "file": "printed-parts/calibration/soda-studies/parts/R45.step"
         }
       ],
       "documents": [
@@ -4867,166 +4606,14 @@
     },
     {
       "id": "HSM-000192",
-      "description": "The Pour · R60 support ceiling",
+      "description": "The Pour · R60",
       "kind": "manufactured",
       "aliases": [
         "R60"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/r60-support-ceiling.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000193",
-      "description": "The Pour · A08 angle and curve blade",
-      "kind": "manufactured",
-      "aliases": [
-        "A08"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000194",
-      "description": "The Pour · A12 angle and curve blade",
-      "kind": "manufactured",
-      "aliases": [
-        "A12"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000195",
-      "description": "The Pour · A24 angle and curve blade",
-      "kind": "manufactured",
-      "aliases": [
-        "A24"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000196",
-      "description": "The Pour · N08D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "N08D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n08d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000197",
-      "description": "The Pour · N08K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "N08K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n08k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000198",
-      "description": "The Pour · N08 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "N08"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n08-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000199",
-      "description": "The Pour · NR00D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NR00D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr00d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000200",
-      "description": "The Pour · NR00K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NR00K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr00k-neck-t-slot-keeper.step"
+          "file": "printed-parts/calibration/soda-studies/parts/R60.step"
         }
       ],
       "documents": [
@@ -5038,52 +4625,14 @@
     },
     {
       "id": "HSM-000201",
-      "description": "The Pour · NR00 faucet neck",
+      "description": "The Pour · NR00 regular seam control on native tubes",
       "kind": "manufactured",
       "aliases": [
         "NR00"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000202",
-      "description": "The Pour · NR05D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NR05D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr05d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000203",
-      "description": "The Pour · NR05K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NR05K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr05k-neck-t-slot-keeper.step"
+          "file": "printed-parts/calibration/soda-studies/parts/NR00.step"
         }
       ],
       "documents": [
@@ -5095,394 +4644,14 @@
     },
     {
       "id": "HSM-000204",
-      "description": "The Pour · NR05 faucet neck",
+      "description": "The Pour · NR05 regular seam control on native tubes",
       "kind": "manufactured",
       "aliases": [
         "NR05"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000205",
-      "description": "The Pour · NR15D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NR15D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr15d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000206",
-      "description": "The Pour · NR15K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NR15K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr15k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000207",
-      "description": "The Pour · NR15 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "NR15"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000208",
-      "description": "The Pour · N12D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "N12D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n12d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000209",
-      "description": "The Pour · N12K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "N12K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n12k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000210",
-      "description": "The Pour · N12 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "N12"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n12-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000211",
-      "description": "The Pour · NS00D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NS00D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns00d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000212",
-      "description": "The Pour · NS00K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NS00K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns00k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000213",
-      "description": "The Pour · NS00 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "NS00"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000214",
-      "description": "The Pour · NS10D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NS10D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns10d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000215",
-      "description": "The Pour · NS10K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NS10K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns10k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000216",
-      "description": "The Pour · NS10 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "NS10"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000217",
-      "description": "The Pour · NS20D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "NS20D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns20d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000218",
-      "description": "The Pour · NS20K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "NS20K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns20k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000219",
-      "description": "The Pour · NS20 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "NS20"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000220",
-      "description": "The Pour · N24D neck cut-face foot",
-      "kind": "manufactured",
-      "aliases": [
-        "N24D"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n24d-neck-cut-face-foot.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000221",
-      "description": "The Pour · N24K neck T-slot keeper",
-      "kind": "manufactured",
-      "aliases": [
-        "N24K"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n24k-neck-t-slot-keeper.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000222",
-      "description": "The Pour · N24 faucet neck",
-      "kind": "manufactured",
-      "aliases": [
-        "N24"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/n24-faucet-neck.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000223",
-      "description": "The Pour · GR grip receiver bridge",
-      "kind": "manufactured",
-      "aliases": [
-        "GR"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000224",
-      "description": "The Pour · G complete grip insert",
-      "kind": "manufactured",
-      "aliases": [
-        "G"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.step"
+          "file": "printed-parts/calibration/soda-studies/parts/NR05.step"
         }
       ],
       "documents": [
@@ -5495,13 +4664,13 @@
     {
       "id": "HSM-000225",
       "kind": "manufactured",
-      "description": "The Pour · Q24 captive ripple shutter",
+      "description": "The Pour · Q24",
       "aliases": [
         "Q24"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/q24-captive-ripple-shutter.step"
+          "file": "printed-parts/calibration/soda-studies/parts/Q24.step"
         }
       ],
       "documents": [
@@ -5514,13 +4683,13 @@
     {
       "id": "HSM-000226",
       "kind": "manufactured",
-      "description": "The Pour · Q48 captive ripple shutter",
+      "description": "The Pour · Q48",
       "aliases": [
         "Q48"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step"
+          "file": "printed-parts/calibration/soda-studies/parts/Q48.step"
         }
       ],
       "documents": [
@@ -5533,108 +4702,13 @@
     {
       "id": "HSM-000227",
       "kind": "manufactured",
-      "description": "The Pour · Q72 captive ripple shutter",
+      "description": "The Pour · Q72",
       "aliases": [
         "Q72"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/q72-captive-ripple-shutter.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000228",
-      "kind": "manufactured",
-      "description": "The Pour · H fluted helix and keyed fin docks",
-      "aliases": [
-        "H"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000229",
-      "kind": "manufactured",
-      "description": "The Pour · S05R sliding receiver",
-      "aliases": [
-        "S05R"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s05r-sliding-receiver.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000230",
-      "kind": "manufactured",
-      "description": "The Pour · S05 sliding tongue",
-      "aliases": [
-        "S05"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/s05-sliding-tongue.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000231",
-      "kind": "manufactured",
-      "description": "The Pour · R6 expanding round structural buttress",
-      "aliases": [
-        "R6"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/r6-expanding-round-structural-buttress.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Read and assemble this reference",
-          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000232",
-      "kind": "manufactured",
-      "description": "The Pour · FH complete rigid groove host",
-      "aliases": [
-        "FH"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/calibration/soda-studies/parts/fh-complete-rigid-groove-host.step"
+          "file": "printed-parts/calibration/soda-studies/parts/Q72.step"
         }
       ],
       "documents": [
@@ -5647,13 +4721,621 @@
     {
       "id": "HSM-000233",
       "kind": "manufactured",
-      "description": "The Pour · FC complete relaxed Industrial cover",
+      "description": "The Pour · Complete Industrial elastic display cover",
       "aliases": [
         "FC"
       ],
       "models": [
         {
-          "file": "printed-parts/calibration/soda-studies/parts/fc-complete-relaxed-industrial-cover.step"
+          "file": "printed-parts/calibration/soda-studies/parts/FC.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000234",
+      "kind": "manufactured",
+      "description": "The Pour · Industrial / Sculpted hybrid full faucet body",
+      "aliases": [
+        "FB"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FB.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000235",
+      "kind": "manufactured",
+      "description": "The Pour · Complete shared faucet tip",
+      "aliases": [
+        "FT"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FT.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000236",
+      "kind": "manufactured",
+      "description": "The Pour · Source mounting plate with rooted nominal donor mate",
+      "aliases": [
+        "FPD"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FPD.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000237",
+      "kind": "manufactured",
+      "description": "The Pour · Source above-counter gasket with native-axis fastener holes",
+      "aliases": [
+        "FG"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FG.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000238",
+      "kind": "manufactured",
+      "description": "The Pour · Complete accepted scan-derived lever",
+      "aliases": [
+        "FL"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FL.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000239",
+      "kind": "manufactured",
+      "description": "The Pour · Complete source TPU port thimble",
+      "aliases": [
+        "FS"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FS.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000240",
+      "kind": "manufactured",
+      "description": "The Pour · Complete source umbilical organizer",
+      "aliases": [
+        "FO"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/FO.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000241",
+      "kind": "manufactured",
+      "description": "The Pour · Complete source SODA tube collar",
+      "aliases": [
+        "TC"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/TC.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000242",
+      "kind": "manufactured",
+      "description": "The Pour · Lower front shell and plumbing divider",
+      "aliases": [
+        "front-bottom"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/front-bottom.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000243",
+      "kind": "manufactured",
+      "description": "The Pour · Sliding upper front and display facet",
+      "aliases": [
+        "front-top"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/front-top.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000244",
+      "kind": "manufactured",
+      "description": "The Pour · Lower rear shell and fixed cartridge dock",
+      "aliases": [
+        "back-bottom"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/back-bottom.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000245",
+      "kind": "manufactured",
+      "description": "The Pour · Upper rear shell, counter and plumbing ceilings",
+      "aliases": [
+        "back-top"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/back-top.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000246",
+      "kind": "manufactured",
+      "description": "The Pour · Working cartridge drawer and front nameplate host",
+      "aliases": [
+        "pump_drawer"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/pump_drawer.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000247",
+      "kind": "manufactured",
+      "description": "The Pour · Native pump clamp and pogo lead spine",
+      "aliases": [
+        "pump_cap"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/pump_cap.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000248",
+      "kind": "manufactured",
+      "description": "The Pour · Native low-force tee carrier",
+      "aliases": [
+        "moving_tee_carrier"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/moving_tee_carrier.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000249",
+      "kind": "manufactured",
+      "description": "The Pour · Native tee window cover",
+      "aliases": [
+        "vertical_window_cover"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/vertical_window_cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000250",
+      "kind": "manufactured",
+      "description": "The Pour · Complete native funnel corner and hooked rail",
+      "aliases": [
+        "removable_plumbing_lid"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/removable_plumbing_lid.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000251",
+      "kind": "manufactured",
+      "description": "The Pour · nominal water flange",
+      "aliases": [
+        "nominal_water_flange"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_water_flange.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000252",
+      "kind": "manufactured",
+      "description": "The Pour · nominal water nut",
+      "aliases": [
+        "nominal_water_nut"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_water_nut.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000253",
+      "kind": "manufactured",
+      "description": "The Pour · nominal co2 flange",
+      "aliases": [
+        "nominal_co2_flange"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_co2_flange.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000254",
+      "kind": "manufactured",
+      "description": "The Pour · nominal co2 nut",
+      "aliases": [
+        "nominal_co2_nut"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_co2_nut.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000255",
+      "kind": "manufactured",
+      "description": "The Pour · nominal drain flange",
+      "aliases": [
+        "nominal_drain_flange"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_drain_flange.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000256",
+      "kind": "manufactured",
+      "description": "The Pour · nominal drain nut",
+      "aliases": [
+        "nominal_drain_nut"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nominal_drain_nut.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000257",
+      "kind": "manufactured",
+      "description": "The Pour · Full flat-wing display bezel",
+      "aliases": [
+        "display_cover"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/display_cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000258",
+      "kind": "manufactured",
+      "description": "The Pour · Native display gasket, white TPU 90A",
+      "aliases": [
+        "display_gasket_90A"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/display_gasket_90A.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000259",
+      "kind": "manufactured",
+      "description": "The Pour · Nominal one-millimetre glass-space backer",
+      "aliases": [
+        "display_nominal_backer"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/display_nominal_backer.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000260",
+      "kind": "manufactured",
+      "description": "The Pour · Complete flat-wing handhold liner",
+      "aliases": [
+        "handhold_grip"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/handhold_grip.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000261",
+      "kind": "manufactured",
+      "description": "The Pour · Native two-colour unit 001 nameplate",
+      "aliases": [
+        "nameplate"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nameplate.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000262",
+      "kind": "manufactured",
+      "description": "The Pour · Native flat-wing DATA plate",
+      "aliases": [
+        "DATA"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/DATA.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000263",
+      "kind": "manufactured",
+      "description": "The Pour · Native clamped TAP label",
+      "aliases": [
+        "TAP"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/TAP.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000264",
+      "kind": "manufactured",
+      "description": "The Pour · Native clamped CO2 label",
+      "aliases": [
+        "CO2"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/CO2.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000265",
+      "kind": "manufactured",
+      "description": "The Pour · Native clamped OVER label",
+      "aliases": [
+        "OVER"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/OVER.step"
         }
       ],
       "documents": [

@@ -36,22 +36,27 @@ def main():
     preparation = json.loads((HERE / "print-preparation.json").read_text())
     sources = [HERE / name for name in (
         "README.md", "feature-guide.md", "manifest.json", "print-preparation.json",
-        "assembly-review.json", "lettering-review.json", "reference-card.csv",
-        "the-pour.step.png", "reference.py", "source_features.py", "mount_geometry.py",
-        "prepare_prints.py", "viewer_payload.py", "package_kit.py",
-        "inputs/faucet-neck-swatch.step.gz", "inputs/faucet-neck-swatch.stl.gz",
-        "inputs/source-features/sources.json",
-        "inputs/source-features/faucet-shell-tip.step.gz",
-        "inputs/source-features/industrial-display-cover.step.gz",
-        "inputs/source-features/industrial-display-cover.stl.gz")]
+        "assembly-review.json", "lettering-review.json", "reference-card.csv", "fullfeature-map.json",
+        "faucet-module.json", "faucet-proof.json", "faucet-plan.json", "geometry.json",
+        "the-pour.step.png")]
+    sources.extend(sorted(HERE.glob("*.py")))
+    sources.extend(sorted(path for path in (HERE / "inputs").rglob("*") if path.is_file()))
+    if (HERE / "the-pour-open.step.png").exists():
+        sources.append(HERE / "the-pour-open.step.png")
     sources.append(HERE / manifest["assembly"])
     for part in manifest["parts"]:
         sources.extend((ROOT / part["stl"], ROOT / part["step"]))
-    for assembly in manifest.get("print_assemblies", []):
-        sources.extend((ROOT / assembly["stl"], ROOT / assembly["step"]))
+        for volume in part.get("material_volumes", []):
+            sources.extend(ROOT / volume[key] for key in ("stl", "step") if key in volume)
+        for key in ("stl", "step"):
+            if key in part.get("seated_display", {}):
+                sources.append(ROOT / part["seated_display"][key])
     for project in preparation["projects"]:
         path = ROOT / project["project"]
         sources.extend((path, path.with_suffix(".print.json")))
+    # Editable source projects carry every material assignment and schedule.
+    # Locally sliced archives remain identified by hash in the reading records.
+    sources = list(dict.fromkeys(sources))
     members = {p.resolve() for p in sources}
     files = []
     destination = HERE / "print-kit.zip"
@@ -69,7 +74,10 @@ def main():
             files.append({"path": relative, "bytes": len(data),
                           "sha256": hashlib.sha256(data).hexdigest(),
                           "source_sha256": source_digest})
+    release_tag = "the-pour-" + manifest["version"].lower()
+    download_url = f"https://github.com/derekbreden/homesodamachine/releases/download/{release_tag}/{destination.name}"
     record = {"schema": 1, "name": manifest["title"],
+              "release_tag": release_tag, "download_url": download_url,
               "archive": destination.name, "bytes": destination.stat().st_size,
               "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(),
               "files": files}
