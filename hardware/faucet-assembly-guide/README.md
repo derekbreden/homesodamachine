@@ -9,6 +9,27 @@ umbilical. The working pictures, short actions and check at each operation
 follow the [weld-rotator guide](../weld-rotator-guide/README.md).
 The complete PDF appears on the [document shelf](https://homesodamachine.com/drawings).
 
+## Lever, sleeve and donor order
+
+Pages 6-10 follow the [physical assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json):
+
+1. Attach the printed faucet lever to the bare Touch-Flo outside the shell,
+   with the soda tube absent. Leave it down at unpressed rest.
+2. Stretch and slide the fresh TPU sleeve evenly onto the square-cut tube
+   outside the donor, until the end is fully against the cap.
+3. Push the sleeved tube cap-first into the empty metal port. The attached
+   faucet lever stays down at unpressed rest.
+4. Flip the lever up and insert the donor into the shell. The shell pushes
+   it forward and prevents the flipped-up position once fully seated; let
+   the lever snap down to unpressed rest.
+5. Route the remaining tubes and flat insulated ribbon, set D's open end
+   inside the common passage, then close the neck and base.
+
+The [tube insertion jig guide](../tube-insertion-guide/tube-insertion-guide.pdf)
+covers building and using the T handle and bench press. Their tube grip also
+holds the tube while fitting the sealing sleeve. The printed faucet lever
+is already attached during either donor insertion operation.
+
 ## Display wiring at a glance
 
 Look directly at the **back of the PCB**, glass facing away from you, with
@@ -24,7 +45,7 @@ pictures on page 12 show that orientation.
 All four conductors are **black**. Before separating the ribbon, add a white
 index mark to **one edge at both free ends**. That edge is **C1**; count C1-C4
 across the ribbon from it. These identities stay with the wires through the
-vent bungs, display solder joints and wall-end plug.
+printed passages, display solder joints and wall-end plug.
 
 | Ribbon wire | Display pad / P1 pin | RJ11 plug and jack pin | Jack's printed USOC label | Main board J3 pin / net |
 | --- | --- | ---: | --- | --- |
@@ -53,7 +74,7 @@ physical pin numbers are **4, 3, 2, 1**.
 P1 has odd pin numbers down the left and even numbers down the right. UART
 is 3.3 V TTL, 921600 baud, 8N1. Leave the remaining pads open. Make the joints
 with J3 and USB disconnected, after the continuously insulated display leads
-have passed through both seated vent bungs. Solder only at the dry PCB ends.
+have passed through the neck and tip. Solder only at the dry PCB ends.
 Page 3 covers the joint, continuity and powered flavor-response check; page 12
 covers fitting the wired display and cover without trapping the leads.
 
@@ -67,18 +88,21 @@ continuity check verifies those specified connections before power is applied.
 | 1 | Overview and linked operation map |
 | 2-3 | Rear display pad map, direct solder joints, continuity and response |
 | 4 | Matching Sculpted/Industrial kit and Black/White tube-cut table |
-| 5-7 | Cleanup, base inserts, donor, printed lever, TPU thimble and soda tube |
-| 8-10 | Individually insulated wires, pre-threaded bungs, curved pusher, drain setting |
+| 5-7 | Cleanup, base inserts, lever attachment and fitting the sleeve to the tube |
+| 8-10 | Sleeved tube into bare donor, flipped-up lever into shell, tip routing and drain end |
 | 11-12 | Dry neck joint, underside screws, beverage ends, wired display and cover |
 | 13-14 | Gasket, captive donor washer/nut, White flavor unions and blue supply |
 | 15-17 | Wall plug, foam/braid, four collars, final inspection and packing |
 | 18 | Clickable sources and physical evidence scope |
 
 For a complete build, follow pages 4-17 in order. Pages 2-3 are the electrical
-reference used after the vent bungs are seated and before the display is
-enclosed. The pictures are original vector schematics; the cover uses the
-installation guide's committed CAD overview. The rear diagram preserves the
-manufacturer's pad order. Printed picture size is not a dimension or template.
+reference used after the insulated leads pass through the neck and tip and
+before the display is enclosed. The affected assembly pages use component
+CAD and sections of the accepted lever, current sleeve and current shell.
+The observed lever motion and passage diagrams are labeled schematics;
+the cover uses the installation guide's committed CAD overview. The rear
+diagram preserves the manufacturer's pad order. Printed picture size is
+not a dimension or template.
 
 ## Sources and physical scope
 
@@ -88,9 +112,11 @@ manufacturer's pad order. Printed picture size is not a dimension or template.
   donor and lever seating, neck/base closure, USB-C toward the dispense face,
   display motion and clearance. The shell's USB keepout and assembly's display
   placement define the installed orientation.
-- [Vent-seal assembly](../printed-parts/faucet/asse-vent-seals/README.md):
-  two retained bungs, continuously insulated wires, curved perimeter pusher
-  and the nominal 8.0 ± 0.2 mm D setting from the tool-contact flange face.
+- [Operator assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json):
+  lever attachment order, sleeve-on-tube fitting, sliding behavior and
+  shell-guided lever motion.
+- [Tube insertion jig](../printed-parts/fixtures/tube-insertion/README.md):
+  T handle, bench press and the linked fixture assembly guide.
 - [Waveshare rear interface layout](https://docs.waveshare.com/ESP32-S3-Touch-LCD-1.47)
   and [P1 schematic](https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-Schematic.pdf),
   reviewed 2026-10-08: physical orientation, pad identities and pin numbers.
@@ -107,8 +133,8 @@ manufacturer's pad order. Printed picture size is not a dimension or template.
 The [cover acceptance](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json)
 and [lever acceptance](../printed-parts/faucet/lever-replica/physical-acceptance.json)
 retain their identified physical articles and accepted fit/operation scope.
-The guide does not establish retention force, cycle life, complete current
-[vent containment](../printed-parts/faucet/vent-qualification/README.md), or the
+The guide does not establish retention force, cycle life, physical
+[fault-drip behavior](../printed-parts/faucet/vent-qualification/README.md), or the
 maximum clampable countertop thickness. The 38 mm routing envelope is a
 tube/cable route allowance; the actual retained washer/nut/shank stack controls
 mounting engagement. Physical records remain the authority for acceptance.
@@ -116,12 +142,16 @@ mounting engagement. Physical records remain the authority for acceptance.
 ## Build by hand
 
 ```sh
+tools/cad-venv/bin/python tools/faucet-assembly-guide/faucet_art.py
 python3 tools/faucet-assembly-guide/build.py
 ```
 
 The builder uses ReportLab, Pillow and Poppler (`pdftoppm`) with the shared
 Letter furniture in `tools/assembly-guides/common.py`. It reads selected
-procedure figures without importing or executing CAD. It writes:
+procedure figures and committed artwork without importing or executing CAD.
+The separate manual artwork tool sections existing component STEPs and renders
+them with the same posed renderer as the weld-rotator pictures. It writes the
+five component pictures under `art/`; the PDF builder writes:
 
 - `hardware/faucet-assembly-guide/faucet-assembly-guide.pdf`
 - `hardware/faucet-assembly-guide/faucet-assembly-guide.cover.png`

@@ -29,7 +29,9 @@ USOC = "https://leviton.com/content/dam/leviton/network-solutions/product_docume
 MODULAR_VIEW = "https://www.apo.nmsu.edu/mainpage/sdss/rj11basics/"
 FU = "hardware/assembly/faucet-and-umbilical.md"
 SHELL = "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md"
-SEALS = "hardware/printed-parts/faucet/asse-vent-seals/README.md"
+OBSERVATIONS = "hardware/printed-parts/faucet/lever-replica/assembly-observations.json"
+INSERTION = "hardware/printed-parts/fixtures/tube-insertion/README.md"
+INSERTION_PDF = "https://homesodamachine.com/read/tube-insertion-guide/tube-insertion-guide.pdf"
 N = 18
 GREEN = "#217E57"
 BRASS = "#C89542"
@@ -46,7 +48,7 @@ SIG6 = [
     {"wire":"C4", "pad":"RXD", "P1":7, "GPIO":44, "RJ11":5, "IDC":"orange", "J3_pin":1, "J3":"IO33 TX", "function":"GPIO44, display RX"},
 ]
 SOURCES = [
-    FU, SHELL, SEALS,
+    FU, SHELL, OBSERVATIONS,
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
     "hardware/faucet-layout/faucet_assembly.py",
     "hardware/reference/touch-flo-faucet/display-reference/README.md",
@@ -60,8 +62,15 @@ SOURCES = [
     "firmware/src_appliance/pins.h",
     "hardware/printed-parts/faucet/README.md",
     "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+    "hardware/printed-parts/faucet/tpu-o-ring/print-log.md",
     "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
     "hardware/printed-parts/faucet/lever-replica/physical-acceptance.json",
+    "tools/faucet-assembly-guide/faucet_art.py",
+    "hardware/faucet-assembly-guide/art/accepted-lever.png",
+    "hardware/faucet-assembly-guide/art/sleeve-on-tube.png",
+    "hardware/faucet-assembly-guide/art/sleeved-tube-to-donor.png",
+    "hardware/faucet-assembly-guide/art/shell-base-section.png",
+    "hardware/faucet-assembly-guide/art/shared-tip-section.png",
     "hardware/printed-parts/faucet/vent-qualification/README.md",
     "hardware/mechanical-qualification/README.md",
     "hardware/install-guide/assets/reference/drain-mount-drop.png",
@@ -316,148 +325,108 @@ def prep_art(a):
     a.label("square to the pilot",396,251,12,BLUE,align="center")
 
 
+def cad_image(a, name, x, y, width, height):
+    a.c.saveState()
+    a.c.scale(1, -1)
+    a.c.drawImage(str(GUIDE / "art" / (name + ".png")), x, -y-height,
+                  width=width, height=height, preserveAspectRatio=True,
+                  anchor="c", mask="auto")
+    a.c.restoreState()
+
+
 def donor_art(a):
-    for j,(title,x) in enumerate([("1  DONOR UP",14),("2  LEVER DOWN",185),("3  SLIDE FORWARD",357)]):
-        a.rect(x,16,157,253,PAPER,RULE)
-        a.label(title,x+78,39,10,BLUE,align="center")
-        a.shape([(x+28,213),(x+31,126),(x+126,126),(x+134,213)],STEEL)
-        a.rect(x+59,147,41,58,BRASS)
-        a.rect(x+76,205,9,46,BRASS)
-        a.ellipse(x+80,152,33,24,BRASS)
-        a.label("soda tube absent",x+78,65,10,MUTED,align="center")
+    a.label("ACCEPTED PRINTED LEVER",111,23,11,BLUE,align="center")
+    cad_image(a,"accepted-lever",6,41,207,225)
+    a.label("Attachment channel / underside",112,285,9.5,MUTED,align="center")
+    for j,(title,y) in enumerate([("1  LOWER WHILE AFT",35),("2  SLIDE FORWARD",120),("3  DOWN AT REST",205)]):
+        a.label(title,237,y,11,BLUE)
+        a.rect(374,y+20,74,45,STEEL)
+        a.ellipse(390,y+20,25,12,BRASS)
         if j==0:
-            a.arrow(x+79,254,x+79,222)
-            a.label("from below",x+79,111,10,BLUE,align="center")
-        elif j==1:
-            a.shape([(x+92,104),(x+115,104),(x+101,142),(x+39,148),(x+37,137),(x+83,124)],ORANGE)
-            a.arrow(x+106,78,x+106,94)
-            a.label("aft of working pose",x+78,234,9.5,MUTED,align="center")
+            a.shape([(311,y+3),(432,y+3),(432,y+13),(314,y+13)],ORANGE)
+            a.arrow(414,y-2,414,y+18,BLUE,1.5,4)
         else:
-            a.shape([(x+74,159),(x+98,159),(x+88,182),(x+15,185),(x+15,174),(x+66,170)],ORANGE)
-            a.arrow(x+129,104,x+63,104)
-            a.label("front / handle end",x+78,234,9.5,MUTED,align="center")
+            a.shape([(273,y+27),(413,y+27),(413,y+36),(273,y+36)],ORANGE)
+            if j==1:
+                a.arrow(450,y+9,358,y+9,BLUE,1.5,4)
+            else:
+                a.label("unpressed",460,y+51,10,MUTED,align="center")
+    a.label("BARE DONOR OUTSIDE SHELL",367,290,10.5,BLUE,align="center")
 
 
 def thimble_art(a):
-    a.label("SECTION THROUGH TOP PORT",153,23,11,BLUE,align="center")
-    a.rect(86,120,133,139,BRASS)
-    a.rect(113,120,79,112,PAPER)
-    a.shape([(118,124),(118,215),(187,215),(187,124)],None,ORANGE,8,False)
-    a.rect(118,215,69,12,ORANGE)
-    a.rect(141,215,22,12,PAPER,PAPER)
-    a.rect(126,45,52,140,STEEL)
-    a.rect(139,45,26,140,PAPER,PAPER)
-    a.arrow(152,187,152,210)
-    a.label("3/8-inch soda tube",154,41,12,BLUE,align="center")
-    a.label("fresh TPU thimble",275,157,13,ORANGE)
-    a.line(271,165,187,182,ORANGE,1.5)
-    a.label("CAP DOWN",276,193,16,ORANGE)
-    a.label("tube bottoms here",275,230,12,BLUE)
-    a.line(270,224,180,215,BLUE,1.5)
-    a.arrow(152,281,152,234,BLUE)
-    a.label("water from valve",152,291,11,BLUE,align="center")
+    a.label("FIT OUTSIDE THE DONOR",121,23,11,BLUE,align="center")
+    cad_image(a,"sleeve-on-tube",18,44,196,226)
+    a.arrow(228,86,228,175,BLUE,1.5,5)
+    a.label("open mouth",271,65,11,BLUE)
+    a.rect(318,93,71,140,STEEL)
+    a.rect(338,93,31,140,PAPER,PAPER)
+    a.shape([(310,155),(310,239),(397,239),(397,155)],None,ORANGE,8,False)
+    a.rect(310,233,87,12,ORANGE)
+    a.rect(338,233,31,12,PAPER,PAPER)
+    a.arrow(300,78,310,153,BLUE,1.2,4)
+    a.line(301,155,310,155,BLUE,1.5)
+    a.label("even wall",418,159,10.5,BLUE)
+    a.line(399,181,416,166,BLUE,1.2)
+    a.label("tube end on cap",352,270,12,BLUE,align="center")
+    a.arrow(352,259,352,235,BLUE,1.4,4)
+    a.label("CAP FIRST INTO METAL NEXT",352,290,10,ORANGE,align="center")
 
 
-def bung(a,x,y,upstream=True):
-    a.ellipse(x,y,102,102,ORANGE)
-    a.ellipse(x+5,y+5,92,92,STEEL)
-    # S, two flavors and four separate insulated-wire holes.
-    a.ellipse(x+36,y+55,30,30,PAPER)
-    for xx in [21,62]:
-        a.ellipse(x+xx,y+32,20,20,PAPER)
-    if upstream:
-        a.ellipse(x+43,y+27,16,16,PAPER)
-    for xx in [25,41,57,73]:
-        a.ellipse(x+xx-3,y+17,6,6,PAPER)
+def sleeve_insert_art(a):
+    a.label("SLEEVE + TUBE MOVE TOGETHER",123,23,10.5,BLUE,align="center")
+    cad_image(a,"sleeved-tube-to-donor",13,35,220,258)
+    a.arrow(240,77,240,149,BLUE,1.8,5)
+    a.rect(372,155,72,75,STEEL)
+    a.rect(400,93,17,88,INK)
+    a.shape([(398,130),(398,168),(420,168),(420,130)],None,ORANGE,4,False)
+    a.line(289,153,399,153,ORANGE,9)
+    a.rect(400,230,13,43,STEEL)
+    a.label("lever attached",363,49,13,BLUE,align="center")
+    a.label("DOWN AT REST",363,74,14,BLUE,align="center")
+    a.label("not pressed",298,177,11,MUTED)
+    a.arrow(451,101,451,138,BLUE,1.6,5)
+    a.label("bare metal port",359,291,11,BLUE,align="center")
 
 
-def thread_art(a):
-    a.label("FREE DRINK / DISPLAY ENDS",13,22,11,BLUE)
-    for i,ink in enumerate([INK,INK,BLUE]):
-        a.line(22,104+i*39,477,104+i*39,ink,7 if i<2 else 11)
-    for i in range(4):
-        a.line(22,52+i*10,477,52+i*10,WIRE,2)
-        a.label(f"C{i+1}",486,55+i*10,8.5,INK)
-    a.line(465,52,474,52,PAPER,.9)
-    for x,label,drain in [(169,"1  UPSTREAM",True),(332,"2  DISTAL",False)]:
-        bung(a,x,86,drain)
-        a.label(label,x+51,226,12,BLUE,align="center")
-        a.arrow(x+51,242,x+51,259,ORANGE)
-        a.label("flange toward open joint",x+51,276,9,MUTED,align="center")
-    a.arrow(103,221,139,221)
-    a.label("thread in this order",82,247,10,BLUE,align="center")
-    a.label("D is separate",447,261,11,MUTED,align="center")
-    a.line(407,238,487,238,MUTED,5)
+def shell_insertion_art(a):
+    a.label("CURRENT BASE / SECTION",111,23,11,BLUE,align="center")
+    cad_image(a,"shell-base-section",4,37,217,250)
+    a.arrow(224,272,224,216,BLUE,1.6,5)
+    for j,(title,y) in enumerate([("1  FLIP THE LEVER UP",41),("2  INSERT FROM FOOT",130),("3  SNAP TO REST",219)]):
+        a.label(title,251,y,10.7,BLUE)
+        if j<2:
+            a.shape([(353,y+25),(353,y+67),(451,y+67),(451,y+25)],None,INK,4,False)
+            a.rect(383,y+42,43,43,STEEL)
+            a.line(383,y+48,332,y+2,ORANGE,8)
+            if j==1:
+                a.arrow(441,y+85,441,y+49,BLUE,1.5,4)
+                a.arrow(320,y+19,344,y+19,BLUE,1.5,4)
+        else:
+            a.rect(353,y+21,98,50,INK)
+            a.rect(383,y+25,43,40,STEEL)
+            a.line(282,y+28,385,y+28,ORANGE,8)
+            a.label("unpressed",297,y+62,10,MUTED)
+
+
+def route_tip_art(a):
+    a.label("CURRENT SHARED TIP / SECTION",126,23,10.5,BLUE,align="center")
+    cad_image(a,"shared-tip-section",2,39,234,215)
+    a.label("Smooth common passage",125,280,11,BLUE,align="center")
+    a.rect(280,113,220,80,STEEL)
+    a.rect(282,133,218,39,PAPER,PAPER)
+    for y,ink in [(140,INK),(151,BLUE),(163,INK)]:
+        a.line(260,y,500,y,ink,5)
+    a.line(260,123,468,123,WIRE,4)
+    a.line(260,178,445,178,MUTED,4)
+    a.line(459,180,459,192,BLUE,5)
+    a.label("3 drink ends flush",407,68,12,BLUE,align="center")
+    a.arrow(498,81,498,130,BLUE,1.4,4)
+    a.label("D ends inside",324,225,11,BLUE,align="center")
+    a.arrow(350,209,442,179,BLUE,1.4,4)
+    a.label("Ø4 fault-drip hole",410,267,11,BLUE,align="center")
+    a.arrow(428,250,459,193,BLUE,1.4,4)
     a.line(407,238,487,238,PAPER,3)
-
-
-def seal_section(a,upstream=False):
-    # Unwrapped axial section, explicitly labeled; the insertion path inset is curved.
-    a.label("AXIAL SECTION / FLOW LEFT TO RIGHT",10,17,11,BLUE)
-    a.rect(24,97,401,25,STEEL)
-    a.rect(24,210,401,25,STEEL)
-    for x in [152,352]:
-        a.rect(x,116,20,97,"#D0D7E1")
-        a.rect(x+3,121,14,89,PAPER,PAPER)
-    # Depict the local tube/wire pack as continuous runs, not sealed fluid mixing.
-    for y,ink,w in [(142,BLUE,3),(158,INK,6),(181,INK,6),(199,BLUE,9)]:
-        a.line(28,y,462,y,ink,w)
-    x=154 if upstream else 354
-    a.rect(x,123,17,86,ORANGE)
-    for y in [142,158,181,199]:
-        a.line(x-2,y,x+19,y,PAPER,2)
-    if upstream:
-        a.line(29,171,211,171,MUTED,7)
-        a.line(29,171,211,171,PAPER,4)
-        a.ellipse(207,167,8,8,PAPER)
-        a.arrow(210,174,235,195,BLUE,1.5)
-        a.label("D ends inside cavity",254,74,12,BLUE,align="center")
-        a.line(253,81,211,168,BLUE,1)
-    else:
-        a.line(29,253,101,253,MUTED,7)
-        a.line(29,253,101,253,PAPER,4)
-        a.label("D stays outside",103,257,11,BLUE)
-        a.rect(92,133,230,11,BLUE,BLUE)
-        a.rect(92,211,230,10,BLUE,BLUE)
-        a.arrow(288,83,345,83,ORANGE)
-        a.label("perimeter tool",198,72,12,BLUE,align="center")
-    a.rect(221,210,87,25,PAPER,PAPER)
-    a.arrow(263,207,263,253,BLUE)
-    a.label("separate bottom opening",283,281,11,BLUE,align="center")
-    a.label("upstream gland",161,54,10,MUTED,align="center")
-    a.label("distal gland",362,54,10,MUTED,align="center")
-
-
-def distal_art(a):
-    seal_section(a)
-    # Curved pusher motion is a separate, recognizable inset.
-    a.label("ROTATE THE TOOL",441,22,10,BLUE,align="center")
-    a.shape([(426,34),(445,28),(460,35),(470,52),(473,73)],None,BLUE,9,False)
-    a.arrow(473,74,470,95,BLUE)
-
-
-def drain_art(a):
-    a.label("SET D WHILE THE BUNG IS OUT",14,24,11,BLUE)
-    a.rect(44,92,22,108,ORANGE)
-    a.rect(36,89,8,114,ORANGE)
-    a.line(14,155,215,155,MUTED,13)
-    a.line(14,155,215,155,PAPER,8)
-    a.ellipse(211,150,8,10,PAPER)
-    a.line(36,73,36,219,BLUE,.8,[3,2])
-    a.line(215,130,215,219,BLUE,.8,[3,2])
-    a.dim(36,219,215,219)
-    a.label("8.0 ± 0.2 mm",128,242,16,BLUE,align="center")
-    a.label("flange FRONT face",18,59,11,ORANGE)
-    a.label("square open end",143,112,11,BLUE)
-    a.label("toward body / cavity",130,273,10,MUTED,align="center")
-    a.arrow(259,147,283,147)
-    a.shape([(333,204),(324,154),(334,106),(365,65),(411,46)],None,STEEL,47,False)
-    a.shape([(332,203),(324,154),(334,106),(365,65),(411,46)],None,PAPER,29,False)
-    a.line(358,81,383,108,ORANGE,8)
-    a.shape([(310,211),(300,165),(310,116),(335,83)],None,BLUE,8,False)
-    a.arrow(335,82,351,66,BLUE)
-    a.label("advance D + bung",384,242,12,BLUE,align="center")
-    a.label("together around the arc",384,261,10,MUTED,align="center")
 
 
 def closure_art(a):
@@ -478,7 +447,7 @@ def closure_art(a):
 
 
 def solder_art(a):
-    a.label("AFTER BOTH BUNGS ARE SEATED",14,20,11,BLUE)
+    a.label("AFTER LEADS PASS THROUGH THE NECK",14,20,11,BLUE)
     a.rect(163,115,119,20,STEEL)
     a.ellipse(194,118,16,14,BRASS)
     a.line(20,211,170,211,WIRE,5)
@@ -724,14 +693,14 @@ def cover(c):
     text(c,"Start on page 2.",244,225,25,"PlexBold")
     paragraph(c,"A labeled rear view, with USB-C at the top, shows the four pads and their main-board destinations. Page 3 shows the joint and the connection checks.",245,243,318,12,15,max_height=80)
     for title,n,y in [("Rear display wiring",2,338),("Connect and check the display",3,370),
-                      ("Parts and tube cuts",4,402),("Build the shell and vent chamber",5,434),
+                      ("Parts and tube cuts",4,402),("Lever, sleeved tube and shell",5,434),
                       ("Fit display, mount hardware and supply",12,466),
                       ("Plug, sleeve, final inspection and packing",15,498)]:
         text(c,title,244,y,11.3,"PlexSemi")
         text(c,str(n),563,y,12,"PlexBold",BLUE,"right")
         c.linkRect("",f"page{n}",(242,H-y-8,570,H-y+17),relative=1,thickness=0)
     paragraph(c,"Follow pages 4-17 in order for a complete build. Use pages 2-3 when you only need the wiring. The matching Sculpted or Industrial base, cover, plate and gasket surround the shared tip and display.",34,548,542,12,15,max_height=65)
-    paragraph(c,"Coral identifies the part being added; blue identifies a tool, datum, wire path or check. Pictures are schematics unless identified as a CAD overview. Stated dimensions govern. The rear-board picture keeps the actual pad order.",34,623,542,11.3,14.2,max_height=55)
+    paragraph(c,"Coral identifies the part being added; blue identifies a tool, datum, wire path or check. CAD sections show the actual accepted lever and current printed parts. Motion and wiring diagrams are labeled schematics. Stated dimensions govern. The rear-board picture keeps the actual pad order.",34,623,542,11.3,14.2,max_height=55)
     note(c,"LETTER SHOP BOOK","18 pages, one-up, color, 100% / no scaling. The instructional layer is already centered at 98%. Source links and physical evidence scope are on page 18.")
     footer(c,1,"CAD overview: installation guide | manual shop document",SITE+"hardware/faucet-assembly-guide/README.md")
     end_page(c)
@@ -754,7 +723,8 @@ def sources_page(c):
     refs=[
         ("Faucet and umbilical: cuts, mount stack, braid and packing",SITE+FU),
         ("Shell assembly: donor, lever, thimble and display seating",SITE+SHELL),
-        ("Vent seals: threading, curved pusher and drain setting",SITE+SEALS),
+        ("Observed lever/sleeve order and shell-guided motion",SITE+OBSERVATIONS),
+        ("Tube insertion jig: T handle and bench press",INSERTION_PDF),
         ("Waveshare: actual rear layout and interface labels",VENDOR),
         ("Waveshare: P1 numbers and power/UART schematic",SCHEMATIC),
         ("Faucet firmware: GPIO43 TX, GPIO44 RX, 921600 baud",SITE+"firmware/src_faucet/base_link.cpp"),
@@ -764,17 +734,17 @@ def sources_page(c):
         ("Leviton: numbered 6-contact USOC terminal colors",USOC),
     ]
     for i,(title,url) in enumerate(refs):
-        yy=177+i*31
-        text(c,title,35,yy,11.3,"PlexSemi",BLUE)
+        yy=177+i*29
+        text(c,title,35,yy,10.8,"PlexSemi",BLUE)
         text(c,"OPEN SOURCE",575,yy+14,8,"PlexSemi",MUTED,"right")
         box(c,33,yy+21,545,.7,RULE)
         c.linkURL(url,(32,H-yy-23,579,H-yy+12),relative=1)
     text(c,"Physical evidence has a specific scope",34,508,17,"PlexBold")
-    paragraph(c,"The recorded display cover has accepted PET-GF give, spring, fit and retention; the recorded lever has accepted fit and operation. These results belong to their identified physical articles. Retention force, cycle life, the current complete vent assembly's containment and maximum clampable countertop thickness remain separate qualifications.",34,523,542,11.3,14.2,max_height=83)
+    paragraph(c,"The recorded display cover has accepted PET-GF give, spring, fit and retention; the recorded lever has accepted fit and operation. These results belong to their identified physical articles. Retention force, cycle life, physical fault-drip behavior and maximum clampable countertop thickness remain separate qualifications.",34,523,542,11.3,14.2,max_height=83)
     for title,path,yy in [
         ("Display cover acceptance","hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",621),
         ("Lever acceptance","hardware/printed-parts/faucet/lever-replica/physical-acceptance.json",645),
-        ("Vent-cavity qualification","hardware/printed-parts/faucet/vent-qualification/README.md",669),
+        ("Fault-drip qualification","hardware/printed-parts/faucet/vent-qualification/README.md",669),
     ]:
         text(c,title,35,yy,11,"PlexSemi",BLUE)
         c.linkURL(SITE+path,(32,H-yy-6,580,H-yy+14),relative=1)
@@ -794,7 +764,7 @@ def build():
     cover(c)
     wiring_page(c)
     page(c,3,"Connect and check the display",
-         "Use page 2 for the pad map. In a complete build, do this after the wires pass through both seated vent bungs (pages 8-10).",
+         "Use page 2 for the pad map. In a complete build, do this after the insulated leads pass through the neck and tip (pages 9-11).",
          solder_art,"Detail section through one P1 pad. Make the electrical joints in the dry display pocket.",
          ["Keep C1-C4 identified from the white C1 edge mark shown on page 2. With J3 and USB unplugged, strip only the dry PCB ends. Solder C1/VBUS, C2/GND, C3/TXD and C4/RXD at the page-2 pads; inspect for bridges.",
           "Leave free wire length for the page-12 slide and lowering motion. Route the leads in the open space below the PCB, clear of feet, components, lips and the USB socket.",
@@ -802,7 +772,7 @@ def build():
          "After the unpowered checks, power through J3. The screen should boot and receive the main board's selected flavor. A bright-screen tap changes the selection and the main board ticks; a dim-screen first tap only wakes it.","firmware/src_faucet/README.md")
     # Page 4 is a cut table rather than a generic parts picture.
     start(c,4,"Lay out the matching kit","Choose the style and finish before cutting. Mark one black ribbon edge white at both free ends as C1; count C1-C4 from it. Leave both ends unterminated.")
-    paragraph(c,"<b>Rigid parts:</b> matching base, display cover and above-counter plate; shared shell tip; printed lever. <b>Soft parts:</b> matching countertop gasket, fresh TPU thimble and two vent bungs. <b>Hardware:</b> bare Westbrass, Waveshare 1.47 display, 3 short M3 inserts, 3 M3 × 8 screws, captive donor washer/nut, loose stainless under-counter plate.",34,161,542,11.3,14.2,max_height=74)
+    paragraph(c,"<b>Rigid parts:</b> matching base, display cover and above-counter plate; shared shell tip; printed lever; umbilical organizer. <b>Soft parts:</b> matching countertop gasket and fresh TPU 85A thimble. <b>Hardware:</b> bare Westbrass, Waveshare 1.47 display, 3 short M3 inserts, 3 M3 × 8 screws, captive donor washer/nut, loose stainless under-counter plate.",34,161,542,11.3,14.2,max_height=74)
     text(c,"Factory tube cuts / mm",34,251,19,"PlexBold")
     cutrows=[
         ("Blue supply, 1/4-inch OD",figure("BLUE_CUT"),figure("BLUE_CUT")),
@@ -826,8 +796,8 @@ def build():
         a.arrow(324,-6,324,0,ORANGE)
         a.label("one square cut",238,9,12,BLUE)
         a.label("keep supplied reach",4,96,13,BLUE)
-    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are black throughout a Black faucet. A White faucet has white upper runs and black lower runs joined by two PP0408W unions. The OVER is one continuous 1872 mm run.",34,579,542,11.3,14.2,max_height=58)
-    note(c,"TOOLS AND CONSUMABLES","Tube cutter, 2.5 mm hex key, M3 heat-set tip/iron, fine soldering tip, solder, multimeter, magnifier, modular crimper and 3-prong 6P4C plug. Use the vent perimeter pusher, foam and PET braid already specified for this bench.")
+    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are black throughout a Black faucet. A White faucet has white upper runs and black lower runs joined by two PP0408W unions. The OVER is one continuous "+figure("DRAIN_CUT")+" mm run.",34,579,542,11.3,14.2,max_height=58)
+    note(c,"TOOLS AND CONSUMABLES","Tube cutter, 2.5 mm hex key, M3 heat-set tip/iron, fine soldering tip, solder, multimeter, magnifier, modular crimper and 3-prong 6P4C plug. Use the tube insertion jig, foam and PET braid specified for this bench. The linked jig guide gives its assembly and use.")
     footer(c,4,FU+" | matching style parts",SITE+FU)
     end_page(c)
     page(c,5,"Clean and fit the base inserts","Keep the shell base, tip and above-counter plate separate for access.",prep_art,
@@ -836,42 +806,42 @@ def build():
           "Heat-set the three ruthex RX-M3Sx4.0 short inserts into the base's bottom-facing Ø4 mm pilots. Keep each insert square; the specified insert-mouth datum is Z = 3.2 mm.",
           "Let the inserts cool undisturbed. Hand-start the M3 screws, then remove them; the plate is fitted after the tubes and shell joint."],
          "The pedestals enter their sockets freely, the mating surfaces close, and each cooled insert accepts its screw without forcing or turning in the print.",SHELL)
-    page(c,6,"Seat the donor, then the lever","The soda tube stays out during the complete aft/down/forward lever motion.",donor_art,
-         "Side-view sequence. Front is the projecting handle end; the donor enters through the open foot.",
-         ["Remove and retain the donor's own lever. With the base plate separate and soda tube absent, seat the bare donor from below, valve interface facing the front opening.",
-          "Hold the printed lever aft of its working position. Lower it onto the valve, then slide it forward around the metal cylinder until its light snap seats.",
-          "Move the handle through its actual travel. Check the rear arm's rising clearance before fitting the soda tube or closing the base."],
-         "The lever seats and operates on the real donor without catching the shell. Keep the soda tube out if the lever needs to be removed or repositioned.",SHELL)
-    page(c,7,"Seat the thimble and soda tube","A fresh TPU thimble seals the 3/8-inch tube in the donor's top water port.",thimble_art,
-         "Section view. The annular cap has a center flow hole; the tube's square end seats on its upper face.",
-         ["Place the fresh TPU 90A thimble cap-down in the donor's top port. The open end faces up toward the soda tube.",
-          "Feed the finish-matched 330 mm soda tube through the lower neck. Push its square-cut end down through the thimble until it bottoms on the cap.",
-          "Keep that seating while routing the tube toward the shared tip. The installed tube blocks the printed lever's aft disengagement path."],
-         "The tube reaches its positive bottom seat, the lever still travels fully and the tube remains seated while the upper bundle is handled.","hardware/printed-parts/faucet/tpu-o-ring/README.md")
-    page(c,8,"Pre-thread the vent bungs","The display wires must be individually insulated through both seals before they are soldered.",thread_art,
-         "Threading order, not an installed chamber section. Both bung flanges face back toward the open shell joint.",
-         ["Keep the display ends unterminated. Peel the ribbon web into four continuously insulated conductors only through the local spread; preserve wire order and reject any nicked jacket.",
-          "Wet the bores with clean water. From the free S, F1, F2 and wire ends, thread the upstream bung first, then the distal bung. Leave the upstream D hole empty.",
-          "Park the upstream bung clear of the pusher's full stroke. Feed the three beverage ends and four wires through the tip's dry outlet guides, leaving D outside the tip."],
-         "Four intact wire jackets and all three drink tubes pass through each bung. No stripped wire, solder joint, adhesive or slit is inside the seals.",SEALS)
-    page(c,9,"Seat the distal bung first","D stays outside while the slotted perimeter pusher passes through the empty upstream gland.",distal_art,
-         "The large section is unwrapped for visibility. The inset shows the actual curved insertion direction.",
-         ["Fit the pusher around the continuous bundle through its 19 mm side slot. Its leading annulus bears on the distal bung's perimeter.",
-          "Rotate the curved tool about the gooseneck arc center. Advance the distal bung through the empty upstream gland until its body meets the distal backstop and its flange enters the retaining groove.",
-          "Withdraw the tool along that same curve until it clears the socket, then lift it off through the open side. Leave the upstream bung parked outside."],
-         "The complete distal flange is captured, its body is seated at the backstop, and the continuous tubes and insulated wires remain in their assigned bores.",SEALS)
-    page(c,10,"Set D and seat the upstream bung","The drain ends inside the wet chamber. It does not continue to the drink face.",drain_art,
-         "Measure from the flange front face contacted by the tool, toward the bung body and cavity, to D's square cut.",
-         ["With the upstream bung outside the tip, feed D through its own hole. Set the square-cut end to 8.0 ± 0.2 mm from the flange's front face toward the body/cavity.",
-          "Refit the perimeter pusher and rotate D plus the upstream bung into the gland together. Its flange seats in the groove against the body-seat shoulder; the upstream body has no terminal backstop.",
-          "Remove the pusher by the same curved withdrawal and side exit. Confirm D opens into the cavity and the separate bottom discharge opening is completely clear."],
-         "Both flanges are captured; every intended tube/wire bore is occupied. D's open end projects into the cavity, while the three drink tubes continue through the distal seal into their dry channels.",SEALS)
+    page(c,6,"Attach the faucet lever first","Keep the Touch-Flo outside the shell and the soda tube out during attachment.",donor_art,
+         "Accepted lever CAD at left; observed aft/down/forward motion at right is schematic.",
+         ["Remove and retain the donor's own lever. Keep the bare metal donor outside the shell, with its top water port empty.",
+          "Hold the printed faucet lever aft of its working position. Lower it onto the valve, then slide it forward around the metal cylinder until its light snap seats.",
+          "Leave the attached lever down at its unpressed rest position. Fit the tube next; pressing with the tube absent can dislodge the lever aft."],
+         "The printed lever is attached before tube insertion and before shell insertion. Its light snap holds it during handling. Keep it down at rest for the next two pages.",OBSERVATIONS)
+    page(c,7,"Fit the sleeve onto the tube","Stretch and slide the fresh TPU 85A sleeve evenly onto the tube outside the Touch-Flo.",thimble_art,
+         "Current thimble CAD section at left; fully fitted tube/cap section at right is schematic.",
+         ["Hold the finish-matched 330 mm soda tube with the insertion jig's tube grip. Keep its square-cut sealing end clean, accessible and undamaged.",
+          "Start the fresh TPU sleeve's open mouth around the tube end. Work around the whole circumference, stretching and sliding it evenly rather than advancing one side far ahead.",
+          "Continue until the square tube end bottoms on the cap. Straighten the sleeve wall and rim; the cap's center flow hole stays open. Keep the donor port empty."],
+         "The cap is fully against the square tube end, with a straight sleeve wall and even rim. The sleeve is fitted before either part enters the donor.","hardware/printed-parts/faucet/tpu-o-ring/README.md")
+    page(c,8,"Insert the sleeved tube","The faucet lever stays attached and down at unpressed rest. The Touch-Flo is bare metal.",sleeve_insert_art,
+         "CAD section shows cap-first port alignment; the attached lever's rest position is schematic.",
+         ["Support the bare donor in the insertion jig, clear of its attached faucet lever and threaded shank. The empty top port faces the sleeved tube.",
+          "Align tube and port. Push the tube and sleeve into the metal together, cap first, using the T handle or press in the separate jig guide.",
+          "Release the grip and lift the donor out. Preserve the tube's seated position; the installed tube blocks the faucet lever's aft disengagement path."],
+         "The sleeve remains straight on the tube through insertion and the cap stays against the tube end. The faucet lever remains down at unpressed rest. The shell is fitted next.",INSERTION)
+    page(c,9,"Insert the donor into the shell","Flip the attached faucet lever up for this insertion, with the sleeved soda tube already seated.",shell_insertion_art,
+         "Sculpted base CAD section at left; observed shell-guided lever motion at right is schematic.",
+         ["Keep the base plate and tip separate. Flip the attached faucet lever up. Feed the soda tube through the lower neck while preserving its donor-port seat.",
+          "Insert the donor through the open shell foot, with the handle toward the front opening. The shell pushes the lever forward as the donor advances.",
+          "Fully seat the donor. The shell prevents the lever reaching the flipped-up position; let it snap down to unpressed rest. Keep tube and lever seated while routing."],
+         "The donor is fully seated, the lever has snapped down to unpressed rest, and the shell prevents the flipped-up assembly position. The soda tube remains seated.",SHELL)
+    page(c,10,"Route the shared tip","Keep the drink paths inside their LLDPE tubes and the display leads continuously insulated.",route_tip_art,
+         "Current shared tip CAD section at left; passage and end positions at right are schematic.",
+         ["Feed S, F1, F2 and the flat insulated SIG-6 ribbon through the tip's smooth shared passage. Keep C1-C4 identified and the display ends unterminated.",
+          "Feed the separate white 4 mm D between the flavors. Set its square end at the terminal datum, leaving the 3 mm mouth clearance empty and its bore unobstructed.",
+          "Keep the round Ø4 mm underside fault-drip hole clear into the common passage. Position the three beverage ends at their outlets; final flush trimming follows closure."],
+         "All drink tubes and insulated leads pass freely. D ends inside with its mouth clear; the separate bottom hole is open. The continuous ribbon stays flat through the curved joint.",SHELL)
     page(c,11,"Close the neck and base","Route the continuous bundle before rotating the dry curved lap closed.",closure_art,
          "Neck joining at left; base screws aligned with their underside holes at right. Schematics, not screw-station dimensions.",
-         ["Rotate the tip socket over the base plug about the arc center until the seam seats. Preserve the soda tube's donor-port seat and keep the chamber's bottom opening clear.",
+         ["Rotate the tip plug into the base socket about the arc center until the seam seats. Preserve the soda tube's donor-port seat and keep the tip's bottom opening clear.",
           "Pass F1/D/F2 and the flat ribbon through the plate's rear passage, and the bare shank through its center. Keep the ribbon flat behind the bundle. Seat all three pedestals.",
           "Install three M3 × 8 screws from below with a 2.5 mm hex key, progressively and evenly. Square-trim only the three beverage outlets flush with their symmetric drink face."],
-         "The plate and curved seam close evenly. Lever travel and both flavor paths remain free. D ends inside the chamber and its separate bottom opening remains bare. Now connect/check the display using pages 2-3.",SHELL)
+         "The plate and curved seam close evenly. Lever travel and both flavor paths remain free. D ends inside the common passage and its separate bottom opening remains bare. Now connect/check the display using pages 2-3.",SHELL)
     page(c,12,"Fit the display and cover","USB-C faces the dispense face; the opposite end points up the gooseneck. Complete the page-3 joints/check first.",display_art,
          "Side sections show the USB-C end at the outlet. Two of four feet are visible; the 9.5 mm lift is normal to the glass.",
          ["Keep USB-C toward the dispense face. Route the leads freely below the PCB toward its southwest corner as viewed from the glass. Spread the wings and load the display through the cover's open underside.",
@@ -882,7 +852,7 @@ def build():
          "Exploded order from the shell foot downward. The steel under-counter plate stays loose for the install bag.",
          ["Pass both flavor tails, D and the unterminated wall end of the ribbon through the gasket's matching passage. Pass the bare shank through its center and slide the gasket flat against the printed plate.",
           "Slide the retained donor washer onto the shank, then thread on the retained donor nut loosely. Keep the gap above them for the countertop and laterally inserted steel plate.",
-          "Leave the under-counter steel plate off. The next page connects the blue tube below the hardware, making this washer and nut permanently captive."],
+          "Leave the steel plate off. Thread the organizer onto unjoined flavors, D, flat ribbon and bare blue tube before the unions, supply joint and plug. Keep it below the washer/nut workspace."],
          "The gasket lies flat and covers the base screw heads. The washer/nut are on the shank above the supply joint. The 38 mm routing envelope does not establish maximum clampable countertop thickness.",FU)
     page(c,14,"Join White runs and the blue supply","A Black faucet has continuous flavor tubes. Both finishes use the same donor supply connection.",supply_art,
          "White flavor unions at left, B above A. Blue supply connection at right, shown before tightening.",
@@ -893,22 +863,22 @@ def build():
     plug_page(c)
     page(c,16,"Insulate and sleeve the bundle","Lay the completed signal cable beside all four tubes before sliding on any braid segment.",sleeve_art,
          "Bundle section at left; two fitted sleeve segments at right. D gathers opposite the cold foam from the flavors.",
-         ["Fit foam only to the blue cold tube, one segment at a time, butting the segment above it. The standard run uses five pieces covering 1322 mm; leave 143 mm bare at the top and 75 mm at the wall tail.",
+         ["Fit foam only to the blue cold tube, one segment at a time, butting the segment above it. The standard run uses five pieces covering "+figure("FOAM_LENGTH")+" mm; leave "+figure("FOAM_BARE_TOP")+" mm bare at the top and 75 mm at the wall tail.",
           "Gather the flavor pair beside the foam and D on its opposite side, with SIG-6 inside the braid. Slide one fitted PET-braid segment over the pack for each foam segment.",
-          "Fit before cutting: braid shortens when expanded. The top braid extends 126 mm above the foam to cover both unions on a White faucet, or that same length of the continuous Black-faucet runs."],
+          "Fit before cutting: braid shortens when expanded. The top braid extends "+figure("SLEEVE_ABOVE_FOAM")+" mm above the foam to the organizer, covering both White-faucet unions or the same length of the continuous Black runs."],
          "Foam joints and braid joints butt without gaps; no braid segment excludes the display cable or D. All four tails remain bare, square and accessible beyond the final sleeve.",FU)
     page(c,17,"Identify, inspect and bag","The customer receives the completed faucet, gasket, captive mount hardware, tubes and signal plug.",final_art,
          "Four identified bare wall tails. One stainless under-counter plate ships loose beside the complete faucet/umbilical.",
          ["Thread the matching collars onto the wall tails: blue SODA, two black FLAVOR and white 4 mm OVER. Run each collar up the bare tail below the braid with its word visible.",
           "Inspect the complete unit: seams/lips seated; full lever motion; three beverage ends flush; D and bottom port clear; unpinched cable; page-2 continuity and page-3 powered flavor response.",
           "Coil the umbilical to an 8-12 inch loop diameter, bag it with the loose steel plate, then seal and label with the build number and FAUCET-UMBILICAL-SUBASSEMBLY."],
-         "The blue supply is permanently attached below the captive washer/nut. The gasket is already fitted. The loose steel plate is in the bag. Acceptance of vent containment and mounting range follows the linked physical qualification, not this visual inspection.",FU)
+         "The blue supply is permanently attached below the captive washer/nut. The gasket is already fitted. The loose steel plate is in the bag. Qualification of physical fault discharge and mounting range follows the linked physical qualification, not this visual inspection.",FU)
     sources_page(c)
     c.save()
     publish(PDF,GUIDE,"Faucet assembly guide",
             "Shop guide - faucet, rear display wiring and umbilical; 18 illustrated Letter pages",
             N,SOURCES,extra={
-                "artwork":"original vector schematics; rear pad order from Waveshare; existing CAD overview on page 1",
+                "artwork":"current component CAD sections and labeled motion/wiring schematics; rear pad order from Waveshare; existing CAD overview on page 1",
                 "display":{"model":"ESP32-S3-Touch-LCD-1.47", "view":"rear PCB, USB-C at top",
                            "installed_orientation":"USB-C toward dispense face; opposite end up the gooseneck",
                            "left_top_four":SIG6,

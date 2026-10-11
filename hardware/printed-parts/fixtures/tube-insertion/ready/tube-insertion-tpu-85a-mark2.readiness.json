@@ -1,0 +1,58 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-tpu-85a-mark2.3mf",
+  "project_sha256": "6807d30546e2952f98aafa38bed671459deafaf3e1851218715394efb60cddae",
+  "archive": "tube-insertion-tpu-85a-mark2.gcode.3mf",
+  "archive_sha256": "643342983178b5c519666caf519a8ed91142b3d04da458cf11f9aaef408aa7f4",
+  "gcode_sha256": "024218c018f824d76494049822f395ef4a5369e92066d17e5c1c3bec60a10454",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-liner-print.stl": "c2a5640db52062b94533d3c355977376a391e3a889b13b0dcc312aea02a761c8"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": "Right fixed 0.6 mm; TPU 85A external spool 255",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        153.3947625380948,
+        149.894776
+      ],
+      [
+        201.605224,
+        170.105224
+      ]
+    ],
+    "maximum_line_width_mm": 0.630448,
+    "bounds_padding_mm": 0.41522400000000004
+  },
+  "bead_margin_mm": [
+    128.3947625380948,
+    149.894776,
+    128.394776,
+    149.894776
+  ],
+  "layers": 155,
+  "estimated_seconds": 3940.966552734375,
+  "estimated_filament_g": 8.756891250610352,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.18000000715255737,
+    "wall_loops": 2,
+    "sparse_infill_density": 100.0
+  }
+}

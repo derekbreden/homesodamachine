@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "scope": "Manual native print preparation for the complete tool; no printer submission",
+  "plates": [
+    {
+      "id": "rigid-base-h2c",
+      "project": "tube-insertion-rigid-base-h2c.3mf",
+      "title": "Tube insertion base - black PET-GF - Mark1",
+      "printer": "Mark1 (H2C)",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.18,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool",
+      "parts": [
+        {"name": "A base", "source": "tube-insertion-base-print.stl", "offset_mm": [0, 0]}
+      ]
+    },
+    {
+      "id": "rigid-parts-h2c",
+      "project": "tube-insertion-rigid-parts-h2c.3mf",
+      "title": "Tube insertion ram, lever and grip - black PET-GF - Mark1",
+      "printer": "Mark1 (H2C)",
+      "material": "PET-GF",
+      "settings_source": "hardware/printed-parts/petgf.3mf",
+      "z_trim_mm": 0.18,
+      "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool",
+      "parts": [
+        {"name": "C press lever", "source": "tube-insertion-press-lever-print.stl", "offset_mm": [-74.625, 0]},
+        {"name": "D lower jaw", "source": "tube-insertion-lower-jaw-print.stl", "offset_mm": [-33.625, 45]},
+        {"name": "E upper jaw", "source": "tube-insertion-upper-jaw-print.stl", "offset_mm": [-33.625, -45]},
+        {"name": "B guided ram", "source": "tube-insertion-ram-print.stl", "offset_mm": [41.375, 49]},
+        {"name": "G sleeve support puck", "source": "tube-insertion-cap-support-puck-print.stl", "offset_mm": [24.375, -40]}
+      ]
+    },
+    {
+      "id": "tpu-85a-mark2",
+      "project": "tube-insertion-tpu-85a-mark2.3mf",
+      "title": "Tube insertion grip liners - TPU 85A - Mark2",
+      "printer": "Mark2",
+      "material": "TPU 85A",
+      "settings_source": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+      "z_trim_mm": 0.04,
+      "nozzle_mapping": "Right fixed 0.6 mm; TPU 85A external spool 255",
+      "parts": [
+        {"name": "F lower TPU liner", "source": "tube-insertion-liner-print.stl", "offset_mm": [-20, 0]},
+        {"name": "F upper TPU liner", "source": "tube-insertion-liner-print.stl", "offset_mm": [20, 0]}
+      ]
+    }
+  ]
+}

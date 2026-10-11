@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "frame": "X insertion axis from donor toward free tube; Z up from bed",
+  "parts": [
+    {
+      "name": "base",
+      "letter": "A",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-base-print.stl",
+      "step": "tube-insertion-base.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          -12.0,
+          -36.0,
+          0.0
+        ],
+        "max_mm": [
+          196.0,
+          198.0,
+          49.0
+        ],
+        "size_mm": [
+          208.0,
+          234.0,
+          49.0
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; short underside pivot-head pocket permits accessible automatic support"
+    },
+    {
+      "name": "ram",
+      "letter": "B",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-ram-print.stl",
+      "step": "tube-insertion-ram.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          -38.5,
+          -32.0,
+          0.0
+        ],
+        "max_mm": [
+          52.0,
+          32.0,
+          28.0
+        ],
+        "size_mm": [
+          90.5,
+          64.0,
+          28.0
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; no CAD ceilings or undercuts"
+    },
+    {
+      "name": "press-lever",
+      "letter": "C",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-press-lever-print.stl",
+      "step": "tube-insertion-press-lever.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          -12.000000000000002,
+          -42.0,
+          0.0
+        ],
+        "max_mm": [
+          12.000000000000002,
+          132.0,
+          8.0
+        ],
+        "size_mm": [
+          24.000000000000004,
+          174.0,
+          8.0
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; no CAD ceilings or undercuts"
+    },
+    {
+      "name": "lower-jaw",
+      "letter": "D",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-lower-jaw-print.stl",
+      "step": "tube-insertion-lower-jaw.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -38.5,
+          0.0
+        ],
+        "max_mm": [
+          38.5,
+          38.5,
+          11.0
+        ],
+        "size_mm": [
+          38.5,
+          77.0,
+          11.0
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; no CAD ceilings or undercuts"
+    },
+    {
+      "name": "upper-jaw",
+      "letter": "E",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-upper-jaw-print.stl",
+      "step": "tube-insertion-upper-jaw.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -38.5,
+          -5.329070518200751e-15
+        ],
+        "max_mm": [
+          38.5,
+          38.5,
+          11.000000000000005
+        ],
+        "size_mm": [
+          38.5,
+          77.0,
+          11.00000000000001
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; no CAD ceilings or undercuts"
+    },
+    {
+      "name": "liner",
+      "letter": "F",
+      "quantity": 2,
+      "material": "TPU 85A",
+      "filename": "tube-insertion-liner-print.stl",
+      "step": "tube-insertion-liner.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -10.0,
+          0.0
+        ],
+        "max_mm": [
+          8.000000000000004,
+          10.0,
+          28.0
+        ],
+        "size_mm": [
+          8.000000000000004,
+          20.0,
+          28.0
+        ]
+      },
+      "support_strategy": "Solid end face on bed; tube axis vertical; repeated XY semicircle; automatic brim retained"
+    },
+    {
+      "name": "cap-support-puck",
+      "letter": "G",
+      "quantity": 1,
+      "material": "PET-GF15",
+      "filename": "tube-insertion-cap-support-puck-print.stl",
+      "step": "tube-insertion-cap-support-puck.step",
+      "print_rotation_x_degrees": 0,
+      "print_stl_is_pretransformed": true,
+      "bbox": {
+        "min_mm": [
+          -27.0,
+          -27.0,
+          0.0
+        ],
+        "max_mm": [
+          27.0,
+          27.0,
+          8.0
+        ],
+        "size_mm": [
+          54.0,
+          54.0,
+          8.0
+        ]
+      },
+      "support_strategy": "Flat bed face and open features up; no CAD ceilings or undercuts"
+    }
+  ],
+  "hardware": [
+    {
+      "name": "M5 x 50 socket-head screw",
+      "quantity": 3,
+      "role": "two jaw bolts and press-lever pivot",
+      "owned": true
+    },
+    {
+      "name": "M5 x 0.8 square nut, 8 x 4 mm",
+      "quantity": 4,
+      "role": "two jaw closure nuts and two jammed pivot nuts",
+      "owned": true
+    },
+    {
+      "name": "M5 fender washer, OD 25 mm",
+      "quantity": 3,
+      "role": "two jaw load spreaders and pivot thrust washer",
+      "owned": true
+    }
+  ],
+  "source_sha256": "b3b463dd6d984ed4c69297a415a638a9a3f2c4d68b1a769598b30c91dd66786a",
+  "reference_source_sha256": {
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
+  }
+}

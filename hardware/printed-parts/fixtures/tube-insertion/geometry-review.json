@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "scope": "Manual dimensional and B-rep fit review of the requested tube-insertion tool",
+  "source_sha256": "b3b463dd6d984ed4c69297a415a638a9a3f2c4d68b1a769598b30c91dd66786a",
+  "reference_source_sha256": {
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
+  },
+  "parts": [
+    {
+      "part": "base",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          -12.0,
+          -36.0,
+          0.0
+        ],
+        "max_mm": [
+          196.0,
+          198.0,
+          49.0
+        ],
+        "size_mm": [
+          208.0,
+          234.0,
+          49.0
+        ]
+      },
+      "volume_mm3": 439655.6407656966
+    },
+    {
+      "part": "ram",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          -38.5,
+          -32.0,
+          0.0
+        ],
+        "max_mm": [
+          52.0,
+          32.0,
+          28.0
+        ],
+        "size_mm": [
+          90.5,
+          64.0,
+          28.0
+        ]
+      },
+      "volume_mm3": 62120.0
+    },
+    {
+      "part": "press-lever",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          -12.000000000000002,
+          -42.0,
+          0.0
+        ],
+        "max_mm": [
+          12.000000000000002,
+          132.0,
+          8.0
+        ],
+        "size_mm": [
+          24.000000000000004,
+          174.0,
+          8.0
+        ]
+      },
+      "volume_mm3": 30818.118858582748
+    },
+    {
+      "part": "lower-jaw",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -38.5,
+          0.0
+        ],
+        "max_mm": [
+          38.5,
+          38.5,
+          11.0
+        ],
+        "size_mm": [
+          38.5,
+          77.0,
+          11.0
+        ]
+      },
+      "volume_mm3": 20295.91242918774
+    },
+    {
+      "part": "upper-jaw",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -38.5,
+          -5.329070518200751e-15
+        ],
+        "max_mm": [
+          38.5,
+          38.5,
+          11.000000000000005
+        ],
+        "size_mm": [
+          38.5,
+          77.0,
+          11.00000000000001
+        ]
+      },
+      "volume_mm3": 20295.91242918774
+    },
+    {
+      "part": "liner",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          0.0,
+          -10.0,
+          0.0
+        ],
+        "max_mm": [
+          8.000000000000004,
+          10.0,
+          28.0
+        ],
+        "size_mm": [
+          8.000000000000004,
+          20.0,
+          28.0
+        ]
+      },
+      "volume_mm3": 3539.1911750202817
+    },
+    {
+      "part": "cap-support-puck",
+      "valid_brep": true,
+      "solid_count": 1,
+      "bbox": {
+        "min_mm": [
+          -27.0,
+          -27.0,
+          0.0
+        ],
+        "max_mm": [
+          27.0,
+          27.0,
+          8.0
+        ],
+        "size_mm": [
+          54.0,
+          54.0,
+          8.0
+        ]
+      },
+      "volume_mm3": 22925.499149222076
+    }
+  ],
+  "travel_review": {
+    "stroke_range_mm": [
+      0,
+      20.0
+    ],
+    "increment_mm": 0.5,
+    "states": 41,
+    "pairwise_bounds_reviews": 7790,
+    "brep_intersection_queries": 1948,
+    "unintended_intersections": [],
+    "tube_length_mm": 330.0,
+    "included": "All rigid parts, donor, 330 mm tube, liners, thimble, three screws, four nuts and three washers",
+    "intentional_interference": [
+      {
+        "parts": [
+          "lldpe-tube",
+          "lower-liner"
+        ],
+        "reason": "Designed 0.1375 mm radial TPU grip interference"
+      },
+      {
+        "parts": [
+          "lldpe-tube",
+          "upper-liner"
+        ],
+        "reason": "Designed 0.1375 mm radial TPU grip interference"
+      },
+      {
+        "parts": [
+          "sealing-thimble",
+          "touch-flo-donor"
+        ],
+        "reason": "Nominal expanded TPU overlaps the port before elastic compression; no deformation solution"
+      }
+    ]
+  },
+  "location_and_grip": {
+    "tube_axis_yz_mm": [
+      8.75,
+      30.0
+    ],
+    "donor_round_base_tangent_floor_z_mm": 14.25,
+    "donor_flat_clocking_pad_z_mm": 21.5,
+    "lower_jaw_supported_shelf_z_mm": 19.0,
+    "guide_bearing_span_mm": 52.0,
+    "guide_lateral_gap_each_mm": 0.2,
+    "grip_bore_mm": 9.25,
+    "tube_od_mm": 9.525,
+    "nominal_diameter_reduction_percent": 2.887139107611547,
+    "liner_grip_length_mm": 28.0,
+    "liner_minimum_backing_mm": 3.375,
+    "liner_end_contact_area_mm2": 126.39968482215292,
+    "liner_print_pose": "Tube axis vertical; thick premolded half-round block, no bending or wrapping",
+    "clamp_front_final_x_mm": 58.0,
+    "arch_axial_clearance_mm": 12.0,
+    "bare_tube_to_rigid_jaw_radial_clearance_mm": 0.6375000000000002,
+    "tube_to_ram_open_slot_each_side_mm": 2.2375,
+    "bolt_head_to_stop_vertical_clearance_mm": 1.0,
+    "jaw_bottom_to_guide_top_clearance_mm": 1.0
+  },
+  "setup": {
+    "bore_depth": "Measure actual annular floor depth D in the bare donor with the existing caliper; source records at least 20 mm",
+    "lip_witness_from_tube_end_mm": "D - 2.1",
+    "jaw_front_witness_from_tube_end_mm": "D + 16.9",
+    "initial_manual_engagement_for_depth_over_20_mm": "D - 20, with the T handle, before the collar fits the ram at the rear start stop",
+    "stop_scope": "Geometric overtravel limit; sleeve cap compression, grip, full seating and leak tightness require physical assembly observations"
+  },
+  "evidence_limits": [
+    "Print and physical grip unqualified; no load capacity or lifetime is established",
+    "The accepted faucet lever has no measured assembled rigid pose; its down unpressed rest position is the user's operating authority",
+    "The fixture leaves the original front side open and locates only the donor's metal base and lower column; it does not model a fabricated faucet-lever pose",
+    "B-rep travel samples do not establish fit after printing or continuous contact mechanics",
+    "The sleeve is fitted to the tube first, with tube end on sleeve cap; the sleeved tube enters the bare donor"
+  ]
+}

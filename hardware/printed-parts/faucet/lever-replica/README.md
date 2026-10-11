@@ -114,12 +114,27 @@ records are also retained in [evidence/](evidence/).
 
 Derek's observed assembly sequence is the mechanism authority:
 
-1. Remove the tube. Place the lever aft of its final position and lower it in Z.
+1. Keep the bare donor outside the shell and the soda tube absent. Place the
+   printed lever aft of its final position and lower it in Z.
 2. Slide the lever forward around the metal cylinder until the light snap seats.
-   Without the tube it should resist shaking loose but remain easy to remove.
-3. Insert the tube. The tube prevents aft disengagement and retains the operating
-   pivot/contact arrangement. With the tube absent, pressing the lever makes it
-   slide aft off the metal cylinder.
+   Without the tube it resists shaking loose but remains easy to remove.
+   Leave it **down at rest, not pressed**.
+3. Fit the fresh TPU sleeve evenly around the square-cut tube end outside the
+   donor, with the end fully against the cap. Insert this sleeved tube into
+   the donor's empty top port while the attached lever stays down at rest.
+   The tube prevents aft disengagement and retains the operating contact
+   arrangement. With the tube absent, pressing the lever makes it slide aft
+   off the metal cylinder.
+4. Flip the attached lever up for donor insertion into the shell. As the donor
+   advances, the shell pushes the lever forward. Once fully seated, the shell
+   prevents it reaching the flipped-up position. Let it snap down to its
+   unpressed rest position.
+
+The [assembly observation record](assembly-observations.json) retains the
+reported sleeve order, sliding behavior and shell-guided lever motion. The
+[illustrated guide](../../../faucet-assembly-guide/README.md) and
+[tube insertion tools](../../fixtures/tube-insertion/README.md) follow this
+sequence.
 
 The physical print fits and operates. The two separately scanned parts do **not** establish an assembled rigid pose,
 the tube-contact location, plunger stroke or force. `assembled_lever_transform`
