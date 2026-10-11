@@ -143,6 +143,8 @@ def write_delivery(count: int) -> None:
         HERE / "build.py",
         HERE / "insertion_art.py",
         FIXTURE / "tube_insertion.py",
+        FIXTURE / "README.md",
+        FIXTURE / "load-basis.md",
         FIXTURE / "parts.json",
         FIXTURE / "geometry-review.json",
         FIXTURE / "print-layout.json",
@@ -164,14 +166,26 @@ def write_delivery(count: int) -> None:
         source_paths.update((project, project.with_suffix(".gcode.3mf"),
                              project.with_suffix(".print.json"),
                              project.with_suffix(".readiness.json")))
+        support_audit = project.with_suffix(".support-audit.json")
+        if support_audit.exists():
+            source_paths.add(support_audit)
     receipt = {
         "pdf": PDF.name,
         "pages": count,
         "page_inches": [8.5, 11],
         "print_layout": {"canvas_px": [CANVAS_W, CANVAS_H], "dpi": 300,
                          "print_scaling": "100% / none", "sides": "single sided"},
-        "artwork": "Real fixture CAD, accepted faucet lever and thimble; fasteners are size proxies. The installed faucet lever is omitted from nominal jig views because its accepted pose has no measured CAD transform.",
-        "physical_scope": "Unprinted prototype. Observations establish the faucet assembly sequence; geometry and offline slices do not establish insertion force, grip or endurance.",
+        "artwork": "Real fixture CAD, accepted faucet lever and thimble; the complete factory screw clamps use nominal catalogue-form proxies and fasteners use size proxies. The installed faucet lever is omitted from nominal jig views because its accepted pose has no measured CAD transform.",
+        "physical_scope": "Unprinted prototype. Observations establish the faucet assembly sequence; nominal geometry and offline slices do not establish insertion force, grip, seating, equal load sharing, fixture strength or endurance. Supplier clamp specifications do not rate the complete assembly.",
+        "external_references": {
+            "checked_date": "2026-10-10",
+            "clamp_family_sheet": "https://besseytools.com/getmedia/24e6be04-58db-4ea7-b4d7-28083eac8980/BESSEY_Clutch-Style-bar-clamps_EN",
+            "clamp_throat_definition": "https://besseytools.com/en-us/bessey-tools-north-america/support/faqs/faq-clamping-tools",
+            "petgf_material_tds": "https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf",
+            "prime_offer": {"url": "https://www.amazon.com/dp/B000FA0BL8",
+                            "unit_usd": 10.99, "quantity": 2,
+                            "scope": "Prime offer checked in signed-in native Chrome; no order"},
+        },
         "source_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                           for p in sorted(source_paths)},
         "pdf_sha256": hashlib.sha256(PDF.read_bytes()).hexdigest(),
