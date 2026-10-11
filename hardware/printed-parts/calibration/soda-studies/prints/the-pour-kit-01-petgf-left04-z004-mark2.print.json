@@ -1,0 +1,1353 @@
+{
+  "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-kit-01-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "49b50ad47b8d00b0e9605249a4893e8b40fe0ea6cad29e1aec0ce4d715378e84",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "The Pour kit 0.24 mm PET-GF",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 40.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "P cascade carrier",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.stl",
+      "stl_sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f",
+      "triangles": 257858,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        49.900001525878906
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        130.25,
+        115.0,
+        49.900001525878906
+      ],
+      "plate_translation_mm": [
+        130.25,
+        115.0,
+        49.900001525878906
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          40.25,
+          41.0,
+          0.0
+        ],
+        [
+          220.25,
+          189.0,
+          99.80000305175781
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "S15R sliding receiver",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.stl",
+      "stl_sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181",
+      "triangles": 15812,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        7.239999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        255.25,
+        64.0,
+        7.239999771118164
+      ],
+      "plate_translation_mm": [
+        255.25,
+        64.0,
+        7.239999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          238.25,
+          41.0,
+          0.0
+        ],
+        [
+          272.25,
+          87.0,
+          14.479999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "S25R sliding receiver",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.stl",
+      "stl_sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b",
+      "triangles": 20096,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        7.239999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        57.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_translation_mm": [
+        57.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          40.25,
+          207.0,
+          0.0
+        ],
+        [
+          74.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "S35R sliding receiver",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.stl",
+      "stl_sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d",
+      "triangles": 25294,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        7.239999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        109.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_translation_mm": [
+        109.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          92.25,
+          207.0,
+          0.0
+        ],
+        [
+          126.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "S45R sliding receiver",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.stl",
+      "stl_sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf",
+      "triangles": 15522,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        7.239999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        161.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_translation_mm": [
+        161.25,
+        230.0,
+        7.239999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.25,
+          207.0,
+          0.0
+        ],
+        [
+          178.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "N08D neck storage shoe",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.stl",
+      "stl_sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d",
+      "triangles": 22850,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        13.364999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        214.25,
+        227.5,
+        13.364999771118164
+      ],
+      "plate_translation_mm": [
+        214.25,
+        227.5,
+        13.364999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          196.25,
+          207.0,
+          0.0
+        ],
+        [
+          232.25,
+          248.0,
+          26.729999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "S15 sliding tongue",
+      "plate": 1,
+      "object_id": "14",
+      "part_id": "13",
+      "member": "3D/Objects/object_7.model",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.stl",
+      "stl_sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f",
+      "triangles": 15732,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.5,
+        2.3399999141693115
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        263.25,
+        224.0,
+        2.3399999141693115
+      ],
+      "plate_translation_mm": [
+        263.25,
+        224.0,
+        2.3399999141693115
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          250.25,
+          207.0,
+          0.0
+        ],
+        [
+          276.25,
+          241.0,
+          4.679999828338623
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "N08K neck keeper bar",
+      "plate": 1,
+      "object_id": "16",
+      "part_id": "15",
+      "member": "3D/Objects/object_8.model",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.stl",
+      "stl_sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed",
+      "triangles": 23658,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.440000057220459
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        57.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_translation_mm": [
+        57.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          40.25,
+          271.0,
+          0.0
+        ],
+        [
+          74.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "NR00K neck keeper bar",
+      "plate": 1,
+      "object_id": "18",
+      "part_id": "17",
+      "member": "3D/Objects/object_9.model",
+      "identify_id": 1909,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.stl",
+      "stl_sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c",
+      "triangles": 19594,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.440000057220459
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        110.0,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_translation_mm": [
+        110.0,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          92.75,
+          271.0,
+          0.0
+        ],
+        [
+          127.25,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "NR05K neck keeper bar",
+      "plate": 1,
+      "object_id": "20",
+      "part_id": "19",
+      "member": "3D/Objects/object_10.model",
+      "identify_id": 1910,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.stl",
+      "stl_sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a",
+      "triangles": 18894,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.440000057220459
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_translation_mm": [
+        162.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          145.25,
+          271.0,
+          0.0
+        ],
+        [
+          179.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "NR15K neck keeper bar",
+      "plate": 1,
+      "object_id": "22",
+      "part_id": "21",
+      "member": "3D/Objects/object_11.model",
+      "identify_id": 1911,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.stl",
+      "stl_sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9",
+      "triangles": 12498,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.440000057220459
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        215.0,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_translation_mm": [
+        215.0,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          197.75,
+          271.0,
+          0.0
+        ],
+        [
+          232.25,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "N12K neck keeper bar",
+      "plate": 1,
+      "object_id": "24",
+      "part_id": "23",
+      "member": "3D/Objects/object_12.model",
+      "identify_id": 1912,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.stl",
+      "stl_sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d",
+      "triangles": 7314,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        1.440000057220459
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        267.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_translation_mm": [
+        267.5,
+        275.0,
+        1.440000057220459
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          250.25,
+          271.0,
+          0.0
+        ],
+        [
+          284.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "9ffc4eea89cebc4a8544d42f106aa189796bc2dcff30f516edee37b010b2b9b7",
+  "settings_preserved_byte_for_byte": false,
+  "manifest_sha256": "a13aac20bd1dce129762b6c5c760943c5f2e89d664fb5447caf1435246b2b7e0",
+  "preparation_source_sha256": "c2434292acc8077b003feb87cf285c147f1b27e3b9521ba2b6d4cad4275dacac",
+  "requested_layer_height_mm": 0.24,
+  "first_layer_height_mm": 0.2,
+  "changes_after_profile_refresh": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2"
+  },
+  "print_settings_id": "The Pour kit 0.24 mm PET-GF",
+  "group": "kit-01",
+  "comparison_group": "kit",
+  "specimens": [
+    {
+      "id": "P",
+      "name": "P cascade carrier",
+      "kind": "carrier",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.stl",
+      "source_stl_sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f",
+      "identify_id": 1901,
+      "object_id": "2",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          40.25,
+          41.0,
+          0.0
+        ],
+        [
+          220.25,
+          189.0,
+          99.80000305175781
+        ]
+      ],
+      "plate_offset_mm": [
+        -32.25,
+        -45.0
+      ]
+    },
+    {
+      "id": "S15R",
+      "name": "S15R sliding receiver",
+      "kind": "slider_receiver",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.stl",
+      "source_stl_sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181",
+      "identify_id": 1902,
+      "object_id": "4",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          238.25,
+          41.0,
+          0.0
+        ],
+        [
+          272.25,
+          87.0,
+          14.479999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        92.75,
+        -96.0
+      ]
+    },
+    {
+      "id": "S25R",
+      "name": "S25R sliding receiver",
+      "kind": "slider_receiver",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.stl",
+      "source_stl_sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b",
+      "identify_id": 1903,
+      "object_id": "6",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          40.25,
+          207.0,
+          0.0
+        ],
+        [
+          74.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        -105.25,
+        70.0
+      ]
+    },
+    {
+      "id": "S35R",
+      "name": "S35R sliding receiver",
+      "kind": "slider_receiver",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.stl",
+      "source_stl_sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d",
+      "identify_id": 1904,
+      "object_id": "8",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          92.25,
+          207.0,
+          0.0
+        ],
+        [
+          126.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        -53.25,
+        70.0
+      ]
+    },
+    {
+      "id": "S45R",
+      "name": "S45R sliding receiver",
+      "kind": "slider_receiver",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.stl",
+      "source_stl_sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf",
+      "identify_id": 1905,
+      "object_id": "10",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          144.25,
+          207.0,
+          0.0
+        ],
+        [
+          178.25,
+          253.0,
+          14.479999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        -1.25,
+        70.0
+      ]
+    },
+    {
+      "id": "N08D",
+      "name": "N08D neck storage shoe",
+      "kind": "neck_shoe",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.stl",
+      "source_stl_sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d",
+      "identify_id": 1906,
+      "object_id": "12",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          196.25,
+          207.0,
+          0.0
+        ],
+        [
+          232.25,
+          248.0,
+          26.729999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        51.75,
+        67.5
+      ]
+    },
+    {
+      "id": "S15",
+      "name": "S15 sliding tongue",
+      "kind": "slider",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.stl",
+      "source_stl_sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f",
+      "identify_id": 1907,
+      "object_id": "14",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          250.25,
+          207.0,
+          0.0
+        ],
+        [
+          276.25,
+          241.0,
+          4.679999828338623
+        ]
+      ],
+      "plate_offset_mm": [
+        100.75,
+        64.0
+      ]
+    },
+    {
+      "id": "N08K",
+      "name": "N08K neck keeper bar",
+      "kind": "neck_keeper",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.stl",
+      "source_stl_sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed",
+      "identify_id": 1908,
+      "object_id": "16",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          40.25,
+          271.0,
+          0.0
+        ],
+        [
+          74.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "plate_offset_mm": [
+        -105.0,
+        115.0
+      ]
+    },
+    {
+      "id": "NR00K",
+      "name": "NR00K neck keeper bar",
+      "kind": "neck_keeper",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.stl",
+      "source_stl_sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c",
+      "identify_id": 1909,
+      "object_id": "18",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          92.75,
+          271.0,
+          0.0
+        ],
+        [
+          127.25,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "plate_offset_mm": [
+        -52.5,
+        115.0
+      ]
+    },
+    {
+      "id": "NR05K",
+      "name": "NR05K neck keeper bar",
+      "kind": "neck_keeper",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.stl",
+      "source_stl_sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a",
+      "identify_id": 1910,
+      "object_id": "20",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          145.25,
+          271.0,
+          0.0
+        ],
+        [
+          179.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "plate_offset_mm": [
+        0.0,
+        115.0
+      ]
+    },
+    {
+      "id": "NR15K",
+      "name": "NR15K neck keeper bar",
+      "kind": "neck_keeper",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.stl",
+      "source_stl_sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9",
+      "identify_id": 1911,
+      "object_id": "22",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          197.75,
+          271.0,
+          0.0
+        ],
+        [
+          232.25,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "plate_offset_mm": [
+        52.5,
+        115.0
+      ]
+    },
+    {
+      "id": "N12K",
+      "name": "N12K neck keeper bar",
+      "kind": "neck_keeper",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.stl",
+      "source_stl_sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d",
+      "identify_id": 1912,
+      "object_id": "24",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          250.25,
+          271.0,
+          0.0
+        ],
+        [
+          284.75,
+          279.0,
+          2.880000114440918
+        ]
+      ],
+      "plate_offset_mm": [
+        105.0,
+        115.0
+      ]
+    }
+  ],
+  "printer_name": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "Saved Tree(auto)/Default; automatic normal sections retained.",
+  "support_top_z_distance_mm": 0.45,
+  "support_bottom_z_distance_mm": 0.3,
+  "preparation_only": true,
+  "submitted": false,
+  "physical_result": "Unprinted; finish, removal effort and tactile fit are unmeasured.",
+  "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
+  "native": {
+    "archive": ".cache/prints/soda-studies/kit-01/the-pour-kit-01-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "99b4854a1122bd723365f2f3b388cf9d0e13ff40b16fcea6dc472c36fcdcae79",
+    "gcode_sha256": "c7e0e763a7ceaf7aef8372723bc5ac99a0a3ca63e9c11e1ee29c3d0f30ad1010",
+    "layer_count": 416,
+    "first_layer_z_mm": 0.2,
+    "emitted_deposition_heights_mm": [
+      0.2,
+      0.24,
+      0.4
+    ],
+    "deposition_height_scope": "Native LAYER_HEIGHT comments describe strand height, including 0.4 mm bridge strands. Per-object model_layer_steps_mm records the fixed model schedule.",
+    "model_object_identify_ids": [
+      1901,
+      1902,
+      1903,
+      1904,
+      1905,
+      1906,
+      1907,
+      1908,
+      1909,
+      1910,
+      1911,
+      1912
+    ],
+    "object_model_deposition": [
+      {
+        "id": "P",
+        "identify_id": 1901,
+        "model_layer_count": 416,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 36491,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "S15R",
+        "identify_id": 1902,
+        "model_layer_count": 59,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 4470,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "S25R",
+        "identify_id": 1903,
+        "model_layer_count": 59,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 4450,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "S35R",
+        "identify_id": 1904,
+        "model_layer_count": 59,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 4453,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "S45R",
+        "identify_id": 1905,
+        "model_layer_count": 60,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 4446,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "N08D",
+        "identify_id": 1906,
+        "model_layer_count": 112,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 1545,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "S15",
+        "identify_id": 1907,
+        "model_layer_count": 18,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 1114,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "N08K",
+        "identify_id": 1908,
+        "model_layer_count": 12,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 410,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "NR00K",
+        "identify_id": 1909,
+        "model_layer_count": 12,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 410,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "NR05K",
+        "identify_id": 1910,
+        "model_layer_count": 12,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 409,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "NR15K",
+        "identify_id": 1911,
+        "model_layer_count": 12,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 410,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "N12K",
+        "identify_id": 1912,
+        "model_layer_count": 12,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 410,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      }
+    ],
+    "estimated_time": "10h 12m 32s",
+    "saved_profile_filament_estimate_g": [
+      291.7
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          21.00102,
+          33.94802
+        ],
+        [
+          284.98498,
+          279.23498
+        ]
+      ],
+      "maximum_line_width_mm": 0.68996,
+      "bounds_padding_mm": 0.44498000000000004
+    },
+    "minimum_full_bead_bed_margin_mm": 21.00102,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "support_feature_count": 1023,
+    "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
+    "reviewer_sha256": "c2434292acc8077b003feb87cf285c147f1b27e3b9521ba2b6d4cad4275dacac",
+    "sliced_locally": true,
+    "submitted": false
+  }
+}

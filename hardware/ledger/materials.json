@@ -4,7 +4,8 @@
     "HSM-000001",
     "HSM-000002",
     "HSM-000005",
-    "HSM-000006"
+    "HSM-000006",
+    "HSM-000180"
   ],
   "materials": [
     {
@@ -4184,6 +4185,1238 @@
         {
           "title": "Refrigerant-loop assembly",
           "path": "assembly/refrigerant-loop.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000180",
+      "description": "The Pour · print reference sculpture",
+      "kind": "tooling",
+      "aliases": [
+        "The Pour",
+        "soda studies",
+        "print reference",
+        "calibration sculpture",
+        "print finish",
+        "clearance samples"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/the-pour.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Print and assemble The Pour",
+          "path": "printed-parts/calibration/soda-studies/README.md"
+        },
+        {
+          "title": "Read the features and comparisons",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ],
+      "bom": {
+        "scope": "The printed reference sculpture and its interchangeable specimens. Geometry and prepared print projects describe unprinted parts; the feature guide states each comparison and its scope.",
+        "source": "printed-parts/calibration/soda-studies/manifest.json",
+        "items": [
+          {
+            "material": "HSM-000181",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "P cascade carrier"
+            ]
+          },
+          {
+            "material": "HSM-000182",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S15R sliding receiver"
+            ]
+          },
+          {
+            "material": "HSM-000183",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S15 sliding tongue"
+            ]
+          },
+          {
+            "material": "HSM-000184",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S25R sliding receiver"
+            ]
+          },
+          {
+            "material": "HSM-000185",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S25 sliding tongue"
+            ]
+          },
+          {
+            "material": "HSM-000186",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S35R sliding receiver"
+            ]
+          },
+          {
+            "material": "HSM-000187",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S35 sliding tongue"
+            ]
+          },
+          {
+            "material": "HSM-000188",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S45R sliding receiver"
+            ]
+          },
+          {
+            "material": "HSM-000189",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "S45 sliding tongue"
+            ]
+          },
+          {
+            "material": "HSM-000190",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R30 support ceiling"
+            ]
+          },
+          {
+            "material": "HSM-000191",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R45 support ceiling"
+            ]
+          },
+          {
+            "material": "HSM-000192",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "R60 support ceiling"
+            ]
+          },
+          {
+            "material": "HSM-000193",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "A08 angle and curve blade"
+            ]
+          },
+          {
+            "material": "HSM-000194",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "A12 angle and curve blade"
+            ]
+          },
+          {
+            "material": "HSM-000195",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "A24 angle and curve blade"
+            ]
+          },
+          {
+            "material": "HSM-000196",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N08D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000197",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N08K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000198",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N08 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000199",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR00D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000200",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR00K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000201",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR00 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000202",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR05D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000203",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR05K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000204",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR05 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000205",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR15D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000206",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR15K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000207",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NR15 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000208",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000209",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000210",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N12 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000211",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS00D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000212",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS00K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000213",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS00 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000214",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS10D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000215",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS10K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000216",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS10 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000217",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS20D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000218",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS20K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000219",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "NS20 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000220",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24D neck storage shoe"
+            ]
+          },
+          {
+            "material": "HSM-000221",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24K neck keeper bar"
+            ]
+          },
+          {
+            "material": "HSM-000222",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "N24 faucet neck"
+            ]
+          },
+          {
+            "material": "HSM-000223",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "GR grip receiver bridge"
+            ]
+          },
+          {
+            "material": "HSM-000224",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "G complete grip insert"
+            ]
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000001"
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000007"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000181",
+      "description": "The Pour · P cascade carrier",
+      "kind": "manufactured",
+      "aliases": [
+        "P"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/p-cascade-carrier.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000182",
+      "description": "The Pour · S15R sliding receiver",
+      "kind": "manufactured",
+      "aliases": [
+        "S15R"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000183",
+      "description": "The Pour · S15 sliding tongue",
+      "kind": "manufactured",
+      "aliases": [
+        "S15"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000184",
+      "description": "The Pour · S25R sliding receiver",
+      "kind": "manufactured",
+      "aliases": [
+        "S25R"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000185",
+      "description": "The Pour · S25 sliding tongue",
+      "kind": "manufactured",
+      "aliases": [
+        "S25"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000186",
+      "description": "The Pour · S35R sliding receiver",
+      "kind": "manufactured",
+      "aliases": [
+        "S35R"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000187",
+      "description": "The Pour · S35 sliding tongue",
+      "kind": "manufactured",
+      "aliases": [
+        "S35"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000188",
+      "description": "The Pour · S45R sliding receiver",
+      "kind": "manufactured",
+      "aliases": [
+        "S45R"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000189",
+      "description": "The Pour · S45 sliding tongue",
+      "kind": "manufactured",
+      "aliases": [
+        "S45"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000190",
+      "description": "The Pour · R30 support ceiling",
+      "kind": "manufactured",
+      "aliases": [
+        "R30"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/r30-support-ceiling.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000191",
+      "description": "The Pour · R45 support ceiling",
+      "kind": "manufactured",
+      "aliases": [
+        "R45"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000192",
+      "description": "The Pour · R60 support ceiling",
+      "kind": "manufactured",
+      "aliases": [
+        "R60"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/r60-support-ceiling.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000193",
+      "description": "The Pour · A08 angle and curve blade",
+      "kind": "manufactured",
+      "aliases": [
+        "A08"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000194",
+      "description": "The Pour · A12 angle and curve blade",
+      "kind": "manufactured",
+      "aliases": [
+        "A12"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000195",
+      "description": "The Pour · A24 angle and curve blade",
+      "kind": "manufactured",
+      "aliases": [
+        "A24"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000196",
+      "description": "The Pour · N08D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "N08D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000197",
+      "description": "The Pour · N08K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "N08K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000198",
+      "description": "The Pour · N08 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "N08"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n08-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000199",
+      "description": "The Pour · NR00D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NR00D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000200",
+      "description": "The Pour · NR00K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NR00K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000201",
+      "description": "The Pour · NR00 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NR00"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000202",
+      "description": "The Pour · NR05D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NR05D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000203",
+      "description": "The Pour · NR05K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NR05K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000204",
+      "description": "The Pour · NR05 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NR05"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000205",
+      "description": "The Pour · NR15D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NR15D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000206",
+      "description": "The Pour · NR15K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NR15K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000207",
+      "description": "The Pour · NR15 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NR15"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000208",
+      "description": "The Pour · N12D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "N12D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000209",
+      "description": "The Pour · N12K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "N12K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000210",
+      "description": "The Pour · N12 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "N12"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n12-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000211",
+      "description": "The Pour · NS00D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NS00D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000212",
+      "description": "The Pour · NS00K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NS00K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000213",
+      "description": "The Pour · NS00 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NS00"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000214",
+      "description": "The Pour · NS10D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NS10D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000215",
+      "description": "The Pour · NS10K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NS10K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000216",
+      "description": "The Pour · NS10 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NS10"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000217",
+      "description": "The Pour · NS20D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "NS20D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000218",
+      "description": "The Pour · NS20K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "NS20K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000219",
+      "description": "The Pour · NS20 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "NS20"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000220",
+      "description": "The Pour · N24D neck storage shoe",
+      "kind": "manufactured",
+      "aliases": [
+        "N24D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000221",
+      "description": "The Pour · N24K neck keeper bar",
+      "kind": "manufactured",
+      "aliases": [
+        "N24K"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000222",
+      "description": "The Pour · N24 faucet neck",
+      "kind": "manufactured",
+      "aliases": [
+        "N24"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/n24-faucet-neck.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000223",
+      "description": "The Pour · GR grip receiver bridge",
+      "kind": "manufactured",
+      "aliases": [
+        "GR"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000224",
+      "description": "The Pour · G complete grip insert",
+      "kind": "manufactured",
+      "aliases": [
+        "G"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Read and assemble this reference",
+          "path": "printed-parts/calibration/soda-studies/feature-guide.md"
         }
       ]
     }

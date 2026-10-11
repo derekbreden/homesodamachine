@@ -1,0 +1,5002 @@
+{
+  "schema": 1,
+  "title": "The Pour",
+  "status": "Prepared printable reference; physical results unrecorded",
+  "generator": "reference.py",
+  "assembly": "the-pour.step",
+  "source_inputs": {
+    "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+    "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+    "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+    "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+    "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+    "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+    "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+    "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+    "recenter_translation_mm": [
+      -0.0,
+      -35.722000279485,
+      0.0
+    ]
+  },
+  "printable": [
+    {
+      "id": "P",
+      "name": "P cascade carrier",
+      "kind": "carrier",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.step",
+      "stl_relative": "parts/p-cascade-carrier.stl",
+      "step_relative": "parts/p-cascade-carrier.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -90.0000001,
+          -74.0000001,
+          0.0
+        ],
+        [
+          90.0000001,
+          74.0000001,
+          99.8
+        ]
+      ],
+      "stl_sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f",
+      "step_sha256": "509dddb1c3f7062c2678326cad2688e937a256067f0f8372b500ab7cbd9902fd",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 257858
+      },
+      "bore_diameters_mm": [
+        4.4,
+        6.65
+      ],
+      "ribbon_slot_mm": [
+        5.4,
+        1.8
+      ],
+      "bores_print_xy_mm": [
+        [
+          -44,
+          -64
+        ],
+        [
+          0,
+          -64
+        ]
+      ],
+      "ribbon_slot_print_xy_mm": [
+        44,
+        -64
+      ],
+      "marking_raise_mm": 0.48,
+      "marking_recess_mm": 0.48,
+      "storage": "Upright gravity saddles; samples are captured in removable labeled shoes"
+    },
+    {
+      "id": "S15R",
+      "name": "S15R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.step",
+      "stl_relative": "parts/s15r-sliding-receiver.stl",
+      "step_relative": "parts/s15r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181",
+      "step_sha256": "233d4a414b324c5a6f1f330b753df8bfa34820efeec9da04194be77168d30d94",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -66,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15812
+      },
+      "body_side_air_each_mm": 0.15,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S15",
+      "name": "S15 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.step",
+      "stl_relative": "parts/s15-sliding-tongue.stl",
+      "step_relative": "parts/s15-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f",
+      "step_sha256": "1775854f99fa1af1035f9ad99a0db2d7b5b5d599419509038f6fb91ec58566f7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -66,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15732
+      },
+      "body_side_air_each_mm": 0.15,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S25R",
+      "name": "S25R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.step",
+      "stl_relative": "parts/s25r-sliding-receiver.stl",
+      "step_relative": "parts/s25r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b",
+      "step_sha256": "7a453488d3d5f91daddd81d083be18249511ec9d50e2aa8f386e6554aef1606e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -22,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 20096
+      },
+      "body_side_air_each_mm": 0.25,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S25",
+      "name": "S25 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.step",
+      "stl_relative": "parts/s25-sliding-tongue.stl",
+      "step_relative": "parts/s25-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "5e4408ec60ee59c70b8732f8052806738735b74a35a916ed78bbea95a5092827",
+      "step_sha256": "25d558f45eaf7006a1762e66e9c8c952607a349c18088d2180b9f7cd43646534",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -22,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 20210
+      },
+      "body_side_air_each_mm": 0.25,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S35R",
+      "name": "S35R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step",
+      "stl_relative": "parts/s35r-sliding-receiver.stl",
+      "step_relative": "parts/s35r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d",
+      "step_sha256": "c7c3e6d3159a3379cca6396b0f125a881c2a1e6583a5d0caa75859edc310cac7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          22,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25294
+      },
+      "body_side_air_each_mm": 0.35,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S35",
+      "name": "S35 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.step",
+      "stl_relative": "parts/s35-sliding-tongue.stl",
+      "step_relative": "parts/s35-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "7e9c0332e1231182968b6bb748d391c0ac536063af0b70c10fe0833ff659a351",
+      "step_sha256": "4e7b2db9b20ef5603f28ab28e70258fd3c0b973af31748ae8aa5480a79337266",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          22,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25930
+      },
+      "body_side_air_each_mm": 0.35,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S45R",
+      "name": "S45R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.step",
+      "stl_relative": "parts/s45r-sliding-receiver.stl",
+      "step_relative": "parts/s45r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf",
+      "step_sha256": "cc16e276e780d0e84a30aabd739dfd782a446fb2c68dc7afb794b59d8990b50e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          66,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15522
+      },
+      "body_side_air_each_mm": 0.45,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S45",
+      "name": "S45 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.step",
+      "stl_relative": "parts/s45-sliding-tongue.stl",
+      "step_relative": "parts/s45-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "fb143695e4d4b55eb8766ff1ceea0c8ec89f8846787414148d454847de049737",
+      "step_sha256": "f5fec963d143c494a1db6a62fd0327faedb4e9fbb50af1fdcda3d42207535ece",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          66,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15438
+      },
+      "body_side_air_each_mm": 0.45,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "R30",
+      "name": "R30 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r30-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r30-support-ceiling.step",
+      "stl_relative": "parts/r30-support-ceiling.stl",
+      "step_relative": "parts/r30-support-ceiling.step",
+      "group": "support-030",
+      "print_group": "support-030",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "eb9f10a5e467c7f996eba950ffa3d0dae41ff605061447d554fa1b117b585ba0",
+      "step_sha256": "a07a4ea223f526828d17477e61f25450d3a506dd112ca35293c1b32603ce83c9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -30.5,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25716
+      },
+      "support_top_z_distance_mm": 0.3,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "R45",
+      "name": "R45 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step",
+      "stl_relative": "parts/r45-support-ceiling.stl",
+      "step_relative": "parts/r45-support-ceiling.step",
+      "group": "support-045",
+      "print_group": "support-045",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "ef28ba0b8941338bc9d4c1410ee649265b362ba81a9a6a24dbd0d4f689e92e87",
+      "step_sha256": "c65ce27474ed8ad738e15de207b93523f4d97f7d99119d8d7bfc09c369ae78e1",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 14300
+      },
+      "support_top_z_distance_mm": 0.45,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "R60",
+      "name": "R60 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.step",
+      "stl_relative": "parts/r60-support-ceiling.stl",
+      "step_relative": "parts/r60-support-ceiling.step",
+      "group": "support-060",
+      "print_group": "support-060",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
+      "step_sha256": "e617dd6f87aba6deba1704c5163df26c9fdcc3ad75c1d6c017e05375793e323a",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          30.5,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 24780
+      },
+      "support_top_z_distance_mm": 0.6,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "A08",
+      "name": "A08 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step",
+      "stl_relative": "parts/a08-angle-and-curve-blade.stl",
+      "step_relative": "parts/a08-angle-and-curve-blade.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "ab695e029f1f72298afc19da35b76b0c945e407d9fe988b9d8eac0e81268dd43",
+      "step_sha256": "0b43ce2ae388a2e793cb70363f52723e338e94987101b4661576b497cbc90abc",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -16,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 99204
+      },
+      "requested_layer_height_mm": 0.08,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "A12",
+      "name": "A12 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.step",
+      "stl_relative": "parts/a12-angle-and-curve-blade.stl",
+      "step_relative": "parts/a12-angle-and-curve-blade.step",
+      "group": "finish-012",
+      "print_group": "finish-012",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835",
+      "step_sha256": "f8121322c1e5a91746608ac6133136337daf8335365b666546dabe6ef0b6d711",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 82014
+      },
+      "requested_layer_height_mm": 0.12,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "A24",
+      "name": "A24 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.step",
+      "stl_relative": "parts/a24-angle-and-curve-blade.stl",
+      "step_relative": "parts/a24-angle-and-curve-blade.step",
+      "group": "finish-024",
+      "print_group": "finish-024",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6",
+      "step_sha256": "6d5ae3cdf69d82ab3d31c0ec5921b28d5e4b1c617e52e2f1309143baadc67bc0",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          16,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 81722
+      },
+      "requested_layer_height_mm": 0.24,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "N08D",
+      "name": "N08D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.step",
+      "stl_relative": "parts/n08d-neck-storage-shoe.stl",
+      "step_relative": "parts/n08d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d",
+      "step_sha256": "01a491836bc72b37d9ba9f1f228f7530642627799c423d1a5ca2e16ccfb1f9ad",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          8
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 22850
+      },
+      "neck_id": "N08",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N08K",
+      "name": "N08K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.step",
+      "stl_relative": "parts/n08k-neck-keeper-bar.stl",
+      "step_relative": "parts/n08k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed",
+      "step_sha256": "05be4171c9b1f619bb0234c4e08f0aa9104d3f09f97aa7504389ead1440c0384",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          30.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 23658
+      },
+      "neck_id": "N08",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N08",
+      "name": "N08 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08-faucet-neck.step",
+      "stl_relative": "parts/n08-faucet-neck.stl",
+      "step_relative": "parts/n08-faucet-neck.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "651cca24316c19d74515e405a31492669cd494f1be1386d017885f2598d6d408",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          12
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.08,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "NR00D",
+      "name": "NR00D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr00d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr00d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "0693f22081c52ab6702bd14b3a8846ee353ed49c035def2576da9f652501f6f1",
+      "step_sha256": "3b4da098fca75d145aa6ddba6ad357059cdcdb6b94a2aa68658a7a868bbdd863",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          38
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18524
+      },
+      "neck_id": "NR00",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR00K",
+      "name": "NR00K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr00k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr00k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c",
+      "step_sha256": "547ac5833ebaf56ce69b585a7606be35f5dcebd8cb90ee98a588be02825ce263",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          60.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 19594
+      },
+      "neck_id": "NR00",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR00",
+      "name": "NR00 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.step",
+      "stl_relative": "parts/nr00-faucet-neck.stl",
+      "step_relative": "parts/nr00-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "631074f9d83284bab796ec1ad6b3cea30bd16cdeb528220e2a474b64755414c9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          42
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 0
+    },
+    {
+      "id": "NR05D",
+      "name": "NR05D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr05d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr05d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "689f22f6d2a281948cebe6a5ed7f9ded82b7a39577e5456f625c7d36537735f2",
+      "step_sha256": "774c914d42f3732d704d3e6e871e0fa6a7b87158325f37bb6597d0c86fccf750",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          68
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 17844
+      },
+      "neck_id": "NR05",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR05K",
+      "name": "NR05K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr05k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr05k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a",
+      "step_sha256": "bcf7a11d79479871096716d6f3d7072845e56802b08bae070ea8fc26d5affb7c",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          90.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18894
+      },
+      "neck_id": "NR05",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR05",
+      "name": "NR05 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.step",
+      "stl_relative": "parts/nr05-faucet-neck.stl",
+      "step_relative": "parts/nr05-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "fbe3855ce42509e8c59803a1d52111ec75718bbba97034727b41adcc24f4c336",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          72
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 5
+    },
+    {
+      "id": "NR15D",
+      "name": "NR15D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr15d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr15d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "a4fdd03b3fccf991125cbd5caca7d41b712d349dc10a99c2153f1ac1b1f26498",
+      "step_sha256": "6ca5a8e464fbfa949ecffccb529b5b0e0029302dfbadb94b7811255ab4d96fd5",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          98
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 11526
+      },
+      "neck_id": "NR15",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR15K",
+      "name": "NR15K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr15k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr15k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9",
+      "step_sha256": "3ee863999067b7cc8ec61bff213fdf70da6c0ff9e0df3a512875cbe744743306",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          120.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 12498
+      },
+      "neck_id": "NR15",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR15",
+      "name": "NR15 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.step",
+      "stl_relative": "parts/nr15-faucet-neck.stl",
+      "step_relative": "parts/nr15-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "f00fa9562a487006d1f2d46d6b1527370c57e3014fc233af2ffe9895a6fceec3",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          102
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "N12D",
+      "name": "N12D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.step",
+      "stl_relative": "parts/n12d-neck-storage-shoe.stl",
+      "step_relative": "parts/n12d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "c64126227627d553ab66124fea13734cb61ae62cc955356647223f32bfcae5f5",
+      "step_sha256": "63006c4b6a291c8062f467abe8a9d62025323aff520b6c2dcc1a0a8a03e3c286",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          44
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6298
+      },
+      "neck_id": "N12",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N12K",
+      "name": "N12K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.step",
+      "stl_relative": "parts/n12k-neck-keeper-bar.stl",
+      "step_relative": "parts/n12k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d",
+      "step_sha256": "35e82b6ca79dcfde0a0aa8db14944ff9b91aa48dc19206c53629ce56b36a6a77",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          66.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 7314
+      },
+      "neck_id": "N12",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N12",
+      "name": "N12 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.step",
+      "stl_relative": "parts/n12-faucet-neck.stl",
+      "step_relative": "parts/n12-faucet-neck.step",
+      "group": "finish-012",
+      "print_group": "finish-012",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "116188b9cdc3f42569bacbb5572ad184e139e0fd26852062f3367da5fdacaf11",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          48
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "NS00D",
+      "name": "NS00D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns00d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns00d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "6a30a5f34fb09c28987a3af743e05a0f9bf295b14fc578b7f74b20df4e14130e",
+      "step_sha256": "0b392e96b81b95b0cfa529a3d3027f69c457c461675dece18594c51a23ef4a60",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          98
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 23874
+      },
+      "neck_id": "NS00",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS00K",
+      "name": "NS00K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns00k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns00k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "cbd0f82502efaab8cb4067786ebd7e1fd5e2f288ef3ed272e6662e57817e8bcc",
+      "step_sha256": "f879a83aab667496bda97828151f86f44d328cdfbb6653f36e3c929a3d6e482e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          120.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 24898
+      },
+      "neck_id": "NS00",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS00",
+      "name": "NS00 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.step",
+      "stl_relative": "parts/ns00-faucet-neck.stl",
+      "step_relative": "parts/ns00-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "8daa2470af4d0d7429eb0554d7698529b9d3df9feb377a62eb1954f7bb62c2dc",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          102
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 0
+    },
+    {
+      "id": "NS10D",
+      "name": "NS10D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns10d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns10d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "dfa2e85c06e9c1d89fa8b883d1a44b7c3834dd70582b4985c0f25d21e88909dd",
+      "step_sha256": "a44814c964541e085babe6a1c1e3397a92be5a6d957fbe51dd6219df947ae558",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          68
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 17474
+      },
+      "neck_id": "NS10",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS10K",
+      "name": "NS10K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns10k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns10k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "76e9e01321afdb071c83032d805549b90c27ec60c0c6f9a1596065b3a064e05d",
+      "step_sha256": "0ae6e3a37398396fef3ea120ca4c052233f7d18c7a3fc4f087a7eb7506dabb04",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          90.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18490
+      },
+      "neck_id": "NS10",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS10",
+      "name": "NS10 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.step",
+      "stl_relative": "parts/ns10-faucet-neck.stl",
+      "step_relative": "parts/ns10-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "4ed65427408597ae042394f4e8e708c12828763f12cfe148462e2f553ee5a70d",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          72
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 10
+    },
+    {
+      "id": "NS20D",
+      "name": "NS20D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns20d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns20d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "9b525d62ffc6939fb3a574b43a187cf0b1b266c6f973887b411188ae549b53fc",
+      "step_sha256": "f9217e9d94ae21e6564fd26cad386ade2fa312d0e3b1b1151898314ab29576e9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          38
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 21952
+      },
+      "neck_id": "NS20",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS20K",
+      "name": "NS20K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns20k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns20k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "fa8c1688a46f70330dce510ef4c8659ab24309b09691ee340b0984aede9e8e3e",
+      "step_sha256": "14b8ad1d8995ff19baff393336ca8136817a46a30b16ce5cf6c6069ad7ce905c",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          60.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 22870
+      },
+      "neck_id": "NS20",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS20",
+      "name": "NS20 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.step",
+      "stl_relative": "parts/ns20-faucet-neck.stl",
+      "step_relative": "parts/ns20-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "8f9f2c0facf04ff293cecbff1574f354ef1e657dbf1c04faac150fe24cb48158",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          42
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 20
+    },
+    {
+      "id": "N24D",
+      "name": "N24D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.step",
+      "stl_relative": "parts/n24d-neck-storage-shoe.stl",
+      "step_relative": "parts/n24d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "7028344f7a35ba686e1749cf4e88dbc1d9393c6428fcdc2d79270c71d4856bb8",
+      "step_sha256": "d8be9f8a7a7b6f956b9b52f4723fecdbb19e3bb195dd6930dd3edabda49ef6f7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          8
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6048
+      },
+      "neck_id": "N24",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N24K",
+      "name": "N24K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.step",
+      "stl_relative": "parts/n24k-neck-keeper-bar.stl",
+      "step_relative": "parts/n24k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "4d5c3c93c6ced719e0fc48637f650984c6e64d61e08a64694659320bb6188c7a",
+      "step_sha256": "b1f984e8548191ead062124706f06e97d5cd49ead38d5f0dc22bc4a1ce4a1087",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          30.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6952
+      },
+      "neck_id": "N24",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N24",
+      "name": "N24 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24-faucet-neck.step",
+      "stl_relative": "parts/n24-faucet-neck.stl",
+      "step_relative": "parts/n24-faucet-neck.step",
+      "group": "finish-024",
+      "print_group": "finish-024",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "45b428dc70d75a001109c4871069537482f2535b10f88df4139ca1425a8af85d",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          12
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.24,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "GR",
+      "name": "GR grip receiver bridge",
+      "kind": "grip_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step",
+      "stl_relative": "parts/gr-grip-receiver-bridge.stl",
+      "step_relative": "parts/gr-grip-receiver-bridge.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -49.000000000000064,
+          -6.1,
+          0.0
+        ],
+        [
+          49.00000000000007,
+          9.0,
+          14.38
+        ]
+      ],
+      "stl_sha256": "e105300d6c95922fec206cacb4a7db4e049ff07b714277dc071e4b70d8c608bf",
+      "step_sha256": "cd8291eff9a796a8237a1a1785b77e9502d53879b8ac91e673b5c48692cd1a7a",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -45,
+          27
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1836
+      },
+      "source_path": "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "endwall_mm": 3,
+      "roof_stock_mm": 12,
+      "retaining_air_mm": 0.45,
+      "supported_back_air_mm": 0.25
+    },
+    {
+      "id": "G",
+      "name": "G complete grip insert",
+      "kind": "grip",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.step",
+      "stl_relative": "parts/g-complete-grip-insert.stl",
+      "step_relative": "parts/g-complete-grip-insert.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -42.25000000000001,
+          -5.779101966249686,
+          0.0
+        ],
+        [
+          42.25000000000001,
+          5.779101966249686,
+          3.3600000000000003
+        ]
+      ],
+      "stl_sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
+      "step_sha256": "c8f5090dd7be842d7e72db38b925d36411a4e0159b31b829700bc02fdc39a218",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -45,
+          27.25
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18720
+      },
+      "source_path": "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "overall_length_mm": 84.5,
+      "body_length_mm": 79.7,
+      "body_width_mm": 11.558203932499373,
+      "body_thickness_mm": 3.36,
+      "comparison": "Complete production broad strip and both wings"
+    }
+  ],
+  "parts": [
+    {
+      "id": "P",
+      "name": "P cascade carrier",
+      "kind": "carrier",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/p-cascade-carrier.step",
+      "stl_relative": "parts/p-cascade-carrier.stl",
+      "step_relative": "parts/p-cascade-carrier.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -90.0000001,
+          -74.0000001,
+          0.0
+        ],
+        [
+          90.0000001,
+          74.0000001,
+          99.8
+        ]
+      ],
+      "stl_sha256": "8abda57b41b19b35594f7a4cc45276a54b86e403f795c722ea71687c0f2f6b5f",
+      "step_sha256": "509dddb1c3f7062c2678326cad2688e937a256067f0f8372b500ab7cbd9902fd",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 257858
+      },
+      "bore_diameters_mm": [
+        4.4,
+        6.65
+      ],
+      "ribbon_slot_mm": [
+        5.4,
+        1.8
+      ],
+      "bores_print_xy_mm": [
+        [
+          -44,
+          -64
+        ],
+        [
+          0,
+          -64
+        ]
+      ],
+      "ribbon_slot_print_xy_mm": [
+        44,
+        -64
+      ],
+      "marking_raise_mm": 0.48,
+      "marking_recess_mm": 0.48,
+      "storage": "Upright gravity saddles; samples are captured in removable labeled shoes"
+    },
+    {
+      "id": "S15R",
+      "name": "S15R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s15r-sliding-receiver.step",
+      "stl_relative": "parts/s15r-sliding-receiver.stl",
+      "step_relative": "parts/s15r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "58d1572775018880709e408cc6e267a0b6ba423f0a1ecf43e73d3da5a928e181",
+      "step_sha256": "233d4a414b324c5a6f1f330b753df8bfa34820efeec9da04194be77168d30d94",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -66,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15812
+      },
+      "body_side_air_each_mm": 0.15,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S15",
+      "name": "S15 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s15-sliding-tongue.step",
+      "stl_relative": "parts/s15-sliding-tongue.stl",
+      "step_relative": "parts/s15-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "2058e83a7f0f80d1eedfd7d0171cc60c32431adadf96a19030f420f5cee3032f",
+      "step_sha256": "1775854f99fa1af1035f9ad99a0db2d7b5b5d599419509038f6fb91ec58566f7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -66,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15732
+      },
+      "body_side_air_each_mm": 0.15,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S25R",
+      "name": "S25R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s25r-sliding-receiver.step",
+      "stl_relative": "parts/s25r-sliding-receiver.stl",
+      "step_relative": "parts/s25r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "e071cd17746454c5ac0d5cb33d01dc5ff3670c4a0101f8acf9c698ddad73b67b",
+      "step_sha256": "7a453488d3d5f91daddd81d083be18249511ec9d50e2aa8f386e6554aef1606e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -22,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 20096
+      },
+      "body_side_air_each_mm": 0.25,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S25",
+      "name": "S25 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s25-sliding-tongue.step",
+      "stl_relative": "parts/s25-sliding-tongue.stl",
+      "step_relative": "parts/s25-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "5e4408ec60ee59c70b8732f8052806738735b74a35a916ed78bbea95a5092827",
+      "step_sha256": "25d558f45eaf7006a1762e66e9c8c952607a349c18088d2180b9f7cd43646534",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -22,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 20210
+      },
+      "body_side_air_each_mm": 0.25,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S35R",
+      "name": "S35R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step",
+      "stl_relative": "parts/s35r-sliding-receiver.stl",
+      "step_relative": "parts/s35r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "caaf3b4710033b23eb4a5ce8ea10038a228e3a9634163fe0e325e00c4b3c870d",
+      "step_sha256": "c7c3e6d3159a3379cca6396b0f125a881c2a1e6583a5d0caa75859edc310cac7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          22,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25294
+      },
+      "body_side_air_each_mm": 0.35,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S35",
+      "name": "S35 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s35-sliding-tongue.step",
+      "stl_relative": "parts/s35-sliding-tongue.stl",
+      "step_relative": "parts/s35-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "7e9c0332e1231182968b6bb748d391c0ac536063af0b70c10fe0833ff659a351",
+      "step_sha256": "4e7b2db9b20ef5603f28ab28e70258fd3c0b973af31748ae8aa5480a79337266",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          22,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25930
+      },
+      "body_side_air_each_mm": 0.35,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "S45R",
+      "name": "S45R sliding receiver",
+      "kind": "slider_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s45r-sliding-receiver.step",
+      "stl_relative": "parts/s45r-sliding-receiver.stl",
+      "step_relative": "parts/s45r-sliding-receiver.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.0000001,
+          -23.0000001,
+          0.0
+        ],
+        [
+          17.0000001,
+          23.0000001,
+          14.4800001
+        ]
+      ],
+      "stl_sha256": "1a1431bdf9e6d8fdf7f7b35cfe1d63b6b09a1038ebed3ef2dd6e750d65643dbf",
+      "step_sha256": "cc16e276e780d0e84a30aabd739dfd782a446fb2c68dc7afb794b59d8990b50e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          66,
+          -45,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15522
+      },
+      "body_side_air_each_mm": 0.45,
+      "floor_air_mm": 0.25,
+      "roof_air_above_wing_mm": 0.45,
+      "wing_tip_air_each_mm": 1.0,
+      "comparison": "Synthetic short flat-wing sliding fit; X gap is per side"
+    },
+    {
+      "id": "S45",
+      "name": "S45 sliding tongue",
+      "kind": "slider",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/s45-sliding-tongue.step",
+      "stl_relative": "parts/s45-sliding-tongue.stl",
+      "step_relative": "parts/s45-sliding-tongue.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.0000001,
+          -19.5000001,
+          0.0
+        ],
+        [
+          13.0000001,
+          14.5,
+          4.680000100000001
+        ]
+      ],
+      "stl_sha256": "fb143695e4d4b55eb8766ff1ceea0c8ec89f8846787414148d454847de049737",
+      "step_sha256": "f5fec963d143c494a1db6a62fd0327faedb4e9fbb50af1fdcda3d42207535ece",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          66,
+          -55,
+          9.85
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 15438
+      },
+      "body_side_air_each_mm": 0.45,
+      "body_width_mm": 18,
+      "body_thickness_mm": 3.36,
+      "wing_projection_mm": 2.4,
+      "wing_thickness_mm": 1.68,
+      "comparison": "Same tongue shape in all four lanes; label alone differs"
+    },
+    {
+      "id": "R30",
+      "name": "R30 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r30-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r30-support-ceiling.step",
+      "stl_relative": "parts/r30-support-ceiling.stl",
+      "step_relative": "parts/r30-support-ceiling.step",
+      "group": "support-030",
+      "print_group": "support-030",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "eb9f10a5e467c7f996eba950ffa3d0dae41ff605061447d554fa1b117b585ba0",
+      "step_sha256": "a07a4ea223f526828d17477e61f25450d3a506dd112ca35293c1b32603ce83c9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -30.5,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 25716
+      },
+      "support_top_z_distance_mm": 0.3,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "R45",
+      "name": "R45 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r45-support-ceiling.step",
+      "stl_relative": "parts/r45-support-ceiling.stl",
+      "step_relative": "parts/r45-support-ceiling.step",
+      "group": "support-045",
+      "print_group": "support-045",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "ef28ba0b8941338bc9d4c1410ee649265b362ba81a9a6a24dbd0d4f689e92e87",
+      "step_sha256": "c65ce27474ed8ad738e15de207b93523f4d97f7d99119d8d7bfc09c369ae78e1",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 14300
+      },
+      "support_top_z_distance_mm": 0.45,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "R60",
+      "name": "R60 support ceiling",
+      "kind": "support",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.step",
+      "stl_relative": "parts/r60-support-ceiling.stl",
+      "step_relative": "parts/r60-support-ceiling.step",
+      "group": "support-060",
+      "print_group": "support-060",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -15.0,
+          -12.0,
+          0.0
+        ],
+        [
+          15.0,
+          14.0,
+          23.480000099999998
+        ]
+      ],
+      "stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
+      "step_sha256": "e617dd6f87aba6deba1704c5163df26c9fdcc3ad75c1d6c017e05375793e323a",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          30.5,
+          -2.5,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 24780
+      },
+      "support_top_z_distance_mm": 0.6,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ],
+      "comparison": "Identical 3mm cantilever ceilings with open removal access"
+    },
+    {
+      "id": "A08",
+      "name": "A08 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step",
+      "stl_relative": "parts/a08-angle-and-curve-blade.stl",
+      "step_relative": "parts/a08-angle-and-curve-blade.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "ab695e029f1f72298afc19da35b76b0c945e407d9fe988b9d8eac0e81268dd43",
+      "step_sha256": "0b43ce2ae388a2e793cb70363f52723e338e94987101b4661576b497cbc90abc",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -16,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 99204
+      },
+      "requested_layer_height_mm": 0.08,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "A12",
+      "name": "A12 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.step",
+      "stl_relative": "parts/a12-angle-and-curve-blade.stl",
+      "step_relative": "parts/a12-angle-and-curve-blade.step",
+      "group": "finish-012",
+      "print_group": "finish-012",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835",
+      "step_sha256": "f8121322c1e5a91746608ac6133136337daf8335365b666546dabe6ef0b6d711",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 82014
+      },
+      "requested_layer_height_mm": 0.12,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "A24",
+      "name": "A24 angle and curve blade",
+      "kind": "angle_blade",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/a24-angle-and-curve-blade.step",
+      "stl_relative": "parts/a24-angle-and-curve-blade.stl",
+      "step_relative": "parts/a24-angle-and-curve-blade.step",
+      "group": "finish-024",
+      "print_group": "finish-024",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -6.0000001,
+          -22.0,
+          0.0
+        ],
+        [
+          6.0000001,
+          22.0000001,
+          86.0000001
+        ]
+      ],
+      "stl_sha256": "6e2baa4b04e0099e9b3ce6907aeb9b71226daef04236eb8207dfc1b934b8d5d6",
+      "step_sha256": "6d5ae3cdf69d82ab3d31c0ec5921b28d5e4b1c617e52e2f1309143baadc67bc0",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          16,
+          34,
+          6.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 81722
+      },
+      "requested_layer_height_mm": 0.24,
+      "angle_facets": [
+        {
+          "angle_above_bed_degrees": 0,
+          "midpoint_print_yz_mm": [
+            -14.0,
+            4.0
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 15,
+          "midpoint_print_yz_mm": [
+            -8.102222521132795,
+            4.776457135307562
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 30,
+          "midpoint_print_yz_mm": [
+            -2.606368830912274,
+            7.052914270615124
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 45,
+          "midpoint_print_yz_mm": [
+            2.113027724000685,
+            10.674234614174768
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 60,
+          "midpoint_print_yz_mm": [
+            5.734348067560328,
+            15.393631169087726
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 75,
+          "midpoint_print_yz_mm": [
+            8.01080520286789,
+            20.889484859308247
+          ]
+        },
+        {
+          "angle_above_bed_degrees": 90,
+          "midpoint_print_yz_mm": [
+            8.787262338175452,
+            26.787262338175452
+          ]
+        }
+      ],
+      "curve_radius_mm": 6,
+      "nominal_curve_wall_mm": 3,
+      "surface_azimuths": [
+        "YZ blade",
+        "XZ transverse shoulder"
+      ],
+      "comparison": "Facets 0..90 degrees above bed; actual orthogonal print surfaces"
+    },
+    {
+      "id": "N08D",
+      "name": "N08D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08d-neck-storage-shoe.step",
+      "stl_relative": "parts/n08d-neck-storage-shoe.stl",
+      "step_relative": "parts/n08d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "83ea19c3cda051aaf55b0b960df6461d04eca2fac3cd240d0af030ab7f55010d",
+      "step_sha256": "01a491836bc72b37d9ba9f1f228f7530642627799c423d1a5ca2e16ccfb1f9ad",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          8
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 22850
+      },
+      "neck_id": "N08",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N08K",
+      "name": "N08K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08k-neck-keeper-bar.step",
+      "stl_relative": "parts/n08k-neck-keeper-bar.stl",
+      "step_relative": "parts/n08k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "5cd030ab9683e3e4d5e8584c0e7acd7484ef08ccd4f2d264f91cf6ad33b34aed",
+      "step_sha256": "05be4171c9b1f619bb0234c4e08f0aa9104d3f09f97aa7504389ead1440c0384",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          30.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 23658
+      },
+      "neck_id": "N08",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N08",
+      "name": "N08 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n08-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n08-faucet-neck.step",
+      "stl_relative": "parts/n08-faucet-neck.stl",
+      "step_relative": "parts/n08-faucet-neck.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "651cca24316c19d74515e405a31492669cd494f1be1386d017885f2598d6d408",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          0,
+          12
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.08,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "NR00D",
+      "name": "NR00D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr00d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr00d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "0693f22081c52ab6702bd14b3a8846ee353ed49c035def2576da9f652501f6f1",
+      "step_sha256": "3b4da098fca75d145aa6ddba6ad357059cdcdb6b94a2aa68658a7a868bbdd863",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          38
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18524
+      },
+      "neck_id": "NR00",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR00K",
+      "name": "NR00K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr00k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr00k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "558dfce1cb785b0dd19de5fa814ffcf2619c4fc5e2a071461f96a2d4af09795c",
+      "step_sha256": "547ac5833ebaf56ce69b585a7606be35f5dcebd8cb90ee98a588be02825ce263",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          60.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 19594
+      },
+      "neck_id": "NR00",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR00",
+      "name": "NR00 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr00-faucet-neck.step",
+      "stl_relative": "parts/nr00-faucet-neck.stl",
+      "step_relative": "parts/nr00-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "631074f9d83284bab796ec1ad6b3cea30bd16cdeb528220e2a474b64755414c9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          17,
+          42
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 0
+    },
+    {
+      "id": "NR05D",
+      "name": "NR05D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr05d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr05d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "689f22f6d2a281948cebe6a5ed7f9ded82b7a39577e5456f625c7d36537735f2",
+      "step_sha256": "774c914d42f3732d704d3e6e871e0fa6a7b87158325f37bb6597d0c86fccf750",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          68
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 17844
+      },
+      "neck_id": "NR05",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR05K",
+      "name": "NR05K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr05k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr05k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "16dd81675bc59dee55d0a4bbaa381c755910d6180382e4ab33e92fbe1ef7830a",
+      "step_sha256": "bcf7a11d79479871096716d6f3d7072845e56802b08bae070ea8fc26d5affb7c",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          90.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18894
+      },
+      "neck_id": "NR05",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR05",
+      "name": "NR05 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr05-faucet-neck.step",
+      "stl_relative": "parts/nr05-faucet-neck.stl",
+      "step_relative": "parts/nr05-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "fbe3855ce42509e8c59803a1d52111ec75718bbba97034727b41adcc24f4c336",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          34,
+          72
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 5
+    },
+    {
+      "id": "NR15D",
+      "name": "NR15D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15d-neck-storage-shoe.step",
+      "stl_relative": "parts/nr15d-neck-storage-shoe.stl",
+      "step_relative": "parts/nr15d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "a4fdd03b3fccf991125cbd5caca7d41b712d349dc10a99c2153f1ac1b1f26498",
+      "step_sha256": "6ca5a8e464fbfa949ecffccb529b5b0e0029302dfbadb94b7811255ab4d96fd5",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          98
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 11526
+      },
+      "neck_id": "NR15",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NR15K",
+      "name": "NR15K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15k-neck-keeper-bar.step",
+      "stl_relative": "parts/nr15k-neck-keeper-bar.stl",
+      "step_relative": "parts/nr15k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "d9ca65de76d1737acaebda507fed95bea34c9db829f44b98a06df81cb2f78eb9",
+      "step_sha256": "3ee863999067b7cc8ec61bff213fdf70da6c0ff9e0df3a512875cbe744743306",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          120.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 12498
+      },
+      "neck_id": "NR15",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NR15",
+      "name": "NR15 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/nr15-faucet-neck.step",
+      "stl_relative": "parts/nr15-faucet-neck.stl",
+      "step_relative": "parts/nr15-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "f00fa9562a487006d1f2d46d6b1527370c57e3014fc233af2ffe9895a6fceec3",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          -65,
+          51,
+          102
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "N12D",
+      "name": "N12D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12d-neck-storage-shoe.step",
+      "stl_relative": "parts/n12d-neck-storage-shoe.stl",
+      "step_relative": "parts/n12d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "c64126227627d553ab66124fea13734cb61ae62cc955356647223f32bfcae5f5",
+      "step_sha256": "63006c4b6a291c8062f467abe8a9d62025323aff520b6c2dcc1a0a8a03e3c286",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          44
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6298
+      },
+      "neck_id": "N12",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N12K",
+      "name": "N12K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12k-neck-keeper-bar.step",
+      "stl_relative": "parts/n12k-neck-keeper-bar.stl",
+      "step_relative": "parts/n12k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "8d613bc663a936edcc4c8ec9d69aa9b5b1478877bcf34256dea51d527eefe48d",
+      "step_sha256": "35e82b6ca79dcfde0a0aa8db14944ff9b91aa48dc19206c53629ce56b36a6a77",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          66.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 7314
+      },
+      "neck_id": "N12",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N12",
+      "name": "N12 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.step",
+      "stl_relative": "parts/n12-faucet-neck.stl",
+      "step_relative": "parts/n12-faucet-neck.step",
+      "group": "finish-012",
+      "print_group": "finish-012",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "116188b9cdc3f42569bacbb5572ad184e139e0fd26852062f3367da5fdacaf11",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -11,
+          48
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "NS00D",
+      "name": "NS00D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns00d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns00d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "6a30a5f34fb09c28987a3af743e05a0f9bf295b14fc578b7f74b20df4e14130e",
+      "step_sha256": "0b392e96b81b95b0cfa529a3d3027f69c457c461675dece18594c51a23ef4a60",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          98
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 23874
+      },
+      "neck_id": "NS00",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS00K",
+      "name": "NS00K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns00k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns00k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "cbd0f82502efaab8cb4067786ebd7e1fd5e2f288ef3ed272e6662e57817e8bcc",
+      "step_sha256": "f879a83aab667496bda97828151f86f44d328cdfbb6653f36e3c929a3d6e482e",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          120.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 24898
+      },
+      "neck_id": "NS00",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS00",
+      "name": "NS00 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns00-faucet-neck.step",
+      "stl_relative": "parts/ns00-faucet-neck.stl",
+      "step_relative": "parts/ns00-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "8daa2470af4d0d7429eb0554d7698529b9d3df9feb377a62eb1954f7bb62c2dc",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          51,
+          102
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 0
+    },
+    {
+      "id": "NS10D",
+      "name": "NS10D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns10d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns10d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "dfa2e85c06e9c1d89fa8b883d1a44b7c3834dd70582b4985c0f25d21e88909dd",
+      "step_sha256": "a44814c964541e085babe6a1c1e3397a92be5a6d957fbe51dd6219df947ae558",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          68
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 17474
+      },
+      "neck_id": "NS10",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS10K",
+      "name": "NS10K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns10k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns10k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "76e9e01321afdb071c83032d805549b90c27ec60c0c6f9a1596065b3a064e05d",
+      "step_sha256": "0ae6e3a37398396fef3ea120ca4c052233f7d18c7a3fc4f087a7eb7506dabb04",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          90.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18490
+      },
+      "neck_id": "NS10",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS10",
+      "name": "NS10 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns10-faucet-neck.step",
+      "stl_relative": "parts/ns10-faucet-neck.stl",
+      "step_relative": "parts/ns10-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "4ed65427408597ae042394f4e8e708c12828763f12cfe148462e2f553ee5a70d",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          34,
+          72
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 10
+    },
+    {
+      "id": "NS20D",
+      "name": "NS20D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20d-neck-storage-shoe.step",
+      "stl_relative": "parts/ns20d-neck-storage-shoe.stl",
+      "step_relative": "parts/ns20d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "9b525d62ffc6939fb3a574b43a187cf0b1b266c6f973887b411188ae549b53fc",
+      "step_sha256": "f9217e9d94ae21e6564fd26cad386ade2fa312d0e3b1b1151898314ab29576e9",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          38
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 21952
+      },
+      "neck_id": "NS20",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "NS20K",
+      "name": "NS20K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20k-neck-keeper-bar.step",
+      "stl_relative": "parts/ns20k-neck-keeper-bar.stl",
+      "step_relative": "parts/ns20k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "fa8c1688a46f70330dce510ef4c8659ab24309b09691ee340b0984aede9e8e3e",
+      "step_sha256": "14b8ad1d8995ff19baff393336ca8136817a46a30b16ce5cf6c6069ad7ce905c",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          60.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 22870
+      },
+      "neck_id": "NS20",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "NS20",
+      "name": "NS20 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/ns20-faucet-neck.step",
+      "stl_relative": "parts/ns20-faucet-neck.stl",
+      "step_relative": "parts/ns20-faucet-neck.step",
+      "group": "seam",
+      "print_group": "seam",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "8f9f2c0facf04ff293cecbff1574f354ef1e657dbf1c04faac150fe24cb48158",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          17,
+          42
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.12,
+      "seam_method": "scarf",
+      "seam_gap_percent": 15,
+      "scarf_gap_percent": 20
+    },
+    {
+      "id": "N24D",
+      "name": "N24D neck storage shoe",
+      "kind": "neck_shoe",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24d-neck-storage-shoe.step",
+      "stl_relative": "parts/n24d-neck-storage-shoe.stl",
+      "step_relative": "parts/n24d-neck-storage-shoe.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -18.0000001,
+          -20.5000001,
+          0.0
+        ],
+        [
+          18.0000001,
+          20.5000001,
+          26.73
+        ]
+      ],
+      "stl_sha256": "7028344f7a35ba686e1749cf4e88dbc1d9393c6428fcdc2d79270c71d4856bb8",
+      "step_sha256": "d8be9f8a7a7b6f956b9b52f4723fecdbb19e3bb195dd6930dd3edabda49ef6f7",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          8
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6048
+      },
+      "neck_id": "N24",
+      "source_neck_bed_above_shoe_mm": 4,
+      "keeper_slot_floor_z_mm": 22.35,
+      "keeper_slot_roof_z_mm": 24.73,
+      "comparison": "Labeled storage accessory; touches cut end faces only"
+    },
+    {
+      "id": "N24K",
+      "name": "N24K neck keeper bar",
+      "kind": "neck_keeper",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24k-neck-keeper-bar.step",
+      "stl_relative": "parts/n24k-neck-keeper-bar.stl",
+      "step_relative": "parts/n24k-neck-keeper-bar.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -17.250000000000004,
+          -4.0000001,
+          0.0
+        ],
+        [
+          17.250000000000004,
+          4.0000001,
+          2.8800000999999997
+        ]
+      ],
+      "stl_sha256": "4d5c3c93c6ced719e0fc48637f650984c6e64d61e08a64694659320bb6188c7a",
+      "step_sha256": "b1f984e8548191ead062124706f06e97d5cd49ead38d5f0dc22bc4a1ce4a1087",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          30.6
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 6952
+      },
+      "neck_id": "N24",
+      "cut_top_air_mm": 0.4,
+      "comparison": "Sliding bar captures specimen at its cut top; remove to inspect"
+    },
+    {
+      "id": "N24",
+      "name": "N24 faucet neck",
+      "kind": "neck",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/n24-faucet-neck.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/n24-faucet-neck.step",
+      "stl_relative": "parts/n24-faucet-neck.stl",
+      "step_relative": "parts/n24-faucet-neck.step",
+      "group": "finish-024",
+      "print_group": "finish-024",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -13.5,
+          -16.414566086659,
+          -1.760147805237945e-12
+        ],
+        [
+          13.5,
+          16.414566086659,
+          18.2
+        ]
+      ],
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "step_sha256": "45b428dc70d75a001109c4871069537482f2535b10f88df4139ca1425a8af85d",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          65,
+          0,
+          12
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1644
+      },
+      "source": {
+        "source_step": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.step",
+        "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
+        "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+        "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+        "snapshot_step": "inputs/faucet-neck-swatch.step.gz",
+        "snapshot_stl": "inputs/faucet-neck-swatch.stl.gz",
+        "source_pose": "Frozen production -15 degree X pose; no additional rotation",
+        "geometry_change": "Rigid XY recentering only; every source STL triangle retained",
+        "recenter_translation_mm": [
+          -0.0,
+          -35.722000279485,
+          0.0
+        ]
+      },
+      "comparison": "Unscaled source faucet neck; short-section thermal conditions differ",
+      "requested_layer_height_mm": 0.24,
+      "seam_method": "regular",
+      "seam_gap_percent": 15
+    },
+    {
+      "id": "GR",
+      "name": "GR grip receiver bridge",
+      "kind": "grip_receiver",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/gr-grip-receiver-bridge.step",
+      "stl_relative": "parts/gr-grip-receiver-bridge.stl",
+      "step_relative": "parts/gr-grip-receiver-bridge.step",
+      "group": "kit",
+      "print_group": "kit",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -49.000000000000064,
+          -6.1,
+          0.0
+        ],
+        [
+          49.00000000000007,
+          9.0,
+          14.38
+        ]
+      ],
+      "stl_sha256": "e105300d6c95922fec206cacb4a7db4e049ff07b714277dc071e4b70d8c608bf",
+      "step_sha256": "cd8291eff9a796a8237a1a1785b77e9502d53879b8ac91e673b5c48692cd1a7a",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -45,
+          27
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 1836
+      },
+      "source_path": "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "endwall_mm": 3,
+      "roof_stock_mm": 12,
+      "retaining_air_mm": 0.45,
+      "supported_back_air_mm": 0.25
+    },
+    {
+      "id": "G",
+      "name": "G complete grip insert",
+      "kind": "grip",
+      "stl": "hardware/printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.stl",
+      "step": "hardware/printed-parts/calibration/soda-studies/parts/g-complete-grip-insert.step",
+      "stl_relative": "parts/g-complete-grip-insert.stl",
+      "step_relative": "parts/g-complete-grip-insert.step",
+      "group": "finish-008",
+      "print_group": "finish-008",
+      "rotation_x_degrees": 0,
+      "print_bounds_mm": [
+        [
+          -42.25000000000001,
+          -5.779101966249686,
+          0.0
+        ],
+        [
+          42.25000000000001,
+          5.779101966249686,
+          3.3600000000000003
+        ]
+      ],
+      "stl_sha256": "f0fe04ae657b56d7c3a65ac2d04089af465617c72074f7ea42f222fed90aca1e",
+      "step_sha256": "c8f5090dd7be842d7e72db38b925d36411a4e0159b31b829700bc02fdc39a218",
+      "assembly": {
+        "rotation_xyz_degrees": [
+          0,
+          0,
+          0
+        ],
+        "translation_mm": [
+          0,
+          -45,
+          27.25
+        ]
+      },
+      "nominal_storage_dock_diametral_air_mm": 0.8,
+      "geometry_check": {
+        "one_valid_solid": true,
+        "one_watertight_mesh_body": true,
+        "triangle_count": 18720
+      },
+      "source_path": "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "overall_length_mm": 84.5,
+      "body_length_mm": 79.7,
+      "body_width_mm": 11.558203932499373,
+      "body_thickness_mm": 3.36,
+      "comparison": "Complete production broad strip and both wings"
+    }
+  ],
+  "overall_bounds_mm": [
+    [
+      -90.0000001,
+      -74.5000001,
+      0.0
+    ],
+    [
+      90.0000001,
+      74.0000001,
+      124.73
+    ]
+  ],
+  "overall_dimensions_mm": [
+    180.0000002,
+    148.5000002,
+    124.73
+  ],
+  "frame": "All individual meshes: millimetres, XY bed, Z up, lowest material at Z0",
+  "slider_gap_convention": "Per-side X body air; floor .25 and wing roof .45 held fixed",
+  "physical_assembly": "Unprinted; nominal docking fits and tactile behavior are unqualified"
+}
