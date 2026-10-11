@@ -63,13 +63,5 @@
       "sha256": "5d09c96a05ddd0d6b103bf4c492c72590dccd26f85adb2b5510f5a8d742ef859",
       "file": "faucet.bin"
     }
-  },
-  "unproven": {
-    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
-    "paths": [
-      "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
-      "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
-      "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png"
-    ]
   }
 }
