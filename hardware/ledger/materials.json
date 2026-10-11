@@ -1,0 +1,4191 @@
+{
+  "schema": 1,
+  "roots": [
+    "HSM-000001",
+    "HSM-000002",
+    "HSM-000005",
+    "HSM-000006"
+  ],
+  "materials": [
+    {
+      "id": "HSM-000001",
+      "description": "Soda machine",
+      "kind": "assembly",
+      "aliases": [
+        "integrated machine",
+        "enclosure"
+      ],
+      "models": [
+        {
+          "file": "manifold-layout/enclosure-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Machine and subsystems",
+          "path": "README.md"
+        },
+        {
+          "title": "Assembly instructions",
+          "path": "assembly/enclosure-mechanical.md"
+        },
+        {
+          "title": "Per-unit cost BOM",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "bom": {
+        "scope": "Partial machine composition, including the cold core, removable pump cartridge, recorded fitting assemblies and major purchased units. Additional model components, remaining cut tubing, fixed wiring, consumables and unmodeled fasteners are detailed in the build and cost records.",
+        "source": "ledger/bom.md",
+        "items": [
+          {
+            "material": "HSM-000003",
+            "quantity": 1,
+            "unit": "ea",
+            "prefix": "cold-core/"
+          },
+          {
+            "material": "HSM-000038",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "compressor"
+            ]
+          },
+          {
+            "material": "HSM-000039",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "mq6-sensor"
+            ]
+          },
+          {
+            "material": "HSM-000040",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "thermal-fuse"
+            ]
+          },
+          {
+            "material": "HSM-000041",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "fuse-clamp"
+            ]
+          },
+          {
+            "material": "HSM-000042",
+            "quantity": 11,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-a",
+              "coil-v-a",
+              "valve-v-c",
+              "coil-v-c",
+              "valve-v-e",
+              "coil-v-e",
+              "valve-v-g",
+              "coil-v-g",
+              "valve-v-f",
+              "coil-v-f",
+              "valve-v-b",
+              "coil-v-b",
+              "valve-v-d",
+              "coil-v-d",
+              "valve-v-h",
+              "coil-v-h",
+              "valve-v-j",
+              "coil-v-j",
+              "valve-v-i",
+              "coil-v-i",
+              "vk-solenoid"
+            ]
+          },
+          {
+            "material": "HSM-000043",
+            "quantity": 6,
+            "unit": "ea",
+            "bodies": [
+              "tee-y-a",
+              "tee-y-c",
+              "tee-y-d",
+              "tee-y-b",
+              "tee-y-f",
+              "tee-y-g"
+            ]
+          },
+          {
+            "material": "HSM-000161",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000045",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-chain"
+            ]
+          },
+          {
+            "material": "HSM-000046",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "psu"
+            ]
+          },
+          {
+            "material": "HSM-000047",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "relay-2",
+              "relay-1"
+            ]
+          },
+          {
+            "material": "HSM-000048",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pcba"
+            ]
+          },
+          {
+            "material": "HSM-000049",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "c14-inlet"
+            ]
+          },
+          {
+            "material": "HSM-000050",
+            "quantity": 5,
+            "unit": "ea",
+            "bodies": [
+              "wago-h",
+              "wago-n",
+              "wago-g",
+              "wago-v12",
+              "wago-gnd"
+            ]
+          },
+          {
+            "material": "HSM-000051",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "ground-stack"
+            ]
+          },
+          {
+            "material": "HSM-000052",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "wago-mana",
+              "wago-reeds-b"
+            ]
+          },
+          {
+            "material": "HSM-000053",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "wago-manb",
+              "wago-reeds-a",
+              "wago-sensors"
+            ]
+          },
+          {
+            "material": "HSM-000054",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "co2-inlet"
+            ]
+          },
+          {
+            "material": "HSM-000055",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wr1110"
+            ]
+          },
+          {
+            "material": "HSM-000056",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gasher-co2"
+            ]
+          },
+          {
+            "material": "HSM-000057",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "flow-regulator"
+            ]
+          },
+          {
+            "material": "HSM-000058",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-chain"
+            ]
+          },
+          {
+            "material": "HSM-000059",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-water",
+              "bulkhead-flavor-b",
+              "bulkhead-flavor-a",
+              "bulkhead-carb"
+            ]
+          },
+          {
+            "material": "HSM-000060",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "digiten-flow"
+            ]
+          },
+          {
+            "material": "HSM-000061",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-drain"
+            ]
+          },
+          {
+            "material": "HSM-000062",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-water",
+              "bulkhead-ring-water-word"
+            ]
+          },
+          {
+            "material": "HSM-000063",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-carb",
+              "bulkhead-ring-carb-word"
+            ]
+          },
+          {
+            "material": "HSM-000064",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-flavor-a",
+              "bulkhead-ring-flavor-a-word"
+            ]
+          },
+          {
+            "material": "HSM-000065",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-flavor-b",
+              "bulkhead-ring-flavor-b-word"
+            ]
+          },
+          {
+            "material": "HSM-000066",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-co2",
+              "bulkhead-ring-co2-word"
+            ]
+          },
+          {
+            "material": "HSM-000067",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-ring-drain",
+              "bulkhead-ring-drain-word"
+            ]
+          },
+          {
+            "material": "HSM-000068",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "data-ring"
+            ]
+          },
+          {
+            "material": "HSM-000069",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "nameplate",
+              "nameplate-ink"
+            ]
+          },
+          {
+            "material": "HSM-000070",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel"
+            ]
+          },
+          {
+            "material": "HSM-000071",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-cover"
+            ]
+          },
+          {
+            "material": "HSM-000072",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-frame"
+            ]
+          },
+          {
+            "material": "HSM-000073",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "elbow-cradle"
+            ]
+          },
+          {
+            "material": "HSM-000074",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "funnel-drain-union"
+            ]
+          },
+          {
+            "material": "HSM-000075",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display"
+            ]
+          },
+          {
+            "material": "HSM-000076",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display-cover"
+            ]
+          },
+          {
+            "material": "HSM-000077",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display-gasket"
+            ]
+          },
+          {
+            "material": "HSM-000078",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-front-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000079",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-front-top"
+            ]
+          },
+          {
+            "material": "HSM-000080",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-back-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000081",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-back-top"
+            ]
+          },
+          {
+            "material": "HSM-000084",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-tee-carrier-plate"
+            ]
+          },
+          {
+            "material": "HSM-000085",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-window-cover-west"
+            ]
+          },
+          {
+            "material": "HSM-000086",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-window-cover-east"
+            ]
+          },
+          {
+            "material": "HSM-000087",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse1022-assembly"
+            ]
+          },
+          {
+            "material": "HSM-000088",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-drain-adapter"
+            ]
+          },
+          {
+            "material": "HSM-000163",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pump-contact-male"
+            ]
+          },
+          {
+            "material": "HSM-000034",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "The fixed cartridge-retention ring is enclosed in front-top; the moving ring belongs to the pump cartridge."
+          },
+          {
+            "material": "HSM-000166",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Fixed male contact half, two mounting screws."
+          },
+          {
+            "material": "HSM-000167",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "Fixed male contact half, two heat-set inserts."
+          },
+          {
+            "material": "HSM-000178",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "g-ganen-pump"
+            ]
+          },
+          {
+            "material": "HSM-000179",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "condenser+fan"
+            ]
+          },
+          {
+            "material": "HSM-000043",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "water-split"
+            ],
+            "note": "Tap-water split upstream of V-K, separate from the six flavor-manifold tees."
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "used-with",
+          "material": "HSM-000002"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000007"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000002",
+      "description": "Faucet · Sculpted",
+      "kind": "assembly",
+      "aliases": [
+        "tap",
+        "touch flo",
+        "faucet"
+      ],
+      "models": [
+        {
+          "file": "faucet-layout/faucet-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        }
+      ],
+      "bom": {
+        "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
+        "source": "ledger/bom.md",
+        "items": [
+          {
+            "material": "HSM-000089",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "westbrass"
+            ]
+          },
+          {
+            "material": "HSM-000090",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tpu_o_ring"
+            ]
+          },
+          {
+            "material": "HSM-000091",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "flavor_union_pos_x",
+              "flavor_union_neg_x"
+            ],
+            "when": {
+              "finish": "white"
+            }
+          },
+          {
+            "material": "HSM-000092",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "above_counter_plate"
+            ]
+          },
+          {
+            "material": "HSM-000093",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "above_counter_gasket"
+            ]
+          },
+          {
+            "material": "HSM-000094",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "shell_base"
+            ]
+          },
+          {
+            "material": "HSM-000095",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "shell_tip"
+            ]
+          },
+          {
+            "material": "HSM-000096",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "faucet-display-cover-seated"
+            ]
+          },
+          {
+            "material": "HSM-000097",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "faucet_display",
+              "faucet_display_screen"
+            ]
+          },
+          {
+            "material": "HSM-000098",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "umbilical-organizer"
+            ]
+          },
+          {
+            "material": "HSM-000099",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_carb",
+              "collar_carb_word"
+            ]
+          },
+          {
+            "material": "HSM-000100",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_flavor_a",
+              "collar_flavor_a_word"
+            ]
+          },
+          {
+            "material": "HSM-000101",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_flavor_b",
+              "collar_flavor_b_word"
+            ]
+          },
+          {
+            "material": "HSM-000102",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_drain",
+              "collar_drain_word"
+            ]
+          },
+          {
+            "material": "HSM-000103",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "base_screw_1",
+              "base_screw_2",
+              "base_screw_3"
+            ]
+          },
+          {
+            "material": "HSM-000104",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "base_insert_1",
+              "base_insert_2",
+              "base_insert_3"
+            ]
+          },
+          {
+            "material": "HSM-000105",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display_signal_ribbon"
+            ]
+          },
+          {
+            "material": "HSM-000106",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "soda_faucet_tube",
+              "soda_umbilical_tube"
+            ]
+          },
+          {
+            "material": "HSM-000107",
+            "quantity": 2,
+            "unit": "cut sets",
+            "bodies": [
+              "flavor_tube_pos_x",
+              "flavor_tube_bridge_pos_x",
+              "flavor_umbilical_tube_pos_x",
+              "flavor_tube_neg_x",
+              "flavor_tube_bridge_neg_x",
+              "flavor_umbilical_tube_neg_x"
+            ]
+          },
+          {
+            "material": "HSM-000108",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "drain_tube"
+            ]
+          },
+          {
+            "material": "HSM-000109",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "cold_line_foam"
+            ]
+          },
+          {
+            "material": "HSM-000110",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "umbilical_sleeve"
+            ]
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "variant",
+          "material": "HSM-000007"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000003",
+      "description": "Cold core",
+      "kind": "assembly",
+      "aliases": [
+        "foam assembly",
+        "refrigeration",
+        "carbonator and reservoirs"
+      ],
+      "models": [
+        {
+          "file": "cold-core-layout/cold-core-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cold-core assembly",
+          "path": "assembly/cold-core.md"
+        }
+      ],
+      "bom": {
+        "scope": "Carbonator, insulation stack, reservoirs and modeled sensing hardware. Consumable amounts and unmodeled fasteners are detailed in the cost BOM.",
+        "source": "cold-core-layout/_bom.py",
+        "items": [
+          {
+            "material": "HSM-000004",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000015",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "evap-coil",
+              "evap-tail-inlet",
+              "evap-tail-outlet"
+            ]
+          },
+          {
+            "material": "HSM-000016",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "probe-carbonator-ds18b20"
+            ]
+          },
+          {
+            "material": "HSM-000017",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "probe-coil-ds18s20"
+            ]
+          },
+          {
+            "material": "HSM-000018",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-shell"
+            ]
+          },
+          {
+            "material": "HSM-000019",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-top"
+            ]
+          },
+          {
+            "material": "HSM-000020",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-lid-top"
+            ]
+          },
+          {
+            "material": "HSM-000021",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000022",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "foam-cap-lid-bottom"
+            ]
+          },
+          {
+            "material": "HSM-000023",
+            "quantity": 1,
+            "unit": "set",
+            "bodies": [
+              "copper-plug-west",
+              "copper-plug-port"
+            ],
+            "note": "Three plugs represented by the west and port models."
+          },
+          {
+            "material": "HSM-000024",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "prv-shroud"
+            ]
+          },
+          {
+            "material": "HSM-000025",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b"
+            ]
+          },
+          {
+            "material": "HSM-000026",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a"
+            ]
+          },
+          {
+            "material": "HSM-000027",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-cap"
+            ]
+          },
+          {
+            "material": "HSM-000028",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a-cap"
+            ]
+          },
+          {
+            "material": "HSM-000029",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reed-bridge"
+            ]
+          },
+          {
+            "material": "HSM-000030",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-reservoir-a",
+              "bulkhead-reservoir-b"
+            ]
+          },
+          {
+            "material": "HSM-000031",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-seal-a",
+              "bulkhead-seal-b"
+            ]
+          },
+          {
+            "material": "HSM-000032",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "float-a",
+              "float-b"
+            ]
+          },
+          {
+            "material": "HSM-000035",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "float-rod-a",
+              "float-rod-b"
+            ]
+          },
+          {
+            "material": "HSM-000036",
+            "quantity": 10,
+            "unit": "ea",
+            "bodies": [
+              "reed-carb-1",
+              "reed-carb-2",
+              "reed-a-1",
+              "reed-a-2",
+              "reed-a-3",
+              "reed-a-4",
+              "reed-b-1",
+              "reed-b-2",
+              "reed-b-3",
+              "reed-b-4"
+            ]
+          },
+          {
+            "material": "HSM-000037",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "vent-membrane-a",
+              "vent-membrane-b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000004",
+      "description": "Carbonator vessel",
+      "kind": "assembly",
+      "aliases": [
+        "pressure vessel",
+        "carbonator",
+        "tank"
+      ],
+      "documents": [
+        {
+          "title": "Drill and weld guide",
+          "path": "assembly-letter-guide/assembly-drill-and-weld-letter.pdf"
+        },
+        {
+          "title": "Carbonator assembly",
+          "path": "assembly/pressure-vessel.md"
+        }
+      ],
+      "bom": {
+        "scope": "Vessel, port fittings, pressure relief, captive magnetic float and welded guide rod. Welding, sealing and fabrication consumables are detailed in the assembly guide.",
+        "source": "assembly/pressure-vessel.md",
+        "items": [
+          {
+            "material": "HSM-000008",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-tube"
+            ]
+          },
+          {
+            "material": "HSM-000009",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "endcap-bottom",
+              "endcap-top"
+            ]
+          },
+          {
+            "material": "HSM-000010",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "carbonator-elbow-co2-in",
+              "carbonator-elbow-carb-water-out",
+              "carbonator-elbow-water-in",
+              "carbonator-elbow-prv"
+            ]
+          },
+          {
+            "material": "HSM-000011",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "water-inlet-jet-cap-nominal"
+            ]
+          },
+          {
+            "material": "HSM-000012",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "prv-sv125"
+            ]
+          },
+          {
+            "material": "HSM-000013",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "collet-carb-water-out",
+              "collet-water-in"
+            ]
+          },
+          {
+            "material": "HSM-000014",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collet-co2-in"
+            ]
+          },
+          {
+            "material": "HSM-000032",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-carb"
+            ]
+          },
+          {
+            "material": "HSM-000035",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-rod-carb"
+            ]
+          }
+        ]
+      },
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000005",
+      "description": "Weld rotator",
+      "kind": "tooling",
+      "aliases": [
+        "welding positioner",
+        "turntable",
+        "tube rotator"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Weld rotator assembly guide",
+          "path": "weld-rotator-guide/weld-rotator-guide.pdf"
+        },
+        {
+          "title": "Rotator parts and setup",
+          "path": "printed-parts/fixtures/weld-rotator/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "Mechanical fixture and controller components. Harness stock is cut to fit; bench power, drivers and setup equipment are listed separately.",
+        "source": "printed-parts/fixtures/weld-rotator/README.md",
+        "items": [
+          {
+            "material": "HSM-000115",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "stationary-base"
+            ]
+          },
+          {
+            "material": "HSM-000116",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "base-foot-1",
+              "base-foot-2",
+              "base-foot-3",
+              "base-foot-4"
+            ]
+          },
+          {
+            "material": "HSM-000117",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "motor-tower"
+            ]
+          },
+          {
+            "material": "HSM-000118",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "motor-carriage"
+            ]
+          },
+          {
+            "material": "HSM-000119",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "motor-clamp-pad-negative-y",
+              "motor-clamp-pad-positive-y"
+            ]
+          },
+          {
+            "material": "HSM-000120",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "ground-tower"
+            ]
+          },
+          {
+            "material": "HSM-000121",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "ground-flexure-arm"
+            ]
+          },
+          {
+            "material": "HSM-000122",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "turntable-90t"
+            ]
+          },
+          {
+            "material": "HSM-000123",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "upper-race-ring"
+            ]
+          },
+          {
+            "material": "HSM-000124",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "spool"
+            ]
+          },
+          {
+            "material": "HSM-000125",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "ball-cage"
+            ]
+          },
+          {
+            "material": "HSM-000126",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-nest"
+            ]
+          },
+          {
+            "material": "HSM-000127",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "c110-ground-shoe"
+            ]
+          },
+          {
+            "material": "HSM-000128",
+            "quantity": 36,
+            "unit": "ea",
+            "bodies": [
+              "10mm-pp-balls"
+            ]
+          },
+          {
+            "material": "HSM-000129",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "23hs30-2804s"
+            ]
+          },
+          {
+            "material": "HSM-000130",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "20t-htd5m-pulley"
+            ]
+          },
+          {
+            "material": "HSM-000131",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "550-5m-15-belt"
+            ]
+          },
+          {
+            "material": "HSM-000132",
+            "quantity": 6,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000133",
+            "quantity": 6,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000134",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000135",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000136",
+            "quantity": 31,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000137",
+            "quantity": 14,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000138",
+            "quantity": 8,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000139",
+            "quantity": 7,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000140",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000141",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000142",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000143",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000144",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000004"
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000008"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000145"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000146"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000147"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000148"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000149"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000150"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000006",
+      "description": "Tube insertion tool",
+      "kind": "tooling",
+      "aliases": [
+        "insertion fixture",
+        "insertion jig",
+        "tube press",
+        "insert"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Tube insertion assembly guide",
+          "path": "tube-insertion-guide/tube-insertion-guide.pdf"
+        },
+        {
+          "title": "Tool setup and parts",
+          "path": "printed-parts/fixtures/tube-insertion/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "Printed fixture set and assembly hardware. Screw clamps and bench clamps are reusable setup equipment; the model also shows the donor and tubing workpieces.",
+        "source": "printed-parts/fixtures/tube-insertion/parts.json",
+        "items": [],
+        "imports": {
+          "source": "printed-parts/fixtures/tube-insertion/parts.json",
+          "parts": {
+            "base": {
+              "material": "HSM-000151",
+              "bodies": [
+                "base"
+              ]
+            },
+            "carrier": {
+              "material": "HSM-000152",
+              "bodies": [
+                "carrier"
+              ]
+            },
+            "lower-jaw": {
+              "material": "HSM-000153",
+              "bodies": [
+                "lower-jaw"
+              ]
+            },
+            "upper-jaw": {
+              "material": "HSM-000154",
+              "bodies": [
+                "upper-jaw"
+              ]
+            },
+            "liner": {
+              "material": "HSM-000155",
+              "bodies": [
+                "lower-liner",
+                "upper-liner"
+              ]
+            },
+            "cap-support-puck": {
+              "material": "HSM-000156",
+              "bodies": []
+            }
+          },
+          "hardware": {
+            "BESSEY GSCC2.506 6-inch screw clamp": {
+              "material": "HSM-000157",
+              "bodies": [
+                "fixed-jaw-schematic",
+                "fixed-pad-envelope",
+                "moving-pad-envelope",
+                "rail-schematic",
+                "sliding-jaw-schematic",
+                "spindle-schematic",
+                "wood-handle-envelope"
+              ],
+              "relationship": "used-with"
+            },
+            "M5 x 50 socket-head screw": {
+              "material": "HSM-000158",
+              "bodies": [
+                "clamp-front-m5x50",
+                "clamp-rear-m5x50"
+              ]
+            },
+            "M5 x 20 DIN7991 countersunk screw": {
+              "material": "HSM-000134",
+              "bodies": [
+                "carrier-front-m5x20",
+                "carrier-rear-m5x20"
+              ]
+            },
+            "M5 x 0.8 square nut, 8 x 4 mm": {
+              "material": "HSM-000135",
+              "bodies": [
+                "carrier-front-nut",
+                "carrier-rear-nut",
+                "clamp-front-nut",
+                "clamp-rear-nut"
+              ]
+            },
+            "M5 fender washer, OD 25 mm": {
+              "material": "HSM-000159",
+              "bodies": [
+                "clamp-front-washer",
+                "clamp-rear-washer"
+              ]
+            },
+            "Owned 4-inch steel C-clamp": {
+              "material": "HSM-000160",
+              "bodies": [],
+              "relationship": "used-with"
+            }
+          }
+        }
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000002"
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000007"
+        },
+        {
+          "kind": "tool-for",
+          "material": "HSM-000089",
+          "bodies": [
+            "touch-flo-donor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HSM-000007",
+      "description": "Faucet · Industrial",
+      "kind": "assembly",
+      "aliases": [
+        "industrial faucet",
+        "tap"
+      ],
+      "models": [
+        {
+          "file": "faucet-layout/faucet-industrial-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Faucet assembly guide",
+          "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        }
+      ],
+      "bom": {
+        "scope": "Modeled parts for this faucet style. Flavor unions apply to the white finish; cut tubing lengths and wiring are detailed in the cost BOM.",
+        "source": "ledger/bom.md",
+        "items": [
+          {
+            "material": "HSM-000089",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "westbrass"
+            ]
+          },
+          {
+            "material": "HSM-000090",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tpu_o_ring"
+            ]
+          },
+          {
+            "material": "HSM-000091",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "flavor_union_pos_x",
+              "flavor_union_neg_x"
+            ],
+            "when": {
+              "finish": "white"
+            }
+          },
+          {
+            "material": "HSM-000111",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "above_counter_plate"
+            ]
+          },
+          {
+            "material": "HSM-000112",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "above_counter_gasket"
+            ]
+          },
+          {
+            "material": "HSM-000113",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "shell_base"
+            ]
+          },
+          {
+            "material": "HSM-000095",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "shell_tip"
+            ]
+          },
+          {
+            "material": "HSM-000114",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "faucet-display-cover-seated"
+            ]
+          },
+          {
+            "material": "HSM-000097",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "faucet_display",
+              "faucet_display_screen"
+            ]
+          },
+          {
+            "material": "HSM-000098",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "umbilical-organizer"
+            ]
+          },
+          {
+            "material": "HSM-000099",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_carb",
+              "collar_carb_word"
+            ]
+          },
+          {
+            "material": "HSM-000100",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_flavor_a",
+              "collar_flavor_a_word"
+            ]
+          },
+          {
+            "material": "HSM-000101",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_flavor_b",
+              "collar_flavor_b_word"
+            ]
+          },
+          {
+            "material": "HSM-000102",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "collar_drain",
+              "collar_drain_word"
+            ]
+          },
+          {
+            "material": "HSM-000103",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "base_screw_1",
+              "base_screw_2",
+              "base_screw_3"
+            ]
+          },
+          {
+            "material": "HSM-000104",
+            "quantity": 3,
+            "unit": "ea",
+            "bodies": [
+              "base_insert_1",
+              "base_insert_2",
+              "base_insert_3"
+            ]
+          },
+          {
+            "material": "HSM-000105",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "display_signal_ribbon"
+            ]
+          },
+          {
+            "material": "HSM-000106",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "soda_faucet_tube",
+              "soda_umbilical_tube"
+            ]
+          },
+          {
+            "material": "HSM-000107",
+            "quantity": 2,
+            "unit": "cut sets",
+            "bodies": [
+              "flavor_tube_pos_x",
+              "flavor_tube_bridge_pos_x",
+              "flavor_umbilical_tube_pos_x",
+              "flavor_tube_neg_x",
+              "flavor_tube_bridge_neg_x",
+              "flavor_umbilical_tube_neg_x"
+            ]
+          },
+          {
+            "material": "HSM-000108",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "drain_tube"
+            ]
+          },
+          {
+            "material": "HSM-000109",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "cold_line_foam"
+            ]
+          },
+          {
+            "material": "HSM-000110",
+            "quantity": 1,
+            "unit": "cut set",
+            "bodies": [
+              "umbilical_sleeve"
+            ]
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "variant",
+          "material": "HSM-000002"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000008",
+      "description": "Carbonator tube · 316L stainless, 5 inch OD",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "cut-parts/carbonation/carbonator-tube/carbonator-tube.step"
+        }
+      ],
+      "aliases": [
+        "316 tube"
+      ]
+    },
+    {
+      "id": "HSM-000009",
+      "description": "Carbonator endcap · 316 stainless, 2 ports",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step"
+        }
+      ],
+      "aliases": [
+        "endcap plates"
+      ]
+    },
+    {
+      "id": "HSM-000010",
+      "description": "TAISHER 316L street elbow · 1/4 inch NPT",
+      "kind": "purchased",
+      "aliases": [
+        "carbonator elbows"
+      ]
+    },
+    {
+      "id": "HSM-000011",
+      "description": "Water inlet jet cap",
+      "kind": "manufactured",
+      "aliases": [
+        "water inlet jet"
+      ]
+    },
+    {
+      "id": "HSM-000012",
+      "description": "Control Devices SV-125 pressure relief valve",
+      "kind": "purchased",
+      "aliases": [
+        "PRV"
+      ]
+    },
+    {
+      "id": "HSM-000013",
+      "description": "John Guest PP010822E · water port connector",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/jg-pp010822e/jg-pp010822e.step"
+        }
+      ],
+      "aliases": [
+        "water PTC collets"
+      ],
+      "manufacturer_number": "PP010822E"
+    },
+    {
+      "id": "HSM-000014",
+      "description": "John Guest PI010822S · CO₂ port connector",
+      "kind": "purchased",
+      "aliases": [
+        "gas PTC collet"
+      ],
+      "manufacturer_number": "PI010822S"
+    },
+    {
+      "id": "HSM-000015",
+      "description": "Evaporator coil · formed ACR copper tubing",
+      "kind": "manufactured",
+      "aliases": [
+        "evaporator coil"
+      ]
+    },
+    {
+      "id": "HSM-000016",
+      "description": "DS18B20 carbonator temperature sensor",
+      "kind": "purchased",
+      "aliases": [
+        "carbonator probe"
+      ]
+    },
+    {
+      "id": "HSM-000017",
+      "description": "DS18S20 evaporator temperature sensor",
+      "kind": "purchased",
+      "aliases": [
+        "coil probe"
+      ]
+    },
+    {
+      "id": "HSM-000018",
+      "description": "Foam shell",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-shell/foam-shell.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/foam-shell/README.md"
+        }
+      ],
+      "aliases": [
+        "foam shell"
+      ]
+    },
+    {
+      "id": "HSM-000019",
+      "description": "Foam cap top",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/foam-cap-top.step"
+        }
+      ],
+      "aliases": [
+        "foam cap top"
+      ]
+    },
+    {
+      "id": "HSM-000020",
+      "description": "Foam cap lid top",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step"
+        }
+      ],
+      "aliases": [
+        "foam cap lid top"
+      ]
+    },
+    {
+      "id": "HSM-000021",
+      "description": "Foam cap bottom",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/foam-cap-bottom.step"
+        }
+      ],
+      "aliases": [
+        "foam cap bottom"
+      ]
+    },
+    {
+      "id": "HSM-000022",
+      "description": "Foam cap lid bottom",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step"
+        }
+      ],
+      "aliases": [
+        "foam cap lid bottom"
+      ]
+    },
+    {
+      "id": "HSM-000023",
+      "description": "Cold-core copper-plug stack",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/copper-plugs/copper-plug-west.step"
+        },
+        {
+          "file": "printed-parts/cold-core/copper-plugs/copper-plug-port.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/copper-plugs/README.md"
+        }
+      ],
+      "aliases": [
+        "copper plugs"
+      ]
+    },
+    {
+      "id": "HSM-000024",
+      "description": "PRV shroud",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/prv-shroud/prv-shroud.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/prv-shroud/README.md"
+        }
+      ],
+      "aliases": [
+        "PRV shroud"
+      ]
+    },
+    {
+      "id": "HSM-000025",
+      "description": "Flavor reservoir · left",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-left.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        }
+      ],
+      "aliases": [
+        "reservoir body L"
+      ]
+    },
+    {
+      "id": "HSM-000026",
+      "description": "Flavor reservoir · right",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-right.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        }
+      ],
+      "aliases": [
+        "reservoir body R"
+      ]
+    },
+    {
+      "id": "HSM-000027",
+      "description": "Flavor reservoir cap · left",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-cap-left.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        }
+      ],
+      "aliases": [
+        "reservoir cap L"
+      ]
+    },
+    {
+      "id": "HSM-000028",
+      "description": "Flavor reservoir cap · right",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-cap-right.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        }
+      ],
+      "aliases": [
+        "reservoir cap R"
+      ]
+    },
+    {
+      "id": "HSM-000029",
+      "description": "Carbonator reed bridge",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reed-bridge/reed-bridge.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reed-bridge/README.md"
+        }
+      ],
+      "aliases": [
+        "reed bridge"
+      ]
+    },
+    {
+      "id": "HSM-000030",
+      "description": "PureSec reservoir elbow bulkhead · 1/4 inch",
+      "kind": "purchased",
+      "aliases": [
+        "floor bulkheads"
+      ]
+    },
+    {
+      "id": "HSM-000031",
+      "description": "Reservoir bulkhead silicone seal",
+      "kind": "purchased",
+      "aliases": [
+        "bulkhead seals"
+      ]
+    },
+    {
+      "id": "HSM-000032",
+      "description": "Magnetic level float",
+      "kind": "assembly",
+      "bom": {
+        "scope": "ASA Aero float and inserted ring magnet.",
+        "source": "cold-core-layout/_bom.py",
+        "items": [
+          {
+            "material": "HSM-000033",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000034",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      },
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Float assembly",
+          "path": "printed-parts/cold-core/magnetic-float/README.md"
+        },
+        {
+          "title": "Float installation",
+          "path": "assembly/cold-core.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000033",
+      "description": "ASA Aero level float body",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/magnetic-float/body-aero.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000034",
+      "description": "K&J Magnetics RC62 N42 ring magnet",
+      "kind": "purchased",
+      "aliases": [
+        "RC62",
+        "float magnet",
+        "cartridge retention magnet"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/cold-core/magnetic-float/magnet.step"
+        }
+      ],
+      "manufacturer_number": "RC62",
+      "documents": [
+        {
+          "title": "Float magnet installation",
+          "path": "printed-parts/cold-core/magnetic-float/README.md"
+        },
+        {
+          "title": "Cartridge retention pair",
+          "path": "printed-parts/enclosure/enclosure/magnet-retention/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000035",
+      "description": "Float guide rod · 316 stainless, 1/8 inch",
+      "kind": "purchased",
+      "aliases": [
+        "float rods"
+      ]
+    },
+    {
+      "id": "HSM-000036",
+      "description": "Littelfuse MDSR-7-10-15 reed switch",
+      "kind": "purchased",
+      "aliases": [
+        "reeds"
+      ]
+    },
+    {
+      "id": "HSM-000037",
+      "description": "Reservoir PTFE vent membrane",
+      "kind": "purchased",
+      "aliases": [
+        "vent membranes"
+      ]
+    },
+    {
+      "id": "HSM-000038",
+      "description": "Refrigeration compressor",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/compressor/compressor.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/compressor/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000039",
+      "description": "Mq6 gas sensor",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/mq6-gas-sensor/mq6-gas-sensor.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000040",
+      "description": "BOJACK SF76E thermal cutoff",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/sf76e-thermal-fuse/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000041",
+      "description": "Fuse clamp",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/refrigeration/fuse-clamp/fuse-clamp.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/refrigeration/fuse-clamp/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000042",
+      "description": "Beduan 12 V solenoid valve",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/beduan-solenoid/beduan-solenoid.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/beduan-solenoid/README.md"
+        }
+      ],
+      "manufacturer_number": "Beduan 12 V"
+    },
+    {
+      "id": "HSM-000043",
+      "description": "John Guest PP0208E · 1/4 inch tee",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/tee-connector/tee-connector.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/tee-connector/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000044",
+      "description": "Kamoer KPHM600-SW3B17 flavor pump",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/kamoer-kphm400/kamoer-kphm400.step"
+        }
+      ],
+      "manufacturer_number": "KPHM600-SW3B17",
+      "aliases": [
+        "KPHM600",
+        "peristaltic pump"
+      ],
+      "documents": [
+        {
+          "title": "Pump specification and per-unit cost",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Fitted pump reference",
+          "path": "reference/kamoer-kphm400/scan-review.md"
+        },
+        {
+          "title": "Assembled pump fit",
+          "path": "reference/kamoer-kphm400/physical-fit.json"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000045",
+      "description": "Water-pump suction fitting assembly",
+      "kind": "assembly",
+      "models": [
+        {
+          "file": "reference/seaflo-suction-chain/seaflo-suction-chain.step"
+        }
+      ],
+      "aliases": [
+        "suction chain"
+      ],
+      "documents": [
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "bom": {
+        "scope": "Bench-made threaded fitting chain between hose-barb tip and push-to-connect collet. Hose, clamps, mounting and onward tubing belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
+        "source": "assembly/internal-plumbing.md",
+        "items": [
+          {
+            "material": "HSM-000176",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000177",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000046",
+      "description": "Mean Well IRM-90-12ST power supply",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/meanwell-irm90/meanwell-irm90.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/meanwell-irm90/README.md"
+        }
+      ],
+      "manufacturer_number": "IRM-90-12ST"
+    },
+    {
+      "id": "HSM-000047",
+      "description": "Teyleten 3.3 V relay module",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/teyleten-relay/teyleten-relay.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/teyleten-relay/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000048",
+      "description": "Main control PCBA",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "printed-parts/electronics/pcba-tray/pcba-board.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Main control board",
+          "path": "pcb/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000049",
+      "description": "IEC C14 mains inlet",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/iec-c14-inlet/iec-c14-inlet.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/iec-c14-inlet/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000050",
+      "description": "WAGO 221-413 · 3-way lever connector",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/wago-221/wago-221-413.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/wago-221/README.md"
+        }
+      ],
+      "manufacturer_number": "221-413"
+    },
+    {
+      "id": "HSM-000051",
+      "description": "Chassis-ground ring-terminal stack",
+      "kind": "assembly",
+      "models": [
+        {
+          "file": "reference/ground-ring-stack/ground-ring-stack.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/ground-ring-stack/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000052",
+      "description": "WAGO 221-420 · 10-way lever connector",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/wago-221/wago-221-420.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/wago-221/README.md"
+        }
+      ],
+      "manufacturer_number": "221-420"
+    },
+    {
+      "id": "HSM-000053",
+      "description": "WAGO 221-415 · 5-way lever connector",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/wago-221/wago-221-415.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/wago-221/README.md"
+        }
+      ],
+      "manufacturer_number": "221-415"
+    },
+    {
+      "id": "HSM-000054",
+      "description": "Neofit bulkhead",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/neofit-bulkhead/neofit-bulkhead.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000055",
+      "description": "WR1110 fixed inline regulator",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/wr1110-regulator/wr1110-regulator.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/wr1110-regulator/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000056",
+      "description": "GASHER 1/4\" NPT inline check valve",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/gasher-check-valve/gasher-check-valve.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/gasher-check-valve/README.md"
+        }
+      ],
+      "aliases": [
+        "gasher-water",
+        "gasher-co2",
+        "B0FV2D2FFX"
+      ]
+    },
+    {
+      "id": "HSM-000057",
+      "description": "Neofit flow control",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/neofit-flow-control/neofit-flow-control.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000058",
+      "description": "Water-pump discharge fitting assembly",
+      "kind": "assembly",
+      "models": [
+        {
+          "file": "reference/seaflo-discharge-chain/seaflo-discharge-chain.step"
+        }
+      ],
+      "aliases": [
+        "discharge chain"
+      ],
+      "documents": [
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Check-valve specification and qualification scope",
+          "path": "reference/gasher-check-valve/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "Bench-made threaded fitting chain between hose-barb tip and push-to-connect collet. Hose, clamps, mounting and onward tubing belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
+        "source": "assembly/internal-plumbing.md",
+        "items": [
+          {
+            "material": "HSM-000176",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000056",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000177",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000059",
+      "description": "Jg bulkhead union",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/jg-bulkhead-union/jg-bulkhead-union.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000060",
+      "description": "DIGITEN water flow sensor",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/digiten-flow-sensor/digiten-flow-sensor.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/digiten-flow-sensor/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000061",
+      "description": "neoFit 4 mm OVER bulkhead",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/neofit-drain-bulkhead/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000062",
+      "description": "Bulkhead ring water",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000063",
+      "description": "Bulkhead ring carb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000064",
+      "description": "Bulkhead ring flavor a",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000065",
+      "description": "Bulkhead ring flavor b",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000066",
+      "description": "Bulkhead ring co2",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000067",
+      "description": "Bulkhead ring drain",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000068",
+      "description": "DATA plate",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/data-ring/data-ring.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/data-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000069",
+      "description": "Nameplate",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/nameplate/nameplate-001.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/nameplate/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000070",
+      "description": "Funnel",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel/funnel.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/zone-c/funnel/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000071",
+      "description": "Funnel cover",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel-cover/funnel-cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/zone-c/funnel-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000072",
+      "description": "Funnel frame",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel/funnel-frame.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/zone-c/funnel/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000073",
+      "description": "Elbow cradle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel/elbow-cradle.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/zone-c/funnel/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000074",
+      "description": "John Guest PP0308E · 1/4 inch elbow",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/jg-pp0308e-elbow/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000075",
+      "description": "Waveshare ESP32-S3-Touch-LCD-4.3B display",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/waveshare-43b-display/waveshare-43b-display.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/waveshare-43b-display/README.md"
+        }
+      ],
+      "manufacturer_number": "ESP32-S3-Touch-LCD-4.3B"
+    },
+    {
+      "id": "HSM-000076",
+      "description": "Machine display cover",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/display-cover/display-cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/display-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000077",
+      "description": "Display gasket",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/display-gasket/display-gasket.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/display-gasket/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000078",
+      "description": "Enclosure front bottom",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000079",
+      "description": "Enclosure front top",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-front-top.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000080",
+      "description": "Enclosure back bottom",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000081",
+      "description": "Enclosure back top",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-back-top.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000082",
+      "description": "Pump cartridge lower cradle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ],
+      "aliases": [
+        "enclosure-pump-cartridge",
+        "printed pump cartridge"
+      ]
+    },
+    {
+      "id": "HSM-000083",
+      "description": "Pump cartridge top clamp",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-cap.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/enclosure/README.md"
+        }
+      ],
+      "aliases": [
+        "enclosure-pump-cap",
+        "pump cap"
+      ]
+    },
+    {
+      "id": "HSM-000084",
+      "description": "Enclosure tee carrier plate",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/tee-carrier/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000085",
+      "description": "Enclosure window cover west",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/tee-carrier/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000086",
+      "description": "Enclosure window cover east",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/tee-carrier/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000087",
+      "description": "ASSE 1022 water-fitting assembly",
+      "kind": "assembly",
+      "models": [
+        {
+          "file": "reference/asse1022-assembly/asse1022-assembly.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Water-fitting assembly and interfaces",
+          "path": "reference/asse1022-assembly/README.md"
+        },
+        {
+          "title": "Water-fitting assembly procedure",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "aliases": [
+        "backflow preventer assembly",
+        "tap-water chain"
+      ],
+      "bom": {
+        "scope": "Multiplex backflow preventer and four made-up inlet/outlet fittings. The vent sleeve, drain return, wall mounting and installation ties belong to the machine. The two outlet fittings share a combined CAD envelope and have no individual geometry bindings.",
+        "source": "reference/asse1022-assembly/README.md",
+        "items": [
+          {
+            "material": "HSM-000013",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pp010822e"
+            ]
+          },
+          {
+            "material": "HSM-000172",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gagira-coupling"
+            ]
+          },
+          {
+            "material": "HSM-000173",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "multiplex-asse1022"
+            ]
+          },
+          {
+            "material": "HSM-000174",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000175",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000088",
+      "description": "ASSE drain adapter",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/asse-drain-adapter/asse-drain-adapter.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/asse-drain-adapter/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000089",
+      "description": "Westbrass Touch-Flo faucet donor",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000090",
+      "description": "TPU o-ring",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tpu-o-ring/tpu-o-ring.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/tpu-o-ring/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000091",
+      "description": "John Guest PP0408W · 1/4 inch union",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/jg-pp0408w/jg-pp0408w.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000092",
+      "description": "Above-counter plate",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/above-counter-plate/above-counter-plate.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/above-counter-plate/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000093",
+      "description": "Above counter gasket",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000094",
+      "description": "Faucet shell base",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/faucet-shell/faucet-shell-base.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000095",
+      "description": "Faucet shell tip",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000096",
+      "description": "Sculpted faucet display cover",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/faucet-display-cover/faucet-display-cover.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/faucet-display-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000097",
+      "description": "Waveshare ESP32-S3 1.47 inch faucet touch display",
+      "kind": "purchased",
+      "aliases": [
+        "B0FCF1MGT3",
+        "172×320"
+      ]
+    },
+    {
+      "id": "HSM-000098",
+      "description": "Umbilical organizer",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/umbilical-organizer/umbilical-organizer.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/umbilical-organizer/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000099",
+      "description": "Tube collar carb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-carb.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000100",
+      "description": "Tube collar flavor a",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-flavor-a.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000101",
+      "description": "Tube collar flavor b",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-flavor-b.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000102",
+      "description": "Tube collar drain",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/tube-collar/tube-collar-drain.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/faucet/tube-collar/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000103",
+      "description": "Faucet base screw · M3",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000104",
+      "description": "Faucet base heat-set insert · M3",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000105",
+      "description": "Faucet display signal ribbon",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000106",
+      "description": "Faucet carbonated-water tubing",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000107",
+      "description": "Faucet flavor tubing",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000108",
+      "description": "Faucet drain tubing",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000109",
+      "description": "Faucet cold-line insulation",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000110",
+      "description": "Faucet umbilical braided sleeve",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000111",
+      "description": "Industrial above counter plate",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/industrial/industrial-above-counter-plate.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000112",
+      "description": "Industrial above counter gasket",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/industrial/industrial-above-counter-gasket.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000113",
+      "description": "Industrial shell base",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/industrial/industrial-shell-base.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000114",
+      "description": "Industrial display cover",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/faucet/industrial/industrial-display-cover.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000115",
+      "description": "Weld rotator base",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-base.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000116",
+      "description": "Weld rotator base foot",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000117",
+      "description": "Weld rotator motor tower",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000118",
+      "description": "Weld rotator motor carriage",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000119",
+      "description": "Weld rotator motor clamp pad",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000120",
+      "description": "Weld rotator ground tower",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000121",
+      "description": "Weld rotator ground arm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000122",
+      "description": "Weld rotator turntable 90t",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000123",
+      "description": "Weld rotator race ring",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000124",
+      "description": "Weld rotator spool",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-spool.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000125",
+      "description": "Weld rotator ball cage",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000126",
+      "description": "Weld rotator tube nest",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000127",
+      "description": "Weld rotator ground shoe",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000128",
+      "description": "10 mm polypropylene bearing ball",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000129",
+      "description": "Stepper motor · 23HS30-2804S NEMA 23",
+      "kind": "purchased",
+      "manufacturer_number": "23HS30-2804S"
+    },
+    {
+      "id": "HSM-000130",
+      "description": "20T HTD 5M pulley",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000131",
+      "description": "550-5M-15 timing belt",
+      "kind": "purchased",
+      "manufacturer_number": "550-5M-15"
+    },
+    {
+      "id": "HSM-000132",
+      "description": "ruthex M5 × 9.5 heat-set insert",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000133",
+      "description": "M5 × 10 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000134",
+      "description": "M5 × 20 DIN7991 countersunk screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000135",
+      "description": "M5 × 0.8 square nut, 8 × 4 mm",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000136",
+      "description": "ruthex M3 short heat-set insert",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000137",
+      "description": "M3 × 25 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000138",
+      "description": "M3 × 8 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000139",
+      "description": "M3 × 10 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000140",
+      "description": "M3 × 12 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000141",
+      "description": "ESP32-DevKitC-32E controller",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000142",
+      "description": "ESP32 screw-terminal breakout",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000143",
+      "description": "ULN2803A module",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000144",
+      "description": "3.3 kΩ resistor",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000145",
+      "description": "DM542T stepper driver",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000146",
+      "description": "24 V motor power supply",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000147",
+      "description": "Foot pedal",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000148",
+      "description": "5 V / 3 A bench adapter",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000149",
+      "description": "Test indicator",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000150",
+      "description": "Weld rotator pulley fit coupon",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000151",
+      "description": "Tube insertion base",
+      "kind": "manufactured",
+      "aliases": [
+        "A"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-base.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000152",
+      "description": "Tube insertion carrier",
+      "kind": "manufactured",
+      "aliases": [
+        "B"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000153",
+      "description": "Tube insertion lower jaw",
+      "kind": "manufactured",
+      "aliases": [
+        "D"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000154",
+      "description": "Tube insertion upper jaw",
+      "kind": "manufactured",
+      "aliases": [
+        "E"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000155",
+      "description": "Tube insertion liner",
+      "kind": "manufactured",
+      "aliases": [
+        "F"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-liner.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000156",
+      "description": "Tube insertion cap support puck",
+      "kind": "manufactured",
+      "aliases": [
+        "G"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/tube-insertion-cap-support-puck.step"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000157",
+      "description": "BESSEY GSCC2.506 6-inch screw clamp",
+      "kind": "equipment",
+      "manufacturer_number": "GSCC2.506"
+    },
+    {
+      "id": "HSM-000158",
+      "description": "M5 × 50 socket-head screw",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000159",
+      "description": "M5 fender washer, OD 25 mm",
+      "kind": "purchased"
+    },
+    {
+      "id": "HSM-000160",
+      "description": "4-inch steel C-clamp",
+      "kind": "equipment"
+    },
+    {
+      "id": "HSM-000161",
+      "description": "Pump cartridge assembly",
+      "kind": "assembly",
+      "aliases": [
+        "replacement pump cartridge",
+        "removable pump cartridge",
+        "two-pump cartridge"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cartridge assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Pump replacement and service boundary",
+          "path": "service/pump-replacement.md"
+        },
+        {
+          "title": "Pump electrical connections",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "Cartridge retention",
+          "path": "printed-parts/enclosure/enclosure/magnet-retention/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, connecting tube ends, moving contacts and leads, retention ring and mounting hardware. Fixed tees, release mechanism and male contacts belong to the machine. Tube blanks are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "source": "assembly/internal-plumbing.md",
+        "items": [
+          {
+            "material": "HSM-000044",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "pump-a-head",
+              "pump-a-boss",
+              "pump-a-motor",
+              "pump-b-head",
+              "pump-b-boss",
+              "pump-b-motor"
+            ]
+          },
+          {
+            "material": "HSM-000082",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-pump-cartridge"
+            ]
+          },
+          {
+            "material": "HSM-000083",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "enclosure-pump-cap"
+            ]
+          },
+          {
+            "material": "HSM-000162",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pump-contact-female"
+            ]
+          },
+          {
+            "material": "HSM-000034",
+            "quantity": 1,
+            "unit": "ea",
+            "note": "One RC62 is enclosed in the lower cradle during printing."
+          },
+          {
+            "material": "HSM-000164",
+            "quantity": 2,
+            "unit": "ea",
+            "note": "The lower cradle centre lane retains the cap screws."
+          },
+          {
+            "material": "HSM-000165",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000166",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000167",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000168",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "tube-fluid-11",
+              "tube-fluid-12",
+              "tube-fluid-21",
+              "tube-fluid-22"
+            ],
+            "note": "Fit the pump-end engagement before setting each free tip 17.53 mm beyond the rigid outlet-axis station; this is not a tube-blank length."
+          },
+          {
+            "material": "HSM-000169",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "Four approximately 100 mm leads run from the female contact half to the motor tabs."
+          },
+          {
+            "material": "HSM-000170",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "Two receptacles per pump. The per-device tab-size map is not yet recorded."
+          },
+          {
+            "material": "HSM-000171",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "One retaining tie at each silicone-to-LLDPE joint; final tie size follows the assembled joint."
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000162",
+      "description": "YYFKGCP 4-pin pogo contact · female half",
+      "kind": "purchased",
+      "aliases": [
+        "cartridge contact",
+        "pad contact",
+        "B0GCBNTBT8 female half"
+      ],
+      "models": [
+        {
+          "file": "reference/yyfkgcp-pogo-4p/pogo-4p-female.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Contact mounting and evidence",
+          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
+        },
+        {
+          "title": "Cartridge wiring",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Purchased contact pair",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000163",
+      "description": "YYFKGCP 4-pin pogo contact · male half",
+      "kind": "purchased",
+      "aliases": [
+        "fixed bay contact",
+        "spring pin contact",
+        "B0GCBNTBT8 male half"
+      ],
+      "models": [
+        {
+          "file": "reference/yyfkgcp-pogo-4p/pogo-4p-male.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Contact mounting and evidence",
+          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
+        },
+        {
+          "title": "Cartridge wiring",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Purchased contact pair",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000164",
+      "description": "ruthex M3 × 5.7 heat-set insert",
+      "kind": "purchased",
+      "manufacturer_number": "RX-M3x5.7",
+      "documents": [
+        {
+          "title": "Insert specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000165",
+      "description": "M3 × 60 socket-head screw · black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "pump clamp screw",
+        "BNUOK M3x60"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000166",
+      "description": "M1.4 × 8 socket-head screw · black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "pogo contact screw",
+        "Kozelo M1.4x8"
+      ],
+      "documents": [
+        {
+          "title": "Contact fasteners",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Contact mounting",
+          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000167",
+      "description": "M1.4 × 4 × Ø2.3 brass heat-set insert",
+      "kind": "purchased",
+      "aliases": [
+        "ZWMSSLL M1.4",
+        "pogo contact insert"
+      ],
+      "documents": [
+        {
+          "title": "Contact fasteners",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Contact mounting",
+          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000168",
+      "description": "Pump cartridge connecting tube · 1/4 inch LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "pump barb tube",
+        "cartridge tube end",
+        "fluid-11",
+        "fluid-12",
+        "fluid-21",
+        "fluid-22"
+      ],
+      "documents": [
+        {
+          "title": "Tube fitting and cut procedure",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Cartridge connection joints",
+          "path": "service/pump-replacement.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000169",
+      "description": "Cartridge motor lead · 22 AWG black silicone",
+      "kind": "manufactured",
+      "aliases": [
+        "moving pump lead",
+        "100 mm pump lead",
+        "BNTECHGO 22 AWG"
+      ],
+      "documents": [
+        {
+          "title": "Cartridge lead preparation",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Wire stock",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000170",
+      "description": "Female Faston receptacle · pump motor",
+      "kind": "purchased",
+      "aliases": [
+        "female spade terminal",
+        "pump disconnect terminal"
+      ],
+      "documents": [
+        {
+          "title": "Pump termination and tab-size scope",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Crimping procedure",
+          "path": "assembly/cable-assemblies.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000171",
+      "description": "Pump tube retention cable tie",
+      "kind": "purchased",
+      "aliases": [
+        "pump joint zip tie",
+        "cartridge tube tie"
+      ],
+      "documents": [
+        {
+          "title": "Tube-joint retention",
+          "path": "service/pump-replacement.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000172",
+      "description": "GAGIRA reducing coupling · 3/8 × 1/4 inch FNPT",
+      "kind": "purchased",
+      "aliases": [
+        "backflow inlet reducing coupling"
+      ],
+      "models": [
+        {
+          "file": "reference/gagira-reducing-coupling/gagira-reducing-coupling.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Inlet fitting specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000173",
+      "description": "Multiplex 19-0897 ASSE 1022 backflow preventer",
+      "kind": "purchased",
+      "manufacturer_number": "19-0897",
+      "models": [
+        {
+          "file": "reference/multiplex-asse1022/multiplex-asse1022.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Backflow preventer and fitting chain",
+          "path": "reference/asse1022-assembly/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000174",
+      "description": "John Guest PI4512F6S · 3/8 inch flare swivel adapter",
+      "kind": "purchased",
+      "manufacturer_number": "PI4512F6S",
+      "documents": [
+        {
+          "title": "Outlet fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Outlet fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000175",
+      "description": "John Guest PP061208W · 3/8 stem × 1/4 inch reducer",
+      "kind": "purchased",
+      "manufacturer_number": "PP061208W",
+      "documents": [
+        {
+          "title": "Outlet fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Outlet fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000176",
+      "description": "MAACFLOW adapter · 3/8 inch hose barb × 1/4 MNPT",
+      "kind": "purchased",
+      "aliases": [
+        "water-pump barb adapter"
+      ],
+      "documents": [
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000177",
+      "description": "John Guest PP450822E · 1/4 inch female adapter",
+      "kind": "purchased",
+      "manufacturer_number": "PP450822E",
+      "documents": [
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000178",
+      "description": "G Ganen 12 V diaphragm water pump",
+      "kind": "purchased",
+      "aliases": [
+        "G Ganen water pump",
+        "diaphragm pump",
+        "water booster pump"
+      ],
+      "models": [
+        {
+          "file": "reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Measured pump reference",
+          "path": "reference/g-ganen-pump/README.md"
+        },
+        {
+          "title": "Installed water-pump interfaces",
+          "path": "reference/g-ganen-pump/installation/README.md"
+        },
+        {
+          "title": "Conservative integration envelope",
+          "path": "reference/g-ganen-pump/integration-envelope/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000179",
+      "description": "Harvested condenser block and fan",
+      "kind": "purchased",
+      "aliases": [
+        "condenser+fan",
+        "donor condenser",
+        "finned serpentine"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Donor condenser and fan unit",
+          "path": "reference/condenser-block/README.md"
+        },
+        {
+          "title": "Refrigerant-loop assembly",
+          "path": "assembly/refrigerant-loop.md"
+        }
+      ]
+    }
+  ]
+}

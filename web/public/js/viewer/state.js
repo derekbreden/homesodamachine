@@ -15,6 +15,9 @@
 // so popstate handlers see the new state, then the loader populates
 // the scene and updates mounted to match.
 export const state = {
+  materialCatalog: null,    // permanent materials, authored BOMs and typed relationships
+  materialPanel: null,      // active companion panel's select / sync / dispose handle
+  dismissViewerRoute: false, // the next history pop ends a dismissed viewer walk
   allFiles: [],       // STEP files (paths)
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files

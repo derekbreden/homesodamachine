@@ -11,6 +11,7 @@ export const HSM_EVENTS = {
   PCB_TOOL: "hsm:pcb-tool",                           // viewer-internal: pad-picker / editor tool switch
   STEP_TOOL: "hsm:step-tool",                         // viewer-internal: STEP edge-picker / component-picker tool switch
   STEP_MOUNTED: "hsm:step-mounted",                  // { file } — the STEP now drawn in the modal
+  MATERIAL_PICKED: "hsm:material-picked",             // { file, name } — component selected in the model
   FAUCET_OPTIONS: "hsm:faucet-options",              // viewer-internal: redraw the faucet card from state.faucetStyle / faucetFinish
 };
 
