@@ -165,6 +165,7 @@ tools/bambu-ax/bambu-ax
 
 # The laser welder's packaged model, written by hardware/reference/xlaserlab-sup29f-xh/package_models.py.
 output/xlaserlab-sup29f-xh/
+hardware/reference/xlaserlab-sup29f-xh/reference-models.zip
 # A scan check's local cache, and the result file the Bambu CLI drops in its working directory.
 .scan-check-cache.npz
 /result.json
