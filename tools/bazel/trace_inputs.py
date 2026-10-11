@@ -22,12 +22,10 @@ had not yet written is absent from its outputs, and the copy at the end of its a
 nothing there.
 """
 
-import ast
 import argparse
 import hashlib
 import json
 import os
-import re
 import runpy
 import subprocess
 import sys
@@ -41,7 +39,6 @@ sys.path.insert(0, str(_HERE.parent))
 from inventory import (  # noqa: E402
     IMPLICIT_SOLIDS,
     build_inert,
-    pinned_copies,
     tracked as _inventory_tracked,
 )
 
@@ -335,85 +332,6 @@ def _generators(files: set) -> list:
     return out
 
 
-SELFTESTS = _HERE.parent / "selftests.json"
-
-# These modules expose their isolated fixture through an argparse-style flag.
-# Passing the default bare word reaches their production path instead.
-SELFTEST_ARGUMENTS = {
-    "hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py": ("--selftest",),
-    "hardware/scripts/check_payload_colours.py": ("--selftest",),
-    "hardware/scripts/materialize_material_colors.py": ("--selftest",),
-}
-
-
-def selftest_argv(generator):
-    return SELFTEST_ARGUMENTS.get(generator, ("selftest",))
-
-
-def _selftests(files: set) -> list:
-    """Every module that answers to `selftest` on its own command line.
-
-    NOT `_generators`, and not `ELSEWHERE` either. That reading answers which modules BUILD
-    this tree, and `tools/` is left out of it because the machinery that writes the graph is
-    not a step in the graph it writes. What a test reads is a different question with a
-    different answer, and three modules under `tools/` are where the two differ: `sync_tree.py`
-    holds ten, one of them that a card's authored text survives a build handed stale figures,
-    `check_declared_imports.py` holds nine on the sources a step owes a declaration for, and
-    this module holds the shrink cases on `gave_up` and the ignored-intermediate handoff, which
-    read small fixture graphs and no generator run at all.
-    """
-    out = []
-    # A MODULE A RECORD KEEPS IS NOT A MODULE THIS TREE TESTS. A print review copies the
-    # sources its slice was cut from, `selftest` branch and all, and running that copy's holds
-    # would test a tree that has since moved (`inventory.pinned_copies`).
-    kept = pinned_copies(files)
-    for f in sorted(files):
-        if not f.endswith(".py") or f in kept:
-            continue
-        try:
-            text = (_ROOT / f).read_text()
-        except OSError:
-            continue
-        # A DEFINITION AND NOT A MENTION. `gen_build.py` names the word in the code that
-        # looks for it, and matching on the mention gave it a test that its own argument
-        # parser refuses.
-        #
-        # AND THE COMMAND LINE IS THE QUESTION, NOT THE FUNCTION'S NAME. A module answers to
-        # `selftest` by branching on it, and what the branch calls is the author's business:
-        # `render_scenes.py` runs `payload_glb_selftest` and `check_paths.py` runs `_selftest`,
-        # so a rule reading only `def selftest(` walks past both and their holds state
-        # themselves to nobody. `argv` on one side of a comparison against the word is the
-        # branch itself and cannot be a mention — this file passes `argv=("selftest",)` to the
-        # tracer a few lines down, and that is a call and not a comparison.
-        if re.search(r"^def selftest\(", text, re.M) or _argv_selftest(text):
-            out.append(f)
-    return out
-
-
-def _argv_selftest(text: str) -> bool:
-    """Whether the module's own command line branches on the word `selftest`.
-
-    EITHER SIDE MAY HOLD THE ARGV, because both readings are in this tree and they are the
-    same branch: `render_scenes.py` asks `sys.argv[1:] == ["selftest"]` and `check_paths.py`
-    asks `"selftest" in sys.argv[1:]`. A rule that reads only the first walks past the second.
-    """
-    try:
-        tree = ast.parse(text)
-    except SyntaxError:
-        return False
-    for node in ast.walk(tree):
-        if not isinstance(node, ast.Compare):
-            continue
-        sides = [node.left, *node.comparators]
-        argv = any(isinstance(n, ast.Attribute) and n.attr == "argv"
-                   for side in sides for n in ast.walk(side))
-        word = any(isinstance(n, ast.Constant) and n.value == "selftest"
-                   for side in sides for n in ast.walk(side))
-        if argv and word:
-            return True
-    return False
-
-
 def gave_up(prior: dict, seen: dict) -> bool:
     """Whether a reading hands back fewer files than the one it replaces, on EITHER side.
 
@@ -517,29 +435,15 @@ def _pointer_debt(wrote: set) -> list:
 
 
 def main() -> int:
-    # `selftest` holds the reading above; `--selftests` watches every OTHER module's. The two
-    # words are one letter apart and answer different questions.
     if sys.argv[1:] == ["selftest"]:
         return selftest()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("gen", nargs="*", help="generator paths; the ones the change reached")
     ap.add_argument("--all", action="store_true",
                     help="re-trace every generator; 80 minutes, and it loses writes")
-    ap.add_argument("--selftests", action="store_true",
-                    help="watch each module's `selftest` instead, into selftests.json")
     args = ap.parse_args()
 
     files = _tracked()
-    if args.selftests:
-        held = json.loads(SELFTESTS.read_text()) if SELFTESTS.is_file() else {}
-        gens = args.gen or _selftests(files)
-        for i, gen in enumerate(gens, 1):
-            seen = trace(gen, files, argv=selftest_argv(gen))
-            held[gen] = sorted(set(seen["reads"]) | {gen})
-            print(f"  [{i:3d}/{len(gens)}] {gen:60s} {len(held[gen]):3d} read")
-            SELFTESTS.write_text(json.dumps(held, indent=2, sort_keys=True) + "\n")
-        print(f"{len(held)} selftest(s) watched")
-        return 0
 
     # A GENERATOR `SPLIT_GENERATORS` WRITES OVER CANNOT BE READ HERE. `inventory` builds the
     # card wrapper's entry out of the SOURCE's trace and drops whatever stands under the

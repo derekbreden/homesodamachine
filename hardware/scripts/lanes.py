@@ -263,8 +263,7 @@ def _source_key(stamps: dict = None) -> str:
 #: WHERE A TAKEN WORLD IS KEPT. `.cache/` is this tree's place for what a build can always cut
 #: again — gitignored, regenerable, safe to delete — and it is where `_realized` keeps its solids.
 #: A snapshot is eight minutes of standing the machine and every reader wants the same one, so it
-#: is kept beside them, in a directory that stands. `tools/bazel/selftest.sh` hands each selftest
-#: a `TMPDIR` of its own and removes it on the way out.
+#: is kept beside them, in a directory that stands.
 _CACHE = _ROOT / ".cache" / "lanes"
 
 
