@@ -268,10 +268,10 @@ step_theta_rad = max(step_theta(sign) for sign in flavor_sides)
 step_rise = 2.0*step_bend_radius*math.sin(step_theta_rad)
 
 # The two White-faucet unions stand end to end below the completed returns.
-union_b_top_z = organizer_return_start_z - step_rise - organizer_union_gap    # [-132 mm](UNION_B_TOP_Z)
-union_a_top_z = union_b_top_z - union_length                # [-173.8 mm](UNION_A_TOP_Z)
+union_b_top_z = organizer_return_start_z - step_rise - organizer_union_gap    # [-126.7 mm](UNION_B_TOP_Z)
+union_a_top_z = union_b_top_z - union_length                # [-168.5 mm](UNION_A_TOP_Z)
 # Below the lower union neither tube stands beside one, and both turn into the pack.
-union_foot_z = union_a_top_z - union_length                 # [-215.6 mm](UNION_FOOT_Z)
+union_foot_z = union_a_top_z - union_length                 # [-210.3 mm](UNION_FOOT_Z)
 
 
 def union_top_z(x_sign):
@@ -307,7 +307,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-258.1 mm](UMBILICAL_Z_BOTTOM)
+# with it. [-252.8 mm](UMBILICAL_Z_BOTTOM)
 drain_gather_rise = 2 * drain_bend_radius * math.sin(math.acos(
     1 - abs(drain_pack_y - drain_bypass_y) / (2 * drain_bend_radius)))
 umbilical_z_bottom = union_foot_z - max(gather_rise(+1), gather_rise(-1), drain_gather_rise)
@@ -342,7 +342,7 @@ soda_umbilical_tube_z_bottom = umbilical_tail_z
 # pack's first plane, bare above it past both unions to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 foam_z_top = umbilical_z_bottom
-# [208.1 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# [202.8 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
 foam_bare_at_westbrass = soda_umbilical_tube_z_top - foam_z_top
 foam_bare_at_wall = 75.0
 foam_length = blue_cut_length - foam_bare_at_westbrass - foam_bare_at_wall
@@ -839,7 +839,7 @@ def tail_z(x_sign):
                                  - splay_extra_length)
 
 
-# [0.9939 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# [0.1671 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 _tail_planes = (soda_umbilical_tube_z_top - blue_cut_length, tail_z(+1), tail_z(-1))
 tails_apart = max(_tail_planes) - min(_tail_planes)
@@ -1243,9 +1243,9 @@ def seated_hole_center_y():
     return max(limits)
 
 
-# [6.903 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
+# [5.715 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
 countertop_hole_center_y = seated_hole_center_y()
-# [5.062 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
+# [6.25 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
 # left to give, which is what lets the gasket cover the hole behind it.
 countertop_hole_margin = shank_hole_margin(countertop_hole_center_y)
 

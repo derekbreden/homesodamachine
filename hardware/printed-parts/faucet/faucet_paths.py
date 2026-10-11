@@ -14,7 +14,7 @@ FLAVOR_OD = 6.35
 DRAIN_OD = 4.0
 DRAIN_ID = 2.5
 LOWER_FLAVOR_X = 5.45
-LOWER_BUNDLE_X = 2.275
+LOWER_BUNDLE_X = 0.0
 LOWER_Y = 18.925
 LOWER_DRAIN_Y = 18.525
 LOWER_RIBBON_Y = 21.4875
@@ -96,7 +96,7 @@ def lower_positions(z):
 
 
 def lower_bundle_x(z):
-    """Shared lateral return from the purchased mounting channel to the neck."""
+    """Shared lateral datum through the mounting stack and neck."""
     return LOWER_BUNDLE_X*(1-ease((z-LOWER_START_Z)/(LOWER_END_Z-LOWER_START_Z)))
 
 

@@ -1,14 +1,14 @@
 {
-  "scope": "Manual geometry and fit-profile binding for the mounting-row organizer; no physical installation or endurance claim.",
+  "scope": "Manual geometry and fit-profile binding for the centered mounting-row organizer; no physical installation or endurance claim.",
   "product_source_sha256": "d9f1a720adb2475fc4f370e6ba52b30c4e378fe97971e87977e33229ad69e4c4",
-  "faucet_source_sha256": "7370f29e22e2e39e77dcf0ed089cd7268b3fca3208be9e52c8ff48509212925d",
-  "production_stl_sha256": "60cdcab60dd2b07f9a1e9aecd997dee84333fa4e539ce4ad06b22f3a3cf6c821",
+  "faucet_source_sha256": "ebc1ef1c0a35f3dd66bfa6c37826ddb27bf146396188bee1d73fa3da3e2aa4e7",
+  "production_stl_sha256": "a06f55f3d23db5068bd825199afb4bb2e597cf5f471c7da1ca63abd5f5999752",
   "valid_single_solid": true,
   "stl_watertight": true,
   "stl_winding_consistent": true,
   "faces": 29,
   "edges": 63,
-  "geometry_volume_mm3": 6740.897856444482,
+  "geometry_volume_mm3": 6740.897856444485,
   "quantity_per_umbilical": 1,
   "installed_top_z_mm": -88.0,
   "installed_bottom_z_mm": -98.0,
@@ -16,8 +16,8 @@
   "maximum_slab_plate_gap_mm": 42.476,
   "return_start_z_mm": -101.0,
   "return_gap_below_organizer_mm": 3.0,
-  "upper_union_top_z_mm": -132.00105788911608,
-  "upper_union_gap_below_organizer_mm": 34.00105788911608,
+  "upper_union_top_z_mm": -126.7349939951952,
+  "upper_union_gap_below_organizer_mm": 28.734993995195197,
   "upper_union_gap_below_completed_flavor_return_mm": 7.0,
   "mounting_alignment": [
     {
@@ -39,43 +39,43 @@
     {
       "passage": "F1",
       "mount_xy_mm": [
-        7.725,
+        5.45,
         18.925
       ],
       "organizer_xy_mm": [
-        10.125,
+        7.85,
         17.125
       ],
       "delta_xy_mm": [
-        2.4000000000000004,
+        2.3999999999999995,
         -1.8000000000000007
       ],
-      "offset_mm": 3.000000000000001
+      "offset_mm": 3.0
     },
     {
       "passage": "F2",
       "mount_xy_mm": [
-        -3.1750000000000003,
+        -5.45,
         18.925
       ],
       "organizer_xy_mm": [
-        -5.575,
+        -7.85,
         17.125
       ],
       "delta_xy_mm": [
-        -2.4,
+        -2.3999999999999995,
         -1.8000000000000007
       ],
-      "offset_mm": 3.0000000000000004
+      "offset_mm": 3.0
     },
     {
       "passage": "D",
       "mount_xy_mm": [
-        2.275,
+        0.0,
         18.525
       ],
       "organizer_xy_mm": [
-        2.275,
+        0.0,
         16.224999999999998
       ],
       "delta_xy_mm": [
@@ -87,11 +87,11 @@
     {
       "passage": "SIG",
       "mount_xy_mm": [
-        2.275,
+        0.0,
         21.4875
       ],
       "organizer_xy_mm": [
-        2.275,
+        0.0,
         21.4875
       ],
       "delta_xy_mm": [
@@ -128,7 +128,7 @@
       "tube_length_through_puck_mm": 10.0,
       "puck_intersection_volume_mm3": 0.0,
       "cross_section_xy_mm": [
-        6.35,
+        6.349999999999999,
         6.350000000000001
       ]
     },
@@ -148,7 +148,7 @@
       "tube_length_through_puck_mm": 10.0,
       "puck_intersection_volume_mm3": 0.0,
       "cross_section_xy_mm": [
-        4.600000000000006,
+        4.6000000000000085,
         1.1799999999999997
       ]
     }
@@ -157,7 +157,7 @@
   "minimum_round_bore_entrance_web_mm": 1.576423922306662,
   "drain_to_ribbon_slot_web_mm": 2.1625000000000028,
   "drain_to_ribbon_slot_entrance_web_mm": 1.5625000000000029,
-  "minimum_round_bore_outer_wall_mm": 2.2140416582141453,
+  "minimum_round_bore_outer_wall_mm": 2.313302919708028,
   "minimum_material_requirement_mm": 1.5,
   "minimum_material_measured_mm": 1.5625000000000029,
   "thickness_basis": "Edge-to-edge distances at the identical chamfered faces bound all intermediate sections; STL sections verify the printable tessellation.",
@@ -167,32 +167,32 @@
         "S",
         "F1"
       ],
-      "straight_mm": 13.244251682332767,
-      "at_both_faces_mm": 12.444251682332766
+      "straight_mm": 12.188474593236048,
+      "at_both_faces_mm": 11.388474593236047
     },
     {
       "passages": [
         "S",
         "F2"
       ],
-      "straight_mm": 11.359615487289005,
-      "at_both_faces_mm": 10.559615487289005
+      "straight_mm": 12.188474593236048,
+      "at_both_faces_mm": 11.388474593236047
     },
     {
       "passages": [
         "S",
         "D"
       ],
-      "straight_mm": 10.858719052766986,
-      "at_both_faces_mm": 10.058719052766985
+      "straight_mm": 10.7,
+      "at_both_faces_mm": 9.899999999999999
     },
     {
       "passages": [
         "S",
         "SIG"
       ],
-      "straight_mm": 17.267749504193272,
-      "at_both_faces_mm": 16.667749504193274
+      "straight_mm": 17.262500000000003,
+      "at_both_faces_mm": 16.662500000000005
     },
     {
       "passages": [
@@ -215,8 +215,8 @@
         "F1",
         "SIG"
       ],
-      "straight_mm": 3.2338139975467954,
-      "at_both_faces_mm": 2.6338139975467953
+      "straight_mm": 3.2338139975467945,
+      "at_both_faces_mm": 2.6338139975467945
     },
     {
       "passages": [
@@ -231,8 +231,8 @@
         "F2",
         "SIG"
       ],
-      "straight_mm": 3.2338139975467954,
-      "at_both_faces_mm": 2.6338139975467953
+      "straight_mm": 3.2338139975467945,
+      "at_both_faces_mm": 2.6338139975467945
     },
     {
       "passages": [
@@ -246,65 +246,65 @@
   "passage_to_exterior_material_mm": [
     {
       "passage": "S",
-      "straight_mm": 2.2140416582141462,
-      "at_both_faces_mm": 1.6140416582141464
+      "straight_mm": 2.313302919708029,
+      "at_both_faces_mm": 1.7133029197080292
     },
     {
       "passage": "F1",
-      "straight_mm": 2.2140416582141462,
-      "at_both_faces_mm": 1.6140416582141464
+      "straight_mm": 2.313302919708029,
+      "at_both_faces_mm": 1.7133029197080292
     },
     {
       "passage": "F2",
-      "straight_mm": 2.2140416582141462,
-      "at_both_faces_mm": 1.6140416582141464
+      "straight_mm": 2.313302919708029,
+      "at_both_faces_mm": 1.7133029197080292
     },
     {
       "passage": "D",
-      "straight_mm": 7.785583941605839,
-      "at_both_faces_mm": 7.185583941605839
+      "straight_mm": 7.9366970802919745,
+      "at_both_faces_mm": 7.336697080291974
     },
     {
       "passage": "SIG",
-      "straight_mm": 3.6803311874613396,
-      "at_both_faces_mm": 3.2803311874613392
+      "straight_mm": 3.8295301514007978,
+      "at_both_faces_mm": 3.4295301514007974
     }
   ],
   "stl_thickness_sections": [
     {
       "z_mm": 1e-06,
       "minimum_passage_web_mm": 1.5627928700000009,
-      "minimum_exterior_wall_mm": 1.6087247645487788
+      "minimum_exterior_wall_mm": 1.7081476722444997
     },
     {
       "z_mm": 0.2,
-      "minimum_passage_web_mm": 1.9635534299999995,
-      "minimum_exterior_wall_mm": 2.010380389307263
+      "minimum_passage_web_mm": 1.9635543900000008,
+      "minimum_exterior_wall_mm": 2.1098296554608185
     },
     {
       "z_mm": 0.4,
-      "minimum_passage_web_mm": 2.1627464299999986,
-      "minimum_exterior_wall_mm": 2.2084536464916593
+      "minimum_passage_web_mm": 2.1627464300000003,
+      "minimum_exterior_wall_mm": 2.307876988595928
     },
     {
       "z_mm": 5.0,
-      "minimum_passage_web_mm": 2.1627464299999986,
-      "minimum_exterior_wall_mm": 2.208453652071761
+      "minimum_passage_web_mm": 2.1627464300000003,
+      "minimum_exterior_wall_mm": 2.307876993761802
     },
     {
       "z_mm": 9.6,
-      "minimum_passage_web_mm": 2.1627464299999986,
-      "minimum_exterior_wall_mm": 2.208453647579931
+      "minimum_passage_web_mm": 2.1627464300000008,
+      "minimum_exterior_wall_mm": 2.307876990482972
     },
     {
       "z_mm": 9.8,
-      "minimum_passage_web_mm": 1.9635536199999992,
-      "minimum_exterior_wall_mm": 2.010380575982062
+      "minimum_passage_web_mm": 1.96355458,
+      "minimum_exterior_wall_mm": 2.109829849735201
     },
     {
       "z_mm": 9.999999,
       "minimum_passage_web_mm": 1.5627928700000009,
-      "minimum_exterior_wall_mm": 1.6087247645487788
+      "minimum_exterior_wall_mm": 1.7081476722444997
     }
   ],
   "cable_to_tube_intersection_volume_mm3": {
@@ -346,8 +346,8 @@
   },
   "nominal_braided_od_at_puck_mm": 34.0,
   "counter_hole_mm": 34.93,
-  "foam_top_z_mm": -258.06327638980207,
-  "blue_bare_at_faucet_mm": 208.06327638980207,
+  "foam_top_z_mm": -252.79721249588118,
+  "blue_bare_at_faucet_mm": 202.79721249588118,
   "ribbon_measured_section_mm": [
     4.6,
     1.18
@@ -393,13 +393,13 @@
   "viewer_hosts": [
     {
       "payload": "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "sha256": "2f2794abc474047f7338e2da5d85fee25e3aae6299177101531b23a6708e78e9",
+      "sha256": "cff980456744825e585956292b370088ab69520aadadc850a801661d19368da6",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     },
     {
       "payload": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-      "sha256": "604a909f4031c08392cccabc97131a3d30c1d21562e8f2b5474a8192b15ed9bc",
+      "sha256": "4a08513526788ddfc25818f85bd291814ae0704d4aadff7237427efa6e075299",
       "organizer_mesh_name": "umbilical-organizer",
       "organizer_triangles": 6344
     }
