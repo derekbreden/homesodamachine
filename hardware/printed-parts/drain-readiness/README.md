@@ -70,34 +70,7 @@ Fresh rear-wall preparation retains the shared PET-GF tree support profile.
 The complete emitted footprint must fit the 20 mm bed margin. Normal supports
 require a specific exception under the
 [support-removal strategy](../enclosure/enclosure/README.md#support-removal-strategy).
-A tree-support preparation requires its own native footprint and contact review;
-the saved archive's readings below apply only to that archive.
-
-[Editable rear-wall project](projects/back-top-black-z004-mark2.3mf) and
-[ready native archive](ready/back-top-black-z004-mark2.gcode.3mf) contain the
-current rear wall on the Mark2's fixed left 0.4 mm nozzle with black PET-GF. Its roof-down orientation
-preserves the additive exterior transition, with six walls through the first
-9.4 mm and a 0.20 mm bed layer followed by 0.24 mm layers. This saved archive's
-normal supports reach internal functional features and stay clear of the protected
-exterior faces.
-
-Ordinary stock uses two walls. Each of the 23 complete insert-host and seam-root
-modifiers uses ten walls and 100% zig-zag infill. The
-[emitted dense-region review](reviews/dense-region-review.json) passes every
-sampled region, with a minimum 99.048% nominal own-width bead coverage.
-[Native archive review](reviews/back-top-native.json) verifies ZIP CRC, embedded
-G-code MD5, source meshes, layer bands and a 21.904 mm full model/support/brim
-bead margin. The saved time estimate is 27 h 1 min.
-
-[Exterior support review](reviews/show-support-clearance-summary.json) checks
-all 143,233 support/interface/transition roads against nine protected native
-roof, chamfer, corner and sidewall faces. No nominal bead contacts those faces;
-the minimum geometric clearance is 0.133 mm. Functional contacts on the rear
-port field remain in [their separate record](reviews/rear-port-support-contacts.json).
-Release the 38 support bodies through the empty forebay, interior and rear
-openings; cut sacrificial connections into removable fragments and clear every
-pilot, pocket and tie passage before installing fittings, boards, loom or insulation.
-Physical release effort remains unmeasured.
+A tree-support preparation requires its own native footprint and contact review.
 
 The [Mark1 print observation](prints/2026-10-08-current-back-top-mark1/physical-result.json)
 records rejection for impracticable removal of every normal support. Installed
@@ -110,15 +83,8 @@ footprint has a 21.40 mm minimum bed margin; mating geometry and reinforcement
 match the reviewed back top. Physical cleanup,
 finish and installed fit remain unassessed.
 
-The [native insert-stock review](reviews/insert-stock.json) passes all 19 complete
-supplier envelopes. The separate [strict radial pore/bore diagnostic](reviews/insert-radial-backing.json)
-retains finite gaps in commanded deposition: 678 of 680 sampled rays retain at
-least 1.6 mm of uninterrupted nominal backing; the two remaining rays contain
-0.000293 and 0.000414 mm interval gaps near the insert entry. No gap-closing
-tolerance is applied. The maximum commanded bore contour extends 0.0600 mm
-past the nominal brass knurl radius at a sampled location. These readings do
-not measure actual bead fusion, installed brass contact or retention, and do
-not supersede the separate complete-stock and regional-deposition checks.
+The normal-support rear-wall project, archive and reviews, and the 10-08 and 10-09
+Mark1 back-top prints beyond the records linked above, are in git at d5f17da3bd.
 
 [Identification geometry lint](reviews/identification-lint.json) records each
 intentional lettering-pocket step and glyph face in the saved print frame.
@@ -132,8 +98,6 @@ The [DATA fit review](../enclosure/data-ring/fit-check.json) also verifies the
 complete broad wing lands and 2 mm stock behind the exposed upper pad remainder.
 These are fit and print-preparation readings, with cleanup effort and finished fit
 remaining physical observations.
-
-![Rear-wall plate](reviews/back-top.png)
 
 Existing [physical acceptance records](../enclosure/print-readiness.md#physical-evidence)
 retain their original scope. These files prepare the next physical assembly;
