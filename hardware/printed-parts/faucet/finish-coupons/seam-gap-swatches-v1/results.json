@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "status": "Awaiting physical print and operator results",
+  "specimens": [
+    {
+      "id": "A",
+      "result": null
+    },
+    {
+      "id": "B",
+      "result": null
+    },
+    {
+      "id": "C",
+      "result": null
+    },
+    {
+      "id": "D",
+      "result": null
+    },
+    {
+      "id": "E",
+      "result": null
+    },
+    {
+      "id": "F",
+      "result": null
+    },
+    {
+      "id": "G",
+      "result": null
+    },
+    {
+      "id": "H",
+      "result": null
+    },
+    {
+      "id": "I",
+      "result": null
+    },
+    {
+      "id": "J",
+      "result": null
+    },
+    {
+      "id": "K",
+      "result": null
+    },
+    {
+      "id": "L",
+      "result": null
+    },
+    {
+      "id": "M",
+      "result": null
+    },
+    {
+      "id": "N",
+      "result": null
+    }
+  ],
+  "physical_winner": null,
+  "shipping_recipe_changed": false
+}

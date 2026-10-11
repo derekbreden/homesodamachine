@@ -1,0 +1,713 @@
+{
+  "schema": 1,
+  "preparation_only": true,
+  "archive": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/2026-10-11-faucet-seam-gap-swatches-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "07e82d01ea22a2b3ed2519188554b46ff3b4dfffd4215a12b586641b0ff58c8a",
+  "gcode_sha256": "b303231412dda07ad5c34a374f9ec5623505cfccb0c78a788156c2de1203bf9c",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/2026-10-11-faucet-seam-gap-swatches-v1-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "27c7506d4ae3ace0a2f222f729020dac52871cae05a89e3a0b9676a586d7e0f8",
+  "geometry": [
+    {
+      "id": "A",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "B",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "C",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "D",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "E",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "F",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "G",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "H",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "I",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "J",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "K",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "L",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "M",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    },
+    {
+      "id": "N",
+      "native_vertex_rounding_maximum_mm": 4.934082653562655e-08,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+    }
+  ],
+  "inherited_global_settings_identical_to_shipping_faucet": true,
+  "native_settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "layer_band_checks": [
+    {
+      "name": "A regular gap 15%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "B scarf gap 10%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "C regular gap 5%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "D scarf gap 25%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "E scarf gap 0%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "F regular gap 0%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "G scarf gap 5%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "H scarf gap 20%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "I scarf gap 30%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "J scarf gap 2.5%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "K regular gap 10%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "L scarf gap 15%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "M regular gap 15%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "N scarf gap 0%",
+      "print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "wall_layer_count": 150,
+      "first_wall_layer": [
+        4.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        16.04,
+        0.080001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "coarse_start_checks": [],
+  "lip_support_contacts": [],
+  "scarf_checks": [
+    {
+      "id": "A",
+      "ordinary_control": true,
+      "fine_outer_wall_Z_ramp_segment_count": 0,
+      "expected_start_above_previous_layer_mm": null,
+      "lowest_emitted_start_above_previous_layer_mm": null
+    },
+    {
+      "id": "B",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2373,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "C",
+      "ordinary_control": true,
+      "fine_outer_wall_Z_ramp_segment_count": 0,
+      "expected_start_above_previous_layer_mm": null,
+      "lowest_emitted_start_above_previous_layer_mm": null
+    },
+    {
+      "id": "D",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2358,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "E",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2399,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "F",
+      "ordinary_control": true,
+      "fine_outer_wall_Z_ramp_segment_count": 0,
+      "expected_start_above_previous_layer_mm": null,
+      "lowest_emitted_start_above_previous_layer_mm": null
+    },
+    {
+      "id": "G",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2387,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "H",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2358,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "I",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2356,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "J",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2394,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "K",
+      "ordinary_control": true,
+      "fine_outer_wall_Z_ramp_segment_count": 0,
+      "expected_start_above_previous_layer_mm": null,
+      "lowest_emitted_start_above_previous_layer_mm": null
+    },
+    {
+      "id": "L",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2362,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    },
+    {
+      "id": "M",
+      "ordinary_control": true,
+      "fine_outer_wall_Z_ramp_segment_count": 0,
+      "expected_start_above_previous_layer_mm": null,
+      "lowest_emitted_start_above_previous_layer_mm": null
+    },
+    {
+      "id": "N",
+      "ordinary_control": false,
+      "fine_outer_wall_Z_ramp_segment_count": 2399,
+      "expected_start_above_previous_layer_mm": 0.008,
+      "lowest_emitted_start_above_previous_layer_mm": 0.007999999999999119
+    }
+  ],
+  "seam_material_commands": {
+    "samples": [
+      {
+        "id": "A",
+        "method": "regular",
+        "gap_percent_of_nozzle": 15,
+        "coarse_outer_wall_E_mm": 4.88577,
+        "fine_outer_wall_E_mm": 1.78033
+      },
+      {
+        "id": "B",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 10,
+        "coarse_outer_wall_E_mm": 4.8875,
+        "fine_outer_wall_E_mm": 1.78083
+      },
+      {
+        "id": "C",
+        "method": "regular",
+        "gap_percent_of_nozzle": 5,
+        "coarse_outer_wall_E_mm": 4.88858,
+        "fine_outer_wall_E_mm": 1.78135
+      },
+      {
+        "id": "D",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 25,
+        "coarse_outer_wall_E_mm": 4.88694,
+        "fine_outer_wall_E_mm": 1.78038
+      },
+      {
+        "id": "E",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 0,
+        "coarse_outer_wall_E_mm": 4.88784,
+        "fine_outer_wall_E_mm": 1.78113
+      },
+      {
+        "id": "F",
+        "method": "regular",
+        "gap_percent_of_nozzle": 0,
+        "coarse_outer_wall_E_mm": 4.88999,
+        "fine_outer_wall_E_mm": 1.78187
+      },
+      {
+        "id": "G",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 5,
+        "coarse_outer_wall_E_mm": 4.88767,
+        "fine_outer_wall_E_mm": 1.78097
+      },
+      {
+        "id": "H",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 20,
+        "coarse_outer_wall_E_mm": 4.88718,
+        "fine_outer_wall_E_mm": 1.78054
+      },
+      {
+        "id": "I",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 30,
+        "coarse_outer_wall_E_mm": 4.88668,
+        "fine_outer_wall_E_mm": 1.78022
+      },
+      {
+        "id": "J",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 2.5,
+        "coarse_outer_wall_E_mm": 4.88776,
+        "fine_outer_wall_E_mm": 1.78107
+      },
+      {
+        "id": "K",
+        "method": "regular",
+        "gap_percent_of_nozzle": 10,
+        "coarse_outer_wall_E_mm": 4.88718,
+        "fine_outer_wall_E_mm": 1.78083
+      },
+      {
+        "id": "L",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 15,
+        "coarse_outer_wall_E_mm": 4.88734,
+        "fine_outer_wall_E_mm": 1.78072
+      },
+      {
+        "id": "M",
+        "method": "regular",
+        "gap_percent_of_nozzle": 15,
+        "coarse_outer_wall_E_mm": 4.88577,
+        "fine_outer_wall_E_mm": 1.78033
+      },
+      {
+        "id": "N",
+        "method": "scarf",
+        "gap_percent_of_nozzle": 0,
+        "coarse_outer_wall_E_mm": 4.88784,
+        "fine_outer_wall_E_mm": 1.78113
+      }
+    ],
+    "coarse_nozzle_Z_mm": 1.4,
+    "fine_nozzle_Z_mm": 4.12,
+    "scope": "Emitted positive filament length on moving outer-wall commands. Local gap changes are present in deposition; these totals do not predict physical seam height."
+  },
+  "complete_model_support_brim_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        97.791794,
+        85.718794
+      ],
+      [
+        227.208206,
+        234.334206
+      ]
+    ],
+    "maximum_line_width_mm": 0.636412,
+    "bounds_padding_mm": 0.41820599999999997
+  },
+  "minimum_full_bead_bed_margin_mm": 85.665794,
+  "first_second_layer_overlap": [
+    {
+      "id": "A",
+      "second_wall_segments": 348,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4863985321717361,
+      "total_second_wall_footprint_overlap_fraction": 0.8167763996207003
+    },
+    {
+      "id": "B",
+      "second_wall_segments": 380,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336575,
+      "total_second_wall_footprint_overlap_fraction": 0.8167720601202065
+    },
+    {
+      "id": "C",
+      "second_wall_segments": 348,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4885106507171937,
+      "total_second_wall_footprint_overlap_fraction": 0.8167778903542982
+    },
+    {
+      "id": "D",
+      "second_wall_segments": 379,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336575,
+      "total_second_wall_footprint_overlap_fraction": 0.8167753772082494
+    },
+    {
+      "id": "E",
+      "second_wall_segments": 386,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.48768538223363067,
+      "total_second_wall_footprint_overlap_fraction": 0.8167775137453941
+    },
+    {
+      "id": "F",
+      "second_wall_segments": 348,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.48843781077539256,
+      "total_second_wall_footprint_overlap_fraction": 0.8167767265884048
+    },
+    {
+      "id": "G",
+      "second_wall_segments": 380,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336358,
+      "total_second_wall_footprint_overlap_fraction": 0.8167771937647931
+    },
+    {
+      "id": "H",
+      "second_wall_segments": 379,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336358,
+      "total_second_wall_footprint_overlap_fraction": 0.8167759517558403
+    },
+    {
+      "id": "I",
+      "second_wall_segments": 379,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.48768538223363067,
+      "total_second_wall_footprint_overlap_fraction": 0.816774159216828
+    },
+    {
+      "id": "J",
+      "second_wall_segments": 380,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336358,
+      "total_second_wall_footprint_overlap_fraction": 0.8167718147150892
+    },
+    {
+      "id": "K",
+      "second_wall_segments": 348,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.48829844401097566,
+      "total_second_wall_footprint_overlap_fraction": 0.816777712803282
+    },
+    {
+      "id": "L",
+      "second_wall_segments": 380,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336358,
+      "total_second_wall_footprint_overlap_fraction": 0.8167751930101981
+    },
+    {
+      "id": "M",
+      "second_wall_segments": 348,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4863985321717152,
+      "total_second_wall_footprint_overlap_fraction": 0.8167763996207038
+    },
+    {
+      "id": "N",
+      "second_wall_segments": 386,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.4876853822336358,
+      "total_second_wall_footprint_overlap_fraction": 0.8167752923655712
+    }
+  ],
+  "requested_Z_trim_mm": 0.04,
+  "emitted_Z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "probing_clump_detection": false,
+  "gcode_postprocessed": false,
+  "native_estimated_seconds": 13377.3330078125,
+  "native_estimated_grams_saved_profile_density": 62.69915771484375,
+  "scope": "Native geometry, coarse counts, fine heights, bead footprints and support-gap witness. No physical recovery, appearance or bond result. Preparation grants no launch authorization.",
+  "pass": true
+}

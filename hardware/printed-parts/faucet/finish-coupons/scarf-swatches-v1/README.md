@@ -1,8 +1,12 @@
 # Provisional faucet scarf swatches — Mark2
 
+This length/start-height plate is held unprinted. The active comparison is the
+[seam-gap screen](../seam-gap-swatches-v1/README.md), using Derek's D/E/F groove
+and ridge observations. No Send or automatic follow-up is authorized for this archive.
+
 This is a prepared follow-up to the [current cooling and seam plate](../2026-10-10/README.md),
-task **1327799013**. Its physical results are pending. The current plate's D/E/F
-comparison will determine whether to retain or refine this proposed matrix.
+task **1327799013**. Its [physical results](../2026-10-10/physical-result/physical-result.json)
+report a regular-seam groove and visually indistinguishable scarf ridges.
 The [study plan](study-plan.json) authorizes preparation only. A separate start
 instruction is required; there is no automatic next print.
 

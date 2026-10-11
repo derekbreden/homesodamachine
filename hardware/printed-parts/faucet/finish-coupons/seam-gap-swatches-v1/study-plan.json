@@ -1,0 +1,1041 @@
+{
+  "schema": 1,
+  "status": "Prepared seam-gap screen; unprinted",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "start_now": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "physical_basis": "D has a groove; E/F have a ridge and look alike at both 0.08 and 0.24 mm. Direct operator report, not a measured profile.",
+  "customer_outcome": "A flat seam without a ridge, groove, exposed gap or neighboring surface damage",
+  "factors": {
+    "regular_seam_gap_percent": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "scarf_slope_gap_percent": [
+      0,
+      2.5,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30
+    ]
+  },
+  "fixed_scarf_settings": {
+    "length_mm": 10,
+    "start_height_percent": 10,
+    "steps": 10,
+    "inner_walls": true,
+    "smart_application": true,
+    "angle_threshold_degrees": 155
+  },
+  "hypotheses": [
+    "Reducing the regular-seam interruption from 15% supplies more closure and may reduce D's groove.",
+    "Increasing the scarf slope gap from zero trims its overlap and may reduce E/F's ridge."
+  ],
+  "baseline_controls": {
+    "regular_15_percent": [
+      "A",
+      "M"
+    ],
+    "scarf_zero_percent": [
+      "E",
+      "N"
+    ]
+  },
+  "selection_rule": "Judge flatness under raking light and with a fingernail, separately on the 0.24 mm bands and 0.08 mm band. Prefer the smallest deviation from the current profile that removes the ridge/groove without opening a hole or roughening the adjacent wall.",
+  "global_settings": "Exact shipping faucet profile; no overall flow, temperature, cooling, retraction or pressure-advance change",
+  "gap_units": "Percent of the 0.4 mm nozzle diameter, not percent flow; these shorten local perimeter paths.",
+  "geometry": "Frozen unscaled 18.2 mm neck swatch; no geometry change",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A regular gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "regular_seam_control": true,
+      "repeated_control": true,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1901,
+      "object_id": "2",
+      "plate_bounds_mm": [
+        [
+          98.0,
+          85.83543395996094,
+          0.0
+        ],
+        [
+          125.0,
+          118.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "B",
+      "name": "B scarf gap 10%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "10%"
+      },
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 10,
+      "tested_gap_mm": 0.04,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1902,
+      "object_id": "4",
+      "plate_bounds_mm": [
+        [
+          132.0,
+          85.83543395996094,
+          0.0
+        ],
+        [
+          159.0,
+          118.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "10%"
+      }
+    },
+    {
+      "id": "C",
+      "name": "C regular gap 5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "5%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 1,
+      "column_from_left": 3,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 5,
+      "tested_gap_mm": 0.02,
+      "regular_seam_control": true,
+      "repeated_control": false,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1903,
+      "object_id": "6",
+      "plate_bounds_mm": [
+        [
+          166.0,
+          85.83543395996094,
+          0.0
+        ],
+        [
+          193.0,
+          118.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "5%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "D",
+      "name": "D scarf gap 25%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "25%"
+      },
+      "row_from_front": 1,
+      "column_from_left": 4,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 25,
+      "tested_gap_mm": 0.1,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1904,
+      "object_id": "8",
+      "plate_bounds_mm": [
+        [
+          200.0,
+          85.83543395996094,
+          0.0
+        ],
+        [
+          227.0,
+          118.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "25%"
+      }
+    },
+    {
+      "id": "E",
+      "name": "E scarf gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "regular_seam_control": false,
+      "repeated_control": true,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1905,
+      "object_id": "10",
+      "plate_bounds_mm": [
+        [
+          98.0,
+          124.33543395996094,
+          0.0
+        ],
+        [
+          125.0,
+          157.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "F",
+      "name": "F regular gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "0%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "regular_seam_control": true,
+      "repeated_control": false,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1906,
+      "object_id": "12",
+      "plate_bounds_mm": [
+        [
+          132.0,
+          124.33543395996094,
+          0.0
+        ],
+        [
+          159.0,
+          157.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "0%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "G",
+      "name": "G scarf gap 5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "5%"
+      },
+      "row_from_front": 2,
+      "column_from_left": 3,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 5,
+      "tested_gap_mm": 0.02,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1907,
+      "object_id": "14",
+      "plate_bounds_mm": [
+        [
+          166.0,
+          124.33543395996094,
+          0.0
+        ],
+        [
+          193.0,
+          157.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "5%"
+      }
+    },
+    {
+      "id": "H",
+      "name": "H scarf gap 20%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "20%"
+      },
+      "row_from_front": 2,
+      "column_from_left": 4,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 20,
+      "tested_gap_mm": 0.08,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1908,
+      "object_id": "16",
+      "plate_bounds_mm": [
+        [
+          200.0,
+          124.33543395996094,
+          0.0
+        ],
+        [
+          227.0,
+          157.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "20%"
+      }
+    },
+    {
+      "id": "I",
+      "name": "I scarf gap 30%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "30%"
+      },
+      "row_from_front": 3,
+      "column_from_left": 1,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 30,
+      "tested_gap_mm": 0.12,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1909,
+      "object_id": "18",
+      "plate_bounds_mm": [
+        [
+          98.0,
+          162.83543395996094,
+          0.0
+        ],
+        [
+          125.0,
+          195.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "30%"
+      }
+    },
+    {
+      "id": "J",
+      "name": "J scarf gap 2.5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "2.5%"
+      },
+      "row_from_front": 3,
+      "column_from_left": 2,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 2.5,
+      "tested_gap_mm": 0.01,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1910,
+      "object_id": "20",
+      "plate_bounds_mm": [
+        [
+          132.0,
+          162.83543395996094,
+          0.0
+        ],
+        [
+          159.0,
+          195.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "2.5%"
+      }
+    },
+    {
+      "id": "K",
+      "name": "K regular gap 10%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "10%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 3,
+      "column_from_left": 3,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 10,
+      "tested_gap_mm": 0.04,
+      "regular_seam_control": true,
+      "repeated_control": false,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1911,
+      "object_id": "22",
+      "plate_bounds_mm": [
+        [
+          166.0,
+          162.83543395996094,
+          0.0
+        ],
+        [
+          193.0,
+          195.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "10%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "L",
+      "name": "L scarf gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "15%"
+      },
+      "row_from_front": 3,
+      "column_from_left": 4,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "regular_seam_control": false,
+      "repeated_control": false,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1912,
+      "object_id": "24",
+      "plate_bounds_mm": [
+        [
+          200.0,
+          162.83543395996094,
+          0.0
+        ],
+        [
+          227.0,
+          195.66456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "15%"
+      }
+    },
+    {
+      "id": "M",
+      "name": "M regular gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 4,
+      "column_from_left": 1,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "regular_seam_control": true,
+      "repeated_control": true,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1913,
+      "object_id": "26",
+      "plate_bounds_mm": [
+        [
+          98.0,
+          201.33543395996094,
+          0.0
+        ],
+        [
+          125.0,
+          234.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "N",
+      "name": "N scarf gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "row_from_front": 4,
+      "column_from_left": 4,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "regular_seam_control": false,
+      "repeated_control": true,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1914,
+      "object_id": "28",
+      "plate_bounds_mm": [
+        [
+          200.0,
+          201.33543395996094,
+          0.0
+        ],
+        [
+          227.0,
+          234.16456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    }
+  ],
+  "project": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/2026-10-11-faucet-seam-gap-swatches-v1-petgf-left04-z004-mark2.3mf",
+  "project_sha256": "27c7506d4ae3ace0a2f222f729020dac52871cae05a89e3a0b9676a586d7e0f8",
+  "transfer_limit": "Short swatches and fourteen simultaneous objects change thermal and return-time conditions. Confirm a candidate in the complete faucet.",
+  "physical_result": "Unprinted; flatness has not been established",
+  "automatic_next_print": false,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/2026-10-11-faucet-seam-gap-swatches-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "07e82d01ea22a2b3ed2519188554b46ff3b4dfffd4215a12b586641b0ff58c8a",
+  "gcode_sha256": "b303231412dda07ad5c34a374f9ec5623505cfccb0c78a788156c2de1203bf9c",
+  "native_estimated_seconds": 13377.3330078125,
+  "native_estimated_grams_saved_profile_density": 62.69915771484375,
+  "minimum_full_bead_bed_margin_mm": 85.665794,
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/native-check.json",
+  "native_check_sha256": "2353b7631c93fc286be9683f5aee08c9f9287d697e5fd6b033aac049d9db513d",
+  "generator_sha256": "ef5c277d9c5ee7420292968b092be5a9b5c80718d48f3f5281fbe43785582295",
+  "manual_reviewer_sha256": "e70d0b50601d379860124f48f867f8ae355fb33b8775ba178b1112ceb771e5fd"
+}

@@ -1,0 +1,239 @@
+{
+    "error_string": "Success.",
+    "export_time": 2306,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 89,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 278.09649658203125,
+                "Bridge": 356.7190856933594,
+                "Custom": 304.8742370605469,
+                "Flush": 15.0,
+                "Gap infill": 11.904845237731934,
+                "Inner wall": 2611.060791015625,
+                "Internal solid infill": 508.28289794921875,
+                "Outer wall": 2737.711669921875,
+                "Sparse infill": 4029.931884765625,
+                "Top surface": 119.93171691894531,
+                "Travel": 2421.0185546875,
+                "Undefined": 2411.962646484375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 62.69915771484375,
+                    "total_used_g": 62.69915771484375
+                }
+            ],
+            "generate_support_material_time": 508,
+            "id": 1,
+            "infill_time": 851,
+            "layer_filament_change": 0,
+            "main_predication": 13051.5146484375,
+            "make_perimeters_time": 1484,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 98.0,
+                        "y": 85.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 5,
+                    "name": "A regular gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 132.0,
+                        "y": 85.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 9,
+                    "name": "B scarf gap 10%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 166.0,
+                        "y": 85.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 13,
+                    "name": "C regular gap 5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 200.0,
+                        "y": 85.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 17,
+                    "name": "D scarf gap 25%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 98.0,
+                        "y": 124.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 21,
+                    "name": "E scarf gap 0%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 132.0,
+                        "y": 124.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 25,
+                    "name": "F regular gap 0%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 166.0,
+                        "y": 124.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 29,
+                    "name": "G scarf gap 5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 200.0,
+                        "y": 124.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 33,
+                    "name": "H scarf gap 20%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 98.0,
+                        "y": 162.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 37,
+                    "name": "I scarf gap 30%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 132.0,
+                        "y": 162.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 41,
+                    "name": "J scarf gap 2.5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 166.0,
+                        "y": 162.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 45,
+                    "name": "K regular gap 10%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 200.0,
+                        "y": 162.83543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 49,
+                    "name": "L scarf gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 98.0,
+                        "y": 201.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 53,
+                    "name": "M regular gap 15%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 200.0,
+                        "y": 201.33543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 57,
+                    "name": "N scarf gap 0%",
+                    "triangle_count": 1644
+                }
+            ],
+            "sliced_time": 5896,
+            "sliced_time_with_cache": 2779,
+            "total_predication": 13377.3330078125,
+            "triangle_count": 23016,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

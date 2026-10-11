@@ -1,0 +1,2315 @@
+{
+  "project": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+  "settings_source_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+  "settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "source_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 40.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A lip current 0.12 band",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        75.0,
+        160.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        75.0,
+        160.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          66.0,
+          128.00053215026855,
+          0.0
+        ],
+        [
+          84.0,
+          191.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "B lip 1 coarse layer",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        75.0,
+        88.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        75.0,
+        88.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          66.0,
+          56.000532150268555,
+          0.0
+        ],
+        [
+          84.0,
+          119.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "C lip 2 coarse layers",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        75.0,
+        232.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        75.0,
+        232.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          66.0,
+          200.00053215026855,
+          0.0
+        ],
+        [
+          84.0,
+          263.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "D lip 4 coarse layers",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        117.0,
+        124.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        117.0,
+        124.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          108.0,
+          92.00053215026855,
+          0.0
+        ],
+        [
+          126.0,
+          155.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "E lip 8 coarse layers",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl",
+      "stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+      "triangles": 1834,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        8.999999999999996,
+        3.5046558380126953,
+        12.499999999992971
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        117.0,
+        196.0,
+        12.50000000000703
+      ],
+      "plate_translation_mm": [
+        117.0,
+        196.0,
+        12.50000000000703
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          108.0,
+          164.00053215026855,
+          0.0
+        ],
+        [
+          126.0,
+          227.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.998064184746909e-10
+    },
+    {
+      "name": "SA regular gap 15%",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        158.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        158.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SB scarf gap 10%",
+      "plate": 1,
+      "object_id": "14",
+      "part_id": "13",
+      "member": "3D/Objects/object_7.model",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        192.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        192.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          178.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SC regular gap 5%",
+      "plate": 1,
+      "object_id": "16",
+      "part_id": "15",
+      "member": "3D/Objects/object_8.model",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        226.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          212.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SD scarf gap 25%",
+      "plate": 1,
+      "object_id": "18",
+      "part_id": "17",
+      "member": "3D/Objects/object_9.model",
+      "identify_id": 1909,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        260.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        260.0,
+        103.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          246.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SE scarf gap 0%",
+      "plate": 1,
+      "object_id": "20",
+      "part_id": "19",
+      "member": "3D/Objects/object_10.model",
+      "identify_id": 1910,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        158.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        158.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SF regular gap 0%",
+      "plate": 1,
+      "object_id": "22",
+      "part_id": "21",
+      "member": "3D/Objects/object_11.model",
+      "identify_id": 1911,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        192.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        192.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          178.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SG scarf gap 5%",
+      "plate": 1,
+      "object_id": "24",
+      "part_id": "23",
+      "member": "3D/Objects/object_12.model",
+      "identify_id": 1912,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        226.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          212.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SH scarf gap 20%",
+      "plate": 1,
+      "object_id": "26",
+      "part_id": "25",
+      "member": "3D/Objects/object_13.model",
+      "identify_id": 1913,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        260.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        260.0,
+        141.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          246.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SI scarf gap 30%",
+      "plate": 1,
+      "object_id": "28",
+      "part_id": "27",
+      "member": "3D/Objects/object_14.model",
+      "identify_id": 1914,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        158.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        158.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SJ scarf gap 2.5%",
+      "plate": 1,
+      "object_id": "30",
+      "part_id": "29",
+      "member": "3D/Objects/object_15.model",
+      "identify_id": 1915,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        192.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        192.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          178.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SK regular gap 10%",
+      "plate": 1,
+      "object_id": "32",
+      "part_id": "31",
+      "member": "3D/Objects/object_16.model",
+      "identify_id": 1916,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        226.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          212.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SL scarf gap 15%",
+      "plate": 1,
+      "object_id": "34",
+      "part_id": "33",
+      "member": "3D/Objects/object_17.model",
+      "identify_id": 1917,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        260.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        260.0,
+        179.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          246.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SM regular gap 15%",
+      "plate": 1,
+      "object_id": "36",
+      "part_id": "35",
+      "member": "3D/Objects/object_18.model",
+      "identify_id": 1918,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        158.0,
+        217.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        158.0,
+        217.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.5,
+          200.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          233.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "SN scarf gap 0%",
+      "plate": 1,
+      "object_id": "38",
+      "part_id": "37",
+      "member": "3D/Objects/object_19.model",
+      "identify_id": 1919,
+      "source": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
+      "stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        35.72200012207031,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        260.0,
+        217.0,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        260.0,
+        217.0,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          246.5,
+          200.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          233.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "dfd6898896d49b83516fd145ee582accab37dd532e98fb24b7d00867a0aed0d0",
+  "settings_preserved_byte_for_byte": true,
+  "source_step": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step",
+  "source_step_sha256": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
+  "source_stl": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
+  "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
+  "source_study": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/preparation.json",
+  "source_geometry_pointer_commit": "5a9863696",
+  "full_faucet_geometry_tag": "faucet-industrial-shipping-2026-10-10",
+  "full_faucet_stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
+  "full_faucet_step_sha256": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",
+  "source_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
+  "shipping_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "shipping_reference_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "parent_pose": {
+    "rotation_x_degrees": -14.999999999999998,
+    "lift_mm": 7.635161830524362
+  },
+  "section_cuts": {
+    "parent_print_frame_box_mm": [
+      [
+        0,
+        -40,
+        -0.001
+      ],
+      [
+        18,
+        60,
+        25
+      ]
+    ],
+    "original_front_ABC_volume_fraction": 0.21122461295379327,
+    "unchanged_bed_contact": true,
+    "scaled": false,
+    "added_stock": false
+  },
+  "supports": "Tree(auto), Default; inherited automatic support decisions, gaps, interfaces and speeds",
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A lip current 0.12 band",
+      "kind": "lip",
+      "requested_coarse_layers": null,
+      "fine_band": [
+        13.4,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1901,
+      "object_id": "2",
+      "plate_bounds_mm": [
+        [
+          66.0,
+          128.00053215026855,
+          0.0
+        ],
+        [
+          84.0,
+          191.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        13.4,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "B",
+      "name": "B lip 1 coarse layer",
+      "kind": "lip",
+      "requested_coarse_layers": 1,
+      "fine_band": [
+        15.32,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1902,
+      "object_id": "4",
+      "plate_bounds_mm": [
+        [
+          66.0,
+          56.000532150268555,
+          0.0
+        ],
+        [
+          84.0,
+          119.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        15.32,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "C",
+      "name": "C lip 2 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 2,
+      "fine_band": [
+        15.56,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1903,
+      "object_id": "6",
+      "plate_bounds_mm": [
+        [
+          66.0,
+          200.00053215026855,
+          0.0
+        ],
+        [
+          84.0,
+          263.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        15.56,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "D",
+      "name": "D lip 4 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 4,
+      "fine_band": [
+        16.04,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1904,
+      "object_id": "8",
+      "plate_bounds_mm": [
+        [
+          108.0,
+          92.00053215026855,
+          0.0
+        ],
+        [
+          126.0,
+          155.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        16.04,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "E",
+      "name": "E lip 8 coarse layers",
+      "kind": "lip",
+      "requested_coarse_layers": 8,
+      "fine_band": [
+        17.0,
+        25.0
+      ],
+      "fine_height": 0.12,
+      "overrides": {
+        "wall_generator": "arachne"
+      },
+      "identify_id": 1905,
+      "object_id": "10",
+      "plate_bounds_mm": [
+        [
+          108.0,
+          164.00053215026855,
+          0.0
+        ],
+        [
+          126.0,
+          227.99946784973145,
+          25.00000000001406
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        17.0,
+        25.0
+      ],
+      "fine_layer_height_mm": 0.12,
+      "object_overrides": {
+        "wall_generator": "arachne"
+      }
+    },
+    {
+      "id": "SA",
+      "name": "SA regular gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": true,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "repeated_control": true,
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1906,
+      "object_id": "12",
+      "plate_bounds_mm": [
+        [
+          144.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SB",
+      "name": "SB scarf gap 10%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "10%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 10,
+      "tested_gap_mm": 0.04,
+      "repeated_control": false,
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1907,
+      "object_id": "14",
+      "plate_bounds_mm": [
+        [
+          178.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "10%"
+      }
+    },
+    {
+      "id": "SC",
+      "name": "SC regular gap 5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "5%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": true,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 5,
+      "tested_gap_mm": 0.02,
+      "repeated_control": false,
+      "row_from_front": 1,
+      "column_from_left": 3,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1908,
+      "object_id": "16",
+      "plate_bounds_mm": [
+        [
+          212.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "5%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SD",
+      "name": "SD scarf gap 25%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "25%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 25,
+      "tested_gap_mm": 0.1,
+      "repeated_control": false,
+      "row_from_front": 1,
+      "column_from_left": 4,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1909,
+      "object_id": "18",
+      "plate_bounds_mm": [
+        [
+          246.5,
+          86.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          119.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "25%"
+      }
+    },
+    {
+      "id": "SE",
+      "name": "SE scarf gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "repeated_control": true,
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1910,
+      "object_id": "20",
+      "plate_bounds_mm": [
+        [
+          144.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SF",
+      "name": "SF regular gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "0%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": true,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "repeated_control": false,
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1911,
+      "object_id": "22",
+      "plate_bounds_mm": [
+        [
+          178.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "0%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SG",
+      "name": "SG scarf gap 5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "5%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 5,
+      "tested_gap_mm": 0.02,
+      "repeated_control": false,
+      "row_from_front": 2,
+      "column_from_left": 3,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1912,
+      "object_id": "24",
+      "plate_bounds_mm": [
+        [
+          212.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "5%"
+      }
+    },
+    {
+      "id": "SH",
+      "name": "SH scarf gap 20%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "20%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 20,
+      "tested_gap_mm": 0.08,
+      "repeated_control": false,
+      "row_from_front": 2,
+      "column_from_left": 4,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1913,
+      "object_id": "26",
+      "plate_bounds_mm": [
+        [
+          246.5,
+          124.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          157.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "20%"
+      }
+    },
+    {
+      "id": "SI",
+      "name": "SI scarf gap 30%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "30%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 30,
+      "tested_gap_mm": 0.12,
+      "repeated_control": false,
+      "row_from_front": 3,
+      "column_from_left": 1,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1914,
+      "object_id": "28",
+      "plate_bounds_mm": [
+        [
+          144.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "30%"
+      }
+    },
+    {
+      "id": "SJ",
+      "name": "SJ scarf gap 2.5%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "2.5%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 2.5,
+      "tested_gap_mm": 0.01,
+      "repeated_control": false,
+      "row_from_front": 3,
+      "column_from_left": 2,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1915,
+      "object_id": "30",
+      "plate_bounds_mm": [
+        [
+          178.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          205.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "2.5%"
+      }
+    },
+    {
+      "id": "SK",
+      "name": "SK regular gap 10%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "10%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": true,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 10,
+      "tested_gap_mm": 0.04,
+      "repeated_control": false,
+      "row_from_front": 3,
+      "column_from_left": 3,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1916,
+      "object_id": "32",
+      "plate_bounds_mm": [
+        [
+          212.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          239.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "10%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SL",
+      "name": "SL scarf gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "15%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "repeated_control": false,
+      "row_from_front": 3,
+      "column_from_left": 4,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1917,
+      "object_id": "34",
+      "plate_bounds_mm": [
+        [
+          246.5,
+          162.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          195.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "15%"
+      }
+    },
+    {
+      "id": "SM",
+      "name": "SM regular gap 15%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": true,
+      "seam_method": "regular",
+      "tested_gap_percent_of_nozzle": 15,
+      "tested_gap_mm": 0.06,
+      "repeated_control": true,
+      "row_from_front": 4,
+      "column_from_left": 1,
+      "scarf_length_mm": null,
+      "scarf_start_height_percent": null,
+      "fine_start_height_mm": null,
+      "identify_id": 1918,
+      "object_id": "36",
+      "plate_bounds_mm": [
+        [
+          144.5,
+          200.58543395996094,
+          0.0
+        ],
+        [
+          171.5,
+          233.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "none",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    },
+    {
+      "id": "SN",
+      "name": "SN scarf gap 0%",
+      "kind": "scarf",
+      "fine_band": [
+        4.04,
+        16.04
+      ],
+      "fine_height": 0.08,
+      "overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      },
+      "regular_seam_control": false,
+      "seam_method": "scarf",
+      "tested_gap_percent_of_nozzle": 0,
+      "tested_gap_mm": 0.0,
+      "repeated_control": true,
+      "row_from_front": 4,
+      "column_from_left": 4,
+      "scarf_length_mm": 10,
+      "scarf_start_height_percent": 10,
+      "fine_start_height_mm": 0.008,
+      "identify_id": 1919,
+      "object_id": "38",
+      "plate_bounds_mm": [
+        [
+          246.5,
+          200.58543395996094,
+          0.0
+        ],
+        [
+          273.5,
+          233.41456604003906,
+          18.200000762939453
+        ]
+      ],
+      "layer_band_print_z_mm": [
+        4.04,
+        16.04
+      ],
+      "fine_layer_height_mm": 0.08,
+      "object_overrides": {
+        "wall_generator": "classic",
+        "seam_position": "back",
+        "override_filament_scarf_seam_setting": "1",
+        "seam_slope_conditional": "1",
+        "scarf_angle_threshold": "155",
+        "seam_slope_entire_loop": "0",
+        "seam_slope_steps": "10",
+        "seam_slope_inner_walls": "1",
+        "seam_slope_min_length": "10",
+        "seam_slope_start_height": "10%",
+        "seam_slope_type": "external",
+        "seam_gap": "15%",
+        "seam_slope_gap": "0%"
+      }
+    }
+  ],
+  "native_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "start_now": false,
+  "submitted": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "0b5b6cf91d581d9495faca47f3fff9e1a4d4a4e398dbafbe31bdc444154b7b33",
+  "gcode_sha256": "648af4cf0cc0833e0334872e2d88964bd1148419b1e3e7dbdbd59c1d74f40d42",
+  "native_estimated_seconds": 24488.951171875,
+  "native_estimated_grams_saved_profile_density": 125.88126373291016,
+  "minimum_full_bead_bed_margin_mm": 51.23280399999999,
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/native-check.json",
+  "native_check_sha256": "0a0ad38b55170a393319c554db1efb5ef71ed34877edd9d1f334d8873526bb21"
+}

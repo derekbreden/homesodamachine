@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Provisional native-sliced scarf matrix; current physical results pending",
+  "status": "Held unprinted length/start-height screen; active gap screen uses operator groove/ridge findings",
   "authorization_quote": "After this, depending on results of course, I'd like to consider something more swatch like, that gives a broader range of settings for one specific thing (I'm thinking the scarf). Please prepare for that.",
   "preparation_only": true,
   "launch_authorized": false,
@@ -673,5 +673,6 @@
   "native_check": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/native-check.json",
   "native_check_sha256": "a6dac4c220e601e57b1eddb87409580ebb5c24051759693950994e08cc864425",
   "geometry_review": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/geometry-review.json",
-  "geometry_review_sha256": "382fe0d059424beba654459f68e25ab291abab58dacaa1e76e967df4269eaafa"
+  "geometry_review_sha256": "382fe0d059424beba654459f68e25ab291abab58dacaa1e76e967df4269eaafa",
+  "active_screen": "hardware/printed-parts/faucet/finish-coupons/seam-gap-swatches-v1/study-plan.json"
 }

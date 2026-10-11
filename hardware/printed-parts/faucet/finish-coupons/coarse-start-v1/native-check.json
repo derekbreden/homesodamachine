@@ -1,0 +1,368 @@
+{
+  "schema": 1,
+  "preparation_only": true,
+  "archive": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/2026-10-11-faucet-lip-coarse-start-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "2aea5eb3b55ffe97d9ed3d2e622f836c61152aeb680f0db4c01c5fe318eaa83c",
+  "gcode_sha256": "36fb7af1fdead373ee75bc2410c7f3b9d2f92ca29b9649ac68250c251d8ca493",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/2026-10-11-faucet-lip-coarse-start-v1-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "5dfd4b401d6c098d2223ff51c8f152062d17c1d1adbdd1989d33c223e8ac87db",
+  "geometry": [
+    {
+      "id": "A",
+      "native_vertex_rounding_maximum_mm": 9.692993216958712e-07,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e"
+    },
+    {
+      "id": "B",
+      "native_vertex_rounding_maximum_mm": 9.692993216958712e-07,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e"
+    },
+    {
+      "id": "C",
+      "native_vertex_rounding_maximum_mm": 9.692993216958712e-07,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e"
+    },
+    {
+      "id": "D",
+      "native_vertex_rounding_maximum_mm": 9.692993216958712e-07,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e"
+    },
+    {
+      "id": "E",
+      "native_vertex_rounding_maximum_mm": 9.692993216958712e-07,
+      "triangle_indices_identical": true,
+      "source_stl_sha256": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e"
+    }
+  ],
+  "inherited_global_settings_identical_to_shipping_faucet": true,
+  "native_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "layer_band_checks": [
+    {
+      "name": "A lip current 0.12 band",
+      "print_z_mm": [
+        13.4,
+        25.0
+      ],
+      "wall_layer_count": 97,
+      "first_wall_layer": [
+        13.52,
+        0.120001
+      ],
+      "last_wall_layer": [
+        25.04,
+        0.120001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "B lip 1 coarse layer",
+      "print_z_mm": [
+        15.32,
+        25.0
+      ],
+      "wall_layer_count": 81,
+      "first_wall_layer": [
+        15.44,
+        0.12
+      ],
+      "last_wall_layer": [
+        25.04,
+        0.120001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "C lip 2 coarse layers",
+      "print_z_mm": [
+        15.56,
+        25.0
+      ],
+      "wall_layer_count": 79,
+      "first_wall_layer": [
+        15.68,
+        0.12
+      ],
+      "last_wall_layer": [
+        25.04,
+        0.120001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "D lip 4 coarse layers",
+      "print_z_mm": [
+        16.04,
+        25.0
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        16.16,
+        0.119999
+      ],
+      "last_wall_layer": [
+        25.04,
+        0.120001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "E lip 8 coarse layers",
+      "print_z_mm": [
+        17.0,
+        25.0
+      ],
+      "wall_layer_count": 67,
+      "first_wall_layer": [
+        17.12,
+        0.120001
+      ],
+      "last_wall_layer": [
+        25.04,
+        0.120001
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "coarse_start_checks": [
+    {
+      "id": "A",
+      "requested_coarse_layers": null,
+      "last_starting_lip_first_coarse_nozzle_Z_mm": 15.32,
+      "counted_coarse_nozzle_Z_mm": [],
+      "coarse_count_from_last_starting_lip": 0,
+      "first_fine_model_layer": [
+        13.52,
+        0.120001
+      ]
+    },
+    {
+      "id": "B",
+      "requested_coarse_layers": 1,
+      "last_starting_lip_first_coarse_nozzle_Z_mm": 15.32,
+      "counted_coarse_nozzle_Z_mm": [
+        15.32
+      ],
+      "coarse_count_from_last_starting_lip": 1,
+      "first_fine_model_layer": [
+        15.44,
+        0.12
+      ]
+    },
+    {
+      "id": "C",
+      "requested_coarse_layers": 2,
+      "last_starting_lip_first_coarse_nozzle_Z_mm": 15.32,
+      "counted_coarse_nozzle_Z_mm": [
+        15.32,
+        15.56
+      ],
+      "coarse_count_from_last_starting_lip": 2,
+      "first_fine_model_layer": [
+        15.68,
+        0.12
+      ]
+    },
+    {
+      "id": "D",
+      "requested_coarse_layers": 4,
+      "last_starting_lip_first_coarse_nozzle_Z_mm": 15.32,
+      "counted_coarse_nozzle_Z_mm": [
+        15.32,
+        15.56,
+        15.8,
+        16.04
+      ],
+      "coarse_count_from_last_starting_lip": 4,
+      "first_fine_model_layer": [
+        16.16,
+        0.119999
+      ]
+    },
+    {
+      "id": "E",
+      "requested_coarse_layers": 8,
+      "last_starting_lip_first_coarse_nozzle_Z_mm": 15.32,
+      "counted_coarse_nozzle_Z_mm": [
+        15.32,
+        15.56,
+        15.8,
+        16.04,
+        16.28,
+        16.52,
+        16.76,
+        17.0
+      ],
+      "coarse_count_from_last_starting_lip": 8,
+      "first_fine_model_layer": [
+        17.12,
+        0.120001
+      ]
+    }
+  ],
+  "lip_support_contacts": [
+    {
+      "id": "A",
+      "parent_print_frame_probe_xy_mm": [
+        3.0,
+        -28.047084321049212
+      ],
+      "first_model_nozzle_Z_mm": 15.32,
+      "first_model_height_mm": 0.12,
+      "highest_underlapping_support_nozzle_Z_mm": 14.6,
+      "emitted_top_gap_at_probe_mm": 0.6,
+      "support_deposition_segments": 46791,
+      "scope": "Commanded bead overlap at one lip point; not a physical contact or bond measurement"
+    },
+    {
+      "id": "B",
+      "parent_print_frame_probe_xy_mm": [
+        3.0,
+        -28.047084321049212
+      ],
+      "first_model_nozzle_Z_mm": 15.32,
+      "first_model_height_mm": 0.24,
+      "highest_underlapping_support_nozzle_Z_mm": 14.6,
+      "emitted_top_gap_at_probe_mm": 0.48,
+      "support_deposition_segments": 45961,
+      "scope": "Commanded bead overlap at one lip point; not a physical contact or bond measurement"
+    },
+    {
+      "id": "C",
+      "parent_print_frame_probe_xy_mm": [
+        3.0,
+        -28.047084321049212
+      ],
+      "first_model_nozzle_Z_mm": 15.32,
+      "first_model_height_mm": 0.24,
+      "highest_underlapping_support_nozzle_Z_mm": 14.6,
+      "emitted_top_gap_at_probe_mm": 0.48,
+      "support_deposition_segments": 45140,
+      "scope": "Commanded bead overlap at one lip point; not a physical contact or bond measurement"
+    },
+    {
+      "id": "D",
+      "parent_print_frame_probe_xy_mm": [
+        3.0,
+        -28.047084321049212
+      ],
+      "first_model_nozzle_Z_mm": 15.32,
+      "first_model_height_mm": 0.24,
+      "highest_underlapping_support_nozzle_Z_mm": 14.6,
+      "emitted_top_gap_at_probe_mm": 0.48,
+      "support_deposition_segments": 44813,
+      "scope": "Commanded bead overlap at one lip point; not a physical contact or bond measurement"
+    },
+    {
+      "id": "E",
+      "parent_print_frame_probe_xy_mm": [
+        3.0,
+        -28.047084321049212
+      ],
+      "first_model_nozzle_Z_mm": 15.32,
+      "first_model_height_mm": 0.24,
+      "highest_underlapping_support_nozzle_Z_mm": 14.6,
+      "emitted_top_gap_at_probe_mm": 0.48,
+      "support_deposition_segments": 43357,
+      "scope": "Commanded bead overlap at one lip point; not a physical contact or bond measurement"
+    }
+  ],
+  "scarf_checks": [],
+  "seam_material_commands": {
+    "samples": [],
+    "coarse_nozzle_Z_mm": 1.4,
+    "fine_nozzle_Z_mm": 4.12,
+    "scope": "Emitted positive filament length on moving outer-wall commands. Local gap changes are present in deposition; these totals do not predict physical seam height."
+  },
+  "complete_model_support_brim_bead_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        102.92380399999999,
+        87.70680399999999
+      ],
+      [
+        218.354196,
+        232.650196
+      ]
+    ],
+    "maximum_line_width_mm": 0.754392,
+    "bounds_padding_mm": 0.47719599999999995
+  },
+  "minimum_full_bead_bed_margin_mm": 87.349804,
+  "first_second_layer_overlap": [
+    {
+      "id": "A",
+      "second_wall_segments": 29,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9410798877013566,
+      "total_second_wall_footprint_overlap_fraction": 0.9938741582259545
+    },
+    {
+      "id": "B",
+      "second_wall_segments": 29,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9410798877013088,
+      "total_second_wall_footprint_overlap_fraction": 0.9938741582259502
+    },
+    {
+      "id": "C",
+      "second_wall_segments": 29,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9410798877013566,
+      "total_second_wall_footprint_overlap_fraction": 0.9938756624838861
+    },
+    {
+      "id": "D",
+      "second_wall_segments": 29,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9410798877013566,
+      "total_second_wall_footprint_overlap_fraction": 0.9938741582259545
+    },
+    {
+      "id": "E",
+      "second_wall_segments": 29,
+      "no_first_layer_overlap_segments": 0,
+      "minimum_segment_overlap_fraction": 0.9410798877013566,
+      "total_second_wall_footprint_overlap_fraction": 0.9938756624838861
+    }
+  ],
+  "requested_Z_trim_mm": 0.04,
+  "emitted_Z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "probing_clump_detection": false,
+  "gcode_postprocessed": false,
+  "native_estimated_seconds": 11417.521484375,
+  "native_estimated_grams_saved_profile_density": 63.21312713623047,
+  "scope": "Native geometry, coarse counts, fine heights, bead footprints and support-gap witness. No physical recovery, appearance or bond result. Preparation grants no launch authorization.",
+  "pass": true
+}
