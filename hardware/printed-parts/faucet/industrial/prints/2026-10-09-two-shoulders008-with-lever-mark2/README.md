@@ -1,7 +1,7 @@
 # Complete industrial faucet with fine shoulder layers
 
 This is the complete physical reference for the
-[queued 0.12 mm shoulder recipe](../2026-10-09-shoulders012-solid-foot-mark2/README.md).
+queued 0.12 mm shoulder recipe (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-shoulders012-solid-foot-mark2/README.md`, in git at 45dd5672e9).
 Derek accepts variable layer height as the shipping compromise. Further
 whole-faucet 0.08 mm iteration and research are deferred; this reference's
 screw-point surface issue remains recorded below.
@@ -59,11 +59,11 @@ dialog; that option alone does not establish captured frames.
 The [physical result](physical-result/physical-result.json) records the user's
 beautiful 0.08 mm layers and successful removal of supports from the few thin
 supported layers. Exterior lines/defects beside each screw point remain an open
-finish issue. The [native screw-point comparison and all-fine time estimate](../2026-10-09-all008-estimate-mark2/README.md)
+finish issue. The native screw-point comparison and all-fine time estimate (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-estimate-mark2/README.md`, in git at 45dd5672e9)
 locate repeated outer-wall starts and stops at the rectangular insert-host
 reinforcement boundaries.
 
-The [complete 0.08 mm correction plate](../2026-10-09-all008-solid-foot-mark2/README.md)
+The complete 0.08 mm correction plate (`hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-solid-foot-mark2/README.md`, in git at 45dd5672e9)
 uses one six-wall solid foot region and Arachne widths on the base. Its native
 paths remove the repeated screw-region starts/stops and pass all three insert
 backing reviews. Physical exterior finish on that article remains unevaluated.
