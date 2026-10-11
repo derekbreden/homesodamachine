@@ -1,0 +1,345 @@
+{
+  "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-support-060-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "7d04d1cd1a8529fc4db8e66149c6b61406d755d8e6f63c67e4d5adda08beb8d1",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "The Pour support-060 0.24 mm PET-GF",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "R60 support ceiling",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
+      "stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
+      "triangles": 24780,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        1.0,
+        11.739999771118164
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        11.739999771118164
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        11.739999771118164
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          147.5,
+          147.0,
+          0.0
+        ],
+        [
+          177.5,
+          173.0,
+          23.479999542236328
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "312155ce2e59de81fe2f85fcd1806c5fcad7c1b3fd23fc5bfe13210321ac9e93",
+  "settings_preserved_byte_for_byte": false,
+  "manifest_sha256": "fcc54dcdfdf8618330a93863bae7bbf461492ca95f108c4376ec7be74c1fb928",
+  "preparation_source_sha256": "3ddf0ebe982d84e38b6e6d7109785f7d5c692cd30ddae267779b8849c097c1e0",
+  "requested_layer_height_mm": 0.24,
+  "first_layer_height_mm": 0.2,
+  "changes_after_profile_refresh": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "support_top_z_distance": "0.6"
+  },
+  "print_settings_id": "The Pour support-060 0.24 mm PET-GF",
+  "group": "support-060",
+  "comparison_group": "support-060",
+  "specimens": [
+    {
+      "id": "R60",
+      "name": "R60 support ceiling",
+      "kind": "support",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/r60-support-ceiling.stl",
+      "source_stl_sha256": "94d3a83efeba8c1b4b4ba92ac29e70afe31c387f6e8ef418f9a5af303c2f46cd",
+      "identify_id": 1901,
+      "object_id": "2",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.24,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          147.5,
+          147.0,
+          0.0
+        ],
+        [
+          177.5,
+          173.0,
+          23.479999542236328
+        ]
+      ],
+      "plate_offset_mm": [
+        0.0,
+        0.0
+      ],
+      "requested_support_top_gap_mm": 0.6,
+      "support_ceiling_z_mm": 17,
+      "ceiling_xy_bounds_mm": [
+        [
+          -15,
+          -12
+        ],
+        [
+          15,
+          9
+        ]
+      ]
+    }
+  ],
+  "printer_name": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "Saved Tree(auto)/Default; automatic normal sections retained.",
+  "support_top_z_distance_mm": 0.6,
+  "support_bottom_z_distance_mm": 0.3,
+  "preparation_only": true,
+  "submitted": false,
+  "physical_result": "Unprinted; finish, removal effort and tactile fit are unmeasured.",
+  "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
+  "native": {
+    "archive": ".cache/prints/soda-studies/support-060/the-pour-support-060-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "925fe330fc30f410094aa3e71fc7efa9e655de294c1ef47f17afb44490200a82",
+    "gcode_sha256": "356d6ba16850f6037f23d72b7be1671de94fcc97a7cf780128f9d381a3f230fc",
+    "layer_count": 96,
+    "first_layer_z_mm": 0.2,
+    "emitted_deposition_heights_mm": [
+      0.2,
+      0.24,
+      0.4
+    ],
+    "deposition_height_scope": "Native LAYER_HEIGHT comments describe strand height, including 0.4 mm bridge strands. Per-object model_layer_steps_mm records the fixed model schedule.",
+    "model_object_identify_ids": [
+      1901
+    ],
+    "object_model_deposition": [
+      {
+        "id": "R60",
+        "identify_id": 1901,
+        "model_layer_count": 96,
+        "model_layer_steps_mm": [
+          0.24
+        ],
+        "model_deposition_heights_mm": [
+          0.2,
+          0.24,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 2864,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      }
+    ],
+    "estimated_time": "23m 39s",
+    "saved_profile_filament_estimate_g": [
+      6.47
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          144.337408,
+          144.603408
+        ],
+        [
+          180.459592,
+          173.22059199999998
+        ]
+      ],
+      "maximum_line_width_mm": 0.661184,
+      "bounds_padding_mm": 0.430592
+    },
+    "minimum_full_bead_bed_margin_mm": 144.337408,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "support_feature_count": 74,
+    "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization changes the commanded separation to the nominal roof underside. Strand-flow thickness, sag, removal and finish remain separate physical observations.",
+    "reviewer_sha256": "c2434292acc8077b003feb87cf285c147f1b27e3b9521ba2b6d4cad4275dacac",
+    "sliced_locally": true,
+    "submitted": false,
+    "ceiling_support_reading": {
+      "scope": "Commanded separation from the highest support nozzle Z to the first roof's nominal underside (roof nozzle Z minus fixed model layer height), within the flat-ceiling window. Circular strand flow height and physical sag do not define this nominal underside; deposited free-air gap and bead shape are unmeasured.",
+      "nominal_cad_ceiling_z_mm": 17.0,
+      "sampled_window_xy_mm": [
+        [
+          148.5,
+          148.0
+        ],
+        [
+          176.5,
+          167.0
+        ]
+      ],
+      "requested_support_top_gap_mm": 0.6,
+      "highest_support_nozzle_z_mm": 16.28,
+      "first_ceiling_model_nozzle_z_mm": 17.24,
+      "nominal_model_layer_height_mm": 0.24,
+      "first_ceiling_model_slab_mm": [
+        17.0,
+        17.24,
+        0.24
+      ],
+      "first_ceiling_strand_flow_heights_mm": [
+        0.24
+      ],
+      "first_ceiling_features": [
+        "Bridge"
+      ],
+      "commanded_nominal_roof_separation_mm": 0.72,
+      "commanded_slab_gap_mm": 0.72,
+      "support_layer_tops_below_ceiling_mm": [
+        0.2,
+        0.44,
+        0.68,
+        0.92,
+        1.16,
+        1.4,
+        1.64,
+        1.88,
+        2.12,
+        2.36,
+        2.6,
+        2.84,
+        3.08,
+        3.32,
+        3.56,
+        3.8,
+        4.04,
+        4.28,
+        4.52,
+        4.76,
+        5.0,
+        5.24,
+        5.48,
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88,
+        8.12,
+        8.36,
+        8.6,
+        8.84,
+        9.08,
+        9.32,
+        9.56,
+        9.8,
+        10.04,
+        10.28,
+        10.52,
+        10.76,
+        11.0,
+        11.24,
+        11.48,
+        11.72,
+        11.96,
+        12.2,
+        12.44,
+        12.68,
+        12.92,
+        13.16,
+        13.4,
+        13.64,
+        13.88,
+        14.12,
+        14.36,
+        14.6,
+        14.84,
+        15.08,
+        15.32,
+        15.56,
+        15.8,
+        16.04,
+        16.28
+      ]
+    }
+  }
+}
