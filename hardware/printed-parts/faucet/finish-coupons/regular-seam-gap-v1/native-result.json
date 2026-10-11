@@ -1,0 +1,148 @@
+{
+    "error_string": "Success.",
+    "export_time": 1317,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 50,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 139.0472869873047,
+                "Bridge": 178.3573760986328,
+                "Custom": 304.8807373046875,
+                "Flush": 15.0,
+                "Gap infill": 5.935629367828369,
+                "Inner wall": 544.6856689453125,
+                "Internal solid infill": 244.60382080078125,
+                "Outer wall": 581.2422485351563,
+                "Sparse infill": 833.9658203125,
+                "Top surface": 59.965938568115234,
+                "Travel": 549.3622436523438,
+                "Undefined": 540.3062744140625
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 29.949304580688477,
+                    "total_used_g": 29.949304580688477
+                }
+            ],
+            "generate_support_material_time": 100,
+            "id": 1,
+            "infill_time": 218,
+            "layer_filament_change": 0,
+            "main_predication": 3122.114990234375,
+            "make_perimeters_time": 343,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 115.0,
+                        "y": 104.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 5,
+                    "name": "A seam gap 0%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 149.0,
+                        "y": 104.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 9,
+                    "name": "B seam gap 20%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 183.0,
+                        "y": 104.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 13,
+                    "name": "C seam gap 10%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 115.0,
+                        "y": 143.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 17,
+                    "name": "D seam gap 25%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 149.0,
+                        "y": 143.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 21,
+                    "name": "E seam gap 15% control",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 183.0,
+                        "y": 143.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 25,
+                    "name": "F seam gap 5%",
+                    "triangle_count": 1644
+                },
+                {
+                    "bbox": {
+                        "depth": 32.829132080078125,
+                        "height": 18.200000762939453,
+                        "width": 27.0,
+                        "x": 149.0,
+                        "y": 182.58543395996094,
+                        "z": -4.697273681131264e-10
+                    },
+                    "id": 29,
+                    "name": "G seam gap 30%",
+                    "triangle_count": 1644
+                }
+            ],
+            "sliced_time": 2849,
+            "sliced_time_with_cache": 2110,
+            "total_predication": 3447.939697265625,
+            "triangle_count": 11508,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

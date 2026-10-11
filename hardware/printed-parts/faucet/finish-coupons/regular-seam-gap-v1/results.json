@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "status": "Physical results pending",
+  "control_id": "E",
+  "factor": "ordinary seam_gap",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "specimens": [
+    {
+      "id": "A",
+      "gap_percent": 0,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "B",
+      "gap_percent": 20,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "C",
+      "gap_percent": 10,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "D",
+      "gap_percent": 25,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "E",
+      "gap_percent": 15,
+      "control": true,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "F",
+      "gap_percent": 5,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    },
+    {
+      "id": "G",
+      "gap_percent": 30,
+      "control": false,
+      "ridge_groove_or_flat": null,
+      "adjacent_surface_damage": null,
+      "operator_observation": null
+    }
+  ],
+  "full_faucet_recipe_changed": false,
+  "scope": "Screen on short actual faucet-neck sections; no physical winner or complete-faucet transfer has been established."
+}

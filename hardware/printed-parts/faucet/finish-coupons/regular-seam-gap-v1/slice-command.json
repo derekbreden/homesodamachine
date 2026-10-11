@@ -1,0 +1,17 @@
+{
+  "executable": "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "arguments": [
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "<private output directory>",
+    "--export-3mf",
+    "2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.gcode.3mf",
+    "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/2026-10-11-faucet-regular-seam-gap-v1-petgf-left04-z004-mark2.3mf"
+  ],
+  "printer_connection": false
+}

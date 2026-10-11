@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "status": "Native reviewed and accepted on Mark2; physical gap comparison pending",
+  "authorization_quotes": [
+    "I would like you to focus on just the seam gap setting, with no scarf setting back to our petgf.3mf defaults, and have one control, and have variations in both directions, with whatever you can fit in about a 30 minute to 120 minute print (aiming for 60 minutes maybe, but it does not have to be precise) time.",
+    "Both beds are clear."
+  ],
+  "preparation_only": true,
+  "customer_outcome": "Find a regular seam with less ridge or groove at PET-GF defaults",
+  "factor": "ordinary Seam gap",
+  "control_id": "E",
+  "control_percent": 15,
+  "seam_gap_percent": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "specimens": [
+    {
+      "id": "A",
+      "name": "A seam gap 0%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 0,
+      "nominal_path_gap_mm": 0.0,
+      "row_from_front": 1,
+      "column_from_left": 1,
+      "identify_id": 1901,
+      "object_id": "2",
+      "object_overrides": {
+        "seam_gap": "0%"
+      },
+      "plate_bounds_mm": [
+        [
+          115.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          142.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "B",
+      "name": "B seam gap 20%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 20,
+      "nominal_path_gap_mm": 0.08,
+      "row_from_front": 1,
+      "column_from_left": 2,
+      "identify_id": 1902,
+      "object_id": "4",
+      "object_overrides": {
+        "seam_gap": "20%"
+      },
+      "plate_bounds_mm": [
+        [
+          149.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "C",
+      "name": "C seam gap 10%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 10,
+      "nominal_path_gap_mm": 0.04,
+      "row_from_front": 1,
+      "column_from_left": 3,
+      "identify_id": 1903,
+      "object_id": "6",
+      "object_overrides": {
+        "seam_gap": "10%"
+      },
+      "plate_bounds_mm": [
+        [
+          183.0,
+          104.58543395996094,
+          0.0
+        ],
+        [
+          210.0,
+          137.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "name": "D seam gap 25%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 25,
+      "nominal_path_gap_mm": 0.1,
+      "row_from_front": 2,
+      "column_from_left": 1,
+      "identify_id": 1904,
+      "object_id": "8",
+      "object_overrides": {
+        "seam_gap": "25%"
+      },
+      "plate_bounds_mm": [
+        [
+          115.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          142.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "E",
+      "name": "E seam gap 15% control",
+      "control": true,
+      "seam_gap_percent_of_nozzle": 15,
+      "nominal_path_gap_mm": 0.06,
+      "row_from_front": 2,
+      "column_from_left": 2,
+      "identify_id": 1905,
+      "object_id": "10",
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          149.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "F",
+      "name": "F seam gap 5%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 5,
+      "nominal_path_gap_mm": 0.02,
+      "row_from_front": 2,
+      "column_from_left": 3,
+      "identify_id": 1906,
+      "object_id": "12",
+      "object_overrides": {
+        "seam_gap": "5%"
+      },
+      "plate_bounds_mm": [
+        [
+          183.0,
+          143.58543395996094,
+          0.0
+        ],
+        [
+          210.0,
+          176.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    },
+    {
+      "id": "G",
+      "name": "G seam gap 30%",
+      "control": false,
+      "seam_gap_percent_of_nozzle": 30,
+      "nominal_path_gap_mm": 0.12,
+      "row_from_front": 3,
+      "column_from_left": 2,
+      "identify_id": 1907,
+      "object_id": "14",
+      "object_overrides": {
+        "seam_gap": "30%"
+      },
+      "plate_bounds_mm": [
+        [
+          149.0,
+          182.58543395996094,
+          0.0
+        ],
+        [
+          176.0,
+          215.41456604003906,
+          18.200000762939453
+        ]
+      ]
+    }
+  ],
+  "fixed_settings": "Saved petgf.3mf defaults: aligned seam, scarf off, 0.20 mm first bed layer, 0.24 mm model layers, saved temperature/cooling/flow/retraction/support settings",
+  "comparison_allocation": "Keep the single control and all variants on one machine/plate to hold nozzle, Z trim and thermal cycle in common. Mark2 has the longer known idle-and-PET-GF-loaded period.",
+  "time_goal_minutes": 60,
+  "acceptable_native_time_minutes": [
+    30,
+    120
+  ],
+  "assessment": "Keep the letter with each specimen. Compare the aligned seam under raking light and with a fingernail; record ridge, groove, exposed gap and adjacent damage. No winner is assumed.",
+  "physical_result_pending": true,
+  "transfer_limit": "This short full-scale neck section and seven simultaneous specimens change layer return time and height relative to a complete curved faucet. A selected gap still needs complete-print confirmation.",
+  "launch_authorized": false,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "automatic_next_print": false,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "launch_receipt": "hardware/printed-parts/faucet/finish-coupons/regular-seam-gap-v1/launch.json",
+  "task_id": "1330991481"
+}
