@@ -1,18 +1,39 @@
-[ceiling] The flat annulus at Z5.4 is the underside bearing seat for the M5×50 socket-head pivot screw: Ø9.2 head recess around a Ø5.6 through hole. It recesses the head above the base's flat bed-contact face. The seat has solid pedestal stock above it; the 1.8 mm radial span is an open head pocket, not a thin roof. Any automatically generated support here is reached through the underside Ø9.2 opening. Native support-contact review and removal are separate from this geometric access description.
-alternatives: Omitting the recess leaves the socket head below the base and rocks the jig on the bench. A conical print-friendly seat removes the selected socket head's flat bearing surface and requires a different long countersunk screw. Loading the screw from above puts its retaining nuts below the flat base or requires an additional captured-nut feature.
+[step] These are the two 0.3 mm deep outboard station-reference grooves in the rear face of the donor block. Each is 0.8 mm wide and 6 mm high, centred at tube height. They sit outside the complete Ø30 fixed-pad bearing disks; the uncut contact planes stay at X−26. The groove floor has 25.7 mm of axial stock behind it.
+alternatives: An entirely flush face with ink-only marks removes the grooves but loses the permanent outboard reference after cleaning the ink away. A wider or deeper groove makes the reference larger while removing more stock beside the outboard edge, without enlarging the backed bearing disks.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
-click: x=134.500 y=58.750 z=5.400
+click: x=-25.700 y=57.250 z=30.000
+click: x=-25.700 y=-39.750 z=30.000
 
-[thin] These two rankings join an end face of an 8 mm thick guide rail to an opposing face of a 4 mm long, 5 mm high seating stop. The branches are separated laterally by 0.2 mm and are each backed by the 8 mm base plate. The 2.024/2.026 mm nearest-face chords cross air in the analytic solid; they do not measure a material ligament. The stop's full axial section is 4 mm, and its ram-contact width is 14.5 mm.
-alternatives: Joining each stop to its rail with additional shoulder stock removes this opposite-face pairing but adds material outside the ram-contact width without increasing a thin wall, because no wall exists along either reported chord. Moving the rail's front end back to the stop face also removes the pairing but shortens its alignment lead-in by 2 mm. The independent simple rectangular bearing members retain the specified fit clearances.
+[sliver] These six narrow faces are the floors and side walls of the two shallow station-reference grooves. A 0.3 mm groove side face or 0.8 mm floor is a recess surface, not a freestanding strip of that thickness. Each floor retains 25.7 mm axial backing in the 26 mm block. The grooves lie outside the Ø30 factory-pad contact areas.
+alternatives: Omitting the grooves gives a flush face but removes its permanent reference. Increasing their width or depth enlarges the recess rather than thickening a load member; the primary bearing planes and full pad backing are already continuous.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
-click: x=94.500 y=-23.561 z=8.367
-click: x=96.500 y=40.626 z=10.150
+click: x=-25.700 y=57.250 z=30.000
+click: x=-25.700 y=-39.750 z=30.000
+click: x=-25.850 y=57.650 z=30.000
+click: x=-25.850 y=-39.350 z=30.000
+click: x=-25.850 y=-40.150 z=30.000
+click: x=-25.850 y=56.850 z=30.000
 
-[thin] These four instances are the two upper saddle cheeks at their minimum 2.9 mm radial stock, between the Ø32.2 drop-in pocket and the outer faces at Y±19. Stock grows thicker below this short upper band. The saddle locates the donor's robust round metal base with 0.35 mm radial loading clearance; the 12 mm axial thrust wall carries insertion reaction, and the tangent floor and flat column pad establish height and clocking. The cheek tips are not the axial thrust member. Geometry and solid native slicing do not establish physical load capacity.
-alternatives: Increasing the outer half-width from 19 to 20.1 mm gives a 4 mm tip but grows the donor-side obstruction beyond the flush thrust-wall faces, including toward the attached faucet lever's open side, without enlarging the axial reaction wall. Reducing the saddle radius adds tip stock by consuming the 0.35 mm metal-loading clearance and risks binding the donor during placement and removal.
+[thin] This 2.35 mm outboard border is beside the 0.3 mm deep reference groove at Y57.25; it continues into the full 26 mm axial thickness of the donor block. It is outside the Ø30 contact disk centred at Y40.75, whose outer edge is Y55.75. The groove's nearest edge is Y56.85. The ranking measures the shallow reference border, not the axial load-bearing block section or a detached fin.
+alternatives: Widening the block beyond Y60 thickens only the outboard reference border, adding width and material outside the pad footprint. Removing the groove eliminates the border but also removes the permanent station reference. Neither changes the already full Ø30 pad backing.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
+click: x=-25.702 y=60.000 z=30.087
+click: x=-25.702 y=57.650 z=30.087
+
+[thin] These four surface pairs are the upper saddle cheeks, with minimum 2.9 mm radial stock between the Ø32.2 drop-in pocket and Y±19 outer faces. Their stock grows below this short upper band. The cheeks locate the Ø31.5 metal base with 0.35 mm radial loading clearance. The separate 26 mm axial donor block, backed by both factory fixed pads, carries intended insertion reaction; the cheek tips are not that thrust section. No physical load capacity follows from this geometric distinction.
+alternatives: Increasing the outer half-width to 20.1 mm gives 4 mm tip stock but expands the forward saddle envelope by 1.1 mm per side without enlarging the axial reaction block. Reducing the saddle radius consumes the required metal-loading clearance and risks binding placement and removal. The current cheeks retain the open donor-loading nest and its nominal 3 mm local section.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
 click: x=11.249 y=-16.100 z=29.980
+click: x=11.249 y=-19.000 z=29.980
 click: x=11.249 y=16.100 z=29.980
+click: x=11.249 y=19.000 z=29.980
+click: x=8.646 y=-19.000 z=29.847
+click: x=8.646 y=-16.098 z=29.904
 click: x=3.354 y=19.000 z=29.847
-click: x=0.447 y=-19.000 z=29.847
+click: x=3.354 y=16.098 z=29.904
+
+[ledge] These 0.24 mm² downward faces close the tops of the two shallow reference grooves at Z33. Their unsupported axial reach is only the 0.3 mm groove depth, backed by the donor block; they are not projecting bearing lips. The native base slice emits no support for these local recess ends.
+alternatives: Extending each groove to the top edge removes its closing face but adds a much longer recess without helping pad alignment. A flush face removes the permanent references. Enlarging the ledge means deepening the recess and removing additional block stock.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
+click: x=-25.900 y=57.383 z=33.000
+click: x=-25.900 y=-39.617 z=33.000

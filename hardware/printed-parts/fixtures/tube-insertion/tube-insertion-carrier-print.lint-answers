@@ -1,0 +1,29 @@
+[step] The 1 mm plane offset compares the 6 mm guide foot with the 7 mm full-thickness jaw shelf and coupling toes. The raised Z7 plane supports lower jaw D at assembled Z15. The shelf and toes extend down to the bed at Z0; their exposed rise above the foot is not a separate 1 mm wall or unsupported skin.
+alternatives: Lowering the raised support plane to Z6 drops the collar and tube axis by 1 mm. Raising the entire 124 x 100 mm guide foot to 7 mm removes this offset but adds about 12.4 cm3 of material while leaving the 7 mm jaw-support and coupling-seat sections unchanged. The 6 mm guide foot and 7 mm support plane preserve the specified guide and tube datums.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=1.249 y=40.000 z=7.000
+
+[sliver] This 1 x 32 mm exposed face is the end step of the narrow jaw shelf at X0, between Z6 and Z7. The shelf is solid from Z0 to Z7 across Y-16..16 and X-38.5..0, and prints directly on its broad bed face. The exposed 1 mm rise is supported by 7 mm stock; it is not an independent thin fin.
+alternatives: Lowering the shelf to the 6 mm foot height loses the required Z7 jaw-support datum. Raising the complete 124 x 100 mm foot to 7 mm adds about 12.4 cm3 while preserving the same shelf thickness. Widening the forward shelf into a full-width block fills the required front-stop lanes at Y16.5..21 and their negative-Y counterpart.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=0.000 y=0.000 z=6.500
+
+[thin] The 0.354 mm negative-Y ranking measures from the foot's X0 front face to the adjacent shelf corner at X0, Y-16, Z6. Both ends and the segment midpoint (0,-16.1735,5.966) lie ON the analytic boundary. At that midpoint, X+0.01 is solid and X-0.01 is air; the segment follows the open front boundary rather than crossing a 0.354 mm ligament. Analytic vertical sections give 6 mm foot stock and 7 mm stock just inside the shelf edge.
+alternatives: A continuous 7 mm guide foot removes the opposing corner faces but adds about 12.4 cm3 without thickening the existing 7 mm shelf. Filling the forward gap beyond the 32 mm shelf intersects the fixed front-stop strip at Y-21..-16.5, X-4..0 at the seating limit. Lowering the shelf to 6 mm moves the collar off its required tube-axis height.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=0.000 y=-16.347 z=5.932
+
+[thin] The 0.354 mm positive-Y ranking measures from the foot's X0 front face to the adjacent shelf corner at X0, Y16, Z6. Both ends and the segment midpoint (0,16.1735,5.966) lie ON the analytic boundary. At that midpoint, X+0.01 is solid and X-0.01 is air; the segment follows the open front boundary rather than crossing a 0.354 mm ligament. Analytic vertical sections give 6 mm foot stock and 7 mm stock just inside the shelf edge.
+alternatives: A continuous 7 mm guide foot removes the opposing corner faces but adds about 12.4 cm3 without thickening the existing 7 mm shelf. Filling the forward gap beyond the 32 mm shelf intersects the fixed front-stop strip at Y16.5..21, X-4..0 at the seating limit. Lowering the shelf to 6 mm moves the collar off its required tube-axis height.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=0.000 y=16.347 z=5.932
+
+[thin] The 0.373 mm negative-Y ranking measures from the foot's X0 front face to the inner corner of the adjacent coupling toe at X0, Y-30, Z6. Both ends and the midpoint (0,-29.9,5.8425) lie ON the analytic boundary. X+0.01 at the midpoint is solid and X-0.01 is air, so this distance follows the open front boundary. Vertical analytic sections give 6 mm foot stock and 7 mm stock immediately inside the toe. The ranking does not describe a 0.373 mm material bridge.
+alternatives: Raising the whole guide foot to 7 mm removes these adjacent opposing faces and adds about 12.4 cm3; the coupling toe remains 7 mm thick. Joining the toe to the central shelf with a broad full-height web fills the required negative-Y stop lane at X-4..0, Y-21..-16.5. Lowering the toe to 6 mm loses the lower-jaw coupling support datum.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=0.000 y=-29.800 z=5.685
+
+[thin] The 0.373 mm positive-Y ranking measures from the foot's X0 front face to the inner corner of the adjacent coupling toe at X0, Y30, Z6. Both ends and the midpoint (0,29.9,5.8425) lie ON the analytic boundary. X+0.01 at the midpoint is solid and X-0.01 is air, so this distance follows the open front boundary. Vertical analytic sections give 6 mm foot stock and 7 mm stock immediately inside the toe. The ranking does not describe a 0.373 mm material bridge.
+alternatives: Raising the whole guide foot to 7 mm removes these adjacent opposing faces and adds about 12.4 cm3; the coupling toe remains 7 mm thick. Joining the toe to the central shelf with a broad full-height web fills the required positive-Y stop lane at X-4..0, Y16.5..21. Lowering the toe to 6 mm loses the lower-jaw coupling support datum.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-carrier.step
+click: x=0.000 y=29.800 z=5.685

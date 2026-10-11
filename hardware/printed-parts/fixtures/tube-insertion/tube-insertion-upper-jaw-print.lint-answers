@@ -1,5 +1,12 @@
-[thin] Both ranked places are the same continuous 3 mm flat backing below the 28.3 × 20.5 mm upward-open print pocket. It backs the full 8 mm TPU pad; the 5.75 mm side stock and 3.35/6.85 mm end stock bound the pocket. The rigid mating faces limit radial squeeze, and the rear pocket end wall carries the pad's axial seating reaction. The flat outside prints directly on the bed, and the bolt-bearing wings retain the full 11 mm stock. This ranking describes broad pad backing and does not establish physical grip or load capacity.
-alternatives: Adding backing inside the existing half-jaw envelope reduces the 8 mm pad height and its 3.375 mm minimum TPU backing. Increasing both mirrored half-jaws to 12 mm preserves the pad but moves the lower jaw and screw heads down by 1 mm, consuming the current 1 mm guide-top and stop-to-head clearances and requiring different shelf/guide datums. The broad 3 mm backing keeps the specified pad geometry and clearance stack.
+[step] The 0.300 mm separation is the depth of an outer station-witness recess in the rear face, not a 0.300 mm wall. Each recess is 0.8 mm wide at Y48.1..48.9 or its negative twin and 3 mm high at print Z12..15. Its inner edge is 1.1 mm outside the nominal diameter-30 mm clamp-pad bearing disk. The analytic STEP retains the complete 12 mm stock below the recess and continuous wing stock from X8 to the recess floor at X38.2. Both nominal pad disks retain flat, uninterrupted rear bearing faces.
+alternatives: An ink-only witness removes the shallow recess without changing the force path, but must be renewed after cleaning. Deepening the recess consumes wing stock; widening it toward the pad reduces the current 1.1 mm separation from the nominal bearing disk. The current detail is a blind witness cut outside that disk.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step
-click: x=5.379 y=-10.002 z=0.000
-click: x=29.315 y=-8.112 z=3.000
+click: x=38.200 y=48.500 z=13.500
+
+[thin] The 1.100 mm minima are the outer margins beside the two shallow rear-face witness grooves: Y48.9..50 and the negative twin. Each margin projects only 0.3 mm beyond the X38.2 groove floor over the upper 3 mm of the 15 mm half-jaw; the analytic STEP retains a complete 12 mm of stock below that footprint and 30.2 mm of continuous wing stock inward from the groove floor to X8. The nominal diameter-30 mm pad-bearing disks end at Y47 or -47, leaving 1.1 mm to the grooves' inner edges. These short witness margins do not describe full-height 1.1 mm wing webs. This dimensional description supplies no as-printed strength or life rating.
+alternatives: Removing the grooves and marking only with ink removes their narrow outer margins without enlarging the load-bearing disk, but requires renewing the marks after cleaning. Widening the wings increases the outer margin but adds stock beyond the nominal pad envelope. Moving either groove inward consumes its current separation from the pad-bearing disk.
+file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step
+click: x=38.344 y=-50.000 z=14.531
+click: x=38.344 y=-48.900 z=14.531
+click: x=38.344 y=50.000 z=13.044
+click: x=38.344 y=48.900 z=13.044
