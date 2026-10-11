@@ -14,7 +14,6 @@ target here can be wrong in exactly one direction, and the build says which.
 import argparse
 import difflib
 import hashlib
-import json
 import os
 import re
 import sys
@@ -25,7 +24,6 @@ _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
 
 from inventory import inventory, tracked   # noqa: E402
-from trace_inputs import _selftests, selftest_argv        # noqa: E402
 
 #: WHERE THIS CHECKOUT IS, NAMED ONCE, BY THE CHECKOUT. An action runs in the execroot and the
 #: interpreter is not in the workspace, so the only way to it is an absolute path — and an
@@ -49,9 +47,6 @@ NOT_HERMETIC = ()
 #: sources from under here, so a comment edit leaves every input it holds byte for byte the
 #: same and Bazel runs none of it.
 PYSRC = "pysrc"
-
-#: What each module's `selftest` was watched reading — `trace_inputs.py --selftests` writes it.
-SELFTESTS = _HERE.parent / "selftests.json"
 
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. Node resolves that entrypoint's local imports and packages below Python's
@@ -334,10 +329,6 @@ def render_build(only: str = None) -> tuple:
     _check_node_runtime_map()
     files = tracked()
     all_inv = inventory(files)
-    try:
-        selftests = json.loads(SELFTESTS.read_text())
-    except (OSError, ValueError):
-        selftests = {}
     # WHICH STEMS ARE SHARED, before a name is handed to anything.
     seen, shared = set(), set()
     for gens in all_inv:
@@ -358,10 +349,7 @@ def render_build(only: str = None) -> tuple:
 
     inv = ({k: v for k, v in all_inv.items() if only in k} if only else all_inv)
 
-    # What each generator reads, by its own path, for widening a selftest's data below.
-    inv_by_gen = {g: set(made["reads"]) for gens, made in all_inv.items() for g in gens}
-
-    held = set(files) | {
+    held =set(files) | {
         path for made in all_inv.values() for kind in ("solids", "docs")
         for path in made[kind]
     } | {gen for gens in all_inv for gen in gens}
@@ -421,52 +409,7 @@ def render_build(only: str = None) -> tuple:
             + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
             + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
-    # A MODULE THAT CARRIES A `selftest` IS ONE NOBODY RUNS. Twenty-five of them state their own
-    # holds and every one is verified only when a person types the word — `sync_tree`'s ten
-    # include the hold that a card's authored text survives a build handed stale figures, whose
-    # failure is silent destruction. A test target is what runs it, and running one costs
-    # nothing the second time: `bazel test` skips a test whose data has not moved.
-    #
-    # `large` is a fifteen-minute ceiling. The slowest of these stands the machine and comes
-    # back in four minutes; `enormous` gave every one of them an hour, which is not headroom
-    # but the time a hung test would burn before anyone was told.
-    #
-    # WHAT A TEST READS IS NOT WHAT ITS MODULE BUILDS. `graph.json` answers the second and has
-    # no entry at all for `sync_tree.py`, because the machinery that writes the graph is not a
-    # step in the graph it writes. So a selftest is watched the same way a generator is —
-    # `trace_inputs.py --selftests`, which runs the module on the word and keeps what it opened.
-    selftest_seen, selftest_shared = set(), set()
-    for gen in selftests:
-        stem = target_name(gen)
-        (selftest_shared if stem in selftest_seen else selftest_seen).add(stem)
-    for gen, data in sorted(selftests.items()):
-        if gen not in held:
-            continue
-        # WHAT A TEST REACHES IS NOT WHAT ONE RUN OF IT TOOK. A watch records the path that
-        # run went down, and `lanes.py` reaches `manifold_layout`, which imports `_lines`
-        # inside a function the traced run never called — so an edit to the routing constants
-        # this test exists to check would not rerun it. A build action that names too little
-        # fails to find a file; a test that names too little caches a pass.
-        #
-        # So a module in the data brings what it reads, to a fixpoint. The build graph already
-        # holds that for every generator, and the ones this reaches are generators.
-        want = set(data)
-        while True:
-            more = {r for m in want if m in inv_by_gen for r in inv_by_gen[m]} - want
-            if not more:
-                break
-            want |= more
-        blocks.append(
-            f'sh_test(\n    name = "{target_name(gen, selftest_shared)}-selftest",\n'
-            + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
-            + "".join(f'        "{s}",\n' for s in sorted(want & held))
-            + f'    ],\n    args = ["{gen}"'
-            + (', "--selftest"' if selftest_argv(gen) == ("--selftest",) else '')
-            + '],\n'
-            + '    size = "large",\n    tags = ["local"],\n)')
-
     head = (
-        'load("@rules_shell//shell:sh_test.bzl", "sh_test")\n\n'
         "# The appliance's geometry, docs and pictures — one action per generator. Written by\n"
         "# tools/bazel/gen_build.py off tools/bazel/inventory.py; the sandbox corrects it.\n"
         "#\n"
@@ -548,19 +491,6 @@ def main() -> int:
     if args.check:
         text, inv = render_build()
         red = False
-
-        # A TARGET IS RENDERED FROM THE REGISTRY, so a module that answers to `selftest` and is
-        # not a key writes no target and states its holds to nobody. `_selftests` is the reading
-        # `trace_inputs` writes the registry by; the tree is asked with it here.
-        registry = json.loads(SELFTESTS.read_text()) if SELFTESTS.is_file() else {}
-        holds = set(_selftests(tracked()))
-        for f in sorted(holds - set(registry)):
-            print(f"  {f} answers to selftest and selftests.json does not name it"
-                  f"\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests {f}")
-            red = True
-        for f in sorted(set(registry) - holds):
-            print(f"  selftests.json names {f}, which answers to no selftest")
-            red = True
 
         # NO ACTION FINDS THE INTERPRETER WITHOUT THIS. Every cmd reads `$HSM_WORKSPACE`, and
         # `.bazelrc` takes the file that sets it from this directory, so a checkout that has

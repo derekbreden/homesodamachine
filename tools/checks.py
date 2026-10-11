@@ -12,11 +12,6 @@ Derek asks for that check (CLAUDE.md, "What Runs Every Time").
 file, so an unchanged tree writes byte-identical bytes and `checks_now.py`, which commits it,
 finds nothing to commit.
 
-A SELFTEST AND A CHECK ANSWER DIFFERENT QUESTIONS. `selftests.json` registers four of these and
-`tools/bazel/selftest.sh` runs `<script> selftest` — the script's own rules held against
-fixtures it builds. That passes while the same script, run against the tree, reports rot: the
-rules are right and the tree does not satisfy them. This runs the second question.
-
 IT REPORTS AND HOLDS NOTHING. Exit is non-zero when a check is red, which is a status for
 whoever asked, and no caller here treats it as permission. A check that could stop the tree
 reaching the site would be the one thing this tree does not do.
