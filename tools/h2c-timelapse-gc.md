@@ -66,7 +66,9 @@ of continuous recordings.
 The existing macOS LaunchAgent runs every six hours. Its private runner applies
 `--keep 96 --keep-gb 0` and archives clips under
 `~/Bambu-timelapses/Mark1` and `~/Bambu-timelapses/Mark2`. An unavailable printer
-is logged and skipped until the next run.
+is logged and skipped until the next run. The runner then applies
+[`cache_gc.py`](cache_gc.py) `--days 3`, which deletes scratch in the repository's
+`.cache` that has gone three days without a write.
 
 - Runner: `~/.config/h2c-gc/run.sh` (mode `700`). It stores printer credentials,
   `KEEP_COUNT`, and `ARCHIVE_ROOT` outside Git.
