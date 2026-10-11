@@ -126,6 +126,7 @@ hardware/quickstart/studies/first-power-link/out/
 # NOT_BUNDLED_DIRS names this directory too.
 hardware/weld-rotator-guide/out/
 hardware/gun-positioner-guide/out/
+hardware/tube-insertion-guide/out/
 output/gun-positioner/
 
 # Local owner-document previews.

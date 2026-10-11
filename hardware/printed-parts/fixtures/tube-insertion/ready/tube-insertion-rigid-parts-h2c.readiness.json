@@ -1,0 +1,63 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "tube-insertion-rigid-parts-h2c.3mf",
+  "project_sha256": "ccea2918342f207c8a3a04eab19b696a74ae21ed0d811a94e71929fc8b024824",
+  "archive": "tube-insertion-rigid-parts-h2c.gcode.3mf",
+  "archive_sha256": "e1218d5e0939de44d65699d399d01f736b74c27100a59605a4a7f3a456790839",
+  "gcode_sha256": "11653494abedd30b7d50592bab0f6837b6a03891d517459c2df083ab3f0b5dd3",
+  "source_stls": {
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-press-lever-print.stl": "a6071e2fa03b7ebb998ade4acad0c0483e4443c955345f8167adc34ca2069dfc",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "7fd02027176af5324ab9df1f8e11a08193de0403f0498dd3aa2f959344b2b4ae",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "b330459cbea12b8c09bd69a795032208cd015fbabbfa4d18f9ca8ea4d3493954",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-ram-print.stl": "6cb0ed09ab4e9f771e46496523d1c5498f972bbea3a26c65a47277d230bce2d1",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-cap-support-puck-print.stl": "db66c62fa1eac4a0c6452c7e08c5ff69442bfee0c09d7ae9aa7e1689c320b2c5"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        75.676008,
+        72.804008
+      ],
+      [
+        249.323992,
+        247.197992
+      ]
+    ],
+    "maximum_line_width_mm": 0.617984,
+    "bounds_padding_mm": 0.408992
+  },
+  "bead_margin_mm": [
+    75.676008,
+    72.804008,
+    75.676008,
+    72.802008
+  ],
+  "layers": 117,
+  "estimated_seconds": 12778.134765625,
+  "estimated_filament_g": 192.015869140625,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  }
+}

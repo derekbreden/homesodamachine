@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "observed_date": "2026-10-10",
+  "authority": "Derek's direct observation of physical faucet assembly",
+  "subject": "Printed lever, bare harvested Touch-Flo, TPU sealing sleeve, 3/8-inch LLDPE soda tube and printed faucet shell",
+  "sequence": [
+    "Attach the printed lever to the bare Touch-Flo outside the shell before inserting the tube.",
+    "Leave the attached lever down at unpressed rest during sleeve/tube insertion.",
+    "Stretch and slide the TPU sleeve evenly onto the tube outside the Touch-Flo, with the square-cut tube end fully against the cap.",
+    "Push the sleeved tube into the empty metal top port together, cap first.",
+    "Flip the attached lever up before inserting the donor into the shell.",
+    "The shell pushes the lever forward during insertion; once fully seated it prevents the flipped-up position, and the lever snaps down to unpressed rest."
+  ],
+  "sliding_observations": {
+    "sleeve_on_tube": "Difficult; even stretching/sliding around the circumference is the remaining challenge.",
+    "sleeve_on_metal": "TPU slides far more easily on metal than on LLDPE.",
+    "empty_sleeve_in_port": "The entering tube scrunches the sleeve beneath it."
+  },
+  "source_quotes": [
+    "And in fact, the lever has to be attached before insertion of the tube into the touch-flo.",
+    "So the lever is attached to the touch flo during this operation, in the down position.",
+    "And then it gets flipped up for insertion into the shell, and the shell pushes it forward, and it can no longer reach that flipped up position once fully inserted into the shell, and then it snaps down into the down (but still not pressed) position.",
+    "Backing up to the tube insertion though, so the touch flo and lever are connected, and the lever is down (but not pressed), but the touch flo does *not* have the TPU sleeve in it, if it did we would up with a scrunched sleeve under the tube.",
+    "The TPU slides against the metal ***FAR*** more easily than it slides against the LLDPE. Orders of magnitude difference in force required to induce sliding.",
+    "The TPU sleeve is put on the tube first, which is itself quite a difficult operation, and the part of the T handle which grips the tube may actually be useful for this first operation, but the difficult part is still sliding/stretching the TPU on evenly around the tube.",
+    "So then the sleeved tube is inserted into the touch flo."
+  ],
+  "scope": "Qualitative physical assembly order and observed contact/sliding behavior. No measured insertion force, friction coefficient, shell-guided rigid transform, sealing pressure, strength or endurance is established. The accepted lever geometry and its identified physical acceptance remain unchanged.",
+  "accepted_geometry_record": "physical-acceptance.json",
+  "operator_procedure": "../faucet-shell/ASSEMBLY.md",
+  "illustrated_guide": "../../../faucet-assembly-guide/README.md",
+  "insertion_tools": "../../fixtures/tube-insertion/README.md"
+}
