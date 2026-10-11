@@ -38,5 +38,9 @@ PET-GF uses external left slot 254 and fixed left hardened standard-flow 0.4 mm
 on Textured PEI. Timelapse and leveling are on; nozzle clump probing is off.
 
 [Launch plan](launch-plan.json), [preflight](preflight.json) and [receipt](launch.json)
-record the one foreground transaction. Neither separate plate is authorized to
+record the accepted start. An interrupted pre-import navigation issued no Send;
+Derek authorized a retry, which issued the one successful Send. Neither separate plate is authorized to
 start. There is no scheduled monitor or automatic resume.
+
+Mark2 accepted task **1328441515** at **1:41:41 AM CDT, October 11**.
+The native forecast is **8:29 AM CDT, October 11**.

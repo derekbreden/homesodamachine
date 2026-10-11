@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "Awaiting physical print and operator results",
+  "status": "Printing; physical results pending",
   "specimens": [
     {
       "id": "A",
@@ -80,5 +80,7 @@
     }
   ],
   "physical_winner": null,
-  "shipping_recipe_changed": false
+  "shipping_recipe_changed": false,
+  "printer_task_id": "1328441515",
+  "accepted_at_utc": "2026-10-11T06:41:41.582967+00:00"
 }
