@@ -462,8 +462,8 @@ test("a STEP named in a comment is prose, not a load (phantom-edge regression)",
 });
 
 test("a STEP a selftest reads is a fixture, not a load (phantom-edge regression)", () => {
-  // `tools/bazel/trace_inputs.py` watches a module's `__main__` into graph.json and its
-  // `selftest` into selftests.json — two records, because a control's reads are not a
+  // `tools/bazel/trace_inputs.py` watches a module's `__main__` into graph.json and never its
+  // `selftest`, because a control's reads are not a
   // build's. This orders a build, so it reads the same line.
   //
   // The case that made it: `hardware/scripts/_mesh_payload.py` holds its tessellation against
@@ -496,9 +496,8 @@ test("a STEP a selftest reads is a fixture, not a load (phantom-edge regression)
     );
 
     // The same module, loading the step in the work its importers call it for. `selftesting`
-    // is a name that merely starts with the word — `trace_inputs._selftests` matches
-    // `^def selftest\(` down to the paren, and so does the scanner, or the two disagree about
-    // which modules are selftests.
+    // is a name that merely starts with the word — the scanner matches
+    // `^def selftest\(` down to the paren.
     fs.writeFileSync(
       path.join(root, "_routes.py"),
       "def selftesting_helper():\n"

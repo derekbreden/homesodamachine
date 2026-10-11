@@ -443,9 +443,8 @@ def artifact_global(path: str) -> bool:
         return True
     # Selection code decides WHICH already-described actions run; it is not an input to any
     # artifact action.  Making its own edits global forces the very full-tree build a scoping
-    # correction is meant to remove.  The selftest inventory likewise describes test runners,
-    # not published solids.
-    if path in {"tools/bazel/affected.py", "tools/bazel/selftests.json"}:
+    # correction is meant to remove.
+    if path == "tools/bazel/affected.py":
         return False
     if path in _PUBLICATION_SENTINELS:
         return False
