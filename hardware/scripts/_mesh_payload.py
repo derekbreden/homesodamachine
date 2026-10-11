@@ -61,7 +61,7 @@ ANGULAR_DEFLECTION = 0.5
 # triangles out identically — 3 adds `src`, a header field only a WRITER reads,
 # to decide whether a payload on disk still answers to its solid. Refusing 2 on
 # the page would buy nothing and cost the surface: three of these payloads are
-# in no build step's `outs` (`hardware/scripts/check_payloads.py`), so a deploy
+# in no build step's `outs`, so a deploy
 # carries whatever the tree had, and a page that turned those away would fall
 # back to the STEP — which for `pack.BUNDLED_PAYLOAD_DIRS` is the flute-less
 # solid, and the appliance would render as a smooth box.

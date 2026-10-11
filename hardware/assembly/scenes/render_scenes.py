@@ -578,8 +578,7 @@ def payload_glb_selftest():
         check("the GLB JSON chunk is first", kind == b"JSON")
 
         # THE SHAPE `draw` COMPOSES IN: one already-turned model, no core, no flip, no carry, at a
-        # colour the finish table names. `check_payloads.py` reads these two factors back off every
-        # scene GLB in the tree, so what a material carries here is what that reading holds.
+        # colour the finish table names.
         row = _finishes.rows()[0]
         one = Path(directory) / "one-model.glb"
         _write_payload_glb(one, ("wall",), set(), [tri("wall", 0)], (),
