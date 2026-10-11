@@ -89,5 +89,10 @@ resume or scheduled monitoring is authorized.
 Mark2 accepted this exact plate as task **1327799013** at **6:45:52 pm CDT
 October 10, 2026**. The native duration projects completion at **2:13:55 am CDT
 October 11**. [Launch receipt](launch.json) records the archive, options and
-fresh readings of both printers. These are start and forecast records; no
-physical coupon result is recorded yet.
+fresh readings of both printers. The [in-progress physical observation](physical-result/physical-result.json)
+records the founder's October 11 report of lifting on all three foot specimens,
+with a visible opening under their front curved lips above the support interface.
+The close-up shows a wider opening through the middle than at the ends.
+The amount beyond programmed support clearance and the initiating movement are
+unmeasured. No cooling winner or final surface ranking is recorded. The operator
+continues the print for D/E/F scarf results, which remain pending.
