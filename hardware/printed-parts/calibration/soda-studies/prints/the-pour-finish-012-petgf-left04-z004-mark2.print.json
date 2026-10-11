@@ -1,0 +1,336 @@
+{
+  "project": "hardware/printed-parts/calibration/soda-studies/prints/the-pour-finish-012-petgf-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "5e8ccde3746ee4fb155fd7b5ff3580c972fa777646f6b8987d473d5cada55a08",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "The Pour finish-012 0.12 mm PET-GF",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.12,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "A12 angle and curve blade",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.stl",
+      "stl_sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835",
+      "triangles": 82014,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        43.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        140.0,
+        160.0,
+        43.0
+      ],
+      "plate_translation_mm": [
+        140.0,
+        160.0,
+        43.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          134.0,
+          138.0,
+          0.0
+        ],
+        [
+          146.0,
+          182.0,
+          86.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "N12 faucet neck",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.stl",
+      "stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "triangles": 1644,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        9.100000381469727
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        177.5,
+        154.41456604003906,
+        9.100000381469727
+      ],
+      "plate_translation_mm": [
+        177.5,
+        154.41456604003906,
+        9.100000381469727
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          164.0,
+          138.0,
+          0.0
+        ],
+        [
+          191.0,
+          170.82913208007812,
+          18.200000762939453
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "6edc34742d4bccdcca2e30bdbf74d7bd304ee166688f43d13158798e0da3d8ff",
+  "settings_preserved_byte_for_byte": false,
+  "manifest_sha256": "478955e2e154dd98e94df9c5b7244dce49018569a863f54e0a8e9f0fad0914a3",
+  "preparation_source_sha256": "85d7753ef4541006977ee7a7320a4ba1569710bebda5a0bca09781bdbefdd146",
+  "requested_layer_height_mm": 0.12,
+  "first_layer_height_mm": 0.2,
+  "changes_after_profile_refresh": {
+    "layer_height": "0.12",
+    "initial_layer_print_height": "0.2",
+    "seam_position": "back",
+    "seam_gap": "15%",
+    "seam_slope_type": "none"
+  },
+  "print_settings_id": "The Pour finish-012 0.12 mm PET-GF",
+  "group": "finish-012",
+  "comparison_group": "finish-012",
+  "specimens": [
+    {
+      "id": "A12",
+      "name": "A12 angle and curve blade",
+      "kind": "angle_blade",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/a12-angle-and-curve-blade.stl",
+      "source_stl_sha256": "0158e0ef3c181c10ce8e7ba8ce6c69bf28a00e1689361ec1653f9ab2c89a0835",
+      "identify_id": 1901,
+      "object_id": "2",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.12,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          134.0,
+          138.0,
+          0.0
+        ],
+        [
+          146.0,
+          182.0,
+          86.0
+        ]
+      ],
+      "plate_offset_mm": [
+        -22.5,
+        0.0
+      ]
+    },
+    {
+      "id": "N12",
+      "name": "N12 faucet neck",
+      "kind": "neck",
+      "source": "hardware/printed-parts/calibration/soda-studies/parts/n12-faucet-neck.stl",
+      "source_stl_sha256": "cac574ca02cdef93f3e0e11d417a5036b11cfb03e8a69c7db8bf376e270d493c",
+      "identify_id": 1902,
+      "object_id": "4",
+      "rotation_x_degrees": 0.0,
+      "requested_layer_height_mm": 0.12,
+      "object_overrides": {},
+      "plate_bounds_mm": [
+        [
+          164.0,
+          138.0,
+          0.0
+        ],
+        [
+          191.0,
+          170.82913208007812,
+          18.200000762939453
+        ]
+      ],
+      "plate_offset_mm": [
+        15.0,
+        -5.5854339599609375
+      ]
+    }
+  ],
+  "printer_name": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "Saved Tree(auto)/Default; automatic normal sections retained.",
+  "support_top_z_distance_mm": 0.45,
+  "support_bottom_z_distance_mm": 0.3,
+  "preparation_only": true,
+  "submitted": false,
+  "physical_result": "Unprinted; finish, removal effort and tactile fit are unmeasured.",
+  "transfer_limit": "Coupon size changes cooling, perimeter length and layer return time. Physical references do not qualify complete product parts.",
+  "native": {
+    "archive": ".cache/prints/soda-studies/finish-012/the-pour-finish-012-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "23a4f12eca798e20b84d81b84da7f8720617ba3448b3ed66df055a844860411d",
+    "gcode_sha256": "e522db9fb239f336c632b1520d3f0aece4f96c96169f2cf9310beccc582b179b",
+    "layer_count": 716,
+    "first_layer_z_mm": 0.2,
+    "emitted_deposition_heights_mm": [
+      0.12,
+      0.2,
+      0.4
+    ],
+    "deposition_height_scope": "Native LAYER_HEIGHT comments describe strand height, including 0.4 mm bridge strands. Per-object model_layer_steps_mm records the fixed model schedule.",
+    "model_object_identify_ids": [
+      1901,
+      1902
+    ],
+    "object_model_deposition": [
+      {
+        "id": "A12",
+        "identify_id": 1901,
+        "model_layer_count": 716,
+        "model_layer_steps_mm": [
+          0.12
+        ],
+        "model_deposition_heights_mm": [
+          0.12,
+          0.2,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 9405,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      },
+      {
+        "id": "N12",
+        "identify_id": 1902,
+        "model_layer_count": 151,
+        "model_layer_steps_mm": [
+          0.12
+        ],
+        "model_deposition_heights_mm": [
+          0.12,
+          0.2,
+          0.4
+        ],
+        "deposition_height_scope": "Strand heights include native bridge thickness; model Z steps describe the nominal layer schedule.",
+        "outer_wall_depositing_moves": 28475,
+        "outer_wall_depositing_moves_with_z": 0,
+        "z_witness_scope": "Explicit Z on depositing outer-wall moves witnesses native height ramps; it does not measure seam flatness."
+      }
+    ],
+    "estimated_time": "59m 21s",
+    "saved_profile_filament_estimate_g": [
+      13.52
+    ],
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          114.8201535,
+          137.7371535
+        ],
+        [
+          191.2628465,
+          182.2628465
+        ]
+      ],
+      "maximum_line_width_mm": 0.745693,
+      "bounds_padding_mm": 0.47284650000000006
+    },
+    "minimum_full_bead_bed_margin_mm": 114.8201535,
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "support_feature_count": 719,
+    "support_gap_note": "Requested Z distance is a slicer setting. Native layer quantization and sloped contacts change the emitted gap; removal and finish remain physical observations.",
+    "reviewer_sha256": "bd148e5b410a3b775c279972640be4aacc63594f75964ee2c8613e479b2f968a",
+    "sliced_locally": true,
+    "submitted": false
+  }
+}
