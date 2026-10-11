@@ -1,0 +1,1015 @@
+{
+  "schema": 1,
+  "reviewed_utc": "2026-10-11T07:22:21.922960+00:00",
+  "review": "Current Industrial faucet geometry and accepted-print comparison",
+  "scope": "Source, exact named CAD witnesses and sampled native STL surfaces. The centered mounting set is unprinted; physical fit, finish, cleanup force, strength and lifetime are not inferred.",
+  "baseline": {
+    "tag": "faucet-industrial-shipping-2026-10-10",
+    "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+    "project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+    "native_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+    "native_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+    "gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e"
+  },
+  "current_project": {
+    "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+    "sha256": "a84def04d700230ad48b99fdbf548331d0a5b2bf3f13e1b0a069aefaa1fe3970"
+  },
+  "frozen_prepared_project": {
+    "path": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.3mf",
+    "sha256": "a84def04d700230ad48b99fdbf548331d0a5b2bf3f13e1b0a069aefaa1fe3970"
+  },
+  "preparation": {
+    "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
+    "sha256": "12f6cda72c8ef669a8463cd5ea8ec0ad271b39878fd3921745fc2c727d598dfb"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "1e35507fe56b4eee0f432d6ff4f7da26e94d897fae83bd51a7c985d10334b340",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
+    "hardware/printed-parts/faucet/faucet_paths.py": "6f716f7d3f5e4dd237d82adc69cecc0225d7500c14f87b7a89d8613269c62c27",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/vent_seals.py": "2a234324193fdaaf82ab713835cc03347414ebfe97b43f4196c3712066fd3283",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "571381ae897a5fdaece192c605e5af0e11ca8b64bb984184d2d9bf2a1b55b604",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "6a2817135f3e378ea9d810d3d791c37c0b80b6262dbaa302f631eea03f0c7ee0",
+    "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+    "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f"
+  },
+  "assembly_review": {
+    "path": "hardware/printed-parts/faucet/industrial/geometry-check.json",
+    "sha256": "a755498f658d35102d7e44ffb429d14f4fa404fee7cc3849b0fba0f3b452d6f9",
+    "checks": 26,
+    "passed": true
+  },
+  "cover_review": {
+    "path": "hardware/printed-parts/faucet/industrial/display-cover-check.json",
+    "sha256": "ff241121f69f7636b3bf1916e5a0bc5ca445cd50ae4059045b23658fd0aa2911",
+    "checks": 45,
+    "passed": true
+  },
+  "published_centered_geometry_review": {
+    "path": "hardware/printed-parts/faucet/vent-qualification/centered-layout-lint-review.json",
+    "sha256": "69ebd503506f994bd4f0835c040867eb4330b4f4bdd6e7cd4a74125b766afa72"
+  },
+  "organizer_review": {
+    "path": "hardware/printed-parts/faucet/umbilical-organizer/integration-check.json",
+    "sha256": "c7c5182f6ded3560520aa05aea5b5bce306033fbae8933a65407359b001de516"
+  },
+  "mounting_review": {
+    "path": "hardware/cut-parts/faucet/under-counter-plate/centered-layout-check.json",
+    "sha256": "3370ee2f01f78469982199be937dbc360a90f5ab8e917dcbd83ea72ca6dbbef3"
+  },
+  "mesh_comparison": {
+    "accepted_project": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
+    "accepted_project_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
+    "method": "Deterministic vertex and face-center samples to the complete opposing triangle surface; two directions; this is a surface sample, not a global Hausdorff bound.",
+    "parts": [
+      {
+        "part": "industrial-shell-base",
+        "current_stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+        "current_watertight": true,
+        "current_winding_consistent": true,
+        "current_bodies": 1,
+        "accepted_bounds_mm": [
+          [
+            -29.5,
+            -41.60773468055762,
+            -7.422329417750007e-11
+          ],
+          [
+            29.5,
+            29.799999237442385,
+            237.3277740479258
+          ]
+        ],
+        "current_bounds_mm": [
+          [
+            -29.5,
+            -41.60773468017578,
+            0.0
+          ],
+          [
+            29.5,
+            29.799999237060547,
+            237.32777404785156
+          ]
+        ],
+        "accepted_volume_mm3": 143567.72427507292,
+        "current_volume_mm3": 143788.0339725956,
+        "comparison_source_z_min_mm": 68.0,
+        "accepted_to_current": {
+          "samples": 7000,
+          "max_mm": 8.735165128710207e-10,
+          "p99_mm": 5.685587791805297e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -8.751778285,
+                14.934619903442382,
+                96.26256306959245
+              ],
+              "distance_mm": 8.735165128710207e-10
+            },
+            {
+              "point": [
+                8.632876078333332,
+                14.013709704442382,
+                96.26256306959245
+              ],
+              "distance_mm": 8.246297964139832e-10
+            },
+            {
+              "point": [
+                6.491088549666666,
+                18.292793273775715,
+                96.26256306959245
+              ],
+              "distance_mm": 8.233214378132201e-10
+            },
+            {
+              "point": [
+                7.92917347,
+                -26.803932189557617,
+                232.26385498092577
+              ],
+              "distance_mm": 7.350656727934834e-10
+            },
+            {
+              "point": [
+                -7.233053207,
+                20.675107955442382,
+                178.2765197749258
+              ],
+              "distance_mm": 7.194376061761322e-10
+            },
+            {
+              "point": [
+                2.522444963,
+                -6.316675662557617,
+                189.8834228519258
+              ],
+              "distance_mm": 7.142125902684586e-10
+            },
+            {
+              "point": [
+                -8.445372581,
+                0.6628993754423824,
+                195.73846435592577
+              ],
+              "distance_mm": 6.899674506849323e-10
+            },
+            {
+              "point": [
+                -2.495292664,
+                -5.7230453495576175,
+                188.9167938229258
+              ],
+              "distance_mm": 6.780636877840002e-10
+            }
+          ]
+        },
+        "current_to_accepted": {
+          "samples": 7000,
+          "max_mm": 8.659191581810231e-10,
+          "p99_mm": 5.619518859087866e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -6.546553293863933,
+                18.2697270711263,
+                96.26256306966145
+              ],
+              "distance_mm": 8.659191581810231e-10
+            },
+            {
+              "point": [
+                9.043248176574707,
+                -25.4293270111084,
+                207.46401977539062
+              ],
+              "distance_mm": 7.580489610078404e-10
+            },
+            {
+              "point": [
+                7.399129867553711,
+                -21.215572357177734,
+                202.63394165039062
+              ],
+              "distance_mm": 7.462489903764613e-10
+            },
+            {
+              "point": [
+                -7.034258842468262,
+                -1.607509732246399,
+                206.22523498535156
+              ],
+              "distance_mm": 6.848300189835311e-10
+            },
+            {
+              "point": [
+                -1.911051630973816,
+                8.45419692993164,
+                206.86802673339844
+              ],
+              "distance_mm": 6.66142731488069e-10
+            },
+            {
+              "point": [
+                7.615057945251465,
+                -18.037071228027344,
+                199.9560546875
+              ],
+              "distance_mm": 6.652666305751217e-10
+            },
+            {
+              "point": [
+                -7.322671413421631,
+                10.413664817810059,
+                187.16664123535156
+              ],
+              "distance_mm": 6.64513227962603e-10
+            },
+            {
+              "point": [
+                -8.088257789611816,
+                -10.184165000915527,
+                222.12091064453125
+              ],
+              "distance_mm": 6.572458367694848e-10
+            }
+          ]
+        }
+      },
+      {
+        "part": "faucet-shell-tip",
+        "current_stl_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+        "current_watertight": true,
+        "current_winding_consistent": true,
+        "current_bodies": 1,
+        "accepted_bounds_mm": [
+          [
+            -13.5,
+            -147.42356872511232,
+            174.29994201658985
+          ],
+          [
+            13.5,
+            -13.717998505112305,
+            242.71292114258983
+          ]
+        ],
+        "current_bounds_mm": [
+          [
+            -13.5,
+            -147.42356872558594,
+            174.29994201660156
+          ],
+          [
+            13.5,
+            -13.717998504638672,
+            242.71292114257812
+          ]
+        ],
+        "accepted_volume_mm3": 43610.52478538777,
+        "current_volume_mm3": 43610.21905400858,
+        "comparison_source_z_min_mm": null,
+        "accepted_to_current": {
+          "samples": 7000,
+          "max_mm": 0.6892990029663271,
+          "p99_mm": 6.848305779681836e-05,
+          "above_0_025_mm": 14,
+          "witnesses": [
+            {
+              "point": [
+                1.310538769,
+                -46.45348485311231,
+                218.1853790282565
+              ],
+              "distance_mm": 0.6892990029663271
+            },
+            {
+              "point": [
+                1.340011716,
+                -46.012855530112304,
+                218.07984924358985
+              ],
+              "distance_mm": 0.5913526016719036
+            },
+            {
+              "point": [
+                1.489255786,
+                -46.940364837778965,
+                218.35975646958983
+              ],
+              "distance_mm": 0.4179754635224699
+            },
+            {
+              "point": [
+                1.526378155,
+                -45.88105010944563,
+                218.10163370758983
+              ],
+              "distance_mm": 0.3752138651785834
+            },
+            {
+              "point": [
+                1.6372034946666665,
+                -46.6344757081123,
+                218.3327280679232
+              ],
+              "distance_mm": 0.34652791146293227
+            },
+            {
+              "point": [
+                1.6003520093333332,
+                -46.93194961544564,
+                218.39395650225651
+              ],
+              "distance_mm": 0.3128789409385871
+            },
+            {
+              "point": [
+                -1.7421388626666667,
+                -46.37046559644565,
+                218.1426595052565
+              ],
+              "distance_mm": 0.25626355865290557
+            },
+            {
+              "point": [
+                -1.607860962666667,
+                -45.75642267877897,
+                218.09583028192318
+              ],
+              "distance_mm": 0.2546278764012816
+            }
+          ]
+        },
+        "current_to_accepted": {
+          "samples": 7000,
+          "max_mm": 0.0011274019045712394,
+          "p99_mm": 0.00011642160070171709,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -1.4069910049438477,
+                -44.98698170979818,
+                217.822509765625
+              ],
+              "distance_mm": 0.0011274019045712394
+            },
+            {
+              "point": [
+                -1.3469158013661702,
+                -50.917624155680336,
+                219.16712443033853
+              ],
+              "distance_mm": 0.0007272309359095189
+            },
+            {
+              "point": [
+                1.4002944231033325,
+                -49.48690414428711,
+                218.9068145751953
+              ],
+              "distance_mm": 0.0003355239695367644
+            },
+            {
+              "point": [
+                1.4002944231033325,
+                -50.55710983276367,
+                219.11724853515625
+              ],
+              "distance_mm": 0.00033137296684286784
+            },
+            {
+              "point": [
+                -0.027508055791258812,
+                -51.66360855102539,
+                219.11756896972656
+              ],
+              "distance_mm": 0.0003292781093392397
+            },
+            {
+              "point": [
+                -1.6931549310684204,
+                -45.37668991088867,
+                218.02394104003906
+              ],
+              "distance_mm": 0.00032531656214618456
+            },
+            {
+              "point": [
+                1.8351038694381714,
+                -44.45269775390625,
+                217.8202667236328
+              ],
+              "distance_mm": 0.0003244480351487214
+            },
+            {
+              "point": [
+                2.024465004603068,
+                -46.0534553527832,
+                218.33805338541666
+              ],
+              "distance_mm": 0.00031958363936550674
+            }
+          ]
+        }
+      },
+      {
+        "part": "industrial-display-cover",
+        "current_stl_sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+        "current_watertight": true,
+        "current_winding_consistent": true,
+        "current_bodies": 1,
+        "accepted_bounds_mm": [
+          [
+            -14.899999619,
+            -151.1178131105957,
+            182.50994873014844
+          ],
+          [
+            14.899999619,
+            -104.5459823605957,
+            232.86575317414844
+          ]
+        ],
+        "current_bounds_mm": [
+          [
+            -14.899999618530273,
+            -151.11781311035156,
+            182.50994873046875
+          ],
+          [
+            14.899999618530273,
+            -104.54598236083984,
+            232.86575317382812
+          ]
+        ],
+        "accepted_volume_mm3": 4486.067723590547,
+        "current_volume_mm3": 4486.067723097902,
+        "comparison_source_z_min_mm": null,
+        "accepted_to_current": {
+          "samples": 6558,
+          "max_mm": 7.484783676713343e-10,
+          "p99_mm": 5.62976307836871e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -12.216057777,
+                -139.4855194095957,
+                184.99438476514842
+              ],
+              "distance_mm": 7.484783676713343e-10
+            },
+            {
+              "point": [
+                -4.943949223,
+                -113.1834411625957,
+                226.56483459514843
+              ],
+              "distance_mm": 7.474515510456662e-10
+            },
+            {
+              "point": [
+                -10.878632545,
+                -131.7303161625957,
+                192.12850952114843
+              ],
+              "distance_mm": 7.316286582543721e-10
+            },
+            {
+              "point": [
+                10.878632545,
+                -131.7303161625957,
+                192.12850952114843
+              ],
+              "distance_mm": 7.316252379092339e-10
+            },
+            {
+              "point": [
+                9.0870924,
+                -110.9649047855957,
+                224.26666259814843
+              ],
+              "distance_mm": 7.315266257903697e-10
+            },
+            {
+              "point": [
+                12.273582458,
+                -137.7154846195957,
+                183.50915527314845
+              ],
+              "distance_mm": 7.196370415513984e-10
+            },
+            {
+              "point": [
+                -4.817430019,
+                -113.2298507685957,
+                226.60325622514844
+              ],
+              "distance_mm": 7.127022611857836e-10
+            },
+            {
+              "point": [
+                2.504211903,
+                -113.8513336185957,
+                227.12545776414845
+              ],
+              "distance_mm": 7.08204672045708e-10
+            }
+          ]
+        },
+        "current_to_accepted": {
+          "samples": 6558,
+          "max_mm": 7.45525749436848e-10,
+          "p99_mm": 5.83980438248615e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -4.943949222564697,
+                -113.18344116210938,
+                226.56483459472656
+              ],
+              "distance_mm": 7.45525749436848e-10
+            },
+            {
+              "point": [
+                -5.7313456535339355,
+                -113.72900390625,
+                225.71530151367188
+              ],
+              "distance_mm": 7.387921316947636e-10
+            },
+            {
+              "point": [
+                9.087092399597168,
+                -110.96490478515625,
+                224.26666259765625
+              ],
+              "distance_mm": 7.265494799588059e-10
+            },
+            {
+              "point": [
+                8.981322288513184,
+                -122.80194091796875,
+                228.50059509277344
+              ],
+              "distance_mm": 7.184262327122058e-10
+            },
+            {
+              "point": [
+                -8.981322288513184,
+                -122.80194091796875,
+                228.50059509277344
+              ],
+              "distance_mm": 7.184262327122058e-10
+            },
+            {
+              "point": [
+                -4.817430019378662,
+                -113.22985076904297,
+                226.60325622558594
+              ],
+              "distance_mm": 7.149202137500386e-10
+            },
+            {
+              "point": [
+                2.504211902618408,
+                -113.85133361816406,
+                227.12545776367188
+              ],
+              "distance_mm": 7.056987165261335e-10
+            },
+            {
+              "point": [
+                7.425340175628662,
+                -147.1613006591797,
+                197.4477996826172
+              ],
+              "distance_mm": 6.963709533122875e-10
+            }
+          ]
+        }
+      },
+      {
+        "part": "industrial-above-counter-plate",
+        "current_stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+        "current_watertight": true,
+        "current_winding_consistent": true,
+        "current_bodies": 1,
+        "accepted_bounds_mm": [
+          [
+            -29.5,
+            -29.5,
+            -4.000000000158142
+          ],
+          [
+            29.5,
+            29.5,
+            2.2000000478418578
+          ]
+        ],
+        "current_bounds_mm": [
+          [
+            -29.5,
+            -29.5,
+            -4.0
+          ],
+          [
+            29.5,
+            29.5,
+            2.200000047683716
+          ]
+        ],
+        "accepted_volume_mm3": 9879.895976214839,
+        "current_volume_mm3": 9879.895975695528,
+        "comparison_source_z_min_mm": null,
+        "accepted_to_current": {
+          "samples": 7000,
+          "max_mm": 2.274823127076932,
+          "p99_mm": 1.3333333334914752,
+          "above_0_025_mm": 217,
+          "witnesses": [
+            {
+              "point": [
+                -6.799624602333332,
+                18.955123901333334,
+                -2.6666666668248085
+              ],
+              "distance_mm": 2.274823127076932
+            },
+            {
+              "point": [
+                -6.800000191,
+                18.924999237,
+                -4.000000000158142
+              ],
+              "distance_mm": 2.2748229607548636
+            },
+            {
+              "point": [
+                -6.798873425,
+                18.834627151,
+                -4.000000000158142
+              ],
+              "distance_mm": 2.272835069022497
+            },
+            {
+              "point": [
+                -6.797746817666667,
+                18.804520924666665,
+                -2.6666666668248085
+              ],
+              "distance_mm": 2.2715999433340275
+            },
+            {
+              "point": [
+                -6.796620210333333,
+                19.075585683333333,
+                -1.3333333334914752
+              ],
+              "distance_mm": 2.269705303505342
+            },
+            {
+              "point": [
+                -6.795493603,
+                18.744308472,
+                -1.5814205500674916e-10
+              ],
+              "distance_mm": 2.267155042445205
+            },
+            {
+              "point": [
+                -6.795493603,
+                19.10569191,
+                -1.5814205500674916e-10
+              ],
+              "distance_mm": 2.267155042372712
+            },
+            {
+              "point": [
+                -6.789863586,
+                19.195896149,
+                -4.000000000158142
+              ],
+              "distance_mm": 2.257849592821369
+            }
+          ]
+        },
+        "current_to_accepted": {
+          "samples": 7000,
+          "max_mm": 2.2748236149090797,
+          "p99_mm": 1.3333333334914754,
+          "above_0_025_mm": 228,
+          "witnesses": [
+            {
+              "point": [
+                9.074999809265137,
+                18.924999237060547,
+                0.0
+              ],
+              "distance_mm": 2.2748236149090797
+            },
+            {
+              "point": [
+                9.074999809265137,
+                18.924999237060547,
+                -4.0
+              ],
+              "distance_mm": 2.2748236149090797
+            },
+            {
+              "point": [
+                9.074624379475912,
+                18.955123901367188,
+                -2.6666666666666665
+              ],
+              "distance_mm": 2.2748233045222377
+            },
+            {
+              "point": [
+                9.072746912638346,
+                18.804520924886067,
+                -2.6666666666666665
+              ],
+              "distance_mm": 2.2715994684893945
+            },
+            {
+              "point": [
+                9.070493698120117,
+                18.744308471679688,
+                -4.0
+              ],
+              "distance_mm": 2.267154990768057
+            },
+            {
+              "point": [
+                9.070493698120117,
+                18.744308471679688,
+                0.0
+              ],
+              "distance_mm": 2.2671549907680566
+            },
+            {
+              "point": [
+                9.068617184956869,
+                19.135759989420574,
+                -2.6666666666666665
+              ],
+              "distance_mm": 2.264700552067202
+            },
+            {
+              "point": [
+                9.06674067179362,
+                19.165828069051106,
+                -1.3333333333333333
+              ],
+              "distance_mm": 2.2615962224650037
+            }
+          ]
+        }
+      },
+      {
+        "part": "lever-replica",
+        "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+        "current_watertight": true,
+        "current_winding_consistent": true,
+        "current_bodies": 1,
+        "accepted_bounds_mm": [
+          [
+            -10.234932899568237,
+            -0.1777585749733568,
+            2.651354691352026e-10
+          ],
+          [
+            4.429999828431763,
+            52.85694885302664,
+            12.399999618265136
+          ]
+        ],
+        "current_bounds_mm": [
+          [
+            -10.234932899475098,
+            -0.1777585744857788,
+            -9.48469377852739e-16
+          ],
+          [
+            4.429999828338623,
+            52.85694885253906,
+            12.399999618530273
+          ]
+        ],
+        "accepted_volume_mm3": 3021.97920414568,
+        "current_volume_mm3": 3021.979204574296,
+        "comparison_source_z_min_mm": null,
+        "accepted_to_current": {
+          "samples": 7000,
+          "max_mm": 1.5321527785406833e-07,
+          "p99_mm": 5.651672139673922e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -2.2173363169015707,
+                45.92000198369331,
+                4.000036875598469
+              ],
+              "distance_mm": 1.5321527785406833e-07
+            },
+            {
+              "point": [
+                1.2831543090984294,
+                45.293698628693306,
+                9.040424982598468
+              ],
+              "distance_mm": 2.1727264360467434e-09
+            },
+            {
+              "point": [
+                0.2750000064317626,
+                47.209053040026646,
+                3.267498255265136
+              ],
+              "distance_mm": 8.01435216561531e-10
+            },
+            {
+              "point": [
+                2.3845007424317624,
+                51.30339431802664,
+                1.2213637832651356
+              ],
+              "distance_mm": 7.229792355811847e-10
+            },
+            {
+              "point": [
+                2.750000000431763,
+                44.35413742102664,
+                10.055197715265136
+              ],
+              "distance_mm": 7.207326679346839e-10
+            },
+            {
+              "point": [
+                4.3176262565225443e-10,
+                1.2408919330266421,
+                10.398039818265136
+              ],
+              "distance_mm": 7.134791856818102e-10
+            },
+            {
+              "point": [
+                -7.607854843568237,
+                37.444686890026645,
+                1.700000047265136
+              ],
+              "distance_mm": 6.874913786399426e-10
+            },
+            {
+              "point": [
+                4.381526947431762,
+                40.45137786902664,
+                10.622632026265137
+              ],
+              "distance_mm": 6.805808690349814e-10
+            }
+          ]
+        },
+        "current_to_accepted": {
+          "samples": 7000,
+          "max_mm": 1.558678461877239e-07,
+          "p99_mm": 5.545089995357901e-10,
+          "above_0_025_mm": 0,
+          "witnesses": [
+            {
+              "point": [
+                -2.2173363169034324,
+                45.92000198364258,
+                8.39996306101481
+              ],
+              "distance_mm": 1.558678461877239e-07
+            },
+            {
+              "point": [
+                1.283154308795929,
+                45.29369862874349,
+                9.040424982706705
+              ],
+              "distance_mm": 3.1391197666662274e-09
+            },
+            {
+              "point": [
+                0.2750000059604645,
+                47.20905303955078,
+                3.267498254776001
+              ],
+              "distance_mm": 8.064056468172558e-10
+            },
+            {
+              "point": [
+                2.75,
+                44.3541374206543,
+                10.055197715759277
+              ],
+              "distance_mm": 6.994200172633903e-10
+            },
+            {
+              "point": [
+                -8.989897727966309,
+                49.89408493041992,
+                2.101409673690796
+              ],
+              "distance_mm": 6.946541923021651e-10
+            },
+            {
+              "point": [
+                -0.546920657157898,
+                45.15774154663086,
+                2.1769185066223145
+              ],
+              "distance_mm": 6.709414584145198e-10
+            },
+            {
+              "point": [
+                -9.559884071350098,
+                36.68129348754883,
+                1.7000000476837158
+              ],
+              "distance_mm": 6.66763860833032e-10
+            },
+            {
+              "point": [
+                -0.5600000023841858,
+                48.28605651855469,
+                8.824392318725586
+              ],
+              "distance_mm": 6.595062138624507e-10
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "mesh_comparison_reader": {
+    "path": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/compare_geometry.py",
+    "sha256": "5fe723f2c1bd9e5aeaf0bffffc9b4fb6d1807211b9b9ae55f0c4ad67f587f8d7"
+  },
+  "retained_geometry": {
+    "joint_angle_degrees": 70,
+    "joint_base": "female",
+    "joint_tip": "male",
+    "joint_overlap_mm": [
+      20,
+      18
+    ],
+    "tip_print_rotation_x_degrees": -105,
+    "cover_wing_extension_mm": 0.5,
+    "cover_retaining_lip_datum": "unchanged",
+    "smooth_tangent_tube_and_ribbon_opening": true,
+    "intermediate_guide_discs": 0,
+    "flavor_capsule_center_divider": false,
+    "flavor_outlet_cusp": false,
+    "fault_drip_hole_diameter_mm": 4,
+    "drain_mouth_clearance_mm": 3,
+    "foot_reinforcement": "one continuous region, six walls, 100% zigzag, base Arachne"
+  },
+  "reviewed_source_changes": [
+    {
+      "feature": "Lower mounting passage and matching printed stack",
+      "current": "Soda, drain and measured flat ribbon share X=0; flavors are symmetric. Matching steel rear opening is 18.15 by 7.25 mm.",
+      "evidence": "hardware/cut-parts/faucet/under-counter-plate/centered-layout-check.json"
+    },
+    {
+      "feature": "Ribbon envelope",
+      "current": "4.6 by 1.18 mm measured ribbon; fixed 5.0 by 1.8 mm upper slot, 5.4 by 1.8 mm organizer slot.",
+      "evidence": "hardware/printed-parts/faucet/umbilical-organizer/integration-check.json"
+    },
+    {
+      "feature": "Tip drip cut",
+      "current": "Cutter reaches 0.60 mm inward of the soda-clearance wall; current source differences are confined to the deeper hole start and float32 mesh cleanup. Removed-tip-stock witnesses are inside that cut.",
+      "evidence": "hardware/printed-parts/faucet/vent-qualification/centered-layout-lint-review.json"
+    }
+  ],
+  "compatibility_condition": "Use the matching centered steel plate DXF. The purchased narrower rear opening is not the current mounting set.",
+  "finish_choices_pending": [
+    "seam/scarf selection",
+    "coarse model layers above supports"
+  ],
+  "geometry_review_passed": true,
+  "launch_authorized": false
+}

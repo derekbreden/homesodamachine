@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Sculpted project](faucet-petgf.3mf) · [print settings](faucet-petgf.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Complete variable-layer print](industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Complete current preparation](industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -13,7 +13,8 @@ The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
 Both styles include one black PET-GF [umbilical organizer](umbilical-organizer/README.md)
 below the mounting workspace, with A's accepted Ø6.65 mm beverage bores and
-B's accepted Ø4.40 mm drain bore. The loose Ø5.00 mm signal passage is retained.
+B's accepted Ø4.40 mm drain bore. The measured ribbon uses a 5.4 × 1.8 mm
+flat signal slot in the organizer.
 
 The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
@@ -55,14 +56,18 @@ show its nominal seated surface.
 | Umbilical organizer, shared | [STEP](umbilical-organizer/umbilical-organizer.step) · [STL](umbilical-organizer/umbilical-organizer.stl) · [accepted fit and settings](umbilical-organizer/README.md) | Same part |
 
 Use the matching base, cover, plate and gasket for the selected style.
-The PET-GF projects each contain the base, shared tip, cover and plate.
+Both PET-GF projects contain the base, shared tip, cover and plate. The complete
+Industrial project also includes the side-down lever replica.
 The gasket is a separate TPU print.
 The organizer is a separate PET-GF print, fitted during
 [umbilical assembly](../../assembly/faucet-and-umbilical.md).
 
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
-identifies the tested physical article. Current production geometry uses the
-matching style project and [native review](vent-print-readiness/README.md).
+identifies the tested physical article. The current complete Industrial
+project has a [native review](industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
+with seam/scarf and coarse-layer choices pending. The
+[retained sealed-cavity reviews](vent-print-readiness/README.md) apply to
+their exact archived geometry.
 
 The [assembly procedure](faucet-shell/ASSEMBLY.md) supplies the shared mounting,
 tube routing and display seating order. The Industrial base has a round foot

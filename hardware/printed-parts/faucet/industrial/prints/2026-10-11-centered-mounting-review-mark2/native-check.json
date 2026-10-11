@@ -1,0 +1,674 @@
+{
+  "native": {
+    "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/2026-10-11-industrial-faucet-centered-mount-shoulders012-petgf-left04-z004-mark2.gcode.3mf",
+    "archive_sha256": "f04d68205169ab2f8e04f67c45e14b6c49d209a62d91ed3986575d091a478844",
+    "gcode_sha256": "27a0b8252e3f77d402273f5d9fbcd28d33f3acfb9818a07c565be0dd0eb6bc16",
+    "native_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_process": {
+      "layer_height": "0.24",
+      "initial_layer_print_height": "0.2",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "enable_support": "1"
+    },
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "active_nozzle": 0,
+    "nozzle_diameter_mm": 0.4,
+    "layers": 1259,
+    "estimated_seconds": 21241.884765625,
+    "estimated_grams_saved_profile_density": 161.89999389648438,
+    "slicer_return_code": 0,
+    "slicer_warning": "",
+    "objects": 5
+  },
+  "geometry": [
+    {
+      "part": "industrial-shell-base",
+      "source_stl_sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "native_mesh_error_mm": 4.2761230503174374e-06,
+      "native_placement_error_mm": 3.608876539828998e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "faucet-shell-tip",
+      "source_stl_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "native_mesh_error_mm": 3.854443363593418e-06,
+      "native_placement_error_mm": 3.9310936017500353e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "industrial-display-cover",
+      "source_stl_sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+      "native_mesh_error_mm": 5.000001124244591e-08,
+      "native_placement_error_mm": 1.0864781074815255e-07,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "source_stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+      "native_mesh_error_mm": 1.1924652110195666e-07,
+      "native_placement_error_mm": 3.8418579428878274e-09,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    },
+    {
+      "part": "lever-replica",
+      "source_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "native_mesh_error_mm": 9.646621244030484e-07,
+      "native_placement_error_mm": 7.34862837248329e-10,
+      "triangles_identical": true,
+      "single_closed_oriented_volume": true
+    }
+  ],
+  "wall_layers": [
+    {
+      "part": "industrial-shell-base",
+      "layer_count": 1141,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 239,
+      "last_wall_layer": [
+        245.0,
+        0.240005
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "layer_count": 575,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        137.72,
+        0.240005
+      ]
+    },
+    {
+      "part": "industrial-display-cover",
+      "layer_count": 80,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        19.16,
+        0.24
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "layer_count": 26,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        6.2,
+        0.24
+      ]
+    },
+    {
+      "part": "lever-replica",
+      "layer_count": 52,
+      "first_wall_layer": [
+        0.2,
+        0.2
+      ],
+      "fine_wall_layers": 0,
+      "last_wall_layer": [
+        12.44,
+        0.24
+      ]
+    }
+  ],
+  "shoulder_band_checks": [
+    {
+      "name": "shoulder_CAD_Z14.0",
+      "print_z_mm": [
+        13.871648117739781,
+        28.793276836907097
+      ],
+      "wall_layer_count": 126,
+      "first_wall_layer": [
+        13.88,
+        0.12
+      ],
+      "last_wall_layer": [
+        28.88,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "shoulder_CAD_Z57.5",
+      "print_z_mm": [
+        55.46313145649684,
+        67.83949033899097
+      ],
+      "wall_layer_count": 105,
+      "first_wall_layer": [
+        55.52,
+        0.12
+      ],
+      "last_wall_layer": [
+        67.88,
+        0.12
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "first_second_layer_overlap": {
+    "layers_z_mm": [
+      0.2,
+      0.44
+    ],
+    "objects": [
+      {
+        "part": "industrial-shell-base",
+        "second_wall_segments": 41,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.9994672708335297,
+        "total_second_wall_overlap_fraction": 0.9997033111577209
+      },
+      {
+        "part": "faucet-shell-tip",
+        "second_wall_segments": 7,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.7071408501317128,
+        "total_second_wall_overlap_fraction": 0.9119037250675972
+      },
+      {
+        "part": "industrial-display-cover",
+        "second_wall_segments": 78,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.2223505413844461,
+        "total_second_wall_overlap_fraction": 0.7062682974496615
+      },
+      {
+        "part": "industrial-above-counter-plate",
+        "second_wall_segments": 872,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.6403782137199981,
+        "total_second_wall_overlap_fraction": 0.8214677810781851
+      },
+      {
+        "part": "lever-replica",
+        "second_wall_segments": 173,
+        "segments_without_first_layer_overlap": 0,
+        "minimum_segment_overlap_fraction": 0.5736228334268186,
+        "total_second_wall_overlap_fraction": 0.8131857780361794
+      }
+    ],
+    "method": "Commanded bead footprints at emitted width; labelled first-layer model/support/brim carries each object's second-layer walls",
+    "scope": "Native contact footprints; physical adhesion is not measured"
+  },
+  "screw_point_contours": {
+    "original_screw_host_boundaries": [
+      {
+        "name": "Solid base insert host 1",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 4,
+        "witnesses": [
+          {
+            "cad_mm": [
+              29.063000000000002,
+              -3.673474145132842,
+              3.74156379367993
+            ],
+            "end": "start",
+            "print_z_mm": 12.2,
+            "complete_contour_seam": true,
+            "run_length_mm": 178.66062970735436,
+            "closure_gap_mm": 0.06067124524844424,
+            "projected_area_mm2": 2363.0122454999964,
+            "minimum_width_mm": 0.419994
+          },
+          {
+            "cad_mm": [
+              29.054000000000002,
+              -3.7314296947101604,
+              3.726034650973787
+            ],
+            "end": "stop",
+            "print_z_mm": 12.2,
+            "complete_contour_seam": true,
+            "run_length_mm": 178.66062970735436,
+            "closure_gap_mm": 0.06067124524844424,
+            "projected_area_mm2": 2363.0122454999964,
+            "minimum_width_mm": 0.419994
+          },
+          {
+            "cad_mm": [
+              29.054000000000002,
+              -3.672805537248631,
+              3.990209229920964
+            ],
+            "end": "start",
+            "print_z_mm": 12.44,
+            "complete_contour_seam": true,
+            "run_length_mm": 179.64718008891538,
+            "closure_gap_mm": 0.06053098380168789,
+            "projected_area_mm2": 2408.1866365000024,
+            "minimum_width_mm": 0.419994
+          },
+          {
+            "cad_mm": [
+              29.046000000000006,
+              -3.7307610868259777,
+              3.9746800872148214
+            ],
+            "end": "stop",
+            "print_z_mm": 12.44,
+            "complete_contour_seam": true,
+            "run_length_mm": 179.64718008891538,
+            "closure_gap_mm": 0.06053098380168789,
+            "projected_area_mm2": 2408.1866365000024,
+            "minimum_width_mm": 0.419994
+          }
+        ]
+      },
+      {
+        "name": "Solid base insert host 2",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 0,
+        "witnesses": []
+      },
+      {
+        "name": "Solid base insert host 3",
+        "partition_endpoints": 0,
+        "complete_contour_seam_endpoints": 0,
+        "witnesses": []
+      }
+    ],
+    "all_outer_foot_endpoints": [
+      {
+        "cad_mm": [
+          6.7620000000000005,
+          28.47105648382564,
+          0.6767495017611083
+        ],
+        "end": "start",
+        "print_z_mm": 0.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 49.71355245984848,
+        "closure_gap_mm": 0.059665735560693794,
+        "projected_area_mm2": 45.68022349999865,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.819999999999993,
+          28.457533522257613,
+          0.6731260351296697
+        ],
+        "end": "stop",
+        "print_z_mm": 0.92,
+        "complete_contour_seam": false,
+        "run_length_mm": 49.71355245984848,
+        "closure_gap_mm": 0.059665735560693794,
+        "projected_area_mm2": 45.68022349999865,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.700000000000003,
+          28.48524805327788,
+          0.929018404633581
+        ],
+        "end": "start",
+        "print_z_mm": 1.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 57.510056331114924,
+        "closure_gap_mm": 0.05990826320299018,
+        "projected_area_mm2": 70.99025700000038,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.757999999999996,
+          28.470759165883557,
+          0.9251361189570417
+        ],
+        "end": "stop",
+        "print_z_mm": 1.16,
+        "complete_contour_seam": false,
+        "run_length_mm": 57.510056331114924,
+        "closure_gap_mm": 0.05990826320299018,
+        "projected_area_mm2": 70.99025700000038,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.638999999999996,
+          28.501371474382708,
+          1.1818049455962694
+        ],
+        "end": "start",
+        "print_z_mm": 1.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 64.38426300626742,
+        "closure_gap_mm": 0.06016643582597718,
+        "projected_area_mm2": 99.60582750000049,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.697000000000003,
+          28.485916661162058,
+          1.1776638408746294
+        ],
+        "end": "stop",
+        "print_z_mm": 1.4,
+        "complete_contour_seam": false,
+        "run_length_mm": 64.38426300626742,
+        "closure_gap_mm": 0.06016643582597718,
+        "projected_area_mm2": 99.60582750000049,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.581000000000003,
+          28.507835637224623,
+          1.432003296107922
+        ],
+        "end": "start",
+        "print_z_mm": 1.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 70.46328832864124,
+        "closure_gap_mm": 0.060638271743182,
+        "projected_area_mm2": 130.9982449999934,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.640000000000001,
+          28.494312675656566,
+          1.4283798294764836
+        ],
+        "end": "stop",
+        "print_z_mm": 1.64,
+        "complete_contour_seam": false,
+        "run_length_mm": 70.46328832864124,
+        "closure_gap_mm": 0.060638271743182,
+        "projected_area_mm2": 130.9982449999934,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.537000000000006,
+          28.51816350337169,
+          1.6832369227999777
+        ],
+        "end": "start",
+        "print_z_mm": 1.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 76.07477765153956,
+        "closure_gap_mm": 0.05966573556070046,
+        "projected_area_mm2": 164.83970950000366,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          6.594999999999999,
+          28.50464054180363,
+          1.6796134561685392
+        ],
+        "end": "stop",
+        "print_z_mm": 1.88,
+        "complete_contour_seam": false,
+        "run_length_mm": 76.07477765153956,
+        "closure_gap_mm": 0.05966573556070046,
+        "projected_area_mm2": 164.83970950000366,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          29.063000000000002,
+          -3.673474145132842,
+          3.74156379367993
+        ],
+        "end": "start",
+        "print_z_mm": 12.2,
+        "complete_contour_seam": true,
+        "run_length_mm": 178.66062970735436,
+        "closure_gap_mm": 0.06067124524844424,
+        "projected_area_mm2": 2363.0122454999964,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          29.054000000000002,
+          -3.7314296947101604,
+          3.726034650973787
+        ],
+        "end": "stop",
+        "print_z_mm": 12.2,
+        "complete_contour_seam": true,
+        "run_length_mm": 178.66062970735436,
+        "closure_gap_mm": 0.06067124524844424,
+        "projected_area_mm2": 2363.0122454999964,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          29.054000000000002,
+          -3.672805537248631,
+          3.990209229920964
+        ],
+        "end": "start",
+        "print_z_mm": 12.44,
+        "complete_contour_seam": true,
+        "run_length_mm": 179.64718008891538,
+        "closure_gap_mm": 0.06053098380168789,
+        "projected_area_mm2": 2408.1866365000024,
+        "minimum_width_mm": 0.419994
+      },
+      {
+        "cad_mm": [
+          29.046000000000006,
+          -3.7307610868259777,
+          3.9746800872148214
+        ],
+        "end": "stop",
+        "print_z_mm": 12.44,
+        "complete_contour_seam": true,
+        "run_length_mm": 179.64718008891538,
+        "closure_gap_mm": 0.06053098380168789,
+        "projected_area_mm2": 2408.1866365000024,
+        "minimum_width_mm": 0.419994
+      }
+    ],
+    "repeated_reinforcement_boundary_tracks_absent": true,
+    "method": "Connected positive-extrusion Outer/Overhang runs; CAD Z0.5\u201313.9 and R28.7\u201329.7; host sides within0.6 mm. Full-contour seams have closure gap <= half width, length >100 mm and projected area >1500 mm\u00b2.",
+    "scope": "Emitted endpoints at the reported screw-point defect sites; physical finish remains unmeasured"
+  },
+  "support_summary": {
+    "industrial-shell-base": {
+      "support_bodies": 6,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 5,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 2,
+      "explicit_interface_islands": 11,
+      "shortest_labelled_build_up_mm": 0.27
+    },
+    "faucet-shell-tip": {
+      "support_bodies": 48,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 47,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 47,
+      "explicit_interface_islands": 1,
+      "shortest_labelled_build_up_mm": 13.92
+    },
+    "industrial-display-cover": {
+      "support_bodies": 8,
+      "interface_islands": null,
+      "bed_rooted_bodies": 6,
+      "model_rooted_bodies": 2,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 7,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 0.0
+    },
+    "industrial-above-counter-plate": {
+      "support_bodies": 3,
+      "interface_islands": null,
+      "bed_rooted_bodies": 3,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "lever-replica": {
+      "support_bodies": 1,
+      "interface_islands": 4,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 6.48,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "shortest_labelled_build_up_mm": 6.48
+    }
+  },
+  "plate_fit": {
+    "minimum_shared_bed_margin_mm": 44.917798000000005,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          49.261517000000005,
+          73.200517
+        ],
+        [
+          266.683483,
+          275.14448300000004
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 44.85551699999996,
+    "minimum_toolpath_separation_mm": 14.112617999999983,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "industrial-shell-base",
+          "faucet-shell-tip"
+        ],
+        "separation_mm": 27.534911000000008
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 121.3334403794837
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 32.89131499999999
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 60.30239400000001
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 41.93951700000002
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 81.413332459405
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "lever-replica"
+        ],
+        "separation_mm": 14.112617999999983
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 47.55474100000001
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 117.80677324721599
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 18.83122400000002
+      }
+    ]
+  },
+  "insert_deposition_pass": true,
+  "lower_support_review": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.lower-supports.json",
+  "probing_clump_detection": false,
+  "bare_G39_commands": 0,
+  "support_blockers": 0,
+  "supports": "Tree(auto), saved Default; native automatic decisions retained",
+  "preparation_only": true,
+  "launch_authorized": false,
+  "submitted": false,
+  "finish_choices_pending": [
+    "seam/scarf selection",
+    "coarse model layers above supports"
+  ],
+  "scope": "Native geometry, layer recipe, accessible-support locations and nominal insert stock; physical finish, release, fit, strength and lifetime require the identified physical article.",
+  "pass": true
+}

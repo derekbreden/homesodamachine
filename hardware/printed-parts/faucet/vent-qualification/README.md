@@ -38,6 +38,10 @@ The [complete Industrial selection](../industrial/selected-print.json) has
 0.12 mm base shoulder bands, corrected screw reinforcement, 0.50 mm longer
 display-cover wings and all five rigid parts, including the lever. Its native
 slice, source bindings and launch receipt belong to the selected job.
+The [current centered Industrial review](../industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
+binds current meshes and native support access to that accepted reference.
+Its complete five-part project awaits the scarf/seam and coarse-layer
+choices from the combined coupon plate.
 
 The retained [hydraulic report](hydraulic-report.json),
 [sealed-port witness](port-native-check.json) and

@@ -1,7 +1,7 @@
-"""Prepare the Industrial faucet in the saved Sculpted PET-GF profile.
+"""Prepare the complete Industrial faucet with the accepted PET-GF recipe.
 
 The project contains the Industrial base, relaxed cover and mounting plate,
-plus the shared faucet tip. The TPU gasket is a separate print. Optional
+plus the shared faucet tip and side-down lever. The TPU gasket is a separate print. Optional
 slicing runs Bambu Studio locally and never connects to a printer.
 """
 from __future__ import annotations
@@ -11,7 +11,11 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 import zipfile
+
+import numpy as np
+import trimesh
 
 
 HERE = Path(__file__).resolve().parent
@@ -21,11 +25,14 @@ import refresh_print_project as writer
 
 TITLE = "Industrial faucet PET-GF"
 PROJECT = HERE / "faucet-industrial-petgf.3mf"
-PROFILE = FAUCET / "faucet-petgf.3mf"
+ACCEPTANCE = HERE / "physical-acceptance.json"
+ACCEPTED = json.loads(ACCEPTANCE.read_text())
+RECIPE = writer.ROOT / ACCEPTED["prepared_project"]
+PROFILE = RECIPE
 GASKET = HERE / "industrial-above-counter-gasket.stl"
 # Separate spaces for each part's brim and automatically generated supports.
-PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 106.0), (43.0, -52.0))
-PROTECTED_SCULPTED = tuple(PROFILE.with_suffix(suffix) for suffix in (
+PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 86.0), (43.0, -52.0), (-17.5, -60.0))
+PROTECTED_SCULPTED = tuple((FAUCET / "faucet-petgf.3mf").with_suffix(suffix) for suffix in (
     ".3mf", ".print.json", ".support-audit.json", ".readiness.json"))
 
 
@@ -60,6 +67,7 @@ def industrial_parts() -> tuple:
         ("industrial-display-cover", HERE / "industrial-display-cover.stl",
          rotations["faucet-display-cover"]),
         ("industrial-above-counter-plate", HERE / "industrial-above-counter-plate.stl", 0.0),
+        ("lever-replica", FAUCET / "lever-replica/lever-replica-side-down.stl", 0.0),
     )
     missing = [relative(path) for _, path, _ in parts if not path.is_file()]
     if missing:
@@ -68,13 +76,38 @@ def industrial_parts() -> tuple:
     return parts
 
 
+def shoulder_readings(report: dict, recipe_report: dict) -> list[dict]:
+    row = report["parts"][0]
+    mesh = trimesh.load(writer.ROOT / row["source"], force="mesh", process=True)
+    rotation = np.array(row["build_transform"][:9]).reshape(3, 3)
+    readings = []
+    for reference in recipe_report["selected_faces"]:
+        z = reference["cad_z_mm"]
+        mask = ((np.abs(mesh.triangles[:, :, 2] - z).max(axis=1) < 1e-5)
+                & (mesh.face_normals[:, 2] > .9999))
+        if not mask.any():
+            raise ValueError(f"The current base has no upward shoulder at CAD Z{z:g}")
+        points = mesh.triangles[mask].reshape(-1, 3)
+        placed = (points - row["source_center_mm"]) @ rotation + row["plate_translation_mm"]
+        readings.append({"cad_z_mm": z, "pick_mm": reference["pick_mm"],
+                         "measurement": "Current source STL upward planar facets at the selected CAD Z",
+                         "area_mm2": float(mesh.area_faces[mask].sum()),
+                         "cad_bounds_mm": [points.min(axis=0).tolist(), points.max(axis=0).tolist()],
+                         "print_z_span_mm": [float(placed[:, 2].min()), float(placed[:, 2].max())],
+                         "fine_band_print_z_mm": reference["fine_band_print_z_mm"]})
+    return readings
+
+
 def write_readiness(project: Path, report: dict, reading: dict | None = None,
                     slice_directory: Path | None = None) -> dict:
     """Record what this offline preparation actually checked."""
     result = {
         "project_title": TITLE,
-        "status": ("offline slice and support audit passed; not submitted"
-                   if reading is not None else "project prepared; offline slice pending"),
+        "status": ("baseline offline slice and support audit passed; scarf/lift choices pending"
+                   if reading is not None else "complete current project prepared; native review and scarf/lift choices pending"),
+        "preparation_only": True,
+        "launch_authorized": False,
+        "finish_choices_pending": ["seam/scarf selection", "coarse model layers above supports"],
         "project": relative(project),
         "project_sha256": report["project_sha256"],
         "settings_sha256": report["settings_sha256"],
@@ -87,7 +120,7 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
             "embedded_meshes_match_source_stls": True,
             "parts": len(report["parts"]),
             "plates": report["plate_count"],
-            "minimum_required_model_bed_margin_mm": 20.0,
+            "minimum_required_model_bed_margin_mm": 40.0,
         },
         "offline_slice": {"completed": reading is not None},
         "printer_submission": {"performed_by_this_tool": False},
@@ -114,19 +147,41 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
 
 def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
     settings_from, output = settings_from.resolve(), output.resolve()
-    if output == settings_from or output in {path.resolve() for path in PROTECTED_SCULPTED}:
+    if output == settings_from or output == RECIPE.resolve() or output in {path.resolve() for path in PROTECTED_SCULPTED}:
         raise ValueError("The Industrial output must not replace its settings source or the Sculpted project")
     if output.suffix.lower() != ".3mf":
         raise ValueError("The Industrial project needs a .3mf filename")
     before = protected_hashes()
+    if writer.digest(RECIPE.read_bytes()) != ACCEPTED["prepared_project_sha256"]:
+        raise ValueError("The accepted five-part recipe has changed")
+    recipe_report = json.loads((RECIPE.parent / "preparation.json").read_text())
     preserved = profile_members(settings_from)
     parts = industrial_parts()
     report = writer.refresh(settings_from, output, parts=parts,
-                            offsets=PART_OFFSETS, title=TITLE)
-    from prepare_vent_prints import insert_regions
-    writer.add_local_solid_regions(output, report, insert_regions("industrial-shell-base"))
-    if report["plate_count"] != 1 or len(report["parts"]) != 4:
-        raise ValueError("The Industrial project needs four parts on one plate")
+                            offsets=PART_OFFSETS, title=TITLE, plate_border=40.0)
+    # One perimeter-spanning region retains the accepted reinforcement without
+    # splitting the outside wall at the three screw hosts.
+    regions = tuple({"part": r["part"], "name": r["name"],
+                     "source_bounds_mm": r["source_bounds_mm"], "clip_to_part_bounds": False}
+                    for r in recipe_report["local_solid_regions"])
+    writer.add_local_solid_regions(output, report, regions)
+    with zipfile.ZipFile(output) as archive, zipfile.ZipFile(RECIPE) as recipe:
+        members = {name: archive.read(name) for name in archive.namelist()}
+        config = ET.fromstring(members["Metadata/model_settings.config"])
+        source_config = ET.fromstring(recipe.read("Metadata/model_settings.config"))
+        source_objects = {obj.find("metadata[@key='name']").get("value"): obj
+                          for obj in source_config.findall("object")}
+        for obj in config.findall("object"):
+            name = obj.find("metadata[@key='name']").get("value")
+            for setting in source_objects[name].findall("metadata"):
+                key = setting.get("key")
+                if key and key not in ("name", "extruder"):
+                    writer.metadata(obj, key, setting.get("value"))
+        members["Metadata/model_settings.config"] = writer.xml(config)
+        members["Metadata/layer_config_ranges.xml"] = recipe.read("Metadata/layer_config_ranges.xml")
+    writer.archive_write(output, members)
+    if report["plate_count"] != 1 or len(report["parts"]) != 5:
+        raise ValueError("The complete Industrial project needs five rigid parts on one plate")
     if profile_members(output) != preserved:
         raise ValueError("The complete PET-GF profile was not preserved")
     if protected_hashes() != before:
@@ -144,7 +199,27 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
         "shared_tip_source": relative(parts[1][1]),
         "gasket_included": False,
         "color_independent_geometry": True,
+        "accepted_recipe": relative(RECIPE),
+        "accepted_recipe_sha256": ACCEPTED["prepared_project_sha256"],
+        "accepted_geometry_tag": ACCEPTED["tag"],
+        "active_nozzle": 0,
+        "printer": "Mark2",
+        "requested_z_trim_mm": (ACCEPTED["recipe"]["requested_z_trim_mm"]
+                                if settings_from == RECIPE.resolve() else None),
+        "selected_faces": shoulder_readings(report, recipe_report),
+        "insert_review_regions": recipe_report["insert_review_regions"],
+        "review_host_regions": recipe_report["review_host_regions"],
+        "preparation_only": True,
+        "launch_authorized": False,
+        "submitted": False,
+        "send_attempted": False,
+        "finish_choices_pending": ["seam/scarf selection", "coarse model layers above supports"],
+        "provisional_finish": "Accepted 0.12 mm base shoulder bands and regular seam; final choices remain pending",
     })
+    from prepare_vent_prints import source_hashes
+    report["source_sha256"] = source_hashes(parts)
+    for path in (Path(__file__), RECIPE, ACCEPTANCE):
+        report["source_sha256"][relative(path)] = writer.digest(path.read_bytes())
     output.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
     write_readiness(output, report)
     return report
@@ -164,7 +239,7 @@ def main() -> None:
         parser.error("--slice-output must be empty so the audit cannot consume an earlier slice")
     project = args.project.resolve()
     report = refresh(args.settings_from, project)
-    print(f"{project}: four parts on one plate; exact PET-GF settings {report['settings_sha256']}", flush=True)
+    print(f"{project}: five rigid parts on one plate; exact PET-GF settings {report['settings_sha256']}", flush=True)
     for row in report["parts"]:
         print(f"  {row['name']}: Rx {row['rotation_x_degrees']:g} degrees; {row['triangles']} triangles", flush=True)
     if directory is None:

@@ -1,0 +1,83 @@
+{
+  "accepted_archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.gcode.3mf",
+  "accepted_archive_sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754",
+  "accepted_gcode_sha256": "8af481d5e29c77f9e4ebe4dcd5d4acc3364be17047f09ac226b86c248c164a6e",
+  "current_project_sha256": "a84def04d700230ad48b99fdbf548331d0a5b2bf3f13e1b0a069aefaa1fe3970",
+  "current_gcode_sha256": "27a0b8252e3f77d402273f5d9fbcd28d33f3acfb9818a07c565be0dd0eb6bc16",
+  "current_tip_sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+  "samples": [
+    {
+      "label": "accepted",
+      "segment_midpoints": 146097,
+      "cad_bounds_mm": [
+        [
+          -39.740999999999985,
+          -145.5046801047612,
+          187.34393576308344
+        ],
+        [
+          17.74000000000001,
+          -8.082405313646575,
+          245.36577670944763
+        ]
+      ]
+    },
+    {
+      "label": "current",
+      "segment_midpoints": 147742,
+      "cad_bounds_mm": [
+        [
+          -38.94549999999998,
+          -145.50493892380632,
+          187.82811563937202
+        ],
+        [
+          20.476499999999987,
+          -8.577396737405138,
+          245.11173821713362
+        ]
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "source_z_mm": 187.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 63,
+      "current_midpoints": 0
+    },
+    {
+      "source_z_mm": 195.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 3649,
+      "current_midpoints": 3204
+    },
+    {
+      "source_z_mm": 205.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 2448,
+      "current_midpoints": 2650
+    },
+    {
+      "source_z_mm": 213.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 4129,
+      "current_midpoints": 3713
+    },
+    {
+      "source_z_mm": 220.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 3958,
+      "current_midpoints": 3915
+    },
+    {
+      "source_z_mm": 230.0,
+      "midpoint_half_band_mm": 0.5,
+      "accepted_midpoints": 896,
+      "current_midpoints": 1268
+    }
+  ],
+  "image": "hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/native-tip-support-comparison.png",
+  "method": "Every labelled native Support path midpoint transformed to CAD; current source STL sections; midpoint overlays use \u00b10.5 mm bands, not exact bead intersections.",
+  "scope": "Location and cleanup-access review; unlabelled interfaces and physical removal force are not inferred."
+}
