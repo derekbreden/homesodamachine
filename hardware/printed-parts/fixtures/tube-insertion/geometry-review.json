@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Manual dimensional and B-rep fit review of the requested tube-insertion tool",
-  "source_sha256": "b3b463dd6d984ed4c69297a415a638a9a3f2c4d68b1a769598b30c91dd66786a",
+  "source_sha256": "6ae6b176e90e2fd07caeb04a713c553ccd9758dd0907fe1a9f8a0f864225acc2",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"
@@ -219,6 +219,9 @@
     "tube_od_mm": 9.525,
     "nominal_diameter_reduction_percent": 2.887139107611547,
     "liner_grip_length_mm": 28.0,
+    "jaw_pocket_front_end_wall_mm": 3.35,
+    "jaw_pocket_rear_end_wall_mm": 6.85,
+    "jaw_pocket_backing_mm": 3.0,
     "liner_minimum_backing_mm": 3.375,
     "liner_end_contact_area_mm2": 126.39968482215292,
     "liner_print_pose": "Tube axis vertical; thick premolded half-round block, no bending or wrapping",
