@@ -1,0 +1,126 @@
+{
+    "error_string": "Success.",
+    "export_time": 2602,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 25,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bridge": 123.6817398071289,
+                "Brim": 65.68639373779297,
+                "Custom": 304.5204162597656,
+                "Flush": 15.0,
+                "Gap infill": 1.8873225450515747,
+                "Inner wall": 2452.28369140625,
+                "Internal solid infill": 551.0340576171875,
+                "Outer wall": 998.5729370117188,
+                "Overhang wall": 518.138916015625,
+                "Sparse infill": 1837.3656005859375,
+                "Support": 2000.7432861328125,
+                "Support interface": 161.3405303955078,
+                "Support transition": 343.8052062988281,
+                "Top surface": 58.60553741455078,
+                "Travel": 1995.3104248046875,
+                "Undefined": 1986.596435546875
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 63.21312713623047,
+                    "total_used_g": 63.21312713623047
+                }
+            ],
+            "generate_support_material_time": 577,
+            "id": 1,
+            "infill_time": 237,
+            "layer_filament_change": 0,
+            "main_predication": 11091.71484375,
+            "make_perimeters_time": 943,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 153.5,
+                        "y": 89.00053405761719,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "A lip current 0.12 band",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 111.5,
+                        "y": 89.00053405761719,
+                        "z": 0.0
+                    },
+                    "id": 9,
+                    "name": "B lip 1 coarse layer",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 195.5,
+                        "y": 89.00053405761719,
+                        "z": 0.0
+                    },
+                    "id": 13,
+                    "name": "C lip 2 coarse layers",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 132.5,
+                        "y": 167.0005340576172,
+                        "z": 0.0
+                    },
+                    "id": 17,
+                    "name": "D lip 4 coarse layers",
+                    "triangle_count": 1834
+                },
+                {
+                    "bbox": {
+                        "depth": 63.998931884765625,
+                        "height": 25.0,
+                        "width": 18.0,
+                        "x": 174.5,
+                        "y": 167.0005340576172,
+                        "z": 0.0
+                    },
+                    "id": 21,
+                    "name": "E lip 8 coarse layers",
+                    "triangle_count": 1834
+                }
+            ],
+            "sliced_time": 5131,
+            "sliced_time_with_cache": 3035,
+            "total_predication": 11417.521484375,
+            "triangle_count": 9170,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "status": "Authorized; awaiting fresh preflight",
+  "authorization_quotes": [
+    "Mark2 bed is clear.",
+    "If you can manage to test all 5 \"lift\" variations you mentioned (control, plus 1, 2, 4 and 8 layers at 0.24 mm before switching to 0.12 mm) and at least that many seam variations (if not more) on a single plate, then please just do that."
+  ],
+  "authorization_scope": "One foreground start of this exact nineteen-specimen combined plate on Mark2",
+  "archive": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "0b5b6cf91d581d9495faca47f3fff9e1a4d4a4e398dbafbe31bdc444154b7b33",
+  "gcode_sha256": "648af4cf0cc0833e0334872e2d88964bd1148419b1e3e7dbdbd59c1d74f40d42",
+  "prepared_project": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.3mf",
+  "prepared_project_sha256": "dfd6898896d49b83516fd145ee582accab37dd532e98fb24b7d00867a0aed0d0",
+  "native_check": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/native-check.json",
+  "native_check_sha256": "0a0ad38b55170a393319c554db1efb5ef71ed34877edd9d1f334d8873526bb21",
+  "source_geometry_hashes": {
+    "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.stl": "8468ddf4744a84f6490fcbc46aa398ce8dbb174c49940c20dc08859f8357ae5e",
+    "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf"
+  },
+  "generator_sha256": "26575eb56e859a6d8e905624b3ed3300a52ff873c0bb930d4927a2921a480599",
+  "reviewer_sha256": "e70d0b50601d379860124f48f867f8ae355fb33b8775ba178b1112ceb771e5fd",
+  "launch_authorized": true,
+  "import_attempted": false,
+  "send_attempted": false,
+  "accepted": false,
+  "maximum_foreground_transactions": 1,
+  "maximum_send_clicks": 1,
+  "auto_resume_authorized": false,
+  "scheduled_monitor_requested": false,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "launch_command": "tools/cad-venv/bin/python tools/bambu_print.py hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/2026-10-11-faucet-lip-and-scarf-v1-petgf-left04-z004-mark2.gcode.3mf Mark2 --attempts 1",
+  "native_estimated_seconds": 24488.951171875
+}
