@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-11",
+  "recorded_at_utc": "2026-10-11T05:36:59.117042+00:00",
+  "status": "In-progress operator report; scarf results pending",
+  "authority": "Direct user report and two supplied photographs",
+  "printer": "Mark2",
+  "printer_task_id": "1327799013",
+  "native_archive": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/2026-10-10-faucet-foot-cooling-neck-scarf-petgf-left04-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "07a5401d303ad39d5abc23f17cad0bc5ca9f7cca75a423dfb31dc7d55de3771f",
+  "gcode_sha256": "7b501a0e7a430d14459cb0f9ec858a7579799795572891d4e914268be3cf9632",
+  "operator_observation_quote": "I am letting the print continue so we get scarf results, but I can see already that all 3 faucet bases have the lifting problem.",
+  "photo_observations": [
+    {
+      "photos": [
+        1
+      ],
+      "observation": "A dark opening is visible along the lower front curved lip immediately above the support interface on all three foot specimens. The native plate maps the front row left-to-right to A, B and C."
+    },
+    {
+      "photos": [
+        2
+      ],
+      "observation": "The close-up shows a dark horizontal slit under the front curved wall. The opening is widest through the middle, while the ends are much closer to the support interface.",
+      "specimen_id": null,
+      "identification_limit": "The supplied close-up is not labeled with an individual specimen letter."
+    }
+  ],
+  "foot_results": [
+    {
+      "id": "A",
+      "cooling": "reference",
+      "operator_reports_lifting": true,
+      "gap_visible_in_wide_photo": true,
+      "severity_measured": false,
+      "final_cooled_surface_evaluated": false
+    },
+    {
+      "id": "B",
+      "cooling": "half",
+      "operator_reports_lifting": true,
+      "gap_visible_in_wide_photo": true,
+      "severity_measured": false,
+      "final_cooled_surface_evaluated": false
+    },
+    {
+      "id": "C",
+      "cooling": "stronger",
+      "operator_reports_lifting": true,
+      "gap_visible_in_wide_photo": true,
+      "severity_measured": false,
+      "final_cooled_surface_evaluated": false
+    }
+  ],
+  "scarf_results": {
+    "D": null,
+    "E": null,
+    "F": null,
+    "status": "Awaiting completion and physical evaluation"
+  },
+  "inference": "The founder reports replication on A, B and C under the three model-cooling treatments. No cooling winner or severity ranking is recorded.",
+  "measurement_limits": "A support clearance is programmed. These photographs do not quantify excess separation or establish whether model edges lifted, bridge strands sagged, or either caused nozzle contact.",
+  "photos": [
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-1.jpg",
+      "sha256": "30b34c2fa979b5326ed02f4c4ba8719bbed70ab802f2f52c29d671b49688636d",
+      "source_label": "Photo 1.jpg",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    },
+    {
+      "file": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-2.jpg",
+      "sha256": "7f1b5f553e7534582b496da136ecd3fe18c6c99285006c7877c0190655dfdc19",
+      "source_label": "Photo 2.jpg",
+      "source_bytes_preserved": true,
+      "gps_metadata_present": false
+    }
+  ],
+  "disposition": "Operator continues this print to obtain scarf results. No stop, resume, settings change or new launch is requested.",
+  "scope": "Visible front-lip opening and founder-reported lifting on all three foot specimens during this print; no completed scarf, adhesion-strength or causal result."
+}
