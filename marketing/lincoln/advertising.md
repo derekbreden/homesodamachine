@@ -1,6 +1,7 @@
 # Lincoln advertising options
 
-Research checked **28 September 2026**. These are public-page findings and planning
+Research checked **28 September 2026**, with the Home & Garden Show section checked
+**11 October 2026**. These are public-page findings and planning
 judgments. A published rate is distinguished from a broker estimate or a price that
 requires a quote. Availability, minimum commitments and total delivered costs need
 confirmation at booking. The [local plan](README.md) defines the proposed pilot.
@@ -19,7 +20,7 @@ of advertising performance.
 | StarTran through Houck | Direct operator quote required; broker reference below | Investigate promptly because of Derek's interest; buy only against the complete commitment |
 | USPS Every Door Direct Mail | Published retail postage **$0.26/piece**, plus printing and preparation | Reach a defined cluster of homes near an installation |
 | Country Club neighborhood publication | Quote required; current circulation and representative need confirmation | A possible neighborhood-specific placement or demonstration introduction |
-| Nebraska Builders Home & Garden Show | Published standard 10 × 10 booth **$800 nonmember / $600 member**, plus other costs | A later live-demonstration option with substantial staffing time |
+| Nebraska Builders Home & Garden Show | Published standard 10 × 10 booth **$800 nonmember / $600 member**, plus other costs | November 1 decision on a sales exhibit, prototype demonstration or no February exhibit |
 | KLIN / NRG Media | Quote required | A local broadcast comparison or a possible business-story pitch |
 
 Sources and the limits of each finding follow. No conversion rates, reach-to-sale
@@ -153,22 +154,39 @@ The [HBAL exhibitor page](https://hbal.org/builders-home-garden-show/exhibitors/
 publishes **$800 for a standard 10 × 10 booth for nonmembers**, **$600 for members**,
 and full-color program ads starting at **$250**. Utilities and other exhibitor services
 are ordered separately. Membership has its own cost; the member booth figure is not
-the total cost of joining and exhibiting. Contact: **info@hbal.org**.
+the total cost of joining and exhibiting. The page advertises a multi-booth discount;
+an actual adjoining-space quote and availability remain unconfirmed.
+Contact: **info@hbal.org**.
 
 The [organizer's event page](https://hbal.org/builders-home-garden-show/)
 lists **12–14 February 2027**, at Sandhills Global Event Center. This is an external
 event date, not a product deadline. Published opening hours total 23 hours, before
 setup, teardown and follow-up.
 
+Derek's [participation decision](README.md#february-2027-home--garden-show) is planned
+for **1 November 2026**, accepting the risk that space will be unavailable. The
+[2027 exhibitor contract](https://hbal.org/wp-content/uploads/2026/10/home-show-online-contract.pdf)
+schedules booth-assignment emails for the end of November and requires full payment
+with contracts received after December 1. The assignment notice is not stated as a
+final application deadline; none of this establishes available inventory on November 1.
+
+The contract's *Character of Exhibits* section calls for products and services
+"sold by him in the regular course of business" and leaves acceptance to show
+officials. It does not explicitly require selling at the event, but acceptance of an
+under-development prototype exhibit needs an explicit answer from the organizer.
+Sales and demonstration are proposed scopes, not verified application categories.
+
 A live pour could answer taste and credibility questions efficiently. The full cost
 also needs the demo setup, water, power, signage, supplies, transport and staffing.
 Confirm beverage-sampling and CO₂ requirements with the organizer when considering
-a working demonstration. A non-dispensing display would test a different experience.
+a working demonstration. The contract requires prior SGEC approval for sampling;
+permission to exhibit should not be treated as permission to serve drinks.
 
-Consider this after the local installation process and demonstration are repeatable.
-First visiting the show or arranging a small demonstration with a kitchen professional
-can inform a later booth decision. Neither a partnership nor booth availability is
-established by this research.
+A supervised prototype demonstration can precede customer installation readiness.
+Its purpose is to explain the appliance, show the working experience, learn from
+visitors and make local contacts while the product remains unavailable for purchase.
+Booth count should follow the demonstration layout and staffing, with the maker and
+development stage stated clearly. No booth selection, booking or budget is approved.
 
 ## Local radio and a business story
 
@@ -204,4 +222,3 @@ Keep these distinctions visible:
 Check the contract's minimum commitment before translating any rate into a pilot
 budget. A small initial test should have a clear endpoint and an offer that remains
 usable for inquiries received after the media stops.
-
