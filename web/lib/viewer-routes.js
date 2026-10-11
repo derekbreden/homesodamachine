@@ -9,6 +9,7 @@ import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { mountTubeRoutes } from "./tube-routes.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
+import { readMaterialCatalog } from "./material-catalog.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -46,6 +47,12 @@ function readSidecar(rootDir, rel) {
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountTubeRoutes(app, { hardwareDir });
   mountPdfjsAssets(app);
+
+  app.get("/api/materials", (_req, res) => {
+    res.set("Cache-Control", "no-cache");
+    try { res.json(readMaterialCatalog(hardwareDir)); }
+    catch (error) { res.status(503).json({ error: "Material catalog unavailable" }); }
+  });
 
   // WHERE THE PAGE FETCHES A MODEL'S BYTES, when the store has a public address. Every member
   // the pointer file names is on the store under the hash of its own bytes, so a URL built

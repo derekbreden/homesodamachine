@@ -111,12 +111,17 @@ Served flat via `express.static(public/)`.
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
 | `grid.js` | Card grid per page, `IntersectionObserver` for thumbnail lazy-load. `/3d` hands off to `parts.js`; charts and line art group by a path segment (`categoryAndPartPath`, `groupFilesByCategory`). |
-| `parts.js` | `/3d`'s page: the machine's two units as one card each, seated by [`contracts/parts-tree.js`](/web/contracts/parts-tree.js). A card draws the model it opens, at the card's own size. Everything else — the cold core included — is reached by selecting its solid inside the assembly that holds it, which opens that file with the trail back. |
+| `parts.js` | `/3d`'s description lookup and cards for the two product units and build tools. Each card draws the model it opens, at the card's own size. The material catalog supplies identities and engineering relationships; uncataloged CAD models remain searchable. |
+| `material-search.js` | Description, permanent number, alias and manufacturer-number lookup on the grid and in the model companion. |
+| `material-panel.js` | Expandable BOM with quantities through assembly levels, geometry selection, reverse ancestry and linked documents. Context representations inspect a named assembly inside an enclosing model while retaining its own BOM. |
+| `material-nav.js` | Permanent `/3d#material:HSM-000001` links and material records with or without geometry. Model drill-downs retain the STEP navigation trail. |
 | `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
 
 State sharing pattern is **one shared object** (`state.js`'s exported `state`). Other modules `import { state } from './state.js'` and read/write `state.allFiles` etc. directly. Live binding via the object identity; no per-module proxy or sync ceremony.
+
+`GET /api/materials` reads [`hardware/ledger/materials.json`](/hardware/ledger/materials.json) through `lib/material-catalog.js`, resolving authored part-list imports such as the insertion fixture's `parts.json`. `contracts/materials.js` traverses quantities, ancestry and model bindings in the browser and Node. [`hardware/ledger/materials.md`](/hardware/ledger/materials.md) describes the catalog's identity and authoring rules. The financial BOM remains [`hardware/ledger/bom.md`](/hardware/ledger/bom.md).
 
 The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](/tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
 

@@ -44,6 +44,8 @@ import { clearHighlight } from "./part-highlight.js";
 import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 import { mountFaucetOptions } from "./faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { mountMaterialPanel } from "./material-panel.js";
+import { dismissViewerHistory } from "./viewer-history.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -150,6 +152,20 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // wrapper also hosts a centered loading pill that the loader toggles.
   const wrapper = document.createElement("div");
   wrapper.className = "cad-wrapper";
+  const workspace = document.createElement("div");
+  workspace.className = "cad-workspace materials-open";
+  workspace.append(wrapper);
+  const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
+  const materialsToggle = document.createElement("button");
+  materialsToggle.className = "materials-toggle";
+  materialsToggle.type = "button";
+  materialsToggle.textContent = "Materials";
+  materialsToggle.setAttribute("aria-expanded", "true");
+  materialsToggle.addEventListener("click", () => {
+    const open = workspace.classList.toggle("materials-open");
+    materialsToggle.setAttribute("aria-expanded", String(open));
+  });
+  if (materialPanel) workspace.append(materialsToggle);
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);
   // Scrim + centered pill. The loaders toggle the scrim's display.
@@ -230,7 +246,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   state.currentCadResizeObserver.observe(wrapper);
 
   ContentViewer.open({
-    content: wrapper,
+    content: workspace,
     filename: shortName(file, kind.ext).name,
     onOpen: () => {
       // Wrapper has its real size now — size the renderer + start the loop.
@@ -256,6 +272,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       document.removeEventListener("keydown", onEscape, true);
       clearToolDrawer();
       clearFaucetOptions();
+      materialPanel?.dispose();
       clearSurfaceTouches();
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
@@ -289,11 +306,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // already moved it, so don't double-pop. A walk pops every entry it
       // pushed, in one go; a model opened from a pasted link pushed none, and
       // its hash comes off in place rather than by navigating off the page.
-      if (wasUiDriven && location.hash) {
-        const depth = walkDepth();
-        if (depth > 0) history.go(-depth);
-        else history.replaceState(null, "", location.pathname + location.search);
-      }
+      if (wasUiDriven) dismissViewerHistory(walkDepth());
     },
   });
 
