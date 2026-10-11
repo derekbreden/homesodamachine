@@ -219,7 +219,7 @@
       "owned": true
     }
   ],
-  "source_sha256": "b3b463dd6d984ed4c69297a415a638a9a3f2c4d68b1a769598b30c91dd66786a",
+  "source_sha256": "6ae6b176e90e2fd07caeb04a713c553ccd9758dd0907fe1a9f8a0f864225acc2",
   "reference_source_sha256": {
     "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575"

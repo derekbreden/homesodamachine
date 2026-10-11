@@ -66,7 +66,8 @@ the arches, plunger or attached faucet lever.
 The grip liners have 28 mm contact length and a nominal Ø9.25 mm bore when
 the rigid jaw mating faces close. This is a 0.1375 mm radial interference
 against the Ø9.525 mm tube. Rigid closure stops limit squeeze, and the
-pocket end walls retain the liner under axial load. The bare tube has
+3.35 mm front and 6.85 mm rear pocket end walls retain the liner under axial
+load, with 3 mm of rigid backing below the pocket. The bare tube has
 0.6375 mm radial clearance to the rigid jaw end openings.
 
 The opposite hand holds the clear fixed palm area on the base while the

@@ -2,14 +2,14 @@
   "status": "offline slice reviewed; no physical print or force qualification",
   "printer_submission": false,
   "project": "tube-insertion-rigid-parts-h2c.3mf",
-  "project_sha256": "ccea2918342f207c8a3a04eab19b696a74ae21ed0d811a94e71929fc8b024824",
+  "project_sha256": "b41e33920a89b49c611483dec8e4ef0910882f69fe975fbb0956c832c37259e9",
   "archive": "tube-insertion-rigid-parts-h2c.gcode.3mf",
-  "archive_sha256": "e1218d5e0939de44d65699d399d01f736b74c27100a59605a4a7f3a456790839",
-  "gcode_sha256": "11653494abedd30b7d50592bab0f6837b6a03891d517459c2df083ab3f0b5dd3",
+  "archive_sha256": "e0cd9925f8ab6aea85f3542d72ebd8e5e321ad9932b0d1402d73146749ccd7a8",
+  "gcode_sha256": "5bfb8f545ec182baa96e3f993adb9e071c33722ba86f9c753e41bb6f99cf4723",
   "source_stls": {
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-press-lever-print.stl": "a6071e2fa03b7ebb998ade4acad0c0483e4443c955345f8167adc34ca2069dfc",
-    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "7fd02027176af5324ab9df1f8e11a08193de0403f0498dd3aa2f959344b2b4ae",
-    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "b330459cbea12b8c09bd69a795032208cd015fbabbfa4d18f9ca8ea4d3493954",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw-print.stl": "36f0cb5f1e95a83b60e095e38c37f423ba9ec74a44d484ab7e47029e6b92460e",
+    "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "398a4936188ab327e93a3b422114d307ed6c6dd6382191a2d61352e8c7392991",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-ram-print.stl": "6cb0ed09ab4e9f771e46496523d1c5498f972bbea3a26c65a47277d230bce2d1",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-cap-support-puck-print.stl": "db66c62fa1eac4a0c6452c7e08c5ff69442bfee0c09d7ae9aa7e1689c320b2c5"
   },
@@ -52,8 +52,8 @@
     72.802008
   ],
   "layers": 117,
-  "estimated_seconds": 12778.134765625,
-  "estimated_filament_g": 192.015869140625,
+  "estimated_seconds": 12789.3564453125,
+  "estimated_filament_g": 192.01792907714844,
   "slicer_warning": "",
   "native_process": {
     "layer_height": 0.23999999463558197,
