@@ -16,6 +16,10 @@ needed to run a pilot. Product positioning and existing prices remain in
 [target market](../target-market.md); physical readiness remains in
 [the build plan](../../future/README.md).
 
+The [February 2027 Home & Garden Show](#february-2027-home--garden-show) is a separate
+opportunity for a sales exhibit or a prototype demonstration. The participation
+decision is planned for **1 November 2026**.
+
 ## What local changes
 
 The local offer combines the appliance with access to its maker. A buyer can see a pour,
@@ -53,6 +57,64 @@ The nearby beta installation can establish a repeatable visit, handoff and suppo
 process. Beta participation does not establish what a buyer will pay through a public
 offer. The proposed three-household local batch therefore tracks buyers recruited
 through local marketing separately from existing beta commitments.
+
+## February 2027 Home & Garden Show
+
+**Decision date: 1 November 2026.** Derek intends to decide whether to pursue a sales
+exhibit, a prototype demonstration, or no February exhibit. He accepts the possibility
+that booth space will be unavailable by then. The date is his planning decision;
+it is not an organizer deadline or a commitment to exhibit.
+
+The show runs **12–14 February 2027**. Its role as a development target remains open.
+A functioning demonstration using the project's own carbonator is a plausible aim
+even if the appliance remains under development and unavailable for purchase.
+Participation does not require the local installation pilot to be complete.
+
+| Option to consider on November 1 | Basis for pursuing it | Intended show experience |
+|---|---|---|
+| Sales exhibit | A credible path to customer readiness by February, with an offer, price, installation scope and support terms Derek is comfortable honoring | Demonstrate the machine and offer it for sale if actual readiness supports those commitments |
+| Prototype demonstration | A credible path to a working, supervised demonstration using the project's own carbonator, with organizer acceptance of its development status | Show the under-sink appliance and a live pour, answer questions, gather feedback and invite interest; no sales, deposits or delivery promises |
+| No February exhibit | Neither scope fits the build progress or the preparation work Derek wants to undertake | Continue development and local discovery without a February event commitment |
+
+These describe the proposed exhibit, not verified organizer registration categories.
+Organizer acceptance and actual space availability remain unconfirmed. The
+[show research](advertising.md#home--garden-show) records the relevant contract
+wording and demonstration questions. No application, payment or outreach is authorized
+by this planning decision.
+
+Derek is considering hydro testing in the weeks before the decision. Any completed
+tests and the actual integrated-build progress can inform what is plausible for
+February. The [pressure-vessel procedure](../../hardware/assembly/pressure-vessel.md#7-hydro-test)
+defines the bench proof test and its unresolved acceptance items; test results belong
+with the hardware evidence when performed. Hydro results concern the tested vessel.
+Repeated cold pours and customer readiness remain separate questions in
+[the build plan](../../future/README.md). A hydro result alone does not select a
+sales exhibit.
+
+### Space and presentation
+
+Derek considers the booth rent modest relative to the project's development spending
+and the opportunity to meet people. Booth count is primarily a question of the useful
+display, visitor experience and an honest presentation of the business. The number of
+booths and the complete event budget are unselected.
+
+Compare a single 10 × 10 space with two adjoining spaces, subject to the organizer's
+layout and quote. Account for a kitchen-style counter and faucet, visible under-counter
+equipment, people watching a pour, and room for a conversation. Give additional space
+a concrete purpose and keep the exhibit workable for the people actually staffing it.
+A larger footprint can accommodate the demonstration while the presentation clearly
+identifies Derek as the local builder and the machine's actual development stage.
+
+The website's first job is to explain the appliance to an unfamiliar visitor: equipment
+under the sink, a dedicated faucet above it, and cold soda poured into a glass. Show
+working-prototype evidence and identify what remains under development. The availability
+signup follows that explanation. The proposed exhibit and its readiness belong in the
+organizer inquiry; neither the website nor the booth needs to imply an imminent sale.
+
+For a demonstration, useful outcomes include questions about kitchen fit, flavors,
+maintenance and price; local households who want a later conversation; and introductions
+to kitchen professionals. Record interest with permission and keep contact details
+private. Interest and price conversations provide discovery evidence rather than sales.
 
 ## The buyer and the offer
 
