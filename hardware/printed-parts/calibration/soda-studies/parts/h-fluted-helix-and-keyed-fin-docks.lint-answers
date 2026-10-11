@@ -1,0 +1,367 @@
+# Current STL SHA256: e234eac47d090551358b808b81d81ceb68261a86291685cff154af62e0ac0340
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[sliver] This 0.393 mm high exposed cap is at the combined R6/root/strut junction, not a full-span 0.393 mm web. Exact STEP vertical sections 0.25/1.00/3.00 mm inward from the cached cap span Z 13.050–19.322,13.051–19.672,13.051–20.604, giving 6.27–7.55 mm joined stock in those sections. The nominal brace remains 7 by 4 mm. This is a terminating joint band, not a strength measurement.
+alternatives: A10–12 mm local elbow pad of 4–6 mm thickness or a larger blended joint grows the section at this cap, but adds stock in the reviewed sample/removal envelope and requires a new clearance review. A larger solid root fills more of the open comparison structure. Cutting the exposed taper away removes its small cap without enlarging the joint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-36.770 y=36.770 z=13.247
+
+[sliver] This 1.00 mm exposed band is the top of the 7 by 4 mm brace above the 3.00 mm R6 landing. A STEP vertical section 0.25 mm inward spans Z 21.054–27.827; the band is not an isolated 1.00 mm spanning web. The R6 exterior source surface remains separate from this reference storage brace. No load/life acceptance is inferred.
+alternatives: A4.00 mm landing covers more of the brace end but enlarges the joint within the reviewed top-key seating envelope. A10–12 mm elbow pad or broader blended joint adds stock and needs the sample/removal clearance rechecked. A separate rigid stand replaces this brace with more footprint and another member.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=62.000 y=25.000 z=27.304
+
+[sliver] This 0.800 mm exposed top band belongs to the 7 by 4 mm brace at the GR upper cup, above its 2.70 mm roof. STEP vertical sections 0.25/1.00/3.00 mm inward run from Z 101.05 to 104.534/104.493/104.374. Those sections show joined stock behind the terminating band; they do not qualify strength or handling life.
+alternatives: A3.50 mm cup roof or 10–12 mm local elbow pad covers more of the brace end while adding stock in the reviewed upper grip-removal envelope. A larger blended joint likewise needs the world -X grip path rechecked. A separate upper stand adds a member and changes the open sculpture footprint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-79.737 y=1.538 z=104.150
+
+[ceiling] These are the GR storage cup's accessible internal roof at manufacturing Z 101.05 and exterior underside at Z 97.50. Its world -X opening and bottom aperture leave the source grip column removable. H is prepared separately with Tree (auto) supports; these faces are reachable from the open side/below with H unassembled. They are storage ceilings, not a support-off source-R6 surface. Physical support removal and stability are unmeasured.
+alternatives: An open top cradle removes the internal cup roof but changes its locating/capture arrangement. A tapered supported landing reduces print-down area while changing the grip footer contact. Larger continuous stock below the cup obstructs the independently removable grip column and needs a new motion review.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-81.250 y=1.500 z=101.050
+click: x=-79.750 y=1.500 z=97.500
+
+[ceiling] This 38 by 24 mm underside at manufacturing Z 23.05 is the 3.00 mm fin-dock platform, open underneath before assembly. H prints separately with automatic tree supports and all outside sides/bottom remain accessible for removal. The three A specimens retain their own manufacturing orientations and removable static peg seats; this platform is storage stock.
+alternatives: A thicker platform adds stock upward/downward and needs the stored R45 roof/fin clearance reviewed. Sloped buttresses reduce the ceiling but occupy the open access under the fins. Separate individual pedestal blocks print with fewer elevated roofs while adding parts and changing the connected form.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=0.000 y=31.000 z=23.050
+
+[ceiling] These are the R6 upper landing and its inset storage key, at manufacturing Z 23.804 and 21.054. Their 14 by 10.8 mm /8 by 6 mm faces are part of H's removable vertical seating, distinct from the source R6 exterior transition. H uses automatic tree supports and both undersides are reachable from open sides/below before assembly. Nominal contact/path checks do not qualify physical removal force.
+alternatives: A tapered key or open side hook changes its contact and vertical seating geometry. A solid column down to the bed eliminates this local ceiling but occupies the source R6/show-round access. A thicker broad landing adds stock within the reviewed top-dock envelope and needs new seating/neighbor checks.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=62.000 y=25.000 z=23.804
+click: x=62.000 y=25.000 z=21.054
+
+[ceiling] This 40 by 7 mm underside at manufacturing Z 2.75 is the fluted apron above its two root keys, mating the basin at world Z 6.20. The apron has 7.00 mm wall stock with 1.20 mm show grooves and 5.80 mm intact backing; H is separately supported and the underside is open before assembly. It is not a 0.75 mm roof or a support-off contact sample.
+alternatives: Continuing the apron solidly to the bed removes the ceiling but changes its mating root-key/basin seating. A broad sloped underside can reduce support while changing that bearing envelope. A separate bedded apron adds a joint and one more piece to the continuous carrier.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-36.800 y=46.500 z=2.750
+
+[thin] These picks are local cut-ring-pod, apron and brace unions in H's lower root, including the first ribbon end. Their smallest regions are real tapered/corner stock at the unions, not an accepted thin-wall material gauge. The root joins the 7 by 4 mm braces,3.00 mm pod side stock and 7.00 mm apron; representative cap sections 0.25–3 mm inward retain 6.27–7.55 mm vertical joined stock. Automatic supports and the open H-only assembly provide access, but loss of small boundary material/cleanup and handling life remain unmeasured.
+alternatives: A larger 10–12 mm elbow pad 4–6 mm thick or a broad blended root adds stock at these junctions while consuming open source-sample/removal space that needs renewed review. A full solid root block removes local tapers but replaces the open view/access with more material. Trimming the small projecting ends removes their tips without enlarging the underlying joint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-34.948 y=34.879 z=13.076
+click: x=-34.940 y=34.888 z=13.068
+click: x=-52.106 y=51.834 z=17.682
+click: x=-52.091 y=51.848 z=17.637
+click: x=-54.696 y=38.134 z=16.779
+click: x=-54.705 y=38.120 z=16.689
+click: x=-49.433 y=49.840 z=16.651
+click: x=-49.545 y=50.000 z=16.578
+click: x=-28.799 y=43.011 z=21.153
+click: x=-28.390 y=43.000 z=20.550
+click: x=-27.753 y=43.000 z=18.177
+click: x=-27.133 y=43.000 z=18.645
+click: x=-50.264 y=50.192 z=15.336
+click: x=-50.600 y=50.000 z=14.614
+click: x=-37.219 y=29.695 z=18.853
+click: x=-36.210 y=29.272 z=19.165
+click: x=-34.664 y=29.847 z=19.272
+click: x=-35.680 y=29.237 z=19.271
+click: x=-53.183 y=40.045 z=17.908
+click: x=-53.359 y=39.810 z=16.296
+click: x=-39.215 y=47.784 z=20.652
+click: x=-38.897 y=49.896 z=19.300
+
+[thin] These shortest approaches occur at the 3.00 mm fin landing's rounded/front edges and its 7 by 4 mm connecting brace. The tiny endpoint reading is a local joint termination, not a 0.018 mm nominal platform. The entire underside is reachable with H alone in its separately supported print. Physical reproduction of the small termini and platform handling capacity are unrecorded.
+alternatives: A4.00 or 6.00 mm fin platform and a larger blended brace enlarge the joint but change the clearance to the stored R45 roof and need its access/removal review. Square or broader plate edges add corner stock with a larger footprint. Separate broad fin pedestals replace the bridge/platform with more pieces and a different form.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-17.018 y=24.989 z=22.530
+click: x=-17.000 y=24.989 z=22.530
+click: x=-30.960 y=22.028 z=18.322
+click: x=-31.529 y=22.070 z=19.121
+click: x=-18.247 y=19.199 z=25.917
+click: x=-17.000 y=19.000 z=25.917
+
+[thin] These picks approach upper loop/pod and GR-cup-brace intersections or rounded cup corners. The local finite tapers meet the 7 by 4 mm ribbon/brace and the 2.70 mm roof/3.00 mm cup walls; they are not all a uniform 1 mm wall. Small boundary material can be lost or need cleanup, while the full members remain connected. H is separately supported; there is no physical strength, cleanup or repeated-handling acceptance.
+alternatives: Larger 4–6 mm local blended overlaps/elbow pads or a 3.50 mm cup roof add stock while retaining its open entry, but need a new world -X grip-removal/source-sample access review. A solid broad upper frame eliminates many termini while obscuring more of the reference. Trimming tapered tips changes the boundary without making the connected member thicker.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-11.694 y=65.633 z=83.183
+click: x=-11.734 y=65.633 z=83.268
+click: x=-46.469 y=57.079 z=92.911
+click: x=-46.226 y=57.143 z=93.277
+click: x=-40.854 y=51.552 z=92.940
+click: x=-41.192 y=52.206 z=93.131
+click: x=-47.542 y=47.694 z=94.509
+click: x=-47.769 y=47.467 z=93.727
+click: x=-42.864 y=54.169 z=93.147
+click: x=-41.217 y=52.186 z=93.030
+click: x=-77.581 y=9.279 z=104.019
+click: x=-77.850 y=9.150 z=101.050
+
+[thin] These are the repeated radial-strut/ribbon terminations at the 45-degree sample stations. The source strut has local X 5–21.5, Y ±3.5, Z -11–-7 (7 by 4 mm), posed RX -25° into the radius 70 ribbon. The minima are real finite tapers at their boundaries, not uniform submillimetre spanning walls. Independent exact sections at the 0.137/0.163 representative picks reach 4.00 mm vertical stock 1 mm inward toward the ribbon center; the 0.336/0.522 representatives reach 4.17/4.35 mm after 0.25 mm. Boundary material may be lost or need cleanup in printing. No strength, cleanup or handling-life acceptance is recorded.
+alternatives: Larger 10–12 mm local elbow pads 4–6 mm thick or blended overlaps can enlarge these termini while retaining the moving seat, but add stock in the reviewed source-sample/removal envelopes and require renewed access/path review. Enlarging the entire ribbon/strut changes its occupied radius and cooling/support area. Trimming the small tapers can remove their tips but does not enlarge the joint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=65.536 y=16.160 z=65.114
+click: x=65.530 y=16.184 z=64.979
+click: x=34.914 y=57.768 z=74.614
+click: x=34.893 y=57.780 z=74.479
+click: x=-65.536 y=-16.160 z=27.114
+click: x=-65.530 y=-16.184 z=26.979
+click: x=16.160 y=-65.536 z=46.114
+click: x=16.184 y=-65.530 z=45.979
+click: x=-34.914 y=-57.768 z=36.614
+click: x=-34.893 y=-57.780 z=36.479
+click: x=57.768 y=-34.914 z=55.614
+click: x=57.780 y=-34.893 z=55.479
+click: x=-57.768 y=34.914 z=17.614
+click: x=-57.780 y=34.893 z=17.479
+click: x=-16.160 y=65.536 z=84.114
+click: x=-16.184 y=65.530 z=83.979
+click: x=65.647 y=11.599 z=64.331
+click: x=65.642 y=11.627 z=64.171
+click: x=38.218 y=54.621 z=73.831
+click: x=38.194 y=54.638 z=73.671
+click: x=-65.647 y=-11.599 z=26.331
+click: x=-65.642 y=-11.627 z=26.171
+click: x=11.599 y=-65.647 z=45.331
+click: x=11.627 y=-65.642 z=45.171
+click: x=-38.218 y=-54.621 z=35.831
+click: x=-38.194 y=-54.638 z=35.671
+click: x=54.621 y=-38.218 z=54.831
+click: x=54.638 y=-38.194 z=54.671
+click: x=-65.912 y=7.549 z=26.433
+click: x=-66.042 y=7.788 z=26.630
+click: x=-51.945 y=-41.269 z=35.933
+click: x=-52.206 y=-41.192 z=36.130
+click: x=41.269 y=-51.945 z=54.933
+click: x=41.192 y=-52.206 z=55.130
+click: x=51.945 y=41.269 z=73.933
+click: x=52.206 y=41.192 z=74.130
+click: x=7.549 y=65.912 z=83.433
+click: x=7.788 y=66.042 z=83.630
+click: x=-7.549 y=-65.912 z=45.433
+click: x=-7.788 y=-66.042 z=45.630
+click: x=65.912 y=-7.549 z=64.433
+click: x=66.042 y=-7.788 z=64.630
+click: x=-73.228 y=7.418 z=26.372
+click: x=-73.093 y=7.719 z=26.777
+click: x=-7.418 y=-73.228 z=45.372
+click: x=-7.719 y=-73.093 z=45.777
+click: x=-57.025 y=-46.534 z=35.872
+click: x=-57.143 y=-46.226 z=36.277
+click: x=46.534 y=-57.025 z=54.872
+click: x=46.226 y=-57.143 z=55.277
+click: x=73.228 y=-7.418 z=64.372
+click: x=73.093 y=-7.719 z=64.777
+click: x=57.025 y=46.534 z=73.872
+click: x=57.143 y=46.226 z=74.277
+click: x=7.418 y=73.228 z=83.372
+click: x=7.719 y=73.093 z=83.777
+click: x=47.317 y=-47.466 z=56.531
+click: x=47.174 y=-46.871 z=55.727
+click: x=66.715 y=-0.479 z=65.963
+click: x=66.500 y=0.214 z=65.227
+click: x=-66.715 y=0.479 z=27.963
+click: x=-66.500 y=-0.214 z=27.227
+click: x=47.460 y=47.412 z=75.544
+click: x=46.871 y=47.174 z=74.727
+click: x=0.034 y=67.084 z=85.044
+click: x=-0.214 y=66.500 z=84.227
+click: x=-47.460 y=-47.412 z=37.544
+click: x=-46.871 y=-47.174 z=36.727
+click: x=-0.543 y=-66.841 z=46.952
+click: x=0.214 y=-66.500 z=46.227
+click: x=-52.173 y=-51.457 z=37.467
+click: x=-51.972 y=-51.972 z=36.268
+click: x=-73.147 y=0.538 z=27.961
+click: x=-73.500 y=0.000 z=26.768
+click: x=52.103 y=51.342 z=75.461
+click: x=51.972 y=51.972 z=74.268
+click: x=73.147 y=-0.538 z=65.961
+click: x=73.500 y=0.000 z=64.768
+click: x=51.342 y=-52.103 z=56.461
+click: x=51.972 y=-51.972 z=55.268
+click: x=-0.538 y=-73.147 z=46.961
+click: x=0.000 y=-73.500 z=45.768
+click: x=0.538 y=73.147 z=84.961
+click: x=0.000 y=73.500 z=83.768
+click: x=-9.207 y=65.934 z=84.447
+click: x=-9.505 y=65.891 z=82.783
+click: x=9.207 y=-65.934 z=46.447
+click: x=9.506 y=-65.891 z=44.783
+click: x=-40.112 y=-53.132 z=36.947
+click: x=-39.870 y=-53.314 z=35.283
+click: x=53.132 y=-40.112 z=55.947
+click: x=53.314 y=-39.870 z=54.283
+click: x=40.112 y=53.132 z=74.947
+click: x=39.870 y=53.314 z=73.283
+click: x=-65.934 y=-9.207 z=27.447
+click: x=-65.891 y=-9.506 z=25.783
+click: x=65.934 y=9.207 z=65.447
+click: x=65.889 y=9.506 z=63.783
+click: x=-7.981 y=-68.619 z=45.649
+click: x=-7.755 y=-66.046 z=45.529
+click: x=7.981 y=68.619 z=83.649
+click: x=7.755 y=66.046 z=83.529
+click: x=68.619 y=-7.981 z=64.649
+click: x=66.046 y=-7.755 z=64.529
+click: x=-54.165 y=-42.877 z=36.149
+click: x=-52.185 y=-41.218 z=36.029
+click: x=42.877 y=-54.165 z=55.149
+click: x=41.218 y=-52.185 z=55.029
+click: x=54.165 y=42.877 z=74.149
+click: x=52.185 y=41.218 z=74.029
+click: x=-68.619 y=7.994 z=26.647
+click: x=-66.045 y=7.765 z=26.534
+
+[thin] These picks are the R6 landing/brace union edges. The 7 by 4 mm brace meets a 3.00 mm landing; the small cap is backed by joined stock, with a representative 0.25 mm inward vertical section spanning Z 21.054–27.827. This is the reference storage joint, not the source expanding-R6 surface or a physical load qualification.
+alternatives: A4.00 mm landing or a larger 10–12 mm elbow pad/blend enlarges the union but changes stock inside the surveyed seating/removal envelope. A full bed-rooted column replaces the joint with more material and blocks source round access. A separate large saddle adds another interface and part.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=58.881 y=23.625 z=27.475
+click: x=58.955 y=23.478 z=27.475
+click: x=58.373 y=32.343 z=24.852
+click: x=58.372 y=32.000 z=26.804
+
+[thin] These pairs approach different root/junction surface boundaries beside open regions. At the cached pair midpoints the exact STEP is outside, including Z offsets of -0.01 and +0.01 mm; these closest surface distances do not define a solid slab between the two points. The members join through neighboring root/brace stock. This scoped occupancy distinction is not a strength, stiffness or cleanup claim.
+alternatives: A filled elbow or larger solid root can occupy more of these openings and add stock, but changes the source-sample access and needs the storage/removal paths reviewed. Broader blended unions change the local boundaries with additional material. Increasing the gap is another layout choice and does not thicken these existing members.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-39.097 y=43.281 z=20.687
+click: x=-39.378 y=43.000 z=20.550
+click: x=-36.316 y=33.511 z=12.649
+click: x=-34.923 y=34.853 z=13.050
+click: x=-56.510 y=43.000 z=20.267
+click: x=-58.498 y=44.496 z=20.185
+click: x=-56.393 y=43.000 z=15.651
+click: x=-58.397 y=44.629 z=16.157
+click: x=-32.071 y=35.714 z=14.371
+click: x=-34.341 y=34.249 z=13.383
+
+[thin] These picks read the fluted apron's crest/end lands, not full thin walls:4.00 mm field grooves on 5.1221 mm pitch leave 1.1221 mm interior crest widths, with 1.20 mm depth and 5.80 mm intact backing in the 7.00 mm wall. The 2.20 mm end reading belongs to its outside field margin. This short field preserves the machine's profile vocabulary; it is not full-enclosure print or strength acceptance.
+alternatives: A6.00 mm pitch gives 2.00 mm interior crests;3.00 mm groove width at the current pitch gives 2.1221 mm crests. Each changes the surface profile being referenced. An 8.50 mm wall increases backing to 7.30 mm but does not widen the crests and adds material/support exposure.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-35.234 y=49.999 z=5.052
+click: x=-34.112 y=50.000 z=5.052
+click: x=-44.356 y=49.999 z=4.898
+click: x=-45.478 y=50.000 z=4.898
+click: x=-40.356 y=49.999 z=5.052
+click: x=-39.234 y=50.000 z=5.053
+click: x=-28.989 y=49.999 z=4.641
+click: x=-30.112 y=50.000 z=4.641
+click: x=-23.867 y=49.999 z=4.641
+click: x=-24.990 y=50.000 z=4.641
+click: x=-54.600 y=50.000 z=19.177
+click: x=-56.800 y=50.000 z=19.177
+
+[thin] This 2.311 mm closest approach lies in the swept R6-to-root brace elbow. The authored loft uses 7.00 mm planar width and 4.00 mm vertical stock; a shortest distance across its inclined/curving boundary need not equal that vertical section. It is carrier brace stock, not a calibration skin or source flexure. The separately supported assembly has no physical strength or repeated-handling qualification.
+alternatives: A9 by 6 mm sweep or a broad 4–6 mm elbow pad increases the section while changing support/cooling and the neighboring reference-access envelope. A straighter brace with larger solid stock changes the form and needs revised seating/removal clearance. A full column adds stock and footprint while blocking more of the open source references.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-24.280 y=47.065 z=29.753
+click: x=-23.287 y=47.265 z=27.676
+
+[thin] This 2.531 mm pair approaches the apron's top/front boundary and the fin-platform underside at Y 43. The exact midpoint and checkedZ offsets -0.10,-0.01,0,+0.01,+0.10 mm are outside the STEP. The local opening is air between stock regions connected elsewhere in H, not a 2.531 mm platform wall. The platform itself is 3.00 mm thick; the apron retains 5.80 mm backing beneath its field grooves.
+alternatives: A larger filled elbow backs this opening but adds stock near the R45/fin access and needs a new removal review. Extending the apron upward closes this space while changing the field/root boundary. A lower platform changes its stored specimens' positions rather than correcting a material-thickness defect here.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-17.141 y=43.000 z=20.519
+click: x=-17.141 y=43.000 z=23.050
+
+[thin] These opposite surfaces bound the actual 2.70 mm GR storage-cup roof. It is separate from the source grip and its wing slots and remains open on world -X and underneath for insertion/removal and automatic support access. The connected 7 by 4 mm brace adds local stock at its end; this roof's physical removal, stability and handling life are unmeasured.
+alternatives: A3.50 or 6.00 mm roof adds outward stock while preserving the interior, but changes the brace/cup height envelope and needs the independently removable grip path reviewed. A broad upper cradle without a roof removes this ceiling but changes its locating/capture arrangement. A separate stand gives larger stock with another member and more footprint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-78.210 y=-2.276 z=103.750
+click: x=-78.210 y=-2.276 z=101.050
+click: x=-84.579 y=8.800 z=101.050
+click: x=-84.579 y=8.800 z=103.750
+
+[thin] These exact pairs bound 3.00 mm nominal pod, cup, fin-platform or root seating stock. They are structural/storage members of H, separate from the calibration skins, flexures and release-air ladders. The pods preserve 6.50 by 8.50 mm cavities for 6 by 8 mm removable keys, and the source-sample clearance envelope is kept open. These dimensions and sampled storage routes do not establish load or lifetime.
+alternatives: Wider 4.00 or 6.00 mm stock can grow outward while preserving each cavity, but occupies the source/sample-access and reviewed individual-removal envelopes. Broad continuous platforms enlarge the sections while hiding more of the specimen surfaces and requiring new clearance review. Separately supported docks can use larger blocks at the cost of joints, parts and footprint.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=37.791 y=39.843 z=75.605
+click: x=35.869 y=41.766 z=74.337
+click: x=35.514 y=41.459 z=74.410
+click: x=37.436 y=39.536 z=75.678
+click: x=-41.459 y=35.514 z=93.410
+click: x=-39.536 y=37.436 z=94.678
+click: x=-40.083 y=37.880 z=94.834
+click: x=-42.005 y=35.958 z=93.566
+click: x=-38.924 y=36.708 z=18.854
+click: x=-40.846 y=34.785 z=17.586
+click: x=-37.791 y=-39.843 z=37.605
+click: x=-35.869 y=-41.766 z=36.337
+click: x=39.843 y=-37.791 z=56.605
+click: x=41.766 y=-35.869 z=55.337
+click: x=-35.514 y=-41.459 z=36.410
+click: x=-37.436 y=-39.536 z=37.678
+click: x=41.459 y=-35.514 z=55.410
+click: x=39.536 y=-37.436 z=56.678
+click: x=-27.987 y=36.714 z=22.285
+click: x=-30.108 y=38.835 z=22.285
+click: x=-34.862 y=43.273 z=22.037
+click: x=-36.983 y=45.395 z=22.037
+click: x=-30.308 y=38.635 z=22.287
+click: x=-28.186 y=36.514 z=22.287
+click: x=54.896 y=2.555 z=68.473
+click: x=54.896 y=5.274 z=67.205
+click: x=-2.555 y=54.896 z=87.473
+click: x=-5.274 y=54.896 z=86.205
+click: x=54.380 y=5.199 z=67.044
+click: x=54.380 y=2.480 z=68.312
+click: x=-5.199 y=54.380 z=86.044
+click: x=-2.480 y=54.380 z=87.312
+click: x=-38.297 y=-30.646 z=42.810
+click: x=-36.176 y=-28.524 z=42.810
+click: x=30.646 y=-38.297 z=61.810
+click: x=28.524 y=-36.176 z=61.810
+click: x=38.297 y=30.646 z=80.810
+click: x=36.176 y=28.524 z=80.810
+click: x=-30.646 y=38.297 z=99.810
+click: x=-28.524 y=36.176 z=99.810
+click: x=36.341 y=28.359 z=80.296
+click: x=38.463 y=30.480 z=80.296
+click: x=-28.359 y=36.341 z=99.296
+click: x=-30.480 y=38.463 z=99.296
+click: x=28.359 y=-36.341 z=61.296
+click: x=30.480 y=-38.463 z=61.296
+click: x=-36.684 y=-28.017 z=41.217
+click: x=-38.805 y=-30.138 z=41.217
+click: x=-54.896 y=5.149 z=34.065
+click: x=-54.896 y=7.868 z=35.333
+click: x=-5.149 y=-54.896 z=53.065
+click: x=-7.868 y=-54.896 z=54.333
+click: x=-49.620 y=7.942 z=35.172
+click: x=-49.620 y=5.223 z=33.905
+click: x=-7.942 y=-49.620 z=54.172
+click: x=-5.223 y=-49.620 z=52.905
+click: x=49.620 y=-7.942 z=73.172
+click: x=49.620 y=-5.223 z=71.905
+click: x=7.942 y=49.620 z=92.172
+click: x=5.223 y=49.620 z=90.905
+click: x=-77.972 y=-9.150 z=98.327
+click: x=-77.972 y=-6.150 z=98.327
+click: x=-54.380 y=-5.199 z=29.044
+click: x=-54.380 y=-2.480 z=30.312
+click: x=-48.167 y=43.600 z=2.234
+click: x=-48.167 y=46.600 z=2.234
+click: x=-53.632 y=46.600 z=0.076
+click: x=-53.632 y=43.600 z=0.076
+click: x=-20.167 y=43.600 z=2.234
+click: x=-20.167 y=46.600 z=2.234
+click: x=-25.632 y=46.600 z=0.076
+click: x=-25.632 y=43.600 z=0.076
+click: x=-58.250 y=-1.983 z=30.265
+click: x=-55.250 y=-1.983 z=30.265
+click: x=-45.750 y=-0.589 z=28.840
+click: x=-48.750 y=-0.589 z=28.840
+click: x=1.983 y=-58.250 z=49.265
+click: x=1.983 y=-55.250 z=49.265
+click: x=0.589 y=-45.750 z=47.840
+click: x=0.589 y=-48.750 z=47.840
+click: x=58.250 y=2.044 z=68.396
+click: x=55.250 y=2.044 z=68.396
+click: x=45.750 y=0.589 z=66.840
+click: x=48.750 y=0.589 z=66.840
+click: x=-2.044 y=58.250 z=87.396
+click: x=-2.044 y=55.250 z=87.396
+click: x=-0.589 y=45.750 z=85.840
+click: x=-0.589 y=48.750 z=85.840
+click: x=-84.497 y=12.150 z=97.847
+click: x=-84.497 y=9.150 z=97.847
+click: x=-74.850 y=9.026 z=97.939
+click: x=-77.850 y=9.026 z=97.939
+
+[ledge] This 7.18 mm²,4.3 by 3.1 mm root/radial-joint underside is 10 degrees off facing the bed. It is externally reachable with H alone and belongs to the separately Tree-supported carrier; it does not alter the exposed source neck skin or source R6 exterior support-free band. Physical cleanup and handling capacity remain unmeasured.
+alternatives: A larger local elbow pad increases the small underside with more stock and needs the nearby sample-clearance route reviewed. A smoother blended/tapered joint changes its print-down face but also its boundary near the source slot. A solid broad root replaces the local joint with more material and reduced access.
+file: hardware/printed-parts/calibration/soda-studies/parts/h-fluted-helix-and-keyed-fin-docks.step
+click: x=-52.059 y=49.655 z=14.828

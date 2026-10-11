@@ -1,0 +1,89 @@
+# Current STL SHA256: c91096b0dd00547c0c6f9a0b34b14ee01c8435bc7ba4d7a003b602703068ff71
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[step] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=-4.490 y=7.192 z=52.548
+click: x=-3.003 y=-16.890 z=15.480
+click: x=4.480 y=-7.479 z=6.771
+click: x=6.480 y=-14.505 z=5.647
+
+[ceiling] These are the inside horizontal return and end face of the blade's R6 upper shoulder, at Z 83.00 and Z 80.00. The exterior YZ round and the orthogonal XZ shoulder remain exposed for the 0.08/0.12/0.24 layer-height comparisons. Automatic supports are retained in the prepared finish project; both X sides and the open interior admit removal. The reference does not claim physical support removal or transferred appearance acceptance.
+alternatives: A solid upper head adds backing but changes the inward shoulder and its cooling section. A sloped internal return removes the flat ceiling while changing the curved thin-wall reference. Printing this shoulder as a separate bed-facing part removes the current overhang/orientation comparison.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=0.000 y=-4.606 z=83.000
+click: x=0.000 y=-13.500 z=80.000
+
+[ceiling] These are the blind underside storage sockets: diameter 6.30 mm, roof Z 2.25, mating the 6.00 mm carrier pegs of height 2.00 mm. The 0.15 mm radial air and 0.25 mm top air keep these gravity-parked samples removable. Their bed-facing openings provide removal access; the saved project retains its automatic support decisions. This describes nominal docking geometry, not measured release force or roof strength.
+alternatives: An open through-bore eliminates the socket roof but cuts the sample's upper face or active comparison surface. A 3.00 mm roof requires 2.25 mm more local stock above the current 3.00 mm heel; it raises or enlarges the heel and needs new display placements. A shallower peg preserves a thicker roof but reduces the two-millimetre storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=0.000 y=-3.000 z=2.250
+click: x=0.000 y=-15.000 z=2.250
+
+[slope] This is the intentional 45-degree inner underside of the stepped YZ angle blade, running beside its X-facing side wall. The outside ramp values progress from 0 to 90 degrees in 15-degree steps and the three blades share this geometry. The prepared finish projects retain automatic support decisions for this underside; the active outside ramp is not replaced with a support-free form. Physical appearance remains unrecorded.
+alternatives: A solid filled blade or a transverse supporting rib grounds the underside but changes the specimen's section and thermal exposure. Sloping it in X changes its manufacturing azimuth. A separately printed ramp face avoids this underside while giving up the continuous angle-and-round sample.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=0.000 y=2.113 z=10.674
+
+[thin] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=-2.009 y=-15.458 z=15.360
+click: x=-1.832 y=-15.571 z=15.360
+click: x=-4.070 y=-18.321 z=15.360
+click: x=-4.255 y=-18.200 z=15.360
+click: x=4.320 y=3.815 z=15.166
+click: x=4.320 y=3.536 z=15.118
+click: x=4.268 y=7.175 z=25.924
+click: x=4.268 y=7.390 z=26.111
+click: x=4.390 y=-4.039 z=7.901
+click: x=4.390 y=-4.010 z=8.201
+click: x=-4.000 y=5.752 z=47.742
+click: x=-4.000 y=5.787 z=47.428
+click: x=4.057 y=-9.934 z=6.307
+click: x=4.057 y=-10.267 z=6.218
+click: x=4.370 y=1.581 z=12.436
+click: x=4.370 y=1.277 z=12.599
+click: x=4.370 y=6.669 z=22.150
+click: x=4.370 y=6.324 z=22.139
+click: x=-4.278 y=6.782 z=52.314
+click: x=-4.278 y=7.059 z=52.085
+click: x=6.240 y=-14.054 z=6.896
+click: x=6.240 y=-14.035 z=6.488
+
+[thin] These exact opposite surfaces bound the 0.75 mm roof over a 6.30 mm diameter, 2.25 mm deep storage socket in the 3.00 mm heel. It is a local docking roof, not the active angle or support-ceiling comparison. The socket is open from the bed side and the prepared project records the actual support/bridge treatment; the nominal thickness is not a strength or lifetime claim.
+alternatives: Thickening this roof to 3.00 mm requires a 5.25 mm heel with the same socket depth, adding 2.25 mm and changing the heel/display datum. Opening the socket through the heel removes the roof but perforates the upper sample face. Shorter pegs reduce socket depth and leave more roof, with less storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=1.557 y=-12.766 z=3.000
+click: x=1.557 y=-12.766 z=2.250
+click: x=-0.958 y=-5.707 z=3.000
+click: x=-0.958 y=-5.707 z=2.250
+
+[thin] These picks approach the rounded transverse shoulder's upper outer corner or the short storage heel around the nearby socket. The XZ shoulder is full solid stock; the YZ upper shoulder has a 3.00 mm nominal wall. These oblique corner distances are not a separate 1.73 or 2.01 mm nominal blade wall.
+alternatives: A square transverse shoulder adds stock but removes the orthogonal R6 convex surface under comparison. Enlarging the heel can increase the section near the socket while changing its footprint and display seating. A solid filled upper head enlarges the wall while removing the inward round and altering its cooling.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=-2.053 y=-20.000 z=14.842
+click: x=-1.672 y=-18.321 z=15.000
+click: x=-0.274 y=-18.137 z=2.250
+click: x=-0.274 y=-20.000 z=3.000
+
+[thin] These opposite surfaces retain the representative 3.00 mm YZ upper round wall and the 3.00 mm storage heel. The exterior R6 show round is compared with the XZ shoulder in each blade's actual manufacturing frame. This is geometry for a finish reference, not strength or support-removal acceptance.
+alternatives: Thickening the curved wall to 4.00 or 6.00 mm gives more stock but changes its inward radius and thermal section. A solid upper head removes the inward round. A larger heel leaves the active shoulder intact but changes the dock/platform spacing.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=3.000 y=-10.230 z=82.736
+click: x=3.000 y=-11.429 z=85.486
+click: x=-1.001 y=-11.425 z=85.488
+click: x=-1.001 y=-10.225 z=82.738
+click: x=-4.797 y=-21.969 z=0.000
+click: x=-4.797 y=-21.969 z=3.000
+
+[ledge] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/a08-angle-and-curve-blade.step
+click: x=4.160 y=5.072 z=19.762
+click: x=-4.327 y=8.387 z=48.492
+click: x=-4.327 y=7.117 z=48.008
+click: x=4.160 y=6.198 z=21.690
+click: x=-4.327 y=6.711 z=47.068

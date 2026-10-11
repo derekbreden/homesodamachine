@@ -1,0 +1,29 @@
+# Current STL SHA256: 5b74dc7844524fcee8534524175fa081bdb0557c3778bcc891c91b9129d68810
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[thin] These 1.027–2.000 mm local readings belong to the actual rigid tip's front/outlet passage shell, outside the snap groove: the minimum maps to native X 6.784/S 2.348/N 10.100. The frozen crop changes only the rear S 55 plane and preserves radial stock, source passages and full groove. Baked RX -105° manufacturing and current 0.20 first/0.24 body recipe retain automatic tree supports. This authentic local shell section is not qualified for appliance load or repeated reference handling.
+alternatives: Exterior backing outside the groove band can add handling stock without filling the flow passages, but changes the complete source rigidity/appearance. A longer rear crop or complete tip with a broad rear holder adds handling area and size. Filling/narrowing the passages thickens this shell while replacing source geometry.
+file: hardware/printed-parts/calibration/soda-studies/parts/fh-complete-rigid-groove-host.step
+click: x=6.784 y=-7.327 z=58.770
+click: x=6.095 y=-8.081 z=58.667
+click: x=-6.010 y=-8.564 z=59.549
+click: x=-6.750 y=-7.527 z=59.055
+click: x=-6.734 y=-11.290 z=56.420
+click: x=-6.734 y=-12.437 z=58.058
+click: x=6.734 y=-11.290 z=56.420
+click: x=6.734 y=-12.437 z=58.058
+
+[thin] These 2.221 mm positions are in the retained rear internal passage at native S 47.646/N 11.777. They are outside the complete retaining groove and arise from authentic passage stock in the rear -S 55 crop. The source manufacturing RX -105° is baked into this STL. The native slice has actual automatic support paths; this source reference is unprinted and has no handling-load/lifetime qualification.
+alternatives: A longer crop or complete tip gives more rear handling area but enlarges the specimen. Exterior rear backing can increase local stock while changing source rigidity and its adapter. Filling the internal passage removes this section at the cost of the authentic passage and locator geometry.
+file: hardware/printed-parts/calibration/soda-studies/parts/fh-complete-rigid-groove-host.step
+click: x=8.148 y=20.028 z=22.626
+click: x=6.750 y=18.422 z=21.997
+click: x=-7.999 y=20.133 z=22.664
+click: x=-6.750 y=18.422 z=21.997
+
+[thin] This tiny 2.969 mm local region lies just beyond the authentic groove end at native S 38.504. The full groove spans S 10.15–38.34 and is preserved with the original radial stock; this is a boundary reading in the unchanged source tip, not a new chopped snap station. It establishes no snap force or lifetime.
+alternatives: Larger exterior backing beyond the groove can increase nearby stock while changing the reference's source stiffness/outline. A longer complete-tip specimen adds handling area without modifying this groove-end boundary. Enlarging or smoothing the groove end changes its end-clearance/retention geometry and needs a new fit evaluation.
+file: hardware/printed-parts/calibration/soda-studies/parts/fh-complete-rigid-groove-host.step
+click: x=-11.646 y=13.120 z=28.949
+click: x=-11.673 y=10.597 z=27.383

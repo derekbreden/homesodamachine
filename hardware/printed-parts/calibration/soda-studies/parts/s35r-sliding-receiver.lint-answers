@@ -1,0 +1,60 @@
+# Current STL SHA256: 6ce657f2d26ff6719be2dd78b01629f47d42f3dec92fbf3f30e0327f8fc7d61a
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[step] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=-3.342 y=17.928 z=10.540
+
+[ceiling] These flat ceilings are the slider's functional body and wing retaining faces. The body ceilings are Z 7.06 over the Z 3.00 floor; the wing ceilings are Z 5.38. With the matching tongue seated 0.25 mm above the floor, both retain 0.45 mm nominal roof air while the annotated X air changes per face. The lane is open at both Y ends and through its central inspection window for automatic support removal. Preserve those faces to compare the same flat-wing slide; actual friction and support removal remain unmeasured.
+alternatives: Sloping the ceilings or opening the retaining caps eliminates their flat print-down faces but changes vertical play and wing capture. A receiver assembled around the tongue from two larger open halves prints those faces on the bed, but adds a joint and a different alignment/stiffness contribution to the fit. More roof stock can be added outward without changing air, but enlarges the displayed lane and its support envelope.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=0.000 y=-17.500 z=7.060
+click: x=0.000 y=17.500 z=7.060
+click: x=-10.875 y=0.000 z=5.380
+click: x=10.875 y=0.000 z=5.380
+
+[ceiling] These are the blind underside storage sockets: diameter 6.30 mm, roof Z 2.25, mating the 6.00 mm carrier pegs of height 2.00 mm. The 0.15 mm radial air and 0.25 mm top air keep these gravity-parked samples removable. Their bed-facing openings provide removal access; the saved project retains its automatic support decisions. This describes nominal docking geometry, not measured release force or roof strength.
+alternatives: An open through-bore eliminates the socket roof but cuts the sample's upper face or active comparison surface. A 3.00 mm roof requires 2.25 mm more local stock above the current 3.00 mm heel; it raises or enlarges the heel and needs new display placements. A shallower peg preserves a thicker roof but reduces the two-millimetre storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=-10.000 y=0.000 z=2.250
+click: x=10.000 y=0.000 z=2.250
+
+[thin] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=0.759 y=17.746 z=10.430
+click: x=0.955 y=18.018 z=10.430
+
+[thin] These picks terminate at the Z 7.06 junction of the open inspection window and the horizontal end retention caps. The submillimetre closest approaches are along that sharp boundary; exact STEP occupancy at the representative picks has stock on one side of Z 7.06 and air on the other. They do not define a submillimetre nominal roof. The end caps have 3.00 mm vertical roof stock and preserve the flat body clearance.
+alternatives: Larger rounded window ends remove the sharp junction but shorten or move the flat retaining region and need an updated engagement comparison. Closing the inspection window leaves larger continuous stock but hides the tongue and limits support-removal access. A thicker outward cap preserves the fit but increases overall height without changing this terminating boundary.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=9.005 y=-14.060 z=7.060
+click: x=9.350 y=-14.000 z=7.060
+click: x=-9.005 y=14.060 z=7.060
+click: x=-9.350 y=14.000 z=7.060
+click: x=9.369 y=13.648 z=7.060
+click: x=9.350 y=14.000 z=7.060
+click: x=-9.733 y=-13.947 z=7.060
+click: x=-9.350 y=-14.000 z=7.060
+
+[thin] These exact opposite surfaces bound the 0.75 mm roof over a 6.30 mm diameter, 2.25 mm deep storage socket in the 3.00 mm heel. It is a local docking roof, not the active angle or support-ceiling comparison. The socket is open from the bed side and the prepared project records the actual support/bridge treatment; the nominal thickness is not a strength or lifetime claim.
+alternatives: Thickening this roof to 3.00 mm requires a 5.25 mm heel with the same socket depth, adding 2.25 mm and changing the heel/display datum. Opening the socket through the heel removes the roof but perforates the upper sample face. Shorter pegs reduce socket depth and leave more roof, with less storage engagement.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=-7.995 y=-1.889 z=3.000
+click: x=-7.995 y=-1.889 z=2.250
+click: x=7.407 y=1.542 z=3.000
+click: x=7.407 y=1.542 z=2.250
+
+[thin] These are the rounded receiver side stock and end-cap boundaries around the fixed wing channel, not the clearance being varied. The outer width is 30.80 mm and wing-channel width 24.80 mm, giving 3.00 mm nominal straight side stock; the R2 outer corners produce the shorter local readings near the rounded ends. Other picks approach the 3.00 mm top cap obliquely toward a marking or inspection-window edge. No load or handling-life result is inferred.
+alternatives: Widening the receiver by 2.00 mm gives 4.00 mm nominal straight side stock while preserving the channel, but increases the occupied width of all five lanes on their 34 mm pitch. Square outer corners add material at these minima but replace the rounded handling corners. Closing or lengthening the end caps adds stock at their edges but reduces the inspection/removal opening.
+file: hardware/printed-parts/calibration/soda-studies/parts/s35r-sliding-receiver.step
+click: x=-14.406 y=-20.728 z=3.018
+click: x=-12.400 y=-20.728 z=3.018
+click: x=0.353 y=21.000 z=9.630
+click: x=0.476 y=18.902 z=10.060
+click: x=3.112 y=14.000 z=9.739
+click: x=2.838 y=16.871 z=10.060
+click: x=-3.112 y=14.000 z=9.703
+click: x=-2.824 y=16.886 z=10.060

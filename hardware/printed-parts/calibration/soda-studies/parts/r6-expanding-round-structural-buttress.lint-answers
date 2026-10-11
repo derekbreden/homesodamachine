@@ -1,0 +1,15 @@
+# Current STL SHA256: ee35ff692509e2792a090d616dde44a1f7deaea329bbe9e9421b93552acb4d1f
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[ceiling] These two 6.30 mm diameter blind underside storage sockets have CAD roofs at Z 2.25 and mate the 6.00 mm basin pegs with 0.15 mm radial / 0.25 mm nominal top air. They are distinct from the exterior expanding R6 surface. In the existing R6 native slice, each first roof at nozzle Z 2.60 has 17 Bridge deposits and no support; the 0.24 mm model step gives nominal underside Z 2.36. R6 keeps its supports-off exterior transition recipe. Physical bridge shape and docking force remain unmeasured.
+alternatives: Through or open-sided sockets remove this bridge but cut another source face or reduce gravity-parked engagement. Arched socket roofs need a different mating peg/air convention. A separate bed-facing socket block adds an assembly joint while preserving the outer source round.
+file: hardware/printed-parts/calibration/soda-studies/parts/r6-expanding-round-structural-buttress.step
+click: x=0.000 y=18.000 z=2.250
+click: x=0.000 y=-18.000 z=2.250
+
+[thin] These exact surfaces bound the 2.30 mm left wall of the open interior top storage key, from X -8.45 to X -6.15 at Z 18.207. This is the reference's top docking adaptation, not the expanding show round or a spring wall. The top key is open through its upper face; the current R6 recipe holds Classic walls, 0.24 body/0.08 top band, six walls in the expanding band, wall-first and 15% overlap. The accepted tee result concerns bottom appearance only, not this docking wall's load or life.
+alternatives: A narrower or shifted interior key gives a larger side wall while retaining the exterior source curve, but needs a matching H key and seating-clearance review. A wider source column adds stock externally and changes the represented source section. A separate top saddle preserves the source body with another interface and part.
+file: hardware/printed-parts/calibration/soda-studies/parts/r6-expanding-round-structural-buttress.step
+click: x=-8.450 y=3.910 z=18.207
+click: x=-6.150 y=3.910 z=18.207

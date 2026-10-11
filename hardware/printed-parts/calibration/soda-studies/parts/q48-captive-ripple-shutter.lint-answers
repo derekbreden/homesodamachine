@@ -1,0 +1,36 @@
+# Current STL SHA256: c93fa6b5636a70e06f5c4222798d8e8e0ef84c4ffc814b7defec7e6c77cd1474
+# Manifest SHA256: e10d326d5d1b0d23171358e0bb66f9c02e3444de730ceb6b22e9580e889cf804
+# Exact cached post-live --all findings; answers explain only the anchors of their class.
+
+[step] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=1.659 y=58.491 z=11.400
+
+[ceiling] This is the 13 by 14.15 by 1.60 mm touch flag over the 6 mm wide eye: approximately 3.50 mm projection per X side and 3.85 mm forward projection. It is an accessible handle/finish feature, separate from the 0.24/0.48/0.72 upper-release planes. Existing native first flag layers use Bridge and Overhang-wall deposits with supports off; these small cantilevers remain an unprinted finish/handling risk, not a missing-path finding.
+alternatives: A roughly 3.85 mm taller tapered shoulder can grow to the same handle width above the existing eye roof while preserving the release planes, but increases shutter height and needs a new travel/neighbor-clearance review. A narrower flag removes the side projection but gives less touch/pull area. A separately attached larger handle adds a joint and another part to the captive assembly.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=0.000 y=62.075 z=9.320
+
+[ceiling] This is the captive eye's required solid-skin upper release ceiling, with 2.40 mm roof stock. Leaf-only lint measures the drop to its own 2.60 mm floor; the four-body manufacturing assembly places the fixed rail top at Z 6.44, giving CAD roof air 0.24/0.48/0.72 mm for Q24/Q48/Q72. Native roof nozzle Z 6.92/7.16/7.40 minus the 0.24 mm model step gives the same nominal underside/air. No model/support deposits occupy the release windows; physical strand sag, contact and release remain unmeasured. The solid skins are a distinct comparison from sparse support interfaces.
+alternatives: A sloped or open roof avoids this ceiling but removes capture or changes the flat upper-contact test. Raising the roof to a larger gap is a different comparison rung, not a correction inferred from this leaf-only drop. A separately assembled eye can use thicker open sections while giving up the print-in-place release question.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=0.000 y=64.000 z=6.920
+
+[thin] These exact picks lie on the raised identifiers or numeric/convention markings named in this part's manifest label windows. The font is Arial bold: 4.0 mm horizontal identifiers/conventions (4.3 mm for the basin title), or 3.6 mm tangent-aligned side angle values. Relief is nominally 0.48 mm, with the blade's side identifier projecting 0.49 mm. Their narrow readings include curved terminals and corners of letters, rather than nominal structural walls. The current emitted-width overlays in lettering-review.json identify these markings; physical legibility is unrecorded.
+alternatives: Larger 4.8 mm glyphs or a stroke-expanded font can enlarge terminals, but need wider pads or revised side layouts to keep the full words and angle values on their backing. A separate larger label plate provides more room but adds another removable identity whose association with the sample must be maintained. Increasing relief enlarges the projecting side marks without enlarging their planar stroke widths.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=1.415 y=58.909 z=11.341
+click: x=1.196 y=58.624 z=11.341
+
+[thin] These are the 2.60 mm solid bed-start eye floor at its 0.30 mm bed-facing chamfer. The 2.304 mm local reading approaches that chamfer; the floor is not uniformly 2.304 mm thick. Its upper Z 2.60 is held fixed under the rail's Z 4.04 underside, leaving 1.44 mm lower air while only top air is compared. Every eye begins at the common first model nozzle Z 0.20.
+alternatives: Growing the floor upward from the existing bed start to 3.00 mm reduces lower air by 0.40 mm unless the eye/rail geometry is moved. Adding 0.40 mm downward while holding upper Z 2.60 changes the bed origin and common rail-layer schedule. Removing the chamfer enlarges corner stock but removes the intended first-bed release margin.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=-2.864 y=62.236 z=2.600
+click: x=-3.000 y=62.236 z=0.300
+
+[thin] These opposite surfaces bound the 3.00 mm eye side walls: outer Y span 10.30 mm, inner span 4.30 mm. They connect the bedded floor and captive roof around the rail, whose Y running air is 0.35 per face. Both native sides retain 0.335 mm full-width air at the first rail slab Z 4.28 and 0.350 mm from Z 4.52 through 6.20. This describes model stock and commanded lateral air, not physical sliding force.
+alternatives: Thickening the side walls outward to 4.00 or 6.00 mm preserves internal air but needs larger basin windows and handle/stop travel clearance. Growing them inward changes the fixed 0.35 per-face running gap. A separately assembled open slider removes the captive side-wall loop and changes the release mechanism.
+file: hardware/printed-parts/calibration/soda-studies/parts/q48-captive-ripple-shutter.step
+click: x=-0.909 y=69.150 z=2.813
+click: x=-0.909 y=66.150 z=2.813
