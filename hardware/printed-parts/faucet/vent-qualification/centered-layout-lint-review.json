@@ -1,0 +1,4524 @@
+{
+  "reading": "Centered faucet mounting set: manual post-publication mesh review",
+  "recorded_utc": "2026-10-11T01:41:59.523269+00:00",
+  "scope": "Location-specific STEP face readings and the saved STL lint output. Local inward lines are not a complete-face thickness, load-capacity or lifetime qualification. The centered printed set and steel plate have no physical fit acceptance.",
+  "method": {
+    "native_face_indices": "Zero-based face order of the hash-bound STEP, loaded by CadQuery. Nearest faces within 0.03 mm of each first lint pick are included; the smallest-distance face is first.",
+    "inward_material_intervals": "Distances in mm from the native face point along its inward normal, determined by exact line intersections and solid classification, with a 40 mm reading limit. A listed interval ending at 39.99 mm reaches that reading limit.",
+    "lint_timing": "All nine pieces were linted after their published hashes were verified. Only the changed tip was linted again after its corrected published hash was verified. Answer coverage uses the saved output and the tool's own exact anchor matcher.",
+    "mesh_scope": "Watertightness and winding readings describe the STL topology; they do not establish print finish or physical strength."
+  },
+  "source_sha256": {
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6ebeaa144f777ce621a9b9842d584fa0e6b46103ff66fbb38625231e617c7e3",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "19a02d5986e84ad3ec400c029b5d795ee9b5efe83b34c773bcd762addb684706",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "0769ffd8b8dbe23f94e304346aecbf550636ad58e6226f588036767ddd8dac7f",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "f68a26ea0656403fba59a8d4fec43aa6474654d142cecc3ba86d7d986902bbf8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "cdc61ecc182b69a7f51207f6a21c021e478cfb5231ddeb7d4e3ea62db17d93f3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "571381ae897a5fdaece192c605e5af0e11ca8b64bb984184d2d9bf2a1b55b604",
+    "hardware/printed-parts/faucet/faucet_paths.py": "6f716f7d3f5e4dd237d82adc69cecc0225d7500c14f87b7a89d8613269c62c27",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "56225da9f15554f74de7bb78f718a75224d10cfc3695e7ae5e6e911cee2e8509",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "306ad5f786ecfeccb85c3b9c3a883fcb2646c883619d6738814042ac51e33edc",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "4e77b15c3f884f9df51772f4eb73f958f074fca54ac230233cb1f8949596a416",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "9eba7ef55e49b94a1173186636020bc33f745fd757c927e4d5bfa17415af28fe",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "75fc3c97806d5e180b986e8a8779cc69cf235e9f51f2940ffba7db3b9c180405",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "37fdd99255c7c8f03c99213e47885a76afa4780c272299b66ce8a9d8e9605e7d",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "a06f55f3d23db5068bd825199afb4bb2e597cf5f471c7da1ca63abd5f5999752",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": "d9f1a720adb2475fc4f370e6ba52b30c4e378fe97971e87977e33229ad69e4c4"
+  },
+  "stl_topology": [
+    {
+      "file": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "sha256": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+      "facets": 3104,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "sha256": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
+      "facets": 15212,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "sha256": "cdc61ecc182b69a7f51207f6a21c021e478cfb5231ddeb7d4e3ea62db17d93f3",
+      "facets": 244384,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "facets": 171312,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "sha256": "306ad5f786ecfeccb85c3b9c3a883fcb2646c883619d6738814042ac51e33edc",
+      "facets": 3036,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+      "facets": 15144,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+      "facets": 4372,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "facets": 143108,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    },
+    {
+      "file": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+      "sha256": "a06f55f3d23db5068bd825199afb4bb2e597cf5f471c7da1ca63abd5f5999752",
+      "facets": 6344,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1
+    }
+  ],
+  "native_face_readings": [
+    {
+      "class": "sliver",
+      "description": "0.325 mm strip, 21.7 mm long",
+      "picks": [
+        [
+          -8.912,
+          13.177,
+          28.151
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 55,
+          "type": "PLANE",
+          "distance_mm": 0.00041913274399973943,
+          "native_point": [
+            -8.912,
+            13.177419132744,
+            28.151
+          ],
+          "normal": [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          "area_mm2": 6.843138845008902,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              32.033823372837524
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "description": "0.325 mm strip, 21.7 mm long",
+      "picks": [
+        [
+          8.912,
+          13.177,
+          28.151
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 57,
+          "type": "PLANE",
+          "distance_mm": 0.00041913274399973943,
+          "native_point": [
+            8.912,
+            13.177419132744,
+            28.151
+          ],
+          "normal": [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          "area_mm2": 6.843138845422903,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              32.0338233660069
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 0.4 \u00d7 5.9 mm",
+      "picks": [
+        [
+          1.675,
+          22.533,
+          42.055
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 104,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021582828989812294,
+          "native_point": [
+            1.675,
+            22.535157815547677,
+            42.05504491251766
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834615168429,
+            -0.0208093747479227
+          ],
+          "area_mm2": 2.7537438669880023,
+          "inward_material_intervals_mm": [
+            [
+              1.6878859421254333e-15,
+              7.54887898443657
+            ]
+          ]
+        },
+        {
+          "face": 103,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021587617833064843,
+          "native_point": [
+            1.6749545318111365,
+            22.535157817505237,
+            42.05504481846679
+          ],
+          "normal": [
+            -0.0,
+            -0.99978346155328,
+            -0.02080937299730497
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              -6.175615574477433e-16,
+              7.548884143805595
+            ]
+          ]
+        },
+        {
+          "face": 102,
+          "type": "BSPLINE",
+          "distance_mm": 0.002163300917417953,
+          "native_point": [
+            1.6748527393655335,
+            22.53515782188737,
+            42.05504460792786
+          ],
+          "normal": [
+            -8.736433047345964e-27,
+            -0.9997834616348477,
+            -0.02080936907840412
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              -1.2958384365546749e-15,
+              7.548895693890362
+            ]
+          ]
+        },
+        {
+          "face": 81,
+          "type": "BSPLINE",
+          "distance_mm": 0.004750481753295444,
+          "native_point": [
+            1.6792318807599982,
+            22.535157632883042,
+            42.055053688579534
+          ],
+          "normal": [
+            -5.086250311613922e-13,
+            -0.999783458116806,
+            -0.020809538101572468
+          ],
+          "area_mm2": 112.83683993315978,
+          "inward_material_intervals_mm": [
+            [
+              -1.5525775109992423e-15,
+              7.54839816386148
+            ]
+          ]
+        },
+        {
+          "face": 101,
+          "type": "BSPLINE",
+          "distance_mm": 0.004871692961124362,
+          "native_point": [
+            1.670632492013855,
+            22.535158003096623,
+            42.05503590171865
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834650077836,
+            -0.020809207025496823
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.9359513991901167e-15,
+              7.54937392766674
+            ]
+          ]
+        },
+        {
+          "face": 100,
+          "type": "BSPLINE",
+          "distance_mm": 0.008689695848550165,
+          "native_point": [
+            1.6665826174717004,
+            22.535158176125545,
+            42.05502758847075
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834682284462,
+            -0.020809052287394023
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              -2.007075061705166e-15,
+              7.549831707231922
+            ]
+          ]
+        },
+        {
+          "face": 99,
+          "type": "BSPLINE",
+          "distance_mm": 0.009443867351721418,
+          "native_point": [
+            1.6658060842059925,
+            22.535158209205775,
+            42.05502599910999
+          ],
+          "normal": [
+            -0.0,
+            -0.999783468844182,
+            -0.020809022703980627
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -5.077535614184114e-15,
+              7.5499193546240075
+            ]
+          ]
+        },
+        {
+          "face": 98,
+          "type": "BSPLINE",
+          "distance_mm": 0.012474501903198928,
+          "native_point": [
+            1.6627136508286968,
+            22.535158340634187,
+            42.05501968452576
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834712905087,
+            -0.020808905168235324
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -3.2421981766006525e-15,
+              7.550267987933316
+            ]
+          ]
+        },
+        {
+          "face": 97,
+          "type": "BSPLINE",
+          "distance_mm": 0.016110143719432993,
+          "native_point": [
+            1.6590351174347686,
+            22.535158496328783,
+            42.05501220400711
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834741885042,
+            -0.020808765930842462
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -4.7531423241764514e-15,
+              7.550681843274849
+            ]
+          ]
+        },
+        {
+          "face": 96,
+          "type": "BSPLINE",
+          "distance_mm": 0.017977353557866504,
+          "native_point": [
+            1.6571527110916002,
+            22.535158575731717,
+            42.05500838898625
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834756664548,
+            -0.020808694920722588
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              -4.178948853628128e-15,
+              7.550893265727631
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.019563988056712063,
+          "native_point": [
+            1.6555554670246273,
+            22.53515864296256,
+            42.05500515877966
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834769178409,
+            -0.020808634795998055
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -1.2923689896027213e-15,
+              7.551072469757464
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 0.4 \u00d7 5.9 mm",
+      "picks": [
+        [
+          -1.684,
+          22.533,
+          42.055
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021582828989812294,
+          "native_point": [
+            -1.6840000000000002,
+            22.535157815547677,
+            42.05504491251766
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834615168436,
+            -0.02080937474789207
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              2.7807617319908218e-15,
+              7.547859304251958
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021718525455530252,
+          "native_point": [
+            -1.6837575991884446,
+            22.535157826038716,
+            42.05504440847695
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834617121188,
+            -0.020809365365921276
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              9.26342336171615e-16,
+              7.5478869572268215
+            ]
+          ]
+        },
+        {
+          "face": 86,
+          "type": "BSPLINE",
+          "distance_mm": 0.0022343998048230387,
+          "native_point": [
+            -1.6845782352186627,
+            22.535157790509558,
+            42.05504611546983
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834610507959,
+            -0.0208093971390708
+          ],
+          "area_mm2": 2.808626299532055,
+          "inward_material_intervals_mm": [
+            [
+              -1.0408340855860843e-15,
+              7.547793323175874
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.005233820278936205,
+          "native_point": [
+            -1.6792319194813998,
+            22.535158021351645,
+            42.05503502465132
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834653475733,
+            -0.020809190700209243
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -1.3895135042574225e-15,
+              7.548402505130465
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.009299372727224621,
+          "native_point": [
+            -1.6749545703340996,
+            22.53515820497514,
+            42.05502620237365
+          ],
+          "normal": [
+            -2.436668621963837e-26,
+            -0.999783468765436,
+            -0.020809026487377567
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              -3.497202527569243e-15,
+              7.548888473696737
+            ]
+          ]
+        },
+        {
+          "face": 83,
+          "type": "BSPLINE",
+          "distance_mm": 0.010871294749686476,
+          "native_point": [
+            -1.6946548752695685,
+            22.535157351408863,
+            42.055067211778585
+          ],
+          "normal": [
+            5.107137663428782e-13,
+            -0.9997834528775533,
+            -0.020809789817223028
+          ],
+          "area_mm2": 112.70141588795896,
+          "inward_material_intervals_mm": [
+            [
+              2.445960101127298e-16,
+              7.546639821113671
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.013540612656587743,
+          "native_point": [
+            -1.6706325303378755,
+            22.535158389557484,
+            42.055017333957316
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834722011351,
+            -0.020808861416280945
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              2.157996004115148e-15,
+              7.549378246063836
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.01832148388981331,
+          "native_point": [
+            -1.6658061223070293,
+            22.53515859453996,
+            42.05500748531684
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834760165378,
+            -0.020808678100468422
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              1.6948248360293405e-15,
+              7.549923660188881
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.02139549347800292,
+          "native_point": [
+            -1.6627136887877572,
+            22.53515872524654,
+            42.05500120530993
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834784494133,
+            -0.020808561209068578
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              -2.661065812148422e-15,
+              7.550272285277637
+            ]
+          ]
+        },
+        {
+          "face": 94,
+          "type": "BSPLINE",
+          "distance_mm": 0.02693392102836633,
+          "native_point": [
+            -1.6571527487955027,
+            22.53515895904616,
+            42.05498997194435
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834828011734,
+            -0.020808352120148248
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              1.3062467774105357e-15,
+              7.550897548292732
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.028526319137908804,
+          "native_point": [
+            -1.6555555046556574,
+            22.53515902590424,
+            42.05498675959492
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834840456132,
+            -0.020808292328182935
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -5.27008992001754e-15,
+              7.551076748078251
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.0 \u00d7 0.2 \u00d7 1.3 mm",
+      "picks": [
+        [
+          -1.613,
+          21.667,
+          49.906
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.0011994753067682965,
+          "native_point": [
+            -1.6130171846784658,
+            21.668183194576084,
+            49.90619620472344
+          ],
+          "normal": [
+            0.01432682971346856,
+            -0.9864267896191171,
+            -0.16357545864854856
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              1.4883927423881005e-15,
+              6.428652710584619
+            ]
+          ]
+        },
+        {
+          "face": 86,
+          "type": "BSPLINE",
+          "distance_mm": 0.0013538066200532177,
+          "native_point": [
+            -1.6136452109123207,
+            21.668172847027535,
+            49.90620229951342
+          ],
+          "normal": [
+            0.014739933485967074,
+            -0.9864214827489568,
+            -0.1635707575704736
+          ],
+          "area_mm2": 2.808626299532055,
+          "inward_material_intervals_mm": [
+            [
+              2.6402491304367004e-15,
+              6.428241332469245
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.004101840315381866,
+          "native_point": [
+            -1.6090925981546778,
+            21.668236991526616,
+            49.90616479306766
+          ],
+          "normal": [
+            0.009890940731556377,
+            -0.9864790240196244,
+            -0.16358882743248165
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              -4.198030811863873e-15,
+              6.432757731999272
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.008324413547805292,
+          "native_point": [
+            -1.60477501473074,
+            21.66827644918715,
+            49.90612710510599
+          ],
+          "normal": [
+            0.005282169294860417,
+            -0.9865136982604155,
+            -0.1635934651265085
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -2.6489227478165844e-15,
+              6.437120282208218
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.012473963646816588,
+          "native_point": [
+            -1.600593758867413,
+            21.668295114968647,
+            49.906087334072396
+          ],
+          "normal": [
+            0.00041891708235756417,
+            -0.9865287348587258,
+            -0.16358752949574107
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              4.8971243726825264e-15,
+              6.441748898854011
+            ]
+          ]
+        },
+        {
+          "face": 83,
+          "type": "BSPLINE",
+          "distance_mm": 0.014784408521286251,
+          "native_point": [
+            -1.6277562197879258,
+            21.66790241568965,
+            49.90586450528503
+          ],
+          "normal": [
+            0.03067272029777305,
+            -0.9860705182309293,
+            -0.16347512748219906
+          ],
+          "area_mm2": 112.70141588795896,
+          "inward_material_intervals_mm": [
+            [
+              1.4883927423881005e-15,
+              6.414041082289376
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.016491189578355173,
+          "native_point": [
+            -1.5965603849110248,
+            21.668302347679976,
+            49.90604774888538
+          ],
+          "normal": [
+            -9.730103834511843e-05,
+            -0.9865275663314633,
+            -0.16359508366888106
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              -9.194034422677078e-17,
+              6.442714265091928
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.020350112402565165,
+          "native_point": [
+            -1.59269200786985,
+            21.66830860527031,
+            49.90600909314704
+          ],
+          "normal": [
+            2.664597360055255e-05,
+            -0.9865279251653566,
+            -0.1635929465439408
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              -1.8388068845354155e-15,
+              6.44311866963306
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.024042630967531134,
+          "native_point": [
+            -1.588993347102547,
+            21.66831454135177,
+            49.90597351346393
+          ],
+          "normal": [
+            -8.694673890424119e-06,
+            -0.9865279564585138,
+            -0.16359275977313747
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              4.028027911218146e-15,
+              6.443633287644542
+            ]
+          ]
+        },
+        {
+          "face": 94,
+          "type": "BSPLINE",
+          "distance_mm": 0.0275545082302619,
+          "native_point": [
+            -1.585477198817511,
+            21.668320119362978,
+            49.90593980242326
+          ],
+          "normal": [
+            5.684631309467137e-07,
+            -0.9865280574662416,
+            -0.1635921508861619
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              7.008282842946301e-16,
+              6.444085526685848
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.0 \u00d7 0.4 \u00d7 2.5 mm",
+      "picks": [
+        [
+          1.586,
+          21.67,
+          49.883
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 97,
+          "type": "BSPLINE",
+          "distance_mm": 0.0020918197548365595,
+          "native_point": [
+            1.5859999992399019,
+            21.672063749426858,
+            49.88334153797721
+          ],
+          "normal": [
+            3.633670165961462e-07,
+            -0.9865809050151354,
+            -0.16327313881770136
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -1.7867651802561113e-16,
+              6.445080516864385
+            ]
+          ]
+        },
+        {
+          "face": 96,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021123569210341323,
+          "native_point": [
+            1.5857061753429058,
+            21.672064228570857,
+            49.88333864323408
+          ],
+          "normal": [
+            -8.196699407594538e-07,
+            -0.9865809096756798,
+            -0.16327311065462155
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              -1.7381929229287607e-15,
+              6.44511792484419
+            ]
+          ]
+        },
+        {
+          "face": 98,
+          "type": "BSPLINE",
+          "distance_mm": 0.003840258857646761,
+          "native_point": [
+            1.5892203640154159,
+            21.672058520444203,
+            49.88337327909499
+          ],
+          "normal": [
+            1.0469808870826058e-05,
+            -0.9865807949665932,
+            -0.16327380345134304
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -1.0269562977782698e-15,
+              6.444667542698569
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.004179230775354987,
+          "native_point": [
+            1.5823821347505493,
+            21.672069649111183,
+            49.88330589780496
+          ],
+          "normal": [
+            -0.0,
+            -0.9865809845673997,
+            -0.16327265812137837
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              4.003741782554471e-15,
+              6.445552582923898
+            ]
+          ]
+        },
+        {
+          "face": 99,
+          "type": "BSPLINE",
+          "distance_mm": 0.0072302638047761275,
+          "native_point": [
+            1.5929207143777013,
+            21.672052365640305,
+            49.883410149323346
+          ],
+          "normal": [
+            -5.52005679263994e-05,
+            -0.9865807151368184,
+            -0.16327427682590256
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -1.4085954624931674e-15,
+              6.444126988364853
+            ]
+          ]
+        },
+        {
+          "face": 100,
+          "type": "BSPLINE",
+          "distance_mm": 0.011003947520276683,
+          "native_point": [
+            1.5968027121364743,
+            21.672045787505763,
+            49.88345058296323
+          ],
+          "normal": [
+            0.00013564244596885692,
+            -0.9865806827546045,
+            -0.163274425482331
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              -5.0306980803327406e-17,
+              6.443777779100857
+            ]
+          ]
+        },
+        {
+          "face": 101,
+          "type": "BSPLINE",
+          "distance_mm": 0.014981133502694179,
+          "native_point": [
+            1.6008337238772794,
+            21.672038118178758,
+            49.88349099006874
+          ],
+          "normal": [
+            -0.0004417463987108245,
+            -0.986581959073808,
+            -0.16326617191018578
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.7156415177410622e-15,
+              6.442761390186356
+            ]
+          ]
+        },
+        {
+          "face": 102,
+          "type": "BSPLINE",
+          "distance_mm": 0.019071778235514272,
+          "native_point": [
+            1.6049573018763816,
+            21.6720217005925,
+            49.88351590439684
+          ],
+          "normal": [
+            -0.005547128456019366,
+            -0.9865643367069625,
+            -0.16327902162814184
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              5.221517662690189e-15,
+              6.437937525761062
+            ]
+          ]
+        },
+        {
+          "face": 103,
+          "type": "BSPLINE",
+          "distance_mm": 0.023378811440075208,
+          "native_point": [
+            1.6092881281252165,
+            21.671980875071892,
+            49.88355501957052
+          ],
+          "normal": [
+            -0.010444921572994115,
+            -0.9865253682473205,
+            -0.16327461963766018
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              7.153999614928352e-15,
+              6.433340220540147
+            ]
+          ]
+        },
+        {
+          "face": 104,
+          "type": "BSPLINE",
+          "distance_mm": 0.027999751756675646,
+          "native_point": [
+            1.6139271777477335,
+            21.6719024024827,
+            49.88366310351815
+          ],
+          "normal": [
+            -0.015054918920182814,
+            -0.9864693417606102,
+            -0.16325313835481167
+          ],
+          "area_mm2": 2.7537438669880023,
+          "inward_material_intervals_mm": [
+            [
+              -4.215378046623641e-16,
+              6.4290114109211896
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.002 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 1.3 \u00d7 11.1 mm \u00b7 in 2 pieces",
+      "picks": [
+        [
+          -1.459,
+          19.564,
+          64.297
+        ],
+        [
+          -1.461,
+          19.563,
+          64.297
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 94,
+          "type": "BSPLINE",
+          "distance_mm": 0.001303951877208117,
+          "native_point": [
+            -1.4589999999999923,
+            19.562696760560424,
+            64.29695690172615
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536319592916,
+            -0.033052043255764454
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              -1.4172690798730514e-15,
+              6.838822308937807
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.0014873642824117423,
+          "native_point": [
+            -1.45828448605938,
+            19.562696805043817,
+            64.29695555660282
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536311624849,
+            -0.033052067350220364
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -2.2499363483419188e-15,
+              6.838896832348948
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.0026871034009679313,
+          "native_point": [
+            -1.461349513689485,
+            19.56269661418519,
+            64.29696132794076
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536345812297,
+            -0.03305196397144799
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              -4.435687928072696e-15,
+              6.838577338052641
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.005739811861465532,
+          "native_point": [
+            -1.464589726129855,
+            19.562696411548806,
+            64.29696745544359
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536382109392,
+            -0.03305185421299637
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              -3.505876144949127e-15,
+              6.838238843982843
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.009091690435150769,
+          "native_point": [
+            -1.4679976804911692,
+            19.562696197458486,
+            64.29697392932322
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536420458126,
+            -0.03305173825021151
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              7.962380754733545e-16,
+              6.837882007168521
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.012632487615189678,
+          "native_point": [
+            -1.4715649864336027,
+            19.56269597229922,
+            64.29698073794137
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536460789535,
+            -0.033051616291582486
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              1.556046957951196e-15,
+              6.837507585234571
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.0163345227679511,
+          "native_point": [
+            -1.475282364190495,
+            19.562695736516037,
+            64.29698786784438
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536503023893,
+            -0.033051488578115976
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -6.34561847512316e-15,
+              6.837116432445036
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.0201819076050874,
+          "native_point": [
+            -1.4791397027730004,
+            19.562695490612846,
+            64.29699530379801
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536547070934,
+            -0.033051355382711485
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              1.321859288694327e-15,
+              6.836709495737448
+            ]
+          ]
+        },
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.024161374459209975,
+          "native_point": [
+            -1.4831261185289684,
+            19.56269523515124,
+            64.29700302882381
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536592830054,
+            -0.03305121700951336
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              -6.869504964868156e-16,
+              6.836287810695454
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.002 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 1.1 \u00d7 10.3 mm",
+      "picks": [
+        [
+          1.462,
+          19.576,
+          63.96
+        ],
+        [
+          1.464,
+          19.575,
+          63.96
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 96,
+          "type": "BSPLINE",
+          "distance_mm": 0.001122118562673758,
+          "native_point": [
+            1.462,
+            19.574878746163563,
+            63.95995595567039
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293806867183,
+            -0.039251048042535513
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              7.389922007661198e-16,
+              6.869806532846784
+            ]
+          ]
+        },
+        {
+          "face": 97,
+          "type": "BSPLINE",
+          "distance_mm": 0.0011229938268531392,
+          "native_point": [
+            1.4620443289589862,
+            19.574878742267668,
+            63.95995605484976
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293807602614,
+            -0.03925104617031965
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -3.101685575046531e-15,
+              6.86980199955611
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.003223754881702144,
+          "native_point": [
+            1.4589778484698408,
+            19.57487901121272,
+            63.959949208220706
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293756833645,
+            -0.03925117541467539
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -4.381911500317415e-15,
+              6.870115264273387
+            ]
+          ]
+        },
+        {
+          "face": 98,
+          "type": "BSPLINE",
+          "distance_mm": 0.003472392286304892,
+          "native_point": [
+            1.4652860772580167,
+            19.57487845672442,
+            63.95996332404964
+          ],
+          "normal": [
+            -0.0,
+            -0.999229386150478,
+            -0.039250908949208116
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -1.1934897514720433e-15,
+              6.869470105648469
+            ]
+          ]
+        },
+        {
+          "face": 99,
+          "type": "BSPLINE",
+          "distance_mm": 0.00678904005322669,
+          "native_point": [
+            1.4686956469420267,
+            19.574878155038984,
+            63.95997100421605
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293918454052,
+            -0.03925076397042164
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -1.1917550279960665e-15,
+              6.869120226789366
+            ]
+          ]
+        },
+        {
+          "face": 100,
+          "type": "BSPLINE",
+          "distance_mm": 0.010325821793592089,
+          "native_point": [
+            1.4722646436871512,
+            19.574877837753583,
+            63.95997908154969
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293978348064,
+            -0.039250611494477075
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              1.3981871216373065e-15,
+              6.868753105852147
+            ]
+          ]
+        },
+        {
+          "face": 101,
+          "type": "BSPLINE",
+          "distance_mm": 0.01402876848335397,
+          "native_point": [
+            1.4759837833220029,
+            19.57487750549505,
+            63.95998754009737
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294041068477,
+            -0.03925045182254982
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.1050188541972261e-15,
+              6.868369580464754
+            ]
+          ]
+        },
+        {
+          "face": 102,
+          "type": "BSPLINE",
+          "distance_mm": 0.017878245216970942,
+          "native_point": [
+            1.4798429500596215,
+            19.57487715897321,
+            63.959996361793216
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294106481285,
+            -0.03925028529569642
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              -2.9021923753091983e-15,
+              6.8679705791209775
+            ]
+          ]
+        },
+        {
+          "face": 103,
+          "type": "BSPLINE",
+          "distance_mm": 0.02186013059225624,
+          "native_point": [
+            1.4838312550815365,
+            19.574876798979183,
+            63.96000552650147
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294174437143,
+            -0.03925011229404562
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              -4.262215580475015e-15,
+              6.867557117231598
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.459 mm of material at its thinnest \u00b7 41.0 mm\u00b2 of surface under 1.6 mm \u00b7 spans 16.5 \u00d7 2.3 \u00d7 1.6 mm",
+      "picks": [
+        [
+          7.093,
+          -3.46,
+          57.835
+        ],
+        [
+          6.85,
+          -3.26,
+          57.5
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 0,
+          "type": "BSPLINE",
+          "distance_mm": 0.001149054826870043,
+          "native_point": [
+            7.093403993704319,
+            -3.4606989080592627,
+            57.835817706308355
+          ],
+          "normal": [
+            0.3515878397393071,
+            -0.608246049633338,
+            0.7116338483046505
+          ],
+          "area_mm2": 7239.0209969965135,
+          "inward_material_intervals_mm": [
+            [
+              -7.882583474838611e-15,
+              0.6922992384628467
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.466 mm of material at its thinnest \u00b7 1.3 mm\u00b2 of surface under 0.8 mm \u00b7 spans 0.7 \u00d7 0.9 \u00d7 0.6 mm",
+      "picks": [
+        [
+          -6.976,
+          -3.437,
+          57.912
+        ],
+        [
+          -6.85,
+          -3.26,
+          57.5
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 0,
+          "type": "BSPLINE",
+          "distance_mm": 0.001066779536078172,
+          "native_point": [
+            -6.976367746088574,
+            -3.4376517478165582,
+            57.91276026717445
+          ],
+          "normal": [
+            -0.34472548088164573,
+            -0.6109489304170544,
+            0.7126750642846819
+          ],
+          "area_mm2": 7239.0209969965135,
+          "inward_material_intervals_mm": [
+            [
+              -3.1225022567582528e-15,
+              0.5791703510613768
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.013 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 1.6 mm \u00b7 spans 0.0 \u00d7 0.0 \u00d7 0.0 mm",
+      "picks": [
+        [
+          9.086,
+          13.17,
+          16.289
+        ],
+        [
+          9.075,
+          13.177,
+          17.302
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 35,
+          "type": "CYLINDER",
+          "distance_mm": 0.0001342494367840963,
+          "native_point": [
+            9.08592376374075,
+            13.169889496859536,
+            16.289
+          ],
+          "normal": [
+            -0.5678702352337969,
+            -0.823118093553721,
+            0.0
+          ],
+          "area_mm2": 8.279489648018737,
+          "inward_material_intervals_mm": [
+            [
+              -2.914335439641036e-16,
+              12.859027585407803
+            ]
+          ]
+        },
+        {
+          "face": 34,
+          "type": "PLANE",
+          "distance_mm": 0.013268139683961216,
+          "native_point": [
+            9.075,
+            13.177419132744,
+            16.289
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "area_mm2": 149.43710254865601,
+          "inward_material_intervals_mm": [
+            [
+              -4.1841703712908185e-13,
+              14.174789590370754
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.135 mm of material at its thinnest \u00b7 314.6 mm\u00b2 of surface under 3 mm \u00b7 spans 23.2 \u00d7 19.2 \u00d7 23.4 mm",
+      "picks": [
+        [
+          -6.85,
+          -17.507,
+          42.787
+        ],
+        [
+          -7.953,
+          -17.765,
+          42.859
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 7,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -6.85,
+            -17.507,
+            42.787
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "area_mm2": 287.8752972726209,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              1.566468625773286
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.225 mm of material at its thinnest \u00b7 15.7 mm\u00b2 of surface under 1.6 mm \u00b7 spans 1.6 \u00d7 5.2 \u00d7 8.7 mm \u00b7 in 3 pieces",
+      "picks": [
+        [
+          6.85,
+          -16.388,
+          44.929
+        ],
+        [
+          8.057,
+          -16.552,
+          45.058
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "native_faces": [
+        {
+          "face": 5,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            6.85,
+            -16.388,
+            44.929
+          ],
+          "normal": [
+            -1.0,
+            -0.0,
+            -0.0
+          ],
+          "area_mm2": 287.87529701292505,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              1.564789297237162
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "description": "0.325 mm strip, 21.7 mm long",
+      "picks": [
+        [
+          8.912,
+          13.173,
+          28.151
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 35,
+          "type": "PLANE",
+          "distance_mm": 0.004419132743999299,
+          "native_point": [
+            8.912,
+            13.177419132744,
+            28.151
+          ],
+          "normal": [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          "area_mm2": 6.843138845422903,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              30.49164938604556
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "description": "0.325 mm strip, 21.7 mm long",
+      "picks": [
+        [
+          -8.912,
+          13.173,
+          28.151
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 47,
+          "type": "PLANE",
+          "distance_mm": 0.004419132743999299,
+          "native_point": [
+            -8.912,
+            13.177419132744,
+            28.151
+          ],
+          "normal": [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          "area_mm2": 6.843138845008902,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              30.49164938604556
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 0.4 \u00d7 5.9 mm",
+      "picks": [
+        [
+          1.675,
+          22.533,
+          42.055
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 94,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021582828989812294,
+          "native_point": [
+            1.675,
+            22.535157815547677,
+            42.05504491251766
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834615168429,
+            -0.0208093747479227
+          ],
+          "area_mm2": 2.7537438669880023,
+          "inward_material_intervals_mm": [
+            [
+              1.6878859421254333e-15,
+              7.208842967816327
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021587617833064843,
+          "native_point": [
+            1.6749545318111365,
+            22.535157817505237,
+            42.05504481846679
+          ],
+          "normal": [
+            -0.0,
+            -0.99978346155328,
+            -0.02080937299730497
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              -6.175615574477433e-16,
+              7.208846094890507
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.002163300917417953,
+          "native_point": [
+            1.6748527393655335,
+            22.53515782188737,
+            42.05504460792786
+          ],
+          "normal": [
+            -8.736433047345964e-27,
+            -0.9997834616348477,
+            -0.02080936907840412
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              -1.2958384365546749e-15,
+              7.2088530953558205
+            ]
+          ]
+        },
+        {
+          "face": 95,
+          "type": "BSPLINE",
+          "distance_mm": 0.004750481753295444,
+          "native_point": [
+            1.6792318807599982,
+            22.535157632883042,
+            42.055053688579534
+          ],
+          "normal": [
+            -5.086250311613922e-13,
+            -0.999783458116806,
+            -0.020809538101572468
+          ],
+          "area_mm2": 112.83683993315978,
+          "inward_material_intervals_mm": [
+            [
+              -1.5525775109992423e-15,
+              7.208551547143931
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.004871692961124362,
+          "native_point": [
+            1.670632492013855,
+            22.535158003096623,
+            42.05503590171865
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834650077836,
+            -0.020809207025496823
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.9359513991901167e-15,
+              7.209142954036625
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.008689695848550165,
+          "native_point": [
+            1.6665826174717004,
+            22.535158176125545,
+            42.05502758847075
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834682284462,
+            -0.020809052287394023
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              -2.007075061705166e-15,
+              7.20942042066827
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.009443867351721418,
+          "native_point": [
+            1.6658060842059925,
+            22.535158209205775,
+            42.05502599910999
+          ],
+          "normal": [
+            -0.0,
+            -0.999783468844182,
+            -0.020809022703980627
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -5.077535614184114e-15,
+              7.209473545578338
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.012474501903198928,
+          "native_point": [
+            1.6627136508286968,
+            22.535158340634187,
+            42.05501968452576
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834712905087,
+            -0.020808905168235324
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -3.2421981766006525e-15,
+              7.209684861382266
+            ]
+          ]
+        },
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.016110143719432993,
+          "native_point": [
+            1.6590351174347686,
+            22.535158496328783,
+            42.05501220400711
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834741885042,
+            -0.020808765930842462
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -4.7531423241764514e-15,
+              7.20993571391152
+            ]
+          ]
+        },
+        {
+          "face": 86,
+          "type": "BSPLINE",
+          "distance_mm": 0.017977353557866504,
+          "native_point": [
+            1.6571527110916002,
+            22.535158575731717,
+            42.05500838898625
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834756664548,
+            -0.020808694920722588
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              -4.178948853628128e-15,
+              7.210063866279909
+            ]
+          ]
+        },
+        {
+          "face": 85,
+          "type": "BSPLINE",
+          "distance_mm": 0.019563988056712063,
+          "native_point": [
+            1.6555554670246273,
+            22.53515864296256,
+            42.05500515877966
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834769178409,
+            -0.020808634795998055
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -1.2923689896027213e-15,
+              7.210172490536228
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 0.4 \u00d7 5.9 mm",
+      "picks": [
+        [
+          -1.684,
+          22.533,
+          42.055
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 77,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021582828989812294,
+          "native_point": [
+            -1.6840000000000002,
+            22.535157815547677,
+            42.05504491251766
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834615168436,
+            -0.02080937474789207
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              2.7807617319908218e-15,
+              7.208221872857739
+            ]
+          ]
+        },
+        {
+          "face": 78,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021718525455530252,
+          "native_point": [
+            -1.6837575991884446,
+            22.535157826038716,
+            42.05504440847695
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834617121188,
+            -0.020809365365921276
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              9.26342336171615e-16,
+              7.208238632992104
+            ]
+          ]
+        },
+        {
+          "face": 76,
+          "type": "BSPLINE",
+          "distance_mm": 0.0022343998048230387,
+          "native_point": [
+            -1.6845782352186627,
+            22.535157790509558,
+            42.05504611546983
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834610507959,
+            -0.0208093971390708
+          ],
+          "area_mm2": 2.808626299532055,
+          "inward_material_intervals_mm": [
+            [
+              -1.0408340855860843e-15,
+              7.20818188259927
+            ]
+          ]
+        },
+        {
+          "face": 79,
+          "type": "BSPLINE",
+          "distance_mm": 0.005233820278936205,
+          "native_point": [
+            -1.6792319194813998,
+            22.535158021351645,
+            42.05503502465132
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834653475733,
+            -0.020809190700209243
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -1.3895135042574225e-15,
+              7.208551103785042
+            ]
+          ]
+        },
+        {
+          "face": 80,
+          "type": "BSPLINE",
+          "distance_mm": 0.009299372727224621,
+          "native_point": [
+            -1.6749545703340996,
+            22.53515820497514,
+            42.05502620237365
+          ],
+          "normal": [
+            -2.436668621963837e-26,
+            -0.999783468765436,
+            -0.020809026487377567
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              -3.497202527569243e-15,
+              7.208845652682839
+            ]
+          ]
+        },
+        {
+          "face": 75,
+          "type": "BSPLINE",
+          "distance_mm": 0.010871294749686476,
+          "native_point": [
+            -1.6946548752695685,
+            22.535157351408863,
+            42.055067211778585
+          ],
+          "normal": [
+            5.107137663428782e-13,
+            -0.9997834528775533,
+            -0.020809789817223028
+          ],
+          "area_mm2": 112.70141588795896,
+          "inward_material_intervals_mm": [
+            [
+              2.445960101127298e-16,
+              7.207482777364875
+            ]
+          ]
+        },
+        {
+          "face": 81,
+          "type": "BSPLINE",
+          "distance_mm": 0.013540612656587743,
+          "native_point": [
+            -1.6706325303378755,
+            22.535158389557484,
+            42.055017333957316
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834722011351,
+            -0.020808861416280945
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              2.157996004115148e-15,
+              7.2091425129922015
+            ]
+          ]
+        },
+        {
+          "face": 82,
+          "type": "BSPLINE",
+          "distance_mm": 0.01832148388981331,
+          "native_point": [
+            -1.6658061223070293,
+            22.53515859453996,
+            42.05500748531684
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834760165378,
+            -0.020808678100468422
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              1.6948248360293405e-15,
+              7.209473105832761
+            ]
+          ]
+        },
+        {
+          "face": 83,
+          "type": "BSPLINE",
+          "distance_mm": 0.02139549347800292,
+          "native_point": [
+            -1.6627136887877572,
+            22.53515872524654,
+            42.05500120530993
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834784494133,
+            -0.020808561209068578
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              -2.661065812148422e-15,
+              7.209684422468721
+            ]
+          ]
+        },
+        {
+          "face": 84,
+          "type": "BSPLINE",
+          "distance_mm": 0.02693392102836633,
+          "native_point": [
+            -1.6571527487955027,
+            22.53515895904616,
+            42.05498997194435
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834828011734,
+            -0.020808352120148248
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              1.3062467774105357e-15,
+              7.210063428862358
+            ]
+          ]
+        },
+        {
+          "face": 85,
+          "type": "BSPLINE",
+          "distance_mm": 0.028526319137908804,
+          "native_point": [
+            -1.6555555046556574,
+            22.53515902590424,
+            42.05498675959492
+          ],
+          "normal": [
+            -0.0,
+            -0.9997834840456132,
+            -0.020808292328182935
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -5.27008992001754e-15,
+              7.2101720535482805
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.0 \u00d7 0.2 \u00d7 1.3 mm",
+      "picks": [
+        [
+          -1.613,
+          21.667,
+          49.906
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 77,
+          "type": "BSPLINE",
+          "distance_mm": 0.0011994753067682965,
+          "native_point": [
+            -1.6130171846784658,
+            21.668183194576084,
+            49.90619620472344
+          ],
+          "normal": [
+            0.01432682971346856,
+            -0.9864267896191171,
+            -0.16357545864854856
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              1.4883927423881005e-15,
+              8.181441601690219
+            ]
+          ]
+        },
+        {
+          "face": 76,
+          "type": "BSPLINE",
+          "distance_mm": 0.0013538066200532177,
+          "native_point": [
+            -1.6136452109123207,
+            21.668172847027535,
+            49.90620229951342
+          ],
+          "normal": [
+            0.014739933485967074,
+            -0.9864214827489568,
+            -0.1635707575704736
+          ],
+          "area_mm2": 2.808626299532055,
+          "inward_material_intervals_mm": [
+            [
+              2.6402491304367004e-15,
+              8.181207183014577
+            ]
+          ]
+        },
+        {
+          "face": 78,
+          "type": "BSPLINE",
+          "distance_mm": 0.004101840315381866,
+          "native_point": [
+            -1.6090925981546778,
+            21.668236991526616,
+            49.90616479306766
+          ],
+          "normal": [
+            0.009890940731556377,
+            -0.9864790240196244,
+            -0.16358882743248165
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              -4.198030811863873e-15,
+              8.183816539995187
+            ]
+          ]
+        },
+        {
+          "face": 79,
+          "type": "BSPLINE",
+          "distance_mm": 0.008324413547805292,
+          "native_point": [
+            -1.60477501473074,
+            21.66827644918715,
+            49.90612710510599
+          ],
+          "normal": [
+            0.005282169294860417,
+            -0.9865136982604155,
+            -0.1635934651265085
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -2.6489227478165844e-15,
+              8.186409400498022
+            ]
+          ]
+        },
+        {
+          "face": 80,
+          "type": "BSPLINE",
+          "distance_mm": 0.012473963646816588,
+          "native_point": [
+            -1.600593758867413,
+            21.668295114968647,
+            49.906087334072396
+          ],
+          "normal": [
+            0.00041891708235756417,
+            -0.9865287348587258,
+            -0.16358752949574107
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              4.8971243726825264e-15,
+              8.189244035852305
+            ]
+          ]
+        },
+        {
+          "face": 75,
+          "type": "BSPLINE",
+          "distance_mm": 0.014784408521286251,
+          "native_point": [
+            -1.6277562197879258,
+            21.66790241568965,
+            49.90586450528503
+          ],
+          "normal": [
+            0.03067272029777305,
+            -0.9860705182309293,
+            -0.16347512748219906
+          ],
+          "area_mm2": 112.70141588795896,
+          "inward_material_intervals_mm": [
+            [
+              1.4883927423881005e-15,
+              8.173535557630775
+            ]
+          ]
+        },
+        {
+          "face": 81,
+          "type": "BSPLINE",
+          "distance_mm": 0.016491189578355173,
+          "native_point": [
+            -1.5965603849110248,
+            21.668302347679976,
+            49.90604774888538
+          ],
+          "normal": [
+            -9.730103834511843e-05,
+            -0.9865275663314633,
+            -0.16359508366888106
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              -9.194034422677078e-17,
+              8.189796645750635
+            ]
+          ]
+        },
+        {
+          "face": 82,
+          "type": "BSPLINE",
+          "distance_mm": 0.020350112402565165,
+          "native_point": [
+            -1.59269200786985,
+            21.66830860527031,
+            49.90600909314704
+          ],
+          "normal": [
+            2.664597360055255e-05,
+            -0.9865279251653566,
+            -0.1635929465439408
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              -1.8388068845354155e-15,
+              8.189976712064867
+            ]
+          ]
+        },
+        {
+          "face": 83,
+          "type": "BSPLINE",
+          "distance_mm": 0.024042630967531134,
+          "native_point": [
+            -1.588993347102547,
+            21.66831454135177,
+            49.90597351346393
+          ],
+          "normal": [
+            -8.694673890424119e-06,
+            -0.9865279564585138,
+            -0.16359275977313747
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              4.028027911218146e-15,
+              8.190234578343686
+            ]
+          ]
+        },
+        {
+          "face": 84,
+          "type": "BSPLINE",
+          "distance_mm": 0.0275545082302619,
+          "native_point": [
+            -1.585477198817511,
+            21.668320119362978,
+            49.90593980242326
+          ],
+          "normal": [
+            5.684631309467137e-07,
+            -0.9865280574662416,
+            -0.1635921508861619
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              7.008282842946301e-16,
+              8.19045541080825
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.000 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.0 \u00d7 0.4 \u00d7 2.5 mm",
+      "picks": [
+        [
+          1.586,
+          21.67,
+          49.883
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.0020918197548365595,
+          "native_point": [
+            1.5859999992399019,
+            21.672063749426858,
+            49.88334153797721
+          ],
+          "normal": [
+            3.633670165961462e-07,
+            -0.9865809050151354,
+            -0.16327313881770136
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -1.7867651802561113e-16,
+              8.186188120610389
+            ]
+          ]
+        },
+        {
+          "face": 86,
+          "type": "BSPLINE",
+          "distance_mm": 0.0021123569210341323,
+          "native_point": [
+            1.5857061753429058,
+            21.672064228570857,
+            49.88333864323408
+          ],
+          "normal": [
+            -8.196699407594538e-07,
+            -0.9865809096756798,
+            -0.16327311065462155
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              -1.7381929229287607e-15,
+              8.186206354492267
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.003840258857646761,
+          "native_point": [
+            1.5892203640154159,
+            21.672058520444203,
+            49.88337327909499
+          ],
+          "normal": [
+            1.0469808870826058e-05,
+            -0.9865807949665932,
+            -0.16327380345134304
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -1.0269562977782698e-15,
+              8.185986970160021
+            ]
+          ]
+        },
+        {
+          "face": 85,
+          "type": "BSPLINE",
+          "distance_mm": 0.004179230775354987,
+          "native_point": [
+            1.5823821347505493,
+            21.672069649111183,
+            49.88330589780496
+          ],
+          "normal": [
+            -0.0,
+            -0.9865809845673997,
+            -0.16327265812137837
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              4.003741782554471e-15,
+              8.186419875487733
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.0072302638047761275,
+          "native_point": [
+            1.5929207143777013,
+            21.672052365640305,
+            49.883410149323346
+          ],
+          "normal": [
+            -5.52005679263994e-05,
+            -0.9865807151368184,
+            -0.16327427682590256
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -1.4085954624931674e-15,
+              8.185713137447749
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.011003947520276683,
+          "native_point": [
+            1.5968027121364743,
+            21.672045787505763,
+            49.88345058296323
+          ],
+          "normal": [
+            0.00013564244596885692,
+            -0.9865806827546045,
+            -0.163274425482331
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              -5.0306980803327406e-17,
+              8.185566082245222
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.014981133502694179,
+          "native_point": [
+            1.6008337238772794,
+            21.672038118178758,
+            49.88349099006874
+          ],
+          "normal": [
+            -0.0004417463987108245,
+            -0.986581959073808,
+            -0.16326617191018578
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.7156415177410622e-15,
+              8.184979945186146
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.019071778235514272,
+          "native_point": [
+            1.6049573018763816,
+            21.6720217005925,
+            49.88351590439684
+          ],
+          "normal": [
+            -0.005547128456019366,
+            -0.9865643367069625,
+            -0.16327902162814184
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              5.221517662690189e-15,
+              8.182033158243234
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.023378811440075208,
+          "native_point": [
+            1.6092881281252165,
+            21.671980875071892,
+            49.88355501957052
+          ],
+          "normal": [
+            -0.010444921572994115,
+            -0.9865253682473205,
+            -0.16327461963766018
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              7.153999614928352e-15,
+              8.17930708657125
+            ]
+          ]
+        },
+        {
+          "face": 94,
+          "type": "BSPLINE",
+          "distance_mm": 0.027999751756675646,
+          "native_point": [
+            1.6139271777477335,
+            21.6719024024827,
+            49.88366310351815
+          ],
+          "normal": [
+            -0.015054918920182814,
+            -0.9864693417606102,
+            -0.16325313835481167
+          ],
+          "area_mm2": 2.7537438669880023,
+          "inward_material_intervals_mm": [
+            [
+              -4.215378046623641e-16,
+              8.176827647960284
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.002 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 1.3 \u00d7 11.1 mm \u00b7 in 2 pieces",
+      "picks": [
+        [
+          -1.459,
+          19.564,
+          64.297
+        ],
+        [
+          -1.461,
+          19.563,
+          64.297
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 84,
+          "type": "BSPLINE",
+          "distance_mm": 0.001303951877208117,
+          "native_point": [
+            -1.4589999999999923,
+            19.562696760560424,
+            64.29695690172615
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536319592916,
+            -0.033052043255764454
+          ],
+          "area_mm2": 0.07493101982605134,
+          "inward_material_intervals_mm": [
+            [
+              -1.4172690798730514e-15,
+              6.764440431111028
+            ]
+          ]
+        },
+        {
+          "face": 85,
+          "type": "BSPLINE",
+          "distance_mm": 0.0014873642824117423,
+          "native_point": [
+            -1.45828448605938,
+            19.562696805043817,
+            64.29695555660282
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536311624849,
+            -0.033052067350220364
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -2.2499363483419188e-15,
+              6.764518199309425
+            ]
+          ]
+        },
+        {
+          "face": 83,
+          "type": "BSPLINE",
+          "distance_mm": 0.0026871034009679313,
+          "native_point": [
+            -1.461349513689485,
+            19.56269661418519,
+            64.29696132794076
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536345812297,
+            -0.03305196397144799
+          ],
+          "area_mm2": 0.11049904626127445,
+          "inward_material_intervals_mm": [
+            [
+              -4.435687928072696e-15,
+              6.7641847944510625
+            ]
+          ]
+        },
+        {
+          "face": 82,
+          "type": "BSPLINE",
+          "distance_mm": 0.005739811861465532,
+          "native_point": [
+            -1.464589726129855,
+            19.562696411548806,
+            64.29696745544359
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536382109392,
+            -0.03305185421299637
+          ],
+          "area_mm2": 0.09358175935513985,
+          "inward_material_intervals_mm": [
+            [
+              -3.505876144949127e-15,
+              6.763831563663583
+            ]
+          ]
+        },
+        {
+          "face": 81,
+          "type": "BSPLINE",
+          "distance_mm": 0.009091690435150769,
+          "native_point": [
+            -1.4679976804911692,
+            19.562696197458486,
+            64.29697392932322
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536420458126,
+            -0.03305173825021151
+          ],
+          "area_mm2": 0.11154538793152377,
+          "inward_material_intervals_mm": [
+            [
+              7.962380754733545e-16,
+              6.763459192752325
+            ]
+          ]
+        },
+        {
+          "face": 80,
+          "type": "BSPLINE",
+          "distance_mm": 0.012632487615189678,
+          "native_point": [
+            -1.4715649864336027,
+            19.56269597229922,
+            64.29698073794137
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536460789535,
+            -0.033051616291582486
+          ],
+          "area_mm2": 0.11022125632888996,
+          "inward_material_intervals_mm": [
+            [
+              1.556046957951196e-15,
+              6.763068472494419
+            ]
+          ]
+        },
+        {
+          "face": 79,
+          "type": "BSPLINE",
+          "distance_mm": 0.0163345227679511,
+          "native_point": [
+            -1.475282364190495,
+            19.562695736516037,
+            64.29698786784438
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536503023893,
+            -0.033051488578115976
+          ],
+          "area_mm2": 0.11251992933092897,
+          "inward_material_intervals_mm": [
+            [
+              -6.34561847512316e-15,
+              6.762660294506761
+            ]
+          ]
+        },
+        {
+          "face": 78,
+          "type": "BSPLINE",
+          "distance_mm": 0.0201819076050874,
+          "native_point": [
+            -1.4791397027730004,
+            19.562695490612846,
+            64.29699530379801
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536547070934,
+            -0.033051355382711485
+          ],
+          "area_mm2": 0.11721573920340693,
+          "inward_material_intervals_mm": [
+            [
+              1.321859288694327e-15,
+              6.76223564710453
+            ]
+          ]
+        },
+        {
+          "face": 77,
+          "type": "BSPLINE",
+          "distance_mm": 0.024161374459209975,
+          "native_point": [
+            -1.4831261185289684,
+            19.56269523515124,
+            64.29700302882381
+          ],
+          "normal": [
+            -0.0,
+            -0.9994536592830054,
+            -0.03305121700951336
+          ],
+          "area_mm2": 1.351230516676626,
+          "inward_material_intervals_mm": [
+            [
+              -6.869504964868156e-16,
+              6.761795611095554
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.002 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 0.05 mm \u00b7 spans 0.1 \u00d7 1.1 \u00d7 10.3 mm",
+      "picks": [
+        [
+          1.462,
+          19.576,
+          63.96
+        ],
+        [
+          1.464,
+          19.575,
+          63.96
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 86,
+          "type": "BSPLINE",
+          "distance_mm": 0.001122118562673758,
+          "native_point": [
+            1.462,
+            19.574878746163563,
+            63.95995595567039
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293806867183,
+            -0.039251048042535513
+          ],
+          "area_mm2": 0.07493101983484261,
+          "inward_material_intervals_mm": [
+            [
+              7.389922007661198e-16,
+              6.753440431371833
+            ]
+          ]
+        },
+        {
+          "face": 87,
+          "type": "BSPLINE",
+          "distance_mm": 0.0011229938268531392,
+          "native_point": [
+            1.4620443289589862,
+            19.574878742267668,
+            63.95995605484976
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293807602614,
+            -0.03925104617031965
+          ],
+          "area_mm2": 0.08077929960345578,
+          "inward_material_intervals_mm": [
+            [
+              -3.101685575046531e-15,
+              6.753435601911871
+            ]
+          ]
+        },
+        {
+          "face": 85,
+          "type": "BSPLINE",
+          "distance_mm": 0.003223754881702144,
+          "native_point": [
+            1.4589778484698408,
+            19.57487901121272,
+            63.959949208220706
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293756833645,
+            -0.03925117541467539
+          ],
+          "area_mm2": 85.77337531704931,
+          "inward_material_intervals_mm": [
+            [
+              -4.381911500317415e-15,
+              6.75376933336343
+            ]
+          ]
+        },
+        {
+          "face": 88,
+          "type": "BSPLINE",
+          "distance_mm": 0.003472392286304892,
+          "native_point": [
+            1.4652860772580167,
+            19.57487845672442,
+            63.95996332404964
+          ],
+          "normal": [
+            -0.0,
+            -0.999229386150478,
+            -0.039250908949208116
+          ],
+          "area_mm2": 0.09831698969277688,
+          "inward_material_intervals_mm": [
+            [
+              -1.1934897514720433e-15,
+              6.753082025259838
+            ]
+          ]
+        },
+        {
+          "face": 89,
+          "type": "BSPLINE",
+          "distance_mm": 0.00678904005322669,
+          "native_point": [
+            1.4686956469420267,
+            19.574878155038984,
+            63.95997100421605
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293918454052,
+            -0.03925076397042164
+          ],
+          "area_mm2": 0.09562686295170761,
+          "inward_material_intervals_mm": [
+            [
+              -1.1917550279960665e-15,
+              6.752709289908583
+            ]
+          ]
+        },
+        {
+          "face": 90,
+          "type": "BSPLINE",
+          "distance_mm": 0.010325821793592089,
+          "native_point": [
+            1.4722646436871512,
+            19.574877837753583,
+            63.95997908154969
+          ],
+          "normal": [
+            -0.0,
+            -0.9992293978348064,
+            -0.039250611494477075
+          ],
+          "area_mm2": 0.08141216017858431,
+          "inward_material_intervals_mm": [
+            [
+              1.3981871216373065e-15,
+              6.7523181874335245
+            ]
+          ]
+        },
+        {
+          "face": 91,
+          "type": "BSPLINE",
+          "distance_mm": 0.01402876848335397,
+          "native_point": [
+            1.4759837833220029,
+            19.57487750549505,
+            63.95998754009737
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294041068477,
+            -0.03925045182254982
+          ],
+          "area_mm2": 0.10918742006500941,
+          "inward_material_intervals_mm": [
+            [
+              1.1050188541972261e-15,
+              6.751909610347742
+            ]
+          ]
+        },
+        {
+          "face": 92,
+          "type": "BSPLINE",
+          "distance_mm": 0.017878245216970942,
+          "native_point": [
+            1.4798429500596215,
+            19.57487715897321,
+            63.959996361793216
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294106481285,
+            -0.03925028529569642
+          ],
+          "area_mm2": 0.11257512090238797,
+          "inward_material_intervals_mm": [
+            [
+              -2.9021923753091983e-15,
+              6.751484547956035
+            ]
+          ]
+        },
+        {
+          "face": 93,
+          "type": "BSPLINE",
+          "distance_mm": 0.02186013059225624,
+          "native_point": [
+            1.4838312550815365,
+            19.574876798979183,
+            63.96000552650147
+          ],
+          "normal": [
+            -0.0,
+            -0.9992294174437143,
+            -0.03925011229404562
+          ],
+          "area_mm2": 1.3485236680459294,
+          "inward_material_intervals_mm": [
+            [
+              -4.262215580475015e-15,
+              6.75104408214507
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.342 mm of material at its thinnest \u00b7 3.5 mm\u00b2 of surface under 0.8 mm \u00b7 spans 0.1 \u00d7 0.5 \u00d7 0.7 mm",
+      "picks": [
+        [
+          -6.773,
+          1.623,
+          57.5
+        ],
+        [
+          -6.95,
+          1.33,
+          57.5
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 54,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -6.773,
+            1.623,
+            57.5
+          ],
+          "normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "area_mm2": 81.6711589477239,
+          "inward_material_intervals_mm": [
+            [
+              -1.9897278269453977e-15,
+              39.99
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.358 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.4 mm \u00b7 spans 0.7 \u00d7 0.2 \u00d7 0.0 mm",
+      "picks": [
+        [
+          -8.474,
+          28.267,
+          14.0
+        ],
+        [
+          -8.813,
+          28.153,
+          14.0
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 3,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -8.474,
+            28.267,
+            14.0
+          ],
+          "normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "area_mm2": 3.5860761482826664,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              39.99
+            ]
+          ]
+        },
+        {
+          "face": 0,
+          "type": "CYLINDER",
+          "distance_mm": 0.009862165045772482,
+          "native_point": [
+            -8.471167998070255,
+            28.257553198188806,
+            14.0
+          ],
+          "normal": [
+            -0.2871582372227205,
+            0.9578831592606375,
+            0.0
+          ],
+          "area_mm2": 2594.955531864998,
+          "inward_material_intervals_mm": [
+            [
+              -0.01,
+              -1.7520707107365752e-16
+            ],
+            [
+              -1.7520707107365752e-16,
+              6.1883714006776085
+            ]
+          ]
+        },
+        {
+          "face": 14,
+          "type": "CYLINDER",
+          "distance_mm": 0.013356832068911311,
+          "native_point": [
+            -8.478641302789093,
+            28.279524506830093,
+            14.0
+          ],
+          "normal": [
+            -0.34748529929463495,
+            0.9376854306077909,
+            0.0
+          ],
+          "area_mm2": 6407.624160571785,
+          "inward_material_intervals_mm": [
+            [
+              -2.8536201179818477e-15,
+              0.023239001873105215
+            ],
+            [
+              0.023239001873105215,
+              6.2223442073509725
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.358 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 0.4 mm \u00b7 spans 0.7 \u00d7 0.2 \u00d7 0.0 mm",
+      "picks": [
+        [
+          8.474,
+          28.267,
+          14.0
+        ],
+        [
+          8.813,
+          28.153,
+          14.0
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 3,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            8.474,
+            28.267,
+            14.0
+          ],
+          "normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "area_mm2": 3.5860761482826664,
+          "inward_material_intervals_mm": [
+            [
+              -2.1337098754514727e-16,
+              39.99
+            ]
+          ]
+        },
+        {
+          "face": 0,
+          "type": "CYLINDER",
+          "distance_mm": 0.009862165045775376,
+          "native_point": [
+            8.471167998070257,
+            28.257553198188802,
+            14.0
+          ],
+          "normal": [
+            0.2871582372227206,
+            0.9578831592606375,
+            -0.0
+          ],
+          "area_mm2": 2594.955531864998,
+          "inward_material_intervals_mm": [
+            [
+              -0.01,
+              -3.58046925441613e-15
+            ],
+            [
+              -3.58046925441613e-15,
+              6.188371400677613
+            ]
+          ]
+        },
+        {
+          "face": 14,
+          "type": "CYLINDER",
+          "distance_mm": 0.013356832068911929,
+          "native_point": [
+            8.478641302789095,
+            28.279524506830093,
+            14.0
+          ],
+          "normal": [
+            0.34748529929463506,
+            0.9376854306077909,
+            -0.0
+          ],
+          "area_mm2": 6407.624160571785,
+          "inward_material_intervals_mm": [
+            [
+              -1.6896206656014101e-15,
+              0.023239001873105215
+            ],
+            [
+              0.023239001873105215,
+              6.2223442073509725
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "0.405 mm of material at its thinnest \u00b7 14.0 mm\u00b2 of surface under 1.6 mm \u00b7 spans 2.9 \u00d7 2.1 \u00d7 2.0 mm",
+      "picks": [
+        [
+          6.773,
+          1.623,
+          57.5
+        ],
+        [
+          7.136,
+          1.442,
+          57.5
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 54,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            6.773,
+            1.623,
+            57.5
+          ],
+          "normal": [
+            -0.0,
+            -0.0,
+            -1.0
+          ],
+          "area_mm2": 81.6711589477239,
+          "inward_material_intervals_mm": [
+            [
+              -1.9897278269453977e-15,
+              39.99
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.013 mm of material at its thinnest \u00b7 0.0 mm\u00b2 of surface under 1.6 mm \u00b7 spans 0.0 \u00d7 0.0 \u00d7 0.0 mm",
+      "picks": [
+        [
+          9.086,
+          13.17,
+          16.289
+        ],
+        [
+          9.075,
+          13.177,
+          17.302
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "native_faces": [
+        {
+          "face": 19,
+          "type": "CYLINDER",
+          "distance_mm": 0.0001342494367840963,
+          "native_point": [
+            9.08592376374075,
+            13.169889496859536,
+            16.289
+          ],
+          "normal": [
+            -0.5678702352337969,
+            -0.823118093553721,
+            0.0
+          ],
+          "area_mm2": 8.279489648018737,
+          "inward_material_intervals_mm": [
+            [
+              -2.914335439641036e-16,
+              12.651377776531959
+            ]
+          ]
+        },
+        {
+          "face": 18,
+          "type": "PLANE",
+          "distance_mm": 0.013268139683961216,
+          "native_point": [
+            9.075,
+            13.177419132744,
+            16.289
+          ],
+          "normal": [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          "area_mm2": 149.43710254865601,
+          "inward_material_intervals_mm": [
+            [
+              -4.1841703712908185e-13,
+              14.05229451608267
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.246 mm of material at its thinnest \u00b7 3637.3 mm\u00b2 of surface under 3 mm \u00b7 spans 29.8 \u00d7 46.5 \u00d7 50.3 mm",
+      "picks": [
+        [
+          -13.493,
+          -135.989,
+          184.94
+        ],
+        [
+          -12.252,
+          -136.07,
+          185.007
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
+      "native_faces": [
+        {
+          "face": 1,
+          "type": "BSPLINE",
+          "distance_mm": 0.00036013652914413405,
+          "native_point": [
+            -13.493358850231267,
+            -135.98897670379444,
+            184.93998045216253
+          ],
+          "normal": [
+            -0.9964283048969234,
+            0.06468714965539676,
+            -0.05427896341774265
+          ],
+          "area_mm2": 886.2278356222319,
+          "inward_material_intervals_mm": [
+            [
+              2.6732088764802597e-15,
+              1.2455353811196777
+            ],
+            [
+              26.01581242348468,
+              27.27936770305707
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.246 mm of material at its thinnest \u00b7 1211.6 mm\u00b2 of surface under 3 mm \u00b7 spans 3.7 \u00d7 39.4 \u00d7 43.7 mm",
+      "picks": [
+        [
+          13.493,
+          -135.989,
+          184.94
+        ],
+        [
+          12.252,
+          -136.07,
+          185.007
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
+      "native_faces": [
+        {
+          "face": 26,
+          "type": "BSPLINE",
+          "distance_mm": 0.00036013653286889814,
+          "native_point": [
+            13.493358850234982,
+            -135.98897670379424,
+            184.93998045216233
+          ],
+          "normal": [
+            0.996428304896942,
+            0.06468714965522596,
+            -0.05427896341759932
+          ],
+          "area_mm2": 886.2278356222151,
+          "inward_material_intervals_mm": [
+            [
+              -3.5752650839881994e-15,
+              1.245535381119233
+            ],
+            [
+              26.01581242348287,
+              27.2793677030565
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.300 mm of material at its thinnest \u00b7 836.1 mm\u00b2 of surface under 1.6 mm \u00b7 spans 27.6 \u00d7 31.0 \u00d7 36.6 mm",
+      "picks": [
+        [
+          -10.616,
+          -145.741,
+          201.163
+        ],
+        [
+          -10.616,
+          -144.745,
+          200.328
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
+      "native_faces": [
+        {
+          "face": 3,
+          "type": "PLANE",
+          "distance_mm": 7.364501970277984e-05,
+          "native_point": [
+            -10.616,
+            -145.7409435846419,
+            201.16295266189383
+          ],
+          "normal": [
+            0.0,
+            -0.7660444431187603,
+            0.6427876096867989
+          ],
+          "area_mm2": 664.3713533094871,
+          "inward_material_intervals_mm": [
+            [
+              1.9326554245857608e-14,
+              1.3000000000274292
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.457 mm of material at its thinnest \u00b7 158.8 mm\u00b2 of surface under 3 mm \u00b7 spans 10.2 \u00d7 9.2 \u00d7 3.7 mm \u00b7 in 5 pieces",
+      "picks": [
+        [
+          -19.373,
+          -4.942,
+          0.0
+        ],
+        [
+          -20.256,
+          -4.102,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 2,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -19.373,
+            -4.942,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2295.5851136286065,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.457 mm of material at its thinnest \u00b7 162.7 mm\u00b2 of surface under 3 mm \u00b7 spans 10.9 \u00d7 9.3 \u00d7 3.7 mm \u00b7 in 5 pieces",
+      "picks": [
+        [
+          19.373,
+          -4.942,
+          0.0
+        ],
+        [
+          20.256,
+          -4.102,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 2,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            19.373,
+            -4.942,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2295.5851136286065,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.458 mm of material at its thinnest \u00b7 169.5 mm\u00b2 of surface under 3 mm \u00b7 spans 10.0 \u00d7 9.2 \u00d7 3.7 mm \u00b7 in 5 pieces",
+      "picks": [
+        [
+          -3.237,
+          -19.479,
+          0.0
+        ],
+        [
+          -2.313,
+          -20.274,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 2,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -3.237,
+            -19.479,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2295.5851136286065,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.457 mm of material at its thinnest \u00b7 166.1 mm\u00b2 of surface under 3 mm \u00b7 spans 10.4 \u00d7 9.6 \u00d7 3.7 mm \u00b7 in 4 pieces",
+      "picks": [
+        [
+          -19.373,
+          -4.942,
+          0.0
+        ],
+        [
+          -20.256,
+          -4.102,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 1,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -19.373,
+            -4.942,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2341.9236052690558,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.457 mm of material at its thinnest \u00b7 169.0 mm\u00b2 of surface under 3 mm \u00b7 spans 10.4 \u00d7 9.6 \u00d7 3.7 mm \u00b7 in 4 pieces",
+      "picks": [
+        [
+          19.373,
+          -4.942,
+          0.0
+        ],
+        [
+          20.256,
+          -4.102,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 1,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            19.373,
+            -4.942,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2341.9236052690558,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.458 mm of material at its thinnest \u00b7 174.2 mm\u00b2 of surface under 3 mm \u00b7 spans 10.6 \u00d7 9.3 \u00d7 3.7 mm \u00b7 in 4 pieces",
+      "picks": [
+        [
+          -3.237,
+          -19.479,
+          0.0
+        ],
+        [
+          -2.313,
+          -20.274,
+          -0.8
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "native_faces": [
+        {
+          "face": 1,
+          "type": "PLANE",
+          "distance_mm": 0.0,
+          "native_point": [
+            -3.237,
+            -19.479,
+            0.0
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "area_mm2": 2341.9236052690558,
+          "inward_material_intervals_mm": [
+            [
+              0.0,
+              4.0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.146 mm of material at its thinnest \u00b7 349.8 mm\u00b2 of surface under 3 mm \u00b7 spans 23.8 \u00d7 14.8 \u00d7 14.0 mm \u00b7 in 2 pieces",
+      "picks": [
+        [
+          -6.784,
+          -140.225,
+          188.68
+        ],
+        [
+          -6.292,
+          -139.702,
+          187.787
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "native_faces": [
+        {
+          "face": 8,
+          "type": "PLANE",
+          "distance_mm": 0.0006547651072476436,
+          "native_point": [
+            -6.784,
+            -140.22449842082804,
+            188.6795791251018
+          ],
+          "normal": [
+            0.0,
+            -0.7660444431187603,
+            0.6427876096867989
+          ],
+          "area_mm2": 226.65504823350966,
+          "inward_material_intervals_mm": [
+            [
+              1.9326554245857608e-14,
+              2.4849493854761557
+            ],
+            [
+              3.1653727830451,
+              17.7441340911696
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "class": "thin",
+      "description": "1.366 mm of material at its thinnest \u00b7 2.6 mm\u00b2 of surface under 1.6 mm \u00b7 spans 0.8 \u00d7 0.7 \u00d7 0.6 mm",
+      "picks": [
+        [
+          6.01,
+          -140.657,
+          187.283
+        ],
+        [
+          6.75,
+          -140.448,
+          188.413
+        ]
+      ],
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "native_faces": [
+        {
+          "face": 35,
+          "type": "CYLINDER",
+          "distance_mm": 0.00018560853576870604,
+          "native_point": [
+            6.010145166108403,
+            -140.65708860101134,
+            187.2830743450759
+          ],
+          "normal": [
+            -0.78210901134025,
+            0.47735418499125276,
+            -0.4005477205673669
+          ],
+          "area_mm2": 40.73262899820086,
+          "inward_material_intervals_mm": [
+            [
+              -1.37772605823816e-12,
+              5.356586506138538
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "resolved_fault_drain_fin": {
+    "location": "The two tiny inner crescents where the 4 mm underside hole intersects the curved soda clearance.",
+    "initial_tip_step_sha256": "cf1e1950162556927b58a04118f0ceb4a48b91f969b525fe73ce872d4f27fb4b",
+    "initial_flags": [
+      {
+        "class": "thin",
+        "description": "0.003 mm of material at its thinnest \u00b7 2.4 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.3 \u00d7 2.7 \u00d7 0.7 mm",
+        "picks": [
+          [
+            -1.291,
+            -47.695,
+            218.48
+          ],
+          [
+            -1.29,
+            -47.695,
+            218.482
+          ]
+        ],
+        "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        "native_faces": [
+          {
+            "face": 33,
+            "type": "PLANE",
+            "distance_mm": 0.0002388225454923552,
+            "native_point": [
+              -1.291,
+              -47.69505890250589,
+              218.4797685551836
+            ],
+            "normal": [
+              -0.0,
+              -0.24663712453294456,
+              -0.9691079035907822
+            ],
+            "area_mm2": 1.622398718214227,
+            "inward_material_intervals_mm": [
+              [
+                1.9326554245857608e-14,
+                0.003148458906783844
+              ],
+              [
+                15.60233500579525,
+                22.418753430772515
+              ]
+            ]
+          },
+          {
+            "face": 32,
+            "type": "TORUS",
+            "distance_mm": 0.0028148659502752593,
+            "native_point": [
+              -1.2902895858735834,
+              -47.694379468957266,
+              218.48265211676062
+            ],
+            "normal": [
+              0.2523793810999661,
+              0.22044781303564034,
+              0.9421822592913759
+            ],
+            "area_mm2": 157.3732261452312,
+            "inward_material_intervals_mm": [
+              [
+                -5.172771933015241e-14,
+                0.003061724509876334
+              ],
+              [
+                0.9891855981008726,
+                4.452043455297597
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "class": "thin",
+        "description": "0.003 mm of material at its thinnest \u00b7 2.4 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.3 \u00d7 3.1 \u00d7 0.8 mm",
+        "picks": [
+          [
+            1.295,
+            -47.75,
+            218.494
+          ],
+          [
+            1.294,
+            -47.749,
+            218.496
+          ]
+        ],
+        "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        "native_faces": [
+          {
+            "face": 31,
+            "type": "PLANE",
+            "distance_mm": 0.00024129134645568682,
+            "native_point": [
+              1.295,
+              -47.75005951140386,
+              218.49376616264908
+            ],
+            "normal": [
+              -0.0,
+              -0.24663712453294456,
+              -0.9691079035907822
+            ],
+            "area_mm2": 1.6223976633096313,
+            "inward_material_intervals_mm": [
+              [
+                1.9326554245857608e-14,
+                0.003070928440399143
+              ],
+              [
+                15.601424196524773,
+                22.41752725521356
+              ]
+            ]
+          },
+          {
+            "face": 32,
+            "type": "TORUS",
+            "distance_mm": 0.0027368466520473114,
+            "native_point": [
+              1.2943071256482084,
+              -47.74939898461331,
+              218.49657857232484
+            ],
+            "normal": [
+              -0.2531652079507502,
+              0.21960141107485223,
+              0.9421690919029276
+            ],
+            "area_mm2": 157.3732261452312,
+            "inward_material_intervals_mm": [
+              [
+                -2.3306009899748403e-14,
+                0.0029863142041765198
+              ],
+              [
+                0.7645875860096126,
+                4.452630962195014
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "current_tip_step_sha256": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648",
+    "current_cut": "The cut starts 0.6 mm inside the soda-clearance tangent, opening across the complete hole width. Its diameter and external mouth are retained.",
+    "former_inner_points": [
+      {
+        "point_mm": [
+          -1.291,
+          -47.69481226538136,
+          218.48073766308718
+        ],
+        "current_inside_or_on_solid": false
+      },
+      {
+        "point_mm": [
+          1.295,
+          -47.74981287427933,
+          218.49473527055267
+        ],
+        "current_inside_or_on_solid": false
+      }
+    ],
+    "current_lint_contains_0_003_mm_thin_fin": false,
+    "current_tip_ledge_findings": 0
+  },
+  "lint_answer_coverage": [
+    {
+      "file": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.lint-answers",
+      "sha256": "01588d1742fb719f29b3e1a3b9dc1b7644721138b25f95ba135155e0b7a7fb74",
+      "findings": 1,
+      "matched": 1,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.lint-answers",
+      "sha256": "aa3f4bcf54631b2cde2c4faebda2b3edc210eff7a7e51df3fab7102d3473e092",
+      "findings": 6,
+      "matched": 6,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.lint-answers",
+      "sha256": "90265d01835ea775f801fd7dc6e93f7c1cc9995204313d2b92571f1d07c8fef8",
+      "findings": 31,
+      "matched": 31,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.lint-answers",
+      "sha256": "564b6cdd5d5ce3fd8ff47dcb314d715d5c7b7855ec905fc4d7568ac63e0b72f7",
+      "findings": 11,
+      "matched": 11,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.lint-answers",
+      "sha256": "5b6e61e5e27f513d070c2374f968206c678535845deab1582794fc4a6822c57f",
+      "findings": 1,
+      "matched": 1,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.lint-answers",
+      "sha256": "7d073af4b8062fcf140897eb1da18fbfed7ee74b5ee2242e84a435994e73d2f5",
+      "findings": 6,
+      "matched": 6,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-display-cover.lint-answers",
+      "sha256": "a92031f54e6f62e78861122ae1bbf8b3b42cfae60da3bba55bfb551530ba4b09",
+      "findings": 6,
+      "matched": 6,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/industrial/industrial-shell-base.lint-answers",
+      "sha256": "b1d7065070e89dfd1dfce3b3073fd48b47c384232fcb91afb3e876708ea1b945",
+      "findings": 37,
+      "matched": 37,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    },
+    {
+      "file": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.lint-answers",
+      "sha256": "d85ca3c6573a05044385a7cec1fa86c9c0d241519ebc6ab6e87ec0eb8832250c",
+      "findings": 4,
+      "matched": 4,
+      "unanswered": 0,
+      "every_answer_records_alternatives": true
+    }
+  ],
+  "live_artifact_verification": [
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "sha256": "cdc61ecc182b69a7f51207f6a21c021e478cfb5231ddeb7d4e3ea62db17d93f3",
+      "bytes": 12219284
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "sha256": "f68a26ea0656403fba59a8d4fec43aa6474654d142cecc3ba86d7d986902bbf8",
+      "bytes": 3009604
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "sha256": "9fdbfc308110bc0b922439c42984c44fe99558017ea499501f6b4fd11d32a91a",
+      "bytes": 6094472
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "sha256": "b0b8b8c4f254b6a93310cc9c418ba44171f0bc2e04b08922472f3733dceafc43",
+      "bytes": 8565684
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "sha256": "febf7c5ea0e6a1172be05b201bcde6b7bf3065b54f2a6b82a38d55efc8584249",
+      "bytes": 359612
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "sha256": "80a2fb24c407acd7594afb9f7153351ea82416ddd1301f3aff321a8ecf56d648",
+      "bytes": 1669975
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+      "sha256": "be25d3f8c5f1b121d5c651c93460b17ce6ef911218878c96fec1a7c0174df2c8",
+      "bytes": 4186032
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+      "sha256": "5d6cb4eeab1ca05b64da38bbaa58d43c78ed92adafb0da37fd25816324fae9e3",
+      "bytes": 4701429
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
+      "sha256": "56225da9f15554f74de7bb78f718a75224d10cfc3695e7ae5e6e911cee2e8509",
+      "bytes": 27515
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "sha256": "306ad5f786ecfeccb85c3b9c3a883fcb2646c883619d6738814042ac51e33edc",
+      "bytes": 151884
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+      "bytes": 757284
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-display-cover.step",
+      "sha256": "9eba7ef55e49b94a1173186636020bc33f745fd757c927e4d5bfa17415af28fe",
+      "bytes": 304975
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step",
+      "sha256": "75fc3c97806d5e180b986e8a8779cc69cf235e9f51f2940ffba7db3b9c180405",
+      "bytes": 2946047
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh",
+      "sha256": "611c66d9f1efba13fce5c47c9602af593cd01769d6f23b393e8faf3083f35f9a",
+      "bytes": 137440
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "sha256": "a22584b98b1dd96db14e81dbf538287b8c5b1440b03256cd2596171eb67d4b27",
+      "bytes": 7155484
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh",
+      "sha256": "5ad8cd7be61b3d38d68ce435f21f55dbd0eeb4e621a542cb4b81607720ae4e25",
+      "bytes": 527160
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh",
+      "sha256": "e7dd8aa2156aacf0b5b0c0b8ac62d710ca021c5db0354605553628a7a78d0fb5",
+      "bytes": 109552
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "sha256": "48455be9f79c02af85882a1f6812db3d033cb60e639ec04640969161f0020594",
+      "bytes": 218684
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh",
+      "sha256": "adce7c3cd647df38f8f170cda93ade2b6a6967faf2fd0214690cbbd56962f2a8",
+      "bytes": 3683180
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step",
+      "sha256": "4e77b15c3f884f9df51772f4eb73f958f074fca54ac230233cb1f8949596a416",
+      "bytes": 72571
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "sha256": "0769ffd8b8dbe23f94e304346aecbf550636ad58e6226f588036767ddd8dac7f",
+      "bytes": 73324
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+      "sha256": "b7164af07e5c84b8c1c6af85c119867bf88a3e3ce8e41697d124f97e444249fe",
+      "bytes": 760684
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+      "sha256": "6a8a621c2702b90d25ca0f226637aad2938d63644538f5bf9897f50143b60cba",
+      "bytes": 529596
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+      "sha256": "0e251c03f274644fd522f5dd5934e4aa00139d5d72e55852cb694a076a8918c6",
+      "bytes": 155284
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+      "sha256": "19a02d5986e84ad3ec400c029b5d795ee9b5efe83b34c773bcd762addb684706",
+      "bytes": 28159
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+      "sha256": "cc2fd50985cc6d967b85171376764d4292f9f6cebc2da83a6610b3f168182357",
+      "bytes": 111992
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+      "sha256": "a06f55f3d23db5068bd825199afb4bb2e597cf5f471c7da1ca63abd5f5999752",
+      "bytes": 317284
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
+      "sha256": "2dabf4bb97f962e41f95b568d124775dbb1e71192a6bcfb14e83f1f4ebbf4836",
+      "bytes": 213300
+    },
+    {
+      "live_verified": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
+      "sha256": "37fdd99255c7c8f03c99213e47885a76afa4780c272299b66ce8a9d8e9605e7d",
+      "bytes": 87521
+    },
+    {
+      "live_verified": "hardware/faucet-layout/faucet-assembly.step",
+      "sha256": "b430f014bb13761052807f5171c896deeef3fd1fa4fc6cc6d10c42b47747a2c9",
+      "bytes": 22617812
+    },
+    {
+      "live_verified": "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "sha256": "30563852249cf8b1c8a912aa76475fb2dc94564eedeee026780edcec09631647",
+      "bytes": 12937048
+    },
+    {
+      "live_verified": "hardware/faucet-layout/faucet-industrial-assembly.step",
+      "sha256": "8a40822a0604b819f66dc479c2c19f56779adaeabfdde70ecc8801641ae3ae27",
+      "bytes": 22211959
+    },
+    {
+      "live_verified": "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
+      "sha256": "9b20f0aad586583927759d56f9acc875fa64d28183a1a0dbc024d864add049ad",
+      "bytes": 10663656
+    }
+  ],
+  "physical_evidence_scope": {
+    "organizer": "The beverage and drain bore selections retain only the feature-level acceptance recorded in ../umbilical-organizer/physical-acceptance.json. The centered layout and flat ribbon slot are unprinted.",
+    "industrial": "Print acceptance remains scoped to the source and articles recorded in ../industrial/physical-acceptance.json and ../industrial/selected-print.json.",
+    "assembly": "Modeled routing and plate-slide clearances are recorded in ../umbilical-organizer/integration-check.json and ../../../cut-parts/faucet/under-counter-plate/centered-layout-check.json."
+  }
+}

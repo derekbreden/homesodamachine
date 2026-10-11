@@ -1,3 +1,40 @@
+[thin] These picks surround the beveled beverage outlet and the open display pocket at the end of the tip. Lint reports short diagonal chords of 1.146 and 1.366 mm at the pocket corners; the nearest exact faces have local inward chords of 2.4849 and 5.3566 mm at the first picks. The named faces and readings are in ../vent-qualification/centered-layout-lint-review.json. They retain the tube outlet and hardware insertion clearance. These local readings do not qualify the complete rim, printed finish or resistance to damage.
+alternatives: Filling inward reduces tube or display clearance. Growing the outside changes the matching display-cover envelope and outlet face. Rounding the pocket corner uses the same hardware clearance and requires a separate insertion review.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=-6.784 y=-140.225 z=188.680
+click: x=-6.292 y=-139.702 z=187.787
+click: x=6.010 y=-140.657 z=187.283
+click: x=6.750 y=-140.448 z=188.413
+
+[thin] These are the 2 mm walls at either side of the beverage outlet. The passages guide the separate LLDPE tubes through the open outlet; fluid pressure is contained by the tubes. The mesh thickness matches the specified 2 mm skin. Physical threading and edge finish remain unmeasured for this regenerated tip.
+alternatives: More outside stock changes the matching cover and outlet envelope. More inside stock reduces tube clearance. Moving the outlets changes the symmetric beverage locations and display clearance.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=6.393 y=-132.801 z=181.996
+click: x=6.393 y=-134.086 z=180.464
+click: x=-6.393 y=-132.801 z=181.996
+click: x=-6.393 y=-134.086 z=180.464
+
+[thin] These are the curved neck and male-plug walls around the shared upper tube/ribbon passage. The saved mesh reports 2.207–2.209 mm at the named locations. Their surfaces retain the arc-guided joint, its slip clearance and the continuous passage. Local geometric thickness does not establish joint strength or endurance.
+alternatives: Growing the plug reduces its socket clearance or requires a larger matching base. Filling the passage reduces tube/ribbon clearance. Increasing the outside neck requires a coordinated change to the tip and display cover.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=-0.072 y=-32.464 z=212.710
+click: x=-0.099 y=-33.470 z=210.745
+click: x=8.484 y=-35.245 z=227.621
+click: x=10.530 y=-34.954 z=228.401
+click: x=-10.539 y=-23.588 z=223.091
+click: x=-8.493 y=-23.998 z=222.363
+
+[thin] These picks surround the display pocket and its rear rim. The saved mesh reports 2.220–2.221 mm at the side boundaries and 2.952 mm at the small outer rim. The pocket follows the component insertion envelope and leaves its underside open over the tube paths. Physical component fit remains scoped to the identified articles, not this regenerated tip.
+alternatives: Filling inward uses display insertion clearance. Growing the outside requires a larger matching cover and changes its retention fit. Moving the pocket changes its tube, ribbon and component clearances.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=-8.068 y=-112.337 z=224.569
+click: x=-6.750 y=-111.368 z=223.069
+click: x=8.005 y=-112.453 z=224.545
+click: x=6.750 y=-111.368 z=223.069
+click: x=-11.656 y=-116.703 z=216.132
+click: x=-11.673 y=-114.546 z=214.117
+
 [slope] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's -105 degree print pose, the joint end faces the bed, the crown is raised and this channel-end face points upward. Preserve the opening and remove any adjacent support through the display opening or neck joint before loading hardware; physical removal and contact finish remain print observations.
+alternatives: Filling or sloping this boundary changes the matching component insertion envelope. Opening it farther removes the display pocket's end wall. Retain the hardware clearance and inspect supported contacts before loading the display.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
 click: x=0.000 y=-109.268 z=221.305

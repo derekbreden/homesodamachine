@@ -1,11 +1,24 @@
-[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N21.05 in the 0.50 mm wing-extension trial. It faces down in the cover's -50 degree bezel-up print pose and is reached through the open underside for support removal. The planar bezel retains its shape while the lower wings are preformed inward by 1.25 mm. Physical seating remains unverified for this trial.
+[thin] These are the preformed display wings and cosmetic bezel. The exact local inward chord is 1.2455 mm on either wing and 1.30 mm on the bezel. The wing preform supplies the display retention geometry; the cover does not contain fluid pressure or carry the countertop clamp. Physical acceptance remains limited to the identified printed articles in physical-acceptance.json.
+alternatives: Thicker wings increase flexure stiffness and change the available neck/display clearance and snap fit. A thicker bezel changes the display recess and outside edge. Such changes require a separate fit review rather than a mounting-layout adjustment.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=-13.493 y=-135.989 z=184.940
+click: x=-12.252 y=-136.070 z=185.007
+click: x=13.493 y=-135.989 z=184.940
+click: x=12.252 y=-136.070 z=185.007
+click: x=-10.616 y=-145.741 z=201.163
+click: x=-10.616 y=-144.745 z=200.328
+
+[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N21.05 with the 0.50 mm wing extension. It faces down in the cover's -50 degree bezel-up print pose and is reached through the open underside for support removal. The planar bezel retains its shape while the lower wings are preformed inward by 1.25 mm. Physical acceptance remains scoped to the identified printed articles.
+alternatives: Flattening this wall changes display clearance or closes its underside access. Enlarging the cover changes its neck fit and outside envelope. Retain the matching hardware pocket and inspect any supported contact before installing the display.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-134.132 z=212.975
 
 [slope] This is the outer front wall at local S0. It is vertical in the cover's -50 degree bezel-up print pose. The 2 mm front wall closes the display end around the cylindrical neck clearance and keeps the front flush with the tube outlet plane.
+alternatives: Flattening this wall changes display clearance or closes its underside access. Enlarging the cover changes its neck fit and outside envelope. Retain the matching hardware pocket and inspect any supported contact before installing the display.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-143.818 z=188.637
 
-[slope] This is the inner rear wall at local S47.75, with 2 mm axial stock to the outer rear face at S49.75. It closes the rear of the display pocket around the neck clearance and is vertical in the -50 degree bezel-up print pose. The inner bezel above it is supported through the open underside before installing the display. The current native support audit records those contacts.
+[slope] This is the inner rear wall at local S47.75, with 2 mm axial stock to the outer rear face at S49.75. It closes the rear of the display pocket around the neck clearance and is vertical in the -50 degree bezel-up print pose. The inner bezel above it is supported through the open underside before installing the display. Support cleanup for a regenerated article remains a print observation.
+alternatives: Flattening this wall changes display clearance or closes its underside access. Enlarging the cover changes its neck fit and outside envelope. Retain the matching hardware pocket and inspect any supported contact before installing the display.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-112.627 z=224.797
