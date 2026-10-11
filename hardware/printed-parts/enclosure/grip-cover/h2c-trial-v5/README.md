@@ -23,10 +23,9 @@ with 28.59 g of black PET-GF using the saved profile's density estimate.
 - Normal Connect options: Timelapse On, Auto bed leveling On, flow calibration
   Auto and nozzle-offset calibration Auto.
 
-The prepared archive is
-`.cache/prints/grip-receivers-h2c-v5/ready/grip-receivers-h2c-v5.gcode.3mf`.
-Hashes and source identities are in [preparation.json](preparation.json) and
-[preflight.json](preflight.json). The import copy has the same hash.
+The prepared archive's hashes and source identities are in
+[preparation.json](preparation.json) and [preflight.json](preflight.json).
+The import copy has the same hash.
 
 Run the preparation from the repository root; [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/verify.py) is in Git at `9884d0e7f4`:
 

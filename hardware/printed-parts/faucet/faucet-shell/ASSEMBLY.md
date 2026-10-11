@@ -244,6 +244,5 @@ and resistance to handling loads.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/.cache/printer-control/faucet-conformal-tip/update-doc-values.py`
 - `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

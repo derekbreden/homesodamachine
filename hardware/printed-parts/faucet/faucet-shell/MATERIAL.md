@@ -59,5 +59,4 @@ Use the drying and handling procedure recorded in the
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/.cache/printer-control/faucet-conformal-tip/update-doc-values.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

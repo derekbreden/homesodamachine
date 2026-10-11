@@ -100,8 +100,6 @@ omits its ceiling support.
 The editable [support-interface.3mf](support-interface.3mf) carries the geometry
 and per-object Z settings. **Edge treatments are applied after slicing** by
 `setback.py`; simply re-slicing this project does not reproduce the experiment.
-The final print file is
-`.cache/prints/2026-09-15-interface-edges-mark2/petgf-interface-edges-mark2.gcode.3mf`.
 
 `setback.py` measures both interface layers independently and clips only positive
 Support interface extrusion at the selected edges. Removed portions become

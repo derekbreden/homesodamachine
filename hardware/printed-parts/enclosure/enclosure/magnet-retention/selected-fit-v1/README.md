@@ -25,8 +25,8 @@ color `161616` with +0.04 mm requested / +0.02 mm emitted trim; H2C uses
 Prepare or slice one part at a time after the geometry records match:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 PYTHONPATH=.cache/frame-seam-square/runtime tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py pump-cartridge --slice
-HSM_NO_BUILD_LOCK=1 PYTHONPATH=.cache/frame-seam-square/runtime tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py front-top --slice
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py pump-cartridge --slice
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py front-top --slice
 ```
 
 Omitting `--slice` prepares only. `--prepared --slice` slices the existing

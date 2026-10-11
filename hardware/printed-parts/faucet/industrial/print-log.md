@@ -92,5 +92,4 @@
 - Native archive SHA-256:
   `e3abe2fe5eaf94d0c40a0c1fea98f7bac52f1fe052eb0a28154087b11ab5a3c3`.
   Project, source, profile, support and launch hashes are in the
-  [readiness record](faucet-industrial-petgf.readiness.json) and
-  `.cache/prints/2026-09-18-industrial-black-z018-mark2/readiness.json`.
+  [readiness record](faucet-industrial-petgf.readiness.json).

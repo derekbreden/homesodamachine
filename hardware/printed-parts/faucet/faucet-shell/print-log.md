@@ -924,9 +924,6 @@ Settings unchanged from attempt 9:
 - Submitted through Bambu Connect as `faucet-mark2.gcode.3mf`; printer
   telemetry confirms RUNNING with 1,029 total layers and no reported errors.
 - Slice estimate: 5 h 26 min 57 s, 154.19 g at the saved profile density.
-- Project, profile, source STL and submitted archive hashes, together with
-  launch telemetry, are archived at
-  `.cache/prints/2026-09-17-faucet-15deg-mark2/readiness.json` from the repository root.
 
 ## PET-GF faucet fit — 2026-09-17
 
@@ -998,8 +995,7 @@ what should be smooth surfaces) are showing through in the final print."
 - Native archive SHA-256:
   `bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0`.
   Project, source, support and launch records are in
-  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json) and
-  `.cache/prints/2026-09-18-sculpted-white-z018-mark2/readiness.json`.
+  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json).
 
 Derek reported: "Came out great" and loaded black filament for the Industrial
 print. Mark2 telemetry at 2026-09-19 02:13:16 UTC shows this white Sculpted job
@@ -1026,5 +1022,4 @@ FINISH at 1,019/1,019 layers, with no print error or HMS entries.
 - Archive SHA-256:
   `bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0`.
   Submission and startup readings are recorded in
-  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json) and
-  `.cache/prints/2026-09-19-sculpted-black-z018-mark2/readiness.json`.
+  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json).

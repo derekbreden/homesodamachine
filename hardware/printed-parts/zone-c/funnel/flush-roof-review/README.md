@@ -116,6 +116,5 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review
 ```
 
 The retained-baseline comparisons use the immutable STEP/STL snapshots
-in `.cache/flush-funnel-roof/baseline` and `.cache/front-roof-flat-wall/baseline`,
 identified by the SHA256 values in the check records. The scoped generator and current mating-joint check
 do not depend on those comparison snapshots.
