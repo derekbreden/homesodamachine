@@ -16,8 +16,8 @@ The product requirement is a visible drip during a major fault. Derek accepts
 incidental escape into the housing during that event and calls for complete
 replacement after it. The faucet drain is not a sealed tube connection.
 
-The [geometry reading](simple-drip-check.json) binds the current STEP, STL,
-viewer payload and source. It records a valid single solid, nominal tube-surface
+The [geometry reading](simple-drip-check.json) binds the unsealed-drip geometry
+identified by its STEP, STL, viewer payload and source hashes. It records a valid single solid, nominal tube-surface
 samples, local drain-mouth clearance and the hole's connection to the passage
 without intersecting the nominal soda tube. It identifies both regenerated
 base styles and the shared tip, the curved joint and its minimum stock, and
@@ -25,6 +25,14 @@ the absent material at the two picked defects. The display retention and
 symmetric beverage outlet locations are retained. The Ø4 mm hole has 2.56 times the tube-bore area; area
 alone does not establish discharge flow. Physical threading, support cleanup,
 drip direction and complete fault-vent performance are unmeasured.
+
+The [centered mounting-set review](centered-layout-lint-review.json) binds the
+regenerated faucet, rigid plates, gaskets and organizer to the published
+artifacts. It records the exact local faces at low-thickness mesh picks,
+watertight STL topology and all answered lint locations. The Ø4 mm underside
+cut opens through the complete curved clearance; the two picked inner fin
+locations contain no material. These local readings do not establish a global
+wall minimum, print finish, strength or lifetime. The centered set is unprinted.
 
 The [complete Industrial selection](../industrial/selected-print.json) has
 0.12 mm base shoulder bands, corrected screw reinforcement, 0.50 mm longer

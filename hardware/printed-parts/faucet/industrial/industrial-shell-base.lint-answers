@@ -1,14 +1,109 @@
-[ceiling] This is the 13.7 mm-wide roof behind the open lever region, where the lower cylinder meets the narrower neck at Z57.5. Its complete native face has 2 mm of inward stock. It is inclined 15 degrees to the bed in the base's -15 degree print pose. Current native stock and finite support-path witnesses are recorded in ../vent-qualification/base-native-lint-witnesses.json and ../vent-qualification/lint-support-witnesses.json. Break and withdraw that support through the open lever region or bottom donor bore before installing hardware and tubing. The lint plane-center pick is inside the soda-guide opening; (-4, 4.932, 57.5) is an actual point on the adjoining native roof. Physical release and contact finish remain unmeasured.
+[sliver] These 0.325 mm-wide planes bound the lower common passage beside the donor rectangle. Their width is an in-plane face width, with continuous shell backing rather than a separate thin wall. Local exact inward chords at both picks are 30.49 mm; the current saved-face readings are in ../vent-qualification/centered-layout-lint-review.json.
+alternatives: Moving this boundary into the donor clearance changes its matching rectangle/cove fit. Moving it farther outward removes backed stock without improving tube clearance. The shared rear passage retains the centered tube/ribbon layout.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=0.000 y=4.932 z=57.500
+click: x=8.912 y=13.173 z=28.151
+click: x=-8.912 y=13.173 z=28.151
 
-[ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. Each complete finite shoulder face has 2 mm of inward stock, including its flavor-entry boundary. It follows the metal body's plateau envelope and is inclined 15 degrees to the bed in the base's -15 degree print pose. Current native stock and finite support-path witnesses are recorded in ../vent-qualification/base-native-lint-witnesses.json and ../vent-qualification/lint-support-witnesses.json. Break and withdraw its branches through the open bottom donor bore, then inspect the cavity before fitting the metal body or tubing. Physical cleanup effort and contact finish remain unmeasured.
+[thin] These picks lie on the fragmented spline boundary of the common lower tube/ribbon passage. The nearest exact STEP faces have matching outward directions, and local inward stock at the reported points is 6.75–8.19 mm. The 0–0.002 mm STL proximity readings span adjacent tessellation fragments within the 0.005 mm meshing deflection; they do not identify a separate tube-divider wall. Both saved meshes are watertight and consistently wound. The manual record binds the exact faces and local stock, without a global strength or lifetime claim.
+alternatives: Replacing the smooth transition with ruled stations adds regular clearance ridges. Changing tube or ribbon sections changes the routing fit. The complete common opening retains the existing smooth clearance and exterior stock.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=7.269 y=14.446 z=39.000
-click: x=-4.209 y=14.446 z=39.000
+click: x=1.675 y=22.533 z=42.055
+click: x=-1.684 y=22.533 z=42.055
+click: x=-1.613 y=21.667 z=49.906
+click: x=1.586 y=21.670 z=49.883
+click: x=-1.459 y=19.564 z=64.297
+click: x=-1.461 y=19.563 z=64.297
+click: x=1.462 y=19.576 z=63.960
+click: x=1.464 y=19.575 z=63.960
 
-[ceiling] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. Complete 2 mm inward stock witnesses of all three annular roofs are present in the saved base STEP; the plane-center picks are in their pilot openings. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.
+[thin] These picks lie at the intersections of the cylindrical stage edges and open lever roof. The nearest exact planes at Z14 and Z57.5 have inward stock along Z, while lint measures short diagonal chords at the sharp perimeter. At the foot-stage rim, the adjacent exact cylindrical surface has 6.19 mm inward stock at the reported neighborhood. These are local stage/window corners, not continuous thin partitions or clamp bearings. Physical edge finish is limited to the recorded print scope.
+alternatives: Widening the lower foot changes the matching plate and gasket footprints. Filling the lever-roof opening reduces donor/lever clearance. Blending the stage corners changes the Industrial profile and requires its own fit/finish review.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=-6.773 y=1.623 z=57.500
+click: x=-6.950 y=1.330 z=57.500
+click: x=-8.474 y=28.267 z=14.000
+click: x=-8.813 y=28.153 z=14.000
+click: x=8.474 y=28.267 z=14.000
+click: x=8.813 y=28.153 z=14.000
+click: x=6.773 y=1.623 z=57.500
+click: x=7.136 y=1.442 z=57.500
+
+[thin] This isolated near-Z16 reading joins the donor cove and lower passage. The nearest exact cylindrical face has more than 12.6 mm of inward stock at the pick. Lint measures the neighboring transition edge, not a continuous 1.013 mm wall. The named manual native reading is local to this edge.
+alternatives: Adding stock into the opening reduces donor/tube clearance. Removing more stock changes the matching cove without thickening an exterior wall.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=9.086 y=13.170 z=16.289
+click: x=9.075 y=13.177 z=17.302
+
+[thin] This is the 2 mm circular neck/socket skin. Lint reports 1.997 mm across its tessellated curved surfaces near the open joint. The base receives the mating plug along the curved socket; the two full walls and their slip allowance define its outside envelope. Load capacity and endurance remain unmeasured.
+alternatives: Growing the outer neck changes the shared tip and display-cover envelope. Shrinking the opening reduces tube/ribbon clearance or plug wall. Reducing the socket slip changes assembly fit.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=1.004 y=-16.245 z=229.500
+click: x=0.859 y=-17.279 z=227.798
+
+[thin] These are the continuous foot walls around the three pedestal sockets and insert pilots, between those openings, the donor bore and the outer perimeter. The saved mesh reports 2.2–2.81 mm at the named curved boundaries. The pilot/socket sections match the rigid plate pedestals and existing M3 insert hardware; these readings do not establish clamp capacity.
+alternatives: Larger exterior stock grows the foot, rigid plate and gasket. Smaller sockets change pedestal clearance; smaller insert pilots change the brass fit. Moving the seats changes the common mounting interface.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.013 y=-18.200 z=0.800
+click: x=0.027 y=-16.000 z=0.800
+click: x=-18.419 y=-1.605 z=0.800
+click: x=-15.939 y=-1.379 z=0.801
+click: x=18.415 y=-1.655 z=2.401
+click: x=15.934 y=-1.439 z=2.401
+click: x=15.937 y=-1.409 z=1.099
+click: x=18.417 y=-1.626 z=1.099
+click: x=-15.932 y=-1.461 z=1.099
+click: x=-18.413 y=-1.679 z=1.099
+click: x=29.384 y=-2.587 z=0.618
+click: x=26.585 y=-2.343 z=0.618
+click: x=26.583 y=-2.370 z=0.799
+click: x=29.382 y=-2.615 z=0.799
+click: x=-29.387 y=-2.558 z=0.620
+click: x=-26.588 y=-2.313 z=0.620
+click: x=-26.585 y=-2.345 z=0.799
+click: x=-29.384 y=-2.589 z=0.799
+
+[thin] These remaining donor-cavity and stage boundaries have approximately 2.84–3.0 mm of local stock in the saved mesh. They follow the harvested donor clearance envelope and the cylindrical/oval outside profiles. Their ranked thin readings are geometric observations, not a strength qualification.
+alternatives: Growing the outside changes the coordinated foot or body envelope. Moving stock inward reduces donor/lever clearance. Enlarging an opening removes stock rather than increasing backing.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=-0.085 y=-18.998 z=37.751
+click: x=-0.048 y=-15.999 z=37.751
+click: x=0.008 y=-16.000 z=14.323
+click: x=0.041 y=-18.999 z=14.322
+click: x=0.263 y=-18.997 z=14.816
+click: x=0.225 y=-15.997 z=14.816
+
+[thin] This is the donor shoulder beside the open lever entry, with about 1.93 mm of tessellated backing at the roof edge. The shoulder follows the donor cavity and opens through the bare bottom for assembly and cleanup. Clamp loads bear at the mounting seats rather than this clearance edge. Physical contact finish remains a print observation.
+alternatives: Lowering or filling the shoulder changes the harvested donor fit. Growing the outside alters the Industrial body envelope. Rounding the edge consumes the same cavity clearance.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=7.438 y=-17.838 z=38.971
+click: x=6.850 y=-16.000 z=38.990
+
+[ledge] These are the exposed ends of the donor shoulder beside the rear passage at Z39. They are backed cavity boundaries with 15 degree print inclination, accessible through the open donor bore before hardware/tube installation. An actual print retains Bambu automatic support choices; support removal and contact finish remain unmeasured for this centered article.
+alternatives: A slope or fill changes the donor shoulder and rear passage clearance. Cutting the shoulder away removes its matching cavity datum. Wider ledges consume tube or donor space.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=8.925 y=16.171 z=39.000
+click: x=-8.925 y=16.171 z=39.000
+
+[ledge] These three 4 mm circular faces close the M3 insert pilots at Z8.45. They are inside the locating sockets and reached from the underside before plate installation. The small roofs retain the pilot/insert backing; actual support/bridge choice and cleanup belong to the print review.
+alternatives: A through pilot removes the closed insert backing. A conical roof changes the usable pilot depth. A larger pilot changes the brass insert fit.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=-0.509 y=-22.727 z=8.450
+click: x=-23.119 y=-1.798 z=8.450
+click: x=21.881 y=-1.798 z=8.450
+
+[ledge] This is the small rear overhang where the 59 mm circular foot meets the offset cylindrical body at Z14. The body center provides donor and rear-passage clearance. It is accessible from outside before assembly; retained automatic support contacts and their release must be checked on an actual print.
+alternatives: A wider foot requires wider matching rigid plate and gasket and increases the counter footprint. Replacing the stage with a taper changes the Industrial outside profile and its print surfaces.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.000 y=29.599 z=14.000
+
+[ceiling] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2, with the insert pilot through each center and 1 mm clearance above the 2.2 mm pedestal. Their flat locating boundaries match the rigid plate. The socket openings provide cleanup access before plate attachment; geometric access alone does not establish easy release.
+alternatives: A sloped roof takes space from the donor or locating pedestal. A through opening removes the closed locating/insert land. The current flat boundary retains the matching hardware clearance; automatic supports and cleanup must be reviewed for an actual print.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
 click: x=0.000 y=-22.300 z=3.200
 click: x=-22.500 y=-2.000 z=3.200
 click: x=22.500 y=-2.000 z=3.200
+
+[ceiling] This is the neck shoulder over the open lever region at Z57.5. The open lever and bottom donor bore provide paths for support withdrawal before hardware installation. The roof follows the tube opening; local stock varies at its curved boundaries. No complete-face minimum or physical support-release claim is made here.
+alternatives: A sloped roof takes space from the donor or locating pedestal. A through opening removes the closed locating/insert land. The current flat boundary retains the matching hardware clearance; automatic supports and cleanup must be reviewed for an actual print.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.000 y=4.932 z=57.500
