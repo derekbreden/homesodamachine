@@ -16,7 +16,7 @@ remains off. This is a whole-print cooling trial after the first three layers, n
 limited to the lower rounded edge. Native startup maintenance and hotend cooling are preserved.
 
 The hypothesis is that steady cooling preserves the deposited edge and its overlap with
-the next perimeter. Derek's [v12 observations](../../../../tee-carrier/physical-observations/2026-09-24-v12/README.md)
+the next perimeter. Derek's v12 observations (`hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/README.md`, in git at aab7f24fec)
 identify local inward edge retreat, unsupported extrusion and recovery from the intact
 interior as the curve becomes steeper. The better v11 reference emits `M106 S0` at the start
 of layer 26, Z 2.08 mm, within the approximate failure-onset band, and resumes cooling at

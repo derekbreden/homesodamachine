@@ -90,11 +90,11 @@ checks the current meshes, deposited-path bed limits, supports, nozzle and
 trim. The cavity estimate is **355.61 g / 17 h 03 min**. The
 [launch receipt](native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
 records the exact archive/G-code hashes and startup observations. The
-[settings audit](native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json)
+settings audit (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json`, in git at aab7f24fec)
 confirms Timelapse Off, chamber auto-record disabled in the preflight, and no
 failed-job video found in a read-only directory inspection.
 
-The [prepared retry](native-slice-reviews/2026-10-06-mark1-retry-v1/README.md)
+The prepared retry (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/README.md`, in git at aab7f24fec)
 contains the same geometry and right-nozzle recipe, 20/30 mm/s first-layer
 walls/infill, an 8 mm outer brim and 45 mm minimum deposited-footprint bed
 clearance. Its native cavity estimate is **356.56 g / 17 h 24 min**. Probing
