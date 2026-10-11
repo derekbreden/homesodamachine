@@ -75,9 +75,8 @@ checksum is updated. Re-slicing the editable project alone does not apply C's ed
 final hashes, measured support/roof directions, all four actual gaps and the
 exact changed-line list. `print-job.json` records printer acceptance.
 
-The final machine file is
-`.cache/prints/2026-09-15-interface-patterns-mark2/petgf-interface-patterns-mark2.gcode.3mf`.
-Generate with `tools/cad-venv/bin/python hardware/print-tests/petgf-interface-patterns/prepare.py`.
+Generate the final machine file with
+`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-patterns/prepare.py`.
 Slice its input with Bambu Studio 02.08.02.61, using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into that input directory.
 Run [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-patterns/finish.py), then

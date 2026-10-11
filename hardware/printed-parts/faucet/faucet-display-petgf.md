@@ -22,8 +22,7 @@ border and 42.92 mm between parts.
 
 ## Profile and preparation
 
-The successful Sculpted PET-GF profile is preserved byte-for-byte from
-`.cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.3mf`.
+The successful Sculpted PET-GF profile is preserved byte-for-byte.
 It uses a 0.4 mm nozzle, 0.24 mm layers, two walls and 15% grid infill;
 265/280 °C nozzle temperatures, an 80 °C textured plate and 0–70% cooling
 with the first three layers off. The support top gap is 0.45 mm with two
